@@ -1,0 +1,18 @@
+-polishing
+-some settings
+-KAutoSaveFile
+-QSyntaxHighlighter
+-new gettext format features
+-sonnet
+
+-catalogmanager
+
+-projects (catalogmanager becomes projectmanager:)
+
+-Glossary (QtSql, QThread)
+-Translation DB with automatic search on gotoEntry() (QtSql, QThread)
+
+
+-many small features that ease everyday life of translator
+-xliff
+-...

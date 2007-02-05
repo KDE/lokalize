@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name="kaiderrc"/>
+  <group name="Identity">
+    <entry key="NameEn" type="String">
+	    <label>Translator's name</label>
+            <whatsthis>Translator's name in English</whatsthis>
+	    <default>Joan Smith</default>
+    </entry>
+    <entry key="Email" type="String">
+	    <label>Email</label>
+            <whatsthis>Translator's email</whatsthis>
+	    <default>joan@smith.org</default>
+    </entry>
+  </group>
+</kcfg>
