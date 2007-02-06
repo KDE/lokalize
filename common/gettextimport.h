@@ -59,7 +59,7 @@ public:
     virtual const QString id() {return "GNU gettext";}
 
 private:
-    QTextCodec* codecForArray(QByteArray& arary, bool* hadCodec);
+    QTextCodec* codecForArray(QByteArray&/*, bool* hadCodec*/);
     ConversionStatus readHeader(QTextStream& stream);
     ConversionStatus readEntry(QTextStream& stream);
 

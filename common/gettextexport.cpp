@@ -147,10 +147,10 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
                 // ### TODO: perhaps it is grave enough for a user message
                 kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---" << endl;
             }
-          
+
             // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
             stream << "msgid \"\"\n";
-            
+
             writeKeyword( stream, "msgstr", catalog->header().msgstr() );
 
             stream << "\n";

@@ -64,8 +64,9 @@ GettextImportPlugin::GettextImportPlugin(QObject* parent) : CatalogImportPlugin(
 ConversionStatus GettextImportPlugin::load(const QString& filename, const QString&)
 {
 //   kDebug() << k_funcinfo << endl;
-   
-   if ( filename.isEmpty() ) {
+
+   if (filename.isEmpty())
+   {
       kDebug() << "fatal error: empty filename to open" << endl;
       return NO_FILE;
    }
@@ -90,26 +91,12 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    file.close();
 
    // find codec for file
-   bool hadCodec;
-   QTextCodec* codec=codecForArray( ba, &hadCodec );
-   
-   bool recoveredErrorInHeader = false;
+//    bool hadCodec;
+   QTextCodec* codec=codecForArray( ba/*, &hadCodec*/ );
 
    QTextStream stream(ba,QIODevice::ReadOnly);
+   stream.setCodec(codec);
 
-   if(codec)
-      stream.setCodec(codec);
-   else
-   {
-      kWarning() << "No encoding declared or found, using UTF-8" << endl;
-      stream.setCodec( "UTF-8" );;
-#ifdef __GNUC__
-# warning Default UTF-8 encoding needs to be improved
-#endif
-      // Templates define CHARSET, so if e make it a recoverable error, the template is not loadable anymore, as for templates recoverable errors are disqualifying.
-      //recoveredErrorInHeader = true;
-   }
-   
    QIODevice *dev = stream.device();
    int fileSize = dev->size();
 
@@ -117,13 +104,12 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    CatalogItem tempHeader;
    QStringList tempObsolete;
 
-
    kDebug() << "start parsing..." << endl;
 
    // first read header
    const ConversionStatus status = readHeader(stream);
 
-
+   bool recoveredErrorInHeader = false;
    if ( status == RECOVERED_PARSE_ERROR )
    {
       kDebug() << "Recovered error in header entry" << endl;
@@ -132,7 +118,6 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    else if ( status != OK )
    {
 //       emit signalClearProgressBar();
-
       kDebug() << "Parse error in header entry" << endl;
       return status;
    }
@@ -170,26 +155,22 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    // now parse the rest of the file
    uint counter=0;
-   QList<uint> errorIndex;
+   QLinkedList<uint> errorIndex;
    bool recoveredError=false;
    bool docbookFile=false;
-   	
+
    while( !stream.atEnd() )
    {
       kapp->processEvents(QEventLoop::AllEvents, 10);
       if( isStopped() )
-      {
          return STOPPED;
-      }
 
       const ConversionStatus success=readEntry(stream);
 
       if(success==OK)
       {
          if( _obsolete )
-         {
                tempObsolete.append(_comment);
-         }
          else
          {
             CatalogItem tempCatItem;
@@ -223,7 +204,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
          kDebug() << "Recovered parse error in entry: " << counter << endl;
          recoveredError=true;
          errorIndex.append(counter);
-         
+
             CatalogItem tempCatItem;
             if (_gettextPluralForm)
             {
@@ -273,18 +254,12 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    kDebug() << k_funcinfo << " ready" << endl;
 
    // We have succesfully loaded the file (perhaps with recovered errors)
-   
-//   setGeneratedFromDocbook(docbookContent || docbookFile);
 
+   setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
    setCatalogExtraData(tempObsolete);
-//   setErrorIndex(errorIndex);
-
-   if(hadCodec)
-      setFileCodec(codec);
-   else
-      setFileCodec(0);
-   
+   setErrorIndex(errorIndex);
+   setFileCodec(codec);
    setMimeTypes( "application/x-gettext" );
 
    if ( recoveredErrorInHeader )
@@ -304,75 +279,54 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    }
 }
 
-QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array, bool* hadCodec)
+QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array/*, bool* hadCodec*/)
 {
-   if(hadCodec)
-   {
-      *hadCodec=false;
-   }
+    QTextStream stream( array, QIODevice::ReadOnly );
+    stream.setCodec( "UTF-8" );
+    stream.setAutoDetectUnicode(true); //this way we can
+    QTextCodec* codec=stream.codec();  //detect UTF-16
 
-   QTextStream stream( array, QIODevice::ReadOnly );
-   // ### TODO Qt4: see if it can be done with QByteArray alone, in an encoding-neutral way.
-   // Set ISO-8859-1 as it is a relatively neutral encoding when reading (compared to UTF-8  or a random locale encoing)
-   stream.setCodec( "ISO-8859-1" );
+    ConversionStatus status = readHeader(stream);
+    if (status!=OK && status != RECOVERED_PARSE_ERROR)
+    {
+        kDebug() << "wasn't able to read header" << endl;
+        return codec;
+    }
 
-   // first read header
-   ConversionStatus status = readHeader(stream);
-   if(status!=OK && status != RECOVERED_PARSE_ERROR)
-   {
-       kDebug() << "wasn't able to read header" << endl;
-       return 0;
-   }
+    QRegExp regexp("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n");
+    if ( regexp.indexIn( _msgstr.first() ) == -1 )
+    {
+        kDebug() << "no charset entry found" << endl;
+        return codec;
+    }
 
-   const QString head = _msgstr.first();
+    const QString charset = regexp.cap(1);
+    kDebug() << "charset: " << charset << endl;
 
-   QRegExp regexp("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n");
-   if( regexp.indexIn( head ) == -1 )
-   {
-      kDebug() << "no charset entry found" << endl;
-      return 0;
-   }
-   
-   const QString charset = regexp.cap(1);
-   kDebug() << "charset: " << charset << endl;
+    if (charset.isEmpty())
+    {
+        kWarning() << "No charset defined! Assuming UTF-8!" << endl;
+        return codec;
+    }
 
-   QTextCodec* codec=0;
+    // "CHARSET" is the default charset entry in a template (pot).
+    // characters in a template should be either pure ascii or
+    // at least utf8, so utf8-codec can be used for both.
+    if ( charset.contains("CHARSET"))
+    {
+        kDebug() << QString("file seems to be a template: using utf-8 encoding.") << endl;
+        return QTextCodec::codecForName("utf8");;
+    }
 
-   if(!charset.isEmpty())
-   {
-      // "CHARSET" is the default charset entry in a template (pot).
-      // characters in a template should be either pure ascii or 
-      // at least utf8, so utf8-codec can be used for both.
-      if( charset == "CHARSET")
-      {
-          if(hadCodec)
-             *hadCodec=false;
+    QTextCodec* t=0;
+    t = QTextCodec::codecForName(charset.toLatin1());
 
-          codec=QTextCodec::codecForName("utf8");
-          kDebug() 
-              << QString("file seems to be a template: using utf-8 encoding.")
-              << endl;
-      }
-      else
-      {
-         codec = QTextCodec::codecForName( charset.toLatin1() );
-         if(hadCodec)
-            *hadCodec=true;
-      }
+    if (t)
+        return t;
+    else
+       kWarning() << "charset found, but no codec available, using UTF-8 instead" << endl;
 
-      if(!codec)
-      {
-         kWarning() << "charset found, but no codec available, using UTF-8 instead" << endl;
-      }
-   }
-   else
-   {
-      // No charset? So it is probably ASCII, therefore UTF-8
-      kWarning() << "No charset defined! Assuming UTF-8!" << endl;
-   }
-         
-
-   return codec;
+    return codec;//UTF-8
 }
 
 ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
@@ -385,10 +339,7 @@ ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
    {
       // test if this is the header
       if(!_msgid.first().isEmpty())
-      {
          stream.device()->seek( filePos );
-      }
-
       return status;
    }
 
@@ -412,9 +363,9 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    _comment=QString();
    _gettextPluralForm=false;
    _obsolete=false;
-   
+
    QStringList::Iterator msgstrIt=_msgstr.begin();
-   
+
    while( !stream.atEnd() )
    {
        line=stream.readLine();

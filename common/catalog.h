@@ -108,6 +108,10 @@ public:
     void setFileCodec( QTextCodec* codec ){d->fileCodec = codec;}
     QTextCodec* fileCodec() const {return d->fileCodec;}
 
+    void setPackageName( QString s ){d->_packageName = s;}
+    //QString _packageName() const {return d->fileCodec;}
+
+
     void setErrorIndex(const QLinkedList<uint>& errors){};//###
 
     void setImportPluginID(const QString& id){d->_importID=id;};
@@ -120,6 +124,8 @@ public:
 
     KUrl url() const {return d->_url;};
     ConversionStatus openUrl(const KUrl& url/*, const QString& package*/);
+    
+    void updateHeader(bool forSaving=true);
 
 public/* slots*/:
     virtual DocPosition& undo();
@@ -130,6 +136,7 @@ private:
     int findNextInList(const QList<uint>& list,uint index) const;
     void emitsignalNumberOfFuzziesChanged(){emit signalNumberOfFuzziesChanged();};
     void emitsignalNumberOfUntranslatedChanged(){emit signalNumberOfUntranslatedChanged();};
+    bool setNumberOfPluralFormsFromHeader();
 
 private:
     CatalogPrivate *d;

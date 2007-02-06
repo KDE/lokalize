@@ -46,7 +46,7 @@
 #include <kreplace.h>
 
 #include "kaiderview.h"
-#include "ui_prefs_base.h"
+#include "ui_prefs_identity.h"
 
 //class Catalog;
 class KToggleAction;
@@ -150,7 +150,7 @@ private:
 //     void emitSignals();
 
 private:
-    Ui::prefs_base ui_prefs_base;
+    Ui_prefs_identity ui_prefs_identity;
     KAiderView *_view;
 
     KFindDialog* _findDialog;

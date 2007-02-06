@@ -79,8 +79,8 @@ void CatalogImportPlugin::setCatalogExtraData( const QStringList& data )
 
 void CatalogImportPlugin::setGeneratedFromDocbook( const bool generated )
 {
-/*    d->_generatedFromDocbook = generated;
-    d->_updateGeneratedFromDocbook = true;*/
+    d->_generatedFromDocbook = generated;
+    d->_updateGeneratedFromDocbook = true;
 }
 
 void CatalogImportPlugin::setErrorIndex(const QLinkedList<uint>& errors)
@@ -118,9 +118,9 @@ ConversionStatus CatalogImportPlugin::open(const QString& file, const QString& m
 	d->_started=false;
 	return STOPPED;
     }
-    
+
     if( result == OK || result == RECOVERED_PARSE_ERROR || result == RECOVERED_HEADER_ERROR )
-	commitTransaction();
+	commitTransaction(file);
 	
     return result;
 }
@@ -138,7 +138,7 @@ void CatalogImportPlugin::startTransaction()
     d->_entries.clear();
 }
 
-void CatalogImportPlugin::commitTransaction()
+void CatalogImportPlugin::commitTransaction(const QString& file)
 {
     if( d->_started )
     {
@@ -161,12 +161,14 @@ void CatalogImportPlugin::commitTransaction()
 	
         d->_catalog->d->_obsoleteEntries=d->_obsoleteEntries;//d->_catalog->setObsoleteEntries( d->_obsoleteEntries );
 	
+        d->_catalog->d->_url=KUrl(file);
+
 	if( d->_updateCodec )
             d->_catalog->setFileCodec(d->_codec);
 	if( d->_updateCatalogExtraData )
 	    d->_catalog->d->_catalogExtraData=d->_catalogExtraData;
-	/*if( d->_updateGeneratedFromDocbook ) 
-	    d->_catalog->setGeneratedFromDocbook(d->_generatedFromDocbook);*/
+	if( d->_updateGeneratedFromDocbook ) 
+	    d->_catalog->d->_generatedFromDocbook=d->_generatedFromDocbook;
 	if( d->_updateHeader ) 
 	    d->_catalog->setHeader(d->_header);
 	if( d->_updateErrorList ) 

@@ -34,18 +34,30 @@
   
 **************************************************************************** */
 
+#include <kglobal.h>
+#include <klocale.h>
+#include <kprocess.h>
+#include <ktemporaryfile.h>
+#include <QTextCodec>
+#include <QTextStream>
 
+#include <stdlib.h>
 
 
 
 #include <QString>
+#include <QMap>
 
 #include <kdebug.h>
 #include <kio/netaccess.h>
 #include <kmessagebox.h>
+#include <kdatetime.h>
+#include <krfcdate.h>
 
 #include "gettextimport.h"
 #include "catalog.h"
+#include "version.h"
+#include "settings.h"
 
 Catalog* Catalog::_instance=0;
 
@@ -161,6 +173,15 @@ bool Catalog::isUntranslated(uint index) const
    return d->_entries[index].isUntranslated();
 }
 
+bool Catalog::setNumberOfPluralFormsFromHeader()
+{
+    QRegExp rxplural("Plural-Forms:\\s*nplurals=(.);");
+    if (rxplural.indexIn(d->_header.msgstr()) == -1)
+        return false;
+    d->_numberOfPluralForms = rxplural.cap(1).toShort();
+    return true;
+
+}
 
 bool Catalog::setHeader(CatalogItem newHeader)
 {
@@ -174,15 +195,24 @@ bool Catalog::setHeader(CatalogItem newHeader)
       kDebug () << "Normalized header: " << values << endl;
       
       d->_header=newHeader;
-      d->_header.setMsgstr (values);
+      d->_header.setMsgstr(values);
+      
+      updateHeader(false);
+      
+      if (!setNumberOfPluralFormsFromHeader())
+      {
+          if (d->_generatedFromDocbook)
+              d->_numberOfPluralForms=1;
+          else
+              kWarning() << "No plural form info in header" << endl;
+//           d->_numberOfPluralForms=2;
+      }
 
 //       setClean(false);
-
       //emit signalHeaderChanged();
 
       return true;
    }
-
    return false;
 }
 
@@ -209,14 +239,12 @@ DocPosition& Catalog::undo()
 {
     QUndoStack::undo();
     return d->_posBuffer;
-//     emit signalGotoEntry(d->_posBuffer,0);
 }
 
 DocPosition& Catalog::redo()
 {
     QUndoStack::redo();
     return d->_posBuffer;
-//     emit signalGotoEntry(d->_posBuffer,0);
 }
 
 
@@ -269,310 +297,547 @@ int Catalog::findPrevInList(const QList<uint>& list,uint index) const
 
 
 
+QString GNUPluralForms(const QString& lang);
 
 
-
-
-
-
-
-
-#if 0
-bool Catalog::findNext(/*const FindOptions* findOpts,*/QString a, DocPosition& docPos, int& len)
+void Catalog::updateHeader(bool forSaving)
 {
-    bool success = false; // true, when string found
-    bool endReached=false;
+    QStringList headerList=d->_header.msgstrAsList();
+    QStringList commentList = d->_header.comment().split( '\n', QString::SkipEmptyParts );
 
-    kDebug() << "findNext active" << endl;
+    QStringList::Iterator it,ait;
+    QString temp;
+    bool found;
 
-//     MiscSettings miscOptions = miscSettings();
+    KConfig* identityOptions = Settings::self()->config();
+    identityOptions->setGroup("Identity");
 
-    len=0;
-    int pos=0;
+    //    const SaveSettings saveOptions = saveSettings();
 
-    QString searchStr = findOpts->findStr;
-    QRegExp regexp(searchStr);
 
-//     if ( findOpts->isRegExp )
-//     {
-//         regexp.setCaseSensitivity( ( findOpts->caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive ) ); // TODO: change this bool to a Qt::CaseSensitivity in findOpts
-//     }
-
-//     if ( docPos.entry == numberOfEntries()-1)
-//     {
-//         switch (docPos.part)
-//         {
-//         case Msgid:
-//             // FIXME: we should search in plurals as well
-//             if (!findOpts->inMsgstr && !findOpts->inComment
-//                     && docPos.offset >= msgid(docPos.entry).first().length() )
-//             {
-//                 endReached=true;
-//             }
-//             break;
-//         case Msgstr:
-//             if (!findOpts->inComment && (int)(docPos.form+1) >= numberOfPluralForms(docPos.entry)
-//                     && docPos.offset >= msgstr(docPos.entry).last().length() )
-//             {
-//                 endReached=true;
-//             }
-//             break;
-//         case Comment:
-//             if (docPos.offset >= comment(docPos.entry).length() )
-//             {
-//                 endReached=true;
-//             }
-//             break;
-//         case UndefPart:
-//             break;
-//         }
-//     }
-
-    while (!success)
+    if (forSaving)
     {
-        int accelMarkerPos = -1;
-        int contextInfoLength = 0;
-        int contextInfoPos = -1;
-        QString targetStr;
+        found=false;
 
-        switch (docPos.part)
+        temp="Last-Translator: "+identityOptions->readEntry("NameEn","");
+        if (!identityOptions->readEntry("Email","").isEmpty())
         {
-        case Msgid:
-            // FIXME: should care about plural forms in msgid
-            targetStr = msgid(docPos.entry);
-            break;
-        case Msgstr:
-            targetStr = msgstr(docPos.entry,docPos.form);
-            break;
-        case Comment:
-            targetStr = comment(docPos.entry);
-            break;
-        case UndefPart:
-            break;
+            temp+=(" <"+identityOptions->readEntry("Email")+'>');
+        }
+        temp+="\\n";
+        for ( it = headerList.begin(); it != headerList.end(); ++it )
+        {
+            if (it->contains(QRegExp("^ *Last-Translator:.*")))
+            {
+                (*it) = temp;
+                found=true;
+            }
         }
 
-//         if (findOpts->ignoreContextInfo)
-//         {
-//             contextInfoPos = miscOptions.contextInfo.indexIn( targetStr );
-//             contextInfoLength = miscOptions.contextInfo.matchedLength();
-//             if (contextInfoPos >= 0)
-//             {
-//                 targetStr.remove(contextInfoPos,contextInfoLength);
-// 
-//                 if (docPos.offset > (uint)contextInfoPos)
-//                     docPos.offset -= contextInfoLength;
-//             }
-//         }
+        if (!found)
+            headerList.append(temp);
 
-//         if (findOpts->ignoreAccelMarker
-//                 && targetStr.contains(miscOptions.accelMarker))
+        //    QString dateTimeString = KDateTime::currentUtcDateTime().toString("yyyy-MM-dd hh:mmz");
+        QString dateTimeString = KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm");
+        QTime t;
+        const int offset = KRFCDate::localUTCOffset();
+        const int correction = offset < 0 ? -60 : 60 ;
+        t = t.addSecs( offset * correction );
+        dateTimeString += ( offset < 0 ? "-" : "+" );
+        dateTimeString += t.toString("hhmm");
+
+        found=false;
+
+        temp="PO-Revision-Date: "+dateTimeString+"\\n";
+
+        for ( it = headerList.begin(); it != headerList.end(); ++it )
+        {
+            if (it->contains(QRegExp("^ *PO-Revision-Date:.*")))
+            {
+                (*it) = temp;
+                found=true;
+            }
+        }
+        if (!found)
+            headerList.append(temp);
+    }
+      found=false;
+
+      temp="Project-Id-Version: "+d->_url.fileName()+"\\n";
+      temp.remove(".pot");
+      temp.remove(".po");
+      //temp.replace( "@PACKAGE@", packageName());
+
+      for( it = headerList.begin(); it != headerList.end(); ++it )
+      {
+         if(it->contains(QRegExp("^ *Project-Id-Version:.*")))
+         {
+             if(it->contains("PACKAGE VERSION"))
+                (*it) = temp;
+            found=true;
+         }
+       }
+       if(!found)
+          headerList.append(temp);
+
+    found=false;
+    KLocale locale("kdelibs");
+    locale.setLanguage("en_US");
+    d->_langCode=identityOptions->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first());
+
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *Language-Team:.*")))
+        {
+            found=true;
+            //really parse header
+            QMap<QString,QString> map;
+            QStringList langlist = KGlobal::locale()->allLanguagesTwoAlpha();
+            QStringList::const_iterator myit;
+            for (myit=langlist.begin();myit!=langlist.end();++myit)
+                map[locale.twoAlphaToLanguageName(*myit)]=*myit;
+
+            QRegExp re("^ *Language-Team: *(.*) *<");
+            QString val;
+            if ((re.indexIn(*it) != -1) && (map.contains( val=re.cap(1).trimmed() )))
+                d->_langCode=map.value(val);
+
+            ait=it;
+        }
+    }
+    d->_language=locale.twoAlphaToLanguageName(d->_langCode);
+
+    temp="Language-Team: "+d->_language;
+    if (!identityOptions->readEntry("DefaultMailingList").isEmpty())
+        temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');
+    temp+="\\n";
+
+//     kWarning()<< "  _'" << temp <<"' " <<endl;
+
+    if (found)
+        (*ait) = temp;
+    else
+        headerList.append(temp);
+
+
+//     if(!usePrefs || saveOptions.updateCharset)
+//     {
+//         found=false;
+//
+//         QString encodingStr;
+//         if(saveOptions.useOldEncoding && d->fileCodec)
 //         {
-//             accelMarkerPos = targetStr.indexOf( miscOptions.accelMarker );
-//             targetStr.remove(accelMarkerPos,1);
-// 
-//             if (docPos.offset > (uint)accelMarkerPos)
-//                 docPos.offset--;
-//         }
-// 
-//         if ( findOpts->isRegExp )
-//         {
-//             if ( ( pos = regexp.indexIn( targetStr, docPos.offset ) ) >= 0 )
-//             {
-//                 len = regexp.matchedLength();
-//                 if (findOpts->wholeWords)
-//                 {
-//                     QString pre=targetStr.mid(pos-1,1);
-//                     QString post=targetStr.mid(pos+len,1);
-//                     if (!pre.contains(QRegExp("[a-zA-Z0-9]")) && !post.contains(QRegExp("[a-zA-Z0-9]")) )
-//                     {
-//                         success=true;
-//                         docPos.offset=pos;
-//                     }
-//                 }
-//                 else
-//                 {
-//                     success=true;
-//                     docPos.offset=pos;
-//                 }
-//             }
+//             encodingStr = charsetString(d->fileCodec);
 //         }
 //         else
-        {
-            if ( ( pos = targetStr.indexOf( searchStr, docPos.offset, /*( findOpts->caseSensitive ?*/ Qt::CaseSensitive/* : Qt::CaseInsensitive )*/ ) ) >= 0 )
-            {
-                len=searchStr.length();
-
-//                 if (findOpts->wholeWords)
+//         {
+//             encodingStr=charsetString(saveOptions.encoding);
+//         }
+//         it = headerList.begin();
+//         while( it != headerList.end() )
+//         {
+//             if( it->contains( QRegExp( "^ *Content-Type:.*" ) ) )
+//             {
+//                 if ( found )
 //                 {
-//                     QString pre=targetStr.mid(pos-1,1);
-//                     QString post=targetStr.mid(pos+len,1);
-//                     if (!pre.contains(QRegExp("[a-zA-Z0-9]")) && !post.contains(QRegExp("[a-zA-Z0-9]")) )
-//                     {
-//                         success=true;
-//                         docPos.offset=pos;
-//                     }
+//                     // We had already a Content-Type, so we do not need a duplicate
+//                     it = headerList.erase( it );
 //                 }
 //                 else
-                {
-                    success=true;
-                    docPos.offset=pos;
-                }
-            }
-        }
+//                 {
+//                     found=true;
+//                     QRegExp regexp( "^ *Content-Type:(.*/.*);?\\s*charset=.*$" );
+//                     QString mimeType;
+//                     if ( regexp.indexIn( *it )!=-1 )
+//                     {
+//                         mimeType = regexp.cap( 1 ).trimmed();
+//                     }
+//                     if ( mimeType.isEmpty() )
+//                     {
+//                         mimeType = "text/plain";
+//                     }
+//                     temp = "Content-Type: ";
+//                     temp += mimeType;
+//                     temp += "; charset=";
+//                     temp += encodingStr;
+//                     temp += "\\n";
+//                     (*it) = temp;
+//                 }
+//             }
+//             ++it;
+//         }
+//         if(!found)
+//         {
+//             headerList.append(temp);
+//         }
+//     }
+    found=false;
+
+    temp="Content-Transfer-Encoding: 8bit\\n";
+
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *Content-Transfer-Encoding:.*")))
+            found=true;
+    }
+    if (!found)
+        headerList.append(temp);
 
 
-        if (!success)
+    temp="X-Generator: KAider %1\\n";
+    temp=temp.arg(KAIDER_VERSION);
+    found=false;
+
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *X-Generator:.*")))
         {
-            docPos.offset=0;
-            switch (docPos.part)
-            {
-            case Msgid:
-            {
-                if (findOpts->inMsgstr)
-                {
-                    docPos.part = Msgstr;
-                    docPos.form = 0;
-                }
-                else if (findOpts->inComment)
-                {
-                    docPos.part = Comment;
-                }
-                else
-                {
-                    if (docPos.entry >= numberOfEntries()-1)
-                    {
-                        endReached=true;
-                    }
-                    else
-                    {
-                        docPos.entry++;
-                        docPos.form = 0;
-                    }
-                }
-                break;
-            }
-            case Msgstr:
-                if ( (int)docPos.form < numberOfPluralForms(docPos.entry)-1 && pluralFormType(docPos.entry)==Gettext)
-                {
-                    docPos.form++;
-                }
-                else
-                    if (findOpts->inComment)
-                    {
-                        docPos.part = Comment;
-                    }
-                    else if (findOpts->inMsgid)
-                    {
-                        if (docPos.entry >= numberOfEntries()-1)
-                        {
-                            endReached=true;
-                        }
-                        else
-                        {
-                            docPos.part = Msgid;
-                            docPos.entry++;
-                        }
-                    }
-                    else
-                    {
-                        if (docPos.entry >= numberOfEntries()-1)
-                        {
-                            endReached=true;
-                        }
-                        else
-                        {
-                            docPos.entry++;
-                            docPos.form = 0;
-                        }
-                    }
-                break;
-            case Comment:
-                if (findOpts->inMsgid)
-                {
-                    if (docPos.entry >= numberOfEntries()-1)
-                    {
-                        endReached=true;
-                    }
-                    else
-                    {
-                        docPos.part = Msgid;
-                        docPos.entry++;
-                        docPos.form = 0;
-                    }
-                }
-                else if (findOpts->inMsgstr)
-                {
-                    if (docPos.entry >= numberOfEntries()-1)
-                    {
-                        endReached=true;
-                    }
-                    else
-                    {
-                        docPos.part = Msgstr;
-                        docPos.form = 0;
-                        docPos.entry++;
-                    }
-                }
-                else
-                {
-                    if (docPos.entry >= numberOfEntries()-1)
-                    {
-                        endReached=true;
-                    }
-                    else
-                    {
-                        docPos.entry++;
-                        docPos.form = 0;
-                    }
-                }
-                break;
-            case UndefPart:
-                break;
-            }
+            (*it) = temp;
+            found=true;
         }
-        else
+    }
+    if (!found)
+        headerList.append(temp);
+
+    // ensure MIME-Version header
+    temp="MIME-Version: 1.0\\n";
+    found=false;
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *MIME-Version:")))
         {
-            if (accelMarkerPos >= 0)
-            {
-                if (docPos.offset >= (uint)accelMarkerPos)
-                {
-                    docPos.offset++;
-                }
-                else if (docPos.offset+len > (uint)accelMarkerPos)
-                {
-                    len++;
-                }
-            }
+            (*it) = temp;
+            found=true;
+        }
+    }
+    if ( !found )
+    {
+        headerList.append(temp);
+    }
 
-            if (contextInfoPos >= 0)
-            {
-                if (docPos.offset >= (uint)contextInfoPos)
-                {
-                    docPos.offset+=contextInfoLength;
-                }
-                else if (docPos.offset+len > (uint)contextInfoPos)
-                {
-                    len+=contextInfoLength;
-                }
 
-            }
+    found=false;
+
+    // update plural form header
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *Plural-Forms:")))
+            found=true;
+    }
+    if ( !found && !d->_generatedFromDocbook)
+    {
+        QString t= GNUPluralForms(d->_langCode);
+        if ( !t.isEmpty() )
+        {
+
+            temp="Plural-Forms: %1\\n";
+            temp=temp.arg(t);
+            headerList.append(temp);
         }
     }
 
-    disconnect( this, SIGNAL( signalStopActivity() ), this, SLOT( stopInternal() ));
-    kDebug(KBABEL) << "findNext not active" << endl;
-    d->_active=false;
-    d->_stop=false;
+    d->_header.setMsgstr( headerList.join( "\n" ) );
 
-    return true;
-}
+    //comment = description, copyrights
+    found=false;
+
+    for ( it = commentList.begin(); it != commentList.end(); ++it )
+    {
+        // U+00A9 is the Copyright sign
+        if ( it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc") ) )
+        {
+            found=true;
+            break;
+        }
+    }
+    if (found)
+    {
+        if ( it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9) YEAR Free Software Foundation, Inc\\.") ) )
+        {
+            //template string
+//     		if( saveOptions.FSFCopyright == ProjectSettingsBase::Remove)
+            it->remove(" YEAR Free Software Foundation, Inc");
+            /*		else
+            		    it->replace("YEAR", QDate::currentDate().toString("yyyy"));*/
+        } /*else
+                	    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
+                	    {
+                		    //update years
+                		    QString cy = QDate::currentDate().toString("yyyy");
+                		    if( !it->contains( QRegExp(cy)) ) // is the year already included?
+                		    {
+                			int index = it->lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
+                			if( index == -1 )
+                			{
+                			    KMessageBox::information(0,i18n("Free Software Foundation Copyright does not contain any year. "
+                			    "It will not be updated."));
+                			} else {
+                			    it->insert(index+1, QString(", ")+cy);
+                			}
+                		    }
+                	    }*/
+    }
+#if 0
+    if ( ( !usePrefs || saveOptions.updateDescription )
+            && ( !saveOptions.descriptionString.isEmpty() ) )
+    {
+        temp = "# "+saveOptions.descriptionString;
+        temp.replace( "@PACKAGE@", packageName());
+        temp.replace( "@LANGUAGE@", identityOptions.languageName);
+        temp = temp.trimmed();
+
+        // The description strings has often buggy variants already in the file, these must be removed
+        QString regexpstr = "^#\\s+" + QRegExp::escape( saveOptions.descriptionString.trimmed() ) + "\\s*$";
+        regexpstr.replace( "@PACKAGE@", ".*" );
+        regexpstr.replace( "@LANGUAGE@", ".*" );
+        //kDebug() << "REGEXPSTR: " <<  regexpstr << endl;
+        QRegExp regexp ( regexpstr );
+
+        // The buggy variants exist in English too (of a time before KBabel got a translation for the corresponding language)
+        QRegExp regexpUntranslated ( "^#\\s+translation of .* to .*\\s*$" );
+
+
+        kDebug () << "Temp is '" << temp << "'" << endl;
+
+        found=false;
+        bool foundTemplate=false;
+
+        it = commentList.begin();
+        while ( it != commentList.end() )
+        {
+            kDebug () << "testing '" << (*it) << "'" << endl;
+            bool deleteItem = false;
+
+            if ( (*it) == temp )
+            {
+                kDebug () << "Match " << endl;
+                if ( found )
+                    deleteItem = true;
+                else
+                    found=true;
+            }
+            else if ( regexp.indexIn( *it ) >= 0 )
+            {
+                // We have a similar (translated) string (from another project or another language (perhaps typos)). Remove it.
+                deleteItem = true;
+            }
+            else if ( regexpUntranslated.indexIn( *it ) >= 0 )
+            {
+                // We have a similar (untranslated) string (from another project or another language (perhaps typos)). Remove it.
+                deleteItem = true;
+            }
+            else if ( (*it) == "# SOME DESCRIPTIVE TITLE." )
+            {
+                // We have the standard title placeholder, remove it
+                deleteItem = true;
+            }
+
+            if ( deleteItem )
+                it = commentList.erase( it );
+            else
+                ++it;
+        }
+        if (!found) commentList.prepend(temp);
+    }
 #endif
+    // kDebug() << "HEADER COMMENT: " << commentList << endl;
+
+    /*    if ( (!usePrefs || saveOptions.updateTranslatorCopyright)
+            && ( ! identityOptions->readEntry("NameEn","").isEmpty() )
+            && ( ! identityOptions->readEntry("Email","").isEmpty() ) ) // An email address can be used as ersatz of a name
+        {*/
+//                        return;
+    QStringList foundAuthors;
+
+    temp = "# ";
+    temp += identityOptions->readEntry("NameEn","");
+    if (!identityOptions->readEntry("Email","").isEmpty())
+    {
+        temp+=(" <"+identityOptions->readEntry("Email","")+'>');
+    }
+    temp+=", "+QDate::currentDate().toString("yyyy")+'.';
+
+    // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
+    QRegExp regexpAuthorYear( "^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)" );
+    QRegExp regexpYearAlone( "^# , \\d{4}.?\\s*$" );
+    if (commentList.isEmpty())
+    {
+        commentList.append(temp);
+        commentList.append(QString());
+    }
+    else
+    {
+        it = commentList.begin();
+        while ( it != commentList.end() )
+        {
+            bool deleteItem = false;
+            if ( it->indexOf( "copyright", 0, Qt::CaseInsensitive ) != -1 )
+            {
+                // We have a line with a copyright. It should not be moved.
+            }
+            else if ( it->contains( QRegExp("#, *fuzzy") ) )
+                deleteItem = true;
+            else if ( it->contains( regexpYearAlone ) )
+            {
+                // We have found a year number that is preceeded by a comma.
+                // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
+                // Remove the entry
+                deleteItem = true;
+            }
+            else if ( it->contains( "# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.") )
+                deleteItem = true;
+            else if ( it->contains( "# SOME DESCRIPTIVE TITLE"))
+                deleteItem = true;
+            else if ( it->contains( regexpAuthorYear ) ) // email address followed by year
+            {
+                if ( !foundAuthors.contains( (*it) ) )
+                {
+                    // The author line is new (and not a duplicate), so add it to the author line list
+                    foundAuthors.append( (*it) );
+                }
+                // Delete also non-duplicated entry, as now all what is needed will be processed in foundAuthors
+                deleteItem = true;
+            }
+
+            if ( deleteItem )
+                it = commentList.erase( it );
+            else
+                ++it;
+        }
+
+        if ( !foundAuthors.isEmpty() )
+        {
+            found = false;
+            bool foundAuthor = false;
+
+            const QString cy = QDate::currentDate().toString("yyyy");
+
+            ait = foundAuthors.end();
+            for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
+            {
+                if ( it->indexOf( QRegExp(
+                                        QRegExp::escape( identityOptions->readEntry("NameEn","") )+".*"
+                                        + QRegExp::escape( identityOptions->readEntry("Email","") ) ) ) != -1 )
+                {
+                    foundAuthor = true;
+                    if ( it->indexOf( cy ) != -1 )
+                        found = true;
+                    else
+                        ait = it;
+                }
+            }
+            if ( !found )
+            {
+                if ( !foundAuthor )
+                    foundAuthors.append(temp);
+                else if ( ait != foundAuthors.end() )
+                {
+                    //update years
+                    const int index = (*ait).lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
+                    if ( index == -1 )
+                        (*ait)+=", "+cy;
+                    else
+                        (*ait).insert(index+1, QString(", ")+cy);
+                }
+                else
+                    kDebug() << "INTERNAL ERROR: author found but iterator dangling!" << endl;
+            }
+
+        }
+        else
+            foundAuthors.append(temp);
+
+//         kWarning() << foundAuthors << endl;
+//         kWarning() << commentList << endl;
+
+
+        for (ait=foundAuthors.begin();ait!=foundAuthors.end();++ait)
+        {
+            QString s = (*ait);
+
+            // ensure dot at the end of copyright
+            if ( !s.endsWith(".") ) s += '.';
+            commentList.append(s);
+        }
+    }
+    d->_header.setComment( commentList.join( "\n" ) );
+
+}
 
 
 
 
 
 
+
+QString GNUPluralForms(const QString& lang)
+{
+    KTemporaryFile infile, outfile;
+    infile.open();
+    outfile.open();
+
+    QTextStream str ( &infile );
+
+    str << "# SOME DESCRIPTIVE TITLE." << endl;
+    str << "# Copyright (C) YEAR Free Software Foundation, Inc." << endl;
+    str << "# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR." << endl;
+    str << "#" << endl;
+    str << "#, fuzzy" << endl;
+    str << "msgid \"\"" << endl;
+    str << "msgstr \"\"" << endl;
+    str << "\"Project-Id-Version: PACKAGE VERSION\\n\"" << endl;
+    str << "\"POT-Creation-Date: 2002-06-25 03:23+0200\\n\"" << endl;
+    str << "\"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n\"" << endl;
+    str << "\"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n\"" << endl;
+    str << "\"Language-Team: LANGUAGE <LL@li.org>\\n\"" << endl;
+    str << "\"MIME-Version: 1.0\\n\"" << endl;
+    str << "\"Content-Type: text/plain; charset=UTF-8\\n\"" << endl;
+    str << "\"Content-Transfer-Encoding: ENCODING\\n\"" << endl;
+
+    str.flush();
+
+    KProcess msginit;
+
+    msginit << "msginit";
+    msginit
+    << "-l"
+    << lang
+    << "-i"
+    << infile.fileName()
+    << "-o"
+    << outfile.fileName()
+    << "--no-translator"
+    << "--no-wrap" ;
+
+    msginit.start( KProcess::Block );
+
+    QString res("");
+
+    if ( msginit.normalExit() )
+    {
+        // parse out the plural form string
+        outfile.seek(0);
+        QTextStream str(&outfile);
+
+        QString line;
+        do
+        {
+            line = str.readLine();
+
+            if ( line.startsWith( "\"Plural-Forms:" ) )
+            {
+                kDebug() << "Plural form line: " << line << endl;
+                QRegExp re( "^\"Plural-Forms: *(.*)\\\\n\"" );
+                re.indexIn( line );
+                res = re.cap(1);
+                break;
+            }
+        }
+        while (!str.atEnd() );
+    }
+
+    return res;
+}
 
 
 #include "catalog.moc"

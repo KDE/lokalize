@@ -31,16 +31,16 @@
 **************************************************************************** */
 
 
+#include "version.h"
 #include "kaider.h"
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
 
+static const char version[] = KAIDER_VERSION;
 static const char description[] =
     I18N_NOOP("PO file editor");
-
-static const char version[] = "0.1";
 
 static KCmdLineOptions options[] =
 {

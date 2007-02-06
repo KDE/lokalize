@@ -15,5 +15,14 @@
             <whatsthis>Translator's email</whatsthis>
 	    <default>joan@smith.org</default>
     </entry>
+    <entry key="DefaultLangCode" type="String">
+	    <label>Default language code for new projects</label>
+            <whatsthis>Default language code for new projects</whatsthis>
+    </entry>
+    <entry key="DefaultMailingList" type="String">
+	    <label>Default mailing list for new projects</label>
+            <whatsthis>Default mailing list for new projects</whatsthis>
+            <default>joan@smith.org</default>
+    </entry>
   </group>
 </kcfg>

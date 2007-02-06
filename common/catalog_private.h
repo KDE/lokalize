@@ -90,6 +90,8 @@ public:
     //    Q3IntCache<QString> diffCache;
     
     int _numberOfPluralForms;
+    QString _language;
+    QString _langCode;
     
     //    Project::Ptr _project;
     //    RegExpExtractor *_tagExtractor, *_argExtractor;
@@ -113,8 +115,8 @@ public:
 	_importID( QString::null ), _mimeTypes( "text/plain" ),
 	_readOnly(false), _generatedFromDocbook(false), 
 	_active(false), _stop(false),
-	fileCodec(0),  /*diffCache(30,76), */_numberOfPluralForms(3)
-                //TODO numberOfPluralForms
+	fileCodec(0),  /*diffCache(30,76), */_numberOfPluralForms(-1),
+                  _language(QString::null),_langCode(QString::null)
                 //, 	_project(project) 
    {
 // 	_entries.clear();

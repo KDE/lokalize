@@ -311,6 +311,24 @@ void CatalogItem::operator=(const CatalogItem& rhs)
     d->_errors = rhs.d->_errors;
     d->_pluralFormType = rhs.d->_pluralFormType;
 }
+
+
+
+QStringList CatalogItem::msgstrAsList() const
+{
+   QStringList list = d->_msgstrPlural.first().split( "\n", QString::SkipEmptyParts );
+
+   if(d->_msgstrPlural.first()=="\n")
+      list.prepend("");
+
+   if(list.isEmpty())
+      list.append("");
+
+   return list;
+}
+
+
+
 #if 0
 QString CatalogItem::nextError() const
 {

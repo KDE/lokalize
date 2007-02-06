@@ -151,7 +151,7 @@ protected:
     /** start a new transaction. You should never call this method. */
     void startTransaction();
     /** commit the data in the current transaction. You should never call this method. */
-    void commitTransaction();
+    void commitTransaction(const QString& a=QString());
     
     /** Flag, whether the operation should be stopped immediately.*/
     bool isStopped() const;

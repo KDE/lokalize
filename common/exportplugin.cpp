@@ -1,8 +1,9 @@
 /* ****************************************************************************
-  This file is part of KBabel
+  This file is part of KAider
+  This file is based on the one from KBabel
 
-  Copyright (C) 2002-2003 	by Stanislav Visnovsky
-                        	    <visnovsky@kde.org>
+  Copyright (C) 2002-2003 by Stanislav Visnovsky <visnovsky@kde.org>
+		2007	  by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -33,7 +34,7 @@
 
 #include "catalogfileplugin.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 
 #include <kdebug.h>
 //#include <kservicetypetrader.h>

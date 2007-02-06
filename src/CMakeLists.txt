@@ -5,6 +5,8 @@ INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/common ${KDE4_INCLUDE_DIR} ${QT_INCLUDE
 set(kaider_SRCS
    main.cpp
    kaider.cpp
+   kaider_findreplace.cpp
+   kaider_prefs.cpp
    kaiderview.cpp
    ../common/catalog.cpp
    ../common/catalogitem.cpp
@@ -17,7 +19,7 @@ set(kaider_SRCS
 
 kde4_automoc(${kaider_SRCS})
 
-kde4_add_ui_files(kaider_SRCS prefs_base.ui)
+kde4_add_ui_files(kaider_SRCS prefs_identity.ui)
 
 kde4_add_kcfg_files(kaider_SRCS settings.kcfgc )
 

@@ -87,6 +87,7 @@ public:
     QStringList msgidPlural(const bool noNewlines = false) const;
     QString msgstr(const uint form=0, const bool noNewlines = false) const;
     QStringList msgstrPlural(const bool noNewlines = false) const;
+    QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
     void setMsgid(const QString& msg, const uint form=0);
