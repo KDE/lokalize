@@ -72,6 +72,12 @@ public:
 
     QStringList _errors;
 
+    CatalogItemPrivate():
+        _pluralFormType(NoPluralForm),
+	_valid(true)
+	{};
+
+
     friend class CatalogItem;
 };
 

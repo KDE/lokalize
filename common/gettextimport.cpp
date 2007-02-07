@@ -155,7 +155,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    // now parse the rest of the file
    uint counter=0;
-   QLinkedList<uint> errorIndex;
+   QList<uint> errorIndex;
    bool recoveredError=false;
    bool docbookFile=false;
 

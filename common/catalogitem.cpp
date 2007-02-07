@@ -71,7 +71,7 @@ QString CatalogItem::msgctxt(const bool noNewlines) const
         return d->_msgctxt;
 }
 
-QString CatalogItem::msgid(const uint form, const bool noNewlines) const
+QString CatalogItem::msgid(const int form, const bool /*noNewlines*/) const
 {
     //if original lang is english, we have only 2 formz
     if (form<d->_msgidPlural.size())
@@ -80,12 +80,12 @@ QString CatalogItem::msgid(const uint form, const bool noNewlines) const
         return d->_msgidPlural.last();
 }
 
-QStringList CatalogItem::msgidPlural(const bool noNewlines) const
+QStringList CatalogItem::msgidPlural(const bool /*noNewlines*/) const
 {
     return d->_msgidPlural;
 }
 
-QString CatalogItem::msgstr(const uint form, const bool noNewlines) const
+QString CatalogItem::msgstr(const int form, const bool /*noNewlines*/) const
 {
     if (form<d->_msgstrPlural.size())
         return d->_msgstrPlural.at(form);
@@ -93,7 +93,7 @@ QString CatalogItem::msgstr(const uint form, const bool noNewlines) const
         return d->_msgstrPlural.last();
 }
 
-QStringList CatalogItem::msgstrPlural(const bool noNewlines) const
+QStringList CatalogItem::msgstrPlural(const bool /*noNewlines*/) const
 {
     return d->_msgstrPlural;
 }
@@ -108,8 +108,12 @@ void CatalogItem::setMsgctxt(const QString& msg)
     d->_msgctxt=msg;
 }
 
-void CatalogItem::setMsgid(const QString& msg, const uint form)
+void CatalogItem::setMsgid(const QString& msg, const int form)
 {
+    if (d->_msgidPlural.size()>=form)
+        d->_msgidPlural[form]=msg;
+    else
+        d->_msgidPlural.append(msg);
 //      d->_msgid=msg;
 //      d->_msgid.squeeze();
 }
@@ -128,7 +132,7 @@ void CatalogItem::setMsgid(const QStringList& msg)
         it->squeeze();
 }
 
-void CatalogItem::setMsgstr(const QString& msg, const uint form)
+void CatalogItem::setMsgstr(const QString& msg, const int form)
 {
 //     d->_msgstr=msg;
     d->_msgstrPlural[form]=msg;

@@ -19,7 +19,12 @@ struct DocPosition
     int entry;
     uint offset;
 
-    DocPosition(): offset(0), part(Msgstr), entry(-1), form(0) {}
+    DocPosition():
+        part(Msgstr),
+        form(0),
+        entry(-1), 
+        offset(0)
+        {}
 };
 
 #endif

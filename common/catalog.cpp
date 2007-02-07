@@ -315,70 +315,69 @@ void Catalog::updateHeader(bool forSaving)
     //    const SaveSettings saveOptions = saveSettings();
 
 
-    if (forSaving)
+    found=false;
+
+    temp="Last-Translator: "+identityOptions->readEntry("NameEn","");
+    if (!identityOptions->readEntry("Email","").isEmpty())
+        temp+=(" <"+identityOptions->readEntry("Email")+'>');
+    temp+="\\n";
+
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
     {
-        found=false;
-
-        temp="Last-Translator: "+identityOptions->readEntry("NameEn","");
-        if (!identityOptions->readEntry("Email","").isEmpty())
+        if (it->contains(QRegExp("^ *Last-Translator:.*")))
         {
-            temp+=(" <"+identityOptions->readEntry("Email")+'>');
-        }
-        temp+="\\n";
-        for ( it = headerList.begin(); it != headerList.end(); ++it )
-        {
-            if (it->contains(QRegExp("^ *Last-Translator:.*")))
-            {
-                (*it) = temp;
-                found=true;
-            }
-        }
-
-        if (!found)
-            headerList.append(temp);
-
-        //    QString dateTimeString = KDateTime::currentUtcDateTime().toString("yyyy-MM-dd hh:mmz");
-        QString dateTimeString = KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm");
-        QTime t;
-        const int offset = KRFCDate::localUTCOffset();
-        const int correction = offset < 0 ? -60 : 60 ;
-        t = t.addSecs( offset * correction );
-        dateTimeString += ( offset < 0 ? "-" : "+" );
-        dateTimeString += t.toString("hhmm");
-
-        found=false;
-
-        temp="PO-Revision-Date: "+dateTimeString+"\\n";
-
-        for ( it = headerList.begin(); it != headerList.end(); ++it )
-        {
-            if (it->contains(QRegExp("^ *PO-Revision-Date:.*")))
-            {
-                (*it) = temp;
-                found=true;
-            }
-        }
-        if (!found)
-            headerList.append(temp);
-    }
-      found=false;
-
-      temp="Project-Id-Version: "+d->_url.fileName()+"\\n";
-      temp.remove(".pot");
-      temp.remove(".po");
-      //temp.replace( "@PACKAGE@", packageName());
-
-      for( it = headerList.begin(); it != headerList.end(); ++it )
-      {
-         if(it->contains(QRegExp("^ *Project-Id-Version:.*")))
-         {
-             if(it->contains("PACKAGE VERSION"))
+            if (forSaving)
                 (*it) = temp;
             found=true;
-         }
-       }
-       if(!found)
-          headerList.append(temp);
+        }
+    }
+
+    if (!found)
+        headerList.append(temp);
+
+    //    QString dateTimeString = KDateTime::currentUtcDateTime().toString("yyyy-MM-dd hh:mmz");
+    QString dateTimeString = KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm");
+    QTime t;
+    const int offset = KRFCDate::localUTCOffset();
+    const int correction = offset < 0 ? -60 : 60 ;
+    t = t.addSecs( offset * correction );
+    dateTimeString += ( offset < 0 ? "-" : "+" );
+    dateTimeString += t.toString("hhmm");
+
+    found=false;
+
+    temp="PO-Revision-Date: "+dateTimeString+"\\n";
+
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *PO-Revision-Date:.*")))
+        {
+            if (forSaving)
+                (*it) = temp;
+            found=true;
+        }
+    }
+    if (!found)
+        headerList.append(temp);
+
+    found=false;
+
+    temp="Project-Id-Version: "+d->_url.fileName()+"\\n";
+    temp.remove(".pot");
+    temp.remove(".po");
+    //temp.replace( "@PACKAGE@", packageName());
+
+    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    {
+        if (it->contains(QRegExp("^ *Project-Id-Version:.*")))
+        {
+            if (it->contains("PACKAGE VERSION"))
+                (*it) = temp;
+            found=true;
+        }
+    }
+    if (!found)
+        headerList.append(temp);
 
     found=false;
     KLocale locale("kdelibs");
@@ -560,22 +559,22 @@ void Catalog::updateHeader(bool forSaving)
             /*		else
             		    it->replace("YEAR", QDate::currentDate().toString("yyyy"));*/
         } /*else
-                	    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
-                	    {
-                		    //update years
-                		    QString cy = QDate::currentDate().toString("yyyy");
-                		    if( !it->contains( QRegExp(cy)) ) // is the year already included?
-                		    {
-                			int index = it->lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
-                			if( index == -1 )
-                			{
-                			    KMessageBox::information(0,i18n("Free Software Foundation Copyright does not contain any year. "
-                			    "It will not be updated."));
-                			} else {
-                			    it->insert(index+1, QString(", ")+cy);
-                			}
-                		    }
-                	    }*/
+                        	    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
+                        	    {
+                        		    //update years
+                        		    QString cy = QDate::currentDate().toString("yyyy");
+                        		    if( !it->contains( QRegExp(cy)) ) // is the year already included?
+                        		    {
+                        			int index = it->lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
+                        			if( index == -1 )
+                        			{
+                        			    KMessageBox::information(0,i18n("Free Software Foundation Copyright does not contain any year. "
+                        			    "It will not be updated."));
+                        			} else {
+                        			    it->insert(index+1, QString(", ")+cy);
+                        			}
+                        		    }
+                        	    }*/
     }
 #if 0
     if ( ( !usePrefs || saveOptions.updateDescription )
@@ -716,8 +715,8 @@ void Catalog::updateHeader(bool forSaving)
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
             {
                 if ( it->indexOf( QRegExp(
-                                        QRegExp::escape( identityOptions->readEntry("NameEn","") )+".*"
-                                        + QRegExp::escape( identityOptions->readEntry("Email","") ) ) ) != -1 )
+                                      QRegExp::escape( identityOptions->readEntry("NameEn","") )+".*"
+                                      + QRegExp::escape( identityOptions->readEntry("Email","") ) ) ) != -1 )
                 {
                     foundAuthor = true;
                     if ( it->indexOf( cy ) != -1 )

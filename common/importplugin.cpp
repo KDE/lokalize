@@ -83,7 +83,7 @@ void CatalogImportPlugin::setGeneratedFromDocbook( const bool generated )
     d->_updateGeneratedFromDocbook = true;
 }
 
-void CatalogImportPlugin::setErrorIndex(const QLinkedList<uint>& errors)
+void CatalogImportPlugin::setErrorIndex(const QList<uint>& errors)
 {
     d->_errorList = errors;
     d->_updateErrorList = true;

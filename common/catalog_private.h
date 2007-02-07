@@ -112,11 +112,17 @@ public:
    explicit CatalogPrivate(/*Project::Ptr project*/) : 
 	//_packageName( QString::null ), _packageDir( QString::null ),
 	//_header (project), 
-	_importID( QString::null ), _mimeTypes( "text/plain" ),
-	_readOnly(false), _generatedFromDocbook(false), 
-	_active(false), _stop(false),
-	fileCodec(0),  /*diffCache(30,76), */_numberOfPluralForms(-1),
-                  _language(QString::null),_langCode(QString::null)
+	_importID( QString::null ), 
+	_mimeTypes( "text/plain" ),
+	fileCodec(0),
+	_numberOfPluralForms(-1),
+	_language(QString::null),
+	_langCode(QString::null),
+	_readOnly(false), 
+	_generatedFromDocbook(false), 
+	_active(false), 
+	_stop(false)
+	  /*diffCache(30,76), */
                 //, 	_project(project) 
    {
 // 	_entries.clear();

@@ -97,8 +97,8 @@ public:
 
 private:
 
-    ProperTextEdit* _msgstrEdit;
     ProperTextEdit* _msgidEdit;
+    ProperTextEdit* _msgstrEdit;
 
     QTabBar* _tabbar;
 

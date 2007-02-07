@@ -56,7 +56,7 @@ public:
     CatalogItem _header;
     bool _generatedFromDocbook;
     QTextCodec* _codec;
-    QLinkedList<uint> _errorList;
+    QList<uint> _errorList;
     QStringList _catalogExtraData;
     QString _mimeTypes;
     

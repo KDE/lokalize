@@ -46,6 +46,7 @@
 #include <QTextStream>
 #include <QEventLoop>
 
+#include <ksavefile.h>
 #include <kapplication.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -62,33 +63,37 @@ GettextExportPlugin::GettextExportPlugin(QObject* parent/*, const QStringList &*
 
 ConversionStatus GettextExportPlugin::save(const QString& localFile , const QString& mimetype, const Catalog* catalog)
 {
-   // check, whether we know how to handle the extra data
-   if( catalog->importPluginID() != "GNU gettext") 
-      return UNSUPPORTED_TYPE;
+    // check, whether we know how to handle the extra data
+    if ( catalog->importPluginID() != "GNU gettext")
+        return UNSUPPORTED_TYPE;
 
-   // we support on the application/x-gettext MIME type
-   if( mimetype != "application/x-gettext") 
-      return UNSUPPORTED_TYPE;
+    // we support on the application/x-gettext MIME type
+    if ( mimetype != "application/x-gettext")
+        return UNSUPPORTED_TYPE;
 
-   QFile file(localFile);
+    KSaveFile file(localFile);
 
-   if(file.open(QIODevice::WriteOnly))
-   {
+    if (!file.open(/*QIODevice::WriteOnly*/))
+    {
+        //emit signalError(i18n("Wasn't able to open file %1",filename.ascii()));
+        return OS_ERROR;
+    }
+
 //      int progressRatio = qMax(100/ qMax(catalog->numberOfEntries(),uint(1)), uint(1));
 //       emit signalResetProgressBar(i18n("saving file"),100);
 
-      QTextStream stream(&file);
-      
-      //TODO really SaveSettings
-      //SaveSettings _saveSettings = catalog->saveSettings();
-      SaveSettings _saveSettings;
-      _saveSettings.autoUpdate=true;
-      _saveSettings.updateLastTranslator=true;
-      _saveSettings.updateRevisionDate=true;
+    QTextStream stream(&file);
+
+    //TODO really SaveSettings
+    //SaveSettings _saveSettings = catalog->saveSettings();
+    SaveSettings _saveSettings;
+    _saveSettings.autoUpdate=true;
+    _saveSettings.updateLastTranslator=true;
+    _saveSettings.updateRevisionDate=true;
     _saveSettings.updateLanguageTeam=true;
     _saveSettings.updateCharset=true;
     _saveSettings.updateEncoding=true;
-    
+
     _saveSettings.updateProject=true;
     _saveSettings.updateDescription=true;
     _saveSettings.descriptionString=QString("");
@@ -100,141 +105,132 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
 
     _saveSettings.dateFormat=Qt::ISODate;
     _saveSettings.customDateFormat=QString();
-    
+
     _saveSettings.projectString=QString("dd");
 
     _saveSettings.autoSyntaxCheck=true;
     _saveSettings.saveObsolete=true;
-    
+
     _saveSettings.autoSaveDelay=5000;
 
-      
-      
-      if(_saveSettings.useOldEncoding && catalog->fileCodec())
-      {
-	    stream.setCodec(catalog->fileCodec());
-      }
-      else
-      {
-/*         switch(_saveSettings.encoding)
-         {
-            case ProjectSettingsBase::UTF8:
-               stream.setCodec(QTextCodec::codecForName("utf-8"));
-               break;
-            case ProjectSettingsBase::UTF16:
-               stream.setCodec(QTextCodec::codecForName("utf-16"));
-               break;
-            default:
-	       stream.setCodec(QTextCodec::codecForLocale());
-               break;
-         }*/
+
+
+    if (_saveSettings.useOldEncoding && catalog->fileCodec())
+    {
+        stream.setCodec(catalog->fileCodec());
+    }
+    else
+    {
+        /*         switch(_saveSettings.encoding)
+                 {
+                    case ProjectSettingsBase::UTF8:
+                       stream.setCodec(QTextCodec::codecForName("utf-8"));
+                       break;
+                    case ProjectSettingsBase::UTF16:
+                       stream.setCodec(QTextCodec::codecForName("utf-16"));
+                       break;
+                    default:
+        	       stream.setCodec(QTextCodec::codecForLocale());
+                       break;
+                 }*/
         stream.setCodec(QTextCodec::codecForName("utf-8"));
-      }
+    }
 
-      // only save header if it is not empty
-      const QString headerComment( catalog->header().comment() );
-      // ### TODO: why is this useful to have a header with an empty msgstr?
-      if( !headerComment.isEmpty() || !catalog->header().msgstrPlural().isEmpty() )
-      {
-            // write header
-            writeComment( stream, headerComment );
-    
-            const QString headerMsgid = catalog->header().msgid();
-    
-            // Gettext PO files should have an empty msgid as header
-            if ( !headerMsgid.isEmpty() )
+    // only save header if it is not empty
+    const QString headerComment( catalog->header().comment() );
+    // ### TODO: why is this useful to have a header with an empty msgstr?
+    if ( !headerComment.isEmpty() || !catalog->header().msgstrPlural().isEmpty() )
+    {
+        // write header
+        writeComment( stream, headerComment );
+
+        const QString headerMsgid = catalog->header().msgid();
+
+        // Gettext PO files should have an empty msgid as header
+        if ( !headerMsgid.isEmpty() )
+        {
+            // ### TODO: perhaps it is grave enough for a user message
+            kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---" << endl;
+        }
+
+        // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
+        stream << "msgid \"\"\n";
+
+        writeKeyword( stream, "msgstr", catalog->header().msgstr() );
+
+        stream << "\n";
+    }
+
+    QStringList list;
+    for ( int counter = 0; counter < catalog->numberOfEntries() ; counter++ )
+    {
+        /*          if(counter%10==0) {
+                     emit signalProgress(counter/progressRatio);
+        	  }*/
+
+        // write entry
+        writeComment( stream, catalog->comment(counter) );
+
+        const QString msgctxt = catalog->msgctxt(counter);
+        if (! msgctxt.isEmpty() )
+        {
+            writeKeyword( stream, "msgctxt", msgctxt );
+        }
+
+        writeKeyword( stream, "msgid", catalog->msgid( counter ) );
+        if ( catalog->pluralFormType( counter ) == Gettext )
+            writeKeyword( stream, "msgid_plural", catalog->msgid( counter, 1 ) );
+
+        if ( catalog->pluralFormType(counter) != Gettext)
+        {
+            writeKeyword( stream, "msgstr", catalog->msgstr( counter ) );
+        }
+        else
+        {
+            kDebug() << "Saving gettext plural form" << endl;
+            const int forms = catalog->msgstrPlural( counter ).count();
+            for ( int i = 0; i < forms; ++i )
             {
-                // ### TODO: perhaps it is grave enough for a user message
-                kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---" << endl;
+                QString keyword ( "msgstr[" );
+                keyword += QString::number( i );
+                keyword += ']';
+
+                writeKeyword( stream, keyword, ( catalog->msgstr( counter, i ) ) );
             }
+        }
 
-            // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
-            stream << "msgid \"\"\n";
+        stream << "\n";
 
-            writeKeyword( stream, "msgstr", catalog->header().msgstr() );
+        kapp->processEvents(QEventLoop::AllEvents,10);
+        if ( isStopped() )
+            return STOPPED;
+    }
 
-            stream << "\n";
-      }
+    if ( _saveSettings.saveObsolete )
+    {
+        QList<QString>::iterator oit;
 
-      QStringList list;
-      for( uint counter = 0; counter < catalog->numberOfEntries() ; counter++ )
-      {
-/*          if(counter%10==0) {
-             emit signalProgress(counter/progressRatio);
-	  }*/
-	  
-            // write entry
-            writeComment( stream, catalog->comment(counter) );
-    
-            const QString msgctxt = catalog->msgctxt(counter);
-            if (! msgctxt.isEmpty() )
+        QStringList _obsolete = catalog->catalogExtraData();
+
+        for ( oit = _obsolete.begin(); oit != _obsolete.end(); ++oit )
+        {
+            stream << (*oit) << "\n\n";
+
+            kapp->processEvents( QEventLoop::AllEvents, 10 );
+            if ( isStopped() )
             {
-                writeKeyword( stream, "msgctxt", msgctxt );
+                return STOPPED;
             }
+        }
+    }
 
-            writeKeyword( stream, "msgid", catalog->msgid( counter ) );
-            if( catalog->pluralFormType( counter ) == Gettext )
-            {
-                writeKeyword( stream, "msgid_plural", catalog->msgid( counter, 1 ) );
-            }
-	  
-            if( catalog->pluralFormType(counter) != Gettext)
-            {
-                writeKeyword( stream, "msgstr", catalog->msgstr( counter ) );
-            }
-            else
-            {
-                kDebug() << "Saving gettext plural form" << endl;
-                const int forms = catalog->msgstrPlural( counter ).count();
-                for ( int i = 0; i < forms; ++i )
-                {
-                    QString keyword ( "msgstr[" );
-                    keyword += QString::number( i );
-                    keyword += ']';
-
-                    writeKeyword( stream, keyword, ( catalog->msgstr( counter, i ) ) );
-                }
-            }
-            
-            stream << "\n";
-
-	 kapp->processEvents(QEventLoop::AllEvents,10);
-	 if( isStopped() )
-	 {
-	    return STOPPED;
-	 }
-      }
-
-      if( _saveSettings.saveObsolete )
-      {
-          QList<QString>::iterator oit;
-	  
-	  QStringList _obsolete = catalog->catalogExtraData();
-
-          for( oit = _obsolete.begin(); oit != _obsolete.end(); ++oit )
-    	  {
-              stream << (*oit) << "\n\n";
-
-	      kapp->processEvents( QEventLoop::AllEvents, 10 );
-	      if( isStopped() )
-	      {
-		  return STOPPED;
-	      }
-          }
-      }
-      
 //       emit signalProgress(100);
-      file.close();
+    file.finalize();
+    file.close();
 
 //       emit signalClearProgressBar();
-   }
-   else
-   {
-      //emit signalError(i18n("Wasn't able to open file %1",filename.ascii()));
-      return OS_ERROR;
-   }
 
-   return OK;
+    return OK;
 }
 
 void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comment ) const

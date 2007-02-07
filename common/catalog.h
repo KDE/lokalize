@@ -112,12 +112,12 @@ public:
     //QString _packageName() const {return d->fileCodec;}
 
 
-    void setErrorIndex(const QLinkedList<uint>& errors){};//###
+    void setErrorIndex(const QList<uint>& errors){d->_errorIndex=errors;};
 
     void setImportPluginID(const QString& id){d->_importID=id;};
     QString importPluginID() const {return d->_importID;}
 
-    void setMimeTypes(const QString& mimeTypes){};//###
+    void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;};
 
     bool setHeader(CatalogItem header);
     CatalogItem header() const {return d->_header;};

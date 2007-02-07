@@ -92,7 +92,7 @@ void InsTextCmd::undo()
     {
         // insert index in the right place in the list
         QList<uint>::Iterator it = Catalog::instance()->d->_untransIndex.begin();
-        while(it != Catalog::instance()->d->_untransIndex.end() && _pos.entry > (*it))
+        while(it != Catalog::instance()->d->_untransIndex.end() && _pos.entry > (int)(*it))
             ++it;
         Catalog::instance()->d->_untransIndex.insert(it,_pos.entry);
         Catalog::instance()->emitsignalNumberOfUntranslatedChanged();
@@ -145,7 +145,7 @@ void DelTextCmd::redo()
     {
         // insert index in the right place in the list
         QList<uint>::Iterator it = Catalog::instance()->d->_untransIndex.begin();
-        while(it != Catalog::instance()->d->_untransIndex.end() && _pos.entry > (*it))
+        while(it != Catalog::instance()->d->_untransIndex.end() && _pos.entry > (int)(*it))
             ++it;
         Catalog::instance()->d->_untransIndex.insert(it,_pos.entry);
         Catalog::instance()->emitsignalNumberOfUntranslatedChanged();

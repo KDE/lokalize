@@ -35,7 +35,7 @@
 
 #include <catalogfileplugin.h>
 
-#include <qstringlist.h>
+#include <QStringList>
 #include <QTextStream>
 //namespace KBabel {
 class Catalog;
