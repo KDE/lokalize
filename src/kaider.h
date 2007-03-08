@@ -47,6 +47,7 @@
 
 #include "kaiderview.h"
 #include "ui_prefs_identity.h"
+#include "ui_prefs_font.h"
 
 //class Catalog;
 class KToggleAction;
@@ -67,7 +68,11 @@ class KAider : public KMainWindow
 public:
     KAider();
     virtual ~KAider();
-    
+
+protected:
+    bool queryClose();
+
+
 public slots:
     void fileOpen(KUrl url=KUrl());
     void gotoFirst();
@@ -86,8 +91,8 @@ private slots:
 
     
 
-    void fileSave();
-    void fileSaveAs();
+    bool fileSave();
+    bool fileSaveAs();
     void optionsPreferences();
 
 
@@ -104,6 +109,7 @@ private slots:
     void replace();
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
+
 //     void selectAll();
 //     void deselectAll();
 //     void clear();
@@ -151,6 +157,7 @@ private:
 
 private:
     Ui_prefs_identity ui_prefs_identity;
+    Ui_prefs_font ui_prefs_font;
     KAiderView *_view;
 
     KFindDialog* _findDialog;

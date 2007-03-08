@@ -53,7 +53,7 @@
     </widget>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="kcfg_NameEn" />
+    <widget class="QLineEdit" name="kcfg_authorName" />
    </item>
    <item row="3" column="0" >
     <widget class="QLabel" name="label" >
@@ -85,7 +85,7 @@
     </spacer>
    </item>
    <item row="1" column="1" >
-    <widget class="QLineEdit" name="kcfg_Email" />
+    <widget class="QLineEdit" name="kcfg_authorEmail" />
    </item>
    <item row="4" column="1" >
     <widget class="QLineEdit" name="kcfg_DefaultLangCode" >

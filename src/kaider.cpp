@@ -188,6 +188,11 @@ void KAider::setupActions()
     connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
     connect(action, SIGNAL(toggled(bool)),_view,SLOT(fuzzyEntryDisplayed(bool)));
 
+    ADD_ACTION_SHORTCUT("msgid2msgstr","Cop&y Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
+    connect(action, SIGNAL(triggered(bool)), _view,SLOT(msgid2msgstr()));
+
+    ADD_ACTION_SHORTCUT("unwrapmsgstr","Un&wrap Msgstr",Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
+    connect(action, SIGNAL(triggered(bool)), _view,SLOT(unwrap()));
 
 // Go
     action = KStandardAction::next(this, SLOT(gotoNext()), actionCollection());
@@ -305,26 +310,60 @@ void KAider::fileOpen(KUrl url)
 
 }
 
-void KAider::fileSaveAs()
+bool KAider::fileSaveAs()
 {
+    return true;
 }
 
-void KAider::fileSave()
+bool KAider::fileSave()
 {
     _catalog->updateHeader();
 
     GettextExportPlugin exporter(this);
+    exporter.m_wrapWidth=_catalog->maxLineLength();// this is kinda hackish...
 
     ConversionStatus status = OK;
 //     if ( url.isLocalFile() )
     QString localFile = _currentURL.path();
+    //kWarning() << "SAVE NAME "<<localFile << endl;
     status = exporter.save(localFile,QString("application/x-gettext"),_catalog);
     if (status==OK)
+    {
         _catalog->setClean();
-    else
-        kWarning() << "__ERROR  " << endl;
+        return true;
+    }
+    else if (status==NO_PERMISSIONS)
+    {
+        if (KMessageBox::warningContinueCancel(this,
+	     i18n("You do not have permission to write to file:\n%1\n"
+		  "Do you want to save to another file or cancel?", _currentURL.prettyUrl()),
+	     i18n("Error"),KStandardGuiItem::save())==KMessageBox::Continue)
+            return fileSaveAs();
+
+    }
+    kWarning() << "__ERROR  " << endl;
+    return false;
 }
 
+ 
+bool KAider::queryClose()
+{
+    if(_catalog->isClean())
+        return true;
+
+    switch(KMessageBox::warningYesNoCancel(this,
+        i18n("The document contains unsaved changes.\n\
+Do you want to save your changes or discard them?"),i18n("Warning"),
+      KStandardGuiItem::save(),KStandardGuiItem::discard()))
+    {
+        case KMessageBox::Yes:
+            return fileSave();
+        case KMessageBox::No:
+            return true;
+        default:
+            return false;
+    }
+}
 
 void KAider::undo()
 {
@@ -465,6 +504,7 @@ bool KAider::switchPrev(DocPosition& pos,bool useMsgId)
         if (pos.part==Msgid)
         {
             pos.part=Msgstr;
+            pos.offset=0;
             return true;
         }
         else
@@ -481,6 +521,7 @@ bool KAider::switchPrev(DocPosition& pos,bool useMsgId)
         pos.entry--;
         pos.form=0;
     }
+    pos.offset=0;
     return true;
 }
 
@@ -491,6 +532,7 @@ bool KAider::switchNext(DocPosition& pos,bool useMsgId)
         if (pos.part==Msgid)
         {
             pos.part=Msgstr;
+            pos.offset=0;
             return true;
         }
         else
@@ -509,6 +551,7 @@ bool KAider::switchNext(DocPosition& pos,bool useMsgId)
         pos.entry++;
         pos.form=0;
     }
+    pos.offset=0;
     return true;
 }
 

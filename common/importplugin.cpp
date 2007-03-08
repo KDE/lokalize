@@ -46,7 +46,7 @@
 #include <kmessagebox.h>
 //#include <kservicetypetrader.h>
 
-CatalogImportPlugin::CatalogImportPlugin(QObject* parent, const char* name) : QObject( parent )
+CatalogImportPlugin::CatalogImportPlugin(QObject* parent, const char* name) : QObject( parent ), _maxLineLength(0)
 {
     setObjectName( name );
 
@@ -176,6 +176,8 @@ void CatalogImportPlugin::commitTransaction(const QString& file)
 	
 	d->_catalog->d->_importID=id();
 	d->_catalog->setMimeTypes( d->_mimeTypes );
+
+        d->_catalog->d->_maxLineLength=_maxLineLength;
     }
     
     d->_started = false;

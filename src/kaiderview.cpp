@@ -30,7 +30,7 @@
 
 **************************************************************************** */
 
-
+#include <QTextCodec>
 #include <QSplitter>
 
 #include <kmessagebox.h>
@@ -40,7 +40,8 @@
  
 #include "cmd.h"
 #include "kaiderview.h"
-// #include "settings.h"
+#include "settings.h"
+#include "syntaxhighlighter.h"
 
 KAiderView::KAiderView(QWidget *parent/*,Catalog* catalog,keyEventHandler* kh*/):
         QSplitter(Qt::Vertical,parent),
@@ -59,10 +60,19 @@ KAiderView::KAiderView(QWidget *parent/*,Catalog* catalog,keyEventHandler* kh*/)
     _tabbar->hide();
 
     _msgidEdit->setReadOnly(true);
+
     //apply changes to catalog via undo/redo
     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+
     _msgidEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setUndoRedoEnabled(false);
+
+    Settings::self()->config()->setGroup("Editor");
+    _msgidEdit->document()->setDefaultFont(Settings::msgFont());
+    _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
+
+     /*SyntaxHighlighter* */highlighter = new SyntaxHighlighter(_msgidEdit->document());
+     highlighter = new SyntaxHighlighter(_msgstrEdit->document());
 
     _msgstrEdit->installEventFilter(this);
 
@@ -158,6 +168,8 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     _oldMsgstr=_msgstrEdit->toPlainText();//newStr becomes OldStr
     if (charsAdded)
         _catalog->push(new InsTextCmd(/*_catalog,*/pos,_oldMsgstr.mid(offset,charsAdded)));
+    
+    //KMessageBox::information(0, QString("%1 %2 %3").arg(offset).arg(charsRemoved).arg(charsAdded) );
 }
 
 void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
@@ -188,6 +200,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
         _tabbar->hide();
 
     _msgidEdit->setText(_catalog->msgid(_currentPos.entry,_currentPos.form)/*, _catalog->msgctxt(_currentIndex)*/);
+    unwrap(_msgidEdit);
     _msgstrEdit->document()->blockSignals(true);
     _msgstrEdit->setText(_catalog->msgstr(_currentPos.entry,_currentPos.form));
     _msgstrEdit->document()->blockSignals(false);
@@ -208,6 +221,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
     _oldMsgstr=_msgstrEdit->toPlainText();//for undo/redo tracking
 
+    disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    highlighter->rehighlight();
+    connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    //kWarning() << "fh g gf f "<< pos.offset << endl;
 }
 
 void KAiderView::toggleFuzzy(bool checked)
@@ -229,5 +246,98 @@ void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
     else
         _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
 }
+
+void KAiderView::msgid2msgstr()
+{
+    QString text=_catalog->msgid(_currentPos.entry,_currentPos.form);
+    QString out="";
+    QString ctxt=_catalog->msgctxt(_currentPos.entry);
+    
+   // this is KDE specific:
+    if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
+    {
+        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+            out=", ";
+        out+=Settings::authorLocalizedName();
+    }
+    else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" ))
+    {
+        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+            out=", ";
+        out+=Settings::authorEmail();
+    }
+    else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
+    {
+        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+            out='\n';
+        out+="<othercredit role=\\\"translator\\\">\n"
+        "<firstname></firstname><surname></surname>\n"
+        "<affiliation><address><email>"+Settings::authorEmail()+"</email></address>\n"
+        "</affiliation><contrib></contrib></othercredit>";
+    }
+    else if( text.startsWith( "CREDIT_FOR_TRANSLATORS" ) )
+    {
+        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+            out='\n';
+        out+="<para>"+Settings::authorLocalizedName()+'\n'+
+            "<email>"+Settings::authorEmail()+"</email></para>";
+    }
+/*    else if(text.contains(_catalog->miscSettings().singularPlural))
+    {
+        text.replace(_catalog->miscSettings().singularPlural,"");
+    }*/
+    // end of KDE specific part
+    
+    
+/*    QRegExp reg=_catalog->miscSettings().contextInfo;
+    if(text.contains(reg))
+    {
+        text.replace(reg,"");
+    }*/
+    
+    //modifyMsgstrText(0,text,true);
+    
+    if (out.isEmpty())
+        _msgstrEdit->setText(text);
+    else
+    {
+        QTextCursor t=_msgstrEdit->textCursor();
+        t.movePosition(QTextCursor::End);
+        t.insertText(out);
+        _msgstrEdit->setTextCursor(t);
+    }
+}
+
+
+
+void KAiderView::unwrap(ProperTextEdit* editor)
+{
+    if (!editor)
+        editor=_msgstrEdit;
+
+    QTextCursor t=editor->document()->find(QRegExp("[^(\\\\n)]$"));
+    if (t.isNull())
+        return;
+
+    if (editor==_msgstrEdit)
+        _catalog->beginMacro(i18n("Unwrap"));
+    t.movePosition(QTextCursor::EndOfLine);
+    if (!t.atEnd())
+        t.deleteChar();
+
+    while (!(t=editor->document()->find(QRegExp("[^(\\\\n)]$"),t)).isNull())
+    {
+        t.movePosition(QTextCursor::EndOfLine);
+        if (!t.atEnd())
+            t.deleteChar();
+    }
+    if (editor==_msgstrEdit)
+        _catalog->endMacro();
+}
+
+
+
+
+
 
 #include "kaiderview.moc"

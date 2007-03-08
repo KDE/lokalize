@@ -43,7 +43,7 @@
 #include "catalog.h"
 #include "pos.h"
 
-
+#include "syntaxhighlighter.h"
 
 class ProperTextEdit : public KTextEdit
 {
@@ -100,6 +100,9 @@ private:
     ProperTextEdit* _msgidEdit;
     ProperTextEdit* _msgstrEdit;
 
+    SyntaxHighlighter* highlighter;
+//    bool disableUndoTracking=false; //workaround
+
     QTabBar* _tabbar;
 
     Catalog* _catalog;
@@ -109,10 +112,6 @@ private:
 
     DocPosition _currentPos;
     int _currentEntry;
-    
-    //for event filtering
-//     QKeySequence ctrl_alt_home;
-//     QKeySequence ctrl_alt_end;
 
 signals:
     void signalChangeStatusbar(const QString&);
@@ -127,8 +126,12 @@ private slots:
     void settingsChanged();
     void contentsChanged(int position, int charsRemoved, int charsAdded ); //for Undo/Redo
     void fuzzyEntryDisplayed(bool);
-    void toggleFuzzy(bool);
     
+    //Edit menu
+    void toggleFuzzy(bool);
+    void msgid2msgstr();
+    void unwrap(ProperTextEdit* editor=0);
+
     
     
     
@@ -138,7 +141,7 @@ private slots:
     
     
 protected:
-    bool eventFilter(QObject *, QEvent *);
+    bool eventFilter(QObject *, QEvent *); //workaround for qt ctrl+z bug
     
     
 };

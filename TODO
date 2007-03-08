@@ -1,8 +1,7 @@
 -polishing
 -some settings
--KAutoSaveFile
--QSyntaxHighlighter
--new gettext format features
+-KAutoSaveFile ??
+-fileSaveAs()
 -sonnet
 
 -catalogmanager
@@ -17,5 +16,12 @@
 
 
 -many small features that ease everyday life of translator
+    search: &, dont replace in tags
+    
+    
 -xliff
 -...
+
+others say:
+- "click to translate" any word on the screen (any app)
+- ktranslator

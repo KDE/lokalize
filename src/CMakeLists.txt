@@ -7,6 +7,7 @@ set(kaider_SRCS
    kaider_findreplace.cpp
    kaider_prefs.cpp
    kaiderview.cpp
+   syntaxhighlighter.cpp
    ../common/catalog.cpp
    ../common/catalogitem.cpp
    ../common/importplugin.cpp
@@ -18,7 +19,7 @@ set(kaider_SRCS
 
 kde4_automoc(${kaider_SRCS})
 
-kde4_add_ui_files(kaider_SRCS prefs_identity.ui)
+kde4_add_ui_files(kaider_SRCS prefs_identity.ui prefs_font.ui)
 
 kde4_add_kcfg_files(kaider_SRCS settings.kcfgc )
 

@@ -63,8 +63,10 @@ void KAider::optionsPreferences()
         return;
 
     KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self(), KPageDialog::List);
-    QWidget *identitySettingsDlg = new QWidget;
-    ui_prefs_identity.setupUi(identitySettingsDlg);
+
+// Identity
+    QWidget *w = new QWidget;
+    ui_prefs_identity.setupUi(w);
 
     QStringList langlist = KGlobal::locale()->allLanguagesTwoAlpha();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
@@ -79,9 +81,24 @@ void KAider::optionsPreferences()
     connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(const QString&)));
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
-    
-    dialog->addPage(identitySettingsDlg, i18n("Identity"), "identity_setting");
+    dialog->addPage(w, i18n("Identity"), "identity_setting");
+
+//Font
+    w = new QWidget;
+    ui_prefs_font.setupUi(w);
+    dialog->addPage(w, i18n("Fonts"), "font_setting");
+
+
 //     connect(dialog, SIGNAL(settingsChanged(QString)), _view, SLOT(settingsChanged()));
+    
+    
+    
+    
+    
+    
+    
+    
+    
     dialog->show();
 //    dialog->addPage(new General(0, "General"), i18n("General") );
 //    dialog->addPage(new Appearance(0, "Style"), i18n("Appearance") );

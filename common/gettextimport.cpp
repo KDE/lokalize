@@ -255,6 +255,8 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    // We have succesfully loaded the file (perhaps with recovered errors)
 
+
+
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
    setCatalogExtraData(tempObsolete);
@@ -386,6 +388,19 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        // remove whitespaces from beginning and end of line
        line = line.trimmed();
 
+       // remember wrapping state to save file nicely
+       if (_maxLineLength<line.length())
+           _maxLineLength=line.length();
+
+//        if (line[0]=='"' && _maxLineLength<line.length()-2)
+//            _maxLineLength=line.length()-2;
+//        else if (line.startsWith("msgid \"") && _maxLineLength<line.length()-8)
+//            _maxLineLength=line.length()-8;
+//        else if (line.startsWith("msgstr \"") && _maxLineLength<line.length()-9)
+//            _maxLineLength=line.length()-9;
+
+
+
        if(part==Begin)
        {
            // ignore trailing newlines
@@ -422,6 +437,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                line.remove(QRegExp("\"$"));
 
                (*(_msgid).begin())=line;
+
            }
 		     // one of the quotation marks is missing
            else if( line.indexOf( QRegExp( "^msgid\\s*\"?.*\"?$" ) ) != -1 )

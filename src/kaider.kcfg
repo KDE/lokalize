@@ -4,13 +4,19 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="kaiderrc"/>
+  <include>kglobalsettings.h</include>
   <group name="Identity">
-    <entry key="NameEn" type="String">
+    <entry key="authorName" type="String">
 	    <label>Translator's name</label>
             <whatsthis>Translator's name in English</whatsthis>
 	    <default>Joan Smith</default>
     </entry>
-    <entry key="Email" type="String">
+    <entry key="authorLocalizedName" type="String">
+	    <label>Localized name</label>
+            <whatsthis>Translator's name in target language</whatsthis>
+	    <default>Joan Smith</default>
+    </entry>
+    <entry key="authorEmail" type="String">
 	    <label>Email</label>
             <whatsthis>Translator's email</whatsthis>
 	    <default>joan@smith.org</default>
@@ -24,5 +30,38 @@
             <whatsthis>Default mailing list for new projects</whatsthis>
             <default>joan@smith.org</default>
     </entry>
+  </group>
+  <group name="Editor">
+<!--
+    <entry name="AutoUnsetFuzzy"  type="Bool">
+        <label>
+        </label>
+        <default>true</default>
+    </entry>
+
+    <entry name="CleverEditing"  type="Bool">
+        <label>
+        </label>
+        <default>true</default>
+    </entry>
+-->
+    <entry name="MsgFont"  type="Font">
+<!--
+        <label>Font for Messages</label>
+-->
+	<default code="true">KGlobalSettings::generalFont()</default>
+    </entry>
+<!--
+    <entry name="OnFlySpellCheck"  type="Bool">
+        <label>
+        </label>
+        <default>true</default>
+    </entry>
+    <entry name="WhitespacePoints"  type="Bool">
+        <label>
+        </label>
+        <default>true</default>
+    </entry>
+-->
   </group>
 </kcfg>

@@ -3,6 +3,8 @@
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
+    <Action name="msgid2msgstr"/>
+    <Action name="unwrapmsgstr"/>
   </Menu>
   <Menu name="go_document"><text>&amp;Go</text>
     <Action name="go_goto"/>

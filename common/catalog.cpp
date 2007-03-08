@@ -317,7 +317,7 @@ void Catalog::updateHeader(bool forSaving)
 
     found=false;
 
-    temp="Last-Translator: "+identityOptions->readEntry("NameEn","");
+    temp="Last-Translator: "+identityOptions->readEntry("authorName","");
     if (!identityOptions->readEntry("Email","").isEmpty())
         temp+=(" <"+identityOptions->readEntry("Email")+'>');
     temp+="\\n";
@@ -642,14 +642,14 @@ void Catalog::updateHeader(bool forSaving)
     // kDebug() << "HEADER COMMENT: " << commentList << endl;
 
     /*    if ( (!usePrefs || saveOptions.updateTranslatorCopyright)
-            && ( ! identityOptions->readEntry("NameEn","").isEmpty() )
+            && ( ! identityOptions->readEntry("authorName","").isEmpty() )
             && ( ! identityOptions->readEntry("Email","").isEmpty() ) ) // An email address can be used as ersatz of a name
         {*/
 //                        return;
     QStringList foundAuthors;
 
     temp = "# ";
-    temp += identityOptions->readEntry("NameEn","");
+    temp += identityOptions->readEntry("authorName","");
     if (!identityOptions->readEntry("Email","").isEmpty())
     {
         temp+=(" <"+identityOptions->readEntry("Email","")+'>');
@@ -715,7 +715,7 @@ void Catalog::updateHeader(bool forSaving)
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
             {
                 if ( it->indexOf( QRegExp(
-                                      QRegExp::escape( identityOptions->readEntry("NameEn","") )+".*"
+                                      QRegExp::escape( identityOptions->readEntry("authorName","") )+".*"
                                       + QRegExp::escape( identityOptions->readEntry("Email","") ) ) ) != -1 )
                 {
                     foundAuthor = true;

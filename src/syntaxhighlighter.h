@@ -1,8 +1,7 @@
 /* ****************************************************************************
-  This file is part of KBabel
+  This file is part of KAider
 
-  Copyright (C) 2002-2003 	by Stanislav Visnovsky
-                        	    <visnovsky@kde.org>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,44 +29,37 @@
   your version.
 
 **************************************************************************** */
-#ifndef IMPORTPLUGINPRIVATE_H
-#define IMPORTPLUGINPRIVATE_H
 
-#include "catalogitem.h"
-#include "catalog.h"
-//Added by qt3to4:
-#include <QLinkedList>
+#ifndef HIGHLIGHTER_H
+#define HIGHLIGHTER_H
 
-class QTextCodec;
+#include <QSyntaxHighlighter>
 
-//namespace KBabel {
+#include <QHash>
+#include <QTextCharFormat>
 
-class Catalog;
+class QTextDocument;
 
-class CatalogImportPluginPrivate
+class SyntaxHighlighter : public QSyntaxHighlighter
 {
+    Q_OBJECT
+
 public:
-    Catalog* _catalog;
-    bool _started;
-    bool _stopped;
-    
-    QLinkedList<CatalogItem> _entries;
-    QLinkedList<CatalogItem> _obsoleteEntries;
-    CatalogItem _header;
-    bool _generatedFromDocbook;
-    QTextCodec* _codec;
-    QList<uint> _errorList;
-    QStringList _catalogExtraData;
-    QString _mimeTypes;
-    
-    bool _updateHeader;
-    bool _updateGeneratedFromDocbook;
-    bool _updateCodec;
-    bool _updateErrorList;
-    bool _updateCatalogExtraData;
+    SyntaxHighlighter(QTextDocument *parent = 0,bool docbook=true);
 
+protected:
+    void highlightBlock(const QString &text);
+
+private:
+    struct HighlightingRule
+    {
+        QRegExp pattern;
+        QTextCharFormat format;
+    };
+    QVector<HighlightingRule> highlightingRules;
+
+    bool fromDocbook;
+    QTextCharFormat tagFormat;
 };
-
-//}
 
 #endif

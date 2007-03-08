@@ -112,6 +112,8 @@ public:
     //QString _packageName() const {return d->fileCodec;}
 
 
+    int maxLineLength(){return d->_maxLineLength>70?d->_maxLineLength:-1;}
+
     void setErrorIndex(const QList<uint>& errors){d->_errorIndex=errors;};
 
     void setImportPluginID(const QString& id){d->_importID=id;};

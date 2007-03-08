@@ -71,13 +71,15 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
     if ( mimetype != "application/x-gettext")
         return UNSUPPORTED_TYPE;
 
-    KSaveFile file(localFile);
+    //KSaveFile file(localFile);
+    QFile file(localFile);
 
-    if (!file.open(/*QIODevice::WriteOnly*/))
+    if (!file.open(QIODevice::WriteOnly))
     {
         //emit signalError(i18n("Wasn't able to open file %1",filename.ascii()));
         return OS_ERROR;
     }
+    //kWarning() << "SAVE NAME "<<localFile << endl;
 
 //      int progressRatio = qMax(100/ qMax(catalog->numberOfEntries(),uint(1)), uint(1));
 //       emit signalResetProgressBar(i18n("saving file"),100);
@@ -225,7 +227,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
     }
 
 //       emit signalProgress(100);
-    file.finalize();
+    //file.finalize();
     file.close();
 
 //       emit signalClearProgressBar();
@@ -290,7 +292,8 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         stream << keyword << " \"\"\n";
         return; 
     }
-    else if ( m_wrapWidth == -1 )
+
+    if ( m_wrapWidth == -1 )
     {
         // Traditional KBabel wrapping
         QStringList list = text.split( '\n', QString::SkipEmptyParts );
@@ -313,12 +316,10 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         }
         return;
     }
-    else if ( ( !m_wrapWidth )
-        || ( m_wrapWidth < 0 ) // Unknown special wrapping, so assume "no wrap" instead
-        )
+
+    if ( m_wrapWidth <= 0 ) // Unknown special wrapping, so assume "no wrap" instead
     {
         // No wrapping (like Gettext's --no.wrap or -w0 )
-        
         // we need to remove the \n characters, as they are extra characters
         QString realText( text );
         realText.remove( '\n' );
@@ -326,57 +327,56 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         return;
     }
 
-    // ### TODO: test!
-    // Normal wrapping like Gettext's -w parameter with a value bigger than 0
-    // From here on, we assume that we have an non-empty text and a positive non-null m_wrapWidth
-    
-    // we need to remove the \n characters, as they are extra characters
-    QString realText( text );
-    realText.remove( '\n' );
+    // lazy wrapping
+    QStringList list = text.split( '\n', QString::SkipEmptyParts );
 
-    bool needFirstEmptyLine = false;
-    if ( realText.indexOf( "\\n" ) != -1 )
+    if ( text.startsWith( "\n" ) )
+        list.prepend( QString() );
+
+    if(list.isEmpty())
+        list.append( QString() );
+
+    int max=m_wrapWidth-2;
+    bool prependedEmptyLine=false;
+    QStringList::iterator itm;
+    for( itm = list.begin(); itm != list.end(); ++itm )
     {
-        // We have more than one (logical) line, so write the extra empty line
-        needFirstEmptyLine = true;
-    }
-    else
-    {
-        // We must see if the text would fit in one line, including the keyword, a space and two quote characters.
-        const int rest = text.length() + keyword.length() + 3 - m_wrapWidth;
-        if ( rest > 0 )
+        if (list.count()==1 && itm->length()>max-keyword.length()-1)
         {
-            needFirstEmptyLine = true;
+            prependedEmptyLine=true;
+            itm=list.insert(itm,"");
+        }
+
+        if (itm->length()>max)
+        {
+            int pos = itm->lastIndexOf(QRegExp("[ >.]"),max-1);
+            if (pos>0)
+            {
+                int pos2 = itm->indexOf(QRegExp("<"),pos);
+                if (pos2>0&&pos2<max-1)
+                    pos=itm->indexOf(QRegExp("<"),pos);
+                ++pos;
+            }
+            else
+                pos=max;
+            //itm=list.insert(itm,itm->left(pos));
+            QString t=*itm;
+            itm=list.insert(itm,t);
+            itm++;
+            (*itm)=itm->remove(0,pos);
+            itm--;
+            itm->truncate(pos);
         }
     }
-    int availableWidth = m_wrapWidth;
-    if ( needFirstEmptyLine )
+
+    if( !prependedEmptyLine && list.count() > 1 )
+        list.prepend( QString() );
+
+    stream << keyword << " ";
+
+    QStringList::const_iterator it;
+    for( it = list.constBegin(); it != list.constEnd(); ++it )
     {
-        stream << keyword << " \"\"\n";
-    }
-    else
-    {
-        stream << keyword << " ";
-        availableWidth -= keyword.length();
-        availableWidth--; // The space after the keyword
-    }
-    
-    const int spanLength = realText.length();
-    for ( int pos = 0; pos < spanLength; )
-    {
-        availableWidth -= 2; // Count the quote characters
-        if ( availableWidth < 2 )
-        {
-            // Be sure that at least two useful characters are written, even if the wrap width is too small
-            availableWidth = 2;
-        }
-        const int newlinePos = realText.indexOf( "\\n", pos );
-        if ( ( newlinePos >= 0 ) && ( newlinePos - pos + 2 < availableWidth ) )
-        {
-            // The newline is near than the maximum available numbers of characters
-            availableWidth = newlinePos - pos + 2;
-        }
-        stream << '\"' << realText.mid( pos, availableWidth ) << "\"\n";
-        pos += availableWidth;
+        stream << "\"" << (*it) << "\"\n";
     }
 }

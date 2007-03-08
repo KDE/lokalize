@@ -345,3 +345,10 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
     }
 
 }
+
+
+
+
+
+
+

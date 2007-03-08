@@ -147,7 +147,7 @@ protected:
     void setHeader( const CatalogItem& header );
     /** set the MIME types which can be used for this catalog */
     void setMimeTypes( const QString& catalog );
-    
+
     /** start a new transaction. You should never call this method. */
     void startTransaction();
     /** commit the data in the current transaction. You should never call this method. */
@@ -156,6 +156,7 @@ protected:
     /** Flag, whether the operation should be stopped immediately.*/
     bool isStopped() const;
     
+    int _maxLineLength;
 // signals:
 //     /** Signal start of the operation */
 //     void signalResetProgressBar(QString,int);

@@ -89,6 +89,9 @@ public:
     //    QMap< QString, QStringList > msgstr2MsgidDiffList;
     //    Q3IntCache<QString> diffCache;
     
+    //for wrapping
+    short _maxLineLength;
+    
     int _numberOfPluralForms;
     QString _language;
     QString _langCode;
@@ -108,6 +111,8 @@ public:
 
     //for undo/redo
     DocPosition _posBuffer;
+
+
    
    explicit CatalogPrivate(/*Project::Ptr project*/) : 
 	//_packageName( QString::null ), _packageDir( QString::null ),
