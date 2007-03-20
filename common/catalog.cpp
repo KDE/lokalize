@@ -52,7 +52,6 @@
 #include <kio/netaccess.h>
 #include <kmessagebox.h>
 #include <kdatetime.h>
-#include <krfcdate.h>
 
 #include "gettextimport.h"
 #include "catalog.h"
@@ -336,13 +335,8 @@ void Catalog::updateHeader(bool forSaving)
         headerList.append(temp);
 
     //    QString dateTimeString = KDateTime::currentUtcDateTime().toString("yyyy-MM-dd hh:mmz");
-    QString dateTimeString = KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm");
-    QTime t;
-    const int offset = KRFCDate::localUTCOffset();
-    const int correction = offset < 0 ? -60 : 60 ;
-    t = t.addSecs( offset * correction );
-    dateTimeString += ( offset < 0 ? "-" : "+" );
-    dateTimeString += t.toString("hhmm");
+    QString dateTimeString =
+        KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm %z");
 
     found=false;
 
