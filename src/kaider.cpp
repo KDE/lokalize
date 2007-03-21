@@ -266,7 +266,7 @@ void KAider::createDockWindows()
 void KAider::fileOpen(KUrl url)
 {
     if (url.isEmpty())
-        url=KFileDialog::getOpenUrl(_catalog->url().url(), "application/x-gettext",this);
+        url=KFileDialog::getOpenUrl(_catalog->url().url(), "text/x-gettext-translation",this);
     if (url.isEmpty())
         return;
 /*    
@@ -291,7 +291,7 @@ void KAider::fileOpen(KUrl url)
     QString target;
     if( KIO::NetAccess::download( url, target, this ) )
     {
-        importer.open(target,QString("application/x-gettext"),_catalog);
+        importer.open(target,QString("text/x-gettext-translation"),_catalog);
         KIO::NetAccess::removeTempFile( target );
 
         statusBar()->changeItem(i18n("Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
@@ -326,7 +326,7 @@ bool KAider::fileSave()
 //     if ( url.isLocalFile() )
     QString localFile = _currentURL.path();
     //kWarning() << "SAVE NAME "<<localFile << endl;
-    status = exporter.save(localFile,QString("application/x-gettext"),_catalog);
+    status = exporter.save(localFile,QString("text/x-gettext-translation"),_catalog);
     if (status==OK)
     {
         _catalog->setClean();

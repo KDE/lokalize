@@ -262,7 +262,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    setCatalogExtraData(tempObsolete);
    setErrorIndex(errorIndex);
    setFileCodec(codec);
-   setMimeTypes( "application/x-gettext" );
+   setMimeTypes( "text/x-gettext-translation" );
 
    if ( recoveredErrorInHeader )
    {

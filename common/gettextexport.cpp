@@ -67,8 +67,8 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
     if ( catalog->importPluginID() != "GNU gettext")
         return UNSUPPORTED_TYPE;
 
-    // we support on the application/x-gettext MIME type
-    if ( mimetype != "application/x-gettext")
+    // we support on the text/x-gettext-translation MIME type
+    if ( mimetype != "text/x-gettext-translation")
         return UNSUPPORTED_TYPE;
 
     //KSaveFile file(localFile);

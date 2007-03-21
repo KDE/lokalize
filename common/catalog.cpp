@@ -222,7 +222,7 @@ ConversionStatus Catalog::openUrl(const KUrl& url/*, const QString& package*/)
     QString target;
     if( KIO::NetAccess::download( url, target, NULL ) )
     {
-        status = importer.open(target,QString("application/x-gettext"),this);
+        status = importer.open(target,QString("text/x-gettext-translation"),this);
         KIO::NetAccess::removeTempFile( target );
         d->_url=url;
 
