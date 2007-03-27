@@ -37,7 +37,7 @@
 // #include <kemailsettings.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include <kprocess.h>
+#include <k3process.h>
 #include <ktemporaryfile.h>
 
 #include <stdlib.h>
@@ -90,7 +90,7 @@ QString GNUPluralForms(const QString& lang)
     
     str.flush();
 
-    KProcess msginit;
+    K3Process msginit;
     
     msginit << "msginit";
     msginit 
@@ -103,7 +103,7 @@ QString GNUPluralForms(const QString& lang)
 	<< "--no-translator" 
 	<< "--no-wrap" ;
     
-    msginit.start( KProcess::Block );
+    msginit.start( K3Process::Block );
     
     QString res("");
     
