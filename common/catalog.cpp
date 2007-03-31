@@ -36,14 +36,8 @@
 
 #include <kglobal.h>
 #include <klocale.h>
-#include <k3process.h>
-#include <ktemporaryfile.h>
-#include <QTextCodec>
-#include <QTextStream>
 
-#include <stdlib.h>
-
-
+#include <QProcess>
 
 #include <QString>
 #include <QMap>
@@ -60,10 +54,64 @@
 
 Catalog* Catalog::_instance=0;
 
+
+QString GNUPluralForms(const QString& lang)
+{
+//     Needs testing for M$ OS
+    QStringList arguments;
+    arguments << "-l" << lang
+              << "-i" << "-"
+              << "-o" << "-"
+              << "--no-translator"
+              << "--no-wrap";
+    QProcess msginit;
+    msginit.start("msginit", arguments);
+
+    msginit.waitForStarted(5000);
+    if (msginit.state()!=QProcess::Running)
+        return QString("");
+
+    msginit.write(
+                   "# SOME DESCRIPTIVE TITLE.\n"
+                   "# Copyright (C) YEAR Free Software Foundation, Inc.\n"
+                   "# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n"
+                   "#\n"
+                   "#, fuzzy\n"
+                   "msgid \"\"\n"
+                   "msgstr \"\"\n"
+                   "\"Project-Id-Version: PACKAGE VERSION\\n\"\n"
+                   "\"POT-Creation-Date: 2002-06-25 03:23+0200\\n\"\n"
+                   "\"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n\"\n"
+                   "\"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n\"\n"
+                   "\"Language-Team: LANGUAGE <LL@li.org>\\n\"\n"
+                   "\"MIME-Version: 1.0\\n\"\n"
+                   "\"Content-Type: text/plain; charset=UTF-8\\n\"\n"
+                   "\"Content-Transfer-Encoding: ENCODING\\n\"\n"
+                  );
+    msginit.closeWriteChannel();
+
+    if (!msginit.waitForFinished(5000))
+         return QString("");
+
+    QByteArray result = msginit.readAll();
+    int pos = result.indexOf("Plural-Forms: ");
+    if (pos==-1)
+        return QString("");
+    pos+=14;
+
+    int end = result.indexOf("\"",pos);
+    if (end==-1)
+        return QString("");
+
+    return QString( result.mid(pos,end-pos-2) );
+}
+
+
 Catalog* Catalog::instance()
 {
     if (_instance==0)
         _instance=new Catalog();
+
     return _instance;
 }
 
@@ -761,76 +809,6 @@ void Catalog::updateHeader(bool forSaving)
 
 
 
-
-
-QString GNUPluralForms(const QString& lang)
-{
-    KTemporaryFile infile, outfile;
-    infile.open();
-    outfile.open();
-
-    QTextStream str ( &infile );
-
-    str << "# SOME DESCRIPTIVE TITLE." << endl;
-    str << "# Copyright (C) YEAR Free Software Foundation, Inc." << endl;
-    str << "# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR." << endl;
-    str << "#" << endl;
-    str << "#, fuzzy" << endl;
-    str << "msgid \"\"" << endl;
-    str << "msgstr \"\"" << endl;
-    str << "\"Project-Id-Version: PACKAGE VERSION\\n\"" << endl;
-    str << "\"POT-Creation-Date: 2002-06-25 03:23+0200\\n\"" << endl;
-    str << "\"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n\"" << endl;
-    str << "\"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n\"" << endl;
-    str << "\"Language-Team: LANGUAGE <LL@li.org>\\n\"" << endl;
-    str << "\"MIME-Version: 1.0\\n\"" << endl;
-    str << "\"Content-Type: text/plain; charset=UTF-8\\n\"" << endl;
-    str << "\"Content-Transfer-Encoding: ENCODING\\n\"" << endl;
-
-    str.flush();
-
-    K3Process msginit;
-
-    msginit << "msginit";
-    msginit
-    << "-l"
-    << lang
-    << "-i"
-    << infile.fileName()
-    << "-o"
-    << outfile.fileName()
-    << "--no-translator"
-    << "--no-wrap" ;
-
-    msginit.start( K3Process::Block );
-
-    QString res("");
-
-    if ( msginit.normalExit() )
-    {
-        // parse out the plural form string
-        outfile.seek(0);
-        QTextStream str(&outfile);
-
-        QString line;
-        do
-        {
-            line = str.readLine();
-
-            if ( line.startsWith( "\"Plural-Forms:" ) )
-            {
-                kDebug() << "Plural form line: " << line << endl;
-                QRegExp re( "^\"Plural-Forms: *(.*)\\\\n\"" );
-                re.indexIn( line );
-                res = re.cap(1);
-                break;
-            }
-        }
-        while (!str.atEnd() );
-    }
-
-    return res;
-}
 
 
 #include "catalog.moc"

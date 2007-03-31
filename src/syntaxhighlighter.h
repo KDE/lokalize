@@ -34,6 +34,7 @@
 #define HIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
+#include <sonnet/highlighter.h>
 
 #include <QHash>
 #include <QTextCharFormat>

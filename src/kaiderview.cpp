@@ -43,6 +43,8 @@
 #include "settings.h"
 #include "syntaxhighlighter.h"
 
+//#include <loader.h>
+
 KAiderView::KAiderView(QWidget *parent/*,Catalog* catalog,keyEventHandler* kh*/):
         QSplitter(Qt::Vertical,parent),
 //        _catalog(catalog),
@@ -54,9 +56,7 @@ KAiderView::KAiderView(QWidget *parent/*,Catalog* catalog,keyEventHandler* kh*/)
 {
     _catalog=Catalog::instance();
     //ui_kaiderview_base.setupUi(this);
-/*    settingsChanged();
-
-*/
+//    settingsChanged();
     _tabbar->hide();
 
     _msgidEdit->setReadOnly(true);
@@ -71,10 +71,12 @@ KAiderView::KAiderView(QWidget *parent/*,Catalog* catalog,keyEventHandler* kh*/)
     _msgidEdit->document()->setDefaultFont(Settings::msgFont());
     _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
 
-     /*SyntaxHighlighter* */highlighter = new SyntaxHighlighter(_msgidEdit->document());
-     highlighter = new SyntaxHighlighter(_msgstrEdit->document());
+    highlighter = new SyntaxHighlighter(_msgidEdit->document());
+    highlighter = new SyntaxHighlighter(_msgstrEdit->document());
 
     _msgstrEdit->installEventFilter(this);
+
+    
 
     addWidget(_tabbar);
     addWidget(_msgidEdit);
