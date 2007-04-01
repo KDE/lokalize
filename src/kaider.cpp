@@ -39,7 +39,6 @@
 #include <klocale.h>
 #include <kicon.h>
 #include <kstatusbar.h>
-#include <kkeydialog.h>
 #include <kio/netaccess.h>
 #include <kdebug.h>
 
