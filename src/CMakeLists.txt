@@ -8,6 +8,7 @@ set(kaider_SRCS
    kaider_prefs.cpp
    kaiderview.cpp
    syntaxhighlighter.cpp
+   klanguagebutton.cpp
    ../common/catalog.cpp
    ../common/catalogitem.cpp
    ../common/importplugin.cpp
