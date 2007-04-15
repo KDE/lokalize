@@ -40,18 +40,19 @@
 #include <kapplication.h>
 #include <kmainwindow.h>
 
-// #include <kfinddialog.h>
-// #include <kfind.h>
 #include <kreplacedialog.h>
 #include <kreplace.h>
 
 #include "kaiderview.h"
-#include "ui_prefs_identity.h"
-#include "ui_prefs_font.h"
 
 //class Catalog;
 class KToggleAction;
 class KUrl;
+
+class Ui_prefs_identity;
+class Ui_prefs_font;
+class Ui_findExtension;
+
 
 /**
  * This class serves as the main window for KAider.  It handles the
@@ -156,8 +157,6 @@ private:
 //     void emitSignals();
 
 private:
-    Ui_prefs_identity ui_prefs_identity;
-    Ui_prefs_font ui_prefs_font;
     KAiderView *_view;
 
     KFindDialog* _findDialog;
@@ -165,6 +164,10 @@ private:
     KReplaceDialog* _replaceDialog;
     KReplace* _replace;
 
+    Ui_prefs_identity* ui_prefs_identity;
+    Ui_prefs_font* ui_prefs_font;
+    Ui_findExtension* ui_findExtension;
+    Ui_findExtension* ui_replaceExtension;
 
     Catalog* _catalog;
 

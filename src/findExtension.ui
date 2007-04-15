@@ -1,0 +1,41 @@
+<ui version="4.0" stdsetdef="1" >
+  <author></author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>findExtension</class>
+  <widget class="QWidget" name="findExtension" >
+    <layout class="QVBoxLayout" >
+      <property name="margin" >
+        <number>0</number>
+      </property>
+      <item>
+        <layout class="QVBoxLayout" >
+          <property name="margin" >
+            <number>0</number>
+          </property>
+          <item>
+            <widget class="QCheckBox" name="m_ignoreAccelMarks" >
+              <property name="text" >
+                <string>Ignore accelerator marks</string>
+              </property>
+              <property name="whatsThis" stdset="0" >
+                <string>Ignore accelerator marks</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <widget class="QCheckBox" name="m_skipTags" >
+              <property name="text" >
+                <string>Skip tags</string>
+              </property>
+              <property name="whatsThis" stdset="0" >
+                <string>Skip tags</string>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+</ui>

@@ -55,6 +55,9 @@
 #include "cmd.h"
 #include "settings.h"
 
+#include "ui_prefs_identity.h"
+#include "ui_prefs_font.h"
+
 
 void KAider::optionsPreferences()
 {
@@ -65,26 +68,33 @@ void KAider::optionsPreferences()
 
 // Identity
     QWidget *w = new QWidget;
-    ui_prefs_identity.setupUi(w);
+    if (!ui_prefs_identity)
+        ui_prefs_identity = new Ui_prefs_identity;
+    ui_prefs_identity->setupUi(w);
+
+
+    Settings::self()->config()->setGroup("Identity");
+    QString val( Settings::self()->config()->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()) );
 
     QStringList langlist = KGlobal::locale()->allLanguagesTwoAlpha();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
-        ui_prefs_identity.DefaultLangCode->insertLanguage(*it,
-                KGlobal::locale()->twoAlphaToLanguageName(*it),
-                        QLatin1String("l10n/"), QString());
+        ui_prefs_identity->DefaultLangCode->addItem(*it);
+        if (*it==val)
+            ui_prefs_identity->DefaultLangCode->setCurrentIndex(ui_prefs_identity->DefaultLangCode->count()-1);
+
     }
-    Settings::self()->config()->setGroup("Identity");
-    ui_prefs_identity.DefaultLangCode->setCurrentItem(
-            Settings::self()->config()->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()));
-    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(const QString&)));
-    ui_prefs_identity.kcfg_DefaultLangCode->hide();
+
+    connect(ui_prefs_identity->DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity->kcfg_DefaultLangCode,SLOT(setText(const QString&)));
+    ui_prefs_identity->kcfg_DefaultLangCode->hide();
 
     dialog->addPage(w, i18n("Identity"), "identity_setting");
 
 //Font
     w = new QWidget;
-    ui_prefs_font.setupUi(w);
+    if (!ui_prefs_font)
+        ui_prefs_font = new Ui_prefs_font;
+    ui_prefs_font->setupUi(w);
     dialog->addPage(w, i18n("Fonts"), "font_setting");
 
 

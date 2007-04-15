@@ -48,37 +48,60 @@
 #include "pos.h"
 #include "cmd.h"
 #include "settings.h"
+#include "ui_findExtension.h"
 
-
+//#define FIND_IGNOREACCELS 2048
+//#define FIND_SKIPTAGS 4096
+#define FIND_IGNOREACCELS ui_findExtension->m_ignoreAccelMarks->isChecked()
+#define FIND_SKIPTAGS ui_findExtension->m_skipTags->isChecked()
+#define REPLACE_IGNOREACCELS ui_replaceExtension->m_ignoreAccelMarks->isChecked()
 
 
 void KAider::find()
 {
+
     if( !_findDialog )
     {
         _findDialog = new KFindDialog(this,"kaider_find");
+        if( !ui_findExtension ) //we actually dont need this check...
+            ui_findExtension = new Ui_findExtension;
+        ui_findExtension->setupUi(_findDialog->findExtension());
     }
 
     if (!_view->selection().isEmpty())
-        _findDialog->setPattern(_view->selection());
+    {
+        if (FIND_IGNOREACCELS)
+        {
+            QString tmp(_view->selection());
+            tmp.remove('&');
+            _findDialog->setPattern(tmp);
+        }
+        else
+            _findDialog->setPattern(_view->selection());
+    }
+
     if ( _findDialog->exec() != QDialog::Accepted )
         return;
 //HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory() << endl;
      _findDialog->setPattern(_findDialog->findHistory().first());
 
-    if ( !_find ) // This creates a find-next-prompt dialog if needed.
+    if (_find)
+    {
+        _find->resetCounts();
+        _find->setPattern(_findDialog->pattern());
+        _find->setOptions(_findDialog->options()
+//                          +ui_findExtension->m_ignoreAccelMarks->isChecked()?FIND_IGNOREACCELS:0
+//                          +ui_findExtension->m_skipTags->isChecked()?FIND_SKIPTAGS:0
+                         );
+
+    }
+    else // This creates a find-next-prompt dialog if needed.
     {
         _find = new KFind(_findDialog->pattern(),_findDialog->options(),this,_findDialog);
         connect(_find,SIGNAL(highlight(const QString&,int,int)),
                 this, SLOT(highlightFound(const QString &,int,int)) );
         connect(_find,SIGNAL(findNext()),this,SLOT(findNext()));
         _find->closeFindNextDialog();
-    }
-    else
-    {
-        _find->resetCounts();
-        _find->setPattern(_findDialog->pattern());
-        _find->setOptions(_findDialog->options());
     }
 
     DocPosition pos;
@@ -105,6 +128,7 @@ void KAider::find()
 
 void KAider::findNext(const DocPosition& startingPos)
 {
+
     _searchingPos=startingPos;
     //_searchingPos.part=Msgid;
     int flag=1;
@@ -117,10 +141,15 @@ void KAider::findNext(const DocPosition& startingPos)
         {
             if (_find->needData())
             {
+                QString data;
                 if (_searchingPos.part==Msgid)
-                    _find->setData(_catalog->msgid(_searchingPos.entry,_searchingPos.form)/*,offset*/);
+                    data=_catalog->msgid(_searchingPos.entry,_searchingPos.form)/*,offset*/;
                 else
-                    _find->setData(_catalog->msgstr(_searchingPos.entry,_searchingPos.form)/*,offset*/);
+                    data=_catalog->msgstr(_searchingPos.entry,_searchingPos.form)/*,offset*/;
+
+                if (FIND_IGNOREACCELS)
+                    data.remove('&');
+                _find->setData(data);
             }
 
             res = _find->find();
@@ -155,18 +184,22 @@ void KAider::findNext(const DocPosition& startingPos)
             _find->resetCounts();
         }
     }
+
 }
 
 void KAider::findNext()
 {
+
     if (_find)
         findNext(_currentPos);
     else
         find();
+
 }
 
 void KAider::findPrev()
 {
+
     if (_find)
     {
         _find->setOptions(_find->options() ^ KFind::FindBackwards);
@@ -176,23 +209,58 @@ void KAider::findPrev()
     {
         find();
     }
+
 }
 
 void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
+
+    if (FIND_IGNOREACCELS)
+    {
+        QString data;
+        if (_searchingPos.part==Msgid)
+            data=_catalog->msgid(_searchingPos.entry,_searchingPos.form);
+        else
+            data=_catalog->msgstr(_searchingPos.entry,_searchingPos.form);
+        int i=0;
+        for (;i<matchingIndex;++i)
+            if (data.at(i)=='&')
+                ++matchingIndex;
+
+        for (i=matchingIndex;i<matchingIndex+matchedLength;++i)
+            if (data.at(i)=='&')
+                ++matchedLength;
+    }
+
     _searchingPos.offset=matchingIndex;
     gotoEntry(_searchingPos,matchedLength);
+
 }
 
 void KAider::replace()
 {
+
     if( !_replaceDialog )
     {
         _replaceDialog = new KReplaceDialog(this,"kaider_replace");
+        if( !ui_replaceExtension ) //we actually dont need this check...
+            ui_replaceExtension = new Ui_findExtension;
+        ui_replaceExtension->setupUi(_replaceDialog->replaceExtension());
     }
 
+
     if (!_view->selection().isEmpty())
-        _replaceDialog->setPattern(_view->selection());
+    {
+        if (REPLACE_IGNOREACCELS)
+        {
+            QString tmp(_view->selection());
+            tmp.remove('&');
+            _replaceDialog->setPattern(tmp);
+        }
+        else
+            _replaceDialog->setPattern(_view->selection());
+    }
+
 
     if ( _replaceDialog->exec() != QDialog::Accepted )
         return;
@@ -207,7 +275,7 @@ void KAider::replace()
         _replace=0;
     }
 
-    if (!_replace) // This creates a find-next-prompt dialog if needed.
+    // This creates a find-next-prompt dialog if needed.
     {
         _replace = new KReplace(_replaceDialog->pattern(),_replaceDialog->replacement(),_replaceDialog->options(),this,_replaceDialog);
         connect(_replace,SIGNAL(highlight(const QString&,int,int)),
@@ -217,12 +285,12 @@ void KAider::replace()
                 this,SLOT(doReplace(const QString&,int,int,int)));
 //         _replace->closeReplaceNextDialog();
     }
-    else
-    {
-        _replace->resetCounts();
-        _replace->setPattern(_replaceDialog->pattern());
-        _replace->setOptions(_replaceDialog->options());
-    }
+//     else
+//     {
+//         _replace->resetCounts();
+//         _replace->setPattern(_replaceDialog->pattern());
+//         _replace->setOptions(_replaceDialog->options());
+//     }
 
     _catalog->beginMacro(i18n("Replace"));
 
@@ -253,6 +321,7 @@ void KAider::replace()
 
 void KAider::replaceNext(const DocPosition& startingPos)
 {
+
     _replacingPos=startingPos;
     int flag=1;
 //     int offset=_replacingPos.offset;
@@ -263,7 +332,16 @@ void KAider::replaceNext(const DocPosition& startingPos)
         while (1)
         {
             if ( _replace->needData() )
-                _replace->setData( _catalog->msgstr(_replacingPos.entry,_replacingPos.form));
+            {
+                if (REPLACE_IGNOREACCELS)
+                {
+                    QString data(_catalog->msgstr(_replacingPos.entry,_replacingPos.form));
+                    data.remove('&');
+                    _replace->setData(data);
+                }
+                else
+                    _replace->setData( _catalog->msgstr(_replacingPos.entry,_replacingPos.form));
+            }
             res = _replace->replace();
 //             offset=-1;
             if (res!=KFind::NoMatch)
@@ -304,17 +382,38 @@ void KAider::replaceNext(const DocPosition& startingPos)
             _replace->resetCounts();
         }
     }
+
 }
 
 void KAider::replaceNext()
 {
+
     replaceNext(_currentPos);
+
 }
 
 void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
+    if (REPLACE_IGNOREACCELS)
+    {
+        QString data;
+        if (_replacingPos.part==Msgid)
+            data=_catalog->msgid(_replacingPos.entry,_replacingPos.form);
+        else
+            data=_catalog->msgstr(_replacingPos.entry,_replacingPos.form);
+        int i=0;
+        for (;i<matchingIndex;++i)
+            if (data.at(i)=='&')
+                ++matchingIndex;
+
+        for (i=matchingIndex;i<matchingIndex+matchedLength;++i)
+            if (data.at(i)=='&')
+                ++matchedLength;
+    }
+
     _replacingPos.offset=matchingIndex;
     gotoEntry(_replacingPos,matchedLength);
+
 }
 
 
@@ -322,12 +421,23 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 {
     QString oldStr=_catalog->msgstr(_replacingPos.entry,_replacingPos.form);
 
-    DocPosition pos=_replacingPos;
-    pos.offset=offset;
+    if (REPLACE_IGNOREACCELS)
+    {
+        int i=0;
+        for (;i<offset;++i)
+            if (oldStr.at(i)=='&')
+                ++offset;
+
+        for (i=offset;i<offset+remLen;++i)
+            if (oldStr.at(i)=='&')
+                ++remLen;
+    }
 
     QString tmp=oldStr.mid(offset,remLen);
-    if (tmp==_replaceDialog->pattern())
-        tmp=_replaceDialog->pattern();
+//     if (tmp==_replaceDialog->pattern())
+//         tmp=_replaceDialog->pattern();
+    DocPosition pos=_replacingPos;
+    pos.offset=offset;
     _catalog->push(new DelTextCmd(/*_catalog,*/pos,tmp));
 
     if (newLen)
@@ -343,7 +453,6 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
         pos.offset+=newLen;
         _view->gotoEntry(pos);
     }
-
 }
 
 
@@ -351,4 +460,6 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 
 
 
+#undef FIND_IGNOREACCELS
+#undef FIND_SKIPTAGS
 

@@ -69,7 +69,7 @@
     <widget class="QLineEdit" name="kcfg_DefaultMailingList" />
    </item>
    <item row="2" column="1" >
-    <widget class="KLanguageButton" native="1" name="DefaultLangCode" />
+    <widget class="QComboBox" name="DefaultLangCode" />
    </item>
    <item row="5" column="0" colspan="2" >
     <spacer>
@@ -97,17 +97,6 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
- <customwidgets>
-  <customwidget>
-   <class>KLanguageButton</class>
-   <extends>QWidget</extends>
-   <header>klanguagebutton.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
- <includes>
-  <include location="global" >klanguagebutton.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

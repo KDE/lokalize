@@ -67,14 +67,19 @@
 
 
 KAider::KAider()
-    : KMainWindow(),
-      _view(new KAiderView(this/*,_catalog,new keyEventHandler(this,_catalog)*/)),
-      _findDialog(0),
-      _find(0),
-      _replaceDialog(0),
-      _replace(0)
+    : KMainWindow()
+    , _view(new KAiderView(this/*,_catalog,new keyEventHandler(this,_catalog)*/))
+    , _findDialog(0)
+    , _find(0)
+    , _replaceDialog(0)
+    , _replace(0)
+    , ui_prefs_identity(0)
+    , ui_prefs_font(0)
+    , ui_findExtension(0)
+    , ui_replaceExtension(0)
+    , _catalog(Catalog::instance())
 {
-    _catalog=Catalog::instance();
+
 
     setAcceptDrops(true);
     setCentralWidget(_view);
@@ -91,8 +96,21 @@ KAider::KAider()
 KAider::~KAider()
 {
     delete _view;
-//     if(_findDialog)
-//         delete _findDialog;
+    if(_findDialog)
+        delete _findDialog;
+    if(_replaceDialog)
+        delete _replaceDialog;
+    if(_find)
+        delete _find;
+    if(_replace)
+        delete _replace;
+//     if (ui_findExtension)
+//         delete ui_findExtension;
+//     if (ui_prefs_identity)
+//         delete ui_prefs_identity;
+//     if (ui_prefs_font)
+//         delete ui_prefs_font;
+// we're exiting anyways...
 }
 
 #define ID_STATUS_TOTAL 1
