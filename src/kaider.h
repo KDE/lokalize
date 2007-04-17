@@ -38,7 +38,7 @@
 #endif
 
 #include <kapplication.h>
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 
 #include <kreplacedialog.h>
 #include <kreplace.h>
@@ -62,7 +62,7 @@ class Ui_findExtension;
  * @author Nick Shaforostoff <shafff@ukr.net>
  * @version 0.1
  */
-class KAider : public KMainWindow
+class KAider : public KXmlGuiWindow
 {
     Q_OBJECT
 

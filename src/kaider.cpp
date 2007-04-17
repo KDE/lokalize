@@ -67,7 +67,7 @@
 
 
 KAider::KAider()
-    : KMainWindow()
+    : KXmlGuiWindow()
     , _view(new KAiderView(this/*,_catalog,new keyEventHandler(this,_catalog)*/))
     , _findDialog(0)
     , _find(0)
