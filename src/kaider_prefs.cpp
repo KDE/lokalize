@@ -64,7 +64,8 @@ void KAider::optionsPreferences()
     if (KConfigDialog::showDialog("settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self(), KPageDialog::List);
+    KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
+    dialog->setFaceType(KPageDialog::List);
 
 // Identity
     QWidget *w = new QWidget;

@@ -62,7 +62,7 @@ void KAider::find()
 
     if( !_findDialog )
     {
-        _findDialog = new KFindDialog(this,"kaider_find");
+        _findDialog = new KFindDialog(this);
         if( !ui_findExtension ) //we actually dont need this check...
             ui_findExtension = new Ui_findExtension;
         ui_findExtension->setupUi(_findDialog->findExtension());
@@ -242,7 +242,7 @@ void KAider::replace()
 
     if( !_replaceDialog )
     {
-        _replaceDialog = new KReplaceDialog(this,"kaider_replace");
+        _replaceDialog = new KReplaceDialog(this);
         if( !ui_replaceExtension ) //we actually dont need this check...
             ui_replaceExtension = new Ui_findExtension;
         ui_replaceExtension->setupUi(_replaceDialog->replaceExtension());
