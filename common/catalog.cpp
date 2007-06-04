@@ -433,10 +433,10 @@ void Catalog::updateHeader(bool forSaving)
             found=true;
             //really parse header
             QMap<QString,QString> map;
-            QStringList langlist = KGlobal::locale()->allLanguagesTwoAlpha();
+            QStringList langlist = KGlobal::locale()->languageList();
             QStringList::const_iterator myit;
             for (myit=langlist.begin();myit!=langlist.end();++myit)
-                map[locale.twoAlphaToLanguageName(*myit)]=*myit;
+                map[locale.languageCodeToName(*myit)]=*myit;
 
             QRegExp re("^ *Language-Team: *(.*) *<");
             QString val;
@@ -446,7 +446,7 @@ void Catalog::updateHeader(bool forSaving)
             ait=it;
         }
     }
-    d->_language=locale.twoAlphaToLanguageName(d->_langCode);
+    d->_language=locale.languageCodeToName(d->_langCode);
 
     temp="Language-Team: "+d->_language;
     if (!identityOptions->readEntry("DefaultMailingList").isEmpty())

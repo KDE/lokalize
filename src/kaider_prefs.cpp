@@ -77,7 +77,7 @@ void KAider::optionsPreferences()
     Settings::self()->config()->setGroup("Identity");
     QString val( Settings::self()->config()->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()) );
 
-    QStringList langlist = KGlobal::locale()->allLanguagesTwoAlpha();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
+    QStringList langlist = KGlobal::locale()->languageList();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
         ui_prefs_identity->DefaultLangCode->addItem(*it);
