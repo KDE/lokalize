@@ -72,7 +72,6 @@ protected:
 //     }
 };
 
-class KUrl;
 
 /**
  * This is the main view class for KAider.  Most of the non-menu,

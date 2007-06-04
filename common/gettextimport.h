@@ -42,8 +42,6 @@
 #include <QStringList>
 #include <QTextStream>
 
-class KUrl;
-class QFile;
 class QTextCodec;
 
 /* ****************************************************************************

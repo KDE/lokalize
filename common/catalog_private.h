@@ -54,12 +54,8 @@
 
 class QString;
 class QTextStream;
-class KFileInfo;
 class QTextCodec;
-class QFile;
-// class FindOptions;
-class KConfig;
-
+// 
 class CatalogPrivate
 {
 

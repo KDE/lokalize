@@ -40,9 +40,6 @@
 //namespace KBabel {
 class Catalog;
 
-class KUrl;
-class QFile;
-class QTextCodec;
 
 /**
  * @brief The class for exporting GNU gettext PO files.
