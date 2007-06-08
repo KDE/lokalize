@@ -43,6 +43,7 @@
 #include <QMap>
 
 #include <kdebug.h>
+#include <kglobal.h>
 #include <kio/netaccess.h>
 #include <kmessagebox.h>
 #include <kdatetime.h>
@@ -116,9 +117,10 @@ Catalog* Catalog::instance()
 }
 
 
-Catalog::Catalog(/*QObject *parent*/):QUndoStack()
+Catalog::Catalog(/*QObject *parent*/)
+    : QUndoStack()
+    , d(new CatalogPrivate())
 {
-    d = new CatalogPrivate();
 }
 
 Catalog::~Catalog()
@@ -382,9 +384,8 @@ void Catalog::updateHeader(bool forSaving)
     if (!found)
         headerList.append(temp);
 
-    //    QString dateTimeString = KDateTime::currentUtcDateTime().toString("yyyy-MM-dd hh:mmz");
-    QString dateTimeString =
-        KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm %z");
+        QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
+    //QString dateTimeString = KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm+%z");
 
     found=false;
 

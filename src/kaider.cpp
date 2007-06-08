@@ -59,7 +59,7 @@
 #include "pos.h"
 #include "cmd.h"
 #include "settings.h"
-
+#include "msgiddiff.h"
 
 #include "gettextimport.h"
 #include "gettextexport.h"
@@ -253,31 +253,12 @@ void KAider::setupActions()
 
 void KAider::createDockWindows()
 {
-    QDockWidget *dock = new QDockWidget(i18n("Glossary"), this);
-    dock->setObjectName("Glossary");
-    QListWidget* customerList = new QListWidget(dock);
-    customerList->addItems(QStringList()
-            << "John Doe, Harmony Enterprises, 12 Lakeside, Ambleton"
-            << "Jane Doe, Memorabilia, 23 Watersedge, Beaton");
-    dock->setWidget(customerList);
-    addDockWidget(Qt::BottomDockWidgetArea, dock);
-    actionCollection()->addAction( QLatin1String("showglossary_action"), dock->toggleViewAction() );
+    //signalNewEntryDisplayed
+    MsgIdDiff* msgIdDiff = new MsgIdDiff(this);
+    addDockWidget(Qt::BottomDockWidgetArea, msgIdDiff);
+    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiff->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiff,SLOT(slotNewEntryDisplayed(uint)));
 
-    dock = new QDockWidget(i18n("Comments"), this);
-    dock->setObjectName("Comments");
-    QListWidget* paragraphsList = new QListWidget(dock);
-    paragraphsList->addItems(QStringList()
-            << "Thank you for your payment which we have received today."
-            << "Your order has been dispatched and should be with you "
-                "within 28 days.");
-    dock->setWidget(paragraphsList);
-    addDockWidget(Qt::BottomDockWidgetArea, dock);
-    actionCollection()->addAction( QLatin1String("showcomments_action"), dock->toggleViewAction() );
-
-/*    connect(customerList, SIGNAL(currentTextChanged(const QString &)),
-            this, SLOT(insertCustomer(const QString &)));
-    connect(paragraphsList, SIGNAL(currentTextChanged(const QString &)),
-            this, SLOT(addParagraph(const QString &)));*/
 }
 
 void KAider::fileOpen(KUrl url)

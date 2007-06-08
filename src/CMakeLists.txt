@@ -8,6 +8,7 @@ set(kaider_SRCS
    kaider_prefs.cpp
    kaiderview.cpp
    syntaxhighlighter.cpp
+   msgiddiff.cpp
    ../common/catalog.cpp
    ../common/catalogitem.cpp
    ../common/importplugin.cpp
@@ -15,6 +16,7 @@ set(kaider_SRCS
    ../common/gettextimport.cpp
    ../common/gettextexport.cpp
    ../common/cmd.cpp
+   ../common/diff.cpp
  )
 
 kde4_automoc(${kaider_SRCS})

@@ -35,6 +35,8 @@
 #include <QString>
 
 #include <klocale.h>
+#include <kdebug.h>
+
 // #include <kmessagebox.h>
 // KMessageBox::information(0, QString("'%1'").arg(_str));
 
@@ -203,23 +205,36 @@ void ToggleFuzzyCmd::setFuzzy()
     Catalog::instance()->d->_fuzzyIndex.insert(it,_index);
     Catalog::instance()->emitsignalNumberOfFuzziesChanged();
 
-
+    kWarning() << "BEFORE " << ITEM->_comment << endl;
     if (ITEM->_comment.isEmpty())
     {
         ITEM->_comment="#, fuzzy";
         return;
     }
 
-    _pos.offset=ITEM->_comment.indexOf("#,");
-
-    if(_pos.offset > 0)
-        ITEM->_comment.replace(_pos.offset,2,"#, fuzzy,");
-    else
+    int p=ITEM->_comment.indexOf("#,");
+    if(p!=-1)
     {
-        if(ITEM->_comment[ITEM->_comment.length()-2] != '\n')
+        ITEM->_comment.replace(p,2,"#, fuzzy,");
+            kWarning() << " 3AFETR " << ITEM->_comment << endl;
+        return;
+    }
+
+    QRegExp a("\\#\\:[^\n]*\n");
+    p=a.indexIn(ITEM->_comment);
+    if (p!=-1)
+    {
+        ITEM->_comment.insert(p+a.matchedLength(),"#, fuzzy\n");
+            kWarning() << "1 AFETR " << ITEM->_comment << endl;
+        return;
+    }
+
+    {
+        if( !(ITEM->_comment.endsWith('\n')) )
             ITEM->_comment+='\n';
         ITEM->_comment+="#, fuzzy";
     }
+    kWarning() << "2 AFETR " << ITEM->_comment << endl;
 }
 
 void ToggleFuzzyCmd::unsetFuzzy()
@@ -232,12 +247,16 @@ void ToggleFuzzyCmd::unsetFuzzy()
     Catalog::instance()->d->_fuzzyIndex.removeAll(_index);
     Catalog::instance()->emitsignalNumberOfFuzziesChanged();
 
+    kWarning() << "BEFORE " << ITEM->_comment << endl;
     ITEM->_comment.remove( QRegExp(",\\s*fuzzy"));
 
     // remove empty comment lines
     ITEM->_comment.remove( QRegExp("\n#\\s*$") );
-
     ITEM->_comment.remove( QRegExp("^#\\s*$") );
+    ITEM->_comment.remove( QRegExp("#\\s*\n") );
+    ITEM->_comment.remove( QRegExp("^#\\s*\n") );
+    
+    kWarning() << "AFETR " << ITEM->_comment << endl;
 
 }
 

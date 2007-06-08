@@ -227,9 +227,13 @@ void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
             if (data.at(i)=='&')
                 ++matchingIndex;
 
-        for (i=matchingIndex;i<matchingIndex+matchedLength;++i)
+        int limit=matchingIndex+matchedLength;
+        for (i=matchingIndex;i<limit;++i)
             if (data.at(i)=='&')
+            {
                 ++matchedLength;
+                limit=qMin(data.size(),matchingIndex+matchedLength);
+            }
     }
 
     _searchingPos.offset=matchingIndex;
@@ -316,6 +320,7 @@ void KAider::replace()
         replaceNext(pos);
     }
 
+    kWarning() << k_funcinfo << "END"<< endl;
 }
 
 
@@ -406,9 +411,13 @@ void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength
             if (data.at(i)=='&')
                 ++matchingIndex;
 
+        int limit=matchingIndex+matchedLength;
         for (i=matchingIndex;i<matchingIndex+matchedLength;++i)
             if (data.at(i)=='&')
+            {
                 ++matchedLength;
+                limit=qMin(data.size(),matchingIndex+matchedLength);
+            }
     }
 
     _replacingPos.offset=matchingIndex;
@@ -428,9 +437,13 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
             if (oldStr.at(i)=='&')
                 ++offset;
 
-        for (i=offset;i<offset+remLen;++i)
+        int limit=offset+remLen;
+        for (i=offset;i<limit;++i)
             if (oldStr.at(i)=='&')
+            {
                 ++remLen;
+                limit=qMin(oldStr.size(),offset+remLen);
+            }
     }
 
     QString tmp=oldStr.mid(offset,remLen);
@@ -443,8 +456,9 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
     if (newLen)
     {
         tmp=newStr.mid(offset,newLen);
-        if (tmp==_replaceDialog->replacement())
-            tmp=_replaceDialog->replacement();
+        //does it save memory?
+/*        if (tmp==_replaceDialog->replacement())
+            tmp=_replaceDialog->replacement();*/
         _catalog->push(new InsTextCmd(/*_catalog,*/pos,tmp));
     }
 
@@ -462,4 +476,6 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 
 #undef FIND_IGNOREACCELS
 #undef FIND_SKIPTAGS
+#undef REPLACE_IGNOREACCELS
+
 
