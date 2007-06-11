@@ -33,14 +33,15 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kdebug.h>
-
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
-
 #include <kurl.h>
 #include <kmessagebox.h>
+
+#include <sonnet/backgroundchecker.h>
+
 
 
 //  #include "global.h"
@@ -114,7 +115,9 @@ void KAider::find()
         if (_find->options() & KFind::FindBackwards)
         {
             pos.entry=_catalog->numberOfEntries()-1;
-            pos.form=_catalog->msgstrPlural(pos.entry).size()-1;
+            pos.form=
+                    (_catalog->pluralFormType(pos.entry)==Gettext)?
+                    _catalog->numberOfPluralForms()-1:0;
         }
         else
         {
@@ -173,7 +176,10 @@ void KAider::findNext(const DocPosition& startingPos)
                 if (_find->options() & KFind::FindBackwards)
                 {
                     _searchingPos.entry=_catalog->numberOfEntries()-1;
-                    _searchingPos.form=_catalog->msgstrPlural(_searchingPos.entry).size()-1;
+                    _searchingPos.form=
+                    (_catalog->pluralFormType(_searchingPos.entry)==Gettext)?
+                    _catalog->numberOfPluralForms()-1:0;
+
                 }
                 else
                 {
@@ -310,7 +316,9 @@ void KAider::replace()
         if (_replace->options() & KFind::FindBackwards)
         {
             pos.entry=_catalog->numberOfEntries()-1;
-            pos.form=_catalog->msgstrPlural(pos.entry).size()-1;
+            pos.form=
+                    (_catalog->pluralFormType(pos.entry)==Gettext)?
+                    _catalog->numberOfPluralForms()-1:0;
         }
         else
         {
@@ -368,7 +376,9 @@ void KAider::replaceNext(const DocPosition& startingPos)
                 if (_replace->options() & KFind::FindBackwards)
                 {
                     _replacingPos.entry=_catalog->numberOfEntries()-1;
-                    _replacingPos.form=_catalog->msgstrPlural(_replacingPos.entry).size()-1;
+                    _replacingPos.form=
+                    (_catalog->pluralFormType(_replacingPos.entry)==Gettext)?
+                    _catalog->numberOfPluralForms()-1:0;
                 }
                 else
                 {
@@ -472,10 +482,89 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 
 
 
-
-
 #undef FIND_IGNOREACCELS
 #undef FIND_SKIPTAGS
 #undef REPLACE_IGNOREACCELS
 
+
+
+
+
+
+
+
+
+void KAider::spellcheck()
+{
+    if (!_dlg)
+    {
+        _dlg=new KSpell2::Dialog(
+            new KSpell2::BackgroundChecker( KSpell2::Loader::openLoader(), this ),
+            0 );
+        connect(_dlg,SIGNAL(done(const QString&)),this,SLOT(spellcheckNext()));
+        connect(_dlg,SIGNAL(replace(const QString&,int,const QString&)),
+            this,SLOT(spellcheckReplace(const QString&,int,const QString&)));
+        connect(_dlg,SIGNAL(misspelling(const QString&,int)),
+            this,SLOT(spellcheckShow(const QString&,int)));
+        connect(_dlg,SIGNAL(stop()),this,SLOT(spellcheckStop()));
+        connect(_dlg,SIGNAL(cancel()),this,SLOT(spellcheckCancel()));
+    }
+
+    if (!_view->selection().isEmpty())
+        _dlg->setBuffer( _view->selection() );
+    else
+        _dlg->setBuffer( _catalog->msgstr(_currentPos.entry,_currentPos.form) );
+
+    _spellcheckPos=_currentPos;
+    _spellcheckStop=false;
+    //_catalog->beginMacro(i18n("Spellcheck"));
+    _spellcheckStartUndoIndex=_catalog->index();
+    _dlg->show();
+
+}
+
+
+void KAider::spellcheckNext()
+{
+//    kWarning() << "aa" << endl;
+    //DocPosition pos=_spellcheckPos;
+
+    if (!_spellcheckStop && switchNext(_spellcheckPos))
+    {
+        //gotoEntry(pos);
+        _dlg->setBuffer( _catalog->msgstr(_spellcheckPos.entry,_spellcheckPos.form) );
+        //_dlg->show();
+    }
+//     else
+//         _catalog->endMacro();
+
+}
+
+void KAider::spellcheckStop()
+{
+    _spellcheckStop=true;
+}
+
+void KAider::spellcheckCancel()
+{
+    _catalog->setIndex(_spellcheckStartUndoIndex);
+    gotoEntry(_spellcheckPos);
+}
+
+void KAider::spellcheckShow(const QString &word, int offset)
+{
+    DocPosition pos=_spellcheckPos;
+    pos.offset=offset;
+    gotoEntry(pos,word.length());
+}
+
+void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString &newWord)
+{
+    DocPosition pos=_spellcheckPos;
+    pos.offset=offset;
+
+    _catalog->push(new DelTextCmd(pos,oldWord));
+    _catalog->push(new InsTextCmd(pos,newWord));
+    gotoEntry(pos,newWord.length());
+}
 

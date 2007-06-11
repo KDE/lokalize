@@ -76,10 +76,7 @@ public:
     //ConversionStatus populateFromPO(const QString& file);
 
     QString msgstr(uint index, const uint form=0, const bool noNewlines=false) const;
-    QStringList msgstrPlural(uint index, const bool noNewlines=false) const;
-
     QString msgid(uint index, const uint form=0, const bool noNewlines=false) const;
-    QStringList msgidPlural(uint index, const bool noNewlines=false) const;
 
     QString comment(uint index) const;
     QString msgctxt(uint index) const;

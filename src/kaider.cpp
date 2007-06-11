@@ -73,6 +73,9 @@ KAider::KAider()
     , _find(0)
     , _replaceDialog(0)
     , _replace(0)
+    , _dlg(0)
+    , _spellcheckStop(false)
+    , _spellcheckStartUndoIndex(0)
     , ui_prefs_identity(0)
     , ui_prefs_font(0)
     , ui_findExtension(0)
@@ -247,6 +250,9 @@ void KAider::setupActions()
     ADD_ACTION_SHORTCUT("go_next_untrans","Nex&t Untranslated",Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextUntranslated() ) );
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    //Tools
+    action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
     setupGUI();
 }
@@ -552,6 +558,8 @@ bool KAider::switchNext(DocPosition& pos,bool useMsgId)
     pos.offset=0;
     return true;
 }
+
+
 
 
 

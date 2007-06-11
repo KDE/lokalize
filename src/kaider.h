@@ -43,11 +43,14 @@
 #include <kreplacedialog.h>
 #include <kreplace.h>
 
+#include <sonnet/dialog.h>
+
 #include "kaiderview.h"
 
 //class Catalog;
 class KToggleAction;
 class KUrl;
+
 
 class Ui_prefs_identity;
 class Ui_prefs_font;
@@ -133,6 +136,12 @@ private slots:
 //     void forwardHistory();
 //     void backHistory();
 // 
+    void spellcheck();
+    void spellcheckNext();
+    void spellcheckShow(const QString&,int);
+    void spellcheckReplace(const QString&,int,const QString&);
+    void spellcheckStop();
+    void spellcheckCancel();
 //     void spellcheckAll();
 //     void spellcheckAllMulti();
 //     void spellcheckFromCursor();
@@ -153,7 +162,7 @@ private:
     bool switchPrev(DocPosition&,bool useMsgId=false);
     bool switchNext(DocPosition&,bool useMsgId=false);
     void replaceNext(const DocPosition&);
-    /** should called on real entry change only */
+    /** should be called on real entry change only */
 //     void emitSignals();
 
 private:
@@ -163,6 +172,9 @@ private:
     KFind* _find;
     KReplaceDialog* _replaceDialog;
     KReplace* _replace;
+    KSpell2::Dialog* _dlg;
+    bool _spellcheckStop;
+    int _spellcheckStartUndoIndex;
 
     Ui_prefs_identity* ui_prefs_identity;
     Ui_prefs_font* ui_prefs_font;
@@ -175,6 +187,7 @@ private:
     DocPosition _currentPos;
     DocPosition _searchingPos; //for find/replace
     DocPosition _replacingPos;
+    DocPosition _spellcheckPos;
     int _currentEntry;
 
 signals:

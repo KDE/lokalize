@@ -190,7 +190,8 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         else
         {
             kDebug() << "Saving gettext plural form" << endl;
-            const int forms = catalog->msgstrPlural( counter ).count();
+            //TODO check len of the actual stringlist??
+            const int forms = catalog->numberOfPluralForms();
             for ( int i = 0; i < forms; ++i )
             {
                 QString keyword ( "msgstr[" );

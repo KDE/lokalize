@@ -160,22 +160,12 @@ QString Catalog::msgid(uint index, const uint form, const bool noNewlines) const
    return d->_entries[index].msgid(form,noNewlines);
 }
 
-QStringList Catalog::msgidPlural(uint index, const bool noNewlines) const
-{
-   return d->_entries[index].msgidPlural(noNewlines);
-}
-
 QString Catalog::msgstr(uint index, const uint form, const bool noNewlines) const
 {
     if (  d->_entries.isEmpty() )
         return QString();
 
    return d->_entries[index].msgstr(form, noNewlines);
-}
-
-QStringList Catalog::msgstrPlural(uint index, const bool noNewlines) const
-{
-   return d->_entries[index].msgstrPlural(noNewlines);
 }
 
 QString Catalog::comment(uint index) const

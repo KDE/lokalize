@@ -48,6 +48,7 @@
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 
+#include <sonnet/configwidget.h>
 
 //  #include "global.h"
 #include "kaider.h"
@@ -61,7 +62,7 @@
 
 void KAider::optionsPreferences()
 {
-    if (KConfigDialog::showDialog("settings"))
+    if (KConfigDialog::showDialog("kaider_settings"))
         return;
 
     KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
@@ -100,15 +101,24 @@ void KAider::optionsPreferences()
 
 
 //     connect(dialog, SIGNAL(settingsChanged(QString)), _view, SLOT(settingsChanged()));
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+//Spellcheck
+    w = new KSpell2::ConfigWidget(KSpell2::Loader::openLoader(),dialog);
+    dialog->addPage(w, i18n("Spellcheck"), "spellcheck_setting");
+    connect(dialog,SIGNAL(okClicked()),w,SLOT(save()));
+    connect(dialog,SIGNAL(applyClicked()),w,SLOT(save()));
+    connect(dialog,SIGNAL(defaultClicked()),w,SLOT(slotDefault()));
+
+
+
+
+
+
+
+
+
     dialog->show();
 //    dialog->addPage(new General(0, "General"), i18n("General") );
 //    dialog->addPage(new Appearance(0, "Style"), i18n("Appearance") );
