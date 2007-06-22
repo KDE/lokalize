@@ -32,7 +32,7 @@
 
 #include "diff.h"
 #include "catalog.h"
-#include "msgiddiff.h"
+#include "msgiddiffview.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -41,7 +41,7 @@
 #include <QTime>
 
 MsgIdDiff::MsgIdDiff(QWidget* parent)
-    : QDockWidget ( i18n("Previous msgid value"), parent)
+    : QDockWidget ( i18n("Original String Diff"), parent)
     , m_browser(new QTextBrowser(this))
 {
     setObjectName("msgIddiff");
@@ -49,7 +49,9 @@ MsgIdDiff::MsgIdDiff(QWidget* parent)
 }
 
 MsgIdDiff::~MsgIdDiff()
-{}
+{
+    delete m_browser;
+}
 
 void MsgIdDiff::slotNewEntryDisplayed(uint index)
 {
@@ -65,7 +67,7 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
     oldStr.replace("#| msgid_plural \"","#| \"");
     newStr.replace("#| msgid_plural \"","#| \"");
 
-    
+
 //     QTime time;
 //     time.start();
 

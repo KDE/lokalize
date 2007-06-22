@@ -2,28 +2,32 @@ PROJECT(kaider)
 INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR}/../common ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(kaider_SRCS
-   main.cpp
-   kaider.cpp
-   kaider_findreplace.cpp
-   kaider_prefs.cpp
-   kaiderview.cpp
-   syntaxhighlighter.cpp
-   msgiddiff.cpp
-   ../common/catalog.cpp
-   ../common/catalogitem.cpp
-   ../common/importplugin.cpp
-   ../common/exportplugin.cpp
-   ../common/gettextimport.cpp
-   ../common/gettextexport.cpp
-   ../common/cmd.cpp
-   ../common/diff.cpp
- )
+    main.cpp
+    kaider.cpp
+    kaider_findreplace.cpp
+    kaider_prefs.cpp
+    kaiderview.cpp
+    syntaxhighlighter.cpp
+
+    msgiddiffview.cpp
+    ../common/diff.cpp
+    projectview.cpp
+    ../common/project.cpp
+
+    ../common/cmd.cpp
+    ../common/catalog.cpp
+    ../common/catalogitem.cpp
+    ../common/importplugin.cpp
+    ../common/exportplugin.cpp
+    ../common/gettextimport.cpp
+    ../common/gettextexport.cpp
+   )
 
 kde4_automoc(${kaider_SRCS})
 
 kde4_add_ui_files(kaider_SRCS prefs_identity.ui prefs_font.ui findExtension.ui)
 
-kde4_add_kcfg_files(kaider_SRCS settings.kcfgc )
+kde4_add_kcfg_files(kaider_SRCS settings.kcfgc ../common/projectbase.kcfgc)
 
 kde4_add_executable(kaider ${kaider_SRCS})
 

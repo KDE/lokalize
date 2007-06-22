@@ -39,7 +39,6 @@
 #include <klocale.h>
 #include <kicon.h>
 #include <kstatusbar.h>
-#include <kio/netaccess.h>
 #include <kdebug.h>
 
 //#include <kedittoolbar.h>
@@ -59,10 +58,14 @@
 #include "pos.h"
 #include "cmd.h"
 #include "settings.h"
-#include "msgiddiff.h"
 
-#include "gettextimport.h"
-#include "gettextexport.h"
+//views
+#include "msgiddiffview.h"
+#include "projectview.h"
+
+
+#include "project.h"
+
 
 
 
@@ -81,9 +84,8 @@ KAider::KAider()
     , ui_findExtension(0)
     , ui_replaceExtension(0)
     , _catalog(Catalog::instance())
+    , _project(0)
 {
-
-
     setAcceptDrops(true);
     setCentralWidget(_view);
     setupStatusBar();
@@ -113,7 +115,7 @@ KAider::~KAider()
 //         delete ui_prefs_identity;
 //     if (ui_prefs_font)
 //         delete ui_prefs_font;
-// we're exiting anyways...
+// we're exiting anyway...
 }
 
 #define ID_STATUS_TOTAL 1
@@ -251,7 +253,10 @@ void KAider::setupActions()
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextUntranslated() ) );
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    //Tools
+//Project
+    
+
+//Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
     setupGUI();
@@ -265,39 +270,19 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiff->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiff,SLOT(slotNewEntryDisplayed(uint)));
 
+    ProjectView* projectView = new ProjectView(this);
+    addDockWidget(Qt::BottomDockWidgetArea, projectView);
 }
 
 void KAider::fileOpen(KUrl url)
 {
     if (url.isEmpty())
-        url=KFileDialog::getOpenUrl(_catalog->url().url(), "text/x-gettext-translation",this);
+        url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation",this);
     if (url.isEmpty())
         return;
-/*    
-    switch (_catalog->openUrl(url))
-    {
-        case OK:
-        {
-            DocPosition pos;
-            pos.entry=0;
-            pos.form=0;
-            gotoEntry(pos);
-            
-            _currentURL=url;
-        }
-        case OS_ERROR:
-        {
-            KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-        }
 
-    }*/
-    GettextImportPlugin importer(_catalog);
-    QString target;
-    if( KIO::NetAccess::download( url, target, this ) )
+    if (_catalog->loadFromUrl(url))
     {
-        importer.open(target,QString("text/x-gettext-translation"),_catalog);
-        KIO::NetAccess::removeTempFile( target );
-
         statusBar()->changeItem(i18n("Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
@@ -307,45 +292,32 @@ void KAider::fileOpen(KUrl url)
         pos.entry=0;
         pos.form=0;
         gotoEntry(pos);
-        _currentURL=url;
     }
     else
-        KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+        //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+        KMessageBox::error(this, i18n("Error opening the file\n%1",_catalog->url().prettyUrl()) );
 
 }
 
 bool KAider::fileSaveAs()
 {
-    return true;
+    KUrl url=KFileDialog::getSaveUrl(_catalog->url(), "text/x-gettext-translation",this);
+    if (url.isEmpty())
+        return false;
+    return fileSave(url);
 }
 
-bool KAider::fileSave()
+bool KAider::fileSave(const KUrl& url)
 {
-    _catalog->updateHeader();
-
-    GettextExportPlugin exporter(this);
-    exporter.m_wrapWidth=_catalog->maxLineLength();// this is kinda hackish...
-
-    ConversionStatus status = OK;
-//     if ( url.isLocalFile() )
-    QString localFile = _currentURL.path();
-    //kWarning() << "SAVE NAME "<<localFile << endl;
-    status = exporter.save(localFile,QString("text/x-gettext-translation"),_catalog);
-    if (status==OK)
-    {
-        _catalog->setClean();
+    if (_catalog->saveToUrl(url))
         return true;
-    }
-    else if (status==NO_PERMISSIONS)
-    {
-        if (KMessageBox::warningContinueCancel(this,
-	     i18n("You do not have permission to write to file:\n%1\n"
-		  "Do you want to save to another file or cancel?", _currentURL.prettyUrl()),
-	     i18n("Error"),KStandardGuiItem::save())==KMessageBox::Continue)
-            return fileSaveAs();
 
-    }
-    kWarning() << "__ERROR  " << endl;
+    if ( KMessageBox::warningContinueCancel(this,
+         i18n("Error saving the file:\n%1\n"
+         "Do you want to save to another file or cancel?", _catalog->url().prettyUrl()),
+         i18n("Error"),KStandardGuiItem::save())==KMessageBox::Continue
+       )
+        return fileSaveAs();
     return false;
 }
 

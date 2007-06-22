@@ -39,6 +39,7 @@
 
 #include <kapplication.h>
 #include <kxmlguiwindow.h>
+#include <kurl.h>
 
 #include <kreplacedialog.h>
 #include <kreplace.h>
@@ -49,8 +50,9 @@
 
 //class Catalog;
 class KToggleAction;
-class KUrl;
 
+
+class Project;
 
 class Ui_prefs_identity;
 class Ui_prefs_font;
@@ -93,9 +95,9 @@ private slots:
     void gotoEntry(const DocPosition& pos,int selection=0); //for undo/redo
     void switchForm(int);
 
-    
 
-    bool fileSave();
+
+    bool fileSave(const KUrl& url = KUrl());
     bool fileSaveAs();
     void optionsPreferences();
 
@@ -182,13 +184,13 @@ private:
     Ui_findExtension* ui_replaceExtension;
 
     Catalog* _catalog;
+    Project* _project;
 
-    KUrl _currentURL;
+    int _currentEntry;
     DocPosition _currentPos;
     DocPosition _searchingPos; //for find/replace
     DocPosition _replacingPos;
     DocPosition _spellcheckPos;
-    int _currentEntry;
 
 signals:
     void signalNewEntryDisplayed(uint);

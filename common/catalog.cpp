@@ -34,8 +34,6 @@
   
 **************************************************************************** */
 
-#include <kglobal.h>
-#include <klocale.h>
 
 #include <QProcess>
 
@@ -44,11 +42,16 @@
 
 #include <kdebug.h>
 #include <kglobal.h>
-#include <kio/netaccess.h>
+#include <klocale.h>
 #include <kmessagebox.h>
 #include <kdatetime.h>
 
+#include <kio/netaccess.h>
+#include <ktemporaryfile.h>
+
 #include "gettextimport.h"
+#include "gettextexport.h"
+
 #include "catalog.h"
 #include "version.h"
 #include "settings.h"
@@ -255,7 +258,7 @@ bool Catalog::setHeader(CatalogItem newHeader)
    return false;
 }
 
-ConversionStatus Catalog::openUrl(const KUrl& url/*, const QString& package*/)
+bool Catalog::loadFromUrl(const KUrl& url)
 {
     GettextImportPlugin importer(this);
     ConversionStatus status = OK;
@@ -266,11 +269,69 @@ ConversionStatus Catalog::openUrl(const KUrl& url/*, const QString& package*/)
         KIO::NetAccess::removeTempFile( target );
         d->_url=url;
 
-        return status;
+        if (status==OK)
+            return true;
+        //return status;
 
     }
 
-    return OS_ERROR;
+    //return OS_ERROR;
+    return false;
+
+}
+
+bool Catalog::saveToUrl(KUrl url)
+{
+    bool nameChanged=false;
+    bool remote=false;
+    KTemporaryFile tmpFile;
+
+    updateHeader();
+
+    GettextExportPlugin exporter(this);
+    exporter.m_wrapWidth=maxLineLength();// this is kinda hackish...
+
+    ConversionStatus status = OK;
+    if (url.isEmpty())
+        url = d->_url;
+    else
+        nameChanged=true;
+
+    QString localFile;
+    if (url.isLocalFile())
+        localFile = url.path();
+    else
+    {
+        remote=true;
+        tmpFile.open();
+        localFile=tmpFile.fileName();
+        tmpFile.close();
+    }
+
+    //kWarning() << "SAVE NAME "<<localFile << endl;
+    status = exporter.save(localFile,QString("text/x-gettext-translation"),this);
+    if (status==OK)
+    {
+        if (remote && !KIO::NetAccess::upload( localFile, url, NULL) )
+                    return false;
+        setClean();
+        if (nameChanged)
+            d->_url=url;
+
+        return true;
+    }/*
+    else if (status==NO_PERMISSIONS)
+    {
+        if (KMessageBox::warningContinueCancel(this,
+	     i18n("You do not have permission to write to file:\n%1\n"
+		  "Do you want to save to another file or cancel?", _currentURL.prettyUrl()),
+	     i18n("Error"),KStandardGuiItem::save())==KMessageBox::Continue)
+            return fileSaveAs();
+
+    }
+*/
+    //kWarning() << "__ERROR  " << endl;
+    return false;
 
 }
 

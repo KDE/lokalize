@@ -122,8 +122,9 @@ public:
     CatalogItem header() const {return d->_header;};
 
     KUrl url() const {return d->_url;};
-    ConversionStatus openUrl(const KUrl& url/*, const QString& package*/);
-    
+    bool loadFromUrl(const KUrl& url);
+    bool saveToUrl(KUrl url);
+
     void updateHeader(bool forSaving=true);
 
 public/* slots*/:

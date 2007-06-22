@@ -1,0 +1,48 @@
+[Field]
+Uri=translation.total
+Name=Number of messages
+TypeUri=integer
+Description=Total number of messages
+Comment=
+
+[Field]
+Uri=translation.translated
+Name=Number of translated messages
+TypeUri=integer
+Description=Number of translated messages
+Comment=
+
+[Field]
+Uri=translation.untranslated
+Name=Number of untranslated messages
+TypeUri=integer
+Description=Number of untranslated messages
+Comment=
+
+[Field]
+Uri=translation.fuzzy
+Name=Number of fuzzy messages
+TypeUri=integer
+Description=Number of messages with non-exact translation
+Comment=
+
+[Field]
+Uri=translation.last_translator
+Name=Last translator
+TypeUri=string
+Description=Last catalog translator
+Comment=
+
+[Field]
+Uri=translation.translation_date
+Name=Translation date
+TypeUri=string
+Description=Translation date
+Comment=
+
+[Field]
+Uri=translation.source_date
+Name=Template generation date
+TypeUri=string
+Description=Template generation date
+Comment=

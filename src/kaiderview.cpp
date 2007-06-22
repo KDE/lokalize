@@ -146,6 +146,7 @@ void KAiderView::switchColors()
 
 void KAiderView::settingsChanged()
 {
+    //TODO
 //     QPalette pal;
 //     pal.setColor( QPalette::Window, Settings::col_background());
 //     pal.setColor( QPalette::WindowText, Settings::col_foreground());
