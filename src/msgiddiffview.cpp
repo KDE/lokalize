@@ -124,4 +124,4 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
 
 }
 
-#include "msgiddiff.moc"
+#include "msgiddiffview.moc"
