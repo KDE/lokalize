@@ -1,7 +1,7 @@
-/*****************************************************************************
+/* ****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,64 +30,61 @@
 
 **************************************************************************** */
 
-#include "project.h"
+#ifndef PROJECTMODEL_H
+#define PROJECTMODEL_H
 
-Project* Project::_instance=0;
-
-Project* Project::instance()
-{
-    if (_instance==0)
-        _instance=new Project();
-
-    return _instance;
-}
-
-Project::Project(/*const QString &file*/)
-    : ProjectBase()
-{
-}
-
-Project::~Project()
-{
-    kWarning() << "--d "<< m_path << endl;
-    writeConfig();
-}
-
-void Project::save()
-{
-    kWarning() << "--s "<< m_path << endl;
-//     setSharedConfig(KSharedConfig::openConfig(m_path, KConfig::NoGlobals));
-// 
-//     kWarning() << "--s "<< potBaseDir() << " " << poBaseDir()<< endl;
-//     QString aa(potBaseDir());
-//     readConfig();
-//     setPotBaseDir(aa);
-    writeConfig();
-}
-
-
-void Project::load(const QString &file)
-{
-    setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
-    readConfig();
-    m_path=file;
-    kWarning() << "--l "<< m_path << endl;
-    emit loaded();
-}
-
-
+#include <kdirmodel.h>
+#include <kfilemetainfo.h>
+#include <kfileitemdelegate.h>
+#include <QItemDelegate>
 /*
-Project::Project(const QString &file)
-    : ProjectBase(KSharedConfig::openConfig(file, KConfig::NoGlobals))
+struct TranslationProgress
 {
-    readConfig();
-}
+    int translated;
+    int untranslated;
+    int fuzzy;
+
+    TranslationProgress()
+        : translated(0)
+        , untranslated(0)
+        , fuzzy(0)
+    {}
+
+    TranslationProgress(int t, int u, int f)
+        : translated(t)
+        , untranslated(u)
+        , fuzzy(f)
+    {}
+
+};
 */
-// Project::~Project()
-// {
-// }
+
+class ProjectModel: public KDirModel
+{
+    //Q_OBJECT
+
+public:
+    ProjectModel():KDirModel(){};
+    ~ProjectModel(){};
+
+    QVariant data (const QModelIndex&, int role = Qt::DisplayRole ) const;
+    QVariant headerData(int, Qt::Orientation, int) const;
+    int columnCount(const QModelIndex & parent = QModelIndex()) const;
+    //Qt::ItemFlags flags( const QModelIndex & index ) const;
+};
 
 
 
-#include "project.moc"
+/**
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class PoItemDelegate : public QItemDelegate//KFileItemDelegate
+{
+public:
+    PoItemDelegate(QObject *parent=0):QItemDelegate(parent){};//KFileItemDelegate(parent){};
+    ~PoItemDelegate(){};
+    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
+};
+
+#endif

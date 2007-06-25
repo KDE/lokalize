@@ -13,6 +13,7 @@ set(kaider_SRCS
     ../common/diff.cpp
     projectview.cpp
     ../common/project.cpp
+    ../common/projectmodel.cpp
 
     ../common/cmd.cpp
     ../common/catalog.cpp
@@ -25,9 +26,17 @@ set(kaider_SRCS
 
 kde4_automoc(${kaider_SRCS})
 
-kde4_add_ui_files(kaider_SRCS prefs_identity.ui prefs_font.ui findExtension.ui)
+kde4_add_ui_files(kaider_SRCS
+    prefs_identity.ui
+    prefs_font.ui
+    prefs_projectmain.ui
+    findExtension.ui
+                 )
 
-kde4_add_kcfg_files(kaider_SRCS settings.kcfgc ../common/projectbase.kcfgc)
+kde4_add_kcfg_files(kaider_SRCS
+    settings.kcfgc
+    ../common/projectbase.kcfgc
+                   )
 
 kde4_add_executable(kaider ${kaider_SRCS})
 

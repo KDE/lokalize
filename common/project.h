@@ -47,10 +47,16 @@ public:
 
     //explicit Project(const QString &file);
     explicit Project();
-    virtual ~Project(){};
+    virtual ~Project();
 
     void load(const QString &file);
+    void save();
+    QString path()const{return m_path;}
+    void setPath(const QString& p){m_path=p;}
 
+signals:
+    void loaded();
+    
 /*private:
     KSharedConfig::Ptr _config;*/
 private:
@@ -58,6 +64,9 @@ private:
 
 public:
     static Project* instance();
+
+private:
+    QString m_path;
 };
 
 

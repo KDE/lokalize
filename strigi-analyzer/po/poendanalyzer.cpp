@@ -19,6 +19,7 @@
  */
 
 //qt include
+#include <QFile>
 #include <QByteArray>
 #include <QRegExp>
 #include <QString>
@@ -107,11 +108,25 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     if (idx.extension()=="svn-base")
         return Ok;
 
-
     const char* array;
     int32_t n = in->read(array, in->size(), in->size());
     QByteArray tmp(QByteArray::fromRawData(array,n));
     QByteArray data(QByteArray::fromRawData(array,tmp.lastIndexOf('\n')));
+
+
+    const char* a =idx.path().c_str();
+    a+=7;
+
+    QFile f(a);
+    if (in->size()==-1)
+    {
+
+        if (!f.open(QIODevice::ReadOnly))
+            return Error;
+
+        data = f.readAll();
+    }
+
 
     QString str(data.left(1024));
     QRegExp rx("\\n\"POT-Creation-Date: ([^\\\\]*)\\\\n");
@@ -183,7 +198,7 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
         {
             msg=line.mid(line.indexOf('\"')+1);
             msg.chop(1);
-            //cout << msg.constData() << "--" << endl;
+
             idx.addText(msg.constData(),msg.length());
         }
 

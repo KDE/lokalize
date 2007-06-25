@@ -55,9 +55,12 @@
 #include "pos.h"
 #include "cmd.h"
 #include "settings.h"
+#include "project.h"
+#include "projectview.h"
 
 #include "ui_prefs_identity.h"
 #include "ui_prefs_font.h"
+#include "ui_prefs_projectmain.h"
 
 
 void KAider::optionsPreferences()
@@ -65,7 +68,7 @@ void KAider::optionsPreferences()
     if (KConfigDialog::showDialog("kaider_settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
+    KConfigDialog *dialog = new KConfigDialog(this, "kaider_settings", Settings::self());
     dialog->setFaceType(KPageDialog::List);
 
 // Identity
@@ -127,3 +130,51 @@ void KAider::optionsPreferences()
 //    connect(dialog, SIGNAL(settingsChanged(const QString&)), this, SLOT(loadSettings()));
 
 }
+
+
+
+
+
+
+void KAider::projectCreate()
+{
+    QString path=KFileDialog::getSaveFileName(_catalog->url().directory(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,this);
+    if (path.isEmpty())
+        return;
+
+    //TODO ask-n-save
+
+    _project->load(path);
+    _project->setDefaults();
+
+    if (KConfigDialog::showDialog("project_settings"))
+        return;
+
+    KConfigDialog *dialog = new KConfigDialog(this, "project_settings", Project::instance());
+    dialog->setFaceType(KPageDialog::List);
+
+
+// Main
+    QWidget *w = new QWidget;
+    if (!ui_prefs_projectmain)
+        ui_prefs_projectmain = new Ui_prefs_projectmain;
+    ui_prefs_projectmain->setupUi(w);
+    dialog->addPage(w, i18n("General"), "general_project_setting");
+
+    dialog->show();
+
+    connect(dialog, SIGNAL(settingsChanged(QString)), _projectView, SLOT(slotProjectLoaded()));
+}
+
+//void KAider::projectOpen(KUrl url)
+void KAider::projectOpen(QString path)
+{
+    if (path.isEmpty())
+        path=KFileDialog::getOpenFileName(_catalog->url().directory(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,this);
+    if (path.isEmpty())
+        return;
+
+    _project->load(path);
+}
+
+

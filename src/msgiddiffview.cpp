@@ -41,10 +41,10 @@
 #include <QTime>
 
 MsgIdDiff::MsgIdDiff(QWidget* parent)
-    : QDockWidget ( i18n("Original String Diff"), parent)
+    : QDockWidget ( i18n("Original Diff"), parent)
     , m_browser(new QTextBrowser(this))
 {
-    setObjectName("msgIddiff");
+    setObjectName("msgIdDiff");
     setWidget(m_browser);
 }
 

@@ -34,8 +34,9 @@
 #define PROJECTVIEW_H
 
 #include <QDockWidget>
+class QMenu;
 class QTreeView;
-
+class ProjectModel;
 
 class ProjectView: public QDockWidget
 {
@@ -51,6 +52,8 @@ public slots:
 
 private:
     QTreeView* m_browser;
+    QMenu* m_menu;
+    ProjectModel *m_model;
 };
 
 #endif

@@ -30,45 +30,61 @@
 
 **************************************************************************** */
 
-#include "projectview.h"
 #include "project.h"
-
+#include "projectmodel.h"
+#include "projectview.h"
+//#include "poitemdelegate.h"
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <kdirmodel.h>
 #include <kdirlister.h>
-#include <kfilemetainfo.h>
 
+#include <QFile>
 #include <QTreeView>
+#include <QMenu>
 
 ProjectView::ProjectView(QWidget* parent)
     : QDockWidget ( i18n("Project"), parent)
     , m_browser(new QTreeView(this))
+    , m_menu(new QMenu(m_browser))
+    , m_model(new ProjectModel)
 {
-    setObjectName("projectview");
+    setObjectName("projectView");
     setWidget(m_browser);
 
-    KDirModel* dirModel = new KDirModel;
-    dirModel->dirLister()->openUrl(KUrl("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru"));
-    m_browser->setModel(dirModel);
-    
-    
-    
+    //model->dirLister()->openUrl(KUrl("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru"));
+    m_browser->setModel(m_model);
+//     KFileItemDelegate *delegate = new KFileItemDelegate(this);
+    //m_browser->setItemDelegate(new KFileItemDelegate(this));
+    m_browser->setItemDelegate(new PoItemDelegate(this));
+
+
     //KFileMetaInfo aa("/mnt/stor/mp3/Industry - State of the Nation.mp3");
-    KFileMetaInfo aa("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdelibs/kio.po");
-    kWarning() << aa.keys() <<endl;
-    kWarning() << aa.item("content.mime_type").value()  <<endl;
-    
+    //KFileMetaInfo aa("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdelibs/kio.po");
+    //kWarning() << aa.keys() <<endl;
+    //kWarning() << aa.item("tra.mime_type").value()  <<endl;
+
+    m_menu->addAction(i18n("Open project"),parent,SLOT(projectOpen()));
+    m_menu->addAction(i18n("Create new project"),parent,SLOT(projectCreate()));
 }
 
 ProjectView::~ProjectView()
 {
     delete m_browser;
+    delete m_model;
 }
 
 void ProjectView::slotProjectLoaded()
 {
+    kWarning() << "path "<<Project::instance()->poBaseDir() << endl;
+    KUrl url(Project::instance()->path());
+    url.setFileName("");
+    url.cd(Project::instance()->poBaseDir());
+
+    kWarning() << "path_ "<<url.path() << endl;
+
+    if (QFile::exists(url.path()))
+        m_model->dirLister()->openUrl(url);
 }
 
 #include "projectview.moc"

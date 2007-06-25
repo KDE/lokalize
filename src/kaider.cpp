@@ -38,6 +38,7 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kicon.h>
+#include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
 
@@ -81,10 +82,11 @@ KAider::KAider()
     , _spellcheckStartUndoIndex(0)
     , ui_prefs_identity(0)
     , ui_prefs_font(0)
+    , ui_prefs_projectmain(0)
     , ui_findExtension(0)
     , ui_replaceExtension(0)
     , _catalog(Catalog::instance())
-    , _project(0)
+    , _project(Project::instance())
 {
     setAcceptDrops(true);
     setCentralWidget(_view);
@@ -100,21 +102,16 @@ KAider::KAider()
 
 KAider::~KAider()
 {
+    _project->save();
     delete _view;
-    if(_findDialog)
-        delete _findDialog;
-    if(_replaceDialog)
-        delete _replaceDialog;
-    if(_find)
-        delete _find;
-    if(_replace)
-        delete _replace;
-//     if (ui_findExtension)
-//         delete ui_findExtension;
-//     if (ui_prefs_identity)
-//         delete ui_prefs_identity;
-//     if (ui_prefs_font)
-//         delete ui_prefs_font;
+    delete _findDialog;
+    delete _replaceDialog;
+    delete _find;
+    delete _replace;
+/*    delete ui_findExtension;
+    delete ui_findExtension;
+    delete ui_prefs_identity;
+    delete ui_prefs_font;*/
 // we're exiting anyway...
 }
 
@@ -246,20 +243,29 @@ void KAider::setupActions()
     connect( this, SIGNAL(signalNextFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT("go_prev_untrans","Prev&ious Untranslated",Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevUntranslated() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
     connect( this, SIGNAL(signalPriorUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT("go_next_untrans","Nex&t Untranslated",Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextUntranslated() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-//Project
-    
+//     ADD_ACTION_SHORTCUT("project_open","Open project",Qt::CTRL+Qt::ALT+Qt::Key_O,"openproject")
+//     connect( action, SIGNAL(triggered(bool)), this, SLOT(projectOpen()));
+// 
+//     ADD_ACTION_SHORTCUT("project_create","Create new project",Qt::CTRL+Qt::ALT+Qt::Key_C,"newproject")
+//     connect( action, SIGNAL(triggered(bool)), this, SLOT(projectCreate()));
+
 
 //Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
     setupGUI();
+    //Project
+    QMenu* projectMenu=menuBar()->addMenu(i18n("Project"));
+    projectMenu->addAction(i18n("Open project"),this,SLOT(projectOpen()));
+    projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
+
 }
 
 void KAider::createDockWindows()
@@ -270,12 +276,28 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiff->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiff,SLOT(slotNewEntryDisplayed(uint)));
 
-    ProjectView* projectView = new ProjectView(this);
-    addDockWidget(Qt::BottomDockWidgetArea, projectView);
+    _projectView = new ProjectView(this);
+    addDockWidget(Qt::BottomDockWidgetArea, _projectView);
+    connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
 }
 
 void KAider::fileOpen(KUrl url)
 {
+    if(!_catalog->isClean())
+    {
+        switch(KMessageBox::warningYesNoCancel(this,
+               i18n("The document contains unsaved changes.\n\
+               Do you want to save your changes or discard them?"),i18n("Warning"),
+               KStandardGuiItem::save(),KStandardGuiItem::discard())
+              )
+        {
+            case KMessageBox::Yes:
+                fileSave();
+            case KMessageBox::Cancel:
+                return;
+        }
+    }
+
     if (url.isEmpty())
         url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation",this);
     if (url.isEmpty())
@@ -340,6 +362,7 @@ Do you want to save your changes or discard them?"),i18n("Warning"),
             return false;
     }
 }
+
 
 void KAider::undo()
 {

@@ -53,11 +53,12 @@ class KToggleAction;
 
 
 class Project;
+class ProjectView;
 
 class Ui_prefs_identity;
 class Ui_prefs_font;
 class Ui_findExtension;
-
+class Ui_prefs_projectmain;
 
 /**
  * This class serves as the main window for KAider.  It handles the
@@ -153,6 +154,9 @@ private slots:
 //     void spellcheckCommon();
 
 
+    //void projectOpen(KUrl url=KUrl());
+    void projectOpen(QString path=QString());
+    void projectCreate();
 
 private:
     void setupAccel();
@@ -180,9 +184,12 @@ private:
 
     Ui_prefs_identity* ui_prefs_identity;
     Ui_prefs_font* ui_prefs_font;
+    Ui_prefs_projectmain* ui_prefs_projectmain;
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
+    ProjectView* _projectView;
+    
     Catalog* _catalog;
     Project* _project;
 

@@ -19,6 +19,10 @@
     <Action name="go_prev_untrans"/>
     <Action name="go_next_untrans"/>
   </Menu>
+  <Menu name="project"><text>&amp;Project</text>
+    <Action name="project_open"/>
+    <Action name="project_create"/>
+  </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Menu name="toolviews"><text>&amp;Toolviews</text>
         <Action name="showglossary_action" />
