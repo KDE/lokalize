@@ -178,7 +178,7 @@ private:
     KFind* _find;
     KReplaceDialog* _replaceDialog;
     KReplace* _replace;
-    KSpell2::Dialog* _dlg;
+    Sonnet::Dialog* _dlg;
     bool _spellcheckStop;
     int _spellcheckStartUndoIndex;
 
