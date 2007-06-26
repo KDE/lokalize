@@ -109,7 +109,7 @@ void KAider::optionsPreferences()
 
 
 //Spellcheck
-    w = new Sonnet::ConfigWidget(Sonnet::Loader::openLoader(),dialog);
+    w = new Sonnet::ConfigWidget(Settings::self()->config(),dialog);
     dialog->addPage(w, i18n("Spellcheck"), "spellcheck_setting");
     connect(dialog,SIGNAL(okClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(applyClicked()),w,SLOT(save()));

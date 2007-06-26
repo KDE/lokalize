@@ -499,7 +499,7 @@ void KAider::spellcheck()
     if (!_dlg)
     {
         _dlg=new Sonnet::Dialog(
-            new Sonnet::BackgroundChecker( Sonnet::Loader::openLoader(), this ),
+            new Sonnet::BackgroundChecker( this ),
             0 );
         connect(_dlg,SIGNAL(done(const QString&)),this,SLOT(spellcheckNext()));
         connect(_dlg,SIGNAL(replace(const QString&,int,const QString&)),
