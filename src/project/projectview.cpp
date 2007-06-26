@@ -33,6 +33,7 @@
 #include "project.h"
 #include "projectmodel.h"
 #include "projectview.h"
+#include "catalog.h"
 //#include "poitemdelegate.h"
 
 #include <kdebug.h>
@@ -42,6 +43,8 @@
 #include <QFile>
 #include <QTreeView>
 #include <QMenu>
+// #include <QModelIndex>
+// #include <QTimer>
 
 ProjectView::ProjectView(QWidget* parent)
     : QDockWidget ( i18n("Project"), parent)
@@ -66,6 +69,8 @@ ProjectView::ProjectView(QWidget* parent)
 
     m_menu->addAction(i18n("Open project"),parent,SLOT(projectOpen()));
     m_menu->addAction(i18n("Create new project"),parent,SLOT(projectCreate()));
+
+    connect(this,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
 }
 
 ProjectView::~ProjectView()
@@ -76,16 +81,35 @@ ProjectView::~ProjectView()
 
 void ProjectView::slotProjectLoaded()
 {
-    kWarning() << "path "<<Project::instance()->poBaseDir() << endl;
+//     kWarning() << "path "<<Project::instance()->poBaseDir() << endl;
     KUrl url(Project::instance()->path());
-    url.setFileName("");
+    url.setFileName(QString());
     url.cd(Project::instance()->poBaseDir());
 
-    kWarning() << "path_ "<<url.path() << endl;
+//     kWarning() << "path_ "<<url.path() << endl;
 
     if (QFile::exists(url.path()))
         m_model->dirLister()->openUrl(url);
+    
+//     QTimer::singleShot(3000, this,SLOT(showCurrentFile()));
 }
+
+
+
+void ProjectView::slotItemActivated(const QModelIndex& idx)
+{
+    
+}
+
+/*
+void ProjectView::showCurrentFile()
+{
+    KFileItem a;
+    a.setUrl(Catalog::instance()->url());
+    QModelIndex idx(m_model->indexForItem(a));
+    if (idx.isValid())
+        m_browser->scrollTo(idx);
+}*/
 
 #include "projectview.moc"
 

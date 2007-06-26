@@ -49,6 +49,8 @@ public:
 
 public slots:
     void slotProjectLoaded();
+    void slotItemActivated(const QModelIndex&);
+//     void showCurrentFile();
 
 private:
     QTreeView* m_browser;

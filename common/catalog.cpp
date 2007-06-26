@@ -54,7 +54,7 @@
 
 #include "catalog.h"
 #include "version.h"
-#include "settings.h"
+#include "kaider_settings.h"
 
 Catalog* Catalog::_instance=0;
 

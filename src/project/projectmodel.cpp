@@ -52,7 +52,9 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 {
 
     if (index.column()<Graph)
+    {
         return KDirModel::data(index,role);
+    }
 
     //force population of metainfo. kfilemetainfo's internal is a shit
     if (itemForIndex(index)->metaInfo(false).keys().empty()
@@ -99,13 +101,13 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 
     switch (section)
     {
-        case 2:
+        case Graph:
             return i18n("Graph");
-        case 3:
+        case TranslationDate:
             return i18n("Last Translation");
-        case 4:
+        case SourceDate:
             return i18n("Template Revision");
-        case 5:
+        case LastTranslator:
             return i18n("Last Translator");
     }
 
@@ -120,9 +122,6 @@ int ProjectModel::columnCount(const QModelIndex& parent)const
         return KDirModel::columnCount(parent);
     return ProjectModelColumnCount;
 }
-
-
-
 /*
 Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
 {

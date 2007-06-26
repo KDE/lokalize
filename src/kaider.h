@@ -50,7 +50,7 @@
 
 //class Catalog;
 class KToggleAction;
-
+class KDirLister;
 
 class Project;
 class ProjectView;
@@ -189,6 +189,7 @@ private:
     Ui_findExtension* ui_replaceExtension;
 
     ProjectView* _projectView;
+    KDirLister* _dirLister;
     
     Catalog* _catalog;
     Project* _project;

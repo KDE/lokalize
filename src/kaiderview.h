@@ -30,8 +30,8 @@
 
 **************************************************************************** */
 
-#ifndef _VIEW_H_
-#define _VIEW_H_
+#ifndef KAIDERVIEW_H_
+#define KAIDERVIEW_H_
 
 #include <QSplitter>
 #include <QTabBar>

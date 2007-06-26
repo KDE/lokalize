@@ -1,7 +1,7 @@
-/* ****************************************************************************
+/*****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,61 +30,43 @@
 
 **************************************************************************** */
 
-#ifndef PROJECTMODEL_H
-#define PROJECTMODEL_H
 
-#include <kdirmodel.h>
-#include <kfilemetainfo.h>
-#include <kfileitemdelegate.h>
-#include <QItemDelegate>
-/*
-struct TranslationProgress
+#ifndef PROJECT_H
+#define PROJECT_H
+
+#include <QObject>
+
+#include "projectbase.h"
+
+class Project: public ProjectBase
 {
-    int translated;
-    int untranslated;
-    int fuzzy;
-
-    TranslationProgress()
-        : translated(0)
-        , untranslated(0)
-        , fuzzy(0)
-    {}
-
-    TranslationProgress(int t, int u, int f)
-        : translated(t)
-        , untranslated(u)
-        , fuzzy(f)
-    {}
-
-};
-*/
-
-class ProjectModel: public KDirModel
-{
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
-    ProjectModel():KDirModel(){};
-    ~ProjectModel(){};
+//    typedef KSharedPtr<Project> Ptr;
 
-    QVariant data (const QModelIndex&, int role = Qt::DisplayRole ) const;
-    QVariant headerData(int, Qt::Orientation, int) const;
-    int columnCount(const QModelIndex & parent = QModelIndex()) const;
-    //Qt::ItemFlags flags( const QModelIndex & index ) const;
-};
+    //explicit Project(const QString &file);
+    explicit Project();
+    virtual ~Project();
 
+    void load(const QString &file);
+    void save();
+    QString path()const{return m_path;}
+    //void setPath(const QString& p){m_path=p;}
+    bool isLoaded(){return !m_path.isEmpty();}
 
+signals:
+    void loaded();
 
-/**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
-class PoItemDelegate : public QItemDelegate//KFileItemDelegate
-{
+private:
+    static Project* _instance;
+
 public:
-    PoItemDelegate(QObject *parent=0):QItemDelegate(parent){};//KFileItemDelegate(parent){};
-    ~PoItemDelegate(){};
-    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    static Project* instance();
 
+private:
+    QString m_path;
 };
+
 
 #endif

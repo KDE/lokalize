@@ -30,6 +30,7 @@
 
 **************************************************************************** */
 
+#include <QDir>
 #include <QDropEvent>
 #include <QPainter>
 #include <QtGui>
@@ -58,7 +59,7 @@
 #include "kaider.h"
 #include "pos.h"
 #include "cmd.h"
-#include "settings.h"
+#include "kaider_settings.h"
 
 //views
 #include "msgiddiffview.h"
@@ -85,6 +86,8 @@ KAider::KAider()
     , ui_prefs_projectmain(0)
     , ui_findExtension(0)
     , ui_replaceExtension(0)
+    , _projectView(0)
+    , _dirLister(0)
     , _catalog(Catalog::instance())
     , _project(Project::instance())
 {
@@ -314,6 +317,21 @@ void KAider::fileOpen(KUrl url)
         pos.entry=0;
         pos.form=0;
         gotoEntry(pos);
+
+
+        //Project
+        if (_project->isLoaded())
+            return;
+        int i=4;
+        QDir dir(url.directory());
+        dir.setNameFilters(QStringList("*.ktp"));
+        while(--i && !dir.isRoot())
+        {
+            if (dir.entryList().isEmpty())
+                dir.cdUp();
+            else
+                _project->load(dir.absoluteFilePath(dir.entryList().first()));
+        }
     }
     else
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );

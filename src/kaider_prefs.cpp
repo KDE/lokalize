@@ -54,7 +54,7 @@
 #include "kaider.h"
 #include "pos.h"
 #include "cmd.h"
-#include "settings.h"
+#include "kaider_settings.h"
 #include "project.h"
 #include "projectview.h"
 

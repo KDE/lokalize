@@ -48,7 +48,7 @@
 #include "kaider.h"
 #include "pos.h"
 #include "cmd.h"
-#include "settings.h"
+#include "kaider_settings.h"
 #include "ui_findExtension.h"
 
 //#define FIND_IGNOREACCELS 2048

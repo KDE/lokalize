@@ -40,7 +40,7 @@
  
 #include "cmd.h"
 #include "kaiderview.h"
-#include "settings.h"
+#include "kaider_settings.h"
 #include "syntaxhighlighter.h"
 
 //#include <loader.h>
