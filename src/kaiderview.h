@@ -87,7 +87,7 @@ class KAiderView : public QSplitter //Widget//, public Ui::kaiderview_base
 {
     Q_OBJECT
 public:
-    KAiderView(QWidget */*,Catalog*,keyEventHandler**/);
+    KAiderView(QWidget *,Catalog*/*,keyEventHandler**/);
     virtual ~KAiderView();
 
     void gotoEntry(const DocPosition& pos,int selection=0/*, bool updateHistory=true*/);
@@ -96,6 +96,8 @@ public:
 
 private:
 
+    Catalog* _catalog;
+
     ProperTextEdit* _msgidEdit;
     ProperTextEdit* _msgstrEdit;
 
@@ -103,8 +105,6 @@ private:
 //    bool disableUndoTracking=false; //workaround
 
     QTabBar* _tabbar;
-
-    Catalog* _catalog;
 
     //for undo/redo
     QString _oldMsgstr;

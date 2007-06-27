@@ -56,11 +56,11 @@ struct /*KBABELCOMMON_EXPORT*/ SaveSettings
     bool updateLanguageTeam;
     bool updateCharset;
     bool updateEncoding;
-    
+
     bool updateProject;
     bool updateDescription;
-    QString descriptionString;
     bool updateTranslatorCopyright;
+    QString descriptionString;
     int FSFCopyright;
 
     int encoding;

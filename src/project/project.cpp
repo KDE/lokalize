@@ -31,6 +31,11 @@
 **************************************************************************** */
 
 #include "project.h"
+#include "projectmodel.h"
+#include <QTimer>
+#include <QFile>
+#include <kurl.h>
+#include <kdirlister.h>
 
 Project* Project::_instance=0;
 
@@ -44,11 +49,13 @@ Project* Project::instance()
 
 Project::Project(/*const QString &file*/)
     : ProjectBase()
+    , m_model(0)
 {
 }
 
 Project::~Project()
 {
+    delete m_model;
     kWarning() << "--d "<< m_path << endl;
     writeConfig();
 }
@@ -72,9 +79,37 @@ void Project::load(const QString &file)
     readConfig();
     m_path=file;
     kWarning() << "--l "<< m_path << endl;
-    emit loaded();
+
+    QTimer::singleShot(500,this,SLOT(populateDirModel()));
 }
 
+void Project::populateDirModel()
+{
+    if (!m_model || m_path.isEmpty())
+        return;
+
+    KUrl url(m_path);
+    url.setFileName(QString());
+    url.cd(poBaseDir());
+
+    if (QFile::exists(url.path()))
+    {
+        m_model->dirLister()->openUrl(url);
+    }
+}
+
+
+ProjectModel* Project::model()
+{
+    if (!m_model)
+    {
+        m_model=new ProjectModel;
+        QTimer::singleShot(500,this,SLOT(populateDirModel()));
+    }
+
+    return m_model;
+
+}
 
 /*
 Project::Project(const QString &file)

@@ -35,15 +35,6 @@
 #include <QPainter>
 #include <QLinearGradient>
 
-enum ModelColumns
-{
-    Graph = 1,
-    SourceDate,
-    TranslationDate,
-    LastTranslator,
-    ProjectModelColumnCount
-};
-
 
 /**
  * we use QRect to pass data through QVariant tunnel
@@ -53,6 +44,21 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 
     if (index.column()<Graph)
     {
+//         if (hasChildren(index))
+//         {
+//             KFileMetaInfo aaa(itemForIndex( index )->metaInfo(false));
+//             int i=0;
+//             int count=rowCount(index);
+//             for (;i<count;++i)
+//             {
+//                 
+//                 //itemForIndex( index(i,0,index) )->metaInfo(false).item("translation.translated").value().toInt();
+//                 //itemForIndex( index(i,0,index) )->setMetaInfo(
+//             }
+//             aaa.item("translation.translated").setValue(i);
+//             itemForIndex( index )->setMetaInfo(aaa);
+//         }
+
         return KDirModel::data(index,role);
     }
 
@@ -65,11 +71,12 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 
     if (index.column()==Graph)
     {
+                        //translation_date
         if (itemForIndex(index)->metaInfo(false).item("translation.untranslated").value().isNull())
         {
             //return qVariantFromValue(TranslationProgress());
 //             kWarning() << "1 " << itemForIndex(index)->url() << endl;
-            return QRect(10,10,10,10);
+            return QRect(10,10,10,32);
         }
 
 //         kWarning() << "0 " << itemForIndex(index)->url() << endl;
@@ -78,7 +85,8 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
         return QRect(itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt(),
                     itemForIndex(index)->metaInfo(false).item("translation.untranslated").value().toInt(),
                     itemForIndex(index)->metaInfo(false).item("translation.fuzzy").value().toInt(),
-                    itemForIndex(index)->metaInfo(false).item("translation.total").value().toInt()
+                    0
+                    //itemForIndex(index)->metaInfo(false).item("translation.total").value().toInt()
                     );
     }
 
@@ -122,15 +130,16 @@ int ProjectModel::columnCount(const QModelIndex& parent)const
         return KDirModel::columnCount(parent);
     return ProjectModelColumnCount;
 }
-/*
+
 Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
 {
-    if (index.column()==3)
-        return 0;
-    kWarning() << index.column() <<  " " <<  KDirModel::flags(index) << endl;
-    return KDirModel::flags(index);
+    if (index.column()<Graph)
+        return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
+
+    return 0;
+//    kWarning() << index.column() <<  " " <<  KDirModel::flags(index) << endl;
 }
-*/
+
 void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     //return KFileItemDelegate::paint(painter,option,index);
@@ -142,6 +151,11 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
     
     QRect data=index.data(Qt::UserRole).toRect();
     //QRect data(20,40,50,10);
+    if (data.height()==32) //collapsed folder
+    {
+        painter->fillRect(option.rect,Qt::white);
+        return;
+    }
     int all=data.left()+data.top()+data.width();
     if (!all)
         return QItemDelegate::paint(painter,option,index);

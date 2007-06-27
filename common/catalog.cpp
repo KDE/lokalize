@@ -56,7 +56,7 @@
 #include "version.h"
 #include "kaider_settings.h"
 
-Catalog* Catalog::_instance=0;
+// Catalog* Catalog::_instance=0;
 
 
 QString GNUPluralForms(const QString& lang)
@@ -111,17 +111,17 @@ QString GNUPluralForms(const QString& lang)
 }
 
 
-Catalog* Catalog::instance()
-{
-    if (_instance==0)
-        _instance=new Catalog();
+// Catalog* Catalog::instance()
+// {
+//     if (_instance==0)
+//         _instance=new Catalog();
+// 
+//     return _instance;
+// }
 
-    return _instance;
-}
 
-
-Catalog::Catalog(/*QObject *parent*/)
-    : QUndoStack()
+Catalog::Catalog(QObject *parent)
+    : QUndoStack(parent)
     , d(new CatalogPrivate())
 {
 }

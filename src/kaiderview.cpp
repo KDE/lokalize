@@ -45,16 +45,16 @@
 
 //#include <loader.h>
 
-KAiderView::KAiderView(QWidget *parent/*,Catalog* catalog,keyEventHandler* kh*/):
-        QSplitter(Qt::Vertical,parent),
-//        _catalog(catalog),
-        _msgidEdit(new ProperTextEdit),
-        _msgstrEdit(new ProperTextEdit(parent)),
-        _tabbar(new QTabBar),
-        _currentEntry(-1)
+KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
+    : QSplitter(Qt::Vertical,parent)
+    , _catalog(catalog)
+    , _msgidEdit(new ProperTextEdit)
+    , _msgstrEdit(new ProperTextEdit(parent))
+    , _tabbar(new QTabBar)
+    , _currentEntry(-1)
 
 {
-    _catalog=Catalog::instance();
+//    _catalog=Catalog::instance();
     //ui_kaiderview_base.setupUi(this);
 //    settingsChanged();
     _tabbar->hide();
@@ -105,11 +105,13 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
     if(keyEvent->matches(QKeySequence::Undo))
     {
         emit signalUndo();
+        fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
         return true;
     }
     else if(keyEvent->matches(QKeySequence::Redo))
     {
         emit signalRedo();
+        fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
         return true;
     }
     else if (keyEvent->modifiers() == (Qt::AltModifier|Qt::ControlModifier))
@@ -166,12 +168,17 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     pos.offset=offset;
 
     if (charsRemoved)
-        _catalog->push(new DelTextCmd(/*_catalog,*/pos,_oldMsgstr.mid(offset,charsRemoved)));
+        _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
 
     _oldMsgstr=_msgstrEdit->toPlainText();//newStr becomes OldStr
     if (charsAdded)
-        _catalog->push(new InsTextCmd(/*_catalog,*/pos,_oldMsgstr.mid(offset,charsAdded)));
-    
+        _catalog->push(new InsTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsAdded)));
+
+    if (_catalog->isFuzzy(_currentEntry))
+    {
+        _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
+        _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+    }
     //KMessageBox::information(0, QString("%1 %2 %3").arg(offset).arg(charsRemoved).arg(charsAdded) );
 }
 
@@ -235,7 +242,7 @@ void KAiderView::toggleFuzzy(bool checked)
     if (_currentEntry==-1)
         return;
 
-    _catalog->push(new ToggleFuzzyCmd(/*_catalog,*/_currentEntry,checked));
+    _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,checked));
 }
 
 

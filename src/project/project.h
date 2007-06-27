@@ -35,8 +35,8 @@
 #define PROJECT_H
 
 #include <QObject>
-
 #include "projectbase.h"
+class ProjectModel;
 
 class Project: public ProjectBase
 {
@@ -54,18 +54,23 @@ public:
     QString path()const{return m_path;}
     //void setPath(const QString& p){m_path=p;}
     bool isLoaded(){return !m_path.isEmpty();}
+    ProjectModel* model();
 
-signals:
-    void loaded();
+// signals:
+//     void loaded();
+
+private slots:
+    void populateDirModel();
+
 
 private:
     static Project* _instance;
-
 public:
     static Project* instance();
 
 private:
     QString m_path;
+    ProjectModel* m_model;
 };
 
 

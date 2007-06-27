@@ -64,7 +64,7 @@ void KAider::find()
     if( !_findDialog )
     {
         _findDialog = new KFindDialog(this);
-        if( !ui_findExtension ) //we actually dont need this check...
+        if( !ui_findExtension ) //actually, we dont need this check...
             ui_findExtension = new Ui_findExtension;
         ui_findExtension->setupUi(_findDialog->findExtension());
     }
@@ -461,7 +461,7 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 //         tmp=_replaceDialog->pattern();
     DocPosition pos=_replacingPos;
     pos.offset=offset;
-    _catalog->push(new DelTextCmd(/*_catalog,*/pos,tmp));
+    _catalog->push(new DelTextCmd(_catalog,pos,tmp));
 
     if (newLen)
     {
@@ -469,7 +469,7 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
         //does it save memory?
 /*        if (tmp==_replaceDialog->replacement())
             tmp=_replaceDialog->replacement();*/
-        _catalog->push(new InsTextCmd(/*_catalog,*/pos,tmp));
+        _catalog->push(new InsTextCmd(_catalog,pos,tmp));
     }
 
     if (pos.entry==_currentEntry)
@@ -563,8 +563,8 @@ void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString
     DocPosition pos=_spellcheckPos;
     pos.offset=offset;
 
-    _catalog->push(new DelTextCmd(pos,oldWord));
-    _catalog->push(new InsTextCmd(pos,newWord));
+    _catalog->push(new DelTextCmd(_catalog,pos,oldWord));
+    _catalog->push(new InsTextCmd(_catalog,pos,newWord));
     gotoEntry(pos,newWord.length());
 }
 

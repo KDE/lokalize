@@ -14,10 +14,10 @@ enum Part {UndefPart, Msgid, Msgstr, Comment};
 */
 struct DocPosition
 {
-    Part part;
-    short form;
-    int entry;
-    uint offset;
+    Part part:16;
+    short form:16;
+    int entry:32;
+    uint offset:32;
 
     DocPosition():
         part(Msgstr),

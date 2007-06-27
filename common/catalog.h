@@ -70,7 +70,8 @@ class Catalog: public QUndoStack
     Q_OBJECT
 
 public:
-    Catalog();
+    //Catalog();
+    Catalog(QObject* parent);
     ~Catalog();
 
     //ConversionStatus populateFromPO(const QString& file);
@@ -152,12 +153,12 @@ signals:
     //void signalGotoEntry(const DocPosition& pos,int);
     void signalNumberOfFuzziesChanged();
     void signalNumberOfUntranslatedChanged();
-    
-private:
-    static Catalog* _instance;
 
-public:
-    static Catalog* instance();
+// private:
+//     static Catalog* _instance;
+// 
+// public:
+//     static Catalog* instance();
 };
 
 #endif

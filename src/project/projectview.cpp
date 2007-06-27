@@ -30,10 +30,11 @@
 
 **************************************************************************** */
 
-#include "project.h"
-#include "projectmodel.h"
 #include "projectview.h"
+#include "projectmodel.h"
+#include "project.h"
 #include "catalog.h"
+
 //#include "poitemdelegate.h"
 
 #include <kdebug.h>
@@ -43,64 +44,116 @@
 #include <QFile>
 #include <QTreeView>
 #include <QMenu>
+#include <QMouseEvent>
+// #include <QProcess>
 // #include <QModelIndex>
 // #include <QTimer>
+
 
 ProjectView::ProjectView(QWidget* parent)
     : QDockWidget ( i18n("Project"), parent)
     , m_browser(new QTreeView(this))
-    , m_menu(new QMenu(m_browser))
-    , m_model(new ProjectModel)
+    , m_parent(parent)
+//     , m_menu(new QMenu(m_browser))
 {
     setObjectName("projectView");
     setWidget(m_browser);
 
     //model->dirLister()->openUrl(KUrl("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru"));
-    m_browser->setModel(m_model);
+    m_browser->setModel(Project::instance()->model());
 //     KFileItemDelegate *delegate = new KFileItemDelegate(this);
     //m_browser->setItemDelegate(new KFileItemDelegate(this));
     m_browser->setItemDelegate(new PoItemDelegate(this));
 
+    m_browser->setColumnWidth(0, m_browser->columnWidth(0)*3);
+    m_browser->setColumnWidth(SourceDate, m_browser->columnWidth(SourceDate)*2);
+    m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth(TranslationDate)*2);
+    //m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
 
     //KFileMetaInfo aa("/mnt/stor/mp3/Industry - State of the Nation.mp3");
     //KFileMetaInfo aa("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdelibs/kio.po");
     //kWarning() << aa.keys() <<endl;
     //kWarning() << aa.item("tra.mime_type").value()  <<endl;
 
-    m_menu->addAction(i18n("Open project"),parent,SLOT(projectOpen()));
-    m_menu->addAction(i18n("Create new project"),parent,SLOT(projectCreate()));
+//     m_menu->addAction(i18n("Open project"),parent,SLOT(projectOpen()));
+//     m_menu->addAction(i18n("Create new project"),parent,SLOT(projectCreate()));
 
-    connect(this,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+    connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+//     m_browser->installEventFilter(this);
 }
 
 ProjectView::~ProjectView()
 {
     delete m_browser;
-    delete m_model;
 }
 
-void ProjectView::slotProjectLoaded()
+// void ProjectView::slotProjectLoaded()
+// {
+// //     kWarning() << "path "<<Project::instance()->poBaseDir() << endl;
+//     KUrl url(Project::instance()->path());
+//     url.setFileName(QString());
+//     url.cd(Project::instance()->poBaseDir());
+// 
+// //     kWarning() << "path_ "<<url.path() << endl;
+// 
+//     if (QFile::exists(url.path()))
+//     {
+//         m_model->dirLister()->openUrl(url);
+//     }
+// 
+// //     QTimer::singleShot(3000, this,SLOT(showCurrentFile()));
+// }
+
+void ProjectView::contextMenuEvent(QContextMenuEvent *event)
 {
-//     kWarning() << "path "<<Project::instance()->poBaseDir() << endl;
-    KUrl url(Project::instance()->path());
-    url.setFileName(QString());
-    url.cd(Project::instance()->poBaseDir());
+    QMenu menu;
+    menu.addAction(i18n("Open project"),m_parent,SLOT(projectOpen()));
+    menu.addAction(i18n("Create new project"),m_parent,SLOT(projectCreate()));
 
-//     kWarning() << "path_ "<<url.path() << endl;
+    if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(m_browser->currentIndex())->mimetype())
+    {
+        menu.addSeparator();
+        menu.addAction(i18n("Open"),this,SLOT(slotOpen()));
+        menu.addAction(i18n("Open in new window"),this,SLOT(slotOpenInNewWindow()));
+        
+    }
 
-    if (QFile::exists(url.path()))
-        m_model->dirLister()->openUrl(url);
-    
-//     QTimer::singleShot(3000, this,SLOT(showCurrentFile()));
+
+    menu.exec(event->globalPos());
 }
-
-
 
 void ProjectView::slotItemActivated(const QModelIndex& idx)
 {
-    
+    if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(m_browser->currentIndex())->mimetype())
+        emit fileOpenRequested(Project::instance()->model()->itemForIndex(idx)->url());
 }
 
+void ProjectView::slotOpen()
+{
+    emit fileOpenRequested(Project::instance()->model()->itemForIndex(m_browser->currentIndex())->url());
+}
+
+void ProjectView::slotOpenInNewWindow()
+{
+    emit newWindowOpenRequested(Project::instance()->model()->itemForIndex(m_browser->currentIndex())->url());
+}
+
+
+
+/*bool ProjectView::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::MouseButtonRelease)
+    {
+        kWarning() << "aas" << endl;
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        if (mouseEvent->button()==Qt::MidButton)
+            kWarning() << "aaas" << endl;
+            emit fileOpenRequested(m_model->itemForIndex(m_browser->currentIndex())->url());
+    }
+             // standard event processing
+    return QObject::eventFilter(obj, event);
+}
+*/
 /*
 void ProjectView::showCurrentFile()
 {

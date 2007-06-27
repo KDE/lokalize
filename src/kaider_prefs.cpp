@@ -63,6 +63,14 @@
 #include "ui_prefs_projectmain.h"
 
 
+void KAider::deleteUiSetupers()
+{
+    delete ui_prefs_identity;
+    delete ui_prefs_font;
+    delete ui_prefs_projectmain;
+}
+
+
 void KAider::optionsPreferences()
 {
     if (KConfigDialog::showDialog("kaider_settings"))
@@ -110,6 +118,7 @@ void KAider::optionsPreferences()
 
 //Spellcheck
     w = new Sonnet::ConfigWidget(Settings::self()->config(),dialog);
+    w->setParent(this);
     dialog->addPage(w, i18n("Spellcheck"), "spellcheck_setting");
     connect(dialog,SIGNAL(okClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(applyClicked()),w,SLOT(save()));

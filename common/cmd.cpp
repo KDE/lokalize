@@ -46,13 +46,14 @@
 #include "catalog_private.h"
 #include "catalogitem_private.h"
 
-#define ITEM Catalog::instance()->d->_entries[_pos.entry].d
+//#define ITEM Catalog::instance()->d->_entries[_pos.entry].d
+#define ITEM _catalog->d->_entries[_pos.entry].d
 
-InsTextCmd::InsTextCmd(/*Catalog *catalog,*/const DocPosition &pos,const QString &str):
-        QUndoCommand(i18n("Insertion")),
-//         Catalog::instance()(catalog),
-        _str(str),
-        _pos(pos)
+InsTextCmd::InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
+    : QUndoCommand(i18n("Insertion"))
+    , _catalog(catalog)
+    , _str(str)
+    , _pos(pos)
 {
 }
 
@@ -73,14 +74,14 @@ void InsTextCmd::redo()
 {
     if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
     {
-        Catalog::instance()->d->_untransIndex.removeAll(_pos.entry);
-        Catalog::instance()->emitsignalNumberOfUntranslatedChanged();
+        _catalog->d->_untransIndex.removeAll(_pos.entry);
+        _catalog->emitsignalNumberOfUntranslatedChanged();
     }
 
     ITEM->_msgstrPlural[_pos.form].insert(_pos.offset,_str);
 
-    Catalog::instance()->d->_posBuffer=_pos;
-    Catalog::instance()->d->_posBuffer.offset+=_str.size();
+    _catalog->d->_posBuffer=_pos;
+    _catalog->d->_posBuffer.offset+=_str.size();
 
 }
 
@@ -88,25 +89,25 @@ void InsTextCmd::undo()
 {
     ITEM->_msgstrPlural[_pos.form].remove(_pos.offset,_str.size());
 
-    Catalog::instance()->d->_posBuffer=_pos;
+    _catalog->d->_posBuffer=_pos;
 
     if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
     {
         // insert index in the right place in the list
-        QList<uint>::Iterator it = Catalog::instance()->d->_untransIndex.begin();
-        while(it != Catalog::instance()->d->_untransIndex.end() && _pos.entry > (int)(*it))
+        QList<uint>::Iterator it = _catalog->d->_untransIndex.begin();
+        while(it != _catalog->d->_untransIndex.end() && _pos.entry > (int)(*it))
             ++it;
-        Catalog::instance()->d->_untransIndex.insert(it,_pos.entry);
-        Catalog::instance()->emitsignalNumberOfUntranslatedChanged();
+        _catalog->d->_untransIndex.insert(it,_pos.entry);
+        _catalog->emitsignalNumberOfUntranslatedChanged();
     }
 }
 
 
-DelTextCmd::DelTextCmd(/*Catalog *catalog,*/const DocPosition &pos,const QString &str):
-    QUndoCommand(i18n("Deletion")),
-//     Catalog::instance()(catalog),
-    _str(str),
-    _pos(pos)
+DelTextCmd::DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
+    : QUndoCommand(i18n("Deletion"))
+    , _catalog(catalog)
+    , _str(str)
+    , _pos(pos)
 {
 }
 
@@ -140,38 +141,38 @@ void DelTextCmd::redo()
 {
     ITEM->_msgstrPlural[_pos.form].remove(_pos.offset,_str.size());
 
-    Catalog::instance()->d->_posBuffer=_pos;
-    Catalog::instance()->d->_posBuffer.offset+=_str.size();
+    _catalog->d->_posBuffer=_pos;
+    _catalog->d->_posBuffer.offset+=_str.size();
 
     if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
     {
         // insert index in the right place in the list
-        QList<uint>::Iterator it = Catalog::instance()->d->_untransIndex.begin();
-        while(it != Catalog::instance()->d->_untransIndex.end() && _pos.entry > (int)(*it))
+        QList<uint>::Iterator it = _catalog->d->_untransIndex.begin();
+        while(it != _catalog->d->_untransIndex.end() && _pos.entry > (int)(*it))
             ++it;
-        Catalog::instance()->d->_untransIndex.insert(it,_pos.entry);
-        Catalog::instance()->emitsignalNumberOfUntranslatedChanged();
+        _catalog->d->_untransIndex.insert(it,_pos.entry);
+        _catalog->emitsignalNumberOfUntranslatedChanged();
     }
 }
 void DelTextCmd::undo()
 {
     if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
     {
-        Catalog::instance()->d->_untransIndex.removeAll(_pos.entry);
-        Catalog::instance()->emitsignalNumberOfUntranslatedChanged();
+        _catalog->d->_untransIndex.removeAll(_pos.entry);
+        _catalog->emitsignalNumberOfUntranslatedChanged();
     }
 
 
     ITEM->_msgstrPlural[_pos.form].insert(_pos.offset,_str);
 
-    Catalog::instance()->d->_posBuffer=_pos;
+    _catalog->d->_posBuffer=_pos;
 }
 
-ToggleFuzzyCmd::ToggleFuzzyCmd(/*Catalog *catalog,*/uint index,bool flag):
-        QUndoCommand(i18n("Fuzzy toggling")),
-        _flag(flag),
-//         Catalog::instance()(catalog),
-        _index(index)
+ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
+    : QUndoCommand(i18n("Fuzzy toggling"))
+    , _catalog(catalog)
+    , _flag(flag)
+    , _index(index)
 {
 }
 
@@ -196,16 +197,16 @@ void ToggleFuzzyCmd::setFuzzy()
     DocPosition _pos;
     _pos.entry=_index;
     _pos.part=UndefPart;
-    Catalog::instance()->d->_posBuffer=_pos;
+    _catalog->d->_posBuffer=_pos;
 
     // insert index in the right place in the list
-    QList<uint>::Iterator it = Catalog::instance()->d->_fuzzyIndex.begin();
-    while(it != Catalog::instance()->d->_fuzzyIndex.end() && _index > (*it))
+    QList<uint>::Iterator it = _catalog->d->_fuzzyIndex.begin();
+    while(it != _catalog->d->_fuzzyIndex.end() && _index > (*it))
         ++it;
-    Catalog::instance()->d->_fuzzyIndex.insert(it,_index);
-    Catalog::instance()->emitsignalNumberOfFuzziesChanged();
+    _catalog->d->_fuzzyIndex.insert(it,_index);
+    _catalog->emitsignalNumberOfFuzziesChanged();
 
-    kWarning() << "BEFORE " << ITEM->_comment << endl;
+//     kWarning() << "BEFORE " << ITEM->_comment << endl;
     if (ITEM->_comment.isEmpty())
     {
         ITEM->_comment="#, fuzzy";
@@ -216,7 +217,7 @@ void ToggleFuzzyCmd::setFuzzy()
     if(p!=-1)
     {
         ITEM->_comment.replace(p,2,"#, fuzzy,");
-            kWarning() << " 3AFETR " << ITEM->_comment << endl;
+//             kWarning() << " 3AFETR " << ITEM->_comment << endl;
         return;
     }
 
@@ -225,7 +226,7 @@ void ToggleFuzzyCmd::setFuzzy()
     if (p!=-1)
     {
         ITEM->_comment.insert(p+a.matchedLength(),"#, fuzzy\n");
-            kWarning() << "1 AFETR " << ITEM->_comment << endl;
+//             kWarning() << "1 AFETR " << ITEM->_comment << endl;
         return;
     }
 
@@ -234,7 +235,7 @@ void ToggleFuzzyCmd::setFuzzy()
             ITEM->_comment+='\n';
         ITEM->_comment+="#, fuzzy";
     }
-    kWarning() << "2 AFETR " << ITEM->_comment << endl;
+//     kWarning() << "2 AFETR " << ITEM->_comment << endl;
 }
 
 void ToggleFuzzyCmd::unsetFuzzy()
@@ -242,12 +243,12 @@ void ToggleFuzzyCmd::unsetFuzzy()
     DocPosition _pos;
     _pos.entry=_index;
     _pos.part=UndefPart;
-    Catalog::instance()->d->_posBuffer=_pos;
+    _catalog->d->_posBuffer=_pos;
 
-    Catalog::instance()->d->_fuzzyIndex.removeAll(_index);
-    Catalog::instance()->emitsignalNumberOfFuzziesChanged();
+    _catalog->d->_fuzzyIndex.removeAll(_index);
+    _catalog->emitsignalNumberOfFuzziesChanged();
 
-    kWarning() << "BEFORE " << ITEM->_comment << endl;
+//     kWarning() << "BEFORE " << ITEM->_comment << endl;
     ITEM->_comment.remove( QRegExp(",\\s*fuzzy"));
 
     // remove empty comment lines
@@ -255,8 +256,8 @@ void ToggleFuzzyCmd::unsetFuzzy()
     ITEM->_comment.remove( QRegExp("^#\\s*$") );
     ITEM->_comment.remove( QRegExp("#\\s*\n") );
     ITEM->_comment.remove( QRegExp("^#\\s*\n") );
-    
-    kWarning() << "AFETR " << ITEM->_comment << endl;
+
+//     kWarning() << "AFETR " << ITEM->_comment << endl;
 
 }
 

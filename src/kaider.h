@@ -158,6 +158,8 @@ private slots:
     void projectOpen(QString path=QString());
     void projectCreate();
 
+    void newWindowOpen(const KUrl&);
+
 private:
     void setupAccel();
     void setupActions();
@@ -171,7 +173,12 @@ private:
     /** should be called on real entry change only */
 //     void emitSignals();
 
+    void deleteUiSetupers();
+
 private:
+    Catalog* _catalog;
+    Project* _project;
+
     KAiderView *_view;
 
     KFindDialog* _findDialog;
@@ -189,10 +196,7 @@ private:
     Ui_findExtension* ui_replaceExtension;
 
     ProjectView* _projectView;
-    KDirLister* _dirLister;
-    
-    Catalog* _catalog;
-    Project* _project;
+//     MsgIdDiff* _msgIdDiffView;
 
     int _currentEntry;
     DocPosition _currentPos;

@@ -48,15 +48,15 @@ enum Commands { Insert, Delete, ToggleFuzzy };
 class InsTextCmd : public QUndoCommand
 {
 public:
-    InsTextCmd(/*Catalog *catalog,*/const DocPosition &pos,const QString &str);
+    InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
     virtual ~InsTextCmd(){};
     int id () const {return Insert;}
     bool mergeWith(const QUndoCommand *other);
     void undo();
     void redo();
 private:
+    Catalog* _catalog;
     QString _str;
-//     Catalog* _catalog;
     DocPosition _pos;
 };
 
@@ -64,23 +64,23 @@ private:
 class DelTextCmd : public QUndoCommand
 {
 public:
-    DelTextCmd(/*Catalog *catalog,*/const DocPosition &pos,const QString &str);
+    DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
     virtual ~DelTextCmd(){};
     int id () const {return Delete;}
     bool mergeWith(const QUndoCommand *other);
     void redo();
     void undo();
 private:
+    Catalog* _catalog;
     QString _str;
-//     Catalog* _catalog;
     DocPosition _pos;
 };
 
-/** you should care not to new it w/ aint no need */
+/* you should care not to new it w/ aint no need */
 class ToggleFuzzyCmd : public QUndoCommand
 {
 public:
-    ToggleFuzzyCmd(/*Catalog *catalog,*/uint index,bool flag);
+    ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag);
     virtual ~ToggleFuzzyCmd(){};
     int id () const {return ToggleFuzzy;}
     void redo();
@@ -89,8 +89,8 @@ private:
     void unsetFuzzy();
     void setFuzzy();
 
+    Catalog* _catalog;
     bool _flag;
-//     Catalog* _catalog;
     uint _index;
 };
 

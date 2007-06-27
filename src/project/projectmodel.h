@@ -37,6 +37,17 @@
 #include <kfilemetainfo.h>
 #include <kfileitemdelegate.h>
 #include <QItemDelegate>
+
+enum ModelColumns
+{
+    Graph = 1,
+    SourceDate,
+    TranslationDate,
+    LastTranslator,
+    ProjectModelColumnCount
+};
+
+
 /*
 struct TranslationProgress
 {
@@ -70,7 +81,7 @@ public:
     QVariant data (const QModelIndex&, int role = Qt::DisplayRole ) const;
     QVariant headerData(int, Qt::Orientation, int) const;
     int columnCount(const QModelIndex & parent = QModelIndex()) const;
-    //Qt::ItemFlags flags( const QModelIndex & index ) const;
+    Qt::ItemFlags flags( const QModelIndex & index ) const;
 };
 
 

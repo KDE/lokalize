@@ -35,13 +35,14 @@
 
 #include <QDockWidget>
 class QTextBrowser;
+class Catalog;
 
 class MsgIdDiff: public QDockWidget
 {
     Q_OBJECT
 
 public:
-    MsgIdDiff(QWidget* parent);
+    MsgIdDiff(QWidget*,Catalog*);
     virtual ~MsgIdDiff();
 
 
@@ -50,6 +51,7 @@ public slots:
 
 private:
     QTextBrowser* m_browser;
+    Catalog* m_catalog;
 };
 
 #endif

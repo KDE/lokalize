@@ -36,7 +36,9 @@
 #include <QDockWidget>
 class QMenu;
 class QTreeView;
+class KUrl;
 class ProjectModel;
+class QModelIndex;
 
 class ProjectView: public QDockWidget
 {
@@ -45,17 +47,26 @@ class ProjectView: public QDockWidget
 public:
     ProjectView(QWidget* parent);
     virtual ~ProjectView();
+    void contextMenuEvent(QContextMenuEvent *event);
 
 
 public slots:
-    void slotProjectLoaded();
+//     void slotProjectLoaded();
     void slotItemActivated(const QModelIndex&);
+    void slotOpen();
+    void slotOpenInNewWindow();
 //     void showCurrentFile();
+signals:
+    void fileOpenRequested(KUrl);
+    void newWindowOpenRequested(const KUrl&);
+
+// protected:
+//     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     QTreeView* m_browser;
-    QMenu* m_menu;
-    ProjectModel *m_model;
+//     QMenu* m_menu;
+    QWidget* m_parent;
 };
 
 #endif

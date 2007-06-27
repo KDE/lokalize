@@ -60,49 +60,49 @@ class CatalogPrivate
 {
 
 public:
-    
+
     /** url of the po-file, that belongs to this catalog */
     KUrl _url;
     QString _packageName;
     QString _packageDir;
-    
+
     /** holds the entries in the catalog */
     QVector<CatalogItem> _entries;
     /** The header of the po-file. */
     CatalogItem _header;
     /** list of obsolete entries */
     QLinkedList<CatalogItem> _obsoleteEntries;
-    
+
     /** identification string for used import filter*/
     QString _importID;
     QString _mimeTypes;
 
     //TagSettings _tagSettings;
-    
+
     QTextCodec *fileCodec;
-    
+
     QStringList msgidDiffList;
     //    QMap< QString, QStringList > msgstr2MsgidDiffList;
     //    Q3IntCache<QString> diffCache;
-    
-    //for wrapping
-    short _maxLineLength;
-    
+
     int _numberOfPluralForms;
     QString _language;
     QString _langCode;
-    
+
+    //for wrapping
+    short _maxLineLength;
+
     //    Project::Ptr _project;
     //    RegExpExtractor *_tagExtractor, *_argExtractor;
     bool _readOnly;
     bool _generatedFromDocbook;
     bool _active;
     bool _stop;
-    
+
     QList<uint> _fuzzyIndex;
     QList<uint> _untransIndex;
     QList<uint> _errorIndex;
-    
+
     QStringList _catalogExtraData;
 
     //for undo/redo

@@ -73,7 +73,9 @@
 
 KAider::KAider()
     : KXmlGuiWindow()
-    , _view(new KAiderView(this/*,_catalog,new keyEventHandler(this,_catalog)*/))
+    , _catalog(new Catalog(this))
+    , _project(Project::instance())
+    , _view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
     , _findDialog(0)
     , _find(0)
     , _replaceDialog(0)
@@ -87,9 +89,7 @@ KAider::KAider()
     , ui_findExtension(0)
     , ui_replaceExtension(0)
     , _projectView(0)
-    , _dirLister(0)
-    , _catalog(Catalog::instance())
-    , _project(Project::instance())
+//     , _msgIdDiffView(0)
 {
     setAcceptDrops(true);
     setCentralWidget(_view);
@@ -98,24 +98,26 @@ KAider::KAider()
     setupActions();
 
     setAutoSaveSettings();
-    
-    
+
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 }
 
 KAider::~KAider()
 {
     _project->save();
-    delete _view;
+    deleteUiSetupers();
+    //these are qobjects...
+/*    delete _view;
     delete _findDialog;
     delete _replaceDialog;
     delete _find;
     delete _replace;
-/*    delete ui_findExtension;
+    
+    delete ui_findExtension;
     delete ui_findExtension;
     delete ui_prefs_identity;
     delete ui_prefs_font;*/
-// we're exiting anyway...
+// NO: we're exiting anyway...
 }
 
 #define ID_STATUS_TOTAL 1
@@ -271,17 +273,26 @@ void KAider::setupActions()
 
 }
 
+void KAider::newWindowOpen(const KUrl& url)
+{
+    KAider* newWindow = new KAider;
+    newWindow->fileOpen(url);
+    newWindow->show();
+}
+
 void KAider::createDockWindows()
 {
     //signalNewEntryDisplayed
-    MsgIdDiff* msgIdDiff = new MsgIdDiff(this);
-    addDockWidget(Qt::BottomDockWidgetArea, msgIdDiff);
-    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiff->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiff,SLOT(slotNewEntryDisplayed(uint)));
+    MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
+    addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
+    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiffView,SLOT(slotNewEntryDisplayed(uint)));
 
     _projectView = new ProjectView(this);
     addDockWidget(Qt::BottomDockWidgetArea, _projectView);
-    connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
+    //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
+    connect(_projectView, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
+    connect(_projectView, SIGNAL(newWindowOpenRequested(const KUrl&)), this, SLOT(newWindowOpen(const KUrl&)));
 }
 
 void KAider::fileOpen(KUrl url)
@@ -419,7 +430,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
         emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
         emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
-        
+
 /*        if ((int)_currentEntry<_catalog->lastFuzzyIndex())
             kWarning() << _currentEntry << " " << _catalog->lastFuzzyIndex() << " " << _catalog->lastUntranslatedIndex() << endl;*/
     }

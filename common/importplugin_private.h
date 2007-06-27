@@ -50,21 +50,21 @@ public:
     Catalog* _catalog;
     bool _started;
     bool _stopped;
-    
-    QLinkedList<CatalogItem> _entries;
-    QLinkedList<CatalogItem> _obsoleteEntries;
-    CatalogItem _header;
-    bool _generatedFromDocbook;
-    QTextCodec* _codec;
-    QList<uint> _errorList;
-    QStringList _catalogExtraData;
-    QString _mimeTypes;
-    
+
     bool _updateHeader;
     bool _updateGeneratedFromDocbook;
     bool _updateCodec;
     bool _updateErrorList;
     bool _updateCatalogExtraData;
+
+    bool _generatedFromDocbook;
+    QLinkedList<CatalogItem> _entries;
+    QLinkedList<CatalogItem> _obsoleteEntries;
+    CatalogItem _header;
+    QTextCodec* _codec;
+    QList<uint> _errorList;
+    QStringList _catalogExtraData;
+    QString _mimeTypes;
 
 };
 

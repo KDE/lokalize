@@ -40,9 +40,10 @@
 #include <QTextBrowser>
 #include <QTime>
 
-MsgIdDiff::MsgIdDiff(QWidget* parent)
+MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18n("Original Diff"), parent)
     , m_browser(new QTextBrowser(this))
+    , m_catalog(catalog)
 {
     setObjectName("msgIdDiff");
     setWidget(m_browser);
@@ -55,14 +56,14 @@ MsgIdDiff::~MsgIdDiff()
 
 void MsgIdDiff::slotNewEntryDisplayed(uint index)
 {
-    QString oldStr(Catalog::instance()->comment(index));
+    QString oldStr(m_catalog->comment(index));
     if (!oldStr.contains("#|"))
     {
         //kWarning()<< "___ returning... "<< endl;
         m_browser->clear();
         return;
     }
-    QString newStr(Catalog::instance()->msgid(index));
+    QString newStr(m_catalog->msgid(index));
 
     oldStr.replace("#| msgid_plural \"","#| \"");
     newStr.replace("#| msgid_plural \"","#| \"");
