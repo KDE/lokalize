@@ -52,6 +52,7 @@
 #include "catalog_private.h"
 #include "pluralformtypes_enum.h"
 
+
 #define CHECK_IF_EMPTY(_return_type)\
 if (  d->_entries.isEmpty() )\
         return _return_type;
@@ -72,15 +73,17 @@ class Catalog: public QUndoStack
 public:
     //Catalog();
     Catalog(QObject* parent);
-    ~Catalog();
+    virtual ~Catalog();
 
     //ConversionStatus populateFromPO(const QString& file);
 
-    QString msgstr(uint index, const uint form=0, const bool noNewlines=false) const;
-    QString msgid(uint index, const uint form=0, const bool noNewlines=false) const;
+    const QString& msgstr(uint index, const uint form=0, const bool noNewlines=false) const;
+    const QString& msgstr(const DocPosition&, const bool noNewlines=false) const;
+    const QString& msgid(uint index, const uint form=0, const bool noNewlines=false) const;
+    const QString& msgid(const DocPosition&, const bool noNewlines=false) const;
 
-    QString comment(uint index) const;
-    QString msgctxt(uint index) const;
+    const QString& comment(uint index) const;
+    const QString& msgctxt(uint index) const;
 
     PluralFormType pluralFormType(uint index) const;
     int numberOfPluralForms() const {return d->_numberOfPluralForms;};
@@ -88,7 +91,9 @@ public:
     int numberOfFuzzies() const {return d->_fuzzyIndex.size();};
     int numberOfUntranslated() const {return d->_untransIndex.size();};
     bool isFuzzy(uint index) const;
-    bool isUntranslated(uint index) const;
+    bool isValid(uint index) const {return d->_entries.at(index).isValid();};
+    bool isUntranslated(uint index) const; //at least one form is untranslated
+    bool isUntranslated(const DocPosition&) const;
     int firstFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?numberOfEntries():d->_fuzzyIndex.first();};
     int lastFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?-1:d->_fuzzyIndex.last();};
     int nextFuzzyIndex(uint index) const {return findNextInList(d->_fuzzyIndex,index);};
@@ -115,31 +120,35 @@ public:
     void setErrorIndex(const QList<uint>& errors){d->_errorIndex=errors;};
 
     void setImportPluginID(const QString& id){d->_importID=id;};
-    QString importPluginID() const {return d->_importID;}
+    const QString& importPluginID() const {return d->_importID;}
 
     void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;};
 
     bool setHeader(CatalogItem header);
-    CatalogItem header() const {return d->_header;};
+    const CatalogItem& header() const {return d->_header;};
 
-    KUrl url() const {return d->_url;};
+    const KUrl& url() const {return d->_url;};
     bool loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
 
     void updateHeader(bool forSaving=true);
 
-public/* slots*/:
-    virtual DocPosition& undo();
-    virtual DocPosition& redo();
+    virtual void importFinished(){};
 
-private:
+public/* slots*/:
+    virtual const DocPosition& undo();
+    virtual const DocPosition& redo();
+
+protected:
     int findPrevInList(const QList<uint>& list,uint index) const;
     int findNextInList(const QList<uint>& list,uint index) const;
+private:
     void emitsignalNumberOfFuzziesChanged(){emit signalNumberOfFuzziesChanged();};
     void emitsignalNumberOfUntranslatedChanged(){emit signalNumberOfUntranslatedChanged();};
     bool setNumberOfPluralFormsFromHeader();
 
-private:
+//private:
+protected:
     CatalogPrivate *d;
 
     friend class CatalogImportPlugin;
@@ -147,6 +156,7 @@ private:
     friend class InsTextCmd;
     friend class DelTextCmd;
     friend class ToggleFuzzyCmd;
+    friend class MergeCatalog;
 //    class GettextExportPlugin
 
 signals:

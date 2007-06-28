@@ -34,8 +34,9 @@
 #define KAIDERVIEW_H_
 
 #include <QSplitter>
-#include <QTabBar>
-#include <QKeyEvent>
+class QTabBar;
+class KUrl;
+//#include <QKeyEvent>
 
 #include <ktextedit.h>
 
@@ -72,7 +73,8 @@ protected:
 //     }
 };
 
-
+class QDragEnterEvent;
+class QDragEvent;
 /**
  * This is the main view class for KAider.  Most of the non-menu,
  * non-toolbar, and non-statusbar (e.g., non frame) GUI code should go
@@ -93,6 +95,9 @@ public:
     void gotoEntry(const DocPosition& pos,int selection=0/*, bool updateHistory=true*/);
     QTabBar* tabBar(){return _tabbar;};
     QString selection() const {return _msgstrEdit->textCursor().selectedText();};//for non-batch replace
+
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent*);
 
 private:
 
@@ -119,6 +124,7 @@ signals:
     void signalRedo();
     void signalGotoFirst();
     void signalGotoLast();
+    void fileOpenRequested(KUrl);
 
 private slots:
     void switchColors();

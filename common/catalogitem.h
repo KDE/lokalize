@@ -40,7 +40,6 @@
 #include <QTextStream>
 
 #include "pluralformtypes_enum.h"
-#include "catalogitem_private.h"
 
 class CatalogItemPrivate;
 
@@ -68,6 +67,7 @@ public:
     bool isQtformat() const;   //", qt-format" in comment
     bool isNoQtformat() const; //", no-qt-format" in comment
     bool isUntranslated() const;
+    bool isUntranslated(uint form) const;
 
 
     PluralFormType pluralFormType() const;
@@ -81,12 +81,12 @@ public:
     /** cleares the item */
     void clear();
 
-    QString comment() const;
-    QString msgctxt(const bool noNewlines = false) const;
-    QString msgid(const int form=0, const bool noNewlines = false) const;
-    QStringList msgidPlural(const bool noNewlines = false) const;
-    QString msgstr(const int form=0, const bool noNewlines = false) const;
-    QStringList msgstrPlural(const bool noNewlines = false) const;
+    const QString& comment() const;
+    const QString& msgctxt(const bool noNewlines = false) const;
+    const QString& msgid(const int form=0, const bool noNewlines = false) const;
+    const QStringList& msgidPlural(const bool noNewlines = false) const;
+    const QString& msgstr(const int form=0, const bool noNewlines = false) const;
+    const QStringList& msgstrPlural(const bool noNewlines = false) const;
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
@@ -97,6 +97,7 @@ public:
     void setMsgstr(const QStringList& msg);
     void setMsgstrPlural(const QStringList& msg);
 
+    void setValid(bool);
     bool isValid() const;
 #if 0
     /** @return a list of tags in the msgid */

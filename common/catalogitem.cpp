@@ -39,15 +39,15 @@
 #include "catalogitem_private.h"
 
 CatalogItem::CatalogItem()
+ : d(new CatalogItemPrivate())
 {
-    d=0;
-    clear();
+    //clear();
 }
 
 CatalogItem::CatalogItem(const CatalogItem& item)
+ : d(new CatalogItemPrivate())
 {
-    d=0;
-    clear();
+    //clear();
     *d=*(item.d);
 }
 
@@ -58,12 +58,12 @@ CatalogItem::~CatalogItem()
 
 
 
-QString CatalogItem::comment() const
+const QString& CatalogItem::comment() const
 {
     return d->_comment;
 }
 
-QString CatalogItem::msgctxt(const bool noNewlines) const
+const QString& CatalogItem::msgctxt(const bool noNewlines) const
 {
     if (noNewlines)
         return (d->_msgctxt).replace("\n", " "); //TODO " " or "" ?
@@ -71,7 +71,7 @@ QString CatalogItem::msgctxt(const bool noNewlines) const
         return d->_msgctxt;
 }
 
-QString CatalogItem::msgid(const int form, const bool /*noNewlines*/) const
+const QString& CatalogItem::msgid(const int form, const bool /*noNewlines*/) const
 {
     //if original lang is english, we have only 2 formz
     if (form<d->_msgidPlural.size())
@@ -80,12 +80,12 @@ QString CatalogItem::msgid(const int form, const bool /*noNewlines*/) const
         return d->_msgidPlural.last();
 }
 
-QStringList CatalogItem::msgidPlural(const bool /*noNewlines*/) const
+const QStringList& CatalogItem::msgidPlural(const bool /*noNewlines*/) const
 {
     return d->_msgidPlural;
 }
 
-QString CatalogItem::msgstr(const int form, const bool /*noNewlines*/) const
+const QString& CatalogItem::msgstr(const int form, const bool /*noNewlines*/) const
 {
     if (form<d->_msgstrPlural.size())
         return d->_msgstrPlural.at(form);
@@ -93,7 +93,7 @@ QString CatalogItem::msgstr(const int form, const bool /*noNewlines*/) const
         return d->_msgstrPlural.last();
 }
 
-QStringList CatalogItem::msgstrPlural(const bool /*noNewlines*/) const
+const QStringList& CatalogItem::msgstrPlural(const bool /*noNewlines*/) const
 {
     return d->_msgstrPlural;
 }
@@ -101,6 +101,11 @@ QStringList CatalogItem::msgstrPlural(const bool /*noNewlines*/) const
 bool CatalogItem::isValid() const
 {
     return d->_valid;
+}
+
+void CatalogItem::setValid(bool a)
+{
+    d->_valid=a;
 }
 
 void CatalogItem::setMsgctxt(const QString& msg)
@@ -175,6 +180,14 @@ bool CatalogItem::isUntranslated() const
         if (d->_msgstrPlural.at(--i).isEmpty())
             return true;
     return false;
+}
+
+bool CatalogItem::isUntranslated(uint form) const
+{
+    if (form<d->_msgstrPlural.size())
+        return d->_msgstrPlural.at(form).isEmpty();
+    else
+        return true;
 }
 
 #if 0
@@ -290,7 +303,7 @@ void CatalogItem::clear()
         d = new CatalogItemPrivate();
         return;
     }
-    
+
     d->_errors.clear();
 
     d->_comment.clear();
@@ -355,5 +368,5 @@ void CatalogItem::removeError(const QString& error )
     d->_errors.removeAt( d->_errors.indexOf( error ) );
 }
 #endif
-                            
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

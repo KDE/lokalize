@@ -55,7 +55,7 @@
 class QString;
 class QTextStream;
 class QTextCodec;
-// 
+
 class CatalogPrivate
 {
 
@@ -82,12 +82,11 @@ public:
     QTextCodec *fileCodec;
 
     QStringList msgidDiffList;
-    //    QMap< QString, QStringList > msgstr2MsgidDiffList;
-    //    Q3IntCache<QString> diffCache;
 
     int _numberOfPluralForms;
     QString _language;
     QString _langCode;
+    QString _emptyStr;
 
     //for wrapping
     short _maxLineLength;
@@ -109,7 +108,6 @@ public:
     DocPosition _posBuffer;
 
 
-   
    explicit CatalogPrivate(/*Project::Ptr project*/) : 
 	//_packageName( QString::null ), _packageDir( QString::null ),
 	//_header (project), 
@@ -123,13 +121,10 @@ public:
 	_generatedFromDocbook(false), 
 	_active(false), 
 	_stop(false)
-	  /*diffCache(30,76), */
                 //, 	_project(project) 
    {
 // 	_entries.clear();
 // 	_obsoleteEntries.clear();
-// 	diffCache.setAutoDelete(true);
-// 	diffCache.clear();
 // 	
 // 	_tagExtractor = new RegExpExtractor(QStringList());
 // 	_argExtractor = new RegExpExtractor(QStringList());

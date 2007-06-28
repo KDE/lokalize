@@ -30,51 +30,65 @@
 
 **************************************************************************** */
 
+#include "mergeview.h"
+
 #include "diff.h"
-#include "catalog.h"
-#include "msgiddiffview.h"
+#include "mergecatalog.h"
 
 #include <klocale.h>
 #include <kdebug.h>
+#include <kurl.h>
 
 #include <QTextBrowser>
-#include <QTime>
+#include <QDragEnterEvent>
 
-MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Original Diff"), parent)
+MergeView::MergeView(QWidget* parent, Catalog* catalog)
+    : QDockWidget ( i18n("MergeView"), parent)
     , m_browser(new QTextBrowser(this))
-    , m_catalog(catalog)
+    , m_baseCatalog(catalog)
+    , m_mergeCatalog(0)
 {
-    setObjectName("msgIdDiff");
+    setObjectName("mergeView");
     setWidget(m_browser);
+
+    setAcceptDrops(true);
 }
 
-MsgIdDiff::~MsgIdDiff()
+MergeView::~MergeView()
 {
     delete m_browser;
 }
 
-void MsgIdDiff::slotNewEntryDisplayed(uint index)
+void MergeView::dragEnterEvent(QDragEnterEvent* event)
 {
-    QString oldStr(m_catalog->comment(index));
-    if (!oldStr.contains("#|"))
+    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
     {
-        //kWarning()<< "___ returning... "<< endl;
+        //kWarning() << " " << <<endl;
+        event->acceptProposedAction();
+    };
+}
+
+void MergeView::dropEvent(QDropEvent *event)
+{
+    emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
+    event->acceptProposedAction();
+}
+
+void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
+{
+//     if (!m_mergeCatalog)
+//         return;
+
+
+    //if (!m_mergeCatalog->isValid(pos.entry))
+    if (!really)
+    {
         m_browser->clear();
         return;
     }
-    QString newStr(m_catalog->msgid(index));
+    QString newStr(m_mergeCatalog->msgstr(pos));
+    QString oldStr(m_baseCatalog->msgstr(pos));
 
-    oldStr.replace("#| msgid_plural \"","#| \"");
-    newStr.replace("#| msgid_plural \"","#| \"");
-
-
-    QTime time;
-    time.start();
-
-    //get rid of other info (eg fuzzy marks)
-    oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
-    oldStr.remove(QRegExp("\\#[^\\|].*$"));
 
     oldStr.replace('<',"&lt;");
     newStr.replace('<',"&lt;");
@@ -83,24 +97,6 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
 //     kWarning()<< "OLD "<< oldStr << endl;
 //     kWarning()<< "NEW "<< newStr << endl;
 
-    if (oldStr.contains("#| msgid \"\""))
-    {
-        oldStr.remove("#| \"");
-        oldStr.remove(QRegExp("\"\n"));
-        oldStr.remove(QRegExp("\"$"));
-            //kWarning() << "BEGIN " << oldStr << " END" << endl;
-    
-        newStr.remove("\n");
-        oldStr.replace("\\n"," \\n ");
-        newStr.replace("\\n"," \\n ");
-        oldStr.remove("#| msgid \"");
-    }
-    else
-    {
-        oldStr.remove("#| msgid \"");
-        oldStr.remove(QRegExp("\"$"));
-        oldStr.remove("\"\n");
-    }
 //     kWarning()<< "NEW "<< newStr << endl;
 /*    oldStr.prepend("aaa ggg aaa ");
     newStr.prepend("ggg aaa bbb aaa ");*/
@@ -117,12 +113,18 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
 
     m_browser->setHtml(result);
 //     m_browser->setPlainText(result);
+//     kWarning()<<"ELA "<<time.elapsed()<<endl;
 //     kWarning()<<" "<<result<<endl;
 
 //     oldStr.replace("\\n","\\n\n");
 //     newStr.replace("\\n","\\n\n");
 
-    kWarning()<<"ELA "<<time.elapsed()<<endl;
 }
 
-#include "msgiddiffview.moc"
+void MergeView::cleanup()
+{
+    m_browser->clear();
+}
+
+
+#include "mergeview.moc"

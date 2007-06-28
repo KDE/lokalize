@@ -53,8 +53,9 @@
 #include "gettextexport.h"
 
 #include "catalog.h"
+#include "catalog_private.h"
 #include "version.h"
-#include "kaider_settings.h"
+#include "prefs_kaider.h"
 
 // Catalog* Catalog::_instance=0;
 
@@ -155,36 +156,53 @@ void Catalog::clear()
 //     d->_entries=entries;
 // }
 
-QString Catalog::msgid(uint index, const uint form, const bool noNewlines) const
+const QString& Catalog::msgid(uint index, const uint form, const bool noNewlines) const
 {
     if (  d->_entries.isEmpty() )
-        return QString();
+        return d->_emptyStr;
 
-   return d->_entries[index].msgid(form,noNewlines);
+   return d->_entries.at(index).msgid(form,noNewlines);
 }
 
-QString Catalog::msgstr(uint index, const uint form, const bool noNewlines) const
+const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
 {
     if (  d->_entries.isEmpty() )
-        return QString();
+        return d->_emptyStr;
 
-   return d->_entries[index].msgstr(form, noNewlines);
+   return d->_entries.at(pos.entry).msgid(pos.form,noNewlines);
 }
 
-QString Catalog::comment(uint index) const
+const QString& Catalog::msgstr(uint index, const uint form, const bool noNewlines) const
 {
     if (  d->_entries.isEmpty() )
-        return QString();
+        return d->_emptyStr;
 
-   return d->_entries[index].comment();
+   return d->_entries.at(index).msgstr(form, noNewlines);
 }
 
-QString Catalog::msgctxt(uint index) const
+const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 {
     if (  d->_entries.isEmpty() )
-        return QString();
+        return d->_emptyStr;
 
-    return d->_entries[index].msgctxt();
+   return d->_entries.at(pos.entry).msgstr(pos.form, noNewlines);
+
+}
+
+const QString& Catalog::comment(uint index) const
+{
+    if (  d->_entries.isEmpty() )
+        return d->_emptyStr;
+
+   return d->_entries.at(index).comment();
+}
+
+const QString& Catalog::msgctxt(uint index) const
+{
+    if (  d->_entries.isEmpty() )
+        return d->_emptyStr;
+
+    return d->_entries.at(index).msgctxt();
 }
 
 PluralFormType Catalog::pluralFormType(uint index) const
@@ -196,7 +214,7 @@ PluralFormType Catalog::pluralFormType(uint index) const
 //    if(index > max)
 //       index=max;
 
-   return d->_entries[index].pluralFormType();
+   return d->_entries.at(index).pluralFormType();
 }
 
 bool Catalog::isFuzzy(uint index) const
@@ -204,7 +222,7 @@ bool Catalog::isFuzzy(uint index) const
     if (  d->_entries.isEmpty() )
         return false;
 
-   return d->_entries[index].isFuzzy();
+   return d->_entries.at(index).isFuzzy();
 }
 
 bool Catalog::isUntranslated(uint index) const
@@ -212,8 +230,17 @@ bool Catalog::isUntranslated(uint index) const
     if (  d->_entries.isEmpty() )
         return false;
 
-   return d->_entries[index].isUntranslated();
+   return d->_entries.at(index).isUntranslated();
 }
+
+bool Catalog::isUntranslated(const DocPosition& pos) const
+{
+    if (  d->_entries.isEmpty() )
+        return false;
+
+   return d->_entries.at(pos.entry).isUntranslated(pos.form);
+}
+
 
 bool Catalog::setNumberOfPluralFormsFromHeader()
 {
@@ -335,13 +362,13 @@ bool Catalog::saveToUrl(KUrl url)
 
 }
 
-DocPosition& Catalog::undo()
+const DocPosition& Catalog::undo()
 {
     QUndoStack::undo();
     return d->_posBuffer;
 }
 
-DocPosition& Catalog::redo()
+const DocPosition& Catalog::redo()
 {
     QUndoStack::redo();
     return d->_posBuffer;
@@ -397,7 +424,7 @@ int Catalog::findPrevInList(const QList<uint>& list,uint index) const
 
 
 
-QString GNUPluralForms(const QString& lang);
+//const QString& GNUPluralForms(const QString& lang);
 
 
 void Catalog::updateHeader(bool forSaving)

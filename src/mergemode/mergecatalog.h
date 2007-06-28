@@ -1,11 +1,7 @@
 /* ****************************************************************************
   This file is part of KAider
-  This file is based on the one from KBabel
 
-  Copyright (C) 1999-2000 by Matthias Kiefer
-                            <matthias.kiefer@gmx.de>
-		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,52 +27,33 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
-#ifndef CATALOGITEMPRIVATE_H
-#define CATALOGITEMPRIVATE_H
 
-#include <QStringList>
-#include "pluralformtypes_enum.h"
+#ifndef MERGECATALOG_H
+#define MERGECATALOG_H
 
+#include "catalog.h"
 
 /**
-* This class represents data for an entry in a catalog.
-* It contains the comment, the Msgid and the Msgstr.
-* It defines some functions to query the state of the entry
-* (fuzzy, untranslated, cformat).
-*
-* @short Class, representing an entry in a catalog
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-* @author Nick Shaforostoff <shafff@ukr.net>
+	@author Nick Shaforostoff <shafff@ukr.net>
 */
-
-class CatalogItemPrivate
+class MergeCatalog : public Catalog
 {
-
 public:
+    MergeCatalog(QObject* parent, Catalog* baseCatalog);
+    ~MergeCatalog();
 
-    PluralFormType _pluralFormType:8;
-    bool _valid:1;
+    void importFinished();
 
-    QString _comment;
-    QString _msgctxt;
+    int firstChangedIndex() const {return m_changedIndex.isEmpty()?numberOfEntries():m_changedIndex.first();};
+    int lastChangedIndex() const {return m_changedIndex.isEmpty()?-1:m_changedIndex.last();};
+    int nextChangedIndex(uint index) const {return findNextInList(m_changedIndex,index);};
+    int prevChangedIndex(uint index) const {return findPrevInList(m_changedIndex,index);};
 
-    QStringList _msgidPlural;
-    //QString _msgid;
-    QStringList _msgstrPlural;
-    //QString _msgstr;
-
-    QStringList _errors;
-
-    CatalogItemPrivate()
-        : _pluralFormType(NoPluralForm)
-        , _valid(true)
-	{};
-
-
-    friend class CatalogItem;
+private:
+    Catalog* m_baseCatalog;
+    QList<uint> m_changedIndex;
 };
 
-#endif // CATALOGITEMPRIVATE_H
+#endif

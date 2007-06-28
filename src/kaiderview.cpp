@@ -31,16 +31,18 @@
 **************************************************************************** */
 
 #include <QTextCodec>
-#include <QSplitter>
+#include <QTabBar>
+#include <QDragEnterEvent>
 
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kdebug.h>
+#include <kurl.h>
 #include <kstandardshortcut.h>
  
 #include "cmd.h"
 #include "kaiderview.h"
-#include "kaider_settings.h"
+#include "prefs_kaider.h"
 #include "syntaxhighlighter.h"
 
 //#include <loader.h>
@@ -209,10 +211,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     else
         _tabbar->hide();
 
-    _msgidEdit->setText(_catalog->msgid(_currentPos.entry,_currentPos.form)/*, _catalog->msgctxt(_currentIndex)*/);
+    _msgidEdit->setText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
     unwrap(_msgidEdit);
     _msgstrEdit->document()->blockSignals(true);
-    _msgstrEdit->setText(_catalog->msgstr(_currentPos.entry,_currentPos.form));
+    _msgstrEdit->setText(_catalog->msgstr(_currentPos));
     _msgstrEdit->document()->blockSignals(false);
 
     ProperTextEdit* msgEdit=_msgstrEdit;
@@ -259,26 +261,26 @@ void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 
 void KAiderView::msgid2msgstr()
 {
-    QString text=_catalog->msgid(_currentPos.entry,_currentPos.form);
+    QString text=_catalog->msgid(_currentPos);
     QString out="";
     QString ctxt=_catalog->msgctxt(_currentPos.entry);
     
    // this is KDE specific:
     if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
     {
-        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+        if (!_catalog->msgstr(_currentPos).isEmpty())
             out=", ";
         out+=Settings::authorLocalizedName();
     }
     else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" ))
     {
-        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+        if (!_catalog->msgstr(_currentPos).isEmpty())
             out=", ";
         out+=Settings::authorEmail();
     }
     else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
     {
-        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+        if (!_catalog->msgstr(_currentPos).isEmpty())
             out='\n';
         out+="<othercredit role=\\\"translator\\\">\n"
         "<firstname></firstname><surname></surname>\n"
@@ -287,7 +289,7 @@ void KAiderView::msgid2msgstr()
     }
     else if( text.startsWith( "CREDIT_FOR_TRANSLATORS" ) )
     {
-        if (!_catalog->msgstr(_currentPos.entry,_currentPos.form).isEmpty())
+        if (!_catalog->msgstr(_currentPos).isEmpty())
             out='\n';
         out+="<para>"+Settings::authorLocalizedName()+'\n'+
             "<email>"+Settings::authorEmail()+"</email></para>";
@@ -348,6 +350,20 @@ void KAiderView::unwrap(ProperTextEdit* editor)
 
 
 
+void KAiderView::dragEnterEvent(QDragEnterEvent* event)
+{
+    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
+    {
+        //kWarning() << " " << <<endl;
+        event->acceptProposedAction();
+    };
+}
+
+void KAiderView::dropEvent(QDropEvent *event)
+{
+    emit fileOpenRequested(KUrl(event->mimeData()->urls().first()));
+    event->acceptProposedAction();
+}
 
 
 #include "kaiderview.moc"

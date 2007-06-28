@@ -178,8 +178,11 @@ void CatalogImportPlugin::commitTransaction(const QString& file)
 	d->_catalog->setMimeTypes( d->_mimeTypes );
 
         d->_catalog->d->_maxLineLength=_maxLineLength;
+
+        // notify of the finish, so that MergeCatalog
+        d->_catalog->importFinished();
     }
-    
+
     d->_started = false;
 }
 /*

@@ -59,12 +59,14 @@
 #include "kaider.h"
 #include "pos.h"
 #include "cmd.h"
-#include "kaider_settings.h"
+#include "prefs_kaider.h"
+
 
 //views
 #include "msgiddiffview.h"
 #include "projectview.h"
-
+#include "mergeview.h"
+#include "mergecatalog.h"
 
 #include "project.h"
 
@@ -74,6 +76,7 @@
 KAider::KAider()
     : KXmlGuiWindow()
     , _catalog(new Catalog(this))
+    , _mergeCatalog(0)
     , _project(Project::instance())
     , _view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
     , _findDialog(0)
@@ -89,6 +92,7 @@ KAider::KAider()
     , ui_findExtension(0)
     , ui_replaceExtension(0)
     , _projectView(0)
+    , _mergeView(0)
 //     , _msgIdDiffView(0)
 {
     setAcceptDrops(true);
@@ -96,9 +100,9 @@ KAider::KAider()
     setupStatusBar();
     createDockWindows(); //toolviews
     setupActions();
-
     setAutoSaveSettings();
 
+    connect(_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 }
 
@@ -271,6 +275,24 @@ void KAider::setupActions()
     projectMenu->addAction(i18n("Open project"),this,SLOT(projectOpen()));
     projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
 
+    QMenu* mergeMenu=menuBar()->addMenu(i18n("Merge"));
+    mergeMenu->addAction(i18n("Open merge source"),this,SLOT(mergeOpen()))->setStatusTip(i18n("Open catalog to be merged into the current one"));
+    //projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
+
+    mergeMenu->addSeparator();
+    action=mergeMenu->addAction(i18n("Previous changed"),this,SLOT(gotoPrevChanged()),Qt::CTRL+Qt::ALT+Qt::Key_PageUp);
+    connect( this, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    action=mergeMenu->addAction(i18n("Next changed"),this,SLOT(gotoNextChanged()),Qt::CTRL+Qt::ALT+Qt::Key_PageDown);
+    connect( this, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    mergeMenu->addSeparator();
+
+    action=mergeMenu->addAction(i18n("Accept from merging source"),this,SLOT(mergeAccept()),/*Qt::CTRL+*/Qt::ALT+Qt::Key_A);
+    connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
+
+    action=mergeMenu->addAction(i18n("Accept all new translations"),this,SLOT(mergeAcceptAllForEmpty()),Qt::ALT+Qt::Key_E);
+    //TODO connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
 }
 
 void KAider::newWindowOpen(const KUrl& url)
@@ -290,9 +312,17 @@ void KAider::createDockWindows()
 
     _projectView = new ProjectView(this);
     addDockWidget(Qt::BottomDockWidgetArea, _projectView);
+    actionCollection()->addAction( QLatin1String("showprojectview_action"), _projectView->toggleViewAction() );
     //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
     connect(_projectView, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(_projectView, SIGNAL(newWindowOpenRequested(const KUrl&)), this, SLOT(newWindowOpen(const KUrl&)));
+
+    _mergeView = new MergeView(this,_catalog);
+    addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
+    actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
+    connect (this,SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),_mergeView,SLOT(slotEntryWithMergeDisplayed(bool,const DocPosition&)));
+    connect (_mergeView,SIGNAL(mergeOpenRequested(KUrl)),this,SLOT(mergeOpen(KUrl)));
+
 }
 
 void KAider::fileOpen(KUrl url)
@@ -319,6 +349,8 @@ void KAider::fileOpen(KUrl url)
 
     if (_catalog->loadFromUrl(url))
     {
+        mergeCleanup();
+
         statusBar()->changeItem(i18n("Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
@@ -346,7 +378,7 @@ void KAider::fileOpen(KUrl url)
     }
     else
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-        KMessageBox::error(this, i18n("Error opening the file\n%1",_catalog->url().prettyUrl()) );
+        KMessageBox::error(this, i18n("Error opening the file\n%1",url.prettyUrl()) );
 
 }
 
@@ -422,6 +454,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         _currentEntry=pos.entry;
 
         emit signalNewEntryDisplayed(_currentEntry);
+        //emit signalNewEntryDisplayed(_currentPos);
         emit signalFirstDisplayed(_currentEntry==0);
         emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);
 
@@ -431,6 +464,13 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
         emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
 
+        if (_mergeCatalog)
+        {
+            emit signalPriorChangedAvailable(_currentEntry>_mergeCatalog->firstChangedIndex());
+            emit signalNextChangedAvailable(_currentEntry<_mergeCatalog->lastChangedIndex());
+
+            emit signalEntryWithMergeDisplayed(_mergeCatalog->isValid(pos.entry),_currentPos);
+        }
 /*        if ((int)_currentEntry<_catalog->lastFuzzyIndex())
             kWarning() << _currentEntry << " " << _catalog->lastFuzzyIndex() << " " << _catalog->lastUntranslatedIndex() << endl;*/
     }

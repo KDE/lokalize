@@ -25,8 +25,9 @@
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Menu name="toolviews"><text>&amp;Toolviews</text>
-        <Action name="showglossary_action" />
-        <Action name="showcomments_action" />
+        <Action name="showmsgiddiff_action" />
+        <Action name="showprojectview_action" />
+        <Action name="showmergeview_action" />
     </Menu>
   </Menu>
 </MenuBar>

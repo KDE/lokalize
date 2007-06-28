@@ -1,11 +1,7 @@
 /* ****************************************************************************
   This file is part of KAider
-  This file is based on the one from KBabel
 
-  Copyright (C) 1999-2000 by Matthias Kiefer
-                            <matthias.kiefer@gmx.de>
-		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,52 +27,67 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
-#ifndef CATALOGITEMPRIVATE_H
-#define CATALOGITEMPRIVATE_H
 
+#include "mergecatalog.h"
+#include "catalog_private.h"
+#include "catalogitem.h"
 #include <QStringList>
-#include "pluralformtypes_enum.h"
+#include <kdebug.h>
 
-
-/**
-* This class represents data for an entry in a catalog.
-* It contains the comment, the Msgid and the Msgstr.
-* It defines some functions to query the state of the entry
-* (fuzzy, untranslated, cformat).
-*
-* @short Class, representing an entry in a catalog
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-* @author Nick Shaforostoff <shafff@ukr.net>
-*/
-
-class CatalogItemPrivate
+MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
+ : Catalog(parent)
+ , m_baseCatalog(baseCatalog)
 {
-
-public:
-
-    PluralFormType _pluralFormType:8;
-    bool _valid:1;
-
-    QString _comment;
-    QString _msgctxt;
-
-    QStringList _msgidPlural;
-    //QString _msgid;
-    QStringList _msgstrPlural;
-    //QString _msgstr;
-
-    QStringList _errors;
-
-    CatalogItemPrivate()
-        : _pluralFormType(NoPluralForm)
-        , _valid(true)
-	{};
+    
+}
 
 
-    friend class CatalogItem;
-};
+MergeCatalog::~MergeCatalog()
+{
+    
+}
 
-#endif // CATALOGITEMPRIVATE_H
+
+void MergeCatalog::importFinished()
+{
+/*    QVector<CatalogItem>::iterator it=m_baseCatalog->d->_entries.begin();
+    while (it!=m_baseCatalog->d->_entries.end())
+    {
+        
+        ++it;
+    }*/
+
+    uint i=0;
+    uint size=m_baseCatalog->d->_entries.size();
+    QVector<CatalogItem> newVector(size);
+
+    while (i<size)
+    {
+        //TODO search for msg over the whole catalog,possibly using fuzzy matching?
+        if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(i).msgidPlural()
+            && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(i).msgstrPlural()
+           )
+        {
+            newVector[i].setMsgstr(d->_entries.at(i).msgstrPlural());
+//             kWarning() << "  " << newVector.at(i).msgstr(0) << endl;
+            newVector[i].setPluralFormType(d->_entries.at(i).pluralFormType());
+            newVector[i].setComment(d->_entries.at(i).comment());
+            m_changedIndex.append(i);
+        }
+        else
+            newVector[i].setValid(false);
+        ++i;
+
+    }
+    d->_entries.clear();
+    d->_entries=newVector;
+}
+
+
+
+
+
+
+

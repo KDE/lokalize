@@ -7,6 +7,9 @@ small:
 -msgctxt
 -many small features that ease everyday life of translator
     search: &, dont replace in tags
+    _tagExtractor = new RegExpExtractor(QStringList());
+    _argExtractor = new RegExpExtractor(QStringList());
+
 
 templates:
 -correctly set nplurals, etc

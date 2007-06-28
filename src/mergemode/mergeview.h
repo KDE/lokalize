@@ -1,11 +1,7 @@
 /* ****************************************************************************
   This file is part of KAider
-  This file is based on the one from KBabel
 
-  Copyright (C) 1999-2000 by Matthias Kiefer
-                            <matthias.kiefer@gmx.de>
-		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,52 +27,48 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
-#ifndef CATALOGITEMPRIVATE_H
-#define CATALOGITEMPRIVATE_H
 
-#include <QStringList>
-#include "pluralformtypes_enum.h"
+#ifndef MERGEVIEW_H
+#define MERGEVIEW_H
 
+#include <pos.h>
 
-/**
-* This class represents data for an entry in a catalog.
-* It contains the comment, the Msgid and the Msgstr.
-* It defines some functions to query the state of the entry
-* (fuzzy, untranslated, cformat).
-*
-* @short Class, representing an entry in a catalog
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-* @author Nick Shaforostoff <shafff@ukr.net>
-*/
+#include <QDockWidget>
+class QTextBrowser;
+class Catalog;
+class MergeCatalog;
+class QDragEnterEvent;
+class QDropEvent;
+class KUrl;
 
-class CatalogItemPrivate
+class MergeView: public QDockWidget
 {
+    Q_OBJECT
 
 public:
+    MergeView(QWidget*,Catalog*);
+    virtual ~MergeView();
 
-    PluralFormType _pluralFormType:8;
-    bool _valid:1;
+    //delayed MergeCatalog setting, cause it is being created only by request
+    //(and not on KAider c'tor)
+    void setMergeCatalog(MergeCatalog* mc){m_mergeCatalog=mc;};
+    void cleanup();
 
-    QString _comment;
-    QString _msgctxt;
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent*);
 
-    QStringList _msgidPlural;
-    //QString _msgid;
-    QStringList _msgstrPlural;
-    //QString _msgstr;
+public slots:
+    void slotEntryWithMergeDisplayed(bool,const DocPosition&);
 
-    QStringList _errors;
+signals:
+    void mergeOpenRequested(KUrl);
 
-    CatalogItemPrivate()
-        : _pluralFormType(NoPluralForm)
-        , _valid(true)
-	{};
-
-
-    friend class CatalogItem;
+private:
+    QTextBrowser* m_browser;
+    Catalog* m_baseCatalog;
+    MergeCatalog* m_mergeCatalog;
 };
 
-#endif // CATALOGITEMPRIVATE_H
+#endif

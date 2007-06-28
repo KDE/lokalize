@@ -54,6 +54,8 @@ class KDirLister;
 
 class Project;
 class ProjectView;
+class MergeView;
+class MergeCatalog;
 
 class Ui_prefs_identity;
 class Ui_prefs_font;
@@ -157,8 +159,14 @@ private slots:
     //void projectOpen(KUrl url=KUrl());
     void projectOpen(QString path=QString());
     void projectCreate();
-
     void newWindowOpen(const KUrl&);
+
+    void mergeOpen(KUrl url=KUrl());
+    void mergeCleanup();
+    void gotoNextChanged();
+    void gotoPrevChanged();
+    void mergeAccept();
+    void mergeAcceptAllForEmpty();
 
 private:
     void setupAccel();
@@ -177,6 +185,7 @@ private:
 
 private:
     Catalog* _catalog;
+    MergeCatalog* _mergeCatalog;
     Project* _project;
 
     KAiderView *_view;
@@ -197,6 +206,7 @@ private:
 
     ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
+    MergeView* _mergeView;
 
     int _currentEntry;
     DocPosition _currentPos;
@@ -206,6 +216,8 @@ private:
 
 signals:
     void signalNewEntryDisplayed(uint);
+    void signalNewEntryDisplayed(const DocPosition&);
+    void signalEntryWithMergeDisplayed(bool,const DocPosition&);
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
     void signalFuzzyEntryDisplayed(bool);
@@ -213,6 +225,8 @@ signals:
     void signalNextFuzzyAvailable(bool);
     void signalPriorUntranslatedAvailable(bool);
     void signalNextUntranslatedAvailable(bool);
+    void signalPriorChangedAvailable(bool); // merge mode
+    void signalNextChangedAvailable(bool);  //
 
 //    QMenu *m_viewsMenu;
 

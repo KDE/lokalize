@@ -1,6 +1,7 @@
 #ifndef POS_H
 #define POS_H
 
+#include <QtCore>
 
 enum Part {UndefPart, Msgid, Msgstr, Comment};
 
@@ -14,9 +15,9 @@ enum Part {UndefPart, Msgid, Msgstr, Comment};
 */
 struct DocPosition
 {
-    Part part:16;
-    short form:16;
-    int entry:32;
+    Part part:8;
+    uchar form:8;
+    short entry:16;
     uint offset:32;
 
     DocPosition():

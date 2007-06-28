@@ -48,7 +48,7 @@
 #include "kaider.h"
 #include "pos.h"
 #include "cmd.h"
-#include "kaider_settings.h"
+#include "prefs_kaider.h"
 #include "ui_findExtension.h"
 
 //#define FIND_IGNOREACCELS 2048
@@ -146,9 +146,9 @@ void KAider::findNext(const DocPosition& startingPos)
             {
                 QString data;
                 if (_searchingPos.part==Msgid)
-                    data=_catalog->msgid(_searchingPos.entry,_searchingPos.form)/*,offset*/;
+                    data=_catalog->msgid(_searchingPos)/*,offset*/;
                 else
-                    data=_catalog->msgstr(_searchingPos.entry,_searchingPos.form)/*,offset*/;
+                    data=_catalog->msgstr(_searchingPos)/*,offset*/;
 
                 if (FIND_IGNOREACCELS)
                     data.remove('&');
@@ -225,9 +225,9 @@ void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
     {
         QString data;
         if (_searchingPos.part==Msgid)
-            data=_catalog->msgid(_searchingPos.entry,_searchingPos.form);
+            data=_catalog->msgid(_searchingPos);
         else
-            data=_catalog->msgstr(_searchingPos.entry,_searchingPos.form);
+            data=_catalog->msgstr(_searchingPos);
         int i=0;
         for (;i<matchingIndex;++i)
             if (data.at(i)=='&')
@@ -348,12 +348,12 @@ void KAider::replaceNext(const DocPosition& startingPos)
             {
                 if (REPLACE_IGNOREACCELS)
                 {
-                    QString data(_catalog->msgstr(_replacingPos.entry,_replacingPos.form));
+                    QString data(_catalog->msgstr(_replacingPos));
                     data.remove('&');
                     _replace->setData(data);
                 }
                 else
-                    _replace->setData( _catalog->msgstr(_replacingPos.entry,_replacingPos.form));
+                    _replace->setData( _catalog->msgstr(_replacingPos));
             }
             res = _replace->replace();
 //             offset=-1;
@@ -413,9 +413,9 @@ void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength
     {
         QString data;
         if (_replacingPos.part==Msgid)
-            data=_catalog->msgid(_replacingPos.entry,_replacingPos.form);
+            data=_catalog->msgid(_replacingPos);
         else
-            data=_catalog->msgstr(_replacingPos.entry,_replacingPos.form);
+            data=_catalog->msgstr(_replacingPos);
         int i=0;
         for (;i<matchingIndex;++i)
             if (data.at(i)=='&')
@@ -438,7 +438,7 @@ void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength
 
 void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 {
-    QString oldStr=_catalog->msgstr(_replacingPos.entry,_replacingPos.form);
+    QString oldStr=_catalog->msgstr(_replacingPos);
 
     if (REPLACE_IGNOREACCELS)
     {
@@ -513,7 +513,7 @@ void KAider::spellcheck()
     if (!_view->selection().isEmpty())
         _dlg->setBuffer( _view->selection() );
     else
-        _dlg->setBuffer( _catalog->msgstr(_currentPos.entry,_currentPos.form) );
+        _dlg->setBuffer( _catalog->msgstr(_currentPos) );
 
     _spellcheckPos=_currentPos;
     _spellcheckStop=false;
@@ -532,7 +532,7 @@ void KAider::spellcheckNext()
     if (!_spellcheckStop && switchNext(_spellcheckPos))
     {
         //gotoEntry(pos);
-        _dlg->setBuffer( _catalog->msgstr(_spellcheckPos.entry,_spellcheckPos.form) );
+        _dlg->setBuffer( _catalog->msgstr(_spellcheckPos) );
         //_dlg->show();
     }
 //     else
