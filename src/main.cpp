@@ -42,18 +42,15 @@ static const char version[] = KAIDER_VERSION;
 static const char description[] =
     I18N_NOOP("PO file editor");
 
-static KCmdLineOptions options[] =
-{
-    { "+[URL]", I18N_NOOP( "Document to open" ), 0 },
-    KCmdLineLastOption
-};
-
 int main(int argc, char **argv)
 {
-    KAboutData about("kaider", I18N_NOOP("KAider"), version, description,
-                     KAboutData::License_GPL, "(C) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers", 0, 0, "shafff@ukr.net");
-    about.addAuthor( "Nick Shaforostoff", 0, "shafff@ukr.net" );
+    KAboutData about("kaider", 0, ki18n("KAider"), version, ki18n(description),
+                     KAboutData::License_GPL, ki18n("(C) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers"), KLocalizedString(), 0, "shafff@ukr.net");
+    about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shafff@ukr.net" );
     KCmdLineArgs::init(argc, argv, &about);
+
+    KCmdLineOptions options;
+    options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
 
@@ -75,7 +72,7 @@ int main(int argc, char **argv)
         }
         else
         {
-            widget->fileOpen(QFile::decodeName( args->arg(0)));
+            widget->fileOpen(args->arg(0));
             widget->show();
         }
         args->clear();
