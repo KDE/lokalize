@@ -63,6 +63,7 @@
 
 
 //views
+#include "msgctxtview.h"
 #include "msgiddiffview.h"
 #include "projectview.h"
 #include "mergeview.h"
@@ -270,7 +271,21 @@ void KAider::setupActions()
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
     setupGUI();
-    //Project
+//Bookmarks
+    QMenu* bookmarksMenu=menuBar()->addMenu(i18n("Bookmarks"));
+
+    action=bookmarksMenu->addAction(i18n("Bookmark message"),_view,SLOT(toggleBookmark(bool)),Qt::CTRL+Qt::Key_B);
+    action->setCheckable(true);
+    connect( this, SIGNAL(signalBookmarkDisplayed(bool)),action,SLOT(setChecked(bool)) );
+
+    bookmarksMenu->addSeparator();
+    action=bookmarksMenu->addAction(i18n("Previous bookmark"),this,SLOT(gotoPrevBookmark()));
+    connect( this, SIGNAL(signalPriorBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    action=bookmarksMenu->addAction(i18n("Next bookmark"),this,SLOT(gotoNextBookmark()));
+    connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+//Project
     QMenu* projectMenu=menuBar()->addMenu(i18n("Project"));
     projectMenu->addAction(i18n("Open project"),this,SLOT(projectOpen()));
     projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
@@ -279,6 +294,7 @@ void KAider::setupActions()
     mergeMenu->addAction(i18n("Open merge source"),this,SLOT(mergeOpen()))->setStatusTip(i18n("Open catalog to be merged into the current one"));
     //projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
 
+//MergeMode
     mergeMenu->addSeparator();
     action=mergeMenu->addAction(i18n("Previous changed"),this,SLOT(gotoPrevChanged()),Qt::CTRL+Qt::ALT+Qt::Key_PageUp);
     connect( this, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
@@ -304,6 +320,11 @@ void KAider::newWindowOpen(const KUrl& url)
 
 void KAider::createDockWindows()
 {
+    MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
+    addDockWidget(Qt::BottomDockWidgetArea, msgCtxtView);
+    actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)));
+
     //signalNewEntryDisplayed
     MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
@@ -464,6 +485,10 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
         emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
 
+        emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
+        emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
+        emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
+        
         if (_mergeCatalog)
         {
             emit signalPriorChangedAvailable(_currentEntry>_mergeCatalog->firstChangedIndex());
@@ -551,6 +576,30 @@ void KAider::gotoNextUntranslated()
     gotoEntry(pos);
 }
 
+
+void KAider::gotoPrevBookmark()
+{
+    DocPosition pos;
+
+    if( (pos.entry=_catalog->prevBookmarkIndex(_currentEntry)) == -1)
+        return;
+
+    gotoEntry(pos);
+}
+
+void KAider::gotoNextBookmark()
+{
+    DocPosition pos;
+
+    if( (pos.entry=_catalog->nextBookmarkIndex(_currentEntry)) == -1)
+        return;
+
+    gotoEntry(pos);
+}
+
+
+
+
 void KAider::gotoFirst()
 {
     DocPosition pos;
@@ -622,8 +671,6 @@ bool KAider::switchNext(DocPosition& pos,bool useMsgId)
     pos.offset=0;
     return true;
 }
-
-
 
 
 

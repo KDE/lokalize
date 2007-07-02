@@ -297,7 +297,17 @@ bool Catalog::loadFromUrl(const KUrl& url)
         d->_url=url;
 
         if (status==OK)
+        {
+//             Settings::self()->setCurrentGroup("Bookmarks");
+//             KConfigSkeletonItem* a=Settings::self()->findItem(url.url());
+//             if (a)
+//             {
+//                 
+//             }
+
+
             return true;
+        }
         //return status;
 
     }
@@ -344,6 +354,9 @@ bool Catalog::saveToUrl(KUrl url)
         setClean();
         if (nameChanged)
             d->_url=url;
+
+//         Settings::self()->setCurrentGroup("Bookmarks");
+//         Settings::self()->addItemIntList(d->_url.url(),d->_bookmarkIndex);
 
         return true;
     }/*
@@ -885,8 +898,21 @@ void Catalog::updateHeader(bool forSaving)
 }
 
 
-
-
+void Catalog::setBookmark(int idx,bool set)
+{
+    if (set)
+    {
+        // insert index in the right place in the list
+        QList<uint>::Iterator it = d->_bookmarkIndex.begin();
+        while(it != d->_bookmarkIndex.end() && idx > (*it))
+            ++it;
+        d->_bookmarkIndex.insert(it,idx);
+    }
+    else
+    {
+        d->_bookmarkIndex.removeAll(idx);
+    }
+}
 
 
 

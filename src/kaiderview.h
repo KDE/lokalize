@@ -131,14 +131,14 @@ private slots:
     void settingsChanged();
     void contentsChanged(int position, int charsRemoved, int charsAdded ); //for Undo/Redo
     void fuzzyEntryDisplayed(bool);
-    
+
     //Edit menu
     void toggleFuzzy(bool);
     void msgid2msgstr();
     void unwrap(ProperTextEdit* editor=0);
 
-    
-    
+
+    void toggleBookmark(bool);
     
     
     

@@ -102,6 +102,8 @@ public:
     QList<uint> _untransIndex;
     QList<uint> _errorIndex;
 
+    QList<uint> _bookmarkIndex;
+
     QStringList _catalogExtraData;
 
     //for undo/redo

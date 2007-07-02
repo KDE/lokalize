@@ -308,7 +308,7 @@ void KAider::replace()
     {
 //             kWarning() << "_currentPos " << _currentPos.entry << endl;
         replaceNext(_currentPos);
-//             kWarning() << "    " << _currentPos.entry << endl;
+//              kWarning() << " ее  " << _currentPos.entry << endl;
     }
     else
     {
@@ -326,9 +326,10 @@ void KAider::replace()
             pos.form=0;
         }
         replaceNext(pos);
+//         kWarning() << k_funcinfo << " NOT END"<< endl;
     }
 
-    kWarning() << k_funcinfo << "END"<< endl;
+//     kWarning() << k_funcinfo << "END"<< endl;
 }
 
 
@@ -388,9 +389,11 @@ void KAider::replaceNext(const DocPosition& startingPos)
             }
             else
             {
-                _replace->closeReplaceNextDialog();
+//HACK avoid crash
+//                 _replace->closeReplaceNextDialog();
+
                 if(!(_replace->options() & KFind::FromCursor))
-                    _replace->displayFinalDialog();
+                     _replace->displayFinalDialog();
 
                 _catalog->endMacro();
             }
@@ -404,7 +407,7 @@ void KAider::replaceNext()
 {
 
     replaceNext(_currentPos);
-
+//     kWarning() << k_funcinfo << "END"<< endl;
 }
 
 void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength)

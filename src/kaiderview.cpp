@@ -239,6 +239,16 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     //kWarning() << "fh g gf f "<< pos.offset << endl;
 }
 
+void KAiderView::toggleBookmark(bool checked)
+{
+    if (_currentEntry==-1)
+        return;
+
+    _catalog->setBookmark(_currentEntry,checked);
+}
+
+
+
 void KAiderView::toggleFuzzy(bool checked)
 {
     if (_currentEntry==-1)

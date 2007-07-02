@@ -155,6 +155,9 @@ private slots:
 //     void spellcheckMarked();
 //     void spellcheckCommon();
 
+    void gotoNextBookmark();
+    void gotoPrevBookmark();
+
 
     //void projectOpen(KUrl url=KUrl());
     void projectOpen(QString path=QString());
@@ -220,13 +223,20 @@ signals:
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
+
     void signalFuzzyEntryDisplayed(bool);
     void signalPriorFuzzyAvailable(bool);
     void signalNextFuzzyAvailable(bool);
+
     void signalPriorUntranslatedAvailable(bool);
     void signalNextUntranslatedAvailable(bool);
+
     void signalPriorChangedAvailable(bool); // merge mode
     void signalNextChangedAvailable(bool);  //
+
+    void signalPriorBookmarkAvailable(bool);
+    void signalNextBookmarkAvailable(bool);
+    void signalBookmarkDisplayed(bool);
 
 //    QMenu *m_viewsMenu;
 

@@ -103,6 +103,12 @@ public:
     int nextUntranslatedIndex(uint index) const {return findNextInList(d->_untransIndex,index);};
     int prevUntranslatedIndex(uint index) const {return findPrevInList(d->_untransIndex,index);};
 
+    int firstBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?numberOfEntries():d->_bookmarkIndex.first();};
+    int lastBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?-1:d->_bookmarkIndex.last();};
+    int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);};
+    int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);};
+    bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);};
+
     void clear();
 
     void setCatalogExtraData(const QStringList& data){d->_catalogExtraData = data;};
@@ -130,6 +136,8 @@ public:
     const KUrl& url() const {return d->_url;};
     bool loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
+
+    void setBookmark(int,bool);
 
     void updateHeader(bool forSaving=true);
 

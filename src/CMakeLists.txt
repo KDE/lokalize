@@ -22,6 +22,7 @@ set(kaider_SRCS
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
+    msgctxtview.cpp
     msgiddiffview.cpp
     ../common/diff.cpp
     project/projectview.cpp

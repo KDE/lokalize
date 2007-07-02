@@ -3,8 +3,7 @@
 
 small:
 -KAutoSaveFile ??
--bookmarks
--msgctxt
+-bookmarks saving
 -many small features that ease everyday life of translator
     search: &, dont replace in tags
     _tagExtractor = new RegExpExtractor(QStringList());

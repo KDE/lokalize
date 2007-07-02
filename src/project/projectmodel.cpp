@@ -93,9 +93,9 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     switch(index.column())
     {
         case SourceDate:
-            return itemForIndex(index)->metaInfo(false).item("translation.translation_date").value();
-        case TranslationDate:
             return itemForIndex(index)->metaInfo(false).item("translation.source_date").value();
+        case TranslationDate:
+            return itemForIndex(index)->metaInfo(false).item("translation.translation_date").value();
         case LastTranslator:
             return itemForIndex(index)->metaInfo(false).item("translation.last_translator").value();
     }
