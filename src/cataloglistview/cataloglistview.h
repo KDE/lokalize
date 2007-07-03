@@ -30,45 +30,38 @@
 
 **************************************************************************** */
 
-#ifndef PROJECTVIEW_H
-#define PROJECTVIEW_H
+#ifndef CATALOGTREEVIEW_H
+#define CATALOGTREEVIEW_H
+
+#include <pos.h>
 
 #include <QDockWidget>
-class QMenu;
 class QTreeView;
-class KUrl;
-class ProjectModel;
 class QSortFilterProxyModel;
-class QModelIndex;
+class CatalogTreeModel;
+class Catalog;
 
-class ProjectView: public QDockWidget
+class CatalogTreeView: public QDockWidget
 {
     Q_OBJECT
 
 public:
-    ProjectView(QWidget* parent);
-    virtual ~ProjectView();
-    void contextMenuEvent(QContextMenuEvent *event);
-
+    CatalogTreeView(QWidget*,Catalog*);
+    virtual ~CatalogTreeView();
 
 public slots:
-//     void slotProjectLoaded();
+    void slotNewEntryDisplayed(uint);
     void slotItemActivated(const QModelIndex&);
-    void slotOpen();
-    void slotOpenInNewWindow();
-//     void showCurrentFile();
-signals:
-    void fileOpenRequested(KUrl);
-    void newWindowOpenRequested(const KUrl&);
 
-// protected:
-//     bool eventFilter(QObject *obj, QEvent *event);
+signals:
+    void gotoEntry(const DocPosition&,int);
 
 private:
     QTreeView* m_browser;
 //     QMenu* m_menu;
     QWidget* m_parent;
-    QSortFilterProxyModel* m_proxyModel;
+    CatalogTreeModel* m_model;
+    QSortFilterProxyModel *m_proxyModel;
 };
 
 #endif

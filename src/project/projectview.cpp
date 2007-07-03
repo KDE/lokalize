@@ -41,6 +41,7 @@
 #include <klocale.h>
 #include <kdirlister.h>
 
+#include <QSortFilterProxyModel>
 #include <QFile>
 #include <QTreeView>
 #include <QMenu>
@@ -54,20 +55,15 @@ ProjectView::ProjectView(QWidget* parent)
     : QDockWidget ( i18n("Project"), parent)
     , m_browser(new QTreeView(this))
     , m_parent(parent)
+//     , m_proxyModel(new QSortFilterProxyModel(this))
 //     , m_menu(new QMenu(m_browser))
 {
     setObjectName("projectView");
     setWidget(m_browser);
 
-    //model->dirLister()->openUrl(KUrl("/mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru"));
-    m_browser->setModel(Project::instance()->model());
 //     KFileItemDelegate *delegate = new KFileItemDelegate(this);
     //m_browser->setItemDelegate(new KFileItemDelegate(this));
     m_browser->setItemDelegate(new PoItemDelegate(this));
-
-    m_browser->setColumnWidth(0, m_browser->columnWidth(0)*3);
-    m_browser->setColumnWidth(SourceDate, m_browser->columnWidth(SourceDate)*2);
-    m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth(TranslationDate)*2);
     //m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
 
     //KFileMetaInfo aa("/mnt/stor/mp3/Industry - State of the Nation.mp3");
@@ -80,6 +76,15 @@ ProjectView::ProjectView(QWidget* parent)
 
     connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
 //     m_browser->installEventFilter(this);
+
+//     m_proxyModel->setSourceModel(Project::instance()->model());
+//     m_browser->setModel(m_proxyModel);
+    m_browser->setModel(Project::instance()->model());
+    m_browser->setAllColumnsShowFocus(true);
+    m_browser->setColumnWidth(0, m_browser->columnWidth(0)*3);
+    m_browser->setColumnWidth(SourceDate, m_browser->columnWidth(SourceDate)*2);
+    m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth(TranslationDate)*2);
+
 }
 
 ProjectView::~ProjectView()
@@ -110,12 +115,16 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
     menu.addAction(i18n("Open project"),m_parent,SLOT(projectOpen()));
     menu.addAction(i18n("Create new project"),m_parent,SLOT(projectCreate()));
 
-    if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(m_browser->currentIndex())->mimetype())
+    if ("text/x-gettext-translation"
+        ==Project::instance()->model()->itemForIndex(
+            /*m_proxyModel->mapToSource(*/(m_browser->currentIndex())
+                                                    )->mimetype()
+       )
     {
         menu.addSeparator();
         menu.addAction(i18n("Open"),this,SLOT(slotOpen()));
         menu.addAction(i18n("Open in new window"),this,SLOT(slotOpenInNewWindow()));
-        
+
     }
 
 
@@ -124,18 +133,27 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
 
 void ProjectView::slotItemActivated(const QModelIndex& idx)
 {
-    if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(m_browser->currentIndex())->mimetype())
-        emit fileOpenRequested(Project::instance()->model()->itemForIndex(idx)->url());
+    if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(
+        /*m_proxyModel->mapToSource*/(m_browser->currentIndex())
+                                                                                )->mimetype()
+       )
+        emit fileOpenRequested(Project::instance()->model()->itemForIndex(
+        /*m_proxyModel->mapToSource*/(idx)
+                                                                         )->url());
 }
 
 void ProjectView::slotOpen()
 {
-    emit fileOpenRequested(Project::instance()->model()->itemForIndex(m_browser->currentIndex())->url());
+    emit fileOpenRequested(Project::instance()->model()->itemForIndex(
+                           /*m_proxyModel->mapToSource*/(m_browser->currentIndex())
+                                                                     )->url());
 }
 
 void ProjectView::slotOpenInNewWindow()
 {
-    emit newWindowOpenRequested(Project::instance()->model()->itemForIndex(m_browser->currentIndex())->url());
+    emit newWindowOpenRequested(Project::instance()->model()->itemForIndex(
+                                /*m_proxyModel->mapToSource*/(m_browser->currentIndex())
+                                                                          )->url());
 }
 
 

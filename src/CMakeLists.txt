@@ -2,6 +2,7 @@ PROJECT(kaider)
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
+    ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/../common
     ${KDE4_INCLUDE_DIR}
@@ -19,6 +20,9 @@ set(kaider_SRCS
 
     kaiderview.cpp
     syntaxhighlighter.cpp
+
+    cataloglistview/cataloglistview.cpp
+    cataloglistview/catalogmodel.cpp
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp

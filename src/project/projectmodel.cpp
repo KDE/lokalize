@@ -136,7 +136,7 @@ Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
     if (index.column()<Graph)
         return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
 
-    return 0;
+    return Qt::ItemIsSelectable;
 //    kWarning() << index.column() <<  " " <<  KDirModel::flags(index) << endl;
 }
 

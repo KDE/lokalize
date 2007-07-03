@@ -43,6 +43,7 @@
 #include <QVector>
 #include <QLinkedList>
 #include <QUndoStack>
+#include <QAbstractItemModel>
 
 #include <kurl.h>
 
@@ -171,6 +172,7 @@ signals:
     //void signalGotoEntry(const DocPosition& pos,int);
     void signalNumberOfFuzziesChanged();
     void signalNumberOfUntranslatedChanged();
+    void signalFileLoaded();
 
 // private:
 //     static Catalog* _instance;

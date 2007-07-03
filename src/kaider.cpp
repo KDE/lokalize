@@ -68,6 +68,7 @@
 #include "projectview.h"
 #include "mergeview.h"
 #include "mergecatalog.h"
+#include "cataloglistview.h"
 
 #include "project.h"
 
@@ -343,6 +344,12 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),_mergeView,SLOT(slotEntryWithMergeDisplayed(bool,const DocPosition&)));
     connect (_mergeView,SIGNAL(mergeOpenRequested(KUrl)),this,SLOT(mergeOpen(KUrl)));
+
+    CatalogTreeView* catalogTreeView = new CatalogTreeView(this,_catalog);
+    addDockWidget(Qt::LeftDockWidgetArea, catalogTreeView);
+    actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), catalogTreeView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),catalogTreeView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 
 }
 

@@ -304,7 +304,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
 //             {
 //                 
 //             }
-
+            emit signalFileLoaded();
 
             return true;
         }

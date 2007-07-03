@@ -30,45 +30,44 @@
 
 **************************************************************************** */
 
-#ifndef PROJECTVIEW_H
-#define PROJECTVIEW_H
+#ifndef MERGECATALOG_H
+#define MERGECATALOG_H
 
-#include <QDockWidget>
-class QMenu;
-class QTreeView;
-class KUrl;
-class ProjectModel;
-class QSortFilterProxyModel;
-class QModelIndex;
+#include <QAbstractItemModel>
 
-class ProjectView: public QDockWidget
+class Catalog;
+
+
+
+/**
+ *	@author Nick Shaforostoff <shafff@ukr.net>
+ */
+class CatalogTreeModel: public QAbstractItemModel
 {
-    Q_OBJECT
+    enum CatalogModelColumns
+    {
+        Key = 0,
+        Source,
+        Translation,
+        FuzzyFlag,
+        CatalogModelColumnCount
+    };
 
+    //Q_OBJECT
 public:
-    ProjectView(QWidget* parent);
-    virtual ~ProjectView();
-    void contextMenuEvent(QContextMenuEvent *event);
+    CatalogTreeModel(QObject* parent, Catalog* catalog);
+    ~CatalogTreeModel();
 
-
-public slots:
-//     void slotProjectLoaded();
-    void slotItemActivated(const QModelIndex&);
-    void slotOpen();
-    void slotOpenInNewWindow();
-//     void showCurrentFile();
-signals:
-    void fileOpenRequested(KUrl);
-    void newWindowOpenRequested(const KUrl&);
-
-// protected:
-//     bool eventFilter(QObject *obj, QEvent *event);
+    QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+    QModelIndex parent(const QModelIndex&) const;
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const;
+    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
+    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags(const QModelIndex&) const;
 
 private:
-    QTreeView* m_browser;
-//     QMenu* m_menu;
-    QWidget* m_parent;
-    QSortFilterProxyModel* m_proxyModel;
+    Catalog* m_catalog;
 };
 
 #endif

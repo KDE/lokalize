@@ -90,12 +90,12 @@ public slots:
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
-    
+
     void numberOfFuzziesChanged();
     void numberOfUntranslatedChanged();
 
-    
-    void gotoEntry(const DocPosition& pos,int selection=0); //for undo/redo
+    //for undo/redo, cataloglistview
+    void gotoEntry(const DocPosition& pos,int selection=0);
     void switchForm(int);
 
 
