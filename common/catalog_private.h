@@ -113,12 +113,9 @@ public:
    explicit CatalogPrivate(/*Project::Ptr project*/) : 
 	//_packageName( QString::null ), _packageDir( QString::null ),
 	//_header (project), 
-	_importID( QString::null ), 
 	_mimeTypes( "text/plain" ),
 	fileCodec(0),
 	_numberOfPluralForms(-1),
-	_language(QString::null),
-	_langCode(QString::null),
 	_readOnly(false), 
 	_generatedFromDocbook(false), 
 	_active(false), 

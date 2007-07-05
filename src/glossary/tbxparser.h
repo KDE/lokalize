@@ -1,7 +1,7 @@
-/*****************************************************************************
+/* ****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,55 +30,53 @@
 
 **************************************************************************** */
 
+#ifndef TBXPARSER_H
+#define TBXPARSER_H
 
-#ifndef PROJECT_H
-#define PROJECT_H
-
-#include <QObject>
-#include "projectbase.h"
-#include "glossary.h"
-class ProjectModel;
+#include <QtXml>
+#include <QXmlDefaultHandler>
+#include <QStringList>
 class Glossary;
 
-class Project: public ProjectBase
+/**
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class TbxParser : public QXmlDefaultHandler
 {
-    Q_OBJECT
+    enum State
+    {
+        null=0,
+        termEntry,
+        langSet,
+        termGrp,
+        term
+    };
+
+    enum Lang
+    {
+        langNull=0,
+        langEn,
+        langOther
+    };
 
 public:
-//    typedef KSharedPtr<Project> Ptr;
+    TbxParser(Glossary* glossary);
+    ~TbxParser();
 
-    //explicit Project(const QString &file);
-    explicit Project();
-    virtual ~Project();
-
-    void load(const QString &file);
-    void save();
-    QString path()const{return m_path;}
-    //void setPath(const QString& p){m_path=p;}
-    bool isLoaded(){return !m_path.isEmpty();}
-    ProjectModel* model();
-
-    Glossary* glossary()const{return m_glossary;}
-    QString glossaryPath() const;
-    void glossaryAdd(const TermEntry&);
-
-// signals:
-//     void loaded();
-
-private slots:
-    void populateDirModel();
-    void populateGlossary();
+    bool startDocument();
+    bool startElement(const QString&,const QString&,const QString&,const QXmlAttributes&);
+    bool endElement(const QString&,const QString&,const QString&);
+    bool characters(const QString&);
 
 private:
-    static Project* _instance;
-public:
-    static Project* instance();
-
-private:
-    QString m_path;
-    ProjectModel* m_model;
+    bool inTermTag:1;
+    State m_state:8;
+    Lang m_lang:8;
+    QString m_termEn;
+    QString m_termOther;
+    QStringList m_termOtherList;
     Glossary* m_glossary;
-};
 
+};
 
 #endif

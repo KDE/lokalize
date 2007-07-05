@@ -1,7 +1,7 @@
 /* **************************************************************************
   This file is part of KAider
 
-  wordDiff algorithm by Nick Shaforostoff <shafff@ukr.net>
+  wordDiff algorithm adoption (C) Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

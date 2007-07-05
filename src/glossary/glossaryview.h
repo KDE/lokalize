@@ -1,7 +1,7 @@
-/*****************************************************************************
+/* ****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,55 +30,51 @@
 
 **************************************************************************** */
 
+#ifndef GLOSSARYVIEW_H
+#define GLOSSARYVIEW_H
 
-#ifndef PROJECT_H
-#define PROJECT_H
+#include <pos.h>
 
-#include <QObject>
-#include "projectbase.h"
-#include "glossary.h"
-class ProjectModel;
+#include <QDockWidget>
+//#include <QList>
+class Catalog;
 class Glossary;
+class FlowLayout;
+class QDragEnterEvent;
+class QDropEvent;
+class KUrl;
+class QEvent;
+class QAction;
+#include <QVector>
 
-class Project: public ProjectBase
+#define SHORTCUTS 20
+
+class GlossaryView: public QDockWidget
 {
     Q_OBJECT
 
 public:
-//    typedef KSharedPtr<Project> Ptr;
+    GlossaryView(QWidget*,Catalog*,const QVector<QAction*>&);
+    virtual ~GlossaryView();
 
-    //explicit Project(const QString &file);
-    explicit Project();
-    virtual ~Project();
 
-    void load(const QString &file);
-    void save();
-    QString path()const{return m_path;}
-    //void setPath(const QString& p){m_path=p;}
-    bool isLoaded(){return !m_path.isEmpty();}
-    ProjectModel* model();
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent*);
+//     bool event(QEvent*);
 
-    Glossary* glossary()const{return m_glossary;}
-    QString glossaryPath() const;
-    void glossaryAdd(const TermEntry&);
 
-// signals:
-//     void loaded();
+public slots:
+    void slotNewEntryDisplayed(uint);
 
-private slots:
-    void populateDirModel();
-    void populateGlossary();
+signals:
+    void termInsertRequested(const QString&);
 
 private:
-    static Project* _instance;
-public:
-    static Project* instance();
-
-private:
-    QString m_path;
-    ProjectModel* m_model;
+    QWidget* m_browser;
+    Catalog* m_catalog;
+    FlowLayout *m_flowLayout;
     Glossary* m_glossary;
-};
 
+};
 
 #endif

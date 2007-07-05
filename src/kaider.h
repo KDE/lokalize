@@ -37,21 +37,22 @@
 #include <config.h>
 #endif
 
+#include "pos.h"
+
 #include <kapplication.h>
 #include <kxmlguiwindow.h>
 #include <kurl.h>
-
-#include <kreplacedialog.h>
-#include <kreplace.h>
-
 #include <sonnet/dialog.h>
 
-#include "kaiderview.h"
-
-//class Catalog;
+class KFindDialog;
+class KFind;
+class KReplaceDialog;
+class KReplace;
 class KToggleAction;
 class KDirLister;
 
+class Catalog;
+class KAiderView;
 class Project;
 class ProjectView;
 class MergeView;
@@ -91,14 +92,14 @@ private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
 
+    void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
+
     void numberOfFuzziesChanged();
     void numberOfUntranslatedChanged();
 
     //for undo/redo, cataloglistview
     void gotoEntry(const DocPosition& pos,int selection=0);
     void switchForm(int);
-
-
 
     bool fileSave(const KUrl& url = KUrl());
     bool fileSaveAs();
@@ -162,6 +163,7 @@ private slots:
     //void projectOpen(KUrl url=KUrl());
     void projectOpen(QString path=QString());
     void projectCreate();
+    void projectConfigure();
     void newWindowOpen(const KUrl&);
 
     void mergeOpen(KUrl url=KUrl());
@@ -216,6 +218,10 @@ private:
     DocPosition _searchingPos; //for find/replace
     DocPosition _replacingPos;
     DocPosition _spellcheckPos;
+
+
+
+    QString _captionPath;
 
 signals:
     void signalNewEntryDisplayed(uint);

@@ -28,7 +28,7 @@
    <property name="verticalSpacing" >
     <number>6</number>
    </property>
-   <item row="1" column="0" >
+   <item row="2" column="0" >
     <widget class="QLabel" name="textLabel2" >
      <property name="text" >
       <string>Template diectory:</string>
@@ -38,7 +38,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0" >
+   <item row="1" column="0" >
     <widget class="QLabel" name="textLabel2_2" >
      <property name="text" >
       <string>PO directory:</string>
@@ -48,15 +48,58 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
+   <item row="1" column="1" >
     <widget class="QLineEdit" name="kcfg_PoBaseDir" />
    </item>
-   <item row="1" column="1" >
+   <item row="2" column="1" >
     <widget class="QLineEdit" name="kcfg_PotBaseDir" />
+   </item>
+   <item row="3" column="1" >
+    <widget class="QLineEdit" name="kcfg_GlossaryTbx" />
+   </item>
+   <item row="3" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Glossary:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Language:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QComboBox" name="LangCode" />
+   </item>
+   <item row="4" column="1" >
+    <widget class="QLineEdit" name="kcfg_LangCode" />
+     <property name="visible" >
+      <bool>false</bool>
+     </property>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>LangCode</sender>
+   <signal>activated(QString)</signal>
+   <receiver>kcfg_LangCode</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>359</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>359</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

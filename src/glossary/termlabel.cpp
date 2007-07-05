@@ -30,72 +30,55 @@
 
 **************************************************************************** */
 
-#ifndef PROJECTMODEL_H
-#define PROJECTMODEL_H
+#include "termlabel.h"
+#include <kdebug.h>
 
-#include <kdirmodel.h>
-// #include <kfilemetainfo.h>
-// #include <kfileitemdelegate.h>
-#include <QItemDelegate>
+//#include <QShortcutEvent>
 
-enum ModelColumns
+
+TermLabel::TermLabel(const QString& shortcut/*QWidget* parent,Qt::Key key,const QString& termTransl*/)
+    : m_shortcut(shortcut)
+   // : QLabel(/*parent*/)
+    //, m_termTransl(termTransl)
+    {
+//         setFlat(true);
+//         grabShortcut(Qt::ALT+Qt::CTRL+key);
+//         kWarning() << "dsds " << grabShortcut(Qt::ALT+key) <<endl;
+    }
+    //~TermLabel(){}
+// bool TermLabel::event(QEvent *event)
+// {
+//     if (event->type() != QEvent::Shortcut)
+//         return QLabel::event(event);
+// 
+// //         kWarning() << "dsds " << m_termTransl <<endl;
+//     emit insertTerm(m_termTransl);
+//     return true;
+// }
+
+void TermLabel::insert()
 {
-    Graph = 1,
-    SourceDate,
-    TranslationDate,
-    LastTranslator,
-    ProjectModelColumnCount
-};
+//     kWarning() << "m_termTransl" << endl;
+    emit insertTerm(m_termTransl);
+}
 
 
-/*
-struct TranslationProgress
+
+void TermLabel::setText(const QString& str,const QString& termTransl)
 {
-    int translated;
-    int untranslated;
-    int fuzzy;
+    QLabel::setText(str + " " + m_shortcut
+/*    QString firstLine(str + " " + m_shortcut);
+    QPushButton::setText(firstLine*/
+                    + "  \n  " +
+//                     QString((termTransl.size()>firstLine.size())?
+//             (termTransl.size()-firstLine.size()*10):0,' ')+
 
-    TranslationProgress()
-        : translated(0)
-        , untranslated(0)
-        , fuzzy(0)
-    {}
-
-    TranslationProgress(int t, int u, int f)
-        : translated(t)
-        , untranslated(u)
-        , fuzzy(f)
-    {}
-
-};
-*/
-
-class ProjectModel: public KDirModel
-{
-    //Q_OBJECT
-
-public:
-    ProjectModel():KDirModel(){}
-    ~ProjectModel(){}
-
-    QVariant data (const QModelIndex&, int role = Qt::DisplayRole ) const;
-    QVariant headerData(int, Qt::Orientation, int) const;
-    int columnCount(const QModelIndex & parent = QModelIndex()) const;
-    Qt::ItemFlags flags( const QModelIndex & index ) const;
-};
+                termTransl
+                    + "  \n  ");
+/*kWarning() << ((termTransl.size()>firstLine.size())?
+            (termTransl.size()-firstLine.size()):0) << endl;*/
+    m_termTransl=termTransl;
+}
 
 
-
-/**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
-class PoItemDelegate : public QItemDelegate//KFileItemDelegate
-{
-public:
-    PoItemDelegate(QObject *parent=0):QItemDelegate(parent){};//KFileItemDelegate(parent){};
-    ~PoItemDelegate(){};
-    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-
-};
-
-#endif
+#include "termlabel.moc"

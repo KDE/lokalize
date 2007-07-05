@@ -253,7 +253,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    kDebug() << k_funcinfo << " ready" << endl;
 
-   // We have succesfully loaded the file (perhaps with recovered errors)
+   // We have successfully loaded the file (perhaps with recovered errors)
 
 
 
@@ -656,7 +656,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                if(!line.isEmpty())
                   recoverableError=true;
             }
-            else if ( line.startsWith( "#" ) )
+            else if ( line.startsWith( '#' ) )
             {
                // ### TODO: could this be considered recoverable?
                kDebug() << "comment found after a msgid while parsing: " << _msgid.first() << endl;

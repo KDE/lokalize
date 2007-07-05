@@ -3,6 +3,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
+    ${CMAKE_CURRENT_SOURCE_DIR}/glossary
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/../common
     ${KDE4_INCLUDE_DIR}
@@ -23,6 +24,10 @@ set(kaider_SRCS
 
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
+
+    glossary/glossaryview.cpp
+    glossary/termlabel.cpp
+    glossary/tbxparser.cpp
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
@@ -48,6 +53,7 @@ kde4_add_ui_files(kaider_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
     project/prefs_projectmain.ui
+    glossary/termdialog.ui
     findExtension.ui
 )
 

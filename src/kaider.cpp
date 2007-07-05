@@ -30,10 +30,17 @@
 
 **************************************************************************** */
 
+#include "kaider.h"
+#include "kaiderview.h"
+#include "pos.h"
+#include "cmd.h"
+#include "prefs_kaider.h"
+
 #include <QDir>
 #include <QDropEvent>
 #include <QPainter>
-#include <QtGui>
+#include <QTime>
+#include <QTabBar>
 
 #include <kconfigdialog.h>
 #include <kglobal.h>
@@ -42,6 +49,7 @@
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
+
 
 //#include <kedittoolbar.h>
 
@@ -55,11 +63,6 @@
 #include <kmessagebox.h>
 
 
-//  #include "global.h"
-#include "kaider.h"
-#include "pos.h"
-#include "cmd.h"
-#include "prefs_kaider.h"
 
 
 //views
@@ -69,6 +72,7 @@
 #include "mergeview.h"
 #include "mergecatalog.h"
 #include "cataloglistview.h"
+#include "glossaryview.h"
 
 #include "project.h"
 
@@ -170,6 +174,7 @@ void KAider::setupActions()
     action = KStandardAction::save(this, SLOT(fileSave()), actionCollection());
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
+    connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
 
     KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
 
@@ -224,6 +229,13 @@ void KAider::setupActions()
     ADD_ACTION_SHORTCUT("unwrapmsgstr","Un&wrap Msgstr",Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
     connect(action, SIGNAL(triggered(bool)), _view,SLOT(unwrap()));
 
+    action = actionCollection()->addAction("edit_clear",_view,SLOT(clearMsgStr()));
+    action->setShortcut(Qt::CTRL+Qt::Key_D);
+    action->setText(i18n("Clear"));
+
+//     action = actionCollection()->addAction("glossary_define",_view,SLOT(defineNewTerm()));
+//     action->setText(i18n("Define new term"));
+
 // Go
     action = KStandardAction::next(this, SLOT(gotoNext()), actionCollection());
     action->setText(i18n("&Next"));
@@ -261,55 +273,61 @@ void KAider::setupActions()
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-//     ADD_ACTION_SHORTCUT("project_open","Open project",Qt::CTRL+Qt::ALT+Qt::Key_O,"openproject")
-//     connect( action, SIGNAL(triggered(bool)), this, SLOT(projectOpen()));
-// 
-//     ADD_ACTION_SHORTCUT("project_create","Create new project",Qt::CTRL+Qt::ALT+Qt::Key_C,"newproject")
-//     connect( action, SIGNAL(triggered(bool)), this, SLOT(projectCreate()));
-
 
 //Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
-    setupGUI();
 //Bookmarks
-    QMenu* bookmarksMenu=menuBar()->addMenu(i18n("Bookmarks"));
-
-    action=bookmarksMenu->addAction(i18n("Bookmark message"),_view,SLOT(toggleBookmark(bool)),Qt::CTRL+Qt::Key_B);
+    //ADD_ACTION_SHORTCUT("bookmark_do","Bookmark message",Qt::CTRL+Qt::Key_B,"")
+    action = actionCollection()->addAction("bookmark_do");
+    action->setText(i18n("Bookmark message"));
     action->setCheckable(true);
+    connect(action, SIGNAL(triggered(bool)),_view,SLOT(toggleBookmark(bool)));
     connect( this, SIGNAL(signalBookmarkDisplayed(bool)),action,SLOT(setChecked(bool)) );
 
-    bookmarksMenu->addSeparator();
-    action=bookmarksMenu->addAction(i18n("Previous bookmark"),this,SLOT(gotoPrevBookmark()));
+    action = actionCollection()->addAction("bookmark_prior",this,SLOT(gotoPrevBookmark()));
+    action->setText(i18n("Previous bookmark"));
     connect( this, SIGNAL(signalPriorBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action=bookmarksMenu->addAction(i18n("Next bookmark"),this,SLOT(gotoNextBookmark()));
+    action = actionCollection()->addAction("bookmark_next",this,SLOT(gotoNextBookmark()));
+    action->setText(i18n("Next bookmark"));
     connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
 //Project
-    QMenu* projectMenu=menuBar()->addMenu(i18n("Project"));
-    projectMenu->addAction(i18n("Open project"),this,SLOT(projectOpen()));
-    projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
+    action = actionCollection()->addAction("project_configure",this,SLOT(projectConfigure()));
+    action->setText(i18n("Configure project"));
 
-    QMenu* mergeMenu=menuBar()->addMenu(i18n("Merge"));
-    mergeMenu->addAction(i18n("Open merge source"),this,SLOT(mergeOpen()))->setStatusTip(i18n("Open catalog to be merged into the current one"));
-    //projectMenu->addAction(i18n("Create new project"),this,SLOT(projectCreate()));
+    action = actionCollection()->addAction("project_open",this,SLOT(projectOpen()));
+    action->setText(i18n("Open project"));
+
+    action = actionCollection()->addAction("project_create",this,SLOT(projectCreate()));
+    action->setText(i18n("Create new project"));
 
 //MergeMode
-    mergeMenu->addSeparator();
-    action=mergeMenu->addAction(i18n("Previous changed"),this,SLOT(gotoPrevChanged()),Qt::CTRL+Qt::ALT+Qt::Key_PageUp);
+    action = actionCollection()->addAction("merge_open",this,SLOT(mergeOpen()));
+    action->setText(i18n("Open merge source"));
+    action->setStatusTip(i18n("Open catalog to be merged into the current one"));
+
+    action = actionCollection()->addAction("merge_prev",this,SLOT(gotoPrevChanged()));
+    action->setText(i18n("Previous changed"));
+    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_PageUp);
     connect( this, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action=mergeMenu->addAction(i18n("Next changed"),this,SLOT(gotoNextChanged()),Qt::CTRL+Qt::ALT+Qt::Key_PageDown);
+    action = actionCollection()->addAction("merge_next",this,SLOT(gotoNextChanged()));
+    action->setText(i18n("Next changed"));
+    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_PageDown);
     connect( this, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    mergeMenu->addSeparator();
-
-    action=mergeMenu->addAction(i18n("Accept from merging source"),this,SLOT(mergeAccept()),/*Qt::CTRL+*/Qt::ALT+Qt::Key_A);
+    action = actionCollection()->addAction("merge_accept",this,SLOT(mergeAccept()));
+    action->setText(i18n("Accept from merging source"));
+    action->setShortcut(Qt::ALT+Qt::Key_A);
     connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
 
-    action=mergeMenu->addAction(i18n("Accept all new translations"),this,SLOT(mergeAcceptAllForEmpty()),Qt::ALT+Qt::Key_E);
-    //TODO connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
+    action = actionCollection()->addAction("merge_acceptnew",this,SLOT(mergeAcceptAllForEmpty()));
+    action->setText(i18n("Accept all new translations"));
+    action->setShortcut(Qt::ALT+Qt::Key_E);
+
+    setupGUI();
 }
 
 void KAider::newWindowOpen(const KUrl& url)
@@ -351,6 +369,51 @@ void KAider::createDockWindows()
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),catalogTreeView,SLOT(slotNewEntryDisplayed(uint)));
     connect (catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 
+    QVector<QAction*> actions(SHORTCUTS);
+    Qt::Key list[SHORTCUTS]={  Qt::Key_C,
+                        Qt::Key_D,
+//                         Qt::Key_G,
+//                         Qt::Key_H,//help
+                        Qt::Key_I,
+                        Qt::Key_J,
+                        Qt::Key_K,
+                        Qt::Key_L,
+                        Qt::Key_N,
+                        Qt::Key_O,
+                        Qt::Key_Q,
+                        Qt::Key_R,
+                        Qt::Key_U,
+                        Qt::Key_V,
+                        Qt::Key_W,
+                        Qt::Key_X,
+                        Qt::Key_Y,
+                        Qt::Key_Z,
+                        Qt::Key_BraceLeft,
+                        Qt::Key_BraceRight,
+                        Qt::Key_Semicolon,
+                        Qt::Key_Apostrophe,
+                     };
+    QAction* action;
+    int i=0;
+    for(;i<SHORTCUTS;++i)
+    {
+//         action->setVisible(false);
+        action=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
+        action->setShortcut(Qt::ALT+list[i]);
+        action->setText(i18n("Insert # %1 term translation",i));
+        actions[i]=action;
+    }
+
+    GlossaryView* glossaryView = new GlossaryView(this,_catalog,actions);
+    addDockWidget(Qt::BottomDockWidgetArea, glossaryView);
+    actionCollection()->addAction( QLatin1String("showglossaryview_action"), glossaryView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),glossaryView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (glossaryView,SIGNAL(termInsertRequested(const QString&)),_view,SLOT(insertTerm(const QString&)));
+
+    action = actionCollection()->addAction("glossary_define",_view,SLOT(defineNewTerm()));
+    action->setText(i18n("Define new term"));
+    glossaryView->addAction(action);
+    glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
 }
 
 void KAider::fileOpen(KUrl url)
@@ -389,10 +452,21 @@ void KAider::fileOpen(KUrl url)
         pos.form=0;
         gotoEntry(pos);
 
-
+        _captionPath=url.prettyUrl();
+        setCaption(_captionPath,false);
         //Project
-        if (_project->isLoaded())
+        if (!url.isLocalFile())
             return;
+
+        if (_project->isLoaded())
+        {
+            _captionPath=KUrl::relativePath(
+                    KUrl(_project->path()).directory()
+                    ,url.path()
+                                         );
+            setCaption(_captionPath,false);
+            return;
+        }
         int i=4;
         QDir dir(url.directory());
         dir.setNameFilters(QStringList("*.ktp"));
@@ -401,7 +475,18 @@ void KAider::fileOpen(KUrl url)
             if (dir.entryList().isEmpty())
                 dir.cdUp();
             else
+            {
                 _project->load(dir.absoluteFilePath(dir.entryList().first()));
+                if (_project->isLoaded())
+                {
+                    _captionPath=KUrl::relativePath(
+                            KUrl(_project->path()).directory()
+                            ,url.path()
+                                                );
+                    setCaption(_captionPath,false);
+                }
+
+            }
         }
     }
     else
@@ -474,13 +559,14 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     //UndefPart => called on fuzzy toggle
     if (pos.part!=UndefPart || pos.entry!=_currentEntry || pos.offset>0)
         _view->gotoEntry(pos,selection);
+QTime a;
+a.start();
 
 //     KMessageBox::information(0, QString("%1 %2").arg(_currentEntry).arg(pos.entry));
     if (_currentEntry!=pos.entry || _currentPos.form!=pos.form)
     {
         _currentPos=pos;
         _currentEntry=pos.entry;
-
         emit signalNewEntryDisplayed(_currentEntry);
         //emit signalNewEntryDisplayed(_currentPos);
         emit signalFirstDisplayed(_currentEntry==0);
@@ -495,7 +581,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
         emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
         emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
-        
+
         if (_mergeCatalog)
         {
             emit signalPriorChangedAvailable(_currentEntry>_mergeCatalog->firstChangedIndex());
@@ -511,6 +597,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
     statusBar()->changeItem(_catalog->isFuzzy(_currentEntry)?i18n("Fuzzy"):"",ID_STATUS_ISFUZZY);
     statusBar()->changeItem(i18n("Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
+    kWarning() << "signalz  " << a.elapsed() << endl;
 }
 
 void KAider::switchForm(int newForm)

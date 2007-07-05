@@ -143,8 +143,6 @@ void KAider::optionsPreferences()
 
 
 
-
-
 void KAider::projectCreate()
 {
     QString path=KFileDialog::getSaveFileName(_catalog->url().directory(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,this);
@@ -155,7 +153,13 @@ void KAider::projectCreate()
 
     _project->load(path);
     _project->setDefaults();
+    projectConfigure();
 
+}
+
+
+void KAider::projectConfigure()
+{
     if (KConfigDialog::showDialog("project_settings"))
         return;
 
@@ -168,11 +172,22 @@ void KAider::projectCreate()
     if (!ui_prefs_projectmain)
         ui_prefs_projectmain = new Ui_prefs_projectmain;
     ui_prefs_projectmain->setupUi(w);
+
+    QString val( _project->langCode());
+    QStringList langlist = KGlobal::locale()->allLanguagesList();
+    for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
+    {
+        ui_prefs_projectmain->LangCode->addItem(*it);
+        if (*it==val)
+            ui_prefs_projectmain->LangCode->setCurrentIndex(ui_prefs_projectmain->LangCode->count()-1);
+    }
+    ui_prefs_projectmain->kcfg_LangCode->hide();
     dialog->addPage(w, i18n("General"), "general_project_setting");
 
     dialog->show();
 
-    connect(dialog, SIGNAL(settingsChanged(QString)), _projectView, SLOT(slotProjectLoaded()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateGlossary()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateDirModel()));
 }
 
 //void KAider::projectOpen(KUrl url)

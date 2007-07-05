@@ -40,12 +40,17 @@
 #include <kurl.h>
 #include <kmessagebox.h>
 
+
+#include <kreplacedialog.h>
+#include <kreplace.h>
+
 #include <sonnet/backgroundchecker.h>
 
 
 
 //  #include "global.h"
 #include "kaider.h"
+#include "kaiderview.h"
 #include "pos.h"
 #include "cmd.h"
 #include "prefs_kaider.h"
@@ -516,7 +521,7 @@ void KAider::spellcheck()
     if (!_view->selection().isEmpty())
         _dlg->setBuffer( _view->selection() );
     else
-        _dlg->setBuffer( _catalog->msgstr(_currentPos) );
+        _dlg->setBuffer( _catalog->msgstr(_currentPos));
 
     _spellcheckPos=_currentPos;
     _spellcheckStop=false;
@@ -529,18 +534,17 @@ void KAider::spellcheck()
 
 void KAider::spellcheckNext()
 {
-//    kWarning() << "aa" << endl;
+    //kWarning() << "spellcheckNext a" << endl;
     //DocPosition pos=_spellcheckPos;
 
     if (!_spellcheckStop && switchNext(_spellcheckPos))
     {
-        //gotoEntry(pos);
+        // HACK actually workaround
+        while (_catalog->msgstr(_spellcheckPos).isEmpty())
+            if (!switchNext(_spellcheckPos))
+                return;
         _dlg->setBuffer( _catalog->msgstr(_spellcheckPos) );
-        //_dlg->show();
     }
-//     else
-//         _catalog->endMacro();
-
 }
 
 void KAider::spellcheckStop()

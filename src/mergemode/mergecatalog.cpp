@@ -65,7 +65,6 @@ void MergeCatalog::importFinished()
 
     while (i<size)
     {
-        //TODO search for msg over the whole catalog,possibly using fuzzy matching?
         if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(i).msgidPlural()
             && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(i).msgstrPlural()
            )
@@ -77,7 +76,28 @@ void MergeCatalog::importFinished()
             m_changedIndex.append(i);
         }
         else
+        {
             newVector[i].setValid(false);
+            //or... search for msg over the whole catalog;
+            //TODO use fuzzy matching?
+            int j=0;
+            while (j<size)
+            {
+                if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(j).msgidPlural()
+                    && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(j).msgstrPlural()
+                   )
+                {
+                    newVector[i].setMsgstr(d->_entries.at(j).msgstrPlural());
+//             kWarning() << "  " << newVector.at(i).msgstr(0) << endl;
+                    newVector[i].setPluralFormType(d->_entries.at(j).pluralFormType());
+                    newVector[i].setComment(d->_entries.at(j).comment());
+                    m_changedIndex.append(i);
+                    newVector[i].setValid(true);
+                    break;
+                }
+                ++j;
+            }
+        }
         ++i;
 
     }

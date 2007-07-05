@@ -1,7 +1,7 @@
-/*****************************************************************************
+/* ****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,54 +30,25 @@
 
 **************************************************************************** */
 
+#ifndef GLOSSARY_H
+#define GLOSSARY_H
 
-#ifndef PROJECT_H
-#define PROJECT_H
+#include <QStringList>
+#include <QHash>
 
-#include <QObject>
-#include "projectbase.h"
-#include "glossary.h"
-class ProjectModel;
-class Glossary;
-
-class Project: public ProjectBase
+struct Glossary
 {
-    Q_OBJECT
+    QHash<QString,int> wordHash;
+    QList<QStringList> termList;
 
-public:
-//    typedef KSharedPtr<Project> Ptr;
+    void clear(){wordHash.clear(),termList.clear();}
+};
 
-    //explicit Project(const QString &file);
-    explicit Project();
-    virtual ~Project();
+struct TermEntry
+{
+    QString english;
+    QString target;
 
-    void load(const QString &file);
-    void save();
-    QString path()const{return m_path;}
-    //void setPath(const QString& p){m_path=p;}
-    bool isLoaded(){return !m_path.isEmpty();}
-    ProjectModel* model();
-
-    Glossary* glossary()const{return m_glossary;}
-    QString glossaryPath() const;
-    void glossaryAdd(const TermEntry&);
-
-// signals:
-//     void loaded();
-
-private slots:
-    void populateDirModel();
-    void populateGlossary();
-
-private:
-    static Project* _instance;
-public:
-    static Project* instance();
-
-private:
-    QString m_path;
-    ProjectModel* m_model;
-    Glossary* m_glossary;
 };
 
 

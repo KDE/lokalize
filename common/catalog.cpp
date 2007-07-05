@@ -889,7 +889,7 @@ void Catalog::updateHeader(bool forSaving)
             QString s = (*ait);
 
             // ensure dot at the end of copyright
-            if ( !s.endsWith(".") ) s += '.';
+            if ( !s.endsWith('.') ) s += '.';
             commentList.append(s);
         }
     }

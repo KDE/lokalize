@@ -30,6 +30,16 @@
 
 **************************************************************************** */
 
+#include "kaiderview.h"
+#include "project.h"
+#include "catalog.h"
+#include "cmd.h"
+#include "prefs_kaider.h"
+#include "syntaxhighlighter.h"
+
+#include "ui_termdialog.h"
+#include "glossary.h"
+
 #include <QTextCodec>
 #include <QTabBar>
 #include <QDragEnterEvent>
@@ -39,11 +49,7 @@
 #include <kdebug.h>
 #include <kurl.h>
 #include <kstandardshortcut.h>
- 
-#include "cmd.h"
-#include "kaiderview.h"
-#include "prefs_kaider.h"
-#include "syntaxhighlighter.h"
+
 
 //#include <loader.h>
 
@@ -239,6 +245,39 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     //kWarning() << "fh g gf f "<< pos.offset << endl;
 }
 
+void KAiderView::dragEnterEvent(QDragEnterEvent* event)
+{
+    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
+    {
+        //kWarning() << " " << <<endl;
+        event->acceptProposedAction();
+    };
+}
+
+void KAiderView::dropEvent(QDropEvent *event)
+{
+    emit fileOpenRequested(KUrl(event->mimeData()->urls().first()));
+    event->acceptProposedAction();
+}
+
+
+
+// edit actions that are easier to do in this class
+void KAiderView::clearMsgStr()
+{
+    if (_currentEntry==-1)
+        return;
+
+    _currentPos.offset=0;
+    _catalog->push(new DelTextCmd(_catalog,_currentPos,_catalog->msgstr(_currentPos)));
+    if (_catalog->isFuzzy(_currentEntry))
+    {
+        toggleFuzzy(false);
+        fuzzyEntryDisplayed(false);
+    }
+    gotoEntry(_currentPos);
+}
+
 void KAiderView::toggleBookmark(bool checked)
 {
     if (_currentEntry==-1)
@@ -246,8 +285,6 @@ void KAiderView::toggleBookmark(bool checked)
 
     _catalog->setBookmark(_currentEntry,checked);
 }
-
-
 
 void KAiderView::toggleFuzzy(bool checked)
 {
@@ -272,9 +309,9 @@ void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 void KAiderView::msgid2msgstr()
 {
     QString text=_catalog->msgid(_currentPos);
-    QString out="";
+    QString out;
     QString ctxt=_catalog->msgctxt(_currentPos.entry);
-    
+
    // this is KDE specific:
     if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
     {
@@ -309,8 +346,8 @@ void KAiderView::msgid2msgstr()
         text.replace(_catalog->miscSettings().singularPlural,"");
     }*/
     // end of KDE specific part
-    
-    
+
+
 /*    QRegExp reg=_catalog->miscSettings().contextInfo;
     if(text.contains(reg))
     {
@@ -357,22 +394,31 @@ void KAiderView::unwrap(ProperTextEdit* editor)
         _catalog->endMacro();
 }
 
-
-
-
-void KAiderView::dragEnterEvent(QDragEnterEvent* event)
+void KAiderView::insertTerm(const QString& term)
 {
-    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-    {
-        //kWarning() << " " << <<endl;
-        event->acceptProposedAction();
-    };
+    _msgstrEdit->insertPlainText(term);
 }
 
-void KAiderView::dropEvent(QDropEvent *event)
+void KAiderView::defineNewTerm()
 {
-    emit fileOpenRequested(KUrl(event->mimeData()->urls().first()));
-    event->acceptProposedAction();
+    QDialog *w = new QDialog(this);
+//     if (!ui_prefs_identity)
+//         ui_prefs_identity = new Ui_prefs_identity;
+//     ui_prefs_identity->setupUi(w);
+    Ui_TermDialog ui_termdialog;
+    ui_termdialog.setupUi(w);
+
+    ui_termdialog.english->setText(_msgidEdit->textCursor().selectedText());
+    ui_termdialog.target->setText(_msgstrEdit->textCursor().selectedText());
+    //_msgstrEdit->insertPlainText(term);
+    if (QDialog::Accepted==w->exec())
+    {
+        //kWarning() << "sss" << endl;
+        TermEntry a;
+        a.english=ui_termdialog.english->text();
+        a.target=ui_termdialog.target->text();
+        Project::instance()->glossaryAdd(a);
+    }
 }
 
 

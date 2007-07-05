@@ -4,9 +4,7 @@
 // Description: 
 //
 //
-// Author: Nick Shaforostoff <shafff@ukr.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
+// Copyright: 2007 Nick Shaforostoff <shafff@ukr.net>
 //
 //
 #ifndef KAIDER_VERSION

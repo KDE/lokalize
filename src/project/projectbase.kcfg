@@ -4,7 +4,12 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile arg="true"/>
+  <include>klocale.h</include>
   <group name="General">
+    <entry name="LangCode"  type="String">
+        <label>Language</label>
+        <default code="true">KLocale::defaultLanguage()</default>
+    </entry>
     <entry name="PoBaseDir"  type="String">
         <label>The base directory for PO files (translations)</label>
         <default>./</default>
@@ -12,6 +17,10 @@
     <entry name="PotBaseDir"  type="String">
         <label>The base directory for POT files (templates to be translated)</label>
         <default>../templates</default>
+    </entry>
+    <entry name="GlossaryTbx"  type="String">
+        <label>Project's glossary</label>
+        <default>./terms.tbx</default>
     </entry>
   </group>
 </kcfg>

@@ -62,7 +62,7 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
 
     m_proxyModel->setSourceModel(m_model);
     m_browser->setModel(m_proxyModel);
-    m_browser->setColumnWidth(0,m_browser->columnWidth(0)>>2);
+    m_browser->setColumnWidth(0,m_browser->columnWidth(0)/3);
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
 }

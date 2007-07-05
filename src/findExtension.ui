@@ -1,41 +1,66 @@
-<ui version="4.0" stdsetdef="1" >
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>findExtension</class>
-  <widget class="QWidget" name="findExtension" >
+<ui version="4.0" >
+ <class>findExtension</class>
+ <widget class="QWidget" name="findExtension" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>167</width>
+    <height>46</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
+   </property>
+   <item>
     <layout class="QVBoxLayout" >
-      <property name="margin" >
-        <number>0</number>
-      </property>
-      <item>
-        <layout class="QVBoxLayout" >
-          <property name="margin" >
-            <number>0</number>
-          </property>
-          <item>
-            <widget class="QCheckBox" name="m_ignoreAccelMarks" >
-              <property name="text" >
-                <string>Ignore accelerator marks</string>
-              </property>
-              <property name="whatsThis" stdset="0" >
-                <string>Ignore accelerator marks</string>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <widget class="QCheckBox" name="m_skipTags" >
-              <property name="text" >
-                <string>Skip tags</string>
-              </property>
-              <property name="whatsThis" stdset="0" >
-                <string>Skip tags</string>
-              </property>
-            </widget>
-          </item>
-        </layout>
-      </item>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="m_ignoreAccelMarks" >
+       <property name="whatsThis" >
+        <string>Ignore accelerator marks</string>
+       </property>
+       <property name="text" >
+        <string>Ignore accelerator marks</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="m_skipTags" >
+       <property name="whatsThis" >
+        <string>Skip tags</string>
+       </property>
+       <property name="text" >
+        <string>Skip tags</string>
+       </property>
+      </widget>
+     </item>
     </layout>
-  </widget>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <resources/>
+ <connections/>
 </ui>

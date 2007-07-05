@@ -299,7 +299,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         // Traditional KBabel wrapping
         QStringList list = text.split( '\n', QString::SkipEmptyParts );
 
-        if ( text.startsWith( "\n" ) )
+        if ( text.startsWith( '\n' ) )
             list.prepend( QString() );
 
         if(list.isEmpty())
@@ -331,7 +331,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     // lazy wrapping
     QStringList list = text.split( '\n', QString::SkipEmptyParts );
 
-    if ( text.startsWith( "\n" ) )
+    if ( text.startsWith( '\n' ) )
         list.prepend( QString() );
 
     if(list.isEmpty())

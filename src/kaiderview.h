@@ -36,15 +36,16 @@
 #include <QSplitter>
 class QTabBar;
 class KUrl;
+class SyntaxHighlighter;
+class Catalog;
 //#include <QKeyEvent>
 
 #include <ktextedit.h>
 
 
-#include "catalog.h"
+
 #include "pos.h"
 
-#include "syntaxhighlighter.h"
 
 class ProperTextEdit : public KTextEdit
 {
@@ -129,26 +130,22 @@ signals:
 private slots:
     void switchColors();
     void settingsChanged();
-    void contentsChanged(int position, int charsRemoved, int charsAdded ); //for Undo/Redo
+    void contentsChanged(int position,int charsRemoved,int charsAdded); //for Undo/Redo
     void fuzzyEntryDisplayed(bool);
 
     //Edit menu
     void toggleFuzzy(bool);
     void msgid2msgstr();
     void unwrap(ProperTextEdit* editor=0);
-
-
     void toggleBookmark(bool);
-    
-    
-    
-    
-    
-    
+    void insertTerm(const QString&);
+    void defineNewTerm();
+    void clearMsgStr();
+
+
+
 protected:
-    bool eventFilter(QObject *, QEvent *); //workaround for qt ctrl+z bug
-    
-    
+    bool eventFilter(QObject*, QEvent*); //workaround for qt ctrl+z bug
 };
 
 #endif // _KAiderVIEW_H_
