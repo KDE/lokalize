@@ -32,12 +32,14 @@
 
 #include "termlabel.h"
 #include <kdebug.h>
+#include <QAction>
 
 //#include <QShortcutEvent>
 
 
-TermLabel::TermLabel(const QString& shortcut/*QWidget* parent,Qt::Key key,const QString& termTransl*/)
-    : m_shortcut(shortcut)
+TermLabel::TermLabel(QAction* action/*const QString& shortcutQWidget* parent,Qt::Key key,const QString& termTransl*/)
+        : m_action(action)
+    //: m_shortcut(shortcut)
    // : QLabel(/*parent*/)
     //, m_termTransl(termTransl)
     {
@@ -66,7 +68,7 @@ void TermLabel::insert()
 
 void TermLabel::setText(const QString& str,const QString& termTransl)
 {
-    QLabel::setText(str + " " + m_shortcut
+    QLabel::setText(str + " " + m_action->shortcut().toString()//m_shortcut
 /*    QString firstLine(str + " " + m_shortcut);
     QPushButton::setText(firstLine*/
                     + "  \n  " +

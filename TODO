@@ -5,9 +5,7 @@ small:
 -KAutoSaveFile ??
 -bookmarks saving
 -many small features that ease everyday life of translator
-    search: &, dont replace in tags
-    _tagExtractor = new RegExpExtractor(QStringList());
-    _argExtractor = new RegExpExtractor(QStringList());
+    search: dont replace in tags
 
 
 templates:
@@ -16,7 +14,6 @@ templates:
 -projects (catalogmanager becomes projectmanager:)
 -interaction between instances (dbus?)??
 
--Glossary (QtSql, ThreadWeaver)
 -Translation DB with automatic search on gotoEntry() (QtSql, ThreadWeaver)
 -Use google machine translation to generate list of words that likely will be used in msgstr
     (so they could be inserted into msgstr with ctrl+1, ctrl+2, ...)

@@ -1,11 +1,12 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="0">
+<kpartgui name="KAider" version="10">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
     <Action name="msgid2msgstr"/>
     <Action name="unwrapmsgstr"/>
     <Action name="edit_clear"/>
+    <Action name="edit_tagmenu"/>
     <Menu name="glossary"><text>Glossary</text>
         <Action name="glossary_define"/>
         <Separator/>

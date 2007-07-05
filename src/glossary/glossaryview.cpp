@@ -95,7 +95,7 @@ FlowLayout::FlowLayout(QWidget *parent,QWidget *glossaryView,
     int i=0;
     for(;i<SHORTCUTS;++i)
     {
-        TermLabel* label=new TermLabel(actions.at(i)->shortcut().toString()); /*this,m_keys.at(count())*/
+        TermLabel* label=new TermLabel(actions.at(i)); /*this,m_keys.at(count())*/
         connect(actions.at(i),SIGNAL(triggered(bool)),label,SLOT(insert()));
         connect(label,SIGNAL(insertTerm(const QString&)),m_glossaryView,SIGNAL(termInsertRequested(const QString&)));
         addWidget(label);
@@ -256,6 +256,8 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
+        , m_rxClean("\\&|<[^>]*>")//cleaning regexp
+        , m_rxSplit("\\W")//splitting regexp
 {
     setObjectName("glossaryView");
     setWidget(m_browser);
@@ -291,8 +293,9 @@ void GlossaryView::dropEvent(QDropEvent *event)
 void GlossaryView::slotNewEntryDisplayed(uint entry)
 {
     m_flowLayout->clearLabels();
-    QString msg(m_catalog->msgid(entry));
-    QStringList words(msg.toLower().split(" ",QString::SkipEmptyParts));
+    QString msg(m_catalog->msgid(entry).toLower());
+    msg.remove(m_rxClean);
+    QStringList words(msg.split(m_rxSplit,QString::SkipEmptyParts));
     if (words.isEmpty())
         return;
 
@@ -312,8 +315,8 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     for (i=0;i<termIndexes.size();++i)
     {
         if (msg.contains(
-                m_glossary->termList.at(termIndexes.at(i)).first(),
-                Qt::CaseInsensitive
+                m_glossary->termList.at(termIndexes.at(i)).first()//,
+                //Qt::CaseInsensitive
                         )
            )
         {

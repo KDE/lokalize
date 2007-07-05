@@ -109,11 +109,12 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
         if (m_termOtherList.isEmpty()||m_termEn.isEmpty())
             return true;
 
+        m_termEn=m_termEn.toLower();
         QStringList words(m_termEn.split(" ",QString::SkipEmptyParts));
         int i=0;
         for (;i<words.size();++i)
         {
-            m_glossary->wordHash.insert(words.at(i).toLower(),m_glossary->termList.size());
+            m_glossary->wordHash.insert(words.at(i),m_glossary->termList.size());
         }
         m_termOtherList.prepend(m_termEn);
         m_glossary->termList.append(m_termOtherList);

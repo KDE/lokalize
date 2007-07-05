@@ -233,6 +233,10 @@ void KAider::setupActions()
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18n("Clear"));
 
+    action = actionCollection()->addAction("edit_tagmenu",_view,SLOT(tagMenu()));
+    action->setShortcut(Qt::CTRL+Qt::Key_T);
+    action->setText(i18n("Insert Tag"));
+    
 //     action = actionCollection()->addAction("glossary_define",_view,SLOT(defineNewTerm()));
 //     action->setText(i18n("Define new term"));
 

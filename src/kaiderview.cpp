@@ -42,6 +42,7 @@
 
 #include <QTextCodec>
 #include <QTabBar>
+#include <QMenu>
 #include <QDragEnterEvent>
 
 #include <kmessagebox.h>
@@ -235,6 +236,20 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,selection);
         msgEdit->setTextCursor(t);
     }
+    else
+    {
+        //what if msg starts with a tag?
+        if (_catalog->msgstr(_currentPos).startsWith('<'))
+        {
+            int offset=_catalog->msgstr(_currentPos).indexOf(QRegExp(">[^<]"));
+            if (offset!=-1)
+            {
+                QTextCursor t=msgEdit->textCursor();
+                t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
+                msgEdit->setTextCursor(t);
+            }
+        }
+    }
     msgEdit->setFocus();
 
     _oldMsgstr=_msgstrEdit->toPlainText();//for undo/redo tracking
@@ -408,8 +423,22 @@ void KAiderView::defineNewTerm()
     Ui_TermDialog ui_termdialog;
     ui_termdialog.setupUi(w);
 
-    ui_termdialog.english->setText(_msgidEdit->textCursor().selectedText());
-    ui_termdialog.target->setText(_msgstrEdit->textCursor().selectedText());
+    QString en(_msgidEdit->textCursor().selectedText().toLower());
+    if (en.isEmpty())
+        en=_msgidEdit->toPlainText().toLower();
+
+    QString target(_msgstrEdit->textCursor().selectedText().toLower());
+    if (target.isEmpty())
+        target=_msgstrEdit->toPlainText().toLower();
+
+    QRegExp rxClean("\\&|<[^>]*>");//cleaning regexp; taken from glossaryview
+    en.remove(rxClean);
+    target.remove(rxClean);
+
+    ui_termdialog.english->setText(en);
+    ui_termdialog.target->setText(target);
+    ui_termdialog.english->selectAll();
+    ui_termdialog.target->selectAll();
     //_msgstrEdit->insertPlainText(term);
     if (QDialog::Accepted==w->exec())
     {
@@ -420,6 +449,72 @@ void KAiderView::defineNewTerm()
         Project::instance()->glossaryAdd(a);
     }
 }
+
+void KAiderView::tagMenu()
+{
+    QMenu menu;
+
+    //QRegExp tag("<[^>]*>");
+    QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
+    QString en(_msgidEdit->toPlainText());
+    QString target(_msgstrEdit->toPlainText());
+    int pos=0;
+    //tag.indexIn(en);
+    //kWarning() << tag.capturedTexts() << endl;
+    //kWarning() << tag.cap(0) << endl;
+    int posInMsgStr=0;
+    QAction* txt;
+    while ((pos=tag.indexIn(en,pos))!=-1)
+    {
+        //kWarning() << tag.cap(0) << endl;
+        txt=menu.addAction(tag.cap(0));
+        pos+=tag.matchedLength();
+//         kWarning() << "sassa " << posInMsgStr << endl;
+        if (posInMsgStr!=-1 && (posInMsgStr=target.indexOf(tag.cap(0),posInMsgStr))==-1)
+        {
+            menu.setActiveAction(txt);
+//             kWarning() << "sass " << posInMsgStr << endl;
+        }
+        else if (posInMsgStr!=-1)
+        {
+            posInMsgStr+=tag.matchedLength();
+        }
+    }
+    
+    
+    
+    
+//     QMenu menu;
+//     //setActiveAction
+//     menu.addAction(i18n("Open project"),m_parent,SLOT(projectOpen()));
+//     menu.addAction(i18n("Create new project"),m_parent,SLOT(projectCreate()));
+// 
+//     if ("text/x-gettext-translation"
+//         ==Project::instance()->model()->itemForIndex(
+//             /*m_proxyModel->mapToSource(*/(m_browser->currentIndex())
+//                                                     )->mimetype()
+//        )
+//     {
+//         menu.addSeparator();
+//         menu.addAction(i18n("Open"),this,SLOT(slotOpen()));
+//         menu.addAction(i18n("Open in new window"),this,SLOT(slotOpenInNewWindow()));
+// 
+//     }
+// 
+// 
+    txt=menu.exec(_msgidEdit->mapToGlobal(QPoint(0,0)));
+    if (txt)
+        _msgstrEdit->insertPlainText(txt->text());
+
+}
+
+
+
+
+
+
+
+
 
 
 #include "kaiderview.moc"

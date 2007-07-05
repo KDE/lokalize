@@ -34,13 +34,14 @@
 #define TERMLABEL_H
 
 #include <QLabel>
+class QAction;
 //#include <QPushButton>
 
 class TermLabel: public QLabel//QPushButton
 {
     Q_OBJECT
 public:
-    TermLabel(const QString& shortcut/*Qt::Key key*/);
+    TermLabel(QAction*/*const QString& shortcutQt::Key key*/);
     ~TermLabel(){}
 
     void setText(const QString&,const QString&);
@@ -56,7 +57,7 @@ signals:
 
 private:
     QString m_termTransl;
-    QString m_shortcut;
+    QAction* m_action;
 };
 
 #endif

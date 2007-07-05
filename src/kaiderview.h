@@ -141,7 +141,7 @@ private slots:
     void insertTerm(const QString&);
     void defineNewTerm();
     void clearMsgStr();
-
+    void tagMenu();
 
 
 protected:

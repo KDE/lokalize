@@ -34,7 +34,7 @@
 #define GLOSSARYVIEW_H
 
 #include <pos.h>
-
+#include <QRegExp>
 #include <QDockWidget>
 //#include <QList>
 class Catalog;
@@ -74,6 +74,8 @@ private:
     Catalog* m_catalog;
     FlowLayout *m_flowLayout;
     Glossary* m_glossary;
+    QRegExp m_rxClean;
+    QRegExp m_rxSplit;
 
 };
 
