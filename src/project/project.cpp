@@ -67,17 +67,17 @@ Project::~Project()
     writeConfig();
 }
 
-void Project::save()
-{
-//     kWarning() << "--s "<< m_path << endl;
-//     setSharedConfig(KSharedConfig::openConfig(m_path, KConfig::NoGlobals));
-// 
-//     kWarning() << "--s "<< potBaseDir() << " " << poBaseDir()<< endl;
-//     QString aa(potBaseDir());
-//     readConfig();
-//     setPotBaseDir(aa);
-    writeConfig();
-}
+// void Project::save()
+// {
+// //     kWarning() << "--s "<< m_path << endl;
+// //     setSharedConfig(KSharedConfig::openConfig(m_path, KConfig::NoGlobals));
+// // 
+// //     kWarning() << "--s "<< potBaseDir() << " " << poBaseDir()<< endl;
+// //     QString aa(potBaseDir());
+// //     readConfig();
+// //     setPotBaseDir(aa);
+//     writeConfig();
+// }
 
 
 void Project::load(const QString &file)

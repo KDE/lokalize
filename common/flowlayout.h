@@ -2,6 +2,7 @@
   This file is part of KAider
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2004-2007 Trolltech ASA. All rights reserved.
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -29,58 +30,50 @@
   your version.
 
 **************************************************************************** */
+#ifndef FLOWLAYOUT_H
+#define FLOWLAYOUT_H
 
-#include "termlabel.h"
-#include <kdebug.h>
-#include <QAction>
+#include <QLayout>
+#include <QVector>
+class QAction;
 
-//#include <QShortcutEvent>
-
-
-TermLabel::TermLabel(QAction* action/*const QString& shortcutQWidget* parent,Qt::Key key,const QString& termTransl*/)
-        : m_action(action)
-    //: m_shortcut(shortcut)
-   // : QLabel(/*parent*/)
-    //, m_termTransl(termTransl)
-    {
-//         setFlat(true);
-//         grabShortcut(Qt::ALT+Qt::CTRL+key);
-//         kWarning() << "dsds " << grabShortcut(Qt::ALT+key) <<endl;
-    }
-    //~TermLabel(){}
-// bool TermLabel::event(QEvent *event)
-// {
-//     if (event->type() != QEvent::Shortcut)
-//         return QLabel::event(event);
-// 
-// //         kWarning() << "dsds " << m_termTransl <<endl;
-//     emit insertTerm(m_termTransl);
-//     return true;
-// }
-
-void TermLabel::insert()
+/**
+ * used in glossary and kross views
+ *
+ * copied from 'pretty' docs
+ */
+class FlowLayout : public QLayout
 {
-//     kWarning() << "m_termTransl" << endl;
-    emit insertTerm(m_termTransl);
-}
+public:
+    /**
+     * c'tor for glossary view
+     */
+    FlowLayout(QWidget *parent,QWidget *glossaryView,
+               const QVector<QAction*>& actions,int margin = 0, int spacing = -1);
+    FlowLayout(int spacing = -1);
+    ~FlowLayout();
+
+    void addItem(QLayoutItem *item){itemList.append(item);}
+    Qt::Orientations expandingDirections() const{return 0;}
+    bool hasHeightForWidth() const{return true;}
+    int heightForWidth(int) const;
+    int count() const{return itemList.size();}
+    QLayoutItem *itemAt(int index) const{return itemList.value(index);}
+    QSize minimumSize() const;
+    void setGeometry(const QRect &rect);
+    QSize sizeHint() const{return minimumSize();}
+    QLayoutItem *takeAt(int index);
+    void clearLabels();
+    void addText(const QString&,const QString&);
+
+private:
+    int doLayout(const QRect &rect, bool testOnly) const;
+
+    QList<QLayoutItem *> itemList;
+    int m_index; //of the nearest free label
+//     QList<Qt::Key> m_keys;
+    QWidget *m_glossaryView;
+};
 
 
-
-void TermLabel::setText(const QString& str,const QString& termTransl)
-{
-    QLabel::setText(str + " " + m_action->shortcut().toString()//m_shortcut
-/*    QString firstLine(str + " " + m_shortcut);
-    QPushButton::setText(firstLine*/
-                    + "  \n  " +
-//                     QString((termTransl.size()>firstLine.size())?
-//             (termTransl.size()-firstLine.size()*10):0,' ')+
-
-                termTransl
-                    + "  \n  ");
-/*kWarning() << ((termTransl.size()>firstLine.size())?
-            (termTransl.size()-firstLine.size()):0) << endl;*/
-    m_termTransl=termTransl;
-}
-
-
-#include "termlabel.moc"
+#endif

@@ -1,8 +1,11 @@
 /* ****************************************************************************
-  This file is part of KBabel
+  This file is part of KAider
+  This file is based on the one from KBabel
 
-  Copyright (C) 2002-2003 	by Stanislav Visnovsky
-                        	    <visnovsky@kde.org>
+  Copyright (C) 1999-2000 by Matthias Kiefer
+                            <matthias.kiefer@gmx.de>
+		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
+		2007	  by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -28,46 +31,52 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-
+  
 **************************************************************************** */
-#ifndef IMPORTPLUGINPRIVATE_H
-#define IMPORTPLUGINPRIVATE_H
+#ifndef CATALOGITEMPRIVATE_H
+#define CATALOGITEMPRIVATE_H
 
-#include "catalogitem.h"
-#include "catalog.h"
-//Added by qt3to4:
-#include <QLinkedList>
+#include <QStringList>
+#include "pluralformtypes_enum.h"
 
-class QTextCodec;
 
-//namespace KBabel {
+/**
+* This class represents data for an entry in a catalog.
+* It contains the comment, the Msgid and the Msgstr.
+* It defines some functions to query the state of the entry
+* (fuzzy, untranslated, cformat).
+*
+* @short Class, representing an entry in a catalog
+* @author Matthias Kiefer <matthias.kiefer@gmx.de>
+* @author Stanislav Visnovsky <visnovsky@kde.org>
+* @author Nick Shaforostoff <shafff@ukr.net>
+*/
 
-class Catalog;
-
-class CatalogImportPluginPrivate
+class CatalogItemPrivate
 {
+
 public:
-    Catalog* _catalog;
-    bool _started;
-    bool _stopped;
 
-    bool _updateHeader;
-    bool _updateGeneratedFromDocbook;
-    bool _updateCodec;
-    bool _updateErrorList;
-    bool _updateCatalogExtraData;
+    PluralFormType _pluralFormType:16;
+    bool _valid:1;
 
-    bool _generatedFromDocbook;
-    QLinkedList<CatalogItem> _entries;
-    QLinkedList<CatalogItem> _obsoleteEntries;
-    CatalogItem _header;
-    QTextCodec* _codec;
-    QList<uint> _errorList;
-    QStringList _catalogExtraData;
-    QString _mimeTypes;
+    QString _comment;
+    QString _msgctxt;
 
+    QStringList _msgidPlural;
+    //QString _msgid;
+    QStringList _msgstrPlural;
+    //QString _msgstr;
+
+    QStringList _errors;
+
+    CatalogItemPrivate()
+        : _pluralFormType(NoPluralForm)
+        , _valid(true)
+	{};
+
+
+    friend class CatalogItem;
 };
 
-//}
-
-#endif
+#endif // CATALOGITEMPRIVATE_H

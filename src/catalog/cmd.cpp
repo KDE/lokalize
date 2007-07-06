@@ -171,8 +171,8 @@ void DelTextCmd::undo()
 ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
     : QUndoCommand(i18n("Fuzzy toggling"))
     , _catalog(catalog)
-    , _flag(flag)
     , _index(index)
+    , _flag(flag)
 {
 }
 
@@ -201,7 +201,7 @@ void ToggleFuzzyCmd::setFuzzy()
 
     // insert index in the right place in the list
     QList<uint>::Iterator it = _catalog->d->_fuzzyIndex.begin();
-    while(it != _catalog->d->_fuzzyIndex.end() && _index > (*it))
+    while(it != _catalog->d->_fuzzyIndex.end() && _index > short(*it))
         ++it;
     _catalog->d->_fuzzyIndex.insert(it,_index);
     _catalog->emitsignalNumberOfFuzziesChanged();

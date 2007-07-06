@@ -30,49 +30,71 @@
 
 **************************************************************************** */
 
-#ifndef MERGEVIEW_H
-#define MERGEVIEW_H
 
-#include <pos.h>
 
-#include <QDockWidget>
-class QTextBrowser;
-class Catalog;
-class MergeCatalog;
-class QDragEnterEvent;
-class QDropEvent;
-class KUrl;
+#ifndef CMD_H
+#define CMD_H
 
-class MergeView: public QDockWidget
+#include <QUndoCommand>
+#include <kdebug.h>
+
+#include "pos.h"
+#include "catalog.h"
+#include "catalog_private.h"
+#include "catalogitem_private.h"
+
+enum Commands { Insert, Delete, ToggleFuzzy };
+
+class InsTextCmd : public QUndoCommand
 {
-    Q_OBJECT
-
 public:
-    MergeView(QWidget*,Catalog*);
-    virtual ~MergeView();
-
-    //delayed MergeCatalog setting, cause we create it only by request
-    //(not in KAider c'tor)
-    void setMergeCatalog(MergeCatalog* mc){m_mergeCatalog=mc;};
-    void cleanup();
-
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
-
-public slots:
-    void slotEntryWithMergeDisplayed(bool,const DocPosition&);
-
-signals:
-    void mergeOpenRequested(KUrl);
-
+    InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
+    virtual ~InsTextCmd(){};
+    int id () const {return Insert;}
+    bool mergeWith(const QUndoCommand *other);
+    void undo();
+    void redo();
 private:
-    QTextBrowser* m_browser;
-    Catalog* m_baseCatalog;
-    MergeCatalog* m_mergeCatalog;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-
+    Catalog* _catalog;
+    QString _str;
+    DocPosition _pos;
 };
 
-#endif
+
+class DelTextCmd : public QUndoCommand
+{
+public:
+    DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
+    virtual ~DelTextCmd(){};
+    int id () const {return Delete;}
+    bool mergeWith(const QUndoCommand *other);
+    void redo();
+    void undo();
+private:
+    Catalog* _catalog;
+    QString _str;
+    DocPosition _pos;
+};
+
+/**
+ * you should care not to new it w/ aint no need
+ */
+class ToggleFuzzyCmd : public QUndoCommand
+{
+public:
+    ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag);
+    virtual ~ToggleFuzzyCmd(){};
+    int id () const {return ToggleFuzzy;}
+    void redo();
+    void undo();
+private:
+    void unsetFuzzy();
+    void setFuzzy();
+
+    Catalog* _catalog;
+    short _index:16;
+    bool _flag:16;
+};
+
+
+#endif // CMD_H

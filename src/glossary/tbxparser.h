@@ -60,8 +60,12 @@ class TbxParser : public QXmlDefaultHandler
     };
 
 public:
-    TbxParser(Glossary* glossary);
-    ~TbxParser();
+    TbxParser(Glossary* glossary)
+        : QXmlDefaultHandler()
+        , m_glossary(glossary)
+    {}
+
+    ~TbxParser(){}
 
     bool startDocument();
     bool startElement(const QString&,const QString&,const QString&,const QXmlAttributes&);

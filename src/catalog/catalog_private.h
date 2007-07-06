@@ -37,11 +37,10 @@
 #ifndef CatalogPrivate_H
 #define CatalogPrivate_H
 
-//#include <q3intcache.h>
-#include <qobject.h>
+#include <QObject>
 #include <QList>
-#include <qstringlist.h>
-#include <qmap.h>
+#include <QStringList>
+#include <QMap>
 #include <QVector>
 #include <QTextStream>
 #include <kurl.h>
@@ -52,7 +51,6 @@
 // #include "regexpextractor.h"
 // #include "kbabel_export.h"
 
-class QString;
 class QTextStream;
 class QTextCodec;
 
@@ -77,8 +75,6 @@ public:
     QString _importID;
     QString _mimeTypes;
 
-    //TagSettings _tagSettings;
-
     QTextCodec *fileCodec;
 
     QStringList msgidDiffList;
@@ -91,8 +87,6 @@ public:
     //for wrapping
     short _maxLineLength;
 
-    //    Project::Ptr _project;
-    //    RegExpExtractor *_tagExtractor, *_argExtractor;
     bool _readOnly;
     bool _generatedFromDocbook;
     bool _active;
@@ -120,22 +114,8 @@ public:
 	_generatedFromDocbook(false), 
 	_active(false), 
 	_stop(false)
-                //, 	_project(project) 
    {
-// 	_entries.clear();
-// 	_obsoleteEntries.clear();
-// 	
-// 	_tagExtractor = new RegExpExtractor(QStringList());
-// 	_argExtractor = new RegExpExtractor(QStringList());
-	
-// 	_catalogExtraData.clear();
    }
-   
-//    ~CatalogPrivate()
-//    {
-//        delete _tagExtractor;
-//        delete _argExtractor;
-//    }
 };
 
 

@@ -84,12 +84,12 @@ KAider::KAider()
     , _catalog(new Catalog(this))
     , _mergeCatalog(0)
     , _project(Project::instance())
-    , _view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
+    , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
     , _findDialog(0)
     , _find(0)
     , _replaceDialog(0)
     , _replace(0)
-    , _dlg(0)
+    , m_sonnetDialog(0)
     , _spellcheckStop(false)
     , _spellcheckStartUndoIndex(0)
     , ui_prefs_identity(0)
@@ -102,13 +102,13 @@ KAider::KAider()
 //     , _msgIdDiffView(0)
 {
     setAcceptDrops(true);
-    setCentralWidget(_view);
+    setCentralWidget(m_view);
     setupStatusBar();
     createDockWindows(); //toolviews
     setupActions();
     setAutoSaveSettings();
 
-    connect(_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
+    connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 }
 
@@ -117,7 +117,7 @@ KAider::~KAider()
     _project->save();
     deleteUiSetupers();
     //these are qobjects...
-/*    delete _view;
+/*    delete m_view;
     delete _findDialog;
     delete _replaceDialog;
     delete _find;
@@ -164,7 +164,7 @@ void KAider::numberOfUntranslatedChanged()
 
 void KAider::setupActions()
 {
-    connect (_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
+    connect (m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
     setStandardToolBarMenuEnabled(true);
 
     QAction *action;
@@ -184,7 +184,7 @@ void KAider::setupActions()
 
 //     KAction *custom = new KAction(KIcon("colorize"), i18n("Swi&tch Colors"), this);
 //     actionCollection()->addAction( QLatin1String("switch_action"), custom );
-//     connect(custom, SIGNAL(triggered(bool)), _view, SLOT(switchColors()));
+//     connect(custom, SIGNAL(triggered(bool)), m_view, SLOT(switchColors()));
 
 #define ADD_ACTION(_name,_text,_shortcut,_icon)\
     action = actionCollection()->addAction(_name);\
@@ -202,12 +202,12 @@ void KAider::setupActions()
 
 //Edit
     action = KStandardAction::undo(this,SLOT(undo()),actionCollection());
-    connect(_view,SIGNAL(signalUndo()),this,SLOT(undo()));
+    connect(m_view,SIGNAL(signalUndo()),this,SLOT(undo()));
     connect(_catalog,SIGNAL(canUndoChanged(bool)),action,SLOT(setEnabled(bool)) );
     action->setEnabled(false);
 
     action = KStandardAction::redo(this, SLOT(redo()),actionCollection());
-    connect(_view,SIGNAL(signalRedo()),this,SLOT(redo()));
+    connect(m_view,SIGNAL(signalRedo()),this,SLOT(redo()));
     connect(_catalog,SIGNAL(canRedoChanged(bool)),action,SLOT(setEnabled(bool)) );
     action->setEnabled(false);
 
@@ -219,25 +219,25 @@ void KAider::setupActions()
 
     ADD_ACTION_SHORTCUT("edit_toggle_fuzzy","&Fuzzy",Qt::CTRL+Qt::Key_U,"togglefuzzy")
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered(bool)), _view,SLOT(toggleFuzzy(bool)));
+    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleFuzzy(bool)));
     connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
-    connect(action, SIGNAL(toggled(bool)),_view,SLOT(fuzzyEntryDisplayed(bool)));
+    connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
 
     ADD_ACTION_SHORTCUT("msgid2msgstr","Cop&y Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
-    connect(action, SIGNAL(triggered(bool)), _view,SLOT(msgid2msgstr()));
+    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
 
     ADD_ACTION_SHORTCUT("unwrapmsgstr","Un&wrap Msgstr",Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
-    connect(action, SIGNAL(triggered(bool)), _view,SLOT(unwrap()));
+    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
-    action = actionCollection()->addAction("edit_clear",_view,SLOT(clearMsgStr()));
+    action = actionCollection()->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18n("Clear"));
 
-    action = actionCollection()->addAction("edit_tagmenu",_view,SLOT(tagMenu()));
+    action = actionCollection()->addAction("edit_tagmenu",m_view,SLOT(tagMenu()));
     action->setShortcut(Qt::CTRL+Qt::Key_T);
     action->setText(i18n("Insert Tag"));
     
-//     action = actionCollection()->addAction("glossary_define",_view,SLOT(defineNewTerm()));
+//     action = actionCollection()->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18n("Define new term"));
 
 // Go
@@ -250,13 +250,13 @@ void KAider::setupActions()
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
     action = KStandardAction::firstPage(this, SLOT(gotoFirst()),actionCollection());
-    connect(_view,SIGNAL(signalGotoFirst()),this,SLOT(gotoFirst()));
+    connect(m_view,SIGNAL(signalGotoFirst()),this,SLOT(gotoFirst()));
     action->setText(i18n("&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Home));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
     action = KStandardAction::lastPage(this, SLOT(gotoLast()),actionCollection());
-    connect(_view,SIGNAL(signalGotoLast()),this,SLOT(gotoLast()));
+    connect(m_view,SIGNAL(signalGotoLast()),this,SLOT(gotoLast()));
     action->setText(i18n("&Last Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_End));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
@@ -286,7 +286,7 @@ void KAider::setupActions()
     action = actionCollection()->addAction("bookmark_do");
     action->setText(i18n("Bookmark message"));
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered(bool)),_view,SLOT(toggleBookmark(bool)));
+    connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
     connect( this, SIGNAL(signalBookmarkDisplayed(bool)),action,SLOT(setChecked(bool)) );
 
     action = actionCollection()->addAction("bookmark_prior",this,SLOT(gotoPrevBookmark()));
@@ -412,9 +412,9 @@ void KAider::createDockWindows()
     addDockWidget(Qt::BottomDockWidgetArea, glossaryView);
     actionCollection()->addAction( QLatin1String("showglossaryview_action"), glossaryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),glossaryView,SLOT(slotNewEntryDisplayed(uint)));
-    connect (glossaryView,SIGNAL(termInsertRequested(const QString&)),_view,SLOT(insertTerm(const QString&)));
+    connect (glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
-    action = actionCollection()->addAction("glossary_define",_view,SLOT(defineNewTerm()));
+    action = actionCollection()->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
     action->setText(i18n("Define new term"));
     glossaryView->addAction(action);
     glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
@@ -562,7 +562,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
     if (pos.part!=UndefPart || pos.entry!=_currentEntry || pos.offset>0)
-        _view->gotoEntry(pos,selection);
+        m_view->gotoEntry(pos,selection);
 QTime a;
 a.start();
 

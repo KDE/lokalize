@@ -48,7 +48,9 @@ class QAction;
 #include <QVector>
 
 #define SHORTCUTS 20
-
+/**
+ * part of the glossary handling is done in the project.cpp
+ */
 class GlossaryView: public QDockWidget
 {
     Q_OBJECT
@@ -58,8 +60,8 @@ public:
     virtual ~GlossaryView();
 
 
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+//     void dragEnterEvent(QDragEnterEvent* event);
+//     void dropEvent(QDropEvent*);
 //     bool event(QEvent*);
 
 
@@ -76,6 +78,10 @@ private:
     Glossary* m_glossary;
     QRegExp m_rxClean;
     QRegExp m_rxSplit;
+
+    QString m_normTitle;
+    QString m_hasInfoTitle;
+    bool m_hasInfo;
 
 };
 

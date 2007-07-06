@@ -36,6 +36,9 @@
 #include <QStringList>
 #include <QHash>
 
+/**
+ * internal representation of glossary
+ */
 struct Glossary
 {
     QHash<QString,int> wordHash;
@@ -44,6 +47,9 @@ struct Glossary
     void clear(){wordHash.clear(),termList.clear();}
 };
 
+/**
+ * defines info that can be added to the TBX file
+ */
 struct TermEntry
 {
     QString english;

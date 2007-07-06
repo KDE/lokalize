@@ -1,11 +1,12 @@
 PROJECT(kaider)
 INCLUDE_DIRECTORIES(
-    ${CMAKE_CURRENT_SOURCE_DIR}/project
-    ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
-    ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
-    ${CMAKE_CURRENT_SOURCE_DIR}/glossary
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/../common
+    ${CMAKE_CURRENT_SOURCE_DIR}/catalog
+    ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
+    ${CMAKE_CURRENT_SOURCE_DIR}/project
+    ${CMAKE_CURRENT_SOURCE_DIR}/glossary
+    ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${KDE4_INCLUDE_DIR}
     ${QT_INCLUDES}
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -25,8 +26,9 @@ set(kaider_SRCS
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
+    ../common/flowlayout.cpp
+    ../common/termlabel.cpp
     glossary/glossaryview.cpp
-    glossary/termlabel.cpp
     glossary/tbxparser.cpp
 
     mergemode/mergecatalog.cpp
@@ -38,13 +40,13 @@ set(kaider_SRCS
     project/project.cpp
     project/projectmodel.cpp
 
-    ../common/cmd.cpp
-    ../common/catalog.cpp
-    ../common/catalogitem.cpp
-    ../common/importplugin.cpp
-    ../common/exportplugin.cpp
-    ../common/gettextimport.cpp
-    ../common/gettextexport.cpp
+    catalog/cmd.cpp
+    catalog/catalog.cpp
+    catalog/catalogitem.cpp
+    catalog/importplugin.cpp
+    catalog/exportplugin.cpp
+    catalog/gettextimport.cpp
+    catalog/gettextexport.cpp
 )
 
 kde4_automoc(${kaider_SRCS})
@@ -54,7 +56,7 @@ kde4_add_ui_files(kaider_SRCS
     prefs/prefs_font.ui
     project/prefs_projectmain.ui
     glossary/termdialog.ui
-    findExtension.ui
+    kaider_findextension.ui
 )
 
 kde4_add_kcfg_files(kaider_SRCS

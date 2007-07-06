@@ -1,11 +1,7 @@
 /* ****************************************************************************
   This file is part of KAider
-  This file is based on the one from KBabel
 
-  Copyright (C) 1999-2000 by Matthias Kiefer
-                            <matthias.kiefer@gmx.de>
-		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,52 +27,45 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
-#ifndef CATALOGITEMPRIVATE_H
-#define CATALOGITEMPRIVATE_H
 
-#include <QStringList>
-#include "pluralformtypes_enum.h"
+#include "termlabel.h"
+#include <kdebug.h>
+#include <QAction>
+
+//#include <QShortcutEvent>
 
 
-/**
-* This class represents data for an entry in a catalog.
-* It contains the comment, the Msgid and the Msgstr.
-* It defines some functions to query the state of the entry
-* (fuzzy, untranslated, cformat).
-*
-* @short Class, representing an entry in a catalog
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-* @author Nick Shaforostoff <shafff@ukr.net>
-*/
+// TermLabel::TermLabel(QAction* action/*const QString& shortcutQWidget* parent,Qt::Key key,const QString& termTransl*/)
+//         : m_action(action)
+//     //: m_shortcut(shortcut)
+//    // : QLabel(/*parent*/)
+//     //, m_termTransl(termTransl)
+//     {
+// //         setFlat(true);
+// //         grabShortcut(Qt::ALT+Qt::CTRL+key);
+// //         kWarning() << "dsds " << grabShortcut(Qt::ALT+key) <<endl;
+//     }
+//     //~TermLabel(){}
+// // bool TermLabel::event(QEvent *event)
+// // {
+// //     if (event->type() != QEvent::Shortcut)
+// //         return QLabel::event(event);
+// // 
+// // //         kWarning() << "dsds " << m_termTransl <<endl;
+// //     emit insertTerm(m_termTransl);
+// //     return true;
+// // }
 
-class CatalogItemPrivate
+void TermLabel::insert()
 {
-
-public:
-
-    PluralFormType _pluralFormType:8;
-    bool _valid:1;
-
-    QString _comment;
-    QString _msgctxt;
-
-    QStringList _msgidPlural;
-    //QString _msgid;
-    QStringList _msgstrPlural;
-    //QString _msgstr;
-
-    QStringList _errors;
-
-    CatalogItemPrivate()
-        : _pluralFormType(NoPluralForm)
-        , _valid(true)
-	{};
+//     kWarning() << "m_termTransl" << endl;
+    emit insertTerm(m_termTransl);
+}
 
 
-    friend class CatalogItem;
-};
 
-#endif // CATALOGITEMPRIVATE_H
+
+
+#include "termlabel.moc"

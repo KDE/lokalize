@@ -43,10 +43,14 @@
 #include <QDragEnterEvent>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("MergeView"), parent)
+    : QDockWidget ( i18n("Merge Diff"), parent)
     , m_browser(new QTextBrowser(this))
     , m_baseCatalog(catalog)
     , m_mergeCatalog(0)
+    , m_normTitle(i18n("Merge Diff"))
+    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfo(false)
+
 {
     setObjectName("mergeView");
     setWidget(m_browser);
@@ -78,13 +82,22 @@ void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
 {
 //     if (!m_mergeCatalog)
 //         return;
-
-
     //if (!m_mergeCatalog->isValid(pos.entry))
     if (!really)
     {
-        m_browser->clear();
+        if (m_hasInfo)
+        {
+            m_hasInfo=false;
+            setWindowTitle(m_normTitle);
+            m_browser->clear();
+            m_browser->viewport()->setBackgroundRole(QPalette::Base);
+        }
         return;
+    }
+    if (!m_hasInfo)
+    {
+        m_hasInfo=true;
+        setWindowTitle(m_hasInfoTitle);
     }
     QString newStr(m_mergeCatalog->msgstr(pos));
     QString oldStr(m_baseCatalog->msgstr(pos));
@@ -110,6 +123,11 @@ void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
 
     result.replace("\\n","\\n<br>");
     result.remove(QRegExp("^ "));
+
+    if (m_mergeCatalog->isFuzzy(pos.entry))
+        m_browser->viewport()->setBackgroundRole(QPalette::AlternateBase);
+    else
+        m_browser->viewport()->setBackgroundRole(QPalette::Base);
 
     m_browser->setHtml(result);
 //     m_browser->setPlainText(result);

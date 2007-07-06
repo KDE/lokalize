@@ -184,7 +184,7 @@ bool CatalogItem::isUntranslated() const
 
 bool CatalogItem::isUntranslated(uint form) const
 {
-    if (form<d->_msgstrPlural.size())
+    if ((int)form<d->_msgstrPlural.size())
         return d->_msgstrPlural.at(form).isEmpty();
     else
         return true;

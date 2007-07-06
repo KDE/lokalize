@@ -42,6 +42,9 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18n("Message Context"), parent)
     , m_browser(new QTextBrowser(this))
     , m_catalog(catalog)
+    , m_normTitle(i18n("Message Context"))
+    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfo(false)
 {
     setObjectName("msgCtxtView");
     setWidget(m_browser);
@@ -59,8 +62,24 @@ void MsgCtxtView::slotNewEntryDisplayed(uint index)
 //         m_browser->clear();
 //         return;
 //     }
-
-    m_browser->setText(m_catalog->msgctxt(index));
+    if (m_catalog->msgctxt(index).isEmpty())
+    {
+        if (m_hasInfo)
+        {
+            m_browser->clear();
+            setWindowTitle(m_normTitle);
+            m_hasInfo=false;
+        }
+    }
+    else
+    {
+        if (!m_hasInfo)
+        {
+            setWindowTitle(m_hasInfoTitle);
+            m_hasInfo=true;
+        }
+        m_browser->setText(m_catalog->msgctxt(index));
+    }
 }
 
 #include "msgctxtview.moc"

@@ -114,8 +114,7 @@ private slots:
     void findNext();
     void findPrev();
     void find();
-//     void findInFile(QByteArray fileSource, KBabel::FindOptions options);
-//     void replaceInFile(QByteArray fileSource, KBabel::ReplaceOptions options);
+
     void replace();
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
@@ -148,13 +147,6 @@ private slots:
     void spellcheckReplace(const QString&,int,const QString&);
     void spellcheckStop();
     void spellcheckCancel();
-//     void spellcheckAll();
-//     void spellcheckAllMulti();
-//     void spellcheckFromCursor();
-//     void spellcheckCurrent();
-//     void spellcheckFromCurrent();
-//     void spellcheckMarked();
-//     void spellcheckCommon();
 
     void gotoNextBookmark();
     void gotoPrevBookmark();
@@ -193,13 +185,13 @@ private:
     MergeCatalog* _mergeCatalog;
     Project* _project;
 
-    KAiderView *_view;
+    KAiderView *m_view;
 
     KFindDialog* _findDialog;
     KFind* _find;
     KReplaceDialog* _replaceDialog;
     KReplace* _replace;
-    Sonnet::Dialog* _dlg;
+    Sonnet::Dialog* m_sonnetDialog;
     bool _spellcheckStop;
     int _spellcheckStartUndoIndex;
 
@@ -244,7 +236,7 @@ signals:
     void signalNextBookmarkAvailable(bool);
     void signalBookmarkDisplayed(bool);
 
-//    QMenu *m_viewsMenu;
+//    QMenu *mm_viewsMenu;
 
 //    KToggleAction *m_toolbarAction;
 //    KToggleAction *m_statusbarAction;

@@ -2,6 +2,8 @@
   This file is part of KAider
 
   wordDiff algorithm adoption (C) Nick Shaforostoff <shafff@ukr.net>
+  (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al.
+  It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem. - http://www.markusstengel.de/text/en/i_4_1_5_3.html)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,15 +34,8 @@
 
 #include "diff.h"
 
-#include <kdebug.h>
+// #include <kdebug.h>
 
-
-LCSprinter::LCSprinter(const QStringList &s_1, const QStringList &s_2, QVector<LCSMarker> *b_, const uint nT_, uint index):s1(s_1),s2(s_2),nT(nT_),b(b_)
-{
-    it1=s1.begin();
-    it2=s2.begin();
-    printLCS(index);
-}
 
 void LCSprinter::printLCS(uint index)
 {

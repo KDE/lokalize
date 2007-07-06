@@ -52,6 +52,10 @@ public slots:
 private:
     QTextBrowser* m_browser;
     Catalog* m_catalog;
+    QString m_normTitle;
+    QString m_hasInfoTitle;
+    bool m_hasInfo;
+
 };
 
 #endif

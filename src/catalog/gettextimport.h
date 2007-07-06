@@ -2,14 +2,14 @@
   This file is part of KAider
   This file is based on the one from KBabel
 
-  Copyright (C) 2002	by Stanislav Visnovsky <visnovsky@kde.org>
+  Copyright;
 		2007	by Nick Shaforostoff <shafff@ukr.net>
 
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+;
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -22,7 +22,7 @@
 
   In addition, as a special exception, the copyright holders give
   permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
+  the Qt library by Trolltech AS, Norway;
   of Qt that use the same license as Qt), and distribute linked
   combinations including the two.  You must obey the GNU General
   Public License in all respects for all of the code used other than
@@ -68,6 +68,24 @@ private:
     QString _comment;
     bool _gettextPluralForm;
     bool _obsolete;
+
+    QRegExp _rxMsgCtxt;
+    QRegExp _rxMsgId;
+    QRegExp _rxMsgIdPlural;
+    QRegExp _rxMsgIdPluralBorked;
+    QRegExp _rxMsgIdBorked;
+    QRegExp _rxMsgIdRemQuotes;
+    QRegExp _rxMsgLineRemEndQuote;
+    QRegExp _rxMsgLineRemStartQuote;
+    QRegExp _rxMsgLine;
+    QRegExp _rxMsgLineBorked;
+    QRegExp _rxMsgStr;
+    QRegExp _rxMsgStrOther;
+    QRegExp _rxMsgStrPluralStart;
+    QRegExp _rxMsgStrPluralStartBorked;
+    QRegExp _rxMsgStrPlural;
+    QRegExp _rxMsgStrPluralBorked;
+
 };
 
 #endif

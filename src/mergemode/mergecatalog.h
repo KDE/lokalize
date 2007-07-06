@@ -42,7 +42,7 @@ class MergeCatalog : public Catalog
 {
 public:
     MergeCatalog(QObject* parent, Catalog* baseCatalog);
-    ~MergeCatalog();
+    ~MergeCatalog(){};
 
     void importFinished();
 

@@ -35,14 +35,14 @@
 #include "project.h"
 #include <kdebug.h>
 
-TbxParser::TbxParser(Glossary* glossary)
-        : QXmlDefaultHandler()
-        , m_glossary(glossary)
-{}
-
-
-TbxParser::~TbxParser()
-{}
+// TbxParser::TbxParser(Glossary* glossary)
+//         : QXmlDefaultHandler()
+//         , m_glossary(glossary)
+// {}
+// 
+// 
+// TbxParser::~TbxParser()
+// {}
 
 
 bool TbxParser::startDocument()

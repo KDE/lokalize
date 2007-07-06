@@ -54,7 +54,7 @@
 #include "pos.h"
 #include "cmd.h"
 #include "prefs_kaider.h"
-#include "ui_findExtension.h"
+#include "ui_kaider_findextension.h"
 
 //#define FIND_IGNOREACCELS 2048
 //#define FIND_SKIPTAGS 4096
@@ -74,16 +74,16 @@ void KAider::find()
         ui_findExtension->setupUi(_findDialog->findExtension());
     }
 
-    if (!_view->selection().isEmpty())
+    if (!m_view->selection().isEmpty())
     {
         if (FIND_IGNOREACCELS)
         {
-            QString tmp(_view->selection());
+            QString tmp(m_view->selection());
             tmp.remove('&');
             _findDialog->setPattern(tmp);
         }
         else
-            _findDialog->setPattern(_view->selection());
+            _findDialog->setPattern(m_view->selection());
     }
 
     if ( _findDialog->exec() != QDialog::Accepted )
@@ -264,16 +264,16 @@ void KAider::replace()
     }
 
 
-    if (!_view->selection().isEmpty())
+    if (!m_view->selection().isEmpty())
     {
         if (REPLACE_IGNOREACCELS)
         {
-            QString tmp(_view->selection());
+            QString tmp(m_view->selection());
             tmp.remove('&');
             _replaceDialog->setPattern(tmp);
         }
         else
-            _replaceDialog->setPattern(_view->selection());
+            _replaceDialog->setPattern(m_view->selection());
     }
 
 
@@ -483,7 +483,7 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
     if (pos.entry==_currentEntry)
     {
         pos.offset+=newLen;
-        _view->gotoEntry(pos);
+        m_view->gotoEntry(pos);
     }
 }
 
@@ -504,30 +504,30 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 
 void KAider::spellcheck()
 {
-    if (!_dlg)
+    if (!m_sonnetDialog)
     {
-        _dlg=new Sonnet::Dialog(
+        m_sonnetDialog=new Sonnet::Dialog(
             new Sonnet::BackgroundChecker( this ),
-            0 );
-        connect(_dlg,SIGNAL(done(const QString&)),this,SLOT(spellcheckNext()));
-        connect(_dlg,SIGNAL(replace(const QString&,int,const QString&)),
+            this );
+        connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(spellcheckNext()));
+        connect(m_sonnetDialog,SIGNAL(replace(const QString&,int,const QString&)),
             this,SLOT(spellcheckReplace(const QString&,int,const QString&)));
-        connect(_dlg,SIGNAL(misspelling(const QString&,int)),
+        connect(m_sonnetDialog,SIGNAL(misspelling(const QString&,int)),
             this,SLOT(spellcheckShow(const QString&,int)));
-        connect(_dlg,SIGNAL(stop()),this,SLOT(spellcheckStop()));
-        connect(_dlg,SIGNAL(cancel()),this,SLOT(spellcheckCancel()));
+        connect(m_sonnetDialog,SIGNAL(stop()),this,SLOT(spellcheckStop()));
+        connect(m_sonnetDialog,SIGNAL(cancel()),this,SLOT(spellcheckCancel()));
     }
 
-    if (!_view->selection().isEmpty())
-        _dlg->setBuffer( _view->selection() );
+    if (!m_view->selection().isEmpty())
+        m_sonnetDialog->setBuffer( m_view->selection());
     else
-        _dlg->setBuffer( _catalog->msgstr(_currentPos));
+        m_sonnetDialog->setBuffer( _catalog->msgstr(_currentPos));
 
     _spellcheckPos=_currentPos;
     _spellcheckStop=false;
     //_catalog->beginMacro(i18n("Spellcheck"));
     _spellcheckStartUndoIndex=_catalog->index();
-    _dlg->show();
+    m_sonnetDialog->show();
 
 }
 
@@ -543,7 +543,7 @@ void KAider::spellcheckNext()
         while (_catalog->msgstr(_spellcheckPos).isEmpty())
             if (!switchNext(_spellcheckPos))
                 return;
-        _dlg->setBuffer( _catalog->msgstr(_spellcheckPos) );
+        m_sonnetDialog->setBuffer( _catalog->msgstr(_spellcheckPos) );
     }
 }
 

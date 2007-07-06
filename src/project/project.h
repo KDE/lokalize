@@ -40,6 +40,11 @@
 class ProjectModel;
 class Glossary;
 
+/**
+ * singleton object that represents project.
+ *
+ * it is shared between KAider 'mainwindows'
+ */
 class Project: public ProjectBase
 {
     Q_OBJECT
@@ -52,7 +57,7 @@ public:
     virtual ~Project();
 
     void load(const QString &file);
-    void save();
+    void save(){writeConfig();}
     QString path()const{return m_path;}
     //void setPath(const QString& p){m_path=p;}
     bool isLoaded(){return !m_path.isEmpty();}

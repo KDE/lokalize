@@ -37,6 +37,7 @@
 #include <catalogitem.h>
 //#include <resources.h>
 
+#include <QTime>
 #include <QFile>
 #include <QFileInfo>
 #include <QRegExp>
@@ -57,7 +58,26 @@
 
 //using namespace KBabel;
 
-GettextImportPlugin::GettextImportPlugin(QObject* parent) : CatalogImportPlugin(parent,"GettextImportPlugin")
+GettextImportPlugin::GettextImportPlugin(QObject* parent)
+   : CatalogImportPlugin (parent,"GettextImportPlugin")
+   , _rxMsgCtxt          ("^msgctxt\\s*\".*\"$")
+   , _rxMsgId            ("^msgid\\s*\".*\"$")
+   , _rxMsgIdPlural      ("^msgid_plural\\s*\".*\"$")
+   , _rxMsgIdPluralBorked("^msgid_plural\\s*\"?.*\"?$")
+   , _rxMsgIdBorked      ("^msgid\\s*\"?.*\"?$")
+   , _rxMsgIdRemQuotes   ("^msgid\\s*\"")
+   , _rxMsgLineRemEndQuote      ("\"$")
+   , _rxMsgLineRemStartQuote    ("^\"")
+   , _rxMsgLine          ("^\".*\\n?\"$")
+   , _rxMsgLineBorked    ("^\"?.+\\n?\"?$")
+   , _rxMsgStr           ("^msgstr\\s*\".*\\n?\"$")
+   , _rxMsgStrOther      ("^msgstr\\s*\"?.*\\n?\"?$")
+   , _rxMsgStrPluralStart  ("^msgstr\\[0\\]\\s*\".*\\n?\"$")
+   , _rxMsgStrPluralStartBorked ("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$")
+   , _rxMsgStrPlural ("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")
+   , _rxMsgStrPluralBorked ("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")
+//    , _rxMsgId   ("^msgid\\s*\"?.*\"?$")
+
 {
 }
 
@@ -65,6 +85,8 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 {
 //   kDebug() << k_funcinfo << endl;
 
+   QTime ttt;
+   ttt.start();
    if (filename.isEmpty())
    {
       kDebug() << "fatal error: empty filename to open" << endl;
@@ -166,7 +188,8 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
          return STOPPED;
 
       const ConversionStatus success=readEntry(stream);
-
+//       kWarning()<< "hmmm "<<counter<<endl;
+//       kWarning()<< "hmmm "<<_msgid.first()<<endl;
       if(success==OK)
       {
          if( _obsolete )
@@ -196,7 +219,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
                appendCatalogItem(tempCatItem);
                // check if first comment seems to indicate a docbook source file
                if(counter==0)
-                  docbookFile = ( tempCatItem.comment().indexOf( ".docbook" ) != -1 );
+                  docbookFile = tempCatItem.comment().contains(".docbook" );
          }
       }
       else if(success==RECOVERED_PARSE_ERROR)
@@ -255,7 +278,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-
+   kWarning() << "!!!ss " << ttt.elapsed() << endl;
 
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
@@ -361,10 +384,11 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    _msgstr.append(QString());
    _msgid.clear();
    _msgid.append(QString());
-   _msgctxt=QString();
-   _comment=QString();
+   _msgctxt.clear();
+   _comment.clear();
    _gettextPluralForm=false;
    _obsolete=false;
+
 
    QStringList::Iterator msgstrIt=_msgstr.begin();
 
@@ -418,35 +442,35 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                part=Comment;
                _comment=line;
            }
-           else if( line.indexOf( QRegExp( "^msgctxt\\s*\".*\"$" ) ) != -1 )
+           else if( line.contains( _rxMsgCtxt ) )
            {
                part=Msgctxt;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgctxt\\s*\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
                seenMsgctxt=true;
            }
-           else if( line.indexOf( QRegExp( "^msgid\\s*\".*\"$" ) ) != -1 )
+           else if( line.contains( _rxMsgId ) )
            {
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid\\s*\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgIdRemQuotes);
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
 
            }
 		     // one of the quotation marks is missing
-           else if( line.indexOf( QRegExp( "^msgid\\s*\"?.*\"?$" ) ) != -1 )
+           else if( line.contains( _rxMsgIdBorked ) )
            {
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgid\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
 
@@ -474,34 +498,34 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             {
                _comment+=('\n'+line);
             }
-            else if( line.indexOf( QRegExp( "^msgctxt\\s*\".*\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgCtxt ) )
             {
                part=Msgctxt;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgctxt\\s*\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
                seenMsgctxt=true;
             }
-            else if( line.indexOf( QRegExp( "^msgid\\s*\".*\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgId ) )
             {
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid\\s*\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgIdRemQuotes);
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
-            else if( line.indexOf( QRegExp( "^msgid\\s*\"?.*\"?$" ) ) != -1 )
+            else if( line.contains( _rxMsgIdBorked ) )
             {
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgid\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
 			   
@@ -519,39 +543,39 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
         {
             if(line.isEmpty())
                continue;
-            else if( line.indexOf( QRegExp( "^\".*\\n?\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgLine ) )
             {
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^\""));
-               line.remove(QRegExp("\"$"));
-               
+               line.remove(_rxMsgLineRemStartQuote);
+               line.remove(_rxMsgLineRemEndQuote);
+
                // add Msgctxt line to item
                if(_msgctxt.isEmpty())
                   _msgctxt=line;
                else
                   _msgctxt+=('\n'+line);
             }
-            else if( line.indexOf( QRegExp( "^msgid\\s*\".*\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgId ) )
             {
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid\\s*\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgIdRemQuotes);
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
-            else if( line.indexOf( QRegExp( "^msgid\\s*\"?.*\"?$" ) ) != -1 )
+            else if( line.contains ( _rxMsgIdBorked ) )
             {
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgid\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
-			   
+
                if(!line.isEmpty())
                      recoverableError=true;
             }
@@ -566,90 +590,93 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
         {
             if(line.isEmpty())
                continue;
-            else if( line.indexOf( QRegExp( "^\".*\\n?\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgLine ) )
             {
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemStartQuote);
+               line.remove(_rxMsgLineRemEndQuote);
 
                QStringList::Iterator it;
                if(_gettextPluralForm)
-                   it = _msgid.end();
+               {
+                   it=_msgid.end();
+                   --it;
+               }
                else
                    it = _msgid.begin();
-               
+
                // add Msgid line to item
-               if((*it).isEmpty())
+               if(it->isEmpty())
                   (*it)=line;
                else
                   (*it)+=('\n'+line);
             }
-            else if( line.indexOf( QRegExp( "^msgid_plural\\s*\".*\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgIdPlural) )
             {
                part=Msgid;
                _gettextPluralForm = true;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgid_plural\\s*\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                _msgid.append(line);
             }
             // one of the quotation marks is missing
-            else if( line.indexOf( QRegExp( "^msgid_plural\\s*\"?.*\"?$" ) ) != -1 )
+            else if( line.contains( _rxMsgIdPluralBorked ) )
             {
                part=Msgid;
                _gettextPluralForm = true;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgid_plural\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                _msgid.append(line);
-			   
+
                if(!line.isEmpty())
                   recoverableError=true;
             }
-           else if( !_gettextPluralForm && ( line.indexOf( QRegExp( "^msgstr\\s*\".*\\n?\"$" ) ) != -1 ) )
+            else if( !_gettextPluralForm && ( line.contains( _rxMsgStr ) ) )
             {
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*msgstrIt)=line;
             }
-            else if( !_gettextPluralForm && ( line.indexOf( QRegExp( "^msgstr\\s*\"?.*\\n?\"?$" ) ) != -1 ) )
+            else if( !_gettextPluralForm && ( line.contains( _rxMsgStrOther )) )
             {
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*msgstrIt)=line;
 
                if(!line.isEmpty())
                   recoverableError=true;
             }
-            else if( _gettextPluralForm && ( line.indexOf( QRegExp( "^msgstr\\[0\\]\\s*\".*\\n?\"$" ) ) != -1 ) )
+            else if( _gettextPluralForm && ( line.contains( _rxMsgStrPluralStart ) ) )
             {
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[0\\]\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*msgstrIt)=line;
             }
-            else if( _gettextPluralForm && ( line.indexOf( QRegExp( "^msgstr\\[0\\]\\s*\"?.*\\n?\"?$" ) ) != -1 ) )
+            else if( _gettextPluralForm && ( line.contains( _rxMsgStrPluralStartBorked ) ) )
             {
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[0\\]\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                (*msgstrIt)=line;
 
@@ -670,20 +697,23 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                break;
             }
             // a line of the msgid with a missing quotation mark
-            else if( line.indexOf( QRegExp( "^\"?.+\\n?\"?$" ) ) != -1 )
+            else if( line.contains( _rxMsgLineBorked ) )
             {
                recoverableError=true;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemStartQuote);
+               line.remove(_rxMsgLineRemEndQuote);
 
                QStringList::Iterator it;
                if( _gettextPluralForm )
-                   it = _msgid.end();
+               {
+                   it=_msgid.end();
+                   --it;
+               }
                else
                    it = _msgid.begin();
-               
+
                // add Msgid line to item
                if((*it).isEmpty())
                   (*it)=line;
@@ -702,34 +732,36 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             if(line.isEmpty())
                break;
             // another line of the msgstr
-            else if( line.indexOf( QRegExp( "^\".*\\n?\"$" ) ) != -1 )
+            else if( line.contains( _rxMsgLine ) )
             {
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemStartQuote);
+               line.remove(_rxMsgLineRemEndQuote);
 
                if((*msgstrIt).isEmpty())
                   (*msgstrIt)=line;
                else
                   (*msgstrIt)+=('\n'+line);
             }
-            else if( _gettextPluralForm && ( line.indexOf( QRegExp( "^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$" ) ) != -1 ) )
+            else if( _gettextPluralForm && ( line.contains( _rxMsgStrPlural ) ) )
             {
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[[0-9]+\\]\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                _msgstr.append(line);
-               msgstrIt= _msgstr.end();
+               msgstrIt=_msgstr.end();
+               --msgstrIt;
             }
-	    else if( _gettextPluralForm && ( line.indexOf( QRegExp( "^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$" ) ) != -1 ) )
+	    else if( _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) )
             {
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[[0-9]\\]\\s*\"?"));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemEndQuote);
 
                _msgstr.append(line);
-               msgstrIt= _msgstr.end();
+               msgstrIt=_msgstr.end();
+               --msgstrIt;
 
                if(!line.isEmpty())
                   recoverableError=true;
@@ -741,13 +773,13 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                break;
             }
             // another line of the msgstr with a missing quotation mark
-            else if( line.indexOf( QRegExp( "^\"?.+\\n?\"?$" ) ) != -1 )
+            else if( line.contains( _rxMsgLineBorked ) )
             {
                recoverableError=true;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^\""));
-               line.remove(QRegExp("\"$"));
+               line.remove(_rxMsgLineRemStartQuote);
+               line.remove(_rxMsgLineRemEndQuote);
 
                if((*msgstrIt).isEmpty())
                   (*msgstrIt)=line;

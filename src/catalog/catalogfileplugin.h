@@ -1,5 +1,6 @@
 /* ****************************************************************************
-  This file is part of KBabel
+  This file is part of KAider
+  This file contains parts of KBabel code
 
   Copyright (C) 2002-2003	 by Stanislav Visnovsky
                         	    <visnovsky@kde.org>
@@ -152,10 +153,10 @@ protected:
     void startTransaction();
     /** commit the data in the current transaction. You should never call this method. */
     void commitTransaction(const QString& a=QString());
-    
+
     /** Flag, whether the operation should be stopped immediately.*/
     bool isStopped() const;
-    
+
     int _maxLineLength;
 // signals:
 //     /** Signal start of the operation */
@@ -174,7 +175,7 @@ private:
 *
 * @short Base class for Catalog export plugins
 * @author Stanislav Visnovsky <visnovsky@kde.org>
-*/    
+*/
 class /*KBABELCOMMON_EXPORT*/ CatalogExportPlugin: public QObject
 {
     Q_OBJECT

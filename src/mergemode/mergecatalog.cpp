@@ -40,13 +40,6 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
 {
-    
-}
-
-
-MergeCatalog::~MergeCatalog()
-{
-    
 }
 
 
@@ -80,7 +73,7 @@ void MergeCatalog::importFinished()
             newVector[i].setValid(false);
             //or... search for msg over the whole catalog;
             //TODO use fuzzy matching?
-            int j=0;
+            uint j=0;
             while (j<size)
             {
                 if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(j).msgidPlural()

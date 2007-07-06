@@ -1,3 +1,5 @@
+
+
 /* ****************************************************************************
   This file is part of KAider
 
@@ -30,69 +32,37 @@
 
 **************************************************************************** */
 
+#ifndef POS_H
+#define POS_H
 
+#include <QtCore>
 
-#ifndef CMD_H
-#define CMD_H
+enum Part {UndefPart, Msgid, Msgstr, Comment};
 
-#include <QUndoCommand>
-#include <kdebug.h>
-
-#include "pos.h"
-#include "catalog.h"
-#include "catalog_private.h"
-#include "catalogitem_private.h"
-
-enum Commands { Insert, Delete, ToggleFuzzy };
-
-class InsTextCmd : public QUndoCommand
+/**
+* @short Structure, that represents a position in a catalog.
+*
+* This struct represents a position in a catalog.
+* A position is a tuple (index,pluralform,textoffset).
+*
+* limits:
+* 32768 entries in the catalog
+* 4294967296 chars in one entry
+*
+*/
+struct DocPosition
 {
-public:
-    InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
-    virtual ~InsTextCmd(){};
-    int id () const {return Insert;}
-    bool mergeWith(const QUndoCommand *other);
-    void undo();
-    void redo();
-private:
-    Catalog* _catalog;
-    QString _str;
-    DocPosition _pos;
+    short entry:16;
+    Part part:8;
+    uchar form:8;
+    uint offset:32;
+
+    DocPosition():
+        entry(-1),
+        part(Msgstr),
+        form(0),
+        offset(0)
+        {}
 };
 
-
-class DelTextCmd : public QUndoCommand
-{
-public:
-    DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
-    virtual ~DelTextCmd(){};
-    int id () const {return Delete;}
-    bool mergeWith(const QUndoCommand *other);
-    void redo();
-    void undo();
-private:
-    Catalog* _catalog;
-    QString _str;
-    DocPosition _pos;
-};
-
-/* you should care not to new it w/ aint no need */
-class ToggleFuzzyCmd : public QUndoCommand
-{
-public:
-    ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag);
-    virtual ~ToggleFuzzyCmd(){};
-    int id () const {return ToggleFuzzy;}
-    void redo();
-    void undo();
-private:
-    void unsetFuzzy();
-    void setFuzzy();
-
-    Catalog* _catalog;
-    bool _flag;
-    uint _index;
-};
-
-
-#endif // CMD_H
+#endif

@@ -112,7 +112,7 @@ void KAider::optionsPreferences()
     dialog->addPage(w, i18n("Fonts"), "font_setting");
 
 
-//     connect(dialog, SIGNAL(settingsChanged(QString)), _view, SLOT(settingsChanged()));
+//     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));
 
 
 

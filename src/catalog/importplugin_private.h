@@ -1,7 +1,9 @@
 /* ****************************************************************************
   This file is part of KAider
+  This file contains parts of KBabel code
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2002-2003 	by Stanislav Visnovsky
+                        	    <visnovsky@kde.org>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -29,35 +31,44 @@
   your version.
 
 **************************************************************************** */
+#ifndef IMPORTPLUGINPRIVATE_H
+#define IMPORTPLUGINPRIVATE_H
 
-#ifndef TERMLABEL_H
-#define TERMLABEL_H
+#include "catalogitem.h"
+#include "catalog.h"
+//Added by qt3to4:
+#include <QLinkedList>
 
-#include <QLabel>
-class QAction;
-//#include <QPushButton>
+class QTextCodec;
 
-class TermLabel: public QLabel//QPushButton
+//namespace KBabel {
+
+class Catalog;
+
+class CatalogImportPluginPrivate
 {
-    Q_OBJECT
 public:
-    TermLabel(QAction*/*const QString& shortcutQt::Key key*/);
-    ~TermLabel(){}
+    Catalog* _catalog;
+    bool _started;
+    bool _stopped;
 
-    void setText(const QString&,const QString&);
-//     void setTermTransl(const QString& termTransl)
-//     {
-//         m_termTransl=termTransl;
-//     }
-public slots:
-    void insert();
-//     bool event(QEvent *event);
-signals:
-    void insertTerm(const QString&);
+    bool _updateHeader;
+    bool _updateGeneratedFromDocbook;
+    bool _updateCodec;
+    bool _updateErrorList;
+    bool _updateCatalogExtraData;
 
-private:
-    QString m_termTransl;
-    QAction* m_action;
+    bool _generatedFromDocbook;
+    QLinkedList<CatalogItem> _entries;
+    QLinkedList<CatalogItem> _obsoleteEntries;
+    CatalogItem _header;
+    QTextCodec* _codec;
+    QList<uint> _errorList;
+    QStringList _catalogExtraData;
+    QString _mimeTypes;
+
 };
+
+//}
 
 #endif

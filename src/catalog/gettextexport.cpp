@@ -1,5 +1,6 @@
 /* ****************************************************************************
-  This file is part of KBabel
+  This file is part of KAider
+  This file contains parts of KBabel code
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
 		2001-2002 by Stanislav Visnovsky <visnovsky@kde.org>

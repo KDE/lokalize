@@ -38,12 +38,15 @@
 #include <kdebug.h>
 
 #include <QTextBrowser>
-#include <QTime>
+//#include <QTime>
 
 MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18n("Original Diff"), parent)
     , m_browser(new QTextBrowser(this))
     , m_catalog(catalog)
+    , m_normTitle(i18n("Original Diff"))
+    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfo(false)
 {
     setObjectName("msgIdDiff");
     setWidget(m_browser);
@@ -59,9 +62,20 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
     QString oldStr(m_catalog->comment(index));
     if (!oldStr.contains("#|"))
     {
-        //kWarning()<< "___ returning... "<< endl;
-        m_browser->clear();
+        ////kWarning()<< "___ returning... "<< endl;
+        if (m_hasInfo)
+        {
+            m_hasInfo=false;
+            setWindowTitle(m_normTitle);
+            m_browser->clear();
+        }
         return;
+    }
+
+    if (!m_hasInfo)
+    {
+        m_hasInfo=true;
+        setWindowTitle(m_hasInfoTitle);
     }
     QString newStr(m_catalog->msgid(index));
 
@@ -69,8 +83,8 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
     newStr.replace("#| msgid_plural \"","#| \"");
 
 
-    QTime time;
-    time.start();
+//     QTime time;
+//     time.start();
 
     //get rid of other info (eg fuzzy marks)
     oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
@@ -89,7 +103,7 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
         oldStr.remove(QRegExp("\"\n"));
         oldStr.remove(QRegExp("\"$"));
             //kWarning() << "BEGIN " << oldStr << " END" << endl;
-    
+
         newStr.remove("\n");
         oldStr.replace("\\n"," \\n ");
         newStr.replace("\\n"," \\n ");
@@ -122,7 +136,7 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
 //     oldStr.replace("\\n","\\n\n");
 //     newStr.replace("\\n","\\n\n");
 
-    kWarning()<<"ELA "<<time.elapsed()<<endl;
+    //kWarning()<<"ELA "<<time.elapsed()<<endl;
 }
 
 #include "msgiddiffview.moc"

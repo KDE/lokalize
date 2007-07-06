@@ -138,7 +138,7 @@ public:
     bool loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
 
-    void setBookmark(int,bool);
+    void setBookmark(uint,bool);
 
     void updateHeader(bool forSaving=true);
 

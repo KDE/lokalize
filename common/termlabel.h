@@ -1,5 +1,3 @@
-
-
 /* ****************************************************************************
   This file is part of KAider
 
@@ -32,34 +30,60 @@
 
 **************************************************************************** */
 
-#ifndef POS_H
-#define POS_H
+#ifndef TERMLABEL_H
+#define TERMLABEL_H
 
-#include <QtCore>
-
-enum Part {UndefPart, Msgid, Msgstr, Comment};
+#include <QLabel>
+#include <QAction>
+//class QAction;
+//#include <QPushButton>
 
 /**
-* This struct represents a position in a catalog.
-* A position is a tuple (index,pluralform,textoffset).
-*
-* @short Structure, that represents a position in a catalog.
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-*/
-struct DocPosition
+ * flowlayout item
+ */
+class TermLabel: public QLabel//QPushButton
 {
-    Part part:8;
-    uchar form:8;
-    short entry:16;
-    uint offset:32;
+    Q_OBJECT
+public:
+    TermLabel(QAction* a): m_action(a){};
+    ~TermLabel(){}
 
-    DocPosition():
-        part(Msgstr),
-        form(0),
-        entry(-1), 
-        offset(0)
-        {}
+    void setText(const QString&,const QString&);
+//     void setTermTransl(const QString& termTransl)
+//     {
+//         m_termTransl=termTransl;
+//     }
+public slots:
+    void insert();
+//     bool event(QEvent *event);
+signals:
+    void insertTerm(const QString&);
+
+private:
+    QString m_termTransl;
+    QAction* m_action;
 };
+
+
+
+
+inline
+void TermLabel::setText(const QString& str,const QString& termTransl)
+{
+    QLabel::setText(str + " " + m_action->shortcut().toString()//m_shortcut
+/*    QString firstLine(str + " " + m_shortcut);
+    QPushButton::setText(firstLine*/
+                    + "  \n  " +
+//                     QString((termTransl.size()>firstLine.size())?
+//             (termTransl.size()-firstLine.size()*10):0,' ')+
+
+                termTransl
+                    + "  \n  ");
+/*kWarning() << ((termTransl.size()>firstLine.size())?
+            (termTransl.size()-firstLine.size()):0) << endl;*/
+    m_termTransl=termTransl;
+}
+
+
 
 #endif

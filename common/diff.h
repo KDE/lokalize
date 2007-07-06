@@ -47,9 +47,15 @@ typedef enum
 
 
 /**
+ * @short Word-by-word diff algorithm
+ *
  * Word-by-word diff algorithm
  *
- * @short Word-by-word diff algorithm
+ * Based on Markus Stengel's GPL implementation of LCS-Delta algorithm
+ * as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al.
+ * It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.
+ * http://www.markusstengel.de/text/en/i_4_1_5_3.html)
+ *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
     QString wordDiff(const QString& oldString, const QString& newString);
@@ -65,22 +71,34 @@ typedef enum
 {
     public:
         LCSprinter(const QStringList &s_1, const QStringList &s_2, QVector<LCSMarker>* b_, const uint nT_, uint index);
+        ~LCSprinter() {};
         void printLCS(uint index);
         inline QString getString();
 
-        ~LCSprinter() {};
     private:
         QStringList s1, s2, resultString;
-        uint nT;//for use 1d vector as 2d
+        uint nT;//we're using 1d vector as 2d
         QVector<LCSMarker> *b;
         QStringList::iterator it1, it2;
 };
 
-
-inline QString LCSprinter::getString()
+inline
+QString LCSprinter::getString()
 {
     return resultString.join("");
 }
 
+inline
+LCSprinter::LCSprinter(const QStringList &s_1, const QStringList &s_2, QVector<LCSMarker> *b_, const uint nT_, uint index)
+    : s1(s_1)
+    , s2(s_2)
+    , nT(nT_)
+    , b(b_)
+{
+//     kWarning() << "aaaa " << sizeof(b->data()[0]) << endl;
+    it1=s1.begin();
+    it2=s2.begin();
+    printLCS(index);
+}
 #endif // DIFF_H
 

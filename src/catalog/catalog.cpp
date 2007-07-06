@@ -898,7 +898,7 @@ void Catalog::updateHeader(bool forSaving)
 }
 
 
-void Catalog::setBookmark(int idx,bool set)
+void Catalog::setBookmark(uint idx,bool set)
 {
     if (set)
     {
