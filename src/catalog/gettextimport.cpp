@@ -37,7 +37,6 @@
 #include <catalogitem.h>
 //#include <resources.h>
 
-#include <QTime>
 #include <QFile>
 #include <QFileInfo>
 #include <QRegExp>
@@ -85,8 +84,6 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 {
 //   kDebug() << k_funcinfo << endl;
 
-   QTime ttt;
-   ttt.start();
    if (filename.isEmpty())
    {
       kDebug() << "fatal error: empty filename to open" << endl;
@@ -278,8 +275,6 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-   kWarning() << "!!!ss " << ttt.elapsed() << endl;
-
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
    setCatalogExtraData(tempObsolete);
@@ -413,9 +408,14 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        line = line.trimmed();
 
        // remember wrapping state to save file nicely
+/*       int a=line.indexOf('"');
+       int len=line.length()-(a>0?a:0);*/
        if (_maxLineLength<line.length())
+       {
+//           _maxLineLength=line.length();
            _maxLineLength=line.length();
-
+            //kWarning()<< line << " ssdds " <<_maxLineLength<<endl;
+       }
 //        if (line[0]=='"' && _maxLineLength<line.length()-2)
 //            _maxLineLength=line.length()-2;
 //        else if (line.startsWith("msgid \"") && _maxLineLength<line.length()-8)

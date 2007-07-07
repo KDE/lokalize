@@ -70,4 +70,48 @@ private:
     Catalog* m_catalog;
 };
 
+
+
+
+inline
+CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
+ : QAbstractItemModel(parent)
+ , m_catalog(catalog)
+{
+
+}
+
+inline
+CatalogTreeModel::~CatalogTreeModel()
+{
+}
+
+inline
+QModelIndex CatalogTreeModel::index (int row,int column,const QModelIndex& parent) const
+{
+    return createIndex (row, column);
+}
+
+inline
+QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
+{
+    return QModelIndex();
+}
+
+inline
+int CatalogTreeModel::columnCount(const QModelIndex& parent) const
+{
+    if (parent==QModelIndex())
+        return CatalogModelColumnCount;
+    return 0;
+}
+
+inline
+Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
+{
+    if (index.column()==FuzzyFlag)
+        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
+    return QAbstractItemModel::flags(index);
+}
+
 #endif

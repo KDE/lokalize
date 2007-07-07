@@ -32,8 +32,14 @@
 
 #include "projectmodel.h"
 #include <klocale.h>
+#include <QEvent>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QLinearGradient>
+
+#include <QEventLoop>
+
+#include <kapplication.h>
 
 
 /**
@@ -43,31 +49,14 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 {
 
     if (index.column()<Graph)
-    {
-//         if (hasChildren(index))
-//         {
-//             KFileMetaInfo aaa(itemForIndex( index )->metaInfo(false));
-//             int i=0;
-//             int count=rowCount(index);
-//             for (;i<count;++i)
-//             {
-//                 
-//                 //itemForIndex( index(i,0,index) )->metaInfo(false).item("translation.translated").value().toInt();
-//                 //itemForIndex( index(i,0,index) )->setMetaInfo(
-//             }
-//             aaa.item("translation.translated").setValue(i);
-//             itemForIndex( index )->setMetaInfo(aaa);
-//         }
-
         return KDirModel::data(index,role);
-    }
 
     //force population of metainfo. kfilemetainfo's internal is a shit
     if (itemForIndex(index)->metaInfo(false).keys().empty()
            && itemForIndex(index)->url().fileName().endsWith(".po"))
-        {
-            itemForIndex(index)->setMetaInfo(KFileMetaInfo( itemForIndex(index)->url() ));
-        }
+    {
+        itemForIndex(index)->setMetaInfo(KFileMetaInfo( itemForIndex(index)->url() ));
+    }
 
     if (index.column()==Graph)
     {
@@ -78,6 +67,41 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 //             kWarning() << "1 " << itemForIndex(index)->url() << endl;
             return QRect(10,10,10,32);
         }
+        /////
+/*        KFileMetaInfo dirInfo(itemForIndex(parent)->metaInfo(false));
+        int i=0;
+        int untranslated=0;
+        int translated=0;
+        int fuzzy=0;
+        QRect rect;
+        for (;i<count;++i)
+        {
+            KFileItem* item(itemForIndex(parent.child(i,0)));
+            //force population of metainfo. kfilemetainfo's internal is a shit
+            if (item->metaInfo(false).keys().empty()
+            && item->url().fileName().endsWith(".po"))
+            {
+                item->setMetaInfo(KFileMetaInfo( item->url() ));
+            }
+
+            KFileMetaInfo file(item->metaInfo(false));
+
+            if (!file.item("translation.translated").value().isNull())
+            {
+                translated+=file.item("translation.translated").value().toInt();
+                untranslated+=file.item("translation.untranslated").value().toInt();
+                fuzzy+=file.item("translation.fuzzy").value().toInt();
+            }
+            //kWarning() << "dsfds d " << i << endl;
+        }
+        if (untranslated+translated+fuzzy)
+        {
+            dirInfo.item("translation.untranslated").setValue(untranslated);
+            dirInfo.item("translation.translated").setValue(translated);
+            dirInfo.item("translation.fuzzy").setValue(fuzzy);
+            itemForIndex(parent)->setMetaInfo(dirInfo);
+        }*/
+        /////
 
 //         kWarning() << "0 " << itemForIndex(index)->url() << endl;
 //         kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt() << endl;
@@ -124,20 +148,127 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 }
 
 
-int ProjectModel::columnCount(const QModelIndex& parent)const
+// void ProjectModel::forceScanning(const QModelIndex& parent)
+// {
+// //kapp->processEvents(QEventLoop::AllEvents, 50);
+// //we dare to check childs only when specially asked
+// kWarning()<<"fd 1"<<endl;
+//     int count=KDirModel::rowCount( parent );
+//     if (!count)
+//         return;
+// kWarning()<<"fd 2"<<endl;
+//     int i=0;
+//     int untranslated=0;
+//     int translated=0;
+//     int fuzzy=0;
+// //    QRect rect;
+//     for (;i<count;++i)
+//     {
+//         kWarning()<<"fd "<<i<<endl;
+//         QModelIndex index(parent.child(i,0));
+//         KFileItem* item(itemForIndex(index));
+//         //force population of metainfo. kfilemetainfo's internal is a shit
+//         if (item->metaInfo(false).keys().empty())
+//         {
+//             if(item->url().fileName().endsWith(".po"))
+//                 item->setMetaInfo(KFileMetaInfo( item->url() ));
+//             else if (hasChildren(index))
+//                 forceScanning(index);
+//         }
+// 
+//         KFileMetaInfo file(item->metaInfo(false));
+// 
+//         if (!file.item("translation.translated").value().isNull())
+//         {
+//             translated+=file.item("translation.translated").value().toInt();
+//             untranslated+=file.item("translation.untranslated").value().toInt();
+//             fuzzy+=file.item("translation.fuzzy").value().toInt();
+//         }
+//         //kWarning() << "dsfds d " << i << endl;
+//     }
+//     if (untranslated+translated+fuzzy)
+//     {
+//         KFileMetaInfo dirInfo(itemForIndex(parent)->metaInfo(false));
+//         dirInfo.item("translation.untranslated").setValue(untranslated);
+//         dirInfo.item("translation.translated").setValue(translated);
+//         dirInfo.item("translation.fuzzy").setValue(fuzzy);
+//         itemForIndex(parent)->setMetaInfo(dirInfo);
+//     }
+// 
+//     kWarning()<<"s"<<endl;
+//     emit dataChanged(parent,parent);
+// }
+
+
+
+int ProjectModel::rowCount(const QModelIndex& parent) const
 {
-    if (parent.isValid())
-        return KDirModel::columnCount(parent);
-    return ProjectModelColumnCount;
+//     fetchMore(parent);
+    int count= KDirModel::rowCount( parent );
+    if (parent.isValid()&&itemForIndex(parent)->metaInfo(false).item("translation.untranslated").value().isNull())
+    {
+        int i=0;
+        int untranslated=0;
+        int translated=0;
+        int fuzzy=0;
+        int infoIsFull=true;
+        for (;i<count;++i)
+        {
+            QModelIndex index(parent.child(i,0));
+            KFileItem* item(itemForIndex(index));
+            //force population of metainfo. kfilemetainfo's internal is a shit
+            if (item->metaInfo(false).keys().empty()
+            && item->url().fileName().endsWith(".po"))
+            {
+                item->setMetaInfo(KFileMetaInfo( item->url() ));
+            }
+
+            KFileMetaInfo file(item->metaInfo(false));
+
+            if (!file.item("translation.translated").value().isNull())
+            {
+                translated+=file.item("translation.translated").value().toInt();
+                untranslated+=file.item("translation.untranslated").value().toInt();
+                fuzzy+=file.item("translation.fuzzy").value().toInt();
+            }
+            else if (hasChildren(index))
+            {
+                //"inode/directory"
+                infoIsFull=false;
+                kWarning()<<"s " <<item->url().fileName()<<endl;
+            }
+        }
+        if (infoIsFull&&(untranslated+translated+fuzzy))
+        {
+            KFileMetaInfo dirInfo(itemForIndex(parent)->metaInfo(false));
+            dirInfo.item("translation.untranslated").setValue(untranslated);
+            dirInfo.item("translation.translated").setValue(translated);
+            dirInfo.item("translation.fuzzy").setValue(fuzzy);
+            itemForIndex(parent)->setMetaInfo(dirInfo);
+        }
+
+    }
+    return count;
 }
 
-Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
-{
-    if (index.column()<Graph)
-        return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
 
-    return Qt::ItemIsSelectable;
-//    kWarning() << index.column() <<  " " <<  KDirModel::flags(index) << endl;
+
+
+
+
+
+bool PoItemDelegate::editorEvent ( QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem & option, const QModelIndex & index )
+{
+    if (event->type()!=QEvent::MouseButtonRelease)
+        return false;
+
+    QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
+    if (mEvent->button()!=Qt::MidButton)
+        return false;
+
+    emit newWindowOpenRequested(static_cast<ProjectModel*>(model)->itemForIndex(index)->url());
+
+    return false;
 }
 
 void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -148,7 +279,6 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         return QItemDelegate::paint(painter,option,index);
         //return KFileItemDelegate::paint(painter,option,index);
 
-    
     QRect data=index.data(Qt::UserRole).toRect();
     //QRect data(20,40,50,10);
     if (data.height()==32) //collapsed folder
@@ -171,7 +301,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
                       //QLinearGradient()
                      );
     painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
-    
+
     myRect.setLeft(myRect.left()+myRect.width());
     myRect.setWidth(option.rect.width()*data.top()/all);
     painter->fillRect(myRect,
@@ -193,7 +323,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
 
 
 
-
+#include "projectmodel.moc"
 
 
 

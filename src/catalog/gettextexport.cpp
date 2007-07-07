@@ -354,9 +354,9 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
             int pos = itm->lastIndexOf(QRegExp("[ >.]"),max-1);
             if (pos>0)
             {
-                int pos2 = itm->indexOf(QRegExp("<"),pos);
+                int pos2 = itm->indexOf('<',pos);
                 if (pos2>0&&pos2<max-1)
-                    pos=itm->indexOf(QRegExp("<"),pos);
+                    pos=itm->indexOf('<',pos);
                 ++pos;
             }
             else

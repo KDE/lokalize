@@ -128,6 +128,7 @@ signals:
     void fileOpenRequested(KUrl);
 
 private slots:
+//     void setupWhatsThis();
     void switchColors();
     void settingsChanged();
     void contentsChanged(int position,int charsRemoved,int charsAdded); //for Undo/Redo

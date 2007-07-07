@@ -39,7 +39,6 @@
 #include <QDir>
 #include <QDropEvent>
 #include <QPainter>
-#include <QTime>
 #include <QTabBar>
 
 #include <kconfigdialog.h>
@@ -57,6 +56,7 @@
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
+#include <kinputdialog.h>
 
 #include <kurl.h>
 #include <kfiledialog.h>
@@ -122,7 +122,7 @@ KAider::~KAider()
     delete _replaceDialog;
     delete _find;
     delete _replace;
-    
+
     delete ui_findExtension;
     delete ui_findExtension;
     delete ui_prefs_identity;
@@ -261,6 +261,9 @@ void KAider::setupActions()
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_End));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
+    action = KStandardAction::gotoPage(this, SLOT(gotoEntry()), actionCollection());
+    action->setText(i18n("Entry by number"));
+
     ADD_ACTION_SHORTCUT("go_prev_fuzzy","Pre&vious Fuzzy",Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
     connect( this, SIGNAL(signalPriorFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
@@ -282,11 +285,11 @@ void KAider::setupActions()
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
 //Bookmarks
-    //ADD_ACTION_SHORTCUT("bookmark_do","Bookmark message",Qt::CTRL+Qt::Key_B,"")
-    action = actionCollection()->addAction("bookmark_do");
+    action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),actionCollection());
+    //action = actionCollection()->addAction("bookmark_do");
     action->setText(i18n("Bookmark message"));
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
+    //connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
     connect( this, SIGNAL(signalBookmarkDisplayed(bool)),action,SLOT(setChecked(bool)) );
 
     action = actionCollection()->addAction("bookmark_prior",this,SLOT(gotoPrevBookmark()));
@@ -552,19 +555,41 @@ void KAider::redo()
     gotoEntry(_catalog->redo(),0);
 }
 
+void KAider::gotoEntry()
+{
+    DocPosition pos=_currentPos;
+    pos.entry=KInputDialog::getInteger(
+                                       i18n("Jump to Entry"),
+                                       i18n("Enter entry number:"),
+                                       pos.entry,1,
+                                       _catalog->numberOfEntries(),
+                                       1,0,this);
+    if (pos.entry)
+    {
+//         --(pos.entry);
+        gotoEntry(pos);
+    }
+}
 
 void KAider::gotoEntry(const DocPosition& pos,int selection)
 {
 //     if ( (_currentPos.entry==pos.entry) && (_currentPos.offset==pos.offset) && (_currentPos.form==pos.form) )
 //         return;
 //    KMessageBox::information(0, QString("ss"));
+//     if(pos.part==UndefPart)
+//         kWarning()<<"UndefPart"<<endl;
+//     if(pos.part==Msgstr)
+//         kWarning()<<"Msgstr"<<endl;
 
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
-    if (pos.part!=UndefPart || pos.entry!=_currentEntry || pos.offset>0)
+    //if (pos.part!=UndefPart || pos.entry!=_currentEntry || pos.offset>0)
         m_view->gotoEntry(pos,selection);
-QTime a;
-a.start();
+    if(pos.part==UndefPart)
+        _currentPos.part=Msgstr;
+
+// QTime a;
+// a.start();
 
 //     KMessageBox::information(0, QString("%1 %2").arg(_currentEntry).arg(pos.entry));
     if (_currentEntry!=pos.entry || _currentPos.form!=pos.form)
@@ -601,7 +626,7 @@ a.start();
     emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
     statusBar()->changeItem(_catalog->isFuzzy(_currentEntry)?i18n("Fuzzy"):"",ID_STATUS_ISFUZZY);
     statusBar()->changeItem(i18n("Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
-    kWarning() << "signalz  " << a.elapsed() << endl;
+//     kWarning() << "signalz  " << a.elapsed() << endl;
 }
 
 void KAider::switchForm(int newForm)
@@ -695,9 +720,6 @@ void KAider::gotoNextBookmark()
     gotoEntry(pos);
 }
 
-
-
-
 void KAider::gotoFirst()
 {
     DocPosition pos;
@@ -725,6 +747,8 @@ bool KAider::switchPrev(DocPosition& pos,bool useMsgId)
         else
             pos.part=Msgid;
     }
+    else
+        pos.part=Msgstr;
 
     if ( pos.form>0
             && _catalog->pluralFormType(pos.entry)==Gettext )
@@ -753,7 +777,8 @@ bool KAider::switchNext(DocPosition& pos,bool useMsgId)
         else
             pos.part=Msgid;
     }
-
+    else
+        pos.part=Msgstr;
 
 
     if ( pos.form+1 < _catalog->numberOfPluralForms()

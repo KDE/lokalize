@@ -914,6 +914,26 @@ void Catalog::setBookmark(uint idx,bool set)
     }
 }
 
+void Catalog::importFinished()
+{
+    uint i=0;
+    uint size=d->_entries.size();
+    while (i<size)
+    {
+        if (d->_entries.at(i).pluralFormType()==Gettext
+            && d->_entries.at(i).msgstrPlural().count()<numberOfPluralForms()
+           )
+        {
+            QStringList msgstr(d->_entries.at(i).msgstrPlural());
+            while (msgstr.count()<numberOfPluralForms())
+                msgstr.append(QString());
+            d->_entries[i].setMsgstrPlural(msgstr);
+
+        }
+        ++i;
+
+    }
+}
 
 
 #include "catalog.moc"

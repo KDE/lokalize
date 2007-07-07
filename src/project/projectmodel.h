@@ -82,8 +82,9 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
     int columnCount(const QModelIndex & parent = QModelIndex()) const;
     Qt::ItemFlags flags( const QModelIndex & index ) const;
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    //void forceScanning(const QModelIndex& parent=QModelIndex());
 };
-
 
 
 /**
@@ -91,11 +92,33 @@ public:
 */
 class PoItemDelegate : public QItemDelegate//KFileItemDelegate
 {
+    Q_OBJECT
+
 public:
     PoItemDelegate(QObject *parent=0):QItemDelegate(parent){};//KFileItemDelegate(parent){};
     ~PoItemDelegate(){};
     void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-
+    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
+signals:
+    void newWindowOpenRequested(const KUrl&);
 };
+
+inline
+int ProjectModel::columnCount(const QModelIndex& parent)const
+{
+    if (parent.isValid())
+        return KDirModel::columnCount(parent);
+    return ProjectModelColumnCount;
+}
+
+inline
+Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
+{
+    if (index.column()<Graph)
+        return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
+
+    return Qt::ItemIsSelectable;
+//    kWarning() << index.column() <<  " " <<  KDirModel::flags(index) << endl;
+}
 
 #endif

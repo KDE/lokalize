@@ -42,6 +42,7 @@
 
 #include <QTextCodec>
 #include <QTabBar>
+#include <QTimer>
 #include <QMenu>
 #include <QDragEnterEvent>
 
@@ -67,6 +68,9 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     //ui_kaiderview_base.setupUi(this);
 //    settingsChanged();
     _tabbar->hide();
+//     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
+//                                   "<p>This part of the window shows the original message\n"
+//                                   "of the currently displayed entry.</p></qt>"));
 
     _msgidEdit->setReadOnly(true);
 
@@ -85,11 +89,11 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
 
     _msgstrEdit->installEventFilter(this);
 
-    
-
     addWidget(_tabbar);
     addWidget(_msgidEdit);
     addWidget(_msgstrEdit);
+
+//     QTimer::singleShot(3000,this,SLOT(setupWhatsThis()));
 }
 
 KAiderView::~KAiderView()
@@ -99,6 +103,12 @@ KAiderView::~KAiderView()
     delete _tabbar;
 }
 
+// void KAiderView::setupWhatsThis()
+// {
+//     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
+//                                   "<p>This part of the window shows the original message\n"
+//                                   "of the currently displayed entry.</p></qt>"));
+// }
 
 bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
 {
@@ -135,6 +145,16 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
             emit signalGotoLast();
             return true;
         }
+    }
+    else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
+    {
+        if (_catalog->isFuzzy(_currentEntry))
+        {
+            _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
+            _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+        }
+        fuzzyEntryDisplayed(false);
+        return false;
     }
 
     return false;
@@ -197,6 +217,9 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
     _currentPos=pos;/*   if(_currentPos.entry >= _catalog->size()) _currentPos.entry=_catalog->size();*/
     _currentEntry=_currentPos.entry;
+
+    if(_msgstrEdit->toPlainText()==_catalog->msgstr(_currentPos))
+        return;
 
     if (_catalog->pluralFormType(_currentEntry)==Gettext)
     {
@@ -323,9 +346,9 @@ void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 
 void KAiderView::msgid2msgstr()
 {
-    QString text=_catalog->msgid(_currentPos);
+    QString text(_catalog->msgid(_currentPos));
     QString out;
-    QString ctxt=_catalog->msgctxt(_currentPos.entry);
+    QString ctxt(_catalog->msgctxt(_currentPos.entry));
 
    // this is KDE specific:
     if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))

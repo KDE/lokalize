@@ -63,7 +63,8 @@ ProjectView::ProjectView(QWidget* parent)
 
 //     KFileItemDelegate *delegate = new KFileItemDelegate(this);
     //m_browser->setItemDelegate(new KFileItemDelegate(this));
-    m_browser->setItemDelegate(new PoItemDelegate(this));
+    PoItemDelegate* delegate=new PoItemDelegate(this);
+    m_browser->setItemDelegate(delegate);
     //m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
 
     //KFileMetaInfo aa("/mnt/stor/mp3/Industry - State of the Nation.mp3");
@@ -75,6 +76,8 @@ ProjectView::ProjectView(QWidget* parent)
 //     m_menu->addAction(i18n("Create new project"),parent,SLOT(projectCreate()));
 
     connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+    connect(delegate,SIGNAL(newWindowOpenRequested(const KUrl&)),this,SIGNAL(newWindowOpenRequested(const KUrl&)));
+
 //     m_browser->installEventFilter(this);
 
 //     m_proxyModel->setSourceModel(Project::instance()->model());
@@ -126,6 +129,13 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
         menu.addAction(i18n("Open in new window"),this,SLOT(slotOpenInNewWindow()));
 
     }
+//     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
+//             )
+//     {
+//         menu.addSeparator();
+//         menu.addAction(i18n("Force Scanning"),this,SLOT(slotForceStats()));
+// 
+//     }
 
 
     menu.exec(event->globalPos());
@@ -156,7 +166,11 @@ void ProjectView::slotOpenInNewWindow()
                                                                           )->url());
 }
 
-
+void ProjectView::slotForceStats()
+{
+    m_browser->expandAll();
+//     Project::instance()->model()->forceScanning(m_browser->currentIndex());
+}
 
 /*bool ProjectView::eventFilter(QObject *obj, QEvent *event)
 {

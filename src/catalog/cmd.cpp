@@ -46,11 +46,11 @@
 #include "catalog_private.h"
 #include "catalogitem_private.h"
 
-//#define ITEM Catalog::instance()->d->_entries[_pos.entry].d
-#define ITEM _catalog->d->_entries[_pos.entry].d
+//#define ITEM Catalog::instance()->d->_entries.at(_pos.entry).d
+#define ITEM _catalog->d->_entries.at(_pos.entry).d
 
 InsTextCmd::InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
-    : QUndoCommand(i18n("Insertion"))
+    : QUndoCommand(i18nc("Undo command","Insertion"))
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
@@ -104,7 +104,7 @@ void InsTextCmd::undo()
 
 
 DelTextCmd::DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
-    : QUndoCommand(i18n("Deletion"))
+    : QUndoCommand(i18nc("Undo command","Deletion"))
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
@@ -144,7 +144,7 @@ void DelTextCmd::redo()
     _catalog->d->_posBuffer=_pos;
     _catalog->d->_posBuffer.offset+=_str.size();
 
-    if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
+    if ((!_pos.offset)&&(ITEM->_msgstrPlural.at(_pos.form).isEmpty()))
     {
         // insert index in the right place in the list
         QList<uint>::Iterator it = _catalog->d->_untransIndex.begin();
@@ -156,7 +156,7 @@ void DelTextCmd::redo()
 }
 void DelTextCmd::undo()
 {
-    if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
+    if ((!_pos.offset)&&(ITEM->_msgstrPlural.at(_pos.form).isEmpty()))
     {
         _catalog->d->_untransIndex.removeAll(_pos.entry);
         _catalog->emitsignalNumberOfUntranslatedChanged();
@@ -169,7 +169,7 @@ void DelTextCmd::undo()
 }
 
 ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
-    : QUndoCommand(i18n("Fuzzy toggling"))
+    : QUndoCommand(i18nc("Undo command","Fuzzy toggling"))
     , _catalog(catalog)
     , _index(index)
     , _flag(flag)

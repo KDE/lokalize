@@ -142,7 +142,7 @@ public:
 
     void updateHeader(bool forSaving=true);
 
-    virtual void importFinished(){};
+    virtual void importFinished();
 
 public/* slots*/:
     virtual const DocPosition& undo();

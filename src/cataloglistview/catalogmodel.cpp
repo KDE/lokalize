@@ -34,40 +34,10 @@
 #include "catalog.h"
 #include "catalogmodel.h"
 
-CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
- : QAbstractItemModel(parent)
- , m_catalog(catalog)
-{
-    
-}
-
-
-CatalogTreeModel::~CatalogTreeModel()
-{
-    
-}
-
-QModelIndex CatalogTreeModel::index (int row,int column,const QModelIndex& parent) const
-{
-    return createIndex (row, column);
-}
-
-QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
-{
-    return QModelIndex();
-}
-
 int CatalogTreeModel::rowCount(const QModelIndex& parent) const
 {
     if (parent==QModelIndex())
         return m_catalog->numberOfEntries();
-    return 0;
-}
-
-int CatalogTreeModel::columnCount(const QModelIndex& parent) const
-{
-    if (parent==QModelIndex())
-        return CatalogModelColumnCount;
     return 0;
 }
 
@@ -84,13 +54,6 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation orientation,
         case FuzzyFlag: return "Fuzzy";
     }
     return QVariant();
-}
-
-Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
-{
-    if (index.column()==FuzzyFlag)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
-    return QAbstractItemModel::flags(index);
 }
 
 QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const

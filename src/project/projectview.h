@@ -56,6 +56,7 @@ public slots:
     void slotItemActivated(const QModelIndex&);
     void slotOpen();
     void slotOpenInNewWindow();
+    void slotForceStats();
 //     void showCurrentFile();
 signals:
     void fileOpenRequested(KUrl);
@@ -68,7 +69,7 @@ private:
     QTreeView* m_browser;
 //     QMenu* m_menu;
     QWidget* m_parent;
-    QSortFilterProxyModel* m_proxyModel;
+//     QSortFilterProxyModel* m_proxyModel;
 };
 
 #endif

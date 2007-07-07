@@ -61,8 +61,6 @@
     <Action name="merge_acceptnew"/>
   </Menu>
   <Menu name="bookmarks"><text>Bookmarks</text>
-    <Action name="bookmark_do"/>
-    <Separator/>
     <Action name="bookmark_prior"/>
     <Action name="bookmark_next"/>
   </Menu>

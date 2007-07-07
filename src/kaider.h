@@ -127,7 +127,7 @@ private slots:
 //     void plural2msgstr();
     void gotoNext();
     void gotoPrev();
-//     void gotoEntry();
+    void gotoEntry();
 
 //     void gotoNextFuzzyOrUntrans();
 //     void gotoPrevFuzzyOrUntrans();
