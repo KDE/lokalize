@@ -66,7 +66,7 @@ kde4_add_kcfg_files(kaider_SRCS
 
 kde4_add_executable(kaider ${kaider_SRCS})
 
-target_link_libraries(kaider ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
+target_link_libraries(kaider ${KDE4_KIO_LIBS} )
 
 install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )
 
