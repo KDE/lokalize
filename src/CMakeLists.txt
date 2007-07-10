@@ -49,7 +49,6 @@ set(kaider_SRCS
     catalog/gettextexport.cpp
 )
 
-kde4_automoc(${kaider_SRCS})
 
 kde4_add_ui_files(kaider_SRCS
     prefs/prefs_identity.ui
