@@ -39,21 +39,19 @@
 #include <kio/netaccess.h>
 #include <kdebug.h>
 
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <kstandardaction.h>
-#include <kstandardshortcut.h>
-
 #include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 
 #include <sonnet/configwidget.h>
 
+// #include <QListWidget>
+
 //  #include "global.h"
 #include "kaider.h"
 #include "pos.h"
 #include "cmd.h"
+#include "catalog.h"
 #include "prefs_kaider.h"
 #include "project.h"
 #include "projectview.h"
@@ -61,6 +59,7 @@
 #include "ui_prefs_identity.h"
 #include "ui_prefs_font.h"
 #include "ui_prefs_projectmain.h"
+// #include "ui_prefs_webquery.h"
 
 
 void KAider::deleteUiSetupers()
@@ -68,6 +67,7 @@ void KAider::deleteUiSetupers()
     delete ui_prefs_identity;
     delete ui_prefs_font;
     delete ui_prefs_projectmain;
+//     delete ui_prefs_webquery;
 }
 
 
@@ -172,6 +172,10 @@ void KAider::projectConfigure()
     if (!ui_prefs_projectmain)
         ui_prefs_projectmain = new Ui_prefs_projectmain;
     ui_prefs_projectmain->setupUi(w);
+    ui_prefs_projectmain->kcfg_LangCode->hide();
+    ui_prefs_projectmain->kcfg_PoBaseDir->hide();
+    ui_prefs_projectmain->kcfg_PotBaseDir->hide();
+    ui_prefs_projectmain->kcfg_GlossaryTbx->hide();
 
     QString val( _project->langCode());
     QStringList langlist = KGlobal::locale()->allLanguagesList();
@@ -181,13 +185,71 @@ void KAider::projectConfigure()
         if (*it==val)
             ui_prefs_projectmain->LangCode->setCurrentIndex(ui_prefs_projectmain->LangCode->count()-1);
     }
-    ui_prefs_projectmain->kcfg_LangCode->hide();
+
+    ui_prefs_projectmain->poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain->potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain->glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain->glossaryTbx->setFilter("*.tbx\n*.xml");
+
+    connect(ui_prefs_projectmain->poBaseDir,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain->kcfg_PoBaseDir,SLOT(setText(const QString&)));
+    connect(ui_prefs_projectmain->potBaseDir,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain->kcfg_PotBaseDir,SLOT(setText(const QString&)));
+    connect(ui_prefs_projectmain->glossaryTbx,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain->kcfg_GlossaryTbx,SLOT(setText(const QString&)));
+
+
+    ui_prefs_projectmain->poBaseDir->setUrl(_project->poDir());
+    ui_prefs_projectmain->potBaseDir->setUrl(_project->potDir());
+    ui_prefs_projectmain->glossaryTbx->setUrl(_project->glossaryPath());
+
+
+
+
+
     dialog->addPage(w, i18n("General"), "general_project_setting");
 
-    dialog->show();
+    w = new QWidget;
+    KUrlRequester *req = new KUrlRequester( w );
+    req->setPath(Project::instance()->projectDir());//for user's sake :)
+    m_scriptsPrefWidget = new KEditListBox( i18n("Web Query Scripts"), req->customEditor(), w );
+    m_scriptsRelPrefWidget = new KEditListBox(w);
+    m_scriptsRelPrefWidget->setObjectName("kcfg_WebQueryScripts");
+    m_scriptsRelPrefWidget->hide();
+    //HACK...
+    connect (m_scriptsPrefWidget,SIGNAL(changed()),this,SLOT(reflectRelativePathsHack()));
+    /*
+    if (!ui_prefs_webquery)
+        ui_prefs_webquery = new Ui_prefs_webquery;
+    ui_prefs_webquery->setupUi(w);
 
+    ui_prefs_webquery->webQueryScripts->*/
+
+
+    dialog->addPage(w, i18n("Web Query"), "webquery_project_setting");
+
+    m_scriptsPrefWidget->setItems(Project::instance()->webQueryScripts());
     connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateDirModel()));
+
+    dialog->show();
+}
+
+void KAider::reflectRelativePathsHack()
+{
+//     m_scriptsRelPrefWidget->clear();
+    QStringList actionz(m_scriptsPrefWidget->items());
+        kWarning() << actionz << endl;
+    int i=0;
+    for(;i<actionz.size();++i)
+    {
+        actionz[i]=KUrl::relativePath(Project::instance()->projectDir(),
+                       actionz.at(i));
+    }
+    m_scriptsRelPrefWidget->setItems(actionz);
+
+//     Project::instance()->setWebQueryScripts(actionz);
+    kWarning() << Project::instance()->webQueryScripts() << endl;
 }
 
 //void KAider::projectOpen(KUrl url)

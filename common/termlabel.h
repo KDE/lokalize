@@ -35,8 +35,10 @@
 
 #include <QLabel>
 #include <QAction>
+#include "glossary.h"
+#include "project.h"
 //class QAction;
-//#include <QPushButton>
+// #include <QPushButton>
 
 /**
  * flowlayout item
@@ -45,14 +47,16 @@ class TermLabel: public QLabel//QPushButton
 {
     Q_OBJECT
 public:
-    TermLabel(QAction* a): m_action(a){};
+    TermLabel(QAction* a=0): m_action(a){};
     ~TermLabel(){}
 
-    void setText(const QString&,const QString&);
-//     void setTermTransl(const QString& termTransl)
-//     {
-//         m_termTransl=termTransl;
-//     }
+    /**
+     * @param term is the term matched
+     * @param entry is a whole entry
+     */
+    void setText(const QString& term,int entry);
+    void mousePressEvent (QMouseEvent*/* event*/);
+
 public slots:
     void insert();
 //     bool event(QEvent *event);
@@ -60,29 +64,63 @@ signals:
     void insertTerm(const QString&);
 
 private:
-    QString m_termTransl;
-    QAction* m_action;
+    int m_termIndex;
+    QAction* m_action; //used only for shortcut purposes
 };
 
 
 
 
 inline
-void TermLabel::setText(const QString& str,const QString& termTransl)
+void TermLabel::setText(const QString& term,int entry)
 {
-    QLabel::setText(str + " " + m_action->shortcut().toString()//m_shortcut
-/*    QString firstLine(str + " " + m_shortcut);
-    QPushButton::setText(firstLine*/
-                    + "  \n  " +
-//                     QString((termTransl.size()>firstLine.size())?
-//             (termTransl.size()-firstLine.size()*10):0,' ')+
-
-                termTransl
+    m_termIndex=entry;
+    QLabel::setText(term + QString(m_action?(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
+                + Project::instance()->glossary()->termList.at(m_termIndex).target.join("  \n  ")
                     + "  \n  ");
-/*kWarning() << ((termTransl.size()>firstLine.size())?
-            (termTransl.size()-firstLine.size()):0) << endl;*/
-    m_termTransl=termTransl;
 }
+
+
+
+
+
+
+/**
+ * flowlayout item
+ */
+class QueryResultBtn: public QLabel
+{
+    Q_OBJECT
+public:
+    QueryResultBtn(QAction* a=0);
+    virtual ~QueryResultBtn(){}
+
+    void mousePressEvent (QMouseEvent*/* event*/);
+    void setText(const QString&);
+public slots:
+    void insert();
+//     bool event(QEvent *event);
+signals:
+    void insertText(const QString&);
+
+private:
+    QString m_text;
+    QAction* m_action;
+};
+
+
+
+inline
+void QueryResultBtn::setText(const QString& queryResult)
+{
+    m_text=queryResult;
+    if (m_action)
+        QLabel::setText("["+m_action->shortcut().toString()+"] "+queryResult);
+    else
+        QLabel::setText(queryResult);
+}
+
+
 
 
 

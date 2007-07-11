@@ -36,12 +36,19 @@
 #include "catalog.h"
 #include "flowlayout.h"
 
+#include "ui_termdialog.h"
+
+
+#include <klineedit.h>
+#include <kdialog.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
 
 #include <QDragEnterEvent>
+#include <QListView>
 #include <QTime>
+#include <QSet>
 #include <QAction>
 // #include <QShortcutEvent>
 
@@ -51,7 +58,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         : QDockWidget ( i18n("Glossary"), parent)
         , m_browser(new QWidget(this))
         , m_catalog(catalog)
-        , m_flowLayout(new FlowLayout(m_browser,this,actions,0,10))
+        , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
         , m_rxClean("\\&|<[^>]*>")//cleaning regexp
         , m_rxSplit("\\W")//splitting regexp
@@ -93,6 +100,8 @@ GlossaryView::~GlossaryView()
 
 void GlossaryView::slotNewEntryDisplayed(uint entry)
 {
+//     if (!toggleViewAction()->isChecked())
+//         return;
     QString msg(m_catalog->msgid(entry).toLower());
     msg.remove(m_rxClean);
     QStringList words(msg.split(m_rxSplit,QString::SkipEmptyParts));
@@ -100,7 +109,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     {
         if (m_hasInfo)
         {
-            m_flowLayout->clearLabels();
+            m_flowLayout->clearTerms();
             m_hasInfo=false;
             setWindowTitle(m_normTitle);
         }
@@ -112,45 +121,57 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     for (;i<words.size();++i)
     {
         if (m_glossary->wordHash.contains(words.at(i))
-            &&
-            !termIndexes.contains(m_glossary->wordHash.value(words.at(i)))
+//             && MULTI hash!! instead, we generate QSet later
+//             !termIndexes.contains(m_glossary->wordHash.value(words.at(i)))
            )
-            termIndexes.append(m_glossary->wordHash.value(words.at(i)));
+        {
+//             kWarning()<<"val " <<m_glossary->wordHash.values(words.at(i))<<endl;
+            termIndexes+= m_glossary->wordHash.values(words.at(i));
+        }
     }
     if (termIndexes.isEmpty())
     {
         if (m_hasInfo)
         {
-            m_flowLayout->clearLabels();
+            m_flowLayout->clearTerms();
             m_hasInfo=false;
             setWindowTitle(m_normTitle);
         }
         return;
     }
+    // we found entries that contain words from msgid
 
     if (m_hasInfo)
-        m_flowLayout->clearLabels();
+        m_flowLayout->clearTerms();
 
     bool found=false;
     m_flowLayout->setEnabled(false);
-    for (i=0;i<termIndexes.size();++i)
+    int j; //INTJ haha! socionics!
+    QSet<int> termIndexesSet(termIndexes.toSet());
+//     kWarning()<<"found"<<endl;
+    QSet<int>::const_iterator it = termIndexesSet.constBegin();
+    while (it != termIndexesSet.constEnd())
     {
-        if (msg.contains(
-                m_glossary->termList.at(termIndexes.at(i)).first()//,
-                //Qt::CaseInsensitive
-                        )
-           )
+        // now check which of them are really hits...
+        for (j=0;j<m_glossary->termList.at(*it).english.size();++j)
         {
-            found=true;
-            m_flowLayout->addText(
-/*                m_glossary->termList.at(termIndexes.at(i)).first()
-                    + "  \n  " +
-                m_glossary->termList.at(termIndexes.at(i)).last()
-                    + "  \n  ",*/
-                m_glossary->termList.at(termIndexes.at(i)).first(),
-                m_glossary->termList.at(termIndexes.at(i)).last()
+            // ...and if so, which part of termEn list we must thank for match ...
+            if (msg.contains(
+                m_glossary->termList.at(*it).english.at(j)//,
+                //Qt::CaseInsensitive  //we lowered terms on load 
+                        )
+                )
+            {
+                //insert it into label
+                found=true;
+                m_flowLayout->addTerm(
+                        m_glossary->termList.at(*it).english.at(j),
+                        *it
                                );
+                break;
+            }
         }
+        ++it;
     }
     m_flowLayout->setEnabled(true);
 
@@ -171,6 +192,60 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
 
 }
 
+
+void GlossaryView::defineNewTerm(QString en,QString target)
+{
+    KDialog dialog;
+//     if (!ui_prefs_identity)
+//         ui_prefs_identity = new Ui_prefs_identity;
+//     ui_prefs_identity->setupUi(w);
+//     QWidget* w = new QWidget(&dialog);
+    Ui_TermDialog ui_termdialog;
+    ui_termdialog.setupUi(dialog.mainWidget());
+//     dialog.setMainWidget(w);
+//       <property name="windowTitle" >
+//    <string>New term entry</string>
+//   </property>
+    dialog.setCaption(i18n("New term entry"));
+
+//     dialog.enableLinkedHelp(true);
+//     dialog.setHelpLinkText("bfghfgh"/*i18n()*/);
+
+
+    en.remove(m_rxClean);
+    target.remove(m_rxClean);
+
+    ui_termdialog.english->setItems(QStringList(en));
+    ui_termdialog.target->setItems(QStringList(target));
+    ui_termdialog.english->lineEdit()->setText(en);
+    ui_termdialog.target->lineEdit()->setText(target);
+    ui_termdialog.english->lineEdit()->selectAll();
+    ui_termdialog.target->lineEdit()->selectAll();
+
+    ui_termdialog.subjectField->addItems(
+                                         Project::instance()->glossary()->subjectFields
+                                        );
+    //_msgstrEdit->insertPlainText(term);
+
+
+    if (QDialog::Accepted==dialog.exec())
+    {
+        //kWarning() << "sss" << endl;
+        TermEntry a;
+        a.english=ui_termdialog.english->items();
+        a.target=ui_termdialog.target->items();
+        a.definition=ui_termdialog.definition->toPlainText();
+        a.subjectField=Project::instance()->glossary()->subjectFields.indexOf(
+                    ui_termdialog.subjectField->currentText()
+                                                                             );
+            if ((a.subjectField==-1) && !ui_termdialog.subjectField->currentText().isEmpty())
+            {
+                a.subjectField=Project::instance()->glossary()->subjectFields.size();
+                Project::instance()->glossary()->subjectFields<< ui_termdialog.subjectField->currentText();
+            }
+        Project::instance()->glossaryAdd(a);
+    }
+}
 
 
 

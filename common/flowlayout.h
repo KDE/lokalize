@@ -33,6 +33,8 @@
 #ifndef FLOWLAYOUT_H
 #define FLOWLAYOUT_H
 
+#include "glossary.h"
+
 #include <QLayout>
 #include <QVector>
 class QAction;
@@ -45,11 +47,19 @@ class QAction;
 class FlowLayout : public QLayout
 {
 public:
+
+    enum User
+    {
+        glossary,
+        webquery
+    };
+
     /**
      * c'tor for glossary view
      */
-    FlowLayout(QWidget *parent,QWidget *glossaryView,
+    FlowLayout(User user, QWidget *parent,QWidget *signalingWidget,
                const QVector<QAction*>& actions,int margin = 0, int spacing = -1);
+
     FlowLayout(int spacing = -1);
     ~FlowLayout();
 
@@ -63,16 +73,25 @@ public:
     void setGeometry(const QRect &rect);
     QSize sizeHint() const{return minimumSize();}
     QLayoutItem *takeAt(int index);
-    void clearLabels();
-    void addText(const QString&,const QString&);
+
+    /**
+     * @param term is the term matched
+     * @param entry is index of entry in the Glossary list
+     */
+    void addTerm(const QString& term,int entry);
+    void clearTerms();
+
+    void clearWebQueryResult();
+    void addWebQueryResult(const QString& str);
+
 
 private:
     int doLayout(const QRect &rect, bool testOnly) const;
 
     QList<QLayoutItem *> itemList;
-    int m_index; //of the nearest free label
+    int m_index; //of the nearest free label ; or the next index of btn
 //     QList<Qt::Key> m_keys;
-    QWidget *m_glossaryView;
+    QWidget *m_signalingWidget;
 };
 
 

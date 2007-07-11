@@ -30,57 +30,72 @@
 
 **************************************************************************** */
 
-#include "msgctxtview.h"
+#ifndef KROSSVIEW_H
+#define KROSSVIEW_H
 
-#include "catalog.h"
+#include <pos.h>
+#include <QRegExp>
+#include <QDockWidget>
+//#include <QList>
+class Catalog;
+class Glossary;
+class FlowLayout;
+class QHBoxLayout;
+class QDragEnterEvent;
+class QDropEvent;
+class KUrl;
+class QEvent;
+class QAction;
+class Ui_QueryControl;
+#include <QVector>
 
-#include <klocale.h>
-#include <kdebug.h>
-
-#include <QTextBrowser>
-
-MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Message Context"), parent)
-    , m_browser(new QTextBrowser(this))
-    , m_catalog(catalog)
-    , m_normTitle(i18n("Message Context"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
-    , m_hasInfo(false)
+#define WEBQUERY_SHORTCUTS 10
+/**
+ * unlike other views, we keep data like catalog pointer
+ * in our child view:
+ * ui_queryControl contains our own MyActionCollectionView class
+ * that acts like dispatcher...
+ */
+class KrossView: public QDockWidget
 {
-    setObjectName("msgCtxtView");
-    setWidget(m_browser);
-}
+    Q_OBJECT
 
-MsgCtxtView::~MsgCtxtView()
-{
-    delete m_browser;
-}
+public:
+    KrossView(QWidget*,Catalog*,const QVector<QAction*>&);
+    virtual ~KrossView();
 
-void MsgCtxtView::slotNewEntryDisplayed(uint index)
-{
-//     if (m_catalog->msgctxt(index).isEmpty())
-//     {
-//         m_browser->clear();
-//         return;
-//     }
-    if (m_catalog->msgctxt(index).isEmpty())
-    {
-        if (m_hasInfo)
-        {
-            m_browser->clear();
-            setWindowTitle(m_normTitle);
-            m_hasInfo=false;
-        }
-    }
-    else
-    {
-        if (!m_hasInfo)
-        {
-            setWindowTitle(m_hasInfoTitle);
-            m_hasInfo=true;
-        }
-        m_browser->setText(m_catalog->msgctxt(index));
-    }
-}
 
-#include "msgctxtview.moc"
+//     void dragEnterEvent(QDragEnterEvent* event);
+//     void dropEvent(QDropEvent*);
+//     bool event(QEvent*);
+
+public slots:
+    void slotNewEntryDisplayed(uint);
+    //connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
+//     void populateWebQueryActions();
+//     void doQuery();
+
+    void addWebQueryResult(const QString&);
+
+signals:
+    void textInsertRequested(const QString&);
+
+private:
+//     QWidget* m_browser;
+    QWidget* m_generalBrowser;
+    Catalog* m_catalog;
+    QHBoxLayout* m_boxLayout;
+    FlowLayout *m_flowLayout;
+    Ui_QueryControl* ui_queryControl;
+//     int m_entry; we'll use one from ui_queryControl
+//     Glossary* m_glossary;
+//     QRegExp m_rxClean;
+//     QRegExp m_rxSplit;
+
+//     QString m_normTitle;
+//     QString m_hasInfoTitle;
+//     bool m_hasInfo;
+
+};
+
+#endif

@@ -1,0 +1,55 @@
+<ui version="4.0" >
+ <class>QueryControl</class>
+ <widget class="QWidget" name="QueryControl" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>231</width>
+    <height>286</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QPushButton" name="queryBtn" >
+     <property name="text" >
+      <string>Query</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="divideChk" >
+     <property name="text" >
+      <string>Divide into words</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_2" >
+     <property name="text" >
+      <string>Autoquery</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox" >
+     <property name="text" >
+      <string>Prefetch for the next untranslated</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyActionCollectionView" name="actionzView" />
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyActionCollectionView</class>
+   <extends>QTreeView</extends>
+   <header>myactioncollectionview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

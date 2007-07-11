@@ -34,27 +34,67 @@
 #define GLOSSARY_H
 
 #include <QStringList>
-#include <QHash>
+#include <QMultiHash>
+
+/**
+ * struct that contains types data we work with.
+ * this data can also be added to the TBX file
+ *
+ * the entry represents term, not word(s),
+ * so there can be only one subjectField.
+ */
+struct TermEntry
+{
+    QStringList english;
+    QStringList target;
+    QString definition;
+    int subjectField; //index in global Glossary's subjectFields list
+    QString id;       //used to identify entry on edit action
+    //TODO <descrip type="context"></descrip>
+
+    TermEntry(const QStringList& _english,
+              const QStringList& _target,
+              const QString& _definition,
+              int _subjectField,
+              const QString& _id=QString()
+             )
+    : english(_english)
+    , target(_target)
+    , definition(_definition)
+    , subjectField(_subjectField)
+    , id(_id)
+    {}
+
+    TermEntry()
+    : subjectField(-1)
+    {}
+
+    void clear()
+    {
+        english.clear();
+        target.clear();
+        definition.clear();
+        subjectField=-1;
+    }
+};
+
+
 
 /**
  * internal representation of glossary
  */
 struct Glossary
 {
-    QHash<QString,int> wordHash;
-    QList<QStringList> termList;
+    QMultiHash<QString,int> wordHash;
+    QList<TermEntry> termList;
+    QStringList subjectFields;
 
-    void clear(){wordHash.clear(),termList.clear();}
-};
-
-/**
- * defines info that can be added to the TBX file
- */
-struct TermEntry
-{
-    QString english;
-    QString target;
-
+    void clear()
+    {
+        wordHash.clear();
+        termList.clear();
+        subjectFields.clear();
+    }
 };
 
 

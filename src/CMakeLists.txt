@@ -6,6 +6,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
+    ${CMAKE_CURRENT_SOURCE_DIR}/kross
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${KDE4_INCLUDE_DIR}
     ${QT_INCLUDES}
@@ -40,6 +41,13 @@ set(kaider_SRCS
     project/project.cpp
     project/projectmodel.cpp
 
+    prefs/relpathsaver.cpp
+
+    krossview.cpp
+    kross/webquerycontroller.cpp
+    kross/myactioncollectionview.cpp
+#    kross/webquerythread.cpp
+
     catalog/cmd.cpp
     catalog/catalog.cpp
     catalog/catalogitem.cpp
@@ -54,8 +62,10 @@ kde4_add_ui_files(kaider_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
     project/prefs_projectmain.ui
+    project/prefs_webquery.ui
     glossary/termdialog.ui
     kaider_findextension.ui
+    kross/querycontrol.ui
 )
 
 kde4_add_kcfg_files(kaider_SRCS
@@ -65,7 +75,12 @@ kde4_add_kcfg_files(kaider_SRCS
 
 kde4_add_executable(kaider ${kaider_SRCS})
 
-target_link_libraries(kaider ${KDE4_KIO_LIBS} )
+target_link_libraries(kaider
+#    ${KDE4_KDEUI_LIBS}
+    ${KDE4_KIO_LIBS}
+    ${KDE4_KROSSCORE_LIBS}
+    ${KDE4_KROSSUI_LIBS}
+)
 
 install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )
 

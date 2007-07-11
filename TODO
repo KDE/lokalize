@@ -14,10 +14,7 @@ templates:
 -projects (catalogmanager becomes projectmanager:)
 -interaction between instances (dbus?)??
 
--Translation DB with automatic search on gotoEntry() (QtSql, ThreadWeaver)
--Use google machine translation to generate list of words that likely will be used in msgstr
-    (so they could be inserted into msgstr with ctrl+1, ctrl+2, ...)
-
+-Translation DB with automatic search on gotoEntry() (QtSql, ThreadWeaver/QThread)
 
 settings:
 -configurable highlight regexps

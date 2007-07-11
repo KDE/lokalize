@@ -31,19 +31,19 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
 
+#include "catalog.h"
 
 #include <QProcess>
-
 #include <QString>
 #include <QMap>
 
 #include <kdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include <kmessagebox.h>
+// #include <kmessagebox.h>
 #include <kdatetime.h>
 
 #include <kio/netaccess.h>
@@ -52,13 +52,11 @@
 #include "gettextimport.h"
 #include "gettextexport.h"
 
-#include "catalog.h"
 #include "catalog_private.h"
 #include "version.h"
 #include "prefs_kaider.h"
 
 // Catalog* Catalog::_instance=0;
-
 
 QString GNUPluralForms(const QString& lang)
 {

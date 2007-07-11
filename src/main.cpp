@@ -40,13 +40,14 @@
 
 static const char version[] = KAIDER_VERSION;
 static const char description[] =
-    I18N_NOOP("PO file editor");
+    I18N_NOOP("Computer-aided translation system.\nDon't translate what has already been translated!");
 
 int main(int argc, char **argv)
 {
     KAboutData about("kaider", 0, ki18n("KAider"), version, ki18n(description),
-                     KAboutData::License_GPL, ki18n("(C) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers"), KLocalizedString(), 0, "shafff@ukr.net");
+                     KAboutData::License_GPL, ki18n("(c) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers"), KLocalizedString(), 0, "shafff@ukr.net");
     about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shafff@ukr.net" );
+    about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;
@@ -73,6 +74,11 @@ int main(int argc, char **argv)
         else
         {
             widget->fileOpen(args->arg(0));
+//             KUrl a(args->arg(0));
+//             QMetaObject::invokeMethod(widget,
+//                                       SLOT(fileOpen(KUrl)),
+//                                       Qt::QueuedConnection,
+//                                       Q_ARG(KUrl,a));
             widget->show();
         }
         args->clear();
@@ -80,3 +86,5 @@ int main(int argc, char **argv)
 
     return app.exec();
 }
+
+

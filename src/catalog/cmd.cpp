@@ -30,21 +30,18 @@
 
 **************************************************************************** */
 
-
+#include "cmd.h"
 
 #include <QString>
 
 #include <klocale.h>
 #include <kdebug.h>
 
-// #include <kmessagebox.h>
-// KMessageBox::information(0, QString("'%1'").arg(_str));
-
 // #include "global.h"
 #include "pos.h"
-#include "cmd.h"
 #include "catalog_private.h"
 #include "catalogitem_private.h"
+#include "catalog.h"
 
 //#define ITEM Catalog::instance()->d->_entries.at(_pos.entry).d
 #define ITEM _catalog->d->_entries.at(_pos.entry).d

@@ -39,12 +39,16 @@
 #include "glossary.h"
 class ProjectModel;
 class Glossary;
+class WebQueryController;
+class WebQueryThread;
 
 /**
- * singleton object that represents project.
- *
- * it is shared between KAider 'mainwindows'
+ * Singleton object that represents project.
+ * It is shared between KAider 'mainwindows' for the same project.
+ * Keeps project's KDirModel, Glossary and kross::actions
  */
+#include "webquerythread.h"
+///////// * Also provides list of web-query scripts
 class Project: public ProjectBase
 {
     Q_OBJECT
@@ -58,21 +62,32 @@ public:
 
     void load(const QString &file);
     void save(){writeConfig();}
-    QString path()const{return m_path;}
-    //void setPath(const QString& p){m_path=p;}
     bool isLoaded(){return !m_path.isEmpty();}
     ProjectModel* model();
 
+    //void setPath(const QString& p){m_path=p;}
+    QString path()const{return m_path;}
+    QString projectDir()const;
+    QString poDir()const{return absolutePath(poBaseDir());}
+    QString potDir()const{return absolutePath(potBaseDir());}
+    QString glossaryPath()const{return absolutePath(glossaryTbx());}
     Glossary* glossary()const{return m_glossary;}
-    QString glossaryPath() const;
     void glossaryAdd(const TermEntry&);
+    void glossaryChange(const TermEntry& term);
+//     WebQueryThread* aaaaa(){return &m_webQueryThread;};
 
-// signals:
-//     void loaded();
+    QStringList webQueryScripts() const;
+signals:
+    void loaded();
+//     void populateWebQueryActions(QString);
+private:
+    QString absolutePath(const QString&)const;
 
 private slots:
     void populateDirModel();
     void populateGlossary();
+    void populateWebQueryActions();
+//     void populateKrossActions();
 
 private:
     static Project* _instance;
@@ -83,6 +98,8 @@ private:
     QString m_path;
     ProjectModel* m_model;
     Glossary* m_glossary;
+//     WebQueryController* m_webQueryController;
+//     WebQueryThread m_webQueryThread;
 };
 
 

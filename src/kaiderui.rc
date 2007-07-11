@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="3">
+<kpartgui name="KAider" version="1">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
@@ -30,6 +30,41 @@
         <Action name="glossary_insert_17"/>
         <Action name="glossary_insert_18"/>
         <Action name="glossary_insert_19"/>
+        <Action name="glossary_insert_20"/>
+    </Menu>
+    <Menu name="webquery"><text>WebQuery</text>
+        <Action name="webquery_do"/>
+        <Separator/>
+        <Action name="webquery_insert_0"/>
+        <Action name="webquery_insert_1"/>
+        <Action name="webquery_insert_2"/>
+        <Action name="webquery_insert_3"/>
+        <Action name="webquery_insert_4"/>
+        <Action name="webquery_insert_5"/>
+        <Action name="webquery_insert_6"/>
+        <Action name="webquery_insert_7"/>
+        <Action name="webquery_insert_8"/>
+        <Action name="webquery_insert_9"/>
+        <Action name="webquery_insert_10"/>
+        <Action name="webquery_insert_11"/>
+        <Action name="webquery_insert_12"/>
+    </Menu>
+    <Menu name="tmquery"><text>Translation Memory</text>
+        <Action name="tmquery_do"/>
+        <Separator/>
+        <Action name="tmquery_insert_0"/>
+        <Action name="tmquery_insert_1"/>
+        <Action name="tmquery_insert_2"/>
+        <Action name="tmquery_insert_3"/>
+        <Action name="tmquery_insert_4"/>
+        <Action name="tmquery_insert_5"/>
+        <Action name="tmquery_insert_6"/>
+        <Action name="tmquery_insert_7"/>
+        <Action name="tmquery_insert_8"/>
+        <Action name="tmquery_insert_9"/>
+        <Action name="tmquery_insert_10"/>
+        <Action name="tmquery_insert_11"/>
+        <Action name="tmquery_insert_12"/>
     </Menu>
   </Menu>
   <Menu name="go_document"><text>&amp;Go</text>
@@ -72,6 +107,8 @@
         <Action name="showmsgctxt_action" />
         <Action name="showcatalogtreeview_action" />
         <Action name="showglossaryview_action" />
+        <Action name="showwebqueryview_action" />
+        <Action name="showtmqueryview_action" />
     </Menu>
   </Menu>
 </MenuBar>

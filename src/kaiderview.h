@@ -76,10 +76,11 @@ protected:
 
 class QDragEnterEvent;
 class QDragEvent;
+
 /**
- * This is the main view class for KAider.  Most of the non-menu,
- * non-toolbar, and non-statusbar (e.g., non frame) GUI code should go
- * here.
+ * This is the main view class for KAider.
+ * Most of the non-menu, non-toolbar, non-statusbar,
+ * and non-dockview GUI code should go here.
  *
  * @short Main view
  * @author Nick Shaforostoff <shafff@ukr.net>
@@ -96,6 +97,7 @@ public:
     void gotoEntry(const DocPosition& pos,int selection=0/*, bool updateHistory=true*/);
     QTabBar* tabBar(){return _tabbar;};
     QString selection() const {return _msgstrEdit->textCursor().selectedText();};//for non-batch replace
+    QString selectionMsgId() const {return _msgidEdit->textCursor().selectedText();};
 
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
@@ -140,7 +142,6 @@ private slots:
     void unwrap(ProperTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
-    void defineNewTerm();
     void clearMsgStr();
     void tagMenu();
 

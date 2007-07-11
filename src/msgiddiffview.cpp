@@ -30,9 +30,10 @@
 
 **************************************************************************** */
 
+#include "msgiddiffview.h"
+
 #include "diff.h"
 #include "catalog.h"
-#include "msgiddiffview.h"
 
 #include <klocale.h>
 #include <kdebug.h>

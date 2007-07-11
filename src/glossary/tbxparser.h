@@ -36,20 +36,26 @@
 #include <QtXml>
 #include <QXmlDefaultHandler>
 #include <QStringList>
-class Glossary;
+
+#include "glossary.h"
+//class Glossary;
 
 /**
-	@author Nick Shaforostoff <shafff@ukr.net>
+ * loads only data we need to store in memory
+ * e.g. skips entries for languages other than en
+ * and current project's target language
+ *
+ *	@author Nick Shaforostoff <shafff@ukr.net>
 */
 class TbxParser : public QXmlDefaultHandler
 {
-    enum State
+    enum State //localstate for getting chars into right place
     {
         null=0,
-        termEntry,
-        langSet,
-        termGrp,
-        term
+//        termGrp,
+        term,
+        descripDefinition,
+        descripSubjectField
     };
 
     enum Lang
@@ -78,7 +84,8 @@ private:
     Lang m_lang:8;
     QString m_termEn;
     QString m_termOther;
-    QStringList m_termOtherList;
+    TermEntry m_entry;
+    QString m_subjectField;
     Glossary* m_glossary;
 
 };

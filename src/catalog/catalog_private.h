@@ -42,7 +42,6 @@
 #include <QStringList>
 #include <QMap>
 #include <QVector>
-#include <QTextStream>
 #include <kurl.h>
 
 // #include "msgfmt.h"

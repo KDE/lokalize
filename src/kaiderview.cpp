@@ -37,9 +37,6 @@
 #include "prefs_kaider.h"
 #include "syntaxhighlighter.h"
 
-#include "ui_termdialog.h"
-#include "glossary.h"
-
 #include <QTextCodec>
 #include <QTabBar>
 #include <QTimer>
@@ -218,8 +215,8 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     _currentPos=pos;/*   if(_currentPos.entry >= _catalog->size()) _currentPos.entry=_catalog->size();*/
     _currentEntry=_currentPos.entry;
 
-    if(_msgstrEdit->toPlainText()==_catalog->msgstr(_currentPos))
-        return;
+//     if(_msgstrEdit->toPlainText()==_catalog->msgstr(_currentPos))
+//         return;
 
     if (_catalog->pluralFormType(_currentEntry)==Gettext)
     {
@@ -435,43 +432,9 @@ void KAiderView::unwrap(ProperTextEdit* editor)
 void KAiderView::insertTerm(const QString& term)
 {
     _msgstrEdit->insertPlainText(term);
+    _msgstrEdit->setFocus();
 }
 
-void KAiderView::defineNewTerm()
-{
-    QDialog *w = new QDialog(this);
-//     if (!ui_prefs_identity)
-//         ui_prefs_identity = new Ui_prefs_identity;
-//     ui_prefs_identity->setupUi(w);
-    Ui_TermDialog ui_termdialog;
-    ui_termdialog.setupUi(w);
-
-    QString en(_msgidEdit->textCursor().selectedText().toLower());
-    if (en.isEmpty())
-        en=_msgidEdit->toPlainText().toLower();
-
-    QString target(_msgstrEdit->textCursor().selectedText().toLower());
-    if (target.isEmpty())
-        target=_msgstrEdit->toPlainText().toLower();
-
-    QRegExp rxClean("\\&|<[^>]*>");//cleaning regexp; taken from glossaryview
-    en.remove(rxClean);
-    target.remove(rxClean);
-
-    ui_termdialog.english->setText(en);
-    ui_termdialog.target->setText(target);
-    ui_termdialog.english->selectAll();
-    ui_termdialog.target->selectAll();
-    //_msgstrEdit->insertPlainText(term);
-    if (QDialog::Accepted==w->exec())
-    {
-        //kWarning() << "sss" << endl;
-        TermEntry a;
-        a.english=ui_termdialog.english->text();
-        a.target=ui_termdialog.target->text();
-        Project::instance()->glossaryAdd(a);
-    }
-}
 
 void KAiderView::tagMenu()
 {

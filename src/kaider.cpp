@@ -41,7 +41,6 @@
 #include <QPainter>
 #include <QTabBar>
 
-#include <kconfigdialog.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kicon.h>
@@ -73,6 +72,7 @@
 #include "mergecatalog.h"
 #include "cataloglistview.h"
 #include "glossaryview.h"
+#include "krossview.h"
 
 #include "project.h"
 
@@ -236,7 +236,7 @@ void KAider::setupActions()
     action = actionCollection()->addAction("edit_tagmenu",m_view,SLOT(tagMenu()));
     action->setShortcut(Qt::CTRL+Qt::Key_T);
     action->setText(i18n("Insert Tag"));
-    
+
 //     action = actionCollection()->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18n("Define new term"));
 
@@ -376,51 +376,82 @@ void KAider::createDockWindows()
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),catalogTreeView,SLOT(slotNewEntryDisplayed(uint)));
     connect (catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 
-    QVector<QAction*> actions(SHORTCUTS);
-    Qt::Key list[SHORTCUTS]={  Qt::Key_C,
-                        Qt::Key_D,
+
+    QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
+    Qt::Key wqlist[WEBQUERY_SHORTCUTS]={  Qt::Key_1,
+                        Qt::Key_2,
+                        Qt::Key_3,
+                        Qt::Key_4,
+                        Qt::Key_5,
+                        Qt::Key_6,
+                        Qt::Key_7,
+                        Qt::Key_8,
+                        Qt::Key_9,
+                        Qt::Key_0,
+                     };
+    QAction* wqaction;
+    int i=0;
+    for(;i<WEBQUERY_SHORTCUTS;++i)
+    {
+//         action->setVisible(false);
+        wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
+        //wqaction->setShortcut(Qt::META+wqlist[i]);
+        wqaction->setShortcut(Qt::CTRL+wqlist[i]);
+        wqaction->setText(i18n("Insert query result # %1",i));
+        wqactions[i]=wqaction;
+    }
+    KrossView* _krossView = new KrossView(this,_catalog,wqactions);
+    addDockWidget(Qt::BottomDockWidgetArea, _krossView);
+    actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _krossView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_krossView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (_krossView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+
+
+     QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
+    Qt::Key glist[GLOSSARY_SHORTCUTS]={  Qt::Key_E,
+                        Qt::Key_H,
 //                         Qt::Key_G,
 //                         Qt::Key_H,//help
-                        Qt::Key_I,
-                        Qt::Key_J,
+//                         Qt::Key_I,
+//                         Qt::Key_J,
+//                         Qt::Key_K,
                         Qt::Key_K,
                         Qt::Key_L,
                         Qt::Key_N,
-                        Qt::Key_O,
-                        Qt::Key_Q,
-                        Qt::Key_R,
-                        Qt::Key_U,
-                        Qt::Key_V,
+//                         Qt::Key_Q,
+//                         Qt::Key_R,
+//                         Qt::Key_U,
+//                         Qt::Key_V,
                         Qt::Key_W,
-                        Qt::Key_X,
+//                         Qt::Key_X,
                         Qt::Key_Y,
-                        Qt::Key_Z,
+//                         Qt::Key_Z,
                         Qt::Key_BraceLeft,
                         Qt::Key_BraceRight,
                         Qt::Key_Semicolon,
                         Qt::Key_Apostrophe,
                      };
-    QAction* action;
-    int i=0;
-    for(;i<SHORTCUTS;++i)
+    QAction* gaction;
+//     int i=0;
+    for(i=0;i<GLOSSARY_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
-        action=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
-        action->setShortcut(Qt::ALT+list[i]);
-        action->setText(i18n("Insert # %1 term translation",i));
-        actions[i]=action;
+        gaction=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
+        gaction->setShortcut(Qt::CTRL+glist[i]);
+        gaction->setText(i18n("Insert # %1 term translation",i));
+        gactions[i]=gaction;
     }
 
-    GlossaryView* glossaryView = new GlossaryView(this,_catalog,actions);
-    addDockWidget(Qt::BottomDockWidgetArea, glossaryView);
-    actionCollection()->addAction( QLatin1String("showglossaryview_action"), glossaryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),glossaryView,SLOT(slotNewEntryDisplayed(uint)));
-    connect (glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+    _glossaryView = new GlossaryView(this,_catalog,gactions);
+    addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
+    actionCollection()->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
-    action = actionCollection()->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
-    action->setText(i18n("Define new term"));
-    glossaryView->addAction(action);
-    glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
+    gaction = actionCollection()->addAction("glossary_define",this,SLOT(defineNewTerm()));
+    gaction->setText(i18n("Define new term"));
+    _glossaryView->addAction(gaction);
+    _glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
 }
 
 void KAider::fileOpen(KUrl url)
@@ -566,7 +597,7 @@ void KAider::gotoEntry()
                                        1,0,this);
     if (pos.entry)
     {
-//         --(pos.entry);
+        --(pos.entry);
         gotoEntry(pos);
     }
 }
@@ -795,6 +826,19 @@ bool KAider::switchNext(DocPosition& pos,bool useMsgId)
     return true;
 }
 
+//see also termlabel.h
+void KAider::defineNewTerm()
+{
+    QString en(m_view->selectionMsgId().toLower());
+    if (en.isEmpty())
+        en=_catalog->msgid(_currentPos).toLower();
+
+    QString target(m_view->selection().toLower());
+    if (target.isEmpty())
+        target=_catalog->msgstr(_currentPos).toLower();
+
+    _glossaryView->defineNewTerm(en,target);
+}
 
 
 

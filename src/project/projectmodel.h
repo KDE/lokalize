@@ -83,6 +83,7 @@ public:
     int columnCount(const QModelIndex & parent = QModelIndex()) const;
     Qt::ItemFlags flags( const QModelIndex & index ) const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
+//     void fetchMore(const QModelIndex & parent);
     //void forceScanning(const QModelIndex& parent=QModelIndex());
 };
 

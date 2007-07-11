@@ -30,57 +30,18 @@
 
 **************************************************************************** */
 
-#include "msgctxtview.h"
+#ifndef RPS_H
+#define RPS_H
 
-#include "catalog.h"
+#include <keditlistbox.h>
 
-#include <klocale.h>
-#include <kdebug.h>
-
-#include <QTextBrowser>
-
-MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Message Context"), parent)
-    , m_browser(new QTextBrowser(this))
-    , m_catalog(catalog)
-    , m_normTitle(i18n("Message Context"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
-    , m_hasInfo(false)
+class RelPathListSaver: public KEditListBox
 {
-    setObjectName("msgCtxtView");
-    setWidget(m_browser);
-}
+Q_OBJECT
+public:
+    RelPathSaver(QWidget* p):QLineEdit(p){}
+public slots:
+    void setText ( const QString & );
+};
 
-MsgCtxtView::~MsgCtxtView()
-{
-    delete m_browser;
-}
-
-void MsgCtxtView::slotNewEntryDisplayed(uint index)
-{
-//     if (m_catalog->msgctxt(index).isEmpty())
-//     {
-//         m_browser->clear();
-//         return;
-//     }
-    if (m_catalog->msgctxt(index).isEmpty())
-    {
-        if (m_hasInfo)
-        {
-            m_browser->clear();
-            setWindowTitle(m_normTitle);
-            m_hasInfo=false;
-        }
-    }
-    else
-    {
-        if (!m_hasInfo)
-        {
-            setWindowTitle(m_hasInfoTitle);
-            m_hasInfo=true;
-        }
-        m_browser->setText(m_catalog->msgctxt(index));
-    }
-}
-
-#include "msgctxtview.moc"
+#endif

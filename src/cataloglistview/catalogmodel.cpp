@@ -63,7 +63,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 
     switch (index.column())
     {
-        case Key: return index.row();
+        case Key: return index.row()+1;
         case Source: return m_catalog->msgid(index.row());
         case Translation: return m_catalog->msgstr(index.row());
         case FuzzyFlag: return m_catalog->isFuzzy(index.row());

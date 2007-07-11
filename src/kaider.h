@@ -50,6 +50,8 @@ class KReplaceDialog;
 class KReplace;
 class KToggleAction;
 class KDirLister;
+class QListWidget;
+class KEditListBox;
 
 class Catalog;
 class KAiderView;
@@ -57,15 +59,19 @@ class Project;
 class ProjectView;
 class MergeView;
 class MergeCatalog;
+class GlossaryView;
 
 class Ui_prefs_identity;
 class Ui_prefs_font;
 class Ui_findExtension;
 class Ui_prefs_projectmain;
+// class Ui_prefs_webquery;
+
 
 /**
- * This class serves as the main window for KAider.  It handles the
- * menus, toolbars, and status bars.
+ * This class serves as the main window for KAider
+ * and can be called a dispatcher for one message catalog.
+ * It handles the menus, toolbars, and status bars.
  *
  * @short Main window class
  * @author Nick Shaforostoff <shafff@ukr.net>
@@ -165,6 +171,10 @@ private slots:
     void mergeAccept();
     void mergeAcceptAllForEmpty();
 
+    void defineNewTerm();
+
+    void reflectRelativePathsHack();
+
 private:
     void setupAccel();
     void setupActions();
@@ -198,12 +208,17 @@ private:
     Ui_prefs_identity* ui_prefs_identity;
     Ui_prefs_font* ui_prefs_font;
     Ui_prefs_projectmain* ui_prefs_projectmain;
+//     Ui_prefs_webquery* ui_prefs_projectmain;
+    KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
+    KEditListBox* m_scriptsPrefWidget;
+
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
     ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
+    GlossaryView* _glossaryView;
 
     int _currentEntry;
     DocPosition _currentPos;

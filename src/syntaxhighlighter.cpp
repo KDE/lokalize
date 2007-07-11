@@ -31,9 +31,10 @@
 **************************************************************************** */
 
 
+#include "syntaxhighlighter.h"
+
 #include <QtGui>
 
-#include "syntaxhighlighter.h"
 #define STATE_NORMAL 0
 #define STATE_TAG 1
 

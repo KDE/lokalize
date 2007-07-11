@@ -47,9 +47,9 @@ class QEvent;
 class QAction;
 #include <QVector>
 
-#define SHORTCUTS 20
+#define GLOSSARY_SHORTCUTS 11
 /**
- * part of the glossary handling is done in the project.cpp
+ * part of the glossary handling is done in the project.cpp...
  */
 class GlossaryView: public QDockWidget
 {
@@ -63,7 +63,7 @@ public:
 //     void dragEnterEvent(QDragEnterEvent* event);
 //     void dropEvent(QDropEvent*);
 //     bool event(QEvent*);
-
+    void defineNewTerm(QString en,QString target);
 
 public slots:
     void slotNewEntryDisplayed(uint);

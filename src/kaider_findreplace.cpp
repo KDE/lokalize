@@ -33,12 +33,7 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kdebug.h>
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <kstandardaction.h>
-#include <kstandardshortcut.h>
 #include <kurl.h>
-#include <kmessagebox.h>
 
 
 #include <kreplacedialog.h>
@@ -51,6 +46,7 @@
 //  #include "global.h"
 #include "kaider.h"
 #include "kaiderview.h"
+#include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
 #include "prefs_kaider.h"

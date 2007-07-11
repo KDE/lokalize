@@ -49,7 +49,7 @@ bool TbxParser::startDocument()
 {
     m_state=null;
     m_lang=langNull;
-    inTermTag=false;
+//     inTermTag=false;
     return true;
 }
 
@@ -59,6 +59,7 @@ bool TbxParser::startElement( const QString&, const QString&,
                                     const QString& qName,
                                     const QXmlAttributes& attr)
 {
+//     kWarning() << qName << endl;
     if (qName=="langSet")
     {
         if (attr.value("xml:lang")=="en")
@@ -73,15 +74,27 @@ bool TbxParser::startElement( const QString&, const QString&,
     }
     else if (qName=="term")
     {
-        inTermTag=true;
-        //m_state=term;
+//         inTermTag=true;
+        m_state=term;
         //m_termEn.clear();
     }
     else if (qName=="termEntry")
     {
         m_termEn.clear();
         m_termOther.clear();
-        m_termOtherList.clear();
+        m_entry.clear();
+        m_entry.id=attr.value("id");
+    }
+    else if (qName=="descrip")
+    {
+        if (attr.value("type")=="definition")
+        {
+            m_state=descripDefinition;
+        }
+        else if (attr.value("type")=="subjectField")
+        {
+            m_state=descripSubjectField;
+        }
     }
     return true;
 }
@@ -90,37 +103,55 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
 {
     if (qName=="term")
     {
-        inTermTag=false;
-        //m_state=null;
-        if (m_lang==langOther)
+//         inTermTag=false;
+        if (m_lang==langEn)
         {
-            m_termOtherList << m_termOther;
+            m_entry.english << m_termEn;
+            m_termEn.clear();
+        }
+        else if (m_lang==langOther)
+        {
+            m_entry.target << m_termOther;
             m_termOther.clear();
         }
-//         else if (m_lang==langOther)
-//         {
-//             
-//         }
 
     }
     else if (qName=="termEntry")
     {
-        //sanity check --maybe this entry is for another language?
-        if (m_termOtherList.isEmpty()||m_termEn.isEmpty())
+        //sanity check --maybe this entry is only for another language?
+        if (m_entry.target.isEmpty()||m_entry.english.isEmpty())
             return true;
-
-        m_termEn=m_termEn.toLower();
-        QStringList words(m_termEn.split(" ",QString::SkipEmptyParts));
+//         kWarning() << m_entry.target.size() << " " << m_entry.english.size()<< endl;
         int i=0;
-        for (;i<words.size();++i)
+        int j;
+        for (;i<m_entry.english.size();++i)
         {
-            m_glossary->wordHash.insert(words.at(i),m_glossary->termList.size());
+            QStringList words(m_entry.english.at(i).split(' ',QString::SkipEmptyParts));
+            for (j=0;j<words.size();++j)
+            {
+                m_glossary->wordHash.insert(words.at(i),m_glossary->termList.count());
+            }
+
         }
-        m_termOtherList.prepend(m_termEn);
-        m_glossary->termList.append(m_termOtherList);
-        m_termOtherList.clear();
+        m_glossary->termList.append(m_entry);
+
+        m_entry.clear();
+    }
+    else if (qName=="descrip")
+    {
+        if (m_state==descripSubjectField)
+        {
+            m_entry.subjectField=Project::instance()->glossary()->subjectFields.indexOf(m_subjectField);
+            if (m_entry.subjectField==-1)
+            {
+                m_entry.subjectField=Project::instance()->glossary()->subjectFields.size();
+                Project::instance()->glossary()->subjectFields << m_subjectField;
+            }
+            m_subjectField.clear();
+        }
 
     }
+    m_state=null;
     return true;
 }
 
@@ -128,16 +159,25 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
 
 bool TbxParser::characters ( const QString & ch )
 {
-    if(inTermTag)
+    if(m_state==term/*inTermTag*/)
     {
 //         kWarning() << "O " << ch << endl;
         if (m_lang==langEn)
-            m_termEn+=ch;
+            m_termEn+=ch.toLower();//this is important
         else if (m_lang==langOther)
             m_termOther+=ch;
 //         kWarning() << "O m_termEn " << m_termEn << endl;
 //         kWarning() << "O m_termO " << m_termOther << endl;
     }
+    else if (m_state==descripDefinition)
+    {
+        m_entry.definition+=ch;
+    }
+    else if (m_state==descripSubjectField)
+    {
+        m_subjectField+=ch;
+    }
+
 
     return true;
 }

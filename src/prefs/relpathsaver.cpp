@@ -30,57 +30,19 @@
 
 **************************************************************************** */
 
-#include "msgctxtview.h"
+#include "relpathsaver.h"
+#include "project.h"
+#include <kurl.h>
+// #include <kdebug.h>
 
-#include "catalog.h"
-
-#include <klocale.h>
-#include <kdebug.h>
-
-#include <QTextBrowser>
-
-MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Message Context"), parent)
-    , m_browser(new QTextBrowser(this))
-    , m_catalog(catalog)
-    , m_normTitle(i18n("Message Context"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
-    , m_hasInfo(false)
+void RelPathSaver::setText (const QString& txt)
 {
-    setObjectName("msgCtxtView");
-    setWidget(m_browser);
+/*    kWarning () << "00002  " << KUrl::relativePath(Project::instance()->projectDir(),
+                       txt) << " -- "  << Project::instance()->projectDir() << " - " <<txt<< endl;*/
+    QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
+                       txt));
 }
 
-MsgCtxtView::~MsgCtxtView()
-{
-    delete m_browser;
-}
 
-void MsgCtxtView::slotNewEntryDisplayed(uint index)
-{
-//     if (m_catalog->msgctxt(index).isEmpty())
-//     {
-//         m_browser->clear();
-//         return;
-//     }
-    if (m_catalog->msgctxt(index).isEmpty())
-    {
-        if (m_hasInfo)
-        {
-            m_browser->clear();
-            setWindowTitle(m_normTitle);
-            m_hasInfo=false;
-        }
-    }
-    else
-    {
-        if (!m_hasInfo)
-        {
-            setWindowTitle(m_hasInfoTitle);
-            m_hasInfo=true;
-        }
-        m_browser->setText(m_catalog->msgctxt(index));
-    }
-}
 
-#include "msgctxtview.moc"
+#include "relpathsaver.moc"

@@ -34,10 +34,11 @@
 
 **************************************************************************** */
 
-#include <catalogitem.h>
+#include "gettextimport.h"
 //#include <resources.h>
 
 #include <QFile>
+#include <QTime>
 #include <QFileInfo>
 #include <QRegExp>
 #include <QTextCodec>
@@ -51,7 +52,7 @@
 #include <klocale.h>
 
 #include "pluralformtypes_enum.h"
-#include "gettextimport.h"
+#include "catalogitem.h"
 
 //K_EXPORT_COMPONENT_FACTORY( kbabel_gettextimport, KGenericFactory<GettextImportPlugin> ( "kbabelgettextimportfilter" ) )
 
@@ -71,19 +72,22 @@ GettextImportPlugin::GettextImportPlugin(QObject* parent)
    , _rxMsgLineBorked    ("^\"?.+\\n?\"?$")
    , _rxMsgStr           ("^msgstr\\s*\".*\\n?\"$")
    , _rxMsgStrOther      ("^msgstr\\s*\"?.*\\n?\"?$")
-   , _rxMsgStrPluralStart  ("^msgstr\\[0\\]\\s*\".*\\n?\"$")
+   , _rxMsgStrPluralStart("^msgstr\\[0\\]\\s*\".*\\n?\"$")
    , _rxMsgStrPluralStartBorked ("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$")
-   , _rxMsgStrPlural ("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")
-   , _rxMsgStrPluralBorked ("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")
+   , _rxMsgStrPlural     ("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")
+   , _rxMsgStrPluralBorked      ("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")
+   , _rxMsgStrRemQuotes  ("^msgstr\\s*\"?")
 //    , _rxMsgId   ("^msgid\\s*\"?.*\"?$")
+   , _obsoleteStart("#~")
+   , _msgctxtStart("msgctxt")
 
 {
 }
 
-ConversionStatus GettextImportPlugin::load(const QString& filename, const QString&)
+ConversionStatus GettextImportPlugin::load(const QString& filename/*, bool tryToRecover*/, const QString&)
 {
 //   kDebug() << k_funcinfo << endl;
-
+_testBorked=false;
    if (filename.isEmpty())
    {
       kDebug() << "fatal error: empty filename to open" << endl;
@@ -124,7 +128,8 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
    QStringList tempObsolete;
 
    kDebug() << "start parsing..." << endl;
-
+   QTime aaa;
+   aaa.start();
    // first read header
    const ConversionStatus status = readHeader(stream);
 
@@ -275,6 +280,8 @@ ConversionStatus GettextImportPlugin::load(const QString& filename, const QStrin
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
+   kWarning() << k_funcinfo << " done in " << aaa.elapsed() << endl;
+
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
    setCatalogExtraData(tempObsolete);
@@ -408,12 +415,12 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        line = line.trimmed();
 
        // remember wrapping state to save file nicely
-/*       int a=line.indexOf('"');
-       int len=line.length()-(a>0?a:0);*/
-       if (_maxLineLength<line.length())
+/*       int a=line.indexOf('"');*/
+       int len=line.length();
+       if (_maxLineLength<len)
        {
 //           _maxLineLength=line.length();
-           _maxLineLength=line.length();
+           _maxLineLength=len;
             //kWarning()<< line << " ssdds " <<_maxLineLength<<endl;
        }
 //        if (line[0]=='"' && _maxLineLength<line.length()-2)
@@ -428,10 +435,10 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        if(part==Begin)
        {
            // ignore trailing newlines
-           if(line.isEmpty())
+           if(!len)
               continue;
 
-           if(line.startsWith("#~"))
+           if(line.startsWith(_obsoleteStart))
            {
               _obsolete=true;
 	      part=Comment;
@@ -442,7 +449,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                part=Comment;
                _comment=line;
            }
-           else if( line.contains( _rxMsgCtxt ) )
+           else if( line.startsWith(_msgctxtStart) && line.contains( _rxMsgCtxt ) )
            {
                part=Msgctxt;
 
@@ -464,7 +471,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
            }
 		     // one of the quotation marks is missing
-           else if( line.contains( _rxMsgIdBorked ) )
+           else if( /*_testBorked&&*/ line.contains( _rxMsgIdBorked ) )
            {
                part=Msgid;
 
@@ -486,10 +493,10 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        }
        else if(part==Comment)
        {
-            if(line.isEmpty() && _obsolete ) return OK;
-	    if(line.isEmpty() )
+            if(!len && _obsolete ) return OK;
+	    if(!len)
 	       continue;
-            else if(line.startsWith("#~"))
+            else if(line.startsWith(_obsoleteStart))
             {
                _comment+=('\n'+line);
 	       _obsolete=true;
@@ -498,7 +505,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             {
                _comment+=('\n'+line);
             }
-            else if( line.contains( _rxMsgCtxt ) )
+            else if( line.startsWith(_msgctxtStart) &&line.contains( _rxMsgCtxt ) )
             {
                part=Msgctxt;
 
@@ -519,7 +526,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
-            else if( line.contains( _rxMsgIdBorked ) )
+            else if( /*_testBorked&&*/line.contains( _rxMsgIdBorked ) )
             {
                part=Msgid;
 
@@ -528,7 +535,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                line.remove(_rxMsgLineRemEndQuote);
 
                (*(_msgid).begin())=line;
-			   
+
                if(!line.isEmpty())
                      recoverableError=true;
             }
@@ -541,7 +548,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
         }
         else if(part==Msgctxt)
         {
-            if(line.isEmpty())
+            if(!len)
                continue;
             else if( line.contains( _rxMsgLine ) )
             {
@@ -566,7 +573,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
-            else if( line.contains ( _rxMsgIdBorked ) )
+            else if(/*_testBorked&&*/ line.contains ( _rxMsgIdBorked ) )
             {
                part=Msgid;
 
@@ -588,7 +595,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
         }
         else if(part==Msgid)
         {
-            if(line.isEmpty())
+            if(!len)
                continue;
             else if( line.contains( _rxMsgLine ) )
             {
@@ -623,7 +630,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                _msgid.append(line);
             }
             // one of the quotation marks is missing
-            else if( line.contains( _rxMsgIdPluralBorked ) )
+            else if(/*_testBorked&&*/ line.contains( _rxMsgIdPluralBorked ) )
             {
                part=Msgid;
                _gettextPluralForm = true;
@@ -642,7 +649,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgstr\\s*\"?"));
+               line.remove(_rxMsgStrRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
                (*msgstrIt)=line;
@@ -652,7 +659,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgstr\\s*\"?"));
+               line.remove(_rxMsgStrRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
                (*msgstrIt)=line;
@@ -670,7 +677,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
                (*msgstrIt)=line;
             }
-            else if( _gettextPluralForm && ( line.contains( _rxMsgStrPluralStartBorked ) ) )
+            else if( /*_testBorked&&*/ _gettextPluralForm &&  line.contains( _rxMsgStrPluralStartBorked ) )
             {
                part=Msgstr;
 
@@ -697,7 +704,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                break;
             }
             // a line of the msgid with a missing quotation mark
-            else if( line.contains( _rxMsgLineBorked ) )
+            else if( /*_testBorked&&*/line.contains( _rxMsgLineBorked ) )
             {
                recoverableError=true;
 
@@ -715,7 +722,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                    it = _msgid.begin();
 
                // add Msgid line to item
-               if((*it).isEmpty())
+               if(it->isEmpty())
                   (*it)=line;
                else
                   (*it)+=('\n'+line);
@@ -729,7 +736,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
         }
         else if(part==Msgstr)
         {
-            if(line.isEmpty())
+            if(!len)
                break;
             // another line of the msgstr
             else if( line.contains( _rxMsgLine ) )
@@ -753,7 +760,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                msgstrIt=_msgstr.end();
                --msgstrIt;
             }
-	    else if( _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) )
+	    else if(/*_testBorked&&*/ _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) )
             {
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[[0-9]\\]\\s*\"?"));
@@ -773,7 +780,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                break;
             }
             // another line of the msgstr with a missing quotation mark
-            else if( line.contains( _rxMsgLineBorked ) )
+            else if( /*_testBorked&&*/line.contains( _rxMsgLineBorked ) )
             {
                recoverableError=true;
 

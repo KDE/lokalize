@@ -11,16 +11,24 @@
         <default code="true">KLocale::defaultLanguage()</default>
     </entry>
     <entry name="PoBaseDir"  type="String">
+<!--
         <label>The base directory for PO files (translations)</label>
+-->
         <default>./</default>
     </entry>
     <entry name="PotBaseDir"  type="String">
+<!--
         <label>The base directory for POT files (templates to be translated)</label>
+-->
         <default>../templates</default>
     </entry>
     <entry name="GlossaryTbx"  type="String">
+<!--
         <label>Project's glossary</label>
+-->
         <default>./terms.tbx</default>
+    </entry>
+    <entry name="WebQueryScripts"  type="StringList">
     </entry>
   </group>
 </kcfg>

@@ -36,12 +36,9 @@
 #define CMD_H
 
 #include <QUndoCommand>
-#include <kdebug.h>
 
 #include "pos.h"
-#include "catalog.h"
-#include "catalog_private.h"
-#include "catalogitem_private.h"
+class Catalog;
 
 enum Commands { Insert, Delete, ToggleFuzzy };
 

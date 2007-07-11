@@ -205,7 +205,10 @@ int ProjectModel::rowCount(const QModelIndex& parent) const
 {
 //     fetchMore(parent);
     int count= KDirModel::rowCount( parent );
-    if (parent.isValid()&&itemForIndex(parent)->metaInfo(false).item("translation.untranslated").value().isNull())
+    if (parent.isValid()
+        &&itemForIndex(parent)->metaInfo(false).item("translation.untranslated").value().isNull()
+        &&(!canFetchMore(parent))
+       )
     {
         int i=0;
         int untranslated=0;
@@ -235,7 +238,7 @@ int ProjectModel::rowCount(const QModelIndex& parent) const
             {
                 //"inode/directory"
                 infoIsFull=false;
-                kWarning()<<"s " <<item->url().fileName()<<endl;
+//                 kWarning()<<"s " <<item->url().fileName()<<endl;
             }
         }
         if (infoIsFull&&(untranslated+translated+fuzzy))

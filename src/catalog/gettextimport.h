@@ -66,8 +66,9 @@ private:
     QStringList _msgid;
     QStringList _msgstr;
     QString _comment;
-    bool _gettextPluralForm;
-    bool _obsolete;
+    bool _gettextPluralForm:16;
+    bool _testBorked:8;
+    bool _obsolete:8;
 
     QRegExp _rxMsgCtxt;
     QRegExp _rxMsgId;
@@ -85,7 +86,10 @@ private:
     QRegExp _rxMsgStrPluralStartBorked;
     QRegExp _rxMsgStrPlural;
     QRegExp _rxMsgStrPluralBorked;
+    QRegExp _rxMsgStrRemQuotes;
 
+    QString _obsoleteStart;
+    QString _msgctxtStart;
 };
 
 #endif
