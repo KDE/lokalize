@@ -4,7 +4,7 @@ include_directories(${STRIGI_INCLUDE_DIR} ${QT_INCLUDES})
 kde4_add_library(po MODULE poendanalyzer.cpp)
 
 # link with the required libraries
-target_link_libraries(po ${STREAMANALYZER_LIBRARY} ${QT_QTCORE_LIBRARY})
+target_link_libraries(po ${STRIGI_STREAMANALYZER_LIBRARY} ${QT_QTCORE_LIBRARY})
 
 # adjust the name so the module is recognized as a strigi plugin
 set_target_properties(po PROPERTIES
