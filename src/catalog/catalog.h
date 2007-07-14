@@ -64,7 +64,7 @@ if (  d->_entries.isEmpty() )\
 * It has the ability to load from and save to a po-file.
 * Also it defines all necessary functions to set and get the entries
 *
-* @short Singleton class, that represents a translation catalog(po-file)
+* @short class, that represents a translation catalog(po-file)
 * @author Nick Shaforostoff <shafff@ukr.net>
 */
 class Catalog: public QUndoStack

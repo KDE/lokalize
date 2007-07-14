@@ -34,22 +34,30 @@
 #define MERGECATALOG_H
 
 #include "catalog.h"
+// #include <kdebug.h>
 
 /**
 	@author Nick Shaforostoff <shafff@ukr.net>
 */
 class MergeCatalog : public Catalog
 {
+    Q_OBJECT
 public:
     MergeCatalog(QObject* parent, Catalog* baseCatalog);
     ~MergeCatalog(){};
 
     void importFinished();
 
-    int firstChangedIndex() const {return m_changedIndex.isEmpty()?numberOfEntries():m_changedIndex.first();};
-    int lastChangedIndex() const {return m_changedIndex.isEmpty()?-1:m_changedIndex.last();};
-    int nextChangedIndex(uint index) const {return findNextInList(m_changedIndex,index);};
-    int prevChangedIndex(uint index) const {return findPrevInList(m_changedIndex,index);};
+    int firstChangedIndex() const {return m_changedIndex.isEmpty()?numberOfEntries():m_changedIndex.first();}
+    int lastChangedIndex() const {return m_changedIndex.isEmpty()?-1:m_changedIndex.last();}
+    int nextChangedIndex(uint index) const {return findNextInList(m_changedIndex,index);}
+    int prevChangedIndex(uint index) const {return findPrevInList(m_changedIndex,index);}
+
+public slots:
+    void removeFromChangedIndex(uint index) {
+        m_changedIndex.removeAll(index);
+//         kWarning()<<"rmvd"<<endl;
+    }
 
 private:
     Catalog* m_baseCatalog;

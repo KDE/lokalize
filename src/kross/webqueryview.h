@@ -56,13 +56,13 @@ class Ui_QueryControl;
  * ui_queryControl contains our own MyActionCollectionView class
  * that acts like dispatcher...
  */
-class KrossView: public QDockWidget
+class WebQueryView: public QDockWidget
 {
     Q_OBJECT
 
 public:
-    KrossView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~KrossView();
+    WebQueryView(QWidget*,Catalog*,const QVector<QAction*>&);
+    virtual ~WebQueryView();
 
 
 //     void dragEnterEvent(QDragEnterEvent* event);

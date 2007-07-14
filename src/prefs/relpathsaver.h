@@ -35,6 +35,10 @@
 
 #include <QLineEdit>
 
+/**
+ * helper widget to save relative paths it project file
+ * (so it could be published in svn)
+ */
 class RelPathSaver: public QLineEdit
 {
 Q_OBJECT

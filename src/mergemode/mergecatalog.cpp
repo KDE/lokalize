@@ -102,5 +102,3 @@ void MergeCatalog::importFinished()
 
 
 
-
-

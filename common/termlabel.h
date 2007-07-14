@@ -47,7 +47,7 @@ class TermLabel: public QLabel//QPushButton
 {
     Q_OBJECT
 public:
-    TermLabel(QAction* a=0): m_action(a){};
+    TermLabel(QAction* a=0):m_termIndex(-1),m_action(a){};
     ~TermLabel(){}
 
     /**

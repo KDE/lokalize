@@ -39,6 +39,7 @@
 
 
 #include "kaider.h"
+#include "kaiderview.h"
 #include "pos.h"
 #include "mergeview.h"
 #include "mergecatalog.h"
@@ -62,6 +63,11 @@ void KAider::mergeOpen(KUrl url)
     if (_mergeCatalog->loadFromUrl(url))
     {
         _mergeView->setMergeCatalog(_mergeCatalog);
+
+        connect (m_view,
+                 SIGNAL(signalChanged(uint)),
+                 _mergeCatalog,
+                 SLOT(removeFromChangedIndex(uint)));
 
         emit signalNewEntryDisplayed(_currentPos);
         emit signalPriorChangedAvailable(_currentEntry>_mergeCatalog->firstChangedIndex());

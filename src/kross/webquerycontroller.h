@@ -40,7 +40,7 @@
 #include <QRegExp>
 class Catalog;
 class MergeCatalog;
-class KrossView;
+class WebQueryView;
 class QTextCodec;
 class KJob;
 
@@ -52,7 +52,7 @@ struct CatalogData
     // e.g. it easier for machine to translate from russian to ukrainian than from english to ukrainian
     QString msg2;
 
-    KrossView* webQueryView;//object to call slots
+    WebQueryView* webQueryView;//object to call slots
 };
 
 

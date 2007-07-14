@@ -91,6 +91,7 @@ protected:
 
 public slots:
     void fileOpen(KUrl url=KUrl());
+    void mergeOpen(KUrl url=KUrl());
     void gotoFirst();
     void gotoLast();
 
@@ -164,7 +165,6 @@ private slots:
     void projectConfigure();
     void newWindowOpen(const KUrl&);
 
-    void mergeOpen(KUrl url=KUrl());
     void mergeCleanup();
     void gotoNextChanged();
     void gotoPrevChanged();
@@ -191,9 +191,12 @@ private:
     void deleteUiSetupers();
 
 private:
-    Catalog* _catalog;
-    MergeCatalog* _mergeCatalog;
     Project* _project;
+    Catalog* _catalog;
+
+    // it could be keeped in mergeview,
+    // but too many things are done on thw mainwindow level
+    MergeCatalog* _mergeCatalog;
 
     KAiderView *m_view;
 
@@ -208,14 +211,14 @@ private:
     Ui_prefs_identity* ui_prefs_identity;
     Ui_prefs_font* ui_prefs_font;
     Ui_prefs_projectmain* ui_prefs_projectmain;
-//     Ui_prefs_webquery* ui_prefs_projectmain;
+//     Ui_prefs_webquery* ui_prefs_webquery;
     KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
     KEditListBox* m_scriptsPrefWidget;
 
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
-    ProjectView* _projectView;
+//    ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
     GlossaryView* _glossaryView;
@@ -231,6 +234,9 @@ private:
     QString _captionPath;
 
 signals:
+    //emitted when mainwindow is closed or another file is opened
+    void signalFileClosed();
+
     void signalNewEntryDisplayed(uint);
     void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);

@@ -81,7 +81,8 @@ struct TermEntry
 
 
 /**
- * internal representation of glossary
+ * internal representation of glossary.
+ * we store only data we need (i.e. only subset of TBX format)
  */
 struct Glossary
 {
@@ -89,11 +90,19 @@ struct Glossary
     QList<TermEntry> termList;
     QStringList subjectFields;
 
+    QString path;
+
+    void load(const QString&);
+    void add(const TermEntry&);
+    void change(const TermEntry&);
+
+
     void clear()
     {
         wordHash.clear();
         termList.clear();
         subjectFields.clear();
+        path.clear();
     }
 };
 

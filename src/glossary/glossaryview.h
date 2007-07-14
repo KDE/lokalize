@@ -48,9 +48,6 @@ class QAction;
 #include <QVector>
 
 #define GLOSSARY_SHORTCUTS 11
-/**
- * part of the glossary handling is done in the project.cpp...
- */
 class GlossaryView: public QDockWidget
 {
     Q_OBJECT

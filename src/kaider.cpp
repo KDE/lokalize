@@ -72,7 +72,7 @@
 #include "mergecatalog.h"
 #include "cataloglistview.h"
 #include "glossaryview.h"
-#include "krossview.h"
+#include "webqueryview.h"
 
 #include "project.h"
 
@@ -81,9 +81,9 @@
 
 KAider::KAider()
     : KXmlGuiWindow()
+    , _project(Project::instance())
     , _catalog(new Catalog(this))
     , _mergeCatalog(0)
-    , _project(Project::instance())
     , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
     , _findDialog(0)
     , _find(0)
@@ -97,7 +97,7 @@ KAider::KAider()
     , ui_prefs_projectmain(0)
     , ui_findExtension(0)
     , ui_replaceExtension(0)
-    , _projectView(0)
+//     , _projectView(0)
     , _mergeView(0)
 //     , _msgIdDiffView(0)
 {
@@ -114,6 +114,7 @@ KAider::KAider()
 
 KAider::~KAider()
 {
+    emit signalFileClosed();
     _project->save();
     deleteUiSetupers();
     //these are qobjects...
@@ -127,7 +128,7 @@ KAider::~KAider()
     delete ui_findExtension;
     delete ui_prefs_identity;
     delete ui_prefs_font;*/
-// NO: we're exiting anyway...
+// ////NO NO NO: we're exiting anyway...
 }
 
 #define ID_STATUS_TOTAL 1
@@ -326,12 +327,12 @@ void KAider::setupActions()
     connect( this, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_accept",this,SLOT(mergeAccept()));
-    action->setText(i18n("Accept from merging source"));
+    action->setText(i18n("Copy from merging source"));
     action->setShortcut(Qt::ALT+Qt::Key_A);
     connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
 
     action = actionCollection()->addAction("merge_acceptnew",this,SLOT(mergeAcceptAllForEmpty()));
-    action->setText(i18n("Accept all new translations"));
+    action->setText(i18n("Copy all new translations"));
     action->setShortcut(Qt::ALT+Qt::Key_E);
 
     setupGUI();
@@ -357,7 +358,7 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiffView,SLOT(slotNewEntryDisplayed(uint)));
 
-    _projectView = new ProjectView(this);
+    ProjectView* _projectView = new ProjectView(this);
     addDockWidget(Qt::BottomDockWidgetArea, _projectView);
     actionCollection()->addAction( QLatin1String("showprojectview_action"), _projectView->toggleViewAction() );
     //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
@@ -369,6 +370,7 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),_mergeView,SLOT(slotEntryWithMergeDisplayed(bool,const DocPosition&)));
     connect (_mergeView,SIGNAL(mergeOpenRequested(KUrl)),this,SLOT(mergeOpen(KUrl)));
+    connect (this,SIGNAL(signalFileClosed()),this,SLOT(mergeCleanup()));
 
     CatalogTreeView* catalogTreeView = new CatalogTreeView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, catalogTreeView);
@@ -400,14 +402,14 @@ void KAider::createDockWindows()
         wqaction->setText(i18n("Insert query result # %1",i));
         wqactions[i]=wqaction;
     }
-    KrossView* _krossView = new KrossView(this,_catalog,wqactions);
-    addDockWidget(Qt::BottomDockWidgetArea, _krossView);
-    actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _krossView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_krossView,SLOT(slotNewEntryDisplayed(uint)));
-    connect (_krossView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+    WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
+    addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
+    actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_webQueryView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
 
-     QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
+    QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]={  Qt::Key_E,
                         Qt::Key_H,
 //                         Qt::Key_G,
@@ -478,7 +480,7 @@ void KAider::fileOpen(KUrl url)
 
     if (_catalog->loadFromUrl(url))
     {
-        mergeCleanup();
+        emit signalFileClosed();
 
         statusBar()->changeItem(i18n("Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();

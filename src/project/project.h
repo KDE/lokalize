@@ -40,13 +40,15 @@
 class ProjectModel;
 class Glossary;
 class WebQueryController;
-class WebQueryThread;
+// class WebQueryThread;
+// #include "webquerythread.h"
 
 /**
  * Singleton object that represents project.
  * It is shared between KAider 'mainwindows' for the same project.
  * Keeps project's KDirModel, Glossary and kross::actions
  */
+
 ///////// * Also provides list of web-query scripts
 class Project: public ProjectBase
 {
@@ -71,8 +73,6 @@ public:
     QString potDir()const{return absolutePath(potBaseDir());}
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
     Glossary* glossary()const{return m_glossary;}
-    void glossaryAdd(const TermEntry&);
-    void glossaryChange(const TermEntry& term);
 //     WebQueryThread* aaaaa(){return &m_webQueryThread;};
 
     QStringList webQueryScripts() const;

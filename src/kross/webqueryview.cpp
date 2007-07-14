@@ -30,7 +30,7 @@
 
 **************************************************************************** */
 
-#include "krossview.h"
+#include "webqueryview.h"
 #include "project.h"
 #include "catalog.h"
 #include "flowlayout.h"
@@ -56,7 +56,7 @@
 
 using namespace Kross;
 
-KrossView::KrossView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
+WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18n("Web Queries"), parent)
 //         , m_browser(new QWidget)
         , m_generalBrowser(new QWidget(this))
@@ -71,7 +71,7 @@ KrossView::KrossView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& a
 //         , m_hasInfo(false)
 
 {
-    setObjectName("krossView");
+    setObjectName("WebQueryView");
     setWidget(m_generalBrowser);
 
 //    connect(Project::instance(),SIGNAL(loaded()),this,SLOT(populateWebQueryActions()));
@@ -98,7 +98,7 @@ KrossView::KrossView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& a
     ui_queryControl->actionzView->data.webQueryView=this;
 }
 
-KrossView::~KrossView()
+WebQueryView::~WebQueryView()
 {
     delete m_flowLayout;
 //     delete m_browser;
@@ -106,7 +106,7 @@ KrossView::~KrossView()
 
 
 #if 0
-void KrossView::populateWebQueryActions()
+void WebQueryView::populateWebQueryActions()
 {
 
     QStringList actionz(Project::instance()->webQueryScripts());
@@ -129,13 +129,13 @@ void KrossView::populateWebQueryActions()
 }
 #endif
 
-// void KrossView::doQuery()
+// void WebQueryView::doQuery()
 // {
 // //     ui_queryControl->actionzView
 // }
 
 
-// void KrossView::dragEnterEvent(QDragEnterEvent* event)
+// void WebQueryView::dragEnterEvent(QDragEnterEvent* event)
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
 //         {
@@ -144,15 +144,15 @@ void KrossView::populateWebQueryActions()
 //         };*/
 // }
 // 
-// void KrossView::dropEvent(QDropEvent *event)
+// void WebQueryView::dropEvent(QDropEvent *event)
 // {
 //     /*    emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
 //         event->acceptProposedAction();*/
 // }
 
-void KrossView::slotNewEntryDisplayed(uint entry)
+void WebQueryView::slotNewEntryDisplayed(uint entry)
 {
-    kWarning()<<"kv "<<endl;
+//     kWarning()<<"kv "<<endl;
     m_flowLayout->clearWebQueryResult();
     ui_queryControl->actionzView->data.msg=m_catalog->msgid(entry);
     
@@ -179,10 +179,10 @@ void KrossView::slotNewEntryDisplayed(uint entry)
 
 }
 
-void KrossView::addWebQueryResult(const QString& str)
+void WebQueryView::addWebQueryResult(const QString& str)
 {
-    kWarning()<<"kv "<<str<<endl;
+//     kWarning()<<"kv "<<str<<endl;
     m_flowLayout->addWebQueryResult(str);
 }
 
-#include "krossview.moc"
+// #include "WebQueryView.moc"

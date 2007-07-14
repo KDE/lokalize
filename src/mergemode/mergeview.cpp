@@ -115,7 +115,12 @@ void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
     newStr.prepend("ggg aaa bbb aaa ");*/
     oldStr.prepend(' ');
     newStr.prepend(' ');
+
     QString result(wordDiff(oldStr,newStr));
+
+    result.remove("</KBABELADD><KBABELADD>");
+    result.remove("</KBABELDEL><KBABELDEL>");
+
     result.replace("<KBABELADD>","<font color=\"purple\">");
     result.replace("</KBABELADD>","</font>");
     result.replace("<KBABELDEL>","<font color=\"red\">");
@@ -129,10 +134,16 @@ void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
     else
         m_browser->viewport()->setBackgroundRole(QPalette::Base);
 
+//     result.replace("&lt;",'<');
+//     result.replace("&gt;",'>');
+
     m_browser->setHtml(result);
 //     m_browser->setPlainText(result);
 //     kWarning()<<"ELA "<<time.elapsed()<<endl;
-//     kWarning()<<" "<<result<<endl;
+    //kWarning()<<" try "<<result<<endl;
+
+//     result.replace("&lt;",'<');
+//     result.replace("&gt;",'>');
 
 //     oldStr.replace("\\n","\\n\n");
 //     newStr.replace("\\n","\\n\n");

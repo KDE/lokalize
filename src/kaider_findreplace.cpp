@@ -70,16 +70,18 @@ void KAider::find()
         ui_findExtension->setupUi(_findDialog->findExtension());
     }
 
-    if (!m_view->selection().isEmpty())
+    QString sel(m_view->selection());
+    if (!(sel.isEmpty()&&m_view->selectionMsgId().isEmpty()))
     {
+        if (sel.isEmpty())
+            sel=m_view->selectionMsgId();
         if (FIND_IGNOREACCELS)
         {
-            QString tmp(m_view->selection());
-            tmp.remove('&');
-            _findDialog->setPattern(tmp);
+            sel.remove('&');
+            _findDialog->setPattern(sel);
         }
         else
-            _findDialog->setPattern(m_view->selection());
+            _findDialog->setPattern(sel);
     }
 
     if ( _findDialog->exec() != QDialog::Accepted )

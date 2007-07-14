@@ -63,14 +63,19 @@ void MsgCtxtView::slotNewEntryDisplayed(uint index)
 //         m_browser->clear();
 //         return;
 //     }
+    m_browser->clear();
+    m_browser->setHtml("<b>Comment:</b><br>"+m_catalog->comment(index));
+//     m_browser->append(m_catalog->comment(index));
+
     if (m_catalog->msgctxt(index).isEmpty())
     {
         if (m_hasInfo)
         {
-            m_browser->clear();
+//             m_browser->clear();
             setWindowTitle(m_normTitle);
             m_hasInfo=false;
         }
+//         m_browser->setText(m_catalog->msgctxt(index));
     }
     else
     {
@@ -79,7 +84,11 @@ void MsgCtxtView::slotNewEntryDisplayed(uint index)
             setWindowTitle(m_hasInfoTitle);
             m_hasInfo=true;
         }
-        m_browser->setText(m_catalog->msgctxt(index));
+        QTextCursor t=m_browser->textCursor();
+        t.movePosition(QTextCursor::End);
+        m_browser->setTextCursor(t);
+        m_browser->insertHtml("<br><b>Context:</b><br>"+m_catalog->msgctxt(index));
+//         m_browser->setText(m_catalog->msgctxt(index));
     }
 }
 

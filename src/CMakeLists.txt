@@ -31,6 +31,7 @@ set(kaider_SRCS
     ../common/termlabel.cpp
     glossary/glossaryview.cpp
     glossary/tbxparser.cpp
+    glossary/glossary.cpp
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
@@ -43,7 +44,7 @@ set(kaider_SRCS
 
     prefs/relpathsaver.cpp
 
-    krossview.cpp
+    kross/webqueryview.cpp
     kross/webquerycontroller.cpp
     kross/myactioncollectionview.cpp
 #    kross/webquerythread.cpp

@@ -108,11 +108,27 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
         {
             m_entry.english << m_termEn;
             m_termEn.clear();
+            m_entry.english.last().squeeze();
         }
         else if (m_lang==langOther)
         {
             m_entry.target << m_termOther;
             m_termOther.clear();
+            m_entry.target.last().squeeze();
+        }
+
+    }
+    else if (qName=="descrip")
+    {
+        if (m_state==descripSubjectField)
+        {
+            m_entry.subjectField=Project::instance()->glossary()->subjectFields.indexOf(m_subjectField);
+            if (m_entry.subjectField==-1)
+            {
+                m_entry.subjectField=Project::instance()->glossary()->subjectFields.size();
+                Project::instance()->glossary()->subjectFields << m_subjectField;
+            }
+            m_subjectField.clear();
         }
 
     }
@@ -136,20 +152,6 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
         m_glossary->termList.append(m_entry);
 
         m_entry.clear();
-    }
-    else if (qName=="descrip")
-    {
-        if (m_state==descripSubjectField)
-        {
-            m_entry.subjectField=Project::instance()->glossary()->subjectFields.indexOf(m_subjectField);
-            if (m_entry.subjectField==-1)
-            {
-                m_entry.subjectField=Project::instance()->glossary()->subjectFields.size();
-                Project::instance()->glossary()->subjectFields << m_subjectField;
-            }
-            m_subjectField.clear();
-        }
-
     }
     m_state=null;
     return true;

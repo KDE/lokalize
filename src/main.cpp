@@ -51,6 +51,7 @@ int main(int argc, char **argv)
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;
+    options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
@@ -73,7 +74,9 @@ int main(int argc, char **argv)
         }
         else
         {
-            widget->fileOpen(args->arg(0));
+            widget->fileOpen(args->url(0));
+            if (args->isSet("merge-source"))
+                widget->mergeOpen(KCmdLineArgs::makeURL(args->getOption("merge-source").toUtf8()));
 //             KUrl a(args->arg(0));
 //             QMetaObject::invokeMethod(widget,
 //                                       SLOT(fileOpen(KUrl)),

@@ -70,6 +70,8 @@
 void TermLabel::insert()
 {
 //     kWarning() << "m_termTransl" << endl;
+    if (m_termIndex==-1)
+        return;
     if( Project::instance()->glossary()->termList.at(m_termIndex).target.count()>1)
     {
         QMenu menu;
@@ -142,7 +144,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
                     a.subjectField=Project::instance()->glossary()->subjectFields.size();
                     Project::instance()->glossary()->subjectFields<< ui_termdialog.subjectField->currentText();
                 }
-                Project::instance()->glossaryChange(a);
+                Project::instance()->glossary()->change(a);
             }
 
 

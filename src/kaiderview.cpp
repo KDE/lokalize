@@ -120,15 +120,21 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
     if(keyEvent->matches(QKeySequence::Undo))
     {
-        emit signalUndo();
-        fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
-        return true;
+        if (_catalog->canUndo())
+        {
+            emit signalUndo();
+            fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+            return true;
+        }
     }
     else if(keyEvent->matches(QKeySequence::Redo))
     {
-        emit signalRedo();
-        fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
-        return true;
+        if (_catalog->canRedo())
+        {
+            emit signalRedo();
+            fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+            return true;
+        }
     }
     else if (keyEvent->modifiers() == (Qt::AltModifier|Qt::ControlModifier))
     {
@@ -205,6 +211,9 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
         _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
         _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
     }
+
+    // for mergecatalog
+    emit signalChanged(pos.entry);
     //KMessageBox::information(0, QString("%1 %2 %3").arg(offset).arg(charsRemoved).arg(charsAdded) );
 }
 

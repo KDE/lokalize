@@ -122,7 +122,8 @@ private:
 
 signals:
     void signalChangeStatusbar(const QString&);
-    void signalChangeCaption(const QString&);
+    void signalChanged(uint index); //esp for mergemode...
+//     void signalChangeCaption(const QString&);
     void signalUndo();
     void signalRedo();
     void signalGotoFirst();

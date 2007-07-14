@@ -66,7 +66,7 @@ const QString& CatalogItem::comment() const
 const QString& CatalogItem::msgctxt(const bool noNewlines) const
 {
     if (noNewlines)
-        return (d->_msgctxt).replace("\n", " "); //TODO " " or "" ?
+        return (d->_msgctxt).replace('\n', ' '); //TODO " " or "" ?
     else
         return d->_msgctxt;
 }
@@ -111,6 +111,7 @@ void CatalogItem::setValid(bool a)
 void CatalogItem::setMsgctxt(const QString& msg)
 {
     d->_msgctxt=msg;
+    d->_msgctxt.squeeze();
 }
 
 void CatalogItem::setMsgid(const QString& msg, const int form)
@@ -156,6 +157,7 @@ void CatalogItem::setMsgstr(const QStringList& msg)
 void CatalogItem::setComment(const QString& com)
 {
     d->_comment=com;
+    d->_comment.squeeze();
 }
 
 void CatalogItem::setPluralFormType( PluralFormType type )
@@ -333,13 +335,13 @@ void CatalogItem::operator=(const CatalogItem& rhs)
 
 QStringList CatalogItem::msgstrAsList() const
 {
-   QStringList list = d->_msgstrPlural.first().split( "\n", QString::SkipEmptyParts );
+   QStringList list = d->_msgstrPlural.first().split( '\n', QString::SkipEmptyParts );
 
    if(d->_msgstrPlural.first()=="\n")
-      list.prepend("");
+      list.prepend(QString());
 
    if(list.isEmpty())
-      list.append("");
+      list.append(QString());
 
    return list;
 }

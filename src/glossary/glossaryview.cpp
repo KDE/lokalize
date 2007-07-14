@@ -243,7 +243,7 @@ void GlossaryView::defineNewTerm(QString en,QString target)
                 a.subjectField=Project::instance()->glossary()->subjectFields.size();
                 Project::instance()->glossary()->subjectFields<< ui_termdialog.subjectField->currentText();
             }
-        Project::instance()->glossaryAdd(a);
+        Project::instance()->glossary()->add(a);
     }
 }
 

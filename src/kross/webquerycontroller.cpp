@@ -32,7 +32,7 @@
 
 #include "webquerycontroller.h"
 #include "catalog.h"
-#include "krossview.h"
+#include "webqueryview.h"
 
 #include <QUrl>
 #include <QFile>
