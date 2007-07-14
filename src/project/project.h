@@ -47,7 +47,6 @@ class WebQueryThread;
  * It is shared between KAider 'mainwindows' for the same project.
  * Keeps project's KDirModel, Glossary and kross::actions
  */
-#include "webquerythread.h"
 ///////// * Also provides list of web-query scripts
 class Project: public ProjectBase
 {
