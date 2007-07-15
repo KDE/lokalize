@@ -49,6 +49,7 @@
 
 //  #include "global.h"
 #include "kaider.h"
+#include "kaiderview.h"
 #include "pos.h"
 #include "cmd.h"
 #include "catalog.h"
@@ -102,14 +103,14 @@ void KAider::optionsPreferences()
     connect(ui_prefs_identity->DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity->kcfg_DefaultLangCode,SLOT(setText(const QString&)));
     ui_prefs_identity->kcfg_DefaultLangCode->hide();
 
-    dialog->addPage(w, i18n("Identity"), "identity_setting");
+    dialog->addPage(w, i18nc("@title","Identity"), "identity_setting");
 
 //Font
     w = new QWidget;
     if (!ui_prefs_font)
         ui_prefs_font = new Ui_prefs_font;
     ui_prefs_font->setupUi(w);
-    dialog->addPage(w, i18n("Fonts"), "font_setting");
+    dialog->addPage(w, i18nc("@title","Appearance"), "font_setting");
 
 
 //     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));
@@ -119,7 +120,7 @@ void KAider::optionsPreferences()
 //Spellcheck
     w = new Sonnet::ConfigWidget(Settings::self()->config(),dialog);
     w->setParent(this);
-    dialog->addPage(w, i18n("Spellcheck"), "spellcheck_setting");
+    dialog->addPage(w, i18nc("@title","Spellcheck"), "spellcheck_setting");
     connect(dialog,SIGNAL(okClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(applyClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(defaultClicked()),w,SLOT(slotDefault()));
@@ -128,9 +129,7 @@ void KAider::optionsPreferences()
 
 
 
-
-
-
+    connect(dialog,SIGNAL(settingsChanged(const QString&)),m_view, SLOT(settingsChanged()));
 
     dialog->show();
 //    dialog->addPage(new General(0, "General"), i18n("General") );
@@ -207,12 +206,16 @@ void KAider::projectConfigure()
 
 
 
-    dialog->addPage(w, i18n("General"), "general_project_setting");
+    dialog->addPage(w, i18nc("@title","General"), "general_project_setting");
 
     w = new QWidget;
-    KUrlRequester *req = new KUrlRequester( w );
+    QGridLayout* gridLayout = new QGridLayout(w);
+    gridLayout->setSpacing(6);
+    gridLayout->setMargin(11);
+    KUrlRequester *req = new KUrlRequester( /*w*/ );
     req->setPath(Project::instance()->projectDir());//for user's sake :)
-    m_scriptsPrefWidget = new KEditListBox( i18n("Web Query Scripts"), req->customEditor(), w );
+    m_scriptsPrefWidget = new KEditListBox( i18nc("@label","Web Query Scripts"), req->customEditor(), w );
+    gridLayout->addWidget(m_scriptsPrefWidget, 0, 0, 1, 1);
     m_scriptsRelPrefWidget = new KEditListBox(w);
     m_scriptsRelPrefWidget->setObjectName("kcfg_WebQueryScripts");
     m_scriptsRelPrefWidget->hide();
@@ -226,7 +229,7 @@ void KAider::projectConfigure()
     ui_prefs_webquery->webQueryScripts->*/
 
 
-    dialog->addPage(w, i18n("Web Query"), "webquery_project_setting");
+    dialog->addPage(w, i18nc("@title","Web Query"), "webquery_project_setting");
 
     m_scriptsPrefWidget->setItems(Project::instance()->webQueryScripts());
     connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateGlossary()));

@@ -109,6 +109,7 @@ KAider::KAider()
     setAutoSaveSettings();
 
     connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
+    connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged()));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 }
 
@@ -281,6 +282,13 @@ void KAider::setupActions()
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
+    ADD_ACTION_SHORTCUT("go_prev_fuzzyUntr","Previous Fuzzy or Untranslated",Qt::CTRL+Qt::ALT+Qt::Key_PageUp,"prevfuzzyuntrans")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
+    connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    ADD_ACTION_SHORTCUT("go_next_fuzzyUntr","Next Fuzzy or Untranslated",Qt::CTRL+Qt::ALT+Qt::Key_PageDown,"nextfuzzyuntrans")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
+    connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
 //Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
@@ -318,22 +326,22 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("merge_prev",this,SLOT(gotoPrevChanged()));
     action->setText(i18n("Previous changed"));
-    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_PageUp);
+    action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( this, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_next",this,SLOT(gotoNextChanged()));
     action->setText(i18n("Next changed"));
-    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_PageDown);
+    action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( this, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_accept",this,SLOT(mergeAccept()));
     action->setText(i18n("Copy from merging source"));
-    action->setShortcut(Qt::ALT+Qt::Key_A);
+    action->setShortcut(Qt::ALT+Qt::Key_Return);
     connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
 
     action = actionCollection()->addAction("merge_acceptnew",this,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18n("Copy all new translations"));
-    action->setShortcut(Qt::ALT+Qt::Key_E);
+    //action->setShortcut(Qt::ALT+Qt::Key_E);
 
     setupGUI();
 }
@@ -640,6 +648,12 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
         emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
 
+        emit signalPriorFuzzyOrUntrAvailable(_currentEntry>_catalog->firstFuzzyIndex()
+                                            ||_currentEntry>_catalog->firstUntranslatedIndex()
+                                            );
+        emit signalNextFuzzyOrUntrAvailable(_currentEntry<_catalog->lastFuzzyIndex()
+                                           ||_currentEntry<_catalog->lastUntranslatedIndex());
+
         emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
         emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
         emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
@@ -657,11 +671,20 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
     //still emit even if _currentEntry==pos.entry
     emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
-    statusBar()->changeItem(_catalog->isFuzzy(_currentEntry)?i18n("Fuzzy"):"",ID_STATUS_ISFUZZY);
+    msgStrChanged();
     statusBar()->changeItem(i18n("Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
 //     kWarning() << "signalz  " << a.elapsed() << endl;
 }
 
+void KAider::msgStrChanged()
+{
+    if (_catalog->isFuzzy(_currentEntry))
+        statusBar()->changeItem(i18nc("@info","Fuzzy"),ID_STATUS_ISFUZZY);
+    else if (_catalog->msgstr(_currentPos).isEmpty())
+        statusBar()->changeItem(i18nc("@info","Untranslated"),ID_STATUS_ISFUZZY);
+    else
+        statusBar()->changeItem("",ID_STATUS_ISFUZZY);
+}
 void KAider::switchForm(int newForm)
 {
     if (_currentPos.form==newForm)
@@ -729,6 +752,38 @@ void KAider::gotoNextUntranslated()
     if( (pos.entry=_catalog->nextUntranslatedIndex(_currentEntry)) == -1)
         return;
 
+    gotoEntry(pos);
+}
+
+void KAider::gotoPrevFuzzyUntr()
+{
+    DocPosition pos;
+
+    short fu = _catalog->prevFuzzyIndex(_currentEntry);
+    short un = _catalog->prevUntranslatedIndex(_currentEntry);
+
+    pos.entry=fu>un?fu:un;
+    if( pos.entry == -1)
+        return;
+
+    gotoEntry(pos);
+}
+
+void KAider::gotoNextFuzzyUntr()
+{
+    DocPosition pos;
+
+    short fu = _catalog->nextFuzzyIndex(_currentEntry);
+    short un = _catalog->nextUntranslatedIndex(_currentEntry);
+    if( (fu == -1) && (un == -1) )
+        return;
+
+    if (fu == -1)
+        fu=un;
+    else if (un == -1)
+        un=fu;
+
+    pos.entry=fu<un?fu:un;
     gotoEntry(pos);
 }
 

@@ -6,7 +6,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
-    ${CMAKE_CURRENT_SOURCE_DIR}/kross
+    ${CMAKE_CURRENT_SOURCE_DIR}/webquery
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${KDE4_INCLUDE_DIR}
     ${QT_INCLUDES}
@@ -44,10 +44,10 @@ set(kaider_SRCS
 
     prefs/relpathsaver.cpp
 
-    kross/webqueryview.cpp
-    kross/webquerycontroller.cpp
-    kross/myactioncollectionview.cpp
-#    kross/webquerythread.cpp
+    webquery/webqueryview.cpp
+    webquery/webquerycontroller.cpp
+    webquery/myactioncollectionview.cpp
+#    webquery/webquerythread.cpp
 
     catalog/cmd.cpp
     catalog/catalog.cpp
@@ -63,10 +63,10 @@ kde4_add_ui_files(kaider_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
     project/prefs_projectmain.ui
-    project/prefs_webquery.ui
+#     project/prefs_webquery.ui
     glossary/termdialog.ui
     kaider_findextension.ui
-    kross/querycontrol.ui
+    webquery/querycontrol.ui
 )
 
 kde4_add_kcfg_files(kaider_SRCS

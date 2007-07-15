@@ -36,7 +36,7 @@
 
 #include <QObject>
 #include "projectbase.h"
-#include "glossary.h"
+// #include "glossary.h"
 class ProjectModel;
 class Glossary;
 class WebQueryController;
@@ -45,8 +45,10 @@ class WebQueryController;
 
 /**
  * Singleton object that represents project.
- * It is shared between KAider 'mainwindows' for the same project.
+ * It is shared between KAider 'mainwindows' using the same project file.
  * Keeps project's KDirModel, Glossary and kross::actions
+ *
+ * GUI for config handling is implemented in kaider_prefs.cpp
  */
 
 ///////// * Also provides list of web-query scripts

@@ -99,6 +99,8 @@ private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
 
+    void msgStrChanged();
+
     void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
 
     void numberOfFuzziesChanged();
@@ -136,8 +138,8 @@ private slots:
     void gotoPrev();
     void gotoEntry();
 
-//     void gotoNextFuzzyOrUntrans();
-//     void gotoPrevFuzzyOrUntrans();
+    void gotoNextFuzzyUntr();
+    void gotoPrevFuzzyUntr();
     void gotoNextFuzzy();
     void gotoPrevFuzzy();
     void gotoNextUntranslated();
@@ -249,6 +251,9 @@ signals:
 
     void signalPriorUntranslatedAvailable(bool);
     void signalNextUntranslatedAvailable(bool);
+
+    void signalPriorFuzzyOrUntrAvailable(bool);
+    void signalNextFuzzyOrUntrAvailable(bool);
 
     void signalPriorChangedAvailable(bool); // merge mode
     void signalNextChangedAvailable(bool);  //

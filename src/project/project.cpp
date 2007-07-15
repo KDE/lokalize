@@ -41,6 +41,7 @@
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
 #include "webquerycontroller.h"
+#include "glossary.h"
 // #include "webquerythread.h"
 
 using namespace Kross;

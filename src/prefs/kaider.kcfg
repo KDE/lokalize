@@ -31,7 +31,7 @@
             <default>joan@smith.org</default>
     </entry>
   </group>
-  <group name="Editor">
+  <group name="Appearance">
 <!--
     <entry name="AutoUnsetFuzzy"  type="Bool">
         <label>
@@ -50,6 +50,9 @@
         <label>Font for Messages</label>
 -->
 	<default code="true">KGlobalSettings::generalFont()</default>
+    </entry>
+    <entry name="Leds"  type="Bool">
+	<default>false</default>
     </entry>
 <!--
     <entry name="OnFlySpellCheck"  type="Bool">

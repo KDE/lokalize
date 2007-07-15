@@ -43,14 +43,54 @@
 #include <QMenu>
 #include <QDragEnterEvent>
 
+#include <QLabel>
+#include <QHBoxLayout>
+
+#include <kled.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
 #include <kstandardshortcut.h>
+//parent is set on qsplitter insertion
+class LedsWidget:public QWidget
+{
+public:
+    LedsWidget()
+    : QWidget()
+//     , _ledFuzzy(0)
+//     , _ledUntr(0)
+//     , _ledErr(0)
+    {
+        QHBoxLayout* layout=new QHBoxLayout(this);
+        layout->addStretch();
+        layout->addWidget(new QLabel(i18nc("@label","Fuzzy:")));
+        layout->addWidget(ledFuzzy=new KLed(Qt::darkGreen,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(new QLabel(i18nc("@label","Untranslated:")));
+        layout->addWidget(ledUntr=new KLed(Qt::darkRed,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addStrut(ledFuzzy->minimumSizeHint().height());
+    }
 
+//TODO the config shit doesnt work
+// private:
+//     void contextMenuEvent(QContextMenuEvent* event)
+//     {
+//         QMenu menu;
+//         menu.addAction(i18nc("@action","Hide"));
+//         if (menu.exec(event->globalPos()))
+//         {
+//             Settings::setLeds(false);
+//             kWarning() << Settings::leds()<<endl;
+//             hide();
+//         }
+//     }
 
-//#include <loader.h>
+public:
+    KLed* ledFuzzy;
+    KLed* ledUntr;
+    KLed* ledErr;
+
+};
 
 KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     : QSplitter(Qt::Vertical,parent)
@@ -58,6 +98,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _msgidEdit(new ProperTextEdit)
     , _msgstrEdit(new ProperTextEdit(parent))
     , _tabbar(new QTabBar)
+    , _leds(0)
     , _currentEntry(-1)
 
 {
@@ -77,10 +118,6 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     _msgidEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setUndoRedoEnabled(false);
 
-    Settings::self()->config()->setGroup("Editor");
-    _msgidEdit->document()->setDefaultFont(Settings::msgFont());
-    _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
-
     highlighter = new SyntaxHighlighter(_msgidEdit->document());
     highlighter = new SyntaxHighlighter(_msgstrEdit->document());
 
@@ -91,6 +128,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     addWidget(_msgstrEdit);
 
 //     QTimer::singleShot(3000,this,SLOT(setupWhatsThis()));
+    settingsChanged();
 }
 
 KAiderView::~KAiderView()
@@ -180,15 +218,26 @@ void KAiderView::switchColors()
 
 void KAiderView::settingsChanged()
 {
-    //TODO
-//     QPalette pal;
-//     pal.setColor( QPalette::Window, Settings::col_background());
-//     pal.setColor( QPalette::WindowText, Settings::col_foreground());
-//     //ui_kaiderview_base.kcfg_sillyLabel->setPalette( pal );
-// 
-//     // i18n : internationalization
-//     //ui_kaiderview_base.kcfg_sillyLabel->setText( i18n("This project is %1 days old",Settings::val_time()) );
-//     //emit signalChangeStatusbar( i18n("Settings changed") );
+    //Settings::self()->config()->setGroup("Editor");
+    _msgidEdit->document()->setDefaultFont(Settings::msgFont());
+    _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
+    if (Settings::leds())
+    {
+        if (_leds)
+            _leds->show();
+        else
+        {
+            _leds=new LedsWidget;
+            if (_catalog->isFuzzy(_currentEntry))
+                _leds->ledFuzzy->on();
+            if (_catalog->msgstr(_currentPos).isEmpty())
+                _leds->ledUntr->on();
+            insertWidget(2,_leds);
+        }
+    }
+    else if (_leds)
+        _leds->hide();
+
 }
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
@@ -206,26 +255,35 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     if (charsAdded)
         _catalog->push(new InsTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsAdded)));
 
+    if (_leds)
+    {
+        if (_catalog->msgstr(pos).isEmpty())
+            _leds->ledUntr->on();
+        else
+            _leds->ledUntr->off();
+    }
+
     if (_catalog->isFuzzy(_currentEntry))
     {
         _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
-        _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+        fuzzyEntryDisplayed(false);
+//         _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+//         if (_leds)
+//             _leds->ledFuzzy->off();
     }
 
-    // for mergecatalog
+    // for mergecatalog (delete entry from index)
+    // and for statusbar
     emit signalChanged(pos.entry);
     //KMessageBox::information(0, QString("%1 %2 %3").arg(offset).arg(charsRemoved).arg(charsAdded) );
 }
 
 void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
 {
-    emit signalChangeStatusbar("");
+//     emit signalChangeStatusbar("");
 
     _currentPos=pos;/*   if(_currentPos.entry >= _catalog->size()) _currentPos.entry=_catalog->size();*/
     _currentEntry=_currentPos.entry;
-
-//     if(_msgstrEdit->toPlainText()==_catalog->msgstr(_currentPos))
-//         return;
 
     if (_catalog->pluralFormType(_currentEntry)==Gettext)
     {
@@ -253,11 +311,20 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     _msgstrEdit->setText(_catalog->msgstr(_currentPos));
     _msgstrEdit->document()->blockSignals(false);
 
+    bool untrans=_catalog->msgstr(_currentPos).isEmpty();
+    if (_leds)
+    {
+        if (untrans)
+            _leds->ledUntr->on();
+        else
+            _leds->ledUntr->off();
+    }
+
     ProperTextEdit* msgEdit=_msgstrEdit;
     if (pos.offset || selection)
     {
         if (pos.part==Msgid)
-            msgEdit=_msgidEdit;
+        msgEdit=_msgidEdit;
 
         QTextCursor t=msgEdit->textCursor();
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
@@ -266,26 +333,27 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
         msgEdit->setTextCursor(t);
     }
     else
+    //what if msg starts with a tag?
+    if (!untrans && _catalog->msgstr(_currentPos).startsWith('<'))
     {
-        //what if msg starts with a tag?
-        if (_catalog->msgstr(_currentPos).startsWith('<'))
+        int offset=_catalog->msgstr(_currentPos).indexOf(QRegExp(">[^<]"));
+        if (offset!=-1)
         {
-            int offset=_catalog->msgstr(_currentPos).indexOf(QRegExp(">[^<]"));
-            if (offset!=-1)
-            {
-                QTextCursor t=msgEdit->textCursor();
-                t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
-                msgEdit->setTextCursor(t);
-            }
+            QTextCursor t=msgEdit->textCursor();
+            t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
+            msgEdit->setTextCursor(t);
         }
     }
-    msgEdit->setFocus();
 
-    _oldMsgstr=_msgstrEdit->toPlainText();//for undo/redo tracking
+    //for undo/redo tracking
+    _oldMsgstr=_catalog->msgstr(_currentPos);
+    //_oldMsgstr=_msgstrEdit->toPlainText();
 
     disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
     highlighter->rehighlight();
     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+
+    msgEdit->setFocus();
     //kWarning() << "fh g gf f "<< pos.offset << endl;
 }
 
@@ -345,9 +413,17 @@ void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
         return;
 
     if (fuzzy)
+    {
         _msgstrEdit->viewport()->setBackgroundRole(QPalette::AlternateBase);
+        if (_leds)
+            _leds->ledFuzzy->on();
+    }
     else
+    {
         _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+        if (_leds)
+            _leds->ledFuzzy->off();
+    }
 }
 
 void KAiderView::msgid2msgstr()

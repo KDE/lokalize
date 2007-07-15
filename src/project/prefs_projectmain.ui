@@ -5,18 +5,135 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
-    <height>300</height>
+    <width>611</width>
+    <height>131</height>
    </rect>
   </property>
-   <property name="geometry" >
-    <rect>
-     <x>8</x>
-     <y>10</y>
-     <width>611</width>
-     <height>131</height>
-    </rect>
-   </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Language:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QComboBox" name="LangCode" >
+     <property name="minimumSize" >
+      <size>
+       <width>400</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="KUrlRequester" name="poBaseDir" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>400</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="KUrlRequester" name="potBaseDir" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>400</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <widget class="KUrlRequester" name="glossaryTbx" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>400</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="textLabel2_2" >
+     <property name="text" >
+      <string>PO directory:</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" >
+    <widget class="QLabel" name="textLabel2" >
+     <property name="text" >
+      <string>Template diectory:</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Glossary:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
   <widget class="RelPathSaver" name="kcfg_PoBaseDir" >
    <property name="geometry" >
     <rect>
@@ -57,119 +174,7 @@
     </rect>
    </property>
   </widget>
-   <layout class="QGridLayout" >
-    <item row="0" column="0" >
-     <widget class="QLabel" name="label_2" >
-      <property name="text" >
-       <string>Language:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" >
-     <widget class="QComboBox" name="LangCode" >
-      <property name="minimumSize" >
-       <size>
-        <width>400</width>
-        <height>0</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" >
-     <widget class="KUrlRequester" name="poBaseDir" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize" >
-       <size>
-        <width>400</width>
-        <height>16</height>
-       </size>
-      </property>
-      <property name="frameShape" >
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow" >
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1" >
-     <widget class="KUrlRequester" name="potBaseDir" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize" >
-       <size>
-        <width>400</width>
-        <height>16</height>
-       </size>
-      </property>
-      <property name="frameShape" >
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow" >
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" >
-     <widget class="KUrlRequester" name="glossaryTbx" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize" >
-       <size>
-        <width>400</width>
-        <height>16</height>
-       </size>
-      </property>
-      <property name="frameShape" >
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow" >
-       <enum>QFrame::Raised</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" >
-     <widget class="QLabel" name="textLabel2_2" >
-      <property name="text" >
-       <string>PO directory:</string>
-      </property>
-      <property name="wordWrap" >
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" >
-     <widget class="QLabel" name="textLabel2" >
-      <property name="text" >
-       <string>Template diectory:</string>
-      </property>
-      <property name="wordWrap" >
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0" >
-     <widget class="QLabel" name="label" >
-      <property name="text" >
-       <string>Glossary:</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+ </widget>
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>

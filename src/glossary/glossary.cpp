@@ -45,6 +45,7 @@
 void Glossary::load(const QString& p)
 {
     clear();
+    path=p;
 
     TbxParser parser(this);
     QXmlSimpleReader reader;
@@ -58,8 +59,7 @@ void Glossary::load(const QString& p)
     {
          kWarning() << "failed to load "<< path<< endl;
     }
-    else
-        path=p;
+
 
 }
 
@@ -69,31 +69,54 @@ void Glossary::add(const TermEntry& entry)
     if (!stream.open(QFile::ReadWrite | QFile::Text))
          return;
 
+    int id=0;
+    if (stream.size()==0)
+    {
+        stream.write(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        "<!DOCTYPE martif PUBLIC \"ISO 12200:1999A//DTD MARTIF core (DXFcdV04)//EN\" \"TBXcdv04.dtd\">\n"
+        "<martif type=\"TBX\" xml:lang=\"en\">\n"
+        "    <martifHeader>\n"
+        "        <fileDesc>\n"
+        "            <titleStmt>\n"
+        "                <title>Your Team Glossary</title>\n"
+        "            </titleStmt>\n"
+        "        </fileDesc>\n"
+        "        <encodingDesc>\n"
+        "            <p type=\"DCSName\">SYSTEM &quot;TBXDCSv05b.xml&quot;</p>\n"
+        "        </encodingDesc>\n"
+        "    </martifHeader>\n"
+        "    <text>\n"
+        "        <body>\n"
+                    );
+    }
+    else
+    {
+
 //     QTextStream stream(&file);
 //     stream.setCodec("UTF-8");
 //     stream.setAutoDetectUnicode(true);
-    QByteArray line(stream.readLine());
-    int id=0;
-    QList<int> idlist;
-    QRegExp rx("<termEntry id=\"([0-9]*)\">");
-    while(!stream.atEnd()&&!line.contains("</body>"))
-//    while(!stream.atEnd()&&!stream.pos()+20>stream.size())
-    {
-        if (rx.indexIn(line)!=-1);
+        QByteArray line(stream.readLine());
+        QList<int> idlist;
+        QRegExp rx("<termEntry id=\"([0-9]*)\">");
+        while(!stream.atEnd()&&!line.contains("</body>"))
+    //    while(!stream.atEnd()&&!stream.pos()+20>stream.size())
         {
-            idlist<<rx.cap(1).toInt();
+            if (rx.indexIn(line)!=-1);
+            {
+                idlist<<rx.cap(1).toInt();
+            }
+            line=stream.readLine();
         }
-        line=stream.readLine();
+    //    stream.seek(stream.pos());
+        if (!idlist.isEmpty())
+        {
+            qSort(idlist);
+            while (idlist.contains(id))
+                ++id;
+        }
+        stream.seek(stream.pos()-line.size());
     }
-//    stream.seek(stream.pos());
-    if (!idlist.isEmpty())
-    {
-        qSort(idlist);
-        while (idlist.contains(id))
-            ++id;
-    }
-    stream.seek(stream.pos()-line.size());
-
 
     QByteArray out;
     out.reserve(256);
@@ -149,6 +172,7 @@ void Glossary::add(const TermEntry& entry)
         xmlOut.writeEndElement();
     }
     xmlOut.writeEndElement();
+    out.replace("\n\n","\n");
     out.replace("\n","\n            ");
 
     out+=

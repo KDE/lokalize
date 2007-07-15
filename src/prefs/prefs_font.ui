@@ -10,14 +10,57 @@
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>9</number>
+   </property>
+   <property name="rightMargin" >
+    <number>9</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>9</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="0" column="0" >
-    <widget class="KFontChooser" name="kcfg_MsgFont" />
+    <layout class="QGridLayout" >
+     <item row="2" column="1" >
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Editor font:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="KFontRequester" native="1" name="kcfg_MsgFont" />
+     </item>
+     <item row="1" column="0" colspan="2" >
+      <widget class="QCheckBox" name="kcfg_Leds" >
+       <property name="text" >
+        <string>LEDs to indicate Fuzzy, Untranslated and Error status</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -25,9 +68,10 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>KFontChooser</class>
+   <class>KFontRequester</class>
    <extends>QWidget</extends>
-   <header>kfontdialog.h</header>
+   <header location="global" >kfontrequester.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

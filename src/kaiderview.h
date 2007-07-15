@@ -38,6 +38,7 @@ class QTabBar;
 class KUrl;
 class SyntaxHighlighter;
 class Catalog;
+class LedsWidget;
 //#include <QKeyEvent>
 
 #include <ktextedit.h>
@@ -103,16 +104,15 @@ public:
     void dropEvent(QDropEvent*);
 
 private:
-
     Catalog* _catalog;
 
     ProperTextEdit* _msgidEdit;
     ProperTextEdit* _msgstrEdit;
-
     SyntaxHighlighter* highlighter;
 //    bool disableUndoTracking=false; //workaround
 
     QTabBar* _tabbar;
+    LedsWidget* _leds;
 
     //for undo/redo
     QString _oldMsgstr;

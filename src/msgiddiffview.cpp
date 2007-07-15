@@ -121,7 +121,11 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
     newStr.prepend("ggg aaa bbb aaa ");*/
     oldStr.prepend(' ');
     newStr.prepend(' ');
+
     QString result(wordDiff(oldStr,newStr));
+
+    result.remove("</KBABELADD><KBABELADD>");
+    result.remove("</KBABELDEL><KBABELDEL>");
     result.replace("<KBABELADD>","<font color=\"purple\">");
     result.replace("</KBABELADD>","</font>");
     result.replace("<KBABELDEL>","<font color=\"red\">");

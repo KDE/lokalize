@@ -115,20 +115,19 @@ ProjectView::~ProjectView()
 void ProjectView::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu;
-    menu.addAction(i18n("Open project"),m_parent,SLOT(projectOpen()));
-    menu.addAction(i18n("Create new project"),m_parent,SLOT(projectCreate()));
-
     if ("text/x-gettext-translation"
         ==Project::instance()->model()->itemForIndex(
             /*m_proxyModel->mapToSource(*/(m_browser->currentIndex())
                                                     )->mimetype()
        )
     {
-        menu.addSeparator();
         menu.addAction(i18n("Open"),this,SLOT(slotOpen()));
         menu.addAction(i18n("Open in new window"),this,SLOT(slotOpenInNewWindow()));
-
+        menu.addSeparator();
     }
+    menu.addAction(i18n("Open project"),m_parent,SLOT(projectOpen()));
+    menu.addAction(i18n("Create new project"),m_parent,SLOT(projectCreate()));
+
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
 //             )
 //     {
