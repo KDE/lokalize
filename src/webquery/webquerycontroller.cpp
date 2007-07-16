@@ -73,7 +73,7 @@ QString WebQueryController::msg()
 
 QString WebQueryController::filePath()
 {
-    
+    return QString();
 }
 void WebQueryController::setTwinLangFilePath(QString)
 {
@@ -82,7 +82,7 @@ void WebQueryController::setTwinLangFilePath(QString)
 
 QString WebQueryController::twinLangMsg()
 {
-    
+    return QString();
 }
 
 
