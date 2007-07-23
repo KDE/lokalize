@@ -88,7 +88,7 @@ install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES kaider.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES kaider.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/kaider.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES kaiderui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )
 
