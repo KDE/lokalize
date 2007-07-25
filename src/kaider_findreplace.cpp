@@ -305,7 +305,7 @@ void KAider::replace()
 //         _replace->setOptions(_replaceDialog->options());
 //     }
 
-    _catalog->beginMacro(i18n("Replace"));
+    _catalog->beginMacro(i18nc("@item Undo action item","Replace"));
 
     if (_replace->options() & KFind::FromCursor)
     {
@@ -532,7 +532,6 @@ void KAider::spellcheck()
 
 void KAider::spellcheckNext()
 {
-    //kWarning() << "spellcheckNext a" << endl;
     //DocPosition pos=_spellcheckPos;
 
     if (!_spellcheckStop && switchNext(_spellcheckPos))
@@ -542,6 +541,7 @@ void KAider::spellcheckNext()
             if (!switchNext(_spellcheckPos))
                 return;
         m_sonnetDialog->setBuffer( _catalog->msgstr(_spellcheckPos) );
+//             kWarning() << "spellcheckNext a"<<_catalog->msgstr(_spellcheckPos) << endl;
     }
 }
 
@@ -558,9 +558,11 @@ void KAider::spellcheckCancel()
 
 void KAider::spellcheckShow(const QString &word, int offset)
 {
+//     kWarning() << "spellcheckShw "<<word<< endl;
     DocPosition pos=_spellcheckPos;
     pos.offset=offset;
     gotoEntry(pos,word.length());
+//     kWarning() << "spellcheckShw "<<word<< endl;
 }
 
 void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString &newWord)

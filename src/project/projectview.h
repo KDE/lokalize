@@ -34,11 +34,14 @@
 #define PROJECTVIEW_H
 
 #include <QDockWidget>
+#include <QItemDelegate>
+
 class QMenu;
 class QTreeView;
 class KUrl;
 class ProjectModel;
-class QSortFilterProxyModel;
+class SortFilterProxyModel;
+class KDirSortFilterProxyModel;
 class QModelIndex;
 
 class ProjectView: public QDockWidget
@@ -69,7 +72,29 @@ private:
     QTreeView* m_browser;
 //     QMenu* m_menu;
     QWidget* m_parent;
-//     QSortFilterProxyModel* m_proxyModel;
+    SortFilterProxyModel* m_proxyModel;
 };
+
+
+
+/**
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class PoItemDelegate : public QItemDelegate//KFileItemDelegate
+{
+    Q_OBJECT
+
+public:
+    PoItemDelegate(QObject *parent=0)
+        : QItemDelegate(parent)
+    {};
+    ~PoItemDelegate(){};
+    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
+signals:
+    void newWindowOpenRequested(const KUrl&);
+
+};
+
 
 #endif

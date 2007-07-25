@@ -36,7 +36,6 @@
 #include <kdirmodel.h>
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>
-#include <QItemDelegate>
 
 enum ModelColumns
 {
@@ -72,7 +71,7 @@ struct TranslationProgress
 
 class ProjectModel: public KDirModel
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
     ProjectModel():KDirModel(){}
@@ -82,27 +81,11 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
     int columnCount(const QModelIndex & parent = QModelIndex()) const;
     Qt::ItemFlags flags( const QModelIndex & index ) const;
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-//     void fetchMore(const QModelIndex & parent);
+//     int rowCount(const QModelIndex& parent=QModelIndex()) const;
+//     void fetchMore(const QModelIndex&);
     //void forceScanning(const QModelIndex& parent=QModelIndex());
 };
 
-
-/**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
-class PoItemDelegate : public QItemDelegate//KFileItemDelegate
-{
-    Q_OBJECT
-
-public:
-    PoItemDelegate(QObject *parent=0):QItemDelegate(parent){};//KFileItemDelegate(parent){};
-    ~PoItemDelegate(){};
-    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-signals:
-    void newWindowOpenRequested(const KUrl&);
-};
 
 inline
 int ProjectModel::columnCount(const QModelIndex& parent)const

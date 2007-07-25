@@ -40,10 +40,10 @@
 #include <QTextBrowser>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Message Context"), parent)
+    : QDockWidget ( i18nc("@title:window","Message Context"), parent)
     , m_browser(new QTextBrowser(this))
     , m_catalog(catalog)
-    , m_normTitle(i18n("Message Context"))
+    , m_normTitle(i18nc("@title:window","Message Context"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
 {
@@ -58,24 +58,37 @@ MsgCtxtView::~MsgCtxtView()
 
 void MsgCtxtView::slotNewEntryDisplayed(uint index)
 {
-//     if (m_catalog->msgctxt(index).isEmpty())
-//     {
-//         m_browser->clear();
-//         return;
-//     }
     m_browser->clear();
-    m_browser->setHtml("<b>Comment:</b><br>"+m_catalog->comment(index));
-//     m_browser->append(m_catalog->comment(index));
+    QString comment(m_catalog->comment(index));
+    comment.replace('<',"&lt;");
+    comment.replace('>',"&gt;");
+    int pos=comment.indexOf("#:");
+    if (pos!=-1)
+    {
+        comment.replace(pos,2,i18nc("@info PO comment parsing","<br><i>Place:</i>"));
+        comment.replace("#:","<br>");
+    }
+    pos=comment.indexOf("#. i18n:");
+    if (pos!=-1)
+    {
+        comment.replace(pos,8,i18nc("@info PO comment parsing","<br><i>GUI place:</i>"));
+        comment.replace("#. i18n:","<br>");
+    }
+    comment.replace("#,",i18nc("@info PO comment parsing","<br><i>Misc:</i>"));
+    //comment.remove(QRegExp("#\\|[^\n]+\n")); //we're parsing this in another view
+    comment.replace("#| msgid",i18nc("@info PO comment parsing","<br><i>Previous string:</i>"));
+    comment.replace("#| msgctxt",i18nc("@info PO comment parsing","<br><i>Previous context:</i>"));
+    comment.replace("#|","<br>");
+    comment.replace("#","<br>");
+    m_browser->setHtml(i18nc("@info PO comment parsing","<b>Comment:</b>")+comment);
 
     if (m_catalog->msgctxt(index).isEmpty())
     {
         if (m_hasInfo)
         {
-//             m_browser->clear();
             setWindowTitle(m_normTitle);
             m_hasInfo=false;
         }
-//         m_browser->setText(m_catalog->msgctxt(index));
     }
     else
     {
@@ -87,8 +100,7 @@ void MsgCtxtView::slotNewEntryDisplayed(uint index)
         QTextCursor t=m_browser->textCursor();
         t.movePosition(QTextCursor::End);
         m_browser->setTextCursor(t);
-        m_browser->insertHtml("<br><b>Context:</b><br>"+m_catalog->msgctxt(index));
-//         m_browser->setText(m_catalog->msgctxt(index));
+        m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(index));
     }
 }
 

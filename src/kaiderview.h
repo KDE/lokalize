@@ -132,9 +132,10 @@ signals:
 
 private slots:
 //     void setupWhatsThis();
-    void switchColors();
     void settingsChanged();
-    void contentsChanged(int position,int charsRemoved,int charsAdded); //for Undo/Redo
+    //for Undo/Redo tracking
+    void contentsChanged(int position,int charsRemoved,int charsAdded);
+    //we need this function cause...
     void fuzzyEntryDisplayed(bool);
 
     //Edit menu

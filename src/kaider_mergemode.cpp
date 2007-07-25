@@ -77,7 +77,7 @@ void KAider::mergeOpen(KUrl url)
     {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         mergeCleanup();
-        KMessageBox::error(this, i18n("Error opening the file\n%1",url.prettyUrl()) );
+        KMessageBox::error(this, i18nc("@info","Error opening the file\n%1",url.prettyUrl()) );
     }
 
 }
@@ -126,7 +126,7 @@ void KAider::mergeAccept()
     if(!_mergeCatalog||_catalog->msgstr(_currentPos)==_mergeCatalog->msgstr(_currentPos))
         return;
 
-    _catalog->beginMacro(i18n("Accept change in translation"));
+    _catalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
 
     _currentPos.offset=0;
 
@@ -137,6 +137,7 @@ void KAider::mergeAccept()
     else if ( !_catalog->isFuzzy(_currentPos.entry) && _mergeCatalog->isFuzzy(_currentPos.entry) )
         _catalog->push(new ToggleFuzzyCmd(_catalog,_currentPos.entry,true));
 
+    _mergeCatalog->removeFromChangedIndex(_currentPos.entry);
 
     _catalog->endMacro();
 
@@ -174,7 +175,7 @@ void KAider::mergeAcceptAllForEmpty()
                     if (!insHappened)
                     {
                         insHappened=true;
-                        _catalog->beginMacro(i18n("Accept all new translations"));
+                        _catalog->beginMacro(i18nc("@item Undo action item","Accept all new translations"));
                     }
                     _catalog->push(new InsTextCmd(_catalog,pos,_mergeCatalog->msgstr(pos)));
                 }

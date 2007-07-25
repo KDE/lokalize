@@ -47,7 +47,7 @@
 #define ITEM _catalog->d->_entries.at(_pos.entry).d
 
 InsTextCmd::InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
-    : QUndoCommand(i18nc("Undo command","Insertion"))
+    : QUndoCommand(i18nc("@item Undo action item","Insertion"))
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
@@ -101,7 +101,7 @@ void InsTextCmd::undo()
 
 
 DelTextCmd::DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
-    : QUndoCommand(i18nc("Undo command","Deletion"))
+    : QUndoCommand(i18nc("@item Undo action item","Deletion"))
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
@@ -166,7 +166,7 @@ void DelTextCmd::undo()
 }
 
 ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
-    : QUndoCommand(i18nc("Undo command","Fuzzy toggling"))
+    : QUndoCommand(i18nc("@item Undo action item","Fuzzy toggling"))
     , _catalog(catalog)
     , _index(index)
     , _flag(flag)

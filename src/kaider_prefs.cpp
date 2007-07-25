@@ -103,14 +103,14 @@ void KAider::optionsPreferences()
     connect(ui_prefs_identity->DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity->kcfg_DefaultLangCode,SLOT(setText(const QString&)));
     ui_prefs_identity->kcfg_DefaultLangCode->hide();
 
-    dialog->addPage(w, i18nc("@title","Identity"), "identity_setting");
+    dialog->addPage(w, i18nc("@title:tab","Identity"), "identity_setting");
 
 //Font
     w = new QWidget;
     if (!ui_prefs_font)
         ui_prefs_font = new Ui_prefs_font;
     ui_prefs_font->setupUi(w);
-    dialog->addPage(w, i18nc("@title","Appearance"), "font_setting");
+    dialog->addPage(w, i18nc("@title:tab","Appearance"), "font_setting");
 
 
 //     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));
@@ -120,7 +120,7 @@ void KAider::optionsPreferences()
 //Spellcheck
     w = new Sonnet::ConfigWidget(Settings::self()->config(),dialog);
     w->setParent(this);
-    dialog->addPage(w, i18nc("@title","Spellcheck"), "spellcheck_setting");
+    dialog->addPage(w, i18nc("@title:tab","Spellcheck"), "spellcheck_setting");
     connect(dialog,SIGNAL(okClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(applyClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(defaultClicked()),w,SLOT(slotDefault()));
@@ -206,7 +206,7 @@ void KAider::projectConfigure()
 
 
 
-    dialog->addPage(w, i18nc("@title","General"), "general_project_setting");
+    dialog->addPage(w, i18nc("@title:tab","General"), "general_project_setting");
 
     w = new QWidget;
     QGridLayout* gridLayout = new QGridLayout(w);
@@ -229,7 +229,7 @@ void KAider::projectConfigure()
     ui_prefs_webquery->webQueryScripts->*/
 
 
-    dialog->addPage(w, i18nc("@title","Web Query"), "webquery_project_setting");
+    dialog->addPage(w, i18nc("@title:tab","Web Query"), "webquery_project_setting");
 
     m_scriptsPrefWidget->setItems(Project::instance()->webQueryScripts());
     connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateGlossary()));

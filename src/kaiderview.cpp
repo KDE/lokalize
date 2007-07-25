@@ -117,6 +117,8 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
 
     _msgidEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setUndoRedoEnabled(false);
+    _msgstrEdit->setAcceptRichText(false);
+
 
     highlighter = new SyntaxHighlighter(_msgidEdit->document());
     highlighter = new SyntaxHighlighter(_msgstrEdit->document());
@@ -203,18 +205,6 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
 
 
 
-
-
-
-void KAiderView::switchColors()
-{
-//     // switch the foreground/background colors of the label
-//     QColor color = Settings::col_background();
-//     Settings::setCol_background( Settings::col_foreground() );
-//     Settings::setCol_foreground( color );
-// 
-//     settingsChanged();
-}
 
 void KAiderView::settingsChanged()
 {
@@ -305,10 +295,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     else
         _tabbar->hide();
 
-    _msgidEdit->setText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
+    _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
     unwrap(_msgidEdit);
     _msgstrEdit->document()->blockSignals(true);
-    _msgstrEdit->setText(_catalog->msgstr(_currentPos));
+    _msgstrEdit->setPlainText(_catalog->msgstr(_currentPos));
     _msgstrEdit->document()->blockSignals(false);
 
     bool untrans=_catalog->msgstr(_currentPos).isEmpty();
@@ -477,7 +467,7 @@ void KAiderView::msgid2msgstr()
     //modifyMsgstrText(0,text,true);
     
     if (out.isEmpty())
-        _msgstrEdit->setText(text);
+        _msgstrEdit->setPlainText(text);
     else
     {
         QTextCursor t=_msgstrEdit->textCursor();
@@ -499,12 +489,13 @@ void KAiderView::unwrap(ProperTextEdit* editor)
         return;
 
     if (editor==_msgstrEdit)
-        _catalog->beginMacro(i18n("Unwrap"));
+        _catalog->beginMacro(i18nc("@item Undo action item","Unwrap"));
     t.movePosition(QTextCursor::EndOfLine);
     if (!t.atEnd())
         t.deleteChar();
 
-    while (!(t=editor->document()->find(QRegExp("[^(\\\\n)]$"),t)).isNull())
+    //remove '\n's skipping "\\\\n"
+    while (!(t=editor->document()->find(QRegExp("[^(\\\\n)>]$"),t)).isNull())
     {
         t.movePosition(QTextCursor::EndOfLine);
         if (!t.atEnd())

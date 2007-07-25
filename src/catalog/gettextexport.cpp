@@ -205,9 +205,10 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
 
         stream << "\n";
 
-        kapp->processEvents(QEventLoop::AllEvents,10);
-        if ( isStopped() )
-            return STOPPED;
+//TODO do we need this?
+//         kapp->processEvents(QEventLoop::AllEvents,10);
+//         if ( isStopped() )
+//             return STOPPED;
     }
 
     if ( _saveSettings.saveObsolete )
@@ -220,11 +221,12 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         {
             stream << (*oit) << "\n\n";
 
-            kapp->processEvents( QEventLoop::AllEvents, 10 );
-            if ( isStopped() )
-            {
-                return STOPPED;
-            }
+//TODO do we need this?
+//             kapp->processEvents( QEventLoop::AllEvents, 10 );
+//             if ( isStopped() )
+//             {
+//                 return STOPPED;
+//             }
         }
     }
 

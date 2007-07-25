@@ -142,10 +142,10 @@ KAider::~KAider()
 
 void KAider::setupStatusBar()
 {
-    statusBar()->insertItem(i18n("Current: %1",0),ID_STATUS_CURRENT);
-    statusBar()->insertItem(i18n("Total: %1",0),ID_STATUS_TOTAL);
-    statusBar()->insertItem(i18n("Fuzzy: %1",0),ID_STATUS_FUZZY);
-    statusBar()->insertItem(i18n("Untranslated: %1",0),ID_STATUS_UNTRANS);
+    statusBar()->insertItem(i18nc("@info:status","Current: %1",0),ID_STATUS_CURRENT);
+    statusBar()->insertItem(i18nc("@info:status","Total: %1",0),ID_STATUS_TOTAL);
+    statusBar()->insertItem(i18nc("@info:status","Fuzzy: %1",0),ID_STATUS_FUZZY);
+    statusBar()->insertItem(i18nc("@info:status","Untranslated: %1",0),ID_STATUS_UNTRANS);
     statusBar()->insertItem("",ID_STATUS_ISFUZZY);
 
     connect(_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
@@ -156,12 +156,12 @@ void KAider::setupStatusBar()
 
 void KAider::numberOfFuzziesChanged()
 {
-    statusBar()->changeItem(i18n("Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
+    statusBar()->changeItem(i18nc("@info:status","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
 }
 
 void KAider::numberOfUntranslatedChanged()
 {
-    statusBar()->changeItem(i18n("Untranslated: %1", _catalog->numberOfUntranslated()),ID_STATUS_UNTRANS);
+    statusBar()->changeItem(i18nc("@info:status","Untranslated: %1", _catalog->numberOfUntranslated()),ID_STATUS_UNTRANS);
 }
 
 void KAider::setupActions()
@@ -184,19 +184,15 @@ void KAider::setupActions()
 //Settings
     KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 
-//     KAction *custom = new KAction(KIcon("colorize"), i18n("Swi&tch Colors"), this);
-//     actionCollection()->addAction( QLatin1String("switch_action"), custom );
-//     connect(custom, SIGNAL(triggered(bool)), m_view, SLOT(switchColors()));
-
 #define ADD_ACTION(_name,_text,_shortcut,_icon)\
     action = actionCollection()->addAction(_name);\
-    action->setText(i18n(_text));\
+    action->setText(i18nc("@action:inmenu",_text));\
     action->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::_shortcut));\
     action->setIcon(KIcon(_icon));
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut,_icon)\
     action = actionCollection()->addAction(_name);\
-    action->setText(i18n(_text));\
+    action->setText(i18nc("@action:inmenu",_text));\
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setIcon(KIcon(_icon));
 
@@ -216,10 +212,14 @@ void KAider::setupActions()
     action = KStandardAction::find(this,SLOT(find()),actionCollection());
     action = KStandardAction::findNext(this,SLOT(findNext()),actionCollection());
     action = KStandardAction::findPrev(this,SLOT(findPrev()),actionCollection());
-    action->setText(i18n("Change searching &direction"));
+    action->setText(i18nc("@action:inmenu","Change searching &direction"));
     action = KStandardAction::replace(this,SLOT(replace()),actionCollection());
 
-    ADD_ACTION_SHORTCUT("edit_toggle_fuzzy","&Fuzzy",Qt::CTRL+Qt::Key_U,"togglefuzzy")
+//     :check
+    action = actionCollection()->addAction("edit_toggle_fuzzy");
+    action->setShortcut( Qt::CTRL+Qt::Key_U );
+    action->setIcon(KIcon("togglefuzzy"));
+    action->setText(i18nc("@option:check","Fuzzy"));
     action->setCheckable(true);
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleFuzzy(bool)));
     connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
@@ -233,38 +233,38 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
-    action->setText(i18n("Clear"));
+    action->setText(i18nc("@action:inmenu","Clear"));
 
     action = actionCollection()->addAction("edit_tagmenu",m_view,SLOT(tagMenu()));
     action->setShortcut(Qt::CTRL+Qt::Key_T);
-    action->setText(i18n("Insert Tag"));
+    action->setText(i18nc("@action:inmenu","Insert Tag"));
 
 //     action = actionCollection()->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
-//     action->setText(i18n("Define new term"));
+//     action->setText(i18nc("@action:inmenu","Define new term"));
 
 // Go
     action = KStandardAction::next(this, SLOT(gotoNext()), actionCollection());
-    action->setText(i18n("&Next"));
+    action->setText(i18nc("@action:inmenu","&Next"));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
     action = KStandardAction::prior(this, SLOT(gotoPrev()), actionCollection());
-    action->setText(i18n("&Previous"));
+    action->setText(i18nc("@action:inmenu","&Previous"));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
     action = KStandardAction::firstPage(this, SLOT(gotoFirst()),actionCollection());
     connect(m_view,SIGNAL(signalGotoFirst()),this,SLOT(gotoFirst()));
-    action->setText(i18n("&First Entry"));
+    action->setText(i18nc("@action:inmenu","&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Home));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
     action = KStandardAction::lastPage(this, SLOT(gotoLast()),actionCollection());
     connect(m_view,SIGNAL(signalGotoLast()),this,SLOT(gotoLast()));
-    action->setText(i18n("&Last Entry"));
+    action->setText(i18nc("@action:inmenu","&Last Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_End));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
     action = KStandardAction::gotoPage(this, SLOT(gotoEntry()), actionCollection());
-    action->setText(i18n("Entry by number"));
+    action->setText(i18nc("@action:inmenu","Entry by number"));
 
     ADD_ACTION_SHORTCUT("go_prev_fuzzy","Pre&vious Fuzzy",Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
@@ -296,51 +296,51 @@ void KAider::setupActions()
 //Bookmarks
     action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),actionCollection());
     //action = actionCollection()->addAction("bookmark_do");
-    action->setText(i18n("Bookmark message"));
+    action->setText(i18nc("@option:check","Bookmark message"));
     action->setCheckable(true);
     //connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
     connect( this, SIGNAL(signalBookmarkDisplayed(bool)),action,SLOT(setChecked(bool)) );
 
     action = actionCollection()->addAction("bookmark_prior",this,SLOT(gotoPrevBookmark()));
-    action->setText(i18n("Previous bookmark"));
+    action->setText(i18nc("@action:inmenu","Previous bookmark"));
     connect( this, SIGNAL(signalPriorBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("bookmark_next",this,SLOT(gotoNextBookmark()));
-    action->setText(i18n("Next bookmark"));
+    action->setText(i18nc("@action:inmenu","Next bookmark"));
     connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
 //Project
     action = actionCollection()->addAction("project_configure",this,SLOT(projectConfigure()));
-    action->setText(i18n("Configure project"));
+    action->setText(i18nc("@action:inmenu","Configure project"));
 
     action = actionCollection()->addAction("project_open",this,SLOT(projectOpen()));
-    action->setText(i18n("Open project"));
+    action->setText(i18nc("@action:inmenu","Open project"));
 
     action = actionCollection()->addAction("project_create",this,SLOT(projectCreate()));
-    action->setText(i18n("Create new project"));
+    action->setText(i18nc("@action:inmenu","Create new project"));
 
 //MergeMode
     action = actionCollection()->addAction("merge_open",this,SLOT(mergeOpen()));
-    action->setText(i18n("Open merge source"));
-    action->setStatusTip(i18n("Open catalog to be merged into the current one"));
+    action->setText(i18nc("@action:inmenu","Open merge source"));
+    action->setStatusTip(i18nc("@action:inmenu","Open catalog to be merged into the current one"));
 
     action = actionCollection()->addAction("merge_prev",this,SLOT(gotoPrevChanged()));
-    action->setText(i18n("Previous changed"));
+    action->setText(i18nc("@action:inmenu","Previous changed"));
     action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( this, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_next",this,SLOT(gotoNextChanged()));
-    action->setText(i18n("Next changed"));
+    action->setText(i18nc("@action:inmenu","Next changed"));
     action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( this, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_accept",this,SLOT(mergeAccept()));
-    action->setText(i18n("Copy from merging source"));
+    action->setText(i18nc("@action:inmenu","Copy from merging source"));
     action->setShortcut(Qt::ALT+Qt::Key_Return);
     connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
 
     action = actionCollection()->addAction("merge_acceptnew",this,SLOT(mergeAcceptAllForEmpty()));
-    action->setText(i18n("Copy all new translations"));
+    action->setText(i18nc("@action:inmenu","Copy all new translations"));
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
     setupGUI();
@@ -407,7 +407,7 @@ void KAider::createDockWindows()
         wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
         //wqaction->setShortcut(Qt::META+wqlist[i]);
         wqaction->setShortcut(Qt::CTRL+wqlist[i]);
-        wqaction->setText(i18n("Insert query result # %1",i));
+        wqaction->setText(i18nc("@action:inmenu","Insert query result # %1",i));
         wqactions[i]=wqaction;
     }
     WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
@@ -448,7 +448,7 @@ void KAider::createDockWindows()
 //         action->setVisible(false);
         gaction=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
         gaction->setShortcut(Qt::CTRL+glist[i]);
-        gaction->setText(i18n("Insert # %1 term translation",i));
+        gaction->setText(i18nc("@action:inmenu","Insert # %1 term translation",i));
         gactions[i]=gaction;
     }
 
@@ -459,7 +459,7 @@ void KAider::createDockWindows()
     connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
     gaction = actionCollection()->addAction("glossary_define",this,SLOT(defineNewTerm()));
-    gaction->setText(i18n("Define new term"));
+    gaction->setText(i18nc("@action:inmenu","Define new term"));
     _glossaryView->addAction(gaction);
     _glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
 }
@@ -469,8 +469,8 @@ void KAider::fileOpen(KUrl url)
     if(!_catalog->isClean())
     {
         switch(KMessageBox::warningYesNoCancel(this,
-               i18n("The document contains unsaved changes.\n\
-               Do you want to save your changes or discard them?"),i18n("Warning"),
+               i18nc("@info","The document contains unsaved changes.\n\
+               Do you want to save your changes or discard them?"),i18nc("@title","Warning"),
                KStandardGuiItem::save(),KStandardGuiItem::discard())
               )
         {
@@ -490,7 +490,7 @@ void KAider::fileOpen(KUrl url)
     {
         emit signalFileClosed();
 
-        statusBar()->changeItem(i18n("Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
+        statusBar()->changeItem(i18nc("@info:status","Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
 
@@ -539,7 +539,7 @@ void KAider::fileOpen(KUrl url)
     }
     else
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-        KMessageBox::error(this, i18n("Error opening the file\n%1",url.prettyUrl()) );
+        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.prettyUrl()) );
 
 }
 
@@ -557,9 +557,9 @@ bool KAider::fileSave(const KUrl& url)
         return true;
 
     if ( KMessageBox::warningContinueCancel(this,
-         i18n("Error saving the file:\n%1\n"
+         i18nc("@info","Error saving the file <filename>%1</filename>\n"
          "Do you want to save to another file or cancel?", _catalog->url().prettyUrl()),
-         i18n("Error"),KStandardGuiItem::save())==KMessageBox::Continue
+         i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
        )
         return fileSaveAs();
     return false;
@@ -572,7 +572,7 @@ bool KAider::queryClose()
         return true;
 
     switch(KMessageBox::warningYesNoCancel(this,
-        i18n("The document contains unsaved changes.\n\
+        i18nc("@info","The document contains unsaved changes.\n\
 Do you want to save your changes or discard them?"),i18n("Warning"),
       KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
@@ -600,8 +600,8 @@ void KAider::gotoEntry()
 {
     DocPosition pos=_currentPos;
     pos.entry=KInputDialog::getInteger(
-                                       i18n("Jump to Entry"),
-                                       i18n("Enter entry number:"),
+                                       i18nc("@title","Jump to Entry"),
+                                       i18nc("@label:spinbox","Enter entry number:"),
                                        pos.entry,1,
                                        _catalog->numberOfEntries(),
                                        1,0,this);
@@ -616,7 +616,6 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 {
 //     if ( (_currentPos.entry==pos.entry) && (_currentPos.offset==pos.offset) && (_currentPos.form==pos.form) )
 //         return;
-//    KMessageBox::information(0, QString("ss"));
 //     if(pos.part==UndefPart)
 //         kWarning()<<"UndefPart"<<endl;
 //     if(pos.part==Msgstr)
@@ -672,16 +671,16 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     //still emit even if _currentEntry==pos.entry
     emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
     msgStrChanged();
-    statusBar()->changeItem(i18n("Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
+    statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
 //     kWarning() << "signalz  " << a.elapsed() << endl;
 }
 
 void KAider::msgStrChanged()
 {
     if (_catalog->isFuzzy(_currentEntry))
-        statusBar()->changeItem(i18nc("@info","Fuzzy"),ID_STATUS_ISFUZZY);
+        statusBar()->changeItem(i18nc("@info:status","Fuzzy"),ID_STATUS_ISFUZZY);
     else if (_catalog->msgstr(_currentPos).isEmpty())
-        statusBar()->changeItem(i18nc("@info","Untranslated"),ID_STATUS_ISFUZZY);
+        statusBar()->changeItem(i18nc("@info:status","Untranslated"),ID_STATUS_ISFUZZY);
     else
         statusBar()->changeItem("",ID_STATUS_ISFUZZY);
 }

@@ -78,9 +78,11 @@ kde4_add_executable(kaider ${kaider_SRCS})
 
 target_link_libraries(kaider
 #    ${KDE4_KDEUI_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KROSSCORE_LIBS}
+#     ${KDE4_KIO_LIBS}
+#     ${KDE4_KFIlE_LIBS}
+#     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
+    -lkfile
 )
 
 install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )

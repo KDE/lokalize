@@ -185,9 +185,10 @@ _testBorked=false;
 
    while( !stream.atEnd() )
    {
-      kapp->processEvents(QEventLoop::AllEvents, 10);
-      if( isStopped() )
-         return STOPPED;
+//TODO do we need this?
+//       kapp->processEvents(QEventLoop::AllEvents, 10);
+//       if( isStopped() )
+//          return STOPPED;
 
       const ConversionStatus success=readEntry(stream);
 //       kWarning()<< "hmmm "<<counter<<endl;

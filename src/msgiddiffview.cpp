@@ -42,10 +42,10 @@
 //#include <QTime>
 
 MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Original Diff"), parent)
+    : QDockWidget ( i18nc("@title:window","Original Diff"), parent)
     , m_browser(new QTextBrowser(this))
     , m_catalog(catalog)
-    , m_normTitle(i18n("Original Diff"))
+    , m_normTitle(i18nc("@title:window","Original Diff"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
 {

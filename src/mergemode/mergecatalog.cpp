@@ -53,7 +53,7 @@ void MergeCatalog::importFinished()
     }*/
 
     uint i=0;
-    uint size=m_baseCatalog->d->_entries.size();
+    uint size=qMin(m_baseCatalog->d->_entries.size(),d->_entries.size());
     QVector<CatalogItem> newVector(size);
 
     while (i<size)
@@ -74,7 +74,7 @@ void MergeCatalog::importFinished()
             //or... search for msg over the whole catalog;
             //TODO use fuzzy matching?
             uint j=0;
-            while (j<size)
+            while (j<d->_entries.size())
             {
                 if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(j).msgidPlural()
                     && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(j).msgstrPlural()

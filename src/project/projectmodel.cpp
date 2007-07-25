@@ -32,10 +32,6 @@
 
 #include "projectmodel.h"
 #include <klocale.h>
-#include <QEvent>
-#include <QMouseEvent>
-#include <QPainter>
-#include <QLinearGradient>
 
 #include <QEventLoop>
 
@@ -44,6 +40,9 @@
 
 /**
  * we use QRect to pass data through QVariant tunnel
+ *
+ * order is tran,  untr, fuzzy
+ *          left() top() width()
  */
 QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 {
@@ -51,77 +50,110 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     if (index.column()<Graph)
         return KDirModel::data(index,role);
 
+    KFileItem* item = itemForIndex(index);
+
+    //we handle dirs in special way for all columns left
+    if (item->isDir())
+    {
+        //currentrly we handle only Graph column
+        if (index.column()==Graph)
+        {
+            // ok, this is somewhat HACKy
+            KFileMetaInfo metaInfo(item->metaInfo(false));
+
+            int untranslated=0;
+            int translated=0;
+            int fuzzy=0;
+
+//takes 5 mseconds on kdebase
+#if 0
+            //first, check if we have already calcalated real stats
+            if (!metaInfo.item("translation.translated").value().isNull())
+            {
+                translated=metaInfo.item("translation.translated").value().toInt();
+                untranslated=metaInfo.item("translation.untranslated").value().toInt();
+                fuzzy=metaInfo.item("translation.fuzzy").value().toInt();
+                if (fuzzy+untranslated+translated>0)
+                    return QRect(translated,untranslated,fuzzy,0);
+            }
+#endif
+            //now we try to iterate through dir's children and get the sums
+            //if the children are already have been scanned
+
+            int count=rowCount(index);
+            //if (parent.isValid()
+            int i=0;
+            int infoIsFull=true;
+            for (;i<count;++i)
+            {
+//                 QModelIndex childIndex(index.child(i,0));
+//                 KFileItem* childItem(itemForIndex(childIndex));
+//                 //force population of metainfo. kfilemetainfo's internal is a shit
+//             if (item->metaInfo(false).keys().empty()
+//             && item->url().fileName().endsWith(".po"))
+//             {
+//                 item->setMetaInfo(KFileMetaInfo( item->url() ));
+//             }
+
+                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0))->metaInfo(false));
+    
+                if (!childMetaInfo.item("translation.translated").value().isNull())
+                {
+                    translated+=childMetaInfo.item("translation.translated").value().toInt();
+                    untranslated+=childMetaInfo.item("translation.untranslated").value().toInt();
+                    fuzzy+=childMetaInfo.item("translation.fuzzy").value().toInt();
+                }
+                else if (hasChildren(index.child(i,0)))
+                {
+                    //"inode/directory"
+                    infoIsFull=false;
+                }
+            }
+            if (infoIsFull&&(untranslated+translated+fuzzy))
+            {
+//                 KFileMetaInfo dirInfo(item->metaInfo(false));
+                metaInfo.item("translation.untranslated").setValue(untranslated);
+                metaInfo.item("translation.translated").setValue(translated);
+                metaInfo.item("translation.fuzzy").setValue(fuzzy);
+                item->setMetaInfo(metaInfo);
+                return QRect(translated,untranslated,fuzzy,0);
+            }
+        }
+        //else -->other columns handling
+
+        return QRect(0,0,0,32);//32 is a secret code that we use to say that info isnot ready yet
+    }
     //force population of metainfo. kfilemetainfo's internal is a shit
-    if (itemForIndex(index)->metaInfo(false).keys().empty()
-           && itemForIndex(index)->url().fileName().endsWith(".po"))
+    if (item->metaInfo(false).keys().empty()
+        && item->url().fileName().endsWith(".po"))
     {
-        itemForIndex(index)->setMetaInfo(KFileMetaInfo( itemForIndex(index)->url() ));
+        item->setMetaInfo(KFileMetaInfo( item->url() ));
     }
-
-    if (index.column()==Graph)
-    {
-                        //translation_date
-        if (itemForIndex(index)->metaInfo(false).item("translation.untranslated").value().isNull())
-        {
-            //return qVariantFromValue(TranslationProgress());
-//             kWarning() << "1 " << itemForIndex(index)->url() << endl;
-            return QRect(10,10,10,32);
-        }
-        /////
-/*        KFileMetaInfo dirInfo(itemForIndex(parent)->metaInfo(false));
-        int i=0;
-        int untranslated=0;
-        int translated=0;
-        int fuzzy=0;
-        QRect rect;
-        for (;i<count;++i)
-        {
-            KFileItem* item(itemForIndex(parent.child(i,0)));
-            //force population of metainfo. kfilemetainfo's internal is a shit
-            if (item->metaInfo(false).keys().empty()
-            && item->url().fileName().endsWith(".po"))
-            {
-                item->setMetaInfo(KFileMetaInfo( item->url() ));
-            }
-
-            KFileMetaInfo file(item->metaInfo(false));
-
-            if (!file.item("translation.translated").value().isNull())
-            {
-                translated+=file.item("translation.translated").value().toInt();
-                untranslated+=file.item("translation.untranslated").value().toInt();
-                fuzzy+=file.item("translation.fuzzy").value().toInt();
-            }
-            //kWarning() << "dsfds d " << i << endl;
-        }
-        if (untranslated+translated+fuzzy)
-        {
-            dirInfo.item("translation.untranslated").setValue(untranslated);
-            dirInfo.item("translation.translated").setValue(translated);
-            dirInfo.item("translation.fuzzy").setValue(fuzzy);
-            itemForIndex(parent)->setMetaInfo(dirInfo);
-        }*/
-        /////
-
-//         kWarning() << "0 " << itemForIndex(index)->url() << endl;
-//         kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt() << endl;
-
-        return QRect(itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt(),
-                    itemForIndex(index)->metaInfo(false).item("translation.untranslated").value().toInt(),
-                    itemForIndex(index)->metaInfo(false).item("translation.fuzzy").value().toInt(),
-                    0
-                    //itemForIndex(index)->metaInfo(false).item("translation.total").value().toInt()
-                    );
-    }
+    const KFileMetaInfo metaInfo(item->metaInfo(false));
 
     switch(index.column())
     {
+        case Graph:
+        {
+                            //translation_date?
+            if (metaInfo.item("translation.untranslated").value().isNull())
+                return QRect(0,0,0,32);
+
+            //kWarning() << "0 " << itemForIndex(index)->url() << endl;
+            //kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt() << endl;
+
+            return QRect(metaInfo.item("translation.translated").value().toInt(),
+                         metaInfo.item("translation.untranslated").value().toInt(),
+                         metaInfo.item("translation.fuzzy").value().toInt(),
+                         0
+                        );
+        }
         case SourceDate:
-            return itemForIndex(index)->metaInfo(false).item("translation.source_date").value();
+            return metaInfo.item("translation.source_date").value();
         case TranslationDate:
-            return itemForIndex(index)->metaInfo(false).item("translation.translation_date").value();
+            return metaInfo.item("translation.translation_date").value();
         case LastTranslator:
-            return itemForIndex(index)->metaInfo(false).item("translation.last_translator").value();
+            return metaInfo.item("translation.last_translator").value();
     }
     return KDirModel::data(index,role);
 }
@@ -134,19 +166,33 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
     switch (section)
     {
         case Graph:
-            return i18n("Graph");
+            return i18nc("@title:column","Graph");
         case TranslationDate:
-            return i18n("Last Translation");
+            return i18nc("@title:column","Last Translation");
         case SourceDate:
-            return i18n("Template Revision");
+            return i18nc("@title:column","Template Revision");
         case LastTranslator:
-            return i18n("Last Translator");
+            return i18nc("@title:column","Last Translator");
     }
 
     return KDirModel::headerData(section, orientation, role);
 
 }
 
+#if 0
+void ProjectModel::fetchMore(const QModelIndex& parent)
+{
+    KDirModel::fetchMore(parent);
+    if (parent.isValid())
+    {
+        QModelIndex graphIndex(
+                          index( parent.row(), Graph, KDirModel::parent(parent) )
+
+                          );
+        emit dataChanged(KDirModel::parent(parent),KDirModel::parent(parent));
+    }
+}
+#endif
 
 // void ProjectModel::forceScanning(const QModelIndex& parent)
 // {
@@ -200,11 +246,12 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 // }
 
 
-
+#if 0
 int ProjectModel::rowCount(const QModelIndex& parent) const
 {
 //     fetchMore(parent);
     int count= KDirModel::rowCount( parent );
+
     if (parent.isValid()
         &&itemForIndex(parent)->metaInfo(false).item("translation.untranslated").value().isNull()
         &&(!canFetchMore(parent))
@@ -253,74 +300,10 @@ int ProjectModel::rowCount(const QModelIndex& parent) const
     }
     return count;
 }
+#endif
 
 
 
-
-
-
-
-bool PoItemDelegate::editorEvent ( QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem & option, const QModelIndex & index )
-{
-    if (event->type()!=QEvent::MouseButtonRelease)
-        return false;
-
-    QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
-    if (mEvent->button()!=Qt::MidButton)
-        return false;
-
-    emit newWindowOpenRequested(static_cast<ProjectModel*>(model)->itemForIndex(index)->url());
-
-    return false;
-}
-
-void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    //return KFileItemDelegate::paint(painter,option,index);
-
-    if (index.column()!=Graph)
-        return QItemDelegate::paint(painter,option,index);
-        //return KFileItemDelegate::paint(painter,option,index);
-
-    QRect data=index.data(Qt::UserRole).toRect();
-    //QRect data(20,40,50,10);
-    if (data.height()==32) //collapsed folder
-    {
-        painter->fillRect(option.rect,Qt::white);
-        return;
-    }
-    int all=data.left()+data.top()+data.width();
-    if (!all)
-        return QItemDelegate::paint(painter,option,index);
-        //return KFileItemDelegate::paint(painter,option,index);
-
-    //painter->setBrush(Qt::SolidPattern);
-    //painter->setBackgroundMode(Qt::OpaqueMode);
-    painter->setPen(Qt::white);
-    QRect myRect(option.rect);
-    myRect.setWidth(option.rect.width()*data.left()/all);
-    painter->fillRect(myRect,
-                      QColor(60,190,60)
-                      //QLinearGradient()
-                     );
-    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
-
-    myRect.setLeft(myRect.left()+myRect.width());
-    myRect.setWidth(option.rect.width()*data.top()/all);
-    painter->fillRect(myRect,
-                      QColor(60,60,190)
-                     );
-    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
-
-    //painter->setPen(QColor(255,10,0));
-    myRect.setLeft(myRect.left()+myRect.width());
-    myRect.setWidth(option.rect.width()*data.width()/all);
-    painter->fillRect(myRect,
-                      QColor(190,60,60)
-                     );
-    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
-
-}
 
 
 

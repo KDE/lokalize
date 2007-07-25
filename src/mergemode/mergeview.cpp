@@ -43,11 +43,11 @@
 #include <QDragEnterEvent>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Merge Diff"), parent)
+    : QDockWidget ( i18nc("@title:window","Merge Diff"), parent)
     , m_browser(new QTextBrowser(this))
     , m_baseCatalog(catalog)
     , m_mergeCatalog(0)
-    , m_normTitle(i18n("Merge Diff"))
+    , m_normTitle(i18nc("@title:window","Merge Diff"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
 

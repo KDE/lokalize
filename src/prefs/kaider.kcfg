@@ -17,7 +17,6 @@
 	    <default>Joan Smith</default>
     </entry>
     <entry key="authorEmail" type="String">
-	    <label>Email</label>
             <whatsthis>Translator's email</whatsthis>
 	    <default>joan@smith.org</default>
     </entry>

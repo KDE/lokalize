@@ -31,6 +31,7 @@
 **************************************************************************** */
 
 #include <kdebug.h>
+#include <klocale.h>
 #include "catalog.h"
 #include "catalogmodel.h"
 
@@ -48,10 +49,10 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation orientation,
 
     switch (section)
     {
-        case Key: return "Entry";
-        case Source: return "Source";
-        case Translation: return "Translation";
-        case FuzzyFlag: return "Fuzzy";
+        case Key: return i18nc("@title:column","Entry");
+        case Source: return i18nc("@title:column","Source");
+        case Translation: return i18nc("@title:column","Translation");
+        case FuzzyFlag: return i18nc("@title:column","Fuzzy");
     }
     return QVariant();
 }

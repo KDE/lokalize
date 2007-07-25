@@ -55,14 +55,14 @@
 
 
 GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
-        : QDockWidget ( i18n("Glossary"), parent)
+        : QDockWidget ( i18nc("@title:window","Glossary"), parent)
         , m_browser(new QWidget(this))
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
         , m_rxClean("\\&|<[^>]*>")//cleaning regexp
         , m_rxSplit("\\W")//splitting regexp
-        , m_normTitle(i18n("Glossary"))
+        , m_normTitle(i18nc("@title:window","Glossary"))
         , m_hasInfoTitle(m_normTitle+" [*]")
         , m_hasInfo(false)
 
@@ -206,7 +206,7 @@ void GlossaryView::defineNewTerm(QString en,QString target)
 //       <property name="windowTitle" >
 //    <string>New term entry</string>
 //   </property>
-    dialog.setCaption(i18n("New term entry"));
+    dialog.setCaption(i18nc("@title:window","New term entry"));
 
 //     dialog.enableLinkedHelp(true);
 //     dialog.setHelpLinkText("bfghfgh"/*i18n()*/);

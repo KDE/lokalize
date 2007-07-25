@@ -43,7 +43,7 @@
 #include <QSortFilterProxyModel>
 
 CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18n("Message Tree"), parent)
+    : QDockWidget ( i18nc("@title:window","Message Tree"), parent)
     , m_browser(new QTreeView(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new QSortFilterProxyModel(this))
