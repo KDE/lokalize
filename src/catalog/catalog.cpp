@@ -258,14 +258,14 @@ bool Catalog::setHeader(CatalogItem newHeader)
       QString values = newHeader.msgstr();
       values.replace ("\n", "");
       values.replace ("\\n", "\\n\n");
-      
+
       kDebug () << "Normalized header: " << values << endl;
-      
+
       d->_header=newHeader;
       d->_header.setMsgstr(values);
-      
+
       updateHeader(false);
-      
+
       if (!setNumberOfPluralFormsFromHeader())
       {
           if (d->_generatedFromDocbook)
@@ -300,10 +300,8 @@ bool Catalog::loadFromUrl(const KUrl& url)
 //             KConfigSkeletonItem* a=Settings::self()->findItem(url.url());
 //             if (a)
 //             {
-//                 
 //             }
             emit signalFileLoaded();
-
             return true;
         }
         //return status;

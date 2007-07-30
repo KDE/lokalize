@@ -32,12 +32,16 @@
 
 #include "mergeview.h"
 
-#include "diff.h"
+#include "cmd.h"
 #include "mergecatalog.h"
+// #include "prefs_kaider.h"
+#include "diff.h"
 
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
+#include <kfiledialog.h>
+#include <kmessagebox.h>
 
 #include <QTextBrowser>
 #include <QDragEnterEvent>
@@ -56,10 +60,12 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog)
     setWidget(m_browser);
 
     setAcceptDrops(true);
+
 }
 
 MergeView::~MergeView()
 {
+    delete m_mergeCatalog;
     delete m_browser;
 }
 
@@ -74,16 +80,21 @@ void MergeView::dragEnterEvent(QDragEnterEvent* event)
 
 void MergeView::dropEvent(QDropEvent *event)
 {
-    emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
+    mergeOpen(KUrl(event->mimeData()->urls().first()));
     event->acceptProposedAction();
 }
 
-void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
+void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-//     if (!m_mergeCatalog)
-//         return;
-    //if (!m_mergeCatalog->isValid(pos.entry))
-    if (!really)
+    m_pos=pos;
+    //TODO clear view on delete m_mergeCatalog
+    if (!m_mergeCatalog)
+        return;
+
+    emit signalPriorChangedAvailable(pos.entry>m_mergeCatalog->firstChangedIndex());
+    emit signalNextChangedAvailable(pos.entry<m_mergeCatalog->lastChangedIndex());
+
+    if (!m_mergeCatalog->isValid(pos.entry))
     {
         if (m_hasInfo)
         {
@@ -92,6 +103,7 @@ void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
             m_browser->clear();
             m_browser->viewport()->setBackgroundRole(QPalette::Base);
         }
+        emit signalEntryWithMergeDisplayed(false);
         return;
     }
     if (!m_hasInfo)
@@ -99,60 +111,175 @@ void MergeView::slotEntryWithMergeDisplayed(bool really, const DocPosition& pos)
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
-    QString newStr(m_mergeCatalog->msgstr(pos));
-    QString oldStr(m_baseCatalog->msgstr(pos));
 
+    emit signalEntryWithMergeDisplayed(true);
 
-    oldStr.replace('<',"&lt;");
-    newStr.replace('<',"&lt;");
-    oldStr.replace('>',"&gt;");
-    newStr.replace('>',"&gt;");
-//     kWarning()<< "OLD "<< oldStr << endl;
-//     kWarning()<< "NEW "<< newStr << endl;
-
-//     kWarning()<< "NEW "<< newStr << endl;
-/*    oldStr.prepend("aaa ggg aaa ");
-    newStr.prepend("ggg aaa bbb aaa ");*/
-    oldStr.prepend(' ');
-    newStr.prepend(' ');
-
-    QString result(wordDiff(oldStr,newStr));
-
-    result.remove("</KBABELADD><KBABELADD>");
-    result.remove("</KBABELDEL><KBABELDEL>");
-
-    result.replace("<KBABELADD>","<font color=\"purple\">");
-    result.replace("</KBABELADD>","</font>");
-    result.replace("<KBABELDEL>","<font color=\"red\">");
-    result.replace("</KBABELDEL>","</font>");
+    QString result(wordDiff(m_baseCatalog->msgstr(pos),m_mergeCatalog->msgstr(pos)));
 
     result.replace("\\n","\\n<br>");
-    result.remove(QRegExp("^ "));
 
     if (m_mergeCatalog->isFuzzy(pos.entry))
         m_browser->viewport()->setBackgroundRole(QPalette::AlternateBase);
     else
         m_browser->viewport()->setBackgroundRole(QPalette::Base);
 
-//     result.replace("&lt;",'<');
-//     result.replace("&gt;",'>');
-
     m_browser->setHtml(result);
-//     m_browser->setPlainText(result);
 //     kWarning()<<"ELA "<<time.elapsed()<<endl;
-    //kWarning()<<" try "<<result<<endl;
-
-//     result.replace("&lt;",'<');
-//     result.replace("&gt;",'>');
-
-//     oldStr.replace("\\n","\\n\n");
-//     newStr.replace("\\n","\\n\n");
-
 }
 
 void MergeView::cleanup()
 {
+    delete m_mergeCatalog;
+    m_mergeCatalog=0;
+
+    emit signalPriorChangedAvailable(false);
+    emit signalNextChangedAvailable(false);
+
     m_browser->clear();
+}
+
+void MergeView::mergeOpen(KUrl url)
+{
+    if (!m_baseCatalog->numberOfEntries())
+        return;
+
+    if (url.isEmpty())
+        url=KFileDialog::getOpenUrl(m_baseCatalog->url(), "text/x-gettext-translation",this);
+    if (url.isEmpty())
+        return;
+
+    if (m_mergeCatalog)
+        delete m_mergeCatalog;
+    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
+
+    if (m_mergeCatalog->loadFromUrl(url))
+    {
+        connect (this,
+                 SIGNAL(entryModified(uint)),
+                 m_mergeCatalog,
+                 SLOT(removeFromChangedIndex(uint)));
+
+        if (m_pos.entry>0)
+        {
+            emit signalPriorChangedAvailable(m_pos.entry>m_mergeCatalog->firstChangedIndex());
+            emit signalNextChangedAvailable(m_pos.entry<m_mergeCatalog->lastChangedIndex());
+        }
+        slotNewEntryDisplayed(m_pos);
+    }
+    else
+    {
+        //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+        cleanup();
+        KMessageBox::error(this, i18nc("@info","Error opening the file\n%1",url.prettyUrl()) );
+    }
+
+}
+
+
+
+void MergeView::gotoPrevChanged()
+{
+    if (!m_mergeCatalog)
+        return;
+
+    DocPosition pos;
+
+    if( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1)
+        return;
+
+    emit gotoEntry(pos,0);
+}
+
+void MergeView::gotoNextChanged()
+{
+    if (!m_mergeCatalog)
+        return;
+
+    DocPosition pos;
+
+    if( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1)
+        return;
+
+    emit gotoEntry(pos,0);
+}
+
+void MergeView::mergeAccept()
+{
+    if(m_pos.entry==-1
+       ||!m_mergeCatalog
+       ||m_baseCatalog->msgstr(m_pos)==m_mergeCatalog->msgstr(m_pos))
+        return;
+
+    m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
+
+    m_pos.offset=0;
+
+    m_baseCatalog->push(new DelTextCmd(m_baseCatalog,m_pos,m_baseCatalog->msgstr(m_pos)));
+    m_baseCatalog->push(new InsTextCmd(m_baseCatalog,m_pos,m_mergeCatalog->msgstr(m_pos)));
+    if ( m_baseCatalog->isFuzzy(m_pos.entry) && !m_mergeCatalog->isFuzzy(m_pos.entry)       )
+        m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,false));
+    else if ( !m_baseCatalog->isFuzzy(m_pos.entry) && m_mergeCatalog->isFuzzy(m_pos.entry) )
+        m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,true));
+
+    m_mergeCatalog->removeFromChangedIndex(m_pos.entry);
+
+    m_baseCatalog->endMacro();
+
+    emit gotoEntry(m_pos,0);
+}
+
+
+void MergeView::mergeAcceptAllForEmpty()
+{
+    if(!m_mergeCatalog)
+        return;
+
+    DocPosition pos;
+    pos.entry=m_mergeCatalog->firstChangedIndex();
+    pos.offset=0;
+    int end=m_mergeCatalog->lastChangedIndex();
+    if (end==-1)
+        return;
+
+    bool insHappened=false;
+    bool update=false;
+    do
+    {
+        if (m_baseCatalog->isUntranslated(pos.entry))
+        {
+            int formsCount=(m_baseCatalog->pluralFormType(pos.entry)==Gettext)?
+                    m_baseCatalog->numberOfPluralForms():1;
+            pos.form=0;
+            while (pos.form<formsCount)
+            {
+                //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0)));
+                //some forms may still contain translation...
+                m_baseCatalog->isUntranslated(pos);
+                if (m_baseCatalog->isUntranslated(pos))
+                {
+                    if (!insHappened)
+                    {
+                        insHappened=true;
+                        m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept all new translations"));
+                    }
+                    m_baseCatalog->push(new InsTextCmd(m_baseCatalog,pos,m_mergeCatalog->msgstr(pos)));
+                    if(m_pos.entry==pos.entry)
+                        update=true;
+                }
+                ++(pos.form);
+            }
+
+        }
+        if (pos.entry==end)
+            break;
+        pos.entry=m_mergeCatalog->nextChangedIndex(pos.entry);
+    } while (pos.entry!=-1);
+
+    if (insHappened)
+        m_baseCatalog->endMacro();
+
+    if (update)
+        emit gotoEntry(m_pos,0);
 }
 
 

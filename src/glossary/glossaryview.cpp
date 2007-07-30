@@ -60,8 +60,9 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
-        , m_rxClean("\\&|<[^>]*>")//cleaning regexp
-        , m_rxSplit("\\W")//splitting regexp
+//        , m_rxClean("\\&|<[^>]*>")//cleaning regexp
+        , m_rxClean(Project::instance()->markup()+"|"+Project::instance()->accel())//cleaning regexp
+        , m_rxSplit("\\W|\\d")//splitting regexp
         , m_normTitle(i18nc("@title:window","Glossary"))
         , m_hasInfoTitle(m_normTitle+" [*]")
         , m_hasInfo(false)
@@ -73,6 +74,8 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 
     m_browser->setAutoFillBackground(true);
     m_browser->setBackgroundRole(QPalette::Base);
+
+    m_rxClean.setMinimal(true);
 }
 
 GlossaryView::~GlossaryView()
@@ -81,20 +84,17 @@ GlossaryView::~GlossaryView()
 }
 
 
-
-
+//TODO define new term by dragging some text.
 // void GlossaryView::dragEnterEvent(QDragEnterEvent* event)
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
 //         {
-//             //kWarning() << " " << <<endl;
 //             event->acceptProposedAction();
 //         };*/
 // }
 // 
 // void GlossaryView::dropEvent(QDropEvent *event)
 // {
-//     /*    emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
 //         event->acceptProposedAction();*/
 // }
 
@@ -104,6 +104,17 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
 //         return;
     QString msg(m_catalog->msgid(entry).toLower());
     msg.remove(m_rxClean);
+
+//     QRegExp accel(Project::instance()->accel());
+//     kWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl<<endl;
+//     int pos=0;
+//     while ((pos=accel.indexIn(msg,pos))!=-1)
+//     {
+//         msg.remove(accel.pos(1),accel.cap(1).size());
+//         pos=accel.pos(1);
+//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl<<endl;
+//     }
+
     QStringList words(msg.split(m_rxSplit,QString::SkipEmptyParts));
     if (words.isEmpty())
     {

@@ -30,60 +30,63 @@
 
 **************************************************************************** */
 
-#ifndef MERGEVIEW_H
-#define MERGEVIEW_H
+#ifndef TMVIEW_H
+#define TMVIEW_H
 
 #include "pos.h"
-
-#include <kurl.h>
+#include "jobs.h"
 
 #include <QDockWidget>
 class QTextBrowser;
 class Catalog;
-class MergeCatalog;
-class QDragEnterEvent;
 class QDropEvent;
+class QDragEnterEvent;
+class SelectJob;
 
-class MergeView: public QDockWidget
+#define TM_SHORTCUTS 10
+
+class TMView: public QDockWidget
 {
     Q_OBJECT
 
 public:
-    MergeView(QWidget*,Catalog*);
-    virtual ~MergeView();
+    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
+    virtual ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
 
+signals:
+    void textReplaceRequested(const QString&);
 
 public slots:
-    void mergeOpen(KUrl url=KUrl());
-    void cleanup();
     void slotNewEntryDisplayed(const DocPosition&);
+    void slotSuggestionsCame(SelectJob*);
 
-    void gotoNextChanged();
-    void gotoPrevChanged();
-    void mergeAccept();
-    void mergeAcceptAllForEmpty();
+    //i think we dont wanna cache suggestions:
+    //what if good sugg may be generated
+    //from the entry user translated 1 minute ago?
 
-signals:
-    //we connect it to our internal mergeCatalog to remove entry from index
-    void entryModified(uint);
-
-    void signalPriorChangedAvailable(bool);
-    void signalNextChangedAvailable(bool);
-    void signalEntryWithMergeDisplayed(bool);
-
-    void gotoEntry(const DocPosition&,int);
+//     void slotUseSuggestion0();
+//     void slotUseSuggestion1();
+//     void slotUseSuggestion2();
+//     void slotUseSuggestion3();
+//     void slotUseSuggestion4();
+//     void slotUseSuggestion5();
+//     void slotUseSuggestion6();
+//     void slotUseSuggestion7();
+//     void slotUseSuggestion8();
+//     void slotUseSuggestion9();
 
 private:
     QTextBrowser* m_browser;
-    Catalog* m_baseCatalog;
-    MergeCatalog* m_mergeCatalog;
+    Catalog* m_catalog;
     DocPosition m_pos;
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
+    //SelectJob* m_currentSelectJob;
+    QVector<TMEntry> m_entries;
 
 };
 

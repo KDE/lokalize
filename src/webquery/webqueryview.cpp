@@ -129,12 +129,7 @@ void WebQueryView::populateWebQueryActions()
 }
 #endif
 
-// void WebQueryView::doQuery()
-// {
-// //     ui_queryControl->actionzView
-// }
-
-
+//TODO text may be dragged
 // void WebQueryView::dragEnterEvent(QDragEnterEvent* event)
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
@@ -150,39 +145,15 @@ void WebQueryView::populateWebQueryActions()
 //         event->acceptProposedAction();*/
 // }
 
-void WebQueryView::slotNewEntryDisplayed(uint entry)
+void WebQueryView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-//     kWarning()<<"kv "<<endl;
     m_flowLayout->clearWebQueryResult();
-    ui_queryControl->actionzView->data.msg=m_catalog->msgid(entry);
-    
-
-//     action->setInterpreter("javascript");
-//     action->setFile("/home/kde-devel/t.js");
-/* # Publish a QObject instance only for the Kross::Action instance.
- action->addChild(myqobject2, "MySecondQObject");*/
-/* # Set the script file we like to execute.
- action->setFile("/home/myuser/mytest.py");
- # Execute the script file.*/
-//      action->setInterpreter("python");
-
-//  action->setCode("println( \"interval=\" );");
-    //action->trigger();
-//     QVariant result = action->callFunction("init", QVariantList()<<QString("Arg"));
-//     kWarning() <<result << action->functionNames()<<endl;
-// 
-//     KDialog d;
-//     new ActionCollectionEditor(action, d.mainWidget());
-//     d.exec();
-    //m_webQueryController->query();
-
+    ui_queryControl->actionzView->data.msg=m_catalog->msgid(pos);
+    //TODO pass DocPosition also, as tmview does
 
 }
 
 void WebQueryView::addWebQueryResult(const QString& str)
 {
-//     kWarning()<<"kv "<<str<<endl;
     m_flowLayout->addWebQueryResult(str);
 }
-
-// #include "WebQueryView.moc"

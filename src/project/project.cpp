@@ -34,15 +34,19 @@
 #include "projectmodel.h"
 
 #include <QTimer>
+#include <QTime>
 #include <kurl.h>
 #include <kdirlister.h>
+#include <kdebug.h>
 
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
 #include "webquerycontroller.h"
 #include "glossary.h"
+#include "jobs.h"
 // #include "webquerythread.h"
+#include <threadweaver/ThreadWeaver.h>
 
 using namespace Kross;
 
@@ -60,9 +64,8 @@ Project::Project(/*const QString &file*/)
     : ProjectBase()
     , m_model(0)
     , m_glossary(new Glossary)
-//     , m_webQueryThread(new WebQueryThread)
 {
-//     m_webQueryThread->start();
+    ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
 }
 
 Project::~Project()
@@ -93,12 +96,17 @@ void Project::load(const QString &file)
     readConfig();
     m_path=file;
 
-    //     kWarning() << "--l "<< m_path << endl;
     //put 'em into thread?
     QTimer::singleShot(500,this,SLOT(populateDirModel()));
     QTimer::singleShot(400,this,SLOT(populateGlossary()));
     QTimer::singleShot(1000,this,SLOT(populateWebQueryActions()));
-//     populateKrossActions();
+
+    ThreadWeaver::Weaver::instance()->dequeue();
+    IndexWordsJob* indexWordsJob=new IndexWordsJob(this);
+    connect(indexWordsJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(indexWordsJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotTMWordsIndexed(ThreadWeaver::Job*)));
+    ThreadWeaver::Weaver::instance()->enqueue(indexWordsJob);
+
     emit loaded();
 }
 
@@ -250,7 +258,28 @@ Project::Project(const QString &file)
 // {
 // }
 
+void Project::deleteScanJob(ThreadWeaver::Job* job)
+{
+    delete job;
+}
 
+void Project::dispatchSelectJob(ThreadWeaver::Job* job)
+{
+    connect((QObject*)this,SIGNAL(suggestionsCame(SelectJob*)),
+            (QObject*)static_cast<SelectJob*>(job)->m_view,
+            SLOT(slotSuggestionsCame(SelectJob*)));
+    emit suggestionsCame(static_cast<SelectJob*>(job));
+    disconnect((QObject*)this,SIGNAL(suggestionsCame(SelectJob*)),
+            (QObject*)static_cast<SelectJob*>(job)->m_view,
+            SLOT(slotSuggestionsCame(SelectJob*)));
 
+    delete job;
+}
+
+void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
+{
+    m_tmWordHash=static_cast<IndexWordsJob*>(job)->m_tmWordHash;
+    delete job;
+}
 #include "project.moc"
 

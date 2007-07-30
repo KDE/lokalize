@@ -34,6 +34,7 @@
 
 #include "diff.h"
 #include "catalog.h"
+#include "prefs_kaider.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -91,13 +92,6 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
     oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
     oldStr.remove(QRegExp("\\#[^\\|].*$"));
 
-    oldStr.replace('<',"&lt;");
-    newStr.replace('<',"&lt;");
-    oldStr.replace('>',"&gt;");
-    newStr.replace('>',"&gt;");
-//     kWarning()<< "OLD "<< oldStr << endl;
-//     kWarning()<< "NEW "<< newStr << endl;
-
     if (oldStr.contains("#| msgid \"\""))
     {
         oldStr.remove("#| \"");
@@ -116,23 +110,9 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
         oldStr.remove(QRegExp("\"$"));
         oldStr.remove("\"\n");
     }
-//     kWarning()<< "NEW "<< newStr << endl;
-/*    oldStr.prepend("aaa ggg aaa ");
-    newStr.prepend("ggg aaa bbb aaa ");*/
-    oldStr.prepend(' ');
-    newStr.prepend(' ');
 
     QString result(wordDiff(oldStr,newStr));
-
-    result.remove("</KBABELADD><KBABELADD>");
-    result.remove("</KBABELDEL><KBABELDEL>");
-    result.replace("<KBABELADD>","<font color=\"purple\">");
-    result.replace("</KBABELADD>","</font>");
-    result.replace("<KBABELDEL>","<font color=\"red\">");
-    result.replace("</KBABELDEL>","</font>");
-
     result.replace("\\n","\\n<br>");
-    result.remove(QRegExp("^ "));
 
     m_browser->setHtml(result);
 //     m_browser->setPlainText(result);

@@ -83,6 +83,11 @@ class QDragEvent;
  * Most of the non-menu, non-toolbar, non-statusbar,
  * and non-dockview GUI code should go here.
  *
+ * There are several ways (for views) to modify current msg:
+ * -modify QTextEdit and changes will be applied to catalog automatically (plus you need to care of fuzzy indication etc)
+ * -modify catalog directly, then call KAider::goto slot
+ * I used both :)
+ *
  * @short Main view
  * @author Nick Shaforostoff <shafff@ukr.net>
  * @version 0.1
@@ -108,8 +113,8 @@ private:
 
     ProperTextEdit* _msgidEdit;
     ProperTextEdit* _msgstrEdit;
-    SyntaxHighlighter* highlighter;
-//    bool disableUndoTracking=false; //workaround
+    SyntaxHighlighter* m_msgidHighlighter;
+    SyntaxHighlighter* m_msgstrHighlighter;
 
     QTabBar* _tabbar;
     LedsWidget* _leds;
@@ -144,6 +149,7 @@ private slots:
     void unwrap(ProperTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
+    void replaceText(const QString&);
     void clearMsgStr();
     void tagMenu();
 

@@ -30,61 +30,66 @@
 
 **************************************************************************** */
 
-#ifndef MERGEVIEW_H
-#define MERGEVIEW_H
-
 #include "pos.h"
+#include "catalog.h"
 
-#include <kurl.h>
-
-#include <QDockWidget>
-class QTextBrowser;
-class Catalog;
-class MergeCatalog;
-class QDragEnterEvent;
-class QDropEvent;
-
-class MergeView: public QDockWidget
+bool switchPrev(Catalog*& catalog,DocPosition& pos,bool useMsgId)
 {
-    Q_OBJECT
+    if (useMsgId)
+    {
+        if (pos.part==Msgid)
+        {
+            pos.part=Msgstr;
+            pos.offset=0;
+            return true;
+        }
+        else
+            pos.part=Msgid;
+    }
+    else
+        pos.part=Msgstr;
 
-public:
-    MergeView(QWidget*,Catalog*);
-    virtual ~MergeView();
+    if ( pos.form>0
+            && catalog->pluralFormType(pos.entry)==Gettext )
+        pos.form--;
+    else if (pos.entry==0)
+        return false;
+    else
+    {
+        pos.entry--;
+        pos.form=0;
+    }
+    pos.offset=0;
+    return true;
+}
 
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
+{
+    if (useMsgId)
+    {
+        if (pos.part==Msgid)
+        {
+            pos.part=Msgstr;
+            pos.offset=0;
+            return true;
+        }
+        else
+            pos.part=Msgid;
+    }
+    else
+        pos.part=Msgstr;
 
 
-public slots:
-    void mergeOpen(KUrl url=KUrl());
-    void cleanup();
-    void slotNewEntryDisplayed(const DocPosition&);
-
-    void gotoNextChanged();
-    void gotoPrevChanged();
-    void mergeAccept();
-    void mergeAcceptAllForEmpty();
-
-signals:
-    //we connect it to our internal mergeCatalog to remove entry from index
-    void entryModified(uint);
-
-    void signalPriorChangedAvailable(bool);
-    void signalNextChangedAvailable(bool);
-    void signalEntryWithMergeDisplayed(bool);
-
-    void gotoEntry(const DocPosition&,int);
-
-private:
-    QTextBrowser* m_browser;
-    Catalog* m_baseCatalog;
-    MergeCatalog* m_mergeCatalog;
-    DocPosition m_pos;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-
-};
-
-#endif
+    if ( pos.form+1 < catalog->numberOfPluralForms()
+            && catalog->pluralFormType(pos.entry)==Gettext )
+        pos.form++;
+    else if (pos.entry==catalog->numberOfEntries()-1)
+        return false;
+    else
+    {
+        pos.entry++;
+        pos.form=0;
+    }
+    pos.offset=0;
+    return true;
+}

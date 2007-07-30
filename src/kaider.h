@@ -65,7 +65,7 @@ class Ui_prefs_identity;
 class Ui_prefs_font;
 class Ui_findExtension;
 class Ui_prefs_projectmain;
-// class Ui_prefs_webquery;
+class Ui_prefs_regexps;
 
 
 /**
@@ -85,13 +85,15 @@ public:
     KAider();
     virtual ~KAider();
 
+    //wrapper for cmdline handling
+    void mergeOpen(KUrl url=KUrl());
+
 protected:
     bool queryClose();
 
 
 public slots:
     void fileOpen(KUrl url=KUrl());
-    void mergeOpen(KUrl url=KUrl());
     void gotoFirst();
     void gotoLast();
 
@@ -99,15 +101,17 @@ private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
 
-    void msgStrChanged();
-
-    void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
-
+    //statusbar indication
     void numberOfFuzziesChanged();
     void numberOfUntranslatedChanged();
+    //fuzzy, untr [statusbar] indication
+    void msgStrChanged();
+    //modif [caption] indication
+    void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
 
-    //for undo/redo, cataloglistview
+    //for undo/redo, views
     void gotoEntry(const DocPosition& pos,int selection=0);
+    //gui
     void switchForm(int);
 
     bool fileSave(const KUrl& url = KUrl());
@@ -167,12 +171,6 @@ private slots:
     void projectConfigure();
     void newWindowOpen(const KUrl&);
 
-    void mergeCleanup();
-    void gotoNextChanged();
-    void gotoPrevChanged();
-    void mergeAccept();
-    void mergeAcceptAllForEmpty();
-
     void defineNewTerm();
 
     void reflectRelativePathsHack();
@@ -184,8 +182,6 @@ private:
     void createDockWindows();
 
     void findNext(const DocPosition& startingPos);
-    bool switchPrev(DocPosition&,bool useMsgId=false);
-    bool switchNext(DocPosition&,bool useMsgId=false);
     void replaceNext(const DocPosition&);
     /** should be called on real entry change only */
 //     void emitSignals();
@@ -195,10 +191,6 @@ private:
 private:
     Project* _project;
     Catalog* _catalog;
-
-    // it could be keeped in mergeview,
-    // but too many things are done on thw mainwindow level
-    MergeCatalog* _mergeCatalog;
 
     KAiderView *m_view;
 
@@ -213,7 +205,7 @@ private:
     Ui_prefs_identity* ui_prefs_identity;
     Ui_prefs_font* ui_prefs_font;
     Ui_prefs_projectmain* ui_prefs_projectmain;
-//     Ui_prefs_webquery* ui_prefs_webquery;
+    Ui_prefs_regexps* ui_prefs_regexps;
     KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
     KEditListBox* m_scriptsPrefWidget;
 
@@ -255,9 +247,9 @@ signals:
     void signalPriorFuzzyOrUntrAvailable(bool);
     void signalNextFuzzyOrUntrAvailable(bool);
 
-    void signalPriorChangedAvailable(bool); // merge mode
-    void signalNextChangedAvailable(bool);  //
+    // merge mode signals gone to the view
 
+    //NOTE move these to catalog tree view?
     void signalPriorBookmarkAvailable(bool);
     void signalNextBookmarkAvailable(bool);
     void signalBookmarkDisplayed(bool);

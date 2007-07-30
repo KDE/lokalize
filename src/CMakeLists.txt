@@ -7,6 +7,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
     ${CMAKE_CURRENT_SOURCE_DIR}/webquery
+    ${CMAKE_CURRENT_SOURCE_DIR}/tm
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${KDE4_INCLUDE_DIR}
     ${QT_INCLUDES}
@@ -19,7 +20,6 @@ set(kaider_SRCS
     kaider.cpp
     kaider_findreplace.cpp
     kaider_prefs.cpp
-    kaider_mergemode.cpp
 
     kaiderview.cpp
     syntaxhighlighter.cpp
@@ -49,7 +49,11 @@ set(kaider_SRCS
     webquery/myactioncollectionview.cpp
 #    webquery/webquerythread.cpp
 
+    tm/tmview.cpp
+    tm/jobs.cpp
+
     catalog/cmd.cpp
+    catalog/pos.cpp
     catalog/catalog.cpp
     catalog/catalogitem.cpp
     catalog/importplugin.cpp
@@ -63,7 +67,7 @@ kde4_add_ui_files(kaider_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
     project/prefs_projectmain.ui
-#     project/prefs_webquery.ui
+    project/prefs_regexps.ui
     glossary/termdialog.ui
     kaider_findextension.ui
     webquery/querycontrol.ui
@@ -77,12 +81,11 @@ kde4_add_kcfg_files(kaider_SRCS
 kde4_add_executable(kaider ${kaider_SRCS})
 
 target_link_libraries(kaider
-#    ${KDE4_KDEUI_LIBS}
-#     ${KDE4_KIO_LIBS}
 #     ${KDE4_KFIlE_LIBS}
 #     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
     -lkfile
+    ${KDE4_THREADWEAVER_LIBRARY}
 )
 
 install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )

@@ -34,6 +34,7 @@
 #define POS_H
 
 #include <QtCore>
+class Catalog;
 
 enum Part {UndefPart, Msgid, Msgstr, Comment};
 
@@ -62,5 +63,9 @@ struct DocPosition
         offset(0)
         {}
 };
+
+bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
+bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
+
 
 #endif

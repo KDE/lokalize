@@ -59,6 +59,7 @@ void MergeCatalog::importFinished()
     while (i<size)
     {
         if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(i).msgidPlural()
+            && m_baseCatalog->d->_entries.at(i).msgctxt()==d->_entries.at(i).msgctxt()
             && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(i).msgstrPlural()
            )
         {
@@ -72,11 +73,11 @@ void MergeCatalog::importFinished()
         {
             newVector[i].setValid(false);
             //or... search for msg over the whole catalog;
-            //TODO use fuzzy matching?
-            uint j=0;
+            int j=0;
             while (j<d->_entries.size())
             {
                 if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(j).msgidPlural()
+                    && m_baseCatalog->d->_entries.at(i).msgctxt()==d->_entries.at(j).msgctxt()
                     && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(j).msgstrPlural()
                    )
                 {

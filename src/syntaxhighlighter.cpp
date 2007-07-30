@@ -33,34 +33,46 @@
 
 #include "syntaxhighlighter.h"
 
+#include "project.h"
+
 #include <QtGui>
+#include <kdebug.h>
 
 #define STATE_NORMAL 0
 #define STATE_TAG 1
 
 
-SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent, bool docbook)
-    : QSyntaxHighlighter(parent), fromDocbook(docbook)
+SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
+    : QSyntaxHighlighter(parent)
+//     , fromDocbook(docbook)
 {
+    highlightingRules.reserve(4);
     HighlightingRule rule;
     //QTextCharFormat format;
     tagFormat.setForeground(Qt::darkBlue);
-    if (!docbook) //support multiline tags
-    {
-        rule.format = tagFormat;
-        rule.pattern = QRegExp("<[^>]*>");
-        highlightingRules.append(rule);
-    }
+//     if (!docbook) //support multiline tags
+//     {
+//         rule.format = tagFormat;
+//         rule.pattern = QRegExp("<.+>");
+//         rule.pattern.setMinimal(true);
+//         highlightingRules.append(rule);
+//     }
 
-    //enity
+    //entity
     rule.format.setForeground(Qt::darkMagenta);
+    rule.pattern = QRegExp("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)");
+    highlightingRules.append(rule);
+
+    rule.format.setForeground(Qt::darkMagenta);
+    rule.pattern = QRegExp(Project::instance()->accel());
     //rule.pattern = QRegExp("&[^;]*;");
-    rule.pattern = QRegExp("(&[A-Za-z_:][A-Za-z0-9_.:-]*;)");
+/*    QString accelRx=Project::instance()->accel();
+    int pos=accelRx.indexOf('(')+1;
+    rule.pattern = QRegExp(  accelRx.mid( pos,accelRx.indexOf(')',pos)-1 )  );*/
     highlightingRules.append(rule);
 
     //\n \t \"
     rule.format.setForeground(Qt::darkGreen);
-    //rule.pattern = QRegExp("&[^;]*;");
     rule.pattern = QRegExp("(\\\\[abfnrtv'\"\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)");
     highlightingRules.append(rule);
 
@@ -78,17 +90,17 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent, bool docbook)
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
-    if (fromDocbook)
+//     if (fromDocbook)
     {
         setCurrentBlockState(STATE_NORMAL);
 
         int startIndex = STATE_NORMAL;
         if (previousBlockState() != STATE_TAG)
-            startIndex = text.indexOf("<");
+            startIndex = text.indexOf('<');
 
         while (startIndex >= 0)
         {
-            int endIndex = text.indexOf(">", startIndex);
+            int endIndex = text.indexOf('>', startIndex);
             int commentLength;
             if (endIndex == -1)
             {
@@ -101,7 +113,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                                 +1/*+ commentEndExpression.matchedLength()*/;
             }
             setFormat(startIndex, commentLength, tagFormat);
-            startIndex = text.indexOf("<",
+            startIndex = text.indexOf('<',
                                                     startIndex + commentLength);
         }
     }

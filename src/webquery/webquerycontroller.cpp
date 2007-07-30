@@ -62,14 +62,12 @@ void WebQueryController::query(const CatalogData& data)
     }
 }
 
+
+
 QString WebQueryController::msg()
 {
-//     kWarning()<<"  d " <<endl;
     return m_queue.head().msg;
 }
-
-
-
 
 QString WebQueryController::filePath()
 {
@@ -77,7 +75,7 @@ QString WebQueryController::filePath()
 }
 void WebQueryController::setTwinLangFilePath(QString)
 {
-    
+
 }
 
 QString WebQueryController::twinLangMsg()
@@ -86,7 +84,7 @@ QString WebQueryController::twinLangMsg()
 }
 
 
-void WebQueryController::doDownloadAndFlter(QString urlStr, QString _codec, QString rx/*, int rep*/)
+void WebQueryController::doDownloadAndFilter(QString urlStr, QString _codec, QString rx/*, int rep*/)
 {
     QString result;
     QUrl url;
@@ -98,7 +96,6 @@ void WebQueryController::doDownloadAndFlter(QString urlStr, QString _codec, QStr
 
     codec=QTextCodec::codecForName(_codec.toUtf8());
     filter=QRegExp(rx);
-//     repeat=rep;
 }
 
 void WebQueryController::slotDownloadResult(KJob* job)
@@ -107,6 +104,7 @@ void WebQueryController::slotDownloadResult(KJob* job)
     if ( job->error() )
     {
         m_queue.dequeue();
+        delete job;
         return;
     }
 
@@ -119,12 +117,20 @@ void WebQueryController::slotDownloadResult(KJob* job)
     }
     else
         m_queue.dequeue();
+
+    delete job;
 }
 
 
 void WebQueryController::setResult(QString result)
 {
-    m_queue.dequeue().webQueryView->addWebQueryResult(result);
+    //webQueryView may be deleted before we get result...
+    WebQueryView* a=m_queue.dequeue().webQueryView;
+    connect (this,SIGNAL(addWebQueryResult(const QString&)),
+             a,SLOT(addWebQueryResult(const QString&)));
+    emit addWebQueryResult(result);
+    disconnect (this,SIGNAL(addWebQueryResult(const QString&)),
+             a,SLOT(addWebQueryResult(const QString&)));
 
     if(!m_queue.isEmpty())
     {

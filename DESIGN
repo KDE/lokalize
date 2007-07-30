@@ -1,0 +1,7 @@
+The most global class is Project. It is a singleton so all data that can be shared among KAider instances should go into it.
+
+KAider is a dispatcher for one catalog editing window.
+KAiderView is msgid/msgstr viewer/editor.
+All specialized actions should go into views (QDockWidgets).
+
+PS I love Qt's signal/slot mechanism.

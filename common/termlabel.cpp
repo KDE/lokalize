@@ -104,7 +104,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
         QMenu menu;
 
 //         menu.addSeparator();
-        menu.addAction(i18nc("Edit term","Edit"));
+        menu.addAction(i18nc("@action:inmenu Edit term","Edit"));
 
         QAction* txt=menu.exec(event->globalPos());
         if (txt)
@@ -114,7 +114,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
             KDialog dialog;
             Ui_TermDialog ui_termdialog;
             ui_termdialog.setupUi(dialog.mainWidget());
-            dialog.setCaption(i18n("Edit term entry"));
+            dialog.setCaption(i18nc("@title:window","Edit term entry"));
 
             ui_termdialog.english->setItems(
                         a.english);

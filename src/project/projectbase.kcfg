@@ -7,7 +7,9 @@
   <include>klocale.h</include>
   <group name="General">
     <entry name="LangCode"  type="String">
+<!--
         <label>Language</label>
+-->
         <default code="true">KLocale::defaultLanguage()</default>
     </entry>
     <entry name="PoBaseDir"  type="String">
@@ -28,7 +30,20 @@
 -->
         <default>./terms.tbx</default>
     </entry>
+  </group>
+  <group name="WebQuery">
     <entry name="WebQueryScripts"  type="StringList">
+    </entry>
+  </group>
+  <group name="RegExps">
+    <entry name="Accel"  type="String">
+        <default>&amp;</default>
+<!--
+        <default>(&amp;)[^(\w+;)]</default>
+-->
+    </entry>
+    <entry name="Markup"  type="String">
+        <default>(&lt;.+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+</default>
     </entry>
   </group>
 </kcfg>

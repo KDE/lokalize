@@ -46,7 +46,7 @@ class SyntaxHighlighter : public QSyntaxHighlighter
     Q_OBJECT
 
 public:
-    explicit SyntaxHighlighter(QTextDocument *parent = 0,bool docbook=true);
+    explicit SyntaxHighlighter(QTextDocument *parent = 0/*,bool docbook=true*/);
 
 protected:
     void highlightBlock(const QString &text);
@@ -59,7 +59,7 @@ private:
     };
     QVector<HighlightingRule> highlightingRules;
 
-    bool fromDocbook;
+//     bool fromDocbook;
     QTextCharFormat tagFormat;
 };
 

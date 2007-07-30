@@ -63,6 +63,7 @@ public:
     void defineNewTerm(QString en,QString target);
 
 public slots:
+    //plural messages usually contain the same words...
     void slotNewEntryDisplayed(uint);
 
 signals:

@@ -32,9 +32,23 @@
 
 #include "kaider.h"
 #include "kaiderview.h"
+#include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
 #include "prefs_kaider.h"
+
+
+//views
+#include "msgctxtview.h"
+#include "msgiddiffview.h"
+#include "projectview.h"
+#include "mergeview.h"
+#include "cataloglistview.h"
+#include "glossaryview.h"
+#include "webqueryview.h"
+#include "tmview.h"
+
+#include "project.h"
 
 #include <QDir>
 #include <QDropEvent>
@@ -64,18 +78,6 @@
 
 
 
-//views
-#include "msgctxtview.h"
-#include "msgiddiffview.h"
-#include "projectview.h"
-#include "mergeview.h"
-#include "mergecatalog.h"
-#include "cataloglistview.h"
-#include "glossaryview.h"
-#include "webqueryview.h"
-
-#include "project.h"
-
 
 
 
@@ -83,7 +85,6 @@ KAider::KAider()
     : KXmlGuiWindow()
     , _project(Project::instance())
     , _catalog(new Catalog(this))
-    , _mergeCatalog(0)
     , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
     , _findDialog(0)
     , _find(0)
@@ -95,6 +96,7 @@ KAider::KAider()
     , ui_prefs_identity(0)
     , ui_prefs_font(0)
     , ui_prefs_projectmain(0)
+    , ui_prefs_regexps(0)
     , ui_findExtension(0)
     , ui_replaceExtension(0)
 //     , _projectView(0)
@@ -212,7 +214,7 @@ void KAider::setupActions()
     action = KStandardAction::find(this,SLOT(find()),actionCollection());
     action = KStandardAction::findNext(this,SLOT(findNext()),actionCollection());
     action = KStandardAction::findPrev(this,SLOT(findPrev()),actionCollection());
-    action->setText(i18nc("@action:inmenu","Change searching &direction"));
+    action->setText(i18nc("@action:inmenu","Change searching direction"));
     action = KStandardAction::replace(this,SLOT(replace()),actionCollection());
 
 //     :check
@@ -225,10 +227,10 @@ void KAider::setupActions()
     connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
     connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
 
-    ADD_ACTION_SHORTCUT("msgid2msgstr","Cop&y Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
+    ADD_ACTION_SHORTCUT("msgid2msgstr","Copy Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
 
-    ADD_ACTION_SHORTCUT("unwrapmsgstr","Un&wrap Msgstr",Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
+    ADD_ACTION_SHORTCUT("unwrapmsgstr","Unwrap Msgstr",Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
     action = actionCollection()->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
@@ -320,26 +322,26 @@ void KAider::setupActions()
     action->setText(i18nc("@action:inmenu","Create new project"));
 
 //MergeMode
-    action = actionCollection()->addAction("merge_open",this,SLOT(mergeOpen()));
+    action = actionCollection()->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open merge source"));
     action->setStatusTip(i18nc("@action:inmenu","Open catalog to be merged into the current one"));
 
-    action = actionCollection()->addAction("merge_prev",this,SLOT(gotoPrevChanged()));
+    action = actionCollection()->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous changed"));
     action->setShortcut(Qt::ALT+Qt::Key_Up);
-    connect( this, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action = actionCollection()->addAction("merge_next",this,SLOT(gotoNextChanged()));
+    action = actionCollection()->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next changed"));
     action->setShortcut(Qt::ALT+Qt::Key_Down);
-    connect( this, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action = actionCollection()->addAction("merge_accept",this,SLOT(mergeAccept()));
+    action = actionCollection()->addAction("merge_accept",_mergeView,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
     action->setShortcut(Qt::ALT+Qt::Key_Return);
-    connect( this, SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),action,SLOT(setEnabled(bool)));
+    connect( _mergeView, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
 
-    action = actionCollection()->addAction("merge_acceptnew",this,SLOT(mergeAcceptAllForEmpty()));
+    action = actionCollection()->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
@@ -356,11 +358,10 @@ void KAider::newWindowOpen(const KUrl& url)
 void KAider::createDockWindows()
 {
     MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
-    addDockWidget(Qt::BottomDockWidgetArea, msgCtxtView);
+    addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)));
 
-    //signalNewEntryDisplayed
     MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
@@ -376,9 +377,12 @@ void KAider::createDockWindows()
     _mergeView = new MergeView(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
     actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
-    connect (this,SIGNAL(signalEntryWithMergeDisplayed(bool,const DocPosition&)),_mergeView,SLOT(slotEntryWithMergeDisplayed(bool,const DocPosition&)));
-    connect (_mergeView,SIGNAL(mergeOpenRequested(KUrl)),this,SLOT(mergeOpen(KUrl)));
-    connect (this,SIGNAL(signalFileClosed()),this,SLOT(mergeCleanup()));
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (this,SIGNAL(signalFileClosed()),_mergeView,SLOT(cleanup()));
+    connect (m_view,SIGNAL(signalChanged(uint)),
+             _mergeView,SIGNAL(entryModified(uint)));
+    connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
+             this,SLOT(gotoEntry(const DocPosition&,int)));
 
     CatalogTreeView* catalogTreeView = new CatalogTreeView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, catalogTreeView);
@@ -405,15 +409,15 @@ void KAider::createDockWindows()
     {
 //         action->setVisible(false);
         wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
-        //wqaction->setShortcut(Qt::META+wqlist[i]);
-        wqaction->setShortcut(Qt::CTRL+wqlist[i]);
-        wqaction->setText(i18nc("@action:inmenu","Insert query result # %1",i));
+        wqaction->setShortcut(Qt::META+wqlist[i]);
+        //wqaction->setShortcut(Qt::CTRL+wqlist[i]);
+        wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result # %1",i));
         wqactions[i]=wqaction;
     }
     WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
     actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_webQueryView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
     connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
 
@@ -462,6 +466,34 @@ void KAider::createDockWindows()
     gaction->setText(i18nc("@action:inmenu","Define new term"));
     _glossaryView->addAction(gaction);
     _glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
+
+
+    QVector<QAction*> tmactions(TM_SHORTCUTS);
+    Qt::Key tmlist[TM_SHORTCUTS]={  Qt::Key_1,
+                        Qt::Key_2,
+                        Qt::Key_3,
+                        Qt::Key_4,
+                        Qt::Key_5,
+                        Qt::Key_6,
+                        Qt::Key_7,
+                        Qt::Key_8,
+                        Qt::Key_9,
+                        Qt::Key_0,
+                     };
+    QAction* tmaction;
+    for(i=0;i<TM_SHORTCUTS;++i)
+    {
+//         action->setVisible(false);
+        tmaction=actionCollection()->addAction(QString("tmquery_insert_%1").arg(i));
+        tmaction->setShortcut(Qt::CTRL+tmlist[i]);
+        tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",i));
+        tmactions[i]=tmaction;
+    }
+    TMView* _tmView = new TMView(this,_catalog,tmactions);
+    addDockWidget(Qt::BottomDockWidgetArea, _tmView);
+    actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
 }
 
 void KAider::fileOpen(KUrl url)
@@ -498,13 +530,16 @@ void KAider::fileOpen(KUrl url)
         DocPosition pos;
         pos.entry=0;
         pos.form=0;
-        gotoEntry(pos);
+        //we delay gotoEntry(pos) until roject is loaded;
 
         _captionPath=url.prettyUrl();
         setCaption(_captionPath,false);
         //Project
         if (!url.isLocalFile())
+        {
+            gotoEntry(pos);
             return;
+        }
 
         if (_project->isLoaded())
         {
@@ -513,6 +548,7 @@ void KAider::fileOpen(KUrl url)
                     ,url.path()
                                          );
             setCaption(_captionPath,false);
+            gotoEntry(pos);
             return;
         }
         int i=4;
@@ -536,6 +572,7 @@ void KAider::fileOpen(KUrl url)
 
             }
         }
+        gotoEntry(pos);
     }
     else
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
@@ -637,7 +674,8 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         _currentPos=pos;
         _currentEntry=pos.entry;
         emit signalNewEntryDisplayed(_currentEntry);
-        //emit signalNewEntryDisplayed(_currentPos);
+        emit signalNewEntryDisplayed(_currentPos);
+
         emit signalFirstDisplayed(_currentEntry==0);
         emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);
 
@@ -657,13 +695,6 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
         emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
 
-        if (_mergeCatalog)
-        {
-            emit signalPriorChangedAvailable(_currentEntry>_mergeCatalog->firstChangedIndex());
-            emit signalNextChangedAvailable(_currentEntry<_mergeCatalog->lastChangedIndex());
-
-            emit signalEntryWithMergeDisplayed(_mergeCatalog->isValid(pos.entry),_currentPos);
-        }
 /*        if ((int)_currentEntry<_catalog->lastFuzzyIndex())
             kWarning() << _currentEntry << " " << _catalog->lastFuzzyIndex() << " " << _catalog->lastUntranslatedIndex() << endl;*/
     }
@@ -700,7 +731,7 @@ void KAider::gotoNext()
     DocPosition pos;
     pos=_currentPos;
 
-    if (switchNext(pos))
+    if (switchNext(_catalog,pos))
         gotoEntry(pos);
 }
 
@@ -710,7 +741,7 @@ void KAider::gotoPrev()
     DocPosition pos;
     pos=_currentPos;
 
-    if (switchPrev(pos))
+    if (switchPrev(_catalog,pos))
         gotoEntry(pos);
 }
 
@@ -821,65 +852,10 @@ void KAider::gotoLast()
     gotoEntry(pos);
 }
 
-bool KAider::switchPrev(DocPosition& pos,bool useMsgId)
+//wrapper for cmdline handling...
+void KAider::mergeOpen(KUrl url)
 {
-    if (useMsgId)
-    {
-        if (pos.part==Msgid)
-        {
-            pos.part=Msgstr;
-            pos.offset=0;
-            return true;
-        }
-        else
-            pos.part=Msgid;
-    }
-    else
-        pos.part=Msgstr;
-
-    if ( pos.form>0
-            && _catalog->pluralFormType(pos.entry)==Gettext )
-        pos.form--;
-    else if (pos.entry==0)
-        return false;
-    else
-    {
-        pos.entry--;
-        pos.form=0;
-    }
-    pos.offset=0;
-    return true;
-}
-
-bool KAider::switchNext(DocPosition& pos,bool useMsgId)
-{
-    if (useMsgId)
-    {
-        if (pos.part==Msgid)
-        {
-            pos.part=Msgstr;
-            pos.offset=0;
-            return true;
-        }
-        else
-            pos.part=Msgid;
-    }
-    else
-        pos.part=Msgstr;
-
-
-    if ( pos.form+1 < _catalog->numberOfPluralForms()
-            && _catalog->pluralFormType(pos.entry)==Gettext )
-        pos.form++;
-    else if (pos.entry==_catalog->numberOfEntries()-1)
-        return false;
-    else
-    {
-        pos.entry++;
-        pos.form=0;
-    }
-    pos.offset=0;
-    return true;
+    _mergeView->mergeOpen(url);
 }
 
 //see also termlabel.h

@@ -36,16 +36,20 @@
 
 #include <QObject>
 #include "projectbase.h"
+#include "jobs.h"
 // #include "glossary.h"
 class ProjectModel;
 class Glossary;
 class WebQueryController;
+class SelectJob;
+
 // class WebQueryThread;
 // #include "webquerythread.h"
+#include <threadweaver/Job.h>
 
 /**
  * Singleton object that represents project.
- * It is shared between KAider 'mainwindows' using the same project file.
+ * It is shared between KAider 'mainwindows' that use the same project file.
  * Keeps project's KDirModel, Glossary and kross::actions
  *
  * GUI for config handling is implemented in kaider_prefs.cpp
@@ -59,7 +63,6 @@ class Project: public ProjectBase
 public:
 //    typedef KSharedPtr<Project> Ptr;
 
-    //explicit Project(const QString &file);
     explicit Project();
     virtual ~Project();
 
@@ -84,21 +87,32 @@ signals:
 private:
     QString absolutePath(const QString&)const;
 
-private slots:
+//private slots:
+public slots:
     void populateDirModel();
     void populateGlossary();
     void populateWebQueryActions();
 //     void populateKrossActions();
 
+    void deleteScanJob(ThreadWeaver::Job*);
+    void slotTMWordsIndexed(ThreadWeaver::Job*);
+    void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
+signals:
+    void suggestionsCame(SelectJob*);
 private:
     static Project* _instance;
 public:
     static Project* instance();
 
+public:
+    TMWordHash m_tmWordHash;
+
 private:
     QString m_path;
     ProjectModel* m_model;
     Glossary* m_glossary;
+
+//     QTime scanningTime;
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
 };

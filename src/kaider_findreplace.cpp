@@ -165,8 +165,8 @@ void KAider::findNext(const DocPosition& startingPos)
 
             if (!(
                   (_find->options()&KFind::FindBackwards)?
-                                switchPrev(_searchingPos,true):
-                                switchNext(_searchingPos,true)
+                                switchPrev(_catalog,_searchingPos,true):
+                                switchNext(_catalog,_searchingPos,true)
                  ))
                 break;
         }
@@ -366,8 +366,8 @@ void KAider::replaceNext(const DocPosition& startingPos)
 
             if (!(
                   (_replace->options()&KFind::FindBackwards)?
-                                switchPrev(_replacingPos):
-                                switchNext(_replacingPos)
+                                switchPrev(_catalog,_replacingPos):
+                                switchNext(_catalog,_replacingPos)
                  ))
                 break;
         }
@@ -534,11 +534,11 @@ void KAider::spellcheckNext()
 {
     //DocPosition pos=_spellcheckPos;
 
-    if (!_spellcheckStop && switchNext(_spellcheckPos))
+    if (!_spellcheckStop && switchNext(_catalog,_spellcheckPos))
     {
         // HACK actually workaround
         while (_catalog->msgstr(_spellcheckPos).isEmpty())
-            if (!switchNext(_spellcheckPos))
+            if (!switchNext(_catalog,_spellcheckPos))
                 return;
         m_sonnetDialog->setBuffer( _catalog->msgstr(_spellcheckPos) );
 //             kWarning() << "spellcheckNext a"<<_catalog->msgstr(_spellcheckPos) << endl;

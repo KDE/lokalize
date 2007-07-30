@@ -71,7 +71,7 @@ public:
         layout->addStrut(ledFuzzy->minimumSizeHint().height());
     }
 
-//TODO the config shit doesnt work
+//NOTE the config shit doesnt work
 // private:
 //     void contextMenuEvent(QContextMenuEvent* event)
 //     {
@@ -97,6 +97,8 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _catalog(catalog)
     , _msgidEdit(new ProperTextEdit)
     , _msgstrEdit(new ProperTextEdit(parent))
+/*    , m_msgidHighlighter(0)
+    , m_msgstrHighlighter(0)*/
     , _tabbar(new QTabBar)
     , _leds(0)
     , _currentEntry(-1)
@@ -118,12 +120,10 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     _msgidEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setAcceptRichText(false);
-
-
-    highlighter = new SyntaxHighlighter(_msgidEdit->document());
-    highlighter = new SyntaxHighlighter(_msgstrEdit->document());
-
     _msgstrEdit->installEventFilter(this);
+
+    m_msgidHighlighter = new SyntaxHighlighter(_msgidEdit->document());
+    m_msgstrHighlighter = new SyntaxHighlighter(_msgstrEdit->document());
 
     addWidget(_tabbar);
     addWidget(_msgidEdit);
@@ -265,7 +265,6 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     // for mergecatalog (delete entry from index)
     // and for statusbar
     emit signalChanged(pos.entry);
-    //KMessageBox::information(0, QString("%1 %2 %3").arg(offset).arg(charsRemoved).arg(charsAdded) );
 }
 
 void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
@@ -340,11 +339,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     //_oldMsgstr=_msgstrEdit->toPlainText();
 
     disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-    highlighter->rehighlight();
+    m_msgstrHighlighter->rehighlight();
     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
     msgEdit->setFocus();
-    //kWarning() << "fh g gf f "<< pos.offset << endl;
 }
 
 void KAiderView::dragEnterEvent(QDragEnterEvent* event)
@@ -377,7 +375,9 @@ void KAiderView::clearMsgStr()
         toggleFuzzy(false);
         fuzzyEntryDisplayed(false);
     }
+
     gotoEntry(_currentPos);
+    emit signalChanged(_currentEntry);
 }
 
 void KAiderView::toggleBookmark(bool checked)
@@ -511,13 +511,20 @@ void KAiderView::insertTerm(const QString& term)
     _msgstrEdit->setFocus();
 }
 
+void KAiderView::replaceText(const QString& txt)
+{
+    _msgstrEdit->setPlainText(txt);
+    _msgstrEdit->setFocus();
+}
+
 
 void KAiderView::tagMenu()
 {
     QMenu menu;
 
-    //QRegExp tag("<[^>]*>");
-    QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
+    //QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
+    QRegExp tag(Project::instance()->markup());
+    tag.setMinimal(true);
     QString en(_msgidEdit->toPlainText());
     QString target(_msgstrEdit->toPlainText());
     int pos=0;
@@ -525,24 +532,25 @@ void KAiderView::tagMenu()
     //kWarning() << tag.capturedTexts() << endl;
     //kWarning() << tag.cap(0) << endl;
     int posInMsgStr=0;
-    QAction* txt;
+    QAction* txt(0);
     while ((pos=tag.indexIn(en,pos))!=-1)
     {
-        //kWarning() << tag.cap(0) << endl;
+/*        QString str(tag.cap(0));
+        str.replace("&","&&");*/
         txt=menu.addAction(tag.cap(0));
         pos+=tag.matchedLength();
-//         kWarning() << "sassa " << posInMsgStr << endl;
+
         if (posInMsgStr!=-1 && (posInMsgStr=target.indexOf(tag.cap(0),posInMsgStr))==-1)
         {
             menu.setActiveAction(txt);
-//             kWarning() << "sass " << posInMsgStr << endl;
         }
         else if (posInMsgStr!=-1)
         {
             posInMsgStr+=tag.matchedLength();
         }
     }
-    
+    if (!txt)
+        return;
     
     
     

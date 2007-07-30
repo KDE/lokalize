@@ -30,6 +30,21 @@
 
 **************************************************************************** */
 
+#include "kaider.h"
+#include "kaiderview.h"
+#include "pos.h"
+#include "cmd.h"
+#include "catalog.h"
+#include "prefs_kaider.h"
+#include "project.h"
+#include "projectview.h"
+
+#include "ui_prefs_identity.h"
+#include "ui_prefs_font.h"
+#include "ui_prefs_projectmain.h"
+#include "ui_prefs_regexps.h"
+
+
 #include <kconfigdialog.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -48,19 +63,6 @@
 // #include <QListWidget>
 
 //  #include "global.h"
-#include "kaider.h"
-#include "kaiderview.h"
-#include "pos.h"
-#include "cmd.h"
-#include "catalog.h"
-#include "prefs_kaider.h"
-#include "project.h"
-#include "projectview.h"
-
-#include "ui_prefs_identity.h"
-#include "ui_prefs_font.h"
-#include "ui_prefs_projectmain.h"
-// #include "ui_prefs_webquery.h"
 
 
 void KAider::deleteUiSetupers()
@@ -68,7 +70,7 @@ void KAider::deleteUiSetupers()
     delete ui_prefs_identity;
     delete ui_prefs_font;
     delete ui_prefs_projectmain;
-//     delete ui_prefs_webquery;
+    delete ui_prefs_regexps;
 }
 
 
@@ -204,10 +206,17 @@ void KAider::projectConfigure()
 
 
 
-
-
     dialog->addPage(w, i18nc("@title:tab","General"), "general_project_setting");
 
+
+    // RegExps
+    w = new QWidget;
+    if (!ui_prefs_regexps)
+        ui_prefs_regexps = new Ui_prefs_regexps;
+    ui_prefs_regexps->setupUi(w);
+    dialog->addPage(w, i18nc("@title:tab","Syntax"), "syntax_project_setting");
+
+    //WebQuery
     w = new QWidget;
     QGridLayout* gridLayout = new QGridLayout(w);
     gridLayout->setSpacing(6);

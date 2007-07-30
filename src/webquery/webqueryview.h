@@ -70,7 +70,7 @@ public:
 //     bool event(QEvent*);
 
 public slots:
-    void slotNewEntryDisplayed(uint);
+    void slotNewEntryDisplayed(const DocPosition&);
     //connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
 //     void populateWebQueryActions();
 //     void doQuery();

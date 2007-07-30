@@ -74,7 +74,7 @@ public slots:
 
     void slotDownloadResult(KJob*);
 signals:
-    void addWebQueryResult(QString);
+    void addWebQueryResult(const QString&);
 
 //These are for scripts:
 signals:
@@ -100,7 +100,7 @@ public slots:
      *        e.g. "<div id=result_box dir=ltr>([^<]+)</div>"
      * @param repeat whether func should be called again (frames)
      */
-    void doDownloadAndFlter(QString url, QString codec, QString rx/*, int repeat*/);
+    void doDownloadAndFilter(QString url, QString codec, QString rx/*, int repeat*/);
 
     void setResult(QString);
     
