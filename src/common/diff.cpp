@@ -145,7 +145,7 @@ void LCSprinter::printLCS(uint index)
         for (index=0; index<bound; ++index)
         {
             resultString.append("<KBABELADD>");
-            //kWarning() << "add1 " << *it2 << endl;
+            kWarning() << "add-------- "<< endl;
             resultString.append(*it2);
             ++it2;
             if (haveSpaces)

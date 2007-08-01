@@ -47,6 +47,8 @@
 #include <QDragEnterEvent>
 #include <QFileInfo>
 #include <QDir>
+#include <QSignalMapper>
+#include <QAction>
 
 TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
@@ -55,17 +57,34 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     , m_normTitle(i18nc("@title:window","Translation Memory"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
+    , m_actions(actions)
 //     , m_currentSelectJob(0)
 {
     setObjectName("TMView");
     setWidget(m_browser);
-
     setAcceptDrops(true);
+
+    QSignalMapper* signalMapper=new QSignalMapper(this);
+    int i=actions.size();
+    while(--i>=0)
+    {
+        connect(actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
+        signalMapper->setMapping(actions.at(i), i);
+    }
+
+    connect(signalMapper, SIGNAL(mapped(int)),
+             this, SLOT(slotUseSuggestion(int)));
 }
 
 TMView::~TMView()
 {
     delete m_browser;
+}
+
+
+void TMView::slotUseSuggestion(int i)
+{
+    emit textReplaceRequested(m_actions.at(i)->statusTip());
 }
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
@@ -91,6 +110,29 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
     };
 }
 
+bool scanRecursive(const QDir& dir)
+{
+    bool ok=false;
+    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
+    int i=subDirs.size();
+    while(--i>=0)
+        ok=scanRecursive(QDir(dir.filePath(subDirs.at(i))))||ok;
+
+    QStringList filters("*.po");
+    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
+    i=files.size();
+    while(--i>=0)
+    {
+        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))));
+        job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+        ok=true;
+    }
+
+    return ok;
+}
+
 void TMView::dropEvent(QDropEvent *event)
 {
 //     emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
@@ -108,11 +150,8 @@ void TMView::dropEvent(QDropEvent *event)
         }
         else
         {
-            QDir dir(event->mimeData()->urls().at(i).path());
-            if (dir.exists())
-            {
-                //TODO
-            }
+            ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()))||ok;
+                //kWarning()<<"dd "<<dir.entryList()<<endl;
         }
     }
     if (ok)
@@ -159,15 +198,16 @@ void TMView::slotSuggestionsCame(SelectJob* job)
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
-    m_entries=job->m_entries;
+    //m_entries=job->m_entries;
     m_browser->insertHtml("<html>");
 
     while (i<limit)
     {
-//         kWarning()<<"res: "<<m_pos.entry<<endl;
-        m_browser->insertHtml(QString("[%1%] ").arg(float(m_entries.at(i).score)/100));
 
-        QString oldStr(m_entries.at(i).english);
+//         kWarning()<<"res: "<<m_pos.entry<<endl;
+        m_browser->insertHtml(QString("[%1%] ").arg(float(job->m_entries.at(i).score)/100));
+
+        QString oldStr(job->m_entries.at(i).english);
         QString newStr(m_catalog->msgid(m_pos));
 
 
@@ -182,14 +222,23 @@ void TMView::slotSuggestionsCame(SelectJob* job)
 
 
 
-        QString str(m_entries.at(i).target);
+        QString str(job->m_entries.at(i).target);
         str.replace('<',"&lt;");
         str.replace('>',"&gt;");
         //str.replace('&',"&amp;"); TODO check
 
         //str.remove(QRegExp("<br> *$"));
         //m_browser->insertHtml(QString("<br><p style=\"margin-left:10px\">%1</p>").arg(str));
-        m_browser->insertHtml(QString("<br>:: %1<br><br>").arg(str));
+        m_browser->insertHtml("<br>");
+        if (i<m_actions.size())
+        {
+            m_actions.at(i)->setStatusTip(job->m_entries.at(i).target);
+            m_browser->insertHtml(QString("[%1] ").arg(m_actions.at(i)->shortcut().toString()));
+        }
+        else
+            m_browser->insertHtml("[ - ] ");
+
+        m_browser->insertHtml(QString("%1<br><br>").arg(str));
         ++i;
 /*        if (i<limit)
             m_browser->insertHtml("<hr width=80%>");*/
@@ -198,3 +247,7 @@ void TMView::slotSuggestionsCame(SelectJob* job)
 //     kWarning()<<endl;
     kWarning()<<"ELA "<<time.elapsed()<<endl;
 }
+
+
+
+

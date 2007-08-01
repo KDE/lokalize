@@ -513,8 +513,31 @@ void KAiderView::insertTerm(const QString& term)
 
 void KAiderView::replaceText(const QString& txt)
 {
-    _msgstrEdit->setPlainText(txt);
+    int oldOffset=_msgstrEdit->textCursor().position();
+    _msgstrEdit->insertPlainText(txt);
+
     _msgstrEdit->setFocus();
+
+    if (_catalog->msgstr(_currentPos).size()==txt.size())
+        return;
+
+    _catalog->beginMacro(i18nc("@item Undo action item","Remove old translation"));
+    DocPosition pos=_currentPos;
+    pos.offset=0;
+    _catalog->push(new DelTextCmd(_catalog,pos,_catalog->msgstr(pos).left(oldOffset)));
+    pos.offset=txt.size();
+    _catalog->push(new DelTextCmd(_catalog,pos,_catalog->msgstr(pos).mid(txt.size())));
+
+    _catalog->endMacro();
+    pos.offset=0;
+
+    _msgstrEdit->document()->blockSignals(true);
+    _msgstrEdit->setPlainText(_catalog->msgstr(_currentPos));
+    _msgstrEdit->document()->blockSignals(false);
+    disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    m_msgstrHighlighter->rehighlight();
+    connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+
 }
 
 
@@ -551,27 +574,7 @@ void KAiderView::tagMenu()
     }
     if (!txt)
         return;
-    
-    
-    
-//     QMenu menu;
-//     //setActiveAction
-//     menu.addAction(i18n("Open project"),m_parent,SLOT(projectOpen()));
-//     menu.addAction(i18n("Create new project"),m_parent,SLOT(projectCreate()));
-// 
-//     if ("text/x-gettext-translation"
-//         ==Project::instance()->model()->itemForIndex(
-//             /*m_proxyModel->mapToSource(*/(m_browser->currentIndex())
-//                                                     )->mimetype()
-//        )
-//     {
-//         menu.addSeparator();
-//         menu.addAction(i18n("Open"),this,SLOT(slotOpen()));
-//         menu.addAction(i18n("Open in new window"),this,SLOT(slotOpenInNewWindow()));
-// 
-//     }
-// 
-// 
+
     txt=menu.exec(_msgidEdit->mapToGlobal(QPoint(0,0)));
     if (txt)
         _msgstrEdit->insertPlainText(txt->text());

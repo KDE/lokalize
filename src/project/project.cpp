@@ -47,6 +47,7 @@
 #include "jobs.h"
 // #include "webquerythread.h"
 #include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/DependencyPolicy.h>
 
 using namespace Kross;
 
@@ -60,7 +61,7 @@ Project* Project::instance()
     return _instance;
 }
 
-Project::Project(/*const QString &file*/)
+Project::Project()
     : ProjectBase()
     , m_model(0)
     , m_glossary(new Glossary)
@@ -70,11 +71,6 @@ Project::Project(/*const QString &file*/)
 
 Project::~Project()
 {
-    delete m_model;
-    delete m_glossary;
-//     delete m_webQueryThread;
-    kWarning() << "--d "<< m_path << endl;
-    writeConfig();
 }
 
 // void Project::save()
@@ -92,8 +88,16 @@ Project::~Project()
 
 void Project::load(const QString &file)
 {
+    ThreadWeaver::Weaver::instance()->dequeue();
     setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
     readConfig();
+    if (!m_path.isEmpty())
+    {
+        CloseDBJob* closeDBJob=new CloseDBJob(id(),this);
+        connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+
+    }
     m_path=file;
 
     //put 'em into thread?
@@ -101,7 +105,15 @@ void Project::load(const QString &file)
     QTimer::singleShot(400,this,SLOT(populateGlossary()));
     QTimer::singleShot(1000,this,SLOT(populateWebQueryActions()));
 
-    ThreadWeaver::Weaver::instance()->dequeue();
+
+
+    OpenDBJob* openDBJob=new OpenDBJob(id(),this);
+    connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+
+
+    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+
     IndexWordsJob* indexWordsJob=new IndexWordsJob(this);
     connect(indexWordsJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(indexWordsJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotTMWordsIndexed(ThreadWeaver::Job*)));
@@ -240,7 +252,7 @@ ProjectModel* Project::model()
     if (!m_model)
     {
         m_model=new ProjectModel;
-        QTimer::singleShot(500,this,SLOT(populateDirModel()));
+        //QTimer::singleShot(500,this,SLOT(populateDirModel()));
     }
 
     return m_model;
@@ -260,6 +272,18 @@ Project::Project(const QString &file)
 
 void Project::deleteScanJob(ThreadWeaver::Job* job)
 {
+    ScanJob* j=qobject_cast<ScanJob*>(job);
+    if (j)
+    {
+        kWarning() <<"Done scanning "<<j->m_url.prettyUrl()
+                   <<" time: "<<j->m_time
+                   <<" added: "<<j->m_added
+                   <<" newVersions: "<<j->m_newVersions
+                   <<endl
+                   <<" left: "<<ThreadWeaver::Weaver::instance()->queueLength()
+                   <<endl;
+    }
+
     delete job;
 }
 

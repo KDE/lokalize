@@ -33,10 +33,16 @@
 
 #include "version.h"
 #include "kaider.h"
+
+#include "project.h"
+#include "jobs.h"
+
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
+
+#include <threadweaver/ThreadWeaver.h>
 
 static const char version[] = KAIDER_VERSION;
 static const char description[] =
@@ -54,6 +60,7 @@ int main(int argc, char **argv)
     options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
+
     KApplication app;
 
     KAider *widget = new KAider;
@@ -87,7 +94,21 @@ int main(int argc, char **argv)
         args->clear();
     }
 
-    return app.exec();
+    int code=app.exec();
+
+    if (Project::instance()->isLoaded())
+    {
+        kWarning()<<"Finishing jobs..."<<endl;
+
+        ThreadWeaver::Weaver::instance()->dequeue();
+
+/*        CloseDBJob* closeDBJob=new CloseDBJob(Project::instance()->id(),Project::instance());
+//         connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+//         connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(closeDBJob);*/
+        ThreadWeaver::Weaver::instance()->finish();
+    }
+    return code;
 }
 
 

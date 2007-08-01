@@ -42,6 +42,7 @@ class Catalog;
 class QDropEvent;
 class QDragEnterEvent;
 class SelectJob;
+class QAction;
 
 #define TM_SHORTCUTS 10
 
@@ -67,16 +68,9 @@ public slots:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
 
-//     void slotUseSuggestion0();
-//     void slotUseSuggestion1();
-//     void slotUseSuggestion2();
-//     void slotUseSuggestion3();
-//     void slotUseSuggestion4();
-//     void slotUseSuggestion5();
-//     void slotUseSuggestion6();
-//     void slotUseSuggestion7();
-//     void slotUseSuggestion8();
-//     void slotUseSuggestion9();
+    //answer: store separate wordHash for added entries
+
+    void slotUseSuggestion(int);
 
 private:
     QTextBrowser* m_browser;
@@ -86,8 +80,9 @@ private:
     QString m_hasInfoTitle;
     bool m_hasInfo;
     //SelectJob* m_currentSelectJob;
-    QVector<TMEntry> m_entries;
-
+    //QVector<TMEntry> m_entries;
+//     QSignalMapper *m_signalMapper;
+    QVector<QAction*> m_actions;
 };
 
 #endif

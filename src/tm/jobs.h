@@ -72,6 +72,41 @@ struct TMWordHash
 };
 
 
+//called on startup
+class OpenDBJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    OpenDBJob(const QString& name,QObject* parent=0);
+    ~OpenDBJob();
+
+    int priority()const{return 10000;}
+
+protected:
+    void run ();
+
+    QString m_name;
+    //statistics?
+};
+
+//called on startup
+class CloseDBJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    CloseDBJob(const QString& name,QObject* parent=0);
+    ~CloseDBJob();
+
+    int priority()const{return 10001;}
+
+protected:
+    void run ();
+
+    QString m_name;
+    //statistics?
+};
+
+
 class SelectJob: public ThreadWeaver::Job
 {
     Q_OBJECT
@@ -121,9 +156,20 @@ public:
 
 protected:
     void run ();
-private:
+public:
     KUrl m_url;
+
+    //statistics
+    ushort m_time;
+    ushort m_added;
+    ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
+
 };
+
+
+
+
+
 
 //create index --called on startup
 class IndexWordsJob: public ThreadWeaver::Job
@@ -139,6 +185,8 @@ protected:
     void run ();
 public:
     TMWordHash m_tmWordHash;
+
+    //statistics?
 };
 
 #endif

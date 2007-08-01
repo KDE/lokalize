@@ -1,7 +1,7 @@
 PROJECT(kaider)
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
-    ${CMAKE_CURRENT_SOURCE_DIR}/../common
+    ${CMAKE_CURRENT_SOURCE_DIR}/common
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
@@ -27,8 +27,8 @@ set(kaider_SRCS
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
-    ../common/flowlayout.cpp
-    ../common/termlabel.cpp
+    common/flowlayout.cpp
+    common/termlabel.cpp
     glossary/glossaryview.cpp
     glossary/tbxparser.cpp
     glossary/glossary.cpp
@@ -37,7 +37,7 @@ set(kaider_SRCS
     mergemode/mergeview.cpp
     msgctxtview.cpp
     msgiddiffview.cpp
-    ../common/diff.cpp
+    common/diff.cpp
     project/projectview.cpp
     project/project.cpp
     project/projectmodel.cpp

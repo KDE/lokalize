@@ -10,14 +10,14 @@
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <item row="0" column="0" >
+   <item row="1" column="0" >
     <widget class="QLabel" name="label_2" >
      <property name="text" >
       <string>Language:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
+   <item row="1" column="1" >
     <widget class="QComboBox" name="LangCode" >
      <property name="minimumSize" >
       <size>
@@ -27,7 +27,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
+   <item row="2" column="1" >
     <widget class="KUrlRequester" name="poBaseDir" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
@@ -49,7 +49,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
+   <item row="3" column="1" >
     <widget class="KUrlRequester" name="potBaseDir" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
@@ -71,7 +71,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1" >
+   <item row="4" column="1" >
     <widget class="KUrlRequester" name="glossaryTbx" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
@@ -93,7 +93,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
+   <item row="2" column="0" >
     <widget class="QLabel" name="textLabel2_2" >
      <property name="text" >
       <string>PO directory:</string>
@@ -103,7 +103,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" >
+   <item row="3" column="0" >
     <widget class="QLabel" name="textLabel2" >
      <property name="text" >
       <string>Template diectory:</string>
@@ -113,14 +113,14 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" >
+   <item row="4" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
       <string>Glossary:</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1" >
+   <item row="5" column="1" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -132,6 +132,16 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="kcfg_id" />
+   </item>
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label_3" >
+     <property name="text" >
+      <string>ID:</string>
+     </property>
+    </widget>
    </item>
   </layout>
   <widget class="RelPathSaver" name="kcfg_PoBaseDir" >

@@ -71,7 +71,7 @@ QString GNUPluralForms(const QString& lang)
     msginit.start("msginit", arguments);
 
     msginit.waitForStarted(5000);
-    if (msginit.state()!=QProcess::Running)
+    if (KDE_ISUNLIKELY( msginit.state()!=QProcess::Running ))
         return QString("");
 
     msginit.write(
@@ -156,7 +156,7 @@ void Catalog::clear()
 
 const QString& Catalog::msgid(uint index, const uint form, const bool noNewlines) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY( d->_entries.isEmpty() ))
         return d->_emptyStr;
 
    return d->_entries.at(index).msgid(form,noNewlines);
@@ -164,7 +164,7 @@ const QString& Catalog::msgid(uint index, const uint form, const bool noNewlines
 
 const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY( d->_entries.isEmpty() ))
         return d->_emptyStr;
 
    return d->_entries.at(pos.entry).msgid(pos.form,noNewlines);
@@ -172,7 +172,7 @@ const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) con
 
 const QString& Catalog::msgstr(uint index, const uint form, const bool noNewlines) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return d->_emptyStr;
 
    return d->_entries.at(index).msgstr(form, noNewlines);
@@ -180,7 +180,7 @@ const QString& Catalog::msgstr(uint index, const uint form, const bool noNewline
 
 const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return d->_emptyStr;
 
    return d->_entries.at(pos.entry).msgstr(pos.form, noNewlines);
@@ -189,7 +189,7 @@ const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) co
 
 const QString& Catalog::comment(uint index) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return d->_emptyStr;
 
    return d->_entries.at(index).comment();
@@ -197,7 +197,7 @@ const QString& Catalog::comment(uint index) const
 
 const QString& Catalog::msgctxt(uint index) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return d->_emptyStr;
 
     return d->_entries.at(index).msgctxt();
@@ -205,7 +205,7 @@ const QString& Catalog::msgctxt(uint index) const
 
 PluralFormType Catalog::pluralFormType(uint index) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return NoPluralForm;
 
 //    uint max=d->_entries.count()-1;
@@ -217,7 +217,7 @@ PluralFormType Catalog::pluralFormType(uint index) const
 
 bool Catalog::isFuzzy(uint index) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return false;
 
    return d->_entries.at(index).isFuzzy();
@@ -225,7 +225,7 @@ bool Catalog::isFuzzy(uint index) const
 
 bool Catalog::isUntranslated(uint index) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return false;
 
    return d->_entries.at(index).isUntranslated();
@@ -233,7 +233,7 @@ bool Catalog::isUntranslated(uint index) const
 
 bool Catalog::isUntranslated(const DocPosition& pos) const
 {
-    if (  d->_entries.isEmpty() )
+    if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
         return false;
 
    return d->_entries.at(pos.entry).isUntranslated(pos.form);

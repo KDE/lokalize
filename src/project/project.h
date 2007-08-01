@@ -78,12 +78,10 @@ public:
     QString potDir()const{return absolutePath(potBaseDir());}
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
     Glossary* glossary()const{return m_glossary;}
-//     WebQueryThread* aaaaa(){return &m_webQueryThread;};
 
     QStringList webQueryScripts() const;
 signals:
     void loaded();
-//     void populateWebQueryActions(QString);
 private:
     QString absolutePath(const QString&)const;
 
@@ -99,6 +97,7 @@ public slots:
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
 signals:
     void suggestionsCame(SelectJob*);
+
 private:
     static Project* _instance;
 public:

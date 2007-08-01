@@ -87,7 +87,7 @@ const QStringList& CatalogItem::msgidPlural(const bool /*noNewlines*/) const
 
 const QString& CatalogItem::msgstr(const int form, const bool /*noNewlines*/) const
 {
-    if (form<d->_msgstrPlural.size())
+    if (KDE_ISLIKELY (form<d->_msgstrPlural.size()))
         return d->_msgstrPlural.at(form);
     else
         return d->_msgstrPlural.last();

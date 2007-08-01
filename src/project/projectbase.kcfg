@@ -6,6 +6,9 @@
   <kcfgfile arg="true"/>
   <include>klocale.h</include>
   <group name="General">
+    <entry name="id"  type="String">
+        <default code="true">"kde-"+KLocale::defaultLanguage()</default>
+    </entry>
     <entry name="LangCode"  type="String">
 <!--
         <label>Language</label>
