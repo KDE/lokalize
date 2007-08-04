@@ -56,7 +56,7 @@ public:
 public slots:
     void removeFromChangedIndex(uint index) {
         m_changedIndex.removeAll(index);
-//         kWarning()<<"rmvd"<<endl;
+//         kWarning()<<"rmvd";
     }
 
 private:

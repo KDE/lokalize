@@ -203,7 +203,7 @@ void ToggleFuzzyCmd::setFuzzy()
     _catalog->d->_fuzzyIndex.insert(it,_index);
     _catalog->emitsignalNumberOfFuzziesChanged();
 
-//     kWarning() << "BEFORE " << ITEM->_comment << endl;
+//     kWarning() << "BEFORE " << ITEM->_comment;
     if (ITEM->_comment.isEmpty())
     {
         ITEM->_comment="#, fuzzy";
@@ -214,7 +214,7 @@ void ToggleFuzzyCmd::setFuzzy()
     if(p!=-1)
     {
         ITEM->_comment.replace(p,2,"#, fuzzy,");
-//             kWarning() << " 3AFETR " << ITEM->_comment << endl;
+//             kWarning() << " 3AFETR " << ITEM->_comment;
         return;
     }
 
@@ -223,7 +223,7 @@ void ToggleFuzzyCmd::setFuzzy()
     if (p!=-1)
     {
         ITEM->_comment.insert(p+a.matchedLength(),"#, fuzzy\n");
-//             kWarning() << "1 AFETR " << ITEM->_comment << endl;
+//             kWarning() << "1 AFETR " << ITEM->_comment;
         return;
     }
 
@@ -232,7 +232,7 @@ void ToggleFuzzyCmd::setFuzzy()
             ITEM->_comment+='\n';
         ITEM->_comment+="#, fuzzy";
     }
-//     kWarning() << "2 AFETR " << ITEM->_comment << endl;
+//     kWarning() << "2 AFETR " << ITEM->_comment;
 }
 
 void ToggleFuzzyCmd::unsetFuzzy()
@@ -245,7 +245,7 @@ void ToggleFuzzyCmd::unsetFuzzy()
     _catalog->d->_fuzzyIndex.removeAll(_index);
     _catalog->emitsignalNumberOfFuzziesChanged();
 
-//     kWarning() << "BEFORE " << ITEM->_comment << endl;
+//     kWarning() << "BEFORE " << ITEM->_comment;
     ITEM->_comment.remove( QRegExp(",\\s*fuzzy"));
 
     // remove empty comment lines
@@ -254,7 +254,7 @@ void ToggleFuzzyCmd::unsetFuzzy()
     ITEM->_comment.remove( QRegExp("#\\s*\n") );
     ITEM->_comment.remove( QRegExp("^#\\s*\n") );
 
-//     kWarning() << "AFETR " << ITEM->_comment << endl;
+//     kWarning() << "AFETR " << ITEM->_comment;
 
 }
 

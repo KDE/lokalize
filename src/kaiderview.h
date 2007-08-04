@@ -64,7 +64,7 @@ protected:
 //         {
 //             if (key==Qt::Key_Z)
 //             {
-//                 kWarning() << "sdsfa" << endl;
+//                 kWarning() << "sdsfa";
 //                 keyEvent->ignore();
 //                 return;
 //             }

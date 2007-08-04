@@ -110,7 +110,7 @@ void WebQueryView::populateWebQueryActions()
 {
 
     QStringList actionz(Project::instance()->webQueryScripts());
-//     kWarning()<<actionz.size()<<endl;
+//     kWarning()<<actionz.size();
     int i=0;
     for (;i<actionz.size();++i)
     {
@@ -123,7 +123,7 @@ void WebQueryView::populateWebQueryActions()
         action->addObject(webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
         Manager::self().actionCollection()->addAction(action);
         action->trigger();
-//         kWarning()<<actionz.at(i)<<endl;
+//         kWarning()<<actionz.at(i);
     }
 
 }
@@ -134,7 +134,7 @@ void WebQueryView::populateWebQueryActions()
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
 //         {
-//             //kWarning() << " " << <<endl;
+//             //kWarning() << " " <<;
 //             event->acceptProposedAction();
 //         };*/
 // }

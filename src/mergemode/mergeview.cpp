@@ -73,7 +73,7 @@ void MergeView::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
     {
-        //kWarning() << " " << <<endl;
+        //kWarning() << " " <<;
         event->acceptProposedAction();
     };
 }
@@ -124,7 +124,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
         m_browser->viewport()->setBackgroundRole(QPalette::Base);
 
     m_browser->setHtml(result);
-//     kWarning()<<"ELA "<<time.elapsed()<<endl;
+//     kWarning()<<"ELA "<<time.elapsed();
 }
 
 void MergeView::cleanup()

@@ -69,7 +69,7 @@ static void initDb(QSqlDatabase& db)
 #if 0
 //temp
     if (!queryMain.exec("CREATE INDEX IF NOT EXISTS idxAntiDup ON tm_main (english, target)"))
-                    kWarning() <<"ERROR4: " <<queryMain.lastError().text() << endl;
+                    kWarning() <<"ERROR4: " <<queryMain.lastError().text();
 
 //we'll use in-memory word-hash
 
@@ -117,12 +117,12 @@ static int insertEntry(const QString& english,
     escapedEn.replace("'","''");
     if (!query1.exec("SELECT id, target FROM tm_main WHERE "
                      "english=='"+escapedEn+"'"))
-        kWarning() <<"ERROR2: " <<query1.lastError().text() << endl;;
+        kWarning() <<"ERROR2: " <<query1.lastError().text();;
 
 
     if (query1.next())
     {
-//         kWarning() <<"skipping" << endl;
+//         kWarning() <<"skipping";
 //         query1.next();
         if (target==query1.value(1).toString())
         {
@@ -136,7 +136,7 @@ static int insertEntry(const QString& english,
         escapedTarget.replace("'","''");
         if (!query1.exec("SELECT id FROM tm_dups WHERE "
                          "target=='"+escapedTarget+"'"))
-            kWarning() <<"ERROR22: " <<query1.lastError().text() << endl;;
+            kWarning() <<"ERROR22: " <<query1.lastError().text();;
 
         if (query1.next())
         {
@@ -151,7 +151,7 @@ static int insertEntry(const QString& english,
         query1.bindValue(1, target);
         if (KDE_ISLIKELY(query1.exec()))
             return 2;
-        kWarning() <<"ERROR33: " <<query1.lastError().text() << endl;
+        kWarning() <<"ERROR33: " <<query1.lastError().text();
         return 0;
     }
 
@@ -160,13 +160,13 @@ static int insertEntry(const QString& english,
     queryMain.bindValue(1, target);
     if (KDE_ISLIKELY(queryMain.exec()))
         return 1;
-    kWarning() <<"ERROR3: " <<queryMain.lastError().text() << endl;
+    kWarning() <<"ERROR3: " <<queryMain.lastError().text();
     return 0;
 
 //we'll use in-memory word-hash
 #if 0
     qlonglong mainid=queryMain.lastInsertId().toLongLong();
-//     kWarning() <<"MAIN INSERTED "<<english<<" "<<mainid<< endl;
+//     kWarning() <<"MAIN INSERTED "<<english<<" "<<mainid;
     int j=words.size();
     //queryWords.bindValue(1, queryMain.lastInsertId());
     while (--j>=0)
@@ -179,12 +179,12 @@ static int insertEntry(const QString& english,
         qqq.next();
         int wordid=qqq.value(0).toInt();//got wordid
         qqq.clear();
-//         kWarning() <<"USING WORDID "<<wordid<<" FOR WORD "<<words.at(j)<< endl;
+//         kWarning() <<"USING WORDID "<<wordid<<" FOR WORD "<<words.at(j);
 
         queryIndexWords.bindValue(0, wordid);
         queryIndexWords.bindValue(1, mainid);
         queryIndexWords.exec();
-//         kWarning() <<"LINK: WORID "<<wordid<<" FOR MAINID "<<mainid<< endl;
+//         kWarning() <<"LINK: WORID "<<wordid<<" FOR MAINID "<<mainid;
     }
 #endif
 }
@@ -198,7 +198,7 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
 
 OpenDBJob::~OpenDBJob()
 {
-    kWarning() <<"OpenDBJob dtor"<<endl;
+    kWarning() <<"OpenDBJob dtor";
 }
 
 void OpenDBJob::run ()
@@ -206,7 +206,7 @@ void OpenDBJob::run ()
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
-    //kWarning() <<"opening db"<<endl;
+    //kWarning() <<"opening db";
 
     QString dbFile=KStandardDirs::locateLocal("appdata", m_name+".db");
 
@@ -214,7 +214,7 @@ void OpenDBJob::run ()
     db.setDatabaseName(dbFile);
     if (KDE_ISLIKELY( db.open()) )
         initDb(db);
-    kWarning() <<"db opened "<<a.elapsed()<<" "<<dbFile<<endl;
+    kWarning() <<"db opened "<<a.elapsed()<<" "<<dbFile;
 }
 
 
@@ -226,7 +226,7 @@ CloseDBJob::CloseDBJob(const QString& name, QObject* parent)
 
 CloseDBJob::~CloseDBJob()
 {
-//     kWarning() <<"CloseDBJob dtor"<<endl;
+//     kWarning() <<"CloseDBJob dtor";
 }
 
 void CloseDBJob::run ()
@@ -240,7 +240,7 @@ void CloseDBJob::run ()
     QSqlDatabase::removeDatabase("tm_main");
 //     QSqlDatabase db=QSqlDatabase::database("QSQLITE","tm_main");
 //     db.close();
-    kWarning() <<"db closed "<<a.elapsed()<<endl;
+    kWarning() <<"db closed "<<a.elapsed();
 }
 
 
@@ -255,7 +255,7 @@ SelectJob::SelectJob(const QString& english,TMView* v,const DocPosition& pos,QOb
 
 SelectJob::~SelectJob()
 {
-    kWarning() <<"SelectJob dtor "<<endl;
+    kWarning() <<"SelectJob dtor ";
 }
 
 void SelectJob::run ()
@@ -263,7 +263,7 @@ void SelectJob::run ()
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
-    kWarning() <<"select job started"<<endl;
+    kWarning() <<"select job started";
 
     QSqlDatabase db=QSqlDatabase::database("tm_main");
     QRegExp rxSplit("\\W+|\\d+");
@@ -327,13 +327,13 @@ void SelectJob::run ()
     else
     {
         int o=words.size();
-        //kWarning() <<"SelectJob ok"<<endl;
+        //kWarning() <<"SelectJob ok";
         //for each word...
         while (--o>=0)
         {
             QList<qlonglong> idsForWord(Project::instance()->m_tmWordHash.wordHash.values(words.at(o)));
             int i=idsForWord.size();
-        //kWarning() <<"SelectJob: idsForWord.size() "<<idsForWord.size()<<endl;
+        //kWarning() <<"SelectJob: idsForWord.size() "<<idsForWord.size();
 
             //iterate over ids
             while (--i>=0)
@@ -364,7 +364,7 @@ void SelectJob::run ()
         QList<qlonglong> ids(occurencies.keys(concordanceLevels.at(i)));
 
         int j=qMin(ids.size(),100);//hard limit
-        //kWarning() <<"ScanJob: doin "<<concordanceLevels.at(i)<<" limit "<<j<<endl;
+        //kWarning() <<"ScanJob: doin "<<concordanceLevels.at(i)<<" limit "<<j;
         limit-=j;
 
         QString joined;
@@ -386,7 +386,7 @@ void SelectJob::run ()
             e.target=queryFetch.value(2).toString();
             e.date=queryFetch.value(3).toString();
 
-            //kWarning() <<"SelectJob: doin "<<j<<" "<<e.english<<endl;
+            //kWarning() <<"SelectJob: doin "<<j<<" "<<e.english;
             //
             //calc score
             //
@@ -403,13 +403,13 @@ void SelectJob::run ()
             result.remove(0,1);
             result.remove("</KBABELADD><KBABELADD>");
             result.remove("</KBABELDEL><KBABELDEL>");
-            //kWarning() <<"SelectJob: doin "<<j<<" "<<result<<endl;
+            //kWarning() <<"SelectJob: doin "<<j<<" "<<result;
             int pos=0;
             int delSubStrCount=0;
             int delLen=0;
             while ((pos=delPart.indexIn(result,pos))!=-1)
             {
-                //kWarning() <<"SelectJob:  match del "<<delPart.cap(0)<<endl;
+                //kWarning() <<"SelectJob:  match del "<<delPart.cap(0);
                 delLen+=delPart.matchedLength()-23;
                 ++delSubStrCount;
                 pos+=delPart.matchedLength();
@@ -430,7 +430,7 @@ void SelectJob::run ()
             int commonLen=allLen-delLen-addLen;
             //now, allLen is the length of the string being translated
             allLen=m_english.size();
-            //kWarning() <<"ScanJob del:"<<delLen<<" add:"<<addLen<<" common:"<<commonLen<<" all:"<<allLen<<endl;
+            //kWarning() <<"ScanJob del:"<<delLen<<" add:"<<addLen<<" common:"<<commonLen<<" all:"<<allLen;
             if (delLen+addLen)
             {
                 //del is better than add
@@ -465,7 +465,7 @@ void SelectJob::run ()
                 }
                 else//==to adapt, only deletion is needed
                 {
-//                             kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10))<<endl;
+//                             kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
                     float score=9900*(pow(float(commonLen)/float(allLen),0.20))
                             / exp(0.01*float(delLen))
                             / exp(0.015*float(delSubStrCount));
@@ -483,7 +483,7 @@ void SelectJob::run ()
                     e.score=9900;
                 }
             }
-    //                     kWarning() <<"ScanJob: add "<<j<<" "<<e.english<<endl;
+    //                     kWarning() <<"ScanJob: add "<<j<<" "<<e.english;
             if (e.score>3500)
             {
                 m_entries.append(e);
@@ -504,10 +504,10 @@ void SelectJob::run ()
         queryFetch.clear();
     }
 
-    //                 kWarning() <<"ScanJob: done "<<a.elapsed()<<endl;
+    //                 kWarning() <<"ScanJob: done "<<a.elapsed();
     qSort(m_entries);
     m_entries.resize(qMin(15,m_entries.size()));
-    kWarning() <<"SelectJob done in "<<a.elapsed()<<endl;
+    kWarning() <<"SelectJob done in "<<a.elapsed();
 
 
 }
@@ -522,7 +522,7 @@ InsertJob::InsertJob(const TMEntry& entry,QObject* parent)
 
 InsertJob::~InsertJob()
 {
-    kWarning() <<"InsertJob dtor"<<endl;
+    kWarning() <<"InsertJob dtor";
 }
 
 void InsertJob::run ()
@@ -543,7 +543,7 @@ ScanJob::ScanJob(const KUrl& url,QObject* parent)
 
 ScanJob::~ScanJob()
 {
-    kWarning() <<"ScanJob dtor "<<endl;
+    kWarning() <<"ScanJob dtor ";
 }
 
 void ScanJob::run ()
@@ -554,12 +554,12 @@ void ScanJob::run ()
     m_added=0;
     m_newVersions=0;
     QSqlDatabase db=QSqlDatabase::database("tm_main");
-    //kWarning() <<"ScanJob "<<a.elapsed()<<endl;
+    //kWarning() <<"ScanJob "<<a.elapsed();
     Catalog catalog(thread());
     if (KDE_ISLIKELY(catalog.loadFromUrl(m_url)))
     {
         QRegExp m_rxSplit("\\W|\\d");
-    //kWarning() <<"ScanJob: loaded "<<a.elapsed()<<endl;
+    //kWarning() <<"ScanJob: loaded "<<a.elapsed();
         initDb(db);
 
     //                 QSqlQuery queryInsertWord(db);
@@ -585,7 +585,7 @@ void ScanJob::run ()
             if (catalog.isFuzzy(i))
                 continue;
 
-    //                     kWarning() <<"ScanJob: "<<a.elapsed()<<" "<<i<<endl;
+    //                     kWarning() <<"ScanJob: "<<a.elapsed()<<" "<<i;
             int res=insertEntry(catalog.msgid(i),
                         catalog.msgstr(i),
                         db,
@@ -602,9 +602,9 @@ void ScanJob::run ()
             }
         }
         QSqlQuery queryEnd("END",db);
-    //                 kWarning() <<"ScanJob: done "<<a.elapsed()<<endl;
+    //                 kWarning() <<"ScanJob: done "<<a.elapsed();
     }
-    //kWarning() <<"Done scanning "<<m_url.prettyUrl()<<endl;
+    //kWarning() <<"Done scanning "<<m_url.prettyUrl();
     m_time=a.elapsed();
 }
 
@@ -616,7 +616,7 @@ IndexWordsJob::IndexWordsJob(QObject* parent)
 
 IndexWordsJob::~IndexWordsJob()
 {
-    kWarning() <<"indexWordsJob dtor "<<endl;
+    kWarning() <<"indexWordsJob dtor ";
 }
 
 void IndexWordsJob::run ()
@@ -624,7 +624,7 @@ void IndexWordsJob::run ()
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
-    kWarning() <<"words indexing started"<<endl;
+    kWarning() <<"words indexing started";
     int count=0;
     QSqlDatabase db=QSqlDatabase::database("tm_main");
     m_tmWordHash.wordHash.clear();
@@ -664,7 +664,7 @@ void IndexWordsJob::run ()
                 }
             }
         }
-    //kWarning() <<"INDEXING"<<query.value(1).toString()<< endl;
+    //kWarning() <<"INDEXING"<<query.value(1).toString();
 
         int j=words.size();
         while (--j>=0)
@@ -677,7 +677,7 @@ void IndexWordsJob::run ()
     query.clear();
     m_tmWordHash.wordHash.squeeze();
 
-    kWarning() <<"words indexing done in "<<a.elapsed()<<" size "<<m_tmWordHash.wordHash.uniqueKeys().size()<<" "<<count<<endl;
+    kWarning() <<"words indexing done in "<<a.elapsed()<<" size "<<m_tmWordHash.wordHash.uniqueKeys().size()<<" "<<count;
 }
 
 

@@ -80,7 +80,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         //emit signalError(i18n("Wasn't able to open file %1",filename.ascii()));
         return OS_ERROR;
     }
-    //kWarning() << "SAVE NAME "<<localFile << endl;
+    //kWarning() << "SAVE NAME "<<localFile;
 
 //      int progressRatio = qMax(100/ qMax(catalog->numberOfEntries(),uint(1)), uint(1));
 //       emit signalResetProgressBar(i18n("saving file"),100);
@@ -153,7 +153,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         if ( !headerMsgid.isEmpty() )
         {
             // ### TODO: perhaps it is grave enough for a user message
-            kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---" << endl;
+            kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
         }
 
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
@@ -190,7 +190,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         }
         else
         {
-            kDebug() << "Saving gettext plural form" << endl;
+            kDebug() << "Saving gettext plural form";
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for ( int i = 0; i < forms; ++i )

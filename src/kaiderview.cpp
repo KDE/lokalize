@@ -80,7 +80,7 @@ public:
 //         if (menu.exec(event->globalPos()))
 //         {
 //             Settings::setLeds(false);
-//             kWarning() << Settings::leds()<<endl;
+//             kWarning() << Settings::leds();
 //             hide();
 //         }
 //     }
@@ -151,7 +151,7 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
 {
 //     if (obj!=_msgstrEdit)
 //     {
-//         kWarning() << "THIS IS VERY STRANGE" << endl;
+//         kWarning() << "THIS IS VERY STRANGE";
 //         return QSplitter::eventFilter(obj, event);
 //     }
 
@@ -349,7 +349,7 @@ void KAiderView::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
     {
-        //kWarning() << " " << <<endl;
+        //kWarning() << " " <<;
         event->acceptProposedAction();
     };
 }
@@ -552,8 +552,8 @@ void KAiderView::tagMenu()
     QString target(_msgstrEdit->toPlainText());
     int pos=0;
     //tag.indexIn(en);
-    //kWarning() << tag.capturedTexts() << endl;
-    //kWarning() << tag.cap(0) << endl;
+    //kWarning() << tag.capturedTexts();
+    //kWarning() << tag.cap(0);
     int posInMsgStr=0;
     QAction* txt(0);
     while ((pos=tag.indexIn(en,pos))!=-1)

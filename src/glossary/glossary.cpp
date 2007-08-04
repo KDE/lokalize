@@ -57,7 +57,7 @@ void Glossary::load(const QString& p)
     QXmlInputSource xmlInputSource(&file);
     if (!reader.parse(xmlInputSource))
     {
-         kWarning() << "failed to load "<< path<< endl;
+         kWarning() << "failed to load "<< path;
     }
 
 
@@ -275,14 +275,14 @@ void Glossary::change(const TermEntry& entry)
                         while (! (xmlIn.readNext()==QXmlStreamReader::EndElement
                                    &&xmlIn.name()=="langSet") )
                             ;
-//                                 kWarning() << "text  "<< xmlIn.text().toString()<< endl;;
+//                                 kWarning() << "text  "<< xmlIn.text().toString();;
 //                         xmlIn.readNext();
 //                         continue;
                     }
 //                     else
-//                         kWarning() << "text  "<< xmlIn.attributes().value("xml:lang").toString()<< endl;;
+//                         kWarning() << "text  "<< xmlIn.attributes().value("xml:lang").toString();;
                 }
-//                 kWarning() << "ff  "<< xmlIn.tokenString()<< endl;
+//                 kWarning() << "ff  "<< xmlIn.tokenString();
                 if (xmlIn.readNext()==QXmlStreamReader::EndElement
                          &&xmlIn.name()=="termEntry")
                     break;

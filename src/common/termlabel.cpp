@@ -54,7 +54,7 @@
 //     {
 // //         setFlat(true);
 // //         grabShortcut(Qt::ALT+Qt::CTRL+key);
-// //         kWarning() << "dsds " << grabShortcut(Qt::ALT+key) <<endl;
+// //         kWarning() << "dsds " << grabShortcut(Qt::ALT+key);
 //     }
 //     //~TermLabel(){}
 // // bool TermLabel::event(QEvent *event)
@@ -62,14 +62,14 @@
 // //     if (event->type() != QEvent::Shortcut)
 // //         return QLabel::event(event);
 // // 
-// // //         kWarning() << "dsds " << m_termTransl <<endl;
+// // //         kWarning() << "dsds " << m_termTransl;
 // //     emit insertTerm(m_termTransl);
 // //     return true;
 // // }
 
 void TermLabel::insert()
 {
-//     kWarning() << "m_termTransl" << endl;
+//     kWarning() << "m_termTransl";
     if (m_termIndex==-1)
         return;
     if( Project::instance()->glossary()->termList.at(m_termIndex).target.count()>1)
@@ -132,7 +132,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
 
             if (QDialog::Accepted==dialog.exec())
             {
-        //kWarning() << "sss" << endl;
+        //kWarning() << "sss";
                 a.english=ui_termdialog.english->items();
                 a.target=ui_termdialog.target->items();
                 a.definition=ui_termdialog.definition->toPlainText();
@@ -156,7 +156,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
 
 void QueryResultBtn::insert()
 {
-//     kWarning()<<"ins "<<text()<<endl;
+//     kWarning()<<"ins "<<text();
     emit insertText(m_text);
 }
 
@@ -165,7 +165,7 @@ QueryResultBtn::QueryResultBtn(QAction* a)
     , m_action(a)
 {
     setWordWrap(true);
-//     kWarning()<<"ctor"<<endl;
+//     kWarning()<<"ctor";
     //connect(this,SIGNAL(clicked(bool)),this,SLOT(insert()));
 }
 

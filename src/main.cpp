@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 
     if (Project::instance()->isLoaded())
     {
-        kWarning()<<"Finishing jobs..."<<endl;
+        kWarning()<<"Finishing jobs...";
 
         ThreadWeaver::Weaver::instance()->dequeue();
 

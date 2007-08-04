@@ -86,11 +86,11 @@ GettextImportPlugin::GettextImportPlugin(QObject* parent)
 
 ConversionStatus GettextImportPlugin::load(const QString& filename/*, bool tryToRecover*/, const QString&)
 {
-//   kDebug() << k_funcinfo << endl;
+//   kDebug() << k_funcinfo;
 _testBorked=false;
    if (filename.isEmpty())
    {
-      kDebug() << "fatal error: empty filename to open" << endl;
+      kDebug() << "fatal error: empty filename to open";
       return NO_FILE;
    }
 
@@ -127,7 +127,7 @@ _testBorked=false;
    CatalogItem tempHeader;
    QStringList tempObsolete;
 
-   kDebug() << "start parsing..." << endl;
+   kDebug() << "start parsing...";
    QTime aaa;
    aaa.start();
    // first read header
@@ -136,22 +136,22 @@ _testBorked=false;
    bool recoveredErrorInHeader = false;
    if ( status == RECOVERED_PARSE_ERROR )
    {
-      kDebug() << "Recovered error in header entry" << endl;
+      kDebug() << "Recovered error in header entry";
       recoveredErrorInHeader = true;
    }
    else if ( status != OK )
    {
 //       emit signalClearProgressBar();
-      kDebug() << "Parse error in header entry" << endl;
+      kDebug() << "Parse error in header entry";
       return status;
    }
 
-   kDebug() << "HEADER MSGID: " << _msgid << endl;
-   kDebug() << "HEADER MSGSTR: " << _msgstr << endl;
+   kDebug() << "HEADER MSGID: " << _msgid;
+   kDebug() << "HEADER MSGSTR: " << _msgstr;
    if ( !_msgid.isEmpty() && !_msgid.first().isEmpty() )
    {
       // The header must have an empty msgid
-      kWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid << endl;
+      kWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
       tempHeader.setMsgid( QString() );
       QString tmp(
          "Content-Type: text/plain; charset=UTF-8\\n" // Unknown charset
@@ -191,8 +191,8 @@ _testBorked=false;
 //          return STOPPED;
 
       const ConversionStatus success=readEntry(stream);
-//       kWarning()<< "hmmm "<<counter<<endl;
-//       kWarning()<< "hmmm "<<_msgid.first()<<endl;
+//       kWarning()<< "hmmm "<<counter;
+//       kWarning()<< "hmmm "<<_msgid.first();
       if(success==OK)
       {
          if( _obsolete )
@@ -227,7 +227,7 @@ _testBorked=false;
       }
       else if(success==RECOVERED_PARSE_ERROR)
       {
-         kDebug() << "Recovered parse error in entry: " << counter << endl;
+         kDebug() << "Recovered parse error in entry: " << counter;
          recoveredError=true;
          errorIndex.append(counter);
 
@@ -256,12 +256,12 @@ _testBorked=false;
       }
       else if ( success == PARSE_ERROR )
       {
-         kDebug() << "Parse error in entry: " << counter << endl;
+         kDebug() << "Parse error in entry: " << counter;
          return PARSE_ERROR;
       }
       else
       {
-         kWarning() << "Unknown success status, assumig parse error " << success << endl;
+         kWarning() << "Unknown success status, assumig parse error " << success;
          return PARSE_ERROR;
       }
       counter++;
@@ -273,15 +273,15 @@ _testBorked=false;
    if ( !counter )
    {
       // Empty file? (Otherwise, there would be a try of getting an entry and the count would be 1 !)
-      kDebug() << k_funcinfo << " Empty file?" << endl;
+      kDebug() << k_funcinfo << " Empty file?";
       return PARSE_ERROR;
    }
 
-   kDebug() << k_funcinfo << " ready" << endl;
+   kDebug() << k_funcinfo << " ready";
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-   kWarning() << k_funcinfo << " done in " << aaa.elapsed() << endl;
+   kWarning() << k_funcinfo << " done in " << aaa.elapsed();
 
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
@@ -292,17 +292,17 @@ _testBorked=false;
 
    if ( recoveredErrorInHeader )
    {
-      kDebug() << k_funcinfo << " Returning: header error" << endl;
+      kDebug() << k_funcinfo << " Returning: header error";
       return RECOVERED_HEADER_ERROR;
    }
    else if ( recoveredError )
    {
-      kDebug() << k_funcinfo << " Returning: recovered parse error" << endl;
+      kDebug() << k_funcinfo << " Returning: recovered parse error";
       return RECOVERED_PARSE_ERROR;
    }
    else
    {
-      kDebug() << k_funcinfo << " Returning: OK! :-)" << endl;
+      kDebug() << k_funcinfo << " Returning: OK! :-)";
       return OK;
    }
 }
@@ -317,23 +317,23 @@ QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array/*, bool* hadCod
     ConversionStatus status = readHeader(stream);
     if (status!=OK && status != RECOVERED_PARSE_ERROR)
     {
-        kDebug() << "wasn't able to read header" << endl;
+        kDebug() << "wasn't able to read header";
         return codec;
     }
 
     QRegExp regexp("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n");
     if ( regexp.indexIn( _msgstr.first() ) == -1 )
     {
-        kDebug() << "no charset entry found" << endl;
+        kDebug() << "no charset entry found";
         return codec;
     }
 
     const QString charset = regexp.cap(1);
-    kDebug() << "charset: " << charset << endl;
+    kDebug() << "charset: " << charset;
 
     if (charset.isEmpty())
     {
-        kWarning() << "No charset defined! Assuming UTF-8!" << endl;
+        kWarning() << "No charset defined! Assuming UTF-8!";
         return codec;
     }
 
@@ -342,7 +342,7 @@ QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array/*, bool* hadCod
     // at least utf8, so utf8-codec can be used for both.
     if ( charset.contains("CHARSET"))
     {
-        kDebug() << QString("file seems to be a template: using utf-8 encoding.") << endl;
+        kDebug() << QString("file seems to be a template: using utf-8 encoding.");
         return QTextCodec::codecForName("utf8");;
     }
 
@@ -352,7 +352,7 @@ QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array/*, bool* hadCod
     if (t)
         return t;
     else
-       kWarning() << "charset found, but no codec available, using UTF-8 instead" << endl;
+       kWarning() << "charset found, but no codec available, using UTF-8 instead";
 
     return codec;//UTF-8
 }
@@ -376,7 +376,7 @@ ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
 
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 {
-   //kDebug() << k_funcinfo << " START" << endl;
+   //kDebug() << k_funcinfo << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
    QString line;
@@ -399,7 +399,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    {
        line=stream.readLine();
 
-       //kDebug() << "Parsing line: " << line << endl;
+       //kDebug() << "Parsing line: " << line;
 
        // Qt4: no need of a such a check
        /*if(line.isNull()) // file end
@@ -422,7 +422,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        {
 //           _maxLineLength=line.length();
            _maxLineLength=len;
-            //kWarning()<< line << " ssdds " <<_maxLineLength<<endl;
+            //kWarning()<< line << " ssdds " <<_maxLineLength;
        }
 //        if (line[0]=='"' && _maxLineLength<line.length()-2)
 //            _maxLineLength=line.length()-2;
@@ -487,7 +487,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
            }
            else
            {
-               kDebug() << "no comment, msgctxt or msgid found after a comment: " << line << endl;
+               kDebug() << "no comment, msgctxt or msgid found after a comment: " << line;
                error=true;
                break;
            }
@@ -542,7 +542,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no comment or msgid found after a comment while parsing: " << _comment << endl;
+               kDebug() << "no comment or msgid found after a comment while parsing: " << _comment;
                error=true;
                break;
             }
@@ -589,7 +589,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no msgid found after a msgctxt while parsing: " << _msgctxt << endl;
+               kDebug() << "no msgid found after a msgctxt while parsing: " << _msgctxt;
                error=true;
                break;
             }
@@ -694,13 +694,13 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             else if ( line.startsWith( '#' ) )
             {
                // ### TODO: could this be considered recoverable?
-               kDebug() << "comment found after a msgid while parsing: " << _msgid.first() << endl;
+               kDebug() << "comment found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
             else if ( line.startsWith( "msgid" ) )
             {
-               kDebug() << "Another msgid found after a msgid while parsing: " << _msgid.first() << endl;
+               kDebug() << "Another msgid found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
@@ -730,7 +730,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no msgstr found after a msgid while parsing: " << _msgid.first() << endl;
+               kDebug() << "no msgstr found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
@@ -776,7 +776,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             }
             else if(line.startsWith("msgstr"))
             {
-               kDebug() << "Another msgstr found after a msgstr while parsing: " << _msgstr.last() << endl;
+               kDebug() << "Another msgstr found after a msgstr while parsing: " << _msgstr.last();
                error=true;
                break;
             }
@@ -796,7 +796,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no msgid or comment found after a msgstr while parsing: " << _msgstr.last() << endl;
+               kDebug() << "no msgid or comment found after a msgstr while parsing: " << _msgstr.last();
                error=true;
                break;
             }
@@ -819,7 +819,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    }
   */
 
-    //kDebug() << k_funcinfo << " NEAR RETURN" << endl;
+    //kDebug() << k_funcinfo << " NEAR RETURN";
     if(error)
        return PARSE_ERROR;
 	else if(recoverableError)

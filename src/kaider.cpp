@@ -654,9 +654,9 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 //     if ( (_currentPos.entry==pos.entry) && (_currentPos.offset==pos.offset) && (_currentPos.form==pos.form) )
 //         return;
 //     if(pos.part==UndefPart)
-//         kWarning()<<"UndefPart"<<endl;
+//         kWarning()<<"UndefPart";
 //     if(pos.part==Msgstr)
-//         kWarning()<<"Msgstr"<<endl;
+//         kWarning()<<"Msgstr";
 
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
@@ -696,14 +696,14 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
 
 /*        if ((int)_currentEntry<_catalog->lastFuzzyIndex())
-            kWarning() << _currentEntry << " " << _catalog->lastFuzzyIndex() << " " << _catalog->lastUntranslatedIndex() << endl;*/
+            kWarning() << _currentEntry << " " << _catalog->lastFuzzyIndex() << " " << _catalog->lastUntranslatedIndex();*/
     }
 
     //still emit even if _currentEntry==pos.entry
     emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
     msgStrChanged();
     statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
-//     kWarning() << "signalz  " << a.elapsed() << endl;
+//     kWarning() << "signalz  " << a.elapsed();
 }
 
 void KAider::msgStrChanged()

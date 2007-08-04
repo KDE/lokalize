@@ -187,7 +187,7 @@ void FlowLayout::clearTerms()
     for (int i=0; i<count(); ++i)
     {
         static_cast<TermLabel*>(itemAt(i)->widget())->setVisible(false);
-//         kWarning() << "i " <<i<< endl;
+//         kWarning() << "i " <<i;
         //static_cast<QLabel*>(itemAt(i)->widget())->setText(e);
     }
     m_index=0;
@@ -215,7 +215,7 @@ void FlowLayout::clearWebQueryResult()
     for (int i=0; i<count(); ++i)
     {
         static_cast<QueryResultBtn*>(itemAt(i)->widget())->setVisible(false);
-//         kWarning() << "i " <<i<< endl;
+//         kWarning() << "i " <<i;
         //static_cast<QLabel*>(itemAt(i)->widget())->setText(e);
     }
     m_index=0;

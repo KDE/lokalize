@@ -145,15 +145,15 @@ void LCSprinter::printLCS(uint index)
         for (index=0; index<bound; ++index)
         {
             resultString.append("<KBABELADD>");
-            kWarning() << "add-------- "<< endl;
+            kWarning() << "add-------- ";
             resultString.append(*it2);
             ++it2;
             if (haveSpaces)
             {
-//                 kWarning() << "add1 " << *it2 << endl;
+//                 kWarning() << "add1 " << *it2;
                 resultString.append(*it2Space);
                 ++it2Space;
-//                 kWarning() << " add1 " << *it2 << endl;
+//                 kWarning() << " add1 " << *it2;
             }
             resultString.append("</KBABELADD>");
         }
@@ -166,12 +166,12 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT-1);
         if (it1!=s1.constEnd())
         {
-            //kWarning() << "upleft '" << *it1 <<"'"<< endl;
-            //kWarning() << "upleft 1s" << *it1Space<< endl;
-            //kWarning() << "upleft 2s" << *it2Space<< endl;
+            //kWarning() << "upleft '" << *it1 <<"'";
+            //kWarning() << "upleft 1s" << *it1Space;
+            //kWarning() << "upleft 2s" << *it2Space;
             if (haveSpaces)
             {
-//                     kWarning()<<"!!!!!! '"<<*it1<<"' '"<<*it2<<endl;
+//                     kWarning()<<"!!!!!! '"<<*it1<<"' '"<<*it2;
                 if((*it1)==(*it2))//case and accels
                     resultString.append(*it1);
                 else
@@ -191,7 +191,7 @@ void LCSprinter::printLCS(uint index)
                     resultString.append(calcLCS(word1,word2,empty,empty).join(""));
                 }
 
-//                 kWarning() << "common " << *it1 << endl;
+//                 kWarning() << "common " << *it1;
                 if((*it1Space)==(*it2Space))
                     resultString.append(*it1Space);
                 else
@@ -213,7 +213,7 @@ void LCSprinter::printLCS(uint index)
                     empty.replaceInStrings("KBABELDEL>","KBABELADD>");
                     empty.replaceInStrings("KBABELTMP>","KBABELDEL>");
                     resultString.append(empty.join(""));
-//                     kWarning()<<"!!!!!! '"<<*it1Space<<"' '"<<*it2Space<<"' '"<<resultString.last()<<"' '"<<endl;
+//                     kWarning()<<"!!!!!! '"<<*it1Space<<"' '"<<*it2Space<<"' '"<<resultString.last()<<"' '";
 
 //                     resultString.append("<KBABELADD>");
 //                     resultString.append(*it2Space);
@@ -224,7 +224,7 @@ void LCSprinter::printLCS(uint index)
                 }
                 ++it1Space;
                 ++it2Space;
-//                 kWarning() << " common " << *it1 << endl;
+//                 kWarning() << " common " << *it1;
             }
             else
                 resultString.append(*it1);//we may guess that this is a batch job, i.e. TM search
@@ -238,17 +238,17 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT);
 //         if (it1!=s1.end())
         {
-            //kWarning()<<"APPENDDEL "<<*it1<<endl;
-            //kWarning()<<"APPENDDEL "<<*it1Space<<endl;
+            //kWarning()<<"APPENDDEL "<<*it1;
+            //kWarning()<<"APPENDDEL "<<*it1Space;
             resultString.append("<KBABELDEL>");
             resultString.append(*it1);
             ++it1;
             if (haveSpaces)
             {
-//                 kWarning() << "del " << *it1 << endl;
+//                 kWarning() << "del " << *it1;
                 resultString.append(*it1Space);
                 ++it1Space;
-//                 kWarning() << " del " << *it1 << endl;
+//                 kWarning() << " del " << *it1;
             }
             resultString.append("</KBABELDEL>");
         }
@@ -257,17 +257,17 @@ void LCSprinter::printLCS(uint index)
     else
     {
         printLCS(index-1);
-        //kWarning()<<"APPENDADD "<<*it2<<endl;
-        //kWarning()<<"APPENDADD "<<*it2Space<<endl;
+        //kWarning()<<"APPENDADD "<<*it2;
+        //kWarning()<<"APPENDADD "<<*it2Space;
         resultString.append("<KBABELADD>");
         resultString.append(*it2);
         ++it2;
         if (haveSpaces)
         {
-//             kWarning() << "add2 " << *it2 << endl;
+//             kWarning() << "add2 " << *it2;
             resultString.append(*it2Space);
             ++it2Space;
-//             kWarning() << " add2 " << *it2 << endl;
+//             kWarning() << " add2 " << *it2;
         }
         resultString.append("</KBABELADD>");
         return;
@@ -394,14 +394,14 @@ QString wordDiff(const QString& str1, const QString& str2)
     int pos=0;
     while ((pos=rxAccelInWord.indexIn(str1ForMatching,pos))!=-1)
     {
-//                         kWarning() <<"SelectJob:  match del "<<delPart.cap(0)<<endl;
+//                         kWarning() <<"SelectJob:  match del "<<delPart.cap(0);
         str1ForMatching.remove(rxAccelInWord.pos()+1,accelLen);
         pos+=2;
     }
     pos=0;
     while ((pos=rxAccelInWord.indexIn(str2ForMatching,pos))!=-1)
     {
-//                         kWarning() <<"SelectJob:  match del "<<delPart.cap(0)<<endl;
+//                         kWarning() <<"SelectJob:  match del "<<delPart.cap(0);
         str2ForMatching.remove(rxAccelInWord.pos()+1,accelLen);
         pos+=2;
     }
@@ -421,13 +421,13 @@ QString wordDiff(const QString& str1, const QString& str2)
     s1Space.append("");//so we don't have to worry about list boundaries
     s2Space.append("");
 
-//     kWarning()<<endl<<endl<<"wordDiff 1 '" <<str1<<"' '"<<str2<<"'"<<endl;
-//     kWarning()<<s1.size()<<" "<<s2.size()<<" "<<s1Space.size()<<" "<<s2Space.size()<<" "<<endl;
-    //kWarning()<<" '"<<s1Space.first()<<"' '"<<s2Space.first()<<"' "<<endl;
+//     kWarning()<<endl<<endl<<"wordDiff 1 '" <<str1<<"' '"<<str2<<"'";
+//     kWarning()<<s1.size()<<" "<<s2.size()<<" "<<s1Space.size()<<" "<<s2Space.size()<<" ";
+    //kWarning()<<" '"<<s1Space.first()<<"' '"<<s2Space.first()<<"' ";
     QStringList result(calcLCS(s1,s2,s1Space,s2Space));
     result.removeFirst();//\t
     result.first().remove(0,1);//\b
-//     kWarning()<<"wordDiff 1 '" <<result<<"'"<<endl;
+//     kWarning()<<"wordDiff 1 '" <<result<<"'";
     result.replaceInStrings("<KBABELDEL></KBABELDEL>","");
     result.replaceInStrings("<KBABELADD></KBABELADD>","");
 
@@ -445,7 +445,7 @@ QString wordDiff(const QString& str1, const QString& str2)
     result.replaceInStrings("{/KBABELDEL}","</font>");
 
     //result.last().chop(1);//\b
-    //kWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'"<<endl;
+    //kWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
 
 
 //     result.remove("</KBABELADD><KBABELADD>");
@@ -457,7 +457,7 @@ QString wordDiff(const QString& str1, const QString& str2)
 //     {
 //         msg.remove(accel.pos(1),accel.cap(1).size());
 //         pos=accel.pos(1);
-//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl<<endl;
+//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl;
 //     }
 
 

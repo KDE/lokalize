@@ -154,7 +154,7 @@ protected:
             return false;
         }
 
-//                 kWarning()<<"dsfds "<<left.column() << " " <<right.column() <<endl;
+//                 kWarning()<<"dsfds "<<left.column() << " " <<right.column();
         switch (left.column())
         {
             case Graph:
@@ -241,12 +241,12 @@ ProjectView::~ProjectView()
 
 // void ProjectView::slotProjectLoaded()
 // {
-// //     kWarning() << "path "<<Project::instance()->poBaseDir() << endl;
+// //     kWarning() << "path "<<Project::instance()->poBaseDir();
 //     KUrl url(Project::instance()->path());
 //     url.setFileName(QString());
 //     url.cd(Project::instance()->poBaseDir());
 // 
-// //     kWarning() << "path_ "<<url.path() << endl;
+// //     kWarning() << "path_ "<<url.path();
 // 
 //     if (QFile::exists(url.path()))
 //     {
@@ -297,7 +297,7 @@ void ProjectView::slotItemActivated(const QModelIndex& idx)
 
 void ProjectView::slotOpen()
 {
-    kWarning()<<"sdsd"<<endl;
+    kWarning()<<"sdsd";
     emit fileOpenRequested(Project::instance()->model()->itemForIndex(
                            m_proxyModel->mapToSource(m_browser->currentIndex())
                                                                      )->url());
@@ -305,7 +305,7 @@ void ProjectView::slotOpen()
 
 void ProjectView::slotOpenInNewWindow()
 {
-    kWarning()<<"sdsd"<<endl;
+    kWarning()<<"sdsd";
     emit newWindowOpenRequested(Project::instance()->model()->itemForIndex(
                                 m_proxyModel->mapToSource(m_browser->currentIndex())
                                                                           )->url());
@@ -321,10 +321,10 @@ void ProjectView::slotForceStats()
 {
     if (event->type() == QEvent::MouseButtonRelease)
     {
-        kWarning() << "aas" << endl;
+        kWarning() << "aas";
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
         if (mouseEvent->button()==Qt::MidButton)
-            kWarning() << "aaas" << endl;
+            kWarning() << "aaas";
             emit fileOpenRequested(m_model->itemForIndex(m_browser->currentIndex())->url());
     }
              // standard event processing

@@ -251,7 +251,7 @@ void KAider::reflectRelativePathsHack()
 {
 //     m_scriptsRelPrefWidget->clear();
     QStringList actionz(m_scriptsPrefWidget->items());
-        kWarning() << actionz << endl;
+        kWarning() << actionz;
     int i=0;
     for(;i<actionz.size();++i)
     {
@@ -261,7 +261,7 @@ void KAider::reflectRelativePathsHack()
     m_scriptsRelPrefWidget->setItems(actionz);
 
 //     Project::instance()->setWebQueryScripts(actionz);
-    kWarning() << Project::instance()->webQueryScripts() << endl;
+    kWarning() << Project::instance()->webQueryScripts();
 }
 
 //void KAider::projectOpen(KUrl url)

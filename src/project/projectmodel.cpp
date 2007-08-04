@@ -139,8 +139,8 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             if (metaInfo.item("translation.untranslated").value().isNull())
                 return QRect(0,0,0,32);
 
-            //kWarning() << "0 " << itemForIndex(index)->url() << endl;
-            //kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt() << endl;
+            //kWarning() << "0 " << itemForIndex(index)->url();
+            //kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt();
 
             return QRect(metaInfo.item("translation.translated").value().toInt(),
                          metaInfo.item("translation.untranslated").value().toInt(),
@@ -198,11 +198,11 @@ void ProjectModel::fetchMore(const QModelIndex& parent)
 // {
 // //kapp->processEvents(QEventLoop::AllEvents, 50);
 // //we dare to check childs only when specially asked
-// kWarning()<<"fd 1"<<endl;
+// kWarning()<<"fd 1";
 //     int count=KDirModel::rowCount( parent );
 //     if (!count)
 //         return;
-// kWarning()<<"fd 2"<<endl;
+// kWarning()<<"fd 2";
 //     int i=0;
 //     int untranslated=0;
 //     int translated=0;
@@ -210,7 +210,7 @@ void ProjectModel::fetchMore(const QModelIndex& parent)
 // //    QRect rect;
 //     for (;i<count;++i)
 //     {
-//         kWarning()<<"fd "<<i<<endl;
+//         kWarning()<<"fd "<<i;
 //         QModelIndex index(parent.child(i,0));
 //         KFileItem* item(itemForIndex(index));
 //         //force population of metainfo. kfilemetainfo's internal is a shit
@@ -230,7 +230,7 @@ void ProjectModel::fetchMore(const QModelIndex& parent)
 //             untranslated+=file.item("translation.untranslated").value().toInt();
 //             fuzzy+=file.item("translation.fuzzy").value().toInt();
 //         }
-//         //kWarning() << "dsfds d " << i << endl;
+//         //kWarning() << "dsfds d " << i;
 //     }
 //     if (untranslated+translated+fuzzy)
 //     {
@@ -241,7 +241,7 @@ void ProjectModel::fetchMore(const QModelIndex& parent)
 //         itemForIndex(parent)->setMetaInfo(dirInfo);
 //     }
 // 
-//     kWarning()<<"s"<<endl;
+//     kWarning()<<"s";
 //     emit dataChanged(parent,parent);
 // }
 
@@ -285,7 +285,7 @@ int ProjectModel::rowCount(const QModelIndex& parent) const
             {
                 //"inode/directory"
                 infoIsFull=false;
-//                 kWarning()<<"s " <<item->url().fileName()<<endl;
+//                 kWarning()<<"s " <<item->url().fileName();
             }
         }
         if (infoIsFull&&(untranslated+translated+fuzzy))

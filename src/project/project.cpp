@@ -75,10 +75,10 @@ Project::~Project()
 
 // void Project::save()
 // {
-// //     kWarning() << "--s "<< m_path << endl;
+// //     kWarning() << "--s "<< m_path;
 // //     setSharedConfig(KSharedConfig::openConfig(m_path, KConfig::NoGlobals));
 // // 
-// //     kWarning() << "--s "<< potBaseDir() << " " << poBaseDir()<< endl;
+// //     kWarning() << "--s "<< potBaseDir() << " " << poBaseDir();
 // //     QString aa(potBaseDir());
 // //     readConfig();
 // //     setPotBaseDir(aa);
@@ -135,7 +135,7 @@ QStringList Project::webQueryScripts() const
     for (;i<actionz.size();++i)
         actionz[i]=absolutePath(actionz.at(i));
 
-//     kWarning()<<actionz.size()<<endl;
+//     kWarning()<<actionz.size();
     return actionz;
 }
 
@@ -163,11 +163,11 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
     {
         KUrl url(m_path);
         url.setFileName(QString());
-//         kWarning () << "1  " << url.path() << endl;
+//         kWarning () << "1  " << url.path();
         //url.addPath(possiblyRelPath);
         url.cd(possiblyRelPath);
         //url.cleanPath();
-//         kWarning () << "2  " << possiblyRelPath << " + "  << url.path() << endl;
+//         kWarning () << "2  " << possiblyRelPath << " + "  << url.path();
         return url.path();
     }
     return possiblyRelPath;
@@ -211,7 +211,7 @@ void Project::populateKrossActions()
 //  action->setCode("println( \"interval=\" );");
     //action->trigger();
 //     QVariant result = action->callFunction("init", QVariantList()<<QString("Arg"));
-//     kWarning() <<result << action->functionNames()<<endl;
+//     kWarning() <<result << action->functionNames();
 // 
 //     KDialog d;
 //     new ActionCollectionEditor(action, d.mainWidget());
@@ -241,7 +241,7 @@ int writeLine(int indent,const QByteArray& str,QFile& out)
         indent+=balance;
 
 
-//kWarning() << "a3 "<< indent<< endl;
+//kWarning() << "a3 "<< indent;
 
     return indent;
 }

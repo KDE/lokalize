@@ -59,7 +59,7 @@ bool TbxParser::startElement( const QString&, const QString&,
                                     const QString& qName,
                                     const QXmlAttributes& attr)
 {
-//     kWarning() << qName << endl;
+//     kWarning() << qName;
     if (qName=="langSet")
     {
         if (attr.value("xml:lang")=="en")
@@ -137,7 +137,7 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
         //sanity check --maybe this entry is only for another language?
         if (m_entry.target.isEmpty()||m_entry.english.isEmpty())
             return true;
-//         kWarning() << m_entry.target.size() << " " << m_entry.english.size()<< endl;
+//         kWarning() << m_entry.target.size() << " " << m_entry.english.size();
         int i=0;
         int j;
         for (;i<m_entry.english.size();++i)
@@ -163,13 +163,13 @@ bool TbxParser::characters ( const QString & ch )
 {
     if(m_state==term/*inTermTag*/)
     {
-//         kWarning() << "O " << ch << endl;
+//         kWarning() << "O " << ch;
         if (m_lang==langEn)
             m_termEn+=ch.toLower();//this is important
         else if (m_lang==langOther)
             m_termOther+=ch;
-//         kWarning() << "O m_termEn " << m_termEn << endl;
-//         kWarning() << "O m_termO " << m_termOther << endl;
+//         kWarning() << "O m_termEn " << m_termEn;
+//         kWarning() << "O m_termO " << m_termOther;
     }
     else if (m_state==descripDefinition)
     {

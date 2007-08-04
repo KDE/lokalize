@@ -106,7 +106,7 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
                 return;
             }
         }
-        //kWarning() << " " << <<endl;
+        //kWarning() << " " <<;
     };
 }
 
@@ -151,7 +151,7 @@ void TMView::dropEvent(QDropEvent *event)
         else
         {
             ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()))||ok;
-                //kWarning()<<"dd "<<dir.entryList()<<endl;
+                //kWarning()<<"dd "<<dir.entryList();
         }
     }
     if (ok)
@@ -204,19 +204,19 @@ void TMView::slotSuggestionsCame(SelectJob* job)
     while (i<limit)
     {
 
-//         kWarning()<<"res: "<<m_pos.entry<<endl;
+//         kWarning()<<"res: "<<m_pos.entry;
         m_browser->insertHtml(QString("[%1%] ").arg(float(job->m_entries.at(i).score)/100));
 
         QString oldStr(job->m_entries.at(i).english);
         QString newStr(m_catalog->msgid(m_pos));
 
 
-        kWarning()<<"res: "<<oldStr<<endl;
-//         kWarning()<<"res: "<<newStr<<endl;
+        kWarning()<<"res: "<<oldStr;
+//         kWarning()<<"res: "<<newStr;
         QString result(wordDiff(oldStr,newStr));
         result.replace("\\n","\\n<br>");
 
-//         kWarning()<<"res: "<<result<<endl;
+//         kWarning()<<"res: "<<result;
 
         m_browser->insertHtml(result);
 
@@ -244,8 +244,8 @@ void TMView::slotSuggestionsCame(SelectJob* job)
             m_browser->insertHtml("<hr width=80%>");*/
     }
     m_browser->insertHtml("</html>");
-//     kWarning()<<endl;
-    kWarning()<<"ELA "<<time.elapsed()<<endl;
+//     kWarning();
+    kWarning()<<"ELA "<<time.elapsed();
 }
 
 

@@ -102,7 +102,7 @@ Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
         return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
 
     return Qt::ItemIsSelectable;
-//    kWarning() << index.column() <<  " " <<  KDirModel::flags(index) << endl;
+//    kWarning() << index.column() <<  " " <<  KDirModel::flags(index);
 }
 
 #endif

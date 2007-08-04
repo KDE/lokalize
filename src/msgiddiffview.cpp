@@ -64,7 +64,7 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
     QString oldStr(m_catalog->comment(index));
     if (!oldStr.contains("#|"))
     {
-        ////kWarning()<< "___ returning... "<< endl;
+        ////kWarning()<< "___ returning... ";
         if (m_hasInfo)
         {
             m_hasInfo=false;
@@ -97,7 +97,7 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
         oldStr.remove("#| \"");
         oldStr.remove(QRegExp("\"\n"));
         oldStr.remove(QRegExp("\"$"));
-            //kWarning() << "BEGIN " << oldStr << " END" << endl;
+            //kWarning() << "BEGIN " << oldStr << " END";
 
         newStr.remove("\n");
         oldStr.replace("\\n"," \\n ");
@@ -116,12 +116,12 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
 
     m_browser->setHtml(result);
 //     m_browser->setPlainText(result);
-//     kWarning()<<" "<<result<<endl;
+//     kWarning()<<" "<<result;
 
 //     oldStr.replace("\\n","\\n\n");
 //     newStr.replace("\\n","\\n\n");
 
-    //kWarning()<<"ELA "<<time.elapsed()<<endl;
+    //kWarning()<<"ELA "<<time.elapsed();
 }
 
 #include "msgiddiffview.moc"

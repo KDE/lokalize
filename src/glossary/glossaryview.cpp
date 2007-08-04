@@ -106,13 +106,13 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     msg.remove(m_rxClean);
 
 //     QRegExp accel(Project::instance()->accel());
-//     kWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl<<endl;
+//     kWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
 //     int pos=0;
 //     while ((pos=accel.indexIn(msg,pos))!=-1)
 //     {
 //         msg.remove(accel.pos(1),accel.cap(1).size());
 //         pos=accel.pos(1);
-//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl<<endl;
+//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl;
 //     }
 
     QStringList words(msg.split(m_rxSplit,QString::SkipEmptyParts));
@@ -136,7 +136,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
 //             !termIndexes.contains(m_glossary->wordHash.value(words.at(i)))
            )
         {
-//             kWarning()<<"val " <<m_glossary->wordHash.values(words.at(i))<<endl;
+//             kWarning()<<"val " <<m_glossary->wordHash.values(words.at(i));
             termIndexes+= m_glossary->wordHash.values(words.at(i));
         }
     }
@@ -159,7 +159,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     m_flowLayout->setEnabled(false);
     int j; //INTJ haha! socionics!
     QSet<int> termIndexesSet(termIndexes.toSet());
-//     kWarning()<<"found"<<endl;
+//     kWarning()<<"found";
     QSet<int>::const_iterator it = termIndexesSet.constBegin();
     while (it != termIndexesSet.constEnd())
     {
@@ -241,7 +241,7 @@ void GlossaryView::defineNewTerm(QString en,QString target)
 
     if (QDialog::Accepted==dialog.exec())
     {
-        //kWarning() << "sss" << endl;
+        //kWarning() << "sss";
         TermEntry a;
         a.english=ui_termdialog.english->items();
         a.target=ui_termdialog.target->items();

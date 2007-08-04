@@ -259,7 +259,7 @@ bool Catalog::setHeader(CatalogItem newHeader)
       values.replace ("\n", "");
       values.replace ("\\n", "\\n\n");
 
-      kDebug () << "Normalized header: " << values << endl;
+      kDebug () << "Normalized header: " << values;
 
       d->_header=newHeader;
       d->_header.setMsgstr(values);
@@ -271,7 +271,7 @@ bool Catalog::setHeader(CatalogItem newHeader)
           if (d->_generatedFromDocbook)
               d->_numberOfPluralForms=1;
           else
-              kWarning() << "No plural form info in header" << endl;
+              kWarning() << "No plural form info in header";
 //           d->_numberOfPluralForms=2;
       }
 
@@ -341,7 +341,7 @@ bool Catalog::saveToUrl(KUrl url)
         tmpFile.close();
     }
 
-    //kWarning() << "SAVE NAME "<<localFile << endl;
+    //kWarning() << "SAVE NAME "<<localFile;
     status = exporter.save(localFile,QString("text/x-gettext-translation"),this);
     if (status==OK)
     {
@@ -366,7 +366,7 @@ bool Catalog::saveToUrl(KUrl url)
 
     }
 */
-    //kWarning() << "__ERROR  " << endl;
+    //kWarning() << "__ERROR  ";
     return false;
 
 }
@@ -541,7 +541,7 @@ void Catalog::updateHeader(bool forSaving)
         temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');
     temp+="\\n";
 
-//     kWarning()<< "  _'" << temp <<"' " <<endl;
+//     kWarning()<< "  _'" << temp <<"' ";
 
     if (found)
         (*ait) = temp;
@@ -719,14 +719,14 @@ void Catalog::updateHeader(bool forSaving)
         QString regexpstr = "^#\\s+" + QRegExp::escape( saveOptions.descriptionString.trimmed() ) + "\\s*$";
         regexpstr.replace( "@PACKAGE@", ".*" );
         regexpstr.replace( "@LANGUAGE@", ".*" );
-        //kDebug() << "REGEXPSTR: " <<  regexpstr << endl;
+        //kDebug() << "REGEXPSTR: " <<  regexpstr;
         QRegExp regexp ( regexpstr );
 
         // The buggy variants exist in English too (of a time before KBabel got a translation for the corresponding language)
         QRegExp regexpUntranslated ( "^#\\s+translation of .* to .*\\s*$" );
 
 
-        kDebug () << "Temp is '" << temp << "'" << endl;
+        kDebug () << "Temp is '" << temp << "'";
 
         found=false;
         bool foundTemplate=false;
@@ -734,12 +734,12 @@ void Catalog::updateHeader(bool forSaving)
         it = commentList.begin();
         while ( it != commentList.end() )
         {
-            kDebug () << "testing '" << (*it) << "'" << endl;
+            kDebug () << "testing '" << (*it) << "'";
             bool deleteItem = false;
 
             if ( (*it) == temp )
             {
-                kDebug () << "Match " << endl;
+                kDebug () << "Match ";
                 if ( found )
                     deleteItem = true;
                 else
@@ -769,7 +769,7 @@ void Catalog::updateHeader(bool forSaving)
         if (!found) commentList.prepend(temp);
     }
 #endif
-    // kDebug() << "HEADER COMMENT: " << commentList << endl;
+    // kDebug() << "HEADER COMMENT: " << commentList;
 
     /*    if ( (!usePrefs || saveOptions.updateTranslatorCopyright)
             && ( ! identityOptions->readEntry("authorName","").isEmpty() )
@@ -869,15 +869,15 @@ void Catalog::updateHeader(bool forSaving)
                         (*ait).insert(index+1, QString(", ")+cy);
                 }
                 else
-                    kDebug() << "INTERNAL ERROR: author found but iterator dangling!" << endl;
+                    kDebug() << "INTERNAL ERROR: author found but iterator dangling!";
             }
 
         }
         else
             foundAuthors.append(temp);
 
-//         kWarning() << foundAuthors << endl;
-//         kWarning() << commentList << endl;
+//         kWarning() << foundAuthors;
+//         kWarning() << commentList;
 
 
         for (ait=foundAuthors.begin();ait!=foundAuthors.end();++ait)

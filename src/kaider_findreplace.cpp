@@ -86,7 +86,7 @@ void KAider::find()
 
     if ( _findDialog->exec() != QDialog::Accepted )
         return;
-//HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory() << endl;
+//HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory();
      _findDialog->setPattern(_findDialog->findHistory().first());
 
     if (_find)
@@ -309,9 +309,9 @@ void KAider::replace()
 
     if (_replace->options() & KFind::FromCursor)
     {
-//             kWarning() << "_currentPos " << _currentPos.entry << endl;
+//             kWarning() << "_currentPos " << _currentPos.entry;
         replaceNext(_currentPos);
-//              kWarning() << " ее  " << _currentPos.entry << endl;
+//              kWarning() << " ее  " << _currentPos.entry;
     }
     else
     {
@@ -329,10 +329,10 @@ void KAider::replace()
             pos.form=0;
         }
         replaceNext(pos);
-//         kWarning() << k_funcinfo << " NOT END"<< endl;
+//         kWarning() << k_funcinfo << " NOT END";
     }
 
-//     kWarning() << k_funcinfo << "END"<< endl;
+//     kWarning() << k_funcinfo << "END";
 }
 
 
@@ -410,7 +410,7 @@ void KAider::replaceNext()
 {
 
     replaceNext(_currentPos);
-//     kWarning() << k_funcinfo << "END"<< endl;
+//     kWarning() << k_funcinfo << "END";
 }
 
 void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength)
@@ -541,7 +541,7 @@ void KAider::spellcheckNext()
             if (!switchNext(_catalog,_spellcheckPos))
                 return;
         m_sonnetDialog->setBuffer( _catalog->msgstr(_spellcheckPos) );
-//             kWarning() << "spellcheckNext a"<<_catalog->msgstr(_spellcheckPos) << endl;
+//             kWarning() << "spellcheckNext a"<<_catalog->msgstr(_spellcheckPos);
     }
 }
 
@@ -558,11 +558,11 @@ void KAider::spellcheckCancel()
 
 void KAider::spellcheckShow(const QString &word, int offset)
 {
-//     kWarning() << "spellcheckShw "<<word<< endl;
+//     kWarning() << "spellcheckShw "<<word;
     DocPosition pos=_spellcheckPos;
     pos.offset=offset;
     gotoEntry(pos,word.length());
-//     kWarning() << "spellcheckShw "<<word<< endl;
+//     kWarning() << "spellcheckShw "<<word;
 }
 
 void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString &newWord)

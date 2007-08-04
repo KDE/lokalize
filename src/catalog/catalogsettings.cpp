@@ -120,7 +120,7 @@ QString GNUPluralForms(const QString& lang)
 		
             if( line.startsWith( "\"Plural-Forms:" ) )
             {
-                kDebug() << "Plural form line: " << line << endl;
+                kDebug() << "Plural form line: " << line;
                 QRegExp re( "^\"Plural-Forms: *(.*)\\\\n\"" );
                 re.indexIn( line );
                 res = re.cap(1);
