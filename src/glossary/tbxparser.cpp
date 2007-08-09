@@ -59,7 +59,6 @@ bool TbxParser::startElement( const QString&, const QString&,
                                     const QString& qName,
                                     const QXmlAttributes& attr)
 {
-//     kWarning() << qName;
     if (qName=="langSet")
     {
         if (attr.value("xml:lang")=="en")

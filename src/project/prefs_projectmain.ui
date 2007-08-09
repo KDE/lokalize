@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>611</width>
-    <height>131</height>
+    <height>340</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
@@ -27,7 +27,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
+   <item row="3" column="1" >
     <widget class="KUrlRequester" name="poBaseDir" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
@@ -49,7 +49,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1" >
+   <item row="4" column="1" >
     <widget class="KUrlRequester" name="potBaseDir" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
@@ -71,7 +71,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1" >
+   <item row="5" column="1" >
     <widget class="KUrlRequester" name="glossaryTbx" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
@@ -93,7 +93,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" >
+   <item row="3" column="0" >
     <widget class="QLabel" name="textLabel2_2" >
      <property name="text" >
       <string>PO directory:</string>
@@ -103,7 +103,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" >
+   <item row="4" column="0" >
     <widget class="QLabel" name="textLabel2" >
      <property name="text" >
       <string>Template diectory:</string>
@@ -113,14 +113,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" >
+   <item row="5" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
       <string>Glossary:</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1" >
+   <item row="6" column="1" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -134,12 +134,22 @@
     </spacer>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="kcfg_id" />
+    <widget class="QLineEdit" name="kcfg_projectID" />
    </item>
    <item row="0" column="0" >
     <widget class="QLabel" name="label_3" >
      <property name="text" >
       <string>ID:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="QLineEdit" name="kcfg_MailingList" />
+   </item>
+   <item row="2" column="0" >
+    <widget class="QLabel" name="label_4" >
+     <property name="text" >
+      <string>Mailing list:</string>
      </property>
     </widget>
    </item>

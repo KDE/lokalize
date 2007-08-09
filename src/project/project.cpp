@@ -33,18 +33,23 @@
 #include "project.h"
 #include "projectmodel.h"
 
+#include "webquerycontroller.h"
+#include "glossary.h"
+#include "jobs.h"
+
+
 #include <QTimer>
 #include <QTime>
 #include <kurl.h>
 #include <kdirlister.h>
 #include <kdebug.h>
+#include <klocale.h>
 
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
-#include "webquerycontroller.h"
-#include "glossary.h"
-#include "jobs.h"
+#include <kpassivepopup.h>
+
 // #include "webquerythread.h"
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/DependencyPolicy.h>
@@ -65,6 +70,11 @@ Project::Project()
     : ProjectBase()
     , m_model(0)
     , m_glossary(new Glossary)
+    , m_tmCount(0)
+//     , m_tmTime(0)
+    , m_tmAdded(0)
+    , m_tmNewVersions(0)
+
 {
     ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
 }
@@ -89,15 +99,20 @@ Project::~Project()
 void Project::load(const QString &file)
 {
     ThreadWeaver::Weaver::instance()->dequeue();
-    setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
-    readConfig();
+    kWarning()<<"Finishing jobs...";
+
     if (!m_path.isEmpty())
     {
-        CloseDBJob* closeDBJob=new CloseDBJob(id(),this);
+        CloseDBJob* closeDBJob=new CloseDBJob(projectID(),this);
         connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
         connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
 
     }
+    ThreadWeaver::Weaver::instance()->finish();//more safety
+
+
+    setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
+    readConfig();
     m_path=file;
 
     //put 'em into thread?
@@ -107,17 +122,21 @@ void Project::load(const QString &file)
 
 
 
-    OpenDBJob* openDBJob=new OpenDBJob(id(),this);
+    OpenDBJob* openDBJob=new OpenDBJob(projectID(),this);
     connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
 
 
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 
+#if 0
+need no more
+
     IndexWordsJob* indexWordsJob=new IndexWordsJob(this);
     connect(indexWordsJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(indexWordsJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotTMWordsIndexed(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(indexWordsJob);
+#endif
 
     emit loaded();
 }
@@ -275,6 +294,12 @@ void Project::deleteScanJob(ThreadWeaver::Job* job)
     ScanJob* j=qobject_cast<ScanJob*>(job);
     if (j)
     {
+        ++m_tmCount;
+        //m_tmTime+=;
+        m_tmAdded+=j->m_added;
+        m_tmNewVersions+=j->m_newVersions;
+
+        /*
         kWarning() <<"Done scanning "<<j->m_url.prettyUrl()
                    <<" time: "<<j->m_time
                    <<" added: "<<j->m_added
@@ -282,6 +307,25 @@ void Project::deleteScanJob(ThreadWeaver::Job* job)
                    <<endl
                    <<" left: "<<ThreadWeaver::Weaver::instance()->queueLength()
                    <<endl;
+        */
+    }
+    else
+    {
+        ScanFinishedJob* end=qobject_cast<ScanFinishedJob*>(job);
+
+        if (end)
+        {
+            KPassivePopup::message(KPassivePopup::Balloon,
+                                   i18nc("@title","Scanning complete"),
+                                   i18nc("@info","Files: %1, New pairs: %2, New versions: %3",
+                                        m_tmCount, m_tmAdded-m_tmNewVersions, m_tmNewVersions),
+                                   end->m_view);
+//             m_timeTracker.elapsed();
+
+            m_tmCount=0;
+            m_tmAdded=0;
+            m_tmNewVersions=0;
+        }
     }
 
     delete job;
@@ -300,10 +344,17 @@ void Project::dispatchSelectJob(ThreadWeaver::Job* job)
     delete job;
 }
 
+#if 0
 void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
 {
     m_tmWordHash=static_cast<IndexWordsJob*>(job)->m_tmWordHash;
     delete job;
 }
+#endif
+
+
+
+
+
 #include "project.moc"
 

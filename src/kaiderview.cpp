@@ -208,6 +208,7 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
 
 void KAiderView::settingsChanged()
 {
+    kWarning() << " AAA " <<endl;
     //Settings::self()->config()->setGroup("Editor");
     _msgidEdit->document()->setDefaultFont(Settings::msgFont());
     _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
@@ -228,6 +229,7 @@ void KAiderView::settingsChanged()
     else if (_leds)
         _leds->hide();
 
+    kWarning() << "BBB " <<endl;
 }
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
@@ -269,10 +271,8 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
 
 void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
 {
-//     emit signalChangeStatusbar("");
-
-    _currentPos=pos;/*   if(_currentPos.entry >= _catalog->size()) _currentPos.entry=_catalog->size();*/
-    _currentEntry=_currentPos.entry;
+    _currentPos=pos;
+    _currentEntry=pos.entry;
 
     if (_catalog->pluralFormType(_currentEntry)==Gettext)
     {
@@ -343,6 +343,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
     msgEdit->setFocus();
+
+    //force this because there are conditions when the
+    //signal isn't emitted (didn't identify them yet)
+    fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
 }
 
 void KAiderView::dragEnterEvent(QDragEnterEvent* event)
@@ -399,6 +403,7 @@ void KAiderView::toggleFuzzy(bool checked)
 
 void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 {
+    kWarning()<<"fuzzy"<<_currentEntry<<fuzzy;
     if (_currentEntry==-1)
         return;
 
@@ -550,6 +555,8 @@ void KAiderView::tagMenu()
     tag.setMinimal(true);
     QString en(_msgidEdit->toPlainText());
     QString target(_msgstrEdit->toPlainText());
+    en.remove('\n');
+    target.remove('\n');
     int pos=0;
     //tag.indexIn(en);
     //kWarning() << tag.capturedTexts();

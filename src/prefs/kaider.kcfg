@@ -5,29 +5,43 @@
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="kaiderrc"/>
   <include>kglobalsettings.h</include>
+  <include>klocale.h</include>
+  <include>kemailsettings.h</include>
+  <include>kde-i18n-lists.h</include>
   <group name="Identity">
     <entry key="authorName" type="String">
+<!--
 	    <label>Translator's name</label>
             <whatsthis>Translator's name in English</whatsthis>
-	    <default>Joan Smith</default>
+-->
+        <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
     </entry>
     <entry key="authorLocalizedName" type="String">
+<!--
 	    <label>Localized name</label>
             <whatsthis>Translator's name in target language</whatsthis>
-	    <default>Joan Smith</default>
+-->
+        <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
     </entry>
     <entry key="authorEmail" type="String">
+<!--
             <whatsthis>Translator's email</whatsthis>
-	    <default>joan@smith.org</default>
+-->
+	<default code="true">KEMailSettings().getSetting(KEMailSettings::EmailAddress)</default>
     </entry>
     <entry key="DefaultLangCode" type="String">
+<!--
 	    <label>Default language code for new projects</label>
             <whatsthis>Default language code for new projects</whatsthis>
+-->
+        <default code="true">KGlobal::locale()->language()</default>
     </entry>
     <entry key="DefaultMailingList" type="String">
+<!--
 	    <label>Default mailing list for new projects</label>
             <whatsthis>Default mailing list for new projects</whatsthis>
-            <default>joan@smith.org</default>
+-->
+            <default code="true">getMaillingList()</default>
     </entry>
   </group>
   <group name="Appearance">

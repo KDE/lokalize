@@ -5,15 +5,22 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile arg="true"/>
   <include>klocale.h</include>
+  <include>kde-i18n-lists.h</include>
   <group name="General">
-    <entry name="id"  type="String">
-        <default code="true">"kde-"+KLocale::defaultLanguage()</default>
+    <entry name="projectID"  type="String">
+        <default code="true">"kde-"+KGlobal::locale()->language()</default>
     </entry>
     <entry name="LangCode"  type="String">
 <!--
         <label>Language</label>
 -->
-        <default code="true">KLocale::defaultLanguage()</default>
+        <default code="true">KGlobal::locale()->language()</default>
+    </entry>
+    <entry name="MailingList"  type="String">
+<!--
+        <label>Language</label>
+-->
+        <default code="true">getMaillingList()</default>
     </entry>
     <entry name="PoBaseDir"  type="String">
 <!--
@@ -46,7 +53,7 @@
 -->
     </entry>
     <entry name="Markup"  type="String">
-        <default>(&lt;.+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+</default>
+        <default>(&lt;[^&gt;]+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+</default>
     </entry>
   </group>
 </kcfg>

@@ -39,8 +39,17 @@
 #include <kurl.h>
 #include <QVector>
 #include <QString>
-#include <QMultiHash>
+//#include <QMultiHash>
+#include <QSqlDatabase>
 class TMView;
+
+
+#define CLOSEDB 10001
+#define OPENDB  10000
+#define INSERT  60
+#define SELECT  50
+#define SCAN    10
+#define SCANFINISHED 9
 
 struct TMEntry
 {
@@ -57,10 +66,13 @@ struct TMEntry
     {
         //return score<other.score;
         //we wanna items with higher score to appear in the front after qSort
+        if (score==other.score)
+            return date>other.date;
         return score>other.score;
     }
 };
 
+#if 0
 struct TMWordHash
 {
     QMultiHash<QString,qlonglong> wordHash;
@@ -70,7 +82,7 @@ struct TMWordHash
         wordHash.clear();
     }
 };
-
+#endif
 
 //called on startup
 class OpenDBJob: public ThreadWeaver::Job
@@ -80,7 +92,7 @@ public:
     OpenDBJob(const QString& name,QObject* parent=0);
     ~OpenDBJob();
 
-    int priority()const{return 10000;}
+    int priority()const{return OPENDB;}
 
 protected:
     void run ();
@@ -97,7 +109,7 @@ public:
     CloseDBJob(const QString& name,QObject* parent=0);
     ~CloseDBJob();
 
-    int priority()const{return 10001;}
+    int priority()const{return CLOSEDB;}
 
 protected:
     void run ();
@@ -114,16 +126,22 @@ public:
     SelectJob(const QString&,TMView*,const DocPosition&,QObject* parent=0);
     ~SelectJob();
 
-    int priority()const{return 5;}
+    int priority()const{return SELECT;}
 
 protected:
     void run ();
+
+private:
+    //returns true if seen translation with >85%
+    bool doSelect(QSqlDatabase&,QStringList& words,bool isShort);
+
 private:
     QString m_english;
+
 public:
     TMView* m_view;
     DocPosition m_pos;
-    QVector<TMEntry> m_entries;
+    QList<TMEntry> m_entries;
 };
 
 // used eg for current msgstr inserting
@@ -134,7 +152,7 @@ public:
     InsertJob(const TMEntry&,QObject* parent=0);
     ~InsertJob();
 
-    int priority()const{return 10;}
+    int priority()const{return INSERT;}
 
 protected:
     void run ();
@@ -152,7 +170,7 @@ public:
     ScanJob(const KUrl& url,QObject* parent=0);
     ~ScanJob();
 
-    int priority()const{return 2;}
+    int priority()const{return SCAN;}
 
 protected:
     void run ();
@@ -166,8 +184,28 @@ public:
 
 };
 
+class ScanFinishedJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    ScanFinishedJob(QWidget* view,QObject* parent=0)
+        : ThreadWeaver::Job(parent)
+        , m_view(view)
+    {}
+    ~ScanFinishedJob(){};
+
+    int priority()const{return SCANFINISHED;}
+
+protected:
+    void run (){};
+public:
+    QWidget* m_view;
+};
 
 
+
+#if 0
+we use index stored in db now...
 
 
 
@@ -188,5 +226,6 @@ public:
 
     //statistics?
 };
+#endif
 
 #endif

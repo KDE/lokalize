@@ -34,6 +34,8 @@
 
 **************************************************************************** */
 
+#define KDE_NO_DEBUG_OUTPUT
+
 #include "gettextimport.h"
 //#include <resources.h>
 
@@ -88,7 +90,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename/*, bool tryTo
 {
 //   kDebug() << k_funcinfo;
 _testBorked=false;
-   if (filename.isEmpty())
+   if (KDE_ISUNLIKELY(filename.isEmpty()))
    {
       kDebug() << "fatal error: empty filename to open";
       return NO_FILE;
@@ -96,15 +98,15 @@ _testBorked=false;
 
    QFileInfo info(filename);
 
-   if(!info.exists() || info.isDir())
+   if( KDE_ISUNLIKELY(!info.exists() || info.isDir()) )
       return NO_FILE;
 
-   if(!info.isReadable())
+   if(KDE_ISUNLIKELY( !info.isReadable() ))
       return NO_PERMISSIONS;
 
    QFile file(filename);
 
-   if ( !file.open( QIODevice::ReadOnly ) )
+   if (KDE_ISUNLIKELY( !file.open(QIODevice::ReadOnly) ))
       return NO_PERMISSIONS;
    
 //    uint oldPercent = 0;
@@ -134,12 +136,12 @@ _testBorked=false;
    const ConversionStatus status = readHeader(stream);
 
    bool recoveredErrorInHeader = false;
-   if ( status == RECOVERED_PARSE_ERROR )
+   if (KDE_ISUNLIKELY( status == RECOVERED_PARSE_ERROR ))
    {
       kDebug() << "Recovered error in header entry";
       recoveredErrorInHeader = true;
    }
-   else if ( status != OK )
+   else if (KDE_ISUNLIKELY( status != OK ))
    {
 //       emit signalClearProgressBar();
       kDebug() << "Parse error in header entry";
@@ -148,7 +150,7 @@ _testBorked=false;
 
    kDebug() << "HEADER MSGID: " << _msgid;
    kDebug() << "HEADER MSGSTR: " << _msgstr;
-   if ( !_msgid.isEmpty() && !_msgid.first().isEmpty() )
+   if (KDE_ISUNLIKELY( !_msgid.isEmpty() && !_msgid.first().isEmpty() ))
    {
       // The header must have an empty msgid
       kWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
@@ -191,9 +193,7 @@ _testBorked=false;
 //          return STOPPED;
 
       const ConversionStatus success=readEntry(stream);
-//       kWarning()<< "hmmm "<<counter;
-//       kWarning()<< "hmmm "<<_msgid.first();
-      if(success==OK)
+      if(KDE_ISLIKELY(success==OK))
       {
          if( _obsolete )
                tempObsolete.append(_comment);
@@ -254,7 +254,7 @@ _testBorked=false;
          // add new entry to the list of entries
          appendCatalogItem(tempCatItem);
       }
-      else if ( success == PARSE_ERROR )
+      else if (KDE_ISUNLIKELY( success == PARSE_ERROR ))
       {
          kDebug() << "Parse error in entry: " << counter;
          return PARSE_ERROR;
@@ -281,7 +281,7 @@ _testBorked=false;
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-   kWarning() << k_funcinfo << " done in " << aaa.elapsed();
+   kDebug() << k_funcinfo << " done in " << aaa.elapsed() << endl;
 
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
@@ -404,7 +404,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        // Qt4: no need of a such a check
        /*if(line.isNull()) // file end
           break;
-       else*/ if ( line.startsWith( "<<<<<<<" ) || line.startsWith( "=======" ) || line.startsWith( ">>>>>>>" ) )
+       else*/ if (KDE_ISUNLIKELY( line.startsWith( "<<<<<<<" ) || line.startsWith( "=======" ) || line.startsWith( ">>>>>>>" ) ))
        {
           // We have found a CVS/SVN conflict marker. Abort.
           // (It cannot be any useful data of the PO file, as otherwise the line would start with at least a quote)
@@ -472,7 +472,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
            }
 		     // one of the quotation marks is missing
-           else if( /*_testBorked&&*/ line.contains( _rxMsgIdBorked ) )
+           else if(KDE_ISUNLIKELY( /*_testBorked&&*/ line.contains( _rxMsgIdBorked ) ))
            {
                part=Msgid;
 
@@ -527,7 +527,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
-            else if( /*_testBorked&&*/line.contains( _rxMsgIdBorked ) )
+            else if(KDE_ISUNLIKELY( /*_testBorked&&*/line.contains( _rxMsgIdBorked ) ))
             {
                part=Msgid;
 
@@ -574,7 +574,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
-            else if(/*_testBorked&&*/ line.contains ( _rxMsgIdBorked ) )
+            else if(KDE_ISUNLIKELY(/*_testBorked&&*/ line.contains ( _rxMsgIdBorked ) ))
             {
                part=Msgid;
 
@@ -631,7 +631,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                _msgid.append(line);
             }
             // one of the quotation marks is missing
-            else if(/*_testBorked&&*/ line.contains( _rxMsgIdPluralBorked ) )
+            else if(KDE_ISUNLIKELY(/*_testBorked&&*/ line.contains( _rxMsgIdPluralBorked ) ))
             {
                part=Msgid;
                _gettextPluralForm = true;
@@ -678,7 +678,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
                (*msgstrIt)=line;
             }
-            else if( /*_testBorked&&*/ _gettextPluralForm &&  line.contains( _rxMsgStrPluralStartBorked ) )
+            else if(KDE_ISUNLIKELY( /*_testBorked&&*/ _gettextPluralForm &&  line.contains( _rxMsgStrPluralStartBorked ) ))
             {
                part=Msgstr;
 
@@ -705,7 +705,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                break;
             }
             // a line of the msgid with a missing quotation mark
-            else if( /*_testBorked&&*/line.contains( _rxMsgLineBorked ) )
+            else if(KDE_ISUNLIKELY( /*_testBorked&&*/line.contains( _rxMsgLineBorked ) ))
             {
                recoverableError=true;
 
@@ -761,7 +761,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                msgstrIt=_msgstr.end();
                --msgstrIt;
             }
-	    else if(/*_testBorked&&*/ _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) )
+	    else if(KDE_ISUNLIKELY(/*_testBorked&&*/ _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) ))
             {
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[[0-9]\\]\\s*\"?"));
@@ -781,7 +781,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                break;
             }
             // another line of the msgstr with a missing quotation mark
-            else if( /*_testBorked&&*/line.contains( _rxMsgLineBorked ) )
+            else if(KDE_ISUNLIKELY( /*_testBorked&&*/line.contains( _rxMsgLineBorked ) ))
             {
                recoverableError=true;
 
@@ -820,14 +820,12 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
   */
 
     //kDebug() << k_funcinfo << " NEAR RETURN";
-    if(error)
-       return PARSE_ERROR;
-	else if(recoverableError)
-		return RECOVERED_PARSE_ERROR;
+    if(KDE_ISUNLIKELY(error))
+        return PARSE_ERROR;
+    else if(KDE_ISUNLIKELY(recoverableError))
+        return RECOVERED_PARSE_ERROR;
     else
-    {
-      return OK;
-    }
+        return OK;
 }
 
 // kate: space-indent on; indent-width 3; replace-tabs on;

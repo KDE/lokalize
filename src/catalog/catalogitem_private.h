@@ -36,7 +36,9 @@
 #ifndef CATALOGITEMPRIVATE_H
 #define CATALOGITEMPRIVATE_H
 
-#include <QStringList>
+//#include <QStringList>
+#include <QVector>
+#include <QString>
 #include "pluralformtypes_enum.h"
 
 
@@ -63,12 +65,10 @@ public:
     QString _comment;
     QString _msgctxt;
 
-    QStringList _msgidPlural;
-    //QString _msgid;
-    QStringList _msgstrPlural;
-    //QString _msgstr;
+    QVector<QString> _msgidPlural;
+    QVector<QString> _msgstrPlural;
 
-    QStringList _errors;
+    QVector<QString> _errors;
 
     CatalogItemPrivate()
         : _pluralFormType(NoPluralForm)

@@ -112,7 +112,6 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
 //     {
 //         msg.remove(accel.pos(1),accel.cap(1).size());
 //         pos=accel.pos(1);
-//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl;
 //     }
 
     QStringList words(msg.split(m_rxSplit,QString::SkipEmptyParts));

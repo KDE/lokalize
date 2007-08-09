@@ -35,6 +35,7 @@
 #define PROJECT_H
 
 #include <QObject>
+// #include <QTime>
 #include "projectbase.h"
 #include "jobs.h"
 // #include "glossary.h"
@@ -80,6 +81,7 @@ public:
     Glossary* glossary()const{return m_glossary;}
 
     QStringList webQueryScripts() const;
+
 signals:
     void loaded();
 private:
@@ -93,7 +95,7 @@ public slots:
 //     void populateKrossActions();
 
     void deleteScanJob(ThreadWeaver::Job*);
-    void slotTMWordsIndexed(ThreadWeaver::Job*);
+//     void slotTMWordsIndexed(ThreadWeaver::Job*);
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
 signals:
     void suggestionsCame(SelectJob*);
@@ -103,13 +105,21 @@ private:
 public:
     static Project* instance();
 
-public:
-    TMWordHash m_tmWordHash;
+// public:
+//     TMWordHash m_tmWordHash;
 
 private:
     QString m_path;
     ProjectModel* m_model;
     Glossary* m_glossary;
+
+    //TM scanning stats
+    ushort m_tmCount;
+//     ushort m_tmTime;
+    ushort m_tmAdded;
+    ushort m_tmNewVersions;//e1.english==e2.english, e1.target!=e2.target
+//     QTime m_timeTracker;
+
 
 //     QTime scanningTime;
 //     WebQueryController* m_webQueryController;

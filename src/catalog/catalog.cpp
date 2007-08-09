@@ -33,8 +33,17 @@
   your version.
 
 **************************************************************************** */
+#define KDE_NO_DEBUG_OUTPUT
 
 #include "catalog.h"
+#include "project.h"
+
+#include "gettextimport.h"
+#include "gettextexport.h"
+
+#include "catalog_private.h"
+#include "version.h"
+#include "prefs_kaider.h"
 
 #include <QProcess>
 #include <QString>
@@ -49,12 +58,6 @@
 #include <kio/netaccess.h>
 #include <ktemporaryfile.h>
 
-#include "gettextimport.h"
-#include "gettextexport.h"
-
-#include "catalog_private.h"
-#include "version.h"
-#include "prefs_kaider.h"
 
 // Catalog* Catalog::_instance=0;
 
@@ -443,20 +446,24 @@ void Catalog::updateHeader(bool forSaving)
 
     QStringList::Iterator it,ait;
     QString temp;
-    bool found;
 
-    KConfig* identityOptions = Settings::self()->config();
-    identityOptions->setGroup("Identity");
+//     KConfig* identityOptions = Settings::self()->config();
+//     identityOptions->setGroup("Identity");
 
     //    const SaveSettings saveOptions = saveSettings();
 
 
-    found=false;
+    bool found=false;
 
-    temp="Last-Translator: "+identityOptions->readEntry("authorName","");
-    if (!identityOptions->readEntry("Email","").isEmpty())
-        temp+=(" <"+identityOptions->readEntry("Email")+'>');
+    temp="Last-Translator: "+Settings::authorName();
+    if (!Settings::authorEmail().isEmpty())
+        temp+=(" <"+Settings::authorEmail()+'>');
     temp+="\\n";
+
+//     temp="Last-Translator: "+identityOptions->readEntry("authorName","");
+//     if (!identityOptions->readEntry("Email","").isEmpty())
+//         temp+=(" <"+identityOptions->readEntry("Email")+'>');
+//     temp+="\\n";
 
     for ( it = headerList.begin(); it != headerList.end(); ++it )
     {
@@ -471,11 +478,8 @@ void Catalog::updateHeader(bool forSaving)
     if (!found)
         headerList.append(temp);
 
-        QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
-    //QString dateTimeString = KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd hh:mm+%z");
-
+    QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
     found=false;
-
     temp="PO-Revision-Date: "+dateTimeString+"\\n";
 
     for ( it = headerList.begin(); it != headerList.end(); ++it )
@@ -512,7 +516,11 @@ void Catalog::updateHeader(bool forSaving)
     found=false;
     KLocale locale("kdelibs");
     locale.setLanguage("en_US");
-    d->_langCode=identityOptions->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first());
+    //d->_langCode=identityOptions->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first());
+    if (Project::instance()->isLoaded())
+        d->_langCode=Project::instance()->langCode();
+    else
+        d->_langCode=Settings::defaultLangCode();
 
     for ( it = headerList.begin(); it != headerList.end(); ++it )
     {
@@ -537,8 +545,12 @@ void Catalog::updateHeader(bool forSaving)
     d->_language=locale.languageCodeToName(d->_langCode);
 
     temp="Language-Team: "+d->_language;
-    if (!identityOptions->readEntry("DefaultMailingList").isEmpty())
-        temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');
+    if (Project::instance()->isLoaded())
+        temp+=" <"+Project::instance()->mailingList()+'>';
+    else
+        temp+=" <"+Settings::defaultMailingList()+'>';
+/*    if (!identityOptions->readEntry("DefaultMailingList").isEmpty())
+        temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');*/
     temp+="\\n";
 
 //     kWarning()<< "  _'" << temp <<"' ";
@@ -601,7 +613,6 @@ void Catalog::updateHeader(bool forSaving)
 //         }
 //     }
     found=false;
-
     temp="Content-Transfer-Encoding: 8bit\\n";
 
     for ( it = headerList.begin(); it != headerList.end(); ++it )
@@ -611,7 +622,6 @@ void Catalog::updateHeader(bool forSaving)
     }
     if (!found)
         headerList.append(temp);
-
 
     temp="X-Generator: KAider %1\\n";
     temp=temp.arg(KAIDER_VERSION);
@@ -779,11 +789,10 @@ void Catalog::updateHeader(bool forSaving)
     QStringList foundAuthors;
 
     temp = "# ";
-    temp += identityOptions->readEntry("authorName","");
-    if (!identityOptions->readEntry("Email","").isEmpty())
-    {
-        temp+=(" <"+identityOptions->readEntry("Email","")+'>');
-    }
+    //temp += identityOptions->readEntry("authorName","");
+    temp += Settings::authorName();
+    if (!Settings::authorEmail().isEmpty())
+        temp+=(" <"+Settings::authorEmail()+'>');
     temp+=", "+QDate::currentDate().toString("yyyy")+'.';
 
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
@@ -845,8 +854,8 @@ void Catalog::updateHeader(bool forSaving)
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
             {
                 if ( it->indexOf( QRegExp(
-                                      QRegExp::escape( identityOptions->readEntry("authorName","") )+".*"
-                                      + QRegExp::escape( identityOptions->readEntry("Email","") ) ) ) != -1 )
+                                      QRegExp::escape( Settings::authorName() )+".*"
+                                      + QRegExp::escape( Settings::authorEmail() ) ) ) != -1 )
                 {
                     foundAuthor = true;
                     if ( it->indexOf( cy ) != -1 )
@@ -912,6 +921,7 @@ void Catalog::setBookmark(uint idx,bool set)
 
 void Catalog::importFinished()
 {
+    //for langs with more then 2 forms
     uint i=0;
     uint size=d->_entries.size();
     while (i<size)
@@ -920,10 +930,10 @@ void Catalog::importFinished()
             && d->_entries.at(i).msgstrPlural().count()<numberOfPluralForms()
            )
         {
-            QStringList msgstr(d->_entries.at(i).msgstrPlural());
+            QVector<QString> msgstr(d->_entries.at(i).msgstrPlural());
             while (msgstr.count()<numberOfPluralForms())
                 msgstr.append(QString());
-            d->_entries[i].setMsgstrPlural(msgstr);
+            d->_entries[i].setMsgstr(msgstr);
 
         }
         ++i;

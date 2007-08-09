@@ -48,46 +48,38 @@
 
 #include <math.h>
 
-static void initDb(QSqlDatabase& db)
+
+static void doSplit(QString& cleanEn, QStringList& words)
 {
-    QSqlQuery queryMain(db);
-    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_main ("
-                          "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
-                          "english TEXT UNIQUE ON CONFLICT REPLACE, "
-                          "target TEXT, "
-                          "date DEFAULT CURRENT_DATE, "
-                          "hits NUMERIC DEFAULT 0"
-                          ")");
+    QRegExp rxSplit("\\W+|\\d+");
+    QRegExp rxClean1(Project::instance()->markup());//replaced with " "
+    QRegExp rxClean2(Project::instance()->accel());//removed
+    rxClean1.setMinimal(true);
+    rxClean2.setMinimal(true);
 
-    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_dups ("
-                          "id INTEGER, "
-                          "target TEXT, "
-                          "date DEFAULT CURRENT_DATE, "
-                          "hits NUMERIC DEFAULT 0"
-                          ")");
+    cleanEn.replace(rxClean1," ");
+    cleanEn.remove(rxClean2);
 
-#if 0
-//temp
-    if (!queryMain.exec("CREATE INDEX IF NOT EXISTS idxAntiDup ON tm_main (english, target)"))
-                    kWarning() <<"ERROR4: " <<queryMain.lastError().text();
+    words=cleanEn.toLower().split(rxSplit,QString::SkipEmptyParts);
+    if (words.size()>4)
+    {
+        int i=0;
+        for(;i<words.size();++i)
+        {
+            if (words.at(i).size()<4)
+                words.removeAt(i--);
+            else if (words.at(i).startsWith('t')&&words.at(i).size()==4)
+            {
+                if (words.at(i)=="then"
+                || words.at(i)=="than"
+                || words.at(i)=="that"
+                || words.at(i)=="this"
+                )
+                    words.removeAt(i--);
+            }
+        }
+    }
 
-//we'll use in-memory word-hash
-
-
-    //we create indexes manually, in a customized way
-//OR: SELECT (tm_links.id) FROM tm_links,tm_words WHERE tm_links.wordid==tm_words.wordid AND (tm_words.word) IN ("africa","abidjan");
-    QSqlQuery queryWords("CREATE TABLE IF NOT EXISTS tm_words ("
-                          "wordid INTEGER PRIMARY KEY, "
-                          "word TEXT UNIQUE ON CONFLICT IGNORE"
-                          ")",db);
-
-    //stores id's of TM entries that contain word referenced by wordid
-    QSqlQuery queryLinks("CREATE TABLE IF NOT EXISTS tm_links ("
-                          "wordid INTEGER, "
-                          "id INTEGER "
-                          ")",db);
-
-#endif
 }
 
 /**
@@ -96,34 +88,37 @@ static void initDb(QSqlDatabase& db)
  * 2 - e1.english==e2.english, e1.target!=e2.target
  */
 static int insertEntry(const QString& english,
-                 const QString& target,
-                 QSqlDatabase& db,
-                 const QRegExp& rxSplit,
-                 QSqlQuery& queryMain
+                       const QString& target,
+                       QSqlDatabase& db,
+//                  const QRegExp& rxSplit,
+                       QSqlQuery& queryMain
 //                  QSqlQuery& queryInsertWord,
 //                  QSqlQuery& queryIndexWords
                 )
 {
     //TODO plurals
-    if (KDE_ISUNLIKELY (target.isEmpty()))
+    if (target.isEmpty())
         return 0;
-    QStringList words(english.toLower().split(rxSplit,QString::SkipEmptyParts));
+
+    QString cleanEn(english);
+    QStringList words;
+    doSplit(cleanEn,words);
     if (words.isEmpty())
         return 0;
 
-    //check if we already have identical record
+
+    //check if we already have record with the same en string
     QSqlQuery query1(db);
     QString escapedEn(english);
     escapedEn.replace("'","''");
-    if (!query1.exec("SELECT id, target FROM tm_main WHERE "
-                     "english=='"+escapedEn+"'"))
-        kWarning() <<"ERROR2: " <<query1.lastError().text();;
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target FROM tm_main WHERE "
+                     "english=='"+escapedEn+"'")))
+        kWarning() <<"select error: " <<query1.lastError().text();
 
 
     if (query1.next())
     {
-//         kWarning() <<"skipping";
-//         query1.next();
+        //this is translation of en string that is already present in db
         if (target==query1.value(1).toString())
         {
             query1.clear();
@@ -134,9 +129,9 @@ static int insertEntry(const QString& english,
 
         QString escapedTarget(target);
         escapedTarget.replace("'","''");
-        if (!query1.exec("SELECT id FROM tm_dups WHERE "
-                         "target=='"+escapedTarget+"'"))
-            kWarning() <<"ERROR22: " <<query1.lastError().text();;
+        if (KDE_ISUNLIKELY(!query1.exec("SELECT id FROM tm_dups WHERE "
+                         "target=='"+escapedTarget+"'")))
+            kWarning() <<"select error 2: " <<query1.lastError().text();
 
         if (query1.next())
         {
@@ -154,41 +149,119 @@ static int insertEntry(const QString& english,
         kWarning() <<"ERROR33: " <<query1.lastError().text();
         return 0;
     }
-
+    //no, this is new string
 
     queryMain.bindValue(0, english);
     queryMain.bindValue(1, target);
-    if (KDE_ISLIKELY(queryMain.exec()))
-        return 1;
-    kWarning() <<"ERROR3: " <<queryMain.lastError().text();
-    return 0;
+    if (KDE_ISUNLIKELY(!queryMain.exec()))
+    {
+        kWarning() <<"ERROR3: " <<queryMain.lastError().text();
+        return 0;
+    }
 
-//we'll use in-memory word-hash
-#if 0
+//was: in-memory word-hash
+#if 1
     qlonglong mainid=queryMain.lastInsertId().toLongLong();
-//     kWarning() <<"MAIN INSERTED "<<english<<" "<<mainid;
+    QByteArray mainidStr(QByteArray::number(mainid,36));
+//     kWarning() <<"MAIN INSERTED "<<english<<" "<<mainid<< endl;
+    bool isShort=words.size()<20;
     int j=words.size();
     //queryWords.bindValue(1, queryMain.lastInsertId());
     while (--j>=0)
     {
         //insert word (if we dont have it)
-        queryInsertWord.bindValue(0, words.at(j));
-        queryInsertWord.exec();
 
-        QSqlQuery qqq("SELECT (wordid) FROM tm_words WHERE word==\""+words.at(j)+"\"",db);
-        qqq.next();
-        int wordid=qqq.value(0).toInt();//got wordid
-        qqq.clear();
-//         kWarning() <<"USING WORDID "<<wordid<<" FOR WORD "<<words.at(j);
+        if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM tm_words WHERE "
+                     "word=='"+words.at(j)+"'")))
+        kWarning() <<"select error 3: " <<query1.lastError().text();
 
-        queryIndexWords.bindValue(0, wordid);
-        queryIndexWords.bindValue(1, mainid);
-        queryIndexWords.exec();
-//         kWarning() <<"LINK: WORID "<<wordid<<" FOR MAINID "<<mainid;
+        if (query1.next())
+        {
+            //just add new id
+            //if (cleanEn.size()<80) //use words.size() instead?
+            if (isShort)
+            {
+                QByteArray arr(query1.value(1).toByteArray());
+                query1.clear();
+                query1.prepare("UPDATE tm_words "
+                        "SET ids_short=? "
+                        "WHERE word=='"+words.at(j)+"'");
+
+                arr+=' '+mainidStr;
+                query1.bindValue(0, arr);
+                if (KDE_ISUNLIKELY(!query1.exec()))
+                kWarning() <<"update error 4: " <<query1.lastError().text();
+            }
+            else
+            {
+                QByteArray arr(query1.value(2).toByteArray());
+                query1.clear();
+                query1.prepare("UPDATE tm_words "
+                        "SET ids_long=? "
+                        "WHERE word=='"+words.at(j)+"'");
+
+                arr+=' '+mainidStr;
+                query1.bindValue(0, arr);
+                if (KDE_ISUNLIKELY(!query1.exec()))
+                kWarning() <<"update error 5: " <<query1.lastError().text();
+
+            }
+        }
+        else
+        {
+            query1.clear();
+            query1.prepare("INSERT INTO tm_words (word, ids_short, ids_long) "
+                        "VALUES (?, ?, ?)");
+            QByteArray idsShort;
+            QByteArray idsLong;
+            if (isShort)
+                idsShort=mainidStr;
+            else
+                idsLong=mainidStr;
+            query1.bindValue(0, words.at(j));
+            query1.bindValue(1, idsShort);
+            query1.bindValue(2, idsLong);
+            if (KDE_ISUNLIKELY(!query1.exec()))
+                kWarning() <<"insert error 2: " <<query1.lastError().text() ;
+
+        }
+
     }
 #endif
+    return 1;
 }
 
+
+static void initDb(QSqlDatabase& db)
+{
+    QSqlQuery queryMain(db);
+    //TODO do this only if no japanese, chinese etc
+    queryMain.exec("PRAGMA encoding = \"UTF-8\"");
+    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_main ("
+                   "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
+                   "english TEXT UNIQUE ON CONFLICT REPLACE, "
+                   "target TEXT, "
+                   "date DEFAULT CURRENT_DATE, "
+                   "hits NUMERIC DEFAULT 0"
+                   ")");
+
+    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_dups ("
+                   "id INTEGER, "
+                   "target TEXT, "
+                   "date DEFAULT CURRENT_DATE, "
+                   "hits NUMERIC DEFAULT 0"
+                   ")");
+
+
+    //we create indexes manually, in a customized way
+//OR: SELECT (tm_links.id) FROM tm_links,tm_words WHERE tm_links.wordid==tm_words.wordid AND (tm_words.word) IN ("africa","abidjan");
+    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_words ("
+                   "word TEXT UNIQUE ON CONFLICT REPLACE, "
+                   "ids_short BLOB, " // actually, it's text,
+                   "ids_long BLOB "   // but it will never contain non-latin chars
+                   ")");
+
+}
 
 OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     : ThreadWeaver::Job(parent)
@@ -198,7 +271,7 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
 
 OpenDBJob::~OpenDBJob()
 {
-    kWarning() <<"OpenDBJob dtor";
+    //kWarning() <<"OpenDBJob dtor";
 }
 
 void OpenDBJob::run ()
@@ -214,7 +287,7 @@ void OpenDBJob::run ()
     db.setDatabaseName(dbFile);
     if (KDE_ISLIKELY( db.open()) )
         initDb(db);
-    kWarning() <<"db opened "<<a.elapsed()<<" "<<dbFile;
+    kWarning() <<"db opened "<<a.elapsed()<<dbFile;
 }
 
 
@@ -244,7 +317,6 @@ void CloseDBJob::run ()
 }
 
 
-
 SelectJob::SelectJob(const QString& english,TMView* v,const DocPosition& pos,QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_english(english)
@@ -255,45 +327,75 @@ SelectJob::SelectJob(const QString& english,TMView* v,const DocPosition& pos,QOb
 
 SelectJob::~SelectJob()
 {
-    kWarning() <<"SelectJob dtor ";
+    //kWarning() <<"SelectJob dtor ";
 }
 
-void SelectJob::run ()
+//returns true if seen translation with >85%
+bool SelectJob::doSelect(QSqlDatabase& db,
+                         QStringList& words,
+                         //QList<TMEntry>& entries,
+                         bool isShort)
 {
-    thread()->setPriority(QThread::IdlePriority);
-    QTime a;
-    a.start();
-    kWarning() <<"select job started";
+    QMap<qlonglong,uint> occurencies;
+    QList<qlonglong> idsForWord;
 
-    QSqlDatabase db=QSqlDatabase::database("tm_main");
-    QRegExp rxSplit("\\W+|\\d+");
+    QSqlQuery queryWords(db);
+    //TODO seems like a bug in sqlite
+//     queryWords.prepare("SELECT ids_short FROM tm_words WHERE "
+//                             "word==?");
+    QString queryString;
+    if (isShort)
+        queryString="SELECT ids_short FROM tm_words WHERE word=='%1'";
+    else
+        queryString="SELECT ids_long FROM tm_words WHERE word=='%1'";
 
-    QRegExp rxClean1(Project::instance()->markup());//replaced with " "
-    QRegExp rxClean2(Project::instance()->accel());//removed
-    rxClean1.setMinimal(true);
-    rxClean2.setMinimal(true);
-    m_english.replace(rxClean1," ");
-    m_english.remove(rxClean2);
-
-    QStringList words(m_english.toLower().split(rxSplit,QString::SkipEmptyParts));
-    if (words.size()>4)
+    //for each word...
+    int o=words.size();
+    while (--o>=0)
     {
-        int i=0;
-        for(;i<words.size();++i)
+        //if this is not the first word occurence, just readd ids for it
+        if (!(   !idsForWord.isEmpty() && words.at(o)==words.at(o+1)   ))
         {
-            if (words.at(i).size()<4)
-                words.removeAt(i--);
+            idsForWord.clear();
+//             queryWords.bindValue(0, words.at(o));
+//             if (KDE_ISUNLIKELY(!queryWords.exec()))
+            if (KDE_ISUNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
+                kWarning() <<"select error: " <<queryWords.lastError().text() << endl;;
+
+            if (queryWords.next())
+            {
+                QByteArray arr(queryWords.value(0).toByteArray());
+                queryWords.clear();
+
+                QList<QByteArray> ids(arr.split(' '));
+                long p=ids.size();
+                while (--p>=0)
+                    idsForWord.append(ids.at(p).toLongLong(0,36));
+            }
+            else
+            {
+                queryWords.clear();
+                continue;
+            }
+        }
+
+        int i=idsForWord.size();
+        //kWarning() <<"SelectJob: idsForWord.size() "<<idsForWord.size()<<endl;
+
+        //iterate over ids: this computes hit count for each id
+        while (--i>=0)
+        {
+            uint a=1;
+            if (occurencies.contains(idsForWord.at(i)))
+                a+=occurencies.value(idsForWord.at(i));
+            occurencies.insert(idsForWord.at(i),a);
         }
     }
-    if (words.isEmpty())
-        return;
+    idsForWord.clear();
 
-            //give bigger value to entries that have words that happen twice/... in original string
-//             QSet<QString> wordsSet(words.toSet());
-//             words=wordsSet.toList();
+//     kWarning() <<"SelectJob: idsForWord done in "<<a.elapsed();
 
-    QMap<qlonglong,uint> occurencies;
-
+#if 0
     if (Project::instance()->m_tmWordHash.wordHash.isEmpty())
     {
         //fallback, works 2 times faster than full word indexing :)
@@ -346,6 +448,12 @@ void SelectJob::run ()
         }
 
     }
+#endif
+    QRegExp rxSplit("\\W+|\\d+");
+    QRegExp rxClean1(Project::instance()->markup());//replaced with " "
+    QRegExp rxClean2(Project::instance()->accel());//removed
+    rxClean1.setMinimal(true);
+    rxClean2.setMinimal(true);
 
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(m_english.toLower().split(rxSplit,QString::SkipEmptyParts));
@@ -358,9 +466,12 @@ void SelectJob::run ()
     QList<uint> concordanceLevels( ( occurencies.values().toSet() ).toList() );
     qSort(concordanceLevels); //we start from entries with higher word-concordance level
     int i=concordanceLevels.size();
+    bool seen85=false;
     int limit=21;
     while ((--limit>=0)&&(--i>=0))
     {
+        //for every concordance level
+
         QList<qlonglong> ids(occurencies.keys(concordanceLevels.at(i)));
 
         int j=qMin(ids.size(),100);//hard limit
@@ -372,11 +483,8 @@ void SelectJob::run ()
             joined+=QString("%1,").arg(ids.at(j));
         joined+=QString("%1").arg(ids.at(j));
 
-        QSqlQuery queryFetch("SELECT * FROM tm_main "
-                "WHERE "
-                "tm_main.id IN ("
-                +joined+//+ids.join(",")+
-                ")",db);//ORDER BY tm_main.id ? NOTE
+        QSqlQuery queryFetch("SELECT * FROM tm_main WHERE "
+                            "tm_main.id IN ("+joined+")",db); //ORDER BY tm_main.id ?
         TMEntry e;
         while (queryFetch.next())
         {
@@ -486,6 +594,11 @@ void SelectJob::run ()
     //                     kWarning() <<"ScanJob: add "<<j<<" "<<e.english;
             if (e.score>3500)
             {
+                if (e.score>8500)
+                    seen85=true;
+                else if (seen85&&e.score<6000)
+                    continue;
+
                 m_entries.append(e);
 
                 //also add other translations of the given string
@@ -503,30 +616,40 @@ void SelectJob::run ()
         }
         queryFetch.clear();
     }
+    return seen85;
 
-    //                 kWarning() <<"ScanJob: done "<<a.elapsed();
+}
+
+void SelectJob::run ()
+{
+    thread()->setPriority(QThread::IdlePriority);
+    QTime a;
+    a.start();
+
+    QSqlDatabase db=QSqlDatabase::database("tm_main");
+
+    QString cleanEn(m_english);
+    QStringList words;
+    doSplit(cleanEn,words);
+    if (words.isEmpty())
+        return;
+    qSort(words);//to speed up if some words happen multiple times
+
+    bool isShort=words.size()<20;
+
+
+    if (!doSelect(db,words,isShort))
+        doSelect(db,words,!isShort);
+
+//    kWarning() <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
     qSort(m_entries);
-    m_entries.resize(qMin(15,m_entries.size()));
-    kWarning() <<"SelectJob done in "<<a.elapsed();
+    int limit=qMin(15,m_entries.size());
+    int i=m_entries.size();
+    while(--i>=limit)
+        m_entries.removeLast();
 
-
-}
-
-
-
-InsertJob::InsertJob(const TMEntry& entry,QObject* parent)
-    : ThreadWeaver::Job(parent)
-    , m_entry(entry)
-{
-}
-
-InsertJob::~InsertJob()
-{
-    kWarning() <<"InsertJob dtor";
-}
-
-void InsertJob::run ()
-{
+//    m_entries=entries.toVector();
+    kWarning() <<"SelectJob done in "<<a.elapsed()<<endl;
 
 }
 
@@ -546,7 +669,7 @@ ScanJob::~ScanJob()
     kWarning() <<"ScanJob dtor ";
 }
 
-void ScanJob::run ()
+void ScanJob::run()
 {
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
@@ -558,17 +681,16 @@ void ScanJob::run ()
     Catalog catalog(thread());
     if (KDE_ISLIKELY(catalog.loadFromUrl(m_url)))
     {
-        QRegExp m_rxSplit("\\W|\\d");
+//         QRegExp m_rxSplit("\\W|\\d");
     //kWarning() <<"ScanJob: loaded "<<a.elapsed();
         initDb(db);
 
-    //                 QSqlQuery queryInsertWord(db);
-    //                 queryInsertWord.prepare("INSERT INTO tm_words (word) "
-    //                               "VALUES (?)");
-    // 
-    //                 QSqlQuery queryIndexWords(db);
-    //                 queryIndexWords.prepare("INSERT INTO tm_links (wordid, id) "
-    //                               "VALUES (?, ?)");
+        QSqlQuery queryInsertWord(db);
+        queryInsertWord.prepare("INSERT INTO tm_words (word) "
+                                "VALUES (?)");
+//         QSqlQuery queryIndexWords(db);
+//         queryIndexWords.prepare("INSERT INTO tm_links (wordid, id) "
+//                                 "VALUES (?, ?)");
 
     //                 QSqlQuery query1(db);
     //                 queryWords.prepare("SELECT INTO tm_words (word, id) "
@@ -589,10 +711,10 @@ void ScanJob::run ()
             int res=insertEntry(catalog.msgid(i),
                         catalog.msgstr(i),
                         db,
-                        m_rxSplit,
+//                         m_rxSplit,
                         query
-    //                                 queryInsertWord,
-    //                                 queryIndexWords
+//                         queryInsertWord,
+//                         queryIndexWords
                         );
             if (res)
             {
@@ -609,6 +731,25 @@ void ScanJob::run ()
 }
 
 
+
+InsertJob::InsertJob(const TMEntry& entry,QObject* parent)
+    : ThreadWeaver::Job(parent)
+    , m_entry(entry)
+{
+}
+
+InsertJob::~InsertJob()
+{
+    kWarning() <<"InsertJob dtor"<<endl;
+}
+
+void InsertJob::run ()
+{
+
+}
+
+
+#if 0
 IndexWordsJob::IndexWordsJob(QObject* parent)
     : ThreadWeaver::Job(parent)
 {
@@ -679,6 +820,5 @@ void IndexWordsJob::run ()
 
     kWarning() <<"words indexing done in "<<a.elapsed()<<" size "<<m_tmWordHash.wordHash.uniqueKeys().size()<<" "<<count;
 }
-
-
+#endif
 

@@ -80,7 +80,7 @@ const QString& CatalogItem::msgid(const int form, const bool /*noNewlines*/) con
         return d->_msgidPlural.last();
 }
 
-const QStringList& CatalogItem::msgidPlural(const bool /*noNewlines*/) const
+const QVector<QString>& CatalogItem::msgidPlural(const bool /*noNewlines*/) const
 {
     return d->_msgidPlural;
 }
@@ -93,7 +93,7 @@ const QString& CatalogItem::msgstr(const int form, const bool /*noNewlines*/) co
         return d->_msgstrPlural.last();
 }
 
-const QStringList& CatalogItem::msgstrPlural(const bool /*noNewlines*/) const
+const QVector<QString>& CatalogItem::msgstrPlural(const bool /*noNewlines*/) const
 {
     return d->_msgstrPlural;
 }
@@ -126,15 +126,22 @@ void CatalogItem::setMsgid(const QString& msg, const int form)
 
 void CatalogItem::setMsgidPlural(const QStringList& msg)
 {
-    d->_msgidPlural=msg;
-    for (QStringList::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
+    d->_msgidPlural=msg.toVector(); //TODO
+    for (QVector<QString>::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
         it->squeeze();
 }
 
 void CatalogItem::setMsgid(const QStringList& msg)
 {
+    d->_msgidPlural=msg.toVector(); //TODO
+    for (QVector<QString>::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
+        it->squeeze();
+}
+
+void CatalogItem::setMsgid(const QVector<QString>& msg)
+{
     d->_msgidPlural=msg;
-    for (QStringList::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
+    for (QVector<QString>::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
         it->squeeze();
 }
 
@@ -146,10 +153,17 @@ void CatalogItem::setMsgstr(const QString& msg, const int form)
 
 void CatalogItem::setMsgstrPlural(const QStringList& msg)
 {
-    d->_msgstrPlural=msg;
+    //TODO
+    d->_msgstrPlural=msg.toVector();
 }
 
 void CatalogItem::setMsgstr(const QStringList& msg)
+{
+    //TODO
+    d->_msgstrPlural=msg.toVector();
+}
+
+void CatalogItem::setMsgstr(const QVector<QString>& msg)
 {
     d->_msgstrPlural=msg;
 }

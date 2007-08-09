@@ -1,7 +1,7 @@
-/* ****************************************************************************
+/*****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,59 +30,23 @@
 
 **************************************************************************** */
 
-#ifndef TMVIEW_H
-#define TMVIEW_H
+#ifndef LISTS_H
+#define LISTS_H
 
-#include "pos.h"
-#include "jobs.h"
+#include <QString>
+#include <klocale.h>
 
-#include <QDockWidget>
-class QTextBrowser;
-class Catalog;
-class QDropEvent;
-class QDragEnterEvent;
-class SelectJob;
-class QAction;
-
-#define TM_SHORTCUTS 10
-
-class TMView: public QDockWidget
+static inline QString getMaillingList()
 {
-    Q_OBJECT
+    QString lang(KGlobal::locale()->language());
+    if(lang.startsWith("ru"))
+        return "kde-russian@lists.kde.ru";
+    if(lang.startsWith("de"))
+        return "kde-i18n-de@lists.kde.org";
+    if(lang.startsWith("it"))
+        return "kde-i18n-it@lists.kde.org";
 
-public:
-    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~TMView();
-
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
-
-signals:
-    void textReplaceRequested(const QString&);
-
-public slots:
-    void slotNewEntryDisplayed(const DocPosition&);
-    void slotSuggestionsCame(SelectJob*);
-
-    //i think we dont wanna cache suggestions:
-    //what if good sugg may be generated
-    //from the entry user translated 1 minute ago?
-
-    //answer: store separate wordHash for added entries
-
-    void slotUseSuggestion(int);
-
-private:
-    QTextBrowser* m_browser;
-    Catalog* m_catalog;
-    DocPosition m_pos;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-    SelectJob* m_currentSelectJob;
-//     QSignalMapper *m_signalMapper;
-    QVector<QAction*> m_actions;
-    //QList<TMEntry> m_entries;
-};
+    return "kde-i18n-doc@lists.kde.org";
+}
 
 #endif

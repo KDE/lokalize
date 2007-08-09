@@ -70,7 +70,7 @@
    <item row="3" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Default Mailing L&amp;ist</string>
+      <string>Default Mailing List:</string>
      </property>
      <property name="buddy" >
       <cstring>kcfg_DefaultMailingList</cstring>
@@ -83,7 +83,7 @@
    <item row="2" column="1" >
     <widget class="QComboBox" name="DefaultLangCode" />
    </item>
-   <item row="5" column="0" colspan="2" >
+   <item row="7" column="0" colspan="2" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -99,10 +99,20 @@
    <item row="1" column="1" >
     <widget class="QLineEdit" name="kcfg_authorEmail" />
    </item>
-   <item row="4" column="1" >
+   <item row="5" column="1" >
     <widget class="QLineEdit" name="kcfg_DefaultLangCode" >
      <property name="enabled" >
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" >
+    <widget class="QLineEdit" name="kcfg_authorLocalizedName" />
+   </item>
+   <item row="4" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Localized Name:</string>
      </property>
     </widget>
    </item>

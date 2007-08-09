@@ -57,8 +57,8 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     , m_normTitle(i18nc("@title:window","Translation Memory"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
+    , m_currentSelectJob(0)
     , m_actions(actions)
-//     , m_currentSelectJob(0)
 {
     setObjectName("TMView");
     setWidget(m_browser);
@@ -78,7 +78,6 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 
 TMView::~TMView()
 {
-    delete m_browser;
 }
 
 
@@ -135,7 +134,6 @@ bool scanRecursive(const QDir& dir)
 
 void TMView::dropEvent(QDropEvent *event)
 {
-//     emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
     bool ok=false;
     int i=event->mimeData()->urls().size();
     while(--i>=0)
@@ -155,16 +153,25 @@ void TMView::dropEvent(QDropEvent *event)
         }
     }
     if (ok)
+    {
+        //dummy job
+        ScanFinishedJob* job=new ScanFinishedJob(this);
+        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+
         event->acceptProposedAction();
+    }
 
 }
 
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
+    //ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
     m_browser->clear();
     m_pos=pos;
-    SelectJob* m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),this,pos);
+    m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),this,pos);
     connect(m_currentSelectJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
     //connecting job to singleton project because this window may be closed by the time suggestions arrive and we dont wanna leak
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
@@ -204,15 +211,12 @@ void TMView::slotSuggestionsCame(SelectJob* job)
     while (i<limit)
     {
 
-//         kWarning()<<"res: "<<m_pos.entry;
-        m_browser->insertHtml(QString("[%1%] ").arg(float(job->m_entries.at(i).score)/100));
+        m_browser->insertHtml(QString("/%1%/ ").arg(float(job->m_entries.at(i).score)/100));
 
         QString oldStr(job->m_entries.at(i).english);
         QString newStr(m_catalog->msgid(m_pos));
 
 
-        kWarning()<<"res: "<<oldStr;
-//         kWarning()<<"res: "<<newStr;
         QString result(wordDiff(oldStr,newStr));
         result.replace("\\n","\\n<br>");
 

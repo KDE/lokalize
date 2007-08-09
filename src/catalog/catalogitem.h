@@ -38,6 +38,7 @@
 
 #include <QTextDocument>
 #include <QTextStream>
+#include <QStringList>
 
 #include "pluralformtypes_enum.h"
 
@@ -84,17 +85,19 @@ public:
     const QString& comment() const;
     const QString& msgctxt(const bool noNewlines = false) const;
     const QString& msgid(const int form=0, const bool noNewlines = false) const;
-    const QStringList& msgidPlural(const bool noNewlines = false) const;
+    const QVector<QString>& msgidPlural(const bool noNewlines = false) const;
     const QString& msgstr(const int form=0, const bool noNewlines = false) const;
-    const QStringList& msgstrPlural(const bool noNewlines = false) const;
+    const QVector<QString> & msgstrPlural(const bool noNewlines = false) const;
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
     void setMsgid(const QString& msg, const int form=0);
     void setMsgid(const QStringList& msg);
+    void setMsgid(const QVector<QString>& msg);
     void setMsgidPlural(const QStringList& msg);
     void setMsgstr(const QString& msg, const int form=0);
     void setMsgstr(const QStringList& msg);
+    void setMsgstr(const QVector<QString>& msg);
     void setMsgstrPlural(const QStringList& msg);
 
     void setValid(bool);

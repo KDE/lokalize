@@ -225,7 +225,8 @@ void KAider::setupActions()
     action->setCheckable(true);
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleFuzzy(bool)));
     connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
-    connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
+    //connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
+    connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
 
     ADD_ACTION_SHORTCUT("msgid2msgstr","Copy Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
@@ -651,6 +652,7 @@ void KAider::gotoEntry()
 
 void KAider::gotoEntry(const DocPosition& pos,int selection)
 {
+    kWarning()<<"goto1: "<<pos.entry;
 //     if ( (_currentPos.entry==pos.entry) && (_currentPos.offset==pos.offset) && (_currentPos.form==pos.form) )
 //         return;
 //     if(pos.part==UndefPart)
@@ -667,7 +669,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
 // QTime a;
 // a.start();
-
+    kWarning()<<"goto2: "<<pos.entry;
 //     KMessageBox::information(0, QString("%1 %2").arg(_currentEntry).arg(pos.entry));
     if (_currentEntry!=pos.entry || _currentPos.form!=pos.form)
     {
@@ -695,15 +697,14 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
         emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
 
-/*        if ((int)_currentEntry<_catalog->lastFuzzyIndex())
-            kWarning() << _currentEntry << " " << _catalog->lastFuzzyIndex() << " " << _catalog->lastUntranslatedIndex();*/
     }
 
+//     kWarning()<<"goto3: "<<pos.entry;
     //still emit even if _currentEntry==pos.entry
     emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
     msgStrChanged();
     statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
-//     kWarning() << "signalz  " << a.elapsed();
+//     kWarning()<<"goto4: "<<pos.entry;
 }
 
 void KAider::msgStrChanged()

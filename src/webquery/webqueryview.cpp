@@ -101,7 +101,6 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 WebQueryView::~WebQueryView()
 {
     delete m_flowLayout;
-//     delete m_browser;
 }
 
 
