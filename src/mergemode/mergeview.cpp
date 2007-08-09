@@ -35,6 +35,7 @@
 #include "cmd.h"
 #include "mergecatalog.h"
 // #include "prefs_kaider.h"
+#include "project.h"
 #include "diff.h"
 
 #include <klocale.h>
@@ -114,7 +115,11 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 
     emit signalEntryWithMergeDisplayed(true);
 
-    QString result(wordDiff(m_baseCatalog->msgstr(pos),m_mergeCatalog->msgstr(pos)));
+    QString result(wordDiff(m_baseCatalog->msgstr(pos),
+                            m_mergeCatalog->msgstr(pos),
+                            Project::instance()->accel(),
+                            Project::instance()->markup()
+                           ));
 
     result.replace("\\n","\\n<br>");
 

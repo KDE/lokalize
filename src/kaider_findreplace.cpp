@@ -134,8 +134,13 @@ void KAider::find()
 
 void KAider::findNext(const DocPosition& startingPos)
 {
-
+    bool anotherEntry=_searchingPos.entry!=_currentPos.entry;
     _searchingPos=startingPos;
+
+    if (anotherEntry)
+        _searchingPos.offset=0;
+    QRegExp rx("[^(\\\\n)>]\n");
+
     //_searchingPos.part=Msgid;
     int flag=1;
 //     int offset=_searchingPos.offset;
@@ -145,11 +150,20 @@ void KAider::findNext(const DocPosition& startingPos)
         KFind::Result res = KFind::NoMatch;
         while (1)
         {
-            if (_find->needData())
+            if (_find->needData()||anotherEntry)
             {
+                anotherEntry=false;
+
                 QString data;
                 if (_searchingPos.part==Msgid)
+                {
                     data=_catalog->msgid(_searchingPos)/*,offset*/;
+
+                    //unwrap bc kaiderview does that too
+                    int p=0;
+                    while ((p=rx.indexIn(data))!=-1)
+                        data.remove(p+1,1);
+                }
                 else
                     data=_catalog->msgstr(_searchingPos)/*,offset*/;
 
@@ -198,6 +212,8 @@ void KAider::findNext(const DocPosition& startingPos)
 
 void KAider::findNext()
 {
+    //kWarning()<<"pos"<<_currentPos.offset;
+
 
     if (_find)
         findNext(_currentPos);

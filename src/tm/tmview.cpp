@@ -33,7 +33,7 @@
 #include "tmview.h"
 
 #include "jobs.h"
-#include "diff.h"
+// #include "diff.h"
 #include "catalog.h"
 #include "project.h"
 // #include "prefs_kaider.h"
@@ -49,6 +49,7 @@
 #include <QDir>
 #include <QSignalMapper>
 #include <QAction>
+#include <QTimer>
 
 TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
@@ -62,24 +63,36 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 {
     setObjectName("TMView");
     setWidget(m_browser);
-    setAcceptDrops(true);
 
-    QSignalMapper* signalMapper=new QSignalMapper(this);
-    int i=actions.size();
-    while(--i>=0)
-    {
-        connect(actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
-        signalMapper->setMapping(actions.at(i), i);
-    }
-
-    connect(signalMapper, SIGNAL(mapped(int)),
-             this, SLOT(slotUseSuggestion(int)));
+    QTimer::singleShot(0,this,SLOT(initLater()));
 }
 
 TMView::~TMView()
 {
 }
 
+void TMView::initLater()
+{
+    QTime time;time.start();
+
+    setAcceptDrops(true);
+
+    QSignalMapper* signalMapper=new QSignalMapper(this);
+    int i=m_actions.size();
+    while(--i>=0)
+    {
+        connect(m_actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
+        signalMapper->setMapping(m_actions.at(i), i);
+    }
+
+    connect(signalMapper, SIGNAL(mapped(int)),
+             this, SLOT(slotUseSuggestion(int)));
+
+    m_browser->setUndoRedoEnabled(false);
+    m_browser->document()->setUndoRedoEnabled(false);
+
+    kWarning()<<"init "<<time.elapsed();
+}
 
 void TMView::slotUseSuggestion(int i)
 {
@@ -168,21 +181,28 @@ void TMView::dropEvent(QDropEvent *event)
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    //ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
+    ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
     m_browser->clear();
     m_pos=pos;
-    m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),this,pos);
+    m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),pos);
+    //these two are for cleanup
     connect(m_currentSelectJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    //connecting job to singleton project because this window may be closed by the time suggestions arrive and we dont wanna leak
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
+
+    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),
+            this,
+            SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+
     ThreadWeaver::Weaver::instance()->enqueue(m_currentSelectJob);
 
 }
 
-void TMView::slotSuggestionsCame(SelectJob* job)
+void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 {
     QTime time;
     time.start();
+
+    SelectJob* job=static_cast<SelectJob*>(j);
 
     if (job->m_pos.entry!=m_pos.entry)
         return;
@@ -211,13 +231,14 @@ void TMView::slotSuggestionsCame(SelectJob* job)
     while (i<limit)
     {
 
+        //m_browser->insertHtml(QString("/%1% %2/ ").arg(float(job->m_entries.at(i).score)/100).arg(job->m_entries.at(i).date));
         m_browser->insertHtml(QString("/%1%/ ").arg(float(job->m_entries.at(i).score)/100));
 
-        QString oldStr(job->m_entries.at(i).english);
-        QString newStr(m_catalog->msgid(m_pos));
+//         QString oldStr(job->m_entries.at(i).english);
+//         QString newStr(m_catalog->msgid(m_pos));
 
 
-        QString result(wordDiff(oldStr,newStr));
+        QString result(job->m_entries.at(i).diff);
         result.replace("\\n","\\n<br>");
 
 //         kWarning()<<"res: "<<result;
@@ -249,7 +270,7 @@ void TMView::slotSuggestionsCame(SelectJob* job)
     }
     m_browser->insertHtml("</html>");
 //     kWarning();
-    kWarning()<<"ELA "<<time.elapsed();
+    kWarning()<<"ELA "<<time.elapsed()<<m_browser->document()->blockCount();
 }
 
 

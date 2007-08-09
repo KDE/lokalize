@@ -60,7 +60,6 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
-//        , m_rxClean("\\&|<[^>]*>")//cleaning regexp
         , m_rxClean(Project::instance()->markup()+"|"+Project::instance()->accel())//cleaning regexp
         , m_rxSplit("\\W|\\d")//splitting regexp
         , m_normTitle(i18nc("@title:window","Glossary"))
@@ -80,7 +79,6 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 
 GlossaryView::~GlossaryView()
 {
-    delete m_browser;
 }
 
 

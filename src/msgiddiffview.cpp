@@ -34,7 +34,8 @@
 
 #include "diff.h"
 #include "catalog.h"
-#include "prefs_kaider.h"
+// #include "prefs_kaider.h"
+#include "project.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -111,7 +112,11 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
         oldStr.remove("\"\n");
     }
 
-    QString result(wordDiff(oldStr,newStr));
+    QString result(wordDiff(oldStr,
+                            newStr,
+                            Project::instance()->accel(),
+                            Project::instance()->markup()
+                           ));
     result.replace("\\n","\\n<br>");
 
     m_browser->setHtml(result);

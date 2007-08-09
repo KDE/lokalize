@@ -317,6 +317,8 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
         QTextCursor t=msgEdit->textCursor();
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
+        //kWarning()<<_catalog->msgid(pos).mid(t.position(),selection);
+        //NOTE this was kinda bug due to on-the-fly msgid wordwrap
         if (selection)
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,selection);
         msgEdit->setTextCursor(t);
@@ -403,7 +405,7 @@ void KAiderView::toggleFuzzy(bool checked)
 
 void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 {
-    kWarning()<<"fuzzy"<<_currentEntry<<fuzzy;
+//     kWarning()<<"fuzzy"<<_currentEntry<<fuzzy;
     if (_currentEntry==-1)
         return;
 
@@ -499,8 +501,9 @@ void KAiderView::unwrap(ProperTextEdit* editor)
     if (!t.atEnd())
         t.deleteChar();
 
+    QRegExp rx("[^(\\\\n)>]$");
     //remove '\n's skipping "\\\\n"
-    while (!(t=editor->document()->find(QRegExp("[^(\\\\n)>]$"),t)).isNull())
+    while (!(t=editor->document()->find(rx,t)).isNull())
     {
         t.movePosition(QTextCursor::EndOfLine);
         if (!t.atEnd())

@@ -32,9 +32,9 @@
 
 ************************************************************************** */
 
-//#include "diff.h"
+// #include "diff.h"
 
-#include "project.h"
+// #include "project.h"
 #include "prefs_kaider.h"
 
 #include <QVector>
@@ -378,7 +378,10 @@ QString wordDiff(const QStringList& s1,const QStringList& s2)
     return empty.join("");
 }
 
-QString wordDiff(const QString& str1, const QString& str2)
+QString wordDiff(const QString& str1,
+                 const QString& str2,
+                 const QString& accel,
+                 const QString& markup)
 {
     //separate punctuation marks etc from words as _only_ they may have changed
     QStringList s1("\t"), s2("\t");//little hack
@@ -388,39 +391,58 @@ QString wordDiff(const QString& str1, const QString& str2)
     QString str1ForMatching(str1);
     QString str2ForMatching(str2);
 
-    //TODO move this to calcLCS
-    QRegExp rxAccelInWord("[^\\W|\\d]"+Project::instance()->accel()+"[^\\W|\\d]");
-    int accelLen=Project::instance()->accel().size();
+    //move this to calcLCS?
+    QRegExp rxAccelInWord("[^\\W|\\d]"+accel+"[^\\W|\\d]");
+    int accelLen=accel.size();
     int pos=0;
     while ((pos=rxAccelInWord.indexIn(str1ForMatching,pos))!=-1)
     {
-//                         kWarning() <<"SelectJob:  match del "<<delPart.cap(0);
         str1ForMatching.remove(rxAccelInWord.pos()+1,accelLen);
-        pos+=2;
+        pos+=2;//two letters
     }
     pos=0;
     while ((pos=rxAccelInWord.indexIn(str2ForMatching,pos))!=-1)
     {
-//                         kWarning() <<"SelectJob:  match del "<<delPart.cap(0);
         str2ForMatching.remove(rxAccelInWord.pos()+1,accelLen);
-        pos+=2;
+        pos+=2;//two letters
     }
 
-    QRegExp rxSplit("\\W+|\\d+");
+    //QRegExp rxSplit("\\W+|\\d+");
+    //i tried that but it failed:
+    QRegExp rxSplit("("+markup+"|\\W+|\\d+)+");
+
     s1+=str1ForMatching.split(rxSplit,QString::SkipEmptyParts);
     s2+=str2ForMatching.split(rxSplit,QString::SkipEmptyParts);
 
-    QRegExp rxSpace("[^(\\W+|\\d+)]");
+    //QRegExp rxSpace("[^(\\W+|\\d+)]");
+    //i tried that but it failed:
+    //QRegExp rxSpace("[^("+Project::instance()->markup()+"|\\W+|\\d+)]");
+    //QStringList s1Space(str1ForMatching.split(rxSpace,QString::SkipEmptyParts));
+    //QStringList s2Space(str2ForMatching.split(rxSpace,QString::SkipEmptyParts));
+
     //ensure the string always begins with the space part
     str1ForMatching.prepend('\b');
     str2ForMatching.prepend('\b');
-    QStringList s1Space(str1ForMatching.split(rxSpace,QString::SkipEmptyParts));
-    QStringList s2Space(str2ForMatching.split(rxSpace,QString::SkipEmptyParts));
+    QStringList s1Space;
+    QStringList s2Space;
+    pos=0;
+    while ((pos=rxSplit.indexIn(str1ForMatching,pos))!=-1)
+    {
+        s1Space.append(rxSplit.cap(0));
+        pos+=rxSplit.matchedLength();
+    }
+    pos=0;
+    while ((pos=rxSplit.indexIn(str2ForMatching,pos))!=-1)
+    {
+        s2Space.append(rxSplit.cap(0));
+        pos+=rxSplit.matchedLength();
+    }
     s1Space.append("");//so we don't have to worry about list boundaries
     s2Space.append("");
     s1Space.append("");//so we don't have to worry about list boundaries
     s2Space.append("");
 
+    //return QString();
 //     kWarning()<<endl<<endl<<"wordDiff 1 '" <<str1<<"' '"<<str2<<"'";
 //     kWarning()<<s1.size()<<" "<<s2.size()<<" "<<s1Space.size()<<" "<<s2Space.size()<<" ";
     //kWarning()<<" '"<<s1Space.first()<<"' '"<<s2Space.first()<<"' ";

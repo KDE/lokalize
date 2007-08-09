@@ -49,7 +49,10 @@
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-QString wordDiff(const QString& oldString, const QString& newString);
+QString wordDiff(const QString& oldString,
+                 const QString& newString,
+                 const QString& accelRx,
+                 const QString& markupRx);
 
 /**
  * This is low-level wrapper used for evaluating translation memory search results

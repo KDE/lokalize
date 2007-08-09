@@ -652,7 +652,7 @@ void KAider::gotoEntry()
 
 void KAider::gotoEntry(const DocPosition& pos,int selection)
 {
-    kWarning()<<"goto1: "<<pos.entry;
+//     kWarning()<<"goto1: "<<pos.entry;
 //     if ( (_currentPos.entry==pos.entry) && (_currentPos.offset==pos.offset) && (_currentPos.form==pos.form) )
 //         return;
 //     if(pos.part==UndefPart)
@@ -669,7 +669,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
 // QTime a;
 // a.start();
-    kWarning()<<"goto2: "<<pos.entry;
+    //kWarning()<<"goto2: "<<pos.entry;
 //     KMessageBox::information(0, QString("%1 %2").arg(_currentEntry).arg(pos.entry));
     if (_currentEntry!=pos.entry || _currentPos.form!=pos.form)
     {

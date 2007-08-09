@@ -52,8 +52,8 @@
 static void doSplit(QString& cleanEn, QStringList& words)
 {
     QRegExp rxSplit("\\W+|\\d+");
-    QRegExp rxClean1(Project::instance()->markup());//replaced with " "
-    QRegExp rxClean2(Project::instance()->accel());//removed
+    QRegExp rxClean1(Project::instance()->markup());//for replacing with " "
+    QRegExp rxClean2(Project::instance()->accel());//for removal
     rxClean1.setMinimal(true);
     rxClean2.setMinimal(true);
 
@@ -317,10 +317,10 @@ void CloseDBJob::run ()
 }
 
 
-SelectJob::SelectJob(const QString& english,TMView* v,const DocPosition& pos,QObject* parent)
+SelectJob::SelectJob(const QString& english,const DocPosition& pos,QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_english(english)
-    , m_view(v)
+    , m_dequeued(false)
     , m_pos(pos)
 {
 }
@@ -328,6 +328,11 @@ SelectJob::SelectJob(const QString& english,TMView* v,const DocPosition& pos,QOb
 SelectJob::~SelectJob()
 {
     //kWarning() <<"SelectJob dtor ";
+}
+
+void SelectJob::aboutToBeDequeued(WeaverInterface*)
+{
+    m_dequeued=true;
 }
 
 //returns true if seen translation with >85%
@@ -449,14 +454,14 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
     }
 #endif
-    QRegExp rxSplit("\\W+|\\d+");
-    QRegExp rxClean1(Project::instance()->markup());//replaced with " "
+    QRegExp rxSplit("("+Project::instance()->markup()+"|\\W+|\\d+)+");
     QRegExp rxClean2(Project::instance()->accel());//removed
-    rxClean1.setMinimal(true);
     rxClean2.setMinimal(true);
 
+    QString englishClean(m_english);
+    englishClean.remove(rxClean2);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
-    QStringList englishList(m_english.toLower().split(rxSplit,QString::SkipEmptyParts));
+    QStringList englishList(englishClean.toLower().split(rxSplit,QString::SkipEmptyParts));
     englishList.prepend(" "); //for our diff algo...
     QRegExp delPart("<KBABELDEL>.*</KBABELDEL>");
     QRegExp addPart("<KBABELADD>.*</KBABELADD>");
@@ -471,6 +476,11 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     while ((--limit>=0)&&(--i>=0))
     {
         //for every concordance level
+
+
+        if (m_dequeued)
+            break;
+
 
         QList<qlonglong> ids(occurencies.keys(concordanceLevels.at(i)));
 
@@ -494,12 +504,11 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             e.target=queryFetch.value(2).toString();
             e.date=queryFetch.value(3).toString();
 
-            //kWarning() <<"SelectJob: doin "<<j<<" "<<e.english;
+            //kWarning() <<"doin "<<j<<" "<<e.english;
             //
             //calc score
             //
             QString str(e.english);
-            str.replace(rxClean1," ");
             str.remove(rxClean2);
 
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
@@ -512,6 +521,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             result.remove("</KBABELADD><KBABELADD>");
             result.remove("</KBABELDEL><KBABELDEL>");
             //kWarning() <<"SelectJob: doin "<<j<<" "<<result;
+
             int pos=0;
             int delSubStrCount=0;
             int delLen=0;
@@ -531,14 +541,12 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 ++addSubStrCount;
                 pos+=addPart.matchedLength();
             }
-//result.remove("<KBABELDEL>");
-//                     result.remove("</KBABELDEL>");
+
             //allLen - length of suggestion
             int allLen=result.size()-23*addSubStrCount-23*delSubStrCount;
             int commonLen=allLen-delLen-addLen;
             //now, allLen is the length of the string being translated
             allLen=m_english.size();
-            //kWarning() <<"ScanJob del:"<<delLen<<" add:"<<addLen<<" common:"<<commonLen<<" all:"<<allLen;
             if (delLen+addLen)
             {
                 //del is better than add
@@ -583,15 +591,11 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             else //"exact" match (case insensitive+w/o non-word characters!)
             {
                 if (m_english==e.english)
-                {
                     e.score=10000;
-                }
                 else
-                {
                     e.score=9900;
-                }
             }
-    //                     kWarning() <<"ScanJob: add "<<j<<" "<<e.english;
+
             if (e.score>3500)
             {
                 if (e.score>8500)
@@ -645,11 +649,25 @@ void SelectJob::run ()
     qSort(m_entries);
     int limit=qMin(15,m_entries.size());
     int i=m_entries.size();
+//     kWarning()<<"lll"<<i;
     while(--i>=limit)
         m_entries.removeLast();
 
+    if (m_dequeued)
+        return;
+//     kWarning()<<"+++"<<i;
+    ++i;
+    while(--i>=0)
+    {
+        m_entries[i].diff=wordDiff(m_entries.at(i).english,
+                                   m_english,
+                                   Project::instance()->accel(),
+                                   Project::instance()->markup());
+        kWarning()<<"ddd"<<m_entries[i].diff;
+    }
+
 //    m_entries=entries.toVector();
-    kWarning() <<"SelectJob done in "<<a.elapsed()<<endl;
+    kWarning()<<"SelectJob done in "<<a.elapsed()<<endl;
 
 }
 

@@ -41,8 +41,7 @@
 #include <QString>
 //#include <QMultiHash>
 #include <QSqlDatabase>
-class TMView;
-
+class WeaverInterface;
 
 #define CLOSEDB 10001
 #define OPENDB  10000
@@ -62,6 +61,9 @@ struct TMEntry
     qlonglong id;
     short score:16;//100.00%==10000
     ushort hits:16;
+
+    QString diff;
+
     bool operator<(const TMEntry& other)const
     {
         //return score<other.score;
@@ -123,10 +125,11 @@ class SelectJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    SelectJob(const QString&,TMView*,const DocPosition&,QObject* parent=0);
+    SelectJob(const QString&,const DocPosition&,QObject* parent=0);
     ~SelectJob();
 
     int priority()const{return SELECT;}
+    void aboutToBeDequeued(WeaverInterface*);
 
 protected:
     void run ();
@@ -137,9 +140,9 @@ private:
 
 private:
     QString m_english;
+    bool m_dequeued;
 
 public:
-    TMView* m_view;
     DocPosition m_pos;
     QList<TMEntry> m_entries;
 };

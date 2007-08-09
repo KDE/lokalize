@@ -97,8 +97,6 @@ public slots:
     void deleteScanJob(ThreadWeaver::Job*);
 //     void slotTMWordsIndexed(ThreadWeaver::Job*);
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
-signals:
-    void suggestionsCame(SelectJob*);
 
 private:
     static Project* _instance;

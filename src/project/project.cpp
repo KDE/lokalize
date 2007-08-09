@@ -328,20 +328,12 @@ void Project::deleteScanJob(ThreadWeaver::Job* job)
         }
     }
 
-    delete job;
+    job->deleteLater();
 }
 
 void Project::dispatchSelectJob(ThreadWeaver::Job* job)
 {
-    connect((QObject*)this,SIGNAL(suggestionsCame(SelectJob*)),
-            (QObject*)static_cast<SelectJob*>(job)->m_view,
-            SLOT(slotSuggestionsCame(SelectJob*)));
-    emit suggestionsCame(static_cast<SelectJob*>(job));
-    disconnect((QObject*)this,SIGNAL(suggestionsCame(SelectJob*)),
-            (QObject*)static_cast<SelectJob*>(job)->m_view,
-            SLOT(slotSuggestionsCame(SelectJob*)));
-
-    delete job;
+    job->deleteLater();
 }
 
 #if 0

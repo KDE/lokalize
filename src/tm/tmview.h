@@ -41,7 +41,6 @@ class QTextBrowser;
 class Catalog;
 class QDropEvent;
 class QDragEnterEvent;
-class SelectJob;
 class QAction;
 
 #define TM_SHORTCUTS 10
@@ -62,7 +61,9 @@ signals:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
-    void slotSuggestionsCame(SelectJob*);
+    void slotSuggestionsCame(ThreadWeaver::Job*);
+
+    void initLater();
 
     //i think we dont wanna cache suggestions:
     //what if good sugg may be generated
@@ -81,7 +82,7 @@ private:
     bool m_hasInfo;
     SelectJob* m_currentSelectJob;
 //     QSignalMapper *m_signalMapper;
-    QVector<QAction*> m_actions;
+    QVector<QAction*> m_actions;//need them to get shortcuts
     //QList<TMEntry> m_entries;
 };
 
