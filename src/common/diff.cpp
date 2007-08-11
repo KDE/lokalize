@@ -208,6 +208,8 @@ void LCSprinter::printLCS(uint index)
                     word2.prepend("");
 
                     QStringList empty;
+//                     empty=calcLCS(word1,word2,empty,empty);
+//???this is not really good if we use diff result in autosubst
                     empty=calcLCS(word2,word1,empty,empty);
                     empty.replaceInStrings("KBABELADD>","KBABELTMP>");
                     empty.replaceInStrings("KBABELDEL>","KBABELADD>");

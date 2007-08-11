@@ -64,6 +64,10 @@ struct TMEntry
 
     QString diff;
 
+    //different databases can have different settings:
+    QString accel;
+    QString markup;
+
     bool operator<(const TMEntry& other)const
     {
         //return score<other.score;

@@ -120,13 +120,14 @@ void KAider::optionsPreferences()
 
 
 //Spellcheck
+#if 0
     w = new Sonnet::ConfigWidget(Settings::self()->config(),dialog);
     w->setParent(this);
     dialog->addPage(w, i18nc("@title:tab","Spellcheck"), "spellcheck_setting");
     connect(dialog,SIGNAL(okClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(applyClicked()),w,SLOT(save()));
     connect(dialog,SIGNAL(defaultClicked()),w,SLOT(slotDefault()));
-
+#endif
 
 
 

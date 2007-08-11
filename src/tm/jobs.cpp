@@ -659,11 +659,13 @@ void SelectJob::run ()
     ++i;
     while(--i>=0)
     {
+        m_entries[i].accel=Project::instance()->accel();
+        m_entries[i].markup=Project::instance()->markup();
         m_entries[i].diff=wordDiff(m_entries.at(i).english,
                                    m_english,
-                                   Project::instance()->accel(),
-                                   Project::instance()->markup());
-        kWarning()<<"ddd"<<m_entries[i].diff;
+                                   m_entries.at(i).accel,
+                                   m_entries.at(i).markup);
+        //kWarning()<<"ddd"<<m_entries[i].diff;
     }
 
 //    m_entries=entries.toVector();

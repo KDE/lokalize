@@ -521,6 +521,9 @@ void KAiderView::insertTerm(const QString& term)
 
 void KAiderView::replaceText(const QString& txt)
 {
+    if (txt==_msgstrEdit->toPlainText())
+        return;
+
     int oldOffset=_msgstrEdit->textCursor().position();
     _msgstrEdit->insertPlainText(txt);
 

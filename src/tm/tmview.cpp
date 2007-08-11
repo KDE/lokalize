@@ -36,7 +36,7 @@
 // #include "diff.h"
 #include "catalog.h"
 #include "project.h"
-// #include "prefs_kaider.h"
+#include "prefs_kaider.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -92,11 +92,6 @@ void TMView::initLater()
     m_browser->document()->setUndoRedoEnabled(false);
 
     kWarning()<<"init "<<time.elapsed();
-}
-
-void TMView::slotUseSuggestion(int i)
-{
-    emit textReplaceRequested(m_actions.at(i)->statusTip());
 }
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
@@ -203,9 +198,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     time.start();
 
     SelectJob* job=static_cast<SelectJob*>(j);
-
     if (job->m_pos.entry!=m_pos.entry)
         return;
+
+    m_entries=job->m_entries;
 
     int limit=job->m_entries.size();
     int i=0;
@@ -274,5 +270,450 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 }
 
 
+void TMView::slotUseSuggestion(int i)
+{
+    //this tries some black magic
+    //naturally, there are many assumptions that might not always be true
+
+    QString diff(m_entries.at(i).diff);
+    QString target(m_entries.at(i).target);
+    QString english(m_entries.at(i).english);
+
+    QRegExp rxAdd("<font style=\"background-color:"+Settings::addColor().name()+"\">(.*)</font>");
+    QRegExp rxDel("<font style=\"background-color:"+Settings::delColor().name()+"\">(.*)</font>");
+    rxAdd.setMinimal(true);
+    rxDel.setMinimal(true);
+
+    //first things first
+    int pos=0;
+    while ((pos=rxDel.indexIn(diff,pos))!=-1)
+        diff.replace(pos,rxDel.matchedLength(),"\tKAIDERDEL\t"+rxDel.cap(1)+"\t/KAIDERDEL\t");
+    pos=0;
+    while ((pos=rxAdd.indexIn(diff,pos))!=-1)
+        diff.replace(pos,rxAdd.matchedLength(),"\tKAIDERADD\t"+rxAdd.cap(1)+"\t/KAIDERADD\t");
+
+    diff.replace("&lt;","<");
+    diff.replace("&gt;",">");
+
+    //kWarning()<<diff;
+
+    QString diffClean;diffClean.reserve(diff.size());
+    QString old;old.reserve(diff.size());
+    QByteArray diffM;diffM.reserve(diff.size());//kinda formatting info
+    QVector<int> oldM;oldM.reserve(diff.size());//map old string-->diffClean
+
+    /*
+      0 - common
+      + - add
+      - - del
+      M - modified
+    */
+    QChar sep('\t');
+    char state='0';
+    pos=-1;
+    while (++pos<diff.size())
+    {
+        if (diff.at(pos)==sep)
+        {
+            if (diff.indexOf("\tKAIDERDEL\t",pos)==pos)
+            {
+                state='-';
+                pos+=10;
+            }
+            else if (diff.indexOf("\tKAIDERADD\t",pos)==pos)
+            {
+                state='+';
+                pos+=10;
+            }
+            else if (diff.indexOf("\t/KAIDER",pos)==pos)
+            {
+                state='0';
+                pos+=11;
+            }
+        }
+        else
+        {
+            if (state!='+')
+            {
+                old.append(diff.at(pos));
+                oldM.append(diffM.count());
+            }
+            diffM.append(state);
+            diffClean.append(diff.at(pos));
+        }
+    }
+
+    //kWarning()<<diff;
+    //kWarning()<<diffM;
+    //kWarning()<<old;
+
+
+
+    //search for changed markup
+    if (Project::instance()->markup()==m_entries.at(i).markup)
+    {
+        QRegExp rxMarkup(m_entries.at(i).markup);
+        rxMarkup.setMinimal(true);
+        pos=0;
+        int replacingPos=0;
+        while ((pos=rxMarkup.indexIn(old,pos))!=-1)
+        {
+            kWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
+            QByteArray diffMPart(diffM.mid(oldM.at(pos),
+                                           oldM.at(pos+rxMarkup.matchedLength()-1)+1-oldM.at(pos)));
+            //kWarning()<<"diffMPart"<<diffMPart;
+            if (diffMPart.contains('-')
+                ||diffMPart.contains('+'))
+            {
+                //form newMarkup
+                QString newMarkup;
+                newMarkup.reserve(diffMPart.size());
+                int j=-1;
+                while(++j<diffMPart.size())
+                {
+                    if (diffMPart.at(j)!='-')
+                        newMarkup.append(diffClean.at(oldM.at(pos)+j));
+                }
+
+                //replace first occurence
+                int tmp=target.indexOf(rxMarkup.cap(0),replacingPos);
+                if (tmp!=-1)
+                {
+                    target.replace(tmp,
+                                rxMarkup.cap(0).size(),
+                                newMarkup);
+                    replacingPos=tmp;
+                    //kWarning()<<"old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
+
+                    //avoid trying this part again
+                    tmp=oldM.at(pos+rxMarkup.matchedLength()-1);
+                    while(--tmp>=oldM.at(pos))
+                        diffM[tmp]='M';
+                    //kWarning()<<"M"<<diffM;
+                }
+            }
+
+            pos+=rxMarkup.matchedLength();
+        }
+    }
+
+
+    //del, add only markup, punct, num
+    //TODO further improvement: spaces, punct marked as 0
+    QRegExp rxNonTranslatable;
+    if (Project::instance()->markup()==m_entries.at(i).markup)
+        rxNonTranslatable.setPattern("^(("+m_entries.at(i).markup+")|(\\W|\\d)+)+");
+    else
+        rxNonTranslatable.setPattern("^(\\W|\\d)+");
+
+    //kWarning()<<"("+m_entries.at(i).markup+"|(\\W|\\d)+";
+
+
+    //handle the beginning
+    int len=diffM.indexOf('0');
+    if (len>0)
+    {
+        QByteArray diffMPart(diffM.left(len));
+        int m=diffMPart.indexOf('M');
+        if (m!=-1)
+            diffMPart.truncate(m);
+
+#if 0
+nono
+        //first goes del, then add. so stop on second del sequence
+        bool seenAdd=false;
+        int j=-1;
+        while(++j<diffMPart.size())
+        {
+            if (diffMPart.at(j)=='+')
+                seenAdd=true;
+            else if (seenAdd && diffMPart.at(j)=='-')
+            {
+                diffMPart.truncate(j);
+                break;
+            }
+        }
+#endif
+        //form 'oldMarkup'
+        QString oldMarkup;
+        oldMarkup.reserve(diffMPart.size());
+        int j=-1;
+        while(++j<diffMPart.size())
+        {
+            if (diffMPart.at(j)!='+')
+                oldMarkup.append(diffClean.at(j));
+        }
+
+        kWarning()<<"old"<<oldMarkup;
+        rxNonTranslatable.indexIn(oldMarkup);
+        oldMarkup=rxNonTranslatable.cap(0);
+        kWarning()<<"old"<<oldMarkup;
+        if (target.startsWith(oldMarkup))
+        {
+
+            //form 'newMarkup'
+            QString newMarkup;
+            newMarkup.reserve(diffMPart.size());
+            j=-1;
+            while(++j<diffMPart.size())
+            {
+                if (diffMPart.at(j)!='-')
+                    newMarkup.append(diffClean.at(j));
+            }
+            kWarning()<<"new"<<newMarkup;
+            rxNonTranslatable.indexIn(newMarkup);
+            newMarkup=rxNonTranslatable.cap(0);
+            kWarning()<<"new"<<newMarkup;
+
+            //replace
+            target.remove(0,oldMarkup.size());
+            target.prepend(newMarkup);
+
+            //avoid trying this part again
+            j=diffMPart.size();
+            while(--j>=0)
+                diffM[j]='M';
+            //kWarning()<<"M"<<diffM;
+        }
+
+    }
+
+    if (Project::instance()->markup()==m_entries.at(i).markup)
+        rxNonTranslatable.setPattern("(("+m_entries.at(i).markup+")|(\\W|\\d)+)+$");
+    else
+        rxNonTranslatable.setPattern("(\\W|\\d)+$");
+
+    //handle the end
+    if (!diffM.endsWith('0'))
+    {
+        len=diffM.lastIndexOf('0')+1;
+        QByteArray diffMPart(diffM.mid(len));
+        int m=diffMPart.lastIndexOf('M');
+        if (m!=-1)
+        {
+            len=m+1;
+            diffMPart=diffMPart.mid(len);
+        }
+
+        //form 'oldMarkup'
+        QString oldMarkup;
+        oldMarkup.reserve(diffMPart.size());
+        int j=-1;
+        while(++j<diffMPart.size())
+        {
+            if (diffMPart.at(j)!='+')
+                oldMarkup.append(diffClean.at(len+j));
+        }
+        kWarning()<<"old-"<<oldMarkup;
+        rxNonTranslatable.indexIn(oldMarkup);
+        oldMarkup=rxNonTranslatable.cap(0);
+        kWarning()<<"old-"<<oldMarkup;
+        if (target.endsWith(oldMarkup))
+        {
+
+            //form newMarkup
+            QString newMarkup;
+            newMarkup.reserve(diffMPart.size());
+            j=-1;
+            while(++j<diffMPart.size())
+            {
+                if (diffMPart.at(j)!='-')
+                    newMarkup.append(diffClean.at(len+j));
+            }
+            kWarning()<<"new"<<newMarkup;
+            rxNonTranslatable.indexIn(newMarkup);
+            newMarkup=rxNonTranslatable.cap(0);
+            kWarning()<<"new"<<newMarkup;
+
+            //replace
+            target.chop(oldMarkup.size());
+            target.append(newMarkup);
+
+            //avoid trying this part again
+            j=diffMPart.size();
+            while(--j>=0)
+                diffM[len+j]='M';
+            //kWarning()<<"M"<<diffM;
+        }
+    }
+
+    //search for numbers and stuff
+    QRegExp rxNum("[\\d\\.]+");
+    pos=0;
+    int replacingPos=0;
+    while ((pos=rxNum.indexIn(old,pos))!=-1)
+    {
+        QString cap(rxNum.cap(0));
+        int endPos1=pos+rxNum.matchedLength()-1;
+        int endPos=oldM.at(endPos1);
+        QByteArray diffMPart(diffM.mid(oldM.at(pos),
+                                       endPos+1-oldM.at(pos)));
+        while ((++endPos<diffM.size())
+                  &&(diffM.at(endPos)=='+')
+                  &&QString(diffClean.at(endPos)).contains(rxNum)
+              )
+            diffMPart.append('+');
+
+        if ((diffMPart.contains('-')
+            ||diffMPart.contains('+'))
+            &&(!diffMPart.contains('M')))
+        {
+            //form newMarkup
+            QString newMarkup;
+            newMarkup.reserve(diffMPart.size());
+            int j=-1;
+            while(++j<diffMPart.size())
+            {
+                if (diffMPart.at(j)!='-')
+                    newMarkup.append(diffClean.at(oldM.at(pos)+j));
+            }
+            kWarning()<<"old"<<cap<<"new"<<newMarkup;
+
+            //replace first occurence
+            int tmp=target.indexOf(cap,replacingPos);
+            if (tmp!=-1)
+            {
+                target.replace(tmp,
+                            cap.size(),
+                            newMarkup);
+                replacingPos=tmp;
+
+                //avoid trying this part again
+                tmp=oldM.at(endPos1)+1;
+                while(--tmp>=oldM.at(pos))
+                    diffM[tmp]='M';
+                //kWarning()<<"M"<<diffM;
+            }
+        }
+
+        pos+=rxNum.matchedLength();
+    }
+
+
+
+
+
+
+
+
+
+
+#if 0
+    //handle the beginning...
+/*    QRegExp rxDelBeginning("^(\tKAIDERDEL\t([^\t\\w]|\\d)*\t/KAIDERDEL\t)+");
+    if (rxDelBeginning.indexIn(diff)!=-1)
+    {
+        kWarning()<<rxDelBeginning.cap(0);
+    }*/
+    
+//     pos=0;
+//     int posInTarget=0;
+//     while ((pos=rxDel.indexIn(diff,pos))!=-1)
+//     {
+//         if (pos)
+//             break;
+// 
+//         diff.replace(pos,rxAdd.matchedLength(),"\tKAIDERADD\t"+rxAdd.cap(1)+"\t/KAIDERADD\t");
+//     }
+
+    //...and the end
+
+
+    rxAdd.setPattern("\tKAIDERADD\t(.*)\t/KAIDERADD\t");
+    rxDel.setPattern("\tKAIDERDEL\t(.*)\t/KAIDERDEL\t");
+    QRegExp rxAny("\tKAIDER.*\t/KAIDER");
+
+    kWarning()<<"diff"<<diff;
+    //search for changed markup
+    QRegExp rxMarkup(m_entries.at(i).markup);
+    if (Project::instance()->markup()==m_entries.at(i).markup)
+    {
+        rxMarkup.setMinimal(true);
+        pos=0;
+        int replacingPos=0;
+        while ((pos=rxMarkup.indexIn(diff,pos))!=-1)
+        {
+            //kWarning()<<"cap markup"<<rxMarkup.cap(0);
+            QString cap(rxMarkup.cap(0));
+            if (pos>=11)//\tKAIDER???\t
+            {
+              //  kWarning()<<diff.mid(pos-11,pos);
+                if (diff.mid(pos-11,pos).startsWith("\tKAIDER"))
+                    cap.prepend(diff.mid(pos-11,pos));
+            }
+            if (pos+rxMarkup.matchedLength()+12<diff.size())//\t/KAIDER???\t
+            {
+                //kWarning()<<diff.mid(pos+rxMarkup.matchedLength(),12);
+                if (diff.mid(pos+rxMarkup.matchedLength(),12).startsWith("\t/KAIDER"))
+                    cap.append(diff.mid(pos+rxMarkup.matchedLength(),12));
+            }
+            kWarning()<<"cap markup"<<cap;
+
+            if (cap.contains(rxAny))
+            {
+                //kWarning()<<"yes";
+                QString oldMarkup(cap);
+                QString newMarkup(cap);
+                oldMarkup.remove(rxAdd);
+                oldMarkup.remove( "\tKAIDERDEL\t");
+                oldMarkup.remove("\t/KAIDERDEL\t");
+                newMarkup.remove(rxDel);
+                newMarkup.remove( "\tKAIDERADD\t");
+                newMarkup.remove("\t/KAIDERADD\t");
+
+                kWarning()<<"old"<<oldMarkup<<"new"<<newMarkup;
+                if (!oldMarkup.isEmpty())
+                    //replace first occurence
+                    target.replace((replacingPos=target.indexOf(oldMarkup,replacingPos)),
+                                    oldMarkup.size(),
+                                    newMarkup);
+            }
+            pos+=rxMarkup.matchedLength();
+        }
+    }
+    else
+        diff.remove(QRegExp("(\tKAIDER...\t)?"+Project::instance()->markup()+"(\t/KAIDER...\t)?"));
+
+    //ok, now get rid of markup in diff
+    diff.remove(rxMarkup);
+
+    
+    
+///////////////////////////////////
+    
+    
+
+    pos=0;
+    while ((pos=rxDel.indexIn(diff,pos))!=-1)
+    {
+        int lenGen=rxDel.matchedLength();
+        QString cap(rxDel.cap(1));
+        kWarning()<<"cap"<<cap;
+        int targetCount=target.count(cap);
+        kWarning()<<"cap"<<cap;
+        if (targetCount&&
+            targetCount==diff.count(rxDel))
+        {
+            kWarning()<<"wow!!";
+            //now detect whether this is a 'replace' or just 'removal'
+            QString replace;
+            if (diff.at(pos+lenGen+1)=='<')
+            {
+                kWarning()<<"wow2";
+                int b=rxAdd.indexIn(diff,pos+lenGen);
+                if (pos+lenGen==b)
+                    replace=rxAdd.cap(1);
+            }
+
+            //now, apply the magic
+            target.replace(cap,replace);
+        }
+        pos+=lenGen;
+    }
+#endif
+    
+
+    emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
+}
 
 

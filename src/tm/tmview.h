@@ -83,7 +83,7 @@ private:
     SelectJob* m_currentSelectJob;
 //     QSignalMapper *m_signalMapper;
     QVector<QAction*> m_actions;//need them to get shortcuts
-    //QList<TMEntry> m_entries;
+    QList<TMEntry> m_entries;
 };
 
 #endif
