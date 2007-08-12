@@ -41,12 +41,6 @@
        <height>16</height>
       </size>
      </property>
-     <property name="frameShape" >
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
-     </property>
     </widget>
    </item>
    <item row="4" column="1" >
@@ -63,12 +57,6 @@
        <height>16</height>
       </size>
      </property>
-     <property name="frameShape" >
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
-     </property>
     </widget>
    </item>
    <item row="5" column="1" >
@@ -84,12 +72,6 @@
        <width>400</width>
        <height>16</height>
       </size>
-     </property>
-     <property name="frameShape" >
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
      </property>
     </widget>
    </item>
@@ -200,7 +182,7 @@
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
-   <header location="global" >kurlrequester.h</header>
+   <header>kurlrequester.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
