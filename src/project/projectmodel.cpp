@@ -50,16 +50,16 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     if (index.column()<Graph)
         return KDirModel::data(index,role);
 
-    KFileItem* item = itemForIndex(index);
+    KFileItem item = itemForIndex(index);
 
     //we handle dirs in special way for all columns left
-    if (item->isDir())
+    if (item.isDir())
     {
         //currentrly we handle only Graph column
         if (index.column()==Graph)
         {
             // ok, this is somewhat HACKy
-            KFileMetaInfo metaInfo(item->metaInfo(false));
+            KFileMetaInfo metaInfo(item.metaInfo(false));
 
             int untranslated=0;
             int translated=0;
@@ -95,7 +95,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 //                 item->setMetaInfo(KFileMetaInfo( item->url() ));
 //             }
 
-                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0))->metaInfo(false));
+                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
     
                 if (!childMetaInfo.item("translation.translated").value().isNull())
                 {
@@ -115,7 +115,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                 metaInfo.item("translation.untranslated").setValue(untranslated);
                 metaInfo.item("translation.translated").setValue(translated);
                 metaInfo.item("translation.fuzzy").setValue(fuzzy);
-                item->setMetaInfo(metaInfo);
+                item.setMetaInfo(metaInfo);
                 return QRect(translated,untranslated,fuzzy,0);
             }
         }
@@ -124,12 +124,12 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
         return QRect(0,0,0,32);//32 is a secret code that we use to say that info isnot ready yet
     }
     //force population of metainfo. kfilemetainfo's internal is a shit
-    if (item->metaInfo(false).keys().empty()
-        && item->url().fileName().endsWith(".po"))
+    if (item.metaInfo(false).keys().empty()
+        && item.url().fileName().endsWith(".po"))
     {
-        item->setMetaInfo(KFileMetaInfo( item->url() ));
+        item.setMetaInfo(KFileMetaInfo( item.url() ));
     }
-    const KFileMetaInfo metaInfo(item->metaInfo(false));
+    const KFileMetaInfo metaInfo(item.metaInfo(false));
 
     switch(index.column())
     {

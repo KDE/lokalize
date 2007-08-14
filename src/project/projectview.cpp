@@ -74,7 +74,7 @@ bool PoItemDelegate::editorEvent ( QEvent* event, QAbstractItemModel* model, con
     emit newWindowOpenRequested(
            static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())->itemForIndex(
                                    static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)
-                                                         )->url());
+                                                         ).url());
 
     return false;
 }
@@ -143,14 +143,14 @@ protected:
                                            const QModelIndex& right) const
     {
         ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
-        const KFileItem* leftFileItem  = projectModel->itemForIndex(left);
-        const KFileItem* rightFileItem = projectModel->itemForIndex(right);
+        const KFileItem leftFileItem  = projectModel->itemForIndex(left);
+        const KFileItem rightFileItem = projectModel->itemForIndex(right);
 
         // Hidden elements go before visible ones, if they both are
         // folders or files.
-        if (leftFileItem->isHidden() && !rightFileItem->isHidden()) {
+        if (leftFileItem.isHidden() && !rightFileItem.isHidden()) {
             return true;
-        } else if (!leftFileItem->isHidden() && rightFileItem->isHidden()) {
+        } else if (!leftFileItem.isHidden() && rightFileItem.isHidden()) {
             return false;
         }
 
@@ -262,7 +262,7 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
     if ("text/x-gettext-translation"
         ==Project::instance()->model()->itemForIndex(
             m_proxyModel->mapToSource(m_browser->currentIndex())
-                                                    )->mimetype()
+                                                    ).mimetype()
        )
     {
         menu.addAction(i18nc("@action:inmenu","Open"),this,SLOT(slotOpen()));
@@ -288,11 +288,11 @@ void ProjectView::slotItemActivated(const QModelIndex& idx)
 {
     if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(
         m_proxyModel->mapToSource(m_browser->currentIndex())
-                                                                                )->mimetype()
+                                                                                ).mimetype()
        )
         emit fileOpenRequested(Project::instance()->model()->itemForIndex(
         m_proxyModel->mapToSource(idx)
-                                                                         )->url());
+                                                                         ).url());
 }
 
 void ProjectView::slotOpen()
@@ -300,7 +300,7 @@ void ProjectView::slotOpen()
     kWarning()<<"sdsd";
     emit fileOpenRequested(Project::instance()->model()->itemForIndex(
                            m_proxyModel->mapToSource(m_browser->currentIndex())
-                                                                     )->url());
+                                                                     ).url());
 }
 
 void ProjectView::slotOpenInNewWindow()
@@ -308,7 +308,7 @@ void ProjectView::slotOpenInNewWindow()
     kWarning()<<"sdsd";
     emit newWindowOpenRequested(Project::instance()->model()->itemForIndex(
                                 m_proxyModel->mapToSource(m_browser->currentIndex())
-                                                                          )->url());
+                                                                          ).url());
 }
 
 void ProjectView::slotForceStats()
