@@ -395,8 +395,11 @@ void ProjectLister::slotNewItems(KFileItemList list)
 {
     if (!m_reactOnSignals)
         return;
-
     kWarning()<<k_funcinfo;
+
+    //we don't wanna emit files if their folders are being removed too
+    KFileItemList filesToRemove;
+
     int i=list.size();
     while(--i>=0)
     {
@@ -415,7 +418,7 @@ void ProjectLister::slotNewItems(KFileItemList list)
 
             QString potPath(path+"t");//.pot => .po
             KFileItem* po(m_templates->findByUrl(KUrl::fromPath(potPath)));
-            if (po||(po=m_templates->findByUrl(KUrl::fromPath(path))))
+            if (po)
             {
 //                 if (po)
 //                 {
@@ -426,16 +429,46 @@ void ProjectLister::slotNewItems(KFileItemList list)
 //                         po->metaInfo(false).item("translation.templ").addValue("outdated");
 //                 }
 
-                //delete list.at(i);
+                filesToRemove.append(po);
+                //kWarning()<<"fil"<<po->url();
+            }
+            else if ((po=m_templates->findByUrl(KUrl::fromPath(path))))
+            {
+                //dirsToRemove.append(po);
+                //kWarning()<<"dir"<<po->url();
                 m_removedItems.insert(po);
-                m_reactOnSignals=false;
                 emit deleteItem(m_items.value(po));
+                delete m_items.value(po);
                 m_items.erase(m_items.find(po));
-                m_reactOnSignals=true;
             }
             //kWarning()<<path;
         }
     }
+
+    m_reactOnSignals=false;
+    i=filesToRemove.size();
+    while(--i>=0)
+    {
+        QSet<KFileItem*>::const_iterator it = m_removedItems.constBegin();
+        while (it != m_removedItems.constEnd())
+        {
+            if ((*it)->url().isParentOf(filesToRemove.at(i)->url()));
+                break;
+            ++it;
+        }
+
+        if (it == m_removedItems.constEnd())
+        {
+            m_removedItems.insert(filesToRemove.at(i));
+            emit deleteItem(m_items.value(filesToRemove.at(i)));
+            delete m_items.value(filesToRemove.at(i));
+            m_items.erase(m_items.find(filesToRemove.at(i)));
+        }
+
+    }
+
+
+    m_reactOnSignals=true;
 }
 /*
 void ProjectLister::slotDeleteItem(KFileItem* item)
