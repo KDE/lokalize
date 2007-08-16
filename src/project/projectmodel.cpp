@@ -37,6 +37,7 @@
 #include <kapplication.h>
 
 //#include <QEventLoop>
+#include <QTime>
 
 
 
@@ -98,6 +99,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             //if (parent.isValid()
             int i=0;
             int infoIsFull=true;
+            QTime a;a.start();
             for (;i<count;++i)
             {
 //                 QModelIndex childIndex(index.child(i,0));
@@ -110,7 +112,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 //             }
 
 //                 kWarning()<<"-----------1----"<<i;
-                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0)).metaInfo_(false));
+                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
 
 //                 kWarning()<<"-----------1";
                 if (!childMetaInfo.item("translation.translated").value().isNull())
@@ -126,6 +128,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                 }
 //                 kWarning()<<"-----------2";
             }
+            kWarning()<<"/////////////////"<<a.elapsed();
             if (infoIsFull&&(untranslated+translated+fuzzy))
             {
 //                 kWarning()<<"-----------3";
