@@ -31,11 +31,23 @@
 **************************************************************************** */
 
 #include "projectmodel.h"
+#include "project.h"
+
 #include <klocale.h>
-
-#include <QEventLoop>
-
 #include <kapplication.h>
+
+//#include <QEventLoop>
+
+
+
+ProjectModel::ProjectModel()
+    : KDirModel()
+{
+    connect (this,SIGNAL(dataChanged(const QModelIndex&,const QModelIndex&) ),
+             this,SLOT(aa()));
+
+    setDirLister(new ProjectLister);
+}
 
 
 /**
@@ -50,8 +62,10 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     if (index.column()<Graph)
         return KDirModel::data(index,role);
 
+//     kWarning()<<"+++++++++++++00";
     KFileItem item = itemForIndex(index);
 
+//     kWarning()<<"+++++++++++++01";
     //we handle dirs in special way for all columns left
     if (item.isDir())
     {
@@ -95,8 +109,10 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 //                 item->setMetaInfo(KFileMetaInfo( item->url() ));
 //             }
 
-                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
-    
+//                 kWarning()<<"-----------1----"<<i;
+                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0)).metaInfo_(false));
+
+//                 kWarning()<<"-----------1";
                 if (!childMetaInfo.item("translation.translated").value().isNull())
                 {
                     translated+=childMetaInfo.item("translation.translated").value().toInt();
@@ -108,14 +124,17 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                     //"inode/directory"
                     infoIsFull=false;
                 }
+//                 kWarning()<<"-----------2";
             }
             if (infoIsFull&&(untranslated+translated+fuzzy))
             {
+//                 kWarning()<<"-----------3";
 //                 KFileMetaInfo dirInfo(item->metaInfo(false));
                 metaInfo.item("translation.untranslated").setValue(untranslated);
                 metaInfo.item("translation.translated").setValue(translated);
                 metaInfo.item("translation.fuzzy").setValue(fuzzy);
                 item.setMetaInfo(metaInfo);
+//                 kWarning()<<"-----------4";
                 return QRect(translated,untranslated,fuzzy,0);
             }
         }
@@ -123,25 +142,22 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 
         return QRect(0,0,0,32);//32 is a secret code that we use to say that info isnot ready yet
     }
-    //force population of metainfo. kfilemetainfo's internal is a shit
-    if (item.metaInfo(false).keys().empty()
-        && item.url().fileName().endsWith(".po"))
-    {
-        item.setMetaInfo(KFileMetaInfo( item.url() ));
-    }
+//     kWarning()<<"+++++++++++++03";
     const KFileMetaInfo metaInfo(item.metaInfo(false));
+//     kWarning()<<"+++++++++++++04";
 
     switch(index.column())
     {
         case Graph:
         {
                             //translation_date?
+//             kWarning()<<"-----------11";
             if (metaInfo.item("translation.untranslated").value().isNull())
                 return QRect(0,0,0,32);
 
             //kWarning() << "0 " << itemForIndex(index)->url();
             //kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt();
-
+//             kWarning()<<"-----------12";
             return QRect(metaInfo.item("translation.translated").value().toInt(),
                          metaInfo.item("translation.untranslated").value().toInt(),
                          metaInfo.item("translation.fuzzy").value().toInt(),
@@ -149,11 +165,20 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                         );
         }
         case SourceDate:
+        {
+//             kWarning()<<"-----------13";
             return metaInfo.item("translation.source_date").value();
+        }
         case TranslationDate:
+        {
+//             kWarning()<<"-----------14";
             return metaInfo.item("translation.translation_date").value();
+        }
         case LastTranslator:
+        {
+//             kWarning()<<"-----------15";
             return metaInfo.item("translation.last_translator").value();
+        }
     }
     return KDirModel::data(index,role);
 }
@@ -304,7 +329,232 @@ int ProjectModel::rowCount(const QModelIndex& parent) const
 
 
 
+ProjectLister::ProjectLister(QObject *parent)
+    : KDirLister(parent)
+    , m_templates(new KDirLister (this))
+    , m_reactOnSignals(true)
+{
+    connect(m_templates,SIGNAL(newItems(KFileItemList)),
+            this, SLOT(slotNewTemplItems(KFileItemList)));
+    connect(m_templates, SIGNAL(deleteItem(KFileItem*)),
+            this, SLOT(slotDeleteTemplItem(KFileItem*)));
+    connect(m_templates, SIGNAL(refreshItems(KFileItemList)),
+            this, SLOT(slotRefreshTemplItems(KFileItemList)));
 
+    m_templates->setNameFilter("*.pot");
+    setNameFilter("*.po *.pot");
+//         connect( m_templates, SIGNAL(clear()),
+//                 this, SLOT(slotClear()) );
+    //NOTE ??
+    connect(m_templates, SIGNAL(clear()),
+            this, SLOT(clearTempl()));
+
+    connect(this, SIGNAL(completed(const KUrl&)),
+            this, SLOT(slotCompleted(const KUrl&)));
+
+    connect(this,SIGNAL(newItems(KFileItemList)),
+            this, SLOT(slotNewItems(KFileItemList)));
+    connect(this,SIGNAL(slotRefreshTemplItems(KFileItemList)),
+            this, SLOT(slotNewItems(KFileItemList)));
+
+}
+
+bool ProjectLister::openUrl(const KUrl &_url, bool _keep, bool _reload)
+{
+    if (QFile::exists(_url.path()))
+        return KDirLister::openUrl(_url,_keep,_reload);
+
+    slotCompleted(_url);
+    return true;
+}
+
+void ProjectLister::slotCompleted(const KUrl& _url)
+{
+    kWarning()<<k_funcinfo<<_url;
+//     kWarning()<<"-";
+//     kWarning()<<"-";
+//     kWarning()<<_url;
+
+    QString path(_url.path());
+    if (path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty())
+        return;
+    path.replace(Project::instance()->poDir(),Project::instance()->potDir());
+//     kWarning()<<path;
+    if (QFile::exists(path)&&!m_listedTemplDirs.contains(path))
+    {
+        if (m_templates->openUrl(KUrl::fromPath(path),true,true))
+            m_listedTemplDirs.insert(path,true);
+    }
+}
+
+
+void ProjectLister::slotNewItems(KFileItemList list)
+{
+    if (!m_reactOnSignals)
+        return;
+
+    kWarning()<<k_funcinfo;
+    int i=list.size();
+    while(--i>=0)
+    {
+        QString path(list.at(i)->url().path());
+        //force population of metainfo. kfilemetainfo's internal is a shit
+        if (list.at(i)->metaInfo(false).keys().empty()
+            && path.endsWith(".po"))
+        {
+            list.at(i)->setMetaInfo(KFileMetaInfo( list.at(i)->url() ));
+        }
+
+        //remove template entries
+        if (!(path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty()))
+        {
+            path.replace(Project::instance()->poDir(),Project::instance()->potDir());
+
+            QString potPath(path+"t");//.pot => .po
+            KFileItem* po(m_templates->findByUrl(KUrl::fromPath(potPath)));
+            if (po||(po=m_templates->findByUrl(KUrl::fromPath(path))))
+            {
+//                 if (po)
+//                 {
+//                     if (po->metaInfo(false).item("translation.source_date").value()
+//                         ==list.at(i)->metaInfo(false).item("translation.source_date").value())
+//                         po->metaInfo(false).item("translation.templ").addValue("ok");
+//                     else
+//                         po->metaInfo(false).item("translation.templ").addValue("outdated");
+//                 }
+
+                //delete list.at(i);
+                m_removedItems.insert(po);
+                m_reactOnSignals=false;
+                emit deleteItem(m_items.value(po));
+                m_items.erase(m_items.find(po));
+                m_reactOnSignals=true;
+            }
+            //kWarning()<<path;
+        }
+    }
+}
+/*
+void ProjectLister::slotDeleteItem(KFileItem* item)
+{
+}
+//nono
+void ProjectLister::slotRefreshItems(KFileItemList list)
+{
+}*/
+
+
+
+
+
+
+void ProjectLister::clearTempl()
+{
+    kWarning()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+}
+
+void ProjectLister::slotNewTemplItems(KFileItemList list)
+{
+    kWarning()<<k_funcinfo;
+    int i=list.size();
+    while(--i>=0)
+    {
+//         kWarning()<<list.at(i)->url().fileName();
+
+        if (m_items.contains(list.at(i)))
+        {
+            list.removeAt(i);
+            continue;
+        }
+        list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
+
+        QString path(list.at(i)->url().path());
+        if (!(path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty()))
+        {
+            path.replace(Project::instance()->potDir(),Project::instance()->poDir());
+
+            QString poPath(path);poPath.chop(1);//.pot => .po
+            KFileItem* po=findByUrl(KUrl::fromPath(poPath));
+            if (po||findByUrl(KUrl::fromPath(path)))
+            {
+//                 if (po)
+//                 {
+//                     if (po->metaInfo(false).item("translation.source_date").value()
+//                         ==list.at(i)->metaInfo(false).item("translation.source_date").value())
+//                         po->metaInfo(false).item("translation.templ").addValue("ok");
+//                     else
+//                         po->metaInfo(false).item("translation.templ").addValue("outdated");
+//                 }
+
+                //delete list.at(i);
+                m_removedItems.insert(list.at(i));
+                list.removeAt(i);
+            }
+            else
+            {
+                //NOTE this can probably leak, but we have only one instance per the process...
+                KFileItem* a=new KFileItem(*list.at(i));
+                m_items.insert(list.at(i),a);
+                a->setUrl(KUrl::fromPath(path));
+                list[i]=a;
+            }
+            //kWarning()<<path;
+        }
+        else
+        {
+            m_removedItems.insert(list.at(i));
+            list.removeAt(i);
+        }
+    }
+//     kWarning()<<"ddd"<<k_funcinfo;
+    if (!list.isEmpty())
+    {
+        m_reactOnSignals=false;
+        emit newItems(list);
+        m_reactOnSignals=true;
+    }
+//     kWarning()<<"end"<<k_funcinfo;
+}
+
+void ProjectLister::slotDeleteTemplItem(KFileItem* item)
+{
+    kWarning()<<k_funcinfo;
+    if (!m_removedItems.contains(item)
+       &&m_items.contains(item))
+    {
+        m_reactOnSignals=false;
+        emit deleteItem(m_items.value(item));
+        m_reactOnSignals=true;
+
+        delete m_items.value(item);
+        m_items.erase(m_items.find(item));
+    }
+}
+
+void ProjectLister::slotRefreshTemplItems(KFileItemList list)
+{
+    kWarning()<<k_funcinfo;
+    int i=list.size();
+    while(--i>=0)
+    {
+        if (m_removedItems.contains(list.at(i)))
+            list.removeAt(i);
+        else if (m_items.contains(list.at(i)))
+        {
+            m_items.value(list.at(i))->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
+            list[i]=m_items.value(list.at(i));
+        }
+    }
+
+//     kWarning()<<"ddd"<<k_funcinfo;
+    if (!list.isEmpty())
+    {
+        m_reactOnSignals=false;
+        emit refreshItems(list);
+        m_reactOnSignals=true;
+    }
+//     kWarning()<<"end"<<k_funcinfo;
+}
 
 
 

@@ -42,7 +42,7 @@ int CatalogTreeModel::rowCount(const QModelIndex& parent) const
     return 0;
 }
 
-QVariant CatalogTreeModel::headerData( int section, Qt::Orientation orientation, int role) const
+QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientation*/, int role) const
 {
     if (role!=Qt::DisplayRole)
         return QVariant();

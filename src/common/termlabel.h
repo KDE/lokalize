@@ -83,7 +83,7 @@ void TermLabel::setText(const QString& term,int entry)
 
 
 
-
+#if 0
 
 /**
  * flowlayout item
@@ -120,7 +120,7 @@ void QueryResultBtn::setText(const QString& queryResult)
         QLabel::setText(queryResult);
 }
 
-
+#endif
 
 
 

@@ -87,9 +87,13 @@ void TMView::initLater()
 
     connect(signalMapper, SIGNAL(mapped(int)),
              this, SLOT(slotUseSuggestion(int)));
-
-    m_browser->setUndoRedoEnabled(false);
-    m_browser->document()->setUndoRedoEnabled(false);
+    connect(m_browser,SIGNAL(selectionChanged()),this,SLOT(slotSelectionChanged()));
+//     connect(m_browser,SIGNAL(selectionChanged()),
+//             &m_timer,SLOT(start()));
+//     connect(&m_timer,SIGNAL(timeout()),this,SLOT(slotSelectionChanged()));
+//     m_timer.setInterval(200);
+//     m_timer.setSingleShot(true);
+    m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
     kWarning()<<"init "<<time.elapsed();
 }
@@ -162,7 +166,7 @@ void TMView::dropEvent(QDropEvent *event)
     }
     if (ok)
     {
-        //dummy job
+        //dummy job for the finish indication
         ScanFinishedJob* job=new ScanFinishedJob(this);
         connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
@@ -269,9 +273,21 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     kWarning()<<"ELA "<<time.elapsed()<<m_browser->document()->blockCount();
 }
 
+void TMView::slotSelectionChanged()
+{
+    //NOTE works fine only for dbl-click word selection
+    //(actually, quick word insertion is exactly the purpose of this slot:)
+    QString sel(m_browser->textCursor().selectedText());
+    if (!sel.isEmpty())
+    {
+        emit textInsertRequested(sel);
+    }
+}
 
 void TMView::slotUseSuggestion(int i)
 {
+    if (i>=m_entries.size())
+        return;
     //this tries some black magic
     //naturally, there are many assumptions that might not always be true
 
@@ -358,7 +374,7 @@ void TMView::slotUseSuggestion(int i)
         int replacingPos=0;
         while ((pos=rxMarkup.indexIn(old,pos))!=-1)
         {
-            kWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
+            //kWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
             QByteArray diffMPart(diffM.mid(oldM.at(pos),
                                            oldM.at(pos+rxMarkup.matchedLength()-1)+1-oldM.at(pos)));
             //kWarning()<<"diffMPart"<<diffMPart;
@@ -396,7 +412,6 @@ void TMView::slotUseSuggestion(int i)
             pos+=rxMarkup.matchedLength();
         }
     }
-
 
     //del, add only markup, punct, num
     //TODO further improvement: spaces, punct marked as 0
@@ -444,10 +459,9 @@ nono
                 oldMarkup.append(diffClean.at(j));
         }
 
-        kWarning()<<"old"<<oldMarkup;
+        //kWarning()<<"old"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
-        kWarning()<<"old"<<oldMarkup;
         if (target.startsWith(oldMarkup))
         {
 
@@ -460,10 +474,9 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(diffClean.at(j));
             }
-            kWarning()<<"new"<<newMarkup;
+            //kWarning()<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
             newMarkup=rxNonTranslatable.cap(0);
-            kWarning()<<"new"<<newMarkup;
 
             //replace
             target.remove(0,oldMarkup.size());
@@ -504,10 +517,9 @@ nono
             if (diffMPart.at(j)!='+')
                 oldMarkup.append(diffClean.at(len+j));
         }
-        kWarning()<<"old-"<<oldMarkup;
+        //kWarning()<<"old-"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
-        kWarning()<<"old-"<<oldMarkup;
         if (target.endsWith(oldMarkup))
         {
 
@@ -520,10 +532,9 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(diffClean.at(len+j));
             }
-            kWarning()<<"new"<<newMarkup;
+            //kWarning()<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
             newMarkup=rxNonTranslatable.cap(0);
-            kWarning()<<"new"<<newMarkup;
 
             //replace
             target.chop(oldMarkup.size());
@@ -538,11 +549,12 @@ nono
     }
 
     //search for numbers and stuff
-    QRegExp rxNum("[\\d\\.]+");
+    QRegExp rxNum("[\\d\\.\\%]+");
     pos=0;
     int replacingPos=0;
     while ((pos=rxNum.indexIn(old,pos))!=-1)
     {
+        //save these so we can use rxNum in a body
         QString cap(rxNum.cap(0));
         int endPos1=pos+rxNum.matchedLength()-1;
         int endPos=oldM.at(endPos1);
@@ -567,7 +579,7 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(diffClean.at(oldM.at(pos)+j));
             }
-            kWarning()<<"old"<<cap<<"new"<<newMarkup;
+            //kWarning()<<"old"<<cap<<"new"<<newMarkup;
 
             //replace first occurence
             int tmp=target.indexOf(cap,replacingPos);
@@ -586,7 +598,7 @@ nono
             }
         }
 
-        pos+=rxNum.matchedLength();
+        pos=endPos1+1;
     }
 
 
@@ -598,120 +610,6 @@ nono
 
 
 
-#if 0
-    //handle the beginning...
-/*    QRegExp rxDelBeginning("^(\tKAIDERDEL\t([^\t\\w]|\\d)*\t/KAIDERDEL\t)+");
-    if (rxDelBeginning.indexIn(diff)!=-1)
-    {
-        kWarning()<<rxDelBeginning.cap(0);
-    }*/
-    
-//     pos=0;
-//     int posInTarget=0;
-//     while ((pos=rxDel.indexIn(diff,pos))!=-1)
-//     {
-//         if (pos)
-//             break;
-// 
-//         diff.replace(pos,rxAdd.matchedLength(),"\tKAIDERADD\t"+rxAdd.cap(1)+"\t/KAIDERADD\t");
-//     }
-
-    //...and the end
-
-
-    rxAdd.setPattern("\tKAIDERADD\t(.*)\t/KAIDERADD\t");
-    rxDel.setPattern("\tKAIDERDEL\t(.*)\t/KAIDERDEL\t");
-    QRegExp rxAny("\tKAIDER.*\t/KAIDER");
-
-    kWarning()<<"diff"<<diff;
-    //search for changed markup
-    QRegExp rxMarkup(m_entries.at(i).markup);
-    if (Project::instance()->markup()==m_entries.at(i).markup)
-    {
-        rxMarkup.setMinimal(true);
-        pos=0;
-        int replacingPos=0;
-        while ((pos=rxMarkup.indexIn(diff,pos))!=-1)
-        {
-            //kWarning()<<"cap markup"<<rxMarkup.cap(0);
-            QString cap(rxMarkup.cap(0));
-            if (pos>=11)//\tKAIDER???\t
-            {
-              //  kWarning()<<diff.mid(pos-11,pos);
-                if (diff.mid(pos-11,pos).startsWith("\tKAIDER"))
-                    cap.prepend(diff.mid(pos-11,pos));
-            }
-            if (pos+rxMarkup.matchedLength()+12<diff.size())//\t/KAIDER???\t
-            {
-                //kWarning()<<diff.mid(pos+rxMarkup.matchedLength(),12);
-                if (diff.mid(pos+rxMarkup.matchedLength(),12).startsWith("\t/KAIDER"))
-                    cap.append(diff.mid(pos+rxMarkup.matchedLength(),12));
-            }
-            kWarning()<<"cap markup"<<cap;
-
-            if (cap.contains(rxAny))
-            {
-                //kWarning()<<"yes";
-                QString oldMarkup(cap);
-                QString newMarkup(cap);
-                oldMarkup.remove(rxAdd);
-                oldMarkup.remove( "\tKAIDERDEL\t");
-                oldMarkup.remove("\t/KAIDERDEL\t");
-                newMarkup.remove(rxDel);
-                newMarkup.remove( "\tKAIDERADD\t");
-                newMarkup.remove("\t/KAIDERADD\t");
-
-                kWarning()<<"old"<<oldMarkup<<"new"<<newMarkup;
-                if (!oldMarkup.isEmpty())
-                    //replace first occurence
-                    target.replace((replacingPos=target.indexOf(oldMarkup,replacingPos)),
-                                    oldMarkup.size(),
-                                    newMarkup);
-            }
-            pos+=rxMarkup.matchedLength();
-        }
-    }
-    else
-        diff.remove(QRegExp("(\tKAIDER...\t)?"+Project::instance()->markup()+"(\t/KAIDER...\t)?"));
-
-    //ok, now get rid of markup in diff
-    diff.remove(rxMarkup);
-
-    
-    
-///////////////////////////////////
-    
-    
-
-    pos=0;
-    while ((pos=rxDel.indexIn(diff,pos))!=-1)
-    {
-        int lenGen=rxDel.matchedLength();
-        QString cap(rxDel.cap(1));
-        kWarning()<<"cap"<<cap;
-        int targetCount=target.count(cap);
-        kWarning()<<"cap"<<cap;
-        if (targetCount&&
-            targetCount==diff.count(rxDel))
-        {
-            kWarning()<<"wow!!";
-            //now detect whether this is a 'replace' or just 'removal'
-            QString replace;
-            if (diff.at(pos+lenGen+1)=='<')
-            {
-                kWarning()<<"wow2";
-                int b=rxAdd.indexIn(diff,pos+lenGen);
-                if (pos+lenGen==b)
-                    replace=rxAdd.cap(1);
-            }
-
-            //now, apply the magic
-            target.replace(cap,replace);
-        }
-        pos+=lenGen;
-    }
-#endif
-    
 
     emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
 }

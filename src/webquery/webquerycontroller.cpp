@@ -44,12 +44,12 @@
 #include <kdebug.h>
 
 
-WebQueryController::WebQueryController(QObject* parent)
+WebQueryController::WebQueryController(const QString& name, QObject* parent)
 //     : QThread(parent)
     : QObject(parent)
     , m_running(false)
+    , m_name(name)
 {
-
 }
 
 void WebQueryController::query(const CatalogData& data)
@@ -126,11 +126,11 @@ void WebQueryController::setResult(QString result)
 {
     //webQueryView may be deleted before we get result...
     WebQueryView* a=m_queue.dequeue().webQueryView;
-    connect (this,SIGNAL(addWebQueryResult(const QString&)),
-             a,SLOT(addWebQueryResult(const QString&)));
-    emit addWebQueryResult(result);
-    disconnect (this,SIGNAL(addWebQueryResult(const QString&)),
-             a,SLOT(addWebQueryResult(const QString&)));
+    connect (this,SIGNAL(addWebQueryResult(const QString&,const QString&)),
+             a,SLOT(addWebQueryResult(const QString&,const QString&)));
+    emit addWebQueryResult(m_name,result);
+    disconnect (this,SIGNAL(addWebQueryResult(const QString&,const QString&)),
+             a,SLOT(addWebQueryResult(const QString&,const QString&)));
 
     if(!m_queue.isEmpty())
     {

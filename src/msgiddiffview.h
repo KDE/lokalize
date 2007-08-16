@@ -35,6 +35,7 @@
 
 #include <QDockWidget>
 class QTextBrowser;
+class QTextEdit;
 class Catalog;
 
 class MsgIdDiff: public QDockWidget
@@ -50,7 +51,7 @@ public slots:
     void slotNewEntryDisplayed(uint);
 
 private:
-    QTextBrowser* m_browser;
+    QTextEdit* m_browser;
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;

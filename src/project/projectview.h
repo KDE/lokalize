@@ -36,6 +36,7 @@
 #include <QDockWidget>
 #include <QItemDelegate>
 
+class Catalog;
 class QMenu;
 class QTreeView;
 class KUrl;
@@ -49,7 +50,7 @@ class ProjectView: public QDockWidget
     Q_OBJECT
 
 public:
-    ProjectView(QWidget* parent);
+    ProjectView(Catalog*, QWidget* parent);
     virtual ~ProjectView();
     void contextMenuEvent(QContextMenuEvent *event);
 
@@ -60,7 +61,10 @@ public slots:
     void slotOpen();
     void slotOpenInNewWindow();
     void slotForceStats();
-//     void showCurrentFile();
+
+    void initLater();
+    //void showCurrentFile();
+
 signals:
     void fileOpenRequested(KUrl);
     void newWindowOpenRequested(const KUrl&);
@@ -73,6 +77,8 @@ private:
 //     QMenu* m_menu;
     QWidget* m_parent;
     SortFilterProxyModel* m_proxyModel;
+
+    Catalog* m_catalog;
 };
 
 

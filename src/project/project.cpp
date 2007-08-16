@@ -50,7 +50,6 @@
 #include <kross/core/manager.h>
 #include <kpassivepopup.h>
 
-// #include "webquerythread.h"
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/DependencyPolicy.h>
 
@@ -117,8 +116,8 @@ void Project::load(const QString &file)
 
     //put 'em into thread?
     QTimer::singleShot(500,this,SLOT(populateDirModel()));
-    QTimer::singleShot(400,this,SLOT(populateGlossary()));
-    QTimer::singleShot(1000,this,SLOT(populateWebQueryActions()));
+    QTimer::singleShot(0,this,SLOT(populateGlossary()));
+    QTimer::singleShot(0,this,SLOT(populateWebQueryActions()));
 
 
 
@@ -150,26 +149,27 @@ QStringList Project::webQueryScripts() const
 {
     QStringList actionz(ProjectBase::webQueryScripts());
 
-    int i=0;
-    for (;i<actionz.size();++i)
+    int i=actionz.size();
+    while (--i>=0)
         actionz[i]=absolutePath(actionz.at(i));
 
-//     kWarning()<<actionz.size();
     return actionz;
 }
 
 void Project::populateWebQueryActions()
 {
+//     kWarning()<<k_funcinfo;
     QStringList a(webQueryScripts());
     int i=0;
     while(i<a.size())
     {
-        WebQueryController* webQueryController=new WebQueryController(this);
-                    //Manager::self().addObject(m_webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
-        Action* action = new Action(this,QUrl(a.at(i)));
+        QUrl url(a.at(i));
+        Action* action = new Action(this,url);
+        WebQueryController* webQueryController=new WebQueryController(QFileInfo(url.path()).fileName(),this);//Manager::self().addObject(m_webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
         action->addObject(webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
         Manager::self().actionCollection()->addAction(action);
         action->trigger();
+        //kWarning()<<a.at(i);
         ++i;
     }
 
@@ -187,7 +187,7 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
         url.cd(possiblyRelPath);
         //url.cleanPath();
 //         kWarning () << "2  " << possiblyRelPath << " + "  << url.path();
-        return url.path();
+        return url.path(KUrl::RemoveTrailingSlash);
     }
     return possiblyRelPath;
 }
@@ -200,6 +200,7 @@ void Project::populateDirModel()
     QString a(poDir());
     if (QFile::exists(a))
     {
+        //static_cast<ProjectLister*>(m_model->dirLister())->setBaseAndTempl(a,potDir());
         m_model->dirLister()->openUrl(a);
     }
 }
@@ -269,25 +270,12 @@ int writeLine(int indent,const QByteArray& str,QFile& out)
 ProjectModel* Project::model()
 {
     if (!m_model)
-    {
         m_model=new ProjectModel;
-        //QTimer::singleShot(500,this,SLOT(populateDirModel()));
-    }
 
     return m_model;
 
 }
 
-/*
-Project::Project(const QString &file)
-    : ProjectBase(KSharedConfig::openConfig(file, KConfig::NoGlobals))
-{
-    readConfig();
-}
-*/
-// Project::~Project()
-// {
-// }
 
 void Project::deleteScanJob(ThreadWeaver::Job* job)
 {

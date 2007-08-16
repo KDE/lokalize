@@ -7,7 +7,7 @@
   <include>klocale.h</include>
   <include>kde-i18n-lists.h</include>
   <group name="General">
-    <entry name="projectID"  type="String">
+    <entry name="ProjectID"  type="String">
         <default code="true">"kde-"+KGlobal::locale()->language()</default>
     </entry>
     <entry name="LangCode"  type="String">

@@ -55,16 +55,16 @@ class CatalogTreeModel: public QAbstractItemModel
 
     //Q_OBJECT
 public:
-    CatalogTreeModel(QObject* parent, Catalog* catalog);
-    ~CatalogTreeModel();
+    inline CatalogTreeModel(QObject* parent, Catalog* catalog);
+    inline ~CatalogTreeModel();
 
-    QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    QModelIndex parent(const QModelIndex&) const;
+    inline QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+    inline QModelIndex parent(const QModelIndex&) const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const;
+    inline int columnCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
     QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
-    Qt::ItemFlags flags(const QModelIndex&) const;
+    inline Qt::ItemFlags flags(const QModelIndex&) const;
 
 private:
     Catalog* m_catalog;
@@ -87,7 +87,7 @@ CatalogTreeModel::~CatalogTreeModel()
 }
 
 inline
-QModelIndex CatalogTreeModel::index (int row,int column,const QModelIndex& parent) const
+QModelIndex CatalogTreeModel::index (int row,int column,const QModelIndex& /*parent*/) const
 {
     return createIndex (row, column);
 }
@@ -101,9 +101,12 @@ QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
 inline
 int CatalogTreeModel::columnCount(const QModelIndex& parent) const
 {
-    if (parent==QModelIndex())
-        return CatalogModelColumnCount;
-    return 0;
+    if (parent.isValid())
+        return 0;
+    return CatalogModelColumnCount;
+//     if (parent==QModelIndex())
+//         return CatalogModelColumnCount;
+//     return 0;
 }
 
 inline

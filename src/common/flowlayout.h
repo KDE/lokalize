@@ -81,9 +81,10 @@ public:
     void addTerm(const QString& term,int entry);
     void clearTerms();
 
+#if 0
     void clearWebQueryResult();
     void addWebQueryResult(const QString& str);
-
+#endif
 
 private:
     int doLayout(const QRect &rect, bool testOnly) const;

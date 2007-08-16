@@ -72,6 +72,7 @@ FlowLayout::FlowLayout(User user,
             addWidget(label);
         }
     }
+#if 0
     else if (user==webquery)
     {
         int i=0;
@@ -83,8 +84,8 @@ FlowLayout::FlowLayout(User user,
             addWidget(btn);
         }
     }
+#endif
 
-        
 //     if (m_keys.isEmpty())
 //     {
 // //         Qt::Key key=Qt::Key_A;
@@ -206,7 +207,7 @@ void FlowLayout::addTerm(const QString& term,int entry)
     ++m_index;
 
 }
-
+#if 0
 void FlowLayout::clearWebQueryResult()
 {
     setEnabled(false);
@@ -240,4 +241,4 @@ void FlowLayout::addWebQueryResult(const QString& str)
 
     setEnabled(true);
 }
-
+#endif

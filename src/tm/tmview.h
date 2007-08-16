@@ -37,6 +37,7 @@
 #include "jobs.h"
 
 #include <QDockWidget>
+// #include <QTimer>
 class QTextBrowser;
 class Catalog;
 class QDropEvent;
@@ -58,10 +59,12 @@ public:
 
 signals:
     void textReplaceRequested(const QString&);
+    void textInsertRequested(const QString&);
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void slotSuggestionsCame(ThreadWeaver::Job*);
+    void slotSelectionChanged();
 
     void initLater();
 
@@ -84,6 +87,7 @@ private:
 //     QSignalMapper *m_signalMapper;
     QVector<QAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
+//     QTimer m_timer;
 };
 
 #endif

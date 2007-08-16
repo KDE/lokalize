@@ -51,6 +51,11 @@
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QAction>
+#include <QSplitter>
+#include <QTextBrowser>
+#include <QSignalMapper>
+#include <QTimer>
+
 // #include <QShortcutEvent>
 #include "myactioncollectionview.h"
 
@@ -58,12 +63,14 @@ using namespace Kross;
 
 WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18n("Web Queries"), parent)
-//         , m_browser(new QWidget)
-        , m_generalBrowser(new QWidget(this))
+//         , m_generalBrowser(new QWidget(this))
         , m_catalog(catalog)
-        , m_boxLayout(new QHBoxLayout(m_generalBrowser))
-        , m_flowLayout(new FlowLayout(FlowLayout::webquery,0,this,actions,0,10))
+        , m_splitter(new QSplitter(this))
+        , m_browser(new QTextBrowser(m_splitter))
+//         , m_boxLayout(new QHBoxLayout(m_generalBrowser))
+//         , m_flowLayout(new FlowLayout(FlowLayout::webquery,0,this,actions,0,10))
         , ui_queryControl(new Ui_QueryControl)
+        , m_actions(actions)
 //         , m_rxClean("\\&|<[^>]*>")//cleaning regexp
 //         , m_rxSplit("\\W")//splitting regexp
 //         , m_normTitle(i18n("Glossary"))
@@ -72,19 +79,25 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 
 {
     setObjectName("WebQueryView");
-    setWidget(m_generalBrowser);
+    setWidget(m_splitter);
 
+    m_browser->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 //    connect(Project::instance(),SIGNAL(loaded()),this,SLOT(populateWebQueryActions()));
-
-    m_generalBrowser->setLayout(m_boxLayout);
-
-    m_boxLayout->addLayout(m_flowLayout,10);
-//     m_browser->setLayout(m_flowLayout);
-//     m_boxLayout->addWidget(m_browser);
-
-    QWidget* w=new QWidget(m_generalBrowser);
-    //ui_queryControl=new Ui_queryControl;
+    QWidget* w=new QWidget(m_splitter);
     ui_queryControl->setupUi(w);
+
+    QTimer::singleShot(0,this,SLOT(initLater()));
+//     setWidget(m_generalBrowser);
+
+}
+
+WebQueryView::~WebQueryView()
+{
+//     delete m_flowLayout;
+}
+
+void WebQueryView::initLater()
+{
     connect(ui_queryControl->queryBtn,SIGNAL(clicked()),ui_queryControl->actionzView,SLOT(triggerSelectedActions()));
 
 //     connect(this,SIGNAL(addWebQueryResult(const QString&)),m_flowLayout,SLOT(addWebQueryResult(const QString&)));
@@ -93,40 +106,36 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 //                                     | ActionCollectionModel::ToolTips | ActionCollectionModel::UserCheckable );*/
     ActionCollectionModel* m = new ActionCollectionModel(ui_queryControl->actionzView, Manager::self().actionCollection()/*, mode*/);
     ui_queryControl->actionzView->setModel(m);
-    m_boxLayout->addWidget(w);
-
+//     m_boxLayout->addWidget(w);
     ui_queryControl->actionzView->data.webQueryView=this;
-}
-
-WebQueryView::~WebQueryView()
-{
-    delete m_flowLayout;
-}
 
 
-#if 0
-void WebQueryView::populateWebQueryActions()
-{
+    m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
-    QStringList actionz(Project::instance()->webQueryScripts());
-//     kWarning()<<actionz.size();
-    int i=0;
-    for (;i<actionz.size();++i)
+
+    QSignalMapper* signalMapper=new QSignalMapper(this);
+    int i=m_actions.size();
+    while(--i>=0)
     {
-        WebQueryController* webQueryController=new WebQueryController(this/*,ui_queryControl->actionzView->m_catalog*/);
-        //Manager::self().addObject(m_webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
-    //Action* action = new Action(this,"ss"/*,"/home/kde-devel/test.js"*/);
-        if (!Manager::self().actionCollection()->action(QUrl(actionz.at(i)).path()))
-        {
-            Action* action = new Action(this,QUrl(actionz.at(i)));
-        action->addObject(webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
-        Manager::self().actionCollection()->addAction(action);
-        action->trigger();
-//         kWarning()<<actionz.at(i);
+        connect(m_actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
+        signalMapper->setMapping(m_actions.at(i), i);
     }
+    connect(signalMapper, SIGNAL(mapped(int)),
+             this, SLOT(slotUseSuggestion(int)));
+    connect(m_browser,SIGNAL(selectionChanged()),this,SLOT(slotSelectionChanged()));
 
 }
-#endif
+
+void WebQueryView::slotSelectionChanged()
+{
+    //NOTE works fine only for dbl-click word selection
+    //(actually, quick word insertion is exactly the purpose of this slot:)
+    QString sel(m_browser->textCursor().selectedText());
+    if (!sel.isEmpty())
+    {
+        emit textInsertRequested(sel);
+    }
+}
 
 //TODO text may be dragged
 // void WebQueryView::dragEnterEvent(QDragEnterEvent* event)
@@ -146,13 +155,38 @@ void WebQueryView::populateWebQueryActions()
 
 void WebQueryView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    m_flowLayout->clearWebQueryResult();
+    //m_flowLayout->clearWebQueryResult();
+    m_browser->clear();
+    m_suggestions.clear();
+
     ui_queryControl->actionzView->data.msg=m_catalog->msgid(pos);
     //TODO pass DocPosition also, as tmview does
 
+    if (ui_queryControl->autoQuery->isChecked())
+        ui_queryControl->actionzView->triggerSelectedActions();
 }
 
-void WebQueryView::addWebQueryResult(const QString& str)
+void WebQueryView::slotUseSuggestion(int i)
 {
-    m_flowLayout->addWebQueryResult(str);
+    if (i>=m_suggestions.size())
+        return;
+    emit textInsertRequested(m_suggestions.at(i));
+}
+
+
+void WebQueryView::addWebQueryResult(const QString& name,const QString& str)
+{
+    QString html(str);
+    html.replace('<',"&lt;");
+    html.replace('>',"&gt;");
+    html.append(QString("<br><br>"));
+    html.prepend(QString("[%2] /%1/ ").arg(name).arg(
+                (m_suggestions.size()<m_actions.size())?
+                m_actions.at(m_suggestions.size())->shortcut().toString():
+                " - "));
+
+    m_browser->insertHtml(html);
+    //m_flowLayout->addWebQueryResult(str);
+
+    m_suggestions.append(str);
 }

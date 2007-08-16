@@ -34,6 +34,10 @@
 #define PROJECTMODEL_H
 
 #include <kdirmodel.h>
+#include <kdirlister.h>
+#include <QDir>
+#include <QSet>
+#include <QMap>
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>
 
@@ -74,7 +78,7 @@ class ProjectModel: public KDirModel
     Q_OBJECT
 
 public:
-    ProjectModel():KDirModel(){}
+    ProjectModel();
     ~ProjectModel(){}
 
     QVariant data (const QModelIndex&, int role = Qt::DisplayRole ) const;
@@ -84,6 +88,8 @@ public:
 //     int rowCount(const QModelIndex& parent=QModelIndex()) const;
 //     void fetchMore(const QModelIndex&);
     //void forceScanning(const QModelIndex& parent=QModelIndex());
+public slots:
+    void aa(){kWarning()<<"-----------------------------";}
 };
 
 
@@ -104,5 +110,72 @@ Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
     return Qt::ItemIsSelectable;
 //    kWarning() << index.column() <<  " " <<  KDirModel::flags(index);
 }
+
+
+
+
+
+
+class ProjectLister: public KDirLister
+{
+    Q_OBJECT
+
+public:
+    ProjectLister(QObject *parent=0);
+
+    ~ProjectLister(){}
+
+public:
+    /**
+     * luckily, KDirModel doesnt rely on completed() signal
+     */
+    bool openUrl(const KUrl&,bool _keep=false,bool _reload=false);
+
+//     inline void setBaseAndTempl(const QString& base,const QString& templ);
+
+public slots:
+    void slotNewTemplItems(KFileItemList);
+    void slotDeleteTemplItem(KFileItem*);
+    void slotRefreshTemplItems(KFileItemList);
+    void clearTempl();
+
+    void slotNewItems(KFileItemList);
+    //TODO what if .po gets deleted and there is .pot left?
+    //this is low priority :)
+//     void slotDeleteItem(KFileItem*);
+//     void slotRefreshItems(KFileItemList);
+
+    //void slotClear();
+    void slotCompleted(const KUrl&);
+
+
+private:
+    KDirLister* m_templates;
+    QSet<KFileItem*> m_removedItems;
+
+    //we need to store deep copies because things get fucked up on refresh otherwise
+    //lister's item => our item
+    QMap<KFileItem*,KFileItem*> m_items;
+
+    //HACKs
+    bool m_reactOnSignals;
+    QHash<QString,bool> m_listedTemplDirs;
+//     QString m_base;
+//     QString m_templ;
+};
+
+
+
+// inline
+// void ProjectLister::setBaseAndTempl(const QString& base,const QString& templ)
+// {
+//     m_base=base;
+//     m_templ=templ;
+//     if (m_base.endsWith(QDir::separator()))
+//         m_base.chop(1);
+//     if (m_templ.endsWith(QDir::separator()))
+//         m_templ.chop(1);
+// }
+
 
 #endif

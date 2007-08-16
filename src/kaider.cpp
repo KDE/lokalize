@@ -62,6 +62,7 @@
 #include <kstatusbar.h>
 #include <kdebug.h>
 
+#include <kio/netaccess.h>
 
 //#include <kedittoolbar.h>
 
@@ -285,11 +286,11 @@ void KAider::setupActions()
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_prev_fuzzyUntr","Previous Fuzzy or Untranslated",Qt::CTRL+Qt::ALT+Qt::Key_PageUp,"prevfuzzyuntrans")
+    ADD_ACTION_SHORTCUT("go_prev_fuzzyUntr","Previous Fuzzy or Untranslated",Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
     connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_next_fuzzyUntr","Next Fuzzy or Untranslated",Qt::CTRL+Qt::ALT+Qt::Key_PageDown,"nextfuzzyuntrans")
+    ADD_ACTION_SHORTCUT("go_next_fuzzyUntr","Next Fuzzy or Untranslated",Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -368,7 +369,7 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiffView,SLOT(slotNewEntryDisplayed(uint)));
 
-    ProjectView* _projectView = new ProjectView(this);
+    ProjectView* _projectView = new ProjectView(_catalog,this);
     addDockWidget(Qt::BottomDockWidgetArea, _projectView);
     actionCollection()->addAction( QLatin1String("showprojectview_action"), _projectView->toggleViewAction() );
     //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
@@ -410,8 +411,8 @@ void KAider::createDockWindows()
     {
 //         action->setVisible(false);
         wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
-        wqaction->setShortcut(Qt::META+wqlist[i]);
-        //wqaction->setShortcut(Qt::CTRL+wqlist[i]);
+        wqaction->setShortcut(Qt::CTRL+Qt::ALT+wqlist[i]);
+        //wqaction->setShortcut(Qt::META+wqlist[i]);
         wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result # %1",i));
         wqactions[i]=wqaction;
     }
@@ -495,10 +496,13 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
     connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
+    connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 }
 
 void KAider::fileOpen(KUrl url)
 {
+    kWarning()<<"-------------------"+url.path();
+
     if(!_catalog->isClean())
     {
         switch(KMessageBox::warningYesNoCancel(this,
@@ -514,14 +518,36 @@ void KAider::fileOpen(KUrl url)
         }
     }
 
+    QString originalPath(url.path());
+    bool isTemlate=false;
+
     if (url.isEmpty())
         url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation",this);
+    else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
+    {   //check if we are opening template
+        kWarning()<<"-------------------"+originalPath;
+        QString path(originalPath);
+        path.replace(Project::instance()->poDir(),Project::instance()->potDir());
+        if (QFile::exists(path))
+        {
+            isTemlate=true;
+            url.setPath(path);
+            if (originalPath.endsWith('t'))
+                originalPath.chop(1);
+        }
+    }
     if (url.isEmpty())
         return;
 
     if (_catalog->loadFromUrl(url))
     {
         emit signalFileClosed();
+
+        if(isTemlate)
+        {
+            url.setPath(originalPath);
+            _catalog->setUrl(url);
+        }
 
         statusBar()->changeItem(i18nc("@info:status","Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();
@@ -533,9 +559,10 @@ void KAider::fileOpen(KUrl url)
         pos.form=0;
         //we delay gotoEntry(pos) until roject is loaded;
 
-        _captionPath=url.prettyUrl();
+        _captionPath=url.pathOrUrl();
         setCaption(_captionPath,false);
-        //Project
+
+//Project
         if (!url.isLocalFile())
         {
             gotoEntry(pos);
@@ -546,12 +573,13 @@ void KAider::fileOpen(KUrl url)
         {
             _captionPath=KUrl::relativePath(
                     KUrl(_project->path()).directory()
-                    ,url.path()
+                    ,url.pathOrUrl()
                                          );
             setCaption(_captionPath,false);
             gotoEntry(pos);
             return;
         }
+//search for it
         int i=4;
         QDir dir(url.directory());
         dir.setNameFilters(QStringList("*.ktp"));
@@ -566,18 +594,20 @@ void KAider::fileOpen(KUrl url)
                 {
                     _captionPath=KUrl::relativePath(
                             KUrl(_project->path()).directory()
-                            ,url.path()
+                            ,url.pathOrUrl()
                                                 );
                     setCaption(_captionPath,false);
                 }
 
             }
         }
+
+//OK!!!
         gotoEntry(pos);
     }
     else
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.prettyUrl()) );
+        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
 
 }
 
@@ -596,7 +626,7 @@ bool KAider::fileSave(const KUrl& url)
 
     if ( KMessageBox::warningContinueCancel(this,
          i18nc("@info","Error saving the file <filename>%1</filename>\n"
-         "Do you want to save to another file or cancel?", _catalog->url().prettyUrl()),
+         "Do you want to save to another file or cancel?", _catalog->url().pathOrUrl()),
          i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
        )
         return fileSaveAs();

@@ -691,6 +691,7 @@ ScanJob::~ScanJob()
 
 void ScanJob::run()
 {
+    kWarning() <<"started"<<m_url.pathOrUrl();
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();

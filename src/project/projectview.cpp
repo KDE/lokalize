@@ -47,6 +47,7 @@
 // #include <QSortFilterProxyModel>
 #include <QFile>
 #include <QTreeView>
+#include <QTimer>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
@@ -59,7 +60,7 @@
 //#include <QSortFilterProxyModel>
 
 
-bool PoItemDelegate::editorEvent ( QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem & option, const QModelIndex & index )
+bool PoItemDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& /*option*/, const QModelIndex& index)
 {
     if (event->type()!=QEvent::MouseButtonRelease)
         return false;
@@ -115,7 +116,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
     painter->fillRect(myRect,
                       QColor(60,60,190)
                      );
-    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
+    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
 
     //painter->setPen(QColor(255,10,0));
     myRect.setLeft(myRect.left()+myRect.width());
@@ -123,7 +124,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
     painter->fillRect(myRect,
                       QColor(190,60,60)
                      );
-    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
+    painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
 
 }
 
@@ -199,28 +200,32 @@ protected:
 };
 
 
-ProjectView::ProjectView(QWidget* parent)
+ProjectView::ProjectView(Catalog* catalog, QWidget* parent)
     : QDockWidget ( i18nc("@title:window","Project"), parent)
     , m_browser(new QTreeView(this))
     , m_parent(parent)
     , m_proxyModel(new SortFilterProxyModel(this))
 //     , m_menu(new QMenu(m_browser))
+    , m_catalog(catalog)
 {
     setObjectName("projectView");
     setWidget(m_browser);
 
-//     KFileItemDelegate *delegate = new KFileItemDelegate(this);
+    QTimer::singleShot(0,this,SLOT(initLater()));
+}
+
+ProjectView::~ProjectView()
+{
+}
+
+void ProjectView::initLater()
+{
     PoItemDelegate* delegate=new PoItemDelegate(this);
     m_browser->setItemDelegate(delegate);
     //m_browser->setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
 
-//     m_menu->addAction(i18n("Open project"),parent,SLOT(projectOpen()));
-//     m_menu->addAction(i18n("Create new project"),parent,SLOT(projectCreate()));
-
     connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
     connect(delegate,SIGNAL(newWindowOpenRequested(const KUrl&)),this,SIGNAL(newWindowOpenRequested(const KUrl&)));
-
-//     m_browser->installEventFilter(this);
 
     m_proxyModel->setSourceModel(Project::instance()->model());
     m_browser->setModel(m_proxyModel);
@@ -232,11 +237,10 @@ ProjectView::ProjectView(QWidget* parent)
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
 
-}
+    m_browser->setCurrentIndex(m_proxyModel->mapFromSource(
+        Project::instance()->model()->indexForUrl(m_catalog->url()))
+                        /*,true*/);
 
-ProjectView::~ProjectView()
-{
-    delete m_browser;
 }
 
 // void ProjectView::slotProjectLoaded()
@@ -263,6 +267,10 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
         ==Project::instance()->model()->itemForIndex(
             m_proxyModel->mapToSource(m_browser->currentIndex())
                                                     ).mimetype()
+        ||
+        Project::instance()->model()->itemForIndex(
+        m_proxyModel->mapToSource(m_browser->currentIndex())
+                                                  ).url().path().endsWith(".pot")
        )
     {
         menu.addAction(i18nc("@action:inmenu","Open"),this,SLOT(slotOpen()));
@@ -289,6 +297,10 @@ void ProjectView::slotItemActivated(const QModelIndex& idx)
     if ("text/x-gettext-translation"==Project::instance()->model()->itemForIndex(
         m_proxyModel->mapToSource(m_browser->currentIndex())
                                                                                 ).mimetype()
+        ||
+        Project::instance()->model()->itemForIndex(
+        m_proxyModel->mapToSource(m_browser->currentIndex())
+                                                  ).url().path().endsWith(".pot")
        )
         emit fileOpenRequested(Project::instance()->model()->itemForIndex(
         m_proxyModel->mapToSource(idx)
@@ -297,7 +309,6 @@ void ProjectView::slotItemActivated(const QModelIndex& idx)
 
 void ProjectView::slotOpen()
 {
-    kWarning()<<"sdsd";
     emit fileOpenRequested(Project::instance()->model()->itemForIndex(
                            m_proxyModel->mapToSource(m_browser->currentIndex())
                                                                      ).url());
@@ -305,7 +316,6 @@ void ProjectView::slotOpen()
 
 void ProjectView::slotOpenInNewWindow()
 {
-    kWarning()<<"sdsd";
     emit newWindowOpenRequested(Project::instance()->model()->itemForIndex(
                                 m_proxyModel->mapToSource(m_browser->currentIndex())
                                                                           ).url());

@@ -67,14 +67,14 @@ class WebQueryController: public /*QThread*/QObject
     Q_OBJECT
 public:
 
-    WebQueryController(QObject* parent);
+    WebQueryController(const QString& name, QObject* parent);
 
 public slots:
     void query(const CatalogData& data);
 
     void slotDownloadResult(KJob*);
 signals:
-    void addWebQueryResult(const QString&);
+    void addWebQueryResult(const QString&,const QString&);
 
 //These are for scripts:
 signals:
@@ -118,8 +118,8 @@ public slots:
 
 private:
     QQueue<CatalogData> m_queue;
-//    CatalogData m_data;
     bool m_running;
+    QString m_name;//of the script file
 
     //QString urlStr
     QTextCodec* codec;

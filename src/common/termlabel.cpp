@@ -154,6 +154,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
     insert();
 }
 
+#if 0
 void QueryResultBtn::insert()
 {
 //     kWarning()<<"ins "<<text();
@@ -173,5 +174,7 @@ void QueryResultBtn::mousePressEvent (QMouseEvent*/* event*/)
 {
     emit insertText(m_text);
 }
+
+#endif
 
 #include "termlabel.moc"

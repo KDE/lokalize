@@ -44,12 +44,12 @@
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 
-#include <QTextBrowser>
+#include <QTextEdit>
 #include <QDragEnterEvent>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Merge Diff"), parent)
-    , m_browser(new QTextBrowser(this))
+    , m_browser(new QTextEdit(this))
     , m_baseCatalog(catalog)
     , m_mergeCatalog(0)
     , m_normTitle(i18nc("@title:window","Merge Diff"))
@@ -61,13 +61,12 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog)
     setWidget(m_browser);
 
     setAcceptDrops(true);
-
+    m_browser->setReadOnly(true);
 }
 
 MergeView::~MergeView()
 {
     delete m_mergeCatalog;
-    delete m_browser;
 }
 
 void MergeView::dragEnterEvent(QDragEnterEvent* event)
@@ -175,7 +174,7 @@ void MergeView::mergeOpen(KUrl url)
     {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
-        KMessageBox::error(this, i18nc("@info","Error opening the file\n%1",url.prettyUrl()) );
+        KMessageBox::error(this, i18nc("@info","Error opening the file\n%1",url.pathOrUrl()) );
     }
 
 }

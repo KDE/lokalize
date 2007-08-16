@@ -87,33 +87,33 @@ public:
     const QString& msgctxt(uint index) const;
 
     PluralFormType pluralFormType(uint index) const;
-    int numberOfPluralForms() const {return d->_numberOfPluralForms;};
-    int numberOfEntries() const {return d->_entries.size();};
-    int numberOfFuzzies() const {return d->_fuzzyIndex.size();};
-    int numberOfUntranslated() const {return d->_untransIndex.size();};
+    int numberOfPluralForms() const {return d->_numberOfPluralForms;}
+    int numberOfEntries() const {return d->_entries.size();}
+    int numberOfFuzzies() const {return d->_fuzzyIndex.size();}
+    int numberOfUntranslated() const {return d->_untransIndex.size();}
     bool isFuzzy(uint index) const;
-    bool isValid(uint index) const {return d->_entries.at(index).isValid();};
+    bool isValid(uint index) const {return d->_entries.at(index).isValid();}
     bool isUntranslated(uint index) const; //at least one form is untranslated
     bool isUntranslated(const DocPosition&) const;
-    int firstFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?numberOfEntries():d->_fuzzyIndex.first();};
-    int lastFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?-1:d->_fuzzyIndex.last();};
-    int nextFuzzyIndex(uint index) const {return findNextInList(d->_fuzzyIndex,index);};
-    int prevFuzzyIndex(uint index) const {return findPrevInList(d->_fuzzyIndex,index);};
-    int firstUntranslatedIndex() const {return d->_untransIndex.isEmpty()?numberOfEntries():d->_untransIndex.first();};
-    int lastUntranslatedIndex() const {return d->_untransIndex.isEmpty()?-1:d->_untransIndex.last();};
-    int nextUntranslatedIndex(uint index) const {return findNextInList(d->_untransIndex,index);};
-    int prevUntranslatedIndex(uint index) const {return findPrevInList(d->_untransIndex,index);};
+    int firstFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?numberOfEntries():d->_fuzzyIndex.first();}
+    int lastFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?-1:d->_fuzzyIndex.last();}
+    int nextFuzzyIndex(uint index) const {return findNextInList(d->_fuzzyIndex,index);}
+    int prevFuzzyIndex(uint index) const {return findPrevInList(d->_fuzzyIndex,index);}
+    int firstUntranslatedIndex() const {return d->_untransIndex.isEmpty()?numberOfEntries():d->_untransIndex.first();}
+    int lastUntranslatedIndex() const {return d->_untransIndex.isEmpty()?-1:d->_untransIndex.last();}
+    int nextUntranslatedIndex(uint index) const {return findNextInList(d->_untransIndex,index);}
+    int prevUntranslatedIndex(uint index) const {return findPrevInList(d->_untransIndex,index);}
 
-    int firstBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?numberOfEntries():d->_bookmarkIndex.first();};
-    int lastBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?-1:d->_bookmarkIndex.last();};
-    int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);};
-    int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);};
-    bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);};
+    int firstBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?numberOfEntries():d->_bookmarkIndex.first();}
+    int lastBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?-1:d->_bookmarkIndex.last();}
+    int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);}
+    int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);}
+    bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
 
     void clear();
 
-    void setCatalogExtraData(const QStringList& data){d->_catalogExtraData = data;};
-    QStringList catalogExtraData() const {return d->_catalogExtraData;};
+    void setCatalogExtraData(const QStringList& data){d->_catalogExtraData = data;}
+    QStringList catalogExtraData() const {return d->_catalogExtraData;}
 
     void setFileCodec( QTextCodec* codec ){d->fileCodec = codec;}
     QTextCodec* fileCodec() const {return d->fileCodec;}
@@ -124,17 +124,19 @@ public:
 
     int maxLineLength(){return d->_maxLineLength>70?d->_maxLineLength:-1;}
 
-    void setErrorIndex(const QList<uint>& errors){d->_errorIndex=errors;};
+    void setErrorIndex(const QList<uint>& errors){d->_errorIndex=errors;}
 
-    void setImportPluginID(const QString& id){d->_importID=id;};
+    void setImportPluginID(const QString& id){d->_importID=id;}
     const QString& importPluginID() const {return d->_importID;}
 
-    void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;};
+    void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;}
 
     bool setHeader(CatalogItem header);
-    const CatalogItem& header() const {return d->_header;};
+    const CatalogItem& header() const {return d->_header;}
 
-    const KUrl& url() const {return d->_url;};
+    const KUrl& url() const {return d->_url;}
+    void setUrl(const KUrl& u){d->_url=u;}//used for template load
+
     bool loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
 

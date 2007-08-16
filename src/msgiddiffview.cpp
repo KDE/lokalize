@@ -40,12 +40,13 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-#include <QTextBrowser>
+#include <QTextEdit>
+//#include <QTextBrowser>
 //#include <QTime>
 
 MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Original Diff"), parent)
-    , m_browser(new QTextBrowser(this))
+    , m_browser(new QTextEdit(this))
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window","Original Diff"))
     , m_hasInfoTitle(m_normTitle+" [*]")
@@ -53,6 +54,8 @@ MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
 {
     setObjectName("msgIdDiff");
     setWidget(m_browser);
+
+    m_browser->setReadOnly(true);
 }
 
 MsgIdDiff::~MsgIdDiff()

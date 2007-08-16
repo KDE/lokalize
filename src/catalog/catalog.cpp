@@ -335,7 +335,13 @@ bool Catalog::saveToUrl(KUrl url)
 
     QString localFile;
     if (url.isLocalFile())
+    {
         localFile = url.path();
+        if (!QFile::exists(url.directory()))
+        {
+            KIO::NetAccess::mkdir(url.upUrl(),0);
+        }
+    }
     else
     {
         remote=true;

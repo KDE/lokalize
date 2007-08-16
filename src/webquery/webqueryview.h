@@ -39,8 +39,10 @@
 //#include <QList>
 class Catalog;
 class Glossary;
-class FlowLayout;
-class QHBoxLayout;
+// class FlowLayout;
+// class QHBoxLayout;
+class QSplitter;
+class QTextBrowser;
 class QDragEnterEvent;
 class QDropEvent;
 class KUrl;
@@ -74,23 +76,28 @@ public slots:
     //connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
 //     void populateWebQueryActions();
 //     void doQuery();
+    void slotUseSuggestion(int i);
+    void addWebQueryResult(const QString&,const QString&);
 
-    void addWebQueryResult(const QString&);
+    void slotSelectionChanged();
+    void initLater();
 
 signals:
     void textInsertRequested(const QString&);
 
 private:
-//     QWidget* m_browser;
-    QWidget* m_generalBrowser;
+//     QWidget* m_generalBrowser;
     Catalog* m_catalog;
-    QHBoxLayout* m_boxLayout;
-    FlowLayout *m_flowLayout;
+    QSplitter* m_splitter;
+    QTextBrowser* m_browser;
+//     QHBoxLayout* m_boxLayout;
+//     FlowLayout *m_flowLayout;
     Ui_QueryControl* ui_queryControl;
+
+    QVector<QAction*> m_actions;//need them to get shortcuts
+    QVector<QString> m_suggestions;
+
 //     int m_entry; we'll use one from ui_queryControl
-//     Glossary* m_glossary;
-//     QRegExp m_rxClean;
-//     QRegExp m_rxSplit;
 
 //     QString m_normTitle;
 //     QString m_hasInfoTitle;

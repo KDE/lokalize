@@ -39,6 +39,7 @@
 
 #include <QDockWidget>
 class QTextBrowser;
+class QTextEdit;
 class Catalog;
 class MergeCatalog;
 class QDragEnterEvent;
@@ -77,7 +78,7 @@ signals:
     void gotoEntry(const DocPosition&,int);
 
 private:
-    QTextBrowser* m_browser;
+    QTextEdit* m_browser;
     Catalog* m_baseCatalog;
     MergeCatalog* m_mergeCatalog;
     DocPosition m_pos;
