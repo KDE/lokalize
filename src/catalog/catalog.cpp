@@ -61,7 +61,7 @@
 
 // Catalog* Catalog::_instance=0;
 
-QString GNUPluralForms(const QString& lang)
+static QString GNUPluralForms(const QString& lang)
 {
 //     Needs testing for M$ OS
     QStringList arguments;
@@ -75,7 +75,7 @@ QString GNUPluralForms(const QString& lang)
 
     msginit.waitForStarted(5000);
     if (KDE_ISUNLIKELY( msginit.state()!=QProcess::Running ))
-        return QString("");
+        return QString();
 
     msginit.write(
                    "# SOME DESCRIPTIVE TITLE.\n"
@@ -97,17 +97,17 @@ QString GNUPluralForms(const QString& lang)
     msginit.closeWriteChannel();
 
     if (!msginit.waitForFinished(5000))
-         return QString("");
+         return QString();
 
     QByteArray result = msginit.readAll();
     int pos = result.indexOf("Plural-Forms: ");
     if (pos==-1)
-        return QString("");
+        return QString();
     pos+=14;
 
-    int end = result.indexOf("\"",pos);
+    int end = result.indexOf('"',pos);
     if (end==-1)
-        return QString("");
+        return QString();
 
     return QString( result.mid(pos,end-pos-2) );
 }
@@ -406,7 +406,7 @@ int Catalog::findNextInList(const QList<uint>& list,uint index) const
         return -1;
 
     int nextIndex=-1;
-    for ( int i = 0; i < list.size(); ++i ) 
+    for ( int i = 0; i < list.size(); ++i )
     {
         if ( list.at(i) > index ) 
         {

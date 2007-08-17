@@ -87,7 +87,7 @@ public:
     const QString& msgid(const int form=0, const bool noNewlines = false) const;
     const QVector<QString>& msgidPlural(const bool noNewlines = false) const;
     const QString& msgstr(const int form=0, const bool noNewlines = false) const;
-    const QVector<QString> & msgstrPlural(const bool noNewlines = false) const;
+    const QVector<QString>& msgstrPlural(const bool noNewlines = false) const;
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
@@ -140,11 +140,11 @@ public:
 /*
 private:
     void setProject( Project::Ptr project );
-    
+
     //friend class Catalog;
 */
 private:
-    CatalogItemPrivate* d;
+    CatalogItemPrivate* const d;
 
     friend class InsTextCmd;
     friend class DelTextCmd;

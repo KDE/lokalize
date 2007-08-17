@@ -35,6 +35,12 @@
 #ifndef CATALOGSETTINGS_H
 #define CATALOGSETTINGS_H
 
+
+/**
+ * this file is not used and is here for historical reasons :)
+ */
+
+
 #include <qstring.h>
 #include <qregexp.h>
 #include <qdatetime.h>

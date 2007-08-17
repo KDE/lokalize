@@ -95,7 +95,7 @@ class OpenDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    OpenDBJob(const QString& name,QObject* parent=0);
+    explicit OpenDBJob(const QString& name,QObject* parent=0);
     ~OpenDBJob();
 
     int priority()const{return OPENDB;}
@@ -112,7 +112,7 @@ class CloseDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    CloseDBJob(const QString& name,QObject* parent=0);
+    explicit CloseDBJob(const QString& name,QObject* parent=0);
     ~CloseDBJob();
 
     int priority()const{return CLOSEDB;}
@@ -156,7 +156,7 @@ class InsertJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    InsertJob(const TMEntry&,QObject* parent=0);
+    explicit InsertJob(const TMEntry&,QObject* parent=0);
     ~InsertJob();
 
     int priority()const{return INSERT;}
@@ -174,7 +174,7 @@ class ScanJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    ScanJob(const KUrl& url,QObject* parent=0);
+    explicit ScanJob(const KUrl& url,QObject* parent=0);
     ~ScanJob();
 
     int priority()const{return SCAN;}
@@ -195,7 +195,7 @@ class ScanFinishedJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    ScanFinishedJob(QWidget* view,QObject* parent=0)
+    explicit ScanFinishedJob(QWidget* view,QObject* parent=0)
         : ThreadWeaver::Job(parent)
         , m_view(view)
     {}

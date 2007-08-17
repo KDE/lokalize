@@ -35,10 +35,9 @@
 #define PROJECT_H
 
 #include <QObject>
-// #include <QTime>
 #include "projectbase.h"
 #include "jobs.h"
-// #include "glossary.h"
+
 class ProjectModel;
 class Glossary;
 class WebQueryController;
@@ -94,9 +93,11 @@ public slots:
     void populateWebQueryActions();
 //     void populateKrossActions();
 
+    void openProjectWindow();
+
     void deleteScanJob(ThreadWeaver::Job*);
-//     void slotTMWordsIndexed(ThreadWeaver::Job*);
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
+//     void slotTMWordsIndexed(ThreadWeaver::Job*);
 
 private:
     static Project* _instance;

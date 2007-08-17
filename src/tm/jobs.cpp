@@ -110,9 +110,9 @@ static int insertEntry(const QString& english,
     //check if we already have record with the same en string
     QSqlQuery query1(db);
     QString escapedEn(english);
-    escapedEn.replace("'","''");
+    escapedEn.replace('\'',"''");
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target FROM tm_main WHERE "
-                     "english=='"+escapedEn+"'")))
+                     "english=='"+escapedEn+'\'')))
         kWarning() <<"select error: " <<query1.lastError().text();
 
 
@@ -128,9 +128,9 @@ static int insertEntry(const QString& english,
         query1.clear();
 
         QString escapedTarget(target);
-        escapedTarget.replace("'","''");
+        escapedTarget.replace('\'',"''");
         if (KDE_ISUNLIKELY(!query1.exec("SELECT id FROM tm_dups WHERE "
-                         "target=='"+escapedTarget+"'")))
+                         "target=='"+escapedTarget+'\'')))
             kWarning() <<"select error 2: " <<query1.lastError().text();
 
         if (query1.next())
@@ -172,7 +172,7 @@ static int insertEntry(const QString& english,
         //insert word (if we dont have it)
 
         if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM tm_words WHERE "
-                     "word=='"+words.at(j)+"'")))
+                     "word=='"+words.at(j)+'\'')))
         kWarning() <<"select error 3: " <<query1.lastError().text();
 
         if (query1.next())
@@ -185,7 +185,7 @@ static int insertEntry(const QString& english,
                 query1.clear();
                 query1.prepare("UPDATE tm_words "
                         "SET ids_short=? "
-                        "WHERE word=='"+words.at(j)+"'");
+                        "WHERE word=='"+words.at(j)+'\'');
 
                 arr+=' '+mainidStr;
                 query1.bindValue(0, arr);
@@ -198,7 +198,7 @@ static int insertEntry(const QString& english,
                 query1.clear();
                 query1.prepare("UPDATE tm_words "
                         "SET ids_long=? "
-                        "WHERE word=='"+words.at(j)+"'");
+                        "WHERE word=='"+words.at(j)+'\'');
 
                 arr+=' '+mainidStr;
                 query1.bindValue(0, arr);
@@ -454,7 +454,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
     }
 #endif
-    QRegExp rxSplit("("+Project::instance()->markup()+"|\\W+|\\d+)+");
+    QRegExp rxSplit('('+Project::instance()->markup()+"|\\W+|\\d+)+");
     QRegExp rxClean2(Project::instance()->accel());//removed
     rxClean2.setMinimal(true);
 
@@ -494,7 +494,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         joined+=QString("%1").arg(ids.at(j));
 
         QSqlQuery queryFetch("SELECT * FROM tm_main WHERE "
-                            "tm_main.id IN ("+joined+")",db); //ORDER BY tm_main.id ?
+                            "tm_main.id IN ("+joined+')',db); //ORDER BY tm_main.id ?
         TMEntry e;
         while (queryFetch.next())
         {

@@ -41,8 +41,8 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <threadweaver/ThreadWeaver.h>
+#include <ktextbrowser.h>
 
-#include <QTextBrowser>
 #include <QTime>
 #include <QDragEnterEvent>
 #include <QFileInfo>
@@ -53,7 +53,7 @@
 
 TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
-    , m_browser(new QTextBrowser(this))
+    , m_browser(new KTextBrowser(this))
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window","Translation Memory"))
     , m_hasInfoTitle(m_normTitle+" [*]")
@@ -121,7 +121,7 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
     };
 }
 
-bool scanRecursive(const QDir& dir)
+static bool scanRecursive(const QDir& dir)
 {
     bool ok=false;
     QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
@@ -278,7 +278,7 @@ void TMView::slotSelectionChanged()
     //NOTE works fine only for dbl-click word selection
     //(actually, quick word insertion is exactly the purpose of this slot:)
     QString sel(m_browser->textCursor().selectedText());
-    if (!sel.isEmpty())
+    if (!(sel.isEmpty()||sel.contains(' ')))
     {
         emit textInsertRequested(sel);
     }

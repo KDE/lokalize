@@ -30,6 +30,17 @@
 
 **************************************************************************** */
 
+#include "kaider.h"
+#include "kaiderview.h"
+#include "catalog.h"
+#include "pos.h"
+#include "cmd.h"
+#include "prefs_kaider.h"
+#include "ui_kaider_findextension.h"
+
+
+#include <QTimer>
+
 #include <kglobal.h>
 #include <klocale.h>
 #include <kdebug.h>
@@ -44,13 +55,6 @@
 
 
 //  #include "global.h"
-#include "kaider.h"
-#include "kaiderview.h"
-#include "catalog.h"
-#include "pos.h"
-#include "cmd.h"
-#include "prefs_kaider.h"
-#include "ui_kaider_findextension.h"
 
 //#define FIND_IGNOREACCELS 2048
 //#define FIND_SKIPTAGS 4096
@@ -86,7 +90,7 @@ void KAider::find()
 
     if ( _findDialog->exec() != QDialog::Accepted )
         return;
-//HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory();
+    //HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory();
      _findDialog->setPattern(_findDialog->findHistory().first());
 
     if (_find)
@@ -187,7 +191,20 @@ void KAider::findNext(const DocPosition& startingPos)
 
         if (res==KFind::NoMatch)
         {
-            if(_find->shouldRestart(true))
+            ////
+            bool tryRestart=true;
+            if (!m_searchFiles.isEmpty())
+            {
+                if (m_searchFiles.size()!=1)
+                    m_updateView=false;
+                fileOpen(m_searchFiles.takeFirst());
+                m_updateView=true;
+                tryRestart=false;
+                QTimer::singleShot(0,this,SLOT(findNext()));
+            }
+            ////
+
+            if(tryRestart&&_find->shouldRestart(tryRestart,tryRestart))
             {
                 flag=1;
                 if (_find->options() & KFind::FindBackwards)
@@ -204,7 +221,8 @@ void KAider::findNext(const DocPosition& startingPos)
                     _searchingPos.form=0;
                 }
             }
-            _find->resetCounts();
+            if (tryRestart)
+                _find->resetCounts();
         }
     }
 
@@ -590,4 +608,41 @@ void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString
     _catalog->push(new InsTextCmd(_catalog,pos,newWord));
     gotoEntry(pos,newWord.length());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+void KAider::findInFiles(const KUrl::List& list)
+{
+    m_searchFiles=list;
+
+    KUrl::List::iterator it(m_searchFiles.begin());
+    while (it!=m_searchFiles.end())
+    {
+        if (_catalog->url()==*it)
+            break;
+        ++it;
+    }
+
+    if (it!=m_searchFiles.end())
+        m_searchFiles.erase(it);
+    else if (!m_searchFiles.isEmpty())
+        fileOpen(m_searchFiles.takeFirst());
+
+    find();
+}
+
+
+
+
+
+
 

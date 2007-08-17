@@ -30,16 +30,20 @@
 
 **************************************************************************** */
 
+#include "catalogmodel.h"
+
+#include "catalog.h"
+
 #include <kdebug.h>
 #include <klocale.h>
-#include "catalog.h"
-#include "catalogmodel.h"
+
+
 
 int CatalogTreeModel::rowCount(const QModelIndex& parent) const
 {
-    if (parent==QModelIndex())
-        return m_catalog->numberOfEntries();
-    return 0;
+    if (parent.isValid())
+        return 0;
+    return m_catalog->numberOfEntries();
 }
 
 QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientation*/, int role) const

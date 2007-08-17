@@ -36,12 +36,12 @@
 
 #include <klocale.h>
 #include <kdebug.h>
+#include <ktextbrowser.h>
 
-#include <QTextBrowser>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Message Context"), parent)
-    , m_browser(new QTextBrowser(this))
+    , m_browser(new KTextBrowser(this))
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window","Message Context"))
     , m_hasInfoTitle(m_normTitle+" [*]")

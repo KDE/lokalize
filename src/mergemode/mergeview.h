@@ -38,8 +38,7 @@
 #include <kurl.h>
 
 #include <QDockWidget>
-class QTextBrowser;
-class QTextEdit;
+class KTextEdit;
 class Catalog;
 class MergeCatalog;
 class QDragEnterEvent;
@@ -78,7 +77,7 @@ signals:
     void gotoEntry(const DocPosition&,int);
 
 private:
-    QTextEdit* m_browser;
+    KTextEdit* m_browser;
     Catalog* m_baseCatalog;
     MergeCatalog* m_mergeCatalog;
     DocPosition m_pos;

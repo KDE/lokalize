@@ -56,6 +56,8 @@ ProjectModel::ProjectModel()
  *
  * order is tran,  untr, fuzzy
  *          left() top() width()
+ *
+ * 32 is a secret code that we use to say that info isnot ready yet
  */
 QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 {
@@ -63,6 +65,8 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     if (index.column()<Graph)
         return KDirModel::data(index,role);
 
+    if (role!=Qt::DisplayRole)
+        return QVariant();
 //     kWarning()<<"+++++++++++++00";
     KFileItem item = itemForIndex(index);
 
@@ -70,8 +74,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     //we handle dirs in special way for all columns left
     if (item.isDir())
     {
-        //currentrly we handle only Graph column
-        if (index.column()==Graph)
+        if (index.column()>=Graph&&index.column()<=Untranslated)
         {
             // ok, this is somewhat HACKy
             KFileMetaInfo metaInfo(item.metaInfo(false));
@@ -98,7 +101,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             int count=rowCount(index);
             //if (parent.isValid()
             int i=0;
-            int infoIsFull=true;
+            bool infoIsFull=true;
             QTime a;a.start();
             for (;i<count;++i)
             {
@@ -128,7 +131,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                 }
 //                 kWarning()<<"-----------2";
             }
-            kWarning()<<"/////////////////"<<a.elapsed();
+//             kWarning()<<"/////////////////"<<a.elapsed();
             if (infoIsFull&&(untranslated+translated+fuzzy))
             {
 //                 kWarning()<<"-----------3";
@@ -138,12 +141,27 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                 metaInfo.item("translation.fuzzy").setValue(fuzzy);
                 item.setMetaInfo(metaInfo);
 //                 kWarning()<<"-----------4";
-                return QRect(translated,untranslated,fuzzy,0);
+                switch(index.column())
+                {
+                    case Graph:
+                        return QRect(translated,untranslated,fuzzy,0);
+                    case Total:
+                        return translated+untranslated+fuzzy;
+                    case Translated:
+                        return translated;
+                    case Fuzzy:
+                        return fuzzy;
+                    case Untranslated:
+                        return untranslated;
+                }
             }
+            else if(index.column()==Graph)
+                    return QRect(0,0,0,32);
+
         }
         //else -->other columns handling
-
-        return QRect(0,0,0,32);//32 is a secret code that we use to say that info isnot ready yet
+        //TODO make smth cool
+        return QVariant();
     }
 //     kWarning()<<"+++++++++++++03";
     const KFileMetaInfo metaInfo(item.metaInfo(false));
@@ -158,28 +176,61 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             if (metaInfo.item("translation.untranslated").value().isNull())
                 return QRect(0,0,0,32);
 
-            //kWarning() << "0 " << itemForIndex(index)->url();
-            //kWarning() << "0 " << itemForIndex(index)->metaInfo(false).item("translation.translated").value().toInt();
-//             kWarning()<<"-----------12";
             return QRect(metaInfo.item("translation.translated").value().toInt(),
                          metaInfo.item("translation.untranslated").value().toInt(),
                          metaInfo.item("translation.fuzzy").value().toInt(),
                          0
                         );
         }
+        case Total:
+        {
+            if (metaInfo.item("translation.untranslated").value().isNull())
+                return QVariant();
+
+            return metaInfo.item("translation.untranslated").value().toInt()
+                   +metaInfo.item("translation.translated").value().toInt()
+                   +metaInfo.item("translation.fuzzy").value().toInt();
+        }
+        case Translated:
+        {
+            if (metaInfo.item("translation.translated").value().isNull())
+                return QVariant();
+
+            return metaInfo.item("translation.translated").value();
+        }
+        case Fuzzy:
+        {
+            if (metaInfo.item("translation.fuzzy").value().isNull())
+                return QVariant();
+
+            return metaInfo.item("translation.fuzzy").value();
+        }
+        case Untranslated:
+        {
+            if (metaInfo.item("translation.untranslated").value().isNull())
+                return QVariant();
+
+            return metaInfo.item("translation.untranslated").value();
+        }
         case SourceDate:
         {
-//             kWarning()<<"-----------13";
+            if (metaInfo.item("translation.source_date").value().isNull())
+                return QVariant();
+
             return metaInfo.item("translation.source_date").value();
         }
         case TranslationDate:
         {
-//             kWarning()<<"-----------14";
+            if (metaInfo.item("translation.translation_date").value().isNull())
+                return QVariant();
+
             return metaInfo.item("translation.translation_date").value();
         }
         case LastTranslator:
         {
-//             kWarning()<<"-----------15";
+            if (metaInfo.item("translation.last_translator").value().isNull())
+                return QVariant();
+
             return metaInfo.item("translation.last_translator").value();
         }
     }
@@ -195,6 +246,14 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
     {
         case Graph:
             return i18nc("@title:column","Graph");
+        case Total:
+            return i18nc("@title:column","Total");
+        case Translated:
+            return i18nc("@title:column","Translated");
+        case Fuzzy:
+            return i18nc("@title:column","Fuzzy");
+        case Untranslated:
+            return i18nc("@title:column","Untranslated");
         case TranslationDate:
             return i18nc("@title:column","Last Translation");
         case SourceDate:

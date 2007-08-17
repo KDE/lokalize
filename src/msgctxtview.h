@@ -34,7 +34,7 @@
 #define MSGCTXTVIEW_H
 
 #include <QDockWidget>
-class QTextBrowser;
+class KTextBrowser;
 class Catalog;
 
 class MsgCtxtView: public QDockWidget
@@ -50,7 +50,7 @@ public slots:
     void slotNewEntryDisplayed(uint);
 
 private:
-    QTextBrowser* m_browser;
+    KTextBrowser* m_browser;
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;

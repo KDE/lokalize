@@ -34,16 +34,12 @@
 #define PROJECTVIEW_H
 
 #include <QDockWidget>
-#include <QItemDelegate>
+#include <kurl.h>
 
 class Catalog;
-class QMenu;
-class QTreeView;
-class KUrl;
-class ProjectModel;
-class SortFilterProxyModel;
-class KDirSortFilterProxyModel;
-class QModelIndex;
+class ProjectWidget;
+
+
 
 class ProjectView: public QDockWidget
 {
@@ -57,49 +53,21 @@ public:
 
 public slots:
 //     void slotProjectLoaded();
-    void slotItemActivated(const QModelIndex&);
-    void slotOpen();
-    void slotOpenInNewWindow();
-    void slotForceStats();
-
     void initLater();
-    //void showCurrentFile();
 
 signals:
     void fileOpenRequested(KUrl);
     void newWindowOpenRequested(const KUrl&);
+    void findInFilesRequested(const KUrl::List&);
 
 // protected:
 //     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    QTreeView* m_browser;
-//     QMenu* m_menu;
+    ProjectWidget* m_browser;
     QWidget* m_parent;
-    SortFilterProxyModel* m_proxyModel;
 
     Catalog* m_catalog;
-};
-
-
-
-/**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
-class PoItemDelegate : public QItemDelegate//KFileItemDelegate
-{
-    Q_OBJECT
-
-public:
-    PoItemDelegate(QObject *parent=0)
-        : QItemDelegate(parent)
-    {};
-    ~PoItemDelegate(){};
-    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-signals:
-    void newWindowOpenRequested(const KUrl&);
-
 };
 
 

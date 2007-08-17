@@ -37,6 +37,8 @@
 #include "glossary.h"
 #include "jobs.h"
 
+#include "projectwindow.h"
+
 
 #include <QTimer>
 #include <QTime>
@@ -334,6 +336,11 @@ void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
 
 
 
+void Project::openProjectWindow()
+{
+    ProjectWindow* a=new ProjectWindow;
+    a->show();
+}
 
 
 #include "project.moc"

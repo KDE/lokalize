@@ -84,7 +84,7 @@ class QDragEvent;
  * and non-dockview GUI code should go here.
  *
  * There are several ways (for views) to modify current msg:
- * -modify QTextEdit and changes will be applied to catalog automatically (plus you need to care of fuzzy indication etc)
+ * -modify KTextEdit and changes will be applied to catalog automatically (plus you need to care of fuzzy indication etc)
  * -modify catalog directly, then call KAider::goto slot
  * I used both :)
  *

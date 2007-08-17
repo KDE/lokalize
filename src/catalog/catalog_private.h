@@ -45,7 +45,6 @@
 #include <kurl.h>
 
 // #include "msgfmt.h"
-// #include "catalogsettings.h"
 #include "catalogitem.h"
 // #include "regexpextractor.h"
 // #include "kbabel_export.h"

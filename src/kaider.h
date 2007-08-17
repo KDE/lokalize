@@ -132,6 +132,7 @@ private slots:
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
 
+    void findInFiles(const KUrl::List&);
 //     void selectAll();
 //     void deselectAll();
 //     void clear();
@@ -199,8 +200,20 @@ private:
     KReplaceDialog* _replaceDialog;
     KReplace* _replace;
     Sonnet::Dialog* m_sonnetDialog;
-    bool _spellcheckStop;
     int _spellcheckStartUndoIndex;
+    bool _spellcheckStop:4;
+
+    bool m_updateView:4;//for find/replace in files
+
+    int _currentEntry:24;
+    DocPosition _currentPos;
+    DocPosition _searchingPos; //for find/replace
+    DocPosition _replacingPos;
+    DocPosition _spellcheckPos;
+
+    KUrl::List m_searchFiles;
+    Ui_findExtension* ui_findExtension;
+    Ui_findExtension* ui_replaceExtension;
 
     Ui_prefs_identity* ui_prefs_identity;
     Ui_prefs_font* ui_prefs_font;
@@ -209,20 +222,10 @@ private:
     KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
     KEditListBox* m_scriptsPrefWidget;
 
-    Ui_findExtension* ui_findExtension;
-    Ui_findExtension* ui_replaceExtension;
-
 //    ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
     GlossaryView* _glossaryView;
-
-    int _currentEntry;
-    DocPosition _currentPos;
-    DocPosition _searchingPos; //for find/replace
-    DocPosition _replacingPos;
-    DocPosition _spellcheckPos;
-
 
 
     QString _captionPath;

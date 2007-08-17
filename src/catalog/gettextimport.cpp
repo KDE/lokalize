@@ -379,7 +379,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    //kDebug() << k_funcinfo << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
-   QString line;
+   //QString line;
    bool error=false;
    bool recoverableError=false;
    bool seenMsgctxt=false;
@@ -397,7 +397,8 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
    while( !stream.atEnd() )
    {
-       line=stream.readLine();
+       //line=stream.readLine();
+      QString line(stream.readLine());
 
        //kDebug() << "Parsing line: " << line;
 

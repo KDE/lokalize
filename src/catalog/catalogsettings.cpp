@@ -32,6 +32,11 @@
   you do not wish to do so, delete this exception statement from
   your version.
 **************************************************************************** */
+
+/**
+ * this file is not used and is here for historical reasons :)
+ */
+
 #include "catalogsettings.h"
 #include <kconfig.h>
 #include <kdebug.h>
@@ -40,8 +45,6 @@
 #include <klocale.h>
 #include <k3process.h>
 #include <ktemporaryfile.h>
-
-#include <stdlib.h>
 
 #include <qfile.h>
 #include <qtextcodec.h>
@@ -63,73 +66,6 @@
     }
     else
       return QString();
-}
-
-QString GNUPluralForms(const QString& lang)
-{
-    KTemporaryFile infile, outfile;
-    infile.open();
-    outfile.open();
-    
-    QTextStream str ( &infile );
-    
-    str << "# SOME DESCRIPTIVE TITLE." << endl;
-    str << "# Copyright (C) YEAR Free Software Foundation, Inc." << endl;
-    str << "# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR." << endl;
-    str << "#" << endl;
-    str << "#, fuzzy" << endl;
-    str << "msgid \"\"" << endl;
-    str << "msgstr \"\"" << endl;
-    str << "\"Project-Id-Version: PACKAGE VERSION\\n\"" << endl;
-    str << "\"POT-Creation-Date: 2002-06-25 03:23+0200\\n\"" << endl;
-    str << "\"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n\"" << endl;
-    str << "\"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n\"" << endl;
-    str << "\"Language-Team: LANGUAGE <LL@li.org>\\n\"" << endl;
-    str << "\"MIME-Version: 1.0\\n\"" << endl;
-    str << "\"Content-Type: text/plain; charset=CHARSET\\n\"" << endl;
-    str << "\"Content-Transfer-Encoding: ENCODING\\n\"" << endl;
-    
-    str.flush();
-
-    K3Process msginit;
-    
-    msginit << "msginit";
-    msginit 
-	<< "-l" 
-	<< lang 
-	<< "-i" 
-	<< infile.fileName()
-	<< "-o" 
-	<< outfile.fileName()
-	<< "--no-translator" 
-	<< "--no-wrap" ;
-    
-    msginit.start( K3Process::Block );
-    
-    QString res("");
-    
-    if( msginit.normalExit() )
-    {
-        // parse out the plural form string
-        outfile.seek(0);
-        QTextStream str(&outfile);
-	    
-        QString line;
-        do {
-            line = str.readLine();
-		
-            if( line.startsWith( "\"Plural-Forms:" ) )
-            {
-                kDebug() << "Plural form line: " << line;
-                QRegExp re( "^\"Plural-Forms: *(.*)\\\\n\"" );
-                re.indexIn( line );
-                res = re.cap(1);
-                break;
-            }
-        } while (!str.atEnd() );
-    }
-    
-    return res;
 }
 
 QString charsetString(const int e)
@@ -163,31 +99,6 @@ QString charsetString(const int e)
     return encodingStr;
 }
 */
-// QString Defaults::Identity::authorName()
-// {
-//     KEMailSettings emSet;
-//     return emSet.getSetting(KEMailSettings::RealName);
-// }
-// 
-// QString Defaults::Identity::authorLocalizedName()
-// {
-//     return authorName();
-// }
-// 
-// QString Defaults::Identity::authorEmail()
-// {
-//     KEMailSettings emSet;
-//     return emSet.getSetting(KEMailSettings::EmailAddress);
-// }
-// 
-// QString Defaults::Identity::mailingList()
-// {
-//     QString lang=Defaults::Identity::languageCode();
-//     int temp = lang.indexOf( "_" );
-//     lang=lang.left(temp);
-//     return lang+"@li.org";
-// }
-// 
 // QString Defaults::Identity::languageCode()
 // {   
 //     // first try to get the language from KDE settings

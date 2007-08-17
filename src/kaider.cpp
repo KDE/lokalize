@@ -92,14 +92,15 @@ KAider::KAider()
     , _replaceDialog(0)
     , _replace(0)
     , m_sonnetDialog(0)
-    , _spellcheckStop(false)
     , _spellcheckStartUndoIndex(0)
+    , _spellcheckStop(false)
+    , m_updateView(true)
+    , ui_findExtension(0)
+    , ui_replaceExtension(0)
     , ui_prefs_identity(0)
     , ui_prefs_font(0)
     , ui_prefs_projectmain(0)
     , ui_prefs_regexps(0)
-    , ui_findExtension(0)
-    , ui_replaceExtension(0)
 //     , _projectView(0)
     , _mergeView(0)
 //     , _msgIdDiffView(0)
@@ -145,11 +146,11 @@ KAider::~KAider()
 
 void KAider::setupStatusBar()
 {
-    statusBar()->insertItem(i18nc("@info:status","Current: %1",0),ID_STATUS_CURRENT);
-    statusBar()->insertItem(i18nc("@info:status","Total: %1",0),ID_STATUS_TOTAL);
-    statusBar()->insertItem(i18nc("@info:status","Fuzzy: %1",0),ID_STATUS_FUZZY);
-    statusBar()->insertItem(i18nc("@info:status","Untranslated: %1",0),ID_STATUS_UNTRANS);
-    statusBar()->insertItem("",ID_STATUS_ISFUZZY);
+    statusBar()->insertItem(i18nc("@info:status message entry","Current: %1",0),ID_STATUS_CURRENT);
+    statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",0),ID_STATUS_TOTAL);
+    statusBar()->insertItem(i18nc("@info:status message entries","Fuzzy: %1",0),ID_STATUS_FUZZY);
+    statusBar()->insertItem(i18nc("@info:status message entries","Untranslated: %1",0),ID_STATUS_UNTRANS);
+    statusBar()->insertItem(QString(),ID_STATUS_ISFUZZY);
 
     connect(_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
     connect(_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
@@ -218,7 +219,7 @@ void KAider::setupActions()
     action->setText(i18nc("@action:inmenu","Change searching direction"));
     action = KStandardAction::replace(this,SLOT(replace()),actionCollection());
 
-//     :check
+//
     action = actionCollection()->addAction("edit_toggle_fuzzy");
     action->setShortcut( Qt::CTRL+Qt::Key_U );
     action->setIcon(KIcon("togglefuzzy"));
@@ -375,6 +376,7 @@ void KAider::createDockWindows()
     //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
     connect(_projectView, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(_projectView, SIGNAL(newWindowOpenRequested(const KUrl&)), this, SLOT(newWindowOpen(const KUrl&)));
+    connect(_projectView, SIGNAL(findInFilesRequested(const KUrl::List&)), this, SLOT(findInFiles(const KUrl::List&)));
 
     _mergeView = new MergeView(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
@@ -501,7 +503,7 @@ void KAider::createDockWindows()
 
 void KAider::fileOpen(KUrl url)
 {
-    kWarning()<<"-------------------"+url.path();
+    //kWarning()<<"-------------------"+url.path();
 
     if(!_catalog->isClean())
     {
@@ -641,7 +643,7 @@ bool KAider::queryClose()
 
     switch(KMessageBox::warningYesNoCancel(this,
         i18nc("@info","The document contains unsaved changes.\n\
-Do you want to save your changes or discard them?"),i18n("Warning"),
+Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
       KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
         case KMessageBox::Yes:
@@ -683,16 +685,11 @@ void KAider::gotoEntry()
 void KAider::gotoEntry(const DocPosition& pos,int selection)
 {
 //     kWarning()<<"goto1: "<<pos.entry;
-//     if ( (_currentPos.entry==pos.entry) && (_currentPos.offset==pos.offset) && (_currentPos.form==pos.form) )
-//         return;
-//     if(pos.part==UndefPart)
-//         kWarning()<<"UndefPart";
-//     if(pos.part==Msgstr)
-//         kWarning()<<"Msgstr";
 
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
-    //if (pos.part!=UndefPart || pos.entry!=_currentEntry || pos.offset>0)
+
+    if(m_updateView)
         m_view->gotoEntry(pos,selection);
     if(pos.part==UndefPart)
         _currentPos.part=Msgstr;
@@ -705,35 +702,41 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     {
         _currentPos=pos;
         _currentEntry=pos.entry;
-        emit signalNewEntryDisplayed(_currentEntry);
-        emit signalNewEntryDisplayed(_currentPos);
+        if(m_updateView)
+        {
+            emit signalNewEntryDisplayed(_currentEntry);
+            emit signalNewEntryDisplayed(_currentPos);
 
-        emit signalFirstDisplayed(_currentEntry==0);
-        emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);
+            emit signalFirstDisplayed(_currentEntry==0);
+            emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);
 
-        emit signalPriorFuzzyAvailable(_currentEntry>_catalog->firstFuzzyIndex());
-        emit signalNextFuzzyAvailable(_currentEntry<_catalog->lastFuzzyIndex());
+            emit signalPriorFuzzyAvailable(_currentEntry>_catalog->firstFuzzyIndex());
+            emit signalNextFuzzyAvailable(_currentEntry<_catalog->lastFuzzyIndex());
 
-        emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
-        emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
+            emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
+            emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
 
-        emit signalPriorFuzzyOrUntrAvailable(_currentEntry>_catalog->firstFuzzyIndex()
-                                            ||_currentEntry>_catalog->firstUntranslatedIndex()
-                                            );
-        emit signalNextFuzzyOrUntrAvailable(_currentEntry<_catalog->lastFuzzyIndex()
-                                           ||_currentEntry<_catalog->lastUntranslatedIndex());
+            emit signalPriorFuzzyOrUntrAvailable(_currentEntry>_catalog->firstFuzzyIndex()
+                                                ||_currentEntry>_catalog->firstUntranslatedIndex()
+                                                );
+            emit signalNextFuzzyOrUntrAvailable(_currentEntry<_catalog->lastFuzzyIndex()
+                                            ||_currentEntry<_catalog->lastUntranslatedIndex());
 
-        emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
-        emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
-        emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
+            emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
+            emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
+            emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
+        }
 
     }
 
 //     kWarning()<<"goto3: "<<pos.entry;
-    //still emit even if _currentEntry==pos.entry
-    emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
-    msgStrChanged();
-    statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
+    if (m_updateView)
+    {
+        //still emit even if _currentEntry==pos.entry
+        emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+        msgStrChanged();
+        statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
+    }
 //     kWarning()<<"goto4: "<<pos.entry;
 }
 

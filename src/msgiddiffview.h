@@ -34,8 +34,7 @@
 #define MSGIDDIFF_H
 
 #include <QDockWidget>
-class QTextBrowser;
-class QTextEdit;
+class KTextEdit;
 class Catalog;
 
 class MsgIdDiff: public QDockWidget
@@ -51,7 +50,7 @@ public slots:
     void slotNewEntryDisplayed(uint);
 
 private:
-    QTextEdit* m_browser;
+    KTextEdit* m_browser;
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;

@@ -30,64 +30,74 @@
 
 **************************************************************************** */
 
-#ifndef TMVIEW_H
-#define TMVIEW_H
+#ifndef PROJECTWIDGET_H
+#define PROJECTWIDGET_H
 
-#include "pos.h"
-#include "jobs.h"
+#include <QTreeView>
+#include <QItemDelegate>
 
-#include <QDockWidget>
-// #include <QTimer>
-class KTextBrowser;
-class Catalog;
-class QDropEvent;
-class QDragEnterEvent;
-class QAction;
+#include <kurl.h>
 
-#define TM_SHORTCUTS 10
+class SortFilterProxyModel;
 
-class TMView: public QDockWidget
+/**
+ * This class is considered a 'view',
+ * and ProjectWindow + ProjectView are its controllers
+ * the data is project-wide KDirModel based ProjectModel
+ */
+class ProjectWidget: public QTreeView
 {
     Q_OBJECT
 
 public:
-    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~TMView();
+    ProjectWidget(/*Catalog*, */QWidget* parent);
+    virtual ~ProjectWidget();
 
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+    void setCurrentItem(const KUrl&);
+    KUrl currentItem() const;
+    //KFileItem currentItem() const;
+    KUrl::List selectedItems() const;
 
-signals:
-    void textReplaceRequested(const QString&);
-    void textInsertRequested(const QString&);
+    bool currentIsCatalog() const;
+
 
 public slots:
-    void slotNewEntryDisplayed(const DocPosition&);
-    void slotSuggestionsCame(ThreadWeaver::Job*);
-    void slotSelectionChanged();
+    void slotItemActivated(const QModelIndex&);
+    //void slotForceStats();
 
-    void initLater();
+    //void showCurrentFile();
 
-    //i think we dont wanna cache suggestions:
-    //what if good sugg may be generated
-    //from the entry user translated 1 minute ago?
-
-    //answer: store separate wordHash for added entries
-
-    void slotUseSuggestion(int);
+signals:
+    void fileOpenRequested(KUrl);
+    void newWindowOpenRequested(const KUrl&);
 
 private:
-    KTextBrowser* m_browser;
-    Catalog* m_catalog;
-    DocPosition m_pos;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-    SelectJob* m_currentSelectJob;
-//     QSignalMapper *m_signalMapper;
-    QVector<QAction*> m_actions;//need them to get shortcuts
-    QList<TMEntry> m_entries;
-//     QTimer m_timer;
+    QWidget* m_parent;
+    SortFilterProxyModel* m_proxyModel;
+
+    //Catalog* m_catalog;
 };
+
+
+
+/**
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class PoItemDelegate : public QItemDelegate//KFileItemDelegate
+{
+    Q_OBJECT
+
+public:
+    PoItemDelegate(QObject *parent=0)
+        : QItemDelegate(parent)
+    {};
+    ~PoItemDelegate(){};
+    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
+signals:
+    void newWindowOpenRequested(const KUrl&);
+
+};
+
 
 #endif

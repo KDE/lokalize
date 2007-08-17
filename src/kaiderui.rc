@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="1">
+<kpartgui name="KAider" version="21">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>

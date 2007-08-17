@@ -38,9 +38,12 @@ set(kaider_SRCS
     msgctxtview.cpp
     msgiddiffview.cpp
     common/diff.cpp
-    project/projectview.cpp
     project/project.cpp
     project/projectmodel.cpp
+    project/projectwidget.cpp
+    project/projectview.cpp
+    project/projectwindow.cpp
+
 
     prefs/relpathsaver.cpp
 

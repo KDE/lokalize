@@ -39,7 +39,6 @@
 #include "catalog.h"
 #include "catalog_private.h"
 #include "catalogitem.h"
-#include "catalogsettings.h"
 
 #include <QFile>
 #include <QTextCodec>
@@ -57,12 +56,14 @@
 
 //using namespace KBabel;
 
-GettextExportPlugin::GettextExportPlugin(QObject* parent/*, const QStringList &*/) :
+GettextExportPlugin::GettextExportPlugin(QObject* parent/*, const QString&List &*/) :
     CatalogExportPlugin(parent,"GettextExportPlugin"), m_wrapWidth( -1 )
 {
 }
 
-ConversionStatus GettextExportPlugin::save(const QString& localFile , const QString& mimetype, const Catalog* catalog)
+ConversionStatus GettextExportPlugin::save(const QString& localFile,
+                                           const QString& mimetype,
+                                           const Catalog* catalog)
 {
     // check, whether we know how to handle the extra data
     if ( catalog->importPluginID() != "GNU gettext")
@@ -87,42 +88,16 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
 
     QTextStream stream(&file);
 
-    //TODO really SaveSettings
-    //SaveSettings _saveSettings = catalog->saveSettings();
-    SaveSettings _saveSettings;
-    _saveSettings.autoUpdate=true;
-    _saveSettings.updateLastTranslator=true;
-    _saveSettings.updateRevisionDate=true;
-    _saveSettings.updateLanguageTeam=true;
-    _saveSettings.updateCharset=true;
-    _saveSettings.updateEncoding=true;
-
-    _saveSettings.updateProject=true;
-    _saveSettings.updateDescription=true;
-    _saveSettings.descriptionString=QString("");
-    _saveSettings.updateTranslatorCopyright=true;
-    _saveSettings.FSFCopyright=2002;
-
-//    _saveSettings.encoding;
-    _saveSettings.useOldEncoding=false;
-
-    _saveSettings.dateFormat=Qt::ISODate;
-    _saveSettings.customDateFormat=QString();
-
-    _saveSettings.projectString=QString("dd");
-
-    _saveSettings.autoSyntaxCheck=true;
-    _saveSettings.saveObsolete=true;
-
-    _saveSettings.autoSaveDelay=5000;
 
 
-
-    if (_saveSettings.useOldEncoding && catalog->fileCodec())
+#if 0
+//legacy
+    if (useOldEncoding && catalog->fileCodec())
     {
         stream.setCodec(catalog->fileCodec());
     }
     else
+
     {
         /*         switch(_saveSettings.encoding)
                  {
@@ -136,18 +111,20 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         	       stream.setCodec(QTextCodec::codecForLocale());
                        break;
                  }*/
-        stream.setCodec(QTextCodec::codecForName("utf-8"));
-    }
+#endif
+    //NOTE i had a look and even ja team uses utf-8 now
+    stream.setCodec(QTextCodec::codecForName("utf-8"));
+
 
     // only save header if it is not empty
-    const QString headerComment( catalog->header().comment() );
+    const QString& headerComment( catalog->header().comment() );
     // ### TODO: why is this useful to have a header with an empty msgstr?
     if ( !headerComment.isEmpty() || !catalog->header().msgstrPlural().isEmpty() )
     {
         // write header
         writeComment( stream, headerComment );
 
-        const QString headerMsgid = catalog->header().msgid();
+        const QString& headerMsgid (catalog->header().msgid());
 
         // Gettext PO files should have an empty msgid as header
         if ( !headerMsgid.isEmpty() )
@@ -161,11 +138,11 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
 
         writeKeyword( stream, "msgstr", catalog->header().msgstr() );
 
-        stream << "\n";
+        stream << '\n';
     }
 
     QStringList list;
-    for ( int counter = 0; counter < catalog->numberOfEntries() ; counter++ )
+    for (int counter = 0; counter < catalog->numberOfEntries(); counter++)
     {
         /*          if(counter%10==0) {
                      emit signalProgress(counter/progressRatio);
@@ -174,7 +151,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
         // write entry
         writeComment( stream, catalog->comment(counter) );
 
-        const QString msgctxt = catalog->msgctxt(counter);
+        const QString& msgctxt = catalog->msgctxt(counter);
         if (! msgctxt.isEmpty() )
         {
             writeKeyword( stream, "msgctxt", msgctxt );
@@ -203,21 +180,24 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile , const QStr
             }
         }
 
-        stream << "\n";
+        stream << '\n';
 
-//TODO do we need this?
+//do we need this?
 //         kapp->processEvents(QEventLoop::AllEvents,10);
 //         if ( isStopped() )
 //             return STOPPED;
     }
 
+#if 0
+//legacy
     if ( _saveSettings.saveObsolete )
+#endif
     {
-        QList<QString>::iterator oit;
+        QList<QString>::const_iterator oit;
 
-        QStringList _obsolete = catalog->catalogExtraData();
+        const QStringList& _obsolete (catalog->catalogExtraData());
 
-        for ( oit = _obsolete.begin(); oit != _obsolete.end(); ++oit )
+        for (oit=_obsolete.constBegin();oit!=_obsolete.constEnd();++oit)
         {
             stream << (*oit) << "\n\n";
 
@@ -251,10 +231,10 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
             if ( newpos == pos )
             {
                 ++pos;
-                stream << "\n";
+                stream << '\n';
                 continue;
             }
-            const QString span ( ( newpos == -1 ) ? comment.mid( pos ) : comment.mid( pos, newpos-pos ) );
+            const QString& span ( ( newpos == -1 ) ? comment.mid( pos ) : comment.mid( pos, newpos-pos ) );
 
             const int len = span.length();
             QString spaces; // Stored leading spaces
@@ -278,7 +258,7 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
                     break;
                 }
             }
-            stream << "\n";
+            stream << '\n';
 
             if ( newpos == -1 )
                 break;
@@ -311,12 +291,12 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         if( list.count() > 1 )
             list.prepend( QString() );
 
-        stream << keyword << " ";
+        stream << keyword << ' ';
     
         QStringList::const_iterator it;
         for( it = list.constBegin(); it != list.constEnd(); ++it )
         {
-            stream << "\"" << (*it) << "\"\n";
+            stream << '\"' << (*it) << "\"\n";
         }
         return;
     }

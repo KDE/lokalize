@@ -52,8 +52,10 @@ class GettextExportPlugin: public CatalogExportPlugin
 {
 public:
     GettextExportPlugin(QObject* parent/*, const QStringList &*/);
-    ConversionStatus save(const QString& file, const QString& mimetype, const Catalog* catalog);
-    
+    ConversionStatus save(const QString& file,
+                          const QString& mimetype,
+                          const Catalog* catalog);
+
 private:
     /**
      * Write a PO comment to @p stream and take care that each comment lines start with a # character

@@ -43,7 +43,11 @@
 
 enum ModelColumns
 {
-    Graph = 1,
+    Graph = 1/*KDirModel::ColumnCount*/,
+    Total,
+    Translated,
+    Fuzzy,
+    Untranslated,
     SourceDate,
     TranslationDate,
     LastTranslator,
@@ -81,10 +85,10 @@ public:
     ProjectModel();
     ~ProjectModel(){}
 
-    QVariant data (const QModelIndex&, int role = Qt::DisplayRole ) const;
+    QVariant data (const QModelIndex&, int role=Qt::DisplayRole) const;
     QVariant headerData(int, Qt::Orientation, int) const;
-    int columnCount(const QModelIndex & parent = QModelIndex()) const;
-    Qt::ItemFlags flags( const QModelIndex & index ) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const;
+    Qt::ItemFlags flags( const QModelIndex& index ) const;
 //     int rowCount(const QModelIndex& parent=QModelIndex()) const;
 //     void fetchMore(const QModelIndex&);
     //void forceScanning(const QModelIndex& parent=QModelIndex());
@@ -122,7 +126,6 @@ class ProjectLister: public KDirLister
 
 public:
     ProjectLister(QObject *parent=0);
-
     ~ProjectLister(){}
 
 public:
@@ -160,22 +163,10 @@ private:
     //HACKs
     bool m_reactOnSignals;
     QHash<QString,bool> m_listedTemplDirs;
-//     QString m_base;
-//     QString m_templ;
 };
 
 
 
-// inline
-// void ProjectLister::setBaseAndTempl(const QString& base,const QString& templ)
-// {
-//     m_base=base;
-//     m_templ=templ;
-//     if (m_base.endsWith(QDir::separator()))
-//         m_base.chop(1);
-//     if (m_templ.endsWith(QDir::separator()))
-//         m_templ.chop(1);
-// }
 
 
 #endif

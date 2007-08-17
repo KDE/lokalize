@@ -30,64 +30,31 @@
 
 **************************************************************************** */
 
-#ifndef TMVIEW_H
-#define TMVIEW_H
+#include "projectwindow.h"
+#include "projectwidget.h"
+#include "kaider.h"
 
-#include "pos.h"
-#include "jobs.h"
+ProjectWindow::ProjectWindow(QWidget *parent)
+    : KMainWindow(parent)
+    , m_browser(new ProjectWidget(this))
 
-#include <QDockWidget>
-// #include <QTimer>
-class KTextBrowser;
-class Catalog;
-class QDropEvent;
-class QDragEnterEvent;
-class QAction;
-
-#define TM_SHORTCUTS 10
-
-class TMView: public QDockWidget
 {
-    Q_OBJECT
+    setCentralWidget(m_browser);
+    setAutoSaveSettings(QLatin1String("ProjectWindow"));
 
-public:
-    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~TMView();
+    connect(m_browser,SIGNAL(fileOpenRequested(const KUrl&)),
+            this,SLOT(fileOpen(const KUrl&)));
 
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+}
 
-signals:
-    void textReplaceRequested(const QString&);
-    void textInsertRequested(const QString&);
+ProjectWindow::~ProjectWindow()
+{
+}
 
-public slots:
-    void slotNewEntryDisplayed(const DocPosition&);
-    void slotSuggestionsCame(ThreadWeaver::Job*);
-    void slotSelectionChanged();
+void ProjectWindow::fileOpen(const KUrl& u)
+{
+    KAider* a=new KAider;
+    a->show();
+    a->fileOpen(u);
+}
 
-    void initLater();
-
-    //i think we dont wanna cache suggestions:
-    //what if good sugg may be generated
-    //from the entry user translated 1 minute ago?
-
-    //answer: store separate wordHash for added entries
-
-    void slotUseSuggestion(int);
-
-private:
-    KTextBrowser* m_browser;
-    Catalog* m_catalog;
-    DocPosition m_pos;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-    SelectJob* m_currentSelectJob;
-//     QSignalMapper *m_signalMapper;
-    QVector<QAction*> m_actions;//need them to get shortcuts
-    QList<TMEntry> m_entries;
-//     QTimer m_timer;
-};
-
-#endif

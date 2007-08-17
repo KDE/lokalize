@@ -30,24 +30,23 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
-**************************************************************************** */
 
-#include <kdebug.h>
+**************************************************************************** */
 
 #include "catalogitem.h"
 #include "catalogitem_private.h"
 
+#include <kdebug.h>
+
+
 CatalogItem::CatalogItem()
  : d(new CatalogItemPrivate())
 {
-    //clear();
 }
 
 CatalogItem::CatalogItem(const CatalogItem& item)
  : d(new CatalogItemPrivate())
 {
-    //clear();
     *d=*(item.d);
 }
 
@@ -73,11 +72,7 @@ const QString& CatalogItem::msgctxt(const bool noNewlines) const
 
 const QString& CatalogItem::msgid(const int form, const bool /*noNewlines*/) const
 {
-    //if original lang is english, we have only 2 formz
-    if (form<d->_msgidPlural.size())
-        return d->_msgidPlural.at(form);
-    else
-        return d->_msgidPlural.last();
+    return d->msgid(form);
 }
 
 const QVector<QString>& CatalogItem::msgidPlural(const bool /*noNewlines*/) const
@@ -191,19 +186,12 @@ bool CatalogItem::isFuzzy() const
 
 bool CatalogItem::isUntranslated() const
 {
-    uint i = d->_msgstrPlural.size();
-    while (i>0)
-        if (d->_msgstrPlural.at(--i).isEmpty())
-            return true;
-    return false;
+    return d->isUntranslated();
 }
 
 bool CatalogItem::isUntranslated(uint form) const
 {
-    if ((int)form<d->_msgstrPlural.size())
-        return d->_msgstrPlural.at(form).isEmpty();
-    else
-        return true;
+    return d->isUntranslated(form);
 }
 
 #if 0
@@ -314,42 +302,18 @@ void CatalogItem::setSyntaxError(bool on)
 
 void CatalogItem::clear()
 {
-    if( !d )
-    {
-        d = new CatalogItemPrivate();
-        return;
-    }
-
-    d->_errors.clear();
-
-    d->_comment.clear();
-    d->_msgctxt.clear();
-    d->_valid=true;
-    d->_pluralFormType=NoPluralForm;
-
-//    d->_msgid.clear();
-//   d->_msgstr.clear();
-    d->_msgidPlural.clear();
-    d->_msgstrPlural.clear();
-
+    d->clear();
 }
 
 void CatalogItem::operator=(const CatalogItem& rhs)
 {
-    d->_comment = rhs.d->_comment;
-    d->_msgctxt = rhs.d->_msgctxt;
-    d->_msgidPlural = rhs.d->_msgidPlural;
-    d->_msgstrPlural = rhs.d->_msgstrPlural;
-    d->_valid = rhs.d->_valid;
-    d->_errors = rhs.d->_errors;
-    d->_pluralFormType = rhs.d->_pluralFormType;
+    d->assign(*rhs.d);
 }
-
 
 
 QStringList CatalogItem::msgstrAsList() const
 {
-   QStringList list = d->_msgstrPlural.first().split( '\n', QString::SkipEmptyParts );
+   QStringList list(d->_msgstrPlural.first().split('\n', QString::SkipEmptyParts ));
 
    if(d->_msgstrPlural.first()=="\n")
       list.prepend(QString());

@@ -47,12 +47,12 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
+#include <ktextbrowser.h>
 
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QAction>
 #include <QSplitter>
-#include <QTextBrowser>
 #include <QSignalMapper>
 #include <QTimer>
 
@@ -66,7 +66,7 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 //         , m_generalBrowser(new QWidget(this))
         , m_catalog(catalog)
         , m_splitter(new QSplitter(this))
-        , m_browser(new QTextBrowser(m_splitter))
+        , m_browser(new KTextBrowser(m_splitter))
 //         , m_boxLayout(new QHBoxLayout(m_generalBrowser))
 //         , m_flowLayout(new FlowLayout(FlowLayout::webquery,0,this,actions,0,10))
         , ui_queryControl(new Ui_QueryControl)

@@ -30,8 +30,9 @@
 
 **************************************************************************** */
 
-#include "glossary.h"
 #include "tbxparser.h"
+
+#include "glossary.h"
 #include "project.h"
 #include <kdebug.h>
 

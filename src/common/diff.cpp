@@ -411,7 +411,7 @@ QString wordDiff(const QString& str1,
 
     //QRegExp rxSplit("\\W+|\\d+");
     //i tried that but it failed:
-    QRegExp rxSplit("("+markup+"|\\W+|\\d+)+");
+    QRegExp rxSplit('('+markup+"|\\W+|\\d+)+");
 
     s1+=str1ForMatching.split(rxSplit,QString::SkipEmptyParts);
     s2+=str2ForMatching.split(rxSplit,QString::SkipEmptyParts);

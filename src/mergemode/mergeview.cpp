@@ -43,13 +43,13 @@
 #include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
+#include <ktextedit.h>
 
-#include <QTextEdit>
 #include <QDragEnterEvent>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Merge Diff"), parent)
-    , m_browser(new QTextEdit(this))
+    , m_browser(new KTextEdit(this))
     , m_baseCatalog(catalog)
     , m_mergeCatalog(0)
     , m_normTitle(i18nc("@title:window","Merge Diff"))

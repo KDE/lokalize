@@ -281,7 +281,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
             int i=_tabbar->count();
             if (_catalog->numberOfPluralForms()>_tabbar->count())
                 while (i<_catalog->numberOfPluralForms())
-                    _tabbar->addTab(i18n("Plural %1",++i));
+                    _tabbar->addTab(i18nc("@title:tab","Plural %1",++i));
             else
                 while (i>_catalog->numberOfPluralForms())
                     _tabbar->removeTab(i--);
