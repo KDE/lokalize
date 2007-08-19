@@ -64,7 +64,7 @@
 
 //  #include "global.h"
 
-
+#if 0 //let the prefs window live for other mainwindows
 void KAider::deleteUiSetupers()
 {
     delete ui_prefs_identity;
@@ -72,7 +72,7 @@ void KAider::deleteUiSetupers()
     delete ui_prefs_projectmain;
     delete ui_prefs_regexps;
 }
-
+#endif
 
 void KAider::optionsPreferences()
 {
@@ -83,10 +83,9 @@ void KAider::optionsPreferences()
     dialog->setFaceType(KPageDialog::List);
 
 // Identity
-    QWidget *w = new QWidget;
-    if (!ui_prefs_identity)
-        ui_prefs_identity = new Ui_prefs_identity;
-    ui_prefs_identity->setupUi(w);
+    QWidget *w = new QWidget(this);
+    Ui_prefs_identity ui_prefs_identity;
+    ui_prefs_identity.setupUi(w);
 
 
     Settings::self()->config()->setGroup("Identity");
@@ -96,22 +95,21 @@ void KAider::optionsPreferences()
     QStringList langlist = KGlobal::locale()->allLanguagesList();
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
-        ui_prefs_identity->DefaultLangCode->addItem(*it);
+        ui_prefs_identity.DefaultLangCode->addItem(*it);
         if (*it==val)
-            ui_prefs_identity->DefaultLangCode->setCurrentIndex(ui_prefs_identity->DefaultLangCode->count()-1);
+            ui_prefs_identity.DefaultLangCode->setCurrentIndex(ui_prefs_identity.DefaultLangCode->count()-1);
 
     }
 
-    connect(ui_prefs_identity->DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity->kcfg_DefaultLangCode,SLOT(setText(const QString&)));
-    ui_prefs_identity->kcfg_DefaultLangCode->hide();
+    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(const QString&)));
+    ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
     dialog->addPage(w, i18nc("@title:tab","Identity"), "identity_setting");
 
 //Font
-    w = new QWidget;
-    if (!ui_prefs_font)
-        ui_prefs_font = new Ui_prefs_font;
-    ui_prefs_font->setupUi(w);
+    w = new QWidget(this);
+    Ui_prefs_font ui_prefs_font;
+    ui_prefs_font.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Appearance"), "font_setting");
 
 
@@ -170,40 +168,39 @@ void KAider::projectConfigure()
 
 
 // Main
-    QWidget *w = new QWidget;
-    if (!ui_prefs_projectmain)
-        ui_prefs_projectmain = new Ui_prefs_projectmain;
-    ui_prefs_projectmain->setupUi(w);
-    ui_prefs_projectmain->kcfg_LangCode->hide();
-    ui_prefs_projectmain->kcfg_PoBaseDir->hide();
-    ui_prefs_projectmain->kcfg_PotBaseDir->hide();
-    ui_prefs_projectmain->kcfg_GlossaryTbx->hide();
+    QWidget *w = new QWidget(this);
+    Ui_prefs_projectmain ui_prefs_projectmain;
+    ui_prefs_projectmain.setupUi(w);
+    ui_prefs_projectmain.kcfg_LangCode->hide();
+    ui_prefs_projectmain.kcfg_PoBaseDir->hide();
+    ui_prefs_projectmain.kcfg_PotBaseDir->hide();
+    ui_prefs_projectmain.kcfg_GlossaryTbx->hide();
 
     QString val( _project->langCode());
     QStringList langlist = KGlobal::locale()->allLanguagesList();
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
-        ui_prefs_projectmain->LangCode->addItem(*it);
+        ui_prefs_projectmain.LangCode->addItem(*it);
         if (*it==val)
-            ui_prefs_projectmain->LangCode->setCurrentIndex(ui_prefs_projectmain->LangCode->count()-1);
+            ui_prefs_projectmain.LangCode->setCurrentIndex(ui_prefs_projectmain.LangCode->count()-1);
     }
 
-    ui_prefs_projectmain->poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    ui_prefs_projectmain->potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    ui_prefs_projectmain->glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-    ui_prefs_projectmain->glossaryTbx->setFilter("*.tbx\n*.xml");
+    ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain.glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain.glossaryTbx->setFilter("*.tbx\n*.xml");
 
-    connect(ui_prefs_projectmain->poBaseDir,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain->kcfg_PoBaseDir,SLOT(setText(const QString&)));
-    connect(ui_prefs_projectmain->potBaseDir,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain->kcfg_PotBaseDir,SLOT(setText(const QString&)));
-    connect(ui_prefs_projectmain->glossaryTbx,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain->kcfg_GlossaryTbx,SLOT(setText(const QString&)));
+    connect(ui_prefs_projectmain.poBaseDir,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain.kcfg_PoBaseDir,SLOT(setText(const QString&)));
+    connect(ui_prefs_projectmain.potBaseDir,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain.kcfg_PotBaseDir,SLOT(setText(const QString&)));
+    connect(ui_prefs_projectmain.glossaryTbx,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(const QString&)));
 
 
-    ui_prefs_projectmain->poBaseDir->setUrl(_project->poDir());
-    ui_prefs_projectmain->potBaseDir->setUrl(_project->potDir());
-    ui_prefs_projectmain->glossaryTbx->setUrl(_project->glossaryPath());
+    ui_prefs_projectmain.poBaseDir->setUrl(_project->poDir());
+    ui_prefs_projectmain.potBaseDir->setUrl(_project->potDir());
+    ui_prefs_projectmain.glossaryTbx->setUrl(_project->glossaryPath());
 
 
 
@@ -211,14 +208,13 @@ void KAider::projectConfigure()
 
 
     // RegExps
-    w = new QWidget;
-    if (!ui_prefs_regexps)
-        ui_prefs_regexps = new Ui_prefs_regexps;
-    ui_prefs_regexps->setupUi(w);
+    w = new QWidget(this);
+    Ui_prefs_regexps ui_prefs_regexps;
+    ui_prefs_regexps.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Syntax"), "syntax_project_setting");
 
     //WebQuery
-    w = new QWidget;
+    w = new QWidget(this);
     QGridLayout* gridLayout = new QGridLayout(w);
     gridLayout->setSpacing(6);
     gridLayout->setMargin(11);

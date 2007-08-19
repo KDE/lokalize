@@ -31,23 +31,17 @@
 **************************************************************************** */
 
 #include "projectview.h"
-#include "projectwindow.h"
 #include "projectwidget.h"
 
 #include "project.h"
 #include "catalog.h"
 
-
-
-
 #include <kdebug.h>
 #include <klocale.h>
 
-#include <QFile>
-//#include <QTimer>
+#include <QTimer>
 #include <QMenu>
-#include <QMouseEvent>
-
+#include <QContextMenuEvent>
 
 
 ProjectView::ProjectView(Catalog* catalog, QWidget* parent)

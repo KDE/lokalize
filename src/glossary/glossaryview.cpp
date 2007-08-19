@@ -204,10 +204,6 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
 void GlossaryView::defineNewTerm(QString en,QString target)
 {
     KDialog dialog;
-//     if (!ui_prefs_identity)
-//         ui_prefs_identity = new Ui_prefs_identity;
-//     ui_prefs_identity->setupUi(w);
-//     QWidget* w = new QWidget(&dialog);
     Ui_TermDialog ui_termdialog;
     ui_termdialog.setupUi(dialog.mainWidget());
 //     dialog.setMainWidget(w);

@@ -52,7 +52,8 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     setWidget(m_browser);
 
     //connect(catalog,SIGNAL(signalFileLoaded()),m_browser,SLOT(reset()));
-    connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
+    //connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
+    connect(parent,SIGNAL(signalFileClosed()),m_model,SIGNAL(modelReset()));
 
     //connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
     connect(m_browser,SIGNAL(clicked(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));

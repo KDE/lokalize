@@ -50,11 +50,6 @@
 
 #include "project.h"
 
-#include <QDir>
-#include <QDropEvent>
-#include <QPainter>
-#include <QTabBar>
-
 #include <kglobal.h>
 #include <klocale.h>
 #include <kicon.h>
@@ -77,6 +72,10 @@
 #include <kmessagebox.h>
 
 
+#include <QDir>
+#include <QDropEvent>
+#include <QPainter>
+#include <QTabBar>
 
 
 
@@ -87,20 +86,28 @@ KAider::KAider()
     , _project(Project::instance())
     , _catalog(new Catalog(this))
     , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
-    , _findDialog(0)
-    , _find(0)
-    , _replaceDialog(0)
-    , _replace(0)
+    , _currentEntry(0)
     , m_sonnetDialog(0)
     , _spellcheckStartUndoIndex(0)
     , _spellcheckStop(false)
     , m_updateView(true)
+    , m_doReplaceCalled(false)
+    , _findDialog(0)
+    , _find(0)
+    , _replaceDialog(0)
+    , _replace(0)
+    , m_searchFilesPos(-1)
+    , m_replaceFilesPos(-1)
+    , m_spellcheckFilesPos(0)
+    , m_progressDialog(0)
     , ui_findExtension(0)
     , ui_replaceExtension(0)
+/*
     , ui_prefs_identity(0)
     , ui_prefs_font(0)
     , ui_prefs_projectmain(0)
     , ui_prefs_regexps(0)
+*/
 //     , _projectView(0)
     , _mergeView(0)
 //     , _msgIdDiffView(0)
@@ -131,9 +138,9 @@ KAider::~KAider()
 
     delete ui_findExtension;
     delete ui_findExtension;
-    delete ui_prefs_identity;
-    delete ui_prefs_font;*/
-// ////NO NO NO: we're exiting anyway...
+*/
+
+    kWarning()<<"FINISH";
 }
 
 #define ID_STATUS_TOTAL 1
@@ -388,11 +395,11 @@ void KAider::createDockWindows()
     connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
-    CatalogTreeView* catalogTreeView = new CatalogTreeView(this,_catalog);
-    addDockWidget(Qt::LeftDockWidgetArea, catalogTreeView);
-    actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), catalogTreeView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),catalogTreeView,SLOT(slotNewEntryDisplayed(uint)));
-    connect (catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
+    m_catalogTreeView = new CatalogTreeView(this,_catalog);
+    addDockWidget(Qt::LeftDockWidgetArea, m_catalogTreeView);
+    actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (m_catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 
 
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
@@ -501,7 +508,7 @@ void KAider::createDockWindows()
     connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 }
 
-void KAider::fileOpen(KUrl url)
+bool KAider::fileOpen(KUrl url)
 {
     //kWarning()<<"-------------------"+url.path();
 
@@ -514,9 +521,10 @@ void KAider::fileOpen(KUrl url)
               )
         {
             case KMessageBox::Yes:
-                fileSave();
+                if (!fileSave())
+                    return false;
             case KMessageBox::Cancel:
-                return;
+                return false;
         }
     }
 
@@ -527,7 +535,7 @@ void KAider::fileOpen(KUrl url)
         url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation",this);
     else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
     {   //check if we are opening template
-        kWarning()<<"-------------------"+originalPath;
+        //kWarning()<<"-------------------"+originalPath;
         QString path(originalPath);
         path.replace(Project::instance()->poDir(),Project::instance()->potDir());
         if (QFile::exists(path))
@@ -539,7 +547,7 @@ void KAider::fileOpen(KUrl url)
         }
     }
     if (url.isEmpty())
-        return;
+        return false;
 
     if (_catalog->loadFromUrl(url))
     {
@@ -568,7 +576,7 @@ void KAider::fileOpen(KUrl url)
         if (!url.isLocalFile())
         {
             gotoEntry(pos);
-            return;
+            return true;
         }
 
         if (_project->isLoaded())
@@ -579,7 +587,7 @@ void KAider::fileOpen(KUrl url)
                                          );
             setCaption(_captionPath,false);
             gotoEntry(pos);
-            return;
+            return true;
         }
 //search for it
         int i=4;
@@ -606,11 +614,12 @@ void KAider::fileOpen(KUrl url)
 
 //OK!!!
         gotoEntry(pos);
+        return true;
     }
-    else
-        //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
 
+    //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+    KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+    return false;
 }
 
 bool KAider::fileSaveAs()
@@ -908,4 +917,3 @@ void KAider::defineNewTerm()
 
 
 
-#include "kaider.moc"

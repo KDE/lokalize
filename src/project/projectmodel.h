@@ -41,7 +41,7 @@
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>
 
-enum ModelColumns
+enum ProjectModelColumns
 {
     Graph = 1/*KDirModel::ColumnCount*/,
     Total,
@@ -98,10 +98,8 @@ public slots:
 
 
 inline
-int ProjectModel::columnCount(const QModelIndex& parent)const
+int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
 {
-    if (parent.isValid())
-        return KDirModel::columnCount(parent);
     return ProjectModelColumnCount;
 }
 

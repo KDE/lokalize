@@ -58,6 +58,8 @@ int main(int argc, char **argv)
 
     KCmdLineOptions options;
     options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
+    options.add("project <file>", ki18n( "Project file. "
+                                 "Opens Project Manager if no other URLs specified" ));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
 
@@ -74,15 +76,26 @@ int main(int argc, char **argv)
     {
         // no session.. just start up normally
         KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+
+        if (!args->getOption("project").isEmpty())
+        {
+            Project::instance()->load
+                        (args->getOption("project").toUtf8());
+        }
         if (args->count() == 0)
         {
-            //kaider *widget = new kaider;
-            widget->show();
+            if(Project::instance()->isLoaded())
+            {
+                Project::instance()->openProjectWindow();
+                delete widget;
+            }
+            else
+                widget->show();
         }
         else
         {
             widget->fileOpen(args->url(0));
-            if (args->isSet("merge-source"))
+            if (!args->getOption("merge-source").isEmpty())
                 widget->mergeOpen(KCmdLineArgs::makeURL(args->getOption("merge-source").toUtf8()));
 //             KUrl a(args->arg(0));
 //             QMetaObject::invokeMethod(widget,

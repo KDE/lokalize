@@ -30,8 +30,8 @@
 
 **************************************************************************** */
 
-#ifndef RPS_H
-#define RPS_H
+#ifndef RELPATHSAVER_H
+#define RELPATHSAVER_H
 
 #include <QLineEdit>
 

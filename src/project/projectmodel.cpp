@@ -61,24 +61,21 @@ ProjectModel::ProjectModel()
  */
 QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 {
+    const ProjectModelColumns& column=(ProjectModelColumns)index.column();
 
-    if (index.column()<Graph)
+    if (column<Graph)
         return KDirModel::data(index,role);
 
     if (role!=Qt::DisplayRole)
         return QVariant();
 //     kWarning()<<"+++++++++++++00";
-    KFileItem item = itemForIndex(index);
-
 //     kWarning()<<"+++++++++++++01";
+    KFileItem item(itemForIndex(index));
     //we handle dirs in special way for all columns left
     if (item.isDir())
     {
-        if (index.column()>=Graph&&index.column()<=Untranslated)
+        if (column>=Graph&&column<=Untranslated)
         {
-            // ok, this is somewhat HACKy
-            KFileMetaInfo metaInfo(item.metaInfo(false));
-
             int untranslated=0;
             int translated=0;
             int fuzzy=0;
@@ -95,6 +92,9 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                     return QRect(translated,untranslated,fuzzy,0);
             }
 #endif
+//still, we cache data because it might be needed for recursive stats
+            KFileMetaInfo metaInfo(item.metaInfo(false));
+
             //now we try to iterate through dir's children and get the sums
             //if the children are already have been scanned
 
@@ -102,7 +102,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             //if (parent.isValid()
             int i=0;
             bool infoIsFull=true;
-            QTime a;a.start();
+            //QTime a;a.start();
             for (;i<count;++i)
             {
 //                 QModelIndex childIndex(index.child(i,0));
@@ -115,7 +115,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 //             }
 
 //                 kWarning()<<"-----------1----"<<i;
-                const KFileMetaInfo childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
+                const KFileMetaInfo& childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
 
 //                 kWarning()<<"-----------1";
                 if (!childMetaInfo.item("translation.translated").value().isNull())
@@ -136,12 +136,14 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             {
 //                 kWarning()<<"-----------3";
 //                 KFileMetaInfo dirInfo(item->metaInfo(false));
+#if 1
                 metaInfo.item("translation.untranslated").setValue(untranslated);
                 metaInfo.item("translation.translated").setValue(translated);
                 metaInfo.item("translation.fuzzy").setValue(fuzzy);
                 item.setMetaInfo(metaInfo);
+#endif
 //                 kWarning()<<"-----------4";
-                switch(index.column())
+                switch(column)
                 {
                     case Graph:
                         return QRect(translated,untranslated,fuzzy,0);
@@ -153,9 +155,11 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                         return fuzzy;
                     case Untranslated:
                         return untranslated;
+                    default://shut up stupid compiler
+                        return 0;
                 }
             }
-            else if(index.column()==Graph)
+            else if(column==Graph)
                     return QRect(0,0,0,32);
 
         }
@@ -163,76 +167,49 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
         //TODO make smth cool
         return QVariant();
     }
-//     kWarning()<<"+++++++++++++03";
-    const KFileMetaInfo metaInfo(item.metaInfo(false));
-//     kWarning()<<"+++++++++++++04";
+    //ok, so item is no dir
+    const KFileMetaInfo& metaInfo(item.metaInfo(false));
 
-    switch(index.column())
+    static const char* columnToMetaInfoItem[ProjectModelColumnCount]={
+                                "",//KDirModel::Name
+                                "",//Graph = 1/*KDirModel::ColumnCount*/,
+                                "",//Total,
+                                "translation.translated",//Translated,
+                                "translation.fuzzy",//Fuzzy,
+                                "translation.untranslated",//Untranslated,
+                                "translation.source_date",//SourceDate,
+                                "translation.translation_date",//TranslationDate,
+                                "translation.last_translator"//LastTranslator,
+                                };
+/*    switch(index.column())
     {
         case Graph:
-        {
-                            //translation_date?
-//             kWarning()<<"-----------11";
-            if (metaInfo.item("translation.untranslated").value().isNull())
-                return QRect(0,0,0,32);
+        {*/
+    if (column>Total)
+    {
+        return metaInfo.item(
+                columnToMetaInfoItem[column]
+                            ).value();
+    }
+    else if (column==Graph)
+    {
+        if (metaInfo.item("translation.untranslated").value().isNull())
+            return QRect(0,0,0,32);
 
-            return QRect(metaInfo.item("translation.translated").value().toInt(),
-                         metaInfo.item("translation.untranslated").value().toInt(),
-                         metaInfo.item("translation.fuzzy").value().toInt(),
-                         0
-                        );
-        }
-        case Total:
-        {
-            if (metaInfo.item("translation.untranslated").value().isNull())
-                return QVariant();
+        return QRect(metaInfo.item("translation.translated").value().toInt(),
+                        metaInfo.item("translation.untranslated").value().toInt(),
+                        metaInfo.item("translation.fuzzy").value().toInt(),
+                        0
+                    );
+    }
+    else if (column==Total)
+    {
+        if (metaInfo.item("translation.untranslated").value().isNull())
+            return QVariant();
 
-            return metaInfo.item("translation.untranslated").value().toInt()
-                   +metaInfo.item("translation.translated").value().toInt()
-                   +metaInfo.item("translation.fuzzy").value().toInt();
-        }
-        case Translated:
-        {
-            if (metaInfo.item("translation.translated").value().isNull())
-                return QVariant();
-
-            return metaInfo.item("translation.translated").value();
-        }
-        case Fuzzy:
-        {
-            if (metaInfo.item("translation.fuzzy").value().isNull())
-                return QVariant();
-
-            return metaInfo.item("translation.fuzzy").value();
-        }
-        case Untranslated:
-        {
-            if (metaInfo.item("translation.untranslated").value().isNull())
-                return QVariant();
-
-            return metaInfo.item("translation.untranslated").value();
-        }
-        case SourceDate:
-        {
-            if (metaInfo.item("translation.source_date").value().isNull())
-                return QVariant();
-
-            return metaInfo.item("translation.source_date").value();
-        }
-        case TranslationDate:
-        {
-            if (metaInfo.item("translation.translation_date").value().isNull())
-                return QVariant();
-
-            return metaInfo.item("translation.translation_date").value();
-        }
-        case LastTranslator:
-        {
-            if (metaInfo.item("translation.last_translator").value().isNull())
-                return QVariant();
-
-            return metaInfo.item("translation.last_translator").value();
-        }
+        return metaInfo.item("translation.untranslated").value().toInt()
+                +metaInfo.item("translation.translated").value().toInt()
+                +metaInfo.item("translation.fuzzy").value().toInt();
     }
     return KDirModel::data(index,role);
 }
@@ -266,129 +243,6 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 
 }
 
-#if 0
-void ProjectModel::fetchMore(const QModelIndex& parent)
-{
-    KDirModel::fetchMore(parent);
-    if (parent.isValid())
-    {
-        QModelIndex graphIndex(
-                          index( parent.row(), Graph, KDirModel::parent(parent) )
-
-                          );
-        emit dataChanged(KDirModel::parent(parent),KDirModel::parent(parent));
-    }
-}
-#endif
-
-// void ProjectModel::forceScanning(const QModelIndex& parent)
-// {
-// //kapp->processEvents(QEventLoop::AllEvents, 50);
-// //we dare to check childs only when specially asked
-// kWarning()<<"fd 1";
-//     int count=KDirModel::rowCount( parent );
-//     if (!count)
-//         return;
-// kWarning()<<"fd 2";
-//     int i=0;
-//     int untranslated=0;
-//     int translated=0;
-//     int fuzzy=0;
-// //    QRect rect;
-//     for (;i<count;++i)
-//     {
-//         kWarning()<<"fd "<<i;
-//         QModelIndex index(parent.child(i,0));
-//         KFileItem* item(itemForIndex(index));
-//         //force population of metainfo. kfilemetainfo's internal is a shit
-//         if (item->metaInfo(false).keys().empty())
-//         {
-//             if(item->url().fileName().endsWith(".po"))
-//                 item->setMetaInfo(KFileMetaInfo( item->url() ));
-//             else if (hasChildren(index))
-//                 forceScanning(index);
-//         }
-// 
-//         KFileMetaInfo file(item->metaInfo(false));
-// 
-//         if (!file.item("translation.translated").value().isNull())
-//         {
-//             translated+=file.item("translation.translated").value().toInt();
-//             untranslated+=file.item("translation.untranslated").value().toInt();
-//             fuzzy+=file.item("translation.fuzzy").value().toInt();
-//         }
-//         //kWarning() << "dsfds d " << i;
-//     }
-//     if (untranslated+translated+fuzzy)
-//     {
-//         KFileMetaInfo dirInfo(itemForIndex(parent)->metaInfo(false));
-//         dirInfo.item("translation.untranslated").setValue(untranslated);
-//         dirInfo.item("translation.translated").setValue(translated);
-//         dirInfo.item("translation.fuzzy").setValue(fuzzy);
-//         itemForIndex(parent)->setMetaInfo(dirInfo);
-//     }
-// 
-//     kWarning()<<"s";
-//     emit dataChanged(parent,parent);
-// }
-
-
-#if 0
-int ProjectModel::rowCount(const QModelIndex& parent) const
-{
-//     fetchMore(parent);
-    int count= KDirModel::rowCount( parent );
-
-    if (parent.isValid()
-        &&itemForIndex(parent)->metaInfo(false).item("translation.untranslated").value().isNull()
-        &&(!canFetchMore(parent))
-       )
-    {
-        int i=0;
-        int untranslated=0;
-        int translated=0;
-        int fuzzy=0;
-        int infoIsFull=true;
-        for (;i<count;++i)
-        {
-            QModelIndex index(parent.child(i,0));
-            KFileItem* item(itemForIndex(index));
-            //force population of metainfo. kfilemetainfo's internal is a shit
-            if (item->metaInfo(false).keys().empty()
-            && item->url().fileName().endsWith(".po"))
-            {
-                item->setMetaInfo(KFileMetaInfo( item->url() ));
-            }
-
-            KFileMetaInfo file(item->metaInfo(false));
-
-            if (!file.item("translation.translated").value().isNull())
-            {
-                translated+=file.item("translation.translated").value().toInt();
-                untranslated+=file.item("translation.untranslated").value().toInt();
-                fuzzy+=file.item("translation.fuzzy").value().toInt();
-            }
-            else if (hasChildren(index))
-            {
-                //"inode/directory"
-                infoIsFull=false;
-//                 kWarning()<<"s " <<item->url().fileName();
-            }
-        }
-        if (infoIsFull&&(untranslated+translated+fuzzy))
-        {
-            KFileMetaInfo dirInfo(itemForIndex(parent)->metaInfo(false));
-            dirInfo.item("translation.untranslated").setValue(untranslated);
-            dirInfo.item("translation.translated").setValue(translated);
-            dirInfo.item("translation.fuzzy").setValue(fuzzy);
-            itemForIndex(parent)->setMetaInfo(dirInfo);
-        }
-
-    }
-    return count;
-}
-#endif
-
 
 
 ProjectLister::ProjectLister(QObject *parent)
@@ -416,7 +270,7 @@ ProjectLister::ProjectLister(QObject *parent)
 
     connect(this,SIGNAL(newItems(KFileItemList)),
             this, SLOT(slotNewItems(KFileItemList)));
-    connect(this,SIGNAL(slotRefreshTemplItems(KFileItemList)),
+    connect(this,SIGNAL(refreshItems(KFileItemList)),
             this, SLOT(slotNewItems(KFileItemList)));
 
 }
@@ -475,7 +329,7 @@ void ProjectLister::slotNewItems(KFileItemList list)
         {
             path.replace(Project::instance()->poDir(),Project::instance()->potDir());
 
-            QString potPath(path+"t");//.pot => .po
+            QString potPath(path+'t');//.pot => .po
             KFileItem* po(m_templates->findByUrl(KUrl::fromPath(potPath)));
             if (po)
             {
@@ -545,7 +399,7 @@ void ProjectLister::slotRefreshItems(KFileItemList list)
 
 void ProjectLister::clearTempl()
 {
-    kWarning()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+    //kWarning()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 }
 
 void ProjectLister::slotNewTemplItems(KFileItemList list)

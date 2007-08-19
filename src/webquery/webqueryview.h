@@ -73,7 +73,6 @@ public:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
-    //connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
 //     void populateWebQueryActions();
 //     void doQuery();
     void slotUseSuggestion(int i);

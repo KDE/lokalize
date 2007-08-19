@@ -141,7 +141,7 @@ void Catalog::clear()
     d->_fuzzyIndex.clear();
     d->_untransIndex.clear();
     d->_entries.clear();
-    d->_url=KUrl();
+    d->_url.clear();
     d->_obsoleteEntries.clear();
 /*
     d->msgidDiffList.clear();
@@ -304,7 +304,8 @@ bool Catalog::loadFromUrl(const KUrl& url)
 //             if (a)
 //             {
 //             }
-            emit signalFileLoaded();
+            //emit signalFileLoaded();
+            kWarning()<<"++++++++++++++++++++++++++++++++++++++"<<d->_header.msgstrAsList();
             return true;
         }
         //return status;
@@ -322,7 +323,7 @@ bool Catalog::saveToUrl(KUrl url)
     bool remote=false;
     KTemporaryFile tmpFile;
 
-    updateHeader();
+    updateHeader(true);
 
     GettextExportPlugin exporter(this);
     exporter.m_wrapWidth=maxLineLength();// this is kinda hackish...
@@ -447,8 +448,8 @@ int Catalog::findPrevInList(const QList<uint>& list,uint index) const
 
 void Catalog::updateHeader(bool forSaving)
 {
-    QStringList headerList=d->_header.msgstrAsList();
-    QStringList commentList = d->_header.comment().split( '\n', QString::SkipEmptyParts );
+    QStringList headerList(d->_header.msgstrAsList());
+    QStringList commentList(d->_header.comment().split('\n',QString::SkipEmptyParts));
 
     QStringList::Iterator it,ait;
     QString temp;
@@ -823,7 +824,7 @@ void Catalog::updateHeader(bool forSaving)
                 deleteItem = true;
             else if ( it->contains( regexpYearAlone ) )
             {
-                // We have found a year number that is preceeded by a comma.
+                // We have found a year number that is preceded by a comma.
                 // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
                 // Remove the entry
                 deleteItem = true;

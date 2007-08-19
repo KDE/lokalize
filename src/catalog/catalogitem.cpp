@@ -313,15 +313,20 @@ void CatalogItem::operator=(const CatalogItem& rhs)
 
 QStringList CatalogItem::msgstrAsList() const
 {
-   QStringList list(d->_msgstrPlural.first().split('\n', QString::SkipEmptyParts ));
+    if (d->_msgstrPlural.isEmpty())
+    {
+        kWarning()<<"This should never happen!";
+        return QStringList();
+    }
+    QStringList list(d->_msgstrPlural.first().split('\n', QString::SkipEmptyParts ));
 
-   if(d->_msgstrPlural.first()=="\n")
-      list.prepend(QString());
+    if(d->_msgstrPlural.first()=="\n")
+        list.prepend(QString());
 
-   if(list.isEmpty())
-      list.append(QString());
+    if(list.isEmpty())
+        list.append(QString());
 
-   return list;
+    return list;
 }
 
 

@@ -30,8 +30,8 @@
 
 **************************************************************************** */
 
-#ifndef RPS_H
-#define RPS_H
+#ifndef RELPATHLISTSAVER_H
+#define RELPATHLISTSAVER_H
 
 #include <keditlistbox.h>
 

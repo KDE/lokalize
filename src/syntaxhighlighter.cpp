@@ -35,7 +35,6 @@
 
 #include "project.h"
 
-#include <QtGui>
 #include <kdebug.h>
 
 #define STATE_NORMAL 0

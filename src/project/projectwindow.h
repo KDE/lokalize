@@ -37,6 +37,7 @@
 #include <kurl.h>
 
 class ProjectWidget;
+class QContextMenuEvent;
 /**
 	@author Nick Shaforostoff <shafff@ukr.net>
 */
@@ -45,13 +46,19 @@ class ProjectWindow : public KMainWindow
 Q_OBJECT
 public:
     ProjectWindow(QWidget *parent=0);
-
     ~ProjectWindow();
+
+    void contextMenuEvent(QContextMenuEvent *event);
+
 private:
     ProjectWidget* m_browser;
 
 public slots:
     void fileOpen(const KUrl&);
+
+    void findInFiles();
+    void replaceInFiles();
+    void spellcheckFiles();
 
 };
 

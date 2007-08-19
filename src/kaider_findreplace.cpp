@@ -32,6 +32,7 @@
 
 #include "kaider.h"
 #include "kaiderview.h"
+#include "cataloglistview.h"
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
@@ -39,19 +40,19 @@
 #include "ui_kaider_findextension.h"
 
 
-#include <QTimer>
-
 #include <kglobal.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
 
+#include <kprogressdialog.h>
 
 #include <kreplacedialog.h>
 #include <kreplace.h>
 
 #include <sonnet/backgroundchecker.h>
 
+#include <QTimer>
 
 
 //  #include "global.h"
@@ -62,14 +63,27 @@
 #define FIND_SKIPTAGS ui_findExtension->m_skipTags->isChecked()
 #define REPLACE_IGNOREACCELS ui_replaceExtension->m_ignoreAccelMarks->isChecked()
 
+void KAider::deleteUiSetupers()
+{
+    delete ui_findExtension;
+    delete ui_replaceExtension;
+}
 
 void KAider::find()
 {
+    /////
+    if (m_searchFilesPos!=-1)
+    {
+        //reset find in files state
+        m_searchFilesPos=-1;
+        m_searchFiles.clear();
+    }
+    /////
 
     if( !_findDialog )
     {
         _findDialog = new KFindDialog(this);
-        if( !ui_findExtension ) //actually, we dont need this check...
+        if( !ui_findExtension ) //actually, we don't need this check...
             ui_findExtension = new Ui_findExtension;
         ui_findExtension->setupUi(_findDialog->findExtension());
     }
@@ -114,27 +128,70 @@ void KAider::find()
 
     DocPosition pos;
     if (_find->options() & KFind::FromCursor)
-    {
         pos=_currentPos;
+    else
+        determineStartingPos(_find,m_searchFiles,m_searchFilesPos,pos);
+
+    findNext(pos);
+}
+
+void KAider::determineStartingPos(KFind* find,
+                                  const KUrl::List& filesList,//search or replace files
+                                  int& filesPos,
+                                  DocPosition& pos)
+{
+    if (find->options() & KFind::FindBackwards)
+    {
+        /////
+        if (!filesList.isEmpty())
+        {
+            filesPos=filesList.size()-1;
+            if (filesList.size()!=1)
+            {
+                m_updateView=false;
+            }
+            fileOpen(filesList.at(filesPos));
+            if (filesList.size()!=1)
+            {
+                m_updateView=true;
+            }
+        }
+        /////
+
+        pos.entry=_catalog->numberOfEntries()-1;
+        pos.form=
+                (_catalog->pluralFormType(pos.entry)==Gettext)?
+                _catalog->numberOfPluralForms()-1:0;
+
     }
     else
     {
-        if (_find->options() & KFind::FindBackwards)
+        /////
+        if (!filesList.isEmpty())
         {
-            pos.entry=_catalog->numberOfEntries()-1;
-            pos.form=
-                    (_catalog->pluralFormType(pos.entry)==Gettext)?
-                    _catalog->numberOfPluralForms()-1:0;
+            filesPos=0;
+            if (filesList.size()!=1)
+            {
+                m_updateView=false;
+            }
+            fileOpen(filesList.at(filesPos));
+            if (filesList.size()!=1)
+            {
+                m_updateView=true;
+            }
         }
-        else
-        {
-            pos.entry=0;
-            pos.form=0;
-        }
-    }
-    findNext(pos);
+        /////
 
+        pos.entry=0;
+        pos.form=0;
+
+    }
 }
+
+// void KAider::initProgressDia()
+// {
+//     
+// }
 
 void KAider::findNext(const DocPosition& startingPos)
 {
@@ -143,8 +200,32 @@ void KAider::findNext(const DocPosition& startingPos)
 
     if (anotherEntry)
         _searchingPos.offset=0;
-    QRegExp rx("[^(\\\\n)>]\n");
 
+    /////
+    if (!m_searchFiles.isEmpty()
+         &&m_searchFilesPos>=0
+         &&m_searchFilesPos<m_searchFiles.size())
+    {
+        m_catalogTreeView->setUpdatesEnabled(false);
+        //it is a qobject so it certainly will be deleted when needed
+        if (!m_progressDialog)
+        {
+            m_progressDialog=new KProgressDialog(this,
+                                         i18nc("@title:window","Scanning Files...")
+                                     //i18nc("@title:window","Searching in Files"),
+                                        );
+            m_progressDialog->setAllowCancel(false);
+            m_progressDialog->showCancelButton(false);
+        }
+        m_progressDialog->progressBar()->setRange(0,m_searchFiles.size()-1);
+        m_progressDialog->progressBar()->setValue(m_searchFilesPos);
+        m_progressDialog->show();
+    }
+    /////
+
+
+    QRegExp rx("[^(\\\\n)>]\n");
+    QTime a;a.start();
     //_searchingPos.part=Msgid;
     int flag=1;
 //     int offset=_searchingPos.offset;
@@ -152,7 +233,7 @@ void KAider::findNext(const DocPosition& startingPos)
     {
         flag=0;
         KFind::Result res = KFind::NoMatch;
-        while (1)
+        while (true)
         {
             if (_find->needData()||anotherEntry)
             {
@@ -191,47 +272,88 @@ void KAider::findNext(const DocPosition& startingPos)
 
         if (res==KFind::NoMatch)
         {
-            ////
-            bool tryRestart=true;
+            /////
             if (!m_searchFiles.isEmpty())
             {
-                if (m_searchFiles.size()!=1)
-                    m_updateView=false;
-                fileOpen(m_searchFiles.takeFirst());
-                m_updateView=true;
-                tryRestart=false;
-                QTimer::singleShot(0,this,SLOT(findNext()));
-            }
-            ////
-
-            if(tryRestart&&_find->shouldRestart(tryRestart,tryRestart))
-            {
-                flag=1;
+                bool end=false;
+                bool last=false;
                 if (_find->options() & KFind::FindBackwards)
                 {
-                    _searchingPos.entry=_catalog->numberOfEntries()-1;
-                    _searchingPos.form=
-                    (_catalog->pluralFormType(_searchingPos.entry)==Gettext)?
-                    _catalog->numberOfPluralForms()-1:0;
-
+                    end=(--m_searchFilesPos<0);
+                    last=(m_searchFilesPos==0);
                 }
                 else
                 {
-                    _searchingPos.entry=0;
-                    _searchingPos.form=0;
+                    end=(++m_searchFilesPos==m_searchFiles.size());
+                    last=(m_searchFilesPos==m_searchFiles.size()-1);
+                }
+                if (KDE_ISLIKELY(m_progressDialog))
+                    m_progressDialog->progressBar()->setValue(m_searchFilesPos);
+
+                if (KDE_ISLIKELY(!end))
+                {
+                    if (!last)
+                    {
+                        m_updateView=false;
+                    }
+                    fileOpen(m_searchFiles.at(m_searchFilesPos));
+                    if (_find->options() & KFind::FindBackwards)
+                    {
+                        DocPosition pos;
+                        pos.entry=_catalog->numberOfEntries()-1;
+                        pos.form=(_catalog->pluralFormType(pos.entry)==Gettext)?
+                            _catalog->numberOfPluralForms()-1:0;
+                        //_searchingPos=pos;
+                        gotoEntry(pos);
+                    }
+                    //flag=1;
+                    //determineStartingPos(_searchingPos);
+
+                    if (!last)
+                    {
+                        m_updateView=true;
+                    }
+                    //continue;
+                    QTimer::singleShot(0,this,SLOT(findNext()));
+                    //hideDia=false;
+                    return;
                 }
             }
-            if (tryRestart)
-                _find->resetCounts();
+            if(m_progressDialog)
+                m_progressDialog->hide();
+            /////
+
+            //file-wide search, or end of project-wide search
+            if(_find->shouldRestart(true,true))
+            {
+                flag=1;
+                determineStartingPos(_find,m_searchFiles,m_searchFilesPos,_searchingPos);
+            }
+            /////
+            else if (!m_searchFiles.isEmpty())
+            {
+                if (!isVisible())
+                {
+                    deleteLater();
+                }
+                m_searchFiles.clear();
+                m_searchFilesPos=-1;
+            }
+            /////
+            _find->resetCounts();
         }
     }
 
+    if(m_progressDialog)
+        m_progressDialog->hide();
+
+    m_catalogTreeView->setUpdatesEnabled(true);
+    kWarning()<<"++++++++++++++++++++++TIME"<<a.elapsed();
 }
 
 void KAider::findNext()
 {
     //kWarning()<<"pos"<<_currentPos.offset;
-
 
     if (_find)
         findNext(_currentPos);
@@ -257,6 +379,7 @@ void KAider::findPrev()
 
 void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
+    show();
 
     if (FIND_IGNOREACCELS)
     {
@@ -286,11 +409,21 @@ void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
 
 void KAider::replace()
 {
+    /////
+    if (m_replaceFilesPos!=-1)
+    {
+        //reset find in files state
+        m_replaceFilesPos=-1;
+        m_replaceFiles.clear();
+    }
+    /////
+
+
 
     if( !_replaceDialog )
     {
         _replaceDialog = new KReplaceDialog(this);
-        if( !ui_replaceExtension ) //we actually dont need this check...
+        if( !ui_replaceExtension ) //we actually don't need this check...
             ui_replaceExtension = new Ui_findExtension;
         ui_replaceExtension->setupUi(_replaceDialog->replaceExtension());
     }
@@ -339,31 +472,18 @@ void KAider::replace()
 //         _replace->setOptions(_replaceDialog->options());
 //     }
 
-    _catalog->beginMacro(i18nc("@item Undo action item","Replace"));
+    //_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
+    m_doReplaceCalled=false;
 
     if (_replace->options() & KFind::FromCursor)
     {
-//             kWarning() << "_currentPos " << _currentPos.entry;
         replaceNext(_currentPos);
-//              kWarning() << " ее  " << _currentPos.entry;
     }
     else
     {
         DocPosition pos;
-        if (_replace->options() & KFind::FindBackwards)
-        {
-            pos.entry=_catalog->numberOfEntries()-1;
-            pos.form=
-                    (_catalog->pluralFormType(pos.entry)==Gettext)?
-                    _catalog->numberOfPluralForms()-1:0;
-        }
-        else
-        {
-            pos.entry=0;
-            pos.form=0;
-        }
+        determineStartingPos(_replace,m_replaceFiles,m_replaceFilesPos,pos);
         replaceNext(pos);
-//         kWarning() << k_funcinfo << " NOT END";
     }
 
 //     kWarning() << k_funcinfo << "END";
@@ -372,18 +492,47 @@ void KAider::replace()
 
 void KAider::replaceNext(const DocPosition& startingPos)
 {
-
+    bool anotherEntry=_replacingPos.entry!=_replacingPos.entry;
     _replacingPos=startingPos;
+
+    if (anotherEntry)
+        _replacingPos.offset=0;
+
+    /////
+    if (!m_replaceFiles.isEmpty()
+         &&m_replaceFilesPos>=0
+         &&m_replaceFilesPos<m_replaceFiles.size())
+    {
+        m_catalogTreeView->setUpdatesEnabled(false);
+        //it is a qobject so it certainly will be deleted when needed
+        if (!m_progressDialog)
+        {
+            m_progressDialog=new KProgressDialog(this,
+                                         i18nc("@title:window","Scanning Files...")
+                                     //i18nc("@title:window","Searching in Files"),
+                                        );
+            m_progressDialog->setAllowCancel(false);
+            m_progressDialog->showCancelButton(false);
+        }
+        m_progressDialog->progressBar()->setRange(0,m_replaceFiles.size()-1);
+        m_progressDialog->progressBar()->setValue(m_replaceFilesPos);
+        m_progressDialog->show();
+    }
+    /////
+
+
     int flag=1;
 //     int offset=_replacingPos.offset;
     while (flag)
     {
         flag=0;
-        KFind::Result res = KFind::NoMatch;
+        KFind::Result res=KFind::NoMatch;
         while (1)
         {
-            if ( _replace->needData() )
+            if (_replace->needData()||anotherEntry)
             {
+                anotherEntry=false;
+
                 if (REPLACE_IGNOREACCELS)
                 {
                     QString data(_catalog->msgstr(_replacingPos));
@@ -408,47 +557,103 @@ void KAider::replaceNext(const DocPosition& startingPos)
 
         if (res==KFind::NoMatch)
         {
-            if((_replace->options() & KFind::FromCursor) && _replace->shouldRestart(true))
+            /////
+            if (!m_replaceFiles.isEmpty())
             {
-                flag=1;
+                bool end=false;
+                bool last=false;
                 if (_replace->options() & KFind::FindBackwards)
                 {
-                    _replacingPos.entry=_catalog->numberOfEntries()-1;
-                    _replacingPos.form=
-                    (_catalog->pluralFormType(_replacingPos.entry)==Gettext)?
-                    _catalog->numberOfPluralForms()-1:0;
+                    end=(--m_replaceFilesPos<0);
+                    last=(m_replaceFilesPos==0);
                 }
                 else
                 {
-                    _replacingPos.entry=0;
-                    _replacingPos.form=0;
+                    end=(++m_replaceFilesPos==m_replaceFiles.size());
+                    last=(m_replaceFilesPos==m_replaceFiles.size()-1);
                 }
+                if (KDE_ISLIKELY(m_progressDialog))
+                    m_progressDialog->progressBar()->setValue(m_replaceFilesPos);
+
+                if (KDE_ISLIKELY(!end))
+                {
+                    if (!last)
+                    {
+                        m_updateView=false;
+                    }
+                    fileOpen(m_replaceFiles.at(m_replaceFilesPos));
+                    if (_replace->options() & KFind::FindBackwards)
+                    {
+                        DocPosition pos;
+                        pos.entry=_catalog->numberOfEntries()-1;
+                        pos.form=(_catalog->pluralFormType(pos.entry)==Gettext)?
+                            _catalog->numberOfPluralForms()-1:0;
+                        //_searchingPos=pos;
+                        gotoEntry(pos);
+                    }
+                    //flag=1;
+                    //determineStartingPos(_searchingPos);
+
+                    if (!last)
+                    {
+                        m_updateView=true;
+                    }
+                    //continue;
+                    QTimer::singleShot(0,this,SLOT(replaceNext()));
+                    //hideDia=false;
+                    return;
+                }
+            }
+            if(m_progressDialog)
+                m_progressDialog->hide();
+            /////
+
+            if((_replace->options() & KFind::FromCursor) && _replace->shouldRestart(true))
+            {
+                flag=1;
+                determineStartingPos(_replace,m_replaceFiles,m_replaceFilesPos,_replacingPos);
             }
             else
             {
+                /////
+                if (!m_replaceFiles.isEmpty())
+                {
+                    m_replaceFiles.clear();
+                    m_replaceFilesPos=-1;
+                }
+                /////
 //HACK avoid crash
 //                 _replace->closeReplaceNextDialog();
 
                 if(!(_replace->options() & KFind::FromCursor))
                      _replace->displayFinalDialog();
 
-                _catalog->endMacro();
+                if(m_doReplaceCalled)
+                {
+                    m_doReplaceCalled=false;
+                    _catalog->endMacro();
+                }
             }
             _replace->resetCounts();
         }
     }
 
+    if(m_progressDialog)
+        m_progressDialog->hide();
+
+    m_catalogTreeView->setUpdatesEnabled(true);
 }
 
 void KAider::replaceNext()
 {
-
     replaceNext(_currentPos);
 //     kWarning() << k_funcinfo << "END";
 }
 
 void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
+    show();
+
     if (REPLACE_IGNOREACCELS)
     {
         QString data;
@@ -478,7 +683,12 @@ void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength
 
 void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 {
-    QString oldStr=_catalog->msgstr(_replacingPos);
+    if(!m_doReplaceCalled)
+    {
+        m_doReplaceCalled=true;
+        _catalog->beginMacro(i18nc("@item Undo action item","Replace"));
+    }
+    QString oldStr(_catalog->msgstr(_replacingPos));
 
     if (REPLACE_IGNOREACCELS)
     {
@@ -496,7 +706,7 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
             }
     }
 
-    QString tmp=oldStr.mid(offset,remLen);
+    QString tmp(oldStr.mid(offset,remLen));
 //     if (tmp==_replaceDialog->pattern())
 //         tmp=_replaceDialog->pattern();
     DocPosition pos=_replacingPos;
@@ -623,7 +833,10 @@ void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString
 void KAider::findInFiles(const KUrl::List& list)
 {
     m_searchFiles=list;
+    m_searchFilesPos=-1;
 
+#if 0
+this is nice, but too complex :)
     KUrl::List::iterator it(m_searchFiles.begin());
     while (it!=m_searchFiles.end())
     {
@@ -636,11 +849,31 @@ void KAider::findInFiles(const KUrl::List& list)
         m_searchFiles.erase(it);
     else if (!m_searchFiles.isEmpty())
         fileOpen(m_searchFiles.takeFirst());
+#endif
 
-    find();
+//     find();
+    QTimer::singleShot(0,this,SLOT(find()));
 }
 
 
+void KAider::replaceInFiles(const KUrl::List& list)
+{
+    m_replaceFiles=list;
+    m_replaceFilesPos=-1;
+
+//     replace();
+    QTimer::singleShot(0,this,SLOT(replace()));
+}
+
+
+void KAider::spellcheckFiles(const KUrl::List& list)
+{
+    m_spellcheckFiles=list;
+    m_spellcheckFilesPos=-1;
+
+//     spellcheck();
+    QTimer::singleShot(0,this,SLOT(spellcheck()));
+}
 
 
 

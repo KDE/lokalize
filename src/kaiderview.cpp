@@ -56,22 +56,22 @@
 class LedsWidget:public QWidget
 {
 public:
-    LedsWidget()
-    : QWidget()
+    LedsWidget(QWidget* parent)
+    : QWidget(parent)
 //     , _ledFuzzy(0)
 //     , _ledUntr(0)
 //     , _ledErr(0)
     {
         QHBoxLayout* layout=new QHBoxLayout(this);
         layout->addStretch();
-        layout->addWidget(new QLabel(i18nc("@label","Fuzzy:")));
+        layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:")));
         layout->addWidget(ledFuzzy=new KLed(Qt::darkGreen,KLed::Off,KLed::Sunken,KLed::Rectangular));
-        layout->addWidget(new QLabel(i18nc("@label","Untranslated:")));
+        layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
         layout->addWidget(ledUntr=new KLed(Qt::darkRed,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addStrut(ledFuzzy->minimumSizeHint().height());
     }
 
-//NOTE the config shit doesnt work
+//NOTE the config shit doesn't work
 // private:
 //     void contextMenuEvent(QContextMenuEvent* event)
 //     {
@@ -95,11 +95,13 @@ public:
 KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     : QSplitter(Qt::Vertical,parent)
     , _catalog(catalog)
-    , _msgidEdit(new ProperTextEdit)
-    , _msgstrEdit(new ProperTextEdit(parent))
+    , _msgidEdit(new ProperTextEdit(this))
+    , _msgstrEdit(new ProperTextEdit(this))
+    , m_msgidHighlighter(new SyntaxHighlighter(_msgidEdit->document()))
+    , m_msgstrHighlighter(new SyntaxHighlighter(_msgstrEdit->document()))
 /*    , m_msgidHighlighter(0)
     , m_msgstrHighlighter(0)*/
-    , _tabbar(new QTabBar)
+    , _tabbar(new QTabBar(this))
     , _leds(0)
     , _currentEntry(-1)
 
@@ -122,9 +124,6 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     _msgstrEdit->setAcceptRichText(false);
     _msgstrEdit->installEventFilter(this);
 
-    m_msgidHighlighter = new SyntaxHighlighter(_msgidEdit->document());
-    m_msgstrHighlighter = new SyntaxHighlighter(_msgstrEdit->document());
-
     addWidget(_tabbar);
     addWidget(_msgidEdit);
     addWidget(_msgstrEdit);
@@ -135,9 +134,11 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
 
 KAiderView::~KAiderView()
 {
+    /*
     delete _msgidEdit;
     delete _msgstrEdit;
     delete _tabbar;
+    */
 }
 
 // void KAiderView::setupWhatsThis()
@@ -218,7 +219,7 @@ void KAiderView::settingsChanged()
             _leds->show();
         else
         {
-            _leds=new LedsWidget;
+            _leds=new LedsWidget(this);
             if (_catalog->isFuzzy(_currentEntry))
                 _leds->ledFuzzy->on();
             if (_catalog->msgstr(_currentPos).isEmpty())
@@ -281,7 +282,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
             int i=_tabbar->count();
             if (_catalog->numberOfPluralForms()>_tabbar->count())
                 while (i<_catalog->numberOfPluralForms())
-                    _tabbar->addTab(i18nc("@title:tab","Plural %1",++i));
+                    _tabbar->addTab(i18nc("@title:tab","Plural Form %1",++i));
             else
                 while (i>_catalog->numberOfPluralForms())
                     _tabbar->removeTab(i--);

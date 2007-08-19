@@ -391,7 +391,7 @@ void TMView::slotUseSuggestion(int i)
                         newMarkup.append(diffClean.at(oldM.at(pos)+j));
                 }
 
-                //replace first occurence
+                //replace first ocurrence
                 int tmp=target.indexOf(rxMarkup.cap(0),replacingPos);
                 if (tmp!=-1)
                 {
@@ -581,7 +581,7 @@ nono
             }
             //kWarning()<<"old"<<cap<<"new"<<newMarkup;
 
-            //replace first occurence
+            //replace first ocurrence
             int tmp=target.indexOf(cap,replacingPos);
             if (tmp!=-1)
             {

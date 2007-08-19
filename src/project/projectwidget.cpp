@@ -231,6 +231,10 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     setAllColumnsShowFocus(true);
     //this is  HACK y
     setColumnWidth(0, columnWidth(0)*3);
+    setColumnWidth(Total, columnWidth(Total)/2);
+    setColumnWidth(Translated, columnWidth(Translated)/2);
+    setColumnWidth(Untranslated, columnWidth(Untranslated)/2);
+    setColumnWidth(Fuzzy, columnWidth(Fuzzy)/2);
     setColumnWidth(SourceDate, columnWidth(SourceDate)*2);
     setColumnWidth(TranslationDate, columnWidth(TranslationDate)*2);
 

@@ -47,6 +47,16 @@ class SelectJob;
 // #include "webquerythread.h"
 #include <threadweaver/Job.h>
 
+
+/**
+ * class to keep widgets that may be shared among MainWindows
+ */
+// class UiObjects
+// {
+//     
+// };
+
+
 /**
  * Singleton object that represents project.
  * It is shared between KAider 'mainwindows' that use the same project file.
@@ -124,6 +134,7 @@ private:
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
 };
+
 
 
 #endif

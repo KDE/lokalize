@@ -34,13 +34,18 @@
 #include "projectwidget.h"
 #include "kaider.h"
 
+#include <klocale.h>
+
+#include <QContextMenuEvent>
+#include <QMenu>
+
 ProjectWindow::ProjectWindow(QWidget *parent)
     : KMainWindow(parent)
     , m_browser(new ProjectWidget(this))
 
 {
     setCentralWidget(m_browser);
-    setAutoSaveSettings(QLatin1String("ProjectWindow"));
+    setAutoSaveSettings(QLatin1String("ProjectWindow"),true);
 
     connect(m_browser,SIGNAL(fileOpenRequested(const KUrl&)),
             this,SLOT(fileOpen(const KUrl&)));
@@ -56,5 +61,67 @@ void ProjectWindow::fileOpen(const KUrl& u)
     KAider* a=new KAider;
     a->show();
     a->fileOpen(u);
+}
+
+
+
+
+
+void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu menu;
+    QAction* open=0;
+    if (m_browser->currentIsCatalog())
+    {
+        open=menu.addAction(i18nc("@action:inmenu","Open"));
+        menu.addSeparator();
+    }
+    menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
+    menu.addAction(i18nc("@action:inmenu","Replace in files"),this,SLOT(replaceInFiles()));
+    menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,SLOT(spellcheckFiles()));
+    menu.addSeparator();
+//     menu.addAction(i18nc("@action:inmenu","Open project"),Project::instance(),SLOT(projectOpen()));
+//     menu.addAction(i18nc("@action:inmenu","Create new project"),Project::instance(),SLOT(projectCreate()));
+
+
+//     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
+//             )
+//     {
+//         menu.addSeparator();
+//         menu.addAction(i18n("Force Scanning"),this,SLOT(slotForceStats()));
+// 
+//     }
+
+
+    QAction* result=menu.exec(event->globalPos());
+    if (result)
+    {
+        if (result==open)
+            fileOpen(m_browser->currentItem());
+//         else if (result==findInFiles)
+//             emit findInFilesRequested(m_browser->selectedItems());
+    }
+
+}
+
+void ProjectWindow::findInFiles()
+{
+    KAider* a=new KAider;
+    a->findInFiles(m_browser->selectedItems());
+    //a->show();
+}
+
+void ProjectWindow::replaceInFiles()
+{
+    KAider* a=new KAider;
+    a->replaceInFiles(m_browser->selectedItems());
+    //a->show();
+}
+
+void ProjectWindow::spellcheckFiles()
+{
+    KAider* a=new KAider;
+    a->spellcheckFiles(m_browser->selectedItems());
+    //a->show();
 }
 
