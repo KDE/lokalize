@@ -90,8 +90,8 @@ class PoItemDelegate : public QItemDelegate//KFileItemDelegate
 public:
     PoItemDelegate(QObject *parent=0)
         : QItemDelegate(parent)
-    {};
-    ~PoItemDelegate(){};
+    {}
+    ~PoItemDelegate(){}
     void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
 signals:

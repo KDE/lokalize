@@ -284,6 +284,13 @@ bool ProjectLister::openUrl(const KUrl &_url, bool _keep, bool _reload)
     return true;
 }
 
+// bool ProjectLister::openUrlRecursive(const KUrl &_url, bool _keep, bool _reload)
+// {
+//     m_recursiveUrls.insert(_url.path(),true);
+// 
+//     return openUrl(_url,_keep,_reload);
+// }
+
 void ProjectLister::slotCompleted(const KUrl& _url)
 {
     kWarning()<<k_funcinfo<<_url;
@@ -295,7 +302,6 @@ void ProjectLister::slotCompleted(const KUrl& _url)
     if (path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty())
         return;
     path.replace(Project::instance()->poDir(),Project::instance()->potDir());
-//     kWarning()<<path;
     if (QFile::exists(path)&&!m_listedTemplDirs.contains(path))
     {
         if (m_templates->openUrl(KUrl::fromPath(path),true,true))
@@ -312,17 +318,25 @@ void ProjectLister::slotNewItems(KFileItemList list)
 
     //we don't wanna emit files if their folders are being removed too
     KFileItemList filesToRemove;
-
     int i=list.size();
     while(--i>=0)
     {
         QString path(list.at(i)->url().path());
-        //force population of metainfo. kfilemetainfo's internal is a shit
-        if (list.at(i)->metaInfo(false).keys().empty()
-            && path.endsWith(".po"))
+        if (path.endsWith(".po"))
         {
-            list.at(i)->setMetaInfo(KFileMetaInfo( list.at(i)->url() ));
+            //force population of metainfo. kfilemetainfo's internal is a shit
+            if (list.at(i)->metaInfo(false).keys().empty())
+                list.at(i)->setMetaInfo(KFileMetaInfo( list.at(i)->url() ));
         }
+//         else
+//         {
+//             KUrl u(list.at(i)->url().upUrl());
+//             u.adjustPath(KUrl::RemoveTrailingSlash);
+//             if (m_recursiveUrls.contains(u.path()))
+//                 openUrlRecursive(u,true,false);
+//             else
+//                 kWarning()<<" shit shit shit";
+//         }
 
         //remove template entries
         if (!(path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty()))
@@ -347,9 +361,7 @@ void ProjectLister::slotNewItems(KFileItemList list)
             }
             else if ((po=m_templates->findByUrl(KUrl::fromPath(path))))
             {
-                //dirsToRemove.append(po);
-                //kWarning()<<"dir"<<po->url();
-                m_removedItems.insert(po);
+                m_removedItems.append(po);
                 emit deleteItem(m_items.value(po));
                 delete m_items.value(po);
                 m_items.erase(m_items.find(po));
@@ -358,11 +370,12 @@ void ProjectLister::slotNewItems(KFileItemList list)
         }
     }
 
+    //find files of dirs being removed
     m_reactOnSignals=false;
     i=filesToRemove.size();
     while(--i>=0)
     {
-        QSet<KFileItem*>::const_iterator it = m_removedItems.constBegin();
+        QList<KFileItem*>::const_iterator it = m_removedItems.constBegin();
         while (it != m_removedItems.constEnd())
         {
             if ((*it)->url().isParentOf(filesToRemove.at(i)->url()));
@@ -372,7 +385,7 @@ void ProjectLister::slotNewItems(KFileItemList list)
 
         if (it == m_removedItems.constEnd())
         {
-            m_removedItems.insert(filesToRemove.at(i));
+            m_removedItems.append(filesToRemove.at(i));
             emit deleteItem(m_items.value(filesToRemove.at(i)));
             delete m_items.value(filesToRemove.at(i));
             m_items.erase(m_items.find(filesToRemove.at(i)));
@@ -436,7 +449,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list)
 //                 }
 
                 //delete list.at(i);
-                m_removedItems.insert(list.at(i));
+                m_removedItems.append(list.at(i));
                 list.removeAt(i);
             }
             else
@@ -451,7 +464,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list)
         }
         else
         {
-            m_removedItems.insert(list.at(i));
+            m_removedItems.append(list.at(i));
             list.removeAt(i);
         }
     }

@@ -36,8 +36,10 @@
 #include <kdirmodel.h>
 #include <kdirlister.h>
 #include <QDir>
-#include <QSet>
+#include <QHash>
+#include <QList>
 #include <QMap>
+
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>
 
@@ -128,10 +130,11 @@ public:
 
 public:
     /**
-     * luckily, KDirModel doesnt rely on completed() signal
+     * made in assuption that KDirModel doesnt rely on completed() signal!
+     * otherwise, would probably use qtimer::singleshot()
      */
     bool openUrl(const KUrl&,bool _keep=false,bool _reload=false);
-
+    bool openUrlRecursive(const KUrl&,bool _keep=false,bool _reload=false);
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
 
 public slots:
@@ -152,11 +155,13 @@ public slots:
 
 private:
     KDirLister* m_templates;
-    QSet<KFileItem*> m_removedItems;
+    QList<KFileItem*> m_removedItems;
 
     //we need to store deep copies because things get fucked up on refresh otherwise
     //lister's item => our item
     QMap<KFileItem*,KFileItem*> m_items;
+
+    //QHash<QString,bool> m_recursiveUrls;
 
     //HACKs
     bool m_reactOnSignals;

@@ -160,7 +160,7 @@ void Catalog::clear()
 const QString& Catalog::msgid(uint index, const uint form, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY( d->_entries.isEmpty() ))
-        return d->_emptyStr;
+        return d->CatalogPrivate::_emptyStr;
 
    return d->_entries.at(index).msgid(form,noNewlines);
 }
@@ -168,7 +168,7 @@ const QString& Catalog::msgid(uint index, const uint form, const bool noNewlines
 const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY( d->_entries.isEmpty() ))
-        return d->_emptyStr;
+        return d->CatalogPrivate::_emptyStr;
 
    return d->_entries.at(pos.entry).msgid(pos.form,noNewlines);
 }
@@ -176,7 +176,7 @@ const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) con
 const QString& Catalog::msgstr(uint index, const uint form, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
-        return d->_emptyStr;
+        return d->CatalogPrivate::_emptyStr;
 
    return d->_entries.at(index).msgstr(form, noNewlines);
 }
@@ -184,7 +184,7 @@ const QString& Catalog::msgstr(uint index, const uint form, const bool noNewline
 const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
-        return d->_emptyStr;
+        return d->CatalogPrivate::_emptyStr;
 
    return d->_entries.at(pos.entry).msgstr(pos.form, noNewlines);
 
@@ -193,7 +193,7 @@ const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) co
 const QString& Catalog::comment(uint index) const
 {
     if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
-        return d->_emptyStr;
+        return d->CatalogPrivate::_emptyStr;
 
    return d->_entries.at(index).comment();
 }
@@ -201,7 +201,7 @@ const QString& Catalog::comment(uint index) const
 const QString& Catalog::msgctxt(uint index) const
 {
     if (KDE_ISUNLIKELY(  d->_entries.isEmpty() ))
-        return d->_emptyStr;
+        return d->CatalogPrivate::_emptyStr;
 
     return d->_entries.at(index).msgctxt();
 }

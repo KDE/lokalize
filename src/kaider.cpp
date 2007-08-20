@@ -102,12 +102,6 @@ KAider::KAider()
     , m_progressDialog(0)
     , ui_findExtension(0)
     , ui_replaceExtension(0)
-/*
-    , ui_prefs_identity(0)
-    , ui_prefs_font(0)
-    , ui_prefs_projectmain(0)
-    , ui_prefs_regexps(0)
-*/
 //     , _projectView(0)
     , _mergeView(0)
 //     , _msgIdDiffView(0)

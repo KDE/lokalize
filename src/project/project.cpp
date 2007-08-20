@@ -204,6 +204,15 @@ void Project::populateDirModel()
     {
         //static_cast<ProjectLister*>(m_model->dirLister())->setBaseAndTempl(a,potDir());
         m_model->dirLister()->openUrl(a);
+        m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages"),
+                true,
+                false
+                                     );
+        m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdeadmin"),
+                true,
+                false
+                                     );
+
     }
 }
 #if 0

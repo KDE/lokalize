@@ -49,19 +49,5 @@ public slots:
 };
 
 
-/*
-#include <keditlistbox.h>
-
-class RelPathListSaver: public QListView
-{
-public:
-    RelPathListSaver(const QString &title, const CustomEditor &customEditor, QWidget *parent=0, const char *name=0, bool checkAtEntering=false, Buttons buttons=All)
-    : KEditListBox(title,customEditor,parent,name,checkAtEntering,buttons)
-    {}
-    QStringList items()const{return QStringList("deddd");}
-    //KEditListBox::items
-};*/
-
-
 
 #endif

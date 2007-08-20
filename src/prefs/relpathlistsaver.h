@@ -43,9 +43,17 @@ class RelPathListSaver: public KEditListBox
 {
 Q_OBJECT
 public:
-    RelPathSaver(QWidget* p):QLineEdit(p){}
+    RelPathListSaver(QWidget* p):QLineEdit(p){}
 public slots:
     void setText ( const QString & );
 };
+
+void RelPathListSaver::setText (const QString& txt)
+{
+/*    kWarning () << "00002  " << KUrl::relativePath(Project::instance()->projectDir(),
+                       txt) << " -- "  << Project::instance()->projectDir() << " - " <<txt<< endl;*/
+    QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
+                       txt));
+}
 
 #endif

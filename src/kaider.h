@@ -61,12 +61,7 @@ class MergeCatalog;
 class GlossaryView;
 class CatalogTreeView;
 class Ui_findExtension;
-/*
-class Ui_prefs_identity;
-class Ui_prefs_font;
-class Ui_prefs_projectmain;
-class Ui_prefs_regexps;
-*/
+
 
 /**
  * This class serves as the main window for KAider
@@ -187,7 +182,7 @@ private:
 
     void findNext(const DocPosition& startingPos);
     void replaceNext(const DocPosition&);
-    void determineStartingPos(KFind*,//search or replace
+    bool determineStartingPos(KFind*,//search or replace
                               const KUrl::List&,//search or replace files
                               int&,//pos in KUrl::List
                               DocPosition&);//called from find() and findNext()
@@ -235,12 +230,6 @@ private:
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
-    /*
-    Ui_prefs_identity* ui_prefs_identity;
-    Ui_prefs_font* ui_prefs_font;
-    Ui_prefs_projectmain* ui_prefs_projectmain;
-    Ui_prefs_regexps* ui_prefs_regexps;
-    */
     KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
     KEditListBox* m_scriptsPrefWidget;
 

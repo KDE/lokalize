@@ -252,9 +252,10 @@ ProjectWidget::~ProjectWidget()
 
 void ProjectWidget::setCurrentItem(const KUrl& u)
 {
-    setCurrentIndex(m_proxyModel->mapFromSource(
-        Project::instance()->model()->indexForUrl(u))
-                       /*,true*/);
+    if (!u.isEmpty())
+        setCurrentIndex(m_proxyModel->mapFromSource(
+                Project::instance()->model()->indexForUrl(u))
+                                          /*,true*/);
 }
 
 KUrl ProjectWidget::currentItem() const
@@ -281,7 +282,30 @@ void ProjectWidget::slotItemActivated(const QModelIndex& idx)
                                     m_proxyModel->mapToSource(idx)
                                                           ).url());
 }
+/*
+static void openRecursive(ProjectLister* lister,
+                          const KUrlir& dir)
+{
+    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
+    int i=subDirs.size();
+    while(--i>=0)
+        ok=scanRecursive(QDir(dir.filePath(subDirs.at(i))))||ok;
 
+    QStringList filters("*.po");
+    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
+    i=files.size();
+    while(--i>=0)
+    {
+        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))));
+        job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+        ok=true;
+    }
+
+    return ok;
+}
+*/
 KUrl::List ProjectWidget::selectedItems() const
 {
     KUrl::List list;
@@ -289,12 +313,22 @@ KUrl::List ProjectWidget::selectedItems() const
     int i=sel.size();
     while(--i>=0)
     {
-        const KUrl u(Project::instance()->model()->itemForIndex(
+        const KFileItem& item(Project::instance()->model()->itemForIndex(
                                     m_proxyModel->mapToSource(sel.at(i))
-                                                          ).url());
-        if (list.contains(u))
-            continue;
-        list.prepend(u);
+                                                                        ));
+        const KUrl& u(item.url());
+        if (item.isDir())
+        {
+            int count=Project::instance()->model()->rowCount(m_proxyModel->mapToSource(sel.at(i)));
+/*            if(!  )
+                Project::instance()->model()->dirLister()->openUrl(u);*/
+                //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true,false);
+                //openRecursive(m_model->dirLister(),QDir(u));
+            //index
+        }
+        else if (!list.contains(u))
+            list.prepend(u);
+
     }
     return list;
 }

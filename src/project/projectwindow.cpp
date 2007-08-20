@@ -122,6 +122,6 @@ void ProjectWindow::spellcheckFiles()
 {
     KAider* a=new KAider;
     a->spellcheckFiles(m_browser->selectedItems());
-    //a->show();
+    a->show();
 }
 

@@ -75,20 +75,16 @@ public:
 
     QTextCodec *fileCodec;
 
-    QStringList msgidDiffList;
-
-    int _numberOfPluralForms;
     QString _language;
     QString _langCode;
     QString _emptyStr;
 
+    int _numberOfPluralForms:8;
     //for wrapping
-    short _maxLineLength;
+    short _maxLineLength:16;
 
-    bool _readOnly;
-    bool _generatedFromDocbook;
-    bool _active;
-    bool _stop;
+    bool _generatedFromDocbook:4;
+    bool _readOnly:4;
 
     QList<uint> _fuzzyIndex;
     QList<uint> _untransIndex;
@@ -102,16 +98,12 @@ public:
     DocPosition _posBuffer;
 
 
-   explicit CatalogPrivate(/*Project::Ptr project*/) : 
-	//_packageName( QString::null ), _packageDir( QString::null ),
-	//_header (project), 
-	_mimeTypes( "text/plain" ),
-	fileCodec(0),
-	_numberOfPluralForms(-1),
-	_readOnly(false), 
-	_generatedFromDocbook(false), 
-	_active(false), 
-	_stop(false)
+   explicit CatalogPrivate(/*Project::Ptr project*/)
+           : _mimeTypes( "text/plain" )
+           , fileCodec(0)
+           , _numberOfPluralForms(-1)
+           , _generatedFromDocbook(false)
+           , _readOnly(false)
    {
    }
 };

@@ -44,13 +44,11 @@ set(kaider_SRCS
     project/projectview.cpp
     project/projectwindow.cpp
 
-
     prefs/relpathsaver.cpp
 
     webquery/webqueryview.cpp
     webquery/webquerycontroller.cpp
     webquery/myactioncollectionview.cpp
-#    webquery/webquerythread.cpp
 
     tm/tmview.cpp
     tm/jobs.cpp
