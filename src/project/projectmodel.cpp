@@ -293,7 +293,7 @@ bool ProjectLister::openUrl(const KUrl &_url, bool _keep, bool _reload)
 
 void ProjectLister::slotCompleted(const KUrl& _url)
 {
-    kWarning()<<k_funcinfo<<_url;
+    kWarning()<<_url;
 //     kWarning()<<"-";
 //     kWarning()<<"-";
 //     kWarning()<<_url;
@@ -314,7 +314,7 @@ void ProjectLister::slotNewItems(KFileItemList list)
 {
     if (!m_reactOnSignals)
         return;
-    kWarning()<<k_funcinfo;
+    kWarning();
 
     //we don't wanna emit files if their folders are being removed too
     KFileItemList filesToRemove;
@@ -417,7 +417,7 @@ void ProjectLister::clearTempl()
 
 void ProjectLister::slotNewTemplItems(KFileItemList list)
 {
-    kWarning()<<k_funcinfo;
+    kWarning();
     int i=list.size();
     while(--i>=0)
     {
@@ -468,19 +468,19 @@ void ProjectLister::slotNewTemplItems(KFileItemList list)
             list.removeAt(i);
         }
     }
-//     kWarning()<<"ddd"<<k_funcinfo;
+//     kWarning()<<"ddd";
     if (!list.isEmpty())
     {
         m_reactOnSignals=false;
         emit newItems(list);
         m_reactOnSignals=true;
     }
-//     kWarning()<<"end"<<k_funcinfo;
+//     kWarning()<<"end";
 }
 
 void ProjectLister::slotDeleteTemplItem(KFileItem* item)
 {
-    kWarning()<<k_funcinfo;
+    kWarning();
     if (!m_removedItems.contains(item)
        &&m_items.contains(item))
     {
@@ -495,7 +495,7 @@ void ProjectLister::slotDeleteTemplItem(KFileItem* item)
 
 void ProjectLister::slotRefreshTemplItems(KFileItemList list)
 {
-    kWarning()<<k_funcinfo;
+    kWarning();
     int i=list.size();
     while(--i>=0)
     {
@@ -508,14 +508,14 @@ void ProjectLister::slotRefreshTemplItems(KFileItemList list)
         }
     }
 
-//     kWarning()<<"ddd"<<k_funcinfo;
+//     kWarning()<<"ddd";
     if (!list.isEmpty())
     {
         m_reactOnSignals=false;
         emit refreshItems(list);
         m_reactOnSignals=true;
     }
-//     kWarning()<<"end"<<k_funcinfo;
+//     kWarning()<<"end";
 }
 
 

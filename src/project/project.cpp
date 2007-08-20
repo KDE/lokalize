@@ -160,7 +160,7 @@ QStringList Project::webQueryScripts() const
 
 void Project::populateWebQueryActions()
 {
-//     kWarning()<<k_funcinfo;
+//     kWarning();
     QStringList a(webQueryScripts());
     int i=0;
     while(i<a.size())

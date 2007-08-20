@@ -88,7 +88,7 @@ GettextImportPlugin::GettextImportPlugin(QObject* parent)
 
 ConversionStatus GettextImportPlugin::load(const QString& filename/*, bool tryToRecover*/, const QString&)
 {
-//   kDebug() << k_funcinfo;
+//   kDebug() ;
 _testBorked=false;
    if (KDE_ISUNLIKELY(filename.isEmpty()))
    {
@@ -273,15 +273,15 @@ _testBorked=false;
    if ( !counter )
    {
       // Empty file? (Otherwise, there would be a try of getting an entry and the count would be 1 !)
-      kDebug() << k_funcinfo << " Empty file?";
+      kDebug() << " Empty file?";
       return PARSE_ERROR;
    }
 
-   kDebug() << k_funcinfo << " ready";
+   kDebug() << " ready";
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-   kDebug() << k_funcinfo << " done in " << aaa.elapsed() << endl;
+   kDebug() << " done in " << aaa.elapsed() << endl;
 
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
@@ -292,17 +292,17 @@ _testBorked=false;
 
    if ( recoveredErrorInHeader )
    {
-      kDebug() << k_funcinfo << " Returning: header error";
+      kDebug() << " Returning: header error";
       return RECOVERED_HEADER_ERROR;
    }
    else if ( recoveredError )
    {
-      kDebug() << k_funcinfo << " Returning: recovered parse error";
+      kDebug() << " Returning: recovered parse error";
       return RECOVERED_PARSE_ERROR;
    }
    else
    {
-      kDebug() << k_funcinfo << " Returning: OK! :-)";
+      kDebug() << " Returning: OK! :-)";
       return OK;
    }
 }
@@ -376,7 +376,7 @@ ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
 
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 {
-   //kDebug() << k_funcinfo << " START";
+   //kDebug() << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
    //QString line;
@@ -820,7 +820,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    }
   */
 
-    //kDebug() << k_funcinfo << " NEAR RETURN";
+    //kDebug() << " NEAR RETURN";
     if(KDE_ISUNLIKELY(error))
         return PARSE_ERROR;
     else if(KDE_ISUNLIKELY(recoverableError))

@@ -543,7 +543,7 @@ void KAider::replace()
         replaceNext(pos);
     }
 
-//     kWarning() << k_funcinfo << "END";
+//     kWarning() << "END";
 }
 
 
@@ -711,7 +711,7 @@ void KAider::replaceNext(const DocPosition& startingPos)
 void KAider::replaceNext()
 {
     replaceNext(_currentPos);
-//     kWarning() << k_funcinfo << "END";
+//     kWarning() << "END";
 }
 
 void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength)
