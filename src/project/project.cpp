@@ -204,15 +204,17 @@ void Project::populateDirModel()
     {
         //static_cast<ProjectLister*>(m_model->dirLister())->setBaseAndTempl(a,potDir());
         m_model->dirLister()->openUrl(a);
+//#define HOME
+#ifdef HOME
         m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages"),
                 true,
                 false
                                      );
-        m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdeadmin"),
+        m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdeaddons"),
                 true,
                 false
                                      );
-
+#endif
     }
 }
 #if 0
@@ -277,15 +279,6 @@ int writeLine(int indent,const QByteArray& str,QFile& out)
     return indent;
 }
 #endif
-
-ProjectModel* Project::model()
-{
-    if (!m_model)
-        m_model=new ProjectModel;
-
-    return m_model;
-
-}
 
 
 void Project::deleteScanJob(ThreadWeaver::Job* job)

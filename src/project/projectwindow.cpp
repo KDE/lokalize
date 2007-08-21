@@ -80,6 +80,7 @@ void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
     menu.addAction(i18nc("@action:inmenu","Replace in files"),this,SLOT(replaceInFiles()));
     menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,SLOT(spellcheckFiles()));
     menu.addSeparator();
+    menu.addAction(i18nc("@action:inmenu","Scan selected directories"),m_browser,SLOT(expandItems()));
 //     menu.addAction(i18nc("@action:inmenu","Open project"),Project::instance(),SLOT(projectOpen()));
 //     menu.addAction(i18nc("@action:inmenu","Create new project"),Project::instance(),SLOT(projectCreate()));
 

@@ -53,16 +53,20 @@ public:
     ProjectWidget(/*Catalog*, */QWidget* parent);
     virtual ~ProjectWidget();
 
+    bool currentIsCatalog() const;
+
     void setCurrentItem(const KUrl&);
     KUrl currentItem() const;
     //KFileItem currentItem() const;
     KUrl::List selectedItems() const;
 
-    bool currentIsCatalog() const;
-
-
+/*
+protected:
+    void selectionChanged(const QItemSelection&,const QItemSelection&);
+*/
 public slots:
     void slotItemActivated(const QModelIndex&);
+    void expandItems();
     //void slotForceStats();
 
     //void showCurrentFile();

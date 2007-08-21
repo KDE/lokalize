@@ -36,6 +36,7 @@
 
 #include <QObject>
 #include "projectbase.h"
+#include "projectmodel.h"
 #include "jobs.h"
 
 class ProjectModel;
@@ -134,6 +135,16 @@ private:
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
 };
+
+inline
+ProjectModel* Project::model()
+{
+    if (KDE_ISUNLIKELY(!m_model))
+        m_model=new ProjectModel;
+
+    return m_model;
+}
+
 
 
 

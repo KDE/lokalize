@@ -134,7 +134,7 @@ public:
      * otherwise, would probably use qtimer::singleshot()
      */
     bool openUrl(const KUrl&,bool _keep=false,bool _reload=false);
-    bool openUrlRecursive(const KUrl&,bool _keep=false,bool _reload=false);
+    bool openUrlRecursive(const KUrl&,bool _keep=true,bool _reload=false);
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
 
 public slots:
@@ -142,6 +142,7 @@ public slots:
     void slotDeleteTemplItem(KFileItem*);
     void slotRefreshTemplItems(KFileItemList);
     void clearTempl();
+    void clearTempl(const KUrl&);
 
     void slotNewItems(KFileItemList);
     //TODO what if .po gets deleted and there is .pot left?
@@ -161,7 +162,7 @@ private:
     //lister's item => our item
     QMap<KFileItem*,KFileItem*> m_items;
 
-    //QHash<QString,bool> m_recursiveUrls;
+    QList<KUrl> m_recursiveUrls;
 
     //HACKs
     bool m_reactOnSignals;

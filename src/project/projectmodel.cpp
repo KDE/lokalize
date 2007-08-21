@@ -265,8 +265,12 @@ ProjectLister::ProjectLister(QObject *parent)
     connect(m_templates, SIGNAL(clear()),
             this, SLOT(clearTempl()));
 
+    connect(m_templates, SIGNAL(clear(const KUrl&)),
+            this, SLOT(clearTempl(const KUrl&)));
+
     connect(this, SIGNAL(completed(const KUrl&)),
-            this, SLOT(slotCompleted(const KUrl&)));
+            this, SLOT(slotCompleted(const KUrl&)),
+                       Qt::QueuedConnection);
 
     connect(this,SIGNAL(newItems(KFileItemList)),
             this, SLOT(slotNewItems(KFileItemList)));
@@ -284,12 +288,12 @@ bool ProjectLister::openUrl(const KUrl &_url, bool _keep, bool _reload)
     return true;
 }
 
-// bool ProjectLister::openUrlRecursive(const KUrl &_url, bool _keep, bool _reload)
-// {
-//     m_recursiveUrls.insert(_url.path(),true);
-// 
-//     return openUrl(_url,_keep,_reload);
-// }
+bool ProjectLister::openUrlRecursive(const KUrl &_url, bool _keep, bool _reload)
+{
+    m_recursiveUrls.append(_url);
+
+    return openUrl(_url,_keep,_reload);
+}
 
 void ProjectLister::slotCompleted(const KUrl& _url)
 {
@@ -307,9 +311,23 @@ void ProjectLister::slotCompleted(const KUrl& _url)
         if (m_templates->openUrl(KUrl::fromPath(path),true,true))
             m_listedTemplDirs.insert(path,true);
     }
+
+    int pos=0;
+    if ((pos=m_recursiveUrls.indexOf(_url))!=-1)
+    {
+        m_recursiveUrls.removeAt(pos);
+        const KFileItemList& list(itemsForDir(_url));
+        int i=list.size();
+        while(--i>=0)
+        {
+            if (list.at(i)->isDir())
+                openUrlRecursive(list.at(i)->url());
+        }
+
+    }
 }
 
-
+//there are limitations by levels
 void ProjectLister::slotNewItems(KFileItemList list)
 {
     if (!m_reactOnSignals)
@@ -321,7 +339,7 @@ void ProjectLister::slotNewItems(KFileItemList list)
     int i=list.size();
     while(--i>=0)
     {
-        QString path(list.at(i)->url().path());
+        QString path(list.at(i)->url().path(KUrl::RemoveTrailingSlash));
         if (path.endsWith(".po"))
         {
             //force population of metainfo. kfilemetainfo's internal is a shit
@@ -361,6 +379,8 @@ void ProjectLister::slotNewItems(KFileItemList list)
             }
             else if ((po=m_templates->findByUrl(KUrl::fromPath(path))))
             {
+                //dir
+
                 m_removedItems.append(po);
                 emit deleteItem(m_items.value(po));
                 delete m_items.value(po);
@@ -408,7 +428,10 @@ void ProjectLister::slotRefreshItems(KFileItemList list)
 
 
 
-
+void ProjectLister::clearTempl(const KUrl& u)
+{
+    
+}
 
 void ProjectLister::clearTempl()
 {
@@ -430,7 +453,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list)
         }
         list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
 
-        QString path(list.at(i)->url().path());
+        QString path(list.at(i)->url().path(KUrl::RemoveTrailingSlash));
         if (!(path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty()))
         {
             path.replace(Project::instance()->potDir(),Project::instance()->poDir());
@@ -455,6 +478,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list)
             else
             {
                 //NOTE this can probably leak, but we have only one instance per the process...
+                //AND there's a "*" to "&" change in kdelibs
                 KFileItem* a=new KFileItem(*list.at(i));
                 m_items.insert(list.at(i),a);
                 a->setUrl(KUrl::fromPath(path));
@@ -469,6 +493,12 @@ void ProjectLister::slotNewTemplItems(KFileItemList list)
         }
     }
 //     kWarning()<<"ddd";
+    i=list.size();
+    while(--i>=0)
+    {
+        kWarning()<<"going to emit:"<<list.at(i)->url();
+    }
+
     if (!list.isEmpty())
     {
         m_reactOnSignals=false;

@@ -306,9 +306,46 @@ static void openRecursive(ProjectLister* lister,
     return ok;
 }
 */
+static void recursiveAdd(KUrl::List& list,
+                         const QModelIndex& idx)
+{
+    const KFileItem& item(Project::instance()->model()->itemForIndex(idx));
+    if (item.isDir())
+    {
+        int j=Project::instance()->model()->rowCount(idx);
+        while (--j>=0)
+        {
+            const KFileItem& childItem(Project::instance()->model()->itemForIndex(
+                                                idx.child(j,0)
+                                                                                ));
+            if (childItem.isDir())
+                recursiveAdd(list,idx.child(j,0));
+            else
+                list.prepend(childItem.url());
+        }
+    }
+    else //if (!list.contains(u))
+        list.prepend(item.url());
+}
+
 KUrl::List ProjectWidget::selectedItems() const
 {
     KUrl::List list;
+    QModelIndexList sel(selectedIndexes());
+    int i=sel.size();
+    while(--i>=0)
+    {
+        if (sel.at(i).column()==0)
+            recursiveAdd(list,m_proxyModel->mapToSource(sel.at(i)));
+    }
+
+    i=list.size();
+    while(--i>=0)
+        kWarning()<<"'''''''''''"<<list.at(i);
+    return list;
+}
+void ProjectWidget::expandItems()
+{
     QModelIndexList sel(selectedIndexes());
     int i=sel.size();
     while(--i>=0)
@@ -320,19 +357,20 @@ KUrl::List ProjectWidget::selectedItems() const
         if (item.isDir())
         {
             int count=Project::instance()->model()->rowCount(m_proxyModel->mapToSource(sel.at(i)));
-/*            if(!  )
-                Project::instance()->model()->dirLister()->openUrl(u);*/
+            kWarning()
+                    <<"ssssss"
+                    <<count
+                    <<u;
+
+            if(! count )
+                static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true);
                 //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true,false);
                 //openRecursive(m_model->dirLister(),QDir(u));
             //index
         }
-        else if (!list.contains(u))
-            list.prepend(u);
 
     }
-    return list;
 }
-
 #if 0
 // void ProjectWidget::slotProjectLoaded()
 // {
