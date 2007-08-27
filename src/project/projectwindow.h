@@ -34,6 +34,7 @@
 #define PROJECTWINDOW_H
 
 #include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 #include <kurl.h>
 
 class ProjectWidget;
@@ -41,7 +42,7 @@ class QContextMenuEvent;
 /**
 	@author Nick Shaforostoff <shafff@ukr.net>
 */
-class ProjectWindow : public KMainWindow
+class ProjectWindow : public KXmlGuiWindow //KMainWindow
 {
 Q_OBJECT
 public:

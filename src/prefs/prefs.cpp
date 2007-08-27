@@ -30,14 +30,9 @@
 
 **************************************************************************** */
 
-#include "kaider.h"
-#include "kaiderview.h"
-#include "pos.h"
-#include "cmd.h"
-#include "catalog.h"
+#include "prefs.h"
 #include "prefs_kaider.h"
 #include "project.h"
-#include "projectview.h"
 
 #include "ui_prefs_identity.h"
 #include "ui_prefs_font.h"
@@ -51,39 +46,41 @@
 #include <klocale.h>
 #include <kicon.h>
 #include <kstatusbar.h>
-#include <kio/netaccess.h>
 #include <kdebug.h>
 
 #include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 
-#include <sonnet/configwidget.h>
+//#include <sonnet/configwidget.h>
 
-// #include <QListWidget>
+SettingsController* SettingsController::_instance=0;
 
-//  #include "global.h"
-
-#if 0 //let the prefs window live for other mainwindows
-void KAider::deleteUiSetupers()
+SettingsController* SettingsController::instance()
 {
-    delete ui_prefs_identity;
-    delete ui_prefs_font;
-    delete ui_prefs_projectmain;
-    delete ui_prefs_regexps;
-}
-#endif
+    if (_instance==0)
+        _instance=new SettingsController;
 
-void KAider::optionsPreferences()
+    return _instance;
+}
+
+SettingsController::SettingsController()
+    : QObject(Project::instance())
+{}
+
+SettingsController::~SettingsController()
+{}
+
+void SettingsController::slotSettings()
 {
     if (KConfigDialog::showDialog("kaider_settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(this, "kaider_settings", Settings::self());
+    KConfigDialog *dialog = new KConfigDialog(0, "kaider_settings", Settings::self());
     dialog->setFaceType(KPageDialog::List);
 
 // Identity
-    QWidget *w = new QWidget(this);
+    QWidget *w = new QWidget(dialog);
     Ui_prefs_identity ui_prefs_identity;
     ui_prefs_identity.setupUi(w);
 
@@ -92,7 +89,7 @@ void KAider::optionsPreferences()
     QString val( Settings::self()->config()->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()) );
 
     //QStringList langlist = KGlobal::locale()->languageList();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
-    QStringList langlist = KGlobal::locale()->allLanguagesList();
+    QStringList langlist (KGlobal::locale()->allLanguagesList());
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
         ui_prefs_identity.DefaultLangCode->addItem(*it);
@@ -107,11 +104,13 @@ void KAider::optionsPreferences()
     dialog->addPage(w, i18nc("@title:tab","Identity"), "identity_setting");
 
 //Font
-    w = new QWidget(this);
+    w = new QWidget(dialog);
     Ui_prefs_font ui_prefs_font;
     ui_prefs_font.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Appearance"), "font_setting");
 
+
+    connect(dialog,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(generalSettingsChanged()));
 
 //     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));
 
@@ -130,7 +129,7 @@ void KAider::optionsPreferences()
 
 
 
-    connect(dialog,SIGNAL(settingsChanged(const QString&)),m_view, SLOT(settingsChanged()));
+    //connect(dialog,SIGNAL(settingsChanged(const QString&)),m_view, SLOT(settingsChanged()));
 
     dialog->show();
 //    dialog->addPage(new General(0, "General"), i18n("General") );
@@ -143,32 +142,32 @@ void KAider::optionsPreferences()
 
 
 
-void KAider::projectCreate()
+void SettingsController::projectCreate()
 {
-    QString path=KFileDialog::getSaveFileName(_catalog->url().directory(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,this);
+    QString path(KFileDialog::getSaveFileName(KUrl(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,0));
     if (path.isEmpty())
         return;
 
     //TODO ask-n-save
 
-    _project->load(path);
-    _project->setDefaults();
+    Project::instance()->load(path);
+    Project::instance()->setDefaults();
     projectConfigure();
 
 }
 
 
-void KAider::projectConfigure()
+void SettingsController::projectConfigure()
 {
     if (KConfigDialog::showDialog("project_settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(this, "project_settings", Project::instance());
+    KConfigDialog *dialog = new KConfigDialog(0, "project_settings", Project::instance());
     dialog->setFaceType(KPageDialog::List);
 
 
 // Main
-    QWidget *w = new QWidget(this);
+    QWidget *w = new QWidget(dialog);
     Ui_prefs_projectmain ui_prefs_projectmain;
     ui_prefs_projectmain.setupUi(w);
     ui_prefs_projectmain.kcfg_LangCode->hide();
@@ -176,7 +175,7 @@ void KAider::projectConfigure()
     ui_prefs_projectmain.kcfg_PotBaseDir->hide();
     ui_prefs_projectmain.kcfg_GlossaryTbx->hide();
 
-    QString val( _project->langCode());
+    QString val( Project::instance()->langCode());
     QStringList langlist = KGlobal::locale()->allLanguagesList();
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
@@ -198,9 +197,9 @@ void KAider::projectConfigure()
             ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(const QString&)));
 
 
-    ui_prefs_projectmain.poBaseDir->setUrl(_project->poDir());
-    ui_prefs_projectmain.potBaseDir->setUrl(_project->potDir());
-    ui_prefs_projectmain.glossaryTbx->setUrl(_project->glossaryPath());
+    ui_prefs_projectmain.poBaseDir->setUrl(Project::instance()->poDir());
+    ui_prefs_projectmain.potBaseDir->setUrl(Project::instance()->potDir());
+    ui_prefs_projectmain.glossaryTbx->setUrl(Project::instance()->glossaryPath());
 
 
 
@@ -208,13 +207,13 @@ void KAider::projectConfigure()
 
 
     // RegExps
-    w = new QWidget(this);
+    w = new QWidget(dialog);
     Ui_prefs_regexps ui_prefs_regexps;
     ui_prefs_regexps.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Syntax"), "syntax_project_setting");
 
     //WebQuery
-    w = new QWidget(this);
+    w = new QWidget(dialog);
     QGridLayout* gridLayout = new QGridLayout(w);
     gridLayout->setSpacing(6);
     gridLayout->setMargin(11);
@@ -222,6 +221,7 @@ void KAider::projectConfigure()
     req->setPath(Project::instance()->projectDir());//for user's sake :)
     m_scriptsPrefWidget = new KEditListBox( i18nc("@label","Web Query Scripts"), req->customEditor(), w );
     gridLayout->addWidget(m_scriptsPrefWidget, 0, 0, 1, 1);
+
     m_scriptsRelPrefWidget = new KEditListBox(w);
     m_scriptsRelPrefWidget->setObjectName("kcfg_WebQueryScripts");
     m_scriptsRelPrefWidget->hide();
@@ -238,38 +238,46 @@ void KAider::projectConfigure()
     dialog->addPage(w, i18nc("@title:tab","Web Query"), "webquery_project_setting");
 
     m_scriptsPrefWidget->setItems(Project::instance()->webQueryScripts());
-    connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateGlossary()));
-    connect(dialog, SIGNAL(settingsChanged(QString)),_project, SLOT(populateDirModel()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
 
     dialog->show();
 }
 
-void KAider::reflectRelativePathsHack()
-{
-//     m_scriptsRelPrefWidget->clear();
-    QStringList actionz(m_scriptsPrefWidget->items());
-        kWarning() << actionz;
-    int i=0;
-    for(;i<actionz.size();++i)
-    {
-        actionz[i]=KUrl::relativePath(Project::instance()->projectDir(),
-                       actionz.at(i));
-    }
-    m_scriptsRelPrefWidget->setItems(actionz);
-
-//     Project::instance()->setWebQueryScripts(actionz);
-    kWarning() << Project::instance()->webQueryScripts();
-}
-
-//void KAider::projectOpen(KUrl url)
-void KAider::projectOpen(QString path)
+void SettingsController::projectOpen(QString path)
 {
     if (path.isEmpty())
-        path=KFileDialog::getOpenFileName(_catalog->url().directory(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,this);
+        path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
+                                          "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,
+                                          0);
     if (path.isEmpty())
         return;
 
-    _project->load(path);
+    Project::instance()->load(path);
 }
+
+void SettingsController::reflectRelativePathsHack()
+{
+    //m_scriptsRelPrefWidget->clear();
+    QStringList actionz(m_scriptsPrefWidget->items());
+    QString projectDir(Project::instance()->projectDir());
+    int i=actionz.size();
+    while(--i>=0)
+        actionz[i]=KUrl::relativePath(projectDir,actionz.at(i));
+    m_scriptsRelPrefWidget->setItems(actionz);
+
+    //Project::instance()->setWebQueryScripts(actionz);
+    //kWarning() << Project::instance()->webQueryScripts();
+}
+
+
+void RelPathSaver::setText (const QString& txt)
+{
+/*    kWarning () << "00002  " << KUrl::relativePath(Project::instance()->projectDir(),
+                       txt) << " -- "  << Project::instance()->projectDir() << " - " <<txt<< endl;*/
+    QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
+                       txt));
+}
+
 
 

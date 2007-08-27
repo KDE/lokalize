@@ -49,7 +49,6 @@ class KFind;
 class KReplaceDialog;
 class KReplace;
 class KToggleAction;
-class KEditListBox;
 class KProgressDialog;
 
 class Catalog;
@@ -72,7 +71,7 @@ class Ui_findExtension;
  * @author Nick Shaforostoff <shafff@ukr.net>
  * @version 0.1
  */
-class KAider : public KXmlGuiWindow
+class KAider: public KXmlGuiWindow
 {
     Q_OBJECT
 
@@ -115,7 +114,6 @@ private slots:
 
     bool fileSave(const KUrl& url = KUrl());
     bool fileSaveAs();
-    void optionsPreferences();
 
 
     void undo();
@@ -164,15 +162,10 @@ private slots:
     void gotoPrevBookmark();
 
 
-    //void projectOpen(KUrl url=KUrl());
-    void projectOpen(QString path=QString());
-    void projectCreate();
-    void projectConfigure();
     void newWindowOpen(const KUrl&);
 
     void defineNewTerm();
 
-    void reflectRelativePathsHack();
 
 private:
     void setupAccel();
@@ -230,9 +223,6 @@ private:
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
-    KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
-    KEditListBox* m_scriptsPrefWidget;
-
 //    ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
@@ -263,16 +253,11 @@ signals:
     void signalNextFuzzyOrUntrAvailable(bool);
 
     // merge mode signals gone to the view
-
     //NOTE move these to catalog tree view?
     void signalPriorBookmarkAvailable(bool);
     void signalNextBookmarkAvailable(bool);
     void signalBookmarkDisplayed(bool);
 
-//    QMenu *mm_viewsMenu;
-
-//    KToggleAction *m_toolbarAction;
-//    KToggleAction *m_statusbarAction;
 };
 
 #endif

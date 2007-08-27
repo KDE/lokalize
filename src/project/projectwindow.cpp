@@ -31,16 +31,20 @@
 **************************************************************************** */
 
 #include "projectwindow.h"
+#include "project.h"
 #include "projectwidget.h"
 #include "kaider.h"
 
 #include <klocale.h>
+#include <kactioncollection.h>
+#include <kxmlguifactory.h>
 
 #include <QContextMenuEvent>
 #include <QMenu>
 
 ProjectWindow::ProjectWindow(QWidget *parent)
-    : KMainWindow(parent)
+//    : KMainWindow(parent)
+    : KXmlGuiWindow(parent)
     , m_browser(new ProjectWidget(this))
 
 {
@@ -49,6 +53,16 @@ ProjectWindow::ProjectWindow(QWidget *parent)
 
     connect(m_browser,SIGNAL(fileOpenRequested(const KUrl&)),
             this,SLOT(fileOpen(const KUrl&)));
+
+    //setXMLFile("kaiderprojectui.rc");
+    setupGUI(/*ToolBar|*/Keys|Create,"projectmanagerui.rc");
+//     QMenu *m=static_cast<QMenu*>(guiFactory()->container("bookmarks",this));
+//     m->hide();
+
+    //createGUI();
+    //kWarning()<<"+++++++++++++++"<<actionCollection()->action("bookmarks");
+ //unplugActionList( "xxx_file_actionlist" );
+    plugActionList( "project_actions", Project::instance()->projectActions());
 
 }
 

@@ -35,6 +35,7 @@
 
 #include "project.h"
 #include "catalog.h"
+#include "prefs.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -47,7 +48,7 @@
 ProjectView::ProjectView(Catalog* catalog, QWidget* parent)
     : QDockWidget ( i18nc("@title:window","Project"), parent)
     , m_browser(new ProjectWidget(this))
-    , m_parent(parent)
+//    , m_parent(parent)
 //     , m_menu(new QMenu(m_browser))
     , m_catalog(catalog)
 {
@@ -83,9 +84,11 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
         menu.addSeparator();
     }
     QAction* findInFiles=menu.addAction(i18nc("@action:inmenu","Find in files"));
+    QAction* replaceInFiles=menu.addAction(i18nc("@action:inmenu","Replace in files"));
+    QAction* spellcheckFiles=menu.addAction(i18nc("@action:inmenu","Spellcheck files"));
     menu.addSeparator();
-    menu.addAction(i18nc("@action:inmenu","Open project"),m_parent,SLOT(projectOpen()));
-    menu.addAction(i18nc("@action:inmenu","Create new project"),m_parent,SLOT(projectCreate()));
+    menu.addAction(i18nc("@action:inmenu","Open project"),SettingsController::instance(),SLOT(projectOpen()));
+    menu.addAction(i18nc("@action:inmenu","Create new project"),SettingsController::instance(),SLOT(projectCreate()));
     menu.addAction(i18nc("@action:inmenu","Open stand-alone window"),Project::instance(),SLOT(openProjectWindow()));
 
 
@@ -94,7 +97,7 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
 //     {
 //         menu.addSeparator();
 //         menu.addAction(i18n("Force Scanning"),this,SLOT(slotForceStats()));
-// 
+//
 //     }
 
 
@@ -107,6 +110,10 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
             emit newWindowOpenRequested(m_browser->currentItem());
         else if (result==findInFiles)
             emit findInFilesRequested(m_browser->selectedItems());
+        else if (result==replaceInFiles)
+            emit replaceInFilesRequested(m_browser->selectedItems());
+        else if (result==spellcheckFiles)
+            emit spellcheckFilesRequested(m_browser->selectedItems());
 
     }
 }

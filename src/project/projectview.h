@@ -58,14 +58,17 @@ public slots:
 signals:
     void fileOpenRequested(KUrl);
     void newWindowOpenRequested(const KUrl&);
+
     void findInFilesRequested(const KUrl::List&);
+    void replaceInFilesRequested(const KUrl::List&);
+    void spellcheckFilesRequested(const KUrl::List&);
 
 // protected:
 //     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     ProjectWidget* m_browser;
-    QWidget* m_parent;
+//    QWidget* m_parent;
 
     Catalog* m_catalog;
 };

@@ -65,8 +65,6 @@ int main(int argc, char **argv)
 
     KApplication app;
 
-    KAider *widget = new KAider;
-
     // see if we are starting with session management
     if (app.isSessionRestored())
     {
@@ -87,13 +85,14 @@ int main(int argc, char **argv)
             if(Project::instance()->isLoaded())
             {
                 Project::instance()->openProjectWindow();
-                delete widget;
+                //delete widget;
             }
             else
-                widget->show();
+                (new KAider)->show();
         }
         else
         {
+            KAider *widget = new KAider;
             widget->fileOpen(args->url(0));
             if (!args->getOption("merge-source").isEmpty())
                 widget->mergeOpen(KCmdLineArgs::makeURL(args->getOption("merge-source").toUtf8()));

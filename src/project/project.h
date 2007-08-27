@@ -92,6 +92,8 @@ public:
 
     QStringList webQueryScripts() const;
 
+    const QList<QAction*>& projectActions();
+
 signals:
     void loaded();
 private:
@@ -134,6 +136,7 @@ private:
 //     QTime scanningTime;
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
+    QList<QAction*> m_projectActions;
 };
 
 inline
@@ -144,7 +147,6 @@ ProjectModel* Project::model()
 
     return m_model;
 }
-
 
 
 

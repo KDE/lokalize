@@ -35,6 +35,7 @@
 
 #include <kdirmodel.h>
 #include <kdirlister.h>
+#include <kicon.h>
 #include <QDir>
 #include <QHash>
 #include <QList>
@@ -96,6 +97,12 @@ public:
     //void forceScanning(const QModelIndex& parent=QModelIndex());
 public slots:
     void aa(){kWarning()<<"-----------------------------";}
+
+private:
+    KIcon m_dirIcon;
+    KIcon m_poIcon;
+    KIcon m_poComplIcon;
+    KIcon m_potIcon;
 };
 
 
@@ -138,16 +145,16 @@ public:
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
 
 public slots:
-    void slotNewTemplItems(KFileItemList);
-    void slotDeleteTemplItem(KFileItem*);
-    void slotRefreshTemplItems(KFileItemList);
+    void slotNewTemplItems(QList<KFileItem>);
+//    void slotNewTemplItems(const KFileItemList&);//to get metainfo
+    void slotDeleteTemplItem(const KFileItem&);
+    void slotRefreshTemplItems(QList<KFileItem>);
+//    void slotRefreshTemplItems(const KFileItemList&);
     void clearTempl();
     void clearTempl(const KUrl&);
 
-    void slotNewItems(KFileItemList);
-    //TODO what if .po gets deleted and there is .pot left?
-    //this is low priority :)
-//     void slotDeleteItem(KFileItem*);
+    void slotNewItems(const KFileItemList&);//including getting metainfo
+    void slotDeleteItem(const KFileItem&);
 //     void slotRefreshItems(KFileItemList);
 
     //void slotClear();
@@ -156,17 +163,17 @@ public slots:
 
 private:
     KDirLister* m_templates;
-    QList<KFileItem*> m_removedItems;
+    QList<KFileItem> m_hiddenTemplItems;
 
     //we need to store deep copies because things get fucked up on refresh otherwise
     //lister's item => our item
-    QMap<KFileItem*,KFileItem*> m_items;
+    //QMap<KFileItem,KFileItem> m_items;
 
     QList<KUrl> m_recursiveUrls;
 
     //HACKs
     bool m_reactOnSignals;
-    QHash<QString,bool> m_listedTemplDirs;
+    QHash<QString /*url.path()*/,bool> m_listedTemplDirs;
 };
 
 

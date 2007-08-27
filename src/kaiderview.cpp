@@ -69,7 +69,9 @@ public:
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
         layout->addWidget(ledUntr=new KLed(Qt::darkRed,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addStrut(ledFuzzy->minimumSizeHint().height());
+        setMaximumHeight(50);
     }
+    
 
 //NOTE the config shit doesn't work
 // private:
@@ -406,7 +408,7 @@ void KAiderView::toggleFuzzy(bool checked)
 
 void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 {
-//     kWarning()<<"fuzzy"<<_currentEntry<<fuzzy;
+    kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
     if (_currentEntry==-1)
         return;
 

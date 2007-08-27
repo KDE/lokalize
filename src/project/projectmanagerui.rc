@@ -1,6 +1,7 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="35">
+<kpartgui name="ProjectManager" version="37">
 <MenuBar>
+<!--
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
     <Action name="msgid2msgstr"/>
@@ -9,62 +10,12 @@
     <Action name="edit_tagmenu"/>
     <Menu name="glossary"><text>Glossary</text>
         <Action name="glossary_define"/>
-        <Separator/>
-        <Action name="glossary_insert_0"/>
-        <Action name="glossary_insert_1"/>
-        <Action name="glossary_insert_2"/>
-        <Action name="glossary_insert_3"/>
-        <Action name="glossary_insert_4"/>
-        <Action name="glossary_insert_5"/>
-        <Action name="glossary_insert_6"/>
-        <Action name="glossary_insert_7"/>
-        <Action name="glossary_insert_8"/>
-        <Action name="glossary_insert_9"/>
-        <Action name="glossary_insert_10"/>
-        <Action name="glossary_insert_11"/>
-        <Action name="glossary_insert_12"/>
-        <Action name="glossary_insert_13"/>
-        <Action name="glossary_insert_14"/>
-        <Action name="glossary_insert_15"/>
-        <Action name="glossary_insert_16"/>
-        <Action name="glossary_insert_17"/>
-        <Action name="glossary_insert_18"/>
-        <Action name="glossary_insert_19"/>
-        <Action name="glossary_insert_20"/>
     </Menu>
     <Menu name="webquery"><text>WebQuery</text>
         <Action name="webquery_do"/>
-        <Separator/>
-        <Action name="webquery_insert_0"/>
-        <Action name="webquery_insert_1"/>
-        <Action name="webquery_insert_2"/>
-        <Action name="webquery_insert_3"/>
-        <Action name="webquery_insert_4"/>
-        <Action name="webquery_insert_5"/>
-        <Action name="webquery_insert_6"/>
-        <Action name="webquery_insert_7"/>
-        <Action name="webquery_insert_8"/>
-        <Action name="webquery_insert_9"/>
-        <Action name="webquery_insert_10"/>
-        <Action name="webquery_insert_11"/>
-        <Action name="webquery_insert_12"/>
     </Menu>
     <Menu name="tmquery"><text>Translation Memory</text>
         <Action name="tmquery_do"/>
-        <Separator/>
-        <Action name="tmquery_insert_0"/>
-        <Action name="tmquery_insert_1"/>
-        <Action name="tmquery_insert_2"/>
-        <Action name="tmquery_insert_3"/>
-        <Action name="tmquery_insert_4"/>
-        <Action name="tmquery_insert_5"/>
-        <Action name="tmquery_insert_6"/>
-        <Action name="tmquery_insert_7"/>
-        <Action name="tmquery_insert_8"/>
-        <Action name="tmquery_insert_9"/>
-        <Action name="tmquery_insert_10"/>
-        <Action name="tmquery_insert_11"/>
-        <Action name="tmquery_insert_12"/>
     </Menu>
   </Menu>
   <Menu name="go_document"><text>&amp;Go</text>
@@ -80,6 +31,7 @@
     <Action name="go_prev_untrans"/>
     <Action name="go_next_untrans"/>
   </Menu>
+-->
   <Menu name="project"><text>Project</text>
     <ActionList name="project_actions" />
 <!--
@@ -89,6 +41,7 @@
     <Action name="project_create"/>
 -->
   </Menu>
+<!--
   <Menu name="merge"><text>Merge</text>
     <Action name="merge_open"/>
     <Separator/>
@@ -102,6 +55,7 @@
     <Action name="bookmark_prior"/>
     <Action name="bookmark_next"/>
   </Menu>
+
   <Menu name="settings"><text>&amp;Settings</text>
     <Menu name="toolviews"><text>Toolviews</text>
         <Action name="showmsgiddiff_action" />
@@ -114,5 +68,6 @@
         <Action name="showtmqueryview_action" />
     </Menu>
   </Menu>
+-->
 </MenuBar>
 </kpartgui>

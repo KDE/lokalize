@@ -49,6 +49,7 @@
 #include "tmview.h"
 
 #include "project.h"
+#include "prefs.h"
 
 #include <kglobal.h>
 #include <klocale.h>
@@ -111,10 +112,11 @@ KAider::KAider()
     setupStatusBar();
     createDockWindows(); //toolviews
     setupActions();
-    setAutoSaveSettings();
+    //setAutoSaveSettings();
 
     connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged()));
+    connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 }
 
@@ -187,7 +189,7 @@ void KAider::setupActions()
 
 
 //Settings
-    KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
+    KStandardAction::preferences(SettingsController::instance(), SLOT(slotSettings()), actionCollection());
 
 #define ADD_ACTION(_name,_text,_shortcut,_icon)\
     action = actionCollection()->addAction(_name);\
@@ -228,8 +230,9 @@ void KAider::setupActions()
     action->setCheckable(true);
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleFuzzy(bool)));
     connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
-    //connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
-    connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
+    //connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
+    connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)),Qt::QueuedConnection);
+    connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
     ADD_ACTION_SHORTCUT("msgid2msgstr","Copy Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
@@ -315,15 +318,17 @@ void KAider::setupActions()
     action->setText(i18nc("@action:inmenu","Next bookmark"));
     connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
+    /*
 //Project
-    action = actionCollection()->addAction("project_configure",this,SLOT(projectConfigure()));
+    action = actionCollection()->addAction("project_configure",SettingsController::instance(),SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
-    action = actionCollection()->addAction("project_open",this,SLOT(projectOpen()));
+    action = actionCollection()->addAction("project_open",SettingsController::instance(),SLOT(projectOpen()));
     action->setText(i18nc("@action:inmenu","Open project"));
 
-    action = actionCollection()->addAction("project_create",this,SLOT(projectCreate()));
+    action = actionCollection()->addAction("project_create",SettingsController::instance(),SLOT(projectCreate()));
     action->setText(i18nc("@action:inmenu","Create new project"));
+*/
 
 //MergeMode
     action = actionCollection()->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
@@ -349,7 +354,10 @@ void KAider::setupActions()
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
-    setupGUI();
+    setupGUI(Default,"kaiderui.rc");
+
+ //unplugActionList( "xxx_file_actionlist" );
+    plugActionList( "project_actions", Project::instance()->projectActions());
 }
 
 void KAider::newWindowOpen(const KUrl& url)
@@ -364,7 +372,7 @@ void KAider::createDockWindows()
     MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
 
     MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
@@ -378,6 +386,8 @@ void KAider::createDockWindows()
     connect(_projectView, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(_projectView, SIGNAL(newWindowOpenRequested(const KUrl&)), this, SLOT(newWindowOpen(const KUrl&)));
     connect(_projectView, SIGNAL(findInFilesRequested(const KUrl::List&)), this, SLOT(findInFiles(const KUrl::List&)));
+    connect(_projectView, SIGNAL(replaceInFilesRequested(const KUrl::List&)), this, SLOT(replaceInFiles(const KUrl::List&)));
+    connect(_projectView, SIGNAL(spellcheckFilesRequested(const KUrl::List&)), this, SLOT(spellcheckFiles(const KUrl::List&)));
 
     _mergeView = new MergeView(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
@@ -392,7 +402,7 @@ void KAider::createDockWindows()
     m_catalogTreeView = new CatalogTreeView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_catalogTreeView);
     actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
     connect (m_catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
 
 
@@ -422,7 +432,7 @@ void KAider::createDockWindows()
     WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
     actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
     connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
 
@@ -464,7 +474,7 @@ void KAider::createDockWindows()
     _glossaryView = new GlossaryView(this,_catalog,gactions);
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     actionCollection()->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
     connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
     gaction = actionCollection()->addAction("glossary_define",this,SLOT(defineNewTerm()));
@@ -497,7 +507,7 @@ void KAider::createDockWindows()
     TMView* _tmView = new TMView(this,_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
     connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
     connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 }
@@ -737,7 +747,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     {
         //still emit even if _currentEntry==pos.entry
         emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
-        msgStrChanged();
+//        msgStrChanged();
         statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
     }
 //     kWarning()<<"goto4: "<<pos.entry;
@@ -745,6 +755,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
 void KAider::msgStrChanged()
 {
+    kDebug();
     if (_catalog->isFuzzy(_currentEntry))
         statusBar()->changeItem(i18nc("@info:status","Fuzzy"),ID_STATUS_ISFUZZY);
     else if (_catalog->msgstr(_currentPos).isEmpty())

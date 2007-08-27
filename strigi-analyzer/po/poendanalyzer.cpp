@@ -18,11 +18,11 @@
  *
  */
 
-//qt include
 #include <QFile>
 #include <QByteArray>
 #include <QRegExp>
 #include <QString>
+#include <QTime>
 
 #define STRIGI_IMPORT_API
 #include <strigi/streamendanalyzer.h>
@@ -30,7 +30,7 @@
 #include <strigi/fieldtypes.h>
 #include <strigi/analysisresult.h>
 
-//#include <iostream>
+#include <iostream>
 
 using namespace std;
 using namespace Strigi;
@@ -108,6 +108,7 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     if (idx.extension()=="svn-base")
         return Ok;
 
+    QTime time;time.start();
     const char* array;
     int32_t n = in->read(array, in->size(), in->size());
     QByteArray tmp(QByteArray::fromRawData(array,n));
@@ -117,6 +118,8 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     const char* a =idx.path().c_str();
     a+=7;
 
+//     bool debug=QString(a).endsWith("kstars.po");
+//     cout<<"-----+----- "<<n<<" "<<debug<<endl;
     QFile f(a);
     if (in->size()==-1)
     {
@@ -124,8 +127,10 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
         if (!f.open(QIODevice::ReadOnly))
             return Error;
 
-        data = f.readAll();
+        data = f.readAll()+'\n';
     }
+    else
+        data+="\n\n\n";
 
 
     QString str(data.left(1024));
@@ -157,6 +162,7 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
 
     bool possiblyUntranslated=false;
     bool possiblyFuzzy=false;
+    bool plural=false;
     QByteArray line;
     cursor =data.indexOf('\n',cursor+1)+1;
     int end=data.indexOf('\n',cursor+1);
@@ -164,11 +170,28 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     {
         line=data.mid(cursor,end-cursor);
 
+/*        if (debug)
+            cout<<endl<<"line: "<<QString(line).toLocal8Bit().data()<<" ";*/
         if (possiblyUntranslated)
         {
             possiblyUntranslated=false;
-            if (!line.startsWith('\"'))
+            if (!line.startsWith('"'))
                 ++untranslated;
+
+            if (plural)
+            {
+                plural=false;
+                //fast forward to the next entry
+                do
+                {
+                    cursor=end+1;
+                    end=data.indexOf('\n',cursor);
+                    line=data.mid(cursor,end-cursor);
+                } while (line.startsWith("msgstr")||line.startsWith('"'));
+            }
+
+//             if (debug)
+//                 cout<<"++untranslated "/*<<endl*/;
         }
 
         if (possiblyFuzzy)
@@ -191,12 +214,21 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
             if (line.contains("fuzzy"))
                 possiblyFuzzy=true;
         }
-        else if (line.startsWith("msgstr \"\""))
-            possiblyUntranslated=true;
-
-        if (line.endsWith('\"'))
+        else if (line.startsWith("msgstr"))
         {
-            msg=line.mid(line.indexOf('\"')+1);
+            if (line.endsWith("\"\""))
+            {
+                possiblyUntranslated=true;
+                if (line.at(6)=='[')
+                    plural=true;
+            }
+        }
+//         else if (debug)
+//             cout<<"else"<<endl;
+
+        if (line.endsWith('"'))
+        {
+            msg=line.mid(line.indexOf('"')+1);
             msg.chop(1);
 
             idx.addText(msg.constData(),msg.length());
@@ -217,6 +249,8 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     idx.addValue( factory->poRevisionDateField,(const char*)poRevisionDate.toUtf8());
     idx.addValue( factory->potCreationDateField,(const char*)potCreationDate.toUtf8());
 
+    if (QString(a).endsWith("kstars.po"))
+        cout<<"!!!"<<endl<<"elapsed: "<<time.elapsed()<<endl;
 
     //in->reset(0);
     //return in;

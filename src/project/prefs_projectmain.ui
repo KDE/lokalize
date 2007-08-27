@@ -188,7 +188,7 @@
   <customwidget>
    <class>RelPathSaver</class>
    <extends>QLineEdit</extends>
-   <header>relpathsaver.h</header>
+   <header>prefs.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

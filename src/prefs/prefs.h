@@ -30,19 +30,55 @@
 
 **************************************************************************** */
 
-#include "relpathsaver.h"
-#include "project.h"
-#include <kurl.h>
-// #include <kdebug.h>
+#ifndef SETTINGSCONTROLLER_H
+#define SETTINGSCONTROLLER_H
 
-void RelPathSaver::setText (const QString& txt)
+#include <QLineEdit>
+class KEditListBox;
+
+class SettingsController: public QObject
 {
-/*    kWarning () << "00002  " << KUrl::relativePath(Project::instance()->projectDir(),
-                       txt) << " -- "  << Project::instance()->projectDir() << " - " <<txt<< endl;*/
-    QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
-                       txt));
-}
+    Q_OBJECT
+
+public:
+    SettingsController();
+    ~SettingsController();
+
+public slots:
+    void slotSettings();
+
+    void projectOpen(QString path=QString());
+    void projectCreate();
+    void projectConfigure();
+    void reflectRelativePathsHack();
+
+signals:
+    void generalSettingsChanged();
+
+private:
+    KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
+    KEditListBox* m_scriptsPrefWidget;
+
+private:
+    static SettingsController* _instance;
+public:
+    static SettingsController* instance();
+
+};
+
+/**
+ * helper widget to save relative paths in project file
+ * (so it could be published in svn)
+ */
+class RelPathSaver: public QLineEdit
+{
+Q_OBJECT
+public:
+    RelPathSaver(QWidget* p):QLineEdit(p){}
+public slots:
+    void setText ( const QString & );
+};
 
 
 
-#include "relpathsaver.moc"
+#endif

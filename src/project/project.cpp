@@ -33,6 +33,7 @@
 #include "project.h"
 #include "projectmodel.h"
 
+#include "prefs.h"
 #include "webquerycontroller.h"
 #include "glossary.h"
 #include "jobs.h"
@@ -42,6 +43,8 @@
 
 #include <QTimer>
 #include <QTime>
+#include <QAction>
+
 #include <kurl.h>
 #include <kdirlister.h>
 #include <kdebug.h>
@@ -204,6 +207,8 @@ void Project::populateDirModel()
     {
         //static_cast<ProjectLister*>(m_model->dirLister())->setBaseAndTempl(a,potDir());
         m_model->dirLister()->openUrl(a);
+
+//the following code leads to crash, because one shouldn't try to call subdirs of the folder that is being listed too.
 //#define HOME
 #ifdef HOME
         m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages"),
@@ -342,6 +347,26 @@ void Project::openProjectWindow()
 {
     ProjectWindow* a=new ProjectWindow;
     a->show();
+}
+
+const QList<QAction*>& Project::projectActions()
+{
+    if (m_projectActions.isEmpty())
+    {
+        SettingsController* sc=SettingsController::instance();
+        QAction* a=new QAction(i18nc("@action:inmenu","Configure project"),this);
+        connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectConfigure()));
+        m_projectActions.append(a);
+
+        a=new QAction(i18nc("@action:inmenu","Open project"),this);
+        connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectOpen()));
+        m_projectActions.append(a);
+
+        a=new QAction(i18nc("@action:inmenu","Create new project"),this);
+        connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectCreate()));
+        m_projectActions.append(a);
+    }
+    return m_projectActions;
 }
 
 

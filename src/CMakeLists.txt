@@ -19,7 +19,6 @@ set(kaider_SRCS
     main.cpp
     kaider.cpp
     kaider_findreplace.cpp
-    kaider_prefs.cpp
 
     kaiderview.cpp
     syntaxhighlighter.cpp
@@ -44,7 +43,7 @@ set(kaider_SRCS
     project/projectview.cpp
     project/projectwindow.cpp
 
-    prefs/relpathsaver.cpp
+    prefs/prefs.cpp
 
     webquery/webqueryview.cpp
     webquery/webquerycontroller.cpp
@@ -97,5 +96,6 @@ install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )
 install( FILES kaider.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/kaider.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES kaiderui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )
+install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )
 
 
