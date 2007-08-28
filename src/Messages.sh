@@ -11,3 +11,4 @@ $XGETTEXT *.cpp \
 	    tm/*.cpp \
 	    webquery/*.cpp \
 	    -o $podir/kaider.pot
+rm -f rc.cpp
