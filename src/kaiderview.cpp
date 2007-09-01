@@ -65,9 +65,9 @@ public:
         QHBoxLayout* layout=new QHBoxLayout(this);
         layout->addStretch();
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:")));
-        layout->addWidget(ledFuzzy=new KLed(Qt::darkGreen,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(ledFuzzy=new KLed(Qt::green,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
-        layout->addWidget(ledUntr=new KLed(Qt::darkRed,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(ledUntr=new KLed(Qt::red,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addStretch();
         setMaximumHeight(minimumSizeHint().height());
     }
