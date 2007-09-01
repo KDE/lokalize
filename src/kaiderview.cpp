@@ -68,8 +68,8 @@ public:
         layout->addWidget(ledFuzzy=new KLed(Qt::darkGreen,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
         layout->addWidget(ledUntr=new KLed(Qt::darkRed,KLed::Off,KLed::Sunken,KLed::Rectangular));
-        layout->addStrut(ledFuzzy->minimumSizeHint().height());
-        setMaximumHeight(50);
+        layout->addStretch();
+        setMaximumHeight(minimumSizeHint().height());
     }
     
 
