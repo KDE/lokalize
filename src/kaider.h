@@ -50,6 +50,7 @@ class KReplaceDialog;
 class KReplace;
 class KToggleAction;
 class KProgressDialog;
+class KRecentFilesAction;
 
 class Catalog;
 class KAiderView;
@@ -88,6 +89,7 @@ protected:
 
 public slots:
     bool fileOpen(KUrl url=KUrl());
+    void fileOpenRecent( const KUrl& );
     void gotoFirst();
     void gotoLast();
 
@@ -231,6 +233,8 @@ private:
 
 
     QString _captionPath;
+
+    KRecentFilesAction* _openRecentFile;
 
 signals:
     //emitted when mainwindow is closed or another file is opened

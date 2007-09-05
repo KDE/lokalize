@@ -66,6 +66,7 @@
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
+#include <krecentfilesaction.h>
 #include <kinputdialog.h>
 
 #include <kurl.h>
@@ -124,6 +125,9 @@ KAider::~KAider()
 {
     emit signalFileClosed();
     _project->save();
+    KConfig config;
+    KConfigGroup configGroup( &config, QString("RecentFiles") );
+    _openRecentFile->saveEntries( configGroup );
     deleteUiSetupers();
     //these are qobjects...
 /*    delete m_view;
@@ -179,7 +183,10 @@ void KAider::setupActions()
     QAction *action;
 // File
     KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
-
+    _openRecentFile = KStandardAction::openRecent(this, SLOT(fileOpenRecent(const KUrl&)), actionCollection());
+    KConfig config;
+    KConfigGroup configGroup( &config, QString("RecentFiles") );
+    _openRecentFile->loadEntries( configGroup );
     action = KStandardAction::save(this, SLOT(fileSave()), actionCollection());
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
@@ -564,6 +571,7 @@ bool KAider::fileOpen(KUrl url)
             _catalog->setUrl(url);
         }
 
+        _openRecentFile->addUrl( url );
         statusBar()->changeItem(i18nc("@info:status","Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
@@ -625,6 +633,11 @@ bool KAider::fileOpen(KUrl url)
     //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
     KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
     return false;
+}
+
+void KAider::fileOpenRecent( const KUrl& url )
+{
+    fileOpen( url );
 }
 
 bool KAider::fileSaveAs()
