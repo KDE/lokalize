@@ -1,31 +1,29 @@
-- text/x-gettext-translation-template
--polishing
-
-small:
--KAutoSaveFile ??
--bookmarks saving
--many small features that ease everyday life of translator
-    search: dont replace in tags
-
-
-templates:
--correctly set nplurals, etc
-
--projects (catalogmanager becomes projectmanager:)
--interaction between instances (dbus?)??
-
--Translation DB with automatic search on gotoEntry() (QtSql, ThreadWeaver/QThread)
-
-settings:
--configurable highlight regexps
-
-
-
-
+-edit: \"
+-autosaving(KAutoSaveFile ??)
+-projects: svn, filtering via script
+-interaction between instances (dbus)
+-settings: configurable highlight regexps
+-search: dont replace in tags
+-scripts on save, for source file opening
+-db: several, msgctxt
+-webquery: close langs
 
 -xliff
--...
+-integration with dictionary
 
-others say:
+small:
+-bookmarks saving
+
+-text/x-gettext-translation-template
+
+==general==
+-many small features that ease everyday life of translator
+-polishing
+
+
+==others say==
 - "click to translate" any word on the screen (any app)
-- ktranslator
+
+
+    ***
+see http://techbase.kde.org/Projects/Summer_of_Code/2007/Projects/KAider
