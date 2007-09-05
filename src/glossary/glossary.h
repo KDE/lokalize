@@ -35,6 +35,8 @@
 
 #include <QStringList>
 #include <QMultiHash>
+#include <QAbstractItemModel>
+#include <QList>
 
 /**
  * struct that contains types data we work with.
@@ -66,7 +68,7 @@ struct TermEntry
     {}
 
     TermEntry()
-    : subjectField(-1)
+    : subjectField(0)
     {}
 
     void clear()
@@ -74,7 +76,7 @@ struct TermEntry
         english.clear();
         target.clear();
         definition.clear();
-        subjectField=-1;
+        subjectField=0;
     }
 };
 
@@ -84,27 +86,148 @@ struct TermEntry
  * internal representation of glossary.
  * we store only data we need (i.e. only subset of TBX format)
  */
-struct Glossary
+class Glossary: public QObject
 {
-    QMultiHash<QString,int> wordHash;
+    Q_OBJECT
+
+public:
+    QMultiHash<QString,int> wordHash;//isn't used anymore
     QList<TermEntry> termList;
-    QStringList subjectFields;
+    QStringList subjectFields;//frist entry is always empty!
 
     QString path;
 
-    void load(const QString&);
-    void add(const TermEntry&);
-    void change(const TermEntry&);
+    //for delayed saving
+    QStringList addedIds;
+    QStringList changedIds;
+    QStringList removedIds;
 
+    Glossary(QObject* parent)
+     : QObject(parent)
+     , subjectFields(QStringList(QLatin1String("")))
+    {}
+
+    ~Glossary()
+    {}
 
     void clear()
     {
         wordHash.clear();
         termList.clear();
-        subjectFields.clear();
-        path.clear();
+        subjectFields=QStringList(QLatin1String(""));
+//        path.clear();
+        changedIds.clear();
+        removedIds.clear();
+        addedIds.clear();
     }
+
+    //saving to disk
+    void load(const QString&);
+    void save();
+
+    void add(const TermEntry&);
+    void change(const TermEntry&);
+
+    //in-memory changing
+    QString generateNewId();
+    void append(const QString& _english,const QString& _target);
+    void remove(int i);
+
+
+    void forceChangeSignal(){emit changed();}
+signals:
+    void changed();
 };
 
+
+
+/**
+ *	@author Nick Shaforostoff <shafff@ukr.net>
+ */
+class GlossaryModel: public QAbstractItemModel
+{
+    //Q_OBJECT
+public:
+
+    enum GlossaryModelColumns
+    {
+//         ID = 0,
+        English=0,
+        Target,
+        SubjectField,
+        GlossaryModelColumnCount
+    };
+
+    GlossaryModel(QObject* parent/*, Glossary* glossary*/);
+    ~GlossaryModel();
+
+    QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+    QModelIndex parent(const QModelIndex&) const;
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const;
+    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
+    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags(const QModelIndex&) const;
+
+    bool removeRows(int row,int count,const QModelIndex& parent=QModelIndex());
+    //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
+    bool appendRow(const QString& _english,const QString& _target);
+    void forceReset();
+
+// private:
+//     Glossary* m_glossary;
+//^ we take it from Project::instance()->glossary()
+};
+
+
+
+
+inline
+GlossaryModel::GlossaryModel(QObject* parent)
+ : QAbstractItemModel(parent)
+{
+}
+
+inline
+GlossaryModel::~GlossaryModel()
+{
+}
+
+inline
+QModelIndex GlossaryModel::index (int row,int column,const QModelIndex& /*parent*/) const
+{
+    return createIndex (row, column);
+}
+
+inline
+QModelIndex GlossaryModel::parent(const QModelIndex& /*index*/) const
+{
+    return QModelIndex();
+}
+
+inline
+int GlossaryModel::columnCount(const QModelIndex& parent) const
+{
+    if (parent.isValid())
+        return 0;
+    return GlossaryModelColumnCount;
+//     if (parent==QModelIndex())
+//         return CatalogModelColumnCount;
+//     return 0;
+}
+
+inline
+Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
+{
+/*    if (index.column()==FuzzyFlag)
+        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;*/
+    return QAbstractItemModel::flags(index);
+}
+
+inline
+void GlossaryModel::forceReset()
+{
+    emit reset();
+}
 
 #endif

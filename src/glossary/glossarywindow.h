@@ -30,76 +30,84 @@
 
 **************************************************************************** */
 
-#ifndef PROJECTWIDGET_H
-#define PROJECTWIDGET_H
+#ifndef GLOSSARYWINDOW_H
+#define GLOSSARYWINDOW_H
 
+#include <kmainwindow.h>
 #include <QTreeView>
-#include <QItemDelegate>
 
-#include <kurl.h>
+class GlossaryTreeView;
+class QTextEdit;
+class QComboBox;
+class QSortFilterProxyModel;
+class KLineEdit;
 
-class SortFilterProxyModel;
 
 /**
- * This class is considered a 'view',
- * and ProjectWindow + ProjectView are its controllers
- * the data is project-wide KDirModel based ProjectModel
- */
-class ProjectWidget: public QTreeView
-{
-    Q_OBJECT
-
-public:
-    ProjectWidget(/*Catalog*, */QWidget* parent);
-    virtual ~ProjectWidget();
-
-    bool currentIsCatalog() const;
-
-    void setCurrentItem(const KUrl&);
-    KUrl currentItem() const;
-    //KFileItem currentItem() const;
-    KUrl::List selectedItems() const;
-
-/*
-protected:
-    void selectionChanged(const QItemSelection&,const QItemSelection&);
+	@author Nick Shaforostoff <shafff@ukr.net>
 */
+class GlossaryWindow : public KMainWindow
+{
+Q_OBJECT
+public:
+    GlossaryWindow(QWidget *parent = 0);
+    ~GlossaryWindow();
+    bool queryClose();
+
 public slots:
-    void slotItemActivated(const QModelIndex&);
-    void expandItems();
-    //void slotForceStats();
-
-    //void showCurrentFile();
-
-signals:
-    void fileOpenRequested(const KUrl&);
-    void newWindowOpenRequested(const KUrl&);
+    void currentChanged(int);
+    void newTerm(QString _english=QString(), QString _target=QString());
+    void rmTerm(int i=-1);
+    void restore();
+    void chTerm();
 
 private:
-    QWidget* m_parent;
-    SortFilterProxyModel* m_proxyModel;
+    QWidget* m_editor;
+    GlossaryTreeView* m_browser;
+    QSortFilterProxyModel* m_proxyModel;
+    KLineEdit* m_lineEdit;
 
-    //Catalog* m_catalog;
+    QTextEdit *m_english;
+    QTextEdit *m_target;
+    QComboBox *m_subjectField;
+    QTextEdit *m_definition;
+
+    bool m_reactOnSignals;
+};
+
+class GlossaryTreeView: public QTreeView
+{
+Q_OBJECT
+public:
+    GlossaryTreeView(QWidget *parent = 0);
+    ~GlossaryTreeView(){}
+
+    void currentChanged(const QModelIndex& current,const QModelIndex& previous);
+    void selectRow(int i);
+
+signals:
+    void currentChanged(int);
+//private:
 };
 
 
 
-class PoItemDelegate : public QItemDelegate//KFileItemDelegate
+/*
+class GlossaryItemDelegate : public QItemDelegate//KFileItemDelegate
 {
     Q_OBJECT
 
 public:
-    PoItemDelegate(QObject *parent=0)
+    GlossaryItemDelegate(QObject *parent=0)
         : QItemDelegate(parent)
     {}
-    ~PoItemDelegate(){}
-    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    ~GlossaryItemDelegate(){}
     bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
 signals:
-    void fileOpenRequested(const KUrl&);
+    void selected(const KUrl&);
     void newWindowOpenRequested(const KUrl&);
 
 };
 
-
+*/
 #endif

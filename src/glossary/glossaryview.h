@@ -64,7 +64,7 @@ public:
 
 public slots:
     //plural messages usually contain the same words...
-    void slotNewEntryDisplayed(uint);
+    void slotNewEntryDisplayed(uint entry=0xffffffff);//a little hacky, but... :)
 
 signals:
     void termInsertRequested(const QString&);
@@ -76,6 +76,7 @@ private:
     Glossary* m_glossary;
     QRegExp m_rxClean;
     QRegExp m_rxSplit;
+    int m_currentIndex;
 
     QString m_normTitle;
     QString m_hasInfoTitle;

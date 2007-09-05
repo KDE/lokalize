@@ -37,10 +37,12 @@
 
 #include <klocale.h>
 #include <kdebug.h>
+#include <klineedit.h>
 
 #include <QTreeView>
 #include <QModelIndex>
 #include <QSortFilterProxyModel>
+#include <QVBoxLayout>
 
 CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Message Tree"), parent)
@@ -49,11 +51,27 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     , m_proxyModel(new QSortFilterProxyModel(this))
 {
     setObjectName("catalogTreeView");
-    setWidget(m_browser);
+
+    QWidget* w=new QWidget(this);
+    QVBoxLayout* layout=new QVBoxLayout(w);
+    KLineEdit* m_lineEdit=new KLineEdit(w);
+    m_lineEdit->setClearButtonShown(true);
+//     connect (m_lineEdit,SIGNAL(textChanged(QString)),
+//              m_proxyModel,SLOT(setFilterFixedString(QString)));
+    connect (m_lineEdit,SIGNAL(textChanged(QString)),
+             m_proxyModel,SLOT(setFilterRegExp(QString)));
+
+    layout->addWidget(m_lineEdit);
+    layout->addWidget(m_browser);
+
+    w->setLayout(layout);
+
+    setWidget(w);
 
     //connect(catalog,SIGNAL(signalFileLoaded()),m_browser,SLOT(reset()));
     //connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
     connect(parent,SIGNAL(signalFileClosed()),m_model,SIGNAL(modelReset()));
+    connect(catalog,SIGNAL(indexChanged(int)),this,SLOT(emitCurrent()));
 
     //connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
     connect(m_browser,SIGNAL(clicked(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
@@ -65,6 +83,9 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     m_browser->setColumnWidth(0,m_browser->columnWidth(0)/3);
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
+
+    m_proxyModel->setFilterKeyColumn(CatalogTreeModel::Source);
+
 }
 
 CatalogTreeView::~CatalogTreeView()
@@ -88,6 +109,18 @@ void CatalogTreeView::slotItemActivated(const QModelIndex& idx)
     emit gotoEntry(pos,0);
 }
 
+
+
+void CatalogTreeView::emitCurrent()
+{
+    const QModelIndex& idx=m_browser->currentIndex();
+    int row=idx.row();
+    const QModelIndex& parent=idx.parent();
+    int i=m_proxyModel->columnCount();
+    //while (--i>=0)
+    while (--i>=2)//entry num, msgid
+        m_browser->update(m_proxyModel->index(row,i,parent));
+}
 
 
 

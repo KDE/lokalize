@@ -157,7 +157,12 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     int untranslated  = 0;
     int fuzzy         = 0;
 
-
+/*
+    QLatin1String msgstr("msgstr");
+    QLatin1String "msgid \""("msgid \"");
+    QChar '"'('"');
+    QChar '\n'('\n');
+*/
     QByteArray msg;
 
     bool possiblyUntranslated=false;
@@ -216,10 +221,11 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
         }
         else if (line.startsWith("msgstr"))
         {
-            if (line.endsWith("\"\""))
+            const int& len=line.size();
+            if (line.endsWith("\"\"")&&((len<3)||(line.at(len-3)!='\\')))
             {
                 possiblyUntranslated=true;
-                if (line.at(6)=='[')
+                if (len>6&&line.at(6)=='[')
                     plural=true;
             }
         }
@@ -249,8 +255,8 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
     idx.addValue( factory->poRevisionDateField,(const char*)poRevisionDate.toUtf8());
     idx.addValue( factory->potCreationDateField,(const char*)potCreationDate.toUtf8());
 
-    if (QString(a).endsWith("kstars.po"))
-        cout<<"!!!"<<endl<<"elapsed: "<<time.elapsed()<<endl;
+//     if (QString(a).endsWith("kstars.po"))
+//         cout<<"!!!"<<endl<<"elapsed: "<<time.elapsed()<<endl;
 
     //in->reset(0);
     //return in;

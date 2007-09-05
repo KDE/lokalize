@@ -31,6 +31,7 @@ set(kaider_SRCS
     glossary/glossaryview.cpp
     glossary/tbxparser.cpp
     glossary/glossary.cpp
+    glossary/glossarywindow.cpp
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
@@ -68,7 +69,7 @@ kde4_add_ui_files(kaider_SRCS
     prefs/prefs_font.ui
     project/prefs_projectmain.ui
     project/prefs_regexps.ui
-    glossary/termdialog.ui
+    glossary/termedit.ui
     kaider_findextension.ui
     webquery/querycontrol.ui
 )

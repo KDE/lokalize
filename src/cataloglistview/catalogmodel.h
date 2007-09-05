@@ -44,9 +44,11 @@ class Catalog;
  */
 class CatalogTreeModel: public QAbstractItemModel
 {
+public:
+
     enum CatalogModelColumns
     {
-        Key = 0,
+        Key=0,
         Source,
         Translation,
         FuzzyFlag,
@@ -54,7 +56,7 @@ class CatalogTreeModel: public QAbstractItemModel
     };
 
     //Q_OBJECT
-public:
+
     inline CatalogTreeModel(QObject* parent, Catalog* catalog);
     inline ~CatalogTreeModel();
 
@@ -78,7 +80,6 @@ CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
  : QAbstractItemModel(parent)
  , m_catalog(catalog)
 {
-
 }
 
 inline

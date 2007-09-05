@@ -52,6 +52,7 @@ public:
 public slots:
     void slotNewEntryDisplayed(uint);
     void slotItemActivated(const QModelIndex&);
+    void emitCurrent();
 
 signals:
     void gotoEntry(const DocPosition&,int);

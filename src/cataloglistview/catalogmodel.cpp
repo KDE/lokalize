@@ -75,3 +75,4 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
     }
     return QVariant();
 }
+

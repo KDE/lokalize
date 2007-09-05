@@ -32,7 +32,7 @@
 
 #include "termlabel.h"
 
-#include "ui_termdialog.h"
+#include "glossarywindow.h"
 
 #include <klineedit.h>
 #include <kdialog.h>
@@ -99,7 +99,7 @@ void TermLabel::insert()
 
 void TermLabel::mousePressEvent (QMouseEvent* event)
 {
-    if (event->button()==Qt::RightButton)
+    /*if (event->button()==Qt::RightButton)
     {
         QMenu menu;
 
@@ -150,7 +150,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
 
         }
         return;
-    }
+    }*/
     insert();
 }
 

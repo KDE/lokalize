@@ -46,6 +46,7 @@
 #include <QTimer>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QKeyEvent>
 #include <QPainter>
 #include <QLinearGradient>
 
@@ -60,22 +61,30 @@ bool PoItemDelegate::editorEvent(QEvent* event,
                                  const QStyleOptionViewItem& /*option*/,
                                  const QModelIndex& index)
 {
-    if (event->type()!=QEvent::MouseButtonRelease)
-        return false;
-
-    QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
-    if (mEvent->button()!=Qt::MidButton)
-        return false;
+    if (event->type()==QEvent::MouseButtonRelease)
+    {
+        QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
+        if (mEvent->button()==Qt::MidButton)
+        {
 
 //     emit newWindowOpenRequested(static_cast<ProjectModel*>(model)->itemForIndex(
 //                                 index)->url());
-
-    emit newWindowOpenRequested(
-           static_cast<KDirModel*>
-            (static_cast<QSortFilterProxyModel*>(model)->sourceModel())
-            ->itemForIndex(
-                    static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)
-                          ).url());
+        emit newWindowOpenRequested(static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())
+                ->itemForIndex(static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)).url());
+        }
+    }
+    else if (event->type()==QEvent::KeyPress)
+    {
+        QKeyEvent* kEvent=static_cast<QKeyEvent*>(event);
+        if (kEvent->key()==Qt::Key_Return)
+        {
+            if (kEvent->modifiers()==Qt::NoModifier)
+            {
+                emit fileOpenRequested(static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())
+                ->itemForIndex(static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)).url());
+            }
+        }
+    }
 
     return false;
 }
@@ -217,8 +226,9 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
 
     //setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
 
-    connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
-    connect(delegate,SIGNAL(newWindowOpenRequested(const KUrl&)),this,SIGNAL(newWindowOpenRequested(const KUrl&)));
+    connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(QModelIndex)));
+    connect(delegate,SIGNAL(newWindowOpenRequested(KUrl)),this,SIGNAL(newWindowOpenRequested(KUrl)));
+    connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
 
     m_proxyModel->setSourceModel(Project::instance()->model());
     setModel(m_proxyModel);

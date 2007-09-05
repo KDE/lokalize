@@ -36,7 +36,7 @@
 #include "catalog.h"
 #include "flowlayout.h"
 
-#include "ui_termdialog.h"
+#include "glossarywindow.h"
 
 
 #include <klineedit.h>
@@ -62,6 +62,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         , m_glossary(Project::instance()->glossary())
         , m_rxClean(Project::instance()->markup()+'|'+Project::instance()->accel())//cleaning regexp
         , m_rxSplit("\\W|\\d")//splitting regexp
+        , m_currentIndex(-1)
         , m_normTitle(i18nc("@title:window","Glossary"))
         , m_hasInfoTitle(m_normTitle+" [*]")
         , m_hasInfo(false)
@@ -75,6 +76,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     m_browser->setBackgroundRole(QPalette::Base);
 
     m_rxClean.setMinimal(true);
+    connect (m_glossary,SIGNAL(changed()),this,SLOT(slotNewEntryDisplayed()));
 }
 
 GlossaryView::~GlossaryView()
@@ -98,6 +100,10 @@ GlossaryView::~GlossaryView()
 
 void GlossaryView::slotNewEntryDisplayed(uint entry)
 {
+    if (entry==0xffffffff)
+        entry=m_currentIndex;
+    else
+        m_currentIndex=entry;
 //     if (!toggleViewAction()->isChecked())
 //         return;
     QString msg(m_catalog->msgid(entry).toLower());
@@ -148,6 +154,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
         return;
     }
     // we found entries that contain words from msgid
+    setUpdatesEnabled(false);
 
     if (m_hasInfo)
         m_flowLayout->clearTerms();
@@ -197,58 +204,15 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
         setWindowTitle(m_hasInfoTitle);
     }
 
-
+    setUpdatesEnabled(true);
 }
 
 
 void GlossaryView::defineNewTerm(QString en,QString target)
 {
-    KDialog dialog;
-    Ui_TermDialog ui_termdialog;
-    ui_termdialog.setupUi(dialog.mainWidget());
-//     dialog.setMainWidget(w);
-//       <property name="windowTitle" >
-//    <string>New term entry</string>
-//   </property>
-    dialog.setCaption(i18nc("@title:window","New term entry"));
-
-//     dialog.enableLinkedHelp(true);
-//     dialog.setHelpLinkText("bfghfgh"/*i18n()*/);
-
-
-    en.remove(m_rxClean);
-    target.remove(m_rxClean);
-
-    ui_termdialog.english->setItems(QStringList(en));
-    ui_termdialog.target->setItems(QStringList(target));
-    ui_termdialog.english->lineEdit()->setText(en);
-    ui_termdialog.target->lineEdit()->setText(target);
-    ui_termdialog.english->lineEdit()->selectAll();
-    ui_termdialog.target->lineEdit()->selectAll();
-
-    ui_termdialog.subjectField->addItems(
-                                         Project::instance()->glossary()->subjectFields
-                                        );
-    //_msgstrEdit->insertPlainText(term);
-
-
-    if (QDialog::Accepted==dialog.exec())
-    {
-        //kWarning() << "sss";
-        TermEntry a;
-        a.english=ui_termdialog.english->items();
-        a.target=ui_termdialog.target->items();
-        a.definition=ui_termdialog.definition->toPlainText();
-        a.subjectField=Project::instance()->glossary()->subjectFields.indexOf(
-                    ui_termdialog.subjectField->currentText()
-                                                                             );
-            if ((a.subjectField==-1) && !ui_termdialog.subjectField->currentText().isEmpty())
-            {
-                a.subjectField=Project::instance()->glossary()->subjectFields.size();
-                Project::instance()->glossary()->subjectFields<< ui_termdialog.subjectField->currentText();
-            }
-        Project::instance()->glossary()->add(a);
-    }
+    GlossaryWindow* gloWin=new GlossaryWindow;
+    gloWin->show();
+    gloWin->newTerm(en,target);
 }
 
 
