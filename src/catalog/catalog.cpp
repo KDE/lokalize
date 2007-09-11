@@ -521,8 +521,7 @@ void Catalog::updateHeader(bool forSaving)
         headerList.append(temp);
 
     found=false;
-    KLocale locale("kdelibs");
-    locale.setLanguage("en_US");
+    KLocale locale("kdelibs", "en_US");
     //d->_langCode=identityOptions->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first());
     if (Project::instance()->isLoaded())
         d->_langCode=Project::instance()->langCode();
