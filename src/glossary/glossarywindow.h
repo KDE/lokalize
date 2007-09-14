@@ -53,6 +53,7 @@ public:
     GlossaryWindow(QWidget *parent = 0);
     ~GlossaryWindow();
     bool queryClose();
+    void selectTerm(int /*const QString& id*/);
 
 public slots:
     void currentChanged(int);

@@ -51,7 +51,7 @@ ProjectModel::ProjectModel()
     connect (this,SIGNAL(dataChanged(const QModelIndex&,const QModelIndex&) ),
              this,SLOT(aa()));
 
-    setDirLister(new ProjectLister);
+    setDirLister(new ProjectLister(this));
 }
 
 
@@ -263,10 +263,11 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 
 
 
-ProjectLister::ProjectLister(QObject *parent)
+ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
     : KDirLister(parent)
     , m_templates(new KDirLister (this))
     , m_reactOnSignals(true)
+    , m_model(model)
 {
     connect(m_templates,SIGNAL(newItems(QList<KFileItem>)),
             this, SLOT(slotNewTemplItems(QList<KFileItem>)));
@@ -342,7 +343,7 @@ static bool potToPo(QString& path)
 
 void ProjectLister::slotCompleted(const KUrl& _url)
 {
-    kWarning()<<_url;
+    kDebug()<<_url;
 //     kWarning()<<"-";
 //     kWarning()<<"-";
 //     kWarning()<<_url;
@@ -371,6 +372,7 @@ void ProjectLister::slotCompleted(const KUrl& _url)
         }
 
     }
+    kDebug()<<"end";
 }
 
 //there are limitations by levels
@@ -532,10 +534,10 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 
 void ProjectLister::slotDeleteItem(const KFileItem& item)
 {
-    kDebug()<<"|||||";
+    kDebug()<<"start";
     if (!m_reactOnSignals)
         return;
-    kDebug()<<"!!!!!!!!!!!";
+    kDebug()<<"start2";
 
     QString path(item.url().path(KUrl::RemoveTrailingSlash));
     if (!poToPot(path))
@@ -562,7 +564,12 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             m_reactOnSignals=false;
             QList<KFileItem> list;
             list.append(po);
-            emit newItems(list);
+            kDebug()<<"emitting:"<<poPath;
+            //HACK for debuging
+            if (m_model->indexForUrl(KUrl(  po.url().directory()  )).isValid())
+                emit newItems(list);
+            else
+                kDebug()<<"gotcha";
             list.clear();
 
             //ok, but what if the whole dir was deleted?
@@ -586,9 +593,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
                     kDebug()<<"add"<<poPath;
                     list.append(po);
                     if ((pos=m_hiddenTemplItems.indexOf(*li.at(aa)))!=-1)
-                    {
                         m_hiddenTemplItems.removeAt(pos);
-                    }
                 }
             }
             if (!list.isEmpty())
@@ -596,6 +601,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             m_reactOnSignals=true;
         }
     }
+    kDebug()<<"end";
 }
 /*
 //nono
@@ -706,7 +712,10 @@ void ProjectLister::slotDeleteTemplItem(const KFileItem& item)
     {
         QString path(item.url().path(KUrl::RemoveTrailingSlash));
         if (!potToPo(path))
+        {
+            kDebug()<<"return";
             return;
+        }
         //sanity? findByUrl(KUrl::fromPath(path));
 
         m_reactOnSignals=false;
@@ -722,6 +731,7 @@ void ProjectLister::slotDeleteTemplItem(const KFileItem& item)
         m_reactOnSignals=true;
 
     }
+    kDebug()<<"end";
 }
 
 

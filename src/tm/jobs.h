@@ -95,7 +95,8 @@ class OpenDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit OpenDBJob(const QString& name,QObject* parent=0);
+    explicit OpenDBJob(const QString& dbName,
+                       QObject* parent=0);
     ~OpenDBJob();
 
     int priority()const{return OPENDB;}
@@ -103,7 +104,7 @@ public:
 protected:
     void run ();
 
-    QString m_name;
+    QString m_dbName;
     //statistics?
 };
 
@@ -112,7 +113,8 @@ class CloseDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit CloseDBJob(const QString& name,QObject* parent=0);
+    explicit CloseDBJob(const QString& dbName,
+                        QObject* parent=0);
     ~CloseDBJob();
 
     int priority()const{return CLOSEDB;}
@@ -120,7 +122,7 @@ public:
 protected:
     void run ();
 
-    QString m_name;
+    QString m_dbName;
     //statistics?
 };
 
@@ -129,7 +131,11 @@ class SelectJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    SelectJob(const QString&,const DocPosition&,QObject* parent=0);
+    SelectJob(const QString& en,
+              const QString& ctxt,
+              const DocPosition&,//for back tracking
+              const QString& dbName,
+              QObject* parent=0);
     ~SelectJob();
 
     int priority()const{return SELECT;}
@@ -140,11 +146,17 @@ protected:
 
 private:
     //returns true if seen translation with >85%
-    bool doSelect(QSqlDatabase&,QStringList& words,bool isShort);
+    bool doSelect(QSqlDatabase&,
+                  QStringList& words,
+                  const QString& ctxt,
+                  bool isShort);
 
 private:
     QString m_english;
+    QString m_ctxt;
     bool m_dequeued;
+
+    QString m_dbName;
 
 public:
     DocPosition m_pos;
@@ -174,7 +186,9 @@ class ScanJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit ScanJob(const KUrl& url,QObject* parent=0);
+    explicit ScanJob(const KUrl& url,
+                     const QString& dbName,
+                     QObject* parent=0);
     ~ScanJob();
 
     int priority()const{return SCAN;}
@@ -189,8 +203,10 @@ public:
     ushort m_added;
     ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
 
+    QString m_dbName;
 };
 
+//helper
 class ScanFinishedJob: public ThreadWeaver::Job
 {
     Q_OBJECT

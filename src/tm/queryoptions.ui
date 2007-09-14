@@ -1,0 +1,69 @@
+<ui version="4.0" >
+ <class>QueryOptions</class>
+ <widget class="QWidget" name="QueryOptions" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>631</width>
+    <height>511</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="KLineEdit" name="query" />
+     </item>
+     <item>
+      <widget class="QRadioButton" name="substr" >
+       <property name="text" >
+        <string>Substring</string>
+       </property>
+       <property name="checked" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="like" >
+       <property name="text" >
+        <string>Google-like, respecting order</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="rx" >
+       <property name="text" >
+        <string>RegEx</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="db" >
+       <property name="minimumContentsLength" >
+        <number>20</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeView" name="treeView" >
+     <property name="alternatingRowColors" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global" >klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

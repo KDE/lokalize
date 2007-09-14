@@ -436,290 +436,7 @@ void Glossary::save()
 
 
 
-
-
-
-void Glossary::add(const TermEntry& entry)
-{
-    QFile stream(path);
-    if (!stream.open(QFile::ReadWrite | QFile::Text))
-         return;
-
-    int id=0;
-    QString authorId(Settings::authorName().toLower());
-    authorId.replace(' ','_');
-
-    if (stream.size()==0)
-    {
-        stream.write(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-        "<!DOCTYPE martif PUBLIC \"ISO 12200:1999A//DTD MARTIF core (DXFcdV04)//EN\" \"TBXcdv04.dtd\">\n"
-        "<martif type=\"TBX\" xml:lang=\"en\">\n"
-        "    <martifHeader>\n"
-        "        <fileDesc>\n"
-        "            <titleStmt>\n"
-        "                <title>Your Team Glossary</title>\n"
-        "            </titleStmt>\n"
-        "        </fileDesc>\n"
-        "        <encodingDesc>\n"
-        "            <p type=\"DCSName\">SYSTEM &quot;TBXDCSv05b.xml&quot;</p>\n"
-        "        </encodingDesc>\n"
-        "    </martifHeader>\n"
-        "    <text>\n"
-        "        <body>\n"
-                    );
-    }
-    else
-    {
-
-//     QTextStream stream(&file);
-//     stream.setCodec("UTF-8");
-//     stream.setAutoDetectUnicode(true);
-        QByteArray line(stream.readLine());
-        QList<int> idlist;
-        QRegExp rx("<termEntry id=\""+authorId+"-([0-9]*)\">");
-        while(!stream.atEnd()&&!line.contains("</body>"))
-    //    while(!stream.atEnd()&&!stream.pos()+20>stream.size())
-        {
-            if (rx.indexIn(line)!=-1);
-                idlist<<rx.cap(1).toInt();
-            line=stream.readLine();
-        }
-    //    stream.seek(stream.pos());
-        if (!idlist.isEmpty())
-        {
-            qSort(idlist);
-            while (idlist.contains(id))
-                ++id;
-        }
-        stream.seek(stream.pos()-line.size());
-    }
-
-    QByteArray out;
-    out.reserve(256);
-    out+="            ";
-    QXmlStreamWriter xmlOut(&out);
-    xmlOut.setAutoFormatting(true);
-    xmlOut.writeStartElement("termEntry");
-    xmlOut.writeAttribute("id",QString(authorId+"-%1").arg(id));
-    if (entry.subjectField/*!=-1*/)
-    {
-        xmlOut.writeStartElement("descrip");
-        xmlOut.writeAttribute("type","subjectField");
-        xmlOut.writeCharacters(subjectFields.at(entry.subjectField));
-        xmlOut.writeEndElement();
-    }
-
-    if (!entry.definition.isEmpty())
-    {
-        xmlOut.writeStartElement("descrip");
-        xmlOut.writeAttribute("type","definition");
-        xmlOut.writeCharacters(entry.definition);
-        xmlOut.writeEndElement();
-    }
-
-    int i=0;
-    for (;i<entry.english.size();++i)
-    {
-        if (entry.english.at(i).isEmpty())
-            continue;
-
-        xmlOut.writeStartElement("langSet");
-        //xmlOut.writeAttribute("xml","lang","en");
-        xmlOut.writeAttribute("xml:lang","en");
-        xmlOut.writeStartElement("ntig");
-        xmlOut.writeStartElement("termGrp");
-        xmlOut.writeTextElement("term",entry.english.at(i));
-        xmlOut.writeEndElement();
-        xmlOut.writeEndElement();
-        xmlOut.writeEndElement();
-    }
-    for (i=0;i<entry.target.size();++i)
-    {
-        if (entry.target.at(i).isEmpty())
-            continue;
-        xmlOut.writeStartElement("langSet");
-        //xmlOut.writeAttribute("xml","lang",langCode());
-        xmlOut.writeAttribute("xml:lang",Project::instance()->langCode());
-        xmlOut.writeStartElement("ntig");
-        xmlOut.writeStartElement("termGrp");
-        xmlOut.writeTextElement("term",entry.target.at(i));
-        xmlOut.writeEndElement();
-        xmlOut.writeEndElement();
-        xmlOut.writeEndElement();
-    }
-    xmlOut.writeEndElement();
-    out.replace("\n\n","\n");
-    out.replace("\n","\n            ");
-
-    out+=
-"\n        </body>"
-"\n    </text>"
-"\n</martif>\n";
-    stream.write(out);
-//     int indent=3;
-//     indent=writeLine(indent,QString("<termEntry id=\"%1\">").arg(id).toUtf8(),stream);
-//     indent=writeLine(indent,"<langSet xml:lang=\"en\">",stream);
-//     indent=writeLine(indent,"<ntig>",stream);
-//     indent=writeLine(indent,"<termGrp>",stream);
-//     indent=writeLine(indent,QString("<term>%1</term>").arg(term.english).toUtf8(),stream);
-//     //indent=writeLine(indent,"<termNote type="partOfSpeech">noun</termNote>
-//     indent=writeLine(indent,"</termGrp>",stream);
-//     //indent=writeLine(indent,"<descrip type="context"></descrip>
-//     indent=writeLine(indent,"</ntig>",stream);
-//     indent=writeLine(indent,"</langSet>",stream);
-//     indent=writeLine(indent,QString("<langSet xml:lang=\"%1\">").arg(langCode()).toUtf8(),stream);
-//     indent=writeLine(indent,"<ntig>",stream);
-//     indent=writeLine(indent,"<termGrp>",stream);
-//     indent=writeLine(indent,QString("<term>%1</term>").arg(term.target).toUtf8(),stream);
-// //     indent=writeLine(indent,"<termNote type="partOfSpeech">сущ.</termNote>",stream);
-//     indent=writeLine(indent,"</termGrp>",stream);
-//     indent=writeLine(indent,"</ntig>",stream);
-//     indent=writeLine(indent,"</langSet>",stream);
-//     indent=writeLine(indent,"</termEntry>",stream);
-//     indent=writeLine(indent,"</body>",stream);
-//     indent=writeLine(indent,"</text>",stream);
-//     indent=writeLine(indent,"</martif>",stream);
-
-}
-
-void Glossary::change(const TermEntry& entry)
-{
-    QFile in(path);
-    if (!in.open(QFile::ReadOnly | QFile::Text))
-         return;
-
-    QByteArray out;
-    out.reserve(in.size()+256);
-//     QFile out(glossaryPath()+".tmp");
-//     if (!out.open(QFile::WriteOnly | QFile::Text))
-//          return;
-
-
-    QXmlStreamReader xmlIn(&in);
-    QXmlStreamWriter xmlOut(&out);
-    xmlOut.setAutoFormatting(true);
-    while (!xmlIn.atEnd())
-    {
-        if (xmlIn.readNext()==QXmlStreamReader::StartElement
-           &&xmlIn.name()=="termEntry"
-            &&xmlIn.attributes().value("id")==entry.id           )
-        {
-            //we aint changing starting termEntry
-            xmlOut.writeCurrentToken(xmlIn);
-            //first, write _our_ meta data
-// #if 0
-            if (entry.subjectField/*!=-1*/)
-            {
-                xmlOut.writeStartElement("descrip");
-                xmlOut.writeAttribute("type","subjectField");
-                xmlOut.writeCharacters(subjectFields.at(entry.subjectField));
-                xmlOut.writeEndElement();
-            }
-
-            if (!entry.definition.isEmpty())
-            {
-                xmlOut.writeStartElement("descrip");
-                xmlOut.writeAttribute("type","definition");
-                xmlOut.writeCharacters(entry.definition);
-                xmlOut.writeEndElement();
-            }
-// #endif
-            //write data from In, skipping data that we support
-             do
-//             while(!(   xmlIn.readNext()==QXmlStreamReader::EndElement
-//                          &&xmlIn.name()=="termEntry"   ));
-            {
-                if (xmlIn.tokenType()==QXmlStreamReader::StartElement)
-                {
-                    if (xmlIn.name()=="descrip")
-                    {
-                        if (xmlIn.attributes().value("type")=="subjectField"
-                           ||xmlIn.attributes().value("type")=="definition")
-                        {
-                             //skip this data in input stream
-                             while (! (xmlIn.readNext()==QXmlStreamReader::EndElement
-                                       &&xmlIn.name()=="descrip") )
-                                ;
-//                              xmlIn.readNext();
-//                              continue;
-                        }
-                    }
-                    else if (xmlIn.name()=="langSet"
-                            &&(xmlIn.attributes().value("xml:lang")=="en"
-                              ||xmlIn.attributes().value("xml:lang")==Project::instance()->langCode()))
-                    {
-                        while (! (xmlIn.readNext()==QXmlStreamReader::EndElement
-                                   &&xmlIn.name()=="langSet") )
-                            ;
-//                                 kWarning() << "text  "<< xmlIn.text().toString();;
-//                         xmlIn.readNext();
-//                         continue;
-                    }
-//                     else
-//                         kWarning() << "text  "<< xmlIn.attributes().value("xml:lang").toString();;
-                }
-//                 kWarning() << "ff  "<< xmlIn.tokenString();
-                if (xmlIn.readNext()==QXmlStreamReader::EndElement
-                         &&xmlIn.name()=="termEntry")
-                    break;
-                xmlOut.writeCurrentToken(xmlIn);
-//             }
-            } while(!(   xmlIn.readNext()==QXmlStreamReader::EndElement
-                         &&xmlIn.name()=="termEntry"   ));
-//             xmlOut.wri   teCurrentToken(xmlIn);
-            int i=0;
-            for (;i<entry.english.size();++i)
-            {
-                if (entry.english.at(i).isEmpty())
-                    continue;
-
-                xmlOut.writeStartElement("langSet");
-                //xmlOut.writeAttribute("xml","lang","en");
-                xmlOut.writeAttribute("xml:lang","en");
-                xmlOut.writeStartElement("ntig");
-                xmlOut.writeStartElement("termGrp");
-                xmlOut.writeTextElement("term",entry.english.at(i));
-                xmlOut.writeEndElement();
-                xmlOut.writeEndElement();
-                xmlOut.writeEndElement();
-            }
-            for (i=0;i<entry.target.size();++i)
-            {
-                if (entry.target.at(i).isEmpty())
-                    continue;
-                xmlOut.writeStartElement("langSet");
-                //xmlOut.writeAttribute("xml","lang",langCode());
-                xmlOut.writeAttribute("xml:lang",Project::instance()->langCode());
-                xmlOut.writeStartElement("ntig");
-                xmlOut.writeStartElement("termGrp");
-                xmlOut.writeTextElement("term",entry.target.at(i));
-                xmlOut.writeEndElement();
-                xmlOut.writeEndElement();
-                xmlOut.writeEndElement();
-            }
-
-//             xmlIn.readNext();
-        }
-
-        xmlOut.writeCurrentToken(xmlIn);
-    }
-
-    if (!xmlIn.hasError())
-    {
-        in.close();
-        if (!in.open(QFile::WriteOnly | QFile::Text))
-            return;
-        //HACK 
-        out.replace("\n\n\n","\n");
-        out.replace("\n\n","\n");
-        out.replace("\n            <langSet","\n                <langSet");
-        in.write(out);
-    }
-
-}
-
-//MODEL
+//BEGIN MODEL
 
 int GlossaryModel::rowCount(const QModelIndex& parent) const
 {
@@ -748,6 +465,8 @@ QVariant GlossaryModel::data(const QModelIndex& index,int role) const
     if (role!=Qt::DisplayRole)
         return QVariant();
 
+//     kDebug()<<index.row();
+//     kDebug()<<Project::instance()->glossary()->termList.size();
     switch (index.column())
     {
 //         case ID: return Project::instance()->glossary()->termList.at(index.row()).id/*index.row()+1*/;
@@ -762,15 +481,16 @@ QVariant GlossaryModel::data(const QModelIndex& index,int role) const
 //                 return "";
 //             else
 //             kDebug()<<glo->subjectFields.at(field);
-//             kDebug()<<glo->subjectFields;
+            //kDebug()<<"field"<<field<<glo->subjectFields.size();
             return glo->subjectFields.at(field);
         }
     }
     return QVariant();
 }
 
-//EDITING
+//END MODEL general (GlossaryModel continues below)
 
+//BEGIN EDITING
 
 QString Glossary::generateNewId()
 {
@@ -813,18 +533,62 @@ QString Glossary::generateNewId()
     return QString(authorId+"-%1").arg(id);
 }
 
+//add words to the hash
+// static void addToHash(const QMultiHash<QString,int>& wordHash,
+//                       const QString& what,
+//                       int index)
+void Glossary::hashTermEntry(int index)
+{
+    Q_ASSERT(index<termList.size());
+    int i=termList.at(index).english.size();
+    while(--i>=0)
+    {
+        QStringList words=termList.at(index).english.at(i).split(' ',QString::SkipEmptyParts);
+        if (!words.isEmpty())
+        {
+            int j=words.size();
+            while(--j>=0)
+                wordHash.insert(words.at(j),index);
+        }
+    }
+}
+
+void Glossary::unhashTermEntry(int index)
+{
+    Q_ASSERT(index<termList.size());
+    int i=termList.at(index).english.size();
+    while(--i>=0)
+    {
+        QStringList words=termList.at(index).english.at(i).split(' ',QString::SkipEmptyParts);
+        if (!words.isEmpty())
+        {
+            int j=words.size();
+            while(--j>=0)
+                wordHash.remove(words.at(j),index);
+        }
+    }
+}
+
+
 void Glossary::remove(int i)
 {
+    unhashTermEntry(i);
+
     int pos;
     if ((pos=addedIds.indexOf(termList.at(i).id))!=-1)
         addedIds.removeAt(pos);
     removedIds.append(termList.at(i).id);
     termList.removeAt(i);
-    emit changed();//may be emitted multiple times in a row so what? :)
+
+    emit changed();//may be emitted multiple times in a row. so what? :)
+//     kDebug()<<"removedIds"<<removedIds.size();
+//     kDebug()<<"termList"<<termList.size();
 }
 
 void Glossary::append(const QString& _english,const QString& _target)
 {
+    int index=termList.count();
+
     TermEntry a;
     a.english<<_english;
     a.target<<_target;
@@ -833,9 +597,10 @@ void Glossary::append(const QString& _english,const QString& _target)
 
     addedIds.append(a.id);
 
+    hashTermEntry(index);
+
     emit changed();
 }
-
 
 bool GlossaryModel::removeRows(int row,int count,const QModelIndex& parent)
 {
@@ -864,3 +629,4 @@ bool GlossaryModel::appendRow(const QString& _english,const QString& _target)
     return true;
 }
 
+//END EDITING

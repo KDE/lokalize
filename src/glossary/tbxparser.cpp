@@ -138,18 +138,9 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
         if (m_entry.target.isEmpty()||m_entry.english.isEmpty())
             return true;
 //         kWarning() << m_entry.target.size() << " " << m_entry.english.size();
-        int i=0;
-        int j;
-        for (;i<m_entry.english.size();++i)
-        {
-            QStringList words(m_entry.english.at(i).split(' ',QString::SkipEmptyParts));
-            for (j=0;j<words.size();++j)
-            {
-                m_glossary->wordHash.insert(words.at(i),m_glossary->termList.count());
-            }
-
-        }
+        int index=m_glossary->termList.count();
         m_glossary->termList.append(m_entry);
+        m_glossary->hashTermEntry(index);
 
         m_entry.clear();
     }

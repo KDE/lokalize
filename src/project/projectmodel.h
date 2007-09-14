@@ -132,7 +132,7 @@ class ProjectLister: public KDirLister
     Q_OBJECT
 
 public:
-    ProjectLister(QObject *parent=0);
+    ProjectLister(ProjectModel* model, QObject *parent=0);
     ~ProjectLister(){}
 
 public:
@@ -174,6 +174,7 @@ private:
     //HACKs
     bool m_reactOnSignals;
     QHash<QString /*url.path()*/,bool> m_listedTemplDirs;
+    ProjectModel* m_model;//used for debuging
 };
 
 

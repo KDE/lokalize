@@ -61,6 +61,8 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     connect (m_lineEdit,SIGNAL(textChanged(QString)),
              m_proxyModel,SLOT(setFilterRegExp(QString)));
 
+    m_browser->setAlternatingRowColors(true);
+
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_browser);
 

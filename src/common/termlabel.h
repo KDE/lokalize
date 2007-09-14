@@ -82,46 +82,4 @@ void TermLabel::setText(const QString& term,int entry)
 
 
 
-
-#if 0
-
-/**
- * flowlayout item
- */
-class QueryResultBtn: public QLabel
-{
-    Q_OBJECT
-public:
-    QueryResultBtn(QAction* a=0);
-    virtual ~QueryResultBtn(){}
-
-    void mousePressEvent (QMouseEvent*/* event*/);
-    void setText(const QString&);
-public slots:
-    void insert();
-//     bool event(QEvent *event);
-signals:
-    void insertText(const QString&);
-
-private:
-    QString m_text;
-    QAction* m_action;
-};
-
-
-
-inline
-void QueryResultBtn::setText(const QString& queryResult)
-{
-    m_text=queryResult;
-    if (m_action)
-        QLabel::setText("["+m_action->shortcut().toString()+"] "+queryResult);
-    else
-        QLabel::setText(queryResult);
-}
-
-#endif
-
-
-
 #endif

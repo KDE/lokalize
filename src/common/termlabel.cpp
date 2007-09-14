@@ -80,15 +80,11 @@ void TermLabel::insert()
         menu.setActiveAction(menu.addAction(Project::instance()->glossary()->termList.at(m_termIndex).target.at(0)));
         int i=1;
         for (;i<limit;++i)
-        {
             menu.addAction(Project::instance()->glossary()->termList.at(m_termIndex).target.at(i));
-        }
 
         QAction* txt=menu.exec(mapToGlobal(QPoint(0,0)));
         if (txt)
-        {
             emit insertTerm(txt->text());
-        }
 
     }
     else
@@ -99,7 +95,7 @@ void TermLabel::insert()
 
 void TermLabel::mousePressEvent (QMouseEvent* event)
 {
-    /*if (event->button()==Qt::RightButton)
+    if (event->button()==Qt::RightButton)
     {
         QMenu menu;
 
@@ -110,48 +106,17 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
         if (txt)
         {
 //         if (txt->text()==i18nc("Edit term","Edit"))
-            TermEntry a(Project::instance()->glossary()->termList.at(m_termIndex));
-            KDialog dialog;
-            Ui_TermDialog ui_termdialog;
-            ui_termdialog.setupUi(dialog.mainWidget());
-            dialog.setCaption(i18nc("@title:window","Edit term entry"));
+            //const TermEntry& a(Project::instance()->glossary()->termList.at(m_termIndex));
+            GlossaryWindow* gloWin=new GlossaryWindow;
+            gloWin->show();
+            gloWin->selectTerm(m_termIndex);
 
-            ui_termdialog.english->setItems(
-                        a.english);
-            ui_termdialog.target->setItems(
-                        a.target);
-
-            ui_termdialog.subjectField->addItems(
-                        Project::instance()->glossary()->subjectFields
-                                        );
-            ui_termdialog.subjectField->setCurrentIndex(
-                        a.subjectField);
-
-            ui_termdialog.definition->setPlainText(
-                        a.definition);
-
-            if (QDialog::Accepted==dialog.exec())
-            {
-        //kWarning() << "sss";
-                a.english=ui_termdialog.english->items();
-                a.target=ui_termdialog.target->items();
-                a.definition=ui_termdialog.definition->toPlainText();
-                a.subjectField=Project::instance()->glossary()->subjectFields.indexOf(
-                            ui_termdialog.subjectField->currentText()
-                                                                                    );
-                if (a.subjectField==-1)
-                {
-                    a.subjectField=Project::instance()->glossary()->subjectFields.size();
-                    Project::instance()->glossary()->subjectFields<< ui_termdialog.subjectField->currentText();
-                }
-                Project::instance()->glossary()->change(a);
-            }
 
 
         }
-        return;
-    }*/
-    insert();
+    }
+    else
+        insert();
 }
 
 #if 0

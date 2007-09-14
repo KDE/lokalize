@@ -47,6 +47,7 @@
 #include "glossaryview.h"
 #include "webqueryview.h"
 #include "tmview.h"
+#include "tmwindow.h"
 
 #include "project.h"
 #include "prefs.h"
@@ -126,8 +127,7 @@ KAider::~KAider()
     emit signalFileClosed();
     _project->save();
     KConfig config;
-    KConfigGroup configGroup( &config, QString("RecentFiles") );
-    _openRecentFile->saveEntries( configGroup );
+    _openRecentFile->saveEntries(KConfigGroup(&config,"RecentFiles"));
     deleteUiSetupers();
     //these are qobjects...
 /*    delete m_view;
@@ -183,10 +183,9 @@ void KAider::setupActions()
     QAction *action;
 // File
     KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
-    _openRecentFile = KStandardAction::openRecent(this, SLOT(fileOpenRecent(const KUrl&)), actionCollection());
+    _openRecentFile = KStandardAction::openRecent(this, SLOT(fileOpen(const KUrl&)), actionCollection());
     KConfig config;
-    KConfigGroup configGroup( &config, QString("RecentFiles") );
-    _openRecentFile->loadEntries( configGroup );
+    _openRecentFile->loadEntries(KConfigGroup(&config,"RecentFiles"));
     action = KStandardAction::save(this, SLOT(fileSave()), actionCollection());
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
@@ -310,6 +309,12 @@ void KAider::setupActions()
 //Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
+    ADD_ACTION_SHORTCUT("tools_glossary","Glossary",Qt::CTRL+Qt::ALT+Qt::Key_G,"glossary")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( showGlossary() ) );
+
+    ADD_ACTION_SHORTCUT("tools_tm","Translation Memory",Qt::CTRL+Qt::ALT+Qt::Key_M,"tm")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( showTM() ) );
+
 //Bookmarks
     action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),actionCollection());
     //action = actionCollection()->addAction("bookmark_do");
@@ -344,12 +349,12 @@ void KAider::setupActions()
     action->setStatusTip(i18nc("@action:inmenu","Open catalog to be merged into the current one"));
 
     action = actionCollection()->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
-    action->setText(i18nc("@action:inmenu","Previous changed"));
+    action->setText(i18nc("@action:inmenu","Previous different"));
     action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
-    action->setText(i18nc("@action:inmenu","Next changed"));
+    action->setText(i18nc("@action:inmenu","Next different"));
     action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -576,7 +581,7 @@ bool KAider::fileOpen(KUrl url)
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
 
-        _currentEntry = _currentPos.entry=-1;//so the signals are emitted
+        _currentEntry=_currentPos.entry=-1;//so the signals are emitted
         DocPosition pos;
         pos.entry=0;
         pos.form=0;
@@ -633,11 +638,6 @@ bool KAider::fileOpen(KUrl url)
     //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
     KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
     return false;
-}
-
-void KAider::fileOpenRecent( const KUrl& url )
-{
-    fileOpen( url );
 }
 
 bool KAider::fileSaveAs()
@@ -769,13 +769,14 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
 void KAider::msgStrChanged()
 {
-    kDebug();
+    QString msg;
     if (_catalog->isFuzzy(_currentEntry))
-        statusBar()->changeItem(i18nc("@info:status","Fuzzy"),ID_STATUS_ISFUZZY);
+        msg=i18nc("@info:status","Fuzzy");
     else if (_catalog->msgstr(_currentPos).isEmpty())
-        statusBar()->changeItem(i18nc("@info:status","Untranslated"),ID_STATUS_ISFUZZY);
-    else
-        statusBar()->changeItem("",ID_STATUS_ISFUZZY);
+        msg=i18nc("@info:status","Untranslated");
+/*    else
+        statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
+    statusBar()->changeItem(msg,ID_STATUS_ISFUZZY);
 }
 void KAider::switchForm(int newForm)
 {
@@ -934,5 +935,14 @@ void KAider::defineNewTerm()
     _glossaryView->defineNewTerm(en,target);
 }
 
+void KAider::showGlossary()
+{
+    _glossaryView->defineNewTerm();
+}
 
+void KAider::showTM()
+{
+    TMWindow* win=new TMWindow;
+    win->show();
+}
 

@@ -40,6 +40,7 @@
 #include <klineedit.h>
 #include <kpushbutton.h>
 #include <kguiitem.h>
+#include <kmessagebox.h>
 
 
 #include <QSplitter>
@@ -48,6 +49,7 @@
 #include <QSortFilterProxyModel>
 #include <QAbstractItemModel>
 
+//BEGIN GlossaryTreeView
 
 GlossaryTreeView::GlossaryTreeView(QWidget *parent)
  : QTreeView(parent)
@@ -79,9 +81,10 @@ void GlossaryTreeView::selectRow(int i)
 }
 
 
+//END GlossaryTreeView
 
 
-
+//BEGIN SubjectFieldModel
 
 class SubjectFieldModel: public QAbstractItemModel
 {
@@ -113,25 +116,21 @@ SubjectFieldModel::SubjectFieldModel(QObject* parent)
 {
 }
 
-inline
 QModelIndex SubjectFieldModel::index (int row,int column,const QModelIndex& /*parent*/) const
 {
     return createIndex (row, column);
 }
 
-inline
 Qt::ItemFlags SubjectFieldModel::flags(const QModelIndex&) const
 {
     return Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled;
 }
 
-inline
 QModelIndex SubjectFieldModel::parent(const QModelIndex& /*index*/) const
 {
     return QModelIndex();
 }
 
-inline
 int SubjectFieldModel::columnCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
@@ -146,8 +145,6 @@ Qt::ItemFlags SubjectFieldModel::flags ( const QModelIndex & index ) const
         return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
     return QAbstractItemModel::flags(index);
 }*/
-
-
 
 int SubjectFieldModel::rowCount(const QModelIndex& parent) const
 {
@@ -194,8 +191,9 @@ bool SubjectFieldModel::setItemData(const QModelIndex& index, const QMap<int,QVa
     return true;
 }
 
+//END SubjectFieldModel
 
-
+//BEGIN GlossaryWindow
 
 GlossaryWindow::GlossaryWindow(QWidget *parent)
  : KMainWindow(parent)
@@ -213,6 +211,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //m_browser->setColumnWidth(GlossaryModel::ID, m_browser->columnWidth(GlossaryModel::ID)/2); //man this is  HACK y
     m_browser->setColumnWidth(GlossaryModel::English, m_browser->columnWidth(GlossaryModel::English)*2); //man this is  HACK y
     m_browser->setColumnWidth(GlossaryModel::Target, m_browser->columnWidth(GlossaryModel::Target)*2);
+    m_browser->setAlternatingRowColors(true);
 
     //left
     QWidget* w=new QWidget(splitter);
@@ -332,15 +331,18 @@ void GlossaryWindow::chTerm()
         return;
     setCaption(i18nc("@title:window","Glossary"),true);
 
+    int index=idx.row();
     Glossary* glo=Project::instance()->glossary();
-    QString id(glo->termList.at(idx.row()).id);
+    glo->unhashTermEntry(index);//we will rehash it after applying changes
+
+    QString id(glo->termList.at(index).id);
     if (! (glo->changedIds.contains(id)||glo->addedIds.contains(id)) )
     {
         kDebug()<<"append";
         glo->changedIds.append(id);
     }
 
-    TermEntry& a=glo->termList[idx.row()];
+    TermEntry& a=glo->termList[index];
     a.english=m_english->toPlainText().split('\n');
     a.target=m_target->toPlainText().split('\n');
     a.definition=m_definition->toPlainText();
@@ -351,6 +353,10 @@ void GlossaryWindow::chTerm()
         glo->subjectFields.append(m_subjectField->currentText());
     }
 
+    glo->hashTermEntry(index);
+
+
+    //update the GUI
     const QModelIndex& parent=idx.parent();
     int row=m_browser->currentIndex().row();
     int i=m_proxyModel->columnCount();
@@ -374,6 +380,11 @@ void GlossaryWindow::newTerm(QString _english, QString _target)
 //     kDebug()<<"end";
     m_english->setFocus();
     kDebug()<<glo->addedIds;
+}
+
+void GlossaryWindow::selectTerm(int index)
+{
+    m_browser->selectRow(index);
 }
 
 void GlossaryWindow::rmTerm(int i)
@@ -411,7 +422,27 @@ void GlossaryWindow::restore()
 bool GlossaryWindow::queryClose()
 {
     Glossary* glo=Project::instance()->glossary();
-    glo->save();
-    return true;
+
+    if (glo->changedIds.isEmpty()
+        &&glo->addedIds.isEmpty()
+        &&glo->removedIds.isEmpty())
+        return true;
+
+    switch(KMessageBox::warningYesNoCancel(this,
+        i18nc("@info","The glossary contains unsaved changes.\n\
+Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
+      KStandardGuiItem::save(),KStandardGuiItem::discard()))
+    {
+        case KMessageBox::Yes:
+            glo->save();
+            return true;
+        case KMessageBox::No:
+            glo->load(glo->path);
+            return true;
+        default:
+            return false;
+    }
 }
 
+
+//END GlossaryWindow

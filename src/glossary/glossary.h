@@ -91,7 +91,7 @@ class Glossary: public QObject
     Q_OBJECT
 
 public:
-    QMultiHash<QString,int> wordHash;//isn't used anymore
+    QMultiHash<QString,int> wordHash;
     QList<TermEntry> termList;
     QStringList subjectFields;//frist entry is always empty!
 
@@ -121,10 +121,11 @@ public:
         addedIds.clear();
     }
 
-    //saving to disk
+    //disk
     void load(const QString&);
     void save();
 
+    //legacy
     void add(const TermEntry&);
     void change(const TermEntry&);
 
@@ -132,9 +133,12 @@ public:
     QString generateNewId();
     void append(const QString& _english,const QString& _target);
     void remove(int i);
-
-
     void forceChangeSignal(){emit changed();}
+
+    //general
+    void hashTermEntry(int index);
+    void unhashTermEntry(int index);
+
 signals:
     void changed();
 };
@@ -149,7 +153,7 @@ class GlossaryModel: public QAbstractItemModel
     //Q_OBJECT
 public:
 
-    enum GlossaryModelColumns
+    enum Columns
     {
 //         ID = 0,
         English=0,

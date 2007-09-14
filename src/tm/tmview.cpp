@@ -134,7 +134,8 @@ static bool scanRecursive(const QDir& dir)
     i=files.size();
     while(--i>=0)
     {
-        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))));
+        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),
+                                Project::instance()->projectID());
         job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -152,7 +153,8 @@ void TMView::dropEvent(QDropEvent *event)
     {
         if (event->mimeData()->urls().at(i).path().endsWith(".po"))
         {
-            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)));
+            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),
+                                    Project::instance()->projectID());
             connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
             connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
             ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -183,7 +185,10 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
     m_browser->clear();
     m_pos=pos;
-    m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),pos);
+    m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),
+                                     m_catalog->msgctxt(pos.entry),
+                                     pos,
+                                     Project::instance()->projectID());
     //these two are for cleanup
     connect(m_currentSelectJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="35">
+<kpartgui name="KAider" version="38">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
@@ -101,6 +101,11 @@
   <Menu name="bookmarks"><text>Bookmarks</text>
     <Action name="bookmark_prior"/>
     <Action name="bookmark_next"/>
+  </Menu>
+  <Menu name="tools"><text>&amp;Tools</text>
+    <Separator/>
+    <Action name="tools_glossary"/>
+    <Action name="tools_tm"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Menu name="toolviews"><text>Toolviews</text>

@@ -30,57 +30,25 @@
 
 **************************************************************************** */
 
-#ifndef GLOSSARYVIEW_H
-#define GLOSSARYVIEW_H
+#ifndef DBFILESMODEL_H
+#define DBFILESMODEL_H
 
-#include <pos.h>
-#include <QRegExp>
-#include <QDockWidget>
-//#include <QList>
-class Catalog;
-class Glossary;
-class FlowLayout;
-class QDragEnterEvent;
-class QDropEvent;
-class KUrl;
-class QEvent;
-class QAction;
-#include <QVector>
+#include <kdirmodel.h>
 
-#define GLOSSARY_SHORTCUTS 11
-class GlossaryView: public QDockWidget
+class DBFilesModel: public KDirModel
 {
-    Q_OBJECT
+//    Q_OBJECT
 
 public:
-    GlossaryView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~GlossaryView();
+    DBFilesModel();
+    ~DBFilesModel();
 
-
-//     void dragEnterEvent(QDragEnterEvent* event);
-//     void dropEvent(QDropEvent*);
-//     bool event(QEvent*);
-    void defineNewTerm(QString en=QString(),QString target=QString());
-
-public slots:
-    //plural messages usually contain the same words...
-    void slotNewEntryDisplayed(uint entry=0xffffffff);//a little hacky, but... :)
-
-signals:
-    void termInsertRequested(const QString&);
+    QVariant data(const QModelIndex& index, int role) const;
 
 private:
-    QWidget* m_browser;
-    Catalog* m_catalog;
-    FlowLayout *m_flowLayout;
-    Glossary* m_glossary;
-    QRegExp m_rxClean;
-    QRegExp m_rxSplit;
-    int m_currentIndex;
-
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
+    static DBFilesModel* _instance;
+public:
+    static DBFilesModel* instance();
 
 };
 

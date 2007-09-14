@@ -127,9 +127,9 @@ private:
 
     //TM scanning stats
     ushort m_tmCount;
-//     ushort m_tmTime;
     ushort m_tmAdded;
     ushort m_tmNewVersions;//e1.english==e2.english, e1.target!=e2.target
+//     ushort m_tmTime;
 //     QTime m_timeTracker;
 
 

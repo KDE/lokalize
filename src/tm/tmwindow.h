@@ -30,58 +30,58 @@
 
 **************************************************************************** */
 
-#ifndef GLOSSARYVIEW_H
-#define GLOSSARYVIEW_H
+#ifndef TMWINDOW_H
+#define TMWINDOW_H
 
-#include <pos.h>
-#include <QRegExp>
-#include <QDockWidget>
-//#include <QList>
-class Catalog;
-class Glossary;
-class FlowLayout;
-class QDragEnterEvent;
-class QDropEvent;
-class KUrl;
-class QEvent;
-class QAction;
-#include <QVector>
+#include <kmainwindow.h>
 
-#define GLOSSARY_SHORTCUTS 11
-class GlossaryView: public QDockWidget
+#include <QSqlQueryModel>
+#include <QSqlDatabase>
+
+class KLineEdit;
+class TMDBModel;
+
+/**
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class TMWindow: public KMainWindow
 {
     Q_OBJECT
-
 public:
-    GlossaryView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~GlossaryView();
-
-
-//     void dragEnterEvent(QDragEnterEvent* event);
-//     void dropEvent(QDropEvent*);
-//     bool event(QEvent*);
-    void defineNewTerm(QString en=QString(),QString target=QString());
+    TMWindow(QWidget *parent = 0);
+    ~TMWindow();
 
 public slots:
-    //plural messages usually contain the same words...
-    void slotNewEntryDisplayed(uint entry=0xffffffff);//a little hacky, but... :)
+    void performQuery();
+private:
+    KLineEdit* m_query;
+    TMDBModel* m_model;
+};
 
-signals:
-    void termInsertRequested(const QString&);
+
+class TMDBModel: public QSqlQueryModel
+{
+    Q_OBJECT
+public:
+
+    enum QueryType
+    {
+        SubStr=0,
+        WordOrder,
+        RegExp
+    };
+
+    TMDBModel(QObject* parent);
+    ~TMDBModel(){}
+
+public slots:
+    void setFilter(const QString&);
+    void setQueryType(int);
+    void setDB(const QString&);
 
 private:
-    QWidget* m_browser;
-    Catalog* m_catalog;
-    FlowLayout *m_flowLayout;
-    Glossary* m_glossary;
-    QRegExp m_rxClean;
-    QRegExp m_rxSplit;
-    int m_currentIndex;
-
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-
+    QueryType m_queryType;
+    QSqlDatabase m_db;
 };
 
 #endif

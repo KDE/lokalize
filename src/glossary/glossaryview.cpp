@@ -130,6 +130,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
         return;
     }
 
+    kDebug()<<"1";
     QList<int> termIndexes;
     int i=0;
     for (;i<words.size();++i)
@@ -140,7 +141,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
            )
         {
 //             kWarning()<<"val " <<m_glossary->wordHash.values(words.at(i));
-            termIndexes+= m_glossary->wordHash.values(words.at(i));
+            termIndexes+=m_glossary->wordHash.values(words.at(i));
         }
     }
     if (termIndexes.isEmpty())
@@ -165,11 +166,14 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     QSet<int> termIndexesSet(termIndexes.toSet());
 //     kWarning()<<"found";
     QSet<int>::const_iterator it = termIndexesSet.constBegin();
+    kDebug()<<"2";
     while (it != termIndexesSet.constEnd())
     {
         // now check which of them are really hits...
-        for (j=0;j<m_glossary->termList.at(*it).english.size();++j)
+        int lim=m_glossary->termList.at(*it).english.size();
+        for (j=0;j<lim;++j)
         {
+            kDebug()<<j;
             // ...and if so, which part of termEn list we must thank for match ...
             if (msg.contains(
                 m_glossary->termList.at(*it).english.at(j)//,
@@ -186,6 +190,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
                 break;
             }
         }
+        kDebug()<<"next";
         ++it;
     }
     m_flowLayout->setEnabled(true);
@@ -212,7 +217,8 @@ void GlossaryView::defineNewTerm(QString en,QString target)
 {
     GlossaryWindow* gloWin=new GlossaryWindow;
     gloWin->show();
-    gloWin->newTerm(en,target);
+    if (!en.isEmpty()||!target.isEmpty())
+        gloWin->newTerm(en,target);
 }
 
 

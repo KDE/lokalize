@@ -89,7 +89,6 @@ protected:
 
 public slots:
     bool fileOpen(KUrl url=KUrl());
-    void fileOpenRecent( const KUrl& );
     void gotoFirst();
     void gotoLast();
 
@@ -167,6 +166,8 @@ private slots:
     void newWindowOpen(const KUrl&);
 
     void defineNewTerm();
+    void showGlossary();
+    void showTM();
 
 
 private:
