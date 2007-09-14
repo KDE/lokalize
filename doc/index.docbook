@@ -1,0 +1,183 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN"
+ "dtd/kdex.dtd" [
+  <!ENTITY kaider "KAider">
+  <!ENTITY kappname "&kaider;">
+  <!ENTITY package "kaider">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+
+<book id="kaider" lang="&language;">
+
+<bookinfo>
+
+<title>The &kaider; Handbook</title>
+
+<authorgroup>
+
+<author>
+<firstname>Nick</firstname>
+<surname>Shaforostoff</surname>
+<affiliation><address><email>shaforostoff@kde.ru</email></address></affiliation>
+</author>
+
+</authorgroup>
+
+<copyright>
+<year>2007</year><holder>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2007-09-14</date>
+<releaseinfo>0.1</releaseinfo>
+
+<abstract><para>
+		&kaider; is a computer-aided translation system that focuses on productivity and performance.  Translator does only creative work (of delivering message in his/her mother language in laconic and easy to understand form).  KAider implies parapgraph-by-paragrah translation approach (when translating documentation) and message-by-message approach (when translating GUI).
+</para></abstract>
+
+<keywordset>
+<keyword>&kaider;</keyword>
+<keyword>localization</keyword>
+<keyword>translation</keyword>
+</keywordset>
+
+</bookinfo>
+
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+	When you start KAider with no arguments, you see two big multiline edits and a bunch of 'views'.  They can be stacked (like tabs), shown separately or be hidden at all. Translation file consists of many english-target pairs (these pairs are called 'messages').  They usually correspond to one separate string in user interface or one paragraph in documentation.  The purpose of first multiline edit is to display original part of the pair.  The purpose of second multiline edit is to display translation. You can navigate through 'messages' via <guilabel>Catalog Tree</guilabel> view or using PgDown and PgUp.
+</para>
+<tip>
+	It is important that you get used to using keyboard instead of menu and toolbars, because this will increase you productivity.  For example, use <keycap>Alt+&lt;underscored letter&gt;</keycap> to switch between views when they are stacked into tabs, or <keycap>Alt+Q</keycap> to imitate pressing of <guibutton>Query</guibutton> button when <guilabel>WebQueries</guilabel> view is open.
+</tip>
+</chapter>
+
+<chapter id="projects">
+<title>Projects</title>
+
+<para>
+	The project is one of the main concepts in &kaider;. Basically, it is a bunch of files that are being translated, and optionally templates (i.e. the same files, but containing no translation). Also, project may have glossary, scripts (currently -- only for webquery) and translation memory. Only the later isn't shared between translation team members and is created/stored under user home directory. This means that translation memories for all projects are stored in the same directory and can be used when other projects are opened.
+</para>
+<para>
+	Project is represented by file that defines directories with translations and templates, name of the glossary file, and list of webquery scripts. All paths contained in it are relative, so it can by published in common repositary. Whenever &kaider; opens file with no project loaded, it will search for project file in file parent directories (up to 4).  Also, you can specify project file via --project command line option.	
+</para>
+
+<sect1 id="multifile-ops">
+<title>Operations on multiple files</title>
+
+<para>
+	Currently &kaider; supports searching, replacing and spellchecking multiple files. Select items you are interested in, choose <guimenuitem>Find in files</guimenuitem> from context menu. The first match will be displayed in usual &kaider; window. Proceed with <keycap>F3</keycap> (find next). If you press <keycap>F3</keycap> and there are no matches left in the current file, the search will continue in the next file and so on. <keycap>Ctrl+F</keycap> in &kaider; editor window resets multiple files searching state.
+</para>
+</sect1>
+</chapter>
+
+
+
+<chapter id="views">
+<title>Views</title>
+
+<para>The following sections describe the available views.</para>
+
+<sect1 id="projectView">
+<title>Project View</title>
+
+<para>
+	It displays file tree with statistics like percentage of translated messages and last translator. It allows to open selected file in the current or in the new &kaider; window (tip: use middle mouse button to open file in new window). 
+</para>
+</sect1>
+
+<sect1 id="glossaryView">
+<title>Glossary View</title>
+
+<para>
+	Have you ever become tired of typing the same long text sequence several times just because it would take more time to find its translation for copy-paste? Now you will only have to find the (frequent) word sequence in the Glossary view and insert it by pressing a shortcut.
+</para>
+<para>
+	Of course, the glossary should be populated with word sequences first. &kaider; has handy glossary editor with explicit search over the whole glossary.
+</para>
+</sect1>
+
+<sect1 id="tmView">
+<title>Translation Memory View</title>
+
+<para>
+	Just drop your <lang>/messages folder onto TM View and wait ~5 minutes. Translation suggestions will be shown automatically on the msg entry switch. Then use <keycap>ctrl+1</keycap>, <keycap>ctrl+2</keycap>, ... to paste them.
+</para>
+</sect1>
+
+
+<sect1 id="webQueryView">
+<title>WebQuery View</title>
+
+<para>
+	The list of scripts is defined project-wise and local clientprogram-wise. See example script that works with google-translate and project file for it in <link linkend="http://websvn.kde.org/trunk/l10n-kde4/ru/">l10n-kde4/ru</link> directory.
+</para>
+</sect1>
+
+<sect1 id="tmView">
+<title>Merge Mode</title>
+
+<para>
+	It is one of things that are easy to implement but save tremendous amount of time for editors, or when two translators were working simultaneously on the same file.
+</para>
+<para>
+	KAider allows quick navigation through messages that differ and (again) displays word-by-word difference. Open base file, then drop its changed version onto <guilabel>Merge Diff</guilabel>, and use <keycap>ctrl+alt+pgdown</keycap> and <keycap>ctrl+alt+pgup</keycap> to navigate through entries that differ.
+</para>
+</sect1>
+
+
+</chapter>
+
+
+<chapter id="credits">
+<title>Credits and License</title>
+
+<para>&kaider;</para>
+
+<para>Program copyright 2007, Nick Shaforostoff</para>
+
+<para>Some code was taken from KBabel, &kaider; predecessor.</para>
+
+<para>Documentation copyright 2007</para>
+
+<para>Author:
+
+<itemizedlist>
+<listitem><para>Nick Shaforostoff <email>shaforostoff@kde.ru</email></para>
+</listitem>
+</itemizedlist>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+<para>See the <ulink
+url="http://techbase.kde.org/Projects/Summer_of_Code/2007/Projects/KAider">&ikaider;
+homepage</ulink> for more details.</para>
+
+
+
+
+&underFDL;
+&underGPL;
+
+</chapter>
+
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
