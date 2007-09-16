@@ -1,10 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KAider
+Name[sv]=Kaider
 Exec=kaider %i -caption "%c"
 Icon=kaider
 Type=Application
 DocPath=kaider/kaider.html
 GenericName=A KDE4 Application
+GenericName[sv]=Ett KDE4-program
 Terminal=0
 
