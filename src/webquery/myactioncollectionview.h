@@ -35,7 +35,6 @@
 
 #include <kross/ui/view.h>
 class Catalog;
-class MergeCatalog;
 #include "webquerycontroller.h"
 
 

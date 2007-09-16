@@ -38,14 +38,12 @@
 #include <QDockWidget>
 //#include <QList>
 class Catalog;
-class Glossary;
 // class FlowLayout;
 // class QHBoxLayout;
 class QSplitter;
 class KTextBrowser;
 class QDragEnterEvent;
 class QDropEvent;
-class KUrl;
 class QEvent;
 class QAction;
 class Ui_QueryControl;

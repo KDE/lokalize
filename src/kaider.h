@@ -48,7 +48,6 @@ class KFindDialog;
 class KFind;
 class KReplaceDialog;
 class KReplace;
-class KToggleAction;
 class KProgressDialog;
 class KRecentFilesAction;
 
@@ -57,7 +56,6 @@ class KAiderView;
 class Project;
 class ProjectView;
 class MergeView;
-class MergeCatalog;
 class GlossaryView;
 class CatalogTreeView;
 class Ui_findExtension;

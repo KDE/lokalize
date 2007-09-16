@@ -76,7 +76,6 @@ protected:
 };
 
 class QDragEnterEvent;
-class QDragEvent;
 
 /**
  * This is the main view class for KAider.

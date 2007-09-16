@@ -42,7 +42,6 @@ class Glossary;
 class FlowLayout;
 class QDragEnterEvent;
 class QDropEvent;
-class KUrl;
 class QEvent;
 class QAction;
 #include <QVector>

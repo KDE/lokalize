@@ -39,7 +39,6 @@
 #include <QQueue>
 #include <QRegExp>
 class Catalog;
-class MergeCatalog;
 class WebQueryView;
 class QTextCodec;
 class KJob;

@@ -49,7 +49,6 @@
 // #include "regexpextractor.h"
 // #include "kbabel_export.h"
 
-class QTextStream;
 class QTextCodec;
 
 class CatalogPrivate
