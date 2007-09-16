@@ -7,6 +7,8 @@ Icon=kaider
 Type=Application
 DocPath=kaider/kaider.html
 GenericName=A KDE4 Application
+GenericName[pt]=Uma Aplicação do KDE4
+GenericName[pt_BR]=Uma Aplicação do KDE4
 GenericName[sv]=Ett KDE4-program
 Terminal=0
 
