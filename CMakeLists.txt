@@ -1,9 +1,11 @@
 project(kaider)
 find_package(KDE4 REQUIRED)
 
-find_package(Strigi REQUIRED)
+macro_optional_find_package(Strigi)
 
 
 add_subdirectory(src)
 add_subdirectory(icons)
-add_subdirectory(strigi-analyzer)
+if(STRIGI_FOUND)
+   add_subdirectory(strigi-analyzer)
+endif(STRIGI_FOUND)
