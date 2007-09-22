@@ -8,10 +8,8 @@ Type=Application
 DocPath=kaider/kaider.html
 GenericName=A KDE4 Application
 GenericName[es]=Una aplicación de KDE4
-GenericName[ga]=Feidhmchlár KDE4
 GenericName[pt]=Uma Aplicação do KDE4
-GenericName[pt_BR]=Um Aplicativo do KDE4
+GenericName[pt_BR]=Uma Aplicação do KDE4
 GenericName[sv]=Ett KDE4-program
-GenericName[zh_TW]=KDE4 應用程式
 Terminal=0
 
