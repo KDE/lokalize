@@ -224,7 +224,7 @@ private:
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
-//    ProjectView* _projectView;
+    ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
     GlossaryView* _glossaryView;

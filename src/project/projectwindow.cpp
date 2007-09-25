@@ -48,6 +48,8 @@ ProjectWindow::ProjectWindow(QWidget *parent)
     , m_browser(new ProjectWidget(this))
 
 {
+    setCaption(i18nc("@title:window","KAider Catalog Manager"),false);
+
     setCentralWidget(m_browser);
     setAutoSaveSettings(QLatin1String("ProjectWindow"),true);
 

@@ -226,7 +226,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
 
     //setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
 
-    connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(QModelIndex)));
+    //connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(QModelIndex)));
     connect(this,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
     connect(delegate,SIGNAL(newWindowOpenRequested(KUrl)),this,SIGNAL(newWindowOpenRequested(KUrl)));
     connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));

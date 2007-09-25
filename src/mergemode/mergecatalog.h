@@ -48,20 +48,20 @@ public:
 
     void importFinished();
 
-    int firstChangedIndex() const {return m_changedIndex.isEmpty()?numberOfEntries():m_changedIndex.first();}
-    int lastChangedIndex() const {return m_changedIndex.isEmpty()?-1:m_changedIndex.last();}
-    int nextChangedIndex(uint index) const {return findNextInList(m_changedIndex,index);}
-    int prevChangedIndex(uint index) const {return findPrevInList(m_changedIndex,index);}
+    int firstChangedIndex() const {return m_mergeDiffIndex.isEmpty()?numberOfEntries():m_mergeDiffIndex.first();}
+    int lastChangedIndex() const {return m_mergeDiffIndex.isEmpty()?-1:m_mergeDiffIndex.last();}
+    int nextChangedIndex(uint index) const {return findNextInList(m_mergeDiffIndex,index);}
+    int prevChangedIndex(uint index) const {return findPrevInList(m_mergeDiffIndex,index);}
 
 public slots:
-    void removeFromChangedIndex(uint index) {
-        m_changedIndex.removeAll(index);
+    void removeFromDiffIndex(uint index) {
+        m_mergeDiffIndex.removeAll(index);
 //         kWarning()<<"rmvd";
     }
 
 private:
     Catalog* m_baseCatalog;
-    QList<uint> m_changedIndex;
+    QList<uint> m_mergeDiffIndex;
 };
 
 #endif

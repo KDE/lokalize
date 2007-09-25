@@ -51,28 +51,19 @@ class LedsWidget;
 class ProperTextEdit : public KTextEdit
 {
     Q_OBJECT
-    public:
-        ProperTextEdit(QWidget* parent=0):KTextEdit(parent){};
+public:
+    ProperTextEdit(QWidget* parent=0)
+     : KTextEdit(parent)
+     , m_currentUnicodeNumber(0)
+    {};
 
+private:
+    int m_currentUnicodeNumber;
 protected:
 
-//     void keyPressEvent(QKeyEvent *keyEvent)
-//     {
-//LEFT FOR CLEVER EDITING
-//         int key = keyEvent->key();
-//         if (keyEvent->modifiers() == Qt::ControlModifier)
-//         {
-//             if (key==Qt::Key_Z)
-//             {
-//                 kWarning() << "sdsfa";
-//                 keyEvent->ignore();
-//                 return;
-//             }
-//             
-//         }
-//
-//         KTextEdit::keyPressEvent(keyEvent);
-//     }
+    void keyPressEvent(QKeyEvent *keyEvent);
+    void keyReleaseEvent(QKeyEvent* e);
+
 };
 
 class QDragEnterEvent;

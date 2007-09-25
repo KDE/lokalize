@@ -365,6 +365,10 @@ const QList<QAction*>& Project::projectActions()
         a=new QAction(i18nc("@action:inmenu","Create new project"),this);
         connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectCreate()));
         m_projectActions.append(a);
+
+        a=new QAction(i18nc("@action:inmenu","Catalog Manager"),this);
+        connect(a,SIGNAL(triggered(bool)),this,SLOT(openProjectWindow()));
+        m_projectActions.append(a);
     }
     return m_projectActions;
 }

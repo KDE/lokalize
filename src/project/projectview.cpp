@@ -55,6 +55,9 @@ ProjectView::ProjectView(Catalog* catalog, QWidget* parent)
     setObjectName("projectView");
     setWidget(m_browser);
 
+    if(!Project::instance()->isLoaded())
+        hide();
+
     QTimer::singleShot(0,this,SLOT(initLater()));
 }
 

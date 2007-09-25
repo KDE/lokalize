@@ -79,7 +79,7 @@
 #include <QDropEvent>
 #include <QPainter>
 #include <QTabBar>
-
+#include <QTime>
 
 
 
@@ -109,6 +109,8 @@ KAider::KAider()
     , _mergeView(0)
 //     , _msgIdDiffView(0)
 {
+    QTime chrono;chrono.start();
+    setUpdatesEnabled(false);//dunno if it helps
     setAcceptDrops(true);
     setCentralWidget(m_view);
     setupStatusBar();
@@ -120,6 +122,8 @@ KAider::KAider()
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged()));
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
+    setUpdatesEnabled(true);
+    kDebug()<<chrono.elapsed();
 }
 
 KAider::~KAider()
@@ -382,19 +386,15 @@ void KAider::newWindowOpen(const KUrl& url)
 
 void KAider::createDockWindows()
 {
-    MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
-    addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
-    actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
-
     MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiffView,SLOT(slotNewEntryDisplayed(uint)));
 
-    ProjectView* _projectView = new ProjectView(_catalog,this);
+    _projectView = new ProjectView(_catalog,this);
     addDockWidget(Qt::BottomDockWidgetArea, _projectView);
     actionCollection()->addAction( QLatin1String("showprojectview_action"), _projectView->toggleViewAction() );
+    //m_projectViewAction->trigger();
     //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
     connect(_projectView, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(_projectView, SIGNAL(newWindowOpenRequested(const KUrl&)), this, SLOT(newWindowOpen(const KUrl&)));
@@ -417,6 +417,11 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
     connect (m_catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
+
+    MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
+    addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
+    actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
 
 
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);

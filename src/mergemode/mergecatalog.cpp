@@ -67,7 +67,7 @@ void MergeCatalog::importFinished()
 //             kWarning() << "  " << newVector.at(i).msgstr(0);
             newVector[i].setPluralFormType(d->_entries.at(i).pluralFormType());
             newVector[i].setComment(d->_entries.at(i).comment());
-            m_changedIndex.append(i);
+            m_mergeDiffIndex.append(i);
         }
         else
         {
@@ -85,7 +85,7 @@ void MergeCatalog::importFinished()
 //             kWarning() << "  " << newVector.at(i).msgstr(0);
                     newVector[i].setPluralFormType(d->_entries.at(j).pluralFormType());
                     newVector[i].setComment(d->_entries.at(j).comment());
-                    m_changedIndex.append(i);
+                    m_mergeDiffIndex.append(i);
                     newVector[i].setValid(true);
                     break;
                 }

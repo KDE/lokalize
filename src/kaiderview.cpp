@@ -1,7 +1,9 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of KAider (some bits of KBabel code were reused)
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
+                2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -71,7 +73,6 @@ public:
         layout->addStretch();
         setMaximumHeight(minimumSizeHint().height());
     }
-    
 
 //NOTE the config shit doesn't work
 // private:
@@ -93,6 +94,36 @@ public:
     KLed* ledErr;
 
 };
+
+void ProperTextEdit::keyPressEvent(QKeyEvent *keyEvent)
+{
+    // ALT+123 feature TODO this is general so should be on another level
+    if( (keyEvent->modifiers()&Qt::AltModifier)
+         &&!keyEvent->text().isEmpty()
+         &&keyEvent->text().at(0).isDigit() )
+    {
+        QString text=keyEvent->text();
+        while (!text.isEmpty()&& text.at(0).isDigit() )
+        {
+            m_currentUnicodeNumber = 10*m_currentUnicodeNumber+(text.at(0).digitValue());
+            text.remove(0,1);
+        }
+    }
+    else
+        KTextEdit::keyPressEvent(keyEvent);
+}
+
+void ProperTextEdit::keyReleaseEvent(QKeyEvent* e)
+{
+    if ( (e->key()==Qt::Key_Alt) && m_currentUnicodeNumber >= 32 )
+    {
+        insertPlainText(QChar( m_currentUnicodeNumber ));
+        m_currentUnicodeNumber=0;
+    }
+    else
+        KTextEdit::keyReleaseEvent(e);
+}
+
 
 KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     : QSplitter(Qt::Vertical,parent)
@@ -150,6 +181,24 @@ KAiderView::~KAiderView()
 //                                   "of the currently displayed entry.</p></qt>"));
 // }
 
+static bool isMasked(const QString& str, uint col)
+{
+    if(col == 0 || str.isEmpty())
+        return false;
+
+    uint counter=0;
+    int pos=col;
+
+    while(pos >= 0 && str.at(pos) == '\\')
+    {
+        counter++;
+        pos--;
+    }
+
+    return !(bool)(counter%2);
+}
+
+
 bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
 {
 //     if (obj!=_msgstrEdit)
@@ -161,6 +210,7 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
     if (event->type() != QEvent::KeyPress)
         return false;//QObject::eventFilter(obj, event);
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+    static QString spclChars("abfnrtv'\"?\\");
     if(keyEvent->matches(QKeySequence::Undo))
     {
         if (_catalog->canUndo())
@@ -201,6 +251,124 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
         }
         fuzzyEntryDisplayed(false);
         return false;
+    }
+    //clever editing
+    else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
+    {
+        QString str=_msgstrEdit->toPlainText();
+        QTextCursor t=_msgstrEdit->textCursor();
+        int pos=t.position();
+        QString ins;
+        if( keyEvent->modifiers()&Qt::ShiftModifier )
+        {
+            if(pos>0
+               &&!str.isEmpty()
+               &&str.at(pos-1)=='\\'
+               &&!isMasked(str,pos-1))
+            {
+                ins='n';
+            }
+            else
+            {
+                ins="\\n";
+            }
+        }
+        else if(!(keyEvent->modifiers()&Qt::ControlModifier))
+        {
+            if(pos>0
+               &&!str.isEmpty()
+               &&!str.at(pos-1).isSpace())
+            {
+                if(str.at(pos-1)=='\\'
+                   &&!isMasked(str,pos-1))
+                    ins='\\';
+                // if there is no new line at the end
+                if(pos<2||str.mid(pos-2,2)!="\\n")
+                    ins+=' ';
+            }
+            else if(str.isEmpty())
+            {
+                ins="\\n";
+            }
+        }
+        if (!str.isEmpty())
+            ins+='\n';
+        t.insertText(ins);
+        _msgstrEdit->setTextCursor(t);
+
+        return true;
+    }
+    else if(keyEvent->key() == Qt::Key_Tab)
+    {
+        _msgstrEdit->insertPlainText("\\t");
+        return true;
+    }
+    else if( (keyEvent->modifiers()&Qt::ControlModifier)?
+                (keyEvent->key()==Qt::Key_D) :
+                (keyEvent->key()==Qt::Key_Delete))
+    {
+        QTextCursor t=_msgstrEdit->textCursor();
+        if(!t.hasSelection())
+        {
+            int pos=t.position();
+            QString str=_msgstrEdit->toPlainText();
+            if(!str.isEmpty()
+//                 &&pos<str.length()
+                &&str.at(pos) == '\\'
+                &&!isMasked(str,pos))
+            {
+//                 QString spclChars="abfnrtv'\"?\\";
+                if(pos<str.length()-1&&spclChars.contains(str.at(pos+1)))
+                    t.deleteChar();
+            }
+        }
+
+        t.deleteChar();
+        _msgstrEdit->setTextCursor(t);
+
+        return true;
+    }
+    else if( keyEvent->key()==Qt::Key_Backspace
+            || ( ( keyEvent->modifiers() & Qt::ControlModifier ) && keyEvent->key() == Qt::Key_H ) )
+    {
+        QTextCursor t=_msgstrEdit->textCursor();
+        if(!t.hasSelection())
+        {
+            int pos=t.position();
+            QString str=_msgstrEdit->toPlainText();
+//             QString spclChars="abfnrtv'\"?\\";
+            if(!str.isEmpty() && pos>0 && spclChars.contains(str.at(pos-1)))
+            {
+                if(pos>1 && str.at(pos-2)=='\\' && !isMasked(str,pos-2))
+                    t.deletePreviousChar();
+            }
+
+        }
+        t.deletePreviousChar();
+        _msgstrEdit->setTextCursor(t);
+
+        return true;
+    }
+    else if(keyEvent->text()=="\"")
+    {
+        QTextCursor t=_msgstrEdit->textCursor();
+        int pos=t.position();
+        QString str=_msgstrEdit->toPlainText();
+        QString ins;
+
+        if(pos==0 || str.at(pos-1)!='\\' || isMasked(str,pos-1))
+            ins="\\\"";
+        else
+            ins="\"";
+
+        t.insertText(ins);
+        _msgstrEdit->setTextCursor(t);
+        return true;
+    }
+    else if( keyEvent->key() == Qt::Key_Space && ( keyEvent->modifiers() & Qt::AltModifier ) )
+    {
+        _msgstrEdit->insertPlainText(QChar(0x00a0U));
+        return true;
     }
 
     return false;

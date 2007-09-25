@@ -60,6 +60,8 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog)
     setObjectName("mergeView");
     setWidget(m_browser);
 
+    hide();
+
     setAcceptDrops(true);
     m_browser->setReadOnly(true);
 }
@@ -152,8 +154,7 @@ void MergeView::mergeOpen(KUrl url)
     if (url.isEmpty())
         return;
 
-    if (m_mergeCatalog)
-        delete m_mergeCatalog;
+    delete m_mergeCatalog;
     m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
 
     if (m_mergeCatalog->loadFromUrl(url))
@@ -161,7 +162,7 @@ void MergeView::mergeOpen(KUrl url)
         connect (this,
                  SIGNAL(entryModified(uint)),
                  m_mergeCatalog,
-                 SLOT(removeFromChangedIndex(uint)));
+                 SLOT(removeFromDiffIndex(uint)));
 
         if (m_pos.entry>0)
         {
@@ -169,6 +170,7 @@ void MergeView::mergeOpen(KUrl url)
             emit signalNextChangedAvailable(m_pos.entry<m_mergeCatalog->lastChangedIndex());
         }
         slotNewEntryDisplayed(m_pos);
+        show();
     }
     else
     {
@@ -225,7 +227,7 @@ void MergeView::mergeAccept()
     else if ( !m_baseCatalog->isFuzzy(m_pos.entry) && m_mergeCatalog->isFuzzy(m_pos.entry) )
         m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,true));
 
-    m_mergeCatalog->removeFromChangedIndex(m_pos.entry);
+    m_mergeCatalog->removeFromDiffIndex(m_pos.entry);
 
     m_baseCatalog->endMacro();
 
@@ -287,4 +289,3 @@ void MergeView::mergeAcceptAllForEmpty()
 }
 
 
-#include "mergeview.moc"
