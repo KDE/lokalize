@@ -38,6 +38,9 @@
 #include <kdebug.h>
 #include <ktextbrowser.h>
 
+#include <QTime>
+#include <QTimer>
+
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Message Context"), parent)
@@ -46,6 +49,8 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     , m_normTitle(i18nc("@title:window","Message Context"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
+    , m_entry(-1)
+    , m_prevEntry(-1)
 {
     setObjectName("msgCtxtView");
     setWidget(m_browser);
@@ -58,8 +63,18 @@ MsgCtxtView::~MsgCtxtView()
 
 void MsgCtxtView::slotNewEntryDisplayed(uint index)
 {
+    m_entry=index;
+    QTimer::singleShot(0,this,SLOT(process()));
+}
+
+void MsgCtxtView::process()
+{
+    if (m_entry==m_prevEntry)
+        return;
+    m_prevEntry=m_entry;
+    QTime time;time.start();
     m_browser->clear();
-    QString comment(m_catalog->comment(index));
+    QString comment(m_catalog->comment(m_entry));
     comment.replace('<',"&lt;");
     comment.replace('>',"&gt;");
     int pos=comment.indexOf("#:");
@@ -82,7 +97,7 @@ void MsgCtxtView::slotNewEntryDisplayed(uint index)
     comment.replace("#","<br>");
     m_browser->setHtml(i18nc("@info PO comment parsing","<b>Comment:</b>")+comment);
 
-    if (m_catalog->msgctxt(index).isEmpty())
+    if (m_catalog->msgctxt(m_entry).isEmpty())
     {
         if (m_hasInfo)
         {
@@ -100,8 +115,9 @@ void MsgCtxtView::slotNewEntryDisplayed(uint index)
         QTextCursor t=m_browser->textCursor();
         t.movePosition(QTextCursor::End);
         m_browser->setTextCursor(t);
-        m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(index));
+        m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry));
     }
+    kWarning()<<"ELA "<<time.elapsed();
 }
 
 #include "msgctxtview.moc"

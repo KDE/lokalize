@@ -37,12 +37,15 @@
 #include "jobs.h"
 
 #include <QDockWidget>
+#include <QMap>
+#include <QVector>
 // #include <QTimer>
 class KTextBrowser;
 class Catalog;
 class QDropEvent;
 class QDragEnterEvent;
 class QAction;
+class ThreadWeaver::Job;
 
 #define TM_SHORTCUTS 10
 
@@ -71,10 +74,12 @@ public slots:
     //i think we dont wanna cache suggestions:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
-
-    //answer: store separate wordHash for added entries
-
     void slotUseSuggestion(int);
+
+    void slotFileLoaded();
+    void slotBatchSelectDone(ThreadWeaver::Job*);
+    void slotCacheSuggestions(ThreadWeaver::Job*);
+    void displayFromCache();
 
 private:
     KTextBrowser* m_browser;
@@ -88,6 +93,9 @@ private:
     QVector<QAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
 //     QTimer m_timer;
+    QMap<DocPos, QVector<TMEntry> > m_cache;
+    DocPosition m_prevCachePos;//hacky hacky
+    QList<ThreadWeaver::Job*> m_jobs;
 };
 
 #endif

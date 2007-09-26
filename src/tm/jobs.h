@@ -47,6 +47,7 @@ class WeaverInterface;
 #define OPENDB  10000
 #define INSERT  60
 #define SELECT  50
+#define BATCHSELECTFINISHED  49
 #define SCAN    10
 #define SCANFINISHED 9
 
@@ -218,6 +219,26 @@ public:
     ~ScanFinishedJob(){};
 
     int priority()const{return SCANFINISHED;}
+
+protected:
+    void run (){};
+public:
+    QWidget* m_view;
+};
+
+
+//helper
+class BatchSelectFinishedJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    explicit BatchSelectFinishedJob(QWidget* view,QObject* parent=0)
+        : ThreadWeaver::Job(parent)
+        , m_view(view)
+    {}
+    ~BatchSelectFinishedJob(){};
+
+    int priority()const{return BATCHSELECTFINISHED;}
 
 protected:
     void run (){};

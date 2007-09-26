@@ -100,6 +100,7 @@ GlossaryView::~GlossaryView()
 
 void GlossaryView::slotNewEntryDisplayed(uint entry)
 {
+    QTime time;time.start();
     if (entry==0xffffffff)
         entry=m_currentIndex;
     else
@@ -210,6 +211,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     }
 
     setUpdatesEnabled(true);
+    kWarning()<<"ELA "<<time.elapsed();
 }
 
 

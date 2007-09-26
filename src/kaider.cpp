@@ -421,7 +421,7 @@ void KAider::createDockWindows()
     MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint))/*,Qt::QueuedConnection*/);
 
 
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
@@ -726,6 +726,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     if(pos.part==UndefPart)
         _currentPos.part=Msgstr;
 
+                QTime time;time.start();
 // QTime a;
 // a.start();
     //kWarning()<<"goto2: "<<pos.entry;
@@ -769,6 +770,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 //        msgStrChanged();
         statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
     }
+    kWarning()<<"ELA "<<time.elapsed();
 //     kWarning()<<"goto4: "<<pos.entry;
 }
 

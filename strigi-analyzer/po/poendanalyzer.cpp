@@ -133,7 +133,7 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
         data+="\n\n\n";
 
 
-    QString str(data.left(1024));
+    QString str=QString::fromUtf8(data.left(1024).data(),1024);
     QRegExp rx("\\n\"POT-Creation-Date: ([^\\\\]*)\\\\n");
     int cursor=rx.indexIn(str);
     if (cursor==-1)

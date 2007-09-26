@@ -68,4 +68,25 @@ bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
 bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
 
 
+
+//for qmap
+struct DocPos
+{
+    short entry:16;
+    uchar form:8;
+
+    DocPos():
+        entry(-1),
+        form(0)
+        {}
+    DocPos(short _entry,uchar _form):
+        entry(_entry),
+        form(_form)
+        {}
+
+    bool operator<(const DocPos& pos) const
+        {return entry==pos.entry?form<pos.form:entry<pos.entry;};
+};
+
+
 #endif

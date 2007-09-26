@@ -34,6 +34,7 @@
 #include "catalog.h"
 #include "project.h"
 #include "diff.h"
+#include "prefs_kaider.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -769,7 +770,7 @@ void SelectJob::run ()
 
 //    kWarning() <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
     qSort(m_entries);
-    int limit=qMin(15,m_entries.size());
+    int limit=qMin(Settings::suggCount(),m_entries.size());
     int i=m_entries.size();
 //     kWarning()<<"lll"<<i;
     while(--i>=limit)

@@ -69,6 +69,7 @@ set(kaider_SRCS
 kde4_add_ui_files(kaider_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
+    prefs/prefs_misc.ui
     project/prefs_projectmain.ui
     project/prefs_regexps.ui
     glossary/termedit.ui

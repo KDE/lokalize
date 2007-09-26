@@ -567,15 +567,6 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
             if (list.at(i).second.metaInfo(false).keys().empty())
                 list.at(i).second.setMetaInfo(KFileMetaInfo( list.at(i).second.url() ));
         }
-//         else
-//         {
-//             KUrl u(list.at(i)->url().upUrl());
-//             u.adjustPath(KUrl::RemoveTrailingSlash);
-//             if (m_recursiveUrls.contains(u.path()))
-//                 openUrlRecursive(u,true,false);
-//             else
-//                 kWarning()<<" shit shit shit";
-//         }
 
         //maybe this is update and new translations have appeared
         //so remove corresponding template entries in favor of 'em
@@ -587,14 +578,6 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
             if (pot)
             {
                 kDebug()<<"m_templates->findByUrl()"<<potPath<<"ok";
-//                 if (po)
-//                 {
-//                     if (po->metaInfo(false).item("translation.source_date").value()
-//                         ==list.at(i)->metaInfo(false).item("translation.source_date").value())
-//                         po->metaInfo(false).item("translation.templ").addValue("ok");
-//                     else
-//                         po->metaInfo(false).item("translation.templ").addValue("outdated");
-//                 }
                 if (!m_hiddenTemplItems.contains(*pot))
                 {
                     m_hiddenTemplItems.append(*pot);
@@ -610,27 +593,14 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
                         kWarning()<<"emit delete 2"<<path;
                         emit deleteItem(po);
                     }
-                    //templFilesToRemove.append(*pot);
-                    //kWarning()<<"fil"<<po->url();
                 }
             }
             else if ((pot=m_templates->findByUrl(KUrl::fromPath(path))))
             {
                 //dir, the name part is the same
-
-                //removedTemplDirs.append(*pot);
-                //m_hiddenTemplItems.append(*pot);
                 templDirsToRemove.append(*pot);
 
-/*                //now create KFileItem that should be deleted
-                KFileItem po(*pot);
-                po.setUrl(list.at(i)->url());
-                kWarning()<<"emit delete 1"<<list.at(i)->url().path(KUrl::RemoveTrailingSlash);
-                emit deleteItem(po);*/
-                //delete m_items.value(po);
-                //m_items.erase(m_items.find(po));
             }
-            //kWarning()<<path;
         }
     }
 
@@ -655,41 +625,10 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
                 while(--j>=0)
                 {
                     if (!m_hiddenTemplItems.contains(*li.at(j)))
-                    m_hiddenTemplItems.append(*li.at(j));
+                        m_hiddenTemplItems.append(*li.at(j));
                 }
             }
         }
-
-/*        QList<KFileItem>::const_iterator it = removedTemplDirs.constBegin();
-        while (it != removedTemplDirs.constEnd())
-        {
-//             KUrl u(it->url());
-//             u.adjustPath(KUrl::AddTrailingSlash);// will give negative result on files.. but that's ok
-//             u=KUrl::fromPath(u.path());
-//             KUrl u2
-//             kDebug()<<"m_hiddenTemplItems.at.url("<<u<<").isParentOf"
-//                     <<templFilesToRemove.at(i).url();
-//             if (u.isParentOf(templFilesToRemove.at(i).url()));
-            //KUrl's isParentOf sucks
-            if (templFilesToRemove.at(i).url().path().contains(it->url().path()))
-            {
-                kDebug()<<"yes. path:"
-                        <<templFilesToRemove.at(i).url().path()
-                        <<"contains"
-                        <<it->url().path();
-                break;
-            }
-            ++it;
-        }
-
-        if (it == m_hiddenTemplItems.constEnd())*/
-        {
-
-//             emit deleteItem(m_items.value(filesToRemove.at(i)));
-//             delete m_items.value(filesToRemove.at(i));
-//             m_items.erase(m_items.find(filesToRemove.at(i)));
-        }
-
     }
 
     m_reactOnSignals=true;

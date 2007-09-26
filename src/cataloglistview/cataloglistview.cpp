@@ -39,6 +39,7 @@
 #include <kdebug.h>
 #include <klineedit.h>
 
+#include <QTime>
 #include <QTreeView>
 #include <QModelIndex>
 #include <QSortFilterProxyModel>
@@ -99,7 +100,9 @@ CatalogTreeView::~CatalogTreeView()
 
 void CatalogTreeView::slotNewEntryDisplayed(uint entry)
 {
+    QTime time;time.start();
     m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(entry,0)));
+    kWarning()<<"ELA "<<time.elapsed();
 }
 
 

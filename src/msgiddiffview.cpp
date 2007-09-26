@@ -50,6 +50,8 @@ MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
     , m_normTitle(i18nc("@title:window","Original Diff"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
+    , m_entry(-1)
+    , m_prevEntry(-1)
 {
     setObjectName("msgIdDiff");
     setWidget(m_browser);
@@ -64,7 +66,16 @@ MsgIdDiff::~MsgIdDiff()
 
 void MsgIdDiff::slotNewEntryDisplayed(uint index)
 {
-    QString oldStr(m_catalog->comment(index));
+    m_entry=index;
+    QTimer::singleShot(0,this,SLOT(process()));
+}
+
+void MsgIdDiff::process()
+{
+    if (m_entry==m_prevEntry)
+        return;
+    m_prevEntry=m_entry;
+    QString oldStr(m_catalog->comment(m_entry));
     if (!oldStr.contains("#|"))
     {
         ////kWarning()<< "___ returning... ";
@@ -82,7 +93,7 @@ void MsgIdDiff::slotNewEntryDisplayed(uint index)
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
-    QString newStr(m_catalog->msgid(index));
+    QString newStr(m_catalog->msgid(m_entry));
 
     oldStr.replace("#| msgid_plural \"","#| \"");
     newStr.replace("#| msgid_plural \"","#| \"");

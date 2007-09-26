@@ -86,4 +86,12 @@
     </entry>
 -->
   </group>
+  <group name="Misc">
+    <entry name="PrefetchTM"  type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="SuggCount"  type="Int">
+        <default>10</default>
+    </entry>
+  </group>
 </kcfg>

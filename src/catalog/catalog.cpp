@@ -304,7 +304,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
 //             if (a)
 //             {
 //             }
-            //emit signalFileLoaded();
+            emit signalFileLoaded();
             kWarning()<<"++++++++++++++++++++++++++++++++++++++"<<d->_header.msgstrAsList();
             return true;
         }

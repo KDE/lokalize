@@ -48,6 +48,7 @@ public:
 
 public slots:
     void slotNewEntryDisplayed(uint);
+    void process();
 
 private:
     KTextBrowser* m_browser;
@@ -55,6 +56,8 @@ private:
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
+    int m_entry;
+    int m_prevEntry;
 };
 
 #endif

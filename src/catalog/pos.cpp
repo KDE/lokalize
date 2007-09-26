@@ -80,7 +80,8 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
         pos.part=Msgstr;
 
 
-    if ( pos.form+1 < catalog->numberOfPluralForms()
+    if ( pos.entry!=-1
+            && pos.form+1 < catalog->numberOfPluralForms()
             && catalog->pluralFormType(pos.entry)==Gettext )
         pos.form++;
     else if (pos.entry==catalog->numberOfEntries()-1)

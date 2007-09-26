@@ -65,10 +65,15 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     setWidget(m_browser);
 
     QTimer::singleShot(0,this,SLOT(initLater()));
+    connect(m_catalog,SIGNAL(signalFileLoaded()),
+            this,SLOT(slotFileLoaded()));
 }
 
 TMView::~TMView()
 {
+    int i=m_jobs.size();
+    while (--i>=0)
+        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeFirst());
 }
 
 void TMView::initLater()
@@ -179,12 +184,72 @@ void TMView::dropEvent(QDropEvent *event)
 
 }
 
+void TMView::slotFileLoaded()
+{
+    if (!Settings::prefetchTM())
+        return;
+    //m_cache.resize(m_catalog->numberOfEntries());
+    m_cache.clear();
+    int i=m_jobs.size();
+    while (--i>=0)
+        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeFirst());
+    DocPosition pos;
+    while(switchNext(m_catalog,pos))
+    {
+        SelectJob* j=new SelectJob(m_catalog->msgid(pos),
+                                     m_catalog->msgctxt(pos.entry),
+                                     pos,
+                                     Project::instance()->projectID());
+        //these two are for cleanup
+        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
+
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),
+                this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
+
+        ThreadWeaver::Weaver::instance()->enqueue(j);
+        m_jobs.append(j);
+    }
+
+    //dummy job for the finish indication
+    BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
+    connect(m_seq,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),
+            this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
+    ThreadWeaver::Weaver::instance()->enqueue(m_seq);
+}
+
+void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
+{
+    m_jobs.removeAll(j);
+    SelectJob* job=static_cast<SelectJob*>(j);
+    kDebug()<<job->m_pos.entry;
+    if (job->m_pos.entry==m_pos.entry)
+        slotSuggestionsCame(j);
+
+    m_cache[DocPos(job->m_pos.entry,job->m_pos.form)]=job->m_entries.toVector();
+}
+
+void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
+{
+    
+}
+
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
+    QTime time;
+    time.start();
+
     m_browser->clear();
+    ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
     m_pos=pos;
+    if (Settings::prefetchTM()
+        &&m_cache.contains(DocPos(pos.entry,pos.form)))
+    {
+        QTimer::singleShot(0,this,SLOT(displayFromCache()));
+    }
     m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),
                                      m_catalog->msgctxt(pos.entry),
                                      pos,
@@ -194,11 +259,26 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
 
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),
-            this,
-            SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+            this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
 
     ThreadWeaver::Weaver::instance()->enqueue(m_currentSelectJob);
+    kWarning()<<"ELA2 "<<time.elapsed();
 
+}
+
+void TMView::displayFromCache()
+{
+    if (m_prevCachePos.entry==m_pos.entry
+        &&m_prevCachePos.form==m_pos.form)
+        return;
+    SelectJob* temp=new SelectJob(m_catalog->msgid(m_pos),
+                                  m_catalog->msgctxt(m_pos.entry),
+                                  m_pos,
+                                  Project::instance()->projectID());
+    temp->m_entries=m_cache.value(DocPos(m_pos.entry,m_pos.form)).toList();
+    slotSuggestionsCame(temp);
+    temp->deleteLater();
+    m_prevCachePos=m_pos;
 }
 
 void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
@@ -209,6 +289,8 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     SelectJob* job=static_cast<SelectJob*>(j);
     if (job->m_pos.entry!=m_pos.entry)
         return;
+
+    m_browser->clear();
 
     m_entries=job->m_entries;
 
