@@ -153,12 +153,17 @@ public slots:
     void clearTempl();
     void clearTempl(const KUrl&);
 
-    void slotNewItems(const KFileItemList&);//including getting metainfo
+    void slotNewItems(const QList< KFileItem >&);//including getting metainfo
     void slotDeleteItem(const KFileItem&);
     void slotRefreshItems(QList< QPair< KFileItem, KFileItem > >);
 
     //void slotClear();
     void slotCompleted(const KUrl&);
+
+private:
+    //those are called from slotRefreshItems() and slotNewItems() only
+    void removeUnneededTemplEntries(QString& path,QList<KFileItem>& templDirsToRemove);
+    void removeUnneededTemplEntries2(QList<KFileItem>& templDirsToRemove);
 
 
 private:

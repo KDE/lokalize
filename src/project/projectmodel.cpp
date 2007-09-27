@@ -295,8 +295,8 @@ ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
             this, SLOT(slotCompleted(const KUrl&)),
                         Qt::QueuedConnection);
 
-    connect(this,SIGNAL(newItems(KFileItemList)),
-            this, SLOT(slotNewItems(KFileItemList)));
+    connect(this,SIGNAL(newItems(QList< KFileItem >)),
+            this, SLOT(slotNewItems(QList< KFileItem >)));
     connect(this,SIGNAL(refreshItems(QList< QPair< KFileItem, KFileItem > >)),
             this, SLOT(slotRefreshItems(QList< QPair< KFileItem, KFileItem > >)));
     connect(this,SIGNAL(deleteItem(KFileItem)),
@@ -321,7 +321,7 @@ bool ProjectLister::openUrlRecursive(const KUrl &_url, bool _keep, bool _reload)
     return openUrl(_url,_keep,_reload);
 }
 
-/* doesnt handle .po to .po_t_ */
+/* doesnt handle .po to .po_t_ :) */
 static bool poToPot(QString& path)
 {
     if (path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty())
@@ -379,7 +379,7 @@ void ProjectLister::slotCompleted(const KUrl& _url)
 }
 
 //there are limitations by levels
-void ProjectLister::slotNewItems(const KFileItemList& list)
+void ProjectLister::slotNewItems(const QList< KFileItem >& list)
 //we wanna add metainfo to original items
 //void ProjectLister::slotNewItems(const QList<KFileItem>& list)
 {
@@ -399,12 +399,12 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
     int i=list.size();
     while(--i>=0)
     {
-        QString path(list.at(i)->url().path(KUrl::RemoveTrailingSlash));
+        QString path(list.at(i).url().path(KUrl::RemoveTrailingSlash));
         if (path.endsWith(".po"))
         {
             //force population of metainfo. kfilemetainfo's internal is a shit
-            if (list.at(i)->metaInfo(false).keys().empty())
-                list.at(i)->setMetaInfo(KFileMetaInfo( list.at(i)->url() ));
+            if (list.at(i).metaInfo(false).keys().empty())
+                list.at(i).setMetaInfo(KFileMetaInfo( list.at(i).url() ));
         }
 //         else
 //         {
@@ -418,119 +418,11 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 
         //maybe this is update and new translations have appeared
         //so remove corresponding template entries in favor of 'em
-        if (poToPot(path))
-        {
-            QString potPath(path+'t');//.pot => .po
-            kDebug()<<"m_templates->findByUrl()"<<potPath;
-            KFileItem* pot(m_templates->findByUrl(KUrl::fromPath(potPath)));
-            if (pot)
-            {
-                kDebug()<<"m_templates->findByUrl()"<<potPath<<"ok";
-//                 if (po)
-//                 {
-//                     if (po->metaInfo(false).item("translation.source_date").value()
-//                         ==list.at(i)->metaInfo(false).item("translation.source_date").value())
-//                         po->metaInfo(false).item("translation.templ").addValue("ok");
-//                     else
-//                         po->metaInfo(false).item("translation.templ").addValue("outdated");
-//                 }
-                if (!m_hiddenTemplItems.contains(*pot))
-                {
-                    m_hiddenTemplItems.append(*pot);
-                    //m_hiddenTemplItems.append(templFilesToRemove.at(i));
-                    kDebug()<<"templFilesToRemove"<<pot->url();
-    
-                    //now create KFileItem that should be deleted
-                    KFileItem po(*pot);
-                    QString path(po.url().path(KUrl::RemoveTrailingSlash));
-                    if (potToPo(path))
-                    {
-                        po.setUrl(KUrl::fromPath(path));
-                        kWarning()<<"emit delete 2"<<path;
-                        emit deleteItem(po);
-                    }
-                    //templFilesToRemove.append(*pot);
-                    //kWarning()<<"fil"<<po->url();
-                }
-            }
-            else if ((pot=m_templates->findByUrl(KUrl::fromPath(path))))
-            {
-                //dir, the name part is the same
-
-                //removedTemplDirs.append(*pot);
-                //m_hiddenTemplItems.append(*pot);
-                templDirsToRemove.append(*pot);
-
-/*                //now create KFileItem that should be deleted
-                KFileItem po(*pot);
-                po.setUrl(list.at(i)->url());
-                kWarning()<<"emit delete 1"<<list.at(i)->url().path(KUrl::RemoveTrailingSlash);
-                emit deleteItem(po);*/
-                //delete m_items.value(po);
-                //m_items.erase(m_items.find(po));
-            }
-            //kWarning()<<path;
-        }
+        removeUnneededTemplEntries(path,templDirsToRemove);
     }
 
     //find files of dirs being removed
-    i=templDirsToRemove.size();
-    while(--i>=0)
-    {
-        m_hiddenTemplItems.append(templDirsToRemove.at(i));
-        //now create KFileItem that should be deleted
-        KFileItem po(templDirsToRemove.at(i));
-        QString path(po.url().path(KUrl::RemoveTrailingSlash));
-        if (potToPo(path))
-        {
-            po.setUrl(KUrl::fromPath(path));
-            kWarning()<<"emit delete 1"<<path;
-            emit deleteItem(po);
-            if (templDirsToRemove.at(i).isDir())//sanity
-            {
-                //TODO levels
-                KFileItemList li(itemsForDir(templDirsToRemove.at(i).url()));
-                int j=li.size();
-                while(--j>=0)
-                {
-                    if (!m_hiddenTemplItems.contains(*li.at(j)))
-                    m_hiddenTemplItems.append(*li.at(j));
-                }
-            }
-        }
-
-/*        QList<KFileItem>::const_iterator it = removedTemplDirs.constBegin();
-        while (it != removedTemplDirs.constEnd())
-        {
-//             KUrl u(it->url());
-//             u.adjustPath(KUrl::AddTrailingSlash);// will give negative result on files.. but that's ok
-//             u=KUrl::fromPath(u.path());
-//             KUrl u2
-//             kDebug()<<"m_hiddenTemplItems.at.url("<<u<<").isParentOf"
-//                     <<templFilesToRemove.at(i).url();
-//             if (u.isParentOf(templFilesToRemove.at(i).url()));
-            //KUrl's isParentOf sucks
-            if (templFilesToRemove.at(i).url().path().contains(it->url().path()))
-            {
-                kDebug()<<"yes. path:"
-                        <<templFilesToRemove.at(i).url().path()
-                        <<"contains"
-                        <<it->url().path();
-                break;
-            }
-            ++it;
-        }
-
-        if (it == m_hiddenTemplItems.constEnd())*/
-        {
-
-//             emit deleteItem(m_items.value(filesToRemove.at(i)));
-//             delete m_items.value(filesToRemove.at(i));
-//             m_items.erase(m_items.find(filesToRemove.at(i)));
-        }
-
-    }
-
+    removeUnneededTemplEntries2(templDirsToRemove);
     m_reactOnSignals=true;
     kWarning()<<"end"<<a.elapsed();
 }
@@ -538,7 +430,6 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 
 
 
-//TODO merge with newItems ^
 //there are limitations by levels
 void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list)
 //we wanna add metainfo to original items
@@ -570,42 +461,58 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
 
         //maybe this is update and new translations have appeared
         //so remove corresponding template entries in favor of 'em
-        if (poToPot(path))
-        {
-            QString potPath(path+'t');//.pot => .po
-            kDebug()<<"m_templates->findByUrl()"<<potPath;
-            KFileItem* pot(m_templates->findByUrl(KUrl::fromPath(potPath)));
-            if (pot)
-            {
-                kDebug()<<"m_templates->findByUrl()"<<potPath<<"ok";
-                if (!m_hiddenTemplItems.contains(*pot))
-                {
-                    m_hiddenTemplItems.append(*pot);
-                    //m_hiddenTemplItems.append(templFilesToRemove.at(i));
-                    kDebug()<<"templFilesToRemove"<<pot->url();
-    
-                    //now create KFileItem that should be deleted
-                    KFileItem po(*pot);
-                    QString path(po.url().path(KUrl::RemoveTrailingSlash));
-                    if (potToPo(path))
-                    {
-                        po.setUrl(KUrl::fromPath(path));
-                        kWarning()<<"emit delete 2"<<path;
-                        emit deleteItem(po);
-                    }
-                }
-            }
-            else if ((pot=m_templates->findByUrl(KUrl::fromPath(path))))
-            {
-                //dir, the name part is the same
-                templDirsToRemove.append(*pot);
-
-            }
-        }
+        removeUnneededTemplEntries(path,templDirsToRemove);
     }
 
+    removeUnneededTemplEntries2(templDirsToRemove);
+
+    m_reactOnSignals=true;
+    kWarning()<<"end"<<a.elapsed();
+}
+
+//called from slotRefreshItems() and slotNewItems()
+void ProjectLister::removeUnneededTemplEntries(QString& path,
+                                               QList<KFileItem>& templDirsToRemove)
+{
+    if (poToPot(path))
+    {
+        QString potPath(path+'t');//.pot => .po
+        kDebug()<<"m_templates->findByUrl()"<<potPath;
+        KFileItem* pot(m_templates->findByUrl(KUrl::fromPath(potPath)));
+        if (pot)
+        {
+            kDebug()<<"m_templates->findByUrl()"<<potPath<<"ok";
+            if (!m_hiddenTemplItems.contains(*pot))
+            {
+                m_hiddenTemplItems.append(*pot);
+                //m_hiddenTemplItems.append(templFilesToRemove.at(i));
+                kDebug()<<"templFilesToRemove"<<pot->url();
+
+                //now create KFileItem that should be deleted
+                KFileItem po(*pot);
+                QString path(po.url().path(KUrl::RemoveTrailingSlash));
+                if (potToPo(path))
+                {
+                    po.setUrl(KUrl::fromPath(path));
+                    kWarning()<<"emit delete 2"<<path;
+                    emit deleteItem(po);
+                }
+            }
+        }
+        else if ((pot=m_templates->findByUrl(KUrl::fromPath(path))))
+        {
+            //dir, the name part is the same
+            templDirsToRemove.append(*pot);
+
+        }
+    }
+}
+
+//called from slotRefreshItems() and slotNewItems()
+void ProjectLister::removeUnneededTemplEntries2(QList<KFileItem>& templDirsToRemove)
+{
     //find files of dirs being removed
-    i=templDirsToRemove.size();
+    int i=templDirsToRemove.size();
     while(--i>=0)
     {
         m_hiddenTemplItems.append(templDirsToRemove.at(i));
@@ -631,10 +538,7 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
         }
     }
 
-    m_reactOnSignals=true;
-    kWarning()<<"end"<<a.elapsed();
 }
-
 
 void ProjectLister::slotDeleteItem(const KFileItem& item)
 {

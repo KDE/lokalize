@@ -71,28 +71,36 @@ public slots:
 
     void initLater();
 
+    void slotUseSuggestion(int);
     //i think we dont wanna cache suggestions:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
-    void slotUseSuggestion(int);
 
     void slotFileLoaded();
     void slotBatchSelectDone(ThreadWeaver::Job*);
     void slotCacheSuggestions(ThreadWeaver::Job*);
     void displayFromCache();
 
+    void slotBatchTranslate();
+    void slotBatchTranslateFuzzy();
+
 private:
     KTextBrowser* m_browser;
     Catalog* m_catalog;
     DocPosition m_pos;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
+
     SelectJob* m_currentSelectJob;
 //     QSignalMapper *m_signalMapper;
     QVector<QAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
 //     QTimer m_timer;
+
+    QString m_normTitle;
+    QString m_hasInfoTitle;
+    bool m_hasInfo;
+
+    bool m_isBatching;
+    bool m_markAsFuzzy;
     QMap<DocPos, QVector<TMEntry> > m_cache;
     DocPosition m_prevCachePos;//hacky hacky
     QList<ThreadWeaver::Job*> m_jobs;

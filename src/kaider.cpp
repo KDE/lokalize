@@ -202,18 +202,22 @@ void KAider::setupActions()
 //Settings
     KStandardAction::preferences(SettingsController::instance(), SLOT(slotSettings()), actionCollection());
 
-#define ADD_ACTION(_name,_text,_shortcut,_icon)\
+#define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
     action = actionCollection()->addAction(_name);\
-    action->setText(i18nc("@action:inmenu",_text));\
+    action->setText(_text);\
     action->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::_shortcut));\
     action->setIcon(KIcon(_icon));
 
-#define ADD_ACTION_SHORTCUT(_name,_text,_shortcut,_icon)\
+#define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = actionCollection()->addAction(_name);\
-    action->setText(i18nc("@action:inmenu",_text));\
+    action->setText(_text);\
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setIcon(KIcon(_icon));
 
+#define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
+    action = actionCollection()->addAction(_name);\
+    action->setText(_text);\
+    action->setShortcut(QKeySequence( _shortcut ));\
 
 
 //Edit
@@ -245,10 +249,10 @@ void KAider::setupActions()
     connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)),Qt::QueuedConnection);
     connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
-    ADD_ACTION_SHORTCUT("msgid2msgstr","Copy Msgid to Msgstr",Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
+    ADD_ACTION_SHORTCUT_ICON("msgid2msgstr",i18nc("@action:inmenu","Copy Msgid to Msgstr"),Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
 
-    ADD_ACTION_SHORTCUT("unwrapmsgstr","Unwrap Msgstr",Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
+    ADD_ACTION_SHORTCUT_ICON("unwrapmsgstr",i18nc("@action:inmenu","Unwrap Msgstr"),Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
     action = actionCollection()->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
@@ -286,38 +290,45 @@ void KAider::setupActions()
     action = KStandardAction::gotoPage(this, SLOT(gotoEntry()), actionCollection());
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
-    ADD_ACTION_SHORTCUT("go_prev_fuzzy","Pre&vious Fuzzy",Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous Fuzzy"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
     connect( this, SIGNAL(signalPriorFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_next_fuzzy","Ne&xt Fuzzy",Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu","Next Fuzzy"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
     connect( this, SIGNAL(signalNextFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_prev_untrans","Prev&ious Untranslated",Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous Untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
     connect( this, SIGNAL(signalPriorUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_next_untrans","Nex&t Untranslated",Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next Untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_prev_fuzzyUntr","Previous Fuzzy or Untranslated",Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu","Previous Fuzzy or Untranslated"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
     connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT("go_next_fuzzyUntr","Next Fuzzy or Untranslated",Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu","Next Fuzzy or Untranslated"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
 //Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
-    ADD_ACTION_SHORTCUT("tools_glossary","Glossary",Qt::CTRL+Qt::ALT+Qt::Key_G,"glossary")
+    ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( showGlossary() ) );
 
-    ADD_ACTION_SHORTCUT("tools_tm","Translation Memory",Qt::CTRL+Qt::ALT+Qt::Key_M,"tm")
+    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( showTM() ) );
+
+    ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all 100% suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
+    connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslate() ) );
+
+    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all 100% suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
+    connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
+
 
 //Bookmarks
     action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),actionCollection());
@@ -522,7 +533,7 @@ void KAider::createDockWindows()
         tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",i));
         tmactions[i]=tmaction;
     }
-    TMView* _tmView = new TMView(this,_catalog,tmactions);
+    _tmView = new TMView(this,_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);

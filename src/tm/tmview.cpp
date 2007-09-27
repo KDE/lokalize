@@ -35,6 +35,7 @@
 #include "jobs.h"
 // #include "diff.h"
 #include "catalog.h"
+#include "cmd.h"
 #include "project.h"
 #include "prefs_kaider.h"
 
@@ -42,6 +43,7 @@
 #include <kdebug.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <ktextbrowser.h>
+#include <kpassivepopup.h>
 
 #include <QTime>
 #include <QDragEnterEvent>
@@ -55,11 +57,13 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
     , m_browser(new KTextBrowser(this))
     , m_catalog(catalog)
+    , m_currentSelectJob(0)
+    , m_actions(actions)
     , m_normTitle(i18nc("@title:window","Translation Memory"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
-    , m_currentSelectJob(0)
-    , m_actions(actions)
+    , m_isBatching(false)
+    , m_markAsFuzzy(false)
 {
     setObjectName("TMView");
     setWidget(m_browser);
@@ -73,7 +77,7 @@ TMView::~TMView()
 {
     int i=m_jobs.size();
     while (--i>=0)
-        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeFirst());
+        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
 }
 
 void TMView::initLater()
@@ -186,20 +190,24 @@ void TMView::dropEvent(QDropEvent *event)
 
 void TMView::slotFileLoaded()
 {
-    if (!Settings::prefetchTM())
+    if (!Settings::prefetchTM()
+        &&!m_isBatching)
         return;
     //m_cache.resize(m_catalog->numberOfEntries());
     m_cache.clear();
     int i=m_jobs.size();
     while (--i>=0)
-        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeFirst());
+        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
     DocPosition pos;
     while(switchNext(m_catalog,pos))
     {
+        if (!m_catalog->isUntranslated(pos.entry)
+           &&!m_catalog->isFuzzy(pos.entry))
+            continue;
         SelectJob* j=new SelectJob(m_catalog->msgid(pos),
-                                     m_catalog->msgctxt(pos.entry),
-                                     pos,
-                                     Project::instance()->projectID());
+                                   m_catalog->msgctxt(pos.entry),
+                                   pos,
+                                   Project::instance()->projectID());
         //these two are for cleanup
         connect(j,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         connect(j,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
@@ -218,6 +226,7 @@ void TMView::slotFileLoaded()
     connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),
             this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(m_seq);
+    m_jobs.append(m_seq);
 }
 
 void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
@@ -233,9 +242,80 @@ void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
 
 void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
 {
-    
+    m_jobs.clear();
+    if (!m_isBatching)
+        return;
+
+    bool insHappened=false;
+    DocPosition pos;
+    while(switchNext(m_catalog,pos))
+    {
+        if (!(m_catalog->isUntranslated(pos.entry)
+             ||m_catalog->isFuzzy(pos.entry))
+           ||m_cache.value(DocPos(pos.entry,pos.form)).isEmpty()
+           )
+            continue;
+        const TMEntry& entry=m_cache.value(DocPos(pos.entry,pos.form)).first();
+        if (entry.score<10000)
+            continue;
+        if (m_pos.entry==pos.entry&&pos.form==m_pos.form)
+        {
+            //FIXME if(m_markAsFuzzy)
+            emit textReplaceRequested(entry.target);
+        }
+        else
+        {
+            if (m_catalog->isFuzzy(pos.entry))
+            {
+                m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
+                if (entry.score==1001)
+                    m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,false));
+            }
+            else if (m_markAsFuzzy&&entry.score!=1001)
+            {
+                m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,true));
+            }
+            m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
+        }
+        if (!insHappened)
+        {
+            insHappened=true;
+            m_catalog->beginMacro(i18nc("@item Undo action","Batch Translation Memory Filling"));
+        }
+
+
+    }
+    QString msg=i18nc("@info","Batch translation is completed.");
+    if (insHappened)
+        m_catalog->endMacro();
+    else
+        msg+=" "+i18nc("@info","No 100% suggestions were found.");
+
+    KPassivePopup::message(KPassivePopup::Balloon,
+                           i18nc("@title","Batch translation complete"),
+                           msg,
+                           this);
 }
 
+void TMView::slotBatchTranslate()
+{
+    m_isBatching=true;
+    m_markAsFuzzy=false;
+    if (!Settings::prefetchTM())
+        slotFileLoaded();
+    else if (m_jobs.isEmpty())
+        slotBatchSelectDone(0);
+}
+
+void TMView::slotBatchTranslateFuzzy()
+{
+    m_isBatching=true;
+    m_markAsFuzzy=true;
+    if (!Settings::prefetchTM())
+        slotFileLoaded();
+    else if (m_jobs.isEmpty())
+        slotBatchSelectDone(0);
+}
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
@@ -317,7 +397,6 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
     while (i<limit)
     {
-
         //m_browser->insertHtml(QString("/%1% %2/ ").arg(float(job->m_entries.at(i).score)/100).arg(job->m_entries.at(i).date));
         m_browser->insertHtml(QString("/%1%/ ").arg(float(job->m_entries.at(i).score)/100));
 

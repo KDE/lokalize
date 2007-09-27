@@ -58,6 +58,7 @@ class ProjectView;
 class MergeView;
 class GlossaryView;
 class CatalogTreeView;
+class TMView;
 class Ui_findExtension;
 
 
@@ -229,6 +230,7 @@ private:
     MergeView* _mergeView;
     GlossaryView* _glossaryView;
     CatalogTreeView* m_catalogTreeView;
+    TMView* _tmView;
 
 
     QString _captionPath;
