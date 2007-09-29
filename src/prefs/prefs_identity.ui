@@ -119,6 +119,14 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <tabstops>
+  <tabstop>kcfg_authorName</tabstop>
+  <tabstop>kcfg_authorEmail</tabstop>
+  <tabstop>DefaultLangCode</tabstop>
+  <tabstop>kcfg_DefaultMailingList</tabstop>
+  <tabstop>kcfg_authorLocalizedName</tabstop>
+  <tabstop>kcfg_DefaultLangCode</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
