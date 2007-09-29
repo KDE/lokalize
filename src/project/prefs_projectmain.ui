@@ -191,6 +191,18 @@
    <header>prefs.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>kcfg_ProjectID</tabstop>
+  <tabstop>LangCode</tabstop>
+  <tabstop>kcfg_MailingList</tabstop>
+  <tabstop>poBaseDir</tabstop>
+  <tabstop>potBaseDir</tabstop>
+  <tabstop>glossaryTbx</tabstop>
+  <tabstop>kcfg_LangCode</tabstop>
+  <tabstop>kcfg_PoBaseDir</tabstop>
+  <tabstop>kcfg_PotBaseDir</tabstop>
+  <tabstop>kcfg_GlossaryTbx</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
