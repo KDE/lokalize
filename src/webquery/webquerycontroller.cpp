@@ -91,7 +91,7 @@ void WebQueryController::doDownloadAndFilter(QString urlStr, QString _codec, QSt
     url.setUrl(urlStr);
 
     kWarning()<<"_real url: "<<url.toString();
-    KIO::StoredTransferJob* readJob = KIO::storedGet(url,false,false);
+    KIO::StoredTransferJob* readJob = KIO::storedGet(url, KIO::NoReload, KIO::HideProgressInfo);
     connect(readJob,SIGNAL(result(KJob*)),this,SLOT(slotDownloadResult(KJob*)));
 
     codec=QTextCodec::codecForName(_codec.toUtf8());
