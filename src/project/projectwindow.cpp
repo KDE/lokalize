@@ -56,6 +56,18 @@ ProjectWindow::ProjectWindow(QWidget *parent)
     connect(m_browser,SIGNAL(fileOpenRequested(const KUrl&)),
             this,SLOT(fileOpen(const KUrl&)));
 
+#define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
+    action = actionCollection()->addAction(_name);\
+    action->setText(_text);\
+    action->setShortcut(QKeySequence( _shortcut ));\
+
+    QAction* action;
+    ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
+    connect( action, SIGNAL( triggered(bool) ), Project::instance(), SLOT( showGlossary() ) );
+
+    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
+    connect( action, SIGNAL( triggered(bool) ), Project::instance(), SLOT( showTM() ) );
+
     //setXMLFile("kaiderprojectui.rc");
     setupGUI(/*ToolBar|*/Keys|Create,"projectmanagerui.rc");
 //     QMenu *m=static_cast<QMenu*>(guiFactory()->container("bookmarks",this));

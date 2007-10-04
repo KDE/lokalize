@@ -58,7 +58,7 @@
       <item row="0" column="0" >
        <widget class="QLabel" name="label_2" >
         <property name="text" >
-         <string>Text added in the newer string:</string>
+         <string comment="@label:chooser" >Text added in the newer string:</string>
         </property>
        </widget>
       </item>
@@ -72,7 +72,7 @@
       <item row="1" column="0" >
        <widget class="QLabel" name="label_3" >
         <property name="text" >
-         <string>Text removed in the newer string:</string>
+         <string comment="@label:chooser" >Text removed in the newer string:</string>
         </property>
        </widget>
       </item>

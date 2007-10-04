@@ -47,7 +47,6 @@
 #include "glossaryview.h"
 #include "webqueryview.h"
 #include "tmview.h"
-#include "tmwindow.h"
 
 #include "project.h"
 #include "prefs.h"
@@ -318,10 +317,10 @@ void KAider::setupActions()
     action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
 
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( showGlossary() ) );
+    connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showGlossary() ) );
 
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( showTM() ) );
+    connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTM() ) );
 
     ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all 100% suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslate() ) );
@@ -950,17 +949,6 @@ void KAider::defineNewTerm()
     if (target.isEmpty())
         target=_catalog->msgstr(_currentPos).toLower();
 
-    _glossaryView->defineNewTerm(en,target);
-}
-
-void KAider::showGlossary()
-{
-    _glossaryView->defineNewTerm();
-}
-
-void KAider::showTM()
-{
-    TMWindow* win=new TMWindow;
-    win->show();
+    _project->defineNewTerm(en,target);
 }
 

@@ -145,7 +145,7 @@ public:
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
 
 public slots:
-    void slotNewTemplItems(QList<KFileItem>);
+    void slotNewTemplItems(KFileItemList);
 //    void slotNewTemplItems(const KFileItemList&);//to get metainfo
     void slotDeleteTemplItem(const KFileItem&);
     void slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > );
@@ -153,7 +153,7 @@ public slots:
     void clearTempl();
     void clearTempl(const KUrl&);
 
-    void slotNewItems(const QList< KFileItem >&);//including getting metainfo
+    void slotNewItems(const KFileItemList& list);//including getting metainfo
     void slotDeleteItem(const KFileItem&);
     void slotRefreshItems(QList< QPair< KFileItem, KFileItem > >);
 
@@ -162,13 +162,13 @@ public slots:
 
 private:
     //those are called from slotRefreshItems() and slotNewItems() only
-    void removeUnneededTemplEntries(QString& path,QList<KFileItem>& templDirsToRemove);
-    void removeUnneededTemplEntries2(QList<KFileItem>& templDirsToRemove);
+    void removeUnneededTemplEntries(QString& path,KFileItemList& templDirsToRemove);
+    void removeUnneededTemplEntries2(KFileItemList& templDirsToRemove);
 
 
 private:
     KDirLister* m_templates;
-    QList<KFileItem> m_hiddenTemplItems;
+    KFileItemList m_hiddenTemplItems;
 
     //we need to store deep copies because things get fucked up on refresh otherwise
     //lister's item => our item

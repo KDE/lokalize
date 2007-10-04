@@ -37,8 +37,8 @@
 #include <QObject>
 #include "projectbase.h"
 #include "projectmodel.h"
-#include "jobs.h"
 
+class QAction;
 class ProjectModel;
 class Glossary;
 class WebQueryController;
@@ -111,6 +111,11 @@ public slots:
     void deleteScanJob(ThreadWeaver::Job*);
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
 //     void slotTMWordsIndexed(ThreadWeaver::Job*);
+    void showTM();
+    void showGlossary();
+    void defineNewTerm(QString en=QString(),QString target=QString());
+
+
 
 private:
     static Project* _instance;

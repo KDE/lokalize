@@ -54,6 +54,7 @@ set(kaider_SRCS
     tm/jobs.cpp
     tm/tmwindow.cpp
     tm/dbfilesmodel.cpp
+    tm/tmmanager.cpp
 
     catalog/cmd.cpp
     catalog/pos.cpp
@@ -74,6 +75,7 @@ kde4_add_ui_files(kaider_SRCS
     project/prefs_regexps.ui
     glossary/termedit.ui
     tm/queryoptions.ui
+    tm/managedatabases.ui
     kaider_findextension.ui
     webquery/querycontrol.ui
 )

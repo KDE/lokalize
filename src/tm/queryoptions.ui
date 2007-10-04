@@ -18,7 +18,20 @@
      <item>
       <widget class="QRadioButton" name="substr" >
        <property name="text" >
-        <string>Substring</string>
+        <string comment="@option:radio" >Substring</string>
+       </property>
+       <property name="checked" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="like" >
+       <property name="toolTip" >
+        <string>Space is AND operator</string>
+       </property>
+       <property name="text" >
+        <string comment="@option:radio" >Google-like</string>
        </property>
        <property name="checked" >
         <bool>true</bool>
@@ -26,16 +39,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="like" >
-       <property name="text" >
-        <string>Google-like, respecting order</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QRadioButton" name="rx" >
+       <property name="toolTip" >
+        <string>Shell globs (* and ?)</string>
+       </property>
        <property name="text" >
-        <string>RegEx</string>
+        <string comment="@option:radio" >Wildcard</string>
        </property>
       </widget>
      </item>

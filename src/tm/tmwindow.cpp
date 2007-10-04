@@ -74,15 +74,67 @@ void TMDBModel::setFilter(const QString& str)
     QString escaped(str);
     escaped.replace('\'',"''");
 
-    setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
-             "WHERE tm_main.english LIKE '%"+escaped+"%' "
-             "OR tm_main.target LIKE '%"+escaped+"%' "
-             "UNION "
-             "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
-             "WHERE tm_main.id==tm_dups.id "
-             "AND (tm_main.english LIKE '%"+escaped+"%' "
-             "OR tm_dups.target LIKE '%"+escaped+"%') "
+    if (m_queryType==SubStr)
+    {
+        setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
+                 "WHERE tm_main.english LIKE '%"+escaped+"%' "
+                 "OR tm_main.target LIKE '%"+escaped+"%' "
+                 "UNION "
+                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
+                 "WHERE tm_main.id==tm_dups.id "
+                 "AND (tm_main.english LIKE '%"+escaped+"%' "
+                 "OR tm_dups.target LIKE '%"+escaped+"%') "
                     /*"ORDER BY tm_main.english"*/ ,m_db);
+    }
+    else if (m_queryType==WordOrder)
+    {
+        QStringList strList=str.split(QRegExp("\\W"),QString::SkipEmptyParts);
+        setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
+                 "WHERE tm_main.english LIKE '%"+
+                 strList.join("%' AND tm_main.english LIKE '%")+
+                 "%' "
+                 "UNION "
+                 "SELECT tm_main.english, tm_main.target FROM tm_main "
+                 "WHERE tm_main.target LIKE '%"+
+                 strList.join("%' AND tm_main.target LIKE '%")+
+                 "%' "
+                 "UNION "
+                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
+                 "WHERE tm_main.id==tm_dups.id "
+                 "AND tm_main.english LIKE '%"+
+                 strList.join("%' AND tm_main.english LIKE '%")+
+                 "%' "
+                 "UNION "
+                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
+                 "WHERE tm_main.id==tm_dups.id "
+                 "AND tm_dups.target LIKE '%"+
+                 strList.join("%' AND tm_dups.target LIKE '%")+
+                 "%' "
+                    /*"ORDER BY tm_main.english"*/ ,m_db);
+    }
+    else //regex
+    {
+//         setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
+//                  "WHERE tm_main.english REGEXP '"+escaped+"' "
+//                  "OR tm_main.target REGEXP '"+escaped+"' "
+//                  "UNION "
+//                  "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
+//                  "WHERE tm_main.id==tm_dups.id "
+//                  "AND (tm_main.english REGEXP '"+escaped+"' "
+//                  "OR tm_dups.target REGEXP '"+escaped+"') "
+//                     /*"ORDER BY tm_main.english"*/ ,m_db);
+        setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
+                 "WHERE tm_main.english GLOB '*"+escaped+"*' "
+                 "OR tm_main.target GLOB '*"+escaped+"*' "
+                 "UNION "
+                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
+                 "WHERE tm_main.id==tm_dups.id "
+                 "AND (tm_main.english GLOB '*"+escaped+"*' "
+                 "OR tm_dups.target GLOB '*"+escaped+"*') "
+                    /*"ORDER BY tm_main.english"*/ ,m_db);
+
+    }
+
 
 }
 

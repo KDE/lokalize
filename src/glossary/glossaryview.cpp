@@ -215,14 +215,5 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
 }
 
 
-void GlossaryView::defineNewTerm(QString en,QString target)
-{
-    GlossaryWindow* gloWin=new GlossaryWindow;
-    gloWin->show();
-    if (!en.isEmpty()||!target.isEmpty())
-        gloWin->newTerm(en,target);
-}
-
-
 
 #include "glossaryview.moc"

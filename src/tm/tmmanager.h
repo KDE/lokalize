@@ -30,55 +30,8 @@
 
 **************************************************************************** */
 
-#ifndef GLOSSARYVIEW_H
-#define GLOSSARYVIEW_H
+#ifndef TMMANAGER_H
+#define TMMANAGER_H
 
-#include <pos.h>
-#include <QRegExp>
-#include <QDockWidget>
-//#include <QList>
-class Catalog;
-class Glossary;
-class FlowLayout;
-class QDragEnterEvent;
-class QDropEvent;
-class QEvent;
-class QAction;
-#include <QVector>
-
-#define GLOSSARY_SHORTCUTS 11
-class GlossaryView: public QDockWidget
-{
-    Q_OBJECT
-
-public:
-    GlossaryView(QWidget*,Catalog*,const QVector<QAction*>&);
-    virtual ~GlossaryView();
-
-
-//     void dragEnterEvent(QDragEnterEvent* event);
-//     void dropEvent(QDropEvent*);
-//     bool event(QEvent*);
-public slots:
-    //plural messages usually contain the same words...
-    void slotNewEntryDisplayed(uint entry=0xffffffff);//a little hacky, but... :)
-
-signals:
-    void termInsertRequested(const QString&);
-
-private:
-    QWidget* m_browser;
-    Catalog* m_catalog;
-    FlowLayout *m_flowLayout;
-    Glossary* m_glossary;
-    QRegExp m_rxClean;
-    QRegExp m_rxSplit;
-    int m_currentIndex;
-
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-
-};
 
 #endif

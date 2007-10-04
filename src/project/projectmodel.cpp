@@ -269,8 +269,8 @@ ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
     , m_reactOnSignals(true)
     , m_model(model)
 {
-    connect(m_templates,SIGNAL(newItems(QList<KFileItem>)),
-            this, SLOT(slotNewTemplItems(QList<KFileItem>)));
+    connect(m_templates,SIGNAL(newItems(KFileItemList)),
+            this, SLOT(slotNewTemplItems(KFileItemList)));
 //     connect(m_templates,SIGNAL(newItems(KFileItemList)),
 //             this, SLOT(slotNewTemplItems(KFileItemList)));
     connect(m_templates, SIGNAL(deleteItem(const KFileItem&)),
@@ -295,8 +295,8 @@ ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
             this, SLOT(slotCompleted(const KUrl&)),
                         Qt::QueuedConnection);
 
-    connect(this,SIGNAL(newItems(QList< KFileItem >)),
-            this, SLOT(slotNewItems(QList< KFileItem >)));
+    connect(this,SIGNAL(newItems(KFileItemList)),
+            this, SLOT(slotNewItems(KFileItemList)));
     connect(this,SIGNAL(refreshItems(QList< QPair< KFileItem, KFileItem > >)),
             this, SLOT(slotRefreshItems(QList< QPair< KFileItem, KFileItem > >)));
     connect(this,SIGNAL(deleteItem(KFileItem)),
@@ -379,9 +379,9 @@ void ProjectLister::slotCompleted(const KUrl& _url)
 }
 
 //there are limitations by levels
-void ProjectLister::slotNewItems(const QList< KFileItem >& list)
+void ProjectLister::slotNewItems(const KFileItemList& list)
 //we wanna add metainfo to original items
-//void ProjectLister::slotNewItems(const QList<KFileItem>& list)
+//void ProjectLister::slotNewItems(const KFileItemList& list)
 {
     if (!m_reactOnSignals)
         return;
@@ -393,9 +393,9 @@ void ProjectLister::slotNewItems(const QList< KFileItem >& list)
     //2. removes template items from the view if they have been translated after initial folder scanning
 
     //we don't wanna emit deletion of files if their folders are being removed too
-    QList<KFileItem> templDirsToRemove;//stores real paths
-    //QList<KFileItem> templFilesToRemove;//stores real paths
-    //QList<KFileItem> removedTemplDirs;
+    KFileItemList templDirsToRemove;//stores real paths
+    //KFileItemList templFilesToRemove;//stores real paths
+    //KFileItemList removedTemplDirs;
     int i=list.size();
     while(--i>=0)
     {
@@ -433,7 +433,7 @@ void ProjectLister::slotNewItems(const QList< KFileItem >& list)
 //there are limitations by levels
 void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list)
 //we wanna add metainfo to original items
-//void ProjectLister::slotNewItems(const QList<KFileItem>& list)
+//void ProjectLister::slotNewItems(const KFileItemList& list)
 {
     if (!m_reactOnSignals)
         return;
@@ -445,9 +445,9 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
     //2. removes template items from the view if they have been translated after initial folder scanning
 
     //we don't wanna emit deletion of files if their folders are being removed too
-    QList<KFileItem> templDirsToRemove;//stores real paths
-    //QList<KFileItem> templFilesToRemove;//stores real paths
-    //QList<KFileItem> removedTemplDirs;
+    KFileItemList templDirsToRemove;//stores real paths
+    //KFileItemList templFilesToRemove;//stores real paths
+    //KFileItemList removedTemplDirs;
     int i=list.size();
     while(--i>=0)
     {
@@ -472,7 +472,7 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
 
 //called from slotRefreshItems() and slotNewItems()
 void ProjectLister::removeUnneededTemplEntries(QString& path,
-                                               QList<KFileItem>& templDirsToRemove)
+                                               KFileItemList& templDirsToRemove)
 {
     if (poToPot(path))
     {
@@ -509,7 +509,7 @@ void ProjectLister::removeUnneededTemplEntries(QString& path,
 }
 
 //called from slotRefreshItems() and slotNewItems()
-void ProjectLister::removeUnneededTemplEntries2(QList<KFileItem>& templDirsToRemove)
+void ProjectLister::removeUnneededTemplEntries2(KFileItemList& templDirsToRemove)
 {
     //find files of dirs being removed
     int i=templDirsToRemove.size();
@@ -570,7 +570,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             po.setUrl(KUrl::fromPath(poPath));
 
             m_reactOnSignals=false;
-            QList<KFileItem> list;
+            KFileItemList list;
             list.append(po);
             kDebug()<<"emitting:"<<poPath;
             //HACK for debuging
@@ -637,7 +637,7 @@ void ProjectLister::clearTempl()
 //         list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
 // }
 
-void ProjectLister::slotNewTemplItems(QList<KFileItem> list)
+void ProjectLister::slotNewTemplItems(KFileItemList list)
 {
     int i;
     QTime a;a.start();

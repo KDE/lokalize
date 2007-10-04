@@ -165,9 +165,6 @@ private slots:
     void newWindowOpen(const KUrl&);
 
     void defineNewTerm();
-    void showGlossary();
-    void showTM();
-
 
 private:
     void setupAccel();

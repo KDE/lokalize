@@ -35,10 +35,13 @@
 
 #include "prefs.h"
 #include "webquerycontroller.h"
-#include "glossary.h"
 #include "jobs.h"
+#include "glossary.h"
 
 #include "projectwindow.h"
+
+#include "tmwindow.h"
+#include "glossarywindow.h"
 
 
 #include <QTimer>
@@ -374,5 +377,23 @@ const QList<QAction*>& Project::projectActions()
 }
 
 
-#include "project.moc"
+void Project::showTM()
+{
+    TMWindow* win=new TMWindow;
+    win->show();
+}
+
+void Project::showGlossary()
+{
+    defineNewTerm();
+}
+
+void Project::defineNewTerm(QString en,QString target)
+{
+    GlossaryWindow* gloWin=new GlossaryWindow;
+    gloWin->show();
+    if (!en.isEmpty()||!target.isEmpty())
+        gloWin->newTerm(en,target);
+}
+
 

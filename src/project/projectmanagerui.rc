@@ -69,5 +69,12 @@
     </Menu>
   </Menu>
 -->
+  <Menu name="tools"><text>&amp;Tools</text>
+    <Separator/>
+    <Action name="tools_glossary"/>
+    <Separator/>
+    <Action name="tools_tm"/>
+    <Action name="tools_tm_manage"/>
+  </Menu>
 </MenuBar>
 </kpartgui>

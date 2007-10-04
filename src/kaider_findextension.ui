@@ -42,7 +42,7 @@
         <string>Ignore accelerator marks</string>
        </property>
        <property name="text" >
-        <string>Ignore accelerator marks</string>
+        <string comment="@option:check" >Ignore accelerator marks</string>
        </property>
       </widget>
      </item>
@@ -52,7 +52,7 @@
         <string>Skip tags</string>
        </property>
        <property name="text" >
-        <string>Skip tags</string>
+        <string comment="@option:check" >Skip tags</string>
        </property>
       </widget>
      </item>
