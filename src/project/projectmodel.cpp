@@ -271,14 +271,10 @@ ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
 {
     connect(m_templates,SIGNAL(newItems(KFileItemList)),
             this, SLOT(slotNewTemplItems(KFileItemList)));
-//     connect(m_templates,SIGNAL(newItems(KFileItemList)),
-//             this, SLOT(slotNewTemplItems(KFileItemList)));
     connect(m_templates, SIGNAL(deleteItem(const KFileItem&)),
             this, SLOT(slotDeleteTemplItem(const KFileItem&)));
     connect(m_templates, SIGNAL(refreshItems(QList< QPair< KFileItem, KFileItem > > )),
             this, SLOT(slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > )));
-//     connect(m_templates, SIGNAL(refreshItems(KFileItemList)),
-//             this, SLOT(slotRefreshTemplItems(KFileItemList)));
 
     m_templates->setNameFilter("*.pot");
     setNameFilter("*.po *.pot");
@@ -637,7 +633,7 @@ void ProjectLister::clearTempl()
 //         list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
 // }
 
-void ProjectLister::slotNewTemplItems(KFileItemList list)
+void ProjectLister::slotNewTemplItems(const KFileItemList& list)
 {
     int i;
     QTime a;a.start();
