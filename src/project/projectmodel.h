@@ -145,11 +145,9 @@ public:
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
 
 public slots:
-    void slotNewTemplItems(KFileItemList);
-//    void slotNewTemplItems(const KFileItemList&);//to get metainfo
+    void slotNewTemplItems(const KFileItemList&);//to get metainfo
     void slotDeleteTemplItem(const KFileItem&);
     void slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > );
-//    void slotRefreshTemplItems(const KFileItemList&);
     void clearTempl();
     void clearTempl(const KUrl&);
 
@@ -169,10 +167,6 @@ private:
 private:
     KDirLister* m_templates;
     KFileItemList m_hiddenTemplItems;
-
-    //we need to store deep copies because things get fucked up on refresh otherwise
-    //lister's item => our item
-    //QMap<KFileItem,KFileItem> m_items;
 
     QList<KUrl> m_recursiveUrls;
 
