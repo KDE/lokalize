@@ -301,20 +301,20 @@ ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
 
 }
 
-bool ProjectLister::openUrl(const KUrl &_url, bool _keep, bool _reload)
+bool ProjectLister::openUrl(const KUrl &_url, KDirLister::OpenUrlFlags _flags)
 {
     if (QFile::exists(_url.path(KUrl::RemoveTrailingSlash)))
-        return KDirLister::openUrl(_url,_keep,_reload);
+        return KDirLister::openUrl(_url, _flags);
 
     slotCompleted(_url);
     return true;
 }
 
-bool ProjectLister::openUrlRecursive(const KUrl &_url, bool _keep, bool _reload)
+bool ProjectLister::openUrlRecursive(const KUrl &_url, KDirLister::OpenUrlFlags _flags)
 {
     m_recursiveUrls.append(_url);
 
-    return openUrl(_url,_keep,_reload);
+    return openUrl(_url, _flags);
 }
 
 /* doesnt handle .po to .po_t_ :) */
@@ -349,7 +349,7 @@ void ProjectLister::slotCompleted(const KUrl& _url)
         return;
     if (QFile::exists(path)&&!m_listedTemplDirs.contains(path))
     {
-        if (m_templates->openUrl(KUrl::fromPath(path),true,true))
+        if (m_templates->openUrl(KUrl::fromPath(path), KDirLister::Keep | KDirLister::Reload))
             m_listedTemplDirs.insert(path,true);
     }
 
@@ -407,7 +407,7 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 //             KUrl u(list.at(i)->url().upUrl());
 //             u.adjustPath(KUrl::RemoveTrailingSlash);
 //             if (m_recursiveUrls.contains(u.path()))
-//                 openUrlRecursive(u,true,false);
+//                 openUrlRecursive(u);
 //             else
 //                 kWarning()<<" shit shit shit";
 //         }
@@ -633,7 +633,7 @@ void ProjectLister::clearTempl()
 //         list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
 // }
 
-void ProjectLister::slotNewTemplItems(const KFileItemList& list)
+void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const ref, we modify the list...
 {
     int i;
     QTime a;a.start();

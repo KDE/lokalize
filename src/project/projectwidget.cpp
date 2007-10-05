@@ -374,7 +374,7 @@ void ProjectWidget::expandItems()
                     <<u;
 
             if(! count )
-                static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true);
+                static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u);
             //TODO 
                 //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true,false);
                 //openRecursive(m_model->dirLister(),QDir(u));

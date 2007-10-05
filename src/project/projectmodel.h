@@ -140,12 +140,12 @@ public:
      * made in assuption that KDirModel doesnt rely on completed() signal!
      * otherwise, would probably use qtimer::singleshot()
      */
-    bool openUrl(const KUrl&,bool _keep=false,bool _reload=false);
-    bool openUrlRecursive(const KUrl&,bool _keep=true,bool _reload=false);
+    bool openUrl(const KUrl&, OpenUrlFlags flags = NoFlags);
+    bool openUrlRecursive(const KUrl&, OpenUrlFlags _flags = Keep);
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
 
 public slots:
-    void slotNewTemplItems(const KFileItemList&);//to get metainfo
+    void slotNewTemplItems(KFileItemList);//to get metainfo
     void slotDeleteTemplItem(const KFileItem&);
     void slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > );
     void clearTempl();
