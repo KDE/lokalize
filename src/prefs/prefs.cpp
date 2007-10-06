@@ -86,8 +86,8 @@ void SettingsController::slotSettings()
     ui_prefs_identity.setupUi(w);
 
 
-    Settings::self()->config()->setGroup("Identity");
-    QString val( Settings::self()->config()->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()) );
+    KConfigGroup grp = Settings::self()->config()->group("Identity");
+    QString val( grp.readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()) );
 
     //QStringList langlist = KGlobal::locale()->languageList();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
     QStringList langlist (KGlobal::locale()->allLanguagesList());

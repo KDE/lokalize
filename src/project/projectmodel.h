@@ -40,7 +40,7 @@
 #include <QHash>
 #include <QList>
 #include <QMap>
-
+#include <kdebug.h>
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>
 
