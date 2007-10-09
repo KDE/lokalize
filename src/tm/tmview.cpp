@@ -289,6 +289,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
     if (insHappened)
         m_catalog->endMacro();
     else
+        // xgettext: no-c-format
         msg+=" "+i18nc("@info","No 100% suggestions were found.");
 
     KPassivePopup::message(KPassivePopup::Balloon,

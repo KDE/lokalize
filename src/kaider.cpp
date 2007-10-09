@@ -322,9 +322,11 @@ void KAider::setupActions()
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
     connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTM() ) );
 
+    // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all 100% suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslate() ) );
 
+    // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all 100% suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
 
