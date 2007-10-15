@@ -243,13 +243,14 @@ bool Catalog::isUntranslated(const DocPosition& pos) const
 }
 
 
-bool Catalog::setNumberOfPluralFormsFromHeader()
+bool Catalog::setNumberOfPluralFormsFromHeader(const QString& header)
 {
     QRegExp rxplural("Plural-Forms:\\s*nplurals=(.);");
-    if (rxplural.indexIn(d->_header.msgstr()) == -1)
+    if (rxplural.indexIn(header) == -1)
         return false;
-    d->_numberOfPluralForms = rxplural.cap(1).toShort();
-    return true;
+    bool ok;
+    d->_numberOfPluralForms = rxplural.cap(1).toShort(&ok);
+    return ok;
 
 }
 
@@ -268,15 +269,6 @@ bool Catalog::setHeader(CatalogItem newHeader)
       d->_header.setMsgstr(values);
 
       updateHeader(false);
-
-      if (!setNumberOfPluralFormsFromHeader())
-      {
-          if (d->_generatedFromDocbook)
-              d->_numberOfPluralForms=1;
-          else
-              kWarning() << "No plural form info in header";
-//           d->_numberOfPluralForms=2;
-      }
 
 //       setClean(false);
       //emit signalHeaderChanged();
@@ -667,18 +659,47 @@ void Catalog::updateHeader(bool forSaving)
     for ( it = headerList.begin(); it != headerList.end(); ++it )
     {
         if (it->contains(QRegExp("^ *Plural-Forms:")))
+        {
             found=true;
+            break;
+        }
     }
-    if ( !found && !d->_generatedFromDocbook)
+    if (found)
+    {
+        if (!setNumberOfPluralFormsFromHeader(d->_header.msgstr()))
+        {
+            if (d->_generatedFromDocbook)
+                d->_numberOfPluralForms=1;
+            else
+            {
+              //kWarning()<<"No plural form info in header";
+                kWarning()<<"No plural form info in header, using project-defined one"<<d->_langCode;
+                QString t=GNUPluralForms(d->_langCode);
+                kWarning()<<"1";
+                if ( !t.isEmpty() )
+                {
+                    kWarning()<<"1";
+                    QRegExp pf("^ *Plural-Forms:\\s*nplurals.*\\\\n");
+                    pf.setMinimal(true);
+                    temp=QString("Plural-Forms: %1\\n").arg(t);
+                    kWarning()<<"1"<<temp;
+                    kWarning()<<"1"<<*it;
+                    it->replace(pf,temp);
+                    kWarning()<<"3";
+                    setNumberOfPluralFormsFromHeader(temp);
+                }
+                kWarning()<<"2";
+
+            }
+//           d->_numberOfPluralForms=2;
+        }
+
+    }
+    else if ( !d->_generatedFromDocbook)
     {
         QString t= GNUPluralForms(d->_langCode);
         if ( !t.isEmpty() )
-        {
-
-            temp="Plural-Forms: %1\\n";
-            temp=temp.arg(t);
-            headerList.append(temp);
-        }
+            headerList.append(QString("Plural-Forms: %1\\n").arg(t));
     }
 
     d->_header.setMsgstr( headerList.join( "\n" ) );

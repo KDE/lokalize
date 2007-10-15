@@ -56,6 +56,7 @@ ProjectWindow::ProjectWindow(QWidget *parent)
     connect(m_browser,SIGNAL(fileOpenRequested(const KUrl&)),
             this,SLOT(fileOpen(const KUrl&)));
 
+    Project* proj=Project::instance();
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
     action = actionCollection()->addAction(_name);\
     action->setText(_text);\
@@ -63,10 +64,14 @@ ProjectWindow::ProjectWindow(QWidget *parent)
 
     QAction* action;
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
-    connect( action, SIGNAL( triggered(bool) ), Project::instance(), SLOT( showGlossary() ) );
+    connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showGlossary() ) );
 
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
-    connect( action, SIGNAL( triggered(bool) ), Project::instance(), SLOT( showTM() ) );
+    connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showTM() ) );
+
+    action = actionCollection()->addAction("tools_tm_manage");
+    action->setText(i18nc("@action:inmenu","Manage translation memories"));
+    connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showTMManager() ) );
 
     //setXMLFile("kaiderprojectui.rc");
     setupGUI(/*ToolBar|*/Keys|Create,"projectmanagerui.rc");
@@ -76,7 +81,7 @@ ProjectWindow::ProjectWindow(QWidget *parent)
     //createGUI();
     //kWarning()<<"+++++++++++++++"<<actionCollection()->action("bookmarks");
  //unplugActionList( "xxx_file_actionlist" );
-    plugActionList( "project_actions", Project::instance()->projectActions());
+    plugActionList( "project_actions", proj->projectActions());
 
 }
 
@@ -98,10 +103,12 @@ void ProjectWindow::fileOpen(const KUrl& u)
 void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu;
-    QAction* open=0;
+    QAction* openNew=0;
+    QAction* openExisting=0;
     if (m_browser->currentIsCatalog())
     {
-        open=menu.addAction(i18nc("@action:inmenu","Open"));
+        openNew=menu.addAction(i18nc("@action:inmenu","Open in new window"));
+        openExisting=menu.addAction(i18nc("@action:inmenu","Open in existing window"));
         menu.addSeparator();
     }
     menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
@@ -125,8 +132,10 @@ void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
     QAction* result=menu.exec(event->globalPos());
     if (result)
     {
-        if (result==open)
+        if (result==openNew)
             fileOpen(m_browser->currentItem());
+        else if (result==openExisting)
+            Project::instance()->openInExisting(m_browser->currentItem());
 //         else if (result==findInFiles)
 //             emit findInFilesRequested(m_browser->selectedItems());
     }

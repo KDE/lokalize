@@ -457,6 +457,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
                 while (i>_catalog->numberOfPluralForms())
                     _tabbar->removeTab(i--);
         }
+        kDebug()<<"_tabbar->count()"<<_tabbar->count();
         _tabbar->show();
         _tabbar->blockSignals(true);
         _tabbar->setCurrentIndex(_currentPos.form);

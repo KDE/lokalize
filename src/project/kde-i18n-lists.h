@@ -35,7 +35,7 @@
 
 #include <QString>
 #include <klocale.h>
-#include <KGlobal>
+#include <kglobal.h>
 
 static inline QString getMaillingList()
 {

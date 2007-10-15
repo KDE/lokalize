@@ -41,8 +41,9 @@
 #include "projectwindow.h"
 
 #include "tmwindow.h"
+#include "tmmanager.h"
 #include "glossarywindow.h"
-
+#include "kaider.h"
 
 #include <QTimer>
 #include <QTime>
@@ -128,22 +129,12 @@ void Project::load(const QString &file)
     QTimer::singleShot(0,this,SLOT(populateWebQueryActions()));
 
 
-
     OpenDBJob* openDBJob=new OpenDBJob(projectID(),this);
     connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
 
 
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
-
-#if 0
-need no more
-
-    IndexWordsJob* indexWordsJob=new IndexWordsJob(this);
-    connect(indexWordsJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    connect(indexWordsJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotTMWordsIndexed(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(indexWordsJob);
-#endif
 
     emit loaded();
 }
@@ -315,11 +306,14 @@ void Project::deleteScanJob(ThreadWeaver::Job* job)
 
         if (end)
         {
+            QWidget* view=end->m_view;
+            if (!m_editors.contains(static_cast<KAider*>(view)))
+                view=0;
             KPassivePopup::message(KPassivePopup::Balloon,
                                    i18nc("@title","Scanning complete"),
                                    i18nc("@info","Files: %1, New pairs: %2, New versions: %3",
                                         m_tmCount, m_tmAdded-m_tmNewVersions, m_tmNewVersions),
-                                   end->m_view);
+                                   view);
 //             m_timeTracker.elapsed();
 
             m_tmCount=0;
@@ -395,5 +389,31 @@ void Project::defineNewTerm(QString en,QString target)
     if (!en.isEmpty()||!target.isEmpty())
         gloWin->newTerm(en,target);
 }
+
+void Project::showTMManager()
+{
+    TMManagerWin* win=new TMManagerWin;
+    win->show();
+}
+
+void Project::openInExisting(const KUrl& u)
+{
+    KAider* a;
+    if (m_editors.isEmpty())
+    {
+        a=new KAider;
+        a->show();
+    }
+    else
+    {
+        a=m_editors.last();
+        a->showNormal();
+        a->setFocus();
+        a->raise();
+    }
+    a->fileOpen(u);
+}
+
+
 
 

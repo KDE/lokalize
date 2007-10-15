@@ -130,30 +130,6 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
     };
 }
 
-static bool scanRecursive(const QDir& dir)
-{
-    bool ok=false;
-    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
-    int i=subDirs.size();
-    while(--i>=0)
-        ok=scanRecursive(QDir(dir.filePath(subDirs.at(i))))||ok;
-
-    QStringList filters("*.po");
-    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
-    i=files.size();
-    while(--i>=0)
-    {
-        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),
-                                Project::instance()->projectID());
-        job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-        ok=true;
-    }
-
-    return ok;
-}
-
 void TMView::dropEvent(QDropEvent *event)
 {
     bool ok=false;
@@ -171,7 +147,8 @@ void TMView::dropEvent(QDropEvent *event)
         }
         else
         {
-            ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()))||ok;
+            ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()),
+                            Project::instance()->projectID())||ok;
                 //kWarning()<<"dd "<<dir.entryList();
         }
     }
@@ -252,11 +229,13 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
     {
         if (!(m_catalog->isUntranslated(pos.entry)
              ||m_catalog->isFuzzy(pos.entry))
-           ||m_cache.value(DocPos(pos.entry,pos.form)).isEmpty()
            )
             continue;
-        const TMEntry& entry=m_cache.value(DocPos(pos.entry,pos.form)).first();
-        if (entry.score<10000)
+        const QVector<TMEntry>& termList=m_cache.value(DocPos(pos.entry,pos.form));
+        if (termList.isEmpty())
+            continue;
+        const TMEntry& entry=termList.first();
+        if (entry.score<9900)//kinda hack
             continue;
         if (m_pos.entry==pos.entry&&pos.form==m_pos.form)
         {
@@ -265,13 +244,16 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
         }
         else
         {
+            bool forceFuzzy=(termList.size()>1&&termList.at(1).score>=10000)
+                            ||entry.score<10000;
+            bool ctxtMatches=entry.score==1001;
             if (m_catalog->isFuzzy(pos.entry))
             {
                 m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
-                if (entry.score==1001)
+                if ( ctxtMatches || !(m_markAsFuzzy||forceFuzzy) )
                     m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,false));
             }
-            else if (m_markAsFuzzy&&entry.score!=1001)
+            else if ((m_markAsFuzzy&&!ctxtMatches)||forceFuzzy)
             {
                 m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,true));
             }
@@ -285,12 +267,12 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
 
 
     }
-    QString msg=i18nc("@info","Batch translation is completed.");
+    QString msg=i18nc("@info","Batch translation has been completed.");
     if (insHappened)
         m_catalog->endMacro();
     else
         // xgettext: no-c-format
-        msg+=" "+i18nc("@info","No 100% suggestions were found.");
+        msg+=" "+i18nc("@info","No suggestions with exact matches were found.");
 
     KPassivePopup::message(KPassivePopup::Balloon,
                            i18nc("@title","Batch translation complete"),
@@ -305,7 +287,12 @@ void TMView::slotBatchTranslate()
     if (!Settings::prefetchTM())
         slotFileLoaded();
     else if (m_jobs.isEmpty())
-        slotBatchSelectDone(0);
+        return slotBatchSelectDone(0);
+    KPassivePopup::message(KPassivePopup::Balloon,
+                           i18nc("@title","Batch translation"),
+                           i18nc("@info","Batch translation has been scheduled."),
+                           this);
+
 }
 
 void TMView::slotBatchTranslateFuzzy()
@@ -316,6 +303,11 @@ void TMView::slotBatchTranslateFuzzy()
         slotFileLoaded();
     else if (m_jobs.isEmpty())
         slotBatchSelectDone(0);
+    KPassivePopup::message(KPassivePopup::Balloon,
+                           i18nc("@title","Batch translation"),
+                           i18nc("@info","Batch translation has been scheduled."),
+                           this);
+
 }
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)

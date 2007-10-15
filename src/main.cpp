@@ -113,7 +113,7 @@ int main(int argc, char **argv)
         kWarning()<<"Finishing jobs...";
 
         ThreadWeaver::Weaver::instance()->dequeue();
-
+        Project::instance()->save();
 /*        CloseDBJob* closeDBJob=new CloseDBJob(Project::instance()->id(),Project::instance());
 //         connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
 //         connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));

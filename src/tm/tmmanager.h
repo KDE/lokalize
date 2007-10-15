@@ -33,5 +33,21 @@
 #ifndef TMMANAGER_H
 #define TMMANAGER_H
 
+#include <kmainwindow.h>
+class QTreeView;
+
+class TMManagerWin: public KMainWindow
+{
+    Q_OBJECT
+public:
+    TMManagerWin(QWidget *parent = 0);
+    ~TMManagerWin(){};
+private slots:
+    void addDir();
+
+private:
+    QTreeView* m_tmListWidget;
+};
+
 
 #endif

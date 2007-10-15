@@ -32,9 +32,30 @@
 
 #include "tmmanager.h"
 #include "ui_managedatabases.h"
+#include "dbfilesmodel.h"
+#include "jobs.h"
+
+#include <kfiledialog.h>
 
 
+TMManagerWin::TMManagerWin(QWidget *parent)
+ : KMainWindow(parent)
+{
+    QWidget* w=new QWidget(this);
+    Ui_TMManager ui_tmManager;
+    ui_tmManager.setupUi(w);
+    setCentralWidget(w);
+    ui_tmManager.list->setModel(DBFilesModel::instance());
+    m_tmListWidget=ui_tmManager.list;
+    connect (ui_tmManager.addData,SIGNAL(clicked(bool)),
+             this,SLOT(addDir()));
+}
 
+void TMManagerWin::addDir()
+{
+    scanRecursive(KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
+                        i18nc("@title:window","Select Directory to be scanned")),
+                  DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString()
+                 );
 
-
-
+}

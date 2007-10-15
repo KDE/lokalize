@@ -84,31 +84,32 @@
 
 
 KAider::KAider()
-    : KXmlGuiWindow()
-    , _project(Project::instance())
-    , _catalog(new Catalog(this))
-    , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
-    , _currentEntry(0)
-    , m_sonnetDialog(0)
-    , _spellcheckStartUndoIndex(0)
-    , _spellcheckStop(false)
-    , m_updateView(true)
-    , m_doReplaceCalled(false)
-    , _findDialog(0)
-    , _find(0)
-    , _replaceDialog(0)
-    , _replace(0)
-    , m_searchFilesPos(-1)
-    , m_replaceFilesPos(-1)
-    , m_spellcheckFilesPos(0)
-    , m_progressDialog(0)
-    , ui_findExtension(0)
-    , ui_replaceExtension(0)
+        : KXmlGuiWindow()
+        , _project(Project::instance())
+        , _catalog(new Catalog(this))
+        , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
+        , _currentEntry(0)
+        , m_sonnetDialog(0)
+        , _spellcheckStartUndoIndex(0)
+        , _spellcheckStop(false)
+        , m_updateView(true)
+        , m_doReplaceCalled(false)
+        , _findDialog(0)
+        , _find(0)
+        , _replaceDialog(0)
+        , _replace(0)
+        , m_searchFilesPos(-1)
+        , m_replaceFilesPos(-1)
+        , m_spellcheckFilesPos(0)
+        , m_progressDialog(0)
+        , ui_findExtension(0)
+        , ui_replaceExtension(0)
 //     , _projectView(0)
-    , _mergeView(0)
+        , _mergeView(0)
 //     , _msgIdDiffView(0)
 {
-    QTime chrono;chrono.start();
+    QTime chrono;
+    chrono.start();
     setUpdatesEnabled(false);//dunno if it helps
     setAcceptDrops(true);
     setCentralWidget(m_view);
@@ -122,27 +123,28 @@ KAider::KAider()
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
     setUpdatesEnabled(true);
+    Project::instance()->registerEditor(this);
     kDebug()<<chrono.elapsed();
 }
 
 KAider::~KAider()
 {
     emit signalFileClosed();
-    _project->save();
     KConfig config;
     _openRecentFile->saveEntries(KConfigGroup(&config,"RecentFiles"));
     deleteUiSetupers();
     //these are qobjects...
-/*    delete m_view;
-    delete _findDialog;
-    delete _replaceDialog;
-    delete _find;
-    delete _replace;
+    /*    delete m_view;
+        delete _findDialog;
+        delete _replaceDialog;
+        delete _find;
+        delete _replace;
 
-    delete ui_findExtension;
-    delete ui_findExtension;
-*/
+        delete ui_findExtension;
+        delete ui_findExtension;
+    */
 
+    Project::instance()->unregisterEditor(this);
     kWarning()<<"FINISH";
 }
 
@@ -319,17 +321,20 @@ void KAider::setupActions()
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showGlossary() ) );
 
-    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
+    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
     connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTM() ) );
 
     // xgettext: no-c-format
-    ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all 100% suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
+    ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all exact suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslate() ) );
 
     // xgettext: no-c-format
-    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all 100% suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
+    ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
 
+    action = actionCollection()->addAction("tools_tm_manage");
+    action->setText(i18nc("@action:inmenu","Manage translation memories"));
+    connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTMManager() ) );
 
 //Bookmarks
     action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),actionCollection());
@@ -348,7 +353,7 @@ void KAider::setupActions()
     connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     /*
-//Project
+    //Project
     action = actionCollection()->addAction("project_configure",SettingsController::instance(),SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
@@ -357,7 +362,7 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("project_create",SettingsController::instance(),SLOT(projectCreate()));
     action->setText(i18nc("@action:inmenu","Create new project"));
-*/
+    */
 
 //MergeMode
     action = actionCollection()->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
@@ -385,7 +390,7 @@ void KAider::setupActions()
 
     setupGUI(Default,"kaiderui.rc");
 
- //unplugActionList( "xxx_file_actionlist" );
+//unplugActionList( "xxx_file_actionlist" );
     plugActionList( "project_actions", Project::instance()->projectActions());
 }
 
@@ -437,20 +442,22 @@ void KAider::createDockWindows()
 
 
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
-    Qt::Key wqlist[WEBQUERY_SHORTCUTS]={  Qt::Key_1,
-                        Qt::Key_2,
-                        Qt::Key_3,
-                        Qt::Key_4,
-                        Qt::Key_5,
-                        Qt::Key_6,
-                        Qt::Key_7,
-                        Qt::Key_8,
-                        Qt::Key_9,
-                        Qt::Key_0,
-                     };
+    Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
+        {
+            Qt::Key_1,
+            Qt::Key_2,
+            Qt::Key_3,
+            Qt::Key_4,
+            Qt::Key_5,
+            Qt::Key_6,
+            Qt::Key_7,
+            Qt::Key_8,
+            Qt::Key_9,
+            Qt::Key_0,
+        };
     QAction* wqaction;
     int i=0;
-    for(;i<WEBQUERY_SHORTCUTS;++i)
+    for (;i<WEBQUERY_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
         wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
@@ -467,32 +474,34 @@ void KAider::createDockWindows()
 
 
     QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
-    Qt::Key glist[GLOSSARY_SHORTCUTS]={  Qt::Key_E,
-                        Qt::Key_H,
-//                         Qt::Key_G,
-//                         Qt::Key_H,//help
-//                         Qt::Key_I,
-//                         Qt::Key_J,
-//                         Qt::Key_K,
-                        Qt::Key_K,
-                        Qt::Key_L,
-                        Qt::Key_N,
-//                         Qt::Key_Q,
-//                         Qt::Key_R,
-//                         Qt::Key_U,
-//                         Qt::Key_V,
-                        Qt::Key_W,
-//                         Qt::Key_X,
-                        Qt::Key_Y,
-//                         Qt::Key_Z,
-                        Qt::Key_BraceLeft,
-                        Qt::Key_BraceRight,
-                        Qt::Key_Semicolon,
-                        Qt::Key_Apostrophe,
-                     };
+    Qt::Key glist[GLOSSARY_SHORTCUTS]=
+        {
+            Qt::Key_E,
+            Qt::Key_H,
+        //                         Qt::Key_G,
+        //                         Qt::Key_H,//help
+        //                         Qt::Key_I,
+        //                         Qt::Key_J,
+        //                         Qt::Key_K,
+            Qt::Key_K,
+            Qt::Key_L,
+            Qt::Key_N,
+        //                         Qt::Key_Q,
+        //                         Qt::Key_R,
+        //                         Qt::Key_U,
+        //                         Qt::Key_V,
+            Qt::Key_W,
+        //                         Qt::Key_X,
+            Qt::Key_Y,
+        //                         Qt::Key_Z,
+            Qt::Key_BraceLeft,
+            Qt::Key_BraceRight,
+            Qt::Key_Semicolon,
+            Qt::Key_Apostrophe,
+        };
     QAction* gaction;
 //     int i=0;
-    for(i=0;i<GLOSSARY_SHORTCUTS;++i)
+    for (i=0;i<GLOSSARY_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
         gaction=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
@@ -514,19 +523,21 @@ void KAider::createDockWindows()
 
 
     QVector<QAction*> tmactions(TM_SHORTCUTS);
-    Qt::Key tmlist[TM_SHORTCUTS]={  Qt::Key_1,
-                        Qt::Key_2,
-                        Qt::Key_3,
-                        Qt::Key_4,
-                        Qt::Key_5,
-                        Qt::Key_6,
-                        Qt::Key_7,
-                        Qt::Key_8,
-                        Qt::Key_9,
-                        Qt::Key_0,
-                     };
+    Qt::Key tmlist[TM_SHORTCUTS]=
+        {
+            Qt::Key_1,
+            Qt::Key_2,
+            Qt::Key_3,
+            Qt::Key_4,
+            Qt::Key_5,
+            Qt::Key_6,
+            Qt::Key_7,
+            Qt::Key_8,
+            Qt::Key_9,
+            Qt::Key_0,
+        };
     QAction* tmaction;
-    for(i=0;i<TM_SHORTCUTS;++i)
+    for (i=0;i<TM_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
         tmaction=actionCollection()->addAction(QString("tmquery_insert_%1").arg(i));
@@ -546,19 +557,19 @@ bool KAider::fileOpen(KUrl url)
 {
     //kWarning()<<"-------------------"+url.path();
 
-    if(!_catalog->isClean())
+    if (!_catalog->isClean())
     {
-        switch(KMessageBox::warningYesNoCancel(this,
-               i18nc("@info","The document contains unsaved changes.\n\
-               Do you want to save your changes or discard them?"),i18nc("@title","Warning"),
-               KStandardGuiItem::save(),KStandardGuiItem::discard())
-              )
+        switch (KMessageBox::warningYesNoCancel(this,
+                                                i18nc("@info","The document contains unsaved changes.\n\
+                                                      Do you want to save your changes or discard them?"),i18nc("@title","Warning"),
+                                                KStandardGuiItem::save(),KStandardGuiItem::discard())
+               )
         {
-            case KMessageBox::Yes:
-                if (!fileSave())
-                    return false;
-            case KMessageBox::Cancel:
+        case KMessageBox::Yes:
+            if (!fileSave())
                 return false;
+        case KMessageBox::Cancel:
+            return false;
         }
     }
 
@@ -587,7 +598,7 @@ bool KAider::fileOpen(KUrl url)
     {
         emit signalFileClosed();
 
-        if(isTemlate)
+        if (isTemlate)
         {
             url.setPath(originalPath);
             _catalog->setUrl(url);
@@ -617,9 +628,9 @@ bool KAider::fileOpen(KUrl url)
         if (_project->isLoaded())
         {
             _captionPath=KUrl::relativePath(
-                    KUrl(_project->path()).directory()
-                    ,url.pathOrUrl()
-                                         );
+                             KUrl(_project->path()).directory()
+                             ,url.pathOrUrl()
+                         );
             setCaption(_captionPath,false);
             gotoEntry(pos);
             return true;
@@ -628,7 +639,7 @@ bool KAider::fileOpen(KUrl url)
         int i=4;
         QDir dir(url.directory());
         dir.setNameFilters(QStringList("*.ktp"));
-        while(--i && !dir.isRoot())
+        while (--i && !dir.isRoot())
         {
             if (dir.entryList().isEmpty())
                 dir.cdUp();
@@ -638,9 +649,9 @@ bool KAider::fileOpen(KUrl url)
                 if (_project->isLoaded())
                 {
                     _captionPath=KUrl::relativePath(
-                            KUrl(_project->path()).directory()
-                            ,url.pathOrUrl()
-                                                );
+                                     KUrl(_project->path()).directory()
+                                     ,url.pathOrUrl()
+                                 );
                     setCaption(_captionPath,false);
                 }
 
@@ -671,31 +682,31 @@ bool KAider::fileSave(const KUrl& url)
         return true;
 
     if ( KMessageBox::warningContinueCancel(this,
-         i18nc("@info","Error saving the file <filename>%1</filename>\n"
-         "Do you want to save to another file or cancel?", _catalog->url().pathOrUrl()),
-         i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
+                                            i18nc("@info","Error saving the file <filename>%1</filename>\n"
+                                                  "Do you want to save to another file or cancel?", _catalog->url().pathOrUrl()),
+                                            i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
        )
         return fileSaveAs();
     return false;
 }
 
- 
+
 bool KAider::queryClose()
 {
-    if(_catalog->isClean())
+    if (_catalog->isClean())
         return true;
 
-    switch(KMessageBox::warningYesNoCancel(this,
-        i18nc("@info","The document contains unsaved changes.\n\
-Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
-      KStandardGuiItem::save(),KStandardGuiItem::discard()))
+    switch (KMessageBox::warningYesNoCancel(this,
+                                            i18nc("@info","The document contains unsaved changes.\n\
+                                                  Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
+                                            KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
-        case KMessageBox::Yes:
-            return fileSave();
-        case KMessageBox::No:
-            return true;
-        default:
-            return false;
+    case KMessageBox::Yes:
+        return fileSave();
+    case KMessageBox::No:
+        return true;
+    default:
+        return false;
     }
 }
 
@@ -714,11 +725,11 @@ void KAider::gotoEntry()
 {
     DocPosition pos=_currentPos;
     pos.entry=KInputDialog::getInteger(
-                                       i18nc("@title","Jump to Entry"),
-                                       i18nc("@label:spinbox","Enter entry number:"),
-                                       pos.entry,1,
-                                       _catalog->numberOfEntries(),
-                                       1,0,this);
+                  i18nc("@title","Jump to Entry"),
+                  i18nc("@label:spinbox","Enter entry number:"),
+                  pos.entry,1,
+                  _catalog->numberOfEntries(),
+                  1,0,this);
     if (pos.entry)
     {
         --(pos.entry);
@@ -733,12 +744,13 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
 
-    if(m_updateView)
+    if (m_updateView)
         m_view->gotoEntry(pos,selection);
-    if(pos.part==UndefPart)
+    if (pos.part==UndefPart)
         _currentPos.part=Msgstr;
 
-                QTime time;time.start();
+    QTime time;
+    time.start();
 // QTime a;
 // a.start();
     //kWarning()<<"goto2: "<<pos.entry;
@@ -747,7 +759,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     {
         _currentPos=pos;
         _currentEntry=pos.entry;
-        if(m_updateView)
+        if (m_updateView)
         {
             emit signalNewEntryDisplayed(_currentEntry);
             emit signalNewEntryDisplayed(_currentPos);
@@ -762,10 +774,10 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
             emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
 
             emit signalPriorFuzzyOrUntrAvailable(_currentEntry>_catalog->firstFuzzyIndex()
-                                                ||_currentEntry>_catalog->firstUntranslatedIndex()
+                                                 ||_currentEntry>_catalog->firstUntranslatedIndex()
                                                 );
             emit signalNextFuzzyOrUntrAvailable(_currentEntry<_catalog->lastFuzzyIndex()
-                                            ||_currentEntry<_catalog->lastUntranslatedIndex());
+                                                ||_currentEntry<_catalog->lastUntranslatedIndex());
 
             emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
             emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
@@ -793,8 +805,8 @@ void KAider::msgStrChanged()
         msg=i18nc("@info:status","Fuzzy");
     else if (_catalog->msgstr(_currentPos).isEmpty())
         msg=i18nc("@info:status","Untranslated");
-/*    else
-        statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
+    /*    else
+            statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
     statusBar()->changeItem(msg,ID_STATUS_ISFUZZY);
 }
 void KAider::switchForm(int newForm)
@@ -831,7 +843,7 @@ void KAider::gotoPrevFuzzy()
 {
     DocPosition pos;
 
-    if( (pos.entry=_catalog->prevFuzzyIndex(_currentEntry)) == -1)
+    if ( (pos.entry=_catalog->prevFuzzyIndex(_currentEntry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -841,7 +853,7 @@ void KAider::gotoNextFuzzy()
 {
     DocPosition pos;
 
-    if( (pos.entry=_catalog->nextFuzzyIndex(_currentEntry)) == -1)
+    if ( (pos.entry=_catalog->nextFuzzyIndex(_currentEntry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -851,7 +863,7 @@ void KAider::gotoPrevUntranslated()
 {
     DocPosition pos;
 
-    if( (pos.entry=_catalog->prevUntranslatedIndex(_currentEntry)) == -1)
+    if ( (pos.entry=_catalog->prevUntranslatedIndex(_currentEntry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -861,7 +873,7 @@ void KAider::gotoNextUntranslated()
 {
     DocPosition pos;
 
-    if( (pos.entry=_catalog->nextUntranslatedIndex(_currentEntry)) == -1)
+    if ( (pos.entry=_catalog->nextUntranslatedIndex(_currentEntry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -875,7 +887,7 @@ void KAider::gotoPrevFuzzyUntr()
     short un = _catalog->prevUntranslatedIndex(_currentEntry);
 
     pos.entry=fu>un?fu:un;
-    if( pos.entry == -1)
+    if ( pos.entry == -1)
         return;
 
     gotoEntry(pos);
@@ -887,7 +899,7 @@ void KAider::gotoNextFuzzyUntr()
 
     short fu = _catalog->nextFuzzyIndex(_currentEntry);
     short un = _catalog->nextUntranslatedIndex(_currentEntry);
-    if( (fu == -1) && (un == -1) )
+    if ( (fu == -1) && (un == -1) )
         return;
 
     if (fu == -1)
@@ -904,7 +916,7 @@ void KAider::gotoPrevBookmark()
 {
     DocPosition pos;
 
-    if( (pos.entry=_catalog->prevBookmarkIndex(_currentEntry)) == -1)
+    if ( (pos.entry=_catalog->prevBookmarkIndex(_currentEntry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -914,7 +926,7 @@ void KAider::gotoNextBookmark()
 {
     DocPosition pos;
 
-    if( (pos.entry=_catalog->nextBookmarkIndex(_currentEntry)) == -1)
+    if ( (pos.entry=_catalog->nextBookmarkIndex(_currentEntry)) == -1)
         return;
 
     gotoEntry(pos);

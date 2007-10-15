@@ -9,15 +9,6 @@
     <height>401</height>
    </rect>
   </property>
-  <widget class="QWidget" name="gridLayout" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>381</width>
-     <height>281</height>
-    </rect>
-   </property>
    <layout class="QGridLayout" >
     <item row="3" column="0" >
      <layout class="QHBoxLayout" >
@@ -41,7 +32,6 @@
      <widget class="QTreeView" name="list" />
     </item>
    </layout>
-  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -43,7 +43,8 @@ public:
     DBFilesModel();
     ~DBFilesModel();
 
-    QVariant data(const QModelIndex& index, int role) const;
+    QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const;
 
 private:
     static DBFilesModel* _instance;
@@ -51,5 +52,13 @@ public:
     static DBFilesModel* instance();
 
 };
+
+inline
+int DBFilesModel::columnCount(const QModelIndex& parent) const
+{
+    if (parent.isValid())
+        return 0;
+    return 1;
+}
 
 #endif

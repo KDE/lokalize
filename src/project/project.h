@@ -35,6 +35,8 @@
 #define PROJECT_H
 
 #include <QObject>
+#include <QVector>
+#include <QList>
 #include "projectbase.h"
 #include "projectmodel.h"
 
@@ -43,7 +45,7 @@ class ProjectModel;
 class Glossary;
 class WebQueryController;
 class SelectJob;
-
+class KAider;
 // class WebQueryThread;
 // #include "webquerythread.h"
 #include <threadweaver/Job.h>
@@ -111,10 +113,15 @@ public slots:
     void deleteScanJob(ThreadWeaver::Job*);
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
 //     void slotTMWordsIndexed(ThreadWeaver::Job*);
+    void showTMManager();
     void showTM();
     void showGlossary();
     void defineNewTerm(QString en=QString(),QString target=QString());
 
+
+    void registerEditor(KAider* e){m_editors<<e;}
+    void unregisterEditor(KAider* e){m_editors.remove(m_editors.indexOf(e));}
+    void openInExisting(const KUrl& u);
 
 
 private:
@@ -142,6 +149,8 @@ private:
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
     QList<QAction*> m_projectActions;
+
+    QVector<KAider*> m_editors;
 };
 
 inline

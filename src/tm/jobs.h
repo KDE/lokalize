@@ -37,6 +37,7 @@
 
 #include <threadweaver/Job.h>
 #include <kurl.h>
+#include <QDir>
 #include <QVector>
 #include <QString>
 //#include <QMultiHash>
@@ -90,6 +91,9 @@ struct TMWordHash
     }
 };
 #endif
+
+
+bool scanRecursive(const QDir& dir, const QString& dbName);
 
 //called on startup
 class OpenDBJob: public ThreadWeaver::Job

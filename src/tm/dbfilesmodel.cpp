@@ -31,7 +31,10 @@
 **************************************************************************** */
 
 #include "dbfilesmodel.h"
+#include "jobs.h"
+#include "project.h"
 
+#include <threadweaver/ThreadWeaver.h>
 #include <kdirlister.h>
 #include <kstandarddirs.h>
 
@@ -69,6 +72,17 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 
     QString res=KDirModel::data(index,role).toString();
     res.remove(".db");
+
+    if (!QSqlDatabase::contains(res))
+    {
+        OpenDBJob* openDBJob=new OpenDBJob(res,0);
+        connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),
+                Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),
+                Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    }
+
     return res;
 }
 

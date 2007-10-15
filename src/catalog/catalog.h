@@ -156,7 +156,7 @@ protected:
 private:
     void emitsignalNumberOfFuzziesChanged(){emit signalNumberOfFuzziesChanged();};
     void emitsignalNumberOfUntranslatedChanged(){emit signalNumberOfUntranslatedChanged();};
-    bool setNumberOfPluralFormsFromHeader();
+    bool setNumberOfPluralFormsFromHeader(const QString&);
 
 //private:
 protected:

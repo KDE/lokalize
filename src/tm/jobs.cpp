@@ -50,6 +50,31 @@
 #include <math.h>
 
 
+bool scanRecursive(const QDir& dir, const QString& dbName)
+{
+    bool ok=false;
+    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
+    int i=subDirs.size();
+    while(--i>=0)
+        ok=scanRecursive(QDir(dir.filePath(subDirs.at(i))),
+                        dbName)||ok;
+
+    QStringList filters("*.po");
+    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
+    i=files.size();
+    while(--i>=0)
+    {
+        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),
+                                dbName);
+        job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+        ok=true;
+    }
+
+    return ok;
+}
+
 static void doSplit(QString& cleanEn,
                     QStringList& words,
                     QRegExp& rxClean1,
@@ -375,16 +400,17 @@ OpenDBJob::~OpenDBJob()
 
 void OpenDBJob::run ()
 {
+    //    if (QSqlDatabase::contains(m_dbName))
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
     //kWarning() <<"opening db";
 
-    QString dbFile=KStandardDirs::locateLocal("appdata", m_dbName+".db");
-
     QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
+
+    QString dbFile=KStandardDirs::locateLocal("appdata", m_dbName+".db");
     db.setDatabaseName(dbFile);
-    if (KDE_ISLIKELY( db.open()) )
+    if (KDE_ISLIKELY( db.open() ))
         initDb(db);
     kWarning() <<"db opened "<<a.elapsed()<<dbFile;
 }
@@ -403,7 +429,7 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run ()
 {
-    thread()->setPriority(QThread::IdlePriority);
+//     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
 
@@ -732,7 +758,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 }
                 queryFetchVersions.clear();
             }
-
         }
         queryFetch.clear();
     }
@@ -742,9 +767,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run ()
 {
-    thread()->setPriority(QThread::IdlePriority);
-    QTime a;
-    a.start();
+//     thread()->setPriority(QThread::IdlePriority);
+    QTime a;a.start();
 
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
@@ -819,8 +843,7 @@ void ScanJob::run()
 {
     kWarning() <<"started"<<m_url.pathOrUrl();
     thread()->setPriority(QThread::IdlePriority);
-    QTime a;
-    a.start();
+    QTime a;a.start();
 
     m_added=0;
     m_newVersions=0;

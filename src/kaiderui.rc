@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="39">
+<kpartgui name="KAider" version="40">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
@@ -109,6 +109,7 @@
     <Action name="tools_tm"/>
     <Action name="tools_tm_batch"/>
     <Action name="tools_tm_batch_fuzzy"/>
+    <Action name="tools_tm_manage"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Menu name="toolviews"><text>Toolviews</text>
