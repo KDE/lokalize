@@ -478,9 +478,9 @@ void ProjectLister::removeUnneededTemplEntries(QString& path,
         if (!pot.isNull())
         {
             kDebug()<<"m_templates->findByUrl()"<<potPath<<"ok";
-            if (!m_hiddenTemplItems.contains(pot))
+            if (!m_hiddenTemplItems.contains(pot.url()))
             {
-                m_hiddenTemplItems.append(pot);
+                m_hiddenTemplItems.append(pot.url());
                 //m_hiddenTemplItems.append(templFilesToRemove.at(i));
                 kDebug()<<"templFilesToRemove"<<pot.url();
 
@@ -511,14 +511,14 @@ void ProjectLister::removeUnneededTemplEntries2(KFileItemList& templDirsToRemove
     int i=templDirsToRemove.size();
     while(--i>=0)
     {
-        m_hiddenTemplItems.append(templDirsToRemove.at(i));
+        m_hiddenTemplItems.append(templDirsToRemove.at(i).url());
         //now create KFileItem that should be deleted
         KFileItem po(templDirsToRemove.at(i));
         QString path(po.url().path(KUrl::RemoveTrailingSlash));
         if (potToPo(path))
         {
             po.setUrl(KUrl::fromPath(path));
-            kWarning()<<"emit delete 1"<<path;
+            kWarning()<<"emit delete 1"<<path; //FIXME
             emit deleteItem(po);
             if (templDirsToRemove.at(i).isDir())//sanity
             {
@@ -527,13 +527,12 @@ void ProjectLister::removeUnneededTemplEntries2(KFileItemList& templDirsToRemove
                 int j=li.size();
                 while(--j>=0)
                 {
-                    if (!m_hiddenTemplItems.contains(li.at(j)))
-                        m_hiddenTemplItems.append(li.at(j));
+                    if (!m_hiddenTemplItems.contains(li.at(j).url()))
+                        m_hiddenTemplItems.append(li.at(j).url());
                 }
             }
         }
     }
-
 }
 
 void ProjectLister::slotDeleteItem(const KFileItem& item)
@@ -554,7 +553,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
         kDebug()<<"found in m_templates";
 
         int pos;
-        if ((pos=m_hiddenTemplItems.indexOf(pot))!=-1)
+        if ((pos=m_hiddenTemplItems.indexOf(pot.url()))!=-1)
         {
             m_hiddenTemplItems.removeAt(pos);
             kDebug()<<"found in hidden";
@@ -596,7 +595,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
 
                     kDebug()<<"add"<<poPath;
                     list.append(po);
-                    if ((pos=m_hiddenTemplItems.indexOf(li.at(aa)))!=-1)
+                    if ((pos=m_hiddenTemplItems.indexOf(li.at(aa).url()))!=-1)
                         m_hiddenTemplItems.removeAt(pos);
                 }
             }
@@ -607,14 +606,6 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
     }
     kDebug()<<"end";
 }
-/*
-//nono
-void ProjectLister::slotRefreshItems(KFileItemList list)
-{
-}*/
-
-
-
 
 void ProjectLister::clearTempl(const KUrl& u)
 {
@@ -625,13 +616,6 @@ void ProjectLister::clearTempl()
 {
     //kWarning()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 }
-
-// void ProjectLister::slotNewTemplItems(const KFileItemList& list)
-// {
-//     int i=list.size();
-//     while(--i>=0)
-//         list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
-// }
 
 void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const ref, we modify the list...
 {
@@ -666,7 +650,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
 //                         po->metaInfo(false).item("translation.templ").addValue("outdated");
 //                 }
 
-                m_hiddenTemplItems.append(list.at(i));
+                m_hiddenTemplItems.append(list.at(i).url());
                 list.removeAt(i);
             }
             else
@@ -689,7 +673,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
         else
         {
             kWarning()<<"strange";
-            m_hiddenTemplItems.append(list.at(i));
+            m_hiddenTemplItems.append(list.at(i).url());
             list.removeAt(i);
         }
     }
@@ -709,15 +693,21 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
 
 void ProjectLister::slotDeleteTemplItem(const KFileItem& item)
 {
-    kDebug()<<item.url();
+    kDebug()<<"delete"<<item.url()<<"?";
 
-    if (!m_hiddenTemplItems.contains(item))
+//     int aa=m_hiddenTemplItems.size();
+//     while(--aa>=0)
+//     {
+//         kDebug()<<m_hiddenTemplItems.at(aa);
+//     }
+
+    if (!m_hiddenTemplItems.contains(item.url()))
        //&&m_items.contains(item))
     {
         QString path(item.url().path(KUrl::RemoveTrailingSlash));
         if (!potToPo(path))
         {
-            kDebug()<<"return";
+            kDebug()<<"return :(";
             return;
         }
         //sanity? findByUrl(KUrl::fromPath(path));
@@ -739,16 +729,6 @@ void ProjectLister::slotDeleteTemplItem(const KFileItem& item)
 }
 
 
-// void ProjectLister::slotRefreshTemplItems(const KFileItemList& list)
-// {
-//     int i=list.size();
-//     while(--i>=0)
-//     {
-//         if (!m_hiddenTemplItems.contains(list.at(i)))
-//             list.at(i)->setMetaInfo(KFileMetaInfo(list.at(i)->url()));
-//     }
-// }
-
 void ProjectLister::slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > >  list)
 {
     int i=list.size();
@@ -758,7 +738,7 @@ void ProjectLister::slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > >
     i=list.size();
     while(--i>=0)
     {
-        if (!m_hiddenTemplItems.contains(list.at(i).first))
+        if (!m_hiddenTemplItems.contains(list.at(i).first.url()))
         {
             list.at(i).second.setMetaInfo(KFileMetaInfo(list.at(i).second.url()));
 
@@ -774,13 +754,11 @@ void ProjectLister::slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > >
     while(--i>=0)
         kWarning()<<"going to refresh:"<<list.at(i).first.url();
 
-//     kWarning()<<"ddd";
     if (!list.isEmpty())
     {
         m_reactOnSignals=false;
         emit refreshItems(list);
         m_reactOnSignals=true;
     }
-//     kWarning()<<"end";
 }
 

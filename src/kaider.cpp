@@ -172,12 +172,12 @@ void KAider::setupStatusBar()
 
 void KAider::numberOfFuzziesChanged()
 {
-    statusBar()->changeItem(i18nc("@info:status","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
+    statusBar()->changeItem(i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
 }
 
 void KAider::numberOfUntranslatedChanged()
 {
-    statusBar()->changeItem(i18nc("@info:status","Untranslated: %1", _catalog->numberOfUntranslated()),ID_STATUS_UNTRANS);
+    statusBar()->changeItem(i18nc("@info:status message entries","Untranslated: %1", _catalog->numberOfUntranslated()),ID_STATUS_UNTRANS);
 }
 
 void KAider::setupActions()
@@ -269,11 +269,11 @@ void KAider::setupActions()
 
 // Go
     action = KStandardAction::next(this, SLOT(gotoNext()), actionCollection());
-    action->setText(i18nc("@action:inmenu","&Next"));
+    action->setText(i18nc("@action:inmenu entry","&Next"));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
     action = KStandardAction::prior(this, SLOT(gotoPrev()), actionCollection());
-    action->setText(i18nc("@action:inmenu","&Previous"));
+    action->setText(i18nc("@action:inmenu entry","&Previous"));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
     action = KStandardAction::firstPage(this, SLOT(gotoFirst()),actionCollection());
@@ -371,11 +371,13 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
+    action->setStatusTip(i18nc("@action:inmenu","Previous entry which is translated differently in the files being merged"));
     action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
+    action->setStatusTip(i18nc("@action:inmenu","Next entry which is translated differently in the files being merged"));
     action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -386,6 +388,7 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
+    action->setStatusTip(i18nc("@action:inmenu","This changes only empty entries"));
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
     setupGUI(Default,"kaiderui.rc");
@@ -560,8 +563,8 @@ bool KAider::fileOpen(KUrl url)
     if (!_catalog->isClean())
     {
         switch (KMessageBox::warningYesNoCancel(this,
-                                                i18nc("@info","The document contains unsaved changes.\n\
-                                                      Do you want to save your changes or discard them?"),i18nc("@title","Warning"),
+                                                i18nc("@info","The document contains unsaved changes.\n"
+                                                      "Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
                                                 KStandardGuiItem::save(),KStandardGuiItem::discard())
                )
         {
@@ -605,7 +608,7 @@ bool KAider::fileOpen(KUrl url)
         }
 
         _openRecentFile->addUrl( url );
-        statusBar()->changeItem(i18nc("@info:status","Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
+        statusBar()->changeItem(i18nc("@info:status message entries","Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
 
@@ -697,8 +700,8 @@ bool KAider::queryClose()
         return true;
 
     switch (KMessageBox::warningYesNoCancel(this,
-                                            i18nc("@info","The document contains unsaved changes.\n\
-                                                  Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
+                                            i18nc("@info","The document contains unsaved changes.\n"
+                                                      "Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
                                             KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
     case KMessageBox::Yes:

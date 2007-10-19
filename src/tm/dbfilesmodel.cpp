@@ -52,8 +52,8 @@ DBFilesModel* DBFilesModel::instance()
 DBFilesModel::DBFilesModel()
  : KDirModel()
 {
-    QString dbFile=KStandardDirs::locateLocal("appdata", "");
-    dirLister()->openUrl(dbFile);
+    QString dbDir=KStandardDirs::locateLocal("appdata", "");
+    dirLister()->openUrl(dbDir);
     dirLister()->setNameFilter("*.db");
 }
 

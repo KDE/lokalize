@@ -32,11 +32,16 @@
 
 #include "tmmanager.h"
 #include "ui_managedatabases.h"
+#include "ui_dbparams.h"
 #include "dbfilesmodel.h"
 #include "jobs.h"
+#include "project.h"
 
 #include <kfiledialog.h>
-
+#include <kdialog.h>
+#include <kdebug.h>
+// #include <kstandarddirs.h>
+#include <threadweaver/ThreadWeaver.h>
 
 TMManagerWin::TMManagerWin(QWidget *parent)
  : KMainWindow(parent)
@@ -49,6 +54,8 @@ TMManagerWin::TMManagerWin(QWidget *parent)
     m_tmListWidget=ui_tmManager.list;
     connect (ui_tmManager.addData,SIGNAL(clicked(bool)),
              this,SLOT(addDir()));
+    connect (ui_tmManager.create,SIGNAL(clicked(bool)),
+             this,SLOT(addDB()));
 }
 
 void TMManagerWin::addDir()
@@ -59,3 +66,30 @@ void TMManagerWin::addDir()
                  );
 
 }
+
+void TMManagerWin::addDB()
+{
+    KDialog dialog(this);
+    dialog.setCaption( i18nc("@title:window","New Translation Memory"));
+    dialog.setButtons( KDialog::Ok | KDialog::Cancel);
+    Ui_DBParams ui_dbParams;
+    ui_dbParams.setupUi(dialog.mainWidget());
+
+    if (dialog.exec()&&!ui_dbParams.name->text().isEmpty())
+    {
+        OpenDBJob* openDBJob=new OpenDBJob(ui_dbParams.name->text(),this);
+        connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+
+        openDBJob->m_setParams=true;
+        openDBJob->m_markup=ui_dbParams.markup->text();
+        openDBJob->m_accel=ui_dbParams.accel->text();
+        kDebug()<<"!!!!!!!!!!!!"<<openDBJob->m_markup;
+
+        ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    }
+}
+
+
+
+

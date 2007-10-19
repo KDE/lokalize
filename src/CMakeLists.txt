@@ -76,6 +76,7 @@ kde4_add_ui_files(kaider_SRCS
     glossary/termedit.ui
     tm/queryoptions.ui
     tm/managedatabases.ui
+    tm/dbparams.ui
     kaider_findextension.ui
     webquery/querycontrol.ui
 )

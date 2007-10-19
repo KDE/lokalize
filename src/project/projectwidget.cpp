@@ -130,9 +130,9 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
                      );
    // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
 
-    //painter->setPen(QColor(255,10,0));
     myRect.setLeft(myRect.left()+myRect.width());
-    myRect.setWidth(option.rect.width()*data.top()/all);
+    //myRect.setWidth(option.rect.width()*data.top()/all);
+    myRect.setWidth(option.rect.width()-myRect.left()+option.rect.left());
     painter->fillRect(myRect,
                       QColor(190,60,60)
                      );

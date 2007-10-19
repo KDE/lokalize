@@ -44,6 +44,7 @@ public:
     ~TMManagerWin(){};
 private slots:
     void addDir();
+    void addDB();
 
 private:
     QTreeView* m_tmListWidget;

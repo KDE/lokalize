@@ -166,7 +166,8 @@ private:
 
 private:
     KDirLister* m_templates;
-    KFileItemList m_hiddenTemplItems;
+    //KFileItemList m_hiddenTemplItems;
+    QList<KUrl> m_hiddenTemplItems;
 
     QList<KUrl> m_recursiveUrls;
 

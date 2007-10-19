@@ -38,6 +38,7 @@
 #include "cmd.h"
 #include "project.h"
 #include "prefs_kaider.h"
+#include "dbfilesmodel.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -104,6 +105,7 @@ void TMView::initLater()
 //     m_timer.setSingleShot(true);
     m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
+    DBFilesModel::instance();
     kWarning()<<"init "<<time.elapsed();
 }
 
@@ -133,22 +135,23 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
 void TMView::dropEvent(QDropEvent *event)
 {
     bool ok=false;
+    Project* p=Project::instance();
+    const QString& pID=p->projectID();
     int i=event->mimeData()->urls().size();
     while(--i>=0)
     {
         if (event->mimeData()->urls().at(i).path().endsWith(".po"))
         {
-            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),
-                                    Project::instance()->projectID());
-            connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-            connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),pID);
+            connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+            connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
             ThreadWeaver::Weaver::instance()->enqueue(job);
             ok=true;
         }
         else
         {
             ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()),
-                            Project::instance()->projectID())||ok;
+                            pID)||ok;
                 //kWarning()<<"dd "<<dir.entryList();
         }
     }
@@ -156,8 +159,8 @@ void TMView::dropEvent(QDropEvent *event)
     {
         //dummy job for the finish indication
         ScanFinishedJob* job=new ScanFinishedJob(this);
-        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
 
         event->acceptProposedAction();
@@ -171,6 +174,9 @@ void TMView::slotFileLoaded()
         &&!m_isBatching)
         return;
     //m_cache.resize(m_catalog->numberOfEntries());
+    Project* p=Project::instance();
+    const QString& pID=p->projectID();
+
     m_cache.clear();
     int i=m_jobs.size();
     while (--i>=0)
@@ -184,10 +190,10 @@ void TMView::slotFileLoaded()
         SelectJob* j=new SelectJob(m_catalog->msgid(pos),
                                    m_catalog->msgctxt(pos.entry),
                                    pos,
-                                   Project::instance()->projectID());
+                                   pID);
         //these two are for cleanup
-        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
+        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
 
         connect(j,SIGNAL(done(ThreadWeaver::Job*)),
                 this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
@@ -198,8 +204,8 @@ void TMView::slotFileLoaded()
 
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
-    connect(m_seq,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(m_seq,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),
             this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(m_seq);
@@ -363,6 +369,45 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     if (job->m_pos.entry!=m_pos.entry)
         return;
 
+    Project* p=Project::instance();
+    const QString& pID=p->projectID();
+    //check if this is an additional query, from secondary DBs
+    if (job->m_dbName!=pID)
+    {
+        job->m_entries+=m_entries;
+        qSort(job->m_entries);
+        int limit=qMin(Settings::suggCount(),job->m_entries.size());
+        int i=job->m_entries.size();
+        while(--i>=limit)
+            job->m_entries.removeLast();
+    }
+    else if (job->m_entries.isEmpty()||job->m_entries.first().score<8500)
+    {
+        DBFilesModel* model=DBFilesModel::instance();
+        int i=model->rowCount();
+        kDebug()<<"query other DBs"<<i;
+        while (--i>=0)
+        {
+            const QString& db=model->data(model->index(i,0)).toString();
+            kDebug()<<"query"<<db;
+            if (pID!=db)
+            {
+                SelectJob* j=new SelectJob(m_catalog->msgid(m_pos),
+                                           m_catalog->msgctxt(m_pos.entry),
+                                           m_pos,db);
+                //these two are for cleanup
+                connect(j,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+                connect(j,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
+
+                connect(j,SIGNAL(done(ThreadWeaver::Job*)),
+                    this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+
+                ThreadWeaver::Weaver::instance()->enqueue(j);
+                m_jobs.append(j);
+            }
+        }
+    }
+
     m_browser->clear();
 
     m_entries=job->m_entries;
@@ -482,6 +527,8 @@ void TMView::slotUseSuggestion(int i)
       + - add
       - - del
       M - modified
+
+      so the string is like 00000MM00+++---000
     */
     QChar sep('\t');
     char state='0';
@@ -524,8 +571,9 @@ void TMView::slotUseSuggestion(int i)
 
 
 
+    bool sameMarkup=Project::instance()->markup()==m_entries.at(i).markup&&!m_entries.at(i).markup.isEmpty();
     //search for changed markup
-    if (Project::instance()->markup()==m_entries.at(i).markup)
+    if (sameMarkup)
     {
         QRegExp rxMarkup(m_entries.at(i).markup);
         rxMarkup.setMinimal(true);
@@ -575,7 +623,7 @@ void TMView::slotUseSuggestion(int i)
     //del, add only markup, punct, num
     //TODO further improvement: spaces, punct marked as 0
     QRegExp rxNonTranslatable;
-    if (Project::instance()->markup()==m_entries.at(i).markup)
+    if (sameMarkup)
         rxNonTranslatable.setPattern("^(("+m_entries.at(i).markup+")|(\\W|\\d)+)+");
     else
         rxNonTranslatable.setPattern("^(\\W|\\d)+");
@@ -650,7 +698,7 @@ nono
 
     }
 
-    if (Project::instance()->markup()==m_entries.at(i).markup)
+    if (sameMarkup)
         rxNonTranslatable.setPattern("(("+m_entries.at(i).markup+")|(\\W|\\d)+)+$");
     else
         rxNonTranslatable.setPattern("(\\W|\\d)+$");

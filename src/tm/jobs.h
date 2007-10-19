@@ -111,6 +111,11 @@ protected:
 
     QString m_dbName;
     //statistics?
+public:
+    //for the new DB creation
+    QString m_markup;
+    QString m_accel;
+    bool m_setParams;
 };
 
 //called on startup
@@ -161,11 +166,11 @@ private:
     QString m_ctxt;
     bool m_dequeued;
 
-    QString m_dbName;
-
 public:
     DocPosition m_pos;
     QList<TMEntry> m_entries;
+
+    QString m_dbName;
 };
 
 // used eg for current msgstr inserting

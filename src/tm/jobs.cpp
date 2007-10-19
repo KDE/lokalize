@@ -86,7 +86,8 @@ static void doSplit(QString& cleanEn,
 //    rxClean1.setMinimal(true);
 //    rxClean2.setMinimal(true);
 
-    cleanEn.replace(rxClean1," ");
+    if (!rxClean1.pattern().isEmpty())
+        cleanEn.replace(rxClean1," ");
     cleanEn.remove(rxClean2);
 
     words=cleanEn.toLower().split(rxSplit,QString::SkipEmptyParts);
@@ -348,8 +349,9 @@ static void initDb(QSqlDatabase& db)
                    "value TEXT "
                    ")");
 //config:
-//accel
-//markup
+    //accel
+    //markup
+//(see a little below)
 }
 
 static void getConfig(QSqlDatabase& db,
@@ -387,9 +389,31 @@ static void getConfig(QSqlDatabase& db,
 
 }
 
+static void setConfig(QSqlDatabase& db,
+                      const QString& markup,
+                      const QString& accel)
+
+{
+    kDebug()<<"++++++++++++++++++";
+    QSqlQuery query(db);
+    query.clear();
+
+    query.prepare("INSERT INTO tm_config (key, value) "
+                      "VALUES (?, ?)");
+
+    query.bindValue(0, 0);
+    query.bindValue(1, markup);
+    kDebug()<<query.exec();
+
+    query.bindValue(0, 1);
+    query.bindValue(1, accel);
+    kDebug()<<query.exec();
+}
+
 OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_dbName(name)
+    , m_setParams(false)
 {
 }
 
@@ -410,8 +434,12 @@ void OpenDBJob::run ()
 
     QString dbFile=KStandardDirs::locateLocal("appdata", m_dbName+".db");
     db.setDatabaseName(dbFile);
-    if (KDE_ISLIKELY( db.open() ))
-        initDb(db);
+    if (KDE_ISUNLIKELY( !db.open() ))
+        return;
+    initDb(db);
+    //if (!m_markup.isEmpty()||!m_accel.isEmpty())
+    if (m_setParams)
+        setConfig(db,m_markup,m_accel);
     kWarning() <<"db opened "<<a.elapsed()<<dbFile;
 }
 
@@ -451,8 +479,8 @@ SelectJob::SelectJob(const QString& english,
     , m_english(english)
     , m_ctxt(ctxt)
     , m_dequeued(false)
-    , m_dbName(dbName)
     , m_pos(pos)
+    , m_dbName(dbName)
 {
 }
 
@@ -590,7 +618,10 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString markup;
     QString accel;
     getConfig(db,markup,accel);
-    QRegExp rxSplit('('+markup+"|\\W+|\\d+)+");
+    QString tmp=markup;
+    if (!markup.isEmpty())
+        tmp+='|';
+    QRegExp rxSplit('('+tmp+"\\W+|\\d+)+");
     QRegExp rxClean2(accel);//accels are removed
     rxClean2.setMinimal(true);
 
@@ -640,8 +671,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             e.target=queryFetch.value(2).toString();
             QStringList e_ctxt=queryFetch.value(3).toString().split('\b');
             e.date=queryFetch.value(4).toString();
+            e.markup=markup;
+            e.accel=accel;
 
-            //kWarning() <<"doin "<<j<<" "<<e.english;
             //
             //calc score
             //
@@ -796,7 +828,6 @@ void SelectJob::run ()
     qSort(m_entries);
     int limit=qMin(Settings::suggCount(),m_entries.size());
     int i=m_entries.size();
-//     kWarning()<<"lll"<<i;
     while(--i>=limit)
         m_entries.removeLast();
 

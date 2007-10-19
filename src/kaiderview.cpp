@@ -726,6 +726,9 @@ void KAiderView::replaceText(const QString& txt)
 
 void KAiderView::tagMenu()
 {
+    if (Project::instance()->markup().isEmpty())
+        return;
+
     QMenu menu;
 
     //QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
