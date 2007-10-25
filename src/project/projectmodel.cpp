@@ -414,10 +414,12 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 
         //maybe this is update and new translations have appeared
         //so remove corresponding template entries in favor of 'em
+        kWarning()<<"callin removeUnneededTemplEntries";
         removeUnneededTemplEntries(path,templDirsToRemove);
     }
 
     //find files of dirs being removed
+    kWarning()<<"callin removeUnneededTemplEntries2";
     removeUnneededTemplEntries2(templDirsToRemove);
     m_reactOnSignals=true;
     kWarning()<<"end"<<a.elapsed();
@@ -436,13 +438,8 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
     QTime a;a.start();
     kWarning()<<"start";
     m_reactOnSignals=false;
-    //this code
-    //1. sets metainfo
-    //2. removes template items from the view if they have been translated after initial folder scanning
+    //this code sets metainfo
 
-    //we don't wanna emit deletion of files if their folders are being removed too
-    KFileItemList templDirsToRemove;//stores real paths
-    //KFileItemList templFilesToRemove;//stores real paths
     //KFileItemList removedTemplDirs;
     int i=list.size();
     while(--i>=0)
@@ -455,12 +452,8 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
                 list.at(i).second.setMetaInfo(KFileMetaInfo( list.at(i).second.url() ));
         }
 
-        //maybe this is update and new translations have appeared
-        //so remove corresponding template entries in favor of 'em
-        removeUnneededTemplEntries(path,templDirsToRemove);
     }
 
-    removeUnneededTemplEntries2(templDirsToRemove);
 
     m_reactOnSignals=true;
     kWarning()<<"end"<<a.elapsed();
