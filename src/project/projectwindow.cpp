@@ -36,6 +36,7 @@
 #include "kaider.h"
 
 #include <klocale.h>
+#include <kaction.h>
 #include <kactioncollection.h>
 #include <kxmlguifactory.h>
 
