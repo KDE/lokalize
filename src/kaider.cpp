@@ -195,6 +195,7 @@ void KAider::setupActions()
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
+    KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
 
     //KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
     //KStandardAction::quit(this, SLOT(deleteLater()), actionCollection());
