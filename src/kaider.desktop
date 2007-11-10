@@ -5,6 +5,7 @@ Name[sv]=Kaider
 Exec=kaider %i -caption "%c"
 Icon=kaider
 Type=Application
+Categories=Qt;KDE;Translation;Development;
 DocPath=kaider/index.html
 GenericName=A KDE4 Application
 GenericName[de]=Eine KDE4-Anwendung
