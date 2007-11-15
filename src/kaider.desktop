@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=KAider
 Name[sv]=Kaider
 Exec=kaider %i -caption "%c"
