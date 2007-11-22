@@ -186,8 +186,10 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
         url.cd(possiblyRelPath);
         //url.cleanPath();
 //         kWarning () << "2  " << possiblyRelPath << " + "  << url.path();
+        kWarning () << "222  " << url.path(KUrl::RemoveTrailingSlash);
         return url.path(KUrl::RemoveTrailingSlash);
     }
+    kWarning () << "111  " << possiblyRelPath;
     return possiblyRelPath;
 }
 

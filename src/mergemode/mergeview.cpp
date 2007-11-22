@@ -176,7 +176,7 @@ void MergeView::mergeOpen(KUrl url)
     {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
-        KMessageBox::error(this, i18nc("@info","Error opening the file\n%1",url.pathOrUrl()) );
+        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
     }
 
 }

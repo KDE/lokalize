@@ -97,17 +97,19 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         return QItemDelegate::paint(painter,option,index);
         //return KFileItemDelegate::paint(painter,option,index);
 
+
+    //showDecorationSelected=true;
     QRect data(index.data(Qt::DisplayRole/*Qt::UserRole*/).toRect());
     //QRect data(20,40,50,10);
     if (data.height()==32) //collapsed folder
     {
-        painter->fillRect(option.rect,Qt::white);
+        painter->fillRect(option.rect,Qt::transparent);
         return;
     }
     int all=data.left()+data.top()+data.width();
     if (!all)
     {
-        painter->fillRect(option.rect,Qt::white);
+        painter->fillRect(option.rect,Qt::transparent);
         return;
     }
         //return KFileItemDelegate::paint(painter,option,index);
