@@ -513,13 +513,12 @@ void Catalog::updateHeader(bool forSaving)
         headerList.append(temp);
 
     found=false;
-    KLocale locale("kdelibs", "en_US");
-    //d->_langCode=identityOptions->readEntry("DefaultLangCode",KGlobal::locale()->languageList().first());
-    if (Project::instance()->isLoaded())
-        d->_langCode=Project::instance()->langCode();
-    else
-        d->_langCode=Settings::defaultLangCode();
+    d->_langCode=Project::instance()->isLoaded()?
+                    Project::instance()->langCode():
+                    d->_langCode=Settings::defaultLangCode();
 
+    KConfig lll("all_languages", KConfig::NoGlobals, "locale");
+    lll.setLocale("");
     for ( it = headerList.begin(); it != headerList.end(); ++it )
     {
         if (it->contains(QRegExp("^ *Language-Team:.*")))
@@ -530,7 +529,10 @@ void Catalog::updateHeader(bool forSaving)
             QStringList langlist = KGlobal::locale()->languageList();
             QStringList::const_iterator myit;
             for (myit=langlist.begin();myit!=langlist.end();++myit)
-                map[locale.languageCodeToName(*myit)]=*myit;
+            {
+                KConfigGroup cg(&lll, *myit);
+                map[cg.readEntry("Name")]=*myit;
+            }
 
             QRegExp re("^ *Language-Team: *(.*) *<");
             QString val;
@@ -540,7 +542,9 @@ void Catalog::updateHeader(bool forSaving)
             ait=it;
         }
     }
-    d->_language=locale.languageCodeToName(d->_langCode);
+    //d->_language=locale.languageCodeToName(d->_langCode);
+    KConfigGroup cg(&lll, d->_langCode);
+    d->_language=cg.readEntry("Name");
 
     temp="Language-Team: "+d->_language;
     if (Project::instance()->isLoaded())
@@ -550,8 +554,6 @@ void Catalog::updateHeader(bool forSaving)
 /*    if (!identityOptions->readEntry("DefaultMailingList").isEmpty())
         temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');*/
     temp+="\\n";
-
-//     kWarning()<< "  _'" << temp <<"' ";
 
     if (found)
         (*ait) = temp;
