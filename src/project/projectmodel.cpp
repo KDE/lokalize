@@ -29,7 +29,7 @@
   your version.
 
 **************************************************************************** */
-
+#define KDE_NO_DEBUG_OUTPUT
 #include "projectmodel.h"
 #include "project.h"
 
@@ -483,8 +483,12 @@ void ProjectLister::removeUnneededTemplEntries(QString& path,
                 if (potToPo(path))
                 {
                     po.setUrl(KUrl::fromPath(path));
-                    kWarning()<<"emit delete 2"<<path;
-                    emit deleteItem(po);
+                    //workaround for cases when new dir is created...
+                    if (m_model->indexForUrl(po.url()).isValid())
+                    {
+                        kWarning()<<"emit delete 2"<<po.url().path();
+                        emit deleteItem(po);
+                    }
                 }
             }
         }
