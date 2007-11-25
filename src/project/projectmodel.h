@@ -161,7 +161,7 @@ public slots:
 private:
     //those are called from slotRefreshItems() and slotNewItems() only
     void removeUnneededTemplEntries(QString& path,KFileItemList& templDirsToRemove);
-    void removeUnneededTemplEntries2(KFileItemList& templDirsToRemove);
+    void removeDupliTemplDirs(KFileItemList& templDirsToRemove);
 
 
 private:

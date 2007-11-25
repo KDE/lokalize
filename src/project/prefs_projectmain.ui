@@ -135,6 +135,9 @@
      </property>
     </widget>
    </item>
+   <item row="7" column="1" >
+    <widget class="QLineEdit" name="kcfg_LangCode" />
+   </item>
   </layout>
   <widget class="RelPathSaver" name="kcfg_PoBaseDir" >
    <property name="geometry" >
@@ -161,16 +164,6 @@
     <rect>
      <x>120</x>
      <y>238</y>
-     <width>480</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="kcfg_LangCode" >
-   <property name="geometry" >
-    <rect>
-     <x>120</x>
-     <y>180</y>
      <width>480</width>
      <height>22</height>
     </rect>
@@ -204,5 +197,22 @@
   <tabstop>kcfg_GlossaryTbx</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>LangCode</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>kcfg_LangCode</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>361</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>359</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

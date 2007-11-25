@@ -345,7 +345,7 @@ void ProjectLister::slotCompleted(const KUrl& _url)
 //     kWarning()<<_url;
 
     QString path(_url.path(KUrl::RemoveTrailingSlash));
-    if (!poToPot(path))
+    if (!poToPot(path))//sanity
         return;
     if (QFile::exists(path)&&!m_listedTemplDirs.contains(path))
     {
@@ -419,8 +419,8 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
     }
 
     //find files of dirs being removed
-    kWarning()<<"callin removeUnneededTemplEntries2";
-    removeUnneededTemplEntries2(templDirsToRemove);
+    kWarning()<<"callin removeDupliTemplDirs";
+    removeDupliTemplDirs(templDirsToRemove);
     m_reactOnSignals=true;
     kWarning()<<"end"<<a.elapsed();
 }
@@ -459,14 +459,14 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
     kWarning()<<"end"<<a.elapsed();
 }
 
-//called from slotRefreshItems() and slotNewItems()
+//called from slotNewItems()
 void ProjectLister::removeUnneededTemplEntries(QString& path,
                                                KFileItemList& templDirsToRemove)
 {
-    if (poToPot(path))
+    if (poToPot(path))//<--always true
     {
         QString potPath(path+'t');//.pot => .po
-        kDebug()<<"m_templates->findByUrl()"<<potPath;
+//         kDebug()<<"m_templates->findByUrl()"<<potPath;
         KFileItem pot(m_templates->findByUrl(KUrl::fromPath(potPath)));
         if (!pot.isNull())
         {
@@ -491,14 +491,15 @@ void ProjectLister::removeUnneededTemplEntries(QString& path,
         else if (!(pot=m_templates->findByUrl(KUrl::fromPath(path))).isNull())
         {
             //dir, the name part is the same
-            templDirsToRemove.append(pot);
-
+            //remove entry from list only if it wasn't removed already
+            if (!m_hiddenTemplItems.contains(pot.url()))
+                templDirsToRemove.append(pot);
         }
     }
 }
 
-//called from slotRefreshItems() and slotNewItems()
-void ProjectLister::removeUnneededTemplEntries2(KFileItemList& templDirsToRemove)
+//called from slotNewItems()
+void ProjectLister::removeDupliTemplDirs(KFileItemList& templDirsToRemove)
 {
     //find files of dirs being removed
     int i=templDirsToRemove.size();
@@ -513,7 +514,20 @@ void ProjectLister::removeUnneededTemplEntries2(KFileItemList& templDirsToRemove
             po.setUrl(KUrl::fromPath(path));
             kWarning()<<"emit delete 1"<<path; //FIXME
             emit deleteItem(po);
-            if (templDirsToRemove.at(i).isDir())//sanity
+
+            m_listedTemplDirs.remove( templDirsToRemove.at(i).url().path(KUrl::RemoveTrailingSlash) );
+            openUrl(KUrl::fromPath(path), KDirLister::Keep | KDirLister::Reload);
+
+            /// what's going on: 
+            /// i remove entry for template dir, with all it's contents
+            /// then i add templ dir contents to new (same named) entry
+            /// was: templates/a
+            /// now: ru/a + templates/a
+
+            //m_templates->openUrl(templDirsToRemove.at(i).url(), KDirLister::Keep | KDirLister::Reload);
+
+            //why did i need this???
+/*            if (templDirsToRemove.at(i).isDir())//sanity
             {
                 //TODO levels
                 KFileItemList li(itemsForDir(templDirsToRemove.at(i).url()));
@@ -523,7 +537,7 @@ void ProjectLister::removeUnneededTemplEntries2(KFileItemList& templDirsToRemove
                     if (!m_hiddenTemplItems.contains(li.at(j).url()))
                         m_hiddenTemplItems.append(li.at(j).url());
                 }
-            }
+            }*/
         }
     }
 }

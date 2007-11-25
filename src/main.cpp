@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
     KCmdLineOptions options;
     options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
-    options.add("project <file>", ki18n( "Project file. "
+    options.add("project <filename>", ki18n( "Project file. "
                                  "Opens Project Manager if no other URLs specified" ));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
