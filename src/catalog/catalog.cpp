@@ -75,7 +75,10 @@ static QString GNUPluralForms(const QString& lang)
 
     msginit.waitForStarted(5000);
     if (KDE_ISUNLIKELY( msginit.state()!=QProcess::Running ))
+    {
+        kWarning()<<"msginit error";
         return QString();
+    }
 
     msginit.write(
                    "# SOME DESCRIPTIVE TITLE.\n"
@@ -93,21 +96,32 @@ static QString GNUPluralForms(const QString& lang)
                    "\"MIME-Version: 1.0\\n\"\n"
                    "\"Content-Type: text/plain; charset=UTF-8\\n\"\n"
                    "\"Content-Transfer-Encoding: ENCODING\\n\"\n"
+//                   "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n\"\n"
                   );
     msginit.closeWriteChannel();
 
     if (!msginit.waitForFinished(5000))
-         return QString();
+    {
+        kWarning()<<"msginit error";
+        return QString();
+    }
+
 
     QByteArray result = msginit.readAll();
     int pos = result.indexOf("Plural-Forms: ");
     if (pos==-1)
+    {
+        kWarning()<<"msginit error"<<result;
         return QString();
+    }
     pos+=14;
 
     int end = result.indexOf('"',pos);
-    if (end==-1)
+    if (pos==-1)
+    {
+        kWarning()<<"msginit error"<<result;
         return QString();
+    }
 
     return QString( result.mid(pos,end-pos-2) );
 }
@@ -275,6 +289,7 @@ bool Catalog::setHeader(CatalogItem newHeader)
 
       return true;
    }
+   kWarning () << "header Not valid";
    return false;
 }
 
@@ -297,7 +312,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
 //             {
 //             }
             emit signalFileLoaded();
-            kWarning()<<"++++++++++++++++++++++++++++++++++++++"<<d->_header.msgstrAsList();
+            kDebug()<<"HEADER on load"<<d->_header.msgstrAsList();
             return true;
         }
         //return status;
@@ -657,6 +672,7 @@ void Catalog::updateHeader(bool forSaving)
 
     found=false;
 
+    kDebug()<<"testing for GNUPluralForms";
     // update plural form header
     for ( it = headerList.begin(); it != headerList.end(); ++it )
     {
@@ -668,6 +684,7 @@ void Catalog::updateHeader(bool forSaving)
     }
     if (found)
     {
+        kDebug()<<"GNUPluralForms found";
         if (!setNumberOfPluralFormsFromHeader(d->_header.msgstr()))
         {
             if (d->_generatedFromDocbook)
@@ -677,7 +694,7 @@ void Catalog::updateHeader(bool forSaving)
               //kWarning()<<"No plural form info in header";
                 kWarning()<<"No plural form info in header, using project-defined one"<<d->_langCode;
                 QString t=GNUPluralForms(d->_langCode);
-                kWarning()<<"1";
+                kWarning()<<"generated: " << t;
                 if ( !t.isEmpty() )
                 {
                     kWarning()<<"1";
@@ -699,7 +716,9 @@ void Catalog::updateHeader(bool forSaving)
     }
     else if ( !d->_generatedFromDocbook)
     {
+        kDebug()<<"generating GNUPluralForms"<<d->_langCode;
         QString t= GNUPluralForms(d->_langCode);
+        kDebug()<<"here it is:";
         if ( !t.isEmpty() )
             headerList.append(QString("Plural-Forms: %1\\n").arg(t));
     }

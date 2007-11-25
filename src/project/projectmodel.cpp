@@ -29,7 +29,7 @@
   your version.
 
 **************************************************************************** */
-#define KDE_NO_DEBUG_OUTPUT
+//#define KDE_NO_DEBUG_OUTPUT
 #include "projectmodel.h"
 #include "project.h"
 
@@ -558,6 +558,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
         return;
     QString potPath=path+'t';
 
+    kDebug()<<"m_templates->findByUrl"<<potPath;
     KFileItem pot(m_templates->findByUrl(KUrl::fromPath(potPath)));
     if (!pot.isNull()||!(pot=m_templates->findByUrl(KUrl::fromPath(path))).isNull())
     {
@@ -578,7 +579,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             m_reactOnSignals=false;
             KFileItemList list;
             list.append(po);
-            kDebug()<<"emitting:"<<poPath;
+            kDebug()<<"emitting templ:"<<poPath;
             //HACK for debuging
             if (m_model->indexForUrl(KUrl(  po.url().directory()  )).isValid())
                 emit newItems(list);
@@ -611,7 +612,9 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
                 }
             }
             if (!list.isEmpty())
-                emit newItems(list);
+//                 emit newItems(list); HACK
+                m_templates->openUrl(pot.url(), KDirLister::Keep | KDirLister::Reload);
+
             m_reactOnSignals=true;
         }
     }

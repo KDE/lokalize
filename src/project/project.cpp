@@ -91,18 +91,6 @@ Project::~Project()
 {
 }
 
-// void Project::save()
-// {
-// //     kWarning() << "--s "<< m_path;
-// //     setSharedConfig(KSharedConfig::openConfig(m_path, KConfig::NoGlobals));
-// // 
-// //     kWarning() << "--s "<< potBaseDir() << " " << poBaseDir();
-// //     QString aa(potBaseDir());
-// //     readConfig();
-// //     setPotBaseDir(aa);
-//     writeConfig();
-// }
-
 
 void Project::load(const QString &file)
 {
@@ -157,7 +145,6 @@ QStringList Project::webQueryScripts() const
 
 void Project::populateWebQueryActions()
 {
-//     kWarning();
     QStringList a(webQueryScripts());
     int i=0;
     while(i<a.size())
@@ -168,7 +155,6 @@ void Project::populateWebQueryActions()
         action->addObject(webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
         Manager::self().actionCollection()->addAction(action);
         action->trigger();
-        //kWarning()<<a.at(i);
         ++i;
     }
 
@@ -181,15 +167,9 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
     {
         KUrl url(m_path);
         url.setFileName(QString());
-//         kWarning () << "1  " << url.path();
-        //url.addPath(possiblyRelPath);
         url.cd(possiblyRelPath);
-        //url.cleanPath();
-//         kWarning () << "2  " << possiblyRelPath << " + "  << url.path();
-        kWarning () << "222  " << url.path(KUrl::RemoveTrailingSlash);
         return url.path(KUrl::RemoveTrailingSlash);
     }
-    kWarning () << "111  " << possiblyRelPath;
     return possiblyRelPath;
 }
 
@@ -203,19 +183,6 @@ void Project::populateDirModel()
     {
         //static_cast<ProjectLister*>(m_model->dirLister())->setBaseAndTempl(a,potDir());
         m_model->dirLister()->openUrl(a);
-
-//the following code leads to crash, because one shouldn't try to call subdirs of the folder that is being listed too.
-//#define HOME
-#ifdef HOME
-        m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages"),
-                true,
-                false
-                                     );
-        m_model->dirLister()->openUrl(KUrl("file:///mnt/lin/home/s/svn/kde/kde/trunk/l10n-kde4/ru/messages/kdeaddons"),
-                true,
-                false
-                                     );
-#endif
     }
 }
 #if 0
@@ -259,27 +226,6 @@ void Project::populateGlossary()
     m_glossary->load(glossaryPath());
 }
 
-#if 0
-/////////////////////////////at most 1 tag pair on the line
-//int writeLine(int indent,const QString& str,QFile& out)
-int writeLine(int indent,const QByteArray& str,QFile& out)
-{
-    kWarning() << str << /*" a1 "<< indent<< */endl;
-    int balance=str.count('<')-str.count("</")*2;
-    if (balance<0)
-        indent+=balance;
-
-    out.write(QByteArray(indent*4,' ')+str+'\n');
-
-    if (balance>0)
-        indent+=balance;
-
-
-//kWarning() << "a3 "<< indent;
-
-    return indent;
-}
-#endif
 
 
 void Project::deleteScanJob(ThreadWeaver::Job* job)
