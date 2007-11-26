@@ -29,6 +29,7 @@
   your version.
 
 **************************************************************************** */
+#define KDE_NO_DEBUG_OUTPUT
 
 #include "msgiddiffview.h"
 
@@ -74,11 +75,13 @@ void MsgIdDiff::process()
 {
     if (m_entry==m_prevEntry)
         return;
+    if (m_catalog->numberOfEntries()<=m_entry)
+        return;//because of Qt::QueuedConnection
+
     m_prevEntry=m_entry;
     QString oldStr(m_catalog->comment(m_entry));
     if (!oldStr.contains("#|"))
     {
-        ////kWarning()<< "___ returning... ";
         if (m_hasInfo)
         {
             m_hasInfo=false;
@@ -111,7 +114,6 @@ void MsgIdDiff::process()
         oldStr.remove("#| \"");
         oldStr.remove(QRegExp("\"\n"));
         oldStr.remove(QRegExp("\"$"));
-            //kWarning() << "BEGIN " << oldStr << " END";
 
         newStr.remove("\n");
         oldStr.replace("\\n"," \\n ");
@@ -134,12 +136,11 @@ void MsgIdDiff::process()
 
     m_browser->setHtml(result);
 //     m_browser->setPlainText(result);
-//     kWarning()<<" "<<result;
 
 //     oldStr.replace("\\n","\\n\n");
 //     newStr.replace("\\n","\\n\n");
 
-    //kWarning()<<"ELA "<<time.elapsed();
+//     kDebug()<<"ELA "<<time.elapsed();
 }
 
 #include "msgiddiffview.moc"

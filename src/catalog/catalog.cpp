@@ -176,7 +176,7 @@ const QString& Catalog::msgid(uint index, const uint form, const bool noNewlines
     if (KDE_ISUNLIKELY( d->_entries.isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
 
-   return d->_entries.at(index).msgid(form,noNewlines);
+    return d->_entries.at(index).msgid(form,noNewlines);
 }
 
 const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) const

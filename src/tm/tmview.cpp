@@ -321,6 +321,9 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     QTime time;
     time.start();
 
+    if (m_catalog->numberOfEntries()<=pos.entry)
+        return;//because of Qt::QueuedConnection
+
     m_browser->clear();
     ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
     m_pos=pos;
@@ -368,6 +371,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     SelectJob* job=static_cast<SelectJob*>(j);
     if (job->m_pos.entry!=m_pos.entry)
         return;
+
+    if (m_catalog->numberOfEntries()<=m_pos.entry)
+        return;//because of Qt::QueuedConnection
+
 
     Project* p=Project::instance();
     const QString& pID=p->projectID();

@@ -29,7 +29,7 @@
   your version.
 
 **************************************************************************** */
-//#define KDE_NO_DEBUG_OUTPUT
+#define KDE_NO_DEBUG_OUTPUT
 #include "projectmodel.h"
 #include "project.h"
 
@@ -86,8 +86,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 
     if (role!=Qt::DisplayRole)
         return QVariant();
-//     kWarning()<<"+++++++++++++00";
-//     kWarning()<<"+++++++++++++01";
+
     KFileItem item(itemForIndex(index));
     //we handle dirs in special way for all columns left
     if (item.isDir())
@@ -132,10 +131,8 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 //                 item->setMetaInfo(KFileMetaInfo( item->url() ));
 //             }
 
-//                 kWarning()<<"-----------1----"<<i;
                 const KFileMetaInfo& childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
 
-//                 kWarning()<<"-----------1";
                 if (!childMetaInfo.item("translation.translated").value().isNull())
                 {
                     translated+=childMetaInfo.item("translation.translated").value().toInt();
@@ -147,12 +144,11 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                     //"inode/directory"
                     infoIsFull=false;
                 }
-//                 kWarning()<<"-----------2";
             }
-//             kWarning()<<"/////////////////"<<a.elapsed();
+
             if (infoIsFull&&(untranslated+translated+fuzzy))
             {
-//                 kWarning()<<"-----------3";
+
 //                 KFileMetaInfo dirInfo(item->metaInfo(false));
 #if 1
                 metaInfo.item("translation.untranslated").setValue(untranslated);
@@ -160,7 +156,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                 metaInfo.item("translation.fuzzy").setValue(fuzzy);
                 item.setMetaInfo(metaInfo);
 #endif
-//                 kWarning()<<"-----------4";
+
                 switch(column)
                 {
                     case Graph:
@@ -340,9 +336,6 @@ static bool potToPo(QString& path)
 void ProjectLister::slotCompleted(const KUrl& _url)
 {
     kDebug()<<_url;
-//     kWarning()<<"-";
-//     kWarning()<<"-";
-//     kWarning()<<_url;
 
     QString path(_url.path(KUrl::RemoveTrailingSlash));
     if (!poToPot(path))//sanity
@@ -382,7 +375,7 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
     if (!m_reactOnSignals)
         return;
     QTime a;a.start();
-    kWarning()<<"start";
+    kDebug()<<"start";
     m_reactOnSignals=false;
     //this code
     //1. sets metainfo
@@ -409,20 +402,20 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 //             if (m_recursiveUrls.contains(u.path()))
 //                 openUrlRecursive(u);
 //             else
-//                 kWarning()<<" shit shit shit";
+//                 kDebug()<<" shit shit shit";
 //         }
 
         //maybe this is update and new translations have appeared
         //so remove corresponding template entries in favor of 'em
-        kWarning()<<"callin removeUnneededTemplEntries";
+        kDebug()<<"callin removeUnneededTemplEntries";
         removeUnneededTemplEntries(path,templDirsToRemove);
     }
 
     //find files of dirs being removed
-    kWarning()<<"callin removeDupliTemplDirs";
+    kDebug()<<"callin removeDupliTemplDirs";
     removeDupliTemplDirs(templDirsToRemove);
     m_reactOnSignals=true;
-    kWarning()<<"end"<<a.elapsed();
+    kDebug()<<"end"<<a.elapsed();
 }
 
 
@@ -436,7 +429,7 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
     if (!m_reactOnSignals)
         return;
     QTime a;a.start();
-    kWarning()<<"start";
+    kDebug()<<"start";
     m_reactOnSignals=false;
     //this code sets metainfo
 
@@ -456,7 +449,7 @@ void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list
 
 
     m_reactOnSignals=true;
-    kWarning()<<"end"<<a.elapsed();
+    kDebug()<<"end"<<a.elapsed();
 }
 
 //called from slotNewItems()
@@ -486,7 +479,7 @@ void ProjectLister::removeUnneededTemplEntries(QString& path,
                     //workaround for cases when new dir is created...
                     if (m_model->indexForUrl(po.url()).isValid())
                     {
-                        kWarning()<<"emit delete 2"<<po.url().path();
+                        kDebug()<<"emit delete 2"<<po.url().path();
                         emit deleteItem(po);
                     }
                 }
@@ -516,7 +509,7 @@ void ProjectLister::removeDupliTemplDirs(KFileItemList& templDirsToRemove)
         if (potToPo(path))
         {
             po.setUrl(KUrl::fromPath(path));
-            kWarning()<<"emit delete 1"<<path; //FIXME
+            kDebug()<<"emit delete 1"<<path; //FIXME
             emit deleteItem(po);
 
             m_listedTemplDirs.remove( templDirsToRemove.at(i).url().path(KUrl::RemoveTrailingSlash) );
@@ -623,12 +616,10 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
 
 void ProjectLister::clearTempl(const KUrl& u)
 {
-    
 }
 
 void ProjectLister::clearTempl()
 {
-    //kWarning()<<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 }
 
 void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const ref, we modify the list...
@@ -682,11 +673,9 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
                 list[i]=a;*/
 
             }
-            //kWarning()<<path;
         }
         else
         {
-            kWarning()<<"strange";
             m_hiddenTemplItems.append(list.at(i).url());
             list.removeAt(i);
         }
@@ -732,7 +721,7 @@ void ProjectLister::slotDeleteTemplItem(const KFileItem& item)
 //         if (path.endsWith(".pot"))
 //             path.chop(1); //==>NOPE...
         po.setUrl(KUrl::fromPath(path));
-        kWarning()<<"emit delete 3"<<path;
+        kDebug()<<"emit delete 3"<<path;
         emit deleteItem(po);
 
 //        emit deleteItem(m_items.value(item));
@@ -766,7 +755,7 @@ void ProjectLister::slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > >
 
     i=list.size();
     while(--i>=0)
-        kWarning()<<"going to refresh:"<<list.at(i).first.url();
+        kDebug()<<"going to refresh:"<<list.at(i).first.url();
 
     if (!list.isEmpty())
     {

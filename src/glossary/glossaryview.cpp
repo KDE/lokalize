@@ -105,6 +105,10 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
         entry=m_currentIndex;
     else
         m_currentIndex=entry;
+
+    if (m_catalog->numberOfEntries()<=entry)
+        return;//because of Qt::QueuedConnection
+    //kWarning()<<"m_catalog->numberOfEntries()"<<m_catalog->numberOfEntries()<<entry;
 //     if (!toggleViewAction()->isChecked())
 //         return;
     QString msg(m_catalog->msgid(entry).toLower());

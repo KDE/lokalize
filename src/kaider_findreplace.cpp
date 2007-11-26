@@ -234,6 +234,9 @@ bool KAider::determineStartingPos(KFind* find,
 
 void KAider::findNext(const DocPosition& startingPos)
 {
+    if (_catalog->numberOfEntries()<=startingPos.entry)
+        return;//for the case when app wasn't able to process event before file close
+
     bool anotherEntry=_searchingPos.entry!=_currentPos.entry;
     _searchingPos=startingPos;
 
@@ -245,6 +248,7 @@ void KAider::findNext(const DocPosition& startingPos)
          &&m_searchFilesPos>=0
          &&m_searchFilesPos<m_searchFiles.size())
     {
+
         m_catalogTreeView->setUpdatesEnabled(false);
         //it is a qobject so it certainly will be deleted when needed
         if (!m_progressDialog)
@@ -259,6 +263,7 @@ void KAider::findNext(const DocPosition& startingPos)
         m_progressDialog->progressBar()->setRange(0,m_searchFiles.size()-1);
         m_progressDialog->progressBar()->setValue(m_searchFilesPos);
         m_progressDialog->show();
+
     }
     /////
 
@@ -270,6 +275,7 @@ void KAider::findNext(const DocPosition& startingPos)
 //     int offset=_searchingPos.offset;
     while (flag)
     {
+
         flag=0;
         KFind::Result res = KFind::NoMatch;
         while (true)
@@ -332,10 +338,8 @@ void KAider::findNext(const DocPosition& startingPos)
                 if (KDE_ISLIKELY(!end))
                 {
                     if (!last)
-                    {
                         m_updateView=false;
-                    }
-                    if (fileOpen(m_searchFiles.at(m_searchFilesPos)))
+                    if (m_searchFilesPos<m_searchFiles.size()&&fileOpen(m_searchFiles.at(m_searchFilesPos)))
                     {
                         if (_find->options() & KFind::FindBackwards)
                         {
@@ -347,11 +351,9 @@ void KAider::findNext(const DocPosition& startingPos)
                             gotoEntry(pos);
                         }
                         //flag=1;
-    
+
                         if (!last)
-                        {
                             m_updateView=true;
-                        }
                         //continue;
                         QTimer::singleShot(0,this,SLOT(findNext()));
                         //hideDia=false;
@@ -390,13 +392,11 @@ void KAider::findNext(const DocPosition& startingPos)
         m_progressDialog->hide();
 
     m_catalogTreeView->setUpdatesEnabled(true);
-    kWarning()<<"++++++++++++++++++++++TIME"<<a.elapsed();
+    kDebug()<<"TIME"<<a.elapsed();
 }
 
 void KAider::findNext()
 {
-    //kWarning()<<"pos"<<_currentPos.offset;
-
     if (_find)
         findNext(_currentPos);
     else

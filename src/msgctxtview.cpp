@@ -29,6 +29,7 @@
   your version.
 
 **************************************************************************** */
+#define KDE_NO_DEBUG_OUTPUT
 
 #include "msgctxtview.h"
 
@@ -58,7 +59,6 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
 
 MsgCtxtView::~MsgCtxtView()
 {
-    delete m_browser;
 }
 
 void MsgCtxtView::slotNewEntryDisplayed(uint index)
@@ -71,6 +71,9 @@ void MsgCtxtView::process()
 {
     if (m_entry==m_prevEntry)
         return;
+    if (m_catalog->numberOfEntries()<=m_entry)
+        return;//because of Qt::QueuedConnection
+
     m_prevEntry=m_entry;
     QTime time;time.start();
     m_browser->clear();
@@ -117,7 +120,7 @@ void MsgCtxtView::process()
         m_browser->setTextCursor(t);
         m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry));
     }
-    kWarning()<<"ELA "<<time.elapsed();
+    kDebug()<<"ELA "<<time.elapsed();
 }
 
 #include "msgctxtview.moc"

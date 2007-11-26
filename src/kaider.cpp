@@ -145,7 +145,6 @@ KAider::~KAider()
     */
 
     Project::instance()->unregisterEditor(this);
-    kWarning()<<"FINISH";
 }
 
 #define ID_STATUS_TOTAL 1
@@ -560,8 +559,6 @@ void KAider::createDockWindows()
 
 bool KAider::fileOpen(KUrl url)
 {
-    //kWarning()<<"-------------------"+url.path();
-
     if (!_catalog->isClean())
     {
         switch (KMessageBox::warningYesNoCancel(this,
@@ -585,7 +582,6 @@ bool KAider::fileOpen(KUrl url)
         url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation",this);
     else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
     {   //check if we are opening template
-        //kWarning()<<"-------------------"+originalPath;
         QString path(originalPath);
         path.replace(Project::instance()->poDir(),Project::instance()->potDir());
         if (QFile::exists(path))
@@ -744,8 +740,6 @@ void KAider::gotoEntry()
 
 void KAider::gotoEntry(const DocPosition& pos,int selection)
 {
-//     kWarning()<<"goto1: "<<pos.entry;
-
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
 
@@ -758,8 +752,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     time.start();
 // QTime a;
 // a.start();
-    //kWarning()<<"goto2: "<<pos.entry;
-//     KMessageBox::information(0, QString("%1 %2").arg(_currentEntry).arg(pos.entry));
+
     if (_currentEntry!=pos.entry || _currentPos.form!=pos.form)
     {
         _currentPos=pos;
@@ -791,7 +784,6 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 
     }
 
-//     kWarning()<<"goto3: "<<pos.entry;
     if (m_updateView)
     {
         //still emit even if _currentEntry==pos.entry
@@ -799,8 +791,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
 //        msgStrChanged();
         statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
     }
-    kWarning()<<"ELA "<<time.elapsed();
-//     kWarning()<<"goto4: "<<pos.entry;
+    kDebug()<<"ELA "<<time.elapsed();
 }
 
 void KAider::msgStrChanged()
