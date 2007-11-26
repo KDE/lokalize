@@ -55,6 +55,7 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
 {
     setObjectName("msgCtxtView");
     setWidget(m_browser);
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
 }
 
 MsgCtxtView::~MsgCtxtView()

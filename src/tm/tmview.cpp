@@ -85,6 +85,7 @@ void TMView::initLater()
 {
     QTime time;time.start();
 
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
     setAcceptDrops(true);
 
     QSignalMapper* signalMapper=new QSignalMapper(this);

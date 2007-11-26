@@ -73,7 +73,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     m_browser->setLayout(m_flowLayout);
 
     m_browser->setAutoFillBackground(true);
-    m_browser->setBackgroundRole(QPalette::Base);
+    m_browser->setBackgroundRole(QPalette::Background);
 
     m_rxClean.setMinimal(true);
     connect (m_glossary,SIGNAL(changed()),this,SLOT(slotNewEntryDisplayed()));

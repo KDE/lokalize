@@ -81,6 +81,10 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     setObjectName("WebQueryView");
     setWidget(m_splitter);
 
+    hide();
+
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+
     m_browser->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
 //    connect(Project::instance(),SIGNAL(loaded()),this,SLOT(populateWebQueryActions()));
     QWidget* w=new QWidget(m_splitter);

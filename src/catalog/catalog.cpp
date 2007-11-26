@@ -33,7 +33,7 @@
   your version.
 
 **************************************************************************** */
-#define KDE_NO_DEBUG_OUTPUT
+// #define KDE_NO_DEBUG_OUTPUT
 
 #include "catalog.h"
 #include "project.h"
@@ -64,6 +64,8 @@
 static QString GNUPluralForms(const QString& lang)
 {
 //     Needs testing for M$ OS
+    QString def="nplurals=2; plural=n != 1;";
+
     QStringList arguments;
     arguments << "-l" << lang
               << "-i" << "-"
@@ -77,7 +79,7 @@ static QString GNUPluralForms(const QString& lang)
     if (KDE_ISUNLIKELY( msginit.state()!=QProcess::Running ))
     {
         kWarning()<<"msginit error";
-        return QString();
+        return def;
     }
 
     msginit.write(
@@ -103,7 +105,7 @@ static QString GNUPluralForms(const QString& lang)
     if (!msginit.waitForFinished(5000))
     {
         kWarning()<<"msginit error";
-        return QString();
+        return def;
     }
 
 
@@ -112,7 +114,7 @@ static QString GNUPluralForms(const QString& lang)
     if (pos==-1)
     {
         kWarning()<<"msginit error"<<result;
-        return QString();
+        return def;
     }
     pos+=14;
 
@@ -120,7 +122,7 @@ static QString GNUPluralForms(const QString& lang)
     if (pos==-1)
     {
         kWarning()<<"msginit error"<<result;
-        return QString();
+        return def;
     }
 
     return QString( result.mid(pos,end-pos-2) );

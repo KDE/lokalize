@@ -53,6 +53,8 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
 {
     setObjectName("catalogTreeView");
 
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);
     KLineEdit* m_lineEdit=new KLineEdit(w);
