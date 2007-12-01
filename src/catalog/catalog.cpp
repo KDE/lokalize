@@ -562,6 +562,8 @@ void Catalog::updateHeader(bool forSaving)
     //d->_language=locale.languageCodeToName(d->_langCode);
     KConfigGroup cg(&lll, d->_langCode);
     d->_language=cg.readEntry("Name");
+    if (d->_language.isEmpty())
+        d->_language=d->_langCode;
 
     temp="Language-Team: "+d->_language;
     if (Project::instance()->isLoaded())

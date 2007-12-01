@@ -246,7 +246,7 @@ void SettingsController::projectConfigure()
     m_scriptsPrefWidget->setItems(Project::instance()->webQueryScripts());
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
-    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));
+//     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));
 
     dialog->show();
 }

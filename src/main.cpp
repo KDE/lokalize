@@ -54,6 +54,7 @@ int main(int argc, char **argv)
                      KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shafff@ukr.net" );
     about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
+    about.addCredit (ki18n("Stephan Johach"), ki18n("bug fixing patches"), "lucardus@onlinehome.de");
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;
