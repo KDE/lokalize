@@ -33,7 +33,6 @@
 #include "mergecatalog.h"
 #include "catalog_private.h"
 #include "catalogitem.h"
-#include <QStringList>
 #include <kdebug.h>
 
 MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)

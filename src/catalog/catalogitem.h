@@ -36,8 +36,6 @@
 #ifndef CATALOGITEM_H
 #define CATALOGITEM_H
 
-#include <QTextDocument>
-#include <QTextStream>
 #include <QStringList>
 
 #include "pluralformtypes_enum.h"

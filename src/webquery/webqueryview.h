@@ -34,7 +34,6 @@
 #define KROSSVIEW_H
 
 #include <pos.h>
-#include <QRegExp>
 #include <QDockWidget>
 //#include <QList>
 class Catalog;

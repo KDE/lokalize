@@ -39,7 +39,6 @@
 #include "prefs_kaider.h"
 #include "syntaxhighlighter.h"
 
-#include <QTextCodec>
 #include <QTabBar>
 #include <QTimer>
 #include <QMenu>

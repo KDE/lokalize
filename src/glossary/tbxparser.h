@@ -33,9 +33,7 @@
 #ifndef TBXPARSER_H
 #define TBXPARSER_H
 
-#include <QtXml>
 #include <QXmlDefaultHandler>
-#include <QStringList>
 
 #include "glossary.h"
 //class Glossary;

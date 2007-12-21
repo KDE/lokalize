@@ -37,10 +37,8 @@
 #ifndef CatalogPrivate_H
 #define CatalogPrivate_H
 
-#include <QObject>
 #include <QList>
 #include <QStringList>
-#include <QMap>
 #include <QVector>
 #include <kurl.h>
 

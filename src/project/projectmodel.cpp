@@ -38,7 +38,7 @@
 
 //#include <QEventLoop>
 #include <QTime>
-
+#include <QFile>
 
 
 ProjectModel::ProjectModel()

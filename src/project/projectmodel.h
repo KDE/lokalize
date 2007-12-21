@@ -36,10 +36,8 @@
 #include <kdirmodel.h>
 #include <kdirlister.h>
 #include <kicon.h>
-#include <QDir>
 #include <QHash>
 #include <QList>
-#include <QMap>
 #include <kdebug.h>
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>

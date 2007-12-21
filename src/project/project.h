@@ -34,7 +34,6 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
-#include <QObject>
 #include <QVector>
 #include <QList>
 #include "projectbase.h"

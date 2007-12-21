@@ -34,9 +34,7 @@
 #define IMPORTPLUGIN_H
 
 #include <QObject>
-#include <QFile>
 #include <QList>
-#include <QLinkedList>
 
 #include <kdemacros.h>
 //#include "kbabel_export.h"

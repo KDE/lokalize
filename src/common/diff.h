@@ -33,7 +33,6 @@
 #ifndef DIFF_H
 #define DIFF_H
 
-#include <QRegExp>
 
 /**
  * @short Word-by-word diff algorithm

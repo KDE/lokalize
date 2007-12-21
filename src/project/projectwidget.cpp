@@ -41,17 +41,14 @@
 #include <kdirlister.h>
 #include <kdirsortfilterproxymodel.h>
 
-#include <QFile>
 #include <QTreeView>
 #include <QTimer>
-#include <QMenu>
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QPainter>
 #include <QLinearGradient>
 
-// #include <QProcess>
-// #include <QModelIndex>
+// // #include <QModelIndex>
 // #include <QTimer>
 
 

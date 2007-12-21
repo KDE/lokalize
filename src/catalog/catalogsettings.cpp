@@ -49,7 +49,6 @@
 #include <qfile.h>
 #include <qtextcodec.h>
 #include <qregexp.h>
-#include <QTextStream>
 
 #include <stdlib.h>
 

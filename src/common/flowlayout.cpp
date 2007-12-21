@@ -41,8 +41,7 @@
 // #include <kurl.h>
 // #include <kglobalaccel.h>
 
-// #include <QTime>
-#include <QLayout>
+// #include <QLayout>
 #include <QAction>
 // #include <QPushButton>
 

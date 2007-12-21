@@ -40,7 +40,6 @@
 
 #include <QStringList>
 #include <QLinkedList>
-#include <QVector>
 
 #include <kdebug.h>
 #include <kmessagebox.h>

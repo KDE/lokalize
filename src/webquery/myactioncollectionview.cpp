@@ -34,9 +34,7 @@
 #include "webquerycontroller.h"
 #include "project.h"
 
-#include <QMetaType>
 #include <QMetaObject>
-#include <QItemSelection>
 #include <kross/ui/model.h>
 #include <kross/core/action.h>
 

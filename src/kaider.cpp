@@ -75,11 +75,8 @@
 
 
 #include <QDir>
-#include <QDropEvent>
-#include <QPainter>
-#include <QTabBar>
 #include <QTime>
-
+#include <QTabBar>
 
 
 

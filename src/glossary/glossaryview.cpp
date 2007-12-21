@@ -46,7 +46,6 @@
 #include <kurl.h>
 
 #include <QDragEnterEvent>
-#include <QListView>
 #include <QTime>
 #include <QSet>
 #include <QAction>

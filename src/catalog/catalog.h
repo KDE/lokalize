@@ -40,10 +40,7 @@
 #ifndef DATAMODEL_H
 #define DATAMODEL_H
 
-#include <QVector>
-#include <QLinkedList>
 #include <QUndoStack>
-#include <QAbstractItemModel>
 
 #include <kurl.h>
 

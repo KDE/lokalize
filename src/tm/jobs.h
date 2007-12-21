@@ -38,7 +38,6 @@
 #include <threadweaver/Job.h>
 #include <kurl.h>
 #include <QDir>
-#include <QVector>
 #include <QString>
 //#include <QMultiHash>
 #include <QSqlDatabase>

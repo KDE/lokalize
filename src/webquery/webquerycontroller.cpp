@@ -35,9 +35,6 @@
 #include "webqueryview.h"
 
 #include <QUrl>
-#include <QFile>
-#include <QMutexLocker>
-#include <QMetaObject>
 // #include <kio/netaccess.h>
 #include <kio/jobclasses.h>
 #include <kio/job.h>

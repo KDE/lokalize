@@ -38,14 +38,7 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-#include <QMap>
-#include <QList>
 
-#include <QSplitter>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSortFilterProxyModel>
-#include <QAbstractItemModel>
 #include <QTreeView>
 #include <QSqlQueryModel>
 #include <QButtonGroup>
