@@ -93,8 +93,8 @@ target_link_libraries(kaider
 #     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
     -lkfile
-    ${QT_QTSQL_LIBRARY}
     ${KDE4_THREADWEAVER_LIBRARY}
+    ${QT_QTSQL_LIBRARY}
 )
 
 install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )

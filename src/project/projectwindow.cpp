@@ -67,7 +67,7 @@ ProjectWindow::ProjectWindow(QWidget *parent)
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showGlossary() ) );
 
-    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation Memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
+    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
     connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showTM() ) );
 
     action = actionCollection()->addAction("tools_tm_manage");
