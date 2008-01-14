@@ -214,7 +214,7 @@ char PoEndAnalyzer::analyze(AnalysisResult& idx, InputStream* in)
 /*            msg=line.mid(7).chop(1);
             idx.addText(msg.constData(),msg.length());*/
         }
-        else if (line.startsWith('#'))
+        else if (line.startsWith("#,"))
         {
             if (line.contains("fuzzy"))
                 possiblyFuzzy=true;
