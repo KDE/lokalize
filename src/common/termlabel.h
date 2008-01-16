@@ -37,8 +37,6 @@
 #include <QAction>
 #include "glossary.h"
 #include "project.h"
-//class QAction;
-// #include <QPushButton>
 
 /**
  * flowlayout item

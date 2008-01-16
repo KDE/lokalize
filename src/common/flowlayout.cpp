@@ -33,17 +33,12 @@
 
 #include "flowlayout.h"
 #include "termlabel.h"
-
 //#include "project.h"
 
 // #include <klocale.h>
 #include <kdebug.h>
-// #include <kurl.h>
-// #include <kglobalaccel.h>
 
-// #include <QLayout>
 #include <QAction>
-// #include <QPushButton>
 
 
 

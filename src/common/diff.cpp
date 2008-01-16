@@ -466,9 +466,9 @@ QString wordDiff(const QString& str1,
     result.replaceInStrings("<","&lt;");
     result.replaceInStrings(">","&gt;");
 
-    result.replaceInStrings("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+"\">");
+    result.replaceInStrings("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
     result.replaceInStrings("{/KBABELADD}","</font>");
-    result.replaceInStrings("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+"\">");
+    result.replaceInStrings("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
     result.replaceInStrings("{/KBABELDEL}","</font>");
 
     //result.last().chop(1);//\b

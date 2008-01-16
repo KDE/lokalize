@@ -275,10 +275,7 @@ static void addTerms(Glossary* glo)
     if (!stream.open(QFile::ReadWrite | QFile::Text))
          return;
 
-    //int id=0;
-    //QString authorId(Settings::authorName().toLower());
-    //authorId.replace(' ','_');
-
+    QByteArray line;
     if (stream.size()==0)
     {
         stream.write(
@@ -301,41 +298,29 @@ static void addTerms(Glossary* glo)
     }
     else
     {
+        //This seeks to the end of file to add new items
+        //This way file is never rewrited completely =>
+        //this is fast and saves diskdrive's life
 
-//     QTextStream stream(&file);
-//     stream.setCodec("UTF-8");
-//     stream.setAutoDetectUnicode(true);
-        QByteArray line(stream.readLine());
-        //QList<int> idlist;
-        //QRegExp rx("<termEntry id=\""+authorId+"-([0-9]*)\">");
+
+        //QByteArray line(stream.readLine());
+        line=stream.readLine();
         while(!stream.atEnd()&&!line.contains("</body>"))
             line=stream.readLine();
-    //    while(!stream.atEnd()&&!stream.pos()+20>stream.size())
-/*        {
-            if (rx.indexIn(line)!=-1);
-                idlist<<rx.cap(1).toInt();
-            line=stream.readLine();
-        }
-    //    stream.seek(stream.pos());
-        if (!idlist.isEmpty())
-        {
-            qSort(idlist);
-            while (idlist.contains(id))
-                ++id;
-        }*/
+
         stream.seek(stream.pos()-line.size());
     }
 
     QByteArray out;
     out.reserve(256);
-    out+="            ";
+    out+=QString(line).remove(QRegExp(" *</body>.*"));
+    out+="\n";
     QXmlStreamWriter xmlOut(&out);
 
     int limit=glo->addedIds.size();
     int k=-1;
     while (++k<limit)
     {
-//        xmlOut.writeCharacters("dsds");
         //find entry by its id
         int j=glo->termList.size();
         while (--j>=0)
@@ -354,13 +339,10 @@ static void addTerms(Glossary* glo)
         }
 
 
-//        out+="            ";
-//        QXmlStreamWriter xmlOut(&out);
-//        xmlOut.writeCharacters("\n            ");
         xmlOut.setAutoFormatting(true);
         xmlOut.writeStartElement("termEntry");
         xmlOut.writeAttribute("id",entry.id);
-        //xmlOut.writeAttribute("id",QString(authorId+"-%1").arg(id));
+
         if (entry.subjectField/*!=-1*/)
         {
             xmlOut.writeStartElement("descrip");
@@ -409,6 +391,8 @@ static void addTerms(Glossary* glo)
         }
         xmlOut.writeEndElement();
     }
+
+    //Qt isn't perfect
     out.replace("\n\n","\n");
     out.replace("\n","\n            ");
 
@@ -476,12 +460,7 @@ QVariant GlossaryModel::data(const QModelIndex& index,int role) const
         {
             const Glossary* glo=Project::instance()->glossary();
             int field=glo->termList.at(index.row()).subjectField;
-//             kDebug()<<field;
-//             if (field==-1)
-//                 return "";
-//             else
-//             kDebug()<<glo->subjectFields.at(field);
-            //kDebug()<<"field"<<field<<glo->subjectFields.size();
+
             return glo->subjectFields.at(field);
         }
     }

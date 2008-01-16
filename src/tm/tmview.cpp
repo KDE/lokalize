@@ -54,6 +54,13 @@
 #include <QAction>
 #include <QTimer>
 
+#ifdef NDEBUG
+#undef NDEBUG
+#endif
+
+#define DEBUG
+
+
 TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
     , m_browser(new KTextBrowser(this))
@@ -99,11 +106,7 @@ void TMView::initLater()
     connect(signalMapper, SIGNAL(mapped(int)),
              this, SLOT(slotUseSuggestion(int)));
     connect(m_browser,SIGNAL(selectionChanged()),this,SLOT(slotSelectionChanged()));
-//     connect(m_browser,SIGNAL(selectionChanged()),
-//             &m_timer,SLOT(start()));
-//     connect(&m_timer,SIGNAL(timeout()),this,SLOT(slotSelectionChanged()));
-//     m_timer.setInterval(200);
-//     m_timer.setSingleShot(true);
+
     m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
     DBFilesModel::instance();
@@ -441,10 +444,19 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     //m_entries=job->m_entries;
     m_browser->insertHtml("<html>");
 
-    while (i<limit)
+    QTextBlockFormat blockFormatBase;
+    QTextBlockFormat blockFormatAlternate;
+    //QPalette defaultPalette;
+    blockFormatAlternate.setBackground(QPalette().alternateBase());
+    //while (i<limit)
+    forever
     {
+        QTextCursor cur=m_browser->textCursor();
+
+        bool bold=job->m_entries.at(i).score>9500;
+
         //m_browser->insertHtml(QString("/%1% %2/ ").arg(float(job->m_entries.at(i).score)/100).arg(job->m_entries.at(i).date));
-        m_browser->insertHtml(QString("/%1%/ ").arg(float(job->m_entries.at(i).score)/100));
+        cur.insertHtml(QString(bold?"<b>/%1%/ </b>":"/%1%/ ").arg(float(job->m_entries.at(i).score)/100));
 
 //         QString oldStr(job->m_entries.at(i).english);
 //         QString newStr(m_catalog->msgid(m_pos));
@@ -455,7 +467,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
 //         kWarning()<<"res: "<<result;
 
-        m_browser->insertHtml(result);
+        cur.insertHtml((bold?"<b>":"")+result+(bold?"</b>":""));
 
 
 
@@ -465,24 +477,27 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         //str.replace('&',"&amp;"); TODO check
 
         //str.remove(QRegExp("<br> *$"));
-        //m_browser->insertHtml(QString("<br><p style=\"margin-left:10px\">%1</p>").arg(str));
-        m_browser->insertHtml("<br>");
+        //cur.insertHtml(QString("<br><p style=\"margin-left:10px\">%1</p>").arg(str));
+        cur.insertHtml("<br>");
         if (i<m_actions.size())
         {
             m_actions.at(i)->setStatusTip(job->m_entries.at(i).target);
-            m_browser->insertHtml(QString("[%1] ").arg(m_actions.at(i)->shortcut().toString()));
+            cur.insertHtml(QString(bold?"<b>[%1] </b>":"[%1] ").arg(m_actions.at(i)->shortcut().toString()));
         }
         else
-            m_browser->insertHtml("[ - ] ");
+            cur.insertHtml(bold?"<b>[ - ] </b>":"[ - ] ");
 
-        m_browser->insertHtml(QString("%1<br><br>").arg(str));
-        ++i;
-/*        if (i<limit)
-            m_browser->insertHtml("<hr width=80%>");*/
+        cur.insertHtml(QString(bold?"<b>%1</b><br>":"%1<br>").arg(str));
+
+        if (++i>=limit)
+            break;
+
+        cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
+
     }
     m_browser->insertHtml("</html>");
 //     kWarning();
-    kWarning()<<"ELA "<<time.elapsed()<<m_browser->document()->blockCount();
+    kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
 void TMView::slotSelectionChanged()

@@ -56,6 +56,7 @@ MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
 {
     setObjectName("msgIdDiff");
     setWidget(m_browser);
+    setToolTip(i18nc("@info:tooltip","Sometimes, if original is changed, its translation becomes <emphasis>fuzzy</emphasis>. This window shows the difference between new original string and the old one, so that you can see what changes should be applied to translation."));
 
     m_browser->setReadOnly(true);
 }
