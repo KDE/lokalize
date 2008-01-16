@@ -9,6 +9,9 @@
     <height>375</height>
    </rect>
   </property>
+  <property name="whatsThis" >
+   <string>Fill in your identity and information about your translation team. This information is used when updating the header of a file.</string>
+  </property>
   <layout class="QGridLayout" >
    <property name="leftMargin" >
     <number>11</number>
@@ -65,7 +68,14 @@
     </widget>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="kcfg_authorName" />
+    <widget class="QLineEdit" name="kcfg_authorName" >
+     <property name="toolTip" >
+      <string>Your name, in English</string>
+     </property>
+     <property name="whatsThis" >
+      <string>Please enter here your name and surname written in English</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0" >
     <widget class="QLabel" name="label" >
@@ -78,10 +88,24 @@
     </widget>
    </item>
    <item row="3" column="1" >
-    <widget class="QLineEdit" name="kcfg_DefaultMailingList" />
+    <widget class="QLineEdit" name="kcfg_DefaultMailingList" >
+     <property name="toolTip" >
+      <string>The email of your team mailing list</string>
+     </property>
+     <property name="whatsThis" >
+      <string>Write the email of your translating team mailing list</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="1" >
-    <widget class="QComboBox" name="DefaultLangCode" />
+    <widget class="QComboBox" name="DefaultLangCode" >
+     <property name="toolTip" >
+      <string>Language you translate to</string>
+     </property>
+     <property name="whatsThis" >
+      <string>Set the default language you are going to translate to</string>
+     </property>
+    </widget>
    </item>
    <item row="7" column="0" colspan="2" >
     <spacer>
@@ -97,7 +121,14 @@
     </spacer>
    </item>
    <item row="1" column="1" >
-    <widget class="QLineEdit" name="kcfg_authorEmail" />
+    <widget class="QLineEdit" name="kcfg_authorEmail" >
+     <property name="toolTip" >
+      <string>Write your email</string>
+     </property>
+     <property name="whatsThis" >
+      <string>Write your email here so it will appear in the po file header with your name</string>
+     </property>
+    </widget>
    </item>
    <item row="5" column="1" >
     <widget class="QLineEdit" name="kcfg_DefaultLangCode" >
@@ -107,7 +138,14 @@
     </widget>
    </item>
    <item row="4" column="1" >
-    <widget class="QLineEdit" name="kcfg_authorLocalizedName" />
+    <widget class="QLineEdit" name="kcfg_authorLocalizedName" >
+     <property name="toolTip" >
+      <string>Your name in your own language</string>
+     </property>
+     <property name="whatsThis" >
+      <string>Write your name and surname in your language with your language alphabet.</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="0" >
     <widget class="QLabel" name="label_2" >

@@ -102,19 +102,19 @@ void SettingsController::slotSettings()
     connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(const QString&)));
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
-    dialog->addPage(w, i18nc("@title:tab","Identity"), "kaider_identity_setting");
+    dialog->addPage(w, i18nc("@title:tab","Identity"), "preferences-desktop-user");
 
 //Font
     w = new QWidget(dialog);
     Ui_prefs_font ui_prefs_font;
     ui_prefs_font.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab","Appearance"), "kaider_font_setting");
+    dialog->addPage(w, i18nc("@title:tab","Appearance"), "preferences-desktop-font");
 
 //Misc
     w = new QWidget(dialog);
     Ui_prefs_misc ui_prefs_misc;
     ui_prefs_misc.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab","Misc"), "kaider_misc_setting");
+    dialog->addPage(w, i18nc("@title:tab","Misc"), "configure");
 
     connect(dialog,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(generalSettingsChanged()));
 

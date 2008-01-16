@@ -38,10 +38,23 @@
       </widget>
      </item>
      <item row="0" column="1" >
-      <widget class="KFontRequester" native="1" name="kcfg_MsgFont" />
+      <widget class="KFontRequester" name="kcfg_MsgFont" >
+       <property name="toolTip" >
+        <string>Change the font for the editor</string>
+       </property>
+       <property name="whatsThis" >
+        <string>Choose a new font for the area where you write the translated message.</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0" colspan="2" >
       <widget class="QCheckBox" name="kcfg_Leds" >
+       <property name="toolTip" >
+        <string>Display LEDS for message status</string>
+       </property>
+       <property name="whatsThis" >
+        <string>If checked, LEDS will be shown to display the message status: Fuzzy, Untranslated or Error. If unchecked, no LEDs will be displayed.</string>
+       </property>
        <property name="text" >
         <string>LEDs to indicate Fuzzy, Untranslated and Error status</string>
        </property>
@@ -51,6 +64,9 @@
    </item>
    <item row="1" column="0" >
     <widget class="QGroupBox" name="groupBox" >
+     <property name="whatsThis" >
+      <string>Text colors for the changes in the message.</string>
+     </property>
      <property name="title" >
       <string>String Matching</string>
      </property>
@@ -64,6 +80,12 @@
       </item>
       <item row="0" column="1" >
        <widget class="KColorButton" name="kcfg_AddColor" >
+        <property name="toolTip" >
+         <string>Change the color for the new text added</string>
+        </property>
+        <property name="whatsThis" >
+         <string>You can set another color for viewing the text that was added to the string.</string>
+        </property>
         <property name="text" >
          <string/>
         </property>
@@ -78,6 +100,12 @@
       </item>
       <item row="1" column="1" >
        <widget class="KColorButton" name="kcfg_DelColor" >
+        <property name="toolTip" >
+         <string>Change the color for the text removed</string>
+        </property>
+        <property name="whatsThis" >
+         <string>You can set another color for viewing the text that was removed from the string.</string>
+        </property>
         <property name="text" >
          <string/>
         </property>
@@ -105,15 +133,15 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>KFontRequester</class>
-   <extends>QWidget</extends>
-   <header location="global" >kfontrequester.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>KColorButton</class>
    <extends>QPushButton</extends>
-   <header location="global" >kcolorbutton.h</header>
+   <header>kcolorbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KFontRequester</class>
+   <extends>QWidget</extends>
+   <header>kfontrequester.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
