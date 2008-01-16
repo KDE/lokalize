@@ -57,7 +57,6 @@
 #ifdef NDEBUG
 #undef NDEBUG
 #endif
-
 #define DEBUG
 
 
@@ -110,6 +109,9 @@ void TMView::initLater()
     m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
     DBFilesModel::instance();
+
+    m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
+
     kWarning()<<"init "<<time.elapsed();
 }
 
@@ -452,42 +454,33 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     forever
     {
         QTextCursor cur=m_browser->textCursor();
+        QString html;
 
-        bool bold=job->m_entries.at(i).score>9500;
+        html=(job->m_entries.at(i).score>9500)?"<p class='close_match'>":"<p>";
 
-        //m_browser->insertHtml(QString("/%1% %2/ ").arg(float(job->m_entries.at(i).score)/100).arg(job->m_entries.at(i).date));
-        cur.insertHtml(QString(bold?"<b>/%1%/ </b>":"/%1%/ ").arg(float(job->m_entries.at(i).score)/100));
-
-//         QString oldStr(job->m_entries.at(i).english);
-//         QString newStr(m_catalog->msgid(m_pos));
-
+        html+=QString("/%1%/ ").arg(float(job->m_entries.at(i).score)/100);
 
         QString result(job->m_entries.at(i).diff);
         result.replace("\\n","\\n<br>");
-
-//         kWarning()<<"res: "<<result;
-
-        cur.insertHtml((bold?"<b>":"")+result+(bold?"</b>":""));
-
-
+        html+=result;
 
         QString str(job->m_entries.at(i).target);
         str.replace('<',"&lt;");
         str.replace('>',"&gt;");
         //str.replace('&',"&amp;"); TODO check
 
-        //str.remove(QRegExp("<br> *$"));
-        //cur.insertHtml(QString("<br><p style=\"margin-left:10px\">%1</p>").arg(str));
-        cur.insertHtml("<br>");
+        html+="<br>";
         if (i<m_actions.size())
         {
             m_actions.at(i)->setStatusTip(job->m_entries.at(i).target);
-            cur.insertHtml(QString(bold?"<b>[%1] </b>":"[%1] ").arg(m_actions.at(i)->shortcut().toString()));
+            html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
         }
         else
-            cur.insertHtml(bold?"<b>[ - ] </b>":"[ - ] ");
+            html+="[ - ] ";
 
-        cur.insertHtml(QString(bold?"<b>%1</b><br>":"%1<br>").arg(str));
+        html+=str;
+        html+=i?"<br></p>":"</p>";
+        cur.insertHtml(html);
 
         if (++i>=limit)
             break;
@@ -496,7 +489,6 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
     }
     m_browser->insertHtml("</html>");
-//     kWarning();
     kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
