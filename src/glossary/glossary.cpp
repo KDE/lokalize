@@ -311,8 +311,7 @@ static void addTerms(Glossary* glo)
         stream.seek(stream.pos()-line.size());
     }
 
-    QByteArray out;
-    out.reserve(256);
+    QString out;
     out+=QString(line).remove(QRegExp(" *</body>.*"));
     out+="\n";
     QXmlStreamWriter xmlOut(&out);
@@ -400,7 +399,7 @@ static void addTerms(Glossary* glo)
 "\n        </body>"
 "\n    </text>"
 "\n</martif>\n";
-    stream.write(out);
+    stream.write(out.toUtf8());
 }
 
 void Glossary::save()
