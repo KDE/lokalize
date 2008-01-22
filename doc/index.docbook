@@ -1,10 +1,9 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN"
 "dtd/kdex.dtd" [
-<!ENTITY kaider "KAider">
+<!ENTITY kaider "lokalize">
 <!ENTITY kappname "&kaider;">
-<!ENTITY package "kdereview"> <!-- 	change this once it has moved into the
-correct location. -->
+<!ENTITY package "kdesdk">
 <!ENTITY % addindex "IGNORE">
 <!ENTITY % English "INCLUDE">
 ]>
@@ -26,8 +25,8 @@ correct location. -->
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-09-14</date>
-<releaseinfo>0.1</releaseinfo>
+<date>2008-01-22</date>
+<releaseinfo>0.2</releaseinfo>
 
 <abstract>
 <para>
@@ -50,11 +49,11 @@ translating &GUI; components.
 <title>Introduction</title>
 
 <para>
-When you start &kaider; without any arguments, you will see two big multi-line
-edits as well as a bunch of views. These views can be stacked (similar to
-tabs), shown separately, or hidden. Translation files consists of many
-English-target pairs called <emphasis>messages</emphasis>. The
-<emphasis>messages</emphasis> typically correspond to a single string in the
+When you start &kaider; without any command-line arguments,
+you will see two big multi-line edits as well as a bunch of views.
+These views can be stacked (similar to tabs), shown separately, or hidden.
+Translation files consist of many English-target pairs called <emphasis>messages</emphasis>.
+A <emphasis>message</emphasis> typically correspond to a single string in the
 user interface, or one paragraph in the documentation. The purpose of the first
 multi-line edit is to display the original part of the pair. The purpose of
 the second multi-line edit is to display the translation. You can navigate
@@ -79,20 +78,19 @@ when in the <guilabel>WebQueries</guilabel>.
 <title>Projects</title>
 
 <para>
-The projects are one of the main concepts in &kaider;, as it is represented by
-a file that defines the folders with translations, the templates, the name of
-the glossary file, a list of the <guilabel>WebQuery</guilabel> scripts, as well
-as the translation memory. Whenever &kaider; opens a file without a project
-loaded, it will search for a project file in the parent folders (up to four), or
-you can specify the project file via the <userinput>--project</userinput> flag
+The projects are one of the main concepts in &kaider;. A poject is represented by
+a file that contains paths folders with translations, templates, and other files: 
+glossary file, <guilabel>WebQuery</guilabel> scripts, translation memories.
+Whenever &kaider; opens a file without a project loaded, it will search for a project file in the parent folders (up to four levels).
+Alternatively, you can specify the project file via the <userinput>--project</userinput> flag
 when starting &kaider; from the command line.
 </para>
 
 <note>
 <para>
-Translation memory is not shared between the translation team members, as it is
-created and stored under the user's home folder, meaning that the translation
-memories for all of the projects are stored in the same folder and can be used
+Unlike project file, glossary and scripts, translation memories aren't shared between the translation team members,
+as they are created and stored under the user's home folder, meaning that the translation
+memories for all of the projects are stored in the same folder and thus can be used
 when other projects are opened.
 </para>
 </note>
@@ -212,7 +210,7 @@ different.
 </para>
 
 <para>
-Program Copyright &copy; 2007, Nick Shaforostoff
+Program Copyright &copy; 2007-2008, Nick Shaforostoff
 <email>shaforostoff@kde.ru</email>
 </para>
 
@@ -221,7 +219,7 @@ Some code was taken from &kbabel;, the &kaider; predecessor.
 </para>
 
 <para>
-Documentation Copyright &copy; 2007 Nick Shaforostoff
+Documentation Copyright &copy; 2007-2008 Nick Shaforostoff
 <email>shaforostoff@kde.ru</email>
 </para>
 
