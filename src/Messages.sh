@@ -10,5 +10,5 @@ $XGETTEXT *.cpp \
 	    project/*.cpp \
 	    tm/*.cpp \
 	    webquery/*.cpp \
-	    -o $podir/kaider.pot
+	    -o $podir/lokalize.pot
 rm -f rc.cpp
