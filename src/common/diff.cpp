@@ -35,7 +35,7 @@
 // #include "diff.h"
 
 // #include "project.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 
 #include <QVector>
 #include <QStringList>

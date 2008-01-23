@@ -1,5 +1,5 @@
 # Code generation options for kconfig_compiler
-File=kaider.kcfg
+File=lokalize.kcfg
 ClassName=Settings
 Singleton=true
 Mutators=Leds

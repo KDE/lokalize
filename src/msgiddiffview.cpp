@@ -35,7 +35,6 @@
 
 #include "diff.h"
 #include "catalog.h"
-// #include "prefs_kaider.h"
 #include "project.h"
 
 #include <klocale.h>

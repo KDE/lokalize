@@ -36,7 +36,7 @@
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 #include "ui_kaider_findextension.h"
 
 

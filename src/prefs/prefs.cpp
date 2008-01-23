@@ -31,7 +31,7 @@
 **************************************************************************** */
 
 #include "prefs.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 #include "project.h"
 
 #include "ui_prefs_identity.h"
@@ -74,10 +74,10 @@ SettingsController::~SettingsController()
 
 void SettingsController::slotSettings()
 {
-    if (KConfigDialog::showDialog("kaider_settings"))
+    if (KConfigDialog::showDialog("lokalize_settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(0, "kaider_settings", Settings::self());
+    KConfigDialog *dialog = new KConfigDialog(0, "lokalize_settings", Settings::self());
     dialog->setFaceType(KPageDialog::List);
 
 // Identity
@@ -150,7 +150,7 @@ void SettingsController::slotSettings()
 
 void SettingsController::projectCreate()
 {
-    QString path(KFileDialog::getSaveFileName(KUrl(), "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,0));
+    QString path(KFileDialog::getSaveFileName(KUrl(), "*.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,0));
     if (path.isEmpty())
         return;
 
@@ -255,7 +255,7 @@ void SettingsController::projectOpen(QString path)
 {
     if (path.isEmpty())
         path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
-                                          "*.ktp|KAider translation project"/*"text/x-kaider-project"*/,
+                                          "*.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
                                           0);
     if (path.isEmpty())
         return;

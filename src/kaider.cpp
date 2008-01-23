@@ -35,7 +35,7 @@
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 
 
 //views
@@ -389,7 +389,7 @@ void KAider::setupActions()
     action->setStatusTip(i18nc("@action:inmenu","This changes only empty entries"));
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
-    setupGUI(Default,"kaiderui.rc");
+    setupGUI(Default,"lokalizeui.rc");
 
 //unplugActionList( "xxx_file_actionlist" );
     plugActionList( "project_actions", Project::instance()->projectActions());

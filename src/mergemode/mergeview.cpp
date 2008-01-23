@@ -34,7 +34,6 @@
 
 #include "cmd.h"
 #include "mergecatalog.h"
-// #include "prefs_kaider.h"
 #include "project.h"
 #include "diff.h"
 

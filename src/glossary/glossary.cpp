@@ -34,7 +34,7 @@
 
 #include "tbxparser.h"
 #include "project.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 
 #include <kdebug.h>
 

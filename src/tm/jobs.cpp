@@ -34,7 +34,7 @@
 #include "catalog.h"
 #include "project.h"
 #include "diff.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>

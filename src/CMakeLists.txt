@@ -82,7 +82,7 @@ kde4_add_ui_files(lokalize_SRCS
 )
 
 kde4_add_kcfg_files(lokalize_SRCS
-    prefs/prefs_kaider.kcfgc
+    prefs/prefs_lokalize.kcfgc
     project/projectbase.kcfgc
 )
 
@@ -103,8 +103,8 @@ install(TARGETS lokalize DESTINATION ${BIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES prefs/kaider.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
-install( FILES kaiderui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )
-install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )
+install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
+install( FILES lokalizeui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 
 

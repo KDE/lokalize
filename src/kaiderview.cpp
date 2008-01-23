@@ -36,7 +36,7 @@
 #include "project.h"
 #include "catalog.h"
 #include "cmd.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 #include "syntaxhighlighter.h"
 
 #include <QTabBar>
@@ -772,9 +772,3 @@ void KAiderView::tagMenu()
 
 
 
-
-
-
-
-
-#include "kaiderview.moc"

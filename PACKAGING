@@ -1,3 +1,4 @@
 deps:
 -kdelibs
+-kdesdk strigi analyzer plugins
 -gettext (i use cmdline utils to get plural expressions)

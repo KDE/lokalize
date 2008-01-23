@@ -43,7 +43,7 @@
 
 #include "catalog_private.h"
 #include "version.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 
 #include <QProcess>
 #include <QString>

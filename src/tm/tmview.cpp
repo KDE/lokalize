@@ -37,7 +37,7 @@
 #include "catalog.h"
 #include "cmd.h"
 #include "project.h"
-#include "prefs_kaider.h"
+#include "prefs_lokalize.h"
 #include "dbfilesmodel.h"
 
 #include <klocale.h>
