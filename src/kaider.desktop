@@ -1,18 +1,10 @@
 [Desktop Entry]
 Name=KAider
-Name[sv]=Kaider
 Exec=kaider %i -caption "%c"
 Icon=kaider
 Type=Application
 Categories=Qt;KDE;Translation;Development;
 DocPath=kaider/index.html
 GenericName=Computer-aided translation system
-GenericName[de]=Eine KDE4-Anwendung
-GenericName[es]=Una aplicación de KDE4
-GenericName[et]=KDE4 rakendus
-GenericName[ja]=KDE4 アプリケーション
-GenericName[pt]=Uma Aplicação do KDE4
-GenericName[pt_BR]=Uma Aplicação do KDE4
-GenericName[sv]=Ett KDE4-program
 Terminal=0
 
