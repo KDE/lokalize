@@ -50,7 +50,7 @@ static const char description[] =
 
 int main(int argc, char **argv)
 {
-    KAboutData about("kaider", 0, ki18nc("@title", "KAider"), version, ki18n(description),
+    KAboutData about("lokalize", 0, ki18nc("@title", "lokalize"), version, ki18n(description),
                      KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shafff@ukr.net" );
     about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");

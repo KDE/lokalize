@@ -1,4 +1,4 @@
-PROJECT(kaider)
+PROJECT(lokalize)
 INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/common
@@ -15,7 +15,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-set(kaider_SRCS
+set(lokalize_SRCS
     main.cpp
     kaider.cpp
     kaider_findreplace.cpp
@@ -67,7 +67,7 @@ set(kaider_SRCS
 )
 
 
-kde4_add_ui_files(kaider_SRCS
+kde4_add_ui_files(lokalize_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
     prefs/prefs_misc.ui
@@ -81,14 +81,14 @@ kde4_add_ui_files(kaider_SRCS
     webquery/querycontrol.ui
 )
 
-kde4_add_kcfg_files(kaider_SRCS
+kde4_add_kcfg_files(lokalize_SRCS
     prefs/prefs_kaider.kcfgc
     project/projectbase.kcfgc
 )
 
-kde4_add_executable(kaider ${kaider_SRCS})
+kde4_add_executable(lokalize ${lokalize_SRCS})
 
-target_link_libraries(kaider
+target_link_libraries(lokalize
 #     ${KDE4_KFIlE_LIBS}
 #     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
@@ -97,12 +97,12 @@ target_link_libraries(kaider
     ${QT_QTSQL_LIBRARY}
 )
 
-install(TARGETS kaider DESTINATION ${BIN_INSTALL_DIR} )
+install(TARGETS lokalize DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install( FILES kaider.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install( FILES lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/kaider.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES kaiderui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )
 install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kaider )

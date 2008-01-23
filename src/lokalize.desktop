@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=KAider
-Exec=kaider %i -caption "%c"
-Icon=kaider
+Name=lokalize
+Exec=lokalize %i -caption "%c"
+Icon=lokalize
 Type=Application
 Categories=Qt;KDE;Translation;Development;
-DocPath=kaider/index.html
+DocPath=lokalize/index.html
 GenericName=Computer-aided translation system
 Terminal=0
 
