@@ -1,5 +1,4 @@
 project(kaider)
-find_package(KDE4 REQUIRED)
 
 macro_optional_find_package(Strigi)
 
