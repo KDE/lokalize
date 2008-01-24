@@ -34,8 +34,8 @@
 #define KAIDERVIEW_H_
 
 #include <QSplitter>
+#include <KUrl>
 class QTabBar;
-class KUrl;
 class SyntaxHighlighter;
 class Catalog;
 class LedsWidget;
