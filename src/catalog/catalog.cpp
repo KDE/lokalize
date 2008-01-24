@@ -67,6 +67,8 @@ Catalog::Catalog(QObject *parent)
     , d(new CatalogPrivate())
     , m_storage(0)
 {
+    connect(this,SIGNAL(signalFileSaved(KUrl)),
+            Project::instance()->model()->dirLister(),SLOT(slotFileSaved(KUrl)));
 }
 
 Catalog::~Catalog()
@@ -252,6 +254,7 @@ bool Catalog::saveToUrl(KUrl url)
 //         Settings::self()->addItemIntList(d->_url.url(),d->_bookmarkIndex);
 
         emit signalFileSaved();
+        emit signalFileSaved(url);
         return true;
     }/*
     else if (status==NO_PERMISSIONS)

@@ -170,6 +170,7 @@ signals:
     void signalNumberOfUntranslatedChanged();
     void signalFileLoaded();
     void signalFileSaved();
+    void signalFileSaved(const KUrl&);
 
     //void signalCmdPushed(QUndoCommand *cmd);//for merging (on-the-fly changes replication)
 

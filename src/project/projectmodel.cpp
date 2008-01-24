@@ -419,8 +419,6 @@ void ProjectLister::slotNewItems(const KFileItemList& list)
 }
 
 
-
-
 //there are limitations by levels
 void ProjectLister::slotRefreshItems(QList< QPair< KFileItem, KFileItem > > list)
 //we wanna add metainfo to original items
@@ -764,4 +762,21 @@ void ProjectLister::slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > >
         m_reactOnSignals=true;
     }
 }
+
+
+void ProjectLister::slotFileSaved(const KUrl& url)
+{
+    KFileItem item=findByUrl(url);
+    KFileItem itemNew=item;
+    if (!item.isNull())
+    {
+        itemNew.setMetaInfo( KFileMetaInfo(url) );
+        QList< QPair< KFileItem, KFileItem > >list;
+        list<<   QPair< KFileItem, KFileItem >(item,itemNew);
+        emit refreshItems(list);
+    }
+
+}
+
+
 

@@ -156,7 +156,7 @@ public slots:
     //void slotClear();
     void slotCompleted(const KUrl&);
 
-    //void slotEditorSavedFile();
+    void slotFileSaved(const KUrl&);
 
 private:
     //those are called from slotRefreshItems() and slotNewItems() only
