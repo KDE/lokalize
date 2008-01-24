@@ -7,7 +7,7 @@
 <!ENTITY % addindex "IGNORE">
 <!ENTITY % English "INCLUDE">
 ]>
-<book id="kaider" lang="&language;">
+<book id="localize" lang="&language;">
 <bookinfo>
 <title>The &kaider; Handbook</title>
 <authorgroup>
@@ -78,7 +78,7 @@ when in the <guilabel>WebQueries</guilabel>.
 <title>Projects</title>
 
 <para>
-The projects are one of the main concepts in &kaider;. A poject is represented by
+The projects are one of the main concepts in &kaider;. A project is represented by
 a file that contains paths folders with translations, templates, and other files: 
 glossary file, <guilabel>WebQuery</guilabel> scripts, translation memories.
 Whenever &kaider; opens a file without a project loaded, it will search for a project file in the parent folders (up to four levels).
@@ -88,7 +88,7 @@ when starting &kaider; from the command line.
 
 <note>
 <para>
-Unlike project file, glossary and scripts, translation memories aren't shared between the translation team members,
+Unlike project files, glossary and scripts, translation memories are not shared between the translation team members,
 as they are created and stored under the user's home folder, meaning that the translation
 memories for all of the projects are stored in the same folder and thus can be used
 when other projects are opened.
@@ -103,8 +103,8 @@ Currently &kaider; supports searching, replacing, and spell checking within
 multiple files. Select the items that you are interested in, then choose the
 <guimenuitem>Find in files</guimenuitem> option from the context menu. The first
 match will be displayed in the usual &kaider; window. You can then proceed by
-pressing <keycap>F3</keycap> button to find the next match. If you press the
-<keycap>F3</keycap> button, and there are no matches left in the current file,
+pressing the <keycap>F3</keycap> button to find the next match. If you press the
+<keycap>F3</keycap> button and there are no matches left in the current file,
 then the search will continue in the next file and so on. To reset the multiple
 file search state, press <keycap>Ctrl+F</keycap> in &kaider;, and the editor
 window will reset.
@@ -132,7 +132,7 @@ allows you to open a selected file in the current, or in a new &kaider;, window.
 
 <tip>
 <para>
-Use middle mouse button to open a file in a new window.
+Use the middle mouse button to open a file in a new window.
 </para>
 </tip>
 </sect1>
