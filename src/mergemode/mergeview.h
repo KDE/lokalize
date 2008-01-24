@@ -44,6 +44,8 @@ class MergeCatalog;
 class QDragEnterEvent;
 class QDropEvent;
 
+
+
 class MergeView: public QDockWidget
 {
     Q_OBJECT
@@ -60,6 +62,7 @@ public slots:
     void mergeOpen(KUrl url=KUrl());
     void cleanup();
     void slotNewEntryDisplayed(const DocPosition&);
+    void slotUpdate(const DocPosition&);
 
     void gotoNextChanged();
     void gotoPrevChanged();
@@ -67,8 +70,8 @@ public slots:
     void mergeAcceptAllForEmpty();
 
 signals:
-    //we connect it to our internal mergeCatalog to remove entry from index
-    void entryModified(uint);
+//     //we connect it to our internal mergeCatalog to remove entry from index
+//     void entryModified(uint);
 
     void signalPriorChangedAvailable(bool);
     void signalNextChangedAvailable(bool);

@@ -36,22 +36,15 @@
 
 #include "catalogitem.h"
 #include "catalog.h"
-//Added by qt3to4:
 #include <QLinkedList>
 
 class QTextCodec;
-
-//namespace KBabel {
-
-class Catalog;
+class GettextStorage;
 
 class CatalogImportPluginPrivate
 {
 public:
-    Catalog* _catalog;
-    bool _started;
-    bool _stopped;
-
+    GettextStorage* _catalog;
     bool _updateHeader;
     bool _updateGeneratedFromDocbook;
     bool _updateCodec;
@@ -65,10 +58,7 @@ public:
     QTextCodec* _codec;
     QList<uint> _errorList;
     QStringList _catalogExtraData;
-    QString _mimeTypes;
-
 };
 
-//}
 
 #endif

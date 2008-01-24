@@ -226,7 +226,7 @@ void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
     if (job->m_pos.entry==m_pos.entry)
         slotSuggestionsCame(j);
 
-    m_cache[DocPos(job->m_pos.entry,job->m_pos.form)]=job->m_entries.toVector();
+    m_cache[DocPos(job->m_pos)]=job->m_entries.toVector();
 }
 
 void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
@@ -243,7 +243,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
              ||m_catalog->isFuzzy(pos.entry))
            )
             continue;
-        const QVector<TMEntry>& termList=m_cache.value(DocPos(pos.entry,pos.form));
+        const QVector<TMEntry>& termList=m_cache.value(DocPos(pos));
         if (termList.isEmpty())
             continue;
         const TMEntry& entry=termList.first();
@@ -334,7 +334,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
     m_pos=pos;
     if (Settings::prefetchTM()
-        &&m_cache.contains(DocPos(pos.entry,pos.form)))
+        &&m_cache.contains(DocPos(pos)))
     {
         QTimer::singleShot(0,this,SLOT(displayFromCache()));
     }
@@ -363,7 +363,7 @@ void TMView::displayFromCache()
                                   m_catalog->msgctxt(m_pos.entry),
                                   m_pos,
                                   Project::instance()->projectID());
-    temp->m_entries=m_cache.value(DocPos(m_pos.entry,m_pos.form)).toList();
+    temp->m_entries=m_cache.value(DocPos(m_pos)).toList();
     slotSuggestionsCame(temp);
     temp->deleteLater();
     m_prevCachePos=m_pos;
@@ -374,39 +374,39 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     QTime time;
     time.start();
 
-    SelectJob* job=static_cast<SelectJob*>(j);
-    if (job->m_pos.entry!=m_pos.entry)
+    SelectJob& job=*(static_cast<SelectJob*>(j));
+    if (job.m_pos.entry!=m_pos.entry)
         return;
 
-    if (m_catalog->numberOfEntries()<=m_pos.entry)
+    Catalog& catalog=*m_catalog;
+    if (catalog.numberOfEntries()<=m_pos.entry)
         return;//because of Qt::QueuedConnection
 
 
     Project* p=Project::instance();
     const QString& pID=p->projectID();
     //check if this is an additional query, from secondary DBs
-    if (job->m_dbName!=pID)
+    if (job.m_dbName!=pID)
     {
-        job->m_entries+=m_entries;
-        qSort(job->m_entries);
-        int limit=qMin(Settings::suggCount(),job->m_entries.size());
-        int i=job->m_entries.size();
+        job.m_entries+=m_entries;
+        qSort(job.m_entries);
+        int limit=qMin(Settings::suggCount(),job.m_entries.size());
+        int i=job.m_entries.size();
         while(--i>=limit)
-            job->m_entries.removeLast();
+            job.m_entries.removeLast();
     }
-    else if (job->m_entries.isEmpty()||job->m_entries.first().score<8500)
+    else if (job.m_entries.isEmpty()||job.m_entries.first().score<8500)
     {
-        DBFilesModel* model=DBFilesModel::instance();
-        int i=model->rowCount();
-        kDebug()<<"query other DBs"<<i;
+        DBFilesModel& model=*(DBFilesModel::instance());
+        int i=model.rowCount();
+        kWarning()<<"query other DBs"<<i;
         while (--i>=0)
         {
-            const QString& db=model->data(model->index(i,0)).toString();
-            kDebug()<<"query"<<db;
+            const QString& db=model.data(model.index(i,0)).toString();
             if (pID!=db)
             {
-                SelectJob* j=new SelectJob(m_catalog->msgid(m_pos),
-                                           m_catalog->msgctxt(m_pos.entry),
+                SelectJob* j=new SelectJob(catalog.msgid(m_pos),
+                                           catalog.msgctxt(m_pos.entry),
                                            m_pos,db);
                 //these two are for cleanup
                 connect(j,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
@@ -423,9 +423,9 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
     m_browser->clear();
 
-    m_entries=job->m_entries;
+    m_entries=job.m_entries;
 
-    int limit=job->m_entries.size();
+    int limit=job.m_entries.size();
     int i=0;
 
     if (!limit)
@@ -443,7 +443,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
-    //m_entries=job->m_entries;
+    //m_entries=job.m_entries;
     m_browser->insertHtml("<html>");
 
     QTextBlockFormat blockFormatBase;
@@ -455,30 +455,30 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     {
         QTextCursor cur=m_browser->textCursor();
         QString html;
+        html.reserve(1024);
 
-        html=(job->m_entries.at(i).score>9500)?"<p class='close_match'>":"<p>";
+        html+=(job.m_entries.at(i).score>9500)?"<p class='close_match'>":"<p>";
 
-        html+=QString("/%1%/ ").arg(float(job->m_entries.at(i).score)/100);
+        html+=QString("/%1%/ ").arg(float(job.m_entries.at(i).score)/100);
 
-        QString result(job->m_entries.at(i).diff);
+        QString result(job.m_entries.at(i).diff);
         result.replace("\\n","\\n<br>");
         html+=result;
 
-        QString str(job->m_entries.at(i).target);
+        QString str(job.m_entries.at(i).target);
         str.replace('<',"&lt;");
         str.replace('>',"&gt;");
         //str.replace('&',"&amp;"); TODO check
-
         html+="<br>";
         if (i<m_actions.size())
         {
-            m_actions.at(i)->setStatusTip(job->m_entries.at(i).target);
+            m_actions.at(i)->setStatusTip(job.m_entries.at(i).target);
             html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
         }
         else
             html+="[ - ] ";
-
         html+=str;
+
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
 

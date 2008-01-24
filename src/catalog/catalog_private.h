@@ -59,13 +59,6 @@ public:
     QString _packageName;
     QString _packageDir;
 
-    /** holds the entries in the catalog */
-    QVector<CatalogItem> _entries;
-    /** The header of the po-file. */
-    CatalogItem _header;
-    /** list of obsolete entries */
-    QLinkedList<CatalogItem> _obsoleteEntries;
-
     /** identification string for used import filter*/
     QString _importID;
     QString _mimeTypes;
@@ -80,7 +73,6 @@ public:
     //for wrapping
     short _maxLineLength:16;
 
-    bool _generatedFromDocbook:4;
     bool _readOnly:4;
 
     QList<uint> _fuzzyIndex;
@@ -88,8 +80,6 @@ public:
     QList<uint> _errorIndex;
 
     QList<uint> _bookmarkIndex;
-
-    QStringList _catalogExtraData;
 
     //for undo/redo
     DocPosition _posBuffer;
@@ -99,7 +89,6 @@ public:
            : _mimeTypes( "text/plain" )
            , fileCodec(0)
            , _numberOfPluralForms(-1)
-           , _generatedFromDocbook(false)
            , _readOnly(false)
    {
    }

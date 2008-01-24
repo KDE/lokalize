@@ -34,51 +34,13 @@
 
 #include "catalogfileplugin.h"
 
-#include <QStringList>
 
-#include <kdebug.h>
-//#include <kservicetypetrader.h>
-
-// using namespace KBabel;
-
-struct CatalogExportPluginPrivate
+CatalogExportPlugin::CatalogExportPlugin()
+//    : d(new CatalogExportPluginPrivate)
 {
-    bool _stop;
-};
-
-CatalogExportPlugin::CatalogExportPlugin(QObject* parent, const char* name) : QObject( parent )
-{
-    setObjectName( name );
-
-    d = new CatalogExportPluginPrivate;
-    d->_stop=false;
 }
 
 CatalogExportPlugin::~CatalogExportPlugin()
 {
-    delete d;
-}
-
-// QStringList CatalogExportPlugin::availableExportMimeTypes()
-// {
-//     QStringList result;
-//     
-// 	KService::List offers = KServiceTypeTrader::self()->query("KBabelFilter", "exist [X-KDE-Export]");
-//     
-//     for( KService::List::Iterator ptr = offers.begin(); ptr!=offers.end() ; ++ptr )
-//     {
-// 	result += (*ptr)->property("X-KDE-Export").toStringList();
-//     }
-//     
-//     return result;
-// }
-
-void CatalogExportPlugin::stop()
-{
-    d->_stop = true;
-}
-
-bool CatalogExportPlugin::isStopped() const
-{
-    return d->_stop;
+//    delete d;
 }

@@ -32,70 +32,169 @@
 
 #include "mergecatalog.h"
 #include "catalog_private.h"
-#include "catalogitem.h"
+#include "catalogstorage.h"
 #include <kdebug.h>
+
+
+
 
 MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
 {
+    connect (baseCatalog,SIGNAL(signalEntryChanged(DocPosition)),this,SLOT(BaseCatalogEntryChanged(DocPosition)));
+    connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
+}
+
+void MergeCatalog::BaseCatalogEntryChanged(const DocPosition& pos)
+{
+    int a=m_mergeDiffIndex.indexOf(pos.entry);
+    if (a==-1)
+    {
+        //sync changes
+        DocPosition ourPos=pos;
+        if ( (ourPos.entry=m_map.at(ourPos.entry)) == -1)
+            return;
+
+        //note the explicit use of map...
+        m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
+        m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
+
+        emit signalEntryChanged(pos);
+    }
+}
+
+const QString& MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) const
+{
+    DocPosition us=pos;
+    us.entry=m_map.at(pos.entry);
+    return Catalog::msgstr(us, noNewlines);
+}
+
+bool MergeCatalog::isFuzzy(uint index) const
+{
+    return Catalog::isFuzzy(m_map.at(index));
+}
+
+bool MergeCatalog::isPresent(const short int& entry) const
+{
+    return m_map.at(entry)!=-1;
+}
+
+MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos)
+{
+    CatalogStorage& baseStorage=*(m_baseCatalog->m_storage);
+    CatalogStorage& mergeStorage=*(m_storage);
+
+    MatchItem item(mergePos.entry,0,true);
+    //TODO make more robust, perhaps after XLIFF?
+    QStringList baseMatchData=baseStorage.matchData(basePos);
+
+    if (baseMatchData.isEmpty())
+    {
+        //compare ids
+        if (baseStorage.id(basePos)==mergeStorage.id(mergePos))
+            item.score+=20;
+    }
+    else if (baseMatchData==mergeStorage.matchData(mergePos))
+        item.score+=20;
+
+    //TODO look also for changed/new <note>s
+
+    //translation is changed
+    if (baseStorage.targetAllForms(basePos)==mergeStorage.targetAllForms(mergePos))
+    {
+        if (baseStorage.isApproved(basePos)==mergeStorage.isApproved(basePos))
+        {
+            item.score+=30;
+            item.translationIsDifferent=false;
+        }
+        else
+            item.score+=29;
+    }
+
+    return item;
 }
 
 
-void MergeCatalog::importFinished()
+bool MergeCatalog::loadFromUrl(const KUrl& url)
 {
-/*    QVector<CatalogItem>::iterator it=m_baseCatalog->d->_entries.begin();
-    while (it!=m_baseCatalog->d->_entries.end())
-    {
-        
-        ++it;
-    }*/
+    if (!Catalog::loadFromUrl(url))
+        return false;
 
-    uint i=0;
-    uint size=qMin(m_baseCatalog->d->_entries.size(),d->_entries.size());
-    QVector<CatalogItem> newVector(size);
 
-    while (i<size)
+    CatalogStorage& baseStorage=*(m_baseCatalog->m_storage);
+    CatalogStorage& mergeStorage=*(m_storage);
+
+    DocPosition i(0);
+    uint size=baseStorage.size();
+    uint minSize=mergeStorage.size();
+    m_map.fill(-1,size);
+
+    QVector< QList<MatchItem> > scores;
+    scores.resize(size);
+
+    while (i.entry<size)
     {
-        if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(i).msgidPlural()
-            && m_baseCatalog->d->_entries.at(i).msgctxt()==d->_entries.at(i).msgctxt()
-            && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(i).msgstrPlural()
-           )
+        //first, check for direct mapping
+        if (i.entry<minSize
+            && baseStorage.sourceAllForms(i)==mergeStorage.sourceAllForms(i)
+           ) //found matching entries
         {
-            newVector[i].setMsgstr(d->_entries.at(i).msgstrPlural());
-//             kWarning() << "  " << newVector.at(i).msgstr(0);
-            newVector[i].setPluralFormType(d->_entries.at(i).pluralFormType());
-            newVector[i].setComment(d->_entries.at(i).comment());
-            m_mergeDiffIndex.append(i);
-        }
-        else
-        {
-            newVector[i].setValid(false);
-            //or... search for msg over the whole catalog;
-            int j=0;
-            while (j<d->_entries.size())
+            MatchItem item=calcMatchItem(i,i);
+            item.score+=50;//i==i
+            scores[i.entry]<<item;
+
+            if (item.score>60)
             {
-                if (m_baseCatalog->d->_entries.at(i).msgidPlural()==d->_entries.at(j).msgidPlural()
-                    && m_baseCatalog->d->_entries.at(i).msgctxt()==d->_entries.at(j).msgctxt()
-                    && m_baseCatalog->d->_entries.at(i).msgstrPlural()!=d->_entries.at(j).msgstrPlural()
-                   )
+                //ok, we don't need to search further (for now)
+                ++i.entry;
+                continue;
+            }
+
+        }
+
+        //else: entry order is different
+        {
+            //search for msg over the whole catalog;
+            QStringList source=baseStorage.sourceAllForms(i);
+            DocPosition j(0);
+
+            while (j.entry<minSize)
+            {
+                if (source==mergeStorage.sourceAllForms(j)) //found matching entries
                 {
-                    newVector[i].setMsgstr(d->_entries.at(j).msgstrPlural());
-//             kWarning() << "  " << newVector.at(i).msgstr(0);
-                    newVector[i].setPluralFormType(d->_entries.at(j).pluralFormType());
-                    newVector[i].setComment(d->_entries.at(j).comment());
-                    m_mergeDiffIndex.append(i);
-                    newVector[i].setValid(true);
-                    break;
+                    MatchItem item=calcMatchItem(i,j);
+                    scores[i.entry]<<item;
+
+                    if (item.score>48)
+                    {
+                        //ok, we don't need to search further (for now)
+                        break;
+                    }
                 }
-                ++j;
+                ++j.entry;
             }
         }
-        ++i;
+        ++i.entry;
 
     }
-    d->_entries.clear();
-    d->_entries=newVector;
+
+    i.entry=0;
+    while (i.entry<size)
+    {
+        if (scores.at(i.entry).isEmpty())
+            continue;
+
+        qSort(scores[i.entry]);
+
+        m_map[i.entry]=scores.at(i.entry).first().mergeEntry;
+
+        if (scores.at(i.entry).first().translationIsDifferent)
+            m_mergeDiffIndex.append(m_map.at(i.entry));
+
+        ++i.entry;
+    }
 }
 
 

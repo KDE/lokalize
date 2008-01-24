@@ -319,13 +319,14 @@ static void openRecursive(ProjectLister* lister,
 static void recursiveAdd(KUrl::List& list,
                          const QModelIndex& idx)
 {
-    const KFileItem& item(Project::instance()->model()->itemForIndex(idx));
+    ProjectModel& model=*(Project::instance()->model());
+    const KFileItem& item(model.itemForIndex(idx));
     if (item.isDir())
     {
-        int j=Project::instance()->model()->rowCount(idx);
+        int j=model.rowCount(idx);
         while (--j>=0)
         {
-            const KFileItem& childItem(Project::instance()->model()->itemForIndex(
+            const KFileItem& childItem(model.itemForIndex(
                                                 idx.child(j,0)
                                                                                 ));
             if (childItem.isDir())

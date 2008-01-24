@@ -113,11 +113,7 @@ void KAider::find()
         if (sel.isEmpty())
             sel=m_view->selectionMsgId();
         if (FIND_IGNOREACCELS)
-        {
             sel.remove('&');
-            _findDialog->setPattern(sel);
-        }
-        else
             _findDialog->setPattern(sel);
     }
 
@@ -234,7 +230,10 @@ bool KAider::determineStartingPos(KFind* find,
 
 void KAider::findNext(const DocPosition& startingPos)
 {
-    if (_catalog->numberOfEntries()<=startingPos.entry)
+    Catalog& catalog=*_catalog;
+    KFind& find=*_find;
+
+    if (catalog.numberOfEntries()<=startingPos.entry)
         return;//for the case when app wasn't able to process event before file close
 
     bool anotherEntry=_searchingPos.entry!=_currentPos.entry;
@@ -271,6 +270,7 @@ void KAider::findNext(const DocPosition& startingPos)
     QRegExp rx("[^(\\\\n)>]\n");
     QTime a;a.start();
     //_searchingPos.part=Msgid;
+    bool ignoreaccels=FIND_IGNOREACCELS;
     int flag=1;
 //     int offset=_searchingPos.offset;
     while (flag)
@@ -280,14 +280,14 @@ void KAider::findNext(const DocPosition& startingPos)
         KFind::Result res = KFind::NoMatch;
         while (true)
         {
-            if (_find->needData()||anotherEntry)
+            if (find.needData()||anotherEntry)
             {
                 anotherEntry=false;
 
                 QString data;
                 if (_searchingPos.part==Msgid)
                 {
-                    data=_catalog->msgid(_searchingPos)/*,offset*/;
+                    data=catalog.msgid(_searchingPos)/*,offset*/;
 
                     //unwrap bc kaiderview does that too
                     int p=0;
@@ -295,20 +295,20 @@ void KAider::findNext(const DocPosition& startingPos)
                         data.remove(p+1,1);
                 }
                 else
-                    data=_catalog->msgstr(_searchingPos)/*,offset*/;
+                    data=catalog.msgstr(_searchingPos)/*,offset*/;
 
-                if (FIND_IGNOREACCELS)
+                if (ignoreaccels)
                     data.remove('&');
-                _find->setData(data);
+                find.setData(data);
             }
 
-            res = _find->find();
+            res = find.find();
             //offset=-1;
             if (res!=KFind::NoMatch)
                 break;
 
             if (!(
-                  (_find->options()&KFind::FindBackwards)?
+                  (find.options()&KFind::FindBackwards)?
                                 switchPrev(_catalog,_searchingPos,true):
                                 switchNext(_catalog,_searchingPos,true)
                  ))
@@ -322,7 +322,7 @@ void KAider::findNext(const DocPosition& startingPos)
             {
                 bool end=false;
                 bool last=false;
-                if (_find->options() & KFind::FindBackwards)
+                if (find.options() & KFind::FindBackwards)
                 {
                     end=(--m_searchFilesPos<0);
                     last=(m_searchFilesPos==0);
@@ -341,12 +341,12 @@ void KAider::findNext(const DocPosition& startingPos)
                         m_updateView=false;
                     if (m_searchFilesPos<m_searchFiles.size()&&fileOpen(m_searchFiles.at(m_searchFilesPos)))
                     {
-                        if (_find->options() & KFind::FindBackwards)
+                        if (find.options() & KFind::FindBackwards)
                         {
                             DocPosition pos;
-                            pos.entry=_catalog->numberOfEntries()-1;
-                            pos.form=(_catalog->pluralFormType(pos.entry)==Gettext)?
-                                _catalog->numberOfPluralForms()-1:0;
+                            pos.entry=catalog.numberOfEntries()-1;
+                            pos.form=(catalog.pluralFormType(pos.entry)==Gettext)?
+                                catalog.numberOfPluralForms()-1:0;
                             //_searchingPos=pos;
                             gotoEntry(pos);
                         }
@@ -357,6 +357,8 @@ void KAider::findNext(const DocPosition& startingPos)
                         //continue;
                         QTimer::singleShot(0,this,SLOT(findNext()));
                         //hideDia=false;
+
+                        kWarning()<<"searchink         TIME "<<a.elapsed();
                         return;
                     }
                     else
@@ -372,7 +374,7 @@ void KAider::findNext(const DocPosition& startingPos)
             /////
 
             //file-wide search, or end of project-wide search
-            if(_find->shouldRestart(true,true)
+            if(find.shouldRestart(true,true)
               &&determineStartingPos(_find,m_searchFiles,m_searchFilesPos,_searchingPos))
             {
                 flag=1;
@@ -384,7 +386,7 @@ void KAider::findNext(const DocPosition& startingPos)
                                   m_searchFilesPos,
                                   _findDialog);
             /////
-            _find->resetCounts();
+            find.resetCounts();
         }
     }
 
@@ -392,7 +394,7 @@ void KAider::findNext(const DocPosition& startingPos)
         m_progressDialog->hide();
 
     m_catalogTreeView->setUpdatesEnabled(true);
-    kDebug()<<"TIME"<<a.elapsed();
+    kWarning()<<"searchink         TIME "<<a.elapsed();
 }
 
 void KAider::findNext()

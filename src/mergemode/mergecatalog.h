@@ -34,11 +34,54 @@
 #define MERGECATALOG_H
 
 #include "catalog.h"
-// #include <kdebug.h>
+
+#include <QVector>
+#include <QList>
+
 
 /**
-	@author Nick Shaforostoff <shafff@ukr.net>
+* @short Structure
 */
+struct MatchItem
+{
+    short mergeEntry:16;
+    short score:15;
+    bool translationIsDifferent:1;
+
+    MatchItem()
+    : mergeEntry(0)
+    , score(0)
+    , translationIsDifferent(false)
+    {}
+
+    MatchItem(short m,short s,bool d)
+    : mergeEntry(m)
+    , score(s)
+    , translationIsDifferent(d)
+    {}
+
+    bool operator<(const MatchItem& other)const
+    {
+        //return score<other.score;
+        //we wanna items with higher score to appear in the front after qSort
+//         if (score==other.score)
+//             return translationIsDifferent>other.translationIsDifferent;
+        return score>other.score;
+    }
+
+};
+
+
+/**
+ * Merge source container.
+ * Parallel editing is available.
+ * What this subclass does is creating the map (to provide main-file entry order) and index for fast changed entry lookup
+ * So order of entries the same as of main-file
+ *
+ * TODO index of ch - on-the-fly
+ * @short Merge source container
+ * @author Nick Shaforostoff <shafff@ukr.net>
+  */
 class MergeCatalog : public Catalog
 {
     Q_OBJECT
@@ -46,20 +89,33 @@ public:
     MergeCatalog(QObject* parent, Catalog* baseCatalog);
     ~MergeCatalog(){};
 
-    void importFinished();
+    bool loadFromUrl(const KUrl& url);
 
     int firstChangedIndex() const {return m_mergeDiffIndex.isEmpty()?numberOfEntries():m_mergeDiffIndex.first();}
     int lastChangedIndex() const {return m_mergeDiffIndex.isEmpty()?-1:m_mergeDiffIndex.last();}
     int nextChangedIndex(uint index) const {return findNextInList(m_mergeDiffIndex,index);}
     int prevChangedIndex(uint index) const {return findPrevInList(m_mergeDiffIndex,index);}
+    int isChanged(uint index) const {return m_mergeDiffIndex.indexOf(index)!=-1;}
 
-public slots:
-    void removeFromDiffIndex(uint index) {
-        m_mergeDiffIndex.removeAll(index);
-//         kWarning()<<"rmvd";
-    }
+    //override to use map
+    const QString& msgstr(const DocPosition&, const bool noNewlines=false) const;
+    bool isFuzzy(uint index) const;
+
+    /// whether 'merge source' has entry with such msgid
+    bool isPresent(const short int& entry) const;
+
+
+    inline void removeFromDiffIndex(uint index){m_mergeDiffIndex.removeAll(index);}
+
+private slots:
+    void BaseCatalogEntryChanged(const DocPosition&);
+//    void BaseCatalogSaved();
 
 private:
+    MatchItem calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos);
+
+private:
+    QVector<uint> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
     QList<uint> m_mergeDiffIndex;
 };

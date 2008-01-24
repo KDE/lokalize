@@ -46,7 +46,7 @@
 
 static const char version[] = KAIDER_VERSION;
 static const char description[] =
-    I18N_NOOP("Computer-aided translation system.\nDon't translate what has already been translated!");
+    I18N_NOOP("Computer-aided translation system.\nDon't translate what had already been translated!");
 
 int main(int argc, char **argv)
 {
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
     KCmdLineOptions options;
     options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
     options.add("project <filename>", ki18n( "Project file. "
-                                 "Opens Project Manager if no other URLs specified" ));
+                                 "Opens specified project-file in Project Manager if no translation files specified" ));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
 

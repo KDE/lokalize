@@ -179,6 +179,11 @@ PluralFormType CatalogItem::pluralFormType() const
     return d->_pluralFormType;
 }
 
+bool CatalogItem::isPlural() const
+{
+    return d->_pluralFormType==Gettext;
+}
+
 bool CatalogItem::isFuzzy() const
 {
     return d->_comment.contains( QRegExp(",\\s*fuzzy") );
@@ -199,32 +204,6 @@ QStringList CatalogItem::errors() const
 {
     return d->_errors;
 }
-
-QStringList CatalogItem::tagList( RegExpExtractor& te)
-{
-    if(!d->_haveTagList)
-    {
-	// FIXME: should care about plural forms in msgid
-        te.setString(msgid(true).first());
-        d->_tagList = QStringList(te.matches());
-	d->_haveTagList = true;
-    }
-
-    return d->_tagList;
-}
-
-QStringList CatalogItem::argList( RegExpExtractor& te)
-{
-    if(!d->_haveArgList)
-    {
-	// FIXME: should care about plural forms in msgid
-        te.setString(msgid(true).first());
-        d->_argList = QStringList(te.matches());
-    }
-
-    return d->_argList;
-}
-
 
 bool CatalogItem::isCformat() const
 {
@@ -328,6 +307,54 @@ QStringList CatalogItem::msgstrAsList() const
 
     return list;
 }
+
+
+
+void CatalogItem::setFuzzy()
+{
+    QString& comment=d->_comment;
+    if (comment.isEmpty())
+    {
+        comment="#, fuzzy";
+        return;
+    }
+
+    int p=comment.indexOf("#,");
+    if(p!=-1)
+    {
+        comment.replace(p,2,"#, fuzzy,");
+        return;
+    }
+
+    QRegExp a("\\#\\:[^\n]*\n");
+    p=a.indexIn(comment);
+    if (p!=-1)
+    {
+        comment.insert(p+a.matchedLength(),"#, fuzzy\n");
+        return;
+    }
+
+    {
+        if( !(comment.endsWith('\n')) )
+            comment+='\n';
+        comment+="#, fuzzy";
+    }
+}
+
+void CatalogItem::unsetFuzzy()
+{
+    QString& comment=d->_comment;
+
+    comment.remove( QRegExp(",\\s*fuzzy"));
+
+    // remove empty comment lines
+    comment.remove( QRegExp("\n#\\s*$") );
+    comment.remove( QRegExp("^#\\s*$") );
+    comment.remove( QRegExp("#\\s*\n") );
+    comment.remove( QRegExp("^#\\s*\n") );
+
+}
+
 
 
 

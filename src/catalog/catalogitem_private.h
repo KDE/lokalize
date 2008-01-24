@@ -81,7 +81,6 @@ public:
     bool isUntranslated(uint form) const;
     const QString& msgid(const int form) const;
 
-    //friend class CatalogItem;
 };
 
 inline

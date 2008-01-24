@@ -110,10 +110,7 @@ void CatalogTreeView::slotNewEntryDisplayed(uint entry)
 
 void CatalogTreeView::slotItemActivated(const QModelIndex& idx)
 {
-    DocPosition pos;
-    pos.entry=m_proxyModel->mapToSource(idx).row();
-//kWarning() << pos.entry;
-    emit gotoEntry(pos,0);
+    emit gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()),0);
 }
 
 

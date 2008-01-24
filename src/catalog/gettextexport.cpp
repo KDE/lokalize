@@ -36,8 +36,7 @@
 #include "gettextexport.h"
 
 //#include <resources.h>
-#include "catalog.h"
-#include "catalog_private.h"
+#include "gettextstorage.h"
 #include "catalogitem.h"
 
 #include <QFile>
@@ -50,29 +49,16 @@
 #include <kapplication.h>
 #include <klocale.h>
 #include <kdebug.h>
-//#include <kgenericfactory.h>
 
-//K_EXPORT_COMPONENT_FACTORY( kbabel_gettextexport, KGenericFactory<GettextExportPlugin> ( "kbabelgettextexportfilter" ) )
 
-//using namespace KBabel;
-
-GettextExportPlugin::GettextExportPlugin(QObject* parent/*, const QString&List &*/) :
-    CatalogExportPlugin(parent,"GettextExportPlugin"), m_wrapWidth( -1 )
+GettextExportPlugin::GettextExportPlugin(int wrapWidth)
+    : m_wrapWidth( wrapWidth )
 {
 }
 
 ConversionStatus GettextExportPlugin::save(const QString& localFile,
-                                           const QString& mimetype,
-                                           const Catalog* catalog)
+                                           const GettextStorage* catalog)
 {
-    // check, whether we know how to handle the extra data
-    if ( catalog->importPluginID() != "GNU gettext")
-        return UNSUPPORTED_TYPE;
-
-    // we support on the text/x-gettext-translation MIME type
-    if ( mimetype != "text/x-gettext-translation")
-        return UNSUPPORTED_TYPE;
-
     //KSaveFile file(localFile);
     QFile file(localFile);
 
@@ -82,9 +68,6 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
         return OS_ERROR;
     }
     //kWarning() << "SAVE NAME "<<localFile;
-
-//      int progressRatio = qMax(100/ qMax(catalog->numberOfEntries(),uint(1)), uint(1));
-//       emit signalResetProgressBar(i18n("saving file"),100);
 
     QTextStream stream(&file);
 
@@ -117,14 +100,14 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
 
 
     // only save header if it is not empty
-    const QString& headerComment( catalog->header().comment() );
+    const QString& headerComment( catalog->m_header.comment() );
     // ### TODO: why is this useful to have a header with an empty msgstr?
-    if ( !headerComment.isEmpty() || !catalog->header().msgstrPlural().isEmpty() )
+    if ( !headerComment.isEmpty() || !catalog->m_header.msgstrPlural().isEmpty() )
     {
         // write header
         writeComment( stream, headerComment );
 
-        const QString& headerMsgid (catalog->header().msgid());
+        const QString& headerMsgid (catalog->m_header.msgid());
 
         // Gettext PO files should have an empty msgid as header
         if ( !headerMsgid.isEmpty() )
@@ -136,7 +119,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
         stream << "msgid \"\"\n";
 
-        writeKeyword( stream, "msgstr", catalog->header().msgstr() );
+        writeKeyword( stream, "msgstr", catalog->m_header.msgstr() );
 
         stream << '\n';
     }
@@ -144,27 +127,20 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
     QStringList list;
     for (int counter = 0; counter < catalog->numberOfEntries(); counter++)
     {
-        /*          if(counter%10==0) {
-                     emit signalProgress(counter/progressRatio);
-        	  }*/
 
         // write entry
-        writeComment( stream, catalog->comment(counter) );
+        writeComment( stream, catalog->m_entries.at(counter).comment() );
 
-        const QString& msgctxt = catalog->msgctxt(counter);
+        const QString& msgctxt = catalog->m_entries.at(counter).msgctxt();
         if (! msgctxt.isEmpty() )
-        {
             writeKeyword( stream, "msgctxt", msgctxt );
-        }
 
-        writeKeyword( stream, "msgid", catalog->msgid( counter ) );
-        if ( catalog->pluralFormType( counter ) == Gettext )
-            writeKeyword( stream, "msgid_plural", catalog->msgid( counter, 1 ) );
+        writeKeyword( stream, "msgid", catalog->m_entries.at(counter).msgid() );
+        if ( catalog->m_entries.at(counter).pluralFormType() == Gettext )
+            writeKeyword( stream, "msgid_plural", catalog->m_entries.at(counter).msgid(1) );
 
-        if ( catalog->pluralFormType(counter) != Gettext)
-        {
-            writeKeyword( stream, "msgstr", catalog->msgstr( counter ) );
-        }
+        if ( catalog->m_entries.at(counter).pluralFormType() != Gettext)
+            writeKeyword( stream, "msgstr", catalog->m_entries.at(counter).msgstr() );
         else
         {
             kDebug() << "Saving gettext plural form";
@@ -176,16 +152,12 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
                 keyword += QString::number( i );
                 keyword += ']';
 
-                writeKeyword( stream, keyword, ( catalog->msgstr( counter, i ) ) );
+                writeKeyword( stream, keyword, ( catalog->m_entries.at(counter).msgstr(i) ) );
             }
         }
 
         stream << '\n';
 
-//do we need this?
-//         kapp->processEvents(QEventLoop::AllEvents,10);
-//         if ( isStopped() )
-//             return STOPPED;
     }
 
 #if 0
@@ -195,26 +167,14 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
     {
         QList<QString>::const_iterator oit;
 
-        const QStringList& _obsolete (catalog->catalogExtraData());
+        const QStringList& _obsolete (catalog->m_catalogExtraData);
 
         for (oit=_obsolete.constBegin();oit!=_obsolete.constEnd();++oit)
-        {
             stream << (*oit) << "\n\n";
-
-//TODO do we need this?
-//             kapp->processEvents( QEventLoop::AllEvents, 10 );
-//             if ( isStopped() )
-//             {
-//                 return STOPPED;
-//             }
-        }
     }
 
-//       emit signalProgress(100);
     //file.finalize();
     file.close();
-
-//       emit signalClearProgressBar();
 
     return OK;
 }
@@ -287,12 +247,12 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
 
         if(list.isEmpty())
             list.append( QString() );
-    
+
         if( list.count() > 1 )
             list.prepend( QString() );
 
         stream << keyword << ' ';
-    
+
         QStringList::const_iterator it;
         for( it = list.constBegin(); it != list.constEnd(); ++it )
         {
@@ -360,7 +320,5 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
 
     QStringList::const_iterator it;
     for( it = list.constBegin(); it != list.constEnd(); ++it )
-    {
         stream << "\"" << (*it) << "\"\n";
-    }
 }

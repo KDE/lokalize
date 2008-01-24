@@ -78,8 +78,6 @@
 #include <QTime>
 #include <QTabBar>
 
-
-
 KAider::KAider()
         : KXmlGuiWindow()
         , _project(Project::instance())
@@ -365,17 +363,17 @@ void KAider::setupActions()
 //MergeMode
     action = actionCollection()->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open merge source"));
-    action->setStatusTip(i18nc("@action:inmenu","Open catalog to be merged into the current one"));
+    action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one"));
 
     action = actionCollection()->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
-    action->setStatusTip(i18nc("@action:inmenu","Previous entry which is translated differently in the files being merged"));
+    action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the files being merged"));
     action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
-    action->setStatusTip(i18nc("@action:inmenu","Next entry which is translated differently in the files being merged"));
+    action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the files being merged"));
     action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -386,7 +384,7 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
-    action->setStatusTip(i18nc("@action:inmenu","This changes only empty entries"));
+    action->setStatusTip(i18nc("@info:statustip","This changes only empty entries"));
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
     setupGUI(Default,"lokalizeui.rc");
@@ -425,8 +423,6 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
     connect (this,SIGNAL(signalFileClosed()),_mergeView,SLOT(cleanup()));
-    connect (m_view,SIGNAL(signalChanged(uint)),
-             _mergeView,SIGNAL(entryModified(uint)));
     connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
@@ -608,9 +604,7 @@ bool KAider::fileOpen(KUrl url)
         numberOfFuzziesChanged();
 
         _currentEntry=_currentPos.entry=-1;//so the signals are emitted
-        DocPosition pos;
-        pos.entry=0;
-        pos.form=0;
+        DocPosition pos(0);
         //we delay gotoEntry(pos) until roject is loaded;
 
         _captionPath=url.pathOrUrl();
@@ -807,16 +801,14 @@ void KAider::switchForm(int newForm)
     if (_currentPos.form==newForm)
         return;
 
-    DocPosition pos;
-    pos=_currentPos;
+    DocPosition pos=_currentPos;
     pos.form=newForm;
     gotoEntry(pos);
 }
 
 void KAider::gotoNext()
 {
-    DocPosition pos;
-    pos=_currentPos;
+    DocPosition pos=_currentPos;
 
     if (switchNext(_catalog,pos))
         gotoEntry(pos);
@@ -825,8 +817,7 @@ void KAider::gotoNext()
 
 void KAider::gotoPrev()
 {
-    DocPosition pos;
-    pos=_currentPos;
+    DocPosition pos=_currentPos;
 
     if (switchPrev(_catalog,pos))
         gotoEntry(pos);
@@ -927,16 +918,12 @@ void KAider::gotoNextBookmark()
 
 void KAider::gotoFirst()
 {
-    DocPosition pos;
-    pos.entry=0;
-    gotoEntry(pos);
+    gotoEntry(DocPosition(0));
 }
 
 void KAider::gotoLast()
 {
-    DocPosition pos;
-    pos.entry=_catalog->numberOfEntries()-1;
-    gotoEntry(pos);
+    gotoEntry(DocPosition(_catalog->numberOfEntries()-1));
 }
 
 //wrapper for cmdline handling...

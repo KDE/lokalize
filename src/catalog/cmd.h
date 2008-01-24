@@ -85,8 +85,7 @@ public:
     void redo();
     void undo();
 private:
-    void unsetFuzzy();
-    void setFuzzy();
+    void setJumpingPos();
 
     Catalog* _catalog;
     short _index:16;

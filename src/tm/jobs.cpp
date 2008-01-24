@@ -316,7 +316,7 @@ static int insertEntry(const QString& english,
 static void initDb(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
-    //TODO do this only if no japanese, chinese etc
+    //NOTE do this only if no japanese, chinese etc?
     queryMain.exec("PRAGMA encoding = \"UTF-8\"");
     queryMain.exec("CREATE TABLE IF NOT EXISTS tm_main ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"

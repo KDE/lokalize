@@ -69,34 +69,18 @@ bool InsTextCmd::mergeWith(const QUndoCommand *other)
 
 void InsTextCmd::redo()
 {
-    if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
-    {
-        _catalog->d->_untransIndex.removeAll(_pos.entry);
-        _catalog->emitsignalNumberOfUntranslatedChanged();
-    }
-
-    ITEM->_msgstrPlural[_pos.form].insert(_pos.offset,_str);
+    _catalog->targetInsert(_pos,_str);
 
     _catalog->d->_posBuffer=_pos;
-    _catalog->d->_posBuffer.offset+=_str.size();
-
 }
 
 void InsTextCmd::undo()
 {
-    ITEM->_msgstrPlural[_pos.form].remove(_pos.offset,_str.size());
+    Catalog& catalog=*_catalog;
+    catalog.targetDelete(_pos,_str.size());
 
-    _catalog->d->_posBuffer=_pos;
-
-    if ((!_pos.offset)&&(ITEM->_msgstrPlural[_pos.form].isEmpty()))
-    {
-        // insert index in the right place in the list
-        QList<uint>::Iterator it = _catalog->d->_untransIndex.begin();
-        while(it != _catalog->d->_untransIndex.end() && _pos.entry > (int)(*it))
-            ++it;
-        _catalog->d->_untransIndex.insert(it,_pos.entry);
-        _catalog->emitsignalNumberOfUntranslatedChanged();
-    }
+    catalog.d->_posBuffer=_pos;
+    catalog.d->_posBuffer.offset+=_str.size();
 }
 
 
@@ -136,31 +120,16 @@ bool DelTextCmd::mergeWith(const QUndoCommand *other)
 }
 void DelTextCmd::redo()
 {
-    ITEM->_msgstrPlural[_pos.form].remove(_pos.offset,_str.size());
+    Catalog& catalog=*_catalog;
 
-    _catalog->d->_posBuffer=_pos;
-    _catalog->d->_posBuffer.offset+=_str.size();
+    catalog.targetDelete(_pos,_str.size());
 
-    if ((!_pos.offset)&&(ITEM->_msgstrPlural.at(_pos.form).isEmpty()))
-    {
-        // insert index in the right place in the list
-        QList<uint>::Iterator it = _catalog->d->_untransIndex.begin();
-        while(it != _catalog->d->_untransIndex.end() && _pos.entry > (int)(*it))
-            ++it;
-        _catalog->d->_untransIndex.insert(it,_pos.entry);
-        _catalog->emitsignalNumberOfUntranslatedChanged();
-    }
+    catalog.d->_posBuffer=_pos;
+    catalog.d->_posBuffer.offset+=_str.size();
 }
 void DelTextCmd::undo()
 {
-    if ((!_pos.offset)&&(ITEM->_msgstrPlural.at(_pos.form).isEmpty()))
-    {
-        _catalog->d->_untransIndex.removeAll(_pos.entry);
-        _catalog->emitsignalNumberOfUntranslatedChanged();
-    }
-
-
-    ITEM->_msgstrPlural[_pos.form].insert(_pos.offset,_str);
+    _catalog->targetInsert(_pos,_str);
 
     _catalog->d->_posBuffer=_pos;
 }
@@ -175,86 +144,19 @@ ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
 
 void ToggleFuzzyCmd::redo()
 {
-    if (_flag)
-        setFuzzy();
-    else
-        unsetFuzzy();
+    setJumpingPos();
+    _catalog->setApproved(DocPosition(_index),_flag);
 }
 
 void ToggleFuzzyCmd::undo()
 {
-    if (_flag)
-        unsetFuzzy();
-    else
-        setFuzzy();
+    setJumpingPos();
+    _catalog->setApproved(DocPosition(_index),!_flag);
 }
 
-void ToggleFuzzyCmd::setFuzzy()
+void ToggleFuzzyCmd::setJumpingPos()
 {
-    DocPosition _pos;
-    _pos.entry=_index;
-    _pos.part=UndefPart;
-    _catalog->d->_posBuffer=_pos;
-
-    // insert index in the right place in the list
-    QList<uint>::Iterator it = _catalog->d->_fuzzyIndex.begin();
-    while(it != _catalog->d->_fuzzyIndex.end() && _index > short(*it))
-        ++it;
-    _catalog->d->_fuzzyIndex.insert(it,_index);
-    _catalog->emitsignalNumberOfFuzziesChanged();
-
-//     kWarning() << "BEFORE " << ITEM->_comment;
-    if (ITEM->_comment.isEmpty())
-    {
-        ITEM->_comment="#, fuzzy";
-        return;
-    }
-
-    int p=ITEM->_comment.indexOf("#,");
-    if(p!=-1)
-    {
-        ITEM->_comment.replace(p,2,"#, fuzzy,");
-//             kWarning() << " 3AFETR " << ITEM->_comment;
-        return;
-    }
-
-    QRegExp a("\\#\\:[^\n]*\n");
-    p=a.indexIn(ITEM->_comment);
-    if (p!=-1)
-    {
-        ITEM->_comment.insert(p+a.matchedLength(),"#, fuzzy\n");
-//             kWarning() << "1 AFETR " << ITEM->_comment;
-        return;
-    }
-
-    {
-        if( !(ITEM->_comment.endsWith('\n')) )
-            ITEM->_comment+='\n';
-        ITEM->_comment+="#, fuzzy";
-    }
-//     kWarning() << "2 AFETR " << ITEM->_comment;
+    _catalog->d->_posBuffer=DocPosition(_index);
 }
 
-void ToggleFuzzyCmd::unsetFuzzy()
-{
-    DocPosition _pos;
-    _pos.entry=_index;
-    _pos.part=UndefPart;
-    _catalog->d->_posBuffer=_pos;
-
-    _catalog->d->_fuzzyIndex.removeAll(_index);
-    _catalog->emitsignalNumberOfFuzziesChanged();
-
-//     kWarning() << "BEFORE " << ITEM->_comment;
-    ITEM->_comment.remove( QRegExp(",\\s*fuzzy"));
-
-    // remove empty comment lines
-    ITEM->_comment.remove( QRegExp("\n#\\s*$") );
-    ITEM->_comment.remove( QRegExp("^#\\s*$") );
-    ITEM->_comment.remove( QRegExp("#\\s*\n") );
-    ITEM->_comment.remove( QRegExp("^#\\s*\n") );
-
-//     kWarning() << "AFETR " << ITEM->_comment;
-
-}
 

@@ -52,8 +52,8 @@ class QTextCodec;
 class GettextImportPlugin: public CatalogImportPlugin
 {
 public:
-    GettextImportPlugin(QObject* parent);
-    virtual ConversionStatus load(const QString& file, const QString& mimetype);
+    GettextImportPlugin();
+    virtual ConversionStatus load(const QString& file);
     virtual const QString id() {return "GNU gettext";}
 
 private:

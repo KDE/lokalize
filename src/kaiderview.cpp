@@ -138,9 +138,6 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _currentEntry(-1)
 
 {
-//    _catalog=Catalog::instance();
-    //ui_kaiderview_base.setupUi(this);
-//    settingsChanged();
     _tabbar->hide();
 //     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
 //                                   "<p>This part of the window shows the original message\n"
@@ -576,7 +573,7 @@ void KAiderView::toggleFuzzy(bool checked)
 
 void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 {
-    kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
+    //kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
     if (_currentEntry==-1)
         return;
 

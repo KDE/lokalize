@@ -111,6 +111,10 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     //kWarning()<<"m_catalog->numberOfEntries()"<<m_catalog->numberOfEntries()<<entry;
 //     if (!toggleViewAction()->isChecked())
 //         return;
+    Glossary& glossary=*m_glossary;
+
+
+
     QString msg(m_catalog->msgid(entry).toLower());
     msg.remove(m_rxClean);
 
@@ -140,13 +144,13 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     int i=0;
     for (;i<words.size();++i)
     {
-        if (m_glossary->wordHash.contains(words.at(i))
+        if (glossary.wordHash.contains(words.at(i))
 //             && MULTI hash!! instead, we generate QSet later
-//             !termIndexes.contains(m_glossary->wordHash.value(words.at(i)))
+//             !termIndexes.contains(glossary.wordHash.value(words.at(i)))
            )
         {
-//             kWarning()<<"val " <<m_glossary->wordHash.values(words.at(i));
-            termIndexes+=m_glossary->wordHash.values(words.at(i));
+//             kWarning()<<"val " <<glossary.wordHash.values(words.at(i));
+            termIndexes+=glossary.wordHash.values(words.at(i));
         }
     }
     if (termIndexes.isEmpty())
@@ -175,13 +179,12 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     while (it != termIndexesSet.constEnd())
     {
         // now check which of them are really hits...
-        int lim=m_glossary->termList.at(*it).english.size();
+        int lim=glossary.termList.at(*it).english.size();
         for (j=0;j<lim;++j)
         {
-            kDebug()<<j;
             // ...and if so, which part of termEn list we must thank for match ...
             if (msg.contains(
-                m_glossary->termList.at(*it).english.at(j)//,
+                glossary.termList.at(*it).english.at(j)//,
                 //Qt::CaseInsensitive  //we lowered terms on load 
                         )
                 )
@@ -189,13 +192,12 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
                 //insert it into label
                 found=true;
                 m_flowLayout->addTerm(
-                        m_glossary->termList.at(*it).english.at(j),
+                        glossary.termList.at(*it).english.at(j),
                         *it
                                );
                 break;
             }
         }
-        kDebug()<<"next";
         ++it;
     }
     m_flowLayout->setEnabled(true);

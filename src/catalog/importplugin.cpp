@@ -36,7 +36,7 @@
 #include "catalogfileplugin.h"
 #include "importplugin_private.h"
 
-#include "catalog.h"
+#include "gettextstorage.h"
 
 #include <QStringList>
 #include <QLinkedList>
@@ -45,14 +45,10 @@
 #include <kmessagebox.h>
 //#include <kservicetypetrader.h>
 
-CatalogImportPlugin::CatalogImportPlugin(QObject* parent, const char* name) : QObject( parent ), _maxLineLength(0)
+CatalogImportPlugin::CatalogImportPlugin()
+    : _maxLineLength(0)
+    , d(new CatalogImportPluginPrivate)
 {
-    setObjectName( name );
-
-    d = new CatalogImportPluginPrivate;
-    d->_catalog = 0;
-    d->_started = false;
-    d->_stopped = false;
 }
 
 CatalogImportPlugin::~CatalogImportPlugin()
@@ -88,125 +84,62 @@ void CatalogImportPlugin::setErrorIndex(const QList<uint>& errors)
     d->_updateErrorList = true;
 }
 
-void CatalogImportPlugin::setFileCodec(QTextCodec* codec)
-{
-    d->_codec=codec;
-    d->_updateCodec = true;
-}
-
 void CatalogImportPlugin::setHeader( const CatalogItem& item )
 {
     d->_header=item;
     d->_updateHeader=true;
 }
 
-void CatalogImportPlugin::setMimeTypes( const QString& mimetypes )
+ConversionStatus CatalogImportPlugin::open(const QString& file, GettextStorage* catalog)
 {
-    d->_mimeTypes=mimetypes;
-}
-
-ConversionStatus CatalogImportPlugin::open(const QString& file, const QString& mimetype, Catalog* catalog)
-{
-    d->_stopped=false;
     d->_catalog=catalog;
     startTransaction();
-    
-    ConversionStatus result = load(file, mimetype);
-    if( d->_stopped ) 
-    {
-	d->_started=false;
-	return STOPPED;
-    }
+
+    ConversionStatus result = load(file);
 
     if( result == OK || result == RECOVERED_PARSE_ERROR || result == RECOVERED_HEADER_ERROR )
 	commitTransaction(file);
-	
+
     return result;
 }
 
 void CatalogImportPlugin::startTransaction()
 {
-    d->_started = (d->_catalog!=0);
-    
     d->_updateCodec = false;
     d->_updateCatalogExtraData = false;
     d->_updateGeneratedFromDocbook = false;
     d->_updateErrorList = false;
     d->_updateHeader = false;
-    d->_mimeTypes = "text/plain";
     d->_entries.clear();
 }
 
 void CatalogImportPlugin::commitTransaction(const QString& file)
 {
-    if( d->_started )
-    {
-	d->_catalog->clear();
+    GettextStorage* catalog=d->_catalog;
 
-	// fill in the entries
-	d->_catalog->d->_entries.reserve( d->_entries.count() ); //d->_catalog->setEntries( e );
-        uint i=0;
-	for( QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it,++i )
-        {
-	    d->_catalog->d->_entries.append( *it );
-            if (it->isFuzzy())
-                d->_catalog->d->_fuzzyIndex << i;
-            if (it->isUntranslated())
-                d->_catalog->d->_untransIndex << i;
-        }
+    //catalog->clear();
 
-	
-	
-	
-        d->_catalog->d->_obsoleteEntries=d->_obsoleteEntries;//d->_catalog->setObsoleteEntries( d->_obsoleteEntries );
-	
-        d->_catalog->d->_url=KUrl(file);
+    // fill in the entries
+    QVector<CatalogItem>& entries=catalog->m_entries;
+    entries.reserve( d->_entries.count() ); //d->_catalog->setEntries( e );
+//         uint i=0;
+    for( QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/ )
+        entries.append( *it );
 
-	if( d->_updateCodec )
-            d->_catalog->setFileCodec(d->_codec);
-	if( d->_updateCatalogExtraData )
-	    d->_catalog->d->_catalogExtraData=d->_catalogExtraData;
-	if( d->_updateGeneratedFromDocbook ) 
-	    d->_catalog->d->_generatedFromDocbook=d->_generatedFromDocbook;
-	if( d->_updateHeader ) 
-	    d->_catalog->setHeader(d->_header);
-	if( d->_updateErrorList ) 
-	    d->_catalog->setErrorIndex(d->_errorList);
-	
-	d->_catalog->d->_importID=id();
-	d->_catalog->setMimeTypes( d->_mimeTypes );
+    QVector<CatalogItem>& obsoleteEntries=catalog->m_obsoleteEntries;
+    for( QLinkedList<CatalogItem>::const_iterator it = d->_obsoleteEntries.begin(); it != d->_obsoleteEntries.end(); ++it/*,++i*/ )
+        entries.append( *it );
 
-        d->_catalog->d->_maxLineLength=_maxLineLength;
+    catalog->setUrl(KUrl(file));
 
-        // notify of the finish, so that MergeCatalog
-        d->_catalog->importFinished();
-    }
+// 	if( d->_updateCodec )
+//             d->_catalog->setFileCodec(d->_codec);
+    catalog->m_catalogExtraData=d->_catalogExtraData;
+    catalog->m_generatedFromDocbook=d->_generatedFromDocbook;
+    catalog->setHeader(d->_header);
+// 	if( d->_updateErrorList ) 
+// 	    d->_catalog->setErrorIndex(d->_errorList);
 
-    d->_started = false;
-}
-/*
-QStringList CatalogImportPlugin::availableImportMimeTypes()
-{
-    QStringList result;
-    
-	KService::List offers = KServiceTypeTrader::self()->query("KBabelFilter", "exist [X-KDE-Import]");
-    
-    for( KService::List::Iterator ptr = offers.begin(); ptr!=offers.end() ; ++ptr )
-    {
-	result += (*ptr)->property("X-KDE-Import").toStringList();
-    }
-    
-    return result;
-}
-*/
-bool CatalogImportPlugin::isStopped() const
-{
-    return d->_stopped;
+    catalog->m_maxLineLength=_maxLineLength;
 }
 
-void CatalogImportPlugin::stop()
-{
-    d->_stopped = true;
-}
-
-#include "catalogfileplugin.moc"

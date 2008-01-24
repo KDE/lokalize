@@ -33,23 +33,17 @@
 #ifndef IMPORTPLUGIN_H
 #define IMPORTPLUGIN_H
 
-#include <QObject>
-#include <QList>
+#include <QStringList>
 
 #include <kdemacros.h>
-//#include "kbabel_export.h"
-
 class QString;
 
-//namespace KBabel 
-//{
 
-class Catalog;
+class GettextStorage;
 class CatalogItem;
 class CatalogImportPluginPrivate;
 class CatalogExportPluginPrivate;
 
-// ### KDE4: force OK=0
 /**
  * Result of the conversion
  */
@@ -80,15 +74,13 @@ enum ConversionStatus {
 *
 * @short Base class for Catalog import plugins
 * @author Stanislav Visnovsky <visnovsky@kde.org>
-*/    
-class /*KBABELCOMMON_EXPORT*/ CatalogImportPlugin: public QObject
+*/
+class  CatalogImportPlugin
 {
-     Q_OBJECT
-
 public:
-    CatalogImportPlugin(QObject* parent, const char* name);
+    CatalogImportPlugin();
     virtual ~CatalogImportPlugin();
-    
+
     /**
      * Load the file and fill the corresponding catalog. The file
      * is considered to be of @ref mimetype MIME type.
@@ -98,8 +90,8 @@ public:
      * @param catalog  the catalog to be filled
      * @return result of the operation
      */
-    ConversionStatus open(const QString& file, const QString& mimetype, Catalog* catalog);
-    
+    ConversionStatus open(const QString& file, GettextStorage* catalog);
+
     /**
     * Reimplement this method to load the local file passed as an argument.
     * Throughout the run, you can use the protected methods for setting
@@ -110,20 +102,7 @@ public:
     * @param file file to be loaded
     * @param mimetype the expected MIME type (the type used for plugin selection
     */
-    virtual ConversionStatus load(const QString& file, const QString& mimetype) = 0;
-    /**
-    * Reimplement this method to return unique identification of your plugin
-    */
-    virtual const QString id() = 0;
-    
-    /** @return the list of all available MIME types for which there
-     *  is a import plugin.
-     */
-    static QStringList availableImportMimeTypes();
-
-public slots:
-    /** stop the current operation */
-    void stop();
+    virtual ConversionStatus load(const QString& file) = 0;
 
 protected:
     /** Append a new catalog item, either as normal or as an obsolete one
@@ -131,76 +110,29 @@ protected:
      *  @param obsolete flag that the item is obsolete
      */
     void appendCatalogItem( const CatalogItem& item, const bool obsolete = false );
-    
+
     /** set flag that the file is generated from DocBook */
     void setGeneratedFromDocbook(const bool fromDocbook);
     /** set the list of parse error indexes */
     void setErrorIndex(const QList<uint>& errors);
-    /** set the file codec */
-    void setFileCodec(QTextCodec* codec);
-    
+
     /** set extra data for the catalog, which can't be stored in
      *  @ref CatalogItem. The format can be arbitrary */
     void setCatalogExtraData( const QStringList& data );
     /** set the header catalog item */
     void setHeader( const CatalogItem& header );
-    /** set the MIME types which can be used for this catalog */
-    void setMimeTypes( const QString& catalog );
 
     /** start a new transaction. You should never call this method. */
     void startTransaction();
     /** commit the data in the current transaction. You should never call this method. */
     void commitTransaction(const QString& a=QString());
 
-    /** Flag, whether the operation should be stopped immediately.*/
-    bool isStopped() const;
-
     int _maxLineLength;
-// signals:
-//     /** Signal start of the operation */
-//     void signalResetProgressBar(QString,int);
-//     /** Signal end of the operation */
-//     void signalClearProgressBar();
 
 private:
     CatalogImportPluginPrivate* d;
 };
 
-/**
-* This class is the base for export plugins for catalogs.
-*
-* To use it, just subclass and redefine the save() method.
-*
-* @short Base class for Catalog export plugins
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-*/
-class /*KBABELCOMMON_EXPORT*/ CatalogExportPlugin: public QObject
-{
-    Q_OBJECT
-
-public:
-    CatalogExportPlugin(QObject* parent, const char* name);
-    virtual ~CatalogExportPlugin();
-    virtual ConversionStatus save(const QString& file, const QString& mimetype, const Catalog* catalog) = 0;
-
-    static QStringList availableExportMimeTypes();
-
-public slots:
-    void stop();
-
-protected:
-    bool isStopped() const;
-    
-// signals:
-//     void signalResetProgressBar(QString,int);
-//     void signalProgress(int);
-//     void signalClearProgressBar();
-
-private:
-    CatalogExportPluginPrivate* d;
-};
-
-//}
 
 
 #endif

@@ -62,6 +62,14 @@ struct DocPosition
         form(0),
         offset(0)
         {}
+
+    DocPosition(short e, Part p=Msgstr, uchar f=0, uint o=0):
+        entry(e),
+        part(p),
+        form(f),
+        offset(o)
+        {}
+
 };
 
 bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
@@ -82,6 +90,10 @@ struct DocPos
     DocPos(short _entry,uchar _form):
         entry(_entry),
         form(_form)
+        {}
+    DocPos(const DocPosition& pos):
+        entry(pos.entry),
+        form(pos.form)
         {}
 
     bool operator<(const DocPos& pos) const

@@ -23,6 +23,8 @@ set(lokalize_SRCS
     kaiderview.cpp
     syntaxhighlighter.cpp
 
+#    kaiderdockwidget.cpp
+
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
@@ -59,9 +61,9 @@ set(lokalize_SRCS
     catalog/cmd.cpp
     catalog/pos.cpp
     catalog/catalog.cpp
+    catalog/gettextstorage.cpp
     catalog/catalogitem.cpp
     catalog/importplugin.cpp
-    catalog/exportplugin.cpp
     catalog/gettextimport.cpp
     catalog/gettextexport.cpp
 )

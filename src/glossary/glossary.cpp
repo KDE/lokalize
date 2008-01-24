@@ -67,9 +67,9 @@ void Glossary::load(const QString& p)
  * reads glossary into buffer, changing and removing entries along the way
  * (if any -- the check is done by caller)
  */
-static void saveChanged(const Glossary* glo)
+static void saveChanged(const Glossary& glo)
 {
-    QFile in(glo->path);
+    QFile in(glo.path);
     if (!in.open(QFile::ReadOnly|QFile::Text))
          return;
 
@@ -90,9 +90,9 @@ static void saveChanged(const Glossary* glo)
         {
             //this is basically the same as the changing code, 
             //except that we don't write :)
-            int i=glo->removedIds.size();
+            int i=glo.removedIds.size();
             while (--i>=0)
-                if (xmlIn.attributes().value("id")==glo->removedIds.at(i))
+                if (xmlIn.attributes().value("id")==glo.removedIds.at(i))
                     break;
             if (i!=-1)
             {
@@ -132,23 +132,23 @@ static void saveChanged(const Glossary* glo)
             }
             else
             {
-                i=glo->changedIds.size();
+                i=glo.changedIds.size();
                 while (--i>=0)
-                    if (xmlIn.attributes().value("id")==glo->changedIds.at(i))
+                    if (xmlIn.attributes().value("id")==glo.changedIds.at(i))
                         break;
                 if (i!=-1)
                 {
                     //find entry by its id
-                    int j=glo->termList.size();
+                    int j=glo.termList.size();
                     while (--j>=0)
-                        if (glo->termList.at(j).id==glo->changedIds.at(i))
+                        if (glo.termList.at(j).id==glo.changedIds.at(i))
                             break;
                     if (j==-1)
                     {
                         kWarning()<<"should never happen";
                         continue;
                     }
-                    const TermEntry& entry=glo->termList.at(j);
+                    const TermEntry& entry=glo.termList.at(j);
 
                     //we aint changing starting termEntry
                     xmlOut.writeCurrentToken(xmlIn);
@@ -158,7 +158,7 @@ static void saveChanged(const Glossary* glo)
                     {
                         xmlOut.writeStartElement("descrip");
                         xmlOut.writeAttribute("type","subjectField");
-                        xmlOut.writeCharacters(glo->subjectFields.at(entry.subjectField));
+                        xmlOut.writeCharacters(glo.subjectFields.at(entry.subjectField));
                         xmlOut.writeEndElement();
                     }
                     if (!entry.definition.isEmpty())
@@ -310,8 +310,8 @@ static void addTerms(Glossary* glo)
         stream.seek(stream.pos()-line.size());
     }
 
-    QString out;
-    out+=QString(line).remove(QRegExp(" *</body>.*"));
+    QByteArray out;
+    out+=QString(line).remove(QRegExp(" *</body>.*")).toUtf8();
     out+="\n";
     QXmlStreamWriter xmlOut(&out);
 
@@ -398,14 +398,14 @@ static void addTerms(Glossary* glo)
 "\n        </body>"
 "\n    </text>"
 "\n</martif>\n";
-    stream.write(out.toUtf8());
+    stream.write(out);
 }
 
 void Glossary::save()
 {
     if (!changedIds.isEmpty()||!removedIds.isEmpty())
     {
-        saveChanged(this);
+        saveChanged(*this);
         changedIds.clear();
         removedIds.clear();
     }

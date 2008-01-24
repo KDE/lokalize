@@ -69,6 +69,7 @@ public:
     bool isUntranslated(uint form) const;
 
 
+    bool isPlural() const;
     PluralFormType pluralFormType() const;
     void setPluralFormType( PluralFormType type );
 
@@ -86,6 +87,7 @@ public:
     const QVector<QString>& msgidPlural(const bool noNewlines = false) const;
     const QString& msgstr(const int form=0, const bool noNewlines = false) const;
     const QVector<QString>& msgstrPlural(const bool noNewlines = false) const;
+
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
@@ -101,12 +103,6 @@ public:
     void setValid(bool);
     bool isValid() const;
 #if 0
-    /** @return a list of tags in the msgid */
-    QStringList tagList( RegExpExtractor& tagExtractor );
-
-    /** @return a list of args in the msgid */
-    QStringList argList( RegExpExtractor& argExtractor);
-
 	/**
 	 * @return the list of all errors of this item 
 	 */
@@ -135,18 +131,12 @@ public:
 #endif
     void operator=(const CatalogItem& rhs);
 
-/*
-private:
-    void setProject( Project::Ptr project );
-
-    //friend class Catalog;
-*/
 private:
     CatalogItemPrivate* const d;
 
-    friend class InsTextCmd;
-    friend class DelTextCmd;
-    friend class ToggleFuzzyCmd;
+    friend class GettextStorage;
+    void setFuzzy();
+    void unsetFuzzy();
 };
 
 

@@ -39,7 +39,7 @@
 #include <QStringList>
 #include <QTextStream>
 //namespace KBabel {
-class Catalog;
+class GettextStorage;
 
 
 /**
@@ -48,13 +48,12 @@ class Catalog;
  * As an extra information, it stores the list of all obsolete entries.
  */
 
-class GettextExportPlugin: public CatalogExportPlugin
+class GettextExportPlugin
 {
 public:
-    GettextExportPlugin(QObject* parent/*, const QStringList &*/);
+    GettextExportPlugin(int wrapWidth=-1);
     ConversionStatus save(const QString& file,
-                          const QString& mimetype,
-                          const Catalog* catalog);
+                          const GettextStorage* catalog);
 
 private:
     /**

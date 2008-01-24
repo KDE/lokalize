@@ -156,6 +156,8 @@ public slots:
     //void slotClear();
     void slotCompleted(const KUrl&);
 
+    //void slotEditorSavedFile();
+
 private:
     //those are called from slotRefreshItems() and slotNewItems() only
     void removeUnneededTemplEntries(QString& path,KFileItemList& templDirsToRemove);
