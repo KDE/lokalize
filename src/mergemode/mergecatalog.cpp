@@ -34,6 +34,7 @@
 #include "catalog_private.h"
 #include "catalogstorage.h"
 #include <kdebug.h>
+#include <QMultiHash>
 
 
 
@@ -58,7 +59,9 @@ void MergeCatalog::BaseCatalogEntryChanged(const DocPosition& pos)
             return;
 
         //note the explicit use of map...
-        m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
+        if (m_storage->isApproved(ourPos)!=m_baseCatalog->isApproved(pos))
+            //kWarning()<<ourPos.entry<<"SHIT";
+            m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
 
         emit signalEntryChanged(pos);
@@ -128,78 +131,44 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
     if (!Catalog::loadFromUrl(url))
         return false;
 
+    //now calc the entry mapping
 
     CatalogStorage& baseStorage=*(m_baseCatalog->m_storage);
     CatalogStorage& mergeStorage=*(m_storage);
 
     DocPosition i(0);
     uint size=baseStorage.size();
-    uint minSize=mergeStorage.size();
+    uint mergeSize=mergeStorage.size();
     m_map.fill(-1,size);
 
-    QVector< QList<MatchItem> > scores;
-    scores.resize(size);
 
-    while (i.entry<size)
+    //precalc for fast lookup
+    QMultiHash<QString, int> mergeMap;
+    while (i.entry<mergeSize)
     {
-        //first, check for direct mapping
-        if (i.entry<minSize
-            && baseStorage.sourceAllForms(i)==mergeStorage.sourceAllForms(i)
-           ) //found matching entries
-        {
-            MatchItem item=calcMatchItem(i,i);
-            item.score+=50;//i==i
-            scores[i.entry]<<item;
-
-            if (item.score>60)
-            {
-                //ok, we don't need to search further (for now)
-                ++i.entry;
-                continue;
-            }
-
-        }
-
-        //else: entry order is different
-        {
-            //search for msg over the whole catalog;
-            QStringList source=baseStorage.sourceAllForms(i);
-            DocPosition j(0);
-
-            while (j.entry<minSize)
-            {
-                if (source==mergeStorage.sourceAllForms(j)) //found matching entries
-                {
-                    MatchItem item=calcMatchItem(i,j);
-                    scores[i.entry]<<item;
-
-                    if (item.score>48)
-                    {
-                        //ok, we don't need to search further (for now)
-                        break;
-                    }
-                }
-                ++j.entry;
-            }
-        }
-        ++i.entry;
-
+        mergeMap.insert(mergeStorage.source(i),i.entry);
+        ++(i.entry);
     }
 
     i.entry=0;
     while (i.entry<size)
     {
-        if (scores.at(i.entry).isEmpty())
+        QList<int> entries=mergeMap.values(baseStorage.source(i));
+        QList<MatchItem> scores;
+        int k=entries.size();
+        if (!k)
         {
             ++i.entry;
             continue;
         }
+        while(--k>=0)
+            scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
 
-        qSort(scores[i.entry]);
+        qSort(scores);
 
-        m_map[i.entry]=scores.at(i.entry).first().mergeEntry;
+        m_map[i.entry]=scores.first().mergeEntry;
 
-        if (scores.at(i.entry).first().translationIsDifferent)
+        if (scores.first().translationIsDifferent)
             m_mergeDiffIndex.append(i.entry);
 
         ++i.entry;

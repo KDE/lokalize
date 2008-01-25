@@ -847,7 +847,7 @@ void SelectJob::run ()
     }
 
 //    m_entries=entries.toVector();
-    kWarning()<<"SelectJob done in "<<a.elapsed()<<endl;
+//     kWarning()<<"SelectJob done in "<<a.elapsed()<<endl;
 
 }
 
