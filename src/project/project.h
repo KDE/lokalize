@@ -64,7 +64,7 @@ class KAider;
  * It is shared between KAider 'mainwindows' that use the same project file.
  * Keeps project's KDirModel, Glossary and kross::actions
  *
- * GUI for config handling is implemented in kaider_prefs.cpp
+ * GUI for config handling is implemented in prefs.cpp
  */
 
 ///////// * Also provides list of web-query scripts
@@ -79,7 +79,7 @@ public:
     virtual ~Project();
 
     void load(const QString &file);
-    void save(){writeConfig();}
+    void save();
     bool isLoaded(){return !m_path.isEmpty();}
     ProjectModel* model();
 
@@ -88,6 +88,7 @@ public:
     QString projectDir()const;
     QString poDir()const{return absolutePath(poBaseDir());}
     QString potDir()const{return absolutePath(potBaseDir());}
+    QString branchDir()const{return absolutePath(ProjectBase::branchDir());}
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
     Glossary* glossary()const{return m_glossary;}
 

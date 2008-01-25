@@ -163,13 +163,19 @@ void Project::populateWebQueryActions()
 
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
+//     if (possiblyRelPath.isEmpty())
+//         return QString();
+
+//     kWarning()<<"'"<<possiblyRelPath<<"'";
     if (KUrl::isRelativeUrl(possiblyRelPath))
     {
+//         kWarning()<<"1'"<<possiblyRelPath<<"'";
         KUrl url(m_path);
         url.setFileName(QString());
         url.cd(possiblyRelPath);
         return url.path(KUrl::RemoveTrailingSlash);
     }
+//     kWarning()<<"2'"<<possiblyRelPath<<"'";
     return possiblyRelPath;
 }
 
@@ -363,5 +369,8 @@ void Project::openInExisting(const KUrl& u)
 }
 
 
-
+void Project::save()
+{
+    writeConfig();
+}
 

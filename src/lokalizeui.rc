@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="1">
+<kpartgui name="KAider" version="2">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
@@ -89,7 +89,7 @@
     <Action name="project_create"/>
 -->
   </Menu>
-  <Menu name="merge"><text>Merge</text>
+  <Menu name="merge"><text>Sync</text>
     <Action name="merge_open"/>
     <Separator/>
     <Action name="merge_prev"/>
@@ -97,6 +97,17 @@
     <Separator/>
     <Action name="merge_accept"/>
     <Action name="merge_acceptnew"/>
+    <Separator/>
+    <Menu name="mergesecondary"><text>Secondary sync source</text>
+      <Action name="mergesecondary_open"/>
+      <Separator/>
+      <Action name="mergesecondary_prev"/>
+      <Action name="mergesecondary_next"/>
+      <Separator/>
+      <Action name="mergesecondary_accept"/>
+      <Action name="mergesecondary_acceptnew"/>
+      <Separator/>
+    </Menu>
   </Menu>
   <Menu name="bookmarks"><text>Bookmarks</text>
     <Action name="bookmark_prior"/>
@@ -116,6 +127,7 @@
         <Action name="showmsgiddiff_action" />
         <Action name="showprojectview_action" />
         <Action name="showmergeview_action" />
+        <Action name="showmergeviewsecondary_action" />
         <Action name="showmsgctxt_action" />
         <Action name="showcatalogtreeview_action" />
         <Action name="showglossaryview_action" />

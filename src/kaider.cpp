@@ -101,7 +101,7 @@ KAider::KAider()
         , ui_replaceExtension(0)
 //     , _projectView(0)
         , _mergeView(0)
-//     , _msgIdDiffView(0)
+        , _mergeViewSecondary(0)
 {
     QTime chrono;
     chrono.start();
@@ -362,18 +362,24 @@ void KAider::setupActions()
 
 //MergeMode
     action = actionCollection()->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
-    action->setText(i18nc("@action:inmenu","Open merge source"));
-    action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one"));
+    action->setText(i18nc("@action:inmenu","Open file for sync/merge"));
+    action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one / replicate base file changes to"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
 
     action = actionCollection()->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
-    action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the files being merged"));
+    action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action = actionCollection()->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
-    action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the files being merged"));
+    action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -384,8 +390,42 @@ void KAider::setupActions()
 
     action = actionCollection()->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
-    action->setStatusTip(i18nc("@info:statustip","This changes only empty entries"));
+    action->setStatusTip(i18nc("@info:statustip","This changes only empty entries in base file"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
     //action->setShortcut(Qt::ALT+Qt::Key_E);
+
+//Secondary merge
+    action = actionCollection()->addAction("mergesecondary_open",_mergeViewSecondary,SLOT(mergeOpen()));
+    action->setText(i18nc("@action:inmenu","Open file for secondary sync"));
+    action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one / replicate base file changes to"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
+
+    action = actionCollection()->addAction("mergesecondary_prev",_mergeViewSecondary,SLOT(gotoPrevChanged()));
+    action->setText(i18nc("@action:inmenu","Previous different"));
+    action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
+    connect( _mergeViewSecondary, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    action = actionCollection()->addAction("mergesecondary_next",_mergeViewSecondary,SLOT(gotoNextChanged()));
+    action->setText(i18nc("@action:inmenu","Next different"));
+    action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
+    connect( _mergeViewSecondary, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    action = actionCollection()->addAction("mergesecondary_accept",_mergeViewSecondary,SLOT(mergeAccept()));
+    action->setText(i18nc("@action:inmenu","Copy from merging source"));
+    connect( _mergeViewSecondary, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
+
+    action = actionCollection()->addAction("mergesecondary_acceptnew",_mergeViewSecondary,SLOT(mergeAcceptAllForEmpty()));
+    action->setText(i18nc("@action:inmenu","Copy all new translations"));
+    action->setStatusTip(i18nc("@info:statustip","This changes only empty entries"));
+    action->setToolTip(action->statusTip());
+    action->setWhatsThis(action->statusTip());
+
 
     setupGUI(Default,"lokalizeui.rc");
 
@@ -418,12 +458,20 @@ void KAider::createDockWindows()
     connect(_projectView, SIGNAL(replaceInFilesRequested(const KUrl::List&)), this, SLOT(replaceInFiles(const KUrl::List&)));
     connect(_projectView, SIGNAL(spellcheckFilesRequested(const KUrl::List&)), this, SLOT(spellcheckFiles(const KUrl::List&)));
 
-    _mergeView = new MergeView(this,_catalog);
+    _mergeView = new MergeView(this,_catalog,true);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
     actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
     connect (this,SIGNAL(signalFileClosed()),_mergeView,SLOT(cleanup()));
     connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
+             this,SLOT(gotoEntry(const DocPosition&,int)));
+
+    _mergeViewSecondary = new MergeView(this,_catalog,false);
+    addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);
+    actionCollection()->addAction( QLatin1String("showmergeviewsecondary_action"), _mergeViewSecondary->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (this,SIGNAL(signalFileClosed()),_mergeViewSecondary,SLOT(cleanup()));
+    connect (_mergeViewSecondary,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
     m_catalogTreeView = new CatalogTreeView(this,_catalog);
@@ -436,7 +484,6 @@ void KAider::createDockWindows()
     addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint))/*,Qt::QueuedConnection*/);
-
 
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
     Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
@@ -617,41 +664,43 @@ bool KAider::fileOpen(KUrl url)
             return true;
         }
 
-        if (_project->isLoaded())
+        if (!_project->isLoaded())
         {
-            _captionPath=KUrl::relativePath(
-                             KUrl(_project->path()).directory()
-                             ,url.pathOrUrl()
-                         );
-            setCaption(_captionPath,false);
-            gotoEntry(pos);
-            return true;
-        }
 //search for it
-        int i=4;
-        QDir dir(url.directory());
-        dir.setNameFilters(QStringList("*.ktp"));
-        while (--i && !dir.isRoot())
-        {
-            if (dir.entryList().isEmpty())
-                dir.cdUp();
-            else
+            int i=4;
+            QDir dir(url.directory());
+            dir.setNameFilters(QStringList("*.ktp"));
+            while (--i && !dir.isRoot())
             {
-                _project->load(dir.absoluteFilePath(dir.entryList().first()));
-                if (_project->isLoaded())
-                {
-                    _captionPath=KUrl::relativePath(
-                                     KUrl(_project->path()).directory()
-                                     ,url.pathOrUrl()
-                                 );
-                    setCaption(_captionPath,false);
-                }
-
+                if (dir.entryList().isEmpty())
+                    dir.cdUp();
+                else
+                    _project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
         }
 
-//OK!!!
         gotoEntry(pos);
+
+        if (_project->isLoaded())
+        {
+            _captionPath=KUrl::relativePath(
+            KUrl(_project->path()).directory()
+                        ,url.pathOrUrl()
+                                        );
+            setCaption(_captionPath,false);
+
+//            kWarning()<<"************AutoSync**********";
+//branch AutoSync
+            QString path=url.pathOrUrl();
+            kWarning()<<_project->branchDir();
+            path.replace(_project->poDir(),_project->branchDir());
+            kWarning()<<"AutoSync NEW path"<<path;
+            if (url!=KUrl(path)&&QFile::exists(path))
+                _mergeViewSecondary->mergeOpen(KUrl(path));
+  //          kWarning()<<"************AutoSync OK**********";
+        }
+
+//OK!!!
         return true;
     }
 

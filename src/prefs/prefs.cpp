@@ -179,9 +179,11 @@ void SettingsController::projectConfigure()
     ui_prefs_projectmain.kcfg_LangCode->hide();
     ui_prefs_projectmain.kcfg_PoBaseDir->hide();
     ui_prefs_projectmain.kcfg_PotBaseDir->hide();
+    ui_prefs_projectmain.kcfg_BranchDir->hide();
     ui_prefs_projectmain.kcfg_GlossaryTbx->hide();
 
-    QString val( Project::instance()->langCode());
+    Project& p=*(Project::instance());
+    QString val( p.langCode());
     QStringList langlist = KGlobal::locale()->allLanguagesList();
     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
     {
@@ -192,6 +194,7 @@ void SettingsController::projectConfigure()
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_projectmain.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setFilter("*.tbx\n*.xml");
 
@@ -199,13 +202,16 @@ void SettingsController::projectConfigure()
             ui_prefs_projectmain.kcfg_PoBaseDir,SLOT(setText(const QString&)));
     connect(ui_prefs_projectmain.potBaseDir,SIGNAL(textChanged(const QString&)),
             ui_prefs_projectmain.kcfg_PotBaseDir,SLOT(setText(const QString&)));
+    connect(ui_prefs_projectmain.branchDir,SIGNAL(textChanged(const QString&)),
+            ui_prefs_projectmain.kcfg_BranchDir,SLOT(setText(const QString&)));
     connect(ui_prefs_projectmain.glossaryTbx,SIGNAL(textChanged(const QString&)),
             ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(const QString&)));
 
 
-    ui_prefs_projectmain.poBaseDir->setUrl(Project::instance()->poDir());
-    ui_prefs_projectmain.potBaseDir->setUrl(Project::instance()->potDir());
-    ui_prefs_projectmain.glossaryTbx->setUrl(Project::instance()->glossaryPath());
+    ui_prefs_projectmain.poBaseDir->setUrl(p.poDir());
+    ui_prefs_projectmain.potBaseDir->setUrl(p.potDir());
+    ui_prefs_projectmain.branchDir->setUrl(p.branchDir());
+    ui_prefs_projectmain.glossaryTbx->setUrl(p.glossaryPath());
 
 
 
@@ -224,7 +230,7 @@ void SettingsController::projectConfigure()
     gridLayout->setSpacing(6);
     gridLayout->setMargin(11);
     KUrlRequester *req = new KUrlRequester( /*w*/ );
-    req->setPath(Project::instance()->projectDir());//for user's sake :)
+    req->setPath(p.projectDir());//for user's sake :)
     m_scriptsPrefWidget = new KEditListBox( i18nc("@label","Web Query Scripts"), req->customEditor(), w );
     gridLayout->addWidget(m_scriptsPrefWidget, 0, 0, 1, 1);
 
@@ -243,7 +249,7 @@ void SettingsController::projectConfigure()
 
     dialog->addPage(w, i18nc("@title:tab","Web Query"), "webquery_project_setting");
 
-    m_scriptsPrefWidget->setItems(Project::instance()->webQueryScripts());
+    m_scriptsPrefWidget->setItems(p.webQueryScripts());
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
 //     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));

@@ -86,7 +86,7 @@ class MergeCatalog : public Catalog
 {
     Q_OBJECT
 public:
-    MergeCatalog(QObject* parent, Catalog* baseCatalog);
+    MergeCatalog(QObject* parent, Catalog* baseCatalog,bool primary=true);
     ~MergeCatalog(){};
 
     bool loadFromUrl(const KUrl& url);
@@ -117,7 +117,8 @@ private:
 private:
     QVector<uint> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
-    QList<uint> m_mergeDiffIndex;
+    QList<uint> m_mergeDiffIndex;//points to baseCatalog entries
+    bool m_primary;
 };
 
 #endif

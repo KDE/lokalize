@@ -38,9 +38,10 @@
 
 
 
-MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
+MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog,bool primary)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
+ , m_primary(primary)
 {
     connect (baseCatalog,SIGNAL(signalEntryChanged(DocPosition)),this,SLOT(BaseCatalogEntryChanged(DocPosition)));
     connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
@@ -104,7 +105,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
     //translation is changed
     if (baseStorage.targetAllForms(basePos)==mergeStorage.targetAllForms(mergePos))
     {
-        if (baseStorage.isApproved(basePos)==mergeStorage.isApproved(basePos))
+        if (baseStorage.isApproved(basePos)==mergeStorage.isApproved(mergePos))
         {
             item.score+=30;
             item.translationIsDifferent=false;
@@ -113,6 +114,11 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
             item.score+=29;
     }
 
+//     kWarning()<<basePos.entry<<item.translationIsDifferent
+//     <<endl<<"b s "<<baseStorage.source(basePos)
+//             <<"b t "<<baseStorage.target(basePos)
+//     <<endl<<"m s "<<mergeStorage.source(mergePos)
+//             <<"m t "<<mergeStorage.target(mergePos);
     return item;
 }
 
@@ -184,17 +190,21 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
     while (i.entry<size)
     {
         if (scores.at(i.entry).isEmpty())
+        {
+            ++i.entry;
             continue;
+        }
 
         qSort(scores[i.entry]);
 
         m_map[i.entry]=scores.at(i.entry).first().mergeEntry;
 
         if (scores.at(i.entry).first().translationIsDifferent)
-            m_mergeDiffIndex.append(m_map.at(i.entry));
+            m_mergeDiffIndex.append(i.entry);
 
         ++i.entry;
     }
+    return true;
 }
 
 

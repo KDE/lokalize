@@ -210,9 +210,9 @@ QStringList GettextStorage::matchData(const DocPosition& pos) const
     {
         QStringList result(ctxt.section(' ',0,0,QString::SectionSkipEmpty));
         result<<ctxt.section(' ',1,-1,QString::SectionSkipEmpty);
+        return result;
     }
-    else
-        return QStringList(ctxt);
+    return QStringList(ctxt);
 }
 
 QString GettextStorage::id(const DocPosition& pos) const

@@ -51,7 +51,7 @@ class MergeView: public QDockWidget
     Q_OBJECT
 
 public:
-    MergeView(QWidget*,Catalog*);
+    MergeView(QWidget*,Catalog*,bool primary);
     virtual ~MergeView();
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -86,7 +86,8 @@ private:
     DocPosition m_pos;
     QString m_normTitle;
     QString m_hasInfoTitle;
-    bool m_hasInfo;
+    bool m_hasInfo:16;
+    bool m_primary:16;
 
 };
 

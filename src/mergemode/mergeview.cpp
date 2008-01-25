@@ -46,19 +46,22 @@
 
 #include <QDragEnterEvent>
 
-MergeView::MergeView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18nc("@title:window","Merge Diff"), parent)
+MergeView::MergeView(QWidget* parent, Catalog* catalog,bool primary)
+    : QDockWidget ( primary?i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"), parent)
     , m_browser(new KTextEdit(this))
     , m_baseCatalog(catalog)
     , m_mergeCatalog(0)
-    , m_normTitle(i18nc("@title:window that displays difference between current file and 'merge source'","Merge Diff"))
+    , m_normTitle(primary?
+                          i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):
+                          i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
+    , m_primary(primary)
 
 {
-    setObjectName("mergeView");
+    setObjectName(primary?"mergeView-primary":"mergeView-secondary");
     setWidget(m_browser);
-    setToolTip(i18nc("@info:tooltip","Drop file to be merged into the current one here"));
+    setToolTip(i18nc("@info:tooltip","Drop file to be merged into / synced with the current one here"));
 
     hide();
 
@@ -182,8 +185,7 @@ void MergeView::mergeOpen(KUrl url)
         return;
 
     delete m_mergeCatalog;
-    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
-
+    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog,m_primary);
     if (m_mergeCatalog->loadFromUrl(url))
     {
         if (m_pos.entry>0)
@@ -193,6 +195,8 @@ void MergeView::mergeOpen(KUrl url)
 
         //a bit hacky :)
         connect (m_mergeCatalog,SIGNAL(signalEntryChanged(DocPosition)),this,SLOT(slotUpdate(DocPosition)));
+
+
         slotNewEntryDisplayed(m_pos);
         show();
     }

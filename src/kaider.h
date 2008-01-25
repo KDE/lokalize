@@ -225,6 +225,7 @@ private:
     ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
+    MergeView* _mergeViewSecondary;
     GlossaryView* _glossaryView;
     CatalogTreeView* m_catalogTreeView;
     TMView* _tmView;

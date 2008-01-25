@@ -182,22 +182,49 @@ url="http://websvn.kde.org/trunk/l10n-kde4/ru/" />.
 </sect1>
 
 <sect1 id="MergeMode">
-<title>Merge Mode</title>
+<title>Sync Mode</title>
 
 <para>
-The <guilabel>Merge Mode</guilabel> saves a great deal of time for the editors,
-or when two or more translators are working simultaneously on the same file.
+The <guilabel>Sync Mode</guilabel> (previously known as <guilabel>Merge Mode</guilabel>)
+saves a great deal of time for the editors, and for cases 
+when two or more translators are working simultaneously on the same file,
+or when one has to maintain translations for several branches of software.
 </para>
+
 
 <para>
 &kaider; allows quick navigation through the messages that differ, and displays
-the word-by-word differences. Open a base file, then drop its changed
-version into the <guilabel>Merge Diff</guilabel> view, followed by
-<keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Page
-Down</keycap></keycombo> or <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap>
-<keycap>Page Down</keycap></keycombo> to navigate through entries that are
-different.
+word-by-word differences. Also, &kaider; has two Sync views - <guilabel>Primary Sync</guilabel> and <guilabel>Secondary Sync</guilabel>.
+They are identical, but first is usually used to merge translatons and second to keep in sync translations for two software branches.
 </para>
+
+
+<sect2 id="FileMerge">
+<title>Merge</title>
+<para>
+One use of <guilabel>Sync Mode</guilabel> is reviewing changes made by (new)
+contributors, when you can't be sure of the quality of the work done.
+</para>
+<para>
+Open a base file, then drop its changed version into the <guilabel>Primary Sync</guilabel> view,
+followed by <keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo> or <keycombo><keycap>Alt</keycap>
+<keycap>Up</keycap></keycombo> (remember that key bindings may be modified in a usual way for all KDE apps)
+to navigate through entries that are different.
+</para>
+</sect2>
+
+<sect2 id="FileSync">
+<title>Synchronization</title>
+<para>
+<guilabel>Sync Mode</guilabel> may also be used to make changes to translation for
+two (or even three -- using both <guilabel>Secondary Sync</guilabel> and <guilabel>Primary Sync</guilabel>)
+branches simultaneously.
+Set <guilabel>Branch Dir</guilabel> path in your project options to the path that corresponds to
+base dir of the branch, and <guilabel>Secondary Sync</guilabel> view will automatically open
+files from branch.
+</para>
+</sect2>
+
 </sect1>
 
 </chapter>

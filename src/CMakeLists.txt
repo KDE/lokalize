@@ -73,8 +73,8 @@ kde4_add_ui_files(lokalize_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_font.ui
     prefs/prefs_misc.ui
-    project/prefs_projectmain.ui
     project/prefs_regexps.ui
+    project/prefs_projectmain.ui
     glossary/termedit.ui
     tm/queryoptions.ui
     tm/managedatabases.ui
