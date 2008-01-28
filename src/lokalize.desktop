@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=lokalize
+Name[tr]=Lokalize
 Exec=lokalize %i -caption "%c"
 Icon=lokalize
 Type=Application
@@ -8,6 +9,7 @@ DocPath=lokalize/index.html
 GenericName=Computer-aided translation system
 GenericName[el]=Σύστημα μετάφρασης υποβοηθούμενο από τον υπολογιστή
 GenericName[ga]=Córas aistriúcháin ríomhchuidithe
+GenericName[tr]=Bilgisayar destekli çeviri sistemi
 GenericName[zh_TW]=電腦協助翻譯系統
 Terminal=0
 
