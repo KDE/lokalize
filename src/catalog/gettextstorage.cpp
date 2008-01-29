@@ -537,7 +537,7 @@ void GettextStorage::updateHeader(bool forSaving)
     if (!found)
         headerList.append(temp);
 
-    temp="X-Generator: KAider %1\\n";
+    temp="X-Generator: LoKalize %1\\n";
     temp=temp.arg(KAIDER_VERSION);
     found=false;
 

@@ -190,7 +190,7 @@ void KAider::setupActions()
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
     action = KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
-    action->setText(i18nc("@action:inmenu","Close all lokalize windows"));
+    action->setText(i18nc("@action:inmenu","Close all LoKalize windows"));
 
     //KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
     //KStandardAction::quit(this, SLOT(deleteLater()), actionCollection());
