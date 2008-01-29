@@ -64,7 +64,6 @@ void MergeCatalog::BaseCatalogEntryChanged(const DocPosition& pos)
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
 
-        kWarning()<<"9999_";
         emit signalEntryChanged(pos);
     }
 }
@@ -129,7 +128,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
 
 bool MergeCatalog::loadFromUrl(const KUrl& url)
 {
-    if (!Catalog::loadFromUrl(url))
+    if (KDE_ISUNLIKELY( !Catalog::loadFromUrl(url) ))
         return false;
 
     //now calc the entry mapping
@@ -138,8 +137,8 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
     CatalogStorage& mergeStorage=*(m_storage);
 
     DocPosition i(0);
-    uint size=baseStorage.size();
-    uint mergeSize=mergeStorage.size();
+    int size=baseStorage.size();
+    int mergeSize=mergeStorage.size();
     m_map.fill(-1,size);
 
 

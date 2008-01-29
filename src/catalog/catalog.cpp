@@ -97,7 +97,7 @@ void Catalog::clear()
 
 int Catalog::numberOfEntries() const
 {
-    if (!m_storage)
+    if (KDE_ISUNLIKELY( !m_storage ))
         return 0;
 
     return m_storage->size();
@@ -191,7 +191,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
     else
         return false;
 
-    if (!storage->load(url))
+    if (KDE_ISUNLIKELY( !storage->load(url) ))
         return false;
 
     //ok...
@@ -231,20 +231,20 @@ bool Catalog::save()
 
 bool Catalog::saveToUrl(KUrl url)
 {
-    if (!m_storage)
+    if (KDE_ISUNLIKELY( !m_storage ))
         return true;
 
     kDebug()<<"URL opened: "<<d->_url;
     kDebug()<<"save URL: "<<url;
     bool nameChanged=false;
-    if (url.isEmpty())
+    if (KDE_ISLIKELY( url.isEmpty() ))
         url = d->_url;
     else
         nameChanged=true;
 
     kDebug()<<"save URL 2: "<<url;
 
-    if (m_storage->save(url))
+    if (KDE_ISLIKELY( m_storage->save(url) ))
     {
         setClean();
         if (nameChanged)
@@ -288,7 +288,7 @@ const DocPosition& Catalog::redo()
 
 void Catalog::targetDelete(const DocPosition& pos, int count)
 {
-    if (!m_storage)
+    if (KDE_ISUNLIKELY( !m_storage ))
         return;
 
     m_storage->targetDelete(pos,count);
@@ -310,7 +310,7 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
 
 void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    if (!m_storage)
+    if (KDE_ISUNLIKELY( !m_storage ))
         return;
 
     if ((!pos.offset)&&(isUntranslated(pos)))
@@ -329,7 +329,7 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
 
 void Catalog::setApproved(const DocPosition& pos, bool fuzzy)
 {
-    if (!m_storage || m_storage->isApproved(pos)==fuzzy)
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isApproved(pos)==fuzzy ))
         return;
 
     m_storage->setApproved(pos,fuzzy);
@@ -359,13 +359,13 @@ void Catalog::setApproved(const DocPosition& pos, bool fuzzy)
 
 int Catalog::findNextInList(const QList<uint>& list,uint index) const
 {
-    if( list.isEmpty() )
+    if(KDE_ISUNLIKELY( list.isEmpty() ))
         return -1;
 
     int nextIndex=-1;
     for ( int i = 0; i < list.size(); ++i )
     {
-        if ( list.at(i) > index ) 
+        if (KDE_ISUNLIKELY( list.at(i) > index ))
         {
             nextIndex = list.at(i);
             break;
@@ -377,13 +377,13 @@ int Catalog::findNextInList(const QList<uint>& list,uint index) const
 
 int Catalog::findPrevInList(const QList<uint>& list,uint index) const
 {
-    if ( list.isEmpty() )
+    if (KDE_ISUNLIKELY( list.isEmpty() ))
         return -1;
 
     int prevIndex=-1;
     for ( int i = list.size()-1; i >= 0; --i )
     {
-        if ( list.at(i) < index ) 
+        if (KDE_ISUNLIKELY( list.at(i) < index )) 
         {
             prevIndex = list.at(i);
             break;

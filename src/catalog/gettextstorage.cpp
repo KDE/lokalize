@@ -60,7 +60,7 @@ bool GettextStorage::load(const KUrl& url)
     ConversionStatus status = OK;
     QString target;
 
-    if( !KIO::NetAccess::download( url, target, NULL ) )
+    if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
         return false;
 
     status = importer.open(target,this);
@@ -106,7 +106,7 @@ bool GettextStorage::save(const KUrl& url)
     ConversionStatus status = OK;
 
     QString localFile;
-    if (url.isLocalFile())
+    if (KDE_ISLIKELY( url.isLocalFile() ))
     {
         localFile = url.path();
         if (!QFile::exists(url.directory()))
@@ -123,7 +123,7 @@ bool GettextStorage::save(const KUrl& url)
     //kWarning() << "SAVE NAME "<<localFile;
     status = exporter.save(localFile/*x-gettext-translation*/,this);
 
-    if (status!=OK||remote && !KIO::NetAccess::upload( localFile, url, NULL))
+    if (KDE_ISUNLIKELY( status!=OK||remote && !KIO::NetAccess::upload( localFile, url, NULL) ))
         return false;
 
     return true;
@@ -333,7 +333,7 @@ static QString GNUPluralForms(const QString& lang)
                   );
     msginit.closeWriteChannel();
 
-    if (!msginit.waitForFinished(5000))
+    if (KDE_ISUNLIKELY( !msginit.waitForFinished(5000) ))
     {
         kWarning()<<"msginit error";
         return def;
@@ -342,7 +342,7 @@ static QString GNUPluralForms(const QString& lang)
 
     QByteArray result = msginit.readAll();
     int pos = result.indexOf("Plural-Forms: ");
-    if (pos==-1)
+    if (KDE_ISUNLIKELY( pos==-1 ))
     {
         kWarning()<<"msginit error"<<result;
         return def;
@@ -350,7 +350,7 @@ static QString GNUPluralForms(const QString& lang)
     pos+=14;
 
     int end = result.indexOf('"',pos);
-    if (pos==-1)
+    if (KDE_ISUNLIKELY( pos==-1 ))
     {
         kWarning()<<"msginit error"<<result;
         return def;
@@ -386,7 +386,7 @@ void GettextStorage::updateHeader(bool forSaving)
         }
     }
 
-    if (!found)
+    if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
     QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
@@ -402,7 +402,7 @@ void GettextStorage::updateHeader(bool forSaving)
             found=true;
         }
     }
-    if (!found)
+    if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
     found=false;
@@ -421,7 +421,7 @@ void GettextStorage::updateHeader(bool forSaving)
             found=true;
         }
     }
-    if (!found)
+    if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
     found=false;
@@ -469,7 +469,7 @@ void GettextStorage::updateHeader(bool forSaving)
         temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');*/
     temp+="\\n";
 
-    if (found)
+    if (KDE_ISLIKELY( found ))
         (*ait) = temp;
     else
         headerList.append(temp);
@@ -549,7 +549,7 @@ void GettextStorage::updateHeader(bool forSaving)
             found=true;
         }
     }
-    if (!found)
+    if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
     // ensure MIME-Version header
@@ -563,7 +563,7 @@ void GettextStorage::updateHeader(bool forSaving)
             found=true;
         }
     }
-    if ( !found )
+    if (KDE_ISUNLIKELY( !found ))
     {
         headerList.append(temp);
     }

@@ -49,10 +49,10 @@ bool switchPrev(Catalog*& catalog,DocPosition& pos,bool useMsgId)
     else
         pos.part=Msgstr;
 
-    if ( pos.form>0
-            && catalog->pluralFormType(pos.entry)==Gettext )
+    if (KDE_ISUNLIKELY( pos.form>0
+            && catalog->pluralFormType(pos.entry)==Gettext ))
         pos.form--;
-    else if (pos.entry==0)
+    else if (KDE_ISUNLIKELY( pos.entry==0 ))
         return false;
     else
     {
@@ -80,11 +80,11 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
         pos.part=Msgstr;
 
 
-    if ( pos.entry!=-1
+    if (KDE_ISUNLIKELY( pos.entry!=-1
             && pos.form+1 < catalog->numberOfPluralForms()
-            && catalog->pluralFormType(pos.entry)==Gettext )
+            && catalog->pluralFormType(pos.entry)==Gettext ))
         pos.form++;
-    else if (pos.entry==catalog->numberOfEntries()-1)
+    else if (KDE_ISUNLIKELY( pos.entry==catalog->numberOfEntries()-1 ))
         return false;
     else
     {

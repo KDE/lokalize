@@ -115,7 +115,7 @@ private:
     MatchItem calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos);
 
 private:
-    QVector<uint> m_map; //maps entries: m_baseCatalog -> this
+    QVector<int> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
     QList<uint> m_mergeDiffIndex;//points to baseCatalog entries
     bool m_primary;

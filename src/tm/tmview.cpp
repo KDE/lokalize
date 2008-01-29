@@ -179,7 +179,7 @@ void TMView::slotFileLoaded()
     if (!Settings::prefetchTM()
         &&!m_isBatching)
         return;
-    //m_cache.resize(m_catalog->numberOfEntries());
+
     Project* p=Project::instance();
     const QString& pID=p->projectID();
 
@@ -243,20 +243,20 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
              ||m_catalog->isFuzzy(pos.entry))
            )
             continue;
-        const QVector<TMEntry>& termList=m_cache.value(DocPos(pos));
-        if (termList.isEmpty())
+        const QVector<TMEntry>& suggList=m_cache.value(DocPos(pos));
+        if (suggList.isEmpty())
             continue;
-        const TMEntry& entry=termList.first();
+        const TMEntry& entry=suggList.first();
         if (entry.score<9900)//kinda hack
             continue;
-        if (m_pos.entry==pos.entry&&pos.form==m_pos.form)
+        if (KDE_ISUNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
         {
             //FIXME if(m_markAsFuzzy)
             emit textReplaceRequested(entry.target);
         }
         else
         {
-            bool forceFuzzy=(termList.size()>1&&termList.at(1).score>=10000)
+            bool forceFuzzy=(suggList.size()>1&&suggList.at(1).score>=10000)
                             ||entry.score<10000;
             bool ctxtMatches=entry.score==1001;
             if (m_catalog->isFuzzy(pos.entry))
@@ -470,7 +470,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         str.replace('>',"&gt;");
         //str.replace('&',"&amp;"); TODO check
         html+="<br>";
-        if (i<m_actions.size())
+        if (KDE_ISLIKELY( i<m_actions.size() ))
         {
             m_actions.at(i)->setStatusTip(job.m_entries.at(i).target);
             html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
@@ -482,7 +482,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
 
-        if (++i>=limit)
+        if (KDE_ISUNLIKELY( ++i>=limit ))
             break;
 
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
@@ -505,7 +505,7 @@ void TMView::slotSelectionChanged()
 
 void TMView::slotUseSuggestion(int i)
 {
-    if (i>=m_entries.size())
+    if (KDE_ISUNLIKELY( i>=m_entries.size() ))
         return;
     //this tries some black magic
     //naturally, there are many assumptions that might not always be true

@@ -86,7 +86,7 @@ static void cleanUpIfMultiple(KAider* th,
 
 void KAider::find()
 {
-    if( !_findDialog )
+    if(KDE_ISUNLIKELY( !_findDialog ))
     {
         _findDialog = new KFindDialog(this);
         if( !ui_findExtension ) //actually, we don't need this check...
@@ -233,7 +233,7 @@ void KAider::findNext(const DocPosition& startingPos)
     Catalog& catalog=*_catalog;
     KFind& find=*_find;
 
-    if (catalog.numberOfEntries()<=startingPos.entry)
+    if (KDE_ISUNLIKELY( catalog.numberOfEntries()<=startingPos.entry ))
         return;//for the case when app wasn't able to process event before file close
 
     bool anotherEntry=_searchingPos.entry!=_currentPos.entry;
@@ -434,12 +434,12 @@ void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
             data=_catalog->msgstr(_searchingPos);
         int i=0;
         for (;i<matchingIndex;++i)
-            if (data.at(i)=='&')
+            if (KDE_ISUNLIKELY( data.at(i)=='&' ))
                 ++matchingIndex;
 
         int limit=matchingIndex+matchedLength;
         for (i=matchingIndex;i<limit;++i)
-            if (data.at(i)=='&')
+            if (KDE_ISUNLIKELY( data.at(i)=='&' ))
             {
                 ++matchedLength;
                 limit=qMin(data.size(),matchingIndex+matchedLength);

@@ -132,13 +132,13 @@ static int insertEntry(const QString& english,
 {
 //     bool debug=english=="Icon Size";
     //TODO plurals
-    if (target.isEmpty())
+    if (KDE_ISUNLIKELY( target.isEmpty() ))
         return 0;
 
     QString cleanEn(english);
     QStringList words;
     doSplit(cleanEn,words,rxClean1,rxClean2);
-    if (words.isEmpty())
+    if (KDE_ISUNLIKELY( words.isEmpty() ))
         return 0;
 
 
@@ -361,7 +361,7 @@ static void getConfig(QSqlDatabase& db,
 {
     QSqlQuery query(db);
     query.exec("SELECT id, value FROM tm_config ORDER BY id ASC");
-    if (query.next())
+    if (KDE_ISLIKELY(  query.next() ))
     {
         markup=query.value(1).toString();
         if (query.next())
@@ -394,7 +394,6 @@ static void setConfig(QSqlDatabase& db,
                       const QString& accel)
 
 {
-    kDebug()<<"++++++++++++++++++";
     QSqlQuery query(db);
     query.clear();
 
@@ -407,7 +406,6 @@ static void setConfig(QSqlDatabase& db,
 
     query.bindValue(0, 1);
     query.bindValue(1, accel);
-    kDebug()<<query.exec();
 }
 
 OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
@@ -645,7 +643,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         //for every concordance level
 
 
-        if (m_dequeued)
+        if (KDE_ISUNLIKELY( m_dequeued ))
             break;
 
 
@@ -681,7 +679,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             str.remove(rxClean2);
 
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
-            if (englishSuggList.size()/10>englishList.size())
+            if (englishSuggList.size()>10*englishList.size())
                 continue;
             englishSuggList.prepend(" ");
             //sugg is 'old' --translator has to adapt its translation to 'new'--current
@@ -815,7 +813,7 @@ void SelectJob::run ()
     QString cleanEn(m_english);
     QStringList words;
     doSplit(cleanEn,words,rxClean1,rxClean2);
-    if (words.isEmpty())
+    if (KDE_ISUNLIKELY( words.isEmpty() ))
         return;
     qSort(words);//to speed up if some words occur multiple times
 
@@ -831,9 +829,9 @@ void SelectJob::run ()
     while(--i>=limit)
         m_entries.removeLast();
 
-    if (m_dequeued)
+    if (KDE_ISUNLIKELY( m_dequeued ))
         return;
-//     kWarning()<<"+++"<<i;
+
     ++i;
     while(--i>=0)
     {
@@ -843,11 +841,8 @@ void SelectJob::run ()
                                    m_english,
                                    m_entries.at(i).accel,
                                    m_entries.at(i).markup);
-        //kWarning()<<"ddd"<<m_entries[i].diff;
-    }
 
-//    m_entries=entries.toVector();
-//     kWarning()<<"SelectJob done in "<<a.elapsed()<<endl;
+    }
 
 }
 
@@ -891,20 +886,12 @@ void ScanJob::run()
     Catalog catalog(thread());
     if (KDE_ISLIKELY(catalog.loadFromUrl(m_url)))
     {
-//         QRegExp m_rxSplit("\\W|\\d");
     //kWarning() <<"ScanJob: loaded "<<a.elapsed();
         initDb(db);
 
         QSqlQuery queryInsertWord(db);
         queryInsertWord.prepare("INSERT INTO tm_words (word) "
                                 "VALUES (?)");
-//         QSqlQuery queryIndexWords(db);
-//         queryIndexWords.prepare("INSERT INTO tm_links (wordid, id) "
-//                                 "VALUES (?, ?)");
-
-    //                 QSqlQuery query1(db);
-    //                 queryWords.prepare("SELECT INTO tm_words (word, id) "
-    //                               "VALUES (?, ?)");
 
         QSqlQuery queryBegin("BEGIN",db);
         QSqlQuery query(db);
@@ -914,25 +901,21 @@ void ScanJob::run()
         int i=catalog.numberOfEntries();
         while (--i>=0)
         {
-            if (catalog.isFuzzy(i))
+            if ( catalog.isFuzzy(i) )
                 continue;
 
-    //                     kWarning() <<"ScanJob: "<<a.elapsed()<<" "<<i;
             int res=insertEntry(catalog.msgid(i),
                                 catalog.msgstr(i),
                                 catalog.msgctxt(i),
                                 db,
-//                         m_rxSplit,
                                 query,
                                 rxClean1,
                                 rxClean2
-//                         queryInsertWord,
-//                         queryIndexWords
                                 );
-            if (res)
+            if (KDE_ISLIKELY( res ))
             {
                 ++m_added;
-                if (res==2)
+                if (KDE_ISUNLIKELY( res==2 ))
                     ++m_newVersions;
             }
         }

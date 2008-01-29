@@ -176,7 +176,7 @@ void MergeView::cleanup()
 
 void MergeView::mergeOpen(KUrl url)
 {
-    if (!m_baseCatalog->numberOfEntries())
+    if (KDE_ISUNLIKELY( !m_baseCatalog->numberOfEntries() ))
         return;
 
     if (url.isEmpty())
@@ -186,7 +186,7 @@ void MergeView::mergeOpen(KUrl url)
 
     delete m_mergeCatalog;
     m_mergeCatalog=new MergeCatalog(this,m_baseCatalog,m_primary);
-    if (m_mergeCatalog->loadFromUrl(url))
+    if (KDE_ISLIKELY( m_mergeCatalog->loadFromUrl(url) ))
     {
         if (m_pos.entry>0)
             emit signalPriorChangedAvailable(m_pos.entry>m_mergeCatalog->firstChangedIndex());
@@ -213,12 +213,12 @@ void MergeView::mergeOpen(KUrl url)
 
 void MergeView::gotoPrevChanged()
 {
-    if (!m_mergeCatalog)
+    if (KDE_ISUNLIKELY( !m_mergeCatalog ))
         return;
 
     DocPosition pos;
 
-    if( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1)
+    if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1 ))
         return;
 
     emit gotoEntry(pos,0);
@@ -226,12 +226,12 @@ void MergeView::gotoPrevChanged()
 
 void MergeView::gotoNextChanged()
 {
-    if (!m_mergeCatalog)
+    if (KDE_ISUNLIKELY( !m_mergeCatalog ))
         return;
 
     DocPosition pos;
 
-    if( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1)
+    if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1 ))
         return;
 
     emit gotoEntry(pos,0);
@@ -297,7 +297,7 @@ void MergeView::mergeAcceptAllForEmpty()
     pos.entry=mergeCatalog.firstChangedIndex();
     pos.offset=0;
     int end=mergeCatalog.lastChangedIndex();
-    if (end==-1)
+    if (KDE_ISUNLIKELY( end==-1 ))
         return;
 
     bool insHappened=false;
@@ -334,7 +334,7 @@ void MergeView::mergeAcceptAllForEmpty()
             mergeCatalog.removeFromDiffIndex(m_pos.entry);
             /// ///
         }
-        if (pos.entry==end)
+        if (KDE_ISUNLIKELY( pos.entry==end ))
             break;
         pos.entry=mergeCatalog.nextChangedIndex(pos.entry);
     } while (pos.entry!=-1);

@@ -375,7 +375,6 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
 
 void KAiderView::settingsChanged()
 {
-    kWarning() << " AAA " <<endl;
     //Settings::self()->config()->setGroup("Editor");
     _msgidEdit->document()->setDefaultFont(Settings::msgFont());
     _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
@@ -396,12 +395,11 @@ void KAiderView::settingsChanged()
     else if (_leds)
         _leds->hide();
 
-    kWarning() << "BBB " <<endl;
 }
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
 {
-    if (_currentEntry==-1)
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
     DocPosition pos=_currentPos;
@@ -441,9 +439,9 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     _currentPos=pos;
     _currentEntry=pos.entry;
 
-    if (_catalog->pluralFormType(_currentEntry)==Gettext)
+    if (KDE_ISUNLIKELY( _catalog->pluralFormType(_currentEntry)==Gettext ))
     {
-        if (_catalog->numberOfPluralForms()!=_tabbar->count())
+        if (KDE_ISUNLIKELY( _catalog->numberOfPluralForms()!=_tabbar->count() ))
         {
             int i=_tabbar->count();
             if (_catalog->numberOfPluralForms()>_tabbar->count())
@@ -539,7 +537,7 @@ void KAiderView::dropEvent(QDropEvent *event)
 // edit actions that are easier to do in this class
 void KAiderView::clearMsgStr()
 {
-    if (_currentEntry==-1)
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
     _currentPos.offset=0;
@@ -556,7 +554,7 @@ void KAiderView::clearMsgStr()
 
 void KAiderView::toggleBookmark(bool checked)
 {
-    if (_currentEntry==-1)
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
     _catalog->setBookmark(_currentEntry,checked);
@@ -564,7 +562,7 @@ void KAiderView::toggleBookmark(bool checked)
 
 void KAiderView::toggleFuzzy(bool checked)
 {
-    if (_currentEntry==-1)
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
     _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,checked));
@@ -574,7 +572,7 @@ void KAiderView::toggleFuzzy(bool checked)
 void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
 {
     //kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
-    if (_currentEntry==-1)
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
     if (fuzzy)
@@ -722,7 +720,7 @@ void KAiderView::replaceText(const QString& txt)
 
 void KAiderView::tagMenu()
 {
-    if (Project::instance()->markup().isEmpty())
+    if (KDE_ISUNLIKELY( Project::instance()->markup().isEmpty() ))
         return;
 
     QMenu menu;

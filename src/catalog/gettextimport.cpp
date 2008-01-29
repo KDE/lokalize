@@ -97,7 +97,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 
    QFileInfo info(filename);
 
-   if( KDE_ISUNLIKELY(!info.exists() || info.isDir()) )
+   if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
       return NO_FILE;
 
    if(KDE_ISUNLIKELY( !info.isReadable() ))
@@ -199,7 +199,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
          else
          {
             CatalogItem tempCatItem;
-            if (_gettextPluralForm)
+            if (KDE_ISUNLIKELY( _gettextPluralForm ))
             {
                 tempCatItem.setPluralFormType(Gettext);
                 tempCatItem.setMsgidPlural( _msgid );
@@ -207,7 +207,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
             }
             else
             {
-                if (_msgid.first().startsWith("_n: ") )
+                if (KDE_ISUNLIKELY( _msgid.first().startsWith("_n: ") ))
                     tempCatItem.setPluralFormType(KDESpecific);
                 else
                     tempCatItem.setPluralFormType(NoPluralForm);
@@ -224,14 +224,14 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
                   docbookFile = tempCatItem.comment().contains(".docbook" );
          }
       }
-      else if(success==RECOVERED_PARSE_ERROR)
+      else if(KDE_ISUNLIKELY( success==RECOVERED_PARSE_ERROR ))
       {
          kDebug() << "Recovered parse error in entry: " << counter;
          recoveredError=true;
          errorIndex.append(counter);
 
             CatalogItem tempCatItem;
-            if (_gettextPluralForm)
+            if (KDE_ISUNLIKELY( _gettextPluralForm ))
             {
                 tempCatItem.setPluralFormType(Gettext);
                 tempCatItem.setMsgidPlural( _msgid );
@@ -239,7 +239,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
             }
             else
             {
-                if (_msgid.first().startsWith("_n: ") )
+                if (KDE_ISUNLIKELY( _msgid.first().startsWith("_n: ") ))
                     tempCatItem.setPluralFormType(KDESpecific);
                 else
                     tempCatItem.setPluralFormType(NoPluralForm);
@@ -253,7 +253,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
          // add new entry to the list of entries
          appendCatalogItem(tempCatItem);
       }
-      else if (KDE_ISUNLIKELY( success == PARSE_ERROR ))
+      else if (success == PARSE_ERROR)
       {
          kDebug() << "Parse error in entry: " << counter;
          return PARSE_ERROR;
@@ -269,7 +269,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 
 
    // TODO: can we check that there is no useful entry?
-   if ( !counter )
+   if (KDE_ISUNLIKELY( !counter ))
    {
       // Empty file? (Otherwise, there would be a try of getting an entry and the count would be 1 !)
       kDebug() << " Empty file?";
@@ -289,12 +289,12 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 //   setFileCodec(codec);
 //   setMimeTypes( "text/x-gettext-translation" );
 
-   if ( recoveredErrorInHeader )
+   if (KDE_ISUNLIKELY( recoveredErrorInHeader ))
    {
       kDebug() << " Returning: header error";
       return RECOVERED_HEADER_ERROR;
    }
-   else if ( recoveredError )
+   else if (KDE_ISUNLIKELY( recoveredError ))
    {
       kDebug() << " Returning: recovered parse error";
       return RECOVERED_PARSE_ERROR;
@@ -314,7 +314,7 @@ QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array/*, bool* hadCod
     QTextCodec* codec=stream.codec();  //detect UTF-16
 
     ConversionStatus status = readHeader(stream);
-    if (status!=OK && status != RECOVERED_PARSE_ERROR)
+    if (KDE_ISUNLIKELY( status!=OK && status != RECOVERED_PARSE_ERROR ))
     {
         kDebug() << "wasn't able to read header";
         return codec;
@@ -361,7 +361,7 @@ ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
    int filePos = stream.device()->pos();
    ConversionStatus status=readEntry(stream);
 
-   if(status==OK || status==RECOVERED_PARSE_ERROR)
+   if(KDE_ISLIKELY( status==OK || status==RECOVERED_PARSE_ERROR ))
    {
       // test if this is the header
       if(!_msgid.first().isEmpty())

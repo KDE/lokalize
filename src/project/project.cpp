@@ -181,7 +181,7 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 
 void Project::populateDirModel()
 {
-    if (!m_model || m_path.isEmpty())
+    if (KDE_ISUNLIKELY( !m_model || m_path.isEmpty() ))
         return;
 
     QString a(poDir());

@@ -271,11 +271,11 @@ static void saveChanged(const Glossary& glo)
 static void addTerms(Glossary* glo)
 {
     QFile stream(glo->path);
-    if (!stream.open(QFile::ReadWrite | QFile::Text))
+    if (KDE_ISUNLIKELY( !stream.open(QFile::ReadWrite | QFile::Text) ))
          return;
 
     QByteArray line;
-    if (stream.size()==0)
+    if (KDE_ISUNLIKELY( stream.size()==0 ))
     {
         stream.write(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -324,13 +324,13 @@ static void addTerms(Glossary* glo)
         while (--j>=0)
             if (glo->termList.at(j).id==glo->addedIds.at(k))
                 break;
-        if (j==-1)
+        if (KDE_ISUNLIKELY( j==-1 ))
         {
             kWarning()<<"should never happen";
             continue;
         }
         const TermEntry& entry=glo->termList.at(j);
-        if (entry.english.isEmpty()||entry.target.isEmpty())
+        if (KDE_ISUNLIKELY( entry.english.isEmpty()||entry.target.isEmpty() ))
         {
             kWarning()<<"Skippin non-complete entry";
             continue;
@@ -341,7 +341,7 @@ static void addTerms(Glossary* glo)
         xmlOut.writeStartElement("termEntry");
         xmlOut.writeAttribute("id",entry.id);
 
-        if (entry.subjectField/*!=-1*/)
+        if (entry.subjectField)
         {
             xmlOut.writeStartElement("descrip");
             xmlOut.writeAttribute("type","subjectField");
@@ -521,7 +521,7 @@ void Glossary::hashTermEntry(int index)
     while(--i>=0)
     {
         QStringList words=termList.at(index).english.at(i).split(' ',QString::SkipEmptyParts);
-        if (!words.isEmpty())
+        if (KDE_ISLIKELY( !words.isEmpty()) )
         {
             int j=words.size();
             while(--j>=0)
@@ -537,7 +537,7 @@ void Glossary::unhashTermEntry(int index)
     while(--i>=0)
     {
         QStringList words=termList.at(index).english.at(i).split(' ',QString::SkipEmptyParts);
-        if (!words.isEmpty())
+        if (KDE_ISLIKELY( !words.isEmpty() ))
         {
             int j=words.size();
             while(--j>=0)
