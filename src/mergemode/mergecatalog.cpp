@@ -64,6 +64,7 @@ void MergeCatalog::BaseCatalogEntryChanged(const DocPosition& pos)
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
 
+        kWarning()<<"9999_";
         emit signalEntryChanged(pos);
     }
 }

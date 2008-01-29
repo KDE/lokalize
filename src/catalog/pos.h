@@ -53,7 +53,7 @@ struct DocPosition
 {
     short entry:16;
     Part part:8;
-    uchar form:8;
+    char form:8;
     uint offset:32;
 
     DocPosition():
@@ -63,7 +63,7 @@ struct DocPosition
         offset(0)
         {}
 
-    DocPosition(short e, Part p=Msgstr, uchar f=0, uint o=0):
+    DocPosition(short e, Part p=Msgstr, char f=0, uint o=0):
         entry(e),
         part(p),
         form(f),

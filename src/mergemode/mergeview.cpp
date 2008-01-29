@@ -263,11 +263,11 @@ void MergeView::mergeAccept()
     bool remove=true;
     if (m_mergeCatalog->isPlural(m_pos.entry))
     {
-        int formsCount=m_baseCatalog->numberOfPluralForms();
         DocPosition pos=m_pos;
-        pos.form=0;
-        while (pos.form<formsCount)
+        pos.form=qMax(m_baseCatalog->numberOfPluralForms(),1);
+        while ((--(pos.form))>=0)
         {
+            kWarning()<<pos.form;
             if (m_baseCatalog->msgstr(pos)!=m_mergeCatalog->msgstr(pos))
             {
                 remove=false;
