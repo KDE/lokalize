@@ -65,7 +65,7 @@ GlossaryTreeView::GlossaryTreeView(QWidget *parent)
 
 }
 
-void GlossaryTreeView::currentChanged(const QModelIndex& current,const QModelIndex& previous)
+void GlossaryTreeView::currentChanged(const QModelIndex& current,const QModelIndex&/* previous*/)
 {
     if (current.isValid())
         emit currentChanged(static_cast<QSortFilterProxyModel*>(model())->mapToSource(current).row());

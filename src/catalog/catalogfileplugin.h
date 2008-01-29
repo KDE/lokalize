@@ -114,7 +114,7 @@ protected:
     /** set flag that the file is generated from DocBook */
     void setGeneratedFromDocbook(const bool fromDocbook);
     /** set the list of parse error indexes */
-    void setErrorIndex(const QList<uint>& errors);
+    void setErrorIndex(const QList<int>& errors);
 
     /** set extra data for the catalog, which can't be stored in
      *  @ref CatalogItem. The format can be arbitrary */

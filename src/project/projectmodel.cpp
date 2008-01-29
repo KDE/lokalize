@@ -612,13 +612,13 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
     kDebug()<<"end";
 }
 
-void ProjectLister::clearTempl(const KUrl& u)
-{
-}
-
-void ProjectLister::clearTempl()
-{
-}
+// void ProjectLister::clearTempl(const KUrl&)
+// {
+// }
+// 
+// void ProjectLister::clearTempl()
+// {
+// }
 
 void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const ref, we modify the list...
 {

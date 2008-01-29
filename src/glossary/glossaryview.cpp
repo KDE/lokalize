@@ -106,7 +106,7 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
     else
         m_currentIndex=entry;
 
-    if (m_catalog->numberOfEntries()<=entry)
+    if (m_catalog->numberOfEntries()<=(int)entry)
         return;//because of Qt::QueuedConnection
     //kWarning()<<"m_catalog->numberOfEntries()"<<m_catalog->numberOfEntries()<<entry;
 //     if (!toggleViewAction()->isChecked())

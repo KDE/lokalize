@@ -56,7 +56,7 @@ public:
     QLinkedList<CatalogItem> _obsoleteEntries;
     CatalogItem _header;
     QTextCodec* _codec;
-    QList<uint> _errorList;
+    QList<int> _errorList;
     QStringList _catalogExtraData;
 };
 

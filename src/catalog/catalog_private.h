@@ -75,11 +75,11 @@ public:
 
     bool _readOnly:4;
 
-    QList<uint> _fuzzyIndex;
-    QList<uint> _untransIndex;
-    QList<uint> _errorIndex;
+    QList<int> _fuzzyIndex;
+    QList<int> _untransIndex;
+    QList<int> _errorIndex;
 
-    QList<uint> _bookmarkIndex;
+    QList<int> _bookmarkIndex;
 
     //for undo/redo
     DocPosition _posBuffer;

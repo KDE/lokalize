@@ -487,7 +487,7 @@ SelectJob::~SelectJob()
     //kWarning() <<"SelectJob dtor ";
 }
 
-void SelectJob::aboutToBeDequeued(WeaverInterface*)
+void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
 {
     m_dequeued=true;
 }

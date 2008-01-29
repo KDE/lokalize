@@ -119,8 +119,8 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
    QTextStream stream(ba,QIODevice::ReadOnly);
    stream.setCodec(codec);
 
-   QIODevice *dev = stream.device();
-   int fileSize = dev->size();
+   //QIODevice *dev = stream.device();
+   //int fileSize = dev->size();
 
    // if somethings goes wrong with the parsing, we don't have deleted the old contents
    CatalogItem tempHeader;
@@ -184,7 +184,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 
    // now parse the rest of the file
    uint counter=0;
-   QList<uint> errorIndex;
+   QList<int> errorIndex;
    bool recoveredError=false;
    bool docbookFile=false;
 

@@ -116,7 +116,7 @@ public:
     //QString _packageName() const {return d->fileCodec;}
 
 
-    void setErrorIndex(const QList<uint>& errors){d->_errorIndex=errors;}
+    void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
 
     void setImportPluginID(const QString& id){d->_importID=id;}
     const QString& importPluginID() const {return d->_importID;}
@@ -141,8 +141,8 @@ public slots:
     bool save();
 
 protected:
-    int findPrevInList(const QList<uint>& list,uint index) const;
-    int findNextInList(const QList<uint>& list,uint index) const;
+    int findPrevInList(const QList<int>& list,int index) const;
+    int findNextInList(const QList<int>& list,int index) const;
 protected:
     //EDITING
     //(accessed from undo/redo code)

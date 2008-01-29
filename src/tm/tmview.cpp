@@ -229,7 +229,7 @@ void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
     m_cache[DocPos(job->m_pos)]=job->m_entries.toVector();
 }
 
-void TMView::slotBatchSelectDone(ThreadWeaver::Job* j)
+void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
 {
     m_jobs.clear();
     if (!m_isBatching)

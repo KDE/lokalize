@@ -201,8 +201,8 @@ bool Catalog::loadFromUrl(const KUrl& url)
     d->_numberOfPluralForms = storage->numberOfPluralForms();
 
     //index cache TODO profile?
-    QList<uint>& fuzzyIndex=d->_fuzzyIndex;
-    QList<uint>& untransIndex=d->_untransIndex;
+    QList<int>& fuzzyIndex=d->_fuzzyIndex;
+    QList<int>& untransIndex=d->_untransIndex;
     fuzzyIndex.clear();
     untransIndex.clear();
 
@@ -298,8 +298,8 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
         //addToUntransIndex
 
         // insert index in the right place in the list
-        QList<uint>::Iterator it = d->_untransIndex.begin();
-        while(it != d->_untransIndex.end() && pos.entry > *it)
+        QList<int>::Iterator it = d->_untransIndex.begin();
+        while(it != d->_untransIndex.end() && pos.entry > (int)*it)
             ++it;
         d->_untransIndex.insert(it,pos.entry);
         emit signalNumberOfUntranslatedChanged();
@@ -335,11 +335,11 @@ void Catalog::setApproved(const DocPosition& pos, bool fuzzy)
     m_storage->setApproved(pos,fuzzy);
 
     //cache maintainance
-    QList<uint>& idx=d->_fuzzyIndex;
+    QList<int>& idx=d->_fuzzyIndex;
     if (fuzzy)
     {
         // insert index in the right place in the list
-        QList<uint>::Iterator it = idx.begin();
+        QList<int>::Iterator it = idx.begin();
         while(it != idx.end() && pos.entry > short(*it))
             ++it;
         idx.insert(it,pos.entry);
@@ -357,7 +357,7 @@ void Catalog::setApproved(const DocPosition& pos, bool fuzzy)
 
 
 
-int Catalog::findNextInList(const QList<uint>& list,uint index) const
+int Catalog::findNextInList(const QList<int>& list,int index) const
 {
     if(KDE_ISUNLIKELY( list.isEmpty() ))
         return -1;
@@ -375,7 +375,7 @@ int Catalog::findNextInList(const QList<uint>& list,uint index) const
     return nextIndex;
 }
 
-int Catalog::findPrevInList(const QList<uint>& list,uint index) const
+int Catalog::findPrevInList(const QList<int>& list,int index) const
 {
     if (KDE_ISUNLIKELY( list.isEmpty() ))
         return -1;
@@ -407,8 +407,8 @@ void Catalog::setBookmark(uint idx,bool set)
     if (set)
     {
         // insert index in the right place in the list
-        QList<uint>::Iterator it = d->_bookmarkIndex.begin();
-        while(it != d->_bookmarkIndex.end() && idx > (*it))
+        QList<int>::Iterator it = d->_bookmarkIndex.begin();
+        while(it != d->_bookmarkIndex.end() && (int)idx > (*it))
             ++it;
         d->_bookmarkIndex.insert(it,idx);
     }

@@ -41,7 +41,6 @@
 #include <QString>
 //#include <QMultiHash>
 #include <QSqlDatabase>
-class WeaverInterface;
 
 #define CLOSEDB 10001
 #define OPENDB  10000
@@ -148,10 +147,10 @@ public:
     ~SelectJob();
 
     int priority()const{return SELECT;}
-    void aboutToBeDequeued(WeaverInterface*);
 
 protected:
     void run ();
+    void aboutToBeDequeued(ThreadWeaver::WeaverInterface*);
 
 private:
     //returns true if seen translation with >85%

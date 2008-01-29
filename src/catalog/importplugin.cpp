@@ -78,7 +78,7 @@ void CatalogImportPlugin::setGeneratedFromDocbook( const bool generated )
     d->_updateGeneratedFromDocbook = true;
 }
 
-void CatalogImportPlugin::setErrorIndex(const QList<uint>& errors)
+void CatalogImportPlugin::setErrorIndex(const QList<int>& errors)
 {
     d->_errorList = errors;
     d->_updateErrorList = true;
@@ -122,13 +122,12 @@ void CatalogImportPlugin::commitTransaction(const QString& file)
     // fill in the entries
     QVector<CatalogItem>& entries=catalog->m_entries;
     entries.reserve( d->_entries.count() ); //d->_catalog->setEntries( e );
-//         uint i=0;
     for( QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/ )
         entries.append( *it );
 
     QVector<CatalogItem>& obsoleteEntries=catalog->m_obsoleteEntries;
     for( QLinkedList<CatalogItem>::const_iterator it = d->_obsoleteEntries.begin(); it != d->_obsoleteEntries.end(); ++it/*,++i*/ )
-        entries.append( *it );
+        obsoleteEntries.append( *it );
 
     catalog->setUrl(KUrl(file));
 

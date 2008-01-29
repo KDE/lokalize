@@ -117,7 +117,7 @@ private:
 private:
     QVector<int> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
-    QList<uint> m_mergeDiffIndex;//points to baseCatalog entries
+    QList<int> m_mergeDiffIndex;//points to baseCatalog entries
     bool m_primary;
 };
 

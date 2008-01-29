@@ -146,8 +146,8 @@ public slots:
     void slotNewTemplItems(KFileItemList);//to get metainfo
     void slotDeleteTemplItem(const KFileItem&);
     void slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > );
-    void clearTempl();
-    void clearTempl(const KUrl&);
+//     void clearTempl();
+//     void clearTempl(const KUrl&);
 
     void slotNewItems(const KFileItemList& list);//including getting metainfo
     void slotDeleteItem(const KFileItem&);
