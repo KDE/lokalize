@@ -3,6 +3,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/common
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog
+    ${CMAKE_CURRENT_SOURCE_DIR}/catalog/gettext
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
@@ -61,11 +62,11 @@ set(lokalize_SRCS
     catalog/cmd.cpp
     catalog/pos.cpp
     catalog/catalog.cpp
-    catalog/gettextstorage.cpp
-    catalog/catalogitem.cpp
-    catalog/importplugin.cpp
-    catalog/gettextimport.cpp
-    catalog/gettextexport.cpp
+    catalog/gettext/gettextstorage.cpp
+    catalog/gettext/catalogitem.cpp
+    catalog/gettext/importplugin.cpp
+    catalog/gettext/gettextimport.cpp
+    catalog/gettext/gettextexport.cpp
 )
 
 

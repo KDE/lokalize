@@ -103,23 +103,43 @@ KAider::KAider()
         , _mergeView(0)
         , _mergeViewSecondary(0)
 {
-    QTime chrono;
-    chrono.start();
-    setUpdatesEnabled(false);//dunno if it helps
+//     QTime chrono;chrono.start();
+
+//     setUpdatesEnabled(false);//dunno if it helps
     setAcceptDrops(true);
     setCentralWidget(m_view);
-    setupStatusBar();
+    //setupStatusBar(); --called from initLater()
     createDockWindows(); //toolviews
     setupActions();
     //setAutoSaveSettings();
 
+//     setUpdatesEnabled(true);
+    QTimer::singleShot(0,this,SLOT(initLater()));
+
+//     kWarning()<<chrono.elapsed();
+}
+
+void KAider::initLater()
+{
+//     QTime chrono;chrono.start();
+
+    setupStatusBar();
+
     connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
-    connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged()));
+    connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
-    setUpdatesEnabled(true);
-    Project::instance()->registerEditor(this);
-    kDebug()<<chrono.elapsed();
+    connect (m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
+
+    KConfig config;
+    _openRecentFile->loadEntries(KConfigGroup(&config,"RecentFiles"));
+
+    Project& p=*(Project::instance());
+    p.registerEditor(this);
+//unplugActionList( "xxx_file_actionlist" );
+    plugActionList( "project_actions", p.projectActions());
+
+//     kWarning()<<chrono.elapsed();
 }
 
 KAider::~KAider()
@@ -128,16 +148,6 @@ KAider::~KAider()
     KConfig config;
     _openRecentFile->saveEntries(KConfigGroup(&config,"RecentFiles"));
     deleteUiSetupers();
-    //these are qobjects...
-    /*    delete m_view;
-        delete _findDialog;
-        delete _replaceDialog;
-        delete _find;
-        delete _replace;
-
-        delete ui_findExtension;
-        delete ui_findExtension;
-    */
 
     Project::instance()->unregisterEditor(this);
 }
@@ -176,66 +186,71 @@ void KAider::numberOfUntranslatedChanged()
 
 void KAider::setupActions()
 {
-    connect (m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
+    //all operations that can be done after initial setup
+    // (via QTimer::singleShot) go to initLater()
+
+    //QTime aaa;aaa.start();
+
     setStandardToolBarMenuEnabled(true);
 
     QAction *action;
+    KActionCollection* ac=actionCollection();
 // File
-    KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
-    _openRecentFile = KStandardAction::openRecent(this, SLOT(fileOpen(const KUrl&)), actionCollection());
-    KConfig config;
-    _openRecentFile->loadEntries(KConfigGroup(&config,"RecentFiles"));
-    action = KStandardAction::save(this, SLOT(fileSave()), actionCollection());
+    KStandardAction::open(this, SLOT(fileOpen()), ac);
+
+    _openRecentFile = KStandardAction::openRecent(this, SLOT(fileOpen(const KUrl&)), ac);
+
+    action = KStandardAction::save(this, SLOT(fileSave()), ac);
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
-    action = KStandardAction::quit(qApp, SLOT(quit()), actionCollection());
-    action->setText(i18nc("@action:inmenu","Close all LoKalize windows"));
+    //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
+    //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
 
-    //KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
-    //KStandardAction::quit(this, SLOT(deleteLater()), actionCollection());
+    //KStandardAction::quit(kapp, SLOT(quit()), ac);
+    //KStandardAction::quit(this, SLOT(deleteLater()), ac);
 
 
 //Settings
-    KStandardAction::preferences(SettingsController::instance(), SLOT(slotSettings()), actionCollection());
+    KStandardAction::preferences(SettingsController::instance(), SLOT(slotSettings()), ac);
 
 #define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCollection()->addAction(_name);\
+    action = ac->addAction(_name);\
     action->setText(_text);\
     action->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::_shortcut));\
     action->setIcon(KIcon(_icon));
 
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCollection()->addAction(_name);\
+    action = ac->addAction(_name);\
     action->setText(_text);\
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setIcon(KIcon(_icon));
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
-    action = actionCollection()->addAction(_name);\
+    action = ac->addAction(_name);\
     action->setText(_text);\
     action->setShortcut(QKeySequence( _shortcut ));\
 
 
 //Edit
-    action = KStandardAction::undo(this,SLOT(undo()),actionCollection());
+    action = KStandardAction::undo(this,SLOT(undo()),ac);
     connect(m_view,SIGNAL(signalUndo()),this,SLOT(undo()));
     connect(_catalog,SIGNAL(canUndoChanged(bool)),action,SLOT(setEnabled(bool)) );
     action->setEnabled(false);
 
-    action = KStandardAction::redo(this, SLOT(redo()),actionCollection());
+    action = KStandardAction::redo(this, SLOT(redo()),ac);
     connect(m_view,SIGNAL(signalRedo()),this,SLOT(redo()));
     connect(_catalog,SIGNAL(canRedoChanged(bool)),action,SLOT(setEnabled(bool)) );
     action->setEnabled(false);
 
-    action = KStandardAction::find(this,SLOT(find()),actionCollection());
-    action = KStandardAction::findNext(this,SLOT(findNext()),actionCollection());
-    action = KStandardAction::findPrev(this,SLOT(findPrev()),actionCollection());
+    action = KStandardAction::find(this,SLOT(find()),ac);
+    action = KStandardAction::findNext(this,SLOT(findNext()),ac);
+    action = KStandardAction::findPrev(this,SLOT(findPrev()),ac);
     action->setText(i18nc("@action:inmenu","Change searching direction"));
-    action = KStandardAction::replace(this,SLOT(replace()),actionCollection());
+    action = KStandardAction::replace(this,SLOT(replace()),ac);
 
 //
-    action = actionCollection()->addAction("edit_toggle_fuzzy");
+    action = ac->addAction("edit_toggle_fuzzy");
     action->setShortcut( Qt::CTRL+Qt::Key_U );
     action->setIcon(KIcon("togglefuzzy"));
     action->setText(i18nc("@option:check","Fuzzy"));
@@ -252,39 +267,39 @@ void KAider::setupActions()
     ADD_ACTION_SHORTCUT_ICON("unwrapmsgstr",i18nc("@action:inmenu","Unwrap Msgstr"),Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
-    action = actionCollection()->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
+    action = ac->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18nc("@action:inmenu","Clear"));
 
-    action = actionCollection()->addAction("edit_tagmenu",m_view,SLOT(tagMenu()));
+    action = ac->addAction("edit_tagmenu",m_view,SLOT(tagMenu()));
     action->setShortcut(Qt::CTRL+Qt::Key_T);
     action->setText(i18nc("@action:inmenu","Insert Tag"));
 
-//     action = actionCollection()->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
+//     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18nc("@action:inmenu","Define new term"));
 
 // Go
-    action = KStandardAction::next(this, SLOT(gotoNext()), actionCollection());
+    action = KStandardAction::next(this, SLOT(gotoNext()), ac);
     action->setText(i18nc("@action:inmenu entry","&Next"));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
-    action = KStandardAction::prior(this, SLOT(gotoPrev()), actionCollection());
+    action = KStandardAction::prior(this, SLOT(gotoPrev()), ac);
     action->setText(i18nc("@action:inmenu entry","&Previous"));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
-    action = KStandardAction::firstPage(this, SLOT(gotoFirst()),actionCollection());
+    action = KStandardAction::firstPage(this, SLOT(gotoFirst()),ac);
     connect(m_view,SIGNAL(signalGotoFirst()),this,SLOT(gotoFirst()));
     action->setText(i18nc("@action:inmenu","&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Home));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
-    action = KStandardAction::lastPage(this, SLOT(gotoLast()),actionCollection());
+    action = KStandardAction::lastPage(this, SLOT(gotoLast()),ac);
     connect(m_view,SIGNAL(signalGotoLast()),this,SLOT(gotoLast()));
     action->setText(i18nc("@action:inmenu","&Last Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_End));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
-    action = KStandardAction::gotoPage(this, SLOT(gotoEntry()), actionCollection());
+    action = KStandardAction::gotoPage(this, SLOT(gotoEntry()), ac);
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous Fuzzy"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
@@ -312,7 +327,7 @@ void KAider::setupActions()
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
 //Tools
-    action = KStandardAction::spelling(this,SLOT(spellcheck()),actionCollection());
+    action = KStandardAction::spelling(this,SLOT(spellcheck()),ac);
 
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showGlossary() ) );
@@ -328,109 +343,117 @@ void KAider::setupActions()
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
 
-    action = actionCollection()->addAction("tools_tm_manage");
+    action = ac->addAction("tools_tm_manage");
     action->setText(i18nc("@action:inmenu","Manage translation memories"));
     connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTMManager() ) );
 
 //Bookmarks
-    action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),actionCollection());
-    //action = actionCollection()->addAction("bookmark_do");
+    action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),ac);
+    //action = ac->addAction("bookmark_do");
     action->setText(i18nc("@option:check","Bookmark message"));
     action->setCheckable(true);
     //connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
     connect( this, SIGNAL(signalBookmarkDisplayed(bool)),action,SLOT(setChecked(bool)) );
 
-    action = actionCollection()->addAction("bookmark_prior",this,SLOT(gotoPrevBookmark()));
+    action = ac->addAction("bookmark_prior",this,SLOT(gotoPrevBookmark()));
     action->setText(i18nc("@action:inmenu","Previous bookmark"));
     connect( this, SIGNAL(signalPriorBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action = actionCollection()->addAction("bookmark_next",this,SLOT(gotoNextBookmark()));
+    action = ac->addAction("bookmark_next",this,SLOT(gotoNextBookmark()));
     action->setText(i18nc("@action:inmenu","Next bookmark"));
     connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     /*
     //Project
-    action = actionCollection()->addAction("project_configure",SettingsController::instance(),SLOT(projectConfigure()));
+    action = ac->addAction("project_configure",SettingsController::instance(),SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
-    action = actionCollection()->addAction("project_open",SettingsController::instance(),SLOT(projectOpen()));
+    action = ac->addAction("project_open",SettingsController::instance(),SLOT(projectOpen()));
     action->setText(i18nc("@action:inmenu","Open project"));
 
-    action = actionCollection()->addAction("project_create",SettingsController::instance(),SLOT(projectCreate()));
+    action = ac->addAction("project_create",SettingsController::instance(),SLOT(projectCreate()));
     action->setText(i18nc("@action:inmenu","Create new project"));
     */
 
 //MergeMode
-    action = actionCollection()->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
+    action = ac->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for sync/merge"));
     action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one / replicate base file changes to"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
+    _mergeView->addAction(action);
 
-    action = actionCollection()->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
+    action = ac->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
     action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Up);
     connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    _mergeView->addAction(action);
 
-    action = actionCollection()->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
+    action = ac->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
     action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Down);
     connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    _mergeView->addAction(action);
 
-    action = actionCollection()->addAction("merge_accept",_mergeView,SLOT(mergeAccept()));
+    action = ac->addAction("merge_accept",_mergeView,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
     action->setShortcut(Qt::ALT+Qt::Key_Return);
     connect( _mergeView, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
+    _mergeView->addAction(action);
 
-    action = actionCollection()->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
+    action = ac->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
     action->setStatusTip(i18nc("@info:statustip","This changes only empty entries in base file"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
+    _mergeView->addAction(action);
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
 //Secondary merge
-    action = actionCollection()->addAction("mergesecondary_open",_mergeViewSecondary,SLOT(mergeOpen()));
+    action = ac->addAction("mergesecondary_open",_mergeViewSecondary,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for secondary sync"));
     action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one / replicate base file changes to"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
+    _mergeViewSecondary->addAction(action);
 
-    action = actionCollection()->addAction("mergesecondary_prev",_mergeViewSecondary,SLOT(gotoPrevChanged()));
+    action = ac->addAction("mergesecondary_prev",_mergeViewSecondary,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
     action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     connect( _mergeViewSecondary, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    _mergeViewSecondary->addAction(action);
 
-    action = actionCollection()->addAction("mergesecondary_next",_mergeViewSecondary,SLOT(gotoNextChanged()));
+    action = ac->addAction("mergesecondary_next",_mergeViewSecondary,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
     action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     connect( _mergeViewSecondary, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    _mergeViewSecondary->addAction(action);
 
-    action = actionCollection()->addAction("mergesecondary_accept",_mergeViewSecondary,SLOT(mergeAccept()));
+    action = ac->addAction("mergesecondary_accept",_mergeViewSecondary,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
     connect( _mergeViewSecondary, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
+    _mergeViewSecondary->addAction(action);
 
-    action = actionCollection()->addAction("mergesecondary_acceptnew",_mergeViewSecondary,SLOT(mergeAcceptAllForEmpty()));
+    action = ac->addAction("mergesecondary_acceptnew",_mergeViewSecondary,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
     action->setStatusTip(i18nc("@info:statustip","This changes only empty entries"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-
+    _mergeViewSecondary->addAction(action);
 
     setupGUI(Default,"lokalizeui.rc");
 
-//unplugActionList( "xxx_file_actionlist" );
-    plugActionList( "project_actions", Project::instance()->projectActions());
+//    kWarning()<<aaa.elapsed();
 }
 
 void KAider::newWindowOpen(const KUrl& url)
@@ -595,6 +618,7 @@ void KAider::createDockWindows()
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
     connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
     connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+
 }
 
 bool KAider::fileOpen(KUrl url)

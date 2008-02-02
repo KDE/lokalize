@@ -35,9 +35,11 @@
 
 #include <QSyntaxHighlighter>
 #include <sonnet/highlighter.h>
+#include <kcolorscheme.h>
 
 #include <QHash>
 #include <QTextCharFormat>
+
 
 class QTextDocument;
 
@@ -47,6 +49,7 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 
 public:
     explicit SyntaxHighlighter(QTextDocument *parent = 0/*,bool docbook=true*/);
+    ~SyntaxHighlighter(){};
 
 protected:
     void highlightBlock(const QString &text);
@@ -61,6 +64,8 @@ private:
 
 //     bool fromDocbook;
     QTextCharFormat tagFormat;
+    KStatefulBrush tagBrush;
+
 };
 
 #endif

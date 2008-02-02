@@ -114,6 +114,7 @@ private:
 
     DocPosition _currentPos;
     int _currentEntry;
+    bool m_fuzzyState;
 
 signals:
     void signalChangeStatusbar(const QString&);
@@ -131,7 +132,7 @@ private slots:
     //for Undo/Redo tracking
     void contentsChanged(int position,int charsRemoved,int charsAdded);
     //we need this function cause...
-    void fuzzyEntryDisplayed(bool);
+    void fuzzyEntryDisplayed(bool fuzzy,bool force=true);
 
     //Edit menu
     void toggleFuzzy(bool);

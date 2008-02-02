@@ -166,6 +166,7 @@ private slots:
 
     void defineNewTerm();
 
+    void initLater();
 private:
     void setupAccel();
     void setupActions();

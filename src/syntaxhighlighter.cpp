@@ -37,18 +37,27 @@
 
 #include <kdebug.h>
 
+#include <QApplication>
+
 #define STATE_NORMAL 0
 #define STATE_TAG 1
 
 
+#define NUM_OF_RULES 4
+
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
     : QSyntaxHighlighter(parent)
+    , tagBrush(KColorScheme::View,KColorScheme::VisitedText)
+//     , fuzzyState(false)
 //     , fromDocbook(docbook)
 {
-    highlightingRules.reserve(4);
+    highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;
+    //rule.format.setFontItalic(true);
+//     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
+    tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
     //QTextCharFormat format;
-    tagFormat.setForeground(Qt::darkBlue);
+    //tagFormat.setForeground(Qt::darkBlue);
 //     if (!docbook) //support multiline tags
 //     {
 //         rule.format = tagFormat;
@@ -85,7 +94,18 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
 //     commentStartExpression = QRegExp("/\\*");
 //     commentEndExpression = QRegExp("\\*/");
 
+//         highlightingRulesFuzzy[i].format.setFontItalic(true);
 }
+/*
+void SyntaxHighlighter::setFuzzyState(bool fuzzy)
+{
+    return;
+    int i=NUM_OF_RULES;
+    while(--i>=0)
+        highlightingRules[i].format.setFontItalic(fuzzy);
+
+    tagFormat.setFontItalic(fuzzy);
+}*/
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
@@ -112,8 +132,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                                 +1/*+ commentEndExpression.matchedLength()*/;
             }
             setFormat(startIndex, commentLength, tagFormat);
-            startIndex = text.indexOf('<',
-                                                    startIndex + commentLength);
+            startIndex = text.indexOf('<', startIndex + commentLength);
         }
     }
 

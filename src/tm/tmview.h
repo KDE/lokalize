@@ -84,6 +84,7 @@ public slots:
     void slotBatchTranslate();
     void slotBatchTranslateFuzzy();
 
+//     void slotPaletteChanged();
 private:
     KTextBrowser* m_browser;
     Catalog* m_catalog;

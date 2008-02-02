@@ -44,6 +44,7 @@
 #include <kdebug.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <ktextbrowser.h>
+#include <kglobalsettings.h>
 #include <kpassivepopup.h>
 
 #include <QTime>
@@ -111,6 +112,9 @@ void TMView::initLater()
     DBFilesModel::instance();
 
     m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
+
+    //TODO ? kdisplayPaletteChanged
+//     connect(KGlobalSettings::self(),,SIGNAL(kdisplayPaletteChanged()),this,SLOT(slotPaletteChanged()));
 
     kWarning()<<"init "<<time.elapsed();
 }
@@ -324,8 +328,7 @@ void TMView::slotBatchTranslateFuzzy()
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    QTime time;
-    time.start();
+    QTime time;time.start();
 
     if (m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
@@ -371,8 +374,7 @@ void TMView::displayFromCache()
 
 void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 {
-    QTime time;
-    time.start();
+    QTime time;time.start();
 
     SelectJob& job=*(static_cast<SelectJob*>(j));
     if (job.m_pos.entry!=m_pos.entry)
@@ -491,6 +493,15 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     m_browser->insertHtml("</html>");
     kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
+
+
+/*
+void TMView::slotPaletteChanged()
+{
+    
+}*/
+
+
 
 void TMView::slotSelectionChanged()
 {

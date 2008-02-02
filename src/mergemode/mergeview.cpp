@@ -45,6 +45,7 @@
 #include <ktextedit.h>
 
 #include <QDragEnterEvent>
+#include <QAction>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog,bool primary)
     : QDockWidget ( primary?i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"), parent)
@@ -67,6 +68,8 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog,bool primary)
 
     setAcceptDrops(true);
     m_browser->setReadOnly(true);
+    m_browser->setContextMenuPolicy(Qt::NoContextMenu);
+    setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
 MergeView::~MergeView()

@@ -136,7 +136,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _tabbar(new QTabBar(this))
     , _leds(0)
     , _currentEntry(-1)
-
+    , m_fuzzyState(false)
 {
     _tabbar->hide();
 //     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
@@ -240,12 +240,12 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
     }
     else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
     {
-        if (_catalog->isFuzzy(_currentEntry))
+        if (KDE_ISUNLIKELY( _catalog->isFuzzy(_currentEntry) ))
         {
             _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
-            _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+            fuzzyEntryDisplayed(false);
         }
-        fuzzyEntryDisplayed(false);
+        //fuzzyEntryDisplayed(false); why here?...
         return false;
     }
     //clever editing
@@ -424,9 +424,6 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     {
         _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
         fuzzyEntryDisplayed(false);
-//         _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
-//         if (_leds)
-//             _leds->ledFuzzy->off();
     }
 
     // for mergecatalog (delete entry from index)
@@ -434,8 +431,11 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     emit signalChanged(pos.entry);
 }
 
+//main function in this file :)
 void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
 {
+    setUpdatesEnabled(false);
+
     _currentPos=pos;
     _currentEntry=pos.entry;
 
@@ -451,7 +451,6 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
                 while (i>_catalog->numberOfPluralForms())
                     _tabbar->removeTab(i--);
         }
-        kDebug()<<"_tabbar->count()"<<_tabbar->count();
         _tabbar->show();
         _tabbar->blockSignals(true);
         _tabbar->setCurrentIndex(_currentPos.form);
@@ -459,6 +458,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     }
     else
         _tabbar->hide();
+
+    //force this because there are conditions when the
+    //signal isn't emitted (haven't identify them yet)
+    fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry),false);
 
     _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
     unwrap(_msgidEdit);
@@ -491,10 +494,10 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     }
     else
     //what if msg starts with a tag?
-    if (!untrans && _catalog->msgstr(_currentPos).startsWith('<'))
+    if (KDE_ISUNLIKELY( !untrans && _catalog->msgstr(_currentPos).startsWith('<') ))
     {
         int offset=_catalog->msgstr(_currentPos).indexOf(QRegExp(">[^<]"));
-        if (offset!=-1)
+        if ( offset!=-1 )
         {
             QTextCursor t=msgEdit->textCursor();
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
@@ -504,17 +507,15 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
     //for undo/redo tracking
     _oldMsgstr=_catalog->msgstr(_currentPos);
-    //_oldMsgstr=_msgstrEdit->toPlainText();
 
+    //prevent undo tracking system from recording this 'action'
     disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
     m_msgstrHighlighter->rehighlight();
     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
     msgEdit->setFocus();
 
-    //force this because there are conditions when the
-    //signal isn't emitted (didn't identify them yet)
-    fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+    setUpdatesEnabled(true);
 }
 
 void KAiderView::dragEnterEvent(QDragEnterEvent* event)
@@ -531,6 +532,12 @@ void KAiderView::dropEvent(QDropEvent *event)
     emit fileOpenRequested(KUrl(event->mimeData()->urls().first()));
     event->acceptProposedAction();
 }
+
+
+
+
+
+
 
 
 
@@ -569,11 +576,20 @@ void KAiderView::toggleFuzzy(bool checked)
 }
 
 
-void KAiderView::fuzzyEntryDisplayed(bool fuzzy)
+void KAiderView::fuzzyEntryDisplayed(bool fuzzy, bool force)
 {
     //kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
-    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
+    if (KDE_ISUNLIKELY( _currentEntry==-1 || (m_fuzzyState==fuzzy && !force) ))
         return;
+    m_fuzzyState=fuzzy;
+
+    _msgstrEdit->setFontItalic(fuzzy);
+    if (force)
+    {
+        _msgstrEdit->document()->blockSignals(true);
+        _msgstrEdit->setPlainText(_catalog->msgstr(_currentPos));
+        _msgstrEdit->document()->blockSignals(false);
+    }
 
     if (fuzzy)
     {
@@ -687,7 +703,7 @@ void KAiderView::insertTerm(const QString& term)
 
 void KAiderView::replaceText(const QString& txt)
 {
-    if (txt==_msgstrEdit->toPlainText())
+    if (KDE_ISUNLIKELY( txt==_msgstrEdit->toPlainText() ))
         return;
 
     int oldOffset=_msgstrEdit->textCursor().position();
@@ -695,7 +711,7 @@ void KAiderView::replaceText(const QString& txt)
 
     _msgstrEdit->setFocus();
 
-    if (_catalog->msgstr(_currentPos).size()==txt.size())
+    if (KDE_ISUNLIKELY( _catalog->msgstr(_currentPos).size()==txt.size() ))
         return;
 
     _catalog->beginMacro(i18nc("@item Undo action item","Remove old translation"));
@@ -734,8 +750,6 @@ void KAiderView::tagMenu()
     target.remove('\n');
     int pos=0;
     //tag.indexIn(en);
-    //kWarning() << tag.capturedTexts();
-    //kWarning() << tag.cap(0);
     int posInMsgStr=0;
     QAction* txt(0);
     while ((pos=tag.indexIn(en,pos))!=-1)
