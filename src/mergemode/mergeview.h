@@ -86,8 +86,8 @@ private:
     DocPosition m_pos;
     QString m_normTitle;
     QString m_hasInfoTitle;
-    bool m_hasInfo:16;
-    bool m_primary:16;
+    bool m_hasInfo;
+    bool m_primary;
 
 };
 
