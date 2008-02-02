@@ -88,8 +88,8 @@ private:
     void setJumpingPos();
 
     Catalog* _catalog;
-    short _index:16;
-    bool _flag:16;
+    short _index;
+    bool _flag;
 };
 
 

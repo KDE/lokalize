@@ -723,7 +723,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     //<<pow(float(addLen*addSubStrCount),0.2)<<" "
     //<<endl;
 
-                    float score=9500*(pow(float(commonLen)/float(allLen),0.20))//this was < 1 so we have increased it
+                    float score=9500*(pow(float(commonLen)/float(allLen),0.20f))//this was < 1 so we have increased it
                             //this was > 1 so we have decreased it, and increased result:
                                     / exp(0.015*float(addLen))
                                     / exp(0.025*float(addSubStrCount));
@@ -749,7 +749,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 else//==to adapt, only deletion is needed
                 {
 //                             kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
-                    float score=9900*(pow(float(commonLen)/float(allLen),0.20))
+                    float score=9900*(pow(float(commonLen)/float(allLen),0.20f))
                             / exp(0.01*float(delLen))
                             / exp(0.015*float(delSubStrCount));
                     e.score=(int)score;
