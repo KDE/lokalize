@@ -95,7 +95,7 @@ target_link_libraries(lokalize
 #     ${KDE4_KFIlE_LIBS}
 #     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
-    -lkfile
+    ${KDE4_KFILE_LIBS}
     ${KDE4_THREADWEAVER_LIBRARY}
     ${QT_QTSQL_LIBRARY}
 )
