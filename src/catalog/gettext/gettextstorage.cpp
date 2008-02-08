@@ -138,8 +138,6 @@ int GettextStorage::size() const
     return m_entries.size();
 }
 
-bool GettextStorage::save(const KUrl& url=KUrl());
-
 void GettextStorage::clear()
 {}
 
