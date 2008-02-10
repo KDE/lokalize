@@ -42,7 +42,7 @@ DBFilesModel* DBFilesModel::_instance=0;
 
 DBFilesModel* DBFilesModel::instance()
 {
-    if (_instance==0)
+    if (KDE_ISUNLIKELY( _instance==0 ))
         _instance=new DBFilesModel;
 
     return _instance;
@@ -53,7 +53,7 @@ DBFilesModel::DBFilesModel()
  : KDirModel()
 {
     QString dbDir=KStandardDirs::locateLocal("appdata", "");
-    dirLister()->openUrl(dbDir);
+    dirLister()->openUrl(KUrl::fromPath(dbDir));
     dirLister()->setNameFilter("*.db");
 }
 

@@ -69,18 +69,19 @@ bool InsTextCmd::mergeWith(const QUndoCommand *other)
 
 void InsTextCmd::redo()
 {
-    _catalog->targetInsert(_pos,_str);
-
-    _catalog->d->_posBuffer=_pos;
+    Catalog& catalog=*_catalog;
+    catalog.setLastModifiedPos(_pos);
+    catalog.targetInsert(_pos,_str);
 }
 
 void InsTextCmd::undo()
 {
     Catalog& catalog=*_catalog;
-    catalog.targetDelete(_pos,_str.size());
 
-    catalog.d->_posBuffer=_pos;
-    catalog.d->_posBuffer.offset+=_str.size();
+    DocPosition pos=_pos; pos.offset+=_str.size();
+    catalog.setLastModifiedPos(pos);
+
+    catalog.targetDelete(_pos,_str.size());
 }
 
 
@@ -122,16 +123,16 @@ void DelTextCmd::redo()
 {
     Catalog& catalog=*_catalog;
 
-    catalog.targetDelete(_pos,_str.size());
+    DocPosition pos=_pos; pos.offset+=_str.size();
+    catalog.setLastModifiedPos(pos);
 
-    catalog.d->_posBuffer=_pos;
-    catalog.d->_posBuffer.offset+=_str.size();
+    catalog.targetDelete(_pos,_str.size());
 }
 void DelTextCmd::undo()
 {
-    _catalog->targetInsert(_pos,_str);
-
-    _catalog->d->_posBuffer=_pos;
+    Catalog& catalog=*_catalog;
+    catalog.setLastModifiedPos(_pos);
+    catalog.targetInsert(_pos,_str);
 }
 
 ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
@@ -145,18 +146,46 @@ ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
 void ToggleFuzzyCmd::redo()
 {
     setJumpingPos();
-    _catalog->setApproved(DocPosition(_index),_flag);
+    _catalog->setApproved(DocPosition(_index),!_flag);
 }
 
 void ToggleFuzzyCmd::undo()
 {
     setJumpingPos();
-    _catalog->setApproved(DocPosition(_index),!_flag);
+    _catalog->setApproved(DocPosition(_index),_flag);
 }
 
 void ToggleFuzzyCmd::setJumpingPos()
 {
-    _catalog->d->_posBuffer=DocPosition(_index);
+    _catalog->setLastModifiedPos(DocPosition(_index));
 }
+
+
+
+ToggleApprovementCmd::ToggleApprovementCmd(Catalog *catalog,uint index,bool approved)
+    : QUndoCommand(i18nc("@item Undo action item","Approvement toggling"))
+    , _catalog(catalog)
+    , _index(index)
+    , _approved(approved)
+{
+}
+
+void ToggleApprovementCmd::redo()
+{
+    setJumpingPos();
+    _catalog->setApproved(DocPosition(_index),_approved);
+}
+
+void ToggleApprovementCmd::undo()
+{
+    setJumpingPos();
+    _catalog->setApproved(DocPosition(_index),!_approved);
+}
+
+void ToggleApprovementCmd::setJumpingPos()
+{
+    _catalog->setLastModifiedPos(DocPosition(_index));
+}
+
 
 

@@ -86,12 +86,18 @@
     </entry>
 -->
   </group>
-  <group name="Misc">
+  <group name="TM">
     <entry name="PrefetchTM"  type="Bool">
         <default>true</default>
     </entry>
     <entry name="SuggCount"  type="Int">
-        <default>10</default>
+        <default>7</default>
+    </entry>
+    <entry name="AutoaddTM"  type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="ScanToTMOnOpen"  type="Bool">
+        <default>false</default>
     </entry>
   </group>
 </kcfg>

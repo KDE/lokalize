@@ -75,8 +75,9 @@ public:
     virtual ~Catalog();
 
     const QString& msgstr(const DocPosition&, const bool noNewlines=false) const;
-    const QString& target(const DocPosition& pos) const {return msgstr(pos);}
     const QString& msgid(const DocPosition&, const bool noNewlines=false) const;
+    const QString& target(const DocPosition& pos) const {return msgstr(pos);}
+    const QString& source(const DocPosition& pos) const {return msgid(pos);}
 
     const QString& comment(uint index) const;
     const QString& msgctxt(uint index) const;
@@ -88,8 +89,8 @@ public:
     int numberOfFuzzies() const {return d->_fuzzyIndex.size();}
     int numberOfUntranslated() const {return d->_untransIndex.size();}
     bool isFuzzy(uint index) const;
-    bool isApproved(uint index) const{return isFuzzy(index);}
-    bool isApproved(const DocPosition pos) const{return isFuzzy(pos.entry);}
+    bool isApproved(uint index) const{return !isFuzzy(index);}
+    bool isApproved(const DocPosition pos) const{return !isFuzzy(pos.entry);}
     bool isUntranslated(uint index) const; //at least one form is untranslated
     bool isUntranslated(const DocPosition&) const;
     int firstFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?numberOfEntries():d->_fuzzyIndex.first();}
@@ -108,6 +109,7 @@ public:
     bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
 
     void clear();
+    bool isEmpty(){return !m_storage;}
 
 //    void setFileCodec( QTextCodec* codec ){d->fileCodec = codec;}
 //    QTextCodec* fileCodec() const {return d->fileCodec;}
@@ -133,24 +135,34 @@ public:
 
     //void updateHeader(bool forSaving=true);
 
-public/* slots*/:
+public:
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();
+    virtual void push(QUndoCommand *cmd,bool rebaseForDBUpdate=false);
 
 public slots:
     bool save();
 
-protected:
-    int findPrevInList(const QList<int>& list,int index) const;
-    int findNextInList(const QList<int>& list,int index) const;
+    //updates DB for _posBuffer and accompanying _originalForLastModified
+    void flushUpdateDBBuffer();
+
 protected:
     //EDITING
     //(accessed from undo/redo code)
+    //called _BEFORE_ modification
+    void setLastModifiedPos(const DocPosition&);
+
+    //EDITING
+    //(accessed from undo/redo code)
     //(accessed from mergeCatalog)
-    void setApproved(const DocPosition& pos, bool fuzzy);//_checks_ if action should be taken
+    void setApproved(const DocPosition& pos, bool approved);//_checks_ if action should be taken
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
 
+
+protected:
+    int findPrevInList(const QList<int>& list,int index) const;
+    int findNextInList(const QList<int>& list,int index) const;
 
 //private:
 protected:
@@ -162,6 +174,7 @@ protected:
     friend class InsTextCmd;
     friend class DelTextCmd;
     friend class ToggleFuzzyCmd;
+    friend class ToggleApprovementCmd;
     friend class MergeCatalog;
 
 signals:
@@ -169,6 +182,7 @@ signals:
     void signalNumberOfFuzziesChanged();
     void signalNumberOfUntranslatedChanged();
     void signalFileLoaded();
+    void signalFileLoaded(const KUrl&);
     void signalFileSaved();
     void signalFileSaved(const KUrl&);
 

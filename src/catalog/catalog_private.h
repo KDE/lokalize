@@ -81,11 +81,17 @@ public:
 
     QList<int> _bookmarkIndex;
 
+
     //for undo/redo
-    DocPosition _posBuffer;
+    //keeps pos of the entry that was last modified
+    DocPosition _lastModifiedPos;
 
+    //DB update buffer --flushed explicitly on entry switch
+    //or when cmd to change another DocPos is sent
+    //keeps original content of the entry that was last modified
+    QString _originalForLastModifiedPos;
 
-   explicit CatalogPrivate(/*Project::Ptr project*/)
+   explicit CatalogPrivate()
            : _mimeTypes( "text/plain" )
            , fileCodec(0)
            , _numberOfPluralForms(-1)

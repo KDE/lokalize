@@ -36,6 +36,7 @@
 // #define KDE_NO_DEBUG_OUTPUT
 
 #include "catalog.h"
+#include "catalog_private.h"
 #include "project.h"
 
 #include "catalogstorage.h"
@@ -44,9 +45,11 @@
 #include "gettextimport.h"
 #include "gettextexport.h"
 
-#include "catalog_private.h"
 #include "version.h"
 #include "prefs_lokalize.h"
+#include "jobs.h"
+
+#include <threadweaver/ThreadWeaver.h>
 
 #include <QProcess>
 #include <QString>
@@ -67,8 +70,10 @@ Catalog::Catalog(QObject *parent)
     , d(new CatalogPrivate())
     , m_storage(0)
 {
+    //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this,SIGNAL(signalFileSaved(KUrl)),
             Project::instance()->model()->dirLister(),SLOT(slotFileSaved(KUrl)));
+
 }
 
 Catalog::~Catalog()
@@ -92,6 +97,7 @@ void Catalog::clear()
     d->diffCache.clear();
     */
 }
+
 
 //BEGIN STORAGE TRANSLATION
 
@@ -158,7 +164,7 @@ bool Catalog::isFuzzy(uint index) const
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return false;
 
-    return m_storage->isApproved(DocPosition(index));
+    return !m_storage->isApproved(DocPosition(index));
 }
 
 bool Catalog::isUntranslated(uint index) const
@@ -210,7 +216,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
     int limit=storage->size();
     while(pos.entry<limit)
     {
-        if (storage->isApproved(pos))
+        if (!storage->isApproved(pos))
             fuzzyIndex << pos.entry;
         if (storage->isUntranslated(pos))
             untransIndex << pos.entry;
@@ -221,6 +227,8 @@ bool Catalog::loadFromUrl(const KUrl& url)
     //commit transaction
     m_storage=storage;
     emit signalFileLoaded();
+    emit signalFileLoaded(url);
+    d->_originalForLastModifiedPos.clear();
     return true;
 }
 
@@ -234,15 +242,11 @@ bool Catalog::saveToUrl(KUrl url)
     if (KDE_ISUNLIKELY( !m_storage ))
         return true;
 
-    kDebug()<<"URL opened: "<<d->_url;
-    kDebug()<<"save URL: "<<url;
     bool nameChanged=false;
     if (KDE_ISLIKELY( url.isEmpty() ))
         url = d->_url;
     else
         nameChanged=true;
-
-    kDebug()<<"save URL 2: "<<url;
 
     if (KDE_ISLIKELY( m_storage->save(url) ))
     {
@@ -267,23 +271,104 @@ bool Catalog::saveToUrl(KUrl url)
 
     }
 */
-    //kWarning() << "__ERROR  ";
     return false;
 
 }
 //END OPEN/SAVE
 
+
+
+    /**
+     * helper method to keep db in a good shape :)
+     * called on
+     * 1) entry switch
+     * 2) automatic editing code loke replace or undo/redo operation
+    **/
+static void updateDB(const QString& english,
+              const QString& ctxt,
+              const QString& oldTarget,
+              const QString& newTarget
+              //const DocPosition&,//for back tracking
+//              const QString& dbName,
+             )
+{
+    UpdateJob* j=new UpdateJob(english,ctxt,oldTarget,newTarget,
+                               Project::instance()->projectID());
+    j->connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+    j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+    ThreadWeaver::Weaver::instance()->enqueue(j);
+}
+
+
 //BEGIN UNDO/REDO
 const DocPosition& Catalog::undo()
 {
     QUndoStack::undo();
-    return d->_posBuffer;
+    return d->_lastModifiedPos;
 }
 
 const DocPosition& Catalog::redo()
 {
     QUndoStack::redo();
-    return d->_posBuffer;
+    return d->_lastModifiedPos;
+}
+
+
+void Catalog::push(QUndoCommand *cmd, bool rebaseForDBUpdate)
+{
+    QUndoStack::push(cmd);
+
+    if (rebaseForDBUpdate)
+        d->_originalForLastModifiedPos=target(d->_lastModifiedPos);
+}
+
+//assumes that d->_originalForLastModifiedPos refers to the same DocPos as d->_lastModifiedPos does
+void Catalog::flushUpdateDBBuffer()
+{
+    //kWarning()<<"flushUpdateDBBuffer";
+    if (!Settings::autoaddTM())
+        return;
+
+    DocPosition pos=d->_lastModifiedPos;
+    if (pos.entry==-1)
+    {
+        //nothing to flush
+        kWarning()<<"nothing to flush";
+        return;
+    }
+    QString currentTarget=target(pos);
+    QString& originalTarget=d->_originalForLastModifiedPos;
+    if (currentTarget==originalTarget || !isApproved(pos))
+    {
+        //nothing to flush
+        kWarning()<<"nothing to flush";
+        return;
+    }
+
+    kWarning()<<"updating!!";
+//     kWarning()<<"updating!!"
+//             <<"source(pos)"<<source(pos)
+//             <<"originalTarget"<<originalTarget
+//             <<"currentTarget"<<currentTarget
+//             ;
+    updateDB(source(pos),
+             msgctxt(pos.entry),
+             originalTarget,
+             currentTarget);
+
+    originalTarget=currentTarget;//for the cases when flush is forced (i.e. _lastModifiedPos doesnt change)
+}
+
+void Catalog::setLastModifiedPos(const DocPosition& pos)
+{
+    bool entryChanged=DocPos(d->_lastModifiedPos)!=DocPos(pos);
+    if (entryChanged)
+    {
+        flushUpdateDBBuffer();
+        d->_originalForLastModifiedPos=target(pos);
+    }
+
+    d->_lastModifiedPos=pos;
 }
 
 void Catalog::targetDelete(const DocPosition& pos, int count)
@@ -293,9 +378,9 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
 
     m_storage->targetDelete(pos,count);
 
+    //BEGIN addToUntransIndex
     if ((!pos.offset)&&(isUntranslated(pos)))
     {
-        //addToUntransIndex
 
         // insert index in the right place in the list
         QList<int>::Iterator it = d->_untransIndex.begin();
@@ -304,6 +389,7 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
         d->_untransIndex.insert(it,pos.entry);
         emit signalNumberOfUntranslatedChanged();
     }
+    //END addToUntransIndex
 
     emit signalEntryChanged(pos);
 }
@@ -327,16 +413,16 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
 }
 
 
-void Catalog::setApproved(const DocPosition& pos, bool fuzzy)
+void Catalog::setApproved(const DocPosition& pos, bool approved)
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isApproved(pos)==fuzzy ))
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isApproved(pos)==approved))
         return;
 
-    m_storage->setApproved(pos,fuzzy);
+    m_storage->setApproved(pos,approved);
 
     //cache maintainance
     QList<int>& idx=d->_fuzzyIndex;
-    if (fuzzy)
+    if (!approved)
     {
         // insert index in the right place in the list
         QList<int>::Iterator it = idx.begin();
@@ -418,12 +504,6 @@ void Catalog::setBookmark(uint idx,bool set)
     }
 }
 
-
-
-// void Catalog::push(QUndoCommand *cmd)
-// {
-//     QUndoStack::push(cmd);
-// }
 
 
 

@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of KAider (some bits of KBabel code were reused)
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
 
@@ -39,7 +39,6 @@
 #include "prefs_lokalize.h"
 #include "syntaxhighlighter.h"
 
-#include <QTabBar>
 #include <QTimer>
 #include <QMenu>
 #include <QDragEnterEvent>
@@ -47,6 +46,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
+#include <ktabbar.h>
 #include <kled.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -133,10 +133,10 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , m_msgstrHighlighter(new SyntaxHighlighter(_msgstrEdit->document()))
 /*    , m_msgidHighlighter(0)
     , m_msgstrHighlighter(0)*/
-    , _tabbar(new QTabBar(this))
+    , _tabbar(new KTabBar(this))
     , _leds(0)
     , _currentEntry(-1)
-    , m_fuzzyState(false)
+    , m_approvementState(false)
 {
     _tabbar->hide();
 //     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
@@ -212,7 +212,7 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
         if (_catalog->canUndo())
         {
             emit signalUndo();
-            fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+            approvedEntryDisplayed(_catalog->isApproved(_currentEntry));
             return true;
         }
     }
@@ -221,7 +221,7 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
         if (_catalog->canRedo())
         {
             emit signalRedo();
-            fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+            approvedEntryDisplayed(_catalog->isApproved(_currentEntry));
             return true;
         }
     }
@@ -240,12 +240,8 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
     }
     else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
     {
-        if (KDE_ISUNLIKELY( _catalog->isFuzzy(_currentEntry) ))
-        {
-            _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
-            fuzzyEntryDisplayed(false);
-        }
-        //fuzzyEntryDisplayed(false); why here?...
+        if (KDE_ISUNLIKELY( !_catalog->isApproved(_currentEntry) ))
+            toggleApprovement(true);
         return false;
     }
     //clever editing
@@ -399,14 +395,21 @@ void KAiderView::settingsChanged()
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
 {
-    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
+    if (KDE_ISUNLIKELY( _currentEntry==-1 || _msgstrEdit->toPlainText()==_oldMsgstr ))
         return;
 
     DocPosition pos=_currentPos;
     pos.offset=offset;
 
+/*    kWarning()<<"offset"<<offset
+            <<"charsRemoved"<<charsRemoved
+            <<"charsAdded"<<charsAdded;*/
     if (charsRemoved)
+    {
+//         kWarning()<<"here";
         _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
+//         kWarning()<<"here1";
+    }
 
     _oldMsgstr=_msgstrEdit->toPlainText();//newStr becomes OldStr
     if (charsAdded)
@@ -420,16 +423,75 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
             _leds->ledUntr->off();
     }
 
-    if (_catalog->isFuzzy(_currentEntry))
-    {
-        _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,false));
-        fuzzyEntryDisplayed(false);
-    }
+    if (!_catalog->isApproved(_currentEntry))
+        toggleApprovement(true);
 
     // for mergecatalog (delete entry from index)
     // and for statusbar
     emit signalChanged(pos.entry);
 }
+
+void KAiderView::approvedEntryDisplayed(bool approved, bool force)
+{
+    //kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
+    if (KDE_ISUNLIKELY( _currentEntry==-1 || (m_approvementState==approved && !force) ))
+        return;
+    m_approvementState=approved;
+
+    _msgstrEdit->setFontItalic(!approved);
+    if (force)
+        refreshMsgEdit();
+
+    if (approved)
+    {
+        _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
+        if (_leds)
+            _leds->ledFuzzy->off();
+    }
+    else
+    {
+        _msgstrEdit->viewport()->setBackgroundRole(QPalette::AlternateBase);
+        if (_leds)
+            _leds->ledFuzzy->on();
+    }
+}
+
+
+void KAiderView::refreshMsgEdit()
+{
+    ProperTextEdit& msgEdit=*_msgstrEdit;
+    QTextCursor cursor=msgEdit.textCursor();
+
+    int pos=cursor.position();
+    int anchor=cursor.anchor();
+
+    QString target=_catalog->target(_currentPos);
+    if (msgEdit.toPlainText()!=target)
+    {
+        pos=0;
+        anchor=0;
+    }
+
+    //prevent undo tracking system from recording this 'action'
+    msgEdit.document()->blockSignals(true);
+    msgEdit.setPlainText(target);
+    msgEdit.document()->blockSignals(false);
+
+    disconnect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+
+    if (pos || anchor)
+    {
+        QTextCursor t=msgEdit.textCursor();
+        t.movePosition(QTextCursor::Start);
+        t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,anchor);
+        t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,pos-anchor);
+        msgEdit.setTextCursor(t);
+    }
+
+    m_msgstrHighlighter->rehighlight();
+    connect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+}
+
 
 //main function in this file :)
 void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
@@ -461,13 +523,12 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
     //force this because there are conditions when the
     //signal isn't emitted (haven't identify them yet)
-    fuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry),false);
+    approvedEntryDisplayed(_catalog->isApproved(_currentEntry),false);
 
     _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
     unwrap(_msgidEdit);
-    _msgstrEdit->document()->blockSignals(true);
-    _msgstrEdit->setPlainText(_catalog->msgstr(_currentPos));
-    _msgstrEdit->document()->blockSignals(false);
+
+    refreshMsgEdit();//sets msgstredit text along the way
 
     bool untrans=_catalog->msgstr(_currentPos).isEmpty();
     if (_leds)
@@ -477,16 +538,16 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
         else
             _leds->ledUntr->off();
     }
-
     ProperTextEdit* msgEdit=_msgstrEdit;
     if (pos.offset || selection)
     {
+
         if (pos.part==Msgid)
-        msgEdit=_msgidEdit;
+            msgEdit=_msgidEdit;
 
         QTextCursor t=msgEdit->textCursor();
+        t.movePosition(QTextCursor::Start);
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
-        //kWarning()<<_catalog->msgid(pos).mid(t.position(),selection);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
         if (selection)
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,selection);
@@ -509,9 +570,9 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     _oldMsgstr=_catalog->msgstr(_currentPos);
 
     //prevent undo tracking system from recording this 'action'
-    disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-    m_msgstrHighlighter->rehighlight();
-    connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+//     disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+//     m_msgstrHighlighter->rehighlight();
+//     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
     msgEdit->setFocus();
 
@@ -521,10 +582,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 void KAiderView::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-    {
-        //kWarning() << " " <<;
         event->acceptProposedAction();
-    };
 }
 
 void KAiderView::dropEvent(QDropEvent *event)
@@ -541,7 +599,7 @@ void KAiderView::dropEvent(QDropEvent *event)
 
 
 
-// edit actions that are easier to do in this class
+//BEGIN edit actions that are easier to do in this class
 void KAiderView::clearMsgStr()
 {
     if (KDE_ISUNLIKELY( _currentEntry==-1 ))
@@ -551,8 +609,8 @@ void KAiderView::clearMsgStr()
     _catalog->push(new DelTextCmd(_catalog,_currentPos,_catalog->msgstr(_currentPos)));
     if (_catalog->isFuzzy(_currentEntry))
     {
-        toggleFuzzy(false);
-        fuzzyEntryDisplayed(false);
+        toggleApprovement(true);
+        approvedEntryDisplayed(true);
     }
 
     gotoEntry(_currentPos);
@@ -567,43 +625,16 @@ void KAiderView::toggleBookmark(bool checked)
     _catalog->setBookmark(_currentEntry,checked);
 }
 
-void KAiderView::toggleFuzzy(bool checked)
+void KAiderView::toggleApprovement(bool approved)
 {
+    kWarning()<<"called";
     if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
-    _catalog->push(new ToggleFuzzyCmd(_catalog,_currentEntry,checked));
+    _catalog->push(new ToggleApprovementCmd(_catalog,_currentEntry,approved));
+    approvedEntryDisplayed(true);
 }
 
-
-void KAiderView::fuzzyEntryDisplayed(bool fuzzy, bool force)
-{
-    //kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
-    if (KDE_ISUNLIKELY( _currentEntry==-1 || (m_fuzzyState==fuzzy && !force) ))
-        return;
-    m_fuzzyState=fuzzy;
-
-    _msgstrEdit->setFontItalic(fuzzy);
-    if (force)
-    {
-        _msgstrEdit->document()->blockSignals(true);
-        _msgstrEdit->setPlainText(_catalog->msgstr(_currentPos));
-        _msgstrEdit->document()->blockSignals(false);
-    }
-
-    if (fuzzy)
-    {
-        _msgstrEdit->viewport()->setBackgroundRole(QPalette::AlternateBase);
-        if (_leds)
-            _leds->ledFuzzy->on();
-    }
-    else
-    {
-        _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
-        if (_leds)
-            _leds->ledFuzzy->off();
-    }
-}
 
 void KAiderView::msgid2msgstr()
 {
@@ -701,11 +732,21 @@ void KAiderView::insertTerm(const QString& term)
     _msgstrEdit->setFocus();
 }
 
+#if 0
 void KAiderView::replaceText(const QString& txt)
 {
-    if (KDE_ISUNLIKELY( txt==_msgstrEdit->toPlainText() ))
+    if (KDE_ISUNLIKELY( txt==_msgstrEdit->toPlainText() || txt.isEmpty() ))
         return;
 
+    if (!_catalog->msgstr(_currentPos).isEmpty())
+    {
+        _currentPos.offset=0;
+        _catalog->push(new DelTextCmd(_catalog,pos,_catalog->msgstr(pos)));
+    }
+
+    _catalog->push(new InsTextCmd(_catalog,pos,txt));
+
+#if 0
     int oldOffset=_msgstrEdit->textCursor().position();
     _msgstrEdit->insertPlainText(txt);
 
@@ -723,16 +764,10 @@ void KAiderView::replaceText(const QString& txt)
 
     _catalog->endMacro();
     pos.offset=0;
-
-    _msgstrEdit->document()->blockSignals(true);
-    _msgstrEdit->setPlainText(_catalog->msgstr(_currentPos));
-    _msgstrEdit->document()->blockSignals(false);
-    disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-    m_msgstrHighlighter->rehighlight();
-    connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-
+#endif
+    //TODO separate into function!
 }
-
+#endif
 
 void KAiderView::tagMenu()
 {
@@ -760,13 +795,9 @@ void KAiderView::tagMenu()
         pos+=tag.matchedLength();
 
         if (posInMsgStr!=-1 && (posInMsgStr=target.indexOf(tag.cap(0),posInMsgStr))==-1)
-        {
             menu.setActiveAction(txt);
-        }
         else if (posInMsgStr!=-1)
-        {
             posInMsgStr+=tag.matchedLength();
-        }
     }
     if (!txt)
         return;
@@ -777,7 +808,7 @@ void KAiderView::tagMenu()
 
 }
 
-
+//END edit actions that are easier to do in this class
 
 
 

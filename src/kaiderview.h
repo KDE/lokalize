@@ -35,7 +35,7 @@
 
 #include <QSplitter>
 #include <KUrl>
-class QTabBar;
+class KTabBar;
 class SyntaxHighlighter;
 class Catalog;
 class LedsWidget;
@@ -91,7 +91,7 @@ public:
     virtual ~KAiderView();
 
     void gotoEntry(const DocPosition& pos,int selection=0/*, bool updateHistory=true*/);
-    QTabBar* tabBar(){return _tabbar;};
+    KTabBar* tabBar(){return _tabbar;}//to connect tabbar signals to controller (EditorWindow) slots
     QString selection() const {return _msgstrEdit->textCursor().selectedText();};//for non-batch replace
     QString selectionMsgId() const {return _msgidEdit->textCursor().selectedText();};
 
@@ -106,7 +106,7 @@ private:
     SyntaxHighlighter* m_msgidHighlighter;
     SyntaxHighlighter* m_msgstrHighlighter;
 
-    QTabBar* _tabbar;
+    KTabBar* _tabbar;
     LedsWidget* _leds;
 
     //for undo/redo
@@ -114,7 +114,7 @@ private:
 
     DocPosition _currentPos;
     int _currentEntry;
-    bool m_fuzzyState;
+    bool m_approvementState;
 
 signals:
     void signalChangeStatusbar(const QString&);
@@ -132,20 +132,22 @@ private slots:
     //for Undo/Redo tracking
     void contentsChanged(int position,int charsRemoved,int charsAdded);
     //we need this function cause...
-    void fuzzyEntryDisplayed(bool fuzzy,bool force=true);
+    void approvedEntryDisplayed(bool fuzzy,bool force=true);
 
     //Edit menu
-    void toggleFuzzy(bool);
+    void toggleApprovement(bool);
     void msgid2msgstr();
     void unwrap(ProperTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
-    void replaceText(const QString&);
+//     void replaceText(const QString&);
     void clearMsgStr();
     void tagMenu();
 
+    void refreshMsgEdit();
+private:
 
-protected:
+
     bool eventFilter(QObject*, QEvent*); //workaround for qt ctrl+z bug
 };
 

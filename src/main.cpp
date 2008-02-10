@@ -51,7 +51,7 @@ static const char description[] =
 int main(int argc, char **argv)
 {
     KAboutData about("lokalize", 0, ki18nc("@title", "Lokalize"), version, ki18n(description),
-                     KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
+                     KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007-2008 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shaforostoff@kde.ru" );
     about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
     about.addCredit (ki18n("Stephan Johach"), ki18n("bug fixing patches"), "hunsum@gmx.de");
@@ -114,9 +114,9 @@ int main(int argc, char **argv)
 
     if (Project::instance()->isLoaded())
     {
-        kWarning()<<"Finishing jobs...";
-
         ThreadWeaver::Weaver::instance()->dequeue();
+
+        kWarning()<<"Finishing jobs...";
         Project::instance()->save();
 /*        CloseDBJob* closeDBJob=new CloseDBJob(Project::instance()->id(),Project::instance());
 //         connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));

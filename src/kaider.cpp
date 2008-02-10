@@ -72,11 +72,10 @@
 #include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
-
+#include <ktabbar.h>
 
 #include <QDir>
 #include <QTime>
-#include <QTabBar>
 
 KAider::KAider()
         : KXmlGuiWindow()
@@ -88,6 +87,7 @@ KAider::KAider()
         , _spellcheckStartUndoIndex(0)
         , _spellcheckStop(false)
         , m_updateView(true)
+        , m_modifiedAfterFind(false)
         , m_doReplaceCalled(false)
         , _findDialog(0)
         , _find(0)
@@ -114,6 +114,7 @@ KAider::KAider()
     //setAutoSaveSettings();
 
 //     setUpdatesEnabled(true);
+    //defer some work to make window appear earlier (~200 msec on my Core Duo)
     QTimer::singleShot(0,this,SLOT(initLater()));
 
 //     kWarning()<<chrono.elapsed();
@@ -144,12 +145,21 @@ void KAider::initLater()
 
 KAider::~KAider()
 {
-    emit signalFileClosed();
+    if (!_catalog->isEmpty())
+        emit signalFileClosed();
     KConfig config;
     _openRecentFile->saveEntries(KConfigGroup(&config,"RecentFiles"));
     deleteUiSetupers();
 
     Project::instance()->unregisterEditor(this);
+/*
+    kWarning()<<"!!!!!!!!||||||| "<<QString::number(qChecksum("@info:status message entries",28),36);
+    kWarning()<<"!!!!!!!!||||||| "<<QString::number(qChecksum("@info:status",12),36);
+    kWarning()<<"!!!!!!!!||||||| "<<QString::number(qChecksum("message entries",15),36);
+
+    kWarning()<<"!!!!!!!!||||||| "<<qCompress("@info:status message entries",28).size();
+    kWarning()<<"!!!!!!!!||||||| "<<qCompress("@info:status",12).size();
+*/
 }
 
 #define ID_STATUS_TOTAL 1
@@ -250,21 +260,17 @@ void KAider::setupActions()
     action = KStandardAction::replace(this,SLOT(replace()),ac);
 
 //
-    action = ac->addAction("edit_toggle_fuzzy");
-    action->setShortcut( Qt::CTRL+Qt::Key_U );
-    action->setIcon(KIcon("togglefuzzy"));
-    action->setText(i18nc("@option:check","Fuzzy"));
+    ADD_ACTION_SHORTCUT_ICON("edit_toggle_fuzzy",i18nc("@option:check whether message is marked as Approved","Approved"),Qt::CTRL+Qt::Key_U,"approved")
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleFuzzy(bool)));
-    connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
-    //connect(this, SIGNAL(signalFuzzyEntryDisplayed(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)));
-    connect(action, SIGNAL(toggled(bool)),m_view,SLOT(fuzzyEntryDisplayed(bool)),Qt::QueuedConnection);
+    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleApprovement(bool)));
+    connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
+    connect(action, SIGNAL(toggled(bool)),m_view,SLOT(approvedEntryDisplayed(bool)),Qt::QueuedConnection);
     connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
     ADD_ACTION_SHORTCUT_ICON("msgid2msgstr",i18nc("@action:inmenu","Copy Msgid to Msgstr"),Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
 
-    ADD_ACTION_SHORTCUT_ICON("unwrapmsgstr",i18nc("@action:inmenu","Unwrap Msgstr"),Qt::CTRL+Qt::Key_I,"unwrapmsgstr")
+    ADD_ACTION_SHORTCUT("unwrapmsgstr",i18nc("@action:inmenu","Unwrap Msgstr"),Qt::CTRL+Qt::Key_I)
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
     action = ac->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
@@ -302,27 +308,27 @@ void KAider::setupActions()
     action = KStandardAction::gotoPage(this, SLOT(gotoEntry()), ac);
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous Fuzzy"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous translated but not approved"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
     connect( this, SIGNAL(signalPriorFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu","Next Fuzzy"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu","Next translated but not approved"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
     connect( this, SIGNAL(signalNextFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous Untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
     connect( this, SIGNAL(signalPriorUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next Untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu","Previous Fuzzy or Untranslated"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu","Previous not approved"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
     connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu","Next Fuzzy or Untranslated"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu","Next not approved"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -378,14 +384,14 @@ void KAider::setupActions()
 //MergeMode
     action = ac->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for sync/merge"));
-    action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one / replicate base file changes to"));
+    action->setStatusTip(i18nc("@info:status","Open catalog to be merged into the current one / replicate base file changes to"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     _mergeView->addAction(action);
 
     action = ac->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
-    action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(i18nc("@info:status","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Up);
@@ -394,7 +400,7 @@ void KAider::setupActions()
 
     action = ac->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
-    action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(i18nc("@info:status","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Down);
@@ -409,7 +415,7 @@ void KAider::setupActions()
 
     action = ac->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
-    action->setStatusTip(i18nc("@info:statustip","This changes only empty entries in base file"));
+    action->setStatusTip(i18nc("@info:status","This changes only empty entries in base file"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     _mergeView->addAction(action);
@@ -418,14 +424,14 @@ void KAider::setupActions()
 //Secondary merge
     action = ac->addAction("mergesecondary_open",_mergeViewSecondary,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for secondary sync"));
-    action->setStatusTip(i18nc("@info:statustip","Open catalog to be merged into the current one / replicate base file changes to"));
+    action->setStatusTip(i18nc("@info:status","Open catalog to be merged into the current one / replicate base file changes to"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     _mergeViewSecondary->addAction(action);
 
     action = ac->addAction("mergesecondary_prev",_mergeViewSecondary,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
-    action->setStatusTip(i18nc("@info:statustip","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(i18nc("@info:status","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     connect( _mergeViewSecondary, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
@@ -433,7 +439,7 @@ void KAider::setupActions()
 
     action = ac->addAction("mergesecondary_next",_mergeViewSecondary,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
-    action->setStatusTip(i18nc("@info:statustip","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
+    action->setStatusTip(i18nc("@info:status","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     connect( _mergeViewSecondary, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
@@ -446,7 +452,7 @@ void KAider::setupActions()
 
     action = ac->addAction("mergesecondary_acceptnew",_mergeViewSecondary,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
-    action->setStatusTip(i18nc("@info:statustip","This changes only empty entries"));
+    action->setStatusTip(i18nc("@info:status","This changes only empty entries"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     _mergeViewSecondary->addAction(action);
@@ -485,7 +491,7 @@ void KAider::createDockWindows()
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
     actionCollection()->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
-    connect (this,SIGNAL(signalFileClosed()),_mergeView,SLOT(cleanup()));
+    connect (_catalog,SIGNAL(signalFileLoaded()),_mergeView,SLOT(cleanup()));
     connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
@@ -493,8 +499,8 @@ void KAider::createDockWindows()
     addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);
     actionCollection()->addAction( QLatin1String("showmergeviewsecondary_action"), _mergeViewSecondary->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(const DocPosition&)));
-    connect (this,SIGNAL(signalFileClosed()),_mergeViewSecondary,SLOT(cleanup()));
-    connect (_mergeViewSecondary,SIGNAL(gotoEntry(const DocPosition&,int)),
+    connect (_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)));
+        connect (_mergeViewSecondary,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
     m_catalogTreeView = new CatalogTreeView(this,_catalog);
@@ -616,8 +622,10 @@ void KAider::createDockWindows()
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
-    connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
+//    connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
+    connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(refreshMsgEdit()));
     connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+    connect (this,SIGNAL(signalFileGonnaBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
 
 }
 
@@ -659,9 +667,13 @@ bool KAider::fileOpen(KUrl url)
     if (url.isEmpty())
         return false;
 
+    bool wasOpen=!_catalog->isEmpty();
+    if (wasOpen)
+            emit signalFileGonnaBeClosed();
     if (_catalog->loadFromUrl(url))
     {
-        emit signalFileClosed();
+        if (wasOpen)
+            emit signalFileClosed();
 
         if (isTemlate)
         {
@@ -701,6 +713,9 @@ bool KAider::fileOpen(KUrl url)
                 else
                     _project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
+
+            //enforce autosync
+            _mergeViewSecondary->mergeOpen(url);
         }
 
         gotoEntry(pos);
@@ -712,16 +727,6 @@ bool KAider::fileOpen(KUrl url)
                         ,url.pathOrUrl()
                                         );
             setCaption(_captionPath,false);
-
-//            kWarning()<<"************AutoSync**********";
-//branch AutoSync
-            QString path=url.pathOrUrl();
-            kWarning()<<_project->branchDir();
-            path.replace(_project->poDir(),_project->branchDir());
-            kWarning()<<"AutoSync NEW path"<<path;
-            if (url!=KUrl(path)&&QFile::exists(path))
-                _mergeViewSecondary->mergeOpen(KUrl(path));
-  //          kWarning()<<"************AutoSync OK**********";
         }
 
 //OK!!!
@@ -852,6 +857,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     {
         //still emit even if _currentEntry==pos.entry
         emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+        emit signalApprovedEntryDisplayed(_catalog->isApproved(_currentEntry));
 //        msgStrChanged();
         statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
     }
@@ -868,6 +874,8 @@ void KAider::msgStrChanged()
     /*    else
             statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
     statusBar()->changeItem(msg,ID_STATUS_ISFUZZY);
+
+    m_modifiedAfterFind=true;//for F3-search
 }
 void KAider::switchForm(int newForm)
 {

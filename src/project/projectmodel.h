@@ -130,7 +130,7 @@ class ProjectLister: public KDirLister
     Q_OBJECT
 
 public:
-    ProjectLister(ProjectModel* model, QObject *parent=0);
+    explicit ProjectLister(ProjectModel* model, QObject *parent=0);
     ~ProjectLister(){}
 
 public:

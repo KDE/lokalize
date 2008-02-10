@@ -42,8 +42,15 @@
 //#include <QMultiHash>
 #include <QSqlDatabase>
 
+
+/**
+ * see initDb() function for the database scheme
+ */
+
+
 #define CLOSEDB 10001
 #define OPENDB  10000
+#define UPDATE  80
 #define INSERT  60
 #define SELECT  50
 #define BATCHSELECTFINISHED  49
@@ -189,6 +196,47 @@ private:
     TMEntry m_entry;
 };
 
+
+/**
+ * used to eliminate alot of duplicate entries
+ *
+ * it is supposed too run on entry switch/file close in Editor
+**/
+//TODO a mechanism to get rid of dead dups (shud use strigi).
+//find all en, then try to find supposedly dead translation
+
+//also, display usage of different translations and suggest user
+//to use only one of them (listview, checkboxes) 
+class UpdateJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    explicit UpdateJob(const QString& en,
+              const QString& ctxt,
+              const QString& oldTarget,
+              const QString& newTarget,
+              //const DocPosition&,//for back tracking
+              const QString& dbName,
+              QObject* parent=0);
+
+    ~UpdateJob();
+
+    int priority()const{return UPDATE;}
+
+protected:
+    void run ();
+// public:
+
+private:
+    QString m_english;
+    QString m_ctxt;
+    QString m_oldTarget;
+    QString m_newTarget;
+    QString m_dbName;
+};
+
+//BEGIN building up TM
+
 //scan one file
 class ScanJob: public ThreadWeaver::Job
 {
@@ -234,6 +282,8 @@ public:
 };
 
 
+//END building up TM
+
 //helper
 class BatchSelectFinishedJob: public ThreadWeaver::Job
 {
@@ -252,9 +302,6 @@ protected:
 public:
     QWidget* m_view;
 };
-
-
-
 #if 0
 we use index stored in db now...
 
@@ -278,5 +325,6 @@ public:
     //statistics?
 };
 #endif
+
 
 #endif

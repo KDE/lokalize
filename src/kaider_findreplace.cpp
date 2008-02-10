@@ -33,6 +33,7 @@
 #include "kaider.h"
 #include "kaiderview.h"
 #include "cataloglistview.h"
+#include "tmview.h"
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
@@ -280,9 +281,10 @@ void KAider::findNext(const DocPosition& startingPos)
         KFind::Result res = KFind::NoMatch;
         while (true)
         {
-            if (find.needData()||anotherEntry)
+            if (find.needData()||anotherEntry||m_modifiedAfterFind)
             {
                 anotherEntry=false;
+                m_modifiedAfterFind=false;
 
                 QString data;
                 if (_searchingPos.part==Msgid)
@@ -424,6 +426,8 @@ void KAider::findPrev()
 void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
     show();
+    kWarning()<<"matchingIndex"<<matchingIndex
+            <<"matchedLength"<<matchedLength;
 
     if (FIND_IGNOREACCELS)
     {
@@ -754,7 +758,7 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
         m_doReplaceCalled=true;
         _catalog->beginMacro(i18nc("@item Undo action item","Replace"));
     }
-    QString oldStr(_catalog->msgstr(_replacingPos));
+    QString oldStr(_catalog->target(_replacingPos));
 
     if (REPLACE_IGNOREACCELS)
     {
@@ -914,6 +918,8 @@ void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString
 
     _catalog->push(new DelTextCmd(_catalog,pos,oldWord));
     _catalog->push(new InsTextCmd(_catalog,pos,newWord));
+
+
     gotoEntry(pos,newWord.length());
 }
 

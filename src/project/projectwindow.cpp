@@ -49,6 +49,7 @@ ProjectWindow::ProjectWindow(QWidget *parent)
     , m_browser(new ProjectWidget(this))
 
 {
+    kWarning()<<"aaaaaa";
     setCaption(i18nc("@title:window","Lokalize Project View"),false);
 
     setCentralWidget(m_browser);

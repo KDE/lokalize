@@ -48,8 +48,8 @@ TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
     , m_queryType(WordOrder)
 {
-    setHeaderData(0, Qt::Horizontal, i18nc("@title:column","English"));
-    setHeaderData(1, Qt::Horizontal, i18nc("@title:column","Target"));
+    setHeaderData(0, Qt::Horizontal, i18nc("@title:column Original text","Original"));
+    setHeaderData(1, Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
 }
 
 void TMDBModel::setDB(const QString& str)
@@ -107,15 +107,7 @@ void TMDBModel::setFilter(const QString& str)
     }
     else //regex
     {
-//         setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
-//                  "WHERE tm_main.english REGEXP '"+escaped+"' "
-//                  "OR tm_main.target REGEXP '"+escaped+"' "
-//                  "UNION "
-//                  "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
-//                  "WHERE tm_main.id==tm_dups.id "
-//                  "AND (tm_main.english REGEXP '"+escaped+"' "
-//                  "OR tm_dups.target REGEXP '"+escaped+"') "
-//                     /*"ORDER BY tm_main.english"*/ ,m_db);
+
         setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
                  "WHERE tm_main.english GLOB '*"+escaped+"*' "
                  "OR tm_main.target GLOB '*"+escaped+"*' "
@@ -132,6 +124,7 @@ void TMDBModel::setFilter(const QString& str)
 }
 
 //END TMDBModel
+
 
 //BEGIN TMWindow
 

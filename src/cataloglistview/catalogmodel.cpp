@@ -54,8 +54,8 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientatio
     switch (section)
     {
         case Key: return i18nc("@title:column","Entry");
-        case Source: return i18nc("@title:column","Source");
-        case Translation: return i18nc("@title:column","Translation");
+        case Source: return i18nc("@title:column Original text","Original");
+        case Translation: return i18nc("@title:column Text in target language","Target");
         case FuzzyFlag: return i18nc("@title:column","Fuzzy");
     }
     return QVariant();

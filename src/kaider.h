@@ -195,7 +195,7 @@ private:
 
     KAiderView *m_view;
 
-    int _currentEntry:24;
+    int _currentEntry;
     DocPosition _currentPos;
     DocPosition _searchingPos; //for find/replace
     DocPosition _replacingPos;
@@ -203,11 +203,12 @@ private:
 
     Sonnet::Dialog* m_sonnetDialog;
     int _spellcheckStartUndoIndex;
-    bool _spellcheckStop:4;
+    bool _spellcheckStop:8;
 
-    bool m_updateView:4;//for find/replace in files
+    bool m_updateView:8;//for find/replace in files
+    bool m_modifiedAfterFind:8;
 
-    bool m_doReplaceCalled;//used to prevent non-clean catalog status
+    bool m_doReplaceCalled:8;//used to prevent non-clean catalog status
     KFindDialog* _findDialog;
     KFind* _find;
     KReplaceDialog* _replaceDialog;
@@ -239,12 +240,15 @@ private:
 signals:
     //emitted when mainwindow is closed or another file is opened
     void signalFileClosed();
+    void signalFileGonnaBeClosed();//old catalog is still accessible
 
     void signalNewEntryDisplayed(uint);
     void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
+
+    void signalApprovedEntryDisplayed(bool);
 
     void signalFuzzyEntryDisplayed(bool);
     void signalPriorFuzzyAvailable(bool);

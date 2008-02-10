@@ -139,7 +139,8 @@ int GettextStorage::size() const
 }
 
 void GettextStorage::clear()
-{}
+{
+}
 
 bool GettextStorage::isEmpty() const
 {
@@ -202,19 +203,25 @@ int GettextStorage::contextCount(const DocPosition& pos) const
 QStringList GettextStorage::matchData(const DocPosition& pos) const
 {
     QString ctxt=m_entries.at(pos.entry).msgctxt();
+    if (ctxt.isEmpty())
+        return QStringList();
+
     //KDE-specific
     //Splits @info:whatsthis and actual note
-    if (ctxt.startsWith('@') && ctxt.contains(' '))
+/*    if (ctxt.startsWith('@') && ctxt.contains(' '))
     {
         QStringList result(ctxt.section(' ',0,0,QString::SectionSkipEmpty));
         result<<ctxt.section(' ',1,-1,QString::SectionSkipEmpty);
         return result;
-    }
+    }*/
     return QStringList(ctxt);
 }
 
 QString GettextStorage::id(const DocPosition& pos) const
 {
+    //entries in gettext format may be non-unique
+    //only if their msgctxts are different
+
     QString result=source(pos);
     result+=m_entries.at(pos.entry).msgctxt();
     return result;
@@ -230,14 +237,14 @@ bool GettextStorage::isPlural(const DocPosition& pos) const
 
 bool GettextStorage::isApproved(const DocPosition& pos) const
 {
-    return m_entries.at(pos.entry).isFuzzy();
+    return !m_entries.at(pos.entry).isFuzzy();
 }
-void GettextStorage::setApproved(const DocPosition& pos, bool fuzzy)
+void GettextStorage::setApproved(const DocPosition& pos, bool approved)
 {
-    if (fuzzy)
-        m_entries[pos.entry].setFuzzy();
-    else
+    if (approved)
         m_entries[pos.entry].unsetFuzzy();
+    else
+        m_entries[pos.entry].setFuzzy();
 }
 
 bool GettextStorage::isUntranslated(const DocPosition& pos) const

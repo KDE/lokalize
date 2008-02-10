@@ -28,8 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStringList>
 
 /**
-    Interface for storage
-	@author Nick Shaforostoff <shafff@ukr.net>
+ * Interface for storage of translation file
+ *
+ * format-specific texts like \" for gettext PO should be eliminated
+ *
+ * @author Nick Shaforostoff <shafff@ukr.net>
 */
 class CatalogStorage {
 public:
@@ -41,19 +44,30 @@ public:
 
     virtual int size() const=0;
     int numberOfEntries()const{return size();}
-    virtual void clear()=0;
-    virtual bool isEmpty() const=0;
+    virtual void clear()=0;//TODO remove this
+    virtual bool isEmpty() const=0;//TODO remove this
 
     int numberOfPluralForms() const{return m_numberOfPluralForms;}
 
-    //flat-model interface (ignores XLIFF grouping)
+    /**
+     * flat-model interface (ignores XLIFF grouping)
+     *
+     * format-specific texts like \" for gettext PO should be eliminated
+    **/
     virtual const QString& source(const DocPosition& pos) const=0;
     virtual const QString& target(const DocPosition& pos) const=0;
-
+    /**
+     * edit operations used by undo/redo  system and sync-mode
+    **/
     virtual void targetDelete(const DocPosition& pos, int count)=0;
     virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
     virtual void setTarget(const DocPosition& pos, const QString& arg)=0;
 
+    /**
+     * all plural forms
+     *
+     * pos.form doesn't matter
+    **/
     virtual QStringList sourceAllForms(const DocPosition& pos) const=0;
     virtual QStringList targetAllForms(const DocPosition& pos) const=0;
 
@@ -65,16 +79,33 @@ public:
     virtual const QString& context(const DocPosition& pos) const=0;
     virtual int contextCount(const DocPosition& pos) const=0;
 
+    /**
+     * user-invisible data for matching, e.g. during TM database lookup
+     * it is comprised of several strings
+     *
+     * database stores <!--hashes of each of--> them and thus it is possible to
+     * fuzzy-match 'matchData' later
+     *
+     * it is responsibility of CatalogStorage implementations to
+     * separate/assemble the list properly according to the format specifics
+     *
+     * pos.form doesn't matter
+    **/
     virtual QStringList matchData(const DocPosition& pos) const=0;
+
+    /**
+     * entry id unique for this file
+     *
+     * pos.form doesn't matter
+    **/
     virtual QString id(const DocPosition& pos) const=0;
 
     virtual bool isPlural(const DocPosition& pos) const=0;
 
-    virtual bool isApproved(const DocPosition& pos) const=0;
-    virtual void setApproved(const DocPosition& pos, bool)=0;
-
     virtual bool isUntranslated(const DocPosition& pos) const=0;
 
+    virtual bool isApproved(const DocPosition& pos) const=0;
+    virtual void setApproved(const DocPosition& pos, bool approved)=0;
 
 
     const KUrl& url() const {return m_url;}

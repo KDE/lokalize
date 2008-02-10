@@ -312,7 +312,7 @@ static void addTerms(Glossary* glo)
 
     QByteArray out;
     out+=QString(line).remove(QRegExp(" *</body>.*")).toUtf8();
-    out+="\n";
+    out+='\n';
     QXmlStreamWriter xmlOut(&out);
 
     int limit=glo->addedIds.size();
@@ -435,8 +435,8 @@ QVariant GlossaryModel::headerData( int section, Qt::Orientation /*orientation*/
     switch (section)
     {
 //         case ID: return i18nc("@title:column","ID");
-        case English: return i18nc("@title:column","English");
-        case Target: return i18nc("@title:column","Target");
+        case English: return i18nc("@title:column Original text","Original");;
+        case Target: return i18nc("@title:column Text in target language","Target");
         case SubjectField: return i18nc("@title:column","Subject Field");
     }
     return QVariant();
@@ -477,7 +477,7 @@ QString Glossary::generateNewId()
     const QList<TermEntry>& termList=Project::instance()->glossary()->termList;
     QString authorId(Settings::authorName().toLower());
     authorId.replace(' ','_');
-    QRegExp rx("^"+authorId+"\\-([0-9]*)$");
+    QRegExp rx('^'+authorId+"\\-([0-9]*)$");
 
     int i=termList.size();
     while(--i>=0)

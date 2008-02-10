@@ -67,7 +67,7 @@ public:
     bool isPlural(const DocPosition& pos) const;
 
     bool isApproved(const DocPosition& pos) const;
-    void setApproved(const DocPosition& pos, bool);
+    void setApproved(const DocPosition& pos, bool approved);
 
     bool isUntranslated(const DocPosition& pos) const;
 

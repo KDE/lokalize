@@ -236,15 +236,15 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
     switch (section)
     {
         case Graph:
-            return i18nc("@title:column","Graph");
+            return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
         case Total:
-            return i18nc("@title:column","Total");
+            return i18nc("@title:column Number of entries","Total");
         case Translated:
-            return i18nc("@title:column","Translated");
+            return i18nc("@title:column Number of entries","Translated");
         case Fuzzy:
-            return i18nc("@title:column","Fuzzy");
+            return i18nc("@title:column Number of entries","Fuzzy");
         case Untranslated:
-            return i18nc("@title:column","Untranslated");
+            return i18nc("@title:column Number of entries","Untranslated");
         case TranslationDate:
             return i18nc("@title:column","Last Translation");
         case SourceDate:
@@ -293,7 +293,6 @@ ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
             this, SLOT(slotRefreshItems(QList< QPair< KFileItem, KFileItem > >)));
     connect(this,SIGNAL(deleteItem(KFileItem)),
             this, SLOT(slotDeleteItem(KFileItem)));
-
 
 }
 

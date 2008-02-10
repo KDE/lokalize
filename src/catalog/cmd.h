@@ -40,7 +40,15 @@
 #include "pos.h"
 class Catalog;
 
-enum Commands { Insert, Delete, ToggleFuzzy };
+/**
+ * how undo system works:
+ * undo() and redo() functions call appropriate method
+ * to change catalog contents,
+ * then set DocPosition (posBuffer var in Catalog),
+ * which is used to navigate editor to appr. place
+**/
+
+enum Commands { Insert, Delete, ToggleFuzzy, ToggleApprovement };
 
 class InsTextCmd : public QUndoCommand
 {
@@ -92,5 +100,24 @@ private:
     bool _flag;
 };
 
+
+/**
+ * you should care not to new it w/ aint no need
+ */
+class ToggleApprovementCmd: public QUndoCommand
+{
+public:
+    ToggleApprovementCmd(Catalog *catalog,uint index,bool approved);
+    virtual ~ToggleApprovementCmd(){};
+    int id () const {return ToggleApprovement;}
+    void redo();
+    void undo();
+private:
+    void setJumpingPos();
+
+    Catalog* _catalog;
+    short _index;
+    bool _approved;
+};
 
 #endif // CMD_H

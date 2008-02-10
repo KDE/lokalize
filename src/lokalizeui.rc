@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="2">
+<kpartgui name="KAider" version="3">
 <MenuBar>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_toggle_fuzzy"/>
@@ -136,4 +136,15 @@
     </Menu>
   </Menu>
 </MenuBar>
+<!--<State name="po" >
+  <disable>
+  </disable>
+</State>
+<State name="xliff" >
+  <enable>
+  </enable>
+</State>-->
+<ToolBar name="mainToolBar">
+  <Action name="edit_toggle_fuzzy"/>
+</ToolBar>
 </kpartgui>

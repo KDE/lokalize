@@ -68,7 +68,8 @@ Project* Project::_instance=0;
 
 Project* Project::instance()
 {
-    if (_instance==0)
+    //if (KDE_ISUNLIKELY( _instance==0 ))
+    if (_instance==0 )
         _instance=new Project();
 
     return _instance;
@@ -296,8 +297,11 @@ void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
 
 void Project::openProjectWindow()
 {
+    kWarning()<<"bbb0";
     ProjectWindow* a=new ProjectWindow;
+    kWarning()<<"bbb1";
     a->show();
+    kWarning()<<"bbb2";
 }
 
 const QList<QAction*>& Project::projectActions()

@@ -77,8 +77,8 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     setWidget(m_browser);
 
     QTimer::singleShot(0,this,SLOT(initLater()));
-    connect(m_catalog,SIGNAL(signalFileLoaded()),
-            this,SLOT(slotFileLoaded()));
+    connect(m_catalog,SIGNAL(signalFileLoaded(KUrl)),
+            this,SLOT(slotFileLoaded(KUrl)));
 }
 
 TMView::~TMView()
@@ -86,6 +86,8 @@ TMView::~TMView()
     int i=m_jobs.size();
     while (--i>=0)
         ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
+
+
 }
 
 void TMView::initLater()
@@ -116,7 +118,6 @@ void TMView::initLater()
     //TODO ? kdisplayPaletteChanged
 //     connect(KGlobalSettings::self(),,SIGNAL(kdisplayPaletteChanged()),this,SLOT(slotPaletteChanged()));
 
-    kWarning()<<"init "<<time.elapsed();
 }
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
@@ -178,19 +179,28 @@ void TMView::dropEvent(QDropEvent *event)
 
 }
 
-void TMView::slotFileLoaded()
+void TMView::slotFileLoaded(const KUrl& url)
 {
+    Project* p=Project::instance();
+    const QString& pID=p->projectID();
+
+    if (Settings::scanToTMOnOpen())
+    {
+        ScanJob* job=new ScanJob(url,pID);
+        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+        connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+    }
+
     if (!Settings::prefetchTM()
         &&!m_isBatching)
         return;
-
-    Project* p=Project::instance();
-    const QString& pID=p->projectID();
 
     m_cache.clear();
     int i=m_jobs.size();
     while (--i>=0)
         ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
+
     DocPosition pos;
     while(switchNext(m_catalog,pos))
     {
@@ -253,12 +263,6 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
         const TMEntry& entry=suggList.first();
         if (entry.score<9900)//kinda hack
             continue;
-        if (KDE_ISUNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
-        {
-            //FIXME if(m_markAsFuzzy)
-            emit textReplaceRequested(entry.target);
-        }
-        else
         {
             bool forceFuzzy=(suggList.size()>1&&suggList.at(1).score>=10000)
                             ||entry.score<10000;
@@ -274,11 +278,15 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
                 m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,true));
             }
             m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
+
+            if (KDE_ISUNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
+                emit refreshRequested();
+
         }
         if (!insHappened)
         {
             insHappened=true;
-            m_catalog->beginMacro(i18nc("@item Undo action","Batch Translation Memory Filling"));
+            m_catalog->beginMacro(i18nc("@item Undo action","Batch translation memory filling"));
         }
 
 
@@ -287,8 +295,11 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
     if (insHappened)
         m_catalog->endMacro();
     else
+    {
         // xgettext: no-c-format
-        msg+=" "+i18nc("@info","No suggestions with exact matches were found.");
+        msg+=' ';
+        msg+=i18nc("@info","No suggestions with exact matches were found.");
+    }
 
     KPassivePopup::message(KPassivePopup::Balloon,
                            i18nc("@title","Batch translation complete"),
@@ -301,7 +312,7 @@ void TMView::slotBatchTranslate()
     m_isBatching=true;
     m_markAsFuzzy=false;
     if (!Settings::prefetchTM())
-        slotFileLoaded();
+        slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
         return slotBatchSelectDone(0);
     KPassivePopup::message(KPassivePopup::Balloon,
@@ -316,7 +327,7 @@ void TMView::slotBatchTranslateFuzzy()
     m_isBatching=true;
     m_markAsFuzzy=true;
     if (!Settings::prefetchTM())
-        slotFileLoaded();
+        slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
         slotBatchSelectDone(0);
     KPassivePopup::message(KPassivePopup::Balloon,
@@ -333,9 +344,14 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
 
-    m_browser->clear();
+
     ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
+
+    //update DB
+    m_catalog->flushUpdateDBBuffer();
+
     m_pos=pos;
+    m_browser->clear();
     if (Settings::prefetchTM()
         &&m_cache.contains(DocPos(pos)))
     {
@@ -842,9 +858,23 @@ nono
 
 
 
+    m_catalog->beginMacro(i18nc("@item Undo action","Use translation memory suggestion"));
 
+    if (KDE_ISUNLIKELY( target==m_catalog->msgstr(m_pos) || target.isEmpty() ))
+        return;
 
-    emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
+    if (!m_catalog->msgstr(m_pos).isEmpty())
+    {
+        m_pos.offset=0;
+        m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
+    }
+
+    m_catalog->push(new InsTextCmd(m_catalog,m_pos,target),true);
+
+//     emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
+    m_catalog->endMacro();
+
+    emit refreshRequested();
 }
 
 

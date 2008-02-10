@@ -59,6 +59,7 @@ SettingsController* SettingsController::_instance=0;
 
 SettingsController* SettingsController::instance()
 {
+    //if (KDE_ISUNLIKELY( _instance==0 ))
     if (_instance==0)
         _instance=new SettingsController;
 

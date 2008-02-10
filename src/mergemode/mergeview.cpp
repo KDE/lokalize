@@ -36,6 +36,7 @@
 #include "mergecatalog.h"
 #include "project.h"
 #include "diff.h"
+#include "tmview.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -46,6 +47,7 @@
 
 #include <QDragEnterEvent>
 #include <QAction>
+#include <QFile>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog,bool primary)
     : QDockWidget ( primary?i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"), parent)
@@ -182,6 +184,27 @@ void MergeView::mergeOpen(KUrl url)
     if (KDE_ISUNLIKELY( !m_baseCatalog->numberOfEntries() ))
         return;
 
+    if (url==m_baseCatalog->url())
+    {
+        //we are likely to be _mergeViewSecondary
+        //special handling: open corresponding file in the branch
+        //for AutoSync
+
+        QString path=url.pathOrUrl();
+        //kWarning()<<_project->branchDir();
+        path.replace(Project::instance()->poDir(),Project::instance()->branchDir());
+        kWarning()<<"AutoSync NEW path"<<path;
+        if (url!=KUrl(path)&&QFile::exists(path))
+        {
+            url=KUrl(path);
+        }
+        else
+        {
+            cleanup();
+            return;
+        }
+    }
+
     if (url.isEmpty())
         url=KFileDialog::getOpenUrl(KUrl("kfiledialog:///merge-source") /*m_baseCatalog->url()*/ , "text/x-gettext-translation",this);
     if (url.isEmpty())
@@ -199,8 +222,8 @@ void MergeView::mergeOpen(KUrl url)
         //a bit hacky :)
         connect (m_mergeCatalog,SIGNAL(signalEntryChanged(DocPosition)),this,SLOT(slotUpdate(DocPosition)));
 
-
-        slotNewEntryDisplayed(m_pos);
+        if (m_pos.entry!=-1)
+            slotNewEntryDisplayed(m_pos);
         show();
     }
     else
@@ -313,9 +336,8 @@ void MergeView::mergeAcceptAllForEmpty()
             pos.form=0;
             while (pos.form<formsCount)
             {
-                //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0)));
+                //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
                 //some forms may still contain translation...
-                m_baseCatalog->isUntranslated(pos);
                 if (m_baseCatalog->isUntranslated(pos))
                 {
                     if (!insHappened)
@@ -328,6 +350,7 @@ void MergeView::mergeAcceptAllForEmpty()
                     /// ///
                     m_baseCatalog->push(new InsTextCmd(m_baseCatalog,pos,mergeCatalog.msgstr(pos)));
                     /// ///
+
                     if(m_pos.entry==pos.entry)
                         update=true;
                 }

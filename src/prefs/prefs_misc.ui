@@ -71,6 +71,20 @@
      </property>
     </widget>
    </item>
+   <item row="2" column="0" >
+    <widget class="QCheckBox" name="kcfg_AutoaddTM" >
+     <property name="text" >
+      <string>Update/Add edited entries to translation memory</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QCheckBox" name="kcfg_ScanToTMOnOpen" >
+     <property name="text" >
+      <string>Scan opened files to translation memory</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />

@@ -61,7 +61,8 @@ public:
     void dropEvent(QDropEvent*);
 
 signals:
-    void textReplaceRequested(const QString&);
+//     void textReplaceRequested(const QString&);
+    void refreshRequested();
     void textInsertRequested(const QString&);
 
 public slots:
@@ -76,7 +77,7 @@ public slots:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
 
-    void slotFileLoaded();
+    void slotFileLoaded(const KUrl&);
     void slotBatchSelectDone(ThreadWeaver::Job*);
     void slotCacheSuggestions(ThreadWeaver::Job*);
     void displayFromCache();
@@ -104,7 +105,7 @@ private:
     bool m_markAsFuzzy;
     QMap<DocPos, QVector<TMEntry> > m_cache;
     DocPosition m_prevCachePos;//hacky hacky
-    QList<ThreadWeaver::Job*> m_jobs;
+    QList<ThreadWeaver::Job*> m_jobs;//holds pointers to all the jobs for the current file
 };
 
 #endif

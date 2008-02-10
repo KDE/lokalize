@@ -75,6 +75,11 @@ bool scanRecursive(const QDir& dir, const QString& dbName)
     return ok;
 }
 
+/**
+ * splits string into words, removing any markup
+ *
+ * TODO segmentation by sentences...
+**/
 static void doSplit(QString& cleanEn,
                     QStringList& words,
                     QRegExp& rxClean1,
@@ -112,56 +117,61 @@ static void doSplit(QString& cleanEn,
 
 }
 
+
+#define INSERT_NOT_HAPPENED 0
+#define INSERT_NO_DUPS 1
+#define INSERT_WITH_DUPS 2
 /**
  * 0 - nothing happened
  * 1 - inserted, no dups
  * 2 - e1.english==e2.english, e1.target!=e2.target
  */
-static int insertEntry(const QString& english,
-                       const QString& target,
-                       const QString& ctxt,
-                       QSqlDatabase& db,
-//                  const QRegExp& rxSplit,
-                       QSqlQuery& queryMain,
-                       QRegExp& rxClean1,
-                       QRegExp& rxClean2)
+static int doInsertEntry(const QString& english,
+             const QString& target,
+             const QString& ctxt, //TODO QStringList -- after XLIFF
+             QSqlDatabase& db,
+//           const QRegExp& rxSplit,
+             QSqlQuery& queryMain,//query for record addition prepared once
+             QRegExp& rxClean1,//cleaning regexps for word index update
+             QRegExp& rxClean2)
 
 //                  QSqlQuery& queryInsertWord,
 //                  QSqlQuery& queryIndexWords
 
 {
-//     bool debug=english=="Icon Size";
     //TODO plurals
     if (KDE_ISUNLIKELY( target.isEmpty() ))
-        return 0;
+        return INSERT_NOT_HAPPENED;
 
     QString cleanEn(english);
     QStringList words;
     doSplit(cleanEn,words,rxClean1,rxClean2);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
-        return 0;
+        return INSERT_NOT_HAPPENED;
 
 
     //check if we already have record with the same en string
     QSqlQuery query1(db);
     QString escapedEn(english);
     escapedEn.replace('\'',"''");
+    QString escapedTarget(target);
+    escapedTarget.replace('\'',"''");
+
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, ctxt FROM tm_main WHERE "
                      "english=='"+escapedEn+'\'')))
-        kWarning() <<"select error: " <<query1.lastError().text();
-
+        kWarning() <<"select db error: " <<query1.lastError().text();
 
     if (query1.next())
     {
-        qlonglong id=query1.value(0).toLongLong();
         //this is translation of en string that is already present in db
+
+        qlonglong id=query1.value(0).toLongLong();
         if (target==query1.value(1).toString())
         {
             //main table contains the same en+translation
-                        //update ctxt list
+            //but what about ctxt? => update ctxt list
+
             QStringList dup_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);
-//             if (debug)
-//                 kDebug()<<ctxt<<"dup_ctxt"<<dup_ctxt;
             query1.clear();
             if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
             {
@@ -169,37 +179,31 @@ static int insertEntry(const QString& english,
                 query1.prepare("UPDATE OR FAIL tm_main "
                                "SET ctxt=? "
                                "WHERE "
-                               //"target=='"+escapedTarget+"' AND "
-                               "id=="+QString("%1").arg(id));
+                               "id=="+QString::number(id));
                 query1.bindValue(0, dup_ctxt.join("\b"));
                 if (!query1.exec())
-                    kWarning() <<"update error: " <<query1.lastError().text();
-//                 if (debug)
-//                     kDebug()<<"dup_ctxt2"<<dup_ctxt;
-
+                    kWarning() <<"update db error: " <<query1.lastError().text();
             }
 
-            return 0;
+            return INSERT_NOT_HAPPENED;
         }
-        //main table contains different translation of the same en,
-        //look for the same-translation in dups
         query1.clear();
 
-        QString escapedTarget(target);
-        escapedTarget.replace('\'',"''");
-        if (KDE_ISUNLIKELY(!query1.exec("SELECT ctxt FROM tm_dups WHERE "
+        //main table contains different translation of the same en,
+        //=> look for the same-translation in dups
+
+        if (KDE_ISUNLIKELY( !query1.exec("SELECT ctxt FROM tm_dups WHERE "
                                         "target=='"+escapedTarget+"' AND "
-                                        "id=="+QString("%1").arg(id))))
+                                        "id=="+QString::number(id)) ))
             kWarning() <<"select error 2: " <<query1.lastError().text();
 
         if (query1.next())
         {
-            //update ctxt list
+            //dups table contains the same en+translation
+            //but what about ctxt? => update ctxt list
+
             QStringList dup_ctxt=query1.value(0).toString().split('\b',QString::SkipEmptyParts);
             query1.clear();
-//             if (debug)
-//                 kDebug()<<"dup_ctxt3"<<dup_ctxt;
-
             if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
             {
                 dup_ctxt+=ctxt;
@@ -207,16 +211,16 @@ static int insertEntry(const QString& english,
                                "SET ctxt=? "
                                "WHERE "
                                "target=='"+escapedTarget+"' AND "
-                               "id=="+QString("%1").arg(id));
+                               "id=="+QString::number(id));
                 query1.bindValue(0, dup_ctxt.join("\b"));
                 query1.exec();
-//                 if (debug)
-//                     kDebug()<<"dup_ctxt4"<<dup_ctxt;
-
             }
 
-            return 0;
+            return INSERT_NOT_HAPPENED;
         }
+
+        //nope, we are clean
+
         query1.clear();
         query1.prepare("INSERT INTO tm_dups (id, target, ctxt) "
                         "VALUES (?, ?, ?)");
@@ -225,9 +229,9 @@ static int insertEntry(const QString& english,
         query1.bindValue(1, target);
         query1.bindValue(2, ctxt);
         if (KDE_ISLIKELY(query1.exec()))
-            return 2;
-        kWarning() <<"ERROR33: " <<query1.lastError().text();
-        return 0;
+            return INSERT_WITH_DUPS;
+
+        return INSERT_NOT_HAPPENED;
     }
     //no, this is new string
 
@@ -237,17 +241,16 @@ static int insertEntry(const QString& english,
     if (KDE_ISUNLIKELY(!queryMain.exec()))
     {
         kWarning() <<"ERROR3: " <<queryMain.lastError().text();
-        return 0;
+        return INSERT_NOT_HAPPENED;
     }
 
 //was: in-memory word-hash
 #if 1
     qlonglong mainid=queryMain.lastInsertId().toLongLong();
     QByteArray mainidStr(QByteArray::number(mainid,36));
-//     kWarning() <<"MAIN INSERTED "<<english<<" "<<mainid<< endl;
+
     bool isShort=words.size()<20;
     int j=words.size();
-    //queryWords.bindValue(1, queryMain.lastInsertId());
     while (--j>=0)
     {
         //insert word (if we dont have it)
@@ -256,10 +259,10 @@ static int insertEntry(const QString& english,
                      "word=='"+words.at(j)+'\'')))
         kWarning() <<"select error 3: " <<query1.lastError().text();
 
+        //we _have_ it
         if (query1.next())
         {
             //just add new id
-            //if (cleanEn.size()<80) //use words.size() instead?
             if (isShort)
             {
                 QByteArray arr(query1.value(1).toByteArray());
@@ -268,7 +271,9 @@ static int insertEntry(const QString& english,
                                "SET ids_short=? "
                                "WHERE word=='"+words.at(j)+'\'');
 
-                arr+=' '+mainidStr;
+                if (!arr.isEmpty())
+                    arr+=' ';
+                arr+=mainidStr;
                 query1.bindValue(0, arr);
                 if (KDE_ISUNLIKELY(!query1.exec()))
                 kWarning() <<"update error 4: " <<query1.lastError().text();
@@ -281,7 +286,9 @@ static int insertEntry(const QString& english,
                         "SET ids_long=? "
                         "WHERE word=='"+words.at(j)+'\'');
 
-                arr+=' '+mainidStr;
+                if (!arr.isEmpty())
+                    arr+=' ';
+                arr+=mainidStr;
                 query1.bindValue(0, arr);
                 if (KDE_ISUNLIKELY(!query1.exec()))
                 kWarning() <<"update error 5: " <<query1.lastError().text();
@@ -309,9 +316,321 @@ static int insertEntry(const QString& english,
 
     }
 #endif
-    return 1;
+    return INSERT_NO_DUPS;
 }
 
+static void doRemoveEntry(const QString& english,
+             const QString& target,
+             QSqlDatabase& db,
+//           const QRegExp& rxSplit,
+             QSqlQuery& queryMain,//query for record addition prepared once
+             QRegExp& rxClean1,//cleaning regexps for word index update
+             QRegExp& rxClean2)
+
+//                  QSqlQuery& queryInsertWord,
+//                  QSqlQuery& queryIndexWords
+
+{
+    //TODO plurals
+    if (KDE_ISUNLIKELY( target.isEmpty() ))
+        return;
+
+    QString cleanEn(english);
+    QStringList words;
+    doSplit(cleanEn,words,rxClean1,rxClean2);
+    if (KDE_ISUNLIKELY( words.isEmpty() ))
+        return;
+
+
+    //check if we actually have record with such en string
+    QSqlQuery query1(db);
+    QString escapedEn(english);
+    escapedEn.replace('\'',"''");
+    QString escapedTarget(target);
+    escapedTarget.replace('\'',"''");
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target FROM tm_main WHERE "
+                     "english=='"+escapedEn+'\'')))
+        kWarning() <<"select db error: " <<query1.lastError().text();
+
+
+    if (!query1.next())
+    {
+        //no. strange... :)
+        return;
+    }
+    //ok, such en string is present in db
+
+    qlonglong id=query1.value(0).toLongLong();
+    bool foundInMain=(target==query1.value(1).toString());
+    query1.clear();
+
+    if (foundInMain)
+    {
+        //main table contains our en+translation
+        //now check if there any dups
+        if (KDE_ISUNLIKELY( !query1.exec("SELECT target, ctxt, date, hits FROM tm_dups WHERE "
+                                         "id=="+QString::number(id)) ))
+            kWarning() <<"select error 20: " <<query1.lastError().text();
+
+        if (query1.next())
+        {
+            //ok, just move the first matched record to main
+            QSqlQuery updateQuery(db);
+            updateQuery.prepare("UPDATE OR FAIL tm_main "
+                                "SET target=?, ctxt=?, date=?, hits=? "
+                                "WHERE "
+                                "id=="+QString::number(id));
+            updateQuery.bindValue(0, query1.value(0));
+            updateQuery.bindValue(1, query1.value(1));
+            updateQuery.bindValue(2, query1.value(2));
+            updateQuery.bindValue(3, query1.value(3));
+            if (KDE_ISUNLIKELY( !updateQuery.exec() ))
+                kWarning() <<"update db error: " <<updateQuery.lastError().text();
+            updateQuery.clear();
+
+            //then remove it from dups
+            if (KDE_ISUNLIKELY( !updateQuery.exec("DELETE FROM tm_dups WHERE "
+                                  "id=="+QString::number(id)+' '+
+                                  "target=='"+escapedTarget+'\'') ))
+                kWarning() <<"delete from db error: " <<updateQuery.lastError().text();
+            updateQuery.clear();
+
+            //en string remains in db => no need remove it from word indexes
+        }
+        else
+        {
+            //no, there are no dups, just remove main table record
+            query1.clear();
+
+            if (KDE_ISUNLIKELY( !query1.exec("DELETE FROM tm_main WHERE "
+                                             "id=="+QString::number(id)) ))
+                kWarning() <<"delete from db error 20: " <<query1.lastError().text();
+
+            //NOW: en string was removed from db => remove it from word indexes too
+//(was: in-memory word-hash)
+#if 1
+            qlonglong mainid=id;
+            QByteArray mainidStr(QByteArray::number(mainid,36));
+
+            bool isShort=words.size()<20;
+            int j=words.size();
+            while (--j>=0)
+            {
+                //remove index from list for the word
+
+                if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM tm_words WHERE "
+                            "word=='"+words.at(j)+'\'')))
+                kWarning() <<"select error 3: " <<query1.lastError().text();
+
+                if (!query1.next())
+                {
+                    query1.clear();
+                    continue;
+                }
+
+                //just remove our id
+                if (isShort)
+                {
+                    QByteArray arr(query1.value(1).toByteArray());
+                    query1.clear();
+                    query1.prepare("UPDATE tm_words "
+                                "SET ids_short=? "
+                                "WHERE word=='"+words.at(j)+'\'');
+
+                    QString arrStr=QString::fromUtf8(arr);
+                    arrStr.remove(' '+mainidStr);
+                    arrStr.remove(mainidStr+' ');//if it is the first in the list
+                    arrStr.remove(mainidStr);//if it is the only one in the list
+                    query1.bindValue(0, arrStr.toUtf8());
+                    if (KDE_ISUNLIKELY(!query1.exec()))
+                        kWarning() <<"update error 40: " <<query1.lastError().text();
+                }
+                else
+                {
+                    QByteArray arr(query1.value(2).toByteArray());
+                    query1.clear();
+                    query1.prepare("UPDATE tm_words "
+                            "SET ids_long=? "
+                            "WHERE word=='"+words.at(j)+'\'');
+
+                    QString arrStr=QString::fromUtf8(arr);
+                    arrStr.remove(' '+mainidStr);
+                    arrStr.remove(mainidStr+' ');//if it is the first in the list
+                    arrStr.remove(mainidStr);//if it is the only one in the list
+                    query1.bindValue(0, arrStr.toUtf8());
+                    if (KDE_ISUNLIKELY(!query1.exec()))
+                        kWarning() <<"update error 5: " <<query1.lastError().text();
+                }
+            }
+#endif
+        }
+        query1.clear();
+// at the moment we ignore ctxt...
+//         QStringList dup_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);
+//         query1.clear();
+//         if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
+//         {
+//             dup_ctxt+=ctxt;
+//             query1.prepare("UPDATE OR FAIL tm_main "
+//                            "SET ctxt=? "
+//                            "WHERE "
+//                          //"target=='"+escapedTarget+"' AND "
+//                            "id=="+QString::number(id));
+//             query1.bindValue(0, dup_ctxt.join("\b"));
+//             if (!query1.exec())
+//                 kWarning() <<"update db error: " <<query1.lastError().text();
+//         }
+//
+    }
+    //we haven't found our translation, continue searching in dups...
+
+    if (KDE_ISUNLIKELY( !query1.exec("DELETE FROM tm_dups WHERE "
+                                    "target=='"+escapedTarget+"' AND "
+                                    "id=="+QString::number(id)) ))
+        kWarning() <<"DELETE from db error 30: " <<query1.lastError().text();
+
+//     if (!query1.next())
+//     {
+//             //this is sign of eror
+//         kWarning()<<"this is sign of eror";
+//         query1.clear();
+//         return;
+//     }
+
+    //dups table contains the same en+translation
+    //but what about ctxt? => update ctxt list
+
+// at the moment we ignore ctxt...
+//     QStringList dup_ctxt=query1.value(0).toString().split('\b',QString::SkipEmptyParts);
+//     query1.clear();
+//     if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
+//     {
+//         dup_ctxt+=ctxt;
+//         query1.prepare("UPDATE OR FAIL tm_dups "
+//                         "SET ctxt=? "
+//                         "WHERE "
+//                         "target=='"+escapedTarget+"' AND "
+//                         "id=="+QString::number(id));
+//         query1.bindValue(0, dup_ctxt.join("\b"));
+//         query1.exec();
+//     }
+
+
+    return;
+}
+
+#define UPDATE_ERROR 0
+#define UPDATE_NOT_FOUND 1
+#define UPDATE_OK 2
+/**
+ * @returns true if updated (i.e. there were such entry)
+**/
+static int doEpdateEntry(const QString& english,
+             const QString& target,
+             const QString& newTarget,
+             const QString& ctxt, //TODO QStringList -- after XLIFF
+             QSqlDatabase& db,
+             QSqlQuery& queryMain,//query for record addition prepared once
+             QRegExp& rxClean1,//cleaning regexps for word index update
+             QRegExp& rxClean2)
+{
+    //TODO plurals
+    if (KDE_ISUNLIKELY( target.isEmpty() ))
+        return UPDATE_ERROR;
+
+    QString cleanEn(english);
+    QStringList words;
+    doSplit(cleanEn,words,rxClean1,rxClean2);
+    if (KDE_ISUNLIKELY( words.isEmpty() ))
+        return UPDATE_ERROR;
+
+
+    //check if we actually have record with such en string
+    QSqlQuery query1(db);
+    QString escapedEn(english);
+    escapedEn.replace('\'',"''");
+    QString escapedTarget(target);
+    escapedTarget.replace('\'',"''");
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, ctxt FROM tm_main WHERE "
+                     "english=='"+escapedEn+'\'')))
+    {
+        kWarning() <<"select db error: " <<query1.lastError().text();
+        return UPDATE_ERROR;
+    }
+
+
+    if (!query1.next())
+    {
+        return UPDATE_NOT_FOUND;
+    }
+    //ok, such en string is present in db
+
+    qlonglong id=query1.value(0).toLongLong();
+    QStringList e_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);;//nah... taking it into consideration aint worth it
+    bool foundInMain=(target==query1.value(1).toString());
+    query1.clear();
+
+    if (foundInMain)
+    {
+        //main table contains our en+translation
+        QSqlQuery updateQuery(db);
+        updateQuery.prepare("UPDATE OR FAIL tm_main "
+                            "SET target=?, ctxt=?, date=CURRENT_DATE "
+                            "WHERE "
+                            "id=="+QString::number(id));
+
+        if (!ctxt.isEmpty()&&!e_ctxt.contains(ctxt))
+            e_ctxt+=ctxt;
+
+        updateQuery.bindValue(0, newTarget);
+        updateQuery.bindValue(1, e_ctxt.join("\b"));
+        if (KDE_ISUNLIKELY( !updateQuery.exec() ))
+        {
+            kWarning() <<"update db error: " <<updateQuery.lastError().text();
+            return UPDATE_ERROR;
+        }
+        updateQuery.clear();
+        return UPDATE_OK;
+    }
+
+    //we haven't found our translation, continue searching in dups...
+    if (KDE_ISUNLIKELY( !query1.exec("SELECT ctxt FROM tm_dups WHERE "
+                                    "target=='"+escapedTarget+"' AND "
+                                    "id=="+QString::number(id)) ))
+        kWarning() <<"select error 2: " <<query1.lastError().text();
+
+    if (query1.next())
+    {
+        //dups table contains the same en+translation
+        //update ctxt list and target
+
+        QStringList dup_ctxt=query1.value(0).toString().split('\b',QString::SkipEmptyParts);
+        query1.clear();
+        if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
+            dup_ctxt+=ctxt;
+
+        QSqlQuery updateQuery(db);
+        updateQuery.prepare("UPDATE OR FAIL tm_dups "
+                        "SET target=?, ctxt=?, date=CURRENT_DATE "
+                        "WHERE "
+                        "target=='"+escapedTarget+"' AND "
+                        "id=="+QString::number(id));
+
+        updateQuery.bindValue(0, newTarget);
+        updateQuery.bindValue(1, dup_ctxt.join("\b"));
+        if (KDE_ISUNLIKELY( !updateQuery.exec() ))
+        {
+            kWarning() <<"update db error: " <<updateQuery.lastError().text();
+        }
+        else
+        {
+            updateQuery.clear();
+            return UPDATE_OK;
+        }
+    }
+
+    return UPDATE_NOT_FOUND;
+}
 
 static void initDb(QSqlDatabase& db)
 {
@@ -322,7 +641,7 @@ static void initDb(QSqlDatabase& db)
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "english TEXT UNIQUE ON CONFLICT REPLACE, "
                    "target TEXT, "
-                   "ctxt TEXT, "//context
+                   "ctxt TEXT, "//context; delimiter is \b
                    "date DEFAULT CURRENT_DATE, "
                    "hits NUMERIC DEFAULT 0"
                    ")");
@@ -330,10 +649,23 @@ static void initDb(QSqlDatabase& db)
     queryMain.exec("CREATE TABLE IF NOT EXISTS tm_dups ("
                    "id INTEGER, "
                    "target TEXT, "
-                   "ctxt TEXT, "//context
+                   "ctxt TEXT, "//context; delimiter is \b
+                // "plural_form INTEGER" TODO plurals
+            //??? int pluralForm=plural_form & 0xf
                    "date DEFAULT CURRENT_DATE, "
                    "hits NUMERIC DEFAULT 0"
                    ")");
+
+/* //"don't implement it till i'm sure it is actually useful"
+    //this is used to block from readding translations that were removed by user
+    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_removed ("
+                   "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "
+                   "english BLOB, "//qChecksum
+                   "target BLOB, "
+                   "ctxt TEXT, "//context; delimiter is \b
+                   "date DEFAULT CURRENT_DATE, "
+                   "hits NUMERIC DEFAULT 0"
+                   ")");*/
 
 
     //we create indexes manually, in a customized way
@@ -656,7 +988,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         QString joined;
         while(--j>0)
             joined+=QString("%1,").arg(ids.at(j));
-        joined+=QString("%1").arg(ids.at(j));
+        joined+=QString::number(ids.at(j));
 
         QSqlQuery queryFetch("SELECT * FROM tm_main WHERE "
                             "tm_main.id IN ("+joined+')',db); //ORDER BY tm_main.id ?
@@ -667,7 +999,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             e.id=queryFetch.value(0).toLongLong();
             e.english=queryFetch.value(1).toString();
             e.target=queryFetch.value(2).toString();
-            QStringList e_ctxt=queryFetch.value(3).toString().split('\b');
+            QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
             e.date=queryFetch.value(4).toString();
             e.markup=markup;
             e.accel=accel;
@@ -871,8 +1203,8 @@ void ScanJob::run()
     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
-    m_added=0;
-    m_newVersions=0;
+    m_added=0;      //stats
+    m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
     QString markup;
     QString accel;
@@ -899,12 +1231,12 @@ void ScanJob::run()
                         "VALUES (?, ?, ?)");
 
         int i=catalog.numberOfEntries();
-        while (--i>=0)
+        while (--i>=0)//TODO plurals
         {
             if ( catalog.isFuzzy(i) )
                 continue;
 
-            int res=insertEntry(catalog.msgid(i),
+            int res=doInsertEntry(catalog.msgid(i),
                                 catalog.msgstr(i),
                                 catalog.msgctxt(i),
                                 db,
@@ -915,7 +1247,7 @@ void ScanJob::run()
             if (KDE_ISLIKELY( res ))
             {
                 ++m_added;
-                if (KDE_ISUNLIKELY( res==2 ))
+                if (KDE_ISUNLIKELY( res==INSERT_WITH_DUPS ))
                     ++m_newVersions;
             }
         }
@@ -944,6 +1276,84 @@ void InsertJob::run ()
 
 }
 
+
+UpdateJob::UpdateJob(const QString& english,
+              const QString& ctxt,
+              const QString& oldTarget,
+              const QString& newTarget,
+              //const DocPosition&,//for back tracking
+              const QString& dbName,
+              QObject* parent)
+    : ThreadWeaver::Job(parent)
+    , m_english(english)
+    , m_ctxt(ctxt)
+    , m_oldTarget(oldTarget)
+    , m_newTarget(newTarget)
+    , m_dbName(dbName)
+{
+}
+
+UpdateJob::~UpdateJob()
+{
+//     kWarning() <<"UpdateJob dtor"<<endl;
+}
+
+void UpdateJob::run ()
+{
+//     kWarning() <<"UpdateJob 11"<<endl;
+    QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    QSqlQuery queryMain(db);
+
+    QString markup;
+    QString accel;
+    getConfig(db,markup,accel);
+    QRegExp rxClean1(markup);
+    QRegExp rxClean2(accel);
+    rxClean1.setMinimal(true);
+    rxClean2.setMinimal(true);
+
+//     kWarning() <<"m_english"<<m_english<<endl
+//                <<"old target"<<m_oldTarget<<endl
+//                <<"new target"<<m_newTarget<<endl
+//                <<endl;
+
+    int result=doEpdateEntry(m_english,
+             m_oldTarget,
+             m_newTarget,
+             m_ctxt,//TODO QStringList -- after XLIFF
+             db,
+             queryMain,//query for record addition prepared once
+             rxClean1,//cleaning regexps for word index update
+             rxClean2);
+
+    kWarning()<<"res:"<<result;
+
+    if (result==UPDATE_NOT_FOUND)
+    {
+        kWarning()<<"wud add:"<<endl
+                  <<m_english<<endl
+                  <<m_newTarget<<endl
+                  ;
+        queryMain.prepare("INSERT INTO tm_main (english, target, ctxt) "
+                        "VALUES (?, ?, ?)");
+
+        doInsertEntry(m_english,
+             m_newTarget,
+             m_ctxt, //TODO QStringList -- after XLIFF
+             db,
+             queryMain,//query for record addition prepared once
+             rxClean1,//cleaning regexps for word index update
+             rxClean2);
+    }
+//     doRemoveEntry("&Search for:",
+//              QString::fromUtf8("Искать по:"),
+//              db,
+//              queryMain,//query for record addition prepared once
+//              rxClean1,//cleaning regexps for word index update
+//              rxClean2);
+
+    //kWarning() <<"UpdateJob 22"<<endl;
+}
 
 #if 0
 IndexWordsJob::IndexWordsJob(QObject* parent)
@@ -1017,4 +1427,5 @@ void IndexWordsJob::run ()
     kWarning() <<"words indexing done in "<<a.elapsed()<<" size "<<m_tmWordHash.wordHash.uniqueKeys().size()<<" "<<count;
 }
 #endif
+
 

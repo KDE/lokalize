@@ -82,8 +82,8 @@ void ProjectView::contextMenuEvent(QContextMenuEvent *event)
     QAction* openNew=0;
     if (m_browser->currentIsCatalog())
     {
-        open=menu.addAction(i18nc("@action:inmenu","Open"));
-        openNew=menu.addAction(i18nc("@action:inmenu","Open in new window"));
+        open=menu.addAction(i18nc("@action:inmenu Open currently selected file in Editor","Open"));
+        openNew=menu.addAction(i18nc("@action:inmenu Open currently selected file in Editor","Open in new window"));
         menu.addSeparator();
     }
     QAction* findInFiles=menu.addAction(i18nc("@action:inmenu","Find in files"));
