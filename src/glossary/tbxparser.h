@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -60,7 +60,7 @@ class TbxParser : public QXmlDefaultHandler
     {
         langNull=0,
         langEn,
-        langOther
+        langTarget
     };
 
 public:
@@ -77,7 +77,7 @@ public:
     bool characters(const QString&);
 
 private:
-    bool inTermTag:1;
+//    bool inTermTag:1;
     State m_state:8;
     Lang m_lang:8;
     QString m_termEn;

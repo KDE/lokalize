@@ -34,6 +34,7 @@
 #define DBFILESMODEL_H
 
 #include <kdirmodel.h>
+class QPersistentModelIndex;
 
 class DBFilesModel: public KDirModel
 {
@@ -45,12 +46,20 @@ public:
 
     QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
+    Qt::ItemFlags flags( const QModelIndex& index ) const{return Qt::ItemIsSelectable|Qt::ItemIsEnabled;};
+
+
+    //can be zero!!!
+    QPersistentModelIndex* projectDBIndex(){return projectDB;}
 
 private:
     static DBFilesModel* _instance;
+
 public:
     static DBFilesModel* instance();
 
+private:
+    mutable QPersistentModelIndex* projectDB;
 };
 
 inline

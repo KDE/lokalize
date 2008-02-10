@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=lokalize
+Name=Lokalize
 Name[tr]=Lokalize
 Exec=lokalize %i -caption "%c"
 Icon=lokalize

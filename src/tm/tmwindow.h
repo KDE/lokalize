@@ -40,7 +40,7 @@
 
 class KLineEdit;
 class TMDBModel;
-
+class QComboBox;
 /**
 	@author Nick Shaforostoff <shafff@ukr.net>
 */
@@ -51,11 +51,14 @@ public:
     TMWindow(QWidget *parent = 0);
     ~TMWindow();
 
+    void selectDB(int);
+
 public slots:
     void performQuery();
 private:
     KLineEdit* m_query;
     TMDBModel* m_model;
+    QComboBox* m_dbCombo;
 };
 
 

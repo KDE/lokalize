@@ -34,6 +34,7 @@
 #define TMMANAGER_H
 
 #include <kmainwindow.h>
+#include <QModelIndex>
 class QTreeView;
 
 class TMManagerWin: public KMainWindow
@@ -45,7 +46,10 @@ public:
 private slots:
     void addDir();
     void addDB();
+    void importTMX();
 
+    void initLater();
+    void slotItemActivated(const QModelIndex&);
 private:
     QTreeView* m_tmListWidget;
 };

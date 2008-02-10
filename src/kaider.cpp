@@ -651,7 +651,8 @@ bool KAider::fileOpen(KUrl url)
     bool isTemlate=false;
 
     if (url.isEmpty())
-        url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation",this);
+        url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template text/plain",this);
+    //TODO application/x-xliff
     else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
     {   //check if we are opening template
         QString path(originalPath);

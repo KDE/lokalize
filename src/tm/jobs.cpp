@@ -1221,9 +1221,9 @@ void ScanJob::run()
     //kWarning() <<"ScanJob: loaded "<<a.elapsed();
         initDb(db);
 
-        QSqlQuery queryInsertWord(db);
-        queryInsertWord.prepare("INSERT INTO tm_words (word) "
-                                "VALUES (?)");
+//         QSqlQuery queryInsertWord(db);
+//         queryInsertWord.prepare("INSERT INTO tm_words (word) "
+//                                 "VALUES (?)");
 
         QSqlQuery queryBegin("BEGIN",db);
         QSqlQuery query(db);
@@ -1427,5 +1427,215 @@ void IndexWordsJob::run ()
     kWarning() <<"words indexing done in "<<a.elapsed()<<" size "<<m_tmWordHash.wordHash.uniqueKeys().size()<<" "<<count;
 }
 #endif
+
+
+
+
+#include <QXmlDefaultHandler>
+#include <QXmlSimpleReader>
+
+/**
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class TmxParser : public QXmlDefaultHandler
+{
+    enum State //localstate for getting chars into right place
+    {
+        null=0,
+        seg,
+        descripDefinition,
+        descripSubjectField
+    };
+
+    enum Lang
+    {
+        langNull=0,
+        langEn,
+        langTarget
+    };
+
+public:
+    TmxParser(const QString& dbName);
+    ~TmxParser();
+
+private:
+    bool startDocument();
+    bool startElement(const QString&,const QString&,const QString&,const QXmlAttributes&);
+    bool endElement(const QString&,const QString&,const QString&);
+    bool characters(const QString&);
+
+private:
+    QSqlDatabase db;
+    QRegExp rxClean1;
+    QRegExp rxClean2;
+    QSqlQuery* queryMain;
+
+    int m_hits;
+    QString m_segEn;
+    QString m_segTarget;
+
+    State m_state:8;
+    Lang m_lang:8;
+
+    ushort m_added;
+    ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
+};
+
+
+TmxParser::TmxParser(const QString& dbName)
+    :queryMain(0)
+{
+    m_added=0;      //stats
+    m_newVersions=0;//stats
+    db=QSqlDatabase::database(dbName);
+
+    QString markup;QString accel;
+    getConfig(db,markup,accel);
+    rxClean1.setPattern(markup);rxClean2.setPattern(accel);
+    rxClean1.setMinimal(true);rxClean2.setMinimal(true);
+
+}
+
+bool TmxParser::startDocument()
+{
+    initDb(db);
+
+//     QSqlQuery queryInsertWord(db);
+//     queryInsertWord.prepare("INSERT INTO tm_words (word) "
+//                                 "VALUES (?)");
+
+    QSqlQuery queryBegin("BEGIN",db);
+    queryMain=new QSqlQuery(db);
+    queryMain->prepare("INSERT INTO tm_main (english, target, ctxt) "
+                        "VALUES (?, ?, ?)");
+
+
+    m_state=null;
+    m_lang=langNull;
+    return true;
+}
+
+
+TmxParser::~TmxParser()
+{
+    QSqlQuery queryEnd("END",db);
+    delete queryMain;
+}
+
+
+bool TmxParser::startElement( const QString&, const QString&,
+                                    const QString& qName,
+                                    const QXmlAttributes& attr)
+{
+    if (qName=="tu")
+    {
+        bool ok;
+        m_hits=attr.value("usagecount").toInt(&ok);
+        if (!ok)
+            m_hits=-1;
+
+        m_segEn.clear();
+        m_segTarget.clear();
+    }
+    else if (qName=="tuv")
+    {
+        if (attr.value("xml:lang").toLower()=="en")
+            m_lang=langEn;
+        else if (attr.value("xml:lang").toLower()==Project::instance()->langCode())
+            m_lang=langTarget;
+        else
+            m_lang=langNull;
+
+    }
+    else if (qName=="seg")
+    {
+        m_state=seg;
+    }
+    return true;
+}
+
+bool TmxParser::endElement(const QString&,const QString&,const QString& qName)
+{
+    if (qName=="tu")
+    {
+//         kWarning()<<"m_segEn"<<m_segEn
+//                 <<"m_segTarget"<<m_segTarget
+//                 ;
+        int res=doInsertEntry(m_segEn,
+                              m_segTarget,
+                              "",
+                              db,
+                              *queryMain,
+                              rxClean1,
+                              rxClean2
+                              );
+        if (KDE_ISLIKELY( res ))
+        {
+            ++m_added;
+            if (KDE_ISUNLIKELY( res==INSERT_WITH_DUPS ))
+                ++m_newVersions;
+        }
+    }
+    m_state=null;
+    return true;
+}
+
+
+
+bool TmxParser::characters ( const QString & ch )
+{
+    if(m_state==seg)
+    {
+        if (m_lang==langEn)
+            m_segEn+=ch;
+        else if (m_lang==langTarget)
+            m_segTarget+=ch;
+    }
+    return true;
+}
+
+
+
+
+
+ImportTmx::ImportTmx(const QString& filename,//const KUrl& url,
+                     const QString& dbName,
+                     QObject* parent)
+    : ThreadWeaver::Job(parent)
+    , m_filename(filename)
+    , m_dbName(dbName)
+{
+}
+
+ImportTmx::~ImportTmx()
+{
+    kWarning() <<"ImportTmx dtor ";
+}
+
+void ImportTmx::run()
+{
+    thread()->setPriority(QThread::IdlePriority);
+    QTime a;a.start();
+
+
+    TmxParser parser(m_dbName);
+    QXmlSimpleReader reader;
+    reader.setContentHandler(&parser);
+
+    QFile file(m_filename);
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+         return;
+
+    QXmlInputSource xmlInputSource(&file);
+    if (!reader.parse(xmlInputSource))
+         kWarning() << "failed to load "<< m_filename;
+
+
+    //kWarning() <<"Done scanning "<<m_url.prettyUrl();
+    m_time=a.elapsed();
+}
+
+
+
 
 

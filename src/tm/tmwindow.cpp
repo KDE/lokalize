@@ -160,10 +160,19 @@ TMWindow::TMWindow(QWidget *parent)
     ui_queryOptions.db->setCurrentIndex(ui_queryOptions.db->findText(Project::instance()->projectID()));
     connect(ui_queryOptions.db,SIGNAL(currentIndexChanged(QString)),
             m_model,SLOT(setDB(QString)));
+
+    m_dbCombo=ui_queryOptions.db;
+
+    m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
 }
 
 TMWindow::~TMWindow()
 {
+}
+
+void TMWindow::selectDB(int i)
+{
+    m_dbCombo->setCurrentIndex(i);
 }
 
 void TMWindow::performQuery()

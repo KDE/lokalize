@@ -9,29 +9,43 @@
     <height>401</height>
    </rect>
   </property>
-   <layout class="QGridLayout" >
-    <item row="3" column="0" >
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QPushButton" name="create" >
-        <property name="text" >
-         <string>Create</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="addData" >
-        <property name="text" >
-         <string>Add data</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="0" >
-     <widget class="QTreeView" name="list" />
-    </item>
-   </layout>
+  <layout class="QGridLayout" >
+   <item row="3" column="0" >
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QPushButton" name="create" >
+       <property name="text" >
+        <string>Create</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addData" >
+       <property name="text" >
+        <string>Add data</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="importTMX" >
+       <property name="text" >
+        <string>Add data from TMX</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="exportTMX" >
+       <property name="text" >
+        <string>Export to TMX</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0" >
+    <widget class="QTreeView" name="list" />
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

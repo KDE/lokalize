@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -36,21 +36,10 @@
 #include "project.h"
 #include <kdebug.h>
 
-// TbxParser::TbxParser(Glossary* glossary)
-//         : QXmlDefaultHandler()
-//         , m_glossary(glossary)
-// {}
-// 
-// 
-// TbxParser::~TbxParser()
-// {}
-
-
 bool TbxParser::startDocument()
 {
     m_state=null;
     m_lang=langNull;
-//     inTermTag=false;
     return true;
 }
 
@@ -64,19 +53,15 @@ bool TbxParser::startElement( const QString&, const QString&,
     {
         if (attr.value("xml:lang")=="en")
             m_lang=langEn;
-//         else
-//             m_lang=langOther;
         else if (attr.value("xml:lang")==Project::instance()->langCode())
-            m_lang=langOther;
+            m_lang=langTarget;
         else
             m_lang=langNull;
 
     }
     else if (qName=="term")
     {
-//         inTermTag=true;
         m_state=term;
-        //m_termEn.clear();
     }
     else if (qName=="termEntry")
     {
@@ -103,14 +88,13 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
 {
     if (qName=="term")
     {
-//         inTermTag=false;
         if (m_lang==langEn)
         {
             m_entry.english << m_termEn;
             m_termEn.clear();
             m_entry.english.last().squeeze();
         }
-        else if (m_lang==langOther)
+        else if (m_lang==langTarget)
         {
             m_entry.target << m_termOther;
             m_termOther.clear();
@@ -137,7 +121,7 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
         //sanity check --maybe this entry is only for another language?
         if (m_entry.target.isEmpty()||m_entry.english.isEmpty())
             return true;
-//         kWarning() << m_entry.target.size() << " " << m_entry.english.size();
+
         int index=m_glossary->termList.count();
         m_glossary->termList.append(m_entry);
         m_glossary->hashTermEntry(index);
@@ -152,15 +136,12 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
 
 bool TbxParser::characters ( const QString & ch )
 {
-    if(m_state==term/*inTermTag*/)
+    if(m_state==term)
     {
-//         kWarning() << "O " << ch;
         if (m_lang==langEn)
             m_termEn+=ch.toLower();//this is important
-        else if (m_lang==langOther)
+        else if (m_lang==langTarget)
             m_termOther+=ch;
-//         kWarning() << "O m_termEn " << m_termEn;
-//         kWarning() << "O m_termO " << m_termOther;
     }
     else if (m_state==descripDefinition)
     {

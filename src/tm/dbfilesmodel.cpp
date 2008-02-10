@@ -51,6 +51,7 @@ DBFilesModel* DBFilesModel::instance()
 
 DBFilesModel::DBFilesModel()
  : KDirModel()
+ , projectDB(0)
 {
     QString dbDir=KStandardDirs::locateLocal("appdata", "");
     dirLister()->openUrl(KUrl::fromPath(dbDir));
@@ -59,7 +60,9 @@ DBFilesModel::DBFilesModel()
 
 
 DBFilesModel::~DBFilesModel()
-{}
+{
+    delete projectDB;
+}
 
 
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
@@ -73,7 +76,7 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
     QString res=KDirModel::data(index,role).toString();
     res.remove(".db");
 
-    if (!QSqlDatabase::contains(res))
+    if (KDE_ISUNLIKELY( !QSqlDatabase::contains(res) ))
     {
         OpenDBJob* openDBJob=new OpenDBJob(res,0);
         connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),
@@ -81,6 +84,11 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
         connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),
                 Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    }
+
+    if (res==Project::instance()->projectID() && !projectDB)
+    {
+        projectDB=new QPersistentModelIndex(index);
     }
 
     return res;

@@ -54,6 +54,8 @@
 #define INSERT  60
 #define SELECT  50
 #define BATCHSELECTFINISHED  49
+#define IMPORT 30
+#define EXPORT 25
 #define SCAN    10
 #define SCANFINISHED 9
 
@@ -235,8 +237,6 @@ private:
     QString m_dbName;
 };
 
-//BEGIN building up TM
-
 //scan one file
 class ScanJob: public ThreadWeaver::Job
 {
@@ -282,8 +282,6 @@ public:
 };
 
 
-//END building up TM
-
 //helper
 class BatchSelectFinishedJob: public ThreadWeaver::Job
 {
@@ -327,4 +325,35 @@ public:
 #endif
 
 
+
+
+
+
+class ImportTmx: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    explicit ImportTmx(const QString& url,
+                     const QString& dbName,
+                     QObject* parent=0);
+    ~ImportTmx();
+
+    int priority()const{return IMPORT;}
+
+protected:
+    void run ();
+public:
+    QString m_filename;
+
+    //statistics
+    ushort m_time;
+    ushort m_added;
+    ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
+
+    QString m_dbName;
+};
+
+
+
 #endif
+

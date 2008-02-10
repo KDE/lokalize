@@ -34,6 +34,7 @@
 #include "ui_managedatabases.h"
 #include "ui_dbparams.h"
 #include "dbfilesmodel.h"
+#include "tmwindow.h"
 #include "jobs.h"
 #include "project.h"
 
@@ -52,10 +53,23 @@ TMManagerWin::TMManagerWin(QWidget *parent)
     setCentralWidget(w);
     ui_tmManager.list->setModel(DBFilesModel::instance());
     m_tmListWidget=ui_tmManager.list;
-    connect (ui_tmManager.addData,SIGNAL(clicked(bool)),
-             this,SLOT(addDir()));
-    connect (ui_tmManager.create,SIGNAL(clicked(bool)),
-             this,SLOT(addDB()));
+
+    connect(ui_tmManager.addData,SIGNAL(clicked(bool)),this,SLOT(addDir()));
+    connect(ui_tmManager.create,SIGNAL(clicked(bool)),this,SLOT(addDB()));
+    connect(ui_tmManager.importTMX,SIGNAL(clicked(bool)),this,SLOT(importTMX()));
+    connect(ui_tmManager.exportTMX,SIGNAL(clicked(bool)),this,SLOT(exportTMX()));
+
+    QTimer::singleShot(100,this,SLOT(initLater()));
+}
+
+
+void TMManagerWin::initLater()
+{
+    connect(m_tmListWidget,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+
+    QPersistentModelIndex* projectDBIndex=DBFilesModel::instance()->projectDBIndex();
+    if (projectDBIndex)
+        m_tmListWidget->setCurrentIndex(*projectDBIndex);
 }
 
 void TMManagerWin::addDir()
@@ -91,5 +105,36 @@ void TMManagerWin::addDB()
 }
 
 
+
+
+
+
+void TMManagerWin::importTMX()
+{
+    QString path=KFileDialog::getOpenFileName(KUrl("kfiledialog:///tmx"),
+                      i18n("*.tmx|TMX files\n*|All files"),
+                      this,
+                      i18nc("@title:window","Select TMX file to be imported into selected Database"));
+
+    QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
+
+    if (!path.isEmpty())
+    {
+        ImportTmx* j=new ImportTmx(path,dbName);
+        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+
+        ThreadWeaver::Weaver::instance()->enqueue(j);
+    }
+}
+
+
+void TMManagerWin::slotItemActivated(const QModelIndex&)
+{
+    //QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
+    TMWindow* win=new TMWindow;
+    win->selectDB(m_tmListWidget->currentIndex().row());
+    win->show();
+}
 
 
