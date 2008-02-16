@@ -1,7 +1,15 @@
-The most global class is Project. It is a singleton so all data that can be shared among KAider instances should go into it.
+The most global class is 'Project'. It is a singleton so all data that can be shared among Lokalize windows should go into it.
+'Settings' is also a singleton (src/prefs).
 
-KAider is a dispatcher for one catalog editing window.
-KAiderView is msgid/msgstr viewer/editor.
-All specialized actions should go into views (QDockWidgets).
+'KAider' is a dispatcher (controller) for one catalog editing window.
+'KAiderView' is msgid/msgstr viewer/editor.
 
-PS I love Qt's signal/slot mechanism.
+All specialized actions should go into views (QDockWidgets) or separate classes used from views.
+
+'Catalog' is a controller+proxymodel for translation files
+'CatalogStorage' is interface for different storage models (qvector for gettext, qdom for xliff)
+
+
+==Translation Memory==
+Implemented as series of jobs running in second thread (src/tm/jobs.cpp)
+

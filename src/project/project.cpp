@@ -86,6 +86,12 @@ Project::Project()
 
 {
     ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
+
+    OpenDBJob* openDBJob=new OpenDBJob(projectID(),this);
+    connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
+    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+
 }
 
 Project::~Project()

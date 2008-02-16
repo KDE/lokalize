@@ -151,6 +151,9 @@ void TMView::dropEvent(QDropEvent *event)
     int i=event->mimeData()->urls().size();
     while(--i>=0)
     {
+        if (event->mimeData()->urls().at(i).isEmpty()
+            || event->mimeData()->urls().at(i).path().isEmpty() ) //NOTE is it qt bug?
+            continue;
         if (event->mimeData()->urls().at(i).path().endsWith(".po"))
         {
             ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),pID);

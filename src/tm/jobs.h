@@ -329,14 +329,14 @@ public:
 
 
 
-class ImportTmx: public ThreadWeaver::Job
+class ImportTmxJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit ImportTmx(const QString& url,
+    explicit ImportTmxJob(const QString& url,
                      const QString& dbName,
                      QObject* parent=0);
-    ~ImportTmx();
+    ~ImportTmxJob();
 
     int priority()const{return IMPORT;}
 
@@ -353,7 +353,33 @@ public:
     QString m_dbName;
 };
 
+#if 0
 
+class ExportTmxJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    explicit ExportTmxJob(const QString& url,
+                     const QString& dbName,
+                     QObject* parent=0);
+    ~ExportTmxJob();
+
+    int priority()const{return IMPORT;}
+
+protected:
+    void run ();
+public:
+    QString m_filename;
+
+    //statistics
+    ushort m_time;
+    ushort m_added;
+    ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
+
+    QString m_dbName;
+};
+
+#endif
 
 #endif
 

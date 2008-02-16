@@ -35,6 +35,7 @@
 #include "project.h"
 #include "diff.h"
 #include "prefs_lokalize.h"
+#include "version.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -754,7 +755,9 @@ OpenDBJob::~OpenDBJob()
 
 void OpenDBJob::run ()
 {
-    //    if (QSqlDatabase::contains(m_dbName))
+    if (QSqlDatabase::contains(m_dbName))
+        return;
+
     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
@@ -1199,7 +1202,7 @@ ScanJob::~ScanJob()
 
 void ScanJob::run()
 {
-    kWarning() <<"started"<<m_url.pathOrUrl();
+    kWarning() <<"started"<<m_url.pathOrUrl()<<m_dbName;
     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
@@ -1429,7 +1432,7 @@ void IndexWordsJob::run ()
 #endif
 
 
-
+//BEGIN TMX
 
 #include <QXmlDefaultHandler>
 #include <QXmlSimpleReader>
@@ -1479,11 +1482,15 @@ private:
 
     ushort m_added;
     ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
+
+
+    QString m_dbLangCode;
 };
 
 
 TmxParser::TmxParser(const QString& dbName)
-    :queryMain(0)
+    : queryMain(0)
+    , m_dbLangCode(Project::instance()->langCode().toLower())
 {
     m_added=0;      //stats
     m_newVersions=0;//stats
@@ -1541,10 +1548,13 @@ bool TmxParser::startElement( const QString&, const QString&,
     {
         if (attr.value("xml:lang").toLower()=="en")
             m_lang=langEn;
-        else if (attr.value("xml:lang").toLower()==Project::instance()->langCode())
+        else if (attr.value("xml:lang").toLower()==m_dbLangCode)
             m_lang=langTarget;
         else
+        {
+            kWarning()<<"skipping lang"<<attr.value("xml:lang");
             m_lang=langNull;
+        }
 
     }
     else if (qName=="seg")
@@ -1598,7 +1608,7 @@ bool TmxParser::characters ( const QString & ch )
 
 
 
-ImportTmx::ImportTmx(const QString& filename,//const KUrl& url,
+ImportTmxJob::ImportTmxJob(const QString& filename,//const KUrl& url,
                      const QString& dbName,
                      QObject* parent)
     : ThreadWeaver::Job(parent)
@@ -1607,12 +1617,12 @@ ImportTmx::ImportTmx(const QString& filename,//const KUrl& url,
 {
 }
 
-ImportTmx::~ImportTmx()
+ImportTmxJob::~ImportTmxJob()
 {
-    kWarning() <<"ImportTmx dtor ";
+    kWarning() <<"ImportTmxJob dtor ";
 }
 
-void ImportTmx::run()
+void ImportTmxJob::run()
 {
     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
@@ -1638,4 +1648,137 @@ void ImportTmx::run()
 
 
 
+#include <QXmlStreamWriter>
 
+#if 0
+ExportTmxJob::ExportTmxJob(const QString& filename,//const KUrl& url,
+                     const QString& dbName,
+                     QObject* parent)
+    : ThreadWeaver::Job(parent)
+    , m_filename(filename)
+    , m_dbName(dbName)
+{
+}
+
+ExportTmxJob::~ExportTmxJob()
+{
+    kWarning() <<"ExportTmxJob dtor ";
+}
+
+void ExportTmxJob::run()
+{
+    thread()->setPriority(QThread::IdlePriority);
+    QTime a;a.start();
+
+    QFile out(m_filename);
+    if (!out.open(QFile::WriteOnly|QFile::Text))
+         return;
+
+    QXmlStreamWriter xmlOut(&out);
+    xmlOut.setAutoFormatting(true);
+    xmlOut.writeStartDocument("1.0");
+
+
+
+    xmlOut.writeStartElement("tmx");
+    xmlOut.writeAttribute("version","1.4");
+
+    xmlOut.writeStartElement("header");
+    xmlOut.writeAttribute("creationtool","lokalize");
+    xmlOut.writeAttribute("creationtoolversion",KAIDER_VERSION);
+    xmlOut.writeAttribute("segtype","paragraph");
+    xmlOut.writeEndElement();
+
+    xmlOut.writeStartElement("body");
+
+
+
+    Project::instance()->langCode();
+
+    QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    QSqlQuery query1(db);
+
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT * FROM tm_main")))
+        kWarning() <<"select error: " <<query1.lastError().text();
+
+    while (query1.next())
+    {
+        xmlOut.writeStartElement("tu");
+        xmlOut.writeAttribute("tuid",QString::number(query1.value(0).toLongLong()));
+
+        xmlOut.writeStartElement("tuv");
+        xmlOut.writeAttribute("xml","lang","en");
+        xmlOut.writeStartElement("seg");
+        xmlOut.writeCharacters(query1.value(1).toString());
+        xmlOut.writeEndElement();
+
+        xmlOut.writeStartElement("tuv");
+        xmlOut.writeAttribute("xml","lang","en");
+        xmlOut.writeStartElement("seg");
+        xmlOut.writeCharacters(query1.value(1).toString());
+        xmlOut.writeEndElement();
+
+        xmlOut.writeStartElement("prop");
+        xmlOut.writeAttribute("tuid",QString::number(query1.value(0).toLongLong()));
+        <prop type="x-Domain">Computing</prop>
+
+    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_main ("
+                   "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
+                   "english TEXT UNIQUE ON CONFLICT REPLACE, "
+                   "target TEXT, "
+                   "ctxt TEXT, "//context; delimiter is \b
+                   "date DEFAULT CURRENT_DATE, "
+                   "hits NUMERIC DEFAULT 0"
+                   ")");
+
+    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_dups ("
+                   "id INTEGER, "
+                   "target TEXT, "
+                   "ctxt TEXT, "//context; delimiter is \b
+                // "plural_form INTEGER" TODO plurals
+            //??? int pluralForm=plural_form & 0xf
+                   "date DEFAULT CURRENT_DATE, "
+                   "hits NUMERIC DEFAULT 0"
+                   ")");
+
+        qlonglong id=query1.value(0).toLongLong();
+        if (target==query1.value(1).toString())
+        {
+            //main table contains the same en+translation
+            //but what about ctxt? => update ctxt list
+
+            QStringList dup_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);
+            query1.clear();
+            if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
+            {
+                dup_ctxt+=ctxt;
+                query1.prepare("UPDATE OR FAIL tm_main "
+                               "SET ctxt=? "
+                               "WHERE "
+                               "id=="+QString::number(id));
+                query1.bindValue(0, dup_ctxt.join("\b"));
+                if (!query1.exec())
+                    kWarning() <<"update db error: " <<query1.lastError().text();
+            }
+
+            return INSERT_NOT_HAPPENED;
+        }
+        query1.clear();
+
+
+    xmlOut.writeStartElement("tu");
+    
+    
+    
+    
+    
+    
+    
+    xmlOut.writeEndDocument();
+
+    //kWarning() <<"Done scanning "<<m_url.prettyUrl();
+    m_time=a.elapsed();
+}
+
+#endif
+//END TMX

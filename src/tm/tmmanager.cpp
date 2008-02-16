@@ -120,7 +120,7 @@ void TMManagerWin::importTMX()
 
     if (!path.isEmpty())
     {
-        ImportTmx* j=new ImportTmx(path,dbName);
+        ImportTmxJob* j=new ImportTmxJob(path,dbName);
         connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
         connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
 
