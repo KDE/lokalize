@@ -353,7 +353,7 @@ public:
     QString m_dbName;
 };
 
-#if 0
+// #if 0
 
 class ExportTmxJob: public ThreadWeaver::Job
 {
@@ -379,7 +379,7 @@ public:
     QString m_dbName;
 };
 
-#endif
+// #endif
 
 #endif
 

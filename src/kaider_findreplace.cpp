@@ -103,6 +103,8 @@ void KAider::find()
         m_searchFilesPos=-1;
         m_searchFiles.clear();
         _findDialog->setHasCursor(true);
+        m_updateView=true;
+        m_catalogTreeView->setUpdatesEnabled(true);
     }
     else if (!m_searchFiles.isEmpty())
         _findDialog->setHasCursor(false);
@@ -473,6 +475,8 @@ void KAider::replace()
         m_replaceFilesPos=-1;
         m_replaceFiles.clear();
         _replaceDialog->setHasCursor(true);
+        m_updateView=true;
+        m_catalogTreeView->setUpdatesEnabled(true);
     }
     else if (!m_replaceFiles.isEmpty())
         _replaceDialog->setHasCursor(false);
@@ -507,8 +511,7 @@ void KAider::replace()
 
     if (_replace)
     {
-        delete _replace;
-        _replace=0;
+        delete _replace; _replace=0;
     }
 
     // This creates a find-next-prompt dialog if needed.

@@ -47,6 +47,7 @@ private slots:
     void addDir();
     void addDB();
     void importTMX();
+    void exportTMX();
 
     void initLater();
     void slotItemActivated(const QModelIndex&);

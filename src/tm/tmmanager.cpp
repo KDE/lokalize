@@ -112,9 +112,9 @@ void TMManagerWin::addDB()
 void TMManagerWin::importTMX()
 {
     QString path=KFileDialog::getOpenFileName(KUrl("kfiledialog:///tmx"),
-                      i18n("*.tmx|TMX files\n*|All files"),
+                      i18n("*.tmx *.xml|TMX files\n*|All files"),
                       this,
-                      i18nc("@title:window","Select TMX file to be imported into selected Database"));
+                      i18nc("@title:window","Select TMX file to be imported into selected database"));
 
     QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
 
@@ -128,6 +128,25 @@ void TMManagerWin::importTMX()
     }
 }
 
+
+void TMManagerWin::exportTMX()
+{
+    QString path=KFileDialog::getSaveFileName(KUrl("kfiledialog:///tmx"),
+                      i18n("*.tmx *.xml|TMX files\n*|All files"),
+                      this,
+                      i18nc("@title:window","Select TMX file to export selected database to"));
+
+    QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
+
+    if (!path.isEmpty())
+    {
+        ExportTmxJob* j=new ExportTmxJob(path,dbName);
+        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+
+        ThreadWeaver::Weaver::instance()->enqueue(j);
+    }
+}
 
 void TMManagerWin::slotItemActivated(const QModelIndex&)
 {
