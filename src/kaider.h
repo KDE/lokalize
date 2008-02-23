@@ -203,12 +203,15 @@ private:
 
     Sonnet::Dialog* m_sonnetDialog;
     int _spellcheckStartUndoIndex;
-    bool _spellcheckStop:8;
+    bool _spellcheckStop:1;
 
-    bool m_updateView:8;//for find/replace in files
-    bool m_modifiedAfterFind:8;
+    bool m_currentIsApproved:1; //for statusbar animation
+    bool m_currentIsUntr:1;  //for statusbar animation
 
-    bool m_doReplaceCalled:8;//used to prevent non-clean catalog status
+    bool m_updateView:1;//for find/replace in files
+    bool m_modifiedAfterFind:1;
+
+    bool m_doReplaceCalled:1;//used to prevent non-clean catalog status
     KFindDialog* _findDialog;
     KFind* _find;
     KReplaceDialog* _replaceDialog;

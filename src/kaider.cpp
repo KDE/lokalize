@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -57,11 +57,8 @@
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
-
+#include <kfadewidgeteffect.h>
 #include <kio/netaccess.h>
-
-//#include <kedittoolbar.h>
-
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
@@ -86,6 +83,8 @@ KAider::KAider()
         , m_sonnetDialog(0)
         , _spellcheckStartUndoIndex(0)
         , _spellcheckStop(false)
+        , m_currentIsApproved(true)
+        , m_currentIsUntr(true)
         , m_updateView(true)
         , m_modifiedAfterFind(false)
         , m_doReplaceCalled(false)
@@ -108,7 +107,7 @@ KAider::KAider()
 //     setUpdatesEnabled(false);//dunno if it helps
     setAcceptDrops(true);
     setCentralWidget(m_view);
-    //setupStatusBar(); --called from initLater()
+    setupStatusBar(); //--NOT called from initLater()
     createDockWindows(); //toolviews
     setupActions();
     //setAutoSaveSettings();
@@ -123,8 +122,6 @@ KAider::KAider()
 void KAider::initLater()
 {
 //     QTime chrono;chrono.start();
-
-    setupStatusBar();
 
     connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
@@ -174,6 +171,7 @@ void KAider::setupStatusBar()
 {
     statusBar()->insertItem(i18nc("@info:status message entry","Current: %1",0),ID_STATUS_CURRENT);
     statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",0),ID_STATUS_TOTAL);
+//    statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",_catalog->numberOfEntries()),ID_STATUS_TOTAL);
     statusBar()->insertItem(i18nc("@info:status message entries","Fuzzy: %1",0),ID_STATUS_FUZZY);
     statusBar()->insertItem(i18nc("@info:status message entries","Untranslated: %1",0),ID_STATUS_UNTRANS);
     statusBar()->insertItem(QString(),ID_STATUS_ISFUZZY);
@@ -514,6 +512,8 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint))/*,Qt::QueuedConnection*/);
 
+    int i=0;
+#if 0
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
     Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
         {
@@ -529,8 +529,7 @@ void KAider::createDockWindows()
             Qt::Key_0,
         };
     QAction* wqaction;
-    int i=0;
-    for (;i<WEBQUERY_SHORTCUTS;++i)
+    for (i=0;i<WEBQUERY_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
         wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
@@ -544,7 +543,7 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
     connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
-
+#endif
 
     QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]=
@@ -651,7 +650,7 @@ bool KAider::fileOpen(KUrl url)
     bool isTemlate=false;
 
     if (url.isEmpty())
-        url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template text/plain",this);
+        url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
     //TODO application/x-xliff
     else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
     {   //check if we are opening template
@@ -668,14 +667,17 @@ bool KAider::fileOpen(KUrl url)
     if (url.isEmpty())
         return false;
 
-    bool wasOpen=!_catalog->isEmpty();
-    if (wasOpen)
-            emit signalFileGonnaBeClosed();
-    if (_catalog->loadFromUrl(url))
-    {
-        if (wasOpen)
-            emit signalFileClosed();
+    QApplication::setOverrideCursor(Qt::WaitCursor);
 
+    bool wasOpen=!_catalog->isEmpty();
+    if (wasOpen) emit signalFileGonnaBeClosed();
+    bool success=_catalog->loadFromUrl(url);
+    if (wasOpen&&success) emit signalFileClosed();
+
+    QApplication::restoreOverrideCursor();
+
+    if (success)
+    {
         if (isTemlate)
         {
             url.setPath(originalPath);
@@ -859,24 +861,37 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         //still emit even if _currentEntry==pos.entry
         emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
         emit signalApprovedEntryDisplayed(_catalog->isApproved(_currentEntry));
-//        msgStrChanged();
         statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
+        msgStrChanged();
     }
     kDebug()<<"ELA "<<time.elapsed();
 }
 
 void KAider::msgStrChanged()
 {
+    bool isUntr=_catalog->msgstr(_currentPos).isEmpty();
+    bool isApproved=_catalog->isApproved(_currentPos);
+    if (isUntr==m_currentIsUntr && isApproved==m_currentIsApproved)
+        return;
+
     QString msg;
-    if (_catalog->isFuzzy(_currentEntry))
-        msg=i18nc("@info:status","Fuzzy");
-    else if (_catalog->msgstr(_currentPos).isEmpty())
+    if (isUntr)
         msg=i18nc("@info:status","Untranslated");
+    else if (isApproved)
+        msg=i18nc("@info:status","Approved");
+    else
+        msg=i18nc("@info:status","Needs review");
+
     /*    else
             statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
+
+    KFadeWidgetEffect *animation = new KFadeWidgetEffect(statusBar());
     statusBar()->changeItem(msg,ID_STATUS_ISFUZZY);
+    animation->start();
 
     m_modifiedAfterFind=true;//for F3-search
+    m_currentIsUntr=isUntr;
+    m_currentIsApproved=isApproved;
 }
 void KAider::switchForm(int newForm)
 {
