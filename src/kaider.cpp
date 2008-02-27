@@ -60,7 +60,7 @@
 
 #if QT_VERSION >= 0x040400
     #include <kfadewidgeteffect.h>
-#end
+#endif
 
 #include <kio/netaccess.h>
 #include <kaction.h>
@@ -891,11 +891,11 @@ void KAider::msgStrChanged()
 
 #if QT_VERSION >= 0x040400
     KFadeWidgetEffect *animation = new KFadeWidgetEffect(statusBar());
-#end
+#endif
     statusBar()->changeItem(msg,ID_STATUS_ISFUZZY);
 #if QT_VERSION >= 0x040400
     animation->start();
-#end
+#endif
 
     m_modifiedAfterFind=true;//for F3-search
     m_currentIsUntr=isUntr;
