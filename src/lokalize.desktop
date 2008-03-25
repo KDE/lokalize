@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Lokalize
+Name[x-test]=xxLokalizexx
 Exec=lokalize %i -caption "%c"
 Icon=lokalize
 Type=Application
@@ -14,6 +15,7 @@ GenericName[pt]=Sistema de traduções auxiliado pelo computador
 GenericName[pt_BR]=Sistema de traduções auxiliado pelo computador
 GenericName[tr]=Bilgisayar destekli çeviri sistemi
 GenericName[wa]=Sistinme di ratournaedje aidî pal copiutrece
+GenericName[x-test]=xxComputer-aided translation systemxx
 GenericName[zh_TW]=電腦協助翻譯系統
 Terminal=0
 
