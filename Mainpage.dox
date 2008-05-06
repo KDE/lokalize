@@ -1,0 +1,9 @@
+/** @mainpage Lokalize
+*
+* Lokalize is a computer-aided translation system that focuses on productivity
+* and performance. Lokalize applies a paragraph-by-paragraph translation
+* approach when translating documentation, and takes a message-by-message
+* approach when translating GUI components.
+*
+* This package is part of KDE, and a component of the KDE SDK module.
+*/
