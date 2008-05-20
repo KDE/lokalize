@@ -1,5 +1,7 @@
 [Desktop Entry]
 Name=Lokalize
+Name[sr]=Локализуј
+Name[sr@latin]=Lokalizuj
 Name[x-test]=xxLokalizexx
 Exec=lokalize %i -caption "%c"
 Icon=lokalize
@@ -12,10 +14,13 @@ GenericName[de]=Computergestütztes Übersetzungssystem
 GenericName[el]=Σύστημα μετάφρασης υποβοηθούμενο από τον υπολογιστή
 GenericName[es]=Sistema de traducción asistida por ordenador
 GenericName[ga]=Córas aistriúcháin ríomhchuidithe
+GenericName[it]=Sistema di traduzione informatica
 GenericName[km]=ប្រព័ន្ធ​បកប្រែ​ដែល​មានជំនួយ​ដោយ​កុំព្យូទ័រ
 GenericName[pt]=Sistema de traduções auxiliado pelo computador
 GenericName[pt_BR]=Sistema de traduções auxiliado pelo computador
 GenericName[ru]=Ассистент переводчика
+GenericName[sr]=Систем за превођење помоћу рачунара
+GenericName[sr@latin]=Sistem za prevođenje pomoću računara
 GenericName[sv]=Datorstött översättningssystem
 GenericName[tr]=Bilgisayar destekli çeviri sistemi
 GenericName[uk]=Комп’ютерна система допомоги у перекладі
