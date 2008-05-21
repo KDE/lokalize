@@ -6,4 +6,6 @@
 * approach when translating GUI components.
 *
 * This package is part of KDE, and a component of the KDE SDK module.
+*
+* Much work on Lokalize was done as part of a <a href="http://techbase.kde.org/Projects/Summer_of_Code/2007/Projects/KAider">Google Summer of Code 2007</a> project by Nick Shaforostoff.
 */
