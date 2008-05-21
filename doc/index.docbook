@@ -123,7 +123,7 @@ The project file tree is accessible as a toolview in the editor and as a separat
 <title>Operations on multiple files</title>
 
 <para>
-Currently &lokalize; supports searching, replacing, and spell checking within
+Currently &lokalize; supports searching, replacing, and spellchecking within
 multiple files. Select the items that you are interested in, then choose the
 <guimenuitem>Find in files</guimenuitem> option from the context menu. The first
 match will be displayed in the usual &lokalize; window. You can then proceed by
@@ -191,12 +191,12 @@ They are identical, but the former is usually used to merge translatons and seco
 <title>Merging</title>
 <para>
 One use of <guilabel>Sync Mode</guilabel> is reviewing changes made by (new)
-contributors, when you can't be sure of the quality of the work done.
+contributors, when you cannot be sure of the quality of the work done.
 </para>
 <para>
 Open a base file, then drop its changed version into the <guilabel>Primary Sync</guilabel> view,
 followed by <keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo> or <keycombo><keycap>Alt</keycap>
-<keycap>Up</keycap></keycombo> (remember that key bindings may be modified in a usual way for all KDE apps)
+<keycap>Up</keycap></keycombo> (remember that shortcuts may be modified in a usual way for all &kde; apps)
 to navigate through entries that are different.
 </para>
 </sect1>
