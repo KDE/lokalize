@@ -100,7 +100,7 @@ target_link_libraries(lokalize
     ${QT_QTSQL_LIBRARY}
 )
 
-install(TARGETS lokalize DESTINATION ${BIN_INSTALL_DIR} )
+install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 
 ########### install files ###############
