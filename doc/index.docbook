@@ -130,7 +130,7 @@ match will be displayed in the usual &lokalize; window. You can then proceed by
 pressing the <keycap>F3</keycap> button to find the next match. If you press the
 <keycap>F3</keycap> button and there are no matches left in the current file,
 then the search will continue in the next file and so on. To reset the multiple
-file search state, press <keycap>Ctrl+F</keycap> in &lokalize;, and the editor
+file search state, press <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo> in &lokalize;, and the editor
 window will reset.
 </para>
 </sect1>
@@ -183,7 +183,7 @@ or when one has to maintain translations for several branches of software.
 <para>
 &lokalize; allows quick navigation through the messages that differ, and displays
 word-by-word differences. Also, &lokalize; has two Sync views - <guilabel>Primary Sync</guilabel> and <guilabel>Secondary Sync</guilabel>.
-They are identical, but the former is usually used to merge translatons and second to keep in sync translations for two software branches.
+They are identical, but the former is usually used to merge translations and second to keep in sync translations for two software branches.
 </para>
 
 
