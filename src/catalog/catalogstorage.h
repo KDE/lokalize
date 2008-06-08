@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CATALOGSTORAGE_H
 
 #include "pos.h"
+#include "tagrange.h"
 
 #include <kurl.h>
 #include <QStringList>
@@ -54,8 +55,10 @@ public:
      *
      * format-specific texts like \" for gettext PO should be eliminated
     **/
-    virtual const QString& source(const DocPosition& pos) const=0;
-    virtual const QString& target(const DocPosition& pos) const=0;
+    virtual QString source(const DocPosition& pos) const=0;
+    virtual QString target(const DocPosition& pos) const=0;
+    virtual QString source(const DocPosition& pos, QList<TagRange>& ranges) const=0;
+    virtual QString target(const DocPosition& pos, QList<TagRange>& ranges) const=0;
     /**
      * edit operations used by undo/redo  system and sync-mode
     **/
@@ -72,11 +75,11 @@ public:
     virtual QStringList targetAllForms(const DocPosition& pos) const=0;
 
     //DocPosition.form - number of <note>
-    virtual const QString& note(const DocPosition& pos) const=0;
+    virtual QString note(const DocPosition& pos) const=0;
     virtual int noteCount(const DocPosition& pos) const=0;
 
     //DocPosition.form - number of <context>
-    virtual const QString& context(const DocPosition& pos) const=0;
+    virtual QString context(const DocPosition& pos) const=0;
     virtual int contextCount(const DocPosition& pos) const=0;
 
     /**
@@ -111,16 +114,11 @@ public:
     const KUrl& url() const {return m_url;}
     void setUrl(const KUrl& u){m_url=u;}//TODO
 
-    const QString& langCode() const {return m_langCode;}
-    void setLangCode(const QString& lc){m_langCode=lc;}//TODO
-
-    const QString& language() const {return m_language;}
-    void setLanguage(const QString& l){m_language=l;}//TODO
+    virtual QString mimetype()const=0;
 
 protected:
     KUrl m_url;
     QString m_langCode;
-    QString m_language;
     int m_numberOfPluralForms;
 };
 
@@ -132,6 +130,9 @@ inline CatalogStorage::CatalogStorage()
 inline CatalogStorage::~CatalogStorage()
 {
 }
+
+
+
 
 
 #endif

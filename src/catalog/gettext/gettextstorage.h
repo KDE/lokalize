@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "catalogitem.h"
 #include "catalogstorage.h"
 
+
 /**
 	@author Nick Shaforostoff <shafff@ukr.net>
 */
@@ -43,8 +44,10 @@ public:
     bool isEmpty() const;
 
     //flat-model interface (ignores XLIFF grouping)
-    const QString& source(const DocPosition& pos) const;
-    const QString& target(const DocPosition& pos) const;
+    QString source(const DocPosition& pos) const;
+    QString target(const DocPosition& pos) const;
+    QString source(const DocPosition& pos, QList<TagRange>& ranges) const{return source(pos);}
+    QString target(const DocPosition& pos, QList<TagRange>& ranges) const{return target(pos);}
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
@@ -54,11 +57,11 @@ public:
     QStringList targetAllForms(const DocPosition& pos) const;
 
     //DocPosition.form - number of <note>
-    const QString& note(const DocPosition& pos) const;
+    QString note(const DocPosition& pos) const;
     int noteCount(const DocPosition& pos) const;
 
     //DocPosition.form - number of <context>
-    const QString& context(const DocPosition& pos) const;
+    QString context(const DocPosition& pos) const;
     int contextCount(const DocPosition& pos) const;
 
     QStringList matchData(const DocPosition& pos) const;
@@ -71,9 +74,10 @@ public:
 
     bool isUntranslated(const DocPosition& pos) const;
 
+    QString mimetype()const{return "text/x-gettext-translation";}
+
 private:
     bool setHeader(const CatalogItem& newHeader);
-    void updateHeader(bool forSaving);
 
 private:
     QVector<CatalogItem> m_entries;

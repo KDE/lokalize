@@ -62,6 +62,8 @@
     #include <kfadewidgeteffect.h>
 #endif
 
+#define WEBQUERY_ENABLE
+
 #include <kio/netaccess.h>
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -216,6 +218,7 @@ void KAider::setupActions()
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
+    action = KStandardAction::saveAs(this, SLOT(fileSaveAs()), ac);
     //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
     //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
 
@@ -290,10 +293,12 @@ void KAider::setupActions()
     action = KStandardAction::next(this, SLOT(gotoNext()), ac);
     action->setText(i18nc("@action:inmenu entry","&Next"));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
+    connect(m_view,SIGNAL(signalGotoNext()),this,SLOT(gotoNext()));
 
     action = KStandardAction::prior(this, SLOT(gotoPrev()), ac);
     action->setText(i18nc("@action:inmenu entry","&Previous"));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
+    connect(m_view,SIGNAL(signalGotoPrev()),this,SLOT(gotoPrev()));
 
     action = KStandardAction::firstPage(this, SLOT(gotoFirst()),ac);
     connect(m_view,SIGNAL(signalGotoFirst()),this,SLOT(gotoFirst()));
@@ -517,7 +522,7 @@ void KAider::createDockWindows()
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint))/*,Qt::QueuedConnection*/);
 
     int i=0;
-#if 0
+#ifdef WEBQUERY_ENABLE
     QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
     Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
         {
@@ -626,7 +631,7 @@ void KAider::createDockWindows()
     actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
 //    connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
-    connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(refreshMsgEdit()));
+    connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(refreshMsgEdit()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
     connect (this,SIGNAL(signalFileGonnaBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
 
@@ -729,10 +734,7 @@ bool KAider::fileOpen(KUrl url)
 
         if (_project->isLoaded())
         {
-            _captionPath=KUrl::relativePath(
-            KUrl(_project->path()).directory()
-                        ,url.pathOrUrl()
-                                        );
+            updateCaptionPath();
             setCaption(_captionPath,false);
         }
 
@@ -745,9 +747,26 @@ bool KAider::fileOpen(KUrl url)
     return false;
 }
 
+void KAider::updateCaptionPath()
+{
+    KUrl url=_catalog->url();
+    if (!url.isLocalFile() || !_project->isLoaded())
+    {
+        _captionPath=url.pathOrUrl();
+    }
+    else
+    {
+        _captionPath=KUrl::relativePath(
+                        KUrl(_project->path()).directory()
+                        ,url.pathOrUrl()
+                                        );
+    }
+
+}
+
 bool KAider::fileSaveAs()
 {
-    KUrl url=KFileDialog::getSaveUrl(_catalog->url(), "text/x-gettext-translation",this);
+    KUrl url=KFileDialog::getSaveUrl(_catalog->url(),_catalog->mimetype(),this);
     if (url.isEmpty())
         return false;
     return fileSave(url);
@@ -756,7 +775,11 @@ bool KAider::fileSaveAs()
 bool KAider::fileSave(const KUrl& url)
 {
     if (_catalog->saveToUrl(url))
+    {
+        updateCaptionPath();
+        setModificationSign(/*clean*/true);
         return true;
+    }
 
     if ( KMessageBox::warningContinueCancel(this,
                                             i18nc("@info","Error saving the file <filename>%1</filename>\n"

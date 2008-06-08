@@ -98,8 +98,9 @@ public:
     int isChanged(uint index) const {return m_mergeDiffIndex.indexOf(index)!=-1;}
 
     //override to use map
-    const QString& msgstr(const DocPosition&, const bool noNewlines=false) const;
+    QString msgstr(const DocPosition&, const bool noNewlines=false) const;
     bool isFuzzy(uint index) const;
+    bool isPlural(uint index) const;
 
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const short int& entry) const;

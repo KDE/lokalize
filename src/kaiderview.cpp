@@ -225,6 +225,16 @@ bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
             return true;
         }
     }
+    else if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
+    {
+        emit signalGotoPrev();
+        return true;
+    }
+    else if(keyEvent->matches(QKeySequence::MoveToNextPage))
+    {
+        emit signalGotoNext();
+        return true;
+    }
     else if (keyEvent->modifiers() == (Qt::AltModifier|Qt::ControlModifier))
     {
         if(keyEvent->key()==Qt::Key_Home)
@@ -457,7 +467,10 @@ void KAiderView::approvedEntryDisplayed(bool approved, bool force)
 }
 
 
-void KAiderView::refreshMsgEdit()
+/**
+ * makes MsgEdit reflect current entry
+ **/
+void KAiderView::refreshMsgEdit(bool keepCursor)
 {
     ProperTextEdit& msgEdit=*_msgstrEdit;
     QTextCursor cursor=msgEdit.textCursor();
@@ -466,27 +479,29 @@ void KAiderView::refreshMsgEdit()
     int anchor=cursor.anchor();
 
     QString target=_catalog->target(_currentPos);
-    if (msgEdit.toPlainText()!=target)
+    _oldMsgstr=target;
+    if (!keepCursor && msgEdit.toPlainText()!=target)
     {
         pos=0;
         anchor=0;
     }
+
+
+    disconnect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
     //prevent undo tracking system from recording this 'action'
     msgEdit.document()->blockSignals(true);
     msgEdit.setPlainText(target);
     msgEdit.document()->blockSignals(false);
 
-    disconnect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-
+    QTextCursor t=msgEdit.textCursor();
+    t.movePosition(QTextCursor::Start);
     if (pos || anchor)
     {
-        QTextCursor t=msgEdit.textCursor();
-        t.movePosition(QTextCursor::Start);
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,anchor);
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,pos-anchor);
-        msgEdit.setTextCursor(t);
     }
+    msgEdit.setTextCursor(t);
 
     m_msgstrHighlighter->rehighlight();
     connect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
@@ -526,7 +541,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     approvedEntryDisplayed(_catalog->isApproved(_currentEntry),false);
 
     _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
-    unwrap(_msgidEdit);
+    //unwrap(_msgidEdit);
 
     refreshMsgEdit();//sets msgstredit text along the way
 
@@ -539,19 +554,19 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
             _leds->ledUntr->off();
     }
     ProperTextEdit* msgEdit=_msgstrEdit;
+    QTextCursor t=msgEdit->textCursor();
+    t.movePosition(QTextCursor::Start);
+
     if (pos.offset || selection)
     {
 
         if (pos.part==Msgid)
             msgEdit=_msgidEdit;
 
-        QTextCursor t=msgEdit->textCursor();
-        t.movePosition(QTextCursor::Start);
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
         if (selection)
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,selection);
-        msgEdit->setTextCursor(t);
     }
     else
     //what if msg starts with a tag?
@@ -559,12 +574,9 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     {
         int offset=_catalog->msgstr(_currentPos).indexOf(QRegExp(">[^<]"));
         if ( offset!=-1 )
-        {
-            QTextCursor t=msgEdit->textCursor();
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
-            msgEdit->setTextCursor(t);
-        }
     }
+        msgEdit->setTextCursor(t);
 
     //for undo/redo tracking
     _oldMsgstr=_catalog->msgstr(_currentPos);

@@ -228,7 +228,6 @@ static int doInsertEntry(const QString& english,
 
         query1.bindValue(0, id);
         query1.bindValue(1, target);
-        query1.bindValue(2, ctxt);
         if (KDE_ISLIKELY(query1.exec()))
             return INSERT_WITH_DUPS;
 
@@ -755,12 +754,13 @@ OpenDBJob::~OpenDBJob()
 
 void OpenDBJob::run ()
 {
+    kWarning()<<"started";
+
     if (QSqlDatabase::contains(m_dbName))
         return;
 
     thread()->setPriority(QThread::IdlePriority);
-    QTime a;
-    a.start();
+    QTime a;a.start();
     //kWarning() <<"opening db";
 
     QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
@@ -790,6 +790,7 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run ()
 {
+    kWarning() <<"started";
 //     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();
@@ -1132,6 +1133,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run ()
 {
+    kWarning() <<"started";
+    if (m_english.isEmpty()) //sanity check
+        return;
 //     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 

@@ -124,6 +124,8 @@ signals:
     void signalRedo();
     void signalGotoFirst();
     void signalGotoLast();
+    void signalGotoPrev();
+    void signalGotoNext();
     void fileOpenRequested(KUrl);
 
 private slots:
@@ -144,7 +146,7 @@ private slots:
     void clearMsgStr();
     void tagMenu();
 
-    void refreshMsgEdit();
+    void refreshMsgEdit(bool keepCursor=false);
 private:
 
 

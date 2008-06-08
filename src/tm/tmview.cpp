@@ -182,6 +182,7 @@ void TMView::dropEvent(QDropEvent *event)
 
 }
 
+#include <unistd.h>
 void TMView::slotFileLoaded(const KUrl& url)
 {
     Project* p=Project::instance();
@@ -404,6 +405,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         return;//because of Qt::QueuedConnection
 
 
+    //BEGIN query other DBs handling
     Project* p=Project::instance();
     const QString& pID=p->projectID();
     //check if this is an additional query, from secondary DBs
@@ -441,8 +443,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
             }
         }
     }
-
-    m_browser->clear();
+    //END query other DBs handling
 
     m_entries=job.m_entries;
 
@@ -455,7 +456,6 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         {
             m_hasInfo=false;
             setWindowTitle(m_normTitle);
-            m_browser->clear();
         }
         return;
     }
@@ -464,6 +464,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
+
+    setUpdatesEnabled(false);
+    m_browser->clear();
+
     //m_entries=job.m_entries;
     m_browser->insertHtml("<html>");
 
@@ -510,6 +514,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
     }
     m_browser->insertHtml("</html>");
+    setUpdatesEnabled(true);
     kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
@@ -528,11 +533,10 @@ void TMView::slotSelectionChanged()
     //(actually, quick word insertion is exactly the purpose of this slot:)
     QString sel(m_browser->textCursor().selectedText());
     if (!(sel.isEmpty()||sel.contains(' ')))
-    {
         emit textInsertRequested(sel);
-    }
 }
 
+//TODO thorough testing
 void TMView::slotUseSuggestion(int i)
 {
     if (KDE_ISUNLIKELY( i>=m_entries.size() ))
@@ -861,10 +865,10 @@ nono
 
 
 
-    m_catalog->beginMacro(i18nc("@item Undo action","Use translation memory suggestion"));
-
     if (KDE_ISUNLIKELY( target==m_catalog->msgstr(m_pos) || target.isEmpty() ))
         return;
+
+    m_catalog->beginMacro(i18nc("@item Undo action","Use translation memory suggestion"));
 
     if (!m_catalog->msgstr(m_pos).isEmpty())
     {

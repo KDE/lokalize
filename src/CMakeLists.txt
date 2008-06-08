@@ -62,6 +62,7 @@ set(lokalize_SRCS
     catalog/cmd.cpp
     catalog/pos.cpp
     catalog/catalog.cpp
+    catalog/gettextheader.cpp
     catalog/gettext/gettextstorage.cpp
     catalog/gettext/catalogitem.cpp
     catalog/gettext/importplugin.cpp
@@ -92,7 +93,6 @@ kde4_add_kcfg_files(lokalize_SRCS
 kde4_add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
-#     ${KDE4_KFIlE_LIBS}
 #     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
     ${KDE4_KFILE_LIBS}

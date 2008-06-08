@@ -284,7 +284,6 @@ void MergeView::mergeAccept()
         m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,true));
 
     m_baseCatalog->push(new InsTextCmd(m_baseCatalog,m_pos,m_mergeCatalog->msgstr(m_pos)));
-
     ////////this is NOT done automatically by BaseCatalogEntryChanged slot
     bool remove=true;
     if (m_mergeCatalog->isPlural(m_pos.entry))

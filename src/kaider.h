@@ -106,6 +106,7 @@ private slots:
     void msgStrChanged();
     //modif [caption] indication
     void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
+    void updateCaptionPath();
 
     //for undo/redo, views
     void gotoEntry(const DocPosition& pos,int selection=0);

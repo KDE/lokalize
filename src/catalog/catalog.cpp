@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file contains parts of KBabel code
 
   Copyright (C) 1999-2000	by Matthias Kiefer <matthias.kiefer@gmx.de>
@@ -109,7 +109,7 @@ int Catalog::numberOfEntries() const
     return m_storage->size();
 }
 
-const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
+QString Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
@@ -117,7 +117,7 @@ const QString& Catalog::msgid(const DocPosition& pos, const bool noNewlines) con
    return m_storage->source(pos);
 }
 
-const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
+QString Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
@@ -126,7 +126,24 @@ const QString& Catalog::msgstr(const DocPosition& pos, const bool noNewlines) co
 
 }
 
-const QString& Catalog::comment(uint index) const
+
+QString Catalog::source(const DocPosition& pos, QList<TagRange>& ranges) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return d->CatalogPrivate::_emptyStr;
+
+   return m_storage->source(pos,ranges);
+}
+
+QString Catalog::target(const DocPosition& pos, QList<TagRange>& ranges) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return d->CatalogPrivate::_emptyStr;
+
+   return m_storage->target(pos,ranges);
+}
+
+QString Catalog::comment(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
@@ -137,7 +154,7 @@ const QString& Catalog::comment(uint index) const
                 d->CatalogPrivate::_emptyStr;
 }
 
-const QString& Catalog::msgctxt(uint index) const
+QString Catalog::msgctxt(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
@@ -183,6 +200,14 @@ bool Catalog::isUntranslated(const DocPosition& pos) const
     return m_storage->isUntranslated(pos);
 }
 
+
+QString Catalog::mimetype()
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return false;
+
+    return m_storage->mimetype();
+}
 
 //END STORAGE TRANSLATION
 
@@ -483,9 +508,6 @@ int Catalog::findPrevInList(const QList<int>& list,int index) const
 
 
 
-
-
-//const QString& GNUPluralForms(const QString& lang);
 
 
 void Catalog::setBookmark(uint idx,bool set)

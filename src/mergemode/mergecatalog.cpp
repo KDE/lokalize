@@ -68,7 +68,7 @@ void MergeCatalog::BaseCatalogEntryChanged(const DocPosition& pos)
     }
 }
 
-const QString& MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) const
+QString MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 {
     DocPosition us=pos;
     us.entry=m_map.at(pos.entry);
@@ -78,6 +78,11 @@ const QString& MergeCatalog::msgstr(const DocPosition& pos, const bool noNewline
 bool MergeCatalog::isFuzzy(uint index) const
 {
     return Catalog::isFuzzy(m_map.at(index));
+}
+
+bool MergeCatalog::isPlural(uint index) const
+{
+    return Catalog::isPlural(m_map.at(index));
 }
 
 bool MergeCatalog::isPresent(const short int& entry) const

@@ -52,10 +52,16 @@ class QUndoCommand;
 class CatalogStorage;
 #include "pluralformtypes_enum.h"
 
+#include "tagrange.h"
 
 #define CHECK_IF_EMPTY(_return_type)\
 if (  d->_entries.isEmpty() )\
         return _return_type;
+
+
+//XLIFF, чтоб его...
+
+
 
 
 /**
@@ -74,13 +80,15 @@ public:
     Catalog(QObject* parent);
     virtual ~Catalog();
 
-    const QString& msgstr(const DocPosition&, const bool noNewlines=false) const;
-    const QString& msgid(const DocPosition&, const bool noNewlines=false) const;
-    const QString& target(const DocPosition& pos) const {return msgstr(pos);}
-    const QString& source(const DocPosition& pos) const {return msgid(pos);}
+    QString msgid(const DocPosition&, const bool noNewlines=false) const;
+    QString msgstr(const DocPosition&, const bool noNewlines=false) const;
+    QString source(const DocPosition& pos) const {return msgid(pos);}
+    QString target(const DocPosition& pos) const {return msgstr(pos);}
+    QString source(const DocPosition& pos, QList<TagRange>& ranges) const;
+    QString target(const DocPosition& pos, QList<TagRange>& ranges) const;
 
-    const QString& comment(uint index) const;
-    const QString& msgctxt(uint index) const;
+    QString comment(uint index) const;
+    QString msgctxt(uint index) const;
 
     PluralFormType pluralFormType(uint index) const;
     bool isPlural(uint index) const{return pluralFormType(index)==Gettext;}
@@ -123,7 +131,8 @@ public:
     void setImportPluginID(const QString& id){d->_importID=id;}
     const QString& importPluginID() const {return d->_importID;}
 
-    void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;}
+    //void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;}
+    QString mimetype();
 
     const KUrl& url() const {return d->_url;}
     void setUrl(const KUrl& u){d->_url=u;}//used for template load
