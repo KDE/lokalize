@@ -136,7 +136,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
-    foreach (HighlightingRule rule, highlightingRules)
+    foreach (const HighlightingRule &rule, highlightingRules)
     {
         QRegExp expression(rule.pattern);
         int index = text.indexOf(expression);

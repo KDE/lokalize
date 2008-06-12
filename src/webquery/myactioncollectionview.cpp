@@ -55,7 +55,7 @@ MyActionCollectionView::~MyActionCollectionView()
 
 void MyActionCollectionView::triggerSelectedActions()
 {
-    foreach(QModelIndex index, itemSelection().indexes())
+    foreach(const QModelIndex &index, itemSelection().indexes())
     {
         Action* action = ActionCollectionModel::action(index);
         static_cast<WebQueryController*>(action->object("WebQueryController"))->query(data);
