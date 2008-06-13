@@ -53,7 +53,7 @@ public:
      * @param entry is a whole entry
      */
     void setText(const QString& term,int entry);
-    void mousePressEvent (QMouseEvent*/* event*/);
+    void mousePressEvent (QMouseEvent* /* event*/);
 
 public slots:
     void insert();

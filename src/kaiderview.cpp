@@ -195,7 +195,7 @@ static bool isMasked(const QString& str, uint col)
 }
 
 
-bool KAiderView::eventFilter(QObject */*obj*/, QEvent *event)
+bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
 {
 //     if (obj!=_msgstrEdit)
 //     {

@@ -55,6 +55,6 @@ struct TagRange
     }
 };
 
-#define IMAGE_SYMBOL 65532
+#define TAGRANGE_IMAGE_SYMBOL 65532
 
 #endif

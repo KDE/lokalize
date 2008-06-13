@@ -39,6 +39,7 @@ class KTabBar;
 class SyntaxHighlighter;
 class Catalog;
 class LedsWidget;
+struct DocPosition;
 //#include <QKeyEvent>
 
 #include <ktextedit.h>
@@ -87,7 +88,7 @@ class KAiderView : public QSplitter //Widget//, public Ui::kaiderview_base
 {
     Q_OBJECT
 public:
-    KAiderView(QWidget *,Catalog*/*,keyEventHandler**/);
+    KAiderView(QWidget *,Catalog* /*,keyEventHandler**/);
     virtual ~KAiderView();
 
     void gotoEntry(const DocPosition& pos,int selection=0/*, bool updateHistory=true*/);

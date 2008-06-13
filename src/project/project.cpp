@@ -96,6 +96,7 @@ Project::Project()
 
 Project::~Project()
 {
+    delete m_model;
 }
 
 
