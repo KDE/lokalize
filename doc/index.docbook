@@ -225,7 +225,7 @@ project-wise as well as local client/program-wise. See an example script that
 works with the 
 <ulink url="http://www.google.com/language_tools?hl=en">Google Language
 Tools</ulink> as well as the project file for it, at <ulink
-url="http://websvn.kde.org/kde/trunk/l10n-kde4/ru/" />.
+url="http://websvn.kde.org/trunk/l10n-kde4/ru/" />.
 </para>
 </chapter>
 
