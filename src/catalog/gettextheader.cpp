@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if 0
 pInfo.insert("cs", "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");
 pInfo.insert("da", "nplurals=2; plural=(n != 1);");
-pInfo.insert("de", "nplurals=2; plural=(n != 1);");
+pInfo.insert("de", "nplurals=2; plural=n != 1;");
 pInfo.insert("el", "nplurals=2; plural=(n != 1);");
 pInfo.insert("en", "nplurals=2; plural=(n != 1);");
 pInfo.insert("en_GB", "nplurals=2; plural=(n != 1);");
