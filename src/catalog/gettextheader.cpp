@@ -130,7 +130,7 @@ static const char* langsWithPInfo[NUM_LANG_WITH_INFO]={
 static const char* pInfo[NUM_LANG_WITH_INFO]={
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;",
 "nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
+"nplurals=2; plural=n != 1;",
 "nplurals=2; plural=(n != 1);",
 "nplurals=2; plural=(n != 1);",
 "nplurals=2; plural=(n != 1);",
