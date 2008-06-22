@@ -51,7 +51,7 @@ public:
 
 public slots:
     void triggerSelectedActions();
-    void reset(){Kross::ActionCollectionView::reset();selectAll();}
+    void reset(){Kross::ActionCollectionView::reset();/*selectAll();*/}
 
 signals:
     void query(const CatalogData& data);
