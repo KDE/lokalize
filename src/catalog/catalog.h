@@ -65,13 +65,14 @@ if (  d->_entries.isEmpty() )\
 
 
 /**
-* This class represents a catalog
-* It uses CatalogStorage interface to work with catalogs in different formats
-* Also it defines all necessary functions to set and get the entries
-*
-* @short class, that represents a translation catalog
-* @author Nick Shaforostoff <shafff@ukr.net>
+ * This class represents a catalog
+ * It uses CatalogStorage interface to work with catalogs in different formats
+ * Also it defines all necessary functions to set and get the entries
+ *
+ * @short Wrapper class that represents a translation catalog
+ * @author Nick Shaforostoff <shafff@ukr.net>
 */
+
 class Catalog: public QUndoStack
 {
     Q_OBJECT

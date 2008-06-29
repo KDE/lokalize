@@ -36,6 +36,8 @@
 #include "project.h"
 #include <kdebug.h>
 
+using namespace GlossaryNS;
+
 bool TbxParser::startDocument()
 {
     m_state=null;

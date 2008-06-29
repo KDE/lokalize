@@ -45,6 +45,7 @@
 
 #include <QLabel>
 #include <QHBoxLayout>
+//#include <QTreeView>
 
 #include <ktabbar.h>
 #include <kled.h>
@@ -138,6 +139,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _currentEntry(-1)
     , m_approvementState(false)
 {
+    //( new QTreeView(this) )->selectAll();
     _tabbar->hide();
 //     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
 //                                   "<p>This part of the window shows the original message\n"

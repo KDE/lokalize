@@ -37,6 +37,10 @@
 #include <QModelIndex>
 class QTreeView;
 
+namespace TM {
+/**
+ * Window for managing Translation Memory databases
+ */
 class TMManagerWin: public KMainWindow
 {
     Q_OBJECT
@@ -55,5 +59,5 @@ private:
     QTreeView* m_tmListWidget;
 };
 
-
+};
 #endif

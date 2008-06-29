@@ -59,7 +59,7 @@
 #undef NDEBUG
 #endif
 #define DEBUG
-
+using namespace TM;
 
 TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)

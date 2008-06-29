@@ -58,7 +58,7 @@
 
 //K_EXPORT_COMPONENT_FACTORY( kbabel_gettextimport, KGenericFactory<GettextImportPlugin> ( "kbabelgettextimportfilter" ) )
 
-//using namespace KBabel;
+using namespace GettextCatalog;
 
 GettextImportPlugin::GettextImportPlugin()
    : CatalogImportPlugin()

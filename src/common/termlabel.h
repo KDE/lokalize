@@ -38,6 +38,7 @@
 #include "glossary.h"
 #include "project.h"
 
+namespace GlossaryNS {
 /**
  * flowlayout item
  */
@@ -79,5 +80,5 @@ void TermLabel::setText(const QString& term,int entry)
 }
 
 
-
+};
 #endif

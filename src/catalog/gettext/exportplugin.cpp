@@ -34,6 +34,7 @@
 
 #include "catalogfileplugin.h"
 
+using namespace GettextCatalog;
 
 CatalogExportPlugin::CatalogExportPlugin()
 //    : d(new CatalogExportPluginPrivate)

@@ -39,10 +39,15 @@
 #include <QSqlDatabase>
 
 class KLineEdit;
-class TMDBModel;
+
 class QComboBox;
+
+namespace TM {
+class TMDBModel;
+
 /**
-	@author Nick Shaforostoff <shafff@ukr.net>
+ * @short TM query window
+ * @author Nick Shaforostoff <shafff@ukr.net>
 */
 class TMWindow: public KMainWindow
 {
@@ -86,5 +91,5 @@ private:
     QueryType m_queryType;
     QSqlDatabase m_db;
 };
-
+};
 #endif

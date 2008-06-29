@@ -81,8 +81,7 @@ class QDragEnterEvent;
  *
  * @short Main view
  * @author Nick Shaforostoff <shafff@ukr.net>
- * @version 0.1
- */
+  */
 
 class KAiderView : public QSplitter //Widget//, public Ui::kaiderview_base
 {

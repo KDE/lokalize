@@ -39,6 +39,7 @@
 #include <QLinkedList>
 
 class QTextCodec;
+namespace GettextCatalog {
 class GettextStorage;
 
 class CatalogImportPluginPrivate
@@ -60,5 +61,5 @@ public:
     QStringList _catalogExtraData;
 };
 
-
+};
 #endif

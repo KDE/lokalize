@@ -37,6 +37,7 @@
 #include <threadweaver/ThreadWeaver.h>
 #include <kdirlister.h>
 #include <kstandarddirs.h>
+using namespace TM;
 
 DBFilesModel* DBFilesModel::_instance=0;
 

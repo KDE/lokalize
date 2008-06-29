@@ -51,6 +51,8 @@
 #include <kdebug.h>
 
 
+using namespace GettextCatalog;
+
 GettextExportPlugin::GettextExportPlugin(int wrapWidth)
     : m_wrapWidth( wrapWidth )
 {

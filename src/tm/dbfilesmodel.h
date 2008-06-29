@@ -36,6 +36,8 @@
 #include <kdirmodel.h>
 class QPersistentModelIndex;
 
+namespace TM{
+
 class DBFilesModel: public KDirModel
 {
 //    Q_OBJECT
@@ -69,5 +71,5 @@ int DBFilesModel::columnCount(const QModelIndex& parent) const
         return 0;
     return 1;
 }
-
+};
 #endif

@@ -39,18 +39,19 @@
 #include "projectbase.h"
 #include "projectmodel.h"
 
+#define WEBQUERY_ENABLE
+
 class QAction;
 class ProjectModel;
-class Glossary;
-class WebQueryController;
-class SelectJob;
+namespace GlossaryNS{class Glossary;}
+namespace TM{class SelectJob;}
 class KAider;
 // class WebQueryThread;
 // #include "webquerythread.h"
 #include <threadweaver/Job.h>
 
 
-/**
+/***
  * class to keep widgets that may be shared among MainWindows
  */
 // class UiObjects
@@ -65,6 +66,8 @@ class KAider;
  * Keeps project's KDirModel, Glossary and kross::actions
  *
  * GUI for config handling is implemented in prefs.cpp
+ *
+ * @short Singleton object that represents project
  */
 
 ///////// * Also provides list of web-query scripts
@@ -90,7 +93,7 @@ public:
     QString potDir()const{return absolutePath(potBaseDir());}
     QString branchDir()const{return absolutePath(ProjectBase::branchDir());}
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
-    Glossary* glossary()const{return m_glossary;}
+    GlossaryNS::Glossary* glossary()const{return m_glossary;}
 
     QStringList webQueryScripts() const;
 
@@ -105,7 +108,9 @@ private:
 public slots:
     void populateDirModel();
     void populateGlossary();
+#ifdef WEBQUERY_ENABLE
     void populateWebQueryActions();
+#endif
 //     void populateKrossActions();
 
     void openProjectWindow();
@@ -135,7 +140,7 @@ public:
 private:
     QString m_path;
     ProjectModel* m_model;
-    Glossary* m_glossary;
+    GlossaryNS::Glossary* m_glossary;
 
     //TM scanning stats
     ushort m_tmCount;

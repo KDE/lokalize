@@ -40,7 +40,8 @@ class Catalog;
 
 
 /**
- *	@author Nick Shaforostoff <shafff@ukr.net>
+ * @short MVC wrapper for Catalog
+ * @author Nick Shaforostoff <shafff@ukr.net>
  */
 class CatalogTreeModel: public QAbstractItemModel
 {

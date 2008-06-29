@@ -38,13 +38,15 @@
 #include <QDockWidget>
 //#include <QList>
 class Catalog;
-class Glossary;
 class FlowLayout;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
 class QAction;
 #include <QVector>
+
+namespace GlossaryNS {
+class Glossary;
 
 #define GLOSSARY_SHORTCUTS 11
 class GlossaryView: public QDockWidget
@@ -80,5 +82,5 @@ private:
     bool m_hasInfo;
 
 };
-
+};
 #endif

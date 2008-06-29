@@ -38,6 +38,7 @@
 #include <kdemacros.h>
 class QString;
 
+namespace GettextCatalog {
 
 class GettextStorage;
 class CatalogItem;
@@ -64,17 +65,21 @@ enum ConversionStatus {
 };
 
 /**
-* This class is the base for import plugins for catalogs.
-* It provides "transactional behavior", so the changes are stored in 
-* catalog only if the import process finishes successfully. 
-*
-* To use it, just subclass and redefine load() and id() methods.
-* When importing, you can use the protected methods for setting
-* the catalog. New catalog items can be added using appendCatalogItem.
-*
-* @short Base class for Catalog import plugins
-* @author Stanislav Visnovsky <visnovsky@kde.org>
-*/
+ * HISTORY: this was a base class for Catalog import plugins in KBabel,
+ * but this architecture isn't not suitable for XML-based files
+ * (when whole DOM-tree is stored in memory to prevent file clashes)
+  *
+ * This class is the base for import plugins for catalogs.
+ * It provides "transactional behavior", so the changes are stored in 
+ * catalog only if the import process finishes successfully. 
+ *
+ * To use it, just subclass and redefine load() and id() methods.
+ * When importing, you can use the protected methods for setting
+ * the catalog. New catalog items can be added using appendCatalogItem.
+ *
+ * @short Base class for GettextCatalog import plugins
+ * @author Stanislav Visnovsky <visnovsky@kde.org>
+ */
 class  CatalogImportPlugin
 {
 public:
@@ -133,6 +138,6 @@ private:
     CatalogImportPluginPrivate* d;
 };
 
-
+};
 
 #endif

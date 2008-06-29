@@ -49,6 +49,8 @@
 #include <QSortFilterProxyModel>
 #include <QAbstractItemModel>
 
+using namespace GlossaryNS;
+
 //BEGIN GlossaryTreeView
 
 GlossaryTreeView::GlossaryTreeView(QWidget *parent)

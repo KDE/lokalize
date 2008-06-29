@@ -40,8 +40,8 @@
 class ProjectWidget;
 class QContextMenuEvent;
 /**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
+ * Project Tree Window
+ */
 class ProjectWindow : public KXmlGuiWindow //KMainWindow
 {
 Q_OBJECT

@@ -36,16 +36,14 @@
 #include <kmainwindow.h>
 #include <QTreeView>
 
-class GlossaryTreeView;
 class QTextEdit;
 class QComboBox;
 class QSortFilterProxyModel;
 class KLineEdit;
 
+namespace GlossaryNS {
+class GlossaryTreeView;
 
-/**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
 class GlossaryWindow : public KMainWindow
 {
 Q_OBJECT
@@ -111,4 +109,6 @@ signals:
 };
 
 */
+
+};
 #endif

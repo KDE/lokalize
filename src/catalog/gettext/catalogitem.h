@@ -40,18 +40,20 @@
 
 #include "pluralformtypes_enum.h"
 
+namespace GettextCatalog {
+
 class CatalogItemPrivate;
 
 /**
-* This class represents an entry in a catalog.
-* It contains the comment, the Msgid and the Msgstr.
-* It defines some functions to query the state of the entry
-* (fuzzy, untranslated, cformat).
-*
-* @short Class, representing an entry in a catalog
-* @author Matthias Kiefer <matthias.kiefer@gmx.de>
-* @author Nick Shaforostoff <shafff@ukr.net>
-*/
+ * This class represents an entry in a catalog.
+ * It contains the comment, the Msgid and the Msgstr.
+ * It defines some functions to query the state of the entry
+ * (fuzzy, untranslated, cformat).
+ *
+ * @short Represents an entry in a Gettext catalog
+ * @author Matthias Kiefer <matthias.kiefer@gmx.de>
+ * @author Nick Shaforostoff <shafff@ukr.net>
+ */
 class CatalogItem
 {
 
@@ -139,6 +141,6 @@ private:
     void unsetFuzzy();
 };
 
-
+};
 
 #endif // CATALOGITEM_H

@@ -29,10 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStringList>
 
 /**
- * Interface for storage of translation file
+ * Abstract interface for storage of translation file
  *
- * format-specific texts like \" for gettext PO should be eliminated
+ * format-specific elements like \" for gettext PO should be eliminated
  *
+ * @short Abstract interface for storage of translation file
  * @author Nick Shaforostoff <shafff@ukr.net>
 */
 class CatalogStorage {

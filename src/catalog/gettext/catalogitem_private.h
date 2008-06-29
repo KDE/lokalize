@@ -41,6 +41,7 @@
 #include <QString>
 #include "pluralformtypes_enum.h"
 
+namespace GettextCatalog {
 
 /**
 * This class represents data for an entry in a catalog.
@@ -132,5 +133,7 @@ const QString& CatalogItemPrivate::msgid(const int form) const
     //if original lang is english, we have only 2 formz
     return (form<_msgidPlural.size())?_msgidPlural.at(form):_msgidPlural.last();
 }
+
+};
 
 #endif // CATALOGITEMPRIVATE_H

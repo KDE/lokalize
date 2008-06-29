@@ -44,10 +44,13 @@
 
 class QTextCodec;
 
-/* ****************************************************************************
-  The class for importing GNU gettext PO files. As an extra information,
-  it stores the list of all obsolete entries.
-**************************************************************************** */
+namespace GettextCatalog {
+ 
+/**
+ * The class for importing GNU gettext PO files. 
+ * As an extra information, it stores the list of all obsolete entries.
+ * @short Gettext PO parser
+ */
 
 class GettextImportPlugin: public CatalogImportPlugin
 {
@@ -91,5 +94,5 @@ private:
     QString _obsoleteStart;
     QString _msgctxtStart;
 };
-
+};
 #endif

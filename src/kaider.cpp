@@ -37,6 +37,7 @@
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
+#define WEBQUERY_ENABLE
 
 //views
 #include "msgctxtview.h"
@@ -45,7 +46,9 @@
 #include "mergeview.h"
 #include "cataloglistview.h"
 #include "glossaryview.h"
+#ifdef WEBQUERY_ENABLE
 #include "webqueryview.h"
+#endif
 #include "tmview.h"
 
 #include "project.h"
@@ -62,7 +65,6 @@
     #include <kfadewidgeteffect.h>
 #endif
 
-#define WEBQUERY_ENABLE
 
 #include <kio/netaccess.h>
 #include <kaction.h>
@@ -591,7 +593,7 @@ void KAider::createDockWindows()
         gactions[i]=gaction;
     }
 
-    _glossaryView = new GlossaryView(this,_catalog,gactions);
+    _glossaryView = new GlossaryNS::GlossaryView(this,_catalog,gactions);
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     actionCollection()->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
@@ -626,7 +628,7 @@ void KAider::createDockWindows()
         tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",i));
         tmactions[i]=tmaction;
     }
-    _tmView = new TMView(this,_catalog,tmactions);
+    _tmView = new TM::TMView(this,_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     actionCollection()->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);

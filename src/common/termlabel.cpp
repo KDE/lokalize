@@ -43,6 +43,7 @@
 #include <QMenu>
 #include <QMouseEvent>
 
+using namespace GlossaryNS;
 //#include <QShortcutEvent>
 
 

@@ -46,7 +46,7 @@
 /**
  * see initDb() function for the database scheme
  */
-
+namespace TM {
 
 #define CLOSEDB 10001
 #define OPENDB  10000
@@ -380,6 +380,7 @@ public:
 };
 
 // #endif
+};
 
 #endif
 

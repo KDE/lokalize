@@ -36,15 +36,17 @@
 #include <QXmlDefaultHandler>
 
 #include "glossary.h"
-//class Glossary;
+
+namespace GlossaryNS {
 
 /**
  * loads only data we need to store in memory
  * e.g. skips entries for languages other than en
  * and current project's target language
  *
- *	@author Nick Shaforostoff <shafff@ukr.net>
-*/
+ * @short TBX glossary parser
+ * @author Nick Shaforostoff <shafff@ukr.net>
+ */
 class TbxParser : public QXmlDefaultHandler
 {
     enum State //localstate for getting chars into right place
@@ -87,5 +89,5 @@ private:
     Glossary* m_glossary;
 
 };
-
+};
 #endif

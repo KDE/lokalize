@@ -48,6 +48,7 @@ class QAction;
 class ThreadWeaver::Job;
 
 #define TM_SHORTCUTS 10
+namespace TM {
 
 class TMView: public QDockWidget
 {
@@ -107,5 +108,5 @@ private:
     DocPosition m_prevCachePos;//hacky hacky
     QList<ThreadWeaver::Job*> m_jobs;//holds pointers to all the jobs for the current file
 };
-
+};
 #endif

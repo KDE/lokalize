@@ -42,6 +42,7 @@
 #include <QTreeView>
 #include <QSqlQueryModel>
 #include <QButtonGroup>
+using namespace TM;
 
 //BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject* parent)

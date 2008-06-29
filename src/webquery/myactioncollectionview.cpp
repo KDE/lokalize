@@ -44,7 +44,6 @@ MyActionCollectionView::MyActionCollectionView(QWidget *parent)
  : Kross::ActionCollectionView(parent)
 {
     setSelectionMode(QAbstractItemView::MultiSelection);
-    
     //qRegisterMetaType<CatalogData>("CatalogData");
 }
 

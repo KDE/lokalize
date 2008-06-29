@@ -42,8 +42,9 @@
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
 
-//DISK
+using namespace GlossaryNS;
 
+//BEGIN DISK
 void Glossary::load(const QString& p)
 {
     clear();
@@ -416,7 +417,7 @@ void Glossary::save()
     }
 }
 
-
+//END DISK
 
 //BEGIN MODEL
 

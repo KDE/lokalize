@@ -45,6 +45,8 @@
 #include <kmessagebox.h>
 //#include <kservicetypetrader.h>
 
+using namespace GettextCatalog;
+
 CatalogImportPlugin::CatalogImportPlugin()
     : _maxLineLength(0)
     , d(new CatalogImportPluginPrivate)

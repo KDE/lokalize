@@ -44,6 +44,8 @@
 // #include <kstandarddirs.h>
 #include <threadweaver/ThreadWeaver.h>
 
+using namespace TM;
+
 TMManagerWin::TMManagerWin(QWidget *parent)
  : KMainWindow(parent)
 {

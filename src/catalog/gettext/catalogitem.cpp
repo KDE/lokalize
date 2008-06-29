@@ -38,6 +38,7 @@
 
 #include <kdebug.h>
 
+using namespace GettextCatalog;
 
 CatalogItem::CatalogItem()
  : d(new CatalogItemPrivate())

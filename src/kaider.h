@@ -56,9 +56,9 @@ class KAiderView;
 class Project;
 class ProjectView;
 class MergeView;
-class GlossaryView;
 class CatalogTreeView;
-class TMView;
+namespace GlossaryNS{class GlossaryView;}
+namespace TM{class TMView;}
 class Ui_findExtension;
 
 
@@ -69,7 +69,6 @@ class Ui_findExtension;
  *
  * @short Main window class
  * @author Nick Shaforostoff <shafff@ukr.net>
- * @version 0.1
  */
 class KAider: public KXmlGuiWindow
 {
@@ -232,9 +231,9 @@ private:
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
-    GlossaryView* _glossaryView;
+    GlossaryNS::GlossaryView* _glossaryView;
     CatalogTreeView* m_catalogTreeView;
-    TMView* _tmView;
+    TM::TMView* _tmView;
 
 
     QString _captionPath;

@@ -49,15 +49,15 @@
 #include <QMap>
 
 #include <math.h>
+using namespace TM;
 
-
-bool scanRecursive(const QDir& dir, const QString& dbName)
+bool TM::scanRecursive(const QDir& dir, const QString& dbName)
 {
     bool ok=false;
     QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
     int i=subDirs.size();
     while(--i>=0)
-        ok=scanRecursive(QDir(dir.filePath(subDirs.at(i))),
+        ok=TM::scanRecursive(QDir(dir.filePath(subDirs.at(i))),
                         dbName)||ok;
 
     QStringList filters("*.po");

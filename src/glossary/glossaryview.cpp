@@ -52,6 +52,7 @@
 // #include <QShortcutEvent>
 
 
+using namespace GlossaryNS;
 
 GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)

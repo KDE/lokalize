@@ -218,7 +218,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
     CatalogStorage* storage=0;
 
     if (url.fileName().endsWith(".po")||url.fileName().endsWith(".pot"))
-        storage=new GettextStorage;
+        storage=new GettextCatalog::GettextStorage;
     else
         return false;
 
@@ -317,7 +317,7 @@ static void updateDB(const QString& english,
 //              const QString& dbName,
              )
 {
-    UpdateJob* j=new UpdateJob(english,ctxt,oldTarget,newTarget,
+    TM::UpdateJob* j=new TM::UpdateJob(english,ctxt,oldTarget,newTarget,
                                Project::instance()->projectID());
     j->connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
     j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));

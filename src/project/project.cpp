@@ -78,7 +78,7 @@ Project* Project::instance()
 Project::Project()
     : ProjectBase()
     , m_model(0)
-    , m_glossary(new Glossary(this))
+    , m_glossary(new GlossaryNS::Glossary(this))
     , m_tmCount(0)
 //     , m_tmTime(0)
     , m_tmAdded(0)
@@ -87,7 +87,7 @@ Project::Project()
 {
     ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
 
-    OpenDBJob* openDBJob=new OpenDBJob(projectID(),this);
+    TM::OpenDBJob* openDBJob=new TM::OpenDBJob(projectID(),this);
     connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
@@ -107,7 +107,7 @@ void Project::load(const QString &file)
 
     if (!m_path.isEmpty())
     {
-        CloseDBJob* closeDBJob=new CloseDBJob(projectID(),this);
+        TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
         connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
         connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
 
@@ -125,7 +125,7 @@ void Project::load(const QString &file)
     QTimer::singleShot(0,this,SLOT(populateWebQueryActions()));
 
 
-    OpenDBJob* openDBJob=new OpenDBJob(projectID(),this);
+    TM::OpenDBJob* openDBJob=new TM::OpenDBJob(projectID(),this);
     connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
 
@@ -244,7 +244,7 @@ void Project::populateGlossary()
 
 void Project::deleteScanJob(ThreadWeaver::Job* job)
 {
-    ScanJob* j=qobject_cast<ScanJob*>(job);
+    TM::ScanJob* j=qobject_cast<TM::ScanJob*>(job);
     if (j)
     {
         ++m_tmCount;
@@ -264,7 +264,7 @@ void Project::deleteScanJob(ThreadWeaver::Job* job)
     }
     else
     {
-        ScanFinishedJob* end=qobject_cast<ScanFinishedJob*>(job);
+        TM::ScanFinishedJob* end=qobject_cast<TM::ScanFinishedJob*>(job);
 
         if (end)
         {
@@ -338,7 +338,7 @@ const QList<QAction*>& Project::projectActions()
 
 void Project::showTM()
 {
-    TMWindow* win=new TMWindow;
+    TM::TMWindow* win=new TM::TMWindow;
     win->show();
 }
 
@@ -349,7 +349,7 @@ void Project::showGlossary()
 
 void Project::defineNewTerm(QString en,QString target)
 {
-    GlossaryWindow* gloWin=new GlossaryWindow;
+    GlossaryNS::GlossaryWindow* gloWin=new GlossaryNS::GlossaryWindow;
     gloWin->show();
     if (!en.isEmpty()||!target.isEmpty())
         gloWin->newTerm(en,target);
@@ -357,7 +357,7 @@ void Project::defineNewTerm(QString en,QString target)
 
 void Project::showTMManager()
 {
-    TMManagerWin* win=new TMManagerWin;
+    TM::TMManagerWin* win=new TM::TMManagerWin;
     win->show();
 }
 

@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // static QString GNUPluralForms(const QString& lang);
 
+using namespace GettextCatalog;
+
 GettextStorage::GettextStorage()
  : CatalogStorage()
 {

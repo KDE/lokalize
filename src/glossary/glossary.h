@@ -38,12 +38,16 @@
 #include <QAbstractItemModel>
 #include <QList>
 
+namespace GlossaryNS {
+
 /**
  * struct that contains types data we work with.
  * this data can also be added to the TBX file
  *
  * the entry represents term, not word(s),
  * so there can be only one subjectField.
+ *
+ * @short Contains parts of 'entry' tag in TBX that we support
  */
 struct TermEntry
 {
@@ -83,8 +87,12 @@ struct TermEntry
 
 
 /**
- * internal representation of glossary.
- * we store only data we need (i.e. only subset of TBX format)
+ * Internal representation of glossary.
+ *
+ * We store only data we need (i.e. only subset of TBX format)
+ *
+ * @short Internal representation of glossary
+ * @author Nick Shaforostoff <shafff@ukr.net>
  */
 class Glossary: public QObject
 {
@@ -146,7 +154,7 @@ signals:
 
 
 /**
- *	@author Nick Shaforostoff <shafff@ukr.net>
+ * @short MVC wrapper around Glossary
  */
 class GlossaryModel: public QAbstractItemModel
 {
@@ -233,5 +241,5 @@ void GlossaryModel::forceReset()
 {
     emit reset();
 }
-
+};
 #endif

@@ -26,10 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "catalogitem.h"
 #include "catalogstorage.h"
 
+namespace GettextCatalog {
 
 /**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
+ * @short Implementation of storage for Gettext PO
+ * @author Nick Shaforostoff <shafff@ukr.net>
+ */
 class GettextStorage : public CatalogStorage
 {
 public:
@@ -91,6 +93,8 @@ private:
 
     friend class CatalogImportPlugin;
     friend class GettextExportPlugin;
+
+};
 
 };
 

@@ -38,6 +38,8 @@
 
 #include <QStringList>
 #include <QTextStream>
+
+namespace GettextCatalog {
 //namespace KBabel {
 class GettextStorage;
 
@@ -83,5 +85,5 @@ public:
      */
     int m_wrapWidth;
 };
-
+};
 #endif

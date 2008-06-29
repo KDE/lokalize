@@ -40,7 +40,7 @@
 
 #include <QAction>
 
-
+using namespace GlossaryNS;
 
 FlowLayout::FlowLayout(User user,
                        QWidget *parent,
