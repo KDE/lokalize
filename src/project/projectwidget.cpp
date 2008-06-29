@@ -270,6 +270,8 @@ void ProjectWidget::setCurrentItem(const KUrl& u)
 
 KUrl ProjectWidget::currentItem() const
 {
+    if (!currentIndex().isValid())
+        return KUrl();
     return Project::instance()->model()->itemForIndex(
             m_proxyModel->mapToSource(currentIndex())
                                                      ).url();
@@ -277,8 +279,10 @@ KUrl ProjectWidget::currentItem() const
 
 bool ProjectWidget::currentIsCatalog() const
 {
-    return currentItem().path().endsWith(".po")
-        ||currentItem().path().endsWith(".pot");
+    //remember 'bout empty state
+    QString path=currentItem().path();
+    return path.endsWith(".po")
+        ||path.endsWith(".pot");
 }
 
 
