@@ -186,6 +186,10 @@ word-by-word differences. Also, &lokalize; has two Sync views - <guilabel>Primar
 They are identical, but the former is usually used to merge translations and second to keep in sync translations for two software branches.
 </para>
 
+<para>
+After you copied translation from auxiliary file (<emphasize>synchronized</emphasize> it),
+any subsequent changes made to this entry will be replicated back to auxiliary file.
+</para>
 
 <sect1 id="FileMerge">
 <title>Merging</title>
@@ -209,7 +213,9 @@ two (or even three -- using both <guilabel>Secondary Sync</guilabel> and <guilab
 branches simultaneously.
 Set <guilabel>Branch Dir</guilabel> path in your project options to the path that corresponds to
 base dir of the branch, and <guilabel>Secondary Sync</guilabel> view will automatically open
-files from branch.
+files from branch. Then, each time you make changes in files of your main branch,
+they will automatically be replicated to the branch
+(of course, if it contains the same english string).
 </para>
 </sect1>
 
