@@ -94,5 +94,5 @@ private:
     QString _obsoleteStart;
     QString _msgctxtStart;
 };
-};
+}
 #endif

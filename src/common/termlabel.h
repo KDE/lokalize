@@ -80,5 +80,5 @@ void TermLabel::setText(const QString& term,int entry)
 }
 
 
-};
+}
 #endif

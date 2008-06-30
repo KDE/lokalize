@@ -141,6 +141,6 @@ private:
     void unsetFuzzy();
 };
 
-};
+}
 
 #endif // CATALOGITEM_H

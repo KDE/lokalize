@@ -134,6 +134,6 @@ const QString& CatalogItemPrivate::msgid(const int form) const
     return (form<_msgidPlural.size())?_msgidPlural.at(form):_msgidPlural.last();
 }
 
-};
+}
 
 #endif // CATALOGITEMPRIVATE_H

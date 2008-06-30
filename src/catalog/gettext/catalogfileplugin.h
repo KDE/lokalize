@@ -138,6 +138,6 @@ private:
     CatalogImportPluginPrivate* d;
 };
 
-};
+}
 
 #endif

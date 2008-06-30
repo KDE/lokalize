@@ -380,7 +380,7 @@ public:
 };
 
 // #endif
-};
+}
 
 #endif
 

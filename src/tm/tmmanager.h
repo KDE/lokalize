@@ -59,5 +59,5 @@ private:
     QTreeView* m_tmListWidget;
 };
 
-};
+}
 #endif

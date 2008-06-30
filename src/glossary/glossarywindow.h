@@ -110,5 +110,5 @@ signals:
 
 */
 
-};
+}
 #endif

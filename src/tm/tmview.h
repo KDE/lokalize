@@ -108,5 +108,5 @@ private:
     DocPosition m_prevCachePos;//hacky hacky
     QList<ThreadWeaver::Job*> m_jobs;//holds pointers to all the jobs for the current file
 };
-};
+}
 #endif

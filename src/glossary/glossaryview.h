@@ -82,5 +82,5 @@ private:
     bool m_hasInfo;
 
 };
-};
+}
 #endif

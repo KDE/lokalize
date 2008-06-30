@@ -89,5 +89,5 @@ private:
     Glossary* m_glossary;
 
 };
-};
+}
 #endif

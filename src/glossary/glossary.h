@@ -241,5 +241,5 @@ void GlossaryModel::forceReset()
 {
     emit reset();
 }
-};
+}
 #endif

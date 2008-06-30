@@ -71,5 +71,5 @@ int DBFilesModel::columnCount(const QModelIndex& parent) const
         return 0;
     return 1;
 }
-};
+}
 #endif

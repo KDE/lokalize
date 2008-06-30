@@ -96,6 +96,6 @@ private:
 
 };
 
-};
+}
 
 #endif

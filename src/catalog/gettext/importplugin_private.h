@@ -61,5 +61,5 @@ public:
     QStringList _catalogExtraData;
 };
 
-};
+}
 #endif

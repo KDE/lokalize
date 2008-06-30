@@ -91,5 +91,5 @@ private:
     QueryType m_queryType;
     QSqlDatabase m_db;
 };
-};
+}
 #endif

@@ -85,5 +85,5 @@ public:
      */
     int m_wrapWidth;
 };
-};
+}
 #endif
