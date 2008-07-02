@@ -72,6 +72,10 @@ if (  d->_entries.isEmpty() )\
  * @short Wrapper class that represents a translation catalog
  * @author Nick Shaforostoff <shafff@ukr.net>
 */
+namespace GettextCatalog {
+  class CatalogImportPlugin;
+  class CatalogExportPlugin;
+}
 
 class Catalog: public QUndoStack
 {
@@ -179,8 +183,8 @@ protected:
     CatalogPrivate *d;
     CatalogStorage *m_storage;
 
-    friend class CatalogImportPlugin;
-    friend class CatalogExportPlugin;
+    friend class GettextCatalog::CatalogImportPlugin;
+    friend class GettextCatalog::CatalogExportPlugin;
     friend class InsTextCmd;
     friend class DelTextCmd;
     friend class ToggleFuzzyCmd;
