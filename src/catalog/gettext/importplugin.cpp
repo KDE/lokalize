@@ -45,7 +45,8 @@
 #include <kmessagebox.h>
 //#include <kservicetypetrader.h>
 
-using namespace GettextCatalog;
+namespace GettextCatalog 
+{
 
 CatalogImportPlugin::CatalogImportPlugin()
     : _maxLineLength(0)
@@ -144,3 +145,4 @@ void CatalogImportPlugin::commitTransaction(const QString& file)
     catalog->m_maxLineLength=_maxLineLength;
 }
 
+}
