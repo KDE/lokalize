@@ -37,7 +37,9 @@
 #include <QMultiHash>
 #include <QAbstractItemModel>
 #include <QList>
-
+/**
+ * Classes for TBX Glossary handling
+ */
 namespace GlossaryNS {
 
 /**

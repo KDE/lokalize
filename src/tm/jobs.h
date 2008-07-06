@@ -44,7 +44,7 @@
 
 
 /**
- * see initDb() function for the database scheme
+ * Translation Memory classes. see initDb() function for the database scheme
  */
 namespace TM {
 

@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "catalogitem.h"
 #include "catalogstorage.h"
 
+/**
+ * Implementation of Gettext PO format support
+ */
 namespace GettextCatalog {
 
 /**

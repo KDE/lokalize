@@ -1,4 +1,4 @@
 deps:
--kdelibs
--kdesdk strigi analyzer plugins
--gettext (i use cmdline utils to get plural expressions)
+-kdelibs 4.1
+-kdesdk strigi analyzer plugins (for project tree view)
+-[optional] gettext (i use cmdline utils to get plural expressions)

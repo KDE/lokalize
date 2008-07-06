@@ -1,5 +1,5 @@
 /*****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file contains parts of KBabel code
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
@@ -63,6 +63,10 @@ if (  d->_entries.isEmpty() )\
 
 
 
+namespace GettextCatalog {
+  class CatalogImportPlugin;
+  class CatalogExportPlugin;
+}
 
 /**
  * This class represents a catalog
@@ -72,11 +76,6 @@ if (  d->_entries.isEmpty() )\
  * @short Wrapper class that represents a translation catalog
  * @author Nick Shaforostoff <shafff@ukr.net>
 */
-namespace GettextCatalog {
-  class CatalogImportPlugin;
-  class CatalogExportPlugin;
-}
-
 class Catalog: public QUndoStack
 {
     Q_OBJECT
