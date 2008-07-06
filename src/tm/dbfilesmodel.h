@@ -56,6 +56,7 @@ public:
 
 private:
     static DBFilesModel* _instance;
+    static void cleanupDBFilesModel();
 
 public:
     static DBFilesModel* instance();

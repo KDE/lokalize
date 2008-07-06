@@ -61,6 +61,7 @@ private:
 
 private:
     static SettingsController* _instance;
+    static void cleanupSettingsController();
 public:
     static SettingsController* instance();
 

@@ -115,7 +115,7 @@ void MsgIdDiff::process()
         oldStr.remove(QRegExp("\"\n"));
         oldStr.remove(QRegExp("\"$"));
 
-        newStr.remove("\n");
+        newStr.remove('\n');
         oldStr.replace("\\n"," \\n ");
         newStr.replace("\\n"," \\n ");
         oldStr.remove("#| msgid \"");

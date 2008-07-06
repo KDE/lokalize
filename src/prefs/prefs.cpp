@@ -56,12 +56,19 @@
 //#include <sonnet/configwidget.h>
 
 SettingsController* SettingsController::_instance=0;
+void SettingsController::cleanupSettingsController()
+{
+  delete SettingsController::_instance;
+  SettingsController::_instance = 0;
+}
 
 SettingsController* SettingsController::instance()
 {
     //if (KDE_ISUNLIKELY( _instance==0 ))
-    if (_instance==0)
+    if (_instance==0){
         _instance=new SettingsController;
+        qAddPostRoutine(SettingsController::cleanupSettingsController);
+    }
 
     return _instance;
 }

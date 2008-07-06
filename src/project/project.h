@@ -131,6 +131,7 @@ public slots:
 
 private:
     static Project* _instance;
+    static void cleanupProject();
 public:
     static Project* instance();
 

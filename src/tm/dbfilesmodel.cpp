@@ -40,11 +40,18 @@
 using namespace TM;
 
 DBFilesModel* DBFilesModel::_instance=0;
+void DBFilesModel::cleanupDBFilesModel()
+{
+  delete DBFilesModel::_instance;
+  DBFilesModel::_instance = 0;
+}
 
 DBFilesModel* DBFilesModel::instance()
 {
-    if (KDE_ISUNLIKELY( _instance==0 ))
+    if (KDE_ISUNLIKELY( _instance==0 )) {
         _instance=new DBFilesModel;
+        qAddPostRoutine(DBFilesModel::cleanupDBFilesModel);
+    }
 
     return _instance;
 }

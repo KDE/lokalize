@@ -65,12 +65,20 @@
 using namespace Kross;
 
 Project* Project::_instance=0;
+void Project::cleanupProject()
+{
+  delete Project::_instance;
+  Project::_instance = 0;
+}
+
 
 Project* Project::instance()
 {
     //if (KDE_ISUNLIKELY( _instance==0 ))
-    if (_instance==0 )
+    if (_instance==0 ) {
         _instance=new Project();
+        qAddPostRoutine(Project::cleanupProject);
+    }
 
     return _instance;
 }

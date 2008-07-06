@@ -284,7 +284,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
    {
       // normalize the values - ensure every key:value pair is only on a single line
       QString values = newHeader.msgstr();
-      values.replace ("\n", "");
+      values.remove ("\n");
       values.replace ("\\n", "\\n\n");
       kDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();
