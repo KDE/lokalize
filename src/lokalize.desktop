@@ -9,6 +9,7 @@ Type=Application
 Categories=Qt;KDE;Translation;Development;
 DocPath=lokalize/index.html
 GenericName=Computer-aided translation system
+GenericName[ca]=Sistema de traducció assistida per ordinador
 GenericName[da]=Computerassisteret oversættelsessystem (CAT)
 GenericName[de]=Computergestütztes Übersetzungssystem
 GenericName[el]=Σύστημα μετάφρασης υποβοηθούμενο από τον υπολογιστή
