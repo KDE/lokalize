@@ -393,3 +393,5 @@ void Project::save()
     writeConfig();
 }
 
+
+#include "project.moc"

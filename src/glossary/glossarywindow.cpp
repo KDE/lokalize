@@ -448,3 +448,5 @@ Do you want to save your changes or discard them?"),i18nc("@title:window","Warni
 
 
 //END GlossaryWindow
+
+#include "glossarywindow.moc"

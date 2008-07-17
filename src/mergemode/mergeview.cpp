@@ -372,3 +372,5 @@ void MergeView::mergeAcceptAllForEmpty()
 }
 
 
+
+#include "mergeview.moc"

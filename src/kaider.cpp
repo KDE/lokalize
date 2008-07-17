@@ -1076,3 +1076,5 @@ void KAider::defineNewTerm()
     _project->defineNewTerm(en,target);
 }
 
+
+#include "kaider.moc"

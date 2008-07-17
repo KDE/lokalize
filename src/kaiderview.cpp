@@ -826,3 +826,5 @@ void KAiderView::tagMenu()
 
 
 
+
+#include "kaiderview.moc"

@@ -195,3 +195,5 @@ void WebQueryView::addWebQueryResult(const QString& name,const QString& str)
 
     m_suggestions.append(str);
 }
+
+#include "webqueryview.moc"

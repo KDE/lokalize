@@ -608,3 +608,5 @@ bool GlossaryModel::appendRow(const QString& _english,const QString& _target)
 }
 
 //END EDITING
+
+#include "glossary.moc"

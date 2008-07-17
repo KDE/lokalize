@@ -189,3 +189,5 @@ void TMWindow::setOptions(int i)
 
 
 //END TMWindow
+
+#include "tmwindow.moc"

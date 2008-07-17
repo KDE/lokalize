@@ -185,3 +185,5 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
 
 
 
+
+#include "mergecatalog.moc"

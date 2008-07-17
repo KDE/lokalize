@@ -529,3 +529,5 @@ void Catalog::setBookmark(uint idx,bool set)
 
 
 
+
+#include "catalog.moc"

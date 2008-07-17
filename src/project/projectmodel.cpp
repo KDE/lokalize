@@ -779,3 +779,5 @@ void ProjectLister::slotFileSaved(const KUrl& url)
 
 
 
+
+#include "projectmodel.moc"

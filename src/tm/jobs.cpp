@@ -1762,3 +1762,5 @@ void ExportTmxJob::run()
 
 //END TMX
 
+
+#include "jobs.moc"
