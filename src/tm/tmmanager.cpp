@@ -76,10 +76,10 @@ void TMManagerWin::initLater()
 
 void TMManagerWin::addDir()
 {
-    scanRecursive(KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
-                        i18nc("@title:window","Select Directory to be scanned")),
-                  DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString()
-                 );
+    QString dir=KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
+                        i18nc("@title:window","Select Directory to be scanned"));
+    if (!dir.isEmpty())
+        scanRecursive(dir, DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString() );
 
 }
 
@@ -159,3 +159,5 @@ void TMManagerWin::slotItemActivated(const QModelIndex&)
 }
 
 
+
+#include "tmmanager.moc"
