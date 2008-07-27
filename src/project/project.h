@@ -42,6 +42,7 @@
 #define WEBQUERY_ENABLE
 
 class QAction;
+class KRecentFilesAction;
 class ProjectModel;
 namespace GlossaryNS{class Glossary;}
 namespace TM{class SelectJob;}
@@ -99,13 +100,17 @@ public:
 
     const QList<QAction*>& projectActions();
 
+private slots:
+    void initLater();
+
 signals:
     void loaded();
 private:
     QString absolutePath(const QString&)const;
 
-//private slots:
 public slots:
+    void load(const KUrl &file){load(file.path());}//convenience overload for recent projects action
+
     void populateDirModel();
     void populateGlossary();
 #ifdef WEBQUERY_ENABLE
@@ -155,6 +160,7 @@ private:
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
     QList<QAction*> m_projectActions;
+    KRecentFilesAction* _openRecentProject;
 
     QVector<KAider*> m_editors;
 };

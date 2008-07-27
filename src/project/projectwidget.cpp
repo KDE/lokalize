@@ -411,3 +411,5 @@ void ProjectWidget::showCurrentFile()
 
 #endif
 
+
+#include "projectwidget.moc"

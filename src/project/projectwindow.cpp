@@ -165,3 +165,5 @@ void ProjectWindow::spellcheckFiles()
     a->show();
 }
 
+
+#include "projectwindow.moc"
