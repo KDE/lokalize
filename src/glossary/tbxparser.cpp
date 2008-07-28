@@ -106,12 +106,12 @@ bool TbxParser::endElement(const QString&,const QString&,const QString& qName)
     }
     else if (qName=="descrip")
     {
-        if (m_state==descripSubjectField)
+        if (m_state==descripSubjectField && !m_subjectField.isEmpty())
         {
-            m_entry.subjectField=Project::instance()->glossary()->subjectFields.indexOf(m_subjectField)+1;
-            if (m_entry.subjectField==0/*-1*/)//new field
+            m_entry.subjectField=Project::instance()->glossary()->subjectFields.indexOf(m_subjectField);
+            if (m_entry.subjectField==-1)//got this field value for the first time
             {
-                m_entry.subjectField=Project::instance()->glossary()->subjectFields.size();//no need to +1, because 'empty' entry is already there
+                m_entry.subjectField=Project::instance()->glossary()->subjectFields.size();
                 Project::instance()->glossary()->subjectFields << m_subjectField;
             }
             m_subjectField.clear();
