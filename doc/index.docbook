@@ -216,7 +216,13 @@ base dir of the branch, and <guilabel>Secondary Sync</guilabel> view will automa
 files from branch. Then, each time you make changes in files of your main branch,
 they will automatically be replicated to the branch
 (of course, if it contains the same english string).
-To use it you can checkout trunk to <filename type="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename> and any branch to <filename type="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>. Then if you work with trunk you should set <filename type="directory">BranchDir=../../../branches/stable/l10n-kde4/Your lang</filename>.
+</para>
+<para>
+For example, if you work on KDE translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename>
+and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>.
+Create Lokalize project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.ktp</filename> and 
+set <filename class="directory">BranchDir=../../../branches/stable/l10n-kde4/YOUR_LANG</filename>, then work via this project,
+and commit changes in both trunk and branch dirs.
 </para>
 </sect1>
 
