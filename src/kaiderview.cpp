@@ -54,6 +54,9 @@
 #include <kdebug.h>
 #include <kurl.h>
 #include <kstandardshortcut.h>
+#include <kcolorscheme.h>
+
+
 //parent is set on qsplitter insertion
 class LedsWidget:public QWidget
 {
@@ -64,12 +67,14 @@ public:
 //     , _ledUntr(0)
 //     , _ledErr(0)
     {
+        KColorScheme colorScheme(QPalette::Normal);
+
         QHBoxLayout* layout=new QHBoxLayout(this);
         layout->addStretch();
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:")));
-        layout->addWidget(ledFuzzy=new KLed(Qt::green,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
-        layout->addWidget(ledUntr=new KLed(Qt::red,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addStretch();
         setMaximumHeight(minimumSizeHint().height());
     }
