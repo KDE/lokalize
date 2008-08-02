@@ -114,9 +114,16 @@ QString Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
 
-   return m_storage->source(pos);
-}
+    //if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
+    if (KDE_ISUNLIKELY(d->_numberOfPluralForms==1))
+    {
+        DocPosition newPos=pos;
+        newPos.form=2;
+        return m_storage->source(newPos);
+    }
 
+    return m_storage->source(pos);
+}
 QString Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
