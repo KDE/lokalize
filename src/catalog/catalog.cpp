@@ -118,7 +118,7 @@ QString Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
     if (KDE_ISUNLIKELY(d->_numberOfPluralForms==1))
     {
         DocPosition newPos=pos;
-        newPos.form=2;
+        newPos.form=1;
         return m_storage->source(newPos);
     }
 
