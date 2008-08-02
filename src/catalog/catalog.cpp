@@ -91,6 +91,8 @@ void Catalog::clear()
     d->_untransIndex.clear();
     delete m_storage;m_storage=0;
     d->_url.clear();
+    d->_lastModifiedPos=DocPosition();
+    d->_originalForLastModifiedPos.clear();
 /*
     d->msgidDiffList.clear();
     d->msgstr2MsgidDiffList.clear();

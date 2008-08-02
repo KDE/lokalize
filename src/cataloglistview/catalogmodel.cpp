@@ -63,7 +63,7 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientatio
 
 QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 {
-    if (role!=Qt::DisplayRole)
+    if (role!=Qt::DisplayRole || m_catalog->numberOfEntries()<=index.row() )
         return QVariant();
 
     switch (index.column())

@@ -82,10 +82,7 @@ MergeView::~MergeView()
 void MergeView::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-    {
-        //kWarning() << " " <<;
         event->acceptProposedAction();
-    };
 }
 
 void MergeView::dropEvent(QDropEvent *event)
@@ -103,7 +100,7 @@ void MergeView::slotUpdate(const DocPosition& pos)
 void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 {
     m_pos=pos;
-    //TODO clear view on 'delete m_mergeCatalog'
+
     if (!m_mergeCatalog)
         return;
 
@@ -172,6 +169,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 void MergeView::cleanup()
 {
     delete m_mergeCatalog;m_mergeCatalog=0;
+    m_pos=DocPosition();
 
     emit signalPriorChangedAvailable(false);
     emit signalNextChangedAvailable(false);
@@ -186,14 +184,14 @@ void MergeView::mergeOpen(KUrl url)
 
     if (url==m_baseCatalog->url())
     {
-        //we are likely to be _mergeViewSecondary
+        //(we are likely to be _mergeViewSecondary)
         //special handling: open corresponding file in the branch
         //for AutoSync
 
         QString path=url.pathOrUrl();
-        //kWarning()<<_project->branchDir();
         path.replace(Project::instance()->poDir(),Project::instance()->branchDir());
-        kWarning()<<"AutoSync NEW path"<<path;
+        //kWarning()<<_project->branchDir();
+        //kWarning()<<"AutoSync NEW path"<<path;
         if (url!=KUrl(path)&&QFile::exists(path))
         {
             url=KUrl(path);
