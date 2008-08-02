@@ -76,7 +76,9 @@ bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
 
 
 
-//for qmap
+/**
+ * simpler version of DocPosition for use in QMap
+ */
 struct DocPos
 {
     short entry:16;

@@ -268,22 +268,26 @@ void MergeView::mergeAccept()
 {
     if(m_pos.entry==-1
        ||!m_mergeCatalog
-       ||m_baseCatalog->msgstr(m_pos)==m_mergeCatalog->msgstr(m_pos)
+     //||m_baseCatalog->msgstr(m_pos)==m_mergeCatalog->msgstr(m_pos)
        ||m_mergeCatalog->msgstr(m_pos).isEmpty())
         return;
+    bool changeContents=m_baseCatalog->msgstr(m_pos)!=m_mergeCatalog->msgstr(m_pos);
 
     m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
-
-    m_pos.offset=0;
-    if (!m_baseCatalog->msgstr(m_pos).isEmpty())
-        m_baseCatalog->push(new DelTextCmd(m_baseCatalog,m_pos,m_baseCatalog->msgstr(m_pos)));
 
     if ( m_baseCatalog->isFuzzy(m_pos.entry) && !m_mergeCatalog->isFuzzy(m_pos.entry)       )
         m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,false));
     else if ( !m_baseCatalog->isFuzzy(m_pos.entry) && m_mergeCatalog->isFuzzy(m_pos.entry) )
         m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,true));
 
-    m_baseCatalog->push(new InsTextCmd(m_baseCatalog,m_pos,m_mergeCatalog->msgstr(m_pos)));
+    if (changeContents)
+    {
+        m_pos.offset=0;
+        if (!m_baseCatalog->msgstr(m_pos).isEmpty())
+            m_baseCatalog->push(new DelTextCmd(m_baseCatalog,m_pos,m_baseCatalog->msgstr(m_pos)));
+
+        m_baseCatalog->push(new InsTextCmd(m_baseCatalog,m_pos,m_mergeCatalog->msgstr(m_pos)));
+    }
     ////////this is NOT done automatically by BaseCatalogEntryChanged slot
     bool remove=true;
     if (m_mergeCatalog->isPlural(m_pos.entry))

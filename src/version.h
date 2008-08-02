@@ -8,5 +8,5 @@
 //
 //
 #ifndef KAIDER_VERSION
-#define KAIDER_VERSION "0.2"
+#define KAIDER_VERSION "0.3"
 #endif

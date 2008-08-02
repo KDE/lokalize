@@ -34,6 +34,7 @@
 
 **************************************************************************** */
 // #define KDE_NO_DEBUG_OUTPUT
+#define XLIFF 1
 
 #include "catalog.h"
 #include "catalog_private.h"
@@ -41,9 +42,13 @@
 
 #include "catalogstorage.h"
 #include "gettextstorage.h"
-
 #include "gettextimport.h"
 #include "gettextexport.h"
+
+#ifdef XLIFF
+#include "xliffstorage.h"
+#endif
+
 
 #include "version.h"
 #include "prefs_lokalize.h"
@@ -114,7 +119,15 @@ QString Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
 
-   return m_storage->source(pos);
+    //if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
+    if (KDE_ISUNLIKELY(d->_numberOfPluralForms==1))
+    {
+        DocPosition newPos=pos;
+        newPos.form=1;
+        return m_storage->source(newPos);
+    }
+
+    return m_storage->source(pos);
 }
 
 QString Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
@@ -127,21 +140,22 @@ QString Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
 }
 
 
-QString Catalog::source(const DocPosition& pos, QList<TagRange>& ranges) const
+CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
-        return d->CatalogPrivate::_emptyStr;
+        return CatalogString();
 
-   return m_storage->source(pos,ranges);
+    return m_storage->sourceWithTags(pos);
+
 }
-
-QString Catalog::target(const DocPosition& pos, QList<TagRange>& ranges) const
+CatalogString Catalog::targetWithTags(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
-        return d->CatalogPrivate::_emptyStr;
+        return CatalogString();
 
-   return m_storage->target(pos,ranges);
+    return m_storage->targetWithTags(pos);
 }
+
 
 QString Catalog::comment(uint index) const
 {
@@ -219,6 +233,10 @@ bool Catalog::loadFromUrl(const KUrl& url)
 
     if (url.fileName().endsWith(".po")||url.fileName().endsWith(".pot"))
         storage=new GettextCatalog::GettextStorage;
+#ifdef XLIFF
+    else if (url.fileName().endsWith(".xlf")||url.fileName().endsWith(".xliff"))
+        storage=new XliffStorage;
+#endif
     else
         return false;
 

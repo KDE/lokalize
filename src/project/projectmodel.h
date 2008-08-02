@@ -90,11 +90,12 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
     Qt::ItemFlags flags( const QModelIndex& index ) const;
-//     int rowCount(const QModelIndex& parent=QModelIndex()) const;
-//     void fetchMore(const QModelIndex&);
-    //void forceScanning(const QModelIndex& parent=QModelIndex());
+
+    //also cleans up data belonging to previous project
+    void openUrl(const KUrl&);
+
 public slots:
-    void aa(){kWarning()<<"-----------------------------";}
+    void aa(){kWarning()<<"dataChanged";}
 
 private:
     KIcon m_dirIcon;
@@ -122,9 +123,6 @@ Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
 
 
 
-
-
-
 class ProjectLister: public KDirLister
 {
     Q_OBJECT
@@ -141,6 +139,9 @@ public:
     bool openUrl(const KUrl&, OpenUrlFlags flags = NoFlags);
     bool openUrlRecursive(const KUrl&, OpenUrlFlags _flags = Keep);
 //     inline void setBaseAndTempl(const QString& base,const QString& templ);
+
+    //cleans way for loading another project
+    void cleanup();
 
 public slots:
     void slotNewTemplItems(KFileItemList);//to get metainfo

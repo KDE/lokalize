@@ -4,6 +4,7 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/common
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog/gettext
+    ${CMAKE_CURRENT_SOURCE_DIR}/catalog/xliff
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
@@ -59,6 +60,7 @@ set(lokalize_SRCS
     tm/dbfilesmodel.cpp
     tm/tmmanager.cpp
 
+
     catalog/cmd.cpp
     catalog/pos.cpp
     catalog/catalog.cpp
@@ -68,6 +70,8 @@ set(lokalize_SRCS
     catalog/gettext/importplugin.cpp
     catalog/gettext/gettextimport.cpp
     catalog/gettext/gettextexport.cpp
+
+    catalog/xliff/xliffstorage.cpp
 )
 
 

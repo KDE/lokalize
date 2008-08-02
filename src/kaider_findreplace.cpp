@@ -293,10 +293,12 @@ void KAider::findNext(const DocPosition& startingPos)
                 {
                     data=catalog.msgid(_searchingPos)/*,offset*/;
 
+#ifdef UNWRAP_MSGID
                     //unwrap bc kaiderview does that too
                     int p=0;
                     while ((p=rx.indexIn(data))!=-1)
                         data.remove(p+1,1);
+#endif
                 }
                 else
                     data=catalog.msgstr(_searchingPos)/*,offset*/;
@@ -427,7 +429,7 @@ void KAider::findPrev()
 
 void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
-    show();
+    show();//for search through several files
     kWarning()<<"matchingIndex"<<matchingIndex
             <<"matchedLength"<<matchedLength;
 

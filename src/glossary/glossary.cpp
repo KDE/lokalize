@@ -448,18 +448,14 @@ QVariant GlossaryModel::data(const QModelIndex& index,int role) const
     if (role!=Qt::DisplayRole)
         return QVariant();
 
-//     kDebug()<<index.row();
-//     kDebug()<<Project::instance()->glossary()->termList.size();
     switch (index.column())
     {
-//         case ID: return Project::instance()->glossary()->termList.at(index.row()).id/*index.row()+1*/;
         case English: return Project::instance()->glossary()->termList.at(index.row()).english.join("\n");
         case Target: return Project::instance()->glossary()->termList.at(index.row()).target.join("\n");
         case SubjectField: 
         {
             const Glossary* glo=Project::instance()->glossary();
             int field=glo->termList.at(index.row()).subjectField;
-
             return glo->subjectFields.at(field);
         }
     }

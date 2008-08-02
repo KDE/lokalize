@@ -274,10 +274,17 @@ void KAider::setupActions()
     connect(action, SIGNAL(toggled(bool)),m_view,SLOT(approvedEntryDisplayed(bool)),Qt::QueuedConnection);
     connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
-    ADD_ACTION_SHORTCUT_ICON("msgid2msgstr",i18nc("@action:inmenu","Copy Msgid to Msgstr"),Qt::CTRL+Qt::Key_Space,"msgid2msgstr")
+    int copyShortcut=Qt::CTRL+Qt::Key_Space;
+    QString systemLang=KGlobal::locale()->language();
+    if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
+        || systemLang.startsWith("ja")
+        || systemLang.startsWith("zh")
+                    ))
+        copyShortcut=Qt::ALT+Qt::Key_Space;
+    ADD_ACTION_SHORTCUT_ICON("msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
 
-    ADD_ACTION_SHORTCUT("unwrapmsgstr",i18nc("@action:inmenu","Unwrap Msgstr"),Qt::CTRL+Qt::Key_I)
+    ADD_ACTION_SHORTCUT("unwrapmsgstr",i18nc("@action:inmenu","Unwrap target"),Qt::CTRL+Qt::Key_I)
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
     action = ac->addAction("edit_clear",m_view,SLOT(clearMsgStr()));

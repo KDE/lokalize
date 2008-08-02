@@ -49,6 +49,8 @@
 #include <QTime>
 #include <QAction>
 
+#include <kstandardaction.h>
+#include <krecentfilesaction.h>
 #include <kurl.h>
 #include <kdirlister.h>
 #include <kdebug.h>
@@ -100,16 +102,41 @@ Project::Project()
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 
+    QTimer::singleShot(66,this,SLOT(initLater()));
+}
+
+void Project::initLater()
+{
+    if (isLoaded())
+        return;
+
+    KConfig cfg;
+    KConfigGroup gr(&cfg,"State");
+    QString file=gr.readEntry("Project");
+    if (!file.isEmpty())
+        load(file);
+
+    /*projectActions(); //instantiates _openRecentProject
+    kWarning()<<"urllist on open"<<_openRecentProject->urls();
+    KUrl::List urls=_openRecentProject->urls();
+    if (!urls.isEmpty())//load(urls.first());
+        load(urls.last());*/
+//    kWarning()<<"urllist on open"<<_openRecentProject->urls();
+
 }
 
 Project::~Project()
 {
-    delete m_model;
+// never called, see Project::save()
+
+//    delete m_model;
 }
 
 
 void Project::load(const QString &file)
 {
+    //QTime a;a.start(); kWarning()<<"loading"<<file;
+
     ThreadWeaver::Weaver::instance()->dequeue();
     kWarning()<<"Finishing jobs...";
 
@@ -128,7 +155,7 @@ void Project::load(const QString &file)
     m_path=file;
 
     //put 'em into thread?
-    QTimer::singleShot(500,this,SLOT(populateDirModel()));
+    QTimer::singleShot(300,this,SLOT(populateDirModel()));
     QTimer::singleShot(0,this,SLOT(populateGlossary()));
     QTimer::singleShot(0,this,SLOT(populateWebQueryActions()));
 
@@ -140,7 +167,16 @@ void Project::load(const QString &file)
 
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 
+
+    projectActions();
+    _openRecentProject->addUrl( KUrl::fromPath(file) );
+
+    KConfig cfg;
+    KConfigGroup gr(&cfg,"State");
+    gr.writeEntry("Project", file);
+
     emit loaded();
+    //kWarning()<<"loaded"<<a.elapsed();
 }
 
 QString Project::projectDir() const
@@ -200,12 +236,10 @@ void Project::populateDirModel()
     if (KDE_ISUNLIKELY( !m_model || m_path.isEmpty() ))
         return;
 
+
     QString a(poDir());
     if (QFile::exists(a))
-    {
-        //static_cast<ProjectLister*>(m_model->dirLister())->setBaseAndTempl(a,potDir());
-        m_model->dirLister()->openUrl(a);
-    }
+        m_model->openUrl(a);
 }
 #if 0
 void Project::populateKrossActions()
@@ -332,6 +366,11 @@ const QList<QAction*>& Project::projectActions()
         connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectOpen()));
         m_projectActions.append(a);
 
+        _openRecentProject=KStandardAction::openRecent(this, SLOT(load(const KUrl&)), this);
+        KConfig config;
+        _openRecentProject->loadEntries(KConfigGroup(&config,"RecentProjects"));
+        m_projectActions.append(_openRecentProject);
+
         a=new QAction(i18nc("@action:inmenu","Create new project"),this);
         connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectCreate()));
         m_projectActions.append(a);
@@ -339,6 +378,8 @@ const QList<QAction*>& Project::projectActions()
         a=new QAction(i18nc("@action:inmenu","Catalog Manager"),this);
         connect(a,SIGNAL(triggered(bool)),this,SLOT(openProjectWindow()));
         m_projectActions.append(a);
+
+
     }
     return m_projectActions;
 }
@@ -353,6 +394,7 @@ void Project::showTM()
 void Project::showGlossary()
 {
     defineNewTerm();
+
 }
 
 void Project::defineNewTerm(QString en,QString target)
@@ -391,6 +433,9 @@ void Project::openInExisting(const KUrl& u)
 void Project::save()
 {
     writeConfig();
+    KConfig config;
+    _openRecentProject->saveEntries(KConfigGroup(&config,"RecentProjects"));
+
 }
 
 

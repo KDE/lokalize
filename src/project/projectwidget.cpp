@@ -40,6 +40,7 @@
 #include <klocale.h>
 #include <kdirlister.h>
 #include <kdirsortfilterproxymodel.h>
+#include <kcolorscheme.h>
 
 #include <QTreeView>
 #include <QTimer>
@@ -109,15 +110,17 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         painter->fillRect(option.rect,Qt::transparent);
         return;
     }
-        //return KFileItemDelegate::paint(painter,option,index);
+    //return KFileItemDelegate::paint(painter,option,index);
 
+    KColorScheme colorScheme(QPalette::Normal);
     //painter->setBrush(Qt::SolidPattern);
     //painter->setBackgroundMode(Qt::OpaqueMode);
     painter->setPen(Qt::white);
     QRect myRect(option.rect);
     myRect.setWidth(option.rect.width()*data.left()/all);
     painter->fillRect(myRect,
-                      QColor(60,190,60)
+                      colorScheme.foreground(KColorScheme::PositiveText)
+                      //QColor(60,190,60)
                       //QLinearGradient()
                      );
     //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
@@ -125,7 +128,8 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
     myRect.setLeft(myRect.left()+myRect.width());
     myRect.setWidth(option.rect.width()*data.width()/all);
     painter->fillRect(myRect,
-                      QColor(60,60,190)
+                      //QColor(60,60,190)
+                      colorScheme.foreground(KColorScheme::NeutralText)
                      );
    // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
 
@@ -133,7 +137,8 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
     //myRect.setWidth(option.rect.width()*data.top()/all);
     myRect.setWidth(option.rect.width()-myRect.left()+option.rect.left());
     painter->fillRect(myRect,
-                      QColor(190,60,60)
+                      //QColor(190,60,60)
+                      colorScheme.foreground(KColorScheme::NegativeText)
                      );
    // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
 

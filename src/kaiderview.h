@@ -44,10 +44,10 @@ struct DocPosition;
 
 #include <ktextedit.h>
 
-
+#define XLIFF 1
 
 #include "pos.h"
-
+#include "tagrange.h"
 
 class ProperTextEdit : public KTextEdit
 {
@@ -58,8 +58,15 @@ public:
      , m_currentUnicodeNumber(0)
     {};
 
+#ifdef XLIFF
+    void setContent(const CatalogString& catStr);
 private:
-    int m_currentUnicodeNumber;
+    QList<TagRange> m_ranges;
+#endif
+
+private:
+    int m_currentUnicodeNumber; //alt+NUM thing
+
 protected:
 
     void keyPressEvent(QKeyEvent *keyEvent);

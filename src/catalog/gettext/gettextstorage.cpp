@@ -143,7 +143,7 @@ bool GettextStorage::save(const KUrl& url)
     //kWarning() << "SAVE NAME "<<localFile;
     status = exporter.save(localFile/*x-gettext-translation*/,this);
 
-    if (KDE_ISUNLIKELY( status!=OK||remote && !KIO::NetAccess::upload( localFile, url, NULL) ))
+    if (KDE_ISUNLIKELY( status!=OK || (remote && !KIO::NetAccess::upload( localFile, url, NULL) )))
         return false;
 
     return true;

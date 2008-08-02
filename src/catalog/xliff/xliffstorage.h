@@ -19,27 +19,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef GETTEXTSTORAGE_H
-#define GETTEXTSTORAGE_H
+#ifndef XLIFFSTORAGE_H
+#define XLIFFSTORAGE_H
 
-#include <QVector>
-#include "catalogitem.h"
 #include "catalogstorage.h"
+#include <QDomNodeList>
+#include <QDomDocument>
+#include <QVector>
+// class QDomDocument;
 
 /**
- * Implementation of Gettext PO format support
- */
-namespace GettextCatalog {
-
-/**
- * @short Implementation of storage for Gettext PO
- * @author Nick Shaforostoff <shafff@ukr.net>
- */
-class GettextStorage : public CatalogStorage
+	@author Nick Shaforostoff <shafff@ukr.net>
+*/
+class XliffStorage : public CatalogStorage
 {
 public:
-    GettextStorage();
-    ~GettextStorage();
+    XliffStorage();
+    ~XliffStorage();
 
     bool load(const KUrl& url);
     bool save(const KUrl& url);
@@ -51,8 +47,8 @@ public:
     //flat-model interface (ignores XLIFF grouping)
     QString source(const DocPosition& pos) const;
     QString target(const DocPosition& pos) const;
-    CatalogString sourceWithTags(const DocPosition& pos) const{return source(pos);}
-    CatalogString targetWithTags(const DocPosition& pos) const{return target(pos);}
+    CatalogString targetWithTags(const DocPosition& pos) const;
+    CatalogString sourceWithTags(const DocPosition& pos) const;
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
@@ -79,26 +75,17 @@ public:
 
     bool isUntranslated(const DocPosition& pos) const;
 
-    QString mimetype()const{return "text/x-gettext-translation";}
+
+    QString mimetype()const{return "application/x-xliff";}
 
 private:
-    bool setHeader(const CatalogItem& newHeader);
+    QDomDocument m_doc;
+    QVector<int> m_map;//need mapping to treat plurals as 1 entry
+    QVector<int> m_plurals;
 
-private:
-    QVector<CatalogItem> m_entries;
-    QVector<CatalogItem> m_obsoleteEntries;
-    CatalogItem m_header;
-
-    int m_maxLineLength;
-    bool m_generatedFromDocbook;
-
-    QStringList m_catalogExtraData;
-
-    friend class CatalogImportPlugin;
-    friend class GettextExportPlugin;
+    QString tmp;
+    QDomNodeList entries;
 
 };
-
-}
 
 #endif

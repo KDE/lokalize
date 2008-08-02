@@ -45,7 +45,11 @@
 
 #include <QLabel>
 #include <QHBoxLayout>
-//#include <QTreeView>
+
+
+#ifdef XLIFF
+#include <QPixmap>
+#endif
 
 #include <ktabbar.h>
 #include <kled.h>
@@ -54,6 +58,9 @@
 #include <kdebug.h>
 #include <kurl.h>
 #include <kstandardshortcut.h>
+#include <kcolorscheme.h>
+
+
 //parent is set on qsplitter insertion
 class LedsWidget:public QWidget
 {
@@ -64,12 +71,14 @@ public:
 //     , _ledUntr(0)
 //     , _ledErr(0)
     {
+        KColorScheme colorScheme(QPalette::Normal);
+
         QHBoxLayout* layout=new QHBoxLayout(this);
         layout->addStretch();
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:")));
-        layout->addWidget(ledFuzzy=new KLed(Qt::green,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
-        layout->addWidget(ledUntr=new KLed(Qt::red,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addStretch();
         setMaximumHeight(minimumSizeHint().height());
     }
@@ -123,6 +132,119 @@ void ProperTextEdit::keyReleaseEvent(QKeyEvent* e)
     else
         KTextEdit::keyReleaseEvent(e);
 }
+
+
+
+
+#ifdef XLIFF
+
+
+inline static QImage generateImage(QString str, ProperTextEdit* w)
+{
+    str.prepend(' ');
+    QFontMetrics metrics(w->currentFont());
+    QRect rect=metrics.boundingRect(str);
+    rect.moveTo(0,0);
+
+    QLabel test(str,w);
+    test.setGeometry(rect);
+
+    QPixmap pixmap=QPixmap::grabWidget(&test,rect);
+    return pixmap.toImage();
+
+}
+
+void ProperTextEdit::setContent(const CatalogString& catStr)
+{
+    //kWarning()<<str<<ranges.size();
+    //prevent undo tracking system from recording this 'action'
+    document()->blockSignals(true);
+    clear();
+    QTextCursor cur=textCursor();
+
+
+    static const char* inlineElementNames[(int)InlineElementCount]={
+    "_unknown",
+    "bpt",
+    "ept",
+    "ph",
+    "it",
+//    "_NEVERSHOULDBECHOSEN",
+    "mrk",
+    "g",
+    "sub",
+    "_NEVERSHOULDBECHOSEN",
+    "x",
+    "bx",
+    "ex",
+    };
+
+    QMap<int,int> posToTagRange;
+    int i=catStr.ranges.size();
+    while(--i>=0)
+    {
+        posToTagRange.insert(catStr.ranges.at(i).start,i);
+        posToTagRange.insert(catStr.ranges.at(i).end,i);
+    }
+
+
+
+    i=0;
+    int prev=0;
+    while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
+    {
+        kWarning()<<"HAPPENED!!";
+        int tagRangeIndex=posToTagRange.value(i);
+        cur.insertText(catStr.string.mid(prev,i-prev));
+
+        TagRange ourRange=catStr.ranges.at(tagRangeIndex);
+        QString name=" "+ourRange.id;
+        QString text=QString::number(tagRangeIndex);
+        if (ourRange.start!=ourRange.end)
+        {
+//             kWarning()<<"a"<<ranges.at(tagRangeIndex).start;
+//             kWarning()<<"b"<<i;
+            if (ourRange.start==i)
+            {
+                text.append(" {");
+                name.append("-start");
+            }
+            else
+            {
+                text.prepend("} ");
+                name.append("-end");
+            }
+        }
+        document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,this));
+        cur.insertImage(name);//NOTE what if twice the same name?
+
+        prev=++i;
+    }
+    cur.insertText(catStr.string.mid(prev));
+
+    document()->blockSignals(false);
+}
+
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
@@ -407,11 +529,35 @@ void KAiderView::settingsChanged()
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
 {
-    if (KDE_ISUNLIKELY( _currentEntry==-1 || _msgstrEdit->toPlainText()==_oldMsgstr ))
+    QString editText=_msgstrEdit->toPlainText();
+    if (KDE_ISUNLIKELY( _currentEntry==-1 || editText==_oldMsgstr ))
         return;
 
     DocPosition pos=_currentPos;
     pos.offset=offset;
+
+#ifdef XLIFF
+    QString target=_catalog->targetWithTags(pos).string;
+
+    //kWarning()<<offset<<target.mid(offset,charsRemoved);
+    if ((charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL))
+       ||(charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL)))
+    {
+        //refresh
+        refreshMsgEdit(/*keepCursor*/true);
+#if 0
+        ProperTextEdit& msgEdit=*_msgstrEdit;
+        QTextCursor cursor=msgEdit.textCursor();
+
+        msgEdit.setContent(target,ranges);
+
+        cursor.setPosition(offset);
+        msgEdit.setTextCursor(cursor);
+#endif
+        return;
+    }
+#endif
+
 
 /*    kWarning()<<"offset"<<offset
             <<"charsRemoved"<<charsRemoved
@@ -423,7 +569,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
 //         kWarning()<<"here1";
     }
 
-    _oldMsgstr=_msgstrEdit->toPlainText();//newStr becomes OldStr
+    _oldMsgstr=editText;//newStr becomes OldStr
     if (charsAdded)
         _catalog->push(new InsTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsAdded)));
 
@@ -438,7 +584,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     if (!_catalog->isApproved(_currentEntry))
         toggleApprovement(true);
 
-    // for mergecatalog (delete entry from index)
+    // for mergecatalog (remove entry from index)
     // and for statusbar
     emit signalChanged(pos.entry);
 }
@@ -480,8 +626,15 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
     int pos=cursor.position();
     int anchor=cursor.anchor();
 
+#ifdef XLIFF
+    CatalogString targetWithTags=_catalog->targetWithTags(_currentPos);
+    QString target=targetWithTags.string;
+#else
     QString target=_catalog->target(_currentPos);
+#endif
     _oldMsgstr=target;
+
+    if (!keepCursor && msgEdit.toPlainText()!=target)
     if (!keepCursor && msgEdit.toPlainText()!=target)
     {
         pos=0;
@@ -491,10 +644,14 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
 
     disconnect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
+#ifdef XLIFF
+    msgEdit.setContent(targetWithTags);
+#else
     //prevent undo tracking system from recording this 'action'
     msgEdit.document()->blockSignals(true);
     msgEdit.setPlainText(target);
     msgEdit.document()->blockSignals(false);
+#endif
 
     QTextCursor t=msgEdit.textCursor();
     t.movePosition(QTextCursor::Start);
@@ -542,12 +699,24 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     //signal isn't emitted (haven't identify them yet)
     approvedEntryDisplayed(_catalog->isApproved(_currentEntry),false);
 
+#ifdef XLIFF
+    _msgidEdit->setContent(_catalog->sourceWithTags(_currentPos));
+#else
     _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
-    //unwrap(_msgidEdit);
+#endif
+
+/* ?
+    m_msgidHighlighter->rehighlight();
+*/
+
+#ifdef UNWRAP_MSGID
+    unwrap(_msgidEdit);
+#endif
 
     refreshMsgEdit();//sets msgstredit text along the way
 
-    bool untrans=_catalog->msgstr(_currentPos).isEmpty();
+    QString targetString=_catalog->targetWithTags(_currentPos).string;
+    bool untrans=targetString.isEmpty();
     if (_leds)
     {
         if (untrans)
@@ -570,18 +739,27 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
         if (selection)
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,selection);
     }
-    else
-    //what if msg starts with a tag?
-    if (KDE_ISUNLIKELY( !untrans && _catalog->msgstr(_currentPos).startsWith('<') ))
+    else if (!untrans)
     {
-        int offset=_catalog->msgstr(_currentPos).indexOf(QRegExp(">[^<]"));
-        if ( offset!=-1 )
-            t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
+        //what if msg starts with a tag?
+        if (KDE_ISUNLIKELY( targetString.startsWith('<') ))
+        {
+            int offset=targetString.indexOf(QRegExp(">[^<]"));
+            if ( offset!=-1 )
+                t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
+        }
+        else if (KDE_ISUNLIKELY( _catalog->msgstr(_currentPos).startsWith(TAGRANGE_IMAGE_SYMBOL) ))
+        {
+            int offset=targetString.indexOf(QRegExp("[^"+TAGRANGE_IMAGE_SYMBOL+']'));
+            if ( offset!=-1 )
+                t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
+        }
     }
-        msgEdit->setTextCursor(t);
+
+    msgEdit->setTextCursor(t);
 
     //for undo/redo tracking
-    _oldMsgstr=_catalog->msgstr(_currentPos);
+    //_oldMsgstr=_catalog->msgstr(_currentPos); :::this is done in refreshMsgEdit()
 
     //prevent undo tracking system from recording this 'action'
 //     disconnect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));

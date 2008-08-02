@@ -29,7 +29,7 @@
   your version.
 
 **************************************************************************** */
-#define KDE_NO_DEBUG_OUTPUT
+//#define KDE_NO_DEBUG_OUTPUT
 #include "projectmodel.h"
 #include "project.h"
 
@@ -39,6 +39,8 @@
 //#include <QEventLoop>
 #include <QTime>
 #include <QFile>
+
+#undef KDE_NO_DEBUG_OUTPUT
 
 
 ProjectModel::ProjectModel()
@@ -97,7 +99,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
             int translated=0;
             int fuzzy=0;
 
-//takes 5 mseconds on kdebase
+//takes 5 mseconds on messages/kdebase
 #if 0
             //first, check if we have already calcalated real stats
             if (!metaInfo.item("translation.translated").value().isNull())
@@ -258,22 +260,24 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 }
 
 
+void ProjectModel::openUrl(const KUrl& u)
+{
+    //kDebug()<<"called";
+    kWarning()<<"called";
+    static_cast<ProjectLister*>(dirLister())->cleanup();
+    dirLister()->openUrl(u);
+}
+
+
 
 ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
     : KDirLister(parent)
-    , m_templates(new KDirLister (this))
+    , m_templates(0)
     , m_reactOnSignals(true)
     , m_model(model)
 {
-    connect(m_templates,SIGNAL(newItems(KFileItemList)),
-            this, SLOT(slotNewTemplItems(KFileItemList)));
-    connect(m_templates, SIGNAL(deleteItem(const KFileItem&)),
-            this, SLOT(slotDeleteTemplItem(const KFileItem&)));
-    connect(m_templates, SIGNAL(refreshItems(QList< QPair< KFileItem, KFileItem > > )),
-            this, SLOT(slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > )));
+    cleanup();//setups m_templates
 
-    m_templates->setNameFilter("*.pot");
-    setNameFilter("*.po *.pot");
 //         connect( m_templates, SIGNAL(clear()),
 //                 this, SLOT(slotClear()) );
     //NOTE ??
@@ -311,6 +315,35 @@ bool ProjectLister::openUrlRecursive(const KUrl &_url, KDirLister::OpenUrlFlags 
 
     return openUrl(_url, _flags);
 }
+
+
+void ProjectLister::cleanup()
+{
+    if (m_templates)
+        m_templates->deleteLater();
+    m_templates = new KDirLister(this);
+
+    connect(m_templates,SIGNAL(newItems(KFileItemList)),
+            this, SLOT(slotNewTemplItems(KFileItemList)));
+    connect(m_templates, SIGNAL(deleteItem(const KFileItem&)),
+            this, SLOT(slotDeleteTemplItem(const KFileItem&)));
+    connect(m_templates, SIGNAL(refreshItems(QList< QPair< KFileItem, KFileItem > > )),
+            this, SLOT(slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > )));
+
+    m_templates->setNameFilter("*.pot");
+    setNameFilter("*.po *.pot");
+
+
+
+
+
+
+    m_hiddenTemplItems.clear();
+    m_recursiveUrls.clear();
+    m_listedTemplDirs.clear();
+    //m_reactOnSignals=true;
+}
+
 
 /* doesnt handle .po to .po_t_ :) */
 static bool poToPot(QString& path)

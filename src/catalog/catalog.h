@@ -88,8 +88,9 @@ public:
     QString msgstr(const DocPosition&, const bool noNewlines=false) const;
     QString source(const DocPosition& pos) const {return msgid(pos);}
     QString target(const DocPosition& pos) const {return msgstr(pos);}
-    QString source(const DocPosition& pos, QList<TagRange>& ranges) const;
-    QString target(const DocPosition& pos, QList<TagRange>& ranges) const;
+    // used by XLIFF storage)
+    CatalogString sourceWithTags(const DocPosition& pos) const;
+    CatalogString targetWithTags(const DocPosition& pos) const;
 
     QString comment(uint index) const;
     QString msgctxt(uint index) const;
@@ -123,17 +124,11 @@ public:
     void clear();
     bool isEmpty(){return !m_storage;}
 
-//    void setFileCodec( QTextCodec* codec ){d->fileCodec = codec;}
-//    QTextCodec* fileCodec() const {return d->fileCodec;}
-
     void setPackageName( QString s ){d->_packageName = s;}
     //QString _packageName() const {return d->fileCodec;}
 
 
     void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
-
-    void setImportPluginID(const QString& id){d->_importID=id;}
-    const QString& importPluginID() const {return d->_importID;}
 
     //void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;}
     QString mimetype();
@@ -156,19 +151,26 @@ public:
 public slots:
     bool save();
 
-    //updates DB for _posBuffer and accompanying _originalForLastModified
+    /**
+     * updates DB for _posBuffer and accompanying _originalForLastModified
+     */
     void flushUpdateDBBuffer();
 
 protected:
-    //EDITING
-    //(accessed from undo/redo code)
-    //called _BEFORE_ modification
+    /**
+     * (EDITING)
+     * accessed from undo/redo code
+     * called _BEFORE_ modification
+    */
     void setLastModifiedPos(const DocPosition&);
 
-    //EDITING
-    //(accessed from undo/redo code)
-    //(accessed from mergeCatalog)
-    void setApproved(const DocPosition& pos, bool approved);//_checks_ if action should be taken
+    /**
+     * (EDITING)
+     * accessed from undo/redo code
+     * accessed from mergeCatalog)
+     * it _does_ check if action should be taken
+     */
+    void setApproved(const DocPosition& pos, bool approved);
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
 

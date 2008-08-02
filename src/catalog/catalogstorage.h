@@ -58,8 +58,9 @@ public:
     **/
     virtual QString source(const DocPosition& pos) const=0;
     virtual QString target(const DocPosition& pos) const=0;
-    virtual QString source(const DocPosition& pos, QList<TagRange>& ranges) const=0;
-    virtual QString target(const DocPosition& pos, QList<TagRange>& ranges) const=0;
+    virtual CatalogString sourceWithTags(const DocPosition& pos) const=0;
+    virtual CatalogString targetWithTags(const DocPosition& pos) const=0;
+
     /**
      * edit operations used by undo/redo  system and sync-mode
     **/

@@ -39,6 +39,7 @@
 
 class ProjectWidget;
 class QContextMenuEvent;
+
 /**
  * Project Tree Window
  */

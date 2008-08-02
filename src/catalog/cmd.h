@@ -40,16 +40,16 @@
 #include "pos.h"
 class Catalog;
 
+enum Commands { Insert, Delete, ToggleFuzzy, ToggleApprovement };
+
 /**
  * how undo system works:
  * undo() and redo() functions call appropriate method
  * to change catalog contents,
  * then set DocPosition (posBuffer var in Catalog),
  * which is used to navigate editor to appr. place
-**/
-
-enum Commands { Insert, Delete, ToggleFuzzy, ToggleApprovement };
-
+ * @short Do insert text
+ */
 class InsTextCmd : public QUndoCommand
 {
 public:
