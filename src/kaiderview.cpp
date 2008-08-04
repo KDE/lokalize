@@ -142,7 +142,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _tabbar(new KTabBar(this))
     , _leds(0)
     , _currentEntry(-1)
-    , m_approvementState(false)
+    , m_approvementState(true)
 {
     //( new QTreeView(this) )->selectAll();
     _tabbar->hide();
