@@ -566,9 +566,12 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
     if (pos.offset || selection)
     {
-
         if (pos.part==Msgid)
+        {
             msgEdit=_msgidEdit;
+            t=msgEdit->textCursor();
+            t.movePosition(QTextCursor::Start);
+        }
 
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
@@ -593,7 +596,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 //     m_msgstrHighlighter->rehighlight();
 //     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
-    msgEdit->setFocus();
+    _msgstrEdit->setFocus();
 
     setUpdatesEnabled(true);
 }
