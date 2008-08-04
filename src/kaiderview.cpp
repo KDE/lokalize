@@ -257,7 +257,10 @@ bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
     }
     else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
     {
-        if (KDE_ISUNLIKELY( !_catalog->isApproved(_currentEntry) ))
+        //only for cases when:
+        //-BkSpace was hit and cursor was atStart
+        //-Del was hit and cursor was atEnd
+        if (KDE_ISUNLIKELY( !_catalog->isApproved(_currentEntry) && !_msgstrEdit->textCursor().hasSelection() ))
             toggleApprovement(true);
         return false;
     }
