@@ -57,6 +57,14 @@ public:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
 
+private:
+    /**
+      * checks if there are any other plural forms waiting to be synced for current pos
+      * @returns number of form or -1
+      */
+    int pluralFormsAvailableForward();
+    int pluralFormsAvailableBackward();
+
 
 public slots:
     void mergeOpen(KUrl url=KUrl());
