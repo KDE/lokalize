@@ -203,6 +203,18 @@ followed by <keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo> or <k
 <keycap>Up</keycap></keycombo> (remember that shortcuts may be modified in a usual way for all &kde; apps)
 to navigate through entries that are different.
 </para>
+<screenshot>
+<screeninfo>&lokalize; used for merging changes in translation</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>&lokalize; used for merging changes in translation</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
 </sect1>
 
 <sect1 id="FileSync">
