@@ -49,14 +49,14 @@
 #include <QTime>
 #include <QSet>
 #include <QAction>
-// #include <QShortcutEvent>
+#include <QFrame>
 
 
 using namespace GlossaryNS;
 
 GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)
-        , m_browser(new QWidget(this))
+        , m_browser(new QFrame(this))
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
@@ -73,6 +73,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     m_browser->setLayout(m_flowLayout);
     setToolTip(i18nc("@info:tooltip","Translations to common terms appear here. Press displayed shortcut to insert term translation. Use context menu to add new entry (tip: select words in original and translation fields before calling <interface>Define new term</interface>)."));
 
+    m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     m_browser->setAutoFillBackground(true);
     m_browser->setBackgroundRole(QPalette::Background);
 

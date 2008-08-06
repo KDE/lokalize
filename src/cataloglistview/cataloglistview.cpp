@@ -57,6 +57,7 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
 
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);
+    layout->setContentsMargins(0,0,0,0);
     KLineEdit* m_lineEdit=new KLineEdit(w);
     m_lineEdit->setClearButtonShown(true);
 //     connect (m_lineEdit,SIGNAL(textChanged(QString)),
