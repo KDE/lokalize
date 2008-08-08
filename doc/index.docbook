@@ -67,9 +67,9 @@ Up</keycap>.
 <para>
 It is recommended that you get used to the keyboard shortcuts instead of the
 menus and toolbars for increased productivity. For example, use the
-<keycombo><keycap>Alt</keycap><keycap>_</keycap></keycombo> to switch between
+<keycombo>&Alt;<keycap>_</keycap></keycombo> to switch between
 views when they are stacked into tabs, or
-<keycombo><keycap>Alt</keycap><keycap>Q</keycap></keycombo> to initiate a query
+<keycombo>&Alt;<keycap>Q</keycap></keycombo> to initiate a query
 when in the <guilabel>WebQueries</guilabel>.
 </para>
 </tip>
@@ -130,7 +130,7 @@ match will be displayed in the usual &lokalize; window. You can then proceed by
 pressing the <keycap>F3</keycap> button to find the next match. If you press the
 <keycap>F3</keycap> button and there are no matches left in the current file,
 then the search will continue in the next file and so on. To reset the multiple
-file search state, press <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo> in &lokalize;, and the editor
+file search state, press <keycombo>&Ctrl;<keycap>F</keycap></keycombo> in &lokalize;, and the editor
 window will reset.
 </para>
 </sect1>
@@ -164,8 +164,8 @@ The <guilabel>Translation Memory View</guilabel> allows you to drag and drop a
 folder with translation files from say Dolphin into the view,
 and then, within five minutes, translation suggestions will be shown automatically on the message entry switch.
 To insert the translation suggestions into the file, use 
-<keycombo><keycap>Ctrl</keycap><keycap>1</keycap></keycombo>, 
-<keycombo><keycap>Ctrl</keycap><keycap>2</keycap></keycombo> and so on, depending on the number of suggestion.
+<keycombo>&Ctrl;<keycap>1</keycap></keycombo>, 
+<keycombo>&Ctrl;<keycap>2</keycap></keycombo> and so on, depending on the number of suggestion.
 </para>
 </chapter>
 
@@ -199,7 +199,7 @@ contributors, when you cannot be sure of the quality of the work done.
 </para>
 <para>
 Open a base file, then drop its changed version into the <guilabel>Primary Sync</guilabel> view,
-followed by <keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo> or <keycombo><keycap>Alt</keycap>
+followed by <keycombo>&Alt;<keycap>Down</keycap></keycombo> or <keycombo>&Alt;
 <keycap>Up</keycap></keycombo> (remember that shortcuts may be modified in a usual way for all &kde; apps)
 to navigate through entries that are different.
 </para>
