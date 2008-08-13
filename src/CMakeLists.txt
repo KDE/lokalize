@@ -1,5 +1,5 @@
-PROJECT(lokalize)
-INCLUDE_DIRECTORIES(
+project(lokalize)
+include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/common
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog
@@ -99,7 +99,9 @@ kde4_add_executable(lokalize ${lokalize_SRCS})
 target_link_libraries(lokalize
 #     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
+    ${KDE4_KIO_LIBS}
     ${KDE4_KFILE_LIBS}
+    ${KDE4_KDEUI_LIBS}
     ${KDE4_THREADWEAVER_LIBRARY}
     ${QT_QTSQL_LIBRARY}
 )
