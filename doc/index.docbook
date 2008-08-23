@@ -97,7 +97,7 @@ when other projects are opened.
 </note>
 
 
-<sect1 id="projectView">
+<sect1 id="project-view">
 <title>Project View</title>
 
 <para>
@@ -171,7 +171,7 @@ To insert the translation suggestions into the file, use
 
 
 <chapter id="sync">
-<title>Synchronization capabilities</title>
+<title>Translation Synchronization Capabilities</title>
 
 <para>
 The <guilabel>Sync Mode</guilabel> (previously known as <guilabel>Merge Mode</guilabel>)
@@ -191,7 +191,7 @@ After you copied translation from auxiliary file (<emphasis>synchronized</emphas
 any subsequent changes made to this entry will be replicated back to auxiliary file.
 </para>
 
-<sect1 id="FileMerge">
+<sect1 id="file-merge">
 <title>Merging</title>
 <para>
 One use of <guilabel>Sync Mode</guilabel> is reviewing changes made by (new)
@@ -217,7 +217,7 @@ to navigate through entries that are different.
 
 </sect1>
 
-<sect1 id="FileSync">
+<sect1 id="file-sync">
 <title>Synchronization</title>
 <para>
 <guilabel>Sync Mode</guilabel> may also be used to make changes to translation for
@@ -239,9 +239,33 @@ and commit changes in both trunk and branch dirs.
 </sect1>
 
 
+<sect1 id="original-diff">
+<title>Original Diff</title>
+<para>
+When original text changes, gettext tools update translation files and mark entries with changed original text as <emphasis>fuzzy</emphasis> (or <emphasis>non-approved</emphasis> in other terminology).
+They store previous original text so that translators could see what changes exactly were made.
+Lokalize simplifies life of translator and highlights parts of original text that were changed in <guilabel>Original Diff</guilabel> view.
+</para>
+
+<screenshot>
+<screeninfo>&lokalize; highlighting parts of original text that were changed since translation was last reviewed</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>&lokalize; highlighting parts of original text that were changed since translation was last reviewed</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
 </chapter>
 
-<chapter id="webQuery">
+<!--
+<chapter id="WebQuery">
 <title>WebQuery</title>
 
 <para>
@@ -253,7 +277,7 @@ Tools</ulink> as well as the project file for it, at <ulink
 url="http://websvn.kde.org/trunk/l10n-kde4/ru/" />.
 </para>
 </chapter>
-
+-->
 <chapter id="credits">
 <title>Credits and License</title>
 
@@ -280,7 +304,7 @@ Author:
 <itemizedlist>
 <listitem>
 <para>
-Nick Shaforostoff <email>shaforostoff@kde.ru</email>
+Nick Shaforostoff <email>shaforostoff AT kde.ru</email>
 </para>
 </listitem>
 </itemizedlist>
