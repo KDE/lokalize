@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Lokalize
+Name[ko]=vLokalize
 Name[sr]=Локализуј
 Name[sr@latin]=Lokalizuj
 Name[x-test]=xxLokalizexx
@@ -20,6 +21,7 @@ GenericName[ga]=Córas aistriúcháin ríomhchuidithe
 GenericName[gl]=Sistema de tradución asistida por ordenador
 GenericName[it]=Sistema di traduzione informatica
 GenericName[km]=ប្រព័ន្ធ​បកប្រែ​ដែល​មានជំនួយ​ដោយ​កុំព្យូទ័រ
+GenericName[ko]=컴퓨터 보조 번역 시스템
 GenericName[lv]=Datorizēta tulkošanas sistēma
 GenericName[nds]=Reeknerünnerstütt Översettensysteem
 GenericName[pl]=System tłumaczeń wspomaganych komputerowo
