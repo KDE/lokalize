@@ -108,7 +108,9 @@ void MsgIdDiff::process()
     //get rid of other info (eg fuzzy marks)
     oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
     oldStr.remove(QRegExp("\\#[^\\|].*$"));
-    oldStr.remove(QRegExp("\\#\\| msgctxt.*\n"));
+    QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)");
+    rmCtxt.setMinimal(true);
+    oldStr.remove(rmCtxt);
 
     if (oldStr.contains("#| msgid \"\""))
     {

@@ -135,6 +135,7 @@ public:
 
 private:
     CatalogItemPrivate* const d;
+    static QRegExp fuzzyRegExp;
 
     friend class GettextStorage;
     void setFuzzy();
