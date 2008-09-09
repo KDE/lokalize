@@ -106,7 +106,7 @@ such as the percentage of translated messages completed and the last translator.
 It allows you to open a selected file in new tab of the current &lokalize;, window.
 </para>
 
-/sect1>
+</sect1>
 
 <sect1 id="multifile-ops">
 <title>Operations on multiple files</title>
