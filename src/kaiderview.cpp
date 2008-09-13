@@ -75,10 +75,12 @@ public:
 
         QHBoxLayout* layout=new QHBoxLayout(this);
         layout->addStretch();
-        layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:")));
+        layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:"),this));
         layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
-        layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:")));
+        layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:"),this));
         layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
+        layout->addSpacing(1);
+        layout->addWidget(lblColumn=new QLabel(this));
         layout->addStretch();
         setMaximumHeight(minimumSizeHint().height());
     }
@@ -100,7 +102,8 @@ public:
 public:
     KLed* ledFuzzy;
     KLed* ledUntr;
-    KLed* ledErr;
+    //KLed* ledErr;
+    QLabel* lblColumn;
 
 };
 
@@ -275,6 +278,8 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
 
     //apply changes to catalog via undo/redo
     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    connect (_msgstrEdit, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChanged()));
+
 
     _msgidEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setUndoRedoEnabled(false);
@@ -527,12 +532,19 @@ void KAiderView::settingsChanged()
                 _leds->ledFuzzy->on();
             if (_catalog->msgstr(_currentPos).isEmpty())
                 _leds->ledUntr->on();
+            cursorPositionChanged();
             insertWidget(2,_leds);
         }
     }
     else if (_leds)
         _leds->hide();
 
+}
+
+void KAiderView::cursorPositionChanged()
+{
+    if (_leds)
+        _leds->lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", _msgstrEdit->textCursor().columnNumber()));
 }
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)

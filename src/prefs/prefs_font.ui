@@ -44,7 +44,7 @@
         <string>If checked, LEDS will be shown to display the message status: Fuzzy, Untranslated or Error. If unchecked, no LEDs will be displayed.</string>
        </property>
        <property name="text" >
-        <string>LEDs to indicate Fuzzy, Untranslated and Error status</string>
+        <string>LEDs to indicate Fuzzy, Untranslated and Error status, as well as cursor column number</string>
        </property>
       </widget>
      </item>

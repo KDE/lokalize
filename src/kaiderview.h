@@ -139,6 +139,7 @@ signals:
 private slots:
 //     void setupWhatsThis();
     void settingsChanged();
+    void cursorPositionChanged();
     //for Undo/Redo tracking
     void contentsChanged(int position,int charsRemoved,int charsAdded);
     //we need this function cause...

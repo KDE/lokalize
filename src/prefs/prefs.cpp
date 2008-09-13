@@ -122,7 +122,7 @@ void SettingsController::slotSettings()
     w = new QWidget(dialog);
     Ui_prefs_misc ui_prefs_misc;
     ui_prefs_misc.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab","Misc"), "configure");
+    dialog->addPage(w, i18nc("@title:tab","Translation Memory"), "configure");
 
     connect(dialog,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(generalSettingsChanged()));
 

@@ -92,14 +92,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
 
 
     //spaces
-    /*if (Settings::highlightSpaces())
-    {
-        KColorScheme colorScheme(QPalette::Normal);
-        rule.format.clearForeground();
-        rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
-        rule.pattern = QRegExp(" +$");
-        highlightingRules.append(rule);
-    }*/
     settingsChanged();
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),this, SLOT(settingsChanged()));
 
@@ -107,14 +99,14 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(" +$");
+    QRegExp re(" +$|^ +");
     if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
     {
         HighlightingRule rule;
         KColorScheme colorScheme(QPalette::Normal);
         rule.format.clearForeground();
         rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
-        rule.pattern = QRegExp(" +$");
+        rule.pattern = re;
         highlightingRules.append(rule);
         rehighlight();
     }
