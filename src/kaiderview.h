@@ -57,6 +57,7 @@ public:
      : KTextEdit(parent)
      , m_currentUnicodeNumber(0)
     {};
+    QString toPlainText();
 
 private:
     int m_currentUnicodeNumber;

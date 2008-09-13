@@ -129,6 +129,12 @@ void ProperTextEdit::keyReleaseEvent(QKeyEvent* e)
         KTextEdit::keyReleaseEvent(e);
 }
 
+QString ProperTextEdit::toPlainText()
+{
+    QTextCursor cursor = textCursor();
+    cursor.select(QTextCursor::Document);
+    return cursor.selectedText();
+}
 
 KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     : QSplitter(Qt::Vertical,parent)
