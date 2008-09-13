@@ -32,7 +32,7 @@
 <abstract>
 <para>
 &lokalize; is a computer-aided translation system that focuses on productivity and
-performance.  &lokalize; applies a paragraph-by-paragraph translation approach
+quality assurance.  &lokalize; applies a paragraph-by-paragraph translation approach
 when translating documentation, and takes a message-by-message approach when
 translating &GUI; components.
 </para>
