@@ -86,18 +86,18 @@ public:
     }
 
 //NOTE the config shit doesn't work
-// private:
-//     void contextMenuEvent(QContextMenuEvent* event)
-//     {
-//         QMenu menu;
-//         menu.addAction(i18nc("@action","Hide"));
-//         if (menu.exec(event->globalPos()))
-//         {
-//             Settings::setLeds(false);
-//             kWarning() << Settings::leds();
-//             hide();
-//         }
-//     }
+private:
+    void contextMenuEvent(QContextMenuEvent* event)
+    {
+        QMenu menu;
+        menu.addAction(i18nc("@action","Hide"));
+        if (menu.exec(event->globalPos()))
+        {
+            Settings::setLeds(false);
+            Settings::self()->writeConfig();
+            hide();
+        }
+    }
 
 public:
     KLed* ledFuzzy;
