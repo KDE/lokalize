@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -75,14 +75,14 @@ static void cleanUpIfMultiple(KAider* th,
                               int& pos,
                               KFindDialog* dia)
 {
-    if (!list.isEmpty())
-    {
-        if (!th->isVisible())
-            th->deleteLater();
-        list.clear();
-        pos=-1;
-        dia->setHasCursor(true);
-    }
+    if (list.isEmpty())
+        return;
+
+    if (!th->isVisible())
+        th->deleteLater();
+    list.clear();
+    pos=-1;
+    dia->setHasCursor(true);
 }
 
 void KAider::find()
@@ -195,7 +195,7 @@ bool KAider::determineStartingPos(KFind* find,
 
         pos.entry=_catalog->numberOfEntries()-1;
         pos.form=
-                (_catalog->pluralFormType(pos.entry)==Gettext)?
+                (_catalog->isPlural(pos.entry))?
                 _catalog->numberOfPluralForms()-1:0;
 
     }
@@ -351,7 +351,7 @@ void KAider::findNext(const DocPosition& startingPos)
                         {
                             DocPosition pos;
                             pos.entry=catalog.numberOfEntries()-1;
-                            pos.form=(catalog.pluralFormType(pos.entry)==Gettext)?
+                            pos.form=(catalog.isPlural(pos.entry))?
                                 catalog.numberOfPluralForms()-1:0;
                             //_searchingPos=pos;
                             gotoEntry(pos);
@@ -364,7 +364,7 @@ void KAider::findNext(const DocPosition& startingPos)
                         QTimer::singleShot(0,this,SLOT(findNext()));
                         //hideDia=false;
 
-                        kWarning()<<"searchink         TIME "<<a.elapsed();
+//                        kWarning()<<"searchink         TIME "<<a.elapsed();
                         return;
                     }
                     else
@@ -400,7 +400,7 @@ void KAider::findNext(const DocPosition& startingPos)
         m_progressDialog->hide();
 
     m_catalogTreeView->setUpdatesEnabled(true);
-    kWarning()<<"searchink         TIME "<<a.elapsed();
+//    kWarning()<<"searchink         TIME "<<a.elapsed();
 }
 
 void KAider::findNext()
@@ -513,7 +513,7 @@ void KAider::replace()
 
     if (_replace)
     {
-        delete _replace; _replace=0;
+        _replace->deleteLater();// _replace=0;
     }
 
     // This creates a find-next-prompt dialog if needed.
@@ -662,7 +662,7 @@ void KAider::replaceNext(const DocPosition& startingPos)
                     {
                         DocPosition pos;
                         pos.entry=_catalog->numberOfEntries()-1;
-                        pos.form=(_catalog->pluralFormType(pos.entry)==Gettext)?
+                        pos.form=(_catalog->isPlural(pos.entry))?
                             _catalog->numberOfPluralForms()-1:0;
                         //_searchingPos=pos;
                         gotoEntry(pos);

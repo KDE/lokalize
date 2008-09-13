@@ -2,9 +2,9 @@
   This file is part of Lokalize
   This file contains parts of KBabel code
 
-  Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
-		2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
+                2001-2004   by Stanislav Visnovsky <visnovsky@kde.org>
+                2007-2008   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

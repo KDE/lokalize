@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -57,6 +57,7 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
 
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);
+    layout->setContentsMargins(0,0,0,0);
     KLineEdit* m_lineEdit=new KLineEdit(w);
     m_lineEdit->setClearButtonShown(true);
 //     connect (m_lineEdit,SIGNAL(textChanged(QString)),
@@ -86,15 +87,10 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     m_browser->setColumnWidth(0,m_browser->columnWidth(0)/3);
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
+    m_browser->setWordWrap(true);
 
     m_proxyModel->setFilterKeyColumn(CatalogTreeModel::Source);
 
-}
-
-CatalogTreeView::~CatalogTreeView()
-{
-    delete m_browser;
-    delete m_model;
 }
 
 

@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -79,13 +79,17 @@ MergeView::~MergeView()
     delete m_mergeCatalog;
 }
 
+KUrl MergeView::url()
+{
+    if (m_mergeCatalog)
+        return m_mergeCatalog->url();
+    return KUrl();
+}
+
 void MergeView::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-    {
-        //kWarning() << " " <<;
         event->acceptProposedAction();
-    };
 }
 
 void MergeView::dropEvent(QDropEvent *event)
@@ -103,12 +107,14 @@ void MergeView::slotUpdate(const DocPosition& pos)
 void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 {
     m_pos=pos;
-    //TODO clear view on 'delete m_mergeCatalog'
+
     if (!m_mergeCatalog)
         return;
 
-    emit signalPriorChangedAvailable(pos.entry>m_mergeCatalog->firstChangedIndex());
-    emit signalNextChangedAvailable(pos.entry<m_mergeCatalog->lastChangedIndex());
+    emit signalPriorChangedAvailable((pos.entry>m_mergeCatalog->firstChangedIndex())
+                                    ||(pluralFormsAvailableBackward()!=-1));
+    emit signalNextChangedAvailable((pos.entry<m_mergeCatalog->lastChangedIndex())
+                                    ||(pluralFormsAvailableForward()!=-1));
 
     if (!m_mergeCatalog->isPresent(pos.entry))
     {
@@ -172,6 +178,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 void MergeView::cleanup()
 {
     delete m_mergeCatalog;m_mergeCatalog=0;
+    m_pos=DocPosition();
 
     emit signalPriorChangedAvailable(false);
     emit signalNextChangedAvailable(false);
@@ -186,14 +193,14 @@ void MergeView::mergeOpen(KUrl url)
 
     if (url==m_baseCatalog->url())
     {
-        //we are likely to be _mergeViewSecondary
+        //(we are likely to be _mergeViewSecondary)
         //special handling: open corresponding file in the branch
         //for AutoSync
 
         QString path=url.pathOrUrl();
-        //kWarning()<<_project->branchDir();
         path.replace(Project::instance()->poDir(),Project::instance()->branchDir());
-        kWarning()<<"AutoSync NEW path"<<path;
+        //kWarning()<<_project->branchDir();
+        //kWarning()<<"AutoSync NEW path"<<path;
         if (url!=KUrl(path)&&QFile::exists(path))
         {
             url=KUrl(path);
@@ -235,7 +242,34 @@ void MergeView::mergeOpen(KUrl url)
 
 }
 
+int MergeView::pluralFormsAvailableForward()
+{
+    if(KDE_ISLIKELY( m_pos.entry==-1 || !m_mergeCatalog->isPlural(m_pos.entry) ))
+        return -1;
 
+    int formLimit=qMin(m_baseCatalog->numberOfPluralForms(),m_mergeCatalog->numberOfPluralForms());//just sanity check
+    DocPosition pos=m_pos;
+    while (++(pos.form)<formLimit)
+    {
+        if (m_baseCatalog->msgstr(pos)!=m_mergeCatalog->msgstr(pos))
+            return pos.form;
+    }
+    return -1;
+}
+
+int MergeView::pluralFormsAvailableBackward()
+{
+    if(KDE_ISLIKELY( m_pos.entry==-1 || !m_mergeCatalog->isPlural(m_pos.entry) ))
+        return -1;
+
+    DocPosition pos=m_pos;
+    while (--(pos.form)>=0)
+    {
+        if (m_baseCatalog->msgstr(pos)!=m_mergeCatalog->msgstr(pos))
+            return pos.form;
+    }
+    return -1;
+}
 
 void MergeView::gotoPrevChanged()
 {
@@ -244,8 +278,18 @@ void MergeView::gotoPrevChanged()
 
     DocPosition pos;
 
-    if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1 ))
+    //first, check if there any plural forms waiting to be synced
+    int form=pluralFormsAvailableBackward();
+    if (KDE_ISUNLIKELY( form!=-1 ))
+    {
+        pos=m_pos;
+        pos.form=form;
+    }
+    else if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1 ))
         return;
+
+    if (KDE_ISUNLIKELY( m_mergeCatalog->isPlural(pos.entry)&&form==-1 ))
+        pos.form=qMin(m_baseCatalog->numberOfPluralForms(),m_mergeCatalog->numberOfPluralForms())-1;
 
     emit gotoEntry(pos,0);
 }
@@ -257,7 +301,14 @@ void MergeView::gotoNextChanged()
 
     DocPosition pos;
 
-    if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1 ))
+    //first, check if there any plural forms waiting to be synced
+    int form=pluralFormsAvailableForward();
+    if (KDE_ISUNLIKELY( form!=-1 ))
+    {
+        pos=m_pos;
+        pos.form=form;
+    }
+    else if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1 ))
         return;
 
     emit gotoEntry(pos,0);
@@ -293,10 +344,11 @@ void MergeView::mergeAccept()
     if (m_mergeCatalog->isPlural(m_pos.entry))
     {
         DocPosition pos=m_pos;
-        pos.form=qMax(m_baseCatalog->numberOfPluralForms(),1);
+        pos.form=qMin(m_baseCatalog->numberOfPluralForms(),m_mergeCatalog->numberOfPluralForms());//just sanity check
+        pos.form=qMax((int)pos.form,1);//just sanity check
         while ((--(pos.form))>=0)
         {
-            kWarning()<<pos.form;
+            //kWarning()<<pos.form;
             if (m_baseCatalog->msgstr(pos)!=m_mergeCatalog->msgstr(pos))
             {
                 remove=false;

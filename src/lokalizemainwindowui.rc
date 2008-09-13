@@ -1,0 +1,37 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="LokalizeMainWindow" version="15">
+<MenuBar>
+  <Menu name="file">
+    <Action name="project_configure"/>
+    <Separator/>
+    <Action name="project_open"/>
+    <ActionList name="project_actions" />
+    <Action name="project_create"/>
+  </Menu>
+  <Merge/>
+  <Menu name="project"><text>&amp;Project</text>
+    <Action name="project_configure"/>
+    <Separator/>
+    <Action name="project_open"/>
+    <ActionList name="project_actions" />
+    <Action name="project_create"/>
+  </Menu>
+  <Menu name="tools">
+    <MergeLocal name="tools_spelling_merge"/>
+    <Separator/>
+    <Action name="tools_glossary"/>
+    <Separator/>
+    <Action name="tools_tm"/>
+    <Action name="tools_tm_manage"/>
+    <Merge/>
+  </Menu>
+</MenuBar>
+<!--<State name="po" >
+  <disable>
+  </disable>
+</State>
+<State name="xliff" >
+  <enable>
+  </enable>
+</State>-->
+</kpartgui>

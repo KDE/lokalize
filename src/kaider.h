@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,19 +37,22 @@
 #include <config.h>
 #endif
 
+#include "lokalizesubwindowbase.h"
 #include "pos.h"
 
 #include <kapplication.h>
-#include <kxmlguiwindow.h>
+#include <kmainwindow.h>
+#include <kxmlguiclient.h>
 #include <kurl.h>
 #include <sonnet/dialog.h>
+
+#include <QHash>
 
 class KFindDialog;
 class KFind;
 class KReplaceDialog;
 class KReplace;
 class KProgressDialog;
-class KRecentFilesAction;
 
 class Catalog;
 class KAiderView;
@@ -60,39 +63,81 @@ class CatalogTreeView;
 namespace GlossaryNS{class GlossaryView;}
 namespace TM{class TMView;}
 class Ui_findExtension;
+//class ActionProxy;
+
+#define ID_STATUS_TOTAL 1
+#define ID_STATUS_CURRENT 2
+#define ID_STATUS_FUZZY 3
+#define ID_STATUS_UNTRANS 4
+#define ID_STATUS_ISFUZZY 5
+#define TOTAL_ID_STATUSES 5
+//#define ID_STATUS_READONLY 6
+//#define ID_STATUS_CURSOR 7
 
 
+
+struct KAiderState
+{
+public:
+    KAiderState(){}
+    //KAiderState(const QByteArray& dw, const KUrl& u):dockWidgets(dw),url(u){}
+    KAiderState(const KAiderState& ks){dockWidgets=ks.dockWidgets;url=ks.url;}
+    ~KAiderState(){}
+
+    QByteArray dockWidgets;
+    KUrl url;
+    KUrl mergeUrl;
+    int entry;
+    //int offset;
+};
+/*qRegisterMetaType<KAiderState>("KAiderState");
+Q_DECLARE_METATYPE(KAiderState);
+namespace ConversionCheck
+{
+    QVConversions(KAiderState, supported, supported);
+}
+*/
 /**
- * This class serves as the main window for KAider
- * and can be called a dispatcher for one message catalog.
- * It handles the menus, toolbars, and status bars.
+ * This class can be called a dispatcher for one message catalog.
  *
- * @short Main window class
+ * @short Editor window/tab
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-class KAider: public KXmlGuiWindow
+class KAider: public LokalizeSubwindowBase, public KXMLGUIClient
 {
     Q_OBJECT
 
 public:
-    KAider();
+    KAider(QWidget* parent);
     virtual ~KAider();
 
     //wrapper for cmdline handling
     void mergeOpen(KUrl url=KUrl());
+    //KUrl mergeFile();
 
-protected:
+
+    //interface for LokalizeMainWindow
+    void hideDocks();
+    void showDocks();
+    KUrl currentUrl();
+    void setFullPathShown(bool);
+    void setCaption(const QString&,bool);//reimpl to remove ' - Lokalize'
+    void setProperFocus();
+//protected:
     bool queryClose();
+    KAiderState state();
+    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 
+    void findInFiles(const KUrl::List&);
+    void replaceInFiles(const KUrl::List&);
+    void spellcheckFiles(const KUrl::List&);
 
 public slots:
     bool fileOpen(KUrl url=KUrl());
     void gotoFirst();
     void gotoLast();
-
-    void findInFiles(const KUrl::List&);
-    void replaceInFiles(const KUrl::List&);
-    void spellcheckFiles(const KUrl::List&);
+    //for undo/redo, views
+    void gotoEntry(const DocPosition& pos,int selection=0);
 
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
@@ -107,8 +152,6 @@ private slots:
     void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
     void updateCaptionPath();
 
-    //for undo/redo, views
-    void gotoEntry(const DocPosition& pos,int selection=0);
     //gui
     void switchForm(int);
 
@@ -162,8 +205,6 @@ private slots:
     void gotoPrevBookmark();
 
 
-    void newWindowOpen(const KUrl&);
-
     void defineNewTerm();
 
     void initLater();
@@ -211,6 +252,8 @@ private:
     bool m_updateView:1;//for find/replace in files
     bool m_modifiedAfterFind:1;
 
+    bool m_fullPathShown:1;
+
     bool m_doReplaceCalled:1;//used to prevent non-clean catalog status
     KFindDialog* _findDialog;
     KFind* _find;
@@ -238,7 +281,6 @@ private:
 
     QString _captionPath;
 
-    KRecentFilesAction* _openRecentFile;
 
 signals:
     //emitted when mainwindow is closed or another file is opened

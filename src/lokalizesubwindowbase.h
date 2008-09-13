@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,73 +30,36 @@
 
 **************************************************************************** */
 
-#ifndef MERGEVIEW_H
-#define MERGEVIEW_H
+#ifndef LOKALIZESUBWINDOWBASE_H
+#define LOKALIZESUBWINDOWBASE_H
 
-#include "pos.h"
+#include <QHash>
+#include <QString>
+#include <KMainWindow>
 
-#include <kurl.h>
-
-#include <QDockWidget>
-class KTextEdit;
-class Catalog;
-class MergeCatalog;
-class QDragEnterEvent;
-class QDropEvent;
+#include "actionproxy.h"
+//class ActionProxy;
+class KXMLGUIClient;
 
 
-
-class MergeView: public QDockWidget
+/**
+ * Interface for LokalizeMainWindow
+ */
+class LokalizeSubwindowBase: public KMainWindow
 {
-    Q_OBJECT
+public:
+    LokalizeSubwindowBase(QWidget* parent):KMainWindow(parent){};
+    virtual ~LokalizeSubwindowBase(){};
+    virtual KXMLGUIClient* guiClient()=0;
+
+    //interface for LokalizeMainWindow
+    virtual void hideDocks()=0;
+    virtual void showDocks()=0;
+    //bool queryClose();
 
 public:
-    MergeView(QWidget*,Catalog*,bool primary);
-    virtual ~MergeView();
-
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
-    KUrl url();
-
-private:
-    /**
-      * checks if there are any other plural forms waiting to be synced for current pos
-      * @returns number of form or -1
-      */
-    int pluralFormsAvailableForward();
-    int pluralFormsAvailableBackward();
-
-
-public slots:
-    void mergeOpen(KUrl url=KUrl());
-    void cleanup();
-    void slotNewEntryDisplayed(const DocPosition&);
-    void slotUpdate(const DocPosition&);
-
-    void gotoNextChanged();
-    void gotoPrevChanged();
-    void mergeAccept();
-    void mergeAcceptAllForEmpty();
-
-signals:
-//     //we connect it to our internal mergeCatalog to remove entry from index
-//     void entryModified(uint);
-
-    void signalPriorChangedAvailable(bool);
-    void signalNextChangedAvailable(bool);
-    void signalEntryWithMergeDisplayed(bool);
-
-    void gotoEntry(const DocPosition&,int);
-
-private:
-    KTextEdit* m_browser;
-    Catalog* m_baseCatalog;
-    MergeCatalog* m_mergeCatalog;
-    DocPosition m_pos;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-    bool m_primary;
+    //QHash<QString,ActionProxy*> supportedActions;
+    StatusBarProxy statusBarItems;
 
 };
 

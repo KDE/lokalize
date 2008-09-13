@@ -1,7 +1,7 @@
 /*****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008  by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -47,10 +47,7 @@
 
 #include <QTimer>
 #include <QTime>
-#include <QAction>
 
-#include <kstandardaction.h>
-#include <krecentfilesaction.h>
 #include <kurl.h>
 #include <kdirlister.h>
 #include <kdebug.h>
@@ -102,11 +99,11 @@ Project::Project()
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 
-    QTimer::singleShot(66,this,SLOT(initLater()));
+    //QTimer::singleShot(66,this,SLOT(initLater()));
 }
 
 void Project::initLater()
-{
+{/*
     if (isLoaded())
         return;
 
@@ -115,7 +112,7 @@ void Project::initLater()
     QString file=gr.readEntry("Project");
     if (!file.isEmpty())
         load(file);
-
+*/
     /*projectActions(); //instantiates _openRecentProject
     kWarning()<<"urllist on open"<<_openRecentProject->urls();
     KUrl::List urls=_openRecentProject->urls();
@@ -168,13 +165,10 @@ void Project::load(const QString &file)
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 
 
-    projectActions();
-    _openRecentProject->addUrl( KUrl::fromPath(file) );
-
-    KConfig cfg;
+    /*KConfig cfg;
     KConfigGroup gr(&cfg,"State");
     gr.writeEntry("Project", file);
-
+*/
     emit loaded();
     //kWarning()<<"loaded"<<a.elapsed();
 }
@@ -346,42 +340,8 @@ void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
 
 void Project::openProjectWindow()
 {
-    kWarning()<<"bbb0";
-    ProjectWindow* a=new ProjectWindow;
-    kWarning()<<"bbb1";
-    a->show();
-    kWarning()<<"bbb2";
-}
-
-const QList<QAction*>& Project::projectActions()
-{
-    if (m_projectActions.isEmpty())
-    {
-        SettingsController* sc=SettingsController::instance();
-        QAction* a=new QAction(i18nc("@action:inmenu","Configure project"),this);
-        connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectConfigure()));
-        m_projectActions.append(a);
-
-        a=new QAction(i18nc("@action:inmenu","Open project"),this);
-        connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectOpen()));
-        m_projectActions.append(a);
-
-        _openRecentProject=KStandardAction::openRecent(this, SLOT(load(const KUrl&)), this);
-        KConfig config;
-        _openRecentProject->loadEntries(KConfigGroup(&config,"RecentProjects"));
-        m_projectActions.append(_openRecentProject);
-
-        a=new QAction(i18nc("@action:inmenu","Create new project"),this);
-        connect(a,SIGNAL(triggered(bool)),sc,SLOT(projectCreate()));
-        m_projectActions.append(a);
-
-        a=new QAction(i18nc("@action:inmenu","Catalog Manager"),this);
-        connect(a,SIGNAL(triggered(bool)),this,SLOT(openProjectWindow()));
-        m_projectActions.append(a);
-
-
-    }
-    return m_projectActions;
+/*    ProjectWindow* a=new ProjectWindow;
+    a->show();*/
 }
 
 
@@ -399,6 +359,7 @@ void Project::showGlossary()
 
 void Project::defineNewTerm(QString en,QString target)
 {
+    kWarning()<<"here";
     GlossaryNS::GlossaryWindow* gloWin=new GlossaryNS::GlossaryWindow;
     gloWin->show();
     if (!en.isEmpty()||!target.isEmpty())
@@ -411,31 +372,10 @@ void Project::showTMManager()
     win->show();
 }
 
-void Project::openInExisting(const KUrl& u)
-{
-    KAider* a;
-    if (m_editors.isEmpty())
-    {
-        a=new KAider;
-        a->show();
-    }
-    else
-    {
-        a=m_editors.last();
-        a->showNormal();
-        a->setFocus();
-        a->raise();
-    }
-    a->fileOpen(u);
-}
-
 
 void Project::save()
 {
     writeConfig();
-    KConfig config;
-    _openRecentProject->saveEntries(KConfigGroup(&config,"RecentProjects"));
-
 }
 
 

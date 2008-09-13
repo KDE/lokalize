@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 #ifndef CATALOGTREEVIEW_H
 #define CATALOGTREEVIEW_H
 
-#include <pos.h>
+#include "pos.h"
 
 #include <QDockWidget>
 class QTreeView;
@@ -47,7 +47,7 @@ class CatalogTreeView: public QDockWidget
 
 public:
     CatalogTreeView(QWidget*,Catalog*);
-    virtual ~CatalogTreeView();
+    virtual ~CatalogTreeView(){};
 
 public slots:
     void slotNewEntryDisplayed(uint);
@@ -59,7 +59,6 @@ signals:
 
 private:
     QTreeView* m_browser;
-//     QMenu* m_menu;
     QWidget* m_parent;
     CatalogTreeModel* m_model;
     QSortFilterProxyModel *m_proxyModel;

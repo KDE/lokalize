@@ -203,6 +203,8 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
  , m_proxyModel(new QSortFilterProxyModel(this))
  , m_reactOnSignals(true)
 {
+    setAttribute(Qt::WA_DeleteOnClose, true);
+
     QSplitter* splitter=new QSplitter(Qt::Horizontal,this);
     setCentralWidget(splitter);
 

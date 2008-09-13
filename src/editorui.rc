@@ -1,13 +1,63 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KAider" version="3">
+<kpartgui name="Editor" version="7">
 <MenuBar>
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="file_new"/>
+    <MergeLocal name="new_merge"/>
+    <Action name="file_open"/>
+    <Action name="file_open_recent"/>
+    <MergeLocal name="open_merge"/>
+    <Separator/>
+    <Action name="file_save"/>
+    <Action name="file_save_as"/>
+    <Action name="file_save_all"/>
+    <MergeLocal name="save_merge"/>
+    <Action name="file_revert"/>
+    <Action name="file_revert_all"/>
+    <MergeLocal name="revert_merge"/>
+    <Separator/>
+    <Action name="file_print"/>
+    <Action name="file_print_preview"/>
+    <MergeLocal name="print_merge"/>
+    <Action name="file_mail"/>
+    <MergeLocal name="mail_merge"/>
+    <Separator/>
+    <MergeLocal/>
+    <Separator/>
+    <Action name="file_close"/>
+    <Action name="file_close_all"/>
+    <MergeLocal name="close_merge"/>
+    <Separator/>
+    <Action name="file_quit"/>
+  </Menu>
   <Menu name="edit"><text>&amp;Edit</text>
-    <Action name="edit_toggle_fuzzy"/>
-    <Action name="msgid2msgstr"/>
-    <Action name="unwrapmsgstr"/>
+    <Action name="edit_undo"/>
+    <Action name="edit_redo"/>
+    <MergeLocal name="edit_undo_merge"/>
+    <Separator/>
+    <Action name="edit_cut"/>
+    <Action name="edit_copy"/>
+    <Action name="edit_paste"/>
+    <MergeLocal name="edit_paste_merge"/>
     <Action name="edit_clear"/>
+    <Separator/>
+    <Action name="edit_select_all"/>
+    <Action name="edit_deselect"/>
+    <MergeLocal name="edit_select_merge"/>
+    <Separator/>
+    <Action name="edit_find"/>
+    <Action name="edit_find_next"/>
+    <Action name="edit_find_prev"/>
+    <Action name="edit_replace"/>
+    <MergeLocal name="edit_find_merge"/>
+    <Separator/>
+    <MergeLocal/>
+    <Action name="edit_approve"/>
+    <Action name="edit_msgid2msgstr"/>
+    <Action name="edit_unwrap-target"/>
+    <Action name="edit_clear-target"/>
     <Action name="edit_tagmenu"/>
-    <Menu name="glossary"><text>Glossary</text>
+    <Menu name="glossary"><text>&amp;Glossary</text>
         <Action name="glossary_define"/>
         <Separator/>
         <Action name="glossary_insert_0"/>
@@ -32,7 +82,7 @@
         <Action name="glossary_insert_19"/>
         <Action name="glossary_insert_20"/>
     </Menu>
-    <Menu name="webquery"><text>WebQuery</text>
+    <Menu name="webquery"><text>&amp;WebQuery</text>
         <Action name="webquery_do"/>
         <Separator/>
         <Action name="webquery_insert_0"/>
@@ -49,7 +99,7 @@
         <Action name="webquery_insert_11"/>
         <Action name="webquery_insert_12"/>
     </Menu>
-    <Menu name="tmquery"><text>Translation Memory</text>
+    <Menu name="tmquery"><text>Translation &amp;Memory</text>
         <Action name="tmquery_do"/>
         <Separator/>
         <Action name="tmquery_insert_0"/>
@@ -68,6 +118,24 @@
     </Menu>
   </Menu>
   <Menu name="go"><text>&amp;Go</text>
+    <Action name="go_up"/>
+    <Action name="go_back"/>
+    <Action name="go_forward"/>
+    <Action name="go_home"/>
+    <Separator/>
+    <Action name="go_previous"/>
+    <Action name="go_next"/>
+    <Action name="go_goto_page"/>
+    <Action name="go_goto_line"/>
+    <Action name="go_goto"/>
+    <Separator/>
+    <Action name="go_first"/>
+    <Action name="go_last"/>
+    <Separator/>
+    <Action name="go_document_back"/>
+    <Action name="go_document_forward"/>
+    <Separator/>
+    <MergeLocal/>
     <Action name="go_goto"/>
     <Separator/>
     <Action name="go_first"/>
@@ -79,17 +147,14 @@
     <Action name="go_next_fuzzy"/>
     <Action name="go_prev_untrans"/>
     <Action name="go_next_untrans"/>
+    <Menu name="bookmarks"><text>&amp;Bookmarks</text>
+      <Action name="bookmark_prior"/>
+      <Action name="bookmark_next"/>
+      <Action name="bookmark_add"/>
+      <Action name="bookmark_edit"/>
+    </Menu>
   </Menu>
-  <Menu name="project"><text>Project</text>
-    <ActionList name="project_actions" />
-<!--
-    <Action name="project_configure"/>
-    <Separator/>
-    <Action name="project_open"/>
-    <Action name="project_create"/>
--->
-  </Menu>
-  <Menu name="merge"><text>Sync</text>
+  <Menu name="merge"><text>&amp;Sync</text>
     <Action name="merge_open"/>
     <Separator/>
     <Action name="merge_prev"/>
@@ -98,7 +163,7 @@
     <Action name="merge_accept"/>
     <Action name="merge_acceptnew"/>
     <Separator/>
-    <Menu name="mergesecondary"><text>Secondary sync source</text>
+    <Menu name="mergesecondary"><text>&amp;Secondary sync source</text>
       <Action name="mergesecondary_open"/>
       <Separator/>
       <Action name="mergesecondary_prev"/>
@@ -109,21 +174,15 @@
       <Separator/>
     </Menu>
   </Menu>
-  <Menu name="bookmarks"><text>Bookmarks</text>
-    <Action name="bookmark_prior"/>
-    <Action name="bookmark_next"/>
-  </Menu>
-  <Menu name="tools"><text>&amp;Tools</text>
+  <Menu name="tools">
     <Separator/>
-    <Action name="tools_glossary"/>
-    <Separator/>
-    <Action name="tools_tm"/>
     <Action name="tools_tm_batch"/>
     <Action name="tools_tm_batch_fuzzy"/>
-    <Action name="tools_tm_manage"/>
+    <Separator/>
+    <Action name="tools_spelling"/>
   </Menu>
-  <Menu name="settings"><text>&amp;Settings</text>
-    <Menu name="toolviews"><text>Toolviews</text>
+  <Menu name="settings">
+    <Menu name="toolviews"><text>Tool&amp;views</text>
         <Action name="showmsgiddiff_action" />
         <Action name="showprojectview_action" />
         <Action name="showmergeview_action" />
@@ -144,7 +203,26 @@
   <enable>
   </enable>
 </State>-->
-<ToolBar name="mainToolBar">
-  <Action name="edit_toggle_fuzzy"/>
+<ToolBar name="mainToolBar"><text>Main Toolbar</text>
+  <Action name="file_new"/>
+  <Action name="file_open"/>
+  <Action name="file_save"/>
+  <Action name="file_print"/>
+  <Action name="file_mail"/>
+  <Separator/>
+  <Action name="edit_undo"/>
+  <Action name="edit_redo"/>
+  <Action name="edit_cut"/>
+  <Action name="edit_copy"/>
+  <Action name="edit_paste"/>
+  <Separator/>
+  <Action name="edit_find"/>
+  <Action name="view_zoom"/>
+  <Separator/>
+  <Action name="go_previous"/>
+  <Action name="go_next"/>
+  <Action name="go_home"/>
+  <Separator/>
+  <Action name="edit_approve"/>
 </ToolBar>
 </kpartgui>

@@ -86,18 +86,13 @@ public:
     //keeps pos of the entry that was last modified
     DocPosition _lastModifiedPos;
 
-    //DB update buffer --flushed explicitly on entry switch
-    //or when cmd to change another DocPos is sent
-    //keeps original content of the entry that was last modified
-    QString _originalForLastModifiedPos;
-
-   explicit CatalogPrivate()
+    explicit CatalogPrivate()
            : _mimeTypes( "text/plain" )
            , fileCodec(0)
            , _numberOfPluralForms(-1)
            , _readOnly(false)
-   {
-   }
+    {
+    }
 };
 
 

@@ -2,10 +2,10 @@
   This file is part of Lokalize
   This file contains parts of KBabel code
 
-  Copyright (C) 1999-2000	by Matthias Kiefer <matthias.kiefer@gmx.de>
-		2001-2005	by Stanislav Visnovsky <visnovsky@kde.org>
-		2006	by Nicolas Goutte <goutte@kde.org>
-		2007	by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
+                2001-2005   by Stanislav Visnovsky <visnovsky@kde.org>
+                2006        by Nicolas Goutte <goutte@kde.org>
+                2007-2008   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -96,6 +96,7 @@ void Catalog::clear()
     d->_untransIndex.clear();
     delete m_storage;m_storage=0;
     d->_url.clear();
+    d->_lastModifiedPos=DocPosition();
 /*
     d->msgidDiffList.clear();
     d->msgstr2MsgidDiffList.clear();
@@ -271,7 +272,6 @@ bool Catalog::loadFromUrl(const KUrl& url)
     m_storage=storage;
     emit signalFileLoaded();
     emit signalFileLoaded(url);
-    d->_originalForLastModifiedPos.clear();
     return true;
 }
 
@@ -325,17 +325,20 @@ bool Catalog::saveToUrl(KUrl url)
      * helper method to keep db in a good shape :)
      * called on
      * 1) entry switch
-     * 2) automatic editing code loke replace or undo/redo operation
+     * 2) automatic editing code like replace or undo/redo operation
     **/
-static void updateDB(const QString& english,
+static void updateDB(
+              const QString& filePath,
               const QString& ctxt,
-              const QString& oldTarget,
-              const QString& newTarget
+              const QString& english,
+              /*const QString& oldTarget,*/
+              const QString& newTarget,
+              int form
               //const DocPosition&,//for back tracking
 //              const QString& dbName,
              )
 {
-    TM::UpdateJob* j=new TM::UpdateJob(english,ctxt,oldTarget,newTarget,
+    TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,/*oldTarget,*/newTarget,form,
                                Project::instance()->projectID());
     j->connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
     j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
@@ -360,12 +363,8 @@ const DocPosition& Catalog::redo()
 void Catalog::push(QUndoCommand *cmd, bool rebaseForDBUpdate)
 {
     QUndoStack::push(cmd);
-
-    if (rebaseForDBUpdate)
-        d->_originalForLastModifiedPos=target(d->_lastModifiedPos);
 }
 
-//assumes that d->_originalForLastModifiedPos refers to the same DocPos as d->_lastModifiedPos does
 void Catalog::flushUpdateDBBuffer()
 {
     //kWarning()<<"flushUpdateDBBuffer";
@@ -379,37 +378,23 @@ void Catalog::flushUpdateDBBuffer()
         kWarning()<<"nothing to flush";
         return;
     }
-    QString currentTarget=target(pos);
-    QString& originalTarget=d->_originalForLastModifiedPos;
-    if (currentTarget==originalTarget || !isApproved(pos))
-    {
-        //nothing to flush
-        kWarning()<<"nothing to flush";
-        return;
-    }
-
     kWarning()<<"updating!!";
-//     kWarning()<<"updating!!"
-//             <<"source(pos)"<<source(pos)
-//             <<"originalTarget"<<originalTarget
-//             <<"currentTarget"<<currentTarget
-//             ;
-    updateDB(source(pos),
+    int form=-1;
+    if (isPlural(pos.entry))
+        form=pos.form;
+    updateDB(url().pathOrUrl(),
              msgctxt(pos.entry),
-             originalTarget,
-             currentTarget);
+             source(pos),
+             target(pos),
+             form);
 
-    originalTarget=currentTarget;//for the cases when flush is forced (i.e. _lastModifiedPos doesnt change)
 }
 
 void Catalog::setLastModifiedPos(const DocPosition& pos)
 {
     bool entryChanged=DocPos(d->_lastModifiedPos)!=DocPos(pos);
     if (entryChanged)
-    {
         flushUpdateDBBuffer();
-        d->_originalForLastModifiedPos=target(pos);
-    }
 
     d->_lastModifiedPos=pos;
 }

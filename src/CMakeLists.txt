@@ -19,6 +19,9 @@ include_directories(
 
 set(lokalize_SRCS
     main.cpp
+    lokalizemainwindow.cpp
+    actionproxy.cpp
+
     kaider.cpp
     kaider_findreplace.cpp
 
@@ -45,7 +48,7 @@ set(lokalize_SRCS
     project/project.cpp
     project/projectmodel.cpp
     project/projectwidget.cpp
-    project/projectview.cpp
+#    project/projectview.cpp
     project/projectwindow.cpp
 
     prefs/prefs.cpp
@@ -113,7 +116,9 @@ install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( FILES lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
-install( FILES lokalizeui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+install( FILES editorui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+install( FILES lokalizemainwindowui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+
 
 

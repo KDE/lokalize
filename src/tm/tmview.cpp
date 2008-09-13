@@ -213,6 +213,7 @@ void TMView::slotFileLoaded(const KUrl& url)
             continue;
         SelectJob* j=new SelectJob(m_catalog->msgid(pos),
                                    m_catalog->msgctxt(pos.entry),
+                                   m_catalog->url().pathOrUrl(),
                                    pos,
                                    pID);
         //these two are for cleanup
@@ -363,6 +364,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     }
     m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),
                                      m_catalog->msgctxt(pos.entry),
+                                     m_catalog->url().pathOrUrl(),
                                      pos,
                                      Project::instance()->projectID());
     //these two are for cleanup
@@ -384,6 +386,7 @@ void TMView::displayFromCache()
         return;
     SelectJob* temp=new SelectJob(m_catalog->msgid(m_pos),
                                   m_catalog->msgctxt(m_pos.entry),
+                                  m_catalog->url().pathOrUrl(),
                                   m_pos,
                                   Project::instance()->projectID());
     temp->m_entries=m_cache.value(DocPos(m_pos)).toList();
@@ -430,6 +433,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
             {
                 SelectJob* j=new SelectJob(catalog.msgid(m_pos),
                                            catalog.msgctxt(m_pos.entry),
+                                           catalog.url().pathOrUrl(),
                                            m_pos,db);
                 //these two are for cleanup
                 connect(j,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));

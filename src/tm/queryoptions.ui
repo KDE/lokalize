@@ -5,60 +5,127 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
+    <width>606</width>
     <height>511</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout" name="horizontalLayout_2" >
      <item>
-      <widget class="KLineEdit" name="query" />
+      <layout class="QGridLayout" name="gridLayout" >
+       <item row="1" column="1" >
+        <widget class="KLineEdit" name="querySource" >
+         <property name="toolTip" >
+          <string>Press Enter to start the search</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="KLineEdit" name="queryTarget" >
+         <property name="toolTip" >
+          <string>Press Enter to start the search</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="querySourceLabel" >
+         <property name="text" >
+          <string>Source:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="queryTargetLabel" >
+         <property name="text" >
+          <string>Target:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2" >
+        <widget class="QCheckBox" name="invertTarget" >
+         <property name="text" >
+          <string>Invert</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" >
+        <widget class="QCheckBox" name="invertSource" >
+         <property name="text" >
+          <string>Invert</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QRadioButton" name="substr" >
-       <property name="text" >
-        <string comment="@option:radio" >Substring</string>
-       </property>
-       <property name="checked" >
-        <bool>false</bool>
+      <layout class="QVBoxLayout" name="verticalLayout_2" />
+     </item>
+     <item>
+      <widget class="Line" name="line" >
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="like" >
-       <property name="toolTip" >
-        <string>Space is AND operator</string>
-       </property>
-       <property name="text" >
-        <string comment="@option:radio" >Google-like</string>
-       </property>
-       <property name="checked" >
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="rx" >
-       <property name="toolTip" >
-        <string>Shell globs (* and ?)</string>
-       </property>
-       <property name="text" >
-        <string comment="@option:radio" >Wildcard</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="db" >
-       <property name="minimumContentsLength" >
-        <number>20</number>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout" >
+       <item>
+        <widget class="QComboBox" name="db" >
+         <property name="minimumContentsLength" >
+          <number>20</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4" >
+         <item>
+          <widget class="QRadioButton" name="substr" >
+           <property name="text" >
+            <string comment="@option:radio" >Substring</string>
+           </property>
+           <property name="checked" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="like" >
+           <property name="toolTip" >
+            <string>Space is AND operator</string>
+           </property>
+           <property name="text" >
+            <string comment="@option:radio" >Google-like</string>
+           </property>
+           <property name="checked" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="rx" >
+           <property name="toolTip" >
+            <string>Shell globs (* and ?)</string>
+           </property>
+           <property name="text" >
+            <string comment="@option:radio" >Wildcard</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
     <widget class="QTreeView" name="treeView" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="alternatingRowColors" >
       <bool>true</bool>
      </property>
@@ -70,9 +137,20 @@
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
-   <header location="global" >klineedit.h</header>
+   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>querySource</tabstop>
+  <tabstop>invertSource</tabstop>
+  <tabstop>queryTarget</tabstop>
+  <tabstop>invertTarget</tabstop>
+  <tabstop>db</tabstop>
+  <tabstop>substr</tabstop>
+  <tabstop>like</tabstop>
+  <tabstop>rx</tabstop>
+  <tabstop>treeView</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

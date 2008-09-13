@@ -43,6 +43,7 @@ class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
 class QAction;
+class QFrame;
 #include <QVector>
 
 namespace GlossaryNS {
@@ -69,7 +70,7 @@ signals:
     void termInsertRequested(const QString&);
 
 private:
-    QWidget* m_browser;
+    QFrame* m_browser;
     Catalog* m_catalog;
     FlowLayout *m_flowLayout;
     Glossary* m_glossary;

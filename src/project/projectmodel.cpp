@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -50,8 +50,8 @@ ProjectModel::ProjectModel()
     , m_poComplIcon(KIcon(QLatin1String("flag-green")))
     , m_potIcon(KIcon(QLatin1String("flag-black")))
 {
-    connect (this,SIGNAL(dataChanged(const QModelIndex&,const QModelIndex&) ),
-             this,SLOT(aa()));
+//     connect (this,SIGNAL(dataChanged(const QModelIndex&,const QModelIndex&) ),
+//              this,SLOT(aa()));
 
     setDirLister(new ProjectLister(this));
 }
@@ -63,7 +63,7 @@ ProjectModel::ProjectModel()
  * order is tran,  untr, fuzzy
  *          left() top() width()
  *
- * 32 is a secret code that we use to say that info isnot ready yet
+ * 32,64 is a secret code that we use to say that info is not ready yet
  */
 QVariant ProjectModel::data ( const QModelIndex& index, int role) const
 {
@@ -148,21 +148,25 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                 }
             }
 
-            if (infoIsFull&&(untranslated+translated+fuzzy))
+            //if (/*infoIsFull&&*/(untranslated+translated+fuzzy))
+            if (infoIsFull)
             {
 
 //                 KFileMetaInfo dirInfo(item->metaInfo(false));
 #if 1
-                metaInfo.item("translation.untranslated").setValue(untranslated);
-                metaInfo.item("translation.translated").setValue(translated);
-                metaInfo.item("translation.fuzzy").setValue(fuzzy);
-                item.setMetaInfo(metaInfo);
+                if (infoIsFull)
+                {
+                    metaInfo.item("translation.untranslated").setValue(untranslated);
+                    metaInfo.item("translation.translated").setValue(translated);
+                    metaInfo.item("translation.fuzzy").setValue(fuzzy);
+                    item.setMetaInfo(metaInfo);
+                }
 #endif
 
                 switch(column)
                 {
                     case Graph:
-                        return QRect(translated,untranslated,fuzzy,0);
+                        return QRect(translated,untranslated,fuzzy,infoIsFull?0:64);
                     case Total:
                         return translated+untranslated+fuzzy;
                     case Translated:
@@ -229,6 +233,26 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     }
     return KDirModel::data(index,role);
 }
+/*
+void ProjectModel::readRecursively(const QModelIndex& index)
+{
+    QCoreApplication::processEvents(QEventLoop::AllEvents);
+    data(index);
+    int count=rowCount(index);
+    kWarning()<<"dddd"<<count;
+    int i=0;
+    bool infoIsFull=true;
+    //QTime a;a.start();
+    for (;i<count;++i)
+    {
+        if (hasChildren(index.child(i,0))&&!data(index.child(i,0)).isNull())
+            readRecursively(index.child(i,0));
+        else
+            data(index.child(i,Graph));
+    }
+
+}*/
+
 
 QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
@@ -331,8 +355,7 @@ void ProjectLister::cleanup()
             this, SLOT(slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > )));
 
     m_templates->setNameFilter("*.pot");
-    setNameFilter("*.po *.pot");
-
+    setNameFilter("*.po *.pot *.xlf");
 
 
 
@@ -390,7 +413,8 @@ void ProjectLister::slotCompleted(const KUrl& _url)
         {
             if (list.at(i).isDir())
             {
-                kapp->processEvents();
+                QCoreApplication::processEvents();
+                QCoreApplication::processEvents(QEventLoop::WaitForMoreEvents,200);
                 openUrlRecursive(list.at(i).url());
             }
         }

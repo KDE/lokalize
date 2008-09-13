@@ -103,7 +103,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
 
     // only save header if it is not empty
     const QString& headerComment( catalog->m_header.comment() );
-    // ### TODO: why is this useful to have a header with an empty msgstr?
+    // ### why is this useful to have a header with an empty msgstr?
     if ( !headerComment.isEmpty() || !catalog->m_header.msgstrPlural().isEmpty() )
     {
         // write header
@@ -114,7 +114,7 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
         // Gettext PO files should have an empty msgid as header
         if ( !headerMsgid.isEmpty() )
         {
-            // ### TODO: perhaps it is grave enough for a user message
+            // ### perhaps it is grave enough for a user message
             kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
         }
 

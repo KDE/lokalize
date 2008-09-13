@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -50,7 +50,7 @@ bool switchPrev(Catalog*& catalog,DocPosition& pos,bool useMsgId)
         pos.part=Msgstr;
 
     if (KDE_ISUNLIKELY( pos.form>0
-            && catalog->pluralFormType(pos.entry)==Gettext ))
+            && catalog->isPlural(pos.entry)))
         pos.form--;
     else if (KDE_ISUNLIKELY( pos.entry==0 ))
         return false;
@@ -82,7 +82,7 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
 
     if (KDE_ISUNLIKELY( pos.entry!=-1
             && pos.form+1 < catalog->numberOfPluralForms()
-            && catalog->pluralFormType(pos.entry)==Gettext ))
+            && catalog->isPlural(pos.entry)))
         pos.form++;
     else if (KDE_ISUNLIKELY( pos.entry==catalog->numberOfEntries()-1 ))
         return false;

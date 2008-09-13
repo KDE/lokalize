@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -49,8 +49,6 @@
 #include <QPainter>
 #include <QLinearGradient>
 
-// // #include <QModelIndex>
-// #include <QTimer>
 
 
 //HACKy HACKy HACKy
@@ -64,10 +62,7 @@ bool PoItemDelegate::editorEvent(QEvent* event,
         QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
         if (mEvent->button()==Qt::MidButton)
         {
-
-//     emit newWindowOpenRequested(static_cast<ProjectModel*>(model)->itemForIndex(
-//                                 index)->url());
-        emit newWindowOpenRequested(static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())
+            emit newWindowOpenRequested(static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())
                 ->itemForIndex(static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)).url());
         }
     }
@@ -104,6 +99,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         painter->fillRect(option.rect,Qt::transparent);
         return;
     }
+    bool infoIsFull=data.height()!=64;
     int all=data.left()+data.top()+data.width();
     if (!all)
     {
@@ -267,8 +263,9 @@ ProjectWidget::~ProjectWidget()
 
 void ProjectWidget::setCurrentItem(const KUrl& u)
 {
-    if (!u.isEmpty())
-        setCurrentIndex(m_proxyModel->mapFromSource(
+    if (u.isEmpty())
+        return;
+    setCurrentIndex(m_proxyModel->mapFromSource(
                 Project::instance()->model()->indexForUrl(u))
                                           /*,true*/);
 }
@@ -386,12 +383,15 @@ void ProjectWidget::expandItems()
                 static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u);
             //TODO 
                 //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true,false);
-                //openRecursive(m_model->dirLister(),QDir(u));
-            //index
         }
 
+        QCoreApplication::processEvents(QEventLoop::AllEvents);
     }
+
+    //static_cast<ProjectModel*>(Project::instance()->model())->readRecursively();
 }
+
+
 #if 0
 // void ProjectWidget::slotProjectLoaded()
 // {

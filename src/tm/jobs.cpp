@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -50,6 +50,8 @@
 
 #include <math.h>
 using namespace TM;
+
+#define TM_DELIMITER '\v'
 
 bool TM::scanRecursive(const QDir& dir, const QString& dbName)
 {
@@ -119,211 +121,45 @@ static void doSplit(QString& cleanEn,
 }
 
 
-#define INSERT_NOT_HAPPENED 0
-#define INSERT_NO_DUPS 1
-#define INSERT_WITH_DUPS 2
-/**
- * 0 - nothing happened
- * 1 - inserted, no dups
- * 2 - e1.english==e2.english, e1.target!=e2.target
- */
-static int doInsertEntry(const QString& english,
-             const QString& target,
-             const QString& ctxt, //TODO QStringList -- after XLIFF
-             QSqlDatabase& db,
-//           const QRegExp& rxSplit,
-             QSqlQuery& queryMain,//query for record addition prepared once
-             QRegExp& rxClean1,//cleaning regexps for word index update
-             QRegExp& rxClean2)
 
-//                  QSqlQuery& queryInsertWord,
-//                  QSqlQuery& queryIndexWords
-
+static qlonglong getFileId(const QString& path,
+             QSqlDatabase& db)
 {
-    //TODO plurals
-    if (KDE_ISUNLIKELY( target.isEmpty() ))
-        return INSERT_NOT_HAPPENED;
-
-    QString cleanEn(english);
-    QStringList words;
-    doSplit(cleanEn,words,rxClean1,rxClean2);
-    if (KDE_ISUNLIKELY( words.isEmpty() ))
-        return INSERT_NOT_HAPPENED;
-
-
-    //check if we already have record with the same en string
     QSqlQuery query1(db);
-    QString escapedEn(english);
-    escapedEn.replace('\'',"''");
-    QString escapedTarget(target);
-    escapedTarget.replace('\'',"''");
+    QString escapedPath=path;
+    escapedPath.replace('\'',"''");
 
-    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, ctxt FROM tm_main WHERE "
-                     "english=='"+escapedEn+'\'')))
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id FROM files WHERE "
+                     "path=='"+escapedPath+'\'')))
         kWarning() <<"select db error: " <<query1.lastError().text();
 
-    if (query1.next())
+    if (KDE_ISLIKELY(query1.next()))
     {
         //this is translation of en string that is already present in db
 
         qlonglong id=query1.value(0).toLongLong();
-        if (target==query1.value(1).toString())
-        {
-            //main table contains the same en+translation
-            //but what about ctxt? => update ctxt list
-
-            QStringList dup_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);
-            query1.clear();
-            if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
-            {
-                dup_ctxt+=ctxt;
-                query1.prepare("UPDATE OR FAIL tm_main "
-                               "SET ctxt=? "
-                               "WHERE "
-                               "id=="+QString::number(id));
-                query1.bindValue(0, dup_ctxt.join("\b"));
-                if (!query1.exec())
-                    kWarning() <<"update db error: " <<query1.lastError().text();
-            }
-
-            return INSERT_NOT_HAPPENED;
-        }
         query1.clear();
-
-        //main table contains different translation of the same en,
-        //=> look for the same-translation in dups
-
-        if (KDE_ISUNLIKELY( !query1.exec("SELECT ctxt FROM tm_dups WHERE "
-                                        "target=='"+escapedTarget+"' AND "
-                                        "id=="+QString::number(id)) ))
-            kWarning() <<"select error 2: " <<query1.lastError().text();
-
-        if (query1.next())
-        {
-            //dups table contains the same en+translation
-            //but what about ctxt? => update ctxt list
-
-            QStringList dup_ctxt=query1.value(0).toString().split('\b',QString::SkipEmptyParts);
-            query1.clear();
-            if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
-            {
-                dup_ctxt+=ctxt;
-                query1.prepare("UPDATE OR FAIL tm_dups "
-                               "SET ctxt=? "
-                               "WHERE "
-                               "target=='"+escapedTarget+"' AND "
-                               "id=="+QString::number(id));
-                query1.bindValue(0, dup_ctxt.join("\b"));
-                query1.exec();
-            }
-
-            return INSERT_NOT_HAPPENED;
-        }
-
-        //nope, we are clean
-
-        query1.clear();
-        query1.prepare("INSERT INTO tm_dups (id, target, ctxt) "
-                        "VALUES (?, ?, ?)");
-
-        query1.bindValue(0, id);
-        query1.bindValue(1, target);
-        if (KDE_ISLIKELY(query1.exec()))
-            return INSERT_WITH_DUPS;
-
-        return INSERT_NOT_HAPPENED;
-    }
-    //no, this is new string
-
-    queryMain.bindValue(0, english);
-    queryMain.bindValue(1, target);
-    queryMain.bindValue(2, ctxt);
-    if (KDE_ISUNLIKELY(!queryMain.exec()))
-    {
-        kWarning() <<"ERROR3: " <<queryMain.lastError().text();
-        return INSERT_NOT_HAPPENED;
+        return id;
     }
 
-//was: in-memory word-hash
-#if 1
-    qlonglong mainid=queryMain.lastInsertId().toLongLong();
-    QByteArray mainidStr(QByteArray::number(mainid,36));
+    //nope, this is new file
+    query1.prepare("INSERT INTO files (path) "
+                        "VALUES (?)");
 
-    bool isShort=words.size()<20;
-    int j=words.size();
-    while (--j>=0)
-    {
-        //insert word (if we dont have it)
+    query1.bindValue(0, path);
+    if (KDE_ISLIKELY(query1.exec()))
+        return query1.lastInsertId().toLongLong();
 
-        if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM tm_words WHERE "
-                     "word=='"+words.at(j)+'\'')))
-        kWarning() <<"select error 3: " <<query1.lastError().text();
-
-        //we _have_ it
-        if (query1.next())
-        {
-            //just add new id
-            if (isShort)
-            {
-                QByteArray arr(query1.value(1).toByteArray());
-                query1.clear();
-                query1.prepare("UPDATE tm_words "
-                               "SET ids_short=? "
-                               "WHERE word=='"+words.at(j)+'\'');
-
-                if (!arr.isEmpty())
-                    arr+=' ';
-                arr+=mainidStr;
-                query1.bindValue(0, arr);
-                if (KDE_ISUNLIKELY(!query1.exec()))
-                kWarning() <<"update error 4: " <<query1.lastError().text();
-            }
-            else
-            {
-                QByteArray arr(query1.value(2).toByteArray());
-                query1.clear();
-                query1.prepare("UPDATE tm_words "
-                        "SET ids_long=? "
-                        "WHERE word=='"+words.at(j)+'\'');
-
-                if (!arr.isEmpty())
-                    arr+=' ';
-                arr+=mainidStr;
-                query1.bindValue(0, arr);
-                if (KDE_ISUNLIKELY(!query1.exec()))
-                kWarning() <<"update error 5: " <<query1.lastError().text();
-
-            }
-        }
-        else
-        {
-            query1.clear();
-            query1.prepare("INSERT INTO tm_words (word, ids_short, ids_long) "
-                        "VALUES (?, ?, ?)");
-            QByteArray idsShort;
-            QByteArray idsLong;
-            if (isShort)
-                idsShort=mainidStr;
-            else
-                idsLong=mainidStr;
-            query1.bindValue(0, words.at(j));
-            query1.bindValue(1, idsShort);
-            query1.bindValue(2, idsLong);
-            if (KDE_ISUNLIKELY(!query1.exec()))
-                kWarning() <<"insert error 2: " <<query1.lastError().text() ;
-
-        }
-
-    }
-#endif
-    return INSERT_NO_DUPS;
+    return -1;
 }
 
-static void doRemoveEntry(const QString& english,
+
+static bool doInsertEntry(const QString& english,
              const QString& target,
+             const QString& ctxt, //TODO QStringList -- after XLIFF
+             qlonglong fileId,
              QSqlDatabase& db,
 //           const QRegExp& rxSplit,
-             QSqlQuery& queryMain,//query for record addition prepared once
              QRegExp& rxClean1,//cleaning regexps for word index update
              QRegExp& rxClean2)
 
@@ -331,305 +167,244 @@ static void doRemoveEntry(const QString& english,
 //                  QSqlQuery& queryIndexWords
 
 {
-    //TODO plurals
     if (KDE_ISUNLIKELY( target.isEmpty() ))
-        return;
+        return false;
+/*
+    kWarning()<<"";
+    kWarning()<<"DOING:";
+    kWarning()<<english;
+    kWarning()<<target;
+    kWarning()<<fileId;
+*/
 
     QString cleanEn(english);
     QStringList words;
     doSplit(cleanEn,words,rxClean1,rxClean2);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
-        return;
+        return false;
 
 
-    //check if we actually have record with such en string
+    //check if we already have record with the same en string
     QSqlQuery query1(db);
-    QString escapedEn(english);
-    escapedEn.replace('\'',"''");
-    QString escapedTarget(target);
-    escapedTarget.replace('\'',"''");
-    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target FROM tm_main WHERE "
-                     "english=='"+escapedEn+'\'')))
-        kWarning() <<"select db error: " <<query1.lastError().text();
+    QString escapedEn(english);escapedEn.replace('\'',"''");
+    QString escapedTarget(target);escapedTarget.replace('\'',"''");
+    QString escapedCtxt(ctxt);escapedCtxt.replace('\'',"''");
 
 
+//BEGIN get sourceId
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, source_markup FROM source_strings WHERE "
+                     "source=='"+escapedEn+'\'')))
+        kWarning() <<"select db source_strings error: " <<query1.lastError().text();
+
+    // TODO XLIFF add source_markup matching
+
+    qlonglong sourceId;
     if (!query1.next())
     {
-        //no. strange... :)
-        return;
-    }
-    //ok, such en string is present in db
+        //kWarning()<<"INSERTING"<<english<<"anew";
+        query1.clear();
+        query1.prepare("INSERT INTO source_strings (source, source_markup) "
+                        "VALUES (?, ?)");
 
-    qlonglong id=query1.value(0).toLongLong();
-    bool foundInMain=(target==query1.value(1).toString());
-    query1.clear();
+        query1.bindValue(0, english);
+        query1.bindValue(1, "");//TODO XLIFF
+        if (KDE_ISUNLIKELY(!query1.exec()))
+            return false;
+        sourceId=query1.lastInsertId().toLongLong();
 
-    if (foundInMain)
-    {
-        //main table contains our en+translation
-        //now check if there any dups
-        if (KDE_ISUNLIKELY( !query1.exec("SELECT target, ctxt, date, hits FROM tm_dups WHERE "
-                                         "id=="+QString::number(id)) ))
-            kWarning() <<"select error 20: " <<query1.lastError().text();
 
-        if (query1.next())
+//BEGIN update index
+        QByteArray sourceIdStr(QByteArray::number(sourceId,36));
+
+        bool isShort=words.size()<20;
+        int j=words.size();
+        while (--j>=0)
         {
-            //ok, just move the first matched record to main
-            QSqlQuery updateQuery(db);
-            updateQuery.prepare("UPDATE OR FAIL tm_main "
-                                "SET target=?, ctxt=?, date=?, hits=? "
-                                "WHERE "
-                                "id=="+QString::number(id));
-            updateQuery.bindValue(0, query1.value(0));
-            updateQuery.bindValue(1, query1.value(1));
-            updateQuery.bindValue(2, query1.value(2));
-            updateQuery.bindValue(3, query1.value(3));
-            if (KDE_ISUNLIKELY( !updateQuery.exec() ))
-                kWarning() <<"update db error: " <<updateQuery.lastError().text();
-            updateQuery.clear();
-
-            //then remove it from dups
-            if (KDE_ISUNLIKELY( !updateQuery.exec("DELETE FROM tm_dups WHERE "
-                                  "id=="+QString::number(id)+' '+
-                                  "target=='"+escapedTarget+'\'') ))
-                kWarning() <<"delete from db error: " <<updateQuery.lastError().text();
-            updateQuery.clear();
-
-            //en string remains in db => no need remove it from word indexes
-        }
-        else
-        {
-            //no, there are no dups, just remove main table record
-            query1.clear();
-
-            if (KDE_ISUNLIKELY( !query1.exec("DELETE FROM tm_main WHERE "
-                                             "id=="+QString::number(id)) ))
-                kWarning() <<"delete from db error 20: " <<query1.lastError().text();
-
-            //NOW: en string was removed from db => remove it from word indexes too
-//(was: in-memory word-hash)
-#if 1
-            qlonglong mainid=id;
-            QByteArray mainidStr(QByteArray::number(mainid,36));
-
-            bool isShort=words.size()<20;
-            int j=words.size();
-            while (--j>=0)
-            {
-                //remove index from list for the word
-
-                if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM tm_words WHERE "
-                            "word=='"+words.at(j)+'\'')))
+            //insert word (if we dont have it)
+            if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM words WHERE "
+                        "word=='"+words.at(j)+'\'')))
                 kWarning() <<"select error 3: " <<query1.lastError().text();
 
-                if (!query1.next())
-                {
-                    query1.clear();
-                    continue;
-                }
-
-                //just remove our id
+            //we _have_ it
+            if (query1.next())
+            {
+                //just add new id
+                QByteArray arr;
+                QString field;
                 if (isShort)
                 {
-                    QByteArray arr(query1.value(1).toByteArray());
-                    query1.clear();
-                    query1.prepare("UPDATE tm_words "
-                                "SET ids_short=? "
-                                "WHERE word=='"+words.at(j)+'\'');
-
-                    QString arrStr=QString::fromUtf8(arr);
-                    arrStr.remove(' '+mainidStr);
-                    arrStr.remove(mainidStr+' ');//if it is the first in the list
-                    arrStr.remove(mainidStr);//if it is the only one in the list
-                    query1.bindValue(0, arrStr.toUtf8());
-                    if (KDE_ISUNLIKELY(!query1.exec()))
-                        kWarning() <<"update error 40: " <<query1.lastError().text();
+                    arr=query1.value(1).toByteArray();
+                    field="ids_short";
                 }
                 else
                 {
-                    QByteArray arr(query1.value(2).toByteArray());
-                    query1.clear();
-                    query1.prepare("UPDATE tm_words "
-                            "SET ids_long=? "
-                            "WHERE word=='"+words.at(j)+'\'');
-
-                    QString arrStr=QString::fromUtf8(arr);
-                    arrStr.remove(' '+mainidStr);
-                    arrStr.remove(mainidStr+' ');//if it is the first in the list
-                    arrStr.remove(mainidStr);//if it is the only one in the list
-                    query1.bindValue(0, arrStr.toUtf8());
-                    if (KDE_ISUNLIKELY(!query1.exec()))
-                        kWarning() <<"update error 5: " <<query1.lastError().text();
+                    arr=query1.value(2).toByteArray();
+                    field="ids_long";
                 }
+
+                query1.clear();
+                query1.prepare("UPDATE OR FAIL words "
+                               "SET "+field+"=? "
+                               "WHERE word=='"+words.at(j)+'\'');
+
+                if (!arr.isEmpty())
+                    arr+=' ';
+                arr+=sourceIdStr;
+                query1.bindValue(0, arr);
+
+                if (KDE_ISUNLIKELY(!query1.exec()))
+                    kWarning() <<"update error 4: " <<query1.lastError().text();
+
             }
-#endif
+            else
+            {
+                query1.clear();
+                query1.prepare("INSERT INTO words (word, ids_short, ids_long) "
+                            "VALUES (?, ?, ?)");
+                QByteArray idsShort;
+                QByteArray idsLong;
+                if (isShort)
+                    idsShort=sourceIdStr;
+                else
+                    idsLong=sourceIdStr;
+                query1.bindValue(0, words.at(j));
+                query1.bindValue(1, idsShort);
+                query1.bindValue(2, idsLong);
+                if (KDE_ISUNLIKELY(!query1.exec()))
+                    kWarning() <<"insert error 2: " <<query1.lastError().text() ;
+
+            }
         }
-        query1.clear();
-// at the moment we ignore ctxt...
-//         QStringList dup_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);
-//         query1.clear();
-//         if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
-//         {
-//             dup_ctxt+=ctxt;
-//             query1.prepare("UPDATE OR FAIL tm_main "
-//                            "SET ctxt=? "
-//                            "WHERE "
-//                          //"target=='"+escapedTarget+"' AND "
-//                            "id=="+QString::number(id));
-//             query1.bindValue(0, dup_ctxt.join("\b"));
-//             if (!query1.exec())
-//                 kWarning() <<"update db error: " <<query1.lastError().text();
-//         }
-//
+//END update index
     }
-    //we haven't found our translation, continue searching in dups...
-
-    if (KDE_ISUNLIKELY( !query1.exec("DELETE FROM tm_dups WHERE "
-                                    "target=='"+escapedTarget+"' AND "
-                                    "id=="+QString::number(id)) ))
-        kWarning() <<"DELETE from db error 30: " <<query1.lastError().text();
-
-//     if (!query1.next())
-//     {
-//             //this is sign of eror
-//         kWarning()<<"this is sign of eror";
-//         query1.clear();
-//         return;
-//     }
-
-    //dups table contains the same en+translation
-    //but what about ctxt? => update ctxt list
-
-// at the moment we ignore ctxt...
-//     QStringList dup_ctxt=query1.value(0).toString().split('\b',QString::SkipEmptyParts);
-//     query1.clear();
-//     if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
-//     {
-//         dup_ctxt+=ctxt;
-//         query1.prepare("UPDATE OR FAIL tm_dups "
-//                         "SET ctxt=? "
-//                         "WHERE "
-//                         "target=='"+escapedTarget+"' AND "
-//                         "id=="+QString::number(id));
-//         query1.bindValue(0, dup_ctxt.join("\b"));
-//         query1.exec();
-//     }
-
-
-    return;
-}
-
-#define UPDATE_ERROR 0
-#define UPDATE_NOT_FOUND 1
-#define UPDATE_OK 2
-/**
- * @returns true if updated (i.e. there were such entry)
-**/
-static int doEpdateEntry(const QString& english,
-             const QString& target,
-             const QString& newTarget,
-             const QString& ctxt, //TODO QStringList -- after XLIFF
-             QSqlDatabase& db,
-             QSqlQuery& queryMain,//query for record addition prepared once
-             QRegExp& rxClean1,//cleaning regexps for word index update
-             QRegExp& rxClean2)
-{
-    //TODO plurals
-    if (KDE_ISUNLIKELY( target.isEmpty() ))
-        return UPDATE_ERROR;
-
-    QString cleanEn(english);
-    QStringList words;
-    doSplit(cleanEn,words,rxClean1,rxClean2);
-    if (KDE_ISUNLIKELY( words.isEmpty() ))
-        return UPDATE_ERROR;
-
-
-    //check if we actually have record with such en string
-    QSqlQuery query1(db);
-    QString escapedEn(english);
-    escapedEn.replace('\'',"''");
-    QString escapedTarget(target);
-    escapedTarget.replace('\'',"''");
-    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, ctxt FROM tm_main WHERE "
-                     "english=='"+escapedEn+'\'')))
+    else
     {
-        kWarning() <<"select db error: " <<query1.lastError().text();
-        return UPDATE_ERROR;
+        //kWarning()<<"SOURCE ALREADY PRESENT";
+        sourceId=query1.value(0).toLongLong();
     }
-
-
-    if (!query1.next())
-    {
-        return UPDATE_NOT_FOUND;
-    }
-    //ok, such en string is present in db
-
-    qlonglong id=query1.value(0).toLongLong();
-    QStringList e_ctxt=query1.value(2).toString().split('\b',QString::SkipEmptyParts);;//nah... taking it into consideration aint worth it
-    bool foundInMain=(target==query1.value(1).toString());
     query1.clear();
+//END get sourceId
 
-    if (foundInMain)
-    {
-        //main table contains our en+translation
-        QSqlQuery updateQuery(db);
-        updateQuery.prepare("UPDATE OR FAIL tm_main "
-                            "SET target=?, ctxt=?, date=CURRENT_DATE "
-                            "WHERE "
-                            "id=="+QString::number(id));
 
-        if (!ctxt.isEmpty()&&!e_ctxt.contains(ctxt))
-            e_ctxt+=ctxt;
+    QString checkCtxt;
+    if (!escapedCtxt.isEmpty())
+        checkCtxt=" AND ctxt=='"+escapedCtxt+"'";
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, date FROM main WHERE "
+//                     "target=="+QString::number(targetId)+" AND "
+                     "source=="+QString::number(sourceId)+" AND "
+                     "file=="+QString::number(fileId)+checkCtxt
+                                   )))
+        kWarning() <<"select db main error: " <<query1.lastError().text();
 
-        updateQuery.bindValue(0, newTarget);
-        updateQuery.bindValue(1, e_ctxt.join("\b"));
-        if (KDE_ISUNLIKELY( !updateQuery.exec() ))
-        {
-            kWarning() <<"update db error: " <<updateQuery.lastError().text();
-            return UPDATE_ERROR;
-        }
-        updateQuery.clear();
-        return UPDATE_OK;
-    }
-
-    //we haven't found our translation, continue searching in dups...
-    if (KDE_ISUNLIKELY( !query1.exec("SELECT ctxt FROM tm_dups WHERE "
-                                    "target=='"+escapedTarget+"' AND "
-                                    "id=="+QString::number(id)) ))
-        kWarning() <<"select error 2: " <<query1.lastError().text();
-
+    qlonglong mainId=0;//update instead of adding record to main?
+//BEGIN target update
     if (query1.next())
     {
-        //dups table contains the same en+translation
-        //update ctxt list and target
-
-        QStringList dup_ctxt=query1.value(0).toString().split('\b',QString::SkipEmptyParts);
+        //kWarning() <<"FOUND NEEDED main ENTRY";
+        mainId=query1.value(0).toLongLong();
+        qlonglong targetId=query1.value(1).toLongLong();
         query1.clear();
-        if (!ctxt.isEmpty()&&!dup_ctxt.contains(ctxt))
-            dup_ctxt+=ctxt;
 
-        QSqlQuery updateQuery(db);
-        updateQuery.prepare("UPDATE OR FAIL tm_dups "
-                        "SET target=?, ctxt=?, date=CURRENT_DATE "
-                        "WHERE "
-                        "target=='"+escapedTarget+"' AND "
-                        "id=="+QString::number(id));
+        //check if target in TM matches
+        if (KDE_ISUNLIKELY(!query1.exec("SELECT target, target_markup FROM target_strings WHERE "
+                         "id=="+QString::number(targetId))))
+            kWarning()<<"select db target_strings error: " <<query1.lastError().text();
 
-        updateQuery.bindValue(0, newTarget);
-        updateQuery.bindValue(1, dup_ctxt.join("\b"));
-        if (KDE_ISUNLIKELY( !updateQuery.exec() ))
+        if (!query1.next())
+            return false;
+        bool matches=query1.value(0).toString()==target;
+        query1.clear();
+        if (matches) //TODO XLIFF target_markup
+            return false;
+
+        //no, transation has changed: just update old target if it isn't used elsewhere
+        if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main WHERE "
+                         "target=="+QString::number(targetId))))
+            kWarning() <<"select db target_strings error: " <<query1.lastError().text();
+
+        query1.next();
+        //kWarning() <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
+        if (query1.value(0).toLongLong()==1)
         {
-            kWarning() <<"update db error: " <<updateQuery.lastError().text();
+            query1.clear();
+            query1.prepare("UPDATE OR FAIL target_strings "
+                           "SET target=? "
+                           "WHERE id=="+QString::number(targetId));
+
+            query1.bindValue(0, target);
+            return query1.exec();
         }
-        else
+        query1.clear();
+
+#if 0
+        //no, transation has changed: remove old target if it isn't used elsewhere
+        if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main WHERE "
+                         "target=="+QString::number(targetId))))
+            kWarning() <<"select db target_strings error: " <<query1.lastError().text();
+
+        query1.next();
+        //kWarning() <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
+        if (query1.value(0).toLongLong()==1)
         {
-            updateQuery.clear();
-            return UPDATE_OK;
+            if (KDE_ISUNLIKELY(!query1.exec("DELETE FROM target_strings WHERE "
+                         "id=="+QString::number(targetId))))
+                kWarning() <<"select db remove error: " <<query1.lastError().text();
+
         }
+        query1.clear();
+#endif
+
+    }
+    //kWarning() <<"not FOUND NEEDED main ENTRY";
+//END target update
+
+//BEGIN get targetId
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target_markup FROM target_strings WHERE "
+                     "target=='"+escapedTarget+'\'')))
+        kWarning() <<"select db target_strings error: " <<query1.lastError().text();
+
+    qlonglong targetId;
+    if (!query1.next())
+    {
+        query1.clear();
+        query1.prepare("INSERT INTO target_strings (target, target_markup) "
+                       "VALUES (?, ?)");
+
+        query1.bindValue(0, target);
+        query1.bindValue(1, "");//TODO XLIFF
+        if (KDE_ISUNLIKELY(!query1.exec()))
+            return false;
+        targetId=query1.lastInsertId().toLongLong();
+    }
+    else
+    {
+        targetId=query1.value(0).toLongLong();
+    }
+    query1.clear();
+//END get targetId
+
+    if (mainId)//just update main with new targetId
+    {
+        //kWarning() <<"YES! UPDATING!";
+        query1.prepare("UPDATE OR FAIL main "
+                               "SET target=? "
+                               "WHERE id=="+QString::number(mainId));
+
+        query1.bindValue(0, targetId);
+        if (KDE_ISUNLIKELY(!query1.exec()))
+            return false;
+        return true;
     }
 
-    return UPDATE_NOT_FOUND;
+    query1.prepare("INSERT INTO main (source, target, file, ctxt) "
+                   "VALUES (?, ?, ?, ?)");
+
+    query1.bindValue(0, sourceId);
+    query1.bindValue(1, targetId);
+    query1.bindValue(2, fileId);
+    query1.bindValue(3, ctxt);
+    return query1.exec();
+
 }
 
 static void initDb(QSqlDatabase& db)
@@ -637,27 +412,63 @@ static void initDb(QSqlDatabase& db)
     QSqlQuery queryMain(db);
     //NOTE do this only if no japanese, chinese etc?
     queryMain.exec("PRAGMA encoding = \"UTF-8\"");
-    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_main ("
+    queryMain.exec("CREATE TABLE IF NOT EXISTS source_strings ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
-                   "english TEXT UNIQUE ON CONFLICT REPLACE, "
-                   "target TEXT, "
-                   "ctxt TEXT, "//context; delimiter is \b
-                   "date DEFAULT CURRENT_DATE, "
-                   "hits NUMERIC DEFAULT 0"
+                   "source TEXT, "
+                   "source_markup BLOB "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
                    ")");
 
+    queryMain.exec("CREATE TABLE IF NOT EXISTS target_strings ("
+                   "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
+                   "target TEXT, "
+                   "target_markup BLOB "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   ")");
+
+    queryMain.exec("CREATE TABLE IF NOT EXISTS main ("
+                   "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
+                   "source INTEGER, "
+                   "target INTEGER, "
+                   "file INTEGER, "// AUTOINCREMENT,"
+                   "ctxt TEXT, "//context, after \v may be a plural form
+                   "date DEFAULT CURRENT_DATE, "//last update date
+                   "reusability NUMERIC DEFAULT 0" //e.g. whether the translation is context-free, see XLIFF spec (equiv-trans)
+                   //"hits NUMERIC DEFAULT 0"
+                   ")");
+
+    queryMain.exec("CREATE INDEX IF NOT EXISTS source_index ON source_strings ("
+                   "source"
+                   ")");
+
+    queryMain.exec("CREATE INDEX IF NOT EXISTS target_index ON target_strings ("
+                   "target"
+                   ")");
+
+    queryMain.exec("CREATE INDEX IF NOT EXISTS main_index ON main ("
+                   "source, target, file"
+                   ")");
+
+/*
     queryMain.exec("CREATE TABLE IF NOT EXISTS tm_dups ("
                    "id INTEGER, "
                    "target TEXT, "
+                   "target_markup BLOB, "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
                    "ctxt TEXT, "//context; delimiter is \b
-                // "plural_form INTEGER" TODO plurals
+                   "plural_form INTEGER, " //plurals: second english form may correspond to several target-language forms 
             //??? int pluralForm=plural_form & 0xf
-                   "date DEFAULT CURRENT_DATE, "
-                   "hits NUMERIC DEFAULT 0"
+                   "file BLOB, "// AUTOINCREMENT,"
+                   "date DEFAULT CURRENT_DATE, "//last update date
+                   "reusability NUMERIC DEFAULT 0" //e.g. whether the translation is context-free, see XLIFF spec
+                   //"hits NUMERIC DEFAULT 0"
+                   ")");*/
+
+    queryMain.exec("CREATE TABLE IF NOT EXISTS files ("
+                   "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "
+                   "path TEXT UNIQUE ON CONFLICT REPLACE, "
+                   "date DEFAULT CURRENT_DATE " //last edit date when last scanned
                    ")");
 
-/* //"don't implement it till i'm sure it is actually useful"
-    //this is used to block from readding translations that were removed by user
+/* NOTE //"don't implement it till i'm sure it is actually useful"
+    //this is used to prevent readding translations that were removed by user
     queryMain.exec("CREATE TABLE IF NOT EXISTS tm_removed ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "
                    "english BLOB, "//qChecksum
@@ -669,8 +480,8 @@ static void initDb(QSqlDatabase& db)
 
 
     //we create indexes manually, in a customized way
-//OR: SELECT (tm_links.id) FROM tm_links,tm_words WHERE tm_links.wordid==tm_words.wordid AND (tm_words.word) IN ("africa","abidjan");
-    queryMain.exec("CREATE TABLE IF NOT EXISTS tm_words ("
+//OR: SELECT (tm_links.id) FROM tm_links,words WHERE tm_links.wordid==words.wordid AND (words.word) IN ("africa","abidjan");
+    queryMain.exec("CREATE TABLE IF NOT EXISTS words ("
                    "word TEXT UNIQUE ON CONFLICT REPLACE, "
                    "ids_short BLOB, " // actually, it's text,
                    "ids_long BLOB "   // but it will never contain non-latin chars
@@ -798,20 +609,20 @@ void CloseDBJob::run ()
 //     QString dbFile=KStandardDirs::locateLocal("appdata", m_name+".db");
 
     QSqlDatabase::removeDatabase(m_dbName);
-//     QSqlDatabase db=QSqlDatabase::database("QSQLITE","tm_main");
-//     db.close();
     kWarning() <<"db closed "<<a.elapsed();
 }
 
 
 SelectJob::SelectJob(const QString& english,
                      const QString& ctxt,
+                     const QString& file,
                      const DocPosition& pos,
                      const QString& dbName,
                      QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_english(english)
     , m_ctxt(ctxt)
+    , m_file(file)
     , m_dequeued(false)
     , m_pos(pos)
     , m_dbName(dbName)
@@ -839,14 +650,12 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QList<qlonglong> idsForWord;
 
     QSqlQuery queryWords(db);
-    //TODO seems like a bug in sqlite
-//     queryWords.prepare("SELECT ids_short FROM tm_words WHERE "
-//                             "word==?");
+    //TODO ??? not sure. make another loop before to create QList< QList<qlonglong> > then reorder it by size
     QString queryString;
     if (isShort)
-        queryString="SELECT ids_short FROM tm_words WHERE word=='%1'";
+        queryString="SELECT ids_short FROM words WHERE word=='%1'";
     else
-        queryString="SELECT ids_long FROM tm_words WHERE word=='%1'";
+        queryString="SELECT ids_long FROM words WHERE word=='%1'";
 
     //for each word...
     int o=words.size();
@@ -869,7 +678,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 QList<QByteArray> ids(arr.split(' '));
                 long p=ids.size();
                 while (--p>=0)
-                    idsForWord.append(ids.at(p).toLongLong(0,36));
+                    idsForWord.append(ids.at(p).toLongLong(/*bool ok*/0,36));
             }
             else
             {
@@ -892,62 +701,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     }
     idsForWord.clear();
 
-//     kWarning() <<"SelectJob: idsForWord done in "<<a.elapsed();
-
-#if 0
-    if (Project::instance()->m_tmWordHash.wordHash.isEmpty())
-    {
-        //fallback, works 2 times faster than full word indexing :)
-        QSet<QString> wordsSet(words.toSet());
-        words=wordsSet.toList();
-        int o=words.size();
-        QSqlQuery query(db);
-        //for each word...
-        while (--o>=0)
-        {
-            query.exec("SELECT (tm_main.id) FROM tm_main "
-                        "WHERE "
-                        "tm_main.english LIKE \"%"
-                        +words.at(o)+
-                        "%\"");
-/*            kWarning() <<"ScanJob: doin query "<<"SELECT (tm_main.id) FROM tm_main "
-                        "WHERE "
-                        "tm_main.english LIKE \"%"
-                        +words.join("%\" OR tm_main.english LIKE \"%")+
-                        "%\""<<endl;*/
-            while (query.next())
-            {
-                uint a=1;
-                if (occurencies.contains(query.value(0).toLongLong()))
-                    a+=occurencies.value(query.value(0).toLongLong());
-                occurencies.insert(query.value(0).toLongLong(),a);
-            }
-            query.clear();
-        }
-    }
-    else
-    {
-        int o=words.size();
-        //kWarning() <<"SelectJob ok";
-        //for each word...
-        while (--o>=0)
-        {
-            QList<qlonglong> idsForWord(Project::instance()->m_tmWordHash.wordHash.values(words.at(o)));
-            int i=idsForWord.size();
-        //kWarning() <<"SelectJob: idsForWord.size() "<<idsForWord.size();
-
-            //iterate over ids
-            while (--i>=0)
-            {
-                uint a=1;
-                if (occurencies.contains(idsForWord.at(i)))
-                    a+=occurencies.value(idsForWord.at(i));
-                occurencies.insert(idsForWord.at(i),a);
-            }
-        }
-
-    }
-#endif
 
     QString markup;
     QString accel;
@@ -982,7 +735,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         if (KDE_ISUNLIKELY( m_dequeued ))
             break;
 
-
         QList<qlonglong> ids(occurencies.keys(concordanceLevels.at(i)));
 
         int j=qMin(ids.size(),100);//hard limit
@@ -994,17 +746,18 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             joined+=QString("%1,").arg(ids.at(j));
         joined+=QString::number(ids.at(j));
 
-        QSqlQuery queryFetch("SELECT * FROM tm_main WHERE "
-                            "tm_main.id IN ("+joined+')',db); //ORDER BY tm_main.id ?
+        //get records containing current word
+        QSqlQuery queryFetch("SELECT * FROM source_strings WHERE "
+                            "source_strings.id IN ("+joined+')',db);
         TMEntry e;
         while (queryFetch.next())
         {
             ++j;
             e.id=queryFetch.value(0).toLongLong();
             e.english=queryFetch.value(1).toString();
-            e.target=queryFetch.value(2).toString();
-            QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
-            e.date=queryFetch.value(4).toString();
+            //e.target=queryFetch.value(2).toString();
+            //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
+            //e.date=queryFetch.value(4).toString();
             e.markup=markup;
             e.accel=accel;
 
@@ -1050,28 +803,26 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             int commonLen=allLen-delLen-addLen;
             //now, allLen is the length of the string being translated
             allLen=m_english.size();
-            if (delLen+addLen)
+            bool possibleExactMatch=!(delLen+addLen);
+            if (!possibleExactMatch)
             {
                 //del is better than add
                 if (addLen)
                 {
-    //kWarning() <<"SelectJob:  addLen:"<<addLen<<" "<<9500*(pow(float(commonLen)/float(allLen),0.20))<<" / "
-    //<<pow(float(addLen*addSubStrCount),0.2)<<" "
-    //<<endl;
+                    //kWarning() <<"SelectJob:  addLen:"<<addLen<<" "<<9500*(pow(float(commonLen)/float(allLen),0.20))<<" / "
+                    //<<pow(float(addLen*addSubStrCount),0.2)<<" "
+                    //<<endl;
 
                     float score=9500*(pow(float(commonLen)/float(allLen),0.20f))//this was < 1 so we have increased it
                             //this was > 1 so we have decreased it, and increased result:
                                     / exp(0.015*float(addLen))
                                     / exp(0.025*float(addSubStrCount));
 
-    //                                               / pow(float(addLen),0.2)
-    //                                               / pow(float(addSubStrCount),0.25);
-
                     if (delLen)
                     {
-    //                                 kWarning() <<"SelectJob:  delLen:"<<delLen<<" / "
-    //                                     <<pow(float(delLen*delSubStrCount),0.1)<<" "
-    //                                     <<endl;
+                        //kWarning() <<"SelectJob:  delLen:"<<delLen<<" / "
+                        //<<pow(float(delLen*delSubStrCount),0.1)<<" "
+                        //<<endl;
 
                         float a=exp(0.01*float(delLen))
                                 * exp(0.015*float(delSubStrCount));
@@ -1084,25 +835,15 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 }
                 else//==to adapt, only deletion is needed
                 {
-//                             kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
+                    //kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
                     float score=9900*(pow(float(commonLen)/float(allLen),0.20f))
                             / exp(0.01*float(delLen))
                             / exp(0.015*float(delSubStrCount));
                     e.score=(int)score;
                 }
             }
-            else //"exact" match (case insensitive+w/o non-word characters!)
-            {
-                if (m_english==e.english)
-                {
-                    if (!ctxt.isEmpty()&&e_ctxt.contains(ctxt))//TODO fuzzy ctxt compare
-                        e.score=10001;
-                    else
-                        e.score=10000;
-                }
-                else
-                    e.score=9900;
-            }
+            else
+                e.score=10000;
 
             if (e.score>3500)
             {
@@ -1111,18 +852,69 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 else if (seen85&&e.score<6000)
                     continue;
 
-                m_entries.append(e);
-
-                //also add other translations of the given string
-                QSqlQuery queryFetchVersions(QString("SELECT target, date FROM tm_dups "
-                "WHERE id==%1").arg(e.id),db);
-                while (queryFetchVersions.next())
+//BEGIN fetch rest of the data
+                QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, target_strings.target, files.path FROM main, target_strings, files WHERE "
+                                    "target_strings.id==main.target AND "
+                                    "files.id=main.file AND "
+                                    "main.source=="+QString::number(e.id),db); //ORDER BY tm_main.id ?
+                queryRest.exec();
+                QList<TMEntry> tempList;//to eliminate same targets from different files
+                while (queryRest.next())
                 {
-                    e.target=queryFetchVersions.value(0).toString();
-                    e.date=queryFetchVersions.value(1).toString();
-                    m_entries.append(e);
+                    e.id=queryRest.value(0).toLongLong();
+                    e.date=queryRest.value(1).toString();
+                    e.target=queryRest.value(3).toString();
+                    QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
+                    QString file=queryRest.value(4).toString();
+
+//BEGIN exact match score++
+                    if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
+                    {
+                        if (m_english==e.english)
+                            e.score=10000;
+                        else
+                            e.score=9900;
+                    }
+                    if (!m_ctxt.isEmpty()&&matchData.size()>0)//check not needed?
+                    {
+                        if (matchData.at(0)==m_ctxt)
+                            e.score+=33;
+                    }
+                    //kWarning()<<"m_pos"<<QString::number(m_pos.form);
+//                    bool pluralMatches=false;
+                    if (matchData.size()>1)
+                    {
+                        int form=matchData.at(1).toInt();
+
+                        //pluralMatches=(form&&form==m_pos.form);
+                        if (form&&form==(int)m_pos.form)
+                        {
+                            //kWarning()<<"this"<<matchData.at(1);
+                            e.score+=33;
+                        }
+                    }
+                    if (file==m_file)
+                        e.score+=33;
+//END exact match score++
+                    //kWarning()<<"appending"<<e.target;
+                    tempList.append(e);
                 }
-                queryFetchVersions.clear();
+                //eliminate same targets from different files
+                qSort(tempList);
+                QHash<QString,bool> hash;
+                int aa=0;
+                for (;aa<tempList.size();aa++)
+                {
+                    if (!hash.contains(tempList.at(aa).target))
+                    {
+                        hash.insert(tempList.at(aa).target,true);
+                        m_entries.append(tempList.at(aa));
+                    }
+                }
+
+
+//END fetch rest of the data
+
             }
         }
         queryFetch.clear();
@@ -1133,7 +925,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run ()
 {
-    kWarning() <<"started";
+    //kWarning() <<"started";
     if (m_english.isEmpty()) //sanity check
         return;
 //     thread()->setPriority(QThread::IdlePriority);
@@ -1229,34 +1021,49 @@ void ScanJob::run()
         initDb(db);
 
 //         QSqlQuery queryInsertWord(db);
-//         queryInsertWord.prepare("INSERT INTO tm_words (word) "
+//         queryInsertWord.prepare("INSERT INTO words (word) "
 //                                 "VALUES (?)");
 
         QSqlQuery queryBegin("BEGIN",db);
-        QSqlQuery query(db);
-        query.prepare("INSERT INTO tm_main (english, target, ctxt) "
-                        "VALUES (?, ?, ?)");
+        qlonglong fileId=getFileId(m_url.pathOrUrl(),db);
+
 
         int i=catalog.numberOfEntries();
-        while (--i>=0)//TODO plurals
+        while (--i>=0)
         {
             if ( catalog.isFuzzy(i) )
                 continue;
 
-            int res=doInsertEntry(catalog.msgid(i),
-                                catalog.msgstr(i),
-                                catalog.msgctxt(i),
-                                db,
-                                query,
-                                rxClean1,
-                                rxClean2
-                                );
-            if (KDE_ISLIKELY( res ))
+            bool ok=true;
+            if (catalog.isPlural(i))
             {
-                ++m_added;
-                if (KDE_ISUNLIKELY( res==INSERT_WITH_DUPS ))
-                    ++m_newVersions;
+                DocPosition pos;
+                pos.entry=i;
+                int j=catalog.numberOfPluralForms();
+                while(--j>=0)
+                {
+                    pos.form=j;
+                    ok=ok&&doInsertEntry(catalog.source(pos),
+                                         catalog.target(pos),
+                                         catalog.msgctxt(i)+TM_DELIMITER+QString::number(j),
+                                         fileId,
+                                         db,
+                                         rxClean1,
+                                         rxClean2
+                                        );
+                }
             }
+            else
+                ok=doInsertEntry(catalog.msgid(i),
+                                 catalog.msgstr(i),
+                                 catalog.msgctxt(i),
+                                 fileId,
+                                 db,
+                                 rxClean1,
+                                 rxClean2
+                                 );
+            if (KDE_ISLIKELY( ok ))
+                ++m_added;
         }
         QSqlQuery queryEnd("END",db);
     //                 kWarning() <<"ScanJob: done "<<a.elapsed();
@@ -1284,18 +1091,20 @@ void InsertJob::run ()
 }
 
 
-UpdateJob::UpdateJob(const QString& english,
-              const QString& ctxt,
-              const QString& oldTarget,
-              const QString& newTarget,
-              //const DocPosition&,//for back tracking
-              const QString& dbName,
-              QObject* parent)
+UpdateJob::UpdateJob(const QString& filePath,
+                     const QString& ctxt,
+                     const QString& english,
+                     const QString& newTarget,
+                     //const DocPosition&,//for back tracking
+                     int form,
+                     const QString& dbName,
+                     QObject* parent)
     : ThreadWeaver::Job(parent)
-    , m_english(english)
+    , m_filePath(filePath)
     , m_ctxt(ctxt)
-    , m_oldTarget(oldTarget)
+    , m_english(english)
     , m_newTarget(newTarget)
+    , m_form(form)
     , m_dbName(dbName)
 {
 }
@@ -1309,7 +1118,6 @@ void UpdateJob::run ()
 {
 //     kWarning() <<"UpdateJob 11"<<endl;
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    QSqlQuery queryMain(db);
 
     QString markup;
     QString accel;
@@ -1319,121 +1127,26 @@ void UpdateJob::run ()
     rxClean1.setMinimal(true);
     rxClean2.setMinimal(true);
 
+    qlonglong fileId=getFileId(m_filePath,db);
 //     kWarning() <<"m_english"<<m_english<<endl
 //                <<"old target"<<m_oldTarget<<endl
 //                <<"new target"<<m_newTarget<<endl
 //                <<endl;
-
-    int result=doEpdateEntry(m_english,
-             m_oldTarget,
-             m_newTarget,
-             m_ctxt,//TODO QStringList -- after XLIFF
-             db,
-             queryMain,//query for record addition prepared once
-             rxClean1,//cleaning regexps for word index update
-             rxClean2);
-
-    kWarning()<<"res:"<<result;
-
-    if (result==UPDATE_NOT_FOUND)
-    {
-        kWarning()<<"wud add:"<<endl
-                  <<m_english<<endl
-                  <<m_newTarget<<endl
-                  ;
-        queryMain.prepare("INSERT INTO tm_main (english, target, ctxt) "
-                        "VALUES (?, ?, ?)");
-
-        doInsertEntry(m_english,
+    if (m_form!=-1)
+        m_ctxt+=TM_DELIMITER+QString::number(m_form);
+    doInsertEntry(m_english,
              m_newTarget,
              m_ctxt, //TODO QStringList -- after XLIFF
+             fileId,
              db,
-             queryMain,//query for record addition prepared once
              rxClean1,//cleaning regexps for word index update
              rxClean2);
-    }
-//     doRemoveEntry("&Search for:",
-//              QString::fromUtf8("Искать по:"),
-//              db,
-//              queryMain,//query for record addition prepared once
-//              rxClean1,//cleaning regexps for word index update
-//              rxClean2);
+
+
 
     //kWarning() <<"UpdateJob 22"<<endl;
 }
 
-#if 0
-IndexWordsJob::IndexWordsJob(QObject* parent)
-    : ThreadWeaver::Job(parent)
-{
-}
-
-IndexWordsJob::~IndexWordsJob()
-{
-    kWarning() <<"indexWordsJob dtor ";
-}
-
-void IndexWordsJob::run ()
-{
-    thread()->setPriority(QThread::IdlePriority);
-    QTime a;
-    a.start();
-    kWarning() <<"words indexing started";
-    int count=0;
-    QSqlDatabase db=QSqlDatabase::database("tm_main");
-    m_tmWordHash.wordHash.clear();
-
-    QRegExp rxSplit("\\W+|\\d+");
-    QRegExp rxClean1(Project::instance()->markup());//replaced with " "
-    QRegExp rxClean2(Project::instance()->accel());//removed
-    rxClean1.setMinimal(true);
-    rxClean2.setMinimal(true);
-    QSqlQuery query(db);
-    query.exec("SELECT id, english FROM tm_main");
-    while(query.next())
-    {
-        qlonglong mainid=query.value(0).toLongLong();
-
-        QString str(query.value(1).toString());
-        str.replace(rxClean1," ");
-        str.remove(rxClean2);
-        QStringList words(str.toLower().split(rxSplit,QString::SkipEmptyParts));
-        if (words.size()>4)
-        {
-            int i=0;
-            words=( words.toSet() ).toList();
-
-            for(;i<words.size();++i)
-            {
-                if (words.at(i).size()<4)
-                    words.removeAt(i--);
-                else if (words.at(i).startsWith('t'))
-                {
-                    if (words.at(i)=="then"
-                    || words.at(i)=="than"
-                    || words.at(i)=="that"
-                    || words.at(i)=="this"
-                    )
-                        words.removeAt(i--);
-                }
-            }
-        }
-    //kWarning() <<"INDEXING"<<query.value(1).toString();
-
-        int j=words.size();
-        while (--j>=0)
-        {
-            m_tmWordHash.wordHash.insert(words.at(j),mainid);
-            ++count;
-        }
-
-    }
-    query.clear();
-    m_tmWordHash.wordHash.squeeze();
-
-    kWarning() <<"words indexing done in "<<a.elapsed()<<" size "<<m_tmWordHash.wordHash.uniqueKeys().size()<<" "<<count;
-}
-#endif
 
 
 //BEGIN TMX
@@ -1450,8 +1163,9 @@ class TmxParser : public QXmlDefaultHandler
     {
         null=0,
         seg,
-        descripDefinition,
-        descripSubjectField
+        propContext,
+        propFile,
+        propPluralForm
     };
 
     enum Lang
@@ -1475,11 +1189,13 @@ private:
     QSqlDatabase db;
     QRegExp rxClean1;
     QRegExp rxClean2;
-    QSqlQuery* queryMain;
 
     int m_hits;
     QString m_segEn;
     QString m_segTarget;
+    QString m_context;
+    QString m_pluralForm;
+    QString m_filePath;
 
     State m_state:8;
     Lang m_lang:8;
@@ -1493,8 +1209,7 @@ private:
 
 
 TmxParser::TmxParser(const QString& dbName)
-    : queryMain(0)
-    , m_dbLangCode(Project::instance()->langCode().toLower())
+    : m_dbLangCode(Project::instance()->langCode().toLower())
 {
     m_added=0;      //stats
     m_newVersions=0;//stats
@@ -1502,8 +1217,8 @@ TmxParser::TmxParser(const QString& dbName)
 
     QString markup;QString accel;
     getConfig(db,markup,accel);
-    rxClean1.setPattern(markup);rxClean2.setPattern(accel);
-    rxClean1.setMinimal(true);rxClean2.setMinimal(true);
+    rxClean1.setPattern(markup);rxClean1.setMinimal(true);
+    rxClean2.setPattern(accel);rxClean2.setMinimal(true);
 
 }
 
@@ -1512,13 +1227,10 @@ bool TmxParser::startDocument()
     initDb(db);
 
 //     QSqlQuery queryInsertWord(db);
-//     queryInsertWord.prepare("INSERT INTO tm_words (word) "
+//     queryInsertWord.prepare("INSERT INTO words (word) "
 //                                 "VALUES (?)");
 
     QSqlQuery queryBegin("BEGIN",db);
-    queryMain=new QSqlQuery(db);
-    queryMain->prepare("INSERT INTO tm_main (english, target, ctxt) "
-                        "VALUES (?, ?, ?)");
 
 
     m_state=null;
@@ -1530,7 +1242,6 @@ bool TmxParser::startDocument()
 TmxParser::~TmxParser()
 {
     QSqlQuery queryEnd("END",db);
-    delete queryMain;
 }
 
 
@@ -1547,6 +1258,10 @@ bool TmxParser::startElement( const QString&, const QString&,
 
         m_segEn.clear();
         m_segTarget.clear();
+        m_context.clear();
+        m_pluralForm.clear();
+        m_filePath.clear();
+
     }
     else if (qName=="tuv")
     {
@@ -1559,7 +1274,17 @@ bool TmxParser::startElement( const QString&, const QString&,
             kWarning()<<"skipping lang"<<attr.value("xml:lang");
             m_lang=langNull;
         }
-
+    }
+    else if (qName=="prop")
+    {
+        if (attr.value("type").toLower()=="x-context")
+            m_state=propContext;
+        else if (attr.value("type").toLower()=="x-file")
+            m_state=propFile;
+        else if (attr.value("type").toLower()=="x-pluralform")
+            m_state=propPluralForm;
+        else
+            m_state=null;
     }
     else if (qName=="seg")
     {
@@ -1575,20 +1300,24 @@ bool TmxParser::endElement(const QString&,const QString&,const QString& qName)
 //         kWarning()<<"m_segEn"<<m_segEn
 //                 <<"m_segTarget"<<m_segTarget
 //                 ;
-        int res=doInsertEntry(m_segEn,
+
+        if (m_filePath.isEmpty())
+            m_filePath="TMX";
+        qlonglong fileId=getFileId(m_filePath,db);
+
+        if (!m_pluralForm.isEmpty())
+            m_context+=TM_DELIMITER+m_pluralForm;
+
+        bool ok=doInsertEntry(m_segEn,
                               m_segTarget,
-                              "",
+                              m_context,
+                              fileId,
                               db,
-                              *queryMain,
                               rxClean1,
                               rxClean2
                               );
-        if (KDE_ISLIKELY( res ))
-        {
+        if (KDE_ISLIKELY( ok ))
             ++m_added;
-            if (KDE_ISUNLIKELY( res==INSERT_WITH_DUPS ))
-                ++m_newVersions;
-        }
     }
     m_state=null;
     return true;
@@ -1605,6 +1334,13 @@ bool TmxParser::characters ( const QString & ch )
         else if (m_lang==langTarget)
             m_segTarget+=ch;
     }
+    else if(m_state==propFile)
+        m_filePath+=ch;
+    else if(m_state==propContext)
+        m_context+=ch;
+    else if(m_state==propPluralForm)
+        m_pluralForm+=ch;
+
     return true;
 }
 
@@ -1685,7 +1421,7 @@ void ExportTmxJob::run()
 
 
     xmlOut.writeStartElement("tmx");
-    xmlOut.writeAttribute("version","1.4");
+    xmlOut.writeAttribute("version","2.0");
 
     xmlOut.writeStartElement("header");
         xmlOut.writeAttribute("creationtool","lokalize");
@@ -1703,7 +1439,13 @@ void ExportTmxJob::run()
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
     QSqlQuery query1(db);
 
-    if (KDE_ISUNLIKELY(!query1.exec("SELECT * FROM tm_main")))
+    if (KDE_ISUNLIKELY(!query1.exec("SELECT main.id, main.ctxt, main.date, "
+                                    "source_strings.source, target_strings.target, "
+                                    "files.path "
+                                    "FROM main, source_strings, target_strings, files "
+                                    "WHERE source_strings.id==main.source AND "
+                                    "target_strings.id==main.target AND "
+                                    "files.id==main.file")))
         kWarning() <<"select error: " <<query1.lastError().text();
 
     while (query1.next())
@@ -1714,38 +1456,50 @@ void ExportTmxJob::run()
             xmlOut.writeStartElement("tuv");
                 xmlOut.writeAttribute("xml:lang","en");
                 xmlOut.writeStartElement("seg");
-                    xmlOut.writeCharacters(query1.value(1).toString());
+                    xmlOut.writeCharacters(query1.value(3).toString());
                 xmlOut.writeEndElement();
             xmlOut.writeEndElement();
 
             xmlOut.writeStartElement("tuv");
                 xmlOut.writeAttribute("xml:lang",dbLangCode);
-                xmlOut.writeAttribute("creationdate",QDate::fromString(  query1.value(4).toString(), Qt::ISODate  ).toString("yyyyMMdd"));
-                //xmlOut.writeAttribute("creationdate",query1.value(4).toString());
-                QString ctxt=query1.value(3).toString();
+                xmlOut.writeAttribute("creationdate",QDate::fromString(  query1.value(2).toString(), Qt::ISODate  ).toString("yyyyMMdd"));
+                QString ctxt=query1.value(1).toString();
                 if (!ctxt.isEmpty())
                 {
+                    int pos=ctxt.indexOf(TM_DELIMITER);
+                    if (pos!=-1)
+                    {
+                        QString plural=ctxt;
+                        plural.remove(0,pos+1);
+                        ctxt.remove(pos, plural.size());
+                        xmlOut.writeStartElement("prop");
+                            xmlOut.writeAttribute("type","x-pluralform");
+                            xmlOut.writeCharacters(plural);
+                        xmlOut.writeEndElement();
+                    }
+                    if (!ctxt.isEmpty())
+                    {
+                        xmlOut.writeStartElement("prop");
+                            xmlOut.writeAttribute("type","x-context");
+                            xmlOut.writeCharacters(ctxt);
+                        xmlOut.writeEndElement();
+                    }
+                }
+                QString filePath=query1.value(5).toString();
+                if (!filePath.isEmpty())
+                {
                     xmlOut.writeStartElement("prop");
-                        xmlOut.writeAttribute("type","x-context");
-                        xmlOut.writeCharacters(ctxt);
+                        xmlOut.writeAttribute("type","x-file");
+                        xmlOut.writeCharacters(filePath);
                     xmlOut.writeEndElement();
                 }
                 xmlOut.writeStartElement("seg");
-                    xmlOut.writeCharacters(query1.value(2).toString());
+                    xmlOut.writeCharacters(query1.value(4).toString());
                 xmlOut.writeEndElement();
             xmlOut.writeEndElement();
         xmlOut.writeEndElement();
 
 
-//     queryMain.exec("CREATE TABLE IF NOT EXISTS tm_dups ("
-//                    "id INTEGER, "
-//                    "target TEXT, "
-//                    "ctxt TEXT, "//context; delimiter is \b
-//                 // "plural_form INTEGER" TODO plurals
-//             //??? int pluralForm=plural_form & 0xf
-//                    "date DEFAULT CURRENT_DATE, "
-//                    "hits NUMERIC DEFAULT 0"
-//                    ")");
 
     }
     query1.clear();

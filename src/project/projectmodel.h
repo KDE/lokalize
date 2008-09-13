@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -95,7 +95,8 @@ public:
     void openUrl(const KUrl&);
 
 public slots:
-    void aa(){kWarning()<<"dataChanged";}
+    //void aa(){kWarning()<<"dataChanged";}
+    //void readRecursively(const QModelIndex& parent=QModelIndex());
 
 private:
     KIcon m_dirIcon;

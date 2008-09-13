@@ -108,8 +108,12 @@ void MsgIdDiff::process()
     //get rid of other info (eg fuzzy marks)
     oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
     oldStr.remove(QRegExp("\\#[^\\|].*$"));
+    QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)");
+    rmCtxt.setMinimal(true);
+    oldStr.remove(rmCtxt);
 
-    if (oldStr.contains("#| msgid \"\""))
+
+    if (oldStr.contains("#| msgid \"\"")) //multiline
     {
         oldStr.remove("#| \"");
         oldStr.remove(QRegExp("\"\n"));
@@ -120,7 +124,7 @@ void MsgIdDiff::process()
         newStr.replace("\\n"," \\n ");
         oldStr.remove("#| msgid \"");
     }
-    else
+    else //signle line
     {
         oldStr.remove("#| msgid \"");
         oldStr.remove(QRegExp("\"$"));

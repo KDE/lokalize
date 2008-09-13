@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider (some bits of KBabel code were reused)
+  This file is part of Lokalize (some bits of KBabel code were reused)
 
   Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
@@ -254,15 +254,13 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _msgstrEdit(new ProperTextEdit(this))
     , m_msgidHighlighter(new SyntaxHighlighter(_msgidEdit->document()))
     , m_msgstrHighlighter(new SyntaxHighlighter(_msgstrEdit->document()))
-/*    , m_msgidHighlighter(0)
-    , m_msgstrHighlighter(0)*/
-    , _tabbar(new KTabBar(this))
+    , m_pluralTabBar(new KTabBar(this))
     , _leds(0)
     , _currentEntry(-1)
-    , m_approvementState(false)
+    , m_approvementState(true)
 {
     //( new QTreeView(this) )->selectAll();
-    _tabbar->hide();
+    m_pluralTabBar->hide();
 //     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
 //                                   "<p>This part of the window shows the original message\n"
 //                                   "of the currently displayed entry.</p></qt>"));
@@ -277,7 +275,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     _msgstrEdit->setAcceptRichText(false);
     _msgstrEdit->installEventFilter(this);
 
-    addWidget(_tabbar);
+    addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);
     addWidget(_msgstrEdit);
 
@@ -290,7 +288,7 @@ KAiderView::~KAiderView()
     /*
     delete _msgidEdit;
     delete _msgstrEdit;
-    delete _tabbar;
+    delete m_pluralTabBar;
     */
 }
 
@@ -374,7 +372,11 @@ bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
     }
     else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
     {
-        if (KDE_ISUNLIKELY( !_catalog->isApproved(_currentEntry) ))
+        //only for cases when:
+        //-BkSpace was hit and cursor was atStart
+        //-Del was hit and cursor was atEnd
+        if (KDE_ISUNLIKELY( !_catalog->isApproved(_currentEntry) && !_msgstrEdit->textCursor().hasSelection() ))
+                          //&& (_msgstrEdit->textCursor().atStart()||_msgstrEdit->textCursor().atEnd()) ))
             toggleApprovement(true);
         return false;
     }
@@ -527,7 +529,7 @@ void KAiderView::settingsChanged()
 
 }
 
-void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
+void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
     QString editText=_msgstrEdit->toPlainText();
     if (KDE_ISUNLIKELY( _currentEntry==-1 || editText==_oldMsgstr ))
@@ -535,39 +537,25 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
 
     DocPosition pos=_currentPos;
     pos.offset=offset;
+    kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
 #ifdef XLIFF
     QString target=_catalog->targetWithTags(pos).string;
 
-    //kWarning()<<offset<<target.mid(offset,charsRemoved);
+    //protect from tag removal
     if ((charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL))
        ||(charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL)))
     {
         //refresh
         refreshMsgEdit(/*keepCursor*/true);
-#if 0
-        ProperTextEdit& msgEdit=*_msgstrEdit;
-        QTextCursor cursor=msgEdit.textCursor();
-
-        msgEdit.setContent(target,ranges);
-
-        cursor.setPosition(offset);
-        msgEdit.setTextCursor(cursor);
-#endif
         return;
     }
 #endif
 
 
-/*    kWarning()<<"offset"<<offset
-            <<"charsRemoved"<<charsRemoved
-            <<"charsAdded"<<charsAdded;*/
+
     if (charsRemoved)
-    {
-//         kWarning()<<"here";
         _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
-//         kWarning()<<"here1";
-    }
 
     _oldMsgstr=editText;//newStr becomes OldStr
     if (charsAdded)
@@ -582,23 +570,33 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded )
     }
 
     if (!_catalog->isApproved(_currentEntry))
+    {
+        kWarning()<<"toggleApprovement>";
         toggleApprovement(true);
+        kWarning()<<"toggleApprovement<";
+    }
 
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit signalChanged(pos.entry);
+    kWarning()<<"-end fontItalic10"<<_msgstrEdit->fontItalic();
 }
 
 void KAiderView::approvedEntryDisplayed(bool approved, bool force)
 {
-    //kDebug()<<"fuzzy"<<_currentEntry<<fuzzy;
+    kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved<<"force:"<<force;
     if (KDE_ISUNLIKELY( _currentEntry==-1 || (m_approvementState==approved && !force) ))
+    {
+        kWarning()<<"approvedEntryDisplayed returning";
         return;
+    }
     m_approvementState=approved;
 
+    kWarning()<<"fontItalic1"<<_msgstrEdit->fontItalic();
     _msgstrEdit->setFontItalic(!approved);
     if (force)
         refreshMsgEdit();
+    kWarning()<<"fontItalic2"<<_msgstrEdit->fontItalic();
 
     if (approved)
     {
@@ -612,6 +610,7 @@ void KAiderView::approvedEntryDisplayed(bool approved, bool force)
         if (_leds)
             _leds->ledFuzzy->on();
     }
+    kWarning()<<"fontItalic5"<<_msgstrEdit->fontItalic()<<"empty"<<_msgstrEdit->toPlainText().isEmpty();
 }
 
 
@@ -635,7 +634,6 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
     _oldMsgstr=target;
 
     if (!keepCursor && msgEdit.toPlainText()!=target)
-    if (!keepCursor && msgEdit.toPlainText()!=target)
     {
         pos=0;
         anchor=0;
@@ -657,13 +655,22 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
     t.movePosition(QTextCursor::Start);
     if (pos || anchor)
     {
+        //int anchorDiff=pos-anchor;
+/*        t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,qMin(anchor,pos));
+        t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qMax(anchor,pos));
+        */
+        //I don't know why the following (more correct) code doesnt work
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,anchor);
-        t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,pos-anchor);
+        int length=pos-anchor;
+        if (length)
+            t.movePosition(length<0?QTextCursor::PreviousCharacter:QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qAbs(length));
     }
     msgEdit.setTextCursor(t);
 
     m_msgstrHighlighter->rehighlight();
     connect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
+    kWarning()<<"fontItalic500"<<_msgstrEdit->fontItalic();
 }
 
 
@@ -675,25 +682,25 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
     _currentPos=pos;
     _currentEntry=pos.entry;
 
-    if (KDE_ISUNLIKELY( _catalog->pluralFormType(_currentEntry)==Gettext ))
+    if (KDE_ISUNLIKELY( _catalog->isPlural(_currentEntry)))
     {
-        if (KDE_ISUNLIKELY( _catalog->numberOfPluralForms()!=_tabbar->count() ))
+        if (KDE_ISUNLIKELY( _catalog->numberOfPluralForms()!=m_pluralTabBar->count() ))
         {
-            int i=_tabbar->count();
-            if (_catalog->numberOfPluralForms()>_tabbar->count())
+            int i=m_pluralTabBar->count();
+            if (_catalog->numberOfPluralForms()>m_pluralTabBar->count())
                 while (i<_catalog->numberOfPluralForms())
-                    _tabbar->addTab(i18nc("@title:tab","Plural Form %1",++i));
+                    m_pluralTabBar->addTab(i18nc("@title:tab","Plural Form %1",++i));
             else
                 while (i>_catalog->numberOfPluralForms())
-                    _tabbar->removeTab(i--);
+                    m_pluralTabBar->removeTab(i--);
         }
-        _tabbar->show();
-        _tabbar->blockSignals(true);
-        _tabbar->setCurrentIndex(_currentPos.form);
-        _tabbar->blockSignals(false);
+        m_pluralTabBar->show();
+        m_pluralTabBar->blockSignals(true);
+        m_pluralTabBar->setCurrentIndex(_currentPos.form);
+        m_pluralTabBar->blockSignals(false);
     }
     else
-        _tabbar->hide();
+        m_pluralTabBar->hide();
 
     //force this because there are conditions when the
     //signal isn't emitted (haven't identify them yet)
@@ -701,18 +708,17 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
 #ifdef XLIFF
     _msgidEdit->setContent(_catalog->sourceWithTags(_currentPos));
+    m_msgidHighlighter->rehighlight(); //explicitly because setContent disables signals
 #else
     _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
 #endif
 
-/* ?
-    m_msgidHighlighter->rehighlight();
-*/
 
 #ifdef UNWRAP_MSGID
     unwrap(_msgidEdit);
 #endif
 
+    //kWarning()<<"calling refreshMsgEdit";
     refreshMsgEdit();//sets msgstredit text along the way
 
     QString targetString=_catalog->targetWithTags(_currentPos).string;
@@ -730,9 +736,12 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 
     if (pos.offset || selection)
     {
-
         if (pos.part==Msgid)
+        {
             msgEdit=_msgidEdit;
+            t=msgEdit->textCursor();
+            t.movePosition(QTextCursor::Start);
+        }
 
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
@@ -766,11 +775,12 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHi
 //     m_msgstrHighlighter->rehighlight();
 //     connect (_msgstrEdit->document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
-    msgEdit->setFocus();
+    _msgstrEdit->setFocus();
 
+    kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
     setUpdatesEnabled(true);
 }
-
+/*
 void KAiderView::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
@@ -785,7 +795,7 @@ void KAiderView::dropEvent(QDropEvent *event)
 
 
 
-
+*/
 
 
 
@@ -802,7 +812,7 @@ void KAiderView::clearMsgStr()
     if (_catalog->isFuzzy(_currentEntry))
     {
         toggleApprovement(true);
-        approvedEntryDisplayed(true);
+        //approvedEntryDisplayed(true);
     }
 
     gotoEntry(_currentPos);
@@ -824,7 +834,7 @@ void KAiderView::toggleApprovement(bool approved)
         return;
 
     _catalog->push(new ToggleApprovementCmd(_catalog,_currentEntry,approved));
-    approvedEntryDisplayed(true);
+    approvedEntryDisplayed(approved, true);
 }
 
 
@@ -875,11 +885,18 @@ void KAiderView::msgid2msgstr()
     {
         text.replace(reg,"");
     }*/
-    
+
     //modifyMsgstrText(0,text,true);
-    
+
     if (out.isEmpty())
-        _msgstrEdit->setPlainText(text);
+    {
+        DocPosition pos=_currentPos;pos.offset=0;
+        //_msgstrEdit->setPlainText(text);
+        _catalog->push(new DelTextCmd(_catalog,pos,_catalog->target(_currentPos)));
+        _oldMsgstr="";//newStr becomes OldStr
+        _catalog->push(new InsTextCmd(_catalog,pos,text));
+        toggleApprovement(true);
+    }
     else
     {
         QTextCursor t=_msgstrEdit->textCursor();

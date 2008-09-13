@@ -1,4 +1,5 @@
 deps:
--kdelibs 4.1
+-qt 4.4, with sqlite plugin
+-kdelibs 4.1, with kross (+python plugin)
 -kdesdk strigi analyzer plugins (for project tree view)
--[optional] gettext (i use cmdline utils to get plural expressions)
+-[optional] gettext (it is used as a fallback for getting plural expressions for langs)

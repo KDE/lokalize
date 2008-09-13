@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -72,16 +72,32 @@ QString MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) cons
 {
     DocPosition us=pos;
     us.entry=m_map.at(pos.entry);
+
+    //sanity
+    if (us.entry == -1)
+         return QString();
+
     return Catalog::msgstr(us, noNewlines);
 }
 
 bool MergeCatalog::isFuzzy(uint index) const
 {
+    //sanity
+    if (m_map.at(index) == -1)
+         return false;
+
     return Catalog::isFuzzy(m_map.at(index));
 }
 
 bool MergeCatalog::isPlural(uint index) const
 {
+    kWarning()<<"index"<<index;
+    kWarning()<<"m_map.at(index)"<<m_map.at(index);
+    kWarning()<<"numberOfEntries()"<<numberOfEntries();
+    //sanity
+    if (m_map.at(index) == -1)
+         return false;
+
     return Catalog::isPlural(m_map.at(index));
 }
 

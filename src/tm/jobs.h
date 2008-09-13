@@ -150,6 +150,7 @@ class SelectJob: public ThreadWeaver::Job
 public:
     SelectJob(const QString& en,
               const QString& ctxt,
+              const QString& file,
               const DocPosition&,//for back tracking
               const QString& dbName,
               QObject* parent=0);
@@ -171,6 +172,7 @@ private:
 private:
     QString m_english;
     QString m_ctxt;
+    QString m_file;
     bool m_dequeued;
 
 public:
@@ -206,6 +208,7 @@ private:
 **/
 //TODO a mechanism to get rid of dead dups (shud use strigi).
 //find all en, then try to find supposedly dead translation
+//update: i'm not sure it is needed. maybe just search for file references for non-existent files?
 
 //also, display usage of different translations and suggest user
 //to use only one of them (listview, checkboxes) 
@@ -213,13 +216,14 @@ class UpdateJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit UpdateJob(const QString& en,
-              const QString& ctxt,
-              const QString& oldTarget,
-              const QString& newTarget,
-              //const DocPosition&,//for back tracking
-              const QString& dbName,
-              QObject* parent=0);
+    explicit UpdateJob(const QString& filePath,
+                       const QString& ctxt,
+                       const QString& en,
+                       const QString& newTarget,
+                       int form,
+                       //const DocPosition&,//for back tracking
+                       const QString& dbName,
+                       QObject* parent=0);
 
     ~UpdateJob();
 
@@ -230,10 +234,11 @@ protected:
 // public:
 
 private:
-    QString m_english;
+    QString m_filePath;
     QString m_ctxt;
-    QString m_oldTarget;
+    QString m_english;
     QString m_newTarget;
+    int m_form;
     QString m_dbName;
 };
 

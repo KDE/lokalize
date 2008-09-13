@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -38,52 +38,29 @@
 #include <klocale.h>
 #include <kaction.h>
 #include <kactioncollection.h>
+#include <kstandardaction.h>
 #include <kxmlguifactory.h>
 
 #include <QContextMenuEvent>
 #include <QMenu>
 
 ProjectWindow::ProjectWindow(QWidget *parent)
-//    : KMainWindow(parent)
-    : KXmlGuiWindow(parent)
+    : LokalizeSubwindowBase(parent), KXMLGUIClient()
     , m_browser(new ProjectWidget(this))
 
 {
-    kWarning()<<"aaaaaa";
-    setCaption(i18nc("@title:window","Lokalize Project View"),false);
-
+    setWindowTitle(i18nc("@title:window","Project Overview"));//setCaption(i18nc("@title:window","Project"),false);
     setCentralWidget(m_browser);
-    setAutoSaveSettings(QLatin1String("ProjectWindow"),true);
 
-    connect(m_browser,SIGNAL(fileOpenRequested(const KUrl&)),
-            this,SLOT(fileOpen(const KUrl&)));
+    connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
 
-    Project* proj=Project::instance();
-#define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
-    action = actionCollection()->addAction(_name);\
-    action->setText(_text);\
-    action->setShortcut(QKeySequence( _shortcut ));\
+    int i=6;
+    while (--i>=0)
+        statusBarItems.insert(i,"");
 
-    QAction* action;
-    ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
-    connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showGlossary() ) );
-
-    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
-    connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showTM() ) );
-
-    action = actionCollection()->addAction("tools_tm_manage");
-    action->setText(i18nc("@action:inmenu","Manage translation memories"));
-    connect( action, SIGNAL( triggered(bool) ), proj, SLOT( showTMManager() ) );
-
-    //setXMLFile("kaiderprojectui.rc");
-    setupGUI(/*ToolBar|*/Keys|Create,"projectmanagerui.rc");
-//     QMenu *m=static_cast<QMenu*>(guiFactory()->container("bookmarks",this));
-//     m->hide();
-
-    //createGUI();
-    //kWarning()<<"+++++++++++++++"<<actionCollection()->action("bookmarks");
- //unplugActionList( "xxx_file_actionlist" );
-    plugActionList( "project_actions", proj->projectActions());
+    setXMLFile("projectmanagerui.rc",true);
+    //setXML("",true);
+    QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
 }
 
@@ -91,35 +68,21 @@ ProjectWindow::~ProjectWindow()
 {
 }
 
-void ProjectWindow::fileOpen(const KUrl& u)
-{
-    KAider* a=new KAider;
-    a->show();
-    a->fileOpen(u);
-}
-
-
-
-
 
 void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu;
     QAction* openNew=0;
-    QAction* openExisting=0;
     if (m_browser->currentIsCatalog())
     {
-        openNew=menu.addAction(i18nc("@action:inmenu","Open in new window"));
-        openExisting=menu.addAction(i18nc("@action:inmenu","Open in existing window"));
+        openNew=menu.addAction(i18nc("@action:inmenu","Open"));
         menu.addSeparator();
     }
-    menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
+    /*menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
     menu.addAction(i18nc("@action:inmenu","Replace in files"),this,SLOT(replaceInFiles()));
     menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,SLOT(spellcheckFiles()));
-    menu.addSeparator();
-    menu.addAction(i18nc("@action:inmenu","Scan selected directories"),m_browser,SLOT(expandItems()));
-//     menu.addAction(i18nc("@action:inmenu","Open project"),Project::instance(),SLOT(projectOpen()));
-//     menu.addAction(i18nc("@action:inmenu","Create new project"),Project::instance(),SLOT(projectCreate()));
+    menu.addSeparator();*/
+    menu.addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,SLOT(expandItems()));
 
 
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
@@ -135,9 +98,10 @@ void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
     if (result)
     {
         if (result==openNew)
-            fileOpen(m_browser->currentItem());
-        else if (result==openExisting)
-            Project::instance()->openInExisting(m_browser->currentItem());
+            emit fileOpenRequested(m_browser->currentItem());
+            //fileOpen(m_browser->currentItem());
+       /* else if (result==openExisting)
+            Project::instance()->openInExisting(m_browser->currentItem());*/
 //         else if (result==findInFiles)
 //             emit findInFilesRequested(m_browser->selectedItems());
     }
@@ -146,24 +110,17 @@ void ProjectWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void ProjectWindow::findInFiles()
 {
-    KAider* a=new KAider;
-    a->findInFiles(m_browser->selectedItems());
-    //a->show();
+    emit searchRequested(m_browser->selectedItems());
 }
 
 void ProjectWindow::replaceInFiles()
 {
-    KAider* a=new KAider;
-    a->replaceInFiles(m_browser->selectedItems());
-    //a->show();
+    emit replaceRequested(m_browser->selectedItems());
 }
 
 void ProjectWindow::spellcheckFiles()
 {
-    KAider* a=new KAider;
-    a->spellcheckFiles(m_browser->selectedItems());
-    a->show();
+    emit spellcheckRequested(m_browser->selectedItems());
 }
 
 
-#include "projectwindow.moc"

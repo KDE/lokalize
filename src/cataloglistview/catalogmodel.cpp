@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientatio
 
 QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 {
-    if (role!=Qt::DisplayRole)
+    if (role!=Qt::DisplayRole || m_catalog->numberOfEntries()<=index.row() )
         return QVariant();
 
     switch (index.column())
@@ -74,5 +74,12 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         case FuzzyFlag: return m_catalog->isFuzzy(index.row());
     }
     return QVariant();
+}
+
+Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
+{
+    if (index.column()==FuzzyFlag)
+        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
+    return QAbstractItemModel::flags(index);
 }
 

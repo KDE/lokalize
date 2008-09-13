@@ -28,10 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QVector>
 // class QDomDocument;
 
-/**
-	@author Nick Shaforostoff <shafff@ukr.net>
-*/
-class XliffStorage : public CatalogStorage
+class XliffStorage: public CatalogStorage
 {
 public:
     XliffStorage();

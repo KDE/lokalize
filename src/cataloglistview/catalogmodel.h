@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -56,8 +56,6 @@ public:
         CatalogModelColumnCount
     };
 
-    //Q_OBJECT
-
     inline CatalogTreeModel(QObject* parent, Catalog* catalog);
     inline ~CatalogTreeModel();
 
@@ -67,7 +65,7 @@ public:
     inline int columnCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
     QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
-    inline Qt::ItemFlags flags(const QModelIndex&) const;
+    Qt::ItemFlags flags(const QModelIndex&) const;
 
 private:
     Catalog* m_catalog;
@@ -111,12 +109,5 @@ int CatalogTreeModel::columnCount(const QModelIndex& parent) const
 //     return 0;
 }
 
-inline
-Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
-{
-    if (index.column()==FuzzyFlag)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
-    return QAbstractItemModel::flags(index);
-}
 
 #endif

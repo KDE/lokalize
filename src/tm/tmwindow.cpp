@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -42,6 +42,10 @@
 #include <QTreeView>
 #include <QSqlQueryModel>
 #include <QButtonGroup>
+#include <QShortcutEvent>
+#include <QClipboard>
+#include <QShortcut>
+
 using namespace TM;
 
 //BEGIN TMDBModel
@@ -51,6 +55,8 @@ TMDBModel::TMDBModel(QObject* parent)
 {
     setHeaderData(0, Qt::Horizontal, i18nc("@title:column Original text","Original"));
     setHeaderData(1, Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
+    setHeaderData(2, Qt::Horizontal, i18nc("@title:column","Context"));
+    setHeaderData(3, Qt::Horizontal, i18nc("@title:column","File"));
 }
 
 void TMDBModel::setDB(const QString& str)
@@ -63,66 +69,65 @@ void TMDBModel::setQueryType(int type)
     m_queryType=(QueryType)type;
 }
 
-void TMDBModel::setFilter(const QString& str)
+void TMDBModel::setFilter(const QString& source, const QString& target, bool invertSource, bool invertTarget)
 {
-    QString escaped(str);
-    escaped.replace('\'',"''");
+    QString escapedSource(source);escapedSource.replace('\'',"''");
+    QString escapedTarget(target);escapedTarget.replace('\'',"''");
+    QString invertSourceStr; if (invertSource) invertSourceStr="NOT ";
+    QString invertTargetStr; if (invertTarget) invertTargetStr="NOT ";
+    QString sourceQuery;
+    QString targetQuery;
 
     if (m_queryType==SubStr)
     {
-        setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
-                 "WHERE tm_main.english LIKE '%"+escaped+"%' "
-                 "OR tm_main.target LIKE '%"+escaped+"%' "
-                 "UNION "
-                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
-                 "WHERE tm_main.id==tm_dups.id "
-                 "AND (tm_main.english LIKE '%"+escaped+"%' "
-                 "OR tm_dups.target LIKE '%"+escaped+"%') "
-                    /*"ORDER BY tm_main.english"*/ ,m_db);
+        if (!escapedSource.isEmpty())
+            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+escapedSource+"%' ";
+        if (!escapedTarget.isEmpty())
+            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+escapedTarget+"%' ";
     }
     else if (m_queryType==WordOrder)
     {
-        QStringList strList=str.split(QRegExp("\\W"),QString::SkipEmptyParts);
-        setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
-                 "WHERE tm_main.english LIKE '%"+
-                 strList.join("%' AND tm_main.english LIKE '%")+
-                 "%' "
-                 "UNION "
-                 "SELECT tm_main.english, tm_main.target FROM tm_main "
-                 "WHERE tm_main.target LIKE '%"+
-                 strList.join("%' AND tm_main.target LIKE '%")+
-                 "%' "
-                 "UNION "
-                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
-                 "WHERE tm_main.id==tm_dups.id "
-                 "AND tm_main.english LIKE '%"+
-                 strList.join("%' AND tm_main.english LIKE '%")+
-                 "%' "
-                 "UNION "
-                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
-                 "WHERE tm_main.id==tm_dups.id "
-                 "AND tm_dups.target LIKE '%"+
-                 strList.join("%' AND tm_dups.target LIKE '%")+
-                 "%' "
-                    /*"ORDER BY tm_main.english"*/ ,m_db);
+        QStringList sourceList=escapedSource.split(QRegExp("\\W"),QString::SkipEmptyParts);
+        QStringList targetList=escapedTarget.split(QRegExp("\\W"),QString::SkipEmptyParts);
+
+        if (!sourceList.isEmpty())
+            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+sourceList.join("%' AND source_strings.source "+invertSourceStr+"LIKE '%")+"%' ";
+        if (!targetList.isEmpty())
+            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+targetList.join("%' AND target_strings.target "+invertTargetStr+"LIKE '%")+"%' ";
     }
     else //regex
     {
-
-        setQuery("SELECT tm_main.english, tm_main.target FROM tm_main "
-                 "WHERE tm_main.english GLOB '*"+escaped+"*' "
-                 "OR tm_main.target GLOB '*"+escaped+"*' "
-                 "UNION "
-                 "SELECT tm_main.english, tm_dups.target FROM tm_main, tm_dups "
-                 "WHERE tm_main.id==tm_dups.id "
-                 "AND (tm_main.english GLOB '*"+escaped+"*' "
-                 "OR tm_dups.target GLOB '*"+escaped+"*') "
-                    /*"ORDER BY tm_main.english"*/ ,m_db);
+        if (!escapedSource.isEmpty())
+            sourceQuery="AND source_strings.source "+invertSourceStr+"GLOB '*"+escapedSource+"*' ";
+        if (!escapedTarget.isEmpty())
+            targetQuery="AND target_strings.target "+invertTargetStr+"GLOB '*"+escapedTarget+"*' ";
 
     }
-
-
+        setQuery("SELECT source_strings.source, target_strings.target, "
+                 "main.ctxt, files.path "
+                 "FROM main, source_strings, target_strings, files "
+                 "WHERE source_strings.id==main.source AND "
+                 "target_strings.id==main.target AND "
+                 "files.id==main.file "
+                 +sourceQuery
+                 +targetQuery
+                ,m_db);
 }
+
+#define TM_DELIMITER '\v'
+QVariant TMDBModel::data(const QModelIndex& item, int role) const
+{
+    QVariant result=QSqlQueryModel::data(item, role);
+    if (item.column()==2)//context
+    {
+        QString r=result.toString();
+        int pos=r.indexOf(TM_DELIMITER);
+        if (pos!=-1)
+            result=r.remove(pos, 99);
+    }
+    return result;
+}
+
 
 //END TMDBModel
 
@@ -139,11 +144,33 @@ TMWindow::TMWindow(QWidget *parent)
     ui_queryOptions.setupUi(w);
     setCentralWidget(w);
 
-    connect(ui_queryOptions.query,SIGNAL(returnPressed()),
+    connect(ui_queryOptions.querySource,SIGNAL(returnPressed()),
+           this,SLOT(performQuery()));
+    connect(ui_queryOptions.queryTarget,SIGNAL(returnPressed()),
            this,SLOT(performQuery()));
 
     QTreeView* view=ui_queryOptions.treeView;
-    m_query=ui_queryOptions.query;
+    //QueryResultDelegate* delegate=new QueryResultDelegate(this);
+    //view->setItemDelegate(delegate);
+    //view->setSelectionBehavior(QAbstractItemView::SelectItems);
+    //connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
+
+    view->setContextMenuPolicy(Qt::ActionsContextMenu);
+    QAction* a=new QAction(i18n("Copy source to clipboard"),view);
+    a->setShortcut(Qt::CTRL + Qt::Key_S);
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    connect(a,SIGNAL(activated()), this, SLOT(copySource()));
+    view->addAction(a);
+    a=new QAction(i18n("Copy target to clipboard"),view);
+    a->setShortcut(Qt::CTRL + Qt::Key_T);
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    connect(a,SIGNAL(activated()), this, SLOT(copyTarget()));
+    view->addAction(a);
+
+    //view->addAction(KStandardAction::copy(this),this,SLOT(),this);
+    //QKeySequence::Copy?
+    //QShortcut* shortcut = new QShortcut(Qt::CTRL + Qt::Key_P,view,0,0,Qt::WidgetWithChildrenShortcut);
+    //connect(shortcut,SIGNAL(activated()), this, SLOT(copyText()));
 
     m_model = new TMDBModel(this);
     m_model->setDB(Project::instance()->projectID());
@@ -162,9 +189,16 @@ TMWindow::TMWindow(QWidget *parent)
     connect(ui_queryOptions.db,SIGNAL(currentIndexChanged(QString)),
             m_model,SLOT(setDB(QString)));
 
+    m_querySource=ui_queryOptions.querySource;
+    m_queryTarget=ui_queryOptions.queryTarget;
     m_dbCombo=ui_queryOptions.db;
+    m_view=view;
+    m_invertSource=ui_queryOptions.invertSource;
+    m_invertTarget=ui_queryOptions.invertTarget;
+
 
     m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
+
 }
 
 TMWindow::~TMWindow()
@@ -178,8 +212,23 @@ void TMWindow::selectDB(int i)
 
 void TMWindow::performQuery()
 {
-    m_model->setFilter(m_query->text());
+    m_model->setFilter(m_querySource->text(), m_queryTarget->text(), m_invertSource->isChecked(), m_invertTarget->isChecked());
+    m_view->resizeColumnToContents(0);
+    m_view->resizeColumnToContents(1);
+    m_view->resizeColumnToContents(2);
+    m_view->setFocus();
 }
+
+void TMWindow::copySource()
+{
+    //QApplication::clipboard()->setText(m_view->currentIndex().data().toString());
+    QApplication::clipboard()->setText( m_view->currentIndex().sibling(m_view->currentIndex().row(),0).data().toString());
+}
+void TMWindow::copyTarget()
+{
+    QApplication::clipboard()->setText( m_view->currentIndex().sibling(m_view->currentIndex().row(),1).data().toString());
+}
+
 /*
 void TMWindow::setOptions(int i)
 {
@@ -187,7 +236,52 @@ void TMWindow::setOptions(int i)
 }*/
 
 
-
 //END TMWindow
+
+
+
+#if 0
+bool QueryResultDelegate::editorEvent(QEvent* event,
+                                 QAbstractItemModel* model,
+                                 const QStyleOptionViewItem& /*option*/,
+                                 const QModelIndex& index)
+{
+    kWarning()<<"QEvent"<<event;
+    if (event->type()==QEvent::Shortcut)
+    {
+        kWarning()<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
+        if (static_cast<QShortcutEvent*>(event)->key().matches(QKeySequence::Copy)
+           && index.data().canConvert(QVariant::String))
+        {
+            QApplication::clipboard()->setText(index.data().toString());
+            kWarning()<<"index.data().toString()";
+        }
+    }
+    else if (event->type()==QEvent::MouseButtonRelease)
+    {
+        QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
+        if (mEvent->button()==Qt::MidButton)
+        {
+        }
+    }
+    else if (event->type()==QEvent::KeyPress)
+    {
+        QKeyEvent* kEvent=static_cast<QKeyEvent*>(event);
+        if (kEvent->key()==Qt::Key_Return)
+        {
+            if (kEvent->modifiers()==Qt::NoModifier)
+            {
+            }
+        }
+    }
+    else
+        return false;
+
+    event->accept();
+    return true;
+
+}
+
+#endif
 
 #include "tmwindow.moc"

@@ -36,6 +36,9 @@
 #include <QLineEdit>
 class KEditListBox;
 
+/**
+ * Singleton that manages cfgs for Lokalize and projects
+ */
 class SettingsController: public QObject
 {
     Q_OBJECT
@@ -68,8 +71,8 @@ public:
 };
 
 /**
- * helper widget to save relative paths in project file
- * (so it could be published in svn)
+ * helper widget to save relative paths in project file,
+ * thus allowing its publishing in e.g. svn
  */
 class RelPathSaver: public QLineEdit
 {

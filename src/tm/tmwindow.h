@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,10 +37,13 @@
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
+#include <QItemDelegate>
 
 class KLineEdit;
 
 class QComboBox;
+class QTreeView;
+class QCheckBox;
 
 namespace TM {
 class TMDBModel;
@@ -60,10 +63,16 @@ public:
 
 public slots:
     void performQuery();
+    void copySource();
+    void copyTarget();
 private:
-    KLineEdit* m_query;
+    KLineEdit* m_querySource;
+    KLineEdit* m_queryTarget;
+    QCheckBox* m_invertSource;
+    QCheckBox* m_invertTarget;
     TMDBModel* m_model;
     QComboBox* m_dbCombo;
+    QTreeView* m_view;
 };
 
 
@@ -82,8 +91,10 @@ public:
     TMDBModel(QObject* parent);
     ~TMDBModel(){}
 
+    QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
+
 public slots:
-    void setFilter(const QString&);
+    void setFilter(const QString& source, const QString& target, bool invertSource, bool invertTarget);
     void setQueryType(int);
     void setDB(const QString&);
 
@@ -91,5 +102,24 @@ private:
     QueryType m_queryType;
     QSqlDatabase m_db;
 };
+
+
+#if 0
+class QueryResultDelegate: public QItemDelegate
+{
+    Q_OBJECT
+
+public:
+    QueryResultDelegate(QObject *parent=0)
+        : QItemDelegate(parent)
+    {}
+    ~QueryResultDelegate(){}
+    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
+signals:
+    void fileOpenRequested();
+};
+#endif
+
 }
+
 #endif

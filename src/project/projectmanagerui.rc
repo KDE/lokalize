@@ -1,80 +1,8 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="ProjectManager" version="38">
+<kpartgui name="ProjectOverview" version="56">
 <MenuBar>
-<!--
   <Menu name="edit"><text>&amp;Edit</text>
-    <Action name="edit_toggle_fuzzy"/>
-    <Action name="msgid2msgstr"/>
-    <Action name="unwrapmsgstr"/>
-    <Action name="edit_clear"/>
-    <Action name="edit_tagmenu"/>
-    <Menu name="glossary"><text>Glossary</text>
-        <Action name="glossary_define"/>
-    </Menu>
-    <Menu name="webquery"><text>WebQuery</text>
-        <Action name="webquery_do"/>
-    </Menu>
-    <Menu name="tmquery"><text>Translation Memory</text>
-        <Action name="tmquery_do"/>
-    </Menu>
-  </Menu>
-  <Menu name="go"><text>&amp;Go</text>
-    <Action name="go_goto"/>
-    <Separator/>
-    <Action name="go_first"/>
-    <Action name="go_last"/>
-    <Separator/>
-    <Action name="go_prev_fuzzyUntr"/>
-    <Action name="go_next_fuzzyUntr"/>
-    <Action name="go_prev_fuzzy"/>
-    <Action name="go_next_fuzzy"/>
-    <Action name="go_prev_untrans"/>
-    <Action name="go_next_untrans"/>
-  </Menu>
--->
-  <Menu name="project"><text>Project</text>
-    <ActionList name="project_actions" />
-<!--
-    <Action name="project_configure"/>
-    <Separator/>
-    <Action name="project_open"/>
-    <Action name="project_create"/>
--->
-  </Menu>
-<!--
-  <Menu name="merge"><text>Merge</text>
-    <Action name="merge_open"/>
-    <Separator/>
-    <Action name="merge_prev"/>
-    <Action name="merge_next"/>
-    <Separator/>
-    <Action name="merge_accept"/>
-    <Action name="merge_acceptnew"/>
-  </Menu>
-  <Menu name="bookmarks"><text>Bookmarks</text>
-    <Action name="bookmark_prior"/>
-    <Action name="bookmark_next"/>
-  </Menu>
-
-  <Menu name="settings"><text>&amp;Settings</text>
-    <Menu name="toolviews"><text>Toolviews</text>
-        <Action name="showmsgiddiff_action" />
-        <Action name="showprojectview_action" />
-        <Action name="showmergeview_action" />
-        <Action name="showmsgctxt_action" />
-        <Action name="showcatalogtreeview_action" />
-        <Action name="showglossaryview_action" />
-        <Action name="showwebqueryview_action" />
-        <Action name="showtmqueryview_action" />
-    </Menu>
-  </Menu>
--->
-  <Menu name="tools"><text>&amp;Tools</text>
-    <Separator/>
-    <Action name="tools_glossary"/>
-    <Separator/>
-    <Action name="tools_tm"/>
-    <Action name="tools_tm_manage"/>
+    <Action name="edit_find"/>
   </Menu>
 </MenuBar>
 </kpartgui>

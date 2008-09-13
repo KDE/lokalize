@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@
 **************************************************************************** */
 
 #include "kaider.h"
+#include "actionproxy.h"
 #include "kaiderview.h"
 #include "catalog.h"
 #include "pos.h"
@@ -56,6 +57,11 @@
 
 #include <kglobal.h>
 #include <klocale.h>
+#include <kdebug.h>
+
+
+#include <kglobal.h>
+#include <klocale.h>
 #include <kicon.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
@@ -71,7 +77,15 @@
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
-#include <krecentfilesaction.h>
+#include <kxmlguifactory.h>
+#include <kurl.h>
+#include <KMenu>
+
+#include <QActionGroup>
+#include <QMdiArea>
+#include <QMdiSubWindow>
+#include <QMenuBar>
+
 #include <kinputdialog.h>
 
 #include <kurl.h>
@@ -82,8 +96,24 @@
 #include <QDir>
 #include <QTime>
 
-KAider::KAider()
-        : KXmlGuiWindow()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+KAider::KAider(QWidget* parent)
+        : LokalizeSubwindowBase(parent), KXMLGUIClient()
         , _project(Project::instance())
         , _catalog(new Catalog(this))
         , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
@@ -95,6 +125,7 @@ KAider::KAider()
         , m_currentIsUntr(true)
         , m_updateView(true)
         , m_modifiedAfterFind(false)
+        , m_fullPathShown(false)
         , m_doReplaceCalled(false)
         , _findDialog(0)
         , _find(0)
@@ -110,40 +141,34 @@ KAider::KAider()
         , _mergeView(0)
         , _mergeViewSecondary(0)
 {
-//     QTime chrono;chrono.start();
+    //QTime chrono;chrono.start();
 
-//     setUpdatesEnabled(false);//dunno if it helps
     setAcceptDrops(true);
     setCentralWidget(m_view);
-    setupStatusBar(); //--NOT called from initLater()
+    setupStatusBar(); //--NOT called from initLater() !
     createDockWindows(); //toolviews
     setupActions();
-    //setAutoSaveSettings();
 
-//     setUpdatesEnabled(true);
+
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     QTimer::singleShot(0,this,SLOT(initLater()));
-
-//     kWarning()<<chrono.elapsed();
+    //kWarning()<<chrono.elapsed();
 }
 
 void KAider::initLater()
 {
 //     QTime chrono;chrono.start();
 
-    connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
+    //connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
 //     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
     connect (m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
 
-    KConfig config;
-    _openRecentFile->loadEntries(KConfigGroup(&config,"RecentFiles"));
-
     Project& p=*(Project::instance());
     p.registerEditor(this);
 //unplugActionList( "xxx_file_actionlist" );
-    plugActionList( "project_actions", p.projectActions());
+    //### plugActionList( "project_actions", p.projectActions());
 
 //     kWarning()<<chrono.elapsed();
 }
@@ -152,8 +177,6 @@ KAider::~KAider()
 {
     if (!_catalog->isEmpty())
         emit signalFileClosed();
-    KConfig config;
-    _openRecentFile->saveEntries(KConfigGroup(&config,"RecentFiles"));
     deleteUiSetupers();
 
     Project::instance()->unregisterEditor(this);
@@ -167,55 +190,51 @@ KAider::~KAider()
 */
 }
 
-#define ID_STATUS_TOTAL 1
-#define ID_STATUS_CURRENT 2
-#define ID_STATUS_FUZZY 3
-#define ID_STATUS_UNTRANS 4
-#define ID_STATUS_ISFUZZY 5
-#define ID_STATUS_READONLY 6
-#define ID_STATUS_CURSOR 7
 
 void KAider::setupStatusBar()
 {
+    statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status message entry","Current: %1",0));
+    statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1",0));
+    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1",0));
+    statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1",0));
+    statusBarItems.insert(ID_STATUS_ISFUZZY,QString());
+
+    /*
     statusBar()->insertItem(i18nc("@info:status message entry","Current: %1",0),ID_STATUS_CURRENT);
     statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",0),ID_STATUS_TOTAL);
 //    statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",_catalog->numberOfEntries()),ID_STATUS_TOTAL);
     statusBar()->insertItem(i18nc("@info:status message entries","Fuzzy: %1",0),ID_STATUS_FUZZY);
     statusBar()->insertItem(i18nc("@info:status message entries","Untranslated: %1",0),ID_STATUS_UNTRANS);
     statusBar()->insertItem(QString(),ID_STATUS_ISFUZZY);
+    */
 
     connect(_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
     connect(_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
 
-    statusBar()->show();
+    //statusBar()->show();
 }
 
 void KAider::numberOfFuzziesChanged()
 {
-    statusBar()->changeItem(i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
+    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()));
+    //statusBar()->changeItem(i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
 }
 
 void KAider::numberOfUntranslatedChanged()
 {
-    statusBar()->changeItem(i18nc("@info:status message entries","Untranslated: %1", _catalog->numberOfUntranslated()),ID_STATUS_UNTRANS);
+    statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1", _catalog->numberOfUntranslated()));
 }
 
 void KAider::setupActions()
 {
     //all operations that can be done after initial setup
-    // (via QTimer::singleShot) go to initLater()
+    //(via QTimer::singleShot) go to initLater()
 
-    //QTime aaa;aaa.start();
-
-    setStandardToolBarMenuEnabled(true);
+    setXMLFile("editorui.rc");
 
     QAction *action;
     KActionCollection* ac=actionCollection();
 // File
-    KStandardAction::open(this, SLOT(fileOpen()), ac);
-
-    _openRecentFile = KStandardAction::openRecent(this, SLOT(fileOpen(const KUrl&)), ac);
-
     action = KStandardAction::save(this, SLOT(fileSave()), ac);
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
@@ -227,9 +246,6 @@ void KAider::setupActions()
     //KStandardAction::quit(kapp, SLOT(quit()), ac);
     //KStandardAction::quit(this, SLOT(deleteLater()), ac);
 
-
-//Settings
-    KStandardAction::preferences(SettingsController::instance(), SLOT(slotSettings()), ac);
 
 #define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
     action = ac->addAction(_name);\
@@ -267,7 +283,7 @@ void KAider::setupActions()
     action = KStandardAction::replace(this,SLOT(replace()),ac);
 
 //
-    ADD_ACTION_SHORTCUT_ICON("edit_toggle_fuzzy",i18nc("@option:check whether message is marked as Approved","Approved"),Qt::CTRL+Qt::Key_U,"approved")
+    ADD_ACTION_SHORTCUT_ICON("edit_approve",i18nc("@option:check whether message is marked as Approved","Approved"),Qt::CTRL+Qt::Key_U,"approved")
     action->setCheckable(true);
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleApprovement(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
@@ -281,13 +297,13 @@ void KAider::setupActions()
         || systemLang.startsWith("zh")
                     ))
         copyShortcut=Qt::ALT+Qt::Key_Space;
-    ADD_ACTION_SHORTCUT_ICON("msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
+    ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
 
-    ADD_ACTION_SHORTCUT("unwrapmsgstr",i18nc("@action:inmenu","Unwrap target"),Qt::CTRL+Qt::Key_I)
+    ADD_ACTION_SHORTCUT("edit_unwrap-target",i18nc("@action:inmenu","Unwrap target"),Qt::CTRL+Qt::Key_I)
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
-    action = ac->addAction("edit_clear",m_view,SLOT(clearMsgStr()));
+    action = ac->addAction("edit_clear-target",m_view,SLOT(clearMsgStr()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18nc("@action:inmenu","Clear"));
 
@@ -351,12 +367,6 @@ void KAider::setupActions()
 //Tools
     action = KStandardAction::spelling(this,SLOT(spellcheck()),ac);
 
-    ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
-    connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showGlossary() ) );
-
-    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
-    connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTM() ) );
-
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all exact suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslate() ) );
@@ -364,10 +374,6 @@ void KAider::setupActions()
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
-
-    action = ac->addAction("tools_tm_manage");
-    action->setText(i18nc("@action:inmenu","Manage translation memories"));
-    connect( action, SIGNAL( triggered(bool) ), _project, SLOT( showTMManager() ) );
 
 //Bookmarks
     action = KStandardAction::addBookmark(m_view,SLOT(toggleBookmark(bool)),ac);
@@ -384,18 +390,6 @@ void KAider::setupActions()
     action = ac->addAction("bookmark_next",this,SLOT(gotoNextBookmark()));
     action->setText(i18nc("@action:inmenu","Next bookmark"));
     connect( this, SIGNAL(signalNextBookmarkAvailable(bool)),action,SLOT(setEnabled(bool)) );
-
-    /*
-    //Project
-    action = ac->addAction("project_configure",SettingsController::instance(),SLOT(projectConfigure()));
-    action->setText(i18nc("@action:inmenu","Configure project"));
-
-    action = ac->addAction("project_open",SettingsController::instance(),SLOT(projectOpen()));
-    action->setText(i18nc("@action:inmenu","Open project"));
-
-    action = ac->addAction("project_create",SettingsController::instance(),SLOT(projectCreate()));
-    action->setText(i18nc("@action:inmenu","Create new project"));
-    */
 
 //MergeMode
     action = ac->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
@@ -473,16 +467,7 @@ void KAider::setupActions()
     action->setWhatsThis(action->statusTip());
     _mergeViewSecondary->addAction(action);
 
-    setupGUI(Default,"lokalizeui.rc");
-
-//    kWarning()<<aaa.elapsed();
-}
-
-void KAider::newWindowOpen(const KUrl& url)
-{
-    KAider* newWindow = new KAider;
-    newWindow->fileOpen(url);
-    newWindow->show();
+    //kWarning()<<"finished"<<aaa.elapsed();
 }
 
 void KAider::createDockWindows()
@@ -491,17 +476,6 @@ void KAider::createDockWindows()
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiffView,SLOT(slotNewEntryDisplayed(uint)));
-
-    _projectView = new ProjectView(_catalog,this);
-    addDockWidget(Qt::BottomDockWidgetArea, _projectView);
-    actionCollection()->addAction( QLatin1String("showprojectview_action"), _projectView->toggleViewAction() );
-    //m_projectViewAction->trigger();
-    //connect(_project, SIGNAL(loaded()), _projectView, SLOT(slotProjectLoaded()));
-    connect(_projectView, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
-    connect(_projectView, SIGNAL(newWindowOpenRequested(const KUrl&)), this, SLOT(newWindowOpen(const KUrl&)));
-    connect(_projectView, SIGNAL(findInFilesRequested(const KUrl::List&)), this, SLOT(findInFiles(const KUrl::List&)));
-    connect(_projectView, SIGNAL(replaceInFilesRequested(const KUrl::List&)), this, SLOT(replaceInFiles(const KUrl::List&)));
-    connect(_projectView, SIGNAL(spellcheckFilesRequested(const KUrl::List&)), this, SLOT(spellcheckFiles(const KUrl::List&)));
 
     _mergeView = new MergeView(this,_catalog,true);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
@@ -515,7 +489,8 @@ void KAider::createDockWindows()
     addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);
     actionCollection()->addAction( QLatin1String("showmergeviewsecondary_action"), _mergeViewSecondary->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(const DocPosition&)));
-    connect (_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)));
+    connect (_catalog,SIGNAL(signalFileLoaded()),_mergeViewSecondary,SLOT(cleanup()));
+    connect (_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
         connect (_mergeViewSecondary,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
@@ -531,86 +506,6 @@ void KAider::createDockWindows()
     connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint))/*,Qt::QueuedConnection*/);
 
     int i=0;
-#ifdef WEBQUERY_ENABLE
-    QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
-    Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
-        {
-            Qt::Key_1,
-            Qt::Key_2,
-            Qt::Key_3,
-            Qt::Key_4,
-            Qt::Key_5,
-            Qt::Key_6,
-            Qt::Key_7,
-            Qt::Key_8,
-            Qt::Key_9,
-            Qt::Key_0,
-        };
-    QAction* wqaction;
-    for (i=0;i<WEBQUERY_SHORTCUTS;++i)
-    {
-//         action->setVisible(false);
-        wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
-        wqaction->setShortcut(Qt::CTRL+Qt::ALT+wqlist[i]);
-        //wqaction->setShortcut(Qt::META+wqlist[i]);
-        wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result # %1",i));
-        wqactions[i]=wqaction;
-    }
-    WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
-    addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
-    actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
-    connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
-#endif
-
-    QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
-    Qt::Key glist[GLOSSARY_SHORTCUTS]=
-        {
-            Qt::Key_E,
-            Qt::Key_H,
-        //                         Qt::Key_G,
-        //                         Qt::Key_H,//help
-        //                         Qt::Key_I,
-        //                         Qt::Key_J,
-        //                         Qt::Key_K,
-            Qt::Key_K,
-            Qt::Key_L,
-            Qt::Key_N,
-        //                         Qt::Key_Q,
-        //                         Qt::Key_R,
-        //                         Qt::Key_U,
-        //                         Qt::Key_V,
-            Qt::Key_W,
-        //                         Qt::Key_X,
-            Qt::Key_Y,
-        //                         Qt::Key_Z,
-            Qt::Key_BraceLeft,
-            Qt::Key_BraceRight,
-            Qt::Key_Semicolon,
-            Qt::Key_Apostrophe,
-        };
-    QAction* gaction;
-//     int i=0;
-    for (i=0;i<GLOSSARY_SHORTCUTS;++i)
-    {
-//         action->setVisible(false);
-        gaction=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
-        gaction->setShortcut(Qt::CTRL+glist[i]);
-        gaction->setText(i18nc("@action:inmenu","Insert # %1 term translation",i));
-        gactions[i]=gaction;
-    }
-
-    _glossaryView = new GlossaryNS::GlossaryView(this,_catalog,gactions);
-    addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
-    actionCollection()->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
-    connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
-
-    gaction = actionCollection()->addAction("glossary_define",this,SLOT(defineNewTerm()));
-    gaction->setText(i18nc("@action:inmenu","Define new term"));
-    _glossaryView->addAction(gaction);
-    _glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
-
 
     QVector<QAction*> tmactions(TM_SHORTCUTS);
     Qt::Key tmlist[TM_SHORTCUTS]=
@@ -644,6 +539,153 @@ void KAider::createDockWindows()
     connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
     connect (this,SIGNAL(signalFileGonnaBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
 
+    QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
+    Qt::Key glist[GLOSSARY_SHORTCUTS]=
+        {
+            Qt::Key_E,
+            Qt::Key_H,
+        //                         Qt::Key_G,
+            Qt::Key_H,          //help
+        //                         Qt::Key_I,
+        //                         Qt::Key_J,
+        //                         Qt::Key_K,
+            Qt::Key_K,
+            Qt::Key_L,
+            Qt::Key_N,
+        //                         Qt::Key_Q,
+        //                         Qt::Key_R,
+        //                         Qt::Key_U,
+        //                         Qt::Key_V,
+        //                         Qt::Key_W,
+        //                         Qt::Key_X,
+            Qt::Key_Y,
+        //                         Qt::Key_Z,
+            Qt::Key_BraceLeft,
+            Qt::Key_BraceRight,
+            Qt::Key_Semicolon,
+            Qt::Key_Apostrophe,
+        };
+    QAction* gaction;
+//     int i=0;
+    for (i=0;i<GLOSSARY_SHORTCUTS;++i)
+    {
+//         action->setVisible(false);
+        gaction=actionCollection()->addAction(QString("glossary_insert_%1").arg(i));
+        gaction->setShortcut(Qt::CTRL+glist[i]);
+        gaction->setText(i18nc("@action:inmenu","Insert # %1 term translation",i));
+        gactions[i]=gaction;
+    }
+
+    _glossaryView = new GlossaryNS::GlossaryView(this,_catalog,gactions);
+    addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
+    actionCollection()->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
+    connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+
+    gaction = actionCollection()->addAction("glossary_define",this,SLOT(defineNewTerm()));
+    gaction->setText(i18nc("@action:inmenu","Define new term"));
+    _glossaryView->addAction(gaction);
+    _glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
+
+
+#ifdef WEBQUERY_ENABLE
+    QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
+    Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
+        {
+            Qt::Key_1,
+            Qt::Key_2,
+            Qt::Key_3,
+            Qt::Key_4,
+            Qt::Key_5,
+            Qt::Key_6,
+            Qt::Key_7,
+            Qt::Key_8,
+            Qt::Key_9,
+            Qt::Key_0,
+        };
+    QAction* wqaction;
+    for (i=0;i<WEBQUERY_SHORTCUTS;++i)
+    {
+//         action->setVisible(false);
+        wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
+        wqaction->setShortcut(Qt::CTRL+Qt::ALT+wqlist[i]);
+        //wqaction->setShortcut(Qt::META+wqlist[i]);
+        wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result # %1",i));
+        wqactions[i]=wqaction;
+    }
+    WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
+    addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
+    actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
+    connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+#endif
+
+}
+
+void KAider::setProperFocus()
+{
+    m_view->setProperFocus();
+}
+
+void KAider::hideDocks()
+{
+    if (m_catalogTreeView->isFloating())
+        m_catalogTreeView->hide();
+}
+
+void KAider::showDocks()
+{
+    return;
+    if (m_catalogTreeView->isFloating())
+        m_catalogTreeView->show();
+}
+
+KUrl KAider::currentUrl()
+{
+    return _catalog->url();
+}
+
+void KAider::setCaption(const QString& title,bool modif)
+{
+/*    setWindowTitle(title);
+    setWindowModified(modif);
+    */
+    QString actual=title;
+    if (modif)
+        actual+=" [*]";
+    setPlainCaption(actual);
+}
+
+void KAider::setFullPathShown(bool fullPathShown)
+{
+    m_fullPathShown=fullPathShown;
+
+    updateCaptionPath();
+}
+
+
+void KAider::updateCaptionPath()
+{
+    KUrl url=_catalog->url();
+    if (!url.isLocalFile() || !_project->isLoaded())
+    {
+        _captionPath=url.pathOrUrl();
+    }
+    else
+    {
+        if (m_fullPathShown)
+        {
+            _captionPath=KUrl::relativePath(
+                        KUrl(_project->path()).directory()
+                        ,url.pathOrUrl()
+                                           );
+        }
+        else
+        {
+            _captionPath=url.fileName();
+        }
+    }
+
 }
 
 bool KAider::fileOpen(KUrl url)
@@ -668,8 +710,11 @@ bool KAider::fileOpen(KUrl url)
     bool isTemlate=false;
 
     if (url.isEmpty())
+    {
         url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
-    //TODO application/x-xliff
+        //TODO application/x-xliff, windows: just extensions
+        //originalPath=url.path(); never used
+    }
     else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
     {   //check if we are opening template
         QString path(originalPath);
@@ -702,14 +747,13 @@ bool KAider::fileOpen(KUrl url)
             _catalog->setUrl(url);
         }
 
-        _openRecentFile->addUrl( url );
-        statusBar()->changeItem(i18nc("@info:status message entries","Total: %1", _catalog->numberOfEntries()),ID_STATUS_TOTAL);
+        statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1", _catalog->numberOfEntries()));
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
 
         _currentEntry=_currentPos.entry=-1;//so the signals are emitted
         DocPosition pos(0);
-        //we delay gotoEntry(pos) until roject is loaded;
+        //we delay gotoEntry(pos) until project is loaded;
 
         _captionPath=url.pathOrUrl();
         setCaption(_captionPath,false);
@@ -756,23 +800,6 @@ bool KAider::fileOpen(KUrl url)
     return false;
 }
 
-void KAider::updateCaptionPath()
-{
-    KUrl url=_catalog->url();
-    if (!url.isLocalFile() || !_project->isLoaded())
-    {
-        _captionPath=url.pathOrUrl();
-    }
-    else
-    {
-        _captionPath=KUrl::relativePath(
-                        KUrl(_project->path()).directory()
-                        ,url.pathOrUrl()
-                                        );
-    }
-
-}
-
 bool KAider::fileSaveAs()
 {
     KUrl url=KFileDialog::getSaveUrl(_catalog->url(),_catalog->mimetype(),this);
@@ -799,12 +826,24 @@ bool KAider::fileSave(const KUrl& url)
     return false;
 }
 
+KAiderState KAider::state()
+{
+    KAiderState state;
+    state.dockWidgets=saveState();
+    state.url=_catalog->url();
+    state.mergeUrl=_mergeView->url();
+    state.entry=_currentPos.entry;
+    //state.offset=_currentPos.offset;
+    return state;
+}
+
 
 bool KAider::queryClose()
 {
     if (_catalog->isClean())
         return true;
 
+    //TODO caption
     switch (KMessageBox::warningYesNoCancel(this,
                                             i18nc("@info","The document contains unsaved changes.\n"
                                                       "Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
@@ -897,7 +936,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
         //still emit even if _currentEntry==pos.entry
         emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
         emit signalApprovedEntryDisplayed(_catalog->isApproved(_currentEntry));
-        statusBar()->changeItem(i18nc("@info:status","Current: %1", _currentEntry+1),ID_STATUS_CURRENT);
+        statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", _currentEntry+1));
         msgStrChanged();
     }
     kDebug()<<"ELA "<<time.elapsed();
@@ -921,13 +960,7 @@ void KAider::msgStrChanged()
     /*    else
             statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
 
-#if QT_VERSION >= 0x040400
-    KFadeWidgetEffect *animation = new KFadeWidgetEffect(statusBar());
-#endif
-    statusBar()->changeItem(msg,ID_STATUS_ISFUZZY);
-#if QT_VERSION >= 0x040400
-    animation->start();
-#endif
+    statusBarItems.insert(ID_STATUS_ISFUZZY,msg);
 
     m_modifiedAfterFind=true;//for F3-search
     m_currentIsUntr=isUntr;
@@ -1068,7 +1101,12 @@ void KAider::mergeOpen(KUrl url)
 {
     _mergeView->mergeOpen(url);
 }
-
+/*
+KUrl KAider::mergeFile()
+{
+    return _mergeView->url();
+}
+*/
 //see also termlabel.h
 void KAider::defineNewTerm()
 {
@@ -1083,5 +1121,3 @@ void KAider::defineNewTerm()
     _project->defineNewTerm(en,target);
 }
 
-
-#include "kaider.moc"

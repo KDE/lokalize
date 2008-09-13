@@ -1,7 +1,7 @@
 /*****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008  by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -98,8 +98,6 @@ public:
 
     QStringList webQueryScripts() const;
 
-    const QList<QAction*>& projectActions();
-
 private slots:
     void initLater();
 
@@ -131,7 +129,6 @@ public slots:
 
     void registerEditor(KAider* e){m_editors<<e;}
     void unregisterEditor(KAider* e){m_editors.remove(m_editors.indexOf(e));}
-    void openInExisting(const KUrl& u);
 
 
 private:

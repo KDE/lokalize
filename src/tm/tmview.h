@@ -45,7 +45,6 @@ class Catalog;
 class QDropEvent;
 class QDragEnterEvent;
 class QAction;
-class ThreadWeaver::Job;
 
 #define TM_SHORTCUTS 10
 namespace TM {
@@ -61,6 +60,7 @@ public:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
 
+    virtual QSize sizeHint() const{return QSize(300,100);}
 signals:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();

@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -33,34 +33,45 @@
 #ifndef PROJECTWINDOW_H
 #define PROJECTWINDOW_H
 
+#include "lokalizesubwindowbase.h"
+
 #include <kmainwindow.h>
-#include <kxmlguiwindow.h>
 #include <kurl.h>
+#include <KXMLGUIClient>
 
 class ProjectWidget;
 class QContextMenuEvent;
 
 /**
- * Project Tree Window
+ * Project File Tree Window
  */
-class ProjectWindow : public KXmlGuiWindow //KMainWindow
+class ProjectWindow: public LokalizeSubwindowBase, public KXMLGUIClient
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    ProjectWindow(QWidget *parent=0);
+    ProjectWindow(QWidget *parent);
     ~ProjectWindow();
 
     void contextMenuEvent(QContextMenuEvent *event);
 
-private:
-    ProjectWidget* m_browser;
+    void hideDocks(){};
+    void showDocks(){};
+    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+
+signals:
+    void fileOpenRequested(const KUrl&);
+
+    void searchRequested(const KUrl::List&);
+    void replaceRequested(const KUrl::List&);
+    void spellcheckRequested(const KUrl::List&);
 
 public slots:
-    void fileOpen(const KUrl&);
-
     void findInFiles();
     void replaceInFiles();
     void spellcheckFiles();
+
+private:
+    ProjectWidget* m_browser;
 
 };
 
