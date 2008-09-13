@@ -77,7 +77,7 @@ public:
         layout->addStretch();
         layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:")));
         layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
-        layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Untranslated:")));
+        layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:")));
         layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
         layout->addStretch();
         setMaximumHeight(minimumSizeHint().height());
@@ -133,10 +133,16 @@ void ProperTextEdit::keyReleaseEvent(QKeyEvent* e)
         KTextEdit::keyReleaseEvent(e);
 }
 
-
+QString ProperTextEdit::toPlainText()
+{
+    QTextCursor cursor = textCursor();
+    cursor.select(QTextCursor::Document);
+    return cursor.selectedText();
+}
 
 
 #ifdef XLIFF
+//BEGIN XLIFF
 
 
 inline static QImage generateImage(QString str, ProperTextEdit* w)
@@ -225,7 +231,7 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
     document()->blockSignals(false);
 }
 
-
+//END XLIFF
 #endif
 
 
@@ -558,8 +564,9 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
         _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
 
     _oldMsgstr=editText;//newStr becomes OldStr
+    kWarning()<<"char"<<editText[offset].unicode();
     if (charsAdded)
-        _catalog->push(new InsTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsAdded)));
+        _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
 
     if (_leds)
     {

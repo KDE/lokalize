@@ -49,7 +49,7 @@ struct DocPosition;
 #include "pos.h"
 #include "tagrange.h"
 
-class ProperTextEdit : public KTextEdit
+class ProperTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
@@ -58,6 +58,8 @@ public:
      , m_currentUnicodeNumber(0)
     {};
 
+    //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
+    QString toPlainText();
 #ifdef XLIFF
     void setContent(const CatalogString& catStr);
 private:

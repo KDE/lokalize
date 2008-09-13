@@ -54,6 +54,8 @@ public:
 protected:
     void highlightBlock(const QString &text);
 
+private slots:
+    void settingsChanged();
 private:
     struct HighlightingRule
     {

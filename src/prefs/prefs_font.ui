@@ -10,22 +10,10 @@
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
+   <property name="margin" >
     <number>9</number>
    </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>9</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>6</number>
-   </property>
-   <property name="verticalSpacing" >
+   <property name="spacing" >
     <number>6</number>
    </property>
    <item row="0" column="0" >
@@ -62,7 +50,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0" >
+   <item row="3" column="0" >
     <widget class="QGroupBox" name="groupBox" >
      <property name="whatsThis" >
       <string>Text colors for the changes in the message.</string>
@@ -114,18 +102,28 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" >
+   <item row="4" column="0" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QCheckBox" name="kcfg_HighlightSpaces" >
+     <property name="toolTip" >
+      <string>Check to see if a string ends in a space (which is often important when displaying it in the user interface, or when it gets concatenated with others).</string>
+     </property>
+     <property name="text" >
+      <string>Highlight spaces at the end</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

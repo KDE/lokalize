@@ -34,8 +34,11 @@
 #include "syntaxhighlighter.h"
 
 #include "project.h"
+#include "prefs_lokalize.h"
+#include "prefs.h"
 
-#include <kdebug.h>
+#include <KDebug>
+#include <KColorScheme>
 
 #include <QApplication>
 
@@ -43,7 +46,7 @@
 #define STATE_TAG 1
 
 
-#define NUM_OF_RULES 4
+#define NUM_OF_RULES 5
 
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
     : QSyntaxHighlighter(parent)
@@ -84,18 +87,44 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
     rule.pattern = QRegExp("(\\\\[abfnrtv'\"\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)");
     highlightingRules.append(rule);
 
-/*
-    //spaces
-    rule.format.clearForeground();
-    rule.format.setBackground(Qt::Dense6Pattern);
-    rule.pattern = QRegExp(" ");
-    highlightingRules.append(rule);
-*/
-//     commentStartExpression = QRegExp("/\\*");
-//     commentEndExpression = QRegExp("\\*/");
 
-//         highlightingRulesFuzzy[i].format.setFontItalic(true);
+
+
+
+    //spaces
+    /*if (Settings::highlightSpaces())
+    {
+        KColorScheme colorScheme(QPalette::Normal);
+        rule.format.clearForeground();
+        rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
+        rule.pattern = QRegExp(" +$");
+        highlightingRules.append(rule);
+    }*/
+    settingsChanged();
+    connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),this, SLOT(settingsChanged()));
+
 }
+
+void SyntaxHighlighter::settingsChanged()
+{
+    QRegExp re(" +$");
+    if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
+    {
+        HighlightingRule rule;
+        KColorScheme colorScheme(QPalette::Normal);
+        rule.format.clearForeground();
+        rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
+        rule.pattern = QRegExp(" +$");
+        highlightingRules.append(rule);
+        rehighlight();
+    }
+    else if (!Settings::highlightSpaces() && highlightingRules.last().pattern==re)
+    {
+        highlightingRules.resize(highlightingRules.size()-1);
+        rehighlight();
+    }
+}
+
 /*
 void SyntaxHighlighter::setFuzzyState(bool fuzzy)
 {
