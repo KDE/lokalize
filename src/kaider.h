@@ -250,7 +250,6 @@ private:
     bool m_currentIsUntr:1;  //for statusbar animation
 
     bool m_updateView:1;//for find/replace in files
-    bool m_modifiedAfterFind:1;
 
     bool m_fullPathShown:1;
 

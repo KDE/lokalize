@@ -95,12 +95,12 @@ void TMDBModel::setFilter(const QString& source, const QString& target, bool inv
         if (!targetList.isEmpty())
             targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+targetList.join("%' AND target_strings.target "+invertTargetStr+"LIKE '%")+"%' ";
     }
-    else //regex
+    else
     {
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "+invertSourceStr+"GLOB '*"+escapedSource+"*' ";
+            sourceQuery="AND source_strings.source "+invertSourceStr+"GLOB '"+escapedSource+"' ";
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "+invertTargetStr+"GLOB '*"+escapedTarget+"*' ";
+            targetQuery="AND target_strings.target "+invertTargetStr+"GLOB '"+escapedTarget+"' ";
 
     }
         setQuery("SELECT source_strings.source, target_strings.target, "

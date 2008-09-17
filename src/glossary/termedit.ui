@@ -18,7 +18,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextEdit" name="english" >
+    <widget class="KTextEdit" name="english" >
      <property name="tabChangesFocus" >
       <bool>true</bool>
      </property>
@@ -35,7 +35,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextEdit" name="target" >
+    <widget class="KTextEdit" name="target" >
      <property name="tabChangesFocus" >
       <bool>true</bool>
      </property>
@@ -69,7 +69,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextEdit" name="definition" >
+    <widget class="KTextEdit" name="definition" >
      <property name="tabChangesFocus" >
       <bool>true</bool>
      </property>

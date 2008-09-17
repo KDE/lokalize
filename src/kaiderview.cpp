@@ -267,6 +267,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _leds(0)
     , _currentEntry(-1)
     , m_approvementState(true)
+    , m_modifiedAfterFind(false)
 {
     //( new QTreeView(this) )->selectAll();
     m_pluralTabBar->hide();
@@ -570,6 +571,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
     }
 #endif
 
+    m_modifiedAfterFind=true;
 
 
     if (charsRemoved)
@@ -589,16 +591,11 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
     }
 
     if (!_catalog->isApproved(_currentEntry))
-    {
-        kWarning()<<"toggleApprovement>";
         toggleApprovement(true);
-        kWarning()<<"toggleApprovement<";
-    }
 
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit signalChanged(pos.entry);
-    kWarning()<<"-end fontItalic10"<<_msgstrEdit->fontItalic();
 }
 
 void KAiderView::approvedEntryDisplayed(bool approved, bool force)
@@ -611,11 +608,9 @@ void KAiderView::approvedEntryDisplayed(bool approved, bool force)
     }
     m_approvementState=approved;
 
-    kWarning()<<"fontItalic1"<<_msgstrEdit->fontItalic();
     _msgstrEdit->setFontItalic(!approved);
     if (force)
-        refreshMsgEdit();
-    kWarning()<<"fontItalic2"<<_msgstrEdit->fontItalic();
+        refreshMsgEdit(/*keepCursor*/true);
 
     if (approved)
     {
@@ -629,7 +624,6 @@ void KAiderView::approvedEntryDisplayed(bool approved, bool force)
         if (_leds)
             _leds->ledFuzzy->on();
     }
-    kWarning()<<"fontItalic5"<<_msgstrEdit->fontItalic()<<"empty"<<_msgstrEdit->toPlainText().isEmpty();
 }
 
 
@@ -688,8 +682,6 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
 
     m_msgstrHighlighter->rehighlight();
     connect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-    kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
-    kWarning()<<"fontItalic500"<<_msgstrEdit->fontItalic();
 }
 
 
@@ -829,10 +821,7 @@ void KAiderView::clearMsgStr()
     _currentPos.offset=0;
     _catalog->push(new DelTextCmd(_catalog,_currentPos,_catalog->msgstr(_currentPos)));
     if (_catalog->isFuzzy(_currentEntry))
-    {
         toggleApprovement(true);
-        //approvedEntryDisplayed(true);
-    }
 
     gotoEntry(_currentPos);
     emit signalChanged(_currentEntry);
@@ -853,7 +842,7 @@ void KAiderView::toggleApprovement(bool approved)
         return;
 
     _catalog->push(new ToggleApprovementCmd(_catalog,_currentEntry,approved));
-    approvedEntryDisplayed(approved, true);
+    approvedEntryDisplayed(approved, /*force*/true);
 }
 
 
@@ -960,43 +949,6 @@ void KAiderView::insertTerm(const QString& term)
     _msgstrEdit->setFocus();
 }
 
-#if 0
-void KAiderView::replaceText(const QString& txt)
-{
-    if (KDE_ISUNLIKELY( txt==_msgstrEdit->toPlainText() || txt.isEmpty() ))
-        return;
-
-    if (!_catalog->msgstr(_currentPos).isEmpty())
-    {
-        _currentPos.offset=0;
-        _catalog->push(new DelTextCmd(_catalog,pos,_catalog->msgstr(pos)));
-    }
-
-    _catalog->push(new InsTextCmd(_catalog,pos,txt));
-
-#if 0
-    int oldOffset=_msgstrEdit->textCursor().position();
-    _msgstrEdit->insertPlainText(txt);
-
-    _msgstrEdit->setFocus();
-
-    if (KDE_ISUNLIKELY( _catalog->msgstr(_currentPos).size()==txt.size() ))
-        return;
-
-    _catalog->beginMacro(i18nc("@item Undo action item","Remove old translation"));
-    DocPosition pos=_currentPos;
-    pos.offset=0;
-    _catalog->push(new DelTextCmd(_catalog,pos,_catalog->msgstr(pos).left(oldOffset)));
-    pos.offset=txt.size();
-    _catalog->push(new DelTextCmd(_catalog,pos,_catalog->msgstr(pos).mid(txt.size())));
-
-    _catalog->endMacro();
-    pos.offset=0;
-#endif
-    //TODO separate into function!
-}
-#endif
-
 void KAiderView::tagMenu()
 {
     if (KDE_ISUNLIKELY( Project::instance()->markup().isEmpty() ))
@@ -1014,7 +966,7 @@ void KAiderView::tagMenu()
     int pos=0;
     //tag.indexIn(en);
     int posInMsgStr=0;
-    QAction* txt(0);
+    QAction* txt=0;
     while ((pos=tag.indexIn(en,pos))!=-1)
     {
 /*        QString str(tag.cap(0));

@@ -45,6 +45,7 @@
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
+#include <KMessageBox>
 
 #if QT_VERSION >= 0x040400
     #include <kfadewidgeteffect.h>
@@ -108,14 +109,23 @@ LokalizeMainWindow::LokalizeMainWindow()
 
 
 
+
 //BEGIN RESTORE STATE
 
     KConfig config;
     KConfigGroup stateGroup(&config,"State");
 
-    QString path=stateGroup.readEntry("Project","");
-    if (!path.isEmpty())
+    QString path;
+    if (Project::instance()->isLoaded())
+        path=Project::instance()->path();
+    else
+    {
+        path=stateGroup.readEntry("Project",path);
         Project::instance()->load(path);
+    }
+
+    //if project isn't loaded, still restore opened files
+    KConfigGroup projectStateGroup(&config,"State-"+path);
 
     QStringList files;
     QStringList mergeFiles;
@@ -123,14 +133,13 @@ LokalizeMainWindow::LokalizeMainWindow()
     //QList<int> offsets;
     QList<int> entries;
 
-    //offsets=stateGroup.readEntry("Offsets",offsets);
-    entries=stateGroup.readEntry("Entries",entries);
+    entries=projectStateGroup.readEntry("Entries",entries);
 
-    files=stateGroup.readEntry("Files",files);
-    mergeFiles=stateGroup.readEntry("MergeFiles",mergeFiles);
-    dockWidgets=stateGroup.readEntry("DockWidgets",dockWidgets);
+    files=projectStateGroup.readEntry("Files",files);
+    mergeFiles=projectStateGroup.readEntry("MergeFiles",mergeFiles);
+    dockWidgets=projectStateGroup.readEntry("DockWidgets",dockWidgets);
     int i=files.size();
-    int activeSWIndex=stateGroup.readEntry("Active",-1);
+    int activeSWIndex=projectStateGroup.readEntry("Active",-1);
     /*if (activeSWIndex!=-1)
         activeSWIndex=i-activeSWIndex-1;//respect inverted order*/
     QMdiSubWindow* activeSW=0;
@@ -151,10 +160,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 
 //END RESTORE STATE
 
-
     QTimer::singleShot(0,this,SLOT(initLater()));
-    //fileOpen(KUrl::fromPath("/home/xx/hacking/kde/trunk/l10n-kde4/ru/messages/extragear-graphics/kuickshow.po"));
-    //fileOpen(KUrl::fromPath("/home/xx/hacking/kde/trunk/l10n-kde4/ru/messages/extragear-graphics/digikam.po"));
 }
 void LokalizeMainWindow::initLater()
 {
@@ -162,8 +168,6 @@ void LokalizeMainWindow::initLater()
     KConfig config;
     m_openRecentFileAction->loadEntries(KConfigGroup(&config,"RecentFiles"));
     m_openRecentProjectAction->loadEntries(KConfigGroup(&config,"RecentProjects"));
-
-    kWarning()<<"333333333";
 }
 
 LokalizeMainWindow::~LokalizeMainWindow()
@@ -199,12 +203,14 @@ LokalizeMainWindow::~LokalizeMainWindow()
 
     KConfigGroup stateGroup(&config,"State");
     stateGroup.writeEntry("Project",Project::instance()->path());
-    stateGroup.writeEntry("Active",activeSWIndex);
-    stateGroup.writeEntry("Files",files);
-    stateGroup.writeEntry("MergeFiles",mergeFiles);
-    stateGroup.writeEntry("DockWidgets",dockWidgets);
+
+    KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
+    projectStateGroup.writeEntry("Active",activeSWIndex);
+    projectStateGroup.writeEntry("Files",files);
+    projectStateGroup.writeEntry("MergeFiles",mergeFiles);
+    projectStateGroup.writeEntry("DockWidgets",dockWidgets);
     //stateGroup.writeEntry("Offsets",offsets);
-    stateGroup.writeEntry("Entries",entries);
+    projectStateGroup.writeEntry("Entries",entries);
 
 }
 
@@ -251,7 +257,10 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     else
     {
         editor=static_cast<KAider*>( w->widget() );
-        static_cast<KAider*>( w->widget() )->setProperFocus();
+        static_cast<KAider*>( editor )->setProperFocus();
+
+        KAiderState state=static_cast<KAider*>( editor )->state();
+        m_lastEditorState=state.dockWidgets.toBase64();
     }
 
     editor->showDocks();
@@ -327,6 +336,7 @@ bool LokalizeMainWindow::queryClose()
 bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
 {
     KAider* w=new KAider(this);
+    QByteArray state=m_lastEditorState;
 
     QMdiSubWindow* sw=0;
     if (!url.isEmpty())//create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
@@ -345,7 +355,7 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
     /*
     //TODO iterate for currentUrl() for title uniqueness
     QList<QMdiSubWindow*> swList=subWindowList();
-    
+
     int i=swList.size();
     while(--i>=0)
     {
@@ -367,8 +377,8 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
 //         if (activeSW)
 //             state=static_cast<KAider*>( activeSW->widget() )->saveState().toBase64();
 //     }
-    if (!m_lastEditorState.isEmpty())
-        w->restoreState(QByteArray::fromBase64(m_lastEditorState));
+    if (!state.isEmpty())
+        w->restoreState(QByteArray::fromBase64(state));
 
     if (entry/* || offset*/)
         w->gotoEntry(DocPosition(entry/*, Msgstr, 0, offset*/));
@@ -512,28 +522,3 @@ void LokalizeMainWindow::restoreState()
     m_state=saveState();*/
 }
 
-#if 0
-TabbedMainWindow::TabbedMainWindow()
-: m_mdiArea(new QMdiArea)
-    {
-        m_mdiArea->setViewMode(QMdiArea::TabbedView);
-        setCentralWidget(m_mdiArea);
-        connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
-
-        QTimer::singleShot(3000,this,SLOT(initLater()));
-    }
-
-void TabbedMainWindow::initLater()
-{
-        KAider* w=new KAider;
-        w->fileOpen(KUrl::fromPath("/home/xx/hacking/kde/trunk/l10n-kde4/ru/messages/extragear-graphics/digikam.po"));
-        QMdiSubWindow* a=m_mdiArea->addSubWindow(w);
-        a->show();
-
-        w=new KAider;
-        w->fileOpen(KUrl::fromPath("/home/xx/hacking/kde/trunk/l10n-kde4/ru/messages/extragear-graphics/kuickshow.po"));
-        QMdiSubWindow* b=m_mdiArea->addSubWindow(w);
-        b->show();
-}
-
-#endif

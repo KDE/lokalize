@@ -283,10 +283,10 @@ void KAider::findNext(const DocPosition& startingPos)
         KFind::Result res = KFind::NoMatch;
         while (true)
         {
-            if (find.needData()||anotherEntry||m_modifiedAfterFind)
+            if (find.needData()||anotherEntry||m_view->m_modifiedAfterFind)
             {
                 anotherEntry=false;
-                m_modifiedAfterFind=false;
+                m_view->m_modifiedAfterFind=false;
 
                 QString data;
                 if (_searchingPos.part==Msgid)
@@ -597,9 +597,10 @@ void KAider::replaceNext(const DocPosition& startingPos)
         KFind::Result res=KFind::NoMatch;
         while (1)
         {
-            if (_replace->needData()||anotherEntry)
+            if (_replace->needData()||anotherEntry/*||m_view->m_modifiedAfterFind*/)
             {
                 anotherEntry=false;
+                //m_view->m_modifiedAfterFind=false;//NOTE TEST THIS
 
                 if (REPLACE_IGNOREACCELS)
                 {

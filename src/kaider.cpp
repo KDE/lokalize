@@ -124,7 +124,6 @@ KAider::KAider(QWidget* parent)
         , m_currentIsApproved(true)
         , m_currentIsUntr(true)
         , m_updateView(true)
-        , m_modifiedAfterFind(false)
         , m_fullPathShown(false)
         , m_doReplaceCalled(false)
         , _findDialog(0)
@@ -171,6 +170,8 @@ void KAider::initLater()
     //### plugActionList( "project_actions", p.projectActions());
 
 //     kWarning()<<chrono.elapsed();
+
+
 }
 
 KAider::~KAider()
@@ -711,7 +712,7 @@ bool KAider::fileOpen(KUrl url)
 
     if (url.isEmpty())
     {
-        url=KFileDialog::getOpenUrl(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
+        url=KFileDialog::getOpenFileName(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
@@ -962,7 +963,6 @@ void KAider::msgStrChanged()
 
     statusBarItems.insert(ID_STATUS_ISFUZZY,msg);
 
-    m_modifiedAfterFind=true;//for F3-search
     m_currentIsUntr=isUntr;
     m_currentIsApproved=isApproved;
 }

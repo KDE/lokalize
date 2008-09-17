@@ -36,7 +36,7 @@
 #include <kmainwindow.h>
 #include <QTreeView>
 
-class QTextEdit;
+class KTextEdit;
 class QComboBox;
 class QSortFilterProxyModel;
 class KLineEdit;
@@ -66,10 +66,10 @@ private:
     QSortFilterProxyModel* m_proxyModel;
     KLineEdit* m_lineEdit;
 
-    QTextEdit *m_english;
-    QTextEdit *m_target;
-    QComboBox *m_subjectField;
-    QTextEdit *m_definition;
+    KTextEdit* m_english;
+    KTextEdit* m_target;
+    QComboBox* m_subjectField;
+    KTextEdit* m_definition;
 
     bool m_reactOnSignals;
 };

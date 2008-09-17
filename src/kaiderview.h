@@ -125,6 +125,9 @@ private:
     int _currentEntry;
     bool m_approvementState;
 
+public:
+    bool m_modifiedAfterFind;//for F3-search reset
+
 signals:
     void signalChangeStatusbar(const QString&);
     void signalChanged(uint index); //esp for mergemode...
