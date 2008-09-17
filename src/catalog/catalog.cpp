@@ -359,15 +359,14 @@ void Catalog::push(QUndoCommand *cmd, bool rebaseForDBUpdate)
 //assumes that d->_originalForLastModifiedPos refers to the same DocPos as d->_lastModifiedPos does
 void Catalog::flushUpdateDBBuffer()
 {
-    //kWarning()<<"flushUpdateDBBuffer";
     if (!Settings::autoaddTM())
         return;
 
     DocPosition pos=d->_lastModifiedPos;
-    if (pos.entry==-1)
+    if (pos.entry==-1 || pos.entry>=numberOfEntries())
     {
         //nothing to flush
-        kWarning()<<"nothing to flush";
+        kWarning()<<"nothing to flush or new file opened";
         return;
     }
     QString currentTarget=target(pos);
