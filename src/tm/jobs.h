@@ -166,7 +166,6 @@ private:
     //returns true if seen translation with >85%
     bool doSelect(QSqlDatabase&,
                   QStringList& words,
-                  const QString& ctxt,
                   bool isShort);
 
 private:

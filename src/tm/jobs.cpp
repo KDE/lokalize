@@ -52,6 +52,7 @@
 using namespace TM;
 
 #define TM_DELIMITER '\v'
+#define TM_SEPARATOR '\b'
 
 bool TM::scanRecursive(const QDir& dir, const QString& dbName)
 {
@@ -86,7 +87,8 @@ bool TM::scanRecursive(const QDir& dir, const QString& dbName)
 static void doSplit(QString& cleanEn,
                     QStringList& words,
                     QRegExp& rxClean1,
-                    QRegExp& rxClean2)
+                    const QString& accel
+                    /*QRegExp& rxClean2*/)
 {
     QRegExp rxSplit("\\W+|\\d+");
 //    QRegExp rxClean1(Project::instance()->markup());//for replacing with " "
@@ -96,7 +98,7 @@ static void doSplit(QString& cleanEn,
 
     if (!rxClean1.pattern().isEmpty())
         cleanEn.replace(rxClean1," ");
-    cleanEn.remove(rxClean2);
+    cleanEn.remove(/*rxClean2*/accel);
 
     words=cleanEn.toLower().split(rxSplit,QString::SkipEmptyParts);
     if (words.size()>4)
@@ -154,14 +156,15 @@ static qlonglong getFileId(const QString& path,
 }
 
 
-static bool doInsertEntry(const QString& english,
-             const QString& target,
+static bool doInsertEntry(QString english,
+             QString target,
              const QString& ctxt, //TODO QStringList -- after XLIFF
              qlonglong fileId,
              QSqlDatabase& db,
 //           const QRegExp& rxSplit,
              QRegExp& rxClean1,//cleaning regexps for word index update
-             QRegExp& rxClean2)
+             const QString& accel
+             /*QRegExp& rxClean2*/)
 
 //                  QSqlQuery& queryInsertWord,
 //                  QSqlQuery& queryIndexWords
@@ -179,10 +182,17 @@ static bool doInsertEntry(const QString& english,
 
     QString cleanEn(english);
     QStringList words;
-    doSplit(cleanEn,words,rxClean1,rxClean2);
+    doSplit(cleanEn,words,rxClean1,/*rxClean2*/accel);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
         return false;
 
+    //remove first occurence of accel character so that search returns words containing accel mark
+    int englishAccelPos=english.indexOf(accel);
+    if (englishAccelPos!=-1)
+        english.remove(englishAccelPos,accel.size());
+    int targetAccelPos=target.indexOf(accel);
+    if (targetAccelPos!=-1)
+        target.remove(targetAccelPos,accel.size());
 
     //check if we already have record with the same en string
     QSqlQuery query1(db);
@@ -193,7 +203,9 @@ static bool doInsertEntry(const QString& english,
 
 //BEGIN get sourceId
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id, source_markup FROM source_strings WHERE "
-                     "source=='"+escapedEn+'\'')))
+                     "source=='"+escapedEn+"' AND "
+                     "source_accel=="+QString::number(englishAccelPos)
+                                   )))
         kWarning() <<"select db source_strings error: " <<query1.lastError().text();
 
     // TODO XLIFF add source_markup matching
@@ -203,11 +215,12 @@ static bool doInsertEntry(const QString& english,
     {
         //kWarning()<<"INSERTING"<<english<<"anew";
         query1.clear();
-        query1.prepare("INSERT INTO source_strings (source, source_markup) "
-                        "VALUES (?, ?)");
+        query1.prepare("INSERT INTO source_strings (source, source_markup, source_accel) "
+                        "VALUES (?, ?, ?)");
 
         query1.bindValue(0, english);
         query1.bindValue(1, "");//TODO XLIFF
+        query1.bindValue(2, englishAccelPos);//TODO XLIFF
         if (KDE_ISUNLIKELY(!query1.exec()))
             return false;
         sourceId=query1.lastInsertId().toLongLong();
@@ -306,13 +319,13 @@ static bool doInsertEntry(const QString& english,
         query1.clear();
 
         //check if target in TM matches
-        if (KDE_ISUNLIKELY(!query1.exec("SELECT target, target_markup FROM target_strings WHERE "
+        if (KDE_ISUNLIKELY(!query1.exec("SELECT target, target_markup, target_accel FROM target_strings WHERE "
                          "id=="+QString::number(targetId))))
             kWarning()<<"select db target_strings error: " <<query1.lastError().text();
 
         if (!query1.next())
             return false;
-        bool matches=query1.value(0).toString()==target;
+        bool matches=query1.value(0).toString()==target&&query1.value(2).toLongLong()==targetAccelPos;
         query1.clear();
         if (matches) //TODO XLIFF target_markup
             return false;
@@ -328,50 +341,35 @@ static bool doInsertEntry(const QString& english,
         {
             query1.clear();
             query1.prepare("UPDATE OR FAIL target_strings "
-                           "SET target=? "
+                           "SET target=?, target_accel=? "
                            "WHERE id=="+QString::number(targetId));
 
             query1.bindValue(0, target);
+            query1.bindValue(1, targetAccelPos);
             return query1.exec();
         }
         query1.clear();
-
-#if 0
-        //no, transation has changed: remove old target if it isn't used elsewhere
-        if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main WHERE "
-                         "target=="+QString::number(targetId))))
-            kWarning() <<"select db target_strings error: " <<query1.lastError().text();
-
-        query1.next();
-        //kWarning() <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
-        if (query1.value(0).toLongLong()==1)
-        {
-            if (KDE_ISUNLIKELY(!query1.exec("DELETE FROM target_strings WHERE "
-                         "id=="+QString::number(targetId))))
-                kWarning() <<"select db remove error: " <<query1.lastError().text();
-
-        }
-        query1.clear();
-#endif
-
     }
     //kWarning() <<"not FOUND NEEDED main ENTRY";
 //END target update
 
 //BEGIN get targetId
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target_markup FROM target_strings WHERE "
-                     "target=='"+escapedTarget+'\'')))
+                     "target=='"+escapedTarget+"' AND "
+                     "target_accel=="+QString::number(targetAccelPos)
+                                   )))
         kWarning() <<"select db target_strings error: " <<query1.lastError().text();
 
     qlonglong targetId;
     if (!query1.next())
     {
         query1.clear();
-        query1.prepare("INSERT INTO target_strings (target, target_markup) "
-                       "VALUES (?, ?)");
+        query1.prepare("INSERT INTO target_strings (target, target_markup, target_accel) "
+                       "VALUES (?, ?, ?)");
 
         query1.bindValue(0, target);
         query1.bindValue(1, "");//TODO XLIFF
+        query1.bindValue(2, QString::number(targetAccelPos));//TODO XLIFF
         if (KDE_ISUNLIKELY(!query1.exec()))
             return false;
         targetId=query1.lastInsertId().toLongLong();
@@ -415,13 +413,15 @@ static void initDb(QSqlDatabase& db)
     queryMain.exec("CREATE TABLE IF NOT EXISTS source_strings ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "source TEXT, "
-                   "source_markup BLOB "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   "source_markup BLOB, "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   "source_accel INTEGER DEFAULT -1 "
                    ")");
 
     queryMain.exec("CREATE TABLE IF NOT EXISTS target_strings ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "target TEXT, "
-                   "target_markup BLOB "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   "target_markup BLOB, "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   "target_accel INTEGER DEFAULT -1 "
                    ")");
 
     queryMain.exec("CREATE TABLE IF NOT EXISTS main ("
@@ -642,7 +642,6 @@ void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
 //returns true if seen translation with >85%
 bool SelectJob::doSelect(QSqlDatabase& db,
                          QStringList& words,
-                         const QString& ctxt,
                          //QList<TMEntry>& entries,
                          bool isShort)
 {
@@ -702,6 +701,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     idsForWord.clear();
 
 
+    //accels are removed
     QString markup;
     QString accel;
     getConfig(db,markup,accel);
@@ -709,11 +709,10 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     if (!markup.isEmpty())
         tmp+='|';
     QRegExp rxSplit('('+tmp+"\\W+|\\d+)+");
-    QRegExp rxClean2(accel);//accels are removed
-    rxClean2.setMinimal(true);
+    //QRegExp rxClean2(accel);rxClean2.setMinimal(true);
 
     QString englishClean(m_english);
-    englishClean.remove(rxClean2);
+    englishClean.remove(/*rxClean2*/accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(englishClean.toLower().split(rxSplit,QString::SkipEmptyParts));
     englishList.prepend(" "); //for our diff algo...
@@ -747,7 +746,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         joined+=QString::number(ids.at(j));
 
         //get records containing current word
-        QSqlQuery queryFetch("SELECT * FROM source_strings WHERE "
+        QSqlQuery queryFetch("SELECT id, source, source_accel FROM source_strings WHERE "
                             "source_strings.id IN ("+joined+')',db);
         TMEntry e;
         while (queryFetch.next())
@@ -755,6 +754,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             ++j;
             e.id=queryFetch.value(0).toLongLong();
             e.english=queryFetch.value(1).toString();
+            int englishAccelPos=queryFetch.value(2).toLongLong();
+            if (englishAccelPos!=-1)
+                e.english.insert(englishAccelPos,accel);
             //e.target=queryFetch.value(2).toString();
             //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
             //e.date=queryFetch.value(4).toString();
@@ -765,7 +767,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             //calc score
             //
             QString str(e.english);
-            str.remove(rxClean2);
+            str.remove(/*rxClean2*/accel);
 
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
             if (englishSuggList.size()>10*englishList.size())
@@ -853,7 +855,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     continue;
 
 //BEGIN fetch rest of the data
-                QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, target_strings.target, files.path FROM main, target_strings, files WHERE "
+                QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, "
+                                    "target_strings.target, target_strings.target_accel, files.path "
+                                    "FROM main, target_strings, files WHERE "
                                     "target_strings.id==main.target AND "
                                     "files.id=main.file AND "
                                     "main.source=="+QString::number(e.id),db); //ORDER BY tm_main.id ?
@@ -863,9 +867,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 {
                     e.id=queryRest.value(0).toLongLong();
                     e.date=queryRest.value(1).toString();
-                    e.target=queryRest.value(3).toString();
+                    e.target=queryRest.value(3).toString();if (queryRest.value(4).toLongLong()!=-1){e.target.insert(queryRest.value(4).toLongLong(), accel);}
                     QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
-                    QString file=queryRest.value(4).toString();
+                    QString file=queryRest.value(5).toString();
 
 //BEGIN exact match score++
                     if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
@@ -936,22 +940,20 @@ void SelectJob::run ()
     QString markup;
     QString accel;
     getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);
-    QRegExp rxClean2(accel);
-    rxClean1.setMinimal(true);
-    rxClean2.setMinimal(true);
+    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    //QRegExp rxClean2(accel);rxClean2.setMinimal(true);
 
     QString cleanEn(m_english);
     QStringList words;
-    doSplit(cleanEn,words,rxClean1,rxClean2);
+    doSplit(cleanEn,words,rxClean1,/*rxClean2*/accel);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
         return;
     qSort(words);//to speed up if some words occur multiple times
 
     bool isShort=words.size()<20;
 
-    if (!doSelect(db,words,m_ctxt,isShort))
-        doSelect(db,words,m_ctxt,!isShort);
+    if (!doSelect(db,words,isShort))
+        doSelect(db,words,!isShort);
 
 //    kWarning() <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
     qSort(m_entries);
@@ -1008,10 +1010,8 @@ void ScanJob::run()
     QString markup;
     QString accel;
     getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);
-    QRegExp rxClean2(accel);
-    rxClean1.setMinimal(true);
-    rxClean2.setMinimal(true);
+    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    //QRegExp rxClean2(accel);rxClean2.setMinimal(true);
 
     //kWarning() <<"ScanJob "<<a.elapsed();
     Catalog catalog(thread());
@@ -1049,7 +1049,8 @@ void ScanJob::run()
                                          fileId,
                                          db,
                                          rxClean1,
-                                         rxClean2
+                                         accel
+                                         /*rxClean2*/
                                         );
                 }
             }
@@ -1060,7 +1061,8 @@ void ScanJob::run()
                                  fileId,
                                  db,
                                  rxClean1,
-                                 rxClean2
+                                 accel
+                                 /*rxClean2*/
                                  );
             if (KDE_ISLIKELY( ok ))
                 ++m_added;
@@ -1122,10 +1124,8 @@ void UpdateJob::run ()
     QString markup;
     QString accel;
     getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);
-    QRegExp rxClean2(accel);
-    rxClean1.setMinimal(true);
-    rxClean2.setMinimal(true);
+    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    //QRegExp rxClean2(accel);rxClean2.setMinimal(true);
 
     qlonglong fileId=getFileId(m_filePath,db);
 //     kWarning() <<"m_english"<<m_english<<endl
@@ -1140,7 +1140,8 @@ void UpdateJob::run ()
              fileId,
              db,
              rxClean1,//cleaning regexps for word index update
-             rxClean2);
+             accel
+             /*rxClean2*/);
 
 
 
@@ -1188,7 +1189,8 @@ private:
 private:
     QSqlDatabase db;
     QRegExp rxClean1;
-    QRegExp rxClean2;
+    QString accel;
+    //QRegExp rxClean2;
 
     int m_hits;
     QString m_segEn;
@@ -1215,10 +1217,10 @@ TmxParser::TmxParser(const QString& dbName)
     m_newVersions=0;//stats
     db=QSqlDatabase::database(dbName);
 
-    QString markup;QString accel;
+    QString markup;/*QString accel;*/
     getConfig(db,markup,accel);
     rxClean1.setPattern(markup);rxClean1.setMinimal(true);
-    rxClean2.setPattern(accel);rxClean2.setMinimal(true);
+    //rxClean2.setPattern(accel);rxClean2.setMinimal(true);
 
 }
 
@@ -1314,7 +1316,8 @@ bool TmxParser::endElement(const QString&,const QString&,const QString& qName)
                               fileId,
                               db,
                               rxClean1,
-                              rxClean2
+                              accel
+                              /*rxClean2*/
                               );
         if (KDE_ISLIKELY( ok ))
             ++m_added;
@@ -1440,7 +1443,8 @@ void ExportTmxJob::run()
     QSqlQuery query1(db);
 
     if (KDE_ISUNLIKELY(!query1.exec("SELECT main.id, main.ctxt, main.date, "
-                                    "source_strings.source, target_strings.target, "
+                                    "source_strings.source, source_strings.source_accel, "
+                                    "target_strings.target, target_strings.target_accel, "
                                     "files.path "
                                     "FROM main, source_strings, target_strings, files "
                                     "WHERE source_strings.id==main.source AND "
@@ -1448,15 +1452,21 @@ void ExportTmxJob::run()
                                     "files.id==main.file")))
         kWarning() <<"select error: " <<query1.lastError().text();
 
+    QString markup;QString accel;
+    getConfig(db,markup,accel);
+
     while (query1.next())
     {
+        QString source=query1.value(3).toString();if (query1.value(4).toLongLong()!=-1){source.insert(query1.value(4).toLongLong(), accel);}
+        QString target=query1.value(5).toString();if (query1.value(6).toLongLong()!=-1){target.insert(query1.value(6).toLongLong(), accel);}
+
         xmlOut.writeStartElement("tu");
             xmlOut.writeAttribute("tuid",QString::number(query1.value(0).toLongLong()));
 
             xmlOut.writeStartElement("tuv");
                 xmlOut.writeAttribute("xml:lang","en");
                 xmlOut.writeStartElement("seg");
-                    xmlOut.writeCharacters(query1.value(3).toString());
+                    xmlOut.writeCharacters(source);
                 xmlOut.writeEndElement();
             xmlOut.writeEndElement();
 
@@ -1485,7 +1495,7 @@ void ExportTmxJob::run()
                         xmlOut.writeEndElement();
                     }
                 }
-                QString filePath=query1.value(5).toString();
+                QString filePath=query1.value(7).toString();
                 if (!filePath.isEmpty())
                 {
                     xmlOut.writeStartElement("prop");
@@ -1494,7 +1504,7 @@ void ExportTmxJob::run()
                     xmlOut.writeEndElement();
                 }
                 xmlOut.writeStartElement("seg");
-                    xmlOut.writeCharacters(query1.value(4).toString());
+                    xmlOut.writeCharacters(target);
                 xmlOut.writeEndElement();
             xmlOut.writeEndElement();
         xmlOut.writeEndElement();

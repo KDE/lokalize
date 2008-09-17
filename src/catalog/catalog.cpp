@@ -372,10 +372,10 @@ void Catalog::flushUpdateDBBuffer()
         return;
 
     DocPosition pos=d->_lastModifiedPos;
-    if (pos.entry==-1)
+    if (pos.entry==-1 || pos.entry>=numberOfEntries())
     {
         //nothing to flush
-        kWarning()<<"nothing to flush";
+        kWarning()<<"nothing to flush or new file opened";
         return;
     }
     kWarning()<<"updating!!";

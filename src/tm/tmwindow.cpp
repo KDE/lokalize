@@ -48,6 +48,8 @@
 
 using namespace TM;
 
+//TODO do things for case when user explicitly wants to find & accel mark
+
 //BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
@@ -216,6 +218,7 @@ void TMWindow::performQuery()
     m_view->resizeColumnToContents(0);
     m_view->resizeColumnToContents(1);
     m_view->resizeColumnToContents(2);
+    m_view->resizeColumnToContents(3);
     m_view->setFocus();
 }
 
