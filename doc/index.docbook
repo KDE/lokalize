@@ -80,7 +80,7 @@ when in the <guilabel>WebQueries</guilabel>.
 
 <para>
 The projects are one of the main concepts in &lokalize;. A project is represented by
-a file that contains paths folders with translations, templates, and other files: 
+a file that contains paths, folders with translations, templates, and other files: 
 glossary file, automation scripts, translation memories.
 Whenever &lokalize; opens a file without a project loaded, it will search for a project file in the parent folders (up to four levels).
 Alternatively, you can specify the project file via the <userinput>--project</userinput> flag
