@@ -436,7 +436,7 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
     connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
 */
-    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Find/Replace using translation memory"),Qt::Key_F7)
+    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation memory"),Qt::Key_F7)
     connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
 
     action = ac->addAction("tools_tm_manage");

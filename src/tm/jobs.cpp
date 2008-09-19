@@ -408,7 +408,6 @@ static bool doInsertEntry(QString english,
     else
         checkCtxt=" AND ctxt=='"+escapedCtxt+"'";
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, bits FROM main WHERE "
-//                     "target=="+QString::number(targetId)+" AND "
                      "source=="+QString::number(sourceId)+" AND "
                      "file=="+QString::number(fileId)+checkCtxt
                                    )))
@@ -548,15 +547,6 @@ static bool doInsertEntry(QString english,
     if (shouldBeInIndex)
         //this adds source to index if it's not already there
         addToIndex(sourceId,english,rxClean1,accel,db);
-
-    if (english=="Data read")
-    {
-        kWarning()<<bits;
-        kWarning()<<"dbApproved"<<dbApproved;
-        kWarning()<<"bits&TM_NOTAPPROVED"<<(bits&TM_NOTAPPROVED);
-        kWarning()<<"approved"<<approved;
-        kWarning()<<"shouldBeInIndex"<<shouldBeInIndex;
-    }
 
     query1.prepare("INSERT INTO main (source, target, file, ctxt, bits) "
                    "VALUES (?, ?, ?, ?, ?)");

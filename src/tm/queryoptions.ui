@@ -94,6 +94,9 @@ Press Enter to start the search.</string>
            <property name="text" >
             <string>File mask:</string>
            </property>
+           <property name="buddy" >
+            <cstring>filemask</cstring>
+           </property>
           </widget>
          </item>
          <item>
@@ -156,7 +159,7 @@ Press Enter to start the search.</string>
        <item row="0" column="1" >
         <widget class="KLineEdit" name="regexSource" >
          <property name="enabled" >
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="toolTip" >
           <string>Additionally filter results with regular expression</string>
@@ -166,7 +169,7 @@ Press Enter to start the search.</string>
        <item row="1" column="1" >
         <widget class="KLineEdit" name="regexTarget" >
          <property name="enabled" >
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="toolTip" >
           <string>Additionally filter results with regular expression</string>
@@ -178,12 +181,18 @@ Press Enter to start the search.</string>
          <property name="text" >
           <string>Refine source:</string>
          </property>
+         <property name="buddy" >
+          <cstring>regexSource</cstring>
+         </property>
         </widget>
        </item>
        <item row="1" column="0" >
         <widget class="QLabel" name="label_4" >
          <property name="text" >
           <string>Refine target:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>regexTarget</cstring>
          </property>
         </widget>
        </item>
@@ -347,6 +356,22 @@ Press Enter to start the search.</string>
     </hint>
     <hint type="destinationlabel" >
      <x>844</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>replace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>doReplace</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>785</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>1012</x>
      <y>55</y>
     </hint>
    </hints>
