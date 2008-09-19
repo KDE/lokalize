@@ -34,7 +34,7 @@ class QMdiArea;
 class QActionGroup;
 class QAction;
 class KRecentFilesAction;
-
+class EditorWindow;
 
 /**
  * @short Lokalize MDI (tabbed) window.
@@ -59,7 +59,9 @@ private:
 
 public slots:
     void slotSubWindowActivated(QMdiSubWindow*);
-    bool fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
+    //returns 0 if error
+    EditorWindow* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
+    void fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
     void initLater();
     void projectLoaded();
 

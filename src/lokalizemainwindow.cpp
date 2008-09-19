@@ -46,7 +46,7 @@
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
-#include <KMessageBox>
+#include <kmessagebox.h>
 
 #if QT_VERSION >= 0x040400
     #include <kfadewidgeteffect.h>
@@ -56,12 +56,13 @@
 #include <kio/netaccess.h>
 #include <kaction.h>
 #include <kactioncollection.h>
+#include <kactioncategory.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 #include <krecentfilesaction.h>
 #include <kxmlguifactory.h>
 #include <kurl.h>
-#include <KMenu>
+#include <kmenu.h>
 
 #include <QActionGroup>
 #include <QMdiArea>
@@ -256,7 +257,7 @@ bool LokalizeMainWindow::queryClose()
     return true;
 }
 
-bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
+EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
 {
     EditorWindow* w=new EditorWindow(this);
     QByteArray state=m_lastEditorState;
@@ -272,7 +273,7 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
             sw->deleteLater();
         }
         w->deleteLater();
-        return false;
+        return 0;
     }
 
     /*
@@ -314,7 +315,15 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
         w->mergeOpen(mergeFile);
 
     m_openRecentFileAction->addUrl(w->currentUrl());
-    return true;
+    return w;
+}
+
+void LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
+{
+    EditorWindow* w=fileOpen(url);
+    if (!w)
+        return;//TODO message
+    w->findEntry(source,ctxt);
 }
 
 void LokalizeMainWindow::showProjectOverview()
@@ -342,7 +351,7 @@ void LokalizeMainWindow::showTM()
         m_translationMemorySubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_translationMemorySubWindow->showMaximized();
-        connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
+        connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
     }
 
     m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
@@ -393,33 +402,41 @@ void LokalizeMainWindow::setupActions()
 
     KAction *action;
     KActionCollection* ac=actionCollection();
+    KActionCategory* actionCategory;
+    KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);;
+    //KActionCategory* config=new KActionCategory(i18nc("@title actions category","Configuration"), ac);;
+    KActionCategory* glossary=new KActionCategory(i18nc("@title actions category","Glossary"), ac);;
+    KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);;
+    KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);;
 
+    actionCategory=file;
 
 // File
-    KStandardAction::open(this, SLOT(fileOpen()), ac);
+    //KStandardAction::open(this, SLOT(fileOpen()), ac);
+    file->addAction(KStandardAction::Open,this, SLOT(fileOpen()));
 
-    m_openRecentFileAction = KStandardAction::openRecent(this, SLOT(fileOpen(KUrl)), ac);
+    m_openRecentFileAction = KStandardAction::openRecent(this,SLOT(fileOpen(KUrl)),ac);
 
 
 
 //Settings
     SettingsController* sc=SettingsController::instance();
-    KStandardAction::preferences(sc, SLOT(slotSettings()), ac);
+    KStandardAction::preferences(sc, SLOT(slotSettings()),ac);
 
 #define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
-    action = ac->addAction(_name);\
+    action = actionCategory->addAction(_name);\
     action->setText(_text);\
     action->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::_shortcut));\
     action->setIcon(KIcon(_icon));
 
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = ac->addAction(_name);\
+    action = actionCategory->addAction(_name);\
     action->setText(_text);\
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setIcon(KIcon(_icon));
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
-    action = ac->addAction(_name);\
+    action = actionCategory->addAction(_name);\
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setText(_text);
 
@@ -428,6 +445,7 @@ void LokalizeMainWindow::setupActions()
     //documentBack
     //KStandardAction::close(m_mdiArea, SLOT(closeActiveSubWindow()), ac);
 
+    actionCategory=file;
     ADD_ACTION_SHORTCUT("next-tab",i18n("Next tab"),Qt::CTRL+Qt::Key_BracketRight)
     connect(action,SIGNAL(triggered()),m_mdiArea,SLOT(activateNextSubWindow()));
 
@@ -435,6 +453,7 @@ void LokalizeMainWindow::setupActions()
     connect(action,SIGNAL(triggered()),m_mdiArea,SLOT(activatePreviousSubWindow()));
 
 //Tools
+    actionCategory=glossary;
     Project* project=Project::instance();
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect(action,SIGNAL(triggered()),project,SLOT(showGlossary()));
@@ -443,30 +462,31 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
     connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
 */
+    actionCategory=tm;
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation memory"),Qt::Key_F7)
     connect(action,SIGNAL(triggered()),this,SLOT(showTM()));
 
-    action = ac->addAction("tools_tm_manage");
+    action = tm->addAction("tools_tm_manage",project,SLOT(showTMManager()));
     action->setText(i18nc("@action:inmenu","Manage translation memories"));
-    connect(action,SIGNAL(triggered()),project,SLOT(showTMManager()));
 
 //Project
+    actionCategory=proj;
     ADD_ACTION_SHORTCUT("project_overview",i18nc("@action:inmenu","Project overview"),Qt::Key_F4)
     connect(action,SIGNAL(triggered()),this,SLOT(showProjectOverview()));
 
-    action = ac->addAction("project_configure",sc,SLOT(projectConfigure()));
+    action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
-    action = ac->addAction("project_configure",sc,SLOT(projectConfigure()));
+    action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
-    action = ac->addAction("project_open",sc,SLOT(projectOpen()));
+    action = proj->addAction("project_open",sc,SLOT(projectOpen()));
     action->setText(i18nc("@action:inmenu","Open project"));
 
     m_openRecentProjectAction=KStandardAction::openRecent(project, SLOT(load(const KUrl&)), project);
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()));
 
-    action = ac->addAction("project_create",sc,SLOT(projectCreate()));
+    action = proj->addAction("project_create",sc,SLOT(projectCreate()));
     action->setText(i18nc("@action:inmenu","Create new project"));
 
     setupGUI(Default,"lokalizemainwindowui.rc");

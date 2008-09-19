@@ -53,6 +53,7 @@ class KFind;
 class KReplaceDialog;
 class KReplace;
 class KProgressDialog;
+class KActionCategory;
 
 class Catalog;
 class KAiderView;
@@ -61,7 +62,6 @@ class ProjectView;
 class MergeView;
 class CatalogTreeView;
 namespace GlossaryNS{class GlossaryView;}
-namespace TM{class TMView;}
 class Ui_findExtension;
 //class ActionProxy;
 
@@ -138,6 +138,7 @@ public slots:
     void gotoLast();
     //for undo/redo, views
     void gotoEntry(const DocPosition& pos,int selection=0);
+    bool findEntry(const QString& source, const QString& ctxt);
 
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
@@ -212,7 +213,6 @@ private:
     void setupAccel();
     void setupActions();
     void setupStatusBar();
-    void createDockWindows();
 
     void findNext(const DocPosition& startingPos);
     void replaceNext(const DocPosition&);
@@ -269,13 +269,11 @@ private:
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
-    ProjectView* _projectView;
 //     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
-    GlossaryNS::GlossaryView* _glossaryView;
+    //GlossaryNS::GlossaryView* _glossaryView;
     CatalogTreeView* m_catalogTreeView;
-    TM::TMView* _tmView;
 
 
     QString _captionPath;

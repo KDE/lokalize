@@ -297,7 +297,10 @@ void TMWindow::copyTarget()
 
 void TMWindow::openFile()
 {
-    emit fileOpenRequested(ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Filepath).data().toString());
+    QModelIndex item=ui_queryOptions->treeView->currentIndex();
+    emit fileOpenRequested(item.sibling(item.row(),TMDBModel::Filepath).data().toString(),
+                           item.sibling(item.row(),TMDBModel::Source).data().toString(),
+                           item.sibling(item.row(),TMDBModel::Context).data().toString());
 }
 
 /*

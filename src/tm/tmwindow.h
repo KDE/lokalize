@@ -76,7 +76,7 @@ private slots:
     void openFile();
 
 signals:
-    void fileOpenRequested(const KUrl&);
+    void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
 
 private:
     Ui_QueryOptions* ui_queryOptions;

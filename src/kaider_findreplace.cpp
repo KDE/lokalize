@@ -984,5 +984,18 @@ void EditorWindow::spellcheckFiles(const KUrl::List& list)
 
 
 
-
+bool EditorWindow::findEntry(const QString& source, const QString& ctxt)
+{
+    DocPosition pos(0);
+    do
+    {
+        if (_catalog->source(pos)==source && _catalog->msgctxt(pos.entry)==ctxt)
+        {
+            gotoEntry(pos);
+            return true;
+        }
+    }
+    while (switchNext(_catalog,pos));
+    return false;
+}
 
