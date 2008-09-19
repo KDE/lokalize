@@ -111,8 +111,8 @@
 
 
 
-KAider::KAider(QWidget* parent)
-        : LokalizeSubwindowBase(parent), KXMLGUIClient()
+EditorWindow::EditorWindow(QWidget* parent)
+        : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
         , _catalog(new Catalog(this))
         , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
@@ -152,7 +152,7 @@ KAider::KAider(QWidget* parent)
     //kWarning()<<chrono.elapsed();
 }
 
-void KAider::initLater()
+void EditorWindow::initLater()
 {
 //     QTime chrono;chrono.start();
 
@@ -172,7 +172,7 @@ void KAider::initLater()
 
 }
 
-KAider::~KAider()
+EditorWindow::~EditorWindow()
 {
     if (!_catalog->isEmpty())
         emit signalFileClosed();
@@ -190,7 +190,7 @@ KAider::~KAider()
 }
 
 
-void KAider::setupStatusBar()
+void EditorWindow::setupStatusBar()
 {
     statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status message entry","Current: %1",0));
     statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1",0));
@@ -213,25 +213,25 @@ void KAider::setupStatusBar()
     //statusBar()->show();
 }
 
-void KAider::numberOfFuzziesChanged()
+void EditorWindow::numberOfFuzziesChanged()
 {
     statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()));
     //statusBar()->changeItem(i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
 }
 
-void KAider::numberOfUntranslatedChanged()
+void EditorWindow::numberOfUntranslatedChanged()
 {
     statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1", _catalog->numberOfUntranslated()));
 }
 
-void KAider::setupActions()
+void EditorWindow::setupActions()
 {
     //all operations that can be done after initial setup
     //(via QTimer::singleShot) go to initLater()
 
     setXMLFile("editorui.rc");
 
-    QAction *action;
+    KAction *action;
     KActionCollection* ac=actionCollection();
 // File
     action = KStandardAction::save(this, SLOT(fileSave()), ac);
@@ -469,7 +469,7 @@ void KAider::setupActions()
     //kWarning()<<"finished"<<aaa.elapsed();
 }
 
-void KAider::createDockWindows()
+void EditorWindow::createDockWindows()
 {
     MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
@@ -621,30 +621,30 @@ void KAider::createDockWindows()
 
 }
 
-void KAider::setProperFocus()
+void EditorWindow::setProperFocus()
 {
     m_view->setProperFocus();
 }
 
-void KAider::hideDocks()
+void EditorWindow::hideDocks()
 {
     if (m_catalogTreeView->isFloating())
         m_catalogTreeView->hide();
 }
 
-void KAider::showDocks()
+void EditorWindow::showDocks()
 {
     return;
     if (m_catalogTreeView->isFloating())
         m_catalogTreeView->show();
 }
 
-KUrl KAider::currentUrl()
+KUrl EditorWindow::currentUrl()
 {
     return _catalog->url();
 }
 
-void KAider::setCaption(const QString& title,bool modif)
+void EditorWindow::setCaption(const QString& title,bool modif)
 {
 /*    setWindowTitle(title);
     setWindowModified(modif);
@@ -655,7 +655,7 @@ void KAider::setCaption(const QString& title,bool modif)
     setPlainCaption(actual);
 }
 
-void KAider::setFullPathShown(bool fullPathShown)
+void EditorWindow::setFullPathShown(bool fullPathShown)
 {
     m_fullPathShown=fullPathShown;
 
@@ -663,7 +663,7 @@ void KAider::setFullPathShown(bool fullPathShown)
 }
 
 
-void KAider::updateCaptionPath()
+void EditorWindow::updateCaptionPath()
 {
     KUrl url=_catalog->url();
     if (!url.isLocalFile() || !_project->isLoaded())
@@ -687,7 +687,7 @@ void KAider::updateCaptionPath()
 
 }
 
-bool KAider::fileOpen(KUrl url)
+bool EditorWindow::fileOpen(KUrl url)
 {
     if (!_catalog->isClean())
     {
@@ -799,7 +799,7 @@ bool KAider::fileOpen(KUrl url)
     return false;
 }
 
-bool KAider::fileSaveAs()
+bool EditorWindow::fileSaveAs()
 {
     KUrl url=KFileDialog::getSaveUrl(_catalog->url(),_catalog->mimetype(),this);
     if (url.isEmpty())
@@ -807,7 +807,7 @@ bool KAider::fileSaveAs()
     return fileSave(url);
 }
 
-bool KAider::fileSave(const KUrl& url)
+bool EditorWindow::fileSave(const KUrl& url)
 {
     if (_catalog->saveToUrl(url))
     {
@@ -825,7 +825,7 @@ bool KAider::fileSave(const KUrl& url)
     return false;
 }
 
-KAiderState KAider::state()
+KAiderState EditorWindow::state()
 {
     KAiderState state;
     state.dockWidgets=saveState();
@@ -837,7 +837,7 @@ KAiderState KAider::state()
 }
 
 
-bool KAider::queryClose()
+bool EditorWindow::queryClose()
 {
     if (_catalog->isClean())
         return true;
@@ -858,17 +858,17 @@ bool KAider::queryClose()
 }
 
 
-void KAider::undo()
+void EditorWindow::undo()
 {
     gotoEntry(_catalog->undo(),0);
 }
 
-void KAider::redo()
+void EditorWindow::redo()
 {
     gotoEntry(_catalog->redo(),0);
 }
 
-void KAider::gotoEntry()
+void EditorWindow::gotoEntry()
 {
     DocPosition pos=_currentPos;
     pos.entry=KInputDialog::getInteger(
@@ -884,7 +884,7 @@ void KAider::gotoEntry()
     }
 }
 
-void KAider::gotoEntry(const DocPosition& pos,int selection)
+void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
 {
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
@@ -941,7 +941,7 @@ void KAider::gotoEntry(const DocPosition& pos,int selection)
     kDebug()<<"ELA "<<time.elapsed();
 }
 
-void KAider::msgStrChanged()
+void EditorWindow::msgStrChanged()
 {
     bool isUntr=_catalog->msgstr(_currentPos).isEmpty();
     bool isApproved=_catalog->isApproved(_currentPos);
@@ -964,7 +964,7 @@ void KAider::msgStrChanged()
     m_currentIsUntr=isUntr;
     m_currentIsApproved=isApproved;
 }
-void KAider::switchForm(int newForm)
+void EditorWindow::switchForm(int newForm)
 {
     if (_currentPos.form==newForm)
         return;
@@ -974,7 +974,7 @@ void KAider::switchForm(int newForm)
     gotoEntry(pos);
 }
 
-void KAider::gotoNext()
+void EditorWindow::gotoNext()
 {
     DocPosition pos=_currentPos;
 
@@ -983,7 +983,7 @@ void KAider::gotoNext()
 }
 
 
-void KAider::gotoPrev()
+void EditorWindow::gotoPrev()
 {
     DocPosition pos=_currentPos;
 
@@ -991,7 +991,7 @@ void KAider::gotoPrev()
         gotoEntry(pos);
 }
 
-void KAider::gotoPrevFuzzy()
+void EditorWindow::gotoPrevFuzzy()
 {
     DocPosition pos;
 
@@ -1001,7 +1001,7 @@ void KAider::gotoPrevFuzzy()
     gotoEntry(pos);
 }
 
-void KAider::gotoNextFuzzy()
+void EditorWindow::gotoNextFuzzy()
 {
     DocPosition pos;
 
@@ -1011,7 +1011,7 @@ void KAider::gotoNextFuzzy()
     gotoEntry(pos);
 }
 
-void KAider::gotoPrevUntranslated()
+void EditorWindow::gotoPrevUntranslated()
 {
     DocPosition pos;
 
@@ -1021,7 +1021,7 @@ void KAider::gotoPrevUntranslated()
     gotoEntry(pos);
 }
 
-void KAider::gotoNextUntranslated()
+void EditorWindow::gotoNextUntranslated()
 {
     DocPosition pos;
 
@@ -1031,7 +1031,7 @@ void KAider::gotoNextUntranslated()
     gotoEntry(pos);
 }
 
-void KAider::gotoPrevFuzzyUntr()
+void EditorWindow::gotoPrevFuzzyUntr()
 {
     DocPosition pos;
 
@@ -1045,7 +1045,7 @@ void KAider::gotoPrevFuzzyUntr()
     gotoEntry(pos);
 }
 
-void KAider::gotoNextFuzzyUntr()
+void EditorWindow::gotoNextFuzzyUntr()
 {
     DocPosition pos;
 
@@ -1064,7 +1064,7 @@ void KAider::gotoNextFuzzyUntr()
 }
 
 
-void KAider::gotoPrevBookmark()
+void EditorWindow::gotoPrevBookmark()
 {
     DocPosition pos;
 
@@ -1074,7 +1074,7 @@ void KAider::gotoPrevBookmark()
     gotoEntry(pos);
 }
 
-void KAider::gotoNextBookmark()
+void EditorWindow::gotoNextBookmark()
 {
     DocPosition pos;
 
@@ -1084,29 +1084,29 @@ void KAider::gotoNextBookmark()
     gotoEntry(pos);
 }
 
-void KAider::gotoFirst()
+void EditorWindow::gotoFirst()
 {
     gotoEntry(DocPosition(0));
 }
 
-void KAider::gotoLast()
+void EditorWindow::gotoLast()
 {
     gotoEntry(DocPosition(_catalog->numberOfEntries()-1));
 }
 
 //wrapper for cmdline handling...
-void KAider::mergeOpen(KUrl url)
+void EditorWindow::mergeOpen(KUrl url)
 {
     _mergeView->mergeOpen(url);
 }
 /*
-KUrl KAider::mergeFile()
+KUrl EditorWindow::mergeFile()
 {
     return _mergeView->url();
 }
 */
 //see also termlabel.h
-void KAider::defineNewTerm()
+void EditorWindow::defineNewTerm()
 {
     QString en(m_view->selectionMsgId().toLower());
     if (en.isEmpty())

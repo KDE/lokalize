@@ -91,24 +91,9 @@ int main(int argc, char **argv)
         }
         LokalizeMainWindow* lmw=new LokalizeMainWindow;
         lmw->show();
-        if (args->count() == 0)
-        {
-            /*if(Project::instance()->isLoaded())
-            {
-                Project::instance()->openProjectWindow();
-            }*/
-        }
-        else
-        {
-            lmw->fileOpen(args->url(0));
-            /*
-            KAider *widget = new KAider;
-            widget->fileOpen(args->url(0));
-            if (!args->getOption("merge-source").isEmpty())
-                widget->mergeOpen(KCmdLineArgs::makeURL(args->getOption("merge-source").toUtf8()));
-//             KUrl a(args->arg(0));
-            widget->show();*/
-        }
+        int j=args->count();
+        while (--j>=0)
+            lmw->fileOpen(args->url(j));
         args->clear();
     }
 

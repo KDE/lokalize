@@ -33,7 +33,11 @@
 #ifndef TMWINDOW_H
 #define TMWINDOW_H
 
-#include <kmainwindow.h>
+#include "lokalizesubwindowbase.h"
+
+#include <KMainWindow>
+#include <KXMLGUIClient>
+#include <KUrl>
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
@@ -44,28 +48,41 @@ class KLineEdit;
 class QComboBox;
 class QTreeView;
 class QCheckBox;
+class Ui_QueryOptions;
 
 namespace TM {
 class TMDBModel;
 
 /**
- * @short TM query window
- * @author Nick Shaforostoff <shafff@ukr.net>
-*/
-class TMWindow: public KMainWindow
+ * Translation Memory tab
+ */
+class TMWindow: public LokalizeSubwindowBase2
 {
     Q_OBJECT
 public:
-    TMWindow(QWidget *parent = 0);
+    TMWindow(QWidget *parent);
     ~TMWindow();
+
+    void hideDocks(){};
+    void showDocks(){};
+    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 
     void selectDB(int);
 
-public slots:
+private slots:
     void performQuery();
     void copySource();
     void copyTarget();
+    void openFile();
+
+signals:
+    void fileOpenRequested(const KUrl&);
+
 private:
+    Ui_QueryOptions* ui_queryOptions;
+    TMDBModel* m_model;
+
+    /*
     KLineEdit* m_querySource;
     KLineEdit* m_queryTarget;
     QCheckBox* m_invertSource;
@@ -73,6 +90,7 @@ private:
     TMDBModel* m_model;
     QComboBox* m_dbCombo;
     QTreeView* m_view;
+    */
 };
 
 
@@ -80,6 +98,15 @@ class TMDBModel: public QSqlQueryModel
 {
     Q_OBJECT
 public:
+
+    enum TMDBModelColumns
+    {
+        Source=0,
+        Target,
+        Context,
+        Filepath,
+        TMDBModelColumnCount
+    };
 
     enum QueryType
     {
@@ -92,9 +119,13 @@ public:
     ~TMDBModel(){}
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
+    //int columnCount(const QModelIndex& parent=QModelIndex()) const{return TMDBModelColumnCount;}
 
 public slots:
-    void setFilter(const QString& source, const QString& target, bool invertSource, bool invertTarget);
+    void setFilter(const QString& source, const QString& target,
+                   bool invertSource, bool invertTarget,
+                   const QString& filemask
+                   );
     void setQueryType(int);
     void setDB(const QString&);
 
@@ -102,6 +133,8 @@ private:
     QueryType m_queryType;
     QSqlDatabase m_db;
 };
+
+//const QString& sourceRefine, const QString& targetRefine
 
 
 #if 0

@@ -685,7 +685,7 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
 
 
 //main function in this file :)
-void KAiderView::gotoEntry(const DocPosition& pos,int selection/*, bool updateHistory*/)
+void KAiderView::gotoEntry(const DocPosition& pos,int selection)
 {
     setUpdatesEnabled(false);
 

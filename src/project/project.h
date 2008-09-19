@@ -46,7 +46,7 @@ class KRecentFilesAction;
 class ProjectModel;
 namespace GlossaryNS{class Glossary;}
 namespace TM{class SelectJob;}
-class KAider;
+class EditorWindow;
 // class WebQueryThread;
 // #include "webquerythread.h"
 #include <threadweaver/Job.h>
@@ -63,7 +63,7 @@ class KAider;
 
 /**
  * Singleton object that represents project.
- * It is shared between KAider 'mainwindows' that use the same project file.
+ * It is shared between EditorWindow 'mainwindows' that use the same project file.
  * Keeps project's KDirModel, Glossary and kross::actions
  *
  * GUI for config handling is implemented in prefs.cpp
@@ -116,19 +116,15 @@ public slots:
 #endif
 //     void populateKrossActions();
 
-    void openProjectWindow();
-
     void deleteScanJob(ThreadWeaver::Job*);
     void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
-//     void slotTMWordsIndexed(ThreadWeaver::Job*);
     void showTMManager();
-    void showTM();
     void showGlossary();
     void defineNewTerm(QString en=QString(),QString target=QString());
 
 
-    void registerEditor(KAider* e){m_editors<<e;}
-    void unregisterEditor(KAider* e){m_editors.remove(m_editors.indexOf(e));}
+    void registerEditor(EditorWindow* e){m_editors<<e;}
+    void unregisterEditor(EditorWindow* e){m_editors.remove(m_editors.indexOf(e));}
 
 
 private:
@@ -159,7 +155,7 @@ private:
     QList<QAction*> m_projectActions;
     KRecentFilesAction* _openRecentProject;
 
-    QVector<KAider*> m_editors;
+    QVector<EditorWindow*> m_editors;
 };
 
 inline

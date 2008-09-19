@@ -37,7 +37,7 @@
 
 #include <klocale.h>
 #include <kstandarddirs.h>
-
+#include <kxmlguifactory.h>
 
 #include <QTreeView>
 #include <QSqlQueryModel>
@@ -55,10 +55,10 @@ TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
     , m_queryType(WordOrder)
 {
-    setHeaderData(0, Qt::Horizontal, i18nc("@title:column Original text","Source"));
-    setHeaderData(1, Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
-    setHeaderData(2, Qt::Horizontal, i18nc("@title:column","Context"));
-    setHeaderData(3, Qt::Horizontal, i18nc("@title:column","File"));
+    setHeaderData(TMDBModel::Source, Qt::Horizontal, i18nc("@title:column Original text","Source"));
+    setHeaderData(TMDBModel::Target, Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
+    setHeaderData(TMDBModel::Context, Qt::Horizontal, i18nc("@title:column","Context"));
+    setHeaderData(TMDBModel::Filepath, Qt::Horizontal, i18nc("@title:column","File"));
 }
 
 void TMDBModel::setDB(const QString& str)
@@ -71,24 +71,33 @@ void TMDBModel::setQueryType(int type)
     m_queryType=(QueryType)type;
 }
 
-void TMDBModel::setFilter(const QString& source, const QString& target, bool invertSource, bool invertTarget)
+void TMDBModel::setFilter(const QString& source, const QString& target,
+                          bool invertSource, bool invertTarget,
+                          const QString& filemask
+                          )
 {
     QString escapedSource(source);escapedSource.replace('\'',"''");
     QString escapedTarget(target);escapedTarget.replace('\'',"''");
     QString invertSourceStr; if (invertSource) invertSourceStr="NOT ";
     QString invertTargetStr; if (invertTarget) invertTargetStr="NOT ";
+    QString escapedFilemask(filemask);escapedFilemask.replace('\'',"''");
     QString sourceQuery;
     QString targetQuery;
+    QString fileQuery;
 
     if (m_queryType==SubStr)
     {
+        escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
+        escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+escapedSource+"%' ";
+            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+escapedSource+"%' ESCAPE '\b' ";
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+escapedTarget+"%' ";
+            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+escapedTarget+"%' ESCAPE '\b' ";
     }
     else if (m_queryType==WordOrder)
     {
+        /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
+        escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
         QStringList sourceList=escapedSource.split(QRegExp("\\W"),QString::SkipEmptyParts);
         QStringList targetList=escapedTarget.split(QRegExp("\\W"),QString::SkipEmptyParts);
 
@@ -105,27 +114,58 @@ void TMDBModel::setFilter(const QString& source, const QString& target, bool inv
             targetQuery="AND target_strings.target "+invertTargetStr+"GLOB '"+escapedTarget+"' ";
 
     }
+    if (!filemask.isEmpty())
+        fileQuery="AND files.path GLOB '"+escapedFilemask+"' ";
+
+
         setQuery("SELECT source_strings.source, target_strings.target, "
-                 "main.ctxt, files.path "
+                 "main.ctxt, files.path, "
+                 "source_strings.source_accel, target_strings.target_accel, main.bits "
                  "FROM main, source_strings, target_strings, files "
                  "WHERE source_strings.id==main.source AND "
                  "target_strings.id==main.target AND "
                  "files.id==main.file "
                  +sourceQuery
                  +targetQuery
+                 +fileQuery
                 ,m_db);
 }
 
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex& item, int role) const
 {
+    if (role==Qt::FontRole && item.column()==TMDBModel::Target)
+    {
+        qlonglong bits=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+2).data().toLongLong();
+        if (bits&4)
+        {
+            QFont font=QApplication::font();
+            font.setItalic(true);
+            return font;
+        }
+    }
     QVariant result=QSqlQueryModel::data(item, role);
-    if (item.column()==2)//context
+    if (role!=Qt::DisplayRole)
+        return result;
+
+    if (item.column()==TMDBModel::Context)//context
     {
         QString r=result.toString();
         int pos=r.indexOf(TM_DELIMITER);
         if (pos!=-1)
-            result=r.remove(pos, 99);
+            result=r.remove(pos, 999);
+    }
+    else if (item.column()<TMDBModel::Context)//source, target
+    {
+        qlonglong pos=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+item.column()).data().toLongLong();
+        //kWarning()<<pos<<"column"<<item.column();
+        //kWarning()<<QSqlQueryModel::data(QSqlQueryModel::index(item.row(),TMDBModel::TMDBModelColumnCount+item.column()));
+        if (pos!=-1)
+        {
+            QString r=result.toString();
+            r.insert(pos,Project::instance()->accel());
+            return r;
+        }
     }
     return result;
 }
@@ -137,36 +177,50 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 //BEGIN TMWindow
 
 TMWindow::TMWindow(QWidget *parent)
- : KMainWindow(parent)
+    : LokalizeSubwindowBase2(parent)
 {
-    setCaption(i18nc("@title:window","Translation Memory Query"),false);
+    //setCaption(i18nc("@title:window","Translation Memory"),false);
+    setWindowTitle(i18nc("@title:window","Translation Memory"));
 
+    ui_queryOptions=new Ui_QueryOptions;
     QWidget* w=new QWidget(this);
-    Ui_QueryOptions ui_queryOptions;
-    ui_queryOptions.setupUi(w);
+    ui_queryOptions->setupUi(w);
     setCentralWidget(w);
 
-    connect(ui_queryOptions.querySource,SIGNAL(returnPressed()),
+    connect(ui_queryOptions->querySource,SIGNAL(returnPressed()),
            this,SLOT(performQuery()));
-    connect(ui_queryOptions.queryTarget,SIGNAL(returnPressed()),
+    connect(ui_queryOptions->queryTarget,SIGNAL(returnPressed()),
+           this,SLOT(performQuery()));
+    connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),
+           this,SLOT(performQuery()));
+    connect(ui_queryOptions->doFind,SIGNAL(clicked()),
            this,SLOT(performQuery()));
 
-    QTreeView* view=ui_queryOptions.treeView;
+    QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);
     //view->setItemDelegate(delegate);
     //view->setSelectionBehavior(QAbstractItemView::SelectItems);
     //connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
     view->setRootIsDecorated(false);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
+
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a,SIGNAL(activated()), this, SLOT(copySource()));
     view->addAction(a);
+
     a=new QAction(i18n("Copy target to clipboard"),view);
-    a->setShortcut(Qt::CTRL + Qt::Key_T);
+    a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a,SIGNAL(activated()), this, SLOT(copyTarget()));
+    view->addAction(a);
+
+    a=new QAction(i18n("Open file"),view);
+    a->setShortcut(QKeySequence(Qt::Key_Return));
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    connect(a,SIGNAL(activated()), this, SLOT(openFile()));
+    connect(view,SIGNAL(activated(QModelIndex)), this, SLOT(openFile()));
     view->addAction(a);
 
     //view->addAction(KStandardAction::copy(this),this,SLOT(),this);
@@ -180,9 +234,9 @@ TMWindow::TMWindow(QWidget *parent)
     view->setModel(m_model);
 
     QButtonGroup* btnGrp=new QButtonGroup(this);
-    btnGrp->addButton(ui_queryOptions.substr,(int)TMDBModel::SubStr);
-    btnGrp->addButton(ui_queryOptions.like,(int)TMDBModel::WordOrder);
-    btnGrp->addButton(ui_queryOptions.rx,(int)TMDBModel::RegExp);
+    btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
+    btnGrp->addButton(ui_queryOptions->like,(int)TMDBModel::WordOrder);
+    btnGrp->addButton(ui_queryOptions->rx,(int)TMDBModel::RegExp);
     connect(btnGrp,SIGNAL(buttonClicked(int)),
             m_model,SLOT(setQueryType(int)));
 
@@ -193,20 +247,18 @@ TMWindow::TMWindow(QWidget *parent)
             m_model,SLOT(setDB(QString)));
     */
 
-    m_querySource=ui_queryOptions.querySource;
-    m_queryTarget=ui_queryOptions.queryTarget;
-    //m_dbCombo=ui_queryOptions.db;
-    m_view=view;
-    m_invertSource=ui_queryOptions.invertSource;
-    m_invertTarget=ui_queryOptions.invertTarget;
-
-
     //m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
 
+    int i=6;
+    while (--i>=0)
+        statusBarItems.insert(i,"");
+
+    setXMLFile("translationmemoryrui.rc",true);
 }
 
 TMWindow::~TMWindow()
 {
+    delete ui_queryOptions;
 }
 
 void TMWindow::selectDB(int i)
@@ -216,22 +268,36 @@ void TMWindow::selectDB(int i)
 
 void TMWindow::performQuery()
 {
-    m_model->setFilter(m_querySource->text(), m_queryTarget->text(), m_invertSource->isChecked(), m_invertTarget->isChecked());
-    m_view->resizeColumnToContents(0);
-    m_view->resizeColumnToContents(1);
-    m_view->resizeColumnToContents(2);
-    m_view->resizeColumnToContents(3);
-    m_view->setFocus();
+    m_model->setFilter(ui_queryOptions->querySource->text(), ui_queryOptions->queryTarget->text(),
+                       ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
+                       ui_queryOptions->filemask->text()
+                      );
+    //ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
+
+    QTreeView* view=ui_queryOptions->treeView;
+    view->hideColumn(TMDBModel::TMDBModelColumnCount);
+    view->hideColumn(TMDBModel::TMDBModelColumnCount+1);
+    view->hideColumn(TMDBModel::TMDBModelColumnCount+2);
+    view->resizeColumnToContents(0);
+    view->resizeColumnToContents(1);
+    view->resizeColumnToContents(2);
+    view->resizeColumnToContents(3);
+    view->setFocus();
 }
 
 void TMWindow::copySource()
 {
     //QApplication::clipboard()->setText(m_view->currentIndex().data().toString());
-    QApplication::clipboard()->setText( m_view->currentIndex().sibling(m_view->currentIndex().row(),0).data().toString());
+    QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Source).data().toString());
 }
 void TMWindow::copyTarget()
 {
-    QApplication::clipboard()->setText( m_view->currentIndex().sibling(m_view->currentIndex().row(),1).data().toString());
+    QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Target).data().toString());
+}
+
+void TMWindow::openFile()
+{
+    emit fileOpenRequested(ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Filepath).data().toString());
 }
 
 /*

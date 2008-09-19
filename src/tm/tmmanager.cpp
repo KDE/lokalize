@@ -153,9 +153,9 @@ void TMManagerWin::exportTMX()
 void TMManagerWin::slotItemActivated(const QModelIndex&)
 {
     //QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
-    TMWindow* win=new TMWindow;
+/*    TMWindow* win=new TMWindow;
     win->selectDB(m_tmListWidget->currentIndex().row());
-    win->show();
+    win->show();*/
 }
 
 

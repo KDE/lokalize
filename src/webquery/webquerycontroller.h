@@ -93,7 +93,7 @@ public slots:
     /**
      * Also may be used to get name of another html file (e.g. of a frame)
      *
-     * @param url KAider escapes url before downloading
+     * @param url Lokalize escapes url before downloading
      * @param codec e.g. UTF-8
      * @param rx RegExp that gives result in the first cap.
      *        e.g. "<div id=result_box dir=ltr>([^<]+)</div>"

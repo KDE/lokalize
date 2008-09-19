@@ -519,7 +519,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     }
     m_browser->insertHtml("</html>");
     setUpdatesEnabled(true);
-    kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
+//    kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
 

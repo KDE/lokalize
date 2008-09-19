@@ -36,10 +36,9 @@
 #include <QHash>
 #include <QString>
 #include <KMainWindow>
+#include <KXMLGUIClient>
 
 #include "actionproxy.h"
-//class ActionProxy;
-class KXMLGUIClient;
 
 
 /**
@@ -62,5 +61,18 @@ public:
     StatusBarProxy statusBarItems;
 
 };
+
+/**
+ * C++ casting workaround
+ */
+class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
+{
+public:
+    LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent),KXMLGUIClient(){}
+    virtual ~LokalizeSubwindowBase2(){};
+
+    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+};
+
 
 #endif

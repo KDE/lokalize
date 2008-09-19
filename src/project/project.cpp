@@ -305,7 +305,7 @@ void Project::deleteScanJob(ThreadWeaver::Job* job)
         if (end)
         {
             QWidget* view=end->m_view;
-            if (!m_editors.contains(static_cast<KAider*>(view)))
+            if (!m_editors.contains(static_cast<EditorWindow*>(view)))
                 view=0;
             KPassivePopup::message(KPassivePopup::Balloon,
                                    i18nc("@title","Scanning complete"),
@@ -338,23 +338,10 @@ void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
 
 
 
-void Project::openProjectWindow()
-{
-/*    ProjectWindow* a=new ProjectWindow;
-    a->show();*/
-}
-
-
-void Project::showTM()
-{
-    TM::TMWindow* win=new TM::TMWindow;
-    win->show();
-}
 
 void Project::showGlossary()
 {
     defineNewTerm();
-
 }
 
 void Project::defineNewTerm(QString en,QString target)

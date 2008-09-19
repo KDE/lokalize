@@ -25,6 +25,7 @@
 #include "actionproxy.h"
 #include "kaider.h"
 #include "projectwindow.h"
+#include "tmwindow.h"
 #include "prefs_lokalize.h"
 
 #define WEBQUERY_ENABLE
@@ -177,17 +178,18 @@ LokalizeMainWindow::~LokalizeMainWindow()
     int i=editors.size();
     while (--i>=0)
     {
-        if (editors.at(i)==m_projectSubWindow)
+        //if (editors.at(i)==m_projectSubWindow)
+        if (!qobject_cast<EditorWindow*>(editors.at(i)->widget()))
             continue;
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
-        KAiderState state=static_cast<KAider*>( editors.at(i)->widget() )->state();
+        KAiderState state=static_cast<EditorWindow*>( editors.at(i)->widget() )->state();
         files.append(state.url.pathOrUrl());
         mergeFiles.append(state.mergeUrl.pathOrUrl());
         dockWidgets.append(state.dockWidgets.toBase64());
         entries.append(state.entry);
         //offsets.append(state.offset);
-        //kWarning()<<static_cast<KAider*>(editors.at(i)->widget() )->state().url;
+        //kWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
@@ -212,27 +214,17 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
     if (m_prevSubWindow)
     {
-        LokalizeSubwindowBase* prevEditor;
-        if (m_prevSubWindow==m_projectSubWindow)
-            prevEditor=static_cast<ProjectWindow*>( m_prevSubWindow->widget() );
-        else
-            prevEditor=static_cast<KAider*>( m_prevSubWindow->widget() );
+        LokalizeSubwindowBase* prevEditor=static_cast<LokalizeSubwindowBase2*>( m_prevSubWindow->widget() );
         prevEditor->hideDocks();
-
         guiFactory()->removeClient( prevEditor->guiClient()   );
         prevEditor->statusBarItems.unregisterStatusBar();
     }
-    LokalizeSubwindowBase* editor;
-    if (w==m_projectSubWindow)
+    LokalizeSubwindowBase* editor=static_cast<LokalizeSubwindowBase2*>( w->widget() );
+    if (qobject_cast<EditorWindow*>(editor))
     {
-        editor=static_cast<ProjectWindow*>( w->widget() );
-    }
-    else
-    {
-        editor=static_cast<KAider*>( w->widget() );
-        static_cast<KAider*>( editor )->setProperFocus();
+        static_cast<EditorWindow*>( editor )->setProperFocus();
 
-        KAiderState state=static_cast<KAider*>( editor )->state();
+        KAiderState state=static_cast<EditorWindow*>( editor )->state();
         m_lastEditorState=state.dockWidgets.toBase64();
     }
 
@@ -254,9 +246,10 @@ bool LokalizeMainWindow::queryClose()
     int i=editors.size();
     while (--i>=0)
     {
-        if (editors.at(i)==m_projectSubWindow)
+        //if (editors.at(i)==m_projectSubWindow)
+        if (!qobject_cast<EditorWindow*>(editors.at(i)->widget()))
             continue;
-        if (!  static_cast<KAider*>( editors.at(i)->widget() )->queryClose())
+        if (!  static_cast<EditorWindow*>( editors.at(i)->widget() )->queryClose())
             return false;
     }
 
@@ -265,7 +258,7 @@ bool LokalizeMainWindow::queryClose()
 
 bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
 {
-    KAider* w=new KAider(this);
+    EditorWindow* w=new EditorWindow(this);
     QByteArray state=m_lastEditorState;
 
     QMdiSubWindow* sw=0;
@@ -291,7 +284,7 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
     {
         if (swList.at(i)==m_projectSubWindow)
             continue;
-        KAider* w=static_cast<KAider*>(swList.at(i));
+        EditorWindow* w=static_cast<EditorWindow*>(swList.at(i));
     }*/
 
     if (!sw)
@@ -305,7 +298,7 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
 //     {
 //         QMdiSubWindow* activeSW=m_mdiArea->activeSubWindow();
 //         if (activeSW)
-//             state=static_cast<KAider*>( activeSW->widget() )->saveState().toBase64();
+//             state=static_cast<EditorWindow*>( activeSW->widget() )->saveState().toBase64();
 //     }
     if (!state.isEmpty())
         w->restoreState(QByteArray::fromBase64(state));
@@ -341,6 +334,20 @@ void LokalizeMainWindow::showProjectOverview()
     m_mdiArea->setActiveSubWindow(m_projectSubWindow);
 }
 
+void LokalizeMainWindow::showTM()
+{
+    if (!m_translationMemorySubWindow)
+    {
+        TM::TMWindow* w=new TM::TMWindow(this);
+        m_translationMemorySubWindow=m_mdiArea->addSubWindow(w);
+        w->showMaximized();
+        m_translationMemorySubWindow->showMaximized();
+        connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
+    }
+
+    m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
+
+}
 
 void LokalizeMainWindow::applyToBeActiveSubWindow()
 {
@@ -349,14 +356,14 @@ void LokalizeMainWindow::applyToBeActiveSubWindow()
 
 void LokalizeMainWindow::searchInFiles(const KUrl::List& urls)
 {
-    KAider* w=new KAider(this);
+    EditorWindow* w=new EditorWindow(this);
     QMdiSubWindow* sw=0;
     sw=m_mdiArea->addSubWindow(w);
     w->showMaximized();
     sw->showMaximized();
 
-    static_cast<KAider*>( m_mdiArea->activeSubWindow()->widget() )->findInFiles(urls);
-/*    KAider* a=new KAider;
+    static_cast<EditorWindow*>( m_mdiArea->activeSubWindow()->widget() )->findInFiles(urls);
+/*    EditorWindow* a=new EditorWindow;
     a->findInFiles(urls);
     a->show();
     */
@@ -368,7 +375,7 @@ void LokalizeMainWindow::replaceInFiles(const KUrl::List&)
 }
 void LokalizeMainWindow::spellcheckFiles(const KUrl::List& urls)
 {
-    KAider* a=new KAider(this);
+    EditorWindow* a=new EditorWindow(this);
     a->spellcheckFiles(urls);
     a->show();
 }
@@ -419,7 +426,7 @@ void LokalizeMainWindow::setupActions()
 
 //Window
     //documentBack
-    KStandardAction::close(m_mdiArea, SLOT(closeActiveSubWindow()), ac);
+    //KStandardAction::close(m_mdiArea, SLOT(closeActiveSubWindow()), ac);
 
     ADD_ACTION_SHORTCUT("next-tab",i18n("Next tab"),Qt::CTRL+Qt::Key_BracketRight)
     connect(action,SIGNAL(triggered()),m_mdiArea,SLOT(activateNextSubWindow()));
@@ -437,7 +444,7 @@ void LokalizeMainWindow::setupActions()
     connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
 */
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation memory"),Qt::Key_F7)
-    connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
+    connect(action,SIGNAL(triggered()),this,SLOT(showTM()));
 
     action = ac->addAction("tools_tm_manage");
     action->setText(i18nc("@action:inmenu","Manage translation memories"));

@@ -45,7 +45,7 @@
 #include <QMenu>
 
 ProjectWindow::ProjectWindow(QWidget *parent)
-    : LokalizeSubwindowBase(parent), KXMLGUIClient()
+    : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
 
 {
@@ -59,7 +59,7 @@ ProjectWindow::ProjectWindow(QWidget *parent)
         statusBarItems.insert(i,"");
 
     setXMLFile("projectmanagerui.rc",true);
-    QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
+    //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
 }
 

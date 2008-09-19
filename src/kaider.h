@@ -103,13 +103,13 @@ namespace ConversionCheck
  * @short Editor window/tab
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-class KAider: public LokalizeSubwindowBase, public KXMLGUIClient
+class EditorWindow: public LokalizeSubwindowBase2
 {
     Q_OBJECT
 
 public:
-    KAider(QWidget* parent);
-    virtual ~KAider();
+    EditorWindow(QWidget* parent);
+    virtual ~EditorWindow();
 
     //wrapper for cmdline handling
     void mergeOpen(KUrl url=KUrl());

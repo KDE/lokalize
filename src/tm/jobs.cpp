@@ -413,6 +413,12 @@ static bool doInsertEntry(QString english,
                                    )))
         kWarning() <<"select db main error: " <<query1.lastError().text();
 
+//case:
+//  aaa-bbb
+//  aaa-""
+//  aaa-ccc
+//bbb shouldn't be present in db
+
     qlonglong mainId=0;//update instead of adding record to main?
     qlonglong bits=0;
 //BEGIN target update
@@ -471,6 +477,7 @@ static bool doInsertEntry(QString english,
         //kWarning() <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
         if (query1.value(0).toLongLong()==1)
         {
+            //TODO tnis may create duplicates, although no strings should be lost
             query1.clear();
             query1.prepare("UPDATE OR FAIL target_strings "
                            "SET target=?, target_accel=? "

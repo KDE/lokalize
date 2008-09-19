@@ -112,6 +112,9 @@ Press Enter to start the search.</string>
         <layout class="QHBoxLayout" name="queryStyleLayout" >
          <item>
           <widget class="QRadioButton" name="substr" >
+           <property name="toolTip" >
+            <string>Case insensitive</string>
+           </property>
            <property name="text" >
             <string comment="@option:radio" >Substring</string>
            </property>
@@ -123,7 +126,7 @@ Press Enter to start the search.</string>
          <item>
           <widget class="QRadioButton" name="like" >
            <property name="toolTip" >
-            <string>Space is AND operator</string>
+            <string>Space is AND operator. Case insensitive.</string>
            </property>
            <property name="text" >
             <string comment="@option:radio" >Google-like</string>
@@ -136,7 +139,7 @@ Press Enter to start the search.</string>
          <item>
           <widget class="QRadioButton" name="rx" >
            <property name="toolTip" >
-            <string>Shell globs (* and ?)</string>
+            <string>Shell globs (* and ?). Case sensitive.</string>
            </property>
            <property name="text" >
             <string comment="@option:radio" >Wildcard</string>
@@ -162,7 +165,7 @@ Press Enter to start the search.</string>
           <bool>true</bool>
          </property>
          <property name="toolTip" >
-          <string>Additionally filter results with regular expression</string>
+          <string>Additionally filter results with regular expression. Case sensitive.</string>
          </property>
         </widget>
        </item>
@@ -172,7 +175,7 @@ Press Enter to start the search.</string>
           <bool>true</bool>
          </property>
          <property name="toolTip" >
-          <string>Additionally filter results with regular expression</string>
+          <string>Additionally filter results with regular expression. Case sensitive.</string>
          </property>
         </widget>
        </item>
@@ -213,7 +216,7 @@ Press Enter to start the search.</string>
           <bool>false</bool>
          </property>
          <property name="toolTip" >
-          <string>Regular expression for text that should be replaced</string>
+          <string>Regular expression for text that should be replaced. Case sensitive.</string>
          </property>
         </widget>
        </item>
@@ -224,7 +227,8 @@ Press Enter to start the search.</string>
          </property>
          <property name="toolTip" >
           <string>Regular expression for replacement text
-(\0 equals found text, \n - n-th block parenthised in search expression)</string>
+(\0 equals found text, \n - n-th block parenthised in search expression).
+Case sensitive.</string>
          </property>
         </widget>
        </item>

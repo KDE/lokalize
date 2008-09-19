@@ -64,13 +64,13 @@
 #define FIND_SKIPTAGS ui_findExtension->m_skipTags->isChecked()
 #define REPLACE_IGNOREACCELS ui_replaceExtension->m_ignoreAccelMarks->isChecked()
 
-void KAider::deleteUiSetupers()
+void EditorWindow::deleteUiSetupers()
 {
     delete ui_findExtension;
     delete ui_replaceExtension;
 }
 
-static void cleanUpIfMultiple(KAider* th,
+static void cleanUpIfMultiple(EditorWindow* th,
                               KUrl::List& list,
                               int& pos,
                               KFindDialog* dia)
@@ -85,7 +85,7 @@ static void cleanUpIfMultiple(KAider* th,
     dia->setHasCursor(true);
 }
 
-void KAider::find()
+void EditorWindow::find()
 {
     if(KDE_ISUNLIKELY( !_findDialog ))
     {
@@ -168,7 +168,7 @@ void KAider::find()
     findNext(pos);
 }
 
-bool KAider::determineStartingPos(KFind* find,
+bool EditorWindow::determineStartingPos(KFind* find,
                                   const KUrl::List& filesList,//search or replace files
                                   int& filesPos,
                                   DocPosition& pos)
@@ -226,12 +226,12 @@ bool KAider::determineStartingPos(KFind* find,
     return true;
 }
 
-// void KAider::initProgressDia()
+// void EditorWindow::initProgressDia()
 // {
 //     
 // }
 
-void KAider::findNext(const DocPosition& startingPos)
+void EditorWindow::findNext(const DocPosition& startingPos)
 {
     Catalog& catalog=*_catalog;
     KFind& find=*_find;
@@ -403,7 +403,7 @@ void KAider::findNext(const DocPosition& startingPos)
 //    kWarning()<<"searchink         TIME "<<a.elapsed();
 }
 
-void KAider::findNext()
+void EditorWindow::findNext()
 {
     if (_find)
         findNext(_currentPos);
@@ -412,7 +412,7 @@ void KAider::findNext()
 
 }
 
-void KAider::findPrev()
+void EditorWindow::findPrev()
 {
 
     if (_find)
@@ -427,7 +427,7 @@ void KAider::findPrev()
 
 }
 
-void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
+void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
     show();//for search through several files
     kWarning()<<"matchingIndex"<<matchingIndex
@@ -459,7 +459,7 @@ void KAider::highlightFound(const QString &,int matchingIndex,int matchedLength)
 
 }
 
-void KAider::replace()
+void EditorWindow::replace()
 {
     if( !_replaceDialog )
     {
@@ -558,7 +558,7 @@ void KAider::replace()
 }
 
 
-void KAider::replaceNext(const DocPosition& startingPos)
+void EditorWindow::replaceNext(const DocPosition& startingPos)
 {
     bool anotherEntry=_replacingPos.entry!=_replacingPos.entry;
     _replacingPos=startingPos;
@@ -720,13 +720,13 @@ void KAider::replaceNext(const DocPosition& startingPos)
     m_catalogTreeView->setUpdatesEnabled(true);
 }
 
-void KAider::replaceNext()
+void EditorWindow::replaceNext()
 {
     replaceNext(_currentPos);
 //     kWarning() << "END";
 }
 
-void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength)
+void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
     show();
 
@@ -757,7 +757,7 @@ void KAider::highlightFound_(const QString &,int matchingIndex,int matchedLength
 }
 
 
-void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
+void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 {
     if(!m_doReplaceCalled)
     {
@@ -820,7 +820,7 @@ void KAider::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 
 
 
-void KAider::spellcheck()
+void EditorWindow::spellcheck()
 {
     if (!m_sonnetDialog)
     {
@@ -862,7 +862,7 @@ void KAider::spellcheck()
 }
 
 
-void KAider::spellcheckNext()
+void EditorWindow::spellcheckNext()
 {
     //DocPosition pos=_spellcheckPos;
 
@@ -895,18 +895,18 @@ void KAider::spellcheckNext()
     }
 }
 
-void KAider::spellcheckStop()
+void EditorWindow::spellcheckStop()
 {
     _spellcheckStop=true;
 }
 
-void KAider::spellcheckCancel()
+void EditorWindow::spellcheckCancel()
 {
     _catalog->setIndex(_spellcheckStartUndoIndex);
     gotoEntry(_spellcheckPos);
 }
 
-void KAider::spellcheckShow(const QString &word, int offset)
+void EditorWindow::spellcheckShow(const QString &word, int offset)
 {
     show();
 
@@ -917,7 +917,7 @@ void KAider::spellcheckShow(const QString &word, int offset)
 //     kWarning() << "spellcheckShw "<<word;
 }
 
-void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString &newWord)
+void EditorWindow::spellcheckReplace(const QString &oldWord, int offset, const QString &newWord)
 {
     DocPosition pos=_spellcheckPos;
     pos.offset=offset;
@@ -940,7 +940,7 @@ void KAider::spellcheckReplace(const QString &oldWord, int offset, const QString
 
 
 
-void KAider::findInFiles(const KUrl::List& list)
+void EditorWindow::findInFiles(const KUrl::List& list)
 {
     m_searchFiles=list;
     m_searchFilesPos=-1;
@@ -965,7 +965,7 @@ this is nice, but too complex :)
 }
 
 
-void KAider::replaceInFiles(const KUrl::List& list)
+void EditorWindow::replaceInFiles(const KUrl::List& list)
 {
     m_replaceFiles=list;
     m_replaceFilesPos=-1;
@@ -974,7 +974,7 @@ void KAider::replaceInFiles(const KUrl::List& list)
 }
 
 
-void KAider::spellcheckFiles(const KUrl::List& list)
+void EditorWindow::spellcheckFiles(const KUrl::List& list)
 {
     m_spellcheckFiles=list;
     m_spellcheckFilesPos=-1;

@@ -35,17 +35,17 @@
 
 #include "lokalizesubwindowbase.h"
 
-#include <kmainwindow.h>
-#include <kurl.h>
+#include <KMainWindow>
+#include <KUrl>
 #include <KXMLGUIClient>
 
 class ProjectWidget;
 class QContextMenuEvent;
 
 /**
- * Project File Tree Window
+ * Project Overview Tab
  */
-class ProjectWindow: public LokalizeSubwindowBase, public KXMLGUIClient
+class ProjectWindow: public LokalizeSubwindowBase2
 {
     Q_OBJECT
 public:
@@ -65,7 +65,7 @@ signals:
     void replaceRequested(const KUrl::List&);
     void spellcheckRequested(const KUrl::List&);
 
-public slots:
+private slots:
     void findInFiles();
     void replaceInFiles();
     void spellcheckFiles();

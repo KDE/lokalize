@@ -89,7 +89,8 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     m_browser->sortByColumn(0, Qt::AscendingOrder);
     m_browser->setWordWrap(true);
 
-    m_proxyModel->setFilterKeyColumn(CatalogTreeModel::Source);
+    m_proxyModel->setFilterKeyColumn(-1);
+    m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
 }
 

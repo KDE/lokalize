@@ -1,8 +1,9 @@
 The most global class is 'Project'. It is a singleton so all data that can be shared among Lokalize windows should go into it.
 'Settings' is also a singleton (src/prefs).
+'LokalizeMainWindow' is the main window with multitabs interface
 
-'KAider' is a dispatcher (controller) for one catalog editing window.
-'KAiderView' is msgid/msgstr viewer/editor.
+'EditorWindow' is a dispatcher (controller) for one catalog editing window.
+'KAiderView' is msgid/msgstr viewer/editor for it.
 
 All specialized actions should go into views (QDockWidgets) or separate classes used from views.
 

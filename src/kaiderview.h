@@ -83,7 +83,7 @@ class QDragEnterEvent;
  *
  * There are several ways (for views) to modify current msg:
  * -modify KTextEdit and changes will be applied to catalog automatically (plus you need to care of fuzzy indication etc)
- * -modify catalog directly, then call KAider::goto slot
+ * -modify catalog directly, then call EditorWindow::gotoEntry slot
  * I used both :)
  *
  * @short Main editor view: source and target textedits

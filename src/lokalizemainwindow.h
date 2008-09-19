@@ -68,12 +68,14 @@ public slots:
     void spellcheckFiles(const KUrl::List&);
 
     void showProjectOverview();
+    void showTM();
 
     void applyToBeActiveSubWindow();
 private:
     QMdiArea* m_mdiArea;
     QPointer<QMdiSubWindow> m_prevSubWindow;
     QPointer<QMdiSubWindow> m_projectSubWindow;
+    QPointer<QMdiSubWindow> m_translationMemorySubWindow;
     QPointer<QMdiSubWindow> m_toBeActiveSubWindow;//used during session restore
 
     QActionGroup* m_editorActions;
