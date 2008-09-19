@@ -55,7 +55,7 @@ TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
     , m_queryType(WordOrder)
 {
-    setHeaderData(0, Qt::Horizontal, i18nc("@title:column Original text","Original"));
+    setHeaderData(0, Qt::Horizontal, i18nc("@title:column Original text","Source"));
     setHeaderData(1, Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
     setHeaderData(2, Qt::Horizontal, i18nc("@title:column","Context"));
     setHeaderData(3, Qt::Horizontal, i18nc("@title:column","File"));
@@ -156,7 +156,7 @@ TMWindow::TMWindow(QWidget *parent)
     //view->setItemDelegate(delegate);
     //view->setSelectionBehavior(QAbstractItemView::SelectItems);
     //connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
-
+    view->setRootIsDecorated(false);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
@@ -186,20 +186,22 @@ TMWindow::TMWindow(QWidget *parent)
     connect(btnGrp,SIGNAL(buttonClicked(int)),
             m_model,SLOT(setQueryType(int)));
 
+    /*
     ui_queryOptions.db->setModel(DBFilesModel::instance());
     ui_queryOptions.db->setCurrentIndex(ui_queryOptions.db->findText(Project::instance()->projectID()));
     connect(ui_queryOptions.db,SIGNAL(currentIndexChanged(QString)),
             m_model,SLOT(setDB(QString)));
+    */
 
     m_querySource=ui_queryOptions.querySource;
     m_queryTarget=ui_queryOptions.queryTarget;
-    m_dbCombo=ui_queryOptions.db;
+    //m_dbCombo=ui_queryOptions.db;
     m_view=view;
     m_invertSource=ui_queryOptions.invertSource;
     m_invertTarget=ui_queryOptions.invertTarget;
 
 
-    m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
+    //m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
 
 }
 
@@ -209,7 +211,7 @@ TMWindow::~TMWindow()
 
 void TMWindow::selectDB(int i)
 {
-    m_dbCombo->setCurrentIndex(i);
+    //m_dbCombo->setCurrentIndex(i);
 }
 
 void TMWindow::performQuery()

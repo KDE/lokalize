@@ -43,7 +43,6 @@
 //views
 #include "msgctxtview.h"
 #include "msgiddiffview.h"
-#include "projectview.h"
 #include "mergeview.h"
 #include "cataloglistview.h"
 #include "glossaryview.h"
@@ -136,7 +135,6 @@ KAider::KAider(QWidget* parent)
         , m_progressDialog(0)
         , ui_findExtension(0)
         , ui_replaceExtension(0)
-//     , _projectView(0)
         , _mergeView(0)
         , _mergeViewSecondary(0)
 {

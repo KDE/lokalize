@@ -5,26 +5,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>606</width>
-    <height>511</height>
+    <width>1061</width>
+    <height>527</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" >
+    <layout class="QHBoxLayout" name="queryLayout" >
+     <property name="sizeConstraint" >
+      <enum>QLayout::SetMinimumSize</enum>
+     </property>
      <item>
-      <layout class="QGridLayout" name="gridLayout" >
+      <layout class="QGridLayout" name="mainQueryLayout" >
        <item row="1" column="1" >
         <widget class="KLineEdit" name="querySource" >
          <property name="toolTip" >
-          <string>Press Enter to start the search</string>
+          <string>Search expression for source language part.
+Press Enter to start the search.</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1" >
         <widget class="KLineEdit" name="queryTarget" >
          <property name="toolTip" >
-          <string>Press Enter to start the search</string>
+          <string>Search expression for target language part.
+Press Enter to start the search.</string>
          </property>
         </widget>
        </item>
@@ -33,6 +38,9 @@
          <property name="text" >
           <string>Source:</string>
          </property>
+         <property name="buddy" >
+          <cstring>querySource</cstring>
+         </property>
         </widget>
        </item>
        <item row="2" column="0" >
@@ -40,10 +48,16 @@
          <property name="text" >
           <string>Target:</string>
          </property>
+         <property name="buddy" >
+          <cstring>queryTarget</cstring>
+         </property>
         </widget>
        </item>
        <item row="2" column="2" >
         <widget class="QCheckBox" name="invertTarget" >
+         <property name="toolTip" >
+          <string>Show results that do not match search expression</string>
+         </property>
          <property name="text" >
           <string>Invert</string>
          </property>
@@ -51,15 +65,15 @@
        </item>
        <item row="1" column="2" >
         <widget class="QCheckBox" name="invertSource" >
+         <property name="toolTip" >
+          <string>Show results that do not match search expression</string>
+         </property>
          <property name="text" >
           <string>Invert</string>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2" />
      </item>
      <item>
       <widget class="Line" name="line" >
@@ -69,16 +83,30 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="optionsLayout" >
        <item>
-        <widget class="QComboBox" name="db" >
-         <property name="minimumContentsLength" >
-          <number>20</number>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="filemaskLayout" >
+         <item>
+          <widget class="QLabel" name="label_2" >
+           <property name="toolTip" >
+            <string/>
+           </property>
+           <property name="text" >
+            <string>File mask:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="filemask" >
+           <property name="toolTip" >
+            <string>Show only results from files with path matching specified mask</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4" >
+        <layout class="QHBoxLayout" name="queryStyleLayout" >
          <item>
           <widget class="QRadioButton" name="substr" >
            <property name="text" >
@@ -116,6 +144,130 @@
        </item>
       </layout>
      </item>
+     <item>
+      <widget class="Line" name="line_2" >
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="regexLayout" >
+       <item row="0" column="1" >
+        <widget class="KLineEdit" name="regexSource" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Additionally filter results with regular expression</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="KLineEdit" name="regexTarget" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Additionally filter results with regular expression</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label_3" >
+         <property name="text" >
+          <string>Refine source:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="label_4" >
+         <property name="text" >
+          <string>Refine target:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_3" >
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="replaceLayout" >
+       <item row="0" column="1" >
+        <widget class="KLineEdit" name="findText" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Regular expression for text that should be replaced</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="KLineEdit" name="replaceText" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Regular expression for replacement text
+(\0 equals found text, \n - n-th block parenthised in search expression)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QCheckBox" name="replace" >
+         <property name="enabled" >
+          <bool>true</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Do replace over the results in both translation memory and files (if they exist)</string>
+         </property>
+         <property name="text" >
+          <string comment="@label:textbox as in 'Replace with'" >Replace:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string comment="@label:textbox as in 'Replace with'" >With: </string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="buddy" >
+          <cstring>replaceText</cstring>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="buttonsLayout" >
+       <item>
+        <widget class="KPushButton" name="doFind" >
+         <property name="text" >
+          <string>Find</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="doReplace" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Replace</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
@@ -132,6 +284,8 @@
     </widget>
    </item>
   </layout>
+  <zorder>treeView</zorder>
+  <zorder></zorder>
  </widget>
  <customwidgets>
   <customwidget>
@@ -139,18 +293,63 @@
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>querySource</tabstop>
   <tabstop>invertSource</tabstop>
   <tabstop>queryTarget</tabstop>
   <tabstop>invertTarget</tabstop>
-  <tabstop>db</tabstop>
+  <tabstop>filemask</tabstop>
   <tabstop>substr</tabstop>
   <tabstop>like</tabstop>
   <tabstop>rx</tabstop>
+  <tabstop>regexSource</tabstop>
+  <tabstop>regexTarget</tabstop>
+  <tabstop>replace</tabstop>
+  <tabstop>findText</tabstop>
+  <tabstop>replaceText</tabstop>
+  <tabstop>doFind</tabstop>
+  <tabstop>doReplace</tabstop>
   <tabstop>treeView</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>replace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>findText</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>780</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>873</x>
+     <y>28</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>replace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>replaceText</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>788</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>844</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

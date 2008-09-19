@@ -333,12 +333,13 @@ static void updateDB(
               const QString& english,
               /*const QString& oldTarget,*/
               const QString& newTarget,
-              int form
+              int form,
+              bool approved
               //const DocPosition&,//for back tracking
 //              const QString& dbName,
              )
 {
-    TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,/*oldTarget,*/newTarget,form,
+    TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,/*oldTarget,*/newTarget,form,approved,
                                Project::instance()->projectID());
     j->connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
     j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
@@ -367,7 +368,6 @@ void Catalog::push(QUndoCommand *cmd, bool rebaseForDBUpdate)
 
 void Catalog::flushUpdateDBBuffer()
 {
-    //kWarning()<<"flushUpdateDBBuffer";
     if (!Settings::autoaddTM())
         return;
 
@@ -386,7 +386,8 @@ void Catalog::flushUpdateDBBuffer()
              msgctxt(pos.entry),
              source(pos),
              target(pos),
-             form);
+             form,
+             isApproved(pos.entry));
 
 }
 

@@ -286,6 +286,7 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     _msgstrEdit->setUndoRedoEnabled(false);
     _msgstrEdit->setAcceptRichText(false);
     _msgstrEdit->installEventFilter(this);
+    _msgidEdit->installEventFilter(this);
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);
@@ -329,17 +330,28 @@ static bool isMasked(const QString& str, uint col)
 }
 
 
-bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
+bool KAiderView::eventFilter(QObject* obj, QEvent* event)
 {
-//     if (obj!=_msgstrEdit)
-//     {
-//         kWarning() << "THIS IS VERY STRANGE";
-//         return QSplitter::eventFilter(obj, event);
-//     }
-
     if (event->type() != QEvent::KeyPress)
         return false;//QObject::eventFilter(obj, event);
     QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+
+
+
+    if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
+    {
+        emit signalGotoPrev();
+        return true;
+    }
+    else if(keyEvent->matches(QKeySequence::MoveToNextPage))
+    {
+        emit signalGotoNext();
+        return true;
+    }
+    if (obj!=_msgstrEdit)
+        return false;
+
+
     static QString spclChars("abfnrtv'\"?\\");
     if(keyEvent->matches(QKeySequence::Undo))
     {
@@ -358,16 +370,6 @@ bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
             approvedEntryDisplayed(_catalog->isApproved(_currentEntry));
             return true;
         }
-    }
-    else if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
-    {
-        emit signalGotoPrev();
-        return true;
-    }
-    else if(keyEvent->matches(QKeySequence::MoveToNextPage))
-    {
-        emit signalGotoNext();
-        return true;
     }
     else if (keyEvent->modifiers() == (Qt::AltModifier|Qt::ControlModifier))
     {
@@ -453,11 +455,9 @@ bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
             int pos=t.position();
             QString str=_msgstrEdit->toPlainText();
             if(!str.isEmpty()
-//                 &&pos<str.length()
                 &&str.at(pos) == '\\'
                 &&!isMasked(str,pos))
             {
-//                 QString spclChars="abfnrtv'\"?\\";
                 if(pos<str.length()-1&&spclChars.contains(str.at(pos+1)))
                     t.deleteChar();
             }
@@ -476,7 +476,6 @@ bool KAiderView::eventFilter(QObject * /*obj*/, QEvent *event)
         {
             int pos=t.position();
             QString str=_msgstrEdit->toPlainText();
-//             QString spclChars="abfnrtv'\"?\\";
             if(!str.isEmpty() && pos>0 && spclChars.contains(str.at(pos-1)))
             {
                 if(pos>1 && str.at(pos-2)=='\\' && !isMasked(str,pos-2))

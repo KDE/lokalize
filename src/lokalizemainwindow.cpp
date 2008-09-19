@@ -87,17 +87,7 @@ LokalizeMainWindow::LokalizeMainWindow()
      //prevent relayout of dockwidgets
     m_mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation,true);
 
-//BEGIN PROJECT
-    ProjectWindow* w=new ProjectWindow(this);
-    m_projectSubWindow=m_mdiArea->addSubWindow(w);
-    w->showMaximized();
-    m_projectSubWindow->showMaximized();
-    //slotSubWindowActivated(m_projectSubWindow);//check for empty menus
-    connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
-    connect(w, SIGNAL(searchRequested(KUrl::List)),this,SLOT(searchInFiles(KUrl::List)));
-    connect(w, SIGNAL(replaceRequested(KUrl::List)),this,SLOT(replaceInFiles(KUrl::List)));
-    connect(w, SIGNAL(spellcheckRequested(KUrl::List)),this,SLOT(spellcheckFiles(KUrl::List)));
-//END PROJECT
+    showProjectOverview();
 
     QString tmp=" ";
     statusBar()->insertItem(tmp,ID_STATUS_CURRENT);
@@ -217,42 +207,25 @@ LokalizeMainWindow::~LokalizeMainWindow()
 void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 {
     QTime aaa;aaa.start();
-//     kWarning()<<"!!! slotSubWindowActivated !!!";
     if (!w || m_prevSubWindow==w)
         return;
-//     QTime aaa;aaa.start();
-//    bool lookForEmptyMenus=false;
-
-  //  QList<QAction*> actions=m_editorActions->actions();
 
     if (m_prevSubWindow)
     {
         LokalizeSubwindowBase* prevEditor;
         if (m_prevSubWindow==m_projectSubWindow)
-        {
             prevEditor=static_cast<ProjectWindow*>( m_prevSubWindow->widget() );
-    //        lookForEmptyMenus=true;
-        }
         else
             prevEditor=static_cast<KAider*>( m_prevSubWindow->widget() );
         prevEditor->hideDocks();
 
         guiFactory()->removeClient( prevEditor->guiClient()   );
-        /*int i=actions.size();
-        QHash<QString,ActionProxy*>& actionsHash=prevEditor->supportedActions;
-        while(--i>=0)
-        {
-            QString actionName=actions.at(i)->data().toString();
-            if (actionsHash.contains(  actionName  ))
-                actionsHash.value(  actionName  )->unregisterAction();
-        }*/
         prevEditor->statusBarItems.unregisterStatusBar();
     }
     LokalizeSubwindowBase* editor;
     if (w==m_projectSubWindow)
     {
         editor=static_cast<ProjectWindow*>( w->widget() );
-        //lookForEmptyMenus=true;
     }
     else
     {
@@ -266,56 +239,13 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     editor->showDocks();
     guiFactory()->addClient(  editor->guiClient()   );
 
-/*
-    int i=actions.size();
-    QHash<QString,ActionProxy*>& actionsHash=editor->supportedActions;
-    while(--i>=0)
-    {
-        QString actionName=actions.at(i)->data().toString();
-        if (actionsHash.contains(  actionName  ))
-        {
-            actionsHash.value(  actionName  )->registerAction(actions.at(i));
-            actions.at(i)->setVisible(true);
-        }
-        else
-            actions.at(i)->setVisible(false);
-    }*/
     editor->statusBarItems.registerStatusBar(statusBar());
 
 
     m_prevSubWindow=w;
 
-
-
-   /* if (!lookForEmptyMenus)
-        return;
-
-    QList<QWidget*> containers=factory()->containers("menu");
-    i=containers.size();
-    while (--i>=0)
-    {
-        kWarning()<<"menu"<<static_cast<KMenu*>(containers.at(i))->title();
-        kWarning()<<containers.at(i)->actions().size();
-        QList<QAction*> actions=containers.at(i)->actions();
-        int j=actions.size();
-        while (--j>=0)
-        {
-            if (actions.at(j)->isVisible()&&!actions.at(j)->text().isEmpty())
-            {
-                kWarning()<<"Visible"<<actions.at(j)->text();
-                break;
-            }
-        }
-        if (j==-1)
-        {
-            kWarning()<<"hiding"<<static_cast<KMenu*>(containers.at(i))->menuAction()->text();
-            static_cast<KMenu*>(containers.at(i))->menuAction()->setVisible(false);
-        }
-    }
-*/
     kWarning()<<"finished"<<aaa.elapsed();
 }
-
 
 
 bool LokalizeMainWindow::queryClose()
@@ -394,6 +324,24 @@ bool LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAs
     return true;
 }
 
+void LokalizeMainWindow::showProjectOverview()
+{
+    if (!m_projectSubWindow)
+    {
+        ProjectWindow* w=new ProjectWindow(this);
+        m_projectSubWindow=m_mdiArea->addSubWindow(w);
+        w->showMaximized();
+        m_projectSubWindow->showMaximized();
+        connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
+        connect(w, SIGNAL(searchRequested(KUrl::List)),this,SLOT(searchInFiles(KUrl::List)));
+        connect(w, SIGNAL(replaceRequested(KUrl::List)),this,SLOT(replaceInFiles(KUrl::List)));
+        connect(w, SIGNAL(spellcheckRequested(KUrl::List)),this,SLOT(spellcheckFiles(KUrl::List)));
+    }
+
+    m_mdiArea->setActiveSubWindow(m_projectSubWindow);
+}
+
+
 void LokalizeMainWindow::applyToBeActiveSubWindow()
 {
     m_mdiArea->setActiveSubWindow(m_toBeActiveSubWindow);
@@ -416,7 +364,7 @@ void LokalizeMainWindow::searchInFiles(const KUrl::List& urls)
 }
 void LokalizeMainWindow::replaceInFiles(const KUrl::List&)
 {
-    
+
 }
 void LokalizeMainWindow::spellcheckFiles(const KUrl::List& urls)
 {
@@ -465,8 +413,9 @@ void LokalizeMainWindow::setupActions()
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
     action = ac->addAction(_name);\
-    action->setText(_text);\
-    action->setShortcut(QKeySequence( _shortcut ));
+    action->setShortcut(QKeySequence( _shortcut ));\
+    action->setText(_text);
+
 
 //Window
     //documentBack
@@ -483,7 +432,11 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect(action,SIGNAL(triggered()),project,SLOT(showGlossary()));
 
+/*
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
+    connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
+*/
+    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Find/Replace using translation memory"),Qt::Key_F7)
     connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
 
     action = ac->addAction("tools_tm_manage");
@@ -491,6 +444,12 @@ void LokalizeMainWindow::setupActions()
     connect(action,SIGNAL(triggered()),project,SLOT(showTMManager()));
 
 //Project
+    ADD_ACTION_SHORTCUT("project_overview",i18nc("@action:inmenu","Project overview"),Qt::Key_F4)
+    connect(action,SIGNAL(triggered()),this,SLOT(showProjectOverview()));
+
+    action = ac->addAction("project_configure",sc,SLOT(projectConfigure()));
+    action->setText(i18nc("@action:inmenu","Configure project"));
+
     action = ac->addAction("project_configure",sc,SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 

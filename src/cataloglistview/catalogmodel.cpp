@@ -54,9 +54,9 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientatio
     switch (section)
     {
         case Key: return i18nc("@title:column","Entry");
-        case Source: return i18nc("@title:column Original text","Original");
+        case Source: return i18nc("@title:column Original text","Source");
         case Translation: return i18nc("@title:column Text in target language","Target");
-        case FuzzyFlag: return i18nc("@title:column","Fuzzy");
+        case FuzzyFlag: return i18nc("@title:column","Approved");
     }
     return QVariant();
 }
@@ -71,7 +71,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         case Key: return index.row()+1;
         case Source: return m_catalog->msgid(index.row());
         case Translation: return m_catalog->msgstr(index.row());
-        case FuzzyFlag: return m_catalog->isFuzzy(index.row());
+        case FuzzyFlag: return m_catalog->isApproved(index.row());
     }
     return QVariant();
 }

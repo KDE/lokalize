@@ -205,10 +205,7 @@ private:
  *
  * it is supposed too run on entry switch/file close in Editor
 **/
-//TODO a mechanism to get rid of dead dups (shud use strigi).
-//find all en, then try to find supposedly dead translation
-//update: i'm not sure it is needed. maybe just search for file references for non-existent files?
-
+//TODO a mechanism to get rid of dead dups (use strigi?).
 //also, display usage of different translations and suggest user
 //to use only one of them (listview, checkboxes) 
 class UpdateJob: public ThreadWeaver::Job
@@ -220,6 +217,7 @@ public:
                        const QString& en,
                        const QString& newTarget,
                        int form,
+                       bool approved,
                        //const DocPosition&,//for back tracking
                        const QString& dbName,
                        QObject* parent=0);
@@ -238,6 +236,7 @@ private:
     QString m_english;
     QString m_newTarget;
     int m_form;
+    bool m_approved;
     QString m_dbName;
 };
 

@@ -48,7 +48,6 @@ set(lokalize_SRCS
     project/project.cpp
     project/projectmodel.cpp
     project/projectwidget.cpp
-#    project/projectview.cpp
     project/projectwindow.cpp
 
     prefs/prefs.cpp

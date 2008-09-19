@@ -109,8 +109,7 @@ public:
     inline void removeFromDiffIndex(uint index){m_mergeDiffIndex.removeAll(index);}
 
 private slots:
-    void BaseCatalogEntryChanged(const DocPosition&);
-//    void BaseCatalogSaved();
+    void baseCatalogEntryChanged(const DocPosition&);
 
 private:
     MatchItem calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos);

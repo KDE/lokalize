@@ -27,6 +27,8 @@
 #include <kxmlguiwindow.h>
 #include <kurl.h>
 
+#include <QPointer>
+
 class QMdiSubWindow;
 class QMdiArea;
 class QActionGroup;
@@ -65,12 +67,14 @@ public slots:
     void replaceInFiles(const KUrl::List&);
     void spellcheckFiles(const KUrl::List&);
 
+    void showProjectOverview();
+
     void applyToBeActiveSubWindow();
 private:
     QMdiArea* m_mdiArea;
-    QMdiSubWindow* m_prevSubWindow;
-    QMdiSubWindow* m_projectSubWindow;
-    QMdiSubWindow* m_toBeActiveSubWindow;
+    QPointer<QMdiSubWindow> m_prevSubWindow;
+    QPointer<QMdiSubWindow> m_projectSubWindow;
+    QPointer<QMdiSubWindow> m_toBeActiveSubWindow;//used during session restore
 
     QActionGroup* m_editorActions;
     QActionGroup* m_managerActions;

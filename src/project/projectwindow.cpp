@@ -59,13 +59,13 @@ ProjectWindow::ProjectWindow(QWidget *parent)
         statusBarItems.insert(i,"");
 
     setXMLFile("projectmanagerui.rc",true);
-    //setXML("",true);
     QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
 }
 
 ProjectWindow::~ProjectWindow()
 {
+    //kWarning()<<"destroyed";
 }
 
 
