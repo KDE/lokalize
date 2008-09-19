@@ -384,7 +384,7 @@ void LokalizeMainWindow::setupActions()
 
     setStandardToolBarMenuEnabled(true);
 
-    QAction *action;
+    KAction *action;
     KActionCollection* ac=actionCollection();
 
 
