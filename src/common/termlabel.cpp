@@ -39,7 +39,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <QAction>
+#include <kaction.h>
 #include <QMenu>
 #include <QMouseEvent>
 

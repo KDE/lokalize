@@ -138,10 +138,10 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
             writeKeyword( stream, "msgctxt", msgctxt );
 
         writeKeyword( stream, "msgid", catalog->m_entries.at(counter).msgid() );
-        if ( catalog->m_entries.at(counter).pluralFormType() == Gettext )
+        if ( catalog->m_entries.at(counter).isPlural() )
             writeKeyword( stream, "msgid_plural", catalog->m_entries.at(counter).msgid(1) );
 
-        if ( catalog->m_entries.at(counter).pluralFormType() != Gettext)
+        if (!catalog->m_entries.at(counter).isPlural())
             writeKeyword( stream, "msgstr", catalog->m_entries.at(counter).msgstr() );
         else
         {

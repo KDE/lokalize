@@ -44,18 +44,18 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
+#include <kaction.h>
 
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSet>
-#include <QAction>
 #include <QFrame>
 // #include <QShortcutEvent>
 
 
 using namespace GlossaryNS;
 
-GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
+GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)
         , m_browser(new QFrame(this))
         , m_catalog(catalog)
@@ -101,24 +101,26 @@ GlossaryView::~GlossaryView()
 //         event->acceptProposedAction();*/
 // }
 
-void GlossaryView::slotNewEntryDisplayed(uint entry)
+void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
+    //kWarning()<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
     QTime time;time.start();
-    if (entry==0xffffffff)
-        entry=m_currentIndex;
+    if (pos.entry==-1)
+        pos.entry=m_currentIndex;
     else
-        m_currentIndex=entry;
+        m_currentIndex=pos.entry;
 
-    if (m_catalog->numberOfEntries()<=(int)entry)
+    if (pos.entry==-1 || m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
     //kWarning()<<"m_catalog->numberOfEntries()"<<m_catalog->numberOfEntries()<<entry;
 //     if (!toggleViewAction()->isChecked())
 //         return;
+
     Glossary& glossary=*m_glossary;
 
 
 
-    QString msg(m_catalog->msgid(entry).toLower());
+    QString msg(m_catalog->source(pos).toLower());
     msg.remove(m_rxClean);
 
 //     QRegExp accel(Project::instance()->accel());
@@ -142,7 +144,6 @@ void GlossaryView::slotNewEntryDisplayed(uint entry)
         return;
     }
 
-    kDebug()<<"1";
     QList<int> termIndexes;
     int i=0;
     for (;i<words.size();++i)

@@ -80,13 +80,13 @@ QString MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) cons
     return Catalog::msgstr(us, noNewlines);
 }
 
-bool MergeCatalog::isFuzzy(uint index) const
+bool MergeCatalog::isApproved(uint index) const
 {
     //sanity
     if (m_map.at(index) == -1)
          return false;
 
-    return Catalog::isFuzzy(m_map.at(index));
+    return Catalog::isApproved(m_map.at(index));
 }
 
 bool MergeCatalog::isPlural(uint index) const

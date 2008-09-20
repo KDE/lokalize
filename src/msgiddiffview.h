@@ -33,6 +33,7 @@
 #ifndef MSGIDDIFF_H
 #define MSGIDDIFF_H
 
+#include "pos.h"
 #include <QDockWidget>
 class KTextEdit;
 class Catalog;
@@ -47,7 +48,7 @@ public:
 
 
 public slots:
-    void slotNewEntryDisplayed(uint);
+    void slotNewEntryDisplayed(const DocPosition&);
     void process();
 
 private:

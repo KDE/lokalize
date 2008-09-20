@@ -528,7 +528,7 @@ void KAiderView::settingsChanged()
         else
         {
             _leds=new LedsWidget(this);
-            if (_catalog->isFuzzy(_currentEntry))
+            if (!_catalog->isApproved(_currentEntry))
                 _leds->ledFuzzy->on();
             if (_catalog->msgstr(_currentPos).isEmpty())
                 _leds->ledUntr->on();
@@ -599,10 +599,10 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 
 void KAiderView::approvedEntryDisplayed(bool approved, bool force)
 {
-    kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved<<"force:"<<force;
+    //kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved<<"force:"<<force;
     if (KDE_ISUNLIKELY( _currentEntry==-1 || (m_approvementState==approved && !force) ))
     {
-        kWarning()<<"approvedEntryDisplayed returning";
+        //kWarning()<<"approvedEntryDisplayed returning";
         return;
     }
     m_approvementState=approved;
@@ -819,7 +819,7 @@ void KAiderView::clearMsgStr()
 
     _currentPos.offset=0;
     _catalog->push(new DelTextCmd(_catalog,_currentPos,_catalog->msgstr(_currentPos)));
-    if (_catalog->isFuzzy(_currentEntry))
+    if (!_catalog->isApproved(_currentEntry))
         toggleApprovement(true);
 
     gotoEntry(_currentPos);

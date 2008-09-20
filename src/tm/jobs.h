@@ -79,25 +79,12 @@ struct TMEntry
 
     bool operator<(const TMEntry& other)const
     {
-        //return score<other.score;
         //we wanna items with higher score to appear in the front after qSort
         if (score==other.score)
             return date>other.date;
         return score>other.score;
     }
 };
-
-#if 0
-struct TMWordHash
-{
-    QMultiHash<QString,qlonglong> wordHash;
-//     QMultiMap<QString,qlonglong> wordHash;
-    void clear()
-    {
-        wordHash.clear();
-    }
-};
-#endif
 
 
 bool scanRecursive(const QDir& dir, const QString& dbName);

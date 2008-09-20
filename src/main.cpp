@@ -50,6 +50,14 @@
 
 
 
+
+
+
+
+
+
+
+
 static const char version[] = KAIDER_VERSION;
 static const char description[] =
     I18N_NOOP("Computer-aided translation system.\nDon't translate what had already been translated!");
@@ -71,6 +79,7 @@ int main(int argc, char **argv)
     KCmdLineArgs::addCmdLineOptions(options);
 
     KApplication app;
+
 
     // see if we are starting with session management
     if (app.isSessionRestored())

@@ -27,9 +27,10 @@
 #include <QObject>
 #include <QKeySequence>
 #include <QMap>
-class QAction;
+class KAction;
 class KStatusBar;
 
+#if 0
 
 /**
  * used for connecting qactions to subwindows:
@@ -69,7 +70,7 @@ private:
     QKeySequence m_keySequence;
 };
 
-
+#endif
 
 class StatusBarProxy: public QMap<int,QString>
 {

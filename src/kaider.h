@@ -106,14 +106,12 @@ namespace ConversionCheck
 class EditorWindow: public LokalizeSubwindowBase2
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.Editor")
+    //qdbuscpp2xml -M -s kaider.h -o org.kde.lokalize.Editor.xml
 
 public:
     EditorWindow(QWidget* parent);
     virtual ~EditorWindow();
-
-    //wrapper for cmdline handling
-    void mergeOpen(KUrl url=KUrl());
-    //KUrl mergeFile();
 
 
     //interface for LokalizeMainWindow
@@ -132,13 +130,17 @@ public:
     void replaceInFiles(const KUrl::List&);
     void spellcheckFiles(const KUrl::List&);
 
-public slots:
     bool fileOpen(KUrl url=KUrl());
-    void gotoFirst();
-    void gotoLast();
+
+    QString dbusObjectPath();
+public slots:
     //for undo/redo, views
     void gotoEntry(const DocPosition& pos,int selection=0);
     bool findEntry(const QString& source, const QString& ctxt);
+
+    //wrapper for cmdline handling
+    void mergeOpen(KUrl url=KUrl());
+    //KUrl mergeFile();
 
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
@@ -159,12 +161,8 @@ private slots:
     bool fileSave(const KUrl& url = KUrl());
     bool fileSaveAs();
 
-
     void undo();
     void redo();
-//     void textCut();
-//     void textCopy();
-//     void textPaste();
     void findNext();
     void findPrev();
     void find();
@@ -179,6 +177,9 @@ private slots:
 //     void msgid2msgstr();
 //     void search2msgstr();
 //     void plural2msgstr();
+    void gotoFirst();
+    void gotoLast();
+
     void gotoNext();
     void gotoPrev();
     void gotoEntry();
@@ -269,23 +270,23 @@ private:
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
-//     MsgIdDiff* _msgIdDiffView;
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
-    //GlossaryNS::GlossaryView* _glossaryView;
     CatalogTreeView* m_catalogTreeView;
 
 
     QString _captionPath;
 
 
+    int m_dbusId;
+    static QList<int> ids;
+
 signals:
     //emitted when mainwindow is closed or another file is opened
+    void signalFileAboutToBeClosed();//old catalog is still accessible
     void signalFileClosed();
-    void signalFileGonnaBeClosed();//old catalog is still accessible
 
-    void signalNewEntryDisplayed(uint);
-    void signalNewEntryDisplayed(const DocPosition&);
+    Q_SCRIPTABLE void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);

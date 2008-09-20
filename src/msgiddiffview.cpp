@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -65,9 +65,9 @@ MsgIdDiff::~MsgIdDiff()
     delete m_browser;
 }
 
-void MsgIdDiff::slotNewEntryDisplayed(uint index)
+void MsgIdDiff::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    m_entry=index;
+    m_entry=pos.entry;
     QTimer::singleShot(0,this,SLOT(process()));
 }
 

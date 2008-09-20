@@ -34,7 +34,7 @@
 #define TERMLABEL_H
 
 #include <QLabel>
-#include <QAction>
+#include <kaction.h>
 #include "glossary.h"
 #include "project.h"
 

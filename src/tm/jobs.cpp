@@ -722,7 +722,7 @@ OpenDBJob::~OpenDBJob()
 
 void OpenDBJob::run ()
 {
-    kWarning()<<"started";
+    //kWarning()<<"started";
 
     if (QSqlDatabase::contains(m_dbName))
         return;
@@ -758,7 +758,7 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run ()
 {
-    kWarning() <<"started";
+    //kWarning() <<"started";
 //     thread()->setPriority(QThread::IdlePriority);
     QTime a;
     a.start();

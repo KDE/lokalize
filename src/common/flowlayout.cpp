@@ -37,15 +37,14 @@
 
 // #include <klocale.h>
 #include <kdebug.h>
-
-#include <QAction>
+#include <kaction.h>
 
 using namespace GlossaryNS;
 
 FlowLayout::FlowLayout(User user,
                        QWidget *parent,
                        QWidget *signalingWidget,
-                       const QVector<QAction*>& actions,
+                       const QVector<KAction*>& actions,
                        int margin,
                        int spacing)
         : QLayout(parent)

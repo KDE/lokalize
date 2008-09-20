@@ -37,7 +37,7 @@
 
 #include <QLayout>
 #include <QVector>
-class QAction;
+class KAction;
 
 /**
  * used in glossary and kross views
@@ -58,7 +58,7 @@ public:
      * c'tor for glossary view
      */
     FlowLayout(User user, QWidget *parent,QWidget *signalingWidget,
-               const QVector<QAction*>& actions,int margin = 0, int spacing = -1);
+               const QVector<KAction*>& actions,int margin = 0, int spacing = -1);
 
     FlowLayout(int spacing = -1);
     ~FlowLayout();

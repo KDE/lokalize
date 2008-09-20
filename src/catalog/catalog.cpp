@@ -180,23 +180,21 @@ QString Catalog::msgctxt(uint index) const
                 d->CatalogPrivate::_emptyStr;
 }
 
-PluralFormType Catalog::pluralFormType(uint index) const
+
+bool Catalog::isPlural(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return NoPluralForm;
 
-//    uint max=m_storage->count()-1;
-//    if(index > max)
-//       index=max;
-    return m_storage->isPlural(DocPosition(index))?Gettext:NoPluralForm;
+    return m_storage->isPlural(DocPosition(index));
 }
 
-bool Catalog::isFuzzy(uint index) const
+bool Catalog::isApproved(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return false;
 
-    return !m_storage->isApproved(DocPosition(index));
+    return m_storage->isApproved(DocPosition(index));
 }
 
 bool Catalog::isUntranslated(uint index) const

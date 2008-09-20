@@ -132,12 +132,8 @@ LokalizeMainWindow::LokalizeMainWindow()
     dockWidgets=projectStateGroup.readEntry("DockWidgets",dockWidgets);
     int i=files.size();
     int activeSWIndex=projectStateGroup.readEntry("Active",-1);
-    /*if (activeSWIndex!=-1)
-        activeSWIndex=i-activeSWIndex-1;//respect inverted order*/
-    QMdiSubWindow* activeSW=0;
     while (--i>=0)
     {
-        //QMdiSubWindow* activeSW11=0;
         if (i<dockWidgets.size())
             m_lastEditorState=dockWidgets.at(i);
         if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i)))
@@ -151,6 +147,8 @@ LokalizeMainWindow::LokalizeMainWindow()
 
 
 //END RESTORE STATE
+
+    registerDBusAdaptor();
 
     QTimer::singleShot(0,this,SLOT(initLater()));
 }
@@ -315,6 +313,7 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
         w->mergeOpen(mergeFile);
 
     m_openRecentFileAction->addUrl(w->currentUrl());
+    //emit editorWindowOpened(w);
     return w;
 }
 
@@ -343,7 +342,7 @@ void LokalizeMainWindow::showProjectOverview()
     m_mdiArea->setActiveSubWindow(m_projectSubWindow);
 }
 
-void LokalizeMainWindow::showTM()
+TM::TMWindow* LokalizeMainWindow::showTM()
 {
     if (!m_translationMemorySubWindow)
     {
@@ -355,7 +354,7 @@ void LokalizeMainWindow::showTM()
     }
 
     m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
-
+    return static_cast<TM::TMWindow*>(m_translationMemorySubWindow->widget());
 }
 
 void LokalizeMainWindow::applyToBeActiveSubWindow()
@@ -403,11 +402,11 @@ void LokalizeMainWindow::setupActions()
     KAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* actionCategory;
-    KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);;
-    //KActionCategory* config=new KActionCategory(i18nc("@title actions category","Configuration"), ac);;
-    KActionCategory* glossary=new KActionCategory(i18nc("@title actions category","Glossary"), ac);;
-    KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);;
-    KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);;
+    KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);
+    //KActionCategory* config=new KActionCategory(i18nc("@title actions category","Configuration"), ac);
+    KActionCategory* glossary=new KActionCategory(i18nc("@title actions category","Glossary"), ac);
+    KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);
+    KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);
 
     actionCategory=file;
 
@@ -507,4 +506,33 @@ void LokalizeMainWindow::restoreState()
     /*restoreState(m_state);
     m_state=saveState();*/
 }
+#if 1
+//BEGIN DBus interface
 
+#include "mainwindowadaptor.h"
+
+void LokalizeMainWindow::registerDBusAdaptor()
+{
+    new MainWindowAdaptor(this);
+    QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
+    QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
+}
+
+QDBusObjectPath LokalizeMainWindow::openEditor(const KUrl& url)
+{
+    EditorWindow* w=fileOpen(url);
+    if (!w)
+        return QDBusObjectPath();
+    return QDBusObjectPath( w->dbusObjectPath() );
+}
+
+QDBusObjectPath LokalizeMainWindow::showTranslationMemory()
+{
+    /*activateWindow();
+    raise();
+    show();*/
+    TM::TMWindow* w=showTM();
+    return QDBusObjectPath( w->dbusObjectPath() );
+}
+//END DBus interface
+#endif

@@ -59,6 +59,9 @@ class TMDBModel;
 class TMWindow: public LokalizeSubwindowBase2
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.TranslationMemory")
+    //qdbuscpp2xml -m -s tm/tmwindow.h -o tm/org.kde.lokalize.TranslationMemory.xml
+
 public:
     TMWindow(QWidget *parent);
     ~TMWindow();
@@ -66,10 +69,14 @@ public:
     void hideDocks(){};
     void showDocks(){};
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    QString dbusObjectPath();
 
     void selectDB(int);
 
-private slots:
+public slots:
+    Q_SCRIPTABLE bool findGuiText(QString text);
+
+public slots:
     void performQuery();
     void copySource();
     void copyTarget();
@@ -82,6 +89,9 @@ private:
     Ui_QueryOptions* ui_queryOptions;
     TMDBModel* m_model;
 
+    //QString m_dbusObjectPath;
+    int m_dbusId;
+    static QList<int> ids;
     /*
     KLineEdit* m_querySource;
     KLineEdit* m_queryTarget;

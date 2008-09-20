@@ -44,7 +44,7 @@ class KTextBrowser;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
-class QAction;
+class KAction;
 class Ui_QueryControl;
 #include <QVector>
 
@@ -60,7 +60,7 @@ class WebQueryView: public QDockWidget
     Q_OBJECT
 
 public:
-    WebQueryView(QWidget*,Catalog*,const QVector<QAction*>&);
+    WebQueryView(QWidget*,Catalog*,const QVector<KAction*>&);
     virtual ~WebQueryView();
 
 
@@ -90,7 +90,7 @@ private:
 //     FlowLayout *m_flowLayout;
     Ui_QueryControl* ui_queryControl;
 
-    QVector<QAction*> m_actions;//need them to get shortcuts
+    QVector<KAction*> m_actions;//need them to get shortcuts
     QVector<QString> m_suggestions;
 
 //     int m_entry; we'll use one from ui_queryControl

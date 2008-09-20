@@ -62,9 +62,9 @@ MsgCtxtView::~MsgCtxtView()
 {
 }
 
-void MsgCtxtView::slotNewEntryDisplayed(uint index)
+void MsgCtxtView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    m_entry=index;
+    m_entry=pos.entry;
     QTimer::singleShot(0,this,SLOT(process()));
 }
 

@@ -46,13 +46,13 @@
 #include <ktextbrowser.h>
 #include <kglobalsettings.h>
 #include <kpassivepopup.h>
+#include <kaction.h>
 
 #include <QTime>
 #include <QDragEnterEvent>
 #include <QFileInfo>
 #include <QDir>
 #include <QSignalMapper>
-#include <QAction>
 #include <QTimer>
 
 #ifdef NDEBUG
@@ -61,7 +61,7 @@
 #define DEBUG
 using namespace TM;
 
-TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
+TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<KAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
     , m_browser(new KTextBrowser(this))
     , m_catalog(catalog)
@@ -209,7 +209,7 @@ void TMView::slotFileLoaded(const KUrl& url)
     while(switchNext(m_catalog,pos))
     {
         if (!m_catalog->isUntranslated(pos.entry)
-           &&!m_catalog->isFuzzy(pos.entry))
+           &&m_catalog->isApproved(pos.entry))
             continue;
         SelectJob* j=new SelectJob(m_catalog->msgid(pos),
                                    m_catalog->msgctxt(pos.entry),
@@ -259,7 +259,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
     while(switchNext(m_catalog,pos))
     {
         if (!(m_catalog->isUntranslated(pos.entry)
-             ||m_catalog->isFuzzy(pos.entry))
+             ||!m_catalog->isApproved(pos.entry))
            )
             continue;
         const QVector<TMEntry>& suggList=m_cache.value(DocPos(pos));
@@ -272,7 +272,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             bool forceFuzzy=(suggList.size()>1&&suggList.at(1).score>=10000)
                             ||entry.score<10000;
             bool ctxtMatches=entry.score==1001;
-            if (m_catalog->isFuzzy(pos.entry))
+            if (!m_catalog->isApproved(pos.entry))
             {
                 m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
                 if ( ctxtMatches || !(m_markAsFuzzy||forceFuzzy) )
@@ -353,7 +353,8 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
 
     //update DB
-    m_catalog->flushUpdateDBBuffer();
+    //m_catalog->flushUpdateDBBuffer();
+    //this is called via subscribtion
 
     m_pos=pos;
     m_browser->clear();

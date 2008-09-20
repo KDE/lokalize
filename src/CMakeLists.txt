@@ -96,6 +96,16 @@ kde4_add_kcfg_files(lokalize_SRCS
     project/projectbase.kcfgc
 )
 
+#qt4_add_dbus_interface(lokalize_SRCS org.kde.lokalize.MainWindow.xml lokainterface)
+qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
+                     lokalizemainwindow.h LokalizeMainWindow)
+
+qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
+                     kaider.h EditorWindow)
+
+qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
+                     tm/tmwindow.h TM::TMWindow)
+
 kde4_add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
@@ -119,6 +129,7 @@ install( FILES editorui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES lokalizemainwindowui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES tm/translationmemoryrui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+install( FILES find-gui-text.sh  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 
 
 

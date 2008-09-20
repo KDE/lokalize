@@ -48,10 +48,10 @@
 #include <kdebug.h>
 #include <kurl.h>
 #include <ktextbrowser.h>
+#include <kaction.h>
 
 #include <QDragEnterEvent>
 #include <QTime>
-#include <QAction>
 #include <QSplitter>
 #include <QSignalMapper>
 #include <QTimer>
@@ -61,7 +61,7 @@
 
 using namespace Kross;
 
-WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
+WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
         : QDockWidget ( i18n("Web Queries"), parent)
 //         , m_generalBrowser(new QWidget(this))
         , m_catalog(catalog)

@@ -149,6 +149,7 @@ EditorWindow::EditorWindow(QWidget* parent)
     setupActions();
 
 
+    dbusObjectPath();
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     QTimer::singleShot(0,this,SLOT(initLater()));
     //kWarning()<<chrono.elapsed();
@@ -156,22 +157,12 @@ EditorWindow::EditorWindow(QWidget* parent)
 
 void EditorWindow::initLater()
 {
-//     QTime chrono;chrono.start();
-
-    //connect(m_view, SIGNAL(fileOpenRequested(KUrl)), this, SLOT(fileOpen(KUrl)));
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
-//     connect (_catalog,SIGNAL(signalGotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
     connect (m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
 
     Project& p=*(Project::instance());
     p.registerEditor(this);
-//unplugActionList( "xxx_file_actionlist" );
-    //### plugActionList( "project_actions", p.projectActions());
-
-//     kWarning()<<chrono.elapsed();
-
-
 }
 
 EditorWindow::~EditorWindow()
@@ -217,8 +208,7 @@ void EditorWindow::setupStatusBar()
 
 void EditorWindow::numberOfFuzziesChanged()
 {
-    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()));
-    //statusBar()->changeItem(i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfFuzzies()),ID_STATUS_FUZZY);
+    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfNonApproved()));
 }
 
 void EditorWindow::numberOfUntranslatedChanged()
@@ -251,12 +241,12 @@ void EditorWindow::setupActions()
     MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgIdDiffView,SLOT(slotNewEntryDisplayed(uint)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),msgIdDiffView,SLOT(slotNewEntryDisplayed(DocPosition)));
 
     _mergeView = new MergeView(this,_catalog,true);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
     sync1->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeView,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_catalog,SIGNAL(signalFileLoaded()),_mergeView,SLOT(cleanup()));
     connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
@@ -264,26 +254,26 @@ void EditorWindow::setupActions()
     _mergeViewSecondary = new MergeView(this,_catalog,false);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);
     sync2->addAction( QLatin1String("showmergeviewsecondary_action"), _mergeViewSecondary->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(const DocPosition&)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_catalog,SIGNAL(signalFileLoaded()),_mergeViewSecondary,SLOT(cleanup()));
     connect (_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
-    connect (_mergeViewSecondary,SIGNAL(gotoEntry(const DocPosition&,int)),
-             this,SLOT(gotoEntry(const DocPosition&,int)));
+    connect (_mergeViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
+             this,SLOT(gotoEntry(DocPosition,int)));
 
     m_catalogTreeView = new CatalogTreeView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_catalogTreeView);
     actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
-    connect (m_catalogTreeView,SIGNAL(gotoEntry(const DocPosition&,int)),this,SLOT(gotoEntry(const DocPosition&,int)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (m_catalogTreeView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
 
     MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),msgCtxtView,SLOT(slotNewEntryDisplayed(uint))/*,Qt::QueuedConnection*/);
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),msgCtxtView,SLOT(slotNewEntryDisplayed(DocPosition)));
 
     int i=0;
 
-    QVector<QAction*> tmactions(TM_SHORTCUTS);
+    QVector<KAction*> tmactions(TM_SHORTCUTS);
     Qt::Key tmlist[TM_SHORTCUTS]=
         {
             Qt::Key_1,
@@ -297,7 +287,7 @@ void EditorWindow::setupActions()
             Qt::Key_9,
             Qt::Key_0,
         };
-    QAction* tmaction;
+    KAction* tmaction;
     for (i=0;i<TM_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
@@ -309,13 +299,13 @@ void EditorWindow::setupActions()
     TM::TMView* _tmView = new TM::TMView(this,_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_tmView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
-//    connect (_tmView,SIGNAL(textReplaceRequested(const QString&)),m_view,SLOT(replaceText(const QString&)));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(refreshMsgEdit()),Qt::QueuedConnection);
-    connect (_tmView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
-    connect (this,SIGNAL(signalFileGonnaBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
+    connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
+    connect (this,SIGNAL(signalFileAboutToBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_catalog,SLOT(flushUpdateDBBuffer()));
 
-    QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
+    QVector<KAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]=
         {
             Qt::Key_E,
@@ -341,7 +331,7 @@ void EditorWindow::setupActions()
             Qt::Key_Semicolon,
             Qt::Key_Apostrophe,
         };
-    QAction* gaction;
+    KAction* gaction;
 //     int i=0;
     for (i=0;i<GLOSSARY_SHORTCUTS;++i)
     {
@@ -355,7 +345,7 @@ void EditorWindow::setupActions()
     GlossaryNS::GlossaryView* _glossaryView = new GlossaryNS::GlossaryView(this,_catalog,gactions);
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     glossary->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(uint)),_glossaryView,SLOT(slotNewEntryDisplayed(uint)),Qt::QueuedConnection);
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_glossaryView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 
     gaction = glossary->addAction("glossary_define",this,SLOT(defineNewTerm()));
@@ -365,7 +355,7 @@ void EditorWindow::setupActions()
 
 
 #ifdef WEBQUERY_ENABLE
-    QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
+    QVector<KAction*> wqactions(WEBQUERY_SHORTCUTS);
     Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
         {
             Qt::Key_1,
@@ -379,7 +369,7 @@ void EditorWindow::setupActions()
             Qt::Key_9,
             Qt::Key_0,
         };
-    QAction* wqaction;
+    KAction* wqaction;
     for (i=0;i<WEBQUERY_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
@@ -392,7 +382,7 @@ void EditorWindow::setupActions()
     WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
     actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(const DocPosition&)),_webQueryView,SLOT(slotNewEntryDisplayed(const DocPosition&))/*,Qt::QueuedConnection*/);
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_webQueryView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
 #endif
 
@@ -754,7 +744,7 @@ bool EditorWindow::fileOpen(KUrl url)
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     bool wasOpen=!_catalog->isEmpty();
-    if (wasOpen) emit signalFileGonnaBeClosed();
+    if (wasOpen) emit signalFileAboutToBeClosed();
     bool success=_catalog->loadFromUrl(url);
     if (wasOpen&&success) emit signalFileClosed();
 
@@ -927,7 +917,6 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
         _currentEntry=pos.entry;
         if (m_updateView)
         {
-            emit signalNewEntryDisplayed(_currentEntry);
             emit signalNewEntryDisplayed(_currentPos);
 
             emit signalFirstDisplayed(_currentEntry==0);
@@ -955,7 +944,7 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
     if (m_updateView)
     {
         //still emit even if _currentEntry==pos.entry
-        emit signalFuzzyEntryDisplayed(_catalog->isFuzzy(_currentEntry));
+        emit signalFuzzyEntryDisplayed(!_catalog->isApproved(_currentEntry));
         emit signalApprovedEntryDisplayed(_catalog->isApproved(_currentEntry));
         statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", _currentEntry+1));
         msgStrChanged();
@@ -1141,3 +1130,27 @@ void EditorWindow::defineNewTerm()
     _project->defineNewTerm(en,target);
 }
 
+
+#include "editoradaptor.h"
+
+//BEGIN DBus interface
+
+QList<int> EditorWindow::ids;
+
+QString EditorWindow::dbusObjectPath()
+{
+    if ( m_dbusId==-1 )
+    {
+        new EditorAdaptor(this);
+
+        int i=0;
+        while(i<ids.size()&&i==ids.at(i))
+             ++i;
+        ids.insert(i,i);
+        m_dbusId=i;
+        QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant/Editor/" + QString::number(m_dbusId), this);
+    }
+    return "/ThisIsWhatYouWant/Editor/" + QString::number(m_dbusId);
+}
+
+//END DBus interface

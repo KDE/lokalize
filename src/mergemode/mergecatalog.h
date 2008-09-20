@@ -99,7 +99,7 @@ public:
 
     //override to use map
     QString msgstr(const DocPosition&, const bool noNewlines=false) const;
-    bool isFuzzy(uint index) const;
+    bool isApproved(uint index) const;
     bool isPlural(uint index) const;
 
     /// whether 'merge source' has entry with such msgid

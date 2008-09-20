@@ -26,6 +26,7 @@
 #include <kdebug.h>
 #include <KStatusBar>
 
+#if 0
 #include <QAction>
 
 
@@ -91,7 +92,7 @@ void ActionProxy::setChecked(bool checked)
 }
 
 
-
+#endif
 
 void StatusBarProxy::insert(int key,const QString& str)
 {

@@ -95,11 +95,9 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
 }
 
 
-void CatalogTreeView::slotNewEntryDisplayed(uint entry)
+void CatalogTreeView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    QTime time;time.start();
-    m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(entry,0)));
-    kWarning()<<"ELA "<<time.elapsed();
+    m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(pos.entry,0)));
 }
 
 

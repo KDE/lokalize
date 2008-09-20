@@ -44,9 +44,9 @@
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <ktextedit.h>
+#include <kaction.h>
 
 #include <QDragEnterEvent>
-#include <QAction>
 #include <QFile>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog,bool primary)
@@ -161,11 +161,8 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
             inTag=false;
     }
 #endif
-    //static QPalette::ColorRole roles[2]={/*QPalette::Base*/QPalette::LinkVisited,QPalette::AlternateBase};
-    //m_browser->viewport()->setBackgroundRole(roles[m_mergeCatalog->isFuzzy(pos.entry)]);
-//     static QPalette::ColorRole roles[2]={/*QPalette::Base*/QPalette::WindowText,QPalette::BrightText};
-    //m_browser->viewport()->setForegroundRole(roles[m_mergeCatalog->isFuzzy(pos.entry)]);
-    if (m_mergeCatalog->isFuzzy(pos.entry))
+
+    if (!m_mergeCatalog->isApproved(pos.entry))
     {
         result.prepend("<i>");
         result.append("</i>");
@@ -326,9 +323,9 @@ void MergeView::mergeAccept()
 
     m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
 
-    if ( m_baseCatalog->isFuzzy(m_pos.entry) && !m_mergeCatalog->isFuzzy(m_pos.entry)       )
+    if ( !m_baseCatalog->isApproved(m_pos.entry) && m_mergeCatalog->isApproved(m_pos.entry)       )
         m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,false));
-    else if ( !m_baseCatalog->isFuzzy(m_pos.entry) && m_mergeCatalog->isFuzzy(m_pos.entry) )
+    else if ( m_baseCatalog->isApproved(m_pos.entry) && !m_mergeCatalog->isApproved(m_pos.entry) )
         m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,true));
 
     if (changeContents)

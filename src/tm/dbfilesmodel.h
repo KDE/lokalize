@@ -48,7 +48,7 @@ public:
 
     QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
-    Qt::ItemFlags flags( const QModelIndex& index ) const{return Qt::ItemIsSelectable|Qt::ItemIsEnabled;};
+    Qt::ItemFlags flags( const QModelIndex& ) const{return Qt::ItemIsSelectable|Qt::ItemIsEnabled;};
 
 
     //can be zero!!!

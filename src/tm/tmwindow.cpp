@@ -178,6 +178,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 
 TMWindow::TMWindow(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
+    , m_dbusId(-1)
 {
     //setCaption(i18nc("@title:window","Translation Memory"),false);
     setWindowTitle(i18nc("@title:window","Translation Memory"));
@@ -254,11 +255,13 @@ TMWindow::TMWindow(QWidget *parent)
         statusBarItems.insert(i,"");
 
     setXMLFile("translationmemoryrui.rc",true);
+    dbusObjectPath();
 }
 
 TMWindow::~TMWindow()
 {
     delete ui_queryOptions;
+    ids.remove(m_dbusId);
 }
 
 void TMWindow::selectDB(int i)
@@ -357,5 +360,61 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
 }
 
 #endif
+
+
+
+
+
+#include "translationmemoryadaptor.h"
+
+//BEGIN DBus interface
+QList<int> TMWindow::ids;
+
+QString TMWindow::dbusObjectPath()
+{
+    //static int tmWindowNumber = 0;
+    if ( m_dbusId==-1 )
+    {
+        new TranslationMemoryAdaptor(this);
+
+        int i=0;
+        while(i<ids.size()&&i==ids.at(i))
+             ++i;
+        ids.insert(i,i);
+        m_dbusId=i;
+        QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId), this);
+    }
+
+    return "/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId);
+}
+
+bool TMWindow::findGuiText(QString text)
+{
+    text.remove(Project::instance()->accel());
+    ui_queryOptions->querySource->setText(text);
+    ui_queryOptions->queryTarget->clear();
+    ui_queryOptions->invertSource->setChecked(false);
+    ui_queryOptions->invertTarget->setChecked(false);
+    ui_queryOptions->filemask->clear();
+
+    performQuery();
+
+    if (m_model->rowCount()==0)
+    {
+        ui_queryOptions->querySource->clear();
+        ui_queryOptions->queryTarget->setText(text);
+
+        performQuery();
+        if (m_model->rowCount()==0)//back
+        {
+            ui_queryOptions->querySource->setText(text);
+            ui_queryOptions->queryTarget->clear();
+        }
+    }
+
+    return true;
+}
+
+//END DBus interface
 
 #include "tmwindow.moc"

@@ -44,7 +44,7 @@ class KTextBrowser;
 class Catalog;
 class QDropEvent;
 class QDragEnterEvent;
-class QAction;
+class KAction;
 
 #define TM_SHORTCUTS 10
 namespace TM {
@@ -54,7 +54,7 @@ class TMView: public QDockWidget
     Q_OBJECT
 
 public:
-    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
+    TMView(QWidget*,Catalog*,const QVector<KAction*>&);
     virtual ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -94,7 +94,7 @@ private:
 
     SelectJob* m_currentSelectJob;
 //     QSignalMapper *m_signalMapper;
-    QVector<QAction*> m_actions;//need them to get shortcuts
+    QVector<KAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
 //     QTimer m_timer;
 

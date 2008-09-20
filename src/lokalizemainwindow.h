@@ -28,13 +28,15 @@
 #include <kurl.h>
 
 #include <QPointer>
+#include <QDBusObjectPath>
 
 class QMdiSubWindow;
 class QMdiArea;
 class QActionGroup;
-class QAction;
+class KAction;
 class KRecentFilesAction;
 class EditorWindow;
+namespace TM {class TMWindow;}
 
 /**
  * @short Lokalize MDI (tabbed) window.
@@ -44,6 +46,8 @@ class EditorWindow;
 class LokalizeMainWindow: public KXmlGuiWindow
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.MainWindow")
+    //qdbuscpp2xml -m -s lokalizemainwindow.h -o org.kde.lokalize.MainWindow.xml
 
 public:
     LokalizeMainWindow();
@@ -52,27 +56,35 @@ public:
 
 protected:
     bool queryClose();
-
-private:
     void setupActions();
     void restoreState();
+    void registerDBusAdaptor();
+
+
+private slots:
+    void slotSubWindowActivated(QMdiSubWindow*);
+    void initLater();
+    void applyToBeActiveSubWindow();
+    void projectLoaded();
 
 public slots:
-    void slotSubWindowActivated(QMdiSubWindow*);
-    //returns 0 if error
-    EditorWindow* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
-    void fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
-    void initLater();
-    void projectLoaded();
+    Q_SCRIPTABLE QDBusObjectPath openEditor(const KUrl& url=KUrl());
+    Q_SCRIPTABLE QDBusObjectPath showTranslationMemory();
+    Q_SCRIPTABLE void showProjectOverview();
+
 
     void searchInFiles(const KUrl::List&);
     void replaceInFiles(const KUrl::List&);
     void spellcheckFiles(const KUrl::List&);
 
-    void showProjectOverview();
-    void showTM();
+    //returns 0 if error
+    EditorWindow* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
+    void fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
+    TM::TMWindow* showTM();
 
-    void applyToBeActiveSubWindow();
+signals:
+    Q_SCRIPTABLE void editorWindowOpened(QDBusObjectPath);
+
 private:
     QMdiArea* m_mdiArea;
     QPointer<QMdiSubWindow> m_prevSubWindow;
@@ -114,6 +126,8 @@ private:
     QMdiArea* m_mdiArea;
 };
 #endif
+
+
 
 
 

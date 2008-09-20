@@ -50,7 +50,7 @@ public:
     virtual ~CatalogTreeView(){};
 
 public slots:
-    void slotNewEntryDisplayed(uint);
+    void slotNewEntryDisplayed(const DocPosition&);
     void slotItemActivated(const QModelIndex&);
     void emitCurrent();
 

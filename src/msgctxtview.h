@@ -33,6 +33,8 @@
 #ifndef MSGCTXTVIEW_H
 #define MSGCTXTVIEW_H
 
+#include "pos.h"
+
 #include <QDockWidget>
 class KTextBrowser;
 class Catalog;
@@ -47,7 +49,7 @@ public:
 
 
 public slots:
-    void slotNewEntryDisplayed(uint);
+    void slotNewEntryDisplayed(const DocPosition&);
     void process();
 
 private:

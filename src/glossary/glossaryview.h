@@ -42,7 +42,7 @@ class FlowLayout;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
-class QAction;
+class KAction;
 class QFrame;
 #include <QVector>
 
@@ -55,7 +55,7 @@ class GlossaryView: public QDockWidget
     Q_OBJECT
 
 public:
-    GlossaryView(QWidget*,Catalog*,const QVector<QAction*>&);
+    GlossaryView(QWidget*,Catalog*,const QVector<KAction*>&);
     virtual ~GlossaryView();
 
 
@@ -64,7 +64,7 @@ public:
 //     bool event(QEvent*);
 public slots:
     //plural messages usually contain the same words...
-    void slotNewEntryDisplayed(uint entry=0xffffffff);//a little hacky, but... :)
+    void slotNewEntryDisplayed(DocPosition pos=DocPosition());//a little hacky, but... :)
 
 signals:
     void termInsertRequested(const QString&);

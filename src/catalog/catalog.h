@@ -79,6 +79,7 @@ namespace GettextCatalog {
 class Catalog: public QUndoStack
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.Lokalize.FileContainer")
 
 public:
     Catalog(QObject* parent);
@@ -86,6 +87,8 @@ public:
 
     QString msgid(const DocPosition&, const bool noNewlines=false) const;
     QString msgstr(const DocPosition&, const bool noNewlines=false) const;
+
+public slots: //DBus interface
     QString source(const DocPosition& pos) const {return msgid(pos);}
     QString target(const DocPosition& pos) const {return msgstr(pos);}
     // used by XLIFF storage)
@@ -95,17 +98,19 @@ public:
     QString comment(uint index) const;
     QString msgctxt(uint index) const;
 
-    PluralFormType pluralFormType(uint index) const;
-    bool isPlural(uint index) const{return pluralFormType(index)==Gettext;}
-    int numberOfPluralForms() const {return d->_numberOfPluralForms;}
-    int numberOfEntries() const;
-    int numberOfFuzzies() const {return d->_fuzzyIndex.size();}
-    int numberOfUntranslated() const {return d->_untransIndex.size();}
-    bool isFuzzy(uint index) const;
-    bool isApproved(uint index) const{return !isFuzzy(index);}
-    bool isApproved(const DocPosition pos) const{return !isFuzzy(pos.entry);}
+    bool isPlural(uint index) const;
+    bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}
+    bool isApproved(uint index) const;
+    bool isApproved(const DocPosition& pos) const{return isApproved(pos.entry);}
     bool isUntranslated(uint index) const; //at least one form is untranslated
     bool isUntranslated(const DocPosition&) const;
+
+    int numberOfPluralForms() const {return d->_numberOfPluralForms;}
+    int numberOfEntries() const;
+    int numberOfNonApproved() const {return d->_fuzzyIndex.size();}
+    int numberOfUntranslated() const {return d->_untransIndex.size();}
+
+public:
     int firstFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?numberOfEntries():d->_fuzzyIndex.first();}
     int lastFuzzyIndex() const {return d->_fuzzyIndex.isEmpty()?-1:d->_fuzzyIndex.last();}
     int nextFuzzyIndex(uint index) const {return findNextInList(d->_fuzzyIndex,index);}
@@ -119,38 +124,35 @@ public:
     int lastBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?-1:d->_bookmarkIndex.last();}
     int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);}
     int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);}
+
+public slots: //DBus interface
     bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
+    void setBookmark(uint,bool);
+
+public:
+    void setPackageName( QString s ){d->_packageName = s;}
 
     void clear();
     bool isEmpty(){return !m_storage;}
 
-    void setPackageName( QString s ){d->_packageName = s;}
-    //QString _packageName() const {return d->fileCodec;}
-
-
     void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
 
-    //void setMimeTypes(const QString& mimeTypes){d->_mimeTypes=mimeTypes;}
-    QString mimetype();
-
-    const KUrl& url() const {return d->_url;}
     void setUrl(const KUrl& u){d->_url=u;}//used for template load
-
+public slots: //DBus interface
+    const KUrl& url() const {return d->_url;}
     bool loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
+    bool save();
 
-    void setBookmark(uint,bool);
-
-    //void updateHeader(bool forSaving=true);
+    QString mimetype();
 
 public:
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();
     virtual void push(QUndoCommand *cmd,bool rebaseForDBUpdate=false);
 
-public slots:
-    bool save();
 
+protected slots:
     /**
      * updates DB for _posBuffer and accompanying _originalForLastModified
      */
@@ -196,9 +198,9 @@ signals:
     void signalEntryChanged(const DocPosition&);
     void signalNumberOfFuzziesChanged();
     void signalNumberOfUntranslatedChanged();
-    void signalFileLoaded();
+    Q_SCRIPTABLE void signalFileLoaded();
     void signalFileLoaded(const KUrl&);
-    void signalFileSaved();
+    Q_SCRIPTABLE void signalFileSaved();
     void signalFileSaved(const KUrl&);
 
     //void signalCmdPushed(QUndoCommand *cmd);//for merging (on-the-fly changes replication)

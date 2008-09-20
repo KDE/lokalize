@@ -41,7 +41,7 @@
 
 #define WEBQUERY_ENABLE
 
-class QAction;
+class KAction;
 class KRecentFilesAction;
 class ProjectModel;
 namespace GlossaryNS{class Glossary;}
@@ -152,7 +152,7 @@ private:
 //     QTime scanningTime;
 //     WebQueryController* m_webQueryController;
 //     WebQueryThread m_webQueryThread;
-    QList<QAction*> m_projectActions;
+    QList<KAction*> m_projectActions;
     KRecentFilesAction* _openRecentProject;
 
     QVector<EditorWindow*> m_editors;
