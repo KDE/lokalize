@@ -372,7 +372,6 @@ QList<int> TMWindow::ids;
 
 QString TMWindow::dbusObjectPath()
 {
-    //static int tmWindowNumber = 0;
     if ( m_dbusId==-1 )
     {
         new TranslationMemoryAdaptor(this);
@@ -388,14 +387,19 @@ QString TMWindow::dbusObjectPath()
     return "/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId);
 }
 
-bool TMWindow::findGuiText(QString text)
+
+bool TMWindow::findGuiTextPackage(QString text,const QString& package)
 {
     text.remove(Project::instance()->accel());
     ui_queryOptions->querySource->setText(text);
     ui_queryOptions->queryTarget->clear();
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    ui_queryOptions->filemask->clear();
+    if (package.isEmpty())
+        ui_queryOptions->filemask->clear();
+    else
+        ui_queryOptions->filemask->setText('*'+package+'*');
+
 
     performQuery();
 
@@ -407,6 +411,8 @@ bool TMWindow::findGuiText(QString text)
         performQuery();
         if (m_model->rowCount()==0)//back
         {
+            if (!package.isEmpty())
+                return findGuiTextPackage(text,QString());
             ui_queryOptions->querySource->setText(text);
             ui_queryOptions->queryTarget->clear();
         }

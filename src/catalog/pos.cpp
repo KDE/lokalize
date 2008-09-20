@@ -94,3 +94,34 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
     pos.offset=0;
     return true;
 }
+
+const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos)
+{
+    int entry;
+    int form;
+    uint offset;
+
+    argument.beginStructure();
+    argument >> entry >> form >> offset;
+    argument.endStructure();
+
+    pos.entry=entry;
+    pos.form=form;
+    pos.offset=offset;
+
+    return argument;
+}
+
+QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos)
+{
+    int entry=pos.entry;
+    int form=pos.form;
+    uint offset=pos.offset;
+
+    argument.beginStructure();
+    argument << entry << form << offset;
+    argument.endStructure();
+
+    return argument;
+}
+

@@ -47,6 +47,10 @@
     <entry name="WebQueryScripts"  type="StringList">
     </entry>
   </group>
+  <group name="Scripts">
+    <entry name="ScriptsList"  type="StringList">
+    </entry>
+  </group>
   <group name="RegExps">
     <entry name="Accel"  type="String">
         <default>&amp;</default>

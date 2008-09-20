@@ -257,13 +257,19 @@ bool LokalizeMainWindow::queryClose()
 
 EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
 {
+    if (!url.isEmpty()&&m_fileToEditor.contains(url))
+    {
+        m_mdiArea->setActiveSubWindow(m_fileToEditor.value(url));
+        return static_cast<EditorWindow*>(m_fileToEditor.value(url)->widget());
+    }
+
     EditorWindow* w=new EditorWindow(this);
     QByteArray state=m_lastEditorState;
 
     QMdiSubWindow* sw=0;
     if (!url.isEmpty())//create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
         sw=m_mdiArea->addSubWindow(w);
-    if (!w->fileOpen(url))
+    if (!w->fileOpen(url) || m_fileToEditor.contains(w->currentUrl()))
     {
         if (sw)
         {
@@ -271,20 +277,15 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
             sw->deleteLater();
         }
         w->deleteLater();
+
+        if (m_fileToEditor.contains(w->currentUrl()))
+        {
+            m_mdiArea->setActiveSubWindow(m_fileToEditor.value(w->currentUrl()));
+            return static_cast<EditorWindow*>(m_fileToEditor.value(w->currentUrl())->widget());
+        }
         return 0;
     }
 
-    /*
-    //TODO iterate for currentUrl() for title uniqueness
-    QList<QMdiSubWindow*> swList=subWindowList();
-
-    int i=swList.size();
-    while(--i>=0)
-    {
-        if (swList.at(i)==m_projectSubWindow)
-            continue;
-        EditorWindow* w=static_cast<EditorWindow*>(swList.at(i));
-    }*/
 
     if (!sw)
         sw=m_mdiArea->addSubWindow(w);
@@ -314,7 +315,14 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
 
     m_openRecentFileAction->addUrl(w->currentUrl());
     //emit editorWindowOpened(w);
+    connect (sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
+    m_fileToEditor.insert(w->currentUrl(),sw);
     return w;
+}
+
+void LokalizeMainWindow::editorClosed(QObject* obj)
+{
+    m_fileToEditor.remove(m_fileToEditor.key(qobject_cast< QMdiSubWindow* >(obj)));
 }
 
 void LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
@@ -322,7 +330,7 @@ void LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const 
     EditorWindow* w=fileOpen(url);
     if (!w)
         return;//TODO message
-    w->findEntry(source,ctxt);
+    w->findEntryBySourceContext(source,ctxt);
 }
 
 void LokalizeMainWindow::showProjectOverview()

@@ -107,7 +107,8 @@ class EditorWindow: public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.Editor")
-    //qdbuscpp2xml -M -s kaider.h -o org.kde.lokalize.Editor.xml
+    //qdbuscpp2xml -m -s kaider.h -o org.kde.lokalize.Editor.xml
+#define qdbuscpp2xml
 
 public:
     EditorWindow(QWidget* parent);
@@ -126,6 +127,8 @@ public:
     KAiderState state();
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 
+    //wrapper for cmdline handling
+    void mergeOpen(KUrl url=KUrl());
     void findInFiles(const KUrl::List&);
     void replaceInFiles(const KUrl::List&);
     void spellcheckFiles(const KUrl::List&);
@@ -136,11 +139,28 @@ public:
 public slots:
     //for undo/redo, views
     void gotoEntry(const DocPosition& pos,int selection=0);
-    bool findEntry(const QString& source, const QString& ctxt);
+#ifdef qdbuscpp2xml
+    Q_SCRIPTABLE void gotoEntry(int entry){gotoEntry(DocPosition(entry-1));}
+    Q_SCRIPTABLE void gotoEntryForm(int entry,int form){gotoEntry(DocPosition(entry-1,form));}
+    Q_SCRIPTABLE void gotoEntryFormOffset(int entry,int form, int offset){gotoEntry(DocPosition(entry-1,form,offset));}
+    Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry,int form, int offset, int selection){gotoEntry(DocPosition(entry-1,form,offset),selection);}
 
-    //wrapper for cmdline handling
-    void mergeOpen(KUrl url=KUrl());
-    //KUrl mergeFile();
+    Q_SCRIPTABLE int currenEntry(){return _currentPos.entry;}
+    Q_SCRIPTABLE int currenForm(){return _currentPos.form;}
+    Q_SCRIPTABLE QString selectionInTarget();
+    Q_SCRIPTABLE QString selectionInSource();
+
+
+    Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
+
+    Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
+#endif
+    Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());
+    Q_SCRIPTABLE bool saveFileAs();
+    Q_SCRIPTABLE void gotoNext();
+    Q_SCRIPTABLE void gotoPrev();
+
+    Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
@@ -157,9 +177,6 @@ private slots:
 
     //gui
     void switchForm(int);
-
-    bool fileSave(const KUrl& url = KUrl());
-    bool fileSaveAs();
 
     void undo();
     void redo();
@@ -180,8 +197,6 @@ private slots:
     void gotoFirst();
     void gotoLast();
 
-    void gotoNext();
-    void gotoPrev();
     void gotoEntry();
 
     void gotoNextFuzzyUntr();
@@ -286,7 +301,8 @@ signals:
     void signalFileAboutToBeClosed();//old catalog is still accessible
     void signalFileClosed();
 
-    Q_SCRIPTABLE void signalNewEntryDisplayed(const DocPosition&);
+    Q_SCRIPTABLE void signalNewEntryDisplayed();
+    void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);

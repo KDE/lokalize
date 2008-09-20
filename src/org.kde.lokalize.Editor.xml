@@ -1,12 +1,56 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
   <interface name="org.kde.Lokalize.Editor">
-    <method name="findEntry">
+    <method name="gotoEntry">
+      <arg name="entry" type="i" direction="in"/>
+    </method>
+    <method name="gotoEntryForm">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="form" type="i" direction="in"/>
+    </method>
+    <method name="gotoEntryFormOffset">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="form" type="i" direction="in"/>
+      <arg name="offset" type="i" direction="in"/>
+    </method>
+    <method name="gotoEntryFormOffsetSelection">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="form" type="i" direction="in"/>
+      <arg name="offset" type="i" direction="in"/>
+      <arg name="selection" type="i" direction="in"/>
+    </method>
+    <method name="currenEntry">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="currenForm">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="selectionInTarget">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="selectionInSource">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="currentFile">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="openSyncSource">
+      <arg name="path" type="s" direction="in"/>
+    </method>
+    <method name="saveFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="saveFileAs">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="gotoNext">
+    </method>
+    <method name="gotoPrev">
+    </method>
+    <method name="findEntryBySourceContext">
       <arg type="b" direction="out"/>
       <arg name="source" type="s" direction="in"/>
       <arg name="ctxt" type="s" direction="in"/>
-    </method>
-    <method name="mergeOpen">
     </method>
   </interface>
 </node>

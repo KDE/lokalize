@@ -139,6 +139,7 @@ EditorWindow::EditorWindow(QWidget* parent)
         , ui_replaceExtension(0)
         , _mergeView(0)
         , _mergeViewSecondary(0)
+        , m_dbusId(-1)
 {
     //QTime chrono;chrono.start();
 
@@ -172,14 +173,7 @@ EditorWindow::~EditorWindow()
     deleteUiSetupers();
 
     Project::instance()->unregisterEditor(this);
-/*
-    kWarning()<<"!!!!!!!!||||||| "<<QString::number(qChecksum("@info:status message entries",28),36);
-    kWarning()<<"!!!!!!!!||||||| "<<QString::number(qChecksum("@info:status",12),36);
-    kWarning()<<"!!!!!!!!||||||| "<<QString::number(qChecksum("message entries",15),36);
-
-    kWarning()<<"!!!!!!!!||||||| "<<qCompress("@info:status message entries",28).size();
-    kWarning()<<"!!!!!!!!||||||| "<<qCompress("@info:status",12).size();
-*/
+    ids.remove(m_dbusId);
 }
 
 
@@ -395,11 +389,11 @@ void EditorWindow::setupActions()
     actionCategory=file;
 
 // File
-    action=file->addAction(KStandardAction::Save,this, SLOT(fileSave()));
+    action=file->addAction(KStandardAction::Save,this, SLOT(saveFile()));
     action->setEnabled(false);
     connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
     connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
-    file->addAction(KStandardAction::SaveAs,this, SLOT(fileSaveAs()));
+    file->addAction(KStandardAction::SaveAs,this, SLOT(saveFileAs()));
     //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
     //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
 
@@ -710,7 +704,7 @@ bool EditorWindow::fileOpen(KUrl url)
                )
         {
         case KMessageBox::Yes:
-            if (!fileSave())
+            if (!saveFile())
                 return false;
         case KMessageBox::Cancel:
             return false;
@@ -811,15 +805,15 @@ bool EditorWindow::fileOpen(KUrl url)
     return false;
 }
 
-bool EditorWindow::fileSaveAs()
+bool EditorWindow::saveFileAs()
 {
     KUrl url=KFileDialog::getSaveUrl(_catalog->url(),_catalog->mimetype(),this);
     if (url.isEmpty())
         return false;
-    return fileSave(url);
+    return saveFile(url);
 }
 
-bool EditorWindow::fileSave(const KUrl& url)
+bool EditorWindow::saveFile(const KUrl& url)
 {
     if (_catalog->saveToUrl(url))
     {
@@ -833,7 +827,7 @@ bool EditorWindow::fileSave(const KUrl& url)
                                                   "Do you want to save to another file or cancel?", _catalog->url().pathOrUrl()),
                                             i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
        )
-        return fileSaveAs();
+        return saveFileAs();
     return false;
 }
 
@@ -861,7 +855,7 @@ bool EditorWindow::queryClose()
                                             KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
     case KMessageBox::Yes:
-        return fileSave();
+        return saveFile();
     case KMessageBox::No:
         return true;
     default:
@@ -898,6 +892,10 @@ void EditorWindow::gotoEntry()
 
 void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
 {
+    //specially for dbus users
+    if (pos.entry>=_catalog->numberOfEntries()||pos.entry<0)
+        return;
+
     _currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
 
@@ -917,6 +915,7 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
         _currentEntry=pos.entry;
         if (m_updateView)
         {
+            emit signalNewEntryDisplayed();
             emit signalNewEntryDisplayed(_currentPos);
 
             emit signalFirstDisplayed(_currentEntry==0);
@@ -1152,5 +1151,16 @@ QString EditorWindow::dbusObjectPath()
     }
     return "/ThisIsWhatYouWant/Editor/" + QString::number(m_dbusId);
 }
+
+
+QString EditorWindow::selectionInTarget()
+{
+    return m_view->selection();
+}
+QString EditorWindow::selectionInSource()
+{
+    return m_view->selectionMsgId();
+}
+
 
 //END DBus interface

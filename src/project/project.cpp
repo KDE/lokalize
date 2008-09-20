@@ -61,6 +61,9 @@
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/DependencyPolicy.h>
 
+#include <QDBusArgument>
+
+
 using namespace Kross;
 
 Project* Project::_instance=0;
@@ -98,7 +101,10 @@ Project::Project()
     connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
-
+/*
+    qRegisterMetaType<DocPosition>("DocPosition");
+    qDBusRegisterMetaType<DocPosition>();
+*/
     //QTimer::singleShot(66,this,SLOT(initLater()));
 }
 
@@ -178,9 +184,9 @@ QString Project::projectDir() const
     return KUrl(m_path).directory();
 }
 
-QStringList Project::webQueryScripts() const
+QStringList Project::scriptsList() const
 {
-    QStringList actionz(ProjectBase::webQueryScripts());
+    QStringList actionz(ProjectBase::scriptsList());
 
     int i=actionz.size();
     while (--i>=0)
@@ -191,7 +197,7 @@ QStringList Project::webQueryScripts() const
 
 void Project::populateWebQueryActions()
 {
-    QStringList a(webQueryScripts());
+    QStringList a(scriptsList());
     int i=0;
     while(i<a.size())
     {

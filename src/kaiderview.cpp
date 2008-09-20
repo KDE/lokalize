@@ -292,6 +292,9 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     addWidget(_msgidEdit);
     addWidget(_msgstrEdit);
 
+    QWidget::setTabOrder(_msgstrEdit,_msgidEdit);
+    QWidget::setTabOrder(_msgidEdit,_msgstrEdit);
+    setFocusProxy(_msgstrEdit);
 //     QTimer::singleShot(3000,this,SLOT(setupWhatsThis()));
     settingsChanged();
 }

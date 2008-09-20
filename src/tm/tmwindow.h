@@ -74,7 +74,8 @@ public:
     void selectDB(int);
 
 public slots:
-    Q_SCRIPTABLE bool findGuiText(QString text);
+    Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());};
+    Q_SCRIPTABLE bool findGuiTextPackage(QString text,const QString& package);
 
 public slots:
     void performQuery();

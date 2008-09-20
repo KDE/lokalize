@@ -34,6 +34,7 @@
 #define POS_H
 
 #include <QtCore>
+#include <QDBusArgument>
 class Catalog;
 
 enum Part {UndefPart, Msgid, Msgstr, Comment};
@@ -62,15 +63,28 @@ struct DocPosition
         offset(0)
         {}
 
-    DocPosition(short e, Part p=Msgstr, char f=0, uint o=0):
+    DocPosition(short e, Part p, char f=0, uint o=0):
         entry(e),
         part(p),
         form(f),
         offset(o)
         {}
 
-};
+    DocPosition(short e, char f=0, uint o=0):
+        entry(e),
+        part(Msgstr),
+        form(f),
+        offset(o)
+        {}
 
+
+};
+/*
+Q_DECLARE_METATYPE(DocPosition)
+
+const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos);
+QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos);
+*/
 bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
 bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
 

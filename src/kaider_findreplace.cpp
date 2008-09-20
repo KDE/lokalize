@@ -183,7 +183,7 @@ bool EditorWindow::determineStartingPos(KFind* find,
             {
                 m_updateView=false;
             }
-            if ((find==_replace&&!fileSave())
+            if ((find==_replace&&!saveFile())
                ||!fileOpen(filesList.at(filesPos)))
                 return false;
             if (filesList.size()!=1)
@@ -209,7 +209,7 @@ bool EditorWindow::determineStartingPos(KFind* find,
             {
                 m_updateView=false;
             }
-            if ((find==_replace&&!fileSave())
+            if ((find==_replace&&!saveFile())
                ||!fileOpen(filesList.at(filesPos)))
                 return false;
             if (filesList.size()!=1)
@@ -650,7 +650,7 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
                     {
                         m_updateView=false;
                     }
-                    if (!fileSave()
+                    if (!saveFile()
                        ||fileOpen(m_replaceFiles.at(m_replaceFilesPos)))
                     {
                         cleanUpIfMultiple(this,
@@ -876,7 +876,7 @@ void EditorWindow::spellcheckNext()
                 if (m_spellcheckFiles.isEmpty())
                     return;
                 if (++m_spellcheckFilesPos==m_spellcheckFiles.size()
-                    ||!fileSave()
+                    ||!saveFile()
                     ||!fileOpen(m_spellcheckFiles.at(m_spellcheckFilesPos)))
                 {
                     m_spellcheckFiles.clear();
@@ -984,7 +984,7 @@ void EditorWindow::spellcheckFiles(const KUrl::List& list)
 
 
 
-bool EditorWindow::findEntry(const QString& source, const QString& ctxt)
+bool EditorWindow::findEntryBySourceContext(const QString& source, const QString& ctxt)
 {
     DocPosition pos(0);
     do

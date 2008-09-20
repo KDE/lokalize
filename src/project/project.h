@@ -96,7 +96,7 @@ public:
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
     GlossaryNS::Glossary* glossary()const{return m_glossary;}
 
-    QStringList webQueryScripts() const;
+    QStringList scriptsList() const;
 
 private slots:
     void initLater();

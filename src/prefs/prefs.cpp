@@ -239,11 +239,11 @@ void SettingsController::projectConfigure()
     gridLayout->setMargin(11);
     KUrlRequester *req = new KUrlRequester( /*w*/ );
     req->setPath(p.projectDir());//for user's sake :)
-    m_scriptsPrefWidget = new KEditListBox( i18nc("@label","Web Query Scripts"), req->customEditor(), w );
+    m_scriptsPrefWidget = new KEditListBox( i18nc("@label","Scripts adding custom actions to Lokalize"), req->customEditor(), w );
     gridLayout->addWidget(m_scriptsPrefWidget, 0, 0, 1, 1);
 
     m_scriptsRelPrefWidget = new KEditListBox(w);
-    m_scriptsRelPrefWidget->setObjectName("kcfg_WebQueryScripts");
+    m_scriptsRelPrefWidget->setObjectName("kcfg_ScriptsList");
     m_scriptsRelPrefWidget->hide();
     //HACK...
     connect (m_scriptsPrefWidget,SIGNAL(changed()),this,SLOT(reflectRelativePathsHack()));
@@ -255,9 +255,9 @@ void SettingsController::projectConfigure()
     ui_prefs_webquery->webQueryScripts->*/
 
 
-    dialog->addPage(w, i18nc("@title:tab","Web Query"), "webquery_project_setting");
+    dialog->addPage(w, i18nc("@title:tab","Scripts"), "project_scripts");
 
-    m_scriptsPrefWidget->setItems(p.webQueryScripts());
+    m_scriptsPrefWidget->setItems(p.scriptsList());
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
 //     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));
