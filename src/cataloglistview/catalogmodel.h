@@ -40,8 +40,7 @@ class Catalog;
 
 
 /**
- * @short MVC wrapper for Catalog
- * @author Nick Shaforostoff <shafff@ukr.net>
+ * MVC wrapper for Catalog
  */
 class CatalogTreeModel: public QAbstractItemModel
 {
@@ -51,8 +50,8 @@ public:
     {
         Key=0,
         Source,
-        Translation,
-        FuzzyFlag,
+        Target,
+        Approved,
         CatalogModelColumnCount
     };
 

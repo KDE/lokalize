@@ -37,6 +37,8 @@
 #include <kdebug.h>
 #include <klocale.h>
 
+#include <QApplication>
+
 
 
 int CatalogTreeModel::rowCount(const QModelIndex& parent) const
@@ -55,30 +57,44 @@ QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientatio
     {
         case Key: return i18nc("@title:column","Entry");
         case Source: return i18nc("@title:column Original text","Source");
-        case Translation: return i18nc("@title:column Text in target language","Target");
-        case FuzzyFlag: return i18nc("@title:column","Approved");
+        case Target: return i18nc("@title:column Text in target language","Target");
+        case Approved: return i18nc("@title:column","Approved");
     }
     return QVariant();
 }
 
 QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 {
-    if (role!=Qt::DisplayRole || m_catalog->numberOfEntries()<=index.row() )
+    if (m_catalog->numberOfEntries()<=index.row() )
         return QVariant();
+
+    if (role==Qt::FontRole && index.column()==Target)
+    {
+        if (!index.sibling(index.row(),Approved).data().toBool())
+        {
+            QFont font=QApplication::font();
+            font.setItalic(true);
+            return font;
+        }
+    }
+    if (role!=Qt::DisplayRole)
+        return QVariant();
+
+
 
     switch (index.column())
     {
         case Key: return index.row()+1;
         case Source: return m_catalog->msgid(index.row());
-        case Translation: return m_catalog->msgstr(index.row());
-        case FuzzyFlag: return m_catalog->isApproved(index.row());
+        case Target: return m_catalog->msgstr(index.row());
+        case Approved: return m_catalog->isApproved(index.row());
     }
     return QVariant();
 }
 
 Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
 {
-    if (index.column()==FuzzyFlag)
+    if (index.column()==Approved)
         return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
     return QAbstractItemModel::flags(index);
 }

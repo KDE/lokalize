@@ -130,7 +130,6 @@ install( FILES lokalizemainwindowui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokaliz
 install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES tm/translationmemoryrui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES find-gui-text.sh  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-
-
-
+install( FILES scripts/dummy_script.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES scripts/dummy_script.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 

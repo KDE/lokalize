@@ -37,11 +37,13 @@
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
+#include "project.h"
 #include "prefs_lokalize.h"
 #include "ui_kaider_findextension.h"
 
 
 #include <kglobal.h>
+#include <kmessagebox.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kurl.h>
@@ -998,4 +1000,32 @@ bool EditorWindow::findEntryBySourceContext(const QString& source, const QString
     while (switchNext(_catalog,pos));
     return false;
 }
+
+
+void EditorWindow::displayWordCount()
+{
+    int sourceCount=0;
+    int targetCount=0;
+    QRegExp rxClean(Project::instance()->markup()+'|'+Project::instance()->accel());//cleaning regexp; NOTE isEmpty()?
+    QRegExp rxSplit("\\W|\\d");//splitting regexp
+    DocPosition pos(0);
+    do
+    {
+        QString msg=_catalog->source(pos);
+        msg.remove(rxClean);
+        QStringList words=msg.split(rxSplit,QString::SkipEmptyParts);
+        sourceCount+=words.size();
+
+        msg=_catalog->target(pos);
+        msg.remove(rxClean);
+        words=msg.split(rxSplit,QString::SkipEmptyParts);
+        targetCount+=words.size();
+    }
+    while (switchNext(_catalog,pos));
+
+    KMessageBox::information(this, i18nc("@info words count",
+                            "Source text words: %1<br/>Target text words: %2",
+                                        sourceCount,targetCount),i18nc("@title","Word Count"));
+}
+
 

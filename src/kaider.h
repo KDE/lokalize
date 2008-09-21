@@ -221,6 +221,7 @@ private slots:
     void gotoNextBookmark();
     void gotoPrevBookmark();
 
+    void displayWordCount();
 
     void defineNewTerm();
 

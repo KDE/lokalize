@@ -146,7 +146,6 @@ EditorWindow::EditorWindow(QWidget* parent)
     setAcceptDrops(true);
     setCentralWidget(m_view);
     setupStatusBar(); //--NOT called from initLater() !
-    //createDockWindows(); //toolviews
     setupActions();
 
 
@@ -228,6 +227,7 @@ void EditorWindow::setupActions()
     KActionCategory* sync2=new KActionCategory(i18n("Synchronization 2"), ac);
     KActionCategory* tm=new KActionCategory(i18n("Translation Memory"), ac);
     KActionCategory* glossary=new KActionCategory(i18nc("@title actions category","Glossary"), actionCollection());
+    KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), actionCollection());
 
 
 
@@ -547,6 +547,10 @@ void EditorWindow::setupActions()
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
     connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
+
+    actionCategory=tools;
+    ADD_ACTION_SHORTCUT("tools_wordcount",i18nc("@action:inmenu","Word count"),Qt::CTRL+Qt::ALT+Qt::Key_C)
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( displayWordCount() ) );
 
 //MergeMode
     action = sync1->addAction("merge_open",_mergeView,SLOT(mergeOpen()));

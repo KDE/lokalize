@@ -4,8 +4,9 @@
     <signal name="editorWindowOpened">
       <arg type="o" direction="out"/>
     </signal>
-    <method name="openEditor">
+    <method name="openFileInEditor">
       <arg type="o" direction="out"/>
+      <arg name="path" type="s" direction="in"/>
     </method>
     <method name="showTranslationMemory">
       <arg type="o" direction="out"/>

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Editor" version="7">
+<kpartgui name="Editor" version="1">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -180,6 +180,9 @@
     <Action name="tools_tm_batch_fuzzy"/>
     <Separator/>
     <Action name="tools_spelling"/>
+    <Separator/>
+    <Action name="tools_wordcount"/>
+    <Separator/>
   </Menu>
   <Menu name="settings">
     <Menu name="toolviews"><text>Tool&amp;views</text>

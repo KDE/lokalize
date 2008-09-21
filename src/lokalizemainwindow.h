@@ -28,7 +28,7 @@
 #include <kurl.h>
 
 #include <QPointer>
-#include <QHash>
+#include <QMap>
 #include <QDBusObjectPath>
 
 class QMdiSubWindow;
@@ -71,7 +71,7 @@ private slots:
     void editorClosed(QObject* obj);
 
 public slots:
-    Q_SCRIPTABLE QDBusObjectPath openEditor(const KUrl& url=KUrl());
+    Q_SCRIPTABLE QDBusObjectPath openFileInEditor(const QString& path);
     Q_SCRIPTABLE QDBusObjectPath showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
 
@@ -102,7 +102,7 @@ private:
 
     QByteArray m_lastEditorState;
 
-    QHash<KUrl, QMdiSubWindow* > m_fileToEditor;
+    QMap<KUrl, QPointer<QMdiSubWindow> > m_fileToEditor;
 };
 
 

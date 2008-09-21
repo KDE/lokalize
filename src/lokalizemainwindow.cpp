@@ -257,7 +257,7 @@ bool LokalizeMainWindow::queryClose()
 
 EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
 {
-    if (!url.isEmpty()&&m_fileToEditor.contains(url))
+    if (!url.isEmpty()&&m_fileToEditor.contains(url)&&m_fileToEditor.value(url))
     {
         m_mdiArea->setActiveSubWindow(m_fileToEditor.value(url));
         return static_cast<EditorWindow*>(m_fileToEditor.value(url)->widget());
@@ -278,7 +278,7 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
         }
         w->deleteLater();
 
-        if (m_fileToEditor.contains(w->currentUrl()))
+        if (m_fileToEditor.contains(w->currentUrl())&&m_fileToEditor.value(url))
         {
             m_mdiArea->setActiveSubWindow(m_fileToEditor.value(w->currentUrl()));
             return static_cast<EditorWindow*>(m_fileToEditor.value(w->currentUrl())->widget());
@@ -317,6 +317,7 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
     //emit editorWindowOpened(w);
     connect (sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     m_fileToEditor.insert(w->currentUrl(),sw);
+    sw->setAttribute(Qt::WA_DeleteOnClose,true);
     return w;
 }
 
@@ -518,17 +519,37 @@ void LokalizeMainWindow::restoreState()
 //BEGIN DBus interface
 
 #include "mainwindowadaptor.h"
+#include <kross/ui/plugin.h>
+
+class MyScriptingPlugin: public Kross::ScriptingPlugin
+{
+public:
+    MyScriptingPlugin(QObject* parent)
+        : Kross::ScriptingPlugin(parent)
+    {
+        setXMLFile("translationmemoryrui.rc",true);
+    }
+    ~MyScriptingPlugin(){}
+};
 
 void LokalizeMainWindow::registerDBusAdaptor()
 {
     new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
+
+    MyScriptingPlugin* sp=new MyScriptingPlugin(this);
+    guiFactory()->addClient(  sp );
+/*
+    KActionCollection* actionCollection = mWindow->actionCollection();
+    actionCollection->action("file_save")->setEnabled(canSave);
+    actionCollection->action("file_save_as")->setEnabled(canSave);
+*/
 }
 
-QDBusObjectPath LokalizeMainWindow::openEditor(const KUrl& url)
+QDBusObjectPath LokalizeMainWindow::openFileInEditor(const QString& path)
 {
-    EditorWindow* w=fileOpen(url);
+    EditorWindow* w=fileOpen(KUrl(path));
     if (!w)
         return QDBusObjectPath();
     return QDBusObjectPath( w->dbusObjectPath() );
@@ -543,4 +564,8 @@ QDBusObjectPath LokalizeMainWindow::showTranslationMemory()
     return QDBusObjectPath( w->dbusObjectPath() );
 }
 //END DBus interface
+
+////BEGIN Kross interface
+////END Kross interface
+
 #endif
