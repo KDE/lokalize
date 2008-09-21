@@ -197,6 +197,7 @@ QStringList Project::scriptsList() const
 
 void Project::populateWebQueryActions()
 {
+    return;
     QStringList a(scriptsList());
     int i=0;
     while(i<a.size())

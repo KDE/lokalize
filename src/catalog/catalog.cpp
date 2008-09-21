@@ -373,7 +373,7 @@ void Catalog::flushUpdateDBBuffer()
     if (pos.entry==-1 || pos.entry>=numberOfEntries())
     {
         //nothing to flush
-        kWarning()<<"nothing to flush or new file opened";
+        //kWarning()<<"nothing to flush or new file opened";
         return;
     }
     kWarning()<<"updating!!";
@@ -529,7 +529,24 @@ void Catalog::setBookmark(uint idx,bool set)
 }
 
 
+bool Catalog::setModified(int entry,bool modif)
+{
+    if (modif)
+    {
+        if (d->_modifiedEntries.contains(entry))
+            return false;
 
+        d->_modifiedEntries.append(entry);
+    }
+    else
+        d->_modifiedEntries.remove(entry);
+    return true;
+}
+
+bool Catalog::isModified(int entry)
+{
+    return d->_modifiedEntries.contains(entry);
+}
 
 
 #include "catalog.moc"

@@ -9,6 +9,9 @@
     <Action name="project_open"/>
     <ActionList name="project_actions" />
     <Action name="project_create"/>
+    <Separator/>
+    <Menu name="project_actions"><text>&amp;Actions</text>
+    </Menu>
   </Menu>
   <Menu name="tools">
     <MergeLocal name="tools_spelling_merge"/>

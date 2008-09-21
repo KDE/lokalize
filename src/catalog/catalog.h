@@ -104,6 +104,7 @@ public slots: //DBus interface
     bool isApproved(const DocPosition& pos) const{return isApproved(pos.entry);}
     bool isUntranslated(uint index) const; //at least one form is untranslated
     bool isUntranslated(const DocPosition&) const;
+    bool isModified(int entry);
 
     int numberOfPluralForms() const {return d->_numberOfPluralForms;}
     int numberOfEntries() const;
@@ -176,6 +177,10 @@ protected:
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
 
+    /**
+     * @returns true if entry wasn't modified before
+     */
+    bool setModified(int entry,bool modif);
 
 protected:
     int findPrevInList(const QList<int>& list,int index) const;

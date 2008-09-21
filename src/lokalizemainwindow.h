@@ -71,9 +71,11 @@ private slots:
     void editorClosed(QObject* obj);
 
 public slots:
-    Q_SCRIPTABLE QDBusObjectPath openFileInEditor(const QString& path);
-    Q_SCRIPTABLE QDBusObjectPath showTranslationMemory();
+    Q_SCRIPTABLE int openFileInEditor(const QString& path);
+    Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
+
+    Q_SCRIPTABLE QObject* currentEditor();
 
 
     void searchInFiles(const KUrl::List&);
@@ -86,7 +88,8 @@ public slots:
     TM::TMWindow* showTM();
 
 signals:
-    Q_SCRIPTABLE void editorWindowOpened(QDBusObjectPath);
+    Q_SCRIPTABLE void editorOpened();
+    Q_SCRIPTABLE void editorShown();
 
 private:
     QMdiArea* m_mdiArea;
@@ -104,33 +107,6 @@ private:
 
     QMap<KUrl, QPointer<QMdiSubWindow> > m_fileToEditor;
 };
-
-
-#if 0
-#include <QMdiArea>
-#include <QMdiSubWindow>
-#include <QMenuBar>
-#include <QDockWidget>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QDebug>
-
-
-class TabbedMainWindow: public QMainWindow
-{
-    Q_OBJECT
-public:
-    TabbedMainWindow();
-    ~TabbedMainWindow(){}
-
-public slots:
-    void slotSubWindowActivated(QMdiSubWindow*){qDebug()<<"CALLED!!!";}
-    void initLater();
-
-private:
-    QMdiArea* m_mdiArea;
-};
-#endif
 
 
 

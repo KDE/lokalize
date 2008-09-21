@@ -37,10 +37,11 @@
 #ifndef CatalogPrivate_H
 #define CatalogPrivate_H
 
+#include <kurl.h>
 #include <QList>
 #include <QStringList>
 #include <QVector>
-#include <kurl.h>
+#include <QMap>
 
 // #include "msgfmt.h"
 #include "catalogitem.h"
@@ -70,10 +71,11 @@ public:
     QString _emptyStr;
 
     int _numberOfPluralForms:8;
+
+    bool _readOnly:8;
+
     //for wrapping
     short _maxLineLength:16;
-
-    bool _readOnly:4;
 
     QList<int> _fuzzyIndex;
     QList<int> _untransIndex;
@@ -85,6 +87,8 @@ public:
     //for undo/redo
     //keeps pos of the entry that was last modified
     DocPosition _lastModifiedPos;
+
+    QList<int> _modifiedEntries;//just for the nice gui
 
     explicit CatalogPrivate()
            : _mimeTypes( "text/plain" )

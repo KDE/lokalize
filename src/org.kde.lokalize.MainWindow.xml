@@ -1,15 +1,16 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
   <interface name="org.kde.Lokalize.MainWindow">
-    <signal name="editorWindowOpened">
-      <arg type="o" direction="out"/>
+    <signal name="editorOpened">
+    </signal>
+    <signal name="editorShown">
     </signal>
     <method name="openFileInEditor">
-      <arg type="o" direction="out"/>
+      <arg type="i" direction="out"/>
       <arg name="path" type="s" direction="in"/>
     </method>
     <method name="showTranslationMemory">
-      <arg type="o" direction="out"/>
+      <arg type="i" direction="out"/>
     </method>
     <method name="showProjectOverview">
     </method>

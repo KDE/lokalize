@@ -136,17 +136,19 @@ public:
     bool fileOpen(KUrl url=KUrl());
 
     QString dbusObjectPath();
+    int dbusId(){return m_dbusId;}
+    QObject* adaptor(){return m_adaptor;}
 public slots:
     //for undo/redo, views
     void gotoEntry(const DocPosition& pos,int selection=0);
 #ifdef qdbuscpp2xml
-    Q_SCRIPTABLE void gotoEntry(int entry){gotoEntry(DocPosition(entry-1));}
-    Q_SCRIPTABLE void gotoEntryForm(int entry,int form){gotoEntry(DocPosition(entry-1,form));}
-    Q_SCRIPTABLE void gotoEntryFormOffset(int entry,int form, int offset){gotoEntry(DocPosition(entry-1,form,offset));}
-    Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry,int form, int offset, int selection){gotoEntry(DocPosition(entry-1,form,offset),selection);}
+    Q_SCRIPTABLE void gotoEntry(int entry){gotoEntry(DocPosition(entry));}
+    Q_SCRIPTABLE void gotoEntryForm(int entry,int form){gotoEntry(DocPosition(entry,form));}
+    Q_SCRIPTABLE void gotoEntryFormOffset(int entry,int form, int offset){gotoEntry(DocPosition(entry,form,offset));}
+    Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry,int form, int offset, int selection){gotoEntry(DocPosition(entry,form,offset),selection);}
 
-    Q_SCRIPTABLE int currenEntry(){return _currentPos.entry;}
-    Q_SCRIPTABLE int currenForm(){return _currentPos.form;}
+    Q_SCRIPTABLE int currentEntry(){return _currentPos.entry;}
+    Q_SCRIPTABLE int currentForm(){return _currentPos.form;}
     Q_SCRIPTABLE QString selectionInTarget();
     Q_SCRIPTABLE QString selectionInSource();
 
@@ -294,6 +296,7 @@ private:
     QString _captionPath;
 
 
+    QObject* m_adaptor;
     int m_dbusId;
     static QList<int> ids;
 

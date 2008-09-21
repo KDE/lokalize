@@ -70,10 +70,13 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 
     if (role==Qt::FontRole && index.column()==Target)
     {
-        if (!index.sibling(index.row(),Approved).data().toBool())
+        bool fuzzy=!m_catalog->isApproved(index.row());
+        bool modified=m_catalog->isModified(index.row());
+        if (fuzzy || modified)
         {
             QFont font=QApplication::font();
-            font.setItalic(true);
+            font.setItalic(fuzzy);
+            font.setBold(modified);
             return font;
         }
     }

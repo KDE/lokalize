@@ -63,6 +63,7 @@ private:
     Catalog* _catalog;
     QString _str;
     DocPosition _pos;
+    bool _firstEntryModification;
 };
 
 
@@ -79,6 +80,7 @@ private:
     Catalog* _catalog;
     QString _str;
     DocPosition _pos;
+    bool _firstEntryModification;
 };
 
 /**
@@ -96,8 +98,9 @@ private:
     void setJumpingPos();
 
     Catalog* _catalog;
-    short _index;
-    bool _flag;
+    short _index:16;
+    bool _flag:8;
+    bool _firstEntryModification:8;
 };
 
 
@@ -116,8 +119,10 @@ private:
     void setJumpingPos();
 
     Catalog* _catalog;
-    short _index;
-    bool _approved;
+    short _index:16;
+    bool _approved:8;
+    bool _firstEntryModification:8;
+
 };
 
 #endif // CMD_H

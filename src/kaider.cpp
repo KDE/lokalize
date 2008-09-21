@@ -919,8 +919,8 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
         _currentEntry=pos.entry;
         if (m_updateView)
         {
-            emit signalNewEntryDisplayed();
             emit signalNewEntryDisplayed(_currentPos);
+            emit signalNewEntryDisplayed();
 
             emit signalFirstDisplayed(_currentEntry==0);
             emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);
@@ -1144,7 +1144,7 @@ QString EditorWindow::dbusObjectPath()
 {
     if ( m_dbusId==-1 )
     {
-        new EditorAdaptor(this);
+        m_adaptor=new EditorAdaptor(this);
 
         int i=0;
         while(i<ids.size()&&i==ids.at(i))

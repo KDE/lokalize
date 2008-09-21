@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ InsTextCmd::InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &st
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
+    , _firstEntryModification(false)
 {
 }
 
@@ -72,6 +73,8 @@ void InsTextCmd::redo()
     Catalog& catalog=*_catalog;
     catalog.setLastModifiedPos(_pos);
     catalog.targetInsert(_pos,_str);
+
+    _firstEntryModification=catalog.setModified(_pos.entry,true);
 }
 
 void InsTextCmd::undo()
@@ -80,8 +83,10 @@ void InsTextCmd::undo()
 
     DocPosition pos=_pos; pos.offset+=_str.size();
     catalog.setLastModifiedPos(pos);
-
     catalog.targetDelete(_pos,_str.size());
+
+    if (_firstEntryModification)
+        catalog.setModified(_pos.entry,false);
 }
 
 
@@ -90,6 +95,7 @@ DelTextCmd::DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &st
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
+    , _firstEntryModification(false)
 {
 }
 
@@ -125,14 +131,18 @@ void DelTextCmd::redo()
 
     DocPosition pos=_pos; pos.offset+=_str.size();
     catalog.setLastModifiedPos(pos);
-
     catalog.targetDelete(_pos,_str.size());
+
+    _firstEntryModification=catalog.setModified(_pos.entry,true);
 }
 void DelTextCmd::undo()
 {
     Catalog& catalog=*_catalog;
     catalog.setLastModifiedPos(_pos);
     catalog.targetInsert(_pos,_str);
+
+    if (_firstEntryModification)
+        catalog.setModified(_pos.entry,false);
 }
 
 ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
@@ -140,6 +150,7 @@ ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
     , _catalog(catalog)
     , _index(index)
     , _flag(flag)
+    , _firstEntryModification(false)
 {
 }
 
@@ -147,12 +158,17 @@ void ToggleFuzzyCmd::redo()
 {
     setJumpingPos();
     _catalog->setApproved(DocPosition(_index),!_flag);
+
+    _firstEntryModification=_catalog->setModified(_index,true);
 }
 
 void ToggleFuzzyCmd::undo()
 {
     setJumpingPos();
     _catalog->setApproved(DocPosition(_index),_flag);
+
+    if (_firstEntryModification)
+        _catalog->setModified(_index,false);
 }
 
 void ToggleFuzzyCmd::setJumpingPos()
@@ -167,6 +183,7 @@ ToggleApprovementCmd::ToggleApprovementCmd(Catalog *catalog,uint index,bool appr
     , _catalog(catalog)
     , _index(index)
     , _approved(approved)
+    , _firstEntryModification(false)
 {
 }
 
@@ -174,12 +191,17 @@ void ToggleApprovementCmd::redo()
 {
     setJumpingPos();
     _catalog->setApproved(DocPosition(_index),_approved);
+
+    _firstEntryModification=_catalog->setModified(_index,true);
 }
 
 void ToggleApprovementCmd::undo()
 {
     setJumpingPos();
     _catalog->setApproved(DocPosition(_index),!_approved);
+
+    if (_firstEntryModification)
+        _catalog->setModified(_index,false);
 }
 
 void ToggleApprovementCmd::setJumpingPos()

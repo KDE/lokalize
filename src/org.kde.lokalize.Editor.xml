@@ -21,10 +21,10 @@
       <arg name="offset" type="i" direction="in"/>
       <arg name="selection" type="i" direction="in"/>
     </method>
-    <method name="currenEntry">
+    <method name="currentEntry">
       <arg type="i" direction="out"/>
     </method>
-    <method name="currenForm">
+    <method name="currentForm">
       <arg type="i" direction="out"/>
     </method>
     <method name="selectionInTarget">

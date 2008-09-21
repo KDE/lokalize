@@ -64,6 +64,9 @@
 #include <kurl.h>
 #include <kmenu.h>
 
+#include <kross/core/action.h>
+
+
 #include <QActionGroup>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -85,7 +88,6 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
     setupActions();
 
-    kWarning()<<"00000000000000";
      //prevent relayout of dockwidgets
     m_mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation,true);
 
@@ -115,6 +117,7 @@ LokalizeMainWindow::LokalizeMainWindow()
         path=stateGroup.readEntry("Project",path);
         Project::instance()->load(path);
     }
+    registerDBusAdaptor();
 
     //if project isn't loaded, still restore opened files
     KConfigGroup projectStateGroup(&config,"State-"+path);
@@ -148,7 +151,6 @@ LokalizeMainWindow::LokalizeMainWindow()
 
 //END RESTORE STATE
 
-    registerDBusAdaptor();
 
     QTimer::singleShot(0,this,SLOT(initLater()));
 }
@@ -217,21 +219,55 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         prevEditor->hideDocks();
         guiFactory()->removeClient( prevEditor->guiClient()   );
         prevEditor->statusBarItems.unregisterStatusBar();
+
+/*
+        if (qobject_cast<EditorWindow*>(prevEditor))
+        {
+            EditorWindow* w=static_cast<EditorWindow*>( prevEditor );
+
+            KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+            QList<QAction*> actionz=projectActions->actions();
+
+            int i=actionz.size();
+            //projectActions->menuAction()->setVisible(i);
+            //kWarning()<<"adding object"<<actionz.at(0);
+            while(--i>=0)
+            {
+                disconnect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
+                //static_cast<Kross::Action*>(actionz.at(i))->addObject(static_cast<EditorWindow*>( editor )->adaptor(),"Editor",Kross::ChildrenInterface::AutoConnectSignals);
+                //static_cast<Kross::Action*>(actionz.at(i))->trigger();
+            }
+        }
+*/
     }
     LokalizeSubwindowBase* editor=static_cast<LokalizeSubwindowBase2*>( w->widget() );
     if (qobject_cast<EditorWindow*>(editor))
     {
-        static_cast<EditorWindow*>( editor )->setProperFocus();
+        EditorWindow* w=static_cast<EditorWindow*>( editor );
+        w->setProperFocus();
 
-        KAiderState state=static_cast<EditorWindow*>( editor )->state();
+        KAiderState state=w->state();
         m_lastEditorState=state.dockWidgets.toBase64();
+/*
+        KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+        QList<QAction*> actionz=projectActions->actions();
+
+        int i=actionz.size();
+        //projectActions->menuAction()->setVisible(i);
+        //kWarning()<<"adding object"<<actionz.at(0);
+        while(--i>=0)
+        {
+            connect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
+            //static_cast<Kross::Action*>(actionz.at(i))->addObject(static_cast<EditorWindow*>( editor )->adaptor(),"Editor",Kross::ChildrenInterface::AutoConnectSignals);
+            //static_cast<Kross::Action*>(actionz.at(i))->trigger();
+        }*/
+
+        emit editorShown();
     }
 
     editor->showDocks();
-    guiFactory()->addClient(  editor->guiClient()   );
-
     editor->statusBarItems.registerStatusBar(statusBar());
-
+    guiFactory()->addClient(  editor->guiClient()   );
 
     m_prevSubWindow=w;
 
@@ -314,10 +350,10 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
         w->mergeOpen(mergeFile);
 
     m_openRecentFileAction->addUrl(w->currentUrl());
-    //emit editorWindowOpened(w);
     connect (sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     m_fileToEditor.insert(w->currentUrl(),sw);
     sw->setAttribute(Qt::WA_DeleteOnClose,true);
+    emit editorOpened();
     return w;
 }
 
@@ -519,7 +555,11 @@ void LokalizeMainWindow::restoreState()
 //BEGIN DBus interface
 
 #include "mainwindowadaptor.h"
+#include <kross/core/actioncollection.h>
+#include <kross/core/manager.h>
 #include <kross/ui/plugin.h>
+
+using namespace Kross;
 
 class MyScriptingPlugin: public Kross::ScriptingPlugin
 {
@@ -534,12 +574,34 @@ public:
 
 void LokalizeMainWindow::registerDBusAdaptor()
 {
-    new MainWindowAdaptor(this);
+    MainWindowAdaptor* adaptor=new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
     MyScriptingPlugin* sp=new MyScriptingPlugin(this);
     guiFactory()->addClient(  sp );
+
+
+    KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+
+//populateWebQueryActions()
+    QStringList a=Project::instance()->scriptsList();
+    int i=a.size();
+    projectActions->menuAction()->setVisible(i);
+    while(--i>=0)
+    {
+        QUrl url(a.at(i));
+        kWarning()<<"action"<<url;
+        Action* action = new Action(this,url);
+        //action->addObject(adaptor, "Lokalize",ChildrenInterface::AutoConnectSignals);
+        action->addObject(this, "Lokalize",ChildrenInterface::AutoConnectSignals);
+        Manager::self().actionCollection()->addAction(action);
+        //action->trigger();
+        projectActions->addAction(action);
+    }
+
+
+
 /*
     KActionCollection* actionCollection = mWindow->actionCollection();
     actionCollection->action("file_save")->setEnabled(canSave);
@@ -547,22 +609,33 @@ void LokalizeMainWindow::registerDBusAdaptor()
 */
 }
 
-QDBusObjectPath LokalizeMainWindow::openFileInEditor(const QString& path)
+int LokalizeMainWindow::openFileInEditor(const QString& path)
 {
     EditorWindow* w=fileOpen(KUrl(path));
     if (!w)
-        return QDBusObjectPath();
-    return QDBusObjectPath( w->dbusObjectPath() );
+        return -1;
+    return w->dbusId();
 }
 
-QDBusObjectPath LokalizeMainWindow::showTranslationMemory()
+int LokalizeMainWindow::showTranslationMemory()
 {
     /*activateWindow();
     raise();
     show();*/
     TM::TMWindow* w=showTM();
-    return QDBusObjectPath( w->dbusObjectPath() );
+    return w->dbusId();
 }
+
+QObject* LokalizeMainWindow::currentEditor()
+{
+    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+    QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
+    if (qobject_cast<EditorWindow*>(activeSW->widget()))
+        return activeSW->widget();
+    return 0;
+}
+
+
 //END DBus interface
 
 ////BEGIN Kross interface
