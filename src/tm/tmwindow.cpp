@@ -134,6 +134,7 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex& item, int role) const
 {
+    //TODO Qt::ForegroundRole -- brush for orphaned entries
     if (role==Qt::FontRole && item.column()==TMDBModel::Target)
     {
         qlonglong bits=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+2).data().toLongLong();
@@ -153,7 +154,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
         QString r=result.toString();
         int pos=r.indexOf(TM_DELIMITER);
         if (pos!=-1)
-            result=r.remove(pos, 999);
+            result=r.remove(pos, r.size());
     }
     else if (item.column()<TMDBModel::Context)//source, target
     {

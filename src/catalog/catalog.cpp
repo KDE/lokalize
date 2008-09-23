@@ -97,6 +97,7 @@ void Catalog::clear()
     delete m_storage;m_storage=0;
     d->_url.clear();
     d->_lastModifiedPos=DocPosition();
+    d->_modifiedEntries.clear();
 /*
     d->msgidDiffList.clear();
     d->msgstr2MsgidDiffList.clear();
@@ -465,6 +466,25 @@ void Catalog::setApproved(const DocPosition& pos, bool approved)
 
 }
 
+bool Catalog::setModified(int entry,bool modif)
+{
+    if (modif)
+    {
+        if (d->_modifiedEntries.contains(entry))
+            return false;
+
+        d->_modifiedEntries.append(entry);
+    }
+    else
+        d->_modifiedEntries.remove(entry);
+    return true;
+}
+
+bool Catalog::isModified(int entry)
+{
+    return d->_modifiedEntries.contains(entry);
+}
+
 //END UNDO/REDO
 
 
@@ -529,24 +549,6 @@ void Catalog::setBookmark(uint idx,bool set)
 }
 
 
-bool Catalog::setModified(int entry,bool modif)
-{
-    if (modif)
-    {
-        if (d->_modifiedEntries.contains(entry))
-            return false;
-
-        d->_modifiedEntries.append(entry);
-    }
-    else
-        d->_modifiedEntries.remove(entry);
-    return true;
-}
-
-bool Catalog::isModified(int entry)
-{
-    return d->_modifiedEntries.contains(entry);
-}
 
 
 #include "catalog.moc"

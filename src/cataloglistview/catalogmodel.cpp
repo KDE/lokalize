@@ -90,7 +90,9 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         case Key: return index.row()+1;
         case Source: return m_catalog->msgid(index.row());
         case Target: return m_catalog->msgstr(index.row());
-        case Approved: return m_catalog->isApproved(index.row());
+        case Approved:
+            static const char* yesno[]={"no","yes"};
+            return yesno[m_catalog->isApproved(index.row())];
     }
     return QVariant();
 }

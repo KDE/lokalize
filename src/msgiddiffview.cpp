@@ -50,12 +50,14 @@ MsgIdDiff::MsgIdDiff(QWidget* parent, Catalog* catalog)
     , m_normTitle(i18nc("@title:window","Original Diff"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
+    , m_plural(false)
+    , m_prevPlural(false)
     , m_entry(-1)
     , m_prevEntry(-1)
 {
     setObjectName("msgIdDiff");
     setWidget(m_browser);
-    setToolTip(i18nc("@info:tooltip","Sometimes, if original is changed, its translation becomes <emphasis>fuzzy</emphasis>. This window shows the difference between new original string and the old one, so that you can see what changes should be applied to translation."));
+    setToolTip(i18nc("@info:tooltip","Sometimes, if original text is changed, its translation becomes <emphasis>fuzzy</emphasis> (i.e. looses approval status). This window shows the difference between new original string and the old one, so that you can easily see which changes should be applied to translation."));
 
     m_browser->setReadOnly(true);
 }
@@ -68,17 +70,19 @@ MsgIdDiff::~MsgIdDiff()
 void MsgIdDiff::slotNewEntryDisplayed(const DocPosition& pos)
 {
     m_entry=pos.entry;
+    m_plural=pos.form>0;
     QTimer::singleShot(0,this,SLOT(process()));
 }
 
 void MsgIdDiff::process()
 {
-    if (m_entry==m_prevEntry)
+    if (m_entry==m_prevEntry && m_plural==m_prevPlural)
         return;
     if (m_catalog->numberOfEntries()<=m_entry)
         return;//because of Qt::QueuedConnection
 
     m_prevEntry=m_entry;
+    m_prevPlural=m_plural;
     QString oldStr(m_catalog->comment(m_entry));
     if (!oldStr.contains("#|"))
     {
@@ -96,21 +100,48 @@ void MsgIdDiff::process()
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
-    QString newStr(m_catalog->msgid(m_entry));
+    DocPosition pos;
+    pos.entry=m_entry;
+    pos.form=(int)m_plural;
+    QString newStr(m_catalog->source(pos));
 
-    oldStr.replace("#| msgid_plural \"","#| \"");
-    newStr.replace("#| msgid_plural \"","#| \"");
+    if ("#| msgid_plural \"")
+    {
+        int oldPluralPos=oldStr.indexOf("#| msgid_plural \"");
+        int oldPos=oldStr.indexOf("#| msgid \"");
 
+        if (oldPluralPos!=-1 && oldPos!=-1 && oldPluralPos>oldPos)
+        {
+            if (m_plural)//remove msgid singular part
+            {
+                oldStr.remove(oldPos,oldPluralPos-oldPos);
+                oldStr.replace("#| msgid_plural ","#| msgid ");
+            }
+            else //remove msgid_plural part
+                oldStr.remove(oldPluralPos,oldStr.size());
+        }
+    }
 
-//     QTime time;
-//     time.start();
 
     //get rid of other info (eg fuzzy marks)
     oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
     oldStr.remove(QRegExp("\\#[^\\|].*$"));
-    QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)");
-    rmCtxt.setMinimal(true);
-    oldStr.remove(rmCtxt);
+    //QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)"); too complicated to maintain and doesn't pass all the tests
+    //rmCtxt.setMinimal(true);
+    //oldStr.remove(rmCtxt);
+
+    int msgCtxtPos=oldStr.indexOf("#| msgctxt ");
+    if (msgCtxtPos!=-1)
+    {
+        int msgIdPos=oldStr.indexOf("#| msgid");
+        if (msgIdPos!=-1 && msgIdPos>msgCtxtPos)
+            oldStr.remove(msgCtxtPos,msgIdPos-msgCtxtPos);
+        else
+        {
+            kWarning()<<"rare case found!!!";
+            oldStr.remove(QRegExp("\\#\\| msgctxt.*\n"));//just the old one-line remover
+        }
+    }
 
 
     if (oldStr.contains("#| msgid \"\"")) //multiline
@@ -131,6 +162,7 @@ void MsgIdDiff::process()
         oldStr.remove("\"\n");
     }
 
+
     QString result(wordDiff(oldStr,
                             newStr,
                             Project::instance()->accel(),
@@ -139,12 +171,6 @@ void MsgIdDiff::process()
     result.replace("\\n","\\n<br>");
 
     m_browser->setHtml(result);
-//     m_browser->setPlainText(result);
-
-//     oldStr.replace("\\n","\\n\n");
-//     newStr.replace("\\n","\\n\n");
-
-//     kDebug()<<"ELA "<<time.elapsed();
 }
 
 #include "msgiddiffview.moc"
