@@ -102,15 +102,23 @@ void MsgIdDiff::process()
     newStr.replace("#| msgid_plural \"","#| \"");
 
 
-//     QTime time;
-//     time.start();
-
     //get rid of other info (eg fuzzy marks)
     oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
     oldStr.remove(QRegExp("\\#[^\\|].*$"));
-    QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)");
-    rmCtxt.setMinimal(true);
-    oldStr.remove(rmCtxt);
+
+    int msgCtxtPos=oldStr.indexOf("#| msgctxt ");
+    if (msgCtxtPos!=-1)
+    {
+        int msgIdPos=oldStr.indexOf("#| msgid");
+        if (msgIdPos!=-1 && msgIdPos>msgCtxtPos)
+            oldStr.remove(msgCtxtPos,msgIdPos-msgCtxtPos);
+        else
+        {
+            kWarning()<<"rare case found!!!";
+            oldStr.remove(QRegExp("\\#\\| msgctxt.*\n"));//just the old one-line remover
+        }
+    }
+
 
     if (oldStr.contains("#| msgid \"\""))
     {
@@ -138,12 +146,6 @@ void MsgIdDiff::process()
     result.replace("\\n","\\n<br>");
 
     m_browser->setHtml(result);
-//     m_browser->setPlainText(result);
-
-//     oldStr.replace("\\n","\\n\n");
-//     newStr.replace("\\n","\\n\n");
-
-//     kDebug()<<"ELA "<<time.elapsed();
 }
 
 #include "msgiddiffview.moc"
