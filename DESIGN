@@ -1,16 +1,31 @@
-The most global class is 'Project'. It is a singleton so all data that can be shared among Lokalize windows should go into it.
+The most global class is 'Project'. It is a singleton and keeps project-related data/settings
 'Settings' is also a singleton (src/prefs).
-'LokalizeMainWindow' is the main window with multitabs interface
 
-'EditorWindow' is a dispatcher (controller) for one catalog editing window.
+==LokalizeMainWindow==
+'LokalizeMainWindow' is the main window with multitabs interface.
+Uses QMdiArea for tabbing interface, and guiFactory()->addClient()/guiFactory()->removeClient()
+to merge actions from tabs (editor, project overview, tm-search tab), and StatusBarProxy to deliver info from tabs.
+Tabs are KMainWindows + KXmlGuiCleints.
+
+==Project Overview tab==
+Hacks KDirLister to merge contents from two dirs.
+
+==Editor tab==
+'EditorWindow' is a dispatcher (controller) for one catalog editing window (tab).
 'KAiderView' is msgid/msgstr viewer/editor for it.
-
+'MsgCtxtView', 'GlossaryView' and other QDockWidget derivatives provide specialized features.
 All specialized actions should go into views (QDockWidgets) or separate classes used from views.
 
-'Catalog' is a controller+proxymodel for translation files
-'CatalogStorage' is interface for different storage models (qvector for gettext, qdom for xliff)
-
+'Catalog' is a controller+proxymodel for CatalogStorage translation files
+'CatalogStorage' is interface for different storage models (QVector for gettext, QDom for xliff)
 
 ==Translation Memory==
-Implemented as series of jobs running in second thread (src/tm/jobs.cpp)
+Implemented as series of jobs running in second thread (src/tm/jobs.cpp).
+See initDB() for database schema
 
+==Glossary==
+SAX parser/generator based. Tries to preserve unknown metadata on saving when possible.
+
+
+API docs:
+http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/annotated.html
