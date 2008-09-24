@@ -9,6 +9,7 @@ Tabs are KMainWindows + KXmlGuiCleints.
 
 ==Project Overview tab==
 Hacks KDirLister to merge contents from two dirs.
+uses kdesdk/strigi-analyzer/po to scan translation files
 
 ==Editor tab==
 'EditorWindow' is a dispatcher (controller) for one catalog editing window (tab).
