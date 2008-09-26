@@ -71,7 +71,7 @@ bool TM::scanRecursive(const QDir& dir, const QString& dbName)
     {
         ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),
                                 dbName);
-        job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        //job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
         ok=true;
@@ -919,9 +919,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             e.markup=markup;
             e.accel=accel;
 
-            //
-            //calc score
-            //
+
+//BEGIN calc score
             QString str(e.english);
             str.remove(accel);
 
@@ -1003,6 +1002,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             else
                 e.score=10000;
 
+//END calc score
             if (e.score>3500)
             {
                 if (e.score>8500)

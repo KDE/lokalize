@@ -59,9 +59,6 @@ if (  d->_entries.isEmpty() )\
         return _return_type;
 
 
-//XLIFF, чтоб его...
-
-
 
 namespace GettextCatalog {
   class CatalogImportPlugin;

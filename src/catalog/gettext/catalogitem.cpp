@@ -4,7 +4,7 @@
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
 		2002	  by Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>
   Copyright (C) 2006      by Nicolas GOUTTE <goutte@kde.org> 
-                2007      by Nick Shaforostoff <shafff@ukr.net>
+                2007-2008 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
 
 using namespace GettextCatalog;
 
-QRegExp CatalogItem::fuzzyRegExp("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy");
+static const char* fuzzyRegExpStr="((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy";
 
 CatalogItem::CatalogItem()
  : d(new CatalogItemPrivate())
@@ -189,7 +189,7 @@ bool CatalogItem::isPlural() const
 
 bool CatalogItem::isFuzzy() const
 {
-    return d->_comment.contains( fuzzyRegExp );
+    return d->_comment.contains( QRegExp(fuzzyRegExpStr) );
 }
 
 bool CatalogItem::isUntranslated() const
@@ -348,7 +348,7 @@ void CatalogItem::unsetFuzzy()
 {
     QString& comment=d->_comment;
 
-    comment.remove( fuzzyRegExp );
+    comment.remove( QRegExp(fuzzyRegExpStr) );
 
     // remove empty comment lines
     comment.remove( QRegExp("\n#\\s*$") );
