@@ -40,7 +40,7 @@
 
 using namespace GettextCatalog;
 
-QRegExp CatalogItem::fuzzyRegExp("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy");
+static const char* fuzzyRegExpStr="((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy";
 
 CatalogItem::CatalogItem()
  : d(new CatalogItemPrivate())
@@ -189,7 +189,7 @@ bool CatalogItem::isPlural() const
 
 bool CatalogItem::isFuzzy() const
 {
-    return d->_comment.contains( fuzzyRegExp );
+    return d->_comment.contains( QRegExp(fuzzyRegExpStr) );
 }
 
 bool CatalogItem::isUntranslated() const
@@ -348,7 +348,7 @@ void CatalogItem::unsetFuzzy()
 {
     QString& comment=d->_comment;
 
-    comment.replace( fuzzyRegExp, "\\1" );
+    comment.replace( QRegExp(fuzzyRegExpStr), "\\1" );
 
     // remove empty comment lines
     comment.remove( QRegExp("\n#\\s*$") );
