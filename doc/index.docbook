@@ -21,18 +21,18 @@
 </authorgroup>
 
 <copyright>
-<year>2007</year><holder>Nick Shaforostoff</holder>
+<year>2007-2008</year><holder>Nick Shaforostoff</holder>
 </copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-01-22</date>
-<releaseinfo>0.2</releaseinfo>
+<date>2008-09-10</date>
+<releaseinfo>0.3</releaseinfo>
 
 <abstract>
 <para>
 &lokalize; is a computer-aided translation system that focuses on productivity and
-performance.  &lokalize; applies a paragraph-by-paragraph translation approach
+quality assurance.  &lokalize; applies a paragraph-by-paragraph translation approach
 when translating documentation, and takes a message-by-message approach when
 translating &GUI; components.
 </para>
@@ -80,8 +80,8 @@ when in the <guilabel>WebQueries</guilabel>.
 
 <para>
 The projects are one of the main concepts in &lokalize;. A project is represented by
-a file that contains paths folders with translations, templates, and other files: 
-glossary file, <guilabel>WebQuery</guilabel> scripts, translation memories.
+a file that contains paths, folders with translations, templates, and other files: 
+glossary file, automation scripts, translation memories.
 Whenever &lokalize; opens a file without a project loaded, it will search for a project file in the parent folders (up to four levels).
 Alternatively, you can specify the project file via the <userinput>--project</userinput> flag
 when starting &lokalize; from the command line.
@@ -89,7 +89,7 @@ when starting &lokalize; from the command line.
 
 <note>
 <para>
-Unlike project files, glossary and scripts, translation memories are not shared between the translation team members,
+Translation memories (unlike project files, glossary and scripts) are not shared between the translation team members,
 as they are created and stored under the user's home folder, meaning that the translation
 memories for all of the projects are stored in the same folder and thus can be used
 when other projects are opened.
@@ -98,30 +98,20 @@ when other projects are opened.
 
 
 <sect1 id="project-view">
-<title>Project View</title>
+<title>Project Overview</title>
 
 <para>
-The <guilabel>Project View</guilabel> displays a file tree with statistics such
-as the percentage of translated messages completed and the last translator. It
-allows you to open a selected file in the current, or in a new &lokalize;, window.
+The <guilabel>Project Overview</guilabel> tab displays a file tree with statistics for a current project,
+such as the percentage of translated messages completed and the last translator.
+It allows you to open a selected file in new tab of the current &lokalize;, window.
 </para>
-
-<tip>
-<para>
-Use the middle mouse button to open a file in a new window.
-</para>
-</tip>
-
-<para>
-The project file tree is accessible as a toolview in the editor and as a separate window.
-</para>
-
 
 </sect1>
 
 <sect1 id="multifile-ops">
 <title>Operations on multiple files</title>
 
+<!-- TODO -->
 <para>
 Currently &lokalize; supports searching, replacing, and spellchecking within
 multiple files. Select the items that you are interested in, then choose the
@@ -154,6 +144,19 @@ Of course the glossary should be populated with word sequences first. &lokalize;
 has a handy glossary editor that allows an explicit search over the entire
 glossary.
 </para>
+
+<screenshot>
+<screeninfo>Glossary view in the bottom right corner displays glossary entries appropriate for the current entry</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Glossary view in the bottom right corner displays glossary entries appropriate for the current entry</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
 </chapter>
 
 <chapter id="tm">
@@ -162,7 +165,7 @@ glossary.
 <para>
 The <guilabel>Translation Memory View</guilabel> allows you to drag and drop a
 folder with translation files from say Dolphin into the view,
-and then, within five minutes, translation suggestions will be shown automatically on the message entry switch.
+and then, within few minutes, translation suggestions will be shown automatically on the message entry switch.
 To insert the translation suggestions into the file, use 
 <keycombo>&Ctrl;<keycap>1</keycap></keycombo>, 
 <keycombo>&Ctrl;<keycap>2</keycap></keycombo> and so on, depending on the number of suggestion.
@@ -218,11 +221,10 @@ to navigate through entries that are different.
 </sect1>
 
 <sect1 id="file-sync">
-<title>Synchronization</title>
+<title>Replication</title>
 <para>
 <guilabel>Sync Mode</guilabel> may also be used to make changes to translation for
-two (or even three -- using both <guilabel>Secondary Sync</guilabel> and <guilabel>Primary Sync</guilabel>)
-branches simultaneously.
+two branches simultaneously.
 Set <guilabel>Branch Dir</guilabel> path in your project options to the path that corresponds to
 base dir of the branch, and <guilabel>Secondary Sync</guilabel> view will automatically open
 files from branch. Then, each time you make changes in files of your main branch,
@@ -232,7 +234,7 @@ they will automatically be replicated to the branch
 <para>
 For example, if you work on KDE translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename>
 and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>.
-Create Lokalize project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.ktp</filename> and 
+Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.ktp</filename> and 
 set <filename class="directory">BranchDir=../../../branches/stable/l10n-kde4/YOUR_LANG</filename>, then work via this project,
 and commit changes in both trunk and branch dirs.
 </para>
@@ -244,7 +246,7 @@ and commit changes in both trunk and branch dirs.
 <para>
 When original text changes, gettext tools update translation files and mark entries with changed original text as <emphasis>fuzzy</emphasis> (or <emphasis>non-approved</emphasis> in other terminology).
 They store previous original text so that translators could see what changes exactly were made.
-Lokalize simplifies life of translator and highlights parts of original text that were changed in <guilabel>Original Diff</guilabel> view.
+&lokalize; simplifies life of translator and highlights parts of original text that were changed in <guilabel>Original Diff</guilabel> view.
 </para>
 
 <screenshot>
