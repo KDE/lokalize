@@ -1011,21 +1011,23 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     continue;
 
 //BEGIN fetch rest of the data
-                QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, "
+                QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, main.bits, "
                                     "target_strings.target, target_strings.target_accel, files.path "
                                     "FROM main, target_strings, files WHERE "
                                     "target_strings.id==main.target AND "
                                     "files.id=main.file AND "
-                                    "main.source=="+QString::number(e.id),db); //ORDER BY tm_main.id ?
+                                    "main.source=="+QString::number(e.id)+" AND "
+                                    "(main.bits&4)!=4"
+                                    ,db); //ORDER BY tm_main.id ?
                 queryRest.exec();
                 QList<TMEntry> tempList;//to eliminate same targets from different files
                 while (queryRest.next())
                 {
                     e.id=queryRest.value(0).toLongLong();
                     e.date=queryRest.value(1).toString();
-                    e.target=queryRest.value(3).toString();if (queryRest.value(4).toLongLong()!=-1){e.target.insert(queryRest.value(4).toLongLong(), accel);}
+                    e.target=queryRest.value(4).toString();if (queryRest.value(5).toLongLong()!=-1){e.target.insert(queryRest.value(5).toLongLong(), accel);}
                     QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
-                    QString file=queryRest.value(5).toString();
+                    QString file=queryRest.value(6).toString();
 
 //BEGIN exact match score++
                     if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
@@ -1059,6 +1061,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     //kWarning()<<"appending"<<e.target;
                     tempList.append(e);
                 }
+                queryRest.clear();
                 //eliminate same targets from different files
                 qSort(tempList);
                 QHash<QString,bool> hash;
@@ -1367,12 +1370,7 @@ bool TmxParser::startDocument()
 {
     initDb(db);
 
-//     QSqlQuery queryInsertWord(db);
-//     queryInsertWord.prepare("INSERT INTO words (word) "
-//                                 "VALUES (?)");
-
     QSqlQuery queryBegin("BEGIN",db);
-
 
     m_state=null;
     m_lang=langNull;
