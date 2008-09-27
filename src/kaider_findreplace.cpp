@@ -1004,6 +1004,7 @@ bool EditorWindow::findEntryBySourceContext(const QString& source, const QString
 
 void EditorWindow::displayWordCount()
 {
+    //TODO in trans and fuzzy separately
     int sourceCount=0;
     int targetCount=0;
     QRegExp rxClean(Project::instance()->markup()+'|'+Project::instance()->accel());//cleaning regexp; NOTE isEmpty()?

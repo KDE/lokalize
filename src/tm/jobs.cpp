@@ -1017,7 +1017,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                                     "target_strings.id==main.target AND "
                                     "files.id=main.file AND "
                                     "main.source=="+QString::number(e.id)+" AND "
-                                    "(main.bits&4)!=4"
+                                    "(main.bits&4)!=4 AND "
+                                    "target_strings.target NOTNULL"
                                     ,db); //ORDER BY tm_main.id ?
                 queryRest.exec();
                 QList<TMEntry> tempList;//to eliminate same targets from different files
@@ -1028,6 +1029,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     e.target=queryRest.value(4).toString();if (queryRest.value(5).toLongLong()!=-1){e.target.insert(queryRest.value(5).toLongLong(), accel);}
                     QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
                     QString file=queryRest.value(6).toString();
+                    if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
+                        continue;
 
 //BEGIN exact match score++
                     if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)

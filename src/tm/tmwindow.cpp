@@ -145,6 +145,9 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
             return font;
         }
     }
+    else if (role==Qt::UserRole && item.column()==TMDBModel::Filepath)
+        return QSqlQueryModel::data(item, Qt::DisplayRole);
+
     QVariant result=QSqlQueryModel::data(item, role);
     if (role!=Qt::DisplayRole)
         return result;
@@ -167,6 +170,12 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
             r.insert(pos,Project::instance()->accel());
             return r;
         }
+    }
+    else if (item.column()==TMDBModel::Filepath)
+    {
+        QString r=result.toString();
+        if (r.contains(Project::instance()->projectDir()))//TODO cache projectDir?
+            return KUrl::relativePath(Project::instance()->projectDir(),r).mid(2);
     }
     return result;
 }
@@ -302,7 +311,7 @@ void TMWindow::copyTarget()
 void TMWindow::openFile()
 {
     QModelIndex item=ui_queryOptions->treeView->currentIndex();
-    emit fileOpenRequested(item.sibling(item.row(),TMDBModel::Filepath).data().toString(),
+    emit fileOpenRequested(item.sibling(item.row(),TMDBModel::Filepath).data(Qt::UserRole).toString(),
                            item.sibling(item.row(),TMDBModel::Source).data().toString(),
                            item.sibling(item.row(),TMDBModel::Context).data().toString());
 }
