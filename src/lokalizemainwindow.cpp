@@ -262,7 +262,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
             //static_cast<Kross::Action*>(actionz.at(i))->trigger();
         }*/
 
-        emit editorShown();
+        emit editorActivated();
     }
 
     editor->showDocks();
@@ -353,7 +353,7 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
     connect (sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     m_fileToEditor.insert(w->currentUrl(),sw);
     sw->setAttribute(Qt::WA_DeleteOnClose,true);
-    emit editorOpened();
+    emit editorAdded();
     return w;
 }
 
@@ -543,6 +543,7 @@ void LokalizeMainWindow::setupActions()
 void LokalizeMainWindow::projectLoaded()
 {
     //TODO move file restoration here
+    //and hence call it always
     m_openRecentProjectAction->addUrl( KUrl::fromPath(Project::instance()->path()) );
     setCaption(Project::instance()->projectID());
 }
@@ -625,14 +626,6 @@ void LokalizeMainWindow::registerDBusAdaptor()
 */
 }
 
-int LokalizeMainWindow::openFileInEditor(const QString& path)
-{
-    EditorWindow* w=fileOpen(KUrl(path));
-    if (!w)
-        return -1;
-    return w->dbusId();
-}
-
 int LokalizeMainWindow::showTranslationMemory()
 {
     /*activateWindow();
@@ -642,7 +635,20 @@ int LokalizeMainWindow::showTranslationMemory()
     return w->dbusId();
 }
 
-QObject* LokalizeMainWindow::currentEditor()
+QString LokalizeMainWindow::currentProject()
+{
+    return Project::instance()->path();
+}
+
+int LokalizeMainWindow::openFileInEditor(const QString& path)
+{
+    EditorWindow* w=fileOpen(KUrl(path));
+    if (!w)
+        return -1;
+    return w->dbusId();
+}
+
+QObject* LokalizeMainWindow::activeEditor()
 {
     QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
@@ -651,10 +657,16 @@ QObject* LokalizeMainWindow::currentEditor()
     return 0;
 }
 
-QString LokalizeMainWindow::currentProject()
+QObject* LokalizeMainWindow::editorForFile(const QString& path)
 {
-    return Project::instance()->path();
+    return 0;
 }
+
+int LokalizeMainWindow::editorIndexForFile(const QString& path)
+{
+    return -1;
+}
+
 
 #include <unistd.h>
 int LokalizeMainWindow::pid()

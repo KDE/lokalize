@@ -1,9 +1,9 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
   <interface name="org.kde.Lokalize.MainWindow">
-    <signal name="editorOpened">
+    <signal name="editorAdded">
     </signal>
-    <signal name="editorShown">
+    <signal name="editorActivated">
     </signal>
     <method name="openFileInEditor">
       <arg type="i" direction="out"/>
@@ -16,6 +16,10 @@
     </method>
     <method name="currentProject">
       <arg type="s" direction="out"/>
+    </method>
+    <method name="editorIndexForFile">
+      <arg type="i" direction="out"/>
+      <arg name="path" type="s" direction="in"/>
     </method>
     <method name="pid">
       <arg type="i" direction="out"/>

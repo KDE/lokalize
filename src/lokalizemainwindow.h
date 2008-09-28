@@ -77,7 +77,9 @@ public slots:
     Q_SCRIPTABLE void showProjectOverview();
 
     Q_SCRIPTABLE QString currentProject();
-    Q_SCRIPTABLE QObject* currentEditor();
+    Q_SCRIPTABLE QObject* activeEditor();
+    Q_SCRIPTABLE QObject* editorForFile(const QString& path);
+    Q_SCRIPTABLE int editorIndexForFile(const QString& path);
 
     Q_SCRIPTABLE int pid();
     Q_SCRIPTABLE QString dbusServiceName();
@@ -93,8 +95,8 @@ public slots:
     TM::TMWindow* showTM();
 
 signals:
-    Q_SCRIPTABLE void editorOpened();
-    Q_SCRIPTABLE void editorShown();
+    Q_SCRIPTABLE void editorAdded();
+    Q_SCRIPTABLE void editorActivated();
 
 private:
     QMdiArea* m_mdiArea;
