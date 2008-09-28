@@ -67,6 +67,7 @@ private slots:
     void initLater();
     void applyToBeActiveSubWindow();
     void projectLoaded();
+    //void project(const QString& otherProjectPath);
 
     void editorClosed(QObject* obj);
 
@@ -75,7 +76,11 @@ public slots:
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
 
+    Q_SCRIPTABLE QString currentProject();
     Q_SCRIPTABLE QObject* currentEditor();
+
+    Q_SCRIPTABLE int pid();
+    Q_SCRIPTABLE QString dbusServiceName();
 
 
     void searchInFiles(const KUrl::List&);
@@ -107,8 +112,6 @@ private:
 
     QMap<KUrl, QPointer<QMdiSubWindow> > m_fileToEditor;
 };
-
-
 
 
 

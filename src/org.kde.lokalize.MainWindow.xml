@@ -14,5 +14,14 @@
     </method>
     <method name="showProjectOverview">
     </method>
+    <method name="currentProject">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="pid">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="dbusServiceName">
+      <arg type="s" direction="out"/>
+    </method>
   </interface>
 </node>

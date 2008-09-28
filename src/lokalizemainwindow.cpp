@@ -542,6 +542,7 @@ void LokalizeMainWindow::setupActions()
 
 void LokalizeMainWindow::projectLoaded()
 {
+    //TODO move file restoration here
     m_openRecentProjectAction->addUrl( KUrl::fromPath(Project::instance()->path()) );
     setCaption(Project::instance()->projectID());
 }
@@ -553,6 +554,8 @@ void LokalizeMainWindow::restoreState()
 }
 #if 1
 //BEGIN DBus interface
+
+
 
 #include "mainwindowadaptor.h"
 #include <kross/core/actioncollection.h>
@@ -574,9 +577,22 @@ public:
 
 void LokalizeMainWindow::registerDBusAdaptor()
 {
+/*
+    QStringList services=QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
+    int i=services.size();
+    while(--i>=0)
+    {
+        if (services.at(i).startsWith("org.kde.lokalize"))
+            //QDBusReply<uint> QDBusConnectionInterface::servicePid ( const QString & serviceName ) const;
+            QDBusConnection::callWithCallback(QDBusMessage::createMethodCall(services.at(i),"/ThisIsWhatYouWant","org.kde.Lokalize.MainWindow","currentProject"),
+                                              this, SLOT(), const char * errorMethod);
+    }
+*/
     MainWindowAdaptor* adaptor=new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
+
+    kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 
     MyScriptingPlugin* sp=new MyScriptingPlugin(this);
     guiFactory()->addClient(  sp );
@@ -635,6 +651,21 @@ QObject* LokalizeMainWindow::currentEditor()
     return 0;
 }
 
+QString LokalizeMainWindow::currentProject()
+{
+    return Project::instance()->path();
+}
+
+#include <unistd.h>
+int LokalizeMainWindow::pid()
+{
+    return getpid();
+}
+
+QString LokalizeMainWindow::dbusServiceName()
+{
+    return QString("org.kde.lokalize-%1").arg(pid());
+}
 
 //END DBus interface
 
