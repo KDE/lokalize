@@ -595,8 +595,8 @@ void LokalizeMainWindow::registerDBusAdaptor()
 
     kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 
-    MyScriptingPlugin* sp=new MyScriptingPlugin(this);
-    guiFactory()->addClient(  sp );
+    /*MyScriptingPlugin* sp=new MyScriptingPlugin(this);
+    guiFactory()->addClient(  sp ); */
 
 
     KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
