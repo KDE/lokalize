@@ -595,9 +595,11 @@ void LokalizeMainWindow::registerDBusAdaptor()
 
     kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 
-    /*MyScriptingPlugin* sp=new MyScriptingPlugin(this);
-    guiFactory()->addClient(  sp ); */
-
+#ifndef Q_WS_MAC
+    //TODO really fix!!!
+    MyScriptingPlugin* sp=new MyScriptingPlugin(this);
+    guiFactory()->addClient(  sp );
+#endif
 
     KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
 

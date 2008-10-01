@@ -69,7 +69,7 @@ QStringList calcLCS(const QStringList& s1Words,
                   );
         ~LCSprinter() {};
         void printLCS(uint index);
-        inline const QStringList& getResult();
+        inline const QStringList& operator()();
 
     private:
         QStringList s1, s2, resultString;
@@ -83,16 +83,11 @@ QStringList calcLCS(const QStringList& s1Words,
 };
 
 inline
-const QStringList& LCSprinter::getResult()
+const QStringList& LCSprinter::operator()()
 {
     return resultString;
 }
 
-// inline
-// QString LCSprinter::getString()
-// {
-//     return resultString.join("");
-// }
 
 inline
 LCSprinter::LCSprinter(const QStringList& s_1,
@@ -359,7 +354,7 @@ QStringList calcLCS(const QStringList& s1Words,
 
     LCSprinter printer(s1Words, s2Words, &b, nT, index_cache, s1Space, s2Space);
 
-    return printer.getResult();
+    return printer();
 
 }
 
