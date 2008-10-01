@@ -168,7 +168,11 @@ void EditorWindow::initLater()
 EditorWindow::~EditorWindow()
 {
     if (!_catalog->isEmpty())
+    {
+        emit signalFileAboutToBeClosed();
         emit signalFileClosed();
+        emit signalFileClosed(currentFile());
+    }
     deleteUiSetupers();
 
     Project::instance()->unregisterEditor(this);
@@ -715,7 +719,7 @@ bool EditorWindow::fileOpen(KUrl url)
         }
     }
 
-    QString originalPath(url.path());
+    QString originalPath=url.path();
     bool isTemlate=false;
 
     if (url.isEmpty())
@@ -741,10 +745,11 @@ bool EditorWindow::fileOpen(KUrl url)
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
+    QString prevFilePath=currentFile();
     bool wasOpen=!_catalog->isEmpty();
     if (wasOpen) emit signalFileAboutToBeClosed();
     bool success=_catalog->loadFromUrl(url);
-    if (wasOpen&&success) emit signalFileClosed();
+    if (wasOpen&&success) {emit signalFileClosed();emit signalFileClosed(prevFilePath);}
 
     QApplication::restoreOverrideCursor();
 
@@ -801,6 +806,7 @@ bool EditorWindow::fileOpen(KUrl url)
         }
 
 //OK!!!
+        emit signalFileOpened();
         return true;
     }
 

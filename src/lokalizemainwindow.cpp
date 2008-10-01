@@ -593,7 +593,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
-    kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
+    //kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 
 #ifndef Q_WS_MAC
     //TODO really fix!!!
@@ -654,19 +654,27 @@ QObject* LokalizeMainWindow::activeEditor()
 {
     QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
-    if (qobject_cast<EditorWindow*>(activeSW->widget()))
+    if (activeSW && qobject_cast<EditorWindow*>(activeSW->widget()))
         return activeSW->widget();
     return 0;
 }
 
 QObject* LokalizeMainWindow::editorForFile(const QString& path)
 {
-    return 0;
+    if (!m_fileToEditor.contains(KUrl(path)))
+        return 0;
+    QMdiSubWindow* w=m_fileToEditor.value(KUrl(path));
+    if (!w)
+        return 0;
+    return static_cast<EditorWindow*>(w->widget());
 }
 
 int LokalizeMainWindow::editorIndexForFile(const QString& path)
 {
-    return -1;
+    EditorWindow* editor=static_cast<EditorWindow*>(editorForFile(path));
+    if (!editor)
+        return -1;
+    return editor->dbusId();
 }
 
 

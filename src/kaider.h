@@ -159,6 +159,7 @@ public slots:
 #endif
     Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());
     Q_SCRIPTABLE bool saveFileAs();
+    Q_SCRIPTABLE void close(){return parent()->deleteLater();}
     Q_SCRIPTABLE void gotoNext();
     Q_SCRIPTABLE void gotoPrev();
 
@@ -302,8 +303,10 @@ private:
 
 signals:
     //emitted when mainwindow is closed or another file is opened
-    void signalFileAboutToBeClosed();//old catalog is still accessible
     void signalFileClosed();
+    Q_SCRIPTABLE void signalFileClosed(const QString&);
+    Q_SCRIPTABLE void signalFileAboutToBeClosed();//old catalog is still accessible
+    Q_SCRIPTABLE void signalFileOpened();
 
     Q_SCRIPTABLE void signalNewEntryDisplayed();
     void signalNewEntryDisplayed(const DocPosition&);

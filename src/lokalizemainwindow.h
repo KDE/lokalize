@@ -79,6 +79,7 @@ public slots:
     Q_SCRIPTABLE QString currentProject();
     Q_SCRIPTABLE QObject* activeEditor();
     Q_SCRIPTABLE QObject* editorForFile(const QString& path);
+    /** @returns -1 if there is no such editor*/
     Q_SCRIPTABLE int editorIndexForFile(const QString& path);
 
     Q_SCRIPTABLE int pid();
