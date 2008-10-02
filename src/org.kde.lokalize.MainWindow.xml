@@ -17,8 +17,6 @@
     <method name="openProject">
       <arg name="path" type="s" direction="in"/>
     </method>
-    <method name="openProject">
-    </method>
     <method name="currentProject">
       <arg type="s" direction="out"/>
     </method>
