@@ -32,7 +32,7 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>
@@ -41,10 +41,23 @@
     </spacer>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="kcfg_Accel" />
+    <widget class="QLineEdit" name="kcfg_Accel" >
+     <property name="toolTip" >
+      <string>Usually '&amp;', but may also be '_' for GTK apps.</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="QLineEdit" name="kcfg_Markup" />
+    <widget class="QLineEdit" name="kcfg_Markup" >
+     <property name="toolTip" >
+      <string>Regular expression of markup. It is used for translation memory matching and for 'Insert tag' feature.
+
+A default value (suitable for XML-based texts) is:
+(&lt;[^>]+>)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+
+
+It is only used for gettext PO files, as XLIFF format has it's own way of specifying where markup is.</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -25,6 +25,9 @@
        <height>0</height>
       </size>
      </property>
+     <property name="toolTip" >
+      <string>Target language of the project.</string>
+     </property>
     </widget>
    </item>
    <item row="3" column="1" >
@@ -40,6 +43,10 @@
        <width>400</width>
        <height>16</height>
       </size>
+     </property>
+     <property name="toolTip" >
+      <string>This is main setting. Set it to path of directory with translation files
+for your project + target language.</string>
      </property>
     </widget>
    </item>
@@ -57,6 +64,14 @@
        <height>16</height>
       </size>
      </property>
+     <property name="toolTip" >
+      <string>Usually your translaton project will be a subproject of project
+for translating same texts into multiple languages,
+
+Set this to path of directory containing empty translation files
+(i.e. files without translation into any language)
+shared among all subprojects.</string>
+     </property>
     </widget>
    </item>
    <item row="5" column="1" >
@@ -72,6 +87,21 @@
        <width>400</width>
        <height>16</height>
       </size>
+     </property>
+     <property name="toolTip" >
+      <string comment="this message contains text from documentation, so use its translation when you're translating docs" >This setting is for Sync Mode.
+
+Sync Mode may be used to make changes to translation
+for two branches simultaneously.
+
+Set this to path that corresponds to base dir of the branch
+(i.e. 'Translation directory' of project for secondary branch),
+and Secondary Sync view will automatically open files from branch.
+Then, each time you make changes in files of your main branch,
+they will automatically be replicated to the branch
+(of course, if it contains the same english string).
+
+See documentation for more details.</string>
      </property>
     </widget>
    </item>
@@ -94,7 +124,7 @@
    <item row="3" column="0" >
     <widget class="QLabel" name="textLabel2_2" >
      <property name="text" >
-      <string comment="@label:textbox" >PO directory:</string>
+      <string comment="@label:textbox" >Translation directory:</string>
      </property>
      <property name="wordWrap" >
       <bool>false</bool>
@@ -133,7 +163,7 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>
@@ -142,7 +172,14 @@
     </spacer>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="kcfg_ProjectID" />
+    <widget class="QLineEdit" name="kcfg_ProjectID" >
+     <property name="toolTip" >
+      <string>Project ID is used to differentiate translation memories of absolutely different projects and languages.
+
+For example, if you have several projects for translating KDE applications
+(e.g. they are in different repositories), use same ID for all of them.</string>
+     </property>
+    </widget>
    </item>
    <item row="0" column="0" >
     <widget class="QLabel" name="label_3" >
@@ -226,7 +263,6 @@
   <tabstop>kcfg_MailingList</tabstop>
   <tabstop>poBaseDir</tabstop>
   <tabstop>potBaseDir</tabstop>
-  <tabstop>BranchDir</tabstop>
   <tabstop>glossaryTbx</tabstop>
   <tabstop>kcfg_LangCode</tabstop>
  </tabstops>

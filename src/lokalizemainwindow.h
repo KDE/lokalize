@@ -58,14 +58,12 @@ public:
     LokalizeMainWindow();
     ~LokalizeMainWindow();
 
-
-protected:
+private:
     void saveProjectState();
     bool queryClose();
     void setupActions();
     void restoreState();
     void registerDBusAdaptor();
-
 
 private slots:
     void slotSubWindowActivated(QMdiSubWindow*);
