@@ -73,7 +73,7 @@
 #include <QMenuBar>
 
 
-
+#include "mainwindowadaptor.h"
 
 LokalizeMainWindow::LokalizeMainWindow()
  : KXmlGuiWindow()
@@ -589,7 +589,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
                                               this, SLOT(), const char * errorMethod);
     }
 */
-    MainWindowAdaptor* adaptor=new MainWindowAdaptor(this);
+    EditorAdaptor* adaptor=new EditorAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
