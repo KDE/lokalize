@@ -56,6 +56,7 @@ public:
 
 
 protected:
+    void saveProjectState();
     bool queryClose();
     void setupActions();
     void restoreState();
@@ -76,6 +77,9 @@ public slots:
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
 
+    void openProject(const KUrl& url){openProject(url.path());}//convenience overload for recent projects action
+    Q_SCRIPTABLE void openProject(const QString& path);
+    Q_SCRIPTABLE void openProject(){openProject(QString());}
     Q_SCRIPTABLE QString currentProject();
     Q_SCRIPTABLE QObject* activeEditor();
     Q_SCRIPTABLE QObject* editorForFile(const QString& path);

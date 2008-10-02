@@ -107,7 +107,6 @@ private:
     QString absolutePath(const QString&)const;
 
 public slots:
-    void load(const KUrl &file){load(file.path());}//convenience overload for recent projects action
 
     void populateDirModel();
     void populateGlossary();

@@ -102,63 +102,35 @@ LokalizeMainWindow::LokalizeMainWindow()
 
 
 
+    setAttribute(Qt::WA_DeleteOnClose,true);
 
 //BEGIN RESTORE STATE
 
     KConfig config;
+
+    m_openRecentFileAction->loadEntries(KConfigGroup(&config,"RecentFiles"));
+    m_openRecentProjectAction->loadEntries(KConfigGroup(&config,"RecentProjects"));
+
     KConfigGroup stateGroup(&config,"State");
 
     QString path;
     if (Project::instance()->isLoaded())
-        path=Project::instance()->path();
+        projectLoaded();
     else
     {
         path=stateGroup.readEntry("Project",path);
         Project::instance()->load(path);
+        //if isEmpty()?
     }
     registerDBusAdaptor();
-
-    //if project isn't loaded, still restore opened files
-    KConfigGroup projectStateGroup(&config,"State-"+path);
-
-    QStringList files;
-    QStringList mergeFiles;
-    QList<QByteArray> dockWidgets;
-    //QList<int> offsets;
-    QList<int> entries;
-
-    entries=projectStateGroup.readEntry("Entries",entries);
-
-    files=projectStateGroup.readEntry("Files",files);
-    mergeFiles=projectStateGroup.readEntry("MergeFiles",mergeFiles);
-    dockWidgets=projectStateGroup.readEntry("DockWidgets",dockWidgets);
-    int i=files.size();
-    int activeSWIndex=projectStateGroup.readEntry("Active",-1);
-    while (--i>=0)
-    {
-        if (i<dockWidgets.size())
-            m_lastEditorState=dockWidgets.at(i);
-        if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i)))
-            continue;
-    }
-    if (activeSWIndex==-1)
-    {
-        m_toBeActiveSubWindow=m_projectSubWindow;
-        QTimer::singleShot(0,this,SLOT(applyToBeActiveSubWindow()));
-    }
-
 
 //END RESTORE STATE
 
 
-    QTimer::singleShot(0,this,SLOT(initLater()));
+    //QTimer::singleShot(0,this,SLOT(initLater()));
 }
 void LokalizeMainWindow::initLater()
 {
-    setAttribute(Qt::WA_DeleteOnClose,true);
-    KConfig config;
-    m_openRecentFileAction->loadEntries(KConfigGroup(&config,"RecentFiles"));
-    m_openRecentProjectAction->loadEntries(KConfigGroup(&config,"RecentProjects"));
 }
 
 LokalizeMainWindow::~LokalizeMainWindow()
@@ -167,43 +139,8 @@ LokalizeMainWindow::~LokalizeMainWindow()
     m_openRecentFileAction->saveEntries(KConfigGroup(&config,"RecentFiles"));
     m_openRecentProjectAction->saveEntries(KConfigGroup(&config,"RecentProjects"));
 
-    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
-    QStringList files;
-    QStringList mergeFiles;
-    QList<QByteArray> dockWidgets;
-    //QList<int> offsets;
-    QList<int> entries;
-    QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
-    int activeSWIndex=-1;
-    int i=editors.size();
-    while (--i>=0)
-    {
-        //if (editors.at(i)==m_projectSubWindow)
-        if (!qobject_cast<EditorWindow*>(editors.at(i)->widget()))
-            continue;
-        if (editors.at(i)==activeSW)
-            activeSWIndex=files.size();
-        KAiderState state=static_cast<EditorWindow*>( editors.at(i)->widget() )->state();
-        files.append(state.url.pathOrUrl());
-        mergeFiles.append(state.mergeUrl.pathOrUrl());
-        dockWidgets.append(state.dockWidgets.toBase64());
-        entries.append(state.entry);
-        //offsets.append(state.offset);
-        //kWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
-    }
-    //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
-    KConfigGroup stateGroup(&config,"State");
-    stateGroup.writeEntry("Project",Project::instance()->path());
-
-    KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
-    projectStateGroup.writeEntry("Active",activeSWIndex);
-    projectStateGroup.writeEntry("Files",files);
-    projectStateGroup.writeEntry("MergeFiles",mergeFiles);
-    projectStateGroup.writeEntry("DockWidgets",dockWidgets);
-    //stateGroup.writeEntry("Offsets",offsets);
-    projectStateGroup.writeEntry("Entries",entries);
-
+    saveProjectState();
 }
 
 void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
@@ -523,10 +460,10 @@ void LokalizeMainWindow::setupActions()
     action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
-    action = proj->addAction("project_open",sc,SLOT(projectOpen()));
+    action = proj->addAction("project_open",this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project"));
 
-    m_openRecentProjectAction=KStandardAction::openRecent(project, SLOT(load(const KUrl&)), project);
+    m_openRecentProjectAction=KStandardAction::openRecent(this, SLOT(openProject(const KUrl&)), ac);
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()));
 
     action = proj->addAction("project_create",sc,SLOT(projectCreate()));
@@ -539,12 +476,106 @@ void LokalizeMainWindow::setupActions()
     kWarning()<<"finished"<<aaa.elapsed();
 }
 
+void LokalizeMainWindow::openProject(const QString& path)
+{
+    if (queryClose())
+    {
+        saveProjectState();
+        //close files from previous project
+        QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+        int i=editors.size();
+        while (--i>=0)
+        {
+            if (editors.at(i)==m_translationMemorySubWindow)
+                editors.at(i)->deleteLater();
+            else if (qobject_cast<EditorWindow*>(editors.at(i)->widget()))
+            {
+                m_fileToEditor.remove(static_cast<EditorWindow*>(editors.at(i)->widget())->currentUrl());//safety
+                editors.at(i)->deleteLater();
+            }
+        }
+        //TODO scripts
+
+        SettingsController::instance()->projectOpen(path);
+    }
+}
+
+void LokalizeMainWindow::saveProjectState()
+{
+    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+    QStringList files;
+    QStringList mergeFiles;
+    QList<QByteArray> dockWidgets;
+    //QList<int> offsets;
+    QList<int> entries;
+    QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
+    int activeSWIndex=-1;
+    int i=editors.size();
+    while (--i>=0)
+    {
+        //if (editors.at(i)==m_projectSubWindow)
+        if (!qobject_cast<EditorWindow*>(editors.at(i)->widget()))
+            continue;
+        if (editors.at(i)==activeSW)
+            activeSWIndex=files.size();
+        KAiderState state=static_cast<EditorWindow*>( editors.at(i)->widget() )->state();
+        files.append(state.url.pathOrUrl());
+        mergeFiles.append(state.mergeUrl.pathOrUrl());
+        dockWidgets.append(state.dockWidgets.toBase64());
+        entries.append(state.entry);
+        //offsets.append(state.offset);
+        //kWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
+    }
+    //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
+
+    KConfig config;
+    KConfigGroup stateGroup(&config,"State");
+    stateGroup.writeEntry("Project",Project::instance()->path());
+
+    KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
+    projectStateGroup.writeEntry("Active",activeSWIndex);
+    projectStateGroup.writeEntry("Files",files);
+    projectStateGroup.writeEntry("MergeFiles",mergeFiles);
+    projectStateGroup.writeEntry("DockWidgets",dockWidgets);
+    //stateGroup.writeEntry("Offsets",offsets);
+    projectStateGroup.writeEntry("Entries",entries);
+}
+
 void LokalizeMainWindow::projectLoaded()
 {
-    //TODO move file restoration here
-    //and hence call it always
     m_openRecentProjectAction->addUrl( KUrl::fromPath(Project::instance()->path()) );
     setCaption(Project::instance()->projectID());
+
+    KConfig config;
+
+    //if project isn't loaded, still restore opened files
+    KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
+
+    QStringList files;
+    QStringList mergeFiles;
+    QList<QByteArray> dockWidgets;
+    //QList<int> offsets;
+    QList<int> entries;
+
+    entries=projectStateGroup.readEntry("Entries",entries);
+
+    files=projectStateGroup.readEntry("Files",files);
+    mergeFiles=projectStateGroup.readEntry("MergeFiles",mergeFiles);
+    dockWidgets=projectStateGroup.readEntry("DockWidgets",dockWidgets);
+    int i=files.size();
+    int activeSWIndex=projectStateGroup.readEntry("Active",-1);
+    while (--i>=0)
+    {
+        if (i<dockWidgets.size())
+            m_lastEditorState=dockWidgets.at(i);
+        if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i)))
+            continue;
+    }
+    if (activeSWIndex==-1)
+    {
+        m_toBeActiveSubWindow=m_projectSubWindow;
+        QTimer::singleShot(0,this,SLOT(applyToBeActiveSubWindow()));
+    }
 }
 
 void LokalizeMainWindow::restoreState()
@@ -574,10 +605,10 @@ public:
     }
     ~MyScriptingPlugin(){}
 };
-
-void LokalizeMainWindow::registerDBusAdaptor()
-{
 /*
+void LokalizeMainWindow::checkForProjectAlreadyOpened()
+{
+
     QStringList services=QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
     int i=services.size();
     while(--i>=0)
@@ -587,7 +618,12 @@ void LokalizeMainWindow::registerDBusAdaptor()
             QDBusConnection::callWithCallback(QDBusMessage::createMethodCall(services.at(i),"/ThisIsWhatYouWant","org.kde.Lokalize.MainWindow","currentProject"),
                                               this, SLOT(), const char * errorMethod);
     }
+
+}
 */
+
+void LokalizeMainWindow::registerDBusAdaptor()
+{
     MainWindowAdaptor* adaptor=new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);

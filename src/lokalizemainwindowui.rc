@@ -10,7 +10,7 @@
     <ActionList name="project_actions" />
     <Action name="project_create"/>
     <Separator/>
-    <Menu name="project_actions"><text>&amp;Actions</text>
+    <Menu name="project_actions"><text>&amp;Scripts</text>
     </Menu>
   </Menu>
   <Menu name="tools">
