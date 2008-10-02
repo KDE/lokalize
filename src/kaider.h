@@ -98,10 +98,13 @@ namespace ConversionCheck
 }
 */
 /**
+ * @author Nick Shaforostoff <shafff@ukr.net>
+ * @short Editor tab
+ *
  * This class can be called a dispatcher for one message catalog.
  *
- * @short Editor window/tab
- * @author Nick Shaforostoff <shafff@ukr.net>
+ * It is accessible via Lokalize.currentEditor() from kross scripts and via
+ * '/ThisIsWhatYouWant/Editor/# : org.kde.Lokalize.Editor' from qdbusviewer
  */
 class EditorWindow: public LokalizeSubwindowBase2
 {

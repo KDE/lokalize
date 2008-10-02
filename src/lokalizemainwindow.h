@@ -40,9 +40,13 @@ class EditorWindow;
 namespace TM {class TMWindow;}
 
 /**
+ * @author Nick Shaforostoff <shafff@ukr.net>
  * @short Lokalize MDI (tabbed) window.
  * Sets up actions, and maintains their connection with active subwindow via ActionProxy
  * As such, it handles the menus, toolbars, and status bars.
+ *
+ * It is known as Lokalize in kross scripts and as
+ * '/ThisIsWhatYouWant : org.kde.Lokalize.MainWindow' in qdbusviewer
  */
 class LokalizeMainWindow: public KXmlGuiWindow
 {
@@ -68,25 +72,44 @@ private slots:
     void initLater();
     void applyToBeActiveSubWindow();
     void projectLoaded();
-    //void project(const QString& otherProjectPath);
 
     void editorClosed(QObject* obj);
 
+    void openProject(const KUrl& url){openProject(url.path());}//convenience overload for recent projects action
+    void openProject(){openProject(QString());}
+
 public slots:
+    /**
+     * Adds new editor with @param path loaded,
+     * or just activates already existing editor with this file.
+     */
     Q_SCRIPTABLE int openFileInEditor(const QString& path);
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
 
-    void openProject(const KUrl& url){openProject(url.path());}//convenience overload for recent projects action
     Q_SCRIPTABLE void openProject(const QString& path);
-    Q_SCRIPTABLE void openProject(){openProject(QString());}
     Q_SCRIPTABLE QString currentProject();
+    /**
+     * * @returns 0 if current tab is not of Editor type
+     */
     Q_SCRIPTABLE QObject* activeEditor();
+    /**
+     * @returns editor with @param path loaded or 0 if there is no such editor.
+     */
     Q_SCRIPTABLE QObject* editorForFile(const QString& path);
-    /** @returns -1 if there is no such editor*/
+    /**
+     * # part of editor DBus path: /ThisIsWhatYouWant/Editor/#
+     * @returns -1 if there is no such editor
+     */
     Q_SCRIPTABLE int editorIndexForFile(const QString& path);
 
+    /**
+     * @returns Unix process ID
+     */
     Q_SCRIPTABLE int pid();
+    /**
+     * @returns smth like 'org.kde.lokalize-####' where #### is pid()
+     */
     Q_SCRIPTABLE QString dbusServiceName();
 
 
