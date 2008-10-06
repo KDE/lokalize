@@ -823,8 +823,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             idsForWord.clear();
 //             queryWords.bindValue(0, words.at(o));
 //             if (KDE_ISUNLIKELY(!queryWords.exec()))
-            if (KDE_ISUNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
-                kWarning() <<"select error: " <<queryWords.lastError().text() << endl;;
+            queryWords.exec(queryString.arg(words.at(o)));
+            /*if (KDE_ISUNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
+                kWarning() <<"select error: " <<queryWords.lastError().text() << endl;;*/
 
             if (queryWords.next())
             {

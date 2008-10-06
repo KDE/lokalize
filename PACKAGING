@@ -3,3 +3,6 @@ deps:
 -kdelibs 4.2, with kross (recommend krosspython, python-dbus)
 -kdesdk strigi analyzer plugins (for project tree view)
 -recommend gettext (it is used as a fallback for getting plural expressions for langs, and by kross scripts)
+
+alot of functionality is written using krosspython,
+so you may even want to change 'recommend' to 'require'

@@ -99,7 +99,9 @@ int main(int argc, char **argv)
             Project::instance()->load( QFileInfo(path).absoluteFilePath() );
         }
         LokalizeMainWindow* lmw=new LokalizeMainWindow;
+        kWarning()<<"showing LokalizeMainWindow";
         lmw->show();
+        kWarning()<<"LokalizeMainWindow shown";
         int j=args->count();
         while (--j>=0)
             lmw->fileOpen(args->url(j));

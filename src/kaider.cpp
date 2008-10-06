@@ -188,19 +188,8 @@ void EditorWindow::setupStatusBar()
     statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1",0));
     statusBarItems.insert(ID_STATUS_ISFUZZY,QString());
 
-    /*
-    statusBar()->insertItem(i18nc("@info:status message entry","Current: %1",0),ID_STATUS_CURRENT);
-    statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",0),ID_STATUS_TOTAL);
-//    statusBar()->insertItem(i18nc("@info:status message entries","Total: %1",_catalog->numberOfEntries()),ID_STATUS_TOTAL);
-    statusBar()->insertItem(i18nc("@info:status message entries","Fuzzy: %1",0),ID_STATUS_FUZZY);
-    statusBar()->insertItem(i18nc("@info:status message entries","Untranslated: %1",0),ID_STATUS_UNTRANS);
-    statusBar()->insertItem(QString(),ID_STATUS_ISFUZZY);
-    */
-
     connect(_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
     connect(_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
-
-    //statusBar()->show();
 }
 
 void EditorWindow::numberOfFuzziesChanged()
