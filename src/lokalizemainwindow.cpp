@@ -474,6 +474,7 @@ void LokalizeMainWindow::setupActions()
     plugActionList( "project_actions", list);
 
     kWarning()<<"finished"<<aaa.elapsed();
+    kWarning()<<"finished"<<tr("Open file");
 }
 
 void LokalizeMainWindow::openProject(const QString& path)

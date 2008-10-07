@@ -130,6 +130,7 @@ install( FILES lokalizemainwindowui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokaliz
 install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES tm/translationmemoryrui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES scripts/find-gui-text.sh  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES scripts/dummy_script.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-install( FILES scripts/dummy_script.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES scripts/widget-text-capture.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES scripts/widget-text-capture.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES scripts/widget-text-capture.ui  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 
