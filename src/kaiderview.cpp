@@ -133,7 +133,9 @@ QString ProperTextEdit::toPlainText()
 {
     QTextCursor cursor = textCursor();
     cursor.select(QTextCursor::Document);
-    return cursor.selectedText();
+    QString text=cursor.selectedText();
+    text.replace(QChar(8233),'\n');
+    return text;
 }
 
 KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
