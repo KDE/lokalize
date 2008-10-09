@@ -1,6 +1,5 @@
 TEXT=$1
 PACKAGE=$2
-FOUND=0
 LOKALIZE_INSTANCES=`qdbus org.kde.lokalize*`
 if [ -z $LOKALIZE_INSTANCES ]; then lokalize>/dev/null 2>/dev/null & fi
 
@@ -13,7 +12,6 @@ LOKALIZE_INSTANCES=`qdbus org.kde.lokalize*` ;\
 done
 
 for LOKALIZE_INSTANCE in $LOKALIZE_INSTANCES; do \
-    FOUND=1
     qdbus $LOKALIZE_INSTANCE /ThisIsWhatYouWant org.kde.Lokalize.MainWindow.showTranslationMemory; \
     qdbus $LOKALIZE_INSTANCE /ThisIsWhatYouWant/TranslationMemory/0 org.kde.Lokalize.TranslationMemory.findGuiTextPackage "$TEXT" "$PACKAGE"; \
 done

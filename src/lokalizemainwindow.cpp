@@ -47,6 +47,7 @@
 #include <kstatusbar.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
+#include <kapplication.h>
 
 #if QT_VERSION >= 0x040400
     #include <kfadewidgeteffect.h>
@@ -394,9 +395,9 @@ void LokalizeMainWindow::setupActions()
 // File
     //KStandardAction::open(this, SLOT(fileOpen()), ac);
     file->addAction(KStandardAction::Open,this, SLOT(fileOpen()));
-
     m_openRecentFileAction = KStandardAction::openRecent(this,SLOT(fileOpen(KUrl)),ac);
 
+    file->addAction(KStandardAction::Quit,KApplication::kApplication(), SLOT(closeAllWindows()));
 
 
 //Settings
@@ -463,18 +464,18 @@ void LokalizeMainWindow::setupActions()
     action = proj->addAction("project_open",this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project"));
 
-    m_openRecentProjectAction=KStandardAction::openRecent(this, SLOT(openProject(const KUrl&)), ac);
+
+    m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);
+    action = proj->addAction("project_open_recent",m_openRecentProjectAction);
+    connect(m_openRecentProjectAction,SIGNAL(urlSelected(KUrl)),this,SLOT(openProject(KUrl)));
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()));
 
     action = proj->addAction("project_create",sc,SLOT(projectCreate()));
     action->setText(i18nc("@action:inmenu","Create new project"));
 
     setupGUI(Default,"lokalizemainwindowui.rc");
-    QList<QAction*> list; list.append(m_openRecentProjectAction);
-    plugActionList( "project_actions", list);
 
     kWarning()<<"finished"<<aaa.elapsed();
-    kWarning()<<"finished"<<tr("Open file");
 }
 
 void LokalizeMainWindow::openProject(const QString& path)

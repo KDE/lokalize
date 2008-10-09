@@ -161,7 +161,7 @@ inline
 ProjectModel* Project::model()
 {
     if (KDE_ISUNLIKELY(!m_model))
-        m_model=new ProjectModel;
+        m_model=new ProjectModel(this);
 
     return m_model;
 }

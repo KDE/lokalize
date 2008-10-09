@@ -91,12 +91,12 @@ bool MergeCatalog::isApproved(uint index) const
 
 bool MergeCatalog::isPlural(uint index) const
 {
-    kWarning()<<"index"<<index;
-    kWarning()<<"m_map.at(index)"<<m_map.at(index);
-    kWarning()<<"numberOfEntries()"<<numberOfEntries();
     //sanity
     if (m_map.at(index) == -1)
+    {
+         kWarning()<<"!!! index"<<index<<"m_map.at(index)"<<m_map.at(index)<<"numberOfEntries()"<<numberOfEntries();
          return false;
+    }
 
     return Catalog::isPlural(m_map.at(index));
 }

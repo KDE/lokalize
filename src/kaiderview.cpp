@@ -140,7 +140,9 @@ QString ProperTextEdit::toPlainText()
 {
     QTextCursor cursor = textCursor();
     cursor.select(QTextCursor::Document);
-    return cursor.selectedText();
+    QString text=cursor.selectedText();
+    text.replace(QChar(8233),'\n');
+    return text;
 }
 
 
@@ -438,8 +440,7 @@ bool KAiderView::eventFilter(QObject* obj, QEvent* event)
         }
         if (!str.isEmpty())
             ins+='\n';
-        t.insertText(ins);
-        _msgstrEdit->setTextCursor(t);
+        _msgstrEdit->insertPlainText(ins);
 
         return true;
     }
@@ -558,7 +559,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 
     DocPosition pos=_currentPos;
     pos.offset=offset;
-    kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
 #ifdef XLIFF
     QString target=_catalog->targetWithTags(pos).string;
@@ -580,7 +581,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
         _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
 
     _oldMsgstr=editText;//newStr becomes OldStr
-    kWarning()<<"char"<<editText[offset].unicode();
+    //kWarning()<<"char"<<editText[offset].unicode();
     if (charsAdded)
         _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
 
@@ -790,7 +791,7 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection)
 
     _msgstrEdit->setFocus();
 
-    kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
+    //kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
     setUpdatesEnabled(true);
 }
 /*

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="LokalizeMainWindow" version="1">
+<kpartgui name="LokalizeMainWindow" version="3">
 <MenuBar>
   <Merge/>
   <Menu name="project"><text>&amp;Project</text>
@@ -7,7 +7,8 @@
     <Action name="project_configure"/>
     <Separator/>
     <Action name="project_open"/>
-    <ActionList name="project_actions" />
+    <!--<ActionList name="project_actions" />-->
+    <Action name="project_open_recent"/>
     <Action name="project_create"/>
     <Separator/>
     <Menu name="project_actions"><text>&amp;Scripts</text>

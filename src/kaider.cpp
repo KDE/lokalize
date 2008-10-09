@@ -649,13 +649,8 @@ KUrl EditorWindow::currentUrl()
 
 void EditorWindow::setCaption(const QString& title,bool modif)
 {
-/*    setWindowTitle(title);
+    setWindowTitle(title+" [*]");
     setWindowModified(modif);
-    */
-    QString actual=title;
-    if (modif)
-        actual+=" [*]";
-    setPlainCaption(actual);
 }
 
 void EditorWindow::setFullPathShown(bool fullPathShown)

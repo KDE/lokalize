@@ -43,8 +43,8 @@
 #undef KDE_NO_DEBUG_OUTPUT
 
 
-ProjectModel::ProjectModel()
-    : KDirModel()
+ProjectModel::ProjectModel(QObject *parent)
+    : KDirModel(parent)
     , m_dirIcon(KIcon(QLatin1String("inode-directory")))
     , m_poIcon(KIcon(QLatin1String("flag-blue")))
     , m_poComplIcon(KIcon(QLatin1String("flag-green")))

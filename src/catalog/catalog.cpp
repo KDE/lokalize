@@ -240,8 +240,10 @@ bool Catalog::loadFromUrl(const KUrl& url)
     else
         return false;
 
+    QTime a;a.start();
     if (KDE_ISUNLIKELY( !storage->load(url) ))
         return false;
+    kWarning() <<"file opened "<<a.elapsed();
 
     //ok...
     clear();

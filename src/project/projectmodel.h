@@ -83,7 +83,7 @@ class ProjectModel: public KDirModel
     Q_OBJECT
 
 public:
-    ProjectModel();
+    ProjectModel(QObject *parent);
     ~ProjectModel(){}
 
     QVariant data (const QModelIndex&, int role=Qt::DisplayRole) const;
