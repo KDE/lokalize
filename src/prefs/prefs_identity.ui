@@ -68,7 +68,7 @@
     </widget>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="kcfg_authorName" >
+    <widget class="KLineEdit" name="kcfg_authorName" >
      <property name="toolTip" >
       <string>Your name, in English</string>
      </property>
@@ -88,7 +88,7 @@
     </widget>
    </item>
    <item row="3" column="1" >
-    <widget class="QLineEdit" name="kcfg_DefaultMailingList" >
+    <widget class="KLineEdit" name="kcfg_DefaultMailingList" >
      <property name="toolTip" >
       <string>The email of your team mailing list</string>
      </property>
@@ -98,7 +98,7 @@
     </widget>
    </item>
    <item row="2" column="1" >
-    <widget class="QComboBox" name="DefaultLangCode" >
+    <widget class="KComboBox" name="DefaultLangCode" >
      <property name="toolTip" >
       <string>Language you translate to</string>
      </property>
@@ -121,7 +121,7 @@
     </spacer>
    </item>
    <item row="1" column="1" >
-    <widget class="QLineEdit" name="kcfg_authorEmail" >
+    <widget class="KLineEdit" name="kcfg_authorEmail" >
      <property name="toolTip" >
       <string>Write your email</string>
      </property>
@@ -131,14 +131,14 @@
     </widget>
    </item>
    <item row="5" column="1" >
-    <widget class="QLineEdit" name="kcfg_DefaultLangCode" >
+    <widget class="KLineEdit" name="kcfg_DefaultLangCode" >
      <property name="enabled" >
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item row="4" column="1" >
-    <widget class="QLineEdit" name="kcfg_authorLocalizedName" >
+    <widget class="KLineEdit" name="kcfg_authorLocalizedName" >
      <property name="toolTip" >
       <string>Your name in your own language</string>
      </property>

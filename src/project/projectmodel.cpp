@@ -627,7 +627,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             KFileItemList list;
             list.append(po);
             kDebug()<<"emitting templ:"<<poPath;
-            //HACK for debuging
+            //HACK for debugging
             if (m_model->indexForUrl(KUrl(  po.url().directory()  )).isValid())
                 emit newItems(list);
             else

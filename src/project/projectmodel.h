@@ -176,7 +176,7 @@ private:
     //HACKs
     bool m_reactOnSignals;
     QHash<QString /*url.path()*/,bool> m_listedTemplDirs;
-    ProjectModel* m_model;//used for debuging
+    ProjectModel* m_model;//used for debugging
 };
 
 

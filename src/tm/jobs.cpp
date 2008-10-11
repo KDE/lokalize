@@ -349,7 +349,7 @@ static bool doInsertEntry(QString english,
     bool shouldBeInIndex=!untranslated&&approved;
 #endif
 
-    //remove first occurence of accel character so that search returns words containing accel mark
+    //remove first occurrence of accel character so that search returns words containing accel mark
     int englishAccelPos=english.indexOf(accel);
     if (englishAccelPos!=-1)
         english.remove(englishAccelPos,accel.size());
@@ -406,7 +406,7 @@ static bool doInsertEntry(QString english,
     if (escapedCtxt.isEmpty())
         checkCtxt=" AND ctxt ISNULL";
     else
-        checkCtxt=" AND ctxt=='"+escapedCtxt+"'";
+        checkCtxt=" AND ctxt=='"+escapedCtxt+'\'';
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target, bits FROM main WHERE "
                      "source=="+QString::number(sourceId)+" AND "
                      "file=="+QString::number(fileId)+checkCtxt
@@ -817,7 +817,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     int o=words.size();
     while (--o>=0)
     {
-        //if this is not the first word occurence, just readd ids for it
+        //if this is not the first word occurrence, just readd ids for it
         if (!(   !idsForWord.isEmpty() && words.at(o)==words.at(o+1)   ))
         {
             idsForWord.clear();

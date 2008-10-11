@@ -142,6 +142,11 @@ QString ProperTextEdit::toPlainText()
     cursor.select(QTextCursor::Document);
     QString text=cursor.selectedText();
     text.replace(QChar(8233),'\n');
+/*
+    int ii=text.size();
+    while(--ii>=0)
+        kWarning()<<text.at(ii).unicode();
+*/
     return text;
 }
 
@@ -209,7 +214,7 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
         cur.insertText(catStr.string.mid(prev,i-prev));
 
         TagRange ourRange=catStr.ranges.at(tagRangeIndex);
-        QString name=" "+ourRange.id;
+        QString name=' '+ourRange.id;
         QString text=QString::number(tagRangeIndex);
         if (ourRange.start!=ourRange.end)
         {
@@ -430,7 +435,7 @@ bool KAiderView::eventFilter(QObject* obj, QEvent* event)
                    &&!isMasked(str,pos-1))
                     ins='\\';
                 // if there is no new line at the end
-                if(pos<2||str.mid(pos-2,2)!="\\n")
+                if(pos<2||str.midRef(pos-2,2)!="\\n")
                     ins+=' ';
             }
             else if(str.isEmpty())
@@ -906,7 +911,10 @@ void KAiderView::msgid2msgstr()
         _catalog->push(new DelTextCmd(_catalog,pos,_catalog->target(_currentPos)));
         _oldMsgstr="";//newStr becomes OldStr
         _catalog->push(new InsTextCmd(_catalog,pos,text));
-        toggleApprovement(true);
+        if (KDE_ISUNLIKELY( !_catalog->isApproved(pos.entry) ))
+            toggleApprovement(true);
+        else
+            approvedEntryDisplayed(true, true);
     }
     else
     {

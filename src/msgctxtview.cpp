@@ -56,6 +56,8 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     setObjectName("msgCtxtView");
     setWidget(m_browser);
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->setOpenLinks(false);
+    connect(m_browser,SIGNAL(anchorClicked(QUrl)),this,SLOT(anchorClicked(QUrl)));
 }
 
 MsgCtxtView::~MsgCtxtView()
@@ -82,11 +84,24 @@ void MsgCtxtView::process()
     comment.replace('<',"&lt;");
     comment.replace('>',"&gt;");
     int pos=comment.indexOf("#:");
-    if (pos!=-1)
+    while (pos!=-1)
     {
-        comment.replace(pos,2,i18nc("@info PO comment parsing","<br><i>Place:</i>"));
-        comment.replace("#:","<br>");
+        int endPos=comment.indexOf('\n',pos+3);
+        if (endPos==-1)
+            endPos=comment.size();
+        QStringList files=comment.mid(pos+3,endPos-pos-3).split(' ', QString::SkipEmptyParts);
+        QString result=i18nc("@info PO comment parsing. contains filename","<br><i>Place:</i>");
+        int i=0;
+        for (;i<files.size();++i)
+        {
+            QString href=files.at(i);
+            //href.replace(':','#');
+            result+=" <a href=\"src:/"+href+"\">"+files.at(i)+"</a> ";
+        }
+        comment.replace(pos,endPos-pos,result);
+        pos=comment.indexOf("#:",pos);
     }
+
     pos=comment.indexOf("#. i18n:");
     if (pos!=-1)
     {
@@ -98,7 +113,7 @@ void MsgCtxtView::process()
     comment.replace("#| msgid",i18nc("@info PO comment parsing","<br><i>Previous string:</i>"));
     comment.replace("#| msgctxt",i18nc("@info PO comment parsing","<br><i>Previous context:</i>"));
     comment.replace("#|","<br>");
-    comment.replace("#","<br>");
+    comment.replace('#',"<br>");
     m_browser->setHtml(i18nc("@info PO comment parsing","<b>Comment:</b>")+comment);
 
     if (m_catalog->msgctxt(m_entry).isEmpty())
@@ -122,6 +137,12 @@ void MsgCtxtView::process()
         m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry));
     }
     kDebug()<<"ELA "<<time.elapsed();
+}
+
+void MsgCtxtView::anchorClicked(const QUrl& link)
+{
+    emit srcFileOpenRequested(link.path().mid(1,link.path().lastIndexOf(':')-1),
+                              link.path().mid(link.path().lastIndexOf(':')+1).toInt());
 }
 
 #include "msgctxtview.moc"

@@ -393,7 +393,7 @@ static void addTerms(Glossary* glo)
 
     //Qt isn't perfect
     out.replace("\n\n","\n");
-    out.replace("\n","\n            ");
+    out.replace('\n',"\n            ");
 
     out+=
 "\n        </body>"

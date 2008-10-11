@@ -51,6 +51,10 @@ public:
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void process();
+    void anchorClicked(const QUrl& link);
+
+signals:
+    void srcFileOpenRequested(const QString& srcPath, int line);
 
 private:
     KTextBrowser* m_browser;

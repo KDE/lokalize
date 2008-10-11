@@ -204,8 +204,8 @@ TMWindow::TMWindow(QWidget *parent)
            this,SLOT(performQuery()));
     connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),
            this,SLOT(performQuery()));
-    connect(ui_queryOptions->doFind,SIGNAL(clicked()),
-           this,SLOT(performQuery()));
+//     connect(ui_queryOptions->doFind,SIGNAL(clicked()),
+//            this,SLOT(performQuery()));
 
     QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);

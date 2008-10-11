@@ -196,7 +196,7 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
                 stream << '\n';
                 continue;
             }
-            const QString& span ( ( newpos == -1 ) ? comment.mid( pos ) : comment.mid( pos, newpos-pos ) );
+            const QString& span ((newpos==-1 ) ? comment.mid(pos) : comment.mid(pos, newpos-pos) );
 
             const int len = span.length();
             QString spaces; // Stored leading spaces
