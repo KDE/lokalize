@@ -716,11 +716,21 @@ void KAiderView::msgid2msgstr()
     {
         text.replace(reg,"");
     }*/
-    
+
     //modifyMsgstrText(0,text,true);
-    
+
     if (out.isEmpty())
-        _msgstrEdit->setPlainText(text);
+    {
+        DocPosition pos=_currentPos;pos.offset=0;
+        //_msgstrEdit->setPlainText(text);
+        _catalog->push(new DelTextCmd(_catalog,pos,_catalog->target(_currentPos)));
+        _oldMsgstr="";//newStr becomes OldStr
+        _catalog->push(new InsTextCmd(_catalog,pos,text));
+        if (KDE_ISUNLIKELY( !_catalog->isApproved(pos.entry) ))
+            toggleApprovement(true);
+        else
+            approvedEntryDisplayed(true, true);
+    }
     else
     {
         QTextCursor t=_msgstrEdit->textCursor();
