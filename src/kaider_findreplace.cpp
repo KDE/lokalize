@@ -54,6 +54,7 @@
 #include <kreplace.h>
 
 #include <sonnet/backgroundchecker.h>
+#include <sonnet/dialog.h>
 
 #include <QTimer>
 
@@ -85,6 +86,24 @@ static void cleanUpIfMultiple(EditorWindow* th,
     list.clear();
     pos=-1;
     dia->setHasCursor(true);
+}
+
+//TODO &amp;, &nbsp;
+static void calsOffsetWithAccels(const QString& data, int& offset, int& length)
+{
+    int i=0;
+    for (;i<offset;++i)
+        if (KDE_ISUNLIKELY( data.at(i)=='&' ))
+            ++offset;
+
+    //if & is inside highlighted word
+    int limit=offset+length;
+    for (i=offset;i<limit;++i)
+        if (KDE_ISUNLIKELY( data.at(i)=='&' ))
+        {
+            ++length;
+            limit=qMin(data.size(),offset+length);//just safety
+        }
 }
 
 void EditorWindow::find()
@@ -443,17 +462,8 @@ void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedL
         else
             data=_catalog->msgstr(_searchingPos);
         int i=0;
-        for (;i<matchingIndex;++i)
-            if (KDE_ISUNLIKELY( data.at(i)=='&' ))
-                ++matchingIndex;
 
-        int limit=matchingIndex+matchedLength;
-        for (i=matchingIndex;i<limit;++i)
-            if (KDE_ISUNLIKELY( data.at(i)=='&' ))
-            {
-                ++matchedLength;
-                limit=qMin(data.size(),matchingIndex+matchedLength);
-            }
+        calsOffsetWithAccels(data, matchingIndex, matchedLength);
     }
 
     _searchingPos.offset=matchingIndex;
@@ -739,18 +749,7 @@ void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matched
             data=_catalog->msgid(_replacingPos);
         else
             data=_catalog->msgstr(_replacingPos);
-        int i=0;
-        for (;i<matchingIndex;++i)
-            if (data.at(i)=='&')
-                ++matchingIndex;
-
-        int limit=matchingIndex+matchedLength;
-        for (i=matchingIndex;i<matchingIndex+matchedLength;++i)
-            if (data.at(i)=='&')
-            {
-                ++matchedLength;
-                limit=qMin(data.size(),matchingIndex+matchedLength);
-            }
+        calsOffsetWithAccels(data,matchingIndex,matchedLength);
     }
 
     _replacingPos.offset=matchingIndex;
@@ -769,20 +768,7 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
     QString oldStr(_catalog->target(_replacingPos));
 
     if (REPLACE_IGNOREACCELS)
-    {
-        int i=0;
-        for (;i<offset;++i)
-            if (oldStr.at(i)=='&')
-                ++offset;
-
-        int limit=offset+remLen;
-        for (i=offset;i<limit;++i)
-            if (oldStr.at(i)=='&')
-            {
-                ++remLen;
-                limit=qMin(oldStr.size(),offset+remLen);
-            }
-    }
+        calsOffsetWithAccels(oldStr,offset,remLen);
 
     QString tmp(oldStr.mid(offset,remLen));
 //     if (tmp==_replaceDialog->pattern())
@@ -826,9 +812,8 @@ void EditorWindow::spellcheck()
 {
     if (!m_sonnetDialog)
     {
-        m_sonnetDialog=new Sonnet::Dialog(
-            new Sonnet::BackgroundChecker( this ),
-            this );
+        m_sonnetChecker=new Sonnet::BackgroundChecker(this);
+        m_sonnetDialog=new Sonnet::Dialog(m_sonnetChecker,this);
         connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(spellcheckNext()));
         connect(m_sonnetDialog,SIGNAL(replace(const QString&,int,const QString&)),
             this,SLOT(spellcheckReplace(const QString&,int,const QString&)));
@@ -850,10 +835,11 @@ void EditorWindow::spellcheck()
         m_spellcheckFilesPos=0;
     }
 
+    QString text=_catalog->msgstr(_currentPos);
     if (!m_view->selection().isEmpty())
-        m_sonnetDialog->setBuffer(m_view->selection());
-    else
-        m_sonnetDialog->setBuffer(_catalog->msgstr(_currentPos));
+        text=m_view->selection();
+    text.remove('&');
+    m_sonnetDialog->setBuffer(text);
 
     _spellcheckPos=_currentPos;
     _spellcheckStop=false;
@@ -866,12 +852,10 @@ void EditorWindow::spellcheck()
 
 void EditorWindow::spellcheckNext()
 {
-    //DocPosition pos=_spellcheckPos;
-
     if (!_spellcheckStop && switchNext(_catalog,_spellcheckPos))
     {
         // HACK actually workaround
-        while (_catalog->msgstr(_spellcheckPos).isEmpty())
+        while (_catalog->msgstr(_spellcheckPos).isEmpty() || !_catalog->isApproved(_spellcheckPos.entry))
         {
             if (!switchNext(_catalog,_spellcheckPos))
             {
@@ -890,10 +874,10 @@ void EditorWindow::spellcheckNext()
                 QTimer::singleShot(0,this,SLOT(spellcheck()));
                 return;
             }
-        m_sonnetDialog->setBuffer( _catalog->msgstr(_spellcheckPos) );
-//             kWarning() << "spellcheckNext a"<<_catalog->msgstr(_spellcheckPos);
-
         }
+        QString text=_catalog->msgstr(_spellcheckPos);
+        text.remove('&');
+        m_sonnetDialog->setBuffer(text);
     }
 }
 
@@ -910,12 +894,23 @@ void EditorWindow::spellcheckCancel()
 
 void EditorWindow::spellcheckShow(const QString &word, int offset)
 {
+    QString source=_catalog->source(_spellcheckPos);
+    source.remove('&');
+    if (source.contains(word))
+    {
+        m_sonnetChecker->continueChecking();
+        return;
+    }
+
     show();
 
 //     kWarning() << "spellcheckShw "<<word;
     DocPosition pos=_spellcheckPos;
+    int length=word.length();
+    calsOffsetWithAccels(_catalog->target(pos),offset,length);
     pos.offset=offset;
-    gotoEntry(pos,word.length());
+
+    gotoEntry(pos,length);
 //     kWarning() << "spellcheckShw "<<word;
 }
 

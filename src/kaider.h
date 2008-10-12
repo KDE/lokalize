@@ -44,9 +44,10 @@
 #include <kmainwindow.h>
 #include <kxmlguiclient.h>
 #include <kurl.h>
-#include <sonnet/dialog.h>
 
 #include <QHash>
+namespace Sonnet{class Dialog;}
+namespace Sonnet{class BackgroundChecker;}
 
 class KFindDialog;
 class KFind;
@@ -265,6 +266,7 @@ private:
     DocPosition _replacingPos;
     DocPosition _spellcheckPos;
 
+    Sonnet::BackgroundChecker* m_sonnetChecker;
     Sonnet::Dialog* m_sonnetDialog;
     int _spellcheckStartUndoIndex;
     bool _spellcheckStop:1;
