@@ -305,6 +305,8 @@ private:
     static QList<int> ids;
 
 signals:
+    Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);
+
     //emitted when mainwindow is closed or another file is opened
     void signalFileClosed();
     Q_SCRIPTABLE void signalFileClosed(const QString&);
