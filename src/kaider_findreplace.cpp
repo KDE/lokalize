@@ -385,7 +385,6 @@ void EditorWindow::findNext(const DocPosition& startingPos)
                         QTimer::singleShot(0,this,SLOT(findNext()));
                         //hideDia=false;
 
-//                        kWarning()<<"searchink         TIME "<<a.elapsed();
                         return;
                     }
                     else
@@ -421,7 +420,6 @@ void EditorWindow::findNext(const DocPosition& startingPos)
         m_progressDialog->hide();
 
     m_catalogTreeView->setUpdatesEnabled(true);
-//    kWarning()<<"searchink         TIME "<<a.elapsed();
 }
 
 void EditorWindow::findNext()
@@ -451,8 +449,6 @@ void EditorWindow::findPrev()
 void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
     show();//for search through several files
-    kWarning()<<"matchingIndex"<<matchingIndex
-            <<"matchedLength"<<matchedLength;
 
     if (FIND_IGNOREACCELS)
     {
@@ -461,7 +457,6 @@ void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedL
             data=_catalog->msgid(_searchingPos);
         else
             data=_catalog->msgstr(_searchingPos);
-        int i=0;
 
         calsOffsetWithAccels(data, matchingIndex, matchedLength);
     }
@@ -566,7 +561,6 @@ void EditorWindow::replace()
         replaceNext(pos);
     }
 
-//     kWarning() << "END";
 }
 
 
@@ -820,7 +814,7 @@ void EditorWindow::spellcheck()
         connect(m_sonnetDialog,SIGNAL(stop()),this,SLOT(spellcheckStop()));
         connect(m_sonnetDialog,SIGNAL(cancel()),this,SLOT(spellcheckCancel()));
 
-        connect(/*m_sonnetDialog*/m_sonnetChecker,SIGNAL(misspelling(QString,int)),
+        connect(m_sonnetDialog/*m_sonnetChecker*/,SIGNAL(misspelling(QString,int)),
             this,SLOT(spellcheckShow(QString,int)));
 //         disconnect(/*m_sonnetDialog*/m_sonnetChecker,SIGNAL(misspelling(QString,int)),
 //             m_sonnetDialog,SLOT(slotMisspelling(QString,int)));
@@ -905,13 +899,15 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
     source.remove('&');
     if (source.contains(word))
     {
+        m_sonnetDialog->setUpdatesEnabled(false);
+        kWarning() << m_sonnetDialog->updatesEnabled();
         m_sonnetChecker->continueChecking();
         return;
     }
+    m_sonnetDialog->setUpdatesEnabled(true);
 
     show();
 
-//     kWarning() << "spellcheckShw "<<word;
     DocPosition pos=_spellcheckPos;
     int length=word.length();
     calsOffsetWithAccels(_catalog->target(pos),offset,length);
