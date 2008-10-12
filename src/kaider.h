@@ -221,7 +221,7 @@ private slots:
     void spellcheck();
     void spellcheckNext();
     void spellcheckShow(const QString&,int);
-    void spellcheckReplace(const QString&,int,const QString&);
+    void spellcheckReplace(QString,int,const QString&);
     void spellcheckStop();
     void spellcheckCancel();
 

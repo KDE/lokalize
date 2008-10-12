@@ -814,13 +814,20 @@ void EditorWindow::spellcheck()
     {
         m_sonnetChecker=new Sonnet::BackgroundChecker(this);
         m_sonnetDialog=new Sonnet::Dialog(m_sonnetChecker,this);
-        connect(m_sonnetDialog,SIGNAL(done(const QString&)),this,SLOT(spellcheckNext()));
-        connect(m_sonnetDialog,SIGNAL(replace(const QString&,int,const QString&)),
-            this,SLOT(spellcheckReplace(const QString&,int,const QString&)));
-        connect(m_sonnetDialog,SIGNAL(misspelling(const QString&,int)),
-            this,SLOT(spellcheckShow(const QString&,int)));
+        connect(m_sonnetDialog,SIGNAL(done(QString)),this,SLOT(spellcheckNext()));
+        connect(m_sonnetDialog,SIGNAL(replace(QString,int,QString)),
+            this,SLOT(spellcheckReplace(QString,int,QString)));
         connect(m_sonnetDialog,SIGNAL(stop()),this,SLOT(spellcheckStop()));
         connect(m_sonnetDialog,SIGNAL(cancel()),this,SLOT(spellcheckCancel()));
+
+        connect(/*m_sonnetDialog*/m_sonnetChecker,SIGNAL(misspelling(QString,int)),
+            this,SLOT(spellcheckShow(QString,int)));
+//         disconnect(/*m_sonnetDialog*/m_sonnetChecker,SIGNAL(misspelling(QString,int)),
+//             m_sonnetDialog,SLOT(slotMisspelling(QString,int)));
+// 
+//     connect( d->checker, SIGNAL(misspelling(const QString&, int)),
+//              SLOT(slotMisspelling(const QString&, int)) );
+
     }
 
     if (!m_spellcheckFiles.isEmpty()
@@ -914,10 +921,14 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
 //     kWarning() << "spellcheckShw "<<word;
 }
 
-void EditorWindow::spellcheckReplace(const QString &oldWord, int offset, const QString &newWord)
+void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString &newWord)
 {
     DocPosition pos=_spellcheckPos;
+    int length=oldWord.length();
+    calsOffsetWithAccels(_catalog->target(pos),offset,length);
     pos.offset=offset;
+    if (length>oldWord.length())//replaced word contains accel mark
+        oldWord=_catalog->target(pos).mid(offset,length);
 
     _catalog->push(new DelTextCmd(_catalog,pos,oldWord));
     _catalog->push(new InsTextCmd(_catalog,pos,newWord));
