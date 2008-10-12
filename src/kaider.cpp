@@ -169,9 +169,9 @@ EditorWindow::~EditorWindow()
 {
     if (!_catalog->isEmpty())
     {
-        emit signalFileAboutToBeClosed();
-        emit signalFileClosed();
-        emit signalFileClosed(currentFile());
+        emit fileAboutToBeClosed();
+        emit fileClosed();
+        emit fileClosed(currentFile());
     }
     deleteUiSetupers();
 
@@ -291,7 +291,7 @@ void EditorWindow::setupActions()
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(refreshMsgEdit()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
-    connect (this,SIGNAL(signalFileAboutToBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
+    connect (this,SIGNAL(fileAboutToBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_catalog,SLOT(flushUpdateDBBuffer()));
 
     QVector<KAction*> gactions(GLOSSARY_SHORTCUTS);
@@ -733,9 +733,9 @@ bool EditorWindow::fileOpen(KUrl url)
 
     QString prevFilePath=currentFile();
     bool wasOpen=!_catalog->isEmpty();
-    if (wasOpen) emit signalFileAboutToBeClosed();
+    if (wasOpen) emit fileAboutToBeClosed();
     bool success=_catalog->loadFromUrl(url);
-    if (wasOpen&&success) {emit signalFileClosed();emit signalFileClosed(prevFilePath);}
+    if (wasOpen&&success) {emit fileClosed();emit fileClosed(prevFilePath);}
 
     QApplication::restoreOverrideCursor();
 
@@ -792,7 +792,7 @@ bool EditorWindow::fileOpen(KUrl url)
         }
 
 //OK!!!
-        emit signalFileOpened();
+        emit fileOpened();
         return true;
     }
 
@@ -912,7 +912,7 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
         if (m_updateView)
         {
             emit signalNewEntryDisplayed(_currentPos);
-            emit signalNewEntryDisplayed();
+            emit entryDisplayed();
 
             emit signalFirstDisplayed(_currentEntry==0);
             emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);

@@ -1,14 +1,18 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
   <interface name="org.kde.Lokalize.Editor">
-    <signal name="signalFileClosed">
+    <signal name="srcFileOpenRequested">
+      <arg name="srcPath" type="s" direction="out"/>
+      <arg name="line" type="i" direction="out"/>
+    </signal>
+    <signal name="fileClosed">
       <arg type="s" direction="out"/>
     </signal>
-    <signal name="signalFileAboutToBeClosed">
+    <signal name="fileAboutToBeClosed">
     </signal>
-    <signal name="signalFileOpened">
+    <signal name="fileOpened">
     </signal>
-    <signal name="signalNewEntryDisplayed">
+    <signal name="entryDisplayed">
     </signal>
     <method name="gotoEntry">
       <arg name="entry" type="i" direction="in"/>

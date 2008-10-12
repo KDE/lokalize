@@ -308,12 +308,12 @@ signals:
     Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);
 
     //emitted when mainwindow is closed or another file is opened
-    void signalFileClosed();
-    Q_SCRIPTABLE void signalFileClosed(const QString&);
-    Q_SCRIPTABLE void signalFileAboutToBeClosed();//old catalog is still accessible
-    Q_SCRIPTABLE void signalFileOpened();
+    void fileClosed();
+    Q_SCRIPTABLE void fileClosed(const QString&);
+    Q_SCRIPTABLE void fileAboutToBeClosed();//old catalog is still accessible
+    Q_SCRIPTABLE void fileOpened();
 
-    Q_SCRIPTABLE void signalNewEntryDisplayed();
+    Q_SCRIPTABLE void entryDisplayed();
     void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
     void signalFirstDisplayed(bool);

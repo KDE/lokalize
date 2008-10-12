@@ -27,7 +27,7 @@
     <method name="pid">
       <arg type="i" direction="out"/>
     </method>
-    <method name="dbusServiceName">
+    <method name="dbusName">
       <arg type="s" direction="out"/>
     </method>
   </interface>

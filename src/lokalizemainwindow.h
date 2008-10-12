@@ -108,7 +108,7 @@ public slots:
     /**
      * @returns smth like 'org.kde.lokalize-####' where #### is pid()
      */
-    Q_SCRIPTABLE QString dbusServiceName();
+    Q_SCRIPTABLE QString dbusName();
 
 
     void searchInFiles(const KUrl::List&);

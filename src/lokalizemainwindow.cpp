@@ -721,7 +721,7 @@ int LokalizeMainWindow::pid()
     return getpid();
 }
 
-QString LokalizeMainWindow::dbusServiceName()
+QString LokalizeMainWindow::dbusName()
 {
     return QString("org.kde.lokalize-%1").arg(pid());
 }
