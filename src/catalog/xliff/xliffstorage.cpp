@@ -101,7 +101,7 @@ bool XliffStorage::load(const KUrl& url)
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_langCode);
 
     //Create entry mapping.
-    //Along the way: for langs with more then 2 forms
+    //Along the way: for langs with more than 2 forms
     //we create any form-entries additionally needed
 
     entries=m_doc.elementsByTagName("trans-unit");

@@ -77,7 +77,7 @@ bool GettextStorage::load(const KUrl& url)
     status = importer.open(target,this);
     KIO::NetAccess::removeTempFile( target );
 
-    //for langs with more then 2 forms
+    //for langs with more than 2 forms
     //we create any form-entries additionally needed
     uint i=0;
     uint lim=size();
