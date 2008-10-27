@@ -74,7 +74,7 @@ public slots:
     void initLater();
 
     void slotUseSuggestion(int);
-    //i think we dont wanna cache suggestions:
+    //i think we do not wanna cache suggestions:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
 

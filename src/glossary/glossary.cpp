@@ -468,7 +468,7 @@ QVariant GlossaryModel::data(const QModelIndex& index,int role) const
 
 QString Glossary::generateNewId()
 {
-    //generate uniq ID
+    // generate unique ID
     int id=0;
     QList<int> idlist;
     const QList<TermEntry>& termList=Project::instance()->glossary()->termList;

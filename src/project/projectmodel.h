@@ -134,7 +134,7 @@ public:
 
 public:
     /**
-     * made in assuption that KDirModel doesnt rely on completed() signal!
+     * made in assuption that KDirModel does not rely on completed() signal!
      * otherwise, would probably use qtimer::singleshot()
      */
     bool openUrl(const KUrl&, OpenUrlFlags flags = NoFlags);

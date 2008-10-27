@@ -126,7 +126,7 @@ void LCSprinter::printLCS(uint index)
     //fprintf(stderr,"%2d. %2d. %2d. %2d\n",(uint)(*b)[index],nT,index%nT, index);
     if (index % nT == 0 || index < nT)
     {
-    //original LCS algo doesnt have to deal with ins before first common
+    // original LCS algo does not have to deal with ins before first common
         uint bound = index%nT;
         for (index=0; index<bound; ++index)
         {

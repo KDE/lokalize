@@ -73,7 +73,7 @@ struct TagRange
      * for situations when target doesn't contain tag
      * (of the same type and with the same id) from source
      * true means that the object corresponds to some tag in source,
-     * but target doesnt contain it.
+     * but target does not contain it.
      */
     bool isEmpty()const{return start==-1;}
 

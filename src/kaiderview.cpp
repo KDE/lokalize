@@ -680,7 +680,7 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
 /*        t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,qMin(anchor,pos));
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qMax(anchor,pos));
         */
-        //I don't know why the following (more correct) code doesnt work
+        // I don't know why the following (more correct) code does not work
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,anchor);
         int length=pos-anchor;
         if (length)

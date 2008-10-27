@@ -450,7 +450,7 @@ void Catalog::setApproved(const DocPosition& pos, bool approved)
 
     m_storage->setApproved(pos,approved);
 
-    //cache maintainance
+    // cache maintenance
     QList<int>& idx=d->_fuzzyIndex;
     if (!approved)
     {

@@ -188,7 +188,7 @@ private:
 
 
 /**
- * used to eliminate alot of duplicate entries
+ * used to eliminate a lot of duplicate entries
  *
  * it is supposed too run on entry switch/file close in Editor
 **/

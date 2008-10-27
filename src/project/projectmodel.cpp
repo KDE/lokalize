@@ -368,7 +368,7 @@ void ProjectLister::cleanup()
 }
 
 
-/* doesnt handle .po to .po_t_ :) */
+/* does not handle .po to .po_t_ :) */
 static bool poToPot(QString& path)
 {
     if (path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty())
@@ -378,7 +378,7 @@ static bool poToPot(QString& path)
     return true;
 }
 
-/* doesnt handle .po to .po_t_ */
+/* does not handle .po to .po_t_ */
 static bool potToPo(QString& path)
 {
     if (path.isEmpty()||Project::instance()->poDir().isEmpty()||Project::instance()->potDir().isEmpty())

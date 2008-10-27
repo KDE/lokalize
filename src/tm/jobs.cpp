@@ -175,7 +175,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
     int j=words.size();
     while (--j>=0)
     {
-        //insert word (if we dont have it)
+        // insert word (if we do not have it)
         if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM words WHERE "
                     "word=='"+words.at(j)+'\'')))
             kWarning() <<"select error 3: " <<query1.lastError().text();
@@ -278,7 +278,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     int j=words.size();
     while (--j>=0)
     {
-        //remove from record for the word (if we dont have it)
+        // remove from record for the word (if we do not have it)
         if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM words WHERE "
                     "word=='"+words.at(j)+'\'')))
             kWarning() <<"select error 3: " <<query1.lastError().text();
@@ -468,7 +468,7 @@ static bool doInsertEntry(QString english,
         if (matches) //TODO XLIFF target_markup
             return false;
 
-        //no, transation has changed: just update old target if it isn't used elsewhere
+        // no, translation has changed: just update old target if it isn't used elsewhere
         if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main WHERE "
                          "target=="+QString::number(targetId))))
             kWarning() <<"select db target_strings error: " <<query1.lastError().text();
