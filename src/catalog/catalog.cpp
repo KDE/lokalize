@@ -362,7 +362,7 @@ const DocPosition& Catalog::redo()
 }
 
 
-void Catalog::push(QUndoCommand *cmd, bool rebaseForDBUpdate)
+void Catalog::push(QUndoCommand *cmd/*, bool rebaseForDBUpdate*/)
 {
     QUndoStack::push(cmd);
 }

@@ -89,6 +89,11 @@ signals:
     void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
 
 private:
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent*);
+
+
+private:
     Ui_QueryOptions* ui_queryOptions;
     TMDBModel* m_model;
 

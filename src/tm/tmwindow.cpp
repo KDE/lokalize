@@ -34,10 +34,12 @@
 #include "ui_queryoptions.h"
 #include "project.h"
 #include "dbfilesmodel.h"
+#include "jobs.h"
 
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
+#include <threadweaver/ThreadWeaver.h>
 
 #include <QTreeView>
 #include <QSqlQueryModel>
@@ -45,6 +47,8 @@
 #include <QShortcutEvent>
 #include <QClipboard>
 #include <QShortcut>
+#include <QDragEnterEvent>
+
 
 using namespace TM;
 
@@ -251,6 +255,7 @@ TMWindow::TMWindow(QWidget *parent)
     connect(btnGrp,SIGNAL(buttonClicked(int)),
             m_model,SLOT(setQueryType(int)));
 
+    setAcceptDrops(true);
     /*
     ui_queryOptions.db->setModel(DBFilesModel::instance());
     ui_queryOptions.db->setCurrentIndex(ui_queryOptions.db->findText(Project::instance()->projectID()));
@@ -374,6 +379,67 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
 
 
 
+void TMWindow::dragEnterEvent(QDragEnterEvent* event)
+{
+    if(!event->mimeData()->hasUrls())
+        return;
+
+    int i=event->mimeData()->urls().size();
+    while(--i>=0)
+    {
+        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
+        {
+            event->acceptProposedAction();
+            return;
+        }
+        QFileInfo info(event->mimeData()->urls().at(i).path());
+        if (info.exists() && info.isDir())
+        {
+            event->acceptProposedAction();
+            return;
+        }
+    }
+    //kWarning() << " " <<;
+}
+
+void TMWindow::dropEvent(QDropEvent *event)
+{
+    bool ok=false;
+    Project* p=Project::instance();
+    const QString& pID=p->projectID();
+    int i=event->mimeData()->urls().size();
+    while(--i>=0)
+    {
+        if (event->mimeData()->urls().at(i).isEmpty()
+            || event->mimeData()->urls().at(i).path().isEmpty() ) //NOTE is it qt bug?
+            continue;
+        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
+        {
+            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),pID);
+            connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+            connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+            ThreadWeaver::Weaver::instance()->enqueue(job);
+            ok=true;
+        }
+        else
+        {
+            ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()),
+                            pID)||ok;
+                //kWarning()<<"dd "<<dir.entryList();
+        }
+    }
+    if (ok)
+    {
+        //dummy job for the finish indication
+        ScanFinishedJob* job=new ScanFinishedJob(this);
+        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+
+        event->acceptProposedAction();
+    }
+
+}
 
 #include "translationmemoryadaptor.h"
 

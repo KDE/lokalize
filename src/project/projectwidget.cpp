@@ -48,7 +48,7 @@
 #include <QKeyEvent>
 #include <QPainter>
 #include <QLinearGradient>
-
+#include <QHeaderView>
 
 
 //HACKy HACKy HACKy
@@ -255,10 +255,18 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setSelectionBehavior(QAbstractItemView::SelectRows);
 //    QTimer::singleShot(0,this,SLOT(initLater()));
+
+    KConfig config;
+    KConfigGroup stateGroup(&config,"ProjectWindow");
+    header()->restoreState(QByteArray::fromBase64( stateGroup.readEntry("ListHeaderState", QByteArray()) ));
 }
 
 ProjectWidget::~ProjectWidget()
 {
+    KConfig config;
+    KConfigGroup stateGroup(&config,"ProjectWindow");
+    stateGroup.writeEntry("ListHeaderState",header()->saveState().toBase64());
+
 }
 
 void ProjectWidget::setCurrentItem(const KUrl& u)

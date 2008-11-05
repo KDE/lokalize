@@ -122,25 +122,25 @@ void TMView::initLater()
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(event->mimeData()->hasUrls())
+    if(!event->mimeData()->hasUrls())
+        return;
+
+    int i=event->mimeData()->urls().size();
+    while(--i>=0)
     {
-        int i=event->mimeData()->urls().size();
-        while(--i>=0)
+        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
         {
-            if (event->mimeData()->urls().at(i).path().endsWith(".po"))
-            {
-                event->acceptProposedAction();
-                return;
-            }
-            QFileInfo info(event->mimeData()->urls().at(i).path());
-            if (info.exists() && info.isDir())
-            {
-                event->acceptProposedAction();
-                return;
-            }
+            event->acceptProposedAction();
+            return;
         }
-        //kWarning() << " " <<;
-    };
+        QFileInfo info(event->mimeData()->urls().at(i).path());
+        if (info.exists() && info.isDir())
+        {
+            event->acceptProposedAction();
+            return;
+        }
+    }
+    //kWarning() << " " <<;
 }
 
 void TMView::dropEvent(QDropEvent *event)
@@ -881,7 +881,7 @@ nono
         m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
 
-    m_catalog->push(new InsTextCmd(m_catalog,m_pos,target),true);
+    m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
 
 //     emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
     m_catalog->endMacro();

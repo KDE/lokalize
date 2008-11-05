@@ -147,7 +147,7 @@ public slots: //DBus interface
 public:
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();
-    virtual void push(QUndoCommand *cmd,bool rebaseForDBUpdate=false);
+    virtual void push(QUndoCommand *cmd/*,bool rebaseForDBUpdate=false*/);
 
 
 protected slots:
