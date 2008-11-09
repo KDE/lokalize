@@ -477,7 +477,7 @@ bool KAiderView::eventFilter(QObject* obj, QEvent* event)
 
         return true;
     }
-    else if( keyEvent->key()==Qt::Key_Backspace
+    else if( (!keyEvent->modifiers()&&keyEvent->key()==Qt::Key_Backspace)
             || ( ( keyEvent->modifiers() & Qt::ControlModifier ) && keyEvent->key() == Qt::Key_H ) )
     {
         QTextCursor t=_msgstrEdit->textCursor();

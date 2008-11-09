@@ -157,10 +157,13 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         guiFactory()->removeClient( prevEditor->guiClient()   );
         prevEditor->statusBarItems.unregisterStatusBar();
 
-/*
         if (qobject_cast<EditorWindow*>(prevEditor))
         {
             EditorWindow* w=static_cast<EditorWindow*>( prevEditor );
+            KAiderState state=w->state();
+            m_lastEditorState=state.dockWidgets.toBase64();
+        }
+            /*
 
             KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
             QList<QAction*> actionz=projectActions->actions();
@@ -185,6 +188,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
         KAiderState state=w->state();
         m_lastEditorState=state.dockWidgets.toBase64();
+
 /*
         KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
         QList<QAction*> actionz=projectActions->actions();
