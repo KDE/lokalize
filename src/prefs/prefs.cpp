@@ -158,7 +158,7 @@ void SettingsController::slotSettings()
 
 void SettingsController::projectCreate()
 {
-    QString path(KFileDialog::getSaveFileName(KUrl(), "*.ktp|Lokalize translation project"/*"text/x-lokalize-project"*/,0));
+    QString path(KFileDialog::getSaveFileName(KUrl(), "*.lokalize|Lokalize translation project"/*"text/x-lokalize-project"*/,0));
     if (path.isEmpty())
         return;
 
@@ -269,7 +269,7 @@ void SettingsController::projectOpen(QString path)
 {
     if (path.isEmpty())
         path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
-                                          "*.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
+                                          "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
                                           0);
     if (path.isEmpty())
         return;

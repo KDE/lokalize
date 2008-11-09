@@ -770,7 +770,9 @@ bool EditorWindow::fileOpen(KUrl url)
 //search for it
             int i=4;
             QDir dir(url.directory());
-            dir.setNameFilters(QStringList("*.ktp"));
+            QStringList proj("*.ktp");
+            proj.append("*.lokalize");
+            dir.setNameFilters(proj);
             while (--i && !dir.isRoot())
             {
                 if (dir.entryList().isEmpty())
