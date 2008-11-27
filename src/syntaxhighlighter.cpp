@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -51,6 +51,7 @@
 SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
     : QSyntaxHighlighter(parent)
     , tagBrush(KColorScheme::View,KColorScheme::VisitedText)
+    , m_approved(true)
 //     , fuzzyState(false)
 //     , fromDocbook(docbook)
 {
@@ -130,7 +131,12 @@ void SyntaxHighlighter::setFuzzyState(bool fuzzy)
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
-//     if (fromDocbook)
+    QTextCharFormat f;
+    f.setFontItalic(!m_approved);
+    setFormat(0, text.length(), f);
+
+    tagFormat.setFontItalic(!m_approved);
+    //if (fromDocbook)
     {
         setCurrentBlockState(STATE_NORMAL);
 
@@ -164,10 +170,13 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         while (index >= 0)
         {
             int length = expression.matchedLength();
-            setFormat(index, length, rule.format);
+            QTextCharFormat f=rule.format;
+            f.setFontItalic(!m_approved);
+            setFormat(index, length, f);
             index = text.indexOf(expression, index + length);
         }
     }
+
 }
 
 

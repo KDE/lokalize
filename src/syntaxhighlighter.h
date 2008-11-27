@@ -51,6 +51,8 @@ public:
     explicit SyntaxHighlighter(QTextDocument *parent = 0/*,bool docbook=true*/);
     ~SyntaxHighlighter(){};
 
+    void setApprovementState(bool a){m_approved=a;};
+
 protected:
     void highlightBlock(const QString &text);
 
@@ -67,7 +69,7 @@ private:
 //     bool fromDocbook;
     QTextCharFormat tagFormat;
     KStatefulBrush tagBrush;
-
+    bool m_approved;
 };
 
 #endif

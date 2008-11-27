@@ -146,7 +146,7 @@ private slots:
     //for Undo/Redo tracking
     void contentsChanged(int position,int charsRemoved,int charsAdded);
     //we need this function cause...
-    void approvedEntryDisplayed(bool approved,bool force=true);
+    void approvedEntryDisplayed(bool approved);
 
     //Edit menu
     void toggleApprovement(bool);

@@ -437,7 +437,6 @@ void EditorWindow::setupActions()
     action->setCheckable(true);
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleApprovement(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
-    connect(action, SIGNAL(toggled(bool)),m_view,SLOT(approvedEntryDisplayed(bool)),Qt::QueuedConnection);
     connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
     int copyShortcut=Qt::CTRL+Qt::Key_Space;

@@ -558,6 +558,7 @@ void KAiderView::cursorPositionChanged()
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
+    kWarning()<<"!!!!!!!!!!!! offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
     QString editText=_msgstrEdit->toPlainText();
     if (KDE_ISUNLIKELY( _currentEntry==-1 || editText==_oldMsgstr ))
         return;
@@ -606,19 +607,18 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
     emit signalChanged(pos.entry);
 }
 
-void KAiderView::approvedEntryDisplayed(bool approved, bool force)
+void KAiderView::approvedEntryDisplayed(bool approved)
 {
-    //kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved<<"force:"<<force;
-    if (KDE_ISUNLIKELY( _currentEntry==-1 || (m_approvementState==approved && !force) ))
+    kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved;
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
     {
         //kWarning()<<"approvedEntryDisplayed returning";
         return;
     }
     m_approvementState=approved;
 
-    _msgstrEdit->setFontItalic(!approved);
-    if (force)
-        refreshMsgEdit(/*keepCursor*/true);
+    m_msgstrHighlighter->setApprovementState(approved);
+    m_msgstrHighlighter->rehighlight();
 
     if (approved)
     {
@@ -688,7 +688,9 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
     }
     msgEdit.setTextCursor(t);
 
-    m_msgstrHighlighter->rehighlight();
+
+    approvedEntryDisplayed(_catalog->isApproved(_currentPos.entry));
+//     m_msgstrHighlighter->rehighlight(); done in approvedEntryDisplayed()
     connect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 }
 
@@ -720,10 +722,6 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection)
     }
     else
         m_pluralTabBar->hide();
-
-    //force this because there are conditions when the
-    //signal isn't emitted (haven't identify them yet)
-    approvedEntryDisplayed(_catalog->isApproved(_currentEntry),false);
 
 #ifdef XLIFF
     _msgidEdit->setContent(_catalog->sourceWithTags(_currentPos));
@@ -850,7 +848,7 @@ void KAiderView::toggleApprovement(bool approved)
         return;
 
     _catalog->push(new ToggleApprovementCmd(_catalog,_currentEntry,approved));
-    approvedEntryDisplayed(approved, /*force*/true);
+    approvedEntryDisplayed(approved);
 }
 
 
@@ -911,10 +909,9 @@ void KAiderView::msgid2msgstr()
         _catalog->push(new DelTextCmd(_catalog,pos,_catalog->target(_currentPos)));
         _oldMsgstr="";//newStr becomes OldStr
         _catalog->push(new InsTextCmd(_catalog,pos,text));
+        refreshMsgEdit();
         if (KDE_ISUNLIKELY( !_catalog->isApproved(pos.entry) ))
             toggleApprovement(true);
-        else
-            approvedEntryDisplayed(true, true);
     }
     else
     {

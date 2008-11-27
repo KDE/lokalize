@@ -379,8 +379,6 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
             this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
 
     ThreadWeaver::Weaver::instance()->enqueue(m_currentSelectJob);
-    kWarning()<<"ELA2 "<<time.elapsed();
-
 }
 
 void TMView::displayFromCache()
@@ -886,10 +884,13 @@ nono
 
     m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
 
-//     emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
+    if (m_entries.at(i).score>9900 && !m_catalog->isApproved(m_pos.entry))
+        m_catalog->push(new ToggleApprovementCmd(m_catalog,m_pos.entry,true));
+
     m_catalog->endMacro();
 
     emit refreshRequested();
+    //emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
 }
 
 
