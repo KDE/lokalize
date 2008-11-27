@@ -128,12 +128,15 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
     int i=event->mimeData()->urls().size();
     while(--i>=0)
     {
-        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
+        QUrl u=event->mimeData()->urls().at(i);
+        if (!u.isValid() || u.isEmpty() || u.path().isEmpty() )
+            continue;
+        if (u.path().endsWith(".po"))
         {
             event->acceptProposedAction();
             return;
         }
-        QFileInfo info(event->mimeData()->urls().at(i).path());
+        QFileInfo info(u.path());
         if (info.exists() && info.isDir())
         {
             event->acceptProposedAction();
@@ -151,12 +154,12 @@ void TMView::dropEvent(QDropEvent *event)
     int i=event->mimeData()->urls().size();
     while(--i>=0)
     {
-        if (event->mimeData()->urls().at(i).isEmpty()
-            || event->mimeData()->urls().at(i).path().isEmpty() ) //NOTE is it qt bug?
+        QUrl u=event->mimeData()->urls().at(i);
+        if (!u.isValid() || u.isEmpty() || u.path().isEmpty() ) //NOTE is it qt bug?
             continue;
-        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
+        if (u.path().endsWith(".po"))
         {
-            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),pID);
+            ScanJob* job=new ScanJob(KUrl(u),pID);
             connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
             connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
             ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -164,7 +167,7 @@ void TMView::dropEvent(QDropEvent *event)
         }
         else
         {
-            ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()),
+            ok=scanRecursive(QDir(u.path()),
                             pID)||ok;
                 //kWarning()<<"dd "<<dir.entryList();
         }

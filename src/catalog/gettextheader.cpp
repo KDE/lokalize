@@ -39,53 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <kio/netaccess.h>
 #include <ktemporaryfile.h>
 
-#if 0
-pInfo.insert("cs", "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");
-pInfo.insert("da", "nplurals=2; plural=(n != 1);");
-pInfo.insert("de", "nplurals=2; plural=n != 1;");
-pInfo.insert("el", "nplurals=2; plural=(n != 1);");
-pInfo.insert("en", "nplurals=2; plural=(n != 1);");
-pInfo.insert("en_GB", "nplurals=2; plural=(n != 1);");
-pInfo.insert("en_US", "nplurals=2; plural=(n != 1);");
-pInfo.insert("eo", "nplurals=2; plural=(n != 1);");
-pInfo.insert("es", "nplurals=2; plural=(n != 1);");
-pInfo.insert("et", "nplurals=2; plural=(n != 1);");
-pInfo.insert("fi", "nplurals=2; plural=(n != 1);");
-pInfo.insert("fo", "nplurals=2; plural=(n != 1);");
-pInfo.insert("fr", "nplurals=2; plural=(n > 1);");
-pInfo.insert("ga", "nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;");
-pInfo.insert("he", "nplurals=2; plural=(n != 1);");
-pInfo.insert("hr", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("hu", "nplurals=2; plural=(n != 1);");
-pInfo.insert("it", "nplurals=2; plural=(n != 1);");
-pInfo.insert("ja", "nplurals=1; plural=0;");
-pInfo.insert("ko", "nplurals=1; plural=0;");
-pInfo.insert("lt", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("lv", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
-pInfo.insert("nb", "nplurals=2; plural=(n != 1);");
-pInfo.insert("nl", "nplurals=2; plural=(n != 1);");
-pInfo.insert("nn", "nplurals=2; plural=(n != 1);");
-pInfo.insert("pl", "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("pt", "nplurals=2; plural=(n != 1);");
-pInfo.insert("pt_BR", "nplurals=2; plural=(n > 1);");
-pInfo.insert("ro", "nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;");
-pInfo.insert("ru", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("sk", "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");
-pInfo.insert("sl", "nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);");
-pInfo.insert("sr", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("sr@latin", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("sv", "nplurals=2; plural=(n != 1);");
-pInfo.insert("tr", "nplurals=1; plural=0;");
-pInfo.insert("uk", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
-pInfo.insert("vi", "nplurals=1; plural=0;");
-#endif
-
 /**
  * this data was obtained by running GNUPluralForms()
  * on all languages KDE knows of
 **/
-#define NUM_LANG_WITH_INFO 38
+#define NUM_LANG_WITH_INFO 39
 static const char* langsWithPInfo[NUM_LANG_WITH_INFO]={
+"ar",
 "cs",
 "da",
 "de",
@@ -128,6 +88,7 @@ static const char* langsWithPInfo[NUM_LANG_WITH_INFO]={
 };
 
 static const char* pInfo[NUM_LANG_WITH_INFO]={
+"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;",
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;",
 "nplurals=2; plural=(n != 1);",
 "nplurals=2; plural=n != 1;",

@@ -49,7 +49,7 @@
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSet>
-#include <QFrame>
+#include <QScrollArea>
 // #include <QShortcutEvent>
 
 
@@ -57,7 +57,7 @@ using namespace GlossaryNS;
 
 GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)
-        , m_browser(new QFrame(this))
+        , m_browser(new QScrollArea(this))
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
@@ -71,7 +71,9 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KActio
 {
     setObjectName("glossaryView");
     setWidget(m_browser);
-    m_browser->setLayout(m_flowLayout);
+    QWidget* w=new QWidget(m_browser);
+    m_browser->setWidget(w);
+    w->setLayout(m_flowLayout);
     setToolTip(i18nc("@info:tooltip","Translations to common terms appear here. Press displayed shortcut to insert term translation. Use context menu to add new entry (tip: select words in original and translation fields before calling <interface>Define new term</interface>)."));
 
     m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
