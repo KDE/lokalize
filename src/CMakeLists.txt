@@ -109,7 +109,8 @@ qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
 kde4_add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
-#     ${KDE4_KROSSCORE_LIBS}
+    ${KDE4_KPARTS_LIBS}
+    ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}
     ${KDE4_KIO_LIBS}
     ${KDE4_KFILE_LIBS}
