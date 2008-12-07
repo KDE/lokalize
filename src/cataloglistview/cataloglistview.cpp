@@ -38,9 +38,11 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <klineedit.h>
+#include <KConfigGroup>
 
 #include <QTime>
 #include <QTreeView>
+#include <QHeaderView>
 #include <QModelIndex>
 #include <QSortFilterProxyModel>
 #include <QVBoxLayout>
@@ -60,6 +62,7 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     layout->setContentsMargins(0,0,0,0);
     KLineEdit* m_lineEdit=new KLineEdit(w);
     m_lineEdit->setClearButtonShown(true);
+    //m_lineEdit->setClickMessage(i18n("Quick search...")); TODO KDE 4.3
 //     connect (m_lineEdit,SIGNAL(textChanged(QString)),
 //              m_proxyModel,SLOT(setFilterFixedString(QString)));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),
@@ -92,6 +95,16 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     m_proxyModel->setFilterKeyColumn(-1);
     m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
+    KConfig config;
+    KConfigGroup cg(&config,"MainWindow");
+    m_browser->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TreeHeaderState", QByteArray()) ));
+}
+
+CatalogTreeView::~CatalogTreeView()
+{
+    KConfig config;
+    KConfigGroup cg(&config,"MainWindow");
+    cg.writeEntry("TreeHeaderState",m_browser->header()->saveState().toBase64());
 }
 
 

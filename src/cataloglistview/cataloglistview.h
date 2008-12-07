@@ -47,7 +47,7 @@ class CatalogTreeView: public QDockWidget
 
 public:
     CatalogTreeView(QWidget*,Catalog*);
-    virtual ~CatalogTreeView(){};
+    ~CatalogTreeView();
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
