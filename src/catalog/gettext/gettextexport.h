@@ -53,7 +53,7 @@ class GettextStorage;
 class GettextExportPlugin
 {
 public:
-    GettextExportPlugin(int wrapWidth=-1);
+    GettextExportPlugin(short wrapWidth=-1, short trailingNewLines=1);
     ConversionStatus save(const QString& file,
                           const GettextStorage* catalog);
 
@@ -83,7 +83,8 @@ public:
      * - Gettext's default value is 78 characters
      * - Too small values might not be correctly supported.
      */
-    int m_wrapWidth;
+    short m_wrapWidth;
+    short m_trailingNewLines;
 };
 }
 #endif

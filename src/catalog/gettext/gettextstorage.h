@@ -89,7 +89,8 @@ private:
     QVector<CatalogItem> m_obsoleteEntries;
     CatalogItem m_header;
 
-    int m_maxLineLength;
+    short m_maxLineLength;
+    short m_trailingNewLines;
     bool m_generatedFromDocbook;
 
     QStringList m_catalogExtraData;

@@ -143,6 +143,7 @@ void CatalogImportPlugin::commitTransaction(const QString& file)
 // 	    d->_catalog->setErrorIndex(d->_errorList);
 
     catalog->m_maxLineLength=_maxLineLength;
+    catalog->m_trailingNewLines=_trailingNewLines;
 }
 
 }

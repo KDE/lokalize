@@ -53,8 +53,9 @@
 
 using namespace GettextCatalog;
 
-GettextExportPlugin::GettextExportPlugin(int wrapWidth)
-    : m_wrapWidth( wrapWidth )
+GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines)
+    : m_wrapWidth(wrapWidth)
+    , m_trailingNewLines(trailingNewLines)
 {
 }
 
@@ -122,13 +123,14 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
         stream << "msgid \"\"\n";
 
         writeKeyword( stream, "msgstr", catalog->m_header.msgstr() );
-
-        stream << '\n';
     }
 
+
+    int limit=catalog->numberOfEntries();
     QStringList list;
-    for (int counter = 0; counter < catalog->numberOfEntries(); counter++)
+    for (int counter = 0; counter < limit; counter++)
     {
+        stream << '\n';
 
         // write entry
         writeComment( stream, catalog->m_entries.at(counter).comment() );
@@ -157,9 +159,6 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
                 writeKeyword( stream, keyword, ( catalog->m_entries.at(counter).msgstr(i) ) );
             }
         }
-
-        stream << '\n';
-
     }
 
 #if 0
@@ -168,14 +167,17 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
 #endif
     {
         QList<QString>::const_iterator oit;
-
-        const QStringList& _obsolete (catalog->m_catalogExtraData);
-
-        for (oit=_obsolete.constBegin();oit!=_obsolete.constEnd();++oit)
-            stream << (*oit) << "\n\n";
+        const QStringList& _obsolete=catalog->m_catalogExtraData;
+        oit=_obsolete.constBegin();
+        stream << "\n" << (*oit);
+        while((++oit)!=_obsolete.constEnd())
+            stream << "\n\n" << (*oit);
     }
 
-    //file.finalize();
+    int i=m_trailingNewLines+1;
+    while (--i>=0)
+        stream << '\n';
+
     file.close();
 
     return OK;

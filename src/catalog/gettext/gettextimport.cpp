@@ -286,6 +286,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
    setHeader(tempHeader);
    setCatalogExtraData(tempObsolete);
    setErrorIndex(errorIndex);
+   kWarning()<<"_trailingNewLines"<<_trailingNewLines;
 //   setFileCodec(codec);
 //   setMimeTypes( "text/x-gettext-translation" );
 
@@ -378,6 +379,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
    //QString line;
+   _trailingNewLines=0;
    bool error=false;
    bool recoverableError=false;
    bool seenMsgctxt=false;
@@ -415,6 +417,10 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        int len=line.length();
        if (_maxLineLength<len)
            _maxLineLength=len;
+       if (len)
+          _trailingNewLines=0;
+       else
+          ++_trailingNewLines;
 
 
        if(part==Begin)

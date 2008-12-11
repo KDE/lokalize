@@ -99,7 +99,6 @@ bool GettextStorage::load(const KUrl& url)
     }
 
 
-
     return status==OK;
 
 }
@@ -121,7 +120,7 @@ bool GettextStorage::save(const KUrl& url)
     m_header.setMsgstr(header);
     m_header.setComment(comment);
 
-    GettextExportPlugin exporter(m_maxLineLength>70?m_maxLineLength:-1);// this is kinda hackish...
+    GettextExportPlugin exporter(m_maxLineLength>70?m_maxLineLength:-1, m_trailingNewLines);// this is kinda hackish...
 
     ConversionStatus status = OK;
 

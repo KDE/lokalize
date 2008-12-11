@@ -132,7 +132,9 @@ protected:
     /** commit the data in the current transaction. You should never call this method. */
     void commitTransaction(const QString& a=QString());
 
-    int _maxLineLength;
+    short _maxLineLength;
+    short _trailingNewLines;
+
 
 private:
     CatalogImportPluginPrivate* d;
