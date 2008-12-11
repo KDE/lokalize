@@ -59,8 +59,6 @@
 #include <QTimer>
 
 
-//  #include "global.h"
-
 //#define FIND_IGNOREACCELS 2048
 //#define FIND_SKIPTAGS 4096
 #define FIND_IGNOREACCELS ui_findExtension->m_ignoreAccelMarks->isChecked()
@@ -519,9 +517,7 @@ void EditorWindow::replace()
 
 
     if (_replace)
-    {
         _replace->deleteLater();// _replace=0;
-    }
 
     // This creates a find-next-prompt dialog if needed.
     {
@@ -618,7 +614,6 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
                     _replace->setData( _catalog->msgstr(_replacingPos));
             }
             res = _replace->replace();
-//             offset=-1;
             if (res!=KFind::NoMatch)
                 break;
 
@@ -704,11 +699,10 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
                                   m_replaceFilesPos,
                                   _replaceDialog);
 
-//HACK avoid crash
-//                 _replace->closeReplaceNextDialog();
-
                 if(!(_replace->options() & KFind::FromCursor))
                      _replace->displayFinalDialog();
+
+                _replace->closeReplaceNextDialog();
 
                 if(m_doReplaceCalled)
                 {
@@ -729,7 +723,6 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 void EditorWindow::replaceNext()
 {
     replaceNext(_currentPos);
-//     kWarning() << "END";
 }
 
 void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matchedLength)
@@ -900,7 +893,6 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
     if (source.contains(word))
     {
         m_sonnetDialog->setUpdatesEnabled(false);
-        kWarning() << m_sonnetDialog->updatesEnabled();
         m_sonnetChecker->continueChecking();
         return;
     }
@@ -914,7 +906,6 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
     pos.offset=offset;
 
     gotoEntry(pos,length);
-//     kWarning() << "spellcheckShw "<<word;
 }
 
 void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString &newWord)
