@@ -169,7 +169,8 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
         QList<QString>::const_iterator oit;
         const QStringList& _obsolete=catalog->m_catalogExtraData;
         oit=_obsolete.constBegin();
-        stream << "\n" << (*oit);
+        if (oit!=_obsolete.constEnd())
+            stream << "\n" << (*oit);
         while((++oit)!=_obsolete.constEnd())
             stream << "\n\n" << (*oit);
     }
