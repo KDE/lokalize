@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Lokalize
 Name[ko]=vLokalize
+Name[pa]=ਲੋਕਾਲਾਈਜ਼
 Name[sr]=Локализуј
 Name[sr@latin]=Lokalizuj
 Name[x-test]=xxLokalizexx
@@ -27,6 +28,7 @@ GenericName[ko]=컴퓨터 보조 번역 시스템
 GenericName[lv]=Datorizēta tulkošanas sistēma
 GenericName[nds]=Reeknerünnerstütt Översettensysteem
 GenericName[nl]=Computerondersteund vertaalsysteem
+GenericName[pa]=ਕੰਪਿਊਟਰ ਦੀ ਮੱਦਦ ਨਾਲ ਅਨੁਵਾਦ ਸਿਸਟਮ
 GenericName[pl]=System tłumaczeń wspomaganych komputerowo
 GenericName[pt]=Sistema de traduções auxiliado pelo computador
 GenericName[pt_BR]=Sistema de traduções auxiliado pelo computador
