@@ -106,6 +106,8 @@ qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
 qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmwindow.h TM::TMWindow)
 
+kde4_add_app_icon(lokalize_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-lokalize.png")
+
 kde4_add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
