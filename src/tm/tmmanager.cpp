@@ -79,7 +79,11 @@ void TMManagerWin::addDir()
     QString dir=KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
                         i18nc("@title:window","Select Directory to be scanned"));
     if (!dir.isEmpty())
-        scanRecursive(dir, DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString() );
+    {
+        QList<QUrl> dirs;
+        dirs.append(QUrl(dir));
+        scanRecursive(dirs,DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString());
+    }
 
 }
 

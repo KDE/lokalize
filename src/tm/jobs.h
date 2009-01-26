@@ -36,6 +36,7 @@
 #include "pos.h"
 
 #include <threadweaver/Job.h>
+#include <kjob.h>
 #include <kurl.h>
 #include <QDir>
 #include <QString>
@@ -87,7 +88,27 @@ struct TMEntry
 };
 
 
-bool scanRecursive(const QDir& dir, const QString& dbName);
+class RecursiveScanJob: public KJob
+{
+    Q_OBJECT
+public:
+    RecursiveScanJob(const QString& dbName,QObject* parent=0)
+        : KJob(parent)
+        , m_dbName(dbName)
+        {}
+    void setCount(int count){ setTotalAmount(KJob::Files,count); }
+    void start();
+public slots:
+    void scanJobFinished();
+private:
+    QString m_dbName;
+};
+
+///returns gross number of jobs started
+int scanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
+///wrapper. returns gross number of jobs started
+int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
+
 
 //called on startup
 class OpenDBJob: public ThreadWeaver::Job
@@ -250,25 +271,6 @@ public:
     ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
 
     QString m_dbName;
-};
-
-//helper
-class ScanFinishedJob: public ThreadWeaver::Job
-{
-    Q_OBJECT
-public:
-    explicit ScanFinishedJob(QWidget* view,QObject* parent=0)
-        : ThreadWeaver::Job(parent)
-        , m_view(view)
-    {}
-    ~ScanFinishedJob(){};
-
-    int priority()const{return SCANFINISHED;}
-
-protected:
-    void run (){};
-public:
-    QWidget* m_view;
 };
 
 

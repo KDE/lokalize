@@ -306,30 +306,7 @@ void ProjectWidget::slotItemActivated(const QModelIndex& idx)
                                     m_proxyModel->mapToSource(idx)
                                                           ).url());
 }
-/*
-static void openRecursive(ProjectLister* lister,
-                          const KUrlir& dir)
-{
-    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
-    int i=subDirs.size();
-    while(--i>=0)
-        ok=scanRecursive(QDir(dir.filePath(subDirs.at(i))))||ok;
 
-    QStringList filters("*.po");
-    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
-    i=files.size();
-    while(--i>=0)
-    {
-        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))));
-        job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-        ok=true;
-    }
-
-    return ok;
-}
-*/
 static void recursiveAdd(KUrl::List& list,
                          const QModelIndex& idx)
 {

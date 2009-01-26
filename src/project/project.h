@@ -47,18 +47,7 @@ class ProjectModel;
 namespace GlossaryNS{class Glossary;}
 namespace TM{class SelectJob;}
 class EditorWindow;
-// class WebQueryThread;
-// #include "webquerythread.h"
 #include <threadweaver/Job.h>
-
-
-/***
- * class to keep widgets that may be shared among MainWindows
- */
-// class UiObjects
-// {
-//     
-// };
 
 
 /**
@@ -75,10 +64,7 @@ class EditorWindow;
 class Project: public ProjectBase
 {
     Q_OBJECT
-
 public:
-//    typedef KSharedPtr<Project> Ptr;
-
     explicit Project();
     virtual ~Project();
 
@@ -115,8 +101,6 @@ public slots:
 #endif
 //     void populateKrossActions();
 
-    void deleteScanJob(ThreadWeaver::Job*);
-    void dispatchSelectJob(ThreadWeaver::Job*);//used fr safety: what mainwindow has been closed?
     void showTMManager();
     void showGlossary();
     void defineNewTerm(QString en=QString(),QString target=QString());
@@ -132,25 +116,11 @@ private:
 public:
     static Project* instance();
 
-// public:
-//     TMWordHash m_tmWordHash;
-
 private:
     QString m_path;
     ProjectModel* m_model;
     GlossaryNS::Glossary* m_glossary;
 
-    //TM scanning stats
-    ushort m_tmCount;
-    ushort m_tmAdded;
-    ushort m_tmNewVersions;//e1.english==e2.english, e1.target!=e2.target
-//     ushort m_tmTime;
-//     QTime m_timeTracker;
-
-
-//     QTime scanningTime;
-//     WebQueryController* m_webQueryController;
-//     WebQueryThread m_webQueryThread;
     QList<KAction*> m_projectActions;
     KRecentFilesAction* _openRecentProject;
 

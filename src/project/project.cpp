@@ -89,16 +89,10 @@ Project::Project()
     : ProjectBase()
     , m_model(0)
     , m_glossary(new GlossaryNS::Glossary(this))
-    , m_tmCount(0)
-//     , m_tmTime(0)
-    , m_tmAdded(0)
-    , m_tmNewVersions(0)
-
 {
     ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
 
     TM::OpenDBJob* openDBJob=new TM::OpenDBJob(projectID(),this);
-    connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 /*
@@ -131,8 +125,6 @@ void Project::initLater()
 Project::~Project()
 {
 // never called, see Project::save()
-
-//    delete m_model;
 }
 
 
@@ -282,68 +274,6 @@ void Project::populateGlossary()
 {
     m_glossary->load(glossaryPath());
 }
-
-
-
-void Project::deleteScanJob(ThreadWeaver::Job* job)
-{
-    TM::ScanJob* j=qobject_cast<TM::ScanJob*>(job);
-    if (j)
-    {
-        ++m_tmCount;
-        //m_tmTime+=;
-        m_tmAdded+=j->m_added;
-        m_tmNewVersions+=j->m_newVersions;
-
-        /*
-        kWarning() <<"Done scanning "<<j->m_url.prettyUrl()
-                   <<" time: "<<j->m_time
-                   <<" added: "<<j->m_added
-                   <<" newVersions: "<<j->m_newVersions
-                   <<endl
-                   <<" left: "<<ThreadWeaver::Weaver::instance()->queueLength()
-                   <<endl;
-        */
-    }
-    else
-    {
-        TM::ScanFinishedJob* end=qobject_cast<TM::ScanFinishedJob*>(job);
-
-        if (end)
-        {
-            QWidget* view=end->m_view;
-            if (!m_editors.contains(static_cast<EditorWindow*>(view)))
-                view=0;
-            KPassivePopup::message(KPassivePopup::Balloon,
-                                   i18nc("@title","Scanning complete"),
-                                   i18nc("@info","Files: %1, New pairs: %2, New versions: %3",
-                                        m_tmCount, m_tmAdded-m_tmNewVersions, m_tmNewVersions),
-                                   view);
-//             m_timeTracker.elapsed();
-
-            m_tmCount=0;
-            m_tmAdded=0;
-            m_tmNewVersions=0;
-        }
-    }
-
-    job->deleteLater();
-}
-
-void Project::dispatchSelectJob(ThreadWeaver::Job* job)
-{
-    job->deleteLater();
-}
-
-#if 0
-void Project::slotTMWordsIndexed(ThreadWeaver::Job* job)
-{
-    m_tmWordHash=static_cast<IndexWordsJob*>(job)->m_tmWordHash;
-    delete job;
-}
-#endif
-
-
 
 
 void Project::showGlossary()

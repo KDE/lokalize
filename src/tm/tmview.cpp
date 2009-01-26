@@ -148,41 +148,8 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
 
 void TMView::dropEvent(QDropEvent *event)
 {
-    bool ok=false;
-    Project* p=Project::instance();
-    const QString& pID=p->projectID();
-    int i=event->mimeData()->urls().size();
-    while(--i>=0)
-    {
-        QUrl u=event->mimeData()->urls().at(i);
-        if (!u.isValid() || u.isEmpty() || u.path().isEmpty() ) //NOTE is it qt bug?
-            continue;
-        if (u.path().endsWith(".po"))
-        {
-            ScanJob* job=new ScanJob(KUrl(u),pID);
-            connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-            connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-            ThreadWeaver::Weaver::instance()->enqueue(job);
-            ok=true;
-        }
-        else
-        {
-            ok=scanRecursive(QDir(u.path()),
-                            pID)||ok;
-                //kWarning()<<"dd "<<dir.entryList();
-        }
-    }
-    if (ok)
-    {
-        //dummy job for the finish indication
-        ScanFinishedJob* job=new ScanFinishedJob(this);
-        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-
+    if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
         event->acceptProposedAction();
-    }
-
 }
 
 #include <unistd.h>

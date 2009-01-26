@@ -38,6 +38,9 @@
 #include "version.h"
 
 #include <kdebug.h>
+#include <kglobal.h>
+#include <kjob.h>
+#include <kuiserverjobtracker.h>
 #include <kstandarddirs.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/Thread.h>
@@ -55,29 +58,80 @@ using namespace TM;
 #define TM_SEPARATOR '\b'
 #define TM_NOTAPPROVED 0x04
 
-bool TM::scanRecursive(const QDir& dir, const QString& dbName)
+
+void RecursiveScanJob::scanJobFinished()
 {
-    bool ok=false;
+    setProcessedAmount(KJob::Files,processedAmount(KJob::Files)+1);
+    emitPercent(processedAmount(KJob::Files),totalAmount(KJob::Files));
+    if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
+        emitResult();
+}
+
+void RecursiveScanJob::start()
+{
+    emit description(this,
+                i18n("Adding files to Lokalize translation memory"),
+                qMakePair(i18n("TM"), m_dbName));
+}
+
+//a wrapper. returns gross number of jobs started
+int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
+{
+    RecursiveScanJob* metaJob = new RecursiveScanJob(dbName);
+    KIO::getJobTracker()->registerJob(metaJob);
+    metaJob->start();
+
+    int count=0;
+    int i=urls.size();
+    while(--i>=0)
+    {
+        if (urls.at(i).isEmpty()
+            || urls.at(i).path().isEmpty() ) //NOTE is this a Qt bug?
+            continue;
+        if (urls.at(i).path().endsWith(".po"))
+        {
+            ScanJob* job=new ScanJob(KUrl(urls.at(i)),dbName);
+            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
+            ThreadWeaver::Weaver::instance()->enqueue(job);
+            ++count;
+        }
+        else
+        {
+            count+=scanRecursive(QDir(urls.at(i).path()),dbName,metaJob);
+        }
+    }
+    if (count)
+        metaJob->setCount(count);
+    else
+        metaJob->kill(KJob::EmitResult);
+
+    return count;
+}
+
+//returns gross number of jobs started
+int TM::scanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
+{
+    int count=0;
     QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
     int i=subDirs.size();
     while(--i>=0)
-        ok=TM::scanRecursive(QDir(dir.filePath(subDirs.at(i))),
-                        dbName)||ok;
+        count+=TM::scanRecursive(QDir(dir.filePath(subDirs.at(i))),dbName,metaJob);
 
     QStringList filters("*.po");
     QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
     i=files.size();
+    count+=i;
     while(--i>=0)
     {
-        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),
-                                dbName);
+        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),dbName);
         //job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        job->connect(job,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
         ThreadWeaver::Weaver::instance()->enqueue(job);
-        ok=true;
     }
 
-    return ok;
+    return count;
 }
 
 /**

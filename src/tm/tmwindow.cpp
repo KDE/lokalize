@@ -404,41 +404,8 @@ void TMWindow::dragEnterEvent(QDragEnterEvent* event)
 
 void TMWindow::dropEvent(QDropEvent *event)
 {
-    bool ok=false;
-    Project* p=Project::instance();
-    const QString& pID=p->projectID();
-    int i=event->mimeData()->urls().size();
-    while(--i>=0)
-    {
-        if (event->mimeData()->urls().at(i).isEmpty()
-            || event->mimeData()->urls().at(i).path().isEmpty() ) //NOTE is it qt bug?
-            continue;
-        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
-        {
-            ScanJob* job=new ScanJob(KUrl(event->mimeData()->urls().at(i)),pID);
-            connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-            connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-            ThreadWeaver::Weaver::instance()->enqueue(job);
-            ok=true;
-        }
-        else
-        {
-            ok=scanRecursive(QDir(event->mimeData()->urls().at(i).path()),
-                            pID)||ok;
-                //kWarning()<<"dd "<<dir.entryList();
-        }
-    }
-    if (ok)
-    {
-        //dummy job for the finish indication
-        ScanFinishedJob* job=new ScanFinishedJob(this);
-        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-
+    if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
         event->acceptProposedAction();
-    }
-
 }
 
 #include "translationmemoryadaptor.h"
