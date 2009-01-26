@@ -463,6 +463,8 @@ bool KAiderView::eventFilter(QObject* obj, QEvent* event)
         {
             int pos=t.position();
             QString str=_msgstrEdit->toPlainText();
+            //workaround for Qt/X11 bug: if Del on NumPad is pressed, then pos is beyond end
+            if (pos==str.size()) --pos;
             if(!str.isEmpty()
                 &&str.at(pos) == '\\'
                 &&!isMasked(str,pos))
