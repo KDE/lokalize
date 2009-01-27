@@ -63,19 +63,11 @@ using namespace Kross;
 
 WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
         : QDockWidget ( i18n("Web Queries"), parent)
-//         , m_generalBrowser(new QWidget(this))
         , m_catalog(catalog)
         , m_splitter(new QSplitter(this))
         , m_browser(new KTextBrowser(m_splitter))
-//         , m_boxLayout(new QHBoxLayout(m_generalBrowser))
-//         , m_flowLayout(new FlowLayout(FlowLayout::webquery,0,this,actions,0,10))
         , ui_queryControl(new Ui_QueryControl)
         , m_actions(actions)
-//         , m_rxClean("\\&|<[^>]*>")//cleaning regexp
-//         , m_rxSplit("\\W")//splitting regexp
-//         , m_normTitle(i18n("Glossary"))
-//         , m_hasInfoTitle(m_normTitle+" [*]")
-//         , m_hasInfo(false)
 
 {
     setObjectName("WebQueryView");
@@ -86,13 +78,10 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<KActio
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
     m_browser->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-//    connect(Project::instance(),SIGNAL(loaded()),this,SLOT(populateWebQueryActions()));
     QWidget* w=new QWidget(m_splitter);
     ui_queryControl->setupUi(w);
 
     QTimer::singleShot(0,this,SLOT(initLater()));
-//     setWidget(m_generalBrowser);
-
 }
 
 WebQueryView::~WebQueryView()

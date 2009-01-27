@@ -93,15 +93,15 @@ void CatalogImportPlugin::setHeader( const CatalogItem& item )
     d->_updateHeader=true;
 }
 
-ConversionStatus CatalogImportPlugin::open(const QString& file, GettextStorage* catalog)
+ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* catalog)
 {
     d->_catalog=catalog;
     startTransaction();
 
-    ConversionStatus result = load(file);
+    ConversionStatus result = load(device);
 
     if( result == OK || result == RECOVERED_PARSE_ERROR || result == RECOVERED_HEADER_ERROR )
-	commitTransaction(file);
+	commitTransaction();
 
     return result;
 }
@@ -116,7 +116,7 @@ void CatalogImportPlugin::startTransaction()
     d->_entries.clear();
 }
 
-void CatalogImportPlugin::commitTransaction(const QString& file)
+void CatalogImportPlugin::commitTransaction()
 {
     GettextStorage* catalog=d->_catalog;
 
@@ -128,19 +128,11 @@ void CatalogImportPlugin::commitTransaction(const QString& file)
     for( QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/ )
         entries.append( *it );
 
-    QVector<CatalogItem>& obsoleteEntries=catalog->m_obsoleteEntries;
-    for( QLinkedList<CatalogItem>::const_iterator it = d->_obsoleteEntries.begin(); it != d->_obsoleteEntries.end(); ++it/*,++i*/ )
-        obsoleteEntries.append( *it );
-
-    catalog->setUrl(KUrl(file));
-
-// 	if( d->_updateCodec )
-//             d->_catalog->setFileCodec(d->_codec);
+    //if( d->_updateCodec ) d->_catalog->setFileCodec(d->_codec);
     catalog->m_catalogExtraData=d->_catalogExtraData;
     catalog->m_generatedFromDocbook=d->_generatedFromDocbook;
     catalog->setHeader(d->_header);
-// 	if( d->_updateErrorList ) 
-// 	    d->_catalog->setErrorIndex(d->_errorList);
+    //if( d->_updateErrorList ) d->_catalog->setErrorIndex(d->_errorList);
 
     catalog->m_maxLineLength=_maxLineLength;
     catalog->m_trailingNewLines=_trailingNewLines;

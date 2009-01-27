@@ -60,6 +60,9 @@
 
 using namespace GettextCatalog;
 
+// GettextImportPlugin::GettextImportPlugin(ExtraDataSaver* extraDataSaver)
+//    : CatalogImportPlugin()
+//    , _extraDataSaver(extraDataSaver)
 GettextImportPlugin::GettextImportPlugin()
    : CatalogImportPlugin()
    , _rxMsgCtxt          ("^msgctxt\\s*\".*\"$")
@@ -86,37 +89,16 @@ GettextImportPlugin::GettextImportPlugin()
 {
 }
 
-ConversionStatus GettextImportPlugin::load(const QString& filename)
+ConversionStatus GettextImportPlugin::load(QIODevice* device)
 {
    _testBorked=false;
-   if (KDE_ISUNLIKELY(filename.isEmpty()))
-   {
-      kDebug() << "fatal error: empty filename to open";
-      return NO_FILE;
-   }
-
-   QFileInfo info(filename);
-
-   if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
-      return NO_FILE;
-
-   if(KDE_ISUNLIKELY( !info.isReadable() ))
-      return NO_PERMISSIONS;
-
-   QFile file(filename);
-
-   if (KDE_ISUNLIKELY( !file.open(QIODevice::ReadOnly) ))
-      return NO_PERMISSIONS;
-
-
-   QByteArray ba = file.readAll();
-   file.close();
+   
 
    // find codec for file
    //    bool hadCodec;
-   QTextCodec* codec=codecForArray( ba/*, &hadCodec*/ );
-
-   QTextStream stream(ba,QIODevice::ReadOnly);
+   QTextCodec* codec=codecForDevice(device/*, &hadCodec*/ );
+   QTextStream stream(device);
+   stream.seek(0);
    stream.setCodec(codec);
 
    //QIODevice *dev = stream.device();
@@ -124,7 +106,6 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 
    // if somethings goes wrong with the parsing, we don't have deleted the old contents
    CatalogItem tempHeader;
-   QStringList tempObsolete;
 
    //kDebug() << "start parsing...";
    QTime aaa;
@@ -188,6 +169,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
    bool recoveredError=false;
    bool docbookFile=false;
 
+   ExtraDataSaver _extraDataSaver;
    while( !stream.atEnd() )
    {
 
@@ -195,7 +177,7 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
       if(KDE_ISLIKELY(success==OK))
       {
          if( _obsolete )
-               tempObsolete.append(_comment);
+            _extraDataSaver(_comment);
          else
          {
             CatalogItem tempCatItem;
@@ -267,7 +249,6 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 
    }
 
-
    // TODO: can we check that there is no useful entry?
    if (KDE_ISUNLIKELY( !counter ))
    {
@@ -280,15 +261,14 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-   kDebug() << " done in " << aaa.elapsed() << endl;
+//    qWarning() << " done in " << aaa.elapsed() <<_extraDataSaver->extraData.size() << endl;
 
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
-   setCatalogExtraData(tempObsolete);
+   setCatalogExtraData(_extraDataSaver.extraData);
    setErrorIndex(errorIndex);
-   kWarning()<<"_trailingNewLines"<<_trailingNewLines;
-//   setFileCodec(codec);
-//   setMimeTypes( "text/x-gettext-translation" );
+   //setFileCodec(codec);
+   //setMimeTypes( "text/x-gettext-translation" );
 
    if (KDE_ISUNLIKELY( recoveredErrorInHeader ))
    {
@@ -307,9 +287,10 @@ ConversionStatus GettextImportPlugin::load(const QString& filename)
    }
 }
 
-QTextCodec* GettextImportPlugin::codecForArray(QByteArray& array/*, bool* hadCodec*/)
+QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCodec*/)
 {
-    QTextStream stream( array, QIODevice::ReadOnly );
+    QTextStream stream( device );
+    stream.seek(0);
     stream.setCodec( "UTF-8" );
     stream.setAutoDetectUnicode(true); //this way we can
     QTextCodec* codec=stream.codec();  //detect UTF-16
@@ -392,7 +373,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    _gettextPluralForm=false;
    _obsolete=false;
 
-
+   
    QStringList::Iterator msgstrIt=_msgstr.begin();
 
    while( !stream.atEnd() )

@@ -85,6 +85,9 @@ public:
     QString msgid(const DocPosition&, const bool noNewlines=false) const;
     QString msgstr(const DocPosition&, const bool noNewlines=false) const;
 
+    static QStringList supportedExtensions();
+    static bool extIsSupported(const QString& path);
+    
 public slots: //DBus interface
     QString source(const DocPosition& pos) const {return msgid(pos);}
     QString target(const DocPosition& pos) const {return msgstr(pos);}

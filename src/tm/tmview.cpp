@@ -155,13 +155,11 @@ void TMView::dropEvent(QDropEvent *event)
 #include <unistd.h>
 void TMView::slotFileLoaded(const KUrl& url)
 {
-    Project* p=Project::instance();
-    const QString& pID=p->projectID();
+    const QString& pID=Project::instance()->projectID();
 
     if (Settings::scanToTMOnOpen())
     {
         ScanJob* job=new ScanJob(url,pID);
-        connect(job,SIGNAL(failed(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         ThreadWeaver::Weaver::instance()->enqueue(job);
     }
@@ -186,23 +184,16 @@ void TMView::slotFileLoaded(const KUrl& url)
                                    m_catalog->url().pathOrUrl(),
                                    pos,
                                    pID);
-        //these two are for cleanup
-        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
-
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),
-                this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
-
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+        connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(j);
         m_jobs.append(j);
     }
 
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
-    connect(m_seq,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),
-            this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
+    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),m_seq,SLOT(deleteLater()));
+    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(m_seq);
     m_jobs.append(m_seq);
 }
@@ -338,13 +329,8 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
                                      m_catalog->url().pathOrUrl(),
                                      pos,
                                      Project::instance()->projectID());
-    //these two are for cleanup
-    connect(m_currentSelectJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
-
-    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),
-            this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
-
+    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),m_currentSelectJob,SLOT(deleteLater()));
+    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(m_currentSelectJob);
 }
 
@@ -404,13 +390,8 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
                                            catalog.msgctxt(m_pos.entry),
                                            catalog.url().pathOrUrl(),
                                            m_pos,db);
-                //these two are for cleanup
-                connect(j,SIGNAL(failed(ThreadWeaver::Job*)),p,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-                connect(j,SIGNAL(done(ThreadWeaver::Job*)),p,SLOT(dispatchSelectJob(ThreadWeaver::Job*)));
-
-                connect(j,SIGNAL(done(ThreadWeaver::Job*)),
-                    this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
-
+                connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+                connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
                 ThreadWeaver::Weaver::instance()->enqueue(j);
                 m_jobs.append(j);
             }

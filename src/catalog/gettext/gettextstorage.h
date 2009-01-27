@@ -30,18 +30,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Implementation of Gettext PO format support
  */
 namespace GettextCatalog {
-
+    
 /**
  * @short Implementation of storage for Gettext PO
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-class GettextStorage : public CatalogStorage
+class GettextStorage: public CatalogStorage
 {
 public:
     GettextStorage();
     ~GettextStorage();
 
-    bool load(const KUrl& url);
+    bool load(QIODevice* device/*, bool readonly=false*/);
     bool save(const KUrl& url);
 
     int size() const;
@@ -94,10 +94,10 @@ private:
     bool m_generatedFromDocbook;
 
     QStringList m_catalogExtraData;
+    QByteArray m_catalogExtraDataCompressed;
 
     friend class CatalogImportPlugin;
     friend class GettextExportPlugin;
-
 };
 
 }

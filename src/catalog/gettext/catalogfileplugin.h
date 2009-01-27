@@ -95,7 +95,7 @@ public:
      * @param catalog  the catalog to be filled
      * @return result of the operation
      */
-    ConversionStatus open(const QString& file, GettextStorage* catalog);
+    ConversionStatus open(QIODevice*, GettextStorage* catalog);
 
     /**
     * Reimplement this method to load the local file passed as an argument.
@@ -107,7 +107,7 @@ public:
     * @param file file to be loaded
     * @param mimetype the expected MIME type (the type used for plugin selection
     */
-    virtual ConversionStatus load(const QString& file) = 0;
+    virtual ConversionStatus load(QIODevice*) = 0;
 
 protected:
     /** Append a new catalog item, either as normal or as an obsolete one
@@ -130,7 +130,7 @@ protected:
     /** start a new transaction. You should never call this method. */
     void startTransaction();
     /** commit the data in the current transaction. You should never call this method. */
-    void commitTransaction(const QString& a=QString());
+    void commitTransaction();
 
     short _maxLineLength;
     short _trailingNewLines;

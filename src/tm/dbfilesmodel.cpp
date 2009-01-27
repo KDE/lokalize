@@ -87,17 +87,12 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
     if (KDE_ISUNLIKELY( !QSqlDatabase::contains(res) ))
     {
         OpenDBJob* openDBJob=new OpenDBJob(res,0);
-        connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),
-                Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),
-                Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
         ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
     }
 
     if (res==Project::instance()->projectID() && !projectDB)
-    {
         projectDB=new QPersistentModelIndex(index);
-    }
 
     return res;
 }

@@ -98,8 +98,7 @@ void TMManagerWin::addDB()
     if (dialog.exec()&&!ui_dbParams.name->text().isEmpty())
     {
         OpenDBJob* openDBJob=new OpenDBJob(ui_dbParams.name->text(),this);
-        connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
+        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
 
         openDBJob->m_setParams=true;
         openDBJob->m_markup=ui_dbParams.markup->text();

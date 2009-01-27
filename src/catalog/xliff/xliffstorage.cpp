@@ -58,32 +58,15 @@ XliffStorage::~XliffStorage()
 
 //BEGIN OPEN/SAVE
 
-bool XliffStorage::load(const KUrl& url)
+bool XliffStorage::load(QIODevice* device)
 {
     QTime chrono;chrono.start();
-
-    QString target;
-
-    if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
-        return false;
-
-//     QFileInfo info( filename );
-//     if ( !info.exists( ) || info.isDir( ) )
-//         return NULL; // NO_FILE;
-//     if ( !info.isReadable( ) )
-//         return NULL; // NO_PERMISSIONS;
-
-    QFile file(target);
-    if ( !file.open( QIODevice::ReadOnly ) )
-        return false;
 
     //delete m_doc;m_doc=new QDomDocument();
 
     QString errorMsg;
     //int errorLine, errorColumn;
-    bool success=m_doc.setContent( &file, false, &errorMsg/*, errorLine, errorColumn*/);
-    file.close();
-    KIO::NetAccess::removeTempFile( target );
+    bool success=m_doc.setContent( device, false, &errorMsg/*, errorLine, errorColumn*/);
 
     if (!success)
     {

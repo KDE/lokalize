@@ -34,7 +34,7 @@ public:
     XliffStorage();
     ~XliffStorage();
 
-    bool load(const KUrl& url);
+    bool load(QIODevice* device);
     bool save(const KUrl& url);
 
     int size() const;

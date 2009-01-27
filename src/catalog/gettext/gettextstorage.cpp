@@ -41,6 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <kio/netaccess.h>
 #include <ktemporaryfile.h>
+#include <kautosavefile.h>
 
 // static QString GNUPluralForms(const QString& lang);
 
@@ -65,17 +66,12 @@ GettextStorage::~GettextStorage()
 
 //BEGIN OPEN/SAVE
 
-bool GettextStorage::load(const KUrl& url)
+bool GettextStorage::load(QIODevice* device/*, bool readonly*/)
 {
+    //GettextImportPlugin importer=GettextImportPlugin(readonly?(new ExtraDataSaver()):(new ExtraDataListSaver()));
     GettextImportPlugin importer;
     ConversionStatus status = OK;
-    QString target;
-
-    if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
-        return false;
-
-    status = importer.open(target,this);
-    KIO::NetAccess::removeTempFile( target );
+    status = importer.open(device,this);
 
     //for langs with more than 2 forms
     //we create any form-entries additionally needed
@@ -97,10 +93,10 @@ bool GettextStorage::load(const KUrl& url)
         ++i;
 
     }
-
+    
+    //qCompress(m_storage->m_catalogExtraData.join("\n\n").toUtf8(),9);
 
     return status==OK;
-
 }
 
 bool GettextStorage::save(const KUrl& url)
@@ -146,8 +142,9 @@ bool GettextStorage::save(const KUrl& url)
         return false;
 
     return true;
-
 }
+
+
 //END OPEN/SAVE
 
 //BEGIN STORAGE TRANSLATION

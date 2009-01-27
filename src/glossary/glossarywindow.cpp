@@ -249,7 +249,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
         btnsLayout->addWidget(addBtn);
         btnsLayout->addWidget(rmBtn);
         btnsLayout->addWidget(restoreBtn);
-        btns->setLayout(btnsLayout);
 
         layout->addWidget(btns);
         //QWidget::setTabOrder(m_browser,addBtn);
@@ -259,7 +258,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     }
     QWidget::setTabOrder(m_lineEdit,m_browser);
 
-    w->setLayout(layout);
     splitter->addWidget(w);
 
     //right
@@ -275,29 +273,22 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_subjectField=ui_termEdit.subjectField;
     m_definition=ui_termEdit.definition;
 
-    connect (m_english,SIGNAL(textChanged()),
-             this,SLOT(chTerm()));
-    connect (m_target,SIGNAL(textChanged()),
-             this,SLOT(chTerm()));
-    connect (m_definition,SIGNAL(textChanged()),
-             this,SLOT(chTerm()));
-    connect (m_subjectField,SIGNAL(editTextChanged(QString)),
-             this,SLOT(chTerm()));
+    connect (m_english,SIGNAL(textChanged()),   this,SLOT(chTerm()));
+    connect (m_target,SIGNAL(textChanged()),    this,SLOT(chTerm()));
+    connect (m_definition,SIGNAL(textChanged()),this,SLOT(chTerm()));
+    connect (m_subjectField,SIGNAL(editTextChanged(QString)),this,SLOT(chTerm()));
 
 
     //m_subjectField->addItems(Project::instance()->glossary()->subjectFields);
     m_subjectField->setModel(new SubjectFieldModel(this));
-    connect(m_browser,SIGNAL(currentChanged(int)),
-            this,SLOT(currentChanged(int)));
-    connect(m_browser,SIGNAL(clicked(QModelIndex)),
-            m_english,SLOT(setFocus()));
+    connect(m_browser,SIGNAL(currentChanged(int)), this,SLOT(currentChanged(int)));
+    connect(m_browser,SIGNAL(clicked(QModelIndex)),m_english,SLOT(setFocus()));
 
 
     setAutoSaveSettings(QLatin1String("GlossaryWindow"),true);
     Glossary* glo=Project::instance()->glossary();
     setCaption(i18nc("@title:window","Glossary"),
               !glo->changedIds.isEmpty()||!glo->addedIds.isEmpty()||!glo->removedIds.isEmpty());
-//    QTimer::singleShot(0,this,SLOT(initLater()));
 }
 
 

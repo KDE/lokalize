@@ -85,10 +85,9 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
     int i=urls.size();
     while(--i>=0)
     {
-        if (urls.at(i).isEmpty()
-            || urls.at(i).path().isEmpty() ) //NOTE is this a Qt bug?
+        if (urls.at(i).isEmpty() || urls.at(i).path().isEmpty() ) //NOTE is this a Qt bug?
             continue;
-        if (urls.at(i).path().endsWith(".po"))
+        if (Catalog::extIsSupported(urls.at(i).path()))
         {
             ScanJob* job=new ScanJob(KUrl(urls.at(i)),dbName);
             QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
@@ -118,14 +117,16 @@ int TM::scanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
     while(--i>=0)
         count+=TM::scanRecursive(QDir(dir.filePath(subDirs.at(i))),dbName,metaJob);
 
-    QStringList filters("*.po");
+    QStringList filters=Catalog::supportedExtensions();
+    i=filters.size();
+    while(--i>=0)
+        filters[i].prepend('*');
     QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
     i=files.size();
     count+=i;
     while(--i>=0)
     {
         ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),dbName);
-        //job->connect(job,SIGNAL(failed(ThreadWeaver::Job*)),Project::instance(),SLOT(deleteScanJob(ThreadWeaver::Job*)));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
         ThreadWeaver::Weaver::instance()->enqueue(job);

@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file contains parts of KBabel code
 
   Copyright (C) 2002 by Stanislav Visnovsky <visnovsky@kde.org>
@@ -40,7 +40,6 @@
 #include <QTextStream>
 
 namespace GettextCatalog {
-//namespace KBabel {
 class GettextStorage;
 
 

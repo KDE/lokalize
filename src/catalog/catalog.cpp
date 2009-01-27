@@ -70,6 +70,27 @@
 #include <ktemporaryfile.h>
 
 
+static const char* extensions[]={".po",".pot",".xlf"};
+
+QStringList Catalog::supportedExtensions()
+{
+    QStringList result;
+    int i=sizeof(extensions)/sizeof(char*);
+    while (--i>=0)
+        result.append(QString(extensions[i]));
+    return result;
+}
+
+bool Catalog::extIsSupported(const QString& path)
+{
+    QStringList ext=supportedExtensions();
+    int i=ext.size();
+    while (--i>=0)
+        if (path.endsWith(ext.at(i)))
+                break;
+    return i!=-1;
+}
+
 Catalog::Catalog(QObject *parent)
     : QUndoStack(parent)
     , d(new CatalogPrivate())
@@ -229,6 +250,21 @@ QString Catalog::mimetype()
 
 bool Catalog::loadFromUrl(const KUrl& url)
 {
+    if (url.isLocalFile())
+    {
+        QFileInfo info(url.fileName());
+        if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
+            ;
+//             return NO_FILE;
+        if(KDE_ISUNLIKELY( !info.isReadable() ))
+            ;
+//             return NO_PERMISSIONS;
+        if(KDE_ISUNLIKELY( !info.isWritable() ))
+            ;
+//             return NO_PERMISSIONS;
+//         if (KDE_ISUNLIKELY( !file.open(QIODevice::ReadOnly) ))
+//             return NO_PERMISSIONS;
+    }
     CatalogStorage* storage=0;
 
     if (url.fileName().endsWith(".po")||url.fileName().endsWith(".pot"))
@@ -241,14 +277,28 @@ bool Catalog::loadFromUrl(const KUrl& url)
         return false;
 
     QTime a;a.start();
-    if (KDE_ISUNLIKELY( !storage->load(url) ))
+
+    QString target;
+    if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
         return false;
-    kWarning() <<"file opened "<<a.elapsed();
+
+    QFile file(target);
+    file.open(QIODevice::ReadOnly);
+    bool ok=storage->load(&file);
+    file.close();
+    KIO::NetAccess::removeTempFile(target);
+
+    kWarning() <<"file opened in"<<a.elapsed();
+
+    if (KDE_ISUNLIKELY(!ok))
+    {
+        delete storage;
+        return false;
+    }
 
     //ok...
     clear();
     d->_url=url;
-    //Plurals
     d->_numberOfPluralForms = storage->numberOfPluralForms();
 
     //index cache TODO profile?

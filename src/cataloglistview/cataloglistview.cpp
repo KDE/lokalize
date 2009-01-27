@@ -62,7 +62,7 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     layout->setContentsMargins(0,0,0,0);
     KLineEdit* m_lineEdit=new KLineEdit(w);
     m_lineEdit->setClearButtonShown(true);
-    //m_lineEdit->setClickMessage(i18n("Quick search...")); TODO KDE 4.3
+    m_lineEdit->setClickMessage(i18n("Quick search..."));
 //     connect (m_lineEdit,SIGNAL(textChanged(QString)),
 //              m_proxyModel,SLOT(setFilterFixedString(QString)));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),
@@ -73,14 +73,11 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_browser);
 
-    w->setLayout(layout);
-
     setWidget(w);
 
     connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
     connect(catalog,SIGNAL(indexChanged(int)),this,SLOT(emitCurrent()));
 
-    //connect(m_browser,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
     connect(m_browser,SIGNAL(clicked(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
     m_browser->setRootIsDecorated(false);
     m_browser->setAllColumnsShowFocus(true);

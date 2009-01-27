@@ -73,7 +73,7 @@ const QString& CatalogItem::msgctxt(const bool noNewlines) const
         return d->_msgctxt;
 }
 
-const QString& CatalogItem::msgid(const int form, const bool /*noNewlines*/) const
+const QString& CatalogItem::msgid(const int form) const
 {
     return d->msgid(form);
 }
@@ -83,7 +83,7 @@ const QVector<QString>& CatalogItem::msgidPlural(const bool /*noNewlines*/) cons
     return d->_msgidPlural;
 }
 
-const QString& CatalogItem::msgstr(const int form, const bool /*noNewlines*/) const
+const QString& CatalogItem::msgstr(const int form) const
 {
     if (KDE_ISLIKELY (form<d->_msgstrPlural.size()))
         return d->_msgstrPlural.at(form);
@@ -118,8 +118,6 @@ void CatalogItem::setMsgid(const QString& msg, const int form)
         d->_msgidPlural[form]=msg;
     else
         d->_msgidPlural.append(msg);
-//      d->_msgid=msg;
-//      d->_msgid.squeeze();
 }
 
 void CatalogItem::setMsgidPlural(const QStringList& msg)
@@ -145,7 +143,6 @@ void CatalogItem::setMsgid(const QVector<QString>& msg)
 
 void CatalogItem::setMsgstr(const QString& msg, const int form)
 {
-//     d->_msgstr=msg;
     d->_msgstrPlural[form]=msg;
 }
 

@@ -138,9 +138,7 @@ void Project::load(const QString &file)
     if (!m_path.isEmpty())
     {
         TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
-        connect(closeDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-        connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-
+        connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
     }
     ThreadWeaver::Weaver::instance()->finish();//more safety
 
@@ -156,8 +154,7 @@ void Project::load(const QString &file)
 
 
     TM::OpenDBJob* openDBJob=new TM::OpenDBJob(projectID(),this);
-    connect(openDBJob,SIGNAL(failed(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(deleteScanJob(ThreadWeaver::Job*)));
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
 
 
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);

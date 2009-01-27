@@ -45,7 +45,23 @@
 class QTextCodec;
 
 namespace GettextCatalog {
- 
+
+class ExtraDataSaver
+{
+public:
+    ExtraDataSaver(){}
+    virtual ~ExtraDataSaver(){}
+    void operator()(const QString& comment){extraData.append(comment);}
+    QStringList extraData;
+};
+
+class ExtraDataSkipSaver:public ExtraDataSaver
+{
+public:
+    ExtraDataSkipSaver(){}
+    void operator()(const QString&){};
+};
+
 /**
  * The class for importing GNU gettext PO files. 
  * As an extra information, it stores the list of all obsolete entries.
@@ -56,11 +72,13 @@ class GettextImportPlugin: public CatalogImportPlugin
 {
 public:
     GettextImportPlugin();
-    virtual ConversionStatus load(const QString& file);
-    virtual const QString id() {return "GNU gettext";}
+    //GettextImportPlugin(ExtraDataSaver* extraDataSaver);
+    //~GettextImportPlugin(){delete _extraDataSaver;}
+    ConversionStatus load(QIODevice*);
+    const QString id() {return "GNU gettext";}
 
 private:
-    QTextCodec* codecForArray(QByteArray&/*, bool* hadCodec*/);
+    QTextCodec* codecForDevice(QIODevice*/*, bool* hadCodec*/);
     ConversionStatus readHeader(QTextStream& stream);
     ConversionStatus readEntry(QTextStream& stream);
 
@@ -72,6 +90,8 @@ private:
     bool _gettextPluralForm;
     bool _testBorked;
     bool _obsolete;
+    
+    //ExtraDataSaver* _extraDataSaver;
 
     QRegExp _rxMsgCtxt;
     QRegExp _rxMsgId;
