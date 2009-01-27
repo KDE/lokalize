@@ -53,7 +53,7 @@ class GettextExportPlugin
 {
 public:
     GettextExportPlugin(short wrapWidth=-1, short trailingNewLines=1);
-    ConversionStatus save(const QString& file,
+    ConversionStatus save(QIODevice* device,
                           const GettextStorage* catalog);
 
 private:

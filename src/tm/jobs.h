@@ -106,8 +106,11 @@ private:
 
 ///returns gross number of jobs started
 int scanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
+
 ///wrapper. returns gross number of jobs started
 int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
+
+bool dragIsAcceptable(const QList<QUrl>& urls);
 
 
 //called on startup

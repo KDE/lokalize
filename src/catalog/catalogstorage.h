@@ -42,7 +42,7 @@ public:
     virtual ~CatalogStorage();
 
     virtual bool load(QIODevice* device)=0;
-    virtual bool save(const KUrl& url=KUrl())=0;
+    virtual bool save(QIODevice* device)=0;
 
     virtual int size() const=0;
     int numberOfEntries()const{return size();}

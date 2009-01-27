@@ -99,11 +99,8 @@ bool GettextStorage::load(QIODevice* device/*, bool readonly*/)
     return status==OK;
 }
 
-bool GettextStorage::save(const KUrl& url)
+bool GettextStorage::save(QIODevice* device)
 {
-    bool remote=false;
-    KTemporaryFile tmpFile;
-
     QString header=m_header.msgstr();
     QString comment=m_header.comment();
     updateHeader(header,
@@ -119,31 +116,10 @@ bool GettextStorage::save(const KUrl& url)
     GettextExportPlugin exporter(m_maxLineLength>70?m_maxLineLength:-1, m_trailingNewLines);// this is kinda hackish...
 
     ConversionStatus status = OK;
+    status = exporter.save(device/*x-gettext-translation*/,this);
 
-    QString localFile;
-    if (KDE_ISLIKELY( url.isLocalFile() ))
-    {
-        localFile = url.path();
-        if (!QFile::exists(url.directory()))
-            KIO::NetAccess::mkdir(url.upUrl(),0);//recursion?..
-    }
-    else
-    {
-        remote=true;
-        tmpFile.open();
-        localFile=tmpFile.fileName();
-        tmpFile.close();
-    }
-
-    //kWarning() << "SAVE NAME "<<localFile;
-    status = exporter.save(localFile/*x-gettext-translation*/,this);
-
-    if (KDE_ISUNLIKELY( status!=OK || (remote && !KIO::NetAccess::upload( localFile, url, NULL) )))
-        return false;
-
-    return true;
+    return status==OK;
 }
-
 
 //END OPEN/SAVE
 

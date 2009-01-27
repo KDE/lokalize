@@ -42,7 +42,7 @@ public:
     ~GettextStorage();
 
     bool load(QIODevice* device/*, bool readonly=false*/);
-    bool save(const KUrl& url);
+    bool save(QIODevice* device);
 
     int size() const;
     void clear();

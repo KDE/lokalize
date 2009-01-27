@@ -140,41 +140,11 @@ bool XliffStorage::load(QIODevice* device)
 
 }
 
-bool XliffStorage::save(const KUrl& url)
+bool XliffStorage::save(QIODevice* device)
 {
-    bool remote=false;
-
-    //updateHeader(true);
-
-
-    QString localFile;
-    if (KDE_ISLIKELY( url.isLocalFile() ))
-    {
-        localFile = url.path();
-        if (!QFile::exists(url.directory()))
-            KIO::NetAccess::mkdir(url.upUrl(),0);//TODO recursion?
-    }
-    else
-    {
-        KTemporaryFile tmpFile;
-        remote=true;
-        tmpFile.open();
-        localFile=tmpFile.fileName();
-        tmpFile.close();
-    }
-
-
-    QFile file(localFile);
-    if (!file.open(QIODevice::WriteOnly))
-        return false;
-
-    file.write(m_doc.toByteArray(/*indent*/2));
-
-    if (KDE_ISUNLIKELY( remote && !KIO::NetAccess::upload( localFile, url, NULL) ))
-        return false;
-
+    QTextStream stream(device);
+    m_doc.save(stream,2);
     return true;
-
 }
 //END OPEN/SAVE
 

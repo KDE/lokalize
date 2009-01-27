@@ -381,25 +381,8 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
 
 void TMWindow::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(!event->mimeData()->hasUrls())
-        return;
-
-    int i=event->mimeData()->urls().size();
-    while(--i>=0)
-    {
-        if (event->mimeData()->urls().at(i).path().endsWith(".po"))
-        {
-            event->acceptProposedAction();
-            return;
-        }
-        QFileInfo info(event->mimeData()->urls().at(i).path());
-        if (info.exists() && info.isDir())
-        {
-            event->acceptProposedAction();
-            return;
-        }
-    }
-    //kWarning() << " " <<;
+    if(dragIsAcceptable(event->mimeData()->urls()))
+        event->acceptProposedAction();
 }
 
 void TMWindow::dropEvent(QDropEvent *event)

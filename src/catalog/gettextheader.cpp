@@ -251,7 +251,6 @@ void updateHeader(QString& header,
     QStringList::Iterator it,ait;
     QString temp;
 
-
     bool found=false;
 
     temp="Last-Translator: "+Settings::authorName();

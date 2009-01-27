@@ -135,6 +135,23 @@ int TM::scanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
     return count;
 }
 
+bool TM::dragIsAcceptable(const QList<QUrl>& urls)
+{
+    int i=urls.size();
+    while(--i>=0)
+    {
+        bool ok=Catalog::extIsSupported(urls.at(i).path());
+        if (!ok)
+        {
+            QFileInfo info(urls.at(i).path());
+            ok=info.exists() && info.isDir();
+        }
+        if (ok)
+            return true;
+    }
+    return false;
+}
+
 /**
  * splits string into words, removing any markup
  *

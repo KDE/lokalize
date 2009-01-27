@@ -88,7 +88,7 @@ KUrl MergeView::url()
 
 void MergeView::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
+    if(event->mimeData()->hasUrls() && Catalog::extIsSupported(event->mimeData()->urls().first().path()))
         event->acceptProposedAction();
 }
 

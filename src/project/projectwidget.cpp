@@ -290,11 +290,8 @@ KUrl ProjectWidget::currentItem() const
 bool ProjectWidget::currentIsCatalog() const
 {
     //remember 'bout empty state
-    QString path=currentItem().path();
-    return path.endsWith(".po")
-        ||path.endsWith(".pot");
+    return Catalog::extIsSupported(currentItem().path());
 }
-
 
 
 void ProjectWidget::slotItemActivated(const QModelIndex& idx)

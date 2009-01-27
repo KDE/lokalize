@@ -59,22 +59,10 @@ GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines
 {
 }
 
-ConversionStatus GettextExportPlugin::save(const QString& localFile,
+ConversionStatus GettextExportPlugin::save(QIODevice* device,
                                            const GettextStorage* catalog)
 {
-    //KSaveFile file(localFile);
-    QFile file(localFile);
-
-    if (!file.open(QIODevice::WriteOnly))
-    {
-        //emit signalError(i18n("Wasn't able to open file %1",filename.ascii()));
-        return OS_ERROR;
-    }
-    //kWarning() << "SAVE NAME "<<localFile;
-
-    QTextStream stream(&file);
-
-
+    QTextStream stream(device);
 
 #if 0
 //legacy
@@ -180,8 +168,6 @@ ConversionStatus GettextExportPlugin::save(const QString& localFile,
     int i=m_trailingNewLines+1;
     while (--i>=0)
         stream << '\n';
-
-    file.close();
 
     return OK;
 }

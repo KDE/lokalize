@@ -122,28 +122,8 @@ void TMView::initLater()
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(!event->mimeData()->hasUrls())
-        return;
-
-    int i=event->mimeData()->urls().size();
-    while(--i>=0)
-    {
-        QUrl u=event->mimeData()->urls().at(i);
-        if (!u.isValid() || u.isEmpty() || u.path().isEmpty() )
-            continue;
-        if (u.path().endsWith(".po"))
-        {
-            event->acceptProposedAction();
-            return;
-        }
-        QFileInfo info(u.path());
-        if (info.exists() && info.isDir())
-        {
-            event->acceptProposedAction();
-            return;
-        }
-    }
-    //kWarning() << " " <<;
+    if(dragIsAcceptable(event->mimeData()->urls()))
+        event->acceptProposedAction();
 }
 
 void TMView::dropEvent(QDropEvent *event)

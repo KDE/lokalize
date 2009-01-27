@@ -342,19 +342,43 @@ bool Catalog::saveToUrl(KUrl url)
     else
         nameChanged=true;
 
-    if (KDE_ISLIKELY( m_storage->save(url) ))
+
+    bool remote=url.isLocalFile();
+    QFile* file;
+    if (KDE_ISUNLIKELY( !remote ))
     {
-        setClean();
-        if (nameChanged)
-            d->_url=url;
+        file=new KTemporaryFile();
+    }
+    else
+    {
+        if (!QFile::exists(url.directory()))
+            if (!QDir::root().mkpath(url.directory()))
+                return false;
+        file=new QFile(url.path());
+    }
+    file->deleteLater(); //kung-fu ;)
+    if (KDE_ISUNLIKELY( !file->open(QIODevice::WriteOnly) )) //i18n("Wasn't able to open file %1",filename.ascii());
+        return false;
+  
+    if (KDE_ISUNLIKELY( !m_storage->save(file) ))
+        return false;
 
-//         Settings::self()->setCurrentGroup("Bookmarks");
-//         Settings::self()->addItemIntList(d->_url.url(),d->_bookmarkIndex);
+    QString localFile=file->fileName();
+    file->close();
+    if (KDE_ISUNLIKELY(remote && !KIO::NetAccess::upload(localFile, url, NULL) ))
+        return false;
 
-        emit signalFileSaved();
-        emit signalFileSaved(url);
-        return true;
-    }/*
+    setClean(); //undo/redo
+    if (nameChanged)
+        d->_url=url;
+
+    //Settings::self()->setCurrentGroup("Bookmarks");
+    //Settings::self()->addItemIntList(d->_url.url(),d->_bookmarkIndex);
+
+    emit signalFileSaved();
+    emit signalFileSaved(url);
+    return true;
+/*
     else if (status==NO_PERMISSIONS)
     {
         if (KMessageBox::warningContinueCancel(this,
@@ -365,8 +389,6 @@ bool Catalog::saveToUrl(KUrl url)
 
     }
 */
-    return false;
-
 }
 //END OPEN/SAVE
 
