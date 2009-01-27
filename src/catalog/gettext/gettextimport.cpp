@@ -415,7 +415,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
        // remember wrapping state to save file nicely
        int len=line.length();
-       if (_maxLineLength<len)
+       if (len && _maxLineLength<len && line.at(0)!='#')
            _maxLineLength=len;
        if (len)
           _trailingNewLines=0;
