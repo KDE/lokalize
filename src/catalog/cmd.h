@@ -137,6 +137,7 @@ public:
     int id () const {return DeleteTag;}
     void undo();
     void redo();
+    TagRange tag()const{return _tag;}//used to get proprties of deleted tag
 private:
     Catalog* _catalog;
     TagRange _tag;

@@ -566,16 +566,112 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
     //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
 #ifdef XLIFF
-    QString target=_catalog->targetWithTags(pos).string;
 
+    QString target=_catalog->targetWithTags(pos).string;
+//BEGIN XLIFF markup handling
     //protect from tag removal
-    if ((charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL))
-       ||(charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL)))
+    bool markupRemoved=charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
+    bool markupAdded=charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL);
+    if (markupRemoved || markupAdded)
     {
-        //refresh
+        CatalogString targetWithTags=_catalog->targetWithTags(_currentPos);
+        //special case when the user presses Del
+        if (!charsAdded && charsRemoved==1)
+        {
+            int i=targetWithTags.ranges.size();
+            while(--i>=0)
+            {
+                if (targetWithTags.ranges.at(i).start==offset || targetWithTags.ranges.at(i).end==offset)
+                {
+                    pos.offset=targetWithTags.ranges.at(i).start;
+                    _catalog->push(new DelTagCmd(_catalog,pos));
+                }
+            }
+        }
+        else if (!markupAdded) //check if all { plus } tags were selected
+        {
+            int lenDecrement=0;
+            QMap<int,int> tagPlaces;//>0 if both start and end parts of tag were deleted
+                                    //1 means this is start, 2 means this is end
+            int t=offset;
+            while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(charsRemoved+offset))
+                tagPlaces[t++]=false;
+            
+            int i=targetWithTags.ranges.size();
+            while(--i>=0)
+            {
+                qWarning()<<targetWithTags.ranges.at(i).getElementName();
+                if (tagPlaces.contains(targetWithTags.ranges.at(i).start)
+                    &&tagPlaces.contains(targetWithTags.ranges.at(i).end))
+                {
+                    qWarning()<<"start"<<targetWithTags.ranges.at(i).start<<"end"<<targetWithTags.ranges.at(i).end;
+                    tagPlaces[targetWithTags.ranges.at(i).end]=2;
+                    tagPlaces[targetWithTags.ranges.at(i).start]=1;
+                }
+            }
+
+            QMap<int,int>::const_iterator it = tagPlaces.constBegin();
+            while (it != tagPlaces.constEnd())
+            {
+                qWarning()<<it.key()<<it.value();
+                if (!it.value())
+                    break;
+                ++it;
+            }
+            if (it==tagPlaces.constEnd())//all indexes are ok.
+            {
+                kWarning()<<"all indexes are ok";
+                it = tagPlaces.constBegin();
+                while (it != tagPlaces.constEnd())
+                {
+                    if (it.value()==1)
+                    {
+                        pos.offset=it.key();
+                        DelTagCmd* cmd=new DelTagCmd(_catalog,pos);
+                        _catalog->push(cmd);
+                        //lenDecrement+=1+cmd->tag().isPaired();
+                        qWarning()<<"lenDecrement"<<lenDecrement;
+                    }
+                    ++it;
+                }
+                //charsRemoved-=lenDecrement;
+                //qWarning()<<"charsRemoved"<<charsRemoved<<"offset"<<offset;
+                pos.offset=offset;
+                if (charsRemoved)
+                {
+                    QString rText=target.mid(offset,charsRemoved);
+                    rText.remove(TAGRANGE_IMAGE_SYMBOL);
+                    qWarning()<<"rText"<<rText<<"offset"<<offset;
+                    _catalog->push(new DelTextCmd(_catalog,pos,rText));
+                }
+                if (charsAdded)
+                    _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
+
+            }
+        }
+            
+            /*
+    CatalogString sourceWithTags=_catalog->sourceWithTags(_currentPos);
+    int count=sourceWithTags.ranges.size();
+    if (count)
+    {
+        QMap<QString,int> tagIdToIndex=_catalog->targetWithTags(_currentPos).tagIdToIndex();
+        bool hasActive=false;
+      
+        
+        
+        TagRange tag=sourceWithTags.ranges.at(txt->data().toInt());
+        QTextCursor cursor=_msgstrEdit->textCursor();
+        tag.start=qMin(cursor.anchor(),cursor.position());
+        tag.end=qMax(cursor.anchor(),cursor.position());
+        _catalog->push(new InsTagCmd(_catalog,_currentPos,tag));
+
+        */
+
         refreshMsgEdit(/*keepCursor*/true,_catalog->sourceWithTags(pos));
         return;
     }
+//END XLIFF markup handling
 #endif
 
     m_modifiedAfterFind=true;

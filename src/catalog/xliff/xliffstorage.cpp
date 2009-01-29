@@ -256,19 +256,26 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     {
                         //text is fragmented into several QDomCharacterData
                         int localDelLen=cData.size()-localStartPos;
+                        qWarning()<<"text is fragmented into several QDomCharacterData. localDelLen:"<<localDelLen<<"cData:"<<cData;
                         c.deleteData(localStartPos,localDelLen);
                         //setup data for future iterations
                         data->lengthOfStringToRemove=data->lengthOfStringToRemove-localDelLen;
-                        data->pos=startingPos;
+                        //data->pos=startingPos;
+                        qWarning()<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
                     }
                     else
+                    {
+                        qWarning()<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos,data->lengthOfStringToRemove);
+                        return QString();
+                    }
                 }
                 //END DELETE TEXT
                 //INSERT
                 else if (data->actionType==ContentEditingData::InsertText)
                 {
                     c.insertData(localStartPos,data->stringToInsert);
+                    return QString();
                 }
                 //BEGIN INSERT TAG
                 else if (data->actionType==ContentEditingData::InsertTag)
@@ -469,8 +476,10 @@ QString XliffStorage::target(const DocPosition& pos) const
 
 void XliffStorage::targetDelete(const DocPosition& pos, int count)
 {
+    qWarning()<<"removing text. before:"<<target(pos)<<"count"<<count;
     ContentEditingData data(pos.offset,count);
     content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+    qWarning()<<"removing text. after:"<<target(pos);
 }
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
