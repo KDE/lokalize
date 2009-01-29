@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 #include "tmview.h"
 
 #include "jobs.h"
-// #include "diff.h"
+#include "tmscanapi.h"
 #include "catalog.h"
 #include "cmd.h"
 #include "project.h"
@@ -217,11 +217,11 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             {
                 m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
                 if ( ctxtMatches || !(m_markAsFuzzy||forceFuzzy) )
-                    m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,false));
+                    m_catalog->push(new ToggleApprovementCmd(m_catalog,pos.entry,true));
             }
             else if ((m_markAsFuzzy&&!ctxtMatches)||forceFuzzy)
             {
-                m_catalog->push(new ToggleFuzzyCmd(m_catalog,pos.entry,true));
+                m_catalog->push(new ToggleApprovementCmd(m_catalog,pos.entry,false));
             }
             m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
 

@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -34,20 +34,25 @@
 #define TMVIEW_H
 
 #include "pos.h"
-#include "jobs.h"
+#include "tmentry.h"
+
+#include <kurl.h>
 
 #include <QDockWidget>
 #include <QMap>
 #include <QVector>
-// #include <QTimer>
-class KTextBrowser;
+
 class Catalog;
+class KTextBrowser;
+class KAction;
 class QDropEvent;
 class QDragEnterEvent;
-class KAction;
+
+namespace ThreadWeaver{class Job;}
 
 #define TM_SHORTCUTS 10
 namespace TM {
+class SelectJob;
 
 class TMView: public QDockWidget
 {

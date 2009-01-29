@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize (some bits of KBabel code were reused)
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
 
@@ -49,6 +49,11 @@
 
 #ifdef XLIFF
 #include <QPixmap>
+#include <QPushButton>
+#include <QPainter>
+#include <QStyle>
+#include <QApplication>
+#include <QStyleOptionButton>
 #endif
 
 #include <ktabbar.h>
@@ -159,15 +164,18 @@ inline static QImage generateImage(QString str, ProperTextEdit* w)
 {
     str.prepend(' ');
     QFontMetrics metrics(w->currentFont());
-    QRect rect=metrics.boundingRect(str);
+    QRect rect=metrics.boundingRect(str).adjusted(0,0,5,0);
     rect.moveTo(0,0);
 
-    QLabel test(str,w);
-    test.setGeometry(rect);
+    QImage result(rect.size(),QImage::Format_ARGB32);
+    result.fill(0);//0xAARRGGBB
+    QPainter painter(&result);
+    QStyleOptionButton opt;
+    opt.text=str;
+    opt.rect=rect;
+    QApplication::style()->drawControl(QStyle::CE_PushButton,&opt,&painter);
 
-    QPixmap pixmap=QPixmap::grabWidget(&test,rect);
-    return pixmap.toImage();
-
+    return result;
 }
 
 void ProperTextEdit::setContent(const CatalogString& catStr)
@@ -178,22 +186,6 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
     clear();
     QTextCursor cur=textCursor();
 
-
-    static const char* inlineElementNames[(int)InlineElementCount]={
-    "_unknown",
-    "bpt",
-    "ept",
-    "ph",
-    "it",
-//    "_NEVERSHOULDBECHOSEN",
-    "mrk",
-    "g",
-    "sub",
-    "_NEVERSHOULDBECHOSEN",
-    "x",
-    "bx",
-    "ex",
-    };
 
     QMap<int,int> posToTagRange;
     int i=catStr.ranges.size();
@@ -209,7 +201,7 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
-        kWarning()<<"HAPPENED!!";
+        //kWarning()<<"HAPPENED!!";
         int tagRangeIndex=posToTagRange.value(i);
         cur.insertText(catStr.string.mid(prev,i-prev));
 
@@ -218,8 +210,8 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
         QString text=QString::number(tagRangeIndex);
         if (ourRange.start!=ourRange.end)
         {
-//             kWarning()<<"a"<<ranges.at(tagRangeIndex).start;
-//             kWarning()<<"b"<<i;
+            //kWarning()<<"a"<<ranges.at(tagRangeIndex).start;
+            //kWarning()<<"b"<<i;
             if (ourRange.start==i)
             {
                 text.append(" {");
@@ -560,7 +552,7 @@ void KAiderView::cursorPositionChanged()
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
-    kWarning()<<"!!!!!!!!!!!! offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //kWarning()<<"!!!!!!!!!!!! offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
     QString editText=_msgstrEdit->toPlainText();
     if (KDE_ISUNLIKELY( _currentEntry==-1 || editText==_oldMsgstr ))
         return;
@@ -961,6 +953,12 @@ void KAiderView::insertTerm(const QString& term)
 
 void KAiderView::tagMenu()
 {
+/*    DocPosition p=_currentPos;
+    p.offset=1;
+    _catalog->push(new InsTagCmd(_catalog,p,TagRange(1,23,TagRange::g,QString("500"))));
+    //_catalog->push(new DelTagCmd(_catalog,p));
+    return;*/
+    
     if (KDE_ISUNLIKELY( Project::instance()->markup().isEmpty() ))
         return;
 

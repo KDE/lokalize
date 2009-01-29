@@ -98,7 +98,7 @@ public:
     int isChanged(uint index) const {return m_mergeDiffIndex.indexOf(index)!=-1;}
 
     //override to use map
-    QString msgstr(const DocPosition&, const bool noNewlines=false) const;
+    QString msgstr(const DocPosition&) const;
     bool isApproved(uint index) const;
     bool isPlural(uint index) const;
 

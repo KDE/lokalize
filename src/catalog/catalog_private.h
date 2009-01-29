@@ -38,10 +38,12 @@
 #define CatalogPrivate_H
 
 #include <kurl.h>
+#include <kautosavefile.h>
 #include <QList>
 #include <QStringList>
 #include <QVector>
 #include <QMap>
+#include <QTimer>
 
 // #include "msgfmt.h"
 #include "catalogitem.h"
@@ -49,6 +51,7 @@
 // #include "kbabel_export.h"
 
 class QTextCodec;
+class CatalogStorage;
 
 class CatalogPrivate
 {
@@ -70,12 +73,16 @@ public:
     QString _langCode;
     QString _emptyStr;
 
-    int _numberOfPluralForms:8;
+    int _numberOfPluralForms;
 
-    bool _readOnly:8;
+    QTimer _autoSaveTimer;
+    KAutoSaveFile* _autoSave;
+    bool _autoSaveDirty;
+    bool _autoSaveRecovered;
 
+    bool _readOnly;
     //for wrapping
-    short _maxLineLength:16;
+    short _maxLineLength;
 
     QList<int> _fuzzyIndex;
     QList<int> _untransIndex;
@@ -90,13 +97,19 @@ public:
 
     QList<int> _modifiedEntries;//just for the nice gui
 
-    explicit CatalogPrivate()
+    explicit CatalogPrivate(QObject* parent)
            : _mimeTypes( "text/plain" )
            , fileCodec(0)
            , _numberOfPluralForms(-1)
+           , _autoSave(new KAutoSaveFile(parent))
+           , _autoSaveDirty(true)
+           , _autoSaveRecovered(false)
            , _readOnly(false)
     {
     }
+    
+    bool addToUntransIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
+    bool removeFromUntransIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
 };
 
 

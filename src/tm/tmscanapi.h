@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,46 +30,37 @@
 
 **************************************************************************** */
 
-#ifndef HIGHLIGHTER_H
-#define HIGHLIGHTER_H
 
-#include <QSyntaxHighlighter>
-#include <sonnet/highlighter.h>
-#include <kcolorscheme.h>
+#ifndef SCANAPI_H
+#define SCANAPI_H
 
-#include <QHash>
-#include <QTextCharFormat>
+#include <kjob.h>
+#include <QDir>
+#include <QUrl>
 
+namespace TM {
 
-class QTextDocument;
+///wrapper. returns gross number of jobs started
+int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
 
-class SyntaxHighlighter : public QSyntaxHighlighter
+bool dragIsAcceptable(const QList<QUrl>& urls);
+
+class RecursiveScanJob: public KJob
 {
     Q_OBJECT
-
 public:
-    explicit SyntaxHighlighter(QTextDocument *parent = 0/*,bool docbook=true*/);
-    ~SyntaxHighlighter(){};
-
-    void setApprovementState(bool a){m_approved=a;};
-
-protected:
-    void highlightBlock(const QString &text);
-
-private slots:
-    void settingsChanged();
+    RecursiveScanJob(const QString& dbName,QObject* parent=0)
+        : KJob(parent)
+        , m_dbName(dbName)
+        {}
+    void setCount(int count){ setTotalAmount(KJob::Files,count); }
+    void start();
+public slots:
+    void scanJobFinished();
 private:
-    struct HighlightingRule
-    {
-        QRegExp pattern;
-        QTextCharFormat format;
-    };
-    QVector<HighlightingRule> highlightingRules;
+    QString m_dbName;
+};
 
-//     bool fromDocbook;
-    QTextCharFormat tagFormat;
-    KStatefulBrush tagBrush;
-    bool m_approved;
 };
 
 #endif

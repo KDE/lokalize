@@ -57,7 +57,7 @@ public:
     /**
      * c'tor for glossary view
      */
-    FlowLayout(User user, QWidget *parent,QWidget *signalingWidget,
+    FlowLayout(User user,QWidget *signalingWidget,
                const QVector<KAction*>& actions,int margin = 0, int spacing = -1);
 
     FlowLayout(int spacing = -1);

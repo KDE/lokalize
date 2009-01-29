@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,23 +38,22 @@
 #include <QUndoCommand>
 
 #include "pos.h"
+#include "catalogstring.h"
 class Catalog;
 
-enum Commands { Insert, Delete, ToggleFuzzy, ToggleApprovement };
+enum Commands { Insert, Delete, ToggleApprovement, InsertTag, DeleteTag };
 
 /**
  * how undo system works:
- * undo() and redo() functions call appropriate method
- * to change catalog contents,
- * then set DocPosition (posBuffer var in Catalog),
- * which is used to navigate editor to appr. place
+ * undo() and redo() functions call appropriate private method of Catalog to change catalog contents,
+ * then set DocPosition (posBuffer var in Catalog), which is used to navigate editor to appr. place
  * @short Do insert text
  */
-class InsTextCmd : public QUndoCommand
+class InsTextCmd: public QUndoCommand
 {
 public:
-    InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
-    virtual ~InsTextCmd(){};
+    InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
+    ~InsTextCmd(){};
     int id () const {return Insert;}
     bool mergeWith(const QUndoCommand *other);
     void undo();
@@ -63,15 +62,15 @@ private:
     Catalog* _catalog;
     QString _str;
     DocPosition _pos;
-    bool _firstEntryModification;
+    bool _firstModificationForThisEntry;
 };
 
-
-class DelTextCmd : public QUndoCommand
+/// @see InsTextCmd
+class DelTextCmd: public QUndoCommand
 {
 public:
-    DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str);
-    virtual ~DelTextCmd(){};
+    DelTextCmd(Catalog *catalog, const DocPosition& pos ,const QString& str);
+    ~DelTextCmd(){};
     int id () const {return Delete;}
     bool mergeWith(const QUndoCommand *other);
     void redo();
@@ -80,27 +79,7 @@ private:
     Catalog* _catalog;
     QString _str;
     DocPosition _pos;
-    bool _firstEntryModification;
-};
-
-/**
- * you should care not to new it w/ aint no need
- */
-class ToggleFuzzyCmd : public QUndoCommand
-{
-public:
-    ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag);
-    virtual ~ToggleFuzzyCmd(){};
-    int id () const {return ToggleFuzzy;}
-    void redo();
-    void undo();
-private:
-    void setJumpingPos();
-
-    Catalog* _catalog;
-    short _index:16;
-    bool _flag:8;
-    bool _firstEntryModification:8;
+    bool _firstModificationForThisEntry;
 };
 
 
@@ -110,8 +89,8 @@ private:
 class ToggleApprovementCmd: public QUndoCommand
 {
 public:
-    ToggleApprovementCmd(Catalog *catalog,uint index,bool approved);
-    virtual ~ToggleApprovementCmd(){};
+    ToggleApprovementCmd(Catalog *catalog, uint index, bool approved);
+    ~ToggleApprovementCmd(){};
     int id () const {return ToggleApprovement;}
     void redo();
     void undo();
@@ -121,8 +100,49 @@ private:
     Catalog* _catalog;
     short _index:16;
     bool _approved:8;
-    bool _firstEntryModification:8;
+    bool _firstModificationForThisEntry:8;
 
 };
+
+
+/**
+ * @short Do insert tag
+ */
+class InsTagCmd: public QUndoCommand
+{
+public:
+    /// offset is taken from @a tag and not from @a pos
+    InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& tag);
+    ~InsTagCmd(){};
+    int id () const {return InsertTag;}
+    void undo();
+    void redo();
+private:
+    Catalog* _catalog;
+    TagRange _tag;
+    DocPosition _pos;
+    bool _firstModificationForThisEntry;
+};
+
+/**
+ * TagRange is filled from document
+ *
+ * @short Do delete tag
+ */
+class DelTagCmd: public QUndoCommand
+{
+public:
+    DelTagCmd(Catalog *catalog, const DocPosition& pos);
+    ~DelTagCmd(){};
+    int id () const {return DeleteTag;}
+    void undo();
+    void redo();
+private:
+    Catalog* _catalog;
+    TagRange _tag;
+    DocPosition _pos;
+    bool _firstModificationForThisEntry;
+};
+
 
 #endif // CMD_H

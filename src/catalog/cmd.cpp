@@ -37,21 +37,18 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-// #include "global.h"
-#include "pos.h"
 #include "catalog_private.h"
 #include "catalogitem_private.h"
 #include "catalog.h"
 
-//#define ITEM Catalog::instance()->d->_entries.at(_pos.entry).d
-#define ITEM _catalog->d->_entries.at(_pos.entry).d
 
-InsTextCmd::InsTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
+//BEGIN InsTextCmd
+InsTextCmd::InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str)
     : QUndoCommand(i18nc("@item Undo action item","Insertion"))
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
-    , _firstEntryModification(false)
+    , _firstModificationForThisEntry(false)
 {
 }
 
@@ -71,31 +68,33 @@ bool InsTextCmd::mergeWith(const QUndoCommand *other)
 void InsTextCmd::redo()
 {
     Catalog& catalog=*_catalog;
-    catalog.setLastModifiedPos(_pos);
+    DocPosition pos=_pos; pos.offset+=_str.size();
+    catalog.setLastModifiedPos(pos);
     catalog.targetInsert(_pos,_str);
 
-    _firstEntryModification=catalog.setModified(_pos.entry,true);
+    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
 }
 
 void InsTextCmd::undo()
 {
     Catalog& catalog=*_catalog;
 
-    DocPosition pos=_pos; pos.offset+=_str.size();
-    catalog.setLastModifiedPos(pos);
+    catalog.setLastModifiedPos(_pos);
     catalog.targetDelete(_pos,_str.size());
 
-    if (_firstEntryModification)
+    if (_firstModificationForThisEntry)
         catalog.setModified(_pos.entry,false);
 }
+//END InsTextCmd
 
 
+//BEGIN DelTextCmd
 DelTextCmd::DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
     : QUndoCommand(i18nc("@item Undo action item","Deletion"))
     , _catalog(catalog)
     , _str(str)
     , _pos(pos)
-    , _firstEntryModification(false)
+    , _firstModificationForThisEntry(false)
 {
 }
 
@@ -129,61 +128,31 @@ void DelTextCmd::redo()
 {
     Catalog& catalog=*_catalog;
 
-    DocPosition pos=_pos; pos.offset+=_str.size();
-    catalog.setLastModifiedPos(pos);
+    catalog.setLastModifiedPos(_pos);
     catalog.targetDelete(_pos,_str.size());
 
-    _firstEntryModification=catalog.setModified(_pos.entry,true);
+    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
 }
 void DelTextCmd::undo()
 {
     Catalog& catalog=*_catalog;
-    catalog.setLastModifiedPos(_pos);
+    DocPosition pos=_pos; pos.offset+=_str.size();
+    catalog.setLastModifiedPos(pos);
     catalog.targetInsert(_pos,_str);
 
-    if (_firstEntryModification)
+    if (_firstModificationForThisEntry)
         catalog.setModified(_pos.entry,false);
 }
-
-ToggleFuzzyCmd::ToggleFuzzyCmd(Catalog *catalog,uint index,bool flag)
-    : QUndoCommand(i18nc("@item Undo action item","Fuzzy toggling"))
-    , _catalog(catalog)
-    , _index(index)
-    , _flag(flag)
-    , _firstEntryModification(false)
-{
-}
-
-void ToggleFuzzyCmd::redo()
-{
-    setJumpingPos();
-    _catalog->setApproved(DocPosition(_index),!_flag);
-
-    _firstEntryModification=_catalog->setModified(_index,true);
-}
-
-void ToggleFuzzyCmd::undo()
-{
-    setJumpingPos();
-    _catalog->setApproved(DocPosition(_index),_flag);
-
-    if (_firstEntryModification)
-        _catalog->setModified(_index,false);
-}
-
-void ToggleFuzzyCmd::setJumpingPos()
-{
-    _catalog->setLastModifiedPos(DocPosition(_index));
-}
+//END DelTextCmd
 
 
-
+//BEGIN ToggleApprovementCmd
 ToggleApprovementCmd::ToggleApprovementCmd(Catalog *catalog,uint index,bool approved)
     : QUndoCommand(i18nc("@item Undo action item","Approvement toggling"))
     , _catalog(catalog)
     , _index(index)
     , _approved(approved)
-    , _firstEntryModification(false)
+    , _firstModificationForThisEntry(false)
 {
 }
 
@@ -192,7 +161,7 @@ void ToggleApprovementCmd::redo()
     setJumpingPos();
     _catalog->setApproved(DocPosition(_index),_approved);
 
-    _firstEntryModification=_catalog->setModified(_index,true);
+    _firstModificationForThisEntry=_catalog->setModified(_index,true);
 }
 
 void ToggleApprovementCmd::undo()
@@ -200,7 +169,7 @@ void ToggleApprovementCmd::undo()
     setJumpingPos();
     _catalog->setApproved(DocPosition(_index),!_approved);
 
-    if (_firstEntryModification)
+    if (_firstModificationForThisEntry)
         _catalog->setModified(_index,false);
 }
 
@@ -208,6 +177,71 @@ void ToggleApprovementCmd::setJumpingPos()
 {
     _catalog->setLastModifiedPos(DocPosition(_index));
 }
+//END ToggleApprovementCmd
+
+
+//BEGIN InsTagCmd
+InsTagCmd::InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& tag)
+    : QUndoCommand(i18nc("@item Undo action item","Markup Insertion"))
+    , _catalog(catalog)
+    , _tag(tag)
+    , _pos(pos)
+    , _firstModificationForThisEntry(false)
+{
+}
+
+void InsTagCmd::redo()
+{
+    Catalog& catalog=*_catalog;
+    DocPosition pos=_pos; pos.offset++; //between paired tags or after single tag
+    catalog.setLastModifiedPos(pos);
+    catalog.targetInsertTag(_pos,_tag);
+
+    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
+}
+
+void InsTagCmd::undo()
+{
+    Catalog& catalog=*_catalog;
+
+    catalog.setLastModifiedPos(_pos);
+    catalog.targetDeleteTag(_pos);
+
+    if (_firstModificationForThisEntry)
+        catalog.setModified(_pos.entry,false);
+}
+//END InsTagCmd
+
+//BEGIN DelTagCmd
+DelTagCmd::DelTagCmd(Catalog *catalog, const DocPosition& pos)
+    : QUndoCommand(i18nc("@item Undo action item","Markup Deletion"))
+    , _catalog(catalog)
+    , _pos(pos)
+    , _firstModificationForThisEntry(false)
+{
+}
+
+void DelTagCmd::redo()
+{
+    Catalog& catalog=*_catalog;
+
+    catalog.setLastModifiedPos(_pos);
+    _tag=catalog.targetDeleteTag(_pos);
+
+    if (_firstModificationForThisEntry)
+        catalog.setModified(_pos.entry,false);
+}
+
+void DelTagCmd::undo()
+{
+    Catalog& catalog=*_catalog;
+    DocPosition pos=_pos; pos.offset=_tag.end+1; //between paired tags or after single tag
+    catalog.setLastModifiedPos(pos);
+    catalog.targetInsertTag(_pos,_tag);
+
+    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
+}
+//END DelTagCmd
 
 
 

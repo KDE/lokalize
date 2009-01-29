@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -33,21 +33,20 @@
 #ifndef KAIDERVIEW_H_
 #define KAIDERVIEW_H_
 
-#include <QSplitter>
-#include <KUrl>
-class KTabBar;
+#include "pos.h"
+#include "catalogstring.h"
+
 class SyntaxHighlighter;
 class Catalog;
 class LedsWidget;
-struct DocPosition;
-//#include <QKeyEvent>
+class KTabBar;
+#include <QSplitter>
+#include <KUrl>
+#include <KTextEdit>
 
-#include <ktextedit.h>
 
 #define XLIFF 1
 
-#include "pos.h"
-#include "tagrange.h"
 
 class ProperTextEdit: public KTextEdit
 {

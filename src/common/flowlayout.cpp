@@ -42,12 +42,11 @@
 using namespace GlossaryNS;
 
 FlowLayout::FlowLayout(User user,
-                       QWidget *parent,
                        QWidget *signalingWidget,
                        const QVector<KAction*>& actions,
                        int margin,
                        int spacing)
-        : QLayout(parent)
+        : QLayout()
         , m_index(0)
         , m_signalingWidget(signalingWidget)
 {

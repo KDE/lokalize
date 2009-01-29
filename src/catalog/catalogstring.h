@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -25,72 +25,87 @@
 #define TAGRANGE_H
 
 #include <QList>
+#include <QString>
+
+#define TAGRANGE_IMAGE_SYMBOL 65532
 
 /**
- * data structures used to pass info about inline elements
+ * data structure used to pass info about inline elements
  * a XLIFF tag is represented by a TAGRANGE_IMAGE_SYMBOL in the 'plainttext'
  * and a struct TagRange
-**/
-enum InlineElement
-{
-    _unknown,
-    bpt,    //sub
-    ept,    //sub
-    ph,     //sub
-    it,     //sub
-//    _subContainersDelimiter,
-    mrk,    //recursive, no id
-    g,      //recursive
-    sub,    //recursive, no id
-    _pairedXmlTagDelimiter,
-    x,      //empty
-    bx,     //empty
-    ex,     //empty
-    InlineElementCount
-};
-
-
-/**
- * describes which tag is behind TAGRANGE_IMAGE_SYMBOL char(s)
- * in source or target string
+ *
+ * describes which tag is behind TAGRANGE_IMAGE_SYMBOL char 
+ * (or chars -- starting and ending) in source or target string
  */
 struct TagRange
 {
+    //sub       = can contain <sub>-flow tag
+    //recursive = can contain other inline markup tags
+    ///@see http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html
+    enum InlineElement
+    {
+        _unknown,
+        bpt,    //sub
+        ept,    //sub
+        ph,     //sub
+        it,     //sub
+        //_subContainersDelimiter,
+        mrk,    //recursive, no id
+        g,      //recursive
+        sub,    //recursive, no id
+        _pairedXmlTagDelimiter,
+        x,      //empty
+        bx,     //empty
+        ex,     //empty
+        InlineElementCount
+    };
+    
+    
+    
     int start;
     int end;
     InlineElement type;
     QString id;
 
-    TagRange(int s, int e, InlineElement t,QString i=QString())
-        : start(s)
-        , end(e)
-        , type(t)
-        , id(i)
-    {
-    }
+    explicit TagRange(): start(-1), end(-1), type(_unknown){}
+
+    TagRange(int start_, int end_, InlineElement type_,QString id_=QString())
+        : start(start_), end(end_), type(type_), id(id_){}
 
     /**
      * for situations when target doesn't contain tag
      * (of the same type and with the same id) from source
      * true means that the object corresponds to some tag in source,
      * but target does not contain it.
+     *
+     * @see getPlaceholder()
      */
     bool isEmpty()const{return start==-1;}
 
     /**
      * used to denote tag that doesn't present in target,
      * to have parallel numbering in view
+     *
+     * @returns TagRange object prototype to be inserted into target
+     * @see isEmpty()
      */
-    TagRange getPlaceholder() const
-    {
-        TagRange tagRange=*this;
-        tagRange.start=-1;
-        tagRange.end=-1;
-        return tagRange;
-    }
+    TagRange getPlaceholder() const;
+    
+    ///@returns 0 if type is unknown
+    static InlineElement getElementType(const QByteArray&);
+    static const char* getElementName(InlineElement type);
+           const char* getElementName()const{return getElementName(type);}
+    static bool isPaired(InlineElement type){return type<TagRange::_pairedXmlTagDelimiter;}
+           bool isPaired()const{return isPaired(type);}
 };
 
+
+
 /**
+ * data structure used to pass info about inline elements
+ * a XLIFF tag is represented by a TAGRANGE_IMAGE_SYMBOL in the 'plainttext'
+ * and a struct TagRange
+ *
  * string has each XLIFF markup tag represented by 1 symbol
  * ranges is set to list describing which tag (type, id) at which position
  */
@@ -103,6 +118,5 @@ struct CatalogString
     CatalogString(QString str):string(str){}
 };
 
-#define TAGRANGE_IMAGE_SYMBOL 65532
 
 #endif

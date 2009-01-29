@@ -57,15 +57,16 @@ set(lokalize_SRCS
     webquery/myactioncollectionview.cpp
 
     tm/tmview.cpp
+    tm/tmscanapi.cpp
     tm/jobs.cpp
-    tm/tmwindow.cpp
     tm/dbfilesmodel.cpp
     tm/tmmanager.cpp
-
+    tm/tmwindow.cpp
 
     catalog/cmd.cpp
     catalog/pos.cpp
     catalog/catalog.cpp
+    catalog/catalogstring.cpp
     catalog/gettextheader.cpp
     catalog/gettext/gettextstorage.cpp
     catalog/gettext/catalogitem.cpp

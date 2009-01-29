@@ -59,7 +59,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KActio
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)
         , m_browser(new QScrollArea(this))
         , m_catalog(catalog)
-        , m_flowLayout(new FlowLayout(FlowLayout::glossary,m_browser,this,actions,0,10))
+        , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
         , m_rxClean(Project::instance()->markup()+'|'+Project::instance()->accel())//cleaning regexp; NOTE isEmpty()?
         , m_rxSplit("\\W|\\d")//splitting regexp

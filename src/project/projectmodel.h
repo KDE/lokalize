@@ -36,11 +36,11 @@
 #include <kdirmodel.h>
 #include <kdirlister.h>
 #include <kicon.h>
-#include <QHash>
-#include <QList>
 #include <kdebug.h>
 // #include <kfilemetainfo.h>
 // #include <kfileitemdelegate.h>
+#include <QHash>
+#include <QList>
 
 enum ProjectModelColumns
 {

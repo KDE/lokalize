@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,46 +30,40 @@
 
 **************************************************************************** */
 
-#ifndef HIGHLIGHTER_H
-#define HIGHLIGHTER_H
+#ifndef TMENTRY_H
+#define TMENTRY_H
 
-#include <QSyntaxHighlighter>
-#include <sonnet/highlighter.h>
-#include <kcolorscheme.h>
+#include <QString>
 
-#include <QHash>
-#include <QTextCharFormat>
+namespace TM {
 
-
-class QTextDocument;
-
-class SyntaxHighlighter : public QSyntaxHighlighter
+struct TMEntry
 {
-    Q_OBJECT
+    QString english;
+    QString target;
 
-public:
-    explicit SyntaxHighlighter(QTextDocument *parent = 0/*,bool docbook=true*/);
-    ~SyntaxHighlighter(){};
+    QString date;
 
-    void setApprovementState(bool a){m_approved=a;};
+    //the remaining are used only for results
+    qlonglong id;
+    short score:16;//100.00%==10000
+    ushort hits:16;
 
-protected:
-    void highlightBlock(const QString &text);
+    QString diff;
 
-private slots:
-    void settingsChanged();
-private:
-    struct HighlightingRule
+    //different databases can have different settings:
+    QString accel;
+    QString markup;
+
+    bool operator<(const TMEntry& other)const
     {
-        QRegExp pattern;
-        QTextCharFormat format;
-    };
-    QVector<HighlightingRule> highlightingRules;
-
-//     bool fromDocbook;
-    QTextCharFormat tagFormat;
-    KStatefulBrush tagBrush;
-    bool m_approved;
+        //we wanna items with higher score to appear in the front after qSort
+        if (score==other.score)
+            return date>other.date;
+        return score>other.score;
+    }
 };
+
+}
 
 #endif

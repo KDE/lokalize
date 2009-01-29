@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,9 +38,6 @@
 #include "version.h"
 
 #include <kdebug.h>
-#include <kglobal.h>
-#include <kjob.h>
-#include <kuiserverjobtracker.h>
 #include <kstandarddirs.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/Thread.h>
@@ -58,99 +55,6 @@ using namespace TM;
 #define TM_SEPARATOR '\b'
 #define TM_NOTAPPROVED 0x04
 
-
-void RecursiveScanJob::scanJobFinished()
-{
-    setProcessedAmount(KJob::Files,processedAmount(KJob::Files)+1);
-    emitPercent(processedAmount(KJob::Files),totalAmount(KJob::Files));
-    if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
-        emitResult();
-}
-
-void RecursiveScanJob::start()
-{
-    emit description(this,
-                i18n("Adding files to Lokalize translation memory"),
-                qMakePair(i18n("TM"), m_dbName));
-}
-
-//a wrapper. returns gross number of jobs started
-int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
-{
-    RecursiveScanJob* metaJob = new RecursiveScanJob(dbName);
-    KIO::getJobTracker()->registerJob(metaJob);
-    metaJob->start();
-
-    int count=0;
-    int i=urls.size();
-    while(--i>=0)
-    {
-        if (urls.at(i).isEmpty() || urls.at(i).path().isEmpty() ) //NOTE is this a Qt bug?
-            continue;
-        if (Catalog::extIsSupported(urls.at(i).path()))
-        {
-            ScanJob* job=new ScanJob(KUrl(urls.at(i)),dbName);
-            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
-            ThreadWeaver::Weaver::instance()->enqueue(job);
-            ++count;
-        }
-        else
-        {
-            count+=scanRecursive(QDir(urls.at(i).path()),dbName,metaJob);
-        }
-    }
-    if (count)
-        metaJob->setCount(count);
-    else
-        metaJob->kill(KJob::EmitResult);
-
-    return count;
-}
-
-//returns gross number of jobs started
-int TM::scanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
-{
-    int count=0;
-    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
-    int i=subDirs.size();
-    while(--i>=0)
-        count+=TM::scanRecursive(QDir(dir.filePath(subDirs.at(i))),dbName,metaJob);
-
-    QStringList filters=Catalog::supportedExtensions();
-    i=filters.size();
-    while(--i>=0)
-        filters[i].prepend('*');
-    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
-    i=files.size();
-    count+=i;
-    while(--i>=0)
-    {
-        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),dbName);
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-    }
-
-    return count;
-}
-
-bool TM::dragIsAcceptable(const QList<QUrl>& urls)
-{
-    int i=urls.size();
-    while(--i>=0)
-    {
-        bool ok=Catalog::extIsSupported(urls.at(i).path());
-        if (!ok)
-        {
-            QFileInfo info(urls.at(i).path());
-            ok=info.exists() && info.isDir();
-        }
-        if (ok)
-            return true;
-    }
-    return false;
-}
 
 /**
  * splits string into words, removing any markup
@@ -647,14 +551,14 @@ static void initDb(QSqlDatabase& db)
     queryMain.exec("CREATE TABLE IF NOT EXISTS source_strings ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "source TEXT, "
-                   "source_markup BLOB, "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   "source_markup BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                    "source_accel INTEGER DEFAULT -1 "
                    ")");
 
     queryMain.exec("CREATE TABLE IF NOT EXISTS target_strings ("
                    "id INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "target TEXT, "
-                   "target_markup BLOB, "//XLIFF markup info, see catalog/tagrange.h catalog/xliff/*
+                   "target_markup BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                    "target_accel INTEGER DEFAULT -1 "
                    ")");
 

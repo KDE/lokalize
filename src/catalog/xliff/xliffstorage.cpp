@@ -39,9 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <klocale.h>
 #include <kdatetime.h>
 
-#include <kio/netaccess.h>
-#include <ktemporaryfile.h>
-
 
 XliffStorage::XliffStorage()
  : CatalogStorage()
@@ -69,15 +66,7 @@ bool XliffStorage::load(QIODevice* device)
     bool success=m_doc.setContent( device, false, &errorMsg/*, errorLine, errorColumn*/);
 
     if (!success)
-    {
-//         delete m_doc;m_doc=0;
         return false;
-    }
-
-//     m_resView->setModel(new XliffResourceModel(m_doc));
-//     m_resView->setItemsExpandedRecursive(m_resView->rootIndex());
-//     connect(m_resView->selectionModel(), SIGNAL(currentRowChanged(const QModelIndex &,const QModelIndex &)),
-//             this, SLOT(selectionChanged(const QModelIndex &,const QModelIndex &)));
 
 
     m_langCode=m_doc.elementsByTagName("file").at(0).attributes().namedItem("target-language").toCharacterData().data();
@@ -95,8 +84,8 @@ bool XliffStorage::load(QIODevice* device)
     for(;i<size;++i)
     {
         QDomElement parentElement=entries.at(i).parentNode().toElement();
-//         if (KDE_ISUNLIKELY( e.isNull() ))//sanity
-//             continue;
+        //if (KDE_ISUNLIKELY( e.isNull() ))//sanity
+        //      continue;
         m_map<<i;
 
         if (parentElement.tagName()=="group" && parentElement.attribute("restype")=="x-gettext-plurals")
@@ -167,56 +156,61 @@ bool XliffStorage::isEmpty() const
 
 
 
-static const char* inlineElementNames[(int)InlineElementCount]={
-    "_unknown",
-    "bpt",
-    "ept",
-    "ph",
-    "it",
-//    "_NEVERSHOULDBECHOSEN",
-    "mrk",
-    "g",
-    "sub",
-    "_NEVERSHOULDBECHOSEN",
-    "x",
-    "bx",
-    "ex",
-};
 
 /**
  * helper structure used during XLIFF XML walk-through
  */
 struct ContentEditingData
 {
-    QList<TagRange>* ranges;
+    enum ActionType{Get,DeleteText,InsertText,DeleteTag,InsertTag};
+    
+    QList<TagRange> ranges;
     QString stringToInsert;
     int pos;
     int lengthOfStringToRemove;
+    ActionType actionType;
 
-    //get
-    ContentEditingData(QList<TagRange>* r)
-    : ranges(r)
-    , pos(-1)
+    ///Get
+    ContentEditingData(ActionType type=Get)
+    : pos(-1)
     , lengthOfStringToRemove(-1)
+    , actionType(type)
     {}
 
-    //delete
-    ContentEditingData(int p,
-                      int l)
-    : ranges(0)
-    , pos(p)
+    ///DeleteText
+    ContentEditingData(int p, int l)
+    : pos(p)
     , lengthOfStringToRemove(l)
+    , actionType(DeleteText)
     {}
 
-    //insert
+    ///InsertText
     ContentEditingData(int p,const QString& s)
-    : ranges(0)
-    , stringToInsert(s)
+    : stringToInsert(s)
     , pos(p)
     , lengthOfStringToRemove(-1)
+    , actionType(InsertText)
+    {}
+
+    ///InsertTag
+    ContentEditingData(int p,const TagRange& range)
+    : pos(p)
+    , lengthOfStringToRemove(-1)
+    , actionType(InsertTag)
+    {
+        ranges.append(range);
+    }
+
+    ///DeleteTag
+    ContentEditingData(int p)
+    : pos(p)
+    , lengthOfStringToRemove(-1)
+    , actionType(DeleteTag)
     {}
 
 };
+
+static QString doContent(QDomElement elem, int startingPos, ContentEditingData* data);
 
 /**
  * walks through XLIFF XML and performs actions depending on ContentEditingData:
@@ -224,8 +218,15 @@ struct ContentEditingData
  * - deletes content, or
  * - inserts content
  */
-static QString content(QDomElement elem, int startingPos, ContentEditingData* data)
+static QString content(QDomElement elem, ContentEditingData* data=0)
 {
+    return doContent(elem, 0, data);
+}
+
+static QString doContent(QDomElement elem, int startingPos, ContentEditingData* data)
+{
+    //actually startingPos is current pos
+
     if (elem.isNull())
         return QString();
     QString result;
@@ -245,20 +246,109 @@ static QString content(QDomElement elem, int startingPos, ContentEditingData* da
             if (data && data->pos!=-1 &&
                data->pos>=startingPos && data->pos<=startingPos+cData.size())
             {
-                //DELETE
-                if (data->lengthOfStringToRemove!=-1)
+                // time to do some action! ;)
+                int localStartPos=data->pos-startingPos;
+
+                //BEGIN DELETE TEXT
+                if (data->actionType==ContentEditingData::DeleteText) //(data->lengthOfStringToRemove!=-1)
                 {
-                    if (data->pos-startingPos+data->lengthOfStringToRemove>cData.size())//sanity
-                        kWarning()<<"SHIT HAPPENED. need to return number of actually deleted chars (modify ContentEditingData)";
-                    c.deleteData(data->pos-startingPos,data->lengthOfStringToRemove);
+                    if (localStartPos+data->lengthOfStringToRemove>cData.size())
+                    {
+                        //text is fragmented into several QDomCharacterData
+                        int localDelLen=cData.size()-localStartPos;
+                        c.deleteData(localStartPos,localDelLen);
+                        //setup data for future iterations
+                        data->lengthOfStringToRemove=data->lengthOfStringToRemove-localDelLen;
+                        data->pos=startingPos;
+                    }
+                    else
+                        c.deleteData(localStartPos,data->lengthOfStringToRemove);
                 }
-                else //INSERT
-                    c.insertData(data->pos-startingPos,data->stringToInsert);
+                //END DELETE TEXT
+                //INSERT
+                else if (data->actionType==ContentEditingData::InsertText)
+                {
+                    c.insertData(localStartPos,data->stringToInsert);
+                }
+                //BEGIN INSERT TAG
+                else if (data->actionType==ContentEditingData::InsertTag)
+                {
+                    const TagRange& tag=data->ranges.first();
+                    QString mid=cData.mid(localStartPos);
+                    qWarning()<<"inserting tag"<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
+                    if (mid.size())
+                        c.deleteData(localStartPos,mid.size());
+                    QDomNode newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n);
+                    QDomAttr attr=elem.ownerDocument().createAttribute("id");
+                    attr.setValue(tag.id);
+                    newNode.attributes().setNamedItem(attr);//setAttributeNode
+
+                    if (tag.isPaired()&&tag.end>(tag.start+1))
+                    {
+                        //qWarning()<<"isPaired";
+                        int len=tag.end-tag.start-1;//-image symbol
+                        int localLen=qMin(len,mid.size());
+                        if (localLen)
+                        {
+                            qWarning()<<"localLen. appending"<<localLen<<mid.left(localLen);
+                            newNode.appendChild( elem.ownerDocument().createTextNode(mid.left(localLen)) );
+                            mid=mid.mid(localLen);
+                        }
+                        if (len-localLen) //need to eat more into newNode
+                        {
+                            int missingLen=len-localLen;
+                            qWarning()<<"len-localLen";
+                            //iterate over siblings until we get childrenCumulativeLen>missingLen (or siblings end)
+                            int childrenCumulativeLen=0;
+                            QDomNode sibling=newNode.nextSibling();
+                            while(!sibling.isNull())//&&(childrenCumulativeLen<missingLen))
+                            {
+                                QDomNode tmp=sibling;
+                                sibling=sibling.nextSibling();
+                                if (tmp.isAttr())
+                                    continue;
+                                ContentEditingData subData(ContentEditingData::Get);
+                                if (tmp.isElement())
+                                {
+                                    childrenCumulativeLen++;
+                                    childrenCumulativeLen+=TagRange::isPaired(TagRange::getElementType(tmp.toElement().tagName().toUtf8()));
+                                    QString subContent=doContent(tmp.toElement(),/*we don't care about position*/0,&subData);
+                                    childrenCumulativeLen+=subContent.size();
+                                }
+                                else if (tmp.isCharacterData())
+                                    childrenCumulativeLen+=tmp.toCharacterData().data().size();
+                                //qWarning()<<"brbr"<<tmp.nodeName()<<tmp.nodeValue()
+                                //<<childrenCumulativeLen<<missingLen;
+
+                                if (childrenCumulativeLen>missingLen)
+                                {
+                                    if (tmp.isCharacterData())
+                                    {
+                                        //divide the last string
+                                        const QString& endData=tmp.toCharacterData().data();
+                                        QString last=endData.left(endData.size()-(childrenCumulativeLen-missingLen));
+                                        newNode.appendChild( elem.ownerDocument().createTextNode(last));
+                                        tmp.toCharacterData().deleteData(0,last.size());
+                                        qWarning()<<"end of add"<<last;
+                                    }
+                                    break;
+                                }
+                                newNode.appendChild( tmp );
+                            }
+
+                        }
+                    }
+                    if (!mid.isEmpty())
+                        elem.insertAfter( elem.ownerDocument().createTextNode(mid),newNode);
+
+                    return QString();//we're done here
+                }
+                //END INSERT TAG
                 cData=c.data();
             }
-            else
-                if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-                    kWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //else
+            //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
+            //        kWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -266,56 +356,70 @@ static QString content(QDomElement elem, int startingPos, ContentEditingData* da
         else if (n.isElement())
         {
             QDomElement el=n.toElement();
-
-            if (!seenCharacterDataAfterElement)
+            
+            //BEGIN DELETE TAG
+            if (data&&data->actionType==ContentEditingData::DeleteTag
+                &&data->pos==startingPos)
             {
-                //add empty charData child so that user could add some text
-                elem.insertBefore( elem.ownerDocument().createTextNode(""),n);
+                data->ranges.append(TagRange(startingPos, -1, TagRange::getElementType(el.tagName().toUtf8()), el.attribute("id")));
+                if (data->ranges.first().isPaired())
+                {
+                    //get end position
+                    ContentEditingData subData(ContentEditingData::Get);
+                    QString subContent=doContent(el,startingPos,&subData);
+                    data->ranges[0].end=1+startingPos+subContent.size();//tagsymbol+text
+                    qWarning()<<"get end position"<<startingPos<<subContent.size();
+                    
+                    //move children upper
+                    QDomNode local = n.firstChild();
+                    QDomNode refNode=n;
+                    while (!local.isNull())
+                    {
+                        QDomNode tmp=local;
+                        local = local.nextSibling();
+                        if (!tmp.isAttr())
+                            refNode=elem.insertAfter(tmp,refNode);
+                    }
+
+                }
+                QDomNode temp=n;
+                n=n.nextSibling();
+                elem.removeChild(temp);
+                continue;               
             }
+            //END DELETE TAG
+
+            if (!seenCharacterDataAfterElement)  //add empty charData child so that user could add some text
+                elem.insertBefore( elem.ownerDocument().createTextNode(""),n);
             seenCharacterDataAfterElement=false;
 
             result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;
             int oldStartingPos=startingPos;
 
             //detect type of the tag
-            QByteArray tag=el.tagName().toUtf8();
-            int i=InlineElementCount;
-            while(--i>0)
-                if (inlineElementNames[i]==tag)
-                    break;
+            TagRange::InlineElement i=TagRange::getElementType(el.tagName().toUtf8());
 
             //1 or 2 images to represent it?
             //2 = there may be content inside
-            if (i<(int)_pairedXmlTagDelimiter)
+            if (TagRange::isPaired(i))
             {
-                QString recursiveContent=content(el,
-                                                startingPos,
-                                                data);
+                QString recursiveContent=doContent(el,startingPos,data);
                 if (!recursiveContent.isEmpty())
                     result += recursiveContent; startingPos+=recursiveContent.size();
                 result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;
             }
 
-            if (data&&data->ranges)
+            if (data&&data->actionType==ContentEditingData::Get)
             {
                 QString id=el.attributeNode("id").value();
-                if ((InlineElement)i==mrk)
+                if (i==TagRange::mrk)//TODO attr map
                     id=el.attributeNode("mtype").value();
 
                 kWarning()<<"id"<<id<<"tagName"<<el.tagName();
-                *(data->ranges) <<TagRange(oldStartingPos-1,
-                                startingPos-1,
-                                (InlineElement)i,
-                                id
-                                );
+                data->ranges.append(TagRange(oldStartingPos-1,startingPos-1,i,id));
             }
-
-                    //
-                    //QDomCharacterData cData = nodeContent.toCharacterData();
-//                        cursor.insertText(cData.data(),phFormat());
-//                        cursor.insertText(QString::number(++m_inlineCount),identifierFormat());
         }
-            n = n.nextSibling();
+        n = n.nextSibling();
     }
     if (!seenCharacterDataAfterElement)
     {
@@ -334,9 +438,9 @@ static QString content(QDomElement elem, int startingPos, ContentEditingData* da
 CatalogString XliffStorage::sourceWithTags(const DocPosition& pos) const
 {
     CatalogString catalogString;
-
-    ContentEditingData data(&catalogString.ranges);
-    catalogString.string=content(entries.at(m_map.at(pos.entry)).firstChildElement("source"),0,&data);
+    ContentEditingData data(ContentEditingData::Get);
+    catalogString.string=content(entries.at(m_map.at(pos.entry)).firstChildElement("source"),&data);
+    catalogString.ranges=data.ranges;
     return catalogString;
 }
 
@@ -346,15 +450,16 @@ CatalogString XliffStorage::targetWithTags(const DocPosition& pos) const
 {
     CatalogString catalogString;
 
-    QList<TagRange> sourceRanges;
-    QList<TagRange> targetRanges;
+    ContentEditingData sourceData(ContentEditingData::Get);
+    content(entries.at(m_map.at(pos.entry)).firstChildElement("source"),&sourceData);
 
-    ContentEditingData data(&sourceRanges);
-    content(entries.at(m_map.at(pos.entry)).firstChildElement("source"),0,&data);
+    ContentEditingData targetData(ContentEditingData::Get);
+    catalogString.string=content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&targetData);
 
-    data=ContentEditingData(&targetRanges);
-    catalogString.string=content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),0,&data);
+    QList<TagRange> sourceRanges=sourceData.ranges;
+    QList<TagRange> targetRanges=targetData.ranges;
 
+    //additinal processing to have source and target tags with agree IDs
     int i;
 
     QHash<QString,int> sourceIds;
@@ -374,7 +479,9 @@ CatalogString XliffStorage::targetWithTags(const DocPosition& pos) const
     for (i=0;i<sourceRanges.size();++i)
     {
         if (targetIds.contains(sourceRanges.at(i).id))
-            catalogString.ranges.append(targetRanges.at(      targetIds.value(sourceRanges.at(i).id)      ));//copy from targetRanges, because it contains position info!
+            catalogString.ranges.append(targetRanges.at(
+                                targetIds.value(sourceRanges.at(i).id)
+                        ));//copy from targetRanges, because it contains position info!
         else
             catalogString.ranges.append(sourceRanges.at(i).getPlaceholder()); //to have parallel numbering in view
     }
@@ -385,21 +492,22 @@ CatalogString XliffStorage::targetWithTags(const DocPosition& pos) const
 
 QString XliffStorage::source(const DocPosition& pos) const
 {
-    return content(entries.at(m_map.at(pos.entry)).firstChildElement("source"), 0, NULL);
+    return content(entries.at(m_map.at(pos.entry)).firstChildElement("source"));
 }
 QString XliffStorage::target(const DocPosition& pos) const
 {
-    return content(entries.at(m_map.at(pos.entry)).firstChildElement("target"), 0, NULL);
+    return content(entries.at(m_map.at(pos.entry)).firstChildElement("target"));
 }
 
 
 void XliffStorage::targetDelete(const DocPosition& pos, int count)
 {
     ContentEditingData data(pos.offset,count);
-    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),0,&data);
+    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
 }
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
+    //BEGIN add <taget>
     QDomNode unit=entries.at(m_map.at(pos.entry));
     QDomElement targetEl=unit.firstChildElement("target");
     if (targetEl.isNull())
@@ -409,8 +517,24 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
         targetEl.appendChild(m_doc.createTextNode(arg));//i bet that pos.offset is 0 ;)
         return;
     }
+    //END add <taget>
+    if (arg.isEmpty()) return; //means we were called from targetInsertTag()
     ContentEditingData data(pos.offset,arg);
-    content(targetEl,0,&data);
+    content(targetEl,&data);
+}
+
+void XliffStorage::targetInsertTag(const DocPosition& pos, const TagRange& tag)
+{
+    targetInsert(pos,QString()); //adds <taget> if needed
+    ContentEditingData data(pos.offset,tag);
+    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+}
+
+TagRange XliffStorage::targetDeleteTag(const DocPosition& pos)
+{
+    ContentEditingData data(pos.offset);
+    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+    return data.ranges.first();
 }
 
 void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)

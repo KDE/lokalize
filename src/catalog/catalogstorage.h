@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CATALOGSTORAGE_H
 
 #include "pos.h"
-#include "tagrange.h"
+#include "catalogstring.h"
 
 #include <kurl.h>
 #include <QStringList>
@@ -66,7 +66,9 @@ public:
     **/
     virtual void targetDelete(const DocPosition& pos, int count)=0;
     virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
-    virtual void setTarget(const DocPosition& pos, const QString& arg)=0;
+    virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog
+    virtual void targetInsertTag(const DocPosition& pos, const TagRange& tag)=0;
+    virtual TagRange targetDeleteTag(const DocPosition& pos)=0;
 
     /**
      * all plural forms

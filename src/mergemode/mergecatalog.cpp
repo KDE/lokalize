@@ -68,7 +68,7 @@ void MergeCatalog::baseCatalogEntryChanged(const DocPosition& pos)
     }
 }
 
-QString MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) const
+QString MergeCatalog::msgstr(const DocPosition& pos) const
 {
     DocPosition us=pos;
     us.entry=m_map.at(pos.entry);
@@ -77,7 +77,7 @@ QString MergeCatalog::msgstr(const DocPosition& pos, const bool noNewlines) cons
     if (us.entry == -1)
          return QString();
 
-    return Catalog::msgstr(us, noNewlines);
+    return Catalog::msgstr(us);
 }
 
 bool MergeCatalog::isApproved(uint index) const
@@ -137,12 +137,6 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
         else
             item.score+=29;
     }
-
-//     kWarning()<<basePos.entry<<item.translationIsDifferent
-//     <<endl<<"b s "<<baseStorage.source(basePos)
-//             <<"b t "<<baseStorage.target(basePos)
-//     <<endl<<"m s "<<mergeStorage.source(mergePos)
-//             <<"m t "<<mergeStorage.target(mergePos);
     return item;
 }
 
@@ -196,8 +190,6 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
     }
     return true;
 }
-
-
 
 
 

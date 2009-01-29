@@ -324,9 +324,9 @@ void MergeView::mergeAccept()
     m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
 
     if ( !m_baseCatalog->isApproved(m_pos.entry) && m_mergeCatalog->isApproved(m_pos.entry)       )
-        m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,false));
+        m_baseCatalog->push(new ToggleApprovementCmd(m_baseCatalog,m_pos.entry,true));
     else if ( m_baseCatalog->isApproved(m_pos.entry) && !m_mergeCatalog->isApproved(m_pos.entry) )
-        m_baseCatalog->push(new ToggleFuzzyCmd(m_baseCatalog,m_pos.entry,true));
+        m_baseCatalog->push(new ToggleApprovementCmd(m_baseCatalog,m_pos.entry,false));
 
     if (changeContents)
     {

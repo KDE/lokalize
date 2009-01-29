@@ -1,7 +1,7 @@
 /*****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,7 +37,6 @@
 #include <QVector>
 #include <QList>
 #include "projectbase.h"
-#include "projectmodel.h"
 
 #define WEBQUERY_ENABLE
 
@@ -45,9 +44,7 @@ class KAction;
 class KRecentFilesAction;
 class ProjectModel;
 namespace GlossaryNS{class Glossary;}
-namespace TM{class SelectJob;}
 class EditorWindow;
-#include <threadweaver/Job.h>
 
 
 /**
@@ -127,14 +124,6 @@ private:
     QVector<EditorWindow*> m_editors;
 };
 
-inline
-ProjectModel* Project::model()
-{
-    if (KDE_ISUNLIKELY(!m_model))
-        m_model=new ProjectModel(this);
-
-    return m_model;
-}
 
 
 

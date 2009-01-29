@@ -34,7 +34,7 @@
 #include "ui_queryoptions.h"
 #include "project.h"
 #include "dbfilesmodel.h"
-#include "jobs.h"
+#include "tmscanapi.h"
 
 #include <klocale.h>
 #include <kstandarddirs.h>

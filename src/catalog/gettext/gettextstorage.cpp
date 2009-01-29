@@ -35,13 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMap>
 
 #include <kdebug.h>
-#include <kglobal.h>
-#include <klocale.h>
-#include <kdatetime.h>
-
-#include <kio/netaccess.h>
-#include <ktemporaryfile.h>
-#include <kautosavefile.h>
 
 // static QString GNUPluralForms(const QString& lang);
 
@@ -50,13 +43,6 @@ using namespace GettextCatalog;
 GettextStorage::GettextStorage()
  : CatalogStorage()
 {
-//     QStringList langlist (KGlobal::locale()->allLanguagesList());
-//     for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
-//     {
-//         QString a=GNUPluralForms(*it);
-//         if (!a.isEmpty())
-//             kWarning()<<*it<<a;
-//     }
 }
 
 
@@ -88,7 +74,6 @@ bool GettextStorage::load(QIODevice* device/*, bool readonly*/)
             while (msgstr.count()<m_numberOfPluralForms)
                 msgstr.append(QString());
             item.setMsgstr(msgstr);
-
         }
         ++i;
 
@@ -258,7 +243,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
       QString values = newHeader.msgstr();
       values.remove ("\n");
       values.replace ("\\n", "\\n\n");
-      kDebug () << "Normalized header: " << values;
+//       kDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();
 
       updateHeader(values,

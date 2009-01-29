@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -36,6 +36,7 @@
 #include "dbfilesmodel.h"
 #include "tmwindow.h"
 #include "jobs.h"
+#include "tmscanapi.h"
 #include "project.h"
 
 #include <kfiledialog.h>

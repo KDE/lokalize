@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -34,11 +34,10 @@
 #define JOBS_H
 
 #include "pos.h"
+#include "tmentry.h"
 
 #include <threadweaver/Job.h>
-#include <kjob.h>
 #include <kurl.h>
-#include <QDir>
 #include <QString>
 //#include <QMultiHash>
 #include <QSqlDatabase>
@@ -59,59 +58,6 @@ namespace TM {
 #define EXPORT 25
 #define SCAN    10
 #define SCANFINISHED 9
-
-struct TMEntry
-{
-    QString english;
-    QString target;
-
-    QString date;
-
-    //the remaining are used only for results
-    qlonglong id;
-    short score:16;//100.00%==10000
-    ushort hits:16;
-
-    QString diff;
-
-    //different databases can have different settings:
-    QString accel;
-    QString markup;
-
-    bool operator<(const TMEntry& other)const
-    {
-        //we wanna items with higher score to appear in the front after qSort
-        if (score==other.score)
-            return date>other.date;
-        return score>other.score;
-    }
-};
-
-
-class RecursiveScanJob: public KJob
-{
-    Q_OBJECT
-public:
-    RecursiveScanJob(const QString& dbName,QObject* parent=0)
-        : KJob(parent)
-        , m_dbName(dbName)
-        {}
-    void setCount(int count){ setTotalAmount(KJob::Files,count); }
-    void start();
-public slots:
-    void scanJobFinished();
-private:
-    QString m_dbName;
-};
-
-///returns gross number of jobs started
-int scanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
-
-///wrapper. returns gross number of jobs started
-int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
-
-bool dragIsAcceptable(const QList<QUrl>& urls);
-
 
 //called on startup
 class OpenDBJob: public ThreadWeaver::Job

@@ -4,7 +4,7 @@
 
   Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004   by Stanislav Visnovsky <visnovsky@kde.org>
-                2007-2008   by Nick Shaforostoff <shafff@ukr.net>
+                2007-2009   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -40,19 +40,15 @@
 #ifndef DATAMODEL_H
 #define DATAMODEL_H
 
+
 #include <QUndoStack>
-class QUndoCommand;
 
 #include <kurl.h>
 
 #include "pos.h"
-#include "catalogitem.h"
-#include "catalogfileplugin.h"
+#include "catalogstring.h"
 #include "catalog_private.h"
 class CatalogStorage;
-#include "pluralformtypes_enum.h"
-
-#include "tagrange.h"
 
 #define CHECK_IF_EMPTY(_return_type)\
 if (  d->_entries.isEmpty() )\
@@ -82,8 +78,8 @@ public:
     Catalog(QObject* parent);
     virtual ~Catalog();
 
-    QString msgid(const DocPosition&, const bool noNewlines=false) const;
-    QString msgstr(const DocPosition&, const bool noNewlines=false) const;
+    QString msgid(const DocPosition&) const;
+    QString msgstr(const DocPosition&) const;
 
     static QStringList supportedExtensions();
     static bool extIsSupported(const QString& path);
@@ -106,6 +102,9 @@ public slots: //DBus interface
     bool isUntranslated(const DocPosition&) const;
     bool isModified(int entry);
 
+    bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
+    void setBookmark(uint,bool);
+
     int numberOfPluralForms() const {return d->_numberOfPluralForms;}
     int numberOfEntries() const;
     int numberOfNonApproved() const {return d->_fuzzyIndex.size();}
@@ -126,15 +125,12 @@ public:
     int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);}
     int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);}
 
-public slots: //DBus interface
-    bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
-    void setBookmark(uint,bool);
-
 public:
     void setPackageName( QString s ){d->_packageName = s;}
 
     void clear();
     bool isEmpty(){return !m_storage;}
+    bool isReadOnly(){return d->_readOnly;}
 
     void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
 
@@ -144,9 +140,9 @@ public slots: //DBus interface
     bool loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
     bool save();
-
     QString mimetype();
 
+    
 public:
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();
@@ -158,6 +154,9 @@ protected slots:
      * updates DB for _posBuffer and accompanying _originalForLastModified
      */
     void flushUpdateDBBuffer();
+
+    void doAutoSave();
+    void setAutoSaveDirty(){d->_autoSaveDirty=true;}
 
 protected:
     /**
@@ -176,6 +175,8 @@ protected:
     void setApproved(const DocPosition& pos, bool approved);
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
+    TagRange targetDeleteTag(const DocPosition& pos);
+    void targetInsertTag(const DocPosition& pos, const TagRange& tag);
 
     /**
      * @returns true if entry wasn't modified before
@@ -195,7 +196,8 @@ protected:
     friend class GettextCatalog::CatalogExportPlugin;
     friend class InsTextCmd;
     friend class DelTextCmd;
-    friend class ToggleFuzzyCmd;
+    friend class InsTagCmd;
+    friend class DelTagCmd;
     friend class ToggleApprovementCmd;
     friend class MergeCatalog;
 
