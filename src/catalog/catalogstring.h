@@ -25,6 +25,7 @@
 #define TAGRANGE_H
 
 #include <QList>
+#include <QMap>
 #include <QString>
 
 #define TAGRANGE_IMAGE_SYMBOL 65532
@@ -116,6 +117,7 @@ struct CatalogString
 
     CatalogString(){}
     CatalogString(QString str):string(str){}
+    QMap<QString,int> tagIdToIndex() const;
 };
 
 

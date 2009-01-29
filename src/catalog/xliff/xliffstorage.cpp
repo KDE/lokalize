@@ -361,6 +361,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             if (data&&data->actionType==ContentEditingData::DeleteTag
                 &&data->pos==startingPos)
             {
+                qWarning()<<"start deleting tag";
                 data->ranges.append(TagRange(startingPos, -1, TagRange::getElementType(el.tagName().toUtf8()), el.attribute("id")));
                 if (data->ranges.first().isPaired())
                 {
@@ -378,14 +379,17 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                         QDomNode tmp=local;
                         local = local.nextSibling();
                         if (!tmp.isAttr())
+                        {
+                            qWarning()<<"here is another child"<<tmp.nodeType()<<tmp.nodeName()<<tmp.nodeValue();
                             refNode=elem.insertAfter(tmp,refNode);
+                        }
                     }
 
                 }
                 QDomNode temp=n;
                 n=n.nextSibling();
                 elem.removeChild(temp);
-                continue;               
+                return QString();//we're done here
             }
             //END DELETE TAG
 
@@ -444,51 +448,14 @@ CatalogString XliffStorage::sourceWithTags(const DocPosition& pos) const
     return catalogString;
 }
 
-//reorders targetRanges to correspond sourceRanges
-//also inserts placholders for ranges that are present only in sourceRanges, but not in targetRanges
 CatalogString XliffStorage::targetWithTags(const DocPosition& pos) const
 {
     CatalogString catalogString;
-
-    ContentEditingData sourceData(ContentEditingData::Get);
-    content(entries.at(m_map.at(pos.entry)).firstChildElement("source"),&sourceData);
-
     ContentEditingData targetData(ContentEditingData::Get);
     catalogString.string=content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&targetData);
-
-    QList<TagRange> sourceRanges=sourceData.ranges;
-    QList<TagRange> targetRanges=targetData.ranges;
-
-    //additinal processing to have source and target tags with agree IDs
-    int i;
-
-    QHash<QString,int> sourceIds;
-    for (i=0;i<sourceRanges.size();++i)
-        sourceIds.insert(sourceRanges.at(i).id,i);
-
-    QHash<QString,int> targetIds;
-    for (i=0;i<targetRanges.size();++i)
-        targetIds.insert(targetRanges.at(i).id,i);
-
-    //first, insert tags that have no corresponding tag in source
-    //(this should be really rare case)
-    for (i=0;i<targetRanges.size();++i)
-        if (!sourceIds.contains(targetRanges.at(i).id))
-            catalogString.ranges.append(targetRanges.at(i));
-
-    for (i=0;i<sourceRanges.size();++i)
-    {
-        if (targetIds.contains(sourceRanges.at(i).id))
-            catalogString.ranges.append(targetRanges.at(
-                                targetIds.value(sourceRanges.at(i).id)
-                        ));//copy from targetRanges, because it contains position info!
-        else
-            catalogString.ranges.append(sourceRanges.at(i).getPlaceholder()); //to have parallel numbering in view
-    }
-
+    catalogString.ranges=targetData.ranges;
     return catalogString;
 }
-
 
 QString XliffStorage::source(const DocPosition& pos) const
 {
@@ -526,7 +493,7 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 void XliffStorage::targetInsertTag(const DocPosition& pos, const TagRange& tag)
 {
     targetInsert(pos,QString()); //adds <taget> if needed
-    ContentEditingData data(pos.offset,tag);
+    ContentEditingData data(tag.start,tag);
     content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
 }
 

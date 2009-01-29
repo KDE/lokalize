@@ -70,47 +70,42 @@
 class LedsWidget:public QWidget
 {
 public:
-    LedsWidget(QWidget* parent)
-    : QWidget(parent)
-//     , _ledFuzzy(0)
-//     , _ledUntr(0)
-//     , _ledErr(0)
-    {
-        KColorScheme colorScheme(QPalette::Normal);
-
-        QHBoxLayout* layout=new QHBoxLayout(this);
-        layout->addStretch();
-        layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:"),this));
-        layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
-        layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:"),this));
-        layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
-        layout->addSpacing(1);
-        layout->addWidget(lblColumn=new QLabel(this));
-        layout->addStretch();
-        setMaximumHeight(minimumSizeHint().height());
-    }
-
-//NOTE the config shit doesn't work
+    LedsWidget(QWidget* parent);
 private:
-    void contextMenuEvent(QContextMenuEvent* event)
-    {
-        QMenu menu;
-        menu.addAction(i18nc("@action","Hide"));
-        if (menu.exec(event->globalPos()))
-        {
-            Settings::setLeds(false);
-            Settings::self()->writeConfig();
-            hide();
-        }
-    }
-
+    void contextMenuEvent(QContextMenuEvent* event);
 public:
     KLed* ledFuzzy;
     KLed* ledUntr;
     //KLed* ledErr;
     QLabel* lblColumn;
-
 };
+LedsWidget::LedsWidget(QWidget* parent): QWidget(parent)
+{
+    KColorScheme colorScheme(QPalette::Normal);
+
+    QHBoxLayout* layout=new QHBoxLayout(this);
+    layout->addStretch();
+    layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:"),this));
+    layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
+    layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:"),this));
+    layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
+    layout->addSpacing(1);
+    layout->addWidget(lblColumn=new QLabel(this));
+    layout->addStretch();
+    setMaximumHeight(minimumSizeHint().height());
+}
+void LedsWidget::contextMenuEvent(QContextMenuEvent* event)
+{
+    QMenu menu;
+    menu.addAction(i18nc("@action","Hide"));
+    if (!menu.exec(event->globalPos()))
+        return; //NOTE the config doesn't seem to work
+    Settings::setLeds(false); 
+    Settings::self()->writeConfig();
+    hide();
+}
+
+
 
 void ProperTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 {
@@ -178,8 +173,10 @@ inline static QImage generateImage(QString str, ProperTextEdit* w)
     return result;
 }
 
-void ProperTextEdit::setContent(const CatalogString& catStr)
+void ProperTextEdit::setContent(const CatalogString& catStr, const CatalogString& refStr)
 {
+    //kWarning()<<"";
+    //kWarning()<<"START";
     //kWarning()<<str<<ranges.size();
     //prevent undo tracking system from recording this 'action'
     document()->blockSignals(true);
@@ -189,13 +186,15 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
 
     QMap<int,int> posToTagRange;
     int i=catStr.ranges.size();
+    //if (i) kWarning()<<"tags we got:";
     while(--i>=0)
     {
+        //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
         posToTagRange.insert(catStr.ranges.at(i).start,i);
         posToTagRange.insert(catStr.ranges.at(i).end,i);
     }
 
-
+    QMap<QString,int> sourceTagIdToIndex=refStr.tagIdToIndex();
 
     i=0;
     int prev=0;
@@ -207,18 +206,23 @@ void ProperTextEdit::setContent(const CatalogString& catStr)
 
         TagRange ourRange=catStr.ranges.at(tagRangeIndex);
         QString name=' '+ourRange.id;
-        QString text=QString::number(tagRangeIndex);
+        QString text;
+        if (sourceTagIdToIndex.isEmpty())
+            text=QString::number(tagRangeIndex);
+        else
+            text=QString::number(sourceTagIdToIndex.value(ourRange.id));
         if (ourRange.start!=ourRange.end)
         {
-            //kWarning()<<"a"<<ranges.at(tagRangeIndex).start;
             //kWarning()<<"b"<<i;
             if (ourRange.start==i)
             {
+                //kWarning()<<"\t\tstart:"<<ourRange.getElementName()<<ourRange.id<<ourRange.start;
                 text.append(" {");
                 name.append("-start");
             }
             else
             {
+                //kWarning()<<"\t\tend:"<<ourRange.getElementName()<<ourRange.id<<ourRange.end;
                 text.prepend("} ");
                 name.append("-end");
             }
@@ -268,11 +272,10 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , m_approvementState(true)
     , m_modifiedAfterFind(false)
 {
-    //( new QTreeView(this) )->selectAll();
     m_pluralTabBar->hide();
-//     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
-//                                   "<p>This part of the window shows the original message\n"
-//                                   "of the currently displayed entry.</p></qt>"));
+    _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
+                                  "<p>This part of the window shows the original message\n"
+                                  "of the currently displayed entry.</p></qt>"));
 
     _msgidEdit->setReadOnly(true);
 
@@ -552,6 +555,7 @@ void KAiderView::cursorPositionChanged()
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
+    //kWarning()<<"called";
     //kWarning()<<"!!!!!!!!!!!! offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
     QString editText=_msgstrEdit->toPlainText();
     if (KDE_ISUNLIKELY( _currentEntry==-1 || editText==_oldMsgstr ))
@@ -569,7 +573,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
        ||(charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL)))
     {
         //refresh
-        refreshMsgEdit(/*keepCursor*/true);
+        refreshMsgEdit(/*keepCursor*/true,_catalog->sourceWithTags(pos));
         return;
     }
 #endif
@@ -603,7 +607,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 
 void KAiderView::approvedEntryDisplayed(bool approved)
 {
-    kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved;
+    //kWarning()<<"approvedEntryDisplayed. entry:"<<_currentEntry<<"approved:"<<approved;
     if (KDE_ISUNLIKELY( _currentEntry==-1 ))
     {
         //kWarning()<<"approvedEntryDisplayed returning";
@@ -632,8 +636,9 @@ void KAiderView::approvedEntryDisplayed(bool approved)
 /**
  * makes MsgEdit reflect current entry
  **/
-void KAiderView::refreshMsgEdit(bool keepCursor)
+CatalogString KAiderView::refreshMsgEdit(bool keepCursor, const CatalogString& refStr)
 {
+    //kWarning()<<"called";
     ProperTextEdit& msgEdit=*_msgstrEdit;
     QTextCursor cursor=msgEdit.textCursor();
 
@@ -658,7 +663,7 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
     disconnect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
 
 #ifdef XLIFF
-    msgEdit.setContent(targetWithTags);
+    msgEdit.setContent(targetWithTags,refStr);
 #else
     //prevent undo tracking system from recording this 'action'
     msgEdit.document()->blockSignals(true);
@@ -684,8 +689,10 @@ void KAiderView::refreshMsgEdit(bool keepCursor)
 
 
     approvedEntryDisplayed(_catalog->isApproved(_currentPos.entry));
-//     m_msgstrHighlighter->rehighlight(); done in approvedEntryDisplayed()
+    //m_msgstrHighlighter->rehighlight(); done in approvedEntryDisplayed()
     connect (msgEdit.document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    //kWarning()<<"finished";
+    return targetWithTags; //for the sake of not calling XliffStorage/doContent twice
 }
 
 
@@ -718,7 +725,8 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection)
         m_pluralTabBar->hide();
 
 #ifdef XLIFF
-    _msgidEdit->setContent(_catalog->sourceWithTags(_currentPos));
+    CatalogString sourceWithTags=_catalog->sourceWithTags(_currentPos);
+    _msgidEdit->setContent(sourceWithTags);
     m_msgidHighlighter->rehighlight(); //explicitly because setContent disables signals
 #else
     _msgidEdit->setPlainText(_catalog->msgid(_currentPos)/*, _catalog->msgctxt(_currentIndex)*/);
@@ -730,9 +738,8 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection)
 #endif
 
     //kWarning()<<"calling refreshMsgEdit";
-    refreshMsgEdit();//sets msgstredit text along the way
-
-    QString targetString=_catalog->targetWithTags(_currentPos).string;
+    //refreshMsgEdit() sets msgstredit text along the way
+    QString targetString=refreshMsgEdit(false,sourceWithTags).string;
     bool untrans=targetString.isEmpty();
     if (_leds)
     {
@@ -837,7 +844,7 @@ void KAiderView::toggleBookmark(bool checked)
 
 void KAiderView::toggleApprovement(bool approved)
 {
-    kWarning()<<"called";
+    //kWarning()<<"called";
     if (KDE_ISUNLIKELY( _currentEntry==-1 ))
         return;
 
@@ -852,7 +859,8 @@ void KAiderView::msgid2msgstr()
     QString out;
     QString ctxt(_catalog->msgctxt(_currentPos.entry));
 
-   // this is KDE specific:
+    //TODO ask for the fillment if the first time.
+    // this is KDE specific:
     if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
     {
         if (!_catalog->msgstr(_currentPos).isEmpty())
@@ -888,14 +896,6 @@ void KAiderView::msgid2msgstr()
     // end of KDE specific part
 
 
-/*    QRegExp reg=_catalog->miscSettings().contextInfo;
-    if(text.contains(reg))
-    {
-        text.replace(reg,"");
-    }*/
-
-    //modifyMsgstrText(0,text,true);
-
     if (out.isEmpty())
     {
         DocPosition pos=_currentPos;pos.offset=0;
@@ -903,7 +903,7 @@ void KAiderView::msgid2msgstr()
         _catalog->push(new DelTextCmd(_catalog,pos,_catalog->target(_currentPos)));
         _oldMsgstr="";//newStr becomes OldStr
         _catalog->push(new InsTextCmd(_catalog,pos,text));
-        refreshMsgEdit();
+        refreshMsgEdit(/*keepCursor*/false,_catalog->sourceWithTags(pos));
         if (KDE_ISUNLIKELY( !_catalog->isApproved(pos.entry) ))
             toggleApprovement(true);
     }
@@ -953,47 +953,73 @@ void KAiderView::insertTerm(const QString& term)
 
 void KAiderView::tagMenu()
 {
-/*    DocPosition p=_currentPos;
-    p.offset=1;
-    _catalog->push(new InsTagCmd(_catalog,p,TagRange(1,23,TagRange::g,QString("500"))));
-    //_catalog->push(new DelTagCmd(_catalog,p));
-    return;*/
-    
-    if (KDE_ISUNLIKELY( Project::instance()->markup().isEmpty() ))
-        return;
-
     QMenu menu;
-
-    //QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
-    QRegExp tag(Project::instance()->markup());
-    tag.setMinimal(true);
-    QString en(_msgidEdit->toPlainText());
-    QString target(_msgstrEdit->toPlainText());
-    en.remove('\n');
-    target.remove('\n');
-    int pos=0;
-    //tag.indexIn(en);
-    int posInMsgStr=0;
     QAction* txt=0;
-    while ((pos=tag.indexIn(en,pos))!=-1)
+
+    CatalogString sourceWithTags=_catalog->sourceWithTags(_currentPos);
+    int count=sourceWithTags.ranges.size();
+    if (count)
     {
-/*        QString str(tag.cap(0));
-        str.replace("&","&&");*/
-        txt=menu.addAction(tag.cap(0));
-        pos+=tag.matchedLength();
-
-        if (posInMsgStr!=-1 && (posInMsgStr=target.indexOf(tag.cap(0),posInMsgStr))==-1)
-            menu.setActiveAction(txt);
-        else if (posInMsgStr!=-1)
-            posInMsgStr+=tag.matchedLength();
+        QMap<QString,int> tagIdToIndex=_catalog->targetWithTags(_currentPos).tagIdToIndex();
+        bool hasActive=false;
+        for (int i=0;i<count;++i)
+        {
+            //txt=menu.addAction(sourceWithTags.ranges.at(i));
+            txt=menu.addAction(QString::number(i)+" "+sourceWithTags.ranges.at(i).id);
+            txt->setData(QVariant(i));
+            if (!hasActive && !tagIdToIndex.contains(sourceWithTags.ranges.at(i).id))
+            {
+                hasActive=true;
+                menu.setActiveAction(txt);
+            }
+        }
+        txt=menu.exec(_msgstrEdit->mapToGlobal(_msgstrEdit->cursorRect().bottomRight()));
+        if (!txt)
+            return;
+        TagRange tag=sourceWithTags.ranges.at(txt->data().toInt());
+        QTextCursor cursor=_msgstrEdit->textCursor();
+        tag.start=qMin(cursor.anchor(),cursor.position());
+        tag.end=qMax(cursor.anchor(),cursor.position());
+        _catalog->push(new InsTagCmd(_catalog,_currentPos,tag));
+        refreshMsgEdit(/*keepCursor*/false,_catalog->sourceWithTags(_currentPos));
+        cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1);
     }
-    if (!txt)
-        return;
+    else
+    {
+        if (KDE_ISUNLIKELY( Project::instance()->markup().isEmpty() ))
+            return;
 
-    txt=menu.exec(_msgidEdit->mapToGlobal(QPoint(0,0)));
-    if (txt)
-        _msgstrEdit->insertPlainText(txt->text());
+        //QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");
+        QRegExp tag(Project::instance()->markup());
+        tag.setMinimal(true);
+        QString en(_msgidEdit->toPlainText());
+        QString target(_msgstrEdit->toPlainText());
+        en.remove('\n');
+        target.remove('\n');
+        int pos=0;
+        //tag.indexIn(en);
+        int posInMsgStr=0;
+        while ((pos=tag.indexIn(en,pos))!=-1)
+        {
+    /*        QString str(tag.cap(0));
+            str.replace("&","&&");*/
+            txt=menu.addAction(tag.cap(0));
+            pos+=tag.matchedLength();
 
+            if (posInMsgStr!=-1 && (posInMsgStr=target.indexOf(tag.cap(0),posInMsgStr))==-1)
+                menu.setActiveAction(txt);
+            else if (posInMsgStr!=-1)
+                posInMsgStr+=tag.matchedLength();
+        }
+        if (!txt)
+            return;
+
+        //txt=menu.exec(_msgidEdit->mapToGlobal(QPoint(0,0)));
+        txt=menu.exec(_msgstrEdit->mapToGlobal(_msgstrEdit->cursorRect().bottomRight()));
+        if (txt)
+            _msgstrEdit->insertPlainText(txt->text());
+
+    }
 }
 
 //END edit actions that are easier to do in this class

@@ -60,7 +60,8 @@ public:
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
 #ifdef XLIFF
-    void setContent(const CatalogString& catStr);
+    ///@a refStr is for proper numbering
+    void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
 private:
     QList<TagRange> m_ranges;
 #endif
@@ -156,7 +157,7 @@ private slots:
     void clearMsgStr();
     void tagMenu();
 
-    void refreshMsgEdit(bool keepCursor=false);
+    CatalogString refreshMsgEdit(bool keepCursor=false, const CatalogString& refStr=CatalogString());
 private:
 
 

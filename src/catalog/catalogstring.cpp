@@ -62,3 +62,13 @@ TagRange::InlineElement TagRange::getElementType(const QByteArray& tag)
     return InlineElement(i);
 }
 
+
+
+QMap<QString,int> CatalogString::tagIdToIndex() const
+{
+    QMap<QString,int> result;
+    int count=ranges.size();
+    for (int i=0;i<count;++i)
+        result[ranges.at(i).id]=i;
+    return result;
+}
