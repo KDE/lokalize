@@ -43,7 +43,7 @@
 
 namespace TM {
     static int doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
-};
+}
 
 using namespace TM;
 

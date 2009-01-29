@@ -61,6 +61,6 @@ private:
     QString m_dbName;
 };
 
-};
+}
 
 #endif
