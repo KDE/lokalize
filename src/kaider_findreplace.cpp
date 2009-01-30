@@ -71,21 +71,6 @@ void EditorWindow::deleteUiSetupers()
     delete ui_replaceExtension;
 }
 
-static void cleanUpIfMultiple(EditorWindow* th,
-                              KUrl::List& list,
-                              int& pos,
-                              KFindDialog* dia)
-{
-    if (list.isEmpty())
-        return;
-
-    if (!th->isVisible())
-        th->deleteLater();
-    list.clear();
-    pos=-1;
-    dia->setHasCursor(true);
-}
-
 //TODO &amp;, &nbsp;
 static void calsOffsetWithAccels(const QString& data, int& offset, int& length)
 {
@@ -115,20 +100,6 @@ void EditorWindow::find()
         _findDialog->setHasSelection(false);
     }
 
-    /////
-    if (m_searchFilesPos!=-1)
-    {
-        //reset find in files state
-        m_searchFilesPos=-1;
-        m_searchFiles.clear();
-        _findDialog->setHasCursor(true);
-        m_updateView=true;
-        m_catalogTreeView->setUpdatesEnabled(true);
-    }
-    else if (!m_searchFiles.isEmpty())
-        _findDialog->setHasCursor(false);
-    /////
-
     QString sel(m_view->selection());
     if (!(sel.isEmpty()&&m_view->selectionMsgId().isEmpty()))
     {
@@ -140,13 +111,7 @@ void EditorWindow::find()
     }
 
     if ( _findDialog->exec() != QDialog::Accepted )
-    {
-        cleanUpIfMultiple(this,
-                          m_searchFiles,
-                          m_searchFilesPos,
-                          _findDialog);
         return;
-    }
     //HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory();
      _findDialog->setPattern(_findDialog->findHistory().first());
 
@@ -174,81 +139,30 @@ void EditorWindow::find()
         pos=_currentPos;
     else
     {
-        if (!determineStartingPos(_find,m_searchFiles,m_searchFilesPos,pos))
-        {
-            cleanUpIfMultiple(this,
-                              m_searchFiles,
-                              m_searchFilesPos,
-                              _findDialog);
+        if (!determineStartingPos(_find,pos))
             return;
-        }
     }
 
     findNext(pos);
 }
 
 bool EditorWindow::determineStartingPos(KFind* find,
-                                  const KUrl::List& filesList,//search or replace files
-                                  int& filesPos,
                                   DocPosition& pos)
 {
     if (find->options() & KFind::FindBackwards)
     {
-        /////
-        if (!filesList.isEmpty())
-        {
-            filesPos=filesList.size()-1;
-            if (filesList.size()!=1)
-            {
-                m_updateView=false;
-            }
-            if ((find==_replace&&!saveFile())
-               ||!fileOpen(filesList.at(filesPos)))
-                return false;
-            if (filesList.size()!=1)
-            {
-                m_updateView=true;
-            }
-        }
-        /////
-
         pos.entry=_catalog->numberOfEntries()-1;
         pos.form=
                 (_catalog->isPlural(pos.entry))?
                 _catalog->numberOfPluralForms()-1:0;
-
     }
     else
     {
-        /////
-        if (!filesList.isEmpty())
-        {
-            filesPos=0;
-            if (filesList.size()!=1)
-            {
-                m_updateView=false;
-            }
-            if ((find==_replace&&!saveFile())
-               ||!fileOpen(filesList.at(filesPos)))
-                return false;
-            if (filesList.size()!=1)
-            {
-                m_updateView=true;
-            }
-        }
-        /////
-
         pos.entry=0;
         pos.form=0;
-
     }
     return true;
 }
-
-// void EditorWindow::initProgressDia()
-// {
-//     
-// }
 
 void EditorWindow::findNext(const DocPosition& startingPos)
 {
@@ -263,30 +177,6 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 
     if (anotherEntry)
         _searchingPos.offset=0;
-
-    /////
-    if (!m_searchFiles.isEmpty()
-         &&m_searchFilesPos>=0
-         &&m_searchFilesPos<m_searchFiles.size())
-    {
-
-        m_catalogTreeView->setUpdatesEnabled(false);
-        //it is a qobject so it certainly will be deleted when needed
-        if (!m_progressDialog)
-        {
-            m_progressDialog=new KProgressDialog(this,
-                                         i18nc("@title:window","Scanning Files...")
-                                     //i18nc("@title:window","Searching in Files"),
-                                        );
-            m_progressDialog->setAllowCancel(false);
-            m_progressDialog->showCancelButton(false);
-        }
-        m_progressDialog->progressBar()->setRange(0,m_searchFiles.size()-1);
-        m_progressDialog->progressBar()->setValue(m_searchFilesPos);
-        m_progressDialog->show();
-
-    }
-    /////
 
 
     QRegExp rx("[^(\\\\n)>]\n");
@@ -342,80 +232,15 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 
         if (res==KFind::NoMatch)
         {
-            /////
-            if (!m_searchFiles.isEmpty())
-            {
-                bool end=false;
-                bool last=false;
-                if (find.options() & KFind::FindBackwards)
-                {
-                    end=(--m_searchFilesPos<0);
-                    last=(m_searchFilesPos==0);
-                }
-                else
-                {
-                    end=(++m_searchFilesPos==m_searchFiles.size());
-                    last=(m_searchFilesPos==m_searchFiles.size()-1);
-                }
-                if (KDE_ISLIKELY(m_progressDialog))
-                    m_progressDialog->progressBar()->setValue(m_searchFilesPos);
-
-                if (KDE_ISLIKELY(!end))
-                {
-                    if (!last)
-                        m_updateView=false;
-                    if (m_searchFilesPos<m_searchFiles.size()&&fileOpen(m_searchFiles.at(m_searchFilesPos)))
-                    {
-                        if (find.options() & KFind::FindBackwards)
-                        {
-                            DocPosition pos;
-                            pos.entry=catalog.numberOfEntries()-1;
-                            pos.form=(catalog.isPlural(pos.entry))?
-                                catalog.numberOfPluralForms()-1:0;
-                            //_searchingPos=pos;
-                            gotoEntry(pos);
-                        }
-                        //flag=1;
-
-                        if (!last)
-                            m_updateView=true;
-                        //continue;
-                        QTimer::singleShot(0,this,SLOT(findNext()));
-                        //hideDia=false;
-
-                        return;
-                    }
-                    else
-                        cleanUpIfMultiple(this,
-                                  m_searchFiles,
-                                  m_searchFilesPos,
-                                  _findDialog);
-
-                }
-            }
-            if(m_progressDialog)
-                m_progressDialog->hide();
-            /////
-
-            //file-wide search, or end of project-wide search
-            if(find.shouldRestart(true,true)
-              &&determineStartingPos(_find,m_searchFiles,m_searchFilesPos,_searchingPos))
+            //file-wide search
+            if(find.shouldRestart(true,true))
             {
                 flag=1;
+                determineStartingPos(_find,_searchingPos);
             }
-            /////
-            else 
-                cleanUpIfMultiple(this,
-                                  m_searchFiles,
-                                  m_searchFilesPos,
-                                  _findDialog);
-            /////
             find.resetCounts();
         }
     }
-
-    if(m_progressDialog)
-        m_progressDialog->hide();
 
     m_catalogTreeView->setUpdatesEnabled(true);
 }
@@ -475,21 +300,6 @@ void EditorWindow::replace()
         _replaceDialog->setHasSelection(false);
     }
 
-    /////
-    if (m_replaceFilesPos!=-1)
-    {
-        //reset find in files state
-        m_replaceFilesPos=-1;
-        m_replaceFiles.clear();
-        _replaceDialog->setHasCursor(true);
-        m_updateView=true;
-        m_catalogTreeView->setUpdatesEnabled(true);
-    }
-    else if (!m_replaceFiles.isEmpty())
-        _replaceDialog->setHasCursor(false);
-
-    /////
-
     if (!m_view->selection().isEmpty())
     {
         if (REPLACE_IGNOREACCELS)
@@ -504,13 +314,7 @@ void EditorWindow::replace()
 
 
     if ( _replaceDialog->exec() != QDialog::Accepted )
-    {
-        cleanUpIfMultiple(this,
-                          m_replaceFiles,
-                          m_replaceFilesPos,
-                          _replaceDialog);
         return;
-    }
 
 //HACK dunno why!
     _replaceDialog->setPattern(_replaceDialog->findHistory().first());
@@ -546,14 +350,8 @@ void EditorWindow::replace()
     else
     {
         DocPosition pos;
-        if (!determineStartingPos(_replace,m_replaceFiles,m_replaceFilesPos,pos))
-        {
-            cleanUpIfMultiple(this,
-                              m_replaceFiles,
-                              m_replaceFilesPos,
-                              _replaceDialog);
+        if (!determineStartingPos(_replace,pos))
             return;
-        }
         replaceNext(pos);
     }
 
@@ -567,28 +365,6 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 
     if (anotherEntry)
         _replacingPos.offset=0;
-
-    /////
-    if (!m_replaceFiles.isEmpty()
-         &&m_replaceFilesPos>=0
-         &&m_replaceFilesPos<m_replaceFiles.size())
-    {
-        m_catalogTreeView->setUpdatesEnabled(false);
-        //it is a qobject so it certainly will be deleted when needed
-        if (!m_progressDialog)
-        {
-            m_progressDialog=new KProgressDialog(this,
-                                         i18nc("@title:window","Scanning Files...")
-                                     //i18nc("@title:window","Searching in Files"),
-                                        );
-            m_progressDialog->setAllowCancel(false);
-            m_progressDialog->showCancelButton(false);
-        }
-        m_progressDialog->progressBar()->setRange(0,m_replaceFiles.size()-1);
-        m_progressDialog->progressBar()->setValue(m_replaceFilesPos);
-        m_progressDialog->show();
-    }
-    /////
 
 
     int flag=1;
@@ -627,78 +403,14 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 
         if (res==KFind::NoMatch)
         {
-            /////
-            if (!m_replaceFiles.isEmpty())
-            {
-                bool end=false;
-                bool last=false;
-                if (_replace->options() & KFind::FindBackwards)
-                {
-                    end=(--m_replaceFilesPos<0);
-                    last=(m_replaceFilesPos==0);
-                }
-                else
-                {
-                    end=(++m_replaceFilesPos==m_replaceFiles.size());
-                    last=(m_replaceFilesPos==m_replaceFiles.size()-1);
-                }
-                if (KDE_ISLIKELY(m_progressDialog))
-                    m_progressDialog->progressBar()->setValue(m_replaceFilesPos);
-
-                if (KDE_ISLIKELY(!end))
-                {
-                    if (!last)
-                    {
-                        m_updateView=false;
-                    }
-                    if (!saveFile()
-                       ||fileOpen(m_replaceFiles.at(m_replaceFilesPos)))
-                    {
-                        cleanUpIfMultiple(this,
-                                          m_replaceFiles,
-                                          m_replaceFilesPos,
-                                          _replaceDialog);
-                        return;
-                    }
-                    if (_replace->options() & KFind::FindBackwards)
-                    {
-                        DocPosition pos;
-                        pos.entry=_catalog->numberOfEntries()-1;
-                        pos.form=(_catalog->isPlural(pos.entry))?
-                            _catalog->numberOfPluralForms()-1:0;
-                        //_searchingPos=pos;
-                        gotoEntry(pos);
-                    }
-                    //flag=1;
-                    //determineStartingPos(_searchingPos);
-
-                    if (!last)
-                    {
-                        m_updateView=true;
-                    }
-                    //continue;
-                    QTimer::singleShot(0,this,SLOT(replaceNext()));
-                    //hideDia=false;
-                    return;
-                }
-            }
-            if(m_progressDialog)
-                m_progressDialog->hide();
-            /////
-
             if((_replace->options()&KFind::FromCursor)
-                &&_replace->shouldRestart(true)
-                &&determineStartingPos(_replace,m_replaceFiles,m_replaceFilesPos,_replacingPos))
+                &&_replace->shouldRestart(true))
             {
                 flag=1;
+                determineStartingPos(_replace,_replacingPos);
             }
             else
             {
-                cleanUpIfMultiple(this,
-                                  m_replaceFiles,
-                                  m_replaceFilesPos,
-                                  _replaceDialog);
-
                 if(!(_replace->options() & KFind::FromCursor))
                      _replace->displayFinalDialog();
 
@@ -714,9 +426,6 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
         }
     }
 
-    if(m_progressDialog)
-        m_progressDialog->hide();
-
     m_catalogTreeView->setUpdatesEnabled(true);
 }
 
@@ -727,8 +436,6 @@ void EditorWindow::replaceNext()
 
 void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
-    show();
-
     if (REPLACE_IGNOREACCELS)
     {
         QString data;
@@ -817,18 +524,6 @@ void EditorWindow::spellcheck()
 
     }
 
-    if (!m_spellcheckFiles.isEmpty()
-         &&m_spellcheckFilesPos==-1)
-    {
-        if (!fileOpen(m_spellcheckFiles.first()))
-        {
-            m_spellcheckFiles.clear();
-            m_spellcheckFilesPos=-1;
-            return;
-        }
-        m_spellcheckFilesPos=0;
-    }
-
     QString text=_catalog->msgstr(_currentPos);
     if (!m_view->selection().isEmpty())
         text=m_view->selection();
@@ -852,22 +547,7 @@ void EditorWindow::spellcheckNext()
         while (_catalog->msgstr(_spellcheckPos).isEmpty() || !_catalog->isApproved(_spellcheckPos.entry))
         {
             if (!switchNext(_catalog,_spellcheckPos))
-            {
-                if (m_spellcheckFiles.isEmpty())
-                    return;
-                if (++m_spellcheckFilesPos==m_spellcheckFiles.size()
-                    ||!saveFile()
-                    ||!fileOpen(m_spellcheckFiles.at(m_spellcheckFilesPos)))
-                {
-                    m_spellcheckFiles.clear();
-                    m_spellcheckFilesPos=-1;
-                    if (!isVisible())
-                        deleteLater();
-                    return;
-                }
-                QTimer::singleShot(0,this,SLOT(spellcheck()));
                 return;
-            }
         }
         QString text=_catalog->msgstr(_spellcheckPos);
         text.remove('&');
@@ -931,51 +611,6 @@ void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString 
 
 
 
-
-
-
-
-void EditorWindow::findInFiles(const KUrl::List& list)
-{
-    m_searchFiles=list;
-    m_searchFilesPos=-1;
-
-#if 0
-this is nice, but too complex :)
-    KUrl::List::iterator it(m_searchFiles.begin());
-    while (it!=m_searchFiles.end())
-    {
-        if (_catalog->url()==*it)
-            break;
-        ++it;
-    }
-
-    if (it!=m_searchFiles.end())
-        m_searchFiles.erase(it);
-    else if (!m_searchFiles.isEmpty())
-        fileOpen(m_searchFiles.takeFirst());
-#endif
-
-    QTimer::singleShot(0,this,SLOT(find()));
-}
-
-
-void EditorWindow::replaceInFiles(const KUrl::List& list)
-{
-    m_replaceFiles=list;
-    m_replaceFilesPos=-1;
-
-    QTimer::singleShot(0,this,SLOT(replace()));
-}
-
-
-void EditorWindow::spellcheckFiles(const KUrl::List& list)
-{
-    m_spellcheckFiles=list;
-    m_spellcheckFilesPos=-1;
-
-    QTimer::singleShot(0,this,SLOT(spellcheck()));
-}
 
 
 

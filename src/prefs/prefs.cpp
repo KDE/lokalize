@@ -35,8 +35,9 @@
 #include "project.h"
 
 #include "ui_prefs_identity.h"
-#include "ui_prefs_font.h"
-#include "ui_prefs_misc.h"
+#include "ui_prefs_editor.h"
+#include "ui_prefs_appearance.h"
+#include "ui_prefs_tm.h"
 #include "ui_prefs_projectmain.h"
 #include "ui_prefs_regexps.h"
 
@@ -112,18 +113,24 @@ void SettingsController::slotSettings()
 
     dialog->addPage(w, i18nc("@title:tab","Identity"), "preferences-desktop-user");
 
+//Editor
+    w = new QWidget(dialog);
+    Ui_prefs_editor ui_prefs_editor;
+    ui_prefs_editor.setupUi(w);
+    dialog->addPage(w, i18nc("@title:tab","Editing"), "accessories-text-editor");
+    
 //Font
     w = new QWidget(dialog);
-    Ui_prefs_font ui_prefs_font;
-    ui_prefs_font.setupUi(w);
+    Ui_prefs_appearance ui_prefs_appearance;
+    ui_prefs_appearance.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Appearance"), "preferences-desktop-font");
 
-//Misc
+//TM
     w = new QWidget(dialog);
-    Ui_prefs_misc ui_prefs_misc;
-    ui_prefs_misc.setupUi(w);
+    Ui_prefs_tm ui_prefs_tm;
+    ui_prefs_tm.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Translation Memory"), "configure");
-
+    
     connect(dialog,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(generalSettingsChanged()));
 
 //     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));

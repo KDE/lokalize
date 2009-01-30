@@ -91,13 +91,8 @@ public:
     int entry;
     //int offset;
 };
-/*qRegisterMetaType<KAiderState>("KAiderState");
-Q_DECLARE_METATYPE(KAiderState);
-namespace ConversionCheck
-{
-    QVConversions(KAiderState, supported, supported);
-}
-*/
+
+
 /**
  * @author Nick Shaforostoff <shafff@ukr.net>
  * @short Editor tab
@@ -241,16 +236,8 @@ private:
     void findNext(const DocPosition& startingPos);
     void replaceNext(const DocPosition&);
     bool determineStartingPos(KFind*,//search or replace
-                              const KUrl::List&,//search or replace files
-                              int&,//pos in KUrl::List
                               DocPosition&);//called from find() and findNext()
-//     void initProgressDia();
 
-
-
-
-    // /** should be called on real entry change only */
-//     void emitSignals();
 
     void deleteUiSetupers();
 
@@ -284,13 +271,6 @@ private:
     KReplaceDialog* _replaceDialog;
     KReplace* _replace;
 
-    KUrl::List m_searchFiles;
-    KUrl::List m_replaceFiles;
-    KUrl::List m_spellcheckFiles;
-    int m_searchFilesPos;
-    int m_replaceFilesPos;
-    int m_spellcheckFilesPos;
-    KProgressDialog* m_progressDialog;
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 

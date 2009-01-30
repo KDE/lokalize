@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>prefs_font</class>
- <widget class="QWidget" name="prefs_font" >
+ <class>prefs_appearance</class>
+ <widget class="QWidget" name="prefs_appearance" >
   <property name="geometry" >
    <rect>
     <x>0</x>

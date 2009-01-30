@@ -90,6 +90,11 @@
     </entry>
 -->
   </group>
+  <group name="Editor">
+    <entry name="AutoApprove"  type="Bool">
+        <default>true</default>
+    </entry>
+  </group>
   <group name="TM">
     <entry name="PrefetchTM"  type="Bool">
         <default>true</default>

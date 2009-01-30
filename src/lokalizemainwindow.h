@@ -111,10 +111,6 @@ public slots:
     Q_SCRIPTABLE QString dbusName();
 
 
-    void searchInFiles(const KUrl::List&);
-    void replaceInFiles(const KUrl::List&);
-    void spellcheckFiles(const KUrl::List&);
-
     //returns 0 if error
     EditorWindow* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
     void fileOpen(const KUrl& url, const QString& source, const QString& ctxt);

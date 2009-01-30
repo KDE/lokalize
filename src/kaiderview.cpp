@@ -574,6 +574,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
     bool markupAdded=charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL);
     if (markupRemoved || markupAdded)
     {
+        bool modified=false;
         CatalogString targetWithTags=_catalog->targetWithTags(_currentPos);
         //special case when the user presses Del
         if (!charsAdded && charsRemoved==1)
@@ -583,6 +584,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
             {
                 if (targetWithTags.ranges.at(i).start==offset || targetWithTags.ranges.at(i).end==offset)
                 {
+                    modified=true;
                     pos.offset=targetWithTags.ranges.at(i).start;
                     _catalog->push(new DelTagCmd(_catalog,pos));
                 }
@@ -620,6 +622,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
             }
             if (it==tagPlaces.constEnd())//all indexes are ok.
             {
+                modified=true;
                 kWarning()<<"all indexes are ok";
                 it = tagPlaces.constBegin();
                 while (it != tagPlaces.constEnd())
@@ -669,21 +672,24 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
         */
 
         refreshMsgEdit(/*keepCursor*/true,_catalog->sourceWithTags(pos));
-        return;
+        if (!modified)
+            return;
     }
 //END XLIFF markup handling
 #endif
+    else
+    {
+
+        if (charsRemoved)
+            _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
+
+        _oldMsgstr=editText;//newStr becomes OldStr
+        //kWarning()<<"char"<<editText[offset].unicode();
+        if (charsAdded)
+            _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
+    }
 
     m_modifiedAfterFind=true;
-
-
-    if (charsRemoved)
-        _catalog->push(new DelTextCmd(_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
-
-    _oldMsgstr=editText;//newStr becomes OldStr
-    //kWarning()<<"char"<<editText[offset].unicode();
-    if (charsAdded)
-        _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
 
     if (_leds)
     {
@@ -693,7 +699,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
             _leds->ledUntr->off();
     }
 
-    if (!_catalog->isApproved(_currentEntry))
+    if (!_catalog->isApproved(_currentEntry)&&Settings::autoApprove())
         toggleApprovement(true);
 
     // for mergecatalog (remove entry from index)

@@ -320,9 +320,6 @@ void LokalizeMainWindow::showProjectOverview()
         w->showMaximized();
         m_projectSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
-        connect(w, SIGNAL(searchRequested(KUrl::List)),this,SLOT(searchInFiles(KUrl::List)));
-        connect(w, SIGNAL(replaceRequested(KUrl::List)),this,SLOT(replaceInFiles(KUrl::List)));
-        connect(w, SIGNAL(spellcheckRequested(KUrl::List)),this,SLOT(spellcheckFiles(KUrl::List)));
     }
 
     m_mdiArea->setActiveSubWindow(m_projectSubWindow);
@@ -347,33 +344,6 @@ void LokalizeMainWindow::applyToBeActiveSubWindow()
 {
     m_mdiArea->setActiveSubWindow(m_toBeActiveSubWindow);
 }
-
-void LokalizeMainWindow::searchInFiles(const KUrl::List& urls)
-{
-    EditorWindow* w=new EditorWindow(this);
-    QMdiSubWindow* sw=0;
-    sw=m_mdiArea->addSubWindow(w);
-    w->showMaximized();
-    sw->showMaximized();
-
-    static_cast<EditorWindow*>( m_mdiArea->activeSubWindow()->widget() )->findInFiles(urls);
-/*    EditorWindow* a=new EditorWindow;
-    a->findInFiles(urls);
-    a->show();
-    */
-//    void replaceInFiles(const KUrl::List&);
-}
-void LokalizeMainWindow::replaceInFiles(const KUrl::List&)
-{
-
-}
-void LokalizeMainWindow::spellcheckFiles(const KUrl::List& urls)
-{
-    EditorWindow* a=new EditorWindow(this);
-    a->spellcheckFiles(urls);
-    a->show();
-}
-
 
 
 void LokalizeMainWindow::setupActions()
