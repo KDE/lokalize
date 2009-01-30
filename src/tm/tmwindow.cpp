@@ -48,9 +48,11 @@
 #include <QClipboard>
 #include <QShortcut>
 #include <QDragEnterEvent>
+#include <QSortFilterProxyModel>
 
 
 using namespace TM;
+// static int BIG_COUNTER=0;
 
 //TODO do things for case when user explicitly wants to find & accel mark
 
@@ -133,6 +135,8 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                  +targetQuery
                  +fileQuery
                 ,m_db);
+                
+//     kWarning()<<"TEST"<<BIG_COUNTER;
 }
 
 #define TM_DELIMITER '\v'
@@ -153,6 +157,8 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
         return QSqlQueryModel::data(item, Qt::DisplayRole);
 
     QVariant result=QSqlQueryModel::data(item, role);
+/*    if (role==Qt::SizeHintRole && !result.isValid())
+        BIG_COUNTER++;*/
     if (role!=Qt::DisplayRole)
         return result;
 
@@ -192,6 +198,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 
 TMWindow::TMWindow(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
+    , m_proxyModel(new QSortFilterProxyModel(this))
     , m_dbusId(-1)
 {
     //setCaption(i18nc("@title:window","Translation Memory"),false);
@@ -201,6 +208,7 @@ TMWindow::TMWindow(QWidget *parent)
     QWidget* w=new QWidget(this);
     ui_queryOptions->setupUi(w);
     setCentralWidget(w);
+    ui_queryOptions->queryLayout->setStretchFactor(ui_queryOptions->mainQueryLayout,42);
 
     connect(ui_queryOptions->querySource,SIGNAL(returnPressed()),
            this,SLOT(performQuery()));
@@ -208,8 +216,10 @@ TMWindow::TMWindow(QWidget *parent)
            this,SLOT(performQuery()));
     connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),
            this,SLOT(performQuery()));
-//     connect(ui_queryOptions->doFind,SIGNAL(clicked()),
-//            this,SLOT(performQuery()));
+    connect(ui_queryOptions->doFind,SIGNAL(clicked()),
+            this,SLOT(performQuery()));
+    connect(ui_queryOptions->doUpdateTM,SIGNAL(clicked()),
+            this,SLOT(updateTM()));
 
     QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);
@@ -218,6 +228,7 @@ TMWindow::TMWindow(QWidget *parent)
     //connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
     view->setRootIsDecorated(false);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
+    view->setSortingEnabled(true);
 
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
@@ -246,7 +257,10 @@ TMWindow::TMWindow(QWidget *parent)
     m_model = new TMDBModel(this);
     m_model->setDB(Project::instance()->projectID());
 
-    view->setModel(m_model);
+    m_proxyModel->setDynamicSortFilter(true);
+    m_proxyModel->setSourceModel(m_model);
+    view->setModel(m_proxyModel);
+    view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
 
     QButtonGroup* btnGrp=new QButtonGroup(this);
     btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
@@ -282,6 +296,13 @@ TMWindow::~TMWindow()
 void TMWindow::selectDB(int i)
 {
     //m_dbCombo->setCurrentIndex(i);
+}
+
+void TMWindow::updateTM()
+{
+    QList<QUrl> urls;
+    urls.append(Project::instance()->poDir());
+    scanRecursive(urls,Project::instance()->projectID());
 }
 
 void TMWindow::performQuery()

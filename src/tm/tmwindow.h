@@ -47,6 +47,7 @@ class KLineEdit;
 
 class QComboBox;
 class QTreeView;
+class QSortFilterProxyModel;
 class QCheckBox;
 class Ui_QueryOptions;
 
@@ -81,6 +82,7 @@ public slots:
 
 public slots:
     void performQuery();
+    void updateTM();
     void copySource();
     void copyTarget();
     void openFile();
@@ -96,6 +98,7 @@ private:
 private:
     Ui_QueryOptions* ui_queryOptions;
     TMDBModel* m_model;
+    QSortFilterProxyModel *m_proxyModel;
 
     //QString m_dbusObjectPath;
     int m_dbusId;
@@ -154,23 +157,32 @@ private:
 
 //const QString& sourceRefine, const QString& targetRefine
 
-
 #if 0
-class QueryResultDelegate: public QItemDelegate
+class FastSizeHintItemDelegate: public QItemDelegate
 {
-    Q_OBJECT
+  //  Q_OBJECT
 
 public:
-    QueryResultDelegate(QObject *parent=0)
+    FastSizeHintItemDelegate(int columnCount, QObject *parent)
         : QItemDelegate(parent)
     {}
-    ~QueryResultDelegate(){}
-    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-signals:
-    void fileOpenRequested();
+    ~FastSizeHintItemDelegate(){}
+    
+    
+        self.di={}
+
+    def sizeHint(self, option, item=QModelIndex()):
+        if item.isValid() and item.row()>20:
+            if item.column() in self.di:
+                return self.di[item.column()]
+            item=item.sibling(0,item.column()) 
+            self.di[item.column()]=QItemDelegate.sizeHint(self, option, item)
+        return QItemDelegate.sizeHint(self, option, item)
+    //bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
+//signals:
+//    void fileOpenRequested();
 };
 #endif
-
 }
 
 #endif

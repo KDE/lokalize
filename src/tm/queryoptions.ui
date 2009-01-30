@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1061</width>
+    <width>597</width>
     <height>527</height>
    </rect>
   </property>
@@ -101,6 +101,12 @@ Press Enter to start the search.</string>
          </item>
          <item>
           <widget class="KLineEdit" name="filemask" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="toolTip" >
             <string>Show only results from files with path matching specified mask</string>
            </property>
@@ -150,6 +156,34 @@ Press Enter to start the search.</string>
        </item>
       </layout>
      </item>
+     <item>
+      <widget class="Line" name="line_2" >
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="buttonsLayout" >
+       <item>
+        <widget class="QPushButton" name="doUpdateTM" >
+         <property name="toolTip" >
+          <string>Reads all project files into translation memory, updating old entries. The scannding will work in background.</string>
+         </property>
+         <property name="text" >
+          <string>&amp;Rescan project files</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="doFind" >
+         <property name="text" >
+          <string>&amp;Search</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
@@ -166,8 +200,6 @@ Press Enter to start the search.</string>
     </widget>
    </item>
   </layout>
-  <zorder>treeView</zorder>
-  <zorder></zorder>
  </widget>
  <customwidgets>
   <customwidget>
@@ -178,13 +210,15 @@ Press Enter to start the search.</string>
  </customwidgets>
  <tabstops>
   <tabstop>querySource</tabstop>
-  <tabstop>invertSource</tabstop>
   <tabstop>queryTarget</tabstop>
+  <tabstop>doFind</tabstop>
+  <tabstop>invertSource</tabstop>
   <tabstop>invertTarget</tabstop>
   <tabstop>filemask</tabstop>
   <tabstop>substr</tabstop>
   <tabstop>like</tabstop>
   <tabstop>rx</tabstop>
+  <tabstop>doUpdateTM</tabstop>
   <tabstop>treeView</tabstop>
  </tabstops>
  <resources/>
