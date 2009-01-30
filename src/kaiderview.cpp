@@ -54,6 +54,7 @@
 #include <QStyle>
 #include <QApplication>
 #include <QStyleOptionButton>
+#include <QMimeData>
 #endif
 
 #include <ktabbar.h>
@@ -106,6 +107,8 @@ void LedsWidget::contextMenuEvent(QContextMenuEvent* event)
 }
 
 
+//BEGIN ProperTextEdit
+
 
 void ProperTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 {
@@ -148,6 +151,11 @@ QString ProperTextEdit::toPlainText()
         kWarning()<<text.at(ii).unicode();
 */
     return text;
+}
+
+QMimeData* ProperTextEdit::createMimeDataFromSelection () const
+{
+    return KTextEdit::createMimeDataFromSelection();
 }
 
 
@@ -204,25 +212,25 @@ void ProperTextEdit::setContent(const CatalogString& catStr, const CatalogString
         int tagRangeIndex=posToTagRange.value(i);
         cur.insertText(catStr.string.mid(prev,i-prev));
 
-        TagRange ourRange=catStr.ranges.at(tagRangeIndex);
-        QString name=' '+ourRange.id;
+        TagRange tag=catStr.ranges.at(tagRangeIndex);
+        QString name=' '+tag.id;
         QString text;
         if (sourceTagIdToIndex.isEmpty())
             text=QString::number(tagRangeIndex);
         else
-            text=QString::number(sourceTagIdToIndex.value(ourRange.id));
-        if (ourRange.start!=ourRange.end)
+            text=QString::number(sourceTagIdToIndex.value(tag.id));
+        if (tag.start!=tag.end)
         {
             //kWarning()<<"b"<<i;
-            if (ourRange.start==i)
+            if (tag.start==i)
             {
-                //kWarning()<<"\t\tstart:"<<ourRange.getElementName()<<ourRange.id<<ourRange.start;
+                //kWarning()<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
                 text.append(" {");
                 name.append("-start");
             }
             else
             {
-                //kWarning()<<"\t\tend:"<<ourRange.getElementName()<<ourRange.id<<ourRange.end;
+                //kWarning()<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
                 text.prepend("} ");
                 name.append("-end");
             }
@@ -240,7 +248,7 @@ void ProperTextEdit::setContent(const CatalogString& catStr, const CatalogString
 //END XLIFF
 #endif
 
-
+//END ProperTextEdit
 
 
 
@@ -529,28 +537,23 @@ void KAiderView::settingsChanged()
     _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
     if (Settings::leds())
     {
-        if (_leds)
-            _leds->show();
+        if (_leds) _leds->show();
         else
         {
             _leds=new LedsWidget(this);
-            if (!_catalog->isApproved(_currentEntry))
-                _leds->ledFuzzy->on();
-            if (_catalog->msgstr(_currentPos).isEmpty())
-                _leds->ledUntr->on();
+            if (!_catalog->isApproved(_currentEntry)) _leds->ledFuzzy->on();
+            if (_catalog->msgstr(_currentPos).isEmpty()) _leds->ledUntr->on();
             cursorPositionChanged();
             insertWidget(2,_leds);
         }
     }
-    else if (_leds)
-        _leds->hide();
+    else if (_leds) _leds->hide();
 
 }
 
 void KAiderView::cursorPositionChanged()
 {
-    if (_leds)
-        _leds->lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", _msgstrEdit->textCursor().columnNumber()));
+    if (_leds) _leds->lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", _msgstrEdit->textCursor().columnNumber()));
 }
 
 void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
@@ -576,7 +579,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
     {
         bool modified=false;
         CatalogString targetWithTags=_catalog->targetWithTags(_currentPos);
-        //special case when the user presses Del
+        //special case when the user presses Del w/o selection
         if (!charsAdded && charsRemoved==1)
         {
             int i=targetWithTags.ranges.size();
@@ -592,85 +595,11 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
         }
         else if (!markupAdded) //check if all { plus } tags were selected
         {
-            int lenDecrement=0;
-            QMap<int,int> tagPlaces;//>0 if both start and end parts of tag were deleted
-                                    //1 means this is start, 2 means this is end
-            int t=offset;
-            while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(charsRemoved+offset))
-                tagPlaces[t++]=false;
-            
-            int i=targetWithTags.ranges.size();
-            while(--i>=0)
-            {
-                qWarning()<<targetWithTags.ranges.at(i).getElementName();
-                if (tagPlaces.contains(targetWithTags.ranges.at(i).start)
-                    &&tagPlaces.contains(targetWithTags.ranges.at(i).end))
-                {
-                    qWarning()<<"start"<<targetWithTags.ranges.at(i).start<<"end"<<targetWithTags.ranges.at(i).end;
-                    tagPlaces[targetWithTags.ranges.at(i).end]=2;
-                    tagPlaces[targetWithTags.ranges.at(i).start]=1;
-                }
-            }
-
-            QMap<int,int>::const_iterator it = tagPlaces.constBegin();
-            while (it != tagPlaces.constEnd())
-            {
-                qWarning()<<it.key()<<it.value();
-                if (!it.value())
-                    break;
-                ++it;
-            }
-            if (it==tagPlaces.constEnd())//all indexes are ok.
-            {
-                modified=true;
-                kWarning()<<"all indexes are ok";
-                it = tagPlaces.constBegin();
-                while (it != tagPlaces.constEnd())
-                {
-                    if (it.value()==1)
-                    {
-                        pos.offset=it.key();
-                        DelTagCmd* cmd=new DelTagCmd(_catalog,pos);
-                        _catalog->push(cmd);
-                        //lenDecrement+=1+cmd->tag().isPaired();
-                        qWarning()<<"lenDecrement"<<lenDecrement;
-                    }
-                    ++it;
-                }
-                //charsRemoved-=lenDecrement;
-                //qWarning()<<"charsRemoved"<<charsRemoved<<"offset"<<offset;
-                pos.offset=offset;
-                if (charsRemoved)
-                {
-                    QString rText=target.mid(offset,charsRemoved);
-                    rText.remove(TAGRANGE_IMAGE_SYMBOL);
-                    qWarning()<<"rText"<<rText<<"offset"<<offset;
-                    _catalog->push(new DelTextCmd(_catalog,pos,rText));
-                }
-                if (charsAdded)
-                    _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
-
-            }
+            modified=removeTargetSubstring(offset, charsRemoved, /*refresh*/false);
+            if (modified&&charsAdded)
+                _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
         }
             
-            /*
-    CatalogString sourceWithTags=_catalog->sourceWithTags(_currentPos);
-    int count=sourceWithTags.ranges.size();
-    if (count)
-    {
-        QMap<QString,int> tagIdToIndex=_catalog->targetWithTags(_currentPos).tagIdToIndex();
-        bool hasActive=false;
-      
-        
-        
-        TagRange tag=sourceWithTags.ranges.at(txt->data().toInt());
-        QTextCursor cursor=_msgstrEdit->textCursor();
-        tag.start=qMin(cursor.anchor(),cursor.position());
-        tag.end=qMax(cursor.anchor(),cursor.position());
-        _catalog->push(new InsTagCmd(_catalog,_currentPos,tag));
-
-        */
-
         refreshMsgEdit(/*keepCursor*/true,_catalog->sourceWithTags(pos));
         if (!modified)
             return;
@@ -693,10 +622,8 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
 
     if (_leds)
     {
-        if (_catalog->msgstr(pos).isEmpty())
-            _leds->ledUntr->on();
-        else
-            _leds->ledUntr->off();
+        if (_catalog->msgstr(pos).isEmpty()) _leds->ledUntr->on();
+        else _leds->ledUntr->off();
     }
 
     if (!_catalog->isApproved(_currentEntry)&&Settings::autoApprove())
@@ -723,14 +650,12 @@ void KAiderView::approvedEntryDisplayed(bool approved)
     if (approved)
     {
         _msgstrEdit->viewport()->setBackgroundRole(QPalette::Base);
-        if (_leds)
-            _leds->ledFuzzy->off();
+        if (_leds) _leds->ledFuzzy->off();
     }
     else
     {
         _msgstrEdit->viewport()->setBackgroundRole(QPalette::AlternateBase);
-        if (_leds)
-            _leds->ledFuzzy->on();
+        if (_leds) _leds->ledFuzzy->on();
     }
 }
 
@@ -845,10 +770,8 @@ void KAiderView::gotoEntry(const DocPosition& pos,int selection)
     bool untrans=targetString.isEmpty();
     if (_leds)
     {
-        if (untrans)
-            _leds->ledUntr->on();
-        else
-            _leds->ledUntr->off();
+        if (untrans) _leds->ledUntr->on();
+        else _leds->ledUntr->off();
     }
     ProperTextEdit* msgEdit=_msgstrEdit;
     QTextCursor t=msgEdit->textCursor();
@@ -913,145 +836,7 @@ void KAiderView::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 }
 
-
-
 */
-
-
-
-
-
-//BEGIN edit actions that are easier to do in this class
-void KAiderView::clearMsgStr()
-{
-    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
-        return;
-
-    _currentPos.offset=0;
-    _catalog->push(new DelTextCmd(_catalog,_currentPos,_catalog->msgstr(_currentPos)));
-    if (!_catalog->isApproved(_currentEntry))
-        toggleApprovement(true);
-
-    gotoEntry(_currentPos);
-    emit signalChanged(_currentEntry);
-}
-
-void KAiderView::toggleBookmark(bool checked)
-{
-    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
-        return;
-
-    _catalog->setBookmark(_currentEntry,checked);
-}
-
-void KAiderView::toggleApprovement(bool approved)
-{
-    //kWarning()<<"called";
-    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
-        return;
-
-    _catalog->push(new ToggleApprovementCmd(_catalog,_currentEntry,approved));
-    approvedEntryDisplayed(approved);
-}
-
-
-void KAiderView::msgid2msgstr()
-{
-    QString text(_catalog->msgid(_currentPos));
-    QString out;
-    QString ctxt(_catalog->msgctxt(_currentPos.entry));
-
-    //TODO ask for the fillment if the first time.
-    // this is KDE specific:
-    if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
-    {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
-            out=", ";
-        out+=Settings::authorLocalizedName();
-    }
-    else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" ))
-    {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
-            out=", ";
-        out+=Settings::authorEmail();
-    }
-    else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
-    {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
-            out='\n';
-        out+="<othercredit role=\\\"translator\\\">\n"
-        "<firstname></firstname><surname></surname>\n"
-        "<affiliation><address><email>"+Settings::authorEmail()+"</email></address>\n"
-        "</affiliation><contrib></contrib></othercredit>";
-    }
-    else if( text.startsWith( "CREDIT_FOR_TRANSLATORS" ) )
-    {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
-            out='\n';
-        out+="<para>"+Settings::authorLocalizedName()+'\n'+
-            "<email>"+Settings::authorEmail()+"</email></para>";
-    }
-/*    else if(text.contains(_catalog->miscSettings().singularPlural))
-    {
-        text.replace(_catalog->miscSettings().singularPlural,"");
-    }*/
-    // end of KDE specific part
-
-
-    if (out.isEmpty())
-    {
-        DocPosition pos=_currentPos;pos.offset=0;
-        //_msgstrEdit->setPlainText(text);
-        _catalog->push(new DelTextCmd(_catalog,pos,_catalog->target(_currentPos)));
-        _oldMsgstr="";//newStr becomes OldStr
-        _catalog->push(new InsTextCmd(_catalog,pos,text));
-        refreshMsgEdit(/*keepCursor*/false,_catalog->sourceWithTags(pos));
-        if (KDE_ISUNLIKELY( !_catalog->isApproved(pos.entry) ))
-            toggleApprovement(true);
-    }
-    else
-    {
-        QTextCursor t=_msgstrEdit->textCursor();
-        t.movePosition(QTextCursor::End);
-        t.insertText(out);
-        _msgstrEdit->setTextCursor(t);
-    }
-}
-
-
-
-void KAiderView::unwrap(ProperTextEdit* editor)
-{
-    if (!editor)
-        editor=_msgstrEdit;
-
-    QTextCursor t=editor->document()->find(QRegExp("[^(\\\\n)]$"));
-    if (t.isNull())
-        return;
-
-    if (editor==_msgstrEdit)
-        _catalog->beginMacro(i18nc("@item Undo action item","Unwrap"));
-    t.movePosition(QTextCursor::EndOfLine);
-    if (!t.atEnd())
-        t.deleteChar();
-
-    QRegExp rx("[^(\\\\n)>]$");
-    //remove '\n's skipping "\\\\n"
-    while (!(t=editor->document()->find(rx,t)).isNull())
-    {
-        t.movePosition(QTextCursor::EndOfLine);
-        if (!t.atEnd())
-            t.deleteChar();
-    }
-    if (editor==_msgstrEdit)
-        _catalog->endMacro();
-}
-
-void KAiderView::insertTerm(const QString& term)
-{
-    _msgstrEdit->insertPlainText(term);
-    _msgstrEdit->setFocus();
-}
 
 void KAiderView::tagMenu()
 {
@@ -1123,6 +908,266 @@ void KAiderView::tagMenu()
 
     }
 }
+
+bool KAiderView::removeTargetSubstring(int delStart, int delLen, bool refresh)
+{
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
+        return false;
+    kWarning()<<"called with"<<delStart<<delLen;
+
+    CatalogString targetWithTags=_catalog->targetWithTags(_currentPos);
+    QString target=targetWithTags.string;
+    if (target.isEmpty())
+        return false;
+    
+    if (delLen==-1)
+        delLen=target.size();
+
+    int lenDecrement=0;
+    QMap<int,int> tagPlaces;//>0 if both start and end parts of tag were deleted
+                            //1 means this is start, 2 means this is end
+    int t=delStart;
+    while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(delStart+delLen))
+        tagPlaces[t++]=false;
+    
+    int i=targetWithTags.ranges.size();
+    while(--i>=0)
+    {
+        qWarning()<<targetWithTags.ranges.at(i).getElementName();
+        if (tagPlaces.contains(targetWithTags.ranges.at(i).start)
+            &&tagPlaces.contains(targetWithTags.ranges.at(i).end))
+        {
+            qWarning()<<"start"<<targetWithTags.ranges.at(i).start<<"end"<<targetWithTags.ranges.at(i).end;
+            tagPlaces[targetWithTags.ranges.at(i).end]=2;
+            tagPlaces[targetWithTags.ranges.at(i).start]=1;
+        }
+    }
+
+    QMap<int,int>::const_iterator it = tagPlaces.constBegin();
+    while (it != tagPlaces.constEnd())
+    {
+        qWarning()<<it.key()<<it.value();
+        if (!it.value())
+            break;
+        ++it;
+    }
+
+    if (it!=tagPlaces.constEnd())
+        return false;
+
+
+
+    _catalog->beginMacro(i18nc("@item Undo action item","Remove text with markup"));
+
+    //all indexes are ok (or target is just plain text)
+    //modified=true;
+    kWarning()<<"all indexes are ok";
+    it = tagPlaces.constBegin();
+    DocPosition pos=_currentPos;
+    while (it != tagPlaces.constEnd())
+    {
+        if (it.value()==1)
+        {
+            kWarning()<<"\t"<<it.key();
+            pos.offset=it.key()-lenDecrement;
+            DelTagCmd* cmd=new DelTagCmd(_catalog,pos);
+            _catalog->push(cmd);
+            lenDecrement+=1+cmd->tag().isPaired();
+            //qWarning()<<"lenDecrement"<<lenDecrement;
+        }
+        ++it;
+    }
+    //charsRemoved-=lenDecrement;
+    //qWarning()<<"charsRemoved"<<charsRemoved<<"offset"<<delStart;
+    pos.offset=delStart;
+    if (delLen)
+    {
+        QString rText=target.mid(delStart,delLen);
+        rText.remove(TAGRANGE_IMAGE_SYMBOL);
+        qWarning()<<"rText"<<rText<<"delStart"<<delStart;
+        if (!rText.isEmpty())
+            _catalog->push(new DelTextCmd(_catalog,pos,rText));
+    }
+
+    _catalog->endMacro();
+
+
+    if (!_catalog->isApproved(_currentEntry))
+        toggleApprovement(true);
+
+    if (refresh)
+        refreshMsgEdit(/*keepCursor*/false,_catalog->sourceWithTags(pos));
+    emit signalChanged(_currentEntry);
+    return true;
+}
+
+void KAiderView::insertCatalogString(const CatalogString& catStr, int start, bool refresh)
+{
+    QMap<int,int> posToTagRange;
+    int i=catStr.ranges.size();
+    //if (i) kWarning()<<"tags we got:";
+    while(--i>=0)
+    {
+        //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
+        posToTagRange.insert(catStr.ranges.at(i).start,i);
+        posToTagRange.insert(catStr.ranges.at(i).end,i);
+    }
+
+    DocPosition pos=_currentPos;
+    i=0;
+    int prev=0;
+    while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
+    {
+        qWarning()<<i<<catStr.string.left(i);
+        //text that was before tag we found
+        if (i-prev)
+        {
+            pos.offset=start+prev;
+            _catalog->push(new InsTextCmd(_catalog,pos,catStr.string.mid(prev,i-prev)));
+        }
+        
+        //now dealing with tag
+        TagRange tag=catStr.ranges.at(posToTagRange.value(i));
+        qWarning()<<"testing for tag"<<tag.start<<i;
+        if (tag.start==i) //this is an opening tag (may be single tag)
+        {
+            pos.offset=start+i;
+            tag.start+=start;
+            tag.end+=start;
+            _catalog->push(new InsTagCmd(_catalog,pos,tag));
+        }
+        else if (tag.start!=i) //this is a closing tag
+        {
+            
+        }
+        prev=++i;
+    }
+    if (catStr.string.size()-prev)
+    {
+        pos.offset=prev;
+        _catalog->push(new InsTextCmd(_catalog,pos,catStr.string.mid(prev)));
+    }
+    if (refresh)
+        refreshMsgEdit(/*keepCursor*/false,_catalog->sourceWithTags(pos));
+}
+
+void KAiderView::toggleApprovement(bool approved)
+{
+    //kWarning()<<"called";
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
+        return;
+
+    _catalog->push(new ToggleApprovementCmd(_catalog,_currentEntry,approved));
+    approvedEntryDisplayed(approved);
+}
+
+
+void KAiderView::source2target()
+{
+    QString text(_catalog->msgid(_currentPos));
+    QString out;
+    QString ctxt(_catalog->msgctxt(_currentPos.entry));
+
+    //TODO ask for the fillment if the first time.
+    // this is KDE specific:
+    if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
+    {
+        if (!_catalog->msgstr(_currentPos).isEmpty())
+            out=", ";
+        out+=Settings::authorLocalizedName();
+    }
+    else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" ))
+    {
+        if (!_catalog->msgstr(_currentPos).isEmpty())
+            out=", ";
+        out+=Settings::authorEmail();
+    }
+    else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
+    {
+        if (!_catalog->msgstr(_currentPos).isEmpty())
+            out='\n';
+        out+="<othercredit role=\\\"translator\\\">\n"
+        "<firstname></firstname><surname></surname>\n"
+        "<affiliation><address><email>"+Settings::authorEmail()+"</email></address>\n"
+        "</affiliation><contrib></contrib></othercredit>";
+    }
+    else if( text.startsWith( "CREDIT_FOR_TRANSLATORS" ) )
+    {
+        if (!_catalog->msgstr(_currentPos).isEmpty())
+            out='\n';
+        out+="<para>"+Settings::authorLocalizedName()+'\n'+
+            "<email>"+Settings::authorEmail()+"</email></para>";
+    }
+    // end of KDE specific part
+
+
+    if (out.isEmpty())
+    {
+        _catalog->beginMacro(i18nc("@item Undo action item","Copy source to target"));
+        DocPosition pos=_currentPos;pos.offset=0;
+        removeTargetSubstring(0,-1,/*refresh*/false);
+        CatalogString sourceWithTags=_catalog->sourceWithTags(pos);
+        insertCatalogString(sourceWithTags,0,/*refresh*/false);
+        _catalog->endMacro();
+
+        refreshMsgEdit(/*keepCursor*/false,sourceWithTags);
+
+        if (KDE_ISUNLIKELY( !_catalog->isApproved(pos.entry)&&Settings::autoApprove() ))
+            toggleApprovement(true);
+    }
+    else
+    {
+        QTextCursor t=_msgstrEdit->textCursor();
+        t.movePosition(QTextCursor::End);
+        t.insertText(out);
+        _msgstrEdit->setTextCursor(t);
+    }
+}
+
+
+//BEGIN edit actions that are easier to do in this class
+void KAiderView::toggleBookmark(bool checked)
+{
+    if (KDE_ISUNLIKELY( _currentEntry==-1 ))
+        return;
+
+    _catalog->setBookmark(_currentEntry,checked);
+}
+
+void KAiderView::unwrap(ProperTextEdit* editor)
+{
+    if (!editor)
+        editor=_msgstrEdit;
+
+    QTextCursor t=editor->document()->find(QRegExp("[^(\\\\n)]$"));
+    if (t.isNull())
+        return;
+
+    if (editor==_msgstrEdit)
+        _catalog->beginMacro(i18nc("@item Undo action item","Unwrap"));
+    t.movePosition(QTextCursor::EndOfLine);
+    if (!t.atEnd())
+        t.deleteChar();
+
+    QRegExp rx("[^(\\\\n)>]$");
+    //remove '\n's skipping "\\\\n"
+    while (!(t=editor->document()->find(rx,t)).isNull())
+    {
+        t.movePosition(QTextCursor::EndOfLine);
+        if (!t.atEnd())
+            t.deleteChar();
+    }
+    if (editor==_msgstrEdit)
+        _catalog->endMacro();
+}
+
+void KAiderView::insertTerm(const QString& term)
+{
+    _msgstrEdit->insertPlainText(term);
+    _msgstrEdit->setFocus();
+}
+
+
 
 //END edit actions that are easier to do in this class
 

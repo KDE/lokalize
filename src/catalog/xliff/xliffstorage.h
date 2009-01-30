@@ -1,5 +1,5 @@
 /*
-Copyright 2008 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2009 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as

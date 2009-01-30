@@ -43,35 +43,30 @@ class KTabBar;
 #include <QSplitter>
 #include <KUrl>
 #include <KTextEdit>
+class ProperTextEdit;
 
 
 #define XLIFF 1
-
-
 class ProperTextEdit: public KTextEdit
 {
-    Q_OBJECT
 public:
     ProperTextEdit(QWidget* parent=0)
      : KTextEdit(parent)
      , m_currentUnicodeNumber(0)
     {};
-
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
-#ifdef XLIFF
     ///@a refStr is for proper numbering
     void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
-private:
-    QList<TagRange> m_ranges;
-#endif
-
-private:
-    int m_currentUnicodeNumber; //alt+NUM thing
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);
     void keyReleaseEvent(QKeyEvent* e);
+    QMimeData * createMimeDataFromSelection () const;
+
+private:
+    QList<TagRange> m_ranges;
+    int m_currentUnicodeNumber; //alt+NUM thing
 };
 
 class QDragEnterEvent;
@@ -147,16 +142,19 @@ private slots:
     //we need this function cause...
     void approvedEntryDisplayed(bool approved);
 
+    bool removeTargetSubstring(int start=0, int end=-1, bool refresh=true);
+    void insertCatalogString(const CatalogString& catStr, int start=0, bool refresh=true);
+    
     //Edit menu
-    void msgid2msgstr();
+    void source2target();
+    void tagMenu();
     void unwrap(ProperTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
-    void clearMsgStr();
-    void tagMenu();
 public slots:
     void toggleApprovement(bool);
 
+    ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
     CatalogString refreshMsgEdit(bool keepCursor=false, const CatalogString& refStr=CatalogString());
 private:
 

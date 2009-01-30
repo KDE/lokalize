@@ -171,7 +171,7 @@ private slots:
     //fuzzy, untr [statusbar] indication
     void msgStrChanged();
     //modif [caption] indication
-    void setModificationSign(bool clean){setCaption(_captionPath,!clean);};
+    void setModificationSign(bool clean){setCaption(_captionPath,!clean);}
     void updateCaptionPath();
 
     //gui
@@ -190,7 +190,6 @@ private slots:
 //     void selectAll();
 //     void deselectAll();
 //     void clear();
-//     void msgid2msgstr();
 //     void search2msgstr();
 //     void plural2msgstr();
     void gotoFirst();
@@ -204,6 +203,8 @@ private slots:
     void gotoPrevFuzzy();
     void gotoNextUntranslated();
     void gotoPrevUntranslated();
+    //void gotoNextTranslated();
+    //void gotoPrevTranslated();
     
     void toggleApprovementGotoNextFuzzyUntr();
     

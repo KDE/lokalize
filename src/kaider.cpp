@@ -448,12 +448,12 @@ void EditorWindow::setupActions()
                     ))
         copyShortcut=Qt::ALT+Qt::Key_Space;
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
-    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(msgid2msgstr()));
+    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(source2target()));
 
     ADD_ACTION_SHORTCUT("edit_unwrap-target",i18nc("@action:inmenu","Unwrap target"),Qt::CTRL+Qt::Key_I)
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
-    action=edit->addAction("edit_clear-target",m_view,SLOT(clearMsgStr()));
+    action=edit->addAction("edit_clear-target",m_view,SLOT(removeTargetSubstring()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18nc("@action:inmenu","Clear"));
 

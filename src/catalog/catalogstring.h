@@ -37,6 +37,7 @@
  *
  * describes which tag is behind TAGRANGE_IMAGE_SYMBOL char 
  * (or chars -- starting and ending) in source or target string
+ * start==end for non-paired tags
  */
 struct TagRange
 {
@@ -96,6 +97,7 @@ struct TagRange
     static InlineElement getElementType(const QByteArray&);
     static const char* getElementName(InlineElement type);
            const char* getElementName()const{return getElementName(type);}
+           const char* name()const{return getElementName();}
     static bool isPaired(InlineElement type){return type<TagRange::_pairedXmlTagDelimiter;}
            bool isPaired()const{return isPaired(type);}
 };

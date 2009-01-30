@@ -1,5 +1,5 @@
 /*
-Copyright 2008 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2009 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -282,7 +282,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 {
                     const TagRange& tag=data->ranges.first();
                     QString mid=cData.mid(localStartPos);
-                    qWarning()<<"inserting tag"<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
+                    qWarning()<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
                     if (mid.size())
                         c.deleteData(localStartPos,mid.size());
                     QDomNode newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n);
@@ -295,13 +295,13 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                         //qWarning()<<"isPaired";
                         int len=tag.end-tag.start-1;//-image symbol
                         int localLen=qMin(len,mid.size());
-                        if (localLen)
+                        if (localLen)//appending text
                         {
                             qWarning()<<"localLen. appending"<<localLen<<mid.left(localLen);
                             newNode.appendChild( elem.ownerDocument().createTextNode(mid.left(localLen)) );
                             mid=mid.mid(localLen);
                         }
-                        if (len-localLen) //need to eat more into newNode
+                        if (len-localLen) //need to eat more (strings or elements) into newNode
                         {
                             int missingLen=len-localLen;
                             qWarning()<<"len-localLen";
@@ -344,9 +344,13 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                             }
 
                         }
+                        if (!newNode.lastChild().isCharacterData())
+                            newNode.appendChild( elem.ownerDocument().createTextNode(""));
                     }
                     if (!mid.isEmpty())
                         elem.insertAfter( elem.ownerDocument().createTextNode(mid),newNode);
+                    else if (newNode.nextSibling().isNull()) //keep our DOM in a nice state
+                        elem.insertAfter( elem.ownerDocument().createTextNode(""),newNode);
 
                     return QString();//we're done here
                 }
@@ -426,7 +430,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 if (i==TagRange::mrk)//TODO attr map
                     id=el.attributeNode("mtype").value();
 
-                kWarning()<<"id"<<id<<"tagName"<<el.tagName();
+                kWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
                 data->ranges.append(TagRange(oldStartingPos-1,startingPos-1,i,id));
             }
         }
