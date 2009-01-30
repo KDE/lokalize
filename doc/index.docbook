@@ -73,6 +73,15 @@ views when they are stacked into tabs, or
 when in the <guilabel>WebQueries</guilabel>.
 </para>
 </tip>
+
+<para>
+A message may be <emphasis>translated</emphasis> or <emphasis>untranslated</emphasis>.
+A translated message translation may be <emphasis>approved</emphasis> or <emphasis>non-approved</emphasis> (also called <emphasis>fuzzy</emphasis> sometimes).
+If the message is non-approved, its translation is rendered in italics.
+&lokalize; allows you to easily navigate through the file according to the state of their translation.
+See <guilabel>Go</guilabel> menu for the shortcuts.
+When navigating, untranslated messages are treated as non-approved.
+</para>
 </chapter>
 
 <chapter id="projects">
