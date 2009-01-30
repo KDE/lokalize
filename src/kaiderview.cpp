@@ -599,7 +599,7 @@ void KAiderView::contentsChanged(int offset, int charsRemoved, int charsAdded)
             if (modified&&charsAdded)
                 _catalog->push(new InsTextCmd(_catalog,pos,editText.mid(offset,charsAdded)));
         }
-            
+
         refreshMsgEdit(/*keepCursor*/true,_catalog->sourceWithTags(pos));
         if (!modified)
             return;
@@ -919,7 +919,7 @@ bool KAiderView::removeTargetSubstring(int delStart, int delLen, bool refresh)
     QString target=targetWithTags.string;
     if (target.isEmpty())
         return false;
-    
+
     if (delLen==-1)
         delLen=target.size();
 
@@ -929,7 +929,8 @@ bool KAiderView::removeTargetSubstring(int delStart, int delLen, bool refresh)
     int t=delStart;
     while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(delStart+delLen))
         tagPlaces[t++]=false;
-    
+
+
     int i=targetWithTags.ranges.size();
     while(--i>=0)
     {
@@ -1025,7 +1026,7 @@ void KAiderView::insertCatalogString(const CatalogString& catStr, int start, boo
             pos.offset=start+prev;
             _catalog->push(new InsTextCmd(_catalog,pos,catStr.string.mid(prev,i-prev)));
         }
-        
+
         //now dealing with tag
         TagRange tag=catStr.ranges.at(posToTagRange.value(i));
         qWarning()<<"testing for tag"<<tag.start<<i;
@@ -1035,10 +1036,6 @@ void KAiderView::insertCatalogString(const CatalogString& catStr, int start, boo
             tag.start+=start;
             tag.end+=start;
             _catalog->push(new InsTagCmd(_catalog,pos,tag));
-        }
-        else if (tag.start!=i) //this is a closing tag
-        {
-            
         }
         prev=++i;
     }
@@ -1069,22 +1066,22 @@ void KAiderView::source2target()
     QString ctxt(_catalog->msgctxt(_currentPos.entry));
 
     //TODO ask for the fillment if the first time.
-    // this is KDE specific:
+    //BEGIN KDE specific part
     if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
     {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
+        if (!_msgstrEdit->document()->isEmpty())
             out=", ";
         out+=Settings::authorLocalizedName();
     }
     else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" ))
     {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
+        if (!_msgstrEdit->document()->isEmpty())
             out=", ";
         out+=Settings::authorEmail();
     }
     else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
     {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
+        if (!_msgstrEdit->document()->isEmpty())
             out='\n';
         out+="<othercredit role=\\\"translator\\\">\n"
         "<firstname></firstname><surname></surname>\n"
@@ -1093,12 +1090,12 @@ void KAiderView::source2target()
     }
     else if( text.startsWith( "CREDIT_FOR_TRANSLATORS" ) )
     {
-        if (!_catalog->msgstr(_currentPos).isEmpty())
+        if (!_msgstrEdit->document()->isEmpty())
             out='\n';
         out+="<para>"+Settings::authorLocalizedName()+'\n'+
             "<email>"+Settings::authorEmail()+"</email></para>";
     }
-    // end of KDE specific part
+    //END KDE specific part
 
 
     if (out.isEmpty())

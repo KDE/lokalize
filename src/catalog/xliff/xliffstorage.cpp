@@ -349,7 +349,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     }
                     if (!mid.isEmpty())
                         elem.insertAfter( elem.ownerDocument().createTextNode(mid),newNode);
-                    else if (newNode.nextSibling().isNull()) //keep our DOM in a nice state
+                    else if (!newNode.nextSibling().isCharacterData()) //keep our DOM in a nice state
                         elem.insertAfter( elem.ownerDocument().createTextNode(""),newNode);
 
                     return QString();//we're done here

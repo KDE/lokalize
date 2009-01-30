@@ -62,10 +62,9 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);
     void keyReleaseEvent(QKeyEvent* e);
-    QMimeData * createMimeDataFromSelection () const;
+    QMimeData* createMimeDataFromSelection() const;
 
 private:
-    QList<TagRange> m_ranges;
     int m_currentUnicodeNumber; //alt+NUM thing
 };
 

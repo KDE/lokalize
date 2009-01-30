@@ -56,12 +56,6 @@
     </entry>
 
 <!--
-    <entry name="AutoUnsetFuzzy"  type="Bool">
-        <label>
-        </label>
-        <default>true</default>
-    </entry>
-
     <entry name="CleverEditing"  type="Bool">
         <label>
         </label>
