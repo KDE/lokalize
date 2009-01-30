@@ -96,7 +96,6 @@ when other projects are opened.
 </para>
 </note>
 
-
 <sect1 id="project-view">
 <title>Project Overview</title>
 
@@ -107,6 +106,7 @@ It allows you to open a selected file in new tab of the current &lokalize;, wind
 </para>
 </sect1>
 
+</chapter>
 
 <chapter id="glossary">
 <title>Glossary</title>
