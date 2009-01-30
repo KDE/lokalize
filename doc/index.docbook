@@ -21,7 +21,7 @@
 </authorgroup>
 
 <copyright>
-<year>2007-2008</year><holder>Nick Shaforostoff</holder>
+<year>2007-2009</year><holder>Nick Shaforostoff</holder>
 </copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
@@ -105,28 +105,7 @@ The <guilabel>Project Overview</guilabel> tab displays a file tree with statisti
 such as the percentage of translated messages completed and the last translator.
 It allows you to open a selected file in new tab of the current &lokalize;, window.
 </para>
-
 </sect1>
-
-<sect1 id="multifile-ops">
-<title>Operations on multiple files</title>
-
-<!-- TODO -->
-<para>
-Currently &lokalize; supports searching, replacing, and spellchecking within
-multiple files. Select the items that you are interested in, then choose the
-<guimenuitem>Find in files</guimenuitem> option from the context menu. The first
-match will be displayed in the usual &lokalize; window. You can then proceed by
-pressing the <keycap>F3</keycap> button to find the next match. If you press the
-<keycap>F3</keycap> button and there are no matches left in the current file,
-then the search will continue in the next file and so on. To reset the multiple
-file search state, press <keycombo>&Ctrl;<keycap>F</keycap></keycombo> in &lokalize;, and the editor
-window will reset.
-</para>
-</sect1>
-
-</chapter>
-
 
 
 <chapter id="glossary">
@@ -163,13 +142,38 @@ glossary.
 <title>Translation Memory</title>
 
 <para>
-The <guilabel>Translation Memory View</guilabel> allows you to drag and drop a
+The <guilabel>Translation Memory</guilabel> view allows you to drag and drop a
 folder with translation files from say Dolphin into the view,
 and then, within few minutes, translation suggestions will be shown automatically on the message entry switch.
 To insert the translation suggestions into the file, use 
 <keycombo>&Ctrl;<keycap>1</keycap></keycombo>, 
 <keycombo>&Ctrl;<keycap>2</keycap></keycombo> and so on, depending on the number of suggestion.
 </para>
+
+<para>
+Pressing <keycombo><keycap>F7</keycap></keycombo> will open <guilabel>Translation Memory</guilabel> tab, which allows free querying TM.
+Clicking a search result will open corresponding file on corresponding entry.
+If you want to quickly open some file in the project (and it is added to TM), then instead of browsing <guilabel>Project Overview</guilabel>
+you just type its name into <guilabel>Filemask</guilabel> field accompanied by '*'.
+</para>
+
+<para>
+TM engine indexes all entries, including fuzzy and untranslated ones.
+This allows it to completely replace Search-in-Files feature which required scanning every file in the project each time a search is done.
+</para>
+
+<screenshot>
+<screeninfo>&lokalize; with translation memory search results for the current entry</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>&lokalize; with translation memory search results for the current entry</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
 </chapter>
 
 
@@ -288,7 +292,7 @@ url="http://websvn.kde.org/trunk/l10n-kde4/ru/" />.
 </para>
 
 <para>
-Program Copyright &copy; 2007-2008, Nick Shaforostoff
+Program Copyright &copy; 2007-2009, Nick Shaforostoff
 <email>shaforostoff@kde.ru</email>
 </para>
 
@@ -297,7 +301,7 @@ Some code was taken from &kbabel;, the &lokalize; predecessor.
 </para>
 
 <para>
-Documentation Copyright &copy; 2007-2008 Nick Shaforostoff
+Documentation Copyright &copy; 2007-2009 Nick Shaforostoff
 <email>shaforostoff@kde.ru</email>
 </para>
 
