@@ -435,6 +435,11 @@ void EditorWindow::setupActions()
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
     connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
+    action = actionCategory->addAction("edit_approve_go_fuzzyUntr");
+    action->setText(i18nc("@action:inmenu","Set as Approved and go to next"));
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( toggleApprovementGotoNextFuzzyUntr() ) );
+
+    
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
     QString systemLang=KGlobal::locale()->language();
     if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
@@ -1048,14 +1053,16 @@ void EditorWindow::gotoPrevFuzzyUntr()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoNextFuzzyUntr()
+bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
 {
+    int index=(p.entry==-1)?_currentEntry:p.entry;
+
     DocPosition pos;
 
-    short fu = _catalog->nextFuzzyIndex(_currentEntry);
-    short un = _catalog->nextUntranslatedIndex(_currentEntry);
+    short fu = _catalog->nextFuzzyIndex(index);
+    short un = _catalog->nextUntranslatedIndex(index);
     if ( (fu == -1) && (un == -1) )
-        return;
+        return false;
 
     if (fu == -1)
         fu=un;
@@ -1064,8 +1071,17 @@ void EditorWindow::gotoNextFuzzyUntr()
 
     pos.entry=fu<un?fu:un;
     gotoEntry(pos);
+    return true;
 }
 
+
+void EditorWindow::toggleApprovementGotoNextFuzzyUntr()
+{
+    if(!_catalog->isApproved(_currentEntry))
+        m_view->toggleApprovement(true);
+    if (!gotoNextFuzzyUntr())
+        gotoNextFuzzyUntr(DocPosition(-2));//so that we don't skip the first
+}
 
 void EditorWindow::gotoPrevBookmark()
 {

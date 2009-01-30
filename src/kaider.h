@@ -128,9 +128,6 @@ public:
 
     //wrapper for cmdline handling
     void mergeOpen(KUrl url=KUrl());
-    void findInFiles(const KUrl::List&);
-    void replaceInFiles(const KUrl::List&);
-    void spellcheckFiles(const KUrl::List&);
 
     bool fileOpen(KUrl url=KUrl());
 
@@ -201,12 +198,15 @@ private slots:
 
     void gotoEntry();
 
-    void gotoNextFuzzyUntr();
     void gotoPrevFuzzyUntr();
+    bool gotoNextFuzzyUntr(const DocPosition& pos=DocPosition());
     void gotoNextFuzzy();
     void gotoPrevFuzzy();
     void gotoNextUntranslated();
     void gotoPrevUntranslated();
+    
+    void toggleApprovementGotoNextFuzzyUntr();
+    
 //     void gotoNextError();
 //     void gotoPrevError();
 // 

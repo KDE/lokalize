@@ -140,7 +140,6 @@ signals:
     //void fileOpenRequested(KUrl);
 
 private slots:
-//     void setupWhatsThis();
     void settingsChanged();
     void cursorPositionChanged();
     //for Undo/Redo tracking
@@ -149,13 +148,14 @@ private slots:
     void approvedEntryDisplayed(bool approved);
 
     //Edit menu
-    void toggleApprovement(bool);
     void msgid2msgstr();
     void unwrap(ProperTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
     void clearMsgStr();
     void tagMenu();
+public slots:
+    void toggleApprovement(bool);
 
     CatalogString refreshMsgEdit(bool keepCursor=false, const CatalogString& refStr=CatalogString());
 private:
