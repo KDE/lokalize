@@ -168,7 +168,7 @@ Press Enter to start the search.</string>
        <item>
         <widget class="QPushButton" name="doUpdateTM" >
          <property name="toolTip" >
-          <string>Reads all project files into translation memory, updating old entries. The scannding will work in background.</string>
+          <string>Reads all project files into translation memory, updating old entries. The scanning will work in background.</string>
          </property>
          <property name="text" >
           <string>&amp;Rescan project files</string>
