@@ -39,6 +39,10 @@
 
 #include "lokalizemainwindow.h"
 
+#include "catalogstring.h"
+#include "pos.h"
+#include <QMetaType>
+
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
@@ -79,6 +83,13 @@ int main(int argc, char **argv)
     KCmdLineArgs::addCmdLineOptions(options);
 
     KApplication app;
+
+    //qDebug() is important as it aviods compile 'optimization'.
+    qDebug()<<qRegisterMetaType<DocPosition>();
+    qDebug()<<qRegisterMetaType<TagRange>();
+    qDebug()<<qRegisterMetaType<CatalogString>();
+    qRegisterMetaTypeStreamOperators<TagRange>("TagRange");
+    qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
 
 
     // see if we are starting with session management

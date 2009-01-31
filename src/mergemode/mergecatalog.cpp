@@ -44,11 +44,11 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog,bool primary)
  , m_baseCatalog(baseCatalog)
  , m_primary(primary)
 {
-    connect (baseCatalog,SIGNAL(signalEntryChanged(DocPosition)),this,SLOT(baseCatalogEntryChanged(DocPosition)));
+    connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(baseCatalogEntryModified(DocPosition)));
     connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
 }
 
-void MergeCatalog::baseCatalogEntryChanged(const DocPosition& pos)
+void MergeCatalog::baseCatalogEntryModified(const DocPosition& pos)
 {
     int a=m_mergeDiffIndex.indexOf(pos.entry);
     if (a==-1)
@@ -64,7 +64,7 @@ void MergeCatalog::baseCatalogEntryChanged(const DocPosition& pos)
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
 
-        emit signalEntryChanged(pos);
+        emit signalEntryModified(pos);
     }
 }
 

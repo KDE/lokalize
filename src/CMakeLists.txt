@@ -26,6 +26,7 @@ set(lokalize_SRCS
     kaider_findreplace.cpp
 
     kaiderview.cpp
+    xlifftextedit.cpp
     syntaxhighlighter.cpp
 
 #    kaiderdockwidget.cpp

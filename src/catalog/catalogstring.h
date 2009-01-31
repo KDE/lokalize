@@ -27,6 +27,7 @@
 #include <QList>
 #include <QMap>
 #include <QString>
+#include <QMetaType>
 
 #define TAGRANGE_IMAGE_SYMBOL 65532
 
@@ -61,9 +62,8 @@ struct TagRange
         ex,     //empty
         InlineElementCount
     };
-    
-    
-    
+
+
     int start;
     int end;
     InlineElement type;
@@ -92,7 +92,7 @@ struct TagRange
      * @see isEmpty()
      */
     TagRange getPlaceholder() const;
-    
+
     ///@returns 0 if type is unknown
     static InlineElement getElementType(const QByteArray&);
     static const char* getElementName(InlineElement type);
@@ -101,7 +101,8 @@ struct TagRange
     static bool isPaired(InlineElement type){return type<TagRange::_pairedXmlTagDelimiter;}
            bool isPaired()const{return isPaired(type);}
 };
-
+Q_DECLARE_METATYPE(TagRange)
+Q_DECLARE_METATYPE(QList<TagRange>)
 
 
 /**
@@ -119,8 +120,18 @@ struct CatalogString
 
     CatalogString(){}
     CatalogString(QString str):string(str){}
-    QMap<QString,int> tagIdToIndex() const;
+    QMap<QString,int> tagIdToIndex() const;//TODO tags may be duplicated!
 };
+Q_DECLARE_METATYPE(CatalogString)
+
+
+#include <QDataStream>
+QDataStream &operator<<(QDataStream &out, const TagRange &myObj);
+QDataStream &operator>>(QDataStream &in, TagRange &myObj);
+QDataStream &operator<<(QDataStream &out, const CatalogString &myObj);
+QDataStream &operator>>(QDataStream &in, CatalogString &myObj);
+
+
 
 
 #endif

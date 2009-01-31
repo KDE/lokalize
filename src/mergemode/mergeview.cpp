@@ -224,7 +224,7 @@ void MergeView::mergeOpen(KUrl url)
         emit signalNextChangedAvailable(m_pos.entry<m_mergeCatalog->lastChangedIndex());
 
         //a bit hacky :)
-        connect (m_mergeCatalog,SIGNAL(signalEntryChanged(DocPosition)),this,SLOT(slotUpdate(DocPosition)));
+        connect (m_mergeCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(slotUpdate(DocPosition)));
 
         if (m_pos.entry!=-1)
             slotNewEntryDisplayed(m_pos);

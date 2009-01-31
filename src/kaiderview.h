@@ -36,37 +36,14 @@
 #include "pos.h"
 #include "catalogstring.h"
 
-class SyntaxHighlighter;
+#include <QSplitter>
+#include <KUrl>
+
+class QContextMenuEvent;
 class Catalog;
 class LedsWidget;
 class KTabBar;
-#include <QSplitter>
-#include <KUrl>
-#include <KTextEdit>
-class ProperTextEdit;
-
-
-#define XLIFF 1
-class ProperTextEdit: public KTextEdit
-{
-public:
-    ProperTextEdit(QWidget* parent=0)
-     : KTextEdit(parent)
-     , m_currentUnicodeNumber(0)
-    {};
-    //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
-    QString toPlainText();
-    ///@a refStr is for proper numbering
-    void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
-
-protected:
-    void keyPressEvent(QKeyEvent *keyEvent);
-    void keyReleaseEvent(QKeyEvent* e);
-    QMimeData* createMimeDataFromSelection() const;
-
-private:
-    int m_currentUnicodeNumber; //alt+NUM thing
-};
+class XliffTextEdit;
 
 class QDragEnterEvent;
 
@@ -84,40 +61,36 @@ class QDragEnterEvent;
  * @author Nick Shaforostoff <shafff@ukr.net>
   */
 
-class KAiderView : public QSplitter
+class KAiderView: public QSplitter
 {
     Q_OBJECT
 public:
     KAiderView(QWidget *,Catalog*);
     virtual ~KAiderView();
 
-    void gotoEntry(const DocPosition& pos,int selection=0/*, bool updateHistory=true*/);
     KTabBar* tabBar(){return m_pluralTabBar;}//to connect tabbar signals to controller (EditorWindow) slots
-    QString selection() const {return _msgstrEdit->textCursor().selectedText();};//for non-batch replace
-    QString selectionMsgId() const {return _msgidEdit->textCursor().selectedText();};
-    void setProperFocus(){_msgstrEdit->setFocus();}
+    QString selection() const;//for non-batch replace
+    QString selectionMsgId() const;
+    void toggleApprovement(bool);
+
+    QObject* viewPort();
+    void setProperFocus();
+
+public slots:
+    void gotoEntry(DocPosition pos=DocPosition(),int selection=0/*, bool updateHistory=true*/);
 
 /*
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
 */
 private:
-    Catalog* _catalog;
+    Catalog* m_catalog;
 
-    ProperTextEdit* _msgidEdit;
-    ProperTextEdit* _msgstrEdit;
-    SyntaxHighlighter* m_msgidHighlighter;
-    SyntaxHighlighter* m_msgstrHighlighter;
+    XliffTextEdit* _msgidEdit;
+    XliffTextEdit* _msgstrEdit;
 
     KTabBar* m_pluralTabBar;
     LedsWidget* _leds;
-
-    //for undo/redo tracking
-    QString _oldMsgstr;
-
-    DocPosition _currentPos;
-    int _currentEntry;
-    bool m_approvementState;
 
 public:
     bool m_modifiedAfterFind;//for F3-search reset
@@ -125,40 +98,39 @@ public:
 signals:
     void signalChangeStatusbar(const QString&);
     void signalChanged(uint index); //esp for mergemode...
-    void signalUndo();
-    void signalRedo();
-    void signalGotoFirst();
-    void signalGotoLast();
-    void signalGotoPrev();
-    void signalGotoNext();
     //void fileOpenRequested(KUrl);
 
 private slots:
     void settingsChanged();
-    void cursorPositionChanged();
-    //for Undo/Redo tracking
-    void contentsChanged(int position,int charsRemoved,int charsAdded);
-    //we need this function cause...
-    void approvedEntryDisplayed(bool approved);
+    void resetFindForCurrent(const DocPosition& pos);
 
-    bool removeTargetSubstring(int start=0, int end=-1, bool refresh=true);
-    void insertCatalogString(const CatalogString& catStr, int start=0, bool refresh=true);
-    
     //Edit menu
-    void source2target();
-    void tagMenu();
-    void unwrap(ProperTextEdit* editor=0);
+    void unwrap(XliffTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
-public slots:
-    void toggleApprovement(bool);
 
-    ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
-    CatalogString refreshMsgEdit(bool keepCursor=false, const CatalogString& refStr=CatalogString());
+//workaround for qt ctrl+z bug
+};
+
+
+class KLed;
+class QLabel;
+class LedsWidget:public QWidget
+{
+Q_OBJECT
+public:
+    LedsWidget(QWidget* parent);
 private:
+    void contextMenuEvent(QContextMenuEvent* event);
 
+public slots:
+    void cursorPositionChanged(int column);
 
-    bool eventFilter(QObject*, QEvent*); //workaround for qt ctrl+z bug
+public:
+    KLed* ledFuzzy;
+    KLed* ledUntr;
+    //KLed* ledErr;
+    QLabel* lblColumn;
 };
 
 #endif // _KAiderVIEW_H_

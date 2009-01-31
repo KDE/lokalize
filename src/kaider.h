@@ -143,8 +143,8 @@ public slots:
     Q_SCRIPTABLE void gotoEntryFormOffset(int entry,int form, int offset){gotoEntry(DocPosition(entry,form,offset));}
     Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry,int form, int offset, int selection){gotoEntry(DocPosition(entry,form,offset),selection);}
 
-    Q_SCRIPTABLE int currentEntry(){return _currentPos.entry;}
-    Q_SCRIPTABLE int currentForm(){return _currentPos.form;}
+    Q_SCRIPTABLE int currentEntry(){return m_currentPos.entry;}
+    Q_SCRIPTABLE int currentForm(){return m_currentPos.form;}
     Q_SCRIPTABLE QString selectionInTarget();
     Q_SCRIPTABLE QString selectionInSource();
 
@@ -244,12 +244,11 @@ private:
 
 private:
     Project* _project;
-    Catalog* _catalog;
+    Catalog* m_catalog;
 
     KAiderView *m_view;
 
-    int _currentEntry;
-    DocPosition _currentPos;
+    DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace
     DocPosition _replacingPos;
     DocPosition _spellcheckPos;
@@ -262,8 +261,6 @@ private:
     bool m_currentIsApproved:1; //for statusbar animation
     bool m_currentIsUntr:1;  //for statusbar animation
 
-    bool m_updateView:1;//for find/replace in files
-
     bool m_fullPathShown:1;
 
     bool m_doReplaceCalled:1;//used to prevent non-clean catalog status
@@ -275,17 +272,20 @@ private:
     Ui_findExtension* ui_findExtension;
     Ui_findExtension* ui_replaceExtension;
 
+    //BEGIN views
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
     CatalogTreeView* m_catalogTreeView;
+    //END views
 
 
     QString _captionPath;
 
-
+    //BEGIN dbus
     QObject* m_adaptor;
     int m_dbusId;
     static QList<int> ids;
+    //END dbus
 
 signals:
     Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);

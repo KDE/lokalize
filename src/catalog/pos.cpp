@@ -37,17 +37,17 @@ bool switchPrev(Catalog*& catalog,DocPosition& pos,bool useMsgId)
 {
     if (useMsgId)
     {
-        if (pos.part==Msgid)
+        if (pos.part==DocPosition::Source)
         {
-            pos.part=Msgstr;
+            pos.part=DocPosition::Target;
             pos.offset=0;
             return true;
         }
         else
-            pos.part=Msgid;
+            pos.part=DocPosition::Source;
     }
     else
-        pos.part=Msgstr;
+        pos.part=DocPosition::Target;
 
     if (KDE_ISUNLIKELY( pos.form>0
             && catalog->isPlural(pos.entry)))
@@ -67,17 +67,17 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
 {
     if (useMsgId)
     {
-        if (pos.part==Msgid)
+        if (pos.part==DocPosition::Source)
         {
-            pos.part=Msgstr;
+            pos.part=DocPosition::Target;
             pos.offset=0;
             return true;
         }
         else
-            pos.part=Msgid;
+            pos.part=DocPosition::Source;
     }
     else
-        pos.part=Msgstr;
+        pos.part=DocPosition::Target;
 
 
     if (KDE_ISUNLIKELY( pos.entry!=-1

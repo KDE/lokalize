@@ -281,7 +281,7 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
         w->restoreState(QByteArray::fromBase64(state));
 
     if (entry/* || offset*/)
-        w->gotoEntry(DocPosition(entry/*, Msgstr, 0, offset*/));
+        w->gotoEntry(DocPosition(entry/*, DocPosition::Target, 0, offset*/));
     if (setAsActive)
     {
         m_toBeActiveSubWindow=sw;

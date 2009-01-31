@@ -34,7 +34,6 @@
 
 **************************************************************************** */
 // #define KDE_NO_DEBUG_OUTPUT
-#define XLIFF 1
 
 #include "catalog.h"
 #include "catalog_private.h"
@@ -46,9 +45,7 @@
 #include "gettextimport.h"
 #include "gettextexport.h"
 
-#ifdef XLIFF
 #include "xliffstorage.h"
-#endif
 
 
 #include "version.h"
@@ -188,6 +185,14 @@ CatalogString Catalog::targetWithTags(const DocPosition& pos) const
     return m_storage->targetWithTags(pos);
 }
 
+CatalogString Catalog::catalogString(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return CatalogString();
+
+    return m_storage->catalogString(pos);
+}
+
 
 QString Catalog::comment(uint index) const
 {
@@ -300,10 +305,8 @@ bool Catalog::loadFromUrl(const KUrl& url)
     CatalogStorage* storage=0;
     if (url.fileName().endsWith(".po")||url.fileName().endsWith(".pot"))
         storage=new GettextCatalog::GettextStorage;
-#ifdef XLIFF
     else if (url.fileName().endsWith(".xlf")||url.fileName().endsWith(".xliff"))
         storage=new XliffStorage;
-#endif
     else
         return false;
 
@@ -569,7 +572,7 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
     
     if (d->addToUntransIndexIfAppropriate(m_storage,pos))
         emit signalNumberOfUntranslatedChanged();
-    emit signalEntryChanged(pos);
+    emit signalEntryModified(pos);
 }
 
 
@@ -593,7 +596,7 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
 
     m_storage->targetInsert(pos,arg);
 
-    emit signalEntryChanged(pos);
+    emit signalEntryModified(pos);
 }
 
 void Catalog::targetInsertTag(const DocPosition& pos, const TagRange& tag)
@@ -606,7 +609,7 @@ void Catalog::targetInsertTag(const DocPosition& pos, const TagRange& tag)
 
     m_storage->targetInsertTag(pos,tag);
 
-    emit signalEntryChanged(pos);
+    emit signalEntryModified(pos);
 }
 
 TagRange Catalog::targetDeleteTag(const DocPosition& pos)
@@ -618,7 +621,7 @@ TagRange Catalog::targetDeleteTag(const DocPosition& pos)
     
     if (d->addToUntransIndexIfAppropriate(m_storage,pos))
         emit signalNumberOfUntranslatedChanged();
-    emit signalEntryChanged(pos);
+    emit signalEntryModified(pos);
     return tag;
 }
 
@@ -643,7 +646,7 @@ void Catalog::setApproved(const DocPosition& pos, bool approved)
         idx.removeAll(pos.entry);
 
     emit signalNumberOfFuzziesChanged();
-    emit signalEntryChanged(pos);
+    emit signalEntryModified(pos);
 
 }
 

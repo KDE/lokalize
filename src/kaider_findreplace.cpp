@@ -136,7 +136,7 @@ void EditorWindow::find()
 
     DocPosition pos;
     if (_find->options() & KFind::FromCursor)
-        pos=_currentPos;
+        pos=m_currentPos;
     else
     {
         if (!determineStartingPos(_find,pos))
@@ -151,10 +151,10 @@ bool EditorWindow::determineStartingPos(KFind* find,
 {
     if (find->options() & KFind::FindBackwards)
     {
-        pos.entry=_catalog->numberOfEntries()-1;
+        pos.entry=m_catalog->numberOfEntries()-1;
         pos.form=
-                (_catalog->isPlural(pos.entry))?
-                _catalog->numberOfPluralForms()-1:0;
+                (m_catalog->isPlural(pos.entry))?
+                m_catalog->numberOfPluralForms()-1:0;
     }
     else
     {
@@ -166,13 +166,13 @@ bool EditorWindow::determineStartingPos(KFind* find,
 
 void EditorWindow::findNext(const DocPosition& startingPos)
 {
-    Catalog& catalog=*_catalog;
+    Catalog& catalog=*m_catalog;
     KFind& find=*_find;
 
     if (KDE_ISUNLIKELY( catalog.numberOfEntries()<=startingPos.entry ))
         return;//for the case when app wasn't able to process event before file close
 
-    bool anotherEntry=_searchingPos.entry!=_currentPos.entry;
+    bool anotherEntry=_searchingPos.entry!=m_currentPos.entry;
     _searchingPos=startingPos;
 
     if (anotherEntry)
@@ -181,7 +181,7 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 
     QRegExp rx("[^(\\\\n)>]\n");
     QTime a;a.start();
-    //_searchingPos.part=Msgid;
+    //_searchingPos.part=DocPosition::Source;
     bool ignoreaccels=FIND_IGNOREACCELS;
     int flag=1;
 //     int offset=_searchingPos.offset;
@@ -198,7 +198,7 @@ void EditorWindow::findNext(const DocPosition& startingPos)
                 m_view->m_modifiedAfterFind=false;
 
                 QString data;
-                if (_searchingPos.part==Msgid)
+                if (_searchingPos.part==DocPosition::Source)
                 {
                     data=catalog.msgid(_searchingPos)/*,offset*/;
 
@@ -224,8 +224,8 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 
             if (!(
                   (find.options()&KFind::FindBackwards)?
-                                switchPrev(_catalog,_searchingPos,true):
-                                switchNext(_catalog,_searchingPos,true)
+                                switchPrev(m_catalog,_searchingPos,true):
+                                switchNext(m_catalog,_searchingPos,true)
                  ))
                 break;
         }
@@ -248,7 +248,7 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 void EditorWindow::findNext()
 {
     if (_find)
-        findNext(_currentPos);
+        findNext(m_currentPos);
     else
         find();
 
@@ -260,7 +260,7 @@ void EditorWindow::findPrev()
     if (_find)
     {
         _find->setOptions(_find->options() ^ KFind::FindBackwards);
-        findNext(_currentPos);
+        findNext(m_currentPos);
     }
     else
     {
@@ -276,10 +276,10 @@ void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedL
     if (FIND_IGNOREACCELS)
     {
         QString data;
-        if (_searchingPos.part==Msgid)
-            data=_catalog->msgid(_searchingPos);
+        if (_searchingPos.part==DocPosition::Source)
+            data=m_catalog->msgid(_searchingPos);
         else
-            data=_catalog->msgstr(_searchingPos);
+            data=m_catalog->msgstr(_searchingPos);
 
         calsOffsetWithAccels(data, matchingIndex, matchedLength);
     }
@@ -340,12 +340,12 @@ void EditorWindow::replace()
 //         _replace->setOptions(_replaceDialog->options());
 //     }
 
-    //_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
+    //m_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
     m_doReplaceCalled=false;
 
     if (_replace->options() & KFind::FromCursor)
     {
-        replaceNext(_currentPos);
+        replaceNext(m_currentPos);
     }
     else
     {
@@ -382,12 +382,12 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 
                 if (REPLACE_IGNOREACCELS)
                 {
-                    QString data(_catalog->msgstr(_replacingPos));
+                    QString data(m_catalog->msgstr(_replacingPos));
                     data.remove('&');
                     _replace->setData(data);
                 }
                 else
-                    _replace->setData( _catalog->msgstr(_replacingPos));
+                    _replace->setData( m_catalog->msgstr(_replacingPos));
             }
             res = _replace->replace();
             if (res!=KFind::NoMatch)
@@ -395,8 +395,8 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 
             if (!(
                   (_replace->options()&KFind::FindBackwards)?
-                                switchPrev(_catalog,_replacingPos):
-                                switchNext(_catalog,_replacingPos)
+                                switchPrev(m_catalog,_replacingPos):
+                                switchNext(m_catalog,_replacingPos)
                  ))
                 break;
         }
@@ -419,7 +419,7 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
                 if(m_doReplaceCalled)
                 {
                     m_doReplaceCalled=false;
-                    _catalog->endMacro();
+                    m_catalog->endMacro();
                 }
             }
             _replace->resetCounts();
@@ -431,7 +431,7 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 
 void EditorWindow::replaceNext()
 {
-    replaceNext(_currentPos);
+    replaceNext(m_currentPos);
 }
 
 void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matchedLength)
@@ -439,10 +439,10 @@ void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matched
     if (REPLACE_IGNOREACCELS)
     {
         QString data;
-        if (_replacingPos.part==Msgid)
-            data=_catalog->msgid(_replacingPos);
+        if (_replacingPos.part==DocPosition::Source)
+            data=m_catalog->msgid(_replacingPos);
         else
-            data=_catalog->msgstr(_replacingPos);
+            data=m_catalog->msgstr(_replacingPos);
         calsOffsetWithAccels(data,matchingIndex,matchedLength);
     }
 
@@ -457,9 +457,9 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
     if(!m_doReplaceCalled)
     {
         m_doReplaceCalled=true;
-        _catalog->beginMacro(i18nc("@item Undo action item","Replace"));
+        m_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
     }
-    QString oldStr(_catalog->target(_replacingPos));
+    QString oldStr(m_catalog->target(_replacingPos));
 
     if (REPLACE_IGNOREACCELS)
         calsOffsetWithAccels(oldStr,offset,remLen);
@@ -469,7 +469,7 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
 //         tmp=_replaceDialog->pattern();
     DocPosition pos=_replacingPos;
     pos.offset=offset;
-    _catalog->push(new DelTextCmd(_catalog,pos,tmp));
+    m_catalog->push(new DelTextCmd(m_catalog,pos,tmp));
 
     if (newLen)
     {
@@ -477,10 +477,10 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
         //does it save memory?
 /*        if (tmp==_replaceDialog->replacement())
             tmp=_replaceDialog->replacement();*/
-        _catalog->push(new InsTextCmd(_catalog,pos,tmp));
+        m_catalog->push(new InsTextCmd(m_catalog,pos,tmp));
     }
 
-    if (pos.entry==_currentEntry)
+    if (pos.entry==m_currentPos.entry)
     {
         pos.offset+=newLen;
         m_view->gotoEntry(pos);
@@ -524,16 +524,16 @@ void EditorWindow::spellcheck()
 
     }
 
-    QString text=_catalog->msgstr(_currentPos);
+    QString text=m_catalog->msgstr(m_currentPos);
     if (!m_view->selection().isEmpty())
         text=m_view->selection();
     text.remove('&');
     m_sonnetDialog->setBuffer(text);
 
-    _spellcheckPos=_currentPos;
+    _spellcheckPos=m_currentPos;
     _spellcheckStop=false;
-    //_catalog->beginMacro(i18n("Spellcheck"));
-    _spellcheckStartUndoIndex=_catalog->index();
+    //m_catalog->beginMacro(i18n("Spellcheck"));
+    _spellcheckStartUndoIndex=m_catalog->index();
     m_sonnetDialog->show();
 
 }
@@ -541,15 +541,15 @@ void EditorWindow::spellcheck()
 
 void EditorWindow::spellcheckNext()
 {
-    if (!_spellcheckStop && switchNext(_catalog,_spellcheckPos))
+    if (!_spellcheckStop && switchNext(m_catalog,_spellcheckPos))
     {
         // HACK actually workaround
-        while (_catalog->msgstr(_spellcheckPos).isEmpty() || !_catalog->isApproved(_spellcheckPos.entry))
+        while (m_catalog->msgstr(_spellcheckPos).isEmpty() || !m_catalog->isApproved(_spellcheckPos.entry))
         {
-            if (!switchNext(_catalog,_spellcheckPos))
+            if (!switchNext(m_catalog,_spellcheckPos))
                 return;
         }
-        QString text=_catalog->msgstr(_spellcheckPos);
+        QString text=m_catalog->msgstr(_spellcheckPos);
         text.remove('&');
         m_sonnetDialog->setBuffer(text);
     }
@@ -562,13 +562,13 @@ void EditorWindow::spellcheckStop()
 
 void EditorWindow::spellcheckCancel()
 {
-    _catalog->setIndex(_spellcheckStartUndoIndex);
+    m_catalog->setIndex(_spellcheckStartUndoIndex);
     gotoEntry(_spellcheckPos);
 }
 
 void EditorWindow::spellcheckShow(const QString &word, int offset)
 {
-    QString source=_catalog->source(_spellcheckPos);
+    QString source=m_catalog->source(_spellcheckPos);
     source.remove('&');
     if (source.contains(word))
     {
@@ -582,7 +582,7 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
 
     DocPosition pos=_spellcheckPos;
     int length=word.length();
-    calsOffsetWithAccels(_catalog->target(pos),offset,length);
+    calsOffsetWithAccels(m_catalog->target(pos),offset,length);
     pos.offset=offset;
 
     gotoEntry(pos,length);
@@ -592,13 +592,13 @@ void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString 
 {
     DocPosition pos=_spellcheckPos;
     int length=oldWord.length();
-    calsOffsetWithAccels(_catalog->target(pos),offset,length);
+    calsOffsetWithAccels(m_catalog->target(pos),offset,length);
     pos.offset=offset;
     if (length>oldWord.length())//replaced word contains accel mark
-        oldWord=_catalog->target(pos).mid(offset,length);
+        oldWord=m_catalog->target(pos).mid(offset,length);
 
-    _catalog->push(new DelTextCmd(_catalog,pos,oldWord));
-    _catalog->push(new InsTextCmd(_catalog,pos,newWord));
+    m_catalog->push(new DelTextCmd(m_catalog,pos,oldWord));
+    m_catalog->push(new InsTextCmd(m_catalog,pos,newWord));
 
 
     gotoEntry(pos,newWord.length());
@@ -619,13 +619,13 @@ bool EditorWindow::findEntryBySourceContext(const QString& source, const QString
     DocPosition pos(0);
     do
     {
-        if (_catalog->source(pos)==source && _catalog->msgctxt(pos.entry)==ctxt)
+        if (m_catalog->source(pos)==source && m_catalog->msgctxt(pos.entry)==ctxt)
         {
             gotoEntry(pos);
             return true;
         }
     }
-    while (switchNext(_catalog,pos));
+    while (switchNext(m_catalog,pos));
     return false;
 }
 
@@ -640,17 +640,17 @@ void EditorWindow::displayWordCount()
     DocPosition pos(0);
     do
     {
-        QString msg=_catalog->source(pos);
+        QString msg=m_catalog->source(pos);
         msg.remove(rxClean);
         QStringList words=msg.split(rxSplit,QString::SkipEmptyParts);
         sourceCount+=words.size();
 
-        msg=_catalog->target(pos);
+        msg=m_catalog->target(pos);
         msg.remove(rxClean);
         words=msg.split(rxSplit,QString::SkipEmptyParts);
         targetCount+=words.size();
     }
-    while (switchNext(_catalog,pos));
+    while (switchNext(m_catalog,pos));
 
     KMessageBox::information(this, i18nc("@info words count",
                             "Source text words: %1<br/>Target text words: %2",

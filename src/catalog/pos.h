@@ -37,7 +37,6 @@
 #include <QDBusArgument>
 class Catalog;
 
-enum Part {UndefPart, Msgid, Msgstr, Comment};
 
 /**
  * This struct represents a position in a catalog.
@@ -51,6 +50,8 @@ enum Part {UndefPart, Msgid, Msgstr, Comment};
  */
 struct DocPosition
 {
+    enum Part {UndefPart, Source, Target, Comment};
+
     short entry:16;
     Part part:8;
     char form:8;
@@ -58,7 +59,7 @@ struct DocPosition
 
     DocPosition():
         entry(-1),
-        part(Msgstr),
+        part(Target),
         form(0),
         offset(0)
         {}
@@ -72,16 +73,16 @@ struct DocPosition
 
     DocPosition(short e, char f=0, uint o=0):
         entry(e),
-        part(Msgstr),
+        part(Target),
         form(f),
         offset(o)
         {}
 
 
 };
-/*
-Q_DECLARE_METATYPE(DocPosition)
 
+Q_DECLARE_METATYPE(DocPosition)
+/*
 const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos);
 QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos);
 */
@@ -122,7 +123,7 @@ struct DocPos
 
     DocPosition toDocPosition()
     {
-        return DocPosition(entry, Msgstr, form);
+        return DocPosition(entry, DocPosition::Target, form);
     }
 
 };

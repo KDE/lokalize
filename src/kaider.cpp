@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -116,15 +116,13 @@
 EditorWindow::EditorWindow(QWidget* parent)
         : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
-        , _catalog(new Catalog(this))
-        , m_view(new KAiderView(this,_catalog/*,new keyEventHandler(this,_catalog)*/))
-        , _currentEntry(0)
+        , m_catalog(new Catalog(this))
+        , m_view(new KAiderView(this,m_catalog/*,new keyEventHandler(this,m_catalog)*/))
         , m_sonnetDialog(0)
         , _spellcheckStartUndoIndex(0)
         , _spellcheckStop(false)
         , m_currentIsApproved(true)
         , m_currentIsUntr(true)
-        , m_updateView(true)
         , m_fullPathShown(false)
         , m_doReplaceCalled(false)
         , _findDialog(0)
@@ -163,7 +161,7 @@ void EditorWindow::initLater()
 
 EditorWindow::~EditorWindow()
 {
-    if (!_catalog->isEmpty())
+    if (!m_catalog->isEmpty())
     {
         emit fileAboutToBeClosed();
         emit fileClosed();
@@ -184,18 +182,18 @@ void EditorWindow::setupStatusBar()
     statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1",0));
     statusBarItems.insert(ID_STATUS_ISFUZZY,QString());
 
-    connect(_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
-    connect(_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
+    connect(m_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
+    connect(m_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
 }
 
 void EditorWindow::numberOfFuzziesChanged()
 {
-    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", _catalog->numberOfNonApproved()));
+    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", m_catalog->numberOfNonApproved()));
 }
 
 void EditorWindow::numberOfUntranslatedChanged()
 {
-    statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1", _catalog->numberOfUntranslated()));
+    statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1", m_catalog->numberOfUntranslated()));
 }
 
 void EditorWindow::setupActions()
@@ -221,35 +219,35 @@ void EditorWindow::setupActions()
 
 
 //BEGIN dockwidgets
-    MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,_catalog);
+    MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,m_catalog);
     addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
     actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),msgIdDiffView,SLOT(slotNewEntryDisplayed(DocPosition)));
 
-    _mergeView = new MergeView(this,_catalog,true);
+    _mergeView = new MergeView(this,m_catalog,true);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
     sync1->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (_catalog,SIGNAL(signalFileLoaded()),_mergeView,SLOT(cleanup()));
+    connect (m_catalog,SIGNAL(signalFileLoaded()),_mergeView,SLOT(cleanup()));
     connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
              this,SLOT(gotoEntry(const DocPosition&,int)));
 
-    _mergeViewSecondary = new MergeView(this,_catalog,false);
+    _mergeViewSecondary = new MergeView(this,m_catalog,false);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);
     sync2->addAction( QLatin1String("showmergeviewsecondary_action"), _mergeViewSecondary->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (_catalog,SIGNAL(signalFileLoaded()),_mergeViewSecondary,SLOT(cleanup()));
-    connect (_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
+    connect (m_catalog,SIGNAL(signalFileLoaded()),_mergeViewSecondary,SLOT(cleanup()));
+    connect (m_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
     connect (_mergeViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
              this,SLOT(gotoEntry(DocPosition,int)));
 
-    m_catalogTreeView = new CatalogTreeView(this,_catalog);
+    m_catalogTreeView = new CatalogTreeView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_catalogTreeView);
     actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_catalogTreeView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
 
-    MsgCtxtView* msgCtxtView = new MsgCtxtView(this,_catalog);
+    MsgCtxtView* msgCtxtView = new MsgCtxtView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
     connect(this,SIGNAL(signalNewEntryDisplayed(DocPosition)),msgCtxtView,SLOT(slotNewEntryDisplayed(DocPosition)));
@@ -281,14 +279,14 @@ void EditorWindow::setupActions()
         tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",i));
         tmactions[i]=tmaction;
     }
-    TM::TMView* _tmView = new TM::TMView(this,_catalog,tmactions);
+    TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(refreshMsgEdit()),Qt::QueuedConnection);
+    connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
-    connect (this,SIGNAL(fileAboutToBeClosed()),_catalog,SLOT(flushUpdateDBBuffer()));
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_catalog,SLOT(flushUpdateDBBuffer()));
+    connect (this,SIGNAL(fileAboutToBeClosed()),m_catalog,SLOT(flushUpdateDBBuffer()));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalog,SLOT(flushUpdateDBBuffer()));
 
     QVector<KAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]=
@@ -327,7 +325,7 @@ void EditorWindow::setupActions()
         gactions[i]=gaction;
     }
 
-    GlossaryNS::GlossaryView* _glossaryView = new GlossaryNS::GlossaryView(this,_catalog,gactions);
+    GlossaryNS::GlossaryView* _glossaryView = new GlossaryNS::GlossaryView(this,m_catalog,gactions);
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     glossary->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_glossaryView,SLOT(slotNewEntryDisplayed(DocPosition)));
@@ -364,7 +362,7 @@ void EditorWindow::setupActions()
         wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result # %1",i));
         wqactions[i]=wqaction;
     }
-    WebQueryView* _webQueryView = new WebQueryView(this,_catalog,wqactions);
+    WebQueryView* _webQueryView = new WebQueryView(this,m_catalog,wqactions);
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
     actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_webQueryView,SLOT(slotNewEntryDisplayed(DocPosition)));
@@ -382,8 +380,8 @@ void EditorWindow::setupActions()
 // File
     action=file->addAction(KStandardAction::Save,this, SLOT(saveFile()));
     action->setEnabled(false);
-    connect (_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
-    connect (_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
+    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
+    connect (m_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
     file->addAction(KStandardAction::SaveAs,this, SLOT(saveFileAs()));
     //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
     //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
@@ -413,13 +411,13 @@ void EditorWindow::setupActions()
 //Edit
     actionCategory=edit;
     action=edit->addAction(KStandardAction::Undo,this,SLOT(undo()));
-    connect(m_view,SIGNAL(signalUndo()),this,SLOT(undo()));
-    connect(_catalog,SIGNAL(canUndoChanged(bool)),action,SLOT(setEnabled(bool)) );
+    connect(m_view->viewPort(),SIGNAL(undoRequested()),this,SLOT(undo()));
+    connect(m_catalog,SIGNAL(canUndoChanged(bool)),action,SLOT(setEnabled(bool)) );
     action->setEnabled(false);
 
     action=edit->addAction(KStandardAction::Redo,this,SLOT(redo()));
-    connect(m_view,SIGNAL(signalRedo()),this,SLOT(redo()));
-    connect(_catalog,SIGNAL(canRedoChanged(bool)),action,SLOT(setEnabled(bool)) );
+    connect(m_view->viewPort(),SIGNAL(redoRequested()),this,SLOT(redo()));
+    connect(m_catalog,SIGNAL(canRedoChanged(bool)),action,SLOT(setEnabled(bool)) );
     action->setEnabled(false);
 
     action=nav->addAction(KStandardAction::Find,this,SLOT(find()));
@@ -431,7 +429,7 @@ void EditorWindow::setupActions()
 //
     ADD_ACTION_SHORTCUT_ICON("edit_approve",i18nc("@option:check whether message is marked as Approved","Approved"),Qt::CTRL+Qt::Key_U,"approved")
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(toggleApprovement(bool)));
+    connect(action, SIGNAL(triggered(bool)), m_view->viewPort(),SLOT(toggleApprovement(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
     connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
@@ -448,16 +446,16 @@ void EditorWindow::setupActions()
                     ))
         copyShortcut=Qt::ALT+Qt::Key_Space;
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
-    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(source2target()));
+    connect(action, SIGNAL(triggered(bool)), m_view->viewPort(),SLOT(source2target()));
 
     ADD_ACTION_SHORTCUT("edit_unwrap-target",i18nc("@action:inmenu","Unwrap target"),Qt::CTRL+Qt::Key_I)
     connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
 
-    action=edit->addAction("edit_clear-target",m_view,SLOT(removeTargetSubstring()));
+    action=edit->addAction("edit_clear-target",m_view->viewPort(),SLOT(removeTargetSubstring()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18nc("@action:inmenu","Clear"));
 
-    action=edit->addAction("edit_tagmenu",m_view,SLOT(tagMenu()));
+    action=edit->addAction("edit_tagmenu",m_view->viewPort(),SLOT(tagMenu()));
     action->setShortcut(Qt::CTRL+Qt::Key_T);
     action->setText(i18nc("@action:inmenu","Insert Tag"));
 
@@ -469,21 +467,21 @@ void EditorWindow::setupActions()
     action=nav->addAction(KStandardAction::Next,this, SLOT(gotoNext()));
     action->setText(i18nc("@action:inmenu entry","&Next"));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
-    connect(m_view,SIGNAL(signalGotoNext()),this,SLOT(gotoNext()));
+    connect(m_view->viewPort(),SIGNAL(gotoNextRequested()),this,SLOT(gotoNext()));
 
     action=nav->addAction(KStandardAction::Prior,this, SLOT(gotoPrev()));
     action->setText(i18nc("@action:inmenu entry","&Previous"));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
-    connect(m_view,SIGNAL(signalGotoPrev()),this,SLOT(gotoPrev()));
+    connect(m_view->viewPort(),SIGNAL(gotoPrevRequested()),this,SLOT(gotoPrev()));
 
     action=nav->addAction(KStandardAction::FirstPage,this, SLOT(gotoFirst()));
-    connect(m_view,SIGNAL(signalGotoFirst()),this,SLOT(gotoFirst()));
+    connect(m_view->viewPort(),SIGNAL(gotoFirstRequested()),this,SLOT(gotoFirst()));
     action->setText(i18nc("@action:inmenu","&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Home));
     connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
 
     action=nav->addAction(KStandardAction::LastPage,this, SLOT(gotoLast()));
-    connect(m_view,SIGNAL(signalGotoLast()),this,SLOT(gotoLast()));
+    connect(m_view->viewPort(),SIGNAL(gotoLastRequested()),this,SLOT(gotoLast()));
     action->setText(i18nc("@action:inmenu","&Last Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_End));
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
@@ -646,7 +644,7 @@ void EditorWindow::showDocks()
 
 KUrl EditorWindow::currentUrl()
 {
-    return _catalog->url();
+    return m_catalog->url();
 }
 
 void EditorWindow::setCaption(const QString& title,bool modif)
@@ -665,7 +663,7 @@ void EditorWindow::setFullPathShown(bool fullPathShown)
 
 void EditorWindow::updateCaptionPath()
 {
-    KUrl url=_catalog->url();
+    KUrl url=m_catalog->url();
     if (!url.isLocalFile() || !_project->isLoaded())
     {
         _captionPath=url.pathOrUrl();
@@ -689,7 +687,7 @@ void EditorWindow::updateCaptionPath()
 
 bool EditorWindow::fileOpen(KUrl url)
 {
-    if (!_catalog->isClean())
+    if (!m_catalog->isClean())
     {
         switch (KMessageBox::warningYesNoCancel(this,
                                                 i18nc("@info","The document contains unsaved changes.\n"
@@ -710,7 +708,7 @@ bool EditorWindow::fileOpen(KUrl url)
 
     if (url.isEmpty())
     {
-        url=KFileDialog::getOpenFileName(_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
+        url=KFileDialog::getOpenFileName(m_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
@@ -732,9 +730,9 @@ bool EditorWindow::fileOpen(KUrl url)
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     QString prevFilePath=currentFile();
-    bool wasOpen=!_catalog->isEmpty();
+    bool wasOpen=!m_catalog->isEmpty();
     if (wasOpen) emit fileAboutToBeClosed();
-    bool success=_catalog->loadFromUrl(url);
+    bool success=m_catalog->loadFromUrl(url);
     if (wasOpen&&success) {emit fileClosed();emit fileClosed(prevFilePath);}
 
     QApplication::restoreOverrideCursor();
@@ -744,14 +742,14 @@ bool EditorWindow::fileOpen(KUrl url)
         if (isTemlate)
         {
             url.setPath(originalPath);
-            _catalog->setUrl(url);
+            m_catalog->setUrl(url);
         }
 
-        statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1", _catalog->numberOfEntries()));
+        statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1", m_catalog->numberOfEntries()));
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();
 
-        _currentEntry=_currentPos.entry=-1;//so the signals are emitted
+        m_currentPos.entry=-1;//so the signals are emitted
         DocPosition pos(0);
         //we delay gotoEntry(pos) until project is loaded;
 
@@ -805,7 +803,7 @@ bool EditorWindow::fileOpen(KUrl url)
 
 bool EditorWindow::saveFileAs()
 {
-    KUrl url=KFileDialog::getSaveUrl(_catalog->url(),_catalog->mimetype(),this);
+    KUrl url=KFileDialog::getSaveUrl(m_catalog->url(),m_catalog->mimetype(),this);
     if (url.isEmpty())
         return false;
     return saveFile(url);
@@ -813,7 +811,7 @@ bool EditorWindow::saveFileAs()
 
 bool EditorWindow::saveFile(const KUrl& url)
 {
-    if (_catalog->saveToUrl(url))
+    if (m_catalog->saveToUrl(url))
     {
         updateCaptionPath();
         setModificationSign(/*clean*/true);
@@ -822,7 +820,7 @@ bool EditorWindow::saveFile(const KUrl& url)
 
     if ( KMessageBox::warningContinueCancel(this,
                                             i18nc("@info","Error saving the file <filename>%1</filename>\n"
-                                                  "Do you want to save to another file or cancel?", _catalog->url().pathOrUrl()),
+                                                  "Do you want to save to another file or cancel?", m_catalog->url().pathOrUrl()),
                                             i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
        )
         return saveFileAs();
@@ -833,9 +831,9 @@ KAiderState EditorWindow::state()
 {
     KAiderState state;
     state.dockWidgets=saveState();
-    state.url=_catalog->url();
+    state.url=m_catalog->url();
     state.mergeUrl=_mergeView->url();
-    state.entry=_currentPos.entry;
+    state.entry=m_currentPos.entry;
     //state.offset=_currentPos.offset;
     return state;
 }
@@ -843,7 +841,7 @@ KAiderState EditorWindow::state()
 
 bool EditorWindow::queryClose()
 {
-    if (_catalog->isClean())
+    if (m_catalog->isClean())
         return true;
 
     //TODO caption
@@ -864,22 +862,22 @@ bool EditorWindow::queryClose()
 
 void EditorWindow::undo()
 {
-    gotoEntry(_catalog->undo(),0);
+    gotoEntry(m_catalog->undo(),0);
 }
 
 void EditorWindow::redo()
 {
-    gotoEntry(_catalog->redo(),0);
+    gotoEntry(m_catalog->redo(),0);
 }
 
 void EditorWindow::gotoEntry()
 {
-    DocPosition pos=_currentPos;
+    DocPosition pos=m_currentPos;
     pos.entry=KInputDialog::getInteger(
                   i18nc("@title","Jump to Entry"),
                   i18nc("@label:spinbox","Enter entry number:"),
                   pos.entry,1,
-                  _catalog->numberOfEntries(),
+                  m_catalog->numberOfEntries(),
                   1,0,this);
     if (pos.entry)
     {
@@ -891,68 +889,67 @@ void EditorWindow::gotoEntry()
 void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
 {
     //specially for dbus users
-    if (pos.entry>=_catalog->numberOfEntries()||pos.entry<0)
+    if (pos.entry>=m_catalog->numberOfEntries()||pos.entry<0)
         return;
 
-    _currentPos.part=pos.part;//for searching;
+    m_currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
 
-    if (m_updateView)
-        m_view->gotoEntry(pos,selection);
-    if (pos.part==UndefPart)
-        _currentPos.part=Msgstr;
+    m_view->gotoEntry(pos,selection);
+    if (pos.part==DocPosition::UndefPart)
+        m_currentPos.part=DocPosition::Target;
 
     QTime time;
     time.start();
 // QTime a;
 // a.start();
 
-    if (_currentEntry!=pos.entry || _currentPos.form!=pos.form)
+    if (m_currentPos.entry!=pos.entry || m_currentPos.form!=pos.form)
     {
-        _currentPos=pos;
-        _currentEntry=pos.entry;
-        if (m_updateView)
+        m_currentPos=pos;
+        m_currentPos.entry=pos.entry;
+        if (true)
         {
-            emit signalNewEntryDisplayed(_currentPos);
+            emit signalNewEntryDisplayed(m_currentPos);
             emit entryDisplayed();
 
-            emit signalFirstDisplayed(_currentEntry==0);
-            emit signalLastDisplayed(_currentEntry==_catalog->numberOfEntries()-1);
+            emit signalFirstDisplayed(m_currentPos.entry==0);
+            emit signalLastDisplayed(m_currentPos.entry==m_catalog->numberOfEntries()-1);
 
-            emit signalPriorFuzzyAvailable(_currentEntry>_catalog->firstFuzzyIndex());
-            emit signalNextFuzzyAvailable(_currentEntry<_catalog->lastFuzzyIndex());
+            emit signalPriorFuzzyAvailable(m_currentPos.entry>m_catalog->firstFuzzyIndex());
+            emit signalNextFuzzyAvailable(m_currentPos.entry<m_catalog->lastFuzzyIndex());
 
-            emit signalPriorUntranslatedAvailable(_currentEntry>_catalog->firstUntranslatedIndex());
-            emit signalNextUntranslatedAvailable(_currentEntry<_catalog->lastUntranslatedIndex());
+            emit signalPriorUntranslatedAvailable(m_currentPos.entry>m_catalog->firstUntranslatedIndex());
+            emit signalNextUntranslatedAvailable(m_currentPos.entry<m_catalog->lastUntranslatedIndex());
 
-            emit signalPriorFuzzyOrUntrAvailable(_currentEntry>_catalog->firstFuzzyIndex()
-                                                 ||_currentEntry>_catalog->firstUntranslatedIndex()
+            emit signalPriorFuzzyOrUntrAvailable(m_currentPos.entry>m_catalog->firstFuzzyIndex()
+                                                 ||m_currentPos.entry>m_catalog->firstUntranslatedIndex()
                                                 );
-            emit signalNextFuzzyOrUntrAvailable(_currentEntry<_catalog->lastFuzzyIndex()
-                                                ||_currentEntry<_catalog->lastUntranslatedIndex());
+            emit signalNextFuzzyOrUntrAvailable(m_currentPos.entry<m_catalog->lastFuzzyIndex()
+                                                ||m_currentPos.entry<m_catalog->lastUntranslatedIndex());
 
-            emit signalPriorBookmarkAvailable(_currentEntry>_catalog->firstBookmarkIndex());
-            emit signalNextBookmarkAvailable(_currentEntry<_catalog->lastBookmarkIndex());
-            emit signalBookmarkDisplayed(_catalog->isBookmarked(_currentEntry));
+            emit signalPriorBookmarkAvailable(m_currentPos.entry>m_catalog->firstBookmarkIndex());
+            emit signalNextBookmarkAvailable(m_currentPos.entry<m_catalog->lastBookmarkIndex());
+            emit signalBookmarkDisplayed(m_catalog->isBookmarked(m_currentPos.entry));
         }
 
     }
 
-    if (m_updateView)
+    if (true)
     {
-        //still emit even if _currentEntry==pos.entry
-        emit signalFuzzyEntryDisplayed(!_catalog->isApproved(_currentEntry));
-        emit signalApprovedEntryDisplayed(_catalog->isApproved(_currentEntry));
-        statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", _currentEntry+1));
+        //still emit even if m_currentPos.entry==pos.entry
+        emit signalFuzzyEntryDisplayed(!m_catalog->isApproved(m_currentPos.entry));
+        emit signalApprovedEntryDisplayed(m_catalog->isApproved(m_currentPos.entry));
+        statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", m_currentPos.entry+1));
         msgStrChanged();
     }
-    kDebug()<<"ELA "<<time.elapsed();
+    //kDebug()<<"ELA "<<time.elapsed();
 }
 
 void EditorWindow::msgStrChanged()
 {
-    bool isUntr=_catalog->msgstr(_currentPos).isEmpty();
-    bool isApproved=_catalog->isApproved(_currentPos);
+    bool isUntr=m_catalog->msgstr(m_currentPos).isEmpty();
+    bool isApproved=m_catalog->isApproved(m_currentPos);
     if (isUntr==m_currentIsUntr && isApproved==m_currentIsApproved)
         return;
 
@@ -974,28 +971,28 @@ void EditorWindow::msgStrChanged()
 }
 void EditorWindow::switchForm(int newForm)
 {
-    if (_currentPos.form==newForm)
+    if (m_currentPos.form==newForm)
         return;
 
-    DocPosition pos=_currentPos;
+    DocPosition pos=m_currentPos;
     pos.form=newForm;
     gotoEntry(pos);
 }
 
 void EditorWindow::gotoNext()
 {
-    DocPosition pos=_currentPos;
+    DocPosition pos=m_currentPos;
 
-    if (switchNext(_catalog,pos))
+    if (switchNext(m_catalog,pos))
         gotoEntry(pos);
 }
 
 
 void EditorWindow::gotoPrev()
 {
-    DocPosition pos=_currentPos;
+    DocPosition pos=m_currentPos;
 
-    if (switchPrev(_catalog,pos))
+    if (switchPrev(m_catalog,pos))
         gotoEntry(pos);
 }
 
@@ -1003,7 +1000,7 @@ void EditorWindow::gotoPrevFuzzy()
 {
     DocPosition pos;
 
-    if ( (pos.entry=_catalog->prevFuzzyIndex(_currentEntry)) == -1)
+    if ( (pos.entry=m_catalog->prevFuzzyIndex(m_currentPos.entry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -1013,7 +1010,7 @@ void EditorWindow::gotoNextFuzzy()
 {
     DocPosition pos;
 
-    if ( (pos.entry=_catalog->nextFuzzyIndex(_currentEntry)) == -1)
+    if ( (pos.entry=m_catalog->nextFuzzyIndex(m_currentPos.entry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -1023,7 +1020,7 @@ void EditorWindow::gotoPrevUntranslated()
 {
     DocPosition pos;
 
-    if ( (pos.entry=_catalog->prevUntranslatedIndex(_currentEntry)) == -1)
+    if ( (pos.entry=m_catalog->prevUntranslatedIndex(m_currentPos.entry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -1033,7 +1030,7 @@ void EditorWindow::gotoNextUntranslated()
 {
     DocPosition pos;
 
-    if ( (pos.entry=_catalog->nextUntranslatedIndex(_currentEntry)) == -1)
+    if ( (pos.entry=m_catalog->nextUntranslatedIndex(m_currentPos.entry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -1043,8 +1040,8 @@ void EditorWindow::gotoPrevFuzzyUntr()
 {
     DocPosition pos;
 
-    short fu = _catalog->prevFuzzyIndex(_currentEntry);
-    short un = _catalog->prevUntranslatedIndex(_currentEntry);
+    short fu = m_catalog->prevFuzzyIndex(m_currentPos.entry);
+    short un = m_catalog->prevUntranslatedIndex(m_currentPos.entry);
 
     pos.entry=fu>un?fu:un;
     if ( pos.entry == -1)
@@ -1055,12 +1052,12 @@ void EditorWindow::gotoPrevFuzzyUntr()
 
 bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
 {
-    int index=(p.entry==-1)?_currentEntry:p.entry;
+    int index=(p.entry==-1)?m_currentPos.entry:p.entry;
 
     DocPosition pos;
 
-    short fu = _catalog->nextFuzzyIndex(index);
-    short un = _catalog->nextUntranslatedIndex(index);
+    short fu = m_catalog->nextFuzzyIndex(index);
+    short un = m_catalog->nextUntranslatedIndex(index);
     if ( (fu == -1) && (un == -1) )
         return false;
 
@@ -1077,7 +1074,7 @@ bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
 
 void EditorWindow::toggleApprovementGotoNextFuzzyUntr()
 {
-    if(!_catalog->isApproved(_currentEntry))
+    if(!m_catalog->isApproved(m_currentPos.entry))
         m_view->toggleApprovement(true);
     if (!gotoNextFuzzyUntr())
         gotoNextFuzzyUntr(DocPosition(-2));//so that we don't skip the first
@@ -1087,7 +1084,7 @@ void EditorWindow::gotoPrevBookmark()
 {
     DocPosition pos;
 
-    if ( (pos.entry=_catalog->prevBookmarkIndex(_currentEntry)) == -1)
+    if ( (pos.entry=m_catalog->prevBookmarkIndex(m_currentPos.entry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -1097,7 +1094,7 @@ void EditorWindow::gotoNextBookmark()
 {
     DocPosition pos;
 
-    if ( (pos.entry=_catalog->nextBookmarkIndex(_currentEntry)) == -1)
+    if ( (pos.entry=m_catalog->nextBookmarkIndex(m_currentPos.entry)) == -1)
         return;
 
     gotoEntry(pos);
@@ -1110,7 +1107,7 @@ void EditorWindow::gotoFirst()
 
 void EditorWindow::gotoLast()
 {
-    gotoEntry(DocPosition(_catalog->numberOfEntries()-1));
+    gotoEntry(DocPosition(m_catalog->numberOfEntries()-1));
 }
 
 //wrapper for cmdline handling...
@@ -1129,20 +1126,18 @@ void EditorWindow::defineNewTerm()
 {
     QString en(m_view->selectionMsgId().toLower());
     if (en.isEmpty())
-        en=_catalog->msgid(_currentPos).toLower();
+        en=m_catalog->msgid(m_currentPos).toLower();
 
     QString target(m_view->selection().toLower());
     if (target.isEmpty())
-        target=_catalog->msgstr(_currentPos).toLower();
+        target=m_catalog->msgstr(m_currentPos).toLower();
 
     _project->defineNewTerm(en,target);
 }
 
 
-#include "editoradaptor.h"
-
 //BEGIN DBus interface
-
+#include "editoradaptor.h"
 QList<int> EditorWindow::ids;
 
 QString EditorWindow::dbusObjectPath()

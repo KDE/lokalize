@@ -136,7 +136,7 @@ void DelTextCmd::redo()
 void DelTextCmd::undo()
 {
     Catalog& catalog=*_catalog;
-    DocPosition pos=_pos; pos.offset+=_str.size();
+    DocPosition pos=_pos; //pos.offset+=_str.size();
     catalog.setLastModifiedPos(pos);
     catalog.targetInsert(_pos,_str);
 
@@ -188,6 +188,7 @@ InsTagCmd::InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& t
     , _pos(pos)
     , _firstModificationForThisEntry(false)
 {
+    _pos.offset=tag.start;
 }
 
 void InsTagCmd::redo()
@@ -227,6 +228,7 @@ void DelTagCmd::redo()
 
     catalog.setLastModifiedPos(_pos);
     _tag=catalog.targetDeleteTag(_pos);
+    kWarning()<<"tag properties:"<<_tag.start<<_tag.end;
 
     if (_firstModificationForThisEntry)
         catalog.setModified(_pos.entry,false);
@@ -235,8 +237,7 @@ void DelTagCmd::redo()
 void DelTagCmd::undo()
 {
     Catalog& catalog=*_catalog;
-    DocPosition pos=_pos; pos.offset=_tag.end+1; //between paired tags or after single tag
-    catalog.setLastModifiedPos(pos);
+    catalog.setLastModifiedPos(_pos);
     catalog.targetInsertTag(_pos,_tag);
 
     _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);

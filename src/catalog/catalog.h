@@ -90,6 +90,7 @@ public slots: //DBus interface
     // used by XLIFF storage)
     CatalogString sourceWithTags(const DocPosition& pos) const;
     CatalogString targetWithTags(const DocPosition& pos) const;
+    CatalogString catalogString(const DocPosition& pos) const;
 
     QString comment(uint index) const;
     QString msgctxt(uint index) const;
@@ -202,7 +203,7 @@ protected:
     friend class MergeCatalog;
 
 signals:
-    void signalEntryChanged(const DocPosition&);
+    void signalEntryModified(const DocPosition&);
     void signalNumberOfFuzziesChanged();
     void signalNumberOfUntranslatedChanged();
     Q_SCRIPTABLE void signalFileLoaded();

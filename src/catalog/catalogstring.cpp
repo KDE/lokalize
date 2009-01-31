@@ -72,3 +72,25 @@ QMap<QString,int> CatalogString::tagIdToIndex() const
         result[ranges.at(i).id]=i;
     return result;
 }
+
+QDataStream &operator<<(QDataStream &out, const TagRange &t)
+{
+    return out<<int(t.type)<<t.start<<t.end<<t.id;
+
+}
+QDataStream &operator>>(QDataStream &in, TagRange &t)
+{
+    int type;
+    in>>type>>t.start>>t.end>>t.id;
+    t.type=TagRange::InlineElement(type);
+    return in;
+}
+
+QDataStream &operator<<(QDataStream &out, const CatalogString &myObj)
+{
+    return out<<myObj.string<<myObj.ranges;
+}
+QDataStream &operator>>(QDataStream &in, CatalogString &myObj)
+{
+    return in>>myObj.string>>myObj.ranges;
+}
