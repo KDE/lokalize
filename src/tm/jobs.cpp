@@ -711,12 +711,10 @@ void OpenDBJob::run ()
 
     QString dbFile=KStandardDirs::locateLocal("appdata", m_dbName+".db");
     db.setDatabaseName(dbFile);
-    if (KDE_ISUNLIKELY( !db.open() ))
-        return;
+    if (KDE_ISUNLIKELY( !db.open() )) return;
     initDb(db);
     //if (!m_markup.isEmpty()||!m_accel.isEmpty())
-    if (m_setParams)
-        setConfig(db,m_markup,m_accel);
+    if (m_setParams) setConfig(db,m_markup,m_accel);
     kWarning() <<"db opened "<<a.elapsed()<<dbFile;
 }
 

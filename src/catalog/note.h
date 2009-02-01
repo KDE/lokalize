@@ -19,43 +19,43 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 **************************************************************************** */
 
-#ifndef TMENTRY_H
-#define TMENTRY_H
+#ifndef NOTE_H
+#define NOTE_H
 
 #include <QString>
 
-namespace TM {
-
-struct TMEntry
+struct Note
 {
-    QString english;
-    QString target;
+    enum Owner{General,Source,Target};
 
-    QString date;
+    QString content;
+    char priority;//1 is the highest
+    Owner annotates;
+    QString from;
+    QString lang;
 
-    //the remaining are used only for results
-    qlonglong id;
-    short score:16;//100.00%==10000
-    ushort hits:16;
+    Note(const QString& content_=QString())
+        : content(content_)
+        , priority(5)
+        , annotates(General)
+        {}
 
-    QString diff;
+    Note(const QString& content_,char priority_,Owner annotates_,const QString& from_,const QString& lang_)
+        : content(content_)
+        , priority(priority_)
+        , annotates(annotates_)
+        , from(from_)
+        , lang(lang_)
+        {}
 
-    //different databases can have different settings:
-    QString accel;
-    QString markup;
-
-    bool operator<(const TMEntry& other)const
+    bool operator<(const Note& other) const
     {
-        //we wanna items with higher score to appear in the front after qSort
-        if (score==other.score)
-            return date>other.date;
-        return score>other.score;
+        return priority<other.priority;
     }
+
 };
 
-}
 
 #endif

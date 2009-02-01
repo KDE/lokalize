@@ -47,6 +47,7 @@
 
 #include "pos.h"
 #include "catalogstring.h"
+#include "note.h"
 #include "catalog_private.h"
 class CatalogStorage;
 
@@ -92,7 +93,10 @@ public slots: //DBus interface
     CatalogString targetWithTags(const DocPosition& pos) const;
     CatalogString catalogString(const DocPosition& pos) const;
 
-    QString comment(uint index) const;
+    QList<Note> notes(const DocPosition& pos) const;
+    void setNote(const DocPosition& pos, const Note& note);
+    QStringList noteAuthors() const;
+    QString alttrans(const DocPosition& pos) const;
     QString msgctxt(uint index) const;
 
     bool isPlural(uint index) const;

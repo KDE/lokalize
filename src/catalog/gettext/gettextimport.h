@@ -2,8 +2,7 @@
   This file is part of Lokalize
   This file is based on the one from KBabel
 
-  Copyright;
-		2007	by Nick Shaforostoff <shafff@ukr.net>
+  Copyright; 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
 
   This program is free software; you can redistribute it and/or modify

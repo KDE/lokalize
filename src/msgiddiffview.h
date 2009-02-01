@@ -57,10 +57,8 @@ private:
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
-    bool m_plural;
-    bool m_prevPlural;
-    int m_entry;
-    int m_prevEntry;
+    DocPos m_entry;
+    DocPos m_prevEntry;
 };
 
 #endif

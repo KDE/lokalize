@@ -24,9 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pos.h"
 #include "catalogstring.h"
+#include "note.h"
 
 #include <kurl.h>
 #include <QStringList>
+
 
 /**
  * Abstract interface for storage of translation file
@@ -71,17 +73,15 @@ public:
     virtual void targetInsertTag(const DocPosition& pos, const TagRange& tag)=0;
     virtual TagRange targetDeleteTag(const DocPosition& pos)=0;
 
-    /**
-     * all plural forms
-     *
-     * pos.form doesn't matter
-    **/
+
+    /// all plural forms. pos.form doesn't matter
     virtual QStringList sourceAllForms(const DocPosition& pos) const=0;
     virtual QStringList targetAllForms(const DocPosition& pos) const=0;
 
-    //DocPosition.form - number of <note>
-    virtual QString note(const DocPosition& pos) const=0;
-    virtual int noteCount(const DocPosition& pos) const=0;
+    virtual QString alttrans(const DocPosition& pos) const=0;
+    virtual QList<Note> notes(const DocPosition& pos) const=0;
+    virtual void setNote(const DocPosition& pos, const Note& note)=0;
+    virtual QStringList noteAuthors() const=0;
 
     //DocPosition.form - number of <context>
     virtual QString context(const DocPosition& pos) const=0;

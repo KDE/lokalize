@@ -55,6 +55,7 @@ public:
 
 public slots:
     void reflectApprovementState();
+    void reflectUntranslatedState();
     void toggleApprovement(bool approved);
 
     bool removeTargetSubstring(int start=0, int end=-1, bool refresh=true);

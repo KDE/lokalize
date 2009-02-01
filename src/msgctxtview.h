@@ -34,10 +34,16 @@
 #define MSGCTXTVIEW_H
 
 #include "pos.h"
+#include "note.h"
 
 #include <QDockWidget>
 class KTextBrowser;
 class Catalog;
+class NoteEditor;
+class KTextEdit;
+class KComboBox;
+class QStackedLayout;
+class QStringListModel;
 
 class MsgCtxtView: public QDockWidget
 {
@@ -45,25 +51,59 @@ class MsgCtxtView: public QDockWidget
 
 public:
     MsgCtxtView(QWidget*,Catalog*);
-    virtual ~MsgCtxtView();
+    ~MsgCtxtView();
 
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
+private slots:
     void process();
     void anchorClicked(const QUrl& link);
+    void noteEditAccepted();
+    void noteEditRejected();
 
 signals:
     void srcFileOpenRequested(const QString& srcPath, int line);
 
 private:
     KTextBrowser* m_browser;
+    NoteEditor* m_editor;
+    QStackedLayout* m_stackedLayout;
+
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
-    int m_entry;
-    int m_prevEntry;
+    DocPos m_entry;
+    DocPos m_prevEntry;
 };
+
+
+
+class NoteEditor: public QWidget
+{
+Q_OBJECT
+public:
+    NoteEditor(QWidget* parent);
+    ~NoteEditor(){}
+
+    Note note();
+    void setNote(const Note&, int idx);
+    int noteIndex(){return m_idx;}
+
+    void setNoteAuthors(const QStringList&);
+
+signals:
+    void accepted();
+    void rejected();
+
+private:
+    KTextEdit* m_edit;
+    KComboBox* m_from;
+    QStringListModel* m_authors;
+    int m_idx;
+    Note m_note;
+};
+
 
 #endif

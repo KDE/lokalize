@@ -57,38 +57,26 @@ struct DocPosition
     char form:8;
     uint offset:32;
 
-    DocPosition():
-        entry(-1),
-        part(Target),
-        form(0),
-        offset(0)
+    DocPosition(): entry(-1),part(Target),form(0),offset(0){}
+
+    DocPosition(short entry_, Part part_, char form_=0, uint offset_=0)
+        : entry(entry_)
+        , part(part_)
+        , form(form_)
+        , offset(offset_)
         {}
 
-    DocPosition(short e, Part p, char f=0, uint o=0):
-        entry(e),
-        part(p),
-        form(f),
-        offset(o)
+    DocPosition(short entry_, char form_=0, uint offset_=0)
+        : entry(entry_)
+        , part(Target)
+        , form(form_)
+        , offset(offset_)
         {}
-
-    DocPosition(short e, char f=0, uint o=0):
-        entry(e),
-        part(Target),
-        form(f),
-        offset(o)
-        {}
-
-
 };
-
 Q_DECLARE_METATYPE(DocPosition)
-/*
-const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos);
-QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos);
-*/
+
 bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
 bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
-
 
 
 /**
@@ -99,10 +87,8 @@ struct DocPos
     short entry:16;
     uchar form:8;
 
-    DocPos():
-        entry(-1),
-        form(0)
-        {}
+    DocPos():entry(-1),form(0){}
+
     DocPos(short _entry,uchar _form):
         entry(_entry),
         form(_form)
@@ -127,6 +113,5 @@ struct DocPos
     }
 
 };
-
 
 #endif

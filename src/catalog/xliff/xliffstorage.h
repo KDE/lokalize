@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDomNodeList>
 #include <QDomDocument>
 #include <QVector>
+#include <QMap>
 // class QDomDocument;
 
 class XliffStorage: public CatalogStorage
@@ -48,18 +49,22 @@ public:
     CatalogString sourceWithTags(DocPosition pos) const;
     CatalogString catalogString(const DocPosition& pos) const;
 
+    /// all plural forms. pos.form doesn't matter TODO
+    QStringList sourceAllForms(const DocPosition& pos) const{return QStringList();}
+    QStringList targetAllForms(const DocPosition& pos) const{return QStringList();}
+
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
     void setTarget(const DocPosition& pos, const QString& arg);//called for mergeCatalog
     void targetInsertTag(const DocPosition&, const TagRange&);
     TagRange targetDeleteTag(const DocPosition&);
 
-    QStringList sourceAllForms(const DocPosition& pos) const;
-    QStringList targetAllForms(const DocPosition& pos) const;
+    QString alttrans(const DocPosition& pos) const;
 
-    //DocPosition.form - number of <note>
-    QString note(const DocPosition& pos) const;
-    int noteCount(const DocPosition& pos) const;
+    QList<Note> notes(const DocPosition& pos) const;
+    //pos.form is note number
+    void setNote(const DocPosition& pos, const Note& note);
+    QStringList noteAuthors() const;
 
     //DocPosition.form - number of <context>
     QString context(const DocPosition& pos) const;
@@ -81,7 +86,7 @@ public:
 private:
     QDomDocument m_doc;
     QVector<int> m_map;//need mapping to treat plurals as 1 entry
-    QVector<int> m_plurals;
+    QMap<int,bool> m_plurals;
 
     QString tmp;
     QDomNodeList entries;

@@ -108,6 +108,17 @@ void XliffTextEdit::reflectApprovementState()
     else          emit translatedEntryDisplayed();
 }
 
+void XliffTextEdit::reflectUntranslatedState()
+{
+    if (m_part==DocPosition::Source || m_currentPos.entry==-1)
+        return;
+
+    bool untr=m_catalog->isUntranslated(m_currentPos);
+    if (untr)     emit untranslatedEntryDisplayed();
+    else          emit translatedEntryDisplayed();
+}
+
+
 /**
  * makes MsgEdit reflect current entry
  **/
@@ -159,6 +170,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     //END pos
 
     reflectApprovementState();
+    reflectUntranslatedState();
     return catalogString; //for the sake of not calling XliffStorage/doContent twice
 }
 
@@ -305,6 +317,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 */
     if (!m_catalog->isApproved(m_currentPos.entry)&&Settings::autoApprove())
         toggleApprovement(true);
+    reflectUntranslatedState();
 
     // for mergecatalog (remove entry from index)
     // and for statusbar

@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "prefs_lokalize.h"
 
+#include "diff.h"
+
 #include <QProcess>
 #include <QString>
 #include <QMap>
@@ -157,14 +159,126 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos) const
     return m_entries[pos.entry].d->_msgstrPlural.toList();
 }
 
-//DocPosition.form - number of <note>
-QString GettextStorage::note(const DocPosition& pos) const
+QString GettextStorage::alttrans(const DocPosition& pos) const
 {
-    return m_entries.at(pos.entry).comment();
+    QString oldStr=m_entries.at(pos.entry).comment();
+    QString newStr=source(pos);
+
+    if (oldStr.contains("#| msgid_plural \""))
+    {
+        int oldPluralPos=oldStr.indexOf("#| msgid_plural \"");
+        int oldPos=oldStr.indexOf("#| msgid \"");
+
+        if (oldPluralPos!=-1 && oldPos!=-1 && oldPluralPos>oldPos)
+        {
+            if (isPlural(pos))//remove msgid singular part
+            {
+                oldStr.remove(oldPos,oldPluralPos-oldPos);
+                oldStr.replace("#| msgid_plural ","#| msgid ");
+            }
+            else //remove msgid_plural part
+                oldStr.remove(oldPluralPos,oldStr.size());
+        }
+    }
+
+
+    //get rid of other info (eg fuzzy marks)
+    oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
+    oldStr.remove(QRegExp("\\#[^\\|].*$"));
+    //QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)"); too complicated to maintain and doesn't pass all the tests
+    //rmCtxt.setMinimal(true);
+    //oldStr.remove(rmCtxt);
+
+    int msgCtxtPos=oldStr.indexOf("#| msgctxt ");
+    if (msgCtxtPos!=-1)
+    {
+        int msgIdPos=oldStr.indexOf("#| msgid");
+        if (msgIdPos!=-1 && msgIdPos>msgCtxtPos)
+            oldStr.remove(msgCtxtPos,msgIdPos-msgCtxtPos);
+        else
+        {
+            kWarning()<<"rare case found!!!";
+            oldStr.remove(QRegExp("\\#\\| msgctxt.*\n"));//just the old one-line remover
+        }
+    }
+
+
+    if (oldStr.contains("#| msgid \"\"")) //multiline
+    {
+        oldStr.remove("#| \"");
+        oldStr.remove(QRegExp("\"\n"));
+        oldStr.remove(QRegExp("\"$"));
+
+        newStr.remove('\n');
+        oldStr.replace("\\n"," \\n ");
+        newStr.replace("\\n"," \\n ");
+        oldStr.remove("#| msgid \"");
+    }
+    else //signle line
+    {
+        oldStr.remove("#| msgid \"");
+        oldStr.remove(QRegExp("\"$"));
+        oldStr.remove("\"\n");
+    }
+
+
+    QString result(wordDiff(oldStr,
+                            newStr,
+                            Project::instance()->accel(),
+                            Project::instance()->markup()
+                           ));
+    result.replace("\\n","\\n<br>");
+    return result;
 }
-int GettextStorage::noteCount(const DocPosition& pos) const
+
+QList<Note> GettextStorage::notes(const DocPosition& docPosition) const
 {
-    return m_entries.at(pos.entry).comment().isEmpty()?0:1;
+    //TODO clean from alttrans
+    QList<Note> result;
+
+
+    //BEGIN files
+    QString comment=m_entries.at(docPosition.entry).comment();
+    comment.replace('<',"&lt;");
+    comment.replace('>',"&gt;");
+    int pos=comment.indexOf("#:");
+    while (pos!=-1)
+    {
+        int endPos=comment.indexOf('\n',pos+3);
+        if (endPos==-1)
+            endPos=comment.size();
+        QStringList files=comment.mid(pos+3,endPos-pos-3).split(' ', QString::SkipEmptyParts);
+        QString places=i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
+        int i=0;
+        for (;i<files.size();++i)
+        {
+            QString href=files.at(i);
+            //href.replace(':','#');
+            places+=" <a href=\"src:/"+href+"\">"+files.at(i)+"</a> ";
+        }
+        comment.replace(pos,endPos-pos,places);
+        pos=comment.indexOf("#:",pos);
+    }
+    //END files
+
+
+
+    pos=comment.indexOf("#. i18n:");
+    if (pos!=-1)
+    {
+        comment.replace(pos,8,i18nc("@info PO comment parsing","<i>GUI place:</i>"));
+        comment.replace("#. i18n:","<br>");
+    }
+    comment.replace("#,",i18nc("@info PO comment parsing","<br><i>Misc:</i>"));
+    //comment.remove(QRegExp("#\\|[^\n]+\n")); //we're parsing this in another view
+    comment.replace("#| msgid",i18nc("@info PO comment parsing","<br><i>Previous string:</i>"));
+    comment.replace("#| msgctxt",i18nc("@info PO comment parsing","<br><i>Previous context:</i>"));
+    comment.replace("#|","<br>");
+    comment.replace('#',"<br>");
+
+
+    result<<Note(comment);
+    return result;
 }
 
 //DocPosition.form - number of <context>

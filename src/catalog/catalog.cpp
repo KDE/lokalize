@@ -194,15 +194,30 @@ CatalogString Catalog::catalogString(const DocPosition& pos) const
 }
 
 
-QString Catalog::comment(uint index) const
+QList<Note> Catalog::notes(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return QList<Note>();
+
+    return m_storage->notes(pos);
+}
+
+void Catalog::setNote(const DocPosition& pos, const Note& note)
+{
+    m_storage->setNote(pos,note);
+}
+
+QStringList Catalog::noteAuthors() const
+{
+    return m_storage->noteAuthors();
+}
+
+QString Catalog::alttrans(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
 
-    DocPosition pos(index);
-    return m_storage->noteCount(pos)?
-                m_storage->note(pos):
-                d->CatalogPrivate::_emptyStr;
+    return m_storage->alttrans(pos);
 }
 
 QString Catalog::msgctxt(uint index) const
