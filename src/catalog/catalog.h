@@ -47,6 +47,7 @@
 
 #include "pos.h"
 #include "catalogstring.h"
+#include "catalogcapabilities.h"
 #include "note.h"
 #include "catalog_private.h"
 class CatalogStorage;
@@ -84,7 +85,9 @@ public:
 
     static QStringList supportedExtensions();
     static bool extIsSupported(const QString& path);
-    
+
+    int capabilities() const;
+
 public slots: //DBus interface
     QString source(const DocPosition& pos) const {return msgid(pos);}
     QString target(const DocPosition& pos) const {return msgstr(pos);}
@@ -147,7 +150,6 @@ public slots: //DBus interface
     bool save();
     QString mimetype();
 
-    
 public:
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();

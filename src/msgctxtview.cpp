@@ -67,6 +67,7 @@ void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
 NoteEditor::NoteEditor(QWidget* parent)
  : QWidget(parent)
  , m_from(new KComboBox(this))
+ , m_fromLabel(new QLabel(i18nc("@info:label","From:"),this))
  , m_authors(new QStringListModel(this)) 
  , m_edit(new TextEdit(this))
 {
@@ -80,7 +81,7 @@ NoteEditor::NoteEditor(QWidget* parent)
     QVBoxLayout* main=new QVBoxLayout(this);
     QHBoxLayout* prop=new QHBoxLayout;
     main->addLayout(prop);
-    prop->addWidget(new QLabel(i18nc("@info:label","From:"),this));
+    prop->addWidget(m_fromLabel);
     prop->addWidget(m_from,42);
     main->addWidget(m_edit);
 
@@ -105,6 +106,13 @@ NoteEditor::NoteEditor(QWidget* parent)
     btns->addWidget(cancel);
     //btns->addWidget(remove);
 }
+
+void NoteEditor::setFromFieldVisible(bool v)
+{
+    m_fromLabel->setVisible(v);
+    m_from->setVisible(v);
+}
+
 
 Note NoteEditor::note()
 {
@@ -253,6 +261,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
             QList<Note> notes=m_catalog->notes(m_entry.toDocPosition());
             m_editor->setNote(notes.at(pos),pos);
         }
+        m_editor->setFromFieldVisible(m_catalog->capabilities()&KeepsNoteAuthors);
         m_stackedLayout->setCurrentIndex(1);
     }
     else if (link.scheme()=="src")

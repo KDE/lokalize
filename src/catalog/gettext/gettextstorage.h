@@ -41,6 +41,8 @@ public:
     GettextStorage();
     ~GettextStorage();
 
+    int capabilities() const{return 0;}
+
     bool load(QIODevice* device/*, bool readonly=false*/);
     bool save(QIODevice* device);
 

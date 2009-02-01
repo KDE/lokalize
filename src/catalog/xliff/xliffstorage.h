@@ -35,6 +35,8 @@ public:
     XliffStorage();
     ~XliffStorage();
 
+    int capabilities() const{return KeepsNoteAuthors;}
+
     bool load(QIODevice* device);
     bool save(QIODevice* device);
 

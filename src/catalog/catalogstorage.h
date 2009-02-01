@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pos.h"
 #include "catalogstring.h"
 #include "note.h"
+#include "catalogcapabilities.h"
 
 #include <kurl.h>
 #include <QStringList>
@@ -42,6 +43,8 @@ class CatalogStorage {
 public:
     CatalogStorage();
     virtual ~CatalogStorage();
+
+    int capabilities() const{return KeepsNoteAuthors;}
 
     virtual bool load(QIODevice* device)=0;
     virtual bool save(QIODevice* device)=0;

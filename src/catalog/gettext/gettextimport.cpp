@@ -53,10 +53,7 @@
 #include <kgenericfactory.h>
 #include <klocale.h>
 
-#include "pluralformtypes_enum.h"
 #include "catalogitem.h"
-
-//K_EXPORT_COMPONENT_FACTORY( kbabel_gettextimport, KGenericFactory<GettextImportPlugin> ( "kbabelgettextimportfilter" ) )
 
 using namespace GettextCatalog;
 
@@ -181,21 +178,9 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
          else
          {
             CatalogItem tempCatItem;
-            if (KDE_ISUNLIKELY( _gettextPluralForm ))
-            {
-                tempCatItem.setPluralFormType(Gettext);
-                tempCatItem.setMsgidPlural( _msgid );
-                tempCatItem.setMsgstrPlural( _msgstr );
-            }
-            else
-            {
-                if (KDE_ISUNLIKELY( _msgid.first().startsWith("_n: ") ))
-                    tempCatItem.setPluralFormType(KDESpecific);
-                else
-                    tempCatItem.setPluralFormType(NoPluralForm);
-                tempCatItem.setMsgid( _msgid );
-                tempCatItem.setMsgstr( _msgstr );
-            }
+            tempCatItem.setPlural(_gettextPluralForm);
+            tempCatItem.setMsgid( _msgid );
+            tempCatItem.setMsgstr( _msgstr );
             tempCatItem.setMsgctxt( _msgctxt );
             tempCatItem.setComment( _comment );
 
@@ -213,21 +198,9 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
          errorIndex.append(counter);
 
             CatalogItem tempCatItem;
-            if (KDE_ISUNLIKELY( _gettextPluralForm ))
-            {
-                tempCatItem.setPluralFormType(Gettext);
-                tempCatItem.setMsgidPlural( _msgid );
-                tempCatItem.setMsgstrPlural( _msgstr );
-            }
-            else
-            {
-                if (KDE_ISUNLIKELY( _msgid.first().startsWith("_n: ") ))
-                    tempCatItem.setPluralFormType(KDESpecific);
-                else
-                    tempCatItem.setPluralFormType(NoPluralForm);
-                tempCatItem.setMsgid( _msgid );
-                tempCatItem.setMsgstr( _msgstr );
-            }
+            tempCatItem.setPlural(_gettextPluralForm);
+            tempCatItem.setMsgid( _msgid );
+            tempCatItem.setMsgstr( _msgstr );
             tempCatItem.setMsgctxt( _msgctxt );
             tempCatItem.setComment( _comment );
 

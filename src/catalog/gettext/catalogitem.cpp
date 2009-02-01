@@ -120,13 +120,6 @@ void CatalogItem::setMsgid(const QString& msg, const int form)
         d->_msgidPlural.append(msg);
 }
 
-void CatalogItem::setMsgidPlural(const QStringList& msg)
-{
-    d->_msgidPlural=msg.toVector(); //TODO
-    for (QVector<QString>::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
-        it->squeeze();
-}
-
 void CatalogItem::setMsgid(const QStringList& msg)
 {
     d->_msgidPlural=msg.toVector(); //TODO
@@ -146,12 +139,6 @@ void CatalogItem::setMsgstr(const QString& msg, const int form)
     d->_msgstrPlural[form]=msg;
 }
 
-void CatalogItem::setMsgstrPlural(const QStringList& msg)
-{
-    //TODO
-    d->_msgstrPlural=msg.toVector();
-}
-
 void CatalogItem::setMsgstr(const QStringList& msg)
 {
     //TODO
@@ -169,19 +156,14 @@ void CatalogItem::setComment(const QString& com)
     d->_comment.squeeze();
 }
 
-void CatalogItem::setPluralFormType( PluralFormType type )
+void CatalogItem::setPlural(bool plural)
 {
-    d->_pluralFormType = type;
-}
-
-PluralFormType CatalogItem::pluralFormType() const
-{
-    return d->_pluralFormType;
+    d->_plural=plural;
 }
 
 bool CatalogItem::isPlural() const
 {
-    return d->_pluralFormType==Gettext;
+    return d->_plural;
 }
 
 bool CatalogItem::isFuzzy() const

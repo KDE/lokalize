@@ -97,7 +97,7 @@ Catalog::Catalog(QObject *parent)
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this,SIGNAL(signalFileSaved(KUrl)),
             Project::instance()->model()->dirLister(),SLOT(slotFileSaved(KUrl)));
-            
+
 
     QTimer* t=&(d->_autoSaveTimer);
     t->setInterval(5*60*1000);
@@ -135,10 +135,17 @@ void Catalog::clear()
 
 //BEGIN STORAGE TRANSLATION
 
+int Catalog::capabilities() const
+{
+    if (KDE_ISUNLIKELY( !m_storage )) return 0;
+
+    return m_storage->capabilities();
+}
+
+
 int Catalog::numberOfEntries() const
 {
-    if (KDE_ISUNLIKELY( !m_storage ))
-        return 0;
+    if (KDE_ISUNLIKELY( !m_storage )) return 0;
 
     return m_storage->size();
 }
@@ -235,7 +242,7 @@ QString Catalog::msgctxt(uint index) const
 bool Catalog::isPlural(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
-        return NoPluralForm;
+        return false;
 
     return m_storage->isPlural(DocPosition(index));
 }

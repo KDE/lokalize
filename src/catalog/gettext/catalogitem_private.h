@@ -39,7 +39,6 @@
 //#include <QStringList>
 #include <QVector>
 #include <QString>
-#include "pluralformtypes_enum.h"
 
 namespace GettextCatalog {
 
@@ -59,9 +58,8 @@ class CatalogItemPrivate
 {
 
 public:
-
-    PluralFormType _pluralFormType:16;
-    bool _valid:1;
+    bool _plural:16;
+    bool _valid:16;
 
     QString _comment;
     QString _msgctxt;
@@ -72,9 +70,9 @@ public:
     QVector<QString> _errors;
 
     CatalogItemPrivate()
-        : _pluralFormType(NoPluralForm)
+        : _plural(false)
         , _valid(true)
-    {};
+    {}
 
     void clear();
     void assign(const CatalogItemPrivate& other);
@@ -87,7 +85,7 @@ public:
 inline
 void CatalogItemPrivate::clear()
 {
-    _pluralFormType=NoPluralForm;
+    _plural=false;
     _valid=true;
     _comment.clear();
     _msgctxt.clear();
@@ -105,7 +103,7 @@ void CatalogItemPrivate::assign(const CatalogItemPrivate& other)
     _msgstrPlural=other._msgstrPlural;
     _valid=other._valid;
     _errors=other._errors;
-    _pluralFormType=other._pluralFormType;
+    _plural=other._plural;
 }
 
 inline

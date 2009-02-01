@@ -41,7 +41,7 @@
 class KTextBrowser;
 class Catalog;
 class NoteEditor;
-class KTextEdit;
+class QLabel;
 class KComboBox;
 class QStackedLayout;
 class QStringListModel;
@@ -95,6 +95,7 @@ public:
     int noteIndex(){return m_idx;}
 
     void setNoteAuthors(const QStringList&);
+    void setFromFieldVisible(bool);
 
 signals:
     void accepted();
@@ -102,6 +103,7 @@ signals:
 
 private:
     KComboBox* m_from;
+    QLabel* m_fromLabel;
     QStringListModel* m_authors;
     KTextEdit* m_edit;
     int m_idx;
