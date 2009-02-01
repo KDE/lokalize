@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@
 #include "note.h"
 
 #include <QDockWidget>
+#include <KTextEdit>
 class KTextBrowser;
 class Catalog;
 class NoteEditor;
@@ -56,6 +57,7 @@ public:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
+    void cleanup();
 private slots:
     void process();
     void anchorClicked(const QUrl& link);
@@ -71,6 +73,7 @@ private:
     QStackedLayout* m_stackedLayout;
 
     Catalog* m_catalog;
+    QMap< DocPos,QPair<Note,int> > m_unfinishedNotes;//note and its index
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
@@ -98,12 +101,23 @@ signals:
     void rejected();
 
 private:
-    KTextEdit* m_edit;
     KComboBox* m_from;
     QStringListModel* m_authors;
+    KTextEdit* m_edit;
     int m_idx;
     Note m_note;
 };
 
+
+class TextEdit: public KTextEdit
+{
+Q_OBJECT
+public:
+    TextEdit(QWidget* parent): KTextEdit(parent){}
+    void keyPressEvent(QKeyEvent* e);
+signals:
+    void accepted();
+    void rejected();
+};
 
 #endif

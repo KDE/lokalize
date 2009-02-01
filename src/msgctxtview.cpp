@@ -34,6 +34,7 @@
 #include "msgctxtview.h"
 
 #include "catalog.h"
+#include "prefs_lokalize.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -51,11 +52,23 @@
 #include <QLineEdit>
 
 
+
+void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
+{
+    if (keyEvent->modifiers()& Qt::ControlModifier
+        && keyEvent->key()==Qt::Key_Return)
+        emit accepted();
+    else if (keyEvent->key()==Qt::Key_Escape)
+        emit rejected();
+    else
+        KTextEdit::keyPressEvent(keyEvent);
+}
+
 NoteEditor::NoteEditor(QWidget* parent)
  : QWidget(parent)
- , m_edit(new KTextEdit(this))
  , m_from(new KComboBox(this))
- , m_authors(new QStringListModel(this))
+ , m_authors(new QStringListModel(this)) 
+ , m_edit(new TextEdit(this))
 {
     setToolTip(i18nc("@info:tooltip","Save empty note to remove it"));
     m_from->setToolTip(i18nc("@info:tooltip","Author of this note"));
@@ -72,9 +85,15 @@ NoteEditor::NoteEditor(QWidget* parent)
     main->addWidget(m_edit);
 
     KPushButton* ok=new KPushButton(KStandardGuiItem::save(), this);
-    connect(ok,SIGNAL(clicked()),this,SIGNAL(accepted()));
     KPushButton* cancel=new KPushButton(KStandardGuiItem::discard(), this);
+    ok->setToolTip("Ctrl+Enter");
+    cancel->setToolTip("Esc");
+
+    connect(m_edit,SIGNAL(accepted()),this,SIGNAL(accepted()));
+    connect(m_edit,SIGNAL(rejected()),this,SIGNAL(rejected()));
+    connect(ok,SIGNAL(clicked()),this,SIGNAL(accepted()));
     connect(cancel,SIGNAL(clicked()),this,SIGNAL(rejected()));
+
     //KPushButton* remove=new KPushButton(KStandardGuiItem::remove(), this);
     //connect(remove,SIGNAL(clicked()),m_edit,SLOT(clear()));
     //connect(remove,SIGNAL(clicked()),this,SIGNAL(accepted()),Qt::QueuedConnection);
@@ -98,7 +117,9 @@ void NoteEditor::setNote(const Note& note,int idx)
 {
     m_note=note;
     m_edit->setPlainText(note.content);
-    m_from->setCurrentItem(note.from,/*insert*/true);
+    QString from=note.from;
+    if (from.isEmpty()) from=Settings::authorName();
+    m_from->setCurrentItem(from,/*insert*/true);
     m_idx=idx;
     m_edit->setFocus();
 }
@@ -106,7 +127,7 @@ void NoteEditor::setNote(const Note& note,int idx)
 void NoteEditor::setNoteAuthors(const QStringList& authors)
 {
     m_authors->setStringList(authors);
-    m_from->completionObject()->insertItems( authors);
+    m_from->completionObject()->insertItems(authors);
 }
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
@@ -133,6 +154,11 @@ MsgCtxtView::~MsgCtxtView()
 {
 }
 
+void MsgCtxtView::cleanup()
+{
+    m_unfinishedNotes.clear();
+}
+
 void MsgCtxtView::slotNewEntryDisplayed(const DocPosition& pos)
 {
     m_entry=DocPos(pos);
@@ -146,10 +172,21 @@ void MsgCtxtView::process()
     if (m_catalog->numberOfEntries()<=m_entry.entry)
         return;//because of Qt::QueuedConnection
 
-    m_stackedLayout->setCurrentIndex(0);
+
+    if (m_stackedLayout->currentIndex())
+        m_unfinishedNotes[m_prevEntry]=qMakePair(m_editor->note(),m_editor->noteIndex());
+
+
+    if (m_unfinishedNotes.contains(m_entry))
+    {
+        anchorClicked(QUrl("note:/add"));
+        m_editor->setNote(m_unfinishedNotes.value(m_entry).first,m_unfinishedNotes.value(m_entry).second);
+    }
+    else
+        m_stackedLayout->setCurrentIndex(0);
+
 
     m_prevEntry=m_entry;
-    QTime time;time.start();
     m_browser->clear();
 
     QList<Note> notes=m_catalog->notes(m_entry.toDocPosition());
@@ -192,7 +229,6 @@ void MsgCtxtView::process()
         m_browser->setTextCursor(t);
         m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry.entry));
     }
-    kWarning()<<"ELA "<<time.elapsed();
 }
 
 void MsgCtxtView::anchorClicked(const QUrl& link)
@@ -234,10 +270,12 @@ void MsgCtxtView::noteEditAccepted()
 
     m_prevEntry.entry=-1; process();
     m_stackedLayout->setCurrentIndex(0);
+    m_unfinishedNotes.remove(m_entry);
 }
 void MsgCtxtView::noteEditRejected()
 {
     m_stackedLayout->setCurrentIndex(0);
+    m_unfinishedNotes.remove(m_entry);
 }
 
 
