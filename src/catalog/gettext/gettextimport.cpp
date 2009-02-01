@@ -89,7 +89,7 @@ GettextImportPlugin::GettextImportPlugin()
 ConversionStatus GettextImportPlugin::load(QIODevice* device)
 {
    _testBorked=false;
-   
+   _errorLine=0;
 
    // find codec for file
    //    bool hadCodec;
@@ -346,11 +346,11 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
    _gettextPluralForm=false;
    _obsolete=false;
 
-   
    QStringList::Iterator msgstrIt=_msgstr.begin();
 
    while( !stream.atEnd() )
    {
+       _errorLine++;
        //line=stream.readLine();
        QString line(stream.readLine());
 

@@ -54,12 +54,13 @@ GettextStorage::~GettextStorage()
 
 //BEGIN OPEN/SAVE
 
-bool GettextStorage::load(QIODevice* device/*, bool readonly*/)
+int GettextStorage::load(QIODevice* device/*, bool readonly*/)
 {
     //GettextImportPlugin importer=GettextImportPlugin(readonly?(new ExtraDataSaver()):(new ExtraDataListSaver()));
     GettextImportPlugin importer;
     ConversionStatus status = OK;
-    status = importer.open(device,this);
+    int errorLine;
+    status = importer.open(device,this,&errorLine);
 
     //for langs with more than 2 forms
     //we create any form-entries additionally needed
@@ -80,10 +81,9 @@ bool GettextStorage::load(QIODevice* device/*, bool readonly*/)
         ++i;
 
     }
-    
     //qCompress(m_storage->m_catalogExtraData.join("\n\n").toUtf8(),9);
 
-    return status==OK;
+    return status==OK?0:(errorLine+1);
 }
 
 bool GettextStorage::save(QIODevice* device)
@@ -161,82 +161,85 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos) const
 
 QString GettextStorage::alttrans(const DocPosition& pos) const
 {
-    QString oldStr=m_entries.at(pos.entry).comment();
+    QStringList prev=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#\\|"));
     QString newStr=source(pos);
 
-    if (oldStr.contains("#| msgid_plural \""))
-    {
-        int oldPluralPos=oldStr.indexOf("#| msgid_plural \"");
-        int oldPos=oldStr.indexOf("#| msgid \"");
+    QString oldSingular;
+    QString oldPlural;
 
-        if (oldPluralPos!=-1 && oldPos!=-1 && oldPluralPos>oldPos)
+    QString* cur=&oldSingular;
+    QStringList::iterator it=prev.begin();
+    while (it!=prev.end())
+    {
+        if (it->startsWith("#| msgid_plural \""))
+            cur=&oldPlural;
+
+        int start=it->indexOf('\"')+1;
+        int end=it->lastIndexOf('\"');
+        if (start&&end!=-1)
         {
-            if (isPlural(pos))//remove msgid singular part
-            {
-                oldStr.remove(oldPos,oldPluralPos-oldPos);
-                oldStr.replace("#| msgid_plural ","#| msgid ");
-            }
-            else //remove msgid_plural part
-                oldStr.remove(oldPluralPos,oldStr.size());
+            if (!cur->isEmpty())
+                (*cur)+='\n';
+            if (!(  cur->isEmpty() && (end-start)==0 ))//for multiline msgs
+                (*cur)+=it->mid(start,end-start);
         }
+        ++it;
     }
+    if (pos.form==0)
+        cur=&oldSingular;
 
-
-    //get rid of other info (eg fuzzy marks)
-    oldStr.remove(QRegExp("\\#[^\\|][^\n]*\n"));
-    oldStr.remove(QRegExp("\\#[^\\|].*$"));
-    //QRegExp rmCtxt("\\#\\| msgctxt\\b.*(?=\n#\\|\\s*[^\"]|$)"); too complicated to maintain and doesn't pass all the tests
-    //rmCtxt.setMinimal(true);
-    //oldStr.remove(rmCtxt);
-
-    int msgCtxtPos=oldStr.indexOf("#| msgctxt ");
-    if (msgCtxtPos!=-1)
+    QString result;
+    if (!cur->isEmpty())
     {
-        int msgIdPos=oldStr.indexOf("#| msgid");
-        if (msgIdPos!=-1 && msgIdPos>msgCtxtPos)
-            oldStr.remove(msgCtxtPos,msgIdPos-msgCtxtPos);
-        else
-        {
-            kWarning()<<"rare case found!!!";
-            oldStr.remove(QRegExp("\\#\\| msgctxt.*\n"));//just the old one-line remover
-        }
+        result=wordDiff(*cur,newStr,Project::instance()->accel(),Project::instance()->markup());
+        result.replace("\\n","\\n<br>");
     }
-
-
-    if (oldStr.contains("#| msgid \"\"")) //multiline
-    {
-        oldStr.remove("#| \"");
-        oldStr.remove(QRegExp("\"\n"));
-        oldStr.remove(QRegExp("\"$"));
-
-        newStr.remove('\n');
-        oldStr.replace("\\n"," \\n ");
-        newStr.replace("\\n"," \\n ");
-        oldStr.remove("#| msgid \"");
-    }
-    else //signle line
-    {
-        oldStr.remove("#| msgid \"");
-        oldStr.remove(QRegExp("\"$"));
-        oldStr.remove("\"\n");
-    }
-
-
-    QString result(wordDiff(oldStr,
-                            newStr,
-                            Project::instance()->accel(),
-                            Project::instance()->markup()
-                           ));
-    result.replace("\\n","\\n<br>");
     return result;
+}
+
+Note GettextStorage::setNote(const DocPosition& pos, const Note& note)
+{
+    //kWarning()<<"s"<<m_entries.at(pos.entry).comment();
+    Note oldNote;
+    QList<Note> l=notes(pos);
+    if (l.size()) oldNote=l.first();
+
+    QStringList comment=m_entries.at(pos.entry).comment().split('\n');
+    //remove previous comment;
+    QStringList::iterator it=comment.begin();
+    while (it!=comment.end())
+    {
+        if (it->startsWith("# "))
+            it=comment.erase(it);
+        else
+            ++it;
+    }
+    comment.prepend("# "+note.content.split('\n').join("\n# "));
+    m_entries[pos.entry].setComment(comment.join("\n"));
+
+    //kWarning()<<"e"<<m_entries.at(pos.entry).comment();
+    return oldNote;
 }
 
 QList<Note> GettextStorage::notes(const DocPosition& docPosition) const
 {
-    //TODO clean from alttrans
     QList<Note> result;
+    QString content;
 
+    QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(QRegExp("^# "));
 
+    foreach(QString s, note)
+        if (s.size()>=2)
+            content+=s.mid(2)+'\n';
+
+    if (!content.isEmpty())
+    {
+        content.chop(1);
+        result<<Note(content);
+    }
+    return result;
+
+    //TODO
     //BEGIN files
     QString comment=m_entries.at(docPosition.entry).comment();
     comment.replace('<',"&lt;");

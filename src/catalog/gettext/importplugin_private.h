@@ -59,6 +59,7 @@ public:
     QTextCodec* _codec;
     QList<int> _errorList;
     QStringList _catalogExtraData;
+
 };
 
 }

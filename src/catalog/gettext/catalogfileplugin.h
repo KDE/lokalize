@@ -95,7 +95,7 @@ public:
      * @param catalog  the catalog to be filled
      * @return result of the operation
      */
-    ConversionStatus open(QIODevice*, GettextStorage* catalog);
+    ConversionStatus open(QIODevice*, GettextStorage* catalog, int* errorLine);
 
     /**
     * Reimplement this method to load the local file passed as an argument.
@@ -134,7 +134,7 @@ protected:
 
     short _maxLineLength;
     short _trailingNewLines;
-
+    int _errorLine;
 
 private:
     CatalogImportPluginPrivate* d;

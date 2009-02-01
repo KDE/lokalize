@@ -209,9 +209,9 @@ QList<Note> Catalog::notes(const DocPosition& pos) const
     return m_storage->notes(pos);
 }
 
-void Catalog::setNote(const DocPosition& pos, const Note& note)
+Note Catalog::setNote(const DocPosition& pos, const Note& note)
 {
-    m_storage->setNote(pos,note);
+    return m_storage->setNote(pos,note);
 }
 
 QStringList Catalog::noteAuthors() const
@@ -283,22 +283,25 @@ QString Catalog::mimetype()
 //END STORAGE TRANSLATION
 
 //BEGIN OPEN/SAVE
+#define DOESNTEXIST -1
+#define ISNTREADABLE -2
+#define UNKNOWNFORMAT -3
 
-bool Catalog::loadFromUrl(const KUrl& url)
+int Catalog::loadFromUrl(const KUrl& url)
 {
     bool readOnly=false;
     if (url.isLocalFile())
     {
         QFileInfo info(url.path());
         if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
-            return false;
+            return DOESNTEXIST;
         if(KDE_ISUNLIKELY( !info.isReadable() ))
-            return false;
+            return ISNTREADABLE;
         readOnly=!info.isWritable();
     }
 
 
-     //BEGIN autosave files check
+    //BEGIN autosave files check
     KAutoSaveFile* autoSave=0;
     QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(url);
     if (!staleFiles.isEmpty())
@@ -330,7 +333,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
     else if (url.fileName().endsWith(".xlf")||url.fileName().endsWith(".xliff"))
         storage=new XliffStorage;
     else
-        return false;
+        return UNKNOWNFORMAT;
 
     QTime a;a.start();
 
@@ -339,25 +342,25 @@ bool Catalog::loadFromUrl(const KUrl& url)
     if (!autoSave)
     {
         if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
-            return false;
+            return ISNTREADABLE;
         file=new QFile(target);
         file->deleteLater();//kung-fu
-        file->open(QIODevice::ReadOnly);//TODO
+        if (!file->open(QIODevice::ReadOnly))
+            return ISNTREADABLE;//TODO
     }
-        
-    bool ok=storage->load(file);
-    
+
+    int line=storage->load(file);
+
     file->close();
     if (!autoSave)
         KIO::NetAccess::removeTempFile(target);
-    
+
     kWarning() <<"file opened in"<<a.elapsed();
 
-    if (KDE_ISUNLIKELY(!ok))
+    if (KDE_ISUNLIKELY(line!=0))
     {
-        qWarning()<<"1";
         delete storage;
-        return false;
+        return line;
     }
 
     //ok...
@@ -383,7 +386,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
 
     //commit transaction
     m_storage=storage;
-    
+
     d->_numberOfPluralForms = storage->numberOfPluralForms();
     d->_autoSaveRecovered=autoSave;
     d->_autoSaveDirty=true;
@@ -399,7 +402,7 @@ bool Catalog::loadFromUrl(const KUrl& url)
 
     emit signalFileLoaded();
     emit signalFileLoaded(url);
-    return true;
+    return 0;
 }
 
 bool Catalog::save()

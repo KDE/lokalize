@@ -216,7 +216,8 @@ void MergeView::mergeOpen(KUrl url)
 
     delete m_mergeCatalog;
     m_mergeCatalog=new MergeCatalog(this,m_baseCatalog,m_primary);
-    if (KDE_ISLIKELY( m_mergeCatalog->loadFromUrl(url) ))
+    int errorLine=m_mergeCatalog->loadFromUrl(url);
+    if (KDE_ISLIKELY( errorLine==0 ))
     {
         if (m_pos.entry>0)
             emit signalPriorChangedAvailable(m_pos.entry>m_mergeCatalog->firstChangedIndex());
@@ -234,7 +235,11 @@ void MergeView::mergeOpen(KUrl url)
     {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
-        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+        if (errorLine>0)
+            KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, eror line: %2",url.pathOrUrl(),errorLine) );
+        else
+            KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization",url.pathOrUrl()) );
+
     }
 
 }

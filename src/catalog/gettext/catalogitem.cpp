@@ -85,6 +85,7 @@ const QVector<QString>& CatalogItem::msgidPlural(const bool /*noNewlines*/) cons
 
 const QString& CatalogItem::msgstr(const int form) const
 {
+    //kWarning()<<form;
     if (KDE_ISLIKELY (form<d->_msgstrPlural.size()))
         return d->_msgstrPlural.at(form);
     else

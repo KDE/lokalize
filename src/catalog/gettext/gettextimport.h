@@ -89,7 +89,7 @@ private:
     bool _gettextPluralForm;
     bool _testBorked;
     bool _obsolete;
-    
+
     //ExtraDataSaver* _extraDataSaver;
 
     QRegExp _rxMsgCtxt;

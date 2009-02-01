@@ -46,14 +46,18 @@ XliffStorage::XliffStorage()
     tmp="dd";
 }
 
-
 XliffStorage::~XliffStorage()
 {
 }
 
+int XliffStorage::capabilities() const
+{
+    return KeepsNoteAuthors|MultipleNotes;
+}
+
 //BEGIN OPEN/SAVE
 
-bool XliffStorage::load(QIODevice* device)
+int XliffStorage::load(QIODevice* device)
 {
     QTime chrono;chrono.start();
 
@@ -63,7 +67,10 @@ bool XliffStorage::load(QIODevice* device)
     bool success=m_doc.setContent( device, false, &errorMsg, &errorLine/*,errorColumn*/);
 
     if (!success)
-        return false;
+    {
+        kWarning()<<errorMsg;
+        return errorLine+1;
+    }
 
 
     m_langCode=m_doc.elementsByTagName("file").at(0).attributes().namedItem("target-language").toCharacterData().data();
@@ -122,7 +129,7 @@ bool XliffStorage::load(QIODevice* device)
 
 
     kWarning()<<chrono.elapsed();
-    return true;
+    return 0;
 
 }
 
@@ -531,6 +538,20 @@ QString XliffStorage::alttrans(const DocPosition& pos) const
     return QString();
 }
 
+static void initNoteFromElement(Note& note, QDomElement elem)
+{
+    note.content=elem.text();
+    note.from=elem.attribute("from");
+    note.lang=elem.attribute("xml:lang");
+    if (elem.attribute("annotates")=="source")
+        note.annotates=Note::Source;
+    else if (elem.attribute("annotates")=="target")
+        note.annotates=Note::Target;
+    bool ok;
+    note.priority=elem.attribute("priority").toInt(&ok);
+    if (!ok) note.priority=0;
+}
+
 QList<Note> XliffStorage::notes(const DocPosition& pos) const
 {
     QList<Note> result;
@@ -538,16 +559,8 @@ QList<Note> XliffStorage::notes(const DocPosition& pos) const
     QDomElement elem = entries.at(m_map.at(pos.entry)).firstChildElement("note");
     while (!elem.isNull())
     {
-        Note note(elem.text());
-        note.from=elem.attribute("from");
-        note.lang=elem.attribute("xml:lang");
-        if (elem.attribute("annotates")=="source")
-            note.annotates=Note::Source;
-        else if (elem.attribute("annotates")=="target")
-            note.annotates=Note::Target;
-        bool ok;
-        note.priority=elem.attribute("priority").toInt(&ok);
-        if (!ok) note.priority=0;
+        Note note;
+        initNoteFromElement(note,elem);
         result.append(note);
         elem=elem.nextSiblingElement("note");
     }
@@ -555,21 +568,24 @@ QList<Note> XliffStorage::notes(const DocPosition& pos) const
     return result;
 }
 
-void XliffStorage::setNote(const DocPosition& pos, const Note& note)
+Note XliffStorage::setNote(const DocPosition& pos, const Note& note)
 {
     QDomElement unit=entries.at(m_map.at(pos.entry)).toElement();
     QDomElement elem;
+    Note oldNote;
     if (pos.form==-1)
     {
         QDomElement ref=unit.lastChildElement("note");
         elem=unit.insertAfter( m_doc.createElement("note"),ref).toElement();
-        kWarning()<<ref.isNull();
         elem.appendChild(m_doc.createTextNode(""));
     }
     else
+    {
         elem = unit.elementsByTagName("note").at(pos.form).toElement();
+        initNoteFromElement(oldNote,elem);
+    }
 
-    if (elem.isNull()) return;
+    if (elem.isNull()) return oldNote;
 
     if (!elem.text().isEmpty())
     {
@@ -577,14 +593,16 @@ void XliffStorage::setNote(const DocPosition& pos, const Note& note)
         content(elem,&data);
     }
 
-    if (note.content.isEmpty())
+    if (!note.content.isEmpty())
     {
-        unit.removeChild(elem);
-        return;
+        ContentEditingData data(0,note.content); content(elem,&data);
+        if (!note.from.isEmpty()) elem.setAttribute("from",note.from);
+        if (note.priority) elem.setAttribute("priority",note.priority);
     }
-    ContentEditingData data(0,note.content); content(elem,&data);
-    if (!note.from.isEmpty()) elem.setAttribute("from",note.from);
-    if (note.priority) elem.setAttribute("priority",note.priority);
+    else
+        unit.removeChild(elem);
+
+    return oldNote;
 }
 
 QStringList XliffStorage::noteAuthors() const

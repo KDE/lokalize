@@ -1,11 +1,11 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file is based on the one from KBabel
 
   Copyright (C) 1999-2000 by Matthias Kiefer
                             <matthias.kiefer@gmx.de>
 		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+		2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

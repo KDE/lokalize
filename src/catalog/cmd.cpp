@@ -1,12 +1,15 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,19 +17,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
 
@@ -245,4 +236,38 @@ void DelTagCmd::undo()
 //END DelTagCmd
 
 
+//BEGIN InsNoteCmd
+SetNoteCmd::SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& note)
+    : QUndoCommand(i18nc("@item Undo action item","Note setting"))
+    , _catalog(catalog)
+    , _note(note)
+    , _pos(pos)
+    , _firstModificationForThisEntry(false)
+{
+}
+
+void SetNoteCmd::redo()
+{
+    Catalog& catalog=*_catalog;
+    _oldNote=catalog.setNote(_pos,_note);
+
+    DocPosition pos=_pos;
+    pos.form=0;
+    catalog.setLastModifiedPos(pos);
+    _firstModificationForThisEntry=catalog.setModified(pos.entry,true);
+}
+
+void SetNoteCmd::undo()
+{
+    Catalog& catalog=*_catalog;
+
+    DocPosition pos=_pos;
+    pos.form=0;
+    catalog.setLastModifiedPos(pos);
+    catalog.setNote(_pos,_oldNote);
+
+    if (_firstModificationForThisEntry)
+        catalog.setModified(pos.entry,false);
+}
+//END SetNoteCmd
 

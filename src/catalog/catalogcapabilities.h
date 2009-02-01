@@ -24,6 +24,10 @@
 #ifndef CATALOGCAPABILITIES_H
 #define CATALOGCAPABILITIES_H
 
-enum CatalogCapabilities {KeepsNoteAuthors};
+enum CatalogCapabilities
+{
+    KeepsNoteAuthors=1,
+    MultipleNotes=2
+};
 
 #endif

@@ -35,9 +35,9 @@ public:
     XliffStorage();
     ~XliffStorage();
 
-    int capabilities() const{return KeepsNoteAuthors;}
+    int capabilities() const;
 
-    bool load(QIODevice* device);
+    int load(QIODevice* device);
     bool save(QIODevice* device);
 
     int size() const;
@@ -64,8 +64,8 @@ public:
     QString alttrans(const DocPosition& pos) const;
 
     QList<Note> notes(const DocPosition& pos) const;
-    //pos.form is note number
-    void setNote(const DocPosition& pos, const Note& note);
+    ///@a pos.form is note number
+    Note setNote(const DocPosition& pos, const Note& note);
     QStringList noteAuthors() const;
 
     //DocPosition.form - number of <context>

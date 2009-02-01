@@ -89,7 +89,7 @@ public:
     MergeCatalog(QObject* parent, Catalog* baseCatalog,bool primary=true);
     ~MergeCatalog(){};
 
-    bool loadFromUrl(const KUrl& url);
+    int loadFromUrl(const KUrl& url);
 
     int firstChangedIndex() const {return m_mergeDiffIndex.isEmpty()?numberOfEntries():m_mergeDiffIndex.first();}
     int lastChangedIndex() const {return m_mergeDiffIndex.isEmpty()?-1:m_mergeDiffIndex.last();}

@@ -1149,7 +1149,7 @@ void ScanJob::run()
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
     Catalog catalog(thread());
-    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url)))
+    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url)==0))
     {
         initDb(db);
 

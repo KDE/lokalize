@@ -141,10 +141,11 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
 }
 
 
-bool MergeCatalog::loadFromUrl(const KUrl& url)
+int MergeCatalog::loadFromUrl(const KUrl& url)
 {
-    if (KDE_ISUNLIKELY( !Catalog::loadFromUrl(url) ))
-        return false;
+    int errorLine=Catalog::loadFromUrl(url);
+    if (KDE_ISUNLIKELY( errorLine!=0 ))
+        return errorLine;
 
     //now calc the entry mapping
 
@@ -188,7 +189,7 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
 
         ++i.entry;
     }
-    return true;
+    return 0;
 }
 
 

@@ -97,7 +97,7 @@ public slots: //DBus interface
     CatalogString catalogString(const DocPosition& pos) const;
 
     QList<Note> notes(const DocPosition& pos) const;
-    void setNote(const DocPosition& pos, const Note& note);
+    Note setNote(const DocPosition& pos, const Note& note);
     QStringList noteAuthors() const;
     QString alttrans(const DocPosition& pos) const;
     QString msgctxt(uint index) const;
@@ -145,7 +145,8 @@ public:
     void setUrl(const KUrl& u){d->_url=u;}//used for template load
 public slots: //DBus interface
     const KUrl& url() const {return d->_url;}
-    bool loadFromUrl(const KUrl& url);
+    ///@returns 0 if success, >0 erroneous line (parsing error)
+    int loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
     bool save();
     QString mimetype();
@@ -206,6 +207,7 @@ protected:
     friend class InsTagCmd;
     friend class DelTagCmd;
     friend class ToggleApprovementCmd;
+    friend class SetNoteCmd;
     friend class MergeCatalog;
 
 signals:

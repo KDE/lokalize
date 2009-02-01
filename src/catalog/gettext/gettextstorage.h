@@ -1,5 +1,5 @@
 /*
-Copyright 2008 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2009 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -43,7 +43,7 @@ public:
 
     int capabilities() const{return 0;}
 
-    bool load(QIODevice* device/*, bool readonly=false*/);
+    int load(QIODevice* device/*, bool readonly=false*/);
     bool save(QIODevice* device);
 
     int size() const;
@@ -67,8 +67,7 @@ public:
     QStringList targetAllForms(const DocPosition& pos) const;
 
     QList<Note> notes(const DocPosition& pos) const;
-    void setNote(const DocPosition& pos, const Note& note){};
-    QStringList noteAuthors() const{return QStringList();}
+    Note setNote(const DocPosition& pos, const Note& note);
     QString alttrans(const DocPosition& pos) const;
 
     //DocPosition.form - number of <context>

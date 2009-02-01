@@ -733,12 +733,12 @@ bool EditorWindow::fileOpen(KUrl url)
     QString prevFilePath=currentFile();
     bool wasOpen=!m_catalog->isEmpty();
     if (wasOpen) emit fileAboutToBeClosed();
-    bool success=m_catalog->loadFromUrl(url);
-    if (wasOpen&&success) {emit fileClosed();emit fileClosed(prevFilePath);}
+    int errorLine=m_catalog->loadFromUrl(url);
+    if (wasOpen&&errorLine==0) {emit fileClosed();emit fileClosed(prevFilePath);}
 
     QApplication::restoreOverrideCursor();
 
-    if (success)
+    if (errorLine==0)
     {
         if (isTemlate)
         {
@@ -798,7 +798,11 @@ bool EditorWindow::fileOpen(KUrl url)
     }
 
     //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-    KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+    kWarning()<<errorLine;
+    if (errorLine>0)
+        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
+    else
+        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
     return false;
 }
 

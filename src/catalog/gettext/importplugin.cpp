@@ -93,7 +93,7 @@ void CatalogImportPlugin::setHeader( const CatalogItem& item )
     d->_updateHeader=true;
 }
 
-ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* catalog)
+ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* catalog, int* line)
 {
     d->_catalog=catalog;
     startTransaction();
@@ -102,7 +102,8 @@ ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* ca
 
     if( result == OK || result == RECOVERED_PARSE_ERROR || result == RECOVERED_HEADER_ERROR )
 	commitTransaction();
-
+    if (line)
+        (*line)=_errorLine;
     return result;
 }
 
