@@ -30,8 +30,8 @@
 
 **************************************************************************** */
 
-#ifndef MERGECATALOG_H
-#define MERGECATALOG_H
+#ifndef CATALOGMODEL_H
+#define CATALOGMODEL_H
 
 #include <QAbstractItemModel>
 

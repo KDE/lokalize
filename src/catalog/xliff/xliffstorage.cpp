@@ -418,7 +418,8 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 elem.insertBefore( elem.ownerDocument().createTextNode(""),n);
             seenCharacterDataAfterElement=false;
 
-            result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;
+            if (data)
+                {result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;}
             int oldStartingPos=startingPos;
 
             //detect type of the tag
@@ -431,7 +432,8 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 QString recursiveContent=doContent(el,startingPos,data);
                 if (!recursiveContent.isEmpty())
                     result += recursiveContent; startingPos+=recursiveContent.size();
-                result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;
+                if (data)
+                    {result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;}
             }
 
             if (data&&data->actionType==ContentEditingData::Get)
@@ -531,6 +533,7 @@ TagRange XliffStorage::targetDeleteTag(const DocPosition& pos)
 
 void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
 {
+//TODO
 }
 
 QString XliffStorage::alttrans(const DocPosition& pos) const

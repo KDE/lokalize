@@ -214,7 +214,8 @@ Note GettextStorage::setNote(const DocPosition& pos, const Note& note)
         else
             ++it;
     }
-    comment.prepend("# "+note.content.split('\n').join("\n# "));
+    if (note.content.size())
+        comment.prepend("# "+note.content.split('\n').join("\n# "));
     m_entries[pos.entry].setComment(comment.join("\n"));
 
     //kWarning()<<"e"<<m_entries.at(pos.entry).comment();

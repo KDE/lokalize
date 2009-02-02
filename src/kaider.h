@@ -299,6 +299,7 @@ signals:
     Q_SCRIPTABLE void entryDisplayed();
     void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
+    void signalEntryWithCommentDisplayed(const DocPosition&);//for undo SetNote reaction
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
 

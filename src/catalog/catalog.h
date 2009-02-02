@@ -37,13 +37,8 @@
 
 
 
-#ifndef DATAMODEL_H
-#define DATAMODEL_H
-
-
-#include <QUndoStack>
-
-#include <kurl.h>
+#ifndef CATALOG_H
+#define CATALOG_H
 
 #include "pos.h"
 #include "catalogstring.h"
@@ -52,11 +47,8 @@
 #include "catalog_private.h"
 class CatalogStorage;
 
-#define CHECK_IF_EMPTY(_return_type)\
-if (  d->_entries.isEmpty() )\
-        return _return_type;
-
-
+#include <QUndoStack>
+#include <kurl.h>
 
 namespace GettextCatalog {
   class CatalogImportPlugin;
@@ -96,8 +88,9 @@ public slots: //DBus interface
     CatalogString targetWithTags(const DocPosition& pos) const;
     CatalogString catalogString(const DocPosition& pos) const;
 
-    QList<Note> notes(const DocPosition& pos) const;
+    ///@a pos.form is note number
     Note setNote(const DocPosition& pos, const Note& note);
+    QList<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
     QString alttrans(const DocPosition& pos) const;
     QString msgctxt(uint index) const;
@@ -106,7 +99,8 @@ public slots: //DBus interface
     bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}
     bool isApproved(uint index) const;
     bool isApproved(const DocPosition& pos) const{return isApproved(pos.entry);}
-    bool isUntranslated(uint index) const; //at least one form is untranslated
+    ///@returns true if at least one form is untranslated
+    bool isUntranslated(uint index) const;
     bool isUntranslated(const DocPosition&) const;
     bool isModified(int entry);
 
@@ -186,16 +180,13 @@ protected:
     TagRange targetDeleteTag(const DocPosition& pos);
     void targetInsertTag(const DocPosition& pos, const TagRange& tag);
 
-    /**
-     * @returns true if entry wasn't modified before
-     */
+    /// @returns true if entry wasn't modified before
     bool setModified(int entry,bool modif);
 
 protected:
     int findPrevInList(const QList<int>& list,int index) const;
     int findNextInList(const QList<int>& list,int index) const;
 
-//private:
 protected:
     CatalogPrivate *d;
     CatalogStorage *m_storage;

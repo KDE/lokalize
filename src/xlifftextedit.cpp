@@ -127,10 +127,10 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     QTextCursor cursor=textCursor();
     int pos=cursor.position();
     int anchor=cursor.anchor();
-    kWarning()<<"called"<<"pos"<<pos<<anchor<<"keepCursor"<<keepCursor;
+    //kWarning()<<"called"<<"pos"<<pos<<anchor<<"keepCursor"<<keepCursor;
     if (!keepCursor && toPlainText()!=target)
     {
-        kWarning()<<"resetting pos";
+        //kWarning()<<"resetting pos";
         pos=0;
         anchor=0;
     }
@@ -149,7 +149,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     if (pos || anchor)
     {
         t.movePosition(QTextCursor::Start);
-        kWarning()<<"setting"<<anchor<<pos;
+        //kWarning()<<"setting"<<anchor<<pos;
         // I don't know why the following (more correct) code does not work
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,anchor);
         int length=pos-anchor;
@@ -157,7 +157,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
             t.movePosition(length<0?QTextCursor::PreviousCharacter:QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qAbs(length));
     }
     setTextCursor(t);
-    kWarning()<<"set?"<<textCursor().anchor()<<textCursor().position();
+    //kWarning()<<"set?"<<textCursor().anchor()<<textCursor().position();
     //END pos
 
     reflectApprovementState();
@@ -234,12 +234,12 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
 
 void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
-    kWarning()<<"called";
+    //kWarning()<<"called";
     //kWarning()<<"!!!!!!!!!!!! offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
     QString editText=toPlainText();
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
-        kWarning()<<"stop";
+        //kWarning()<<"stop";
         return;
     }
 
@@ -278,11 +278,11 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
                 m_catalog->push(new InsTextCmd(m_catalog,pos,editText.mid(offset,charsAdded)));
         }
 
-        kWarning()<<"calling showPos";
+        //kWarning()<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true);
         if (!modified)
         {
-            kWarning()<<"stop";
+            //kWarning()<<"stop";
             return;
         }
     }
@@ -313,7 +313,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit contentsModified(m_currentPos);
-    kWarning()<<"finish";
+    //kWarning()<<"finish";
 }
 
 
@@ -338,11 +338,11 @@ static bool fillTagPlaces(QMap<int,int>& tagPlaces,
     int i=catalogString.ranges.size();
     while(--i>=0)
     {
-        qWarning()<<catalogString.ranges.at(i).getElementName();
+        //qWarning()<<catalogString.ranges.at(i).getElementName();
         if (tagPlaces.contains(catalogString.ranges.at(i).start)
             &&tagPlaces.contains(catalogString.ranges.at(i).end))
         {
-            qWarning()<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
+            //qWarning()<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
             tagPlaces[catalogString.ranges.at(i).end]=2;
             tagPlaces[catalogString.ranges.at(i).start]=1;
         }
@@ -351,7 +351,7 @@ static bool fillTagPlaces(QMap<int,int>& tagPlaces,
     QMap<int,int>::const_iterator it = tagPlaces.constBegin();
     while (it != tagPlaces.constEnd())
     {
-        qWarning()<<it.key()<<it.value();
+        //qWarning()<<it.key()<<it.value();
         if (!it.value())
             break;
         ++it;
@@ -364,7 +364,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 {
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 ))
         return false;
-    kWarning()<<"!!!!!!! called with"<<delStart<<delLen;
+    //kWarning()<<"!!!!!!! called with"<<delStart<<delLen;
 
     CatalogString targetWithTags=m_catalog->targetWithTags(m_currentPos);
     QString target=targetWithTags.string;
@@ -381,14 +381,14 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 
     //all indexes are ok (or target is just plain text)
     //modified=true;
-    kWarning()<<"all indexes are ok";
+    //kWarning()<<"all indexes are ok";
     QMap<int,int>::const_iterator it = tagPlaces.constBegin();
     DocPosition pos=m_currentPos;
     while (it != tagPlaces.constEnd())
     {
         if (it.value()==1)
         {
-            kWarning()<<"\t"<<it.key();
+            //kWarning()<<"\t"<<it.key();
             pos.offset=it.key()-lenDecrement;
             DelTagCmd* cmd=new DelTagCmd(m_catalog,pos);
             m_catalog->push(cmd);
@@ -404,7 +404,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
     {
         QString rText=target.mid(delStart,delLen);
         rText.remove(TAGRANGE_IMAGE_SYMBOL);
-        qWarning()<<"rText"<<rText<<"delStart"<<delStart;
+        //qWarning()<<"rText"<<rText<<"delStart"<<delStart;
         if (!rText.isEmpty())
             m_catalog->push(new DelTextCmd(m_catalog,pos,rText));
     }
@@ -417,7 +417,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 
     if (refresh)
     {
-        kWarning()<<"calling showPos";
+        //kWarning()<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true/*false*/);
     }
     emit contentsModified(m_currentPos.entry);
@@ -442,7 +442,7 @@ void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, 
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
-        qWarning()<<i<<catStr.string.left(i);
+        //qWarning()<<i<<catStr.string.left(i);
         //text that was before tag we found
         if (i-prev)
         {
@@ -452,7 +452,7 @@ void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, 
 
         //now dealing with tag
         TagRange tag=catStr.ranges.at(posToTagRange.value(i));
-        qWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
+        //qWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
         if (tag.start==i) //this is an opening tag (may be single tag)
         {
             pos.offset=start+i;
@@ -469,7 +469,7 @@ void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, 
 
     if (refresh)
     {
-        kWarning()<<"calling showPos";
+        //kWarning()<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true/*false*/);
         QTextCursor cursor=textCursor();
         cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,catStr.string.size());
@@ -533,14 +533,14 @@ void XliffTextEdit::insertFromMimeData(const QMimeData* source)
         QVariant v;
         QDataStream in(&(source->data("application/x-lokalize-xliff+xml")),QIODevice::ReadOnly);
         in>>v;
-        qWarning()<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
+        //qWarning()<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
 
-        kWarning()<<"pos"<<textCursor().position();
+        //kWarning()<<"pos"<<textCursor().position();
         //sets right cursor position implicitly
         QMimeData mimeData;
         mimeData.setText("");
         KTextEdit::insertFromMimeData(&mimeData);
-        kWarning()<<"pos"<<textCursor().position();
+        //kWarning()<<"pos"<<textCursor().position();
 
         insertCatalogString(qVariantValue<CatalogString>(v), textCursor().position());
     }
@@ -718,7 +718,7 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                     t.deletePreviousChar();
                     t.deletePreviousChar();
                     setTextCursor(t);
-                    kWarning()<<"set-->"<<textCursor().anchor()<<textCursor().position();
+                    //kWarning()<<"set-->"<<textCursor().anchor()<<textCursor().position();
                 }
             }
 

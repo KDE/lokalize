@@ -40,6 +40,7 @@ class QTreeView;
 class QSortFilterProxyModel;
 class CatalogTreeModel;
 class Catalog;
+class KLineEdit;
 
 class CatalogTreeView: public QDockWidget
 {
@@ -53,13 +54,14 @@ public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void slotItemActivated(const QModelIndex&);
     void emitCurrent();
+    void setFilterRegExp();
 
 signals:
     void gotoEntry(const DocPosition&,int);
 
 private:
     QTreeView* m_browser;
-    QWidget* m_parent;
+    KLineEdit* m_lineEdit;
     CatalogTreeModel* m_model;
     QSortFilterProxyModel *m_proxyModel;
 };

@@ -169,8 +169,8 @@ void KAiderView::gotoEntry(DocPosition pos,int selection)
 
     bool refresh=pos.entry==-1;
     if (refresh) pos=_msgstrEdit->currentPos();
-    kWarning()<<"refresh"<<refresh;
-    kWarning()<<"offset"<<pos.offset;
+    //kWarning()<<"refresh"<<refresh;
+    //kWarning()<<"offset"<<pos.offset;
     //TODO trigger freresh directly via Catalog signal
 
     if (KDE_ISUNLIKELY( m_catalog->isPlural(pos.entry)))
@@ -201,16 +201,15 @@ void KAiderView::gotoEntry(DocPosition pos,int selection)
 
     //kWarning()<<"calling showPos";
     QString targetString=_msgstrEdit->showPos(pos,sourceWithTags).string;
-    kWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //kWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
     bool untrans=targetString.isEmpty();
     XliffTextEdit* msgEdit=_msgstrEdit;
     QTextCursor t=msgEdit->textCursor();
     t.movePosition(QTextCursor::Start);
-    kWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //kWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection)
     {
-        kWarning()<<"11";
         if (pos.part==DocPosition::Source)
         {
             msgEdit=_msgidEdit;
@@ -241,7 +240,7 @@ void KAiderView::gotoEntry(DocPosition pos,int selection)
     }
     if (!refresh)
         msgEdit->setTextCursor(t);
-    kWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //kWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     _msgstrEdit->setFocus();
 

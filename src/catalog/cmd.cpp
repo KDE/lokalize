@@ -244,6 +244,7 @@ SetNoteCmd::SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& not
     , _pos(pos)
     , _firstModificationForThisEntry(false)
 {
+    _pos.part=DocPosition::Comment;
 }
 
 void SetNoteCmd::redo()

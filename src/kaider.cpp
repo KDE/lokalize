@@ -250,7 +250,7 @@ void EditorWindow::setupActions()
     MsgCtxtView* msgCtxtView = new MsgCtxtView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
-    connect(this,SIGNAL(signalNewEntryDisplayed(DocPosition)),msgCtxtView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect(this,SIGNAL(signalEntryWithCommentDisplayed(DocPosition)),msgCtxtView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_catalog,SIGNAL(signalFileLoaded()),msgCtxtView,SLOT(cleanup()));
     connect(msgCtxtView,SIGNAL(srcFileOpenRequested(QString,int)),this,SIGNAL(srcFileOpenRequested(QString,int)));
 
@@ -909,7 +909,11 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
 // QTime a;
 // a.start();
 
-    if (m_currentPos.entry!=pos.entry || m_currentPos.form!=pos.form)
+    bool newEntry=m_currentPos.entry!=pos.entry || m_currentPos.form!=pos.form;
+    if (newEntry||pos.part==DocPosition::Comment)
+        emit signalEntryWithCommentDisplayed(pos);
+
+    if (newEntry)
     {
         m_currentPos=pos;
         m_currentPos.entry=pos.entry;

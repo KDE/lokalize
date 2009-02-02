@@ -168,10 +168,12 @@ void MsgCtxtView::slotNewEntryDisplayed(const DocPosition& pos)
 
 void MsgCtxtView::process()
 {
-    if (m_entry==m_prevEntry)
-        return;
     if (m_catalog->numberOfEntries()<=m_entry.entry)
         return;//because of Qt::QueuedConnection
+
+    if (m_entry==m_prevEntry)
+        kWarning()<<"???";
+        //return;
 
 
     if (m_stackedLayout->currentIndex())

@@ -50,6 +50,7 @@
 CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Message Tree"), parent)
     , m_browser(new QTreeView(this))
+    , m_lineEdit(new KLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new QSortFilterProxyModel(this))
 {
@@ -60,13 +61,11 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);
     layout->setContentsMargins(0,0,0,0);
-    KLineEdit* m_lineEdit=new KLineEdit(w);
+
     m_lineEdit->setClearButtonShown(true);
     m_lineEdit->setClickMessage(i18n("Quick search..."));
-//     connect (m_lineEdit,SIGNAL(textChanged(QString)),
-//              m_proxyModel,SLOT(setFilterFixedString(QString)));
-    connect (m_lineEdit,SIGNAL(textChanged(QString)),
-             m_proxyModel,SLOT(setFilterRegExp(QString)));
+    m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
+    connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
 
     m_browser->setAlternatingRowColors(true);
 
@@ -110,13 +109,15 @@ void CatalogTreeView::slotNewEntryDisplayed(const DocPosition& pos)
     m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(pos.entry,0)));
 }
 
+void CatalogTreeView::setFilterRegExp()
+{
+    m_proxyModel->setFilterRegExp(m_lineEdit->text());
+}
 
 void CatalogTreeView::slotItemActivated(const QModelIndex& idx)
 {
     emit gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()),0);
 }
-
-
 
 void CatalogTreeView::emitCurrent()
 {
@@ -124,12 +125,8 @@ void CatalogTreeView::emitCurrent()
     int row=idx.row();
     const QModelIndex& parent=idx.parent();
     int i=m_proxyModel->columnCount();
-    //while (--i>=0)
-    while (--i>=2)//entry num, msgid
+    while (--i>=2) //entry num, msgid
         m_browser->update(m_proxyModel->index(row,i,parent));
 }
-
-
-
 
 #include "cataloglistview.moc"
