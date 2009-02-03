@@ -5,37 +5,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>167</width>
-    <height>46</height>
+    <width>300</width>
+    <height>60</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QHBoxLayout" name="horizontalLayout" >
    <property name="leftMargin" >
     <number>0</number>
    </property>
    <property name="topMargin" >
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="rightMargin" >
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="bottomMargin" >
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" >
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
-      <number>0</number>
-     </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2" >
+     <item>
+      <widget class="QCheckBox" name="m_skipTags" >
+       <property name="whatsThis" >
+        <string>Skip tags</string>
+       </property>
+       <property name="text" >
+        <string comment="@option:check" >Skip markup</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QCheckBox" name="m_ignoreAccelMarks" >
        <property name="whatsThis" >
@@ -46,21 +44,34 @@
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout" >
      <item>
-      <widget class="QCheckBox" name="m_skipTags" >
-       <property name="whatsThis" >
-        <string>Skip tags</string>
-       </property>
+      <widget class="QCheckBox" name="m_notes" >
        <property name="text" >
-        <string comment="@option:check" >Skip tags</string>
+        <string>Include notes</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer" >
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
  <connections/>
 </ui>

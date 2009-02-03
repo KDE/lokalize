@@ -41,7 +41,13 @@ class Catalog;
  */
 struct DocPosition
 {
-    enum Part {UndefPart, Source, Target, Comment};
+    enum Part
+    {
+        UndefPart=0,
+        Source=1,
+        Target=2,
+        Comment=4
+    };
 
     short entry:16;
     Part part:8;
@@ -66,8 +72,8 @@ struct DocPosition
 };
 Q_DECLARE_METATYPE(DocPosition)
 
-bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
-bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
+bool switchPrev(Catalog*&,DocPosition& pos,int parts=DocPosition::Target);
+bool switchNext(Catalog*&,DocPosition& pos,int parts=DocPosition::Target);
 
 
 /**

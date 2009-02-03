@@ -33,21 +33,32 @@
 #include "pos.h"
 #include "catalog.h"
 
-bool switchPrev(Catalog*& catalog,DocPosition& pos,bool useMsgId)
+bool switchPrev(Catalog*& catalog,DocPosition& pos,int parts)
 {
-    if (useMsgId)
+    bool switchEntry=false;
+    bool switchCommentIndex=false;
+    if (pos.part==DocPosition::Comment)
+        switchCommentIndex=true;
+    else if (pos.part==DocPosition::Target)
     {
-        if (pos.part==DocPosition::Source)
-        {
-            pos.part=DocPosition::Target;
-            pos.offset=0;
-            return true;
-        }
-        else
+        if (parts&DocPosition::Source)
             pos.part=DocPosition::Source;
+        switchEntry=!(parts&DocPosition::Source);
     }
-    else
-        pos.part=DocPosition::Target;
+    else if (pos.part==DocPosition::Source)
+        switchEntry=true;
+
+    bool skipCommentThisTime=false;
+    if (switchCommentIndex)
+    {
+        if (pos.form)
+            pos.form--;
+        switchEntry=pos.form; //pos.form is zero again
+        skipCommentThisTime=pos.form;
+    }
+
+    if (!switchEntry)
+        return true;
 
     if (KDE_ISUNLIKELY( pos.form>0
             && catalog->isPlural(pos.entry)))
@@ -57,27 +68,49 @@ bool switchPrev(Catalog*& catalog,DocPosition& pos,bool useMsgId)
     else
     {
         pos.entry--;
-        pos.form=0;
+        pos.form=catalog->isPlural(pos.entry)*(catalog->numberOfPluralForms()-1);
     }
     pos.offset=0;
-    return true;
-}
 
-bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
-{
-    if (useMsgId)
+    if (parts&DocPosition::Comment && !skipCommentThisTime && pos.form==0 && catalog->notes(pos).size())
     {
-        if (pos.part==DocPosition::Source)
-        {
-            pos.part=DocPosition::Target;
-            pos.offset=0;
-            return true;
-        }
-        else
-            pos.part=DocPosition::Source;
+        pos.part=DocPosition::Comment;
+        pos.form=catalog->notes(pos).size()-1;
     }
     else
         pos.part=DocPosition::Target;
+
+    return true;
+}
+
+bool switchNext(Catalog*& catalog,DocPosition& pos,int parts)
+{
+    bool switchEntry=false;
+    bool switchCommentIndex=false;
+    if (pos.part==DocPosition::Source)
+        pos.part=DocPosition::Target;
+    else if (pos.part==DocPosition::Target)
+    {
+        if (parts&DocPosition::Comment && pos.form==0 && catalog->notes(pos).size())
+            pos.part=DocPosition::Comment;
+        else
+            switchEntry=true;
+    }
+    else if (pos.part==DocPosition::Comment)
+        switchCommentIndex=true;
+
+    if (switchCommentIndex)
+    {
+        pos.form++;
+        if (catalog->notes(pos).size()==pos.form)
+        {
+            pos.form=0;
+            switchEntry=true;
+        }
+    }
+
+    if (!switchEntry)
+        return true;
 
 
     if (KDE_ISUNLIKELY( pos.entry!=-1
@@ -92,6 +125,9 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,bool useMsgId)
         pos.form=0;
     }
     pos.offset=0;
+
+    pos.part=(parts&DocPosition::Source)?DocPosition::Source:DocPosition::Target;
+
     return true;
 }
 

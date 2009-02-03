@@ -44,6 +44,8 @@ public:
     CatalogString showPos(DocPosition pos, const CatalogString& refStr=CatalogString(), bool keepCursor=true);
     DocPosition currentPos()const {return m_currentPos;}
 
+    void cursorToStart();
+
 public slots:
     void reflectApprovementState();
     void reflectUntranslatedState();

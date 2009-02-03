@@ -171,7 +171,7 @@ void KAiderView::gotoEntry(DocPosition pos,int selection)
     if (refresh) pos=_msgstrEdit->currentPos();
     //kWarning()<<"refresh"<<refresh;
     //kWarning()<<"offset"<<pos.offset;
-    //TODO trigger freresh directly via Catalog signal
+    //TODO trigger refresh directly via Catalog signal
 
     if (KDE_ISUNLIKELY( m_catalog->isPlural(pos.entry)))
     {
@@ -193,37 +193,32 @@ void KAiderView::gotoEntry(DocPosition pos,int selection)
     else
         m_pluralTabBar->hide();
 
-    CatalogString sourceWithTags=_msgidEdit->showPos(pos);
-
-//#ifdef UNWRAP_MSGID
-//    unwrap(_msgidEdit);
-//#endif
+    //bool keepCursor=DocPos(pos)==DocPos(_msgidEdit->currentPos());
+    bool keepCursor=false;
+    CatalogString sourceWithTags=_msgidEdit->showPos(pos,CatalogString(),keepCursor);
 
     //kWarning()<<"calling showPos";
-    QString targetString=_msgstrEdit->showPos(pos,sourceWithTags).string;
+    QString targetString=_msgstrEdit->showPos(pos,sourceWithTags,keepCursor).string;
     //kWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    _msgidEdit->cursorToStart();
+    _msgstrEdit->cursorToStart();
+
     bool untrans=targetString.isEmpty();
-    XliffTextEdit* msgEdit=_msgstrEdit;
-    QTextCursor t=msgEdit->textCursor();
-    t.movePosition(QTextCursor::Start);
     //kWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection)
     {
-        if (pos.part==DocPosition::Source)
-        {
-            msgEdit=_msgidEdit;
-            t=msgEdit->textCursor();
-            t.movePosition(QTextCursor::Start);
-        }
-
+        XliffTextEdit* msgEdit=pos.part==DocPosition::Source?_msgidEdit:_msgstrEdit;
+        QTextCursor t=msgEdit->textCursor();
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
         if (selection)
             t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,selection);
+        msgEdit->setTextCursor(t);
     }
     else if (!untrans)
     {
+        QTextCursor t=_msgstrEdit->textCursor();
         //what if msg starts with a tag?
         if (KDE_ISUNLIKELY( targetString.startsWith('<') ))
         {
@@ -237,14 +232,11 @@ void KAiderView::gotoEntry(DocPosition pos,int selection)
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }
+        _msgstrEdit->setTextCursor(t);
     }
-    if (!refresh)
-        msgEdit->setTextCursor(t);
     //kWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
-
-    _msgstrEdit->setFocus();
-
     //kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
+    _msgstrEdit->setFocus();
     setUpdatesEnabled(true);
 }
 /*

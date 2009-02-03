@@ -160,9 +160,11 @@ void MsgCtxtView::cleanup()
     m_unfinishedNotes.clear();
 }
 
-void MsgCtxtView::slotNewEntryDisplayed(const DocPosition& pos)
+void MsgCtxtView::gotoEntry(const DocPosition& pos, int selection)
 {
     m_entry=DocPos(pos);
+    m_selection=selection;
+    m_offset=pos.offset;
     QTimer::singleShot(0,this,SLOT(process()));
 }
 
@@ -170,11 +172,6 @@ void MsgCtxtView::process()
 {
     if (m_catalog->numberOfEntries()<=m_entry.entry)
         return;//because of Qt::QueuedConnection
-
-    if (m_entry==m_prevEntry)
-        kWarning()<<"???";
-        //return;
-
 
     if (m_stackedLayout->currentIndex())
         m_unfinishedNotes[m_prevEntry]=qMakePair(m_editor->note(),m_editor->noteIndex());
@@ -193,29 +190,32 @@ void MsgCtxtView::process()
     m_browser->clear();
 
     QList<Note> notes=m_catalog->notes(m_entry.toDocPosition());
-    QString html;
+    QTextCursor t=m_browser->textCursor();
+    int realOffset=0;
+
     if (!notes.isEmpty())
     {
-        html=i18nc("@info PO comment parsing","<b>Notes:</b>")+"<br />";
+        t.insertHtml(i18nc("@info PO comment parsing","<b>Notes:</b>")+"<br />");
         int i=0;
         foreach(const Note& note, notes)
         {
             if (!note.from.isEmpty())
-                html+="<i>"+note.from+":</i> ";
+                t.insertHtml("<i>"+note.from+":</i> ");
 
+            if (i==m_entry.form)
+                realOffset=t.position();
             QString content=note.content;
             if (!(m_catalog->capabilities()&MultipleNotes) && content.contains('\n')) content+='\n';
             content.replace('\n',"<br />");
-            html+=content;
-            html+=QString(" (<a href=\"note:/%1\">").arg(i)+i18nc("link to edit note","edit...")+"</a>)<br />";
+            content+=QString(" (<a href=\"note:/%1\">").arg(i)+i18nc("link to edit note","edit...")+"</a>)<br />";
+            t.insertHtml(content);
             i++;
         }
         if (m_catalog->capabilities()&MultipleNotes)
-            html+="<a href=\"note:/add\">"+i18nc("link to add a note","Add...")+"</a> ";
+            t.insertHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add...")+"</a> ");
     }
     else
-        html="<a href=\"note:/add\">"+i18nc("link to add a note","Add a note...")+"</a> ";
-    m_browser->setHtml(html);
+        m_browser->setHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add a note...")+"</a> ");
 
     if (m_catalog->msgctxt(m_entry.entry).isEmpty())
     {
@@ -232,11 +232,14 @@ void MsgCtxtView::process()
             setWindowTitle(m_hasInfoTitle);
             m_hasInfo=true;
         }
-        QTextCursor t=m_browser->textCursor();
         t.movePosition(QTextCursor::End);
         m_browser->setTextCursor(t);
         m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry.entry));
     }
+    t.movePosition(QTextCursor::Start);
+    t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,realOffset+m_offset);
+    t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,m_selection);
+    m_browser->setTextCursor(t);
 }
 
 void MsgCtxtView::anchorClicked(const QUrl& link)

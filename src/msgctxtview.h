@@ -45,9 +45,9 @@ public:
     MsgCtxtView(QWidget*,Catalog*);
     ~MsgCtxtView();
 
+    void gotoEntry(const DocPosition&, int selection=0);
 
 public slots:
-    void slotNewEntryDisplayed(const DocPosition&);
     void cleanup();
 private slots:
     void process();
@@ -67,6 +67,8 @@ private:
     QMap< DocPos,QPair<Note,int> > m_unfinishedNotes;//note and its index
     QString m_normTitle;
     QString m_hasInfoTitle;
+    char m_selection;
+    char m_offset;
     bool m_hasInfo;
     DocPos m_entry;
     DocPos m_prevEntry;

@@ -63,6 +63,7 @@
 //#define FIND_SKIPTAGS 4096
 #define FIND_IGNOREACCELS ui_findExtension->m_ignoreAccelMarks->isChecked()
 #define FIND_SKIPTAGS ui_findExtension->m_skipTags->isChecked()
+#define FIND_INCLUDENOTES ui_findExtension->m_notes->isChecked()
 #define REPLACE_IGNOREACCELS ui_replaceExtension->m_ignoreAccelMarks->isChecked()
 
 void EditorWindow::deleteUiSetupers()
@@ -72,7 +73,7 @@ void EditorWindow::deleteUiSetupers()
 }
 
 //TODO &amp;, &nbsp;
-static void calsOffsetWithAccels(const QString& data, int& offset, int& length)
+static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
 {
     int i=0;
     for (;i<offset;++i)
@@ -183,8 +184,9 @@ void EditorWindow::findNext(const DocPosition& startingPos)
     QTime a;a.start();
     //_searchingPos.part=DocPosition::Source;
     bool ignoreaccels=FIND_IGNOREACCELS;
+    bool includenotes=FIND_INCLUDENOTES;
+    int switchOptions=DocPosition::Source|DocPosition::Target|(FIND_INCLUDENOTES*DocPosition::Comment);
     int flag=1;
-//     int offset=_searchingPos.offset;
     while (flag)
     {
 
@@ -198,19 +200,10 @@ void EditorWindow::findNext(const DocPosition& startingPos)
                 m_view->m_modifiedAfterFind=false;
 
                 QString data;
-                if (_searchingPos.part==DocPosition::Source)
-                {
-                    data=catalog.msgid(_searchingPos)/*,offset*/;
-
-#ifdef UNWRAP_MSGID
-                    //unwrap bc kaiderview does that too
-                    int p=0;
-                    while ((p=rx.indexIn(data))!=-1)
-                        data.remove(p+1,1);
-#endif
-                }
+                if (_searchingPos.part==DocPosition::Comment)
+                    data=catalog.notes(_searchingPos).at(_searchingPos.form).content;
                 else
-                    data=catalog.msgstr(_searchingPos)/*,offset*/;
+                    data=catalog.catalogString(_searchingPos).string;
 
                 if (ignoreaccels)
                     data.remove('&');
@@ -224,8 +217,8 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 
             if (!(
                   (find.options()&KFind::FindBackwards)?
-                                switchPrev(m_catalog,_searchingPos,true):
-                                switchNext(m_catalog,_searchingPos,true)
+                                switchPrev(m_catalog,_searchingPos,switchOptions):
+                                switchNext(m_catalog,_searchingPos,switchOptions)
                  ))
                 break;
         }
@@ -248,7 +241,10 @@ void EditorWindow::findNext(const DocPosition& startingPos)
 void EditorWindow::findNext()
 {
     if (_find)
-        findNext(m_currentPos);
+    {
+        findNext((m_currentPos.entry==_searchingPos.entry&&_searchingPos.part==DocPosition::Comment)?
+                        _searchingPos:m_currentPos);
+    }
     else
         find();
 
@@ -271,22 +267,19 @@ void EditorWindow::findPrev()
 
 void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
-    show();//for search through several files
-
     if (FIND_IGNOREACCELS)
     {
         QString data;
-        if (_searchingPos.part==DocPosition::Source)
-            data=m_catalog->msgid(_searchingPos);
+        if (_searchingPos.part==DocPosition::Comment)
+            data=m_catalog->notes(_searchingPos).at(_searchingPos.form).content;
         else
-            data=m_catalog->msgstr(_searchingPos);
+            data=m_catalog->catalogString(_searchingPos).string;
 
-        calsOffsetWithAccels(data, matchingIndex, matchedLength);
+        calcOffsetWithAccels(data, matchingIndex, matchedLength);
     }
 
     _searchingPos.offset=matchingIndex;
     gotoEntry(_searchingPos,matchedLength);
-
 }
 
 void EditorWindow::replace()
@@ -296,7 +289,7 @@ void EditorWindow::replace()
         _replaceDialog = new KReplaceDialog(this);
         if( !ui_replaceExtension ) //we actually don't need this check...
             ui_replaceExtension = new Ui_findExtension;
-        ui_replaceExtension->setupUi(_replaceDialog->replaceExtension());
+        ui_replaceExtension->setupUi(_replaceDialog->findExtension());
         _replaceDialog->setHasSelection(false);
     }
 
@@ -443,7 +436,7 @@ void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matched
             data=m_catalog->msgid(_replacingPos);
         else
             data=m_catalog->msgstr(_replacingPos);
-        calsOffsetWithAccels(data,matchingIndex,matchedLength);
+        calcOffsetWithAccels(data,matchingIndex,matchedLength);
     }
 
     _replacingPos.offset=matchingIndex;
@@ -462,7 +455,7 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
     QString oldStr(m_catalog->target(_replacingPos));
 
     if (REPLACE_IGNOREACCELS)
-        calsOffsetWithAccels(oldStr,offset,remLen);
+        calcOffsetWithAccels(oldStr,offset,remLen);
 
     QString tmp(oldStr.mid(offset,remLen));
 //     if (tmp==_replaceDialog->pattern())
@@ -582,7 +575,7 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
 
     DocPosition pos=_spellcheckPos;
     int length=word.length();
-    calsOffsetWithAccels(m_catalog->target(pos),offset,length);
+    calcOffsetWithAccels(m_catalog->target(pos),offset,length);
     pos.offset=offset;
 
     gotoEntry(pos,length);
@@ -592,7 +585,7 @@ void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString 
 {
     DocPosition pos=_spellcheckPos;
     int length=oldWord.length();
-    calsOffsetWithAccels(m_catalog->target(pos),offset,length);
+    calcOffsetWithAccels(m_catalog->target(pos),offset,length);
     pos.offset=offset;
     if (length>oldWord.length())//replaced word contains accel mark
         oldWord=m_catalog->target(pos).mid(offset,length);

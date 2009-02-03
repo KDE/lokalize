@@ -925,5 +925,12 @@ void XliffTextEdit::source2target()
 }
 
 
+void XliffTextEdit::cursorToStart()
+{
+    QTextCursor t=textCursor();
+    t.movePosition(QTextCursor::Start);
+    setTextCursor(t);
+}
+
 
 #include "xlifftextedit.moc"

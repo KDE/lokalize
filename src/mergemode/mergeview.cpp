@@ -236,7 +236,7 @@ void MergeView::mergeOpen(KUrl url)
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
         if (errorLine>0)
-            KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, eror line: %2",url.pathOrUrl(),errorLine) );
+            KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, error line: %2",url.pathOrUrl(),errorLine) );
         else
             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization",url.pathOrUrl()) );
 

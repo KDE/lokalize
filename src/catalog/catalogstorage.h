@@ -44,7 +44,7 @@ public:
     CatalogStorage();
     virtual ~CatalogStorage();
 
-    int capabilities() const{return KeepsNoteAuthors;}
+    virtual int capabilities() const=0;
 
     virtual int load(QIODevice* device)=0;
     virtual bool save(QIODevice* device)=0;

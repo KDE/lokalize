@@ -62,6 +62,7 @@ class Project;
 class ProjectView;
 class MergeView;
 class CatalogTreeView;
+class MsgCtxtView;
 namespace GlossaryNS{class GlossaryView;}
 class Ui_findExtension;
 //class ActionProxy;
@@ -136,7 +137,7 @@ public:
     QObject* adaptor(){return m_adaptor;}
 public slots:
     //for undo/redo, views
-    void gotoEntry(const DocPosition& pos,int selection=0);
+    void gotoEntry(DocPosition pos,int selection=0);
 #ifdef qdbuscpp2xml
     Q_SCRIPTABLE void gotoEntry(int entry){gotoEntry(DocPosition(entry));}
     Q_SCRIPTABLE void gotoEntryForm(int entry,int form){gotoEntry(DocPosition(entry,form));}
@@ -276,6 +277,7 @@ private:
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
     CatalogTreeView* m_catalogTreeView;
+    MsgCtxtView* m_notesView;
     //END views
 
 
@@ -299,7 +301,6 @@ signals:
     Q_SCRIPTABLE void entryDisplayed();
     void signalNewEntryDisplayed(const DocPosition&);
     void signalEntryWithMergeDisplayed(bool,const DocPosition&);
-    void signalEntryWithCommentDisplayed(const DocPosition&);//for undo SetNote reaction
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
 

@@ -247,12 +247,11 @@ void EditorWindow::setupActions()
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_catalogTreeView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
 
-    MsgCtxtView* msgCtxtView = new MsgCtxtView(this,m_catalog);
-    addDockWidget(Qt::LeftDockWidgetArea, msgCtxtView);
-    actionCollection()->addAction( QLatin1String("showmsgctxt_action"), msgCtxtView->toggleViewAction() );
-    connect(this,SIGNAL(signalEntryWithCommentDisplayed(DocPosition)),msgCtxtView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_catalog,SIGNAL(signalFileLoaded()),msgCtxtView,SLOT(cleanup()));
-    connect(msgCtxtView,SIGNAL(srcFileOpenRequested(QString,int)),this,SIGNAL(srcFileOpenRequested(QString,int)));
+    m_notesView = new MsgCtxtView(this,m_catalog);
+    addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
+    actionCollection()->addAction( QLatin1String("showmsgctxt_action"), m_notesView->toggleViewAction() );
+    connect (m_catalog,SIGNAL(signalFileLoaded()),m_notesView,SLOT(cleanup()));
+    connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SIGNAL(srcFileOpenRequested(QString,int)));
 
 
     int i=0;
@@ -891,7 +890,7 @@ void EditorWindow::gotoEntry()
     }
 }
 
-void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
+void EditorWindow::gotoEntry(DocPosition pos,int selection)
 {
     //specially for dbus users
     if (pos.entry>=m_catalog->numberOfEntries()||pos.entry<0)
@@ -900,23 +899,29 @@ void EditorWindow::gotoEntry(const DocPosition& pos,int selection)
     m_currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
 
+    bool newEntry=m_currentPos.entry!=pos.entry || m_currentPos.form!=pos.form;
+    if (newEntry||pos.part==DocPosition::Comment)
+    {
+        m_notesView->gotoEntry(pos,pos.part==DocPosition::Comment?selection:0);
+        if (pos.part==DocPosition::Comment)
+        {
+            pos.form=0;
+            pos.offset=0;
+            selection=0;
+        }
+    }
+
+
     m_view->gotoEntry(pos,selection);
     if (pos.part==DocPosition::UndefPart)
         m_currentPos.part=DocPosition::Target;
 
     QTime time;
     time.start();
-// QTime a;
-// a.start();
-
-    bool newEntry=m_currentPos.entry!=pos.entry || m_currentPos.form!=pos.form;
-    if (newEntry||pos.part==DocPosition::Comment)
-        emit signalEntryWithCommentDisplayed(pos);
 
     if (newEntry)
     {
         m_currentPos=pos;
-        m_currentPos.entry=pos.entry;
         if (true)
         {
             emit signalNewEntryDisplayed(m_currentPos);
