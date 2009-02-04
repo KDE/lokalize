@@ -71,14 +71,13 @@ public:
     KTabBar* tabBar(){return m_pluralTabBar;}//to connect tabbar signals to controller (EditorWindow) slots
     QString selection() const;//for non-batch replace
     QString selectionMsgId() const;
-    void toggleApprovement(bool);
 
     QObject* viewPort();
     void setProperFocus();
 
 public slots:
     void gotoEntry(DocPosition pos=DocPosition(),int selection=0/*, bool updateHistory=true*/);
-
+    void toggleApprovement();
 /*
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
@@ -96,6 +95,7 @@ public:
     bool m_modifiedAfterFind;//for F3-search reset
 
 signals:
+    void signalApprovedEntryDisplayed(bool);
     void signalChangeStatusbar(const QString&);
     void signalChanged(uint index); //esp for mergemode...
     //void fileOpenRequested(KUrl);

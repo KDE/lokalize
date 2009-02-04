@@ -429,13 +429,14 @@ void EditorWindow::setupActions()
 //
     ADD_ACTION_SHORTCUT_ICON("edit_approve",i18nc("@option:check whether message is marked as Approved","Approved"),Qt::CTRL+Qt::Key_U,"approved")
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered(bool)), m_view->viewPort(),SLOT(toggleApprovement(bool)));
+    connect(action, SIGNAL(triggered()), m_view,SLOT(toggleApprovement()));
+    connect(m_view, SIGNAL(signalApprovedEntryDisplayed(bool)),this, SIGNAL(signalApprovedEntryDisplayed(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
-    connect(action, SIGNAL(toggled(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
+    connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
 
     action = actionCategory->addAction("edit_approve_go_fuzzyUntr");
     action->setText(i18nc("@action:inmenu","Set as Approved and go to next"));
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( toggleApprovementGotoNextFuzzyUntr() ) );
+    connect( action, SIGNAL( triggered() ), this, SLOT( toggleApprovementGotoNextFuzzyUntr() ) );
 
     
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
@@ -949,14 +950,7 @@ void EditorWindow::gotoEntry(DocPosition pos,int selection)
 
     }
 
-    if (true)
-    {
-        //still emit even if m_currentPos.entry==pos.entry
-        emit signalFuzzyEntryDisplayed(!m_catalog->isApproved(m_currentPos.entry));
-        emit signalApprovedEntryDisplayed(m_catalog->isApproved(m_currentPos.entry));
-        statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", m_currentPos.entry+1));
-        msgStrChanged();
-    }
+    statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", m_currentPos.entry+1));
     //kDebug()<<"ELA "<<time.elapsed();
 }
 
@@ -1089,7 +1083,7 @@ bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
 void EditorWindow::toggleApprovementGotoNextFuzzyUntr()
 {
     if(!m_catalog->isApproved(m_currentPos.entry))
-        m_view->toggleApprovement(true);
+        m_view->toggleApprovement();
     if (!gotoNextFuzzyUntr())
         gotoNextFuzzyUntr(DocPosition(-2));//so that we don't skip the first
 }

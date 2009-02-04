@@ -108,6 +108,8 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
                                   "of the currently displayed entry.</p></qt>"));
 
     connect (_msgidEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
+    connect (_msgstrEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
+    connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), _msgstrEdit, SLOT(reflectApprovementState()));
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);
@@ -316,11 +318,6 @@ QObject* KAiderView::viewPort()
     return _msgstrEdit;
 }
 
-void KAiderView::toggleApprovement(bool a)
-{
-    _msgstrEdit->toggleApprovement(a);
-}
-
 void KAiderView::toggleBookmark(bool checked)
 {
     if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1 ))
@@ -328,6 +325,19 @@ void KAiderView::toggleBookmark(bool checked)
 
     m_catalog->setBookmark(_msgstrEdit->currentPos().entry,checked);
 }
+
+
+void KAiderView::toggleApprovement()
+{
+    //kWarning()<<"called";
+    if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1 ))
+        return;
+
+    bool newState=!m_catalog->isApproved(_msgstrEdit->currentPos().entry);
+    m_catalog->push(new ToggleApprovementCmd(m_catalog,_msgstrEdit->currentPos().entry,newState));
+    emit signalApprovedEntryDisplayed(newState);
+}
+
 
 
 #include "kaiderview.moc"

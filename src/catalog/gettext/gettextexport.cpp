@@ -248,9 +248,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
 
         QStringList::const_iterator it;
         for( it = list.constBegin(); it != list.constEnd(); ++it )
-        {
             stream << '\"' << (*it) << "\"\n";
-        }
         return;
     }
 

@@ -307,7 +307,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     }
 */
     if (!m_catalog->isApproved(m_currentPos.entry)&&Settings::autoApprove())
-        toggleApprovement(true);
+        emit toggleApprovementRequested();
     reflectUntranslatedState();
 
     // for mergecatalog (remove entry from index)
@@ -320,6 +320,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 // tagPlaces - pos -> int:
 // >0 if both start and end parts of tag were deleted
 // 1 means this is start, 2 means this is end
+//returns false if it finds only one part of a paired tag
 static bool fillTagPlaces(QMap<int,int>& tagPlaces,
                           const CatalogString& catalogString,
                           int start,
@@ -413,7 +414,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 
 
     if (!m_catalog->isApproved(m_currentPos.entry))
-        toggleApprovement(true);
+        emit toggleApprovementRequested();
 
     if (refresh)
     {
@@ -426,16 +427,18 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 
 void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, bool refresh)
 {
-    m_catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
+    kWarning()<<"text"<<catStr.string<<start;
     QMap<int,int> posToTagRange;
     int i=catStr.ranges.size();
-    //if (i) kWarning()<<"tags we got:";
+    bool containsMarkup=i;
     while(--i>=0)
     {
         //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
         posToTagRange.insert(catStr.ranges.at(i).start,i);
         posToTagRange.insert(catStr.ranges.at(i).end,i);
     }
+
+    if (containsMarkup) m_catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
 
     DocPosition pos=m_currentPos;
     i=0;
@@ -465,7 +468,7 @@ void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, 
     pos.offset=start+prev;
     if (catStr.string.size()-pos.offset)
         m_catalog->push(new InsTextCmd(m_catalog,pos,catStr.string.mid(prev)));
-    m_catalog->endMacro();
+    if (containsMarkup) m_catalog->endMacro();
 
     if (refresh)
     {
@@ -530,19 +533,29 @@ void XliffTextEdit::insertFromMimeData(const QMimeData* source)
 
     if (source->hasFormat("application/x-lokalize-xliff+xml"))
     {
+        kWarning()<<"has";
         QVariant v;
-        QDataStream in(&(source->data("application/x-lokalize-xliff+xml")),QIODevice::ReadOnly);
+        QByteArray data=source->data("application/x-lokalize-xliff+xml");
+        QDataStream in(&data,QIODevice::ReadOnly);
         in>>v;
         //qWarning()<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
 
-        //kWarning()<<"pos"<<textCursor().position();
-        //sets right cursor position implicitly
+
+        m_catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
+        QTextCursor cursor=textCursor();
+        if (cursor.hasSelection())
+        {
+            int start=qMin(cursor.anchor(),cursor.position());
+            int end=qMax(cursor.anchor(),cursor.position());
+            removeTargetSubstring(start,end);
+        }
+        //sets right cursor position implicitly -- needed for mouse paste
         QMimeData mimeData;
         mimeData.setText("");
         KTextEdit::insertFromMimeData(&mimeData);
-        //kWarning()<<"pos"<<textCursor().position();
 
         insertCatalogString(qVariantValue<CatalogString>(v), textCursor().position());
+        m_catalog->endMacro();
     }
     else
     {
@@ -625,15 +638,16 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         else if(keyEvent->key()==Qt::Key_End)
             emit gotoLastRequested();
     }
-/*    else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
+    else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
     {
         //only for cases when:
         //-BkSpace was hit and cursor was atStart
         //-Del was hit and cursor was atEnd
-        if (KDE_ISUNLIKELY( !m_catalog->isApproved(m_currentPos.entry) && !textCursor().hasSelection() ))
-                          && (textCursor().atStart()||textCursor().atEnd()) ))
-            ;//toggleApprovement(true); TODO
-    }*/
+        if (KDE_ISUNLIKELY( !m_catalog->isApproved(m_currentPos.entry) && !textCursor().hasSelection() )
+                            && ((textCursor().atStart()&&keyEvent->key()==Qt::Key_Backspace)
+                                 ||(textCursor().atEnd()&&keyEvent->key()==Qt::Key_Delete) ))
+            emit toggleApprovementRequested();
+    }
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
@@ -772,17 +786,6 @@ QString XliffTextEdit::toPlainText()
 }
 
 
-void XliffTextEdit::toggleApprovement(bool approved)
-{
-    //kWarning()<<"called";
-    if (KDE_ISUNLIKELY( m_currentPos.entry==-1 ))
-        return;
-
-    m_catalog->push(new ToggleApprovementCmd(m_catalog,m_currentPos.entry,approved));
-    reflectApprovementState();
-}
-
-
 
 void XliffTextEdit::emitCursorPositionChanged()
 {
@@ -913,7 +916,7 @@ void XliffTextEdit::source2target()
         showPos(m_currentPos,sourceWithTags,/*keepCursor*/false);
 
         if (KDE_ISUNLIKELY( !m_catalog->isApproved(pos.entry)&&Settings::autoApprove() ))
-            toggleApprovement(true);
+            emit toggleApprovementRequested();
     }
     else
     {

@@ -49,7 +49,6 @@ public:
 public slots:
     void reflectApprovementState();
     void reflectUntranslatedState();
-    void toggleApprovement(bool approved);
 
     bool removeTargetSubstring(int start=0, int end=-1, bool refresh=true);
     void insertCatalogString(const CatalogString& catStr, int start=0, bool refresh=true);
@@ -76,7 +75,7 @@ private slots:
     void contentsChanged(int position,int charsRemoved,int charsAdded);
 
 signals:
-    void signalSetApproved(bool approved=true);
+    void toggleApprovementRequested();
     void undoRequested();
     void redoRequested();
     void gotoFirstRequested();
