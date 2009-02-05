@@ -232,8 +232,6 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         return; 
     }
 
-    kWarning()<<"m_wrapWidth"<<m_wrapWidth;
-
 #if 0
     if ( m_wrapWidth == -1 )
     {

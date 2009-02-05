@@ -107,7 +107,7 @@ public:
     void showDocks();
     KUrl currentUrl();
     void setFullPathShown(bool);
-    void setCaption(const QString&,bool);//reimpl to remove ' - Lokalize'
+    void setCaption(QString,bool);//reimpl to remove ' - Lokalize'
     void setProperFocus();
 //protected:
     bool queryClose();

@@ -634,10 +634,11 @@ KUrl EditorWindow::currentUrl()
     return m_catalog->url();
 }
 
-void EditorWindow::setCaption(const QString& title,bool modif)
+void EditorWindow::setCaption(QString title,bool modified)
 {
+    if (m_catalog->autoSaveRecovered()) title+=' '+i18nc("editor tab name","(recovered)");
     setWindowTitle(title+" [*]");
-    setWindowModified(modif);
+    setWindowModified(modified);
 }
 
 void EditorWindow::setFullPathShown(bool fullPathShown)
@@ -652,9 +653,7 @@ void EditorWindow::updateCaptionPath()
 {
     KUrl url=m_catalog->url();
     if (!url.isLocalFile() || !_project->isLoaded())
-    {
         _captionPath=url.pathOrUrl();
-    }
     else
     {
         if (m_fullPathShown)
@@ -665,9 +664,7 @@ void EditorWindow::updateCaptionPath()
                                            );
         }
         else
-        {
             _captionPath=url.fileName();
-        }
     }
 
 }
@@ -682,11 +679,8 @@ bool EditorWindow::fileOpen(KUrl url)
                                                 KStandardGuiItem::save(),KStandardGuiItem::discard())
                )
         {
-        case KMessageBox::Yes:
-            if (!saveFile())
-                return false;
-        case KMessageBox::Cancel:
-            return false;
+        case KMessageBox::Yes: if (!saveFile()) return false;
+        case KMessageBox::Cancel:               return false;
         }
     }
 
@@ -784,7 +778,6 @@ bool EditorWindow::fileOpen(KUrl url)
     }
 
     //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-    kWarning()<<errorLine;
     if (errorLine>0)
         KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
     else
@@ -795,8 +788,7 @@ bool EditorWindow::fileOpen(KUrl url)
 bool EditorWindow::saveFileAs()
 {
     KUrl url=KFileDialog::getSaveUrl(m_catalog->url(),m_catalog->mimetype(),this);
-    if (url.isEmpty())
-        return false;
+    if (url.isEmpty()) return false;
     return saveFile(url);
 }
 
@@ -832,8 +824,7 @@ EditorState EditorWindow::state()
 
 bool EditorWindow::queryClose()
 {
-    if (m_catalog->isClean())
-        return true;
+    if (m_catalog->isClean()) return true;
 
     //TODO caption
     switch (KMessageBox::warningYesNoCancel(this,
@@ -841,12 +832,9 @@ bool EditorWindow::queryClose()
                                                       "Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
                                             KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
-    case KMessageBox::Yes:
-        return saveFile();
-    case KMessageBox::No:
-        return true;
-    default:
-        return false;
+    case KMessageBox::Yes: return saveFile();
+    case KMessageBox::No:  return true;
+    default:               return false;
     }
 }
 
@@ -948,12 +936,9 @@ void EditorWindow::msgStrChanged()
         return;
 
     QString msg;
-    if (isUntr)
-        msg=i18nc("@info:status","Untranslated");
-    else if (isApproved)
-        msg=i18nc("@info:status","Approved");
-    else
-        msg=i18nc("@info:status","Needs review");
+    if (isUntr)         msg=i18nc("@info:status","Untranslated");
+    else if (isApproved)msg=i18nc("@info:status","Approved");
+    else                msg=i18nc("@info:status","Needs review");
 
     /*    else
             statusBar()->changeItem("",ID_STATUS_ISFUZZY);*/
@@ -965,8 +950,7 @@ void EditorWindow::msgStrChanged()
 }
 void EditorWindow::switchForm(int newForm)
 {
-    if (m_currentPos.form==newForm)
-        return;
+    if (m_currentPos.form==newForm) return;
 
     DocPosition pos=m_currentPos;
     pos.form=newForm;
@@ -1055,10 +1039,8 @@ bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
     if ( (fu == -1) && (un == -1) )
         return false;
 
-    if (fu == -1)
-        fu=un;
-    else if (un == -1)
-        un=fu;
+    if (fu == -1)       fu=un;
+    else if (un == -1)  un=fu;
 
     pos.entry=fu<un?fu:un;
     gotoEntry(pos);

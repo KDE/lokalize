@@ -466,7 +466,7 @@ void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, 
         prev=++i;
     }
     pos.offset=start+prev;
-    if (catStr.string.size()-pos.offset)
+    if (catStr.string.size()-pos.offset+1)
         m_catalog->push(new InsTextCmd(m_catalog,pos,catStr.string.mid(prev)));
     if (containsMarkup) m_catalog->endMacro();
 

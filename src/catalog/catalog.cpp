@@ -315,7 +315,6 @@ int Catalog::loadFromUrl(const KUrl& url)
     QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(url);
     if (!staleFiles.isEmpty())
     {
-        qWarning()<<"888";
         foreach (KAutoSaveFile *stale, staleFiles)
         {
             if (stale->managedFile()!=url)
@@ -434,9 +433,7 @@ bool Catalog::saveToUrl(KUrl url)
     bool remote=url.isLocalFile();
     QFile* file;
     if (KDE_ISUNLIKELY( !remote ))
-    {
         file=new KTemporaryFile();
-    }
     else
     {
         if (!QFile::exists(url.directory()))
@@ -447,7 +444,7 @@ bool Catalog::saveToUrl(KUrl url)
     file->deleteLater(); //kung-fu ;)
     if (KDE_ISUNLIKELY( !file->open(QIODevice::WriteOnly) )) //i18n("Wasn't able to open file %1",filename.ascii());
         return false;
-  
+
     if (KDE_ISUNLIKELY( !m_storage->save(file) ))
         return false;
 
@@ -463,6 +460,7 @@ bool Catalog::saveToUrl(KUrl url)
         d->_url=url;
         d->_autoSave->setManagedFile(url);
     }
+    d->_autoSaveRecovered=false;
 
     //Settings::self()->setCurrentGroup("Bookmarks");
     //Settings::self()->addItemIntList(d->_url.url(),d->_bookmarkIndex);

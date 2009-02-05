@@ -118,13 +118,12 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    }
    else if (KDE_ISUNLIKELY( status != OK ))
    {
-//       emit signalClearProgressBar();
-      kDebug() << "Parse error in header entry";
+      kWarning() << "Parse error in header entry";
       return status;
    }
 
-   kDebug() << "HEADER MSGID: " << _msgid;
-   kDebug() << "HEADER MSGSTR: " << _msgstr;
+   kWarning() << "HEADER MSGID: " << _msgid;
+   kWarning() << "HEADER MSGSTR: " << _msgstr;
    if (KDE_ISUNLIKELY( !_msgid.isEmpty() && !_msgid.first().isEmpty() ))
    {
       // The header must have an empty msgid
@@ -169,7 +168,6 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    ExtraDataSaver _extraDataSaver;
    while( !stream.atEnd() )
    {
-
       const ConversionStatus success=readEntry(stream);
       if(KDE_ISLIKELY(success==OK))
       {
@@ -354,7 +352,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        //line=stream.readLine();
        QString line(stream.readLine());
 
-       //kDebug() << "Parsing line: " << line;
+       //kWarning() << "Parsing line: " << line;
 
        if (KDE_ISUNLIKELY( line.startsWith( "<<<<<<<" ) || line.startsWith( "=======" ) || line.startsWith( ">>>>>>>" ) ))
        {

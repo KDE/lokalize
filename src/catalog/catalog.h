@@ -128,6 +128,7 @@ public:
     int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);}
     int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);}
 
+    bool autoSaveRecovered(){return d->_autoSaveRecovered;}
 public:
     void setPackageName( QString s ){d->_packageName = s;}
 
