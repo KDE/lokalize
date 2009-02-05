@@ -43,13 +43,13 @@ static inline QString getMaillingList()
     if(lang.startsWith("ru"))
         return "kde-russian@lists.kde.ru";
     if(lang.startsWith("de"))
-        return "kde-i18n-de@lists.kde.org";
+        return "kde-i18n-de@kde.org";
     if(lang.startsWith("it"))
-        return "kde-i18n-it@lists.kde.org";
+        return "kde-i18n-it@kde.org";
     if(lang.startsWith("ca"))
         return "kde-i18n-ca@kde.org";
 
-    return "kde-i18n-doc@lists.kde.org";
+    return "kde-i18n-doc@kde.org";
 }
 
 #endif
