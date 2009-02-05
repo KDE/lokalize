@@ -577,7 +577,9 @@ public:
     MyScriptingPlugin(QObject* parent)
         : Kross::ScriptingPlugin(parent)
     {
+        //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
         addObject(parent,"Lokalize");
+        addObject(Project::instance(),"Project");
         setXMLFile("translationmemoryrui.rc",true);
     }
     ~MyScriptingPlugin(){}

@@ -396,7 +396,7 @@ void updateHeader(QString& header,
             {
                 kWarning()<<"No plural form info in header, using project-defined one"<<langCode;
                 QString t=GNUPluralForms(langCode);
-                kWarning()<<"generated: " << t;
+                //kWarning()<<"generated: " << t;
                 if ( !t.isEmpty() )
                 {
                     QRegExp pf("^ *Plural-Forms:\\s*nplurals.*\\\\n");

@@ -1,0 +1,10 @@
+<KrossScripting>
+	<collection name="tools" text="Tools">
+		<script name="xliff2odf"
+			text="Merge into ODF"
+			comment="Generates translated version of ODF document"
+			interpreter="python"
+                        enabled="true"
+			file="xliff2odf.py" />
+	</collection>
+</KrossScripting>

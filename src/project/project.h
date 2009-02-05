@@ -61,6 +61,8 @@ class EditorTab;
 class Project: public ProjectBase
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.Project")
+    //qdbuscpp2xml -m -s project.h -o org.kde.lokalize.Project.xml
 public:
     explicit Project();
     virtual ~Project();
@@ -84,8 +86,10 @@ public:
 private slots:
     void initLater();
 
+public slots:
+    Q_SCRIPTABLE QString targetLangCode(){return ProjectBase::langCode();}
 signals:
-    void loaded();
+    Q_SCRIPTABLE void loaded();
 private:
     QString absolutePath(const QString&)const;
 

@@ -102,12 +102,14 @@ kde4_add_kcfg_files(lokalize_SRCS
 #qt4_add_dbus_interface(lokalize_SRCS org.kde.lokalize.MainWindow.xml lokainterface)
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
-
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
                      kaider.h EditorTab)
-
 qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmwindow.h TM::TMTab)
+qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
+                     project/project.h Project)
+
+
 
 kde4_add_app_icon(lokalize_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-lokalize.png")
 
