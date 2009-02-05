@@ -44,7 +44,7 @@ class KAction;
 class KRecentFilesAction;
 class ProjectModel;
 namespace GlossaryNS{class Glossary;}
-class EditorWindow;
+class EditorTab;
 
 
 /**
@@ -103,8 +103,8 @@ public slots:
     void defineNewTerm(QString en=QString(),QString target=QString());
 
 
-    void registerEditor(EditorWindow* e){m_editors<<e;}
-    void unregisterEditor(EditorWindow* e){m_editors.remove(m_editors.indexOf(e));}
+    void registerEditor(EditorTab* e){m_editors<<e;}
+    void unregisterEditor(EditorTab* e){m_editors.remove(m_editors.indexOf(e));}
 
 
 private:
@@ -121,7 +121,7 @@ private:
     QList<KAction*> m_projectActions;
     KRecentFilesAction* _openRecentProject;
 
-    QVector<EditorWindow*> m_editors;
+    QVector<EditorTab*> m_editors;
 };
 
 

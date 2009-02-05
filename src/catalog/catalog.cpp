@@ -61,7 +61,6 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
-// #include <kmessagebox.h>
 #include <kdatetime.h>
 
 #include <kio/netaccess.h>
@@ -83,9 +82,8 @@ bool Catalog::extIsSupported(const QString& path)
 {
     QStringList ext=supportedExtensions();
     int i=ext.size();
-    while (--i>=0)
-        if (path.endsWith(ext.at(i)))
-            break;
+    while (--i>=0 && !path.endsWith(ext.at(i)))
+        ;
     return i!=-1;
 }
 

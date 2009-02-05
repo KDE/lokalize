@@ -36,8 +36,8 @@ class QMdiArea;
 class QActionGroup;
 class KAction;
 class KRecentFilesAction;
-class EditorWindow;
-namespace TM {class TMWindow;}
+class EditorTab;
+namespace TM {class TMTab;}
 
 /**
  * @author Nick Shaforostoff <shafff@ukr.net>
@@ -113,9 +113,9 @@ public slots:
 
 
     //returns 0 if error
-    EditorWindow* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
+    EditorTab* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
     void fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
-    TM::TMWindow* showTM();
+    TM::TMTab* showTM();
 
 signals:
     Q_SCRIPTABLE void editorAdded();

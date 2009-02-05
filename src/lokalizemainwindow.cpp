@@ -157,9 +157,9 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         guiFactory()->removeClient( prevEditor->guiClient()   );
         prevEditor->statusBarItems.unregisterStatusBar();
 
-        if (qobject_cast<EditorWindow*>(prevEditor))
+        if (qobject_cast<EditorTab*>(prevEditor))
         {
-            EditorWindow* w=static_cast<EditorWindow*>( prevEditor );
+            EditorTab* w=static_cast<EditorTab*>( prevEditor );
             EditorState state=w->state();
             m_lastEditorState=state.dockWidgets.toBase64();
         }
@@ -181,9 +181,9 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 */
     }
     LokalizeSubwindowBase* editor=static_cast<LokalizeSubwindowBase2*>( w->widget() );
-    if (qobject_cast<EditorWindow*>(editor))
+    if (qobject_cast<EditorTab*>(editor))
     {
-        EditorWindow* w=static_cast<EditorWindow*>( editor );
+        EditorTab* w=static_cast<EditorTab*>( editor );
         w->setProperFocus();
 
         EditorState state=w->state();
@@ -223,24 +223,24 @@ bool LokalizeMainWindow::queryClose()
     while (--i>=0)
     {
         //if (editors.at(i)==m_projectSubWindow)
-        if (!qobject_cast<EditorWindow*>(editors.at(i)->widget()))
+        if (!qobject_cast<EditorTab*>(editors.at(i)->widget()))
             continue;
-        if (!  static_cast<EditorWindow*>( editors.at(i)->widget() )->queryClose())
+        if (!  static_cast<EditorTab*>( editors.at(i)->widget() )->queryClose())
             return false;
     }
 
     return true;
 }
 
-EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
+EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
 {
     if (!url.isEmpty()&&m_fileToEditor.contains(url)&&m_fileToEditor.value(url))
     {
         m_mdiArea->setActiveSubWindow(m_fileToEditor.value(url));
-        return static_cast<EditorWindow*>(m_fileToEditor.value(url)->widget());
+        return static_cast<EditorTab*>(m_fileToEditor.value(url)->widget());
     }
 
-    EditorWindow* w=new EditorWindow(this);
+    EditorTab* w=new EditorTab(this);
     QByteArray state=m_lastEditorState;
 
     QMdiSubWindow* sw=0;
@@ -258,7 +258,7 @@ EditorWindow* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,b
         if (m_fileToEditor.contains(w->currentUrl())&&m_fileToEditor.value(url))
         {
             m_mdiArea->setActiveSubWindow(m_fileToEditor.value(w->currentUrl()));
-            return static_cast<EditorWindow*>(m_fileToEditor.value(w->currentUrl())->widget());
+            return static_cast<EditorTab*>(m_fileToEditor.value(w->currentUrl())->widget());
         }
         return 0;
     }
@@ -305,7 +305,7 @@ void LokalizeMainWindow::editorClosed(QObject* obj)
 
 void LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
 {
-    EditorWindow* w=fileOpen(url);
+    EditorTab* w=fileOpen(url);
     if (!w)
         return;//TODO message
     w->findEntryBySourceContext(source,ctxt);
@@ -315,7 +315,7 @@ void LokalizeMainWindow::showProjectOverview()
 {
     if (!m_projectSubWindow)
     {
-        ProjectWindow* w=new ProjectWindow(this);
+        ProjectTab* w=new ProjectTab(this);
         m_projectSubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_projectSubWindow->showMaximized();
@@ -325,11 +325,11 @@ void LokalizeMainWindow::showProjectOverview()
     m_mdiArea->setActiveSubWindow(m_projectSubWindow);
 }
 
-TM::TMWindow* LokalizeMainWindow::showTM()
+TM::TMTab* LokalizeMainWindow::showTM()
 {
     if (!m_translationMemorySubWindow)
     {
-        TM::TMWindow* w=new TM::TMWindow(this);
+        TM::TMTab* w=new TM::TMTab(this);
         m_translationMemorySubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_translationMemorySubWindow->showMaximized();
@@ -337,7 +337,7 @@ TM::TMWindow* LokalizeMainWindow::showTM()
     }
 
     m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
-    return static_cast<TM::TMWindow*>(m_translationMemorySubWindow->widget());
+    return static_cast<TM::TMTab*>(m_translationMemorySubWindow->widget());
 }
 
 void LokalizeMainWindow::applyToBeActiveSubWindow()
@@ -464,9 +464,9 @@ void LokalizeMainWindow::openProject(const QString& path)
         {
             if (editors.at(i)==m_translationMemorySubWindow)
                 editors.at(i)->deleteLater();
-            else if (qobject_cast<EditorWindow*>(editors.at(i)->widget()))
+            else if (qobject_cast<EditorTab*>(editors.at(i)->widget()))
             {
-                m_fileToEditor.remove(static_cast<EditorWindow*>(editors.at(i)->widget())->currentUrl());//safety
+                m_fileToEditor.remove(static_cast<EditorTab*>(editors.at(i)->widget())->currentUrl());//safety
                 editors.at(i)->deleteLater();
             }
         }
@@ -490,11 +490,11 @@ void LokalizeMainWindow::saveProjectState()
     while (--i>=0)
     {
         //if (editors.at(i)==m_projectSubWindow)
-        if (!qobject_cast<EditorWindow*>(editors.at(i)->widget()))
+        if (!qobject_cast<EditorTab*>(editors.at(i)->widget()))
             continue;
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
-        EditorState state=static_cast<EditorWindow*>( editors.at(i)->widget() )->state();
+        EditorState state=static_cast<EditorTab*>( editors.at(i)->widget() )->state();
         files.append(state.url.pathOrUrl());
         mergeFiles.append(state.mergeUrl.pathOrUrl());
         dockWidgets.append(state.dockWidgets.toBase64());
@@ -577,6 +577,7 @@ public:
     MyScriptingPlugin(QObject* parent)
         : Kross::ScriptingPlugin(parent)
     {
+        addObject(parent,"Lokalize");
         setXMLFile("translationmemoryrui.rc",true);
     }
     ~MyScriptingPlugin(){}
@@ -644,7 +645,7 @@ int LokalizeMainWindow::showTranslationMemory()
     /*activateWindow();
     raise();
     show();*/
-    TM::TMWindow* w=showTM();
+    TM::TMTab* w=showTM();
     return w->dbusId();
 }
 
@@ -655,7 +656,7 @@ QString LokalizeMainWindow::currentProject()
 
 int LokalizeMainWindow::openFileInEditor(const QString& path)
 {
-    EditorWindow* w=fileOpen(KUrl(path));
+    EditorTab* w=fileOpen(KUrl(path));
     if (!w)
         return -1;
     return w->dbusId();
@@ -665,7 +666,7 @@ QObject* LokalizeMainWindow::activeEditor()
 {
     QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
-    if (activeSW && qobject_cast<EditorWindow*>(activeSW->widget()))
+    if (activeSW && qobject_cast<EditorTab*>(activeSW->widget()))
         return activeSW->widget();
     return 0;
 }
@@ -677,12 +678,12 @@ QObject* LokalizeMainWindow::editorForFile(const QString& path)
     QMdiSubWindow* w=m_fileToEditor.value(KUrl(path));
     if (!w)
         return 0;
-    return static_cast<EditorWindow*>(w->widget());
+    return static_cast<EditorTab*>(w->widget());
 }
 
 int LokalizeMainWindow::editorIndexForFile(const QString& path)
 {
-    EditorWindow* editor=static_cast<EditorWindow*>(editorForFile(path));
+    EditorTab* editor=static_cast<EditorTab*>(editorForFile(path));
     if (!editor)
         return -1;
     return editor->dbusId();

@@ -50,12 +50,63 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_poComplIcon(KIcon(QLatin1String("flag-green")))
     , m_potIcon(KIcon(QLatin1String("flag-black")))
 {
-//     connect (this,SIGNAL(dataChanged(const QModelIndex&,const QModelIndex&) ),
-//              this,SLOT(aa()));
+    connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
+             this,SLOT(calcStats(QModelIndex, int, int)),Qt::QueuedConnection);
+    connect (this,SIGNAL(rowsRemoved(QModelIndex, int, int)),
+             this,SLOT(calcStats(QModelIndex, int, int)),Qt::QueuedConnection);
 
     setDirLister(new ProjectLister(this));
 }
 
+
+void ProjectModel::calcStats(const QModelIndex& parent, int start, int end)
+{
+    KFileItem item=itemForIndex(parent);
+    KFileMetaInfo metaInfo(item.metaInfo(false));
+
+    int untranslated=0;
+    int translated=0;
+    int fuzzy=0;
+
+    //now we try to iterate through dir's children and get the sums
+    //if the children are already have been scanned
+
+    int count=rowCount(parent);
+    int i=0;
+    //QTime a;a.start();
+    for (;i<count;++i)
+    {
+        const KFileMetaInfo& childMetaInfo(itemForIndex(parent.child(i,0)).metaInfo(false));
+
+        if (!childMetaInfo.item("translation.translated").value().isNull())
+        {
+            kWarning()<<"adding from:"<<itemForIndex(parent.child(i,0)).name();
+            translated+=childMetaInfo.item("translation.translated").value().toInt();
+            untranslated+=childMetaInfo.item("translation.untranslated").value().toInt();
+            fuzzy+=childMetaInfo.item("translation.fuzzy").value().toInt();
+        }
+        else
+            kWarning()<<"skipping:"<<itemForIndex(parent.child(i,0)).name();
+    //kWarning()<<"getting info"<<item.name()<<count<<canFetchMore(parent)<<a.elapsed();
+
+    int sum=metaInfo.item("translation.untranslated").value().toInt()
+            +metaInfo.item("translation.translated").value().toInt()
+            +metaInfo.item("translation.fuzzy").value().toInt();
+    metaInfo.item("translation.untranslated").setValue(untranslated);
+    metaInfo.item("translation.translated").setValue(translated);
+    metaInfo.item("translation.fuzzy").setValue(fuzzy);
+    item.setMetaInfo(metaInfo);
+    if (sum!=untranslated+translated+fuzzy)
+        emit dataChanged(parent.sibling(parent.row(),Graph),
+                         parent.sibling(parent.row(),Untranslated));
+
+    kWarning()<<"update all the parents from"<<item.name()<<count<<translated<<"\n\n\n\n";
+    //update all the parents
+    if (this->parent(parent).isValid())
+        calcStats(this->parent(parent));
+
+
+}
 
 /**
  * we use QRect to pass data through QVariant tunnel
@@ -86,108 +137,9 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
         return KDirModel::data(index,role);
     }
 
-    if (role!=Qt::DisplayRole)
-        return QVariant();
+    if (role!=Qt::DisplayRole) return QVariant();
 
     KFileItem item(itemForIndex(index));
-    //we handle dirs in special way for all columns left
-    if (item.isDir())
-    {
-        if (column>=Graph&&column<=Untranslated)
-        {
-            int untranslated=0;
-            int translated=0;
-            int fuzzy=0;
-
-//takes 5 mseconds on messages/kdebase
-#if 0
-            //first, check if we have already calcalated real stats
-            if (!metaInfo.item("translation.translated").value().isNull())
-            {
-                translated=metaInfo.item("translation.translated").value().toInt();
-                untranslated=metaInfo.item("translation.untranslated").value().toInt();
-                fuzzy=metaInfo.item("translation.fuzzy").value().toInt();
-                if (fuzzy+untranslated+translated>0)
-                    return QRect(translated,untranslated,fuzzy,0);
-            }
-#endif
-//still, we cache data because it might be needed for recursive stats
-            KFileMetaInfo metaInfo(item.metaInfo(false));
-
-            //now we try to iterate through dir's children and get the sums
-            //if the children are already have been scanned
-
-            int count=rowCount(index);
-            //if (parent.isValid()
-            int i=0;
-            bool infoIsFull=true;
-            //QTime a;a.start();
-            for (;i<count;++i)
-            {
-//                 QModelIndex childIndex(index.child(i,0));
-//                 KFileItem* childItem(itemForIndex(childIndex));
-//                 //force population of metainfo. kfilemetainfo's internal is a shit
-//             if (item->metaInfo(false).keys().empty()
-//             && item->url().fileName().endsWith(".po"))
-//             {
-//                 item->setMetaInfo(KFileMetaInfo( item->url() ));
-//             }
-
-                const KFileMetaInfo& childMetaInfo(itemForIndex(index.child(i,0)).metaInfo(false));
-
-                if (!childMetaInfo.item("translation.translated").value().isNull())
-                {
-                    translated+=childMetaInfo.item("translation.translated").value().toInt();
-                    untranslated+=childMetaInfo.item("translation.untranslated").value().toInt();
-                    fuzzy+=childMetaInfo.item("translation.fuzzy").value().toInt();
-                }
-                else if (hasChildren(index.child(i,0)))
-                {
-                    //"inode/directory"
-                    infoIsFull=false;
-                }
-            }
-
-            //if (/*infoIsFull&&*/(untranslated+translated+fuzzy))
-            if (infoIsFull)
-            {
-
-//                 KFileMetaInfo dirInfo(item->metaInfo(false));
-#if 1
-                if (infoIsFull)
-                {
-                    metaInfo.item("translation.untranslated").setValue(untranslated);
-                    metaInfo.item("translation.translated").setValue(translated);
-                    metaInfo.item("translation.fuzzy").setValue(fuzzy);
-                    item.setMetaInfo(metaInfo);
-                }
-#endif
-
-                switch(column)
-                {
-                    case Graph:
-                        return QRect(translated,untranslated,fuzzy,infoIsFull?0:64);
-                    case Total:
-                        return translated+untranslated+fuzzy;
-                    case Translated:
-                        return translated;
-                    case Fuzzy:
-                        return fuzzy;
-                    case Untranslated:
-                        return untranslated;
-                    default://shut up stupid compiler
-                        return 0;
-                }
-            }
-            else if(column==Graph)
-                    return QRect(0,0,0,32);
-
-        }
-        //else -->other columns handling
-        //TODO make smth cool
-        return QVariant();
-    }
-    //ok, so item is no dir
     const KFileMetaInfo& metaInfo(item.metaInfo(false));
 
     static const char* columnToMetaInfoItem[ProjectModelColumnCount]={
@@ -233,25 +185,6 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     }
     return KDirModel::data(index,role);
 }
-/*
-void ProjectModel::readRecursively(const QModelIndex& index)
-{
-    QCoreApplication::processEvents(QEventLoop::AllEvents);
-    data(index);
-    int count=rowCount(index);
-    kWarning()<<"dddd"<<count;
-    int i=0;
-    bool infoIsFull=true;
-    //QTime a;a.start();
-    for (;i<count;++i)
-    {
-        if (hasChildren(index.child(i,0))&&!data(index.child(i,0)).isNull())
-            readRecursively(index.child(i,0));
-        else
-            data(index.child(i,Graph));
-    }
-
-}*/
 
 
 QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -261,22 +194,14 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 
     switch (section)
     {
-        case Graph:
-            return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
-        case Total:
-            return i18nc("@title:column Number of entries","Total");
-        case Translated:
-            return i18nc("@title:column Number of entries","Translated");
-        case Fuzzy:
-            return i18nc("@title:column Number of entries","Fuzzy");
-        case Untranslated:
-            return i18nc("@title:column Number of entries","Untranslated");
-        case TranslationDate:
-            return i18nc("@title:column","Last Translation");
-        case SourceDate:
-            return i18nc("@title:column","Template Revision");
-        case LastTranslator:
-            return i18nc("@title:column","Last Translator");
+    case Graph:         return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
+    case Total:         return i18nc("@title:column Number of entries","Total");
+    case Translated:    return i18nc("@title:column Number of entries","Translated");
+    case Fuzzy:         return i18nc("@title:column Number of entries","Fuzzy");
+    case Untranslated:  return i18nc("@title:column Number of entries","Untranslated");
+    case TranslationDate:   return i18nc("@title:column","Last Translation");
+    case SourceDate:        return i18nc("@title:column","Template Revision");
+    case LastTranslator:    return i18nc("@title:column","Last Translator");
     }
 
     return KDirModel::headerData(section, orientation, role);
@@ -287,11 +212,9 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
 void ProjectModel::openUrl(const KUrl& u)
 {
     //kDebug()<<"called";
-    kWarning()<<"called";
     static_cast<ProjectLister*>(dirLister())->cleanup();
     dirLister()->openUrl(u);
 }
-
 
 
 ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
@@ -637,13 +560,13 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             //ok, but what if the whole dir was deleted?
             if (pot.isDir())
             {
-                kDebug()<<"///////isdir///////";
+//                 kDebug()<<"///////isdir///////";
                 //TODO levels
                 KFileItemList li(m_templates->itemsForDir(pot.url()));
                 int aa=li.size();
-                kDebug()<<"itemsForDir"
-                        <<pot.url()
-                        <<aa;
+//                 kDebug()<<"itemsForDir"
+//                         <<pot.url()
+//                         <<aa;
                 while(--aa>=0)
                 {
                     poPath=li.at(aa).url().path(KUrl::RemoveTrailingSlash);
@@ -652,7 +575,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
                     KFileItem po(li.at(aa));
                     po.setUrl(KUrl::fromPath(poPath));
 
-                    kDebug()<<"add"<<poPath;
+//                     kDebug()<<"add"<<poPath;
                     list.append(po);
                     if ((pos=m_hiddenTemplItems.indexOf(li.at(aa).url()))!=-1)
                         m_hiddenTemplItems.removeAt(pos);
@@ -665,7 +588,7 @@ void ProjectLister::slotDeleteItem(const KFileItem& item)
             m_reactOnSignals=true;
         }
     }
-    kDebug()<<"end";
+//     kDebug()<<"end";
 }
 
 // void ProjectLister::clearTempl(const KUrl&)
@@ -680,10 +603,10 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
 {
     int i;
     QTime a;a.start();
-    kDebug()<<"start";
+//     kDebug()<<"start";
     i=list.size();
-    while(--i>=0)
-        kDebug()<<"got:"<<list.at(i).url();
+//     while(--i>=0)
+//         kDebug()<<"got:"<<list.at(i).url();
 
     i=list.size();
     while(--i>=0)
@@ -699,7 +622,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
             KFileItem po=findByUrl(KUrl::fromPath(poPath));
             if (!po.isNull()/*||(po=findByUrl(KUrl::fromPath(path)))*/)
             {
-                kDebug()<<"+++++++++aaaaaaaaaaaaa1"<<po.url();
+//                 kDebug()<<"+++++++++aaaaaaaaaaaaa1"<<po.url();
 //                 if (po)
 //                 {
 //                     if (po->metaInfo(false).item("translation.source_date").value()
@@ -714,11 +637,11 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
             }
             else
             {
-                kDebug()<<"2";
+//                 kDebug()<<"2";
                 if (!isDir)
                     list.at(i).setMetaInfo(KFileMetaInfo(list.at(i).url()));
-                kDebug()<<"not foundByUrl:"<<list.at(i).url()
-                        <<"path:"<<path;
+//                 kDebug()<<"not foundByUrl:"<<list.at(i).url()
+//                         <<"path:"<<path;
                 //causes deep copy
                 list[i].setUrl(KUrl::fromPath(path));
                 /*KFileItem* a=new KFileItem(*list.at(i));
@@ -736,8 +659,8 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
     }
 //     kWarning()<<"ddd";
     i=list.size();
-    while(--i>=0)
-        kDebug()<<"going to emit as new:"<<list.at(i).url();
+//     while(--i>=0)
+//         kDebug()<<"going to emit as new:"<<list.at(i).url();
 
     if (!list.isEmpty())
     {
@@ -745,7 +668,7 @@ void ProjectLister::slotNewTemplItems(KFileItemList list) // can't be a const re
         emit newItems(list);
         m_reactOnSignals=true;
     }
-    kDebug()<<"end"<<a.elapsed();
+//     kDebug()<<"end"<<a.elapsed();
 }
 
 void ProjectLister::slotDeleteTemplItem(const KFileItem& item)

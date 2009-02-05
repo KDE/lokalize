@@ -90,7 +90,7 @@ public:
  * It is accessible via Lokalize.currentEditor() from kross scripts and via
  * '/ThisIsWhatYouWant/Editor/# : org.kde.Lokalize.Editor' from qdbusviewer
  */
-class EditorWindow: public LokalizeSubwindowBase2
+class EditorTab: public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.Editor")
@@ -98,8 +98,8 @@ class EditorWindow: public LokalizeSubwindowBase2
 #define qdbuscpp2xml
 
 public:
-    EditorWindow(QWidget* parent);
-    ~EditorWindow();
+    EditorTab(QWidget* parent);
+    ~EditorTab();
 
 
     //interface for LokalizeMainWindow

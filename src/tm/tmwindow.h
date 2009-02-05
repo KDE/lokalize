@@ -57,15 +57,15 @@ class TMDBModel;
 /**
  * Translation Memory tab
  */
-class TMWindow: public LokalizeSubwindowBase2
+class TMTab: public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.TranslationMemory")
     //qdbuscpp2xml -m -s tm/tmwindow.h -o tm/org.kde.lokalize.TranslationMemory.xml
 
 public:
-    TMWindow(QWidget *parent);
-    ~TMWindow();
+    TMTab(QWidget *parent);
+    ~TMTab();
 
     void hideDocks(){};
     void showDocks(){};

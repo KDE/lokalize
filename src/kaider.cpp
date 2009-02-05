@@ -104,7 +104,7 @@
 
 
 
-EditorWindow::EditorWindow(QWidget* parent)
+EditorTab::EditorTab(QWidget* parent)
         : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
         , m_catalog(new Catalog(this))
@@ -136,7 +136,7 @@ EditorWindow::EditorWindow(QWidget* parent)
     //kWarning()<<chrono.elapsed();
 }
 
-void EditorWindow::initLater()
+void EditorTab::initLater()
 {
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
@@ -146,7 +146,7 @@ void EditorWindow::initLater()
     p.registerEditor(this);
 }
 
-EditorWindow::~EditorWindow()
+EditorTab::~EditorTab()
 {
     if (!m_catalog->isEmpty())
     {
@@ -160,7 +160,7 @@ EditorWindow::~EditorWindow()
 }
 
 
-void EditorWindow::setupStatusBar()
+void EditorTab::setupStatusBar()
 {
     statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status message entry","Current: %1",0));
     statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1",0));
@@ -172,17 +172,17 @@ void EditorWindow::setupStatusBar()
     connect(m_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
 }
 
-void EditorWindow::numberOfFuzziesChanged()
+void EditorTab::numberOfFuzziesChanged()
 {
     statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", m_catalog->numberOfNonApproved()));
 }
 
-void EditorWindow::numberOfUntranslatedChanged()
+void EditorTab::numberOfUntranslatedChanged()
 {
     statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1", m_catalog->numberOfUntranslated()));
 }
 
-void EditorWindow::setupActions()
+void EditorTab::setupActions()
 {
     //all operations that can be done after initial setup
     //(via QTimer::singleShot) go to initLater()
@@ -611,37 +611,37 @@ void EditorWindow::setupActions()
     //kWarning()<<"finished"<<aaa.elapsed();
 }
 
-void EditorWindow::setProperFocus()
+void EditorTab::setProperFocus()
 {
     m_view->setProperFocus();
 }
 
-void EditorWindow::hideDocks()
+void EditorTab::hideDocks()
 {
     if (m_catalogTreeView->isFloating())
         m_catalogTreeView->hide();
 }
 
-void EditorWindow::showDocks()
+void EditorTab::showDocks()
 {
     return;
     if (m_catalogTreeView->isFloating())
         m_catalogTreeView->show();
 }
 
-KUrl EditorWindow::currentUrl()
+KUrl EditorTab::currentUrl()
 {
     return m_catalog->url();
 }
 
-void EditorWindow::setCaption(QString title,bool modified)
+void EditorTab::setCaption(QString title,bool modified)
 {
     if (m_catalog->autoSaveRecovered()) title+=' '+i18nc("editor tab name","(recovered)");
     setWindowTitle(title+" [*]");
     setWindowModified(modified);
 }
 
-void EditorWindow::setFullPathShown(bool fullPathShown)
+void EditorTab::setFullPathShown(bool fullPathShown)
 {
     m_fullPathShown=fullPathShown;
 
@@ -649,7 +649,7 @@ void EditorWindow::setFullPathShown(bool fullPathShown)
 }
 
 
-void EditorWindow::updateCaptionPath()
+void EditorTab::updateCaptionPath()
 {
     KUrl url=m_catalog->url();
     if (!url.isLocalFile() || !_project->isLoaded())
@@ -669,7 +669,7 @@ void EditorWindow::updateCaptionPath()
 
 }
 
-bool EditorWindow::fileOpen(KUrl url)
+bool EditorTab::fileOpen(KUrl url)
 {
     if (!m_catalog->isClean())
     {
@@ -785,14 +785,14 @@ bool EditorWindow::fileOpen(KUrl url)
     return false;
 }
 
-bool EditorWindow::saveFileAs()
+bool EditorTab::saveFileAs()
 {
     KUrl url=KFileDialog::getSaveUrl(m_catalog->url(),m_catalog->mimetype(),this);
     if (url.isEmpty()) return false;
     return saveFile(url);
 }
 
-bool EditorWindow::saveFile(const KUrl& url)
+bool EditorTab::saveFile(const KUrl& url)
 {
     if (m_catalog->saveToUrl(url))
     {
@@ -810,7 +810,7 @@ bool EditorWindow::saveFile(const KUrl& url)
     return false;
 }
 
-EditorState EditorWindow::state()
+EditorState EditorTab::state()
 {
     EditorState state;
     state.dockWidgets=saveState();
@@ -822,7 +822,7 @@ EditorState EditorWindow::state()
 }
 
 
-bool EditorWindow::queryClose()
+bool EditorTab::queryClose()
 {
     if (m_catalog->isClean()) return true;
 
@@ -839,17 +839,17 @@ bool EditorWindow::queryClose()
 }
 
 
-void EditorWindow::undo()
+void EditorTab::undo()
 {
     gotoEntry(m_catalog->undo(),0);
 }
 
-void EditorWindow::redo()
+void EditorTab::redo()
 {
     gotoEntry(m_catalog->redo(),0);
 }
 
-void EditorWindow::gotoEntry()
+void EditorTab::gotoEntry()
 {
     DocPosition pos=m_currentPos;
     pos.entry=KInputDialog::getInteger(
@@ -865,7 +865,7 @@ void EditorWindow::gotoEntry()
     }
 }
 
-void EditorWindow::gotoEntry(DocPosition pos,int selection)
+void EditorTab::gotoEntry(DocPosition pos,int selection)
 {
     //specially for dbus users
     if (pos.entry>=m_catalog->numberOfEntries()||pos.entry<0)
@@ -928,7 +928,7 @@ void EditorWindow::gotoEntry(DocPosition pos,int selection)
     //kDebug()<<"ELA "<<time.elapsed();
 }
 
-void EditorWindow::msgStrChanged()
+void EditorTab::msgStrChanged()
 {
     bool isUntr=m_catalog->msgstr(m_currentPos).isEmpty();
     bool isApproved=m_catalog->isApproved(m_currentPos);
@@ -948,7 +948,7 @@ void EditorWindow::msgStrChanged()
     m_currentIsUntr=isUntr;
     m_currentIsApproved=isApproved;
 }
-void EditorWindow::switchForm(int newForm)
+void EditorTab::switchForm(int newForm)
 {
     if (m_currentPos.form==newForm) return;
 
@@ -957,7 +957,7 @@ void EditorWindow::switchForm(int newForm)
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoNext()
+void EditorTab::gotoNext()
 {
     DocPosition pos=m_currentPos;
 
@@ -966,7 +966,7 @@ void EditorWindow::gotoNext()
 }
 
 
-void EditorWindow::gotoPrev()
+void EditorTab::gotoPrev()
 {
     DocPosition pos=m_currentPos;
 
@@ -974,7 +974,7 @@ void EditorWindow::gotoPrev()
         gotoEntry(pos);
 }
 
-void EditorWindow::gotoPrevFuzzy()
+void EditorTab::gotoPrevFuzzy()
 {
     DocPosition pos;
 
@@ -984,7 +984,7 @@ void EditorWindow::gotoPrevFuzzy()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoNextFuzzy()
+void EditorTab::gotoNextFuzzy()
 {
     DocPosition pos;
 
@@ -994,7 +994,7 @@ void EditorWindow::gotoNextFuzzy()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoPrevUntranslated()
+void EditorTab::gotoPrevUntranslated()
 {
     DocPosition pos;
 
@@ -1004,7 +1004,7 @@ void EditorWindow::gotoPrevUntranslated()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoNextUntranslated()
+void EditorTab::gotoNextUntranslated()
 {
     DocPosition pos;
 
@@ -1014,7 +1014,7 @@ void EditorWindow::gotoNextUntranslated()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoPrevFuzzyUntr()
+void EditorTab::gotoPrevFuzzyUntr()
 {
     DocPosition pos;
 
@@ -1028,7 +1028,7 @@ void EditorWindow::gotoPrevFuzzyUntr()
     gotoEntry(pos);
 }
 
-bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
+bool EditorTab::gotoNextFuzzyUntr(const DocPosition& p)
 {
     int index=(p.entry==-1)?m_currentPos.entry:p.entry;
 
@@ -1048,7 +1048,7 @@ bool EditorWindow::gotoNextFuzzyUntr(const DocPosition& p)
 }
 
 
-void EditorWindow::toggleApprovementGotoNextFuzzyUntr()
+void EditorTab::toggleApprovementGotoNextFuzzyUntr()
 {
     if(!m_catalog->isApproved(m_currentPos.entry))
         m_view->toggleApprovement();
@@ -1056,7 +1056,7 @@ void EditorWindow::toggleApprovementGotoNextFuzzyUntr()
         gotoNextFuzzyUntr(DocPosition(-2));//so that we don't skip the first
 }
 
-void EditorWindow::gotoPrevBookmark()
+void EditorTab::gotoPrevBookmark()
 {
     DocPosition pos;
 
@@ -1066,7 +1066,7 @@ void EditorWindow::gotoPrevBookmark()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoNextBookmark()
+void EditorTab::gotoNextBookmark()
 {
     DocPosition pos;
 
@@ -1076,18 +1076,18 @@ void EditorWindow::gotoNextBookmark()
     gotoEntry(pos);
 }
 
-void EditorWindow::gotoFirst()
+void EditorTab::gotoFirst()
 {
     gotoEntry(DocPosition(0));
 }
 
-void EditorWindow::gotoLast()
+void EditorTab::gotoLast()
 {
     gotoEntry(DocPosition(m_catalog->numberOfEntries()-1));
 }
 
 //wrapper for cmdline handling...
-void EditorWindow::mergeOpen(KUrl url)
+void EditorTab::mergeOpen(KUrl url)
 {
     _mergeView->mergeOpen(url);
 }
@@ -1098,7 +1098,7 @@ KUrl EditorWindow::mergeFile()
 }
 */
 //see also termlabel.h
-void EditorWindow::defineNewTerm()
+void EditorTab::defineNewTerm()
 {
     QString en(m_view->selectionInSource().toLower());
     if (en.isEmpty())
@@ -1114,9 +1114,9 @@ void EditorWindow::defineNewTerm()
 
 //BEGIN DBus interface
 #include "editoradaptor.h"
-QList<int> EditorWindow::ids;
+QList<int> EditorTab::ids;
 
-QString EditorWindow::dbusObjectPath()
+QString EditorTab::dbusObjectPath()
 {
     if ( m_dbusId==-1 )
     {
@@ -1133,11 +1133,11 @@ QString EditorWindow::dbusObjectPath()
 }
 
 
-QString EditorWindow::selectionInTarget()
+QString EditorTab::selectionInTarget()
 {
     return m_view->selectionInTarget();
 }
-QString EditorWindow::selectionInSource()
+QString EditorTab::selectionInSource()
 {
     return m_view->selectionInSource();
 }

@@ -181,7 +181,7 @@ static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
         }
 }
 
-void EditorWindow::find()
+void EditorTab::find()
 {
     //QWidget* p=0; QWidget* next=qobject_cast<QWidget*>(parent()); while(next) { p=next; next=qobject_cast<QWidget*>(next->parent()); }
     EntryFindDialog::instance(nativeParentWidget());
@@ -224,7 +224,7 @@ void EditorWindow::find()
     findNext(pos);
 }
 
-bool EditorWindow::determineStartingPos(KFind* find,
+bool EditorTab::determineStartingPos(KFind* find,
                                   DocPosition& pos)
 {
     if (find->options() & KFind::FindBackwards)
@@ -241,7 +241,7 @@ bool EditorWindow::determineStartingPos(KFind* find,
     return true;
 }
 
-void EditorWindow::findNext(const DocPosition& startingPos)
+void EditorTab::findNext(const DocPosition& startingPos)
 {
     Catalog& catalog=*m_catalog;
     KFind& find=*_find;
@@ -314,7 +314,7 @@ void EditorWindow::findNext(const DocPosition& startingPos)
     m_catalogTreeView->setUpdatesEnabled(true);
 }
 
-void EditorWindow::findNext()
+void EditorTab::findNext()
 {
     if (_find)
     {
@@ -326,7 +326,7 @@ void EditorWindow::findNext()
 
 }
 
-void EditorWindow::findPrev()
+void EditorTab::findPrev()
 {
 
     if (_find)
@@ -341,7 +341,7 @@ void EditorWindow::findPrev()
 
 }
 
-void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedLength)
+void EditorTab::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
     if (_find->options()&IGNOREACCELS)
     {
@@ -358,7 +358,7 @@ void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedL
     gotoEntry(_searchingPos,matchedLength);
 }
 
-void EditorWindow::replace()
+void EditorTab::replace()
 {
     EntryReplaceDialog::instance(nativeParentWidget());
 
@@ -415,7 +415,7 @@ void EditorWindow::replace()
 }
 
 
-void EditorWindow::replaceNext(const DocPosition& startingPos)
+void EditorTab::replaceNext(const DocPosition& startingPos)
 {
     bool anotherEntry=_replacingPos.entry!=_replacingPos.entry;
     _replacingPos=startingPos;
@@ -486,12 +486,12 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
     m_catalogTreeView->setUpdatesEnabled(true);
 }
 
-void EditorWindow::replaceNext()
+void EditorTab::replaceNext()
 {
     replaceNext(m_currentPos);
 }
 
-void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matchedLength)
+void EditorTab::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
     if (_replace->options()&IGNOREACCELS)
     {
@@ -509,7 +509,7 @@ void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matched
 }
 
 
-void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int remLen)
+void EditorTab::doReplace(const QString &newStr,int offset,int newLen,int remLen)
 {
     if(!m_doReplaceCalled)
     {
@@ -553,7 +553,7 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
 
 
 
-void EditorWindow::spellcheck()
+void EditorTab::spellcheck()
 {
     if (!m_sonnetDialog)
     {
@@ -590,7 +590,7 @@ void EditorWindow::spellcheck()
 }
 
 
-void EditorWindow::spellcheckNext()
+void EditorTab::spellcheckNext()
 {
     if (!_spellcheckStop && switchNext(m_catalog,_spellcheckPos))
     {
@@ -606,18 +606,18 @@ void EditorWindow::spellcheckNext()
     }
 }
 
-void EditorWindow::spellcheckStop()
+void EditorTab::spellcheckStop()
 {
     _spellcheckStop=true;
 }
 
-void EditorWindow::spellcheckCancel()
+void EditorTab::spellcheckCancel()
 {
     m_catalog->setIndex(_spellcheckStartUndoIndex);
     gotoEntry(_spellcheckPos);
 }
 
-void EditorWindow::spellcheckShow(const QString &word, int offset)
+void EditorTab::spellcheckShow(const QString &word, int offset)
 {
     QString source=m_catalog->source(_spellcheckPos);
     source.remove('&');
@@ -639,7 +639,7 @@ void EditorWindow::spellcheckShow(const QString &word, int offset)
     gotoEntry(pos,length);
 }
 
-void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString &newWord)
+void EditorTab::spellcheckReplace(QString oldWord, int offset, const QString &newWord)
 {
     DocPosition pos=_spellcheckPos;
     int length=oldWord.length();
@@ -665,7 +665,7 @@ void EditorWindow::spellcheckReplace(QString oldWord, int offset, const QString 
 
 
 
-bool EditorWindow::findEntryBySourceContext(const QString& source, const QString& ctxt)
+bool EditorTab::findEntryBySourceContext(const QString& source, const QString& ctxt)
 {
     DocPosition pos(0);
     do
@@ -681,7 +681,7 @@ bool EditorWindow::findEntryBySourceContext(const QString& source, const QString
 }
 
 
-void EditorWindow::displayWordCount()
+void EditorTab::displayWordCount()
 {
     //TODO in trans and fuzzy separately
     int sourceCount=0;

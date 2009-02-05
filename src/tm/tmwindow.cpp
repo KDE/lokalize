@@ -196,7 +196,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 
 //BEGIN TMWindow
 
-TMWindow::TMWindow(QWidget *parent)
+TMTab::TMTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_proxyModel(new QSortFilterProxyModel(this))
     , m_dbusId(-1)
@@ -287,25 +287,25 @@ TMWindow::TMWindow(QWidget *parent)
     dbusObjectPath();
 }
 
-TMWindow::~TMWindow()
+TMTab::~TMTab()
 {
     delete ui_queryOptions;
     ids.remove(m_dbusId);
 }
 
-void TMWindow::selectDB(int i)
+void TMTab::selectDB(int i)
 {
     //m_dbCombo->setCurrentIndex(i);
 }
 
-void TMWindow::updateTM()
+void TMTab::updateTM()
 {
     QList<QUrl> urls;
     urls.append(Project::instance()->poDir());
     scanRecursive(urls,Project::instance()->projectID());
 }
 
-void TMWindow::performQuery()
+void TMTab::performQuery()
 {
     m_model->setFilter(ui_queryOptions->querySource->text(), ui_queryOptions->queryTarget->text(),
                        ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
@@ -324,17 +324,17 @@ void TMWindow::performQuery()
     view->setFocus();
 }
 
-void TMWindow::copySource()
+void TMTab::copySource()
 {
     //QApplication::clipboard()->setText(m_view->currentIndex().data().toString());
     QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Source).data().toString());
 }
-void TMWindow::copyTarget()
+void TMTab::copyTarget()
 {
     QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Target).data().toString());
 }
 
-void TMWindow::openFile()
+void TMTab::openFile()
 {
     QModelIndex item=ui_queryOptions->treeView->currentIndex();
     emit fileOpenRequested(item.sibling(item.row(),TMDBModel::Filepath).data(Qt::UserRole).toString(),
@@ -400,13 +400,13 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
 
 
 
-void TMWindow::dragEnterEvent(QDragEnterEvent* event)
+void TMTab::dragEnterEvent(QDragEnterEvent* event)
 {
     if(dragIsAcceptable(event->mimeData()->urls()))
         event->acceptProposedAction();
 }
 
-void TMWindow::dropEvent(QDropEvent *event)
+void TMTab::dropEvent(QDropEvent *event)
 {
     if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
         event->acceptProposedAction();
@@ -415,9 +415,9 @@ void TMWindow::dropEvent(QDropEvent *event)
 #include "translationmemoryadaptor.h"
 
 //BEGIN DBus interface
-QList<int> TMWindow::ids;
+QList<int> TMTab::ids;
 
-QString TMWindow::dbusObjectPath()
+QString TMTab::dbusObjectPath()
 {
     if ( m_dbusId==-1 )
     {
@@ -435,7 +435,7 @@ QString TMWindow::dbusObjectPath()
 }
 
 
-bool TMWindow::findGuiTextPackage(QString text,const QString& package)
+bool TMTab::findGuiTextPackage(QString text,const QString& package)
 {
     text.remove(Project::instance()->accel());
     ui_queryOptions->querySource->setText(text);

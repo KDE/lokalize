@@ -104,10 +104,10 @@ qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
 
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
-                     kaider.h EditorWindow)
+                     kaider.h EditorTab)
 
 qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
-                     tm/tmwindow.h TM::TMWindow)
+                     tm/tmwindow.h TM::TMTab)
 
 kde4_add_app_icon(lokalize_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-lokalize.png")
 
@@ -139,4 +139,6 @@ install( FILES scripts/find-gui-text.sh  DESTINATION  ${DATA_INSTALL_DIR}/lokali
 install( FILES scripts/widget-text-capture.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 install( FILES scripts/widget-text-capture.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 install( FILES scripts/widget-text-capture.ui  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES scripts/xliff2odf.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES scripts/xliff2odf.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 

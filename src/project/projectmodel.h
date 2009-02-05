@@ -90,13 +90,12 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
     Qt::ItemFlags flags( const QModelIndex& index ) const;
-
+//     void fetchMore(const QModelIndex& parent);
     //also cleans up data belonging to previous project
     void openUrl(const KUrl&);
 
 public slots:
-    //void aa(){kWarning()<<"dataChanged";}
-    //void readRecursively(const QModelIndex& parent=QModelIndex());
+    void calcStats(const QModelIndex& parent, int start=0, int end=0);
 
 private:
     KIcon m_dirIcon;
