@@ -80,13 +80,14 @@ void ProjectModel::calcStats(const QModelIndex& parent, int start, int end)
 
         if (!childMetaInfo.item("translation.translated").value().isNull())
         {
-            kWarning()<<"adding from:"<<itemForIndex(parent.child(i,0)).name();
+//             kWarning()<<"adding from:"<<itemForIndex(parent.child(i,0)).name();
             translated+=childMetaInfo.item("translation.translated").value().toInt();
             untranslated+=childMetaInfo.item("translation.untranslated").value().toInt();
             fuzzy+=childMetaInfo.item("translation.fuzzy").value().toInt();
         }
-        else
-            kWarning()<<"skipping:"<<itemForIndex(parent.child(i,0)).name();
+//         else
+//             kWarning()<<"skipping:"<<itemForIndex(parent.child(i,0)).name();
+    }
     //kWarning()<<"getting info"<<item.name()<<count<<canFetchMore(parent)<<a.elapsed();
 
     int sum=metaInfo.item("translation.untranslated").value().toInt()
@@ -104,7 +105,6 @@ void ProjectModel::calcStats(const QModelIndex& parent, int start, int end)
     //update all the parents
     if (this->parent(parent).isValid())
         calcStats(this->parent(parent));
-
 
 }
 
@@ -215,6 +215,7 @@ void ProjectModel::openUrl(const KUrl& u)
     static_cast<ProjectLister*>(dirLister())->cleanup();
     dirLister()->openUrl(u);
 }
+
 
 
 ProjectLister::ProjectLister(ProjectModel* model, QObject *parent)
