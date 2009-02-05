@@ -93,6 +93,7 @@ public slots: //DBus interface
     QList<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
     QString alttrans(const DocPosition& pos) const;
+    QStringList sourceFiles(const DocPosition& pos) const;
     QString msgctxt(uint index) const;
 
     bool isPlural(uint index) const;

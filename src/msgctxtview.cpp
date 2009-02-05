@@ -217,25 +217,23 @@ void MsgCtxtView::process()
     else
         m_browser->setHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add a note...")+"</a> ");
 
-    if (m_catalog->msgctxt(m_entry.entry).isEmpty())
+    QString html;
+    QStringList sourceFiles=m_catalog->sourceFiles(m_entry.toDocPosition());
+    if (!sourceFiles.isEmpty())
     {
-        if (m_hasInfo)
-        {
-            setWindowTitle(m_normTitle);
-            m_hasInfo=false;
-        }
+        html+=i18nc("@info PO comment parsing","<br><b>Files:</b><br>");
+        foreach(QString sourceFile, sourceFiles)
+            html+=QString("<a href=\"src:/%1\">%2</a><br />").arg(sourceFile).arg(sourceFile);
+        html.chop(6);
     }
-    else
-    {
-        if (!m_hasInfo)
-        {
-            setWindowTitle(m_hasInfoTitle);
-            m_hasInfo=true;
-        }
-        t.movePosition(QTextCursor::End);
-        m_browser->setTextCursor(t);
-        m_browser->insertHtml(i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry.entry));
-    }
+
+    if (!m_catalog->msgctxt(m_entry.entry).isEmpty())
+        html+=i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry.entry);
+
+    t.movePosition(QTextCursor::End);
+    m_browser->setTextCursor(t);
+    m_browser->insertHtml(html);
+
     t.movePosition(QTextCursor::Start);
     t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,realOffset+m_offset);
     t.movePosition(QTextCursor::NextCharacter,QTextCursor::KeepAnchor,m_selection);
@@ -244,7 +242,7 @@ void MsgCtxtView::process()
 
 void MsgCtxtView::anchorClicked(const QUrl& link)
 {
-    QString path=link.path();
+    QString path=link.path().mid(1);// minus '/'
 
     if (link.scheme()=="note")
     {
@@ -260,7 +258,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
             m_editor->setNote(Note(),-1);
         else
         {
-            int pos=path.mid(1).toInt();// minus '/'
+            int pos=path.toInt();
             QList<Note> notes=m_catalog->notes(m_entry.toDocPosition());
             m_editor->setNote(notes.at(pos),pos);
         }
@@ -270,7 +268,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
     else if (link.scheme()=="src")
     {
         int pos=link.path().lastIndexOf(':');
-        emit srcFileOpenRequested(path.mid(1,pos-1),path.mid(pos+1).toInt());
+        emit srcFileOpenRequested(path.left(pos),path.mid(pos+1).toInt());
     }
 }
 

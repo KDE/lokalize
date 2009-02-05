@@ -541,6 +541,38 @@ QString XliffStorage::alttrans(const DocPosition& pos) const
     return QString();
 }
 
+QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
+{
+    QStringList result;
+
+    QDomElement elem = entries.at(m_map.at(pos.entry)).firstChildElement("context-group");
+    while (!elem.isNull())
+    {
+        if (!elem.attribute("purpose").contains("location"))
+            continue;
+
+        QDomElement context = elem.firstChildElement("context");
+        while (!context.isNull())
+        {
+            QString sourcefile;
+            QString linenumber;
+            if (context.attribute("context-type")=="sourcefile")
+                sourcefile=context.text();
+            else if (context.attribute("context-type")=="linenumber")
+                linenumber=context.text();
+            if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
+                result.append(sourcefile+':'+linenumber);
+
+            context=context.nextSiblingElement("context");
+        }
+
+        elem=elem.nextSiblingElement("context-group");
+    }
+    //qSort(result);
+
+    return result;
+}
+
 static void initNoteFromElement(Note& note, QDomElement elem)
 {
     note.content=elem.text();

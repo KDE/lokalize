@@ -86,6 +86,8 @@ public:
     virtual Note setNote(const DocPosition& pos, const Note& note)=0;
     virtual QStringList noteAuthors() const{return QStringList();}
 
+    virtual QStringList sourceFiles(const DocPosition& pos) const=0;
+
     //DocPosition.form - number of <context>
     virtual QString context(const DocPosition& pos) const=0;
     virtual int contextCount(const DocPosition& pos) const=0;

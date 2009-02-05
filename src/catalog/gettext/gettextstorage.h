@@ -69,6 +69,7 @@ public:
     QList<Note> notes(const DocPosition& pos) const;
     Note setNote(const DocPosition& pos, const Note& note);
     QString alttrans(const DocPosition& pos) const;
+    QStringList sourceFiles(const DocPosition& pos) const;
 
     //DocPosition.form - number of <context>
     QString context(const DocPosition& pos) const;

@@ -64,6 +64,8 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
 {
     QTextStream stream(device);
 
+    if ( m_wrapWidth == -1 ) m_wrapWidth=80;
+
 #if 0
 //legacy
     if (useOldEncoding && catalog->fileCodec())
@@ -230,6 +232,9 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         return; 
     }
 
+    kWarning()<<"m_wrapWidth"<<m_wrapWidth;
+
+#if 0
     if ( m_wrapWidth == -1 )
     {
         // Traditional KBabel wrapping
@@ -251,6 +256,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
             stream << '\"' << (*it) << "\"\n";
         return;
     }
+#endif
 
     if ( m_wrapWidth <= 0 ) // Unknown special wrapping, so assume "no wrap" instead
     {

@@ -252,81 +252,65 @@ void updateHeader(QString& header,
     QString temp;
 
     bool found=false;
-
     temp="Last-Translator: "+Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
         temp+=(" <"+Settings::authorEmail()+'>');
     temp+="\\n";
 
 
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         if (it->contains(QRegExp("^ *Last-Translator:.*")))
         {
-            if (forSaving)
-                (*it) = temp;
+            if (forSaving) *it = temp;
             found=true;
         }
     }
-
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
     QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
-    found=false;
     temp="PO-Revision-Date: "+dateTimeString+"\\n";
-
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
-        if (it->contains(QRegExp("^ *PO-Revision-Date:.*")))
-        {
-            if (forSaving)
-                (*it) = temp;
-            found=true;
-        }
+        found=it->contains(QRegExp("^ *PO-Revision-Date:.*"));
+        if (found && forSaving) *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
-
-    found=false;
 
     temp="Project-Id-Version: "+CatalogProjectId+"\\n";
     temp.remove(".pot");
     temp.remove(".po");
     //temp.replace( "@PACKAGE@", packageName());
 
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
-        if (it->contains(QRegExp("^ *Project-Id-Version:.*")))
-        {
-            if (it->contains("PACKAGE VERSION"))
-                (*it) = temp;
-            found=true;
-        }
+        found=it->contains(QRegExp("^ *Project-Id-Version:.*"));
+        if (found && it->contains("PACKAGE VERSION"))
+            *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    found=false;
     langCode=Project::instance()->isLoaded()?
              Project::instance()->langCode():
              Settings::defaultLangCode();
 
     KConfig lll("all_languages", KConfig::NoGlobals, "locale");
     lll.setLocale("");
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
-        if (it->contains(QRegExp("^ *Language-Team:.*")))
+        found=it->contains(QRegExp("^ *Language-Team:.*"));
+        if (found)
         {
-            found=true;
             //really parse header
             QMap<QString,QString> map;
             QStringList langlist = KGlobal::locale()->languageList();
-            QStringList::const_iterator myit;
-            for (myit=langlist.begin();myit!=langlist.end();++myit)
+            foreach (QString myit, langlist)
             {
-                KConfigGroup cg(&lll, *myit);
-                map[cg.readEntry("Name")]=*myit;
+                KConfigGroup cg(&lll, myit);
+                map[cg.readEntry("Name")]=myit;
             }
 
             QRegExp re("^ *Language-Team: *(.*) *<");
@@ -348,8 +332,6 @@ void updateHeader(QString& header,
         temp+=" <"+Project::instance()->mailingList()+'>';
     else
         temp+=" <"+Settings::defaultMailingList()+'>';
-/*    if (!identityOptions->readEntry("DefaultMailingList").isEmpty())
-        temp+=(" <"+identityOptions->readEntry("DefaultMailingList")+'>');*/
     temp+="\\n";
 
     if (KDE_ISLIKELY( found ))
@@ -358,112 +340,50 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
 
-//     if(!usePrefs || saveOptions.updateCharset)
-//     {
-//         found=false;
-//
-//         QString encodingStr;
-//         if(saveOptions.useOldEncoding && d->fileCodec)
-//         {
-//             encodingStr = charsetString(d->fileCodec);
-//         }
-//         else
-//         {
-//             encodingStr=charsetString(saveOptions.encoding);
-//         }
-//         it = headerList.begin();
-//         while( it != headerList.end() )
-//         {
-//             if( it->contains( QRegExp( "^ *Content-Type:.*" ) ) )
-//             {
-//                 if ( found )
-//                 {
-//                     // We had already a Content-Type, so we do not need a duplicate
-//                     it = headerList.erase( it );
-//                 }
-//                 else
-//                 {
-//                     found=true;
-//                     QRegExp regexp( "^ *Content-Type:(.*/.*);?\\s*charset=.*$" );
-//                     QString mimeType;
-//                     if ( regexp.indexIn( *it )!=-1 )
-//                     {
-//                         mimeType = regexp.cap( 1 ).trimmed();
-//                     }
-//                     if ( mimeType.isEmpty() )
-//                     {
-//                         mimeType = "text/plain";
-//                     }
-//                     temp = "Content-Type: ";
-//                     temp += mimeType;
-//                     temp += "; charset=";
-//                     temp += encodingStr;
-//                     temp += "\\n";
-//                     (*it) = temp;
-//                 }
-//             }
-//             ++it;
-//         }
-//         if(!found)
-//         {
-//             headerList.append(temp);
-//         }
-//     }
+    temp="Content-Type: text/plain; charset=UTF-8\\n";
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
+    {
+        found=it->contains(QRegExp("^ *Content-Type:.*"));
+        if (found) *it=temp;
+    }
+    if (KDE_ISUNLIKELY( !found ))
+        headerList.append(temp);
+
+
     found=false;
     temp="Content-Transfer-Encoding: 8bit\\n";
 
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
-    {
-        if (it->contains(QRegExp("^ *Content-Transfer-Encoding:.*")))
-            found=true;
-    }
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
+        found=it->contains(QRegExp("^ *Content-Transfer-Encoding:.*"));
     if (!found)
         headerList.append(temp);
 
     temp="X-Generator: Lokalize %1\\n";
     temp=temp.arg(KAIDER_VERSION);
-    found=false;
 
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
     {
-        if (it->contains(QRegExp("^ *X-Generator:.*")))
-        {
-            (*it) = temp;
-            found=true;
-        }
+        found=it->contains(QRegExp("^ *X-Generator:.*"));
+        if (found) *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
     // ensure MIME-Version header
     temp="MIME-Version: 1.0\\n";
-    found=false;
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
+    for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
     {
-        if (it->contains(QRegExp("^ *MIME-Version:")))
-        {
-            (*it) = temp;
-            found=true;
-        }
+        found=it->contains(QRegExp("^ *MIME-Version:"));
+        if (found) *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
-    {
         headerList.append(temp);
-    }
 
-
-    found=false;
 
     kDebug()<<"testing for GNUPluralForms";
     // update plural form header
-    for ( it = headerList.begin(); it != headerList.end(); ++it )
-    {
-        if (it->contains(QRegExp("^ *Plural-Forms:")))
-        {
-            found=true;
-            break;
-        }
-    }
+    for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
+        found=it->contains(QRegExp("^ *Plural-Forms:"));
     if (found)
     {
         kDebug()<<"GNUPluralForms found";
@@ -492,7 +412,6 @@ void updateHeader(QString& header,
                 }
             }
         }
-        //setNumberOfPluralForms(num);
         numberOfPluralForms=num;
 
     }
@@ -507,21 +426,12 @@ void updateHeader(QString& header,
 
     //m_header.setMsgstr( headerList.join( "\n" ) );
     header=headerList.join("\n");
-
 //END header itself
 
 //BEGIN comment = description, copyrights
-    found=false;
-
-    for ( it = commentList.begin(); it != commentList.end(); ++it )
-    {
+    for ( it = commentList.begin(),found=false; it != commentList.end()&& !found; ++it )
         // U+00A9 is the Copyright sign
-        if ( it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc") ) )
-        {
-            found=true;
-            break;
-        }
-    }
+        found=it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc") ) ;
     if (found)
     {
         if ( it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9) YEAR Free Software Foundation, Inc\\.") ) )

@@ -61,6 +61,7 @@ public:
     void targetInsertTag(const DocPosition&, const TagRange&);
     TagRange targetDeleteTag(const DocPosition&);
 
+    QStringList sourceFiles(const DocPosition& pos) const;
     QString alttrans(const DocPosition& pos) const;
 
     ///@a pos.form is note number

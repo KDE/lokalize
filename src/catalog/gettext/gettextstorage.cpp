@@ -240,48 +240,29 @@ QList<Note> GettextStorage::notes(const DocPosition& docPosition) const
     }
     return result;
 
-    //TODO
-    //BEGIN files
-    QString comment=m_entries.at(docPosition.entry).comment();
-    comment.replace('<',"&lt;");
-    comment.replace('>',"&gt;");
-    int pos=comment.indexOf("#:");
-    while (pos!=-1)
+i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
+i18nc("@info PO comment parsing","<i>GUI place:</i>");
+}
+
+QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
+{
+    QStringList result;
+
+    QStringList ui=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#. i18n: file: "));
+    foreach(QString uiLine,ui)
     {
-        int endPos=comment.indexOf('\n',pos+3);
-        if (endPos==-1)
-            endPos=comment.size();
-        QStringList files=comment.mid(pos+3,endPos-pos-3).split(' ', QString::SkipEmptyParts);
-        QString places=i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
-        int i=0;
-        for (;i<files.size();++i)
-        {
-            QString href=files.at(i);
-            //href.replace(':','#');
-            places+=" <a href=\"src:/"+href+"\">"+files.at(i)+"</a> ";
-        }
-        comment.replace(pos,endPos-pos,places);
-        pos=comment.indexOf("#:",pos);
+        QStringList uiFiles=uiLine.mid(15).split(' ');
+        result+=uiFiles;
     }
-    //END files
+    bool hasUi=!result.isEmpty();
 
-
-
-    pos=comment.indexOf("#. i18n:");
-    if (pos!=-1)
+    QStringList cpp=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#: "));
+    foreach(QString cppLine,cpp)
     {
-        comment.replace(pos,8,i18nc("@info PO comment parsing","<i>GUI place:</i>"));
-        comment.replace("#. i18n:","<br>");
+        if (hasUi && cppLine.startsWith("#: rc.cpp")) continue;
+        QStringList cppFiles=cppLine.mid(3).split(' ');
+        result+=cppFiles;
     }
-    comment.replace("#,",i18nc("@info PO comment parsing","<br><i>Misc:</i>"));
-    //comment.remove(QRegExp("#\\|[^\n]+\n")); //we're parsing this in another view
-    comment.replace("#| msgid",i18nc("@info PO comment parsing","<br><i>Previous string:</i>"));
-    comment.replace("#| msgctxt",i18nc("@info PO comment parsing","<br><i>Previous context:</i>"));
-    comment.replace("#|","<br>");
-    comment.replace('#',"<br>");
-
-
-    result<<Note(comment);
     return result;
 }
 

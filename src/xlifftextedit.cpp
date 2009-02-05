@@ -647,6 +647,8 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                             && ((textCursor().atStart()&&keyEvent->key()==Qt::Key_Backspace)
                                  ||(textCursor().atEnd()&&keyEvent->key()==Qt::Key_Delete) ))
             emit toggleApprovementRequested();
+        else
+            KTextEdit::keyPressEvent(keyEvent);
     }
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)

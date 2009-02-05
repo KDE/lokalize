@@ -227,6 +227,15 @@ QString Catalog::alttrans(const DocPosition& pos) const
     return m_storage->alttrans(pos);
 }
 
+QStringList Catalog::sourceFiles(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return QStringList();
+
+    return m_storage->sourceFiles(pos);
+}
+
+
 QString Catalog::msgctxt(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
