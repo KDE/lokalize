@@ -76,6 +76,7 @@ private slots:
     void openProject(const KUrl& url){openProject(url.path());}//convenience overload for recent projects action
     void openProject(){openProject(QString());}
 
+
 public slots:
     /**
      * Adds new editor with @param path loaded,

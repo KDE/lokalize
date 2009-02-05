@@ -3,10 +3,13 @@
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,19 +17,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
 
@@ -125,12 +116,8 @@ EditorWindow::EditorWindow(QWidget* parent)
         , m_currentIsUntr(true)
         , m_fullPathShown(false)
         , m_doReplaceCalled(false)
-        , _findDialog(0)
         , _find(0)
-        , _replaceDialog(0)
         , _replace(0)
-        , ui_findExtension(0)
-        , ui_replaceExtension(0)
         , _mergeView(0)
         , _mergeViewSecondary(0)
         , m_dbusId(-1)
@@ -167,7 +154,6 @@ EditorWindow::~EditorWindow()
         emit fileClosed();
         emit fileClosed(currentFile());
     }
-    deleteUiSetupers();
 
     Project::instance()->unregisterEditor(this);
     ids.remove(m_dbusId);
@@ -438,7 +424,7 @@ void EditorWindow::setupActions()
     action->setText(i18nc("@action:inmenu","Set as Approved and go to next"));
     connect( action, SIGNAL( triggered() ), this, SLOT( toggleApprovementGotoNextFuzzyUntr() ) );
 
-    
+
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
     QString systemLang=KGlobal::locale()->language();
     if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
@@ -832,9 +818,9 @@ bool EditorWindow::saveFile(const KUrl& url)
     return false;
 }
 
-KAiderState EditorWindow::state()
+EditorState EditorWindow::state()
 {
-    KAiderState state;
+    EditorState state;
     state.dockWidgets=saveState();
     state.url=m_catalog->url();
     state.mergeUrl=_mergeView->url();
@@ -1132,11 +1118,11 @@ KUrl EditorWindow::mergeFile()
 //see also termlabel.h
 void EditorWindow::defineNewTerm()
 {
-    QString en(m_view->selectionMsgId().toLower());
+    QString en(m_view->selectionInSource().toLower());
     if (en.isEmpty())
         en=m_catalog->msgid(m_currentPos).toLower();
 
-    QString target(m_view->selection().toLower());
+    QString target(m_view->selectionInTarget().toLower());
     if (target.isEmpty())
         target=m_catalog->msgstr(m_currentPos).toLower();
 
@@ -1167,11 +1153,11 @@ QString EditorWindow::dbusObjectPath()
 
 QString EditorWindow::selectionInTarget()
 {
-    return m_view->selection();
+    return m_view->selectionInTarget();
 }
 QString EditorWindow::selectionInSource()
 {
-    return m_view->selectionMsgId();
+    return m_view->selectionInSource();
 }
 
 

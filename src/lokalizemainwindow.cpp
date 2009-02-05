@@ -160,7 +160,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         if (qobject_cast<EditorWindow*>(prevEditor))
         {
             EditorWindow* w=static_cast<EditorWindow*>( prevEditor );
-            KAiderState state=w->state();
+            EditorState state=w->state();
             m_lastEditorState=state.dockWidgets.toBase64();
         }
             /*
@@ -186,7 +186,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         EditorWindow* w=static_cast<EditorWindow*>( editor );
         w->setProperFocus();
 
-        KAiderState state=w->state();
+        EditorState state=w->state();
         m_lastEditorState=state.dockWidgets.toBase64();
 
 /*
@@ -494,7 +494,7 @@ void LokalizeMainWindow::saveProjectState()
             continue;
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
-        KAiderState state=static_cast<EditorWindow*>( editors.at(i)->widget() )->state();
+        EditorState state=static_cast<EditorWindow*>( editors.at(i)->widget() )->state();
         files.append(state.url.pathOrUrl());
         mergeFiles.append(state.mergeUrl.pathOrUrl());
         dockWidgets.append(state.dockWidgets.toBase64());

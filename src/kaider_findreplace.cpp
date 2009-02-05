@@ -1,12 +1,15 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,19 +17,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
 
@@ -57,20 +48,120 @@
 #include <sonnet/dialog.h>
 
 #include <QTimer>
+#include <QPointer>
 
 
-//#define FIND_IGNOREACCELS 2048
-//#define FIND_SKIPTAGS 4096
-#define FIND_IGNOREACCELS ui_findExtension->m_ignoreAccelMarks->isChecked()
-#define FIND_SKIPTAGS ui_findExtension->m_skipTags->isChecked()
-#define FIND_INCLUDENOTES ui_findExtension->m_notes->isChecked()
-#define REPLACE_IGNOREACCELS ui_replaceExtension->m_ignoreAccelMarks->isChecked()
+#define IGNOREACCELS KFind::MinimumUserOption
+#define INCLUDENOTES KFind::MinimumUserOption*2
 
-void EditorWindow::deleteUiSetupers()
+static long makeOptions(const KFindDialog* q, const Ui_findExtension* ui_findExtension)
 {
-    delete ui_findExtension;
-    delete ui_replaceExtension;
+    return q->options()
+              +IGNOREACCELS*ui_findExtension->m_ignoreAccelMarks->isChecked()
+              +INCLUDENOTES*ui_findExtension->m_notes->isChecked();
+    //bool skipMarkup(){return ui_findExtension->m_skipTags->isChecked();}
 }
+
+class EntryFindDialog: public KFindDialog
+{
+public:
+    EntryFindDialog(QWidget* parent);
+    ~EntryFindDialog();
+    long options() const{return makeOptions(this,ui_findExtension);}
+    static EntryFindDialog* instance(QWidget* parent=0);
+private:
+    static QPointer<EntryFindDialog> _instance;
+    static void cleanup(){delete EntryFindDialog::_instance;}
+private:
+    Ui_findExtension* ui_findExtension;
+};
+
+QPointer<EntryFindDialog> EntryFindDialog::_instance=0;
+EntryFindDialog* EntryFindDialog::instance(QWidget* parent)
+{
+    if (_instance==0 )
+    {
+        _instance=new EntryFindDialog(parent);
+        qAddPostRoutine(EntryFindDialog::cleanup);
+    }
+    return _instance;
+}
+
+EntryFindDialog::EntryFindDialog(QWidget* parent)
+ : KFindDialog(parent)
+ , ui_findExtension(new Ui_findExtension)
+{
+    ui_findExtension->setupUi(findExtension());
+    setHasSelection(false);
+
+    KConfig config;
+    KConfigGroup stateGroup(&config,"FindReplace");
+    setOptions(stateGroup.readEntry("FindOptions",(qlonglong)0));
+    setFindHistory(stateGroup.readEntry("FindHistory",QStringList()));
+}
+
+EntryFindDialog::~EntryFindDialog()
+{
+    KConfig config;
+    KConfigGroup stateGroup(&config,"FindReplace");
+    stateGroup.writeEntry("FindOptions",(qlonglong)options());
+    stateGroup.writeEntry("FindHistory",findHistory());
+
+    delete ui_findExtension;
+}
+
+//BEGIN EntryReplaceDialog
+class EntryReplaceDialog: public KReplaceDialog
+{
+public:
+    EntryReplaceDialog(QWidget* parent);
+    ~EntryReplaceDialog();
+    long options() const{return makeOptions(this,ui_findExtension);}
+    static EntryReplaceDialog* instance(QWidget* parent=0);
+private:
+    static QPointer<EntryReplaceDialog> _instance;
+    static void cleanup(){delete EntryReplaceDialog::_instance;}
+private:
+    Ui_findExtension* ui_findExtension;
+};
+
+QPointer<EntryReplaceDialog> EntryReplaceDialog::_instance=0;
+EntryReplaceDialog* EntryReplaceDialog::instance(QWidget* parent)
+{
+    if (_instance==0 )
+    {
+        _instance=new EntryReplaceDialog(parent);
+        qAddPostRoutine(EntryReplaceDialog::cleanup);
+    }
+    return _instance;
+}
+
+EntryReplaceDialog::EntryReplaceDialog(QWidget* parent)
+ : KReplaceDialog(parent)
+ , ui_findExtension(new Ui_findExtension)
+{
+    ui_findExtension->setupUi(findExtension());
+    ui_findExtension->m_notes->hide();
+    setHasSelection(false);
+
+    KConfig config;
+    KConfigGroup stateGroup(&config,"FindReplace");
+    setOptions(stateGroup.readEntry("ReplaceOptions",(qlonglong)0));
+    setFindHistory(stateGroup.readEntry("ReplacePatternHistory",QStringList()));
+    setReplacementHistory(stateGroup.readEntry("ReplacementHistory",QStringList()));
+}
+
+EntryReplaceDialog::~EntryReplaceDialog()
+{
+    KConfig config;
+    KConfigGroup stateGroup(&config,"FindReplace");
+    stateGroup.writeEntry("ReplaceOptions",(qlonglong)options());
+    stateGroup.writeEntry("ReplacePatternHistory",findHistory());
+    stateGroup.writeEntry("ReplacementHistory",replacementHistory());
+
+    delete ui_findExtension;
+}
+//END EntryReplaceDialog
 
 //TODO &amp;, &nbsp;
 static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
@@ -92,45 +183,33 @@ static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
 
 void EditorWindow::find()
 {
-    if(KDE_ISUNLIKELY( !_findDialog ))
-    {
-        _findDialog = new KFindDialog(this);
-        if( !ui_findExtension ) //actually, we don't need this check...
-            ui_findExtension = new Ui_findExtension;
-        ui_findExtension->setupUi(_findDialog->findExtension());
-        _findDialog->setHasSelection(false);
-    }
+    //QWidget* p=0; QWidget* next=qobject_cast<QWidget*>(parent()); while(next) { p=next; next=qobject_cast<QWidget*>(next->parent()); }
+    EntryFindDialog::instance(nativeParentWidget());
 
-    QString sel(m_view->selection());
-    if (!(sel.isEmpty()&&m_view->selectionMsgId().isEmpty()))
+    QString sel(m_view->selectionInTarget());
+    if (!(sel.isEmpty()&&m_view->selectionInSource().isEmpty()))
     {
         if (sel.isEmpty())
-            sel=m_view->selectionMsgId();
-        if (FIND_IGNOREACCELS)
+            sel=m_view->selectionInSource();
+        if (_find->options()&IGNOREACCELS)
             sel.remove('&');
-            _findDialog->setPattern(sel);
+            EntryFindDialog::instance()->setPattern(sel);
     }
 
-    if ( _findDialog->exec() != QDialog::Accepted )
+    if ( EntryFindDialog::instance()->exec() != QDialog::Accepted )
         return;
-    //HACK dunno why!      //     kWarning() << "pat " << _findDialog->findHistory();
-     _findDialog->setPattern(_findDialog->findHistory().first());
 
     if (_find)
     {
         _find->resetCounts();
-        _find->setPattern(_findDialog->pattern());
-        _find->setOptions(_findDialog->options()
-//                          +ui_findExtension->m_ignoreAccelMarks->isChecked()?FIND_IGNOREACCELS:0
-//                          +ui_findExtension->m_skipTags->isChecked()?FIND_SKIPTAGS:0
-                         );
+        _find->setPattern(EntryFindDialog::instance()->pattern());
+        _find->setOptions(EntryFindDialog::instance()->options());
 
     }
     else // This creates a find-next-prompt dialog if needed.
     {
-        _find = new KFind(_findDialog->pattern(),_findDialog->options(),this,_findDialog);
-        connect(_find,SIGNAL(highlight(const QString&,int,int)),
-                this, SLOT(highlightFound(const QString &,int,int)) );
+        _find = new KFind(EntryFindDialog::instance()->pattern(),EntryFindDialog::instance()->options(),this,EntryFindDialog::instance());
+        connect(_find,SIGNAL(highlight(QString,int,int)),this, SLOT(highlightFound(QString,int,int)) );
         connect(_find,SIGNAL(findNext()),this,SLOT(findNext()));
         _find->closeFindNextDialog();
     }
@@ -138,11 +217,9 @@ void EditorWindow::find()
     DocPosition pos;
     if (_find->options() & KFind::FromCursor)
         pos=m_currentPos;
-    else
-    {
-        if (!determineStartingPos(_find,pos))
+    else if (!determineStartingPos(_find,pos))
             return;
-    }
+
 
     findNext(pos);
 }
@@ -153,8 +230,7 @@ bool EditorWindow::determineStartingPos(KFind* find,
     if (find->options() & KFind::FindBackwards)
     {
         pos.entry=m_catalog->numberOfEntries()-1;
-        pos.form=
-                (m_catalog->isPlural(pos.entry))?
+        pos.form=(m_catalog->isPlural(pos.entry))?
                 m_catalog->numberOfPluralForms()-1:0;
     }
     else
@@ -183,9 +259,9 @@ void EditorWindow::findNext(const DocPosition& startingPos)
     QRegExp rx("[^(\\\\n)>]\n");
     QTime a;a.start();
     //_searchingPos.part=DocPosition::Source;
-    bool ignoreaccels=FIND_IGNOREACCELS;
-    bool includenotes=FIND_INCLUDENOTES;
-    int switchOptions=DocPosition::Source|DocPosition::Target|(FIND_INCLUDENOTES*DocPosition::Comment);
+    bool ignoreaccels=_find->options()&IGNOREACCELS;
+    bool includenotes=_find->options()&INCLUDENOTES;
+    int switchOptions=DocPosition::Source|DocPosition::Target|(includenotes*DocPosition::Comment);
     int flag=1;
     while (flag)
     {
@@ -267,7 +343,7 @@ void EditorWindow::findPrev()
 
 void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
-    if (FIND_IGNOREACCELS)
+    if (_find->options()&IGNOREACCELS)
     {
         QString data;
         if (_searchingPos.part==DocPosition::Comment)
@@ -284,53 +360,42 @@ void EditorWindow::highlightFound(const QString &,int matchingIndex,int matchedL
 
 void EditorWindow::replace()
 {
-    if( !_replaceDialog )
-    {
-        _replaceDialog = new KReplaceDialog(this);
-        if( !ui_replaceExtension ) //we actually don't need this check...
-            ui_replaceExtension = new Ui_findExtension;
-        ui_replaceExtension->setupUi(_replaceDialog->findExtension());
-        _replaceDialog->setHasSelection(false);
-    }
+    EntryReplaceDialog::instance(nativeParentWidget());
 
-    if (!m_view->selection().isEmpty())
+    if (!m_view->selectionInTarget().isEmpty())
     {
-        if (REPLACE_IGNOREACCELS)
+        if (_replace->options()&IGNOREACCELS)
         {
-            QString tmp(m_view->selection());
+            QString tmp(m_view->selectionInTarget());
             tmp.remove('&');
-            _replaceDialog->setPattern(tmp);
+            EntryReplaceDialog::instance()->setPattern(tmp);
         }
         else
-            _replaceDialog->setPattern(m_view->selection());
+            EntryReplaceDialog::instance()->setPattern(m_view->selectionInTarget());
     }
 
 
-    if ( _replaceDialog->exec() != QDialog::Accepted )
+    if ( EntryReplaceDialog::instance()->exec() != QDialog::Accepted )
         return;
 
-//HACK dunno why!
-    _replaceDialog->setPattern(_replaceDialog->findHistory().first());
 
-
-    if (_replace)
-        _replace->deleteLater();// _replace=0;
+    if (_replace) _replace->deleteLater();// _replace=0;
 
     // This creates a find-next-prompt dialog if needed.
     {
-        _replace = new KReplace(_replaceDialog->pattern(),_replaceDialog->replacement(),_replaceDialog->options(),this,_replaceDialog);
-        connect(_replace,SIGNAL(highlight(const QString&,int,int)),
-                this,SLOT(highlightFound_(const QString&,int,int)));
+        _replace = new KReplace(EntryReplaceDialog::instance()->pattern(),EntryReplaceDialog::instance()->replacement(),EntryReplaceDialog::instance()->options(),this,EntryReplaceDialog::instance());
+        connect(_replace,SIGNAL(highlight(QString,int,int)),
+                this,SLOT(highlightFound_(QString,int,int)));
         connect(_replace,SIGNAL(findNext()),this,SLOT(replaceNext()));
-        connect(_replace,SIGNAL(replace(const QString&,int,int,int)),
-                this,SLOT(doReplace(const QString&,int,int,int)));
+        connect(_replace,SIGNAL(replace(QString,int,int,int)),
+                this,SLOT(doReplace(QString,int,int,int)));
 //         _replace->closeReplaceNextDialog();
     }
 //     else
 //     {
 //         _replace->resetCounts();
-//         _replace->setPattern(_replaceDialog->pattern());
-//         _replace->setOptions(_replaceDialog->options());
+//         _replace->setPattern(EntryReplaceDialog::instance()->pattern());
+//         _replace->setOptions(EntryReplaceDialog::instance()->options());
 //     }
 
     //m_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
@@ -343,8 +408,7 @@ void EditorWindow::replace()
     else
     {
         DocPosition pos;
-        if (!determineStartingPos(_replace,pos))
-            return;
+        if (!determineStartingPos(_replace,pos)) return;
         replaceNext(pos);
     }
 
@@ -361,7 +425,7 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
 
 
     int flag=1;
-//     int offset=_replacingPos.offset;
+    bool ignoreaccels=_replace->options()&IGNOREACCELS;
     while (flag)
     {
         flag=0;
@@ -373,7 +437,7 @@ void EditorWindow::replaceNext(const DocPosition& startingPos)
                 anotherEntry=false;
                 //m_view->m_modifiedAfterFind=false;//NOTE TEST THIS
 
-                if (REPLACE_IGNOREACCELS)
+                if (ignoreaccels)
                 {
                     QString data(m_catalog->msgstr(_replacingPos));
                     data.remove('&');
@@ -429,7 +493,7 @@ void EditorWindow::replaceNext()
 
 void EditorWindow::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
-    if (REPLACE_IGNOREACCELS)
+    if (_replace->options()&IGNOREACCELS)
     {
         QString data;
         if (_replacingPos.part==DocPosition::Source)
@@ -454,12 +518,12 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
     }
     QString oldStr(m_catalog->target(_replacingPos));
 
-    if (REPLACE_IGNOREACCELS)
+    if (_replace->options()&IGNOREACCELS)
         calcOffsetWithAccels(oldStr,offset,remLen);
 
     QString tmp(oldStr.mid(offset,remLen));
-//     if (tmp==_replaceDialog->pattern())
-//         tmp=_replaceDialog->pattern();
+//     if (tmp==EntryReplaceDialog::instance()->pattern())
+//         tmp=EntryReplaceDialog::instance()->pattern();
     DocPosition pos=_replacingPos;
     pos.offset=offset;
     m_catalog->push(new DelTextCmd(m_catalog,pos,tmp));
@@ -468,8 +532,8 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
     {
         tmp=newStr.mid(offset,newLen);
         //does it save memory?
-/*        if (tmp==_replaceDialog->replacement())
-            tmp=_replaceDialog->replacement();*/
+/*        if (tmp==EntryReplaceDialog::instance()->replacement())
+            tmp=EntryReplaceDialog::instance()->replacement();*/
         m_catalog->push(new InsTextCmd(m_catalog,pos,tmp));
     }
 
@@ -480,12 +544,6 @@ void EditorWindow::doReplace(const QString &newStr,int offset,int newLen,int rem
     }
 }
 
-
-
-
-#undef FIND_IGNOREACCELS
-#undef FIND_SKIPTAGS
-#undef REPLACE_IGNOREACCELS
 
 
 
@@ -518,8 +576,8 @@ void EditorWindow::spellcheck()
     }
 
     QString text=m_catalog->msgstr(m_currentPos);
-    if (!m_view->selection().isEmpty())
-        text=m_view->selection();
+    if (!m_view->selectionInTarget().isEmpty())
+        text=m_view->selectionInTarget();
     text.remove('&');
     m_sonnetDialog->setBuffer(text);
 

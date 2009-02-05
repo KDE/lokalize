@@ -292,13 +292,13 @@ void KAiderView::insertTerm(const QString& term)
 }
 
 
-QString KAiderView::selection() const
+QString KAiderView::selectionInTarget() const
 {
     //TODO remove IMA
     return _msgstrEdit->textCursor().selectedText();
 }
 
-QString KAiderView::selectionMsgId() const
+QString KAiderView::selectionInSource() const
 {
     return _msgidEdit->textCursor().selectedText();
 }

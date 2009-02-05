@@ -69,8 +69,8 @@ public:
     virtual ~KAiderView();
 
     KTabBar* tabBar(){return m_pluralTabBar;}//to connect tabbar signals to controller (EditorWindow) slots
-    QString selection() const;//for non-batch replace
-    QString selectionMsgId() const;
+    QString selectionInTarget() const;//for non-batch replace
+    QString selectionInSource() const;
 
     QObject* viewPort();
     void setProperFocus();
