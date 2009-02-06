@@ -24,8 +24,8 @@
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body>
 &lt;p align="justify">To facilitate KDE translation, Lokalize can capture text from apps user interface and search for translation files containing the text.&lt;/p>
-&lt;p align="justify">When enabled, the capture can be initiated by middle mouse clicking an any non-editable GUI element (widget). After that you switch to Lokalize window and choose entry with this text. Even in case several files contain same string, the right one will be chosen in most cases.&lt;/p>
-&lt;p align="justify">Remember that you need to have actual translation memory with all translation files indexed for this feature to work.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;p align="justify">When enabled, the capture can be initiated by middle mouse clicking an any non-editable GUI element (widget). After that you switch to the Lokalize window and choose the entry with this text. Even in case several files contain same string, the right one will be chosen in most cases.&lt;/p>
+&lt;p align="justify">Remember that you need to have an up-to-date actual translation memory with all translation files indexed for this feature to work.&lt;/p>&lt;/body>&lt;/html></string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
