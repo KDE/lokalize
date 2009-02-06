@@ -359,7 +359,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     temp="X-Generator: Lokalize %1\\n";
-    temp=temp.arg(KAIDER_VERSION);
+    temp=temp.arg(LOKALIZE_VERSION);
 
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
     {

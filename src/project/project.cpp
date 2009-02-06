@@ -38,9 +38,6 @@
 #include "jobs.h"
 #include "glossary.h"
 
-#include "projectwindow.h"
-
-#include "tmwindow.h"
 #include "tmmanager.h"
 #include "glossarywindow.h"
 #include "editortab.h"

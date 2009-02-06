@@ -90,7 +90,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         painter->fillRect(option.rect,Qt::transparent);
         return;
     }
-    bool infoIsFull=data.height()!=64;
+    //bool infoIsFull=data.height()!=64;
     int all=data.left()+data.top()+data.width();
     if (!all)
     {
@@ -331,8 +331,7 @@ KUrl::List ProjectWidget::selectedItems() const
     }
 
     i=list.size();
-    while(--i>=0)
-        kWarning()<<"'''''''''''"<<list.at(i);
+//     while(--i>=0) kWarning()<<"'''''''''''"<<list.at(i);
     return list;
 }
 void ProjectWidget::expandItems()

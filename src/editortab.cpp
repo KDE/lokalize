@@ -23,7 +23,7 @@
 
 #include "editortab.h"
 #include "actionproxy.h"
-#include "kaiderview.h"
+#include "editorview.h"
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"

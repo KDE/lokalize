@@ -1533,7 +1533,7 @@ void ExportTmxJob::run()
 
     xmlOut.writeStartElement("header");
         xmlOut.writeAttribute("creationtool","lokalize");
-        xmlOut.writeAttribute("creationtoolversion",KAIDER_VERSION);
+        xmlOut.writeAttribute("creationtoolversion",LOKALIZE_VERSION);
         xmlOut.writeAttribute("segtype","paragraph");
         xmlOut.writeAttribute("o-encoding","UTF-8");
     xmlOut.writeEndElement();

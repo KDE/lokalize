@@ -7,6 +7,6 @@
 // Copyright: 2007 Nick Shaforostoff <shafff@ukr.net>
 //
 //
-#ifndef KAIDER_VERSION
-#define KAIDER_VERSION "0.3"
+#ifndef LOKALIZE_VERSION
+#define LOKALIZE_VERSION "0.3"
 #endif

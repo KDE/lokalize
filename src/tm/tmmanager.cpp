@@ -34,7 +34,7 @@
 #include "ui_managedatabases.h"
 #include "ui_dbparams.h"
 #include "dbfilesmodel.h"
-#include "tmwindow.h"
+#include "tmtab.h"
 #include "jobs.h"
 #include "tmscanapi.h"
 #include "project.h"

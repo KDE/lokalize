@@ -1,12 +1,15 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,23 +17,11 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
 
-#include "tmwindow.h"
+#include "tmtab.h"
 #include "ui_queryoptions.h"
 #include "project.h"
 #include "dbfilesmodel.h"
@@ -210,16 +201,11 @@ TMTab::TMTab(QWidget *parent)
     setCentralWidget(w);
     ui_queryOptions->queryLayout->setStretchFactor(ui_queryOptions->mainQueryLayout,42);
 
-    connect(ui_queryOptions->querySource,SIGNAL(returnPressed()),
-           this,SLOT(performQuery()));
-    connect(ui_queryOptions->queryTarget,SIGNAL(returnPressed()),
-           this,SLOT(performQuery()));
-    connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),
-           this,SLOT(performQuery()));
-    connect(ui_queryOptions->doFind,SIGNAL(clicked()),
-            this,SLOT(performQuery()));
-    connect(ui_queryOptions->doUpdateTM,SIGNAL(clicked()),
-            this,SLOT(updateTM()));
+    connect(ui_queryOptions->querySource,SIGNAL(returnPressed()),this,SLOT(performQuery()));
+    connect(ui_queryOptions->queryTarget,SIGNAL(returnPressed()),this,SLOT(performQuery()));
+    connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),   this,SLOT(performQuery()));
+    connect(ui_queryOptions->doFind,SIGNAL(clicked()),           this,SLOT(performQuery()));
+    connect(ui_queryOptions->doUpdateTM,SIGNAL(clicked()),       this,SLOT(updateTM()));
 
     QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);
@@ -265,7 +251,7 @@ TMTab::TMTab(QWidget *parent)
     QButtonGroup* btnGrp=new QButtonGroup(this);
     btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
     btnGrp->addButton(ui_queryOptions->like,(int)TMDBModel::WordOrder);
-    btnGrp->addButton(ui_queryOptions->rx,(int)TMDBModel::RegExp);
+    btnGrp->addButton(ui_queryOptions->glob,(int)TMDBModel::Glob);
     connect(btnGrp,SIGNAL(buttonClicked(int)),
             m_model,SLOT(setQueryType(int)));
 
@@ -307,11 +293,18 @@ void TMTab::updateTM()
 
 void TMTab::performQuery()
 {
+    QString filemask=ui_queryOptions->filemask->text();
     m_model->setFilter(ui_queryOptions->querySource->text(), ui_queryOptions->queryTarget->text(),
                        ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
-                       ui_queryOptions->filemask->text()
+                       filemask
                       );
     //ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
+    if (m_model->rowCount()==0 && !filemask.isEmpty() && !filemask.contains('*'))
+    {
+        //try harder
+        ui_queryOptions->filemask->setText('*'+filemask+'*');
+        return performQuery();
+    }
 
     QTreeView* view=ui_queryOptions->treeView;
     view->hideColumn(TMDBModel::TMDBModelColumnCount);
@@ -326,7 +319,6 @@ void TMTab::performQuery()
 
 void TMTab::copySource()
 {
-    //QApplication::clipboard()->setText(m_view->currentIndex().data().toString());
     QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Source).data().toString());
 }
 void TMTab::copyTarget()
@@ -435,19 +427,16 @@ QString TMTab::dbusObjectPath()
 }
 
 
-bool TMTab::findGuiTextPackage(QString text,const QString& package)
+bool TMTab::findGuiTextPackage(QString text, QString package)
 {
     text.remove(Project::instance()->accel());
     ui_queryOptions->querySource->setText(text);
     ui_queryOptions->queryTarget->clear();
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    if (package.isEmpty())
-        ui_queryOptions->filemask->clear();
-    else
-        ui_queryOptions->filemask->setText('*'+package+'*');
-
-
+    if (!package.isEmpty()) package='*'+package+'*';
+    ui_queryOptions->filemask->setText(package);
+    ui_queryOptions->glob->setChecked(true);
     performQuery();
 
     if (m_model->rowCount()==0)
@@ -470,4 +459,4 @@ bool TMTab::findGuiTextPackage(QString text,const QString& package)
 
 //END DBus interface
 
-#include "tmwindow.moc"
+#include "tmtab.moc"

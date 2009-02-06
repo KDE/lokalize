@@ -23,7 +23,6 @@
 
 
 #include "version.h"
-#include "editortab.h"
 
 #include "project.h"
 #include "jobs.h"
@@ -45,15 +44,7 @@
 
 
 
-
-
-
-
-
-
-
-
-static const char version[] = KAIDER_VERSION;
+static const char version[] = LOKALIZE_VERSION;
 static const char description[] =
     I18N_NOOP("Computer-aided translation system.\nDon't translate what had already been translated!");
 

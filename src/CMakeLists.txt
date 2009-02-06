@@ -25,7 +25,7 @@ set(lokalize_SRCS
     editortab.cpp
     editortab_findreplace.cpp
 
-    kaiderview.cpp
+    editorview.cpp
     xlifftextedit.cpp
     syntaxhighlighter.cpp
 
@@ -47,7 +47,7 @@ set(lokalize_SRCS
     project/project.cpp
     project/projectmodel.cpp
     project/projectwidget.cpp
-    project/projectwindow.cpp
+    project/projecttab.cpp
 
     prefs/prefs.cpp
 
@@ -60,7 +60,7 @@ set(lokalize_SRCS
     tm/jobs.cpp
     tm/dbfilesmodel.cpp
     tm/tmmanager.cpp
-    tm/tmwindow.cpp
+    tm/tmtab.cpp
 
     catalog/cmd.cpp
     catalog/pos.cpp
@@ -103,7 +103,7 @@ qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
                      editortab.h EditorTab)
 qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
-                     tm/tmwindow.h TM::TMTab)
+                     tm/tmtab.h TM::TMTab)
 qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
                      project/project.h Project)
 

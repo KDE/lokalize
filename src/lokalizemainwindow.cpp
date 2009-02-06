@@ -24,8 +24,8 @@
 #include "lokalizemainwindow.h"
 #include "actionproxy.h"
 #include "editortab.h"
-#include "projectwindow.h"
-#include "tmwindow.h"
+#include "projecttab.h"
+#include "tmtab.h"
 #include "prefs_lokalize.h"
 
 #define WEBQUERY_ENABLE

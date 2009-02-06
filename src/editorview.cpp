@@ -32,7 +32,7 @@
 
 **************************************************************************** */
 
-#include "kaiderview.h"
+#include "editorview.h"
 #include "xlifftextedit.h"
 #include "project.h"
 #include "catalog.h"
@@ -139,28 +139,18 @@ void EditorView::settingsChanged()
     //Settings::self()->config()->setGroup("Editor");
     _msgidEdit->document()->setDefaultFont(Settings::msgFont());
     _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
-    if (Settings::leds())
+    if (_leds) _leds->setVisible(Settings::leds());
+    else if (Settings::leds())
     {
-        if (_leds) _leds->show();
-        else
-        {
-            _leds=new LedsWidget(this);
-            insertWidget(2,_leds);
-            connect (_msgstrEdit, SIGNAL(cursorPositionChanged(int)),
-                        _leds, SLOT(cursorPositionChanged(int)));
-            connect (_msgstrEdit, SIGNAL(nonApprovedEntryDisplayed()),
-                        _leds->ledFuzzy, SLOT(on()));
-            connect (_msgstrEdit, SIGNAL(approvedEntryDisplayed()),
-                        _leds->ledFuzzy, SLOT(off()));
-            connect (_msgstrEdit, SIGNAL(untranslatedEntryDisplayed()),
-                        _leds->ledUntr, SLOT(on()));
-            connect (_msgstrEdit, SIGNAL(translatedEntryDisplayed()),
-                        _leds->ledUntr, SLOT(off()));
-            _msgstrEdit->showPos(_msgstrEdit->currentPos());
-
-        }
+        _leds=new LedsWidget(this);
+        insertWidget(2,_leds);
+        connect (_msgstrEdit, SIGNAL(cursorPositionChanged(int)), _leds, SLOT(cursorPositionChanged(int)));
+        connect (_msgstrEdit, SIGNAL(nonApprovedEntryDisplayed()),_leds->ledFuzzy, SLOT(on()));
+        connect (_msgstrEdit, SIGNAL(approvedEntryDisplayed()),   _leds->ledFuzzy, SLOT(off()));
+        connect (_msgstrEdit, SIGNAL(untranslatedEntryDisplayed()),_leds->ledUntr, SLOT(on()));
+        connect (_msgstrEdit, SIGNAL(translatedEntryDisplayed()), _leds->ledUntr, SLOT(off()));
+        _msgstrEdit->showPos(_msgstrEdit->currentPos());
     }
-    else if (_leds) _leds->hide();
 }
 
 
@@ -340,4 +330,4 @@ void EditorView::toggleApprovement()
 
 
 
-#include "kaiderview.moc"
+#include "editorview.moc"

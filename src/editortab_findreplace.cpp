@@ -22,9 +22,7 @@
 **************************************************************************** */
 
 #include "editortab.h"
-#include "kaiderview.h"
-#include "cataloglistview.h"
-#include "tmview.h"
+#include "editorview.h"
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
@@ -186,11 +184,11 @@ void EditorTab::find()
     //QWidget* p=0; QWidget* next=qobject_cast<QWidget*>(parent()); while(next) { p=next; next=qobject_cast<QWidget*>(next->parent()); }
     EntryFindDialog::instance(nativeParentWidget());
 
-    QString sel(m_view->selectionInTarget());
-    if (!(sel.isEmpty()&&m_view->selectionInSource().isEmpty()))
+    QString sel=selectionInTarget();
+    if (!(sel.isEmpty()&&selectionInSource().isEmpty()))
     {
         if (sel.isEmpty())
-            sel=m_view->selectionInSource();
+            sel=selectionInSource();
         if (_find->options()&IGNOREACCELS)
             sel.remove('&');
             EntryFindDialog::instance()->setPattern(sel);
@@ -310,8 +308,6 @@ void EditorTab::findNext(const DocPosition& startingPos)
             find.resetCounts();
         }
     }
-
-    m_catalogTreeView->setUpdatesEnabled(true);
 }
 
 void EditorTab::findNext()
@@ -482,8 +478,6 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
             _replace->resetCounts();
         }
     }
-
-    m_catalogTreeView->setUpdatesEnabled(true);
 }
 
 void EditorTab::replaceNext()

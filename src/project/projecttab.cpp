@@ -21,7 +21,7 @@
 
 **************************************************************************** */
 
-#include "projectwindow.h"
+#include "projecttab.h"
 #include "project.h"
 #include "projectwidget.h"
 #include "editortab.h"
@@ -113,5 +113,4 @@ void ProjectTab::spellcheckFiles()
 {
     emit spellcheckRequested(m_browser->selectedItems());
 }
-
 
