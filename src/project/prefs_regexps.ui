@@ -55,7 +55,7 @@
 A default value (suitable for XML-based texts) is:
 (&lt;[^>]+>)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+
 
-It is only used for gettext PO files, as XLIFF format has it's own way of specifying where markup is.</string>
+It is only used for gettext PO files, as XLIFF format has its own way of specifying where markup is.</string>
      </property>
     </widget>
    </item>
