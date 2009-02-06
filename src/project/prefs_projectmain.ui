@@ -65,8 +65,8 @@ for your project + target language.</string>
       </size>
      </property>
      <property name="toolTip" >
-      <string>Usually your translation project will be a subproject of project
-for translating same texts into multiple languages,
+      <string>Usually your translation project will be a subproject of a project
+for translating same texts into multiple languages.
 
 Set this to path of directory containing empty translation files
 (i.e. files without translation into any language)
