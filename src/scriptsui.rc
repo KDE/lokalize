@@ -1,0 +1,10 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="Scripts" version="1">
+<MenuBar>
+  <Menu name="tools">
+    <Separator/>
+    <Action name="odf2xliff"/>
+    <Merge/>
+  </Menu>
+</MenuBar>
+</kpartgui>

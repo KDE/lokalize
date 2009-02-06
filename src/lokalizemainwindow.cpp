@@ -580,7 +580,7 @@ public:
         //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
         addObject(parent,"Lokalize");
         addObject(Project::instance(),"Project");
-        setXMLFile("translationmemoryrui.rc",true);
+        setXMLFile("scriptsui.rc",true);
     }
     ~MyScriptingPlugin(){}
 };
@@ -611,8 +611,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
 
 #ifndef Q_WS_MAC
     //TODO really fix!!!
-    MyScriptingPlugin* sp=new MyScriptingPlugin(this);
-    guiFactory()->addClient(  sp );
+    guiFactory()->addClient(new MyScriptingPlugin(this));
 #endif
 
     KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
@@ -626,7 +625,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
         QUrl url(a.at(i));
         kWarning()<<"action"<<url;
         Action* action = new Action(this,url);
-        //action->addObject(adaptor, "Lokalize",ChildrenInterface::AutoConnectSignals);
+        action->addObject(Project::instance(), "Project",ChildrenInterface::AutoConnectSignals);
         action->addObject(this, "Lokalize",ChildrenInterface::AutoConnectSignals);
         Manager::self().actionCollection()->addAction(action);
         //action->trigger();
