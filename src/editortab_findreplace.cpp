@@ -21,7 +21,7 @@
 
 **************************************************************************** */
 
-#include "kaider.h"
+#include "editortab.h"
 #include "kaiderview.h"
 #include "cataloglistview.h"
 #include "tmview.h"

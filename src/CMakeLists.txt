@@ -22,14 +22,12 @@ set(lokalize_SRCS
     lokalizemainwindow.cpp
     actionproxy.cpp
 
-    kaider.cpp
-    kaider_findreplace.cpp
+    editortab.cpp
+    editortab_findreplace.cpp
 
     kaiderview.cpp
     xlifftextedit.cpp
     syntaxhighlighter.cpp
-
-#    kaiderdockwidget.cpp
 
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
@@ -103,7 +101,7 @@ kde4_add_kcfg_files(lokalize_SRCS
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
-                     kaider.h EditorTab)
+                     editortab.h EditorTab)
 qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmwindow.h TM::TMTab)
 qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
@@ -133,15 +131,21 @@ install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( FILES lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
-install( FILES editorui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES lokalizemainwindowui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES scriptsui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES project/projectmanagerui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES tm/translationmemoryrui.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES scripts/find-gui-text.sh  DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
-install( FILES scripts/widget-text-capture.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-install( FILES scripts/widget-text-capture.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-install( FILES scripts/widget-text-capture.ui  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-install( FILES scripts/xliff2odf.py  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-install( FILES scripts/xliff2odf.rc  DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+install( FILES
+        editorui.rc
+        lokalizemainwindowui.rc
+        scriptsui.rc
+        project/projectmanagerui.rc
+        tm/translationmemoryrui.rc
+        DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+install( FILES
+        scripts/find-gui-text.sh
+        scripts/widget-text-capture.py
+        scripts/widget-text-capture.rc
+        scripts/widget-text-capture.ui
+        scripts/xliff2odf.py
+        scripts/xliff2odf.rc
+        scripts/new-project-wizard.py
+        scripts/new-project-wizard.rc
+        DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 

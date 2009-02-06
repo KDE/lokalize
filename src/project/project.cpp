@@ -43,7 +43,7 @@
 #include "tmwindow.h"
 #include "tmmanager.h"
 #include "glossarywindow.h"
-#include "kaider.h"
+#include "editortab.h"
 
 #include <QTimer>
 #include <QTime>

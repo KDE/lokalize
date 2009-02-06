@@ -93,7 +93,7 @@ void LedsWidget::cursorPositionChanged(int column)
 
 
 
-KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
+EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     : QSplitter(Qt::Vertical,parent)
     , m_catalog(catalog)
     , _msgidEdit(new XliffTextEdit(catalog,DocPosition::Source,this))
@@ -122,19 +122,19 @@ KAiderView::KAiderView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     settingsChanged();
 }
 
-KAiderView::~KAiderView()
+EditorView::~EditorView()
 {
 }
 
 
-void KAiderView::resetFindForCurrent(const DocPosition& pos)
+void EditorView::resetFindForCurrent(const DocPosition& pos)
 {
     m_modifiedAfterFind=true;
     emit signalChanged(pos.entry);
 }
 
 
-void KAiderView::settingsChanged()
+void EditorView::settingsChanged()
 {
     //Settings::self()->config()->setGroup("Editor");
     _msgidEdit->document()->setDefaultFont(Settings::msgFont());
@@ -165,7 +165,7 @@ void KAiderView::settingsChanged()
 
 
 //main function in this file :)
-void KAiderView::gotoEntry(DocPosition pos,int selection)
+void EditorView::gotoEntry(DocPosition pos,int selection)
 {
     setUpdatesEnabled(false);
 
@@ -258,7 +258,7 @@ void KAiderView::dropEvent(QDropEvent *event)
 
 
 //BEGIN edit actions that are easier to do in this class
-void KAiderView::unwrap(XliffTextEdit* editor)
+void EditorView::unwrap(XliffTextEdit* editor)
 {
     if (!editor)
         editor=_msgstrEdit;
@@ -285,25 +285,25 @@ void KAiderView::unwrap(XliffTextEdit* editor)
         m_catalog->endMacro();
 }
 
-void KAiderView::insertTerm(const QString& term)
+void EditorView::insertTerm(const QString& term)
 {
     _msgstrEdit->insertPlainText(term);
     _msgstrEdit->setFocus();
 }
 
 
-QString KAiderView::selectionInTarget() const
+QString EditorView::selectionInTarget() const
 {
     //TODO remove IMA
     return _msgstrEdit->textCursor().selectedText();
 }
 
-QString KAiderView::selectionInSource() const
+QString EditorView::selectionInSource() const
 {
     return _msgidEdit->textCursor().selectedText();
 }
 
-void KAiderView::setProperFocus()
+void EditorView::setProperFocus()
 {
     _msgstrEdit->setFocus();
 }
@@ -313,12 +313,12 @@ void KAiderView::setProperFocus()
 
 
 
-QObject* KAiderView::viewPort()
+QObject* EditorView::viewPort()
 {
     return _msgstrEdit;
 }
 
-void KAiderView::toggleBookmark(bool checked)
+void EditorView::toggleBookmark(bool checked)
 {
     if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1 ))
         return;
@@ -327,7 +327,7 @@ void KAiderView::toggleBookmark(bool checked)
 }
 
 
-void KAiderView::toggleApprovement()
+void EditorView::toggleApprovement()
 {
     //kWarning()<<"called";
     if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1 ))

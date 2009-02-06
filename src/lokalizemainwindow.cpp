@@ -23,7 +23,7 @@
 
 #include "lokalizemainwindow.h"
 #include "actionproxy.h"
-#include "kaider.h"
+#include "editortab.h"
 #include "projectwindow.h"
 #include "tmwindow.h"
 #include "prefs_lokalize.h"

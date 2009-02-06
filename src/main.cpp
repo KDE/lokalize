@@ -23,7 +23,7 @@
 
 
 #include "version.h"
-#include "kaider.h"
+#include "editortab.h"
 
 #include "project.h"
 #include "jobs.h"

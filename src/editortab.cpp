@@ -21,7 +21,7 @@
 
 **************************************************************************** */
 
-#include "kaider.h"
+#include "editortab.h"
 #include "actionproxy.h"
 #include "kaiderview.h"
 #include "catalog.h"
@@ -108,7 +108,7 @@ EditorTab::EditorTab(QWidget* parent)
         : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
         , m_catalog(new Catalog(this))
-        , m_view(new KAiderView(this,m_catalog/*,new keyEventHandler(this,m_catalog)*/))
+        , m_view(new EditorView(this,m_catalog/*,new keyEventHandler(this,m_catalog)*/))
         , m_sonnetDialog(0)
         , _spellcheckStartUndoIndex(0)
         , _spellcheckStop(false)

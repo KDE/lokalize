@@ -267,7 +267,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
     }
     else if (link.scheme()=="src")
     {
-        int pos=link.path().lastIndexOf(':');
+        int pos=path.lastIndexOf(':');
         emit srcFileOpenRequested(path.left(pos),path.mid(pos+1).toInt());
     }
 }
@@ -277,7 +277,6 @@ void MsgCtxtView::noteEditAccepted()
     DocPosition pos=m_entry.toDocPosition();
     pos.form=m_editor->noteIndex();
     m_catalog->push(new SetNoteCmd(m_catalog,pos,m_editor->note()));
-    //m_catalog->setNote(pos,m_editor->note());
 
     m_prevEntry.entry=-1; process();
     m_stackedLayout->setCurrentIndex(0);

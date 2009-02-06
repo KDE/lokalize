@@ -24,7 +24,7 @@
 #include "projectwindow.h"
 #include "project.h"
 #include "projectwidget.h"
-#include "kaider.h"
+#include "editortab.h"
 
 #include <klocale.h>
 #include <kaction.h>

@@ -21,8 +21,8 @@
 
 **************************************************************************** */
 
-#ifndef KAIDER_H
-#define KAIDER_H
+#ifndef EDITORTAB_H
+#define EDITORTAB_H
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -46,7 +46,7 @@ class KProgressDialog;
 class KActionCategory;
 
 class Catalog;
-class KAiderView;
+class EditorView;
 class Project;
 class ProjectView;
 class MergeView;
@@ -69,7 +69,6 @@ struct EditorState
 {
 public:
     EditorState(){}
-    //KAiderState(const QByteArray& dw, const KUrl& u):dockWidgets(dw),url(u){}
     EditorState(const EditorState& ks){dockWidgets=ks.dockWidgets;url=ks.url;}
     ~EditorState(){}
 
@@ -94,7 +93,7 @@ class EditorTab: public LokalizeSubwindowBase2
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.Editor")
-    //qdbuscpp2xml -m -s kaider.h -o org.kde.lokalize.Editor.xml
+    //qdbuscpp2xml -m -s editortab.h -o org.kde.lokalize.Editor.xml
 #define qdbuscpp2xml
 
 public:
@@ -231,7 +230,7 @@ private:
     Project* _project;
     Catalog* m_catalog;
 
-    KAiderView *m_view;
+    EditorView *m_view;
 
     DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace
