@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Editor" version="1">
+<kpartgui name="Editor" version="3">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -196,6 +196,7 @@
         <Action name="showwebqueryview_action" />
         <Action name="showtmqueryview_action" />
     </Menu>
+    <MergeLocal/>
   </Menu>
 </MenuBar>
 <!--<State name="po" >

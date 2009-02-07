@@ -1,12 +1,15 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,22 +17,9 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
-
 
 #include "cataloglistview.h"
 #include "catalogmodel.h"
@@ -44,42 +34,59 @@
 #include <QTreeView>
 #include <QHeaderView>
 #include <QModelIndex>
-#include <QSortFilterProxyModel>
+#include <QToolButton>
 #include <QVBoxLayout>
+#include <QAction>
+#include <QMenu>
 
-CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
+
+
+CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window","Message Tree"), parent)
     , m_browser(new QTreeView(this))
     , m_lineEdit(new KLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))
-    , m_proxyModel(new QSortFilterProxyModel(this))
+    , m_proxyModel(new CatalogTreeFilterModel(this))
 {
+    connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(aa()));
     setObjectName("catalogTreeView");
-
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);
     layout->setContentsMargins(0,0,0,0);
+    QHBoxLayout* l=new QHBoxLayout;
+    l->setContentsMargins(0,0,0,0);
+    l->setSpacing(0);
+    layout->addLayout(l);
 
     m_lineEdit->setClearButtonShown(true);
     m_lineEdit->setClickMessage(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
 
-    m_browser->setAlternatingRowColors(true);
 
-    layout->addWidget(m_lineEdit);
+    QToolButton* btn=new QToolButton(w);
+    btn->setPopupMode(QToolButton::InstantPopup);
+    btn->setText("options");
+    //btn->setArrowType(Qt::DownArrow);
+    btn->setMenu(new QMenu(this));
+    m_filterOptionsMenu=btn->menu();
+    connect(m_filterOptionsMenu,SIGNAL(aboutToShow()),this,SLOT(fillFilterOptionsMenu()));
+    connect(m_filterOptionsMenu,SIGNAL(triggered(QAction*)),this,SLOT(filterOptionToggled(QAction*)));
+
+    l->addWidget(m_lineEdit);
+    l->addWidget(btn);
     layout->addWidget(m_browser);
 
     setWidget(w);
 
     connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
-    connect(catalog,SIGNAL(indexChanged(int)),this,SLOT(emitCurrent()));
 
-    connect(m_browser,SIGNAL(clicked(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+    connect(m_browser,SIGNAL(clicked(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
     m_browser->setRootIsDecorated(false);
     m_browser->setAllColumnsShowFocus(true);
+    m_browser->setAlternatingRowColors(true);
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
     m_proxyModel->setSourceModel(m_model);
     m_browser->setModel(m_proxyModel);
@@ -88,15 +95,12 @@ CatalogTreeView::CatalogTreeView(QWidget* parent, Catalog* catalog)
     m_browser->sortByColumn(0, Qt::AscendingOrder);
     m_browser->setWordWrap(true);
 
-    m_proxyModel->setFilterKeyColumn(-1);
-    m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     m_browser->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TreeHeaderState", QByteArray()) ));
 }
 
-CatalogTreeView::~CatalogTreeView()
+CatalogView::~CatalogView()
 {
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
@@ -104,29 +108,65 @@ CatalogTreeView::~CatalogTreeView()
 }
 
 
-void CatalogTreeView::slotNewEntryDisplayed(const DocPosition& pos)
+void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 {
     m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(pos.entry,0)));
 }
 
-void CatalogTreeView::setFilterRegExp()
+void CatalogView::setFilterRegExp()
 {
     m_proxyModel->setFilterRegExp(m_lineEdit->text());
 }
 
-void CatalogTreeView::slotItemActivated(const QModelIndex& idx)
+void CatalogView::slotItemActivated(const QModelIndex& idx)
 {
     emit gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()),0);
 }
 
-void CatalogTreeView::emitCurrent()
+void CatalogView::filterOptionToggled(QAction* action)
 {
-    const QModelIndex& idx=m_browser->currentIndex();
-    int row=idx.row();
-    const QModelIndex& parent=idx.parent();
-    int i=m_proxyModel->columnCount();
-    while (--i>=2) //entry num, msgid
-        m_browser->update(m_proxyModel->index(row,i,parent));
+    int opt=action->data().toInt();
+    if (opt>0)
+        m_proxyModel->setFilerOptions(m_proxyModel->filerOptions()^opt);
+    else
+    {
+        if (opt!=-1) opt=-opt-2;
+        m_proxyModel->setFilterKeyColumn(opt);
+    }
+    m_filterOptionsMenu->clear();
+}
+void CatalogView::fillFilterOptionsMenu()
+{
+    m_filterOptionsMenu->clear();
+    QAction* txt=0;
+
+    static const char* titles[]={I18N_NOOP("Case sensitive"),
+                                 I18N_NOOP("Approved"),
+                                 I18N_NOOP("Non-approved"),
+                                 I18N_NOOP("Translated"),
+                                 I18N_NOOP("Untranslated"),
+                                 I18N_NOOP("Changed since file open"),
+                                 I18N_NOOP("Unchanged since file open")
+                                 };
+
+    for (int i=0;(1<<i)<CatalogTreeFilterModel::MaxOption;++i)
+    {
+        txt=m_filterOptionsMenu->addAction(i18n(titles[i]));
+        txt->setData(1<<i);
+        txt->setCheckable(true);
+        txt->setChecked(m_proxyModel->filerOptions()&(1<<i));
+        if ((1<<i)==CatalogTreeFilterModel::CaseSensitive)
+            m_filterOptionsMenu->addSeparator();
+    }
+    m_filterOptionsMenu->addSeparator();
+    for (int i=-1;i<CatalogTreeModel::DisplayedColumnCount;++i)
+    {
+        txt=m_filterOptionsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
+                                                   m_model->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());
+        txt->setData(-i-2);
+        txt->setCheckable(true);
+        txt->setChecked(m_proxyModel->filterKeyColumn()==i);
+    }
 }
 
 #include "cataloglistview.moc"

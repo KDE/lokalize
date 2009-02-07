@@ -12,8 +12,8 @@ Hacks KDirLister to merge contents from two dirs.
 uses kdesdk/strigi-analyzer/po to scan translation files
 
 ==Editor tab==
-'EditorWindow' is a dispatcher (controller) for one catalog editing window (tab).
-'KAiderView' is msgid/msgstr viewer/editor for it.
+'EditorTab' is a dispatcher (controller) for one catalog editing window (tab).
+'EditorView' is msgid/msgstr viewer/editor for it.
 'MsgCtxtView', 'GlossaryView' and other QDockWidget derivatives provide specialized features.
 All specialized actions should go into views (QDockWidgets) or separate classes used from views.
 

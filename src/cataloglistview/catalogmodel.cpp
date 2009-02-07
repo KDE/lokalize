@@ -1,12 +1,15 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,19 +17,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
 
@@ -39,7 +30,26 @@
 
 #include <QApplication>
 
+#define DYNAMICFILTER_LIMIT 256
 
+CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
+ : QAbstractItemModel(parent)
+ , m_catalog(catalog)
+{
+    connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(reflectChanges(DocPosition)));
+}
+
+void CatalogTreeModel::reflectChanges(DocPosition pos)
+{
+    //lazy sorting/filtering
+    if (rowCount()<DYNAMICFILTER_LIMIT || m_prevChanged!=pos)
+    {
+        emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount));
+        if (!( rowCount()<DYNAMICFILTER_LIMIT ))
+            emit dataChanged(index(m_prevChanged.entry,0),index(m_prevChanged.entry,DisplayedColumnCount));
+    }
+    m_prevChanged=pos;
+}
 
 int CatalogTreeModel::rowCount(const QModelIndex& parent) const
 {
@@ -48,17 +58,18 @@ int CatalogTreeModel::rowCount(const QModelIndex& parent) const
     return m_catalog->numberOfEntries();
 }
 
-QVariant CatalogTreeModel::headerData( int section, Qt::Orientation /*orientation*/, int role) const
+QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation*/, int role) const
 {
     if (role!=Qt::DisplayRole)
         return QVariant();
 
     switch (section)
     {
-        case Key: return i18nc("@title:column","Entry");
-        case Source: return i18nc("@title:column Original text","Source");
-        case Target: return i18nc("@title:column Text in target language","Target");
-        case Approved: return i18nc("@title:column","Approved");
+        case Key:       return i18nc("@title:column","Entry");
+        case Source:    return i18nc("@title:column Original text","Source");
+        case Target:    return i18nc("@title:column Text in target language","Target");
+        case Notes:     return i18nc("@title:column","Notes");
+        case Approved:  return i18nc("@title:column","Approved");
     }
     return QVariant();
 }
@@ -80,6 +91,16 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
             return font;
         }
     }
+    if (role==Qt::UserRole)
+    {
+        switch (index.column())
+        {
+            case Approved:     return m_catalog->isApproved(index.row());
+            case Untranslated: return m_catalog->isUntranslated(index.row());
+            case Modified:     return m_catalog->isModified(index.row());
+            default:           role=Qt::DisplayRole;
+        }
+    }
     if (role!=Qt::DisplayRole)
         return QVariant();
 
@@ -87,9 +108,17 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 
     switch (index.column())
     {
-        case Key: return index.row()+1;
+        case Key:    return index.row()+1;
         case Source: return m_catalog->msgid(index.row());
         case Target: return m_catalog->msgstr(index.row());
+        case Notes:
+        {
+            QString result;
+            QList<Note> notes=m_catalog->notes(index.row());
+            foreach(Note note,notes)
+                result+=note.content;
+            return result;
+        }
         case Approved:
             static const char* yesno[]={"no","yes"};
             return yesno[m_catalog->isApproved(index.row())];
@@ -104,3 +133,41 @@ Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
     return QAbstractItemModel::flags(index);
 }
 
+
+CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
+ : QSortFilterProxyModel(parent)
+ , m_filerOptions(AllStates)
+{
+    setFilterKeyColumn(-1);
+    setFilterCaseSensitivity(Qt::CaseInsensitive);
+    setDynamicSortFilter(true);
+}
+
+void CatalogTreeFilterModel::setFilerOptions(int o)
+{
+    m_filerOptions=o;
+    setFilterCaseSensitivity(o&CaseSensitive?Qt::CaseInsensitive:Qt::CaseSensitive);
+    invalidateFilter();
+}
+
+bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+{
+    int filerOptions=m_filerOptions;
+    bool accepts=true;
+    if ((filerOptions&(Approved|NonApproved))^(Approved|NonApproved))
+    {
+        bool approved=sourceModel()->index(source_row,CatalogTreeModel::Approved,source_parent).data(Qt::UserRole).toBool();
+        accepts=accepts&&(approved==bool(filerOptions&Approved) || approved!=bool(filerOptions&NonApproved));
+    }
+    if ((filerOptions&(Translated|Untranslated))^(Translated|Untranslated))
+    {
+        bool untr=sourceModel()->index(source_row,CatalogTreeModel::Untranslated,source_parent).data(Qt::UserRole).toBool();
+        accepts=accepts&&(untr==bool(filerOptions&Untranslated) || untr!=bool(filerOptions&Translated));
+    }
+    if ((filerOptions&(Modified|NonModified))^(Modified|NonModified))
+    {
+        bool modified=sourceModel()->index(source_row,CatalogTreeModel::Modified,source_parent).data(Qt::UserRole).toBool();
+        accepts=accepts&&(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
+    }
+    return accepts&&QSortFilterProxyModel::filterAcceptsRow(source_row,source_parent);
+}

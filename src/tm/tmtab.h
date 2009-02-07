@@ -68,7 +68,7 @@ public:
 
 
 public slots:
-    Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());};
+    Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
 
 public slots:
@@ -94,15 +94,6 @@ private:
     //QString m_dbusObjectPath;
     int m_dbusId;
     static QList<int> ids;
-    /*
-    KLineEdit* m_querySource;
-    KLineEdit* m_queryTarget;
-    QCheckBox* m_invertSource;
-    QCheckBox* m_invertTarget;
-    TMDBModel* m_model;
-    QComboBox* m_dbCombo;
-    QTreeView* m_view;
-    */
 };
 
 
@@ -158,8 +149,8 @@ public:
         : QItemDelegate(parent)
     {}
     ~FastSizeHintItemDelegate(){}
-    
-    
+
+
         self.di={}
 
     def sizeHint(self, option, item=QModelIndex()):

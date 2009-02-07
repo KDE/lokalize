@@ -227,7 +227,7 @@ void EditorTab::setupActions()
     connect (_mergeViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
              this,SLOT(gotoEntry(DocPosition,int)));
 
-    m_catalogTreeView = new CatalogTreeView(this,m_catalog);
+    m_catalogTreeView = new CatalogView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_catalogTreeView);
     actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(DocPosition)));
@@ -572,6 +572,12 @@ void EditorTab::setupActions()
     _mergeView->addAction(action);
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
+    action = sync1->addAction("merge_back",_mergeView,SLOT(mergeBack()));
+    action->setText(i18nc("@action:inmenu","Copy to merging source"));
+    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_Return);
+    _mergeView->addAction(action);
+
+
 //Secondary merge
     action = sync2->addAction("mergesecondary_open",_mergeViewSecondary,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for secondary sync"));
@@ -608,7 +614,10 @@ void EditorTab::setupActions()
     action->setWhatsThis(action->statusTip());
     _mergeViewSecondary->addAction(action);
 
-    //kWarning()<<"finished"<<aaa.elapsed();
+    action = sync2->addAction("mergesecondary_back",_mergeViewSecondary,SLOT(mergeBack()));
+    action->setText(i18nc("@action:inmenu","Copy to merging source"));
+    _mergeViewSecondary->addAction(action);
+
 }
 
 void EditorTab::setProperFocus()

@@ -122,8 +122,8 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       return status;
    }
 
-   kWarning() << "HEADER MSGID: " << _msgid;
-   kWarning() << "HEADER MSGSTR: " << _msgstr;
+   //kWarning() << "HEADER MSGID: " << _msgid;
+   //kWarning() << "HEADER MSGSTR: " << _msgstr;
    if (KDE_ISUNLIKELY( !_msgid.isEmpty() && !_msgid.first().isEmpty() ))
    {
       // The header must have an empty msgid

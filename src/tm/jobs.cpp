@@ -675,6 +675,31 @@ static void setConfig(QSqlDatabase& db,
     query.bindValue(1, accel);
 }
 
+
+static void getStats(const QSqlDatabase& db,
+                     int& pairsCount,
+                     int& uniqueSourcesCount,
+                     int& uniqueTranslationsCount
+                    )
+
+{
+    QSqlQuery query(db);
+    query.exec("SELECT count(*) FROM main");
+    query.next();
+    pairsCount=query.value(0).toInt();
+    query.clear();
+
+    query.exec("SELECT count(*) FROM source_strings");
+    query.next();
+    uniqueSourcesCount=query.value(0).toInt();
+    query.clear();
+
+    query.exec("SELECT count(*) FROM target_strings");
+    query.next();
+    uniqueTranslationsCount=query.value(0).toInt();
+    query.clear();
+}
+
 OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_dbName(name)
@@ -687,12 +712,10 @@ OpenDBJob::~OpenDBJob()
     //kWarning() <<"OpenDBJob dtor";
 }
 
-void OpenDBJob::run ()
+void OpenDBJob::run()
 {
-    //kWarning()<<"started";
-
     if (QSqlDatabase::contains(m_dbName))
-        return;
+        return getStats(QSqlDatabase::database(m_dbName),m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
 
     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
@@ -707,6 +730,8 @@ void OpenDBJob::run ()
     //if (!m_markup.isEmpty()||!m_accel.isEmpty())
     if (m_setParams) setConfig(db,m_markup,m_accel);
     kWarning() <<"db opened "<<a.elapsed()<<dbFile;
+
+    getStats(db,m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
 }
 
 

@@ -50,7 +50,7 @@ class EditorView;
 class Project;
 class ProjectView;
 class MergeView;
-class CatalogTreeView;
+class CatalogView;
 class MsgCtxtView;
 namespace GlossaryNS{class GlossaryView;}
 
@@ -254,7 +254,7 @@ private:
     //BEGIN views
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
-    CatalogTreeView* m_catalogTreeView;
+    CatalogView* m_catalogTreeView;
     MsgCtxtView* m_notesView;
     //END views
 

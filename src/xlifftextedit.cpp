@@ -862,7 +862,6 @@ void XliffTextEdit::tagMenu()
         txt=menu.exec(mapToGlobal(cursorRect().bottomRight()));
         if (txt)
             insertPlainText(txt->text());
-
     }
 }
 

@@ -55,18 +55,21 @@ class OpenDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit OpenDBJob(const QString& dbName,
-                       QObject* parent=0);
+    explicit OpenDBJob(const QString& dbName,QObject* parent=0);
     ~OpenDBJob();
 
     int priority()const{return OPENDB;}
 
+    struct DBStat{int pairsCount,uniqueSourcesCount,uniqueTranslationsCount;};
+
 protected:
     void run ();
 
-    QString m_dbName;
-    //statistics?
 public:
+    QString m_dbName;
+    //statistics
+    DBStat m_stat;
+
     //for the new DB creation
     QString m_markup;
     QString m_accel;
@@ -78,8 +81,7 @@ class CloseDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit CloseDBJob(const QString& dbName,
-                        QObject* parent=0);
+    explicit CloseDBJob(const QString& dbName,QObject* parent=0);
     ~CloseDBJob();
 
     int priority()const{return CLOSEDB;}

@@ -54,11 +54,12 @@ TMManagerWin::TMManagerWin(QWidget *parent)
     Ui_TMManager ui_tmManager;
     ui_tmManager.setupUi(w);
     setCentralWidget(w);
+    ui_tmManager.list->setUniformRowHeights(true);
     ui_tmManager.list->setModel(DBFilesModel::instance());
     m_tmListWidget=ui_tmManager.list;
 
-    connect(ui_tmManager.addData,SIGNAL(clicked(bool)),this,SLOT(addDir()));
-    connect(ui_tmManager.create,SIGNAL(clicked(bool)),this,SLOT(addDB()));
+    connect(ui_tmManager.addData,  SIGNAL(clicked(bool)),this,SLOT(addDir()));
+    connect(ui_tmManager.create,   SIGNAL(clicked(bool)),this,SLOT(addDB()));
     connect(ui_tmManager.importTMX,SIGNAL(clicked(bool)),this,SLOT(importTMX()));
     connect(ui_tmManager.exportTMX,SIGNAL(clicked(bool)),this,SLOT(exportTMX()));
 
@@ -68,7 +69,7 @@ TMManagerWin::TMManagerWin(QWidget *parent)
 
 void TMManagerWin::initLater()
 {
-    connect(m_tmListWidget,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+    connect(m_tmListWidget,SIGNAL(activated(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
 
     QPersistentModelIndex* projectDBIndex=DBFilesModel::instance()->projectDBIndex();
     if (projectDBIndex)
@@ -81,8 +82,7 @@ void TMManagerWin::addDir()
                         i18nc("@title:window","Select Directory to be scanned"));
     if (!dir.isEmpty())
     {
-        QList<QUrl> dirs;
-        dirs.append(QUrl(dir));
+        QList<QUrl> dirs; dirs.append(QUrl(dir));
         scanRecursive(dirs,DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString());
     }
 
@@ -99,14 +99,11 @@ void TMManagerWin::addDB()
     if (dialog.exec()&&!ui_dbParams.name->text().isEmpty())
     {
         OpenDBJob* openDBJob=new OpenDBJob(ui_dbParams.name->text(),this);
-        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
 
         openDBJob->m_setParams=true;
         openDBJob->m_markup=ui_dbParams.markup->text();
         openDBJob->m_accel=ui_dbParams.accel->text();
-        kDebug()<<"!!!!!!!!!!!!"<<openDBJob->m_markup;
-
-        ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+        DBFilesModel::instance()->openDB(openDBJob);
     }
 }
 
@@ -147,9 +144,7 @@ void TMManagerWin::exportTMX()
     if (!path.isEmpty())
     {
         ExportTmxJob* j=new ExportTmxJob(path,dbName);
-        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
         connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-
         ThreadWeaver::Weaver::instance()->enqueue(j);
     }
 }
