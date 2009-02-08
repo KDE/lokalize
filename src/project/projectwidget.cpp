@@ -33,54 +33,35 @@
 #include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
 
-#include <QTreeView>
 #include <QTimer>
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QPainter>
 #include <QLinearGradient>
 #include <QHeaderView>
+#include <QItemDelegate>
 
+#include <QTime>
+static int call_counter=0;
+static int time_counter=0;
 
-//HACKy HACKy HACKy
-bool PoItemDelegate::editorEvent(QEvent* event,
-                                 QAbstractItemModel* model,
-                                 const QStyleOptionViewItem& /*option*/,
-                                 const QModelIndex& index)
+class PoItemDelegate: public QItemDelegate//KFileItemDelegate
 {
-    if (event->type()==QEvent::MouseButtonRelease)
-    {
-        QMouseEvent* mEvent=static_cast<QMouseEvent*>(event);
-        if (mEvent->button()==Qt::MidButton)
-        {
-            emit newWindowOpenRequested(static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())
-                ->itemForIndex(static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)).url());
-        }
-    }
-    else if (event->type()==QEvent::KeyPress)
-    {
-        QKeyEvent* kEvent=static_cast<QKeyEvent*>(event);
-        if (kEvent->key()==Qt::Key_Return)
-        {
-            if (kEvent->modifiers()==Qt::NoModifier)
-            {
-                emit fileOpenRequested(static_cast<KDirModel*>(static_cast<QSortFilterProxyModel*>(model)->sourceModel())
-                ->itemForIndex(static_cast<QSortFilterProxyModel*>(model)->mapToSource(index)).url());
-            }
-        }
-    }
-
-    return false;
-}
+public:
+    PoItemDelegate(QObject *parent=0): QItemDelegate(parent){}
+    ~PoItemDelegate(){}
+    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+};
 
 void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    //return KFileItemDelegate::paint(painter,option,index);
-
     if (index.column()!=Graph)
         return QItemDelegate::paint(painter,option,index);
         //return KFileItemDelegate::paint(painter,option,index);
 
+    ++call_counter;
+    QTime time;
+    time.start();
 
     //showDecorationSelected=true;
     QRect data(index.data(Qt::DisplayRole/*Qt::UserRole*/).toRect());
@@ -97,7 +78,6 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         painter->fillRect(option.rect,Qt::transparent);
         return;
     }
-    //return KFileItemDelegate::paint(painter,option,index);
 
     KColorScheme colorScheme(QPalette::Normal);
     //painter->setBrush(Qt::SolidPattern);
@@ -128,14 +108,12 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
                       colorScheme.foreground(KColorScheme::NegativeText)
                      );
    // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
-
+    time_counter+=time.elapsed();
 }
 
 
 
-
-
-class SortFilterProxyModel : public KDirSortFilterProxyModel
+class SortFilterProxyModel: public KDirSortFilterProxyModel
 {
 public:
     SortFilterProxyModel(QObject* parent=0)
@@ -160,11 +138,8 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
     // Hidden elements go before visible ones, if they both are
     // folders or files.
-    if (leftFileItem.isHidden() && !rightFileItem.isHidden()) {
-        return true;
-    } else if (!leftFileItem.isHidden() && rightFileItem.isHidden()) {
-        return false;
-    }
+    if (leftFileItem.isHidden()!=rightFileItem.isHidden())
+        return leftFileItem.isHidden() && !rightFileItem.isHidden();
 
 
     if (left.column()==Graph)
@@ -181,66 +156,51 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
         float leftVal=(float)leftRect.left()/leftAll;
         float rightVal=(float)rightRect.left()/rightAll;
 
-        if (leftVal<rightVal)
-            return true;
-        if (leftVal>rightVal)
-            return false;
+        if (leftVal!=rightVal)
+            return leftVal<rightVal;
 
         leftVal=(float)leftRect.top()/leftAll;
         rightVal=(float)rightRect.top()/rightAll;
 
-        if (leftVal<rightVal)
-            return true;
-        if (leftVal>rightVal)
-            return false;
+        if (leftVal!=rightVal)
+            return leftVal<rightVal;
 
         leftVal=(float)leftRect.width()/leftAll;
         rightVal=(float)rightRect.width()/rightAll;
 
-        if (leftVal<rightVal)
-            return true;
-        return false;
+        return leftVal<rightVal;
     }
     //else if (left.column()==Graph)
 
-    //return KDirSortFilterProxyModel::lessThan(left,right);
     return QSortFilterProxyModel::lessThan(left,right);
 }
 
-ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
+ProjectWidget::ProjectWidget(QWidget* parent)
     : QTreeView(parent)
     , m_proxyModel(new SortFilterProxyModel(this))
-//     , m_catalog(catalog)
 {
     PoItemDelegate* delegate=new PoItemDelegate(this);
     setItemDelegate(delegate);
 
-    //setColumnWidth(TranslationDate, m_browser->columnWidth()*2);
-
     //connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(QModelIndex)));
     connect(this,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
-    connect(delegate,SIGNAL(newWindowOpenRequested(KUrl)),this,SIGNAL(newWindowOpenRequested(KUrl)));
-    connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
 
     m_proxyModel->setSourceModel(Project::instance()->model());
     m_proxyModel->setDynamicSortFilter(true);
     setModel(m_proxyModel);
 
-//     int i=KDirModel::Name;
-//     ++i;
+//     int i=KDirModel::Name+1;
 //     while(++i<KDirModel::ColumnCount)
 //         setColumnHidden(i,true);
 
     setAllColumnsShowFocus(true);
-    //this is  HACK y
-    setColumnWidth(0, columnWidth(0)*3);
-    setColumnWidth(Total, columnWidth(Total)/2);
-    setColumnWidth(Translated, columnWidth(Translated)/2);
-    setColumnWidth(Untranslated, columnWidth(Untranslated)/2);
-    setColumnWidth(Fuzzy, columnWidth(Fuzzy)/2);
-    setColumnWidth(SourceDate, columnWidth(SourceDate)*2);
-    setColumnWidth(TranslationDate, columnWidth(TranslationDate)*2);
+    int widthDefaults[]={6,1,1,1,1,1,4,4};
+    int i=sizeof(widthDefaults)/sizeof(int);
+    int baseWidth=columnWidth(0);
+    while(--i>=0)
+        setColumnWidth(i, baseWidth*widthDefaults[i]/2);
 
+    setUniformRowHeights(true);
     setSortingEnabled(true);
     sortByColumn(0, Qt::AscendingOrder);
 
@@ -288,6 +248,9 @@ bool ProjectWidget::currentIsCatalog() const
 
 void ProjectWidget::slotItemActivated(const QModelIndex& idx)
 {
+    kWarning()<<"time_counter"<<time_counter;
+    kWarning()<<"call_counter"<<call_counter;
+
     if (currentIsCatalog())
         //emit fileOpenRequested(currentItem())
         emit fileOpenRequested(

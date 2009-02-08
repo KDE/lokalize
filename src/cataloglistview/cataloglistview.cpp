@@ -48,7 +48,6 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
-    connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(aa()));
     setObjectName("catalogTreeView");
 
     QWidget* w=new QWidget(this);

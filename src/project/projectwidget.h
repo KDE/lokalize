@@ -24,10 +24,8 @@
 #ifndef PROJECTWIDGET_H
 #define PROJECTWIDGET_H
 
-#include <QTreeView>
-#include <QItemDelegate>
-
 #include <kurl.h>
+#include <QTreeView>
 
 class SortFilterProxyModel;
 
@@ -41,8 +39,8 @@ class ProjectWidget: public QTreeView
     Q_OBJECT
 
 public:
-    ProjectWidget(/*Catalog*, */QWidget* parent);
-    virtual ~ProjectWidget();
+    ProjectWidget(QWidget* parent);
+    ~ProjectWidget();
 
     bool currentIsCatalog() const;
 
@@ -58,9 +56,7 @@ protected:
 public slots:
     void slotItemActivated(const QModelIndex&);
     void expandItems();
-    //void slotForceStats();
 
-    //void showCurrentFile();
 
 signals:
     void fileOpenRequested(const KUrl&);
@@ -69,28 +65,8 @@ signals:
 private:
     QWidget* m_parent;
     SortFilterProxyModel* m_proxyModel;
-
-    //Catalog* m_catalog;
 };
 
-
-
-class PoItemDelegate : public QItemDelegate//KFileItemDelegate
-{
-    Q_OBJECT
-
-public:
-    PoItemDelegate(QObject *parent=0)
-        : QItemDelegate(parent)
-    {}
-    ~PoItemDelegate(){}
-    void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-signals:
-    void fileOpenRequested(const KUrl&);
-    void newWindowOpenRequested(const KUrl&);
-
-};
 
 
 #endif
