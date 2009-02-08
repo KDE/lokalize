@@ -51,7 +51,7 @@ public:
         Untranslated,
         Modified,
         ColumnCount,
-        DisplayedColumnCount=Approved+1,
+        DisplayedColumnCount=Approved+1
     };
 
     CatalogTreeModel(QObject* parent, Catalog* catalog);
