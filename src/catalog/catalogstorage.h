@@ -83,7 +83,7 @@ public:
 
     virtual QString alttrans(const DocPosition& pos) const=0;
     virtual QList<Note> notes(const DocPosition& pos) const=0;
-    virtual Note setNote(const DocPosition& pos, const Note& note)=0;
+    virtual Note setNote(DocPosition pos, const Note& note)=0;
     virtual QStringList noteAuthors() const{return QStringList();}
 
     virtual QStringList sourceFiles(const DocPosition& pos) const=0;

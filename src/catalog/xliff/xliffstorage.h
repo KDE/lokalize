@@ -65,7 +65,7 @@ public:
     QString alttrans(const DocPosition& pos) const;
 
     ///@a pos.form is note number
-    Note setNote(const DocPosition& pos, const Note& note);
+    Note setNote(DocPosition pos, const Note& note);
     QList<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
 

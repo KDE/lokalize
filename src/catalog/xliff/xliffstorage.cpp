@@ -603,12 +603,13 @@ QList<Note> XliffStorage::notes(const DocPosition& pos) const
     return result;
 }
 
-Note XliffStorage::setNote(const DocPosition& pos, const Note& note)
+Note XliffStorage::setNote(DocPosition pos, const Note& note)
 {
+    //kWarning()<<int(pos.form)<<note.content;
     QDomElement unit=entries.at(m_map.at(pos.entry)).toElement();
     QDomElement elem;
     Note oldNote;
-    if (pos.form==-1)
+    if (pos.form==-1 && !note.content.isEmpty())
     {
         QDomElement ref=unit.lastChildElement("note");
         elem=unit.insertAfter( m_doc.createElement("note"),ref).toElement();
@@ -616,8 +617,13 @@ Note XliffStorage::setNote(const DocPosition& pos, const Note& note)
     }
     else
     {
-        elem = unit.elementsByTagName("note").at(pos.form).toElement();
-        initNoteFromElement(oldNote,elem);
+        QDomNodeList list=unit.elementsByTagName("note");
+        if (pos.form==-1) pos.form=list.size()-1;
+        if (pos.form<list.size())
+        {
+            elem = unit.elementsByTagName("note").at(pos.form).toElement();
+            initNoteFromElement(oldNote,elem);
+        }
     }
 
     if (elem.isNull()) return oldNote;

@@ -197,7 +197,7 @@ QString GettextStorage::alttrans(const DocPosition& pos) const
     return result;
 }
 
-Note GettextStorage::setNote(const DocPosition& pos, const Note& note)
+Note GettextStorage::setNote(DocPosition pos, const Note& note)
 {
     //kWarning()<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;

@@ -139,7 +139,7 @@ EntryReplaceDialog::EntryReplaceDialog(QWidget* parent)
  , ui_findExtension(new Ui_findExtension)
 {
     ui_findExtension->setupUi(findExtension());
-    ui_findExtension->m_notes->hide();
+    //ui_findExtension->m_notes->hide();
     setHasSelection(false);
 
     KConfig config;
@@ -339,14 +339,9 @@ void EditorTab::findPrev()
 
 void EditorTab::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
-    if (_find->options()&IGNOREACCELS)
+    if (_find->options()&IGNOREACCELS && _searchingPos.part!=DocPosition::Comment)
     {
-        QString data;
-        if (_searchingPos.part==DocPosition::Comment)
-            data=m_catalog->notes(_searchingPos).at(_searchingPos.form).content;
-        else
-            data=m_catalog->catalogString(_searchingPos).string;
-
+        QString data=m_catalog->catalogString(_searchingPos).string;
         calcOffsetWithAccels(data, matchingIndex, matchedLength);
     }
 
@@ -398,9 +393,7 @@ void EditorTab::replace()
     m_doReplaceCalled=false;
 
     if (_replace->options() & KFind::FromCursor)
-    {
         replaceNext(m_currentPos);
-    }
     else
     {
         DocPosition pos;
@@ -422,6 +415,9 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
 
     int flag=1;
     bool ignoreaccels=_replace->options()&IGNOREACCELS;
+    bool includenotes=_replace->options()&INCLUDENOTES;
+    kWarning()<<"includenotes"<<includenotes;
+    int switchOptions=DocPosition::Target|(includenotes*DocPosition::Comment);
     while (flag)
     {
         flag=0;
@@ -433,14 +429,15 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
                 anotherEntry=false;
                 //m_view->m_modifiedAfterFind=false;//NOTE TEST THIS
 
-                if (ignoreaccels)
-                {
-                    QString data(m_catalog->msgstr(_replacingPos));
-                    data.remove('&');
-                    _replace->setData(data);
-                }
+                QString data;
+                if (_replacingPos.part==DocPosition::Comment)
+                    data=m_catalog->notes(_replacingPos).at(_replacingPos.form).content;
                 else
-                    _replace->setData( m_catalog->msgstr(_replacingPos));
+                {
+                    data=m_catalog->targetWithTags(_replacingPos).string;
+                    if (ignoreaccels) data.remove('&');
+                }
+                _replace->setData(data);
             }
             res = _replace->replace();
             if (res!=KFind::NoMatch)
@@ -448,8 +445,8 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
 
             if (!(
                   (_replace->options()&KFind::FindBackwards)?
-                                switchPrev(m_catalog,_replacingPos):
-                                switchNext(m_catalog,_replacingPos)
+                                switchPrev(m_catalog,_replacingPos,switchOptions):
+                                switchNext(m_catalog,_replacingPos,switchOptions)
                  ))
                 break;
         }
@@ -489,17 +486,12 @@ void EditorTab::highlightFound_(const QString &,int matchingIndex,int matchedLen
 {
     if (_replace->options()&IGNOREACCELS)
     {
-        QString data;
-        if (_replacingPos.part==DocPosition::Source)
-            data=m_catalog->msgid(_replacingPos);
-        else
-            data=m_catalog->msgstr(_replacingPos);
+        QString data=m_catalog->targetWithTags(_replacingPos).string;
         calcOffsetWithAccels(data,matchingIndex,matchedLength);
     }
 
     _replacingPos.offset=matchingIndex;
     gotoEntry(_replacingPos,matchedLength);
-
 }
 
 
@@ -510,27 +502,23 @@ void EditorTab::doReplace(const QString &newStr,int offset,int newLen,int remLen
         m_doReplaceCalled=true;
         m_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
     }
-    QString oldStr(m_catalog->target(_replacingPos));
-
-    if (_replace->options()&IGNOREACCELS)
-        calcOffsetWithAccels(oldStr,offset,remLen);
-
-    QString tmp(oldStr.mid(offset,remLen));
-//     if (tmp==EntryReplaceDialog::instance()->pattern())
-//         tmp=EntryReplaceDialog::instance()->pattern();
     DocPosition pos=_replacingPos;
-    pos.offset=offset;
-    m_catalog->push(new DelTextCmd(m_catalog,pos,tmp));
-
-    if (newLen)
+    if (_replacingPos.part==DocPosition::Comment)
+        m_catalog->push(new SetNoteCmd(m_catalog,pos,newStr));
+    else
     {
-        tmp=newStr.mid(offset,newLen);
-        //does it save memory?
-/*        if (tmp==EntryReplaceDialog::instance()->replacement())
-            tmp=EntryReplaceDialog::instance()->replacement();*/
-        m_catalog->push(new InsTextCmd(m_catalog,pos,tmp));
-    }
+        QString oldStr=m_catalog->target(_replacingPos);
 
+        if (_replace->options()&IGNOREACCELS)
+            calcOffsetWithAccels(oldStr,offset,remLen);
+
+        QString tmp=oldStr.mid(offset,remLen);
+        pos.offset=offset;
+        m_catalog->push(new DelTextCmd(m_catalog,pos,tmp));
+
+        if (newLen)
+            m_catalog->push(new InsTextCmd(m_catalog,pos,newStr.mid(offset,newLen)));
+    }
     if (pos.entry==m_currentPos.entry)
     {
         pos.offset+=newLen;

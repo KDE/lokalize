@@ -67,7 +67,7 @@ public:
     QStringList targetAllForms(const DocPosition& pos) const;
 
     QList<Note> notes(const DocPosition& pos) const;
-    Note setNote(const DocPosition& pos, const Note& note);
+    Note setNote(DocPosition pos, const Note& note);
     QString alttrans(const DocPosition& pos) const;
     QStringList sourceFiles(const DocPosition& pos) const;
 

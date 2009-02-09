@@ -247,10 +247,18 @@ SetNoteCmd::SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& not
     _pos.part=DocPosition::Comment;
 }
 
+static void setNote(Catalog& catalog, DocPosition& _pos, const Note& note, Note& resultNote)
+{
+    resultNote=catalog.setNote(_pos,note);
+    int size=catalog.notes(_pos).size();
+    if (_pos.form==-1) _pos.form = size-1;
+    else if (_pos.form>=size) _pos.form = -1;
+}
+
 void SetNoteCmd::redo()
 {
     Catalog& catalog=*_catalog;
-    _oldNote=catalog.setNote(_pos,_note);
+    setNote(catalog,_pos,_note,_oldNote);
 
     DocPosition pos=_pos;
     pos.form=0;
@@ -265,7 +273,8 @@ void SetNoteCmd::undo()
     DocPosition pos=_pos;
     pos.form=0;
     catalog.setLastModifiedPos(pos);
-    catalog.setNote(_pos,_oldNote);
+
+    Note tmp; setNote(catalog,_pos,_oldNote,tmp);
 
     if (_firstModificationForThisEntry)
         catalog.setModified(pos.entry,false);
