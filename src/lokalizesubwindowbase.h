@@ -37,15 +37,19 @@
  */
 class LokalizeSubwindowBase: public KMainWindow
 {
+Q_OBJECT
 public:
-    LokalizeSubwindowBase(QWidget* parent):KMainWindow(parent){};
-    virtual ~LokalizeSubwindowBase(){};
+    LokalizeSubwindowBase(QWidget* parent):KMainWindow(parent){}
+    virtual ~LokalizeSubwindowBase(){emit aboutToBeClosed();}
     virtual KXMLGUIClient* guiClient()=0;
 
     //interface for LokalizeMainWindow
     virtual void hideDocks()=0;
     virtual void showDocks()=0;
     //bool queryClose();
+
+signals:
+    void aboutToBeClosed();
 
 public:
     //QHash<QString,ActionProxy*> supportedActions;

@@ -38,6 +38,7 @@
 #include <QMetaType>
 
 #include <QMenu>
+#include <QMouseEvent>
 
 
 
@@ -317,8 +318,8 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 }
 
 
-// tagPlaces - pos -> int:
-// >0 if both start and end parts of tag were deleted
+// tagPlaces : pos -> int:
+// >0 if both start and end parts of tag were (to be) deleted
 // 1 means this is start, 2 means this is end
 //returns false if it finds only one part of a paired tag
 static bool fillTagPlaces(QMap<int,int>& tagPlaces,
@@ -333,7 +334,7 @@ static bool fillTagPlaces(QMap<int,int>& tagPlaces,
 
     int t=start;
     while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(start+len))
-        tagPlaces[t++]=false;
+        tagPlaces[t++]=0;
 
 
     int i=catalogString.ranges.size();
@@ -350,13 +351,8 @@ static bool fillTagPlaces(QMap<int,int>& tagPlaces,
     }
 
     QMap<int,int>::const_iterator it = tagPlaces.constBegin();
-    while (it != tagPlaces.constEnd())
-    {
-        //qWarning()<<it.key()<<it.value();
-        if (!it.value())
-            break;
+    while (it != tagPlaces.constEnd() && it.value())
         ++it;
-    }
 
     return it==tagPlaces.constEnd();
 }
@@ -365,47 +361,41 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 {
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 ))
         return false;
-    //kWarning()<<"!!!!!!! called with"<<delStart<<delLen;
 
     CatalogString targetWithTags=m_catalog->targetWithTags(m_currentPos);
     QString target=targetWithTags.string;
-    if (target.isEmpty())
-        return false;
+    kWarning()<<"called with"<<delStart<<delLen<<"target:"<<target;
 
     QMap<int,int> tagPlaces;
-    if (!fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
+    if (target.isEmpty() || !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
         return false;
-
-    int lenDecrement=0;
 
     m_catalog->beginMacro(i18nc("@item Undo action item","Remove text with markup"));
 
     //all indexes are ok (or target is just plain text)
     //modified=true;
     //kWarning()<<"all indexes are ok";
-    QMap<int,int>::const_iterator it = tagPlaces.constBegin();
     DocPosition pos=m_currentPos;
-    while (it != tagPlaces.constEnd())
+    QMapIterator<int,int> it(tagPlaces);
+    it.toBack();
+    while (it.hasPrevious())
     {
-        if (it.value()==1)
-        {
-            //kWarning()<<"\t"<<it.key();
-            pos.offset=it.key()-lenDecrement;
-            DelTagCmd* cmd=new DelTagCmd(m_catalog,pos);
-            m_catalog->push(cmd);
-            lenDecrement+=1+cmd->tag().isPaired();
-            //qWarning()<<"lenDecrement"<<lenDecrement;
-        }
-        ++it;
+        it.previous();
+        if (it.value()!=1) continue;
+        kWarning()<<"\tdeleting at"<<it.key();
+        pos.offset=it.key();
+        DelTagCmd* cmd=new DelTagCmd(m_catalog,pos);
+        m_catalog->push(cmd);
+        delLen-=1+cmd->tag().isPaired();
     }
     //charsRemoved-=lenDecrement;
-    //qWarning()<<"charsRemoved"<<charsRemoved<<"offset"<<delStart;
+    kWarning()<<"offset"<<delStart<<delLen;
     pos.offset=delStart;
     if (delLen)
     {
-        QString rText=target.mid(delStart,delLen);
+        QString rText=m_catalog->targetWithTags(m_currentPos).string.mid(delStart,delLen);
         rText.remove(TAGRANGE_IMAGE_SYMBOL);
-        //qWarning()<<"rText"<<rText<<"delStart"<<delStart;
+        kWarning()<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
         if (!rText.isEmpty())
             m_catalog->push(new DelTextCmd(m_catalog,pos,rText));
     }
@@ -794,7 +784,46 @@ void XliffTextEdit::emitCursorPositionChanged()
     emit cursorPositionChanged(textCursor().columnNumber());
 }
 
+void XliffTextEdit::insertTag(TagRange tag)
+{
+    QTextCursor cursor=textCursor();
+    tag.start=qMin(cursor.anchor(),cursor.position());
+    tag.end=qMax(cursor.anchor(),cursor.position())+tag.isPaired();
+    kWarning()<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
+    m_catalog->push(new InsTagCmd(m_catalog,currentPos(),tag));
+    showPos(currentPos(),CatalogString(),/*keepCursor*/true);
+    cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1+tag.isPaired());
+    setFocus();
+}
 
+void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
+{
+    event->ignore();
+    if (event->button()==Qt::LeftButton)
+    {
+        QPoint mice=event->pos();
+        //mice.setX(mice.x()-cursorRect(cursorForPosition(mice)).width()/2);
+        int pos=cursorForPosition(mice).position();
+        CatalogString str=m_catalog->catalogString(m_currentPos);
+        if (pos==-1 || pos>=str.string.size()) return;
+        //kWarning()<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
+        if (str.string.at(pos)==TAGRANGE_IMAGE_SYMBOL)
+        {
+            if (m_part==DocPosition::Source)
+            {
+                foreach(const TagRange& tag, str.ranges)
+                {
+                    if (tag.start==pos || tag.end==pos)
+                    {
+                        emit tagInsertRequested(tag);
+                        event->accept();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
 
 void XliffTextEdit::tagMenu()
 {
@@ -820,13 +849,7 @@ void XliffTextEdit::tagMenu()
         }
         txt=menu.exec(mapToGlobal(cursorRect().bottomRight()));
         if (!txt) return;
-        TagRange tag=sourceWithTags.ranges.at(txt->data().toInt());
-        QTextCursor cursor=textCursor();
-        tag.start=qMin(cursor.anchor(),cursor.position());
-        tag.end=qMax(cursor.anchor(),cursor.position())+tag.isPaired();
-        m_catalog->push(new InsTagCmd(m_catalog,m_currentPos,tag));
-        showPos(m_currentPos,CatalogString(),/*keepCursor*/true);
-        cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1+tag.isPaired());
+        insertTag(sourceWithTags.ranges.at(txt->data().toInt()));
     }
     else
     {

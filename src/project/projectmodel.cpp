@@ -43,9 +43,9 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_potIcon(KIcon(QLatin1String("flag-black")))
 {
     connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
-             this,SLOT(calcStats(QModelIndex, int, int)),Qt::QueuedConnection);
+             this,SLOT(calcStats(QModelIndex, int, int)));
     connect (this,SIGNAL(rowsRemoved(QModelIndex, int, int)),
-             this,SLOT(calcStats(QModelIndex, int, int)),Qt::QueuedConnection);
+             this,SLOT(calcStats(QModelIndex, int, int)));
 
     setDirLister(new ProjectLister(this));
 }
@@ -53,6 +53,7 @@ ProjectModel::ProjectModel(QObject *parent)
 
 void ProjectModel::calcStats(const QModelIndex& parent, int start, int end)
 {
+    kWarning()<<"called!";
     KFileItem item=itemForIndex(parent);
     KFileMetaInfo metaInfo(item.metaInfo(false));
 
@@ -117,13 +118,10 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
         if (role==Qt::DecorationRole)
         {
             KFileItem item(itemForIndex(index));
-            if (item.isDir())
-                return m_dirIcon;
+            if (item.isDir())           return m_dirIcon;
             QString path(item.url().path());
-            if (path.endsWith(".po"))
-                return m_poIcon;
-            if (path.endsWith(".pot"))
-                return m_potIcon;
+            if (path.endsWith(".po"))   return m_poIcon;
+            if (path.endsWith(".pot"))  return m_potIcon;
         }
 
         return KDirModel::data(index,role);

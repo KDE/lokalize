@@ -29,6 +29,7 @@
 #include "catalogstring.h"
 
 #include <KTextEdit>
+class QMouseEvent;
 class SyntaxHighlighter;//TODO rename
 
 
@@ -55,7 +56,7 @@ public slots:
 
     void source2target();
     void tagMenu();
-
+    void insertTag(TagRange tag);
 
     void emitCursorPositionChanged();//for leds
 
@@ -64,7 +65,7 @@ protected:
     void keyReleaseEvent(QKeyEvent* e);
     QMimeData* createMimeDataFromSelection() const;
     void insertFromMimeData(const QMimeData* source);
-
+    void mouseReleaseEvent(QMouseEvent* event);
 private:
     ///@a refStr is for proper numbering
     void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
@@ -82,6 +83,8 @@ signals:
     void gotoLastRequested();
     void gotoPrevRequested();
     void gotoNextRequested();
+
+    void tagInsertRequested(const TagRange& tag);
 
     void contentsModified(const DocPosition&);
     void approvedEntryDisplayed();

@@ -154,20 +154,20 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
 {
     int filerOptions=m_filerOptions;
     bool accepts=true;
-    if ((filerOptions&(Approved|NonApproved))^(Approved|NonApproved))
+    if (bool(filerOptions&Approved)!=bool(filerOptions&NonApproved))
     {
         bool approved=sourceModel()->index(source_row,CatalogTreeModel::Approved,source_parent).data(Qt::UserRole).toBool();
-        accepts=accepts&&(approved==bool(filerOptions&Approved) || approved!=bool(filerOptions&NonApproved));
+        accepts=(approved==bool(filerOptions&Approved) || approved!=bool(filerOptions&NonApproved));
     }
-    if ((filerOptions&(Translated|Untranslated))^(Translated|Untranslated))
+    if (accepts&&bool(filerOptions&Translated)!=bool(filerOptions&Untranslated))
     {
         bool untr=sourceModel()->index(source_row,CatalogTreeModel::Untranslated,source_parent).data(Qt::UserRole).toBool();
-        accepts=accepts&&(untr==bool(filerOptions&Untranslated) || untr!=bool(filerOptions&Translated));
+        accepts=(untr==bool(filerOptions&Untranslated) || untr!=bool(filerOptions&Translated));
     }
-    if ((filerOptions&(Modified|NonModified))^(Modified|NonModified))
+    if (accepts&&bool(filerOptions&Modified)!=bool(filerOptions&NonModified))
     {
         bool modified=sourceModel()->index(source_row,CatalogTreeModel::Modified,source_parent).data(Qt::UserRole).toBool();
-        accepts=accepts&&(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
+        accepts=(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
     }
     return accepts&&QSortFilterProxyModel::filterAcceptsRow(source_row,source_parent);
 }

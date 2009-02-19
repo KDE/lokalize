@@ -6,7 +6,7 @@
       <arg name="line" type="i" direction="out"/>
     </signal>
     <signal name="fileClosed">
-      <arg type="s" direction="out"/>
+      <arg name="path" type="s" direction="out"/>
     </signal>
     <signal name="fileAboutToBeClosed">
     </signal>
@@ -46,6 +46,9 @@
     </method>
     <method name="currentFile">
       <arg type="s" direction="out"/>
+    </method>
+    <method name="currentFileContents">
+      <arg type="ay" direction="out"/>
     </method>
     <method name="openSyncSource">
       <arg name="path" type="s" direction="in"/>

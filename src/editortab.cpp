@@ -744,7 +744,7 @@ bool EditorTab::fileOpen(KUrl url)
         //we delay gotoEntry(pos) until project is loaded;
 
         _captionPath=url.pathOrUrl();
-        setCaption(_captionPath,false);
+        setModificationSign(m_catalog->isClean());
 
 //Project
         if (!url.isLocalFile())
@@ -761,12 +761,10 @@ bool EditorTab::fileOpen(KUrl url)
             QStringList proj("*.ktp");
             proj.append("*.lokalize");
             dir.setNameFilters(proj);
-            while (--i && !dir.isRoot())
+            while (--i && !dir.isRoot() && !_project->isLoaded())
             {
-                if (dir.entryList().isEmpty())
-                    dir.cdUp();
-                else
-                    _project->load(dir.absoluteFilePath(dir.entryList().first()));
+                if (dir.entryList().isEmpty()) dir.cdUp();
+                else _project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
 
             //enforce autosync
@@ -778,7 +776,7 @@ bool EditorTab::fileOpen(KUrl url)
         if (_project->isLoaded())
         {
             updateCaptionPath();
-            setCaption(_captionPath,false);
+            setModificationSign(m_catalog->isClean());
         }
 
 //OK!!!
@@ -810,10 +808,10 @@ bool EditorTab::saveFile(const KUrl& url)
         return true;
     }
 
-    if ( KMessageBox::warningContinueCancel(this,
+    if ( KMessageBox::Continue==KMessageBox::warningContinueCancel(this,
                                             i18nc("@info","Error saving the file <filename>%1</filename>\n"
                                                   "Do you want to save to another file or cancel?", m_catalog->url().pathOrUrl()),
-                                            i18nc("@title","Error"),KStandardGuiItem::save())==KMessageBox::Continue
+                                            i18nc("@title","Error"),KStandardGuiItem::save())
        )
         return saveFileAs();
     return false;
@@ -1151,5 +1149,9 @@ QString EditorTab::selectionInSource()
     return m_view->selectionInSource();
 }
 
+QByteArray EditorTab::currentFileContents()
+{
+    return m_catalog->contents();
+}
 
 //END DBus interface

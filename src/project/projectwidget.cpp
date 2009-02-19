@@ -183,7 +183,7 @@ ProjectWidget::ProjectWidget(QWidget* parent)
     setItemDelegate(delegate);
 
     //connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(QModelIndex)));
-    connect(this,SIGNAL(activated(const QModelIndex&)),this,SLOT(slotItemActivated(const QModelIndex&)));
+    connect(this,SIGNAL(activated(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
 
     m_proxyModel->setSourceModel(Project::instance()->model());
     m_proxyModel->setDynamicSortFilter(true);

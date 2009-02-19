@@ -37,6 +37,8 @@ class QActionGroup;
 class KAction;
 class KRecentFilesAction;
 class EditorTab;
+class MultiEditorAdaptor;
+class ProjectScriptingPlugin;
 namespace TM {class TMTab;}
 
 /**
@@ -70,8 +72,10 @@ private slots:
     void initLater();
     void applyToBeActiveSubWindow();
     void projectLoaded();
+    void loadProjectScripts();
 
     void editorClosed(QObject* obj);
+    void resetMultiEditorAdaptor();
 
     void openProject(const KUrl& url){openProject(url.path());}//convenience overload for recent projects action
     void openProject(){openProject(QString());}
@@ -134,6 +138,11 @@ private:
     KRecentFilesAction* m_openRecentProjectAction;
 
     QByteArray m_lastEditorState;
+
+    //used for kross API
+    EditorTab* m_spareEditor;
+    MultiEditorAdaptor* m_multiEditorAdaptor;
+    ProjectScriptingPlugin* m_projectScriptingPlugin;
 
     QMap<KUrl, QPointer<QMdiSubWindow> > m_fileToEditor;
 };

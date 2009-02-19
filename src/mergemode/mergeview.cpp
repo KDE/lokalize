@@ -206,7 +206,7 @@ void MergeView::mergeOpen(KUrl url)
         return;
 
     delete m_mergeCatalog;
-    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog,m_primary);
+    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
     int errorLine=m_mergeCatalog->loadFromUrl(url);
     if (KDE_ISLIKELY( errorLine==0 ))
     {
@@ -322,108 +322,21 @@ void MergeView::mergeAccept()
      //||m_baseCatalog->msgstr(m_pos)==m_mergeCatalog->msgstr(m_pos)
        ||m_mergeCatalog->msgstr(m_pos).isEmpty())
         return;
-    bool changeContents=m_baseCatalog->msgstr(m_pos)!=m_mergeCatalog->msgstr(m_pos);
 
-    m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
-
-    if ( !m_baseCatalog->isApproved(m_pos.entry) && m_mergeCatalog->isApproved(m_pos.entry)       )
-        m_baseCatalog->push(new ToggleApprovementCmd(m_baseCatalog,m_pos.entry,true));
-    else if ( m_baseCatalog->isApproved(m_pos.entry) && !m_mergeCatalog->isApproved(m_pos.entry) )
-        m_baseCatalog->push(new ToggleApprovementCmd(m_baseCatalog,m_pos.entry,false));
-
-    if (changeContents)
-    {
-        m_pos.offset=0;
-        if (!m_baseCatalog->msgstr(m_pos).isEmpty())
-            m_baseCatalog->push(new DelTextCmd(m_baseCatalog,m_pos,m_baseCatalog->msgstr(m_pos)));
-
-        m_baseCatalog->push(new InsTextCmd(m_baseCatalog,m_pos,m_mergeCatalog->msgstr(m_pos)));
-    }
-    ////////this is NOT done automatically by BaseCatalogEntryChanged slot
-    bool remove=true;
-    if (m_mergeCatalog->isPlural(m_pos.entry))
-    {
-        DocPosition pos=m_pos;
-        pos.form=qMin(m_baseCatalog->numberOfPluralForms(),m_mergeCatalog->numberOfPluralForms());//just sanity check
-        pos.form=qMax((int)pos.form,1);//just sanity check
-        while ((--(pos.form))>=0)
-        {
-            //kWarning()<<pos.form;
-            if (m_baseCatalog->msgstr(pos)!=m_mergeCatalog->msgstr(pos))
-            {
-                remove=false;
-                break;
-            }
-        }
-
-    }
-    if (remove)
-        m_mergeCatalog->removeFromDiffIndex(m_pos.entry);
-
-
-    m_baseCatalog->endMacro();
+    m_mergeCatalog->copyToBaseCatalog(m_pos);
 
     emit gotoEntry(m_pos,0);
 }
 
-
 void MergeView::mergeAcceptAllForEmpty()
 {
-    if(!m_mergeCatalog)
-        return;
+    if(KDE_ISUNLIKELY(!m_mergeCatalog)) return;
 
-    MergeCatalog& mergeCatalog=*m_mergeCatalog;
+    bool update=m_mergeCatalog->changedEntries().contains(m_pos.entry);
 
-    DocPosition pos;
-    pos.entry=mergeCatalog.firstChangedIndex();
-    pos.offset=0;
-    int end=mergeCatalog.lastChangedIndex();
-    if (KDE_ISUNLIKELY( end==-1 ))
-        return;
+    m_mergeCatalog->copyToBaseCatalog(MergeCatalog::EmptyOnly);
 
-    bool insHappened=false;
-    bool update=false;
-    do
-    {
-        if (m_baseCatalog->isUntranslated(pos.entry))
-        {
-            int formsCount=(m_baseCatalog->isPlural(pos.entry))?m_baseCatalog->numberOfPluralForms():1;
-            pos.form=0;
-            while (pos.form<formsCount)
-            {
-                //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
-                //some forms may still contain translation...
-                if (m_baseCatalog->isUntranslated(pos))
-                {
-                    if (!insHappened)
-                    {
-                        insHappened=true;
-                        m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept all new translations"));
-                    }
-
-                    //mergeAccept(m_pos,true);
-                    /// ///
-                    m_baseCatalog->push(new InsTextCmd(m_baseCatalog,pos,mergeCatalog.msgstr(pos)));
-                    /// ///
-
-                    if(m_pos.entry==pos.entry)
-                        update=true;
-                }
-                ++(pos.form);
-            }
-            /// ///
-            mergeCatalog.removeFromDiffIndex(m_pos.entry);
-            /// ///
-        }
-        if (KDE_ISUNLIKELY( pos.entry==end ))
-            break;
-        pos.entry=mergeCatalog.nextChangedIndex(pos.entry);
-    } while (pos.entry!=-1);
-
-    if (insHappened)
-        m_baseCatalog->endMacro();
-
-    if (update)
+    if (update!=m_mergeCatalog->changedEntries().contains(m_pos.entry))
         emit gotoEntry(m_pos,0);
 }
 

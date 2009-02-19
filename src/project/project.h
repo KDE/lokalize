@@ -79,6 +79,11 @@ private slots:
 
 public slots:
     Q_SCRIPTABLE QString targetLangCode(){return ProjectBase::langCode();}
+    Q_SCRIPTABLE QString sourceLangCode(){return ProjectBase::sourceLangCode();}
+    Q_SCRIPTABLE void init(const QString& path, const QString& kind, const QString& id,
+                           const QString& sourceLang, const QString& targetLang);
+    Q_SCRIPTABLE QString kind(){return ProjectBase::kind();}
+
 signals:
     Q_SCRIPTABLE void loaded();
 private:

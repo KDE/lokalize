@@ -47,6 +47,7 @@
 
 #include "xliffstorage.h"
 
+#include "mergecatalog.h"
 
 #include "version.h"
 #include "prefs_lokalize.h"
@@ -294,6 +295,29 @@ QString Catalog::mimetype()
 #define ISNTREADABLE -2
 #define UNKNOWNFORMAT -3
 
+KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
+{
+    KAutoSaveFile* autoSave=0;
+    QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(url);
+    if (!staleFiles.isEmpty())
+    {
+        foreach (KAutoSaveFile *stale, staleFiles)
+        {
+            if (stale->open(QIODevice::ReadOnly) && !autoSave)
+            {
+                autoSave=stale;
+                autoSave->setParent(this);
+            }
+            else
+                stale->deleteLater();
+        }
+    }
+    qWarning()<<"autoSave"<<autoSave;
+    if (autoSave)
+        qWarning()<<"autoSave"<<autoSave->fileName();
+    return autoSave;
+}
+
 int Catalog::loadFromUrl(const KUrl& url)
 {
     bool readOnly=false;
@@ -308,30 +332,15 @@ int Catalog::loadFromUrl(const KUrl& url)
     }
 
 
-    //BEGIN autosave files check
-    KAutoSaveFile* autoSave=0;
-    QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(url);
-    if (!staleFiles.isEmpty())
-    {
-        foreach (KAutoSaveFile *stale, staleFiles)
-        {
-            if (stale->managedFile()!=url)
-                qWarning()<<"MOTHER FUCKER!!";
-            if (stale->open(QIODevice::ReadOnly) && !autoSave)
-            {
-                autoSave=stale;
-                autoSave->setParent(this);
-            }
-            else
-                stale->deleteLater();
-        }
-    }
-    qWarning()<<"autoSave"<<autoSave;
-    if (autoSave)
-        qWarning()<<"autoSave"<<autoSave->fileName();
-    //END autosave files check
+    QTime a;a.start();
 
-
+    QString target;
+    if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
+        return ISNTREADABLE;
+    QFile* file=new QFile(target);
+    file->deleteLater();//kung-fu
+    if (!file->open(QIODevice::ReadOnly))
+        return ISNTREADABLE;//TODO
 
     CatalogStorage* storage=0;
     if (url.fileName().endsWith(".po")||url.fileName().endsWith(".pot"))
@@ -339,35 +348,29 @@ int Catalog::loadFromUrl(const KUrl& url)
     else if (url.fileName().endsWith(".xlf")||url.fileName().endsWith(".xliff"))
         storage=new XliffStorage;
     else
-        return UNKNOWNFORMAT;
-
-    QTime a;a.start();
-
-    QString target;
-    QFile* file=autoSave;
-    if (!autoSave)
     {
-        if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
-            return ISNTREADABLE;
-        file=new QFile(target);
-        file->deleteLater();//kung-fu
-        if (!file->open(QIODevice::ReadOnly))
-            return ISNTREADABLE;//TODO
+        //try harder
+        QTextStream in(file);
+        int i=0;
+        bool gettext=false;
+        while (!in.atEnd()&& i<64 && !gettext)
+            gettext=in.readLine().contains("msgid");
+        if (gettext) storage=new GettextCatalog::GettextStorage;
+        else return UNKNOWNFORMAT;
     }
 
     int line=storage->load(file);
 
     file->close();
-    if (!autoSave)
-        KIO::NetAccess::removeTempFile(target);
-
-    kWarning() <<"file opened in"<<a.elapsed();
+    KIO::NetAccess::removeTempFile(target);
 
     if (KDE_ISUNLIKELY(line!=0))
     {
         delete storage;
         return line;
     }
+
+    kWarning() <<"file opened in"<<a.elapsed();
 
     //ok...
     clear();
@@ -394,17 +397,29 @@ int Catalog::loadFromUrl(const KUrl& url)
     m_storage=storage;
 
     d->_numberOfPluralForms = storage->numberOfPluralForms();
-    d->_autoSaveRecovered=autoSave;
     d->_autoSaveDirty=true;
     d->_readOnly=readOnly;
     d->_url=url;
+
+    KAutoSaveFile* autoSave=checkAutoSave(url);
+    d->_autoSaveRecovered=autoSave;
     if (autoSave)
     {
         d->_autoSave->deleteLater();
         d->_autoSave=autoSave;
+
+        //restore 'modified' status for entries
+        MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
+        int errorLine=mergeCatalog->loadFromUrl(KUrl::fromPath(autoSave->fileName()));
+`        if (KDE_ISLIKELY(errorLine==0))
+        {
+            mergeCatalog->copyToBaseCatalog();
+        }
+        mergeCatalog->deleteLater();
     }
     else
         d->_autoSave->setManagedFile(url);
+
 
     emit signalFileLoaded();
     emit signalFileLoaded(url);
@@ -479,7 +494,6 @@ bool Catalog::saveToUrl(KUrl url)
 */
 }
 
-
 void Catalog::doAutoSave()
 {
     if (isClean()||!(d->_autoSaveDirty))
@@ -495,6 +509,14 @@ void Catalog::doAutoSave()
 }
 
 
+QByteArray Catalog::contents()
+{
+    QBuffer buf;
+    buf.open(QIODevice::WriteOnly);
+    m_storage->save(&buf);
+    buf.close();
+    return buf.data();
+}
 
 //END OPEN/SAVE
 
@@ -520,7 +542,6 @@ static void updateDB(
 {
     TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,/*oldTarget,*/newTarget,form,approved,
                                Project::instance()->projectID());
-    j->connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
     j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(j);
 }

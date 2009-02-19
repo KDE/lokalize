@@ -1,12 +1,15 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,32 +17,21 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-  In addition, as a special exception, the copyright holders give
-  permission to link the code of this program with any edition of
-  the Qt library by Trolltech AS, Norway (or with modified versions
-  of Qt that use the same license as Qt), and distribute linked
-  combinations including the two.  You must obey the GNU General
-  Public License in all respects for all of the code used other than
-  Qt. If you modify this file, you may extend this exception to
-  your version of the file, but you are not obligated to do so.  If
-  you do not wish to do so, delete this exception statement from
-  your version.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 **************************************************************************** */
 
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
+#include "languagelistmodel.h"
 
 #include "ui_prefs_identity.h"
 #include "ui_prefs_editor.h"
 #include "ui_prefs_appearance.h"
 #include "ui_prefs_tm.h"
 #include "ui_prefs_projectmain.h"
-#include "ui_prefs_regexps.h"
+#include "ui_prefs_project_advanced.h"
 
 
 #include <kconfigdialog.h>
@@ -53,6 +45,12 @@
 #include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
+
+#include <kross/core/manager.h>
+#include <kross/core/actioncollection.h>
+#include <kross/ui/view.h>
+#include <kross/ui/model.h>
+#include <QBoxLayout>
 
 //#include <sonnet/configwidget.h>
 
@@ -96,19 +94,11 @@ void SettingsController::slotSettings()
 
 
     KConfigGroup grp = Settings::self()->config()->group("Identity");
-    QString val( grp.readEntry("DefaultLangCode",KGlobal::locale()->languageList().first()) );
 
-    //QStringList langlist = KGlobal::locale()->languageList();//KGlobal::dirs()->findAllResources( "locale", QLatin1String("*/entry.desktop") );
-    QStringList langlist (KGlobal::locale()->allLanguagesList());
-    for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
-    {
-        ui_prefs_identity.DefaultLangCode->addItem(*it);
-        if (*it==val)
-            ui_prefs_identity.DefaultLangCode->setCurrentIndex(ui_prefs_identity.DefaultLangCode->count()-1);
+    ui_prefs_identity.DefaultLangCode->setModel(new LanguageListModel(ui_prefs_identity.DefaultLangCode));
+    ui_prefs_identity.DefaultLangCode->setCurrentItem(grp.readEntry("DefaultLangCode",KGlobal::locale()->language()));
 
-    }
-
-    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(const QString&)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(const QString&)));
+    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(QString)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(QString)));
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
     dialog->addPage(w, i18nc("@title:tab","Identity"), "preferences-desktop-user");
@@ -130,8 +120,8 @@ void SettingsController::slotSettings()
     Ui_prefs_tm ui_prefs_tm;
     ui_prefs_tm.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Translation Memory"), "configure");
-    
-    connect(dialog,SIGNAL(settingsChanged(const QString&)),this,SIGNAL(generalSettingsChanged()));
+
+    connect(dialog,SIGNAL(settingsChanged(QString)),this,SIGNAL(generalSettingsChanged()));
 
 //     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));
 
@@ -163,21 +153,6 @@ void SettingsController::slotSettings()
 
 
 
-void SettingsController::projectCreate()
-{
-    QString path(KFileDialog::getSaveFileName(KUrl(), "*.lokalize|Lokalize translation project"/*"text/x-lokalize-project"*/,0));
-    if (path.isEmpty())
-        return;
-
-    //TODO ask-n-save
-
-    Project::instance()->load(path);
-    Project::instance()->setDefaults();
-    projectConfigure();
-
-}
-
-
 void SettingsController::projectConfigure()
 {
     if (KConfigDialog::showDialog("project_settings"))
@@ -191,80 +166,69 @@ void SettingsController::projectConfigure()
     QWidget *w = new QWidget(dialog);
     Ui_prefs_projectmain ui_prefs_projectmain;
     ui_prefs_projectmain.setupUi(w);
+    dialog->addPage(w, i18nc("@title:tab","General"), "preferences-desktop-locale");
+
     ui_prefs_projectmain.kcfg_LangCode->hide();
     ui_prefs_projectmain.kcfg_PoBaseDir->hide();
-    ui_prefs_projectmain.kcfg_PotBaseDir->hide();
-    ui_prefs_projectmain.kcfg_BranchDir->hide();
     ui_prefs_projectmain.kcfg_GlossaryTbx->hide();
 
     Project& p=*(Project::instance());
-    QString val( p.langCode());
-    QStringList langlist = KGlobal::locale()->allLanguagesList();
-    for (QStringList::const_iterator it=langlist.begin();it!=langlist.end();++it)
-    {
-        ui_prefs_projectmain.LangCode->addItem(*it);
-        if (*it==val)
-            ui_prefs_projectmain.LangCode->setCurrentIndex(ui_prefs_projectmain.LangCode->count()-1);
-    }
+    LanguageListModel* llm=new LanguageListModel(ui_prefs_projectmain.LangCode);
+    ui_prefs_projectmain.LangCode->setModel(llm);
+    //ui_prefs_projectmain.LangCode->setCurrentItem(p.langCode());
+    ui_prefs_projectmain.LangCode->setCurrentIndex(llm->stringList().indexOf(p.langCode()));
+    connect(ui_prefs_projectmain.LangCode,SIGNAL(activated(QString)),
+            ui_prefs_projectmain.kcfg_LangCode,SLOT(setText(QString)));
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    ui_prefs_projectmain.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    ui_prefs_projectmain.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setFilter("*.tbx\n*.xml");
-
-    connect(ui_prefs_projectmain.poBaseDir,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain.kcfg_PoBaseDir,SLOT(setText(const QString&)));
-    connect(ui_prefs_projectmain.potBaseDir,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain.kcfg_PotBaseDir,SLOT(setText(const QString&)));
-    connect(ui_prefs_projectmain.branchDir,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain.kcfg_BranchDir,SLOT(setText(const QString&)));
-    connect(ui_prefs_projectmain.glossaryTbx,SIGNAL(textChanged(const QString&)),
-            ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(const QString&)));
-
-
+    connect(ui_prefs_projectmain.poBaseDir,SIGNAL(textChanged(QString)),
+            ui_prefs_projectmain.kcfg_PoBaseDir,SLOT(setText(QString)));
+    connect(ui_prefs_projectmain.glossaryTbx,SIGNAL(textChanged(QString)),
+            ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(QString)));
     ui_prefs_projectmain.poBaseDir->setUrl(p.poDir());
-    ui_prefs_projectmain.potBaseDir->setUrl(p.potDir());
-    ui_prefs_projectmain.branchDir->setUrl(p.branchDir());
     ui_prefs_projectmain.glossaryTbx->setUrl(p.glossaryPath());
 
 
 
-    dialog->addPage(w, i18nc("@title:tab","General"), "general_project_setting");
 
 
     // RegExps
     w = new QWidget(dialog);
-    Ui_prefs_regexps ui_prefs_regexps;
-    ui_prefs_regexps.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab","Syntax"), "syntax_project_setting");
+    Ui_prefs_advanced ui_prefs_advanced;
+    ui_prefs_advanced.setupUi(w);
+    ui_prefs_advanced.kcfg_PotBaseDir->hide();
+    ui_prefs_advanced.kcfg_BranchDir->hide();
+    ui_prefs_advanced.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_prefs_advanced.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    connect(ui_prefs_advanced.potBaseDir,SIGNAL(textChanged(QString)),
+            ui_prefs_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
+    connect(ui_prefs_advanced.branchDir,SIGNAL(textChanged(QString)),
+            ui_prefs_advanced.kcfg_BranchDir,SLOT(setText(QString)));
+    ui_prefs_advanced.potBaseDir->setUrl(p.potDir());
+    ui_prefs_advanced.branchDir->setUrl(p.branchDir());
+    dialog->addPage(w, i18nc("@title:tab","Advanced"), "applications-development-translation");
 
-    //WebQuery
+    //Scripts
     w = new QWidget(dialog);
-    QGridLayout* gridLayout = new QGridLayout(w);
-    gridLayout->setSpacing(6);
-    gridLayout->setMargin(11);
-    KUrlRequester *req = new KUrlRequester( /*w*/ );
-    req->setPath(p.projectDir());//for user's sake :)
-    m_scriptsPrefWidget = new KEditListBox( i18nc("@label","Scripts adding custom actions to Lokalize"), req->customEditor(), w );
-    gridLayout->addWidget(m_scriptsPrefWidget, 0, 0, 1, 1);
-
-    m_scriptsRelPrefWidget = new KEditListBox(w);
-    m_scriptsRelPrefWidget->setObjectName("kcfg_ScriptsList");
-    m_scriptsRelPrefWidget->hide();
-    //HACK...
-    connect (m_scriptsPrefWidget,SIGNAL(changed()),this,SLOT(reflectRelativePathsHack()));
-    /*
-    if (!ui_prefs_webquery)
-        ui_prefs_webquery = new Ui_prefs_webquery;
-    ui_prefs_webquery->setupUi(w);
-
-    ui_prefs_webquery->webQueryScripts->*/
+    QVBoxLayout* layout = new QVBoxLayout(w);
+    layout->setSpacing(6);
+    layout->setMargin(11);
 
 
-    dialog->addPage(w, i18nc("@title:tab","Scripts"), "project_scripts");
+    //m_projectActionsEditor=new Kross::ActionCollectionEditor(Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID()),w);
+    m_projectActionsView=new Kross::ActionCollectionView(w);
+    layout->addWidget(m_projectActionsView);
+    m_projectActionsView->setModel(new Kross::ActionCollectionModel(w,Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID())));
 
-    m_scriptsPrefWidget->setItems(p.scriptsList());
+    QHBoxLayout* btns = new QHBoxLayout();
+    layout->addLayout(btns);
+    btns->addWidget(m_projectActionsView->createButton(w, "edit"));
+
+
+    dialog->addPage(w, i18nc("@title:tab","Scripts"), "preferences-system-windows-actions");
+
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
 //     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));

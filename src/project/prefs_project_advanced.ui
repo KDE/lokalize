@@ -1,0 +1,170 @@
+<ui version="4.0" >
+ <class>prefs_advanced</class>
+ <widget class="QWidget" name="prefs_regexps" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>419</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Syntax</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string comment="@label:textbox" >Accelerator:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="kcfg_Accel" >
+        <property name="toolTip" >
+         <string>Usually '&amp;', but may also be '_' for GTK apps.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="textLabel2_2" >
+        <property name="text" >
+         <string comment="@label:textbox" >Markup:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="kcfg_Markup" >
+        <property name="toolTip" >
+         <string>Regular expression of markup. It is used for translation memory matching and for 'Insert tag' feature.
+
+A default value (suitable for XML-based texts) is:
+(&lt;[^>]+>)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+
+
+It is only used for gettext PO files, as XLIFF format has its own way of specifying where markup is.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>Paths</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2" >
+      <property name="fieldGrowthPolicy" >
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="textLabel2" >
+        <property name="text" >
+         <string comment="@label:textbox" >Template directory:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="KUrlRequester" name="potBaseDir" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string>Usually your translation project will be a subproject of a project
+for translating same texts into multiple languages.
+
+Set this to path of directory containing empty translation files
+(i.e. files without translation into any language)
+shared among all subprojects.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="textLabel500" >
+        <property name="text" >
+         <string comment="@label:textbox" >Branch directory:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="KUrlRequester" name="branchDir" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string comment="this message contains text from documentation, so use its translation when you're translating docs" >This setting is for Sync Mode.
+
+Sync Mode may be used to make changes to translation
+for two branches simultaneously.
+
+Set this to path that corresponds to base dir of the branch
+(i.e. 'Translation directory' of project for secondary branch),
+and Secondary Sync view will automatically open files from branch.
+Then, each time you make changes in files of your main branch,
+they will automatically be replicated to the branch
+(of course, if it contains the same english string).
+
+See documentation for more details.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="RelPathSaver" name="kcfg_PotBaseDir" />
+   </item>
+   <item>
+    <widget class="RelPathSaver" name="kcfg_BranchDir" />
+   </item>
+   <item>
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <customwidgets>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RelPathSaver</class>
+   <extends>QLineEdit</extends>
+   <header>prefs.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

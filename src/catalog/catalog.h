@@ -136,8 +136,11 @@ public:
     bool isEmpty(){return !m_storage;}
     bool isReadOnly(){return d->_readOnly;}
 
-    void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
+    virtual const DocPosition& undo();
+    virtual const DocPosition& redo();
+    virtual void push(QUndoCommand *cmd/*,bool rebaseForDBUpdate=false*/);
 
+    void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
     void setUrl(const KUrl& u){d->_url=u;}//used for template load
 public slots: //DBus interface
     const KUrl& url() const {return d->_url;}
@@ -145,13 +148,11 @@ public slots: //DBus interface
     int loadFromUrl(const KUrl& url);
     bool saveToUrl(KUrl url);
     bool save();
+    QByteArray contents();
     QString mimetype();
 
-public:
-    virtual const DocPosition& undo();
-    virtual const DocPosition& redo();
-    virtual void push(QUndoCommand *cmd/*,bool rebaseForDBUpdate=false*/);
-
+protected:
+    virtual KAutoSaveFile* checkAutoSave(const KUrl& url);
 
 protected slots:
     /**

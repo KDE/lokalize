@@ -24,25 +24,26 @@
 #include "mergecatalog.h"
 #include "catalog_private.h"
 #include "catalogstorage.h"
+#include "cmd.h"
 #include <kdebug.h>
+#include <klocalizedstring.h>
 #include <QMultiHash>
 
 
 
 
-MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog,bool primary)
+MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
- , m_primary(primary)
 {
-    connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(baseCatalogEntryModified(DocPosition)));
+    connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
     connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
 }
 
-void MergeCatalog::baseCatalogEntryModified(const DocPosition& pos, bool force)
+void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 {
     int a=m_mergeDiffIndex.indexOf(pos.entry);
-    if (force || a==-1)
+    if (options&EvenIfNotInDiffIndex || a==-1)
     {
         //sync changes
         DocPosition ourPos=pos;
@@ -55,7 +56,7 @@ void MergeCatalog::baseCatalogEntryModified(const DocPosition& pos, bool force)
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
 
-        if (force && a!=-1)
+        if (options&EvenIfNotInDiffIndex && a!=-1)
             m_mergeDiffIndex.removeAt(a);
 
         emit signalEntryModified(pos);
@@ -109,27 +110,17 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
     //TODO make more robust, perhaps after XLIFF?
     QStringList baseMatchData=baseStorage.matchData(basePos);
 
-    if (baseMatchData.isEmpty())
-    {
-        //compare ids
-        if (baseStorage.id(basePos)==mergeStorage.id(mergePos))
-            item.score+=20;
-    }
-    else if (baseMatchData==mergeStorage.matchData(mergePos))
-        item.score+=20;
+                                            //compare ids
+    item.score+=20*(baseMatchData.isEmpty()?baseStorage.id(basePos)==mergeStorage.id(mergePos)
+                                           :baseMatchData==mergeStorage.matchData(mergePos));
 
     //TODO look also for changed/new <note>s
 
-    //translation is changed
+    //translation isn't changed
     if (baseStorage.targetAllForms(basePos)==mergeStorage.targetAllForms(mergePos))
     {
-        if (baseStorage.isApproved(basePos)==mergeStorage.isApproved(mergePos))
-        {
-            item.score+=30;
-            item.translationIsDifferent=false;
-        }
-        else
-            item.score+=29;
+        item.translationIsDifferent=baseStorage.isApproved(basePos)!=mergeStorage.isApproved(mergePos);
+        item.score+=29+1*item.translationIsDifferent;
     }
     return item;
 }
@@ -186,7 +177,79 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
     return 0;
 }
 
+void MergeCatalog::copyToBaseCatalog(DocPosition& pos)
+{
+    bool changeContents=m_baseCatalog->msgstr(pos)!=msgstr(pos);
 
+    m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
 
+    if ( m_baseCatalog->isApproved(pos.entry) != isApproved(pos.entry))
+        m_baseCatalog->push(new ToggleApprovementCmd(m_baseCatalog,pos.entry,isApproved(pos.entry)));
+
+    if (changeContents)
+    {
+        pos.offset=0;
+        if (!m_baseCatalog->msgstr(pos).isEmpty())
+            m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos)));
+
+        m_baseCatalog->push(new InsTextCmd(m_baseCatalog,pos,msgstr(pos)));
+    }
+    ////////this is NOT done automatically by BaseCatalogEntryChanged slot
+    bool remove=true;
+    if (isPlural(pos.entry))
+    {
+        DocPosition p=pos;
+        p.form=qMin(m_baseCatalog->numberOfPluralForms(),numberOfPluralForms());//just sanity check
+        p.form=qMax((int)p.form,1);//just sanity check
+        while ((--(p.form))>=0 && remove)
+            remove=m_baseCatalog->msgstr(p)==msgstr(p);
+    }
+    if (remove)
+        removeFromDiffIndex(pos.entry);
+
+    m_baseCatalog->endMacro();
+}
+
+void MergeCatalog::copyToBaseCatalog(int options)
+{
+    DocPosition pos;
+    pos.offset=0;
+    bool insHappened=false;
+    QList<int> changed=changedEntries();
+    foreach(int entry, changed)
+    {
+        pos.entry=entry;
+        if (options&EmptyOnly&&!m_baseCatalog->isUntranslated(entry))
+            continue;
+
+        int formsCount=(m_baseCatalog->isPlural(entry))?m_baseCatalog->numberOfPluralForms():1;
+        pos.form=0;
+        while (pos.form<formsCount)
+        {
+            //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
+            //some forms may still contain translation...
+            if (!(options&EmptyOnly) || m_baseCatalog->isUntranslated(pos))
+            {
+                if (!insHappened)
+                {
+                    insHappened=true;
+                    m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept all new translations"));
+                }
+
+                copyToBaseCatalog(pos);
+                /// ///
+                /// m_baseCatalog->push(new InsTextCmd(m_baseCatalog,pos,mergeCatalog.msgstr(pos)));
+                /// ///
+            }
+            ++(pos.form);
+        }
+        /// ///
+        /// removeFromDiffIndex(m_pos.entry);
+        /// ///
+    }
+
+    if (insHappened)
+        m_baseCatalog->endMacro();
+}
 
 #include "mergecatalog.moc"

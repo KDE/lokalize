@@ -137,6 +137,7 @@ public slots:
 
 
     Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
+    Q_SCRIPTABLE QByteArray currentFileContents();
 
     Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
 #endif
@@ -272,7 +273,7 @@ signals:
 
     //emitted when mainwindow is closed or another file is opened
     void fileClosed();
-    Q_SCRIPTABLE void fileClosed(const QString&);
+    Q_SCRIPTABLE void fileClosed(const QString& path);
     Q_SCRIPTABLE void fileAboutToBeClosed();//old catalog is still accessible
     Q_SCRIPTABLE void fileOpened();
 

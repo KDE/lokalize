@@ -6,5 +6,18 @@
     <method name="targetLangCode">
       <arg type="s" direction="out"/>
     </method>
+    <method name="sourceLangCode">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="init">
+      <arg name="path" type="s" direction="in"/>
+      <arg name="kind" type="s" direction="in"/>
+      <arg name="id" type="s" direction="in"/>
+      <arg name="sourceLang" type="s" direction="in"/>
+      <arg name="targetLang" type="s" direction="in"/>
+    </method>
+    <method name="kind">
+      <arg type="s" direction="out"/>
+    </method>
   </interface>
 </node>

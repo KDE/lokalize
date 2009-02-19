@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -21,25 +21,32 @@
 
 **************************************************************************** */
 
-#ifndef GETTEXTHEADER_H
-#define GETTEXTHEADER_H
+#ifndef MULTIEDITORADAPTOR_H
+#define MULTIEDITORADAPTOR_H
 
-#include <QString>
-
-int numberOfPluralFormsFromHeader(const QString& header);
-QString GNUPluralForms(const QString& lang);
-
-void updateHeader(QString& header,
-                  QString& comment,
-                  QString& langCode,
-                  int& numberOfPluralForms,
-                  const QString& CatalogProjectId,
-                  bool generatedFromDocbook,
-                  bool forSaving);
-
-
-//for XLIFF
-int numberOfPluralFormsForLangCode(const QString& langCode);
-
+#ifdef HAVE_CONFIG_H
+#include <config.h>
 #endif
 
+#include "editoradaptor.h"
+#include <kdebug.h>
+
+/**
+ * Hack over QDBusAbstractAdaptor to get kross active-editor-adaptor for free
+ */
+class MultiEditorAdaptor: public EditorAdaptor
+{
+public:
+    MultiEditorAdaptor(EditorTab *parent):EditorAdaptor(parent){setObjectName("MultiEditorAdaptor");}
+    ~MultiEditorAdaptor() { /*kWarning()<<"bye bye cruel world";*/ }
+
+    inline EditorTab* editorTab() const
+    { return static_cast<EditorTab*>(QObject::parent()); }
+
+    inline void setEditorTab(EditorTab* e)
+    { setParent(e);setAutoRelaySignals(false);setAutoRelaySignals(true); }
+};
+
+
+
+#endif

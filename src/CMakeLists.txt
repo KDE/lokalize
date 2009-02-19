@@ -34,6 +34,7 @@ set(lokalize_SRCS
 
     common/flowlayout.cpp
     common/termlabel.cpp
+    common/languagelistmodel.cpp
     glossary/glossaryview.cpp
     glossary/tbxparser.cpp
     glossary/glossary.cpp
@@ -72,7 +73,6 @@ set(lokalize_SRCS
     catalog/gettext/importplugin.cpp
     catalog/gettext/gettextimport.cpp
     catalog/gettext/gettextexport.cpp
-
     catalog/xliff/xliffstorage.cpp
 )
 
@@ -82,7 +82,7 @@ kde4_add_ui_files(lokalize_SRCS
     prefs/prefs_editor.ui
     prefs/prefs_appearance.ui
     prefs/prefs_tm.ui
-    project/prefs_regexps.ui
+    project/prefs_project_advanced.ui
     project/prefs_projectmain.ui
     glossary/termedit.ui
     tm/queryoptions.ui

@@ -10,16 +10,19 @@
     <entry name="ProjectID"  type="String">
         <default code="true">"kde-"+KGlobal::locale()->language()</default>
     </entry>
+    <entry name="Kind"  type="String">
+        <default>kde</default>
+    </entry>
     <entry name="LangCode"  type="String">
 <!--
         <label>Language</label>
 -->
         <default code="true">KGlobal::locale()->language()</default>
     </entry>
+    <entry name="SourceLangCode"  type="String">
+        <default>en_US</default>
+    </entry>
     <entry name="MailingList"  type="String">
-<!--
-        <label>Language</label>
--->
         <default code="true">getMaillingList()</default>
     </entry>
     <entry name="PoBaseDir"  type="String">
@@ -34,8 +37,7 @@
 -->
         <default>../templates</default>
     </entry>
-    <entry name="BranchDir"  type="String">
-    </entry>
+    <entry name="BranchDir"  type="String"></entry>
     <entry name="GlossaryTbx"  type="String">
 <!--
         <label>Project's glossary</label>
@@ -44,12 +46,10 @@
     </entry>
   </group>
   <group name="WebQuery">
-    <entry name="WebQueryScripts"  type="StringList">
-    </entry>
+    <entry name="WebQueryScripts"  type="StringList"></entry>
   </group>
   <group name="Scripts">
-    <entry name="ScriptsList"  type="StringList">
-    </entry>
+    <entry name="ScriptsList"  type="StringList"></entry>
   </group>
   <group name="RegExps">
     <entry name="Accel"  type="String">

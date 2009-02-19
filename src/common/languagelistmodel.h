@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -21,25 +21,19 @@
 
 **************************************************************************** */
 
-#ifndef GETTEXTHEADER_H
-#define GETTEXTHEADER_H
 
-#include <QString>
+#ifndef LANGUAGELISTMODEL_H
+#define LANGUAGELISTMODEL_H
 
-int numberOfPluralFormsFromHeader(const QString& header);
-QString GNUPluralForms(const QString& lang);
-
-void updateHeader(QString& header,
-                  QString& comment,
-                  QString& langCode,
-                  int& numberOfPluralForms,
-                  const QString& CatalogProjectId,
-                  bool generatedFromDocbook,
-                  bool forSaving);
+#include <QStringListModel>
 
 
-//for XLIFF
-int numberOfPluralFormsForLangCode(const QString& langCode);
+class LanguageListModel: public QStringListModel
+{
+public:
+    LanguageListModel(QObject* parent=0);
+    virtual QVariant data(const QModelIndex& index, int role) const;
+    virtual QFlags< Qt::ItemFlag > flags(const QModelIndex& index) const;
+};
 
-#endif
-
+#endif // LANGUAGELISTMODEL_H

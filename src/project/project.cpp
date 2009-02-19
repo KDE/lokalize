@@ -184,19 +184,13 @@ void Project::populateWebQueryActions()
 
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
-//     if (possiblyRelPath.isEmpty())
-//         return QString();
-
-//     kWarning()<<"'"<<possiblyRelPath<<"'";
     if (KUrl::isRelativeUrl(possiblyRelPath))
     {
-//         kWarning()<<"1'"<<possiblyRelPath<<"'";
         KUrl url(m_path);
         url.setFileName(QString());
         url.cd(possiblyRelPath);
         return url.path(KUrl::RemoveTrailingSlash);
     }
-//     kWarning()<<"2'"<<possiblyRelPath<<"'";
     return possiblyRelPath;
 }
 
@@ -259,7 +253,6 @@ void Project::showGlossary()
 
 void Project::defineNewTerm(QString en,QString target)
 {
-    kWarning()<<"here";
     GlossaryNS::GlossaryWindow* gloWin=new GlossaryNS::GlossaryWindow;
     gloWin->show();
     if (!en.isEmpty()||!target.isEmpty())
@@ -284,6 +277,20 @@ ProjectModel* Project::model()
         m_model=new ProjectModel(this);
 
     return m_model;
+}
+
+void Project::init(const QString& path, const QString& kind, const QString& id,
+                   const QString& sourceLang, const QString& targetLang)
+{
+    setDefaults();
+    bool stop=false;
+    while(true)
+    {
+        setKind(kind);setSourceLangCode(sourceLang);setLangCode(targetLang);setProjectID(id);
+        if (stop) break;
+        else {load(path);stop=true;}
+    }
+    save();
 }
 
 

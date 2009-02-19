@@ -110,6 +110,7 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     connect (_msgidEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
     connect (_msgstrEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
     connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), _msgstrEdit, SLOT(reflectApprovementState()));
+    connect (_msgidEdit, SIGNAL(tagInsertRequested(TagRange)), _msgstrEdit, SLOT(insertTag(TagRange)));
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);

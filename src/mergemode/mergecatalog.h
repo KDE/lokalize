@@ -73,11 +73,11 @@ struct MatchItem
  * @short Merge source container
  * @author Nick Shaforostoff <shafff@ukr.net>
   */
-class MergeCatalog : public Catalog
+class MergeCatalog: public Catalog
 {
     Q_OBJECT
 public:
-    MergeCatalog(QObject* parent, Catalog* baseCatalog,bool primary=true);
+    MergeCatalog(QObject* parent, Catalog* baseCatalog);
     ~MergeCatalog(){};
 
     int loadFromUrl(const KUrl& url);
@@ -87,6 +87,7 @@ public:
     int nextChangedIndex(uint index) const {return findNextInList(m_mergeDiffIndex,index);}
     int prevChangedIndex(uint index) const {return findPrevInList(m_mergeDiffIndex,index);}
     int isChanged(uint index) const {return m_mergeDiffIndex.indexOf(index)!=-1;}
+    QList<int> changedEntries()const {return m_mergeDiffIndex;}
 
     //override to use map
     QString msgstr(const DocPosition&) const;
@@ -96,15 +97,21 @@ public:
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const short int& entry) const;
 
+    void copyToBaseCatalog(DocPosition& pos);
+    enum CopyToBaseOptions {EmptyOnly=1};
+    void copyToBaseCatalog(int options=0);
 
     inline void removeFromDiffIndex(uint index){m_mergeDiffIndex.removeAll(index);}
-
-    void copyFromBaseCatalog(const DocPosition& pos){baseCatalogEntryModified(pos, true);}
-private slots:
-    void baseCatalogEntryModified(const DocPosition&, bool force=false);
+    enum CopyFromBaseOptions {EvenIfNotInDiffIndex=1};
+    void copyFromBaseCatalog(const DocPosition&, int options);
+    void copyFromBaseCatalog(const DocPosition& pos){copyFromBaseCatalog(pos, EvenIfNotInDiffIndex);}
+public slots:
+    void copyFromBaseCatalogIfInDiffIndex(const DocPosition& pos){copyFromBaseCatalog(pos, 0);}
 
 private:
     MatchItem calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos);
+    KAutoSaveFile* checkAutoSave(const KUrl&){return 0;}//rely on basecatalog restore
+
 
 private:
     QVector<int> m_map; //maps entries: m_baseCatalog -> this
