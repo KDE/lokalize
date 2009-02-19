@@ -411,7 +411,7 @@ int Catalog::loadFromUrl(const KUrl& url)
         //restore 'modified' status for entries
         MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
         int errorLine=mergeCatalog->loadFromUrl(KUrl::fromPath(autoSave->fileName()));
-`        if (KDE_ISLIKELY(errorLine==0))
+        if (KDE_ISLIKELY(errorLine==0))
         {
             mergeCatalog->copyToBaseCatalog();
         }
