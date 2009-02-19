@@ -30,5 +30,8 @@
     <method name="dbusName">
       <arg type="s" direction="out"/>
     </method>
+    <method name="busyCursor">
+      <arg name="busy" type="b" direction="in"/>
+    </method>
   </interface>
 </node>

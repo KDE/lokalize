@@ -115,6 +115,7 @@ public slots:
      */
     Q_SCRIPTABLE QString dbusName();
 
+    Q_SCRIPTABLE void busyCursor(bool busy);
 
     //returns 0 if error
     EditorTab* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());

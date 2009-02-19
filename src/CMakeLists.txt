@@ -140,12 +140,15 @@ install( FILES
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
 install( FILES
         scripts/find-gui-text.sh
-        scripts/widget-text-capture.py
-        scripts/widget-text-capture.rc
-        scripts/widget-text-capture.ui
-        scripts/xliff2odf.py
-        scripts/xliff2odf.rc
         scripts/new-project-wizard.py
         scripts/new-project-wizard.rc
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-
+install( FILES
+        scripts/widget-text-capture.py
+        scripts/widget-text-capture.rc
+        scripts/widget-text-capture.ui
+        DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts/kde )
+install( FILES
+        scripts/xliff2odf.py
+        scripts/xliff2odf.rc
+        DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts/odf )

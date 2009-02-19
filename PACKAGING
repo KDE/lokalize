@@ -1,8 +1,10 @@
 deps:
--qt 4.4, with sqlite plugin
--kdelibs 4.2
--kdesdk strigi analyzer plugins (for project tree view)
+-qt 4.5, with sqlite plugin
+-kdelibs 4.3
+-kdesdk strigi analyzer plugins (for project overview)
 -krosspython
+-python-kde4
+-python-qt4
 -translate-toolkit (odf2xliff)
 -python-dbus
--recommend gettext (it is used as a fallback for getting plural expressions for langs, and by kross scripts)
+-recommend gettext (it is used as a fallback for getting plural expressions for langs)

@@ -182,7 +182,7 @@ QString GNUPluralForms(const QString& lang)
     msginit.waitForStarted(5000);
     if (KDE_ISUNLIKELY( msginit.state()!=QProcess::Running ))
     {
-        kWarning()<<"msginit error";
+        //kWarning()<<"msginit error";
         return def;
     }
 
@@ -217,7 +217,7 @@ QString GNUPluralForms(const QString& lang)
     int pos = result.indexOf("Plural-Forms: ");
     if (KDE_ISUNLIKELY( pos==-1 ))
     {
-        kWarning()<<"msginit error"<<result;
+        //kWarning()<<"msginit error"<<result;
         return def;
     }
     pos+=14;
@@ -225,7 +225,7 @@ QString GNUPluralForms(const QString& lang)
     int end = result.indexOf('"',pos);
     if (KDE_ISUNLIKELY( pos==-1 ))
     {
-        kWarning()<<"msginit error"<<result;
+        //kWarning()<<"msginit error"<<result;
         return def;
     }
 

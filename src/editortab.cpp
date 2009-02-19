@@ -91,19 +91,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 EditorTab::EditorTab(QWidget* parent)
         : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
@@ -638,11 +625,6 @@ void EditorTab::showDocks()
         m_catalogTreeView->show();
 }
 
-KUrl EditorTab::currentUrl()
-{
-    return m_catalog->url();
-}
-
 void EditorTab::setCaption(QString title,bool modified)
 {
     if (m_catalog->autoSaveRecovered()) title+=' '+i18nc("editor tab name","(recovered)");
@@ -785,10 +767,8 @@ bool EditorTab::fileOpen(KUrl url)
     }
 
     //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-    if (errorLine>0)
-        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
-    else
-        KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+    if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
+    else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
     return false;
 }
 
@@ -1083,15 +1063,8 @@ void EditorTab::gotoNextBookmark()
     gotoEntry(pos);
 }
 
-void EditorTab::gotoFirst()
-{
-    gotoEntry(DocPosition(0));
-}
-
-void EditorTab::gotoLast()
-{
-    gotoEntry(DocPosition(m_catalog->numberOfEntries()-1));
-}
+void EditorTab::gotoFirst(){gotoEntry(DocPosition(0));}
+void EditorTab::gotoLast(){gotoEntry(DocPosition(m_catalog->numberOfEntries()-1));}
 
 //wrapper for cmdline handling...
 void EditorTab::mergeOpen(KUrl url)
@@ -1140,18 +1113,10 @@ QString EditorTab::dbusObjectPath()
 }
 
 
-QString EditorTab::selectionInTarget()
-{
-    return m_view->selectionInTarget();
-}
-QString EditorTab::selectionInSource()
-{
-    return m_view->selectionInSource();
-}
-
-QByteArray EditorTab::currentFileContents()
-{
-    return m_catalog->contents();
-}
+KUrl EditorTab::currentUrl(){return m_catalog->url();}
+QByteArray EditorTab::currentFileContents(){return m_catalog->contents();}
+QString EditorTab::currentEntryId(){return m_catalog->id(m_currentPos);}
+QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}
+QString EditorTab::selectionInSource(){return m_view->selectionInSource();}
 
 //END DBus interface

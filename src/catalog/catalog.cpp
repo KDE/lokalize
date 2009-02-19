@@ -234,6 +234,13 @@ QStringList Catalog::sourceFiles(const DocPosition& pos) const
     return m_storage->sourceFiles(pos);
 }
 
+QString Catalog::id(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return d->CatalogPrivate::_emptyStr;
+
+    return m_storage->id(pos);
+}
 
 QString Catalog::msgctxt(uint index) const
 {
@@ -412,9 +419,7 @@ int Catalog::loadFromUrl(const KUrl& url)
         MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
         int errorLine=mergeCatalog->loadFromUrl(KUrl::fromPath(autoSave->fileName()));
         if (KDE_ISLIKELY(errorLine==0))
-        {
             mergeCatalog->copyToBaseCatalog();
-        }
         mergeCatalog->deleteLater();
     }
     else

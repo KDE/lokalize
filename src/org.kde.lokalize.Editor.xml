@@ -32,6 +32,9 @@
       <arg name="offset" type="i" direction="in"/>
       <arg name="selection" type="i" direction="in"/>
     </method>
+    <method name="currentEntryId">
+      <arg type="s" direction="out"/>
+    </method>
     <method name="currentEntry">
       <arg type="i" direction="out"/>
     </method>

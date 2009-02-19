@@ -44,10 +44,6 @@
 #include <kmessagebox.h>
 #include <kapplication.h>
 
-#if QT_VERSION >= 0x040400
-    #include <kfadewidgeteffect.h>
-#endif
-
 
 #include <kio/netaccess.h>
 #include <kaction.h>
@@ -605,9 +601,9 @@ class ProjectScriptingPlugin: public Kross::ScriptingPlugin
 public:
     ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
         : Kross::ScriptingPlugin(
-        Project::instance()->kind(),
+        Project::instance()->projectID(),
         Project::instance()->projectDir()+"/scripts/scripts.rc",
-        "project", lokalize)
+        Project::instance()->kind(), lokalize)
     {
         QString filepath=Project::instance()->projectDir()+"/scripts/scripts.rc";
         if (!QFile::exists(filepath))
@@ -648,13 +644,16 @@ public:
 
         Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
         if (!collection) return;
+        kWarning()<<"start";
         foreach(const QString &collectionname, collection->collections())
         {
             Kross::ActionCollection* c = collection->collection(collectionname);
+            kWarning()<<"col"<<c->name();
             if(!c->isEnabled()) continue;
 
             foreach(Kross::Action* action, c->actions())
             {
+                kWarning()<<"act"<<action->file();
                 if (action->property("autorun").toBool())
                     action->trigger();
             }
@@ -738,16 +737,10 @@ int LokalizeMainWindow::showTranslationMemory()
     return w->dbusId();
 }
 
-QString LokalizeMainWindow::currentProject()
-{
-    return Project::instance()->path();
-}
-
 int LokalizeMainWindow::openFileInEditor(const QString& path)
 {
     EditorTab* w=fileOpen(KUrl(path));
-    if (!w)
-        return -1;
+    if (!w) return -1;
     return w->dbusId();
 }
 
@@ -762,34 +755,26 @@ QObject* LokalizeMainWindow::activeEditor()
 
 QObject* LokalizeMainWindow::editorForFile(const QString& path)
 {
-    if (!m_fileToEditor.contains(KUrl(path)))
-        return 0;
+    if (!m_fileToEditor.contains(KUrl(path))) return 0;
     QMdiSubWindow* w=m_fileToEditor.value(KUrl(path));
-    if (!w)
-        return 0;
+    if (!w) return 0;
     return static_cast<EditorTab*>(w->widget());
 }
 
 int LokalizeMainWindow::editorIndexForFile(const QString& path)
 {
     EditorTab* editor=static_cast<EditorTab*>(editorForFile(path));
-    if (!editor)
-        return -1;
+    if (!editor) return -1;
     return editor->dbusId();
 }
 
 
+QString LokalizeMainWindow::currentProject(){return Project::instance()->path();}
+
 #include <unistd.h>
-int LokalizeMainWindow::pid()
-{
-    return getpid();
-}
-
-QString LokalizeMainWindow::dbusName()
-{
-    return QString("org.kde.lokalize-%1").arg(pid());
-}
-
+int LokalizeMainWindow::pid(){return getpid();}
+QString LokalizeMainWindow::dbusName(){return QString("org.kde.lokalize-%1").arg(pid());}
+void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCursor(Qt::WaitCursor):QApplication::restoreOverrideCursor();}
 
 //END DBus interface
 

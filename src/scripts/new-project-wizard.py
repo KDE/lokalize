@@ -9,6 +9,9 @@ from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from PyKDE4.kio import *
 
+from translate.convert import odf2xliff
+
+
 T = Kross.module("kdetranslation")
 def i18n(text, args = []):
     if T is not None: return T.i18n(text, args)
@@ -16,6 +19,15 @@ def i18n(text, args = []):
     for a in range(len(args)): text = text.replace( ("%" + "%d" % ( a + 1 )), str(args[a]) )
     return text
 
+#copied from translate-toolkit unit test
+def args(src, tgt, **kwargs):
+    arg_list = [src, tgt]
+    for flag, value in kwargs.iteritems():
+        value = unicode(value)
+        if len(flag) == 1: arg_list.append(u'-%s' % flag)
+        else:              arg_list.append(u'--%s' % flag)
+        if not value==None:arg_list.append(value)
+    return arg_list
 
 
 pages=[]
@@ -76,7 +88,6 @@ class OdfSourcePage(QWizardPage):
     def nextId(self): return pages.index('name')
 
     def initializePage(self):
-        #self.registerField('odf-template-source-files',self.files)
         self.registerField('odf-template-source-files',self.files)
         self.registerField('odf-template-source-dirs',self.dirs)
         self.registerField('odf-template-files',self.odfFilePath.lineEdit())
@@ -182,20 +193,31 @@ class ProjectAssistant(QWizard):
         self.connect(self,SIGNAL("accepted()"),self.handleAccept)
 
     def handleAccept(self):
-        f=lambda name:self.field(name).toString()
+        fs=lambda name:self.field(name).toString()
         fi=lambda name:self.field(name).toInt()[0]
+        fb=lambda name:self.field(name).toBool()
 
         kinds=['odf','kde']
+        kind=kinds[self.page(0).group.checkedId()]
 
-        loc=QDir(f('location'))
-        loc.mkdir(f('name'))
-        ppath=loc.absoluteFilePath(f('name')+'/index.lokalize')
+        projectfilename='index.lokalize'
+        #if kind=='odf' and fb('odf-template-source-files'):
+            #projectfilename=QFileInfo(fs('odf-template-files')).baseName()+'.lokalize'
+
+        loc=QDir(fs('location'))
+        loc.mkdir(fs('name'))
+        ppath=loc.absoluteFilePath(fs('name')+'/'+projectfilename)
 
         langs=self.page(pages.index('languages')).languageListModel.stringList()
-        Project.init(ppath, kinds[self.page(0).group.checkedId()],
-                    f('name').toLower()+'-'+langs[fi('target-lang')],
-                    langs[fi('source-lang')],langs[fi('target-lang')])
+        Project.init(ppath, kind,
+                     fs('name').toLower()+'-'+langs[fi('target-lang')],
+                     langs[fi('source-lang')],langs[fi('target-lang')])
 
+        if kind=='odf':
+            files=[fs('odf-template-files')]
+            for f in files:
+                info=QFileInfo(fs('odf-template-files'))
+                odf2xliff.main(args(unicode(f), unicode(info.absolutePath()+'/'+info.baseName()+'.xlf')))
 
         Lokalize.openProject(ppath)
 

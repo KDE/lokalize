@@ -677,7 +677,7 @@ QStringList XliffStorage::matchData(const DocPosition& pos) const
 
 QString XliffStorage::id(const DocPosition& pos) const
 {
-    return tmp;
+    return entries.at(m_map.at(pos.entry)).toElement().attribute("id");
 }
 
 bool XliffStorage::isPlural(const DocPosition& pos) const

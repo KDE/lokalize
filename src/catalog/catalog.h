@@ -95,6 +95,7 @@ public slots: //DBus interface
     QString alttrans(const DocPosition& pos) const;
     QStringList sourceFiles(const DocPosition& pos) const;
     QString msgctxt(uint index) const;
+    QString id(const DocPosition& pos) const;
 
     bool isPlural(uint index) const;
     bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}

@@ -130,6 +130,7 @@ public slots:
     Q_SCRIPTABLE void gotoEntryFormOffset(int entry,int form, int offset){gotoEntry(DocPosition(entry,form,offset));}
     Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry,int form, int offset, int selection){gotoEntry(DocPosition(entry,form,offset),selection);}
 
+    Q_SCRIPTABLE QString currentEntryId();
     Q_SCRIPTABLE int currentEntry(){return m_currentPos.entry;}
     Q_SCRIPTABLE int currentForm(){return m_currentPos.form;}
     Q_SCRIPTABLE QString selectionInTarget();
