@@ -220,7 +220,7 @@ void SettingsController::projectConfigure()
     //m_projectActionsEditor=new Kross::ActionCollectionEditor(Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID()),w);
     m_projectActionsView=new Kross::ActionCollectionView(w);
     layout->addWidget(m_projectActionsView);
-    m_projectActionsView->setModel(new Kross::ActionCollectionModel(w,Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID())));
+    m_projectActionsView->setModel(new Kross::ActionCollectionModel(w,Kross::Manager::self().actionCollection()->collection(Project::instance()->kind())));
 
     QHBoxLayout* btns = new QHBoxLayout();
     layout->addLayout(btns);

@@ -18,14 +18,18 @@ class XliffInput:
     def close(self): return
 
 def convert():
+    print Lokalize.activeEditor()
+    print Editor.currentFile()
     if not Lokalize.activeEditor() or Editor.currentFile()=='': return
 
     xliffpathname=Editor.currentFile()
     (path, filename)=os.path.split(xliffpathname)
+    print 'here'
     if not filename.endswith('.xlf'): return
 
 
     xliffinput=XliffInput(xliffpathname,Editor.currentFileContents())
+    print 'xliffpathname',
     print xliffpathname
 
     store = factory.getobject(xliffpathname)
@@ -34,70 +38,24 @@ def convert():
     translatedodfpathname=os.path.splitext(odfpathname)[0]+'-'+Project.targetLangCode()+'.odt'
 
 
+    print 'translatedodfpathname',
     print translatedodfpathname
+    print 'odfpathname',
     print odfpathname
     xliff2odf.convertxliff(xliffinput, translatedodfpathname, odfpathname)
     
     return translatedodfpathname
 
 translatedodfpathname=convert()
+print 'translatedodfpathname: ',
 print translatedodfpathname
 
 
+print sys.path
+ourPath=(filter(lambda p: os.path.exists(p+'/xliff2odf.py'),sys.path)+[''])[0]
+print ourPath
 
-if os.name=='nt': import socket  # only needed on win32-OOo3.0.0
-import socket
-import uno
-import time
-
-def show_in_ooo(translatedodfpathname):
-    if len(translatedodfpathname)==0: return
-
-    def establish_connection():
-        localContext = uno.getComponentContext()
-        resolver = localContext.ServiceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", localContext )
-        return resolver.resolve( "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext" )
-
-    try: ctx = establish_connection()
-    except:
-        os.system('soffice "-accept=socket,host=localhost,port=2002;urp;"')
-        for c in range(30):
-            time.sleep(1) #sleeps rule )))
-            try:ctx = establish_connection()
-            except: continue
-            break
-
-    print "file://"+translatedodfpathname
-    try:
-        print Editor.currentEntryId()
-        paranumre=re.compile('/text:p\\[([0-9]*)\\]$')
-        o=paranumre.search(Editor.currentEntryId())
-        paranum=int(o.group(1))
-        print paranum
-    except:
-        print 'error determining pos'
-        #return ctx
-    if 1:
-    #try:
-        desktop = ctx.ServiceManager.createInstanceWithContext( "com.sun.star.frame.Desktop",ctx)
-        model = desktop.loadComponentFromURL( "file://"+translatedodfpathname,"_default", 0, () )
-
-        dispatcher = ctx.ServiceManager.createInstanceWithContext( "com.sun.star.frame.DispatchHelper",ctx)
-        dispatcher.executeDispatch(model.getCurrentController().getFrame(),".uno:Reload","",0,())
-
-        #model = desktop.loadComponentFromURL( "file://"+translatedodfpathname,"_default", 0, () )
-        #text = model.Text
-        #cursor = text.createTextCursor()
-        #cursor.gotoStart(False)
-        #for i in range(paranum): cursor.gotoNextParagraph(False)
-
-        #c=model.getCurrentController().getViewCursor()
-        #c.gotoRange(cursor,False)
-    #except:print 'error occured'
-
-    return ctx
-
-ctx=show_in_ooo(translatedodfpathname)
-ctx.ServiceManager
+if translatedodfpathname:
+    os.system('python '+ourPath+'/xliff2odf-standalone.py "%s" "%s"'%(translatedodfpathname, Editor.currentEntryId()))
 
 Lokalize.busyCursor(False)

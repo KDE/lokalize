@@ -62,16 +62,14 @@ class OdfSourcePage(QWizardPage):
         self.setTitle(i18n("Choose a document to be translated"))
         self.setSubTitle(i18n("Choose document in a source language."))
         self.group=QButtonGroup(self)
-        self.files=QRadioButton(self)
-        self.files.setText(i18n('Select file:'))
+        self.files=QRadioButton(i18n('Select file:'),self)
         self.files.setChecked(True)
         self.group.addButton(self.files,0)
         self.odfFilePath=KUrlRequester(self)
         self.odfFilePath.setFilter('*.odt *.ods|OpenDocument files')
         self.odfFilePath.setMode(KFile.Modes(KFile.File or KFile.ExistingOnly or KFile.LocalOnly))
 
-        self.dirs=QRadioButton(self)
-        self.dirs.setText(i18n('Select a directory:'))
+        self.dirs=QRadioButton(i18n('Select a directory:'),self)
         self.group.addButton(self.dirs,1)
         self.odfDirPath=KUrlRequester(self)
         self.odfDirPath.setMode(KFile.Modes(KFile.Directory or KFile.ExistingOnly or KFile.LocalOnly))
@@ -79,6 +77,10 @@ class OdfSourcePage(QWizardPage):
         self.connect(self.odfFilePath,SIGNAL("textChanged(QString)"),self,SIGNAL("completeChanged()"))
         self.connect(self.odfDirPath.lineEdit(),SIGNAL("textChanged(QString)"),self,SIGNAL("completeChanged()"))
         self.connect(self.group,SIGNAL("buttonClicked(int)"),self,SIGNAL("completeChanged()"))
+
+        self.connect(self.files,SIGNAL("toggled(bool)"),self.odfFilePath,SLOT("setEnabled(bool)"))
+        self.connect(self.dirs,SIGNAL("toggled(bool)"),self.odfDirPath,SLOT("setEnabled(bool)"))
+        self.odfDirPath.setEnabled(False)
 
         layout=QFormLayout(self)
         layout.addRow(self.files,self.odfFilePath)
@@ -109,7 +111,14 @@ class NamePage(QWizardPage):
         QWizardPage.__init__(self, parent)
         self.setTitle(i18n("Choose project name and location"))
         self.setSubTitle(i18n("If you choose custom paths then the source files will be copied to it."))
-        layout=QFormLayout(self)
+        ml=QVBoxLayout(self)
+
+        self.samedir=QCheckBox(i18n('Use initial source dir, generate name automatically'),self)
+        ml.addWidget(self.samedir)
+
+        group=QGroupBox(i18n('Custom paths'),self)
+        ml.addWidget(group)
+        layout=QFormLayout(group)
         self.projectName=KLineEdit(self)
         layout.addRow(i18n("Name:"),self.projectName)
         self.projectLocation=KUrlRequester(self)
@@ -119,18 +128,19 @@ class NamePage(QWizardPage):
         self.registerField('name*',self.projectName)
         self.registerField('location*',self.projectLocation.lineEdit())
 
+        self.connect(self.samedir,SIGNAL("toggled(bool)"),group,SLOT("setDisabled(bool)"))
+        self.samedir.setChecked(True)
+
     def nextId(self): return pages.index('languages')
 
     def initializePage(self):
         if self.field('odf-template-source-files').toBool():
             p=self.field('odf-template-files').toString()
-            pp=QFileInfo(p).absolutePath()
-            self.projectLocation.lineEdit().setText(QFileInfo(pp).absolutePath())
-            self.projectName.setText(QFileInfo(pp).fileName())
+            p=QFileInfo(p).absolutePath()
         else:
             p=self.field('odf-template-dir').toString()
-            self.projectLocation.lineEdit().setText(QFileInfo(p).absolutePath())
-            self.projectName.setText(QFileInfo(p).fileName())
+        self.projectLocation.lineEdit().setText(QFileInfo(p).absolutePath())
+        self.projectName.setText(QFileInfo(p).fileName())
 
         #field(fields[self.page(0).group.checkedId()]).toString()
         #self.projectLocation.lineEdit().setText(QDesktopServices.storageLocation(QDesktopServices.StandardLocation.DocumentsLocation))

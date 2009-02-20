@@ -568,10 +568,10 @@ void LokalizeMainWindow::restoreState()
     /*restoreState(m_state);
     m_state=saveState();*/
 }
-#if 1
+
+
+
 //BEGIN DBus interface
-
-
 
 //#include "plugin.h"
 #include "mainwindowadaptor.h"
@@ -587,7 +587,6 @@ public:
     MyScriptingPlugin(QObject* lokalize,QObject* editor)
         : Kross::ScriptingPlugin(lokalize)
     {
-        //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
         addObject(lokalize,"Lokalize");
         addObject(Project::instance(),"Project");
         addObject(editor,"Editor");
@@ -599,67 +598,54 @@ public:
 class ProjectScriptingPlugin: public Kross::ScriptingPlugin
 {
 public:
-    ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
-        : Kross::ScriptingPlugin(
-        Project::instance()->projectID(),
-        Project::instance()->projectDir()+"/scripts/scripts.rc",
-        Project::instance()->kind(), lokalize)
-    {
-        QString filepath=Project::instance()->projectDir()+"/scripts/scripts.rc";
-        if (!QFile::exists(filepath))
-        {
-            KUrl dir = KUrl(filepath).directory();
-            KIO::NetAccess::mkdir(dir, 0);
-            QFile f(filepath);
-            f.open(QIODevice::WriteOnly);
-            QTextStream out(&f);
-            out <<"<!-- see help for the syntax -->";
-            f.close();
-        }
-
-        //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
-        addObject(lokalize,"Lokalize",ChildrenInterface::AutoConnectSignals);
-        addObject(Project::instance(),"Project",ChildrenInterface::AutoConnectSignals);
-        addObject(editor,"Editor",ChildrenInterface::AutoConnectSignals);
-        setXMLFile("scriptsui.rc",true);
-    }
-
-    ~ProjectScriptingPlugin()
-    {
-//         QFile f(Project::instance()->projectDir()+"/scripts/scripts.rc");
-//         f.open(QIODevice::WriteOnly);
-// 
-//         Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID());
-//         bool collectionEmpty = !collection||collection->actions().empty()||collection->collections().empty();
-// 
-//         if( !collectionEmpty ) {
-//             collection->writeXml(&f);
-//         }
-//         f.close();
-    }
-
-    void setDOMDocument (const QDomDocument &document, bool merge = false)
-    {
-        Kross::ScriptingPlugin::setDOMDocument(document, merge);
-
-        Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
-        if (!collection) return;
-        kWarning()<<"start";
-        foreach(const QString &collectionname, collection->collections())
-        {
-            Kross::ActionCollection* c = collection->collection(collectionname);
-            kWarning()<<"col"<<c->name();
-            if(!c->isEnabled()) continue;
-
-            foreach(Kross::Action* action, c->actions())
-            {
-                kWarning()<<"act"<<action->file();
-                if (action->property("autorun").toBool())
-                    action->trigger();
-            }
-        }
-    }
+    ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
+    ~ProjectScriptingPlugin(){}
+    void setDOMDocument (const QDomDocument &document, bool merge = false);
 };
+
+ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
+ : Kross::ScriptingPlugin(Project::instance()->kind(),
+                          Project::instance()->projectDir()+"/scripts/scripts.rc",
+                          Project::instance()->kind(), lokalize)
+{
+    QString filepath=Project::instance()->projectDir()+"/scripts/scripts.rc";
+    if (!QFile::exists(filepath))
+    {
+        KUrl dir = KUrl(filepath).directory();
+        KIO::NetAccess::mkdir(dir, 0);
+        QFile f(filepath);
+        f.open(QIODevice::WriteOnly);
+        QTextStream out(&f);
+        out <<"<!-- see help for the syntax -->";
+        f.close();
+    }
+
+    //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
+    addObject(lokalize,"Lokalize",ChildrenInterface::AutoConnectSignals);
+    addObject(Project::instance(),"Project",ChildrenInterface::AutoConnectSignals);
+    addObject(editor,"Editor",ChildrenInterface::AutoConnectSignals);
+    setXMLFile("scriptsui.rc",true);
+}
+
+void ProjectScriptingPlugin::setDOMDocument (const QDomDocument &document, bool merge)
+{
+    Kross::ScriptingPlugin::setDOMDocument(document, merge);
+
+    Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
+    if (!collection) return;
+    foreach(const QString &collectionname, collection->collections())
+    {
+        Kross::ActionCollection* c = collection->collection(collectionname);
+        if(!c->isEnabled()) continue;
+
+        foreach(Kross::Action* action, c->actions())
+        {
+            if (action->property("autorun").toBool())
+                action->trigger();
+        }
+    }
+}
+
 
 /*
 void LokalizeMainWindow::checkForProjectAlreadyOpened()
@@ -748,9 +734,9 @@ QObject* LokalizeMainWindow::activeEditor()
 {
     QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
-    if (activeSW && qobject_cast<EditorTab*>(activeSW->widget()))
-        return activeSW->widget();
-    return 0;
+    if (!activeSW || !qobject_cast<EditorTab*>(activeSW->widget()))
+        return 0;
+    return activeSW->widget();
 }
 
 QObject* LokalizeMainWindow::editorForFile(const QString& path)
@@ -778,10 +764,6 @@ void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCur
 
 //END DBus interface
 
-////BEGIN Kross interface
-////END Kross interface
-
-#endif
 
 
 #include "lokalizemainwindow.moc"

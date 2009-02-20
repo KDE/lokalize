@@ -151,4 +151,5 @@ install( FILES
 install( FILES
         scripts/xliff2odf.py
         scripts/xliff2odf.rc
+        scripts/xliff2odf-standalone.py
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts/odf )
