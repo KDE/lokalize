@@ -184,7 +184,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         EditorState state=w->state();
         m_lastEditorState=state.dockWidgets.toBase64();
 
-        kWarning()<<"here"<<(int)m_multiEditorAdaptor<<(int)w;
+        kWarning()<<"here"<<m_multiEditorAdaptor<<w;
         m_multiEditorAdaptor->setEditorTab(w);
         kWarning()<<"here>>";
 //         connect(m_multiEditorAdaptor,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(showTM()));
