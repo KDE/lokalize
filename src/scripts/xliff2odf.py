@@ -14,48 +14,28 @@ class XliffInput:
         self.name=name
         self.contents=contents
         self.read=lambda: contents
-
     def close(self): return
 
+
 def convert():
-    print Lokalize.activeEditor()
-    print Editor.currentFile()
     if not Lokalize.activeEditor() or Editor.currentFile()=='': return
 
-    xliffpathname=Editor.currentFile()
+    xliffpathname=unicode(Editor.currentFile())
     (path, filename)=os.path.split(xliffpathname)
-    print 'here'
     if not filename.endswith('.xlf'): return
-
-
-    xliffinput=XliffInput(xliffpathname,Editor.currentFileContents())
-    print 'xliffpathname',
-    print xliffpathname
 
     store = factory.getobject(xliffpathname)
     odfpathname=store.getfilenames()[0]
-
     translatedodfpathname=os.path.splitext(odfpathname)[0]+'-'+Project.targetLangCode()+'.odt'
+    print 'translatedodfpathname %s' % translatedodfpathname
+    print 'odfpathname %s' % odfpathname
+    xliffinput=XliffInput(xliffpathname,Editor.currentFileContents())
 
-
-    print 'translatedodfpathname',
-    print translatedodfpathname
-    print 'odfpathname',
-    print odfpathname
     xliff2odf.convertxliff(xliffinput, translatedodfpathname, odfpathname)
-    
-    return translatedodfpathname
+       
+    ourpath=([p for p in sys.path if os.path.exists(p+'/xliff2odf.py')]+[''])[0]
+    os.system('python "'+ourpath+'/xliff2odf-standalone.py" "%s" "%s" &'%(translatedodfpathname, Editor.currentEntryId()))
 
-translatedodfpathname=convert()
-print 'translatedodfpathname: ',
-print translatedodfpathname
-
-
-print sys.path
-ourPath=(filter(lambda p: os.path.exists(p+'/xliff2odf.py'),sys.path)+[''])[0]
-print ourPath
-
-if translatedodfpathname:
-    os.system('python '+ourPath+'/xliff2odf-standalone.py "%s" "%s"'%(translatedodfpathname, Editor.currentEntryId()))
+convert()
 
 Lokalize.busyCursor(False)

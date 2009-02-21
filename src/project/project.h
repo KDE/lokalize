@@ -102,11 +102,6 @@ public slots:
     void showGlossary();
     void defineNewTerm(QString en=QString(),QString target=QString());
 
-
-    void registerEditor(EditorTab* e){m_editors<<e;}
-    void unregisterEditor(EditorTab* e){m_editors.remove(m_editors.indexOf(e));}
-
-
 private:
     static Project* _instance;
     static void cleanupProject();

@@ -118,19 +118,18 @@ EditorTab::EditorTab(QWidget* parent)
 
 
     dbusObjectPath();
+
+    connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
+    connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
+    connect(m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
+
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
-    QTimer::singleShot(0,this,SLOT(initLater()));
+    //QTimer::singleShot(0,this,SLOT(initLater()));
     //kWarning()<<chrono.elapsed();
 }
 
 void EditorTab::initLater()
 {
-    connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
-    connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
-    connect(m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
-
-    Project& p=*(Project::instance());
-    p.registerEditor(this);
 }
 
 EditorTab::~EditorTab()
@@ -142,7 +141,6 @@ EditorTab::~EditorTab()
         emit fileClosed(currentFile());
     }
 
-    Project::instance()->unregisterEditor(this);
     ids.remove(m_dbusId);
 }
 
