@@ -97,7 +97,7 @@ class EditorTab: public LokalizeSubwindowBase2
 #define qdbuscpp2xml
 
 public:
-    EditorTab(QWidget* parent);
+    EditorTab(QWidget* parent, bool valid=true);
     ~EditorTab();
 
 
@@ -150,6 +150,7 @@ public slots:
 
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
+    Q_SCRIPTABLE bool isValid(){return m_valid;}
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
@@ -264,6 +265,7 @@ private:
     QString _captionPath;
 
     //BEGIN dbus
+    bool m_valid;
     QObject* m_adaptor;
     int m_dbusId;
     static QList<int> ids;

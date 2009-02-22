@@ -73,5 +73,8 @@
       <arg name="source" type="s" direction="in"/>
       <arg name="ctxt" type="s" direction="in"/>
     </method>
+    <method name="isValid">
+      <arg type="b" direction="out"/>
+    </method>
   </interface>
 </node>

@@ -29,24 +29,36 @@ def show_in_ooo(odfpathname,entryid):
     dispatcher.executeDispatch(model.getCurrentController().getFrame(),".uno:Reload","",0,())
 
     model = desktop.loadComponentFromURL( "file://"+odfpathname,"_default", 0, () )
+    #model = desktop.getCurrentComponent()
 
-
-    text = model.Text
-    cursor = text.createTextCursor()
+    cursor = model.Text.createTextCursor()
     cursor.gotoStart(False)
     try:
         print entryid
+        #office:document-content[0]/office:body[0]/office:text[0]/text:h[0]
         standardstart='office:document-content[0]/office:body[0]/office:text[0]/'
         if entryid.startswith(standardstart): entryid=entryid[len(standardstart):]
         else: print 'non-standard start: %s' % entryid
 
         numre=re.compile('\\[([0-9]*)\\]')
+        elemre=re.compile(':([^\\[]*)\\[')
+        tableprops={}
         for pathcomponent in entryid.split('/'):
+            paranum=int(numre.search(pathcomponent).group(1))
+            elem=elemre.search(pathcomponent).group(1)
             if pathcomponent.startswith('text'):
-                m=numre.search(pathcomponent)
-                paranum=int(m.group(1))
-                print paranum
-                for i in range(paranum): cursor.gotoNextParagraph(False)
+                if elem=='p':
+                    #office:document-content[0]/office:body[0]/office:text[0]/text:p[0]
+                    for i in range(paranum): cursor.gotoNextParagraph(False)
+            elif pathcomponent.startswith('table'):
+                #office:document-content[0]/office:body[0]/office:text[0]/table:table[0]/table:table-row[0]/table:table-cell[0]/text:p[0]
+                tableprops[elem]=paranum
+                if len(tableprops.keys())==3:
+                    cell=model.getTextTables().getByIndex(tableprops['table']).getCellByPosition(tableprops['table-cell'],tableprops['table-row'])
+                    tableprops={}
+                    cursor=cell.Text.createTextCursor()
+                    cursor.gotoStart(False)
+
 
         c=model.getCurrentController().getViewCursor()
         c.gotoRange(cursor,False)

@@ -18,7 +18,7 @@ class XliffInput:
 
 
 def convert():
-    if not Lokalize.activeEditor() or Editor.currentFile()=='': return
+    if not Editor.isValid() or Editor.currentFile()=='': return
 
     xliffpathname=unicode(Editor.currentFile())
     (path, filename)=os.path.split(xliffpathname)

@@ -73,7 +73,7 @@ LokalizeMainWindow::LokalizeMainWindow()
  , m_projectSubWindow(0)
  , m_editorActions(new QActionGroup(this))
  , m_managerActions(new QActionGroup(this))
- , m_spareEditor(new EditorTab(this))
+ , m_spareEditor(new EditorTab(this,false))
  , m_multiEditorAdaptor(new MultiEditorAdaptor(m_spareEditor))
  , m_projectScriptingPlugin(0)
 {

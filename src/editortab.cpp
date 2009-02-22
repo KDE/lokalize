@@ -91,7 +91,7 @@
 
 
 
-EditorTab::EditorTab(QWidget* parent)
+EditorTab::EditorTab(QWidget* parent, bool valid)
         : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
         , m_catalog(new Catalog(this))
@@ -107,6 +107,7 @@ EditorTab::EditorTab(QWidget* parent)
         , _replace(0)
         , _mergeView(0)
         , _mergeViewSecondary(0)
+        , m_valid(valid)
         , m_dbusId(-1)
 {
     //QTime chrono;chrono.start();
@@ -1118,3 +1119,5 @@ QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}
 QString EditorTab::selectionInSource(){return m_view->selectionInSource();}
 
 //END DBus interface
+
+#include "editortab.moc"
