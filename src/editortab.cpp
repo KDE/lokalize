@@ -47,11 +47,6 @@
 
 #include <kglobal.h>
 #include <klocale.h>
-#include <kdebug.h>
-
-
-#include <kglobal.h>
-#include <klocale.h>
 #include <kicon.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>

@@ -30,8 +30,8 @@
 
 **************************************************************************** */
 
-#ifndef KROSSVIEW_H
-#define KROSSVIEW_H
+#ifndef WEBQUERYVIEW_H
+#define WEBQUERYVIEW_H
 
 #include <pos.h>
 #include <QDockWidget>

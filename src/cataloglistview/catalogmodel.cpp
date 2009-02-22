@@ -118,8 +118,8 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         case Notes:
         {
             QString result;
-            QList<Note> notes=m_catalog->notes(index.row());
-            foreach(Note note,notes)
+            const QList<Note> notes=m_catalog->notes(index.row());
+            foreach(const Note &note,notes)
                 result+=note.content;
             return result;
         }

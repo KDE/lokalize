@@ -21,8 +21,8 @@
 
 **************************************************************************** */
 
-#ifndef SETTINGSCONTROLLER_H
-#define SETTINGSCONTROLLER_H
+#ifndef PREFS_H
+#define PREFS_H
 
 #include <QLineEdit>
 class KEditListBox;

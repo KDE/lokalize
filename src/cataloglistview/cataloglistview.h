@@ -21,8 +21,8 @@
 
 **************************************************************************** */
 
-#ifndef CATALOGTREEVIEW_H
-#define CATALOGTREEVIEW_H
+#ifndef CATALOGLISTVIEW_H
+#define CATALOGLISTVIEW_H
 
 #include "pos.h"
 
@@ -34,6 +34,7 @@ class Catalog;
 class KLineEdit;
 class QMenu;
 class QAction;
+class QModelIndex;
 
 class CatalogView: public QDockWidget
 {

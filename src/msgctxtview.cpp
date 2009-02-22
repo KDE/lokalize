@@ -220,7 +220,7 @@ void MsgCtxtView::process()
     if (!sourceFiles.isEmpty())
     {
         html+=i18nc("@info PO comment parsing","<br><b>Files:</b><br>");
-        foreach(QString sourceFile, sourceFiles)
+        foreach(const QString &sourceFile, sourceFiles)
             html+=QString("<a href=\"src:/%1\">%2</a><br />").arg(sourceFile).arg(sourceFile);
         html.chop(6);
     }

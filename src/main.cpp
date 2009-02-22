@@ -32,6 +32,8 @@
 #include "catalogstring.h"
 #include "pos.h"
 #include <QMetaType>
+#include <QString>
+#include <QFileInfo>
 
 #include <kapplication.h>
 #include <kaboutdata.h>

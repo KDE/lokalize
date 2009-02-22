@@ -39,6 +39,7 @@
 #include "tmscanapi.h"
 #include "project.h"
 
+#include <QTimer>
 #include <kfiledialog.h>
 #include <kdialog.h>
 #include <kdebug.h>

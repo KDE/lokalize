@@ -24,10 +24,9 @@
 #ifndef POS_H
 #define POS_H
 
-#include <QtCore>
-#include <QDBusArgument>
-class Catalog;
+#include <QMetaType>
 
+class Catalog;
 
 /**
  * This struct represents a position in a catalog.
