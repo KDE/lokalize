@@ -58,8 +58,8 @@ class CatalogItemPrivate
 {
 
 public:
-    bool _plural:16;
-    bool _valid:16;
+    int _plural:16;
+    int _valid:16;
 
     QString _comment;
     QString _msgctxt;

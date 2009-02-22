@@ -229,7 +229,7 @@ QList<Note> GettextStorage::notes(const DocPosition& docPosition) const
 
     QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(QRegExp("^# "));
 
-    foreach(QString s, note)
+    foreach(const QString &s, note)
         if (s.size()>=2)
             content+=s.mid(2)+'\n';
 
@@ -249,7 +249,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     QStringList result;
 
     QStringList ui=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#. i18n: file: "));
-    foreach(QString uiLine,ui)
+    foreach(const QString &uiLine,ui)
     {
         QStringList uiFiles=uiLine.mid(15).split(' ');
         result+=uiFiles;
@@ -257,7 +257,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     bool hasUi=!result.isEmpty();
 
     QStringList cpp=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#: "));
-    foreach(QString cppLine,cpp)
+    foreach(const QString &cppLine,cpp)
     {
         if (hasUi && cppLine.startsWith("#: rc.cpp")) continue;
         QStringList cppFiles=cppLine.mid(3).split(' ');
@@ -340,7 +340,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
    {
       // normalize the values - ensure every key:value pair is only on a single line
       QString values = newHeader.msgstr();
-      values.remove ("\n");
+      values.remove ('\n');
       values.replace ("\\n", "\\n\n");
 //       kDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();

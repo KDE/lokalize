@@ -77,7 +77,7 @@ public:
     const QString id() {return "GNU gettext";}
 
 private:
-    QTextCodec* codecForDevice(QIODevice*/*, bool* hadCodec*/);
+    QTextCodec* codecForDevice(QIODevice* /*, bool* hadCodec*/);
     ConversionStatus readHeader(QTextStream& stream);
     ConversionStatus readEntry(QTextStream& stream);
 

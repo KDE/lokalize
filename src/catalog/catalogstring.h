@@ -21,8 +21,8 @@
 
 **************************************************************************** */
 
-#ifndef TAGRANGE_H
-#define TAGRANGE_H
+#ifndef CATALOGSTRING_H
+#define CATALOGSTRING_H
 
 #include <QList>
 #include <QMap>

@@ -30,13 +30,14 @@
   you do not wish to do so, delete this exception statement from
   your version.
 **************************************************************************** */
-#ifndef IMPORTPLUGIN_H
-#define IMPORTPLUGIN_H
-
-#include <QStringList>
+#ifndef KATALOGFILEPLUGIN_H
+#define KATALOGFILEPLUGIN_H
 
 #include <kdemacros.h>
+#include <QList>
+class QIODevice;
 class QString;
+class QStringList;
 
 namespace GettextCatalog {
 

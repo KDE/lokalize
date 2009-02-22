@@ -305,7 +305,7 @@ void updateHeader(QString& header,
             //really parse header
             QMap<QString,QString> map;
             QStringList langlist = KGlobal::locale()->languageList();
-            foreach (QString myit, langlist)
+            foreach (const QString &myit, langlist)
             {
                 KConfigGroup cg(&lll, myit);
                 map[cg.readEntry("Name")]=myit;

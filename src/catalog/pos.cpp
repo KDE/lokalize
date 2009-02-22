@@ -33,6 +33,8 @@
 #include "pos.h"
 #include "catalog.h"
 
+#include <QDBusArgument>
+
 bool switchPrev(Catalog*& catalog,DocPosition& pos,int parts)
 {
     bool switchEntry=false;
