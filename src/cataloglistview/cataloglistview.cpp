@@ -66,7 +66,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 
     QToolButton* btn=new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
-    btn->setText("options");
+    btn->setText(i18n("options"));
     //btn->setArrowType(Qt::DownArrow);
     btn->setMenu(new QMenu(this));
     m_filterOptionsMenu=btn->menu();
