@@ -37,7 +37,7 @@ class TypePage(QWizardPage):
     def __init__(self, parent):
         QWizardPage.__init__(self, parent)
         self.setTitle(i18n("What do you want to do?"))
-        self.setSubTitle(i18n("Let's identify the kind of project you want."))
+        self.setSubTitle(i18n("Identify the kind of project you want:"))
         self.group=QButtonGroup(self)
         document=QRadioButton(self)
         document.setText(i18n('Translate a document'))

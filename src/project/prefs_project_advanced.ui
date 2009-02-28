@@ -121,7 +121,7 @@ Set this to path that corresponds to base dir of the branch
 and Secondary Sync view will automatically open files from branch.
 Then, each time you make changes in files of your main branch,
 they will automatically be replicated to the branch
-(of course, if it contains the same english string).
+(of course, if it contains the same English string).
 
 See documentation for more details.</string>
         </property>

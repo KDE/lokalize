@@ -54,7 +54,7 @@
    <item>
     <widget class="KComboBox" name="subjectField" >
      <property name="toolTip" >
-      <string comment="@info:tooltip" >When adding new item, press enter after you've typed its name for changes to take effect</string>
+      <string comment="@info:tooltip" >When adding a new item, press enter after you have typed its name for changes to take effect</string>
      </property>
      <property name="editable" >
       <bool>true</bool>

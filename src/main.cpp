@@ -48,7 +48,7 @@
 
 static const char version[] = LOKALIZE_VERSION;
 static const char description[] =
-    I18N_NOOP("Computer-aided translation system.\nDon't translate what had already been translated!");
+    I18N_NOOP("Computer-aided translation system.\nDo not translate what had already been translated.");
 
 int main(int argc, char **argv)
 {
