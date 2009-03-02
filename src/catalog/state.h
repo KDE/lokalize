@@ -21,15 +21,26 @@
 
 **************************************************************************** */
 
-#ifndef CATALOGCAPABILITIES_H
-#define CATALOGCAPABILITIES_H
+#ifndef STATE_H
+#define STATE_H
 
-enum CatalogCapabilities
+#include "projectlocal.h"
+
+///@link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
+enum TargetState
 {
-    KeepsNoteAuthors=1,
-    MultipleNotes=2,
-    Phases=4,
-    ExtendedStates=8
+    New,
+    NeedsTranslation,
+    NeedsL10n,
+    NeedsAdaptation,
+    Translated,
+    NeedsReviewTranslation,
+    NeedsReviewL10n,
+    NeedsReviewAdaptation,
+    SignedOff,
+    Final,
+    StateCount
 };
+
 
 #endif

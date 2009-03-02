@@ -43,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 XliffStorage::XliffStorage()
  : CatalogStorage()
 {
-    tmp="dd";
 }
 
 XliffStorage::~XliffStorage()
@@ -52,7 +51,7 @@ XliffStorage::~XliffStorage()
 
 int XliffStorage::capabilities() const
 {
-    return KeepsNoteAuthors|MultipleNotes;
+    return KeepsNoteAuthors|MultipleNotes|Phases|ExtendedStates;
 }
 
 //BEGIN OPEN/SAVE
@@ -73,7 +72,7 @@ int XliffStorage::load(QIODevice* device)
     }
 
 
-    m_langCode=m_doc.elementsByTagName("file").at(0).attributes().namedItem("target-language").toCharacterData().data();
+    m_langCode=m_doc.elementsByTagName("file").at(0).toElement().attribute("target-language");
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_langCode);
 
     //Create entry mapping.
@@ -127,6 +126,37 @@ int XliffStorage::load(QIODevice* device)
 // 
 //     }
 
+
+
+/*
+    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
+    QDomElement header=file.firstChildElement("header");
+    if (header.isNull())
+        header=file.appendChild(m_doc.createElement("header")).toElement();
+    QDomElement phasegroup=header.firstChildElement("phase-group");
+    if (phasegroup.isNull())
+        phasegroup=header.appendChild(m_doc.createElement("phase-group")).toElement();
+    QDomElement phase=phasegroup.lastChildElement("phase");
+    bool addNewPhase=phase.isNull();
+    if (!phase.isNull())
+    {
+    }
+    phase=phasegroup.appendChild(m_doc.createElement("phase")).toElement();
+
+    elem=unit.insertAfter( m_doc.createElement("note"),ref).toElement();
+        elem.appendChild(m_doc.createTextNode(""));
+    }
+    else
+    {
+        QDomNodeList list=unit.elementsByTagName("note");
+        if (pos.form==-1) pos.form=list.size()-1;
+        if (pos.form<list.size())
+        {
+            elem = unit.elementsByTagName("note").at(pos.form).toElement();
+            initNoteFromElement(oldNote,elem);
+        }
+
+*/
 
     kWarning()<<chrono.elapsed();
     return 0;
@@ -233,8 +263,8 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
     QString result;
 
     if (elem.isNull()
-    || (!result.isEmpty() && ContentEditingData::CheckLength))
-    return QString();
+        || (!result.isEmpty() && ContentEditingData::CheckLength))
+        return QString();
 
     bool seenCharacterDataAfterElement=false;
 
@@ -292,10 +322,8 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     qWarning()<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
                     if (mid.size())
                         c.deleteData(localStartPos,mid.size());
-                    QDomNode newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n);
-                    QDomAttr attr=elem.ownerDocument().createAttribute("id");
-                    attr.setValue(tag.id);
-                    newNode.attributes().setNamedItem(attr);//setAttributeNode
+                    QDomElement newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n).toElement();
+                    newNode.setAttribute("id",tag.id);
 
                     if (tag.isPaired()&&tag.end>(tag.start+1))
                     {
@@ -438,9 +466,9 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
             if (data&&data->actionType==ContentEditingData::Get)
             {
-                QString id=el.attributeNode("id").value();
+                QString id=el.attribute("id");
                 if (i==TagRange::mrk)//TODO attr map
-                    id=el.attributeNode("mtype").value();
+                    id=el.attribute("mtype");
 
                 //kWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
                 data->ranges.append(TagRange(oldStartingPos-1,startingPos-1,i,id));
@@ -494,7 +522,7 @@ QString XliffStorage::target(const DocPosition& pos) const
 void XliffStorage::targetDelete(const DocPosition& pos, int count)
 {
     ContentEditingData data(pos.offset,count);
-    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+    kWarning()<<content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
 }
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
@@ -508,10 +536,12 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
         if (refNode.isNull()) refNode=unit.firstChildElement("source");
         targetEl = unit.insertAfter(m_doc.createElement("target"),refNode).toElement();
         targetEl.appendChild(m_doc.createTextNode(arg));//i bet that pos.offset is 0 ;)
+        targetEl.setAttribute("state","new");
+
         return;
     }
     //END add <target>
-    if (arg.isEmpty()) return; //means we were called from targetInsertTag()
+    if (arg.isEmpty()) return; //means we were called just to add <taget> tag
     ContentEditingData data(pos.offset,arg);
     content(targetEl,&data);
 }
@@ -660,10 +690,30 @@ QStringList XliffStorage::noteAuthors() const
     return result.keys();
 }
 
+QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
+{
+    targetInsert(pos,QString()); //adds <taget> if needed
+
+    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    QString result=target.attribute("phase-name");
+    if (phase.isEmpty())
+        target.removeAttribute("phase-name");
+    else
+        target.setAttribute("phase-name",phase);
+
+    return result;
+}
+
+QString XliffStorage::phase(const DocPosition& pos) const
+{
+    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    return target.attribute("phase-name");
+}
+
 //DocPosition.form - number of <context>
 QString XliffStorage::context(const DocPosition& pos) const
 {
-    return tmp;
+    return "dd";
 }
 int XliffStorage::contextCount(const DocPosition& pos) const
 {
@@ -672,7 +722,7 @@ int XliffStorage::contextCount(const DocPosition& pos) const
 
 QStringList XliffStorage::matchData(const DocPosition& pos) const
 {
-    return QStringList(tmp);
+    return QStringList("dd");
 }
 
 QString XliffStorage::id(const DocPosition& pos) const
@@ -684,18 +734,48 @@ bool XliffStorage::isPlural(const DocPosition& pos) const
 {
     return m_plurals.contains(pos.entry)&&m_plurals.value(pos.entry);
 }
-
+/*
 bool XliffStorage::isApproved(const DocPosition& pos) const
 {
     return entries.at(m_map.at(pos.entry)).toElement().attribute("approved")=="yes";
 }
 void XliffStorage::setApproved(const DocPosition& pos, bool approved)
 {
-    static const char* noyes[]={"no","yes"};
+    static const char* const noyes[]={"no","yes"};
     entries.at(m_map.at(pos.entry)).toElement().setAttribute("approved",noyes[approved]);
 }
+*/
 
-bool XliffStorage::isUntranslated(const DocPosition& pos) const
+static const char* const states[]={
+    "new", "needs-translation", "needs-l10n", "needs-adaptation", "translated",
+    "needs-review-translation", "needs-review-l10n", "needs-review-adaptation", "signed-off",
+    "final"};
+
+
+static TargetState stringToState(const QString& state)
+{
+    int i=sizeof(states)/sizeof(char*);
+    while (--i>0 && state!=states[i])
+        ;
+    return TargetState(i);
+}
+
+TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
+{
+    targetInsert(pos,QString()); //adds <taget> if needed
+    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    TargetState prev=stringToState(target.attribute("state"));
+    target.setAttribute("state",states[state]);
+    return prev;
+}
+
+TargetState XliffStorage::state(const DocPosition& pos) const
+{
+    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    return stringToState(target.attribute("state"));
+}
+
+bool XliffStorage::isEmpty(const DocPosition& pos) const
 {
     ContentEditingData data(ContentEditingData::CheckLength);
     return content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data).isEmpty();

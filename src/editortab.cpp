@@ -48,6 +48,7 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kicon.h>
+#include <ktoolbarpopupaction.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
@@ -82,6 +83,8 @@
 
 #include <QDir>
 #include <QTime>
+#include <projectlocal.h>
+#include <projectlocal.h>
 
 
 
@@ -150,7 +153,7 @@ void EditorTab::setupStatusBar()
     statusBarItems.insert(ID_STATUS_ISFUZZY,QString());
 
     connect(m_catalog,SIGNAL(signalNumberOfFuzziesChanged()),this,SLOT(numberOfFuzziesChanged()));
-    connect(m_catalog,SIGNAL(signalNumberOfUntranslatedChanged()),this,SLOT(numberOfUntranslatedChanged()));
+    connect(m_catalog,SIGNAL(signalNumberOfEmptyChanged()),this,SLOT(numberOfUntranslatedChanged()));
 }
 
 void EditorTab::numberOfFuzziesChanged()
@@ -394,17 +397,23 @@ void EditorTab::setupActions()
     action=edit->addAction(KStandardAction::Replace,this,SLOT(replace()));
 
 //
-    ADD_ACTION_SHORTCUT_ICON("edit_approve",i18nc("@option:check whether message is marked as Approved","Approved"),Qt::CTRL+Qt::Key_U,"approved")
+    action = actionCategory->addAction("edit_approve", new KToolBarPopupAction(KIcon("approved"),i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"),this));
+    action->setShortcut(QKeySequence( Qt::CTRL+Qt::Key_U ));
     action->setCheckable(true);
     connect(action, SIGNAL(triggered()), m_view,SLOT(toggleApprovement()));
-    connect(m_view, SIGNAL(signalApprovedEntryDisplayed(bool)),this, SIGNAL(signalApprovedEntryDisplayed(bool)));
+    connect(m_view, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SIGNAL(signalApprovedEntryDisplayed(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
+    m_approveAction=action;
+    connect(Project::local(), SIGNAL(configChanged()), SLOT(setApproveActionTitle()));
+    setApproveActionTitle();
+    connect(action->menu(), SIGNAL(aboutToShow()),this,SLOT(showStatesMenu()));
+    connect(action->menu(), SIGNAL(triggered(QAction*)),this,SLOT(setState(QAction*)));
+
 
     action = actionCategory->addAction("edit_approve_go_fuzzyUntr");
-    action->setText(i18nc("@action:inmenu","Set as Approved and go to next"));
-    connect( action, SIGNAL( triggered() ), this, SLOT( toggleApprovementGotoNextFuzzyUntr() ) );
-
+    action->setText(i18nc("@action:inmenu","Approve and go to next"));
+    connect(action, SIGNAL(triggered()), SLOT(toggleApprovementGotoNextFuzzyUntr()));
 
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
     QString systemLang=KGlobal::locale()->language();
@@ -722,6 +731,8 @@ bool EditorTab::fileOpen(KUrl url)
         _captionPath=url.pathOrUrl();
         setModificationSign(m_catalog->isClean());
 
+
+        m_catalog->setActivePhase("test",Project::local()->role());
 //Project
         if (!url.isLocalFile())
         {
@@ -1035,6 +1046,52 @@ void EditorTab::toggleApprovementGotoNextFuzzyUntr()
         m_view->toggleApprovement();
     if (!gotoNextFuzzyUntr())
         gotoNextFuzzyUntr(DocPosition(-2));//so that we don't skip the first
+}
+
+void EditorTab::setApproveActionTitle()
+{
+    const char* const titles[]={
+        I18N_NOOP2("@option:check trans-unit state","Translated"),
+        I18N_NOOP2("@option:check trans-unit state","Signed-off"),
+        I18N_NOOP2("@option:check trans-unit state","Approved")
+        };
+    const char* const helpText[]={
+        I18N_NOOP2("@info:tooltip","Translation is done (although still may need a review)"),
+        I18N_NOOP2("@info:tooltip","Translation recieved positive review"),
+        I18N_NOOP2("@info:tooltip","Entry is fully localized (i.e. final)")
+        };
+
+    int role=Project::local()->role();
+    m_approveAction->setText(i18nc("@option:check trans-unit state",titles[role]));
+    m_approveAction->setToolTip(i18nc("@info:tooltip",helpText[role]));
+}
+
+void EditorTab::showStatesMenu()
+{
+    m_approveAction->menu()->clear();
+
+    TargetState state=m_catalog->state(m_currentPos);
+
+    const char* const states[]={
+        I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
+        I18N_NOOP("Needs translation review"),I18N_NOOP("Needs full localization review"),I18N_NOOP("Needs adaptation review"),I18N_NOOP("Signed-off"),
+        I18N_NOOP("Final")};
+    for (int i=0;i<StateCount;++i)
+    {
+        QAction* a=m_approveAction->menu()->addAction(i18n(states[i]));
+        a->setData(QVariant(i));
+        a->setCheckable(true);
+        a->setChecked(state==i);
+
+        if (i==New || i==Translated || i==SignedOff)
+            m_approveAction->menu()->addSeparator();
+    }
+}
+
+void EditorTab::setState(QAction* a)
+{
+    m_view->setState(TargetState(a->data().toInt()));
+    m_approveAction->menu()->clear();
 }
 
 void EditorTab::gotoPrevBookmark()

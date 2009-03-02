@@ -69,6 +69,9 @@ public:
     QList<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
 
+    QString setPhase(const DocPosition& pos, const QString& phase);
+    QString phase(const DocPosition& pos) const;
+
     //DocPosition.form - number of <context>
     QString context(const DocPosition& pos) const;
     int contextCount(const DocPosition& pos) const;
@@ -78,10 +81,10 @@ public:
 
     bool isPlural(const DocPosition& pos) const;
 
-    bool isApproved(const DocPosition& pos) const;
-    void setApproved(const DocPosition& pos, bool approved);
+    TargetState state(const DocPosition& pos) const;
+    TargetState setState(const DocPosition& pos, TargetState state);
 
-    bool isUntranslated(const DocPosition& pos) const;
+    bool isEmpty(const DocPosition& pos) const;
 
 
     QString mimetype()const{return "application/x-xliff";}
@@ -91,7 +94,6 @@ private:
     QVector<int> m_map;//need mapping to treat plurals as 1 entry
     QMap<int,bool> m_plurals;
 
-    QString tmp;
     QDomNodeList entries;
 
 };

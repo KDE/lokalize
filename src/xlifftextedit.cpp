@@ -95,7 +95,7 @@ void XliffTextEdit::reflectApprovementState()
     if (approved) emit approvedEntryDisplayed();
     else          emit nonApprovedEntryDisplayed();
 
-    bool untr=m_catalog->isUntranslated(m_currentPos);
+    bool untr=m_catalog->isEmpty(m_currentPos);
     if (untr)     emit untranslatedEntryDisplayed();
     else          emit translatedEntryDisplayed();
 }
@@ -105,7 +105,7 @@ void XliffTextEdit::reflectUntranslatedState()
     if (m_part==DocPosition::Source || m_currentPos.entry==-1)
         return;
 
-    bool untr=m_catalog->isUntranslated(m_currentPos);
+    bool untr=m_catalog->isEmpty(m_currentPos);
     if (untr)     emit untranslatedEntryDisplayed();
     else          emit translatedEntryDisplayed();
 }
@@ -680,8 +680,12 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             }
         }
         if (!str.isEmpty())
+        {
             ins+='\n';
-        insertPlainText(ins);
+            insertPlainText(ins);
+        }
+        else
+            KTextEdit::keyPressEvent(keyEvent);
     }
     else if( (keyEvent->modifiers()&Qt::ControlModifier)?
                 (keyEvent->key()==Qt::Key_D) :
@@ -746,7 +750,7 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     }
     else if(keyEvent->key() == Qt::Key_Tab)
         insertPlainText("\\t");
-    else if( keyEvent->key() == Qt::Key_Space && ( keyEvent->modifiers() & Qt::AltModifier ) )
+    else if( keyEvent->key() == Qt::Key_Space && (keyEvent->modifiers()&Qt::AltModifier) )
         insertPlainText(QChar(0x00a0U));
     else
         KTextEdit::keyPressEvent(keyEvent);

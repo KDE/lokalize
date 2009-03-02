@@ -23,6 +23,7 @@
 
 #include "project.h"
 #include "projectmodel.h"
+#include "projectlocal.h"
 
 #include "prefs.h"
 #include "webquerycontroller.h"
@@ -73,6 +74,7 @@ Project* Project::instance()
 
 Project::Project()
     : ProjectBase()
+    , m_localConfig(new ProjectLocal())
     , m_model(0)
     , m_glossary(new GlossaryNS::Glossary(this))
 {
@@ -84,9 +86,9 @@ Project::Project()
 */
     //QTimer::singleShot(66,this,SLOT(initLater()));
 }
-
+/*
 void Project::initLater()
-{/*
+{
     if (isLoaded())
         return;
 
@@ -95,21 +97,15 @@ void Project::initLater()
     QString file=gr.readEntry("Project");
     if (!file.isEmpty())
         load(file);
-*/
-    /*projectActions(); //instantiates _openRecentProject
-    kWarning()<<"urllist on open"<<_openRecentProject->urls();
-    KUrl::List urls=_openRecentProject->urls();
-    if (!urls.isEmpty())//load(urls.first());
-        load(urls.last());*/
-//    kWarning()<<"urllist on open"<<_openRecentProject->urls();
 
 }
+*/
 
 Project::~Project()
 {
-// never called, see Project::save()
+    delete m_localConfig;
+    //Project::save()
 }
-
 
 void Project::load(const QString &file)
 {
@@ -130,19 +126,27 @@ void Project::load(const QString &file)
     readConfig();
     m_path=file;
 
+    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
+    m_localConfig->readConfig();
+
     //put 'em into thread?
     QTimer::singleShot(300,this,SLOT(populateDirModel()));
     QTimer::singleShot(0,this,SLOT(populateGlossary()));
-    QTimer::singleShot(0,this,SLOT(populateWebQueryActions()));
-
 
 
     TM::DBFilesModel::instance()->openDB(projectID());
 
-    /*KConfig cfg;
-    KConfigGroup gr(&cfg,"State");
-    gr.writeEntry("Project", file);
-*/
+
+    //KConfig config;
+    //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
+
+    //put 'em into thread?
+    QTimer::singleShot(300,this,SLOT(populateDirModel()));
+    QTimer::singleShot(0,this,SLOT(populateGlossary()));
+
+
+    TM::DBFilesModel::instance()->openDB(projectID());
+
     emit loaded();
     //kWarning()<<"loaded"<<a.elapsed();
 }
@@ -151,36 +155,6 @@ QString Project::projectDir() const
 {
     return KUrl(m_path).directory();
 }
-
-QStringList Project::scriptsList() const
-{
-    QStringList actionz(ProjectBase::scriptsList());
-
-    int i=actionz.size();
-    while (--i>=0)
-        actionz[i]=absolutePath(actionz.at(i));
-
-    return actionz;
-}
-
-void Project::populateWebQueryActions()
-{
-    return;
-    QStringList a(scriptsList());
-    int i=0;
-    while(i<a.size())
-    {
-        QUrl url(a.at(i));
-        Action* action = new Action(this,url);
-        WebQueryController* webQueryController=new WebQueryController(QFileInfo(url.path()).fileName(),this);//Manager::self().addObject(m_webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
-        action->addObject(webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
-        Manager::self().actionCollection()->addAction(action);
-        action->trigger();
-        ++i;
-    }
-
-}
-
 
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
@@ -204,47 +178,11 @@ void Project::populateDirModel()
     if (QFile::exists(a))
         m_model->openUrl(a);
 }
-#if 0
-void Project::populateKrossActions()
-{
 
-    m_webQueryController=new WebQueryController(this);
-    Manager::self().addObject(m_webQueryController, "WebQueryController",ChildrenInterface::AutoConnectSignals);
-    //Action* action = new Action(this,"ss"/*,"/home/kde-devel/test.js"*/);
-    Action* action = new Action(this,QUrl("/home/kde-devel/t.js"));
-    Manager::self().actionCollection()->addAction(action);
-    action->trigger();
-    action->setEnabled(false);
-
-    action = new Action(this,QUrl("/home/kde-devel/tt.js"));
-    Manager::self().actionCollection()->addAction(action);
-
-//     action->setInterpreter("javascript");
-//     action->setFile("/home/kde-devel/t.js");
-/* # Publish a QObject instance only for the Kross::Action instance.
- action->addChild(myqobject2, "MySecondQObject");*/
-/* # Set the script file we like to execute.
- action->setFile("/home/myuser/mytest.py");
- # Execute the script file.*/
-//      action->setInterpreter("python");
-
-//  action->setCode("println( \"interval=\" );");
-    //action->trigger();
-//     QVariant result = action->callFunction("init", QVariantList()<<QString("Arg"));
-//     kWarning() <<result << action->functionNames();
-// 
-//     KDialog d;
-//     new ActionCollectionEditor(action, d.mainWidget());
-//     d.exec();
-    //m_webQueryController->query();
-
-}
-#endif
 void Project::populateGlossary()
 {
     m_glossary->load(glossaryPath());
 }
-
 
 void Project::showGlossary()
 {
@@ -265,10 +203,12 @@ void Project::showTMManager()
     win->show();
 }
 
-
 void Project::save()
 {
+    m_localConfig->setFirstRun(false);
+
     writeConfig();
+    m_localConfig->writeConfig();
 }
 
 ProjectModel* Project::model()

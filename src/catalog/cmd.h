@@ -29,14 +29,51 @@
 
 #include "pos.h"
 #include "note.h"
+#include "phase.h"
+#include "state.h"
 #include "catalogstring.h"
 class Catalog;
 
-enum Commands { Insert,Delete,
-                ToggleApprovement,
-                InsertTag, DeleteTag,
-                SetNote
-                };
+class LokalizeUnitCmd: public QUndoCommand
+{
+public:
+    enum Commands
+    {
+        Insert, Delete,
+        InsertTag, DeleteTag,
+        ToggleApprovement,
+        SetNote, setPhase
+    };
+    LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
+    virtual ~LokalizeUnitCmd(){};
+    virtual void undo();
+    virtual void redo();
+    DocPosition pos()const{return _pos;}
+protected:
+    virtual void doRedo()=0;
+    virtual void doUndo()=0;
+    /**
+     * may be overriden to set customized pos
+     * alternatively customized pos may be set manually in do*()
+     */
+    virtual void setJumpingPos();
+protected:
+    Catalog* _catalog;
+    DocPosition _pos;
+    bool _firstModificationForThisEntry;
+    QString _prevPhase;
+};
+
+class LokalizeTargetCmd: public LokalizeUnitCmd
+{
+public:
+    LokalizeTargetCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
+    virtual ~LokalizeTargetCmd(){};
+    void undo();
+    void redo();
+protected:
+    QString _prevTargetPhase;
+};
 
 /**
  * how undo system works:
@@ -44,79 +81,67 @@ enum Commands { Insert,Delete,
  * then set DocPosition (posBuffer var in Catalog), which is used to navigate editor to appr. place
  * @short Do insert text
  */
-class InsTextCmd: public QUndoCommand
+class InsTextCmd: public LokalizeTargetCmd
 {
 public:
     InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
     ~InsTextCmd(){};
     int id () const {return Insert;}
     bool mergeWith(const QUndoCommand *other);
-    void undo();
-    void redo();
+    void doRedo();
+    void doUndo();
 private:
-    Catalog* _catalog;
     QString _str;
-    DocPosition _pos;
-    bool _firstModificationForThisEntry;
 };
 
 /// @see InsTextCmd
-class DelTextCmd: public QUndoCommand
+class DelTextCmd: public LokalizeTargetCmd
 {
 public:
     DelTextCmd(Catalog *catalog, const DocPosition& pos ,const QString& str);
     ~DelTextCmd(){};
     int id () const {return Delete;}
     bool mergeWith(const QUndoCommand *other);
-    void redo();
-    void undo();
+    void doRedo();
+    void doUndo();
 private:
-    Catalog* _catalog;
     QString _str;
-    DocPosition _pos;
-    bool _firstModificationForThisEntry;
 };
-
 
 /**
  * you should care not to new it w/ aint no need
  */
-class ToggleApprovementCmd: public QUndoCommand
+class SetStateCmd: public LokalizeUnitCmd
 {
-public:
-    ToggleApprovementCmd(Catalog *catalog, uint index, bool approved);
-    ~ToggleApprovementCmd(){};
-    int id () const {return ToggleApprovement;}
-    void redo();
-    void undo();
 private:
-    void setJumpingPos();
+    SetStateCmd(Catalog *catalog, const DocPosition& pos, TargetState state);
+    ~SetStateCmd(){};
+public:
+    int id () const {return ToggleApprovement;}
+    void doRedo();
+    void doUndo();
 
-    Catalog* _catalog;
-    short _index:16;
-    bool _approved:8;
-    bool _firstModificationForThisEntry:8;
+    static void instantiateAndPush(Catalog *catalog, const DocPosition& pos, bool approved);
+    static void instantiateAndPush(Catalog *catalog, const DocPosition& pos, TargetState state);
 
+    TargetState _state;
+    TargetState _prevState;
 };
-
 
 /**
  * @short Do insert tag
  */
-class InsTagCmd: public QUndoCommand
+class InsTagCmd: public LokalizeTargetCmd
 {
 public:
     /// offset is taken from @a tag and not from @a pos
     InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& tag);
     ~InsTagCmd(){};
     int id () const {return InsertTag;}
-    void undo();
-    void redo();
+    void doRedo();
+    void doUndo();
 private:
-    Catalog* _catalog;
     TagRange _tag;
-    DocPosition _pos;
-    bool _firstModificationForThisEntry;
 };
 
 /**
@@ -124,42 +149,54 @@ private:
  *
  * @short Do delete tag
  */
-class DelTagCmd: public QUndoCommand
+class DelTagCmd: public LokalizeTargetCmd
 {
 public:
     DelTagCmd(Catalog *catalog, const DocPosition& pos);
     ~DelTagCmd(){};
     int id () const {return DeleteTag;}
-    void undo();
-    void redo();
+    void doRedo();
+    void doUndo();
     TagRange tag()const{return _tag;}//used to get proprties of deleted tag
 private:
-    Catalog* _catalog;
     TagRange _tag;
-    DocPosition _pos;
-    bool _firstModificationForThisEntry;
 };
-
-
-#endif // CMD_H
-
 
 /**
  * @short Insert or remove (if content is empty) a note
  */
-class SetNoteCmd: public QUndoCommand
+class SetNoteCmd: public LokalizeUnitCmd
 {
 public:
     /// @a pos.form is note number
     SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& note);
     ~SetNoteCmd(){};
     int id () const {return SetNote;}
-    void undo();
-    void redo();
+protected:
+    void doRedo();
+    void doUndo();
+    void setJumpingPos();
 private:
-    Catalog* _catalog;
     Note _note;
     Note _oldNote;
-    DocPosition _pos;
-    bool _firstModificationForThisEntry;
 };
+
+/**
+ * @short Change phase for a given unit's target. Invoked internally only.
+ */
+class SetPhaseCmd: public LokalizeUnitCmd
+{
+public:
+    SetPhaseCmd(Catalog *catalog, const DocPosition& pos, const QString& phase);
+    ~SetPhaseCmd(){};
+    int id () const {return setPhase;}
+protected:
+    void doRedo();
+    void doUndo();
+    void setJumpingPos(){} //let other commands in macro do it
+private:
+    QString _phase;
+    QString _oldPhase;
+};
+
+#endif // CMD_H

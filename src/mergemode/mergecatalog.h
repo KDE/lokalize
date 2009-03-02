@@ -27,7 +27,7 @@
 #include "catalog.h"
 
 #include <QVector>
-#include <QList>
+#include <QLinkedList>
 
 
 /**
@@ -86,8 +86,8 @@ public:
     int lastChangedIndex() const {return m_mergeDiffIndex.isEmpty()?-1:m_mergeDiffIndex.last();}
     int nextChangedIndex(uint index) const {return findNextInList(m_mergeDiffIndex,index);}
     int prevChangedIndex(uint index) const {return findPrevInList(m_mergeDiffIndex,index);}
-    int isChanged(uint index) const {return m_mergeDiffIndex.indexOf(index)!=-1;}
-    QList<int> changedEntries()const {return m_mergeDiffIndex;}
+    int isChanged(uint index) const {return m_mergeDiffIndex.contains(index);}
+    QLinkedList<int> changedEntries()const {return m_mergeDiffIndex;}
 
     //override to use map
     QString msgstr(const DocPosition&) const;
@@ -116,7 +116,7 @@ private:
 private:
     QVector<int> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
-    QList<int> m_mergeDiffIndex;//points to baseCatalog entries
+    QLinkedList<int> m_mergeDiffIndex;//points to baseCatalog entries
     bool m_primary;
 };
 

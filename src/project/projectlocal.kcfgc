@@ -1,0 +1,6 @@
+File=projectlocal.kcfg
+ClassName=ProjectLocal
+Singleton=false
+Mutators=true
+GlobalEnums=true
+UseEnumTypes=true

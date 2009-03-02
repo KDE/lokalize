@@ -118,8 +118,8 @@ void Catalog::clear()
 {
     QUndoStack::clear();
     d->_errorIndex.clear();
-    d->_fuzzyIndex.clear();
-    d->_untransIndex.clear();
+    d->_nonApprovedIndex.clear();
+    d->_emptyIndex.clear();
     delete m_storage;m_storage=0;
     d->_url.clear();
     d->_lastModifiedPos=DocPosition();
@@ -174,7 +174,6 @@ QString Catalog::msgstr(const DocPosition& pos) const
 
 }
 
-
 CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
@@ -210,11 +209,17 @@ QList<Note> Catalog::notes(const DocPosition& pos) const
 
 Note Catalog::setNote(const DocPosition& pos, const Note& note)
 {
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return Note();
+
     return m_storage->setNote(pos,note);
 }
 
 QStringList Catalog::noteAuthors() const
 {
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return QStringList();
+
     return m_storage->noteAuthors();
 }
 
@@ -253,6 +258,21 @@ QString Catalog::msgctxt(uint index) const
                 d->CatalogPrivate::_emptyStr;
 }
 
+QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return QString();
+
+    return m_storage->setPhase(pos,phase);
+}
+
+QString Catalog::phase(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return QString();
+
+    return m_storage->phase(pos);
+}
 
 bool Catalog::isPlural(uint index) const
 {
@@ -267,23 +287,37 @@ bool Catalog::isApproved(uint index) const
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return false;
 
-    return m_storage->isApproved(DocPosition(index));
+    bool extendedStates=m_storage->capabilities()&ExtendedStates;
+
+    return (extendedStates&&::isApproved(state(DocPosition(index)),activePhaseRole()))
+    ||(!extendedStates&&m_storage->isApproved(DocPosition(index)));
 }
 
-bool Catalog::isUntranslated(uint index) const
+TargetState Catalog::state(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+        return NeedsTranslation;
+
+    if (m_storage->capabilities()&ExtendedStates)
+        return m_storage->state(pos);
+    else
+        return closestState(m_storage->isApproved(pos), activePhaseRole());
+}
+
+bool Catalog::isEmpty(uint index) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return false;
 
-    return m_storage->isUntranslated(DocPosition(index));
+    return m_storage->isEmpty(DocPosition(index));
 }
 
-bool Catalog::isUntranslated(const DocPosition& pos) const
+bool Catalog::isEmpty(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return false;
 
-    return m_storage->isUntranslated(pos);
+    return m_storage->isEmpty(pos);
 }
 
 
@@ -294,7 +328,6 @@ QString Catalog::mimetype()
 
     return m_storage->mimetype();
 }
-
 //END STORAGE TRANSLATION
 
 //BEGIN OPEN/SAVE
@@ -383,19 +416,17 @@ int Catalog::loadFromUrl(const KUrl& url)
     clear();
 
     //index cache TODO profile?
-    QList<int>& fuzzyIndex=d->_fuzzyIndex;
-    QList<int>& untransIndex=d->_untransIndex;
-    fuzzyIndex.clear();
-    untransIndex.clear();
+    d->_nonApprovedIndex.clear();
+    d->_emptyIndex.clear();
 
     DocPosition pos(0);
     int limit=storage->size();
     while(pos.entry<limit)
     {
         if (!storage->isApproved(pos))
-            fuzzyIndex << pos.entry;
-        if (storage->isUntranslated(pos))
-            untransIndex << pos.entry;
+            d->_nonApprovedIndex << pos.entry;
+        if (storage->isEmpty(pos))
+            d->_emptyIndex << pos.entry;
 
         ++(pos.entry);
     }
@@ -537,15 +568,13 @@ static void updateDB(
               const QString& filePath,
               const QString& ctxt,
               const QString& english,
-              /*const QString& oldTarget,*/
               const QString& newTarget,
               int form,
               bool approved
               //const DocPosition&,//for back tracking
-//              const QString& dbName,
              )
 {
-    TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,/*oldTarget,*/newTarget,form,approved,
+    TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,newTarget,form,approved,
                                Project::instance()->projectID());
     j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
     ThreadWeaver::Weaver::instance()->enqueue(j);
@@ -563,12 +592,6 @@ const DocPosition& Catalog::redo()
 {
     QUndoStack::redo();
     return d->_lastModifiedPos;
-}
-
-
-void Catalog::push(QUndoCommand *cmd/*, bool rebaseForDBUpdate*/)
-{
-    QUndoStack::push(cmd);
 }
 
 void Catalog::flushUpdateDBBuffer()
@@ -605,15 +628,11 @@ void Catalog::setLastModifiedPos(const DocPosition& pos)
     d->_lastModifiedPos=pos;
 }
 
-bool CatalogPrivate::addToUntransIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
+bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
 {
-    if ((!pos.offset)&&(storage->target(pos).isEmpty())&&(!storage->isUntranslated(pos)))
+    if ((!pos.offset)&&(storage->target(pos).isEmpty())&&(!storage->isEmpty(pos)))
     {
-        // insert index in the right place in the list
-        QList<int>::Iterator it = _untransIndex.begin();
-        while(it != _untransIndex.end() && pos.entry > (int)*it)
-            ++it;
-        _untransIndex.insert(it,pos.entry);
+        insertInList(_emptyIndex,pos.entry);
         return true;
     }
     return false;
@@ -625,18 +644,17 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
         return;
 
     m_storage->targetDelete(pos,count);
-    
-    if (d->addToUntransIndexIfAppropriate(m_storage,pos))
-        emit signalNumberOfUntranslatedChanged();
+
+    if (d->addToEmptyIndexIfAppropriate(m_storage,pos))
+        emit signalNumberOfEmptyChanged();
     emit signalEntryModified(pos);
 }
 
-
 bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
 {
-    if ((!pos.offset)&&(storage->isUntranslated(pos)))
+    if ((!pos.offset)&&(storage->isEmpty(pos)))
     {
-        _untransIndex.removeAll(pos.entry);
+        _emptyIndex.removeAll(pos.entry);
         return true;
     }
     return false;
@@ -648,10 +666,9 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
         return;
 
     if (d->removeFromUntransIndexIfAppropriate(m_storage,pos))
-        emit signalNumberOfUntranslatedChanged();
+        emit signalNumberOfEmptyChanged();
 
     m_storage->targetInsert(pos,arg);
-
     emit signalEntryModified(pos);
 }
 
@@ -661,10 +678,9 @@ void Catalog::targetInsertTag(const DocPosition& pos, const TagRange& tag)
         return;
 
     if (d->removeFromUntransIndexIfAppropriate(m_storage,pos))
-        emit signalNumberOfUntranslatedChanged();
+        emit signalNumberOfEmptyChanged();
 
     m_storage->targetInsertTag(pos,tag);
-
     emit signalEntryModified(pos);
 }
 
@@ -674,36 +690,44 @@ TagRange Catalog::targetDeleteTag(const DocPosition& pos)
         return TagRange();
 
     TagRange tag=m_storage->targetDeleteTag(pos);
-    
-    if (d->addToUntransIndexIfAppropriate(m_storage,pos))
-        emit signalNumberOfUntranslatedChanged();
+
+    if (d->addToEmptyIndexIfAppropriate(m_storage,pos))
+        emit signalNumberOfEmptyChanged();
     emit signalEntryModified(pos);
     return tag;
 }
 
-void Catalog::setApproved(const DocPosition& pos, bool approved)
+TargetState Catalog::setState(const DocPosition& pos, TargetState state)
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isApproved(pos)==approved))
-        return;
+    bool extendedStates=m_storage->capabilities()&ExtendedStates;
+    bool approved=::isApproved(state,activePhaseRole());
+    if (KDE_ISUNLIKELY( !m_storage
+        || (extendedStates && m_storage->state(pos)==state)
+        || (!extendedStates && m_storage->isApproved(pos)==approved)))
+        return this->state(pos);
 
-    m_storage->setApproved(pos,approved);
-
-    // cache maintenance
-    QList<int>& idx=d->_fuzzyIndex;
-    if (!approved)
+    TargetState prevState;
+    if (extendedStates)
     {
-        // insert index in the right place in the list
-        QList<int>::Iterator it = idx.begin();
-        while(it != idx.end() && pos.entry > short(*it))
-            ++it;
-        idx.insert(it,pos.entry);
+        prevState=m_storage->setState(pos,state);
+        d->_statesIndex[prevState].removeAll(pos.entry);
+        insertInList(d->_statesIndex[state],pos.entry);
     }
     else
-        idx.removeAll(pos.entry);
+    {
+        prevState=closestState(!approved,activePhaseRole());
+        m_storage->setApproved(pos,approved);
+    }
+
+    if (approved)
+        insertInList(d->_nonApprovedIndex,pos.entry);
+    else
+        d->_nonApprovedIndex.removeAll(pos.entry);
 
     emit signalNumberOfFuzziesChanged();
     emit signalEntryModified(pos);
 
+    return prevState;
 }
 
 bool Catalog::setModified(int entry,bool modif)
@@ -712,8 +736,7 @@ bool Catalog::setModified(int entry,bool modif)
     {
         if (d->_modifiedEntries.contains(entry))
             return false;
-
-        d->_modifiedEntries.append(entry);
+        d->_modifiedEntries.insert(entry);
     }
     else
         d->_modifiedEntries.remove(entry);
@@ -730,65 +753,67 @@ bool Catalog::isModified(int entry)
 
 
 
-int Catalog::findNextInList(const QList<int>& list,int index) const
+int findNextInList(const QLinkedList<int>& list, int index)
 {
-    if(KDE_ISUNLIKELY( list.isEmpty() ))
-        return -1;
-
     int nextIndex=-1;
-    for ( int i = 0; i < list.size(); ++i )
+    foreach(int key, list)
     {
-        if (KDE_ISUNLIKELY( list.at(i) > index ))
+        if (KDE_ISUNLIKELY( key>index ))
         {
-            nextIndex = list.at(i);
+            nextIndex = key;
             break;
         }
     }
-
     return nextIndex;
 }
 
-int Catalog::findPrevInList(const QList<int>& list,int index) const
+int findPrevInList(const QLinkedList<int>& list, int index)
 {
-    if (KDE_ISUNLIKELY( list.isEmpty() ))
-        return -1;
-
     int prevIndex=-1;
-    for ( int i = list.size()-1; i >= 0; --i )
+    QLinkedListIterator<int> i(list);
+    i.toBack();
+    while (i.hasPrevious())
     {
-        if (KDE_ISUNLIKELY( list.at(i) < index )) 
+        if (KDE_ISUNLIKELY( i.previous() < index )) 
         {
-            prevIndex = list.at(i);
+            prevIndex = i.previous();
             break;
         }
     }
-
     return prevIndex;
 }
 
-
-
-
-
-
+void insertInList(QLinkedList<int>& list, int index)
+{
+    QLinkedList<int>::Iterator it=list.begin();
+    while(it != list.end() && index > *it)
+        ++it;
+    list.insert(it,index);
+}
 
 void Catalog::setBookmark(uint idx,bool set)
 {
     if (set)
-    {
-        // insert index in the right place in the list
-        QList<int>::Iterator it = d->_bookmarkIndex.begin();
-        while(it != d->_bookmarkIndex.end() && (int)idx > (*it))
-            ++it;
-        d->_bookmarkIndex.insert(it,idx);
-    }
+        insertInList(d->_bookmarkIndex,idx);
     else
-    {
         d->_bookmarkIndex.removeAll(idx);
-    }
 }
 
 
+bool isApproved(TargetState state, ProjectLocal::PersonRole role)
+{
+    static const TargetState marginStates[]={Translated, SignedOff, Final};
+    return state>=marginStates[role];
+}
+
+TargetState closestState(bool approved, ProjectLocal::PersonRole role)
+{
+    static const TargetState approvementStates[][3]={
+        {NeedsTranslation, NeedsReviewTranslation, NeedsReviewTranslation},
+        {Translated, SignedOff, Final}
+    };
+    return approvementStates[approved][role];
+}
 
 
 #include "catalog.moc"

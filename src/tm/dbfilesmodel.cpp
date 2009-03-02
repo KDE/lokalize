@@ -25,16 +25,16 @@
 #include "jobs.h"
 #include "project.h"
 
+#include <QCoreApplication>
+
 #include <threadweaver/ThreadWeaver.h>
-#include <kdirlister.h>
 #include <kstandarddirs.h>
 using namespace TM;
 
 DBFilesModel* DBFilesModel::_instance=0;
 void DBFilesModel::cleanupDBFilesModel()
 {
-  delete DBFilesModel::_instance;
-  DBFilesModel::_instance = 0;
+    delete DBFilesModel::_instance; DBFilesModel::_instance = 0;
 }
 
 DBFilesModel* DBFilesModel::instance()
@@ -49,40 +49,37 @@ DBFilesModel* DBFilesModel::instance()
 
 
 DBFilesModel::DBFilesModel()
- : KDirModel()
+ : QDirModel(QStringList("*.db"),QDir::Files,QDir::Name)
  , projectDB(0)
 {
     connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
              this,SLOT(calcStats(QModelIndex, int, int))/*,Qt::QueuedConnection*/);
-
-    QString dbDir=KStandardDirs::locateLocal("appdata", "");
-    dirLister()->openUrl(KUrl::fromPath(dbDir));
-    dirLister()->setNameFilter("*.db");
+    int count=rowCount(rootIndex());
+    if (count) calcStats(rootIndex(),0,count-1);
 }
-
 
 DBFilesModel::~DBFilesModel()
 {
     delete projectDB;
 }
 
-int DBFilesModel::columnCount(const QModelIndex& parent) const
+QModelIndex DBFilesModel::rootIndex() const
 {
-    if (parent.isValid()) return 0;
-    return 4;
+    return index(KStandardDirs::locateLocal("appdata", ""));
 }
 
 QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role!=Qt::DisplayRole) return QVariant();
-    switch (section)
-    {
-        case 0: return i18nc("@title:column","Name");
-        case 1: return i18nc("@title:column","Pairs");
-        case 2: return i18nc("@title:column","Unique original entries");
-        case 3: return i18nc("@title:column","Unique translations");
-    }
-    return "";
+
+    const char* const columns[]={
+        I18N_NOOP2("@title:column","Name"),
+        I18N_NOOP2("@title:column","Pairs"),
+        I18N_NOOP2("@title:column","Unique original entries"),
+        I18N_NOOP2("@title:column","Unique translations")
+    };
+
+    return i18nc("@title:column",columns[section]);
 }
 
 void DBFilesModel::openDB(const QString& name)
@@ -101,8 +98,8 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
 {
     while (start<=end)
     {
-        QModelIndex index=KDirModel::index(start++, 0, parent);
-        QString res=KDirModel::data(index,Qt::DisplayRole).toString();
+        QModelIndex index=QDirModel::index(start++, 0, parent);
+        QString res=fileName(index);
         res.remove(".db");
         if (KDE_ISUNLIKELY(res==Project::instance()->projectID() && !projectDB))
             projectDB=new QPersistentModelIndex(index);//TODO if user switches the project
@@ -122,7 +119,7 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
     if (role!=Qt::DisplayRole) return QVariant();
 
-    QString res=KDirModel::data(index.sibling(index.row(),0),Qt::DisplayRole).toString();
+    QString res=fileName(index.sibling(index.row(),0));
     res.remove(".db");
 
     switch (index.column())
@@ -135,9 +132,4 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 
     return res;
 }
-
-
-
-
-
 

@@ -36,10 +36,10 @@
 enum ProjectModelColumns
 {
     Graph = 1/*KDirModel::ColumnCount*/,
-    Total,
-    Translated,
-    Fuzzy,
-    Untranslated,
+    TotalCount,
+    TranslatedCount,
+    FuzzyCount,
+    UntranslatedCount,
     SourceDate,
     TranslationDate,
     LastTranslator,

@@ -25,6 +25,7 @@
 #define EDITORVIEW_H
 
 #include "pos.h"
+#include "state.h"
 #include "catalogstring.h"
 
 #include <QSplitter>
@@ -68,6 +69,7 @@ public:
 public slots:
     void gotoEntry(DocPosition pos=DocPosition(),int selection=0/*, bool updateHistory=true*/);
     void toggleApprovement();
+    void setState(TargetState);
 /*
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
@@ -123,4 +125,4 @@ public:
     QLabel* lblColumn;
 };
 
-#endif // _KAiderVIEW_H_
+#endif

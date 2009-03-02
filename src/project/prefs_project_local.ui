@@ -1,0 +1,51 @@
+<ui version="4.0" >
+ <class>prefs_project_local</class>
+ <widget class="QWidget" name="prefs_project_local" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>439</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <layout class="QFormLayout" name="formLayout" >
+     <property name="fieldGrowthPolicy" >
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="l0" >
+       <property name="text" >
+        <string>Role:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QComboBox" name="kcfg_Role" >
+       <item>
+        <property name="text" >
+         <string>Translator</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Reviewer</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Approver</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <resources/>
+ <connections/>
+</ui>

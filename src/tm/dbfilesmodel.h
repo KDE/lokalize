@@ -24,7 +24,7 @@
 #ifndef DBFILESMODEL_H
 #define DBFILESMODEL_H
 
-#include <kdirmodel.h>
+#include <QDirModel>
 #include "jobs.h"
 class QPersistentModelIndex;
 
@@ -33,7 +33,7 @@ namespace ThreadWeaver{class Job;}
 namespace TM{
 class OpenDBJob;
 
-class DBFilesModel: public KDirModel
+class DBFilesModel: public QDirModel
 {
 Q_OBJECT
 
@@ -42,12 +42,13 @@ public:
     ~DBFilesModel();
 
     QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const;
-    Qt::ItemFlags flags( const QModelIndex& ) const{return Qt::ItemIsSelectable|Qt::ItemIsEnabled;};
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return 4;}
+    Qt::ItemFlags flags( const QModelIndex& ) const{return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
     QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const;
 
+    QModelIndex rootIndex() const;
     //can be zero!!!
-    QPersistentModelIndex* projectDBIndex(){return projectDB;}
+    QPersistentModelIndex* projectDBIndex()const{return projectDB;}
 
     void openDB(const QString& name);
     void openDB(OpenDBJob*);

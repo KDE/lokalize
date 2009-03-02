@@ -147,7 +147,7 @@ void TMView::slotFileLoaded(const KUrl& url)
     DocPosition pos;
     while(switchNext(m_catalog,pos))
     {
-        if (!m_catalog->isUntranslated(pos.entry)
+        if (!m_catalog->isEmpty(pos.entry)
            &&m_catalog->isApproved(pos.entry))
             continue;
         SelectJob* j=new SelectJob(m_catalog->msgid(pos),
@@ -190,7 +190,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
     DocPosition pos;
     while(switchNext(m_catalog,pos))
     {
-        if (!(m_catalog->isUntranslated(pos.entry)
+        if (!(m_catalog->isEmpty(pos.entry)
              ||!m_catalog->isApproved(pos.entry))
            )
             continue;
@@ -208,11 +208,11 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             {
                 m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
                 if ( ctxtMatches || !(m_markAsFuzzy||forceFuzzy) )
-                    m_catalog->push(new ToggleApprovementCmd(m_catalog,pos.entry,true));
+                    SetStateCmd::instantiateAndPush(m_catalog,pos,true);
             }
             else if ((m_markAsFuzzy&&!ctxtMatches)||forceFuzzy)
             {
-                m_catalog->push(new ToggleApprovementCmd(m_catalog,pos.entry,false));
+                SetStateCmd::instantiateAndPush(m_catalog,pos,false);
             }
             m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
 
@@ -804,7 +804,7 @@ nono
     m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
 
     if (m_entries.at(i).score>9900 && !m_catalog->isApproved(m_pos.entry))
-        m_catalog->push(new ToggleApprovementCmd(m_catalog,m_pos.entry,true));
+        SetStateCmd::instantiateAndPush(m_catalog,m_pos,true);
 
     m_catalog->endMacro();
 

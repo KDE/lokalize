@@ -83,6 +83,7 @@ kde4_add_ui_files(lokalize_SRCS
     prefs/prefs_appearance.ui
     prefs/prefs_tm.ui
     project/prefs_project_advanced.ui
+    project/prefs_project_local.ui
     project/prefs_projectmain.ui
     glossary/termedit.ui
     tm/queryoptions.ui
@@ -95,6 +96,7 @@ kde4_add_ui_files(lokalize_SRCS
 kde4_add_kcfg_files(lokalize_SRCS
     prefs/prefs_lokalize.kcfgc
     project/projectbase.kcfgc
+    project/projectlocal.kcfgc
 )
 
 #qt4_add_dbus_interface(lokalize_SRCS org.kde.lokalize.MainWindow.xml lokainterface)

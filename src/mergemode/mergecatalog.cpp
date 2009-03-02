@@ -42,8 +42,8 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
 
 void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 {
-    int a=m_mergeDiffIndex.indexOf(pos.entry);
-    if (options&EvenIfNotInDiffIndex || a==-1)
+    bool a=m_mergeDiffIndex.contains(pos.entry);
+    if (options&EvenIfNotInDiffIndex || !a)
     {
         //sync changes
         DocPosition ourPos=pos;
@@ -56,8 +56,8 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
 
-        if (options&EvenIfNotInDiffIndex && a!=-1)
-            m_mergeDiffIndex.removeAt(a);
+        if (options&EvenIfNotInDiffIndex && a)
+            m_mergeDiffIndex.removeAll(pos.entry);
 
         emit signalEntryModified(pos);
     }
@@ -183,8 +183,8 @@ void MergeCatalog::copyToBaseCatalog(DocPosition& pos)
 
     m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept change in translation"));
 
-    if ( m_baseCatalog->isApproved(pos.entry) != isApproved(pos.entry))
-        m_baseCatalog->push(new ToggleApprovementCmd(m_baseCatalog,pos.entry,isApproved(pos.entry)));
+    if ( m_baseCatalog->state(pos) != state(pos))
+        SetStateCmd::instantiateAndPush(m_baseCatalog,pos,state(pos));
 
     if (changeContents)
     {
@@ -215,11 +215,11 @@ void MergeCatalog::copyToBaseCatalog(int options)
     DocPosition pos;
     pos.offset=0;
     bool insHappened=false;
-    QList<int> changed=changedEntries();
+    QLinkedList<int> changed=changedEntries();
     foreach(int entry, changed)
     {
         pos.entry=entry;
-        if (options&EmptyOnly&&!m_baseCatalog->isUntranslated(entry))
+        if (options&EmptyOnly&&!m_baseCatalog->isEmpty(entry))
             continue;
 
         int formsCount=(m_baseCatalog->isPlural(entry))?m_baseCatalog->numberOfPluralForms():1;
@@ -228,7 +228,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
         {
             //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
             //some forms may still contain translation...
-            if (!(options&EmptyOnly) || m_baseCatalog->isUntranslated(pos))
+            if (!(options&EmptyOnly) || m_baseCatalog->isEmpty(pos))
             {
                 if (!insHappened)
                 {

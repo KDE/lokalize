@@ -21,15 +21,12 @@
 
 **************************************************************************** */
 
-#ifndef CATALOGCAPABILITIES_H
-#define CATALOGCAPABILITIES_H
+#include <phaseswindow.h>
 
-enum CatalogCapabilities
+
+PhasesWindow::PhasesWindow(QWidget *parent)
+ : KMainWindow(parent)
 {
-    KeepsNoteAuthors=1,
-    MultipleNotes=2,
-    Phases=4,
-    ExtendedStates=8
-};
-
+    setAttribute(Qt::WA_DeleteOnClose, true);
+}
 #endif

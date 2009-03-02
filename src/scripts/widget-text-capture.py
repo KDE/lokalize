@@ -2,11 +2,7 @@
 import Kross
 
 import sys,os
-ourPath=''
-for p in sys.path:
-    if os.path.exists(p+'/widget-text-capture.ui'):
-        ourPath=p
-        break
+ourPath=([p for p in sys.path if os.path.exists(p+'/widget-text-capture.ui')]+[''])[0]
 
 T = Kross.module("kdetranslation")
 def i18n(text, args = []):

@@ -34,22 +34,25 @@
 
 **************************************************************************** */
 
-#ifndef CatalogPrivate_H
-#define CatalogPrivate_H
+#ifndef CATALOGPRIVATE_H
+#define CATALOGPRIVATE_H
+
+#include "catalogitem.h"
+#include "projectlocal.h"
+#include "state.h"
 
 #include <kurl.h>
 #include <kautosavefile.h>
+
 #include <QList>
+#include <QLinkedList>
 #include <QStringList>
 #include <QVector>
 #include <QMap>
+#include <QSet>
 #include <QTimer>
 
-// #include "msgfmt.h"
-#include "catalogitem.h"
-// #include "regexpextractor.h"
-// #include "kbabel_export.h"
-
+class DocPosition;
 class QTextCodec;
 class CatalogStorage;
 
@@ -84,18 +87,23 @@ public:
     //for wrapping
     short _maxLineLength;
 
-    QList<int> _fuzzyIndex;
-    QList<int> _untransIndex;
-    QList<int> _errorIndex;
+    QLinkedList<int> _nonApprovedIndex;
+    QLinkedList<int> _emptyIndex;
+    QLinkedList<int> _errorIndex;
 
-    QList<int> _bookmarkIndex;
+    QLinkedList<int> _bookmarkIndex;
+
+    QVector< QLinkedList<int> > _statesIndex;
 
 
     //for undo/redo
     //keeps pos of the entry that was last modified
     DocPosition _lastModifiedPos;
 
-    QList<int> _modifiedEntries;//just for the nice gui
+    QSet<int> _modifiedEntries;//just for the nice gui
+
+    QString _phase;
+    ProjectLocal::PersonRole _phaseRole;
 
     explicit CatalogPrivate(QObject* parent)
            : _mimeTypes( "text/plain" )
@@ -106,9 +114,10 @@ public:
            , _autoSaveRecovered(false)
            , _readOnly(false)
     {
+        _statesIndex.resize(StateCount);
     }
-    
-    bool addToUntransIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
+
+    bool addToEmptyIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
     bool removeFromUntransIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
 };
 

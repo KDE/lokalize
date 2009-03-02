@@ -51,7 +51,7 @@ ProjectModel::ProjectModel(QObject *parent)
 }
 
 
-void ProjectModel::calcStats(const QModelIndex& parent, int start, int end)
+void ProjectModel::calcStats(const QModelIndex& parent, int, int)
 {
     kWarning()<<"called!";
     KFileItem item=itemForIndex(parent);
@@ -92,7 +92,7 @@ void ProjectModel::calcStats(const QModelIndex& parent, int start, int end)
     item.setMetaInfo(metaInfo);
     if (sum!=untranslated+translated+fuzzy)
         emit dataChanged(parent.sibling(parent.row(),Graph),
-                         parent.sibling(parent.row(),Untranslated));
+                         parent.sibling(parent.row(),UntranslatedCount));
 
     kWarning()<<"update all the parents from"<<item.name()<<count<<translated<<"\n\n\n\n";
     //update all the parents
@@ -147,7 +147,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
     {
         case Graph:
         {*/
-    if (column>Total)
+    if (column>TotalCount)
     {
         return metaInfo.item(
                 columnToMetaInfoItem[column]
@@ -164,7 +164,7 @@ QVariant ProjectModel::data ( const QModelIndex& index, int role) const
                         0
                     );
     }
-    else if (column==Total)
+    else if (column==TotalCount)
     {
         if (metaInfo.item("translation.untranslated").value().isNull())
             return QVariant();
@@ -185,10 +185,10 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int 
     switch (section)
     {
     case Graph:         return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
-    case Total:         return i18nc("@title:column Number of entries","Total");
-    case Translated:    return i18nc("@title:column Number of entries","Translated");
-    case Fuzzy:         return i18nc("@title:column Number of entries","Fuzzy");
-    case Untranslated:  return i18nc("@title:column Number of entries","Untranslated");
+    case TotalCount:         return i18nc("@title:column Number of entries","Total");
+    case TranslatedCount:    return i18nc("@title:column Number of entries","Translated");
+    case FuzzyCount:         return i18nc("@title:column Number of entries","Fuzzy");
+    case UntranslatedCount:  return i18nc("@title:column Number of entries","Untranslated");
     case TranslationDate:   return i18nc("@title:column","Last Translation");
     case SourceDate:        return i18nc("@title:column","Template Revision");
     case LastTranslator:    return i18nc("@title:column","Last Translator");

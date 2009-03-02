@@ -31,218 +31,218 @@
 #include "catalog_private.h"
 #include "catalogitem_private.h"
 #include "catalog.h"
+#include <project.h>
 
+
+//BEGIN LokalizeUnitCmd
+LokalizeUnitCmd::LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const QString& name=QString())
+    : QUndoCommand(name)
+    , _catalog(catalog)
+    , _pos(pos)
+    , _firstModificationForThisEntry(false)
+{}
+
+static QString setPhaseForPart(Catalog* catalog, const QString& phase, DocPosition phasePos, DocPosition::Part)
+{
+    phasePos.part=DocPosition::UndefPart;
+    return catalog->setPhase(phasePos,phase);
+}
+
+void LokalizeUnitCmd::redo()
+{
+    setJumpingPos();
+    doRedo();
+    _firstModificationForThisEntry=_catalog->setModified(_pos.entry,true);
+    _prevPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::UndefPart);
+}
+
+void LokalizeUnitCmd::undo()
+{
+    setJumpingPos();
+    doUndo();
+    if (_firstModificationForThisEntry)
+        _catalog->setModified(_pos.entry,false);
+    setPhaseForPart(_catalog,_prevPhase,_pos,DocPosition::UndefPart);
+}
+
+void LokalizeUnitCmd::setJumpingPos()
+{
+    _catalog->setLastModifiedPos(_pos);
+}
+//END LokalizeUnitCmd
+
+//BEGIN LokalizeTargetCmd
+LokalizeTargetCmd::LokalizeTargetCmd(Catalog *catalog, const DocPosition& pos, const QString& name=QString())
+    : LokalizeUnitCmd(catalog,pos,name)
+{}
+
+void LokalizeTargetCmd::redo()
+{
+    LokalizeUnitCmd::redo();
+    _prevTargetPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::Target);
+}
+
+void LokalizeTargetCmd::undo()
+{
+    LokalizeUnitCmd::undo();
+    setPhaseForPart(_catalog,_prevTargetPhase,_pos,DocPosition::Target);
+}
+//END LokalizeTargetCmd
 
 //BEGIN InsTextCmd
 InsTextCmd::InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str)
-    : QUndoCommand(i18nc("@item Undo action item","Insertion"))
-    , _catalog(catalog)
+    : LokalizeTargetCmd(catalog,pos,i18nc("@item Undo action item","Insertion"))
     , _str(str)
-    , _pos(pos)
-    , _firstModificationForThisEntry(false)
-{
-}
+{}
 
 bool InsTextCmd::mergeWith(const QUndoCommand *other)
 {
-    if (
-        (other->id() != id())
-        || (static_cast<const InsTextCmd*>(other)->_pos.entry!=_pos.entry)
-        || (static_cast<const InsTextCmd*>(other)->_pos.form!=_pos.form)
-        || (static_cast<const InsTextCmd*>(other)->_pos.offset!=_pos.offset+_str.size())
+    const DocPosition otherPos=static_cast<const LokalizeUnitCmd*>(other)->pos();
+    if ((other->id() != id())
+        || (otherPos.entry!=_pos.entry)
+        || (otherPos.form!=_pos.form)
+        || (otherPos.offset!=_pos.offset+_str.size())
         )
         return false;
     _str += static_cast<const InsTextCmd*>(other)->_str;
     return true;
 }
 
-void InsTextCmd::redo()
+void InsTextCmd::doRedo()
 {
     Catalog& catalog=*_catalog;
     DocPosition pos=_pos; pos.offset+=_str.size();
     catalog.setLastModifiedPos(pos);
     catalog.targetInsert(_pos,_str);
-
-    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
 }
 
-void InsTextCmd::undo()
+void InsTextCmd::doUndo()
 {
-    Catalog& catalog=*_catalog;
-
-    catalog.setLastModifiedPos(_pos);
-    catalog.targetDelete(_pos,_str.size());
-
-    if (_firstModificationForThisEntry)
-        catalog.setModified(_pos.entry,false);
+    _catalog->targetDelete(_pos,_str.size());
 }
 //END InsTextCmd
 
 
 //BEGIN DelTextCmd
 DelTextCmd::DelTextCmd(Catalog *catalog,const DocPosition &pos,const QString &str)
-    : QUndoCommand(i18nc("@item Undo action item","Deletion"))
-    , _catalog(catalog)
+    : LokalizeTargetCmd(catalog,pos,i18nc("@item Undo action item","Deletion"))
     , _str(str)
-    , _pos(pos)
-    , _firstModificationForThisEntry(false)
-{
-}
+{}
 
 bool DelTextCmd::mergeWith(const QUndoCommand *other)
 {
+    const DocPosition otherPos=static_cast<const LokalizeUnitCmd*>(other)->pos();
     if (
         (other->id() != id())
-        || (static_cast<const DelTextCmd*>(other)->_pos.entry!=_pos.entry)
-        || (static_cast<const DelTextCmd*>(other)->_pos.form!=_pos.form)
+        || (otherPos.entry!=_pos.entry)
+        || (otherPos.form!=_pos.form)
         )
         return false;
 
     //Delete
-    if (static_cast<const DelTextCmd*>(other)->_pos.offset==_pos.offset)
+    if (otherPos.offset==_pos.offset)
     {
         _str += static_cast<const DelTextCmd*>(other)->_str;
         return true;
     }
 
     //BackSpace
-    if (static_cast<const DelTextCmd*>(other)->_pos.offset==_pos.offset-static_cast<const DelTextCmd*>(other)->_str.size())
+    if (otherPos.offset==_pos.offset-static_cast<const DelTextCmd*>(other)->_str.size())
     {
         _str.prepend(static_cast<const DelTextCmd*>(other)->_str);
-        _pos.offset=static_cast<const DelTextCmd*>(other)->_pos.offset;
+        _pos.offset=otherPos.offset;
         return true;
     }
 
     return false;
 }
-void DelTextCmd::redo()
+void DelTextCmd::doRedo()
 {
-    Catalog& catalog=*_catalog;
-
-    catalog.setLastModifiedPos(_pos);
-    catalog.targetDelete(_pos,_str.size());
-
-    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
+    _catalog->targetDelete(_pos,_str.size());
 }
-void DelTextCmd::undo()
+void DelTextCmd::doUndo()
 {
-    Catalog& catalog=*_catalog;
-    DocPosition pos=_pos; //pos.offset+=_str.size();
-    catalog.setLastModifiedPos(pos);
-    catalog.targetInsert(_pos,_str);
-
-    if (_firstModificationForThisEntry)
-        catalog.setModified(_pos.entry,false);
+    //DocPosition pos=_pos; //pos.offset+=_str.size();
+    //_catalog.setLastModifiedPos(pos);
+    _catalog->targetInsert(_pos,_str);
 }
 //END DelTextCmd
 
 
-//BEGIN ToggleApprovementCmd
-ToggleApprovementCmd::ToggleApprovementCmd(Catalog *catalog,uint index,bool approved)
-    : QUndoCommand(i18nc("@item Undo action item","Approvement toggling"))
-    , _catalog(catalog)
-    , _index(index)
-    , _approved(approved)
-    , _firstModificationForThisEntry(false)
+//BEGIN SetStateCmd
+void SetStateCmd::instantiateAndPush(Catalog *catalog, const DocPosition& pos, bool approved)
 {
+    catalog->push(new SetStateCmd(catalog,pos,closestState(approved,catalog->activePhaseRole())));
+}
+void SetStateCmd::instantiateAndPush(Catalog *catalog, const DocPosition& pos, TargetState state)
+{
+    catalog->push(new SetStateCmd(catalog,pos,state));
 }
 
-void ToggleApprovementCmd::redo()
-{
-    setJumpingPos();
-    _catalog->setApproved(DocPosition(_index),_approved);
+SetStateCmd::SetStateCmd(Catalog *catalog, const DocPosition& pos, TargetState state)
+    : LokalizeUnitCmd(catalog,pos,i18nc("@item Undo action item","Approvement toggling"))
+    , _state(state)
+{}
 
-    _firstModificationForThisEntry=_catalog->setModified(_index,true);
+void SetStateCmd::doRedo()
+{
+    _prevState=_catalog->setState(_pos,_state);
 }
 
-void ToggleApprovementCmd::undo()
+void SetStateCmd::doUndo()
 {
-    setJumpingPos();
-    _catalog->setApproved(DocPosition(_index),!_approved);
-
-    if (_firstModificationForThisEntry)
-        _catalog->setModified(_index,false);
+    _catalog->setState(_pos,_prevState);
 }
-
-void ToggleApprovementCmd::setJumpingPos()
-{
-    _catalog->setLastModifiedPos(DocPosition(_index));
-}
-//END ToggleApprovementCmd
+//END SetStateCmd
 
 
 //BEGIN InsTagCmd
 InsTagCmd::InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& tag)
-    : QUndoCommand(i18nc("@item Undo action item","Markup Insertion"))
-    , _catalog(catalog)
+    : LokalizeTargetCmd(catalog,pos,i18nc("@item Undo action item","Markup Insertion"))
     , _tag(tag)
-    , _pos(pos)
-    , _firstModificationForThisEntry(false)
 {
     _pos.offset=tag.start;
 }
 
-void InsTagCmd::redo()
+void InsTagCmd::doRedo()
 {
     Catalog& catalog=*_catalog;
     DocPosition pos=_pos; pos.offset++; //between paired tags or after single tag
     catalog.setLastModifiedPos(pos);
     catalog.targetInsertTag(_pos,_tag);
-
-    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
 }
 
-void InsTagCmd::undo()
+void InsTagCmd::doUndo()
 {
-    Catalog& catalog=*_catalog;
-
-    catalog.setLastModifiedPos(_pos);
-    catalog.targetDeleteTag(_pos);
-
-    if (_firstModificationForThisEntry)
-        catalog.setModified(_pos.entry,false);
+    _catalog->targetDeleteTag(_pos);
 }
 //END InsTagCmd
 
 //BEGIN DelTagCmd
 DelTagCmd::DelTagCmd(Catalog *catalog, const DocPosition& pos)
-    : QUndoCommand(i18nc("@item Undo action item","Markup Deletion"))
-    , _catalog(catalog)
-    , _pos(pos)
-    , _firstModificationForThisEntry(false)
-{
-}
+    : LokalizeTargetCmd(catalog,pos,i18nc("@item Undo action item","Markup Deletion"))
+{}
 
-void DelTagCmd::redo()
+void DelTagCmd::doRedo()
 {
-    Catalog& catalog=*_catalog;
-
-    catalog.setLastModifiedPos(_pos);
-    _tag=catalog.targetDeleteTag(_pos);
+    _tag=_catalog->targetDeleteTag(_pos);
     kWarning()<<"tag properties:"<<_tag.start<<_tag.end;
-
-    if (_firstModificationForThisEntry)
-        catalog.setModified(_pos.entry,false);
 }
 
-void DelTagCmd::undo()
+void DelTagCmd::doUndo()
 {
     Catalog& catalog=*_catalog;
-    catalog.setLastModifiedPos(_pos);
+    DocPosition pos=_pos; pos.offset++; //between paired tags or after single tag
+    catalog.setLastModifiedPos(pos);
     catalog.targetInsertTag(_pos,_tag);
-
-    _firstModificationForThisEntry=catalog.setModified(_pos.entry,true);
 }
 //END DelTagCmd
 
 
-//BEGIN InsNoteCmd
+//BEGIN SetNoteCmd
 SetNoteCmd::SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& note)
-    : QUndoCommand(i18nc("@item Undo action item","Note setting"))
-    , _catalog(catalog)
+    : LokalizeUnitCmd(catalog,pos,i18nc("@item Undo action item","Note setting"))
     , _note(note)
-    , _pos(pos)
-    , _firstModificationForThisEntry(false)
 {
     _pos.part=DocPosition::Comment;
 }
@@ -255,29 +255,41 @@ static void setNote(Catalog& catalog, DocPosition& _pos, const Note& note, Note&
     else if (_pos.form>=size) _pos.form = -1;
 }
 
-void SetNoteCmd::redo()
+void SetNoteCmd::doRedo()
 {
-    Catalog& catalog=*_catalog;
-    setNote(catalog,_pos,_note,_oldNote);
-
-    DocPosition pos=_pos;
-    pos.form=0;
-    catalog.setLastModifiedPos(pos);
-    _firstModificationForThisEntry=catalog.setModified(pos.entry,true);
+    setNote(*_catalog,_pos,_note,_oldNote);
 }
 
-void SetNoteCmd::undo()
+void SetNoteCmd::doUndo()
 {
-    Catalog& catalog=*_catalog;
+    Note tmp; setNote(*_catalog,_pos,_oldNote,tmp);
+}
 
+void SetNoteCmd::setJumpingPos()
+{
     DocPosition pos=_pos;
     pos.form=0;
-    catalog.setLastModifiedPos(pos);
-
-    Note tmp; setNote(catalog,_pos,_oldNote,tmp);
-
-    if (_firstModificationForThisEntry)
-        catalog.setModified(pos.entry,false);
+    _catalog->setLastModifiedPos(pos);
 }
 //END SetNoteCmd
 
+//BEGIN SetPhaseCmd
+SetPhaseCmd::SetPhaseCmd(Catalog *catalog, const DocPosition& pos, const QString& phase)
+    : LokalizeUnitCmd(catalog,pos)
+    , _phase(phase)
+{
+    _pos.part=DocPosition::Target;
+}
+
+void SetPhaseCmd::doRedo()
+{
+    _oldPhase=_catalog->setPhase(_pos,_phase);
+}
+
+void SetPhaseCmd::doUndo()
+{
+    _catalog->setPhase(_pos,_oldPhase);
+}
+
+
+//END SetPhaseCmd

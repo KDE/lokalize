@@ -189,7 +189,7 @@ void EditorTab::find()
     {
         if (sel.isEmpty())
             sel=selectionInSource();
-        if (_find->options()&IGNOREACCELS)
+        if (_find&&_find->options()&IGNOREACCELS)
             sel.remove('&');
             EntryFindDialog::instance()->setPattern(sel);
     }

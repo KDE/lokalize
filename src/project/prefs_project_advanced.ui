@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>prefs_advanced</class>
- <widget class="QWidget" name="prefs_regexps" >
+ <class>project_advanced</class>
+ <widget class="QWidget" name="project_advanced" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
      </property>
      <layout class="QFormLayout" name="formLayout" >
       <item row="0" column="0" >
-       <widget class="QLabel" name="label_2" >
+       <widget class="QLabel" name="l0" >
         <property name="text" >
          <string comment="@label:textbox" >Accelerator:</string>
         </property>
@@ -31,7 +31,7 @@
        </widget>
       </item>
       <item row="1" column="0" >
-       <widget class="QLabel" name="textLabel2_2" >
+       <widget class="QLabel" name="l1" >
         <property name="text" >
          <string comment="@label:textbox" >Markup:</string>
         </property>
@@ -65,7 +65,7 @@ It is only used for gettext PO files, as XLIFF format has its own way of specify
        <enum>QFormLayout::ExpandingFieldsGrow</enum>
       </property>
       <item row="0" column="0" >
-       <widget class="QLabel" name="textLabel2" >
+       <widget class="QLabel" name="l2" >
         <property name="text" >
          <string comment="@label:textbox" >Template directory:</string>
         </property>
@@ -93,7 +93,7 @@ shared among all subprojects.</string>
        </widget>
       </item>
       <item row="1" column="0" >
-       <widget class="QLabel" name="textLabel500" >
+       <widget class="QLabel" name="l3" >
         <property name="text" >
          <string comment="@label:textbox" >Branch directory:</string>
         </property>

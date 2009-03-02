@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pos.h"
 #include "catalogstring.h"
 #include "note.h"
+#include "state.h"
 #include "catalogcapabilities.h"
 
 #include <kurl.h>
@@ -73,9 +74,8 @@ public:
     virtual void targetDelete(const DocPosition& pos, int count)=0;
     virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
     virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog
-    virtual void targetInsertTag(const DocPosition& pos, const TagRange& tag)=0;
-    virtual TagRange targetDeleteTag(const DocPosition& pos)=0;
-
+    virtual void targetInsertTag(const DocPosition& pos, const TagRange& tag){}
+    virtual TagRange targetDeleteTag(const DocPosition& pos){return TagRange();}
 
     /// all plural forms. pos.form doesn't matter
     virtual QStringList sourceAllForms(const DocPosition& pos) const=0;
@@ -87,6 +87,9 @@ public:
     virtual QStringList noteAuthors() const{return QStringList();}
 
     virtual QStringList sourceFiles(const DocPosition& pos) const=0;
+
+    virtual QString setPhase(const DocPosition& pos, const QString& phase){return QString();}
+    virtual QString phase(const DocPosition& pos) const {return QString();}
 
     //DocPosition.form - number of <context>
     virtual QString context(const DocPosition& pos) const=0;
@@ -115,10 +118,12 @@ public:
 
     virtual bool isPlural(const DocPosition& pos) const=0;
 
-    virtual bool isUntranslated(const DocPosition& pos) const=0;
+    virtual bool isEmpty(const DocPosition& pos) const=0;
 
-    virtual bool isApproved(const DocPosition& pos) const=0;
-    virtual void setApproved(const DocPosition& pos, bool approved)=0;
+    virtual bool isApproved(const DocPosition& pos) const{return true;};
+    virtual void setApproved(const DocPosition& pos, bool approved){};
+    virtual TargetState state(const DocPosition& pos) const{return New;}
+    virtual TargetState setState(const DocPosition& pos, TargetState state){return New;}
 
 
     const KUrl& url() const {return m_url;}

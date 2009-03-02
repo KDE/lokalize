@@ -100,7 +100,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         switch (index.column())
         {
             case Approved:     return m_catalog->isApproved(index.row());
-            case Untranslated: return m_catalog->isUntranslated(index.row());
+            case Untranslated: return m_catalog->isEmpty(index.row());
             case Modified:     return m_catalog->isModified(index.row());
             default:           role=Qt::DisplayRole;
         }
@@ -118,14 +118,13 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         case Notes:
         {
             QString result;
-            const QList<Note> notes=m_catalog->notes(index.row());
-            foreach(const Note &note,notes)
+            foreach(const Note &note, m_catalog->notes(index.row()))
                 result+=note.content;
             return result;
         }
         case Approved:
-            static const char* yesno[]={"no","yes"};
-            return yesno[m_catalog->isApproved(index.row())];
+            static const char* yesno[]={I18N_NOOP("no"),I18N_NOOP("yes")};
+            return i18n(yesno[m_catalog->isApproved(index.row())]);
     }
     return QVariant();
 }

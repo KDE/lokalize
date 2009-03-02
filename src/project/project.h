@@ -34,6 +34,7 @@
 class KAction;
 class KRecentFilesAction;
 class ProjectModel;
+class ProjectLocal;
 namespace GlossaryNS{class Glossary;}
 class EditorTab;
 
@@ -72,10 +73,8 @@ public:
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
     GlossaryNS::Glossary* glossary()const{return m_glossary;}
 
-    QStringList scriptsList() const;
-
-private slots:
-    void initLater();
+// private slots:
+//     void initLater();
 
 public slots:
     Q_SCRIPTABLE QString targetLangCode(){return ProjectBase::langCode();}
@@ -93,10 +92,6 @@ public slots:
 
     void populateDirModel();
     void populateGlossary();
-#ifdef WEBQUERY_ENABLE
-    void populateWebQueryActions();
-#endif
-//     void populateKrossActions();
 
     void showTMManager();
     void showGlossary();
@@ -107,9 +102,11 @@ private:
     static void cleanupProject();
 public:
     static Project* instance();
+    static ProjectLocal* local(){return instance()->m_localConfig;}
 
 private:
     QString m_path;
+    ProjectLocal* m_localConfig;
     ProjectModel* m_model;
     GlossaryNS::Glossary* m_glossary;
 

@@ -51,12 +51,12 @@ using namespace TM;
 TMManagerWin::TMManagerWin(QWidget *parent)
  : KMainWindow(parent)
 {
-    QWidget* w=new QWidget(this);
+    setCentralWidget(new QWidget(this));
     Ui_TMManager ui_tmManager;
-    ui_tmManager.setupUi(w);
-    setCentralWidget(w);
-    ui_tmManager.list->setUniformRowHeights(true);
+    ui_tmManager.setupUi(centralWidget());
+
     ui_tmManager.list->setModel(DBFilesModel::instance());
+    ui_tmManager.list->setRootIndex(DBFilesModel::instance()->rootIndex());
     m_tmListWidget=ui_tmManager.list;
 
     connect(ui_tmManager.addData,  SIGNAL(clicked(bool)),this,SLOT(addDir()));

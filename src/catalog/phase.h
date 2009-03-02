@@ -21,15 +21,33 @@
 
 **************************************************************************** */
 
-#ifndef CATALOGCAPABILITIES_H
-#define CATALOGCAPABILITIES_H
+#ifndef NOTE_H
+#define NOTE_H
 
-enum CatalogCapabilities
+#include <QString>
+#include <QDate>
+
+struct Phase
 {
-    KeepsNoteAuthors=1,
-    MultipleNotes=2,
-    Phases=4,
-    ExtendedStates=8
+    QString name;
+    QString process;
+    QString company;
+    QDate date;
+    QString contact;
+    QString email;
+    QString phone;
+    QString tool;
+
+    Phase()
+        : date(QDate::currentDate())
+        , tool("lokalize")
+        {}
+
+    bool operator<(const Phase& other) const
+    {
+        return date<other.date;
+    }
 };
+
 
 #endif

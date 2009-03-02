@@ -21,15 +21,20 @@
 
 **************************************************************************** */
 
-#ifndef CATALOGCAPABILITIES_H
-#define CATALOGCAPABILITIES_H
+#ifndef PHASESWINDOW_H
+#define PHASESWINDOW_H
 
-enum CatalogCapabilities
+
+#include <KMainWindow>
+
+
+class PhasesWindow: public KMainWindow
 {
-    KeepsNoteAuthors=1,
-    MultipleNotes=2,
-    Phases=4,
-    ExtendedStates=8
+Q_OBJECT
+public:
+    PhasesWindow(QWidget *parent);
+    ~PhasesWindow();
+
 };
 
 #endif

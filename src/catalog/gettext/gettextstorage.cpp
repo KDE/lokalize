@@ -323,7 +323,7 @@ void GettextStorage::setApproved(const DocPosition& pos, bool approved)
         m_entries[pos.entry].setFuzzy();
 }
 
-bool GettextStorage::isUntranslated(const DocPosition& pos) const
+bool GettextStorage::isEmpty(const DocPosition& pos) const
 {
     return m_entries.at(pos.entry).isUntranslated();
 }

@@ -31,6 +31,7 @@
 #define WEBQUERY_ENABLE
 
 #include "project.h"
+#include "projectlocal.h"
 #include "prefs.h"
 
 #include "multieditoradaptor.h"
@@ -184,9 +185,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         EditorState state=w->state();
         m_lastEditorState=state.dockWidgets.toBase64();
 
-        kWarning()<<"here"<<m_multiEditorAdaptor<<w;
         m_multiEditorAdaptor->setEditorTab(w);
-        kWarning()<<"here>>";
 //         connect(m_multiEditorAdaptor,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(showTM()));
 /*
         KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
@@ -235,17 +234,19 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
 {
     if (!url.isEmpty()&&m_fileToEditor.contains(url)&&m_fileToEditor.value(url))
     {
-        m_mdiArea->setActiveSubWindow(m_fileToEditor.value(url));
-        return static_cast<EditorTab*>(m_fileToEditor.value(url)->widget());
+        kWarning()<<"already opened";
+        QMdiSubWindow* sw=m_fileToEditor.value(url);
+        m_mdiArea->setActiveSubWindow(sw);
+        return static_cast<EditorTab*>(sw->widget());
     }
 
-    EditorTab* w=new EditorTab(this);
     QByteArray state=m_lastEditorState;
-
+    EditorTab* w=new EditorTab(this);
     QMdiSubWindow* sw=0;
     if (!url.isEmpty())//create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
         sw=m_mdiArea->addSubWindow(w);
-    if (!w->fileOpen(url) || m_fileToEditor.contains(w->currentUrl()))
+
+    if (!w->fileOpen(url))
     {
         if (sw)
         {
@@ -253,29 +254,14 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
             sw->deleteLater();
         }
         w->deleteLater();
-
-        if (m_fileToEditor.contains(w->currentUrl())&&m_fileToEditor.value(url))
-        {
-            m_mdiArea->setActiveSubWindow(m_fileToEditor.value(w->currentUrl()));
-            return static_cast<EditorTab*>(m_fileToEditor.value(w->currentUrl())->widget());
-        }
         return 0;
     }
-
 
     if (!sw)
         sw=m_mdiArea->addSubWindow(w);
     w->showMaximized();
     sw->showMaximized();
 
-
-
-//     if (state.isEmpty())
-//     {
-//         QMdiSubWindow* activeSW=m_mdiArea->activeSubWindow();
-//         if (activeSW)
-//             state=static_cast<EditorWindow*>( activeSW->widget() )->saveState().toBase64();
-//     }
     if (!state.isEmpty())
         w->restoreState(QByteArray::fromBase64(state));
 
@@ -286,6 +272,7 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
         m_toBeActiveSubWindow=sw;
         QTimer::singleShot(0,this,SLOT(applyToBeActiveSubWindow()));
     }
+
     if (!mergeFile.isEmpty())
         w->mergeOpen(mergeFile);
 
@@ -300,12 +287,7 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
 
 void LokalizeMainWindow::resetMultiEditorAdaptor()
 {
-//    kWarning()<<(int)m_multiEditorAdaptor->editorTab()<<(int)obj;
-    //if (m_multiEditorAdaptor->editorTab()==sw->widget())
-    //{
-        m_multiEditorAdaptor->setEditorTab(m_spareEditor); //it will be reparented shortly if there are other editors
-        //kWarning()<<"setEditorTab(m_spareEditor)";
-    //}
+    m_multiEditorAdaptor->setEditorTab(m_spareEditor); //it will be reparented shortly if there are other editors
 }
 
 void LokalizeMainWindow::editorClosed(QObject* obj)
@@ -531,7 +513,7 @@ void LokalizeMainWindow::projectLoaded()
 
     KConfig config;
 
-    //if project isn't loaded, still restore opened files
+    //if project isn't loaded, still restore opened files from "State-"
     KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
 
     QStringList files;
@@ -642,6 +624,8 @@ void ProjectScriptingPlugin::setDOMDocument (const QDomDocument &document, bool 
         {
             if (action->property("autorun").toBool())
                 action->trigger();
+            if (action->property("first-run").toBool() && Project::local()->firstRun())
+                action->trigger();
         }
     }
 }
@@ -677,24 +661,6 @@ void LokalizeMainWindow::registerDBusAdaptor()
 #endif
 
     KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
-/*
-//populateWebQueryActions()
-    QStringList a=Project::instance()->scriptsList();
-    int i=a.size();
-    projectActions->menuAction()->setVisible(i);
-    while(--i>=0)
-    {
-        QUrl url(a.at(i));
-        kWarning()<<"action"<<url;
-        Action* action = new Action(this,url);
-        action->addObject(Project::instance(), "Project",ChildrenInterface::AutoConnectSignals);
-        action->addObject(this, "Lokalize",ChildrenInterface::AutoConnectSignals);
-        Manager::self().actionCollection()->addAction(action);
-        //action->trigger();
-        projectActions->addAction(action);
-    }
-
-*/
 
 /*
     KActionCollection* actionCollection = mWindow->actionCollection();

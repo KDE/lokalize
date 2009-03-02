@@ -60,8 +60,6 @@ public:
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
     void setTarget(const DocPosition& pos, const QString& arg);//called for mergeCatalog
-    void targetInsertTag(const DocPosition&, const TagRange&){}
-    TagRange targetDeleteTag(const DocPosition&){return TagRange();}
 
     QStringList sourceAllForms(const DocPosition& pos) const;
     QStringList targetAllForms(const DocPosition& pos) const;
@@ -83,7 +81,7 @@ public:
     bool isApproved(const DocPosition& pos) const;
     void setApproved(const DocPosition& pos, bool approved);
 
-    bool isUntranslated(const DocPosition& pos) const;
+    bool isEmpty(const DocPosition& pos) const;
 
     QString mimetype()const{return "text/x-gettext-translation";}
 

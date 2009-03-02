@@ -193,17 +193,11 @@ private slots:
     void gotoPrevFuzzy();
     void gotoNextUntranslated();
     void gotoPrevUntranslated();
-    //void gotoNextTranslated();
-    //void gotoPrevTranslated();
-    
+
     void toggleApprovementGotoNextFuzzyUntr();
-    
-//     void gotoNextError();
-//     void gotoPrevError();
-// 
-//     void forwardHistory();
-//     void backHistory();
-// 
+    void setApproveActionTitle();
+
+
     void spellcheck();
     void spellcheckNext();
     void spellcheckShow(const QString&,int);
@@ -219,6 +213,8 @@ private slots:
     void defineNewTerm();
 
     void initLater();
+    void showStatesMenu();
+    void setState(QAction*);
 private:
     void setupAccel();
     void setupActions();
@@ -233,7 +229,8 @@ private:
     Project* _project;
     Catalog* m_catalog;
 
-    EditorView *m_view;
+    EditorView* m_view;
+    KAction* m_approveAction;
 
     DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace

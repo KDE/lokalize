@@ -317,7 +317,6 @@ void EditorView::toggleBookmark(bool checked)
     m_catalog->setBookmark(_msgstrEdit->currentPos().entry,checked);
 }
 
-
 void EditorView::toggleApprovement()
 {
     //kWarning()<<"called";
@@ -325,10 +324,19 @@ void EditorView::toggleApprovement()
         return;
 
     bool newState=!m_catalog->isApproved(_msgstrEdit->currentPos().entry);
-    m_catalog->push(new ToggleApprovementCmd(m_catalog,_msgstrEdit->currentPos().entry,newState));
+    SetStateCmd::instantiateAndPush(m_catalog,_msgstrEdit->currentPos(),newState);
     emit signalApprovedEntryDisplayed(newState);
 }
 
+void EditorView::setState(TargetState state)
+{
+    if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1
+        || m_catalog->state(_msgstrEdit->currentPos())==state))
+        return;
+
+    SetStateCmd::instantiateAndPush(m_catalog,_msgstrEdit->currentPos(),state);
+    emit signalApprovedEntryDisplayed(m_catalog->isApproved(_msgstrEdit->currentPos()));
+}
 
 
 #include "editorview.moc"

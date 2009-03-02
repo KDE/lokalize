@@ -35,7 +35,7 @@ class KLineEdit;
 namespace GlossaryNS {
 class GlossaryTreeView;
 
-class GlossaryWindow : public KMainWindow
+class GlossaryWindow: public KMainWindow
 {
 Q_OBJECT
 public:

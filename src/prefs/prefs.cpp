@@ -24,6 +24,7 @@
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "project.h"
+#include "projectlocal.h"
 #include "languagelistmodel.h"
 
 #include "ui_prefs_identity.h"
@@ -32,6 +33,7 @@
 #include "ui_prefs_tm.h"
 #include "ui_prefs_projectmain.h"
 #include "ui_prefs_project_advanced.h"
+#include "ui_prefs_project_local.h"
 
 
 #include <kconfigdialog.h>
@@ -63,7 +65,6 @@ void SettingsController::cleanupSettingsController()
 
 SettingsController* SettingsController::instance()
 {
-    //if (KDE_ISUNLIKELY( _instance==0 ))
     if (_instance==0){
         _instance=new SettingsController;
         qAddPostRoutine(SettingsController::cleanupSettingsController);
@@ -108,7 +109,7 @@ void SettingsController::slotSettings()
     Ui_prefs_editor ui_prefs_editor;
     ui_prefs_editor.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Editing"), "accessories-text-editor");
-    
+
 //Font
     w = new QWidget(dialog);
     Ui_prefs_appearance ui_prefs_appearance;
@@ -122,9 +123,6 @@ void SettingsController::slotSettings()
     dialog->addPage(w, i18nc("@title:tab","Translation Memory"), "configure");
 
     connect(dialog,SIGNAL(settingsChanged(QString)),this,SIGNAL(generalSettingsChanged()));
-
-//     connect(dialog, SIGNAL(settingsChanged(QString)), m_view, SLOT(settingsChanged()));
-
 
 
 //Spellcheck
@@ -175,7 +173,6 @@ void SettingsController::projectConfigure()
     Project& p=*(Project::instance());
     LanguageListModel* llm=new LanguageListModel(ui_prefs_projectmain.LangCode);
     ui_prefs_projectmain.LangCode->setModel(llm);
-    //ui_prefs_projectmain.LangCode->setCurrentItem(p.langCode());
     ui_prefs_projectmain.LangCode->setCurrentIndex(llm->stringList().indexOf(p.langCode()));
     connect(ui_prefs_projectmain.LangCode,SIGNAL(activated(QString)),
             ui_prefs_projectmain.kcfg_LangCode,SLOT(setText(QString)));
@@ -196,18 +193,18 @@ void SettingsController::projectConfigure()
 
     // RegExps
     w = new QWidget(dialog);
-    Ui_prefs_advanced ui_prefs_advanced;
-    ui_prefs_advanced.setupUi(w);
-    ui_prefs_advanced.kcfg_PotBaseDir->hide();
-    ui_prefs_advanced.kcfg_BranchDir->hide();
-    ui_prefs_advanced.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    ui_prefs_advanced.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    connect(ui_prefs_advanced.potBaseDir,SIGNAL(textChanged(QString)),
-            ui_prefs_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
-    connect(ui_prefs_advanced.branchDir,SIGNAL(textChanged(QString)),
-            ui_prefs_advanced.kcfg_BranchDir,SLOT(setText(QString)));
-    ui_prefs_advanced.potBaseDir->setUrl(p.potDir());
-    ui_prefs_advanced.branchDir->setUrl(p.branchDir());
+    Ui_project_advanced ui_project_advanced;
+    ui_project_advanced.setupUi(w);
+    ui_project_advanced.kcfg_PotBaseDir->hide();
+    ui_project_advanced.kcfg_BranchDir->hide();
+    ui_project_advanced.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    ui_project_advanced.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    connect(ui_project_advanced.potBaseDir,SIGNAL(textChanged(QString)),
+            ui_project_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
+    connect(ui_project_advanced.branchDir,SIGNAL(textChanged(QString)),
+            ui_project_advanced.kcfg_BranchDir,SLOT(setText(QString)));
+    ui_project_advanced.potBaseDir->setUrl(p.potDir());
+    ui_project_advanced.branchDir->setUrl(p.branchDir());
     dialog->addPage(w, i18nc("@title:tab","Advanced"), "applications-development-translation");
 
     //Scripts
@@ -228,6 +225,13 @@ void SettingsController::projectConfigure()
 
 
     dialog->addPage(w, i18nc("@title:tab","Scripts"), "preferences-system-windows-actions");
+
+
+    w = new QWidget(dialog);
+    Ui_prefs_project_local ui_prefs_project_local;
+    ui_prefs_project_local.setupUi(w);
+    dialog->addPage(w, Project::local(), i18nc("@title:tab","Personal"), "preferences-desktop-user");
+
 
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
