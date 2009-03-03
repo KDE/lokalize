@@ -40,14 +40,22 @@
 static inline QString getMaillingList()
 {
     QString lang(KGlobal::locale()->language());
-    if(lang.startsWith("ru"))
-        return "kde-russian@lists.kde.ru";
+    if(lang.startsWith("ca"))
+        return "kde-i18n-ca@kde.org";
     if(lang.startsWith("de"))
         return "kde-i18n-de@kde.org";
     if(lang.startsWith("it"))
         return "kde-i18n-it@kde.org";
-    if(lang.startsWith("ca"))
-        return "kde-i18n-ca@kde.org";
+    if(lang.startsWith("nb"))
+        return "i18n-nb@lister.ping.uio.no";
+    if(lang.startsWith("nn"))
+        return "i18n-nn@lister.ping.uio.no";
+    if(lang.startsWith("ru"))
+        return "kde-russian@lists.kde.ru";
+    if(lang.startsWith("se"))
+        return "i18n-sme@lister.ping.uio.no";
+    if(lang.startsWith("sl"))
+        return "lugos-slo@lugos.si";
 
     return "kde-i18n-doc@kde.org";
 }
