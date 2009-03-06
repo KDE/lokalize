@@ -72,7 +72,8 @@ int XliffStorage::load(QIODevice* device)
     }
 
 
-    m_langCode=m_doc.elementsByTagName("file").at(0).toElement().attribute("target-language");
+    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
+    m_langCode=file.attribute("target-language");
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_langCode);
 
     //Create entry mapping.
@@ -127,40 +128,23 @@ int XliffStorage::load(QIODevice* device)
 //     }
 
 
-
-/*
-    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
     QDomElement header=file.firstChildElement("header");
     if (header.isNull())
-        header=file.appendChild(m_doc.createElement("header")).toElement();
-    QDomElement phasegroup=header.firstChildElement("phase-group");
-    if (phasegroup.isNull())
-        phasegroup=header.appendChild(m_doc.createElement("phase-group")).toElement();
-    QDomElement phase=phasegroup.lastChildElement("phase");
-    bool addNewPhase=phase.isNull();
-    if (!phase.isNull())
-    {
-    }
-    phase=phasegroup.appendChild(m_doc.createElement("phase")).toElement();
+        header=file.insertBefore(m_doc.createElement("header"), QDomElement()).toElement();
+    QDomElement toolElem=header.firstChildElement("tool");
+    while (!toolElem.isNull() && toolElem.attribute("tool-id")!="lokalize-" LOKALIZE_VERSION)
+        toolElem=toolElem.nextSiblingElement("tool");
 
-    elem=unit.insertAfter( m_doc.createElement("note"),ref).toElement();
-        elem.appendChild(m_doc.createTextNode(""));
-    }
-    else
+    if (toolElem.isNull())
     {
-        QDomNodeList list=unit.elementsByTagName("note");
-        if (pos.form==-1) pos.form=list.size()-1;
-        if (pos.form<list.size())
-        {
-            elem = unit.elementsByTagName("note").at(pos.form).toElement();
-            initNoteFromElement(oldNote,elem);
-        }
-
-*/
+        toolElem=header.appendChild(m_doc.createElement("tool")).toElement();
+        toolElem.setAttribute("tool-id","lokalize-" LOKALIZE_VERSION);
+        toolElem.setAttribute("tool-name","Lokalize");
+        toolElem.setAttribute("tool-version",LOKALIZE_VERSION);
+    }
 
     kWarning()<<chrono.elapsed();
     return 0;
-
 }
 
 bool XliffStorage::save(QIODevice* device)
@@ -176,15 +160,6 @@ bool XliffStorage::save(QIODevice* device)
 int XliffStorage::size() const
 {
     return m_map.size();
-}
-
-void XliffStorage::clear()
-{
-}
-
-bool XliffStorage::isEmpty() const
-{
-    return m_doc.isNull();
 }
 
 
@@ -564,6 +539,93 @@ TagRange XliffStorage::targetDeleteTag(const DocPosition& pos)
 void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
 {
 //TODO
+}
+
+Phase XliffStorage::updatePhase(const Phase& phase)
+{
+    Phase prev;
+
+    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
+    QDomElement header=file.firstChildElement("header");
+    QDomElement phasegroup=header.firstChildElement("phase-group");
+    if (phasegroup.isNull())
+        phasegroup=header.appendChild(m_doc.createElement("phase-group")).toElement();
+
+    QDomElement phaseElem=phasegroup.firstChildElement("phase");
+    while (!phaseElem.isNull() && phaseElem.attribute("phase-name")!=phase.name)
+        phaseElem=phaseElem.nextSiblingElement("phase");
+
+    if (!phaseElem.isNull())
+    {
+        prev.name      =phaseElem.attribute("phase-name");
+        prev.process   =phaseElem.attribute("process-name");
+        prev.company   =phaseElem.attribute("company-name");
+        prev.contact   =phaseElem.attribute("contact-name");
+        prev.email     =phaseElem.attribute("contact-email");
+        prev.phone     =phaseElem.attribute("contact-phone");
+        prev.tool      =phaseElem.attribute("tool-id");
+        prev.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
+    }
+
+    if (phaseElem.isNull()&&!phase.name.isEmpty())
+    {
+        phaseElem=phasegroup.appendChild(m_doc.createElement("phase")).toElement();
+        phaseElem.setAttribute("phase-name",phase.name);
+    }
+
+    phaseElem.setAttribute("process-name", phase.process);
+    phaseElem.setAttribute("company-name", phase.company);
+    phaseElem.setAttribute("contact-name", phase.contact);
+    phaseElem.setAttribute("contact-email",phase.email);
+    phaseElem.setAttribute("contact-phone",phase.phone);
+    phaseElem.setAttribute("tool-id",      phase.tool);
+    phaseElem.setAttribute("date",phase.date.toString(Qt::ISODate));
+    return prev;
+}
+
+QList<Phase> XliffStorage::allPhases() const
+{
+    QList<Phase> result;
+    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
+    QDomElement header=file.firstChildElement("header");
+    QDomElement phasegroup=header.firstChildElement("phase-group");
+    QDomElement phaseElem=phasegroup.firstChildElement("phase");
+    while (!phaseElem.isNull())
+    {
+        Phase phase;
+        phase.name      =phaseElem.attribute("phase-name");
+        phase.process   =phaseElem.attribute("process-name");
+        phase.company   =phaseElem.attribute("company-name");
+        phase.contact   =phaseElem.attribute("contact-name");
+        phase.email     =phaseElem.attribute("contact-email");
+        phase.phone     =phaseElem.attribute("contact-phone");
+        phase.tool      =phaseElem.attribute("tool-id");
+        phase.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
+
+        result.append(phase);
+        phaseElem=phaseElem.nextSiblingElement("phase");
+    }
+    return result;
+}
+
+QMap<QString,Tool> XliffStorage::allTools() const
+{
+    QMap<QString,Tool> result;
+    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
+    QDomElement header=file.firstChildElement("header");
+    QDomElement toolElem=header.firstChildElement("tool");
+    while (!toolElem.isNull())
+    {
+        Tool tool;
+        tool.tool       =toolElem.attribute("tool-id");
+        tool.name       =toolElem.attribute("tool-name");
+        tool.version    =toolElem.attribute("tool-version");
+        tool.company    =toolElem.attribute("tool-company");
+
+        result.insert(tool.tool, tool);
+        toolElem=toolElem.nextSiblingElement("tool");
+    }
+    return result;
 }
 
 QString XliffStorage::alttrans(const DocPosition& pos) const

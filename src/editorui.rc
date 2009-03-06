@@ -22,13 +22,12 @@
     <Action name="file_mail"/>
     <MergeLocal name="mail_merge"/>
     <Separator/>
+    <Action name="file_phases"/>
     <MergeLocal/>
     <Separator/>
     <Action name="file_close"/>
     <Action name="file_close_all"/>
     <MergeLocal name="close_merge"/>
-    <Separator/>
-    <Action name="file_quit"/>
   </Menu>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_undo"/>

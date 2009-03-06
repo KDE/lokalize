@@ -21,8 +21,8 @@
 
 **************************************************************************** */
 
-#ifndef NOTE_H
-#define NOTE_H
+#ifndef PHASE_H
+#define PHASE_H
 
 #include <QString>
 #include <QDate>
@@ -49,5 +49,13 @@ struct Phase
     }
 };
 
+
+struct Tool
+{
+    QString tool;
+    QString name;
+    QString version;
+    QString company;
+};
 
 #endif

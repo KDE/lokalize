@@ -47,8 +47,6 @@ public:
     bool save(QIODevice* device);
 
     int size() const;
-    void clear();
-    bool isEmpty() const;
 
     //flat-model interface (ignores XLIFF grouping)
     QString source(const DocPosition& pos) const;

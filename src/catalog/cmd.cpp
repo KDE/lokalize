@@ -257,12 +257,12 @@ static void setNote(Catalog& catalog, DocPosition& _pos, const Note& note, Note&
 
 void SetNoteCmd::doRedo()
 {
-    setNote(*_catalog,_pos,_note,_oldNote);
+    setNote(*_catalog,_pos,_note,_prevNote);
 }
 
 void SetNoteCmd::doUndo()
 {
-    Note tmp; setNote(*_catalog,_pos,_oldNote,tmp);
+    Note tmp; setNote(*_catalog,_pos,_prevNote,tmp);
 }
 
 void SetNoteCmd::setJumpingPos()
@@ -273,23 +273,20 @@ void SetNoteCmd::setJumpingPos()
 }
 //END SetNoteCmd
 
-//BEGIN SetPhaseCmd
-SetPhaseCmd::SetPhaseCmd(Catalog *catalog, const DocPosition& pos, const QString& phase)
-    : LokalizeUnitCmd(catalog,pos)
+//BEGIN UpdatePhaseCmd
+UpdatePhaseCmd::UpdatePhaseCmd(Catalog *catalog, const Phase& phase)
+    : QUndoCommand(i18nc("@item Undo action item","Update/add workflow phase"))
+    , _catalog(catalog)
     , _phase(phase)
+{}
+
+void UpdatePhaseCmd::doRedo()
 {
-    _pos.part=DocPosition::Target;
+    _prevPhase=_catalog->updatePhase(_phase);
 }
 
-void SetPhaseCmd::doRedo()
+void UpdatePhaseCmd::doUndo()
 {
-    _oldPhase=_catalog->setPhase(_pos,_phase);
+    _catalog->updatePhase(_prevPhase);
 }
-
-void SetPhaseCmd::doUndo()
-{
-    _catalog->setPhase(_pos,_oldPhase);
-}
-
-
-//END SetPhaseCmd
+//END UpdatePhaseCmd

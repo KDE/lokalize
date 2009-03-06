@@ -42,6 +42,8 @@
 #endif
 #include "tmview.h"
 
+#include "phaseswindow.h"
+
 #include "project.h"
 #include "prefs.h"
 
@@ -359,6 +361,9 @@ void EditorTab::setupActions()
     //KStandardAction::quit(kapp, SLOT(quit()), ac);
     //KStandardAction::quit(this, SLOT(deleteLater()), ac);
 
+    action = actionCategory->addAction("file_phases");
+    action->setText(i18nc("@action:inmenu","Phases..."));
+    connect(action, SIGNAL(triggered()), SLOT(openPhasesWindow()));
 
 #define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
     action = actionCategory->addAction(_name);\
@@ -1069,13 +1074,12 @@ void EditorTab::setApproveActionTitle()
 void EditorTab::showStatesMenu()
 {
     m_approveAction->menu()->clear();
+    if (!(m_catalog->capabilities()&ExtendedStates))
+        return;
 
     TargetState state=m_catalog->state(m_currentPos);
 
-    const char* const states[]={
-        I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
-        I18N_NOOP("Needs translation review"),I18N_NOOP("Needs full localization review"),I18N_NOOP("Needs adaptation review"),I18N_NOOP("Signed-off"),
-        I18N_NOOP("Final")};
+    const char* const* states=Catalog::states();
     for (int i=0;i<StateCount;++i)
     {
         QAction* a=m_approveAction->menu()->addAction(i18n(states[i]));
@@ -1092,6 +1096,12 @@ void EditorTab::setState(QAction* a)
 {
     m_view->setState(TargetState(a->data().toInt()));
     m_approveAction->menu()->clear();
+}
+
+void EditorTab::openPhasesWindow()
+{
+    PhasesWindow* w=new PhasesWindow(m_catalog, this);
+    w->show();
 }
 
 void EditorTab::gotoPrevBookmark()

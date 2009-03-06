@@ -117,15 +117,6 @@ int GettextStorage::size() const
     return m_entries.size();
 }
 
-void GettextStorage::clear()
-{
-}
-
-bool GettextStorage::isEmpty() const
-{
-    return m_entries.isEmpty();
-}
-
 //flat-model interface (ignores XLIFF grouping)
 QString GettextStorage::source(const DocPosition& pos) const
 {
@@ -135,7 +126,6 @@ QString GettextStorage::target(const DocPosition& pos) const
 {
     return m_entries.at(pos.entry).msgstr(pos.form);
 }
-
 
 void GettextStorage::targetDelete(const DocPosition& pos, int count)
 {

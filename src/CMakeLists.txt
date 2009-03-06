@@ -29,6 +29,8 @@ set(lokalize_SRCS
     xlifftextedit.cpp
     syntaxhighlighter.cpp
 
+    phaseswindow.cpp
+
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 

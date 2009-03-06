@@ -25,16 +25,58 @@
 #define PHASESWINDOW_H
 
 
-#include <KMainWindow>
+#include "phase.h"
 
+#include <KMainWindow>
+class Catalog;
 
 class PhasesWindow: public KMainWindow
 {
 Q_OBJECT
 public:
-    PhasesWindow(QWidget *parent);
-    ~PhasesWindow();
+    PhasesWindow(Catalog* catalog, QWidget *parent);
+    ~PhasesWindow(){}
 
+private:
+    Catalog* m_catalog;
 };
+
+
+#include <QAbstractListModel>
+
+class PhasesModel: public QAbstractListModel
+{
+Q_OBJECT
+public:
+    enum PhasesModelColumns
+    {
+        Date=0,
+        //Name,
+        Process,
+        Company,
+        Contact,
+        ToolName,
+        ColumnCount
+    };
+
+    PhasesModel(const QList<Phase>& phases, const QMap<QString,Tool>& tools/*, Catalog* catalog*/, QObject* parent);
+    ~PhasesModel(){}
+
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
+    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation, int role=Qt::DisplayRole) const;
+
+
+private:
+    QList<Phase> m_phases;
+    QMap<QString,Tool> m_tools;
+    int m_activePhase;
+};
+
+
+
+
+
 
 #endif

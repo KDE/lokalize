@@ -1,6 +1,18 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="LokalizeMainWindow" version="5">
+<kpartgui name="LokalizeMainWindow" version="6">
 <MenuBar>
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="file_new"/>
+    <MergeLocal name="new_merge"/>
+    <Action name="file_open"/>
+    <Action name="file_open_recent"/>
+    <MergeLocal name="open_merge"/>
+    <Separator/>
+    <Merge/>
+    <Separator/>
+    <Action name="file_quit"/>
+  </Menu>
+
   <Merge/>
   <Menu name="project"><text>&amp;Project</text>
     <Action name="project_overview"/>

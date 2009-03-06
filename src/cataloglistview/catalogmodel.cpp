@@ -39,6 +39,21 @@ CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
     connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(reflectChanges(DocPosition)));
 }
 
+QModelIndex CatalogTreeModel::index(int row,int column,const QModelIndex& /*parent*/) const
+{
+    return createIndex(row, column);
+}
+
+QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
+{
+    return QModelIndex();
+}
+
+int CatalogTreeModel::columnCount(const QModelIndex& parent) const
+{
+    return DisplayedColumnCount;
+}
+
 void CatalogTreeModel::reflectChanges(DocPosition pos)
 {
     //lazy sorting/filtering
@@ -100,7 +115,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
         switch (index.column())
         {
             case Approved:     return m_catalog->isApproved(index.row());
-            case Untranslated: return m_catalog->isEmpty(index.row());
+            case Empty: return m_catalog->isEmpty(index.row());
             case Modified:     return m_catalog->isModified(index.row());
             default:           role=Qt::DisplayRole;
         }
@@ -129,14 +144,6 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
     return QVariant();
 }
 
-Qt::ItemFlags CatalogTreeModel::flags ( const QModelIndex & index ) const
-{
-    if (index.column()==Approved)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
-    return QAbstractItemModel::flags(index);
-}
-
-
 CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
  : QSortFilterProxyModel(parent)
  , m_filerOptions(AllStates)
@@ -162,10 +169,10 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         bool approved=sourceModel()->index(source_row,CatalogTreeModel::Approved,source_parent).data(Qt::UserRole).toBool();
         accepts=(approved==bool(filerOptions&Approved) || approved!=bool(filerOptions&NonApproved));
     }
-    if (accepts&&bool(filerOptions&Translated)!=bool(filerOptions&Untranslated))
+    if (accepts&&bool(filerOptions&NonEmpty)!=bool(filerOptions&Empty))
     {
-        bool untr=sourceModel()->index(source_row,CatalogTreeModel::Untranslated,source_parent).data(Qt::UserRole).toBool();
-        accepts=(untr==bool(filerOptions&Untranslated) || untr!=bool(filerOptions&Translated));
+        bool untr=sourceModel()->index(source_row,CatalogTreeModel::Empty,source_parent).data(Qt::UserRole).toBool();
+        accepts=(untr==bool(filerOptions&Empty) || untr!=bool(filerOptions&NonEmpty));
     }
     if (accepts&&bool(filerOptions&Modified)!=bool(filerOptions&NonModified))
     {

@@ -34,16 +34,17 @@
 #include "catalogstring.h"
 class Catalog;
 
+enum Commands
+{
+    Insert, Delete,
+    InsertTag, DeleteTag,
+    ToggleApprovement,
+    SetNote, UpdatePhase
+};
+
 class LokalizeUnitCmd: public QUndoCommand
 {
 public:
-    enum Commands
-    {
-        Insert, Delete,
-        InsertTag, DeleteTag,
-        ToggleApprovement,
-        SetNote, setPhase
-    };
     LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
     virtual ~LokalizeUnitCmd(){};
     virtual void undo();
@@ -108,15 +109,13 @@ private:
     QString _str;
 };
 
-/**
- * you should care not to new it w/ aint no need
- */
 class SetStateCmd: public LokalizeUnitCmd
 {
 private:
     SetStateCmd(Catalog *catalog, const DocPosition& pos, TargetState state);
-    ~SetStateCmd(){};
 public:
+    ~SetStateCmd(){};
+
     int id () const {return ToggleApprovement;}
     void doRedo();
     void doUndo();
@@ -128,9 +127,7 @@ public:
     TargetState _prevState;
 };
 
-/**
- * @short Do insert tag
- */
+/// @short Do insert tag
 class InsTagCmd: public LokalizeTargetCmd
 {
 public:
@@ -162,9 +159,7 @@ private:
     TagRange _tag;
 };
 
-/**
- * @short Insert or remove (if content is empty) a note
- */
+/// @short Insert or remove (if content is empty) a note
 class SetNoteCmd: public LokalizeUnitCmd
 {
 public:
@@ -178,25 +173,25 @@ protected:
     void setJumpingPos();
 private:
     Note _note;
-    Note _oldNote;
+    Note _prevNote;
 };
 
-/**
- * @short Change phase for a given unit's target. Invoked internally only.
- */
-class SetPhaseCmd: public LokalizeUnitCmd
+/// @short Add or remove (if content is empty) a phase
+class UpdatePhaseCmd: public QUndoCommand
 {
 public:
-    SetPhaseCmd(Catalog *catalog, const DocPosition& pos, const QString& phase);
-    ~SetPhaseCmd(){};
-    int id () const {return setPhase;}
+    /// @a pos.form is note number
+    UpdatePhaseCmd(Catalog *catalog, const Phase& note);
+    ~UpdatePhaseCmd(){};
+    int id () const {return UpdatePhase;}
 protected:
     void doRedo();
     void doUndo();
-    void setJumpingPos(){} //let other commands in macro do it
+    void setJumpingPos(){};
 private:
-    QString _phase;
-    QString _oldPhase;
+    Catalog* _catalog;
+    Phase _phase;
+    Phase _prevPhase;
 };
 
 #endif // CMD_H

@@ -210,6 +210,8 @@ private slots:
 
     void displayWordCount();
 
+    void openPhasesWindow();
+
     void defineNewTerm();
 
     void initLater();

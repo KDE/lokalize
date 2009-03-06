@@ -68,7 +68,17 @@
 #include <ktemporaryfile.h>
 
 
-static const char* extensions[]={".po",".pot",".xlf"};
+static const char* const extensions[]={".po",".pot",".xlf"};
+
+static const char* const xliff_states[]={
+        I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
+        I18N_NOOP("Needs translation review"),I18N_NOOP("Needs full localization review"),I18N_NOOP("Needs adaptation review"),I18N_NOOP("Signed-off"),
+        I18N_NOOP("Final")};
+
+const char* const* Catalog::states()
+{
+    return xliff_states;
+}
 
 QStringList Catalog::supportedExtensions()
 {
@@ -151,7 +161,7 @@ int Catalog::numberOfEntries() const
 
 QString Catalog::msgid(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return d->CatalogPrivate::_emptyStr;
 
     //if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
@@ -167,7 +177,7 @@ QString Catalog::msgid(const DocPosition& pos) const
 
 QString Catalog::msgstr(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return d->CatalogPrivate::_emptyStr;
 
    return m_storage->target(pos);
@@ -176,7 +186,7 @@ QString Catalog::msgstr(const DocPosition& pos) const
 
 CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return CatalogString();
 
     return m_storage->sourceWithTags(pos);
@@ -184,7 +194,7 @@ CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
 }
 CatalogString Catalog::targetWithTags(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return CatalogString();
 
     return m_storage->targetWithTags(pos);
@@ -192,7 +202,7 @@ CatalogString Catalog::targetWithTags(const DocPosition& pos) const
 
 CatalogString Catalog::catalogString(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return CatalogString();
 
     return m_storage->catalogString(pos);
@@ -201,7 +211,7 @@ CatalogString Catalog::catalogString(const DocPosition& pos) const
 
 QList<Note> Catalog::notes(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return QList<Note>();
 
     return m_storage->notes(pos);
@@ -209,7 +219,7 @@ QList<Note> Catalog::notes(const DocPosition& pos) const
 
 Note Catalog::setNote(const DocPosition& pos, const Note& note)
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return Note();
 
     return m_storage->setNote(pos,note);
@@ -217,7 +227,7 @@ Note Catalog::setNote(const DocPosition& pos, const Note& note)
 
 QStringList Catalog::noteAuthors() const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return QStringList();
 
     return m_storage->noteAuthors();
@@ -225,7 +235,7 @@ QStringList Catalog::noteAuthors() const
 
 QString Catalog::alttrans(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return d->CatalogPrivate::_emptyStr;
 
     return m_storage->alttrans(pos);
@@ -233,7 +243,7 @@ QString Catalog::alttrans(const DocPosition& pos) const
 
 QStringList Catalog::sourceFiles(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return QStringList();
 
     return m_storage->sourceFiles(pos);
@@ -241,7 +251,7 @@ QStringList Catalog::sourceFiles(const DocPosition& pos) const
 
 QString Catalog::id(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return d->CatalogPrivate::_emptyStr;
 
     return m_storage->id(pos);
@@ -249,7 +259,7 @@ QString Catalog::id(const DocPosition& pos) const
 
 QString Catalog::msgctxt(uint index) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return d->CatalogPrivate::_emptyStr;
 
     DocPosition pos(index);
@@ -260,7 +270,7 @@ QString Catalog::msgctxt(uint index) const
 
 QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return QString();
 
     return m_storage->setPhase(pos,phase);
@@ -268,15 +278,25 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 QString Catalog::phase(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return QString();
 
     return m_storage->phase(pos);
 }
 
+QList<Phase> Catalog::allPhases() const
+{
+    return m_storage->allPhases();
+}
+
+QMap<QString,Tool> Catalog::allTools() const
+{
+    return m_storage->allTools();
+}
+
 bool Catalog::isPlural(uint index) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return false;
 
     return m_storage->isPlural(DocPosition(index));
@@ -284,7 +304,7 @@ bool Catalog::isPlural(uint index) const
 
 bool Catalog::isApproved(uint index) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return false;
 
     bool extendedStates=m_storage->capabilities()&ExtendedStates;
@@ -295,7 +315,7 @@ bool Catalog::isApproved(uint index) const
 
 TargetState Catalog::state(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return NeedsTranslation;
 
     if (m_storage->capabilities()&ExtendedStates)
@@ -306,7 +326,7 @@ TargetState Catalog::state(const DocPosition& pos) const
 
 bool Catalog::isEmpty(uint index) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return false;
 
     return m_storage->isEmpty(DocPosition(index));
@@ -314,7 +334,7 @@ bool Catalog::isEmpty(uint index) const
 
 bool Catalog::isEmpty(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return false;
 
     return m_storage->isEmpty(pos);
@@ -323,7 +343,7 @@ bool Catalog::isEmpty(const DocPosition& pos) const
 
 QString Catalog::mimetype()
 {
-    if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_storage ))
         return false;
 
     return m_storage->mimetype();
@@ -728,6 +748,11 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
     emit signalEntryModified(pos);
 
     return prevState;
+}
+
+Phase Catalog::updatePhase(const Phase& phase)
+{
+    m_storage->updatePhase(phase);
 }
 
 bool Catalog::setModified(int entry,bool modif)

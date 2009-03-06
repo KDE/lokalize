@@ -41,7 +41,6 @@ public:
     bool save(QIODevice* device);
 
     int size() const;
-    void clear();
     bool isEmpty() const;
 
     //flat-model interface (ignores XLIFF grouping)
@@ -60,6 +59,9 @@ public:
     void setTarget(const DocPosition& pos, const QString& arg);//called for mergeCatalog
     void targetInsertTag(const DocPosition&, const TagRange&);
     TagRange targetDeleteTag(const DocPosition&);
+    Phase updatePhase(const Phase& phase);
+    QList<Phase> allPhases() const;
+    QMap<QString,Tool> allTools() const;
 
     QStringList sourceFiles(const DocPosition& pos) const;
     QString alttrans(const DocPosition& pos) const;
@@ -80,12 +82,10 @@ public:
     QString id(const DocPosition& pos) const;
 
     bool isPlural(const DocPosition& pos) const;
+    bool isEmpty(const DocPosition& pos) const;
 
     TargetState state(const DocPosition& pos) const;
     TargetState setState(const DocPosition& pos, TargetState state);
-
-    bool isEmpty(const DocPosition& pos) const;
-
 
     QString mimetype()const{return "application/x-xliff";}
 

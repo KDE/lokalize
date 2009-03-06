@@ -48,7 +48,7 @@ public:
         Target,
         Notes,
         Approved,
-        Untranslated,
+        Empty,
         Modified,
         ColumnCount,
         DisplayedColumnCount=Approved+1
@@ -57,13 +57,14 @@ public:
     CatalogTreeModel(QObject* parent, Catalog* catalog);
     ~CatalogTreeModel(){}
 
-    inline QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    inline QModelIndex parent(const QModelIndex&) const;
+    QModelIndex index (int row, int column, const QModelIndex& parent=QModelIndex())const;
+    QModelIndex parent(const QModelIndex&) const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    inline int columnCount(const QModelIndex& parent=QModelIndex()) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
-    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
-    Qt::ItemFlags flags(const QModelIndex&) const;
+    QVariant headerData(int section,Qt::Orientation, int role=Qt::DisplayRole) const;
+
+    Catalog* catalog()const{return m_catalog;}
 
 public slots:
     void reflectChanges(DocPosition);
@@ -76,46 +77,33 @@ private:
 
 
 
-inline
-QModelIndex CatalogTreeModel::index(int row,int column,const QModelIndex& /*parent*/) const
-{
-    return createIndex(row, column);
-}
-
-inline
-QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
-{
-    return QModelIndex();
-}
-
-inline
-int CatalogTreeModel::columnCount(const QModelIndex& parent) const
-{
-    if (parent.isValid())
-        return 0;
-    return DisplayedColumnCount;
-}
 
 
 
-
-/**
- * MVC wrapper for Catalog
- */
 class CatalogTreeFilterModel: public QSortFilterProxyModel
 {
 public:
     enum FilterOptions
     {
-        CaseSensitive=1,
-        Approved=2,
-        NonApproved=4,
-        Translated=8,
-        Untranslated=16,
-        Modified=32,
-        NonModified=64,
-        MaxOption=128,
-        AllStates=Approved|NonApproved|Translated|Untranslated|NonModified|Modified
+        CaseSensitive=1<<0,
+        Approved=1<<1,
+        NonApproved=1<<2,
+        NonEmpty=1<<3,
+        Empty=1<<4,
+        Modified=1<<5,
+        NonModified=1<<6,
+        New=1<<7,
+        NeedsTranslation=1<<8,
+        NeedsL10n=1<<9,
+        NeedsAdaptation=1<<10,
+        Translated=1<<11,
+        NeedsReviewTranslation=1<<12,
+        NeedsReviewL10n=1<<13,
+        NeedsReviewAdaptation=1<<14,
+        SignedOff=1<<15,
+        Final=1<<16,
+        MaxOption=1<<17,
+        AllStates=MaxOption-1
     };
 
     CatalogTreeFilterModel(QObject* parent);

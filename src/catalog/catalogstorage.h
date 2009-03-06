@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "catalogstring.h"
 #include "note.h"
 #include "state.h"
+#include "phase.h"
 #include "catalogcapabilities.h"
 
 #include <kurl.h>
@@ -52,9 +53,6 @@ public:
 
     virtual int size() const=0;
     int numberOfEntries()const{return size();}
-    virtual void clear()=0;//TODO remove this
-    virtual bool isEmpty() const=0;//TODO remove this
-
     int numberOfPluralForms() const{return m_numberOfPluralForms;}
 
     /**
@@ -76,6 +74,9 @@ public:
     virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog
     virtual void targetInsertTag(const DocPosition& pos, const TagRange& tag){}
     virtual TagRange targetDeleteTag(const DocPosition& pos){return TagRange();}
+    virtual Phase updatePhase(const Phase& phase){return Phase();}
+    virtual QList<Phase> allPhases() const{return QList<Phase>();}
+    virtual QMap<QString,Tool> allTools() const{return QMap<QString,Tool>();}
 
     /// all plural forms. pos.form doesn't matter
     virtual QStringList sourceAllForms(const DocPosition& pos) const=0;

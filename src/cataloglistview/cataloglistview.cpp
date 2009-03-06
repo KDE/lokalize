@@ -137,30 +137,43 @@ void CatalogView::filterOptionToggled(QAction* action)
 void CatalogView::fillFilterOptionsMenu()
 {
     m_filterOptionsMenu->clear();
-    QAction* txt=0;
 
-    static const char* titles[]={I18N_NOOP("Case sensitive"),
+    bool extStates=m_model->catalog()->capabilities()&ExtendedStates;
+
+    const char* const basicTitles[]={I18N_NOOP("Case sensitive"),
                                  I18N_NOOP("Approved"),
                                  I18N_NOOP("Non-approved"),
-                                 I18N_NOOP("Translated"),
-                                 I18N_NOOP("Untranslated"),
+                                 I18N_NOOP("Non-empty"),
+                                 I18N_NOOP("Empty"),
                                  I18N_NOOP("Changed since file open"),
                                  I18N_NOOP("Unchanged since file open")
                                  };
+    const char* const* extTitles=Catalog::states();
+    const char* const* alltitles[2]={basicTitles,extTitles};
 
+    QMenu* basicMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Basic"));
+    QMenu* extMenu=extStates?m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","States")):0;
+    QMenu* allmenus[2]={basicMenu,extMenu};
+    QMenu* columnsMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Columns"));
+
+    QAction* txt;
     for (int i=0;(1<<i)<CatalogTreeFilterModel::MaxOption;++i)
     {
-        txt=m_filterOptionsMenu->addAction(i18n(titles[i]));
+        bool ext=(1<<i)>=CatalogTreeFilterModel::New;
+        if (!extStates&&ext) break;
+        txt=allmenus[ext]->addAction(i18n(alltitles[ext][i-ext*7]));
         txt->setData(1<<i);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filerOptions()&(1<<i));
         if ((1<<i)==CatalogTreeFilterModel::CaseSensitive)
-            m_filterOptionsMenu->addSeparator();
+            basicMenu->addSeparator();
     }
-    m_filterOptionsMenu->addSeparator();
+    if (!extStates)
+        m_filterOptionsMenu->addSeparator();
     for (int i=-1;i<CatalogTreeModel::DisplayedColumnCount;++i)
     {
-        txt=m_filterOptionsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
+        kWarning()<<i;
+        txt=columnsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
                                                    m_model->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());
         txt->setData(-i-2);
         txt->setCheckable(true);

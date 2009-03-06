@@ -41,6 +41,7 @@
 #include "catalogcapabilities.h"
 #include "note.h"
 #include "state.h"
+#include "phase.h"
 #include "catalog_private.h"
 class CatalogStorage;
 
@@ -82,6 +83,7 @@ public:
 
     static QStringList supportedExtensions();
     static bool extIsSupported(const QString& path);
+    static const char* const* states();
 
     int capabilities() const;
 
@@ -106,10 +108,12 @@ public slots: //DBus interface
     QString id(const DocPosition& pos) const;
     ///@returns previous phase-name
     QString setPhase(const DocPosition& pos, const QString& phase);
-    QString phase(const DocPosition& pos)const;
+    QString phase(const DocPosition& pos) const;
     QString activePhase() const{return d->_phase;}
     ProjectLocal::PersonRole activePhaseRole() const{return d->_phaseRole;}
     void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver){d->_phase=phase;d->_phaseRole=role;}
+    QList<Phase> allPhases() const;
+    QMap<QString,Tool> allTools() const;
 
     bool isPlural(uint index) const;
     bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}
@@ -122,7 +126,7 @@ public slots: //DBus interface
     bool isModified(int entry);
 
     bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
-    void setBookmark(uint,bool);
+    void setBookmark(uint, bool);
 
     int numberOfPluralForms() const {return d->_numberOfPluralForms;}
     int numberOfEntries() const;
@@ -196,6 +200,7 @@ protected:
     TagRange targetDeleteTag(const DocPosition& pos);
     void targetInsertTag(const DocPosition& pos, const TagRange& tag);
     TargetState setState(const DocPosition& pos, TargetState state);
+    Phase updatePhase(const Phase& phase);
 
     /// @returns true if entry wasn't modified before
     bool setModified(int entry, bool modif);
@@ -213,6 +218,7 @@ protected:
     friend class DelTagCmd;
     friend class SetStateCmd;
     friend class SetNoteCmd;
+    friend class UpdatePhaseCmd;
     friend class MergeCatalog;
 
 signals:
