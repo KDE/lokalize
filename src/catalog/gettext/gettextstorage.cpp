@@ -230,8 +230,8 @@ QList<Note> GettextStorage::notes(const DocPosition& docPosition) const
     }
     return result;
 
-i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
-i18nc("@info PO comment parsing","<i>GUI place:</i>");
+//i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
+//i18nc("@info PO comment parsing","<i>GUI place:</i>");
 }
 
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const

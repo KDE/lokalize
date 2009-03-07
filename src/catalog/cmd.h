@@ -99,7 +99,7 @@ private:
 class DelTextCmd: public LokalizeTargetCmd
 {
 public:
-    DelTextCmd(Catalog *catalog, const DocPosition& pos ,const QString& str);
+    DelTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
     ~DelTextCmd(){};
     int id () const {return Delete;}
     bool mergeWith(const QUndoCommand *other);
@@ -181,13 +181,11 @@ class UpdatePhaseCmd: public QUndoCommand
 {
 public:
     /// @a pos.form is note number
-    UpdatePhaseCmd(Catalog *catalog, const Phase& note);
+    UpdatePhaseCmd(Catalog *catalog, const Phase& phase);
     ~UpdatePhaseCmd(){};
     int id () const {return UpdatePhase;}
-protected:
-    void doRedo();
-    void doUndo();
-    void setJumpingPos(){};
+    void redo();
+    void undo();
 private:
     Catalog* _catalog;
     Phase _phase;

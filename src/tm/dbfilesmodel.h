@@ -42,8 +42,8 @@ public:
     ~DBFilesModel();
 
     QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{return 4;}
-    Qt::ItemFlags flags( const QModelIndex& ) const{return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
+    int columnCount(const QModelIndex& parent=QModelIndex()) const {return 4;}
+    Qt::ItemFlags flags( const QModelIndex& ) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
     QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const;
 
     QModelIndex rootIndex() const;

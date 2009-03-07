@@ -23,20 +23,91 @@
 
 #include "phaseswindow.h"
 #include "catalog.h"
+#include "cmd.h"
 
 #include <klocale.h>
 
 #include <QTreeView>
+#include <QStringListModel>
 #include <QVBoxLayout>
+#include <QFormLayout>
 #include <QApplication>
+#include <KPushButton>
+#include <KComboBox>
 
 
+//BEGIN PhasesModel
+#include <QAbstractListModel>
 
-PhasesModel::PhasesModel(const QList<Phase>& phases, const QMap<QString,Tool>& tools, QObject* parent)
+class PhasesModel: public QAbstractListModel
+{
+public:
+    enum PhasesModelColumns
+    {
+        Date=0,
+        Process,
+        Company,
+        Contact,
+        ToolName,
+        ColumnCount
+    };
+
+    PhasesModel(Catalog* catalog, QObject* parent);
+    ~PhasesModel(){}
+    void refresh();
+    QModelIndex addPhase(const Phase& phase);
+    QModelIndex activePhaseIndex()const{return index(m_activePhase);}
+    QList<Phase> addedPhases()const;
+
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
+    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation, int role=Qt::DisplayRole) const;
+
+
+private:
+    Catalog* m_catalog;
+    QList<Phase> m_phases;
+    QMap<QString,Tool> m_tools;
+    int m_activePhase;
+};
+
+PhasesModel::PhasesModel(Catalog* catalog, QObject* parent)
     : QAbstractListModel(parent)
-    , m_phases(phases)
-    , m_tools(tools)
-{}
+    , m_catalog(catalog)
+{
+    refresh();
+}
+
+void PhasesModel::refresh()
+{
+    m_phases=m_catalog->allPhases();
+    m_tools=m_catalog->allTools();
+
+    QString activePhase=m_catalog->activePhase();
+    m_activePhase=m_phases.size();
+    while (--m_activePhase>=0 && m_phases.at(m_activePhase).name!=activePhase)
+        ;
+    kWarning()<<m_activePhase;
+    reset();
+}
+
+QModelIndex PhasesModel::addPhase(const Phase& phase)
+{
+    m_activePhase=m_phases.size();
+    beginInsertRows(QModelIndex(),m_activePhase,m_activePhase);
+    m_phases.append(phase);
+    endInsertRows();
+}
+
+QList<Phase> PhasesModel::addedPhases()const
+{
+    QList<Phase> result;
+    for (int i=m_catalog->allPhases().size();i<m_phases.size();++i)
+        result.append(m_phases.at(i));
+
+    return result;
+}
 
 int PhasesModel::rowCount(const QModelIndex& parent) const
 {
@@ -53,6 +124,8 @@ QVariant PhasesModel::data(const QModelIndex& index, int role) const
         font.setBold(true);
         return font;
     }
+    if (role==Qt::UserRole)
+        return m_phases.at(index.row()).name;
     if (role!=Qt::DisplayRole)
         return QVariant();
 
@@ -68,7 +141,6 @@ QVariant PhasesModel::data(const QModelIndex& index, int role) const
         case ToolName:       return m_tools.value(phase.tool).name;
     }
     return QVariant();
-
 }
 
 QVariant PhasesModel::headerData(int section, Qt::Orientation, int role) const
@@ -86,19 +158,102 @@ QVariant PhasesModel::headerData(int section, Qt::Orientation, int role) const
     }
     return QVariant();
 }
+//END PhasesModel
 
 
-
-PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
- : KMainWindow(parent)
+//BEGIN PhaseEditDialog
+class PhaseEditDialog: public KDialog
 {
-    setAttribute(Qt::WA_DeleteOnClose, true);
-//     QVBoxLayout* l=new QVBoxLayout(this);
-    QTreeView* view=new QTreeView(this);
-    setCentralWidget(view);
-    PhasesModel* model=new PhasesModel(catalog->allPhases(), catalog->allTools(), this);
-    view->setModel(model);
-    kWarning()<<catalog->allPhases().size();
+public:
+    PhaseEditDialog(QWidget *parent);
+    ~PhaseEditDialog(){}
+
+    Phase phase()const;
+private:
+    KComboBox* m_process;
+};
+
+
+PhaseEditDialog::PhaseEditDialog(QWidget *parent)
+    : KDialog(parent)
+    , m_process(new KComboBox(this))
+{
+    QStringList processes;
+    processes<<i18n("Translation")<<i18n("Review")<<i18n("Approval");
+    m_process->setModel(new QStringListModel(processes,this));
+
+    QFormLayout* l=new QFormLayout(mainWidget());
+    l->addRow(i18n("Process"), m_process);
 }
 
+Phase PhaseEditDialog::phase() const
+{
+    Phase phase;
+    phase.process=processes()[m_process->currentIndex()];
+    return phase;
+}
+
+PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
+ : KDialog(parent)
+ , m_catalog(catalog)
+ , m_model(new PhasesModel(catalog, this))
+ , m_view(new MyTreeView(this))
+ , m_macroStarted(false)
+{
+    connect(this, SIGNAL(accepted()), SLOT(handleResult()));
+    //setAttribute(Qt::WA_DeleteOnClose, true);
+    QVBoxLayout* l=new QVBoxLayout(mainWidget());
+    QHBoxLayout* btns=new QHBoxLayout;
+    l->addLayout(btns);
+
+    KPushButton* add=new KPushButton(KStandardGuiItem::add(),this);
+    connect(add, SIGNAL(clicked()),this,SLOT(addPhase()));
+    btns->addWidget(add);
+    btns->addStretch(5);
+/*
+    KPushButton* add=new KPushButton(i18nc("@action:button",""),this);
+    btns->addWidget(activate);
+*/
+    m_view->setRootIsDecorated(false);
+    m_view->setModel(m_model);
+    l->addWidget(m_view);
+    int i=m_model->columnCount();
+    while (--i>=0)
+        m_view->resizeColumnToContents(i);
+
+    if (m_model->rowCount())
+        m_view->setCurrentIndex(m_model->activePhaseIndex());
+
+    setInitialSize(QSize(600,400));
+}
+
+void PhasesWindow::handleResult()
+{
+    m_catalog->beginMacro(i18nc("@item Undo action item", "Edit phases"));
+
+    Phase last;
+    foreach(const Phase& phase, m_model->addedPhases())
+        static_cast<QUndoStack*>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last=phase));
+
+
+    m_catalog->setActivePhase(last.name,roleForProcess(last.process));
+
+    m_catalog->endMacro();
+}
+
+void PhasesWindow::displayPhaseNotes(const QModelIndex& current)
+{
+    
+}
+
+void PhasesWindow::addPhase()
+{
+    PhaseEditDialog d(this);
+    if (!d.exec())
+        return;
+
+    Phase phase=d.phase();
+    initPhaseForCatalog(m_catalog, phase, ForceAdd);
+    m_view->setCurrentIndex(m_model->addPhase(phase));
+}
 

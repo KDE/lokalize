@@ -142,6 +142,14 @@ void Catalog::clear()
 }
 
 
+
+void Catalog::push(QUndoCommand* cmd)
+{
+    generatePhaseForCatalogIfNeeded(this);
+    QUndoStack::push(cmd);
+}
+
+
 //BEGIN STORAGE TRANSLATION
 
 int Catalog::capabilities() const
@@ -150,7 +158,6 @@ int Catalog::capabilities() const
 
     return m_storage->capabilities();
 }
-
 
 int Catalog::numberOfEntries() const
 {
@@ -274,6 +281,13 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
         return QString();
 
     return m_storage->setPhase(pos,phase);
+}
+
+
+void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
+{
+    d->_phase=phase;
+    d->_phaseRole=role;
 }
 
 QString Catalog::phase(const DocPosition& pos) const
@@ -441,7 +455,7 @@ int Catalog::loadFromUrl(const KUrl& url)
 
     DocPosition pos(0);
     int limit=storage->size();
-    while(pos.entry<limit)
+    while (pos.entry<limit)
     {
         if (!storage->isApproved(pos))
             d->_nonApprovedIndex << pos.entry;
@@ -752,7 +766,7 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
 
 Phase Catalog::updatePhase(const Phase& phase)
 {
-    m_storage->updatePhase(phase);
+    return m_storage->updatePhase(phase);
 }
 
 bool Catalog::setModified(int entry,bool modif)

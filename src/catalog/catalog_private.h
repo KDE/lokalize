@@ -113,7 +113,7 @@ public:
            , _autoSaveDirty(true)
            , _autoSaveRecovered(false)
            , _readOnly(false)
-           , _phaseRole(ProjectLocal::Approver)
+           , _phaseRole(ProjectLocal::Undefined)
     {
         _statesIndex.resize(StateCount);
     }

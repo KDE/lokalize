@@ -87,6 +87,8 @@ public:
 
     int capabilities() const;
 
+    void push(QUndoCommand* cmd);
+
 public slots: //DBus interface
     QString source(const DocPosition& pos) const {return msgid(pos);}
     QString target(const DocPosition& pos) const {return msgstr(pos);}
@@ -111,7 +113,7 @@ public slots: //DBus interface
     QString phase(const DocPosition& pos) const;
     QString activePhase() const{return d->_phase;}
     ProjectLocal::PersonRole activePhaseRole() const{return d->_phaseRole;}
-    void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver){d->_phase=phase;d->_phaseRole=role;}
+    void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver);
     QList<Phase> allPhases() const;
     QMap<QString,Tool> allTools() const;
 

@@ -27,56 +27,48 @@
 
 #include "phase.h"
 
-#include <KMainWindow>
-class Catalog;
+#include <KDialog>
+#include <QModelIndex>
 
-class PhasesWindow: public KMainWindow
+class PhasesModel;
+class MyTreeView;
+class PhasesWindow: public KDialog
 {
 Q_OBJECT
 public:
     PhasesWindow(Catalog* catalog, QWidget *parent);
     ~PhasesWindow(){}
 
+private slots:
+    void displayPhaseNotes(const QModelIndex& current);
+    void addPhase();
+    void handleResult();
+
 private:
     Catalog* m_catalog;
+    PhasesModel* m_model;
+    MyTreeView* m_view;
+    bool m_macroStarted;
 };
 
 
-#include <QAbstractListModel>
+#include <QTreeView>
 
-class PhasesModel: public QAbstractListModel
+class MyTreeView: public QTreeView
 {
 Q_OBJECT
 public:
-    enum PhasesModelColumns
-    {
-        Date=0,
-        //Name,
-        Process,
-        Company,
-        Contact,
-        ToolName,
-        ColumnCount
-    };
+    MyTreeView(QWidget* parent):QTreeView(parent){}
+    ~MyTreeView(){}
 
-    PhasesModel(const QList<Phase>& phases, const QMap<QString,Tool>& tools/*, Catalog* catalog*/, QObject* parent);
-    ~PhasesModel(){}
-
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
-    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
-    QVariant headerData(int section, Qt::Orientation, int role=Qt::DisplayRole) const;
-
-
+signals:
+    void currentIndexChanged(const QModelIndex& current);
 private:
-    QList<Phase> m_phases;
-    QMap<QString,Tool> m_tools;
-    int m_activePhase;
+    void currentChanged(const QModelIndex& current, const QModelIndex& previous){emit currentIndexChanged(current);}
 };
-
-
 
 
 
 
 #endif
+

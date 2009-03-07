@@ -574,10 +574,10 @@ Phase XliffStorage::updatePhase(const Phase& phase)
     }
 
     phaseElem.setAttribute("process-name", phase.process);
-    phaseElem.setAttribute("company-name", phase.company);
+    if (!phase.company.isEmpty()) phaseElem.setAttribute("company-name", phase.company);
     phaseElem.setAttribute("contact-name", phase.contact);
     phaseElem.setAttribute("contact-email",phase.email);
-    phaseElem.setAttribute("contact-phone",phase.phone);
+    if (!phase.phone.isEmpty()) phaseElem.setAttribute("contact-phone",phase.phone);
     phaseElem.setAttribute("tool-id",      phase.tool);
     phaseElem.setAttribute("date",phase.date.toString(Qt::ISODate));
     return prev;

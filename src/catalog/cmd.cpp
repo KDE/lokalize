@@ -42,9 +42,9 @@ LokalizeUnitCmd::LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const
     , _firstModificationForThisEntry(false)
 {}
 
-static QString setPhaseForPart(Catalog* catalog, const QString& phase, DocPosition phasePos, DocPosition::Part)
+static QString setPhaseForPart(Catalog* catalog, const QString& phase, DocPosition phasePos, DocPosition::Part part)
 {
-    phasePos.part=DocPosition::UndefPart;
+    phasePos.part=part;
     return catalog->setPhase(phasePos,phase);
 }
 
@@ -280,12 +280,12 @@ UpdatePhaseCmd::UpdatePhaseCmd(Catalog *catalog, const Phase& phase)
     , _phase(phase)
 {}
 
-void UpdatePhaseCmd::doRedo()
+void UpdatePhaseCmd::redo()
 {
     _prevPhase=_catalog->updatePhase(_phase);
 }
 
-void UpdatePhaseCmd::doUndo()
+void UpdatePhaseCmd::undo()
 {
     _catalog->updatePhase(_prevPhase);
 }

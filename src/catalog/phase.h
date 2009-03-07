@@ -24,9 +24,13 @@
 #ifndef PHASE_H
 #define PHASE_H
 
+#include "version.h"
+#include "projectlocal.h"
+
 #include <QString>
 #include <QDate>
 
+class Catalog;
 struct Phase
 {
     QString name;
@@ -40,8 +44,8 @@ struct Phase
 
     Phase()
         : date(QDate::currentDate())
-        , tool("lokalize")
-        {}
+        , tool("lokalize-" LOKALIZE_VERSION)
+    {}
 
     bool operator<(const Phase& other) const
     {
@@ -57,5 +61,12 @@ struct Tool
     QString version;
     QString company;
 };
+
+const char* const* processes();
+ProjectLocal::PersonRole roleForProcess(const QString& phase);
+enum InitOptions {ForceAdd=1};
+///@returns true if phase must be added to catalog;
+bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options=0);
+void generatePhaseForCatalogIfNeeded(Catalog* catalog);
 
 #endif

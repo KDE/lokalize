@@ -10,6 +10,7 @@
         <choice name="Translator" />
         <choice name="Reviewer" />
         <choice name="Approver" />
+        <choice name="Undefined" />
       </choices>
       <default>Approver</default>
     </entry>

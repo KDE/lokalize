@@ -65,6 +65,8 @@ set(lokalize_SRCS
     tm/tmmanager.cpp
     tm/tmtab.cpp
 
+    catalog/phase.cpp
+
     catalog/cmd.cpp
     catalog/pos.cpp
     catalog/catalog.cpp

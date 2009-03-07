@@ -32,10 +32,6 @@ class Catalog;
  * This struct represents a position in a catalog.
  * A position is a tuple (index,pluralform,textoffset).
  *
- * limits:
- * 32768 entries in the catalog
- * 4294967296 chars in one entry
- *
  * @short Structure that represents a position in a catalog
  */
 struct DocPosition
@@ -48,21 +44,21 @@ struct DocPosition
         Comment=4
     };
 
-    short entry:16;
+    int entry:32;
     Part part:8;
     char form:8;
-    uint offset:32;
+    uint offset:16;
 
     DocPosition(): entry(-1),part(Target),form(0),offset(0){}
 
-    DocPosition(short entry_, Part part_, char form_=0, uint offset_=0)
+    DocPosition(int entry_, Part part_, char form_=0, uint offset_=0)
         : entry(entry_)
         , part(part_)
         , form(form_)
         , offset(offset_)
         {}
 
-    DocPosition(short entry_, char form_=0, uint offset_=0)
+    DocPosition(int entry_, char form_=0, uint offset_=0)
         : entry(entry_)
         , part(Target)
         , form(form_)
@@ -80,12 +76,12 @@ bool switchNext(Catalog*&,DocPosition& pos,int parts=DocPosition::Target);
  */
 struct DocPos
 {
-    short entry:16;
+    int entry:24;
     uchar form:8;
 
-    DocPos():entry(-1),form(0){}
+    DocPos():entry(-1), form(0){}
 
-    DocPos(short _entry,uchar _form):
+    DocPos(int _entry, uchar _form):
         entry(_entry),
         form(_form)
         {}

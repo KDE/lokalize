@@ -1100,8 +1100,8 @@ void EditorTab::setState(QAction* a)
 
 void EditorTab::openPhasesWindow()
 {
-    PhasesWindow* w=new PhasesWindow(m_catalog, this);
-    w->show();
+    PhasesWindow w(m_catalog, this);
+    w.exec();
 }
 
 void EditorTab::gotoPrevBookmark()
