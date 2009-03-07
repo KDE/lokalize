@@ -44,17 +44,17 @@ enum Part {UndefPart, Msgid, Msgstr, Comment};
  * A position is a tuple (index,pluralform,textoffset).
  *
  * limits:
- * 32768 entries in the catalog
+ * 2^31-1 entries in the catalog
  * 4294967296 chars in one entry
  *
  * @short Structure that represents a position in a catalog
  */
 struct DocPosition
 {
-    short entry:16;
+    int entry:32;
     Part part:8;
     char form:8;
-    uint offset:32;
+    uint offset:16;
 
     DocPosition():
         entry(-1),
@@ -63,14 +63,14 @@ struct DocPosition
         offset(0)
         {}
 
-    DocPosition(short e, Part p, char f=0, uint o=0):
+    DocPosition(int e, Part p, char f=0, uint o=0):
         entry(e),
         part(p),
         form(f),
         offset(o)
         {}
 
-    DocPosition(short e, char f=0, uint o=0):
+    DocPosition(int e, char f=0, uint o=0):
         entry(e),
         part(Msgstr),
         form(f),
@@ -79,12 +79,7 @@ struct DocPosition
 
 
 };
-/*
-Q_DECLARE_METATYPE(DocPosition)
 
-const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos);
-QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos);
-*/
 bool switchPrev(Catalog*&,DocPosition& pos,bool useMsgId=false);
 bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
 
@@ -95,14 +90,14 @@ bool switchNext(Catalog*&,DocPosition& pos,bool useMsgId=false);
  */
 struct DocPos
 {
-    short entry:16;
+    int entry:24;
     uchar form:8;
 
     DocPos():
         entry(-1),
         form(0)
         {}
-    DocPos(short _entry,uchar _form):
+    DocPos(int _entry, uchar _form):
         entry(_entry),
         form(_form)
         {}
