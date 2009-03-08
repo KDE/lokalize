@@ -541,20 +541,27 @@ void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
 //TODO
 }
 
-Phase XliffStorage::updatePhase(const Phase& phase)
+QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomElement& phasegroup)
 {
-    Phase prev;
-
     QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
     QDomElement header=file.firstChildElement("header");
-    QDomElement phasegroup=header.firstChildElement("phase-group");
+    phasegroup=header.firstChildElement("phase-group");
     if (phasegroup.isNull())
         phasegroup=header.appendChild(m_doc.createElement("phase-group")).toElement();
 
     QDomElement phaseElem=phasegroup.firstChildElement("phase");
-    while (!phaseElem.isNull() && phaseElem.attribute("phase-name")!=phase.name)
+    while (!phaseElem.isNull() && phaseElem.attribute("phase-name")!=name)
         phaseElem=phaseElem.nextSiblingElement("phase");
 
+    return phaseElem;
+}
+
+Phase XliffStorage::updatePhase(const Phase& phase)
+{
+    Phase prev;
+
+    QDomElement phasegroup;
+    QDomElement phaseElem=phaseElement(m_doc,phase.name,phasegroup);
     if (!phaseElem.isNull())
     {
         prev.name      =phaseElem.attribute("phase-name");
@@ -579,7 +586,7 @@ Phase XliffStorage::updatePhase(const Phase& phase)
     phaseElem.setAttribute("contact-email",phase.email);
     if (!phase.phone.isEmpty()) phaseElem.setAttribute("contact-phone",phase.phone);
     phaseElem.setAttribute("tool-id",      phase.tool);
-    phaseElem.setAttribute("date",phase.date.toString(Qt::ISODate));
+    if (phase.date.isValid()) phaseElem.setAttribute("date",phase.date.toString(Qt::ISODate));
     return prev;
 }
 
@@ -679,7 +686,7 @@ static void initNoteFromElement(Note& note, QDomElement elem)
     if (!ok) note.priority=0;
 }
 
-QList<Note> XliffStorage::notes(const DocPosition& pos) const
+QVector<Note> XliffStorage::notes(const DocPosition& pos) const
 {
     QList<Note> result;
 
@@ -692,7 +699,7 @@ QList<Note> XliffStorage::notes(const DocPosition& pos) const
         elem=elem.nextSiblingElement("note");
     }
     qSort(result);
-    return result;
+    return result.toVector();
 }
 
 Note XliffStorage::setNote(DocPosition pos, const Note& note)
@@ -751,6 +758,50 @@ QStringList XliffStorage::noteAuthors() const
     }
     return result.keys();
 }
+
+QVector<Note> phaseNotes(QDomDocument m_doc, const QString& phasename, bool remove=false)
+{
+    QVector<Note> result;
+
+    QDomElement phasegroup;
+    QDomElement phaseElem=phaseElement(m_doc,phasename,phasegroup);
+
+    QDomElement noteElem=phaseElem.firstChildElement("note");
+    while (!noteElem.isNull())
+    {
+        Note note;
+        initNoteFromElement(note,noteElem);
+        result.append(note);
+        QDomElement old=noteElem;
+        noteElem=noteElem.nextSiblingElement("note");
+        if (remove) phaseElem.removeChild(old);
+    }
+    return result;
+}
+
+QVector<Note> XliffStorage::phaseNotes(const QString& phasename) const
+{
+    return ::phaseNotes(m_doc, phasename, false);
+}
+
+QVector<Note> XliffStorage::setPhaseNotes(const QString& phasename, QVector<Note> notes)
+{
+    QVector<Note> result=::phaseNotes(m_doc, phasename, true);
+
+    QDomElement phasegroup;
+    QDomElement phaseElem=phaseElement(m_doc,phasename,phasegroup);
+
+    foreach(const Note& note, notes)
+    {
+        QDomElement elem=phaseElem.appendChild(m_doc.createElement("note")).toElement();
+        elem.appendChild(m_doc.createTextNode(note.content));
+        if (!note.from.isEmpty()) elem.setAttribute("from",note.from);
+        if (note.priority) elem.setAttribute("priority",note.priority);
+    }
+
+    return result;
+}
+
 
 QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
 {

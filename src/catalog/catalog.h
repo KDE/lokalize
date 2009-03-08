@@ -102,7 +102,7 @@ public slots: //DBus interface
      * @returns previous note contents, if any
      */
     Note setNote(const DocPosition& pos, const Note& note);
-    QList<Note> notes(const DocPosition& pos) const;
+    QVector<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
     QString alttrans(const DocPosition& pos) const;
     QStringList sourceFiles(const DocPosition& pos) const;
@@ -116,6 +116,9 @@ public slots: //DBus interface
     void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver);
     QList<Phase> allPhases() const;
     QMap<QString,Tool> allTools() const;
+    QVector<Note> phaseNotes(const QString& phase) const;
+    ///@arg pos.entry - number of phase, @arg pos.form - number of note
+    QVector<Note> setPhaseNotes(const QString& phase, QVector<Note>);
 
     bool isPlural(uint index) const;
     bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}

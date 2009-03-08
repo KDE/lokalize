@@ -83,7 +83,7 @@ public:
     virtual QStringList targetAllForms(const DocPosition& pos) const=0;
 
     virtual QString alttrans(const DocPosition& pos) const=0;
-    virtual QList<Note> notes(const DocPosition& pos) const=0;
+    virtual QVector<Note> notes(const DocPosition& pos) const=0;
     virtual Note setNote(DocPosition pos, const Note& note)=0;
     virtual QStringList noteAuthors() const{return QStringList();}
 
@@ -91,6 +91,8 @@ public:
 
     virtual QString setPhase(const DocPosition& pos, const QString& phase){return QString();}
     virtual QString phase(const DocPosition& pos) const {return QString();}
+    virtual QVector<Note> phaseNotes(const QString& phase) const{return QVector<Note>();}
+    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){return QVector<Note>();}
 
     //DocPosition.form - number of <context>
     virtual QString context(const DocPosition& pos) const=0;

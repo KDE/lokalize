@@ -216,10 +216,10 @@ CatalogString Catalog::catalogString(const DocPosition& pos) const
 }
 
 
-QList<Note> Catalog::notes(const DocPosition& pos) const
+QVector<Note> Catalog::notes(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return QList<Note>();
+        return QVector<Note>();
 
     return m_storage->notes(pos);
 }
@@ -301,6 +301,16 @@ QString Catalog::phase(const DocPosition& pos) const
 QList<Phase> Catalog::allPhases() const
 {
     return m_storage->allPhases();
+}
+
+QVector<Note> Catalog::phaseNotes(const QString& phase) const
+{
+    return m_storage->phaseNotes(phase);
+}
+
+QVector<Note> Catalog::setPhaseNotes(const QString& phase, QVector<Note> notes)
+{
+    return m_storage->setPhaseNotes(phase, notes);
 }
 
 QMap<QString,Tool> Catalog::allTools() const

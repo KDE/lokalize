@@ -62,13 +62,15 @@ public:
     Phase updatePhase(const Phase& phase);
     QList<Phase> allPhases() const;
     QMap<QString,Tool> allTools() const;
+    QVector<Note> phaseNotes(const QString& phase) const;
+    QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes);
 
     QStringList sourceFiles(const DocPosition& pos) const;
     QString alttrans(const DocPosition& pos) const;
 
     ///@a pos.form is note number
     Note setNote(DocPosition pos, const Note& note);
-    QList<Note> notes(const DocPosition& pos) const;
+    QVector<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
 
     QString setPhase(const DocPosition& pos, const QString& phase);

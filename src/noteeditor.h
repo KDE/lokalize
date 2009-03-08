@@ -21,68 +21,56 @@
 
 **************************************************************************** */
 
-#ifndef PHASESWINDOW_H
-#define PHASESWINDOW_H
+#ifndef NOTEEDITOR_H
+#define NOTEEDITOR_H
 
-
-#include "phase.h"
 #include "note.h"
 
-#include <KDialog>
-#include <QModelIndex>
-#include <QVector>
-#include <QMap>
-
-class QStackedLayout;
-class NoteEditor;
-class PhasesModel;
-class MyTreeView;
+#include <KTextEdit>
+class QStringListModel;
+class QLabel;
+class KComboBox;
 class KTextBrowser;
-class PhasesWindow: public KDialog
+
+int displayNotes(KTextBrowser* m_browser, const QVector<Note>& notes, int active=0, bool multiple=true);
+
+class NoteEditor: public QWidget
 {
 Q_OBJECT
 public:
-    PhasesWindow(Catalog* catalog, QWidget *parent);
-    ~PhasesWindow(){}
+    NoteEditor(QWidget* parent);
+    ~NoteEditor(){}
 
-private slots:
-    void displayPhaseNotes(const QModelIndex& current);
-    void addPhase();
-    void handleResult();
-    void anchorClicked(QUrl);
-    void noteEditAccepted();
-    void noteEditRejected();
+    Note note();
+    void setNote(const Note&, int idx);
+    int noteIndex(){return m_idx;}
 
-private:
-    Catalog* m_catalog;
-    PhasesModel* m_model;
-    MyTreeView* m_view;
-    KTextBrowser* m_browser;
-    NoteEditor* m_editor;
-    QWidget* m_noteView;
-    QStackedLayout* m_stackedLayout;
-
-    QMap<QString, QVector<Note> > m_phaseNotes;
-};
-
-
-#include <QTreeView>
-
-class MyTreeView: public QTreeView
-{
-Q_OBJECT
-public:
-    MyTreeView(QWidget* parent):QTreeView(parent){}
-    ~MyTreeView(){}
+    void setNoteAuthors(const QStringList&);
+    void setFromFieldVisible(bool);
 
 signals:
-    void currentIndexChanged(const QModelIndex& current);
+    void accepted();
+    void rejected();
+
 private:
-    void currentChanged(const QModelIndex& current, const QModelIndex& previous){emit currentIndexChanged(current);}
+    KComboBox* m_from;
+    QLabel* m_fromLabel;
+    QStringListModel* m_authors;
+    KTextEdit* m_edit;
+    int m_idx;
+    Note m_note;
 };
 
 
-
+class TextEdit: public KTextEdit
+{
+Q_OBJECT
+public:
+    TextEdit(QWidget* parent): KTextEdit(parent){}
+    void keyPressEvent(QKeyEvent* e);
+signals:
+    void accepted();
+    void rejected();
+};
 
 #endif
-

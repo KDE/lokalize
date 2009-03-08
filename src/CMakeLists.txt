@@ -30,6 +30,8 @@ set(lokalize_SRCS
     syntaxhighlighter.cpp
 
     phaseswindow.cpp
+    noteeditor.cpp
+    msgctxtview.cpp
 
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
@@ -44,7 +46,6 @@ set(lokalize_SRCS
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
-    msgctxtview.cpp
     msgiddiffview.cpp
     common/diff.cpp
     project/project.cpp

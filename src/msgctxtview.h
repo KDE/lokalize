@@ -27,15 +27,13 @@
 #include "pos.h"
 #include "note.h"
 
+#include <QMap>
 #include <QDockWidget>
-#include <KTextEdit>
+
 class KTextBrowser;
 class Catalog;
 class NoteEditor;
-class QLabel;
-class KComboBox;
 class QStackedLayout;
-class QStringListModel;
 
 class MsgCtxtView: public QDockWidget
 {
@@ -73,44 +71,5 @@ private:
 };
 
 
-
-class NoteEditor: public QWidget
-{
-Q_OBJECT
-public:
-    NoteEditor(QWidget* parent);
-    ~NoteEditor(){}
-
-    Note note();
-    void setNote(const Note&, int idx);
-    int noteIndex(){return m_idx;}
-
-    void setNoteAuthors(const QStringList&);
-    void setFromFieldVisible(bool);
-
-signals:
-    void accepted();
-    void rejected();
-
-private:
-    KComboBox* m_from;
-    QLabel* m_fromLabel;
-    QStringListModel* m_authors;
-    KTextEdit* m_edit;
-    int m_idx;
-    Note m_note;
-};
-
-
-class TextEdit: public KTextEdit
-{
-Q_OBJECT
-public:
-    TextEdit(QWidget* parent): KTextEdit(parent){}
-    void keyPressEvent(QKeyEvent* e);
-signals:
-    void accepted();
-    void rejected();
-};
 
 #endif

@@ -191,7 +191,7 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
 {
     //kWarning()<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;
-    QList<Note> l=notes(pos);
+    QVector<Note> l=notes(pos);
     if (l.size()) oldNote=l.first();
 
     QStringList comment=m_entries.at(pos.entry).comment().split('\n');
@@ -212,9 +212,9 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
     return oldNote;
 }
 
-QList<Note> GettextStorage::notes(const DocPosition& docPosition) const
+QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
 {
-    QList<Note> result;
+    QVector<Note> result;
     QString content;
 
     QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(QRegExp("^# "));

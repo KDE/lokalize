@@ -24,20 +24,24 @@
 #include "phaseswindow.h"
 #include "catalog.h"
 #include "cmd.h"
+#include "noteeditor.h"
 
 #include <klocale.h>
+#include <KPushButton>
+#include <KTextBrowser>
+#include <KComboBox>
 
 #include <QTreeView>
 #include <QStringListModel>
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QApplication>
-#include <KPushButton>
-#include <KComboBox>
 
 
 //BEGIN PhasesModel
 #include <QAbstractListModel>
+#include <QSplitter>
+#include <QStackedLayout>
 
 class PhasesModel: public QAbstractListModel
 {
@@ -54,7 +58,6 @@ public:
 
     PhasesModel(Catalog* catalog, QObject* parent);
     ~PhasesModel(){}
-    void refresh();
     QModelIndex addPhase(const Phase& phase);
     QModelIndex activePhaseIndex()const{return index(m_activePhase);}
     QList<Phase> addedPhases()const;
@@ -75,21 +78,12 @@ private:
 PhasesModel::PhasesModel(Catalog* catalog, QObject* parent)
     : QAbstractListModel(parent)
     , m_catalog(catalog)
+    , m_phases(catalog->allPhases())
+    , m_tools(catalog->allTools())
 {
-    refresh();
-}
-
-void PhasesModel::refresh()
-{
-    m_phases=m_catalog->allPhases();
-    m_tools=m_catalog->allTools();
-
-    QString activePhase=m_catalog->activePhase();
     m_activePhase=m_phases.size();
-    while (--m_activePhase>=0 && m_phases.at(m_activePhase).name!=activePhase)
+    while (--m_activePhase>=0 && m_phases.at(m_activePhase).name!=catalog->activePhase())
         ;
-    kWarning()<<m_activePhase;
-    reset();
 }
 
 QModelIndex PhasesModel::addPhase(const Phase& phase)
@@ -98,6 +92,7 @@ QModelIndex PhasesModel::addPhase(const Phase& phase)
     beginInsertRows(QModelIndex(),m_activePhase,m_activePhase);
     m_phases.append(phase);
     endInsertRows();
+    return index(m_activePhase);
 }
 
 QList<Phase> PhasesModel::addedPhases()const
@@ -198,7 +193,8 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
  , m_catalog(catalog)
  , m_model(new PhasesModel(catalog, this))
  , m_view(new MyTreeView(this))
- , m_macroStarted(false)
+ , m_browser(new KTextBrowser(this))
+ , m_editor(0)
 {
     connect(this, SIGNAL(accepted()), SLOT(handleResult()));
     //setAttribute(Qt::WA_DeleteOnClose, true);
@@ -214,17 +210,33 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     KPushButton* add=new KPushButton(i18nc("@action:button",""),this);
     btns->addWidget(activate);
 */
+    QSplitter* splitter=new QSplitter(this);
+    l->addWidget(splitter);
+
     m_view->setRootIsDecorated(false);
     m_view->setModel(m_model);
-    l->addWidget(m_view);
+    splitter->addWidget(m_view);
     int i=m_model->columnCount();
     while (--i>=0)
         m_view->resizeColumnToContents(i);
-
     if (m_model->rowCount())
         m_view->setCurrentIndex(m_model->activePhaseIndex());
+    connect(m_view, SIGNAL(currentIndexChanged(QModelIndex)), SLOT(displayPhaseNotes(QModelIndex)));
 
-    setInitialSize(QSize(600,400));
+
+    m_noteView=new QWidget(this);
+    m_noteView->hide();
+    splitter->addWidget(m_noteView);
+    m_stackedLayout = new QStackedLayout(m_noteView);
+    m_stackedLayout->addWidget(m_browser);
+
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->setOpenLinks(false);
+    connect(m_browser,SIGNAL(anchorClicked(QUrl)),this,SLOT(anchorClicked(QUrl)));
+
+    splitter->setStretchFactor(0,15);
+    splitter->setStretchFactor(1,5);
+    setInitialSize(QSize(700,400));
 }
 
 void PhasesWindow::handleResult()
@@ -234,16 +246,16 @@ void PhasesWindow::handleResult()
     Phase last;
     foreach(const Phase& phase, m_model->addedPhases())
         static_cast<QUndoStack*>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last=phase));
-
-
     m_catalog->setActivePhase(last.name,roleForProcess(last.process));
 
-    m_catalog->endMacro();
-}
+    QMapIterator<QString, QVector<Note> > i(m_phaseNotes);
+    while (i.hasNext())
+    {
+        i.next();
+        m_catalog->setPhaseNotes(i.key(),i.value());
+    }
 
-void PhasesWindow::displayPhaseNotes(const QModelIndex& current)
-{
-    
+    m_catalog->endMacro();
 }
 
 void PhasesWindow::addPhase()
@@ -255,5 +267,74 @@ void PhasesWindow::addPhase()
     Phase phase=d.phase();
     initPhaseForCatalog(m_catalog, phase, ForceAdd);
     m_view->setCurrentIndex(m_model->addPhase(phase));
+    m_phaseNotes.insert(phase.name, QVector<Note>());
+}
+
+static QString phaseNameFromView(QTreeView* view)
+{
+    return view->currentIndex().data(Qt::UserRole).toString();
+}
+
+void PhasesWindow::anchorClicked(QUrl link)
+{
+    QString path=link.path().mid(1);// minus '/'
+
+    if (link.scheme()=="note")
+    {
+        if (!m_editor)
+        {
+            m_editor=new NoteEditor(this);
+            m_stackedLayout->addWidget(m_editor);
+            connect(m_editor,SIGNAL(accepted()),this,SLOT(noteEditAccepted()));
+            connect(m_editor,SIGNAL(rejected()),this,SLOT(noteEditRejected()));
+        }
+        m_editor->setNoteAuthors(m_catalog->noteAuthors());
+        if (path.endsWith("add"))
+            m_editor->setNote(Note(),-1);
+        else
+        {
+            int pos=path.toInt();
+            QString phaseName=phaseNameFromView(m_view);
+            QVector<Note> notes=m_phaseNotes.contains(phaseName)?
+                                m_phaseNotes.value(phaseName)
+                                :m_catalog->phaseNotes(phaseName);
+            m_editor->setNote(notes.at(pos),pos);
+        }
+        m_stackedLayout->setCurrentIndex(1);
+    }
+}
+
+void PhasesWindow::noteEditAccepted()
+{
+    QString phaseName=phaseNameFromView(m_view);
+    if (!m_phaseNotes.contains(phaseName))
+        m_phaseNotes.insert(phaseName, m_catalog->phaseNotes(phaseName));
+
+    QVector<Note> notes=m_phaseNotes.value(phaseName);
+    if (m_editor->noteIndex()==-1)
+        m_phaseNotes[phaseName].append(m_editor->note());
+    else
+        m_phaseNotes[phaseName][m_editor->noteIndex()]=m_editor->note();
+
+    m_stackedLayout->setCurrentIndex(0);
+    displayPhaseNotes(m_view->currentIndex());
+}
+
+void PhasesWindow::noteEditRejected()
+{
+    m_stackedLayout->setCurrentIndex(0);
+}
+
+void PhasesWindow::displayPhaseNotes(const QModelIndex& current)
+{
+    m_browser->clear();
+    QString phaseName=current.data(Qt::UserRole).toString();
+    QVector<Note> notes=m_phaseNotes.contains(phaseName)?
+                        m_phaseNotes.value(phaseName)
+                        :m_catalog->phaseNotes(phaseName);
+    kWarning()<<notes.size();
+    displayNotes(m_browser, notes);
+    m_noteView->show();
+    m_stackedLayout->setCurrentIndex(0);
 }
 
