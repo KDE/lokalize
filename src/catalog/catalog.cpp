@@ -288,6 +288,7 @@ void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role
 {
     d->_phase=phase;
     d->_phaseRole=role;
+    emit activePhaseChanged();
 }
 
 QString Catalog::phase(const DocPosition& pos) const
@@ -296,6 +297,11 @@ QString Catalog::phase(const DocPosition& pos) const
         return QString();
 
     return m_storage->phase(pos);
+}
+
+Phase Catalog::phase(const QString& name) const
+{
+    return m_storage->phase(name);
 }
 
 QList<Phase> Catalog::allPhases() const

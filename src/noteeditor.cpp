@@ -124,6 +124,7 @@ int displayNotes(KTextBrowser* browser, const QVector<Note>& notes, int active, 
 {
     kWarning()<<"called";
     QTextCursor t=browser->textCursor();
+    t.movePosition(QTextCursor::End);
     int realOffset=0;
 
     if (!notes.isEmpty())
@@ -148,7 +149,7 @@ int displayNotes(KTextBrowser* browser, const QVector<Note>& notes, int active, 
             t.insertHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add...")+"</a> ");
     }
     else
-        browser->setHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add a note...")+"</a> ");
+        browser->insertHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add a note...")+"</a> ");
 
     return realOffset;
 }

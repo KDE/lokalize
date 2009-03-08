@@ -114,6 +114,7 @@ public slots: //DBus interface
     QString activePhase() const{return d->_phase;}
     ProjectLocal::PersonRole activePhaseRole() const{return d->_phaseRole;}
     void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver);
+    Phase phase(const QString& name) const;
     QList<Phase> allPhases() const;
     QMap<QString,Tool> allTools() const;
     QVector<Note> phaseNotes(const QString& phase) const;
@@ -228,6 +229,7 @@ protected:
 
 signals:
     void signalEntryModified(const DocPosition&);
+    void activePhaseChanged();
     void signalNumberOfFuzziesChanged();
     void signalNumberOfEmptyChanged();
     Q_SCRIPTABLE void signalFileLoaded();

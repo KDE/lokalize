@@ -61,6 +61,7 @@ public:
     TagRange targetDeleteTag(const DocPosition&);
     Phase updatePhase(const Phase& phase);
     QList<Phase> allPhases() const;
+    Phase phase(const QString& name) const;
     QMap<QString,Tool> allTools() const;
     QVector<Note> phaseNotes(const QString& phase) const;
     QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes);

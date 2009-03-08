@@ -541,7 +541,7 @@ void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
 //TODO
 }
 
-QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomElement& phasegroup)
+static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomElement& phasegroup)
 {
     QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
     QDomElement header=file.firstChildElement("header");
@@ -556,23 +556,25 @@ QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomElement& p
     return phaseElem;
 }
 
+static Phase phaseFromElement(QDomElement phaseElem)
+{
+    Phase phase;
+    phase.name      =phaseElem.attribute("phase-name");
+    phase.process   =phaseElem.attribute("process-name");
+    phase.company   =phaseElem.attribute("company-name");
+    phase.contact   =phaseElem.attribute("contact-name");
+    phase.email     =phaseElem.attribute("contact-email");
+    phase.phone     =phaseElem.attribute("contact-phone");
+    phase.tool      =phaseElem.attribute("tool-id");
+    phase.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
+    return phase;
+}
+
 Phase XliffStorage::updatePhase(const Phase& phase)
 {
-    Phase prev;
-
     QDomElement phasegroup;
     QDomElement phaseElem=phaseElement(m_doc,phase.name,phasegroup);
-    if (!phaseElem.isNull())
-    {
-        prev.name      =phaseElem.attribute("phase-name");
-        prev.process   =phaseElem.attribute("process-name");
-        prev.company   =phaseElem.attribute("company-name");
-        prev.contact   =phaseElem.attribute("contact-name");
-        prev.email     =phaseElem.attribute("contact-email");
-        prev.phone     =phaseElem.attribute("contact-phone");
-        prev.tool      =phaseElem.attribute("tool-id");
-        prev.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
-    }
+    Phase prev=phaseFromElement(phaseElem);
 
     if (phaseElem.isNull()&&!phase.name.isEmpty())
     {
@@ -599,20 +601,18 @@ QList<Phase> XliffStorage::allPhases() const
     QDomElement phaseElem=phasegroup.firstChildElement("phase");
     while (!phaseElem.isNull())
     {
-        Phase phase;
-        phase.name      =phaseElem.attribute("phase-name");
-        phase.process   =phaseElem.attribute("process-name");
-        phase.company   =phaseElem.attribute("company-name");
-        phase.contact   =phaseElem.attribute("contact-name");
-        phase.email     =phaseElem.attribute("contact-email");
-        phase.phone     =phaseElem.attribute("contact-phone");
-        phase.tool      =phaseElem.attribute("tool-id");
-        phase.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
-
-        result.append(phase);
+        result.append(phaseFromElement(phaseElem));
         phaseElem=phaseElem.nextSiblingElement("phase");
     }
     return result;
+}
+
+Phase XliffStorage::phase(const QString& name) const
+{
+    QDomElement phasegroup;
+    QDomElement phaseElem=phaseElement(m_doc,name,phasegroup);
+
+    return phaseFromElement(phaseElem);
 }
 
 QMap<QString,Tool> XliffStorage::allTools() const

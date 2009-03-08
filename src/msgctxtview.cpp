@@ -102,6 +102,20 @@ void MsgCtxtView::process()
     m_prevEntry=m_entry;
     m_browser->clear();
 
+    QString phaseName=m_catalog->phase(m_entry.toDocPosition());
+    kWarning()<<phaseName;
+    if (!phaseName.isEmpty())
+    {
+        Phase phase=m_catalog->phase(phaseName);
+        QString html=i18nc("@info translation unit metadata","<b>Phase:</b><br>");
+        if (phase.date.isValid())
+            html+=QString("%1: ").arg(phase.date.toString(Qt::ISODate));
+        html+=phase.process;
+        if (!phase.contact.isEmpty())
+            html+=QString(" (%1)").arg(phase.contact);
+        m_browser->insertHtml(html+"<br>");
+    }
+
     int realOffset=displayNotes(m_browser, m_catalog->notes(m_entry.toDocPosition()), m_entry.form, m_catalog->capabilities()&MultipleNotes);
 
     QString html;

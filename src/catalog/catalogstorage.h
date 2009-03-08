@@ -91,6 +91,7 @@ public:
 
     virtual QString setPhase(const DocPosition& pos, const QString& phase){return QString();}
     virtual QString phase(const DocPosition& pos) const {return QString();}
+    virtual Phase phase(const QString& name) const{return Phase();}
     virtual QVector<Note> phaseNotes(const QString& phase) const{return QVector<Note>();}
     virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){return QVector<Note>();}
 

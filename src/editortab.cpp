@@ -411,6 +411,7 @@ void EditorTab::setupActions()
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
     m_approveAction=action;
     connect(Project::local(), SIGNAL(configChanged()), SLOT(setApproveActionTitle()));
+    connect(m_catalog, SIGNAL(activePhaseChanged()), SLOT(setApproveActionTitle()));
     setApproveActionTitle();
     connect(action->menu(), SIGNAL(aboutToShow()),this,SLOT(showStatesMenu()));
     connect(action->menu(), SIGNAL(triggered(QAction*)),this,SLOT(setState(QAction*)));
@@ -1066,7 +1067,9 @@ void EditorTab::setApproveActionTitle()
         I18N_NOOP2("@info:tooltip","Entry is fully localized (i.e. final)")
         };
 
-    int role=Project::local()->role();
+    int role=m_catalog->activePhaseRole();
+    if (role==ProjectLocal::Undefined)
+        role=Project::local()->role();
     m_approveAction->setText(i18nc("@option:check trans-unit state",titles[role]));
     m_approveAction->setToolTip(i18nc("@info:tooltip",helpText[role]));
 }
