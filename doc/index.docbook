@@ -163,7 +163,7 @@ To insert the translation suggestions into the file, use
 Pressing <keycombo><keycap>F7</keycap></keycombo> will open <guilabel>Translation Memory</guilabel> tab, which allows free querying TM.
 Clicking a search result will open corresponding file on corresponding entry.
 If you want to quickly open some file in the project (and it is added to TM), then instead of browsing <guilabel>Project Overview</guilabel>
-you just type its name into <guilabel>Filemask</guilabel> field accompanied by '*'.
+you just type its name into <guilabel>File mask</guilabel> field accompanied by '*'.
 </para>
 
 <para>
