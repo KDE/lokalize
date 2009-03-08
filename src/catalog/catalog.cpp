@@ -286,6 +286,7 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
 {
+    //TODO approved index cache change.
     d->_phase=phase;
     d->_phaseRole=role;
     emit activePhaseChanged();
@@ -769,7 +770,7 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
         m_storage->setApproved(pos,approved);
     }
 
-    if (approved)
+    if (!approved)
         insertInList(d->_nonApprovedIndex,pos.entry);
     else
         d->_nonApprovedIndex.removeAll(pos.entry);
@@ -825,15 +826,11 @@ int findNextInList(const QLinkedList<int>& list, int index)
 int findPrevInList(const QLinkedList<int>& list, int index)
 {
     int prevIndex=-1;
-    QLinkedListIterator<int> i(list);
-    i.toBack();
-    while (i.hasPrevious())
+    foreach(int key, list)
     {
-        if (KDE_ISUNLIKELY( i.previous() < index )) 
-        {
-            prevIndex = i.previous();
+        if (KDE_ISUNLIKELY( key>=index ))
             break;
-        }
+        prevIndex = key;
     }
     return prevIndex;
 }
@@ -846,7 +843,7 @@ void insertInList(QLinkedList<int>& list, int index)
     list.insert(it,index);
 }
 
-void Catalog::setBookmark(uint idx,bool set)
+void Catalog::setBookmark(uint idx, bool set)
 {
     if (set)
         insertInList(d->_bookmarkIndex,idx);

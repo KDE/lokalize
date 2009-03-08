@@ -36,6 +36,7 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
 {
+    setActivePhase(baseCatalog->activePhase(),baseCatalog->activePhaseRole());
     connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
     connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
 }
