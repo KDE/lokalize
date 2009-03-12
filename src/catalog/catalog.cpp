@@ -116,20 +116,20 @@ int Catalog::numberOfEntries() const
     return m_storage->size();
 }
 
+static DocPosition alterForSinglePlural(const Catalog* th, DocPosition pos)
+{
+    //if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
+    if (KDE_ISUNLIKELY(th->numberOfPluralForms()==1 && th->isPlural(pos)))
+        pos.form=1;
+    return pos;
+}
+
 QString Catalog::msgid(const DocPosition& pos, const bool noNewlines) const
 {
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return d->CatalogPrivate::_emptyStr;
 
-    //if source lang is english (implied) and target lang has only 1 plural form (e.g. Chinese)
-    if (KDE_ISUNLIKELY(d->_numberOfPluralForms==1))
-    {
-        DocPosition newPos=pos;
-        newPos.form=1;
-        return m_storage->source(newPos);
-    }
-
-    return m_storage->source(pos);
+    return m_storage->source(alterForSinglePlural(this, pos));
 }
 
 QString Catalog::msgstr(const DocPosition& pos, const bool noNewlines) const
@@ -147,7 +147,7 @@ CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
     if (KDE_ISUNLIKELY( !m_storage || m_storage->isEmpty() ))
         return CatalogString();
 
-    return m_storage->sourceWithTags(pos);
+    return m_storage->sourceWithTags(alterForSinglePlural(this, pos));
 
 }
 CatalogString Catalog::targetWithTags(const DocPosition& pos) const

@@ -43,10 +43,6 @@ enum Part {UndefPart, Msgid, Msgstr, Comment};
  * This struct represents a position in a catalog.
  * A position is a tuple (index,pluralform,textoffset).
  *
- * limits:
- * 2^31-1 entries in the catalog
- * 4294967296 chars in one entry
- *
  * @short Structure that represents a position in a catalog
  */
 struct DocPosition
