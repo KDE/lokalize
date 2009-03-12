@@ -238,6 +238,7 @@ private:
     DocPosition _searchingPos; //for find/replace
     DocPosition _replacingPos;
     DocPosition _spellcheckPos;
+    DocPosition _spellcheckStartPos;
 
     Sonnet::BackgroundChecker* m_sonnetChecker;
     Sonnet::Dialog* m_sonnetDialog;

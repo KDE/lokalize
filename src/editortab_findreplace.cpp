@@ -540,6 +540,7 @@ void EditorTab::spellcheck()
     if (!m_sonnetDialog)
     {
         m_sonnetChecker=new Sonnet::BackgroundChecker(this);
+        m_sonnetChecker->changeLanguage(Project::instance()->langCode());
         m_sonnetDialog=new Sonnet::Dialog(m_sonnetChecker,this);
         connect(m_sonnetDialog,SIGNAL(done(QString)),this,SLOT(spellcheckNext()));
         connect(m_sonnetDialog,SIGNAL(replace(QString,int,QString)),
@@ -554,7 +555,6 @@ void EditorTab::spellcheck()
 // 
 //     connect( d->checker, SIGNAL(misspelling(const QString&, int)),
 //              SLOT(slotMisspelling(const QString&, int)) );
-
     }
 
     QString text=m_catalog->msgstr(m_currentPos);
@@ -564,6 +564,7 @@ void EditorTab::spellcheck()
     m_sonnetDialog->setBuffer(text);
 
     _spellcheckPos=m_currentPos;
+    _spellcheckStartPos=m_currentPos;
     _spellcheckStop=false;
     //m_catalog->beginMacro(i18n("Spellcheck"));
     _spellcheckStartUndoIndex=m_catalog->index();
@@ -574,18 +575,36 @@ void EditorTab::spellcheck()
 
 void EditorTab::spellcheckNext()
 {
-    if (!_spellcheckStop && switchNext(m_catalog,_spellcheckPos))
+    if (_spellcheckStop)
+        return;
+
+    do
     {
-        // HACK actually workaround
-        while (m_catalog->msgstr(_spellcheckPos).isEmpty() || !m_catalog->isApproved(_spellcheckPos.entry))
+        if (!switchNext(m_catalog,_spellcheckPos))
         {
-            if (!switchNext(m_catalog,_spellcheckPos))
+            kWarning()<<_spellcheckStartPos.entry;
+            kWarning()<<_spellcheckStartPos.form;
+            bool continueFromStart=
+                !(_spellcheckStartPos.entry==0 && _spellcheckStartPos.form==0)
+                && KMessageBox::questionYesNo(this,i18n("Lokalize has reached end of document. Do you want to continue from start?"), i18nc("@title", "Spellcheck"))==KMessageBox::Yes;
+            if (continueFromStart)
+            {
+                _spellcheckStartPos.entry=0;
+                _spellcheckStartPos.form=0;
+                _spellcheckPos=_spellcheckStartPos;
+            }
+            else
+            {
+                KMessageBox::information(this,i18n("Lokalize has finished spellchecking"), i18nc("@title", "Spellcheck"));
                 return;
+            }
         }
-        QString text=m_catalog->msgstr(_spellcheckPos);
-        text.remove('&');
-        m_sonnetDialog->setBuffer(text);
     }
+    while (m_catalog->msgstr(_spellcheckPos).isEmpty() || !m_catalog->isApproved(_spellcheckPos.entry));
+
+    QString text=m_catalog->msgstr(_spellcheckPos);
+    text.remove('&');
+    m_sonnetDialog->setBuffer(text);
 }
 
 void EditorTab::spellcheckStop()
