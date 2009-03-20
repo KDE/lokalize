@@ -75,7 +75,7 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
         }
         else
         {
-            count+=doScanRecursive(QDir(urls.at(i).path()),dbName,metaJob);
+            count+=doScanRecursive(QDir(urls.at(i).toLocalFile()),dbName,metaJob);
         }
     }
     if (count)
@@ -121,7 +121,7 @@ bool TM::dragIsAcceptable(const QList<QUrl>& urls)
         bool ok=Catalog::extIsSupported(urls.at(i).path());
         if (!ok)
         {
-            QFileInfo info(urls.at(i).path());
+            QFileInfo info(urls.at(i).toLocalFile());
             ok=info.exists() && info.isDir();
         }
         if (ok)
