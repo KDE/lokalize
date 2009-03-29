@@ -39,6 +39,7 @@
 
 #include <QDragEnterEvent>
 #include <QFile>
+#include <QToolTip>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     : QDockWidget ( primary?i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"), parent)
@@ -205,8 +206,7 @@ void MergeView::mergeOpen(KUrl url)
     if (url.isEmpty())
         return;
 
-    delete m_mergeCatalog;
-    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
+    delete m_mergeCatalog; m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
     int errorLine=m_mergeCatalog->loadFromUrl(url);
     if (KDE_ISLIKELY( errorLine==0 ))
     {
@@ -341,5 +341,16 @@ void MergeView::mergeAcceptAllForEmpty()
 }
 
 
+bool MergeView::event(QEvent *event)
+{
+    if (event->type()==QEvent::ToolTip && m_mergeCatalog)
+    {
+        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        QToolTip::showText(helpEvent->globalPos(),i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
+                m_mergeCatalog->changedEntries().count(),m_mergeCatalog->unmatchedCount()));
+        return true;
+    }
+    return QWidget::event(event);
+}
 
 #include "mergeview.moc"

@@ -129,7 +129,7 @@ public slots: //DBus interface
     ///@returns true if at least one form is untranslated
     bool isEmpty(uint index) const;
     bool isEmpty(const DocPosition&) const;
-    bool isModified(int entry);
+    bool isModified(int entry) const;
 
     bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
     void setBookmark(uint, bool);

@@ -289,6 +289,7 @@ QString GettextStorage::id(const DocPosition& pos) const
     //only if their msgctxts are different
 
     QString result=source(pos);
+    result.remove('\n');
     result.prepend(m_entries.at(pos.entry).msgctxt()+":\n");
     return result;
 /*    QByteArray result=source(pos).toUtf8();

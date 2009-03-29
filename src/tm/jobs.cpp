@@ -1019,7 +1019,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     e.date=queryRest.value(1).toString();
                     e.target=queryRest.value(4).toString();if (queryRest.value(5).toLongLong()!=-1){e.target.insert(queryRest.value(5).toLongLong(), accel);}
                     QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
-                    QString file=queryRest.value(6).toString();
+                    e.file=queryRest.value(6).toString();
                     if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
                         continue;
 
@@ -1049,7 +1049,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                             e.score+=33;
                         }
                     }
-                    if (file==m_file)
+                    if (e.file==m_file)
                         e.score+=33;
 //END exact match score++
                     //kWarning()<<"appending"<<e.target;

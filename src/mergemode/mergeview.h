@@ -57,6 +57,7 @@ private:
     int pluralFormsAvailableForward();
     int pluralFormsAvailableBackward();
 
+    bool event(QEvent *event);
 
 public slots:
     void mergeOpen(KUrl url=KUrl());

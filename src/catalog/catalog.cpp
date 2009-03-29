@@ -799,7 +799,7 @@ bool Catalog::setModified(int entry,bool modif)
     return true;
 }
 
-bool Catalog::isModified(int entry)
+bool Catalog::isModified(int entry) const
 {
     return d->_modifiedEntries.contains(entry);
 }

@@ -35,6 +35,7 @@ struct TMEntry
     QString target;
 
     QString date;
+    QString file;
 
     //the remaining are used only for results
     qlonglong id;

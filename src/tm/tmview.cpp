@@ -45,6 +45,7 @@
 #include <QDir>
 #include <QSignalMapper>
 #include <QTimer>
+#include <QToolTip>
 
 #ifdef NDEBUG
 #undef NDEBUG
@@ -52,9 +53,22 @@
 #define DEBUG
 using namespace TM;
 
+
+
+
+void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    KTextBrowser::mouseDoubleClickEvent(event);
+
+    QString sel=textCursor().selectedText();
+    if (!(sel.isEmpty()||sel.contains(' ')))
+        emit textInsertRequested(sel);
+}
+
+
 TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<KAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
-    , m_browser(new KTextBrowser(this))
+    , m_browser(new TextBrowser(this))
     , m_catalog(catalog)
     , m_currentSelectJob(0)
     , m_actions(actions)
@@ -66,6 +80,8 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<KAction*>& actio
 {
     setObjectName("TMView");
     setWidget(m_browser);
+
+    m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
 
     QTimer::singleShot(0,this,SLOT(initLater()));
     connect(m_catalog,SIGNAL(signalFileLoaded(KUrl)),
@@ -98,14 +114,12 @@ void TMView::initLater()
 
     connect(signalMapper, SIGNAL(mapped(int)),
              this, SLOT(slotUseSuggestion(int)));
-    connect(m_browser,SIGNAL(selectionChanged()),this,SLOT(slotSelectionChanged()));
 
-    m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
+    setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
     DBFilesModel::instance();
 
-    m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
-
+    connect(m_browser,SIGNAL(textInsertRequested(QString)),this,SIGNAL(textInsertRequested(QString)));
     //TODO ? kdisplayPaletteChanged
 //     connect(KGlobalSettings::self(),,SIGNAL(kdisplayPaletteChanged()),this,SLOT(slotPaletteChanged()));
 
@@ -124,6 +138,7 @@ void TMView::dropEvent(QDropEvent *event)
 }
 
 #include <unistd.h>
+
 void TMView::slotFileLoaded(const KUrl& url)
 {
     const QString& pID=Project::instance()->projectID();
@@ -450,16 +465,26 @@ void TMView::slotPaletteChanged()
     
 }*/
 
-
-
-void TMView::slotSelectionChanged()
+bool TMView::event(QEvent *event)
 {
-    //NOTE works fine only for dbl-click word selection
-    //(actually, quick word insertion is exactly the purpose of this slot:)
-    QString sel(m_browser->textCursor().selectedText());
-    if (!(sel.isEmpty()||sel.contains(' ')))
-        emit textInsertRequested(sel);
+    if (event->type()==QEvent::ToolTip)
+    {
+        int block=m_browser->textCursor().blockNumber();
+        if (block<m_entries.size())
+        {
+            QString file=m_entries.at(block).file;
+            if (file==m_catalog->url().toLocalFile())
+                file="this";
+            QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+            QToolTip::showText(helpEvent->globalPos(),i18nc("@info:tooltip","File: %1<br />Date: %2",
+                    file,m_entries.at(block).date));
+            return true;
+        }
+    }
+    return QWidget::event(event);
 }
+
+
 
 //TODO thorough testing
 void TMView::slotUseSuggestion(int i)
@@ -811,7 +836,6 @@ nono
     emit refreshRequested();
     //emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
 }
-
 
 
 #include "tmview.moc"

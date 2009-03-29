@@ -28,13 +28,13 @@
 #include "tmentry.h"
 
 #include <kurl.h>
+#include <ktextbrowser.h>
 
 #include <QDockWidget>
 #include <QMap>
 #include <QVector>
 
 class Catalog;
-class KTextBrowser;
 class KAction;
 class QDropEvent;
 class QDragEnterEvent;
@@ -43,12 +43,12 @@ namespace ThreadWeaver{class Job;}
 
 #define TM_SHORTCUTS 10
 namespace TM {
+class TextBrowser;
 class SelectJob;
 
 class TMView: public QDockWidget
 {
     Q_OBJECT
-
 public:
     TMView(QWidget*,Catalog*,const QVector<KAction*>&);
     virtual ~TMView();
@@ -65,7 +65,6 @@ signals:
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void slotSuggestionsCame(ThreadWeaver::Job*);
-    void slotSelectionChanged();
 
     void initLater();
 
@@ -82,17 +81,17 @@ public slots:
     void slotBatchTranslate();
     void slotBatchTranslateFuzzy();
 
-//     void slotPaletteChanged();
+protected:
+    bool event(QEvent *event);
+
 private:
-    KTextBrowser* m_browser;
+    TextBrowser* m_browser;
     Catalog* m_catalog;
     DocPosition m_pos;
 
     SelectJob* m_currentSelectJob;
-//     QSignalMapper *m_signalMapper;
     QVector<KAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
-//     QTimer m_timer;
 
     QString m_normTitle;
     QString m_hasInfoTitle;
@@ -104,5 +103,17 @@ private:
     DocPosition m_prevCachePos;//hacky hacky
     QList<ThreadWeaver::Job*> m_jobs;//holds pointers to all the jobs for the current file
 };
+
+class TextBrowser: public KTextBrowser
+{
+    Q_OBJECT
+public:
+    TextBrowser(QWidget* parent):KTextBrowser(parent){}
+    void mouseDoubleClickEvent(QMouseEvent* event);
+signals:
+    void textInsertRequested(const QString&);
+};
+
+
 }
 #endif

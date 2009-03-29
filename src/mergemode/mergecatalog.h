@@ -94,6 +94,8 @@ public:
     bool isApproved(uint index) const;
     bool isPlural(uint index) const;
 
+    int unmatchedCount()const{return m_unmatchedCount;}
+
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const short int& entry) const;
 
@@ -118,6 +120,7 @@ private:
     Catalog* m_baseCatalog;
     QLinkedList<int> m_mergeDiffIndex;//points to baseCatalog entries
     bool m_primary;
+    int m_unmatchedCount;
 };
 
 #endif

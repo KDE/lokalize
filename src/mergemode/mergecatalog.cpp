@@ -126,6 +126,11 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
     return item;
 }
 
+static QString strip(QString source)
+{
+    source.remove('\n');
+    return source;
+}
 
 int MergeCatalog::loadFromUrl(const KUrl& url)
 {
@@ -148,33 +153,46 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
     QMultiHash<QString, int> mergeMap;
     while (i.entry<mergeSize)
     {
-        mergeMap.insert(mergeStorage.source(i),i.entry);
+        mergeMap.insert(strip(mergeStorage.source(i)),i.entry);
         ++(i.entry);
     }
 
     i.entry=0;
     while (i.entry<size)
     {
-        QList<int> entries=mergeMap.values(baseStorage.source(i));
+        QString key=strip(baseStorage.source(i));
+        QList<int> entries=mergeMap.values(key);
         QList<MatchItem> scores;
         int k=entries.size();
-        if (!k)
+        if (k)
         {
-            ++i.entry;
-            continue;
+            while(--k>=0)
+                scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
+
+            qSort(scores);
+
+            m_map[i.entry]=scores.first().mergeEntry;
+
+            if (scores.first().translationIsDifferent)
+                m_mergeDiffIndex.append(i.entry);
+
+            QMultiHash<QString, int>::iterator it = mergeMap.find(key);
+            while (it != mergeMap.end() && it.key() == key && it.value()!=scores.first().mergeEntry)
+                ++it;
+            mergeMap.erase(it);
         }
-        while(--k>=0)
-            scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
-
-        qSort(scores);
-
-        m_map[i.entry]=scores.first().mergeEntry;
-
-        if (scores.first().translationIsDifferent)
-            m_mergeDiffIndex.append(i.entry);
-
         ++i.entry;
     }
+
+    //fuzzy match unmatched entries
+    QMultiHash<QString, int>::iterator it = mergeMap.begin();
+    while (it != mergeMap.end())
+    {
+        kWarning()<<it.value()<<it.key();
+        ++it;
+    }
+    m_unmatchedCount=mergeMap.count();
+
     return 0;
 }
 
