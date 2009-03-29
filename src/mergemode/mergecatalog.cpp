@@ -146,6 +146,11 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
     return item;
 }
 
+static QString strip(QString source)
+{
+    source.remove('\n');
+    return source;
+}
 
 bool MergeCatalog::loadFromUrl(const KUrl& url)
 {
@@ -167,31 +172,28 @@ bool MergeCatalog::loadFromUrl(const KUrl& url)
     QMultiHash<QString, int> mergeMap;
     while (i.entry<mergeSize)
     {
-        mergeMap.insert(mergeStorage.source(i),i.entry);
+        mergeMap.insert(strip(mergeStorage.source(i)),i.entry);
         ++(i.entry);
     }
 
     i.entry=0;
     while (i.entry<size)
     {
-        QList<int> entries=mergeMap.values(baseStorage.source(i));
+        QList<int> entries=mergeMap.values(strip(baseStorage.source(i)));
         QList<MatchItem> scores;
         int k=entries.size();
-        if (!k)
+        if (k)
         {
-            ++i.entry;
-            continue;
+            while(--k>=0)
+                scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
+
+            qSort(scores);
+
+            m_map[i.entry]=scores.first().mergeEntry;
+
+            if (scores.first().translationIsDifferent)
+                m_mergeDiffIndex.append(i.entry);
         }
-        while(--k>=0)
-            scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
-
-        qSort(scores);
-
-        m_map[i.entry]=scores.first().mergeEntry;
-
-        if (scores.first().translationIsDifferent)
-            m_mergeDiffIndex.append(i.entry);
-
         ++i.entry;
     }
     return true;
