@@ -105,7 +105,7 @@ Catalog::Catalog(QObject *parent)
 {
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this,SIGNAL(signalFileSaved(KUrl)),
-            Project::instance()->model()->dirLister(),SLOT(slotFileSaved(KUrl)));
+            Project::instance()->model(),SLOT(slotFileSaved(KUrl)));
 
 
     QTimer* t=&(d->_autoSaveTimer);

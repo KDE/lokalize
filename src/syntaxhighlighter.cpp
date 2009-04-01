@@ -156,17 +156,16 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     foreach (const HighlightingRule &rule, highlightingRules)
     {
         QRegExp expression(rule.pattern);
-        int index = text.indexOf(expression);
+        int index = expression.indexIn(text);
         while (index >= 0)
         {
             int length = expression.matchedLength();
             QTextCharFormat f=rule.format;
             f.setFontItalic(!m_approved);
             setFormat(index, length, f);
-            index = text.indexOf(expression, index + length);
+            index = expression.indexIn(text, index + length);
         }
     }
-
 }
 
 

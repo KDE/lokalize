@@ -46,7 +46,6 @@ public:
 
     void setCurrentItem(const KUrl&);
     KUrl currentItem() const;
-    //KFileItem currentItem() const;
     KUrl::List selectedItems() const;
 
 /*

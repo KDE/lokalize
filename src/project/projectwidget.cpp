@@ -30,9 +30,11 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kdirlister.h>
+#include <kstringhandler.h>
 #include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
 
+#include <QTreeView>
 #include <QTimer>
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -41,11 +43,8 @@
 #include <QHeaderView>
 #include <QItemDelegate>
 
-#include <QTime>
-static int call_counter=0;
-static int time_counter=0;
 
-class PoItemDelegate: public QItemDelegate//KFileItemDelegate
+class PoItemDelegate: public QItemDelegate
 {
 public:
     PoItemDelegate(QObject *parent=0): QItemDelegate(parent){}
@@ -55,65 +54,55 @@ public:
 
 void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (index.column()!=Graph)
+    if (index.column() != ProjectModel::Graph)
         return QItemDelegate::paint(painter,option,index);
-        //return KFileItemDelegate::paint(painter,option,index);
 
-    ++call_counter;
-    QTime time;
-    time.start();
+    QVariant graphData = index.data(Qt::DisplayRole);
 
-    //showDecorationSelected=true;
-    QRect data(index.data(Qt::DisplayRole/*Qt::UserRole*/).toRect());
-    //QRect data(20,40,50,10);
-    if (data.height()==32) //collapsed folder
+    if (graphData.isValid())
     {
-        painter->fillRect(option.rect,Qt::transparent);
-        return;
+        QRect rect = graphData.toRect();
+        int translated = rect.left();
+        int untranslated = rect.top();
+        int fuzzy = rect.width();
+        int total = translated + untranslated + fuzzy;
+
+        if (total > 0)
+        {
+            KColorScheme colorScheme(QPalette::Normal);
+            painter->setPen(Qt::white);
+            QRect myRect(option.rect);
+            myRect.setWidth(option.rect.width() * translated / total);
+            painter->fillRect(myRect, colorScheme.foreground(KColorScheme::PositiveText));
+            //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
+
+            myRect.setLeft(myRect.left() + myRect.width());
+            myRect.setWidth(option.rect.width() * fuzzy / total);
+            painter->fillRect(myRect,colorScheme.foreground(KColorScheme::NeutralText));
+            // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
+
+            myRect.setLeft(myRect.left() + myRect.width());
+            myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
+            painter->fillRect(myRect, colorScheme.foreground(KColorScheme::NegativeText));
+            // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
+        }
+        else
+        {
+            painter->fillRect(option.rect,Qt::transparent);
+        }
     }
-    //bool infoIsFull=data.height()!=64;
-    int all=data.left()+data.top()+data.width();
-    if (!all)
+    else
     {
+        //no stats aviable
         painter->fillRect(option.rect,Qt::transparent);
-        return;
     }
-
-    KColorScheme colorScheme(QPalette::Normal);
-    //painter->setBrush(Qt::SolidPattern);
-    //painter->setBackgroundMode(Qt::OpaqueMode);
-    painter->setPen(Qt::white);
-    QRect myRect(option.rect);
-    myRect.setWidth(option.rect.width()*data.left()/all);
-    painter->fillRect(myRect,
-                      colorScheme.foreground(KColorScheme::PositiveText)
-                      //QColor(60,190,60)
-                      //QLinearGradient()
-                     );
-    //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
-
-    myRect.setLeft(myRect.left()+myRect.width());
-    myRect.setWidth(option.rect.width()*data.width()/all);
-    painter->fillRect(myRect,
-                      //QColor(60,60,190)
-                      colorScheme.foreground(KColorScheme::NeutralText)
-                     );
-   // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
-
-    myRect.setLeft(myRect.left()+myRect.width());
-    //myRect.setWidth(option.rect.width()*data.top()/all);
-    myRect.setWidth(option.rect.width()-myRect.left()+option.rect.left());
-    painter->fillRect(myRect,
-                      //QColor(190,60,60)
-                      colorScheme.foreground(KColorScheme::NegativeText)
-                     );
-   // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
-    time_counter+=time.elapsed();
 }
 
 
 
-class SortFilterProxyModel: public KDirSortFilterProxyModel
+
+
+class SortFilterProxyModel : public KDirSortFilterProxyModel
 {
 public:
     SortFilterProxyModel(QObject* parent=0)
@@ -129,21 +118,47 @@ protected:
 bool SortFilterProxyModel::lessThan(const QModelIndex& left,
                                         const QModelIndex& right) const
 {
-    if (left.column()<Graph)
-        return KDirSortFilterProxyModel::lessThan(left,right);
-
+//     kWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
+    //<<left.data().toString()<<right.data().toString()
     ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
     const KFileItem leftFileItem  = projectModel->itemForIndex(left);
     const KFileItem rightFileItem = projectModel->itemForIndex(right);
 
+    //Code taken from KDirSortFilterProxyModel, as it is not compatible with our model.
+    //TODO: make KDirSortFilterProxyModel::subSortLessThan not cast model to KDirModel, but use data() with FileItemRole instead.
+
+    // Directories and hidden files should always be on the top, independent
+    // from the sort order.
+    const bool isLessThan = (sortOrder() == Qt::AscendingOrder);
+
+    // On our priority, folders go above regular files.
+    if (leftFileItem.isDir() && !rightFileItem.isDir()) {
+        return isLessThan;
+    } else if (!leftFileItem.isDir() && rightFileItem.isDir()) {
+        return !isLessThan;
+    }
+
     // Hidden elements go before visible ones, if they both are
     // folders or files.
-    if (leftFileItem.isHidden()!=rightFileItem.isHidden())
-        return leftFileItem.isHidden() && !rightFileItem.isHidden();
+    if (leftFileItem.isHidden() && !rightFileItem.isHidden()) {
+        return isLessThan;
+    } else if (!leftFileItem.isHidden() && rightFileItem.isHidden()) {
+        return !isLessThan;
+   }
 
 
-    if (left.column()==Graph)
-    {
+    // Hidden elements go before visible ones, if they both are
+    // folders or files.
+    if (leftFileItem.isHidden() && !rightFileItem.isHidden()) {
+        return true;
+    } else if (!leftFileItem.isHidden() && rightFileItem.isHidden()) {
+        return false;
+    }
+
+    switch(left.column()) {
+    case ProjectModel::FileName:
+        return KStringHandler::naturalCompare(leftFileItem.name(), rightFileItem.name(), sortCaseSensitivity()) < 0;
+    case ProjectModel::Graph:{
         QRect leftRect(left.data(Qt::DisplayRole).toRect());
         QRect rightRect(right.data(Qt::DisplayRole).toRect());
 
@@ -156,43 +171,56 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
         float leftVal=(float)leftRect.left()/leftAll;
         float rightVal=(float)rightRect.left()/rightAll;
 
-        if (leftVal!=rightVal)
-            return leftVal<rightVal;
+        if (leftVal<rightVal)
+            return true;
+        if (leftVal>rightVal)
+            return false;
 
         leftVal=(float)leftRect.top()/leftAll;
         rightVal=(float)rightRect.top()/rightAll;
 
-        if (leftVal!=rightVal)
-            return leftVal<rightVal;
+        if (leftVal<rightVal)
+            return true;
+        if (leftVal>rightVal)
+            return false;
 
         leftVal=(float)leftRect.width()/leftAll;
         rightVal=(float)rightRect.width()/rightAll;
 
-        return leftVal<rightVal;
+        if (leftVal<rightVal)
+            return true;
+        return false;
     }
-    //else if (left.column()==Graph)
-
-    return QSortFilterProxyModel::lessThan(left,right);
+    case ProjectModel::LastTranslator:
+    case ProjectModel::SourceDate:
+    case ProjectModel::TranslationDate:
+        return KStringHandler::naturalCompare(projectModel->data(left).toString(), projectModel->data(right).toString(), sortCaseSensitivity()) < 0;
+    case ProjectModel::TotalCount:
+    case ProjectModel::TranslatedCount:
+    case ProjectModel::UntranslatedCount:
+    case ProjectModel::FuzzyCount:
+        return projectModel->data(left).toInt() < projectModel->data(right).toInt();
+    default:
+        return false;
+    }
 }
 
-ProjectWidget::ProjectWidget(QWidget* parent)
+ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     : QTreeView(parent)
     , m_proxyModel(new SortFilterProxyModel(this))
+//     , m_catalog(catalog)
 {
     PoItemDelegate* delegate=new PoItemDelegate(this);
     setItemDelegate(delegate);
 
-    //connect(this,SIGNAL(doubleClicked(const QModelIndex&)),this,SLOT(slotItemActivated(QModelIndex)));
     connect(this,SIGNAL(activated(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
 
     m_proxyModel->setSourceModel(Project::instance()->model());
-    m_proxyModel->setDynamicSortFilter(true);
+    //m_proxyModel->setDynamicSortFilter(true);
     setModel(m_proxyModel);
+    //setModel(Project::instance()->model());
 
-//     int i=KDirModel::Name+1;
-//     while(++i<KDirModel::ColumnCount)
-//         setColumnHidden(i,true);
-
+    setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
     int widthDefaults[]={6,1,1,1,1,1,4,4};
     int i=sizeof(widthDefaults)/sizeof(int);
@@ -200,7 +228,6 @@ ProjectWidget::ProjectWidget(QWidget* parent)
     while(--i>=0)
         setColumnWidth(i, baseWidth*widthDefaults[i]/2);
 
-    setUniformRowHeights(true);
     setSortingEnabled(true);
     sortByColumn(0, Qt::AscendingOrder);
 
@@ -246,17 +273,17 @@ bool ProjectWidget::currentIsCatalog() const
 }
 
 
-void ProjectWidget::slotItemActivated(const QModelIndex& idx)
-{
-    kWarning()<<"time_counter"<<time_counter;
-    kWarning()<<"call_counter"<<call_counter;
 
+void ProjectWidget::slotItemActivated(const QModelIndex& index)
+{
     if (currentIsCatalog())
-        //emit fileOpenRequested(currentItem())
-        emit fileOpenRequested(
-                Project::instance()->model()->itemForIndex(
-                                    m_proxyModel->mapToSource(idx)
-                                                          ).url());
+    {
+        ProjectModel * srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
+        QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
+        KUrl fileUrl = srcModel->beginEditing(srcIndex);
+
+        emit fileOpenRequested(fileUrl);
+    }
 }
 
 static void recursiveAdd(KUrl::List& list,
@@ -269,9 +296,8 @@ static void recursiveAdd(KUrl::List& list,
         int j=model.rowCount(idx);
         while (--j>=0)
         {
-            const KFileItem& childItem(model.itemForIndex(
-                                                idx.child(j,0)
-                                                                                ));
+            const KFileItem& childItem(model.itemForIndex(idx.child(j,0)));
+
             if (childItem.isDir())
                 recursiveAdd(list,idx.child(j,0));
             else
@@ -294,9 +320,11 @@ KUrl::List ProjectWidget::selectedItems() const
     }
 
     i=list.size();
-//     while(--i>=0) kWarning()<<"'''''''''''"<<list.at(i);
+    while(--i>=0)
+        kWarning()<<"'''''''''''"<<list.at(i);
     return list;
 }
+
 void ProjectWidget::expandItems()
 {
     QModelIndexList sel(selectedIndexes());
@@ -310,13 +338,9 @@ void ProjectWidget::expandItems()
         if (item.isDir())
         {
             int count=Project::instance()->model()->rowCount(m_proxyModel->mapToSource(sel.at(i)));
-            kWarning()
-                    <<"ssssss"
-                    <<count
-                    <<u;
 
-            if(! count )
-                static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u);
+            //if(! count )
+                //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u);
             //TODO 
                 //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true,false);
         }
@@ -327,30 +351,6 @@ void ProjectWidget::expandItems()
     //static_cast<ProjectModel*>(Project::instance()->model())->readRecursively();
 }
 
-
-#if 0
-// void ProjectWidget::slotProjectLoaded()
-// {
-
-void ProjectWidget::slotForceStats()
-{
-    //TODO
-//    m_browser->expandAll();
-//     Project::instance()->model()->forceScanning(m_browser->currentIndex());
-}
-
-
-/*
-void ProjectWidget::showCurrentFile()
-{
-    KFileItem a;
-    a.setUrl(Catalog::instance()->url());
-    QModelIndex idx(m_model->indexForItem(a));
-    if (idx.isValid())
-        m_browser->scrollTo(idx);
-}*/
-
-#endif
 
 
 #include "projectwidget.moc"

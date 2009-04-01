@@ -2,6 +2,7 @@
   This file is part of Lokalize
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -24,152 +25,174 @@
 #ifndef PROJECTMODEL_H
 #define PROJECTMODEL_H
 
+#include <threadweaver/Job.h>
+
 #include <kdirmodel.h>
 #include <kdirlister.h>
 #include <kicon.h>
-#include <kdebug.h>
-// #include <kfilemetainfo.h>
-// #include <kfileitemdelegate.h>
 #include <QHash>
 #include <QList>
+#include <kdebug.h>
 
-enum ProjectModelColumns
-{
-    Graph = 1/*KDirModel::ColumnCount*/,
-    TotalCount,
-    TranslatedCount,
-    FuzzyCount,
-    UntranslatedCount,
-    SourceDate,
-    TranslationDate,
-    LastTranslator,
-    ProjectModelColumnCount
-};
+class UpdateStatsJob;
 
-
-/*
-struct TranslationProgress
-{
-    int translated;
-    int untranslated;
-    int fuzzy;
-
-    TranslationProgress()
-        : translated(0)
-        , untranslated(0)
-        , fuzzy(0)
-    {}
-
-    TranslationProgress(int t, int u, int f)
-        : translated(t)
-        , untranslated(u)
-        , fuzzy(f)
-    {}
-
-};
-*/
-
-class ProjectModel: public KDirModel
+/**
+*  Some notes:
+*      Uses two KDirModels for template and translations dir.
+*      Listens to their signals and constructs a combined model.
+*  Stats calculation:
+*      Uses threadweawer for stats calculation.
+*      Each job analyzes files in one dir and adds subdirs to queue.
+*      A change in one file forces whole dir to be rescanned
+*      The job priotity needs some tweaking.
+ */
+class ProjectModel: public QAbstractItemModel
 {
     Q_OBJECT
 
-public:
-    ProjectModel(QObject *parent);
-    ~ProjectModel(){}
+    class ProjectNode
+    {
+    public:
+        ProjectNode(ProjectNode* parent, int rowNum, int poIndex, int potIndex);
+        ~ProjectNode();
+        void calculateDirStats();
+        void setFileStats(const KFileMetaInfo& info);
 
-    QVariant data (const QModelIndex&, int role=Qt::DisplayRole) const;
-    QVariant headerData(int, Qt::Orientation, int) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const;
-    Qt::ItemFlags flags( const QModelIndex& index ) const;
-    //also cleans up data belonging to previous project
-    void openUrl(const KUrl&);
+        ProjectNode* parent;
+        short rowNumber; //in parent's list
+
+        short poRowNumber; //row number in po model, -1 if this has no po item.
+        short potRowNumber; //row number in pot model, -1 if this has no pot item.
+
+        short poCount; //number of items from PO in rows. The others will be form POT exclusively.
+        QList<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
+
+        int translated;
+        int untranslated;
+        int fuzzy;
+        QString sourceDate;
+        QString lastTranslator;
+        QString translationDate;
+    };
+
+
+public:
+
+    enum ProjectModelColumns
+    {
+        FileName,
+        Graph,
+        TotalCount,
+        TranslatedCount,
+        FuzzyCount,
+        UntranslatedCount,
+        SourceDate,
+        TranslationDate,
+        LastTranslator,
+        ProjectModelColumnCount
+    };
+
+
+    ProjectModel(QObject *parent);
+    ~ProjectModel();
+
+    void setUrl(const KUrl &poUrl, const KUrl &potUrl);
+    QModelIndex indexForUrl(const KUrl& url);
+    KFileItem itemForIndex(const QModelIndex& index) const;
+    KUrl beginEditing(const QModelIndex& index); //copies POT file to PO file and returns url of the PO file
+
+    // QAbstractItemModel methods
+    int columnCount(const QModelIndex& parent = QModelIndex()) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    Qt::ItemFlags flags(const QModelIndex& index) const;
+
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex& index) const ;
+
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    bool hasChildren(const QModelIndex& parent = QModelIndex()) const;
+
+    bool canFetchMore(const QModelIndex& parent) const;
+    void fetchMore(const QModelIndex& parent);
+
+private slots:
+    void po_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+    void po_rowsInserted(const QModelIndex& parent, int start, int end);
+    void po_rowsRemoved(const QModelIndex& parent, int start, int end);
+
+    void pot_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+    void pot_rowsInserted(const QModelIndex& parent, int start, int end);
+    void pot_rowsRemoved(const QModelIndex& parent, int start, int end);
+
+    void finishMetadataUpdate(ThreadWeaver::Job* job);
 
 public slots:
-    void calcStats(const QModelIndex& parent, int start=0, int end=0);
+    void slotFileSaved(const KUrl& url);
 
 private:
+    ProjectNode* nodeForIndex(const QModelIndex& index) const;
+    QModelIndex indexForNode(const ProjectNode* node);
+
+    enum IndexType {PoIndex, PotIndex};
+    QModelIndex indexForOuter(const QModelIndex& outerIndex, IndexType type) const;
+    QModelIndex poIndexForOuter(const QModelIndex& outerIndex) const;
+    QModelIndex potIndexForOuter(const QModelIndex& outerIndex) const;
+    QModelIndex poOrPotIndexForOuter(const QModelIndex& outerIndex) const;
+
+    QModelIndex indexForPoIndex(const QModelIndex& poIndex) const;
+    QModelIndex indexForPotIndex(const QModelIndex& potIndex) const;
+    void generatePOTMapping(QVector<int> & result, const QModelIndex& poParent, const QModelIndex& potParent) const;
+
+    KUrl poToPot(const KUrl& path) const;
+    KUrl potToPo(const KUrl& path) const;
+
+    void enqueueNodeForMetadataUpdate(ProjectNode* node);
+    void deleteSubtree(ProjectNode* node);
+
+    void startNewMetadataJob();
+    void collectMetadata(const QModelIndex& index);
+    void setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data);
+    void updateDirStats(ProjectNode* node);
+
+    KUrl m_poUrl;
+    KUrl m_potUrl;
+    KDirModel m_poModel;
+    KDirModel m_potModel;
+
+    ProjectNode m_rootNode;
+
     KIcon m_dirIcon;
     KIcon m_poIcon;
     KIcon m_poComplIcon;
     KIcon m_potIcon;
+
+    //for updating stats
+    QSet<ProjectNode *> m_dirsWaitingForMetadata;
+    UpdateStatsJob* m_activeJob;
+    ProjectNode* m_activeNode;
 };
 
 
-inline
-int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
-{
-    return ProjectModelColumnCount;
-}
 
-inline
-Qt::ItemFlags ProjectModel::flags( const QModelIndex & index ) const
-{
-    if (index.column()<Graph)
-        return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
-
-    return Qt::ItemIsSelectable;
-//    kWarning() << index.column() <<  " " <<  KDirModel::flags(index);
-}
-
-
-
-class ProjectLister: public KDirLister
+class UpdateStatsJob: public ThreadWeaver::Job
 {
     Q_OBJECT
-
 public:
-    explicit ProjectLister(ProjectModel* model, QObject *parent=0);
-    ~ProjectLister(){}
+    explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner);
+    ~UpdateStatsJob();
+    int priority()const{return 101;} //SEE jobs.h
 
-public:
-    /**
-     * made in assuption that KDirModel does not rely on completed() signal!
-     * otherwise, would probably use qtimer::singleshot()
-     */
-    bool openUrl(const KUrl&, OpenUrlFlags flags = NoFlags);
-    bool openUrlRecursive(const KUrl&, OpenUrlFlags _flags = Keep);
-//     inline void setBaseAndTempl(const QString& base,const QString& templ);
+    void setStatus(int status);
 
-    //cleans way for loading another project
-    void cleanup();
+    QList<KFileItem> m_files;
+    QList<KFileMetaInfo> m_info;
+    volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
 
-public slots:
-    void slotNewTemplItems(KFileItemList);//to get metainfo
-    void slotDeleteTemplItem(const KFileItem&);
-    void slotRefreshTemplItems(QList< QPair< KFileItem, KFileItem > > );
-//     void clearTempl();
-//     void clearTempl(const KUrl&);
+protected:
+    void run();
 
-    void slotNewItems(const KFileItemList& list);//including getting metainfo
-    void slotDeleteItem(const KFileItem&);
-    void slotRefreshItems(QList< QPair< KFileItem, KFileItem > >);
-
-    //void slotClear();
-    void slotCompleted(const KUrl&);
-
-    void slotFileSaved(const KUrl&);
-
-private:
-    //those are called from slotRefreshItems() and slotNewItems() only
-    void removeUnneededTemplEntries(QString& path,KFileItemList& templDirsToRemove);
-    void removeDupliTemplDirs(KFileItemList& templDirsToRemove);
-
-
-private:
-    KDirLister* m_templates;
-    //KFileItemList m_hiddenTemplItems;
-    QList<KUrl> m_hiddenTemplItems;
-
-    QList<KUrl> m_recursiveUrls;
-
-    //HACKs
-    bool m_reactOnSignals;
-    QHash<QString /*url.path()*/,bool> m_listedTemplDirs;
-    ProjectModel* m_model;//used for debugging
 };
-
-
-
 
 
 #endif

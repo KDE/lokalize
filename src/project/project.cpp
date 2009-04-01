@@ -173,10 +173,10 @@ void Project::populateDirModel()
     if (KDE_ISUNLIKELY( !m_model || m_path.isEmpty() ))
         return;
 
-
-    QString a(poDir());
-    if (QFile::exists(a))
-        m_model->openUrl(a);
+    if (QFile::exists(poDir()) && QFile::exists(potDir()))
+        m_model->setUrl(KUrl(poDir()), KUrl(potDir()));
+    else if (QFile::exists(poDir()))
+        m_model->setUrl(KUrl(poDir()), KUrl());
 }
 
 void Project::populateGlossary()
