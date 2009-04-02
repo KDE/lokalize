@@ -129,10 +129,6 @@ void Project::load(const QString &file)
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
     m_localConfig->readConfig();
 
-    //put 'em into thread?
-    QTimer::singleShot(300,this,SLOT(populateDirModel()));
-    QTimer::singleShot(0,this,SLOT(populateGlossary()));
-
 
     TM::DBFilesModel::instance()->openDB(projectID());
 
@@ -140,8 +136,9 @@ void Project::load(const QString &file)
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
 
+    populateDirModel();
+
     //put 'em into thread?
-    QTimer::singleShot(300,this,SLOT(populateDirModel()));
     QTimer::singleShot(0,this,SLOT(populateGlossary()));
 
 

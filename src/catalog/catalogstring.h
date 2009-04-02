@@ -121,6 +121,8 @@ struct CatalogString
     CatalogString(){}
     CatalogString(QString str):string(str){}
     QMap<QString,int> tagIdToIndex() const;//TODO tags may be duplicated!
+
+    void insert(int position, const QString& str){string.insert(position,str);}
 };
 Q_DECLARE_METATYPE(CatalogString)
 

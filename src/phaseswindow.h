@@ -78,7 +78,7 @@ public:
 signals:
     void currentIndexChanged(const QModelIndex& current);
 private:
-    void currentChanged(const QModelIndex& current, const QModelIndex& previous){emit currentIndexChanged(current);}
+    void currentChanged(const QModelIndex& current, const QModelIndex&){emit currentIndexChanged(current);}
 };
 
 

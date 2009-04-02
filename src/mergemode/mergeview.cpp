@@ -27,7 +27,6 @@
 #include "mergecatalog.h"
 #include "project.h"
 #include "diff.h"
-#include "tmview.h"
 
 #include <klocale.h>
 #include <kdebug.h>

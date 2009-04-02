@@ -294,6 +294,41 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     }
 }
 
+static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
+{
+    QSqlQuery query1(db);
+
+    if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT source_strings.id, source_strings.source FROM source_strings, main WHERE "
+                     "source_strings.id==main.source AND main.id==%1").arg(mainId))))
+        return false;
+
+    qlonglong sourceId=query1.value(0).toLongLong();
+    query1.exec(QString("SELECT count(*) FROM main WHERE source==%1").arg(sourceId));
+    query1.next();
+    bool theOnly=query1.value(0).toInt()==1;
+    QString source_string=query1.value(1).toString();
+    query1.clear();
+    if (theOnly)
+    {
+        removeFromIndex(mainId, sourceId, source_string, rxClean1, accel, db);
+        query1.exec(QString("DELETE FROM source_strings WHERE id=%1").arg(sourceId));
+    }
+
+    if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT source FROM main WHERE "
+                     "main.id==%1").arg(mainId))))
+        return false;
+    query1.next();
+    qlonglong targetId=query1.value(0).toLongLong();
+    query1.exec(QString("SELECT count(*) FROM main WHERE target==%1").arg(targetId));
+    query1.next();
+    theOnly=query1.value(0).toInt()==1;
+    query1.clear();
+    if (theOnly)
+        query1.exec(QString("DELETE FROM target_strings WHERE id=%1").arg(targetId));
+
+    return query1.exec(QString("DELETE FROM main WHERE id=%1").arg(mainId));
+}
+
 static bool doInsertEntry(QString english,
              QString target,
              const QString& ctxt, //TODO QStringList -- after XLIFF
@@ -494,10 +529,7 @@ static bool doInsertEntry(QString english,
 
     bool dbApproved=!(bits&TM_NOTAPPROVED);
     if (dbApproved!=approved)
-    {
         bits^=TM_NOTAPPROVED;
-    }
-
 
     if (mainId)
     {
@@ -907,12 +939,13 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             //e.target=queryFetch.value(2).toString();
             //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
             //e.date=queryFetch.value(4).toString();
-            e.markup=markup;
-            e.accel=accel;
+            e.markupExpr=markup;
+            e.accelExpr=accel;
+            e.dbName=db.connectionName();
 
 
 //BEGIN calc score
-            QString str(e.english);
+            QString str=e.english;
             str.remove(accel);
 
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
@@ -1017,6 +1050,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 {
                     e.id=queryRest.value(0).toLongLong();
                     e.date=queryRest.value(1).toString();
+                    e.ctxt=queryRest.value(2).toString();
                     e.target=queryRest.value(4).toString();if (queryRest.value(5).toLongLong()!=-1){e.target.insert(queryRest.value(5).toLongLong(), accel);}
                     QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
                     e.file=queryRest.value(6).toString();
@@ -1120,12 +1154,12 @@ void SelectJob::run ()
     ++i;
     while(--i>=0)
     {
-        m_entries[i].accel=accel;
-        m_entries[i].markup=markup;
+        m_entries[i].accelExpr=accel;
+        m_entries[i].markupExpr=markup;
         m_entries[i].diff=wordDiff(m_entries.at(i).english,
                                    m_english,
-                                   m_entries.at(i).accel,
-                                   m_entries.at(i).markup);
+                                   m_entries.at(i).accelExpr,
+                                   m_entries.at(i).markupExpr);
 
     }
 
@@ -1221,21 +1255,24 @@ void ScanJob::run()
 }
 
 
-
-InsertJob::InsertJob(const TMEntry& entry,QObject* parent)
+RemoveJob::RemoveJob(const TMEntry& entry, QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_entry(entry)
-{
-}
+{}
 
-InsertJob::~InsertJob()
-{
-    kWarning() <<"InsertJob dtor"<<endl;
-}
 
-void InsertJob::run ()
+void RemoveJob::run ()
 {
+    kWarning()<<m_entry.dbName;
+    QSqlDatabase db=QSqlDatabase::database(m_entry.dbName);
 
+    //cleaning regexps for word index update
+    QString markup;
+    QString accel;
+    getConfig(db,markup,accel);
+    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+
+    doRemoveEntry(m_entry.id,rxClean1,accel,db);
 }
 
 
@@ -1256,10 +1293,6 @@ UpdateJob::UpdateJob(const QString& filePath,
     , m_form(form)
     , m_approved(approved)
     , m_dbName(dbName)
-{
-}
-
-UpdateJob::~UpdateJob()
 {
 }
 

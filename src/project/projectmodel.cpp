@@ -104,17 +104,20 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
         m_activeJob->setStatus(-1);
     m_activeJob = NULL;
 
-    beginRemoveRows(QModelIndex(), 0, m_rootNode.rows.count());
+    if (m_rootNode.rows.count())
+    {
+        beginRemoveRows(QModelIndex(), 0, m_rootNode.rows.count());
 
-    for (int pos = 0; pos < m_rootNode.rows.count(); pos ++)
-        deleteSubtree(m_rootNode.rows.at(pos));
-    m_rootNode.rows.clear();
-    m_rootNode.poCount = 0;
-    m_rootNode.translated = -1;
-    m_rootNode.untranslated = -1;
-    m_rootNode.fuzzy = -1;
+        for (int pos = 0; pos < m_rootNode.rows.count(); pos ++)
+            deleteSubtree(m_rootNode.rows.at(pos));
+        m_rootNode.rows.clear();
+        m_rootNode.poCount = 0;
+        m_rootNode.translated = -1;
+        m_rootNode.untranslated = -1;
+        m_rootNode.fuzzy = -1;
 
-    endRemoveRows();
+        endRemoveRows();
+    }
 
     //add trailing slashes to base URLs, needed for potToPo and poToPot
     m_poUrl = poUrl;
@@ -122,8 +125,10 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
     m_poUrl.adjustPath(KUrl::AddTrailingSlash);
     m_potUrl.adjustPath(KUrl::AddTrailingSlash);
 
-    m_poModel.dirLister()->openUrl(m_poUrl, KDirLister::Reload);
-    m_potModel.dirLister()->openUrl(m_potUrl, KDirLister::Reload);
+    if (!poUrl.isEmpty())
+        m_poModel.dirLister()->openUrl(m_poUrl, KDirLister::Reload);
+    if (!potUrl.isEmpty())
+        m_potModel.dirLister()->openUrl(m_potUrl, KDirLister::Reload);
 }
 
 
@@ -187,7 +192,7 @@ void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelI
     int count = node->rows.count();
 
     QModelIndex topLeft = index(0, pot_topLeft.column(), parent);
-    QModelIndex bottomRight = index(count - 1, pot_bottomRight.column(), parent);
+    QModelIndex bottomRight = index(count-1, pot_bottomRight.column(), parent);
 
     emit dataChanged(topLeft, bottomRight);
 
@@ -199,7 +204,7 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
 {
     QModelIndex parent = indexForPoIndex(po_parent);
     QModelIndex pot_parent = potIndexForOuter(parent);
-    ProjectNode * node = nodeForIndex(parent);
+    ProjectNode* node = nodeForIndex(parent);
 
     //insert po rows
     beginInsertRows(parent, first, last);
@@ -213,7 +218,7 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
     node->poCount += last - first + 1;
 
     //update rowNumber
-    for (int pos = last + 1; pos < node->rows.count(); pos ++)
+    for (int pos = last + 1; pos < node->rows.count(); pos++)
         node->rows[pos]->rowNumber = pos;
 
     endInsertRows();
@@ -302,7 +307,7 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
     int newNodesCount = newPotNodes.count();
     int insertionPoint = node->poCount;
     while ((insertionPoint < node->rows.count()) && (node->rows[insertionPoint]->potRowNumber < start))
-        insertionPoint ++;
+        insertionPoint++;
 
     beginInsertRows(parent, insertionPoint, insertionPoint + newNodesCount - 1);
 
@@ -1054,9 +1059,10 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     node->calculateDirStats();
     updateDirStats(node->parent);
 
-    QModelIndex index = indexForNode(node);
-    if (!rowCount(index))
+    if (node->parent->rows.count()==0 || node->parent->rows.count()>=node->rowNumber)
         return;
+    QModelIndex index = indexForNode(node);
+    kWarning()<<index.row()<<node->parent->rows.count();
     QModelIndex topLeft = index.sibling(index.row(), Graph);
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
     emit dataChanged(topLeft, bottomRight);
@@ -1116,7 +1122,7 @@ void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
 }
 
 
-UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject * owner)
+UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject* owner)
     : ThreadWeaver::Job(owner)
     , m_files(files)
     , m_status(0)

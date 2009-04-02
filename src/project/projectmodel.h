@@ -181,7 +181,7 @@ class UpdateStatsJob: public ThreadWeaver::Job
 public:
     explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner);
     ~UpdateStatsJob();
-    int priority()const{return 101;} //SEE jobs.h
+    int priority()const{return 35;} //SEE jobs.h
 
     void setStatus(int status);
 

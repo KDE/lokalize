@@ -30,6 +30,8 @@
 #include "project.h"
 #include "prefs_lokalize.h"
 #include "dbfilesmodel.h"
+#include "diff.h"
+
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -46,6 +48,7 @@
 #include <QSignalMapper>
 #include <QTimer>
 #include <QToolTip>
+#include <QMenu>
 
 #ifdef NDEBUG
 #undef NDEBUG
@@ -93,14 +96,10 @@ TMView::~TMView()
     int i=m_jobs.size();
     while (--i>=0)
         ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
-
-
 }
 
 void TMView::initLater()
 {
-    QTime time;time.start();
-
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
     setAcceptDrops(true);
 
@@ -111,15 +110,14 @@ void TMView::initLater()
         connect(m_actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
         signalMapper->setMapping(m_actions.at(i), i);
     }
-
-    connect(signalMapper, SIGNAL(mapped(int)),
-             this, SLOT(slotUseSuggestion(int)));
+    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(slotUseSuggestion(int)));
 
     setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
     DBFilesModel::instance();
 
     connect(m_browser,SIGNAL(textInsertRequested(QString)),this,SIGNAL(textInsertRequested(QString)));
+    connect(m_browser,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(contextMenu(QPoint)));
     //TODO ? kdisplayPaletteChanged
 //     connect(KGlobalSettings::self(),,SIGNAL(kdisplayPaletteChanged()),this,SLOT(slotPaletteChanged()));
 
@@ -127,7 +125,7 @@ void TMView::initLater()
 
 void TMView::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(dragIsAcceptable(event->mimeData()->urls()))
+    if (dragIsAcceptable(event->mimeData()->urls()))
         event->acceptProposedAction();
 }
 
@@ -138,6 +136,7 @@ void TMView::dropEvent(QDropEvent *event)
 }
 
 #include <unistd.h>
+#include <kmessagebox.h>
 
 void TMView::slotFileLoaded(const KUrl& url)
 {
@@ -229,6 +228,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             {
                 SetStateCmd::instantiateAndPush(m_catalog,pos,false);
             }
+            //TODO
             m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
 
             if (KDE_ISUNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
@@ -291,11 +291,8 @@ void TMView::slotBatchTranslateFuzzy()
 
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    QTime time;time.start();
-
     if (m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
-
 
     ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
 
@@ -303,17 +300,18 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     //m_catalog->flushUpdateDBBuffer();
     //this is called via subscribtion
 
-    m_pos=pos;
+    if (pos.entry!=-1)
+        m_pos=pos;
     m_browser->clear();
     if (Settings::prefetchTM()
-        &&m_cache.contains(DocPos(pos)))
+        &&m_cache.contains(DocPos(m_pos)))
     {
         QTimer::singleShot(0,this,SLOT(displayFromCache()));
     }
-    m_currentSelectJob=new SelectJob(m_catalog->msgid(pos),
-                                     m_catalog->msgctxt(pos.entry),
+    m_currentSelectJob=new SelectJob(m_catalog->msgid(m_pos),
+                                     m_catalog->msgctxt(m_pos.entry),
                                      m_catalog->url().pathOrUrl(),
-                                     pos,
+                                     m_pos,
                                      Project::instance()->projectID());
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),m_currentSelectJob,SLOT(deleteLater()));
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
@@ -464,57 +462,78 @@ void TMView::slotPaletteChanged()
 {
     
 }*/
-
 bool TMView::event(QEvent *event)
 {
     if (event->type()==QEvent::ToolTip)
     {
-        int block=m_browser->textCursor().blockNumber();
+        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        int block=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
         if (block<m_entries.size())
         {
             QString file=m_entries.at(block).file;
             if (file==m_catalog->url().toLocalFile())
                 file="this";
-            QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
             QToolTip::showText(helpEvent->globalPos(),i18nc("@info:tooltip","File: %1<br />Date: %2",
                     file,m_entries.at(block).date));
+            kWarning()<<block;
             return true;
         }
     }
     return QWidget::event(event);
 }
 
-
-
-//TODO thorough testing
-void TMView::slotUseSuggestion(int i)
+void TMView::contextMenu(const QPoint& pos)
 {
-    if (KDE_ISUNLIKELY( i>=m_entries.size() ))
+    int block=m_browser->cursorForPosition(pos).blockNumber();
+    kWarning()<<block;
+    if (block>=m_entries.size())
         return;
-    //this tries some black magic
-    //naturally, there are many assumptions that might not always be true
 
-    QString diff(m_entries.at(i).diff);
-    QString target(m_entries.at(i).target);
-    QString english(m_entries.at(i).english);
+    const TMEntry& e=m_entries.at(block);
+    enum {Remove, Open};
+    QMenu popup;
+    popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
+    if (e.file!= m_catalog->url().toLocalFile() && QFile::exists(e.file))
+        popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))->setData(Open);
+    QAction* r=popup.exec(m_browser->mapToGlobal(pos));
+    if (!r)
+        return;
+    if ((r->data().toInt()==Remove) &&
+        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("Do you really want to remove this entry from translation memory?"),i18nc("@title:window","Translation Memory Entry Removal")))
+    {
+        RemoveJob* job=new RemoveJob(e);
+        connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+        connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotNewEntryDisplayed()));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+    }
+    else if (r->data().toInt()==Open)
+        emit fileOpenRequested(e.file, e.english, e.ctxt);
+}
 
-    QRegExp rxAdd("<font style=\"background-color:"+Settings::addColor().name()+"\">(.*)</font>");
-    QRegExp rxDel("<font style=\"background-color:"+Settings::delColor().name()+"\">(.*)</font>");
+//this tries some black magic
+//naturally, there are many assumptions that might not always be true
+static QString targetAdapted(const TMEntry& entry)
+{
+    QString diff=entry.diff;
+    QString target=entry.target;
+    //QString english=entry.english;
+
+
+    QRegExp rxAdd("<font style=\"background-color:.*"+Settings::addColor().name()+".*\">(.*)</font>");
+    QRegExp rxDel("<font style=\"background-color:.*"+Settings::delColor().name()+".*\">(.*)</font>");
     rxAdd.setMinimal(true);
     rxDel.setMinimal(true);
 
     //first things first
     int pos=0;
     while ((pos=rxDel.indexIn(diff,pos))!=-1)
-        diff.replace(pos,rxDel.matchedLength(),"\tKAIDERDEL\t"+rxDel.cap(1)+"\t/KAIDERDEL\t");
+        diff.replace(pos,rxDel.matchedLength(),"\tKBABELDEL\t"+rxDel.cap(1)+"\t/KBABELDEL\t");
     pos=0;
     while ((pos=rxAdd.indexIn(diff,pos))!=-1)
-        diff.replace(pos,rxAdd.matchedLength(),"\tKAIDERADD\t"+rxAdd.cap(1)+"\t/KAIDERADD\t");
+        diff.replace(pos,rxAdd.matchedLength(),"\tKBABELADD\t"+rxAdd.cap(1)+"\t/KBABELADD\t");
 
     diff.replace("&lt;","<");
     diff.replace("&gt;",">");
-
-    //kWarning()<<diff;
 
     QString diffClean;diffClean.reserve(diff.size());
     QString old;old.reserve(diff.size());
@@ -536,17 +555,17 @@ void TMView::slotUseSuggestion(int i)
     {
         if (diff.at(pos)==sep)
         {
-            if (diff.indexOf("\tKAIDERDEL\t",pos)==pos)
+            if (diff.indexOf("\tKBABELDEL\t",pos)==pos)
             {
                 state='-';
                 pos+=10;
             }
-            else if (diff.indexOf("\tKAIDERADD\t",pos)==pos)
+            else if (diff.indexOf("\tKBABELADD\t",pos)==pos)
             {
                 state='+';
                 pos+=10;
             }
-            else if (diff.indexOf("\t/KAIDER",pos)==pos)
+            else if (diff.indexOf("\t/KBABEL",pos)==pos)
             {
                 state='0';
                 pos+=11;
@@ -564,17 +583,13 @@ void TMView::slotUseSuggestion(int i)
         }
     }
 
-    //kWarning()<<diff;
-    //kWarning()<<diffM;
-    //kWarning()<<old;
 
 
-
-    bool sameMarkup=Project::instance()->markup()==m_entries.at(i).markup&&!m_entries.at(i).markup.isEmpty();
+    bool sameMarkup=Project::instance()->markup()==entry.markupExpr&&!entry.markupExpr.isEmpty();
     //search for changed markup
     if (sameMarkup)
     {
-        QRegExp rxMarkup(m_entries.at(i).markup);
+        QRegExp rxMarkup(entry.markupExpr);
         rxMarkup.setMinimal(true);
         pos=0;
         int replacingPos=0;
@@ -623,11 +638,11 @@ void TMView::slotUseSuggestion(int i)
     //TODO further improvement: spaces, punct marked as 0
     QRegExp rxNonTranslatable;
     if (sameMarkup)
-        rxNonTranslatable.setPattern("^(("+m_entries.at(i).markup+")|(\\W|\\d)+)+");
+        rxNonTranslatable.setPattern("^(("+entry.markupExpr+")|(\\W|\\d)+)+");
     else
         rxNonTranslatable.setPattern("^(\\W|\\d)+");
 
-    //kWarning()<<"("+m_entries.at(i).markup+"|(\\W|\\d)+";
+    //kWarning()<<"("+entry.markup+"|(\\W|\\d)+";
 
 
     //handle the beginning
@@ -698,7 +713,7 @@ nono
     }
 
     if (sameMarkup)
-        rxNonTranslatable.setPattern("(("+m_entries.at(i).markup+")|(\\W|\\d)+)+$");
+        rxNonTranslatable.setPattern("(("+entry.markupExpr+")|(\\W|\\d)+)+$");
     else
         rxNonTranslatable.setPattern("(\\W|\\d)+$");
 
@@ -807,13 +822,16 @@ nono
         pos=endPos1+1;
     }
 
+    return target;
+}
 
+//TODO thorough testing
+void TMView::slotUseSuggestion(int i)
+{
+    if (KDE_ISUNLIKELY( i>=m_entries.size() ))
+        return;
 
-
-
-
-
-
+    QString target=targetAdapted(m_entries.at(i));
 
     if (KDE_ISUNLIKELY( target==m_catalog->msgstr(m_pos) || target.isEmpty() ))
         return;

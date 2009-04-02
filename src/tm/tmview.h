@@ -61,9 +61,10 @@ signals:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();
     void textInsertRequested(const QString&);
+    void fileOpenRequested(const KUrl& path, const QString& str, const QString& ctxt);
 
 public slots:
-    void slotNewEntryDisplayed(const DocPosition&);
+    void slotNewEntryDisplayed(const DocPosition& pos=DocPosition());
     void slotSuggestionsCame(ThreadWeaver::Job*);
 
     void initLater();
@@ -83,6 +84,9 @@ public slots:
 
 protected:
     bool event(QEvent *event);
+
+protected slots:
+    void contextMenu(const QPoint & pos);
 
 private:
     TextBrowser* m_browser;
@@ -108,7 +112,10 @@ class TextBrowser: public KTextBrowser
 {
     Q_OBJECT
 public:
-    TextBrowser(QWidget* parent):KTextBrowser(parent){}
+    TextBrowser(QWidget* parent):KTextBrowser(parent)
+    {
+        setContextMenuPolicy(Qt::CustomContextMenu);
+    }
     void mouseDoubleClickEvent(QMouseEvent* event);
 signals:
     void textInsertRequested(const QString&);

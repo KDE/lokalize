@@ -277,8 +277,9 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
         w->mergeOpen(mergeFile);
 
     m_openRecentFileAction->addUrl(w->currentUrl());
-    connect (sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
-    connect (w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
+    connect(sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
+    connect(w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
+    connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
     m_fileToEditor.insert(w->currentUrl(),sw);
     sw->setAttribute(Qt::WA_DeleteOnClose,true);
     emit editorAdded();
@@ -295,12 +296,13 @@ void LokalizeMainWindow::editorClosed(QObject* obj)
     m_fileToEditor.remove(m_fileToEditor.key(static_cast<QMdiSubWindow*>(obj)));
 }
 
-void LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
+EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
 {
     EditorTab* w=fileOpen(url);
     if (!w)
-        return;//TODO message
+        return 0;//TODO message
     w->findEntryBySourceContext(source,ctxt);
+    return w;
 }
 
 void LokalizeMainWindow::showProjectOverview()
@@ -689,11 +691,16 @@ int LokalizeMainWindow::showTranslationMemory()
     return w->dbusId();
 }
 
-int LokalizeMainWindow::openFileInEditor(const QString& path)
+int LokalizeMainWindow::openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt)
 {
-    EditorTab* w=fileOpen(KUrl(path));
+    EditorTab* w=fileOpen(KUrl(path),source,ctxt);
     if (!w) return -1;
     return w->dbusId();
+}
+
+int LokalizeMainWindow::openFileInEditor(const QString& path)
+{
+    return openFileInEditorAt(path,QString(),QString());
 }
 
 QObject* LokalizeMainWindow::activeEditor()

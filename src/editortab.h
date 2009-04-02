@@ -274,6 +274,8 @@ private:
 signals:
     Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);
 
+    void fileOpenRequested(const KUrl& path, const QString& str, const QString& ctxt);
+
     //emitted when mainwindow is closed or another file is opened
     void fileClosed();
     Q_SCRIPTABLE void fileClosed(const QString& path);

@@ -25,6 +25,8 @@
 #ifndef TMENTRY_H
 #define TMENTRY_H
 
+#include "catalogstring.h"
+
 #include <QString>
 
 namespace TM {
@@ -36,17 +38,19 @@ struct TMEntry
 
     QString date;
     QString file;
+    QString ctxt;
 
     //the remaining are used only for results
     qlonglong id;
     short score:16;//100.00%==10000
     ushort hits:16;
+    QString dbName;
 
     QString diff;
 
     //different databases can have different settings:
-    QString accel;
-    QString markup;
+    QString accelExpr;
+    QString markupExpr;
 
     bool operator<(const TMEntry& other)const
     {

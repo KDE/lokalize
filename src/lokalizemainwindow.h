@@ -87,6 +87,7 @@ public slots:
      * or just activates already existing editor with this file.
      */
     Q_SCRIPTABLE int openFileInEditor(const QString& path);
+    Q_SCRIPTABLE int openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt);
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
 
@@ -119,7 +120,7 @@ public slots:
 
     //returns 0 if error
     EditorTab* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());
-    void fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
+    EditorTab* fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
     TM::TMTab* showTM();
 
 signals:

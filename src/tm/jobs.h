@@ -42,6 +42,7 @@ namespace TM {
 #define CLOSEDB 10001
 #define OPENDB  10000
 #define UPDATE  80
+#define REMOVE  70
 #define INSERT  60
 #define SELECT  50
 #define BATCHSELECTFINISHED  49
@@ -131,21 +132,18 @@ public:
     QString m_dbName;
 };
 
-// used eg for current msgstr inserting
-class InsertJob: public ThreadWeaver::Job
+
+class RemoveJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit InsertJob(const TMEntry&,QObject* parent=0);
-    ~InsertJob();
-
-    int priority()const{return INSERT;}
+    explicit RemoveJob(const TMEntry& entry, QObject* parent=0);
+    ~RemoveJob(){}
+    int priority()const{return REMOVE;}
 
 protected:
-    void run ();
-// public:
+    void run();
 
-private:
     TMEntry m_entry;
 };
 
@@ -172,7 +170,7 @@ public:
                        const QString& dbName,
                        QObject* parent=0);
 
-    ~UpdateJob();
+    ~UpdateJob(){}
 
     int priority()const{return UPDATE;}
 
