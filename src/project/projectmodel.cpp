@@ -484,6 +484,10 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex& pot_parent, int start, int
 void ProjectModel::slotFileSaved(const KUrl& url)
 {
     QModelIndex index = indexForUrl(url);
+
+    if (!index.isValid())
+        return;
+
     collectMetadata(index);
     updateDirStats(nodeForIndex(index.parent()));
 
