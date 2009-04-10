@@ -685,7 +685,7 @@ bool EditorTab::fileOpen(KUrl url)
         }
     }
 
-    QString originalPath=url.path();
+    QString originalPath=url.toLocalFile();
     bool isTemlate=false;
 
     if (url.isEmpty())

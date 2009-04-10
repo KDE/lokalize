@@ -414,7 +414,7 @@ int Catalog::loadFromUrl(const KUrl& url)
     bool readOnly=false;
     if (url.isLocalFile())
     {
-        QFileInfo info(url.path());
+        QFileInfo info(url.toLocalFile());
         if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
             return DOESNTEXIST;
         if(KDE_ISUNLIKELY( !info.isReadable() ))
@@ -539,7 +539,7 @@ bool Catalog::saveToUrl(KUrl url)
         if (!QFile::exists(url.directory()))
             if (!QDir::root().mkpath(url.directory()))
                 return false;
-        file=new QFile(url.path());
+        file=new QFile(url.toLocalFile());
     }
     file->deleteLater(); //kung-fu ;)
     if (KDE_ISUNLIKELY( !file->open(QIODevice::WriteOnly) )) //i18n("Wasn't able to open file %1",filename.ascii());

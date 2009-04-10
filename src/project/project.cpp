@@ -160,7 +160,7 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
         KUrl url(m_path);
         url.setFileName(QString());
         url.cd(possiblyRelPath);
-        return url.path(KUrl::RemoveTrailingSlash);
+        return url.toLocalFile(KUrl::RemoveTrailingSlash);
     }
     return possiblyRelPath;
 }
