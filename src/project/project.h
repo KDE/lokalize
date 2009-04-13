@@ -122,8 +122,8 @@ public slots:
     void defineNewTerm(QString en=QString(),QString target=QString());
 
 
-    void registerEditor(EditorWindow* e){m_editors<<e;}
-    void unregisterEditor(EditorWindow* e){m_editors.remove(m_editors.indexOf(e));}
+    void registerEditor(EditorWindow* e){}
+    void unregisterEditor(EditorWindow* e){}
 
 
 private:
