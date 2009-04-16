@@ -74,11 +74,11 @@ QStringList calcLCS(const QStringList& s1Words,
     private:
         QStringList s1, s2, resultString;
         QStringList s1Space, s2Space;
+        QStringList::const_iterator it1, it2;
+        QStringList::const_iterator it1Space, it2Space;
         uint nT:31;//we're using 1d vector as 2d
         bool haveSpaces:1;//"word: sfdfs" space is ": "
         QVector<LCSMarker> *b;
-        QStringList::const_iterator it1, it2;
-        QStringList::const_iterator it1Space, it2Space;
         //QStringList::iterator it1Space, it2Space;
 };
 
@@ -100,26 +100,30 @@ LCSprinter::LCSprinter(const QStringList& s_1,
                       )
     : s1(s_1)
     , s2(s_2)
+    , s1Space(s1Space_)
+    , s2Space(s2Space_)
+    , it1(s1.constBegin())
+    , it2(s2.constBegin())
+    , it1Space(s1Space.constBegin())
+    , it2Space(s2Space.constBegin())
     , nT(nT_)
     , b(b_)
+
 {
-    if (!s1Space_.isEmpty())
-    {
-        haveSpaces=true;
-        s1Space=s1Space_;
-        s2Space=s2Space_;
-
-        it1Space=s1Space.constBegin();
-        it2Space=s2Space.constBegin();
-    }
-    else
-        haveSpaces=false;
-
-    it1=s1.constBegin();
-    it2=s2.constBegin();
+    haveSpaces=!s1Space_.isEmpty();
     printLCS(index);
 }
 
+
+static QStringList prepareForInternalDiff(const QString& str)
+{
+    QStringList result;
+    int i=str.size();
+    while(--i>=0)
+        result.prepend(QString(str.at(i)));
+    result.prepend("");
+    return result;
+}
 
 void LCSprinter::printLCS(uint index)
 {
@@ -158,52 +162,37 @@ void LCSprinter::printLCS(uint index)
                     resultString.append(*it1);
                 else
                 {
-                    QStringList word1;
-                    QStringList word2;
-                    int i=it1->size();
-                    while(--i>=0)
-                        word1.prepend(QString(it1->at(i)));
-                    word1.prepend("");
-                    i=it2->size();
-                    while(--i>=0)
-                        word2.prepend(QString(it2->at(i)));
-                    word2.prepend("");
+                    QStringList word1=prepareForInternalDiff(*it1);
+                    QStringList word2=prepareForInternalDiff(*it2);
 
                     QStringList empty;
-                    resultString.append(calcLCS(word1,word2,empty,empty).join(""));
+                    //resultString.append(calcLCS(word1,word2,empty,empty).join(""));
+
+                    empty=calcLCS(word2,word1,empty,empty);
+                    empty.replaceInStrings("KBABELADD>","KBABELTMP>");
+                    empty.replaceInStrings("KBABELDEL>","KBABELADD>");
+                    empty.replaceInStrings("KBABELTMP>","KBABELDEL>");
+
+                    resultString.append(empty.join(""));
                 }
 
                 if((*it1Space)==(*it2Space))
                     resultString.append(*it1Space);
                 else
                 {
-                    QStringList word1;
-                    QStringList word2;
-                    int i=it1Space->size();
-                    while(--i>=0)
-                        word1.prepend(QString(it1Space->at(i)));
-                    word1.prepend("");
-                    i=it2Space->size();
-                    while(--i>=0)
-                        word2.prepend(QString(it2Space->at(i)));
-                    word2.prepend("");
+                    QStringList word1=prepareForInternalDiff(*it1Space);
+                    QStringList word2=prepareForInternalDiff(*it2Space);
 
                     QStringList empty;
-//                     empty=calcLCS(word1,word2,empty,empty);
+                    //empty=calcLCS(word1,word2,empty,empty);
 //???this is not really good if we use diff result in autosubst
+
                     empty=calcLCS(word2,word1,empty,empty);
                     empty.replaceInStrings("KBABELADD>","KBABELTMP>");
                     empty.replaceInStrings("KBABELDEL>","KBABELADD>");
                     empty.replaceInStrings("KBABELTMP>","KBABELDEL>");
-                    resultString.append(empty.join(""));
-//                     kWarning()<<"!!!!!! '"<<*it1Space<<"' '"<<*it2Space<<"' '"<<resultString.last()<<"' '";
 
-//                     resultString.append("<KBABELADD>");
-//                     resultString.append(*it2Space);
-//                     resultString.append("</KBABELADD>");
-//                     resultString.append("<KBABELDEL>");
-//                     resultString.append(*it1Space);
-//                     resultString.append("</KBABELDEL>");
+                    resultString.append(empty.join(""));
                 }
                 ++it1Space;
                 ++it2Space;
@@ -214,7 +203,6 @@ void LCSprinter::printLCS(uint index)
             ++it1;
             ++it2;
         }
-        return;
     }
     else if (ARROW_UP == b->at(index))
     {
@@ -234,7 +222,6 @@ void LCSprinter::printLCS(uint index)
             }
             resultString.append("</KBABELDEL>");
         }
-        return;
     }
     else
     {
@@ -251,9 +238,7 @@ void LCSprinter::printLCS(uint index)
             ++it2Space;
         }
         resultString.append("</KBABELADD>");
-        return;
     }
-
 }
 
 

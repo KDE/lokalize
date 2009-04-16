@@ -543,10 +543,10 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
     //QString english=entry.english;
 
 
-    QRegExp rxAdd("<font style=\"background-color:.*"+Settings::addColor().name()+".*\">(.*)</font>");
-    QRegExp rxDel("<font style=\"background-color:.*"+Settings::delColor().name()+".*\">(.*)</font>");
-    rxAdd.setMinimal(true);
-    rxDel.setMinimal(true);
+    QRegExp rxAdd("<font style=\"background-color:[^>]*"+Settings::addColor().name()+"[^>]*\">([^>]*)</font>");
+    QRegExp rxDel("<font style=\"background-color:[^>]*"+Settings::delColor().name()+"[^>]*\">([^>]*)</font>");
+    //rxAdd.setMinimal(true);
+    //rxDel.setMinimal(true);
 
     //first things first
     int pos=0;
@@ -870,8 +870,6 @@ nono
     kWarning()<<target.string;
 
     adaptCatalogString(target, ref);
-    kWarning()<<"55"<<target.string;
-    kWarning()<<target.tags.first().id;
     return target;
 }
 

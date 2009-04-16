@@ -197,7 +197,6 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             oldTags.removeAt(i);
         }
     }
-    kWarning()<<target.tags.first().id;
     //now walk through unmatched tags and properly remove them.
     foreach(const InlineTag& tag, oldTags)
     {
@@ -205,6 +204,5 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             target.remove(tag.end, 1);
         target.remove(tag.start, 1);
     }
-    kWarning()<<target.tags.first().id;
 }
 
