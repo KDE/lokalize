@@ -351,52 +351,71 @@ QStringList calcLCS(const QStringList& s1Words,
 
 }
 
-QString wordDiff(const QStringList& s1,const QStringList& s2)
+QString wordDiff(QStringList s1, QStringList s2)
 {
+    s1.prepend(" ");
+    s2.prepend(" ");
+
     QStringList empty;
-    empty=calcLCS(s1,s2,empty,empty);
-    //return calcLCS(s1,s2,empty,empty).join("");
-    return empty.join("");
+    QString result=calcLCS(s1,s2,empty,empty).join("");
+
+
+    result.remove(0,1);
+    result.remove("</KBABELADD><KBABELADD>");
+    result.remove("</KBABELDEL><KBABELDEL>");
+
+    return result;
 }
 
-QString wordDiff(const QString& str1,
-                 const QString& str2,
-                 const QString& accel,
-                 const QString& markup)
-{
-    //separate punctuation marks etc from words as _only_ they may have changed
-    QStringList s1("\t"), s2("\t");//little hack
 
+//this also separates punctuation marks etc from words as _only_ they may have changed
+static void prepareLists(QString str, QStringList& main, QStringList& space, const QString& accel, QString markup)
+{
     //accels are only removed by batch jobs
     //and this is not the one
-    QString str1ForMatching(str1);
-    QString str2ForMatching(str2);
 
-    //move this to calcLCS?
     QRegExp rxAccelInWord("[^\\W|\\d]"+accel+"[^\\W|\\d]");
     int accelLen=accel.size();
     int pos=0;
-    while ((pos=rxAccelInWord.indexIn(str1ForMatching,pos))!=-1)
+    while ((pos=rxAccelInWord.indexIn(str,pos))!=-1)
     {
-        str1ForMatching.remove(rxAccelInWord.pos()+1,accelLen);
-        pos+=2;//two letters
-    }
-    pos=0;
-    while ((pos=rxAccelInWord.indexIn(str2ForMatching,pos))!=-1)
-    {
-        str2ForMatching.remove(rxAccelInWord.pos()+1,accelLen);
+        str.remove(rxAccelInWord.pos()+1,accelLen);
         pos+=2;//two letters
     }
 
     //QRegExp rxSplit("\\W+|\\d+");
     //i tried that but it failed:
-    QString tmp=markup;
     if (!markup.isEmpty())
-        tmp+='|';
-    QRegExp rxSplit('('+tmp+"\\W+|\\d+)+");
+        markup+='|';
+    QRegExp rxSplit('('+markup+"\\W+|\\d+)+");
 
-    s1+=str1ForMatching.split(rxSplit,QString::SkipEmptyParts);
-    s2+=str2ForMatching.split(rxSplit,QString::SkipEmptyParts);
+    main=str.split(rxSplit,QString::SkipEmptyParts);
+    main.prepend("\t");//little hack
+
+
+    //ensure the string always begins with the space part
+    str.prepend('\b');
+    pos=0;
+    while ((pos=rxSplit.indexIn(str,pos))!=-1)
+    {
+        space.append(rxSplit.cap(0));
+        pos+=rxSplit.matchedLength();
+    }
+    space.append("");//so we don't have to worry about list boundaries
+    space.append("");//so we don't have to worry about list boundaries
+}
+
+QString userVisibleWordDiff(const QString& str1ForMatching,
+                            const QString& str2ForMatching,
+                            const QString& accel,
+                            const QString& markup)
+{
+    QStringList s1, s2;
+    QStringList s1Space, s2Space;
+
+
+    prepareLists(str1ForMatching, s1, s1Space, accel, markup);
+    prepareLists(str2ForMatching, s2, s2Space, accel, markup);
 
     //QRegExp rxSpace("[^(\\W+|\\d+)]");
     //i tried that but it failed:
@@ -404,32 +423,7 @@ QString wordDiff(const QString& str1,
     //QStringList s1Space(str1ForMatching.split(rxSpace,QString::SkipEmptyParts));
     //QStringList s2Space(str2ForMatching.split(rxSpace,QString::SkipEmptyParts));
 
-    //ensure the string always begins with the space part
-    str1ForMatching.prepend('\b');
-    str2ForMatching.prepend('\b');
-    QStringList s1Space;
-    QStringList s2Space;
-    pos=0;
-    while ((pos=rxSplit.indexIn(str1ForMatching,pos))!=-1)
-    {
-        s1Space.append(rxSplit.cap(0));
-        pos+=rxSplit.matchedLength();
-    }
-    pos=0;
-    while ((pos=rxSplit.indexIn(str2ForMatching,pos))!=-1)
-    {
-        s2Space.append(rxSplit.cap(0));
-        pos+=rxSplit.matchedLength();
-    }
-    s1Space.append("");//so we don't have to worry about list boundaries
-    s2Space.append("");
-    s1Space.append("");//so we don't have to worry about list boundaries
-    s2Space.append("");
 
-    //return QString();
-//     kWarning()<<endl<<endl<<"wordDiff 1 '" <<str1<<"' '"<<str2<<"'";
-//     kWarning()<<s1.size()<<" "<<s2.size()<<" "<<s1Space.size()<<" "<<s2Space.size()<<" ";
-    //kWarning()<<" '"<<s1Space.first()<<"' '"<<s2Space.first()<<"' ";
     QStringList result(calcLCS(s1,s2,s1Space,s2Space));
     result.removeFirst();//\t
     result.first().remove(0,1);//\b
@@ -445,35 +439,20 @@ QString wordDiff(const QString& str1,
     result.replaceInStrings("<","&lt;");
     result.replaceInStrings(">","&gt;");
 
-    result.replaceInStrings("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
-    result.replaceInStrings("{/KBABELADD}","</font>");
-    result.replaceInStrings("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
-    result.replaceInStrings("{/KBABELDEL}","</font>");
-
     //result.last().chop(1);//\b
     //kWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
 
-
-//     result.remove("</KBABELADD><KBABELADD>");
-//     result.remove("</KBABELDEL><KBABELDEL>");
-
-//     QStringMatcher addMatcher("</KBABELADD>");
-//     int pos=0;//TODO beginning
-//     while ((pos=addMatcher.indexIn(result,pos))!=-1)
-//     {
-//         msg.remove(accel.pos(1),accel.cap(1).size());
-//         pos=accel.pos(1);
-//         kWarning()<<endl<<endl<<"valvalvalvalval " <<msg<<endl;
-//     }
-
-
     QString res(result.join(""));
-    res.remove("</KBABELADD><KBABELADD>");
-    res.remove("</KBABELDEL><KBABELDEL>");
+    res.remove("{/KBABELADD}{KBABELADD}");
+    res.remove("{/KBABELDEL}{KBABELDEL}");
 
-    return result.join("");
+    res.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
+    res.replace("{/KBABELADD}","</font>");
+    res.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
+    res.replace("{/KBABELDEL}","</font>");
 
+    res.replace("\\n","\\n<br>");
+
+    return res;
 }
-
-
 

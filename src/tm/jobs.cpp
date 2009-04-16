@@ -920,7 +920,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     sourceClean.remove(accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(sourceClean.toLower().split(rxSplit,QString::SkipEmptyParts));
-    englishList.prepend(" "); //for our diff algo...
     QRegExp delPart("<KBABELDEL>.*</KBABELDEL>");
     QRegExp addPart("<KBABELADD>.*</KBABELADD>");
     delPart.setMinimal(true);
@@ -982,12 +981,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
             if (englishSuggList.size()>10*englishList.size())
                 continue;
-            englishSuggList.prepend(" ");
             //sugg is 'old' --translator has to adapt its translation to 'new'--current
-            QString result(wordDiff(englishSuggList,englishList));
-            result.remove(0,1);
-            result.remove("</KBABELADD><KBABELADD>");
-            result.remove("</KBABELDEL><KBABELDEL>");
+            QString result=wordDiff(englishSuggList,englishList);
             //kWarning() <<"SelectJob: doin "<<j<<" "<<result;
 
             int pos=0;
@@ -1188,7 +1183,7 @@ void SelectJob::run ()
     {
         m_entries[i].accelExpr=accel;
         m_entries[i].markupExpr=markup;
-        m_entries[i].diff=wordDiff(m_entries.at(i).source.string,
+        m_entries[i].diff=userVisibleWordDiff(m_entries.at(i).source.string,
                                    m_source.string,
                                    m_entries.at(i).accelExpr,
                                    m_entries.at(i).markupExpr);

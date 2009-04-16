@@ -40,7 +40,7 @@
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-QString wordDiff(const QString& oldString,
+QString userVisibleWordDiff(const QString& oldString,
                  const QString& newString,
                  const QString& accelRx,
                  const QString& markupRx);
@@ -50,7 +50,7 @@ QString wordDiff(const QString& oldString,
  *
  * You have to explicitly prepend lists with identical strings
  */
-QString wordDiff(const QStringList& s1,const QStringList& s2);
+QString wordDiff(QStringList s1, QStringList s2);
 
 
 #endif // DIFF_H

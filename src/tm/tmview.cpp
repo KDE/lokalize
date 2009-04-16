@@ -501,7 +501,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     int numPos=rxNum.indexIn(old,start);
 //    int abbrPos=rxAbbr.indexIn(old,start);
     int abbrPos=start;
-    kWarning()<<"?";
+    kWarning()<<"seeing"<<old.size()<<old;
     while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
     {
         if (rxAbbr.cap(0).mid(1).toLower()!=rxAbbr.cap(0).mid(1))
@@ -585,6 +585,7 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
     pos=-1;
     while (++pos<diff.size())
     {
+        kWarning()<<"walkin though"<<diff.at(pos);
         if (diff.at(pos)==sep)
         {
             if (diff.indexOf("\tKBABELDEL\t",pos)==pos)
@@ -733,6 +734,7 @@ nono
             newMarkup=rxNonTranslatable.cap(0);
 
             //replace
+            kWarning()<<"BEGIN HANDLING. replacing"<<target.string.left(oldMarkup.size())<<"with"<<newMarkup;
             target.remove(0,oldMarkup.size());
             target.insert(0,newMarkup);
 
@@ -815,6 +817,7 @@ nono
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
     while ((pos=nextPlacableIn(old,pos,cap))!=-1)
     {
+        kWarning()<<"considering placable"<<cap;
         //save these so we can use rxNum in a body
         int endPos1=pos+cap.size()-1;
         kWarning()<<pos<<cap.size()<<cap<<endPos1<<old2DiffClean.size()<<old2DiffClean;

@@ -130,12 +130,11 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 
     emit signalEntryWithMergeDisplayed(m_mergeCatalog->isChanged(pos.entry));
 
-    QString result(wordDiff(m_baseCatalog->msgstr(pos),
-                            m_mergeCatalog->msgstr(pos),
-                            Project::instance()->accel(),
-                            Project::instance()->markup()
-                           ));
-    result.replace("\\n","\\n<br>");
+    QString result=userVisibleWordDiff(m_baseCatalog->msgstr(pos),
+                                       m_mergeCatalog->msgstr(pos),
+                                       Project::instance()->accel(),
+                                       Project::instance()->markup()
+                                      );
 #if 0
     int i=-1;
     bool inTag=false;
