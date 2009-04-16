@@ -131,15 +131,12 @@ void LCSprinter::printLCS(uint index)
         for (index=0; index<bound; ++index)
         {
             resultString.append("<KBABELADD>");
-//            kDebug() << "add-------- ";
             resultString.append(*it2);
             ++it2;
             if (haveSpaces)
             {
-//                 kWarning() << "add1 " << *it2;
                 resultString.append(*it2Space);
                 ++it2Space;
-//                 kWarning() << " add1 " << *it2;
             }
             resultString.append("</KBABELADD>");
         }
@@ -157,7 +154,6 @@ void LCSprinter::printLCS(uint index)
             //kWarning() << "upleft 2s" << *it2Space;
             if (haveSpaces)
             {
-//                     kWarning()<<"!!!!!! '"<<*it1<<"' '"<<*it2;
                 if((*it1)==(*it2))//case and accels
                     resultString.append(*it1);
                 else
@@ -177,7 +173,6 @@ void LCSprinter::printLCS(uint index)
                     resultString.append(calcLCS(word1,word2,empty,empty).join(""));
                 }
 
-//                 kWarning() << "common " << *it1;
                 if((*it1Space)==(*it2Space))
                     resultString.append(*it1Space);
                 else
@@ -212,7 +207,7 @@ void LCSprinter::printLCS(uint index)
                 }
                 ++it1Space;
                 ++it2Space;
-//                 kWarning() << " common " << *it1;
+                //kWarning() << " common " << *it1;
             }
             else
                 resultString.append(*it1);//we may guess that this is a batch job, i.e. TM search
@@ -233,10 +228,9 @@ void LCSprinter::printLCS(uint index)
             ++it1;
             if (haveSpaces)
             {
-//                 kWarning() << "del " << *it1;
                 resultString.append(*it1Space);
                 ++it1Space;
-//                 kWarning() << " del " << *it1;
+                //kWarning() << " del " << *it1;
             }
             resultString.append("</KBABELDEL>");
         }
@@ -252,10 +246,9 @@ void LCSprinter::printLCS(uint index)
         ++it2;
         if (haveSpaces)
         {
-//             kWarning() << "add2 " << *it2;
+            //kWarning() << "add2 " << *it2;
             resultString.append(*it2Space);
             ++it2Space;
-//             kWarning() << " add2 " << *it2;
         }
         resultString.append("</KBABELADD>");
         return;

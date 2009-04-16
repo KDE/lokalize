@@ -125,10 +125,11 @@ private slots:
     void pot_rowsInserted(const QModelIndex& parent, int start, int end);
     void pot_rowsRemoved(const QModelIndex& parent, int start, int end);
 
-    void finishMetadataUpdate(ThreadWeaver::Job* job);
+    void finishMetadataUpdate(ThreadWeaver::Job*);
+    void finishSingleMetadataUpdate(ThreadWeaver::Job*);
 
 public slots:
-    void slotFileSaved(const KUrl& url);
+    void slotFileSaved(const KUrl&);
 
 private:
     ProjectNode* nodeForIndex(const QModelIndex& index) const;
@@ -151,7 +152,6 @@ private:
     void deleteSubtree(ProjectNode* node);
 
     void startNewMetadataJob();
-    void collectMetadata(const QModelIndex& index);
     void setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data);
     void updateDirStats(ProjectNode* node);
 
@@ -179,7 +179,7 @@ class UpdateStatsJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner);
+    explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner=0);
     ~UpdateStatsJob();
     int priority()const{return 35;} //SEE jobs.h
 

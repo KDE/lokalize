@@ -178,13 +178,13 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
 
 
     QMap<int,int> posToTagRange;
-    int i=catStr.ranges.size();
+    int i=catStr.tags.size();
     //if (i) kWarning()<<"tags we got:";
     while(--i>=0)
     {
         //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
-        posToTagRange.insert(catStr.ranges.at(i).start,i);
-        posToTagRange.insert(catStr.ranges.at(i).end,i);
+        posToTagRange.insert(catStr.tags.at(i).start,i);
+        posToTagRange.insert(catStr.tags.at(i).end,i);
     }
 
     QMap<QString,int> sourceTagIdToIndex=refStr.tagIdToIndex();
@@ -197,7 +197,7 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
         int tagRangeIndex=posToTagRange.value(i);
         cur.insertText(catStr.string.mid(prev,i-prev));
 
-        TagRange tag=catStr.ranges.at(tagRangeIndex);
+        InlineTag tag=catStr.tags.at(tagRangeIndex);
         QString name=' '+tag.id;
         QString text;
         if (sourceTagIdToIndex.isEmpty())
@@ -261,13 +261,13 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
         //special case when the user presses Del w/o selection
         if (!charsAdded && charsRemoved==1)
         {
-            int i=targetWithTags.ranges.size();
+            int i=targetWithTags.tags.size();
             while(--i>=0)
             {
-                if (targetWithTags.ranges.at(i).start==offset || targetWithTags.ranges.at(i).end==offset)
+                if (targetWithTags.tags.at(i).start==offset || targetWithTags.tags.at(i).end==offset)
                 {
                     modified=true;
-                    pos.offset=targetWithTags.ranges.at(i).start;
+                    pos.offset=targetWithTags.tags.at(i).start;
                     m_catalog->push(new DelTagCmd(m_catalog,pos));
                 }
             }
@@ -318,90 +318,13 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 }
 
 
-// tagPlaces : pos -> int:
-// >0 if both start and end parts of tag were (to be) deleted
-// 1 means this is start, 2 means this is end
-//returns false if it finds only one part of a paired tag
-static bool fillTagPlaces(QMap<int,int>& tagPlaces,
-                          const CatalogString& catalogString,
-                          int start,
-                          int len
-                          )
-{
-    QString target=catalogString.string;
-    if (len==-1)
-        len=target.size();
-
-    int t=start;
-    while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(start+len))
-        tagPlaces[t++]=0;
-
-
-    int i=catalogString.ranges.size();
-    while(--i>=0)
-    {
-        //qWarning()<<catalogString.ranges.at(i).getElementName();
-        if (tagPlaces.contains(catalogString.ranges.at(i).start)
-            &&tagPlaces.contains(catalogString.ranges.at(i).end))
-        {
-            //qWarning()<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
-            tagPlaces[catalogString.ranges.at(i).end]=2;
-            tagPlaces[catalogString.ranges.at(i).start]=1;
-        }
-    }
-
-    QMap<int,int>::const_iterator it = tagPlaces.constBegin();
-    while (it != tagPlaces.constEnd() && it.value())
-        ++it;
-
-    return it==tagPlaces.constEnd();
-}
-
 bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh)
 {
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 ))
         return false;
 
-    CatalogString targetWithTags=m_catalog->targetWithTags(m_currentPos);
-    QString target=targetWithTags.string;
-    kWarning()<<"called with"<<delStart<<delLen<<"target:"<<target;
-
-    QMap<int,int> tagPlaces;
-    if (target.isEmpty() || !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
+    if (!::removeTargetSubstring(m_catalog, m_currentPos, delStart, delLen))
         return false;
-
-    m_catalog->beginMacro(i18nc("@item Undo action item","Remove text with markup"));
-
-    //all indexes are ok (or target is just plain text)
-    //modified=true;
-    //kWarning()<<"all indexes are ok";
-    DocPosition pos=m_currentPos;
-    QMapIterator<int,int> it(tagPlaces);
-    it.toBack();
-    while (it.hasPrevious())
-    {
-        it.previous();
-        if (it.value()!=1) continue;
-        kWarning()<<"\tdeleting at"<<it.key();
-        pos.offset=it.key();
-        DelTagCmd* cmd=new DelTagCmd(m_catalog,pos);
-        m_catalog->push(cmd);
-        delLen-=1+cmd->tag().isPaired();
-    }
-    //charsRemoved-=lenDecrement;
-    kWarning()<<"offset"<<delStart<<delLen;
-    pos.offset=delStart;
-    if (delLen)
-    {
-        QString rText=m_catalog->targetWithTags(m_currentPos).string.mid(delStart,delLen);
-        rText.remove(TAGRANGE_IMAGE_SYMBOL);
-        kWarning()<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
-        if (!rText.isEmpty())
-            m_catalog->push(new DelTextCmd(m_catalog,pos,rText));
-    }
-
-    m_catalog->endMacro();
-
 
     if (!m_catalog->isApproved(m_currentPos.entry))
         emit toggleApprovementRequested();
@@ -417,48 +340,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
 
 void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, bool refresh)
 {
-    kWarning()<<"text"<<catStr.string<<start;
-    QMap<int,int> posToTagRange;
-    int i=catStr.ranges.size();
-    bool containsMarkup=i;
-    while(--i>=0)
-    {
-        //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
-        posToTagRange.insert(catStr.ranges.at(i).start,i);
-        posToTagRange.insert(catStr.ranges.at(i).end,i);
-    }
-
-    if (containsMarkup) m_catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
-
-    DocPosition pos=m_currentPos;
-    i=0;
-    int prev=0;
-    while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
-    {
-        //qWarning()<<i<<catStr.string.left(i);
-        //text that was before tag we found
-        if (i-prev)
-        {
-            pos.offset=start+prev;
-            m_catalog->push(new InsTextCmd(m_catalog,pos,catStr.string.mid(prev,i-prev)));
-        }
-
-        //now dealing with tag
-        TagRange tag=catStr.ranges.at(posToTagRange.value(i));
-        //qWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
-        if (tag.start==i) //this is an opening tag (may be single tag)
-        {
-            pos.offset=start+i;
-            tag.start+=start;
-            tag.end+=start;
-            m_catalog->push(new InsTagCmd(m_catalog,pos,tag));
-        }
-        prev=++i;
-    }
-    pos.offset=start+prev;
-    if (catStr.string.size()-pos.offset+1)
-        m_catalog->push(new InsTextCmd(m_catalog,pos,catStr.string.mid(prev)));
-    if (containsMarkup) m_catalog->endMacro();
+    ::insertCatalogString(m_catalog,m_currentPos,catStr,start);
 
     if (refresh)
     {
@@ -489,11 +371,11 @@ QMimeData* XliffTextEdit::createMimeDataFromSelection() const
         //TODO substring method
         catalogString.string=catalogString.string.mid(start,end-start);
 
-        QList<TagRange>::iterator it=catalogString.ranges.begin();
-        while (it != catalogString.ranges.end())
+        QList<InlineTag>::iterator it=catalogString.tags.begin();
+        while (it != catalogString.tags.end())
         {
             if (!tagPlaces.contains(it->start))
-                it=catalogString.ranges.erase(it);
+                it=catalogString.tags.erase(it);
             else
             {
                 it->start-=start;
@@ -788,7 +670,7 @@ void XliffTextEdit::emitCursorPositionChanged()
     emit cursorPositionChanged(textCursor().columnNumber());
 }
 
-void XliffTextEdit::insertTag(TagRange tag)
+void XliffTextEdit::insertTag(InlineTag tag)
 {
     QTextCursor cursor=textCursor();
     tag.start=qMin(cursor.anchor(),cursor.position());
@@ -815,7 +697,7 @@ void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
         {
             if (m_part==DocPosition::Source)
             {
-                foreach(const TagRange& tag, str.ranges)
+                foreach(const InlineTag& tag, str.tags)
                 {
                     if (tag.start==pos || tag.end==pos)
                     {
@@ -835,7 +717,7 @@ void XliffTextEdit::tagMenu()
     QAction* txt=0;
 
     CatalogString sourceWithTags=m_catalog->sourceWithTags(m_currentPos);
-    int count=sourceWithTags.ranges.size();
+    int count=sourceWithTags.tags.size();
     if (count)
     {
         QMap<QString,int> tagIdToIndex=m_catalog->targetWithTags(m_currentPos).tagIdToIndex();
@@ -845,7 +727,7 @@ void XliffTextEdit::tagMenu()
             //txt=menu.addAction(sourceWithTags.ranges.at(i));
             txt=menu.addAction(QString::number(i)/*+" "+sourceWithTags.ranges.at(i).id*/);
             txt->setData(QVariant(i));
-            if (!hasActive && !tagIdToIndex.contains(sourceWithTags.ranges.at(i).id))
+            if (!hasActive && !tagIdToIndex.contains(sourceWithTags.tags.at(i).id))
             {
                 hasActive=true;
                 menu.setActiveAction(txt);
@@ -853,7 +735,7 @@ void XliffTextEdit::tagMenu()
         }
         txt=menu.exec(mapToGlobal(cursorRect().bottomRight()));
         if (!txt) return;
-        insertTag(sourceWithTags.ranges.at(txt->data().toInt()));
+        insertTag(sourceWithTags.tags.at(txt->data().toInt()));
     }
     else
     {

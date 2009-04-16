@@ -30,6 +30,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <ktextedit.h>
+#include <ktextbrowser.h>
 #include <kcombobox.h>
 #include <kpushbutton.h>
 
@@ -38,7 +39,7 @@
 #include <QLabel>
 #include <QStringListModel>
 #include <QLineEdit>
-#include <KTextBrowser>
+#include <QKeyEvent>
 
 void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
 {

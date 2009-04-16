@@ -105,7 +105,7 @@ Catalog::Catalog(QObject *parent)
 {
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this,SIGNAL(signalFileSaved(KUrl)),
-            Project::instance()->model(),SLOT(slotFileSaved(KUrl)));
+            Project::instance()->model(),SLOT(slotFileSaved(KUrl)),Qt::QueuedConnection);
 
 
     QTimer* t=&(d->_autoSaveTimer);
@@ -618,8 +618,8 @@ QByteArray Catalog::contents()
 static void updateDB(
               const QString& filePath,
               const QString& ctxt,
-              const QString& english,
-              const QString& newTarget,
+              const CatalogString& english,
+              const CatalogString& newTarget,
               int form,
               bool approved
               //const DocPosition&,//for back tracking
@@ -663,11 +663,12 @@ void Catalog::flushUpdateDBBuffer()
         form=pos.form;
     updateDB(url().pathOrUrl(),
              msgctxt(pos.entry),
-             source(pos),
-             target(pos),
+             sourceWithTags(pos),
+             targetWithTags(pos),
              form,
              isApproved(pos.entry));
 
+    d->_lastModifiedPos=DocPosition();
 }
 
 void Catalog::setLastModifiedPos(const DocPosition& pos)
@@ -723,7 +724,7 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
     emit signalEntryModified(pos);
 }
 
-void Catalog::targetInsertTag(const DocPosition& pos, const TagRange& tag)
+void Catalog::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
 {
     if (KDE_ISUNLIKELY( !m_storage ))
         return;
@@ -735,12 +736,12 @@ void Catalog::targetInsertTag(const DocPosition& pos, const TagRange& tag)
     emit signalEntryModified(pos);
 }
 
-TagRange Catalog::targetDeleteTag(const DocPosition& pos)
+InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return TagRange();
+        return InlineTag();
 
-    TagRange tag=m_storage->targetDeleteTag(pos);
+    InlineTag tag=m_storage->targetDeleteTag(pos);
 
     if (d->addToEmptyIndexIfAppropriate(m_storage,pos))
         emit signalNumberOfEmptyChanged();

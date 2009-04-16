@@ -329,8 +329,13 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     return query1.exec(QString("DELETE FROM main WHERE id=%1").arg(mainId));
 }
 
-static bool doInsertEntry(QString english,
-             QString target,
+static QString escape(QString str)
+{
+    return str.replace('\'',"''");
+}
+
+static bool doInsertEntry(CatalogString source,
+             CatalogString target,
              const QString& ctxt, //TODO QStringList -- after XLIFF
              bool approved,
              qlonglong fileId,
@@ -339,7 +344,7 @@ static bool doInsertEntry(QString english,
              const QString& accel
              )
 {
-    if (KDE_ISUNLIKELY( english.isEmpty() ))
+    if (KDE_ISUNLIKELY( source.isEmpty() ))
         return false;
 //store non-entranslaed entries to make search over all source parts possible
 #define SKIP_EMPTY 0
@@ -352,47 +357,51 @@ static bool doInsertEntry(QString english,
 #endif
 
     //remove first occurrence of accel character so that search returns words containing accel mark
-    int englishAccelPos=english.indexOf(accel);
-    if (englishAccelPos!=-1)
-        english.remove(englishAccelPos,accel.size());
-    int targetAccelPos=target.indexOf(accel);
+    int sourceAccelPos=source.string.indexOf(accel);
+    if (sourceAccelPos!=-1)
+        source.string.remove(sourceAccelPos,accel.size());
+    int targetAccelPos=target.string.indexOf(accel);
     if (targetAccelPos!=-1)
-        target.remove(targetAccelPos,accel.size());
+        target.string.remove(targetAccelPos,accel.size());
 
     //check if we already have record with the same en string
     QSqlQuery query1(db);
-    QString escapedEn(english);escapedEn.replace('\'',"''");
-    QString escapedTarget(target);escapedTarget.replace('\'',"''");
-    QString escapedCtxt(ctxt);escapedCtxt.replace('\'',"''");
+    QString escapedCtxt  =escape(ctxt);
 
+    QByteArray sourceTags=source.tagsAsByteArray();
+    QByteArray targetTags=target.tagsAsByteArray();
 
 //BEGIN get sourceId
-    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, source_markup FROM source_strings WHERE "
-                     "source=='"+escapedEn+"' AND "
-                     "source_accel=="+QString::number(englishAccelPos)
-                                   )))
+    query1.prepare(QString("SELECT id FROM source_strings WHERE "
+                     "source==? AND source_accel==? ")+
+                     QString(sourceTags.isEmpty()?"AND source_markup ISNULL":"AND source_markup==?"));
+    query1.bindValue(0,source.string);
+    query1.bindValue(1,sourceAccelPos);
+    if (!sourceTags.isEmpty())
+        query1.bindValue(2,sourceTags);
+    if (KDE_ISUNLIKELY(!query1.exec()))
         kWarning() <<"select db source_strings error: " <<query1.lastError().text();
-
-    // TODO XLIFF add source_markup matching
 
     qlonglong sourceId;
     if (!query1.next())
     {
 //BEGIN insert source anew
+        kWarning() <<"insert source anew";;
+
         query1.clear();
         query1.prepare("INSERT INTO source_strings (source, source_markup, source_accel) "
                         "VALUES (?, ?, ?)");
 
-        query1.bindValue(0, english);
-        query1.bindValue(1, "");//TODO XLIFF
-        query1.bindValue(2, englishAccelPos);//TODO XLIFF
+        query1.bindValue(0, source.string);
+        query1.bindValue(1, sourceTags);
+        query1.bindValue(2, sourceAccelPos);
         if (KDE_ISUNLIKELY(!query1.exec()))
             return false;
         sourceId=query1.lastInsertId().toLongLong();
 
         //update index
         if (shouldBeInIndex)
-            addToIndex(sourceId,english,rxClean1,accel,db);
+            addToIndex(sourceId,source.string,rxClean1,accel,db);
 //END insert source anew
     }
     else
@@ -421,7 +430,7 @@ static bool doInsertEntry(QString english,
 //  aaa-ccc
 //bbb shouldn't be present in db
 
-    qlonglong mainId=0;//update instead of adding record to main?
+    qlonglong mainId=-1;//update instead of adding record to main?
     qlonglong bits=0;
 //BEGIN target update
     if (query1.next())
@@ -451,7 +460,7 @@ static bool doInsertEntry(QString english,
         if (!query1.next()) //linking to non-existing target should never happen
             return false;
         QString dbTarget=query1.value(0).toString();
-        bool matches=dbTarget==target&&query1.value(2).toLongLong()==targetAccelPos;
+        bool matches=dbTarget==target.string&&query1.value(2).toLongLong()==targetAccelPos;
         query1.clear();
 
         bool untransStatusChanged=((target.isEmpty() || dbTarget.isEmpty())&&!matches);
@@ -459,12 +468,12 @@ static bool doInsertEntry(QString english,
         {
             if (shouldBeInIndex)
                 //this adds source to index if it's not already there
-                addToIndex(sourceId,english,rxClean1,accel,db);
+                addToIndex(sourceId,source.string,rxClean1,accel,db);
             else 
                 //entry changed from indexable to non-indexable:
                 //remove source string from index if there are no other
                 //'good' entries using it
-                removeFromIndex(mainId,sourceId,english,rxClean1,accel,db);
+                removeFromIndex(mainId,sourceId,source.string,rxClean1,accel,db);
         }
 
         if (matches) //TODO XLIFF target_markup
@@ -479,30 +488,31 @@ static bool doInsertEntry(QString english,
         //kWarning() <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
         if (query1.value(0).toLongLong()==1)
         {
-            //TODO tnis may create duplicates, although no strings should be lost
+            //TODO tnis may create duplicates, while no strings should be lost
             query1.clear();
             query1.prepare("UPDATE OR FAIL target_strings "
-                           "SET target=?, target_accel=? "
+                           "SET target=?, target_accel=?, target_markup=? "
                            "WHERE id=="+QString::number(targetId));
 
-            query1.bindValue(0, target);
+            query1.bindValue(0, target.string);
             query1.bindValue(1, targetAccelPos);
+            query1.bindValue(2, target.tagsAsByteArray());
             return query1.exec();//NOTE RETURN!!!!
         }
         //else -> there will be new record insertion and main table update below
     }
     query1.clear();
-    //kWarning() <<"not FOUND NEEDED main ENTRY";
 //END target update
 
 //BEGIN get targetId
-    QString targetExpr="target=='"+escapedTarget+"' AND ";
-    if (untranslated)
-        targetExpr="target ISNULL AND ";
-    if (KDE_ISUNLIKELY(!query1.exec("SELECT id, target_markup FROM target_strings WHERE "
-                     "target=='"+escapedTarget+"' AND "
-                     "target_accel=="+QString::number(targetAccelPos)
-                                   )))
+    query1.prepare(QString("SELECT id FROM target_strings WHERE "
+                     "target==? AND target_accel==? ")+
+                     QString(targetTags.isEmpty()?"AND target_markup ISNULL":"AND target_markup==?"));
+    query1.bindValue(0,target.string);
+    query1.bindValue(1,targetAccelPos);
+    if (!targetTags.isEmpty())
+        query1.bindValue(2,targetTags);
+    if (KDE_ISUNLIKELY(!query1.exec()))
         kWarning() <<"select db target_strings error: " <<query1.lastError().text();
 
     qlonglong targetId;
@@ -512,9 +522,9 @@ static bool doInsertEntry(QString english,
         query1.prepare("INSERT INTO target_strings (target, target_markup, target_accel) "
                        "VALUES (?, ?, ?)");
 
-        query1.bindValue(0, target);
-        query1.bindValue(1, "");//TODO XLIFF
-        query1.bindValue(2, QString::number(targetAccelPos));//TODO XLIFF
+        query1.bindValue(0, target.string);
+        query1.bindValue(1, target.tagsAsByteArray());
+        query1.bindValue(2, QString::number(targetAccelPos));
         if (KDE_ISUNLIKELY(!query1.exec()))
             return false;
         targetId=query1.lastInsertId().toLongLong();
@@ -531,7 +541,7 @@ static bool doInsertEntry(QString english,
     if (dbApproved!=approved)
         bits^=TM_NOTAPPROVED;
 
-    if (mainId)
+    if (mainId!=-1)
     {
         //just update main with new targetId
         //(this is the case when target changed, but there were other users of the old one)
@@ -552,7 +562,7 @@ static bool doInsertEntry(QString english,
     //for entries that didn't deserve indexing
     if (shouldBeInIndex)
         //this adds source to index if it's not already there
-        addToIndex(sourceId,english,rxClean1,accel,db);
+        addToIndex(sourceId,source.string,rxClean1,accel,db);
 
     query1.prepare("INSERT INTO main (source, target, file, ctxt, bits) "
                    "VALUES (?, ?, ?, ?, ?)");
@@ -592,12 +602,13 @@ static void initDb(QSqlDatabase& db)
                    "file INTEGER, "// AUTOINCREMENT,"
                    "ctxt TEXT, "//context, after \v may be a plural form
                    "date DEFAULT CURRENT_DATE, "//last update date
-                   "bits NUMERIC DEFAULT 0"
+                   "bits NUMERIC DEFAULT 0, "
                    //bits&0x01 means entry obsolete (not present in file)
                    //bits&0x02 means entry is NOT equiv-trans (see XLIFF spec)
                    //bits&0x04 TM_NOTAPPROVED entry is NOT approved?
 
-
+                   //ALTER TABLE main ADD COLUMN prior INTEGER;
+                   "prior INTEGER"// helps restoring full context!
                    //"reusability NUMERIC DEFAULT 0" //e.g. whether the translation is context-free, see XLIFF spec (equiv-trans)
                    //"hits NUMERIC DEFAULT 0"
                    ")");
@@ -792,14 +803,29 @@ void CloseDBJob::run ()
 }
 
 
-SelectJob::SelectJob(const QString& english,
+SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int opt)
+{
+    SelectJob* job=new SelectJob(catalog->sourceWithTags(pos),
+                                 catalog->msgctxt(pos.entry),
+                                 catalog->url().pathOrUrl(),
+                                 pos,
+                                 db.isEmpty()?Project::instance()->projectID():db);
+    if (opt&Enqueue)
+    {
+        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+    }
+    return job;
+}
+
+SelectJob::SelectJob(const CatalogString& source,
                      const QString& ctxt,
                      const QString& file,
                      const DocPosition& pos,
                      const QString& dbName,
                      QObject* parent)
     : ThreadWeaver::Job(parent)
-    , m_english(english)
+    , m_source(source)
     , m_ctxt(ctxt)
     , m_file(file)
     , m_dequeued(false)
@@ -890,10 +916,10 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         tmp+='|';
     QRegExp rxSplit('('+tmp+"\\W+|\\d+)+");
 
-    QString englishClean(m_english);
-    englishClean.remove(accel);
+    QString sourceClean(m_source.string);
+    sourceClean.remove(accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
-    QStringList englishList(englishClean.toLower().split(rxSplit,QString::SkipEmptyParts));
+    QStringList englishList(sourceClean.toLower().split(rxSplit,QString::SkipEmptyParts));
     englishList.prepend(" "); //for our diff algo...
     QRegExp delPart("<KBABELDEL>.*</KBABELDEL>");
     QRegExp addPart("<KBABELADD>.*</KBABELADD>");
@@ -925,17 +951,22 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         joined+=QString::number(ids.at(j));
 
         //get records containing current word
-        QSqlQuery queryFetch("SELECT id, source, source_accel FROM source_strings WHERE "
+        QSqlQuery queryFetch("SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
                             "source_strings.id IN ("+joined+')',db);
         TMEntry e;
         while (queryFetch.next())
         {
             ++j;
             e.id=queryFetch.value(0).toLongLong();
-            e.english=queryFetch.value(1).toString();
+            e.source=CatalogString(queryFetch.value(1).toString(),queryFetch.value(3).toByteArray());
             int englishAccelPos=queryFetch.value(2).toLongLong();
             if (englishAccelPos!=-1)
-                e.english.insert(englishAccelPos,accel);
+                e.source.string.insert(englishAccelPos,accel);
+            if (e.source.string.contains(TAGRANGE_IMAGE_SYMBOL))
+            {
+                if (!e.source.tags.size())
+                    kWarning()<<queryFetch.value(3).toByteArray().size()<<queryFetch.value(3).toByteArray();
+            }
             //e.target=queryFetch.value(2).toString();
             //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
             //e.date=queryFetch.value(4).toString();
@@ -945,7 +976,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 
 //BEGIN calc score
-            QString str=e.english;
+            QString str=e.source.string;
             str.remove(accel);
 
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
@@ -983,7 +1014,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             int allLen=result.size()-23*addSubStrCount-23*delSubStrCount;
             int commonLen=allLen-delLen-addLen;
             //now, allLen is the length of the string being translated
-            allLen=m_english.size();
+            allLen=m_source.string.size();
             bool possibleExactMatch=!(delLen+addLen);
             if (!possibleExactMatch)
             {
@@ -1036,7 +1067,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 //BEGIN fetch rest of the data
                 QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, main.bits, "
-                                    "target_strings.target, target_strings.target_accel, files.path "
+                                    "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
+                                    "files.path "
                                     "FROM main, target_strings, files WHERE "
                                     "target_strings.id==main.target AND "
                                     "files.id=main.file AND "
@@ -1051,16 +1083,18 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     e.id=queryRest.value(0).toLongLong();
                     e.date=queryRest.value(1).toString();
                     e.ctxt=queryRest.value(2).toString();
-                    e.target=queryRest.value(4).toString();if (queryRest.value(5).toLongLong()!=-1){e.target.insert(queryRest.value(5).toLongLong(), accel);}
+                    e.target=CatalogString(queryRest.value(4).toString(),queryRest.value(6).toByteArray());
+                    if (queryRest.value(5).toLongLong()!=-1){e.target.string.insert(queryRest.value(5).toLongLong(), accel);}
+
                     QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
-                    e.file=queryRest.value(6).toString();
+                    e.file=queryRest.value(7).toString();
                     if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
                         continue;
 
 //BEGIN exact match score++
                     if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
                     {
-                        if (m_english==e.english)
+                        if (m_source.string==e.source.string)
                             e.score=10000;
                         else
                             e.score=9900;
@@ -1091,18 +1125,16 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 }
                 queryRest.clear();
                 //eliminate same targets from different files
-                qSort(tempList);
+                qSort(tempList.begin(), tempList.end(), qGreater<TMEntry>());
                 QHash<QString,bool> hash;
-                int aa=0;
-                for (;aa<tempList.size();aa++)
+                foreach(const TMEntry& e, tempList)
                 {
-                    if (!hash.contains(tempList.at(aa).target))
+                    if (!hash.contains(e.target.string))
                     {
-                        hash.insert(tempList.at(aa).target,true);
-                        m_entries.append(tempList.at(aa));
+                        hash.insert(e.target.string,true);
+                        m_entries.append(e);
                     }
                 }
-
 
 //END fetch rest of the data
 
@@ -1117,7 +1149,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 void SelectJob::run ()
 {
     //kWarning() <<"started";
-    if (m_english.isEmpty()) //sanity check
+    if (m_source.isEmpty()) //sanity check
         return;
 //     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
@@ -1129,9 +1161,9 @@ void SelectJob::run ()
     getConfig(db,markup,accel);
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
-    QString cleanEn(m_english);
+    QString cleanSource=m_source.string;
     QStringList words;
-    doSplit(cleanEn,words,rxClean1,accel);
+    doSplit(cleanSource,words,rxClean1,accel);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
         return;
     qSort(words);//to speed up if some words occur multiple times
@@ -1142,7 +1174,7 @@ void SelectJob::run ()
         doSelect(db,words,!isShort);
 
 //    kWarning() <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
-    qSort(m_entries);
+    qSort(m_entries.begin(), m_entries.end(), qGreater<TMEntry>());
     int limit=qMin(Settings::suggCount(),m_entries.size());
     int i=m_entries.size();
     while(--i>=limit)
@@ -1156,11 +1188,10 @@ void SelectJob::run ()
     {
         m_entries[i].accelExpr=accel;
         m_entries[i].markupExpr=markup;
-        m_entries[i].diff=wordDiff(m_entries.at(i).english,
-                                   m_english,
+        m_entries[i].diff=wordDiff(m_entries.at(i).source.string,
+                                   m_source.string,
                                    m_entries.at(i).accelExpr,
                                    m_entries.at(i).markupExpr);
-
     }
 
 }
@@ -1224,8 +1255,8 @@ void ScanJob::run()
                     if ( catalog.isApproved(i) && !catalog.isUntranslated(pos))
                         target=catalog.target(pos);
 */
-                    ok=ok&&doInsertEntry(catalog.source(pos),
-                                         catalog.target(pos),
+                    ok=ok&&doInsertEntry(catalog.sourceWithTags(pos),
+                                         catalog.targetWithTags(pos),
                                          catalog.msgctxt(i)+TM_DELIMITER+QString::number(j),
                                          catalog.isApproved(i),
                                          fileId,db,rxClean1,accel);
@@ -1238,8 +1269,8 @@ void ScanJob::run()
                 if ( catalog.isApproved(i) && !catalog.isUntranslated(i))
                     target=catalog.target(i);
 */
-                ok=doInsertEntry(catalog.source(i),
-                                 catalog.target(i),
+                ok=doInsertEntry(catalog.sourceWithTags(i),
+                                 catalog.targetWithTags(i),
                                  catalog.msgctxt(i),
                                  catalog.isApproved(i),
                                  fileId,db,rxClean1,accel);
@@ -1278,8 +1309,8 @@ void RemoveJob::run ()
 
 UpdateJob::UpdateJob(const QString& filePath,
                      const QString& ctxt,
-                     const QString& english,
-                     const QString& newTarget,
+                     const CatalogString& english,
+                     const CatalogString& newTarget,
                      //const DocPosition&,//for back tracking
                      int form,
                      bool approved,
@@ -1317,7 +1348,6 @@ void UpdateJob::run ()
                   m_approved,
                   fileId,db,rxClean1,accel);
 
-
 }
 
 
@@ -1344,9 +1374,9 @@ class TmxParser : public QXmlDefaultHandler
 
     enum Lang
     {
-        langNull=0,
-        langEn,
-        langTarget
+        Source,
+        Target,
+        Null
     };
 
 public:
@@ -1365,8 +1395,8 @@ private:
     QString accel;
 
     int m_hits;
-    QString m_segEn;
-    QString m_segTarget;
+    CatalogString m_segment[3]; //Lang enum
+    QList<InlineTag> m_inlineTags;
     QString m_context;
     QString m_pluralForm;
     QString m_filePath;
@@ -1400,7 +1430,7 @@ bool TmxParser::startDocument()
     QSqlQuery queryBegin("BEGIN",db);
 
     m_state=null;
-    m_lang=langNull;
+    m_lang=Null;
     return true;
 }
 
@@ -1422,8 +1452,8 @@ bool TmxParser::startElement( const QString&, const QString&,
         if (!ok)
             m_hits=-1;
 
-        m_segEn.clear();
-        m_segTarget.clear();
+        m_segment[Source].clear();
+        m_segment[Target].clear();
         m_context.clear();
         m_pluralForm.clear();
         m_filePath.clear();
@@ -1433,13 +1463,13 @@ bool TmxParser::startElement( const QString&, const QString&,
     else if (qName=="tuv")
     {
         if (attr.value("xml:lang").toLower()=="en")
-            m_lang=langEn;
+            m_lang=Source;
         else if (attr.value("xml:lang").toLower()==m_dbLangCode)
-            m_lang=langTarget;
+            m_lang=Target;
         else
         {
             kWarning()<<"skipping lang"<<attr.value("xml:lang");
-            m_lang=langNull;
+            m_lang=Null;
         }
     }
     else if (qName=="prop")
@@ -1459,6 +1489,16 @@ bool TmxParser::startElement( const QString&, const QString&,
     {
         m_state=seg;
     }
+    else if (m_state==seg && m_lang!=Null)
+    {
+        InlineTag::InlineElement t=InlineTag::getElementType(qName.toLatin1());
+        if (t!=InlineTag::_unknown)
+        {
+            m_segment[m_lang].string+=QChar(TAGRANGE_IMAGE_SYMBOL);
+            int pos=m_segment[m_lang].string.size();
+            m_inlineTags.append(InlineTag(pos, pos, t, attr.value("id")));
+        }
+    }
     return true;
 }
 
@@ -1475,13 +1515,29 @@ bool TmxParser::endElement(const QString&,const QString&,const QString& qName)
         if (!m_pluralForm.isEmpty())
             m_context+=TM_DELIMITER+m_pluralForm;
 
-        bool ok=doInsertEntry(m_segEn,
-                              m_segTarget,
+        bool ok=doInsertEntry(m_segment[Source],
+                              m_segment[Target],
                               m_context,
                               m_approvedString!=no,
                               fileId,db,rxClean1,accel);
         if (KDE_ISLIKELY( ok ))
             ++m_added;
+    }
+    else if (m_state==seg && m_lang!=Null)
+    {
+        InlineTag::InlineElement t=InlineTag::getElementType(qName.toLatin1());
+        if (t!=InlineTag::_unknown)
+        {
+            InlineTag tag=m_inlineTags.takeLast();
+            kWarning()<<qName<<tag.getElementName();
+
+            if (tag.isPaired())
+            {
+                tag.end=m_segment[m_lang].string.size();
+                m_segment[m_lang].string+=QChar(TAGRANGE_IMAGE_SYMBOL);
+            }
+            m_segment[m_lang].tags.append(tag);
+        }
     }
     m_state=null;
     return true;
@@ -1491,13 +1547,8 @@ bool TmxParser::endElement(const QString&,const QString&,const QString& qName)
 
 bool TmxParser::characters ( const QString& ch )
 {
-    if(m_state==seg)
-    {
-        if (m_lang==langEn)
-            m_segEn+=ch;
-        else if (m_lang==langTarget)
-            m_segTarget+=ch;
-    }
+    if(m_state==seg && m_lang!=Null)
+        m_segment[m_lang].string+=ch;
     else if(m_state==propFile)
         m_filePath+=ch;
     else if(m_state==propContext)
@@ -1546,7 +1597,6 @@ void ImportTmxJob::run()
     if (!reader.parse(xmlInputSource))
          kWarning() << "failed to load "<< m_filename;
 
-
     //kWarning() <<"Done scanning "<<m_url.prettyUrl();
     m_time=a.elapsed();
 }
@@ -1556,7 +1606,6 @@ void ImportTmxJob::run()
 
 #include <QXmlStreamWriter>
 
-//#if 0
 ExportTmxJob::ExportTmxJob(const QString& filename,//const KUrl& url,
                      const QString& dbName,
                      QObject* parent)
@@ -1694,7 +1743,6 @@ void ExportTmxJob::run()
     m_time=a.elapsed();
 }
 
-//#endif
 
 //END TMX
 

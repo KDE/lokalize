@@ -95,11 +95,13 @@ protected:
 };
 
 
+
+
 class SelectJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    SelectJob(const QString& en,
+    SelectJob(const CatalogString& source,
               const QString& ctxt,
               const QString& file,
               const DocPosition&,//for back tracking
@@ -120,7 +122,7 @@ private:
                   bool isShort);
 
 private:
-    QString m_english;
+    CatalogString m_source;
     QString m_ctxt;
     QString m_file;
     bool m_dequeued;
@@ -131,6 +133,10 @@ public:
 
     QString m_dbName;
 };
+
+enum {Enqueue=1};
+SelectJob* initSelectJob(Catalog*, DocPosition pos, QString db=QString(), int opt=Enqueue);
+
 
 
 class RemoveJob: public ThreadWeaver::Job
@@ -162,8 +168,8 @@ class UpdateJob: public ThreadWeaver::Job
 public:
     explicit UpdateJob(const QString& filePath,
                        const QString& ctxt,
-                       const QString& en,
-                       const QString& newTarget,
+                       const CatalogString& en,
+                       const CatalogString& newTarget,
                        int form,
                        bool approved,
                        //const DocPosition&,//for back tracking
@@ -181,8 +187,8 @@ protected:
 private:
     QString m_filePath;
     QString m_ctxt;
-    QString m_english;
-    QString m_newTarget;
+    CatalogString m_english;
+    CatalogString m_newTarget;
     int m_form;
     bool m_approved;
     QString m_dbName;

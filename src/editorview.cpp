@@ -66,9 +66,9 @@ LedsWidget::LedsWidget(QWidget* parent): QWidget(parent)
     QHBoxLayout* layout=new QHBoxLayout(this);
     layout->addStretch();
     layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:"),this));
-    layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText)/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
+    layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText).color()/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
     layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:"),this));
-    layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText)/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
+    layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText).color()/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
     layout->addSpacing(1);
     layout->addWidget(lblColumn=new QLabel(this));
     layout->addStretch();
@@ -110,7 +110,7 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     connect (_msgidEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
     connect (_msgstrEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
     connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), _msgstrEdit, SLOT(reflectApprovementState()));
-    connect (_msgidEdit, SIGNAL(tagInsertRequested(TagRange)), _msgstrEdit, SLOT(insertTag(TagRange)));
+    connect (_msgidEdit, SIGNAL(tagInsertRequested(InlineTag)), _msgstrEdit, SLOT(insertTag(InlineTag)));
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);
@@ -324,7 +324,7 @@ void EditorView::toggleApprovement()
         return;
 
     bool newState=!m_catalog->isApproved(_msgstrEdit->currentPos().entry);
-    SetStateCmd::instantiateAndPush(m_catalog,_msgstrEdit->currentPos(),newState);
+    SetStateCmd::push(m_catalog,_msgstrEdit->currentPos(),newState);
     emit signalApprovedEntryDisplayed(newState);
 }
 

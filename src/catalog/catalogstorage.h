@@ -72,8 +72,8 @@ public:
     virtual void targetDelete(const DocPosition& pos, int count)=0;
     virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
     virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog
-    virtual void targetInsertTag(const DocPosition& pos, const TagRange& tag){}
-    virtual TagRange targetDeleteTag(const DocPosition& pos){return TagRange();}
+    virtual void targetInsertTag(const DocPosition& pos, const InlineTag& tag){}
+    virtual InlineTag targetDeleteTag(const DocPosition& pos){return InlineTag();}
     virtual Phase updatePhase(const Phase& phase){return Phase();}
     virtual QList<Phase> allPhases() const{return QList<Phase>();}
     virtual QMap<QString,Tool> allTools() const{return QMap<QString,Tool>();}

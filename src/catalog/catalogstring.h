@@ -40,7 +40,7 @@
  * (or chars -- starting and ending) in source or target string
  * start==end for non-paired tags
  */
-struct TagRange
+struct InlineTag
 {
     //sub       = can contain <sub>-flow tag
     //recursive = can contain other inline markup tags
@@ -69,9 +69,9 @@ struct TagRange
     InlineElement type;
     QString id;
 
-    explicit TagRange(): start(-1), end(-1), type(_unknown){}
+    explicit InlineTag(): start(-1), end(-1), type(_unknown){}
 
-    TagRange(int start_, int end_, InlineElement type_,QString id_=QString())
+    InlineTag(int start_, int end_, InlineElement type_,QString id_=QString())
         : start(start_), end(end_), type(type_), id(id_){}
 
     /**
@@ -91,18 +91,25 @@ struct TagRange
      * @returns TagRange object prototype to be inserted into target
      * @see isEmpty()
      */
-    TagRange getPlaceholder() const;
+    InlineTag getPlaceholder() const;
 
     ///@returns 0 if type is unknown
     static InlineElement getElementType(const QByteArray&);
     static const char* getElementName(InlineElement type);
            const char* getElementName()const{return getElementName(type);}
            const char* name()const{return getElementName();}
-    static bool isPaired(InlineElement type){return type<TagRange::_pairedXmlTagDelimiter;}
+    static bool isPaired(InlineElement type){return type<InlineTag::_pairedXmlTagDelimiter;}
            bool isPaired()const{return isPaired(type);}
+
+
+    bool operator<(const InlineTag& other)const
+    {
+        return start<other.start;
+    }
+
 };
-Q_DECLARE_METATYPE(TagRange)
-Q_DECLARE_METATYPE(QList<TagRange>)
+Q_DECLARE_METATYPE(InlineTag)
+Q_DECLARE_METATYPE(QList<InlineTag>)
 
 
 /**
@@ -116,24 +123,33 @@ Q_DECLARE_METATYPE(QList<TagRange>)
 struct CatalogString
 {
     QString string;
-    QList<TagRange> ranges;
+    QList<InlineTag> tags;
 
     CatalogString(){}
     CatalogString(QString str):string(str){}
+    CatalogString(QString str, QByteArray);
     QMap<QString,int> tagIdToIndex() const;//TODO tags may be duplicated!
 
-    void insert(int position, const QString& str){string.insert(position,str);}
+    QByteArray tagsAsByteArray()const;
+
+    void remove(int position, int len);
+    void insert(int position, const QString& str);
+    void replace(int position, int len, const QString& str){remove(position,len);insert(position,str);}
+    void clear(){string.clear();tags.clear();}
+    bool isEmpty(){return string.isEmpty();}
 };
 Q_DECLARE_METATYPE(CatalogString)
 
 
 #include <QDataStream>
-QDataStream &operator<<(QDataStream &out, const TagRange &myObj);
-QDataStream &operator>>(QDataStream &in, TagRange &myObj);
+QDataStream &operator<<(QDataStream &out, const InlineTag &myObj);
+QDataStream &operator>>(QDataStream &in, InlineTag &myObj);
 QDataStream &operator<<(QDataStream &out, const CatalogString &myObj);
 QDataStream &operator>>(QDataStream &in, CatalogString &myObj);
 
 
+/// prepares @arg target for using it as @arg ref translation
+void adaptCatalogString(CatalogString& target, const CatalogString& ref);
 
 
 #endif

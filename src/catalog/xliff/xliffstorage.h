@@ -57,8 +57,8 @@ public:
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
     void setTarget(const DocPosition& pos, const QString& arg);//called for mergeCatalog
-    void targetInsertTag(const DocPosition&, const TagRange&);
-    TagRange targetDeleteTag(const DocPosition&);
+    void targetInsertTag(const DocPosition&, const InlineTag&);
+    InlineTag targetDeleteTag(const DocPosition&);
     Phase updatePhase(const Phase& phase);
     QList<Phase> allPhases() const;
     Phase phase(const QString& name) const;

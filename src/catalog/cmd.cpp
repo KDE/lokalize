@@ -170,7 +170,7 @@ void DelTextCmd::doUndo()
 
 
 //BEGIN SetStateCmd
-void SetStateCmd::instantiateAndPush(Catalog *catalog, const DocPosition& pos, bool approved)
+void SetStateCmd::push(Catalog *catalog, const DocPosition& pos, bool approved)
 {
     catalog->push(new SetStateCmd(catalog,pos,closestState(approved,catalog->activePhaseRole())));
 }
@@ -197,7 +197,7 @@ void SetStateCmd::doUndo()
 
 
 //BEGIN InsTagCmd
-InsTagCmd::InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& tag)
+InsTagCmd::InsTagCmd(Catalog *catalog, const DocPosition& pos, const InlineTag& tag)
     : LokalizeTargetCmd(catalog,pos,i18nc("@item Undo action item","Markup Insertion"))
     , _tag(tag)
 {
@@ -290,3 +290,147 @@ void UpdatePhaseCmd::undo()
     _catalog->updatePhase(_prevPhase);
 }
 //END UpdatePhaseCmd
+
+
+
+
+
+
+
+
+
+
+
+
+bool fillTagPlaces(QMap<int,int>& tagPlaces,
+                   const CatalogString& catalogString,
+                   int start,
+                   int len
+                  )
+{
+    QString target=catalogString.string;
+    if (len==-1)
+        len=target.size();
+
+    int t=start;
+    while ((t=target.indexOf(TAGRANGE_IMAGE_SYMBOL,t))!=-1 && t<(start+len))
+        tagPlaces[t++]=0;
+
+
+    int i=catalogString.tags.size();
+    while(--i>=0)
+    {
+        //qWarning()<<catalogString.ranges.at(i).getElementName();
+        if (tagPlaces.contains(catalogString.tags.at(i).start)
+            &&tagPlaces.contains(catalogString.tags.at(i).end))
+        {
+            //qWarning()<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
+            tagPlaces[catalogString.tags.at(i).end]=2;
+            tagPlaces[catalogString.tags.at(i).start]=1;
+        }
+    }
+
+    QMap<int,int>::const_iterator it = tagPlaces.constBegin();
+    while (it != tagPlaces.constEnd() && it.value())
+        ++it;
+
+    return it==tagPlaces.constEnd();
+}
+
+bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int delLen)
+{
+    CatalogString targetWithTags=catalog->targetWithTags(pos);
+    QString target=targetWithTags.string;
+    kWarning()<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
+
+    QMap<int,int> tagPlaces;
+    if (target.isEmpty() || !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
+        return false;
+
+    catalog->beginMacro(i18nc("@item Undo action item","Remove text with markup"));
+
+    //all indexes are ok (or target is just plain text)
+    //modified=true;
+    //kWarning()<<"all indexes are ok";
+    QMapIterator<int,int> it(tagPlaces);
+    it.toBack();
+    while (it.hasPrevious())
+    {
+        it.previous();
+        if (it.value()!=1) continue;
+        pos.offset=it.key();
+        DelTagCmd* cmd=new DelTagCmd(catalog,pos);
+        catalog->push(cmd);
+        delLen-=1+cmd->tag().isPaired();
+        QString tmp=catalog->targetWithTags(pos).string;
+        tmp.replace(TAGRANGE_IMAGE_SYMBOL, "*");
+        kWarning()<<"\tdeleting at"<<it.key()<<"current string:"<<tmp<<"delLen"<<delLen;
+    }
+    //charsRemoved-=lenDecrement;
+    QString tmp=catalog->targetWithTags(pos).string;
+    tmp.replace(TAGRANGE_IMAGE_SYMBOL, "*");
+    kWarning()<<"offset"<<delStart<<delLen<<"current string:"<<tmp;
+    pos.offset=delStart;
+    if (delLen)
+    {
+        QString rText=catalog->targetWithTags(pos).string.mid(delStart,delLen);
+        rText.remove(TAGRANGE_IMAGE_SYMBOL);
+        kWarning()<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
+        if (!rText.isEmpty())
+            catalog->push(new DelTextCmd(catalog,pos,rText));
+    }
+    tmp=catalog->targetWithTags(pos).string;
+    tmp.replace(TAGRANGE_IMAGE_SYMBOL, "*");
+    kWarning()<<"current string:"<<tmp;
+
+    catalog->endMacro();
+    return true;
+}
+
+
+void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString& catStr, int start)
+{
+    QMap<int,int> posToTag;
+    int i=catStr.tags.size();
+    bool containsMarkup=i;
+    while(--i>=0)
+    {
+        //kWarning()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        posToTag.insert(catStr.tags.at(i).start,i);
+        posToTag.insert(catStr.tags.at(i).end,i);
+    }
+
+    if (containsMarkup) catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
+
+    i=0;
+    int prev=0;
+    while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
+    {
+        kWarning()<<i<<catStr.string.left(i);
+        //text that was before tag we found
+        if (i-prev)
+        {
+            pos.offset=start+prev;
+            catalog->push(new InsTextCmd(catalog,pos,catStr.string.mid(prev,i-prev)));
+        }
+
+        //now dealing with tag
+        kWarning()<<"posToTag.value(i)"<<posToTag.value(i)<<catStr.tags.size();
+        InlineTag tag=catStr.tags.at(posToTag.value(i));
+        kWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
+        if (tag.start==i) //this is an opening tag (may be single tag)
+        {
+            pos.offset=start+i;
+            tag.start+=start;
+            tag.end+=start;
+            catalog->push(new InsTagCmd(catalog,pos,tag));
+        }
+        prev=++i;
+    }
+    pos.offset=start+prev;
+    if (catStr.string.size()-pos.offset+1)
+        catalog->push(new InsTextCmd(catalog,pos,catStr.string.mid(prev)));
+    if (containsMarkup) catalog->endMacro();
+}
+
+

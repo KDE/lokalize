@@ -142,7 +142,7 @@ EditorTab::~EditorTab()
         emit fileClosed(currentFile());
     }
 
-    ids.remove(m_dbusId);
+    ids.removeAll(m_dbusId);
 }
 
 

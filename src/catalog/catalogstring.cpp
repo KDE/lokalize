@@ -22,9 +22,10 @@
 **************************************************************************** */
 
 #include "catalogstring.h"
+#include <kdebug.h>
 
 
-const char* TagRange::getElementName(InlineElement type)
+const char* InlineTag::getElementName(InlineElement type)
 {
     static const char* inlineElementNames[(int)InlineElementCount]={
     "_unknown",
@@ -45,17 +46,17 @@ const char* TagRange::getElementName(InlineElement type)
     return inlineElementNames[(int)type];
 }
 
-TagRange TagRange::getPlaceholder() const
+InlineTag InlineTag::getPlaceholder() const
 {
-    TagRange tagRange=*this;
+    InlineTag tagRange=*this;
     tagRange.start=-1;
     tagRange.end=-1;
     return tagRange;
 }
 
-TagRange::InlineElement TagRange::getElementType(const QByteArray& tag)
+InlineTag::InlineElement InlineTag::getElementType(const QByteArray& tag)
 {
-    int i=TagRange::InlineElementCount;
+    int i=InlineTag::InlineElementCount;
     while(--i>0)
         if (getElementName(InlineElement(i))==tag)
             break;
@@ -67,30 +68,143 @@ TagRange::InlineElement TagRange::getElementType(const QByteArray& tag)
 QMap<QString,int> CatalogString::tagIdToIndex() const
 {
     QMap<QString,int> result;
-    int count=ranges.size();
+    int count=tags.size();
     for (int i=0;i<count;++i)
-        result[ranges.at(i).id]=i;
+        result[tags.at(i).id]=i;
     return result;
 }
 
-QDataStream &operator<<(QDataStream &out, const TagRange &t)
+QByteArray CatalogString::tagsAsByteArray()const
+{
+    QByteArray result;
+    if (tags.size())
+    {
+        QDataStream stream(&result,QIODevice::WriteOnly);
+        stream<<tags;
+    }
+    return result;
+}
+
+CatalogString::CatalogString(QString str, QByteArray tagsByteArray)
+    : string(str)
+{
+    if (tagsByteArray.size())
+    {
+        QDataStream stream(tagsByteArray);
+        stream>>tags;
+    }
+}
+
+static void adjustTags(QList<InlineTag>& tags, int position, int value)
+{
+    int i=tags.size();
+    while(--i>=0)
+    {
+        InlineTag& t=tags[i];
+        if (t.start>position)
+            t.start+=value;
+        if (t.end>position)
+            t.end+=value;
+    }
+}
+
+void CatalogString::remove(int position, int len)
+{
+    string.remove(position,len);
+    adjustTags(tags,position,-len);
+}
+
+void CatalogString::insert(int position, const QString& str)
+{
+    string.insert(position, str);
+    adjustTags(tags,position,str.size());
+}
+
+
+QDataStream &operator<<(QDataStream &out, const InlineTag &t)
 {
     return out<<int(t.type)<<t.start<<t.end<<t.id;
-
 }
-QDataStream &operator>>(QDataStream &in, TagRange &t)
+
+QDataStream &operator>>(QDataStream &in, InlineTag &t)
 {
     int type;
     in>>type>>t.start>>t.end>>t.id;
-    t.type=TagRange::InlineElement(type);
+    t.type=InlineTag::InlineElement(type);
     return in;
 }
 
 QDataStream &operator<<(QDataStream &out, const CatalogString &myObj)
 {
-    return out<<myObj.string<<myObj.ranges;
+    return out<<myObj.string<<myObj.tags;
 }
 QDataStream &operator>>(QDataStream &in, CatalogString &myObj)
 {
-    return in>>myObj.string>>myObj.ranges;
+    return in>>myObj.string>>myObj.tags;
 }
+
+
+
+void adaptCatalogString(CatalogString& target, const CatalogString& ref)
+{
+    kWarning()<<"HERE";
+    QHash<QString,int> id2tagIndex;
+    QMultiMap<InlineTag::InlineElement,int> tagType2tagIndex;
+    int i=ref.tags.size();
+    while(--i>=0)
+    {
+        const InlineTag& t=ref.tags.at(i);
+        id2tagIndex.insert(t.id,i);
+        tagType2tagIndex.insert(t.type,i);
+        kWarning()<<"inserting"<<t.id<<t.type<<i;
+    }
+
+    QList<InlineTag> oldTags=target.tags;
+    target.tags.clear();
+    //we actually walking from beginning to end:
+    qSort(oldTags.begin(), oldTags.end(), qGreater<InlineTag>());
+    i=oldTags.size();
+    while(--i>=0)
+    {
+        const InlineTag& targetTag=oldTags.at(i);
+        if (id2tagIndex.contains(targetTag.id))
+        {
+            kWarning()<<"matched"<<targetTag.id<<i;
+            target.tags.append(targetTag);
+            tagType2tagIndex.remove(targetTag.type, id2tagIndex.take(targetTag.id));
+            oldTags.removeAt(i);
+        }
+    }
+    //now all the tags left have to ID (exact) matches
+    i=oldTags.size();
+    while(--i>=0)
+    {
+        InlineTag targetTag=oldTags.at(i);
+        if (tagType2tagIndex.contains(targetTag.type))
+        {
+            //try to match by position
+            //we're _taking_ first so the next one becomes new 'first' for the next time.
+            QList<InlineTag> possibleRefMatches;
+            foreach(int i, tagType2tagIndex.values(targetTag.type))
+                possibleRefMatches<<ref.tags.at(i);
+            qSort(possibleRefMatches);
+            kWarning()<<"setting id:"<<targetTag.id<<possibleRefMatches.first().id;
+            targetTag.id=possibleRefMatches.first().id;
+
+            target.tags.append(targetTag);
+            kWarning()<<"id??:"<<targetTag.id<<target.tags.first().id;
+            tagType2tagIndex.remove(targetTag.type, id2tagIndex.take(targetTag.id));
+            oldTags.removeAt(i);
+        }
+    }
+    kWarning()<<target.tags.first().id;
+    //now walk through unmatched tags and properly remove them.
+    foreach(const InlineTag& tag, oldTags)
+    {
+        if (tag.isPaired())
+            target.remove(tag.end, 1);
+        target.remove(tag.start, 1);
+    }
+    kWarning()<<target.tags.first().id;
+}
+

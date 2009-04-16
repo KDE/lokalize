@@ -120,7 +120,7 @@ public:
     void doRedo();
     void doUndo();
 
-    static void instantiateAndPush(Catalog *catalog, const DocPosition& pos, bool approved);
+    static void push(Catalog *catalog, const DocPosition& pos, bool approved);
     static void instantiateAndPush(Catalog *catalog, const DocPosition& pos, TargetState state);
 
     TargetState _state;
@@ -132,13 +132,13 @@ class InsTagCmd: public LokalizeTargetCmd
 {
 public:
     /// offset is taken from @a tag and not from @a pos
-    InsTagCmd(Catalog *catalog, const DocPosition& pos, const TagRange& tag);
+    InsTagCmd(Catalog *catalog, const DocPosition& pos, const InlineTag& tag);
     ~InsTagCmd(){};
     int id () const {return InsertTag;}
     void doRedo();
     void doUndo();
 private:
-    TagRange _tag;
+    InlineTag _tag;
 };
 
 /**
@@ -154,9 +154,9 @@ public:
     int id () const {return DeleteTag;}
     void doRedo();
     void doUndo();
-    TagRange tag()const{return _tag;}//used to get proprties of deleted tag
+    InlineTag tag()const{return _tag;}//used to get proprties of deleted tag
 private:
-    TagRange _tag;
+    InlineTag _tag;
 };
 
 /// @short Insert or remove (if content is empty) a note
@@ -191,5 +191,18 @@ private:
     Phase _phase;
     Phase _prevPhase;
 };
+
+
+/**
+ * CatalogString cmds helper function.
+ *
+ * tagPlaces: pos -> int:
+ * >0 if both start and end parts of tag were (to be) deleted
+ * 1 means this is start, 2 means this is end
+ * @returns false if it can't find second part of any paired tag in the range
+ */
+bool fillTagPlaces(QMap<int,int>& tagPlaces, const CatalogString& catalogString, int start, int len);
+bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int delLen);
+void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString& catStr, int start);
 
 #endif // CMD_H

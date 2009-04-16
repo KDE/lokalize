@@ -72,9 +72,9 @@ int main(int argc, char **argv)
 
     //qDebug() is important as it aviods compile 'optimization'.
     qDebug()<<qRegisterMetaType<DocPosition>();
-    qDebug()<<qRegisterMetaType<TagRange>();
+    qDebug()<<qRegisterMetaType<InlineTag>();
     qDebug()<<qRegisterMetaType<CatalogString>();
-    qRegisterMetaTypeStreamOperators<TagRange>("TagRange");
+    qRegisterMetaTypeStreamOperators<InlineTag>("TagRange");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
 
 

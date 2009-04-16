@@ -33,8 +33,8 @@ namespace TM {
 
 struct TMEntry
 {
-    QString english;
-    QString target;
+    CatalogString source;
+    CatalogString target;
 
     QString date;
     QString file;
@@ -54,10 +54,9 @@ struct TMEntry
 
     bool operator<(const TMEntry& other)const
     {
-        //we wanna items with higher score to appear in the front after qSort
         if (score==other.score)
-            return date>other.date;
-        return score>other.score;
+            return date<other.date;
+        return score<other.score;
     }
 };
 

@@ -481,22 +481,6 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex& pot_parent, int start, int
 }
 
 
-void ProjectModel::slotFileSaved(const KUrl& url)
-{
-    QModelIndex index = indexForUrl(url);
-
-    if (!index.isValid())
-        return;
-
-    collectMetadata(index);
-    updateDirStats(nodeForIndex(index.parent()));
-
-    QModelIndex topLeft = index.sibling(index.row(), Graph);
-    QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
-    emit dataChanged(topLeft, bottomRight);
-}
-
-
 int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
 {
     return ProjectModelColumnCount;
@@ -978,7 +962,7 @@ void ProjectModel::startNewMetadataJob()
         m_activeJob,SIGNAL(done(ThreadWeaver::Job*)),
         this,SLOT(finishMetadataUpdate(ThreadWeaver::Job*)));
 
-    ThreadWeaver::Weaver::instance()->enqueue(m_activeJob);    
+    ThreadWeaver::Weaver::instance()->enqueue(m_activeJob);
 }
 
 void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
@@ -993,16 +977,15 @@ void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
 
     if ((m_dirsWaitingForMetadata.contains(m_activeNode)) && (job->m_status == 0))
     {
-        ProjectNode* node = m_activeNode;
-        m_dirsWaitingForMetadata.remove(node);
+        m_dirsWaitingForMetadata.remove(m_activeNode);
         //store the results
 
-        setMetadataForDir(node, m_activeJob->m_info);
+        setMetadataForDir(m_activeNode, m_activeJob->m_info);
 
-        QModelIndex item = indexForNode(node);
+        QModelIndex item = indexForNode(m_activeNode);
 
         //scan dubdirs - initiate data loading into the model.
-        for (int row=0; row < node->rows.count(); row++)
+        for (int row=0; row < m_activeNode->rows.count(); row++)
         {
             QModelIndex child = index(row, 0, item);
 
@@ -1014,25 +997,50 @@ void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
     delete m_activeJob;
 
     startNewMetadataJob();
-
 }
 
 
-void ProjectModel::collectMetadata(const QModelIndex& index)
+void ProjectModel::slotFileSaved(const KUrl& url)
 {
-    KFileItem item = itemForIndex(index);
+    QModelIndex index = indexForUrl(url);
+
+    if (!index.isValid())
+        return;
+
+    QList<KFileItem> files;
+    files.append(itemForIndex(index));
+
+    UpdateStatsJob* j = new UpdateStatsJob(files);
+    connect(j,SIGNAL(done(ThreadWeaver::Job*)),
+        this,SLOT(finishSingleMetadataUpdate(ThreadWeaver::Job*)));
+
+    ThreadWeaver::Weaver::instance()->enqueue(j);
+}
+
+void ProjectModel::finishSingleMetadataUpdate(ThreadWeaver::Job* _job)
+{
+    UpdateStatsJob* job = static_cast<UpdateStatsJob*>(_job);
+
+    if (job->m_status != 0)
+    {
+        delete job;
+        return;
+    }
+
+    const KFileMetaInfo& info=job->m_info.first();
+    QModelIndex index = indexForUrl(info.url());
+    if (!index.isValid())
+        return;
+
     ProjectNode* node = nodeForIndex(index);
+    node->setFileStats(job->m_info.first());
+    updateDirStats(nodeForIndex(index.parent()));
 
-    if (item.isDir())
-        return; // dirs are processed separately
+    QModelIndex topLeft = index.sibling(index.row(), Graph);
+    QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
+    emit dataChanged(topLeft, bottomRight);
 
-    KUrl url = item.targetUrl();
-
-    //force population of metainfo. kfilemetainfo's internal is a shit
-    KFileMetaInfo info=item.metaInfo(false).keys().empty()?
-                            KFileMetaInfo(url) : item.metaInfo(false);
-
-    node->setFileStats(info);
+    delete job;
 }
 
 void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data)
@@ -1067,6 +1075,8 @@ void ProjectModel::updateDirStats(ProjectNode* node)
         return;
     QModelIndex index = indexForNode(node);
     kWarning()<<index.row()<<node->parent->rows.count();
+    if (index.row()>=node->parent->rows.count())
+        return;
     QModelIndex topLeft = index.sibling(index.row(), Graph);
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
     emit dataChanged(topLeft, bottomRight);
@@ -1151,7 +1161,7 @@ void UpdateStatsJob::run ()
         if ((!file.isNull()) && (!file.isDir()))
         {
             //force population of metainfo, do not use the KFileItem default behavior
-            if (file.metaInfo(false).keys().empty())
+            if (file.metaInfo(false).keys().isEmpty())
                 info = KFileMetaInfo(file.url());
             else
                 info = file.metaInfo(false);

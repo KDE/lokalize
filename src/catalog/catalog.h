@@ -203,8 +203,8 @@ protected:
     void setApproved(const DocPosition& pos, bool approved);
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
-    TagRange targetDeleteTag(const DocPosition& pos);
-    void targetInsertTag(const DocPosition& pos, const TagRange& tag);
+    InlineTag targetDeleteTag(const DocPosition& pos);
+    void targetInsertTag(const DocPosition& pos, const InlineTag& tag);
     TargetState setState(const DocPosition& pos, TargetState state);
     Phase updatePhase(const Phase& phase);
 

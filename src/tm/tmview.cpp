@@ -164,14 +164,8 @@ void TMView::slotFileLoaded(const KUrl& url)
         if (!m_catalog->isEmpty(pos.entry)
            &&m_catalog->isApproved(pos.entry))
             continue;
-        SelectJob* j=new SelectJob(m_catalog->msgid(pos),
-                                   m_catalog->msgctxt(pos.entry),
-                                   m_catalog->url().pathOrUrl(),
-                                   pos,
-                                   pID);
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+        SelectJob* j=initSelectJob(m_catalog, pos, pID);
         connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(j);
         m_jobs.append(j);
     }
 
@@ -212,7 +206,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
         if (suggList.isEmpty())
             continue;
         const TMEntry& entry=suggList.first();
-        if (entry.score<9900)//kinda hack
+        if (entry.score<9900)//hacky
             continue;
         {
             bool forceFuzzy=(suggList.size()>1&&suggList.at(1).score>=10000)
@@ -220,16 +214,17 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             bool ctxtMatches=entry.score==1001;
             if (!m_catalog->isApproved(pos.entry))
             {
-                m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
+                ///m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
+                removeTargetSubstring(m_catalog, pos, 0, m_catalog->sourceWithTags(pos).string.size());
                 if ( ctxtMatches || !(m_markAsFuzzy||forceFuzzy) )
-                    SetStateCmd::instantiateAndPush(m_catalog,pos,true);
+                    SetStateCmd::push(m_catalog,pos,true);
             }
             else if ((m_markAsFuzzy&&!ctxtMatches)||forceFuzzy)
             {
-                SetStateCmd::instantiateAndPush(m_catalog,pos,false);
+                SetStateCmd::push(m_catalog,pos,false);
             }
-            //TODO
-            m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
+            ///m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
+            insertCatalogString(m_catalog, pos, entry.target, 0);
 
             if (KDE_ISUNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
                 emit refreshRequested();
@@ -240,8 +235,6 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             insHappened=true;
             m_catalog->beginMacro(i18nc("@item Undo action","Batch translation memory filling"));
         }
-
-
     }
     QString msg=i18nc("@info","Batch translation has been completed.");
     if (insHappened)
@@ -308,14 +301,8 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     {
         QTimer::singleShot(0,this,SLOT(displayFromCache()));
     }
-    m_currentSelectJob=new SelectJob(m_catalog->msgid(m_pos),
-                                     m_catalog->msgctxt(m_pos.entry),
-                                     m_catalog->url().pathOrUrl(),
-                                     m_pos,
-                                     Project::instance()->projectID());
-    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),m_currentSelectJob,SLOT(deleteLater()));
+    m_currentSelectJob=initSelectJob(m_catalog, m_pos);
     connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(m_currentSelectJob);
 }
 
 void TMView::displayFromCache()
@@ -323,11 +310,7 @@ void TMView::displayFromCache()
     if (m_prevCachePos.entry==m_pos.entry
         &&m_prevCachePos.form==m_pos.form)
         return;
-    SelectJob* temp=new SelectJob(m_catalog->msgid(m_pos),
-                                  m_catalog->msgctxt(m_pos.entry),
-                                  m_catalog->url().pathOrUrl(),
-                                  m_pos,
-                                  Project::instance()->projectID());
+    SelectJob* temp=initSelectJob(m_catalog, m_pos, QString(), 0);
     temp->m_entries=m_cache.value(DocPos(m_pos)).toList();
     slotSuggestionsCame(temp);
     temp->deleteLater();
@@ -354,7 +337,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     if (job.m_dbName!=pID)
     {
         job.m_entries+=m_entries;
-        qSort(job.m_entries);
+        qSort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
         int limit=qMin(Settings::suggCount(),job.m_entries.size());
         int i=job.m_entries.size();
         while(--i>=limit)
@@ -370,13 +353,8 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
             const QString& db=model.data(model.index(i,0)).toString();
             if (pID!=db)
             {
-                SelectJob* j=new SelectJob(catalog.msgid(m_pos),
-                                           catalog.msgctxt(m_pos.entry),
-                                           catalog.url().pathOrUrl(),
-                                           m_pos,db);
-                connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
+                SelectJob* j=initSelectJob(m_catalog, m_pos, db);
                 connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
-                ThreadWeaver::Weaver::instance()->enqueue(j);
                 m_jobs.append(j);
             }
         }
@@ -428,14 +406,14 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         result.replace("\\n","\\n<br>");
         html+=result;
 
-        QString str(job.m_entries.at(i).target);
+        QString str(job.m_entries.at(i).target.string);
         str.replace('<',"&lt;");
         str.replace('>',"&gt;");
         //str.replace('&',"&amp;"); TODO check
         html+="<br>";
         if (KDE_ISLIKELY( i<m_actions.size() ))
         {
-            m_actions.at(i)->setStatusTip(job.m_entries.at(i).target);
+            m_actions.at(i)->setStatusTip(job.m_entries.at(i).target.string);
             html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
         }
         else
@@ -507,15 +485,61 @@ void TMView::contextMenu(const QPoint& pos)
         ThreadWeaver::Weaver::instance()->enqueue(job);
     }
     else if (r->data().toInt()==Open)
-        emit fileOpenRequested(e.file, e.english, e.ctxt);
+        emit fileOpenRequested(e.file, e.source.string, e.ctxt);
 }
 
-//this tries some black magic
-//naturally, there are many assumptions that might not always be true
-static QString targetAdapted(const TMEntry& entry)
+/**
+ * helper function:
+ * searches to th nearest rxNum or ABBR
+ * clears rxNum if ABBR is found before rxNum
+ */
+static int nextPlacableIn(const QString& old, int start, QString& cap)
 {
+    static QRegExp rxNum("[\\d\\.\\%]+");
+    static QRegExp rxAbbr("\\w+");
+
+    int numPos=rxNum.indexIn(old,start);
+//    int abbrPos=rxAbbr.indexIn(old,start);
+    int abbrPos=start;
+    kWarning()<<"?";
+    while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
+    {
+        if (rxAbbr.cap(0).mid(1).toLower()!=rxAbbr.cap(0).mid(1))
+        {
+            kWarning()<<rxAbbr.cap(0);
+            break;
+        }
+        abbrPos+=rxAbbr.matchedLength();
+    }
+
+    int pos=qMin(numPos,abbrPos);
+    if (pos==-1)
+        pos=qMax(numPos,abbrPos);
+
+//     if (pos==numPos)
+//         cap=rxNum.cap(0);
+//     else
+//         cap=rxAbbr.cap(0);
+
+    cap=(pos==numPos?rxNum:rxAbbr).cap(0);
+    kWarning()<<cap;
+
+    return pos;
+}
+
+
+//TODO thorough testing
+
+/**
+ * this tries some black magic
+ * naturally, there are many assumptions that might not always be true
+ */
+static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& ref)
+{
+    kWarning()<<entry.source.string<<entry.target.string<<entry.diff;
+
     QString diff=entry.diff;
-    QString target=entry.target;
+    CatalogString target=entry.target;
     //QString english=entry.english;
 
 
@@ -535,10 +559,16 @@ static QString targetAdapted(const TMEntry& entry)
     diff.replace("&lt;","<");
     diff.replace("&gt;",">");
 
-    QString diffClean;diffClean.reserve(diff.size());
-    QString old;old.reserve(diff.size());
-    QByteArray diffM;diffM.reserve(diff.size());//kinda formatting info
-    QVector<int> oldM;oldM.reserve(diff.size());//map old string-->diffClean
+    QString diffClean;          diffClean.reserve(diff.size());
+    QString old;                old.reserve(diff.size());
+    //Formatting info:
+    QByteArray diffIndex;       diffIndex.reserve(diff.size());
+    //Map old string-->diffClean
+    QVector<int> old2DiffClean; old2DiffClean.reserve(diff.size());
+
+    //possible enhancement: search for non-translated words in removedSubstrings...
+    //QStringList removedSubstrings;
+    //QStringList addedSubstrings;
 
     /*
       0 - common
@@ -550,6 +580,8 @@ static QString targetAdapted(const TMEntry& entry)
     */
     QChar sep('\t');
     char state='0';
+    //walk through diff string char-by-char
+    //calculate old and others
     pos=-1;
     while (++pos<diff.size())
     {
@@ -576,18 +608,18 @@ static QString targetAdapted(const TMEntry& entry)
             if (state!='+')
             {
                 old.append(diff.at(pos));
-                oldM.append(diffM.count());
+                old2DiffClean.append(diffIndex.count());
             }
-            diffM.append(state);
+            diffIndex.append(state);
             diffClean.append(diff.at(pos));
         }
     }
 
 
-
     bool sameMarkup=Project::instance()->markup()==entry.markupExpr&&!entry.markupExpr.isEmpty();
+    bool tryMarkup=entry.target.tags.size() && sameMarkup;
     //search for changed markup
-    if (sameMarkup)
+    if (tryMarkup)
     {
         QRegExp rxMarkup(entry.markupExpr);
         rxMarkup.setMinimal(true);
@@ -596,24 +628,24 @@ static QString targetAdapted(const TMEntry& entry)
         while ((pos=rxMarkup.indexIn(old,pos))!=-1)
         {
             //kWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
-            QByteArray diffMPart(diffM.mid(oldM.at(pos),
-                                           oldM.at(pos+rxMarkup.matchedLength()-1)+1-oldM.at(pos)));
+            QByteArray diffIndexPart(diffIndex.mid(old2DiffClean.at(pos),
+                                           old2DiffClean.at(pos+rxMarkup.matchedLength()-1)+1-old2DiffClean.at(pos)));
             //kWarning()<<"diffMPart"<<diffMPart;
-            if (diffMPart.contains('-')
-                ||diffMPart.contains('+'))
+            if (diffIndexPart.contains('-')
+                ||diffIndexPart.contains('+'))
             {
                 //form newMarkup
                 QString newMarkup;
-                newMarkup.reserve(diffMPart.size());
+                newMarkup.reserve(diffIndexPart.size());
                 int j=-1;
-                while(++j<diffMPart.size())
+                while(++j<diffIndexPart.size())
                 {
-                    if (diffMPart.at(j)!='-')
-                        newMarkup.append(diffClean.at(oldM.at(pos)+j));
+                    if (diffIndexPart.at(j)!='-')
+                        newMarkup.append(diffClean.at(old2DiffClean.at(pos)+j));
                 }
 
                 //replace first ocurrence
-                int tmp=target.indexOf(rxMarkup.cap(0),replacingPos);
+                int tmp=target.string.indexOf(rxMarkup.cap(0),replacingPos);
                 if (tmp!=-1)
                 {
                     target.replace(tmp,
@@ -623,9 +655,9 @@ static QString targetAdapted(const TMEntry& entry)
                     //kWarning()<<"old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
 
                     //avoid trying this part again
-                    tmp=oldM.at(pos+rxMarkup.matchedLength()-1);
-                    while(--tmp>=oldM.at(pos))
-                        diffM[tmp]='M';
+                    tmp=old2DiffClean.at(pos+rxMarkup.matchedLength()-1);
+                    while(--tmp>=old2DiffClean.at(pos))
+                        diffIndex[tmp]='M';
                     //kWarning()<<"M"<<diffM;
                 }
             }
@@ -636,8 +668,9 @@ static QString targetAdapted(const TMEntry& entry)
 
     //del, add only markup, punct, num
     //TODO further improvement: spaces, punct marked as 0
+//BEGIN BEGIN HANDLING
     QRegExp rxNonTranslatable;
-    if (sameMarkup)
+    if (tryMarkup)
         rxNonTranslatable.setPattern("^(("+entry.markupExpr+")|(\\W|\\d)+)+");
     else
         rxNonTranslatable.setPattern("^(\\W|\\d)+");
@@ -646,10 +679,10 @@ static QString targetAdapted(const TMEntry& entry)
 
 
     //handle the beginning
-    int len=diffM.indexOf('0');
+    int len=diffIndex.indexOf('0');
     if (len>0)
     {
-        QByteArray diffMPart(diffM.left(len));
+        QByteArray diffMPart(diffIndex.left(len));
         int m=diffMPart.indexOf('M');
         if (m!=-1)
             diffMPart.truncate(m);
@@ -683,7 +716,7 @@ nono
         //kWarning()<<"old"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
-        if (target.startsWith(oldMarkup))
+        if (target.string.startsWith(oldMarkup))
         {
 
             //form 'newMarkup'
@@ -701,27 +734,28 @@ nono
 
             //replace
             target.remove(0,oldMarkup.size());
-            target.prepend(newMarkup);
+            target.insert(0,newMarkup);
 
             //avoid trying this part again
             j=diffMPart.size();
             while(--j>=0)
-                diffM[j]='M';
+                diffIndex[j]='M';
             //kWarning()<<"M"<<diffM;
         }
 
     }
-
-    if (sameMarkup)
+//END BEGIN HANDLING
+//BEGIN END HANDLING
+    if (tryMarkup)
         rxNonTranslatable.setPattern("(("+entry.markupExpr+")|(\\W|\\d)+)+$");
     else
         rxNonTranslatable.setPattern("(\\W|\\d)+$");
 
     //handle the end
-    if (!diffM.endsWith('0'))
+    if (!diffIndex.endsWith('0'))
     {
-        len=diffM.lastIndexOf('0')+1;
-        QByteArray diffMPart(diffM.mid(len));
+        len=diffIndex.lastIndexOf('0')+1;
+        QByteArray diffMPart(diffIndex.mid(len));
         int m=diffMPart.lastIndexOf('M');
         if (m!=-1)
         {
@@ -741,7 +775,7 @@ nono
         //kWarning()<<"old-"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
-        if (target.endsWith(oldMarkup))
+        if (target.string.endsWith(oldMarkup))
         {
 
             //form newMarkup
@@ -758,32 +792,40 @@ nono
             newMarkup=rxNonTranslatable.cap(0);
 
             //replace
-            target.chop(oldMarkup.size());
-            target.append(newMarkup);
+            target.string.chop(oldMarkup.size());
+            target.string.append(newMarkup);
 
             //avoid trying this part again
             j=diffMPart.size();
             while(--j>=0)
-                diffM[len+j]='M';
+                diffIndex[len+j]='M';
             //kWarning()<<"M"<<diffM;
         }
     }
+//END BEGIN HANDLING
+
+    kWarning()<<"00"<<target.string;
 
     //search for numbers and stuff
-    QRegExp rxNum("[\\d\\.\\%]+");
+    //QRegExp rxNum("[\\d\\.\\%]+");
     pos=0;
     int replacingPos=0;
-    while ((pos=rxNum.indexIn(old,pos))!=-1)
+    QString cap;
+    QString _;
+    //while ((pos=rxNum.indexIn(old,pos))!=-1)
+    while ((pos=nextPlacableIn(old,pos,cap))!=-1)
     {
         //save these so we can use rxNum in a body
-        QString cap(rxNum.cap(0));
-        int endPos1=pos+rxNum.matchedLength()-1;
-        int endPos=oldM.at(endPos1);
-        QByteArray diffMPart(diffM.mid(oldM.at(pos),
-                                       endPos+1-oldM.at(pos)));
-        while ((++endPos<diffM.size())
-                  &&(diffM.at(endPos)=='+')
-                  &&QString(diffClean.at(endPos)).contains(rxNum)
+        int endPos1=pos+cap.size()-1;
+        kWarning()<<pos<<cap.size()<<cap<<endPos1<<old2DiffClean.size()<<old2DiffClean;
+        int endPos=old2DiffClean.at(endPos1);
+        kWarning()<<endPos;
+        QByteArray diffMPart(diffIndex.mid(old2DiffClean.at(pos),
+                                       endPos+1-old2DiffClean.at(pos)));
+        //the following loop extends replacement text, e.g. for 1 -> 500 cases
+        while ((++endPos<diffIndex.size())
+                  &&(diffIndex.at(endPos)=='+')
+                  &&(-1!=nextPlacableIn(QString(diffClean.at(endPos)),0,_))
               )
             diffMPart.append('+');
 
@@ -795,64 +837,71 @@ nono
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
             int j=-1;
+            kWarning()<<"newMarkup"<<diffClean.mid(old2DiffClean.at(pos),old2DiffClean.at(pos)+diffMPart.size()-1);
             while(++j<diffMPart.size())
             {
                 if (diffMPart.at(j)!='-')
-                    newMarkup.append(diffClean.at(oldM.at(pos)+j));
+                    newMarkup.append(diffClean.at(old2DiffClean.at(pos)+j));
             }
             //kWarning()<<"old"<<cap<<"new"<<newMarkup;
 
             //replace first ocurrence
-            int tmp=target.indexOf(cap,replacingPos);
+            int tmp=target.string.indexOf(cap,replacingPos);
             if (tmp!=-1)
             {
+                kWarning()<<"replacing with"<<newMarkup;
                 target.replace(tmp,
                             cap.size(),
                             newMarkup);
                 replacingPos=tmp;
 
                 //avoid trying this part again
-                tmp=oldM.at(endPos1)+1;
-                while(--tmp>=oldM.at(pos))
-                    diffM[tmp]='M';
+                tmp=old2DiffClean.at(endPos1)+1;
+                while(--tmp>=old2DiffClean.at(pos))
+                    diffIndex[tmp]='M';
                 //kWarning()<<"M"<<diffM;
             }
         }
-
         pos=endPos1+1;
     }
+    kWarning()<<target.string;
 
+    adaptCatalogString(target, ref);
+    kWarning()<<"55"<<target.string;
+    kWarning()<<target.tags.first().id;
     return target;
 }
 
-//TODO thorough testing
 void TMView::slotUseSuggestion(int i)
 {
     if (KDE_ISUNLIKELY( i>=m_entries.size() ))
         return;
 
-    QString target=targetAdapted(m_entries.at(i));
+    CatalogString target=targetAdapted(m_entries.at(i), m_catalog->sourceWithTags(m_pos));
 
-    if (KDE_ISUNLIKELY( target==m_catalog->msgstr(m_pos) || target.isEmpty() ))
+    if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
     m_catalog->beginMacro(i18nc("@item Undo action","Use translation memory suggestion"));
 
-    if (!m_catalog->msgstr(m_pos).isEmpty())
+    QString old=m_catalog->targetWithTags(m_pos).string;
+    if (!old.isEmpty())
     {
         m_pos.offset=0;
-        m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
+        //FIXME test!
+        removeTargetSubstring(m_catalog, m_pos, 0, old.size());
+        //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
 
-    m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
+    //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
+    insertCatalogString(m_catalog, m_pos, target, 0);
 
     if (m_entries.at(i).score>9900 && !m_catalog->isApproved(m_pos.entry))
-        SetStateCmd::instantiateAndPush(m_catalog,m_pos,true);
+        SetStateCmd::push(m_catalog,m_pos,true);
 
     m_catalog->endMacro();
 
     emit refreshRequested();
-    //emit textReplaceRequested(target/*m_actions.at(i)->statusTip()*/);
 }
 
 

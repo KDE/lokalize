@@ -28,7 +28,7 @@
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <QMultiHash>
-
+#include <QtAlgorithms>
 
 
 
@@ -169,7 +169,7 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
             while(--k>=0)
                 scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
 
-            qSort(scores);
+            qSort(scores.begin(), scores.end(), qGreater<MatchItem>());
 
             m_map[i.entry]=scores.first().mergeEntry;
 

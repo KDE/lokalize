@@ -56,7 +56,7 @@ public slots:
 
     void source2target();
     void tagMenu();
-    void insertTag(TagRange tag);
+    void insertTag(InlineTag tag);
 
     void emitCursorPositionChanged();//for leds
 
@@ -84,7 +84,7 @@ signals:
     void gotoPrevRequested();
     void gotoNextRequested();
 
-    void tagInsertRequested(const TagRange& tag);
+    void tagInsertRequested(const InlineTag& tag);
 
     void contentsModified(const DocPosition&);
     void approvedEntryDisplayed();

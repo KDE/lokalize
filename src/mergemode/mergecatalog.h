@@ -45,19 +45,15 @@ struct MatchItem
     , translationIsDifferent(false)
     {}
 
-    MatchItem(short m,short s,bool d)
+    MatchItem(short m, short s, bool d)
     : mergeEntry(m)
     , score(s)
     , translationIsDifferent(d)
     {}
 
-    bool operator<(const MatchItem& other)const
+    bool operator<(const MatchItem& other) const
     {
-        //return score<other.score;
-        //we wanna items with higher score to appear in the front after qSort
-//         if (score==other.score)
-//             return translationIsDifferent>other.translationIsDifferent;
-        return score>other.score;
+        return score<other.score;
     }
 
 };
