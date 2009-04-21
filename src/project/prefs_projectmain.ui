@@ -134,7 +134,6 @@ For example, if you have several projects for translating KDE applications
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
    <class>KComboBox</class>
