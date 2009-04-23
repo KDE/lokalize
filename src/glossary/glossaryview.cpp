@@ -73,6 +73,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KActio
     setWidget(m_browser);
     QWidget* w=new QWidget(m_browser);
     m_browser->setWidget(w);
+    m_browser->setWidgetResizable(true);
     w->setLayout(m_flowLayout);
     setToolTip(i18nc("@info:tooltip","Translations to common terms appear here. Press displayed shortcut to insert term translation. Use context menu to add new entry (tip: select words in original and translation fields before calling <interface>Define new term</interface>)."));
 
