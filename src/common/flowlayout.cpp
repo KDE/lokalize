@@ -33,9 +33,7 @@
 
 #include "flowlayout.h"
 #include "termlabel.h"
-//#include "project.h"
 
-// #include <klocale.h>
 #include <kdebug.h>
 #include <kaction.h>
 
@@ -53,6 +51,7 @@ FlowLayout::FlowLayout(User user,
 {
     setMargin(margin);
     setSpacing(spacing);
+    setSizeConstraint(QLayout::SetMinAndMaxSize);
 
     if (user==glossary)
     {
@@ -65,41 +64,6 @@ FlowLayout::FlowLayout(User user,
             addWidget(label);
         }
     }
-#if 0
-    else if (user==webquery)
-    {
-        int i=0;
-        for(;i<actions.size();++i)
-        {
-            QueryResultBtn* btn=new QueryResultBtn(actions.at(i));
-            connect(btn,SIGNAL(insertText(const QString&)),m_signalingWidget,SIGNAL(textInsertRequested(const QString&)));
-            connect(actions.at(i),SIGNAL(triggered(bool)),btn,SLOT(insert()));
-            addWidget(btn);
-        }
-    }
-#endif
-
-//     if (m_keys.isEmpty())
-//     {
-// //         Qt::Key key=Qt::Key_A;
-// //         for (;key<=Qt::Key_Z;++key)
-// //         {
-// //             if (KGlobalAccel::findActionNameSystemwide(Qt::ALT+key).isEmpty())
-// //             {
-// //                 keys.append(key);
-// //             }
-// //         }
-//         int i=(int)Qt::Key_A;
-//         for (;i<=(int)Qt::Key_Z;++i)
-//         {
-//             if (KGlobalAccel::findActionNameSystemwide(Qt::ALT+Qt::CTRL+(Qt::Key)i).isEmpty())
-//             {
-//                 m_keys.append((Qt::Key)i);
-//             }
-//         }
-// 
-//     }
-
 }
 
 
@@ -177,12 +141,8 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 void FlowLayout::clearTerms()
 {
     setEnabled(false);
-//     QString e;
     for (int i=0; i<count(); ++i)
-    {
         static_cast<TermLabel*>(itemAt(i)->widget())->setVisible(false);
-        //static_cast<QLabel*>(itemAt(i)->widget())->setText(e);
-    }
     m_index=0;
     setEnabled(true);
 }
@@ -200,38 +160,4 @@ void FlowLayout::addTerm(const QString& term,int entry)
     ++m_index;
 
 }
-#if 0
-void FlowLayout::clearWebQueryResult()
-{
-    setEnabled(false);
-//     QString e;
-    for (int i=0; i<count(); ++i)
-    {
-        static_cast<QueryResultBtn*>(itemAt(i)->widget())->setVisible(false);
-        //static_cast<QLabel*>(itemAt(i)->widget())->setText(e);
-    }
-    m_index=0;
-    setEnabled(true);
-}
 
-
-void FlowLayout::addWebQueryResult(const QString& str)
-{
-    setEnabled(false);
-    while (m_index>=count())
-    {
-        QueryResultBtn* btn=new QueryResultBtn;
-        connect(btn,SIGNAL(insertText(const QString&)),m_signalingWidget,SIGNAL(textInsertRequested(const QString&)));
-        addWidget(btn);
-
-    }
-/*        static_cast<TermLabel*>(itemAt(index)->widget())->setText(str);
-        static_cast<TermLabel*>(itemAt(index)->widget())->setTermTransl(termTransl);*/
-    static_cast<QueryResultBtn*>(itemAt(m_index)->widget())->setText(str);
-    static_cast<QueryResultBtn*>(itemAt(m_index)->widget())->setVisible(true);
-
-        ++m_index;
-
-    setEnabled(true);
-}
-#endif
