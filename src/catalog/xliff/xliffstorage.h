@@ -95,7 +95,7 @@ public:
 private:
     QDomDocument m_doc;
     QVector<int> m_map;//need mapping to treat plurals as 1 entry
-    QMap<int,bool> m_plurals;
+    QSet<int> m_plurals;
 
     QDomNodeList entries;
 

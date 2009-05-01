@@ -94,7 +94,7 @@ int XliffStorage::load(QIODevice* device)
 
         if (parentElement.tagName()=="group" && parentElement.attribute("restype")=="x-gettext-plurals")
         {
-            m_plurals[i]=true;
+            m_plurals.insert(i);
             int localPluralNum=m_numberOfPluralForms;
             while (--localPluralNum>0 && (++i)<size)
             {
@@ -747,16 +747,16 @@ Note XliffStorage::setNote(DocPosition pos, const Note& note)
 
 QStringList XliffStorage::noteAuthors() const
 {
-    QMap<QString,bool> result;
+    QSet<QString> result;
     QDomNodeList notes=m_doc.elementsByTagName("note");
     int i=notes.size();
     while (--i>=0)
     {
         QString from=notes.at(i).toElement().attribute("from");
         if (!from.isEmpty())
-            result[from]=true;
+            result.insert(from);
     }
-    return result.keys();
+    return result.toList();
 }
 
 QVector<Note> phaseNotes(QDomDocument m_doc, const QString& phasename, bool remove=false)
@@ -845,7 +845,7 @@ QString XliffStorage::id(const DocPosition& pos) const
 
 bool XliffStorage::isPlural(const DocPosition& pos) const
 {
-    return m_plurals.contains(pos.entry)&&m_plurals.value(pos.entry);
+    return m_plurals.contains(pos.entry);
 }
 /*
 bool XliffStorage::isApproved(const DocPosition& pos) const

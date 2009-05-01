@@ -123,7 +123,6 @@ void NoteEditor::setNoteAuthors(const QStringList& authors)
 
 int displayNotes(KTextBrowser* browser, const QVector<Note>& notes, int active, bool multiple)
 {
-    kWarning()<<"called";
     QTextCursor t=browser->textCursor();
     t.movePosition(QTextCursor::End);
     int realOffset=0;

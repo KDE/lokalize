@@ -103,7 +103,6 @@ void MsgCtxtView::process()
     m_browser->clear();
 
     QString phaseName=m_catalog->phase(m_entry.toDocPosition());
-    kWarning()<<phaseName;
     if (!phaseName.isEmpty())
     {
         Phase phase=m_catalog->phase(phaseName);

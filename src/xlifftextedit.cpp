@@ -42,18 +42,17 @@
 
 
 
-inline static QImage generateImage(QString str, QFontMetrics metrics)
+inline static QImage generateImage(const QString& str, const QFont& font)
 {
-    str.prepend(' ');
-    QRect rect=metrics.boundingRect(str).adjusted(0,0,5,0);
-    rect.moveTo(0,0);
+    QStyleOptionButton opt;
+    opt.fontMetrics=QFontMetrics(font);
+    opt.text=' '+str+' ';
+    opt.rect=opt.fontMetrics.boundingRect(opt.text).adjusted(0,0,5,5);
+    opt.rect.moveTo(0,0);
 
-    QImage result(rect.size(),QImage::Format_ARGB32);
+    QImage result(opt.rect.size(),QImage::Format_ARGB32);
     result.fill(0);//0xAARRGGBB
     QPainter painter(&result);
-    QStyleOptionButton opt;
-    opt.text=str;
-    opt.rect=rect;
     QApplication::style()->drawControl(QStyle::CE_PushButton,&opt,&painter);
 
     return result;
@@ -183,6 +182,11 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
 
 void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr)
 {
+    //settings for TMView
+    QTextCharFormat chF=cursor.charFormat();
+    QFont font=cursor.document()->defaultFont();
+    //font.setWeight(chF.fontWeight());
+
     QMap<int,int> posToTagRange;
     int i=catStr.tags.size();
     //if (i) kWarning()<<"tags we got:";
@@ -227,9 +231,10 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         }
         //QTextDocument::ImageResource
         //document()->resource(QTextDocument::ImageResource, QUrl(name));
-        cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,QFontMetrics(cursor.document()->defaultFont())));
+        cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,font));
             //QFontMetrics metrics(w->currentFont());
         cursor.insertImage(name);//NOTE what if twice the same name?
+        cursor.setCharFormat(chF);
 
         prev=++i;
     }

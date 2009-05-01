@@ -392,6 +392,9 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     //QPalette defaultPalette;
     blockFormatAlternate.setBackground(QPalette().alternateBase());
     //while (i<limit)
+    QTextCharFormat closeMatchCharFormat;
+    closeMatchCharFormat.setFontWeight(QFont::Bold);
+    QTextCharFormat noncloseMatchCharFormat;
     forever
     {
         QTextCursor cur=m_browser->textCursor();
@@ -423,6 +426,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         html+=str;
 */
         cur.insertHtml(html);
+        cur.setCharFormat((entry.score>9500)?closeMatchCharFormat:noncloseMatchCharFormat);
         insertContent(cur,entry.target);
         html.clear();
 

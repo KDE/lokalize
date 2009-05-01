@@ -201,8 +201,8 @@ void EditorTab::setupActions()
     sync1->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_catalog,SIGNAL(signalFileLoaded()),_mergeView,SLOT(cleanup()));
-    connect (_mergeView,SIGNAL(gotoEntry(const DocPosition&,int)),
-             this,SLOT(gotoEntry(const DocPosition&,int)));
+    connect (_mergeView,SIGNAL(gotoEntry(DocPosition,int)),
+             this,SLOT(gotoEntry(DocPosition,int)));
 
     _mergeViewSecondary = new MergeView(this,m_catalog,false);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);

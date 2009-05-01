@@ -935,7 +935,7 @@ void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode * node)
 }
 
 
-void ProjectModel::deleteSubtree(ProjectNode * node)
+void ProjectModel::deleteSubtree(ProjectNode* node)
 {
     for (int row = 0; row < node->rows.count(); row ++)
         deleteSubtree(node->rows.at(row));
