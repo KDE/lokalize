@@ -305,28 +305,31 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
     //insert standalone POT rows, preserving POT order
 
     int newNodesCount = newPotNodes.count();
-    int insertionPoint = node->poCount;
-    while ((insertionPoint < node->rows.count()) && (node->rows[insertionPoint]->potRowNumber < start))
-        insertionPoint++;
-
-    beginInsertRows(parent, insertionPoint, insertionPoint + newNodesCount - 1);
-
-    for (int pos = 0; pos < newNodesCount; pos ++)
+    if (newNodesCount)
     {
-        int potIndex = newPotNodes.at(pos);
-        ProjectNode * childNode = new ProjectNode(node, insertionPoint, -1, potIndex);
-        node->rows.insert(insertionPoint, childNode);
-        insertionPoint++;
-    }
+        int insertionPoint = node->poCount;
+        while ((insertionPoint < node->rows.count()) && (node->rows[insertionPoint]->potRowNumber < start))
+            insertionPoint++;
 
-    //renumber remaining POT rows
-    for (int pos = insertionPoint; pos < node->rows.count(); pos ++)
-    {
-        node->rows[pos]->rowNumber = pos;
-        node->rows[pos]->potRowNumber += insertedCount;
-    }
+        beginInsertRows(parent, insertionPoint, insertionPoint + newNodesCount - 1);
 
-    endInsertRows();
+        for (int pos = 0; pos < newNodesCount; pos ++)
+        {
+            int potIndex = newPotNodes.at(pos);
+            ProjectNode * childNode = new ProjectNode(node, insertionPoint, -1, potIndex);
+            node->rows.insert(insertionPoint, childNode);
+            insertionPoint++;
+        }
+
+        //renumber remaining POT rows
+        for (int pos = insertionPoint; pos < node->rows.count(); pos ++)
+        {
+            node->rows[pos]->rowNumber = pos;
+            node->rows[pos]->potRowNumber += insertedCount;
+        }
+
+        endInsertRows();
+    }
 
     enqueueNodeForMetadataUpdate(node);
 }
@@ -487,10 +490,8 @@ int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
 }
 
 
-QVariant ProjectModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
 {
-    Q_UNUSED(orientation);
-
     if (role!=Qt::DisplayRole)
         return QVariant();
 
@@ -642,10 +643,15 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
 }
 
 
-QModelIndex ProjectModel::index(int row, int column, const QModelIndex & parent /*= QModelIndex() */) const
+QModelIndex ProjectModel::index(int row, int column, const QModelIndex& parent) const
 {
     ProjectNode* parentNode = nodeForIndex(parent);
     //kWarning()<<(sizeof(ProjectNode))<<nodeCounter;
+    if (row>=parentNode->rows.size())
+    {
+        kWarning()<<"SHIT HAPPENED WITH INDEXES"<<row<<parentNode->rows.size()<<itemForIndex(parent).url();
+        return QModelIndex();
+    }
     return createIndex(row, column, parentNode->rows.at(row));
 }
 
@@ -664,8 +670,14 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
         return m_poModel.itemForIndex(poIndex);
     else if (potIndex.isValid())
         return m_potModel.itemForIndex(potIndex);
-    else
-        return KFileItem();
+
+    kWarning()<<"returning empty KFileItem()"<<index.row()<<index.column();
+    kWarning()<<"returning empty KFileItem()"<<index.parent().isValid();
+    kWarning()<<"returning empty KFileItem()"<<index.parent().internalPointer();
+    kWarning()<<"returning empty KFileItem()"<<index.parent().data().toString();
+    kWarning()<<"returning empty KFileItem()"<<index.internalPointer();
+    kWarning()<<"returning empty KFileItem()"<<static_cast<ProjectNode*>(index.internalPointer())->untranslated<<static_cast<ProjectNode*>(index.internalPointer())->sourceDate;
+    return KFileItem();
 }
 
 

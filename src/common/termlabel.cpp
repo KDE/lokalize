@@ -64,25 +64,30 @@ void TermLabel::insert()
 //     kWarning() << "m_termTransl";
     if (m_termIndex==-1)
         return;
-    if( Project::instance()->glossary()->termList.at(m_termIndex).target.count()>1)
+    QString termTrans;
+    const QStringList& termTarget=Project::instance()->glossary()->termList.at(m_termIndex).target;
+    if( termTarget.count()>1)
     {
         QMenu menu;
 
-        int limit=Project::instance()->glossary()->termList.at(m_termIndex).target.count();
-        menu.setActiveAction(menu.addAction(Project::instance()->glossary()->termList.at(m_termIndex).target.at(0)));
+        int limit=termTarget.count();
+        menu.setActiveAction(menu.addAction(termTarget.at(0)));
         int i=1;
         for (;i<limit;++i)
-            menu.addAction(Project::instance()->glossary()->termList.at(m_termIndex).target.at(i));
+            menu.addAction(termTarget.at(i));
 
         QAction* txt=menu.exec(mapToGlobal(QPoint(0,0)));
-        if (txt)
-            emit insertTerm(txt->text());
-
+        if (!txt)
+            return;
+        termTrans=txt->text();
     }
     else
-    {
-        emit insertTerm(Project::instance()->glossary()->termList.at(m_termIndex).target.first());
-    }
+        termTrans=termTarget.first();
+
+    if (m_capFirst && !termTrans.isEmpty())
+        termTrans[0]=termTrans.at(0).toUpper();
+
+    emit insertTerm(termTrans);
 }
 
 void TermLabel::mousePressEvent (QMouseEvent* event)
@@ -91,7 +96,6 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
     {
         QMenu menu;
 
-//         menu.addSeparator();
         menu.addAction(i18nc("@action:inmenu Edit term","Edit"));
 
         QAction* txt=menu.exec(event->globalPos());
@@ -102,14 +106,21 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
             GlossaryWindow* gloWin=new GlossaryWindow;
             gloWin->show();
             gloWin->selectTerm(m_termIndex);
-
-
-
         }
     }
     else
         insert();
 }
+
+void TermLabel::setText(const QString& term, int entry, bool capFirst)
+{
+    m_termIndex=entry;
+    m_capFirst=capFirst;
+    QLabel::setText(term + QString(m_action?(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
+                + Project::instance()->glossary()->termList.at(m_termIndex).target.join("  \n  ")
+                    + "  \n  ");
+}
+
 
 #if 0
 void QueryResultBtn::insert()

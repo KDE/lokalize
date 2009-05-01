@@ -166,14 +166,15 @@ void LCSprinter::printLCS(uint index)
                     QStringList word2=prepareForInternalDiff(*it2);
 
                     QStringList empty;
-                    //resultString.append(calcLCS(word1,word2,empty,empty).join(""));
-
+                    resultString.append(calcLCS(word1,word2,empty,empty).join(""));
+/*
                     empty=calcLCS(word2,word1,empty,empty);
                     empty.replaceInStrings("KBABELADD>","KBABELTMP>");
                     empty.replaceInStrings("KBABELDEL>","KBABELADD>");
                     empty.replaceInStrings("KBABELTMP>","KBABELDEL>");
 
                     resultString.append(empty.join(""));
+*/
                 }
 
                 if((*it1Space)==(*it2Space))

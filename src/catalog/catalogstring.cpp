@@ -147,7 +147,7 @@ QDataStream &operator>>(QDataStream &in, CatalogString &myObj)
 
 void adaptCatalogString(CatalogString& target, const CatalogString& ref)
 {
-    kWarning()<<"HERE";
+    kWarning()<<"HERE"<<target.string;
     QHash<QString,int> id2tagIndex;
     QMultiMap<InlineTag::InlineElement,int> tagType2tagIndex;
     int i=ref.tags.size();
@@ -175,6 +175,8 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             oldTags.removeAt(i);
         }
     }
+    kWarning()<<"HERE 0"<<target.string;
+
     //now all the tags left have to ID (exact) matches
     i=oldTags.size();
     while(--i>=0)
@@ -197,6 +199,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             oldTags.removeAt(i);
         }
     }
+    kWarning()<<"HERE 1"<<target.string;
     //now walk through unmatched tags and properly remove them.
     foreach(const InlineTag& tag, oldTags)
     {
@@ -204,5 +207,6 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             target.remove(tag.end, 1);
         target.remove(tag.start, 1);
     }
+    kWarning()<<"HERE 2"<<target.string;
 }
 

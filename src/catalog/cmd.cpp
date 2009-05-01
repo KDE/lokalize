@@ -396,6 +396,7 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     while(--i>=0)
     {
         //kWarning()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        kWarning()<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(catStr.tags.at(i).start,i);
         posToTag.insert(catStr.tags.at(i).end,i);
     }
@@ -406,7 +407,7 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
-        kWarning()<<i<<catStr.string.left(i);
+        kWarning()<<"TAGRANGE_IMAGE_SYMBOL"<<i;
         //text that was before tag we found
         if (i-prev)
         {

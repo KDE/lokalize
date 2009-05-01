@@ -65,13 +65,13 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
     rule.pattern = QRegExp("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)");
     highlightingRules.append(rule);
 
-    rule.format.setForeground(Qt::darkMagenta);
-    rule.pattern = QRegExp(Project::instance()->accel());
-    //rule.pattern = QRegExp("&[^;]*;");
-/*    QString accelRx=Project::instance()->accel();
-    int pos=accelRx.indexOf('(')+1;
-    rule.pattern = QRegExp(  accelRx.mid( pos,accelRx.indexOf(')',pos)-1 )  );*/
-    highlightingRules.append(rule);
+    QString accel=Project::instance()->accel();
+    if (!accel.isEmpty())
+    {
+        rule.format.setForeground(Qt::darkMagenta);
+        rule.pattern = QRegExp(accel);
+        highlightingRules.append(rule);
+    }
 
     //\n \t \"
     rule.format.setForeground(Qt::darkGreen);

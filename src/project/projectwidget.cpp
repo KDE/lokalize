@@ -131,6 +131,11 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
     // from the sort order.
     const bool isLessThan = (sortOrder() == Qt::AscendingOrder);
 
+
+
+    if (leftFileItem.isNull())
+        kWarning()<<"leftFileItem.isNull()";
+
     // On our priority, folders go above regular files.
     if (leftFileItem.isDir() && !rightFileItem.isDir()) {
         return isLessThan;

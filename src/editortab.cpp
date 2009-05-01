@@ -302,7 +302,7 @@ void EditorTab::setupActions()
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     glossary->addAction( QLatin1String("showglossaryview_action"), _glossaryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_glossaryView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (_glossaryView,SIGNAL(termInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+    connect (_glossaryView,SIGNAL(termInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
 
     gaction = glossary->addAction("glossary_define",this,SLOT(defineNewTerm()));
     gaction->setText(i18nc("@action:inmenu","Define new term"));

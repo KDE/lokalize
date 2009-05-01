@@ -31,7 +31,7 @@
 #include "prefs_lokalize.h"
 #include "dbfilesmodel.h"
 #include "diff.h"
-
+#include "xlifftextedit.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -398,27 +398,33 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         QString html;
         html.reserve(1024);
 
-        html+=(job.m_entries.at(i).score>9500)?"<p class='close_match'>":"<p>";
+        TMEntry entry=job.m_entries.at(i);
+        html+=(entry.score>9500)?"<p class='close_match'>":"<p>";
 
-        html+=QString("/%1%/ ").arg(float(job.m_entries.at(i).score)/100);
+        html+=QString("/%1%/ ").arg(float(entry.score)/100);
 
-        QString result(job.m_entries.at(i).diff);
+        QString result=entry.diff;
         result.replace("\\n","\\n<br>");
         html+=result;
 
-        QString str(job.m_entries.at(i).target.string);
-        str.replace('<',"&lt;");
-        str.replace('>',"&gt;");
         //str.replace('&',"&amp;"); TODO check
         html+="<br>";
         if (KDE_ISLIKELY( i<m_actions.size() ))
         {
-            m_actions.at(i)->setStatusTip(job.m_entries.at(i).target.string);
+            m_actions.at(i)->setStatusTip(entry.target.string);
             html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
         }
         else
             html+="[ - ] ";
+/*
+        QString str(entry.target.string);
+        str.replace('<',"&lt;");
+        str.replace('>',"&gt;");
         html+=str;
+*/
+        cur.insertHtml(html);
+        insertContent(cur,entry.target);
+        html.clear();
 
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
@@ -451,9 +457,10 @@ bool TMView::event(QEvent *event)
             QString file=m_entries.at(block).file;
             if (file==m_catalog->url().toLocalFile())
                 file="this";
-            QToolTip::showText(helpEvent->globalPos(),i18nc("@info:tooltip","File: %1<br />Date: %2",
-                    file,m_entries.at(block).date));
-            kWarning()<<block;
+            QString tooltip=i18nc("@info:tooltip","File: %1<br />Date: %2",file,m_entries.at(block).date);
+            if (0) //TODO
+                tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Is not present in the file anymore");
+            QToolTip::showText(helpEvent->globalPos(),tooltip);
             return true;
         }
     }
@@ -504,6 +511,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     kWarning()<<"seeing"<<old.size()<<old;
     while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
     {
+        kWarning()<<"abbr"<<rxAbbr.cap(0)<<rxAbbr.cap(0).mid(1);
         if (rxAbbr.cap(0).mid(1).toLower()!=rxAbbr.cap(0).mid(1))
         {
             kWarning()<<rxAbbr.cap(0);
@@ -585,7 +593,6 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
     pos=-1;
     while (++pos<diff.size())
     {
-        kWarning()<<"walkin though"<<diff.at(pos);
         if (diff.at(pos)==sep)
         {
             if (diff.indexOf("\tKBABELDEL\t",pos)==pos)
@@ -820,17 +827,22 @@ nono
         kWarning()<<"considering placable"<<cap;
         //save these so we can use rxNum in a body
         int endPos1=pos+cap.size()-1;
-        kWarning()<<pos<<cap.size()<<cap<<endPos1<<old2DiffClean.size()<<old2DiffClean;
         int endPos=old2DiffClean.at(endPos1);
-        kWarning()<<endPos;
-        QByteArray diffMPart(diffIndex.mid(old2DiffClean.at(pos),
-                                       endPos+1-old2DiffClean.at(pos)));
+        QByteArray diffMPart=diffIndex.mid(old2DiffClean.at(pos),
+                                       endPos+1-old2DiffClean.at(pos));
+
+        kWarning()<<"- ? "<<diffMPart;
+
         //the following loop extends replacement text, e.g. for 1 -> 500 cases
         while ((++endPos<diffIndex.size())
                   &&(diffIndex.at(endPos)=='+')
                   &&(-1!=nextPlacableIn(QString(diffClean.at(endPos)),0,_))
               )
             diffMPart.append('+');
+
+        //this is for the case when +'s preceed -'s:
+        kWarning()<<"- ? "<<diffMPart;
+
 
         if ((diffMPart.contains('-')
             ||diffMPart.contains('+'))
@@ -840,12 +852,12 @@ nono
             QString newMarkup;
             newMarkup.reserve(diffMPart.size());
             int j=-1;
-            kWarning()<<"newMarkup"<<diffClean.mid(old2DiffClean.at(pos),old2DiffClean.at(pos)+diffMPart.size()-1);
             while(++j<diffMPart.size())
             {
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(diffClean.at(old2DiffClean.at(pos)+j));
             }
+            kWarning()<<"newMarkup"<<newMarkup;
             //kWarning()<<"old"<<cap<<"new"<<newMarkup;
 
             //replace first ocurrence
@@ -867,8 +879,6 @@ nono
         }
         pos=endPos1+1;
     }
-    kWarning()<<target.string;
-
     adaptCatalogString(target, ref);
     return target;
 }
@@ -880,6 +890,7 @@ void TMView::slotUseSuggestion(int i)
 
     CatalogString target=targetAdapted(m_entries.at(i), m_catalog->sourceWithTags(m_pos));
 
+    kWarning()<<"0"<<target.string;
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
@@ -893,6 +904,7 @@ void TMView::slotUseSuggestion(int i)
         removeTargetSubstring(m_catalog, m_pos, 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
+    kWarning()<<"1"<<target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_pos, target, 0);

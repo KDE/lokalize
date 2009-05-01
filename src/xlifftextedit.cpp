@@ -42,10 +42,9 @@
 
 
 
-inline static QImage generateImage(QString str, XliffTextEdit* w)
+inline static QImage generateImage(QString str, QFontMetrics metrics)
 {
     str.prepend(' ');
-    QFontMetrics metrics(w->currentFont());
     QRect rect=metrics.boundingRect(str).adjusted(0,0,5,0);
     rect.moveTo(0,0);
 
@@ -174,9 +173,16 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
     //prevent undo tracking system from recording this 'action'
     document()->blockSignals(true);
     clear();
-    QTextCursor cur=textCursor();
 
+    QTextCursor c=textCursor();
+    insertContent(c,catStr,refStr);
 
+    document()->blockSignals(false);
+    m_highlighter->rehighlight(); //explicitly because we disabled signals
+}
+
+void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr)
+{
     QMap<int,int> posToTagRange;
     int i=catStr.tags.size();
     //if (i) kWarning()<<"tags we got:";
@@ -193,9 +199,8 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
-        //kWarning()<<"HAPPENED!!";
         int tagRangeIndex=posToTagRange.value(i);
-        cur.insertText(catStr.string.mid(prev,i-prev));
+        cursor.insertText(catStr.string.mid(prev,i-prev));
 
         InlineTag tag=catStr.tags.at(tagRangeIndex);
         QString name=' '+tag.id;
@@ -220,15 +225,15 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
                 name.append("-end");
             }
         }
-        document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,this));
-        cur.insertImage(name);//NOTE what if twice the same name?
+        //QTextDocument::ImageResource
+        //document()->resource(QTextDocument::ImageResource, QUrl(name));
+        cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,QFontMetrics(cursor.document()->defaultFont())));
+            //QFontMetrics metrics(w->currentFont());
+        cursor.insertImage(name);//NOTE what if twice the same name?
 
         prev=++i;
     }
-    cur.insertText(catStr.string.mid(prev));
-
-    document()->blockSignals(false);
-    m_highlighter->rehighlight(); //explicitly because we disabled signals
+    cursor.insertText(catStr.string.mid(prev));
 }
 
 

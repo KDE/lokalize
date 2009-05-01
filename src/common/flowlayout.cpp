@@ -48,35 +48,23 @@ FlowLayout::FlowLayout(User user,
                        int spacing)
         : QLayout()
         , m_index(0)
-        , m_signalingWidget(signalingWidget)
+        , m_receiver(signalingWidget)
 {
+    setSizeConstraint(QLayout::SetMinAndMaxSize);
     setMargin(margin);
     setSpacing(spacing);
 
     if (user==glossary)
     {
-        int i=0;
-        for(;i<actions.size();++i)
+        foreach (KAction* action, actions)
         {
-            TermLabel* label=new TermLabel(actions.at(i)); /*this,m_keys.at(count())*/
-            connect(actions.at(i),SIGNAL(triggered(bool)),label,SLOT(insert()));
-            connect(label,SIGNAL(insertTerm(const QString&)),m_signalingWidget,SIGNAL(termInsertRequested(const QString&)));
+            TermLabel* label=new TermLabel(action); /*this,m_keys.at(count())*/
+            connect(action,SIGNAL(triggered(bool)),label,SLOT(insert()));
+            connect(label,SIGNAL(insertTerm(QString)),m_receiver,SIGNAL(termInsertRequested(QString)));
+            label->hide();
             addWidget(label);
         }
     }
-#if 0
-    else if (user==webquery)
-    {
-        int i=0;
-        for(;i<actions.size();++i)
-        {
-            QueryResultBtn* btn=new QueryResultBtn(actions.at(i));
-            connect(btn,SIGNAL(insertText(const QString&)),m_signalingWidget,SIGNAL(textInsertRequested(const QString&)));
-            connect(actions.at(i),SIGNAL(triggered(bool)),btn,SLOT(insert()));
-            addWidget(btn);
-        }
-    }
-#endif
 
 //     if (m_keys.isEmpty())
 //     {
@@ -102,11 +90,6 @@ FlowLayout::FlowLayout(User user,
 }
 
 
-FlowLayout::FlowLayout(int spacing)
-{
-    setSpacing(spacing);
-}
-
 FlowLayout::~FlowLayout()
 {
     QLayoutItem *item;
@@ -122,6 +105,15 @@ QLayoutItem *FlowLayout::takeAt(int index)
         return 0;
 }
 
+QLayoutItem *FlowLayout::itemAt(int index) const
+{
+    return itemList.value(index);
+}
+
+void FlowLayout::addItem(QLayoutItem *item) {itemList.append(item);}
+int FlowLayout::count() const {return itemList.size();}
+Qt::Orientations FlowLayout::expandingDirections() const {return 0;}
+bool FlowLayout::hasHeightForWidth() const {return true;}
 
 int FlowLayout::heightForWidth(int width) const
 {
@@ -135,12 +127,16 @@ void FlowLayout::setGeometry(const QRect &rect)
     doLayout(rect, false);
 }
 
+QSize FlowLayout::sizeHint() const
+{
+    return minimumSize();
+}
+
 QSize FlowLayout::minimumSize() const
 {
     QSize size;
-    QLayoutItem *item;
-    foreach (item, itemList)
-    size = size.expandedTo(item->minimumSize());
+    foreach (QLayoutItem* item, itemList)
+        size = size.expandedTo(item->minimumSize());
 
     size += QSize(2*margin(), 2*margin());
     return size;
@@ -152,8 +148,7 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int y = rect.y();
     int lineHeight = 0;
 
-    QLayoutItem *item;
-    foreach (item, itemList)
+    foreach (QLayoutItem* item, itemList)
     {
         int nextX = x + item->sizeHint().width() + spacing();
         if (nextX - spacing() > rect.right() && lineHeight > 0)
@@ -176,61 +171,25 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 void FlowLayout::clearTerms()
 {
     setEnabled(false);
-//     QString e;
-    for (int i=0; i<count(); ++i)
-    {
-        static_cast<TermLabel*>(itemAt(i)->widget())->setVisible(false);
-        //static_cast<QLabel*>(itemAt(i)->widget())->setText(e);
-    }
+    foreach (QLayoutItem* item, itemList)
+        static_cast<TermLabel*>(item->widget())->hide();
     m_index=0;
     setEnabled(true);
 }
 
-void FlowLayout::addTerm(const QString& term,int entry)
+void FlowLayout::addTerm(const QString& term, int entry, bool capFirst)
 {
+    //fill layout with labels
     while (m_index>=count())
     {
         TermLabel* label=new TermLabel;
-        connect(label,SIGNAL(insertTerm(const QString&)),m_signalingWidget,SIGNAL(termInsertRequested(const QString&)));
+        connect(label,SIGNAL(insertTerm(QString)),m_receiver,SIGNAL(termInsertRequested(QString)));
         addWidget(label);
     }
-    static_cast<TermLabel*>(itemAt(m_index)->widget())->setText(term,entry);
-    static_cast<TermLabel*>(itemAt(m_index)->widget())->setVisible(true);
+    TermLabel* label=static_cast<TermLabel*>(itemAt(m_index)->widget());
+    label->setText(term, entry, capFirst);
+    label->show();
     ++m_index;
-
-}
-#if 0
-void FlowLayout::clearWebQueryResult()
-{
-    setEnabled(false);
-//     QString e;
-    for (int i=0; i<count(); ++i)
-    {
-        static_cast<QueryResultBtn*>(itemAt(i)->widget())->setVisible(false);
-        //static_cast<QLabel*>(itemAt(i)->widget())->setText(e);
-    }
-    m_index=0;
-    setEnabled(true);
 }
 
 
-void FlowLayout::addWebQueryResult(const QString& str)
-{
-    setEnabled(false);
-    while (m_index>=count())
-    {
-        QueryResultBtn* btn=new QueryResultBtn;
-        connect(btn,SIGNAL(insertText(const QString&)),m_signalingWidget,SIGNAL(textInsertRequested(const QString&)));
-        addWidget(btn);
-
-    }
-/*        static_cast<TermLabel*>(itemAt(index)->widget())->setText(str);
-        static_cast<TermLabel*>(itemAt(index)->widget())->setTermTransl(termTransl);*/
-    static_cast<QueryResultBtn*>(itemAt(m_index)->widget())->setText(str);
-    static_cast<QueryResultBtn*>(itemAt(m_index)->widget())->setVisible(true);
-
-        ++m_index;
-
-    setEnabled(true);
-}
-#endif

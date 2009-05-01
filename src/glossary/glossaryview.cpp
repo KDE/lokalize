@@ -51,6 +51,7 @@
 #include <QSet>
 #include <QScrollArea>
 // #include <QShortcutEvent>
+#include <QPushButton>
 
 
 using namespace GlossaryNS;
@@ -70,12 +71,15 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KActio
 
 {
     setObjectName("glossaryView");
-    setWidget(m_browser);
     QWidget* w=new QWidget(m_browser);
     m_browser->setWidget(w);
+    m_browser->setWidgetResizable(true);
     w->setLayout(m_flowLayout);
+    w->show();
+
     setToolTip(i18nc("@info:tooltip","Translations to common terms appear here. Press displayed shortcut to insert term translation. Use context menu to add new entry (tip: select words in original and translation fields before calling <interface>Define new term</interface>)."));
 
+    setWidget(m_browser);
     m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     m_browser->setAutoFillBackground(true);
     m_browser->setBackgroundRole(QPalette::Background);
@@ -121,8 +125,9 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     Glossary& glossary=*m_glossary;
 
 
-
-    QString msg(m_catalog->source(pos).toLower());
+    QString source=m_catalog->source(pos);
+    QString sourceLow=source.toLower();
+    QString msg=sourceLow;
     msg.remove(m_rxClean);
 
 //     QRegExp accel(Project::instance()->accel());
@@ -134,7 +139,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //         pos=accel.pos(1);
 //     }
 
-    QStringList words(msg.split(m_rxSplit,QString::SkipEmptyParts));
+    QStringList words=msg.split(m_rxSplit,QString::SkipEmptyParts);
     if (words.isEmpty())
     {
         if (m_hasInfo)
@@ -151,11 +156,11 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     for (;i<words.size();++i)
     {
         if (glossary.wordHash.contains(words.at(i))
-//             && MULTI hash!! instead, we generate QSet later
-//             !termIndexes.contains(glossary.wordHash.value(words.at(i)))
+            // && MULTI hash!! instead, we generate QSet later
+            // !termIndexes.contains(glossary.wordHash.value(words.at(i)))
            )
         {
-//             kWarning()<<"val " <<glossary.wordHash.values(words.at(i));
+            //kWarning()<<"found entry for:" <<words.at(i);
             termIndexes+=glossary.wordHash.values(words.at(i));
         }
     }
@@ -176,37 +181,27 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         m_flowLayout->clearTerms();
 
     bool found=false;
-    m_flowLayout->setEnabled(false);
-    int j; //INTJ haha! socionics!
+    //m_flowLayout->setEnabled(false);
     QSet<int> termIndexesSet(termIndexes.toSet());
-//     kWarning()<<"found";
     QSet<int>::const_iterator it = termIndexesSet.constBegin();
-    kDebug()<<"2";
     while (it != termIndexesSet.constEnd())
     {
         // now check which of them are really hits...
-        int lim=glossary.termList.at(*it).english.size();
-        for (j=0;j<lim;++j)
+        foreach (const QString& enTerm, glossary.termList.at(*it).english)
         {
             // ...and if so, which part of termEn list we must thank for match ...
-            if (msg.contains(
-                glossary.termList.at(*it).english.at(j)//,
-                //Qt::CaseInsensitive  //we lowered terms on load 
-                        )
-                )
+            if (msg.contains(enTerm))//,//Qt::CaseInsensitive  //we lowered terms on load 
             {
                 //insert it into label
                 found=true;
-                m_flowLayout->addTerm(
-                        glossary.termList.at(*it).english.at(j),
-                        *it
-                               );
+                int pos=sourceLow.indexOf(enTerm);
+                m_flowLayout->addTerm(enTerm,*it,/*uppercase*/pos!=-1 && source.at(pos).isUpper());
                 break;
             }
         }
         ++it;
     }
-    m_flowLayout->setEnabled(true);
+    //m_flowLayout->setEnabled(true);
 
     if (found)
     {

@@ -223,17 +223,14 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     layout->addWidget(m_browser);
     {
         KPushButton* addBtn=new KPushButton(KStandardGuiItem::add(),w);
-        connect(addBtn,SIGNAL(clicked()),
-                this,SLOT(newTerm()));
+        connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTerm()));
 
         KPushButton* rmBtn=new KPushButton(KStandardGuiItem::remove(),w);
-        connect(rmBtn,SIGNAL(clicked()),
-                this,SLOT(rmTerm()));
+        connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTerm()));
 
         KPushButton* restoreBtn=new KPushButton(i18nc("@action:button reloads glossary from disk","Restore"),w);
         restoreBtn->setToolTip(i18nc("@info:tooltip","Reload glossary from disk, discarding any changes"));
-        connect(restoreBtn,SIGNAL(clicked()),
-                this,SLOT(restore()));
+        connect(restoreBtn,SIGNAL(clicked()),   this,SLOT(restore()));
 
         QWidget* btns=new QWidget(w);
         QHBoxLayout* btnsLayout=new QHBoxLayout(btns);

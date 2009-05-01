@@ -104,8 +104,10 @@ private:
 
     //for undo/redo tracking
     QString _oldMsgstr;
-
 };
+
+
+void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr=CatalogString());
 
 
 #endif

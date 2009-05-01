@@ -57,42 +57,35 @@ public:
     /**
      * c'tor for glossary view
      */
-    FlowLayout(User user,QWidget *signalingWidget,
-               const QVector<KAction*>& actions,int margin = 0, int spacing = -1);
+    FlowLayout(User user, QWidget *signalingWidget,
+               const QVector<KAction*>& actions, int margin = 0, int spacing = -1);
 
-    FlowLayout(int spacing = -1);
     ~FlowLayout();
 
-    void addItem(QLayoutItem *item){itemList.append(item);}
-    Qt::Orientations expandingDirections() const{return 0;}
-    bool hasHeightForWidth() const{return true;}
+    void addItem(QLayoutItem *item);
+    Qt::Orientations expandingDirections() const;
+    bool hasHeightForWidth() const;
     int heightForWidth(int) const;
-    int count() const{return itemList.size();}
-    QLayoutItem *itemAt(int index) const{return itemList.value(index);}
+    int count() const;
+    QLayoutItem *itemAt(int index) const;
     QSize minimumSize() const;
     void setGeometry(const QRect &rect);
-    QSize sizeHint() const{return minimumSize();}
+    QSize sizeHint() const;
     QLayoutItem *takeAt(int index);
 
     /**
      * @param term is the term matched
      * @param entry is index of entry in the Glossary list
      */
-    void addTerm(const QString& term,int entry);
+    void addTerm(const QString& term, int entry, bool capFirst=false);
     void clearTerms();
-
-#if 0
-    void clearWebQueryResult();
-    void addWebQueryResult(const QString& str);
-#endif
 
 private:
     int doLayout(const QRect &rect, bool testOnly) const;
 
     QList<QLayoutItem *> itemList;
     int m_index; //of the nearest free label ; or the next index of btn
-//     QList<Qt::Key> m_keys;
-    QWidget *m_signalingWidget;
+    QWidget *m_receiver;
 };
 
 

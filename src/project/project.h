@@ -36,7 +36,6 @@ class KRecentFilesAction;
 class ProjectModel;
 class ProjectLocal;
 namespace GlossaryNS{class Glossary;}
-class EditorTab;
 
 
 /**
@@ -112,8 +111,6 @@ private:
 
     QList<KAction*> m_projectActions;
     KRecentFilesAction* _openRecentProject;
-
-    QVector<EditorTab*> m_editors;
 };
 
 
