@@ -128,7 +128,7 @@ struct CatalogString
     CatalogString(){}
     CatalogString(QString str):string(str){}
     CatalogString(QString str, QByteArray);
-    QMap<QString,int> tagIdToIndex() const;//TODO tags may be duplicated!
+    QMap<QString,int> tagIdToIndex() const; //assigns same indexes for tags with same ids
 
     QByteArray tagsAsByteArray()const;
 

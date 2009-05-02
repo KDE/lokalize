@@ -70,6 +70,7 @@ public slots:
     void gotoEntry(DocPosition pos=DocPosition(),int selection=0/*, bool updateHistory=true*/);
     void toggleApprovement();
     void setState(TargetState);
+    void setEquivTrans(bool);
 /*
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
@@ -87,6 +88,7 @@ public:
     bool m_modifiedAfterFind;//for F3-search reset
 
 signals:
+    void signalEquivTranslatedEntryDisplayed(bool);
     void signalApprovedEntryDisplayed(bool);
     void signalChangeStatusbar(const QString&);
     void signalChanged(uint index); //esp for mergemode...

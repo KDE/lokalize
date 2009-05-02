@@ -57,6 +57,79 @@
 using namespace TM;
 
 
+struct DiffInfo
+{
+    DiffInfo(int reserveSize);
+
+    QString diffClean;
+    QString old;
+    //Formatting info:
+    QByteArray diffIndex;
+    //Map old string-->d.diffClean
+    QVector<int> old2DiffClean;
+};
+
+DiffInfo::DiffInfo(int reserveSize)
+{
+    diffClean.reserve(reserveSize);
+    old.reserve(reserveSize);
+    diffIndex.reserve(reserveSize);
+    old2DiffClean.reserve(reserveSize);
+}
+
+
+
+/**
+ * 0 - common
+ + - add
+ - - del
+ M - modified
+
+ so the string is like 00000MM00+++---000
+ (M appears afterwards)
+*/
+static DiffInfo getDiffInfo(const QString& diff)
+{
+    DiffInfo d(diff.size());
+
+    QChar sep('\t');
+    char state='0';
+    //walk through diff string char-by-char
+    //calculate old and others
+    int pos=-1;
+    while (++pos<diff.size())
+    {
+        if (diff.at(pos)==sep)
+        {
+            if (diff.indexOf("{KBABELDEL}",pos)==pos)
+            {
+                state='-';
+                pos+=10;
+            }
+            else if (diff.indexOf("{KBABELADD}",pos)==pos)
+            {
+                state='+';
+                pos+=10;
+            }
+            else if (diff.indexOf("{/KBABEL",pos)==pos)
+            {
+                state='0';
+                pos+=11;
+            }
+        }
+        else
+        {
+            if (state!='+')
+            {
+                d.old.append(diff.at(pos));
+                d.old2DiffClean.append(d.diffIndex.count());
+            }
+            d.diffIndex.append(state);
+            d.diffClean.append(diff.at(pos));
+        }
+    }
+    return d;
+}
 
 
 void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
@@ -406,9 +479,34 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
         html+=QString("/%1%/ ").arg(float(entry.score)/100);
 
+        int sourceStartPos=cur.position();
         QString result=entry.diff;
+        result.replace("<","&lt;");
+        result.replace(">","&gt;");
+        result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
+        result.replace("{/KBABELADD}","</font>");
+        result.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
+        result.replace("{/KBABELDEL}","</font>");
+        result.replace("\\n","\\n<br>");
         result.replace("\\n","\\n<br>");
         html+=result;
+#if 0
+        cur.insertHtml(result);
+
+        cur.movePosition(QTextCursor::PreviousCharacter,QTextCursor::MoveAnchor,cur.position()-sourceStartPos);
+        CatalogString catStr(entry.diff);
+        catStr.string.remove("{KBABELDEL}"); catStr.string.remove("{/KBABELDEL}");
+        catStr.string.remove("{KBABELADD}"); catStr.string.remove("{/KBABELADD}");
+        catStr.tags=entry.source.tags;
+        DiffInfo d=getDiffInfo(entry.diff);
+        int j=catStr.tags.size();
+        while(--j>=0)
+        {
+            catStr.tags[j].start=d.old2DiffClean.at(catStr.tags.at(j).start);
+            catStr.tags[j].end  =d.old2DiffClean.at(catStr.tags.at(j).end);
+        }
+        insertContent(cur,catStr,job.m_source,false);
+#endif
 
         //str.replace('&',"&amp;"); TODO check
         html+="<br>";
@@ -425,10 +523,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         str.replace('>',"&gt;");
         html+=str;
 */
-        cur.insertHtml(html);
+        cur.insertHtml(html); html.clear();
         cur.setCharFormat((entry.score>9500)?closeMatchCharFormat:noncloseMatchCharFormat);
         insertContent(cur,entry.target);
-        html.clear();
+
 
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
@@ -462,7 +560,7 @@ bool TMView::event(QEvent *event)
             if (file==m_catalog->url().toLocalFile())
                 file="this";
             QString tooltip=i18nc("@info:tooltip","File: %1<br />Date: %2",file,m_entries.at(block).date);
-            if (0) //TODO
+            if (m_entries.at(block).obsolete)
                 tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Is not present in the file anymore");
             QToolTip::showText(helpEvent->globalPos(),tooltip);
             return true;
@@ -540,6 +638,9 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
 }
 
 
+
+
+
 //TODO thorough testing
 
 /**
@@ -571,16 +672,10 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
     diff.replace("&lt;","<");
     diff.replace("&gt;",">");
 
-    QString diffClean;          diffClean.reserve(diff.size());
-    QString old;                old.reserve(diff.size());
-    //Formatting info:
-    QByteArray diffIndex;       diffIndex.reserve(diff.size());
-    //Map old string-->diffClean
-    QVector<int> old2DiffClean; old2DiffClean.reserve(diff.size());
-
     //possible enhancement: search for non-translated words in removedSubstrings...
     //QStringList removedSubstrings;
     //QStringList addedSubstrings;
+
 
     /*
       0 - common
@@ -590,43 +685,7 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
 
       so the string is like 00000MM00+++---000
     */
-    QChar sep('\t');
-    char state='0';
-    //walk through diff string char-by-char
-    //calculate old and others
-    pos=-1;
-    while (++pos<diff.size())
-    {
-        if (diff.at(pos)==sep)
-        {
-            if (diff.indexOf("\tKBABELDEL\t",pos)==pos)
-            {
-                state='-';
-                pos+=10;
-            }
-            else if (diff.indexOf("\tKBABELADD\t",pos)==pos)
-            {
-                state='+';
-                pos+=10;
-            }
-            else if (diff.indexOf("\t/KBABEL",pos)==pos)
-            {
-                state='0';
-                pos+=11;
-            }
-        }
-        else
-        {
-            if (state!='+')
-            {
-                old.append(diff.at(pos));
-                old2DiffClean.append(diffIndex.count());
-            }
-            diffIndex.append(state);
-            diffClean.append(diff.at(pos));
-        }
-    }
-
+    DiffInfo d=getDiffInfo(diff);
 
     bool sameMarkup=Project::instance()->markup()==entry.markupExpr&&!entry.markupExpr.isEmpty();
     bool tryMarkup=entry.target.tags.size() && sameMarkup;
@@ -637,11 +696,11 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
         rxMarkup.setMinimal(true);
         pos=0;
         int replacingPos=0;
-        while ((pos=rxMarkup.indexIn(old,pos))!=-1)
+        while ((pos=rxMarkup.indexIn(d.old,pos))!=-1)
         {
             //kWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
-            QByteArray diffIndexPart(diffIndex.mid(old2DiffClean.at(pos),
-                                           old2DiffClean.at(pos+rxMarkup.matchedLength()-1)+1-old2DiffClean.at(pos)));
+            QByteArray diffIndexPart(d.diffIndex.mid(d.old2DiffClean.at(pos),
+                                           d.old2DiffClean.at(pos+rxMarkup.matchedLength()-1)+1-d.old2DiffClean.at(pos)));
             //kWarning()<<"diffMPart"<<diffMPart;
             if (diffIndexPart.contains('-')
                 ||diffIndexPart.contains('+'))
@@ -653,7 +712,7 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
                 while(++j<diffIndexPart.size())
                 {
                     if (diffIndexPart.at(j)!='-')
-                        newMarkup.append(diffClean.at(old2DiffClean.at(pos)+j));
+                        newMarkup.append(d.diffClean.at(d.old2DiffClean.at(pos)+j));
                 }
 
                 //replace first ocurrence
@@ -664,12 +723,12 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
                                 rxMarkup.cap(0).size(),
                                 newMarkup);
                     replacingPos=tmp;
-                    //kWarning()<<"old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
+                    //kWarning()<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
 
                     //avoid trying this part again
-                    tmp=old2DiffClean.at(pos+rxMarkup.matchedLength()-1);
-                    while(--tmp>=old2DiffClean.at(pos))
-                        diffIndex[tmp]='M';
+                    tmp=d.old2DiffClean.at(pos+rxMarkup.matchedLength()-1);
+                    while(--tmp>=d.old2DiffClean.at(pos))
+                        d.diffIndex[tmp]='M';
                     //kWarning()<<"M"<<diffM;
                 }
             }
@@ -691,10 +750,10 @@ static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& re
 
 
     //handle the beginning
-    int len=diffIndex.indexOf('0');
+    int len=d.diffIndex.indexOf('0');
     if (len>0)
     {
-        QByteArray diffMPart(diffIndex.left(len));
+        QByteArray diffMPart(d.diffIndex.left(len));
         int m=diffMPart.indexOf('M');
         if (m!=-1)
             diffMPart.truncate(m);
@@ -722,7 +781,7 @@ nono
         while(++j<diffMPart.size())
         {
             if (diffMPart.at(j)!='+')
-                oldMarkup.append(diffClean.at(j));
+                oldMarkup.append(d.diffClean.at(j));
         }
 
         //kWarning()<<"old"<<oldMarkup;
@@ -738,7 +797,7 @@ nono
             while(++j<diffMPart.size())
             {
                 if (diffMPart.at(j)!='-')
-                    newMarkup.append(diffClean.at(j));
+                    newMarkup.append(d.diffClean.at(j));
             }
             //kWarning()<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
@@ -752,7 +811,7 @@ nono
             //avoid trying this part again
             j=diffMPart.size();
             while(--j>=0)
-                diffIndex[j]='M';
+                d.diffIndex[j]='M';
             //kWarning()<<"M"<<diffM;
         }
 
@@ -765,10 +824,10 @@ nono
         rxNonTranslatable.setPattern("(\\W|\\d)+$");
 
     //handle the end
-    if (!diffIndex.endsWith('0'))
+    if (!d.diffIndex.endsWith('0'))
     {
-        len=diffIndex.lastIndexOf('0')+1;
-        QByteArray diffMPart(diffIndex.mid(len));
+        len=d.diffIndex.lastIndexOf('0')+1;
+        QByteArray diffMPart(d.diffIndex.mid(len));
         int m=diffMPart.lastIndexOf('M');
         if (m!=-1)
         {
@@ -783,7 +842,7 @@ nono
         while(++j<diffMPart.size())
         {
             if (diffMPart.at(j)!='+')
-                oldMarkup.append(diffClean.at(len+j));
+                oldMarkup.append(d.diffClean.at(len+j));
         }
         //kWarning()<<"old-"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
@@ -798,7 +857,7 @@ nono
             while(++j<diffMPart.size())
             {
                 if (diffMPart.at(j)!='-')
-                    newMarkup.append(diffClean.at(len+j));
+                    newMarkup.append(d.diffClean.at(len+j));
             }
             //kWarning()<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
@@ -811,7 +870,7 @@ nono
             //avoid trying this part again
             j=diffMPart.size();
             while(--j>=0)
-                diffIndex[len+j]='M';
+                d.diffIndex[len+j]='M';
             //kWarning()<<"M"<<diffM;
         }
     }
@@ -826,21 +885,21 @@ nono
     QString cap;
     QString _;
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
-    while ((pos=nextPlacableIn(old,pos,cap))!=-1)
+    while ((pos=nextPlacableIn(d.old,pos,cap))!=-1)
     {
         kWarning()<<"considering placable"<<cap;
         //save these so we can use rxNum in a body
         int endPos1=pos+cap.size()-1;
-        int endPos=old2DiffClean.at(endPos1);
-        QByteArray diffMPart=diffIndex.mid(old2DiffClean.at(pos),
-                                       endPos+1-old2DiffClean.at(pos));
+        int endPos=d.old2DiffClean.at(endPos1);
+        QByteArray diffMPart=d.diffIndex.mid(d.old2DiffClean.at(pos),
+                                       endPos+1-d.old2DiffClean.at(pos));
 
         kWarning()<<"- ? "<<diffMPart;
 
         //the following loop extends replacement text, e.g. for 1 -> 500 cases
-        while ((++endPos<diffIndex.size())
-                  &&(diffIndex.at(endPos)=='+')
-                  &&(-1!=nextPlacableIn(QString(diffClean.at(endPos)),0,_))
+        while ((++endPos<d.diffIndex.size())
+                  &&(d.diffIndex.at(endPos)=='+')
+                  &&(-1!=nextPlacableIn(QString(d.diffClean.at(endPos)),0,_))
               )
             diffMPart.append('+');
 
@@ -859,10 +918,10 @@ nono
             while(++j<diffMPart.size())
             {
                 if (diffMPart.at(j)!='-')
-                    newMarkup.append(diffClean.at(old2DiffClean.at(pos)+j));
+                    newMarkup.append(d.diffClean.at(d.old2DiffClean.at(pos)+j));
             }
             kWarning()<<"newMarkup"<<newMarkup;
-            //kWarning()<<"old"<<cap<<"new"<<newMarkup;
+            //kWarning()<<"d.old"<<cap<<"new"<<newMarkup;
 
             //replace first ocurrence
             int tmp=target.string.indexOf(cap,replacingPos);
@@ -875,9 +934,9 @@ nono
                 replacingPos=tmp;
 
                 //avoid trying this part again
-                tmp=old2DiffClean.at(endPos1)+1;
-                while(--tmp>=old2DiffClean.at(pos))
-                    diffIndex[tmp]='M';
+                tmp=d.old2DiffClean.at(endPos1)+1;
+                while(--tmp>=d.old2DiffClean.at(pos))
+                    d.diffIndex[tmp]='M';
                 //kWarning()<<"M"<<diffM;
             }
         }

@@ -23,7 +23,7 @@
 
 ************************************************************************** */
 
-// #include "diff.h"
+#include "diff.h"
 
 // #include "project.h"
 #include "prefs_lokalize.h"
@@ -394,7 +394,8 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
 QString userVisibleWordDiff(const QString& str1ForMatching,
                             const QString& str2ForMatching,
                             const QString& accel,
-                            const QString& markup)
+                            const QString& markup,
+                            int options)
 {
     QStringList s1, s2;
     QStringList s1Space, s2Space;
@@ -422,8 +423,11 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     result.replaceInStrings("<KBABELDEL>","{KBABELDEL}");
     result.replaceInStrings("</KBABELDEL>","{/KBABELDEL}");
 
-    result.replaceInStrings("<","&lt;");
-    result.replaceInStrings(">","&gt;");
+    if (options&Html)
+    {
+        result.replaceInStrings("<","&lt;");
+        result.replaceInStrings(">","&gt;");
+    }
 
     //result.last().chop(1);//\b
     //kWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
@@ -432,12 +436,14 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     res.remove("{/KBABELADD}{KBABELADD}");
     res.remove("{/KBABELDEL}{KBABELDEL}");
 
-    res.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
-    res.replace("{/KBABELADD}","</font>");
-    res.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
-    res.replace("{/KBABELDEL}","</font>");
-
-    res.replace("\\n","\\n<br>");
+    if (options&Html)
+    {
+        res.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
+        res.replace("{/KBABELADD}","</font>");
+        res.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
+        res.replace("{/KBABELDEL}","</font>");
+        res.replace("\\n","\\n<br>");
+    }
 
     return res;
 }

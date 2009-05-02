@@ -68,9 +68,13 @@ InlineTag::InlineElement InlineTag::getElementType(const QByteArray& tag)
 QMap<QString,int> CatalogString::tagIdToIndex() const
 {
     QMap<QString,int> result;
+    int index=0;
     int count=tags.size();
     for (int i=0;i<count;++i)
-        result[tags.at(i).id]=i;
+    {
+        if (!result.contains(tags.at(i).id))
+            result.insert(tags.at(i).id, index++);
+    }
     return result;
 }
 

@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <klocale.h>
 #include <kdatetime.h>
 
+static const char* const noyes[]={"no","yes"};
 
 XliffStorage::XliffStorage()
  : CatalogStorage()
@@ -469,7 +470,7 @@ CatalogString XliffStorage::catalogString(const DocPosition& pos) const
     static const char* names[]={"source","target"};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
-    catalogString.string=content(entries.at(m_map.at(pos.entry)).firstChildElement(
+    catalogString.string=content(unitForPos(pos.entry).firstChildElement(
                                  names[pos.part==DocPosition::Target]),&data);
     catalogString.tags=data.ranges;
     return catalogString;
@@ -486,18 +487,18 @@ CatalogString XliffStorage::sourceWithTags(DocPosition pos) const
 
 QString XliffStorage::source(const DocPosition& pos) const
 {
-    return content(entries.at(m_map.at(pos.entry)).firstChildElement("source"));
+    return content(unitForPos(pos.entry).firstChildElement("source"));
 }
 QString XliffStorage::target(const DocPosition& pos) const
 {
-    return content(entries.at(m_map.at(pos.entry)).firstChildElement("target"));
+    return content(targetForPos(pos.entry));
 }
 
 
 void XliffStorage::targetDelete(const DocPosition& pos, int count)
 {
     ContentEditingData data(pos.offset,count);
-    kWarning()<<content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+    kWarning()<<content(targetForPos(pos.entry),&data);
 }
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
@@ -525,13 +526,13 @@ void XliffStorage::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
 {
     targetInsert(pos,QString()); //adds <taget> if needed
     ContentEditingData data(tag.start,tag);
-    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+    content(targetForPos(pos.entry),&data);
 }
 
 InlineTag XliffStorage::targetDeleteTag(const DocPosition& pos)
 {
     ContentEditingData data(pos.offset);
-    content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data);
+    content(targetForPos(pos.entry),&data);
     if (data.ranges[0].end==-1) data.ranges[0].end=data.ranges[0].start;
     return data.ranges.first();
 }
@@ -705,7 +706,7 @@ QVector<Note> XliffStorage::notes(const DocPosition& pos) const
 Note XliffStorage::setNote(DocPosition pos, const Note& note)
 {
     //kWarning()<<int(pos.form)<<note.content;
-    QDomElement unit=entries.at(m_map.at(pos.entry)).toElement();
+    QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;
     if (pos.form==-1 && !note.content.isEmpty())
@@ -807,7 +808,7 @@ QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
 {
     targetInsert(pos,QString()); //adds <taget> if needed
 
-    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    QDomElement target=targetForPos(pos.entry);
     QString result=target.attribute("phase-name");
     if (phase.isEmpty())
         target.removeAttribute("phase-name");
@@ -819,7 +820,7 @@ QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
 
 QString XliffStorage::phase(const DocPosition& pos) const
 {
-    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    QDomElement target=targetForPos(pos.entry);
     return target.attribute("phase-name");
 }
 
@@ -840,7 +841,7 @@ QStringList XliffStorage::matchData(const DocPosition& pos) const
 
 QString XliffStorage::id(const DocPosition& pos) const
 {
-    return entries.at(m_map.at(pos.entry)).toElement().attribute("id");
+    return unitForPos(pos.entry).attribute("id");
 }
 
 bool XliffStorage::isPlural(const DocPosition& pos) const
@@ -876,7 +877,7 @@ static TargetState stringToState(const QString& state)
 TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 {
     targetInsert(pos,QString()); //adds <taget> if needed
-    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    QDomElement target=targetForPos(pos.entry);
     TargetState prev=stringToState(target.attribute("state"));
     target.setAttribute("state",states[state]);
     return prev;
@@ -884,14 +885,34 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 
 TargetState XliffStorage::state(const DocPosition& pos) const
 {
-    QDomElement target=entries.at(m_map.at(pos.entry)).toElement().firstChildElement("target");
+    QDomElement target=targetForPos(pos.entry);
     return stringToState(target.attribute("state"));
 }
 
 bool XliffStorage::isEmpty(const DocPosition& pos) const
 {
     ContentEditingData data(ContentEditingData::CheckLength);
-    return content(entries.at(m_map.at(pos.entry)).firstChildElement("target"),&data).isEmpty();
+    return content(targetForPos(pos.entry),&data).isEmpty();
+}
+
+bool XliffStorage::isEquivTrans(const DocPosition& pos) const
+{
+    return targetForPos(pos.entry).attribute("equiv-trans")!="no";
+}
+
+void XliffStorage::setEquivTrans(const DocPosition& pos, bool equivTrans)
+{
+    targetForPos(pos.entry).setAttribute("equiv-trans",noyes[equivTrans]);
+}
+
+QDomElement XliffStorage::unitForPos(int pos) const
+{
+    return entries.at(m_map.at(pos)).toElement();
+}
+
+QDomElement XliffStorage::targetForPos(int pos) const
+{
+    return unitForPos(pos).firstChildElement("target");
 }
 
 //END STORAGE TRANSLATION

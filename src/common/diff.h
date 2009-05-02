@@ -25,6 +25,8 @@
 #ifndef DIFF_H
 #define DIFF_H
 
+#include <QString>
+
 
 /**
  * @short Word-by-word diff algorithm
@@ -40,10 +42,14 @@
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
+enum {Html=1};
 QString userVisibleWordDiff(const QString& oldString,
                  const QString& newString,
                  const QString& accelRx,
-                 const QString& markupRx);
+                 const QString& markupRx,
+                 int options=0);
+
+
 
 /**
  * This is low-level wrapper used for evaluating translation memory search results

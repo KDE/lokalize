@@ -121,8 +121,9 @@ private:
                   QStringList& words,
                   bool isShort);
 
-private:
+public:
     CatalogString m_source;
+private:
     QString m_ctxt;
     QString m_file;
     bool m_dequeued;

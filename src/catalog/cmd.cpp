@@ -294,8 +294,22 @@ void UpdatePhaseCmd::undo()
 
 
 
+//BEGIN SetEquivTransCmd
+SetEquivTransCmd::SetEquivTransCmd(Catalog *catalog, const DocPosition& pos, bool equivTrans)
+    : LokalizeTargetCmd(catalog,pos,i18nc("@item Undo action item","Translation Equivalence Setting"))
+    , _equivTrans(equivTrans)
+{}
 
+void SetEquivTransCmd::doRedo()
+{
+    _catalog->setEquivTrans(_pos,_equivTrans);
+}
 
+void SetEquivTransCmd::doUndo()
+{
+    _catalog->setEquivTrans(_pos,!_equivTrans);
+}
+//END SetEquivTransCmd
 
 
 

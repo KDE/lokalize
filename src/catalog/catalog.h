@@ -125,7 +125,8 @@ public slots: //DBus interface
     bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}
     bool isApproved(uint index) const;
     bool isApproved(const DocPosition& pos) const{return isApproved(pos.entry);}
-    TargetState state(const DocPosition& pos)const;
+    TargetState state(const DocPosition& pos) const;
+    bool isEquivTrans(const DocPosition&) const;
     ///@returns true if at least one form is untranslated
     bool isEmpty(uint index) const;
     bool isEmpty(const DocPosition&) const;
@@ -207,6 +208,7 @@ protected:
     void targetInsertTag(const DocPosition& pos, const InlineTag& tag);
     TargetState setState(const DocPosition& pos, TargetState state);
     Phase updatePhase(const Phase& phase);
+    void setEquivTrans(const DocPosition&, bool equivTrans);
 
     /// @returns true if entry wasn't modified before
     bool setModified(int entry, bool modif);
@@ -226,6 +228,7 @@ protected:
     friend class SetNoteCmd;
     friend class UpdatePhaseCmd;
     friend class MergeCatalog;
+    friend class SetEquivTransCmd;
 
 signals:
     void signalEntryModified(const DocPosition&);

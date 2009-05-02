@@ -180,7 +180,7 @@ QString GettextStorage::alttrans(const DocPosition& pos) const
 
     QString result;
     if (!cur->isEmpty())
-        result=userVisibleWordDiff(*cur,newStr,Project::instance()->accel(),Project::instance()->markup());
+        result=userVisibleWordDiff(*cur,newStr,Project::instance()->accel(),Project::instance()->markup(),Html);
     return result;
 }
 

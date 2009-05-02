@@ -422,6 +422,13 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu","Approve and go to next"));
     connect(action, SIGNAL(triggered()), SLOT(toggleApprovementGotoNextFuzzyUntr()));
 
+
+    action = actionCategory->addAction("edit_nonequiv",m_view,SLOT(setEquivTrans(bool)));
+    action->setText(i18nc("@action:inmenu","Equivalent translation"));
+    action->setCheckable(true);
+    connect(this, SIGNAL(signalEquivTranslatedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
+
+
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
     QString systemLang=KGlobal::locale()->language();
     if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
@@ -471,6 +478,7 @@ void EditorTab::setupActions()
     connect( this, SIGNAL(signalLastDisplayed(bool)),action,SLOT(setDisabled(bool)));
 
     action=nav->addAction(KStandardAction::GotoPage,this, SLOT(gotoEntry()));
+    action->setShortcut(Qt::CTRL+Qt::Key_G);
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous translated but not approved"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
@@ -919,6 +927,8 @@ void EditorTab::gotoEntry(DocPosition pos,int selection)
             emit signalPriorBookmarkAvailable(m_currentPos.entry>m_catalog->firstBookmarkIndex());
             emit signalNextBookmarkAvailable(m_currentPos.entry<m_catalog->lastBookmarkIndex());
             emit signalBookmarkDisplayed(m_catalog->isBookmarked(m_currentPos.entry));
+
+            emit signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(m_currentPos));
         }
 
     }

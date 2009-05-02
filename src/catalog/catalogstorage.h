@@ -124,8 +124,11 @@ public:
 
     virtual bool isEmpty(const DocPosition& pos) const=0;
 
-    virtual bool isApproved(const DocPosition& pos) const{return true;};
-    virtual void setApproved(const DocPosition& pos, bool approved){};
+    virtual bool isEquivTrans(const DocPosition& pos) const{return true;}
+    virtual void setEquivTrans(const DocPosition& pos, bool equivTrans){}
+
+    virtual bool isApproved(const DocPosition& pos) const{return true;}
+    virtual void setApproved(const DocPosition& pos, bool approved){}
     virtual TargetState state(const DocPosition& pos) const{return New;}
     virtual TargetState setState(const DocPosition& pos, TargetState state){return New;}
 

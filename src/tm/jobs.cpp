@@ -434,6 +434,7 @@ static bool doInsertEntry(CatalogString source,
     {
         mainId=query1.value(0).toLongLong();
         bits=query1.value(2).toLongLong();
+        bits=bits&(0xff-1);//clear obsolete bit
         qlonglong targetId=query1.value(1).toLongLong();
         query1.clear();
 
@@ -492,7 +493,7 @@ static bool doInsertEntry(CatalogString source,
                            "SET target=?, target_accel=?, target_markup=? "
                            "WHERE id=="+QString::number(targetId));
 
-            query1.bindValue(0, target.string);
+            query1.bindValue(0, target.string.isEmpty()?QVariant():target.string);
             query1.bindValue(1, targetAccelPos!=-1?QVariant(targetAccelPos):QVariant());
             query1.bindValue(2, target.tagsAsByteArray());
             return query1.exec();//note the RETURN!!!!
@@ -810,6 +811,17 @@ void CloseDBJob::run ()
 }
 
 
+static QString makeAcceledString(QString source, const QString& accel, const QVariant& accelPos)
+{
+    if (accelPos.isNull())
+        return source;
+    int accelPosInt=accelPos.toInt();
+    if (accelPosInt!=-1)
+        source.insert(accelPosInt, accel);
+    return source;
+}
+
+
 SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int opt)
 {
     SelectJob* job=new SelectJob(catalog->sourceWithTags(pos),
@@ -851,17 +863,6 @@ void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
     m_dequeued=true;
 }
 
-static QString makeAcceledString(QString source, const QString& accel, const QVariant& accelPos)
-{
-    if (accelPos.isNull())
-    return source;
-    int accelPosInt=accelPos.toInt();
-    if (accelPosInt!=-1)
-        source.insert(accelPosInt, accel);
-    return source;
-}
-
-
 //returns true if seen translation with >85%
 bool SelectJob::doSelect(QSqlDatabase& db,
                          QStringList& words,
@@ -873,11 +874,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
     QSqlQuery queryWords(db);
     //TODO ??? not sure. make another loop before to create QList< QList<qlonglong> > then reorder it by size
-    QString queryString;
-    if (isShort)
-        queryString="SELECT ids_short FROM words WHERE word=='%1'";
-    else
-        queryString="SELECT ids_long FROM words WHERE word=='%1'";
+    const char* const queryC[]={"SELECT ids_long FROM words WHERE word=='%1'",
+                               "SELECT ids_short FROM words WHERE word=='%1'"};
+    QString queryString=queryC[isShort];
 
     //for each word...
     int o=words.size();
@@ -926,8 +925,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 
     //accels are removed
-    QString markup;
-    QString accel;
+    QString markup, accel;
     getConfig(db,markup,accel);
     QString tmp=markup;
     if (!markup.isEmpty())
@@ -1101,6 +1099,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
                         continue;
 
+                    e.obsolete=queryRest.value(3).toInt()&1;
+
 //BEGIN exact match score++
                     if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
                     {
@@ -1161,13 +1161,12 @@ void SelectJob::run ()
     //kWarning() <<"started";
     if (m_source.isEmpty()) //sanity check
         return;
-//     thread()->setPriority(QThread::IdlePriority);
+    //thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
-    QString markup;
-    QString accel;
+    QString markup, accel;
     getConfig(db,markup,accel);
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
@@ -1183,7 +1182,7 @@ void SelectJob::run ()
     if (!doSelect(db,words,isShort))
         doSelect(db,words,!isShort);
 
-//    kWarning() <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
+    //kWarning() <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
     qSort(m_entries.begin(), m_entries.end(), qGreater<TMEntry>());
     int limit=qMin(Settings::suggCount(),m_entries.size());
     int i=m_entries.size();
@@ -1199,11 +1198,10 @@ void SelectJob::run ()
         m_entries[i].accelExpr=accel;
         m_entries[i].markupExpr=markup;
         m_entries[i].diff=userVisibleWordDiff(m_entries.at(i).source.string,
-                                   m_source.string,
-                                   m_entries.at(i).accelExpr,
-                                   m_entries.at(i).markupExpr);
+                                              m_source.string,
+                                              m_entries.at(i).accelExpr,
+                                              m_entries.at(i).markupExpr);
     }
-
 }
 
 
@@ -1234,8 +1232,7 @@ void ScanJob::run()
     m_added=0;      //stats
     m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    QString markup;
-    QString accel;
+    QString markup, accel;
     getConfig(db,markup,accel);
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
@@ -1247,7 +1244,8 @@ void ScanJob::run()
 
         QSqlQuery queryBegin("BEGIN",db);
         qlonglong fileId=getFileId(m_url.pathOrUrl(),db);
-
+        //mark everything as obsolete
+        queryBegin.exec(QString("UPDATE OR REPLACE main SET bits=(bits|1) WHERE file==%1").arg(fileId));
 
         for (int i=0;i<catalog.numberOfEntries();++i)
         {
@@ -1306,8 +1304,7 @@ void RemoveJob::run ()
     QSqlDatabase db=QSqlDatabase::database(m_entry.dbName);
 
     //cleaning regexps for word index update
-    QString markup;
-    QString accel;
+    QString markup, accel;
     getConfig(db,markup,accel);
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
@@ -1340,8 +1337,7 @@ void UpdateJob::run ()
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
     //cleaning regexps for word index update
-    QString markup;
-    QString accel;
+    QString markup, accel;
     getConfig(db,markup,accel);
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 

@@ -43,7 +43,8 @@ struct TMEntry
     //the remaining are used only for results
     qlonglong id;
     short score:16;//100.00%==10000
-    ushort hits:16;
+    bool obsolete;
+    //ushort hits:16;
     QString dbName;
 
     QString diff;

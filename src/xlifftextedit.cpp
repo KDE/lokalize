@@ -180,7 +180,40 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
     m_highlighter->rehighlight(); //explicitly because we disabled signals
 }
 
-void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr)
+#if 0
+struct SearchFunctor
+{
+    virtual int operator()(const QString& str, int startingPos);
+};
+
+int SearchFunctor::operator()(const QString& str, int startingPos)
+{
+    return str.indexOf(TAGRANGE_IMAGE_SYMBOL, startingPos);
+}
+
+struct AlternativeSearchFunctor: public SearchFunctor
+{
+    int operator()(const QString& str, int startingPos);
+};
+
+int AlternativeSearchFunctor::operator()(const QString& str, int startingPos)
+{
+    int tagPos=str.indexOf(TAGRANGE_IMAGE_SYMBOL, startingPos);
+    int diffStartPos=str.indexOf("{KBABEL", startingPos);
+    int diffEndPos=str.indexOf("{/KBABEL", startingPos);
+
+    int diffPos=qMin(diffStartPos,diffEndPos);
+    if (diffPos==-1)
+        diffPos=qMax(diffStartPos,diffEndPos);
+
+    int result=qMin(tagPos,diffPos);
+    if (result==-1)
+        result=qMax(tagPos,diffPos);
+    return result;
+}
+#endif
+
+void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr, bool insertText)
 {
     //settings for TMView
     QTextCharFormat chF=cursor.charFormat();
@@ -198,21 +231,46 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     }
 
     QMap<QString,int> sourceTagIdToIndex=refStr.tagIdToIndex();
+    int refTagIndexOffset=sourceTagIdToIndex.size();
 
     i=0;
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
+#if 0
+    SearchFunctor nextStopSymbol=AlternativeSearchFunctor();
+    char state='0';
+    while ((i = nextStopSymbol(catStr.string, i)) != -1)
+    {
+        //handle diff display for TMView
+        if (catStr.string.at(i)!=TAGRANGE_IMAGE_SYMBOL)
+        {
+            if (catStr.string.at(i+1)=='/')
+                state='0';
+            else if (catStr.string.at(i+8)=='D')
+                state='-';
+            else
+                state='+';
+            continue;
+        }
+#endif
+        if (!posToTagRange.contains(i))
+        {
+            prev=++i;
+            continue;
+        }
         int tagRangeIndex=posToTagRange.value(i);
-        cursor.insertText(catStr.string.mid(prev,i-prev));
+        if (insertText)
+            cursor.insertText(catStr.string.mid(prev,i-prev));
+        else
+        {
+            cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,i-prev);
+            cursor.deleteChar();//delete TAGRANGE_IMAGE_SYMBOL to insert it properly
+        }
 
         InlineTag tag=catStr.tags.at(tagRangeIndex);
         QString name=' '+tag.id;
-        QString text;
-        if (sourceTagIdToIndex.isEmpty())
-            text=QString::number(tagRangeIndex);
-        else
-            text=QString::number(sourceTagIdToIndex.value(tag.id));
+        QString text=QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagRangeIndex+refTagIndexOffset));
         if (tag.start!=tag.end)
         {
             //kWarning()<<"b"<<i;
@@ -232,7 +290,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         //QTextDocument::ImageResource
         //document()->resource(QTextDocument::ImageResource, QUrl(name));
         cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,font));
-            //QFontMetrics metrics(w->currentFont());
         cursor.insertImage(name);//NOTE what if twice the same name?
         cursor.setCharFormat(chF);
 

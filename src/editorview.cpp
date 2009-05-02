@@ -156,7 +156,7 @@ void EditorView::settingsChanged()
 
 
 //main function in this file :)
-void EditorView::gotoEntry(DocPosition pos,int selection)
+void EditorView::gotoEntry(DocPosition pos, int selection)
 {
     setUpdatesEnabled(false);
 
@@ -336,6 +336,11 @@ void EditorView::setState(TargetState state)
 
     SetStateCmd::instantiateAndPush(m_catalog,_msgstrEdit->currentPos(),state);
     emit signalApprovedEntryDisplayed(m_catalog->isApproved(_msgstrEdit->currentPos()));
+}
+
+void EditorView::setEquivTrans(bool equivTrans)
+{
+    m_catalog->push(new SetEquivTransCmd(m_catalog, _msgstrEdit->currentPos(), equivTrans));
 }
 
 

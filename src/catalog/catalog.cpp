@@ -787,6 +787,16 @@ Phase Catalog::updatePhase(const Phase& phase)
     return m_storage->updatePhase(phase);
 }
 
+void Catalog::setEquivTrans(const DocPosition& pos, bool equivTrans)
+{
+    if (m_storage) m_storage->setEquivTrans(pos, equivTrans);
+}
+
+bool Catalog::isEquivTrans(const DocPosition& pos) const
+{
+    return m_storage && m_storage->isEquivTrans(pos);
+}
+
 bool Catalog::setModified(int entry,bool modif)
 {
     if (modif)

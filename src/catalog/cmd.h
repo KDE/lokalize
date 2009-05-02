@@ -38,7 +38,7 @@ enum Commands
 {
     Insert, Delete,
     InsertTag, DeleteTag,
-    ToggleApprovement,
+    ToggleApprovement, EquivTrans, 
     SetNote, UpdatePhase
 };
 
@@ -192,6 +192,18 @@ private:
     Phase _prevPhase;
 };
 
+
+class SetEquivTransCmd: public LokalizeTargetCmd
+{
+public:
+    SetEquivTransCmd(Catalog *catalog, const DocPosition& pos, bool equivTrans);
+    ~SetEquivTransCmd(){};
+    int id () const {return EquivTrans;}
+    void doRedo();
+    void doUndo();
+private:
+    bool _equivTrans;
+};
 
 /**
  * CatalogString cmds helper function.

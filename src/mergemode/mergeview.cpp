@@ -133,8 +133,8 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
     QString result=userVisibleWordDiff(m_baseCatalog->msgstr(pos),
                                        m_mergeCatalog->msgstr(pos),
                                        Project::instance()->accel(),
-                                       Project::instance()->markup()
-                                      );
+                                       Project::instance()->markup(),
+                                       Html);
 #if 0
     int i=-1;
     bool inTag=false;

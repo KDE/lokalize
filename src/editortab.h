@@ -288,6 +288,7 @@ signals:
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
 
+    void signalEquivTranslatedEntryDisplayed(bool);
     void signalApprovedEntryDisplayed(bool);
 
     void signalFuzzyEntryDisplayed(bool);

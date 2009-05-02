@@ -107,7 +107,7 @@ private:
 };
 
 
-void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr=CatalogString());
+void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr=CatalogString(), bool insertText=true);
 
 
 #endif

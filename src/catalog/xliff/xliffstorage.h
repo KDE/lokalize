@@ -87,10 +87,17 @@ public:
     bool isPlural(const DocPosition& pos) const;
     bool isEmpty(const DocPosition& pos) const;
 
+    bool isEquivTrans(const DocPosition& pos) const;
+    void setEquivTrans(const DocPosition& pos, bool equivTrans);
+
     TargetState state(const DocPosition& pos) const;
     TargetState setState(const DocPosition& pos, TargetState state);
 
     QString mimetype()const{return "application/x-xliff";}
+
+private:
+    QDomElement unitForPos(int pos) const;
+    QDomElement targetForPos(int pos) const;
 
 private:
     QDomDocument m_doc;
