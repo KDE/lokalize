@@ -41,6 +41,7 @@
 #include "webqueryview.h"
 #endif
 #include "tmview.h"
+#include "binunitsview.h"
 
 #include "phaseswindow.h"
 
@@ -309,6 +310,10 @@ void EditorTab::setupActions()
     _glossaryView->addAction(gaction);
     _glossaryView->setContextMenuPolicy( Qt::ActionsContextMenu);
 
+
+    BinUnitsView* binUnitsView=new BinUnitsView(m_catalog,this);
+    addDockWidget(Qt::BottomDockWidgetArea, binUnitsView);
+    edit->addAction( QLatin1String("showbinunitsview_action"), binUnitsView->toggleViewAction() );
 
 #ifdef WEBQUERY_ENABLE
     QVector<KAction*> wqactions(WEBQUERY_SHORTCUTS);

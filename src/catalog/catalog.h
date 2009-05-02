@@ -132,6 +132,9 @@ public slots: //DBus interface
     bool isEmpty(const DocPosition&) const;
     bool isModified(int entry) const;
 
+    /// so DocPosition::entry may actually be < size()+binUnitsCount()
+    int binUnitsCount() const;
+
     bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
     void setBookmark(uint, bool);
 
@@ -139,6 +142,7 @@ public slots: //DBus interface
     int numberOfEntries() const;
     int numberOfNonApproved() const {return d->_nonApprovedIndex.size();}
     int numberOfUntranslated() const {return d->_emptyIndex.size();}
+
 
 public:
     int firstFuzzyIndex() const {return d->_nonApprovedIndex.isEmpty()?numberOfEntries():d->_nonApprovedIndex.first();}

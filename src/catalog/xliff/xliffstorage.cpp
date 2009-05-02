@@ -82,11 +82,10 @@ int XliffStorage::load(QIODevice* device)
     //we create any form-entries additionally needed
 
     entries=m_doc.elementsByTagName("trans-unit");
-    int i=0;
     int size=entries.size();
     m_map.clear();
     m_map.reserve(size);
-    for(;i<size;++i)
+    for(int i=0;i<size;++i)
     {
         QDomElement parentElement=entries.at(i).parentNode().toElement();
         //if (KDE_ISUNLIKELY( e.isNull() ))//sanity
@@ -107,6 +106,10 @@ int XliffStorage::load(QIODevice* device)
             }
         }
     }
+
+    binEntries=m_doc.elementsByTagName("bin-unit");
+    for(int i=0;i<size;++i)
+        m_binUnitsById[binEntries.at(i).toElement().attribute("id")]=i;
 
 //    entries=m_doc.elementsByTagName("body");
 //     uint i=0;
@@ -485,24 +488,46 @@ CatalogString XliffStorage::sourceWithTags(DocPosition pos) const
     pos.part=DocPosition::Source;return catalogString(pos);
 }
 
+static QString genericContent(QDomElement elem, bool nonbin)
+{
+    return nonbin?content(elem):elem.firstChildElement("external-file").attribute("href");
+}
 QString XliffStorage::source(const DocPosition& pos) const
 {
-    return content(unitForPos(pos.entry).firstChildElement("source"));
+    return genericContent(sourceForPos(pos.entry),pos.entry<size());
 }
 QString XliffStorage::target(const DocPosition& pos) const
 {
-    return content(targetForPos(pos.entry));
+    return genericContent(targetForPos(pos.entry),pos.entry<size());
 }
 
 
 void XliffStorage::targetDelete(const DocPosition& pos, int count)
 {
-    ContentEditingData data(pos.offset,count);
-    kWarning()<<content(targetForPos(pos.entry),&data);
+    if (pos.entry<size())
+    {
+        ContentEditingData data(pos.offset,count);
+        content(targetForPos(pos.entry),&data);
+    }
+    else
+    {
+        //only bulk delete requests are generated
+        targetForPos(pos.entry).firstChildElement("external-file").setAttribute("href","");
+    }
 }
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
+    if (pos.entry>=size())
+    {
+        QDomElement binTarget=targetForPos(pos.entry);
+        QDomElement ef=binTarget.firstChildElement("external-file");
+        if (ef.isNull())
+            ef=binTarget.appendChild(m_doc.createElement("external-file")).toElement();
+        ef.setAttribute("href",arg);
+        return;
+    }
+
     //BEGIN add <target>
     QDomNode unit=entries.at(m_map.at(pos.entry));
     QDomElement targetEl=unit.firstChildElement("target");
@@ -907,13 +932,29 @@ void XliffStorage::setEquivTrans(const DocPosition& pos, bool equivTrans)
 
 QDomElement XliffStorage::unitForPos(int pos) const
 {
-    return entries.at(m_map.at(pos)).toElement();
+    if (pos<size())
+        return entries.at(m_map.at(pos)).toElement();
+
+    return binEntries.at(pos-size()).toElement();
 }
 
 QDomElement XliffStorage::targetForPos(int pos) const
 {
-    return unitForPos(pos).firstChildElement("target");
+    static const char* const bintargettarget[]={"bin-target","target"};
+    return unitForPos(pos).firstChildElement(bintargettarget[pos<size()]);
 }
+
+QDomElement XliffStorage::sourceForPos(int pos) const
+{
+    static const char* const binsourcesource[]={"bin-source","source"};
+    return unitForPos(pos).firstChildElement(binsourcesource[pos<size()]);
+}
+
+int XliffStorage::binUnitsCount() const
+{
+    return binEntries.size();
+}
+
 
 //END STORAGE TRANSLATION
 

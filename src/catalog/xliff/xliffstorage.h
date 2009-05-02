@@ -93,11 +93,15 @@ public:
     TargetState state(const DocPosition& pos) const;
     TargetState setState(const DocPosition& pos, TargetState state);
 
+
+    int binUnitsCount() const;
+
     QString mimetype()const{return "application/x-xliff";}
 
 private:
     QDomElement unitForPos(int pos) const;
     QDomElement targetForPos(int pos) const;
+    QDomElement sourceForPos(int pos) const;
 
 private:
     QDomDocument m_doc;
@@ -105,6 +109,8 @@ private:
     QSet<int> m_plurals;
 
     QDomNodeList entries;
+    QDomNodeList binEntries;
+    QMap<QString,int> m_binUnitsById;
 
 };
 

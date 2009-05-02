@@ -1,7 +1,10 @@
+class BinUnitsModel;
+class Catalog;
+class Catalog;
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -21,35 +24,23 @@
 
 **************************************************************************** */
 
-#ifndef MSGIDDIFF_H
-#define MSGIDDIFF_H
+#ifndef BINUNITSWINDOW_H
+#define BINUNITSWINDOW_H
 
-#include "pos.h"
-#include <QDockWidget>
-class KTextEdit;
 class Catalog;
+class BinUnitsModel;
+class MyTreeView;
 
-class MsgIdDiff: public QDockWidget
+#include <QDockWidget>
+
+class BinUnitsView: public QDockWidget
 {
-    Q_OBJECT
-
 public:
-    MsgIdDiff(QWidget*,Catalog*);
-    ~MsgIdDiff();
-
-
-public slots:
-    void slotNewEntryDisplayed(const DocPosition&);
-    void process();
-
+    BinUnitsView(Catalog* catalog, QWidget *parent);
 private:
-    KTextEdit* m_browser;
     Catalog* m_catalog;
-    QString m_normTitle;
-    QString m_hasInfoTitle;
-    bool m_hasInfo;
-    DocPos m_entry;
-    DocPos m_prevEntry;
+    BinUnitsModel* m_model;
+    MyTreeView* m_view;
 };
 
-#endif
+#endif // BINUNITSWINDOW_H

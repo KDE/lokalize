@@ -33,6 +33,8 @@ set(lokalize_SRCS
     noteeditor.cpp
     msgctxtview.cpp
 
+    binunitsview.cpp
+
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 

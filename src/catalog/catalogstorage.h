@@ -133,10 +133,12 @@ public:
     virtual TargetState setState(const DocPosition& pos, TargetState state){return New;}
 
 
+    virtual int binUnitsCount() const {return 0;}
+
     const KUrl& url() const {return m_url;}
     void setUrl(const KUrl& u){m_url=u;}//TODO
 
-    virtual QString mimetype()const=0;
+    virtual QString mimetype() const=0;
 
 protected:
     KUrl m_url;
