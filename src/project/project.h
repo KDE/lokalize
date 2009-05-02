@@ -82,10 +82,10 @@ public slots:
                            const QString& sourceLang, const QString& targetLang);
     Q_SCRIPTABLE QString kind(){return ProjectBase::kind();}
 
+    Q_SCRIPTABLE QString absolutePath(const QString&) const;
+
 signals:
     Q_SCRIPTABLE void loaded();
-private:
-    QString absolutePath(const QString&)const;
 
 public slots:
 

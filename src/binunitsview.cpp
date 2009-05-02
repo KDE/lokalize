@@ -24,44 +24,78 @@
 #include "binunitsview.h"
 #include "phaseswindow.h" //MyTreeView
 #include "catalog.h"
+#include "cmd.h"
+#include "project.h"
 
 #include <klocale.h>
+#include <krun.h>
+#include <QContextMenuEvent>
+#include <QMenu>
+#include <kfiledialog.h>
+#include <kdirwatch.h>
 
 
 //BEGIN BinUnitsModel
-#include <QAbstractListModel>
-#include <QSplitter>
-#include <QStackedLayout>
-
-class BinUnitsModel: public QAbstractListModel
-{
-public:
-    enum BinUnitsModelColumns
-    {
-        SourceFilePath=0,
-        TargetFilePath,
-        Approved,
-        ColumnCount
-    };
-
-    BinUnitsModel(Catalog* catalog, QObject* parent);
-    ~BinUnitsModel(){}
-
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
-    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
-    QVariant headerData(int section, Qt::Orientation, int role=Qt::DisplayRole) const;
-
-
-private:
-    Catalog* m_catalog;
-};
-
 BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
     : QAbstractListModel(parent)
     , m_catalog(catalog)
 {
-    connect(catalog,SIGNAL(signalFileLoaded()),this,SIGNAL(modelReset()));
+    connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
+    connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(entryModified(DocPosition)));
+
+    connect(KDirWatch::self(),SIGNAL(dirty(QString)),this,SLOT(updateFile(QString)));
+}
+
+void BinUnitsModel::fileLoaded()
+{
+    m_imageCache.clear();
+    reset();
+}
+
+void BinUnitsModel::entryModified(const DocPosition& pos)
+{
+    if (pos.entry<m_catalog->numberOfEntries())
+        return;
+
+    QModelIndex item=index(pos.entry-m_catalog->numberOfEntries(),TargetFilePath);
+    emit dataChanged(item,item);
+}
+
+void BinUnitsModel::updateFile(QString path)
+{
+    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),path);
+    kWarning()<<path<<relPath;
+
+    DocPosition pos(m_catalog->numberOfEntries());
+    int limit=m_catalog->numberOfEntries()+m_catalog->binUnitsCount();
+    while (pos.entry<limit)
+    {
+        kWarning()<<m_catalog->target(pos);
+        if (m_catalog->target(pos)==relPath || m_catalog->source(pos)==relPath)
+        {
+            int row=pos.entry-m_catalog->numberOfEntries();
+            m_imageCache.remove(relPath);
+            emit dataChanged(index(row,SourceFilePath),index(row,TargetFilePath));
+            return;
+        }
+
+        pos.entry++;
+    }
+}
+
+void BinUnitsModel::setTargetFilePath(int row, const QString& path)
+{
+    DocPosition pos(row+m_catalog->numberOfEntries());
+    QString old=m_catalog->target(pos);
+    if (!old.isEmpty())
+    {
+        m_catalog->push(new DelTextCmd(m_catalog, pos, old));
+        m_imageCache.remove(old);
+    }
+
+    m_catalog->push(new InsTextCmd(m_catalog, pos, KUrl::relativePath(Project::instance()->projectDir(),path)));
+    QModelIndex item=index(row,TargetFilePath);
+    emit dataChanged(item,item);
 }
 
 int BinUnitsModel::rowCount(const QModelIndex& parent) const
@@ -76,27 +110,31 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
     if (role==Qt::DecorationRole)
     {
         DocPosition pos(index.row()+m_catalog->numberOfEntries());
-        switch (index.column())
+        if (index.column()<Approved)
         {
-            case SourceFilePath:{
-                    QImage im(m_catalog->source(pos));
-                    return (im.isNull()?QVariant():QVariant(im.scaled(128,128,Qt::KeepAspectRatio)));
-                    }
-            case TargetFilePath:
-            case Approved:
-                return QVariant();
+            QString path=index.column()==SourceFilePath?m_catalog->source(pos):m_catalog->target(pos);
+            if (!m_imageCache.contains(path))
+            {
+                QString absPath=Project::instance()->absolutePath(path);
+                KDirWatch::self()->addFile(absPath);
+                m_imageCache.insert(path, QImage(absPath).scaled(128,128,Qt::KeepAspectRatio));
+            }
+            return m_imageCache.value(path);
         }
     }
+    else if (role==Qt::TextAlignmentRole)
+        return int(Qt::AlignLeft|Qt::AlignTop);
 
     if (role!=Qt::DisplayRole)
         return QVariant();
 
+    static const char* const noyes[]={"no","yes"};
     DocPosition pos(index.row()+m_catalog->numberOfEntries());
     switch (index.column())
     {
         case SourceFilePath:    return m_catalog->source(pos);
         case TargetFilePath:    return m_catalog->target(pos);
-        case Approved:          return "ok";
+        case Approved:          return noyes[m_catalog->isApproved(pos)];
     }
     return QVariant();
 }
@@ -124,12 +162,50 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
  , m_view(new MyTreeView(this))
 {
     setObjectName("binUnits");
+    hide();
 
     setWidget(m_view);
     m_view->setModel(m_model);
     m_view->setRootIsDecorated(false);
-
-    hide();
+    m_view->setAlternatingRowColors(true);
+    connect(m_view,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(mouseDoubleClickEvent(QModelIndex)));
 }
 
 
+void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
+{
+    QModelIndex item=m_view->currentIndex();
+    if (!item.isValid())
+        return;
+
+    QMenu menu;
+    QAction* setTarget=menu.addAction(i18nc("@action:inmenu","Set the file"));
+    QAction* useSource=menu.addAction(i18nc("@action:inmenu","Use source file"));
+
+//     menu.addSeparator();
+//     QAction* openSource=menu.addAction(i18nc("@action:inmenu","Open source file in external program"));
+//     QAction* openTarget=menu.addAction(i18nc("@action:inmenu","Open target file in external program"));
+
+    QAction* result=menu.exec(event->globalPos());
+    if (!result)
+        return;
+
+    QString sourceFilePath=item.sibling(item.row(),BinUnitsModel::SourceFilePath).data().toString();
+    if (result==useSource)
+        m_model->setTargetFilePath(item.row(), sourceFilePath);
+    else if (result==setTarget)
+    {
+        KUrl targetFileUrl=KFileDialog::getOpenFileName(Project::instance()->projectDir(),
+                                        "*."+QFileInfo(sourceFilePath).completeSuffix(),this);
+        if (!targetFileUrl.isEmpty())
+            m_model->setTargetFilePath(item.row(), targetFileUrl.toLocalFile());
+    }
+    event->accept();
+}
+
+void BinUnitsView::mouseDoubleClickEvent(const QModelIndex& item)
+{
+    //FIXME child processes don't notify us about changes ;(
+    if (item.column()<BinUnitsModel::Approved)
+        KRun* r=new KRun(Project::instance()->absolutePath(item.data().toString()),this);
+}

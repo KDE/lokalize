@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <kdatetime.h>
 
 static const char* const noyes[]={"no","yes"};
+static const char* const bintargettarget[]={"bin-target","target"};
+static const char* const binsourcesource[]={"bin-source","source"};
 
 XliffStorage::XliffStorage()
  : CatalogStorage()
@@ -518,31 +520,35 @@ void XliffStorage::targetDelete(const DocPosition& pos, int count)
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
+    kWarning()<<pos.entry<<arg;
+    QDomElement targetEl=targetForPos(pos.entry);
+    //BEGIN add <*target>
+    if (targetEl.isNull())
+    {
+        QDomNode unitEl=unitForPos(pos.entry);
+        QDomNode refNode=unitEl.firstChildElement("seg-source");//obey standard
+        if (refNode.isNull()) refNode=unitEl.firstChildElement(binsourcesource[pos.entry<size()]);
+        targetEl = unitEl.insertAfter(m_doc.createElement(bintargettarget[pos.entry<size()]),refNode).toElement();
+        targetEl.setAttribute("state","new");
+
+        if (pos.entry<size())
+        {
+            targetEl.appendChild(m_doc.createTextNode(arg));//i bet that pos.offset is 0 ;)
+            return;
+        }
+    }
+    //END add <*target>
+    if (arg.isEmpty()) return; //means we were called just to add <taget> tag
+
     if (pos.entry>=size())
     {
-        QDomElement binTarget=targetForPos(pos.entry);
-        QDomElement ef=binTarget.firstChildElement("external-file");
+        QDomElement ef=targetEl.firstChildElement("external-file");
         if (ef.isNull())
-            ef=binTarget.appendChild(m_doc.createElement("external-file")).toElement();
+            ef=targetEl.appendChild(m_doc.createElement("external-file")).toElement();
         ef.setAttribute("href",arg);
         return;
     }
 
-    //BEGIN add <target>
-    QDomNode unit=entries.at(m_map.at(pos.entry));
-    QDomElement targetEl=unit.firstChildElement("target");
-    if (targetEl.isNull())
-    {
-        QDomNode refNode=unit.firstChildElement("seg-source");//obey standard
-        if (refNode.isNull()) refNode=unit.firstChildElement("source");
-        targetEl = unit.insertAfter(m_doc.createElement("target"),refNode).toElement();
-        targetEl.appendChild(m_doc.createTextNode(arg));//i bet that pos.offset is 0 ;)
-        targetEl.setAttribute("state","new");
-
-        return;
-    }
-    //END add <target>
-    if (arg.isEmpty()) return; //means we were called just to add <taget> tag
     ContentEditingData data(pos.offset,arg);
     content(targetEl,&data);
 }
@@ -940,13 +946,11 @@ QDomElement XliffStorage::unitForPos(int pos) const
 
 QDomElement XliffStorage::targetForPos(int pos) const
 {
-    static const char* const bintargettarget[]={"bin-target","target"};
     return unitForPos(pos).firstChildElement(bintargettarget[pos<size()]);
 }
 
 QDomElement XliffStorage::sourceForPos(int pos) const
 {
-    static const char* const binsourcesource[]={"bin-source","source"};
     return unitForPos(pos).firstChildElement(binsourcesource[pos<size()]);
 }
 

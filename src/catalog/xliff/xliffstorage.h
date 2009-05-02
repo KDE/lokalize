@@ -104,7 +104,7 @@ private:
     QDomElement sourceForPos(int pos) const;
 
 private:
-    QDomDocument m_doc;
+    mutable QDomDocument m_doc;
     QVector<int> m_map;//need mapping to treat plurals as 1 entry
     QSet<int> m_plurals;
 

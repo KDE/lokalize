@@ -86,17 +86,16 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 
 
     QAction* result=menu.exec(event->globalPos());
-    if (result)
-    {
-        if (result==openNew)
-            emit fileOpenRequested(m_browser->currentItem());
+    if (!result)
+        return;
+
+    if (result==openNew)
+        emit fileOpenRequested(m_browser->currentItem());
             //fileOpen(m_browser->currentItem());
        /* else if (result==openExisting)
             Project::instance()->openInExisting(m_browser->currentItem());*/
-//         else if (result==findInFiles)
-//             emit findInFilesRequested(m_browser->selectedItems());
-    }
-
+        //else if (result==findInFiles)
+        //      emit findInFilesRequested(m_browser->selectedItems());
 }
 
 void ProjectTab::findInFiles()

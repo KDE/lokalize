@@ -31,16 +31,60 @@ class Catalog;
 class BinUnitsModel;
 class MyTreeView;
 
+#include "pos.h"
+
 #include <QDockWidget>
+#include <QAbstractListModel>
 
 class BinUnitsView: public QDockWidget
 {
+Q_OBJECT
 public:
     BinUnitsView(Catalog* catalog, QWidget *parent);
+
+private:
+    void contextMenuEvent(QContextMenuEvent *event);
+private slots:
+    void mouseDoubleClickEvent(const QModelIndex&);
+
 private:
     Catalog* m_catalog;
     BinUnitsModel* m_model;
     MyTreeView* m_view;
+};
+
+
+class BinUnitsModel: public QAbstractListModel
+{
+Q_OBJECT
+public:
+    enum BinUnitsModelColumns
+    {
+        SourceFilePath=0,
+        TargetFilePath,
+        Approved,
+        ColumnCount
+    };
+
+    BinUnitsModel(Catalog* catalog, QObject* parent);
+    ~BinUnitsModel(){}
+
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
+    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation, int role=Qt::DisplayRole) const;
+
+    void setTargetFilePath(int row, const QString&);
+
+private slots:
+    void fileLoaded();
+    void entryModified(const DocPosition&);
+    void updateFile(QString path);
+
+private:
+    Catalog* m_catalog;
+    mutable QHash<QString,QImage> m_imageCache;
+
 };
 
 #endif // BINUNITSWINDOW_H

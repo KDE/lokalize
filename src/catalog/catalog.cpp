@@ -683,6 +683,9 @@ void Catalog::flushUpdateDBBuffer()
 
 void Catalog::setLastModifiedPos(const DocPosition& pos)
 {
+    if (pos.entry>=numberOfEntries()) //bin-units
+        return;
+
     bool entryChanged=DocPos(d->_lastModifiedPos)!=DocPos(pos);
     if (entryChanged)
         flushUpdateDBBuffer();
