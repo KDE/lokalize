@@ -128,7 +128,7 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
     if (role!=Qt::DisplayRole)
         return QVariant();
 
-    static const char* const noyes[]={"no","yes"};
+    static const char* noyes[]={I18N_NOOP("no"),I18N_NOOP("yes")};
     DocPosition pos(index.row()+m_catalog->numberOfEntries());
     switch (index.column())
     {
@@ -178,6 +178,7 @@ void BinUnitsView::selectUnit(const QString& id)
     kWarning()<<id<<item.row();
     m_view->setCurrentIndex(item);
     m_view->scrollTo(item);
+    show();
 }
 
 void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
@@ -215,5 +216,5 @@ void BinUnitsView::mouseDoubleClickEvent(const QModelIndex& item)
 {
     //FIXME child processes don't notify us about changes ;(
     if (item.column()<BinUnitsModel::Approved)
-        KRun* r=new KRun(Project::instance()->absolutePath(item.data().toString()),this);
+        new KRun(Project::instance()->absolutePath(item.data().toString()),this);
 }

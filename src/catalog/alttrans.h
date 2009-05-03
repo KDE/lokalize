@@ -21,25 +21,26 @@
 
 **************************************************************************** */
 
-#ifndef STATE_H
-#define STATE_H
+#ifndef ALTTRANS_H
+#define ALTTRANS_H
 
-#include "projectlocal.h"
+#include "catalogstring.h"
 
-///@see @link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
-enum TargetState
+struct AltTrans
 {
-    New,
-    NeedsTranslation,
-    NeedsL10n,
-    NeedsAdaptation,
-    Translated,
-    NeedsReviewTranslation,
-    NeedsReviewL10n,
-    NeedsReviewAdaptation,
-    SignedOff,
-    Final,
-    StateCount
+    ///@see @link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
+    enum Type {Proposal, PreviousVersion, Rejected, Reference, Accepted, Other};
+    Type type;
+
+    CatalogString source;
+    CatalogString target;
+
+    short score;
+
+    QString origin;
+    QString phase;
+
+    AltTrans(CatalogString source_=CatalogString()):source(source_){}
 };
 
 

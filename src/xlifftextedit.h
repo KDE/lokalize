@@ -68,6 +68,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
 
     void contextMenuEvent(QContextMenuEvent *event);
+    bool event(QEvent *event);
 
 private:
     ///@a refStr is for proper numbering

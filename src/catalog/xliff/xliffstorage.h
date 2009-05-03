@@ -67,7 +67,7 @@ public:
     QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes);
 
     QStringList sourceFiles(const DocPosition& pos) const;
-    QString alttrans(const DocPosition& pos) const;
+    QVector<AltTrans> alttrans(const DocPosition& pos) const;
 
     ///@a pos.form is note number
     Note setNote(DocPosition pos, const Note& note);

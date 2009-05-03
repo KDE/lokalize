@@ -68,9 +68,10 @@ void MsgIdDiff::process()
 
     m_prevEntry=m_entry;
 
-    QString diff=m_catalog->alttrans(m_entry.toDocPosition());
 
-    if (diff.isEmpty())
+    QVector<AltTrans> aTrans=m_catalog->alttrans(m_entry.toDocPosition());
+
+    if (aTrans.isEmpty())
     {
         if (m_hasInfo)
         {
@@ -86,7 +87,7 @@ void MsgIdDiff::process()
         setWindowTitle(m_hasInfoTitle);
     }
 
-    m_browser->setHtml(diff);
+    m_browser->setHtml(aTrans.first().source.string);
 }
 
 #include "msgiddiffview.moc"

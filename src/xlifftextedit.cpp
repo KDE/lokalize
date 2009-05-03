@@ -39,11 +39,16 @@
 
 #include <QMenu>
 #include <QMouseEvent>
+#include <QToolTip>
 
-
+// static int im_count=0;
+// static int im_time=0;
 
 inline static QImage generateImage(const QString& str, const QFont& font)
 {
+    //     im_count++;
+    //     QTime a;a.start();
+
     QStyleOptionButton opt;
     opt.fontMetrics=QFontMetrics(font);
     opt.text=' '+str+' ';
@@ -55,6 +60,8 @@ inline static QImage generateImage(const QString& str, const QFont& font)
     QPainter painter(&result);
     QApplication::style()->drawControl(QStyle::CE_PushButton,&opt,&painter);
 
+    //     im_time+=a.elapsed();
+    //     kWarning()<<im_count<<im_time;
     return result;
 }
 
@@ -269,8 +276,9 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         }
 
         InlineTag tag=catStr.tags.at(tagRangeIndex);
-        QString name=' '+tag.id;
-        QString text=QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagRangeIndex+refTagIndexOffset));
+        QString name=tag.id;
+        QString text=(tag.type==InlineTag::mrk)?QString("*"):
+                QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagRangeIndex+refTagIndexOffset));
         if (tag.start!=tag.end)
         {
             //kWarning()<<"b"<<i;
@@ -287,9 +295,8 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 name.append("-end");
             }
         }
-        //QTextDocument::ImageResource
-        //document()->resource(QTextDocument::ImageResource, QUrl(name));
-        cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,font));
+        if (cursor.document()->resource(QTextDocument::ImageResource, QUrl(name)).isNull())
+            cursor.document()->addResource(QTextDocument::ImageResource, QUrl(name), generateImage(text,font));
         cursor.insertImage(name);//NOTE what if twice the same name?
         cursor.setCharFormat(chF);
 
@@ -830,6 +837,24 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
         }
     }
     KTextEdit::contextMenuEvent(event);
+}
+
+
+bool XliffTextEdit::event(QEvent *event)
+{
+    if (event->type()==QEvent::ToolTip)
+    {
+        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        CatalogString str;
+        int pos=strForMicePosIfUnderTag(helpEvent->pos(),str);
+        if (pos!=-1)
+        {
+            QString tooltip=str.tags.at(pos).displayName();
+            QToolTip::showText(helpEvent->globalPos(),tooltip);
+            return true;
+        }
+    }
+    return KTextEdit::event(event);
 }
 
 

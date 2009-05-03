@@ -42,7 +42,7 @@
 
 
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18nc("@title:window","Message Tree"), parent)
+    : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
     , m_browser(new QTreeView(this))
     , m_lineEdit(new KLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))

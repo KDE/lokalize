@@ -672,9 +672,9 @@ QMap<QString,Tool> XliffStorage::allTools() const
     return result;
 }
 
-QString XliffStorage::alttrans(const DocPosition& pos) const
+QVector<AltTrans> XliffStorage::alttrans(const DocPosition& pos) const
 {
-    return QString();
+    return QVector<AltTrans>();
 }
 
 QStringList XliffStorage::sourceFiles(const DocPosition& pos) const

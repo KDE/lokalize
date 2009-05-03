@@ -102,6 +102,7 @@ struct InlineTag
     static bool isPaired(InlineElement type){return type<InlineTag::_pairedXmlTagDelimiter;}
            bool isPaired()const{return isPaired(type);}
 
+    QString displayName() const;
 
     bool operator<(const InlineTag& other)const
     {

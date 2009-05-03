@@ -138,8 +138,8 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
             return result;
         }
         case Approved:
-            static const char* yesno[]={I18N_NOOP("no"),I18N_NOOP("yes")};
-            return i18n(yesno[m_catalog->isApproved(index.row())]);
+            static const char* noyes[]={I18N_NOOP("no"),I18N_NOOP("yes")};
+            return i18n(noyes[m_catalog->isApproved(index.row())]);
     }
     return QVariant();
 }

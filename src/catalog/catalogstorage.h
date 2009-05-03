@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "note.h"
 #include "state.h"
 #include "phase.h"
+#include "alttrans.h"
 #include "catalogcapabilities.h"
 
 #include <kurl.h>
@@ -82,7 +83,7 @@ public:
     virtual QStringList sourceAllForms(const DocPosition& pos) const=0;
     virtual QStringList targetAllForms(const DocPosition& pos) const=0;
 
-    virtual QString alttrans(const DocPosition& pos) const=0;
+    virtual QVector<AltTrans> alttrans(const DocPosition& pos) const=0;
     virtual QVector<Note> notes(const DocPosition& pos) const=0;
     virtual Note setNote(DocPosition pos, const Note& note)=0;
     virtual QStringList noteAuthors() const{return QStringList();}

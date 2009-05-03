@@ -23,6 +23,7 @@
 
 #include "catalogstring.h"
 #include <kdebug.h>
+#include <klocale.h>
 
 
 const char* InlineTag::getElementName(InlineElement type)
@@ -63,6 +64,27 @@ InlineTag::InlineElement InlineTag::getElementType(const QByteArray& tag)
     return InlineElement(i);
 }
 
+
+QString InlineTag::displayName() const
+{
+    static const char* inlineElementNames[(int)InlineElementCount]={
+    "_unknown",
+    I18N_NOOP2("XLIFF inline tag name", "Start of paired tag"),
+    I18N_NOOP2("XLIFF inline tag name", "End of paired tag"),
+    I18N_NOOP2("XLIFF inline tag name", "Stand-alone tag"),
+    I18N_NOOP2("XLIFF inline tag name", "Isolated tag"),
+    //"_NEVERSHOULDBECHOSEN",
+    I18N_NOOP2("XLIFF inline tag name", "Marker"),
+    I18N_NOOP2("XLIFF inline tag name", "Generic group placeholder"),
+    I18N_NOOP2("XLIFF inline tag name", "Sub-flow"),
+    "_NEVERSHOULDBECHOSEN",
+    I18N_NOOP2("XLIFF inline tag name", "Generic placeholder"),
+    I18N_NOOP2("XLIFF inline tag name", "Start of paired placeholder"),
+    I18N_NOOP2("XLIFF inline tag name", "End of paired placeholder")
+    };
+
+    return i18nc("XLIFF inline tag name", inlineElementNames[type]);
+}
 
 
 QMap<QString,int> CatalogString::tagIdToIndex() const
