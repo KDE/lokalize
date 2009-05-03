@@ -501,7 +501,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
         case Graph:             return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
         case TotalCount:        return i18nc("@title:column Number of entries","Total");
         case TranslatedCount:   return i18nc("@title:column Number of entries","Translated");
-        case FuzzyCount:        return i18nc("@title:column Number of entries","Fuzzy");
+        case FuzzyCount:        return i18nc("@title:column Number of entries","Not ready");
         case UntranslatedCount: return i18nc("@title:column Number of entries","Untranslated");
         case TranslationDate:   return i18nc("@title:column","Last Translation");
         case SourceDate:        return i18nc("@title:column","Template Revision");
@@ -951,6 +951,8 @@ void ProjectModel::deleteSubtree(ProjectNode* node)
 
 void ProjectModel::startNewMetadataJob()
 {
+    return;
+
     m_activeJob = NULL;
     m_activeNode = NULL;
 

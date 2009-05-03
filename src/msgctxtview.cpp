@@ -47,7 +47,7 @@
 #include <QLineEdit>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
-    : QDockWidget (i18nc("@title toolview name","Metadata"), parent)
+    : QDockWidget (i18nc("@title toolview name","Unit metadata"), parent)
     , m_browser(new KTextBrowser(this))
     , m_editor(0)
     , m_catalog(catalog)

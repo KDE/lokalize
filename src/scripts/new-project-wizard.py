@@ -3,6 +3,7 @@ import Kross
 import Lokalize
 import Project
 import sys,os
+import codecs
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyKDE4.kdecore import *
@@ -11,10 +12,12 @@ from PyKDE4.kio import *
 
 from translate.convert import odf2xliff
 
+#this is needed for PyQt4...
+utf8_decoder=codecs.getdecoder("utf8")
 
 T = Kross.module("kdetranslation")
 def i18n(text, args = []):
-    if T is not None: return T.i18n(text, args)
+    if T is not None: return utf8_decoder(T.i18n(text, args))[0]
     # No translation module, return the untranslated string
     for a in range(len(args)): text = text.replace( ("%" + "%d" % ( a + 1 )), str(args[a]) )
     return text
@@ -49,7 +52,7 @@ class TypePage(QWizardPage):
         layout.addWidget(gui)
         self.group.addButton(document,0)
         self.group.addButton(gui,1)
-        
+
         self.registerField('kind-document',document)
         self.registerField('kind-gui',gui)
 
@@ -85,7 +88,6 @@ class OdfSourcePage(QWizardPage):
         layout=QFormLayout(self)
         layout.addRow(self.files,self.odfFilePath)
         layout.addRow(self.dirs,self.odfDirPath)
-       
 
     def nextId(self): return pages.index('name')
 
@@ -103,7 +105,7 @@ class OdfSourcePage(QWizardPage):
         #else:                         return QFile.exists(self.odfFilePath.lineEdit().text())
         widgets=[self.odfFilePath,self.odfDirPath]
         return QFileInfo(widgets[self.group.checkedId()].lineEdit().text()).exists()
-        
+
 
 pages.append('name')
 class NamePage(QWizardPage):
@@ -183,13 +185,19 @@ class LangPage(QWizardPage):
         layout=QFormLayout(self)
         layout.addRow(i18n("Source:"),self.sourceLang)
         layout.addRow(i18n("Target:"),self.targetLang)
-        
+
         self.registerField('source-lang',self.sourceLang)
         self.registerField('target-lang',self.targetLang)
 
     #def nextId(self): return pages.index('name')
 
 
+##########################
+
+
+
+
+##########################
 
 class ProjectAssistant(QWizard):
     def __init__(self):

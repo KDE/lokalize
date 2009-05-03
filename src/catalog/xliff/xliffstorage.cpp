@@ -596,11 +596,24 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
         aTrans.phase=elem.attribute("phase-name");
         aTrans.origin=elem.attribute("origin");
         aTrans.score=elem.attribute("match-quality").toInt();
-        //aTrans.type=elem.attribute("match-quality").toInt();
         aTrans.lang=elem.firstChildElement("target").attribute("xml:lang");
 
-        elem=elem.nextSiblingElement("alt-trans");
+        const char* const types[]={
+            "proposal",
+            "previous-version",
+            "rejected",
+            "reference",
+            "accepted"
+        };
+        QString typeStr=elem.attribute("alttranstype");
+        int i=-1;
+        while (++i<sizeof(types) && types[i]!=typeStr)
+            ;
+        aTrans.type=AltTrans::Type(i);
+
         result<<aTrans;
+
+        elem=elem.nextSiblingElement("alt-trans");
     }
     return result;
 }

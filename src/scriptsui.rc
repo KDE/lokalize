@@ -1,4 +1,4 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<!DOCTYPE KrossScripting SYSTEM "kpartgui.dtd">
 <kpartgui name="Scripts" version="1">
 <MenuBar>
   <Menu name="tools">

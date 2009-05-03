@@ -168,6 +168,7 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
     m_view->setModel(m_model);
     m_view->setRootIsDecorated(false);
     m_view->setAlternatingRowColors(true);
+    m_view->viewport()->setBackgroundRole(QPalette::Background);
     connect(m_view,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(mouseDoubleClickEvent(QModelIndex)));
 
     connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));

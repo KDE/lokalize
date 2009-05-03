@@ -1,3 +1,4 @@
+<!DOCTYPE KrossScripting SYSTEM "kpartgui.dtd">
 <KrossScripting>
 	<collection name="tools" text="Tools">
 		<script text="Merge into ODF" comment="Generates translated version of ODF document"

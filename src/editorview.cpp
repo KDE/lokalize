@@ -65,7 +65,7 @@ LedsWidget::LedsWidget(QWidget* parent): QWidget(parent)
 
     QHBoxLayout* layout=new QHBoxLayout(this);
     layout->addStretch();
-    layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Fuzzy:"),this));
+    layout->addWidget(new QLabel(i18nc("@label whether entry is fuzzy","Not ready:"),this));
     layout->addWidget(ledFuzzy=new KLed(colorScheme.foreground(KColorScheme::NeutralText).color()/*Qt::green*/,KLed::Off,KLed::Sunken,KLed::Rectangular));
     layout->addWidget(new QLabel(i18nc("@label whether entry is untranslated","Untranslated:"),this));
     layout->addWidget(ledUntr=new KLed(colorScheme.foreground(KColorScheme::NegativeText).color()/*Qt::red*/,KLed::Off,KLed::Sunken,KLed::Rectangular));

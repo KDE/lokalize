@@ -154,7 +154,7 @@ void EditorTab::setupStatusBar()
 {
     statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status message entry","Current: %1",0));
     statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1",0));
-    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1",0));
+    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Not ready: %1",0));
     statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1",0));
     statusBarItems.insert(ID_STATUS_ISFUZZY,QString());
 
@@ -164,7 +164,7 @@ void EditorTab::setupStatusBar()
 
 void EditorTab::numberOfFuzziesChanged()
 {
-    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Fuzzy: %1", m_catalog->numberOfNonApproved()));
+    statusBarItems.insert(ID_STATUS_FUZZY,i18nc("@info:status message entries","Not ready: %1", m_catalog->numberOfNonApproved()));
 }
 
 void EditorTab::numberOfUntranslatedChanged()
@@ -345,7 +345,8 @@ void EditorTab::setupActions()
     connect(m_view,SIGNAL(binaryUnitSelectRequested(QString)),binUnitsView,SLOT(selectUnit(QString)));
 
 
-#ifdef WEBQUERY_ENABLE
+//#ifdef WEBQUERY_ENABLE
+#if 0
     QVector<KAction*> wqactions(WEBQUERY_SHORTCUTS);
     Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
         {
@@ -516,11 +517,11 @@ void EditorTab::setupActions()
     action->setShortcut(Qt::CTRL+Qt::Key_G);
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous translated but not approved"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
     connect( this, SIGNAL(signalPriorFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu","Next translated but not approved"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
     connect( this, SIGNAL(signalNextFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
@@ -532,11 +533,11 @@ void EditorTab::setupActions()
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu","Previous not approved"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu","Previous not ready"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
     connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu","Next not approved"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
