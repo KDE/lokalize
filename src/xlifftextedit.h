@@ -66,9 +66,14 @@ protected:
     QMimeData* createMimeDataFromSelection() const;
     void insertFromMimeData(const QMimeData* source);
     void mouseReleaseEvent(QMouseEvent* event);
+
+    void contextMenuEvent(QContextMenuEvent *event);
+
 private:
     ///@a refStr is for proper numbering
     void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
+
+    int strForMicePosIfUnderTag(QPoint mice, CatalogString& str);
 
 
 private slots:
@@ -83,8 +88,12 @@ signals:
     void gotoLastRequested();
     void gotoPrevRequested();
     void gotoNextRequested();
+    void gotoEntryRequested(const DocPosition&);
+
 
     void tagInsertRequested(const InlineTag& tag);
+
+    void binaryUnitSelectRequested(const QString&);
 
     void contentsModified(const DocPosition&);
     void approvedEntryDisplayed();

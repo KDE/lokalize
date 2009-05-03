@@ -68,11 +68,12 @@ struct InlineTag
     int end;
     InlineElement type;
     QString id;
+    QString xid;
 
     explicit InlineTag(): start(-1), end(-1), type(_unknown){}
 
-    InlineTag(int start_, int end_, InlineElement type_,QString id_=QString())
-        : start(start_), end(end_), type(type_), id(id_){}
+    InlineTag(int start_, int end_, InlineElement type_,QString id_=QString(),QString xid_=QString())
+        : start(start_), end(end_), type(type_), id(id_), xid(xid_){}
 
     /**
      * for situations when target doesn't contain tag

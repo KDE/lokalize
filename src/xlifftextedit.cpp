@@ -749,34 +749,90 @@ void XliffTextEdit::insertTag(InlineTag tag)
     setFocus();
 }
 
+int XliffTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
+{
+    QTextCursor cursor=cursorForPosition(mice);
+    int pos=cursor.position();
+    str=m_catalog->catalogString(m_currentPos);
+    if (pos==-1 || pos>=str.string.size()) return -1;
+    //kWarning()<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
+
+
+//     if (pos>0)
+//     {
+//         cursor.movePosition(QTextCursor::Left);
+//         mice.setX(mice.x()+cursorRect(cursor).width()/2);
+//         pos=cursorForPosition(mice).position();
+//     }
+
+    if (str.string.at(pos)!=TAGRANGE_IMAGE_SYMBOL)
+    {
+//         //try harder
+//         if (--pos>=0 && str.string.at(pos)==TAGRANGE_IMAGE_SYMBOL)
+//         {
+//             
+//         }
+
+        return -1;
+    }
+
+    int result=str.tags.size();
+    while(--result>=0 && str.tags.at(result).start!=pos && str.tags.at(result).end!=pos)
+        ;
+    return result;
+}
+
 void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
 {
     event->ignore();
     if (event->button()==Qt::LeftButton)
     {
-        QPoint mice=event->pos();
-        //mice.setX(mice.x()-cursorRect(cursorForPosition(mice)).width()/2);
-        int pos=cursorForPosition(mice).position();
-        CatalogString str=m_catalog->catalogString(m_currentPos);
-        if (pos==-1 || pos>=str.string.size()) return;
-        //kWarning()<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
-        if (str.string.at(pos)==TAGRANGE_IMAGE_SYMBOL)
+        CatalogString str;
+        int pos=strForMicePosIfUnderTag(event->pos(),str);
+        if (pos!=-1 && m_part==DocPosition::Source)
         {
-            if (m_part==DocPosition::Source)
-            {
-                foreach(const InlineTag& tag, str.tags)
-                {
-                    if (tag.start==pos || tag.end==pos)
-                    {
-                        emit tagInsertRequested(tag);
-                        event->accept();
-                        return;
-                    }
-                }
-            }
+            emit tagInsertRequested(str.tags.at(pos));
+            event->accept();
+            return;
         }
     }
 }
+// (any lisp-lovers around?) ;)
+
+
+void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
+{
+    CatalogString str;
+    int pos=strForMicePosIfUnderTag(event->pos(),str);
+    if (pos!=-1)
+    {
+        QString xid=str.tags.at(pos).xid;
+
+        if (!xid.isEmpty())
+        {
+            QMenu menu;
+            int entry=m_catalog->unitById(xid);
+            QAction* findUnit=menu.addAction(entry>=m_catalog->numberOfEntries()?
+                            i18nc("@action:inmenu","Show the binary unit"):
+                            i18nc("@action:inmenu","Go to the referenced entry"));
+
+            QAction* result=menu.exec(event->globalPos());
+            if (result)
+            {
+                kWarning()<<entry<<xid;
+                if (entry>=m_catalog->numberOfEntries())
+                    emit binaryUnitSelectRequested(xid);
+                else
+                    emit gotoEntryRequested(DocPosition(entry));
+                event->accept();
+            }
+            return;
+        }
+    }
+    KTextEdit::contextMenuEvent(event);
+}
+
+
 
 void XliffTextEdit::tagMenu()
 {

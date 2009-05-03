@@ -125,6 +125,9 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
     connect(m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
 
+
+    connect(m_view,SIGNAL(gotoEntryRequested(DocPosition)),this,SLOT(gotoEntry(DocPosition)));
+
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
     //kWarning()<<chrono.elapsed();
@@ -314,6 +317,8 @@ void EditorTab::setupActions()
     BinUnitsView* binUnitsView=new BinUnitsView(m_catalog,this);
     addDockWidget(Qt::BottomDockWidgetArea, binUnitsView);
     edit->addAction( QLatin1String("showbinunitsview_action"), binUnitsView->toggleViewAction() );
+    connect(m_view,SIGNAL(binaryUnitSelectRequested(QString)),binUnitsView,SLOT(selectUnit(QString)));
+
 
 #ifdef WEBQUERY_ENABLE
     QVector<KAction*> wqactions(WEBQUERY_SHORTCUTS);

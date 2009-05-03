@@ -93,6 +93,8 @@ signals:
     void signalChangeStatusbar(const QString&);
     void signalChanged(uint index); //esp for mergemode...
     //void fileOpenRequested(KUrl);
+    void binaryUnitSelectRequested(const QString& id);
+    void gotoEntryRequested(const DocPosition&);
 
 private slots:
     void settingsChanged();

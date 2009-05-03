@@ -382,6 +382,11 @@ int Catalog::binUnitsCount() const
     return m_storage?m_storage->binUnitsCount():0;
 }
 
+int Catalog::unitById(const QString& id) const
+{
+    return m_storage?m_storage->unitById(id):0;
+}
+
 QString Catalog::mimetype()
 {
     if (KDE_ISUNLIKELY( !m_storage ))

@@ -95,6 +95,7 @@ public:
 
 
     int binUnitsCount() const;
+    int unitById(const QString& id) const;
 
     QString mimetype()const{return "application/x-xliff";}
 
@@ -110,7 +111,7 @@ private:
 
     QDomNodeList entries;
     QDomNodeList binEntries;
-    QMap<QString,int> m_binUnitsById;
+    QMap<QString,int> m_unitsById;
 
 };
 

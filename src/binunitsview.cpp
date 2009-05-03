@@ -172,6 +172,14 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
 }
 
 
+void BinUnitsView::selectUnit(const QString& id)
+{
+    QModelIndex item=m_model->index(m_catalog->unitById(id)-m_catalog->numberOfEntries());
+    kWarning()<<id<<item.row();
+    m_view->setCurrentIndex(item);
+    m_view->scrollTo(item);
+}
+
 void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
 {
     QModelIndex item=m_view->currentIndex();

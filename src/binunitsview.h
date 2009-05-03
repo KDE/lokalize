@@ -42,6 +42,9 @@ Q_OBJECT
 public:
     BinUnitsView(Catalog* catalog, QWidget *parent);
 
+public slots:
+    void selectUnit(const QString& id);
+
 private:
     void contextMenuEvent(QContextMenuEvent *event);
 private slots:

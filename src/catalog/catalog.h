@@ -135,6 +135,8 @@ public slots: //DBus interface
     /// so DocPosition::entry may actually be < size()+binUnitsCount()
     int binUnitsCount() const;
 
+    int unitById(const QString& id) const;
+
     bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
     void setBookmark(uint, bool);
 

@@ -93,6 +93,7 @@ int XliffStorage::load(QIODevice* device)
         //if (KDE_ISUNLIKELY( e.isNull() ))//sanity
         //      continue;
         m_map<<i;
+        m_unitsById[entries.at(i).toElement().attribute("id")]=i;
 
         if (parentElement.tagName()=="group" && parentElement.attribute("restype")=="x-gettext-plurals")
         {
@@ -110,8 +111,10 @@ int XliffStorage::load(QIODevice* device)
     }
 
     binEntries=m_doc.elementsByTagName("bin-unit");
+    size=binEntries.size();
+    int offset=m_map.size();
     for(int i=0;i<size;++i)
-        m_binUnitsById[binEntries.at(i).toElement().attribute("id")]=i;
+        m_unitsById[binEntries.at(i).toElement().attribute("id")]=offset+i;
 
 //    entries=m_doc.elementsByTagName("body");
 //     uint i=0;
@@ -178,7 +181,7 @@ struct ContentEditingData
 {
     enum ActionType{Get,DeleteText,InsertText,DeleteTag,InsertTag,CheckLength};
 
-    QList<InlineTag> ranges;
+    QList<InlineTag> tags;
     QString stringToInsert;
     int pos;
     int lengthOfStringToRemove;
@@ -212,7 +215,7 @@ struct ContentEditingData
     , lengthOfStringToRemove(-1)
     , actionType(InsertTag)
     {
-        ranges.append(range);
+        tags.append(range);
     }
 
     ///DeleteTag
@@ -298,13 +301,15 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 //BEGIN INSERT TAG
                 else if (data->actionType==ContentEditingData::InsertTag)
                 {
-                    const InlineTag& tag=data->ranges.first();
+                    const InlineTag& tag=data->tags.first();
                     QString mid=cData.mid(localStartPos);
                     qWarning()<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
                     if (mid.size())
                         c.deleteData(localStartPos,mid.size());
                     QDomElement newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n).toElement();
                     newNode.setAttribute("id",tag.id);
+                    if (!tag.xid.isEmpty())
+                        newNode.setAttribute("xid",tag.xid);
 
                     if (tag.isPaired()&&tag.end>(tag.start+1))
                     {
@@ -391,13 +396,13 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 &&data->pos==startingPos)
             {
                 //qWarning()<<"start deleting tag";
-                data->ranges.append(InlineTag(startingPos, -1, InlineTag::getElementType(el.tagName().toUtf8()), el.attribute("id")));
-                if (data->ranges.first().isPaired())
+                data->tags.append(InlineTag(startingPos, -1, InlineTag::getElementType(el.tagName().toUtf8()), el.attribute("id"), el.attribute("xid")));
+                if (data->tags.first().isPaired())
                 {
                     //get end position
                     ContentEditingData subData(ContentEditingData::Get);
                     QString subContent=doContent(el,startingPos,&subData);
-                    data->ranges[0].end=1+startingPos+subContent.size();//tagsymbol+text
+                    data->tags[0].end=1+startingPos+subContent.size();//tagsymbol+text
                     //qWarning()<<"get end position"<<startingPos<<subContent.size();
 
                     //move children upper
@@ -452,7 +457,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     id=el.attribute("mtype");
 
                 //kWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
-                data->ranges.append(InlineTag(oldStartingPos-1,startingPos-1,i,id));
+                data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute("xid")));
             }
         }
         n = n.nextSibling();
@@ -477,7 +482,7 @@ CatalogString XliffStorage::catalogString(const DocPosition& pos) const
     ContentEditingData data(ContentEditingData::Get);
     catalogString.string=content(unitForPos(pos.entry).firstChildElement(
                                  names[pos.part==DocPosition::Target]),&data);
-    catalogString.tags=data.ranges;
+    catalogString.tags=data.tags;
     return catalogString;
 }
 
@@ -564,8 +569,8 @@ InlineTag XliffStorage::targetDeleteTag(const DocPosition& pos)
 {
     ContentEditingData data(pos.offset);
     content(targetForPos(pos.entry),&data);
-    if (data.ranges[0].end==-1) data.ranges[0].end=data.ranges[0].start;
-    return data.ranges.first();
+    if (data.tags[0].end==-1) data.tags[0].end=data.tags[0].start;
+    return data.tags.first();
 }
 
 void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
@@ -957,6 +962,11 @@ QDomElement XliffStorage::sourceForPos(int pos) const
 int XliffStorage::binUnitsCount() const
 {
     return binEntries.size();
+}
+
+int XliffStorage::unitById(const QString& id) const
+{
+    return m_unitsById.contains(id)?m_unitsById.value(id):-1;
 }
 
 
