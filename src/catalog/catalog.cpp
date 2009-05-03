@@ -240,12 +240,12 @@ QStringList Catalog::noteAuthors() const
     return m_storage->noteAuthors();
 }
 
-QVector<AltTrans> Catalog::alttrans(const DocPosition& pos) const
+QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
         return QVector<AltTrans>();
 
-    return m_storage->alttrans(pos);
+    return m_storage->altTrans(pos);
 }
 
 QStringList Catalog::sourceFiles(const DocPosition& pos) const

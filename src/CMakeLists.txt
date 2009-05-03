@@ -48,7 +48,7 @@ set(lokalize_SRCS
 
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
-    msgiddiffview.cpp
+    alttransview.cpp
     common/diff.cpp
     project/project.cpp
     project/projectmodel.cpp

@@ -116,6 +116,23 @@
         <Action name="tmquery_insert_11"/>
         <Action name="tmquery_insert_12"/>
     </Menu>
+    <Menu name="alttrans"><text>Alternative Translations</text>
+        <Action name="alttrans_attach"/>
+        <Separator/>
+        <Action name="alttrans_insert_0"/>
+        <Action name="alttrans_insert_1"/>
+        <Action name="alttrans_insert_2"/>
+        <Action name="alttrans_insert_3"/>
+        <Action name="alttrans_insert_4"/>
+        <Action name="alttrans_insert_5"/>
+        <Action name="alttrans_insert_6"/>
+        <Action name="alttrans_insert_7"/>
+        <Action name="alttrans_insert_8"/>
+        <Action name="alttrans_insert_9"/>
+        <Action name="alttrans_insert_10"/>
+        <Action name="alttrans_insert_11"/>
+        <Action name="alttrans_insert_12"/>
+    </Menu>
   </Menu>
   <Menu name="go"><text>&amp;Go</text>
     <Action name="go_up"/>

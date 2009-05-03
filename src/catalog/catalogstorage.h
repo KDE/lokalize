@@ -83,7 +83,7 @@ public:
     virtual QStringList sourceAllForms(const DocPosition& pos) const=0;
     virtual QStringList targetAllForms(const DocPosition& pos) const=0;
 
-    virtual QVector<AltTrans> alttrans(const DocPosition& pos) const=0;
+    virtual QVector<AltTrans> altTrans(const DocPosition& pos) const=0;
     virtual QVector<Note> notes(const DocPosition& pos) const=0;
     virtual Note setNote(DocPosition pos, const Note& note)=0;
     virtual QStringList noteAuthors() const{return QStringList();}

@@ -51,12 +51,12 @@ class TMView: public QDockWidget
     Q_OBJECT
 public:
     TMView(QWidget*,Catalog*,const QVector<KAction*>&);
-    virtual ~TMView();
+    ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
 
-    virtual QSize sizeHint() const{return QSize(300,100);}
+    QSize sizeHint() const{return QSize(300,100);}
 signals:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();
@@ -67,26 +67,27 @@ public slots:
     void slotNewEntryDisplayed(const DocPosition& pos=DocPosition());
     void slotSuggestionsCame(ThreadWeaver::Job*);
 
-    void initLater();
-
     void slotUseSuggestion(int);
-    //i think we do not wanna cache suggestions:
-    //what if good sugg may be generated
-    //from the entry user translated 1 minute ago?
-
     void slotFileLoaded(const KUrl&);
-    void slotBatchSelectDone(ThreadWeaver::Job*);
-    void slotCacheSuggestions(ThreadWeaver::Job*);
     void displayFromCache();
 
     void slotBatchTranslate();
     void slotBatchTranslateFuzzy();
 
-protected:
+private slots:
+    //i think we do not wanna cache suggestions:
+    //what if good sugg may be generated
+    //from the entry user translated 1 minute ago?
+
+    void slotBatchSelectDone(ThreadWeaver::Job*);
+    void slotCacheSuggestions(ThreadWeaver::Job*);
+
+    void initLater();
+    void contextMenu(const QPoint & pos);
+
+private:
     bool event(QEvent *event);
 
-protected slots:
-    void contextMenu(const QPoint & pos);
 
 private:
     TextBrowser* m_browser;
@@ -121,6 +122,7 @@ signals:
     void textInsertRequested(const QString&);
 };
 
+CatalogString targetAdapted(const TMEntry& entry, const CatalogString& ref);
 
 }
 #endif

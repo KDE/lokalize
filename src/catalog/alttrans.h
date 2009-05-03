@@ -25,6 +25,7 @@
 #define ALTTRANS_H
 
 #include "catalogstring.h"
+#include "tmentry.h"
 
 struct AltTrans
 {
@@ -37,6 +38,7 @@ struct AltTrans
 
     short score;
 
+    QString lang;
     QString origin;
     QString phase;
 

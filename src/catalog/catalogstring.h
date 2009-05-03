@@ -138,7 +138,7 @@ struct CatalogString
     void insert(int position, const QString& str);
     void replace(int position, int len, const QString& str){remove(position,len);insert(position,str);}
     void clear(){string.clear();tags.clear();}
-    bool isEmpty(){return string.isEmpty();}
+    bool isEmpty() const {return string.isEmpty();}
 };
 Q_DECLARE_METATYPE(CatalogString)
 

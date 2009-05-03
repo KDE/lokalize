@@ -149,7 +149,7 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos) const
     return m_entries[pos.entry].d->_msgstrPlural.toList();
 }
 
-QVector<AltTrans> GettextStorage::alttrans(const DocPosition& pos) const
+QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
     QStringList prev=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#\\|"));
     QString newStr=source(pos);

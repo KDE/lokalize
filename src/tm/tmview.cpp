@@ -158,6 +158,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<KAction*>& actio
     setWidget(m_browser);
 
     m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
     QTimer::singleShot(0,this,SLOT(initLater()));
     connect(m_catalog,SIGNAL(signalFileLoaded(KUrl)),
@@ -173,7 +174,6 @@ TMView::~TMView()
 
 void TMView::initLater()
 {
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
     setAcceptDrops(true);
 
     QSignalMapper* signalMapper=new QSignalMapper(this);
@@ -458,23 +458,19 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     m_browser->clear();
 
     //m_entries=job.m_entries;
-    m_browser->insertHtml("<html>");
+    //m_browser->insertHtml("<html>");
 
     QTextBlockFormat blockFormatBase;
-    QTextBlockFormat blockFormatAlternate;
-    //QPalette defaultPalette;
-    blockFormatAlternate.setBackground(QPalette().alternateBase());
-    //while (i<limit)
-    QTextCharFormat closeMatchCharFormat;
-    closeMatchCharFormat.setFontWeight(QFont::Bold);
+    QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
     QTextCharFormat noncloseMatchCharFormat;
+    QTextCharFormat closeMatchCharFormat;  closeMatchCharFormat.setFontWeight(QFont::Bold);
     forever
     {
         QTextCursor cur=m_browser->textCursor();
         QString html;
         html.reserve(1024);
 
-        TMEntry entry=job.m_entries.at(i);
+        const TMEntry& entry=job.m_entries.at(i);
         html+=(entry.score>9500)?"<p class='close_match'>":"<p>";
 
         html+=QString("/%1%/ ").arg(float(entry.score)/100);
@@ -647,7 +643,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
  * this tries some black magic
  * naturally, there are many assumptions that might not always be true
  */
-static CatalogString targetAdapted(const TMEntry& entry, const CatalogString& ref)
+CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 {
     kWarning()<<entry.source.string<<entry.target.string<<entry.diff;
 

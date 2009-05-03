@@ -33,7 +33,7 @@
 
 //views
 #include "msgctxtview.h"
-#include "msgiddiffview.h"
+#include "alttransview.h"
 #include "mergeview.h"
 #include "cataloglistview.h"
 #include "glossaryview.h"
@@ -195,10 +195,36 @@ void EditorTab::setupActions()
 
 
 //BEGIN dockwidgets
-    MsgIdDiff* msgIdDiffView = new MsgIdDiff(this,m_catalog);
-    addDockWidget(Qt::BottomDockWidgetArea, msgIdDiffView);
-    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), msgIdDiffView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),msgIdDiffView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    int i=0;
+
+    QVector<KAction*> altactions(ALTTRANS_SHORTCUTS);
+    Qt::Key altlist[ALTTRANS_SHORTCUTS]=
+        {
+            Qt::Key_1,
+            Qt::Key_2,
+            Qt::Key_3,
+            Qt::Key_4,
+            Qt::Key_5,
+            Qt::Key_6,
+            Qt::Key_7,
+            Qt::Key_8,
+            Qt::Key_9
+        };
+    KAction* altaction;
+    for (i=0;i<ALTTRANS_SHORTCUTS;++i)
+    {
+        altaction=tm->addAction(QString("alttrans_insert_%1").arg(i));
+        altaction->setShortcut(Qt::ALT+altlist[i]);
+        altaction->setText(i18nc("@action:inmenu","Insert alternative translation # %1",i));
+        altactions[i]=altaction;
+    }
+
+    AltTransView* altTransView = new AltTransView(this,m_catalog,altactions);
+    addDockWidget(Qt::BottomDockWidgetArea, altTransView);
+    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), altTransView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),altTransView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (altTransView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
+    connect (altTransView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
 
     _mergeView = new MergeView(this,m_catalog,true);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
@@ -230,8 +256,6 @@ void EditorTab::setupActions()
     connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SIGNAL(srcFileOpenRequested(QString,int)));
 
 
-    int i=0;
-
     QVector<KAction*> tmactions(TM_SHORTCUTS);
     Qt::Key tmlist[TM_SHORTCUTS]=
         {
@@ -244,7 +268,7 @@ void EditorTab::setupActions()
             Qt::Key_7,
             Qt::Key_8,
             Qt::Key_9,
-            Qt::Key_0,
+            Qt::Key_0
         };
     KAction* tmaction;
     for (i=0;i<TM_SHORTCUTS;++i)
@@ -289,7 +313,7 @@ void EditorTab::setupActions()
             Qt::Key_BraceLeft,
             Qt::Key_BraceRight,
             Qt::Key_Semicolon,
-            Qt::Key_Apostrophe,
+            Qt::Key_Apostrophe
         };
     KAction* gaction;
 //     int i=0;

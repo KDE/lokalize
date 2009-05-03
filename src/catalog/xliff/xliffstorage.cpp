@@ -475,24 +475,28 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
 //flat-model interface (ignores XLIFF grouping)
 
-CatalogString XliffStorage::catalogString(const DocPosition& pos) const
+CatalogString XliffStorage::catalogString(QDomElement unit,  DocPosition::Part part) const
 {
     static const char* names[]={"source","target"};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
-    catalogString.string=content(unitForPos(pos.entry).firstChildElement(
-                                 names[pos.part==DocPosition::Target]),&data);
+    catalogString.string=content(unit.firstChildElement( names[part==DocPosition::Target]), &data );
     catalogString.tags=data.tags;
     return catalogString;
 }
 
+CatalogString XliffStorage::catalogString(const DocPosition& pos) const
+{
+    return catalogString(unitForPos(pos.entry), pos.part);
+}
+
 CatalogString XliffStorage::targetWithTags(DocPosition pos) const
 {
-    pos.part=DocPosition::Target;return catalogString(pos);
+    return catalogString(unitForPos(pos.entry), DocPosition::Target);
 }
 CatalogString XliffStorage::sourceWithTags(DocPosition pos) const
 {
-    pos.part=DocPosition::Source;return catalogString(pos);
+    return catalogString(unitForPos(pos.entry), DocPosition::Source);
 }
 
 static QString genericContent(QDomElement elem, bool nonbin)
@@ -576,6 +580,29 @@ InlineTag XliffStorage::targetDeleteTag(const DocPosition& pos)
 void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
 {
 //TODO
+}
+
+
+QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
+{
+    QVector<AltTrans> result;
+
+    QDomElement elem = unitForPos(pos.entry).firstChildElement("alt-trans");
+    while (!elem.isNull())
+    {
+        AltTrans aTrans;
+        aTrans.source=catalogString(elem, DocPosition::Source);
+        aTrans.target=catalogString(elem, DocPosition::Target);
+        aTrans.phase=elem.attribute("phase-name");
+        aTrans.origin=elem.attribute("origin");
+        aTrans.score=elem.attribute("match-quality").toInt();
+        //aTrans.type=elem.attribute("match-quality").toInt();
+        aTrans.lang=elem.firstChildElement("target").attribute("xml:lang");
+
+        elem=elem.nextSiblingElement("alt-trans");
+        result<<aTrans;
+    }
+    return result;
 }
 
 static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomElement& phasegroup)
@@ -672,16 +699,11 @@ QMap<QString,Tool> XliffStorage::allTools() const
     return result;
 }
 
-QVector<AltTrans> XliffStorage::alttrans(const DocPosition& pos) const
-{
-    return QVector<AltTrans>();
-}
-
 QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
 {
     QStringList result;
 
-    QDomElement elem = entries.at(m_map.at(pos.entry)).firstChildElement("context-group");
+    QDomElement elem = unitForPos(pos.entry).firstChildElement("context-group");
     while (!elem.isNull())
     {
         if (!elem.attribute("purpose").contains("location"))

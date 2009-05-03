@@ -21,35 +21,53 @@
 
 **************************************************************************** */
 
-#ifndef MSGIDDIFF_H
-#define MSGIDDIFF_H
+#ifndef ALTTRANSVIEW_H
+#define ALTTRANSVIEW_H
+
+#define ALTTRANS_SHORTCUTS 9
 
 #include "pos.h"
+#include "alttrans.h"
 #include <QDockWidget>
-class KTextEdit;
+namespace TM{class TextBrowser;}
 class Catalog;
+class KAction;
 
-class MsgIdDiff: public QDockWidget
+class AltTransView: public QDockWidget
 {
     Q_OBJECT
 
 public:
-    MsgIdDiff(QWidget*,Catalog*);
-    ~MsgIdDiff();
+    AltTransView(QWidget*,Catalog*,const QVector<KAction*>&);
+    ~AltTransView();
 
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
+
+private slots:
+    //void contextMenu(const QPoint & pos);
     void process();
+    void initLater();
+    void slotUseSuggestion(int);
+
+signals:
+    void refreshRequested();
+    void textInsertRequested(const QString&);
+
 
 private:
-    KTextEdit* m_browser;
+    TM::TextBrowser* m_browser;
     Catalog* m_catalog;
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
     DocPos m_entry;
     DocPos m_prevEntry;
+    bool m_everShown;
+
+    QVector<AltTrans> m_entries;
+    QVector<KAction*> m_actions;//need them to get shortcuts
 };
 
 #endif
