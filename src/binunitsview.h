@@ -49,6 +49,7 @@ private:
     void contextMenuEvent(QContextMenuEvent *event);
 private slots:
     void mouseDoubleClickEvent(const QModelIndex&);
+    void fileLoaded();
 
 private:
     Catalog* m_catalog;

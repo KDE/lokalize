@@ -80,7 +80,7 @@ public:
     virtual ~Catalog();
 
     QString msgid(const DocPosition&) const;
-    QString msgstr(const DocPosition&) const;
+    virtual QString msgstr(const DocPosition&) const;
 
     static QStringList supportedExtensions();
     static bool extIsSupported(const QString& path);

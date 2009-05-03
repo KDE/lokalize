@@ -102,13 +102,16 @@ void AltTransView::dragEnterEvent(QDragEnterEvent* event)
 
 void AltTransView::dropEvent(QDropEvent *event)
 {
-    attachAltTransFile(event->mimeData()->urls().first().toLocalFile());
     event->acceptProposedAction();
+    attachAltTransFile(event->mimeData()->urls().first().toLocalFile());
+
+    //update
+    m_prevEntry.entry=-1;
+    QTimer::singleShot(0,this,SLOT(process()));
 }
 
 void AltTransView::attachAltTransFile(const QString& path)
 {
-    kWarning()<<path;
     MergeCatalog* altCat=new MergeCatalog(m_catalog, m_catalog, /*saveChanges*/false);
     altCat->loadFromUrl(KUrl::fromLocalFile(path));
     m_catalog->attachAltTransCatalog(altCat);

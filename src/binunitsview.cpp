@@ -169,13 +169,18 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
     m_view->setRootIsDecorated(false);
     m_view->setAlternatingRowColors(true);
     connect(m_view,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(mouseDoubleClickEvent(QModelIndex)));
+
+    connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
 }
 
+void BinUnitsView::fileLoaded()
+{
+    setVisible(m_catalog->binUnitsCount());
+}
 
 void BinUnitsView::selectUnit(const QString& id)
 {
     QModelIndex item=m_model->index(m_catalog->unitById(id)-m_catalog->numberOfEntries());
-    kWarning()<<id<<item.row();
     m_view->setCurrentIndex(item);
     m_view->scrollTo(item);
     show();

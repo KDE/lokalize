@@ -68,22 +68,116 @@ InlineTag::InlineElement InlineTag::getElementType(const QByteArray& tag)
 QString InlineTag::displayName() const
 {
     static const char* inlineElementNames[(int)InlineElementCount]={
-    "_unknown",
-    I18N_NOOP2("XLIFF inline tag name", "Start of paired tag"),
-    I18N_NOOP2("XLIFF inline tag name", "End of paired tag"),
-    I18N_NOOP2("XLIFF inline tag name", "Stand-alone tag"),
-    I18N_NOOP2("XLIFF inline tag name", "Isolated tag"),
-    //"_NEVERSHOULDBECHOSEN",
-    I18N_NOOP2("XLIFF inline tag name", "Marker"),
-    I18N_NOOP2("XLIFF inline tag name", "Generic group placeholder"),
-    I18N_NOOP2("XLIFF inline tag name", "Sub-flow"),
-    "_NEVERSHOULDBECHOSEN",
-    I18N_NOOP2("XLIFF inline tag name", "Generic placeholder"),
-    I18N_NOOP2("XLIFF inline tag name", "Start of paired placeholder"),
-    I18N_NOOP2("XLIFF inline tag name", "End of paired placeholder")
+        "_unknown",
+        I18N_NOOP2("XLIFF inline tag name", "Start of paired tag"),
+        I18N_NOOP2("XLIFF inline tag name", "End of paired tag"),
+        I18N_NOOP2("XLIFF inline tag name", "Stand-alone tag"),
+        I18N_NOOP2("XLIFF inline tag name", "Isolated tag"),
+        //"_NEVERSHOULDBECHOSEN",
+        I18N_NOOP2("XLIFF inline tag name", "Marker"),
+        I18N_NOOP2("XLIFF inline tag name", "Generic group placeholder"),
+        I18N_NOOP2("XLIFF inline tag name", "Sub-flow"),
+        "_NEVERSHOULDBECHOSEN",
+        I18N_NOOP2("XLIFF inline tag name", "Generic placeholder"),
+        I18N_NOOP2("XLIFF inline tag name", "Start of paired placeholder"),
+        I18N_NOOP2("XLIFF inline tag name", "End of paired placeholder")
     };
 
-    return i18nc("XLIFF inline tag name", inlineElementNames[type]);
+    QString result=i18nc("XLIFF inline tag name", inlineElementNames[type]);
+
+    if (type==mrk)
+    {
+        static const char* mrkTypes[]={
+            "abbrev",
+            "abbreviated-form",
+            "abbreviation",
+            "acronym",
+            "appellation",
+            "collocation",
+            "common-name",
+            "datetime",
+            "equation",
+            "expanded-form",
+            "formula",
+            "head-term",
+            "initialism",
+            "international-scientific-term",
+            "internationalism",
+            "logical-expression",
+            "materials-management-unit",
+            "name",
+            "near-synonym",
+            "part-number",
+            "phrase",
+            "phraseological-unit",
+            "protected",
+            "romanized-form",
+            "seg",
+            "set-phrase",
+            "short-form",
+            "sku",
+            "standard-text",
+            "symbol",
+            "synonym",
+            "synonymous-phrase",
+            "term",
+            "transcribed-form",
+            "transliterated-form",
+            "truncated-term",
+            "variant"
+        };
+
+        static const char* mrkTypeNames[]={
+            I18N_NOOP2("XLIFF mark type", "abbreviation"),
+            I18N_NOOP2("XLIFF mark type", "abbreviated form: a term resulting from the omission of any part of the full term while designating the same concept"),
+            I18N_NOOP2("XLIFF mark type", "abbreviation: an abbreviated form of a simple term resulting from the omission of some of its letters (e.g. 'adj.' for 'adjective')"),
+            I18N_NOOP2("XLIFF mark type", "acronym: an abbreviated form of a term made up of letters from the full form of a multiword term strung together into a sequence pronounced only syllabically (e.g. 'radar' for 'radio detecting and ranging')"),
+            I18N_NOOP2("XLIFF mark type", "appellation: a proper-name term, such as the name of an agency or other proper entity"),
+            I18N_NOOP2("XLIFF mark type", "collocation: a recurrent word combination characterized by cohesion in that the components of the collocation must co-occur within an utterance or series of utterances, even though they do not necessarily have to maintain immediate proximity to one another"),
+            I18N_NOOP2("XLIFF mark type", "common name: a synonym for an international scientific term that is used in general discourse in a given language"),
+            I18N_NOOP2("XLIFF mark type", "date and/or time"),
+            I18N_NOOP2("XLIFF mark type", "equation: an expression used to represent a concept based on a statement that two mathematical expressions are, for instance, equal as identified by the equal sign (=), or assigned to one another by a similar sign"),
+            I18N_NOOP2("XLIFF mark type", "expanded form: The complete representation of a term for which there is an abbreviated form"),
+            I18N_NOOP2("XLIFF mark type", "formula: figures, symbols or the like used to express a concept briefly, such as a mathematical or chemical formula"),
+            I18N_NOOP2("XLIFF mark type", "head term: the concept designation that has been chosen to head a terminological record"),
+            I18N_NOOP2("XLIFF mark type", "initialism: an abbreviated form of a term consisting of some of the initial letters of the words making up a multiword term or the term elements making up a compound term when these letters are pronounced individually (e.g. 'BSE' for 'bovine spongiform encephalopathy')"),
+            I18N_NOOP2("XLIFF mark type", "international scientific term: a term that is part of an international scientific nomenclature as adopted by an appropriate scientific body"),
+            I18N_NOOP2("XLIFF mark type", "internationalism: a term that has the same or nearly identical orthographic or phonemic form in many languages"),
+            I18N_NOOP2("XLIFF mark type", "logical expression: an expression used to represent a concept based on mathematical or logical relations, such as statements of inequality, set relationships, Boolean operations, and the like"),
+            I18N_NOOP2("XLIFF mark type", "materials management unit: a unit to track object"),
+            I18N_NOOP2("XLIFF mark type", "name"),
+            I18N_NOOP2("XLIFF mark type", "near synonym: a term that represents the same or a very similar concept as another term in the same language, but for which interchangeability is limited to some contexts and inapplicable in others"),
+            I18N_NOOP2("XLIFF mark type", "part number: a unique alphanumeric designation assigned to an object in a manufacturing system"),
+            I18N_NOOP2("XLIFF mark type", "phrase"),
+            I18N_NOOP2("XLIFF mark type", "phraseological: a group of two or more words that form a unit, the meaning of which frequently cannot be deduced based on the combined sense of the words making up the phrase"),
+            I18N_NOOP2("XLIFF mark type", "protected: the marked text should not be translated"),
+            I18N_NOOP2("XLIFF mark type", "romanized form: a form of a term resulting from an operation whereby non-Latin writing systems are converted to the Latin alphabet"),
+            I18N_NOOP2("XLIFF mark type", "segment: the marked text represents a segment"),
+            I18N_NOOP2("XLIFF mark type", "set phrase: a fixed, lexicalized phrase"),
+            I18N_NOOP2("XLIFF mark type", "short form: a variant of a multiword term that includes fewer words than the full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental Group of Twenty-four on International Monetary Affairs')"),
+            I18N_NOOP2("XLIFF mark type", "stock keeping unit: an inventory item identified by a unique alphanumeric designation assigned to an object in an inventory control system"),
+            I18N_NOOP2("XLIFF mark type", "standard text: a fixed chunk of recurring text"),
+            I18N_NOOP2("XLIFF mark type", "symbol: a designation of a concept by letters, numerals, pictograms or any combination thereof"),
+            I18N_NOOP2("XLIFF mark type", "synonym: a term that represents the same or a very similar concept as the main entry term in a term entry"),
+            I18N_NOOP2("XLIFF mark type", "synonymous phrase: phraseological unit in a language that expresses the same semantic content as another phrase in that same language"),
+            I18N_NOOP2("XLIFF mark type", "term"),
+            I18N_NOOP2("XLIFF mark type", "transcribed form: a form of a term resulting from an operation whereby the characters of one writing system are represented by characters from another writing system, taking into account the pronunciation of the characters converted"),
+            I18N_NOOP2("XLIFF mark type", "transliterated form: a form of a term resulting from an operation whereby the characters of an alphabetic writing system are represented by characters from another alphabetic writing system"),
+            I18N_NOOP2("XLIFF mark type", "truncated term: an abbreviated form of a term resulting from the omission of one or more term elements or syllables (e.g. 'flu' for 'influenza')"),
+            I18N_NOOP2("XLIFF mark type", "variant: one of the alternate forms of a term")
+        };
+        int i=sizeof(mrkTypes);
+        while(--i>=0 && mrkTypes[i]!=id)
+            ;
+        if (i!=-1)
+        {
+            result=i18nc("XLIFF mark type", mrkTypeNames[i]);
+            if (!result.isEmpty())
+                result[0]=result.at(0).toUpper();
+        }
+    }
+
+    return result;
 }
 
 
