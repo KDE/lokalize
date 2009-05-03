@@ -73,9 +73,9 @@ public:
     virtual void targetDelete(const DocPosition& pos, int count)=0;
     virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
     virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog
-    virtual void targetInsertTag(const DocPosition& pos, const InlineTag& tag){}
-    virtual InlineTag targetDeleteTag(const DocPosition& pos){return InlineTag();}
-    virtual Phase updatePhase(const Phase& phase){return Phase();}
+    virtual void targetInsertTag(const DocPosition&, const InlineTag&){}
+    virtual InlineTag targetDeleteTag(const DocPosition&){return InlineTag();}
+    virtual Phase updatePhase(const Phase&){return Phase();}
     virtual QList<Phase> allPhases() const{return QList<Phase>();}
     virtual QMap<QString,Tool> allTools() const{return QMap<QString,Tool>();}
 
@@ -97,8 +97,8 @@ public:
     virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){return QVector<Note>();}
 
     //DocPosition.form - number of <context>
-    virtual QString context(const DocPosition& pos) const=0;
-    virtual int contextCount(const DocPosition& pos) const=0;
+    virtual QString context(const DocPosition&) const=0;
+    virtual int contextCount(const DocPosition&) const=0;
 
     /**
      * user-invisible data for matching, e.g. during TM database lookup
@@ -112,26 +112,26 @@ public:
      *
      * pos.form doesn't matter
     **/
-    virtual QStringList matchData(const DocPosition& pos) const=0;
+    virtual QStringList matchData(const DocPosition&) const=0;
 
     /**
      * entry id unique for this file
      *
      * pos.form doesn't matter
     **/
-    virtual QString id(const DocPosition& pos) const=0;
+    virtual QString id(const DocPosition&) const=0;
 
-    virtual bool isPlural(const DocPosition& pos) const=0;
+    virtual bool isPlural(const DocPosition&) const=0;
 
-    virtual bool isEmpty(const DocPosition& pos) const=0;
+    virtual bool isEmpty(const DocPosition&) const=0;
 
-    virtual bool isEquivTrans(const DocPosition& pos) const{return true;}
-    virtual void setEquivTrans(const DocPosition& pos, bool equivTrans){}
+    virtual bool isEquivTrans(const DocPosition&) const{return true;}
+    virtual void setEquivTrans(const DocPosition&, bool equivTrans){}
 
-    virtual bool isApproved(const DocPosition& pos) const{return true;}
-    virtual void setApproved(const DocPosition& pos, bool approved){}
-    virtual TargetState state(const DocPosition& pos) const{return New;}
-    virtual TargetState setState(const DocPosition& pos, TargetState state){return New;}
+    virtual bool isApproved(const DocPosition&) const{return true;}
+    virtual void setApproved(const DocPosition&, bool approved){}
+    virtual TargetState state(const DocPosition&) const{return New;}
+    virtual TargetState setState(const DocPosition&, TargetState){return New;}
 
 
     virtual int binUnitsCount() const {return 0;}

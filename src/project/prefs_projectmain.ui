@@ -51,8 +51,8 @@
       </size>
      </property>
      <property name="toolTip" >
-      <string>This is main setting. Set it to path of directory with translation files
-for your project + target language.</string>
+      <string>This is main setting. Set this to path of a folder with translation files
+for your project (or a subproject for your target language).</string>
      </property>
     </widget>
    </item>
@@ -75,7 +75,7 @@ for your project + target language.</string>
    <item row="3" column="0" >
     <widget class="QLabel" name="l1" >
      <property name="text" >
-      <string comment="@label:textbox" >Translation directory:</string>
+      <string comment="@label:textbox" >Root folder:</string>
      </property>
      <property name="wordWrap" >
       <bool>false</bool>

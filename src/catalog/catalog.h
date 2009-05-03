@@ -168,6 +168,9 @@ public:
     bool isEmpty(){return !m_storage;}
     bool isReadOnly(){return d->_readOnly;}
 
+    void attachAltTransCatalog(Catalog*);
+
+
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();
 

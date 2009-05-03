@@ -44,6 +44,8 @@ public:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
+    void fileLoaded();
+    void attachAltTransFile(const QString&);
 
 private slots:
     //void contextMenu(const QPoint & pos);
@@ -54,6 +56,10 @@ private slots:
 signals:
     void refreshRequested();
     void textInsertRequested(const QString&);
+
+private:
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent *event);
 
 
 private:

@@ -215,7 +215,7 @@ void EditorTab::setupActions()
     {
         altaction=tm->addAction(QString("alttrans_insert_%1").arg(i));
         altaction->setShortcut(Qt::ALT+altlist[i]);
-        altaction->setText(i18nc("@action:inmenu","Insert alternative translation # %1",i));
+        altaction->setText(i18nc("@action:inmenu","Insert alternate translation # %1",i));
         altactions[i]=altaction;
     }
 
@@ -225,6 +225,7 @@ void EditorTab::setupActions()
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),altTransView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (altTransView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
     connect (altTransView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
+    connect (m_catalog,SIGNAL(signalFileLoaded()),altTransView,SLOT(fileLoaded()));
 
     _mergeView = new MergeView(this,m_catalog,true);
     addDockWidget(Qt::BottomDockWidgetArea, _mergeView);

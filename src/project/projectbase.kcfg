@@ -38,6 +38,7 @@
         <default>../templates</default>
     </entry>
     <entry name="BranchDir"  type="String"></entry>
+    <entry name="AltDir"  type="String"></entry>
     <entry name="GlossaryTbx"  type="String">
 <!--
         <label>Project's glossary</label>

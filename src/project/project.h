@@ -71,6 +71,7 @@ public:
     QString branchDir()const{return absolutePath(ProjectBase::branchDir());}
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
     GlossaryNS::Glossary* glossary()const{return m_glossary;}
+    QString altTransDir()const{return absolutePath(altDir());}
 
 // private slots:
 //     void initLater();

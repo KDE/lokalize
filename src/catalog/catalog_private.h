@@ -55,6 +55,7 @@
 class DocPosition;
 class QTextCodec;
 class CatalogStorage;
+class Catalog;
 
 class CatalogPrivate
 {
@@ -95,6 +96,8 @@ public:
 
     QVector< QLinkedList<int> > _statesIndex;
 
+
+    QLinkedList<Catalog*> _altTransCatalogs;
 
     //for undo/redo
     //keeps pos of the entry that was last modified

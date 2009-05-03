@@ -134,6 +134,9 @@ void Catalog::clear()
     d->_url.clear();
     d->_lastModifiedPos=DocPosition();
     d->_modifiedEntries.clear();
+
+    while (!d->_altTransCatalogs.isEmpty())
+        d->_altTransCatalogs.takeFirst()->deleteLater();
 /*
     d->msgidDiffList.clear();
     d->msgstr2MsgidDiffList.clear();
@@ -240,12 +243,27 @@ QStringList Catalog::noteAuthors() const
     return m_storage->noteAuthors();
 }
 
+void Catalog::attachAltTransCatalog(Catalog* cat)
+{
+    d->_altTransCatalogs.append(cat);
+}
+
 QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage ))
-        return QVector<AltTrans>();
+    QVector<AltTrans> result;
+    if (m_storage)
+        result=m_storage->altTrans(pos);
 
-    return m_storage->altTrans(pos);
+    foreach(Catalog* altCat, d->_altTransCatalogs)
+    {
+        QString target=altCat->msgstr(pos);
+        if (!target.isEmpty())
+        {
+            result<<AltTrans();
+            result.last().target=target;
+        }
+    }
+    return result;
 }
 
 QStringList Catalog::sourceFiles(const DocPosition& pos) const

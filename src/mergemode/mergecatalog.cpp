@@ -32,13 +32,16 @@
 
 
 
-MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog)
+MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
 {
     setActivePhase(baseCatalog->activePhase(),baseCatalog->activePhaseRole());
-    connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
-    connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
+    if (saveChanges)
+    {
+        connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
+        connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
+    }
 }
 
 void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
@@ -188,7 +191,7 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
     QMultiHash<QString, int>::iterator it = mergeMap.begin();
     while (it != mergeMap.end())
     {
-        kWarning()<<it.value()<<it.key();
+        //kWarning()<<it.value()<<it.key();
         ++it;
     }
     m_unmatchedCount=mergeMap.count();

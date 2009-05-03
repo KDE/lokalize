@@ -197,14 +197,16 @@ void SettingsController::projectConfigure()
     ui_project_advanced.setupUi(w);
     ui_project_advanced.kcfg_PotBaseDir->hide();
     ui_project_advanced.kcfg_BranchDir->hide();
+    ui_project_advanced.kcfg_AltDir->hide();
     ui_project_advanced.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_project_advanced.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    connect(ui_project_advanced.potBaseDir,SIGNAL(textChanged(QString)),
-            ui_project_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
-    connect(ui_project_advanced.branchDir,SIGNAL(textChanged(QString)),
-            ui_project_advanced.kcfg_BranchDir,SLOT(setText(QString)));
+    ui_project_advanced.altDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+    connect(ui_project_advanced.potBaseDir,SIGNAL(textChanged(QString)), ui_project_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
+    connect(ui_project_advanced.branchDir,SIGNAL(textChanged(QString)),  ui_project_advanced.kcfg_BranchDir,SLOT(setText(QString)));
+    connect(ui_project_advanced.altDir,SIGNAL(textChanged(QString)),  ui_project_advanced.kcfg_AltDir,SLOT(setText(QString)));
     ui_project_advanced.potBaseDir->setUrl(p.potDir());
     ui_project_advanced.branchDir->setUrl(p.branchDir());
+    ui_project_advanced.altDir->setUrl(p.altTransDir());
     dialog->addPage(w, i18nc("@title:tab","Advanced"), "applications-development-translation");
 
     //Scripts

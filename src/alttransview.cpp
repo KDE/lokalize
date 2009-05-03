@@ -29,8 +29,9 @@
 #include "catalog.h"
 #include "cmd.h"
 #include "project.h"
-#include "tmview.h" //TextBrowser
 #include "xlifftextedit.h"
+#include "tmview.h" //TextBrowser
+#include "mergecatalog.h"
 
 
 #include <klocale.h>
@@ -39,12 +40,13 @@
 
 #include <QSignalMapper>
 //#include <QTime>
+#include <QFileInfo>
 
 AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<KAction*>& actions)
-    : QDockWidget ( i18nc("@title:window","Alternative Translations"), parent)
+    : QDockWidget ( i18nc("@title:window","Alternate Translations"), parent)
     , m_browser(new TM::TextBrowser(this))
     , m_catalog(catalog)
-    , m_normTitle(i18nc("@title:window","Alternative Translations"))
+    , m_normTitle(i18nc("@title:window","Alternate Translations"))
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
     , m_actions(actions)
@@ -78,9 +80,10 @@ void AltTransView::initLater()
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(slotUseSuggestion(int)));
 
     setToolTip(i18nc("@info:tooltip","<p>Sometimes, if original text is changed, its translation becomes deprecated and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. looses approval status), "
-    "or (only in case of XLIFF file) moved to the <emphasis>alternative&nbsp;translations</emphasis> section accompanying the unit.</p>"
+    "or (only in case of XLIFF file) moved to the <emphasis>alternate&nbsp;translations</emphasis> section accompanying the unit.</p>"
     "<p>This toolview also shows the difference between new original string and the old one, so that you can easily see which changes should be applied to existing translation.</p>"
     "<p>Double-click any word in this toolview to insert it into translation.</p>"
+    "<p>Drop translation file onto this toolview to use it as a source for alternate translations.</p>"
     ));
 
     connect(m_browser,SIGNAL(textInsertRequested(QString)),this,SIGNAL(textInsertRequested(QString)));
@@ -89,6 +92,36 @@ void AltTransView::initLater()
 
 AltTransView::~AltTransView()
 {
+}
+
+void AltTransView::dragEnterEvent(QDragEnterEvent* event)
+{
+    if(event->mimeData()->hasUrls() && Catalog::extIsSupported(event->mimeData()->urls().first().path()))
+        event->acceptProposedAction();
+}
+
+void AltTransView::dropEvent(QDropEvent *event)
+{
+    attachAltTransFile(event->mimeData()->urls().first().toLocalFile());
+    event->acceptProposedAction();
+}
+
+void AltTransView::attachAltTransFile(const QString& path)
+{
+    kWarning()<<path;
+    MergeCatalog* altCat=new MergeCatalog(m_catalog, m_catalog, /*saveChanges*/false);
+    altCat->loadFromUrl(KUrl::fromLocalFile(path));
+    m_catalog->attachAltTransCatalog(altCat);
+}
+
+void AltTransView::fileLoaded()
+{
+    m_prevEntry.entry=-1;
+    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),m_catalog->url().toLocalFile());
+
+    QFileInfo info(Project::instance()->altTransDir()+'/'+relPath);
+    if (info.exists())
+        attachAltTransFile(info.canonicalFilePath());
 }
 
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
@@ -104,7 +137,7 @@ void AltTransView::process()
         return;//because of Qt::QueuedConnection
 
     m_prevEntry=m_entry;
-
+    m_browser->clear();
 
     const QVector<AltTrans>& entries=m_catalog->altTrans(m_entry.toDocPosition());
     m_entries=entries;
@@ -115,7 +148,6 @@ void AltTransView::process()
         {
             m_hasInfo=false;
             setWindowTitle(m_normTitle);
-            m_browser->clear();
         }
         return;
     }
@@ -196,7 +228,7 @@ void AltTransView::slotUseSuggestion(int i)
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
-    m_catalog->beginMacro(i18nc("@item Undo action","Use alternative translation"));
+    m_catalog->beginMacro(i18nc("@item Undo action","Use alternate translation"));
 
     QString old=m_catalog->targetWithTags(m_entry.toDocPosition()).string;
     if (!old.isEmpty())
