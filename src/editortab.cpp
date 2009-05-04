@@ -244,11 +244,11 @@ void EditorTab::setupActions()
     connect (_mergeViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
              this,SLOT(gotoEntry(DocPosition,int)));
 
-    m_catalogTreeView = new CatalogView(this,m_catalog);
-    addDockWidget(Qt::LeftDockWidgetArea, m_catalogTreeView);
-    actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_catalogTreeView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalogTreeView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_catalogTreeView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
+    m_transUnitsView = new CatalogView(this,m_catalog);
+    addDockWidget(Qt::LeftDockWidgetArea, m_transUnitsView);
+    actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_transUnitsView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (m_transUnitsView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
 
     m_notesView = new MsgCtxtView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
@@ -541,7 +541,7 @@ void EditorTab::setupActions()
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action=nav->addAction("go_focus_earch_line",m_catalogTreeView, SLOT(setFocus()));
+    action=nav->addAction("go_focus_earch_line",m_transUnitsView, SLOT(setFocus()));
     action->setShortcut(Qt::CTRL+Qt::Key_L);
     action->setText(i18nc("@action:inmenu","Focus the search line of Translation Units view"));
 
@@ -673,15 +673,15 @@ void EditorTab::setProperFocus()
 
 void EditorTab::hideDocks()
 {
-    if (m_catalogTreeView->isFloating())
-        m_catalogTreeView->hide();
+    if (m_transUnitsView->isFloating())
+        m_transUnitsView->hide();
 }
 
 void EditorTab::showDocks()
 {
     return;
-    if (m_catalogTreeView->isFloating())
-        m_catalogTreeView->show();
+    if (m_transUnitsView->isFloating())
+        m_transUnitsView->show();
 }
 
 void EditorTab::setCaption(QString title,bool modified)
@@ -990,7 +990,7 @@ void EditorTab::msgStrChanged()
 
     QString msg;
     if (isUntr)         msg=i18nc("@info:status","Untranslated");
-    else if (isApproved)msg=i18nc("@info:status","Approved");
+    else if (isApproved)msg=i18nc("@info:status","Ready");
     else                msg=i18nc("@info:status","Needs review");
 
     /*    else
@@ -1032,14 +1032,14 @@ void EditorTab::gotoLastUnfiltered(){gotoEntry(DocPosition(m_catalog->numberOfEn
 
 void EditorTab::gotoFirst()
 {
-    DocPosition pos=DocPosition(m_catalogTreeView->firstEntry());
+    DocPosition pos=DocPosition(m_transUnitsView->firstEntry());
     if (pos.entry!=-1)
         gotoEntry(pos);
 }
 
 void EditorTab::gotoLast()
 {
-    DocPosition pos=DocPosition(m_catalogTreeView->lastEntry());
+    DocPosition pos=DocPosition(m_transUnitsView->lastEntry());
     if (pos.entry!=-1)
         gotoEntry(pos);
 }
@@ -1051,7 +1051,7 @@ void EditorTab::gotoNext()
     if (m_catalog->isPlural(pos) && pos.form+1<m_catalog->numberOfPluralForms())
         pos.form++;
     else
-        pos=DocPosition(m_catalogTreeView->nextEntry());
+        pos=DocPosition(m_transUnitsView->nextEntry());
 
     if (pos.entry!=-1)
         gotoEntry(pos);
@@ -1063,7 +1063,7 @@ void EditorTab::gotoPrev()
     if (m_catalog->isPlural(pos) && pos.form>0)
         pos.form--;
     else
-        pos=DocPosition(m_catalogTreeView->prevEntry());
+        pos=DocPosition(m_transUnitsView->prevEntry());
 
     if (pos.entry!=-1)
         gotoEntry(pos);
@@ -1285,8 +1285,8 @@ QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}
 QString EditorTab::selectionInSource(){return m_view->selectionInSource();}
 
 
-void EditorTab::setEntryFilteredOut(int entry, bool filteredOut){m_catalogTreeView->setEntryFilteredOut(entry, filteredOut);}
-void EditorTab::resetEntryFilter(){m_catalogTreeView->resetIndividualFilter();}
+void EditorTab::setEntryFilteredOut(int entry, bool filteredOut){m_transUnitsView->setEntryFilteredOut(entry, filteredOut);}
+void EditorTab::resetEntryFilter(){m_transUnitsView->resetIndividualFilter();}
 int EditorTab::entryCount(){return m_catalog->numberOfEntries();}
 
 QString EditorTab::entrySource(int entry, int form){return m_catalog->sourceWithTags(DocPosition(entry, form)).string;}

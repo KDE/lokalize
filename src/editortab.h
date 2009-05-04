@@ -272,7 +272,7 @@ private:
     //BEGIN views
     MergeView* _mergeView;
     MergeView* _mergeViewSecondary;
-    CatalogView* m_catalogTreeView;
+    CatalogView* m_transUnitsView;
     MsgCtxtView* m_notesView;
     //END views
 
