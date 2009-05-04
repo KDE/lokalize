@@ -46,12 +46,17 @@ public:
 
     void setEntryFilteredOut(int entry, bool filteredOut);
 
+    int nextEntry();
+    int prevEntry();
+    int firstEntry();
+    int lastEntry();
+
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void resetIndividualFilter();
 
 signals:
-    void gotoEntry(const DocPosition&, int);
+    void gotoEntry(const DocPosition&, int selection);
 
 private slots:
     void slotItemActivated(const QModelIndex&);
@@ -60,8 +65,8 @@ private slots:
     void filterOptionToggled(QAction*);
 
 private:
-    QTreeView* m_browser;
     KLineEdit* m_lineEdit;
+    QTreeView* m_browser;
     QMenu* m_filterOptionsMenu;
     CatalogTreeModel* m_model;
     CatalogTreeFilterModel* m_proxyModel;

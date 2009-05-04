@@ -301,7 +301,7 @@ void EditorTab::setupActions()
         //                         Qt::Key_J,
         //                         Qt::Key_K,
             Qt::Key_K,
-            Qt::Key_L,
+            Qt::Key_P,
             Qt::Key_N,
         //                         Qt::Key_Q,
         //                         Qt::Key_R,
@@ -540,6 +540,11 @@ void EditorTab::setupActions()
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
+
+    action=nav->addAction("go_focus_earch_line",m_catalogTreeView, SLOT(setFocus()));
+    action->setShortcut(Qt::CTRL+Qt::Key_L);
+    action->setText(i18nc("@action:inmenu","Focus the search line of Translation Units view"));
+
 
 //Bookmarks
     action=nav->addAction(KStandardAction::AddBookmark,m_view,SLOT(toggleBookmark(bool)));
@@ -1005,7 +1010,7 @@ void EditorTab::switchForm(int newForm)
     gotoEntry(pos);
 }
 
-void EditorTab::gotoNext()
+void EditorTab::gotoNextUnfiltered()
 {
     DocPosition pos=m_currentPos;
 
@@ -1014,11 +1019,53 @@ void EditorTab::gotoNext()
 }
 
 
-void EditorTab::gotoPrev()
+void EditorTab::gotoPrevUnfiltered()
 {
     DocPosition pos=m_currentPos;
 
     if (switchPrev(m_catalog,pos))
+        gotoEntry(pos);
+}
+
+void EditorTab::gotoFirstUnfiltered(){gotoEntry(DocPosition(0));}
+void EditorTab::gotoLastUnfiltered(){gotoEntry(DocPosition(m_catalog->numberOfEntries()-1));}
+
+void EditorTab::gotoFirst()
+{
+    DocPosition pos=DocPosition(m_catalogTreeView->firstEntry());
+    if (pos.entry!=-1)
+        gotoEntry(pos);
+}
+
+void EditorTab::gotoLast()
+{
+    DocPosition pos=DocPosition(m_catalogTreeView->lastEntry());
+    if (pos.entry!=-1)
+        gotoEntry(pos);
+}
+
+
+void EditorTab::gotoNext()
+{
+    DocPosition pos=m_currentPos;
+    if (m_catalog->isPlural(pos) && pos.form+1<m_catalog->numberOfPluralForms())
+        pos.form++;
+    else
+        pos=DocPosition(m_catalogTreeView->nextEntry());
+
+    if (pos.entry!=-1)
+        gotoEntry(pos);
+}
+
+void EditorTab::gotoPrev()
+{
+    DocPosition pos=m_currentPos;
+    if (m_catalog->isPlural(pos) && pos.form>0)
+        pos.form--;
+    else
+        pos=DocPosition(m_catalogTreeView->prevEntry());
+
+    if (pos.entry!=-1)
         gotoEntry(pos);
 }
 
@@ -1176,9 +1223,6 @@ void EditorTab::gotoNextBookmark()
 
     gotoEntry(pos);
 }
-
-void EditorTab::gotoFirst(){gotoEntry(DocPosition(0));}
-void EditorTab::gotoLast(){gotoEntry(DocPosition(m_catalog->numberOfEntries()-1));}
 
 //wrapper for cmdline handling...
 void EditorTab::mergeOpen(KUrl url)

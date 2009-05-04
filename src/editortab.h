@@ -155,8 +155,15 @@ public slots:
     Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());
     Q_SCRIPTABLE bool saveFileAs();
     Q_SCRIPTABLE void close(){return parent()->deleteLater();}
+    Q_SCRIPTABLE void gotoNextUnfiltered();
+    Q_SCRIPTABLE void gotoPrevUnfiltered();
+    Q_SCRIPTABLE void gotoFirstUnfiltered();
+    Q_SCRIPTABLE void gotoLastUnfiltered();
     Q_SCRIPTABLE void gotoNext();
     Q_SCRIPTABLE void gotoPrev();
+    Q_SCRIPTABLE void gotoFirst();
+    Q_SCRIPTABLE void gotoLast();
+
 
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
@@ -192,8 +199,6 @@ private slots:
 //     void clear();
 //     void search2msgstr();
 //     void plural2msgstr();
-    void gotoFirst();
-    void gotoLast();
 
     void gotoEntry();
 

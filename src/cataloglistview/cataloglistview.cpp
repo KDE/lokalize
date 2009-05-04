@@ -43,8 +43,8 @@
 
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
-    , m_browser(new QTreeView(this))
     , m_lineEdit(new KLineEdit(this))
+    , m_browser(new QTreeView(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
@@ -62,7 +62,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setClickMessage(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
-
+    setFocusProxy(m_lineEdit);
 
     QToolButton* btn=new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
@@ -184,6 +184,58 @@ void CatalogView::fillFilterOptionsMenu()
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filterKeyColumn()==i);
     }
+}
+
+int CatalogView::nextEntry()
+{
+    QModelIndex item=m_browser->currentIndex();
+    if (!item.isValid())
+    {
+        if (!m_proxyModel->rowCount())
+            return -1;
+        item=m_proxyModel->index(0,0);
+    }
+    else
+    {
+        if (item.row()==m_proxyModel->rowCount())
+            return -1;
+        item=item.sibling(item.row()+1,0);
+    }
+    return m_proxyModel->mapToSource(item).row();
+}
+
+int CatalogView::prevEntry()
+{
+    QModelIndex item=m_browser->currentIndex();
+    if (!item.isValid())
+    {
+        if (!m_proxyModel->rowCount())
+            return -1;
+        item=m_proxyModel->index(m_proxyModel->rowCount()-1,0);
+    }
+    else
+    {
+        if (item.row()==0)
+            return -1;
+        item=item.sibling(item.row()-1,0);
+    }
+    return m_proxyModel->mapToSource(item).row();
+}
+
+int CatalogView::firstEntry()
+{
+    if (!m_proxyModel->rowCount())
+        return -1;
+
+    return m_proxyModel->mapToSource(m_proxyModel->index(0,0)).row();
+}
+
+int CatalogView::lastEntry()
+{
+    if (!m_proxyModel->rowCount())
+        return -1;
+
+    return m_proxyModel->mapToSource(m_proxyModel->index(m_proxyModel->rowCount()-1,0)).row();
 }
 
 

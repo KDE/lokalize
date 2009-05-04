@@ -174,10 +174,13 @@ void AltTransView::process()
         QTextCursor cur=m_browser->textCursor();
         QString html;
         html.reserve(1024);
-        html+="<p>";
-        html+=entry.source.string;
         if (!entry.source.isEmpty())
+        {
+            html+="<p>";
+            html+=entry.source.string;
             html+="<br>";
+            cur.insertHtml(html); html.clear();
+        }
         if (!entry.target.isEmpty())
         {
             if (KDE_ISLIKELY( i<m_actions.size() ))
@@ -188,7 +191,7 @@ void AltTransView::process()
             else
                 html+="[ - ] ";
 
-            cur.insertHtml(html); html.clear();
+            cur.insertText(html); html.clear();
             insertContent(cur,entry.target);
         }
 
