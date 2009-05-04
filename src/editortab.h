@@ -141,6 +141,7 @@ public slots:
     Q_SCRIPTABLE QByteArray currentFileContents();
 
     Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
+    Q_SCRIPTABLE void reloadFile();
 #endif
     Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());
     Q_SCRIPTABLE bool saveFileAs();

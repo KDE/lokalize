@@ -913,9 +913,12 @@ void EditorTab::gotoEntry(DocPosition pos,int selection)
     //specially for dbus users
     if (pos.entry>=m_catalog->numberOfEntries()||pos.entry<0)
         return;
+    if (!m_catalog->isPlural(pos))
+        pos.form=0;
 
     m_currentPos.part=pos.part;//for searching;
     //UndefPart => called on fuzzy toggle
+
 
     bool newEntry=m_currentPos.entry!=pos.entry || m_currentPos.form!=pos.form;
     if (newEntry||pos.part==DocPosition::Comment)
@@ -1202,6 +1205,13 @@ void EditorTab::defineNewTerm()
     _project->defineNewTerm(en,target);
 }
 
+
+void EditorTab::reloadFile()
+{
+    DocPosition p=m_currentPos;
+    if (fileOpen(currentUrl()))
+        gotoEntry(p);
+}
 
 //BEGIN DBus interface
 #include "editoradaptor.h"

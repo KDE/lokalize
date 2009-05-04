@@ -56,6 +56,8 @@
     <method name="openSyncSource">
       <arg name="path" type="s" direction="in"/>
     </method>
+    <method name="reloadFile">
+    </method>
     <method name="saveFile">
       <arg type="b" direction="out"/>
     </method>

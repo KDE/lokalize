@@ -10,9 +10,6 @@ from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from PyKDE4.kio import *
 
-from translate.convert import odf2xliff
-
-#this is needed for PyQt4...
 utf8_decoder=codecs.getdecoder("utf8")
 
 T = Kross.module("kdetranslation")
@@ -21,6 +18,10 @@ def i18n(text, args = []):
     # No translation module, return the untranslated string
     for a in range(len(args)): text = text.replace( ("%" + "%d" % ( a + 1 )), str(args[a]) )
     return text
+
+try: from translate.convert import odf2xliff
+except: print i18n('Translate-Toolkit not found. Please install this package for the feature to work.')
+
 
 #copied from translate-toolkit unit test
 def args(src, tgt, **kwargs):
@@ -284,7 +285,7 @@ class KdeSourcePage(QWizardPage):
             return False
 
         self.progress.show()
-        self.progress.setMaximum(4*30)
+        self.progress.setMaximum(6*30+10)
         QCoreApplication.processEvents()
 
         #localsvnroot=self.field('kde-svn-location').toString()
@@ -303,13 +304,17 @@ class KdeSourcePage(QWizardPage):
 
         os.system('svn --depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
         self.reportProgress(5)
-        os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/messages' % (localsvnroot, lang))
-        self.reportProgress(30)
-        os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docmessages' % (localsvnroot, lang))
-        self.reportProgress(30)
         os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docs' % (localsvnroot, lang))
         self.reportProgress(30)
-        os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+        for langlang in [lang,'templates']:
+            os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/messages' % (localsvnroot, langlang))
+            self.reportProgress(30)
+            os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docmessages' % (localsvnroot, langlang))
+            self.reportProgress(30)
+            os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s' % (localsvnroot, langlang))
+            self.reportProgress(10)
+
+        os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/scripts' % localsvnroot)
         self.reportProgress(10)
 
         self.existingLocation.setUrl(KUrl("%s/trunk/l10n-kde4/%s" % (localsvnroot, lang)))

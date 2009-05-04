@@ -64,7 +64,7 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu;
     QAction* openNew=0;
-    if (m_browser->currentIsCatalog())
+    if (m_browser->currentIsTranslationFile())
     {
         openNew=menu.addAction(i18nc("@action:inmenu","Open"));
         menu.addSeparator();
@@ -98,18 +98,20 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
         //      emit findInFilesRequested(m_browser->selectedItems());
 }
 
-void ProjectTab::findInFiles()
+void ProjectTab::findInFiles()    {emit searchRequested(m_browser->selectedItems());}
+void ProjectTab::replaceInFiles() {emit replaceRequested(m_browser->selectedItems());}
+void ProjectTab::spellcheckFiles(){emit spellcheckRequested(m_browser->selectedItems());}
+
+bool ProjectTab::currentItemIsTranslationFile() const {return m_browser->currentIsTranslationFile();}
+void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(KUrl::fromLocalFile(url));}
+QString ProjectTab::currentItem() const {return m_browser->currentItem().toLocalFile();}
+QStringList ProjectTab::selectedItems() const
 {
-    emit searchRequested(m_browser->selectedItems());
+    QStringList result;
+    foreach (const KUrl& url, m_browser->selectedItems())
+        result<<url.toLocalFile();
+    return result;
 }
 
-void ProjectTab::replaceInFiles()
-{
-    emit replaceRequested(m_browser->selectedItems());
-}
-
-void ProjectTab::spellcheckFiles()
-{
-    emit spellcheckRequested(m_browser->selectedItems());
-}
+//bool ProjectTab::isShown() const {return isVisible();}
 

@@ -271,7 +271,7 @@ KUrl ProjectWidget::currentItem() const
                                                      ).url();
 }
 
-bool ProjectWidget::currentIsCatalog() const
+bool ProjectWidget::currentIsTranslationFile() const
 {
     //remember 'bout empty state
     return Catalog::extIsSupported(currentItem().path());
@@ -281,7 +281,7 @@ bool ProjectWidget::currentIsCatalog() const
 
 void ProjectWidget::slotItemActivated(const QModelIndex& index)
 {
-    if (currentIsCatalog())
+    if (currentIsTranslationFile())
     {
         ProjectModel * srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
@@ -323,10 +323,11 @@ KUrl::List ProjectWidget::selectedItems() const
         if (sel.at(i).column()==0)
             recursiveAdd(list,m_proxyModel->mapToSource(sel.at(i)));
     }
-
+/*
     i=list.size();
     while(--i>=0)
         kWarning()<<"'''''''''''"<<list.at(i);
+*/
     return list;
 }
 

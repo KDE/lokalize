@@ -37,29 +37,25 @@ class SortFilterProxyModel;
 class ProjectWidget: public QTreeView
 {
     Q_OBJECT
-
 public:
     ProjectWidget(QWidget* parent);
     ~ProjectWidget();
-
-    bool currentIsCatalog() const;
 
     void setCurrentItem(const KUrl&);
     KUrl currentItem() const;
     KUrl::List selectedItems() const;
 
-/*
-protected:
-    void selectionChanged(const QItemSelection&,const QItemSelection&);
-*/
-public slots:
-    void slotItemActivated(const QModelIndex&);
-    void expandItems();
+    bool currentIsTranslationFile() const;
 
+public slots:
+    void expandItems();
 
 signals:
     void fileOpenRequested(const KUrl&);
     void newWindowOpenRequested(const KUrl&);
+
+private slots:
+    void slotItemActivated(const QModelIndex&);
 
 private:
     QWidget* m_parent;

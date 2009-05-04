@@ -1,0 +1,10 @@
+<!DOCTYPE KrossScripting SYSTEM "kpartgui.dtd">
+<KrossScripting>
+	<collection name="file" text="File">
+		<script text="Update file from template"
+			name="msgmerge"
+			interpreter="python"
+			enabled="true"
+			file="msgmerge.py" />
+	</collection>
+</KrossScripting>

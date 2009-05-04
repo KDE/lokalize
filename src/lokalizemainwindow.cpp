@@ -305,7 +305,7 @@ EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, 
     return w;
 }
 
-void LokalizeMainWindow::showProjectOverview()
+QObject* LokalizeMainWindow::projectOverview()
 {
     if (!m_projectSubWindow)
     {
@@ -315,7 +315,14 @@ void LokalizeMainWindow::showProjectOverview()
         m_projectSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
     }
+    if (m_mdiArea->currentSubWindow()==m_projectSubWindow)
+        return m_projectSubWindow->widget();
+    return 0;
+}
 
+void LokalizeMainWindow::showProjectOverview()
+{
+    projectOverview();
     m_mdiArea->setActiveSubWindow(m_projectSubWindow);
 }
 
@@ -736,6 +743,7 @@ QString LokalizeMainWindow::currentProject(){return Project::instance()->path();
 int LokalizeMainWindow::pid(){return getpid();}
 QString LokalizeMainWindow::dbusName(){return QString("org.kde.lokalize-%1").arg(pid());}
 void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCursor(Qt::WaitCursor):QApplication::restoreOverrideCursor();}
+// void LokalizeMainWindow::processEvents(){QCoreApplication::processEvents();}
 
 //END DBus interface
 

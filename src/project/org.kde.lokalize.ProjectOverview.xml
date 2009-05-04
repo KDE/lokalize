@@ -1,0 +1,17 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.Lokalize.ProjectOverview">
+    <method name="setCurrentItem">
+      <arg name="url" type="s" direction="in"/>
+    </method>
+    <method name="currentItem">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="selectedItems">
+      <arg type="as" direction="out"/>
+    </method>
+    <method name="currentItemIsTranslationFile">
+      <arg type="b" direction="out"/>
+    </method>
+  </interface>
+</node>

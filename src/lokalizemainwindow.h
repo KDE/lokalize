@@ -90,6 +90,7 @@ public slots:
     Q_SCRIPTABLE int openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt);
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
+    Q_SCRIPTABLE QObject* projectOverview();
 
     Q_SCRIPTABLE void openProject(const QString& path);
     Q_SCRIPTABLE QString currentProject();
@@ -117,6 +118,7 @@ public slots:
     Q_SCRIPTABLE QString dbusName();
 
     Q_SCRIPTABLE void busyCursor(bool busy);
+    //Q_SCRIPTABLE void processEvents();
 
     //returns 0 if error
     EditorTab* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString());

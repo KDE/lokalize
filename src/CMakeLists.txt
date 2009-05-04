@@ -115,6 +115,8 @@ qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmtab.h TM::TMTab)
 qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
                      project/project.h Project)
+qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
+                     project/projecttab.h ProjectTab)
 
 
 
@@ -156,6 +158,8 @@ install( FILES
         scripts/widget-text-capture.py
         scripts/widget-text-capture.rc
         scripts/widget-text-capture.ui
+        scripts/msgmerge.py
+        scripts/msgmerge.rc
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts/kde )
 install( FILES
         scripts/xliff2odf.py

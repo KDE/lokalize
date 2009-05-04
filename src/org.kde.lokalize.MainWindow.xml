@@ -9,6 +9,12 @@
       <arg type="i" direction="out"/>
       <arg name="path" type="s" direction="in"/>
     </method>
+    <method name="openFileInEditorAt">
+      <arg type="i" direction="out"/>
+      <arg name="path" type="s" direction="in"/>
+      <arg name="source" type="s" direction="in"/>
+      <arg name="ctxt" type="s" direction="in"/>
+    </method>
     <method name="showTranslationMemory">
       <arg type="i" direction="out"/>
     </method>

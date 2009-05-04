@@ -39,6 +39,9 @@ class QContextMenuEvent;
 class ProjectTab: public LokalizeSubwindowBase2
 {
     Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.Lokalize.ProjectOverview")
+    //qdbuscpp2xml -m -s projecttab.h -o org.kde.lokalize.ProjectOverview.xml
+
 public:
     ProjectTab(QWidget *parent);
     ~ProjectTab();
@@ -55,6 +58,15 @@ signals:
     void searchRequested(const KUrl::List&);
     void replaceRequested(const KUrl::List&);
     void spellcheckRequested(const KUrl::List&);
+
+public slots:
+    Q_SCRIPTABLE void setCurrentItem(const QString& url);
+    Q_SCRIPTABLE QString currentItem() const;
+    ///@returns list of selected files recursively
+    Q_SCRIPTABLE QStringList selectedItems() const;
+    Q_SCRIPTABLE bool currentItemIsTranslationFile() const;
+
+    //Q_SCRIPTABLE bool isShown() const;
 
 private slots:
     void findInFiles();

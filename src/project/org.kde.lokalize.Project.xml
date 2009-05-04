@@ -3,6 +3,12 @@
   <interface name="org.kde.Lokalize.Project">
     <signal name="loaded">
     </signal>
+    <method name="translationsRoot">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="templatesRoot">
+      <arg type="s" direction="out"/>
+    </method>
     <method name="targetLangCode">
       <arg type="s" direction="out"/>
     </method>
@@ -18,6 +24,10 @@
     </method>
     <method name="kind">
       <arg type="s" direction="out"/>
+    </method>
+    <method name="absolutePath">
+      <arg type="s" direction="out"/>
+      <arg type="s" direction="in"/>
     </method>
   </interface>
 </node>

@@ -77,6 +77,10 @@ public:
 //     void initLater();
 
 public slots:
+    Q_SCRIPTABLE QString translationsRoot()const{return poDir();}
+    Q_SCRIPTABLE QString templatesRoot()const{return potDir();}
+
+
     Q_SCRIPTABLE QString targetLangCode(){return ProjectBase::langCode();}
     Q_SCRIPTABLE QString sourceLangCode(){return ProjectBase::sourceLangCode();}
     Q_SCRIPTABLE void init(const QString& path, const QString& kind, const QString& id,
