@@ -587,12 +587,14 @@ public:
     void setDOMDocument (const QDomDocument &document, bool merge = false);
 };
 
+#define PROJECTRCFILEPATH Project::instance()->projectDir()+"/lokalize-scripts/scripts.rc"
+//TODO be lazy creating scripts dir
 ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
  : Kross::ScriptingPlugin(Project::instance()->kind(),
-                          Project::instance()->projectDir()+"/scripts/scripts.rc",
+                          PROJECTRCFILEPATH,
                           Project::instance()->kind(), lokalize)
 {
-    QString filepath=Project::instance()->projectDir()+"/scripts/scripts.rc";
+    QString filepath=PROJECTRCFILEPATH;
     if (!QFile::exists(filepath))
     {
         KUrl dir = KUrl(filepath).directory();

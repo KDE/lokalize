@@ -35,7 +35,7 @@ def args(src, tgt, **kwargs):
 
 pages=[]
 
-pages.append('type')
+pages.append('TypePage')
 class TypePage(QWizardPage):
     def __init__(self, parent):
         QWizardPage.__init__(self, parent)
@@ -47,7 +47,7 @@ class TypePage(QWizardPage):
         document.setChecked(True)
         gui=QRadioButton(self)
         gui.setText(i18n('Translate application interface'))
-        layout=QVBoxLayout(self)        
+        layout=QVBoxLayout(self)
         layout.addWidget(document)
         layout.addWidget(gui)
         self.group.addButton(document,0)
@@ -56,9 +56,9 @@ class TypePage(QWizardPage):
         self.registerField('kind-document',document)
         self.registerField('kind-gui',gui)
 
-    def nextId(self): return pages.index(['odf','soft'][self.group.checkedId()])
+    def nextId(self): return pages.index(['OdfSourcePage','SoftSourcePage'][self.group.checkedId()])
 
-pages.append('odf')
+pages.append('OdfSourcePage')
 class OdfSourcePage(QWizardPage):
     def __init__(self, parent):
         QWizardPage.__init__(self, parent)
@@ -72,7 +72,7 @@ class OdfSourcePage(QWizardPage):
         self.odfFilePath.setFilter('*.odt *.ods|OpenDocument files')
         self.odfFilePath.setMode(KFile.Modes(KFile.File or KFile.ExistingOnly or KFile.LocalOnly))
 
-        self.dirs=QRadioButton(i18n('Select a directory:'),self)
+        self.dirs=QRadioButton(i18n('Select a folder:'),self)
         self.group.addButton(self.dirs,1)
         self.odfDirPath=KUrlRequester(self)
         self.odfDirPath.setMode(KFile.Modes(KFile.Directory or KFile.ExistingOnly or KFile.LocalOnly))
@@ -89,25 +89,20 @@ class OdfSourcePage(QWizardPage):
         layout.addRow(self.files,self.odfFilePath)
         layout.addRow(self.dirs,self.odfDirPath)
 
-    def nextId(self): return pages.index('name')
-
-    def initializePage(self):
         self.registerField('odf-template-source-files',self.files)
         self.registerField('odf-template-source-dirs',self.dirs)
         self.registerField('odf-template-files',self.odfFilePath.lineEdit())
         self.registerField('odf-template-dir',self.odfDirPath.lineEdit())
 
+    def nextId(self): return pages.index('NamePage')
+
+    def initializePage(self):
         self.odfFilePath.fileDialog().setUrl(KUrl(QDesktopServices.storageLocation(QDesktopServices.StandardLocation(QDesktopServices.DocumentsLocation))))
         self.odfDirPath.lineEdit().setText(QDesktopServices.storageLocation(QDesktopServices.StandardLocation(QDesktopServices.DocumentsLocation)))
 
-    def isComplete(self):
-        #if self.group.checkedId()==0: return QFile.exists(self.odfFilePath.lineEdit().text())
-        #else:                         return QFile.exists(self.odfFilePath.lineEdit().text())
-        widgets=[self.odfFilePath,self.odfDirPath]
-        return QFileInfo(widgets[self.group.checkedId()].lineEdit().text()).exists()
 
 
-pages.append('name')
+pages.append('NamePage')
 class NamePage(QWizardPage):
     def __init__(self, parent):
         QWizardPage.__init__(self, parent)
@@ -133,7 +128,7 @@ class NamePage(QWizardPage):
         self.connect(self.samedir,SIGNAL("toggled(bool)"),group,SLOT("setDisabled(bool)"))
         self.samedir.setChecked(True)
 
-    def nextId(self): return pages.index('languages')
+    def nextId(self): return pages.index('LangPage')
 
     def initializePage(self):
         if self.field('odf-template-source-files').toBool():
@@ -147,7 +142,7 @@ class NamePage(QWizardPage):
         #field(fields[self.page(0).group.checkedId()]).toString()
         #self.projectLocation.lineEdit().setText(QDesktopServices.storageLocation(QDesktopServices.StandardLocation.DocumentsLocation))
 
-pages.append('languages')
+pages.append('LangPage')
 # TODO cache, make it cross-platform
 class LanguageListModel(QStringListModel):
     def __init__(self, parent):
@@ -189,12 +184,142 @@ class LangPage(QWizardPage):
         self.registerField('source-lang',self.sourceLang)
         self.registerField('target-lang',self.targetLang)
 
-    #def nextId(self): return pages.index('name')
 
 
 ##########################
 
 
+pages.append('SoftSourcePage')
+class SoftSourcePage(QWizardPage):
+    def __init__(self, parent):
+        QWizardPage.__init__(self, parent)
+        self.setTitle(i18n("Choose a type of software project"))
+        self.setSubTitle(i18n("Different projects use different translation files filesystem layout."))
+        self.group=QButtonGroup(self)
+        self.kde=QRadioButton(i18n('KDE'),self)
+        self.kde.setChecked(True)
+        self.group.addButton(self.kde,0)
+
+        layout=QFormLayout(self)
+        layout.addWidget(self.kde)
+        self.registerField('soft-kde',self.kde)
+
+    def nextId(self): return pages.index(['KdeSourcePage','generic'][self.group.checkedId()])
+
+
+pages.append('KdeSourcePage')
+class KdeSourcePage(QWizardPage):
+    def __init__(self, parent):
+        QWizardPage.__init__(self, parent)
+        self.setTitle(i18n("Choose location of your software translation project"))
+        self.setSubTitle(i18n("Choose whether you're already have translation files on your disk or want to download them now."))
+        self.group=QButtonGroup(self)
+        self.existing=QRadioButton(i18n('Existing:'),self)
+        self.group.addButton(self.existing,0)
+        self.existingLocation=KUrlRequester(self)
+        self.existingLocation.setMode(KFile.Modes(KFile.Directory or KFile.ExistingOnly or KFile.LocalOnly))
+        self.existingLocation.setClickMessage(i18n("Your language's folder containing messages/ and docmessages/ subfolders"))
+        #self.existingLocation.setStartDir(QDesktopServices.storageLocation(QDesktopServices.DocumentsLocation))
+        self.connect(self.existingLocation,SIGNAL("textChanged(QString)"),self,SIGNAL("completeChanged()"))
+        self.connect(self.existing,SIGNAL("toggled(bool)"),self.existingLocation,SLOT("setEnabled(bool)"))
+        self.connect(self.group,SIGNAL("buttonClicked(int)"),self,SIGNAL("completeChanged()"))
+
+        self.svn=QRadioButton(i18n('Get from svn repository\n(approx. 20 mb):'),self)
+        self.group.addButton(self.svn,1)
+        self.languageListModel=LanguageListModel(self)
+        self.targetLang=KComboBox(self)
+        self.targetLang.setModel(self.languageListModel)
+
+        tlang=Project.targetLangCode()
+        if tlang=='en_US':tlang=QLocale.system().name()
+        tpos=self.languageListModel.stringList().indexOf(tlang)
+        if tpos==-1: tpos=self.languageListModel.stringList().indexOf(QRegExp('^'+tlang[:2]+'.*'))
+        if tpos!=-1: self.targetLang.setCurrentIndex(tpos)
+
+        self.svnRootLocation=KUrlRequester(self)
+        self.svnRootLocation.setMode(KFile.Modes(KFile.Directory or KFile.ExistingOnly or KFile.LocalOnly))
+        self.svnRootLocation.setClickMessage(i18n("Local download folder (will/does contain trunk/l10n-kde4/...)"))
+        #self.svnRootLocation.setStartDir(QDesktopServices.storageLocation(QDesktopServices.DocumentsLocation))
+        self.connect(self.svnRootLocation,SIGNAL("textChanged(QString)"),self,SIGNAL("completeChanged()"))
+
+        w=QWidget(self)
+        self.connect(self.svn,SIGNAL("toggled(bool)"),w,SLOT("setEnabled(bool)"))
+        self.svn.setChecked(True)
+        self.existing.setChecked(True)
+
+
+        self.progress=QProgressBar(self)
+        self.progress.hide()
+        self.counter=0
+
+
+        layout=QFormLayout(self)
+        layout.addRow(self.existing,self.existingLocation)
+        svnl=QVBoxLayout(w)
+        svnl.setContentsMargins(0,0,0,0)
+        svnl.addWidget(self.targetLang)
+        svnl.addWidget(self.svnRootLocation)
+        layout.addRow(self.svn,w)
+        layout.addWidget(self.progress)
+
+        self.registerField('kde-existing-location',self.existingLocation.lineEdit())
+        self.registerField('kde-svn-lang',self.targetLang)
+        self.registerField('kde-svn-root-location',self.svnRootLocation.lineEdit())
+        #self.registerField('kde-svn-project-location',self.svnRootLocation)
+        self.registerField('kde-existing',self.existing)
+        self.registerField('kde-svn',self.svn)
+
+        self.setCommitPage(True)
+
+    #def nextId(self): return pages.index(['svn-existing','KdeCheckoutPage'][self.group.checkedId()])
+
+    def isComplete(self):
+        if self.existing.isChecked():
+            return QFileInfo(self.existingLocation.text()).exists()
+        return QFileInfo(self.svnRootLocation.text()).exists()
+
+    def validatePage(self):
+        if os.system('which svn')!=0:
+            KMessageBox.error(self,i18n("Please install 'subversion' package\nto have Lokalize download KDE translation files."),i18n("Subversion client not found"))
+            return False
+
+        self.progress.show()
+        self.progress.setMaximum(4*30)
+        QCoreApplication.processEvents()
+
+        #localsvnroot=self.field('kde-svn-location').toString()
+        localsvnroot=self.svnRootLocation.text()
+        if not QFileInfo('%s/trunk' % localsvnroot).exists():
+            os.system('svn -N co svn://anonsvn.kde.org/home/kde/trunk %s/trunk' % localsvnroot)
+        self.reportProgress(10)
+
+        if not QFileInfo('%s/trunk/l10n-kde4' % localsvnroot).exists():
+            os.system('svn -N up %s/trunk/l10n-kde4' % localsvnroot)
+        self.reportProgress(5)
+
+
+        langs=KGlobal.locale().allLanguagesList()
+        lang=langs[self.field('kde-svn-lang').toInt()[0]]
+
+        os.system('svn --depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+        self.reportProgress(5)
+        os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/messages' % (localsvnroot, lang))
+        self.reportProgress(30)
+        os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docmessages' % (localsvnroot, lang))
+        self.reportProgress(30)
+        os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docs' % (localsvnroot, lang))
+        self.reportProgress(30)
+        os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+        self.reportProgress(10)
+
+        self.existingLocation.setUrl(KUrl("%s/trunk/l10n-kde4/%s" % (localsvnroot, lang)))
+
+        return True
+
+    def reportProgress(self, weight):
+        self.counter+=weight
+        self.progress.setValue(self.counter)
+        QCoreApplication.processEvents()
 
 
 ##########################
@@ -202,10 +327,8 @@ class LangPage(QWizardPage):
 class ProjectAssistant(QWizard):
     def __init__(self):
         QWizard.__init__(self)
-        self.addPage(TypePage(self))
-        self.addPage(OdfSourcePage(self))
-        self.addPage(NamePage(self))
-        self.addPage(LangPage(self))
+        for p in pages:
+            exec "self.addPage( %s(self) )" % p
 
         self.connect(self,SIGNAL("finished(int)"),self.finished)
         self.connect(self,SIGNAL("accepted()"),self.handleAccept)
@@ -217,19 +340,33 @@ class ProjectAssistant(QWizard):
 
         kinds=['odf','kde']
         kind=kinds[self.page(0).group.checkedId()]
+        langs=KGlobal.locale().allLanguagesList()
 
+        doInit=True
         projectfilename='index.lokalize'
         #if kind=='odf' and fb('odf-template-source-files'):
             #projectfilename=QFileInfo(fs('odf-template-files')).baseName()+'.lokalize'
 
-        loc=QDir(fs('location'))
-        loc.mkdir(fs('name'))
-        ppath=loc.absoluteFilePath(fs('name')+'/'+projectfilename)
+        if kind=='odf':
+            loc=QDir(fs('location'))
+            loc.mkdir(fs('name'))
+            ppath=loc.absoluteFilePath(fs('name')+'/'+projectfilename)
+            targetlang=langs[fi('target-lang')]
+            name=fs('name').toLower()
+        elif kind=='kde':
+            name='kde'
+            loc=QDir(fs('kde-existing-location'))
+            targetlang=loc.dirName()
+            print 'project lang: %s' % targetlang
 
-        langs=self.page(pages.index('languages')).languageListModel.stringList()
-        Project.init(ppath, kind,
-                     fs('name').toLower()+'-'+langs[fi('target-lang')],
-                     langs[fi('source-lang')],langs[fi('target-lang')])
+            l=loc.entryList(QStringList('*.lokalize'), QDir.Filter(QDir.Files))
+            if len(l):
+                doInit=False
+                projectfilename=l[0]
+            ppath=loc.absoluteFilePath(projectfilename)
+
+
+        if doInit: Project.init(ppath, kind, name+'-'+targetlang, langs[fi('source-lang')],targetlang)
 
         if kind=='odf':
             files=[fs('odf-template-files')]

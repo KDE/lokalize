@@ -32,7 +32,7 @@ def convert():
     xliffinput=XliffInput(xliffpathname,Editor.currentFileContents())
 
     xliff2odf.convertxliff(xliffinput, translatedodfpathname, odfpathname)
-       
+
     ourpath=([p for p in sys.path if os.path.exists(p+'/xliff2odf.py')]+[''])[0]
     os.system('python "'+ourpath+'/xliff2odf-standalone.py" "%s" "%s" &'%(translatedodfpathname, Editor.currentEntryId()))
 

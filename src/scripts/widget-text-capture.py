@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import Kross
 
-import sys,os
+import sys,os,codecs
 ourPath=([p for p in sys.path if os.path.exists(p+'/widget-text-capture.ui')]+[''])[0]
+
+utf8_decoder=codecs.getdecoder("utf8")
 
 T = Kross.module("kdetranslation")
 def i18n(text, args = []):
-    if T is not None: return T.i18n(text, args)
+    if T is not None: return utf8_decoder(T.i18n(text, args))[0]
     # No translation module, return the untranslated string
     for a in range(len(args)): text = text.replace( ("%" + "%d" % ( a + 1 )), str(args[a]) )
     return text
