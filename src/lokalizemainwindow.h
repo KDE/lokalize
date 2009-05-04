@@ -94,13 +94,11 @@ public slots:
 
     Q_SCRIPTABLE void openProject(const QString& path);
     Q_SCRIPTABLE QString currentProject();
-    /**
-     * * @returns 0 if current tab is not of Editor type
-     */
+
+    /// @returns 0 if current tab is not of Editor type
     Q_SCRIPTABLE QObject* activeEditor();
-    /**
-     * @returns editor with @param path loaded or 0 if there is no such editor.
-     */
+    
+    /// @returns editor with @param path loaded or 0 if there is no such editor.
     Q_SCRIPTABLE QObject* editorForFile(const QString& path);
     /**
      * # part of editor DBus path: /ThisIsWhatYouWant/Editor/#
@@ -108,13 +106,10 @@ public slots:
      */
     Q_SCRIPTABLE int editorIndexForFile(const QString& path);
 
-    /**
-     * @returns Unix process ID
-     */
+    /// @returns Unix process ID
     Q_SCRIPTABLE int pid();
-    /**
-     * @returns smth like 'org.kde.lokalize-####' where #### is pid()
-     */
+
+    /// @returns smth like 'org.kde.lokalize-####' where #### is pid()
     Q_SCRIPTABLE QString dbusName();
 
     Q_SCRIPTABLE void busyCursor(bool busy);

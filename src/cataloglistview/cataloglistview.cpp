@@ -79,8 +79,6 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 
     setWidget(w);
 
-    connect(catalog,SIGNAL(signalFileLoaded()),m_model,SIGNAL(modelReset()));
-
     connect(m_browser,SIGNAL(clicked(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
     m_browser->setRootIsDecorated(false);
     m_browser->setAllColumnsShowFocus(true);
@@ -124,6 +122,9 @@ void CatalogView::slotItemActivated(const QModelIndex& idx)
 
 void CatalogView::filterOptionToggled(QAction* action)
 {
+    if (action->data().isNull())
+        return;
+
     int opt=action->data().toInt();
     if (opt>0)
         m_proxyModel->setFilerOptions(m_proxyModel->filerOptions()^opt);
@@ -138,11 +139,15 @@ void CatalogView::fillFilterOptionsMenu()
 {
     m_filterOptionsMenu->clear();
 
+    if (m_proxyModel->individualRejectFilterEnabled())
+        m_filterOptionsMenu->addAction(i18n("Reset individual filter"),this,SLOT(resetIndividualFilter()));
+
+
     bool extStates=m_model->catalog()->capabilities()&ExtendedStates;
 
     const char* const basicTitles[]={I18N_NOOP("Case sensitive"),
-                                 I18N_NOOP("Approved"),
-                                 I18N_NOOP("Non-approved"),
+                                 I18N_NOOP("Ready"),
+                                 I18N_NOOP("Non-ready"),
                                  I18N_NOOP("Non-empty"),
                                  I18N_NOOP("Empty"),
                                  I18N_NOOP("Changed since file open"),
@@ -180,5 +185,18 @@ void CatalogView::fillFilterOptionsMenu()
         txt->setChecked(m_proxyModel->filterKeyColumn()==i);
     }
 }
+
+
+void CatalogView::setEntryFilteredOut(int entry, bool filteredOut)
+{
+    show();
+    m_proxyModel->setEntryFilteredOut(entry,filteredOut);
+}
+
+void CatalogView::resetIndividualFilter()
+{
+    m_proxyModel->resetIndividualFilter();
+}
+
 
 #include "cataloglistview.moc"

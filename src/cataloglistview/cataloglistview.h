@@ -44,11 +44,14 @@ public:
     CatalogView(QWidget*,Catalog*);
     ~CatalogView();
 
+    void setEntryFilteredOut(int entry, bool filteredOut);
+
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
+    void resetIndividualFilter();
 
 signals:
-    void gotoEntry(const DocPosition&,int);
+    void gotoEntry(const DocPosition&, int);
 
 private slots:
     void slotItemActivated(const QModelIndex&);

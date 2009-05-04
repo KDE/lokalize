@@ -1240,6 +1240,17 @@ QString EditorTab::currentEntryId(){return m_catalog->id(m_currentPos);}
 QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}
 QString EditorTab::selectionInSource(){return m_view->selectionInSource();}
 
+
+void EditorTab::setEntryFilteredOut(int entry, bool filteredOut){m_catalogTreeView->setEntryFilteredOut(entry, filteredOut);}
+void EditorTab::resetEntryFilter(){m_catalogTreeView->resetIndividualFilter();}
+int EditorTab::entryCount(){return m_catalog->numberOfEntries();}
+
+QString EditorTab::entrySource(int entry, int form){return m_catalog->sourceWithTags(DocPosition(entry, form)).string;}
+QString EditorTab::entryTarget(int entry, int form){return m_catalog->targetWithTags(DocPosition(entry, form)).string;}
+int EditorTab::entryPluralFormCount(int entry){return m_catalog->isPlural(entry)?m_catalog->numberOfPluralForms():1;}
+void EditorTab::addNote(int entry, QString note){}
+
+
 //END DBus interface
 
 #include "editortab.moc"

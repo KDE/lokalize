@@ -28,6 +28,7 @@
 
 #include <QAbstractItemModel>
 #include <QSortFilterProxyModel>
+#include <QVector>
 
 class Catalog;
 
@@ -68,6 +69,7 @@ public:
 
 public slots:
     void reflectChanges(DocPosition);
+    void fileLoaded();
 private:
     Catalog* m_catalog;
     DocPos m_prevChanged;
@@ -82,6 +84,7 @@ private:
 
 class CatalogTreeFilterModel: public QSortFilterProxyModel
 {
+Q_OBJECT
 public:
     enum FilterOptions
     {
@@ -114,8 +117,17 @@ public:
     void setFilerOptions(int o);
     int filerOptions()const{return m_filerOptions;}
 
+    void setSourceModel(CatalogTreeModel* sourceModel);
+    void setEntryFilteredOut(int entry, bool filteredOut);
+    bool individualRejectFilterEnabled(){return m_individualRejectFilterEnable;}
+
+public slots:
+    void resetIndividualFilter();
+
 private:
     int m_filerOptions;
+    bool m_individualRejectFilterEnable;
+    QVector<bool> m_individualRejectFilter;
 };
 
 

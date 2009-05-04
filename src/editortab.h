@@ -136,6 +136,15 @@ public slots:
     Q_SCRIPTABLE QString selectionInTarget();
     Q_SCRIPTABLE QString selectionInSource();
 
+    Q_SCRIPTABLE void setEntryFilteredOut(int entry, bool filteredOut);
+    Q_SCRIPTABLE void resetEntryFilter();
+
+    Q_SCRIPTABLE int entryCount();
+    Q_SCRIPTABLE QString entrySource(int entry, int form);
+    Q_SCRIPTABLE QString entryTarget(int entry, int form);
+    Q_SCRIPTABLE int entryPluralFormCount(int entry);
+    Q_SCRIPTABLE void addNote(int entry, QString note);
+
 
     Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
     Q_SCRIPTABLE QByteArray currentFileContents();

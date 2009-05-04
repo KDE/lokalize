@@ -109,10 +109,10 @@ Project::~Project()
 
 void Project::load(const QString &file)
 {
-    //QTime a;a.start(); kWarning()<<"loading"<<file;
+    QTime a;a.start();
 
     ThreadWeaver::Weaver::instance()->dequeue();
-    kWarning()<<"Finishing jobs...";
+    kWarning()<<"loading"<<file<<"Finishing jobs...";
 
     if (!m_path.isEmpty())
     {
@@ -145,7 +145,7 @@ void Project::load(const QString &file)
     TM::DBFilesModel::instance()->openDB(projectID());
 
     emit loaded();
-    //kWarning()<<"loaded"<<a.elapsed();
+    kWarning()<<"loaded"<<a.elapsed();
 }
 
 QString Project::projectDir() const

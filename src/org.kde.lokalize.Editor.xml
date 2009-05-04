@@ -47,6 +47,33 @@
     <method name="selectionInSource">
       <arg type="s" direction="out"/>
     </method>
+    <method name="setEntryFilteredOut">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="filteredOut" type="b" direction="in"/>
+    </method>
+    <method name="resetEntryFilter">
+    </method>
+    <method name="entryCount">
+      <arg type="i" direction="out"/>
+    </method>
+    <method name="entrySource">
+      <arg type="s" direction="out"/>
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="form" type="i" direction="in"/>
+    </method>
+    <method name="entryTarget">
+      <arg type="s" direction="out"/>
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="form" type="i" direction="in"/>
+    </method>
+    <method name="entryPluralFormCount">
+      <arg type="i" direction="out"/>
+      <arg name="entry" type="i" direction="in"/>
+    </method>
+    <method name="addNote">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="note" type="s" direction="in"/>
+    </method>
     <method name="currentFile">
       <arg type="s" direction="out"/>
     </method>

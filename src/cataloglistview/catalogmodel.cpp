@@ -37,6 +37,7 @@ CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
  , m_catalog(catalog)
 {
     connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(reflectChanges(DocPosition)));
+    connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
 }
 
 QModelIndex CatalogTreeModel::index(int row,int column,const QModelIndex& /*parent*/) const
@@ -52,6 +53,11 @@ QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
 int CatalogTreeModel::columnCount(const QModelIndex& parent) const
 {
     return DisplayedColumnCount;
+}
+
+void CatalogTreeModel::fileLoaded()
+{
+    reset();
 }
 
 void CatalogTreeModel::reflectChanges(DocPosition pos)
@@ -147,10 +153,35 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
 CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
  : QSortFilterProxyModel(parent)
  , m_filerOptions(AllStates)
+ , m_individualRejectFilterEnable(false)
 {
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
     setDynamicSortFilter(true);
+}
+
+void CatalogTreeFilterModel::setSourceModel(CatalogTreeModel* sourceModel)
+{
+    QSortFilterProxyModel::setSourceModel(sourceModel);
+    connect(sourceModel,SIGNAL(modelReset()),SLOT(resetIndividualFilter()));
+    resetIndividualFilter();
+}
+
+void CatalogTreeFilterModel::resetIndividualFilter()
+{
+    m_individualRejectFilter.clear();
+    m_individualRejectFilter.resize(sourceModel()->rowCount());
+    m_individualRejectFilterEnable=false;
+    invalidateFilter();
+}
+
+void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
+{
+//     if (entry>=m_individualRejectFilter.size())
+//         sourceModelReset();
+    m_individualRejectFilter[entry]=filteredOut;
+    m_individualRejectFilterEnable=true;
+    invalidateFilter();
 }
 
 void CatalogTreeFilterModel::setFilerOptions(int o)
@@ -179,5 +210,6 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         bool modified=sourceModel()->index(source_row,CatalogTreeModel::Modified,source_parent).data(Qt::UserRole).toBool();
         accepts=(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
     }
+    accepts=accepts&&!(m_individualRejectFilterEnable && source_row<m_individualRejectFilter.size() && m_individualRejectFilter.at(source_row));
     return accepts&&QSortFilterProxyModel::filterAcceptsRow(source_row,source_parent);
 }
