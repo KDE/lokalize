@@ -213,7 +213,7 @@ class KdeSourcePage(QWizardPage):
     def __init__(self, parent):
         QWizardPage.__init__(self, parent)
         self.setTitle(i18n("Choose location of your software translation project"))
-        self.setSubTitle(i18n("Choose whether you're already have translation files on your disk or want to download them now."))
+        self.setSubTitle(i18n("Choose whether you already have translation files on disk, or if you want to download them now."))
         self.group=QButtonGroup(self)
         self.existing=QRadioButton(i18n('Existing:'),self)
         self.group.addButton(self.existing,0)
@@ -225,7 +225,7 @@ class KdeSourcePage(QWizardPage):
         self.connect(self.existing,SIGNAL("toggled(bool)"),self.existingLocation,SLOT("setEnabled(bool)"))
         self.connect(self.group,SIGNAL("buttonClicked(int)"),self,SIGNAL("completeChanged()"))
 
-        self.svn=QRadioButton(i18n('Get from svn repository\n(approx. 20 mb):'),self)
+        self.svn=QRadioButton(i18n('Get from svn repository\n(approx. 20 MB):'),self)
         self.group.addButton(self.svn,1)
         self.languageListModel=LanguageListModel(self)
         self.targetLang=KComboBox(self)
