@@ -22,14 +22,14 @@
      <item>
       <widget class="QPushButton" name="addData" >
        <property name="text" >
-        <string>Add data</string>
+        <string>Add Data</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="importTMX" >
        <property name="text" >
-        <string>Add data from TMX</string>
+        <string>Add Data from TMX</string>
        </property>
       </widget>
      </item>

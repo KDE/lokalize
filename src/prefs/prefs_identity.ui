@@ -34,7 +34,7 @@
    <item row="2" column="0" >
     <widget class="QLabel" name="textLabel1" >
      <property name="text" >
-      <string comment="@label:chooser" >Default Language:</string>
+      <string comment="@label:chooser" >Default language:</string>
      </property>
      <property name="wordWrap" >
       <bool>false</bool>
@@ -80,7 +80,7 @@
    <item row="3" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string comment="@label:textbox" >Default Mailing List:</string>
+      <string comment="@label:textbox" >Default mailing list:</string>
      </property>
      <property name="buddy" >
       <cstring>kcfg_DefaultMailingList</cstring>
@@ -150,7 +150,7 @@
    <item row="4" column="0" >
     <widget class="QLabel" name="label_2" >
      <property name="text" >
-      <string comment="@label:textbox" >Localized Name:</string>
+      <string comment="@label:textbox" >Localized name:</string>
      </property>
     </widget>
    </item>

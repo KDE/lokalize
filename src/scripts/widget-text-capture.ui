@@ -38,7 +38,7 @@
       </sizepolicy>
      </property>
      <property name="title" >
-      <string>Middle mouse button click reaction</string>
+      <string>Middle Mouse Button Click Reaction</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout" >
       <item>
