@@ -121,31 +121,37 @@ void Project::load(const QString &file)
     }
     ThreadWeaver::Weaver::instance()->finish();//more safety
 
+    kWarning()<<"5...";
 
     setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
+    kWarning()<<"4...";
     readConfig();
     m_path=file;
 
+    kWarning()<<"3...";
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
     m_localConfig->readConfig();
 
+    kWarning()<<"2...";
 
     TM::DBFilesModel::instance()->openDB(projectID());
 
-
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
+
+    kWarning()<<"1...";
 
     populateDirModel();
 
     //put 'em into thread?
     QTimer::singleShot(0,this,SLOT(populateGlossary()));
 
-
     TM::DBFilesModel::instance()->openDB(projectID());
 
+    kWarning()<<"until emitting signal"<<a.elapsed();
+
     emit loaded();
-    kWarning()<<"loaded"<<a.elapsed();
+    kWarning()<<"loaded!"<<a.elapsed();
 }
 
 QString Project::projectDir() const

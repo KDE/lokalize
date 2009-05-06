@@ -35,6 +35,7 @@
 #include <kdebug.h>
 
 class UpdateStatsJob;
+namespace ThreadWeaver {class Weaver;}
 
 /**
 *  Some notes:
@@ -171,6 +172,8 @@ private:
     QSet<ProjectNode *> m_dirsWaitingForMetadata;
     UpdateStatsJob* m_activeJob;
     ProjectNode* m_activeNode;
+
+    ThreadWeaver::Weaver* m_weaver;
 };
 
 

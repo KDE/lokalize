@@ -50,7 +50,9 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_potIcon(KIcon(QLatin1String("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
+    , m_weaver(new ThreadWeaver::Weaver(this))
 {
+    m_weaver->setMaximumNumberOfThreads(1);
 
     m_poModel.dirLister()->setAutoUpdate(true);
     m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
@@ -974,7 +976,7 @@ void ProjectModel::startNewMetadataJob()
         m_activeJob,SIGNAL(done(ThreadWeaver::Job*)),
         this,SLOT(finishMetadataUpdate(ThreadWeaver::Job*)));
 
-    ThreadWeaver::Weaver::instance()->enqueue(m_activeJob);
+    m_weaver->enqueue(m_activeJob);
 }
 
 void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
@@ -1026,7 +1028,7 @@ void ProjectModel::slotFileSaved(const KUrl& url)
     connect(j,SIGNAL(done(ThreadWeaver::Job*)),
         this,SLOT(finishSingleMetadataUpdate(ThreadWeaver::Job*)));
 
-    ThreadWeaver::Weaver::instance()->enqueue(j);
+    m_weaver->enqueue(j);
 }
 
 void ProjectModel::finishSingleMetadataUpdate(ThreadWeaver::Job* _job)

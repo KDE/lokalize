@@ -85,7 +85,7 @@ TargetState MergeCatalog::state(const DocPosition& pos) const
     DocPosition us=pos;
     us.entry=m_map.at(pos.entry);
 
-    return (us.entry==-1)?New:Catalog::state(pos);
+    return (us.entry==-1)?New:Catalog::state(us);
 }
 
 
