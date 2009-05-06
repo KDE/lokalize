@@ -659,7 +659,7 @@ static void getConfig(QSqlDatabase& db,
 
 {
     QSqlQuery query(db);
-    query.exec("SELECT id, value FROM tm_config ORDER BY id ASC");
+    query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
     if (KDE_ISLIKELY(  query.next() ))
     {
         markup=query.value(1).toString();
