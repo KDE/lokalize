@@ -137,7 +137,7 @@ public slots:
     Q_SCRIPTABLE QString selectionInSource();
 
     Q_SCRIPTABLE void setEntryFilteredOut(int entry, bool filteredOut);
-    Q_SCRIPTABLE void resetEntryFilter();
+    Q_SCRIPTABLE void setEntriesFilteredOut(bool filteredOut);
 
     Q_SCRIPTABLE int entryCount();
     Q_SCRIPTABLE QString entrySource(int entry, int form);

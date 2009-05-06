@@ -119,6 +119,7 @@ public:
 
     void setSourceModel(CatalogTreeModel* sourceModel);
     void setEntryFilteredOut(int entry, bool filteredOut);
+    void setEntriesFilteredOut(bool filteredOut);
     bool individualRejectFilterEnabled(){return m_individualRejectFilterEnable;}
 
 public slots:

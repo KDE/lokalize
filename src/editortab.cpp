@@ -1286,7 +1286,7 @@ QString EditorTab::selectionInSource(){return m_view->selectionInSource();}
 
 
 void EditorTab::setEntryFilteredOut(int entry, bool filteredOut){m_transUnitsView->setEntryFilteredOut(entry, filteredOut);}
-void EditorTab::resetEntryFilter(){m_transUnitsView->resetIndividualFilter();}
+void EditorTab::setEntriesFilteredOut(bool filteredOut){m_transUnitsView->setEntriesFilteredOut(filteredOut);}
 int EditorTab::entryCount(){return m_catalog->numberOfEntries();}
 
 QString EditorTab::entrySource(int entry, int form){return m_catalog->sourceWithTags(DocPosition(entry, form)).string;}

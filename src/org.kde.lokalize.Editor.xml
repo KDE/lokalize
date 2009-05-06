@@ -51,7 +51,8 @@
       <arg name="entry" type="i" direction="in"/>
       <arg name="filteredOut" type="b" direction="in"/>
     </method>
-    <method name="resetEntryFilter">
+    <method name="setEntriesFilteredOut">
+      <arg name="filteredOut" type="b" direction="in"/>
     </method>
     <method name="entryCount">
       <arg type="i" direction="out"/>
@@ -93,9 +94,21 @@
     </method>
     <method name="close">
     </method>
+    <method name="gotoNextUnfiltered">
+    </method>
+    <method name="gotoPrevUnfiltered">
+    </method>
+    <method name="gotoFirstUnfiltered">
+    </method>
+    <method name="gotoLastUnfiltered">
+    </method>
     <method name="gotoNext">
     </method>
     <method name="gotoPrev">
+    </method>
+    <method name="gotoFirst">
+    </method>
+    <method name="gotoLast">
     </method>
     <method name="findEntryBySourceContext">
       <arg type="b" direction="out"/>

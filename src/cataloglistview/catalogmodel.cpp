@@ -175,6 +175,13 @@ void CatalogTreeFilterModel::resetIndividualFilter()
     invalidateFilter();
 }
 
+void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
+{
+    m_individualRejectFilter.fill(filteredOut, sourceModel()->rowCount());
+    m_individualRejectFilterEnable=filteredOut;
+    invalidateFilter();
+}
+
 void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 {
 //     if (entry>=m_individualRejectFilter.size())

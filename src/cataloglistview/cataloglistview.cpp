@@ -241,8 +241,13 @@ int CatalogView::lastEntry()
 
 void CatalogView::setEntryFilteredOut(int entry, bool filteredOut)
 {
-    show();
     m_proxyModel->setEntryFilteredOut(entry,filteredOut);
+}
+
+void CatalogView::setEntriesFilteredOut(bool filteredOut)
+{
+    show();
+    m_proxyModel->setEntriesFilteredOut(filteredOut);
 }
 
 void CatalogView::resetIndividualFilter()

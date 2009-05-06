@@ -45,6 +45,7 @@ public:
     ~CatalogView();
 
     void setEntryFilteredOut(int entry, bool filteredOut);
+    void setEntriesFilteredOut(bool filteredOut);
 
     int nextEntry();
     int prevEntry();
