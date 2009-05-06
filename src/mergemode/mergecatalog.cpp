@@ -72,21 +72,22 @@ QString MergeCatalog::msgstr(const DocPosition& pos) const
     DocPosition us=pos;
     us.entry=m_map.at(pos.entry);
 
-    //sanity
-    if (us.entry == -1)
-         return QString();
-
-    return Catalog::msgstr(us);
+    return (us.entry==-1)?QString():Catalog::msgstr(us);
 }
 
 bool MergeCatalog::isApproved(uint index) const
 {
-    //sanity
-    if (m_map.at(index) == -1)
-         return false;
-
-    return Catalog::isApproved(m_map.at(index));
+    return (m_map.at(index)==-1)?false:Catalog::isApproved(m_map.at(index));
 }
+
+TargetState MergeCatalog::state(const DocPosition& pos) const
+{
+    DocPosition us=pos;
+    us.entry=m_map.at(pos.entry);
+
+    return (us.entry==-1)?New:Catalog::state(pos);
+}
+
 
 bool MergeCatalog::isPlural(uint index) const
 {

@@ -89,12 +89,14 @@ public:
     QString msgstr(const DocPosition&) const;
     bool isApproved(uint index) const;
     bool isPlural(uint index) const;
+    TargetState state(const DocPosition& pos) const;
 
     int unmatchedCount()const{return m_unmatchedCount;}
 
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const short int& entry) const;
 
+    ///@arg pos in baseCatalog's coordinates
     void copyToBaseCatalog(DocPosition& pos);
     enum CopyToBaseOptions {EmptyOnly=1};
     void copyToBaseCatalog(int options=0);

@@ -596,6 +596,10 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         else
             KTextEdit::keyPressEvent(keyEvent);
     }
+    else if( keyEvent->key() == Qt::Key_Space && (keyEvent->modifiers()&Qt::AltModifier) )
+        insertPlainText(QChar(0x00a0U));
+    else if (m_catalog->mimetype()!="text/x-gettext-translation")
+        KTextEdit::keyPressEvent(keyEvent);
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
@@ -658,10 +662,11 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             if (pos==str.size()) --pos;
             if(!str.isEmpty()
                 &&str.at(pos) == '\\'
-                &&!isMasked(str,pos))
+                &&!isMasked(str,pos)
+                &&pos<str.length()-1
+                &&spclChars.contains(str.at(pos+1)))
             {
-                if(pos<str.length()-1&&spclChars.contains(str.at(pos+1)))
-                    t.deleteChar();
+                t.deleteChar();
             }
         }
 
@@ -680,7 +685,6 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             {
                 if(pos>1 && str.at(pos-2)=='\\' && !isMasked(str,pos-2))
                 {
-                    //TODO check for imag
                     t.deletePreviousChar();
                     t.deletePreviousChar();
                     setTextCursor(t);
@@ -706,8 +710,6 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     }
     else if(keyEvent->key() == Qt::Key_Tab)
         insertPlainText("\\t");
-    else if( keyEvent->key() == Qt::Key_Space && (keyEvent->modifiers()&Qt::AltModifier) )
-        insertPlainText(QChar(0x00a0U));
     else
         KTextEdit::keyPressEvent(keyEvent);
 }

@@ -344,8 +344,10 @@ bool MergeView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip && m_mergeCatalog)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        QToolTip::showText(helpEvent->globalPos(),i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
-                m_mergeCatalog->changedEntries().count(),m_mergeCatalog->unmatchedCount()));
+        QString text=i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
+                m_mergeCatalog->changedEntries().count(),m_mergeCatalog->unmatchedCount());
+        text.replace('\n',"<br />");
+        QToolTip::showText(helpEvent->globalPos(),text);
         return true;
     }
     return QWidget::event(event);
