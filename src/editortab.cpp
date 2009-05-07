@@ -752,7 +752,7 @@ bool EditorTab::fileOpen(KUrl url)
     {   //check if we are opening template
         QString path(originalPath);
         path.replace(Project::instance()->poDir(),Project::instance()->potDir());
-        if (QFile::exists(path))
+        if (QFile::exists(path) || QFile::exists(path=path+'t'))
         {
             isTemlate=true;
             url.setPath(path);

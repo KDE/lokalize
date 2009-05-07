@@ -148,14 +148,14 @@ KUrl ProjectModel::beginEditing(const QModelIndex& index)
     }
     else if (potIndex.isValid())
     {
-        //TODO don't
         //copy over the file
         KUrl potFile = m_potModel.itemForIndex(potIndex).url();
         KUrl poFile = potToPo(potFile);
 
+        //EditorTab::fileOpen takes care of this
         //be careful, copy only if file does not exist already.
-        if (!KIO::NetAccess::exists(poFile, KIO::NetAccess::DestinationSide, NULL))
-            KIO::NetAccess::file_copy(potFile, poFile);
+        //         if (!KIO::NetAccess::exists(poFile, KIO::NetAccess::DestinationSide, NULL))
+        //             KIO::NetAccess::file_copy(potFile, poFile);
 
         return poFile;
     }
