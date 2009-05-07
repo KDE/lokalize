@@ -611,6 +611,8 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     }
     else if( keyEvent->key() == Qt::Key_Space && (keyEvent->modifiers()&Qt::AltModifier) )
         insertPlainText(QChar(0x00a0U));
+    else if( keyEvent->key() == Qt::Key_Minus && (keyEvent->modifiers()&Qt::AltModifier) )
+        insertPlainText(QChar(0x0000AD));
     else if (m_catalog->mimetype()!="text/x-gettext-translation")
         KTextEdit::keyPressEvent(keyEvent);
     //clever editing
