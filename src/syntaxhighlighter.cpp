@@ -90,7 +90,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(QString(" +$|^ +|")+QChar(0x0000AD)); //soft hyphen
+    QRegExp re(QString(" +$|^ +|.?")+QChar(0x0000AD)+".?"); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
     {
         KColorScheme colorScheme(QPalette::Normal);
