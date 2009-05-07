@@ -38,8 +38,8 @@
 
 #define NUM_OF_RULES 5
 
-SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent/*, bool docbook*/)
-    : QSyntaxHighlighter(parent)
+SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
+    : Sonnet::Highlighter(parent)
     , tagBrush(KColorScheme::View,KColorScheme::VisitedText)
     , m_approved(true)
 //     , fuzzyState(false)
@@ -166,7 +166,64 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             index = expression.indexIn(text, index + length);
         }
     }
+
+    Sonnet::Highlighter::highlightBlock(text);
 }
+
+#if 0
+void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QTextCharFormat f)
+{
+    QVector<bool> underLines(count);
+    for (int i=0;i<count;++i)
+        underLines[i]=format(start+i).fontUnderline();
+
+    setFormat(start, count, f);
+
+    f.setFontUnderline(true);
+    int prevStart=-1;
+    bool isPrevUnderLined=false;
+    for (int i=0;i<count;++i)
+    {
+        if (!underLines.at(i) && prevStart!=-1)
+            setFormat(start+isPrevUnderLined, i-prevStart, f);
+        else if (underLines.at(i)&&!isPrevUnderLined)
+            prevStart=i;
+
+        isPrevUnderLined=underLines.at(i);
+    }
+}
+#endif
+
+
+
+void SyntaxHighlighter::setMisspelled(int start, int count)
+{
+    QString word=currentBlock().text().mid(start,count);
+    if (m_sourceString.contains(word))
+        return;
+
+    for (int i=0;i<count;++i)
+    {
+        QTextCharFormat f(format(start+i));
+        if (f==tagFormat)
+            continue;
+        f.setFontUnderline(true);
+        f.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+        f.setUnderlineColor(Qt::red);
+        setFormat(start+i, 1, f);
+    }
+}
+
+void SyntaxHighlighter::unsetMisspelled(int start, int count)
+{
+    for (int i=0;i<count;++i)
+    {
+        QTextCharFormat f(format(start+i));
+        f.setFontUnderline(false);
+        setFormat(start+i, 1, f);
+    }
+}
+
 
 
 #include "syntaxhighlighter.moc"

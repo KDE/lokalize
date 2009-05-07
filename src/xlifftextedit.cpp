@@ -72,7 +72,7 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     , m_currentUnicodeNumber(0)
     , m_catalog(catalog)
     , m_part(part)
-    , m_highlighter(new SyntaxHighlighter(document()))
+    , m_highlighter(new SyntaxHighlighter(this))
 {
     setReadOnly(part==DocPosition::Source);
     setUndoRedoEnabled(false);
@@ -82,7 +82,10 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     {
         connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
         connect (this,SIGNAL(cursorPositionChanged()), this, SLOT(emitCursorPositionChanged()));
+        m_highlighter->setCurrentLanguage(Project::instance()->targetLangCode());
     }
+    else
+        m_highlighter->setCurrentLanguage(Project::instance()->sourceLangCode());
 }
 
 void XliffTextEdit::reflectApprovementState()
@@ -184,6 +187,10 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
     insertContent(c,catStr,refStr);
 
     document()->blockSignals(false);
+
+    if (m_part==DocPosition::Target)
+        m_highlighter->setSourceString(refStr.string);
+
     m_highlighter->rehighlight(); //explicitly because we disabled signals
 }
 

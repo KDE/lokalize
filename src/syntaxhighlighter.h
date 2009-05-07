@@ -34,21 +34,28 @@
 
 class QTextDocument;
 
-class SyntaxHighlighter : public QSyntaxHighlighter
+class SyntaxHighlighter : public Sonnet::Highlighter
 {
     Q_OBJECT
 
 public:
-    explicit SyntaxHighlighter(QTextDocument *parent = 0/*,bool docbook=true*/);
+    explicit SyntaxHighlighter(QTextEdit *parent);
     ~SyntaxHighlighter(){};
 
     void setApprovementState(bool a){m_approved=a;};
+    void setSourceString(const QString& s){m_sourceString=s;}
 
 protected:
     void highlightBlock(const QString &text);
 
+    void setMisspelled(int start, int count);
+    void unsetMisspelled(int start, int count);
+
+
 private slots:
     void settingsChanged();
+
+//    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);
 private:
     struct HighlightingRule
     {
@@ -61,6 +68,7 @@ private:
     QTextCharFormat tagFormat;
     KStatefulBrush tagBrush;
     bool m_approved;
+    QString m_sourceString;
 };
 
 #endif
