@@ -185,18 +185,16 @@ void MergeView::mergeOpen(KUrl url)
         //for AutoSync
 
         QString path=url.pathOrUrl();
+        QString oldPath=path;
         path.replace(Project::instance()->poDir(),Project::instance()->branchDir());
-        //kWarning()<<_project->branchDir();
-        //kWarning()<<"AutoSync NEW path"<<path;
-        if (url!=KUrl(path)&&QFile::exists(path))
-        {
-            url=KUrl(path);
-        }
-        else
+
+        if (oldPath==path || url==KUrl(path) || !QFile::exists(path))
         {
             cleanup();
             return;
         }
+
+        url=KUrl(path);
     }
 
     if (url.isEmpty())

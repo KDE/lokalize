@@ -739,25 +739,21 @@ bool EditorTab::fileOpen(KUrl url)
         }
     }
 
-    QString originalPath=url.toLocalFile();
-    bool isTemlate=false;
-
+    KUrl saidUrl;
     if (url.isEmpty())
     {
         url=KFileDialog::getOpenFileName(m_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
-    else if (!QFile::exists(originalPath)&&Project::instance()->isLoaded())
+    else if (!QFile::exists(url.toLocalFile())&&Project::instance()->isLoaded())
     {   //check if we are opening template
-        QString path(originalPath);
+        QString path=url.toLocalFile();
         path.replace(Project::instance()->poDir(),Project::instance()->potDir());
         if (QFile::exists(path) || QFile::exists(path=path+'t'))
         {
-            isTemlate=true;
+            saidUrl=url;
             url.setPath(path);
-            if (originalPath.endsWith('t'))
-                originalPath.chop(1);
         }
     }
     if (url.isEmpty())
@@ -768,19 +764,13 @@ bool EditorTab::fileOpen(KUrl url)
     QString prevFilePath=currentFile();
     bool wasOpen=!m_catalog->isEmpty();
     if (wasOpen) emit fileAboutToBeClosed();
-    int errorLine=m_catalog->loadFromUrl(url);
+    int errorLine=m_catalog->loadFromUrl(url,saidUrl);
     if (wasOpen&&errorLine==0) {emit fileClosed();emit fileClosed(prevFilePath);}
 
     QApplication::restoreOverrideCursor();
 
     if (errorLine==0)
     {
-        if (isTemlate)
-        {
-            url.setPath(originalPath);
-            m_catalog->setUrl(url);
-        }
-
         statusBarItems.insert(ID_STATUS_TOTAL,i18nc("@info:status message entries","Total: %1", m_catalog->numberOfEntries()));
         numberOfUntranslatedChanged();
         numberOfFuzziesChanged();

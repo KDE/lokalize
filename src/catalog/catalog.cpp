@@ -442,7 +442,7 @@ KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
     return autoSave;
 }
 
-int Catalog::loadFromUrl(const KUrl& url)
+int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl)
 {
     bool readOnly=false;
     if (url.isLocalFile())
@@ -521,9 +521,9 @@ int Catalog::loadFromUrl(const KUrl& url)
     d->_numberOfPluralForms = storage->numberOfPluralForms();
     d->_autoSaveDirty=true;
     d->_readOnly=readOnly;
-    d->_url=url;
+    d->_url=saidUrl.isEmpty()?url:saidUrl;
 
-    KAutoSaveFile* autoSave=checkAutoSave(url);
+    KAutoSaveFile* autoSave=checkAutoSave(d->_url);
     d->_autoSaveRecovered=autoSave;
     if (autoSave)
     {
@@ -538,11 +538,11 @@ int Catalog::loadFromUrl(const KUrl& url)
         mergeCatalog->deleteLater();
     }
     else
-        d->_autoSave->setManagedFile(url);
+        d->_autoSave->setManagedFile(d->_url);
 
 
     emit signalFileLoaded();
-    emit signalFileLoaded(url);
+    emit signalFileLoaded(d->_url);
     return 0;
 }
 
