@@ -90,12 +90,19 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(" +$|^ +");
+    QRegExp re(QString(" +$|^ +|")+QChar(0x0000AD)); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
     {
-        HighlightingRule rule;
         KColorScheme colorScheme(QPalette::Normal);
+        HighlightingRule rule;
         rule.format.clearForeground();
+
+        //nbsp
+        rule.format.setBackground(colorScheme.background(KColorScheme::AlternateBackground));
+        rule.pattern = QRegExp(QChar(0x00a0U));
+        highlightingRules.append(rule);
+
+        //usual spaces at the end
         rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
         rule.pattern = re;
         highlightingRules.append(rule);
@@ -103,7 +110,7 @@ void SyntaxHighlighter::settingsChanged()
     }
     else if (!Settings::highlightSpaces() && highlightingRules.last().pattern==re)
     {
-        highlightingRules.resize(highlightingRules.size()-1);
+        highlightingRules.resize(highlightingRules.size()-2);
         rehighlight();
     }
 }
