@@ -81,13 +81,14 @@ public:
 
 
 /**
- * @author Nick Shaforostoff <shafff@ukr.net>
  * @short Editor tab
  *
  * This class can be called a dispatcher for one message catalog.
  *
  * It is accessible via Lokalize.currentEditor() from kross scripts and via
  * '/ThisIsWhatYouWant/Editor/# : org.kde.Lokalize.Editor' from qdbusviewer
+ *
+ * @author Nick Shaforostoff <shafff@ukr.net>
  */
 class EditorTab: public LokalizeSubwindowBase2
 {

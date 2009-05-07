@@ -163,16 +163,8 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
 void CatalogTreeFilterModel::setSourceModel(CatalogTreeModel* sourceModel)
 {
     QSortFilterProxyModel::setSourceModel(sourceModel);
-    connect(sourceModel,SIGNAL(modelReset()),SLOT(resetIndividualFilter()));
-    resetIndividualFilter();
-}
-
-void CatalogTreeFilterModel::resetIndividualFilter()
-{
-    m_individualRejectFilter.clear();
-    m_individualRejectFilter.resize(sourceModel()->rowCount());
-    m_individualRejectFilterEnable=false;
-    invalidateFilter();
+    connect(sourceModel,SIGNAL(modelReset()),SLOT(setEntriesFilteredOut()));
+    setEntriesFilteredOut(false);
 }
 
 void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)

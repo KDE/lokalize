@@ -42,13 +42,15 @@ class ProjectScriptingPlugin;
 namespace TM {class TMTab;}
 
 /**
- * @author Nick Shaforostoff <shafff@ukr.net>
  * @short Lokalize MDI (tabbed) window.
+ *
  * Sets up actions, and maintains their connection with active subwindow via ActionProxy
  * As such, it handles the menus, toolbars, and status bars.
  *
  * It is known as Lokalize in kross scripts and as
  * '/ThisIsWhatYouWant : org.kde.Lokalize.MainWindow' in qdbusviewer
+ *
+ * @author Nick Shaforostoff <shafff@ukr.net>
  */
 class LokalizeMainWindow: public KXmlGuiWindow
 {

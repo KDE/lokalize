@@ -118,12 +118,12 @@ public:
     int filerOptions()const{return m_filerOptions;}
 
     void setSourceModel(CatalogTreeModel* sourceModel);
-    void setEntryFilteredOut(int entry, bool filteredOut);
-    void setEntriesFilteredOut(bool filteredOut);
+
     bool individualRejectFilterEnabled(){return m_individualRejectFilterEnable;}
+    void setEntryFilteredOut(int entry, bool filteredOut);
 
 public slots:
-    void resetIndividualFilter();
+    void setEntriesFilteredOut(bool filteredOut=false);
 
 private:
     int m_filerOptions;

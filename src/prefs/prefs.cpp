@@ -50,9 +50,10 @@
 
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
-#include <kross/ui/view.h>
 #include <kross/ui/model.h>
 #include <QBoxLayout>
+#include <QDragEnterEvent>
+#include <QDropEvent>
 
 //#include <sonnet/configwidget.h>
 
@@ -151,6 +152,24 @@ void SettingsController::slotSettings()
 
 
 
+ScriptsView::ScriptsView(QWidget* parent):Kross::ActionCollectionView(parent)
+{
+    setAcceptDrops(true);
+}
+
+void ScriptsView::dragEnterEvent(QDragEnterEvent* event)
+{
+    if (!event->mimeData()->urls().isEmpty() && event->mimeData()->urls().first().path().endsWith(".rc"))
+        event->accept();
+}
+
+void ScriptsView::dropEvent(QDropEvent* event)
+{
+    Kross::ActionCollectionModel* scriptsModel=static_cast<Kross::ActionCollectionModel*>(model());
+    scriptsModel->rootCollection()->readXmlFile(event->mimeData()->urls().first().path());
+}
+
+
 void SettingsController::projectConfigure()
 {
     if (KConfigDialog::showDialog("project_settings"))
@@ -217,7 +236,7 @@ void SettingsController::projectConfigure()
 
 
     //m_projectActionsEditor=new Kross::ActionCollectionEditor(Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID()),w);
-    m_projectActionsView=new Kross::ActionCollectionView(w);
+    m_projectActionsView=new ScriptsView(w);
     layout->addWidget(m_projectActionsView);
     m_projectActionsView->setModel(new Kross::ActionCollectionModel(w,Kross::Manager::self().actionCollection()->collection(Project::instance()->kind())));
 

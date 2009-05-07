@@ -45,7 +45,6 @@ public:
     ~CatalogView();
 
     void setEntryFilteredOut(int entry, bool filteredOut);
-    void setEntriesFilteredOut(bool filteredOut);
 
     int nextEntry();
     int prevEntry();
@@ -54,7 +53,7 @@ public:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
-    void resetIndividualFilter();
+    void setEntriesFilteredOut(bool filteredOut=false);
 
 signals:
     void gotoEntry(const DocPosition&, int selection);

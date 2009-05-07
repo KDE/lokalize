@@ -73,9 +73,24 @@ Q_OBJECT
 public:
     RelPathSaver(QWidget* p):QLineEdit(p){}
 public slots:
-    void setText ( const QString & );
+    void setText(const QString&);
 };
 
+
+#include <kross/ui/view.h>
+class ScriptsView: public Kross::ActionCollectionView
+{
+Q_OBJECT
+public:
+    ScriptsView(QWidget* parent);
+
+// public slots:
+//     void addScsetText(const QString&);
+
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent* event);
+
+};
 
 
 #endif

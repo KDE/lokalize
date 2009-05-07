@@ -85,6 +85,9 @@ signals:
     void toggleApprovementRequested();
     void undoRequested();
     void redoRequested();
+    void findRequested();
+    void findNextRequested();
+    void replaceRequested();
     void gotoFirstRequested();
     void gotoLastRequested();
     void gotoPrevRequested();

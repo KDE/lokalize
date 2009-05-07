@@ -438,6 +438,11 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu","Change searching direction"));
     action=edit->addAction(KStandardAction::Replace,this,SLOT(replace()));
 
+    connect(m_view->viewPort(),SIGNAL(findRequested()),this,SLOT(find()));
+    connect(m_view->viewPort(),SIGNAL(findNextRequested()),this,SLOT(findNext()));
+    connect(m_view->viewPort(),SIGNAL(replaceRequested()),this,SLOT(replace()));
+
+
 //
     action = actionCategory->addAction("edit_approve", new KToolBarPopupAction(KIcon("approved"),i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"),this));
     action->setShortcut(QKeySequence( Qt::CTRL+Qt::Key_U ));
@@ -1252,9 +1257,14 @@ void EditorTab::defineNewTerm()
 
 void EditorTab::reloadFile()
 {
+    KUrl mergeFile=_mergeView->url();
     DocPosition p=m_currentPos;
-    if (fileOpen(currentUrl()))
-        gotoEntry(p);
+    if (!fileOpen(currentUrl()))
+        return;
+
+    gotoEntry(p);
+    if (!mergeFile.isEmpty())
+        mergeOpen(mergeFile);
 }
 
 //BEGIN DBus interface

@@ -577,6 +577,12 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         emit undoRequested();
     else if(keyEvent->matches(QKeySequence::Redo))
         emit redoRequested();
+    else if(keyEvent->matches(QKeySequence::Find))
+        emit findRequested();
+    else if(keyEvent->matches(QKeySequence::FindNext))
+        emit findNextRequested();
+    else if(keyEvent->matches(QKeySequence::Replace))
+        emit replaceRequested();
     else if (keyEvent->modifiers() == (Qt::AltModifier|Qt::ControlModifier))
     {
         if(keyEvent->key()==Qt::Key_Home)

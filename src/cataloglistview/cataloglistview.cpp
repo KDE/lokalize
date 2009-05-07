@@ -140,7 +140,7 @@ void CatalogView::fillFilterOptionsMenu()
     m_filterOptionsMenu->clear();
 
     if (m_proxyModel->individualRejectFilterEnabled())
-        m_filterOptionsMenu->addAction(i18n("Reset individual filter"),this,SLOT(resetIndividualFilter()));
+        m_filterOptionsMenu->addAction(i18n("Reset individual filter"),this,SLOT(setEntriesFilteredOut()));
 
 
     bool extStates=m_model->catalog()->capabilities()&ExtendedStates;
@@ -194,6 +194,7 @@ int CatalogView::nextEntry()
         if (!m_proxyModel->rowCount())
             return -1;
         item=m_proxyModel->index(0,0);
+        m_browser->setCurrentIndex(item);
     }
     else
     {
@@ -212,6 +213,7 @@ int CatalogView::prevEntry()
         if (!m_proxyModel->rowCount())
             return -1;
         item=m_proxyModel->index(m_proxyModel->rowCount()-1,0);
+        m_browser->setCurrentIndex(item);
     }
     else
     {
@@ -248,11 +250,6 @@ void CatalogView::setEntriesFilteredOut(bool filteredOut)
 {
     show();
     m_proxyModel->setEntriesFilteredOut(filteredOut);
-}
-
-void CatalogView::resetIndividualFilter()
-{
-    m_proxyModel->resetIndividualFilter();
 }
 
 
