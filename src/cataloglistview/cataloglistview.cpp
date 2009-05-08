@@ -43,8 +43,8 @@
 
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
-    , m_lineEdit(new KLineEdit(this))
     , m_browser(new QTreeView(this))
+    , m_lineEdit(new KLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
@@ -62,7 +62,6 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setClickMessage(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
-    setFocusProxy(m_lineEdit);
 
     QToolButton* btn=new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
@@ -76,6 +75,11 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     l->addWidget(m_lineEdit);
     l->addWidget(btn);
     layout->addWidget(m_browser);
+
+
+    setTabOrder(m_lineEdit, btn);
+    setTabOrder(btn, m_browser);
+    setFocusProxy(m_lineEdit);
 
     setWidget(w);
 
@@ -91,6 +95,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
     m_browser->setWordWrap(true);
+
 
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");

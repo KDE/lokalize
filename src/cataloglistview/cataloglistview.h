@@ -65,8 +65,8 @@ private slots:
     void filterOptionToggled(QAction*);
 
 private:
-    KLineEdit* m_lineEdit;
     QTreeView* m_browser;
+    KLineEdit* m_lineEdit;
     QMenu* m_filterOptionsMenu;
     CatalogTreeModel* m_model;
     CatalogTreeFilterModel* m_proxyModel;
