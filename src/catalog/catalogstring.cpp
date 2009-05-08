@@ -223,7 +223,7 @@ static void adjustTags(QList<InlineTag>& tags, int position, int value)
         InlineTag& t=tags[i];
         if (t.start>position)
             t.start+=value;
-        if (t.end>position)
+        if (t.end>=position) //cases when strict > is needed?
             t.end+=value;
     }
 }

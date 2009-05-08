@@ -872,8 +872,6 @@ nono
     }
 //END BEGIN HANDLING
 
-    kWarning()<<"00"<<target.string;
-
     //search for numbers and stuff
     //QRegExp rxNum("[\\d\\.\\%]+");
     pos=0;
@@ -881,7 +879,7 @@ nono
     QString cap;
     QString _;
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
-    kWarning()<<"searching for placeables in"<<d.old;
+    kWarning()<<"string:"<<target.string<<"searching for placeables in"<<d.old;
     while ((pos=nextPlacableIn(d.old,pos,cap))!=-1)
     {
         kWarning()<<"considering placable"<<cap;
@@ -933,17 +931,15 @@ nono
                     newMarkup.append(d.diffClean.at(startPos+j));
             }
             if (newMarkup.endsWith(' ')) newMarkup.chop(1);
-            kWarning()<<"newMarkup"<<newMarkup;
             //kWarning()<<"d.old"<<cap<<"new"<<newMarkup;
+
 
             //replace first ocurrence
             int tmp=target.string.indexOf(cap,replacingPos);
             if (tmp!=-1)
             {
-                kWarning()<<"replacing with"<<newMarkup;
-                target.replace(tmp,
-                            cap.size(),
-                            newMarkup);
+                kWarning()<<"replacing"<<cap<<"with"<<newMarkup;
+                target.replace(tmp, cap.size(), newMarkup);
                 replacingPos=tmp;
 
                 //avoid trying this part again
@@ -952,6 +948,8 @@ nono
                     d.diffIndex[tmp]='M';
                 //kWarning()<<"M"<<diffM;
             }
+            else
+                kWarning()<<"newMarkup"<<newMarkup<<"wasn't used";
         }
         pos=endPos1+1;
     }
@@ -966,11 +964,14 @@ void TMView::slotUseSuggestion(int i)
 
     CatalogString target=targetAdapted(m_entries.at(i), m_catalog->sourceWithTags(m_pos));
 
+#if 0
     QString tmp=target.string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, '*');
     kWarning()<<"targetAdapted"<<tmp;
 
-
+    foreach (InlineTag tag, target.tags)
+        kWarning()<<"tag"<<tag.start<<tag.end;
+#endif
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
