@@ -945,29 +945,30 @@ void EditorTab::gotoEntry(DocPosition pos,int selection)
         m_currentPos=pos;
         if (true)
         {
-            emit signalNewEntryDisplayed(m_currentPos);
+            emit signalNewEntryDisplayed(pos);
             emit entryDisplayed();
 
-            emit signalFirstDisplayed(m_currentPos.entry==0);
-            emit signalLastDisplayed(m_currentPos.entry==m_catalog->numberOfEntries()-1);
+            emit signalFirstDisplayed(pos.entry==m_transUnitsView->firstEntry());
+            emit signalLastDisplayed(pos.entry==m_transUnitsView->lastEntry());
 
-            emit signalPriorFuzzyAvailable(m_currentPos.entry>m_catalog->firstFuzzyIndex());
-            emit signalNextFuzzyAvailable(m_currentPos.entry<m_catalog->lastFuzzyIndex());
+            emit signalPriorFuzzyAvailable(pos.entry>m_catalog->firstFuzzyIndex());
+            emit signalNextFuzzyAvailable(pos.entry<m_catalog->lastFuzzyIndex());
 
-            emit signalPriorUntranslatedAvailable(m_currentPos.entry>m_catalog->firstUntranslatedIndex());
-            emit signalNextUntranslatedAvailable(m_currentPos.entry<m_catalog->lastUntranslatedIndex());
+            emit signalPriorUntranslatedAvailable(pos.entry>m_catalog->firstUntranslatedIndex());
+            emit signalNextUntranslatedAvailable(pos.entry<m_catalog->lastUntranslatedIndex());
 
-            emit signalPriorFuzzyOrUntrAvailable(m_currentPos.entry>m_catalog->firstFuzzyIndex()
-                                                 ||m_currentPos.entry>m_catalog->firstUntranslatedIndex()
+            emit signalPriorFuzzyOrUntrAvailable(pos.entry>m_catalog->firstFuzzyIndex()
+                                                 ||pos.entry>m_catalog->firstUntranslatedIndex()
                                                 );
-            emit signalNextFuzzyOrUntrAvailable(m_currentPos.entry<m_catalog->lastFuzzyIndex()
-                                                ||m_currentPos.entry<m_catalog->lastUntranslatedIndex());
+            emit signalNextFuzzyOrUntrAvailable(pos.entry<m_catalog->lastFuzzyIndex()
+                                                ||pos.entry<m_catalog->lastUntranslatedIndex());
 
-            emit signalPriorBookmarkAvailable(m_currentPos.entry>m_catalog->firstBookmarkIndex());
-            emit signalNextBookmarkAvailable(m_currentPos.entry<m_catalog->lastBookmarkIndex());
-            emit signalBookmarkDisplayed(m_catalog->isBookmarked(m_currentPos.entry));
+            emit signalPriorBookmarkAvailable(pos.entry>m_catalog->firstBookmarkIndex());
+            emit signalNextBookmarkAvailable(pos.entry<m_catalog->lastBookmarkIndex());
+            emit signalBookmarkDisplayed(m_catalog->isBookmarked(pos.entry));
 
-            emit signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(m_currentPos));
+            emit signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(pos));
+            emit signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
         }
 
     }
