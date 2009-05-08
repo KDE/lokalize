@@ -52,6 +52,7 @@ class ProjectView;
 class MergeView;
 class CatalogView;
 class MsgCtxtView;
+class AltTransView;
 namespace GlossaryNS{class GlossaryView;}
 
 #define ID_STATUS_TOTAL 1
@@ -144,12 +145,13 @@ public slots:
     Q_SCRIPTABLE QString entrySource(int entry, int form);
     Q_SCRIPTABLE QString entryTarget(int entry, int form);
     Q_SCRIPTABLE int entryPluralFormCount(int entry);
-    Q_SCRIPTABLE void addNote(int entry, QString note);
+    Q_SCRIPTABLE void addEntryNote(int entry, const QString& note);
 
 
     Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
     Q_SCRIPTABLE QByteArray currentFileContents();
 
+    Q_SCRIPTABLE void attachAlternateTranslationFile(const QString& path);
     Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
     Q_SCRIPTABLE void reloadFile();
 #endif
@@ -271,10 +273,11 @@ private:
     KReplace* _replace;
 
     //BEGIN views
-    MergeView* _mergeView;
-    MergeView* _mergeViewSecondary;
+    MergeView* m_syncView;
+    MergeView* m_syncViewSecondary;
     CatalogView* m_transUnitsView;
     MsgCtxtView* m_notesView;
+    AltTransView* m_altTransView;
     //END views
 
 

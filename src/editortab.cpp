@@ -106,8 +106,8 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
         , m_doReplaceCalled(false)
         , _find(0)
         , _replace(0)
-        , _mergeView(0)
-        , _mergeViewSecondary(0)
+        , m_syncView(0)
+        , m_syncViewSecondary(0)
         , m_valid(valid)
         , m_dbusId(-1)
 {
@@ -219,29 +219,29 @@ void EditorTab::setupActions()
         altactions[i]=altaction;
     }
 
-    AltTransView* altTransView = new AltTransView(this,m_catalog,altactions);
-    addDockWidget(Qt::BottomDockWidgetArea, altTransView);
-    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), altTransView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),altTransView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (altTransView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
-    connect (altTransView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
-    connect (m_catalog,SIGNAL(signalFileLoaded()),altTransView,SLOT(fileLoaded()));
+    m_altTransView = new AltTransView(this,m_catalog,altactions);
+    addDockWidget(Qt::BottomDockWidgetArea, m_altTransView);
+    actionCollection()->addAction( QLatin1String("showmsgiddiff_action"), m_altTransView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_altTransView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (m_altTransView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
+    connect (m_altTransView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
+    connect (m_catalog,SIGNAL(signalFileLoaded()),m_altTransView,SLOT(fileLoaded()));
 
-    _mergeView = new MergeView(this,m_catalog,true);
-    addDockWidget(Qt::BottomDockWidgetArea, _mergeView);
-    sync1->addAction( QLatin1String("showmergeview_action"), _mergeView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_catalog,SIGNAL(signalFileLoaded()),_mergeView,SLOT(cleanup()));
-    connect (_mergeView,SIGNAL(gotoEntry(DocPosition,int)),
+    m_syncView = new MergeView(this,m_catalog,true);
+    addDockWidget(Qt::BottomDockWidgetArea, m_syncView);
+    sync1->addAction( QLatin1String("showmergeview_action"), m_syncView->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_syncView,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (m_catalog,SIGNAL(signalFileLoaded()),m_syncView,SLOT(cleanup()));
+    connect (m_syncView,SIGNAL(gotoEntry(DocPosition,int)),
              this,SLOT(gotoEntry(DocPosition,int)));
 
-    _mergeViewSecondary = new MergeView(this,m_catalog,false);
-    addDockWidget(Qt::BottomDockWidgetArea, _mergeViewSecondary);
-    sync2->addAction( QLatin1String("showmergeviewsecondary_action"), _mergeViewSecondary->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_mergeViewSecondary,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_catalog,SIGNAL(signalFileLoaded()),_mergeViewSecondary,SLOT(cleanup()));
-    connect (m_catalog,SIGNAL(signalFileLoaded(KUrl)),_mergeViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
-    connect (_mergeViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
+    m_syncViewSecondary = new MergeView(this,m_catalog,false);
+    addDockWidget(Qt::BottomDockWidgetArea, m_syncViewSecondary);
+    sync2->addAction( QLatin1String("showmergeviewsecondary_action"), m_syncViewSecondary->toggleViewAction() );
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_syncViewSecondary,SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (m_catalog,SIGNAL(signalFileLoaded()),m_syncViewSecondary,SLOT(cleanup()));
+    connect (m_catalog,SIGNAL(signalFileLoaded(KUrl)),m_syncViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
+    connect (m_syncViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
              this,SLOT(gotoEntry(DocPosition,int)));
 
     m_transUnitsView = new CatalogView(this,m_catalog);
@@ -584,90 +584,90 @@ void EditorTab::setupActions()
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( displayWordCount() ) );
 
 //MergeMode
-    action = sync1->addAction("merge_open",_mergeView,SLOT(mergeOpen()));
+    action = sync1->addAction("merge_open",m_syncView,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for sync/merge"));
     action->setStatusTip(i18nc("@info:status","Open catalog to be merged into the current one / replicate base file changes to"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    _mergeView->addAction(action);
+    m_syncView->addAction(action);
 
-    action = sync1->addAction("merge_prev",_mergeView,SLOT(gotoPrevChanged()));
+    action = sync1->addAction("merge_prev",m_syncView,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
     action->setStatusTip(i18nc("@info:status","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Up);
-    connect( _mergeView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
-    _mergeView->addAction(action);
+    connect( m_syncView, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    m_syncView->addAction(action);
 
-    action = sync1->addAction("merge_next",_mergeView,SLOT(gotoNextChanged()));
+    action = sync1->addAction("merge_next",m_syncView,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
     action->setStatusTip(i18nc("@info:status","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     action->setShortcut(Qt::ALT+Qt::Key_Down);
-    connect( _mergeView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
-    _mergeView->addAction(action);
+    connect( m_syncView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    m_syncView->addAction(action);
 
-    action = sync1->addAction("merge_accept",_mergeView,SLOT(mergeAccept()));
+    action = sync1->addAction("merge_accept",m_syncView,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
     action->setShortcut(Qt::ALT+Qt::Key_Return);
-    connect( _mergeView, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
-    _mergeView->addAction(action);
+    connect( m_syncView, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
+    m_syncView->addAction(action);
 
-    action = sync1->addAction("merge_acceptnew",_mergeView,SLOT(mergeAcceptAllForEmpty()));
+    action = sync1->addAction("merge_acceptnew",m_syncView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
     action->setStatusTip(i18nc("@info:status","This changes only empty entries in base file"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    _mergeView->addAction(action);
+    m_syncView->addAction(action);
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
-    action = sync1->addAction("merge_back",_mergeView,SLOT(mergeBack()));
+    action = sync1->addAction("merge_back",m_syncView,SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu","Copy to merging source"));
     action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_Return);
-    _mergeView->addAction(action);
+    m_syncView->addAction(action);
 
 
 //Secondary merge
-    action = sync2->addAction("mergesecondary_open",_mergeViewSecondary,SLOT(mergeOpen()));
+    action = sync2->addAction("mergesecondary_open",m_syncViewSecondary,SLOT(mergeOpen()));
     action->setText(i18nc("@action:inmenu","Open file for secondary sync"));
     action->setStatusTip(i18nc("@info:status","Open catalog to be merged into the current one / replicate base file changes to"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    _mergeViewSecondary->addAction(action);
+    m_syncViewSecondary->addAction(action);
 
-    action = sync2->addAction("mergesecondary_prev",_mergeViewSecondary,SLOT(gotoPrevChanged()));
+    action = sync2->addAction("mergesecondary_prev",m_syncViewSecondary,SLOT(gotoPrevChanged()));
     action->setText(i18nc("@action:inmenu","Previous different"));
     action->setStatusTip(i18nc("@info:status","Previous entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    connect( _mergeViewSecondary, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
-    _mergeViewSecondary->addAction(action);
+    connect( m_syncViewSecondary, SIGNAL(signalPriorChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    m_syncViewSecondary->addAction(action);
 
-    action = sync2->addAction("mergesecondary_next",_mergeViewSecondary,SLOT(gotoNextChanged()));
+    action = sync2->addAction("mergesecondary_next",m_syncViewSecondary,SLOT(gotoNextChanged()));
     action->setText(i18nc("@action:inmenu","Next different"));
     action->setStatusTip(i18nc("@info:status","Next entry which is translated differently in the file being merged, including empty translations in merge source"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    connect( _mergeViewSecondary, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
-    _mergeViewSecondary->addAction(action);
+    connect( m_syncViewSecondary, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    m_syncViewSecondary->addAction(action);
 
-    action = sync2->addAction("mergesecondary_accept",_mergeViewSecondary,SLOT(mergeAccept()));
+    action = sync2->addAction("mergesecondary_accept",m_syncViewSecondary,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
-    connect( _mergeViewSecondary, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
-    _mergeViewSecondary->addAction(action);
+    connect( m_syncViewSecondary, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
+    m_syncViewSecondary->addAction(action);
 
-    action = sync2->addAction("mergesecondary_acceptnew",_mergeViewSecondary,SLOT(mergeAcceptAllForEmpty()));
+    action = sync2->addAction("mergesecondary_acceptnew",m_syncViewSecondary,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
     action->setStatusTip(i18nc("@info:status","This changes only empty entries"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
-    _mergeViewSecondary->addAction(action);
+    m_syncViewSecondary->addAction(action);
 
-    action = sync2->addAction("mergesecondary_back",_mergeViewSecondary,SLOT(mergeBack()));
+    action = sync2->addAction("mergesecondary_back",m_syncViewSecondary,SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu","Copy to merging source"));
-    _mergeViewSecondary->addAction(action);
+    m_syncViewSecondary->addAction(action);
 
 }
 
@@ -806,7 +806,7 @@ bool EditorTab::fileOpen(KUrl url)
             }
 
             //enforce autosync
-            _mergeViewSecondary->mergeOpen(url);
+            m_syncViewSecondary->mergeOpen(url);
         }
 
         gotoEntry(pos);
@@ -858,7 +858,7 @@ EditorState EditorTab::state()
     EditorState state;
     state.dockWidgets=saveState();
     state.url=m_catalog->url();
-    state.mergeUrl=_mergeView->url();
+    state.mergeUrl=m_syncView->url();
     state.entry=m_currentPos.entry;
     //state.offset=_currentPos.offset;
     return state;
@@ -1223,7 +1223,7 @@ void EditorTab::gotoNextBookmark()
 //wrapper for cmdline handling...
 void EditorTab::mergeOpen(KUrl url)
 {
-    _mergeView->mergeOpen(url);
+    m_syncView->mergeOpen(url);
 }
 /*
 KUrl EditorWindow::mergeFile()
@@ -1248,7 +1248,7 @@ void EditorTab::defineNewTerm()
 
 void EditorTab::reloadFile()
 {
-    KUrl mergeFile=_mergeView->url();
+    KUrl mergeFile=m_syncView->url();
     DocPosition p=m_currentPos;
     if (!fileOpen(currentUrl()))
         return;
@@ -1293,8 +1293,8 @@ int EditorTab::entryCount(){return m_catalog->numberOfEntries();}
 QString EditorTab::entrySource(int entry, int form){return m_catalog->sourceWithTags(DocPosition(entry, form)).string;}
 QString EditorTab::entryTarget(int entry, int form){return m_catalog->targetWithTags(DocPosition(entry, form)).string;}
 int EditorTab::entryPluralFormCount(int entry){return m_catalog->isPlural(entry)?m_catalog->numberOfPluralForms():1;}
-void EditorTab::addNote(int entry, QString note){}
-
+void EditorTab::addEntryNote(int entry, const QString& note){m_notesView->addNote(entry, note);}
+void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransView->attachAltTransFile(path);}
 
 //END DBus interface
 

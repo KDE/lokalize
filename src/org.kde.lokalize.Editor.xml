@@ -71,7 +71,7 @@
       <arg type="i" direction="out"/>
       <arg name="entry" type="i" direction="in"/>
     </method>
-    <method name="addNote">
+    <method name="addEntryNote">
       <arg name="entry" type="i" direction="in"/>
       <arg name="note" type="s" direction="in"/>
     </method>
@@ -80,6 +80,9 @@
     </method>
     <method name="currentFileContents">
       <arg type="ay" direction="out"/>
+    </method>
+    <method name="attachAlternateTranslationFile">
+      <arg name="path" type="s" direction="in"/>
     </method>
     <method name="openSyncSource">
       <arg name="path" type="s" direction="in"/>

@@ -205,15 +205,26 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
-    QString word=currentBlock().text().mid(start,count);
+    QString text=currentBlock().text();
+    QString word=text.mid(start,count);
     if (m_sourceString.contains(word))
+        return;
+
+
+    bool smthPreceeding= (start>0) &&
+            ((!Project::instance()->accel().endsWith(text.at(start-1)))
+                || text.at(start-1)==QChar(0x0000AD) //soft hyphen
+            );
+
+    if (smthPreceeding)
+        kWarning()<<"ampersand is in the way";
+
+    if (count && format(start)==tagFormat)
         return;
 
     for (int i=0;i<count;++i)
     {
         QTextCharFormat f(format(start+i));
-        if (f==tagFormat)
-            continue;
         f.setFontUnderline(true);
         f.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
         f.setUnderlineColor(Qt::red);

@@ -188,5 +188,11 @@ void MsgCtxtView::noteEditRejected()
     m_unfinishedNotes.remove(m_entry);
 }
 
+void MsgCtxtView::addNote(DocPosition p, const QString& text)
+{
+    p.form=-1;
+    m_catalog->push(new SetNoteCmd(m_catalog,p,Note(text)));
+    if (m_entry.entry==p.entry) {m_prevEntry.entry=-1; process();}
+}
 
 #include "msgctxtview.moc"
