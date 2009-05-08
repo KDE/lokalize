@@ -26,10 +26,12 @@
 
 #include <kxmlguiwindow.h>
 #include <kurl.h>
+#include <kconfiggroup.h>
 
 #include <QPointer>
 #include <QMap>
 #include <QDBusObjectPath>
+
 
 class QMdiSubWindow;
 class QMdiArea;
@@ -62,12 +64,13 @@ public:
     LokalizeMainWindow();
     ~LokalizeMainWindow();
 
-private:
-    void saveProjectState();
+protected:
+    void saveProjectState(KConfigGroup&);
+    void saveProperties(KConfigGroup& stateGroup);
     bool queryClose();
-    void setupActions();
-    void restoreState();
+    void readProperties(const KConfigGroup& stateGroup);
     void registerDBusAdaptor();
+    void setupActions();
 
 private slots:
     void slotSubWindowActivated(QMdiSubWindow*);

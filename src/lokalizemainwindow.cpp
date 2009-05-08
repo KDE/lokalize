@@ -101,28 +101,13 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     setAttribute(Qt::WA_DeleteOnClose,true);
 
-//BEGIN RESTORE STATE
 
     KConfig config;
-
-    m_openRecentFileAction->loadEntries(KConfigGroup(&config,"RecentFiles"));
-    m_openRecentProjectAction->loadEntries(KConfigGroup(&config,"RecentProjects"));
-
     KConfigGroup stateGroup(&config,"State");
+    readProperties(stateGroup);
 
-    QString path;
-    if (Project::instance()->isLoaded())
-        projectLoaded();
-    else
-    {
-        path=stateGroup.readEntry("Project",path);
-        Project::instance()->load(path);
-        //if isEmpty()?
-    }
+
     registerDBusAdaptor();
-
-//END RESTORE STATE
-
 
     //QTimer::singleShot(0,this,SLOT(initLater()));
 }
@@ -133,11 +118,8 @@ void LokalizeMainWindow::initLater()
 LokalizeMainWindow::~LokalizeMainWindow()
 {
     KConfig config;
-    m_openRecentFileAction->saveEntries(KConfigGroup(&config,"RecentFiles"));
-    m_openRecentProjectAction->saveEntries(KConfigGroup(&config,"RecentProjects"));
-
-
-    saveProjectState();
+    KConfigGroup stateGroup(&config,"State");
+    saveProjectState(stateGroup);
 }
 
 void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
@@ -454,7 +436,8 @@ void LokalizeMainWindow::openProject(const QString& path)
 {
     if (queryClose())
     {
-        saveProjectState();
+        KConfigGroup emptyGroup; //don't save which project to reopen
+        saveProjectState(emptyGroup);
         //close files from previous project
         QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
         int i=editors.size();
@@ -474,7 +457,12 @@ void LokalizeMainWindow::openProject(const QString& path)
     }
 }
 
-void LokalizeMainWindow::saveProjectState()
+void LokalizeMainWindow::saveProperties(KConfigGroup& stateGroup)
+{
+    saveProjectState(stateGroup);
+}
+
+void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
 {
     QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QStringList files;
@@ -502,10 +490,10 @@ void LokalizeMainWindow::saveProjectState()
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
-    KConfig config;
-    KConfigGroup stateGroup(&config,"State");
-    stateGroup.writeEntry("Project",Project::instance()->path());
+    if (stateGroup.isValid())
+        stateGroup.writeEntry("Project",Project::instance()->path());
 
+    KConfig config;
     KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
     projectStateGroup.writeEntry("Active",activeSWIndex);
     projectStateGroup.writeEntry("Files",files);
@@ -513,7 +501,36 @@ void LokalizeMainWindow::saveProjectState()
     projectStateGroup.writeEntry("DockWidgets",dockWidgets);
     //stateGroup.writeEntry("Offsets",offsets);
     projectStateGroup.writeEntry("Entries",entries);
+
+    QString groupNameAddition;
+    if (stateGroup.isValid() && stateGroup.name()!="State")
+        groupNameAddition=stateGroup.name()+'-';
+
+    m_openRecentFileAction->saveEntries(KConfigGroup(&config,groupNameAddition+"RecentFiles"));
+    m_openRecentProjectAction->saveEntries(KConfigGroup(&config,groupNameAddition+"RecentProjects"));
 }
+
+void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
+{
+    QString groupNameAddition;
+    if (stateGroup.name()!="State")
+        groupNameAddition=stateGroup.name()+'-';
+
+    KConfig config;
+    m_openRecentFileAction->loadEntries(KConfigGroup(&config,groupNameAddition+"RecentFiles"));
+    m_openRecentProjectAction->loadEntries(KConfigGroup(&config,groupNameAddition+"RecentProjects"));
+
+    QString path;
+    if (Project::instance()->isLoaded())
+        projectLoaded();
+    else
+    {
+        path=stateGroup.readEntry("Project",path);
+        Project::instance()->load(path);
+        //if isEmpty()?
+    }
+}
+
 
 void LokalizeMainWindow::projectLoaded()
 {
@@ -552,12 +569,6 @@ void LokalizeMainWindow::projectLoaded()
     }
 
     QTimer::singleShot(0,this,SLOT(loadProjectScripts()));
-}
-
-void LokalizeMainWindow::restoreState()
-{
-    /*restoreState(m_state);
-    m_state=saveState();*/
 }
 
 
@@ -671,7 +682,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     guiFactory()->addClient(new MyScriptingPlugin(this,m_multiEditorAdaptor));
 #endif
 
-    KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+    //KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
 
 /*
     KActionCollection* actionCollection = mWindow->actionCollection();
