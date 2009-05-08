@@ -26,6 +26,7 @@
 
 #include "project.h"
 #include "jobs.h"
+#include "projectmodel.h"
 
 #include "lokalizemainwindow.h"
 
@@ -81,7 +82,7 @@ int main(int argc, char **argv)
     // see if we are starting with session management
     if (app.isSessionRestored())
     {
-        RESTORE(LokalizeMainWindow);
+        kRestoreMainWindows<LokalizeMainWindow>();
     }
     else
     {
@@ -110,10 +111,12 @@ int main(int argc, char **argv)
     if (Project::instance()->isLoaded())
     {
         ThreadWeaver::Weaver::instance()->dequeue();
+        Project::instance()->model()->weaver()->dequeue();
 
         kWarning()<<"Finishing jobs...";
         Project::instance()->save();
         ThreadWeaver::Weaver::instance()->finish();
+        Project::instance()->model()->weaver()->finish();
     }
     return code;
 }

@@ -117,6 +117,9 @@ public:
     bool canFetchMore(const QModelIndex& parent) const;
     void fetchMore(const QModelIndex& parent);
 
+
+    ThreadWeaver::Weaver* weaver(){return m_weaver;}
+
 private slots:
     void po_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void po_rowsInserted(const QModelIndex& parent, int start, int end);

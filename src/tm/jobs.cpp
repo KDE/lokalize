@@ -308,11 +308,16 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
                      "source_strings.id==main.source AND main.id==%1").arg(mainId))))
         return false;
 
+    if (!query1.next())
+        return false;
+
     qlonglong sourceId=query1.value(0).toLongLong();
     query1.clear();
 
-    query1.exec(QString("SELECT count(*) FROM main WHERE source==%1").arg(sourceId));
-    query1.next();
+    if(!query1.exec(QString("SELECT count(*) FROM main WHERE source==%1").arg(sourceId))
+        || !query1.next())
+        return false;
+
     bool theOnly=query1.value(0).toInt()==1;
     QString source_string=query1.value(1).toString();
     query1.clear();
@@ -323,14 +328,16 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     }
 
     if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT source FROM main WHERE "
-                     "main.id==%1").arg(mainId))))
+                     "main.id==%1").arg(mainId))
+            || query1.next()))
         return false;
-    query1.next();
+
     qlonglong targetId=query1.value(0).toLongLong();
     query1.clear();
 
-    query1.exec(QString("SELECT count(*) FROM main WHERE target==%1").arg(targetId));
-    query1.next();
+    if (!query1.exec(QString("SELECT count(*) FROM main WHERE target==%1").arg(targetId))
+        ||! query1.next())
+        return false;
     theOnly=query1.value(0).toInt()==1;
     query1.clear();
     if (theOnly)
@@ -787,18 +794,21 @@ static void getStats(const QSqlDatabase& db,
 
 {
     QSqlQuery query(db);
-    query.exec("SELECT count(*) FROM main");
-    query.next();
+    if (!query.exec("SELECT count(*) FROM main") 
+        || !query.next())
+        return;
     pairsCount=query.value(0).toInt();
     query.clear();
 
-    query.exec("SELECT count(*) FROM source_strings");
-    query.next();
+    if(!query.exec("SELECT count(*) FROM source_strings")
+        || !query.next())
+        return;
     uniqueSourcesCount=query.value(0).toInt();
     query.clear();
 
-    query.exec("SELECT count(*) FROM target_strings");
-    query.next();
+    if(!query.exec("SELECT count(*) FROM target_strings")
+        || !query.next())
+        return;
     uniqueTranslationsCount=query.value(0).toInt();
     query.clear();
 }

@@ -50,7 +50,7 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_potIcon(KIcon(QLatin1String("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
-    , m_weaver(new ThreadWeaver::Weaver(this))
+    , m_weaver(new ThreadWeaver::Weaver())
 {
     m_weaver->setMaximumNumberOfThreads(1);
 

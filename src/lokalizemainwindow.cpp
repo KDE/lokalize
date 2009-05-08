@@ -102,10 +102,12 @@ LokalizeMainWindow::LokalizeMainWindow()
     setAttribute(Qt::WA_DeleteOnClose,true);
 
 
-    KConfig config;
-    KConfigGroup stateGroup(&config,"State");
-    readProperties(stateGroup);
-
+    if (!qApp->isSessionRestored())
+    {
+        KConfig config;
+        KConfigGroup stateGroup(&config,"State");
+        readProperties(stateGroup);
+    }
 
     registerDBusAdaptor();
 
@@ -515,6 +517,8 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
     QString groupNameAddition;
     if (stateGroup.name()!="State")
         groupNameAddition=stateGroup.name()+'-';
+
+    kWarning()<<groupNameAddition;
 
     KConfig config;
     m_openRecentFileAction->loadEntries(KConfigGroup(&config,groupNameAddition+"RecentFiles"));
