@@ -495,6 +495,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     if (stateGroup.isValid())
         stateGroup.writeEntry("Project",Project::instance()->path());
 
+
     KConfig config;
     KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
     projectStateGroup.writeEntry("Active",activeSWIndex);
@@ -504,25 +505,20 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     //stateGroup.writeEntry("Offsets",offsets);
     projectStateGroup.writeEntry("Entries",entries);
 
-    QString groupNameAddition;
-    if (stateGroup.isValid() && stateGroup.name()!="State")
-        groupNameAddition=stateGroup.name()+'-';
 
-    m_openRecentFileAction->saveEntries(KConfigGroup(&config,groupNameAddition+"RecentFiles"));
-    m_openRecentProjectAction->saveEntries(KConfigGroup(&config,groupNameAddition+"RecentProjects"));
+    QString nameSpecifier=Project::instance()->path();
+    if (!nameSpecifier.isEmpty()) nameSpecifier.prepend('-');
+    KConfig* c=stateGroup.isValid()?stateGroup.config():&config;
+    m_openRecentFileAction->saveEntries(KConfigGroup(c,"RecentFiles"+nameSpecifier));
+
+    m_openRecentProjectAction->saveEntries(KConfigGroup(&config,"RecentProjects"));
 }
 
 void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 {
-    QString groupNameAddition;
-    if (stateGroup.name()!="State")
-        groupNameAddition=stateGroup.name()+'-';
-
-    kWarning()<<groupNameAddition;
-
     KConfig config;
-    m_openRecentFileAction->loadEntries(KConfigGroup(&config,groupNameAddition+"RecentFiles"));
-    m_openRecentProjectAction->loadEntries(KConfigGroup(&config,groupNameAddition+"RecentProjects"));
+    const KConfig* c=stateGroup.isValid()?stateGroup.config():&config;
+    m_openRecentProjectAction->loadEntries(KConfigGroup(c,"RecentProjects"));
 
     QString path;
     if (Project::instance()->isLoaded())
@@ -535,13 +531,16 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
     }
 }
 
-
 void LokalizeMainWindow::projectLoaded()
 {
     m_openRecentProjectAction->addUrl( KUrl::fromPath(Project::instance()->path()) );
-    setCaption(Project::instance()->projectID());
 
     KConfig config;
+
+    QString nameSpecifier=Project::instance()->path();
+    if (!nameSpecifier.isEmpty()) nameSpecifier.prepend('-');
+    m_openRecentFileAction->loadEntries(KConfigGroup(&config,"RecentFiles"+nameSpecifier));
+
 
     //if project isn't loaded, still restore opened files from "State-"
     KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
@@ -571,6 +570,8 @@ void LokalizeMainWindow::projectLoaded()
         m_toBeActiveSubWindow=m_projectSubWindow;
         QTimer::singleShot(0,this,SLOT(applyToBeActiveSubWindow()));
     }
+
+    setCaption(Project::instance()->projectID());
 
     QTimer::singleShot(0,this,SLOT(loadProjectScripts()));
 }
