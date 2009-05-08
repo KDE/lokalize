@@ -92,7 +92,7 @@ static DiffInfo getDiffInfo(const QString& diff)
 {
     DiffInfo d(diff.size());
 
-    QChar sep('\t');
+    QChar sep('{');
     char state='0';
     //walk through diff string char-by-char
     //calculate old and others
@@ -606,13 +606,13 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     int numPos=rxNum.indexIn(old,start);
 //    int abbrPos=rxAbbr.indexIn(old,start);
     int abbrPos=start;
-    kWarning()<<"seeing"<<old.size()<<old;
+    //kWarning()<<"seeing"<<old.size()<<old;
     while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
     {
-        kWarning()<<"abbr"<<rxAbbr.cap(0)<<rxAbbr.cap(0).mid(1);
+        //kWarning()<<"abbr"<<rxAbbr.cap(0)<<rxAbbr.cap(0).mid(1);
         if (rxAbbr.cap(0).mid(1).toLower()!=rxAbbr.cap(0).mid(1))
         {
-            kWarning()<<rxAbbr.cap(0);
+            //kWarning()<<rxAbbr.cap(0);
             break;
         }
         abbrPos+=rxAbbr.matchedLength();
@@ -628,7 +628,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
 //         cap=rxAbbr.cap(0);
 
     cap=(pos==numPos?rxNum:rxAbbr).cap(0);
-    kWarning()<<cap;
+    //kWarning()<<cap;
 
     return pos;
 }
@@ -881,16 +881,18 @@ nono
     QString cap;
     QString _;
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
+    kWarning()<<"searching for placeables in"<<d.old;
     while ((pos=nextPlacableIn(d.old,pos,cap))!=-1)
     {
         kWarning()<<"considering placable"<<cap;
         //save these so we can use rxNum in a body
         int endPos1=pos+cap.size()-1;
         int endPos=d.old2DiffClean.at(endPos1);
-        QByteArray diffMPart=d.diffIndex.mid(d.old2DiffClean.at(pos),
-                                       endPos+1-d.old2DiffClean.at(pos));
+        int startPos=d.old2DiffClean.at(pos);
+        QByteArray diffMPart=d.diffIndex.mid(startPos,
+                                       endPos+1-startPos);
 
-        kWarning()<<"- ? "<<diffMPart;
+        kWarning()<<"starting diffMPart"<<diffMPart;
 
         //the following loop extends replacement text, e.g. for 1 -> 500 cases
         while ((++endPos<d.diffIndex.size())
@@ -899,9 +901,23 @@ nono
               )
             diffMPart.append('+');
 
-        //this is for the case when +'s preceed -'s:
-        kWarning()<<"- ? "<<diffMPart;
+        kWarning()<<"diffMPart extended 1"<<diffMPart;
+//         if ((pos-1>=0) && (d.old2DiffClean.at(pos)>=0))
+//         {
+//             kWarning()<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
+//             kWarning()<<"(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+')"<<(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+');
+//             //kWarning()<<(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_));
+//         }
 
+        //this is for the case when +'s preceed -'s:
+        while ((--startPos>=0) 
+                  &&(d.diffIndex.at(startPos)=='+')
+                  //&&(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_))
+              )
+            diffMPart.prepend('+');
+        ++startPos;
+
+        kWarning()<<"diffMPart extended 2"<<diffMPart;
 
         if ((diffMPart.contains('-')
             ||diffMPart.contains('+'))
@@ -914,8 +930,9 @@ nono
             while(++j<diffMPart.size())
             {
                 if (diffMPart.at(j)!='-')
-                    newMarkup.append(d.diffClean.at(d.old2DiffClean.at(pos)+j));
+                    newMarkup.append(d.diffClean.at(startPos+j));
             }
+            if (newMarkup.endsWith(' ')) newMarkup.chop(1);
             kWarning()<<"newMarkup"<<newMarkup;
             //kWarning()<<"d.old"<<cap<<"new"<<newMarkup;
 
@@ -949,7 +966,11 @@ void TMView::slotUseSuggestion(int i)
 
     CatalogString target=targetAdapted(m_entries.at(i), m_catalog->sourceWithTags(m_pos));
 
-    kWarning()<<"0"<<target.string;
+    QString tmp=target.string;
+    tmp.replace(TAGRANGE_IMAGE_SYMBOL, '*');
+    kWarning()<<"targetAdapted"<<tmp;
+
+
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 

@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file contains parts of KBabel code
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
