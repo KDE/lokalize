@@ -841,6 +841,7 @@ bool EditorTab::saveFile(const KUrl& url)
     {
         updateCaptionPath();
         setModificationSign(/*clean*/true);
+        emit fileSaved(url.toLocalFile());
         return true;
     }
 
@@ -1293,6 +1294,7 @@ int EditorTab::entryCount(){return m_catalog->numberOfEntries();}
 QString EditorTab::entrySource(int entry, int form){return m_catalog->sourceWithTags(DocPosition(entry, form)).string;}
 QString EditorTab::entryTarget(int entry, int form){return m_catalog->targetWithTags(DocPosition(entry, form)).string;}
 int EditorTab::entryPluralFormCount(int entry){return m_catalog->isPlural(entry)?m_catalog->numberOfPluralForms():1;}
+bool EditorTab::entryReady(int entry){return m_catalog->isApproved(entry);}
 void EditorTab::addEntryNote(int entry, const QString& note){m_notesView->addNote(entry, note);}
 void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransView->attachAltTransFile(path);}
 

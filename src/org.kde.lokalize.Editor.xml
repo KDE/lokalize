@@ -8,6 +8,9 @@
     <signal name="fileClosed">
       <arg name="path" type="s" direction="out"/>
     </signal>
+    <signal name="fileSaved">
+      <arg name="path" type="s" direction="out"/>
+    </signal>
     <signal name="fileAboutToBeClosed">
     </signal>
     <signal name="fileOpened">
@@ -69,6 +72,10 @@
     </method>
     <method name="entryPluralFormCount">
       <arg type="i" direction="out"/>
+      <arg name="entry" type="i" direction="in"/>
+    </method>
+    <method name="entryReady">
+      <arg type="b" direction="out"/>
       <arg name="entry" type="i" direction="in"/>
     </method>
     <method name="addEntryNote">

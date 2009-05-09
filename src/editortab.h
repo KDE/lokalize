@@ -145,6 +145,7 @@ public slots:
     Q_SCRIPTABLE QString entrySource(int entry, int form);
     Q_SCRIPTABLE QString entryTarget(int entry, int form);
     Q_SCRIPTABLE int entryPluralFormCount(int entry);
+    Q_SCRIPTABLE bool entryReady(int entry);
     Q_SCRIPTABLE void addEntryNote(int entry, const QString& note);
 
 
@@ -298,6 +299,7 @@ signals:
     //emitted when mainwindow is closed or another file is opened
     void fileClosed();
     Q_SCRIPTABLE void fileClosed(const QString& path);
+    Q_SCRIPTABLE void fileSaved(const QString& path);
     Q_SCRIPTABLE void fileAboutToBeClosed();//old catalog is still accessible
     Q_SCRIPTABLE void fileOpened();
 
