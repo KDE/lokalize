@@ -285,16 +285,21 @@ class KdeSourcePage(QWizardPage):
             return False
 
         self.progress.show()
-        self.progress.setMaximum(6*30+10)
+        self.progress.setMaximum(6*30+3*10)
         QCoreApplication.processEvents()
 
         #localsvnroot=self.field('kde-svn-location').toString()
         localsvnroot=self.svnRootLocation.text()
         if not QFileInfo('%s/trunk' % localsvnroot).exists():
+            print 'svn -N co svn://anonsvn.kde.org/home/kde/trunk %s/trunk' % localsvnroot
             os.system('svn -N co svn://anonsvn.kde.org/home/kde/trunk %s/trunk' % localsvnroot)
+        else:
+            print 'already exists:',
+            print '%s/trunk' % localsvnroot
         self.reportProgress(10)
 
         if not QFileInfo('%s/trunk/l10n-kde4' % localsvnroot).exists():
+            print 'svn -N up %s/trunk/l10n-kde4' % localsvnroot
             os.system('svn -N up %s/trunk/l10n-kde4' % localsvnroot)
         self.reportProgress(5)
 
@@ -302,14 +307,17 @@ class KdeSourcePage(QWizardPage):
         langs=KGlobal.locale().allLanguagesList()
         lang=langs[self.field('kde-svn-lang').toInt()[0]]
 
-        os.system('svn --depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+        print 'svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang)
+        os.system('svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
         self.reportProgress(5)
-        os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docs' % (localsvnroot, lang))
+        os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s/docs' % (localsvnroot, lang))
         self.reportProgress(30)
         for langlang in [lang,'templates']:
-            os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/messages' % (localsvnroot, langlang))
+            os.system('svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+            self.reportProgress(5)
+            os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s/messages' % (localsvnroot, langlang))
             self.reportProgress(30)
-            os.system('svn --depth infinity up %s/trunk/l10n-kde4/%s/docmessages' % (localsvnroot, langlang))
+            os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s/docmessages' % (localsvnroot, langlang))
             self.reportProgress(30)
             os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s' % (localsvnroot, langlang))
             self.reportProgress(10)
