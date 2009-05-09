@@ -26,8 +26,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2008-09-10</date>
-<releaseinfo>0.3</releaseinfo>
+<date>2009-05-09</date>
+<releaseinfo>1.0</releaseinfo>
 
 <abstract>
 <para>
@@ -41,7 +41,16 @@ translating &GUI; components.
 <keywordset>
 <keyword>&lokalize;</keyword>
 <keyword>localization</keyword>
+<keyword>l10n</keyword>
+<keyword>internationalization</keyword>
+<keyword>i18n</keyword>
 <keyword>translation</keyword>
+<keyword>globalization</keyword>
+<keyword>g11n</keyword>
+<keyword>XLIFF</keyword>
+<keyword>gettext</keyword>
+<keyword>OpenDocument</keyword>
+<keyword>KBabel</keyword>
 </keywordset>
 
 </bookinfo>
@@ -50,8 +59,23 @@ translating &GUI; components.
 <title>Introduction</title>
 
 <para>
-When you start &lokalize; without any command-line arguments,
-you will see two big multi-line edits as well as a bunch of <emphasis>toolviews</emphasis>.
+When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab.
+Lokalize workflow implies that you start with creating/opening a project.
+</para>
+<para>
+If you are working along, chances are you are going to translate OpenDocument file.
+To do this select <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>
+The wizard will ask you about your source document, convert it to &lokalize; internal format, XLIFF, and create project for it.
+</para>
+
+<para>
+If you are doing translations for KDE, then either you will already have &lokalize; project file in your languages folder (usually named <filename>index.lokalize</filename>),
+or you can select <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>
+and the wizard will download translation files for your language and will create project for you.
+</para>
+
+<para>
+Translation files are opened in separate tab, with two big multi-line edits as well as a bunch of <emphasis>toolviews</emphasis>.
 These views can be stacked (similar to tabs), shown separately, or hidden.
 Translation files consist of many English-target pairs called <emphasis>messages</emphasis>.
 A <emphasis>message</emphasis> typically correspond to a single string in the
@@ -67,21 +91,30 @@ Up</keycap>.
 <para>
 It is recommended that you get used to the keyboard shortcuts instead of the
 menus and toolbars for increased productivity. For example, use the
-<keycombo>&Alt;<keycap>_</keycap></keycombo> to switch between
-views when they are stacked into tabs, or
-<keycombo>&Alt;<keycap>Q</keycap></keycombo> to initiate a query
-when in the <guilabel>WebQueries</guilabel>.
+<keycombo>&Ctrl;<keycap>L</keycap></keycombo> to focus <guilabel>Quick search</guilabel>
+input line to filter entry list in <guilabel>Translation Units</guilabel> view.
+Once you are done, press <keycap>Page Down</keycap> to start moving along the filtered list.
 </para>
 </tip>
 
 <para>
 A message may be <emphasis>translated</emphasis> or <emphasis>untranslated</emphasis>.
-A translated message translation may be <emphasis>approved</emphasis> or <emphasis>non-approved</emphasis> (also called <emphasis>fuzzy</emphasis> sometimes).
+A translated message translation may be <emphasis>approved</emphasis> or <emphasis>non-approved</emphasis> (also called <emphasis>fuzzy</emphasis> and <emphasis>non-ready</emphasis> sometimes).
 If the message is non-approved, its translation is rendered in italics.
 &lokalize; allows you to easily navigate through the file according to the state of their translation.
 See <guilabel>Go</guilabel> menu for the shortcuts.
 When navigating, untranslated messages are treated as non-approved.
 </para>
+
+<para>
+If you are working with translation files in XLIFF format (definitely the case when you translate OpenDocument),
+then other states are possible (<emphasis>new</emphasis>, <emphasis>needs review</emphasis>, <emphasis>approved</emphasis>, etc).
+Classification of the state as ready or non-ready depends on the current <emphasis>workflow phase</emphasis> (<emphasis>translation</emphasis>, <emphasis>review</emphasis>, <emphasis>approval</emphasis>).
+A default phase for you depends on your <emphasis>role</emphasis> in the project (set in project settings).
+Each entry usually contains information about phase it was changed last time, 
+and each for phase an owner is logged to the file.
+</para>
+
 </chapter>
 
 <chapter id="projects">
@@ -94,6 +127,11 @@ glossary file, automation scripts, translation memories.
 Whenever &lokalize; opens a file without a project loaded, it will search for a project file in the parent folders (up to four levels).
 Alternatively, you can specify the project file via the <userinput>--project</userinput> flag
 when starting &lokalize; from the command line.
+</para>
+
+<para>
+For each project you select your role in it (<emphasis>translator</emphasis>, <emphasis>reviewer</emphasis>, <emphasis>approver</emphasis>),
+which in turn affects a workflow phase &lokalize; automatically picks up for files you edit.
 </para>
 
 <note>
@@ -113,6 +151,7 @@ The <guilabel>Project Overview</guilabel> tab displays a file tree with statisti
 such as the percentage of translated messages completed and the last translator.
 It allows you to open a selected file in new tab of the current &lokalize;, window.
 </para>
+
 </sect1>
 
 </chapter>
@@ -254,10 +293,17 @@ and commit changes in both trunk and branch dirs.
 </sect1>
 
 
-<sect1 id="original-diff">
-<title>Original Diff</title>
+<sect1 id="alt-trans">
+<title>Alternate Translations</title>
+
 <para>
-When original text changes, gettext tools update translation files and mark entries with changed original text as <emphasis>fuzzy</emphasis> (or <emphasis>non-approved</emphasis> in other terminology).
+Each entry may have several <emphasis>alternate translations</emphasis> associated with it.
+Such translations may appear during file update, when the source string is slightly changed.
+In this case ald translation with it's (old) source is moved to alternate translations list, so that they are not lost.
+</para>
+<para>
+When translating software, usually gettext tools are used to prepare translation files.
+When original text changes, gettext tools update translation files and mark entries with changed original text as <emphasis>fuzzy</emphasis> (or <emphasis>non-ready</emphasis> in other terminology).
 They store previous original text so that translators could see what changes exactly were made.
 &lokalize; simplifies life of translator and highlights parts of original text that were changed in <guilabel>Original Diff</guilabel> view.
 </para>
@@ -326,8 +372,7 @@ Nick Shaforostoff <email>shaforostoff AT kde.ru</email>
 </para>
 
 <para>See the <ulink
-url="http://techbase.kde.org/Projects/Summer_of_Code/2007/Projects/KAider">
-&lokalize; homepage</ulink> for more details.</para>
+url="http://userbase.kde.org/lokalize">&lokalize; homepage</ulink> for more details.</para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 &underFDL;
