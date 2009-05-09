@@ -606,11 +606,12 @@ class ProjectScriptingPlugin: public Kross::ScriptingPlugin
 {
 public:
     ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
-    ~ProjectScriptingPlugin(){}
+    ~ProjectScriptingPlugin();
     void setDOMDocument (const QDomDocument &document, bool merge = false);
 };
 
 #define PROJECTRCFILEPATH Project::instance()->projectDir()+"/lokalize-scripts/scripts.rc"
+#define PROJECTRCFILEDIR  Project::instance()->projectDir()+"/lokalize-scripts"
 //TODO be lazy creating scripts dir
 ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
  : Kross::ScriptingPlugin(Project::instance()->kind(),
@@ -657,6 +658,14 @@ void ProjectScriptingPlugin::setDOMDocument (const QDomDocument &document, bool 
     }
 }
 
+ProjectScriptingPlugin::~ProjectScriptingPlugin()
+{
+    Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
+    if (!collection) return;
+
+    foreach(const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"),QDir::Files))
+        collection->readXmlFile(rc);
+}
 
 /*
 void LokalizeMainWindow::checkForProjectAlreadyOpened()

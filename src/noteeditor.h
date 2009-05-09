@@ -27,10 +27,12 @@
 #include "note.h"
 
 #include <KTextEdit>
+#include <QPlainTextEdit>
 class QStringListModel;
 class QLabel;
 class KComboBox;
 class KTextBrowser;
+class TextEdit;
 
 int displayNotes(KTextBrowser* m_browser, const QVector<Note>& notes, int active=0, bool multiple=true);
 
@@ -56,17 +58,17 @@ private:
     KComboBox* m_from;
     QLabel* m_fromLabel;
     QStringListModel* m_authors;
-    KTextEdit* m_edit;
+    TextEdit* m_edit;
     int m_idx;
     Note m_note;
 };
 
 
-class TextEdit: public KTextEdit
+class TextEdit: public QPlainTextEdit
 {
 Q_OBJECT
 public:
-    TextEdit(QWidget* parent): KTextEdit(parent){}
+    TextEdit(QWidget* parent): QPlainTextEdit(parent){}
     void keyPressEvent(QKeyEvent* e);
 signals:
     void accepted();

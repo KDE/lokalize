@@ -49,7 +49,7 @@ void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
     else if (keyEvent->key()==Qt::Key_Escape)
         emit rejected();
     else
-        KTextEdit::keyPressEvent(keyEvent);
+        QPlainTextEdit::keyPressEvent(keyEvent);
 }
 
 NoteEditor::NoteEditor(QWidget* parent)
