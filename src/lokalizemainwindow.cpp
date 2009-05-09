@@ -610,8 +610,9 @@ public:
     void setDOMDocument (const QDomDocument &document, bool merge = false);
 };
 
-#define PROJECTRCFILEPATH Project::instance()->projectDir()+"/lokalize-scripts/scripts.rc"
+#define PROJECTRCFILE "scripts.rc"
 #define PROJECTRCFILEDIR  Project::instance()->projectDir()+"/lokalize-scripts"
+#define PROJECTRCFILEPATH Project::instance()->projectDir()+"/lokalize-scripts" "/" PROJECTRCFILE
 //TODO be lazy creating scripts dir
 ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
  : Kross::ScriptingPlugin(Project::instance()->kind(),
@@ -663,8 +664,12 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
     Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
     if (!collection) return;
 
+    QString scriptsrc=PROJECTRCFILE;
+    QDir rcdir(PROJECTRCFILEDIR);
+    kWarning()<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
     foreach(const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"),QDir::Files))
-        collection->readXmlFile(rc);
+        if (rc!=scriptsrc)
+            kWarning()<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
 }
 
 /*
@@ -712,6 +717,10 @@ void LokalizeMainWindow::loadProjectScripts()
         guiFactory()->removeClient(m_projectScriptingPlugin);
         delete m_projectScriptingPlugin;
     }
+
+    //a hack to get new .rc files shown w/o requiring a restart
+    m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
+    delete m_projectScriptingPlugin;
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
     guiFactory()->addClient(m_projectScriptingPlugin);
 }
