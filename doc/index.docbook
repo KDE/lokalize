@@ -255,7 +255,7 @@ contributors, when you cannot be sure of the quality of the work done.
 <para>
 Open a base file, then drop its changed version into the <guilabel>Primary Sync</guilabel> view,
 followed by <keycombo>&Alt;<keycap>Down</keycap></keycombo> or <keycombo>&Alt;
-<keycap>Up</keycap></keycombo> (remember that shortcuts may be modified in a usual way for all &kde; apps)
+<keycap>Up</keycap></keycombo> (remember that shortcuts may be modified in a usual way for all &kde; applications)
 to navigate through entries that are different.
 </para>
 <screenshot>
@@ -277,18 +277,18 @@ to navigate through entries that are different.
 <para>
 <guilabel>Sync Mode</guilabel> may also be used to make changes to translation for
 two branches simultaneously.
-Set <guilabel>Branch Dir</guilabel> path in your project options to the path that corresponds to
-base dir of the branch, and <guilabel>Secondary Sync</guilabel> view will automatically open
+Set <guilabel>Branch folder</guilabel> path in your project options to the path that corresponds to
+base folder of the branch, and <guilabel>Secondary Sync</guilabel> view will automatically open
 files from branch. Then, each time you make changes in files of your main branch,
 they will automatically be replicated to the branch
-(of course, if it contains the same english string).
+(of course, if it contains the same English string).
 </para>
 <para>
 For example, if you work on KDE translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename>
 and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>.
-Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.ktp</filename> and 
+Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.lokalize</filename> and 
 set <filename class="directory">BranchDir=../../../branches/stable/l10n-kde4/YOUR_LANG</filename>, then work via this project,
-and commit changes in both trunk and branch dirs.
+and commit changes in both trunk and branch folders.
 </para>
 </sect1>
 
@@ -299,13 +299,13 @@ and commit changes in both trunk and branch dirs.
 <para>
 Each entry may have several <emphasis>alternate translations</emphasis> associated with it.
 Such translations may appear during file update, when the source string is slightly changed.
-In this case ald translation with it's (old) source is moved to alternate translations list, so that they are not lost.
+In this case the old translation with it's (old) source is moved to alternate translations list, so that they are not lost.
 </para>
 <para>
 When translating software, usually gettext tools are used to prepare translation files.
 When original text changes, gettext tools update translation files and mark entries with changed original text as <emphasis>fuzzy</emphasis> (or <emphasis>non-ready</emphasis> in other terminology).
 They store previous original text so that translators could see what changes exactly were made.
-&lokalize; simplifies life of translator and highlights parts of original text that were changed in <guilabel>Original Diff</guilabel> view.
+&lokalize; simplifies life of translator and highlights parts of original text that were changed in <guilabel>Alternate Translations</guilabel> view.
 </para>
 
 <screenshot>
