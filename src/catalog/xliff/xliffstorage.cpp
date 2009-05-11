@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <kglobal.h>
 #include <klocale.h>
 #include <kdatetime.h>
+#include <QXmlSimpleReader>
 
 static const char* const noyes[]={"no","yes"};
 static const char* const bintargettarget[]={"bin-target","target"};
@@ -64,9 +65,14 @@ int XliffStorage::load(QIODevice* device)
     QTime chrono;chrono.start();
 
 
+    QXmlSimpleReader reader;
+    reader.setFeature("http://qtsoftware.com/xml/features/report-whitespace-only-CharData",true);
+    reader.setFeature("http://xml.org/sax/features/namespaces",false);
+    QXmlInputSource source(device);
+
     QString errorMsg;
     int errorLine;//+errorColumn;
-    bool success=m_doc.setContent( device, false, &errorMsg, &errorLine/*,errorColumn*/);
+    bool success=m_doc.setContent(&source, &reader, &errorMsg, &errorLine/*,errorColumn*/);
 
     if (!success)
     {
@@ -624,8 +630,15 @@ static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomEle
     QDomElement header=file.firstChildElement("header");
     phasegroup=header.firstChildElement("phase-group");
     if (phasegroup.isNull())
-        phasegroup=header.appendChild(m_doc.createElement("phase-group")).toElement();
-
+    {
+        phasegroup=m_doc.createElement("phase-group");
+        //order following XLIFF spec
+        QDomElement skl=header.firstChildElement("skl");
+        if (!skl.isNull())
+            header.insertAfter(phasegroup, skl);
+        else
+            header.insertBefore(phasegroup, header.firstChildElement());
+    }
     QDomElement phaseElem=phasegroup.firstChildElement("phase");
     while (!phaseElem.isNull() && phaseElem.attribute("phase-name")!=name)
         phaseElem=phaseElem.nextSiblingElement("phase");
