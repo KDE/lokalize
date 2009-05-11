@@ -718,7 +718,7 @@ void LokalizeMainWindow::loadProjectScripts()
         delete m_projectScriptingPlugin;
     }
 
-    //a hack to get new .rc files shown w/o requiring a restart
+    //a HACK to get new .rc files shown w/o requiring a restart
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
     delete m_projectScriptingPlugin;
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
