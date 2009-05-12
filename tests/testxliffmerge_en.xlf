@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1" >
+  <file original="/home/xx/Documents/test.odt" datatype="plaintext" source-language="en" >
+    <body>
+      <trans-unit id="000">
+        <source>test symbols &#xd;</source>
+      </trans-unit>
+      <trans-unit id="001" approved="yes">
+        <source>test changing ids of <g id="0" >inlined markup</g>. And <g id="5" >one more</g>.</source>
+      </trans-unit>
+      <trans-unit id="0025" approved="yes">
+        <source>test changing ids of units themseves.</source>
+      </trans-unit>
+      <trans-unit id="003" approved="yes">
+        <source>test changing the text 2.</source>
+      </trans-unit>
+      <trans-unit id="004" >
+        <source>test no change.</source>
+      </trans-unit>
+      <trans-unit id="005" >
+        <source>test adding text.</source>
+      </trans-unit>
+      <trans-unit id="0045" >
+        <source>test no change.</source>
+      </trans-unit>
+      <trans-unit id="006" >
+        <source>test <g id="10" >removing</g> some <g id="11" >tags</g>.</source>
+      </trans-unit>
+      <trans-unit id="007" >
+        <source>test <g id="10" ctype="italic">adding</g> attributes.</source>
+      </trans-unit>
+      <trans-unit id="008" >
+        <source>test preserving alt-trans.</source>
+      </trans-unit>
+      <trans-unit id="009" >
+        <source>test preserving alt-trans when text is changed 2.</source>
+      </trans-unit>
+      <trans-unit id="010" >
+        <source>test inline <g id="7">position</g> change.</source>
+      </trans-unit>
+      <trans-unit id="mrkmrk" >
+        <source><mrk mtype="seg" >mrk preserving <mrk mtype="internationalism" >test</mrk>: seg1</mrk><mrk mtype="seg" >seg2</mrk></source>
+      </trans-unit>
+      <trans-unit id="mrkmrk" >
+        <source><mrk mtype="seg" >mrk1<mrk mtype="internationalism" >test</mrk>: </mrk><mrk mtype="seg" >seg2</mrk></source>
+      </trans-unit>
+      <bin-unit id="bin-unit" >
+        <bin-source>
+          <external-file href="../shots/menu-internet.png" />
+        </bin-source>
+      </bin-unit>
+    </body>
+  </file>
+</xliff>
