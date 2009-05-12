@@ -1005,6 +1005,7 @@ void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
 
             if (canFetchMore(child))
                 fetchMore(child);
+            QCoreApplication::processEvents();
         }
     }
 
