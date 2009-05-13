@@ -7,6 +7,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtXml import *
 
 import itertools
+import math
 
 from optparse import OptionParser
 
@@ -255,17 +256,32 @@ def merge(C, X, Y, i, j):
             globals()['lastCommon']=i-1 #to preserve order
 
             #look for alternate translations, neighbourhood first
-            maxLen=0
+
+            #nonRecentlyRemoved=[x for x in removedUnits if x not in globals()['recentlyRemoved']]
             maxUnits=[]
-            for remNode in [freezedOldUnits[x] for x in globals()['recentlyRemoved']]:
-                l=lcs_length(newUnit.firstChildElement("source").text(),remNode.firstChildElement("source").text())
-                if l>=maxLen:
-                    maxLen=l
-                    maxUnits.append((l, remNode))
-            if maxLen<newUnit.firstChildElement("source").text().size()/2.0: return
-            maxUnits=[x[1] for x in maxUnits if x[0]==maxLen]
+            newUnitText=newUnit.firstChildElement("source").text()
+            #for remNode in [freezedOldUnits[x] for x in removedUnits]:
+            for x in removedUnits:
+                remNode=freezedOldUnits[x]
+                remNodeText=remNode.firstChildElement("source").text()
+                commonLen=lcs_length(newUnitText,remNodeText)
+                remLen=newUnitText.size()-commonLen
+                addLen=remNodeText.size()-commonLen
+                
+                score=99*math.exp(0.2*math.log(1.0*commonLen/newUnitText.size())) / (math.exp(0.015*addLen)*math.exp(0.01*remLen))
+                    
+                if score<60: continue
+                maxUnits.append((score+1*(x in globals()['recentlyRemoved']), remNode))
+            
+            def count_compare_inverted(x, y): return int(y[0]-x[0])
+            maxUnits.sort(count_compare_inverted)
+
             for maxUnit in maxUnits:
-                cloneToAltTrans(maxUnit,newUnit)
+                #print maxUnit[0],
+                #print newUnitText,
+                #print '------------',
+                #print maxUnit[1].firstChildElement("source").text()
+                cloneToAltTrans(maxUnit[1],newUnit)
         elif i > 0 and (j == 0 or C[i][j-1] < C[i-1][j]):
             merge(C, X, Y, i-1, j)
             globals()['recentlyRemoved'].append(i-1)
