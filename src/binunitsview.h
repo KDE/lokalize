@@ -33,6 +33,7 @@ class MyTreeView;
 
 #include "pos.h"
 
+#include <QHash>
 #include <QDockWidget>
 #include <QAbstractListModel>
 

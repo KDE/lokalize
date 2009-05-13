@@ -174,7 +174,8 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
-    Sonnet::Highlighter::highlightBlock(text);
+    if (spellCheckerFound())
+        Sonnet::Highlighter::highlightBlock(text);
 }
 
 #if 0

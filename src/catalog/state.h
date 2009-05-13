@@ -37,8 +37,8 @@ enum TargetState
     NeedsReviewTranslation,
     NeedsReviewL10n,
     NeedsReviewAdaptation,
-    SignedOff,
     Final,
+    SignedOff,
     StateCount
 };
 

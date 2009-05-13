@@ -72,8 +72,8 @@ static const char* const extensions[]={".po",".pot",".xlf"};
 
 static const char* const xliff_states[]={
         I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
-        I18N_NOOP("Needs translation review"),I18N_NOOP("Needs full localization review"),I18N_NOOP("Needs adaptation review"),I18N_NOOP("Signed-off"),
-        I18N_NOOP("Final")};
+        I18N_NOOP("Needs translation review"),I18N_NOOP("Needs full localization review"),I18N_NOOP("Needs adaptation review"),I18N_NOOP("Final"),
+        I18N_NOOP("Signed-off")};
 
 const char* const* Catalog::states()
 {
@@ -904,7 +904,7 @@ TargetState closestState(bool approved, ProjectLocal::PersonRole role)
 {
     static const TargetState approvementStates[][3]={
         {NeedsTranslation, NeedsReviewTranslation, NeedsReviewTranslation},
-        {Translated, SignedOff, Final}
+        {Translated, Final, SignedOff}
     };
     return approvementStates[approved][role];
 }

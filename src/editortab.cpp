@@ -1184,7 +1184,7 @@ void EditorTab::showStatesMenu()
         a->setCheckable(true);
         a->setChecked(state==i);
 
-        if (i==New || i==Translated || i==SignedOff)
+        if (i==New || i==Translated || i==Final)
             m_approveAction->menu()->addSeparator();
     }
 }

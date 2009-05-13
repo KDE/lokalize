@@ -24,6 +24,7 @@
 #include "languagelistmodel.h"
 #include <kglobal.h>
 #include <kdebug.h>
+#include <kstandarddirs.h>
 #include <kiconloader.h>
 #include <kicon.h>
 #include <klocale.h>
@@ -42,7 +43,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
     {
         QString code=stringList().at(index.row());
         if (code.contains('_')) code=code.mid(3).toLower();
-        return QIcon(QString("/usr/share/locale/l10n/%1/flag.png").arg(code));
+        return QIcon(KStandardDirs::locate("locale", QString("l10n/%1/flag.png").arg(code)));
     }
 
     return QStringListModel::data(index, role);

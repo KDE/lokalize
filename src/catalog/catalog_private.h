@@ -52,7 +52,6 @@
 #include <QSet>
 #include <QTimer>
 
-class DocPosition;
 class QTextCodec;
 class CatalogStorage;
 class Catalog;
