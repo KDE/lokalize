@@ -9,7 +9,7 @@ def run_standalone():
     import subprocess
     
     ourPath=([p for p in sys.path if os.path.exists(p+'/newprojectwizard_win.py')]+[''])[0]
-    os.system(ourPath+'/newprojectwizard_win.py')
+    os.system(ourPath+'/newprojectwizard.py')
 
     try:file=open(ourPath+'/projectconf.tmp','r')
     except: return

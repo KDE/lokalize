@@ -4,6 +4,7 @@ IF (WIN32)
             #find-gui-text.sh TODO
             newprojectwizard_win.rc
             newprojectwizard_win.py
+            newprojectwizard.py
             DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 ELSE (WIN32)
     install( FILES
@@ -24,4 +25,5 @@ install( FILES
         xliff2odf.py
         xliff2odf.rc
         xliff2odf-standalone.py
+        xliffmerge.py
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts/odf )
