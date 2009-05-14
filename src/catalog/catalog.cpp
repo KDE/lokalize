@@ -488,7 +488,7 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl)
     file->close();
     KIO::NetAccess::removeTempFile(target);
 
-    if (KDE_ISUNLIKELY(line!=0))
+    if (KDE_ISUNLIKELY(line!=0 || (!storage->size() && (line=-1) ) ))
     {
         delete storage;
         return line;
@@ -828,9 +828,9 @@ void Catalog::setEquivTrans(const DocPosition& pos, bool equivTrans)
     if (m_storage) m_storage->setEquivTrans(pos, equivTrans);
 }
 
-bool Catalog::setModified(int entry,bool modif)
+bool Catalog::setModified(int entry, bool modified)
 {
-    if (modif)
+    if (modified)
     {
         if (d->_modifiedEntries.contains(entry))
             return false;

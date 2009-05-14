@@ -8,7 +8,7 @@
   <include>kde-i18n-lists.h</include>
   <group name="General">
     <entry name="ProjectID"  type="String">
-        <default code="true">"kde-"+KGlobal::locale()->language()</default>
+        <default>default</default>
     </entry>
     <entry name="Kind"  type="String">
         <default>kde</default>

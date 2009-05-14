@@ -1,37 +1,127 @@
 # -*- coding: utf-8 -*-
-import Kross
-import Lokalize
-import Project
 import sys,os
 import codecs
+import subprocess
+
+try:
+    import Lokalize
+    import Project
+    import Kross
+    standalone=False
+    
+
+    utf8_decoder=codecs.getdecoder("utf8")
+
+    T = Kross.module("kdetranslation")
+    def i18n(text, args = []):
+        if T is not None: return utf8_decoder(T.i18n(text, args))[0]
+        # No translation module, return the untranslated string
+        for a in range(len(args)): text = text.replace( ("%" + "%d" % ( a + 1 )), str(args[a]) )
+        return text
+
+    #copied from translate-toolkit unit test
+    def tt_args(src, tgt, **kwargs):
+        arg_list = [src, tgt]
+        for flag, value in kwargs.iteritems():
+            value = unicode(value)
+            if len(flag) == 1: arg_list.append(u'-%s' % flag)
+            else:              arg_list.append(u'--%s' % flag)
+            if not value==None:arg_list.append(value)
+        return arg_list
+
+except:
+    standalone=True
+    def i18n(x): return x #TODO fix
+
+
+
+
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from PyKDE4.kdecore import *
-from PyKDE4.kdeui import *
-from PyKDE4.kio import *
 
-utf8_decoder=codecs.getdecoder("utf8")
+try:
+    from PyKDE4.kdecore import *
+    from PyKDE4.kdeui import *
+    from PyKDE4.kio import *
+    allLanguagesList=KGlobal.locale().allLanguagesList()
+except:
+    class KComboBox(QComboBox):
+        def __init__(self, parent):
+            QComboBox.__init__(self, parent)
 
-T = Kross.module("kdetranslation")
-def i18n(text, args = []):
-    if T is not None: return utf8_decoder(T.i18n(text, args))[0]
-    # No translation module, return the untranslated string
-    for a in range(len(args)): text = text.replace( ("%" + "%d" % ( a + 1 )), str(args[a]) )
-    return text
+    class KLineEdit(QLineEdit):
+        def __init__(self, parent):
+            QLineEdit.__init__(self, parent)
 
+    class ActiveLineEdit(KLineEdit):
+        def __init__(self, parent):
+            KLineEdit.__init__(self, parent)
+        def mouseDoubleClickEvent(self, event): self.emit(SIGNAL("doubleClicked()"))
+
+    class KUrlRequester (QWidget):
+        def __init__(self, parent):
+            QWidget.__init__(self, parent)
+            self.le=ActiveLineEdit(self)
+            self.btn=QToolButton(self)
+            l=QHBoxLayout(self)
+            l.setContentsMargins(0,0,0,0)
+            l.addWidget(self.le)
+            l.addWidget(self.btn)
+
+            self.dialog=QFileDialog(self)
+            self.connect(self.dialog,SIGNAL("fileSelected(QString)"),self.le,SLOT("setText(QString)"))
+#            self.connect(self.dialog,SIGNAL("fileSelected(QString)"),self.setText)
+            self.connect(self.dialog,SIGNAL("accepted()"),self.chCh)
+            self.connect(self.le,SIGNAL("textChanged(QString)"),self,SIGNAL("textChanged(QString)"))
+            self.connect(self.btn,SIGNAL("clicked()"),self.dialog,SLOT("show()"))
+            self.connect(self.le,SIGNAL("doubleClicked()"),self.dialog,SLOT("show()"))
+            self.setAcceptDrops(True)
+
+        def dragEnterEvent(self, event):
+            if event.mimeData().hasUrls():
+                event.acceptProposedAction()
+
+        def dropEvent(self, event):
+            self.setText(QDir.toNativeSeparators(event.mimeData().urls()[0].toLocalFile()))
+            event.acceptProposedAction()
+
+        def chCh(self): self.le.setText(self.dialog.selectedFiles()[0])
+
+        def setClickMessage(self,_): return
+        def setFilter(self,ftr): self.dialog.setFilter(ftr)
+        def lineEdit(self): return self.le
+        def text(self): return self.le.text()
+        def setText(self,text): return self.le.setText(text)
+        def fileDialog(self): return self.dialog
+        def setMode(self,mode):
+            if mode&2:self.dialog.setFileMode(QFileDialog.Directory)
+
+   
+    class kFile:
+        def __init__(self):
+            self.File=1
+            self.Directory=2
+            self.ExistingOnly=4
+            self.LocalOnly=8
+
+        def Modes(self, modes): return modes
+    KFile=kFile()
+
+    allLanguagesList=QStringList()
+    for i in range(QLocale.Chewa):
+        allLanguagesList.append(QLocale(QLocale.Language(i)).name())
+#        allLanguagesList.append(QLocale.languageToString(QLocale.Language(i)))
+
+
+class RadioActiveButton(QRadioButton):
+    def __init__(self, text, parent):
+        QRadioButton.__init__(self, text, parent)
+    def mouseDoubleClickEvent(self, event): self.emit(SIGNAL("doubleClicked()"))
+
+   
 try: from translate.convert import odf2xliff
 except: print i18n('Translate-Toolkit not found. Please install this package for the feature to work.')
-
-
-#copied from translate-toolkit unit test
-def args(src, tgt, **kwargs):
-    arg_list = [src, tgt]
-    for flag, value in kwargs.iteritems():
-        value = unicode(value)
-        if len(flag) == 1: arg_list.append(u'-%s' % flag)
-        else:              arg_list.append(u'--%s' % flag)
-        if not value==None:arg_list.append(value)
-    return arg_list
 
 
 pages=[]
@@ -43,16 +133,18 @@ class TypePage(QWizardPage):
         self.setTitle(i18n("What do you want to do?"))
         self.setSubTitle(i18n("Identify the kind of project you want:"))
         self.group=QButtonGroup(self)
-        document=QRadioButton(self)
-        document.setText(i18n('Translate a document'))
+        document=RadioActiveButton(i18n('Translate a document'),self)
         document.setChecked(True)
-        gui=QRadioButton(self)
-        gui.setText(i18n('Translate application interface'))
+        gui=RadioActiveButton(i18n('Translate application interface'),self)
         layout=QVBoxLayout(self)
         layout.addWidget(document)
         layout.addWidget(gui)
         self.group.addButton(document,0)
         self.group.addButton(gui,1)
+
+        #self.connect(document,SIGNAL("doubleClicked()"),self.wizard(),SLOT("next()"))
+        self.connect(document,SIGNAL("doubleClicked()"),self,SIGNAL("nextRequested()"))
+        self.connect(gui,SIGNAL("doubleClicked()"),self,SIGNAL("nextRequested()"))
 
         self.registerField('kind-document',document)
         self.registerField('kind-gui',gui)
@@ -98,8 +190,8 @@ class OdfSourcePage(QWizardPage):
     def nextId(self): return pages.index('NamePage')
 
     def initializePage(self):
-        self.odfFilePath.fileDialog().setUrl(KUrl(QDesktopServices.storageLocation(QDesktopServices.StandardLocation(QDesktopServices.DocumentsLocation))))
         self.odfDirPath.lineEdit().setText(QDesktopServices.storageLocation(QDesktopServices.StandardLocation(QDesktopServices.DocumentsLocation)))
+        self.odfFilePath.fileDialog().setUrl(KUrl(QDesktopServices.storageLocation(QDesktopServices.StandardLocation(QDesktopServices.DocumentsLocation))))
 
 
 
@@ -147,7 +239,11 @@ pages.append('LangPage')
 # TODO cache, make it cross-platform
 class LanguageListModel(QStringListModel):
     def __init__(self, parent):
-        QStringListModel.__init__(self,KGlobal.locale().allLanguagesList(),parent)
+        QStringListModel.__init__(self,allLanguagesList,parent)
+        try:
+            KGlobal.locale()
+            self.kGlobalPresent=True
+        except: self.kGlobalPresent=False
 
     def data(self,index,role):
         if role==Qt.DecorationRole:
@@ -155,7 +251,7 @@ class LanguageListModel(QStringListModel):
             if not '_' in code: code=QLocale(code).name()
             code=code[3:].toLower()
             return QVariant(QIcon(QString.fromUtf8("/usr/share/locale/l10n/%1/flag.png").arg(code)))
-        elif role==Qt.DisplayRole:
+        elif self.kGlobalPresent and role==Qt.DisplayRole:
             code=self.stringList()[index.row()]
             return QVariant(KGlobal.locale().languageCodeToName(code))
         return QStringListModel.data(self,index,role)
@@ -171,9 +267,12 @@ class LangPage(QWizardPage):
         self.sourceLang.setModel(self.languageListModel)
         self.targetLang.setModel(self.languageListModel)
 
-        tlang=Project.targetLangCode()
+        tlang=defaultTargetLang
         if tlang=='en_US':tlang=QLocale.system().name()
         tpos=self.languageListModel.stringList().indexOf(tlang)
+        print self.languageListModel.stringList()[2]
+        print tlang
+        print QLocale.system().name()
         if tpos==-1: tpos=self.languageListModel.stringList().indexOf(QRegExp('^'+tlang[:2]+'.*'))
         if tpos!=-1: self.targetLang.setCurrentIndex(tpos)
         self.sourceLang.setCurrentIndex(self.languageListModel.stringList().indexOf('en_US'))
@@ -185,7 +284,7 @@ class LangPage(QWizardPage):
         self.registerField('source-lang',self.sourceLang)
         self.registerField('target-lang',self.targetLang)
 
-
+    def nextId(self): return -1
 
 ##########################
 
@@ -197,9 +296,11 @@ class SoftSourcePage(QWizardPage):
         self.setTitle(i18n("Choose a type of software project"))
         self.setSubTitle(i18n("Different projects use different translation files filesystem layout."))
         self.group=QButtonGroup(self)
-        self.kde=QRadioButton(i18n('KDE'),self)
+        self.kde=RadioActiveButton(i18n('KDE'),self)
         self.kde.setChecked(True)
         self.group.addButton(self.kde,0)
+
+        self.connect(self.kde,SIGNAL("doubleClicked()"),self,SIGNAL("nextRequested()"))
 
         layout=QFormLayout(self)
         layout.addWidget(self.kde)
@@ -231,7 +332,7 @@ class KdeSourcePage(QWizardPage):
         self.targetLang=KComboBox(self)
         self.targetLang.setModel(self.languageListModel)
 
-        tlang=Project.targetLangCode()
+        tlang=defaultTargetLang
         if tlang=='en_US':tlang=QLocale.system().name()
         tpos=self.languageListModel.stringList().indexOf(tlang)
         if tpos==-1: tpos=self.languageListModel.stringList().indexOf(QRegExp('^'+tlang[:2]+'.*'))
@@ -304,7 +405,7 @@ class KdeSourcePage(QWizardPage):
         self.reportProgress(5)
 
 
-        langs=KGlobal.locale().allLanguagesList()
+        langs=allLanguagesList
         lang=langs[self.field('kde-svn-lang').toInt()[0]]
 
         print 'svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang)
@@ -336,14 +437,17 @@ class KdeSourcePage(QWizardPage):
 
 
 ##########################
-
 class ProjectAssistant(QWizard):
     def __init__(self):
         QWizard.__init__(self)
         for p in pages:
             exec "self.addPage( %s(self) )" % p
 
-        self.connect(self,SIGNAL("finished(int)"),self.finished)
+        #for page in [self.page(pageId) for pageId in self.pageIds()]:
+        for page in [self.page(pages.index(pageId)) for pageId in pages]:
+            self.connect(page,SIGNAL("nextRequested()"),self,SLOT("next()"))
+            
+        self.connect(self,SIGNAL("finished(int)"),self,SLOT("deleteLater()"))
         self.connect(self,SIGNAL("accepted()"),self.handleAccept)
 
     def handleAccept(self):
@@ -352,21 +456,21 @@ class ProjectAssistant(QWizard):
         fb=lambda name:self.field(name).toBool()
 
         kinds=['odf','kde']
-        kind=kinds[self.page(0).group.checkedId()]
-        langs=KGlobal.locale().allLanguagesList()
+        projectKind=kinds[self.page(0).group.checkedId()]
+        langs=allLanguagesList
 
         doInit=True
         projectfilename='index.lokalize'
-        #if kind=='odf' and fb('odf-template-source-files'):
+        #if projectKind=='odf' and fb('odf-template-source-files'):
             #projectfilename=QFileInfo(fs('odf-template-files')).baseName()+'.lokalize'
 
-        if kind=='odf':
+        if projectKind=='odf':
             loc=QDir(fs('location'))
             loc.mkdir(fs('name'))
-            ppath=loc.absoluteFilePath(fs('name')+'/'+projectfilename)
+            projectFilePath=loc.absoluteFilePath(fs('name')+'/'+projectfilename)
             targetlang=langs[fi('target-lang')]
             name=fs('name').toLower()
-        elif kind=='kde':
+        elif projectKind=='kde':
             name='kde'
             loc=QDir(fs('kde-existing-location'))
             targetlang=loc.dirName()
@@ -376,21 +480,58 @@ class ProjectAssistant(QWizard):
             if len(l):
                 doInit=False
                 projectfilename=l[0]
-            ppath=loc.absoluteFilePath(projectfilename)
+            projectFilePath=loc.absoluteFilePath(projectfilename)
 
-
-        if doInit: Project.init(ppath, kind, name+'-'+targetlang, langs[fi('source-lang')],targetlang)
-
-        if kind=='odf':
+        if projectKind=='odf':
             files=[fs('odf-template-files')]
             for f in files:
-                info=QFileInfo(fs('odf-template-files'))
-                odf2xliff.main(args(unicode(f), unicode(info.absolutePath()+'/'+info.baseName()+'.xlf')))
+                info=QFileInfo(f)
+                xlf=QDir.toNativeSeparators(info.absolutePath()+'/'+info.baseName()+'.xlf')
+                try: odf2xliff.main(tt_args(unicode(f), unicode(xlf)))
+                except:
+                    print 'odf2xliff via subprocess.call', unicode(f),  unicode(xlf)
+                    try:
+                        retcode = subprocess.call(['odf2xliff', unicode(f),  unicode(xlf)])
+                        print >>sys.stderr
+                    except OSError, e:
+                        print >>sys.stderr, "Execution failed:", e
 
-        Lokalize.openProject(ppath)
 
-    def finished(self, result): self.deleteLater() #remember to cleanup
+        projectName=name+'-'+targetlang
+        projectSourceLang=langs[fi('source-lang')]
 
-myassistant=ProjectAssistant()
-myassistant.show()
+        self.projectShouldBeInitialized=doInit
+        if doInit and not standalone:
+            Lokalize.openProject(projectFilePath)
+            Project.init(projectFilePath, projectKind, projectName, projectSourceLang, targetlang)
+            Lokalize.openProject(projectFilePath)
+
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+
+    args=QCoreApplication.arguments()
+    defaultTargetLang=''
+    if len(args)==3:
+        defaultSourceLang=args[1]
+        defaultTargetLang=args[2]
+
+    
+    myassistant=ProjectAssistant()
+    code=myassistant.exec_()
+
+    if code and myassistant.projectShouldBeInitialized:
+        ourPath=([p for p in sys.path if os.path.exists(p+'/newprojectwizard_standalone.pyw')]+[''])[0]
+        file=open(ourPath+'/projectconf.tmp','w')
+        vars=["projectFile", "projectKind", "projectName", "projectSourceLang", "projectTargetlang"]
+        for var in vars:
+            exec ("file.write(myassistant.%s)" % var) in locals()
+            file.write('\n')
+
+else:
+    defaultTargetLang=Project.targetLangCode()
+    myassistant=ProjectAssistant()
+    myassistant.show()
+
 

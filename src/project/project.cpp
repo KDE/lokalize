@@ -42,6 +42,7 @@
 #include <kdirlister.h>
 #include <kdebug.h>
 #include <klocale.h>
+#include <kstandarddirs.h>
 
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
@@ -134,17 +135,18 @@ void Project::load(const QString &file)
 
     kWarning()<<"2...";
 
-    TM::DBFilesModel::instance()->openDB(projectID());
-
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
 
-    kWarning()<<"1...";
-
     populateDirModel();
+
+    kWarning()<<"1...";
 
     //put 'em into thread?
     QTimer::singleShot(0,this,SLOT(populateGlossary()));
+
+    if (file.isEmpty())
+        return;
 
     TM::DBFilesModel::instance()->openDB(projectID());
 

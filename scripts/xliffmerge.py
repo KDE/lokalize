@@ -3,6 +3,8 @@
 
 #python scripts/xliffmerge.py -i tests/testxliffmerge_tr.xlf -t tests/testxliffmerge_en.xlf -o test_merged.xlf
 
+#TODO: mark as 'needs adaptation' when only punctuation is changed
+
 from PyQt4.QtCore import *
 from PyQt4.QtXml import *
 
@@ -267,12 +269,12 @@ def merge(C, X, Y, i, j):
                 commonLen=lcs_length(newUnitText,remNodeText)
                 remLen=newUnitText.size()-commonLen
                 addLen=remNodeText.size()-commonLen
-                
+
                 score=99*math.exp(0.2*math.log(1.0*commonLen/newUnitText.size())) / (math.exp(0.015*addLen)*math.exp(0.01*remLen))
-                    
+
                 if score<60: continue
                 maxUnits.append((score+1*(x in globals()['recentlyRemoved']), remNode))
-            
+
             def count_compare_inverted(x, y): return int(y[0]-x[0])
             maxUnits.sort(count_compare_inverted)
 

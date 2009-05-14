@@ -946,8 +946,8 @@ void XliffStorage::setApproved(const DocPosition& pos, bool approved)
 
 static const char* const states[]={
     "new", "needs-translation", "needs-l10n", "needs-adaptation", "translated",
-    "needs-review-translation", "needs-review-l10n", "needs-review-adaptation", "signed-off",
-    "final"};
+    "needs-review-translation", "needs-review-l10n", "needs-review-adaptation", "final",
+    "signed-off"};
 
 
 static TargetState stringToState(const QString& state)

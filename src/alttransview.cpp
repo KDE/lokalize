@@ -32,7 +32,7 @@
 #include "xlifftextedit.h"
 #include "tmview.h" //TextBrowser
 #include "mergecatalog.h"
-
+#include "prefs_lokalize.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -41,6 +41,7 @@
 #include <QSignalMapper>
 //#include <QTime>
 #include <QFileInfo>
+
 
 AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<KAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Alternate Translations"), parent)
@@ -161,6 +162,8 @@ void AltTransView::process()
     }
 
 
+    CatalogString source=m_catalog->sourceWithTags(m_entry.toDocPosition());
+
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
     QTextCharFormat noncloseMatchCharFormat;
@@ -177,7 +180,18 @@ void AltTransView::process()
         if (!entry.source.isEmpty())
         {
             html+="<p>";
-            html+=entry.source.string;
+
+            QString result=userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup());
+            result.replace("<","&lt;");
+            result.replace(">","&gt;");
+            result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
+            result.replace("{/KBABELADD}","</font>");
+            result.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
+            result.replace("{/KBABELDEL}","</font>");
+            result.replace("\\n","\\n<br>");
+            result.replace("\\n","\\n<br>");
+
+            html+=result;
             html+="<br>";
             cur.insertHtml(html); html.clear();
         }

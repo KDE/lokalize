@@ -1,0 +1,10 @@
+<!DOCTYPE KrossScripting SYSTEM "kpartgui.dtd">
+<KrossScripting>
+	<collection name="project" text="Project">
+		<script text="Create new project" comment="Fires up a wizard to guide you through project creation"
+			name="newprojectwizard"
+			interpreter="python"
+			enabled="true"
+			file="newprojectwizard.py" />
+	</collection>
+</KrossScripting>

@@ -826,7 +826,7 @@ QModelIndex ProjectModel::indexForPotIndex(const QModelIndex& potIndex) const
     if (row != node->rows.count())
         return index(row, potIndex.column(), outerParent);
 
-    kWarning()<<"error mapping index from POT to outer";
+    kWarning()<<"error mapping index from POT to outer, searched for potRow:"<<potRow;
     return QModelIndex();
 }
 
@@ -920,7 +920,7 @@ KUrl ProjectModel::potToPo(const KUrl& potPath) const
 //Metadata stuff
 //For updating translation stats
 
-void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode * node)
+void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
 {
     if (m_dirsWaitingForMetadata.contains(node))
     {
@@ -1005,7 +1005,7 @@ void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
 
             if (canFetchMore(child))
                 fetchMore(child);
-            QCoreApplication::processEvents();
+            //QCoreApplication::processEvents();
         }
     }
 

@@ -1,8 +1,18 @@
-install( FILES
-        find-gui-text.sh
-        new-project-wizard.py
-        new-project-wizard.rc
-        DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+
+IF (WIN32)
+    install( FILES
+            #find-gui-text.sh TODO
+            newprojectwizard_win.rc
+            newprojectwizard_win.py
+            DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+ELSE (WIN32)
+    install( FILES
+            find-gui-text.sh
+            newprojectwizard.rc
+            newprojectwizard.py
+            DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+ENDIF (WIN32)
+
 install( FILES
         widget-text-capture.py
         widget-text-capture.rc

@@ -26,6 +26,12 @@ def convert():
 
     store = factory.getobject(xliffpathname)
     odfpathname=store.getfilenames()[0]
+    
+    if odfpathname.startswith('NoName'):
+        print 'translate-toolkit is too old'
+        odfpathname=os.path.splitext(xliffpathname)[0]+'.odt'
+
+            
     translatedodfpathname=os.path.splitext(odfpathname)[0]+'-'+Project.targetLangCode()+'.odt'
     print 'translatedodfpathname %s' % translatedodfpathname
     print 'odfpathname %s' % odfpathname

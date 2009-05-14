@@ -2,9 +2,9 @@
 <KrossScripting>
 	<collection name="project" text="Project">
 		<script text="Create new project" comment="Fires up a wizard to guide you through project creation"
-			name="new-project-wizard"
+			name="newprojectwizard"
 			interpreter="python"
 			enabled="true"
-			file="new-project-wizard.py" />
+			file="newprojectwizard_win.py" />
 	</collection>
 </KrossScripting>

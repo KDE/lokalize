@@ -97,6 +97,7 @@ public slots:
     Q_SCRIPTABLE void showProjectOverview();
     Q_SCRIPTABLE QObject* projectOverview();
 
+    Q_SCRIPTABLE bool closeProject();
     Q_SCRIPTABLE void openProject(const QString& path);
     Q_SCRIPTABLE QString currentProject();
 

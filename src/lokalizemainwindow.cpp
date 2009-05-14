@@ -37,6 +37,7 @@
 #include "multieditoradaptor.h"
 
 #include <kglobal.h>
+#include <kstandarddirs.h>
 #include <klocale.h>
 #include <kicon.h>
 #include <kmenubar.h>
@@ -434,29 +435,36 @@ void LokalizeMainWindow::setupActions()
     kWarning()<<"finished"<<aaa.elapsed();
 }
 
+bool LokalizeMainWindow::closeProject()
+{
+    if (!queryClose())
+        return false;
+
+    KConfigGroup emptyGroup; //don't save which project to reopen
+    saveProjectState(emptyGroup);
+    //close files from previous project
+    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+    int i=editors.size();
+    while (--i>=0)
+    {
+        if (editors.at(i)==m_translationMemorySubWindow)
+            editors.at(i)->deleteLater();
+        else if (qobject_cast<EditorTab*>(editors.at(i)->widget()))
+        {
+            m_fileToEditor.remove(static_cast<EditorTab*>(editors.at(i)->widget())->currentUrl());//safety
+            m_mdiArea->removeSubWindow(editors.at(i));
+            editors.at(i)->deleteLater();
+        }
+    }
+    Project::instance()->load(QString());
+    //TODO scripts
+    return true;
+}
+
 void LokalizeMainWindow::openProject(const QString& path)
 {
-    if (queryClose())
-    {
-        KConfigGroup emptyGroup; //don't save which project to reopen
-        saveProjectState(emptyGroup);
-        //close files from previous project
-        QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
-        int i=editors.size();
-        while (--i>=0)
-        {
-            if (editors.at(i)==m_translationMemorySubWindow)
-                editors.at(i)->deleteLater();
-            else if (qobject_cast<EditorTab*>(editors.at(i)->widget()))
-            {
-                m_fileToEditor.remove(static_cast<EditorTab*>(editors.at(i)->widget())->currentUrl());//safety
-                editors.at(i)->deleteLater();
-            }
-        }
-        //TODO scripts
-
+    if (closeProject())
         SettingsController::instance()->projectOpen(path);
-    }
 }
 
 void LokalizeMainWindow::saveProperties(KConfigGroup& stateGroup)
