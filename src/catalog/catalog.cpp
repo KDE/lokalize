@@ -896,7 +896,7 @@ void Catalog::setBookmark(uint idx, bool set)
 
 bool isApproved(TargetState state, ProjectLocal::PersonRole role)
 {
-    static const TargetState marginStates[]={Translated, SignedOff, Final};
+    static const TargetState marginStates[]={Translated, Final, SignedOff};
     return state>=marginStates[role];
 }
 
