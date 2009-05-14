@@ -497,13 +497,16 @@ class ProjectAssistant(QWizard):
                         print >>sys.stderr, "Execution failed:", e
 
 
-        projectName=name+'-'+targetlang
-        projectSourceLang=langs[fi('source-lang')]
+        self.projectName=name+'-'+targetlang
+        self.projectSourceLang=langs[fi('source-lang')]
+        self.projectTargetLang=targetlang
+        self.projectKind=projectKind
+        self.projectFilePath=projectFilePath
 
         self.projectShouldBeInitialized=doInit
         if doInit and not standalone:
             Lokalize.openProject(projectFilePath)
-            Project.init(projectFilePath, projectKind, projectName, projectSourceLang, targetlang)
+            Project.init(projectFilePath, projectKind, self.projectName, self.projectSourceLang, targetlang)
             Lokalize.openProject(projectFilePath)
 
 
@@ -524,7 +527,7 @@ if __name__ == "__main__":
     if code and myassistant.projectShouldBeInitialized:
         ourPath=([p for p in sys.path if os.path.exists(p+'/newprojectwizard_standalone.pyw')]+[''])[0]
         file=open(ourPath+'/projectconf.tmp','w')
-        vars=["projectFile", "projectKind", "projectName", "projectSourceLang", "projectTargetlang"]
+        vars=["projectFilePath", "projectKind", "projectName", "projectSourceLang", "projectTargetlang"]
         for var in vars:
             exec ("file.write(myassistant.%s)" % var) in locals()
             file.write('\n')
