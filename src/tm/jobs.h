@@ -32,6 +32,7 @@
 #include <QString>
 //#include <QMultiHash>
 #include <QSqlDatabase>
+class QSqlQuery;
 
 
 /**
@@ -320,6 +321,26 @@ public:
 
 // #endif
 }
+
+class ExecQueryJob: public ThreadWeaver::Job
+{
+    Q_OBJECT
+public:
+    explicit ExecQueryJob(const QString& queryString, const QString& dbName, QObject* parent=0);
+    ~ExecQueryJob();
+
+    int priority()const{return SELECT;}
+
+
+    QSqlQuery* query;
+protected:
+    void run ();
+
+    QString m_dbName;
+    QString m_query;
+    //statistics?
+};
+
 
 #endif
 

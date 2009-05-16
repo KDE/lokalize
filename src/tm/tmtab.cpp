@@ -34,6 +34,7 @@
 
 #include <QTreeView>
 #include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QButtonGroup>
 #include <QShortcutEvent>
 #include <QClipboard>
@@ -43,9 +44,26 @@
 
 
 using namespace TM;
-// static int BIG_COUNTER=0;
+//static int BIG_COUNTER=0;
 
 //TODO do things for case when user explicitly wants to find & accel mark
+
+
+class FastSizeHintItemDelegate: public QItemDelegate
+{
+  //Q_OBJECT
+
+public:
+    FastSizeHintItemDelegate(int columnCount, QObject *parent)
+        : QItemDelegate(parent)
+    {}
+    ~FastSizeHintItemDelegate(){}
+
+/*    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+    {
+        return QSize(100,30);
+    }*/
+};
 
 //BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject* parent)
@@ -60,7 +78,7 @@ TMDBModel::TMDBModel(QObject* parent)
 
 void TMDBModel::setDB(const QString& str)
 {
-    m_db=QSqlDatabase::database(str);
+    m_dbName=str;
 }
 
 void TMDBModel::setQueryType(int type)
@@ -115,19 +133,30 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
         fileQuery="AND files.path GLOB '"+escapedFilemask+"' ";
 
 
-        setQuery("SELECT source_strings.source, target_strings.target, "
-                 "main.ctxt, files.path, "
-                 "source_strings.source_accel, target_strings.target_accel, main.bits "
-                 "FROM main, source_strings, target_strings, files "
-                 "WHERE source_strings.id==main.source AND "
-                 "target_strings.id==main.target AND "
-                 "files.id==main.file "
-                 +sourceQuery
-                 +targetQuery
-                 +fileQuery
-                ,m_db);
-                
-//     kWarning()<<"TEST"<<BIG_COUNTER;
+    ExecQueryJob* job=new ExecQueryJob(
+                "SELECT source_strings.source, target_strings.target, "
+                "main.ctxt, files.path, "
+                "source_strings.source_accel, target_strings.target_accel, main.bits "
+                "FROM main JOIN source_strings ON (source_strings.id==main.source) "
+                "JOIN target_strings ON (target_strings.id==main.target), files "
+                "WHERE files.id==main.file "
+                +sourceQuery
+                +targetQuery
+                +fileQuery,m_dbName);
+
+        
+    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+    connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
+    ThreadWeaver::Weaver::instance()->enqueue(job);
+
+    //kWarning()<<"TEST"<<BIG_COUNTER;
+}
+
+void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
+{
+    ExecQueryJob* job=static_cast<ExecQueryJob*>(j);
+    setQuery(*(job->query));
+    emit resultsFetched();
 }
 
 #define TM_DELIMITER '\v'
@@ -162,7 +191,10 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     }
     else if (item.column()<TMDBModel::Context)//source, target
     {
-        qlonglong pos=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+item.column()).data().toLongLong();
+        const QVariant& posVar=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+item.column()).data();
+        int pos=-1;
+        if (posVar.isValid())
+            pos=posVar.toInt();
         //kWarning()<<pos<<"column"<<item.column();
         //kWarning()<<QSqlQueryModel::data(QSqlQueryModel::index(item.row(),TMDBModel::TMDBModelColumnCount+item.column()));
         if (pos!=-1)
@@ -247,13 +279,15 @@ TMTab::TMTab(QWidget *parent)
     m_proxyModel->setSourceModel(m_model);
     view->setModel(m_proxyModel);
     view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
+    view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
+
+    connect(m_model,SIGNAL(resultsFetched()),this,SLOT(adjustViewForResults()));
 
     QButtonGroup* btnGrp=new QButtonGroup(this);
     btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
     btnGrp->addButton(ui_queryOptions->like,(int)TMDBModel::WordOrder);
     btnGrp->addButton(ui_queryOptions->glob,(int)TMDBModel::Glob);
-    connect(btnGrp,SIGNAL(buttonClicked(int)),
-            m_model,SLOT(setQueryType(int)));
+    connect(btnGrp,SIGNAL(buttonClicked(int)),m_model,SLOT(setQueryType(int)));
 
     setAcceptDrops(true);
     /*
@@ -298,6 +332,11 @@ void TMTab::performQuery()
                        ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
                        filemask
                       );
+}
+
+void TMTab::adjustViewForResults()
+{
+    QString filemask=ui_queryOptions->filemask->text();
     //ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
     if (m_model->rowCount()==0 && !filemask.isEmpty() && !filemask.contains('*'))
     {
@@ -307,14 +346,12 @@ void TMTab::performQuery()
     }
 
     QTreeView* view=ui_queryOptions->treeView;
-    view->hideColumn(TMDBModel::TMDBModelColumnCount);
-    view->hideColumn(TMDBModel::TMDBModelColumnCount+1);
-    view->hideColumn(TMDBModel::TMDBModelColumnCount+2);
-    view->resizeColumnToContents(0);
-    view->resizeColumnToContents(1);
-    view->resizeColumnToContents(2);
-    view->resizeColumnToContents(3);
+    int i=4;
+    while (--i>=0)
+        view->resizeColumnToContents(i);
     view->setFocus();
+
+    statusBarItems.insert(0,i18nc("@info:status message entries","Total: %1",view->model()->rowCount()));
 }
 
 void TMTab::copySource()

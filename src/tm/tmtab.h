@@ -42,6 +42,8 @@ class QSortFilterProxyModel;
 class QCheckBox;
 
 
+namespace ThreadWeaver{class Job;}
+
 namespace TM {
 class TMDBModel;
 
@@ -77,6 +79,7 @@ public slots:
     void copySource();
     void copyTarget();
     void openFile();
+    void adjustViewForResults();
 
 signals:
     void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
@@ -122,7 +125,7 @@ public:
     ~TMDBModel(){}
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    //int columnCount(const QModelIndex& parent=QModelIndex()) const{return TMDBModelColumnCount;}
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return TMDBModelColumnCount;}
 
 public slots:
     void setFilter(const QString& source, const QString& target,
@@ -131,10 +134,14 @@ public slots:
                    );
     void setQueryType(int);
     void setDB(const QString&);
+    void slotQueryExecuted(ThreadWeaver::Job*);
+
+signals:
+    void resultsFetched();
 
 private:
     QueryType m_queryType;
-    QSqlDatabase m_db;
+    QString m_dbName;
 };
 
 //const QString& sourceRefine, const QString& targetRefine

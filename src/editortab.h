@@ -55,8 +55,8 @@ class MsgCtxtView;
 class AltTransView;
 namespace GlossaryNS{class GlossaryView;}
 
+#define ID_STATUS_CURRENT 0
 #define ID_STATUS_TOTAL 1
-#define ID_STATUS_CURRENT 2
 #define ID_STATUS_FUZZY 3
 #define ID_STATUS_UNTRANS 4
 #define ID_STATUS_ISFUZZY 5

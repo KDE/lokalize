@@ -1818,4 +1818,25 @@ void ExportTmxJob::run()
 //END TMX
 
 
+ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QObject* parent)
+    : ThreadWeaver::Job(parent)
+    , query(0)
+    , m_dbName(dbName)
+    , m_query(queryString)
+{}
+
+ExecQueryJob::~ExecQueryJob()
+{
+    delete query;
+}
+
+void ExecQueryJob::run()
+{
+    QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    query=new QSqlQuery(m_query,db);
+    query->exec();
+}
+
+
+
 #include "jobs.moc"
