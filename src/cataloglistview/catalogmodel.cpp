@@ -94,7 +94,7 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
         case Source:    return i18nc("@title:column Original text","Source");
         case Target:    return i18nc("@title:column Text in target language","Target");
         case Notes:     return i18nc("@title:column","Notes");
-        case Approved:  return i18nc("@title:column","Approved");
+        case IsReady:  return i18nc("@title:column","Approved");
     }
     return QVariant();
 }
@@ -120,10 +120,11 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
     {
         switch (index.column())
         {
-            case Approved:     return m_catalog->isApproved(index.row());
-            case Empty: return m_catalog->isEmpty(index.row());
-            case Modified:     return m_catalog->isModified(index.row());
-            default:           role=Qt::DisplayRole;
+            case IsReady:   return m_catalog->isApproved(index.row());
+            case Empty:     return m_catalog->isEmpty(index.row());
+            case State:     return int(m_catalog->state(index.row()));
+            case Modified:  return m_catalog->isModified(index.row());
+            default:        role=Qt::DisplayRole;
         }
     }
     if (role!=Qt::DisplayRole)
@@ -143,7 +144,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
                 result+=note.content;
             return result;
         }
-        case Approved:
+        case IsReady:
             static const char* noyes[]={I18N_NOOP("no"),I18N_NOOP("yes")};
             return i18n(noyes[m_catalog->isApproved(index.row())]);
     }
@@ -190,14 +191,17 @@ void CatalogTreeFilterModel::setFilerOptions(int o)
     invalidateFilter();
 }
 
+#define STATES ((0xffff<<7)&(AllStates))
+#define FIRSTSTATEPOSITION 7
+
 bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     int filerOptions=m_filerOptions;
     bool accepts=true;
-    if (bool(filerOptions&Approved)!=bool(filerOptions&NonApproved))
+    if (bool(filerOptions&Ready)!=bool(filerOptions&NotReady))
     {
-        bool approved=sourceModel()->index(source_row,CatalogTreeModel::Approved,source_parent).data(Qt::UserRole).toBool();
-        accepts=(approved==bool(filerOptions&Approved) || approved!=bool(filerOptions&NonApproved));
+        bool ready=sourceModel()->index(source_row,CatalogTreeModel::IsReady,source_parent).data(Qt::UserRole).toBool();
+        accepts=(ready==bool(filerOptions&Ready) || ready!=bool(filerOptions&NotReady));
     }
     if (accepts&&bool(filerOptions&NonEmpty)!=bool(filerOptions&Empty))
     {
@@ -209,6 +213,14 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         bool modified=sourceModel()->index(source_row,CatalogTreeModel::Modified,source_parent).data(Qt::UserRole).toBool();
         accepts=(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
     }
+
+    if (accepts&&((filerOptions&STATES)!=STATES))
+    {
+        int state=sourceModel()->index(source_row,CatalogTreeModel::State,source_parent).data(Qt::UserRole).toInt();
+        accepts=(filerOptions&(1<<(state+FIRSTSTATEPOSITION))); 
+    }
+
     accepts=accepts&&!(m_individualRejectFilterEnable && source_row<m_individualRejectFilter.size() && m_individualRejectFilter.at(source_row));
+
     return accepts&&QSortFilterProxyModel::filterAcceptsRow(source_row,source_parent);
 }

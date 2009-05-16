@@ -48,11 +48,12 @@ public:
         Source,
         Target,
         Notes,
-        Approved,
+        IsReady,
         Empty,
+        State,
         Modified,
         ColumnCount,
-        DisplayedColumnCount=Approved+1
+        DisplayedColumnCount=IsReady+1
     };
 
     CatalogTreeModel(QObject* parent, Catalog* catalog);
@@ -89,8 +90,8 @@ public:
     enum FilterOptions
     {
         CaseSensitive=1<<0,
-        Approved=1<<1,
-        NonApproved=1<<2,
+        Ready=1<<1,
+        NotReady=1<<2,
         NonEmpty=1<<3,
         Empty=1<<4,
         Modified=1<<5,
@@ -103,8 +104,8 @@ public:
         NeedsReviewTranslation=1<<12,
         NeedsReviewL10n=1<<13,
         NeedsReviewAdaptation=1<<14,
-        SignedOff=1<<15,
-        Final=1<<16,
+        Final=1<<15,
+        SignedOff=1<<16,
         MaxOption=1<<17,
         AllStates=MaxOption-1
     };
