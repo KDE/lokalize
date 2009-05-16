@@ -110,6 +110,10 @@ public:
         AllStates=MaxOption-1
     };
 
+#define STATES ((0xffff<<7)&(AllStates))
+#define FIRSTSTATEPOSITION 7
+
+
     CatalogTreeFilterModel(QObject* parent);
     ~CatalogTreeFilterModel(){}
 

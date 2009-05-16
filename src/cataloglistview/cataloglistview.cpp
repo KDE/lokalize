@@ -171,7 +171,7 @@ void CatalogView::fillFilterOptionsMenu()
     {
         bool ext=(1<<i)>=CatalogTreeFilterModel::New;
         if (!extStates&&ext) break;
-        txt=allmenus[ext]->addAction(i18n(alltitles[ext][i-ext*7]));
+        txt=allmenus[ext]->addAction(i18n(alltitles[ext][i-ext*FIRSTSTATEPOSITION]));
         txt->setData(1<<i);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filerOptions()&(1<<i));

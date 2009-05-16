@@ -191,9 +191,6 @@ void CatalogTreeFilterModel::setFilerOptions(int o)
     invalidateFilter();
 }
 
-#define STATES ((0xffff<<7)&(AllStates))
-#define FIRSTSTATEPOSITION 7
-
 bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     int filerOptions=m_filerOptions;
