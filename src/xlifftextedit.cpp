@@ -126,7 +126,6 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
 {
     docPosition.part=m_part;
     m_currentPos=docPosition;
-    //kWarning()<<"called";
 
     CatalogString catalogString=m_catalog->catalogString(m_currentPos);
     QString target=catalogString.string;
@@ -316,8 +315,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
-    //kWarning()<<"called";
-    //kWarning()<<"!!!!!!!!!!!! offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
     QString editText=toPlainText();
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
@@ -808,7 +806,6 @@ int XliffTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
 
 void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
 {
-    event->ignore();
     if (event->button()==Qt::LeftButton)
     {
         CatalogString str;
@@ -820,8 +817,8 @@ void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
             return;
         }
     }
+    KTextEdit::mouseReleaseEvent(event);
 }
-// (any lisp-lovers around?) ;)
 
 
 void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
