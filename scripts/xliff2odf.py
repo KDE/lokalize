@@ -30,17 +30,22 @@ def convert():
     if odfpathname.startswith('NoName'):
         print 'translate-toolkit is too old'
         odfpathname=os.path.splitext(xliffpathname)[0]+'.odt'
+    elif not os.path.exists(odfpathname): return
 
-            
+
     translatedodfpathname=os.path.splitext(odfpathname)[0]+'-'+Project.targetLangCode()+'.odt'
     print 'translatedodfpathname %s' % translatedodfpathname
     print 'odfpathname %s' % odfpathname
     xliffinput=XliffInput(xliffpathname,Editor.currentFileContents())
+    odf=open(odfpathname,'rb')
 
-    xliff2odf.convertxliff(xliffinput, translatedodfpathname, odfpathname)
+    xliff2odf.convertxliff(xliffinput, translatedodfpathname, odf)
 
     ourpath=([p for p in sys.path if os.path.exists(p+'/xliff2odf.py')]+[''])[0]
     os.system('python "'+ourpath+'/xliff2odf-standalone.py" "%s" "%s" &'%(translatedodfpathname, Editor.currentEntryId()))
+
+try: convert()
+except: print 'error occured'
 
 convert()
 

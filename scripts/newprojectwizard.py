@@ -487,8 +487,10 @@ class ProjectAssistant(QWizard):
             for f in files:
                 info=QFileInfo(f)
                 xlf=QDir.toNativeSeparators(info.absolutePath()+'/'+info.baseName()+'.xlf')
-                try: odf2xliff.main(tt_args(unicode(f), unicode(xlf)))
-                except:
+                #this makes Lokalize crash on close
+                #try: odf2xliff.main(tt_args(unicode(f), unicode(xlf)))
+                #except:
+                if True:
                     print 'odf2xliff via subprocess.call', unicode(f),  unicode(xlf)
                     try:
                         retcode = subprocess.call(['odf2xliff', unicode(f),  unicode(xlf)])
