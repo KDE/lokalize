@@ -182,6 +182,7 @@ void AltTransView::process()
             html+="<p>";
 
             QString result=userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup());
+            result.replace("&","&amp;");
             result.replace("<","&lt;");
             result.replace(">","&gt;");
             result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");

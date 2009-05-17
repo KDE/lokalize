@@ -357,17 +357,19 @@ QString wordDiff(QStringList s1, QStringList s2)
 //this also separates punctuation marks etc from words as _only_ they may have changed
 static void prepareLists(QString str, QStringList& main, QStringList& space, const QString& accel, QString markup)
 {
+    int pos=0;
+
     //accels are only removed by batch jobs
     //and this is not the one
-
+#if 0
     QRegExp rxAccelInWord("[^\\W|\\d]"+accel+"[^\\W|\\d]");
     int accelLen=accel.size();
-    int pos=0;
     while ((pos=rxAccelInWord.indexIn(str,pos))!=-1)
     {
         str.remove(rxAccelInWord.pos()+1,accelLen);
         pos+=2;//two letters
     }
+#endif
 
     //QRegExp rxSplit("\\W+|\\d+");
     //i tried that but it failed:
@@ -425,6 +427,7 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
 
     if (options&Html)
     {
+        result.replaceInStrings("&","&amp;");
         result.replaceInStrings("<","&lt;");
         result.replaceInStrings(">","&gt;");
     }
