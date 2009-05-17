@@ -327,6 +327,15 @@ ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
 
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 {
+   ConversionStatus result=readEntryRaw(stream);
+   _msgstr.replaceInStrings("\\\"","\"");
+   _msgid.replaceInStrings("\\\"","\"");
+   _msgctxt.replace("\\\"","\"");
+   return result;
+}
+
+ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
+{
    //kDebug() << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
@@ -385,9 +394,9 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
            if(line.startsWith(_obsoleteStart))
            {
-              _obsolete=true;
-	      part=Comment;
-	      _comment=line;
+               _obsolete=true;
+               part=Comment;
+               _comment=line;
            }
            else if(line.startsWith('#'))
            {
@@ -415,7 +424,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
                (*(_msgid).begin())=line;
 
            }
-		     // one of the quotation marks is missing
+           // one of the quotation marks is missing
            else if(KDE_ISUNLIKELY( /*_testBorked&&*/ line.contains( _rxMsgIdBorked ) ))
            {
                part=Msgid;
@@ -439,12 +448,11 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
        else if(part==Comment)
        {
             if(!len && _obsolete ) return OK;
-	    if(!len)
-	       continue;
+            if(!len) continue;
             else if(line.startsWith(_obsoleteStart))
             {
                _comment+=('\n'+line);
-	       _obsolete=true;
+               _obsolete=true;
             }
             else if(line.startsWith('#'))
             {

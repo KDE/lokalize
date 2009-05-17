@@ -79,6 +79,7 @@ public:
 private:
     QTextCodec* codecForDevice(QIODevice* /*, bool* hadCodec*/);
     ConversionStatus readHeader(QTextStream& stream);
+    ConversionStatus readEntryRaw(QTextStream& stream);
     ConversionStatus readEntry(QTextStream& stream);
 
     // description of the last read entry

@@ -555,7 +555,7 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     if (m_part==DocPosition::Source)
         return KTextEdit::keyPressEvent(keyEvent);
 
-    static QString spclChars("abfnrtv'\"?\\");
+    static QString spclChars("abfnrtv'?\\");
 
     //BEGIN GENERAL
     // ALT+123 feature TODO this is general so should be on another level
@@ -707,19 +707,6 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 
         }
         KTextEdit::keyPressEvent(keyEvent);
-    }
-    else if(keyEvent->text()=="\"")
-    {
-        QTextCursor t=textCursor();
-        int pos=t.position();
-        QString str=toPlainText();
-        QString ins=QChar('\"');
-
-        if(pos==0 || str.at(pos-1)!='\\' || isMasked(str,pos-1))
-            ins.prepend('\\');
-
-        t.insertText(ins);
-        setTextCursor(t);
     }
     else if(keyEvent->key() == Qt::Key_Tab)
         insertPlainText("\\t");

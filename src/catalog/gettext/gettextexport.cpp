@@ -223,7 +223,7 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
     }
 }
 
-void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, const QString& text ) const
+void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, QString text ) const
 {
     if ( text.isEmpty() )
     {
@@ -232,6 +232,12 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         return; 
     }
 
+    //TODO remove this for KDE 4.4
+    int pos=0;
+    while ((pos=text.indexOf("\\\"",pos))!=-1)
+        if (pos==0 || (pos>0 && text.at(pos-1)!='\\'))
+            text.replace(pos,2,'"');
+    text.replace('"',"\\\"");
 #if 0
     if ( m_wrapWidth == -1 )
     {

@@ -75,7 +75,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
     //\n \t \"
     rule.format.setForeground(Qt::darkGreen);
-    rule.pattern = QRegExp("(\\\\[abfnrtv'\"\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)");
+    rule.pattern = QRegExp("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)");
     highlightingRules.append(rule);
 
 
