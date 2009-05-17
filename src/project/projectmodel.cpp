@@ -953,7 +953,6 @@ void ProjectModel::deleteSubtree(ProjectNode* node)
 
 void ProjectModel::startNewMetadataJob()
 {
-    return;
     m_activeJob = NULL;
     m_activeNode = NULL;
 
