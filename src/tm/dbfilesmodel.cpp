@@ -55,6 +55,7 @@ DBFilesModel::DBFilesModel()
     connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
              this,SLOT(calcStats(QModelIndex, int, int))/*,Qt::QueuedConnection*/);
     int count=rowCount(rootIndex());
+    kWarning()<<count;
     if (count) calcStats(rootIndex(),0,count-1);
 }
 

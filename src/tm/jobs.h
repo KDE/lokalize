@@ -42,6 +42,7 @@ namespace TM {
 
 #define CLOSEDB 10001
 #define OPENDB  10000
+#define TMTABSELECT  100
 #define UPDATE  80
 #define REMOVE  70
 #define INSERT  60
@@ -329,7 +330,7 @@ public:
     explicit ExecQueryJob(const QString& queryString, const QString& dbName, QObject* parent=0);
     ~ExecQueryJob();
 
-    int priority()const{return SELECT;}
+    int priority()const{return TMTABSELECT;}
 
 
     QSqlQuery* query;

@@ -144,8 +144,8 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                 +targetQuery
                 +fileQuery,m_dbName);
 
-        
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+
+    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));        
     connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(job);
 
@@ -238,6 +238,10 @@ TMTab::TMTab(QWidget *parent)
     connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),   this,SLOT(performQuery()));
     connect(ui_queryOptions->doFind,SIGNAL(clicked()),           this,SLOT(performQuery()));
     connect(ui_queryOptions->doUpdateTM,SIGNAL(clicked()),       this,SLOT(updateTM()));
+
+    QShortcut* sh=new QShortcut(Qt::CTRL+Qt::Key_L, this);
+    connect(sh,SIGNAL(activated()),ui_queryOptions->querySource,SLOT(setFocus()));
+
 
     QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);

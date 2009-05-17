@@ -1823,18 +1823,23 @@ ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QO
     , query(0)
     , m_dbName(dbName)
     , m_query(queryString)
-{}
+{
+    kWarning()<<"create";
+}
 
 ExecQueryJob::~ExecQueryJob()
 {
     delete query;
+    kWarning()<<"destroy";
 }
 
 void ExecQueryJob::run()
 {
+    kWarning()<<"running";
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
     query=new QSqlQuery(m_query,db);
     query->exec();
+    kWarning()<<"done"<<query->lastError().text();
 }
 
 

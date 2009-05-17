@@ -384,6 +384,8 @@ void updateHeader(QString& header,
         found=it->contains(QRegExp("^ *Plural-Forms:"));
     if (found)
     {
+        --it;
+
         //kDebug()<<"GNUPluralForms found";
         int num=numberOfPluralFormsFromHeader(header);
         if (!num)
