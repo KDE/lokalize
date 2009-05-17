@@ -152,7 +152,6 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos) const
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
     QStringList prev=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#\\|"));
-    QString newStr=source(pos);
 
     QString oldSingular;
     QString oldPlural;
@@ -180,7 +179,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 
     QVector<AltTrans> result;
     if (!cur->isEmpty())
-        result<<AltTrans(CatalogString(userVisibleWordDiff(*cur,newStr,Project::instance()->accel(),Project::instance()->markup(),Html)));
+        result<<AltTrans(CatalogString(*cur));
 
     return result;
 }
