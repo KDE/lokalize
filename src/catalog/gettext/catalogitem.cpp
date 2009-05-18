@@ -67,10 +67,8 @@ const QString& CatalogItem::comment() const
 
 const QString& CatalogItem::msgctxt(const bool noNewlines) const
 {
-    if (noNewlines)
-        return (d->_msgctxt).replace('\n', ' '); //" " or "" ?
-    else
-        return d->_msgctxt;
+    if (noNewlines) return (d->_msgctxt).replace('\n', ' '); //" " or "" ?
+    else            return d->_msgctxt;
 }
 
 const QString& CatalogItem::msgid(const int form) const

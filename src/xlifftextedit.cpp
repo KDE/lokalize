@@ -156,10 +156,9 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     t.movePosition(QTextCursor::Start);
     if (pos || anchor)
     {
-        t.movePosition(QTextCursor::Start);
         //kWarning()<<"setting"<<anchor<<pos;
         // I don't know why the following (more correct) code does not work
-        t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,anchor);
+        t.setPosition(anchor,QTextCursor::MoveAnchor);
         int length=pos-anchor;
         if (length)
             t.movePosition(length<0?QTextCursor::PreviousCharacter:QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qAbs(length));
@@ -484,28 +483,34 @@ void XliffTextEdit::insertFromMimeData(const QMimeData* source)
 
     if (source->hasFormat("application/x-lokalize-xliff+xml"))
     {
-        kWarning()<<"has";
+        //kWarning()<<"has";
         QVariant v;
         QByteArray data=source->data("application/x-lokalize-xliff+xml");
         QDataStream in(&data,QIODevice::ReadOnly);
         in>>v;
         //qWarning()<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
 
-
+        int start=0;
         m_catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
         QTextCursor cursor=textCursor();
         if (cursor.hasSelection())
         {
-            int start=qMin(cursor.anchor(),cursor.position());
+            start=qMin(cursor.anchor(),cursor.position());
             int end=qMax(cursor.anchor(),cursor.position());
-            removeTargetSubstring(start,end);
+            removeTargetSubstring(start,end-start);
+            cursor.setPosition(start);
+            setTextCursor(cursor);
         }
+        else
         //sets right cursor position implicitly -- needed for mouse paste
-        QMimeData mimeData;
-        mimeData.setText("");
-        KTextEdit::insertFromMimeData(&mimeData);
+        {
+            QMimeData mimeData;
+            mimeData.setText("");
+            KTextEdit::insertFromMimeData(&mimeData);
+            start=textCursor().position();
+        }
 
-        insertCatalogString(qVariantValue<CatalogString>(v), textCursor().position());
+        insertCatalogString(qVariantValue<CatalogString>(v), start);
         m_catalog->endMacro();
     }
     else

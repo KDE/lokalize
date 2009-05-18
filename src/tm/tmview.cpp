@@ -477,6 +477,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
         int sourceStartPos=cur.position();
         QString result=entry.diff;
+        result.replace("&","&amp;");
         result.replace("<","&lt;");
         result.replace(">","&gt;");
         result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");

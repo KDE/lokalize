@@ -590,7 +590,7 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
         return QVariant();
 
     const ProjectModelColumns& column=(ProjectModelColumns)index.column();
-    ProjectNode * node = nodeForIndex(index);
+    ProjectNode* node = nodeForIndex(index);
     QModelIndex internalIndex = poOrPotIndexForOuter(index);
     KFileItem item=itemForIndex(index);
     bool isDir = item.isDir();

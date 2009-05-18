@@ -443,7 +443,7 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
         prev=++i;
     }
     pos.offset=start+prev;
-    if (catStr.string.size()-pos.offset+1)
+    if (catStr.string.length()-prev>0)
         catalog->push(new InsTextCmd(catalog,pos,catStr.string.mid(prev)));
     if (containsMarkup) catalog->endMacro();
 }

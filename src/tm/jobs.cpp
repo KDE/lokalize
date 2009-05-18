@@ -447,7 +447,7 @@ static bool doInsertEntry(CatalogString source,
 
     if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT id, target, bits FROM main WHERE "
                      "source==%1 AND file==%2 AND ctxt%3").arg(sourceId).arg(fileId).arg
-                                        (escapedCtxt.isEmpty()?" ISNULL":QString('\''+escapedCtxt+'\'')))))
+                                        (escapedCtxt.isEmpty()?" ISNULL":QString("=='"+escapedCtxt+'\'')))))
     {
         kWarning() <<"select db main error: " <<query1.lastError().text();
         return false;

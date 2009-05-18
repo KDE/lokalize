@@ -177,6 +177,8 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
     if (pos.form==0)
         cur=&oldSingular;
 
+    cur->replace("\\\"","\"");
+
     QVector<AltTrans> result;
     if (!cur->isEmpty())
         result<<AltTrans(CatalogString(*cur));
