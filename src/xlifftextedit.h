@@ -52,7 +52,7 @@ public slots:
     void reflectUntranslatedState();
 
     bool removeTargetSubstring(int start=0, int end=-1, bool refresh=true);
-    void insertCatalogString(const CatalogString& catStr, int start=0, bool refresh=true);
+    void insertCatalogString(CatalogString catStr, int start=0, bool refresh=true);
 
     void source2target();
     void tagMenu();

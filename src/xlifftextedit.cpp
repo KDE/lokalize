@@ -416,8 +416,32 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
     return true;
 }
 
-void XliffTextEdit::insertCatalogString(const CatalogString& catStr, int start, bool refresh)
+void XliffTextEdit::insertCatalogString(CatalogString catStr, int start, bool refresh)
 {
+    CatalogString source=m_catalog->sourceWithTags(m_currentPos);
+    CatalogString target=m_catalog->targetWithTags(m_currentPos);
+
+    
+    QHash<QString,int> id2tagIndex;
+    int i=source.tags.size();
+    while(--i>=0)
+        id2tagIndex.insert(source.tags.at(i).id,i);
+
+    foreach(const InlineTag& tag, target.tags)
+    {
+        if (id2tagIndex.contains(tag.id))
+            source.tags[id2tagIndex.value(target.tags.at(i).id)].id="REMOVEME";
+    }
+
+    //iterating from the end is essential
+    i=source.tags.size();
+    while(--i>=0)
+        if (source.tags.at(i).id=="REMOVEME")
+            source.tags.removeAt(i);
+
+
+    adaptCatalogString(catStr,source);
+
     ::insertCatalogString(m_catalog,m_currentPos,catStr,start);
 
     if (refresh)
