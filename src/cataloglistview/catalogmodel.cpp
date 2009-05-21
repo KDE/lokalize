@@ -66,11 +66,11 @@ void CatalogTreeModel::reflectChanges(DocPosition pos)
     if (rowCount()<DYNAMICFILTER_LIMIT || m_prevChanged!=pos)
     {
         kWarning()<<"first dataChanged emitment"<<pos.entry;
-        emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount));
+        emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount-1));
         if (!( rowCount()<DYNAMICFILTER_LIMIT ))
         {
             kWarning()<<"second dataChanged emitment"<<m_prevChanged.entry;
-            emit dataChanged(index(m_prevChanged.entry,0),index(m_prevChanged.entry,DisplayedColumnCount));
+            emit dataChanged(index(m_prevChanged.entry,0),index(m_prevChanged.entry,DisplayedColumnCount-1));
         }
     }
     m_prevChanged=pos;
