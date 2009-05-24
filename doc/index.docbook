@@ -104,15 +104,18 @@ If the message is non-approved, its translation is rendered in italics.
 &lokalize; allows you to easily navigate through the file according to the state of their translation.
 See <guilabel>Go</guilabel> menu for the shortcuts.
 When navigating, untranslated messages are treated as non-approved.
+Also you may use filtering feature of <guilabel>Translation Units</guilabel> toolview.
+Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that toolview.
 </para>
 
 <para>
 If you are working with translation files in XLIFF format (definitely the case when you translate OpenDocument),
-then other states are possible (<emphasis>new</emphasis>, <emphasis>needs review</emphasis>, <emphasis>approved</emphasis>, etc).
-Classification of the state as ready or non-ready depends on the current <emphasis>workflow phase</emphasis> (<emphasis>translation</emphasis>, <emphasis>review</emphasis>, <emphasis>approval</emphasis>).
+then extended states are available (<emphasis>new</emphasis>, <emphasis>needs review</emphasis>, <emphasis>approved</emphasis>, etc).
+You may select them in drop-down menu of <guilabel>Approved</guilabel> button in the toolbar.
+Classification of the state as <emphasis>ready</emphasis> or <emphasis>non-ready</emphasis> depends on the current <emphasis>workflow phase</emphasis> (<emphasis>translation</emphasis>, <emphasis>review</emphasis>, <emphasis>approval</emphasis>).
 A default phase for you depends on your <emphasis>role</emphasis> in the project (set in project settings).
 Each entry usually contains information about phase it was changed last time, 
-and each for phase an owner is logged to the file.
+and for each phase its owner is logged to the file.
 </para>
 
 </chapter>
@@ -144,7 +147,7 @@ when other projects are opened.
 </note>
 
 <sect1 id="project-view">
-<title>Project Overview</title>
+<title>Project Overview tab</title>
 
 <para>
 The <guilabel>Project Overview</guilabel> tab displays a file tree with statistics for a current project,
@@ -325,20 +328,32 @@ They store previous original text so that translators could see what changes exa
 
 </chapter>
 
-<!--
-<chapter id="WebQuery">
-<title>WebQuery</title>
+<chapter id="scripting">
+<title>Scripting &lokalize;</title>
 
 <para>
-The <guilabel>WebQuery View</guilabel> lists the scripts that are defined
-project-wise as well as local client/program-wise. See an example script that
-works with the 
-<ulink url="http://www.google.com/language_tools?hl=en">Google Language
-Tools</ulink> as well as the project file for it, at <ulink
-url="http://websvn.kde.org/trunk/l10n-kde4/ru/" />.
+&lokalize; is extensible using scripts in several interpreted languages, including Python and JavaScript.
+Scripts are usually integrated into &lokalize; UI as menu actions (to which you may assign a keyboard shortcut).
+The location and name of menu entry for the script is defined in its accompanying .rc file.
+On each project open &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
+<filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
+RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they are tried both (actually they <emphasis>should</emphasis> be relative if you want to share .rc file with other people in your project).
+So you for example can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load script from <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde-l10n4 scripts folder</ulink> (i.e. not specific to your language).
+</para>
+<para>
+Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/kde4/apps/lokalize/scripts/</filename>)
+and in <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">KDE repository</ulink>.
+<ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save.
+If you're familiar with Python or JavaScript, the code should be self-explanatory.
+</para>
+<para>
+Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</emphasis> may be used from scripts.
+<ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html">Editor</ulink> object API reference
+<ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html">Lokalize</ulink> object API reference
+<ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html">Project</ulink> object API reference
 </para>
 </chapter>
--->
+
 <chapter id="credits">
 <title>Credits and License</title>
 
