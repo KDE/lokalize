@@ -83,7 +83,6 @@ const QVector<QString>& CatalogItem::msgidPlural(const bool /*noNewlines*/) cons
 
 const QString& CatalogItem::msgstr(const int form) const
 {
-    //kWarning()<<form;
     if (KDE_ISLIKELY (form<d->_msgstrPlural.size()))
         return d->_msgstrPlural.at(form);
     else
@@ -113,7 +112,7 @@ void CatalogItem::setMsgctxt(const QString& msg)
 
 void CatalogItem::setMsgid(const QString& msg, const int form)
 {
-    if (d->_msgidPlural.size()>=form)
+    if (form<d->_msgidPlural.size())
         d->_msgidPlural[form]=msg;
     else
         d->_msgidPlural.append(msg);
@@ -135,7 +134,10 @@ void CatalogItem::setMsgid(const QVector<QString>& msg)
 
 void CatalogItem::setMsgstr(const QString& msg, const int form)
 {
-    d->_msgstrPlural[form]=msg;
+    if (form<d->_msgstrPlural.size())
+        d->_msgstrPlural[form]=msg;
+    else
+        d->_msgstrPlural.append(msg);
 }
 
 void CatalogItem::setMsgstr(const QStringList& msg)

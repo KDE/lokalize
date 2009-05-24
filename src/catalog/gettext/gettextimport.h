@@ -78,7 +78,6 @@ public:
 
 private:
     QTextCodec* codecForDevice(QIODevice* /*, bool* hadCodec*/);
-    ConversionStatus readHeader(QTextStream& stream);
     ConversionStatus readEntryRaw(QTextStream& stream);
     ConversionStatus readEntry(QTextStream& stream);
 
@@ -113,6 +112,7 @@ private:
 
     QString _obsoleteStart;
     QString _msgctxtStart;
+    QString _bufferedLine;
 };
 }
 #endif

@@ -3,7 +3,7 @@
   This file is based on the one from KBabel
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
-		2001-2003 by Stanislav Visnovsky <visnovsky@kde.org>
+                2001-2003 by Stanislav Visnovsky <visnovsky@kde.org>
                 2006 by Nicolas GOUTTE <nicolasg@snafu.de>
                 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -104,7 +104,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    // if somethings goes wrong with the parsing, we don't have deleted the old contents
    CatalogItem tempHeader;
 
-   //kDebug() << "start parsing...";
+   kDebug() << "start parsing...";
    QTime aaa;
    aaa.start();
    // first read header
@@ -122,9 +122,10 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       return status;
    }
 
+   bool reconstructedHeader=!_msgid.isEmpty() && !_msgid.first().isEmpty();
    //kWarning() << "HEADER MSGID: " << _msgid;
    //kWarning() << "HEADER MSGSTR: " << _msgstr;
-   if (KDE_ISUNLIKELY( !_msgid.isEmpty() && !_msgid.first().isEmpty() ))
+   if (KDE_ISUNLIKELY( reconstructedHeader ))
    {
       // The header must have an empty msgid
       kWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
@@ -166,9 +167,14 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    bool docbookFile=false;
 
    ExtraDataSaver _extraDataSaver;
+   ConversionStatus success=OK;
    while( !stream.atEnd() )
    {
-      const ConversionStatus success=readEntry(stream);
+      if (reconstructedHeader)
+         reconstructedHeader=false;
+      else
+         success=readEntry(stream);
+
       if(KDE_ISLIKELY(success==OK))
       {
          if( _obsolete )
@@ -213,7 +219,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       }
       else
       {
-         kWarning() << "Unknown success status, assumig parse error " << success;
+         kDebug() << "Unknown success status, assumig parse error " << success;
          return PARSE_ERROR;
       }
       counter++;
@@ -221,7 +227,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    }
 
    // TODO: can we check that there is no useful entry?
-   if (KDE_ISUNLIKELY( !counter ))
+   if (KDE_ISUNLIKELY( !counter && !recoveredErrorInHeader ))
    {
       // Empty file? (Otherwise, there would be a try of getting an entry and the count would be 1 !)
       kDebug() << " Empty file?";
@@ -240,7 +246,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    setErrorIndex(errorIndex);
    //setFileCodec(codec);
    //setMimeTypes( "text/x-gettext-translation" );
-
+#if 0
    if (KDE_ISUNLIKELY( recoveredErrorInHeader ))
    {
       kDebug() << " Returning: header error";
@@ -252,6 +258,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       return RECOVERED_PARSE_ERROR;
    }
    else
+#endif
    {
       kDebug() << " Returning: OK! :-)";
       return OK;
@@ -262,11 +269,12 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
 {
     QTextStream stream( device );
     stream.seek(0);
+    _errorLine=0;
     stream.setCodec( "UTF-8" );
     stream.setAutoDetectUnicode(true); //this way we can
     QTextCodec* codec=stream.codec();  //detect UTF-16
 
-    ConversionStatus status = readHeader(stream);
+    ConversionStatus status = readEntry(stream);
     if (KDE_ISUNLIKELY( status!=OK && status != RECOVERED_PARSE_ERROR ))
     {
         kDebug() << "wasn't able to read header";
@@ -309,22 +317,6 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     return codec;//UTF-8
 }
 
-ConversionStatus GettextImportPlugin::readHeader(QTextStream& stream)
-{
-   int filePos = stream.device()->pos();
-   ConversionStatus status=readEntry(stream);
-
-   if(KDE_ISLIKELY( status==OK || status==RECOVERED_PARSE_ERROR ))
-   {
-      // test if this is the header
-      if(!_msgid.first().isEmpty())
-         stream.device()->seek( filePos );
-      return status;
-   }
-
-   return PARSE_ERROR;
-}
-
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 {
    ConversionStatus result=readEntryRaw(stream);
@@ -339,7 +331,6 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
    //kDebug() << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
-   //QString line;
    _trailingNewLines=0;
    bool error=false;
    bool recoverableError=false;
@@ -354,14 +345,21 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
    _obsolete=false;
 
    QStringList::Iterator msgstrIt=_msgstr.begin();
+   QString line;
 
    while( !stream.atEnd() )
    {
        _errorLine++;
        //line=stream.readLine();
-       QString line(stream.readLine());
+       if (!_bufferedLine.isEmpty())
+       {
+            line=_bufferedLine;
+            _bufferedLine.clear();
+       }
+       else
+           line=stream.readLine();
 
-       //kWarning() << "Parsing line: " << line;
+       kDebug() << "Parsing line: " << line;
 
        if (KDE_ISUNLIKELY( line.startsWith( "<<<<<<<" ) || line.startsWith( "=======" ) || line.startsWith( ">>>>>>>" ) ))
        {
@@ -713,7 +711,13 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                msgstrIt=_msgstr.end();
                --msgstrIt;
             }
-	    else if(KDE_ISUNLIKELY(/*_testBorked&&*/ _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) ))
+            else if ( line.startsWith( '#' ) || line.startsWith( "msgid" ) )
+            {
+               _errorLine--;
+               _bufferedLine=line;
+               break;
+            }
+            else if(KDE_ISUNLIKELY(/*_testBorked&&*/ _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) ))
             {
                // remove quotes at beginning and the end of the lines
                line.remove(QRegExp("^msgstr\\[[0-9]\\]\\s*\"?"));
@@ -728,7 +732,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else if(line.startsWith("msgstr"))
             {
-               kDebug() << "Another msgstr found after a msgstr while parsing: " << _msgstr.last();
+               kDebug() << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
                error=true;
                break;
             }
