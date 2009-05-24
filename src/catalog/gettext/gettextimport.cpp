@@ -108,7 +108,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    QTime aaa;
    aaa.start();
    // first read header
-   const ConversionStatus status = readHeader(stream);
+   const ConversionStatus status = readEntry(stream);
 
    bool recoveredErrorInHeader = false;
    if (KDE_ISUNLIKELY( status == RECOVERED_PARSE_ERROR ))
