@@ -39,6 +39,10 @@
 #undef KDE_NO_DEBUG_OUTPUT
 static int nodeCounter=0;
 
+//TODO: figure out how to handle file and folder renames...
+//TODO: fix behavior on folder removing, adding.
+
+
 ProjectModel::ProjectModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_poModel(this)
@@ -354,6 +358,17 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
 
     beginRemoveRows(parent, start, end);
 
+    //renumber all rows after removed.
+    for (int pos = end + 1; pos < node->rows.count(); pos ++)
+    {
+        ProjectNode* childNode = node->rows.at(pos);
+        childNode->rowNumber -= removedCount;
+
+        if (childNode->poRowNumber > end)
+            node->rows[pos]->poRowNumber -= removedCount;
+    }
+
+    //remove
     for (int pos = end; pos >= start; pos --)
     {
         int potIndex = node->rows.at(pos)->potRowNumber;
@@ -364,21 +379,12 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
             potRowsToInsert.append(potIndex);
     }
 
-    //renumber other rows
-    for (int pos = end + 1; pos < node->rows.count(); pos ++)
-    {
-        ProjectNode* childNode = node->rows.at(pos);
-        childNode->rowNumber = pos;
-
-        if (childNode->poRowNumber > end)
-            node->rows[pos]->poRowNumber -= removedCount;
-    }
 
     node->poCount -= removedCount;
 
-    endRemoveRows();
+    endRemoveRows(); //< fires removed event - the list has to be consistent now
 
-    //add back POT rows, preserving row order
+    //add back rows that have POT files and fix row order
     qSort(potRowsToInsert.begin(), potRowsToInsert.end());
 
     int insertionPoint = node->poCount;
@@ -592,6 +598,10 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
     const ProjectModelColumns& column=(ProjectModelColumns)index.column();
     ProjectNode* node = nodeForIndex(index);
     QModelIndex internalIndex = poOrPotIndexForOuter(index);
+
+    if (!internalIndex.isValid())
+        return QVariant();
+    
     KFileItem item=itemForIndex(index);
     bool isDir = item.isDir();
 
