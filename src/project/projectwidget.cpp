@@ -67,9 +67,10 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         int fuzzy = rect.width();
         int total = translated + untranslated + fuzzy;
 
+        KColorScheme colorScheme(QPalette::Normal);
+        
         if (total > 0)
         {
-            KColorScheme colorScheme(QPalette::Normal);
             painter->setPen(Qt::white);
             QRect myRect(option.rect);
             myRect.setWidth(option.rect.width() * translated / total);
@@ -86,9 +87,13 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
             painter->fillRect(myRect, colorScheme.foreground(KColorScheme::NegativeText));
             // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
         }
-        else
+        else if (total == -1)
         {
             painter->fillRect(option.rect,Qt::transparent);
+        }
+        else if (total == 0)
+        {
+            painter->fillRect(option.rect,QBrush(Qt::gray));
         }
     }
     else
