@@ -61,6 +61,9 @@ int main(int argc, char **argv)
     about.addCredit (ki18n("Viesturs Zarins"), ki18n("project tree merging translation+templates"), "viesturs.zarins@mii.lu.lv", QByteArray());
     about.addCredit (ki18n("Stephan Johach"), ki18n("bug fixing patches"), "hunsum@gmx.de");
     about.addCredit (ki18n("Chusslove Illich"), ki18n("bug fixing patches"), "caslav.ilic@gmx.net");
+    //TODO uncomment after KDE 4.3
+    //about.addCredit (ki18n("Jure Repinc"), ki18n("testing and bug fixing"), "jlp@holodeck1.com");
+
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;

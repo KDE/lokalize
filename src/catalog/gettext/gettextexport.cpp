@@ -235,8 +235,12 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     //TODO remove this for KDE 4.4
     int pos=0;
     while ((pos=text.indexOf("\\\"",pos))!=-1)
+    {
         if (pos==0 || text.at(pos-1)!='\\')
             text.replace(pos,2,'"');
+        else
+            pos++;
+    }
     text.replace('"',"\\\"");
 #if 0
     if ( m_wrapWidth == -1 )
