@@ -219,6 +219,8 @@ public:
     ushort m_added;
     ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
 
+    int m_size;
+
     QString m_dbName;
 };
 

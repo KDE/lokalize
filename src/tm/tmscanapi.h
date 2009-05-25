@@ -28,6 +28,9 @@
 #include <kjob.h>
 #include <QDir>
 #include <QUrl>
+#include <QTime>
+
+namespace ThreadWeaver{class Job;};
 
 namespace TM {
 
@@ -47,9 +50,10 @@ public:
     void setCount(int count){ setTotalAmount(KJob::Files,count); }
     void start();
 public slots:
-    void scanJobFinished();
+    void scanJobFinished(ThreadWeaver::Job*);
 private:
     QString m_dbName;
+    QTime m_time;
 };
 
 }

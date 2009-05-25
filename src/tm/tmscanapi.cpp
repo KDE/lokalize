@@ -38,16 +38,24 @@ namespace TM {
 
 using namespace TM;
 
-void RecursiveScanJob::scanJobFinished()
+void RecursiveScanJob::scanJobFinished(ThreadWeaver::Job* j)
 {
+    ScanJob* job=static_cast<ScanJob*>(j);
+
     setProcessedAmount(KJob::Files,processedAmount(KJob::Files)+1);
     emitPercent(processedAmount(KJob::Files),totalAmount(KJob::Files));
+
+    setProcessedAmount(KJob::Bytes,processedAmount(KJob::Bytes)+job->m_size);
+    emitSpeed(1000*processedAmount(KJob::Bytes)/m_time.elapsed());
+
+
     if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
         emitResult();
 }
 
 void RecursiveScanJob::start()
 {
+    m_time.start();
     emit description(this,
                 i18n("Adding files to Lokalize translation memory"),
                 qMakePair(i18n("TM"), m_dbName));
@@ -69,7 +77,7 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
         {
             ScanJob* job=new ScanJob(KUrl(urls.at(i)),dbName);
             QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
+            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
             ThreadWeaver::Weaver::instance()->enqueue(job);
             ++count;
         }
@@ -106,7 +114,7 @@ static int TM::doScanRecursive(const QDir& dir, const QString& dbName,KJob* meta
     {
         ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),dbName);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished()));
+        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
     }
 

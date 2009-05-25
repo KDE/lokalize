@@ -179,7 +179,7 @@ public:
 public slots: //DBus interface
     const KUrl& url() const {return d->_url;}
     ///@returns 0 if success, >0 erroneous line (parsing error)
-    int loadFromUrl(const KUrl& url, const KUrl& saidUrl=KUrl());
+    int loadFromUrl(const KUrl& url, const KUrl& saidUrl=KUrl(), int* fileSize=0);
     bool saveToUrl(KUrl url);
     bool save();
     QByteArray contents();

@@ -442,7 +442,7 @@ KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
     return autoSave;
 }
 
-int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl)
+int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
 {
     bool readOnly=false;
     if (url.isLocalFile())
@@ -540,6 +540,8 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl)
     else
         d->_autoSave->setManagedFile(d->_url);
 
+    if (fileSize)
+        *fileSize=file->size();
 
     emit signalFileLoaded();
     emit signalFileLoaded(d->_url);

@@ -1277,6 +1277,7 @@ ScanJob::ScanJob(const KUrl& url,
     : ThreadWeaver::Job(parent)
     , m_url(url)
     , m_dbName(dbName)
+    , m_size(0)
 {
 }
 
@@ -1299,7 +1300,7 @@ void ScanJob::run()
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
     Catalog catalog(thread());
-    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url)==0))
+    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size)==0))
     {
         initDb(db);
         qlonglong priorId=-1;

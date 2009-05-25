@@ -108,7 +108,7 @@ public:
     void showDocks();
     KUrl currentUrl();
     void setFullPathShown(bool);
-    void setCaption(QString,bool);//reimpl to remove ' - Lokalize'
+    void setProperCaption(QString,bool);//reimpl to remove ' - Lokalize'
     void setProperFocus();
 //protected:
     bool queryClose();
@@ -182,7 +182,7 @@ private slots:
     //fuzzy, untr [statusbar] indication
     void msgStrChanged();
     //modif [caption] indication
-    void setModificationSign(bool clean){setCaption(_captionPath,!clean);}
+    void setModificationSign(bool clean){setProperCaption(_captionPath,!clean);}
     void updateCaptionPath();
 
     //gui

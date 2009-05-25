@@ -44,6 +44,9 @@
 #include "binunitsview.h"
 
 #include "phaseswindow.h"
+#include "projectlocal.h"
+#include "projectmodel.h"
+
 
 #include "project.h"
 #include "prefs.h"
@@ -86,8 +89,7 @@
 
 #include <QDir>
 #include <QTime>
-#include <projectlocal.h>
-#include <projectlocal.h>
+#include <threadweaver/ThreadWeaver.h>
 
 
 
@@ -689,7 +691,7 @@ void EditorTab::showDocks()
         m_transUnitsView->show();
 }
 
-void EditorTab::setCaption(QString title,bool modified)
+void EditorTab::setProperCaption(QString title,bool modified)
 {
     if (m_catalog->autoSaveRecovered()) title+=' '+i18nc("editor tab name","(recovered)");
     setWindowTitle(title+" [*]");
@@ -742,7 +744,9 @@ bool EditorTab::fileOpen(KUrl url)
     KUrl saidUrl;
     if (url.isEmpty())
     {
+        //Project::instance()->model()->weaver()->suspend();
         url=KFileDialog::getOpenFileName(m_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
+        //Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
