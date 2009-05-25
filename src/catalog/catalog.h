@@ -131,6 +131,7 @@ public slots: //DBus interface
     ///@returns true if at least one form is untranslated
     bool isEmpty(uint index) const;
     bool isEmpty(const DocPosition&) const;
+    bool isModified(DocPos entry) const;
     bool isModified(int entry) const;
 
     /// so DocPosition::entry may actually be < size()+binUnitsCount()
@@ -221,7 +222,7 @@ protected:
     void setEquivTrans(const DocPosition&, bool equivTrans);
 
     /// @returns true if entry wasn't modified before
-    bool setModified(int entry, bool modif);
+    bool setModified(DocPos entry, bool modif);
 
 protected:
     CatalogPrivate *d;

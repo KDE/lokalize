@@ -25,6 +25,7 @@
 #define POS_H
 
 #include <QMetaType>
+#include <QHash>
 
 class Catalog;
 
@@ -105,5 +106,13 @@ struct DocPos
     }
 
 };
+
+
+inline uint qHash(const DocPos &key)
+{
+    return qHash((key.entry<<8)|key.form);
+}
+
+
 
 #endif

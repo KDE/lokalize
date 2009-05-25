@@ -385,8 +385,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
         else _leds->ledUntr->off();
     }
 */
-    if (!m_catalog->isApproved(m_currentPos.entry)&&Settings::autoApprove())
-        emit toggleApprovementRequested();
+    requestToggleApprovement();
     reflectUntranslatedState();
 
     // for mergecatalog (remove entry from index)
@@ -404,8 +403,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
     if (!::removeTargetSubstring(m_catalog, m_currentPos, delStart, delLen))
         return false;
 
-    if (!m_catalog->isApproved(m_currentPos.entry))
-        emit toggleApprovementRequested();
+    requestToggleApprovement();
 
     if (refresh)
     {
@@ -632,7 +630,7 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         if (KDE_ISUNLIKELY( !m_catalog->isApproved(m_currentPos.entry) && !textCursor().hasSelection() )
                             && ((textCursor().atStart()&&keyEvent->key()==Qt::Key_Backspace)
                                  ||(textCursor().atEnd()&&keyEvent->key()==Qt::Key_Delete) ))
-            emit toggleApprovementRequested();
+            requestToggleApprovement();
         else
             KTextEdit::keyPressEvent(keyEvent);
     }
@@ -1003,8 +1001,7 @@ void XliffTextEdit::source2target()
 
         showPos(m_currentPos,sourceWithTags,/*keepCursor*/false);
 
-        if (KDE_ISUNLIKELY( !m_catalog->isApproved(pos.entry)&&Settings::autoApprove() ))
-            emit toggleApprovementRequested();
+        requestToggleApprovement();
     }
     else
     {
@@ -1013,6 +1010,23 @@ void XliffTextEdit::source2target()
         t.insertText(out);
         setTextCursor(t);
     }
+}
+
+void XliffTextEdit::requestToggleApprovement()
+{
+    if (m_catalog->isApproved(m_currentPos.entry)||!Settings::autoApprove())
+        return;
+
+    bool skip=m_catalog->isPlural(m_currentPos);
+    if (skip)
+    {
+        skip=false;
+        DocPos pos(m_currentPos);
+        for (pos.form=0;pos.form<m_catalog->numberOfPluralForms();pos.form++)
+            skip=skip||!m_catalog->isModified(pos);
+    }
+    if (!skip)
+        emit toggleApprovementRequested();
 }
 
 

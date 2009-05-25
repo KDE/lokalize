@@ -40,6 +40,7 @@
 #include "catalogitem.h"
 #include "projectlocal.h"
 #include "state.h"
+#include "pos.h"
 
 #include <kurl.h>
 #include <kautosavefile.h>
@@ -102,7 +103,7 @@ public:
     //keeps pos of the entry that was last modified
     DocPosition _lastModifiedPos;
 
-    QSet<int> _modifiedEntries;//just for the nice gui
+    QSet<DocPos> _modifiedEntries;//just for the nice gui
 
     QString _phase;
     ProjectLocal::PersonRole _phaseRole;

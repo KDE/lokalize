@@ -49,7 +49,7 @@ public slots:
 private:
     void contextMenuEvent(QContextMenuEvent *event);
 private slots:
-    void mouseDoubleClickEvent(const QModelIndex&);
+    void mouseDoubleClicked(const QModelIndex&);
     void fileLoaded();
 
 private:

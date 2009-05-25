@@ -830,7 +830,7 @@ void Catalog::setEquivTrans(const DocPosition& pos, bool equivTrans)
     if (m_storage) m_storage->setEquivTrans(pos, equivTrans);
 }
 
-bool Catalog::setModified(int entry, bool modified)
+bool Catalog::setModified(DocPos entry, bool modified)
 {
     if (modified)
     {
@@ -843,9 +843,21 @@ bool Catalog::setModified(int entry, bool modified)
     return true;
 }
 
-bool Catalog::isModified(int entry) const
+bool Catalog::isModified(DocPos entry) const
 {
     return d->_modifiedEntries.contains(entry);
+}
+
+bool Catalog::isModified(int entry) const
+{
+    if (!isPlural(entry))
+        return isModified(DocPos(entry,0));
+
+    int f=numberOfPluralForms();
+    while(--f>=0)
+        if (isModified(DocPos(entry,f)))
+            return true;
+    return false;
 }
 
 //END UNDO/REDO

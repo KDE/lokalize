@@ -76,6 +76,7 @@ private:
 
     int strForMicePosIfUnderTag(QPoint mice, CatalogString& str);
 
+    void requestToggleApprovement();
 
 private slots:
     //for Undo/Redo tracking

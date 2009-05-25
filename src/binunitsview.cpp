@@ -169,7 +169,7 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
     m_view->setRootIsDecorated(false);
     m_view->setAlternatingRowColors(true);
     m_view->viewport()->setBackgroundRole(QPalette::Background);
-    connect(m_view,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(mouseDoubleClickEvent(QModelIndex)));
+    connect(m_view,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(mouseDoubleClicked(QModelIndex)));
 
     connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
 }
@@ -218,7 +218,7 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
     event->accept();
 }
 
-void BinUnitsView::mouseDoubleClickEvent(const QModelIndex& item)
+void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
 {
     //FIXME child processes don't notify us about changes ;(
     if (item.column()<BinUnitsModel::Approved)
