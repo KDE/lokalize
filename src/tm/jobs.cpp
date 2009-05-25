@@ -21,6 +21,8 @@
 
 **************************************************************************** */
 
+#define KDE_NO_DEBUG_OUTPUT
+
 #include "jobs.h"
 #include "catalog.h"
 #include "project.h"
@@ -129,7 +131,7 @@ static qlonglong getFileId(const QString& path,
 static void addToIndex(qlonglong sourceId, QString sourceString,
                        QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
 {
-    kWarning()<<"here";
+    kDebug()<<"here";
 
     QStringList words;
     doSplit(sourceString,words,rxClean1,accel);
@@ -152,7 +154,6 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
 
         //we _have_ it
         bool weHaveIt=query1.next();
-        query1.clear();
 
         if (weHaveIt)
         {
@@ -169,6 +170,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
                 arr=query1.value(2).toByteArray();
                 field="ids_long";
             }
+            query1.clear();
 
             if (arr.contains(' '+sourceIdStr+' ')
                 || arr.startsWith(sourceIdStr+' ')
@@ -191,6 +193,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
         }
         else
         {
+            query1.clear();
             query1.prepare("INSERT INTO words (word, ids_short, ids_long) "
                         "VALUES (?, ?, ?)");
             QByteArray idsShort;
@@ -391,10 +394,9 @@ static bool doInsertEntry(CatalogString source,
     QByteArray sourceTags=source.tagsAsByteArray();
     QByteArray targetTags=target.tagsAsByteArray();
 
-    //kWarning()<<"10... "<<a.elapsed();
 //BEGIN get sourceId
     query1.prepare(QString("SELECT id FROM source_strings WHERE "
-                     "source==? AND source_accel%1 AND source_markup%2").arg
+                     "source==? AND (source_accel%1) AND source_markup%2").arg
                                     (sourceAccelPos!=-1?"==?":"==-1 OR source_accel ISNULL").arg
                                     (sourceTags.isEmpty()?" ISNULL":"==?"));
     int paranum=0;
@@ -412,7 +414,7 @@ static bool doInsertEntry(CatalogString source,
     if (!query1.next())
     {
 //BEGIN insert source anew
-        kWarning() <<"insert source anew";;
+        kDebug() <<"insert source anew";;
 
         query1.clear();
         query1.prepare("INSERT INTO source_strings (source, source_markup, source_accel) "
@@ -436,14 +438,12 @@ static bool doInsertEntry(CatalogString source,
     }
     else
     {
-        //kWarning()<<"SOURCE ALREADY PRESENT";
         sourceId=query1.value(0).toLongLong();
+        kDebug()<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
     }
     query1.clear();
 //END get sourceId
 
-
-    //kWarning()<<"9... "<<a.elapsed();
 
     if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT id, target, bits FROM main WHERE "
                      "source==%1 AND file==%2 AND ctxt%3").arg(sourceId).arg(fileId).arg
@@ -523,7 +523,8 @@ static bool doInsertEntry(CatalogString source,
 
         if (matches) //TODO XLIFF target_markup
         {
-            kWarning()<<"oops, it just matches!";
+            if (!target.string.isEmpty())
+                kWarning()<<"oops, it just matches!"<<source.string<<target.string;
             return false;
         }
         // no, translation has changed: just update old target if it isn't used elsewhere
@@ -556,7 +557,7 @@ static bool doInsertEntry(CatalogString source,
 
 //BEGIN get targetId
     query1.prepare(QString("SELECT id FROM target_strings WHERE "
-                     "target==? AND target_accel%1 AND target_markup%2").arg
+                     "target==? AND (target_accel%1) AND target_markup%2").arg
                                 (targetAccelPos!=1?"==?":"==-1 OR target_accel ISNULL").arg
                                 (targetTags.isEmpty()?" ISNULL":"==?"));
     paranum=0;
@@ -612,7 +613,7 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(0, targetId);
         query1.bindValue(1, bits);
         bool ok=query1.exec();
-        kWarning()<<"ok?"<<ok;
+        kDebug()<<"ok?"<<ok;
         return ok;
     }
 
@@ -636,7 +637,7 @@ static bool doInsertEntry(CatalogString source,
     query1.bindValue(5, priorId!=-1?QVariant(priorId):QVariant());
     bool ok=query1.exec();
     mainId=query1.lastInsertId().toLongLong(); //TODO postgresql will suck here
-    kWarning()<<"ok?"<<ok;
+    kDebug()<<"ok?"<<ok;
     return ok;
 }
 
