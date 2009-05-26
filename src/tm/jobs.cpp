@@ -558,11 +558,11 @@ static bool doInsertEntry(CatalogString source,
 //BEGIN get targetId
     query1.prepare(QString("SELECT id FROM target_strings WHERE "
                      "target==? AND (target_accel%1) AND target_markup%2").arg
-                                (targetAccelPos!=1?"==?":"==-1 OR target_accel ISNULL").arg
+                                (targetAccelPos!=-1?"==?":"==-1 OR target_accel ISNULL").arg
                                 (targetTags.isEmpty()?" ISNULL":"==?"));
     paranum=0;
     query1.bindValue(paranum++,target.string);
-    if (targetAccelPos!=1)
+    if (targetAccelPos!=-1)
         query1.bindValue(paranum++,targetAccelPos);
     if (!targetTags.isEmpty())
         query1.bindValue(paranum++,targetTags);
@@ -1276,8 +1276,8 @@ ScanJob::ScanJob(const KUrl& url,
                  QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_url(url)
-    , m_dbName(dbName)
     , m_size(0)
+    , m_dbName(dbName)
 {
 }
 

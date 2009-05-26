@@ -50,7 +50,10 @@ void RecursiveScanJob::scanJobFinished(ThreadWeaver::Job* j)
 
 
     if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
+    {
         emitResult();
+        kWarning()<<"finished in"<<m_time.elapsed()<<"msecs";
+    }
 }
 
 void RecursiveScanJob::start()
