@@ -30,7 +30,7 @@
 #include <QUrl>
 #include <QTime>
 
-namespace ThreadWeaver{class Job;};
+namespace ThreadWeaver{class Job;}
 
 namespace TM {
 
