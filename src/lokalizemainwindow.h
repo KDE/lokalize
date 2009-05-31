@@ -153,5 +153,19 @@ private:
 };
 
 
+#include <kross/ui/plugin.h>
+
+class ProjectScriptingPlugin: public Kross::ScriptingPlugin
+{
+Q_OBJECT
+public:
+    ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
+    ~ProjectScriptingPlugin();
+    void setDOMDocument (const QDomDocument &document, bool merge = false);
+
+private slots:
+    void doAutoruns();
+};
+
 
 #endif

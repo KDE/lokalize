@@ -592,7 +592,6 @@ void LokalizeMainWindow::projectLoaded()
 #include "mainwindowadaptor.h"
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
-#include <kross/ui/plugin.h>
 
 using namespace Kross;
 
@@ -608,14 +607,6 @@ public:
         setXMLFile("scriptsui.rc",true);
     }
     ~MyScriptingPlugin(){}
-};
-
-class ProjectScriptingPlugin: public Kross::ScriptingPlugin
-{
-public:
-    ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
-    ~ProjectScriptingPlugin();
-    void setDOMDocument (const QDomDocument &document, bool merge = false);
 };
 
 #define PROJECTRCFILE "scripts.rc"
@@ -649,7 +640,11 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
 void ProjectScriptingPlugin::setDOMDocument (const QDomDocument &document, bool merge)
 {
     Kross::ScriptingPlugin::setDOMDocument(document, merge);
+    QTimer::singleShot(0,this, SLOT(doAutoruns()));
+}
 
+void ProjectScriptingPlugin::doAutoruns()
+{
     Kross::ActionCollection* collection=Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
     if (!collection) return;
     foreach(const QString &collectionname, collection->collections())
@@ -699,7 +694,7 @@ void LokalizeMainWindow::checkForProjectAlreadyOpened()
 
 void LokalizeMainWindow::registerDBusAdaptor()
 {
-    MainWindowAdaptor* adaptor=new MainWindowAdaptor(this);
+    new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
