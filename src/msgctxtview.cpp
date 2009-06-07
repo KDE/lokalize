@@ -127,8 +127,13 @@ void MsgCtxtView::process()
         html.chop(6);
     }
 
-    if (!m_catalog->msgctxt(m_entry.entry).isEmpty())
-        html+=i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+m_catalog->msgctxt(m_entry.entry);
+    QString msgctxt=m_catalog->msgctxt(m_entry.entry);
+    if (!msgctxt.isEmpty())
+    {
+        msgctxt.replace('<',"&lt;");
+        msgctxt.replace('>',"&gt;");
+        html+=i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+msgctxt;
+    }
 
     QTextCursor t=m_browser->textCursor();
     t.movePosition(QTextCursor::End);
