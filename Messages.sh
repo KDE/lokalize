@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 $EXTRACTRC `find . -name \*.ui -o -name \*.rc -o -name \*.kcfg` >> rc.cpp
 $EXTRACTATTR --attr=collection,text --attr=collection,comment --attr=script,text --attr=script,comment scripts/*.rc >> rc.cpp || exit 11
-$XGETTEXT src/*.cpp \
+$XGETTEXT rc.cpp src/*.cpp \
 	    src/catalog/*.cpp \
 	    src/cataloglistview/*.cpp \
 	    src/common/*.cpp \
