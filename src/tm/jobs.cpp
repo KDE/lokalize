@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -282,7 +282,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
         query1.clear();
 
         if (arr.contains(' '+sourceIdStr+' '))
-            arr.replace(' '+sourceIdStr+' ',QByteArray(' '));
+            arr.replace(' '+sourceIdStr+' '," ");
         else if (arr.startsWith(sourceIdStr+' '))
             arr.remove(0,sourceIdStr.size()+1);
         else if (arr.endsWith(' '+sourceIdStr))
@@ -514,7 +514,7 @@ static bool doInsertEntry(CatalogString source,
             if (shouldBeInIndex)
                 //this adds source to index if it's not already there
                 addToIndex(sourceId,source.string,rxClean1,accel,db);
-            else 
+            else
                 //entry changed from indexable to non-indexable:
                 //remove source string from index if there are no other
                 //'good' entries using it
@@ -795,7 +795,7 @@ static void getStats(const QSqlDatabase& db,
 
 {
     QSqlQuery query(db);
-    if (!query.exec("SELECT count(*) FROM main") 
+    if (!query.exec("SELECT count(*) FROM main")
         || !query.next())
         return;
     pairsCount=query.value(0).toInt();
