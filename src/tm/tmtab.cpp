@@ -314,7 +314,7 @@ TMTab::TMTab(QWidget *parent)
 TMTab::~TMTab()
 {
     delete ui_queryOptions;
-    ids.remove(m_dbusId);
+    ids.removeAll(m_dbusId);
 }
 
 void TMTab::selectDB(int i)
