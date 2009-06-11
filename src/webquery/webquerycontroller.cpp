@@ -31,6 +31,7 @@
 **************************************************************************** */
 
 #include "webquerycontroller.h"
+#include <QTextCodec>
 #include "catalog.h"
 #include "webqueryview.h"
 
