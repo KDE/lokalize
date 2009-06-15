@@ -96,7 +96,9 @@ void XliffTextEdit::reflectApprovementState()
     bool approved=m_catalog->isApproved(m_currentPos.entry);
 
     m_highlighter->setApprovementState(approved);
+    disconnect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
     m_highlighter->rehighlight();
+    connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
     viewport()->setBackgroundRole(approved?QPalette::Base:QPalette::AlternateBase);
 
 
@@ -232,14 +234,14 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     QFont font=cursor.document()->defaultFont();
     //font.setWeight(chF.fontWeight());
 
-    QMap<int,int> posToTagRange;
+    QMap<int,int> posToTag;
     int i=catStr.tags.size();
     //if (i) kWarning()<<"tags we got:";
     while(--i>=0)
     {
         //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
-        posToTagRange.insert(catStr.tags.at(i).start,i);
-        posToTagRange.insert(catStr.tags.at(i).end,i);
+        posToTag.insert(catStr.tags.at(i).start,i);
+        posToTag.insert(catStr.tags.at(i).end,i);
     }
 
     QMap<QString,int> sourceTagIdToIndex=refStr.tagIdToIndex();
@@ -266,12 +268,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             continue;
         }
 #endif
-        if (!posToTagRange.contains(i))
-        {
-            prev=++i;
-            continue;
-        }
-        int tagRangeIndex=posToTagRange.value(i);
         if (insertText)
             cursor.insertText(catStr.string.mid(prev,i-prev));
         else
@@ -280,10 +276,16 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             cursor.deleteChar();//delete TAGRANGE_IMAGE_SYMBOL to insert it properly
         }
 
-        InlineTag tag=catStr.tags.at(tagRangeIndex);
+        if (!posToTag.contains(i))
+        {
+            prev=++i;
+            continue;
+        }
+        int tagIndex=posToTag.value(i);
+        InlineTag tag=catStr.tags.at(tagIndex);
         QString name=tag.id;
         QString text=(tag.type==InlineTag::mrk)?QString("*"):
-                QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagRangeIndex+refTagIndexOffset));
+                QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagIndex+refTagIndexOffset));
         if (tag.start!=tag.end)
         {
             //kWarning()<<"b"<<i;

@@ -29,7 +29,8 @@
 #include <QString>
 #include <QMetaType>
 
-#define TAGRANGE_IMAGE_SYMBOL 65532
+//#define TAGRANGE_IMAGE_SYMBOL 65532
+#define TAGRANGE_IMAGE_SYMBOL QChar::ObjectReplacementCharacter
 
 /**
  * data structure used to pass info about inline elements
