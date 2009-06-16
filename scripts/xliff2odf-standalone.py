@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 import sys,os,re
 if os.name=='nt': import socket  # only needed on win32-OOo3.0.0
-import uno
+
+try: import uno
+except:
+    #opensuse needs this, while debian rocks w/o this
+    sys.path.append('/usr/lib/ooo3/basis-link/program/')
+    import uno
+
 import time
 
 def show_in_ooo(odfpathname,entryid):

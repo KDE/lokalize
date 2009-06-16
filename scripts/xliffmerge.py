@@ -4,6 +4,7 @@
 #python scripts/xliffmerge.py -i tests/testxliffmerge_tr.xlf -t tests/testxliffmerge_en.xlf -o test_merged.xlf
 
 #TODO: mark as 'needs adaptation' when only punctuation is changed
+#check id's change after document update
 
 from PyQt4.QtCore import *
 from PyQt4.QtXml import *

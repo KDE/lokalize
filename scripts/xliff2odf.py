@@ -20,7 +20,7 @@ class XliffInput:
 def convert():
     if not Editor.isValid() or Editor.currentFile()=='': return
 
-    xliffpathname=unicode(Editor.currentFile())
+    xliffpathname=Editor.currentFile()
     (path, filename)=os.path.split(xliffpathname)
     if not filename.endswith('.xlf'): return
 
