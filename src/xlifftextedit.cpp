@@ -66,6 +66,31 @@ inline static QImage generateImage(const QString& str, const QFont& font)
 }
 
 
+#if 0
+class XliffTextEditSpellInterface: public KTextEditSpellInterface
+{
+public:
+    XliffTextEditSpellInterface();
+    ~XliffTextEditSpellInterface(){};
+
+    bool isSpellCheckingEnabled() const {return m_enabled;}
+    void setSpellCheckingEnabled(bool enable);
+    bool shouldBlockBeSpellChecked(const QString &block) const{return true;}
+private:
+    bool m_enabled;
+};
+
+XliffTextEditSpellInterface::XliffTextEditSpellInterface()
+    : KTextEditSpellInterface()
+    , m_enabled(Settings::autoSpellcheck())
+{}
+
+void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
+{
+    Settings::setAutoSpellcheck(enable);
+    m_enabled=enable;
+}
+#endif
 
 XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
@@ -866,7 +891,10 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
             return;
         }
     }
-    KTextEdit::contextMenuEvent(event);
+
+//     QMenu menu;
+//     QAction* spellchecking=menu.addAction();
+    event->accept();
 }
 
 
