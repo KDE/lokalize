@@ -35,6 +35,8 @@ LanguageListModel::LanguageListModel(QObject* parent)
     KIconLoader::global()->addExtraDesktopThemes();
     //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
     kWarning()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
+    //kWarning()<<KGlobal::locale()->allLanguagesList();
+    kWarning()<<QLocale("uk").name();
 }
 
 QVariant LanguageListModel::data(const QModelIndex& index, int role) const
@@ -42,9 +44,12 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
     if (role==Qt::DecorationRole)
     {
         QString code=stringList().at(index.row());
+        code=QLocale(code).name();
         if (code.contains('_')) code=code.mid(3).toLower();
         return QIcon(KStandardDirs::locate("locale", QString("l10n/%1/flag.png").arg(code)));
     }
+    //else if (role==Qt::DisplayRole)
+    //    return KGlobal::locale()->languageCodeToName(stringList().at(index.row()));
 
     return QStringListModel::data(index, role);
 }
