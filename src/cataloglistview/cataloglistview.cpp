@@ -109,6 +109,11 @@ CatalogView::~CatalogView()
     cg.writeEntry("TreeHeaderState",m_browser->header()->saveState().toBase64());
 }
 
+void CatalogView::setFocus()
+{
+    QDockWidget::setFocus();
+    m_lineEdit->selectAll();
+}
 
 void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 {

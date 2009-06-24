@@ -54,6 +54,7 @@ public:
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void setEntriesFilteredOut(bool filteredOut=false);
+    void setFocus();
 
 signals:
     void gotoEntry(const DocPosition&, int selection);
