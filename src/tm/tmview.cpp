@@ -418,12 +418,14 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     }
     else if (job.m_entries.isEmpty()||job.m_entries.first().score<8500)
     {
-        DBFilesModel& model=*(DBFilesModel::instance());
-        int i=model.rowCount();
-        kWarning()<<"query other DBs"<<i;
+        //be careful, as we switched to QDirModel!
+        const DBFilesModel& model=*(DBFilesModel::instance());
+        QModelIndex root=model.rootIndex();
+        int i=model.rowCount(root);
+        kWarning()<<"query other DBs,"<<i<<"total";
         while (--i>=0)
         {
-            const QString& db=model.data(model.index(i,0)).toString();
+            const QString& db=model.data(model.index(i,0,root)).toString();
             if (pID!=db)
             {
                 SelectJob* j=initSelectJob(m_catalog, m_pos, db);
@@ -475,7 +477,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
         html+=QString("/%1%/ ").arg(float(entry.score)/100);
 
-        int sourceStartPos=cur.position();
+        //int sourceStartPos=cur.position();
         QString result=entry.diff;
         result.replace("&","&amp;");
         result.replace("<","&lt;");
