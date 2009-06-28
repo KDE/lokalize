@@ -345,10 +345,7 @@ QMap<QString,Tool> Catalog::allTools() const
 
 bool Catalog::isPlural(uint index) const
 {
-    if (KDE_ISUNLIKELY( !m_storage ))
-        return false;
-
-    return m_storage->isPlural(DocPosition(index));
+    return m_storage && m_storage->isPlural(DocPosition(index));
 }
 
 bool Catalog::isApproved(uint index) const
@@ -375,18 +372,12 @@ TargetState Catalog::state(const DocPosition& pos) const
 
 bool Catalog::isEmpty(uint index) const
 {
-    if (KDE_ISUNLIKELY( !m_storage ))
-        return false;
-
-    return m_storage->isEmpty(DocPosition(index));
+    return m_storage && m_storage->isEmpty(DocPosition(index));
 }
 
 bool Catalog::isEmpty(const DocPosition& pos) const
 {
-    if (KDE_ISUNLIKELY( !m_storage ))
-        return false;
-
-    return m_storage->isEmpty(pos);
+    return m_storage && m_storage->isEmpty(pos);
 }
 
 
@@ -408,7 +399,7 @@ int Catalog::unitById(const QString& id) const
 QString Catalog::mimetype()
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return false;
+        return QString();
 
     return m_storage->mimetype();
 }

@@ -3,7 +3,7 @@
   This file is based on the one from KBabel
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
-		2002-2003 by Stanislav Visnovsky <visnovsky@kde.org>
+  Copyright (C) 2002-2003 by Stanislav Visnovsky <visnovsky@kde.org>
   Copyright (C) 2006 by Nicolas GOUTTE <goutte@kde.org>
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 

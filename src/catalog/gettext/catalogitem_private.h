@@ -58,8 +58,9 @@ class CatalogItemPrivate
 {
 
 public:
-    int _plural:16;
-    int _valid:16;
+    bool _plural;
+    bool _valid;
+    bool _fuzzyCached;
 
     QString _comment;
     QString _msgctxt;
@@ -72,6 +73,7 @@ public:
     CatalogItemPrivate()
         : _plural(false)
         , _valid(true)
+        , _fuzzyCached(false)
     {}
 
     void clear();
@@ -104,6 +106,7 @@ void CatalogItemPrivate::assign(const CatalogItemPrivate& other)
     _valid=other._valid;
     _errors=other._errors;
     _plural=other._plural;
+    _fuzzyCached=other._fuzzyCached;
 }
 
 inline

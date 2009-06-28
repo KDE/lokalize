@@ -155,6 +155,7 @@ void CatalogItem::setComment(const QString& com)
 {
     d->_comment=com;
     d->_comment.squeeze();
+    d->_fuzzyCached=com.contains( QRegExp(fuzzyRegExpStr) );
 }
 
 void CatalogItem::setPlural(bool plural)
@@ -169,7 +170,7 @@ bool CatalogItem::isPlural() const
 
 bool CatalogItem::isFuzzy() const
 {
-    return d->_comment.contains( QRegExp(fuzzyRegExpStr) );
+    return d->_fuzzyCached;
 }
 
 bool CatalogItem::isUntranslated() const
@@ -322,6 +323,8 @@ void CatalogItem::setFuzzy()
             comment+='\n';
         comment+="#, fuzzy";
     }
+
+    d->_fuzzyCached=true;
 }
 
 void CatalogItem::unsetFuzzy()
@@ -336,6 +339,7 @@ void CatalogItem::unsetFuzzy()
     comment.remove( QRegExp("#\\s*\n") );
     comment.remove( QRegExp("^#\\s*\n") );
 
+    d->_fuzzyCached=false;
 }
 
 
