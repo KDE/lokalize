@@ -255,7 +255,6 @@ void updateHeader(QString& header,
         temp+=(" <"+Settings::authorEmail()+'>');
     temp+="\\n";
 
-
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         if (it->contains(QRegExp("^ *Last-Translator:.*")))
@@ -319,6 +318,7 @@ void updateHeader(QString& header,
             ait=it;
         }
     }
+
     //language=locale.languageCodeToName(d->_langCode);
     KConfigGroup cg(&lll, langCode);
     QString language=cg.readEntry("Name");
@@ -429,19 +429,15 @@ void updateHeader(QString& header,
 //END header itself
 
 //BEGIN comment = description, copyrights
-    for ( it = commentList.begin(),found=false; it != commentList.end()&& !found; ++it )
-        // U+00A9 is the Copyright sign
-        found=it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc") ) ;
-    if (found)
+    // U+00A9 is the Copyright sign
+    QRegExp fsfc("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc");
+    for ( it = commentList.begin(),found=false; it != commentList.end()&&!found; ++it )
     {
-        if ( it->contains( QRegExp("^# *Copyright (\\(C\\)|\\x00a9) YEAR Free Software Foundation, Inc\\.") ) )
-        {
-            //template string
-//     		if( saveOptions.FSFCopyright == ProjectSettingsBase::Remove)
-            it->remove(" YEAR Free Software Foundation, Inc");
-            /*		else
-            		    it->replace("YEAR", QDate::currentDate().toString("yyyy"));*/
-        } /*else
+        found=it->contains( fsfc ) ;
+        if (found)
+            it->replace("YEAR", QDate::currentDate().toString("yyyy"));
+    }
+/*
                         	    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
                         	    {
                         		    //update years
@@ -458,7 +454,6 @@ void updateHeader(QString& header,
                         			}
                         		    }
                         	    }*/
-    }
 #if 0
     if ( ( !usePrefs || saveOptions.updateDescription )
             && ( !saveOptions.descriptionString.isEmpty() ) )
