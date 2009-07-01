@@ -38,6 +38,7 @@
 #include <QVBoxLayout>
 #include <QAction>
 #include <QMenu>
+#include <QShortcut>
 
 
 
@@ -62,6 +63,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setClickMessage(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
+    new QShortcut(QKeySequence(Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
 
     QToolButton* btn=new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
@@ -109,6 +111,11 @@ CatalogView::~CatalogView()
     cg.writeEntry("TreeHeaderState",m_browser->header()->saveState().toBase64());
 }
 
+void CatalogView::setFocus()
+{
+    QDockWidget::setFocus();
+    m_lineEdit->selectAll();
+}
 
 void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 {
@@ -189,6 +196,15 @@ void CatalogView::fillFilterOptionsMenu()
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filterKeyColumn()==i);
     }
+}
+
+void CatalogView::reset()
+{
+    m_proxyModel->setFilterKeyColumn(-1);
+    m_proxyModel->setFilerOptions(CatalogTreeFilterModel::AllStates);
+    m_lineEdit->clear();
+    //emit gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
+    slotItemActivated(m_browser->currentIndex());
 }
 
 int CatalogView::nextEntry()
