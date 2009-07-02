@@ -45,6 +45,8 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 //     , fuzzyState(false)
 //     , fromDocbook(docbook)
 {
+    setAutomatic(false);
+
     highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;
     //rule.format.setFontItalic(true);
@@ -218,11 +220,13 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
             );
 
     if (smthPreceeding)
-        kWarning()<<"ampersand is in the way";
+        kWarning()<<"ampersand is in the way. word len:"<<count;
 
     if (count && format(start)==tagFormat)
+{
+    if (smthPreceeding) kWarning()<<"(count && format(start)==tagFormat)";
         return;
-
+}
     for (int i=0;i<count;++i)
     {
         QTextCharFormat f(format(start+i));

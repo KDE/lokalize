@@ -8,6 +8,7 @@ Exec=lokalize %i -caption "%c"
 Icon=lokalize
 Type=Application
 Categories=Qt;KDE;Development;Office;Translation;
+MimeType=application/x-xliff;text/x-gettext-translation;application/x-lokalize-project;
 X-DocPath=lokalize/index.html
 GenericName=Computer-Aided Translation System
 GenericName[ca]=Sistema de traducció assistida per ordinador
