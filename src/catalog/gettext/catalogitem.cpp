@@ -296,6 +296,8 @@ QStringList CatalogItem::msgstrAsList() const
 
 void CatalogItem::setFuzzy()
 {
+    d->_fuzzyCached=true;
+
     QString& comment=d->_comment;
     if (comment.isEmpty())
     {
@@ -323,12 +325,12 @@ void CatalogItem::setFuzzy()
             comment+='\n';
         comment+="#, fuzzy";
     }
-
-    d->_fuzzyCached=true;
 }
 
 void CatalogItem::unsetFuzzy()
 {
+    d->_fuzzyCached=false;
+
     QString& comment=d->_comment;
 
     comment.remove( QRegExp(fuzzyRegExpStr) );
@@ -338,8 +340,6 @@ void CatalogItem::unsetFuzzy()
     comment.remove( QRegExp("^#\\s*$") );
     comment.remove( QRegExp("#\\s*\n") );
     comment.remove( QRegExp("^#\\s*\n") );
-
-    d->_fuzzyCached=false;
 }
 
 
