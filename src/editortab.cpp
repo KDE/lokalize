@@ -257,6 +257,7 @@ void EditorTab::setupActions()
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), m_notesView->toggleViewAction() );
     connect (m_catalog,SIGNAL(signalFileLoaded()),m_notesView,SLOT(cleanup()));
     connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SIGNAL(srcFileOpenRequested(QString,int)));
+    connect(m_view, SIGNAL(signalChanged(uint)), m_notesView, SLOT(removeErrorNotes()));
 
 
     QVector<KAction*> tmactions(TM_SHORTCUTS);
@@ -1002,6 +1003,7 @@ void EditorTab::msgStrChanged()
     m_currentIsUntr=isUntr;
     m_currentIsApproved=isApproved;
 }
+
 void EditorTab::switchForm(int newForm)
 {
     if (m_currentPos.form==newForm) return;

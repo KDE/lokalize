@@ -200,4 +200,19 @@ void MsgCtxtView::addNote(DocPosition p, const QString& text)
     if (m_entry.entry==p.entry) {m_prevEntry.entry=-1; process();}
 }
 
+void MsgCtxtView::removeErrorNotes()
+{
+    DocPosition p=m_entry.toDocPosition();
+    const QVector<Note> notes=m_catalog->notes(p);
+    p.form=notes.size();
+    while(--(p.form)>=0)
+    {
+        if (notes.at(p.form).content.contains("[ERROR]"))
+            m_catalog->push(new SetNoteCmd(m_catalog,p,Note()));
+    }
+
+    m_prevEntry.entry=-1; process();
+}
+
+
 #include "msgctxtview.moc"
