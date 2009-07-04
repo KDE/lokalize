@@ -68,6 +68,7 @@ private:
     char m_selection;
     char m_offset;
     bool m_hasInfo;
+    bool m_hasErrorNotes;
     DocPos m_entry;
     DocPos m_prevEntry;
 };

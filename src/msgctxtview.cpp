@@ -52,6 +52,7 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     , m_editor(0)
     , m_catalog(catalog)
     , m_hasInfo(false)
+    , m_hasErrorNotes(false)
 {
     setObjectName("msgCtxtView");
     QWidget* main=new QWidget(this);
@@ -114,6 +115,11 @@ void MsgCtxtView::process()
             html+=QString(" (%1)").arg(phase.contact);
         m_browser->insertHtml(html+"<br>");
     }
+
+    const QVector<Note> notes=m_catalog->notes(m_entry.toDocPosition());
+    m_hasErrorNotes=false;
+    foreach (const Note& note, notes)
+        m_hasErrorNotes=m_hasErrorNotes||note.content.contains("[ERROR]");
 
     int realOffset=displayNotes(m_browser, m_catalog->notes(m_entry.toDocPosition()), m_entry.form, m_catalog->capabilities()&MultipleNotes);
 
@@ -202,6 +208,8 @@ void MsgCtxtView::addNote(DocPosition p, const QString& text)
 
 void MsgCtxtView::removeErrorNotes()
 {
+    if (!m_hasErrorNotes) return;
+
     DocPosition p=m_entry.toDocPosition();
     const QVector<Note> notes=m_catalog->notes(p);
     p.form=notes.size();
