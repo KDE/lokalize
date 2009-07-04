@@ -44,13 +44,12 @@ bool TbxParser::startElement( const QString&, const QString&,
 {
     if (qName=="langSet")
     {
-        if (attr.value("xml:lang")=="en")
+        if (attr.value("xml:lang").startsWith("en"))
             m_lang=langEn;
         else if (attr.value("xml:lang")==Project::instance()->langCode())
             m_lang=langTarget;
         else
             m_lang=langNull;
-
     }
     else if (qName=="term")
     {
@@ -66,13 +65,9 @@ bool TbxParser::startElement( const QString&, const QString&,
     else if (qName=="descrip")
     {
         if (attr.value("type")=="definition")
-        {
             m_state=descripDefinition;
-        }
         else if (attr.value("type")=="subjectField")
-        {
             m_state=descripSubjectField;
-        }
     }
     return true;
 }
@@ -137,13 +132,9 @@ bool TbxParser::characters ( const QString & ch )
             m_termOther+=ch;
     }
     else if (m_state==descripDefinition)
-    {
         m_entry.definition+=ch;
-    }
     else if (m_state==descripSubjectField)
-    {
         m_subjectField+=ch;
-    }
 
 
     return true;

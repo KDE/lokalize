@@ -30,6 +30,8 @@
 
 #include "lokalizemainwindow.h"
 
+#include "stemming.h"
+
 #include "catalogstring.h"
 #include "pos.h"
 #include <QMetaType>
@@ -80,7 +82,7 @@ int main(int argc, char **argv)
     qDebug()<<qRegisterMetaType<CatalogString>();
     qRegisterMetaTypeStreamOperators<InlineTag>("TagRange");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
-
+    qAddPostRoutine(&cleanupSpellers);
 
     // see if we are starting with session management
     if (app.isSessionRestored())

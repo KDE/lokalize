@@ -37,7 +37,7 @@
 #include "flowlayout.h"
 
 #include "glossarywindow.h"
-
+#include "stemming.h"
 
 #include <klineedit.h>
 #include <kdialog.h>
@@ -52,6 +52,7 @@
 #include <QScrollArea>
 // #include <QShortcutEvent>
 #include <QPushButton>
+
 
 
 using namespace GlossaryNS;
@@ -131,6 +132,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     QString sourceLow=source.toLower();
     QString msg=sourceLow;
     msg.remove(m_rxClean);
+    QString msgStemmed;
 
 //     QRegExp accel(Project::instance()->accel());
 //     kWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
@@ -141,41 +143,23 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //         pos=accel.pos(1);
 //     }
 
-    QStringList words=msg.split(m_rxSplit,QString::SkipEmptyParts);
-    if (words.isEmpty())
-    {
-        if (m_hasInfo)
-        {
-            m_flowLayout->clearTerms();
-            m_hasInfo=false;
-            setWindowTitle(m_normTitle);
-        }
-        return;
-    }
-
     QList<int> termIndexes;
-    int i=0;
-    for (;i<words.size();++i)
+    foreach (QString word, msg.split(m_rxSplit,QString::SkipEmptyParts))
     {
-        if (glossary.wordHash.contains(words.at(i))
+        word=stem(Project::instance()->sourceLangCode(),word);
+        if (glossary.wordHash.contains(word)
             // && MULTI hash!! instead, we generate QSet later
-            // !termIndexes.contains(glossary.wordHash.value(words.at(i)))
+            // !termIndexes.contains(glossary.wordHash.value(word))
            )
         {
-            //kWarning()<<"found entry for:" <<words.at(i);
-            termIndexes+=glossary.wordHash.values(words.at(i));
+            //kWarning()<<"found entry for:" <<word;
+            termIndexes+=glossary.wordHash.values(word);
         }
+        msgStemmed+=word+' ';
     }
     if (termIndexes.isEmpty())
-    {
-        if (m_hasInfo)
-        {
-            m_flowLayout->clearTerms();
-            m_hasInfo=false;
-            setWindowTitle(m_normTitle);
-        }
-        return;
-    }
+        return clear();
+
     // we found entries that contain words from msgid
     setUpdatesEnabled(false);
 
@@ -184,36 +168,35 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     bool found=false;
     //m_flowLayout->setEnabled(false);
-    QSet<int> termIndexesSet(termIndexes.toSet());
-    QSet<int>::const_iterator it = termIndexesSet.constBegin();
-    while (it != termIndexesSet.constEnd())
+    foreach (int termIndex, termIndexes.toSet())
     {
         // now check which of them are really hits...
-        foreach (const QString& enTerm, glossary.termList.at(*it).english)
+        foreach (const QString& enTerm, glossary.termList.at(termIndex).english)
         {
             // ...and if so, which part of termEn list we must thank for match ...
-            if (msg.contains(enTerm))//,//Qt::CaseInsensitive  //we lowered terms on load 
+            bool ok=msg.contains(enTerm);//,//Qt::CaseInsensitive  //we lowered terms on load 
+            if (!ok)
+            {
+                QString enTermStemmed;
+                foreach (const QString& word, enTerm.split(m_rxSplit,QString::SkipEmptyParts))
+                    enTermStemmed+=stem(Project::instance()->sourceLangCode(),word)+' ';
+                ok=msgStemmed.contains(enTermStemmed);
+            }
+            if (ok)
             {
                 //insert it into label
                 found=true;
                 int pos=sourceLow.indexOf(enTerm);
-                m_flowLayout->addTerm(enTerm,*it,/*uppercase*/pos!=-1 && source.at(pos).isUpper());
+                m_flowLayout->addTerm(enTerm,termIndex,/*uppercase*/pos!=-1 && source.at(pos).isUpper());
                 break;
             }
         }
-        ++it;
     }
     //m_flowLayout->setEnabled(true);
 
-    if (found)
-    {
-        if (!m_hasInfo)
-        {
-            m_hasInfo=true;
-            setWindowTitle(m_hasInfoTitle);
-        }
-    }
-    else if (m_hasInfo)
+    if (!found)
+        clear();
+    else if (!m_hasInfo)
     {
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
@@ -223,6 +206,14 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     kWarning()<<"ELA "<<time.elapsed();
 }
 
-
+void GlossaryView::clear()
+{
+    if (m_hasInfo)
+    {
+        m_flowLayout->clearTerms();
+        m_hasInfo=false;
+        setWindowTitle(m_normTitle);
+    }
+}
 
 #include "glossaryview.moc"

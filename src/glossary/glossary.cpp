@@ -21,8 +21,9 @@
 
 **************************************************************************** */
 
-#include <glossary.h>
+#include "glossary.h"
 
+#include "stemming.h"
 #include "tbxparser.h"
 #include "project.h"
 #include "prefs_lokalize.h"
@@ -453,6 +454,24 @@ QVariant GlossaryModel::data(const QModelIndex& index,int role) const
     return QVariant();
 }
 
+QModelIndex GlossaryModel::index (int row,int column,const QModelIndex& /*parent*/) const
+{
+    return createIndex (row, column);
+}
+
+int GlossaryModel::columnCount(const QModelIndex&) const
+{
+    return GlossaryModelColumnCount;
+}
+
+Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
+{
+/*    if (index.column()==FuzzyFlag)
+        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;*/
+    return QAbstractItemModel::flags(index);
+}
+
+
 //END MODEL general (GlossaryModel continues below)
 
 //BEGIN EDITING
@@ -505,32 +524,20 @@ QString Glossary::generateNewId()
 void Glossary::hashTermEntry(int index)
 {
     Q_ASSERT(index<termList.size());
-    int i=termList.at(index).english.size();
-    while(--i>=0)
+    foreach(const QString& term, termList.at(index).english)
     {
-        QStringList words=termList.at(index).english.at(i).split(' ',QString::SkipEmptyParts);
-        if (KDE_ISLIKELY( !words.isEmpty()) )
-        {
-            int j=words.size();
-            while(--j>=0)
-                wordHash.insert(words.at(j),index);
-        }
+        foreach(QString word, term.split(' ',QString::SkipEmptyParts))
+            wordHash.insert(stem(Project::instance()->sourceLangCode(),word),index);
     }
 }
 
 void Glossary::unhashTermEntry(int index)
 {
     Q_ASSERT(index<termList.size());
-    int i=termList.at(index).english.size();
-    while(--i>=0)
+    foreach(const QString& term, termList.at(index).english)
     {
-        QStringList words=termList.at(index).english.at(i).split(' ',QString::SkipEmptyParts);
-        if (KDE_ISLIKELY( !words.isEmpty() ))
-        {
-            int j=words.size();
-            while(--j>=0)
-                wordHash.remove(words.at(j),index);
-        }
+        foreach(QString word, term.split(' ',QString::SkipEmptyParts))
+            wordHash.remove(stem(Project::instance()->sourceLangCode(),word),index);
     }
 }
 
@@ -566,6 +573,18 @@ void Glossary::append(const QString& _english,const QString& _target)
 
     emit changed();
 }
+
+void Glossary::clear()
+{
+    wordHash.clear();
+    termList.clear();
+    subjectFields=QStringList(QLatin1String(""));
+    //path.clear();
+    changedIds.clear();
+    removedIds.clear();
+    addedIds.clear();
+}
+
 
 bool GlossaryModel::removeRows(int row,int count,const QModelIndex& parent)
 {

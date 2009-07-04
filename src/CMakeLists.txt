@@ -1,4 +1,7 @@
 project(lokalize)
+
+find_package(HUNSPELL REQUIRED)
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
     ${CMAKE_CURRENT_SOURCE_DIR}/common
@@ -38,6 +41,7 @@ set(lokalize_SRCS
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
+    common/stemming.cpp
     common/flowlayout.cpp
     common/termlabel.cpp
     common/languagelistmodel.cpp
@@ -133,6 +137,7 @@ target_link_libraries(lokalize
     ${KDE4_KDEUI_LIBS}
     ${KDE4_THREADWEAVER_LIBRARY}
     ${QT_QTSQL_LIBRARY}
+    ${HUNSPELL_LIBRARIES}
 )
 
 install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )

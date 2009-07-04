@@ -591,12 +591,12 @@ void updateHeader(QString& header,
             ait = foundAuthors.end();
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
             {
-                if ( it->indexOf( QRegExp(
+                if ( it->contains( QRegExp(
                                       QRegExp::escape( Settings::authorName() )+".*"
-                                      + QRegExp::escape( Settings::authorEmail() ) ) ) != -1 )
+                                      + QRegExp::escape( Settings::authorEmail() ) ) )  )
                 {
                     foundAuthor = true;
-                    if ( it->indexOf( cy ) != -1 )
+                    if ( it->contains( cy ) )
                         found = true;
                     else
                         ait = it;
@@ -624,10 +624,8 @@ void updateHeader(QString& header,
             foundAuthors.append(temp);
 
 
-        for (ait=foundAuthors.begin();ait!=foundAuthors.end();++ait)
+        foreach (QString s, foundAuthors)
         {
-            QString s = (*ait);
-
             // ensure dot at the end of copyright
             if ( !s.endsWith('.') ) s += '.';
             commentList.append(s);

@@ -26,7 +26,7 @@
 
 #include <QStringList>
 #include <QMultiHash>
-#include <QAbstractItemModel>
+#include <QAbstractListModel>
 #include <QList>
 /**
  * Classes for TBX Glossary handling
@@ -57,15 +57,15 @@ struct TermEntry
               int _subjectField,
               const QString& _id=QString()
              )
-    : english(_english)
-    , target(_target)
-    , definition(_definition)
-    , subjectField(_subjectField)
-    , id(_id)
+        : english(_english)
+        , target(_target)
+        , definition(_definition)
+        , subjectField(_subjectField)
+        , id(_id)
     {}
 
     TermEntry()
-    : subjectField(0)
+        : subjectField(0)
     {}
 
     void clear()
@@ -94,7 +94,7 @@ class Glossary: public QObject
 public:
     QMultiHash<QString,int> wordHash;
     QList<TermEntry> termList;
-    QStringList subjectFields;//frist entry is always empty!
+    QStringList subjectFields;//first entry should be empty
 
     QString path;
 
@@ -108,27 +108,13 @@ public:
      , subjectFields(QStringList(QLatin1String("")))
     {}
 
-    ~Glossary()
-    {}
+    ~Glossary(){}
 
-    void clear()
-    {
-        wordHash.clear();
-        termList.clear();
-        subjectFields=QStringList(QLatin1String(""));
-//        path.clear();
-        changedIds.clear();
-        removedIds.clear();
-        addedIds.clear();
-    }
+    void clear();
 
     //disk
     void load(const QString&);
     void save();
-
-    //legacy
-    void add(const TermEntry&);
-    void change(const TermEntry&);
 
     //in-memory changing
     QString generateNewId();
@@ -149,7 +135,7 @@ signals:
 /**
  * @short MVC wrapper around Glossary
  */
-class GlossaryModel: public QAbstractItemModel
+class GlossaryModel: public QAbstractListModel
 {
     //Q_OBJECT
 public:
@@ -164,10 +150,9 @@ public:
     };
 
     GlossaryModel(QObject* parent/*, Glossary* glossary*/);
-    ~GlossaryModel();
+    ~GlossaryModel(){}
 
     QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    QModelIndex parent(const QModelIndex&) const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
@@ -186,48 +171,12 @@ public:
 
 
 
-
 inline
 GlossaryModel::GlossaryModel(QObject* parent)
- : QAbstractItemModel(parent)
+ : QAbstractListModel(parent)
 {
 }
 
-inline
-GlossaryModel::~GlossaryModel()
-{
-}
-
-inline
-QModelIndex GlossaryModel::index (int row,int column,const QModelIndex& /*parent*/) const
-{
-    return createIndex (row, column);
-}
-
-inline
-QModelIndex GlossaryModel::parent(const QModelIndex& /*index*/) const
-{
-    return QModelIndex();
-}
-
-inline
-int GlossaryModel::columnCount(const QModelIndex& parent) const
-{
-    if (parent.isValid())
-        return 0;
-    return GlossaryModelColumnCount;
-//     if (parent==QModelIndex())
-//         return CatalogModelColumnCount;
-//     return 0;
-}
-
-inline
-Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
-{
-/*    if (index.column()==FuzzyFlag)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;*/
-    return QAbstractItemModel::flags(index);
-}
 
 inline
 void GlossaryModel::forceReset()

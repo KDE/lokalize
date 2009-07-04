@@ -48,7 +48,7 @@ class GlossaryView: public QDockWidget
 
 public:
     GlossaryView(QWidget*,Catalog*,const QVector<KAction*>&);
-    virtual ~GlossaryView();
+    ~GlossaryView();
 
 
 //     void dragEnterEvent(QDragEnterEvent* event);
@@ -60,6 +60,9 @@ public slots:
 
 signals:
     void termInsertRequested(const QString&);
+
+private:
+    void clear();
 
 private:
     QScrollArea* m_browser;
