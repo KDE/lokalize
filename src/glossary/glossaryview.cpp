@@ -121,9 +121,8 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     if (pos.entry==-1 || m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
-    //kWarning()<<"m_catalog->numberOfEntries()"<<m_catalog->numberOfEntries()<<entry;
-//     if (!toggleViewAction()->isChecked())
-//         return;
+    //if (!toggleViewAction()->isChecked())
+    //  return;
 
     Glossary& glossary=*m_glossary;
 
