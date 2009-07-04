@@ -107,7 +107,7 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
                                   "<p>This part of the window shows the original message\n"
                                   "of the currently displayed entry.</p></qt>"));
 
-    connect (_msgidEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
+    connect (_msgstrEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
     connect (_msgstrEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
     connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), _msgstrEdit, SLOT(reflectApprovementState()));
     connect (_msgidEdit, SIGNAL(tagInsertRequested(InlineTag)), _msgstrEdit, SLOT(insertTag(InlineTag)));

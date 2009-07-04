@@ -45,9 +45,10 @@ public:
 
     void gotoEntry(const DocPosition&, int selection=0);
     void addNote(DocPosition, const QString& text);
-
 public slots:
+    void removeErrorNotes();
     void cleanup();
+
 private slots:
     void process();
     void anchorClicked(const QUrl& link);
