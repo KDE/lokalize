@@ -1302,6 +1302,8 @@ QString EditorTab::entryTarget(int entry, int form){return m_catalog->targetWith
 int EditorTab::entryPluralFormCount(int entry){return m_catalog->isPlural(entry)?m_catalog->numberOfPluralForms():1;}
 bool EditorTab::entryReady(int entry){return m_catalog->isApproved(entry);}
 void EditorTab::addEntryNote(int entry, const QString& note){m_notesView->addNote(entry, note);}
+void EditorTab::addTemporaryEntryNote(int entry, const QString& note){m_notesView->addTemporaryEntryNote(entry, note);}
+
 void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransView->attachAltTransFile(path);}
 
 //END DBus interface

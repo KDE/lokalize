@@ -147,6 +147,7 @@ public slots:
     Q_SCRIPTABLE int entryPluralFormCount(int entry);
     Q_SCRIPTABLE bool entryReady(int entry);
     Q_SCRIPTABLE void addEntryNote(int entry, const QString& note);
+    Q_SCRIPTABLE void addTemporaryEntryNote(int entry, const QString& note);
 
 
     Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
