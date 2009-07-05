@@ -175,13 +175,13 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 
 void Project::populateDirModel()
 {
-    if (KDE_ISUNLIKELY( !m_model || m_path.isEmpty() ))
+    if (KDE_ISUNLIKELY( !m_model || m_path.isEmpty() || !QFile::exists(poDir()) ))
         return;
 
-    if (QFile::exists(poDir()) && QFile::exists(potDir()))
-        m_model->setUrl(KUrl(poDir()), KUrl(potDir()));
-    else if (QFile::exists(poDir()))
-        m_model->setUrl(KUrl(poDir()), KUrl());
+    KUrl potUrl;
+    if (QFile::exists(potDir()))
+        potUrl=KUrl::fromLocalFile(potDir());
+    m_model->setUrl(KUrl(poDir()), potUrl);
 }
 
 void Project::populateGlossary()

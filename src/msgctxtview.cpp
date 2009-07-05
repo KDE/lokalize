@@ -72,6 +72,7 @@ MsgCtxtView::~MsgCtxtView()
 void MsgCtxtView::cleanup()
 {
     m_unfinishedNotes.clear();
+    m_tempNotes.clear();
 }
 
 void MsgCtxtView::gotoEntry(const DocPosition& pos, int selection)
@@ -102,6 +103,14 @@ void MsgCtxtView::process()
 
     m_prevEntry=m_entry;
     m_browser->clear();
+
+    if (m_tempNotes.contains(m_entry.entry))
+    {
+        QString html;
+        foreach(const QString& note, m_tempNotes.values(m_entry.entry))
+            html+=note+"<br>";
+        m_browser->insertHtml(html);
+    }
 
     QString phaseName=m_catalog->phase(m_entry.toDocPosition());
     if (!phaseName.isEmpty())
@@ -204,6 +213,12 @@ void MsgCtxtView::addNote(DocPosition p, const QString& text)
     p.form=-1;
     m_catalog->push(new SetNoteCmd(m_catalog,p,Note(text)));
     if (m_entry.entry==p.entry) {m_prevEntry.entry=-1; process();}
+}
+
+void MsgCtxtView::addTemporaryEntryNote(int entry, const QString& text)
+{
+    m_tempNotes.insertMulti(entry,text);
+    m_prevEntry.entry=-1; process();
 }
 
 void MsgCtxtView::removeErrorNotes()
