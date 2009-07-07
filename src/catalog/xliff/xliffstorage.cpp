@@ -732,22 +732,22 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
     QDomElement elem = unitForPos(pos.entry).firstChildElement("context-group");
     while (!elem.isNull())
     {
-        if (!elem.attribute("purpose").contains("location"))
-            continue;
-
-        QDomElement context = elem.firstChildElement("context");
-        while (!context.isNull())
+        if (elem.attribute("purpose").contains("location"))
         {
-            QString sourcefile;
-            QString linenumber;
-            if (context.attribute("context-type")=="sourcefile")
-                sourcefile=context.text();
-            else if (context.attribute("context-type")=="linenumber")
-                linenumber=context.text();
-            if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
-                result.append(sourcefile+':'+linenumber);
+            QDomElement context = elem.firstChildElement("context");
+            while (!context.isNull())
+            {
+                QString sourcefile;
+                QString linenumber;
+                if (context.attribute("context-type")=="sourcefile")
+                    sourcefile=context.text();
+                else if (context.attribute("context-type")=="linenumber")
+                    linenumber=context.text();
+                if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
+                    result.append(sourcefile+':'+linenumber);
 
-            context=context.nextSiblingElement("context");
+                context=context.nextSiblingElement("context");
+            }
         }
 
         elem=elem.nextSiblingElement("context-group");
@@ -970,6 +970,8 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 TargetState XliffStorage::state(const DocPosition& pos) const
 {
     QDomElement target=targetForPos(pos.entry);
+    if (!target.hasAttribute("state") && unitForPos(pos.entry).attribute("approved")=="yes")
+        return SignedOff;
     return stringToState(target.attribute("state"));
 }
 
