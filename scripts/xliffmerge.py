@@ -72,14 +72,6 @@ def getDocUnitsList(path):
 (templateDoc, templateUnits, templateUnitsList)=getDocUnitsList(options.templateFile)
 (oldDoc, oldUnits, oldUnitsList)=getDocUnitsList(options.oldFile)
 
-if 0:
-    file=QFile('test_notmerged.xlf')
-    file.open(QIODevice.WriteOnly)
-    stream=QTextStream(file)
-    oldDoc.save(stream,2);
-    stream.flush()
-    file.close()
-
 
 freezedOldUnits=[]
 for i in range(oldUnits.size()):
@@ -263,19 +255,34 @@ def merge(C, X, Y, i, j):
             #nonRecentlyRemoved=[x for x in removedUnits if x not in globals()['recentlyRemoved']]
             maxUnits=[]
             newUnitText=newUnit.firstChildElement("source").text()
-            #for remNode in [freezedOldUnits[x] for x in removedUnits]:
+            newUnitWords=newUnitText.split(' ')
+
+            maxScore=0
+            scores={}
             for x in removedUnits:
                 remNode=freezedOldUnits[x]
                 remNodeText=remNode.firstChildElement("source").text()
+                commonWordLen=lcs_length(newUnitWords,remNodeText.split(' '))
+                if (commonWordLen+1)<0.5*len(newUnitWords):
+                    scores[x]=0
+                    continue
                 commonLen=lcs_length(newUnitText,remNodeText)
                 remLen=newUnitText.size()-commonLen
                 addLen=remNodeText.size()-commonLen
 
-                score=99*math.exp(0.2*math.log(1.0*commonLen/newUnitText.size())) / (math.exp(0.015*addLen)*math.exp(0.01*remLen))
+                if commonLen==0: score=0
+                else: score=99*math.exp(0.2*math.log(1.0*commonLen/newUnitText.size())) / (math.exp(0.015*addLen)*math.exp(0.01*remLen))
+                scores[x]=score
+                if maxScore<score:maxScore=score
 
-                if score<60: continue
-                maxUnits.append((score+1*(x in globals()['recentlyRemoved']), remNode))
+            if maxScore<80: return
 
+            for x in removedUnits:
+                if scores[x]==maxScore:
+                    remNode=freezedOldUnits[x]
+                    maxUnits.append((score+1*(x in globals()['recentlyRemoved']), remNode))
+
+                
             def count_compare_inverted(x, y): return int(y[0]-x[0])
             maxUnits.sort(count_compare_inverted)
 
