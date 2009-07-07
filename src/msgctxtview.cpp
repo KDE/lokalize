@@ -106,10 +106,12 @@ void MsgCtxtView::process()
 
     if (m_tempNotes.contains(m_entry.entry))
     {
-        QString html;
+        QString html=i18nc("@info notes to translation unit which expire when the catalog is closed", "<b>Temporary notes:</b>");
+        html+="<br>";
         foreach(const QString& note, m_tempNotes.values(m_entry.entry))
-            html+=note+"<br>";
-        m_browser->insertHtml(html);
+            html+=Qt::escape(note)+"<br>";
+        html+="<br>";
+        m_browser->insertHtml(html.replace('\n',"<br>"));
     }
 
     QString phaseName=m_catalog->phase(m_entry.toDocPosition());
@@ -119,9 +121,9 @@ void MsgCtxtView::process()
         QString html=i18nc("@info translation unit metadata","<b>Phase:</b><br>");
         if (phase.date.isValid())
             html+=QString("%1: ").arg(phase.date.toString(Qt::ISODate));
-        html+=phase.process;
+        html+=Qt::escape(phase.process);
         if (!phase.contact.isEmpty())
-            html+=QString(" (%1)").arg(phase.contact);
+            html+=QString(" (%1)").arg(Qt::escape(phase.contact));
         m_browser->insertHtml(html+"<br>");
     }
 
@@ -144,11 +146,7 @@ void MsgCtxtView::process()
 
     QString msgctxt=m_catalog->msgctxt(m_entry.entry);
     if (!msgctxt.isEmpty())
-    {
-        msgctxt.replace('<',"&lt;");
-        msgctxt.replace('>',"&gt;");
-        html+=i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+msgctxt;
-    }
+        html+=i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+Qt::escape(msgctxt);
 
     QTextCursor t=m_browser->textCursor();
     t.movePosition(QTextCursor::End);
