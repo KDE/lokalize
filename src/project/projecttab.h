@@ -28,9 +28,11 @@
 
 #include <KMainWindow>
 #include <KUrl>
+
 #include <KXMLGUIClient>
 
 class ProjectWidget;
+class KLineEdit;
 class QContextMenuEvent;
 
 /**
@@ -69,12 +71,15 @@ public slots:
     //Q_SCRIPTABLE bool isShown() const;
 
 private slots:
+    void setFilterRegExp();
+    void setFocus();
     void findInFiles();
     void replaceInFiles();
     void spellcheckFiles();
 
 private:
     ProjectWidget* m_browser;
+    KLineEdit* m_lineEdit;
 
 };
 

@@ -124,7 +124,8 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 
 void CatalogView::setFilterRegExp()
 {
-    m_proxyModel->setFilterRegExp(m_lineEdit->text());
+    if (m_proxyModel->filterRegExp().pattern()!=m_lineEdit->text())
+        m_proxyModel->setFilterRegExp(m_lineEdit->text());
 }
 
 void CatalogView::slotItemActivated(const QModelIndex& idx)
