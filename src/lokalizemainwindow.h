@@ -149,7 +149,10 @@ private:
     MultiEditorAdaptor* m_multiEditorAdaptor;
     ProjectScriptingPlugin* m_projectScriptingPlugin;
 
-    QMap<KUrl, QPointer<QMdiSubWindow> > m_fileToEditor;
+    //using QPointer switches it.value() to 0 before we get to destroyed() handler
+    //typedef QMap<KUrl, QPointer<QMdiSubWindow> > FileToEditor;
+    typedef QMap<KUrl, QMdiSubWindow*> FileToEditor;
+    FileToEditor m_fileToEditor;
 };
 
 
