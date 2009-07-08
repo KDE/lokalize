@@ -267,7 +267,7 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
     connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
 
     QString fn=url.fileName();
-    QMap<KUrl, QPointer<QMdiSubWindow> >::const_iterator i = m_fileToEditor.constBegin();
+    FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd())
     {
         if (i.key().fileName()==fn)
