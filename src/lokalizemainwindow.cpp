@@ -265,7 +265,20 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
     connect(sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     connect(w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
     connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
+
+    QString fn=url.fileName();
+    QMap<KUrl, QPointer<QMdiSubWindow> >::const_iterator i = m_fileToEditor.constBegin();
+    while (i != m_fileToEditor.constEnd())
+    {
+        if (i.key().fileName()==fn)
+        {
+            static_cast<EditorTab*>(i.value()->widget())->setFullPathShown(true);
+            w->setFullPathShown(true);
+        }
+        ++i;
+    }
     m_fileToEditor.insert(w->currentUrl(),sw);
+
     sw->setAttribute(Qt::WA_DeleteOnClose,true);
     emit editorAdded();
     return w;
