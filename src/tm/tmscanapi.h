@@ -29,10 +29,12 @@
 #include <QDir>
 #include <QUrl>
 #include <QTime>
+#include <QVector>
 
 namespace ThreadWeaver{class Job;}
 
 namespace TM {
+class ScanJob;
 
 ///wrapper. returns gross number of jobs started
 int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
@@ -43,17 +45,19 @@ class RecursiveScanJob: public KJob
 {
     Q_OBJECT
 public:
-    RecursiveScanJob(const QString& dbName,QObject* parent=0)
-        : KJob(parent)
-        , m_dbName(dbName)
-        {}
-    void setCount(int count){ setTotalAmount(KJob::Files,count); }
+    RecursiveScanJob(const QString& dbName,QObject* parent=0);
+    void setJobs(const QVector<ScanJob*>& jobs);
     void start();
+
 public slots:
     void scanJobFinished(ThreadWeaver::Job*);
+protected:
+    bool doKill();
+
 private:
     QString m_dbName;
     QTime m_time;
+    QVector<ScanJob*> m_jobs;
 };
 
 }
