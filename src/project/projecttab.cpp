@@ -25,6 +25,7 @@
 #include "project.h"
 #include "projectwidget.h"
 #include "editortab.h"
+#include "tmscanapi.h"
 
 #include <klocale.h>
 #include <kaction.h>
@@ -77,36 +78,40 @@ ProjectTab::~ProjectTab()
     //kWarning()<<"destroyed";
 }
 
-
 void ProjectTab::setFocus()
 {
     m_lineEdit->setFocus();
     m_lineEdit->selectAll();
 }
 
-
 void ProjectTab::setFilterRegExp()
 {
-    if (m_browser->proxyModel()->filterRegExp().pattern()!=m_lineEdit->text())
-        m_browser->proxyModel()->setFilterRegExp(m_lineEdit->text());
-}
+    QString newPattern=m_lineEdit->text();
+    if (m_browser->proxyModel()->filterRegExp().pattern()==newPattern)
+        return;
 
+    m_browser->proxyModel()->setFilterRegExp(newPattern);
+    if (newPattern.size()>2)
+        m_browser->expandItems();
+}
 
 void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 {
-    QMenu menu;
-    QAction* openNew=0;
+    QMenu* menu=new QMenu(this);
+    connect(menu,SIGNAL(aboutToHide()),menu,SLOT(deleteLater()));
+
     if (m_browser->currentIsTranslationFile())
     {
-        openNew=menu.addAction(i18nc("@action:inmenu","Open"));
-        menu.addSeparator();
+        menu->addAction(i18nc("@action:inmenu","Open"),this,SLOT(openFile));
+        menu->addSeparator();
     }
     /*menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
     menu.addAction(i18nc("@action:inmenu","Replace in files"),this,SLOT(replaceInFiles()));
     menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,SLOT(spellcheckFiles()));
-    menu.addSeparator();*/
-    menu.addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,SLOT(expandItems()));
-    //menu.addAction(i18nc("@action:inmenu","Add to translation memory"),m_browser,SLOT(expandItems()));
+    menu.addSeparator();
+    menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,SLOT(expandItems()));
+    */
+    menu->addAction(i18nc("@action:inmenu","Add to translation memory"),this,SLOT(scanFilesToTM()));
 
 
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
@@ -117,20 +122,19 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 // 
 //     }
 
-
-    QAction* result=menu.exec(event->globalPos());
-    if (!result)
-        return;
-
-    if (result==openNew)
-        emit fileOpenRequested(m_browser->currentItem());
-            //fileOpen(m_browser->currentItem());
-       /* else if (result==openExisting)
-            Project::instance()->openInExisting(m_browser->currentItem());*/
-        //else if (result==findInFiles)
-        //      emit findInFilesRequested(m_browser->selectedItems());
+    menu->popup(event->globalPos());
 }
 
+
+void ProjectTab::scanFilesToTM()
+{
+    QList<QUrl> urls;
+    foreach(const KUrl& url, m_browser->selectedItems())
+        urls.append(url);
+    TM::scanRecursive(urls,Project::instance()->projectID());
+}
+
+void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem());}
 void ProjectTab::findInFiles()    {emit searchRequested(m_browser->selectedItems());}
 void ProjectTab::replaceInFiles() {emit replaceRequested(m_browser->selectedItems());}
 void ProjectTab::spellcheckFiles(){emit spellcheckRequested(m_browser->selectedItems());}
@@ -142,7 +146,7 @@ QStringList ProjectTab::selectedItems() const
 {
     QStringList result;
     foreach (const KUrl& url, m_browser->selectedItems())
-        result<<url.toLocalFile();
+        result.append(url.toLocalFile());
     return result;
 }
 

@@ -73,6 +73,8 @@ public slots:
 private slots:
     void setFilterRegExp();
     void setFocus();
+    void scanFilesToTM();
+    void openFile();
     void findInFiles();
     void replaceInFiles();
     void spellcheckFiles();

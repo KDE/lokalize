@@ -335,45 +335,23 @@ static void recursiveAdd(KUrl::List& list,
 KUrl::List ProjectWidget::selectedItems() const
 {
     KUrl::List list;
-    QModelIndexList sel(selectedIndexes());
-    int i=sel.size();
-    while(--i>=0)
+    foreach(const QModelIndex& item, selectedIndexes())
     {
-        if (sel.at(i).column()==0)
-            recursiveAdd(list,m_proxyModel->mapToSource(sel.at(i)));
+        if (item.column()==0)
+            recursiveAdd(list,m_proxyModel->mapToSource(item));
     }
-/*
-    i=list.size();
-    while(--i>=0)
-        kWarning()<<"'''''''''''"<<list.at(i);
-*/
+
     return list;
 }
 
-void ProjectWidget::expandItems()
+void ProjectWidget::expandItems(const QModelIndex& parent)
 {
-    QModelIndexList sel(selectedIndexes());
-    int i=sel.size();
+    const QAbstractItemModel* m=model();
+    expand(parent);
+
+    int i=m->rowCount(parent);
     while(--i>=0)
-    {
-        const KFileItem& item(Project::instance()->model()->itemForIndex(
-                                    m_proxyModel->mapToSource(sel.at(i))
-                                                                        ));
-        const KUrl& u(item.url());
-        if (item.isDir())
-        {
-            int count=Project::instance()->model()->rowCount(m_proxyModel->mapToSource(sel.at(i)));
-
-            //if(! count )
-                //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u);
-            //TODO 
-                //static_cast<ProjectLister*>(Project::instance()->model()->dirLister())->openUrlRecursive(u,true,false);
-        }
-
-        QCoreApplication::processEvents(QEventLoop::AllEvents);
-    }
-
-    //static_cast<ProjectModel*>(Project::instance()->model())->readRecursively();
+        expandItems(m->index(i,0,parent));
 }
 
 

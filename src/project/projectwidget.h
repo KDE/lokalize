@@ -46,14 +46,10 @@ public:
     void setCurrentItem(const KUrl&);
     KUrl currentItem() const;
     KUrl::List selectedItems() const;
-
     bool currentIsTranslationFile() const;
 
-
     QSortFilterProxyModel* proxyModel();
-
-public slots:
-    void expandItems();
+    void expandItems(const QModelIndex& parent=QModelIndex());
 
 signals:
     void fileOpenRequested(const KUrl&);
