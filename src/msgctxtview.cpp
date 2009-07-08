@@ -111,7 +111,7 @@ void MsgCtxtView::process()
         foreach(const QString& note, m_tempNotes.values(m_entry.entry))
             html+=Qt::escape(note)+"<br>";
         html+="<br>";
-        m_browser->insertHtml(html);
+        m_browser->insertHtml(html.replace('\n',"<br>"));
     }
 
     QString phaseName=m_catalog->phase(m_entry.toDocPosition());

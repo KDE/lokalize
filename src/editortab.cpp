@@ -692,7 +692,7 @@ void EditorTab::showDocks()
         m_transUnitsView->show();
 }
 
-void EditorTab::setProperCaption(QString title,bool modified)
+void EditorTab::setProperCaption(QString title, bool modified)
 {
     if (m_catalog->autoSaveRecovered()) title+=' '+i18nc("editor tab name","(recovered)");
     setWindowTitle(title+" [*]");
@@ -704,6 +704,7 @@ void EditorTab::setFullPathShown(bool fullPathShown)
     m_fullPathShown=fullPathShown;
 
     updateCaptionPath();
+    setModificationSign(m_catalog->isClean());
 }
 
 
@@ -718,8 +719,11 @@ void EditorTab::updateCaptionPath()
         {
             _captionPath=KUrl::relativePath(
                         KUrl(_project->path()).directory()
-                        ,url.pathOrUrl()
-                                           );
+                        ,url.toLocalFile());
+            if (_captionPath.contains("../.."))
+                _captionPath=url.toLocalFile();
+            else if (_captionPath.startsWith("./"))
+                _captionPath=_captionPath.mid(2);
         }
         else
             _captionPath=url.fileName();
@@ -784,7 +788,7 @@ bool EditorTab::fileOpen(KUrl url)
         DocPosition pos(0);
         //we delay gotoEntry(pos) until project is loaded;
 
-        _captionPath=url.pathOrUrl();
+        //_captionPath=url.pathOrUrl();
         setModificationSign(m_catalog->isClean());
 
 
