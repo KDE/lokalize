@@ -30,7 +30,7 @@ def convert():
     if odfpathname.startswith('NoName'):
         print 'translate-toolkit is too old'
         odfpathname=os.path.splitext(xliffpathname)[0]+'.odt'
-    elif not os.path.exists(odfpathname): return
+    if not os.path.exists(odfpathname): return
 
 
     translatedodfpathname=os.path.splitext(odfpathname)[0]+'-'+Project.targetLangCode()+'.odt'
