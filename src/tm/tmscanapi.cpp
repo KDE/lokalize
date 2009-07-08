@@ -33,10 +33,33 @@
 #include <threadweaver/ThreadWeaver.h>
 
 namespace TM {
-    static int doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
+    static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
 }
 
 using namespace TM;
+
+RecursiveScanJob::RecursiveScanJob(const QString& dbName,QObject* parent)
+    : KJob(parent)
+    , m_dbName(dbName)
+{
+    setCapabilities(KJob::Killable);
+}
+
+bool RecursiveScanJob::doKill()
+{
+    foreach(ScanJob* job, m_jobs)
+        ThreadWeaver::Weaver::instance()->dequeue(job);
+    return true;
+}
+
+void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
+{
+    m_jobs=jobs;
+    setTotalAmount(KJob::Files,jobs.size());
+
+    if (!jobs.size())
+        kill(KJob::EmitResult);
+}
 
 void RecursiveScanJob::scanJobFinished(ThreadWeaver::Job* j)
 {
@@ -70,7 +93,7 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
     KIO::getJobTracker()->registerJob(metaJob);
     metaJob->start();
 
-    int count=0;
+    QVector<ScanJob*> result;
     int i=urls.size();
     while(--i>=0)
     {
@@ -82,29 +105,25 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
             QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
             QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
             ThreadWeaver::Weaver::instance()->enqueue(job);
-            ++count;
+            result.append(job);
         }
         else
-        {
-            count+=doScanRecursive(QDir(urls.at(i).toLocalFile()),dbName,metaJob);
-        }
+            result+=doScanRecursive(QDir(urls.at(i).toLocalFile()),dbName,metaJob);
     }
-    if (count)
-        metaJob->setCount(count);
-    else
-        metaJob->kill(KJob::EmitResult);
 
-    return count;
+    metaJob->setJobs(result);
+
+    return result.size();
 }
 
 //returns gross number of jobs started
-static int TM::doScanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
+static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
 {
-    int count=0;
+    QVector<ScanJob*> result;
     QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
     int i=subDirs.size();
     while(--i>=0)
-        count+=TM::doScanRecursive(QDir(dir.filePath(subDirs.at(i))),dbName,metaJob);
+        result+=TM::doScanRecursive(QDir(dir.filePath(subDirs.at(i))),dbName,metaJob);
 
     QStringList filters=Catalog::supportedExtensions();
     i=filters.size();
@@ -112,16 +131,17 @@ static int TM::doScanRecursive(const QDir& dir, const QString& dbName,KJob* meta
         filters[i].prepend('*');
     QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
     i=files.size();
-    count+=i;
+
     while(--i>=0)
     {
         ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),dbName);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
+        result.append(job);
     }
 
-    return count;
+    return result;
 }
 
 bool TM::dragIsAcceptable(const QList<QUrl>& urls)
