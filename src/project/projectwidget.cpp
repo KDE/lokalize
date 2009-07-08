@@ -88,9 +88,13 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
             // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
         }
         else if (total == -1)
+        {
             painter->fillRect(option.rect,Qt::transparent);
+        }
         else if (total == 0)
+        {
             painter->fillRect(option.rect,QBrush(Qt::gray));
+        }
     }
     else
     {
@@ -113,26 +117,8 @@ public:
 protected:
     bool lessThan(const QModelIndex& left,
                   const QModelIndex& right) const;
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
 };
-
-
-bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
-{
-    bool result=false;
-    const QAbstractItemModel* model=sourceModel();
-    QModelIndex item=model->index(source_row,0,source_parent);
-/*
-    if (model->hasChildren(item))
-        model->fetchMore(item);
-*/
-    int i=model->rowCount(item);
-    while(--i>=0 && !result)
-        result=filterAcceptsRow(i,item);
-
-    return result || QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
-}
 
 bool SortFilterProxyModel::lessThan(const QModelIndex& left,
                                         const QModelIndex& right) const
@@ -377,6 +363,5 @@ void ProjectWidget::expandItems()
 }
 
 
-QSortFilterProxyModel* ProjectWidget::proxyModel(){return m_proxyModel;}
 
 #include "projectwidget.moc"

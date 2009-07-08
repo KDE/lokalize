@@ -31,41 +31,23 @@
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
-#include <klineedit.h>
 
 #include <QContextMenuEvent>
 #include <QMenu>
-#include <QVBoxLayout>
-#include <QShortcut>
-#include <QSortFilterProxyModel>
-
 
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
-    , m_lineEdit(new KLineEdit(this))
 
 {
     setWindowTitle(i18nc("@title:window","Project Overview"));//setCaption(i18nc("@title:window","Project"),false);
-    QWidget* w=new QWidget(this);
-    QVBoxLayout* l=new QVBoxLayout(w);
+    setCentralWidget(m_browser);
 
-    
-    m_lineEdit->setClearButtonShown(true);
-    m_lineEdit->setClickMessage(i18n("Quick search..."));
-    m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
-    connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
-    new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
-
-    l->addWidget(m_lineEdit);
-    l->addWidget(m_browser);
     connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
-
-    setCentralWidget(w);
 
     int i=6;
     while (--i>=0)
-        statusBarItems.insert(i,QString());
+        statusBarItems.insert(i,"");
 
     setXMLFile("projectmanagerui.rc",true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
@@ -75,20 +57,6 @@ ProjectTab::ProjectTab(QWidget *parent)
 ProjectTab::~ProjectTab()
 {
     //kWarning()<<"destroyed";
-}
-
-
-void ProjectTab::setFocus()
-{
-    m_lineEdit->setFocus();
-    m_lineEdit->selectAll();
-}
-
-
-void ProjectTab::setFilterRegExp()
-{
-    if (m_browser->proxyModel()->filterRegExp().pattern()!=m_lineEdit->text())
-        m_browser->proxyModel()->setFilterRegExp(m_lineEdit->text());
 }
 
 
@@ -106,7 +74,6 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,SLOT(spellcheckFiles()));
     menu.addSeparator();*/
     menu.addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,SLOT(expandItems()));
-    //menu.addAction(i18nc("@action:inmenu","Add to translation memory"),m_browser,SLOT(expandItems()));
 
 
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))

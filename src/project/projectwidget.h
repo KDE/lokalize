@@ -25,11 +25,9 @@
 #define PROJECTWIDGET_H
 
 #include <kurl.h>
-
 #include <QTreeView>
 
 class SortFilterProxyModel;
-class QSortFilterProxyModel;
 
 /**
  * This class is considered a 'view',
@@ -48,9 +46,6 @@ public:
     KUrl::List selectedItems() const;
 
     bool currentIsTranslationFile() const;
-
-
-    QSortFilterProxyModel* proxyModel();
 
 public slots:
     void expandItems();
