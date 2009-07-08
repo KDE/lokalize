@@ -52,7 +52,7 @@
         <default>#FF9999</default>
     </entry>
     <entry name="HighlightSpaces"  type="Bool">
-        <default>false</default>
+        <default>true</default>
     </entry>
 
 <!--
