@@ -52,7 +52,7 @@
         <default>#FF9999</default>
     </entry>
     <entry name="HighlightSpaces"  type="Bool">
-        <default>false</default>
+        <default>true</default>
     </entry>
 
 <!--
@@ -86,6 +86,9 @@
   </group>
   <group name="Editor">
     <entry name="AutoApprove"  type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="AutoSpellcheck"  type="Bool">
         <default>true</default>
     </entry>
   </group>
