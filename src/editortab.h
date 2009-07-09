@@ -177,6 +177,8 @@ private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
 
+    void lookupSelectionInTranslationMemory();
+
     //statusbar indication
     void numberOfFuzziesChanged();
     void numberOfUntranslatedChanged();
@@ -293,6 +295,9 @@ private:
     //END dbus
 
 signals:
+    void tmLookupRequested(DocPosition::Part, const QString&);
+    void tmLookupRequested(const QString& source, const QString& target);
+
     Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);
 
     void fileOpenRequested(const KUrl& path, const QString& str, const QString& ctxt);

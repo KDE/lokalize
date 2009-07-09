@@ -468,6 +468,23 @@ QString TMTab::dbusObjectPath()
 }
 
 
+void TMTab::lookup(QString source, QString target)
+{
+    source.remove(Project::instance()->accel());
+    target.remove(Project::instance()->accel());
+    ui_queryOptions->querySource->setText(source);
+    ui_queryOptions->queryTarget->setText(target);
+    ui_queryOptions->invertSource->setChecked(false);
+    ui_queryOptions->invertTarget->setChecked(false);
+    ui_queryOptions->substr->click();
+    performQuery();
+}
+
+// void TMTab::lookup(DocPosition::Part part, QString text)
+// {
+//     lookup(part==DocPosition::Source?text:QString(),part==DocPosition::Target?text:QString());
+// }
+
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
     text.remove(Project::instance()->accel());

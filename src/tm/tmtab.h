@@ -25,6 +25,7 @@
 #define TMTAB_H
 
 #include "lokalizesubwindowbase.h"
+#include "pos.h"
 
 #include <KMainWindow>
 #include <KXMLGUIClient>
@@ -33,6 +34,7 @@
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
 #include <QItemDelegate>
+
 
 class Ui_QueryOptions;
 class KLineEdit;
@@ -72,6 +74,8 @@ public:
 public slots:
     Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
+    Q_SCRIPTABLE void lookup(QString source, QString target);
+    //void lookup(DocPosition::Part, QString text);
 
 public slots:
     void performQuery();

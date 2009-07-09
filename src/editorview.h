@@ -95,6 +95,9 @@ signals:
     //void fileOpenRequested(KUrl);
     void binaryUnitSelectRequested(const QString& id);
     void gotoEntryRequested(const DocPosition&);
+    void tmLookupRequested(DocPosition::Part, const QString&);
+    //void tmLookupRequested(const QString& source, const QString& target);
+
 
 private slots:
     void settingsChanged();

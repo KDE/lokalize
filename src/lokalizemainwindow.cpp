@@ -265,6 +265,7 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
     connect(sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     connect(w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
     connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
+    connect(w, SIGNAL(tmLookupRequested(QString,QString)),this,SLOT(lookupInTranslationMemory(QString,QString)));
 
     QString fn=url.fileName();
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
@@ -741,13 +742,28 @@ void LokalizeMainWindow::loadProjectScripts()
     guiFactory()->addClient(m_projectScriptingPlugin);
 }
 
+int LokalizeMainWindow::lookupInTranslationMemory(DocPosition::Part part, const QString& text)
+{
+    TM::TMTab* w=showTM();
+    if (!text.isEmpty())
+        w->lookup(part==DocPosition::Source?text:QString(),part==DocPosition::Target?text:QString());
+    return w->dbusId();
+}
+
+int LokalizeMainWindow::lookupInTranslationMemory(const QString& source, const QString& target)
+{
+    TM::TMTab* w=showTM();
+    w->lookup(source, target);
+    return w->dbusId();
+}
+
+
 int LokalizeMainWindow::showTranslationMemory()
 {
     /*activateWindow();
     raise();
     show();*/
-    TM::TMTab* w=showTM();
-    return w->dbusId();
+    return lookupInTranslationMemory(DocPosition::UndefPart,QString());
 }
 
 int LokalizeMainWindow::openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt)

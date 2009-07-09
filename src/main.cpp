@@ -29,6 +29,7 @@
 #include "projectmodel.h"
 
 #include "lokalizemainwindow.h"
+#include "projecttab.h"
 
 #include "stemming.h"
 
@@ -70,6 +71,7 @@ int main(int argc, char **argv)
 
     KCmdLineOptions options;
     //options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
+    options.add("noprojectscan", ki18n( "Don't scan files of the project."));
     options.add("project <filename>", ki18n( "Load specified project."));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
@@ -86,9 +88,7 @@ int main(int argc, char **argv)
 
     // see if we are starting with session management
     if (app.isSessionRestored())
-    {
         kRestoreMainWindows<LokalizeMainWindow>();
-    }
     else
     {
         // no session.. just start up normally
@@ -108,6 +108,8 @@ int main(int argc, char **argv)
         int j=args->count();
         while (--j>=0)
             lmw->fileOpen(args->url(j));
+
+        Project::instance()->model()->setCompleteScan(args->isSet("projectscan"));
         args->clear();
     }
 
@@ -118,9 +120,15 @@ int main(int argc, char **argv)
         ThreadWeaver::Weaver::instance()->dequeue();
         Project::instance()->model()->weaver()->dequeue();
 
-        kWarning()<<"Finishing jobs...";
         Project::instance()->save();
+
+        kWarning()<<"QCoreApplication::processEvents()...";
+        QCoreApplication::processEvents();
+        QCoreApplication::sendPostedEvents(0,0);
+
+        kWarning()<<"Finishing TM jobs...";
         ThreadWeaver::Weaver::instance()->finish();
+        kWarning()<<"Finishing Project jobs...";
         Project::instance()->model()->weaver()->finish();
     }
     return code;

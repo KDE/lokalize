@@ -112,10 +112,14 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), _msgstrEdit, SLOT(reflectApprovementState()));
     connect (_msgidEdit, SIGNAL(tagInsertRequested(InlineTag)), _msgstrEdit, SLOT(insertTag(InlineTag)));
 
-    connect (_msgidEdit, SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
+    connect (_msgidEdit,  SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
     connect (_msgstrEdit, SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
-    connect (_msgidEdit, SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
+    connect (_msgidEdit,  SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
     connect (_msgstrEdit, SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
+
+    connect (_msgidEdit,  SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
+    connect (_msgstrEdit, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
+
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);

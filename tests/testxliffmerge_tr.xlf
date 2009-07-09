@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1" >
   <file original="/home/xx/Documents/test.odt" datatype="plaintext" source-language="en" >
     <header>
       <phase-group>
@@ -9,18 +9,18 @@
       <tool tool-id="lokalize-1.0" tool-name="Lokalize" tool-version="1.0" />
     </header>
     <body>
-      <trans-unit id="000">
+      <trans-unit id="000" >
         <source>test symbols &#xd;</source>
       </trans-unit>
-      <trans-unit id="001" approved="yes">
+      <trans-unit id="001" approved="yes" >
         <source>test changing ids of <g id="20" >inlined markup</g>. And <g id="5" >one more</g>.</source>
-        <target>xxtest changing ids of <g id="20" >inlined markup</g>. And <g id="5" >one more</g>.xx</target>
+        <target phase-name="translation-1" state="translated" >xxtest changing ids of <g id="20" >inlined markup</g>. And <g id="5" >one more</g>.xx</target>
       </trans-unit>
-      <trans-unit id="002" approved="yes">
+      <trans-unit id="002" approved="yes" >
         <source>test changing ids of units themseves.</source>
         <target>xxtest changing ids of units themseves.xx</target>
       </trans-unit>
-      <trans-unit id="003" approved="yes">
+      <trans-unit id="003" approved="yes" >
         <source>test changing the text 1.</source>
         <target>xxtest changing the text 1.xx</target>
       </trans-unit>
@@ -33,11 +33,11 @@
       </trans-unit>
       <trans-unit id="005" >
         <source>test <g id="10" >removing</g> <g id="11" >some</g> <g id="12" >tags</g>.</source>
-        <target>xxtest <g id="10" >removing</g> <g id="11" >some</g> <g id="12" >tags</g>.xx</target>
+        <target state="final">xxtest <g id="10" >removing</g> <g id="11" >some</g> <g id="12" >tags</g>.xx</target>
       </trans-unit>
       <trans-unit id="006" >
-        <source>test <g id="10">adding</g> attributes.</source>
-        <target>xxtest <g id="10">adding</g> attributes.xx</target>
+        <source>test <g id="10" >adding</g> attributes.</source>
+        <target state="final">xxtest <g id="10" >adding</g> attributes.xx</target>
       </trans-unit>
       <trans-unit id="007" >
         <source>test preserving alt-trans.</source>
@@ -62,13 +62,13 @@
           <target xml:lang="fr" >un test expression</target>
         </alt-trans>
       </trans-unit>
-      <trans-unit id="009" approved="yes">
+      <trans-unit id="009" approved="yes" >
         <source>test text removal.</source>
         <target>xxtest text removal.xx</target>
       </trans-unit>
       <trans-unit id="010" >
-        <source>test <g id="7">inline</g> position change.</source>
-        <target phase-name="translation-1" state="final" >test <g id="7">inline</g> position change.</target>
+        <source>test <g id="7" >inline</g> position change.</source>
+        <target phase-name="translation-1" state="final" >test <g id="7" >inline</g> position change.</target>
       </trans-unit>
       <trans-unit id="mrkmrk" >
         <source><mrk mtype="seg" >mrk preserving test: seg1</mrk><mrk mtype="seg" >seg2</mrk></source>

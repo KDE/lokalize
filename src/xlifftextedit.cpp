@@ -891,6 +891,13 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
             return;
         }
     }
+    if (textCursor().hasSelection())
+    {
+        QMenu menu;
+        QAction* lookup=menu.addAction(i18nc("@action:inmenu","Lookup selected text in translation memory"));
+        if (menu.exec(event->globalPos()))
+            emit tmLookupRequested(m_part,textCursor().selectedText());
+    }
 
 //     QMenu menu;
 //     QAction* spellchecking=menu.addAction();

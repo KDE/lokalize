@@ -119,6 +119,7 @@ public:
 
 
     ThreadWeaver::Weaver* weaver(){return m_weaver;}
+    void setCompleteScan(bool enable){m_completeScan=enable;}
 
 private slots:
     void po_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
@@ -177,6 +178,8 @@ private:
     ProjectNode* m_activeNode;
 
     ThreadWeaver::Weaver* m_weaver;
+
+    bool m_completeScan;
 };
 
 

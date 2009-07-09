@@ -55,6 +55,7 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_activeJob(NULL)
     , m_activeNode(NULL)
     , m_weaver(new ThreadWeaver::Weaver())
+    , m_completeScan(true)
 {
     m_weaver->setMaximumNumberOfThreads(1);
 
@@ -963,6 +964,9 @@ void ProjectModel::deleteSubtree(ProjectNode* node)
 
 void ProjectModel::startNewMetadataJob()
 {
+    if (!m_completeScan) //hack for debugging
+        return;
+
     m_activeJob = NULL;
     m_activeNode = NULL;
 

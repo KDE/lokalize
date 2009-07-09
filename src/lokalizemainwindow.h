@@ -24,6 +24,8 @@
 #ifndef LOKALIZEMAINWINDOW_H
 #define LOKALIZEMAINWINDOW_H
 
+#include "pos.h"
+
 #include <kxmlguiwindow.h>
 #include <kurl.h>
 #include <kconfiggroup.h>
@@ -93,6 +95,8 @@ public slots:
      */
     Q_SCRIPTABLE int openFileInEditor(const QString& path);
     Q_SCRIPTABLE int openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt);
+    int lookupInTranslationMemory(DocPosition::Part part, const QString& text);
+    Q_SCRIPTABLE int lookupInTranslationMemory(const QString& source, const QString& target);
     Q_SCRIPTABLE int showTranslationMemory();
     Q_SCRIPTABLE void showProjectOverview();
     Q_SCRIPTABLE QObject* projectOverview();

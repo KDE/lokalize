@@ -127,8 +127,8 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
     connect(m_view->tabBar(),SIGNAL(currentChanged(int)),this,SLOT(switchForm(int)));
 
-
-    connect(m_view,SIGNAL(gotoEntryRequested(DocPosition)),this,SLOT(gotoEntry(DocPosition)));
+    connect(m_view, SIGNAL(gotoEntryRequested(DocPosition)),this,SLOT(gotoEntry(DocPosition)));
+    connect(m_view, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SLOT(lookupSelectionInTranslationMemory()));
 
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
@@ -1269,6 +1269,7 @@ void EditorTab::reloadFile()
         mergeOpen(mergeFile);
 }
 
+
 //BEGIN DBus interface
 #include "editoradaptor.h"
 QList<int> EditorTab::ids;
@@ -1295,6 +1296,8 @@ QByteArray EditorTab::currentFileContents(){return m_catalog->contents();}
 QString EditorTab::currentEntryId(){return m_catalog->id(m_currentPos);}
 QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}
 QString EditorTab::selectionInSource(){return m_view->selectionInSource();}
+
+void EditorTab::lookupSelectionInTranslationMemory(){emit tmLookupRequested(selectionInSource(),selectionInTarget());}
 
 
 void EditorTab::setEntryFilteredOut(int entry, bool filteredOut){m_transUnitsView->setEntryFilteredOut(entry, filteredOut);}

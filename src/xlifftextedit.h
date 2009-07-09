@@ -99,6 +99,7 @@ signals:
     void tagInsertRequested(const InlineTag& tag);
 
     void binaryUnitSelectRequested(const QString&);
+    void tmLookupRequested(DocPosition::Part,const QString&);
 
     void contentsModified(const DocPosition&);
     void approvedEntryDisplayed();
