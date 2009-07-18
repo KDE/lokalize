@@ -227,6 +227,14 @@ QVector<Note> Catalog::notes(const DocPosition& pos) const
     return m_storage->notes(pos);
 }
 
+QVector<Note> Catalog::developerNotes(const DocPosition& pos) const
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return QVector<Note>();
+
+    return m_storage->developerNotes(pos);
+}
+
 Note Catalog::setNote(const DocPosition& pos, const Note& note)
 {
     if (KDE_ISUNLIKELY( !m_storage ))

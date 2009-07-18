@@ -78,6 +78,11 @@ ProjectTab::~ProjectTab()
     //kWarning()<<"destroyed";
 }
 
+KUrl ProjectTab::currentUrl()
+{
+    return KUrl::fromLocalFile(Project::instance()->projectDir());
+}
+
 void ProjectTab::setFocus()
 {
     m_lineEdit->setFocus();

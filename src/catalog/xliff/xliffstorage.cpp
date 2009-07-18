@@ -613,7 +613,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
         };
         QString typeStr=elem.attribute("alttranstype");
         int i=-1;
-        while (++i<sizeof(types) && types[i]!=typeStr)
+        while (++i<int(sizeof(types)) && types[i]!=typeStr)
             ;
         aTrans.type=AltTrans::Type(i);
 
@@ -785,6 +785,12 @@ QVector<Note> XliffStorage::notes(const DocPosition& pos) const
     }
     qSort(result);
     return result.toVector();
+}
+
+QVector<Note> XliffStorage::developerNotes(const DocPosition& pos) const
+{
+    //TODO
+    return QVector<Note>();
 }
 
 Note XliffStorage::setNote(DocPosition pos, const Note& note)

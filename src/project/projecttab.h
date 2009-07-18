@@ -53,6 +53,7 @@ public:
     void hideDocks(){};
     void showDocks(){};
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    KUrl currentUrl();
 
 signals:
     void fileOpenRequested(const KUrl&);

@@ -494,7 +494,7 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     ui_queryOptions->invertTarget->setChecked(false);
     if (!package.isEmpty()) package='*'+package+'*';
     ui_queryOptions->filemask->setText(package);
-    ui_queryOptions->glob->setChecked(true);
+    ui_queryOptions->glob->click();
     performQuery();
 
     if (m_model->rowCount()==0)

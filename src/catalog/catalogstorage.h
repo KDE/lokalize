@@ -87,7 +87,7 @@ public:
     virtual QVector<Note> notes(const DocPosition& pos) const=0;
     virtual Note setNote(DocPosition pos, const Note& note)=0;
     virtual QStringList noteAuthors() const{return QStringList();}
-
+    virtual QVector<Note> developerNotes(const DocPosition& pos) const=0;
     virtual QStringList sourceFiles(const DocPosition& pos) const=0;
 
     virtual QString setPhase(const DocPosition& pos, const QString& phase){return QString();}

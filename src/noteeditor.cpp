@@ -138,7 +138,7 @@ int displayNotes(KTextBrowser* browser, const QVector<Note>& notes, int active, 
 
             if (i==active)
                 realOffset=t.position();
-            QString content=note.content;
+            QString content=Qt::escape(note.content);
             if (!multiple && content.contains('\n')) content+='\n';
             content.replace('\n',"<br />");
             content+=QString(" (<a href=\"note:/%1\">").arg(i)+i18nc("link to edit note","edit...")+"</a>)<br />";
