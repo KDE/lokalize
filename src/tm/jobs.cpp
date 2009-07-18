@@ -819,11 +819,12 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     , m_dbName(name)
     , m_setParams(false)
 {
+    kWarning()<<"here";
 }
 
 OpenDBJob::~OpenDBJob()
 {
-    //kWarning() <<"OpenDBJob dtor";
+    kWarning()<<"here";
 }
 
 void OpenDBJob::run()
@@ -853,11 +854,12 @@ CloseDBJob::CloseDBJob(const QString& name, QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_dbName(name)
 {
+    kWarning()<<"here";
 }
 
 CloseDBJob::~CloseDBJob()
 {
-//     kWarning() <<"CloseDBJob dtor";
+    kWarning()<<"here";
 }
 
 void CloseDBJob::run ()
@@ -914,12 +916,12 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
-    //kWarning() <<"created";
+    kWarning()<<"here";
 }
 
 SelectJob::~SelectJob()
 {
-    //kWarning() <<"dtor";
+    kWarning()<<"here";
 }
 
 void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
@@ -1097,10 +1099,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     //<<pow(float(addLen*addSubStrCount),0.2)<<" "
                     //<<endl;
 
-                    float score=9500*(pow(float(commonLen)/float(allLen),0.20f))//this was < 1 so we have increased it
+                    float score=9500*(pow(float(commonLen)/float(allLen),0.15f))//this was < 1 so we have increased it
                             //this was > 1 so we have decreased it, and increased result:
-                                    / exp(0.015*float(addLen))
-                                    / exp(0.025*float(addSubStrCount));
+                                    / exp(0.015*float(addLen)*log10(3+addSubStrCount));
 
                     if (delLen)
                     {
@@ -1108,8 +1109,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                         //<<pow(float(delLen*delSubStrCount),0.1)<<" "
                         //<<endl;
 
-                        float a=exp(0.01*float(delLen))
-                                * exp(0.015*float(delSubStrCount));
+                        float a=exp(0.01*float(delLen)*log10(3+delSubStrCount));
 
                         if (a!=0.0)
                             score/=a;
@@ -1120,9 +1120,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 else//==to adapt, only deletion is needed
                 {
                     //kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
-                    float score=9900*(pow(float(commonLen)/float(allLen),0.20f))
-                            / exp(0.01*float(delLen))
-                            / exp(0.015*float(delSubStrCount));
+                    float score=9900*(pow(float(commonLen)/float(allLen),0.15f))
+                            / exp(0.01*float(delLen)*log10(3+delSubStrCount));
                     e.score=(int)score;
                 }
             }
