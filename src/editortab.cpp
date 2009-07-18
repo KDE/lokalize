@@ -749,9 +749,10 @@ bool EditorTab::fileOpen(KUrl url)
     KUrl saidUrl;
     if (url.isEmpty())
     {
-        //Project::instance()->model()->weaver()->suspend();
+        //Prevent crashes
+        Project::instance()->model()->weaver()->suspend();
         url=KFileDialog::getOpenFileName(m_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
-        //Project::instance()->model()->weaver()->resume();
+        Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
