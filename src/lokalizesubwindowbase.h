@@ -29,6 +29,7 @@
 #include <KMainWindow>
 #include <KXMLGUIClient>
 
+#include <kurl.h>
 #include "actionproxy.h"
 
 
@@ -47,6 +48,8 @@ public:
     virtual void hideDocks()=0;
     virtual void showDocks()=0;
     //bool queryClose();
+
+    virtual KUrl currentUrl(){return KUrl();}
 
 signals:
     void aboutToBeClosed();

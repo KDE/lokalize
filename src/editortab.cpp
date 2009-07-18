@@ -731,7 +731,7 @@ void EditorTab::updateCaptionPath()
 
 }
 
-bool EditorTab::fileOpen(KUrl url)
+bool EditorTab::fileOpen(KUrl url, KUrl baseUrl)
 {
     if (!m_catalog->isClean())
     {
@@ -745,13 +745,16 @@ bool EditorTab::fileOpen(KUrl url)
         case KMessageBox::Cancel:               return false;
         }
     }
+    if (baseUrl.isEmpty())
+        baseUrl=m_catalog->url();
 
     KUrl saidUrl;
     if (url.isEmpty())
     {
-        //Project::instance()->model()->weaver()->suspend();
-        url=KFileDialog::getOpenFileName(m_catalog->url(), "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
-        //Project::instance()->model()->weaver()->resume();
+        //Prevent crashes
+        Project::instance()->model()->weaver()->suspend();
+        url=KFileDialog::getOpenFileName(baseUrl, "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
+        Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
