@@ -104,6 +104,7 @@ public slots: //DBus interface
      */
     Note setNote(const DocPosition& pos, const Note& note);
     QVector<Note> notes(const DocPosition& pos) const;
+    QVector<Note> developerNotes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
     QVector<AltTrans> altTrans(const DocPosition& pos) const;
     QStringList sourceFiles(const DocPosition& pos) const;

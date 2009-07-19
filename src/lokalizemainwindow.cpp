@@ -231,7 +231,12 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
     if (!url.isEmpty())//create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
         sw=m_mdiArea->addSubWindow(w);
 
-    if (!w->fileOpen(url))
+    KUrl baseUrl;
+    QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
+    if (activeSW && qobject_cast<LokalizeSubwindowBase*>(activeSW->widget()))
+        baseUrl=static_cast<LokalizeSubwindowBase*>(activeSW->widget())->currentUrl();
+
+    if (!w->fileOpen(url,baseUrl))
     {
         if (sw)
         {

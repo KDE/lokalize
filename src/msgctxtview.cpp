@@ -135,6 +135,9 @@ void MsgCtxtView::process()
     int realOffset=displayNotes(m_browser, m_catalog->notes(m_entry.toDocPosition()), m_entry.form, m_catalog->capabilities()&MultipleNotes);
 
     QString html;
+    foreach(const Note& note, m_catalog->developerNotes(m_entry.toDocPosition()))
+        html+="<br>"+Qt::escape(note.content);
+
     QStringList sourceFiles=m_catalog->sourceFiles(m_entry.toDocPosition());
     if (!sourceFiles.isEmpty())
     {

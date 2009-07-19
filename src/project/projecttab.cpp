@@ -59,6 +59,10 @@ ProjectTab::~ProjectTab()
     //kWarning()<<"destroyed";
 }
 
+KUrl ProjectTab::currentUrl()
+{
+    return KUrl::fromLocalFile(Project::instance()->projectDir());
+}
 
 void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 {

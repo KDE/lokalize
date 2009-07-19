@@ -381,6 +381,7 @@ class KdeSourcePage(QWizardPage):
         return QFileInfo(self.svnRootLocation.text()).exists()
 
     def validatePage(self):
+        if self.existing.isChecked(): return True
         if os.system('which svn')!=0:
             KMessageBox.error(self,i18n("Please install 'subversion' package\nto have Lokalize download KDE translation files."),i18n("Subversion client not found"))
             return False

@@ -66,6 +66,7 @@ public:
     Note setNote(DocPosition pos, const Note& note);
     QVector<AltTrans> altTrans(const DocPosition& pos) const;
     QStringList sourceFiles(const DocPosition& pos) const;
+    QVector<Note> developerNotes(const DocPosition& pos) const;
 
     //DocPosition.form - number of <context>
     QString context(const DocPosition& pos) const;
@@ -85,6 +86,7 @@ public:
 
 private:
     bool setHeader(const CatalogItem& newHeader);
+    QVector<Note> notes(const DocPosition& pos, const QRegExp& re, int preLen) const;
 
 private:
     QVector<CatalogItem> m_entries;

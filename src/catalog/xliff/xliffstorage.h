@@ -73,6 +73,7 @@ public:
     Note setNote(DocPosition pos, const Note& note);
     QVector<Note> notes(const DocPosition& pos) const;
     QStringList noteAuthors() const;
+    QVector<Note> developerNotes(const DocPosition& pos) const;
 
     QString setPhase(const DocPosition& pos, const QString& phase);
     QString phase(const DocPosition& pos) const;

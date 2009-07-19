@@ -731,7 +731,7 @@ void EditorTab::updateCaptionPath()
 
 }
 
-bool EditorTab::fileOpen(KUrl url)
+bool EditorTab::fileOpen(KUrl url, KUrl baseUrl)
 {
     if (!m_catalog->isClean())
     {
@@ -745,6 +745,8 @@ bool EditorTab::fileOpen(KUrl url)
         case KMessageBox::Cancel:               return false;
         }
     }
+    if (baseUrl.isEmpty())
+        baseUrl=m_catalog->url();
 
     KUrl saidUrl;
     if (url.isEmpty())

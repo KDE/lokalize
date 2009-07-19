@@ -211,16 +211,16 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
     return oldNote;
 }
 
-QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
+QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegExp& re, int preLen) const
 {
     QVector<Note> result;
     QString content;
 
-    QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(QRegExp("^# "));
+    QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(re);
 
     foreach(const QString &s, note)
-        if (s.size()>=2)
-            content+=s.mid(2)+'\n';
+        if (s.size()>=preLen)
+            content+=s.mid(preLen)+'\n';
 
     if (!content.isEmpty())
     {
@@ -231,6 +231,18 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
 
 //i18nc("@info PO comment parsing. contains filename","<i>Place:</i>");
 //i18nc("@info PO comment parsing","<i>GUI place:</i>");
+}
+
+QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
+{
+    static const QRegExp nre("^# ");
+    return notes(docPosition,nre,2);
+}
+
+QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) const
+{
+    static const QRegExp dnre("^#\\. (?!i18n: file:)");
+    return notes(docPosition,dnre,3);
 }
 
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
