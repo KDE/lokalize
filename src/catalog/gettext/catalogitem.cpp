@@ -332,6 +332,7 @@ void CatalogItem::unsetFuzzy()
     d->_fuzzyCached=false;
 
     QString& comment=d->_comment;
+    kWarning()<<comment;
 
     comment.remove( QRegExp(fuzzyRegExpStr) );
 
@@ -340,6 +341,8 @@ void CatalogItem::unsetFuzzy()
     comment.remove( QRegExp("^#\\s*$") );
     comment.remove( QRegExp("#\\s*\n") );
     comment.remove( QRegExp("^#\\s*\n") );
+
+    kWarning()<<comment;
 }
 
 

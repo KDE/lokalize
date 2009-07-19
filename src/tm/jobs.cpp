@@ -1099,9 +1099,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     //<<pow(float(addLen*addSubStrCount),0.2)<<" "
                     //<<endl;
 
-                    float score=9500*(pow(float(commonLen)/float(allLen),0.15f))//this was < 1 so we have increased it
+                    float score=9500*(pow(float(commonLen)/float(allLen),0.12f))//this was < 1 so we have increased it
                             //this was > 1 so we have decreased it, and increased result:
-                                    / exp(0.013*float(addLen)*log10(3+addSubStrCount));
+                                    / exp(0.014*float(addLen)*log10(3+addSubStrCount));
 
                     if (delLen)
                     {

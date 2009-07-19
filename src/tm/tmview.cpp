@@ -526,11 +526,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         cur.insertHtml(html); html.clear();
         cur.setCharFormat((entry.score>9500)?closeMatchCharFormat:noncloseMatchCharFormat);
         insertContent(cur,entry.target);
-
+        m_entryPositions.insert(cur.anchor(),i);
 
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
-        m_entryPositions.insert(cur.anchor(),i);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))
             break;
