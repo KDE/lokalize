@@ -1129,7 +1129,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 e.score=10000;
 
 //END calc score
-            if (e.score<1000)
+            if (e.score<3500)
                 continue;
             seen85=seen85 || e.score>8500;
             if (seen85 && e.score<6000)
