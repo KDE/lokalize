@@ -57,6 +57,7 @@ public slots:
     void source2target();
     void tagMenu();
     void insertTag(InlineTag tag);
+    void spellReplace();
 
     void emitCursorPositionChanged();//for leds
 

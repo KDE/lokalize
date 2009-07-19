@@ -501,6 +501,10 @@ void EditorTab::setupActions()
     action->setShortcut(Qt::CTRL+Qt::Key_T);
     action->setText(i18nc("@action:inmenu","Insert Tag"));
 
+    action=edit->addAction("edit_spellreplace",m_view->viewPort(),SLOT(spellReplace()));
+    action->setShortcut(Qt::CTRL+Qt::Key_Equal);
+    action->setText(i18nc("@action:inmenu","Replace with best spellcheck suggestion"));
+
 //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18nc("@action:inmenu","Define new term"));
 

@@ -900,10 +900,11 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
             emit tmLookupRequested(m_part,textCursor().selectedText());
         return;
     }
+    if (m_part!=DocPosition::Target)
+        return;
 
     QTextCursor wordSelectCursor=cursorForPosition(event->pos());
     wordSelectCursor.select(QTextCursor::WordUnderCursor);
-    kWarning()<<m_highlighter<<wordSelectCursor.selectedText();
     if (m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
     {
         QMenu menu;
@@ -927,6 +928,21 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
     event->accept();
 }
 
+void XliffTextEdit::spellReplace()
+{
+    QTextCursor wordSelectCursor=textCursor();
+    wordSelectCursor.select(QTextCursor::WordUnderCursor);
+    if (!m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
+        return;
+
+    const QStringList& suggestions=m_highlighter->suggestionsForWord(wordSelectCursor.selectedText());
+    if (suggestions.isEmpty())
+        return;
+            
+    m_catalog->beginMacro(i18nc("@item Undo action item","Replace text"));
+    wordSelectCursor.insertText(suggestions.first());
+    m_catalog->endMacro();
+}
 
 bool XliffTextEdit::event(QEvent *event)
 {
