@@ -147,7 +147,7 @@ class RemoveJob: public ThreadWeaver::Job
     Q_OBJECT
 public:
     explicit RemoveJob(const TMEntry& entry, QObject* parent=0);
-    ~RemoveJob(){}
+    ~RemoveJob();
     int priority()const{return REMOVE;}
 
 protected:

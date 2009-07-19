@@ -313,8 +313,9 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
 
     if (!query1.next())
         return false;
-
+    
     qlonglong sourceId=query1.value(0).toLongLong();
+    QString source_string=query1.value(1).toString();
     query1.clear();
 
     if(!query1.exec(QString("SELECT count(*) FROM main WHERE source==%1").arg(sourceId))
@@ -322,17 +323,16 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
         return false;
 
     bool theOnly=query1.value(0).toInt()==1;
-    QString source_string=query1.value(1).toString();
     query1.clear();
     if (theOnly)
     {
         removeFromIndex(mainId, sourceId, source_string, rxClean1, accel, db);
-        query1.exec(QString("DELETE FROM source_strings WHERE id=%1").arg(sourceId));
+        kWarning()<<"ok delete?"<<query1.exec(QString("DELETE FROM source_strings WHERE id=%1").arg(sourceId));
     }
 
-    if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT source FROM main WHERE "
+    if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT target FROM main WHERE "
                      "main.id==%1").arg(mainId))
-            || query1.next()))
+            || !query1.next()))
         return false;
 
     qlonglong targetId=query1.value(0).toLongLong();
@@ -1101,7 +1101,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
                     float score=9500*(pow(float(commonLen)/float(allLen),0.15f))//this was < 1 so we have increased it
                             //this was > 1 so we have decreased it, and increased result:
-                                    / exp(0.015*float(addLen)*log10(3+addSubStrCount));
+                                    / exp(0.013*float(addLen)*log10(3+addSubStrCount));
 
                     if (delLen)
                     {
@@ -1109,7 +1109,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                         //<<pow(float(delLen*delSubStrCount),0.1)<<" "
                         //<<endl;
 
-                        float a=exp(0.01*float(delLen)*log10(3+delSubStrCount));
+                        float a=exp(0.008*float(delLen)*log10(3+delSubStrCount));
 
                         if (a!=0.0)
                             score/=a;
@@ -1121,7 +1121,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 {
                     //kWarning() <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
                     float score=9900*(pow(float(commonLen)/float(allLen),0.15f))
-                            / exp(0.01*float(delLen)*log10(3+delSubStrCount));
+                            / exp(0.008*float(delLen)*log10(3+delSubStrCount));
                     e.score=(int)score;
                 }
             }
@@ -1129,88 +1129,85 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 e.score=10000;
 
 //END calc score
-            if (e.score>3500)
-            {
-                seen85=seen85 || e.score>8500;
-                if (seen85 && e.score<6000)
-                    continue;
+            if (e.score<1000)
+                continue;
+            seen85=seen85 || e.score>8500;
+            if (seen85 && e.score<6000)
+                continue;
 
 //BEGIN fetch rest of the data
-                QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, main.bits, "
-                                    "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
-                                    "files.path "
-                                    "FROM main, target_strings, files WHERE "
-                                    "target_strings.id==main.target AND "
-                                    "files.id=main.file AND "
-                                    "main.source=="+QString::number(e.id)+" AND "
-                                    "(main.bits&4)!=4 AND "
-                                    "target_strings.target NOTNULL"
-                                    ,db); //ORDER BY tm_main.id ?
-                queryRest.exec();
-                QList<TMEntry> tempList;//to eliminate same targets from different files
-                while (queryRest.next())
-                {
-                    e.id=queryRest.value(0).toLongLong();
-                    e.date=queryRest.value(1).toString();
-                    e.ctxt=queryRest.value(2).toString();
-                    e.target=CatalogString( makeAcceledString(queryRest.value(4).toString(), accel, queryRest.value(5)),
-                                            queryRest.value(6).toByteArray() );
+            QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, main.bits, "
+                                "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
+                                "files.path "
+                                "FROM main, target_strings, files WHERE "
+                                "target_strings.id==main.target AND "
+                                "files.id=main.file AND "
+                                "main.source=="+QString::number(e.id)+" AND "
+                                "(main.bits&4)!=4 AND "
+                                "target_strings.target NOTNULL"
+                                ,db); //ORDER BY tm_main.id ?
+            queryRest.exec();
+            QList<TMEntry> tempList;//to eliminate same targets from different files
+            while (queryRest.next())
+            {
+                e.id=queryRest.value(0).toLongLong();
+                e.date=queryRest.value(1).toString();
+                e.ctxt=queryRest.value(2).toString();
+                e.target=CatalogString( makeAcceledString(queryRest.value(4).toString(), accel, queryRest.value(5)),
+                                        queryRest.value(6).toByteArray() );
 
-                    QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
-                    e.file=queryRest.value(7).toString();
-                    if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
-                        continue;
+                QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
+                e.file=queryRest.value(7).toString();
+                if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
+                    continue;
 
-                    e.obsolete=queryRest.value(3).toInt()&1;
+                e.obsolete=queryRest.value(3).toInt()&1;
 
 //BEGIN exact match score++
-                    if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
-                    {
-                        if (m_source.string==e.source.string)
-                            e.score=10000;
-                        else
-                            e.score=9900;
-                    }
-                    if (!m_ctxt.isEmpty()&&matchData.size()>0)//check not needed?
-                    {
-                        if (matchData.at(0)==m_ctxt)
-                            e.score+=33;
-                    }
-                    //kWarning()<<"m_pos"<<QString::number(m_pos.form);
-//                    bool pluralMatches=false;
-                    if (matchData.size()>1)
-                    {
-                        int form=matchData.at(1).toInt();
-
-                        //pluralMatches=(form&&form==m_pos.form);
-                        if (form&&form==(int)m_pos.form)
-                        {
-                            //kWarning()<<"this"<<matchData.at(1);
-                            e.score+=33;
-                        }
-                    }
-                    if (e.file==m_file)
-                        e.score+=33;
-//END exact match score++
-                    //kWarning()<<"appending"<<e.target;
-                    tempList.append(e);
-                }
-                queryRest.clear();
-                //eliminate same targets from different files
-                qSort(tempList.begin(), tempList.end(), qGreater<TMEntry>());
-                QSet<QString> hash;
-                foreach(const TMEntry& e, tempList)
+                if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
                 {
-                    if (!hash.contains(e.target.string))
+                    if (m_source.string==e.source.string)
+                        e.score=10000;
+                    else
+                        e.score=9900;
+                }
+                if (!m_ctxt.isEmpty()&&matchData.size()>0)//check not needed?
+                {
+                    if (matchData.at(0)==m_ctxt)
+                        e.score+=33;
+                }
+                //kWarning()<<"m_pos"<<QString::number(m_pos.form);
+//                    bool pluralMatches=false;
+                if (matchData.size()>1)
+                {
+                    int form=matchData.at(1).toInt();
+
+                    //pluralMatches=(form&&form==m_pos.form);
+                    if (form&&form==(int)m_pos.form)
                     {
-                        hash.insert(e.target.string);
-                        m_entries.append(e);
+                        //kWarning()<<"this"<<matchData.at(1);
+                        e.score+=33;
                     }
                 }
-
-//END fetch rest of the data
-
+                if (e.file==m_file)
+                    e.score+=33;
+//END exact match score++
+                //kWarning()<<"appending"<<e.target;
+                tempList.append(e);
             }
+            queryRest.clear();
+            //eliminate same targets from different files
+            qSort(tempList.begin(), tempList.end(), qGreater<TMEntry>());
+            QSet<QString> hash;
+            foreach(const TMEntry& e, tempList)
+            {
+                if (!hash.contains(e.target.string))
+                {
+                    hash.insert(e.target.string);
+                    m_entries.append(e);
+                }
+            }
+//END fetch rest of the data
         }
         queryFetch.clear();
     }
@@ -1357,7 +1354,14 @@ void ScanJob::run()
 RemoveJob::RemoveJob(const TMEntry& entry, QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_entry(entry)
-{}
+{
+    kWarning()<<"here";
+}
+
+RemoveJob::~RemoveJob()
+{
+    kWarning()<<"here";
+}
 
 
 void RemoveJob::run ()
@@ -1370,7 +1374,7 @@ void RemoveJob::run ()
     getConfig(db,markup,accel);
     QRegExp rxClean1(markup);rxClean1.setMinimal(true);
 
-    doRemoveEntry(m_entry.id,rxClean1,accel,db);
+    kWarning()<<doRemoveEntry(m_entry.id,rxClean1,accel,db);
 }
 
 

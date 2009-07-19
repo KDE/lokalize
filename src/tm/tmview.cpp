@@ -439,7 +439,6 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     m_entries=job.m_entries;
 
     int limit=job.m_entries.size();
-    int i=0;
 
     if (!limit)
     {
@@ -458,10 +457,12 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
     setUpdatesEnabled(false);
     m_browser->clear();
+    m_entryPositions.clear();
 
     //m_entries=job.m_entries;
     //m_browser->insertHtml("<html>");
 
+    int i=0;
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
     QTextCharFormat noncloseMatchCharFormat;
@@ -529,6 +530,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
+        m_entryPositions.insert(cur.anchor(),i);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))
             break;
@@ -570,7 +572,7 @@ bool TMView::event(QEvent *event)
 
 void TMView::contextMenu(const QPoint& pos)
 {
-    int block=m_browser->cursorForPosition(pos).blockNumber();
+    int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(pos).anchor());
     kWarning()<<block;
     if (block>=m_entries.size())
         return;

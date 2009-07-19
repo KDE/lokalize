@@ -97,6 +97,7 @@ private:
     SelectJob* m_currentSelectJob;
     QVector<KAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
+    QMap<int, int> m_entryPositions;
 
     QString m_normTitle;
     QString m_hasInfoTitle;
