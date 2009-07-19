@@ -525,6 +525,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         cur.insertHtml(html); html.clear();
         cur.setCharFormat((entry.score>9500)?closeMatchCharFormat:noncloseMatchCharFormat);
         insertContent(cur,entry.target);
+        m_entryPositions.insert(cur.anchor(),i);
 
 
         html+=i?"<br></p>":"</p>";
@@ -570,7 +571,7 @@ bool TMView::event(QEvent *event)
 
 void TMView::contextMenu(const QPoint& pos)
 {
-    int block=m_browser->cursorForPosition(pos).blockNumber();
+    int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(pos).anchor());
     kWarning()<<block;
     if (block>=m_entries.size())
         return;

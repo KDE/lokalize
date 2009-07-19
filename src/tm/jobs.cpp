@@ -313,8 +313,9 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
 
     if (!query1.next())
         return false;
-
+    
     qlonglong sourceId=query1.value(0).toLongLong();
+    QString source_string=query1.value(1).toString();
     query1.clear();
 
     if(!query1.exec(QString("SELECT count(*) FROM main WHERE source==%1").arg(sourceId))
@@ -322,17 +323,16 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
         return false;
 
     bool theOnly=query1.value(0).toInt()==1;
-    QString source_string=query1.value(1).toString();
     query1.clear();
     if (theOnly)
     {
         removeFromIndex(mainId, sourceId, source_string, rxClean1, accel, db);
-        query1.exec(QString("DELETE FROM source_strings WHERE id=%1").arg(sourceId));
+        kWarning()<<"ok delete?"<<query1.exec(QString("DELETE FROM source_strings WHERE id=%1").arg(sourceId));
     }
 
-    if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT source FROM main WHERE "
+    if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT target FROM main WHERE "
                      "main.id==%1").arg(mainId))
-            || query1.next()))
+            || !query1.next()))
         return false;
 
     qlonglong targetId=query1.value(0).toLongLong();
