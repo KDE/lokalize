@@ -159,7 +159,7 @@ ScriptsView::ScriptsView(QWidget* parent):Kross::ActionCollectionView(parent)
 
 void ScriptsView::dragEnterEvent(QDragEnterEvent* event)
 {
-    if (!event->mimeData()->urls().isEmpty() && event->mimeData()->urls().first().path().endsWith(".rc"))
+    if (!event->mimeData()->urls().isEmpty() && event->mimeData()->urls().first().path().endsWith(QLatin1String(".rc")))
         event->accept();
 }
 

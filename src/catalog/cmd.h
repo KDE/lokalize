@@ -54,7 +54,7 @@ protected:
     virtual void doRedo()=0;
     virtual void doUndo()=0;
     /**
-     * may be overriden to set customized pos
+     * may be overridden to set customized pos
      * alternatively customized pos may be set manually in do*()
      */
     virtual void setJumpingPos();

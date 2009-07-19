@@ -361,7 +361,10 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 
        kDebug() << "Parsing line: " << line;
 
-       if (KDE_ISUNLIKELY( line.startsWith( "<<<<<<<" ) || line.startsWith( "=======" ) || line.startsWith( ">>>>>>>" ) ))
+       static const QString lesslessless="<<<<<<<";
+       static const QString isisis="=======";
+       static const QString moremoremore=">>>>>>>";
+       if (KDE_ISUNLIKELY( line.startsWith( lesslessless ) || line.startsWith( isisis ) || line.startsWith( moremoremore ) ))
        {
           // We have found a CVS/SVN conflict marker. Abort.
           // (It cannot be any useful data of the PO file, as otherwise the line would start with at least a quote)

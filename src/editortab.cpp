@@ -76,7 +76,6 @@
 
 #include <kinputdialog.h>
 
-#include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <ktabbar.h>
@@ -1178,7 +1177,7 @@ void EditorTab::setApproveActionTitle()
         };
     const char* const helpText[]={
         I18N_NOOP2("@info:tooltip","Translation is done (although still may need a review)"),
-        I18N_NOOP2("@info:tooltip","Translation recieved positive review"),
+        I18N_NOOP2("@info:tooltip","Translation received positive review"),
         I18N_NOOP2("@info:tooltip","Entry is fully localized (i.e. final)")
         };
 

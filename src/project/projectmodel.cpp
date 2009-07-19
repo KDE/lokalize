@@ -177,7 +177,7 @@ KUrl ProjectModel::beginEditing(const QModelIndex& index)
 void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelIndex& po_bottomRight)
 {
     //nothing special here
-    //map from source and propogate
+    //map from source and propagate
     QModelIndex topLeft = indexForPoIndex(po_topLeft);
     QModelIndex bottomRight = indexForPoIndex(po_bottomRight);
 
@@ -189,7 +189,7 @@ void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelInd
 void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelIndex& pot_bottomRight)
 {
     //tricky here - some of the pot items may be represented by po items
-    //let's propogate that all subitems changed
+    //let's propagate that all subitems changed
 
 
     QModelIndex pot_parent = pot_topLeft.parent();
@@ -897,7 +897,7 @@ KUrl ProjectModel::poToPot(const KUrl& poPath) const
 
     //change ".po" into ".pot"
     if (pathToAdd.endsWith(".po")) //TODO: what about folders ??
-        pathToAdd = pathToAdd + "t";
+        pathToAdd+='t';
 
     KUrl potPath = m_potUrl;
     potPath.addPath(pathToAdd);

@@ -30,10 +30,12 @@
 #include <KDebug>
 #include <KColorScheme>
 
+#include <QTextEdit>
 #include <QApplication>
 
 #define STATE_NORMAL 0
 #define STATE_TAG 1
+
 
 
 #define NUM_OF_RULES 5
@@ -204,8 +206,6 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 }
 #endif
 
-
-
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
     QString text=currentBlock().text();
@@ -213,20 +213,44 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     if (m_sourceString.contains(word))
         return;
 
-
-    bool smthPreceeding= (start>0) &&
-            ((!Project::instance()->accel().endsWith(text.at(start-1)))
+    bool smthPreceeding=(start>0) &&
+            (Project::instance()->accel().endsWith(text.at(start-1))
                 || text.at(start-1)==QChar(0x0000AD) //soft hyphen
             );
-
+    //HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding)
+    {
         kWarning()<<"ampersand is in the way. word len:"<<count;
+        int realStart=text.lastIndexOf(QRegExp("\\b"),start-2);
+        if (realStart==-1)
+            realStart=0;
+        QString t=text.mid(realStart, count+start-realStart);
+        t.remove(Project::instance()->accel());
+        t.remove(QChar(0x0000AD));
+        if (!isWordMisspelled(t))
+            return;
+    }
+
+    bool smthAfter=(start+count+1<text.size()) &&
+            (Project::instance()->accel().startsWith(text.at(start+count))
+                || text.at(start+count)==QChar(0x0000AD) //soft hyphen
+            );
+    if (smthAfter)
+    {
+        kWarning()<<"smthAfter. ampersand is in the way. word len:"<<count;
+        int realEnd=text.indexOf(QRegExp("\\b"),start+count+2);
+        if (realEnd==-1)
+            realEnd=text.size();
+        QString t=text.mid(start, realEnd-start);
+        t.remove(Project::instance()->accel());
+        t.remove(QChar(0x0000AD));
+        if (!isWordMisspelled(t))
+            return;
+    }
 
     if (count && format(start)==tagFormat)
-{
-    if (smthPreceeding) kWarning()<<"(count && format(start)==tagFormat)";
         return;
-}
+
     for (int i=0;i<count;++i)
     {
         QTextCharFormat f(format(start+i));

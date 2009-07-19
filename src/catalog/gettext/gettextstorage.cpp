@@ -158,9 +158,10 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 
     QString* cur=&oldSingular;
     QStringList::iterator it=prev.begin();
+    static const QString msgid_plural_alt="#| msgid_plural \"";
     while (it!=prev.end())
     {
-        if (it->startsWith("#| msgid_plural \""))
+        if (it->startsWith(msgid_plural_alt))
             cur=&oldPlural;
 
         int start=it->indexOf('\"')+1;
@@ -248,17 +249,18 @@ QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) con
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
 {
     QStringList result;
+    QStringList commentLines=m_entries.at(pos.entry).comment().split('\n');
 
-    QStringList ui=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#. i18n: file: "));
-    foreach(const QString &uiLine,ui)
+    static const QRegExp i18n_file_re("^#. i18n: file: ");
+    foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
-        QStringList uiFiles=uiLine.mid(15).split(' ');
-        result+=uiFiles;
+        //QStringList uiFiles=uiLine.mid(15).split(' ');
+        result+=uiLine.mid(15).split(' ');
     }
     bool hasUi=!result.isEmpty();
 
-    QStringList cpp=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#: "));
-    foreach(const QString &cppLine,cpp)
+    static const QRegExp cpp_re("^#: ");
+    foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
         if (hasUi && cppLine.startsWith("#: rc.cpp")) continue;
         QStringList cppFiles=cppLine.mid(3).split(' ');

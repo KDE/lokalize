@@ -143,9 +143,9 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //     }
 
     QList<int> termIndexes;
-    foreach (QString word, msg.split(m_rxSplit,QString::SkipEmptyParts))
+    foreach (const QString& w, msg.split(m_rxSplit,QString::SkipEmptyParts))
     {
-        word=stem(Project::instance()->sourceLangCode(),word);
+        QString word=stem(Project::instance()->sourceLangCode(),w);
         if (glossary.wordHash.contains(word)
             // && MULTI hash!! instead, we generate QSet later
             // !termIndexes.contains(glossary.wordHash.value(word))

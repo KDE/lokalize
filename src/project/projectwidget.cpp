@@ -94,7 +94,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
     }
     else
     {
-        //no stats aviable
+        //no stats available
         painter->fillRect(option.rect,Qt::transparent);
     }
 }

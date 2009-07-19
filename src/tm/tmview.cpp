@@ -479,10 +479,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         html+=QString("/%1%/ ").arg(float(entry.score)/100);
 
         //int sourceStartPos=cur.position();
-        QString result=entry.diff;
-        result.replace("&","&amp;");
-        result.replace("<","&lt;");
-        result.replace(">","&gt;");
+        QString result=Qt::escape(entry.diff);
+        //result.replace("&","&amp;");
+        //result.replace("<","&lt;");
+        //result.replace(">","&gt;");
         result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
         result.replace("{/KBABELADD}","</font>");
         result.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
