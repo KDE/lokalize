@@ -33,7 +33,7 @@ if mydialog.exec_loop():
         else:
             os.system('kwriteconfig --group Development --key CopyWidgetText -type bool 1')
             if (mywidget["search"].checked):
-                os.system("kwriteconfig --group Development --key CopyWidgetTextCommand \"/bin/sh `kde4-config --path data --locate lokalize/find-gui-text.sh` \\\"%1\\\" \\\"%2\\\"\"")
+                os.system("kwriteconfig --group Development --key CopyWidgetTextCommand \"/bin/sh `kde4-config --path data --locate lokalize/scripts/find-gui-text.sh` \\\"%1\\\" \\\"%2\\\"\"")
             elif mywidget["clipboard"].checked:
                 os.system('kwriteconfig --group Development --key CopyWidgetTextCommand ""')
 
