@@ -393,13 +393,19 @@ void TMTab::handleResults()
     statusBarItems.insert(0,i18nc("@info:status message entries","Total: %1",view->model()->rowCount()));
 }
 
+static void copy(Ui_QueryOptions* ui_queryOptions, int column)
+{
+    QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),column).data().toString());
+}
+
 void TMTab::copySource()
 {
-    QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Source).data().toString());
+    copy(ui_queryOptions, TMDBModel::Source);
 }
+
 void TMTab::copyTarget()
 {
-    QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),TMDBModel::Target).data().toString());
+    copy(ui_queryOptions, TMDBModel::Target);
 }
 
 void TMTab::openFile()
