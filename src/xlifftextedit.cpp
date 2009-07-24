@@ -215,8 +215,9 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
 
     if (m_part==DocPosition::Target)
         m_highlighter->setSourceString(refStr.string);
-
-    m_highlighter->rehighlight(); //explicitly because we disabled signals
+    else
+        //reflectApprovementState() does this for Target
+        m_highlighter->rehighlight(); //explicitly because we disabled signals
 }
 
 #if 0
@@ -892,6 +893,23 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
         }
     }
 
+    QTextCursor wordSelectCursor=cursorForPosition(event->pos());
+    wordSelectCursor.select(QTextCursor::WordUnderCursor);
+    kWarning()<<m_highlighter<<wordSelectCursor.selectedText();
+    if (m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
+    {
+        QMenu menu;
+        QMenu suggestions;
+        foreach(const QString& s, m_highlighter->suggestionsForWord(wordSelectCursor.selectedText()))
+            suggestions.addAction(s);
+        if (!suggestions.isEmpty())
+        {
+            QAction* answer=suggestions.exec(event->globalPos());
+            if (answer)
+                wordSelectCursor.insertText(answer->text());
+        }
+    }
+
 //     QMenu menu;
 //     QAction* spellchecking=menu.addAction();
     event->accept();
@@ -1052,7 +1070,7 @@ void XliffTextEdit::requestToggleApprovement()
     {
         skip=false;
         DocPos pos(m_currentPos);
-        for (pos.form=0;pos.form<m_catalog->numberOfPluralForms();pos.form++)
+        for (pos.form=0;pos.form<m_catalog->numberOfPluralForms();++(pos.form))
             skip=skip||!m_catalog->isModified(pos);
     }
     if (!skip)

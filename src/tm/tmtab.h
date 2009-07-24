@@ -25,6 +25,7 @@
 #define TMTAB_H
 
 #include "lokalizesubwindowbase.h"
+#include "pos.h"
 
 #include <KMainWindow>
 #include <KXMLGUIClient>
@@ -33,6 +34,7 @@
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
 #include <QItemDelegate>
+
 
 class Ui_QueryOptions;
 class KLineEdit;
@@ -72,6 +74,8 @@ public:
 public slots:
     Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
+    Q_SCRIPTABLE void lookup(QString source, QString target);
+    //void lookup(DocPosition::Part, QString text);
 
 public slots:
     void performQuery();
@@ -79,7 +83,7 @@ public slots:
     void copySource();
     void copyTarget();
     void openFile();
-    void adjustViewForResults();
+    void handleResults();
 
 signals:
     void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
@@ -94,6 +98,7 @@ private:
     TMDBModel* m_model;
     QSortFilterProxyModel *m_proxyModel;
 
+    DocPosition::Part m_partToAlsoTryLater;
     //QString m_dbusObjectPath;
     int m_dbusId;
     static QList<int> ids;
@@ -111,7 +116,7 @@ public:
         Target,
         Context,
         Filepath,
-        TMDBModelColumnCount
+        ColumnCount
     };
 
     enum QueryType
@@ -125,7 +130,7 @@ public:
     ~TMDBModel(){}
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{return TMDBModelColumnCount;}
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount+2;}
 
 public slots:
     void setFilter(const QString& source, const QString& target,
