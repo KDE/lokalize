@@ -171,7 +171,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
             if (!cur->isEmpty())
                 (*cur)+='\n';
             if (!(  cur->isEmpty() && (end-start)==0 ))//for multiline msgs
-                (*cur)+=it->mid(start,end-start);
+                (*cur)+=it->midRef(start,end-start);
         }
         ++it;
     }
@@ -220,8 +220,13 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(re);
 
     foreach(const QString &s, note)
+    {
         if (s.size()>=preLen)
-            content+=s.mid(preLen)+'\n';
+        {
+            content+=s.midRef(preLen);
+            content+='\n';
+        }
+    }
 
     if (!content.isEmpty())
     {

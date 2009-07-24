@@ -631,7 +631,7 @@ void EditorTab::setupActions()
 
     action = sync1->addAction("merge_acceptnew",m_syncView,SLOT(mergeAcceptAllForEmpty()));
     action->setText(i18nc("@action:inmenu","Copy all new translations"));
-    action->setStatusTip(i18nc("@info:status","This changes only empty entries in base file"));
+    action->setStatusTip(i18nc("@info:status","This changes only empty and non-ready entries in base file"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     m_syncView->addAction(action);

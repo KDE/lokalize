@@ -42,6 +42,9 @@
 #include <QDragEnterEvent>
 #include <QSortFilterProxyModel>
 
+#include <iostream>
+
+
 
 using namespace TM;
 //static int BIG_COUNTER=0;
@@ -165,7 +168,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     //TODO Qt::ForegroundRole -- brush for orphaned entries
     if (role==Qt::FontRole && item.column()==TMDBModel::Target)
     {
-        qlonglong bits=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+2).data().toLongLong();
+        qlonglong bits=item.sibling(item.row(),TMDBModel::ColumnCount+2).data().toLongLong();
         if (bits&4)
         {
             QFont font=QApplication::font();
@@ -191,11 +194,11 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     }
     else if (item.column()<TMDBModel::Context)//source, target
     {
-        const QVariant& posVar=item.sibling(item.row(),TMDBModel::TMDBModelColumnCount+item.column()).data();
+        const QVariant& posVar=item.sibling(item.row(),TMDBModel::ColumnCount+item.column()).data();
         int pos=-1;
         if (posVar.isValid())
             pos=posVar.toInt();
-        //kWarning()<<pos<<"column"<<item.column();
+        std::cout<<pos<<" column "<<item.column()<<" "<<TMDBModel::ColumnCount+item.column()<<std::endl;
         //kWarning()<<QSqlQueryModel::data(QSqlQueryModel::index(item.row(),TMDBModel::TMDBModelColumnCount+item.column()));
         if (pos!=-1)
         {
@@ -222,6 +225,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 TMTab::TMTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_proxyModel(new QSortFilterProxyModel(this))
+    , m_partToAlsoTryLater(DocPosition::UndefPart)
     , m_dbusId(-1)
 {
     //setCaption(i18nc("@title:window","Translation Memory"),false);
@@ -251,6 +255,9 @@ TMTab::TMTab(QWidget *parent)
     view->setRootIsDecorated(false);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
     view->setSortingEnabled(true);
+    view->setColumnHidden(TMDBModel::ColumnCount,true);
+    view->setColumnHidden(TMDBModel::ColumnCount+1,true);
+    
 
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
@@ -285,7 +292,7 @@ TMTab::TMTab(QWidget *parent)
     view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
     view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
 
-    connect(m_model,SIGNAL(resultsFetched()),this,SLOT(adjustViewForResults()));
+    connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
 
     QButtonGroup* btnGrp=new QButtonGroup(this);
     btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
@@ -331,23 +338,51 @@ void TMTab::updateTM()
 
 void TMTab::performQuery()
 {
-    QString filemask=ui_queryOptions->filemask->text();
     m_model->setFilter(ui_queryOptions->querySource->text(), ui_queryOptions->queryTarget->text(),
                        ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
-                       filemask
+                       ui_queryOptions->filemask->text()
                       );
+    QApplication::setOverrideCursor(Qt::BusyCursor);
 }
 
-void TMTab::adjustViewForResults()
+void TMTab::handleResults()
 {
+    QApplication::restoreOverrideCursor();
     QString filemask=ui_queryOptions->filemask->text();
     //ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
-    if (m_model->rowCount()==0 && !filemask.isEmpty() && !filemask.contains('*'))
+    if (m_model->rowCount()==0)
     {
+        std::cout<<"m_model->rowCount()==0"<<std::endl;
         //try harder
-        ui_queryOptions->filemask->setText('*'+filemask+'*');
-        return performQuery();
+        if(m_partToAlsoTryLater!=DocPosition::UndefPart)
+        {
+            if (m_partToAlsoTryLater==DocPosition::Comment)
+            {
+                QString text=ui_queryOptions->queryTarget->text();
+                if (text.isEmpty())
+                    text=ui_queryOptions->querySource->text();
+                if (text.isEmpty())
+                    m_partToAlsoTryLater=DocPosition::UndefPart;
+                else
+                    findGuiText(text);
+                return;
+            }
+            KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
+            source_target_query[m_partToAlsoTryLater==DocPosition::Source]->setText(source_target_query[m_partToAlsoTryLater!=DocPosition::Source]->text());
+            source_target_query[m_partToAlsoTryLater!=DocPosition::Source]->clear();
+            m_partToAlsoTryLater=ui_queryOptions->filemask->text().isEmpty()?
+                                    DocPosition::UndefPart:
+                                    DocPosition::Comment;  //leave a note that we should also try w/o package if the current one doesn't succeed
+            return performQuery();
+        }
+        if(!filemask.isEmpty() && !filemask.contains('*'))
+        {
+            ui_queryOptions->filemask->setText('*'+filemask+'*');
+            return performQuery();
+        }
     }
+    std::cout<<"=DocPosition::UndefPart"<<std::endl;
+    m_partToAlsoTryLater=DocPosition::UndefPart;
 
     QTreeView* view=ui_queryOptions->treeView;
     int i=4;
@@ -487,30 +522,24 @@ void TMTab::lookup(QString source, QString target)
 
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
+    std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
+    kWarning()<<package<<text;
+    KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
+    static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};
+    QTextCodec* latin1=QTextCodec::codecForMib(4);
+    DocPosition::Part tryNowPart=source_target[latin1->canEncode(text)];
+    m_partToAlsoTryLater=source_target[tryNowPart==DocPosition::Target];
+
     text.remove(Project::instance()->accel());
-    ui_queryOptions->querySource->setText(text);
+    ui_queryOptions->querySource->clear();
     ui_queryOptions->queryTarget->clear();
+    source_target_query[tryNowPart==DocPosition::Source]->setText(text);
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
     if (!package.isEmpty()) package='*'+package+'*';
     ui_queryOptions->filemask->setText(package);
     ui_queryOptions->glob->click();
     performQuery();
-
-    if (m_model->rowCount()==0)
-    {
-        ui_queryOptions->querySource->clear();
-        ui_queryOptions->queryTarget->setText(text);
-
-        performQuery();
-        if (m_model->rowCount()==0)//back
-        {
-            if (!package.isEmpty())
-                return findGuiTextPackage(text,QString());
-            ui_queryOptions->querySource->setText(text);
-            ui_queryOptions->queryTarget->clear();
-        }
-    }
 
     return true;
 }

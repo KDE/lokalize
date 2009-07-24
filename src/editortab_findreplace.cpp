@@ -512,9 +512,8 @@ void EditorTab::doReplace(const QString &newStr,int offset,int newLen,int remLen
         if (_replace->options()&IGNOREACCELS)
             calcOffsetWithAccels(oldStr,offset,remLen);
 
-        QString tmp=oldStr.mid(offset,remLen);
         pos.offset=offset;
-        m_catalog->push(new DelTextCmd(m_catalog,pos,tmp));
+        m_catalog->push(new DelTextCmd(m_catalog,pos,oldStr.mid(offset,remLen)));
 
         if (newLen)
             m_catalog->push(new InsTextCmd(m_catalog,pos,newStr.mid(offset,newLen)));

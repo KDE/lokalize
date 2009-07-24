@@ -98,7 +98,7 @@ public:
 
     ///@arg pos in baseCatalog's coordinates
     void copyToBaseCatalog(DocPosition& pos);
-    enum CopyToBaseOptions {EmptyOnly=1};
+    enum CopyToBaseOptions {EmptyOnly=1, HigherOnly=2};
     void copyToBaseCatalog(int options=0);
 
     inline void removeFromDiffIndex(uint index){m_mergeDiffIndex.removeAll(index);}

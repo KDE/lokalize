@@ -244,6 +244,8 @@ void MergeCatalog::copyToBaseCatalog(int options)
         pos.entry=entry;
         if (options&EmptyOnly&&!m_baseCatalog->isEmpty(entry))
             continue;
+        if (options&HigherOnly&&m_baseCatalog->state(pos)>=state(pos))
+            continue;
 
         int formsCount=(m_baseCatalog->isPlural(entry))?m_baseCatalog->numberOfPluralForms():1;
         pos.form=0;
@@ -251,7 +253,8 @@ void MergeCatalog::copyToBaseCatalog(int options)
         {
             //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
             //some forms may still contain translation...
-            if (!(options&EmptyOnly) || m_baseCatalog->isEmpty(pos))
+            if (!(options&EmptyOnly && !m_baseCatalog->isEmpty(pos)) && 
+                !(options&HigherOnly && m_baseCatalog->state(pos)>=state(pos)))
             {
                 if (!insHappened)
                 {

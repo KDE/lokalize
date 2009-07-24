@@ -330,7 +330,7 @@ void MergeView::mergeAcceptAllForEmpty()
 
     bool update=m_mergeCatalog->changedEntries().contains(m_pos.entry);
 
-    m_mergeCatalog->copyToBaseCatalog(MergeCatalog::EmptyOnly);
+    m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/MergeCatalog::HigherOnly);
 
     if (update!=m_mergeCatalog->changedEntries().contains(m_pos.entry))
         emit gotoEntry(m_pos,0);

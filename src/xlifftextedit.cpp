@@ -111,6 +111,14 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     }
     else
         m_highlighter->setCurrentLanguage(Project::instance()->sourceLangCode());
+
+    setCompletionMode(KGlobalSettings::CompletionPopupAuto);
+    completionObject()->addItem("adddddda");
+}
+
+void XliffTextEdit::setCompletedItems(const QStringList& items, bool autoSuggest)
+{
+    kWarning()<<items;
 }
 
 void XliffTextEdit::reflectApprovementState()
@@ -215,9 +223,9 @@ void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString&
 
     if (m_part==DocPosition::Target)
         m_highlighter->setSourceString(refStr.string);
-
-    //reflectApprovementState() does this
-    //m_highlighter->rehighlight(); //explicitly because we disabled signals
+    else
+        //reflectApprovementState() does this for Target
+        m_highlighter->rehighlight(); //explicitly because we disabled signals
 }
 
 #if 0
@@ -354,8 +362,9 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     pos.offset=offset;
     //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
-
     QString target=m_catalog->targetWithTags(pos).string;
+
+    
 //BEGIN XLIFF markup handling
     //protect from tag removal
     bool markupRemoved=charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
@@ -396,7 +405,6 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 //END XLIFF markup handling
     else
     {
-
         if (charsRemoved)
             m_catalog->push(new DelTextCmd(m_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
 
