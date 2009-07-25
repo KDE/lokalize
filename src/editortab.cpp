@@ -799,19 +799,9 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl)
         DocPosition pos(0);
         //we delay gotoEntry(pos) until project is loaded;
 
-        //_captionPath=url.pathOrUrl();
-        setModificationSign(m_catalog->isClean());
-
-
         m_catalog->setActivePhase("test",Project::local()->role());
 //Project
-        if (!url.isLocalFile())
-        {
-            gotoEntry(pos);
-            return true;
-        }
-
-        if (!_project->isLoaded())
+        if (url.isLocalFile() && !_project->isLoaded())
         {
 //search for it
             int i=4;
@@ -831,11 +821,8 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl)
 
         gotoEntry(pos);
 
-        if (_project->isLoaded())
-        {
-            updateCaptionPath();
-            setModificationSign(m_catalog->isClean());
-        }
+        updateCaptionPath();
+        setModificationSign(m_catalog->isClean());
 
 //OK!!!
         emit fileOpened();
