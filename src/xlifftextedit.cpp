@@ -26,6 +26,7 @@
 #include "cmd.h"
 #include "syntaxhighlighter.h"
 #include "prefs_lokalize.h"
+#include "prefs.h"
 #include "project.h"
 
 #include <QPixmap>
@@ -66,11 +67,11 @@ inline static QImage generateImage(const QString& str, const QFont& font)
 }
 
 
-#if 0
+#if 1
 class XliffTextEditSpellInterface: public KTextEditSpellInterface
 {
 public:
-    XliffTextEditSpellInterface();
+    XliffTextEditSpellInterface(SyntaxHighlighter* highlighter);
     ~XliffTextEditSpellInterface(){};
 
     bool isSpellCheckingEnabled() const {return m_enabled;}
@@ -78,17 +79,23 @@ public:
     bool shouldBlockBeSpellChecked(const QString &block) const{return true;}
 private:
     bool m_enabled;
+    SyntaxHighlighter* m_highlighter;
 };
 
-XliffTextEditSpellInterface::XliffTextEditSpellInterface()
+XliffTextEditSpellInterface::XliffTextEditSpellInterface(SyntaxHighlighter* highlighter)
     : KTextEditSpellInterface()
     , m_enabled(Settings::autoSpellcheck())
-{}
+    , m_highlighter(highlighter)
+{
+    m_highlighter->setActive(m_enabled);
+}
 
 void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
 {
     Settings::setAutoSpellcheck(enable);
     m_enabled=enable;
+    m_highlighter->setActive(enable);
+    Settings::self()->writeConfig();
 }
 #endif
 
@@ -111,6 +118,9 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     }
     else
         m_highlighter->setCurrentLanguage(Project::instance()->sourceLangCode());
+    
+    setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
+    setHighlighter(m_highlighter);
 }
 
 void XliffTextEdit::reflectApprovementState()
@@ -893,26 +903,10 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
         }
     }
 
-    QTextCursor wordSelectCursor=cursorForPosition(event->pos());
-    wordSelectCursor.select(QTextCursor::WordUnderCursor);
-    kWarning()<<m_highlighter<<wordSelectCursor.selectedText();
-    if (m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
-    {
-        QMenu menu;
-        QMenu suggestions;
-        foreach(const QString& s, m_highlighter->suggestionsForWord(wordSelectCursor.selectedText()))
-            suggestions.addAction(s);
-        if (!suggestions.isEmpty())
-        {
-            QAction* answer=suggestions.exec(event->globalPos());
-            if (answer)
-                wordSelectCursor.insertText(answer->text());
-        }
-    }
+    if (m_part!=DocPosition::Target)
+        return;
 
-//     QMenu menu;
-//     QAction* spellchecking=menu.addAction();
-    event->accept();
+    KTextEdit::contextMenuEvent(event);
 }
 
 

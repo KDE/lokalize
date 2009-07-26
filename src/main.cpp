@@ -111,16 +111,16 @@ int main(int argc, char **argv)
 
     int code=app.exec();
 
-    if (Project::instance()->isLoaded())
-    {
-        ThreadWeaver::Weaver::instance()->dequeue();
-        Project::instance()->model()->weaver()->dequeue();
+    Project::instance()->model()->weaver()->dequeue();
+    ThreadWeaver::Weaver::instance()->dequeue();
 
-        kWarning()<<"Finishing jobs...";
+    if (Project::instance()->isLoaded())
         Project::instance()->save();
-        ThreadWeaver::Weaver::instance()->finish();
-        Project::instance()->model()->weaver()->finish();
-    }
+    
+    kWarning()<<"Finishing jobs...";
+    Project::instance()->model()->weaver()->finish();
+    ThreadWeaver::Weaver::instance()->finish();
+
     return code;
 }
 
