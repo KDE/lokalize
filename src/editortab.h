@@ -198,6 +198,7 @@ private slots:
     void replace();
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
+    void cleanupReplace();//internal
 
 //     void selectAll();
 //     void deselectAll();
