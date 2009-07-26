@@ -51,7 +51,6 @@ protected:
     void setMisspelled(int start, int count);
     void unsetMisspelled(int start, int count);
 
-
 private slots:
     void settingsChanged();
 

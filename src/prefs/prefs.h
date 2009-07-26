@@ -40,6 +40,8 @@ public:
     SettingsController();
     ~SettingsController();
 
+    bool dirty;
+
 public slots:
     void slotSettings();
 

@@ -23,7 +23,8 @@
 
 
 #include "version.h"
-
+#include "prefs_lokalize.h"
+#include "prefs.h"
 #include "project.h"
 #include "jobs.h"
 #include "projectmodel.h"
@@ -64,8 +65,7 @@ int main(int argc, char **argv)
     about.addCredit (ki18n("Viesturs Zarins"), ki18n("project tree merging translation+templates"), "viesturs.zarins@mii.lu.lv", QByteArray());
     about.addCredit (ki18n("Stephan Johach"), ki18n("bug fixing patches"), "hunsum@gmx.de");
     about.addCredit (ki18n("Chusslove Illich"), ki18n("bug fixing patches"), "caslav.ilic@gmx.net");
-    //TODO uncomment after KDE 4.3
-    //about.addCredit (ki18n("Jure Repinc"), ki18n("testing and bug fixing"), "jlp@holodeck1.com");
+    about.addCredit (ki18n("Jure Repinc"), ki18n("testing and bug fixing"), "jlp@holodeck1.com");
 
     KCmdLineArgs::init(argc, argv, &about);
 
@@ -115,22 +115,25 @@ int main(int argc, char **argv)
 
     int code=app.exec();
 
-    if (Project::instance()->isLoaded())
-    {
-        ThreadWeaver::Weaver::instance()->dequeue();
-        Project::instance()->model()->weaver()->dequeue();
+    ThreadWeaver::Weaver::instance()->dequeue();
+    Project::instance()->model()->weaver()->dequeue();
 
+    if (SettingsController::instance()->dirty) //for config changes done w/o config dialog
+        Settings::self()->writeConfig();
+
+    if (Project::instance()->isLoaded())
         Project::instance()->save();
 
-        kWarning()<<"QCoreApplication::processEvents()...";
-        QCoreApplication::processEvents();
-        QCoreApplication::sendPostedEvents(0,0);
+    qWarning()<<"QCoreApplication::processEvents()...";
+    QCoreApplication::processEvents();
+    QCoreApplication::sendPostedEvents(0,0);
 
-        kWarning()<<"Finishing TM jobs...";
-        ThreadWeaver::Weaver::instance()->finish();
-        kWarning()<<"Finishing Project jobs...";
-        Project::instance()->model()->weaver()->finish();
-    }
+    qWarning()<<"Finishing Project jobs...";
+    Project::instance()->model()->weaver()->finish();
+
+    qWarning()<<"Finishing TM jobs...";
+    ThreadWeaver::Weaver::instance()->finish();
+
     return code;
 }
 

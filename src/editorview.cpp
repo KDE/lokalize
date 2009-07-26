@@ -38,6 +38,7 @@
 #include "catalog.h"
 #include "cmd.h"
 #include "prefs_lokalize.h"
+#include "prefs.h"
 
 #include <QTimer>
 #include <QMenu>
@@ -82,7 +83,7 @@ void LedsWidget::contextMenuEvent(QContextMenuEvent* event)
     if (!menu.exec(event->globalPos()))
         return; //NOTE the config doesn't seem to work
     Settings::setLeds(false); 
-    Settings::self()->writeConfig();
+    SettingsController::instance()->dirty=true;
     hide();
 }
 

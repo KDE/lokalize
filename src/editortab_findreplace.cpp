@@ -52,9 +52,9 @@
 #define IGNOREACCELS KFind::MinimumUserOption
 #define INCLUDENOTES KFind::MinimumUserOption*2
 
-static long makeOptions(const KFindDialog* q, const Ui_findExtension* ui_findExtension)
+static long makeOptions(long options, const Ui_findExtension* ui_findExtension)
 {
-    return q->options()
+    return options
               +IGNOREACCELS*ui_findExtension->m_ignoreAccelMarks->isChecked()
               +INCLUDENOTES*ui_findExtension->m_notes->isChecked();
     //bool skipMarkup(){return ui_findExtension->m_skipTags->isChecked();}
@@ -65,7 +65,7 @@ class EntryFindDialog: public KFindDialog
 public:
     EntryFindDialog(QWidget* parent);
     ~EntryFindDialog();
-    long options() const{return makeOptions(this,ui_findExtension);}
+    long options() const{return makeOptions(KFindDialog::options(),ui_findExtension);}
     static EntryFindDialog* instance(QWidget* parent=0);
 private:
     static QPointer<EntryFindDialog> _instance;
@@ -114,7 +114,7 @@ class EntryReplaceDialog: public KReplaceDialog
 public:
     EntryReplaceDialog(QWidget* parent);
     ~EntryReplaceDialog();
-    long options() const{return makeOptions(this,ui_findExtension);}
+    long options() const{return makeOptions(KReplaceDialog::options(),ui_findExtension);}
     static EntryReplaceDialog* instance(QWidget* parent=0);
 private:
     static QPointer<EntryReplaceDialog> _instance;
@@ -375,11 +375,10 @@ void EditorTab::replace()
     // This creates a find-next-prompt dialog if needed.
     {
         _replace = new KReplace(EntryReplaceDialog::instance()->pattern(),EntryReplaceDialog::instance()->replacement(),EntryReplaceDialog::instance()->options(),this,EntryReplaceDialog::instance());
-        connect(_replace,SIGNAL(highlight(QString,int,int)),
-                this,SLOT(highlightFound_(QString,int,int)));
-        connect(_replace,SIGNAL(findNext()),this,SLOT(replaceNext()));
-        connect(_replace,SIGNAL(replace(QString,int,int,int)),
-                this,SLOT(doReplace(QString,int,int,int)));
+        connect(_replace,SIGNAL(highlight(QString,int,int)),    this,SLOT(highlightFound_(QString,int,int)));
+        connect(_replace,SIGNAL(findNext()),                    this,SLOT(replaceNext()));
+        connect(_replace,SIGNAL(replace(QString,int,int,int)),  this,SLOT(doReplace(QString,int,int,int)));
+        connect(_replace,SIGNAL(dialogClosed()),                this,SLOT(cleanupReplace()));
 //         _replace->closeReplaceNextDialog();
     }
 //     else
@@ -465,15 +464,19 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
                      _replace->displayFinalDialog();
 
                 _replace->closeReplaceNextDialog();
-
-                if(m_doReplaceCalled)
-                {
-                    m_doReplaceCalled=false;
-                    m_catalog->endMacro();
-                }
+                cleanupReplace();
             }
             _replace->resetCounts();
         }
+    }
+}
+
+void EditorTab::cleanupReplace()
+{
+    if(m_doReplaceCalled)
+    {
+        m_doReplaceCalled=false;
+        m_catalog->endMacro();
     }
 }
 

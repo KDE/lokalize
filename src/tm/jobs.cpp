@@ -21,7 +21,7 @@
 
 **************************************************************************** */
 
-#define KDE_NO_DEBUG_OUTPUT
+//#define KDE_NO_DEBUG_OUTPUT
 
 #include "jobs.h"
 #include "catalog.h"
@@ -40,6 +40,8 @@
 
 #include <QRegExp>
 #include <QMap>
+
+#include <iostream>
 
 #include <math.h>
 using namespace TM;
@@ -825,6 +827,7 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
 OpenDBJob::~OpenDBJob()
 {
     kWarning()<<"here";
+    std::cout<<"~OpenDBJob"<<std::endl;
 }
 
 void OpenDBJob::run()
@@ -860,6 +863,7 @@ CloseDBJob::CloseDBJob(const QString& name, QObject* parent)
 CloseDBJob::~CloseDBJob()
 {
     kWarning()<<"here";
+    std::cout<<"~CloseDBJob"<<std::endl;
 }
 
 void CloseDBJob::run ()
@@ -922,6 +926,7 @@ SelectJob::SelectJob(const CatalogString& source,
 SelectJob::~SelectJob()
 {
     kWarning()<<"here";
+    std::cout<<"~SelectJob"<<std::endl;
 }
 
 void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
@@ -1279,7 +1284,8 @@ ScanJob::ScanJob(const KUrl& url,
 
 ScanJob::~ScanJob()
 {
-    kWarning() <<"ScanJob dtor ";
+    kWarning() <<"here";
+    std::cout<<"~ScanJob"<<std::endl;
 }
 
 void ScanJob::run()
@@ -1361,6 +1367,7 @@ RemoveJob::RemoveJob(const TMEntry& entry, QObject* parent)
 RemoveJob::~RemoveJob()
 {
     kWarning()<<"here";
+    std::cout<<"~RemoveJob"<<std::endl;
 }
 
 
@@ -1836,6 +1843,7 @@ ExecQueryJob::~ExecQueryJob()
 {
     delete query;
     kWarning()<<"destroy";
+    std::cout<<"~ExecQueryJob"<<std::endl;
 }
 
 void ExecQueryJob::run()

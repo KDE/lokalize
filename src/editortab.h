@@ -173,6 +173,7 @@ public slots:
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
     Q_SCRIPTABLE bool isValid(){return m_valid;}
+
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
@@ -200,6 +201,7 @@ private slots:
     void replace();
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
+    void cleanupReplace();//internal
 
 //     void selectAll();
 //     void deselectAll();

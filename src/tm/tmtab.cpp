@@ -255,9 +255,6 @@ TMTab::TMTab(QWidget *parent)
     view->setRootIsDecorated(false);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
     view->setSortingEnabled(true);
-    view->setColumnHidden(TMDBModel::ColumnCount,true);
-    view->setColumnHidden(TMDBModel::ColumnCount+1,true);
-    
 
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
@@ -291,6 +288,8 @@ TMTab::TMTab(QWidget *parent)
     view->setModel(m_proxyModel);
     view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
     view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
+    view->setColumnHidden(TMDBModel::ColumnCount,true);
+    view->setColumnHidden(TMDBModel::ColumnCount+1,true);
 
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
 
@@ -389,6 +388,8 @@ void TMTab::handleResults()
     while (--i>=0)
         view->resizeColumnToContents(i);
     view->setFocus();
+//     view->setColumnHidden(TMDBModel::ColumnCount,true);
+//     view->setColumnHidden(TMDBModel::ColumnCount+1,true);
 
     statusBarItems.insert(0,i18nc("@info:status message entries","Total: %1",view->model()->rowCount()));
 }

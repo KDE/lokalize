@@ -26,6 +26,7 @@
 #include "cmd.h"
 #include "syntaxhighlighter.h"
 #include "prefs_lokalize.h"
+#include "prefs.h"
 #include "project.h"
 
 #include <QPixmap>
@@ -66,11 +67,11 @@ inline static QImage generateImage(const QString& str, const QFont& font)
 }
 
 
-#if 0
+#if 1
 class XliffTextEditSpellInterface: public KTextEditSpellInterface
 {
 public:
-    XliffTextEditSpellInterface();
+    XliffTextEditSpellInterface(SyntaxHighlighter* highlighter);
     ~XliffTextEditSpellInterface(){};
 
     bool isSpellCheckingEnabled() const {return m_enabled;}
@@ -78,17 +79,23 @@ public:
     bool shouldBlockBeSpellChecked(const QString &block) const{return true;}
 private:
     bool m_enabled;
+    SyntaxHighlighter* m_highlighter;
 };
 
-XliffTextEditSpellInterface::XliffTextEditSpellInterface()
+XliffTextEditSpellInterface::XliffTextEditSpellInterface(SyntaxHighlighter* highlighter)
     : KTextEditSpellInterface()
     , m_enabled(Settings::autoSpellcheck())
-{}
+    , m_highlighter(highlighter)
+{
+    m_highlighter->setActive(m_enabled);
+}
 
 void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
 {
     Settings::setAutoSpellcheck(enable);
     m_enabled=enable;
+    m_highlighter->setActive(enable);
+    SettingsController::instance()->dirty=true;
 }
 #endif
 
@@ -114,6 +121,9 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
 
     setCompletionMode(KGlobalSettings::CompletionPopupAuto);
     completionObject()->addItem("adddddda");
+
+    setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
+    setHighlighter(m_highlighter);
 }
 
 void XliffTextEdit::setCompletedItems(const QStringList& items, bool autoSuggest)
@@ -364,7 +374,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 
     QString target=m_catalog->targetWithTags(pos).string;
 
-    
+
 //BEGIN XLIFF markup handling
     //protect from tag removal
     bool markupRemoved=charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
@@ -455,7 +465,7 @@ void XliffTextEdit::insertCatalogString(CatalogString catStr, int start, bool re
     CatalogString source=m_catalog->sourceWithTags(m_currentPos);
     CatalogString target=m_catalog->targetWithTags(m_currentPos);
 
-    
+
     QHash<QString,int> id2tagIndex;
     int i=source.tags.size();
     while(--i>=0)
@@ -908,9 +918,13 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
             emit tmLookupRequested(m_part,textCursor().selectedText());
         return;
     }
+
     if (m_part!=DocPosition::Target)
         return;
 
+    KTextEdit::contextMenuEvent(event);
+
+#if 0
     QTextCursor wordSelectCursor=cursorForPosition(event->pos());
     wordSelectCursor.select(QTextCursor::WordUnderCursor);
     if (m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
@@ -930,10 +944,11 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
             }
         }
     }
+#endif
 
 //     QMenu menu;
 //     QAction* spellchecking=menu.addAction();
-    event->accept();
+//     event->accept();
 }
 
 void XliffTextEdit::spellReplace()

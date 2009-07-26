@@ -76,6 +76,7 @@ SettingsController* SettingsController::instance()
 
 SettingsController::SettingsController()
     : QObject(Project::instance())
+    , dirty(false)
 {}
 
 SettingsController::~SettingsController()
