@@ -25,6 +25,7 @@
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "projectlocal.h"
+#include "projectmodel.h"
 #include "languagelistmodel.h"
 
 #include "ui_prefs_identity.h"
@@ -51,6 +52,7 @@
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
 #include <kross/ui/model.h>
+#include <threadweaver/ThreadWeaver.h>
 #include <QBoxLayout>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -266,9 +268,14 @@ void SettingsController::projectConfigure()
 void SettingsController::projectOpen(QString path)
 {
     if (path.isEmpty())
+    {
+        Project::instance()->model()->weaver()->suspend();
         path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
                                           "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
-                                          0);
+                                         0);
+        Project::instance()->model()->weaver()->resume();
+    }
+
     if (path.isEmpty())
         return;
 

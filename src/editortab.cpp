@@ -176,7 +176,7 @@ void EditorTab::numberOfFuzziesChanged()
 void EditorTab::numberOfUntranslatedChanged()
 {
     int untr=m_catalog->numberOfUntranslated();
-    QString text=i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", untr);
+    QString text=i18nc("@info:status message entries","Untranslated: %1", untr);
     if (untr)
         text+=QString(" (%1%)").arg(int(100.0*untr/m_catalog->numberOfEntries()));
     statusBarItems.insert(ID_STATUS_UNTRANS,text);
