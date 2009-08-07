@@ -260,7 +260,7 @@ class LangPage(QWizardPage):
     def __init__(self, parent):
         QWizardPage.__init__(self, parent)
         self.setTitle(i18n("Choose source and target languages"))
-        self.setSubTitle("Click on a combobox then start typing the name of the language.")
+        self.setSubTitle(i18n("Click on a combobox then start typing the name of the language."))
         self.languageListModel=LanguageListModel(self)
         self.sourceLang=KComboBox(self)
         self.targetLang=KComboBox(self)
