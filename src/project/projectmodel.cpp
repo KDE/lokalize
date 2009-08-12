@@ -650,6 +650,16 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
             default:
                 return QVariant();
         }
+    case FuzzyUntrCountRole:
+        return item.isFile()?(fuzzy + untranslated):0;
+    case FuzzyCountRole:
+        return item.isFile()?fuzzy:0;
+    case UntransCountRole:
+        return item.isFile()?untranslated:0;
+    case TemplateOnlyRole:
+        return item.isFile()?(node->poRowNumber == -1):0;
+    case TransOnlyRole:
+        return item.isFile()?(node->potRowNumber == -1):0;
     default:
         return QVariant();
     }

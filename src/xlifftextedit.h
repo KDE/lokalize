@@ -59,6 +59,7 @@ public slots:
 
     void source2target();
     void tagMenu();
+    void tagImmediate();
     void insertTag(InlineTag tag);
     void spellReplace();
 
@@ -72,6 +73,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
 
     void contextMenuEvent(QContextMenuEvent *event);
+    void wheelEvent(QWheelEvent *event);
     bool event(QEvent *event);
 
 private:
@@ -81,6 +83,8 @@ private:
     int strForMicePosIfUnderTag(QPoint mice, CatalogString& str);
 
     void requestToggleApprovement();
+
+    void doTag(bool immediate);
 
 private slots:
     //for Undo/Redo tracking
@@ -97,6 +101,12 @@ signals:
     void gotoLastRequested();
     void gotoPrevRequested();
     void gotoNextRequested();
+    void gotoPrevFuzzyRequested();
+    void gotoNextFuzzyRequested();
+    void gotoPrevUntranslatedRequested();
+    void gotoNextUntranslatedRequested();
+    void gotoPrevFuzzyUntrRequested();
+    void gotoNextFuzzyUntrRequested();
     void gotoEntryRequested(const DocPosition&);
 
 

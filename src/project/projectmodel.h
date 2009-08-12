@@ -45,7 +45,7 @@ namespace ThreadWeaver {class Weaver;}
 *      Uses threadweawer for stats calculation.
 *      Each job analyzes files in one dir and adds subdirs to queue.
 *      A change in one file forces whole dir to be rescanned
-*      The job priotity needs some tweaking.
+*      The job priority needs some tweaking.
  */
 class ProjectModel: public QAbstractItemModel
 {
@@ -93,6 +93,13 @@ public:
         ProjectModelColumnCount
     };
 
+    enum AdditionalRoles {
+        FuzzyUntrCountRole = Qt::UserRole,
+        FuzzyCountRole,
+        UntransCountRole,
+        TemplateOnlyRole,
+        TransOnlyRole
+    };
 
     ProjectModel(QObject *parent);
     ~ProjectModel();

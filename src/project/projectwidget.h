@@ -28,6 +28,8 @@
 
 #include <QTreeView>
 
+#include "projectmodel.h"
+
 class SortFilterProxyModel;
 class QSortFilterProxyModel;
 
@@ -51,6 +53,17 @@ public:
     QSortFilterProxyModel* proxyModel();
     void expandItems(const QModelIndex& parent=QModelIndex());
 
+    void gotoPrevFuzzyUntr();
+    void gotoNextFuzzyUntr();
+    void gotoPrevFuzzy();
+    void gotoNextFuzzy();
+    void gotoPrevUntranslated();
+    void gotoNextUntranslated();
+    void gotoPrevTemplateOnly();
+    void gotoNextTemplateOnly();
+    void gotoPrevTransOnly();
+    void gotoNextTransOnly();
+
 signals:
     void fileOpenRequested(const KUrl&);
     void newWindowOpenRequested(const KUrl&);
@@ -59,6 +72,13 @@ private slots:
     void slotItemActivated(const QModelIndex&);
 
 private:
+    enum gotoIndexResult {gotoIndex_end = -1, gotoIndex_notfound = 0, gotoIndex_found = 1};
+
+    bool gotoIndexCheck(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role);
+    QModelIndex gotoIndexPrevNext(const QModelIndex& currentIndex, int direction) const;
+    gotoIndexResult gotoIndexFind(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
+    gotoIndexResult gotoIndex(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
+
     QWidget* m_parent;
     SortFilterProxyModel* m_proxyModel;
 };

@@ -22,7 +22,6 @@
 **************************************************************************** */
 
 #include "projectwidget.h"
-#include "projectmodel.h"
 
 #include "project.h"
 #include "catalog.h"
@@ -354,6 +353,92 @@ void ProjectWidget::expandItems(const QModelIndex& parent)
         expandItems(m->index(i,0,parent));
 }
 
+
+bool ProjectWidget::gotoIndexCheck(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role)
+{
+    // Check if role is found for this index
+    if (currentIndex.isValid()) {
+        ProjectModel *srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
+        QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(currentIndex);
+        QVariant result = srcModel->data(srcIndex, role);
+        return result.isValid() && result.toInt() > 0;
+    }
+    return false;
+}
+
+QModelIndex ProjectWidget::gotoIndexPrevNext(const QModelIndex& currentIndex, int direction) const
+{
+    QModelIndex index = currentIndex;
+    QModelIndex sibling;
+
+    // Unless first or last sibling reached, continue with previous or next
+    // sibling, otherwise continue with previous or next parent
+    while (index.isValid())
+    {
+        sibling = index.sibling(index.row() + direction, index.column());
+        if (sibling.isValid())
+            return sibling;
+        index = index.parent();
+    }
+    return index;
+}
+
+ProjectWidget::gotoIndexResult ProjectWidget::gotoIndexFind(
+    const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction)
+{
+    QModelIndex index = currentIndex;
+
+    while (index.isValid())
+    {
+        // Set current index and show it if role is found for this index
+        if (gotoIndexCheck(index, role))
+        {
+            clearSelection();
+            setCurrentIndex(index);
+            scrollTo(index);
+            return gotoIndex_found;
+        }
+
+        // Handle child recursively if index is not a leaf
+        QModelIndex child = index.child((direction == 1) ? 0 : (m_proxyModel->rowCount(index) - 1), index.column());
+        if (child.isValid())
+        {
+            ProjectWidget::gotoIndexResult result = gotoIndexFind(child, role, direction);
+            if (result != gotoIndex_notfound)
+                return result;
+	}
+
+        // Go to previous or next item
+        index = gotoIndexPrevNext(index, direction);
+    }
+    if (index.parent().isValid())
+        return gotoIndex_notfound;
+    else
+        return gotoIndex_end;
+}
+
+ProjectWidget::gotoIndexResult ProjectWidget::gotoIndex(
+    const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction)
+{
+    QModelIndex index = currentIndex;
+
+    // Check if current index already found, and if so go to previous or next item
+    if (gotoIndexCheck(index, role))
+        index = gotoIndexPrevNext(index, direction);
+
+    return gotoIndexFind(index, role, direction);
+}
+
+void ProjectWidget::gotoPrevFuzzyUntr()    {gotoIndex(currentIndex(), ProjectModel::FuzzyUntrCountRole, -1);}
+void ProjectWidget::gotoNextFuzzyUntr()    {gotoIndex(currentIndex(), ProjectModel::FuzzyUntrCountRole, +1);}
+void ProjectWidget::gotoPrevFuzzy()        {gotoIndex(currentIndex(), ProjectModel::FuzzyCountRole,     -1);}
+void ProjectWidget::gotoNextFuzzy()        {gotoIndex(currentIndex(), ProjectModel::FuzzyCountRole,     +1);}
+void ProjectWidget::gotoPrevUntranslated() {gotoIndex(currentIndex(), ProjectModel::UntransCountRole,   -1);}
+void ProjectWidget::gotoNextUntranslated() {gotoIndex(currentIndex(), ProjectModel::UntransCountRole,   +1);}
+void ProjectWidget::gotoPrevTemplateOnly() {gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole,   -1);}
+void ProjectWidget::gotoNextTemplateOnly() {gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole,   +1);}
+void ProjectWidget::gotoPrevTransOnly()    {gotoIndex(currentIndex(), ProjectModel::TransOnlyRole,      -1);}
+void ProjectWidget::gotoNextTransOnly()    {gotoIndex(currentIndex(), ProjectModel::TransOnlyRole,      +1);}
 
 QSortFilterProxyModel* ProjectWidget::proxyModel(){return m_proxyModel;}
 

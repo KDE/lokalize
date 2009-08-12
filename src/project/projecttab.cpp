@@ -29,6 +29,7 @@
 
 #include <klocale.h>
 #include <kaction.h>
+#include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
@@ -71,6 +72,45 @@ ProjectTab::ProjectTab(QWidget *parent)
     setXMLFile("projectmanagerui.rc",true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
+#define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
+    action = actionCategory->addAction(_name);\
+    action->setText(_text);\
+    action->setShortcut(QKeySequence( _shortcut ));\
+    action->setIcon(KIcon(_icon));
+
+    KAction *action;
+    KActionCollection* ac=actionCollection();
+    KActionCategory* actionCategory=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
+
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp,"prevfuzzyuntrans")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
+
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
+
+    ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
+
+    ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
+    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
+
+    ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
+
+    ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
+
+    ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly",i18nc("@action:inmenu","Previous template only"),Qt::CTRL+Qt::Key_Up,"prevtemplate")
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevTemplateOnly()));
+
+    ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly",i18nc("@action:inmenu","Next template only"),Qt::CTRL+Qt::Key_Down,"nexttemplate")
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTemplateOnly()));
+
+    ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly",i18nc("@action:inmenu","Previous translation only"),Qt::ALT+Qt::Key_Up,"prevpo")
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevTransOnly()));
+
+    ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
 }
 
 ProjectTab::~ProjectTab()
@@ -107,7 +147,7 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 
     if (m_browser->currentIsTranslationFile())
     {
-        menu->addAction(i18nc("@action:inmenu","Open"),this,SLOT(openFile));
+        menu->addAction(i18nc("@action:inmenu","Open"),this,SLOT(openFile()));
         menu->addSeparator();
     }
     /*menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
@@ -143,6 +183,17 @@ void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem
 void ProjectTab::findInFiles()    {emit searchRequested(m_browser->selectedItems());}
 void ProjectTab::replaceInFiles() {emit replaceRequested(m_browser->selectedItems());}
 void ProjectTab::spellcheckFiles(){emit spellcheckRequested(m_browser->selectedItems());}
+
+void ProjectTab::gotoPrevFuzzyUntr()    {m_browser->gotoPrevFuzzyUntr();};
+void ProjectTab::gotoNextFuzzyUntr()    {m_browser->gotoNextFuzzyUntr();};
+void ProjectTab::gotoPrevFuzzy()        {m_browser->gotoPrevFuzzy();};
+void ProjectTab::gotoNextFuzzy()        {m_browser->gotoNextFuzzy();};
+void ProjectTab::gotoPrevUntranslated() {m_browser->gotoPrevUntranslated();};
+void ProjectTab::gotoNextUntranslated() {m_browser->gotoNextUntranslated();};
+void ProjectTab::gotoPrevTemplateOnly() {m_browser->gotoPrevTemplateOnly();};
+void ProjectTab::gotoNextTemplateOnly() {m_browser->gotoNextTemplateOnly();};
+void ProjectTab::gotoPrevTransOnly()    {m_browser->gotoPrevTransOnly();};
+void ProjectTab::gotoNextTransOnly()    {m_browser->gotoNextTransOnly();};
 
 bool ProjectTab::currentItemIsTranslationFile() const {return m_browser->currentIsTranslationFile();}
 void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(KUrl::fromLocalFile(url));}

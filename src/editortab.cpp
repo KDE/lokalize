@@ -175,7 +175,7 @@ void EditorTab::numberOfFuzziesChanged()
 void EditorTab::numberOfUntranslatedChanged()
 {
     int untr=m_catalog->numberOfUntranslated();
-    QString text=i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", untr);
+    QString text=i18nc("@info:status message entries","Untranslated: %1", untr);
     if (untr)
         text+=QString(" (%1%)").arg(int(100.0*untr/m_catalog->numberOfEntries()));
     statusBarItems.insert(ID_STATUS_UNTRANS,text);
@@ -501,6 +501,10 @@ void EditorTab::setupActions()
     action->setShortcut(Qt::CTRL+Qt::Key_T);
     action->setText(i18nc("@action:inmenu","Insert Tag"));
 
+    action=edit->addAction("edit_tagimmediate",m_view->viewPort(),SLOT(tagImmediate()));
+    action->setShortcut(Qt::CTRL+Qt::Key_M);
+    action->setText(i18nc("@action:inmenu","Insert Next Tag"));
+
     action=edit->addAction("edit_spellreplace",m_view->viewPort(),SLOT(spellReplace()));
     action->setShortcut(Qt::CTRL+Qt::Key_Equal);
     action->setText(i18nc("@action:inmenu","Replace with best spellcheck suggestion"));
@@ -538,26 +542,32 @@ void EditorTab::setupActions()
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
+    connect( m_view->viewPort(), SIGNAL( gotoPrevFuzzyRequested() ), this, SLOT(gotoPrevFuzzy()) );
     connect( this, SIGNAL(signalPriorFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
+    connect( m_view->viewPort(), SIGNAL( gotoNextFuzzyRequested() ), this, SLOT(gotoNextFuzzy()) );
     connect( this, SIGNAL(signalNextFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
+    connect( m_view->viewPort(), SIGNAL( gotoPrevUntranslatedRequested() ), this, SLOT(gotoPrevUntranslated()) );
     connect( this, SIGNAL(signalPriorUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
+    connect( m_view->viewPort(), SIGNAL( gotoNextUntranslatedRequested() ), this, SLOT(gotoNextUntranslated()) );
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
+    connect( m_view->viewPort(), SIGNAL( gotoPrevFuzzyUntrRequested() ), this, SLOT(gotoPrevFuzzyUntr()) );
     connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
+    connect( m_view->viewPort(), SIGNAL( gotoNextFuzzyUntrRequested() ), this, SLOT(gotoNextFuzzyUntr()) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action=nav->addAction("go_focus_earch_line",m_transUnitsView, SLOT(setFocus()));

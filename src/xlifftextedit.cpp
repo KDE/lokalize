@@ -951,6 +951,41 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
 //     event->accept();
 }
 
+void XliffTextEdit::wheelEvent(QWheelEvent *event)
+{
+    if (m_part==DocPosition::Source || !Settings::mouseWheelGo())
+        return KTextEdit::wheelEvent(event);
+
+    switch (event->modifiers())
+    {
+        case Qt::ControlModifier:
+            if (event->delta() > 0)
+                emit gotoPrevFuzzyRequested();
+            else
+                emit gotoNextFuzzyRequested();
+            break;
+        case Qt::AltModifier:
+            if (event->delta() > 0)
+                emit gotoPrevUntranslatedRequested();
+            else
+                emit gotoNextUntranslatedRequested();
+            break;
+        case Qt::ControlModifier + Qt::ShiftModifier:
+            if (event->delta() > 0)
+                emit gotoPrevFuzzyUntrRequested();
+            else
+                emit gotoNextFuzzyUntrRequested();
+            break;
+        case Qt::ShiftModifier:
+            return KTextEdit::wheelEvent(event);
+        default:
+            if (event->delta() > 0)
+                emit gotoPrevRequested();
+            else
+                emit gotoNextRequested();
+    }
+}
+
 void XliffTextEdit::spellReplace()
 {
     QTextCursor wordSelectCursor=textCursor();
@@ -986,7 +1021,10 @@ bool XliffTextEdit::event(QEvent *event)
 
 
 
-void XliffTextEdit::tagMenu()
+void XliffTextEdit::tagMenu()     {doTag(false);}
+void XliffTextEdit::tagImmediate(){doTag(true);}
+
+void XliffTextEdit::doTag(bool immediate)
 {
     QMenu menu;
     QAction* txt=0;
@@ -1004,10 +1042,16 @@ void XliffTextEdit::tagMenu()
             txt->setData(QVariant(i));
             if (!hasActive && !tagIdToIndex.contains(sourceWithTags.tags.at(i).id))
             {
+                if (immediate)
+                {
+                    insertTag(sourceWithTags.tags.at(txt->data().toInt()));
+                    return;
+                }
                 hasActive=true;
                 menu.setActiveAction(txt);
             }
         }
+        if (immediate) return;
         txt=menu.exec(mapToGlobal(cursorRect().bottomRight()));
         if (!txt) return;
         insertTag(sourceWithTags.tags.at(txt->data().toInt()));
@@ -1035,11 +1079,17 @@ void XliffTextEdit::tagMenu()
             pos+=tag.matchedLength();
 
             if (posInMsgStr!=-1 && (posInMsgStr=target.indexOf(tag.cap(0),posInMsgStr))==-1)
+            {
+                if (immediate)
+                {
+                    insertPlainText(txt->text());
+                    return;
+                }
                 menu.setActiveAction(txt);
-            else if (posInMsgStr!=-1)
+            } else if (posInMsgStr!=-1)
                 posInMsgStr+=tag.matchedLength();
         }
-        if (!txt)
+        if (!txt || immediate)
             return;
 
         //txt=menu.exec(_msgidEdit->mapToGlobal(QPoint(0,0)));

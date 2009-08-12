@@ -80,6 +80,17 @@ private slots:
     void replaceInFiles();
     void spellcheckFiles();
 
+    void gotoPrevFuzzyUntr();
+    void gotoNextFuzzyUntr();
+    void gotoPrevFuzzy();
+    void gotoNextFuzzy();
+    void gotoPrevUntranslated();
+    void gotoNextUntranslated();
+    void gotoPrevTemplateOnly();
+    void gotoNextTemplateOnly();
+    void gotoPrevTransOnly();
+    void gotoNextTransOnly();
+
 private:
     ProjectWidget* m_browser;
     KLineEdit* m_lineEdit;
