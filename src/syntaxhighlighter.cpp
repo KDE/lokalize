@@ -130,6 +130,7 @@ void SyntaxHighlighter::setFuzzyState(bool fuzzy)
 
 void SyntaxHighlighter::highlightBlock(const QString &text)
 {
+    int currentBlockState = STATE_NORMAL;
     QTextCharFormat f;
     f.setFontItalic(!m_approved);
     setFormat(0, text.length(), f);
@@ -137,8 +138,6 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     tagFormat.setFontItalic(!m_approved);
     //if (fromDocbook)
     {
-        setCurrentBlockState(STATE_NORMAL);
-
         int startIndex = STATE_NORMAL;
         if (previousBlockState() != STATE_TAG)
             startIndex = text.indexOf('<');
@@ -149,7 +148,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
             int commentLength;
             if (endIndex == -1)
             {
-                setCurrentBlockState(STATE_TAG);
+                currentBlockState = STATE_TAG;
                 commentLength = text.length() - startIndex;
             }
             else
@@ -177,7 +176,9 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     }
 
     if (spellCheckerFound())
-        Sonnet::Highlighter::highlightBlock(text);
+        Sonnet::Highlighter::highlightBlock(text); // Resets current block state
+
+    setCurrentBlockState(currentBlockState);
 }
 
 #if 0
