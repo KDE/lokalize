@@ -184,16 +184,16 @@ void ProjectTab::findInFiles()    {emit searchRequested(m_browser->selectedItems
 void ProjectTab::replaceInFiles() {emit replaceRequested(m_browser->selectedItems());}
 void ProjectTab::spellcheckFiles(){emit spellcheckRequested(m_browser->selectedItems());}
 
-void ProjectTab::gotoPrevFuzzyUntr()    {m_browser->gotoPrevFuzzyUntr();};
-void ProjectTab::gotoNextFuzzyUntr()    {m_browser->gotoNextFuzzyUntr();};
-void ProjectTab::gotoPrevFuzzy()        {m_browser->gotoPrevFuzzy();};
-void ProjectTab::gotoNextFuzzy()        {m_browser->gotoNextFuzzy();};
-void ProjectTab::gotoPrevUntranslated() {m_browser->gotoPrevUntranslated();};
-void ProjectTab::gotoNextUntranslated() {m_browser->gotoNextUntranslated();};
-void ProjectTab::gotoPrevTemplateOnly() {m_browser->gotoPrevTemplateOnly();};
-void ProjectTab::gotoNextTemplateOnly() {m_browser->gotoNextTemplateOnly();};
-void ProjectTab::gotoPrevTransOnly()    {m_browser->gotoPrevTransOnly();};
-void ProjectTab::gotoNextTransOnly()    {m_browser->gotoNextTransOnly();};
+void ProjectTab::gotoPrevFuzzyUntr()    {m_browser->gotoPrevFuzzyUntr();}
+void ProjectTab::gotoNextFuzzyUntr()    {m_browser->gotoNextFuzzyUntr();}
+void ProjectTab::gotoPrevFuzzy()        {m_browser->gotoPrevFuzzy();}
+void ProjectTab::gotoNextFuzzy()        {m_browser->gotoNextFuzzy();}
+void ProjectTab::gotoPrevUntranslated() {m_browser->gotoPrevUntranslated();}
+void ProjectTab::gotoNextUntranslated() {m_browser->gotoNextUntranslated();}
+void ProjectTab::gotoPrevTemplateOnly() {m_browser->gotoPrevTemplateOnly();}
+void ProjectTab::gotoNextTemplateOnly() {m_browser->gotoNextTemplateOnly();}
+void ProjectTab::gotoPrevTransOnly()    {m_browser->gotoPrevTransOnly();}
+void ProjectTab::gotoNextTransOnly()    {m_browser->gotoNextTransOnly();}
 
 bool ProjectTab::currentItemIsTranslationFile() const {return m_browser->currentIsTranslationFile();}
 void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(KUrl::fromLocalFile(url));}
