@@ -46,20 +46,7 @@
       <string>If set, mouse wheel goes to previous or next unit, otherwise it scrolls text</string>
      </property>
      <property name="whatsThis">
-      <string>
-       &lt;html&gt;
-        When this option is enabled, the mouse wheel is used to go to the previous or next translation
-        unit (without modifier keys). Modifier keys can be used to change this behavior. Use:
-        &lt;ul&gt;
-         &lt;li>&lt;b&gt;Shift&lt;/b&gt; to scroll within the text of the current unit,&lt;/li&gt;
-         &lt;li>&lt;b&gt;Ctrl+Shift&lt;/b&gt; to go to previous or next non-ready unit,&lt;/li&gt;
-         &lt;li>&lt;b&gt;Ctrl&lt;/b&gt; to go to previous or next non-ready not empty unit,&lt;/li&gt;
-         &lt;li>&lt;b&gt;Alt&lt;/b&gt; to go to previous or next untranslated unit.&lt;/li&gt;
-        &lt;/ul&gt;
-        When the option is disabled, the mouse wheel scrolls within the text of the current
-        translation unit.
-       &lt;/html&gt;
-      </string>
+      <string>&lt;html&gt;When this option is enabled, the mouse wheel is used to go to the previous or next translation unit (without modifier keys). Modifier keys can be used to change this behavior. Use:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Shift&lt;/b&gt; to scroll within the text of the current unit,&lt;/li&gt;&lt;li&gt;&lt;b&gt;Ctrl+Shift&lt;/b&gt; to go to previous or next non-ready unit,&lt;/li&gt;&lt;li&gt;&lt;b&gt;Ctrl&lt;/b&gt; to go to previous or next non-ready not empty unit,&lt;/li&gt;&lt;li&gt;&lt;b&gt;Alt&lt;/b&gt; to go to previous or next untranslated unit.&lt;/li&gt;&lt;/ul&gt;When the option is disabled, the mouse wheel scrolls within the text of the current translation unit.&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
