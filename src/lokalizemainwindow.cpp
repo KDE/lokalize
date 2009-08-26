@@ -73,6 +73,7 @@ LokalizeMainWindow::LokalizeMainWindow()
  , m_mdiArea(new QMdiArea)
  , m_prevSubWindow(0)
  , m_projectSubWindow(0)
+ , m_translationMemorySubWindow(0)
  , m_editorActions(new QActionGroup(this))
  , m_managerActions(new QActionGroup(this))
  , m_spareEditor(new EditorTab(this,false))
@@ -130,6 +131,18 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     //QTime aaa;aaa.start();
     if (!w || m_prevSubWindow==w)
         return;
+
+    if (m_projectSubWindow)
+    {
+        LokalizeSubwindowBase* prevProject = static_cast<LokalizeSubwindowBase2*>(m_projectSubWindow->widget());
+        prevProject->statusBarItems.unregisterStatusBar();
+    }
+
+    if (m_translationMemorySubWindow)
+    {
+        LokalizeSubwindowBase* prevTM = static_cast<LokalizeSubwindowBase2*>(m_translationMemorySubWindow->widget());
+        prevTM->statusBarItems.unregisterStatusBar();
+    }
 
     if (m_prevSubWindow)
     {
@@ -314,10 +327,12 @@ QObject* LokalizeMainWindow::projectOverview()
     if (!m_projectSubWindow)
     {
         ProjectTab* w=new ProjectTab(this);
+        w->statusBarItems.registerStatusBar(statusBar());
         m_projectSubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_projectSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
+        guiFactory()->addClient( w->guiClient() );
     }
     if (m_mdiArea->currentSubWindow()==m_projectSubWindow)
         return m_projectSubWindow->widget();
@@ -519,18 +534,23 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
+    if (files.size() == 0 && !m_lastEditorState.isEmpty())
+        dockWidgets.append(m_lastEditorState); // save last state if no editor open
+
     if (stateGroup.isValid())
         stateGroup.writeEntry("Project",Project::instance()->path());
 
 
     KConfig config;
     KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
+    ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
     projectStateGroup.writeEntry("Active",activeSWIndex);
     projectStateGroup.writeEntry("Files",files);
     projectStateGroup.writeEntry("MergeFiles",mergeFiles);
     projectStateGroup.writeEntry("DockWidgets",dockWidgets);
     //stateGroup.writeEntry("Offsets",offsets);
     projectStateGroup.writeEntry("Entries",entries);
+    projectStateGroup.writeEntry("SavedTotal", w->savedTotal());
 
 
     QString nameSpecifier=Project::instance()->path();
@@ -578,6 +598,9 @@ void LokalizeMainWindow::projectLoaded()
     //QList<int> offsets;
     QList<int> entries;
 
+    ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
+    w->setSavedTotal(projectStateGroup.readEntry("SavedTotal", 0));
+
     entries=projectStateGroup.readEntry("Entries",entries);
 
     files=projectStateGroup.readEntry("Files",files);
@@ -592,6 +615,8 @@ void LokalizeMainWindow::projectLoaded()
         if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i)))
             continue;
     }
+    if (files.size() == 0 && dockWidgets.size() > 0)
+        m_lastEditorState=dockWidgets.first(); // restore last state if no editor open
     if (activeSWIndex==-1)
     {
         m_toBeActiveSubWindow=m_projectSubWindow;

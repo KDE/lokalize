@@ -107,7 +107,9 @@ class SortFilterProxyModel : public KDirSortFilterProxyModel
 public:
     SortFilterProxyModel(QObject* parent=0)
         : KDirSortFilterProxyModel(parent)
-    {}
+    {
+        connect(Project::instance()->model(),SIGNAL(totalsChanged(int,int,int,bool)),this,SLOT(invalidate()));
+    }
     ~SortFilterProxyModel(){}
 protected:
     bool lessThan(const QModelIndex& left,
@@ -126,6 +128,9 @@ bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& s
     if (model->hasChildren(item))
         model->fetchMore(item);
 */
+    if (item.data(ProjectModel::TotalRole) == 0)
+        return false; // Hide rows with no translations
+
     int i=model->rowCount(item);
     while(--i>=0 && !result)
         result=filterAcceptsRow(i,item);
@@ -406,7 +411,7 @@ ProjectWidget::gotoIndexResult ProjectWidget::gotoIndexFind(
             ProjectWidget::gotoIndexResult result = gotoIndexFind(child, role, direction);
             if (result != gotoIndex_notfound)
                 return result;
-	}
+        }
 
         // Go to previous or next item
         index = gotoIndexPrevNext(index, direction);

@@ -34,6 +34,7 @@
 class ProjectWidget;
 class KLineEdit;
 class QContextMenuEvent;
+class QProgressBar;
 
 /**
  * Project Overview Tab
@@ -54,6 +55,9 @@ public:
     void showDocks(){};
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
     KUrl currentUrl();
+
+    int savedTotal(){return m_newSavedTotal;}
+    void setSavedTotal(int to);
 
 signals:
     void fileOpenRequested(const KUrl&);
@@ -91,10 +95,14 @@ private slots:
     void gotoPrevTransOnly();
     void gotoNextTransOnly();
 
+    void updateStatusBar(int fuzzy = 0, int translated = 0, int untranslated = 0, bool done = false);
+    void initStatusBarProgress();
+
 private:
     ProjectWidget* m_browser;
     KLineEdit* m_lineEdit;
-
+    QProgressBar* m_progressBar;
+    int m_savedTotal, m_newSavedTotal;
 };
 
 #endif

@@ -35,6 +35,7 @@
 #include <QTime>
 #include <QFile>
 #include <QtAlgorithms>
+#include <QTimer>
 
 #undef KDE_NO_DEBUG_OUTPUT
 static int nodeCounter=0;
@@ -85,6 +86,10 @@ ProjectModel::ProjectModel(QObject *parent)
     connect(&m_potModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
             this, SLOT(pot_rowsRemoved(QModelIndex,int,int)));
 
+    m_doneTimer = new QTimer();
+    m_doneTimer->setSingleShot(true);
+    connect(m_doneTimer, SIGNAL(timeout()), this, SLOT(updateTotalsChanged()));
+
     setUrl(KUrl(), KUrl());
 }
 
@@ -131,6 +136,8 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
     m_potUrl = potUrl;
     m_poUrl.adjustPath(KUrl::AddTrailingSlash);
     m_potUrl.adjustPath(KUrl::AddTrailingSlash);
+
+    emit loading();
 
     if (!poUrl.isEmpty())
         m_poModel.dirLister()->openUrl(m_poUrl, KDirLister::Reload);
@@ -660,6 +667,8 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
         return item.isFile()?(node->poRowNumber == -1):0;
     case TransOnlyRole:
         return item.isFile()?(node->potRowNumber == -1):0;
+    case TotalRole:
+        return hasStats?(fuzzy + untranslated + translated):0;
     default:
         return QVariant();
     }
@@ -943,6 +952,8 @@ KUrl ProjectModel::potToPo(const KUrl& potPath) const
 
 void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
 {
+    m_doneTimer->stop();
+
     if (m_dirsWaitingForMetadata.contains(node))
     {
         if ((m_activeJob != NULL) && (m_activeNode == node))
@@ -1104,10 +1115,13 @@ void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<KFileMetaInf
 
 void ProjectModel::updateDirStats(ProjectNode* node)
 {
-    if (node == &m_rootNode)
-        return;
-
     node->calculateDirStats();
+    if (node == &m_rootNode)
+    {
+        updateTotalsChanged();
+        return;
+    }
+
     updateDirStats(node->parent);
 
     if (node->parent->rows.count()==0 || node->parent->rows.count()>=node->rowNumber)
@@ -1119,6 +1133,32 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     QModelIndex topLeft = index.sibling(index.row(), Graph);
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
     emit dataChanged(topLeft, bottomRight);
+}
+
+bool ProjectModel::updateDone(const QModelIndex& index, KDirModel& model)
+{
+    if (model.canFetchMore(index))
+        return false;
+
+    for (int row = 0; row < model.rowCount(index); row++)
+    {
+        if (!updateDone(model.index(row, 0, index), model))
+            return false;
+    }
+    return true;
+}
+
+void ProjectModel::updateTotalsChanged()
+{
+    bool done = m_dirsWaitingForMetadata.isEmpty();
+    if (done)
+    {
+        done = updateDone(m_poModel.indexForUrl(m_poUrl), m_poModel) &&
+               updateDone(m_potModel.indexForUrl(m_potUrl), m_potModel);
+        if (m_rootNode.fuzzy + m_rootNode.translated + m_rootNode.untranslated > 0 && !done)
+            m_doneTimer->start(2000);
+    }
+    emit totalsChanged(m_rootNode.fuzzy, m_rootNode.translated, m_rootNode.untranslated, done);
 }
 
 

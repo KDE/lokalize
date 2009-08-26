@@ -34,6 +34,7 @@
 #include <QList>
 #include <kdebug.h>
 
+class QTimer;
 class UpdateStatsJob;
 namespace ThreadWeaver {class Weaver;}
 
@@ -98,7 +99,8 @@ public:
         FuzzyCountRole,
         UntransCountRole,
         TemplateOnlyRole,
-        TransOnlyRole
+        TransOnlyRole,
+        TotalRole
     };
 
     ProjectModel(QObject *parent);
@@ -128,6 +130,10 @@ public:
     ThreadWeaver::Weaver* weaver(){return m_weaver;}
     void setCompleteScan(bool enable){m_completeScan=enable;}
 
+signals:
+    void totalsChanged(int fuzzy, int translated, int untranslated, bool done);
+    void loading();
+
 private slots:
     void po_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void po_rowsInserted(const QModelIndex& parent, int start, int end);
@@ -139,6 +145,8 @@ private slots:
 
     void finishMetadataUpdate(ThreadWeaver::Job*);
     void finishSingleMetadataUpdate(ThreadWeaver::Job*);
+
+    void updateTotalsChanged();
 
 public slots:
     void slotFileSaved(const KUrl&);
@@ -166,6 +174,7 @@ private:
     void startNewMetadataJob();
     void setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data);
     void updateDirStats(ProjectNode* node);
+    bool updateDone(const QModelIndex& index, KDirModel& model);
 
     KUrl m_poUrl;
     KUrl m_potUrl;
@@ -183,6 +192,7 @@ private:
     QSet<ProjectNode *> m_dirsWaitingForMetadata;
     UpdateStatsJob* m_activeJob;
     ProjectNode* m_activeNode;
+    QTimer* m_doneTimer;
 
     ThreadWeaver::Weaver* m_weaver;
 

@@ -558,7 +558,7 @@ bool TMView::event(QEvent *event)
         {
             QString file=m_entries.at(block).file;
             if (file==m_catalog->url().toLocalFile())
-                file="this";
+                file=i18nc("File argument in tooltip, when file is current file", "this");
             QString tooltip=i18nc("@info:tooltip","File: %1<br />Date: %2",file,m_entries.at(block).date);
             if (m_entries.at(block).obsolete)
                 tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Is not present in the file anymore");

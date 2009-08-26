@@ -34,18 +34,22 @@
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include <klineedit.h>
+#include <kstatusbar.h>
+#include <khbox.h>
 
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QShortcut>
 #include <QSortFilterProxyModel>
-
+#include <QProgressBar>
 
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
     , m_lineEdit(new KLineEdit(this))
+    , m_savedTotal(-1)
+    , m_newSavedTotal(0)
 
 {
     setWindowTitle(i18nc("@title:window","Project Overview"));//setCaption(i18nc("@title:window","Project"),false);
@@ -62,12 +66,21 @@ ProjectTab::ProjectTab(QWidget *parent)
     l->addWidget(m_lineEdit);
     l->addWidget(m_browser);
     connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
+    connect(Project::instance()->model(), SIGNAL(totalsChanged(int, int, int, bool)),
+            this, SLOT(updateStatusBar(int, int, int, bool)));
+    connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
 
     setCentralWidget(w);
 
-    int i=6;
-    while (--i>=0)
-        statusBarItems.insert(i,QString());
+    KHBox *progressBox = new KHBox();
+    KStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
+
+    m_progressBar = new QProgressBar(progressBox);
+    m_progressBar->setVisible(false);
+    progressBox->setMinimumWidth(200);
+    progressBox->setMaximumWidth(200);
+    progressBox->setMaximumHeight(statusBar->sizeHint().height() - 4);
+    statusBar->insertWidget(ID_STATUS_PROGRESS, progressBox, 1);
 
     setXMLFile("projectmanagerui.rc",true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
@@ -204,6 +217,55 @@ QStringList ProjectTab::selectedItems() const
     foreach (const KUrl& url, m_browser->selectedItems())
         result.append(url.toLocalFile());
     return result;
+}
+
+void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
+{
+    int total = fuzzy + translated + untranslated;
+    QString fuzzyText = i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", fuzzy);
+    QString untrText  = i18nc("@info:status message entries","Untranslated: %1", untranslated);
+    QString totalText = i18nc("@info:status message entries","Total: %1", total);
+
+    if (fuzzy > 0)
+        fuzzyText += QString(" (%1%)").arg(100*fuzzy/total);
+    if (untranslated > 0)
+        untrText += QString(" (%1%)").arg(100*untranslated/total);
+
+    m_newSavedTotal = total;
+
+    if (m_progressBar->value() != total && m_savedTotal > 0)
+        m_progressBar->setValue(total);
+    if (m_progressBar->maximum() != m_savedTotal)
+        m_progressBar->setMaximum(m_savedTotal);
+    if (m_progressBar->isVisible() == done)
+        m_progressBar->setVisible(!done);
+
+    statusBarItems.insert(ID_STATUS_CURRENT,  QString());
+    statusBarItems.insert(ID_STATUS_TOTAL,    totalText);
+    statusBarItems.insert(ID_STATUS_FUZZY,    fuzzyText);
+    statusBarItems.insert(ID_STATUS_UNTRANS,  untrText);
+    statusBarItems.insert(ID_STATUS_ISFUZZY,  QString());
+}
+
+void ProjectTab::initStatusBarProgress()
+{
+    if (m_savedTotal > 0)
+    {
+        if (m_progressBar->value() != 0)
+            m_progressBar->setValue(0);
+        if (m_progressBar->maximum() != m_savedTotal)
+            m_progressBar->setMaximum(m_savedTotal);
+        if (!m_progressBar->isVisible())
+            m_progressBar->setVisible(true);
+        updateStatusBar();
+    }
+}
+
+void ProjectTab::setSavedTotal(int to)
+{
+    m_savedTotal = to;
+    m_newSavedTotal = to;
+    initStatusBarProgress();
 }
 
 //bool ProjectTab::isShown() const {return isVisible();}
