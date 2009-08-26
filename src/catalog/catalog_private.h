@@ -121,7 +121,7 @@ public:
         _statesIndex.resize(StateCount);
     }
 
-    bool addToEmptyIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
+    bool addToEmptyIndexIfAppropriate(CatalogStorage*, const DocPosition& pos, bool alreadyEmpty);
     bool removeFromUntransIndexIfAppropriate(CatalogStorage*, const DocPosition& pos);
 };
 

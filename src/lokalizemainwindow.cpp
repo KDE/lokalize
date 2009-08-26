@@ -518,6 +518,9 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
+    if (files.size() == 0 && !m_lastEditorState.isEmpty())
+        dockWidgets.append(m_lastEditorState); // save last state if no editor open
+
     if (stateGroup.isValid())
         stateGroup.writeEntry("Project",Project::instance()->path());
 
@@ -591,6 +594,8 @@ void LokalizeMainWindow::projectLoaded()
         if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i)))
             continue;
     }
+    if (files.size() == 0 && dockWidgets.size() > 0)
+        m_lastEditorState=dockWidgets.first(); // restore last state if no editor open
     if (activeSWIndex==-1)
     {
         m_toBeActiveSubWindow=m_projectSubWindow;

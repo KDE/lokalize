@@ -296,6 +296,7 @@ void EditorTab::setupActions()
     tm->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
+    connect (_tmView,SIGNAL(refreshRequested()),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
     connect (_tmView,SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SIGNAL(fileOpenRequested(KUrl,QString,QString)));
     connect (this,SIGNAL(fileAboutToBeClosed()),m_catalog,SLOT(flushUpdateDBBuffer()));
@@ -893,11 +894,13 @@ bool EditorTab::queryClose()
 void EditorTab::undo()
 {
     gotoEntry(m_catalog->undo(),0);
+    msgStrChanged();
 }
 
 void EditorTab::redo()
 {
     gotoEntry(m_catalog->redo(),0);
+    msgStrChanged();
 }
 
 void EditorTab::gotoEntry()

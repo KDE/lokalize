@@ -416,7 +416,7 @@ int Catalog::unitById(const QString& id) const
 QString Catalog::mimetype()
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return false;
+        return QString();
 
     return m_storage->mimetype();
 }
@@ -565,6 +565,9 @@ bool Catalog::saveToUrl(KUrl url)
 {
     if (KDE_ISUNLIKELY( !m_storage ))
         return true;
+
+    if (d->_modifiedEntries.isEmpty())
+        return true; // nothing changed to save
 
     bool nameChanged=false;
     if (KDE_ISLIKELY( url.isEmpty() ))
@@ -726,9 +729,9 @@ void Catalog::setLastModifiedPos(const DocPosition& pos)
     d->_lastModifiedPos=pos;
 }
 
-bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
+bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos, bool alreadyEmpty)
 {
-    if ((!pos.offset)&&(storage->target(pos).isEmpty())&&(!storage->isEmpty(pos)))
+    if ((!pos.offset)&&(storage->target(pos).isEmpty())&&(!alreadyEmpty))
     {
         insertInList(_emptyIndex,pos.entry);
         return true;
@@ -741,9 +744,10 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
     if (KDE_ISUNLIKELY( !m_storage ))
         return;
 
+    bool alreadyEmpty = m_storage->isEmpty(pos);
     m_storage->targetDelete(pos,count);
 
-    if (d->addToEmptyIndexIfAppropriate(m_storage,pos))
+    if (d->addToEmptyIndexIfAppropriate(m_storage,pos,alreadyEmpty))
         emit signalNumberOfEmptyChanged();
     emit signalEntryModified(pos);
 }
@@ -787,9 +791,10 @@ InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
     if (KDE_ISUNLIKELY( !m_storage ))
         return InlineTag();
 
+    bool alreadyEmpty = m_storage->isEmpty(pos);
     InlineTag tag=m_storage->targetDeleteTag(pos);
 
-    if (d->addToEmptyIndexIfAppropriate(m_storage,pos))
+    if (d->addToEmptyIndexIfAppropriate(m_storage,pos,alreadyEmpty))
         emit signalNumberOfEmptyChanged();
     emit signalEntryModified(pos);
     return tag;
