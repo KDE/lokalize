@@ -32,9 +32,9 @@
 <abstract>
 <para>
 &lokalize; is a computer-aided translation system that focuses on productivity and
-quality assurance.  &lokalize; applies a paragraph-by-paragraph translation approach
-when translating documentation, and takes a message-by-message approach when
-translating &GUI; components.
+quality assurance.  It has components usual for CAT tools: translation memory, glossary, 
+and also a unique translation merging (synchronization) capability.
+It is targeted for software translation and also integrates external conversion tools for freelance office document translation.
 </para>
 </abstract>
 
@@ -64,8 +64,9 @@ Lokalize workflow implies that you start with creating/opening a project.
 </para>
 <para>
 If you are working along, chances are you are going to translate OpenDocument file.
-To do this select <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>
+To do this select <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>.
 The wizard will ask you about your source document, convert it to &lokalize; internal format, XLIFF, and create project for it.
+After you finish translating choose <menuchoice><guimenu>Tools</guimenu><guimenuitem>Merge into ODF</guimenuitem></menuchoice> to integrate your translation into a copy of source document.
 </para>
 
 <para>
@@ -77,13 +78,12 @@ and the wizard will download translation files for your language and will create
 <para>
 Translation files are opened in separate tab, with two big multi-line edits as well as a bunch of <emphasis>toolviews</emphasis>.
 These views can be stacked (similar to tabs), shown separately, or hidden.
-Translation files consist of many English-target pairs called <emphasis>messages</emphasis>.
-A <emphasis>message</emphasis> typically correspond to a single string in the
+Translation files consist of many English-target pairs called <emphasis>units</emphasis>.
+A <emphasis>unit</emphasis> typically correspond to a single string in the
 user interface, or one paragraph in the documentation. The purpose of the first
 multi-line edit is to display the original part of the pair. The purpose of
 the second multi-line edit is to display the translation. You can navigate
-through the <emphasis>messages</emphasis> via the <guilabel>Catalog
-Tree</guilabel> view or by using <keycap>Page Down</keycap> and <keycap>Page
+through the <emphasis>units</emphasis> via the <guilabel>Translation Units</guilabel> view or by using <keycap>Page Down</keycap> and <keycap>Page
 Up</keycap>.
 </para>
 
@@ -92,18 +92,18 @@ Up</keycap>.
 It is recommended that you get used to the keyboard shortcuts instead of the
 menus and toolbars for increased productivity. For example, use the
 <keycombo>&Ctrl;<keycap>L</keycap></keycombo> to focus <guilabel>Quick search</guilabel>
-input line to filter entry list in <guilabel>Translation Units</guilabel> view.
+input line to filter unit list in <guilabel>Translation Units</guilabel> view.
 Once you are done, press <keycap>Page Down</keycap> to start moving along the filtered list.
 </para>
 </tip>
 
 <para>
-A message may be <emphasis>translated</emphasis> or <emphasis>untranslated</emphasis>.
-A translated message translation may be <emphasis>approved</emphasis> or <emphasis>non-approved</emphasis> (also called <emphasis>fuzzy</emphasis> and <emphasis>non-ready</emphasis> sometimes).
-If the message is non-approved, its translation is rendered in italics.
+A unit may be <emphasis>translated</emphasis> or <emphasis>untranslated</emphasis>.
+A translation of a translated unit may be <emphasis>ready</emphasis> or <emphasis>not ready</emphasis> (also called <emphasis>fuzzy</emphasis> sometimes).
+If the unit is not ready, its translation is rendered in italics.
 &lokalize; allows you to easily navigate through the file according to the state of their translation.
 See <guilabel>Go</guilabel> menu for the shortcuts.
-When navigating, untranslated messages are treated as non-approved.
+When navigating, untranslated units are treated as not ready.
 Also you may use filtering feature of <guilabel>Translation Units</guilabel> toolview.
 Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that toolview.
 </para>
@@ -112,9 +112,9 @@ Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filte
 If you are working with translation files in XLIFF format (definitely the case when you translate OpenDocument),
 then extended states are available (<emphasis>new</emphasis>, <emphasis>needs review</emphasis>, <emphasis>approved</emphasis>, etc).
 You may select them in drop-down menu of <guilabel>Approved</guilabel> button in the toolbar.
-Classification of the state as <emphasis>ready</emphasis> or <emphasis>non-ready</emphasis> depends on the current <emphasis>workflow phase</emphasis> (<emphasis>translation</emphasis>, <emphasis>review</emphasis>, <emphasis>approval</emphasis>).
+Classification of the state as <emphasis>ready</emphasis> or <emphasis>not ready</emphasis> depends on the current <emphasis>workflow phase</emphasis> (<emphasis>translation</emphasis>, <emphasis>review</emphasis>, <emphasis>approval</emphasis>).
 A default phase for you depends on your <emphasis>role</emphasis> in the project (set in project settings).
-Each entry usually contains information about phase it was changed last time, 
+Each unit usually contains information about phase it was changed last time, 
 and for each phase its owner is logged to the file.
 </para>
 
@@ -151,7 +151,7 @@ when other projects are opened.
 
 <para>
 The <guilabel>Project Overview</guilabel> tab displays a file tree with statistics for a current project,
-such as the percentage of translated messages completed and the last translator.
+such as the percentage of translated units completed and the last translator.
 It allows you to open a selected file in new tab of the current &lokalize;, window.
 </para>
 
@@ -176,13 +176,13 @@ glossary.
 </para>
 
 <screenshot>
-<screeninfo>Glossary view in the bottom right corner displays glossary entries appropriate for the current entry</screeninfo>
+<screeninfo>Glossary view in the bottom right corner displays glossary entries appropriate for the current unit</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="glossary.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Glossary view in the bottom right corner displays glossary entries appropriate for the current entry</phrase>
+      <phrase>Glossary view in the bottom right corner displays glossary entries appropriate for the current unit</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -195,7 +195,7 @@ glossary.
 <para>
 The <guilabel>Translation Memory</guilabel> view allows you to drag and drop a
 folder with translation files from say Dolphin into the view,
-and then, within few minutes, translation suggestions will be shown automatically on the message entry switch.
+and then, within few minutes, translation suggestions will be shown automatically on the unit switch.
 To insert the translation suggestions into the file, use 
 <keycombo>&Ctrl;<keycap>1</keycap></keycombo>, 
 <keycombo>&Ctrl;<keycap>2</keycap></keycombo> and so on, depending on the number of suggestion.
@@ -203,24 +203,24 @@ To insert the translation suggestions into the file, use
 
 <para>
 Pressing <keycombo><keycap>F7</keycap></keycombo> will open <guilabel>Translation Memory</guilabel> tab, which allows free querying TM.
-Clicking a search result will open corresponding file on corresponding entry.
+Clicking a search result will open corresponding file on corresponding unit.
 If you want to quickly open some file in the project (and it is added to TM), then instead of browsing <guilabel>Project Overview</guilabel>
 you just type its name into <guilabel>File mask</guilabel> field accompanied by '*'.
 </para>
 
 <para>
-TM engine indexes all entries, including fuzzy and untranslated ones.
+TM engine indexes all entries, including non-ready and untranslated ones.
 This allows it to completely replace Search-in-Files feature which required scanning every file in the project each time a search is done.
 </para>
 
 <screenshot>
-<screeninfo>&lokalize; with translation memory search results for the current entry</screeninfo>
+<screeninfo>&lokalize; with translation memory search results for the current unit</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="tmview.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>&lokalize; with translation memory search results for the current entry</phrase>
+      <phrase>&lokalize; with translation memory search results for the current unit</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -239,14 +239,14 @@ or when one has to maintain translations for several branches of software.
 </para>
 
 <para>
-&lokalize; allows quick navigation through the messages that differ, and displays
+&lokalize; allows quick navigation through units that differ, and displays
 word-by-word differences. Also, &lokalize; has two Sync views - <guilabel>Primary Sync</guilabel> and <guilabel>Secondary Sync</guilabel>.
 They are identical, but the former is usually used to merge translations and second to keep in sync translations for two software branches.
 </para>
 
 <para>
 After you copied translation from auxiliary file (<emphasis>synchronized</emphasis> it),
-any subsequent changes made to this entry will be replicated back to auxiliary file.
+any subsequent changes made to this unit will be replicated back to auxiliary file.
 </para>
 
 <sect1 id="file-merge">
@@ -300,7 +300,7 @@ and commit changes in both trunk and branch folders.
 <title>Alternate Translations</title>
 
 <para>
-Each entry may have several <emphasis>alternate translations</emphasis> associated with it.
+Each unit may have several <emphasis>alternate translations</emphasis> associated with it.
 Such translations may appear during file update, when the source string is slightly changed.
 In this case the old translation with it's (old) source is moved to alternate translations list, so that they are not lost.
 </para>
@@ -338,20 +338,38 @@ The location and name of menu entry for the script is defined in its accompanyin
 On each project open &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
 <filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
 RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they are tried both (actually they <emphasis>should</emphasis> be relative if you want to share .rc file with other people in your project).
-So you for example can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load script from <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde-l10n4 scripts folder</ulink> (i.e. not specific to your language).
+So you for example can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load script from <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (i.e. not specific to your language).
 </para>
 <para>
 Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/kde4/apps/lokalize/scripts/</filename>)
 and in <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">KDE repository</ulink>.
-<ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save.
+<ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save
+(this is achieved via special option in .rc file).
 If you're familiar with Python or JavaScript, the code should be self-explanatory.
 </para>
 <para>
 Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</emphasis> may be used from scripts.
+</para>
+
+<itemizedlist>
+<listitem>
+<para>
 <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html">Editor</ulink> object API reference
+</para>
+</listitem>
+<listitem>
+<para>
 <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html">Lokalize</ulink> object API reference
+</para>
+</listitem>
+<listitem>
+<para>
 <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html">Project</ulink> object API reference
 </para>
+</listitem>
+</itemizedlist>
+
+
 </chapter>
 
 <chapter id="credits">
