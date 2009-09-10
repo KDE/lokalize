@@ -113,10 +113,12 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     registerDBusAdaptor();
 
-    //QTimer::singleShot(0,this,SLOT(initLater()));
+    QTimer::singleShot(0,this,SLOT(initLater()));
 }
 void LokalizeMainWindow::initLater()
 {
+    if(!m_prevSubWindow)
+        slotSubWindowActivated(m_projectSubWindow);
 }
 
 LokalizeMainWindow::~LokalizeMainWindow()
@@ -131,18 +133,6 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     //QTime aaa;aaa.start();
     if (!w || m_prevSubWindow==w)
         return;
-
-    if (m_projectSubWindow)
-    {
-        LokalizeSubwindowBase* prevProject = static_cast<LokalizeSubwindowBase2*>(m_projectSubWindow->widget());
-        prevProject->statusBarItems.unregisterStatusBar();
-    }
-
-    if (m_translationMemorySubWindow)
-    {
-        LokalizeSubwindowBase* prevTM = static_cast<LokalizeSubwindowBase2*>(m_translationMemorySubWindow->widget());
-        prevTM->statusBarItems.unregisterStatusBar();
-    }
 
     if (m_prevSubWindow)
     {
@@ -327,12 +317,10 @@ QObject* LokalizeMainWindow::projectOverview()
     if (!m_projectSubWindow)
     {
         ProjectTab* w=new ProjectTab(this);
-        w->statusBarItems.registerStatusBar(statusBar());
         m_projectSubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_projectSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
-        guiFactory()->addClient( w->guiClient() );
     }
     if (m_mdiArea->currentSubWindow()==m_projectSubWindow)
         return m_projectSubWindow->widget();
