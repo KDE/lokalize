@@ -110,7 +110,7 @@ Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filte
 
 <para>
 If you are working with translation files in XLIFF format (definitely the case when you translate OpenDocument),
-then extended states are available (<emphasis>new</emphasis>, <emphasis>needs review</emphasis>, <emphasis>approved</emphasis>, etc).
+then extended states are available (<emphasis>new</emphasis>, <emphasis>needs review</emphasis>, <emphasis>approved</emphasis>, &etc;).
 You may select them in drop-down menu of <guilabel>Approved</guilabel> button in the toolbar.
 Classification of the state as <emphasis>ready</emphasis> or <emphasis>not ready</emphasis> depends on the current <emphasis>workflow phase</emphasis> (<emphasis>translation</emphasis>, <emphasis>review</emphasis>, <emphasis>approval</emphasis>).
 A default phase for you depends on your <emphasis>role</emphasis> in the project (set in project settings).
@@ -338,7 +338,7 @@ The location and name of menu entry for the script is defined in its accompanyin
 On each project open &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
 <filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
 RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they are tried both (actually they <emphasis>should</emphasis> be relative if you want to share .rc file with other people in your project).
-So you for example can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load script from <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (i.e. not specific to your language).
+So you for example can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load script from <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
 </para>
 <para>
 Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/kde4/apps/lokalize/scripts/</filename>)
