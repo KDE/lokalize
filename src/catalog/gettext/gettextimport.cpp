@@ -136,7 +136,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
          "Mime-Version: 1.0" );
       tempHeader.setMsgstr( tmp);
       // We keep the comment of the first entry, as it might really be a header comment (at least partially)
-      const QString comment( "# Header entry was created by KBabel!\n#\n" + _comment );
+      const QString comment( "# Header entry was created by Lokalize.\n#\n" + _comment );
       tempHeader.setComment( comment );
       recoveredErrorInHeader = true;
    }
