@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 
     KCmdLineOptions options;
     //options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
-    options.add("noprojectscan", ki18n( "Don't scan files of the project."));
+    options.add("noprojectscan", ki18n( "Do not scan files of the project."));
     options.add("project <filename>", ki18n( "Load specified project."));
     options.add("+[URL]", ki18n( "Document to open" ));
     KCmdLineArgs::addCmdLineOptions(options);
