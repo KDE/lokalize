@@ -168,7 +168,7 @@ void EditorTab::numberOfFuzziesChanged()
     int fuzzy=m_catalog->numberOfNonApproved();
     QString text=i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", fuzzy);
     if (fuzzy)
-        text+=QString(" (%1%)").arg(int(100.0*fuzzy/m_catalog->numberOfEntries()));
+        text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*fuzzy/m_catalog->numberOfEntries()));
     statusBarItems.insert(ID_STATUS_FUZZY,text);
 }
 
@@ -177,7 +177,7 @@ void EditorTab::numberOfUntranslatedChanged()
     int untr=m_catalog->numberOfUntranslated();
     QString text=i18nc("@info:status message entries","Untranslated: %1", untr);
     if (untr)
-        text+=QString(" (%1%)").arg(int(100.0*untr/m_catalog->numberOfEntries()));
+        text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*untr/m_catalog->numberOfEntries()));
     statusBarItems.insert(ID_STATUS_UNTRANS,text);
 }
 
