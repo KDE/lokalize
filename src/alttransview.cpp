@@ -122,10 +122,11 @@ void AltTransView::attachAltTransFile(const QString& path)
 void AltTransView::fileLoaded()
 {
     m_prevEntry.entry=-1;
-    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),m_catalog->url().toLocalFile());
-
+    QString absPath=m_catalog->url().toLocalFile();
+    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),absPath);
+    
     QFileInfo info(Project::instance()->altTransDir()+'/'+relPath);
-    if (info.exists())
+    if (info.canonicalFilePath()!=absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
 }
 
