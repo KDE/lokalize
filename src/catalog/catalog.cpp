@@ -265,7 +265,7 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
     foreach(Catalog* altCat, d->_altTransCatalogs)
     {
         QString target=altCat->msgstr(pos);
-        if (!target.isEmpty())
+        if (!target.isEmpty() && altCat->isApproved(pos))
         {
             result<<AltTrans();
             result.last().target=target;
