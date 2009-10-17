@@ -59,6 +59,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
             //kWarning()<<ourPos.entry<<"SHIT";
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
+        setModified(ourPos, true);
 
         if (options&EvenIfNotInDiffIndex && a)
             m_mergeDiffIndex.removeAll(pos.entry);
@@ -244,7 +245,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
         pos.entry=entry;
         if (options&EmptyOnly&&!m_baseCatalog->isEmpty(entry))
             continue;
-        if (options&HigherOnly&&m_baseCatalog->state(pos)>=state(pos))
+        if (options&HigherOnly&&!m_baseCatalog->isEmpty(entry)&&m_baseCatalog->state(pos)>=state(pos))
             continue;
 
         int formsCount=(m_baseCatalog->isPlural(entry))?m_baseCatalog->numberOfPluralForms():1;
@@ -253,8 +254,8 @@ void MergeCatalog::copyToBaseCatalog(int options)
         {
             //m_baseCatalog->push(new DelTextCmd(m_baseCatalog,pos,m_baseCatalog->msgstr(pos.entry,0))); ?
             //some forms may still contain translation...
-            if (!(options&EmptyOnly && !m_baseCatalog->isEmpty(pos)) && 
-                !(options&HigherOnly && m_baseCatalog->state(pos)>=state(pos)))
+            if (!(options&EmptyOnly && !m_baseCatalog->isEmpty(pos)) /*&& 
+                !(options&HigherOnly && !m_baseCatalog->isEmpty(pos) && m_baseCatalog->state(pos)>=state(pos))*/)
             {
                 if (!insHappened)
                 {
