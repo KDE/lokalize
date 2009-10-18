@@ -65,6 +65,7 @@
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
+#include <kdialog.h>
 
 
 
@@ -606,8 +607,17 @@ void LokalizeMainWindow::projectLoaded()
             failedFiles.append(files.at(i));
     }
     if (!failedFiles.isEmpty())
-        KMessageBox::error(this, i18nc("@info","Error opening the following files:<br>")+
-                                "<il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
+    {
+//         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
+//                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
+        KDialog* dialog=new KDialog(this);
+        dialog->setAttribute(Qt::WA_DeleteOnClose,true);
+        dialog->showButton(KDialog::Ok,true);
+        dialog->showButton(KDialog::Cancel,false);
+        KMessageBox::createKMessageBox(dialog, QIcon(), i18nc("@info","Error opening the following files:"), 
+                failedFiles, QString(), 0, KMessageBox::NoExec, QString(), QMessageBox::Warning);
+        dialog->show();
+    }
 
     if (files.isEmpty() && dockWidgets.size() > 0)
         m_lastEditorState=dockWidgets.first(); // restore last state if no editor open
