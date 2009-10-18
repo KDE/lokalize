@@ -216,9 +216,9 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     m_view->setRootIsDecorated(false);
     m_view->setModel(m_model);
     splitter->addWidget(m_view);
-    int i=m_model->columnCount();
-    while (--i>=0)
-        m_view->resizeColumnToContents(i);
+    int column=m_model->columnCount();
+    while (--column>=0)
+        m_view->resizeColumnToContents(column);
     if (m_model->rowCount())
         m_view->setCurrentIndex(m_model->activePhaseIndex());
     connect(m_view, SIGNAL(currentIndexChanged(QModelIndex)), SLOT(displayPhaseNotes(QModelIndex)));

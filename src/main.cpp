@@ -83,7 +83,7 @@ int main(int argc, char **argv)
     qDebug()<<qRegisterMetaType<DocPosition>();
     qDebug()<<qRegisterMetaType<InlineTag>();
     qDebug()<<qRegisterMetaType<CatalogString>();
-    qRegisterMetaTypeStreamOperators<InlineTag>("TagRange");
+    qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
     qAddPostRoutine(&cleanupSpellers);
 

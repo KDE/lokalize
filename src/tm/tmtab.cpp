@@ -35,6 +35,7 @@
 #include <QTreeView>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QButtonGroup>
 #include <QShortcutEvent>
 #include <QClipboard>
@@ -168,7 +169,8 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     //TODO Qt::ForegroundRole -- brush for orphaned entries
     if (role==Qt::FontRole && item.column()==TMDBModel::Target)
     {
-        qlonglong bits=item.sibling(item.row(),TMDBModel::ColumnCount+2).data().toLongLong();
+        bool ok;
+        qlonglong bits=record(item.row()).value(TMDBModel::ColumnCount+2).toLongLong(&ok);
         if (bits&4)
         {
             QFont font=QApplication::font();
@@ -194,13 +196,14 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     }
     else if (item.column()<TMDBModel::Context)//source, target
     {
-        const QVariant& posVar=item.sibling(item.row(),TMDBModel::ColumnCount+item.column()).data();
+        const QVariant& posVar=record(item.row()).value(TMDBModel::ColumnCount+item.column());
         int pos=-1;
+        bool ok;
         if (posVar.isValid())
-            pos=posVar.toInt();
-        std::cout<<pos<<" column "<<item.column()<<" "<<TMDBModel::ColumnCount+item.column()<<std::endl;
+            pos=posVar.toInt(&ok);
+        //std::cout<<"ok "<<ok<<"; pos "<<pos<<"; column "<<item.column()<<" "<<TMDBModel::ColumnCount+item.column()<<std::endl;
         //kWarning()<<QSqlQueryModel::data(QSqlQueryModel::index(item.row(),TMDBModel::TMDBModelColumnCount+item.column()));
-        if (pos!=-1)
+        if (ok && pos!=-1)
         {
             QString r=result.toString();
             r.insert(pos,Project::instance()->accel());
@@ -209,9 +212,10 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     }
     else if (item.column()==TMDBModel::Filepath)
     {
-        QString r=result.toString();
-        if (r.contains(Project::instance()->projectDir()))//TODO cache projectDir?
-            return KUrl::relativePath(Project::instance()->projectDir(),r).mid(2);
+        QString path=result.toString();
+        QString pDir=Project::instance()->projectDir();
+        if (path.contains(pDir))//TODO cache projectDir?
+            return KUrl::relativePath(pDir,path).mid(2);
     }
     return result;
 }
@@ -287,7 +291,7 @@ TMTab::TMTab(QWidget *parent)
     m_proxyModel->setSourceModel(m_model);
     view->setModel(m_proxyModel);
     view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
-    view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
+    //view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
     view->setColumnHidden(TMDBModel::ColumnCount,true);
     view->setColumnHidden(TMDBModel::ColumnCount+1,true);
 
@@ -310,7 +314,7 @@ TMTab::TMTab(QWidget *parent)
     //m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
 
     int i=6;
-    while (--i>=0)
+    while (--i>ID_STATUS_PROGRESS)
         statusBarItems.insert(i,"");
 
     setXMLFile("translationmemoryrui.rc",true);
@@ -349,7 +353,8 @@ void TMTab::handleResults()
     QApplication::restoreOverrideCursor();
     QString filemask=ui_queryOptions->filemask->text();
     //ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
-    if (m_model->rowCount()==0)
+    int rowCount=m_model->rowCount();
+    if (rowCount==0)
     {
         std::cout<<"m_model->rowCount()==0"<<std::endl;
         //try harder
@@ -383,15 +388,38 @@ void TMTab::handleResults()
     std::cout<<"=DocPosition::UndefPart"<<std::endl;
     m_partToAlsoTryLater=DocPosition::UndefPart;
 
+//BEGIN resizeColumnToContents
     QTreeView* view=ui_queryOptions->treeView;
-    int i=4;
-    while (--i>=0)
-        view->resizeColumnToContents(i);
+    static const int maxInitialWidths[4]={350,350, 50, 200};
+    int column=4;
+    while (--column>=0)
+    {
+        //view->resizeColumnToContents(i);
+        int sum=0;
+        int max=0;
+        int count=qMin(rowCount, 32);
+        for (int row=0;row<count;++row)
+        {
+            int w = view->itemDelegate()->sizeHint(QStyleOptionViewItemV2(),m_model->index(row,column)).width();
+            if (w>max)
+                max=w;
+            sum+=w;
+            //qWarning()<<row<<column<<m_model->index(row,column).isValid();
+            //qWarning()<<view->sizeHintForIndex(m_model->index(row,column));
+            //qWarning()<<m_model->data(m_model->index(row,column), Qt::SizeHintRole).toSize();
+            //qWarning()<<m_model->span(m_model->index(row,column));
+        }
+        if (count) //qWarning()<<(sum/count);
+            //view->setColumnWidth(column, max);
+            //view->setColumnWidth(column, maxInitialWidths[column]);
+            view->setColumnWidth(column, qMin(max, maxInitialWidths[column]));
+    }
     view->setFocus();
 //     view->setColumnHidden(TMDBModel::ColumnCount,true);
 //     view->setColumnHidden(TMDBModel::ColumnCount+1,true);
+//END resizeColumnToContents
 
-    statusBarItems.insert(0,i18nc("@info:status message entries","Total: %1",view->model()->rowCount()));
+    statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1",rowCount));
 }
 
 static void copy(Ui_QueryOptions* ui_queryOptions, int column)

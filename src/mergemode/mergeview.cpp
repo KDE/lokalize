@@ -27,6 +27,7 @@
 #include "mergecatalog.h"
 #include "project.h"
 #include "diff.h"
+#include "projectmodel.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -35,6 +36,7 @@
 #include <kmessagebox.h>
 #include <ktextedit.h>
 #include <kaction.h>
+#include <threadweaver/ThreadWeaver.h>
 
 #include <QDragEnterEvent>
 #include <QFile>
@@ -198,7 +200,11 @@ void MergeView::mergeOpen(KUrl url)
     }
 
     if (url.isEmpty())
+    {
+        Project::instance()->model()->weaver()->suspend();
         url=KFileDialog::getOpenUrl(KUrl("kfiledialog:///merge-source") /*m_baseCatalog->url()*/ , "text/x-gettext-translation",this);
+        Project::instance()->model()->weaver()->resume();
+    }
     if (url.isEmpty())
         return;
 

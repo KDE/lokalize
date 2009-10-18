@@ -88,4 +88,15 @@ private:
 
 };
 
+
+#define ID_STATUS_PROGRESS 0
+#define ID_STATUS_CURRENT 1
+#define ID_STATUS_TOTAL 2
+#define ID_STATUS_FUZZY 3
+#define ID_STATUS_UNTRANS 4
+#define ID_STATUS_ISFUZZY 5
+#define TOTAL_ID_STATUSES 6
+//#define ID_STATUS_READONLY 6
+//#define ID_STATUS_CURSOR 7
+
 #endif

@@ -557,8 +557,9 @@ bool Catalog::saveToUrl(KUrl url)
     if (KDE_ISUNLIKELY( !m_storage ))
         return true;
 
+    //this function is not called if QUndoStack::isClean() !
     if (d->_modifiedEntries.isEmpty())
-        return true; // nothing changed to save
+        return true;
 
     bool nameChanged=false;
     if (KDE_ISLIKELY( url.isEmpty() ))
