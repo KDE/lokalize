@@ -761,7 +761,7 @@ void EditorTab::updateCaptionPath()
 
 }
 
-bool EditorTab::fileOpen(KUrl url, KUrl baseUrl)
+bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
 {
     if (!m_catalog->isClean())
     {
@@ -852,9 +852,12 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl)
         return true;
     }
 
-    //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-    if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
-    else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+    if (!silent)
+    {
+        //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+        if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
+        else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+    }
     return false;
 }
 

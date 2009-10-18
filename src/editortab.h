@@ -109,7 +109,7 @@ public:
     //wrapper for cmdline handling
     void mergeOpen(KUrl url=KUrl());
 
-    bool fileOpen(KUrl url=KUrl(), KUrl baseUrl=KUrl());
+    bool fileOpen(KUrl url=KUrl(), KUrl baseUrl=KUrl(), bool silent=false);
 
     QString dbusObjectPath();
     int dbusId(){return m_dbusId;}

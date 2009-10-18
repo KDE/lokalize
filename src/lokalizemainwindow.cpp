@@ -218,7 +218,7 @@ bool LokalizeMainWindow::queryClose()
     return true;
 }
 
-EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile)
+EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile, bool silent)
 {
     if (!url.isEmpty()&&m_fileToEditor.contains(url)&&m_fileToEditor.value(url))
     {
@@ -239,7 +239,7 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
     if (activeSW && qobject_cast<LokalizeSubwindowBase*>(activeSW->widget()))
         baseUrl=static_cast<LokalizeSubwindowBase*>(activeSW->widget())->currentUrl();
 
-    if (!w->fileOpen(url,baseUrl))
+    if (!w->fileOpen(url,baseUrl,silent))
     {
         if (sw)
         {
@@ -597,15 +597,21 @@ void LokalizeMainWindow::projectLoaded()
     dockWidgets=projectStateGroup.readEntry("DockWidgets",dockWidgets);
     int i=files.size();
     int activeSWIndex=projectStateGroup.readEntry("Active",-1);
+    QStringList failedFiles;
     while (--i>=0)
     {
         if (i<dockWidgets.size())
             m_lastEditorState=dockWidgets.at(i);
-        if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i)))
-            continue;
+        if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i),/*silent*/true))
+            failedFiles.append(files.at(i));
     }
-    if (files.size() == 0 && dockWidgets.size() > 0)
+    if (!failedFiles.isEmpty())
+        KMessageBox::error(this, i18nc("@info","Error opening the following files:<br>")+
+                                "<il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
+
+    if (files.isEmpty() && dockWidgets.size() > 0)
         m_lastEditorState=dockWidgets.first(); // restore last state if no editor open
+
     if (activeSWIndex==-1)
     {
         m_toBeActiveSubWindow=m_projectSubWindow;
