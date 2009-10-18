@@ -56,8 +56,8 @@ public:
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
     KUrl currentUrl();
 
-    int savedTotal(){return m_newSavedTotal;}
-    void setSavedTotal(int to);
+    int unitsCount(){return m_currentUnitsCount;}
+    void setLegacyUnitsCount(int to);
 
 signals:
     void fileOpenRequested(const KUrl&);
@@ -102,7 +102,8 @@ private:
     ProjectWidget* m_browser;
     KLineEdit* m_lineEdit;
     QProgressBar* m_progressBar;
-    int m_savedTotal, m_newSavedTotal;
+
+    int m_legacyUnitsCount, m_currentUnitsCount;
 };
 
 #endif

@@ -174,7 +174,7 @@ private:
     void startNewMetadataJob();
     void setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data);
     void updateDirStats(ProjectNode* node);
-    bool updateDone(const QModelIndex& index, KDirModel& model);
+    bool updateDone(const QModelIndex& index, const KDirModel& model);
 
     KUrl m_poUrl;
     KUrl m_potUrl;

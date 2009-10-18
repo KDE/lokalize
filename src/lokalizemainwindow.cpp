@@ -538,7 +538,8 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     projectStateGroup.writeEntry("DockWidgets",dockWidgets);
     //stateGroup.writeEntry("Offsets",offsets);
     projectStateGroup.writeEntry("Entries",entries);
-    projectStateGroup.writeEntry("SavedTotal", w->savedTotal());
+    if (w->unitsCount()>0)
+        projectStateGroup.writeEntry("UnitsCount", w->unitsCount());
 
 
     QString nameSpecifier=Project::instance()->path();
@@ -587,7 +588,7 @@ void LokalizeMainWindow::projectLoaded()
     QList<int> entries;
 
     ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
-    w->setSavedTotal(projectStateGroup.readEntry("SavedTotal", 0));
+    w->setLegacyUnitsCount(projectStateGroup.readEntry("UnitsCount", 0));
 
     entries=projectStateGroup.readEntry("Entries",entries);
 

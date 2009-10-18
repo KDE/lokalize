@@ -171,12 +171,9 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     {
         bool ok;
         qlonglong bits=record(item.row()).value(TMDBModel::ColumnCount+2).toLongLong(&ok);
-        if (bits&4)
-        {
-            QFont font=QApplication::font();
-            font.setItalic(true);
-            return font;
-        }
+        QFont font=QApplication::font();
+        font.setItalic(ok && bits&4);
+        return font;
     }
     else if (role==Qt::UserRole && item.column()==TMDBModel::Filepath)
         return QSqlQueryModel::data(item, Qt::DisplayRole);
@@ -256,9 +253,7 @@ TMTab::TMTab(QWidget *parent)
     //view->setItemDelegate(delegate);
     //view->setSelectionBehavior(QAbstractItemView::SelectItems);
     //connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
-    view->setRootIsDecorated(false);
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
-    view->setSortingEnabled(true);
 
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);

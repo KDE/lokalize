@@ -24,7 +24,6 @@
 #include "projecttab.h"
 #include "project.h"
 #include "projectwidget.h"
-#include "editortab.h"
 #include "tmscanapi.h"
 
 #include <klocale.h>
@@ -48,8 +47,8 @@ ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
     , m_lineEdit(new KLineEdit(this))
-    , m_savedTotal(-1)
-    , m_newSavedTotal(0)
+    , m_legacyUnitsCount(-1)
+    , m_currentUnitsCount(0)
 
 {
     setWindowTitle(i18nc("@title:window","Project Overview"));//setCaption(i18nc("@title:window","Project"),false);
@@ -59,7 +58,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     
     m_lineEdit->setClearButtonShown(true);
     m_lineEdit->setClickMessage(i18n("Quick search..."));
-    m_lineEdit->setToolTip(i18nc("@info:tooltip","Accepts regular expressions"));
+    m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
 
@@ -124,6 +123,11 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
+
+    int i=6;
+    while (--i>ID_STATUS_PROGRESS)
+        statusBarItems.insert(i,"");
+
 }
 
 ProjectTab::~ProjectTab()
@@ -222,49 +226,37 @@ QStringList ProjectTab::selectedItems() const
 void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
 {
     int total = fuzzy + translated + untranslated;
-    QString fuzzyText = i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", fuzzy);
-    QString untrText  = i18nc("@info:status message entries","Untranslated: %1", untranslated);
-    QString totalText = i18nc("@info:status message entries","Total: %1", total);
+    m_currentUnitsCount = total;
 
-    if (fuzzy > 0)
-        fuzzyText += QString(" (%1%)").arg(100*fuzzy/total);
-    if (untranslated > 0)
-        untrText += QString(" (%1%)").arg(100*untranslated/total);
-
-    m_newSavedTotal = total;
-
-    if (m_progressBar->value() != total && m_savedTotal > 0)
+    if (m_progressBar->value() != total && m_legacyUnitsCount > 0)
         m_progressBar->setValue(total);
-    if (m_progressBar->maximum() != m_savedTotal)
-        m_progressBar->setMaximum(m_savedTotal);
-    if (m_progressBar->isVisible() == done)
-        m_progressBar->setVisible(!done);
-
-    statusBarItems.insert(ID_STATUS_CURRENT,  QString());
-    statusBarItems.insert(ID_STATUS_TOTAL,    totalText);
-    statusBarItems.insert(ID_STATUS_FUZZY,    fuzzyText);
-    statusBarItems.insert(ID_STATUS_UNTRANS,  untrText);
-    statusBarItems.insert(ID_STATUS_ISFUZZY,  QString());
+    if (m_progressBar->maximum() < qMax(total,m_legacyUnitsCount))
+        m_progressBar->setMaximum(qMax(total,m_legacyUnitsCount));
+    m_progressBar->setVisible(!done);
+    if (done)
+        m_legacyUnitsCount = total;
+    
+    statusBarItems.insert(ID_STATUS_TOTAL, i18nc("@info:status message entries","Total: %1", total));
+    reflectNonApprovedCount(fuzzy, total);
+    reflectUntranslatedCount(untranslated, total);
 }
 
 void ProjectTab::initStatusBarProgress()
 {
-    if (m_savedTotal > 0)
+    if (m_legacyUnitsCount > 0)
     {
         if (m_progressBar->value() != 0)
             m_progressBar->setValue(0);
-        if (m_progressBar->maximum() != m_savedTotal)
-            m_progressBar->setMaximum(m_savedTotal);
-        if (!m_progressBar->isVisible())
-            m_progressBar->setVisible(true);
+        if (m_progressBar->maximum() != m_legacyUnitsCount)
+            m_progressBar->setMaximum(m_legacyUnitsCount);
         updateStatusBar();
     }
 }
 
-void ProjectTab::setSavedTotal(int to)
+void ProjectTab::setLegacyUnitsCount(int to)
 {
-    m_savedTotal = to;
-    m_newSavedTotal = to;
+    m_legacyUnitsCount = to;
+    m_currentUnitsCount = to;
     initStatusBarProgress();
 }
 

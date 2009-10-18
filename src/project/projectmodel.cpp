@@ -1135,12 +1135,13 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     emit dataChanged(topLeft, bottomRight);
 }
 
-bool ProjectModel::updateDone(const QModelIndex& index, KDirModel& model)
+bool ProjectModel::updateDone(const QModelIndex& index, const KDirModel& model)
 {
     if (model.canFetchMore(index))
         return false;
 
-    for (int row = 0; row < model.rowCount(index); row++)
+    int row=model.rowCount(index);
+    while (--row>=0)
     {
         if (!updateDone(model.index(row, 0, index), model))
             return false;

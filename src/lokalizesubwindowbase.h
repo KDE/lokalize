@@ -51,6 +51,10 @@ public:
 
     virtual KUrl currentUrl(){return KUrl();}
 
+protected:
+    void reflectNonApprovedCount(int count, int total);
+    void reflectUntranslatedCount(int count, int total);
+
 signals:
     void aboutToBeClosed();
 

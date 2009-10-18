@@ -163,22 +163,30 @@ void EditorTab::setupStatusBar()
     connect(m_catalog,SIGNAL(signalNumberOfEmptyChanged()),this,SLOT(numberOfUntranslatedChanged()));
 }
 
+void LokalizeSubwindowBase::reflectNonApprovedCount(int count, int total)
+{
+    QString text=i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", count);
+    if (count && total)
+        text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*count/total));
+    statusBarItems.insert(ID_STATUS_FUZZY,text);
+}
+
+void LokalizeSubwindowBase::reflectUntranslatedCount(int count, int total)
+{
+    QString text=i18nc("@info:status message entries","Untranslated: %1", count);
+    if (count && total)
+        text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*count/total));
+    statusBarItems.insert(ID_STATUS_UNTRANS,text);
+}
+
 void EditorTab::numberOfFuzziesChanged()
 {
-    int fuzzy=m_catalog->numberOfNonApproved();
-    QString text=i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", fuzzy);
-    if (fuzzy)
-        text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*fuzzy/m_catalog->numberOfEntries()));
-    statusBarItems.insert(ID_STATUS_FUZZY,text);
+    reflectNonApprovedCount(m_catalog->numberOfNonApproved(),m_catalog->numberOfEntries());
 }
 
 void EditorTab::numberOfUntranslatedChanged()
 {
-    int untr=m_catalog->numberOfUntranslated();
-    QString text=i18nc("@info:status message entries","Untranslated: %1", untr);
-    if (untr)
-        text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*untr/m_catalog->numberOfEntries()));
-    statusBarItems.insert(ID_STATUS_UNTRANS,text);
+    reflectUntranslatedCount(m_catalog->numberOfUntranslated(),m_catalog->numberOfEntries());
 }
 
 void EditorTab::setupActions()
