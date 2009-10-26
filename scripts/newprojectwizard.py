@@ -121,7 +121,8 @@ class RadioActiveButton(QRadioButton):
 
    
 try: from translate.convert import odf2xliff
-except: print i18n('Translate-Toolkit not found. Please install this package for the feature to work.')
+except: print '%s' % i18n('Translate-Toolkit not found. Please install this package for the feature to work.')
+
 
 
 pages=[]
