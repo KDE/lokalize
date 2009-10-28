@@ -557,19 +557,21 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
     const KConfig* c=stateGroup.isValid()?stateGroup.config():&config;
     m_openRecentProjectAction->loadEntries(KConfigGroup(c,"RecentProjects"));
 
-    QString path;
-    if (Project::instance()->isLoaded())
+    QString path=stateGroup.readEntry("Project",path);
+    if (Project::instance()->isLoaded() || path.isEmpty())
         projectLoaded();
     else
     {
-        path=stateGroup.readEntry("Project",path);
+        kDebug()<<"loading"<<path;
         Project::instance()->load(path);
+        kDebug()<<"loading"<<path<<"no more";
         //if isEmpty()?
     }
 }
 
 void LokalizeMainWindow::projectLoaded()
 {
+    kDebug()<<Project::instance()->path();
     m_openRecentProjectAction->addUrl( KUrl::fromPath(Project::instance()->path()) );
 
     KConfig config;
@@ -608,6 +610,7 @@ void LokalizeMainWindow::projectLoaded()
     }
     if (!failedFiles.isEmpty())
     {
+        kDebug()<<"failedFiles"<<failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KDialog* dialog=new KDialog(this);

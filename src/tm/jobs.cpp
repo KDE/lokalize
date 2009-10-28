@@ -21,7 +21,7 @@
 
 **************************************************************************** */
 
-//#define KDE_NO_DEBUG_OUTPUT
+#undef KDE_NO_DEBUG_OUTPUT
 
 #include "jobs.h"
 #include "catalog.h"
@@ -221,7 +221,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
 static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString sourceString,
                        QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
 {
-    kWarning()<<"here for" <<sourceString;
+    kDebug()<<"here for" <<sourceString;
     QStringList words;
     doSplit(sourceString,words,rxClean1,accel);
 
@@ -821,13 +821,12 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     , m_dbName(name)
     , m_setParams(false)
 {
-    kWarning()<<"here";
+    kDebug()<<m_dbName;
 }
 
 OpenDBJob::~OpenDBJob()
 {
-    kWarning()<<"here";
-    std::cout<<"~OpenDBJob"<<std::endl;
+    kDebug()<<m_dbName;
 }
 
 void OpenDBJob::run()

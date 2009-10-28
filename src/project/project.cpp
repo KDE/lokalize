@@ -113,7 +113,7 @@ void Project::load(const QString &file)
     QTime a;a.start();
 
     ThreadWeaver::Weaver::instance()->dequeue();
-    kWarning()<<"loading"<<file<<"Finishing jobs...";
+    kDebug()<<"loading"<<file<<"Finishing jobs...";
 
     if (!m_path.isEmpty())
     {
@@ -122,25 +122,25 @@ void Project::load(const QString &file)
     }
     ThreadWeaver::Weaver::instance()->finish();//more safety
 
-    kWarning()<<"5...";
+    kDebug()<<"5...";
 
     setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
-    kWarning()<<"4...";
+    kDebug()<<"4...";
     readConfig();
     m_path=file;
 
-    kWarning()<<"3...";
+    kDebug()<<"3...";
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
     m_localConfig->readConfig();
 
-    kWarning()<<"2...";
+    kDebug()<<"2...";
 
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
 
     populateDirModel();
 
-    kWarning()<<"1...";
+    kDebug()<<"1...";
 
     //put 'em into thread?
     QTimer::singleShot(0,this,SLOT(populateGlossary()));
