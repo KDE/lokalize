@@ -557,16 +557,11 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
     const KConfig* c=stateGroup.isValid()?stateGroup.config():&config;
     m_openRecentProjectAction->loadEntries(KConfigGroup(c,"RecentProjects"));
 
-    QString path=stateGroup.readEntry("Project",path);
+    QString path=stateGroup.readEntry("Project",QString());
     if (Project::instance()->isLoaded() || path.isEmpty())
-        projectLoaded();
+        projectLoaded(); //we weren't existing yet when the signal was emitted
     else
-    {
-        kDebug()<<"loading"<<path;
         Project::instance()->load(path);
-        kDebug()<<"loading"<<path<<"no more";
-        //if isEmpty()?
-    }
 }
 
 void LokalizeMainWindow::projectLoaded()
