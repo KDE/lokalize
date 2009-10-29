@@ -271,7 +271,7 @@ void EditorTab::setupActions()
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), m_notesView->toggleViewAction() );
     connect (m_catalog,SIGNAL(signalFileLoaded()),m_notesView,SLOT(cleanup()));
-    connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SIGNAL(srcFileOpenRequested(QString,int)));
+    connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(dispatchSrcFileOpenRequest(QString,int)));
     connect(m_view, SIGNAL(signalChanged(uint)), m_notesView, SLOT(removeErrorNotes()));
 
 
@@ -1293,6 +1293,15 @@ void EditorTab::reloadFile()
     gotoEntry(p);
     if (!mergeFile.isEmpty())
         mergeOpen(mergeFile);
+}
+
+void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
+{
+    m_srcFileOpenRequestAccepted=false;
+    emit srcFileOpenRequested(srcPath,line);
+    if (!m_srcFileOpenRequestAccepted)
+        KMessageBox::information(this, i18nc("@info","There are no scripts handling source file open requests currently loaded. "
+                                                     "Refer to Lokalize handbook for script examples and how to plug them into your project.") );
 }
 
 

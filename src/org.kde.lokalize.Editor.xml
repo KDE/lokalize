@@ -132,5 +132,8 @@
     <method name="isValid">
       <arg type="b" direction="out"/>
     </method>
+    <method name="setSrcFileOpenRequestAccepted">
+      <arg name="a" type="b" direction="in"/>
+    </method>
   </interface>
 </node>

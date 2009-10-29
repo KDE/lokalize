@@ -165,6 +165,8 @@ public slots:
 
     Q_SCRIPTABLE bool isValid(){return m_valid;}
 
+    Q_SCRIPTABLE void setSrcFileOpenRequestAccepted(bool a){m_srcFileOpenRequestAccepted=a;}
+
 private slots:
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
@@ -232,6 +234,7 @@ private slots:
     void initLater();
     void showStatesMenu();
     void setState(QAction*);
+    void dispatchSrcFileOpenRequest(const QString& srcPath, int line);
 private:
     void setupAccel();
     void setupActions();
@@ -285,6 +288,7 @@ private:
     QObject* m_adaptor;
     int m_dbusId;
     static QList<int> ids;
+    bool m_srcFileOpenRequestAccepted;
     //END dbus
 
 signals:

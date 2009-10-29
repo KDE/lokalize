@@ -150,10 +150,10 @@ void Project::load(const QString &file)
 
     TM::DBFilesModel::instance()->openDB(projectID());
 
-    kWarning()<<"until emitting signal"<<a.elapsed();
+    kDebug()<<"until emitting signal"<<a.elapsed();
 
     emit loaded();
-    kWarning()<<"loaded!"<<a.elapsed();
+    kDebug()<<"loaded!"<<a.elapsed();
 }
 
 QString Project::projectDir() const
