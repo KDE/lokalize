@@ -1300,8 +1300,8 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
     m_srcFileOpenRequestAccepted=false;
     emit srcFileOpenRequested(srcPath,line);
     if (!m_srcFileOpenRequestAccepted)
-        KMessageBox::information(this, i18nc("@info","There are no scripts handling source file open requests currently loaded. "
-                                                     "Refer to Lokalize handbook for script examples and how to plug them into your project.") );
+        KMessageBox::information(this, i18nc("@info","Cannot open source files: no scripts to do so are currently loaded. "
+                                                     "Refer to the Lokalize handbook for script examples and how to plug them into your project.") );
 }
 
 
