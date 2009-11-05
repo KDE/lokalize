@@ -51,13 +51,16 @@ public:
     //flat-model interface (ignores XLIFF grouping)
     QString source(const DocPosition& pos) const;
     QString target(const DocPosition& pos) const;
-    CatalogString sourceWithTags(DocPosition pos) const{return source(pos);}
-    CatalogString targetWithTags(DocPosition pos) const{return target(pos);}
-    CatalogString catalogString(const DocPosition& pos) const{return pos.part==DocPosition::Target?target(pos):source(pos);}
+    CatalogString sourceWithTags(DocPosition pos) const;
+    CatalogString targetWithTags(DocPosition pos) const;
+    CatalogString catalogString(const DocPosition& pos) const{return pos.part==DocPosition::Target?targetWithTags(pos):sourceWithTags(pos);}
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
     void setTarget(const DocPosition& pos, const QString& arg);//called for mergeCatalog
+
+    void targetInsertTag(const DocPosition&, const InlineTag&);
+    InlineTag targetDeleteTag(const DocPosition&);
 
     QStringList sourceAllForms(const DocPosition& pos) const;
     QStringList targetAllForms(const DocPosition& pos) const;

@@ -280,10 +280,10 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     QMap<int,int> posToTag;
     int i=catStr.tags.size();
-    //if (i) kWarning()<<"tags we got:";
+    //kDebug()<<"size:"<<i;
     while(--i>=0)
     {
-        //kWarning()<<"\t"<<catStr.ranges.at(i).getElementName()<<catStr.ranges.at(i).id<<catStr.ranges.at(i).start<<catStr.ranges.at(i).end;
+        //kDebug()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(catStr.tags.at(i).start,i);
         posToTag.insert(catStr.tags.at(i).end,i);
     }
@@ -328,8 +328,13 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         int tagIndex=posToTag.value(i);
         InlineTag tag=catStr.tags.at(tagIndex);
         QString name=tag.id;
-        QString text=(tag.type==InlineTag::mrk)?QString("*"):
-                QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagIndex+refTagIndexOffset));
+        QString text;
+        if (tag.type==InlineTag::mrk)
+            text="*";
+        else if (!tag.equivText.isEmpty())
+            text=tag.equivText; //TODO add number? when? -- right now this is done for gettext qt's 156 mark
+        else
+            text=QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagIndex+refTagIndexOffset));
         if (tag.start!=tag.end)
         {
             //kWarning()<<"b"<<i;

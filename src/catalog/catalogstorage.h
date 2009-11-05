@@ -72,7 +72,7 @@ public:
     **/
     virtual void targetDelete(const DocPosition& pos, int count)=0;
     virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
-    virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog
+    virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog TODO switch to CatalogString
     virtual void targetInsertTag(const DocPosition&, const InlineTag&){}
     virtual InlineTag targetDeleteTag(const DocPosition&){return InlineTag();}
     virtual Phase updatePhase(const Phase&){return Phase();}

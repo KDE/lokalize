@@ -176,6 +176,9 @@ QString InlineTag::displayName() const
                 result[0]=result.at(0).toUpper();
         }
     }
+    
+    if (!ctype.isEmpty())
+        result+=" ("+ctype+")";
 
     return result;
 }

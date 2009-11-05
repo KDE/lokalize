@@ -117,7 +117,41 @@ int GettextStorage::size() const
     return m_entries.size();
 }
 
+
+static const QChar altSep(156);
+static InlineTag makeInlineTag(int i)
+{
+    static const QString altSepText(" | ");
+    static const QString ctype=i18n("separator for different-length string alternatives");
+    return InlineTag(i,i,InlineTag::x,QString::number(i),QString(),altSepText,ctype);
+}
+
+static CatalogString makeCatalogString(const QString& string)
+{
+    CatalogString result;
+    result.string=string;
+    
+    int i=0;
+
+    while((i=result.string.indexOf(altSep, i))!=-1)
+    {
+        result.string[i]=TAGRANGE_IMAGE_SYMBOL;
+        result.tags.append(makeInlineTag(i));
+        ++i;
+    }
+    return result;
+}
+
 //flat-model interface (ignores XLIFF grouping)
+CatalogString GettextStorage::sourceWithTags(DocPosition pos) const
+{
+    return makeCatalogString(source(pos));
+}
+CatalogString GettextStorage::targetWithTags(DocPosition pos) const
+{
+    return makeCatalogString(target(pos));
+}
+
 QString GettextStorage::source(const DocPosition& pos) const
 {
     return m_entries.at(pos.entry).msgid(pos.form);
@@ -138,6 +172,18 @@ void GettextStorage::targetInsert(const DocPosition& pos, const QString& arg)
 void GettextStorage::setTarget(const DocPosition& pos, const QString& arg)
 {
     m_entries[pos.entry].d->_msgstrPlural[pos.form]=arg;
+}
+
+
+void GettextStorage::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
+{
+    targetInsert(pos,altSep);
+}
+
+InlineTag GettextStorage::targetDeleteTag(const DocPosition& pos)
+{
+    targetDelete(pos,1);
+    return makeInlineTag(pos.offset);
 }
 
 QStringList GettextStorage::sourceAllForms(const DocPosition& pos) const

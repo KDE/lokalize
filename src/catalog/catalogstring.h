@@ -70,11 +70,13 @@ struct InlineTag
     InlineElement type;
     QString id;
     QString xid;
+    QString equivText;
+    QString ctype;
 
     explicit InlineTag(): start(-1), end(-1), type(_unknown){}
 
-    InlineTag(int start_, int end_, InlineElement type_,QString id_=QString(),QString xid_=QString())
-        : start(start_), end(end_), type(type_), id(id_), xid(xid_){}
+    InlineTag(int start_, int end_, InlineElement type_,QString id_=QString(),QString xid_=QString(),QString equivText_=QString(),QString ctype_=QString())
+        : start(start_), end(end_), type(type_), id(id_), xid(xid_), equivText(equivText_), ctype(ctype_){}
 
     /**
      * for situations when target doesn't contain tag
@@ -130,7 +132,7 @@ struct CatalogString
 
     CatalogString(){}
     CatalogString(QString str):string(str){}
-    CatalogString(QString str, QByteArray);
+    CatalogString(QString str, QByteArray tagsByteArray);
     QMap<QString,int> tagIdToIndex() const; //assigns same indexes for tags with same ids
 
     QByteArray tagsAsByteArray()const;
