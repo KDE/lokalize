@@ -45,6 +45,7 @@ MimeType=application/x-xliff;text/x-gettext-translation;application/x-lokalize-p
 X-DocPath=lokalize/index.html
 GenericName=Computer-Aided Translation System
 GenericName[ca]=Sistema de traducció assistida per ordinador
+GenericName[cs]=Systém pro překlad pomocí počítače
 GenericName[da]=Computerassisteret oversættelsessystem (CAT)
 GenericName[de]=Computergestütztes Übersetzungssystem
 GenericName[en_GB]=Computer-Aided Translation System
