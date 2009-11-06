@@ -355,7 +355,7 @@ void EditorTab::replace()
 
     if (!m_view->selectionInTarget().isEmpty())
     {
-        if (_replace->options()&IGNOREACCELS)
+        if (_replace && _replace->options()&IGNOREACCELS)
         {
             QString tmp(m_view->selectionInTarget());
             tmp.remove('&');
