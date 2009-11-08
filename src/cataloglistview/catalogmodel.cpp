@@ -99,12 +99,12 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
     return QVariant();
 }
 
-QVariant CatalogTreeModel::data(const QModelIndex& index,int role) const
+QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
 {
     if (m_catalog->numberOfEntries()<=index.row() )
         return QVariant();
 
-    if (role==Qt::FontRole && index.column()==Target)
+    if (role==Qt::FontRole/* && index.column()==Target*/)
     {
         bool fuzzy=!m_catalog->isApproved(index.row());
         bool modified=m_catalog->isModified(index.row());
