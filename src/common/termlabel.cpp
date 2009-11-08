@@ -61,11 +61,11 @@ using namespace GlossaryNS;
 
 void TermLabel::insert()
 {
-//     kWarning() << "m_termTransl";
-    if (m_termIndex==-1)
+    GlossaryNS::Glossary* glossary=Project::instance()->glossary();
+    if (m_termIndex==-1 || !m_termIndex<glossary->termList.size())
         return;
     QString termTrans;
-    const QStringList& termTarget=Project::instance()->glossary()->termList.at(m_termIndex).target;
+    const QStringList& termTarget=glossary->termList.at(m_termIndex).target;
     if( termTarget.count()>1)
     {
         QMenu menu;
