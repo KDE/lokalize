@@ -43,8 +43,8 @@ struct TMEntry
     //the remaining are used only for results
     qlonglong id;
     short score:16;//100.00%==10000
-    bool obsolete;
-    //ushort hits:16;
+    ushort hits:15;
+    bool obsolete:1;
     QString dbName;
 
     QString diff;
@@ -53,10 +53,14 @@ struct TMEntry
     QString accelExpr;
     QString markupExpr;
 
-    bool operator<(const TMEntry& other)const
+    bool operator<(const TMEntry& other) const
     {
         if (score==other.score)
-            return date<other.date;
+        {
+            if (hits==other.hits)
+                return date<other.date;
+            return hits<other.hits;
+        }
         return score<other.score;
     }
 };

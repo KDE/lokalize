@@ -919,13 +919,12 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
-    kWarning()<<"here";
+    kDebug()<<m_source.string;
 }
 
 SelectJob::~SelectJob()
 {
-    kWarning()<<"here";
-    std::cout<<"~SelectJob"<<std::endl;
+    kDebug()<<m_source.string;
 }
 
 void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
@@ -1162,7 +1161,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
                 QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
                 e.file=queryRest.value(7).toString();
-                if (e.target.isEmpty())//shit NOTNULL doesn't seem to work
+                if (e.target.isEmpty())
                     continue;
 
                 e.obsolete=queryRest.value(3).toInt()&1;
@@ -1202,15 +1201,21 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             queryRest.clear();
             //eliminate same targets from different files
             qSort(tempList.begin(), tempList.end(), qGreater<TMEntry>());
-            QSet<QString> hash;
+            QHash<QString,int> hash;
+            int recentlyAddedCount=0;
             foreach(const TMEntry& e, tempList)
             {
                 if (!hash.contains(e.target.string))
                 {
-                    hash.insert(e.target.string);
+                    hash[e.target.string]=1;
                     m_entries.append(e);
+                    recentlyAddedCount++;
                 }
+                else
+                    hash[e.target.string]++;
             }
+            for (int i=m_entries.size()-recentlyAddedCount;i<m_entries.size();++i)
+                m_entries[i].hits=hash.value(m_entries.at(i).target.string);
 //END fetch rest of the data
         }
         queryFetch.clear();
