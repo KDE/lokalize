@@ -127,6 +127,7 @@ LokalizeMainWindow::~LokalizeMainWindow()
     KConfig config;
     KConfigGroup stateGroup(&config,"State");
     saveProjectState(stateGroup);
+    m_multiEditorAdaptor->deleteLater();
 }
 
 void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
@@ -844,9 +845,36 @@ QString LokalizeMainWindow::dbusName(){return QString("org.kde.lokalize-%1").arg
 void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCursor(Qt::WaitCursor):QApplication::restoreOverrideCursor();}
 // void LokalizeMainWindow::processEvents(){QCoreApplication::processEvents();}
 
+
+MultiEditorAdaptor::MultiEditorAdaptor(EditorTab *parent)
+ : EditorAdaptor(parent)
+{
+    setObjectName("MultiEditorAdaptor");
+    connect(parent,SIGNAL(destroyed(QObject*)),this,SLOT(handleParentDestroy(QObject*)));
+}
+
+void MultiEditorAdaptor::setEditorTab(EditorTab* e)
+{
+    if (parent())
+        disconnect(parent(),SIGNAL(destroyed(QObject*)),this,SLOT(handleParentDestroy(QObject*)));
+    if (e)
+        connect(e,SIGNAL(destroyed(QObject*)),this,SLOT(handleParentDestroy(QObject*)));
+    setParent(e);
+    setAutoRelaySignals(false);
+    setAutoRelaySignals(true);
+}
+
+void MultiEditorAdaptor::handleParentDestroy(QObject* p)
+{
+    kWarning()<<"avoiding destroying m_multiEditorAdaptor";
+    setParent(0);
+}
+
 //END DBus interface
 
 
 
 #include "lokalizemainwindow.moc"
-#include "lokalizesubwindowbase.moc" //this has to be included somewhere ;)
+ //these have to be included somewhere ;)
+#include "lokalizesubwindowbase.moc"
+#include "multieditoradaptor.moc"

@@ -1350,4 +1350,5 @@ void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransVi
 
 //END DBus interface
 
+
 #include "editortab.moc"
