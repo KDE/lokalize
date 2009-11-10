@@ -94,7 +94,7 @@ void MsgCtxtView::process()
 
     if (m_unfinishedNotes.contains(m_entry))
     {
-        anchorClicked(QUrl("note:/add"));
+        addNoteUI();
         m_editor->setNote(m_unfinishedNotes.value(m_entry).first,m_unfinishedNotes.value(m_entry).second);
     }
     else
@@ -162,6 +162,12 @@ void MsgCtxtView::process()
     m_browser->setTextCursor(t);
 }
 
+
+void MsgCtxtView::addNoteUI()
+{
+    anchorClicked(QUrl("note:/add"));
+}
+
 void MsgCtxtView::anchorClicked(const QUrl& link)
 {
     QString path=link.path().mid(1);// minus '/'
@@ -200,13 +206,15 @@ void MsgCtxtView::noteEditAccepted()
     m_catalog->push(new SetNoteCmd(m_catalog,pos,m_editor->note()));
 
     m_prevEntry.entry=-1; process();
-    m_stackedLayout->setCurrentIndex(0);
-    m_unfinishedNotes.remove(m_entry);
+    //m_stackedLayout->setCurrentIndex(0);
+    //m_unfinishedNotes.remove(m_entry);
+    noteEditRejected();
 }
 void MsgCtxtView::noteEditRejected()
 {
     m_stackedLayout->setCurrentIndex(0);
     m_unfinishedNotes.remove(m_entry);
+    emit escaped();
 }
 
 void MsgCtxtView::addNote(DocPosition p, const QString& text)

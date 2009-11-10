@@ -63,7 +63,10 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setClickMessage(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
-    new QShortcut(QKeySequence(Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
+    QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
+    QShortcut* esc=new QShortcut(QKeySequence(Qt::Key_Escape),this,0,0,Qt::WidgetWithChildrenShortcut);
+    connect(esc,SIGNAL(activated()),this,SIGNAL(escaped()));
+
 
     QToolButton* btn=new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);

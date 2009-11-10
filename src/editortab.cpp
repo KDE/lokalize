@@ -266,14 +266,19 @@ void EditorTab::setupActions()
     actionCollection()->addAction( QLatin1String("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_transUnitsView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_transUnitsView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
+    connect (m_transUnitsView,SIGNAL(escaped()),this,SLOT(setProperFocus()));
 
     m_notesView = new MsgCtxtView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
     actionCollection()->addAction( QLatin1String("showmsgctxt_action"), m_notesView->toggleViewAction() );
-    connect (m_catalog,SIGNAL(signalFileLoaded()),m_notesView,SLOT(cleanup()));
+    connect(m_catalog,SIGNAL(signalFileLoaded()),m_notesView,SLOT(cleanup()));
     connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(dispatchSrcFileOpenRequest(QString,int)));
     connect(m_view, SIGNAL(signalChanged(uint)), m_notesView, SLOT(removeErrorNotes()));
+    connect(m_notesView,SIGNAL(escaped()),this,SLOT(setProperFocus()));
 
+    action=glossary->addAction(QLatin1String("edit_addnote"),m_notesView,SLOT(addNoteUI()));
+    //action->setShortcut(Qt::CTRL+glist[i]);
+    action->setText(i18nc("@action:inmenu","Add a note"));
 
     QVector<KAction*> tmactions(TM_SHORTCUTS);
     Qt::Key tmlist[TM_SHORTCUTS]=

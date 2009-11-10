@@ -50,14 +50,16 @@ public slots:
     void removeErrorNotes();
     void cleanup();
 
+    void addNoteUI();
 private slots:
-    void process();
     void anchorClicked(const QUrl& link);
     void noteEditAccepted();
     void noteEditRejected();
+    void process();
 
 signals:
     void srcFileOpenRequested(const QString& srcPath, int line);
+    void escaped();
 
 private:
     KTextBrowser* m_browser;

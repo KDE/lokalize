@@ -100,8 +100,9 @@ public:
     KUrl currentUrl();
     void setFullPathShown(bool);
     void setProperCaption(QString,bool);//reimpl to remove ' - Lokalize'
+public slots:
     void setProperFocus();
-//protected:
+public:
     bool queryClose();
     EditorState state();
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}

@@ -59,6 +59,7 @@ public slots:
 
 signals:
     void gotoEntry(const DocPosition&, int selection);
+    void escaped();
 
 private slots:
     void slotItemActivated(const QModelIndex&);
