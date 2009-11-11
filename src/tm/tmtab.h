@@ -116,6 +116,10 @@ public:
         Target,
         Context,
         Filepath,
+        _SourceAccel,
+        _TargetAccel,
+        _Bits,
+        TransationStatus,
         ColumnCount
     };
 
@@ -126,11 +130,17 @@ public:
         Glob
     };
 
+    enum Roles
+    {
+        FullPath=Qt::UserRole,
+        TransState=Qt::UserRole+1
+    };
+
     TMDBModel(QObject* parent);
     ~TMDBModel(){}
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount+2;}
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
 
 public slots:
     void setFilter(const QString& source, const QString& target,
@@ -143,6 +153,11 @@ public slots:
 
 signals:
     void resultsFetched();
+
+
+private:
+    bool rowIsApproved(int row) const;
+    int translationStatus(const QModelIndex& item) const;
 
 private:
     QueryType m_queryType;

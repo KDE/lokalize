@@ -48,12 +48,12 @@ public:
         Source,
         Target,
         Notes,
-        IsReady,
+        TranslationStatus,
         Empty,
         State,
         Modified,
         ColumnCount,
-        DisplayedColumnCount=IsReady+1
+        DisplayedColumnCount=TranslationStatus+1
     };
 
     CatalogTreeModel(QObject* parent, Catalog* catalog);

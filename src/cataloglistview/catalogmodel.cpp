@@ -94,7 +94,7 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
         case Source:    return i18nc("@title:column Original text","Source");
         case Target:    return i18nc("@title:column Text in target language","Target");
         case Notes:     return i18nc("@title:column","Notes");
-        case IsReady:  return i18nc("@title:column","Approved");
+        case TranslationStatus: return i18nc("@title:column","Translation Status");
     }
     return QVariant();
 }
@@ -120,7 +120,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     {
         switch (index.column())
         {
-            case IsReady:   return m_catalog->isApproved(index.row());
+            case TranslationStatus:   return m_catalog->isApproved(index.row());
             case Empty:     return m_catalog->isEmpty(index.row());
             case State:     return int(m_catalog->state(index.row()));
             case Modified:  return m_catalog->isModified(index.row());
@@ -144,9 +144,13 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
                 result+=note.content;
             return result;
         }
-        case IsReady:
-            static const char* noyes[]={I18N_NOOP("no"),I18N_NOOP("yes")};
-            return i18n(noyes[m_catalog->isApproved(index.row())]);
+        case TranslationStatus:
+            static QString statuses[]={i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"),
+                                    i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"),
+                                    i18nc("@info:status","Untranslated")};
+            if (m_catalog->isEmpty(index.row()))
+                return statuses[2];
+            return statuses[!m_catalog->isApproved(index.row())];
     }
     return QVariant();
 }
@@ -197,7 +201,7 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     bool accepts=true;
     if (bool(filerOptions&Ready)!=bool(filerOptions&NotReady))
     {
-        bool ready=sourceModel()->index(source_row,CatalogTreeModel::IsReady,source_parent).data(Qt::UserRole).toBool();
+        bool ready=sourceModel()->index(source_row,CatalogTreeModel::TranslationStatus,source_parent).data(Qt::UserRole).toBool();
         accepts=(ready==bool(filerOptions&Ready) || ready!=bool(filerOptions&NotReady));
     }
     if (accepts&&bool(filerOptions&NonEmpty)!=bool(filerOptions&Empty))

@@ -32,6 +32,8 @@
 #include <kxmlguifactory.h>
 #include <threadweaver/ThreadWeaver.h>
 
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QTreeView>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
@@ -74,10 +76,11 @@ TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
     , m_queryType(WordOrder)
 {
-    setHeaderData(TMDBModel::Source, Qt::Horizontal, i18nc("@title:column Original text","Source"));
-    setHeaderData(TMDBModel::Target, Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
-    setHeaderData(TMDBModel::Context, Qt::Horizontal, i18nc("@title:column","Context"));
-    setHeaderData(TMDBModel::Filepath, Qt::Horizontal, i18nc("@title:column","File"));
+    setHeaderData(TMDBModel::Source,            Qt::Horizontal, i18nc("@title:column Original text","Source"));
+    setHeaderData(TMDBModel::Target,            Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
+    setHeaderData(TMDBModel::Context,           Qt::Horizontal, i18nc("@title:column","Context"));
+    setHeaderData(TMDBModel::Filepath,          Qt::Horizontal, i18nc("@title:column","File"));
+    setHeaderData(TMDBModel::TransationStatus,  Qt::Horizontal, i18nc("@title:column","Translation Status"));
 }
 
 void TMDBModel::setDB(const QString& str)
@@ -163,20 +166,34 @@ void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
     emit resultsFetched();
 }
 
+bool TMDBModel::rowIsApproved(int row) const
+{
+    bool ok;
+    qlonglong bits=record(row).value(TMDBModel::_Bits).toLongLong(&ok);
+    return !(ok && bits&4);
+}
+
+int TMDBModel::translationStatus(const QModelIndex& item) const
+{
+    if (QSqlQueryModel::data(item.sibling(item.row(),Target), Qt::DisplayRole).toString().isEmpty())
+        return 2;
+    return int(!rowIsApproved(item.row()));
+}
+
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex& item, int role) const
 {
     //TODO Qt::ForegroundRole -- brush for orphaned entries
     if (role==Qt::FontRole && item.column()==TMDBModel::Target)
     {
-        bool ok;
-        qlonglong bits=record(item.row()).value(TMDBModel::ColumnCount+2).toLongLong(&ok);
         QFont font=QApplication::font();
-        font.setItalic(ok && bits&4);
+        font.setItalic(!rowIsApproved(item.row()));
         return font;
     }
-    else if (role==Qt::UserRole && item.column()==TMDBModel::Filepath)
+    else if (role==FullPath && item.column()==TMDBModel::Filepath)
         return QSqlQueryModel::data(item, Qt::DisplayRole);
+    else if (role==TransState)
+        return translationStatus(item);
 
     QVariant result=QSqlQueryModel::data(item, role);
 /*    if (role==Qt::SizeHintRole && !result.isValid())
@@ -193,7 +210,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     }
     else if (item.column()<TMDBModel::Context)//source, target
     {
-        const QVariant& posVar=record(item.row()).value(TMDBModel::ColumnCount+item.column());
+        const QVariant& posVar=record(item.row()).value(TMDBModel::_SourceAccel+item.column());
         int pos=-1;
         bool ok;
         if (posVar.isValid())
@@ -214,18 +231,45 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
         if (path.contains(pDir))//TODO cache projectDir?
             return KUrl::relativePath(pDir,path).mid(2);
     }
+    else if (item.column()==TMDBModel::TransationStatus)
+    {
+        static QString statuses[]={i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"),
+                                   i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"),
+                                   i18nc("@info:status","Untranslated")};
+        return statuses[translationStatus(item)];
+    }
     return result;
 }
-
-
 //END TMDBModel
 
+//BEGIN TMResultsSortFilterProxyModel
+class TMResultsSortFilterProxyModel: public QSortFilterProxyModel
+{
+public:
+    TMResultsSortFilterProxyModel(QObject *parent)
+        : QSortFilterProxyModel(parent)
+    {}
+protected:
+    bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
+};
+
+bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
+{
+    if (left.column()==TMDBModel::TransationStatus)
+    {
+        int l=left.data(TMDBModel::TransState).toInt();
+        int r=right.data(TMDBModel::TransState).toInt();
+        if (l!=r)
+            return l<r;
+    }
+    return QSortFilterProxyModel::lessThan(left, right);
+}
+//END TMResultsSortFilterProxyModel
 
 //BEGIN TMWindow
-
 TMTab::TMTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
-    , m_proxyModel(new QSortFilterProxyModel(this))
+    , m_proxyModel(new TMResultsSortFilterProxyModel(this))
     , m_partToAlsoTryLater(DocPosition::UndefPart)
     , m_dbusId(-1)
 {
@@ -286,9 +330,11 @@ TMTab::TMTab(QWidget *parent)
     m_proxyModel->setSourceModel(m_model);
     view->setModel(m_proxyModel);
     view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
+    view->setSortingEnabled(true);
     //view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
-    view->setColumnHidden(TMDBModel::ColumnCount,true);
-    view->setColumnHidden(TMDBModel::ColumnCount+1,true);
+    view->setColumnHidden(TMDBModel::_SourceAccel,true);
+    view->setColumnHidden(TMDBModel::_TargetAccel,true);
+    view->setColumnHidden(TMDBModel::_Bits,true);
 
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
 
@@ -380,13 +426,13 @@ void TMTab::handleResults()
             return performQuery();
         }
     }
-    std::cout<<"=DocPosition::UndefPart"<<std::endl;
+    kDebug()<<"=DocPosition::UndefPart";
     m_partToAlsoTryLater=DocPosition::UndefPart;
 
 //BEGIN resizeColumnToContents
     QTreeView* view=ui_queryOptions->treeView;
-    static const int maxInitialWidths[4]={350,350, 50, 200};
-    int column=4;
+    static const int maxInitialWidths[4]={QApplication::desktop()->availableGeometry().width()/3,QApplication::desktop()->availableGeometry().width()/3, 50, 200};
+    int column=4;//sizeof(maxInitialWidths);
     while (--column>=0)
     {
         //view->resizeColumnToContents(i);
@@ -410,8 +456,6 @@ void TMTab::handleResults()
             view->setColumnWidth(column, qMin(max, maxInitialWidths[column]));
     }
     view->setFocus();
-//     view->setColumnHidden(TMDBModel::ColumnCount,true);
-//     view->setColumnHidden(TMDBModel::ColumnCount+1,true);
 //END resizeColumnToContents
 
     statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1",rowCount));
