@@ -360,10 +360,20 @@ TMTab::TMTab(QWidget *parent)
 
     setXMLFile("translationmemoryrui.rc",true);
     dbusObjectPath();
+    
+    
+
+    KConfig config;
+    KConfigGroup cg(&config,"MainWindow");
+    view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TMSearchResultsHeaderState", QByteArray()) ));
 }
 
 TMTab::~TMTab()
 {
+    KConfig config;
+    KConfigGroup cg(&config,"MainWindow");
+    cg.writeEntry("TMSearchResultsHeaderState",ui_queryOptions->treeView->header()->saveState().toBase64());
+
     delete ui_queryOptions;
     ids.removeAll(m_dbusId);
 }
@@ -397,7 +407,7 @@ void TMTab::handleResults()
     int rowCount=m_model->rowCount();
     if (rowCount==0)
     {
-        std::cout<<"m_model->rowCount()==0"<<std::endl;
+        kDebug()<<"m_model->rowCount()==0";
         //try harder
         if(m_partToAlsoTryLater!=DocPosition::UndefPart)
         {
