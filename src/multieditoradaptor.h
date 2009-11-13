@@ -36,17 +36,21 @@
  */
 class MultiEditorAdaptor: public EditorAdaptor
 {
+    Q_OBJECT
 public:
-    MultiEditorAdaptor(EditorTab *parent):EditorAdaptor(parent){setObjectName("MultiEditorAdaptor");}
+    MultiEditorAdaptor(EditorTab *parent);
     ~MultiEditorAdaptor() { /*kWarning()<<"bye bye cruel world";*/ }
 
     inline EditorTab* editorTab() const
     { return static_cast<EditorTab*>(QObject::parent()); }
 
-    inline void setEditorTab(EditorTab* e)
-    { setParent(e);setAutoRelaySignals(false);setAutoRelaySignals(true); }
+    void setEditorTab(EditorTab* e);
+
+private slots:
+    void handleParentDestroy(QObject* p);
 };
 
+//methosa are defined in lokalizemainwindow.cpp
 
 
 #endif
