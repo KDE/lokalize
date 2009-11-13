@@ -42,7 +42,7 @@ struct AltTrans
     QString origin;
     QString phase;
 
-    AltTrans(CatalogString source_=CatalogString()):source(source_){}
+    AltTrans(CatalogString source_=CatalogString()):type(Other),source(source_){}
 };
 
 

@@ -251,9 +251,11 @@ QStringList Catalog::noteAuthors() const
     return m_storage->noteAuthors();
 }
 
-void Catalog::attachAltTransCatalog(Catalog* cat)
+void Catalog::attachAltTransCatalog(Catalog* altCat)
 {
-    d->_altTransCatalogs.append(cat);
+    d->_altTransCatalogs.append(altCat);
+    if (numberOfEntries()!=altCat->numberOfEntries())
+        kWarning()<<altCat->url().prettyUrl()<<"has different number of entries";
 }
 
 QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
@@ -264,11 +266,25 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
 
     foreach(Catalog* altCat, d->_altTransCatalogs)
     {
+        if (pos.entry>=altCat->numberOfEntries())
+        {
+            kDebug()<<"ignoring"<<altCat->url().prettyUrl()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
+            continue;
+        }
+
+        if (altCat->source(pos)!=source(pos))
+        {
+            kDebug()<<"ignoring"<<altCat->url().prettyUrl()<<"this time because <source>s don't match";
+            continue;
+        }
+
         QString target=altCat->msgstr(pos);
         if (!target.isEmpty() && altCat->isApproved(pos))
         {
             result<<AltTrans();
             result.last().target=target;
+            result.last().type=AltTrans::Reference;
+            result.last().origin=altCat->url().prettyUrl();
         }
     }
     return result;
