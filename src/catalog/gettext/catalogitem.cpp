@@ -327,8 +327,10 @@ void CatalogItem::setFuzzy()
 void CatalogItem::unsetFuzzy()
 {
     QString& comment=d->_comment;
+    //kDebug()<<comment;
 
-    comment.remove( QRegExp(fuzzyRegExpStr) );
+    static const QRegExp rmFuzzyRe(",\\s*fuzzy");
+    comment.remove( rmFuzzyRe );
 
     // remove empty comment lines
     comment.remove( QRegExp("\n#\\s*$") );
@@ -336,8 +338,8 @@ void CatalogItem::unsetFuzzy()
     comment.remove( QRegExp("#\\s*\n") );
     comment.remove( QRegExp("^#\\s*\n") );
 
+    //kDebug()<<comment;
 }
-
 
 
 
