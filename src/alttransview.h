@@ -60,6 +60,7 @@ signals:
 private:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent *event);
+    bool event(QEvent *event);
 
 
 private:
@@ -73,6 +74,7 @@ private:
     bool m_everShown;
 
     QVector<AltTrans> m_entries;
+    QMap<int, int> m_entryPositions;
     QVector<KAction*> m_actions;//need them to get shortcuts
 };
 

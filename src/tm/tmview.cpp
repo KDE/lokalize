@@ -554,7 +554,10 @@ bool TMView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        int block=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
+        int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
+        int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
+        if (block1!=block)
+            kWarning()<<"block numbers don't match";
         if (block<m_entries.size())
         {
             QString file=m_entries.at(block).file;

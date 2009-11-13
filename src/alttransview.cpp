@@ -42,6 +42,7 @@
 #include <QSignalMapper>
 //#include <QTime>
 #include <QFileInfo>
+#include <QToolTip>
 
 
 AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<KAction*>& actions)
@@ -144,6 +145,7 @@ void AltTransView::process()
 
     m_prevEntry=m_entry;
     m_browser->clear();
+    m_entryPositions.clear();
 
     const QVector<AltTrans>& entries=m_catalog->altTrans(m_entry.toDocPosition());
     m_entries=entries;
@@ -211,6 +213,7 @@ void AltTransView::process()
             cur.insertText(html); html.clear();
             insertContent(cur,entry.target);
         }
+        m_entryPositions.insert(cur.anchor(),i);
 
         html+=i?"<br></p>":"</p>";
         cur.insertHtml(html);
@@ -234,6 +237,27 @@ void AltTransView::process()
 }
 
 
+bool AltTransView::event(QEvent *event)
+{
+    if (event->type()==QEvent::ToolTip)
+    {
+        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
+        int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
+        if (block1!=block)
+            kWarning()<<"block numbers don't match";
+        if (block>=m_entries.size())
+            return false;
+        QString origin=m_entries.at(block).origin;
+        if (origin.isEmpty())
+            return false;
+
+        QString tooltip=i18nc("@info:tooltip","Origin: %1",origin);
+        QToolTip::showText(helpEvent->globalPos(),tooltip);
+        return true;
+    }
+    return QWidget::event(event);
+}
 
 void AltTransView::slotUseSuggestion(int i)
 {
