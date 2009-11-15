@@ -914,19 +914,15 @@ QString XliffStorage::phase(const DocPosition& pos) const
     return target.attribute("phase-name");
 }
 
-//DocPosition.form - number of <context>
-QString XliffStorage::context(const DocPosition& pos) const
+QStringList XliffStorage::context(const DocPosition& pos) const
 {
-    return "dd";
-}
-int XliffStorage::contextCount(const DocPosition& pos) const
-{
-    return 0;
+    //TODO
+    return QStringList(QString());
 }
 
 QStringList XliffStorage::matchData(const DocPosition& pos) const
 {
-    return QStringList("dd");
+    return QStringList();
 }
 
 QString XliffStorage::id(const DocPosition& pos) const

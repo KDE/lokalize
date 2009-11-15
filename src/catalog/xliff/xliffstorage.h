@@ -78,9 +78,7 @@ public:
     QString setPhase(const DocPosition& pos, const QString& phase);
     QString phase(const DocPosition& pos) const;
 
-    //DocPosition.form - number of <context>
-    QString context(const DocPosition& pos) const;
-    int contextCount(const DocPosition& pos) const;
+    QStringList context(const DocPosition& pos) const;
 
     QStringList matchData(const DocPosition& pos) const;
     QString id(const DocPosition& pos) const;

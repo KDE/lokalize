@@ -112,13 +112,14 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
     CatalogStorage& baseStorage=*(m_baseCatalog->m_storage);
     CatalogStorage& mergeStorage=*(m_storage);
 
-    MatchItem item(mergePos.entry,0,true);
+    MatchItem item(mergePos.entry, basePos.entry, true);
     //TODO make more robust, perhaps after XLIFF?
     QStringList baseMatchData=baseStorage.matchData(basePos);
+    QStringList mergeMatchData=mergeStorage.matchData(mergePos);
 
                                             //compare ids
-    item.score+=20*(baseMatchData.isEmpty()?baseStorage.id(basePos)==mergeStorage.id(mergePos)
-                                           :baseMatchData==mergeStorage.matchData(mergePos));
+    item.score+=40*((baseMatchData.isEmpty()&&mergeMatchData.isEmpty())?baseStorage.id(basePos)==mergeStorage.id(mergePos)
+                                           :baseMatchData==mergeMatchData);
 
     //TODO look also for changed/new <note>s
 
@@ -128,6 +129,23 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
         item.translationIsDifferent=baseStorage.isApproved(basePos)!=mergeStorage.isApproved(mergePos);
         item.score+=29+1*item.translationIsDifferent;
     }
+#if 0
+    if (baseStorage.source(basePos)=="%1 (%2)")
+    {
+        qDebug()<<"BASE";
+        qDebug()<<m_baseCatalog->url();
+        qDebug()<<basePos.entry;
+        qDebug()<<baseStorage.source(basePos);
+        qDebug()<<baseMatchData.first();
+        qDebug()<<"MERGE";
+        qDebug()<<url();
+        qDebug()<<mergePos.entry;
+        qDebug()<<mergeStorage.source(mergePos);
+        qDebug()<<mergeStorage.matchData(mergePos).first();
+        qDebug()<<item.score;
+        qDebug()<<"";
+    }
+#endif
     return item;
 }
 
@@ -152,6 +170,7 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
     int size=baseStorage.size();
     int mergeSize=mergeStorage.size();
     m_map.fill(-1,size);
+    QMultiMap<int,int> backMap; //will be used to maintain one-to-one relation
 
 
     //precalc for fast lookup
@@ -166,37 +185,59 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
     while (i.entry<size)
     {
         QString key=strip(baseStorage.source(i));
-        QList<int> entries=mergeMap.values(key);
+        const QList<int>& entries=mergeMap.values(key);
         QList<MatchItem> scores;
         int k=entries.size();
         if (k)
         {
+            if (key=="%1 (%2)")
+                qDebug()<<"---------key"<<key<<"start"<<k;
             while(--k>=0)
                 scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
 
             qSort(scores.begin(), scores.end(), qGreater<MatchItem>());
 
             m_map[i.entry]=scores.first().mergeEntry;
+            backMap.insert(scores.first().mergeEntry, i.entry);
 
             if (scores.first().translationIsDifferent)
                 m_mergeDiffIndex.append(i.entry);
 
-            QMultiHash<QString, int>::iterator it = mergeMap.find(key);
-            while (it != mergeMap.end() && it.key() == key && it.value()!=scores.first().mergeEntry)
-                ++it;
-            mergeMap.erase(it);
         }
         ++i.entry;
     }
 
-    //fuzzy match unmatched entries
-    QMultiHash<QString, int>::iterator it = mergeMap.begin();
+
+    //maintain one-to-one relation
+    const QList<int>& mergePositions=backMap.uniqueKeys();
+    foreach(int mergePosition, mergePositions)
+    {
+        const QList<int>& basePositions=backMap.values(mergePosition);
+        if (basePositions.size()==1)
+            continue;
+
+        //qDebug()<<"kv"<<mergePosition<<basePositions;
+        QList<MatchItem> scores;
+        foreach(int value, basePositions)
+            scores<<calcMatchItem(DocPosition(value), mergePosition);
+
+        qSort(scores.begin(), scores.end(), qGreater<MatchItem>());
+        int i=scores.size();
+        while(--i>0)
+        {
+            //qDebug()<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";
+            m_map[scores.at(i).baseEntry]=-1;
+        }
+    }
+
+    //fuzzy match unmatched entries?
+/*    QMultiHash<QString, int>::iterator it = mergeMap.begin();
     while (it != mergeMap.end())
     {
         //kWarning()<<it.value()<<it.key();
         ++it;
-    }
-    m_unmatchedCount=mergeMap.count();
+    }*/
+    m_unmatchedCount=mergePositions.count();
 
     return 0;
 }

@@ -71,9 +71,7 @@ public:
     QStringList sourceFiles(const DocPosition& pos) const;
     QVector<Note> developerNotes(const DocPosition& pos) const;
 
-    //DocPosition.form - number of <context>
-    QString context(const DocPosition& pos) const;
-    int contextCount(const DocPosition& pos) const;
+    QStringList context(const DocPosition& pos) const;
 
     QStringList matchData(const DocPosition& pos) const;
     QString id(const DocPosition& pos) const;

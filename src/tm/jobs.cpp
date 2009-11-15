@@ -893,7 +893,7 @@ static QString makeAcceledString(QString source, const QString& accel, const QVa
 SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int opt)
 {
     SelectJob* job=new SelectJob(catalog->sourceWithTags(pos),
-                                 catalog->msgctxt(pos.entry),
+                                 catalog->context(pos.entry).first(),
                                  catalog->url().pathOrUrl(),
                                  pos,
                                  db.isEmpty()?Project::instance()->projectID():db);
@@ -1331,7 +1331,7 @@ void ScanJob::run()
 */
                     ok=ok&&doInsertEntry(catalog.sourceWithTags(pos),
                                           catalog.targetWithTags(pos),
-                                          catalog.msgctxt(i)+TM_DELIMITER+QString::number(pos.form),
+                                          catalog.context(i).first()+TM_DELIMITER+QString::number(pos.form),
                                           catalog.isApproved(i),
                                           fileId,db,rxClean1,accel,priorId,priorId);
                 }
@@ -1345,7 +1345,7 @@ void ScanJob::run()
 */
                 ok=doInsertEntry(catalog.sourceWithTags(i),
                                  catalog.targetWithTags(i),
-                                 catalog.msgctxt(i),
+                                 catalog.context(i).first(),
                                  catalog.isApproved(i),
                                  fileId,db,rxClean1,accel,priorId,priorId);
             }

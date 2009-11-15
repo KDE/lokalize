@@ -320,21 +320,14 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     return result;
 }
 
-//DocPosition.form - number of <context>
-QString GettextStorage::context(const DocPosition& pos) const
+QStringList GettextStorage::context(const DocPosition& pos) const
 {
-    return m_entries.at(pos.entry).msgctxt();
-}
-int GettextStorage::contextCount(const DocPosition& pos) const
-{
-    return m_entries.at(pos.entry).msgctxt().isEmpty()?0:1;
+    return matchData(pos);
 }
 
 QStringList GettextStorage::matchData(const DocPosition& pos) const
 {
     QString ctxt=m_entries.at(pos.entry).msgctxt();
-    if (ctxt.isEmpty())
-        return QStringList();
 
     //KDE-specific
     //Splits @info:whatsthis and actual note

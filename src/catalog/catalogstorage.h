@@ -96,9 +96,11 @@ public:
     virtual QVector<Note> phaseNotes(const QString& phase) const{return QVector<Note>();}
     virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){return QVector<Note>();}
 
+    //the result must be guaranteed to have at least 1 string
+    virtual QStringList context(const DocPosition&) const=0;
     //DocPosition.form - number of <context>
-    virtual QString context(const DocPosition&) const=0;
-    virtual int contextCount(const DocPosition&) const=0;
+    //virtual QString context(const DocPosition&) const=0;
+    //virtual int contextCount(const DocPosition&) const=0;
 
     /**
      * user-invisible data for matching, e.g. during TM database lookup

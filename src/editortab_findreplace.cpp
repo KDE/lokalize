@@ -673,7 +673,7 @@ bool EditorTab::findEntryBySourceContext(const QString& source, const QString& c
     DocPosition pos(0);
     do
     {
-        if (m_catalog->source(pos)==source && m_catalog->msgctxt(pos.entry)==ctxt)
+        if (m_catalog->source(pos)==source && m_catalog->context(pos.entry)==QStringList(ctxt))
         {
             gotoEntry(pos);
             return true;

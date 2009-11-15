@@ -306,15 +306,12 @@ QString Catalog::id(const DocPosition& pos) const
     return m_storage->id(pos);
 }
 
-QString Catalog::msgctxt(uint index) const
+QStringList Catalog::context(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return d->CatalogPrivate::_emptyStr;
+        return QStringList();
 
-    DocPosition pos(index);
-    return m_storage->contextCount(pos)?
-                m_storage->context(pos):
-                d->CatalogPrivate::_emptyStr;
+    return m_storage->context(pos);
 }
 
 QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
@@ -716,7 +713,7 @@ void Catalog::flushUpdateDBBuffer()
     if (isPlural(pos.entry))
         form=pos.form;
     updateDB(url().pathOrUrl(),
-             msgctxt(pos.entry),
+             context(pos.entry).first(),
              sourceWithTags(pos),
              targetWithTags(pos),
              form,

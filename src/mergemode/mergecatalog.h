@@ -36,18 +36,21 @@
 struct MatchItem
 {
     short mergeEntry:16;
-    short score:15;
-    bool translationIsDifferent:1;
+    short baseEntry:16;
+    short score:16;
+    bool translationIsDifferent:16;
 
     MatchItem()
     : mergeEntry(0)
+    , baseEntry(0)
     , score(0)
     , translationIsDifferent(false)
     {}
 
-    MatchItem(short m, short s, bool d)
+    MatchItem(short m, short b, bool d)
     : mergeEntry(m)
-    , score(s)
+    , baseEntry(b)
+    , score(0)
     , translationIsDifferent(d)
     {}
 

@@ -147,7 +147,7 @@ void MsgCtxtView::process()
         html.chop(6);
     }
 
-    QString msgctxt=m_catalog->msgctxt(m_entry.entry);
+    QString msgctxt=m_catalog->context(m_entry.entry).first();
     if (!msgctxt.isEmpty())
         html+=i18nc("@info PO comment parsing","<br><b>Context:</b><br>")+Qt::escape(msgctxt);
 

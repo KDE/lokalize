@@ -108,7 +108,9 @@ public slots: //DBus interface
     QStringList noteAuthors() const;
     QVector<AltTrans> altTrans(const DocPosition& pos) const;
     QStringList sourceFiles(const DocPosition& pos) const;
-    QString msgctxt(uint index) const;
+    //QString msgctxt(uint index) const;
+    //the result is guaranteed to have at least 1 string
+    QStringList context(const DocPosition& pos) const;
     QString id(const DocPosition& pos) const;
     ///@returns previous phase-name
     QString setPhase(const DocPosition& pos, const QString& phase);

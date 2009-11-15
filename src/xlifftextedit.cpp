@@ -1110,7 +1110,7 @@ void XliffTextEdit::source2target()
     CatalogString sourceWithTags=m_catalog->sourceWithTags(m_currentPos);
     QString text=sourceWithTags.string;
     QString out;
-    QString ctxt(m_catalog->msgctxt(m_currentPos.entry));
+    QString ctxt=m_catalog->context(m_currentPos.entry).first();
 
     //TODO ask for the fillment if the first time.
     //BEGIN KDE specific part
