@@ -62,7 +62,7 @@ using namespace GlossaryNS;
 void TermLabel::insert()
 {
     GlossaryNS::Glossary* glossary=Project::instance()->glossary();
-    if (m_termIndex==-1 || !m_termIndex<glossary->termList.size())
+    if (m_termIndex==-1 || m_termIndex>=glossary->termList.size())
         return;
     QString termTrans;
     const QStringList& termTarget=glossary->termList.at(m_termIndex).target;
