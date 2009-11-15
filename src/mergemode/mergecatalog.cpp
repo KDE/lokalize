@@ -190,8 +190,6 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
         int k=entries.size();
         if (k)
         {
-            if (key=="%1 (%2)")
-                qDebug()<<"---------key"<<key<<"start"<<k;
             while(--k>=0)
                 scores<<calcMatchItem(i,DocPosition( entries.at(k) ));
 
@@ -237,7 +235,7 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
         //kWarning()<<it.value()<<it.key();
         ++it;
     }*/
-    m_unmatchedCount=mergePositions.count();
+    m_unmatchedCount=numberOfEntries()-mergePositions.count();
 
     return 0;
 }
