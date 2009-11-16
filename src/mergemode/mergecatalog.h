@@ -29,10 +29,6 @@
 #include <QVector>
 #include <QLinkedList>
 
-
-/**
-* @short Structure
-*/
 struct MatchItem
 {
     short mergeEntry:16;
