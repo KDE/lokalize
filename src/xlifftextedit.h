@@ -28,13 +28,12 @@
 #include "pos.h"
 #include "catalogstring.h"
 
-#include <kcompletion.h>
 #include <KTextEdit>
 class QMouseEvent;
 class SyntaxHighlighter;//TODO rename
+class KCompletionBox;
 
-
-class XliffTextEdit: public KTextEdit, public KCompletionBase
+class XliffTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
@@ -42,8 +41,6 @@ public:
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
 
-    void setCompletedText(const QString&){};
-    void setCompletedItems(const QStringList& items, bool autoSuggest=true);
     ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
     CatalogString showPos(DocPosition pos, const CatalogString& refStr=CatalogString(), bool keepCursor=true);
     DocPosition currentPos()const {return m_currentPos;}
@@ -86,9 +83,12 @@ private:
 
     void doTag(bool immediate);
 
+    void doCompletion(int pos);
+
 private slots:
     //for Undo/Redo tracking
     void contentsChanged(int position,int charsRemoved,int charsAdded);
+    void completionActivated(const QString&);
 
 signals:
     void toggleApprovementRequested();
@@ -130,6 +130,7 @@ private:
     DocPosition m_currentPos;
     SyntaxHighlighter* m_highlighter;
 
+    KCompletionBox* m_completionBox;
 
     //for undo/redo tracking
     QString _oldMsgstr;

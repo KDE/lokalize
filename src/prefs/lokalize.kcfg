@@ -94,6 +94,9 @@
     <entry name="MouseWheelGo"  type="Bool">
         <default>false</default>
     </entry>
+    <entry name="WordCompletionLength"  type="Int">
+        <default>4</default>
+    </entry>
   </group>
   <group name="TM">
     <entry name="PrefetchTM"  type="Bool">

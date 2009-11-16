@@ -236,6 +236,8 @@ private slots:
     void showStatesMenu();
     void setState(QAction*);
     void dispatchSrcFileOpenRequest(const QString& srcPath, int line);
+    void indexWordsForCompletion();
+
 private:
     void setupAccel();
     void setupActions();

@@ -29,6 +29,8 @@
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
+#include "completionstorage.h"
+
 #define WEBQUERY_ENABLE
 
 //views
@@ -93,6 +95,7 @@
 
 
 
+
 EditorTab::EditorTab(QWidget* parent, bool valid)
         : LokalizeSubwindowBase2(parent)
         , _project(Project::instance())
@@ -129,6 +132,7 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     connect(m_view, SIGNAL(gotoEntryRequested(DocPosition)),this,SLOT(gotoEntry(DocPosition)));
     connect(m_view, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SLOT(lookupSelectionInTranslationMemory()));
 
+    connect(this, SIGNAL(fileOpened()), this, SLOT(indexWordsForCompletion()),Qt::QueuedConnection);
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
     //kWarning()<<chrono.elapsed();
@@ -1273,6 +1277,13 @@ KUrl EditorWindow::mergeFile()
     return _mergeView->url();
 }
 */
+
+void EditorTab::indexWordsForCompletion()
+{
+    CompletionStorage::instance()->scanCatalog(m_catalog);
+}
+
+
 //see also termlabel.h
 void EditorTab::defineNewTerm()
 {

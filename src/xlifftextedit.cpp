@@ -21,6 +21,8 @@
 
 **************************************************************************** */
 
+#undef KDE_NO_DEBUG_OUTPUT
+
 #include "xlifftextedit.h"
 #include "catalog.h"
 #include "cmd.h"
@@ -28,6 +30,9 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 #include "project.h"
+#include "completionstorage.h"
+
+#include <kcompletionbox.h>
 
 #include <QPixmap>
 #include <QPushButton>
@@ -44,6 +49,9 @@
 
 // static int im_count=0;
 // static int im_time=0;
+
+#undef KDE_NO_DEBUG_OUTPUT
+
 
 inline static QImage generateImage(const QString& str, const QFont& font)
 {
@@ -105,6 +113,7 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     , m_catalog(catalog)
     , m_part(part)
     , m_highlighter(new SyntaxHighlighter(this))
+    , m_completionBox(0)
 {
     setReadOnly(part==DocPosition::Source);
     setUndoRedoEnabled(false);
@@ -119,17 +128,10 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     else
         m_highlighter->setCurrentLanguage(Project::instance()->sourceLangCode());
 
-    setCompletionMode(KGlobalSettings::CompletionPopupAuto);
-    completionObject()->addItem("adddddda");
-
     setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
     setHighlighter(m_highlighter);
 }
 
-void XliffTextEdit::setCompletedItems(const QStringList& items, bool autoSuggest)
-{
-    kWarning()<<items;
-}
 
 void XliffTextEdit::reflectApprovementState()
 {
@@ -366,7 +368,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
     //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
-    QString editText=toPlainText();
+    const QString& editText=toPlainText();
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
         //kWarning()<<"stop";
@@ -378,12 +380,12 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
     QString target=m_catalog->targetWithTags(pos).string;
-
+    const QString& addedText=editText.mid(offset,charsAdded);
 
 //BEGIN XLIFF markup handling
     //protect from tag removal
     bool markupRemoved=charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
-    bool markupAdded=charsAdded && editText.mid(offset,charsAdded).contains(TAGRANGE_IMAGE_SYMBOL);
+    bool markupAdded=charsAdded && addedText.contains(TAGRANGE_IMAGE_SYMBOL);
     if (markupRemoved || markupAdded)
     {
         bool modified=false;
@@ -406,7 +408,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
         {
             modified=removeTargetSubstring(offset, charsRemoved, /*refresh*/false);
             if (modified&&charsAdded)
-                m_catalog->push(new InsTextCmd(m_catalog,pos,editText.mid(offset,charsAdded)));
+                m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
         }
 
         //kWarning()<<"calling showPos";
@@ -426,7 +428,8 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
         _oldMsgstr=editText;//newStr becomes OldStr
         //kWarning()<<"char"<<editText[offset].unicode();
         if (charsAdded)
-            m_catalog->push(new InsTextCmd(m_catalog,pos,editText.mid(offset,charsAdded)));
+            m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
+        
     }
 
 /* TODO
@@ -442,6 +445,10 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit contentsModified(m_currentPos);
+    
+    if (charsAdded==1)
+        doCompletion(offset+1);
+
     //kWarning()<<"finish";
 }
 
@@ -628,31 +635,11 @@ static bool isMasked(const QString& str, uint col)
     return !(bool)(counter%2);
 }
 
+static QString spclChars("abfnrtv'?\\");
+
 void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if (m_part==DocPosition::Source)
-        return KTextEdit::keyPressEvent(keyEvent);
-
-    static QString spclChars("abfnrtv'?\\");
-
-    //BEGIN GENERAL
-    // ALT+123 feature TODO this is general so should be on another level
-    if( (keyEvent->modifiers()&Qt::AltModifier)
-         &&!keyEvent->text().isEmpty()
-         &&keyEvent->text().at(0).isDigit() )
-    {
-        QString text=keyEvent->text();
-        while (!text.isEmpty()&& text.at(0).isDigit() )
-        {
-            m_currentUnicodeNumber = 10*m_currentUnicodeNumber+(text.at(0).digitValue());
-            text.remove(0,1);
-        }
-    }
-    //END GENERAL
-
-
-
-    else if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
+    if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
         emit gotoPrevRequested();
     else if(keyEvent->matches(QKeySequence::MoveToNextPage))
         emit gotoNextRequested();
@@ -673,6 +660,25 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         else if(keyEvent->key()==Qt::Key_End)
             emit gotoLastRequested();
     }
+    else if (m_part==DocPosition::Source)
+        return KTextEdit::keyPressEvent(keyEvent);
+
+    //BEGIN GENERAL
+    // ALT+123 feature TODO this is general so should be on another level
+    else if( (keyEvent->modifiers()&Qt::AltModifier)
+         &&!keyEvent->text().isEmpty()
+         &&keyEvent->text().at(0).isDigit() )
+    {
+        QString text=keyEvent->text();
+        while (!text.isEmpty()&& text.at(0).isDigit() )
+        {
+            m_currentUnicodeNumber = 10*m_currentUnicodeNumber+(text.at(0).digitValue());
+            text.remove(0,1);
+        }
+        KTextEdit::keyPressEvent(keyEvent);
+    }
+    //END GENERAL
+
     else if (!keyEvent->modifiers()&&(keyEvent->key()==Qt::Key_Backspace||keyEvent->key()==Qt::Key_Delete))
     {
         //only for cases when:
@@ -694,6 +700,12 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
+        if (m_completionBox->isVisible())
+        {
+            m_completionBox->hide();
+            completionActivated(m_completionBox->currentItem()->text());
+            return;
+        }
         QString str=toPlainText();
         QTextCursor t=textCursor();
         int pos=t.position();
@@ -1191,5 +1203,38 @@ void XliffTextEdit::cursorToStart()
     setTextCursor(t);
 }
 
+
+void XliffTextEdit::doCompletion(int pos)
+{
+    QString target=m_catalog->targetWithTags(m_currentPos).string;
+    int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos);
+    int len=(pos-sp);
+    int wordCompletionLength=Settings::self()->wordCompletionLength();
+    if (wordCompletionLength<3||len<wordCompletionLength)
+        return;
+
+    QStringList s=CompletionStorage::instance()->makeCompletion(target.mid(sp+1,len));
+    
+    if (!m_completionBox)
+    {
+        m_completionBox=new KCompletionBox(this);
+        connect(m_completionBox,SIGNAL(activated(QString)),this,SLOT(completionActivated(QString)));
+    }
+    m_completionBox->setItems(s);
+    m_completionBox->show();
+}
+
+
+void XliffTextEdit::completionActivated(const QString& word)
+{
+    QTextCursor cursor=textCursor();
+    
+    QString target=m_catalog->targetWithTags(m_currentPos).string;
+    int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,cursor.anchor());
+    int len=(cursor.anchor()-sp);
+
+    cursor.insertText(word.mid(len-1));
+    setTextCursor(cursor);
+}
 
 #include "xlifftextedit.moc"

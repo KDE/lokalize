@@ -17,7 +17,7 @@
    <property name="spacing">
     <number>6</number>
    </property>
-   <item row="4" column="0" colspan="2">
+   <item row="3" column="0" colspan="2">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -39,14 +39,34 @@
    </item>
    <item row="1" column="0">
     <widget class="QCheckBox" name="kcfg_MouseWheelGo">
-     <property name="text">
-      <string>Mouse wheel goes to previous or next translation unit</string>
-     </property>
      <property name="toolTip">
       <string>If set, mouse wheel goes to previous or next unit, otherwise it scrolls text</string>
      </property>
      <property name="whatsThis">
       <string>&lt;html&gt;When this option is enabled, the mouse wheel is used to go to the previous or next translation unit (without modifier keys). Modifier keys can be used to change this behavior. Use:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Shift&lt;/b&gt; to scroll within the text of the current unit,&lt;/li&gt;&lt;li&gt;&lt;b&gt;Ctrl+Shift&lt;/b&gt; to go to previous or next non-ready unit,&lt;/li&gt;&lt;li&gt;&lt;b&gt;Ctrl&lt;/b&gt; to go to previous or next non-ready not empty unit,&lt;/li&gt;&lt;li&gt;&lt;b&gt;Alt&lt;/b&gt; to go to previous or next untranslated unit.&lt;/li&gt;&lt;/ul&gt;When the option is disabled, the mouse wheel scrolls within the text of the current translation unit.&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Mouse wheel goes to previous or next translation unit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="kcfg_WordCompletionLength">
+     <property name="text">
+      <string>Minimum word length for word completion</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="spinBox">
+     <property name="specialValueText">
+      <string>Disable word completion</string>
+     </property>
+     <property name="minimum">
+      <number>2</number>
+     </property>
+     <property name="maximum">
+      <number>20</number>
      </property>
     </widget>
    </item>
