@@ -26,14 +26,28 @@
 #define LANGUAGELISTMODEL_H
 
 #include <QStringListModel>
+class QSortFilterProxyModel;
 
 
 class LanguageListModel: public QStringListModel
 {
 public:
+    static LanguageListModel* instance();
+
+private:
+    static LanguageListModel * _instance;
+    static void cleanupLanguageListModel();
+
     LanguageListModel(QObject* parent=0);
-    virtual QVariant data(const QModelIndex& index, int role) const;
-    virtual QFlags< Qt::ItemFlag > flags(const QModelIndex& index) const;
+    QSortFilterProxyModel* m_sortModel;
+
+public:
+    QVariant data(const QModelIndex& index, int role) const;
+    QFlags< Qt::ItemFlag > flags(const QModelIndex& index) const;
+
+    QSortFilterProxyModel* sortModel() const{return m_sortModel;};
+    int sortModelRowForLangCode(const QString&);
+    QString langCodeForSortModelRow(int);
 };
 
 #endif // LANGUAGELISTMODEL_H

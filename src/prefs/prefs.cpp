@@ -84,6 +84,7 @@ SettingsController::SettingsController()
 SettingsController::~SettingsController()
 {}
 
+
 void SettingsController::slotSettings()
 {
     if (KConfigDialog::showDialog("lokalize_settings"))
@@ -100,10 +101,10 @@ void SettingsController::slotSettings()
 
     KConfigGroup grp = Settings::self()->config()->group("Identity");
 
-    ui_prefs_identity.DefaultLangCode->setModel(new LanguageListModel(ui_prefs_identity.DefaultLangCode));
-    ui_prefs_identity.DefaultLangCode->setCurrentItem(grp.readEntry("DefaultLangCode",KGlobal::locale()->language()));
+    ui_prefs_identity.DefaultLangCode->setModel(LanguageListModel::instance()->sortModel());
+    ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( grp.readEntry("DefaultLangCode",KGlobal::locale()->language()) ));
 
-    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(QString)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setText(QString)));
+    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(int)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setLangCode(int)));
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
     dialog->addPage(w, i18nc("@title:tab","Identity"), "preferences-desktop-user");
@@ -195,11 +196,10 @@ void SettingsController::projectConfigure()
     ui_prefs_projectmain.kcfg_GlossaryTbx->hide();
 
     Project& p=*(Project::instance());
-    LanguageListModel* llm=new LanguageListModel(ui_prefs_projectmain.LangCode);
-    ui_prefs_projectmain.LangCode->setModel(llm);
-    ui_prefs_projectmain.LangCode->setCurrentIndex(llm->stringList().indexOf(p.langCode()));
-    connect(ui_prefs_projectmain.LangCode,SIGNAL(activated(QString)),
-            ui_prefs_projectmain.kcfg_LangCode,SLOT(setText(QString)));
+    ui_prefs_projectmain.LangCode->setModel(LanguageListModel::instance()->sortModel());
+    ui_prefs_projectmain.LangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(p.langCode()));
+    connect(ui_prefs_projectmain.LangCode,SIGNAL(activated(int)),
+            ui_prefs_projectmain.kcfg_LangCode,SLOT(setLangCode(int)));
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
@@ -283,16 +283,15 @@ void SettingsController::reflectRelativePathsHack()
     while(--i>=0)
         actionz[i]=KUrl::relativePath(projectDir,actionz.at(i));
     m_scriptsRelPrefWidget->setItems(actionz);
-
-    //Project::instance()->setWebQueryScripts(actionz);
-    //kWarning() << Project::instance()->webQueryScripts();
 }
 
+void LangCodeSaver::setLangCode(int index)
+{
+    setText(LanguageListModel::instance()->langCodeForSortModelRow(index));
+}
 
 void RelPathSaver::setText (const QString& txt)
 {
-/*    kWarning () << "00002  " << KUrl::relativePath(Project::instance()->projectDir(),
-                       txt) << " -- "  << Project::instance()->projectDir() << " - " <<txt<< endl;*/
     QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
                        txt));
 }

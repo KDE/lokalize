@@ -29,14 +29,38 @@
 #include <kicon.h>
 #include <klocale.h>
 
+#include <QCoreApplication>
+#include <QSortFilterProxyModel>
+
+
+
+LanguageListModel* LanguageListModel::_instance=0;
+void LanguageListModel::cleanupLanguageListModel()
+{
+    delete LanguageListModel::_instance; LanguageListModel::_instance = 0;
+}
+
+LanguageListModel* LanguageListModel::instance()
+{
+    if (_instance==0 )
+    {
+        _instance=new LanguageListModel();
+        qAddPostRoutine(LanguageListModel::cleanupLanguageListModel);
+    }
+    return _instance;
+}
+
 LanguageListModel::LanguageListModel(QObject* parent)
- :QStringListModel(KGlobal::locale()->allLanguagesList(),parent)
+ : QStringListModel(KGlobal::locale()->allLanguagesList(),parent)
+ , m_sortModel(new QSortFilterProxyModel(this))
 {
     KIconLoader::global()->addExtraDesktopThemes();
     //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
-    kWarning()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
+    kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     //kWarning()<<KGlobal::locale()->allLanguagesList();
-    kWarning()<<QLocale("uk").name();
+    kDebug()<<QLocale("uk").name();
+    m_sortModel->setSourceModel(this);
+    m_sortModel->sort(0);
 }
 
 QVariant LanguageListModel::data(const QModelIndex& index, int role) const
@@ -48,9 +72,11 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         if (code.contains('_')) code=code.mid(3).toLower();
         return QIcon(KStandardDirs::locate("locale", QString("l10n/%1/flag.png").arg(code)));
     }
-    //else if (role==Qt::DisplayRole)
-    //    return KGlobal::locale()->languageCodeToName(stringList().at(index.row()));
-
+    else if (role==Qt::DisplayRole)
+    {
+        const QString& code=stringList().at(index.row());
+        return KGlobal::locale()->languageCodeToName(code)+" ("+code+')';
+    }
     return QStringListModel::data(index, role);
 }
 
@@ -59,3 +85,12 @@ QFlags< Qt::ItemFlag > LanguageListModel::flags(const QModelIndex& index) const
     return QStringListModel::flags(index);
 }
 
+int LanguageListModel::sortModelRowForLangCode(const QString& langCode)
+{
+    return m_sortModel->mapFromSource(index(stringList().indexOf(langCode))).row();
+}
+
+QString LanguageListModel::langCodeForSortModelRow(int row)
+{
+    return stringList().at(m_sortModel->mapToSource(m_sortModel->index(row,0)).row());
+}

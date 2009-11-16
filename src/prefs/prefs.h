@@ -26,6 +26,7 @@
 
 #include <QLineEdit>
 class KEditListBox;
+class KLienEdit;
 
 namespace Kross {class ActionCollectionView;}
 
@@ -78,6 +79,19 @@ public slots:
     void setText(const QString&);
 };
 
+
+/**
+ * helper widget to save lang code text values
+ * identified by LanguageListModel string index internally
+ */
+class LangCodeSaver: public QLineEdit
+{
+Q_OBJECT
+public:
+    LangCodeSaver(QWidget* p):QLineEdit(p){}
+public slots:
+    void setLangCode(int);
+};
 
 #include <kross/ui/view.h>
 class ScriptsView: public Kross::ActionCollectionView
