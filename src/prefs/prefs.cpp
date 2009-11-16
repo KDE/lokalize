@@ -269,15 +269,6 @@ void SettingsController::projectConfigure()
 void SettingsController::projectOpen(QString path)
 {
     if (path.isEmpty())
-    {
-        Project::instance()->model()->weaver()->suspend();
-        path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
-                                          "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
-                                         0);
-        Project::instance()->model()->weaver()->resume();
-    }
-
-    if (path.isEmpty())
         return;
 
     Project::instance()->load(path);

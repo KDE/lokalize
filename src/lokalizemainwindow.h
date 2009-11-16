@@ -102,7 +102,7 @@ public slots:
     Q_SCRIPTABLE QObject* projectOverview();
 
     Q_SCRIPTABLE bool closeProject();
-    Q_SCRIPTABLE void openProject(const QString& path);
+    Q_SCRIPTABLE void openProject(QString path);
     Q_SCRIPTABLE QString currentProject();
 
     /// @returns 0 if current tab is not of Editor type

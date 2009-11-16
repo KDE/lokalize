@@ -31,6 +31,7 @@
 #define WEBQUERY_ENABLE
 
 #include "project.h"
+#include "projectmodel.h"
 #include "projectlocal.h"
 #include "prefs.h"
 
@@ -57,8 +58,11 @@
 #include <kxmlguifactory.h>
 #include <kurl.h>
 #include <kmenu.h>
+#include <kfiledialog.h>
 
 #include <kross/core/action.h>
+
+#include <threadweaver/ThreadWeaver.h>
 
 
 #include <QActionGroup>
@@ -485,8 +489,20 @@ bool LokalizeMainWindow::closeProject()
     return true;
 }
 
-void LokalizeMainWindow::openProject(const QString& path)
+void LokalizeMainWindow::openProject(QString path)
 {
+    if (path.isEmpty())
+    {
+        Project::instance()->model()->weaver()->suspend();
+        path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
+                                          "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
+                                         0);
+        Project::instance()->model()->weaver()->resume();
+    }
+
+    if (path.isEmpty())
+        return;
+
     if (closeProject())
         SettingsController::instance()->projectOpen(path);
 }
