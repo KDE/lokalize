@@ -32,6 +32,7 @@
 class QMouseEvent;
 class SyntaxHighlighter;//TODO rename
 class KCompletionBox;
+class MyCompletionBox;
 
 class XliffTextEdit: public KTextEdit
 {
@@ -130,7 +131,7 @@ private:
     DocPosition m_currentPos;
     SyntaxHighlighter* m_highlighter;
 
-    KCompletionBox* m_completionBox;
+    MyCompletionBox* m_completionBox;
 
     //for undo/redo tracking
     QString _oldMsgstr;

@@ -42,6 +42,8 @@
 #include <QHeaderView>
 #include <QItemDelegate>
 
+#undef KDE_NO_DEBUG_OUTPUT
+
 
 class PoItemDelegate: public QItemDelegate
 {
@@ -156,8 +158,11 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
 
 
-    if (leftFileItem.isNull())
-        kWarning()<<"leftFileItem.isNull()";
+    if (leftFileItem.isNull() || rightFileItem.isNull())
+    {
+        kWarning()<<".isNull()";
+        return false;
+    }
 
     // On our priority, folders go above regular files.
     if (leftFileItem.isDir() && !rightFileItem.isDir()) {

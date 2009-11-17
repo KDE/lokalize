@@ -84,7 +84,7 @@ QStringList CompletionStorage::makeCompletion(QString word)
     QMap<QString,int>::const_iterator it=m_words.lowerBound(cleanWord);
     while(it!=m_words.constEnd() && it.key().startsWith(cleanWord))
     {
-        hits.insert(-it.value(),it.key());
+        hits.insert(-it.value(),it.key().mid(word.length()));
         it++;
     }
     return hits.values();

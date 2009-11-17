@@ -51,6 +51,7 @@
 // static int im_time=0;
 
 #undef KDE_NO_DEBUG_OUTPUT
+#include <QScrollBar>
 
 
 inline static QImage generateImage(const QString& str, const QFont& font)
@@ -72,6 +73,25 @@ inline static QImage generateImage(const QString& str, const QFont& font)
     //     im_time+=a.elapsed();
     //     kWarning()<<im_count<<im_time;
     return result;
+}
+
+class MyCompletionBox: public KCompletionBox
+{
+public:
+    MyCompletionBox(QWidget* p):KCompletionBox(p){}
+    QSize sizeHint() const;
+//     QPoint globalPositionHint() const{return m_pos;}
+//     void setPosition(const QPoint& p){m_pos=p;}
+// private:
+//     QPoint m_pos;
+};
+
+QSize MyCompletionBox::sizeHint() const
+{
+    int h = count()?(sizeHintForRow(0)):0;
+    h=qMin(count()*h,10*h) + 2*frameWidth();
+    int w = sizeHintForColumn(0) + verticalScrollBar()->width() + 2*frameWidth();
+    return QSize(w, h);
 }
 
 
@@ -1207,33 +1227,48 @@ void XliffTextEdit::cursorToStart()
 void XliffTextEdit::doCompletion(int pos)
 {
     QString target=m_catalog->targetWithTags(m_currentPos).string;
-    int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos);
-    int len=(pos-sp);
+    int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos-1);
+    int len=(pos-sp)-1;
     int wordCompletionLength=Settings::self()->wordCompletionLength();
     if (wordCompletionLength<3||len<wordCompletionLength)
+    {
+        if (m_completionBox)
+            m_completionBox->hide();
         return;
+    }
 
     QStringList s=CompletionStorage::instance()->makeCompletion(target.mid(sp+1,len));
     
     if (!m_completionBox)
     {
-        m_completionBox=new KCompletionBox(this);
+        m_completionBox=new MyCompletionBox(this);
         connect(m_completionBox,SIGNAL(activated(QString)),this,SLOT(completionActivated(QString)));
+        m_completionBox->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Preferred);
     }
+    
     m_completionBox->setItems(s);
-    m_completionBox->show();
+    if (s.size() && !s.first().isEmpty())
+    {
+        m_completionBox->setCurrentRow(0);
+        m_completionBox->show();
+        m_completionBox->resize(m_completionBox->sizeHint());
+        m_completionBox->move(viewport()->mapToGlobal(cursorRect().bottomRight()));
+    }
+    else
+        m_completionBox->hide();
 }
 
 
-void XliffTextEdit::completionActivated(const QString& word)
+void XliffTextEdit::completionActivated(const QString& semiWord)
 {
     QTextCursor cursor=textCursor();
     
     QString target=m_catalog->targetWithTags(m_currentPos).string;
     int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,cursor.anchor());
-    int len=(cursor.anchor()-sp);
+    //int len=(cursor.anchor()-sp);
 
-    cursor.insertText(word.mid(len-1));
+    //cursor.insertText(word.mid(len-1));
+    cursor.insertText(semiWord);
     setTextCursor(cursor);
 }
 
