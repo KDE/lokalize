@@ -24,6 +24,7 @@
 #include "cataloglistview.h"
 #include "catalogmodel.h"
 #include "catalog.h"
+#include "project.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -127,8 +128,9 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 
 void CatalogView::setFilterRegExp()
 {
-    if (m_proxyModel->filterRegExp().pattern()!=m_lineEdit->text())
-        m_proxyModel->setFilterRegExp(m_lineEdit->text());
+    QString expr=m_lineEdit->text();
+    if (m_proxyModel->filterRegExp().pattern()!=expr)
+        m_proxyModel->setFilterRegExp(m_proxyModel->filerOptions()&CatalogTreeFilterModel::IgnoreAccel?expr.remove(Project::instance()->accel()):expr);
 }
 
 void CatalogView::slotItemActivated(const QModelIndex& idx)
@@ -161,7 +163,9 @@ void CatalogView::fillFilterOptionsMenu()
 
     bool extStates=m_model->catalog()->capabilities()&ExtendedStates;
 
-    const char* const basicTitles[]={I18N_NOOP("Case sensitive"),
+    const char* const basicTitles[]={
+                                 I18N_NOOP("Case insensitive"),
+                                 I18N_NOOP("Ignore accelerator marks"),
                                  I18N_NOOP("Ready"),
                                  I18N_NOOP("Non-ready"),
                                  I18N_NOOP("Non-empty"),
@@ -186,7 +190,7 @@ void CatalogView::fillFilterOptionsMenu()
         txt->setData(1<<i);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filerOptions()&(1<<i));
-        if ((1<<i)==CatalogTreeFilterModel::CaseSensitive)
+        if ((1<<i)==CatalogTreeFilterModel::CaseInsensitive)
             basicMenu->addSeparator();
     }
     if (!extStates)

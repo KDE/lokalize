@@ -72,13 +72,16 @@ public:
     QVariant headerData(int section,Qt::Orientation, int role=Qt::DisplayRole) const;
 
     Catalog* catalog()const{return m_catalog;}
+    
+    void setIgnoreAccel(bool n){m_ignoreAccel=n;}
 
 public slots:
     void reflectChanges(DocPosition);
     void fileLoaded();
 private:
     Catalog* m_catalog;
-    DocPos m_prevChanged;
+    bool m_ignoreAccel;
+    //DocPos m_prevChanged;
 };
 
 
@@ -94,29 +97,30 @@ Q_OBJECT
 public:
     enum FilterOptions
     {
-        CaseSensitive=1<<0,
-        Ready=1<<1,
-        NotReady=1<<2,
-        NonEmpty=1<<3,
-        Empty=1<<4,
-        Modified=1<<5,
-        NonModified=1<<6,
-        New=1<<7,
-        NeedsTranslation=1<<8,
-        NeedsL10n=1<<9,
-        NeedsAdaptation=1<<10,
-        Translated=1<<11,
-        NeedsReviewTranslation=1<<12,
-        NeedsReviewL10n=1<<13,
-        NeedsReviewAdaptation=1<<14,
-        Final=1<<15,
-        SignedOff=1<<16,
-        MaxOption=1<<17,
+        CaseInsensitive=1<<0,
+        IgnoreAccel=1<<1,
+        Ready=1<<2,
+        NotReady=1<<3,
+        NonEmpty=1<<4,
+        Empty=1<<5,
+        Modified=1<<6,
+        NonModified=1<<7,
+        New=1<<8,
+        NeedsTranslation=1<<9,
+        NeedsL10n=1<<10,
+        NeedsAdaptation=1<<11,
+        Translated=1<<12,
+        NeedsReviewTranslation=1<<13,
+        NeedsReviewL10n=1<<14,
+        NeedsReviewAdaptation=1<<15,
+        Final=1<<16,
+        SignedOff=1<<17,
+        MaxOption=1<<18,
         AllStates=MaxOption-1
     };
 
-#define STATES ((0xffff<<7)&(AllStates))
-#define FIRSTSTATEPOSITION 7
+#define STATES ((0xffff<<8)&(AllStates))
+#define FIRSTSTATEPOSITION 8
 
 
     CatalogTreeFilterModel(QObject* parent);

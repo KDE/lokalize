@@ -24,6 +24,7 @@
 #include "catalogmodel.h"
 
 #include "catalog.h"
+#include "project.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -35,6 +36,7 @@
 CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
  : QAbstractItemModel(parent)
  , m_catalog(catalog)
+ , m_ignoreAccel(true)
 {
     connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(reflectChanges(DocPosition)));
     connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
@@ -62,6 +64,10 @@ void CatalogTreeModel::fileLoaded()
 
 void CatalogTreeModel::reflectChanges(DocPosition pos)
 {
+    emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount-1));
+
+#if 0
+    I disabled dynamicSortFilter function
     //lazy sorting/filtering
     if (rowCount()<DYNAMICFILTER_LIMIT || m_prevChanged!=pos)
     {
@@ -74,6 +80,7 @@ void CatalogTreeModel::reflectChanges(DocPosition pos)
         }
     }
     m_prevChanged=pos;
+#endif
 }
 
 int CatalogTreeModel::rowCount(const QModelIndex& parent) const
@@ -129,8 +136,15 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     }
     else if (role==StringFilterRole) //exclude UI strings
     {
-        if (!(index.column()>Notes))
-            role=Qt::DisplayRole;
+        if (index.column()>Notes)
+            return QVariant();
+        else if (index.column()) //>Key
+        {
+            static const DocPosition::Part parts[]={DocPosition::Source, DocPosition::Target}; 
+            QString str=m_catalog->catalogString(DocPosition(index.row(),parts[index.column()==Target])).string;
+            return m_ignoreAccel?str.remove(Project::instance()->accel()):str;
+        }
+        role=Qt::DisplayRole;
     }
     if (role!=Qt::DisplayRole)
         return QVariant();
@@ -197,7 +211,8 @@ void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 void CatalogTreeFilterModel::setFilerOptions(int o)
 {
     m_filerOptions=o;
-    setFilterCaseSensitivity(o&CaseSensitive?Qt::CaseInsensitive:Qt::CaseSensitive);
+    setFilterCaseSensitivity(o&CaseInsensitive?Qt::CaseInsensitive:Qt::CaseSensitive);
+    static_cast<CatalogTreeModel*>(sourceModel())->setIgnoreAccel(o&IgnoreAccel);
     invalidateFilter();
 }
 
