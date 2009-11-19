@@ -56,6 +56,11 @@ public:
         DisplayedColumnCount=TranslationStatus+1
     };
 
+    enum Roles                                                                                                       
+    {                                                                                                                
+        StringFilterRole=Qt::UserRole+1                                                                              
+    };
+
     CatalogTreeModel(QObject* parent, Catalog* catalog);
     ~CatalogTreeModel(){}
 

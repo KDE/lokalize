@@ -127,6 +127,11 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             default:        role=Qt::DisplayRole;
         }
     }
+    else if (role==StringFilterRole) //exclude UI strings
+    {
+        if (!(index.column()>Notes))
+            role=Qt::DisplayRole;
+    }
     if (role!=Qt::DisplayRole)
         return QVariant();
 
@@ -162,7 +167,8 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
 {
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
-    setDynamicSortFilter(true);
+    setFilterRole(CatalogTreeModel::StringFilterRole);
+    //setDynamicSortFilter(true);
 }
 
 void CatalogTreeFilterModel::setSourceModel(CatalogTreeModel* sourceModel)

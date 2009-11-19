@@ -211,45 +211,37 @@ void CatalogView::reset()
     slotItemActivated(m_browser->currentIndex());
 }
 
-int CatalogView::nextEntry()
+int CatalogView::siblingEntry(int step)
 {
     QModelIndex item=m_browser->currentIndex();
+    int rowCount=m_proxyModel->rowCount();
     if (!item.isValid())
     {
-        if (!m_proxyModel->rowCount())
+        if (!rowCount)
             return -1;
-        item=m_proxyModel->index(0,0);
+        item=m_proxyModel->index((step==1)?0:rowCount,0);
         m_browser->setCurrentIndex(item);
     }
     else
     {
-        if (item.row()==m_proxyModel->rowCount())
+        if (item.row()+step==rowCount)
             return -1;
-        item=item.sibling(item.row()+1,0);
+        item=item.sibling(item.row()+step,0);
     }
     return m_proxyModel->mapToSource(item).row();
+}
+
+int CatalogView::nextEntry()
+{
+    return siblingEntry(1);
 }
 
 int CatalogView::prevEntry()
 {
-    QModelIndex item=m_browser->currentIndex();
-    if (!item.isValid())
-    {
-        if (!m_proxyModel->rowCount())
-            return -1;
-        item=m_proxyModel->index(m_proxyModel->rowCount()-1,0);
-        m_browser->setCurrentIndex(item);
-    }
-    else
-    {
-        if (item.row()==0)
-            return -1;
-        item=item.sibling(item.row()-1,0);
-    }
-    return m_proxyModel->mapToSource(item).row();
+    return siblingEntry(-1);
 }
 
-int CatalogView::firstEntry()
+static int edgeEntry(CatalogTreeFilterModel* m_proxyModel, int row)
 {
     if (!m_proxyModel->rowCount())
         return -1;
@@ -257,12 +249,14 @@ int CatalogView::firstEntry()
     return m_proxyModel->mapToSource(m_proxyModel->index(0,0)).row();
 }
 
+int CatalogView::firstEntry()
+{
+    return edgeEntry(m_proxyModel,0);
+}
+
 int CatalogView::lastEntry()
 {
-    if (!m_proxyModel->rowCount())
-        return -1;
-
-    return m_proxyModel->mapToSource(m_proxyModel->index(m_proxyModel->rowCount()-1,0)).row();
+    return edgeEntry(m_proxyModel,m_proxyModel->rowCount());
 }
 
 

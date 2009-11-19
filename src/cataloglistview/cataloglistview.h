@@ -50,6 +50,8 @@ public:
     int prevEntry();
     int firstEntry();
     int lastEntry();
+private:
+    int siblingEntry(int step);
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
