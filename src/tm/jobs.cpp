@@ -50,8 +50,6 @@ using namespace TM;
 #define TM_SEPARATOR '\b'
 #define TM_NOTAPPROVED 0x04
 
-#define TM_AREA 8111
-
 /**
  * splits string into words, removing any markup
  *
@@ -732,61 +730,56 @@ static void initDb(QSqlDatabase& db)
 //(see a little below)
 }
 
-static void getConfig(QSqlDatabase& db,
-                      QString& markup,
-                      QString& accel
-                      //int& emptyTargetId
-                     )
+QMap<QString,TMConfig> tmConfigCache;
 
+static void setConfig(QSqlDatabase& db, const TMConfig& c)
 {
     QSqlQuery query(db);
-    query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
-    if (KDE_ISLIKELY(  query.next() ))
-    {
-        markup=query.value(1).toString();
-        if (query.next())
-            accel=query.value(1).toString();
-        query.clear();
-    }
-    else
-    {
-        query.clear();
-
-        markup=Project::instance()->markup();
-        accel=Project::instance()->accel();
-
-        query.prepare("INSERT INTO tm_config (key, value) "
-                      "VALUES (?, ?)");
-
-        query.bindValue(0, 0);
-        query.bindValue(1, markup);
-        query.exec();
-
-        query.bindValue(0, 1);
-        query.bindValue(1, accel);
-        query.exec();
-    }
-
-    //emptyTargetId
-}
-
-static void setConfig(QSqlDatabase& db,
-                      const QString& markup,
-                      const QString& accel)
-
-{
-    QSqlQuery query(db);
-    query.clear();
-
     query.prepare("INSERT INTO tm_config (key, value) "
                       "VALUES (?, ?)");
 
-    query.bindValue(0, 0);
-    query.bindValue(1, markup);
-    kDebug(TM_AREA)<<query.exec();
+    query.addBindValue(0);
+    query.addBindValue(c.markup);
+    kDebug(TM_AREA)<<"setting tm db config:"<<query.exec();
 
-    query.bindValue(0, 1);
-    query.bindValue(1, accel);
+    query.addBindValue(1);
+    query.addBindValue(c.accel);
+    query.exec();
+
+    query.addBindValue(2);
+    query.addBindValue(c.sourceLangCode);
+    query.exec();
+
+    query.addBindValue(3);
+    query.addBindValue(c.targetLangCode);
+    query.exec();
+
+    tmConfigCache[db.databaseName()]=c;
+}
+
+static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTargetId
+
+{
+    if (useCache && tmConfigCache.contains(db.databaseName()))
+    {
+        kDebug()<<"using config cache for"<<db.databaseName();
+        return tmConfigCache.value(db.databaseName());
+    }
+    QSqlQuery query(db);
+    query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
+    Project& p=*(Project::instance());
+    bool f=query.next();
+    TMConfig c;
+    c.markup=                   f?query.value(1).toString():p.markup();
+    c.accel=         query.next()?query.value(1).toString():p.accel();
+    c.sourceLangCode=query.next()?query.value(1).toString():p.sourceLangCode();
+    c.targetLangCode=query.next()?query.value(1).toString():p.targetLangCode();
+    query.clear();
+
+    if (KDE_ISUNLIKELY(  !f )) //tmConfigCache[db.databaseName()]=c;
+        setConfig(db,c);
+
+    return c;
 }
 
 
@@ -832,22 +825,23 @@ OpenDBJob::~OpenDBJob()
 
 void OpenDBJob::run()
 {
-    if (QSqlDatabase::contains(m_dbName))
-        return getStats(QSqlDatabase::database(m_dbName),m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
-
-    thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
-    //kWarning(TM_AREA) <<"opening db";
+    if (!QSqlDatabase::contains(m_dbName))
+    {
+        thread()->setPriority(QThread::IdlePriority);
 
-    QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
-
-    QString dbFile=KStandardDirs::locateLocal("appdata", m_dbName+".db");
-    db.setDatabaseName(dbFile);
-    if (KDE_ISUNLIKELY( !db.open() )) return;
-    initDb(db);
+        QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
+        db.setDatabaseName(KStandardDirs::locateLocal("appdata", m_dbName+".db"));
+        if (KDE_ISUNLIKELY( !db.open() )) return;
+        initDb(db);
+    }
+    QSqlDatabase db=QSqlDatabase::database(m_dbName);
     //if (!m_markup.isEmpty()||!m_accel.isEmpty())
-    if (m_setParams) setConfig(db,m_markup,m_accel);
-    kWarning(TM_AREA) <<"db opened "<<a.elapsed()<<dbFile;
+    if (m_setParams)
+        setConfig(db,m_tmConfig);
+    else
+        m_tmConfig=getConfig(db);
+    kWarning(TM_AREA) <<"db"<<m_dbName<<" opened "<<a.elapsed()<<m_tmConfig.targetLangCode;
 
     getStats(db,m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
 }
@@ -993,15 +987,14 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     idsForWord.clear();
 
     //accels are removed
-    QString markup, accel;
-    getConfig(db,markup,accel);
-    QString tmp=markup;
-    if (!markup.isEmpty())
+    TMConfig c=getConfig(db);
+    QString tmp=c.markup;
+    if (!c.markup.isEmpty())
         tmp+='|';
     QRegExp rxSplit('('+tmp+"\\W+|\\d+)+");
 
     QString sourceClean(m_source.string);
-    sourceClean.remove(accel);
+    sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(sourceClean.toLower().split(rxSplit,QString::SkipEmptyParts));
     QRegExp delPart("<KBABELDEL>.*</KBABELDEL>");
@@ -1041,7 +1034,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         {
             ++j;
             e.id=queryFetch.value(0).toLongLong();
-            e.source=CatalogString( makeAcceledString(queryFetch.value(1).toString(), accel, queryFetch.value(2)),
+            e.source=CatalogString( makeAcceledString(queryFetch.value(1).toString(), c.accel, queryFetch.value(2)),
                                     queryFetch.value(3).toByteArray() );
             if (e.source.string.contains(TAGRANGE_IMAGE_SYMBOL))
             {
@@ -1051,14 +1044,14 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             //e.target=queryFetch.value(2).toString();
             //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
             //e.date=queryFetch.value(4).toString();
-            e.markupExpr=markup;
-            e.accelExpr=accel;
+            e.markupExpr=c.markup;
+            e.accelExpr=c.accel;
             e.dbName=db.connectionName();
 
 
 //BEGIN calc score
             QString str=e.source.string;
-            str.remove(accel);
+            str.remove(c.accel);
 
             QStringList englishSuggList(str.toLower().split(rxSplit,QString::SkipEmptyParts));
             if (englishSuggList.size()>10*englishList.size())
@@ -1156,7 +1149,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 e.id=queryRest.value(0).toLongLong();
                 e.date=queryRest.value(1).toString();
                 e.ctxt=queryRest.value(2).toString();
-                e.target=CatalogString( makeAcceledString(queryRest.value(4).toString(), accel, queryRest.value(5)),
+                e.target=CatalogString( makeAcceledString(queryRest.value(4).toString(), c.accel, queryRest.value(5)),
                                         queryRest.value(6).toByteArray() );
 
                 QStringList matchData=queryRest.value(2).toString().split(TM_DELIMITER,QString::KeepEmptyParts);//context|plural
@@ -1233,13 +1226,12 @@ void SelectJob::run ()
 
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
-    QString markup, accel;
-    getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    TMConfig c=getConfig(db);
+    QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
     QString cleanSource=m_source.string;
     QStringList words;
-    doSplit(cleanSource,words,rxClean1,accel);
+    doSplit(cleanSource,words,rxClean1,c.accel);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
         return;
     qSort(words);//to speed up if some words occur multiple times
@@ -1262,8 +1254,8 @@ void SelectJob::run ()
     ++i;
     while(--i>=0)
     {
-        m_entries[i].accelExpr=accel;
-        m_entries[i].markupExpr=markup;
+        m_entries[i].accelExpr=c.accel;
+        m_entries[i].markupExpr=c.markup;
         m_entries[i].diff=userVisibleWordDiff(m_entries.at(i).source.string,
                                               m_source.string,
                                               m_entries.at(i).accelExpr,
@@ -1300,9 +1292,8 @@ void ScanJob::run()
     m_added=0;      //stats
     m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    QString markup, accel;
-    getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    TMConfig c=getConfig(db,true);
+    QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
     Catalog catalog(thread());
     if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size)==0))
@@ -1333,7 +1324,7 @@ void ScanJob::run()
                                           catalog.targetWithTags(pos),
                                           catalog.context(i).first()+TM_DELIMITER+QString::number(pos.form),
                                           catalog.isApproved(i),
-                                          fileId,db,rxClean1,accel,priorId,priorId);
+                                          fileId,db,rxClean1,c.accel,priorId,priorId);
                 }
             }
             else
@@ -1347,7 +1338,7 @@ void ScanJob::run()
                                  catalog.targetWithTags(i),
                                  catalog.context(i).first(),
                                  catalog.isApproved(i),
-                                 fileId,db,rxClean1,accel,priorId,priorId);
+                                 fileId,db,rxClean1,c.accel,priorId,priorId);
             }
             if (KDE_ISLIKELY( ok ))
                 ++m_added;
@@ -1379,11 +1370,10 @@ void RemoveJob::run ()
     QSqlDatabase db=QSqlDatabase::database(m_entry.dbName);
 
     //cleaning regexps for word index update
-    QString markup, accel;
-    getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    TMConfig c=getConfig(db);
+    QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
-    kWarning(TM_AREA)<<doRemoveEntry(m_entry.id,rxClean1,accel,db);
+    kWarning(TM_AREA)<<doRemoveEntry(m_entry.id,rxClean1,c.accel,db);
 }
 
 
@@ -1412,9 +1402,8 @@ void UpdateJob::run ()
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
     //cleaning regexps for word index update
-    QString markup, accel;
-    getConfig(db,markup,accel);
-    QRegExp rxClean1(markup);rxClean1.setMinimal(true);
+    TMConfig c=getConfig(db);
+    QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
 
     qlonglong fileId=getFileId(m_filePath,db);
@@ -1425,7 +1414,7 @@ void UpdateJob::run ()
     qlonglong priorId=-1;
     if (!doInsertEntry(m_english,m_newTarget,
                   m_ctxt, //TODO QStringList -- after XLIFF
-                  m_approved, fileId,db,rxClean1,accel,priorId,priorId))
+                  m_approved, fileId,db,rxClean1,c.accel,priorId,priorId))
         kWarning(TM_AREA)<<"error updating db";
 
 }
@@ -1499,9 +1488,9 @@ TmxParser::TmxParser(const QString& dbName)
     m_added=0;      //stats
     db=QSqlDatabase::database(dbName);
 
-    QString markup;/*QString accel;*/
-    getConfig(db,markup,accel);
-    rxClean1.setPattern(markup);rxClean1.setMinimal(true);
+    TMConfig c=getConfig(db);
+    rxClean1.setPattern(c.markup);rxClean1.setMinimal(true);
+    accel=c.accel;
 }
 
 bool TmxParser::startDocument()
@@ -1749,13 +1738,12 @@ void ExportTmxJob::run()
                                     "files.id==main.file")))
         kWarning(TM_AREA) <<"select error: " <<query1.lastError().text();
 
-    QString markup, accel;
-    getConfig(db,markup,accel);
+    TMConfig c=getConfig(db);
 
     while (query1.next())
     {
-        QString source=makeAcceledString(query1.value(4).toString(),accel,query1.value(5));
-        QString target=makeAcceledString(query1.value(6).toString(),accel,query1.value(7));
+        QString source=makeAcceledString(query1.value(4).toString(),c.accel,query1.value(5));
+        QString target=makeAcceledString(query1.value(6).toString(),c.accel,query1.value(7));
 
         xmlOut.writeStartElement("tu");
             xmlOut.writeAttribute("tuid",QString::number(query1.value(0).toLongLong()));

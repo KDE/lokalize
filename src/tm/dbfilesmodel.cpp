@@ -55,7 +55,7 @@ DBFilesModel::DBFilesModel()
     connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
              this,SLOT(calcStats(QModelIndex, int, int))/*,Qt::QueuedConnection*/);
     int count=rowCount(rootIndex());
-    kWarning()<<count;
+    kWarning(TM_AREA)<<"initial row count"<<count;
     if (count) calcStats(rootIndex(),0,count-1);
 }
 
@@ -75,6 +75,8 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
 
     const char* const columns[]={
         I18N_NOOP2("@title:column","Name"),
+        I18N_NOOP2("@title:column","Source language"),
+        I18N_NOOP2("@title:column","Target language"),
         I18N_NOOP2("@title:column","Pairs"),
         I18N_NOOP2("@title:column","Unique original entries"),
         I18N_NOOP2("@title:column","Unique translations")
@@ -85,7 +87,7 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
 
 void DBFilesModel::openDB(const QString& name)
 {
-    openDB(new OpenDBJob(name,0));
+    openDB(new OpenDBJob(name));
 }
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
@@ -100,12 +102,11 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
     while (start<=end)
     {
         QModelIndex index=QDirModel::index(start++, 0, parent);
-        QString res=fileName(index);
-        res.remove(".db");
+        QString res=fileName(index).remove(".db");
         if (KDE_ISUNLIKELY(res==Project::instance()->projectID() && !projectDB))
             projectDB=new QPersistentModelIndex(index);//TODO if user switches the project
-        if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
-            continue;
+/*        if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
+            continue;*/
         openDB(res);
     }
 }
@@ -114,21 +115,24 @@ void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
 {
     OpenDBJob* j=static_cast<OpenDBJob*>(job);
     m_stats[j->m_dbName]=j->m_stat;
+    m_configurations[j->m_dbName]=j->m_tmConfig;
+    kDebug()<<j->m_dbName<<j->m_tmConfig.sourceLangCode;
 }
 
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
     if (role!=Qt::DisplayRole) return QVariant();
 
-    QString res=fileName(index.sibling(index.row(),0));
-    res.remove(".db");
+    QString res=fileName(index.sibling(index.row(),0)).remove(".db");
 
     switch (index.column())
     {
-        case 0: return res;
-        case 1: return m_stats[res].pairsCount;
-        case 2: return m_stats[res].uniqueSourcesCount;
-        case 3: return m_stats[res].uniqueTranslationsCount;
+        case Name: return res;
+        case SourceLang: return m_configurations[res].sourceLangCode;
+        case TargetLang: return m_configurations[res].targetLangCode;
+        case Pairs: return m_stats[res].pairsCount;
+        case OriginalsCount: return m_stats[res].uniqueSourcesCount;
+        case TranslationsCount: return m_stats[res].uniqueTranslationsCount;
     }
 
     return res;

@@ -34,6 +34,7 @@
 #include <QSqlDatabase>
 class QSqlQuery;
 
+#define TM_AREA 8111
 
 /**
  * Translation Memory classes. see initDb() function for the database scheme
@@ -52,6 +53,15 @@ namespace TM {
 #define EXPORT 25
 #define SCAN    10
 #define SCANFINISHED 9
+
+
+struct TMConfig
+{
+    QString markup;
+    QString accel;
+    QString sourceLangCode;
+    QString targetLangCode;
+};
 
 //called on startup
 class OpenDBJob: public ThreadWeaver::Job
@@ -74,8 +84,7 @@ public:
     DBStat m_stat;
 
     //for the new DB creation
-    QString m_markup;
-    QString m_accel;
+    TMConfig m_tmConfig;
     bool m_setParams;
 };
 

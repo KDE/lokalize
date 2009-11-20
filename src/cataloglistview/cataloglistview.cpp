@@ -221,7 +221,7 @@ int CatalogView::siblingEntry(int step)
     int lastRow=m_proxyModel->rowCount()-1;
     if (!item.isValid())
     {
-        if (!lastRow)
+        if (lastRow==-1)
             return -1;
         item=m_proxyModel->index((step==1)?0:lastRow,0);
         m_browser->setCurrentIndex(item);

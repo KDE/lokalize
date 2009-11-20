@@ -38,8 +38,10 @@
 #include "jobs.h"
 #include "tmscanapi.h"
 #include "project.h"
+#include "languagelistmodel.h"
 
 #include <QTimer>
+#include <QSortFilterProxyModel>
 #include <kfiledialog.h>
 #include <kdialog.h>
 #include <kdebug.h>
@@ -51,6 +53,7 @@ using namespace TM;
 TMManagerWin::TMManagerWin(QWidget *parent)
  : KMainWindow(parent)
 {
+    setCaption(i18nc("@title:window", "Translation Momories"));
     setCentralWidget(new QWidget(this));
     Ui_TMManager ui_tmManager;
     ui_tmManager.setupUi(centralWidget());
@@ -89,25 +92,61 @@ void TMManagerWin::addDir()
 
 }
 
-void TMManagerWin::addDB()
+
+class DBPropertiesDialog: public KDialog, Ui_DBParams
 {
-    KDialog dialog(this);
-    dialog.setCaption( i18nc("@title:window","New Translation Memory"));
-    dialog.setButtons( KDialog::Ok | KDialog::Cancel);
-    Ui_DBParams ui_dbParams;
-    ui_dbParams.setupUi(dialog.mainWidget());
+public:
+    DBPropertiesDialog(QWidget* parent, const QString& name=QString());
+private:
+    //void slotButtonClicked(int button);
+    void accept();
+};
 
-    if (dialog.exec()&&!ui_dbParams.name->text().isEmpty())
+DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
+ : KDialog(parent), Ui_DBParams()
+{
+    setAttribute(Qt::WA_DeleteOnClose, true);
+    setCaption( i18nc("@title:window","New Translation Memory"));
+    setButtons( KDialog::Ok | KDialog::Cancel);
+
+    setupUi(mainWidget());
+    name->setFocus();
+
+    sourceLang->setModel(LanguageListModel::instance()->sortModel());
+    targetLang->setModel(LanguageListModel::instance()->sortModel());
+
+    if (dbName.isEmpty())
     {
-        OpenDBJob* openDBJob=new OpenDBJob(ui_dbParams.name->text(),this);
-
-        openDBJob->m_setParams=true;
-        openDBJob->m_markup=ui_dbParams.markup->text();
-        openDBJob->m_accel=ui_dbParams.accel->text();
-        DBFilesModel::instance()->openDB(openDBJob);
+        accel->setText(Project::instance()->accel());
+        markup->setText(Project::instance()->markup());
+        sourceLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->sourceLangCode() ));
+        targetLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
     }
 }
 
+void DBPropertiesDialog::accept()
+{
+    if (!name->text().isEmpty())
+    {
+        OpenDBJob* openDBJob=new OpenDBJob(name->text());
+        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT(refresh()));
+
+        openDBJob->m_setParams=true;
+        openDBJob->m_tmConfig.markup=markup->text();
+        openDBJob->m_tmConfig.accel=accel->text();
+        openDBJob->m_tmConfig.sourceLangCode=LanguageListModel::instance()->langCodeForSortModelRow(sourceLang->currentIndex());
+        openDBJob->m_tmConfig.targetLangCode=LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
+
+        DBFilesModel::instance()->openDB(openDBJob);
+    }
+    KDialog::accept();
+}
+
+void TMManagerWin::addDB()
+{
+    DBPropertiesDialog* dialog=new DBPropertiesDialog(this);
+    dialog->show();
+}
 
 
 

@@ -36,14 +36,25 @@ class OpenDBJob;
 class DBFilesModel: public QDirModel
 {
 Q_OBJECT
-
 public:
+
+    enum Columns
+    {
+        Name=0,
+        SourceLang,
+        TargetLang,
+        Pairs,
+        OriginalsCount,
+        TranslationsCount,
+        ColumnCount,
+    };
+
     DBFilesModel();
     ~DBFilesModel();
 
     QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const {return 4;}
-    Qt::ItemFlags flags( const QModelIndex& ) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
+    int columnCount(const QModelIndex&) const {return ColumnCount;}
+    Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
     QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const;
 
     QModelIndex rootIndex() const;
@@ -61,12 +72,15 @@ private:
 public slots:
     void calcStats(const QModelIndex& parent, int start, int end);
     void openJobDone(ThreadWeaver::Job*);
+    void refresh(){QDirModel::refresh(rootIndex());}
 
 private:
     mutable QPersistentModelIndex* projectDB;
 
 
     QMap< QString,OpenDBJob::DBStat> m_stats;
+public:
+    QMap< QString,TMConfig> m_configurations;
 };
 
 }
