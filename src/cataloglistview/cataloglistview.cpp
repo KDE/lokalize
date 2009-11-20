@@ -218,17 +218,17 @@ void CatalogView::reset()
 int CatalogView::siblingEntry(int step)
 {
     QModelIndex item=m_browser->currentIndex();
-    int rowCount=m_proxyModel->rowCount();
+    int lastRow=m_proxyModel->rowCount()-1;
     if (!item.isValid())
     {
-        if (!rowCount)
+        if (!lastRow)
             return -1;
-        item=m_proxyModel->index((step==1)?0:rowCount,0);
+        item=m_proxyModel->index((step==1)?0:lastRow,0);
         m_browser->setCurrentIndex(item);
     }
     else
     {
-        if (item.row()+step==rowCount)
+        if ( item.row() == ((step==-1)?0:lastRow) )
             return -1;
         item=item.sibling(item.row()+step,0);
     }
@@ -250,7 +250,7 @@ static int edgeEntry(CatalogTreeFilterModel* m_proxyModel, int row)
     if (!m_proxyModel->rowCount())
         return -1;
 
-    return m_proxyModel->mapToSource(m_proxyModel->index(0,0)).row();
+    return m_proxyModel->mapToSource(m_proxyModel->index(row,0)).row();
 }
 
 int CatalogView::firstEntry()
@@ -260,7 +260,7 @@ int CatalogView::firstEntry()
 
 int CatalogView::lastEntry()
 {
-    return edgeEntry(m_proxyModel,m_proxyModel->rowCount());
+    return edgeEntry(m_proxyModel,m_proxyModel->rowCount()-1);
 }
 
 
