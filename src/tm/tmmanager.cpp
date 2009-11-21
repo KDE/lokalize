@@ -53,7 +53,7 @@ using namespace TM;
 TMManagerWin::TMManagerWin(QWidget *parent)
  : KMainWindow(parent)
 {
-    setCaption(i18nc("@title:window", "Translation Momories"));
+    setCaption(i18nc("@title:window", "Translation Memories"));
     setCentralWidget(new QWidget(this));
     Ui_TMManager ui_tmManager;
     ui_tmManager.setupUi(centralWidget());
