@@ -67,15 +67,24 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole)
     {
-        QString code=stringList().at(index.row());
-        code=QLocale(code).name();
-        if (code.contains('_')) code=code.mid(3).toLower();
-        return QIcon(KStandardDirs::locate("locale", QString("l10n/%1/flag.png").arg(code)));
+        static QMap<QString,QIcon> iconCache;
+        
+        QString langCode=stringList().at(index.row());
+        if (!iconCache.contains(langCode))
+        {
+            QString code=QLocale(langCode).name();
+            QString path;
+            if (code.contains('_')) code=code.mid(3).toLower();
+            if (code!="C")
+                path=KStandardDirs::locate("locale", QString("l10n/%1/flag.png").arg(code));
+            iconCache[langCode]=QIcon(path);
+        }
+        return iconCache.value(langCode);
     }
     else if (role==Qt::DisplayRole)
     {
         const QString& code=stringList().at(index.row());
-        kDebug()<<"languageCodeToName"<<code;
+        //kDebug()<<"languageCodeToName"<<code;
         return KGlobal::locale()->languageCodeToName(code)+" ("+code+')';
     }
     return QStringListModel::data(index, role);

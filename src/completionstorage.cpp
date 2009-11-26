@@ -79,6 +79,7 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
 
 QStringList CompletionStorage::makeCompletion(QString word)
 {
+    QTime a;a.start();
     QMultiMap<int,QString> hits; //we use the fact that qmap sorts it's items by keys
     QString cleanWord=word.toLower();
     QMap<QString,int>::const_iterator it=m_words.lowerBound(cleanWord);
@@ -87,6 +88,7 @@ QStringList CompletionStorage::makeCompletion(QString word)
         hits.insert(-it.value(),it.key().mid(word.length()));
         it++;
     }
+    kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
     return hits.values();
 }
 

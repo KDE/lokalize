@@ -1226,6 +1226,7 @@ void XliffTextEdit::cursorToStart()
 
 void XliffTextEdit::doCompletion(int pos)
 {
+    QTime a;a.start();
     QString target=m_catalog->targetWithTags(m_currentPos).string;
     int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos-1);
     int len=(pos-sp)-1;
@@ -1245,17 +1246,19 @@ void XliffTextEdit::doCompletion(int pos)
         connect(m_completionBox,SIGNAL(activated(QString)),this,SLOT(completionActivated(QString)));
         m_completionBox->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Preferred);
     }
-    
     m_completionBox->setItems(s);
     if (s.size() && !s.first().isEmpty())
     {
         m_completionBox->setCurrentRow(0);
-        m_completionBox->show();
+        //qApp->removeEventFilter( m_completionBox );
+        if (!m_completionBox->isVisible()) //NOTE remove the ckeck if kdelibs gets adapted
+            m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
         m_completionBox->move(viewport()->mapToGlobal(cursorRect().bottomRight()));
     }
     else
         m_completionBox->hide();
+    kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
 }
 
 
