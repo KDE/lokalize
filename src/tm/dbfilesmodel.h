@@ -46,7 +46,7 @@ public:
         Pairs,
         OriginalsCount,
         TranslationsCount,
-        ColumnCount,
+        ColumnCount
     };
 
     DBFilesModel();
