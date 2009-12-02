@@ -1,6 +1,14 @@
 project(lokalize)
 
-find_package(HUNSPELL REQUIRED)
+if(NOT WIN32)
+    find_package(HUNSPELL REQUIRED)
+else(NOT WIN32)
+    find_package(HUNSPELL)
+endif(NOT WIN32)
+
+if(HUNSPELL_FOUND)
+    add_definitions(-DHAVE_HUNSPELL)
+endif(HUNSPELL_FOUND)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
@@ -43,7 +51,6 @@ set(lokalize_SRCS
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
-    common/stemming.cpp
     common/flowlayout.cpp
     common/termlabel.cpp
     common/languagelistmodel.cpp
@@ -89,6 +96,9 @@ set(lokalize_SRCS
     catalog/xliff/xliffstorage.cpp
 )
 
+if(HUNSPELL_FOUND)
+    set(lokalize_SRCS ${lokalize_SRCS} common/stemming.cpp )
+endif(HUNSPELL_FOUND)
 
 kde4_add_ui_files(lokalize_SRCS
     prefs/prefs_identity.ui
@@ -139,8 +149,10 @@ target_link_libraries(lokalize
     ${KDE4_KDEUI_LIBS}
     ${KDE4_THREADWEAVER_LIBRARY}
     ${QT_QTSQL_LIBRARY}
-    ${HUNSPELL_LIBRARIES}
 )
+if(HUNSPELL_FOUND)
+    target_link_libraries(lokalize ${HUNSPELL_LIBRARIES})
+endif(HUNSPELL_FOUND)
 
 install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 

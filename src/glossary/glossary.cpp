@@ -523,22 +523,26 @@ QString Glossary::generateNewId()
 //                       int index)
 void Glossary::hashTermEntry(int index)
 {
+#ifdef HAVE_HUNSPELL
     Q_ASSERT(index<termList.size());
     foreach(const QString& term, termList.at(index).english)
     {
         foreach(const QString& word, term.split(' ',QString::SkipEmptyParts))
             wordHash.insert(stem(Project::instance()->sourceLangCode(),word),index);
     }
+#endif
 }
 
 void Glossary::unhashTermEntry(int index)
 {
+#ifdef HAVE_HUNSPELL
     Q_ASSERT(index<termList.size());
     foreach(const QString& term, termList.at(index).english)
     {
         foreach(const QString& word, term.split(' ',QString::SkipEmptyParts))
             wordHash.remove(stem(Project::instance()->sourceLangCode(),word),index);
     }
+#endif
 }
 
 

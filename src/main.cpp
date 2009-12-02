@@ -85,7 +85,9 @@ int main(int argc, char **argv)
     qDebug()<<qRegisterMetaType<CatalogString>();
     qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
+#ifdef HAVE_HUNSPELL
     qAddPostRoutine(&cleanupSpellers);
+#endif
 
     // see if we are starting with session management
     if (app.isSessionRestored())
