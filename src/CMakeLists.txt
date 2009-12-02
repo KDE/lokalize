@@ -8,6 +8,9 @@ endif(NOT WIN32)
 
 if(HUNSPELL_FOUND)
     add_definitions(-DHAVE_HUNSPELL)
+    include_directories(
+	${HUNSPELL_INCLUDE_DIR}
+    )
 endif(HUNSPELL_FOUND)
 
 include_directories(
