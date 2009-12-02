@@ -34,7 +34,7 @@ struct MatchItem
     short mergeEntry:16;
     short baseEntry:16;
     short score:16;
-    bool translationIsDifferent:16;
+    short translationIsDifferent:16;
 
     MatchItem()
     : mergeEntry(0)
