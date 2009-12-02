@@ -54,6 +54,7 @@ set(lokalize_SRCS
     common/flowlayout.cpp
     common/termlabel.cpp
     common/languagelistmodel.cpp
+    common/stemming.cpp
     glossary/glossaryview.cpp
     glossary/tbxparser.cpp
     glossary/glossary.cpp
@@ -95,10 +96,6 @@ set(lokalize_SRCS
     catalog/gettext/gettextexport.cpp
     catalog/xliff/xliffstorage.cpp
 )
-
-if(HUNSPELL_FOUND)
-    set(lokalize_SRCS ${lokalize_SRCS} common/stemming.cpp )
-endif(HUNSPELL_FOUND)
 
 kde4_add_ui_files(lokalize_SRCS
     prefs/prefs_identity.ui

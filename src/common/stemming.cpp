@@ -23,16 +23,20 @@
 
 #include "stemming.h"
 
-#include <hunspell/hunspell.hxx>
 #include <QMap>
 #include <QFileInfo>
 
+#ifdef HAVE_HUNSPELL
+#include <hunspell/hunspell.hxx>
+
 static QMap<QString,Hunspell*> hunspellers;
+#endif
 
 QString stem(const QString& langCode, const QString& word)
 {
     QString result=word;
 
+#ifdef HAVE_HUNSPELL
     if (!hunspellers.contains(langCode))
     {
         QString dic=QString("/usr/share/myspell/dicts/%1.dic").arg(langCode);
@@ -56,13 +60,16 @@ QString stem(const QString& langCode, const QString& word)
 
     speller->free_list(&result1, n1);
     speller->free_list(&result2, n2);
+#endif
 
     return result;
 }
 
 void cleanupSpellers()
 {
+#ifdef HAVE_HUNSPELL
     qDeleteAll(hunspellers);
+#endif
 }
 
 

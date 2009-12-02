@@ -1265,12 +1265,6 @@ void XliffTextEdit::doCompletion(int pos)
 void XliffTextEdit::completionActivated(const QString& semiWord)
 {
     QTextCursor cursor=textCursor();
-    
-    QString target=m_catalog->targetWithTags(m_currentPos).string;
-    int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,cursor.anchor());
-    //int len=(cursor.anchor()-sp);
-
-    //cursor.insertText(word.mid(len-1));
     cursor.insertText(semiWord);
     setTextCursor(cursor);
 }

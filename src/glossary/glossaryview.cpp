@@ -143,7 +143,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //     }
 
     QList<int> termIndexes;
-#ifdef HAVE_HUNSPELL
     foreach (const QString& w, msg.split(m_rxSplit,QString::SkipEmptyParts))
     {
         QString word=stem(Project::instance()->sourceLangCode(),w);
@@ -157,7 +156,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         }
         msgStemmed+=word+' ';
     }
-#endif
     if (termIndexes.isEmpty())
         return clear();
 
@@ -176,7 +174,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         {
             // ...and if so, which part of termEn list we must thank for match ...
             bool ok=msg.contains(enTerm);//,//Qt::CaseInsensitive  //we lowered terms on load 
-#ifdef HAVE_HUNSPELL
             if (!ok)
             {
                 QString enTermStemmed;
@@ -184,7 +181,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
                     enTermStemmed+=stem(Project::instance()->sourceLangCode(),word)+' ';
                 ok=msgStemmed.contains(enTermStemmed);
             }
-#endif
             if (ok)
             {
                 //insert it into label
