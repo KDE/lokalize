@@ -119,13 +119,15 @@ Catalog::Catalog(QObject *parent)
 
 Catalog::~Catalog()
 {
+    clear();
     delete d;
-    delete m_storage;
+    //delete m_storage; //deleted in clear();
 }
 
 
 void Catalog::clear()
 {
+    setIndex(cleanIndex());//to keep TM in sync
     QUndoStack::clear();
     d->_errorIndex.clear();
     d->_nonApprovedIndex.clear();
