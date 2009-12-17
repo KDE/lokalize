@@ -466,9 +466,9 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu","Change searching direction"));
     action=edit->addAction(KStandardAction::Replace,this,SLOT(replace()));
 
-    connect(m_view->viewPort(),SIGNAL(findRequested()),this,SLOT(find()));
-    connect(m_view->viewPort(),SIGNAL(findNextRequested()),this,SLOT(findNext()));
-    connect(m_view->viewPort(),SIGNAL(replaceRequested()),this,SLOT(replace()));
+    connect(m_view,SIGNAL(findRequested()),     this,SLOT(find()));
+    connect(m_view,SIGNAL(findNextRequested()), this,SLOT(findNext()));
+    connect(m_view,SIGNAL(replaceRequested()),  this,SLOT(replace()));
 
 
 //

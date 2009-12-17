@@ -121,6 +121,13 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     connect (_msgidEdit,  SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
     connect (_msgstrEdit, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
 
+    connect (_msgidEdit,  SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
+    connect (_msgstrEdit, SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
+    connect (_msgidEdit,  SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
+    connect (_msgstrEdit, SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
+    connect (_msgidEdit,  SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
+    connect (_msgstrEdit, SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
+
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);

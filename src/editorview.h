@@ -97,6 +97,9 @@ signals:
     void gotoEntryRequested(const DocPosition&);
     void tmLookupRequested(DocPosition::Part, const QString&);
     //void tmLookupRequested(const QString& source, const QString& target);
+    void findRequested();
+    void findNextRequested();
+    void replaceRequested();
 
 
 private slots:
