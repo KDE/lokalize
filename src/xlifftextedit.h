@@ -135,6 +135,7 @@ private:
 
     //for undo/redo tracking
     QString _oldMsgstr;
+    QString _oldMsgstrAscii; //HACK to workaround #218246
 };
 
 

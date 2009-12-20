@@ -197,6 +197,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     CatalogString catalogString=m_catalog->catalogString(m_currentPos);
     QString target=catalogString.string;
     _oldMsgstr=target;
+    _oldMsgstrAscii=document()->toPlainText();
 
     //BEGIN pos
     QTextCursor cursor=textCursor();
@@ -388,6 +389,13 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
     //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //HACK to workaround #218246
+    const QString& editTextAscii=document()->toPlainText();
+    if (editTextAscii==_oldMsgstrAscii)
+        return;
+
+
+
     const QString& editText=toPlainText();
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
@@ -446,6 +454,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
             m_catalog->push(new DelTextCmd(m_catalog,pos,_oldMsgstr.mid(offset,charsRemoved)));
 
         _oldMsgstr=editText;//newStr becomes OldStr
+        _oldMsgstrAscii=editTextAscii;
         //kWarning()<<"char"<<editText[offset].unicode();
         if (charsAdded)
             m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
