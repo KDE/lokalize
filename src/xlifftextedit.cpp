@@ -729,7 +729,7 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
-        if (m_completionBox->isVisible())
+        if (m_completionBox&&m_completionBox->isVisible())
         {
             m_completionBox->hide();
             completionActivated(m_completionBox->currentItem()->text());
