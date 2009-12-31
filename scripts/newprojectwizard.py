@@ -8,7 +8,7 @@ try:
     import Project
     import Kross
     standalone=False
-    
+
 
     utf8_decoder=codecs.getdecoder("utf8")
 
@@ -393,38 +393,38 @@ class KdeSourcePage(QWizardPage):
         #localsvnroot=self.field('kde-svn-location').toString()
         localsvnroot=self.svnRootLocation.text()
         if not QFileInfo('%s/trunk' % localsvnroot).exists():
-            print 'svn -N co svn://anonsvn.kde.org/home/kde/trunk %s/trunk' % localsvnroot
-            os.system('svn -N co svn://anonsvn.kde.org/home/kde/trunk %s/trunk' % localsvnroot)
+            print 'svn -N co svn://anonsvn.kde.org/home/kde/trunk "%s/trunk"' % localsvnroot
+            os.system('svn -N co svn://anonsvn.kde.org/home/kde/trunk "%s/trunk"' % localsvnroot)
         else:
             print 'already exists:',
-            print '%s/trunk' % localsvnroot
+            print '"%s/trunk"' % localsvnroot
         self.reportProgress(10)
 
         if not QFileInfo('%s/trunk/l10n-kde4' % localsvnroot).exists():
-            print 'svn -N up %s/trunk/l10n-kde4' % localsvnroot
-            os.system('svn -N up %s/trunk/l10n-kde4' % localsvnroot)
+            print 'svn -N up "%s/trunk/l10n-kde4"' % localsvnroot
+            os.system('svn -N up "%s/trunk/l10n-kde4"' % localsvnroot)
         self.reportProgress(5)
 
 
         langs=allLanguagesList
         lang=langs[self.field('kde-svn-lang').toInt()[0]]
 
-        print 'svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang)
-        os.system('svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+        print 'svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, lang)
+        os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, lang))
         self.reportProgress(5)
-        os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s/docs' % (localsvnroot, lang))
+        os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docs"' % (localsvnroot, lang))
         self.reportProgress(30)
         for langlang in [lang,'templates']:
-            os.system('svn --set-depth files up %s/trunk/l10n-kde4/%s' % (localsvnroot, lang))
+            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, lang))
             self.reportProgress(5)
-            os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s/messages' % (localsvnroot, langlang))
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/messages"' % (localsvnroot, langlang))
             self.reportProgress(30)
-            os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s/docmessages' % (localsvnroot, langlang))
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docmessages"' % (localsvnroot, langlang))
             self.reportProgress(30)
-            os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/%s' % (localsvnroot, langlang))
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
             self.reportProgress(10)
 
-        os.system('svn --set-depth infinity up %s/trunk/l10n-kde4/scripts' % localsvnroot)
+        os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/scripts"' % localsvnroot)
         self.reportProgress(10)
 
         self.existingLocation.setUrl(KUrl("%s/trunk/l10n-kde4/%s" % (localsvnroot, lang)))
@@ -523,7 +523,7 @@ if __name__ == "__main__":
         defaultSourceLang=args[1]
         defaultTargetLang=args[2]
 
-    
+
     myassistant=ProjectAssistant()
     code=myassistant.exec_()
 
