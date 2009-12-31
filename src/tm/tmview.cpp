@@ -40,6 +40,7 @@
 #include <kglobalsettings.h>
 #include <kpassivepopup.h>
 #include <kaction.h>
+#include <kmessagebox.h>
 
 #include <QTime>
 #include <QDragEnterEvent>
@@ -207,9 +208,6 @@ void TMView::dropEvent(QDropEvent *event)
     if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
         event->acceptProposedAction();
 }
-
-#include <unistd.h>
-#include <kmessagebox.h>
 
 void TMView::slotFileLoaded(const KUrl& url)
 {

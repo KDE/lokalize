@@ -586,10 +586,11 @@ bool Catalog::saveToUrl(KUrl url)
         file=new KTemporaryFile();
     else
     {
-        if (!QFile::exists(url.directory()))
-            if (!QDir::root().mkpath(url.directory()))
+        QString localFilePath=url.toLocalFile();
+        if (!QFileInfo(QFileInfo(localFilePath).canonicalPath()).exists())
+            if (!QDir::root().mkpath(QFileInfo(localFilePath).canonicalPath()))
                 return false;
-        file=new QFile(url.toLocalFile());
+        file=new QFile(localFilePath);
     }
     file->deleteLater(); //kung-fu ;)
     if (KDE_ISUNLIKELY( !file->open(QIODevice::WriteOnly) )) //i18n("Wasn't able to open file %1",filename.ascii());
