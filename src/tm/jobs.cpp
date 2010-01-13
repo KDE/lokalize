@@ -1838,8 +1838,11 @@ ExecQueryJob::~ExecQueryJob()
 
 void ExecQueryJob::run()
 {
-    kWarning(TM_AREA)<<"running";
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    kWarning(TM_AREA)<<"running"<<m_dbName<<"db.isOpen() ="<<db.isOpen();
+    //temporarily:
+    if (!db.isOpen())
+        kWarning(TM_AREA)<<"db.open()="<<db.open();
     query=new QSqlQuery(m_query,db);
     query->exec();
     kWarning(TM_AREA)<<"done"<<query->lastError().text();
