@@ -409,25 +409,40 @@ class KdeSourcePage(QWizardPage):
         langs=allLanguagesList
         lang=langs[self.field('kde-svn-lang').toInt()[0]]
 
-        print 'svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, lang)
-        os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, lang))
-        self.reportProgress(5)
-        os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docs"' % (localsvnroot, lang))
-        self.reportProgress(30)
-        for langlang in [lang,'templates']:
-            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, lang))
+        for langlang in [lang, lang[:2]]:
+            print 'svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang)
+            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
+            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
+            self.reportProgress(5)
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docs"' % (localsvnroot, langlang))
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docs"' % (localsvnroot, langlang))
+            self.reportProgress(15)
+            
+            
+            loc="%s/trunk/l10n-kde4/%s" % (localsvnroot, langlang)
+            if os.path.exists(loc):
+                self.existingLocation.setText(loc)
+                try: self.existingLocation.setUrl(KUrl(loc))
+                except: print  'KUrlRequester PyKDE4 bug'
+
+            
+        for langlang in [lang, lang[:2],'templates']:
+            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
+            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
             self.reportProgress(5)
             os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/messages"' % (localsvnroot, langlang))
-            self.reportProgress(30)
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/messages"' % (localsvnroot, langlang))
+            self.reportProgress(15)
             os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docmessages"' % (localsvnroot, langlang))
-            self.reportProgress(30)
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/docmessages"' % (localsvnroot, langlang))
+            self.reportProgress(15)
+            os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
             os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
             self.reportProgress(10)
 
         os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/scripts"' % localsvnroot)
+        os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/scripts"' % localsvnroot)
         self.reportProgress(10)
-
-        self.existingLocation.setUrl(KUrl("%s/trunk/l10n-kde4/%s" % (localsvnroot, lang)))
 
         return True
 
@@ -476,6 +491,7 @@ class ProjectAssistant(QWizard):
             loc=QDir(fs('kde-existing-location'))
             targetlang=loc.dirName()
             print 'project lang: %s' % targetlang
+            print 'project loc: %s' % fs('kde-existing-location')
 
             l=loc.entryList(QStringList('*.lokalize'), QDir.Filter(QDir.Files))
             if len(l):
