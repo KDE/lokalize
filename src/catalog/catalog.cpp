@@ -587,8 +587,8 @@ bool Catalog::saveToUrl(KUrl url)
     else
     {
         QString localFilePath=url.toLocalFile();
-        if (!QFileInfo(QFileInfo(localFilePath).canonicalPath()).exists())
-            if (!QDir::root().mkpath(QFileInfo(localFilePath).canonicalPath()))
+        if (!QFileInfo(QFileInfo(localFilePath).absolutePath()).exists())
+            if (!QDir::root().mkpath(QFileInfo(localFilePath).absolutePath()))
                 return false;
         file=new QFile(localFilePath);
     }
