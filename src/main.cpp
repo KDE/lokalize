@@ -130,7 +130,13 @@ int main(int argc, char **argv)
     QCoreApplication::sendPostedEvents(0,0);
 
     qWarning()<<"Finishing Project jobs...";
-    Project::instance()->model()->weaver()->finish();
+    //Project::instance()->model()->weaver()->finish();
+    // HACK due to deadlock with libstreamanalyzer.so.0 -> libxml2.so.2 -> etree.so -> libpython2.5.so.1.0 -> PyThread_acquire_lock
+    while (!Project::instance()->model()->weaver()->isIdle())
+    {
+        QCoreApplication::processEvents();
+        QCoreApplication::sendPostedEvents(0,0);
+    }
 
     qWarning()<<"Finishing TM jobs...";
     ThreadWeaver::Weaver::instance()->finish();
