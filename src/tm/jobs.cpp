@@ -758,15 +758,16 @@ static void setConfig(QSqlDatabase& db, const TMConfig& c)
 }
 
 static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTargetId
-
 {
     if (useCache && tmConfigCache.contains(db.databaseName()))
     {
         kDebug()<<"using config cache for"<<db.databaseName();
         return tmConfigCache.value(db.databaseName());
     }
+
     QSqlQuery query(db);
-    query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
+    bool ok=query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
+    kDebug(TM_AREA)<<"acessing tm db config"<<ok;
     Project& p=*(Project::instance());
     bool f=query.next();
     TMConfig c;
@@ -913,7 +914,7 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
-    kDebug(TM_AREA)<<m_source.string;
+    kDebug(TM_AREA)<<dbName<<m_source.string;
 }
 
 SelectJob::~SelectJob()
@@ -1276,6 +1277,7 @@ ScanJob::ScanJob(const KUrl& url,
     , m_size(0)
     , m_dbName(dbName)
 {
+    kDebug(TM_AREA)<<m_dbName<<m_url.pathOrUrl();
 }
 
 ScanJob::~ScanJob()
@@ -1826,7 +1828,7 @@ ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QO
     , m_dbName(dbName)
     , m_query(queryString)
 {
-    kWarning(TM_AREA)<<"create";
+    kWarning(TM_AREA)<<dbName<<queryString;
 }
 
 ExecQueryJob::~ExecQueryJob()
