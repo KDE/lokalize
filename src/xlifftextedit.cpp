@@ -197,7 +197,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     CatalogString catalogString=m_catalog->catalogString(m_currentPos);
     QString target=catalogString.string;
     _oldMsgstr=target;
-    _oldMsgstrAscii=document()->toPlainText();
+    //_oldMsgstrAscii=document()->toPlainText(); <-- MOVED THIS TO THE END
 
     //BEGIN pos
     QTextCursor cursor=textCursor();
@@ -218,6 +218,8 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     else
         setContent(catalogString,refStr.string.isEmpty()?m_catalog->sourceWithTags(docPosition):refStr);
     connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+
+    _oldMsgstrAscii=document()->toPlainText();
 
     //BEGIN pos
     QTextCursor t=textCursor();
@@ -388,18 +390,21 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
-    //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //kWarning()<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
     //HACK to workaround #218246
     const QString& editTextAscii=document()->toPlainText();
     if (editTextAscii==_oldMsgstrAscii)
+    {
+        //kWarning()<<"stopping"<<editTextAscii<<_oldMsgstrAscii;
         return;
+    }
 
 
 
     const QString& editText=toPlainText();
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
-        //kWarning()<<"stop";
+        //kWarning()<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
         return;
     }
 
