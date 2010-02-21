@@ -87,6 +87,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 {
     m_spareEditor->hide();
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
+    m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
     setCentralWidget(m_mdiArea);
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
     setupActions();
