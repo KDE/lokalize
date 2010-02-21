@@ -409,7 +409,7 @@ class KdeSourcePage(QWizardPage):
         langs=allLanguagesList
         lang=langs[self.field('kde-svn-lang').toInt()[0]]
 
-        for langlang in [lang, lang[:2]]:
+        for langlang in [lang[:2], lang]:
             print 'svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang)
             os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
             os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
