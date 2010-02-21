@@ -31,11 +31,15 @@
 #include <kio/netaccess.h>
 #include <klocale.h>
 #include <kapplication.h>
+#include <kstandarddirs.h>
 
 #include <QTime>
 #include <QFile>
 #include <QtAlgorithms>
 #include <QTimer>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 
 #undef KDE_NO_DEBUG_OUTPUT
 static int nodeCounter=0;
@@ -1216,6 +1220,8 @@ void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
 }
 
 
+//BEGIN UpdateStatsJob
+//these are run in separate thread
 UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject* owner)
     : ThreadWeaver::Job(owner)
     , m_files(files)
@@ -1227,24 +1233,104 @@ UpdateStatsJob::~UpdateStatsJob()
 {
 }
 
-//runs in separate thread
-void UpdateStatsJob::run ()
+static void initDb(QSqlDatabase& db)
 {
-    for (int pos = 0; pos < m_files.count(); pos ++)
+    QSqlQuery queryMain(db);
+    queryMain.exec("PRAGMA encoding = \"UTF-8\"");
+    queryMain.exec("CREATE TABLE IF NOT EXISTS metainfo ("
+                   "filepath INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
+                   //"filepath TEXT UNIQUE ON CONFLICT REPLACE, "
+                   "metainfo BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
+                   "changedate INTEGER"
+                   ")");
+
+    //queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
+}
+
+
+static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
+{
+    QString dbName="metainfocache";
+    if (!QSqlDatabase::contains(dbName))
     {
-        if (m_status != 0)
+        QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",dbName);
+        db.setDatabaseName(KStandardDirs::locateLocal("appdata", dbName+".sqlite"));
+        if (KDE_ISUNLIKELY( !db.open() ))
+            return KFileMetaInfo(file.url());
+        initDb(db);
+    }
+    QSqlDatabase db=QSqlDatabase::database(dbName);
+    if (!db.isOpen())
+        return KFileMetaInfo(file.url());
+
+    static const QString fields[]={
+        "translation.translated",
+        "translation.untranslated",
+        "translation.fuzzy",
+        "translation.last_translator",
+        "translation.source_date",
+        "translation.translation_date"};
+
+    QByteArray result;
+
+    QSqlQuery queryCache(db);
+    queryCache.prepare("SELECT * from metainfo where filepath=?");
+    queryCache.bindValue(0, qHash(file.localPath()));
+    queryCache.exec();
+    if (queryCache.next() && file.time(KFileItem::ModificationTime).dateTime()==queryCache.value(2).toDateTime())
+    {
+        result=queryCache.value(1).toByteArray();
+        QDataStream stream(&result,QIODevice::ReadOnly);
+
+        //unfortunately direct KFileMetaInfo << operator doesn't work
+        KFileMetaInfo info;
+        QVector<QVariant> keys;
+        stream>>keys;
+        for(int i=0;i<6;i++)
+            info.item(fields[i]).setValue(keys.at(i));
+        return info;
+    }
+
+    KFileMetaInfo info(file.url());
+
+    QDataStream stream(&result,QIODevice::WriteOnly);
+    //this is synced with ProjectModel::ProjectNode::setFileStats
+    QVector<QVariant> keys(6);
+    for(int i=0;i<6;i++)
+        keys[i] = info.item(fields[i]).value();
+    stream<<keys;
+
+    QSqlQuery query(db);
+
+    query.prepare("INSERT INTO metainfo (filepath, metainfo, changedate) "
+                        "VALUES (?, ?, ?)");
+    query.bindValue(0, qHash(file.localPath()));
+    query.bindValue(1, result);
+    query.bindValue(2, file.time(KFileItem::ModificationTime).dateTime());
+    if (KDE_ISUNLIKELY(!query.exec()))
+        qWarning() <<"metainfo cache acquiring error: " <<query.lastError().text();
+
+    return info;
+}
+
+void UpdateStatsJob::run()
+{
+    for (int pos=0; pos<m_files.count(); pos++)
+    {
+        if (m_status!=0)
             return;
 
-        const KFileItem & file = m_files.at(pos);
+        const KFileItem& file=m_files.at(pos);
         KFileMetaInfo info;
 
         if ((!file.isNull()) && (!file.isDir()))
         {
             //force population of metainfo, do not use the KFileItem default behavior
             if (file.metaInfo(false).keys().isEmpty())
-                info = KFileMetaInfo(file.url());
+                info=cachedMetaInfo(file);
+                //info=KFileMetaInfo(file.url());
             else
-                info = file.metaInfo(false);
+                info=file.metaInfo(false);
         }
 
         m_info.append(info);
@@ -1253,7 +1339,8 @@ void UpdateStatsJob::run ()
 
 void UpdateStatsJob::setStatus(int status)
 {
-    m_status = status;
+    m_status=status;
 }
+//END UpdateStatsJob
 
 #include "projectmodel.moc"
