@@ -88,6 +88,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_spareEditor->hide();
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
     m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
+    m_mdiArea->setDocumentMode(true);
     setCentralWidget(m_mdiArea);
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
     setupActions();
@@ -780,17 +781,27 @@ void LokalizeMainWindow::registerDBusAdaptor()
 
 void LokalizeMainWindow::loadProjectScripts()
 {
+    qWarning()<<"loadProjectScripts() 1111"<<Project::instance()->poDir();
     if (m_projectScriptingPlugin)
     {
+        qWarning()<<"loadProjectScripts() 222";
         guiFactory()->removeClient(m_projectScriptingPlugin);
         delete m_projectScriptingPlugin;
     }
 
+    qWarning()<<"loadProjectScripts() 333";
     //a HACK to get new .rc files shown w/o requiring a restart
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
+    
+    //guiFactory()->addClient(m_projectScriptingPlugin);
+    //guiFactory()->removeClient(m_projectScriptingPlugin);
+    
     delete m_projectScriptingPlugin;
+    qWarning()<<"loadProjectScripts() 444";
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
+    qWarning()<<"loadProjectScripts() 555";
     guiFactory()->addClient(m_projectScriptingPlugin);
+    qWarning()<<"loadProjectScripts() 666";
 }
 
 int LokalizeMainWindow::lookupInTranslationMemory(DocPosition::Part part, const QString& text)
