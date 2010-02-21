@@ -197,7 +197,6 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     CatalogString catalogString=m_catalog->catalogString(m_currentPos);
     QString target=catalogString.string;
     _oldMsgstr=target;
-    _oldMsgstrAscii=document()->toPlainText();
 
     //BEGIN pos
     QTextCursor cursor=textCursor();
@@ -218,6 +217,8 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     else
         setContent(catalogString,refStr.string.isEmpty()?m_catalog->sourceWithTags(docPosition):refStr);
     connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    
+    _oldMsgstrAscii=document()->toPlainText();
 
     //BEGIN pos
     QTextCursor t=textCursor();
