@@ -80,10 +80,8 @@ class MyCompletionBox: public KCompletionBox
 public:
     MyCompletionBox(QWidget* p):KCompletionBox(p){}
     QSize sizeHint() const;
-//     QPoint globalPositionHint() const{return m_pos;}
-//     void setPosition(const QPoint& p){m_pos=p;}
-// private:
-//     QPoint m_pos;
+    
+    bool eventFilter(QObject* , QEvent* ); //reimplemented to deliver more keypresses to XliffTextEdit
 };
 
 QSize MyCompletionBox::sizeHint() const
@@ -94,6 +92,19 @@ QSize MyCompletionBox::sizeHint() const
     return QSize(w, h);
 }
 
+bool MyCompletionBox::eventFilter(QObject* object, QEvent* event)
+{
+    if (event->type()==QEvent::KeyPress)
+    {
+        QKeyEvent* e = static_cast<QKeyEvent*>(event);
+        if (e->key()==Qt::Key_PageDown || e->key()==Qt::Key_PageUp)
+        {
+            hide();
+            return false;
+        }
+    }
+    return KCompletionBox::eventFilter(object, event);
+}
 
 #if 1
 class XliffTextEditSpellInterface: public KTextEditSpellInterface
