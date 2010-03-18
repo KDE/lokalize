@@ -544,13 +544,15 @@ void Glossary::unhashTermEntry(int index)
 
 void Glossary::remove(int i)
 {
-    unhashTermEntry(i);
-
     int pos;
     if ((pos=addedIds.indexOf(termList.at(i).id))!=-1)
         addedIds.removeAt(pos);
     removedIds.append(termList.at(i).id);
     termList.removeAt(i);
+    
+    wordHash.clear();
+    for (int i=0;i<termList.size();i++)
+        hashTermEntry(i);
 
     emit changed();//may be emitted multiple times in a row. so what? :)
 //     kDebug()<<"removedIds"<<removedIds.size();
