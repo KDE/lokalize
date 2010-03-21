@@ -82,7 +82,7 @@ void LedsWidget::contextMenuEvent(QContextMenuEvent* event)
     menu.addAction(i18nc("@action","Hide"));
     if (!menu.exec(event->globalPos()))
         return; //NOTE the config doesn't seem to work
-    Settings::setLeds(false); 
+    Settings::setLeds(false);
     SettingsController::instance()->dirty=true;
     hide();
 }
