@@ -103,6 +103,7 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , _leds(0)
     , m_modifiedAfterFind(false)
 {
+    m_pluralTabBar->setMovable(true);
     m_pluralTabBar->hide();
     _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
                                   "<p>This part of the window shows the original message\n"
