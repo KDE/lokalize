@@ -662,6 +662,7 @@ void EditorTab::setupActions()
     action->setStatusTip(i18nc("@info:status","This changes only empty and non-ready entries in base file"));
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
+    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_A);
     m_syncView->addAction(action);
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
