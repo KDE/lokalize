@@ -1169,20 +1169,24 @@ void XliffTextEdit::source2target()
     QString text=sourceWithTags.string;
     QString out;
     QString ctxt=m_catalog->context(m_currentPos.entry).first();
+    QRegExp delimiter("\\s*,\\s*");
 
     //TODO ask for the fillment if the first time.
     //BEGIN KDE specific part
     if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
     {
-        if (!document()->isEmpty())
-            out=", ";
-        out+=Settings::authorLocalizedName();
+        if (!document()->toPlainText().split(delimiter).contains(Settings::authorLocalizedName())) {
+            if (!document()->isEmpty())
+                out=", ";
+            out+=Settings::authorLocalizedName();
+        }
     }
-    else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" ))
-    {
-        if (!document()->isEmpty())
-            out=", ";
-        out+=Settings::authorEmail();
+    else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" )) {
+        if (!document()->toPlainText().split(delimiter).contains(Settings::authorEmail())) {
+            if (!document()->isEmpty())
+                out=", ";
+            out+=Settings::authorEmail();
+        }
     }
     else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
     {
@@ -1202,9 +1206,7 @@ void XliffTextEdit::source2target()
     }
     //END KDE specific part
 
-
-    if (out.isEmpty())
-    {
+    else {
         m_catalog->beginMacro(i18nc("@item Undo action item","Copy source to target"));
         DocPosition pos=m_currentPos;pos.offset=0;
         removeTargetSubstring(0,-1,/*refresh*/false);
@@ -1215,8 +1217,7 @@ void XliffTextEdit::source2target()
 
         requestToggleApprovement();
     }
-    else
-    {
+    if (!out.isEmpty()) {
         QTextCursor t=textCursor();
         t.movePosition(QTextCursor::End);
         t.insertText(out);
