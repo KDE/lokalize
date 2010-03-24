@@ -35,6 +35,7 @@ class KLineEdit;
 class QMenu;
 class QAction;
 class QModelIndex;
+class CatalogTreeView;
 
 class CatalogView: public QDockWidget
 {
@@ -70,7 +71,7 @@ private slots:
     void filterOptionToggled(QAction*);
 
 private:
-    QTreeView* m_browser;
+    CatalogTreeView* m_browser;
     KLineEdit* m_lineEdit;
     QMenu* m_filterOptionsMenu;
     CatalogTreeModel* m_model;

@@ -41,11 +41,31 @@
 #include <QMenu>
 #include <QShortcut>
 
+#include <QKeyEvent>
+#include <QTreeView>
+
+class CatalogTreeView: public QTreeView
+{
+    public:
+    CatalogTreeView(QWidget * parent)
+        : QTreeView(parent) {}
+    ~CatalogTreeView() {}
+
+    protected:
+    void keyReleaseEvent(QKeyEvent *e) {
+        if (e->key() == Qt::Key_Return && currentIndex().isValid()) {
+            emit clicked(currentIndex());
+            e->accept();
+        } else {
+            QTreeView::keyReleaseEvent(e);
+        }
+    }
+};
 
 
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
-    , m_browser(new QTreeView(this))
+    , m_browser(new CatalogTreeView(this))
     , m_lineEdit(new KLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
