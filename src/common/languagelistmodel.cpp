@@ -72,7 +72,12 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         QString langCode=stringList().at(index.row());
         if (!iconCache.contains(langCode))
         {
-            QString code=QLocale(langCode).name();
+            // NOTE workaround for QTBUG-9370 - it will be removed later
+            QString code;
+            if(langCode == "mn")
+                code = "mn_MN";
+            else
+                code=QLocale(langCode).name();
             QString path;
             if (code.contains('_')) code=code.mid(3).toLower();
             if (code!="C")
