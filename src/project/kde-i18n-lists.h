@@ -28,7 +28,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 
-static inline QString getMaillingList()
+static inline QString getMailingList()
 {
     QString lang(KGlobal::locale()->language());
     if(lang.startsWith("ca"))

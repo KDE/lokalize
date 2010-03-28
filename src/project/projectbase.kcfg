@@ -23,7 +23,7 @@
         <default>en_US</default>
     </entry>
     <entry name="MailingList"  type="String">
-        <default code="true">getMaillingList()</default>
+        <default code="true">getMailingList()</default>
     </entry>
     <entry name="PoBaseDir"  type="String">
 <!--
