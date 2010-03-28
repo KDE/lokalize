@@ -174,7 +174,7 @@
       <Action name="bookmark_edit"/>
     </Menu>
   </Menu>
-  <Menu name="merge"><text>&amp;Sync</text>
+  <Menu name="merge"><text>S&amp;ync</text>
     <Action name="merge_open"/>
     <Separator/>
     <Action name="merge_prev"/>
