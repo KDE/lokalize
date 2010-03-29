@@ -140,7 +140,7 @@ public:
     ~TMDBModel(){}
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{return ColumnCount;}
+    int columnCount(const QModelIndex& parent=QModelIndex()) const{Q_UNUSED(parent); return ColumnCount;}
 
 public slots:
     void setFilter(const QString& source, const QString& target,
