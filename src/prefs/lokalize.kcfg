@@ -41,7 +41,7 @@
 	    <label>Default mailing list for new projects</label>
             <whatsthis>Default mailing list for new projects</whatsthis>
 -->
-            <default code="true">getMaillingList()</default>
+            <default code="true">getMailingList()</default>
     </entry>
   </group>
   <group name="Appearance">
