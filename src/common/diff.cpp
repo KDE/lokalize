@@ -357,6 +357,7 @@ QString wordDiff(QStringList s1, QStringList s2)
 //this also separates punctuation marks etc from words as _only_ they may have changed
 static void prepareLists(QString str, QStringList& main, QStringList& space, const QString& accel, QString markup)
 {
+    Q_UNUSED(accel);
     int pos=0;
 
     //accels are only removed by batch jobs
