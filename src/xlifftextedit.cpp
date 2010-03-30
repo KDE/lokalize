@@ -956,9 +956,9 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
         {
             QMenu menu;
             int entry=m_catalog->unitById(xid);
-            QAction* findUnit=menu.addAction(entry>=m_catalog->numberOfEntries()?
+            /* QAction* findUnit=menu.addAction(entry>=m_catalog->numberOfEntries()?
                             i18nc("@action:inmenu","Show the binary unit"):
-                            i18nc("@action:inmenu","Go to the referenced entry"));
+                            i18nc("@action:inmenu","Go to the referenced entry")); */
 
             QAction* result=menu.exec(event->globalPos());
             if (result)
@@ -976,7 +976,7 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
     if (textCursor().hasSelection())
     {
         QMenu menu;
-        QAction* lookup=menu.addAction(i18nc("@action:inmenu","Lookup selected text in translation memory"));
+        // QAction* lookup=menu.addAction(i18nc("@action:inmenu","Lookup selected text in translation memory"));
         if (menu.exec(event->globalPos()))
             emit tmLookupRequested(m_part,textCursor().selectedText());
         return;
