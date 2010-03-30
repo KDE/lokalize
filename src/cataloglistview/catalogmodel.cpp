@@ -54,6 +54,7 @@ QModelIndex CatalogTreeModel::parent(const QModelIndex& /*index*/) const
 
 int CatalogTreeModel::columnCount(const QModelIndex& parent) const
 {
+    Q_UNUSED(parent);
     return DisplayedColumnCount;
 }
 
