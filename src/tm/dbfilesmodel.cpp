@@ -72,6 +72,7 @@ QModelIndex DBFilesModel::rootIndex() const
 
 QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    Q_UNUSED(orientation);
     if (role!=Qt::DisplayRole) return QVariant();
 
     const char* const columns[]={
