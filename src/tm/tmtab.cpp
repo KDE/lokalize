@@ -62,7 +62,7 @@ class FastSizeHintItemDelegate: public QItemDelegate
 public:
     FastSizeHintItemDelegate(int columnCount, QObject *parent)
         : QItemDelegate(parent)
-    {}
+    {Q_UNUSED(columnCount);}
     ~FastSizeHintItemDelegate(){}
 
 /*    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -380,6 +380,7 @@ TMTab::~TMTab()
 
 void TMTab::selectDB(int i)
 {
+    Q_UNUSED(i);
     //m_dbCombo->setCurrentIndex(i);
 }
 
