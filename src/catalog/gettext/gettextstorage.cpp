@@ -177,6 +177,7 @@ void GettextStorage::setTarget(const DocPosition& pos, const QString& arg)
 
 void GettextStorage::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
 {
+    Q_UNUSED(tag);
     targetInsert(pos,altSep);
 }
 
