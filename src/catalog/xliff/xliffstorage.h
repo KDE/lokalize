@@ -51,8 +51,8 @@ public:
     CatalogString catalogString(const DocPosition& pos) const;
 
     /// all plural forms. pos.form doesn't matter TODO
-    QStringList sourceAllForms(const DocPosition& pos) const{return QStringList();}
-    QStringList targetAllForms(const DocPosition& pos) const{return QStringList();}
+    QStringList sourceAllForms(const DocPosition& pos) const{Q_UNUSED(pos); return QStringList();}
+    QStringList targetAllForms(const DocPosition& pos) const{Q_UNUSED(pos); return QStringList();}
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
