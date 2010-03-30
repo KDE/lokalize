@@ -90,11 +90,11 @@ public:
     virtual QVector<Note> developerNotes(const DocPosition& pos) const=0;
     virtual QStringList sourceFiles(const DocPosition& pos) const=0;
 
-    virtual QString setPhase(const DocPosition& pos, const QString& phase){return QString();}
-    virtual QString phase(const DocPosition& pos) const {return QString();}
-    virtual Phase phase(const QString& name) const{return Phase();}
-    virtual QVector<Note> phaseNotes(const QString& phase) const{return QVector<Note>();}
-    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){return QVector<Note>();}
+    virtual QString setPhase(const DocPosition& pos, const QString& phase){Q_UNUSED(pos); Q_UNUSED(phase); return QString();}
+    virtual QString phase(const DocPosition& pos) const {Q_UNUSED(pos); return QString();}
+    virtual Phase phase(const QString& name) const{Q_UNUSED(name); return Phase();}
+    virtual QVector<Note> phaseNotes(const QString& phase) const{Q_UNUSED(phase); return QVector<Note>();}
+    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){Q_UNUSED(phase); return QVector<Note>();}
 
     //the result must be guaranteed to have at least 1 string
     virtual QStringList context(const DocPosition&) const=0;
