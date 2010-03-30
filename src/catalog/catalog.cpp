@@ -580,9 +580,9 @@ bool Catalog::saveToUrl(KUrl url)
         nameChanged=true;
 
 
-    bool remote=url.isLocalFile();
+    bool remote=!url.isLocalFile();
     QFile* file;
-    if (KDE_ISUNLIKELY( !remote ))
+    if (KDE_ISUNLIKELY( remote ))
         file=new KTemporaryFile();
     else
     {
@@ -639,7 +639,10 @@ void Catalog::doAutoSave()
     if (KDE_ISUNLIKELY( !m_storage ))
         return;
     if (!d->_autoSave->open(QIODevice::WriteOnly))
+    {
+        emit signalFileAutoSaveFailed(d->_autoSave->fileName());
         return;
+    }
     qWarning()<<"doAutoSave"<<d->_autoSave->fileName();
     m_storage->save(d->_autoSave);
     d->_autoSave->close();

@@ -238,6 +238,8 @@ private slots:
     void dispatchSrcFileOpenRequest(const QString& srcPath, int line);
     void indexWordsForCompletion();
 
+    void fileAutoSaveFailedWarning(const QString&);
+
 private:
     void setupAccel();
     void setupActions();

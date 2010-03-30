@@ -133,6 +133,9 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     connect(m_view, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SLOT(lookupSelectionInTranslationMemory()));
 
     connect(this, SIGNAL(fileOpened()), this, SLOT(indexWordsForCompletion()),Qt::QueuedConnection);
+
+    connect (m_catalog,SIGNAL(signalFileAutoSaveFailed(QString)),this,SLOT(fileAutoSaveFailedWarning(QString)));
+
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
     //kWarning()<<chrono.elapsed();
@@ -895,6 +898,12 @@ bool EditorTab::saveFile(const KUrl& url)
        )
         return saveFileAs();
     return false;
+}
+
+void EditorTab::fileAutoSaveFailedWarning(const QString& fileName)
+{
+    KMessageBox::information(this, i18nc("@info","Could not perform file autosaving.\n"
+                                                 "The target file was <filename>%1</filename>.", fileName) );
 }
 
 EditorState EditorTab::state()

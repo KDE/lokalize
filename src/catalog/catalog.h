@@ -253,6 +253,7 @@ signals:
     void signalFileLoaded(const KUrl&);
     Q_SCRIPTABLE void signalFileSaved();
     void signalFileSaved(const KUrl&);
+    void signalFileAutoSaveFailed(const QString&);
 };
 
 
