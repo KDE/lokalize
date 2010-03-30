@@ -116,7 +116,7 @@ public:
 
     bool isSpellCheckingEnabled() const {return m_enabled;}
     void setSpellCheckingEnabled(bool enable);
-    bool shouldBlockBeSpellChecked(const QString &block) const{return true;}
+    bool shouldBlockBeSpellChecked(const QString &block) const{Q_UNUSED(block); return true;}
 private:
     bool m_enabled;
     SyntaxHighlighter* m_highlighter;
