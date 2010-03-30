@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -140,7 +140,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             return QVariant();
         else if (index.column()) //>Key
         {
-            static const DocPosition::Part parts[]={DocPosition::Source, DocPosition::Target}; 
+            static const DocPosition::Part parts[]={DocPosition::Source, DocPosition::Target};
             QString str=m_catalog->catalogString(DocPosition(index.row(),parts[index.column()==Target])).string;
             return m_ignoreAccel?str.remove(Project::instance()->accel()):str;
         }
@@ -239,7 +239,7 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     if (accepts&&((filerOptions&STATES)!=STATES))
     {
         int state=sourceModel()->index(source_row,CatalogTreeModel::State,source_parent).data(Qt::UserRole).toInt();
-        accepts=(filerOptions&(1<<(state+FIRSTSTATEPOSITION))); 
+        accepts=(filerOptions&(1<<(state+FIRSTSTATEPOSITION)));
     }
 
     accepts=accepts&&!(m_individualRejectFilterEnable && source_row<m_individualRejectFilter.size() && m_individualRejectFilter.at(source_row));
