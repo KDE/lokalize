@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -28,7 +28,7 @@
 #include "tmtab.h"
 #include "prefs_lokalize.h"
 
-#define WEBQUERY_ENABLE
+// #define WEBQUERY_ENABLE
 
 #include "project.h"
 #include "projectmodel.h"
@@ -631,7 +631,7 @@ void LokalizeMainWindow::projectLoaded()
         dialog->setAttribute(Qt::WA_DeleteOnClose,true);
         dialog->showButton(KDialog::Ok,true);
         dialog->showButton(KDialog::Cancel,false);
-        KMessageBox::createKMessageBox(dialog, QIcon(), i18nc("@info","Error opening the following files:"), 
+        KMessageBox::createKMessageBox(dialog, QIcon(), i18nc("@info","Error opening the following files:"),
                 failedFiles, QString(), 0, KMessageBox::NoExec, QString(), QMessageBox::Warning);
         dialog->show();
     }
@@ -792,10 +792,10 @@ void LokalizeMainWindow::loadProjectScripts()
     qWarning()<<"loadProjectScripts() 333";
     //a HACK to get new .rc files shown w/o requiring a restart
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
-    
+
     //guiFactory()->addClient(m_projectScriptingPlugin);
     //guiFactory()->removeClient(m_projectScriptingPlugin);
-    
+
     delete m_projectScriptingPlugin;
     qWarning()<<"loadProjectScripts() 444";
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
