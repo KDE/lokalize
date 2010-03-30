@@ -186,7 +186,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
     //setDynamicSortFilter(true);
 }
 
-void CatalogTreeFilterModel::setSourceModel(CatalogTreeModel* sourceModel)
+void CatalogTreeFilterModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
     QSortFilterProxyModel::setSourceModel(sourceModel);
     connect(sourceModel,SIGNAL(modelReset()),SLOT(setEntriesFilteredOut()));

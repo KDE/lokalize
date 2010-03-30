@@ -131,7 +131,7 @@ public:
     void setFilerOptions(int o);
     int filerOptions()const{return m_filerOptions;}
 
-    void setSourceModel(CatalogTreeModel* sourceModel);
+    void setSourceModel(QAbstractItemModel* sourceModel);
 
     bool individualRejectFilterEnabled(){return m_individualRejectFilterEnable;}
     void setEntryFilteredOut(int entry, bool filteredOut);
