@@ -894,6 +894,7 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
+    Q_UNUSED(p);
     kWarning()<<"avoiding destroying m_multiEditorAdaptor";
     setParent(0);
 }
