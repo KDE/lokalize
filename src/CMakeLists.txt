@@ -34,6 +34,7 @@ include_directories(
 set(lokalize_SRCS
     main.cpp
     lokalizemainwindow.cpp
+    actionproxy.cpp
 
     editortab.cpp
     editortab_findreplace.cpp
