@@ -791,6 +791,7 @@ QVector<Note> XliffStorage::notes(const DocPosition& pos) const
 
 QVector<Note> XliffStorage::developerNotes(const DocPosition& pos) const
 {
+    Q_UNUSED(pos);
     //TODO
     return QVector<Note>();
 }
@@ -918,12 +919,14 @@ QString XliffStorage::phase(const DocPosition& pos) const
 
 QStringList XliffStorage::context(const DocPosition& pos) const
 {
+    Q_UNUSED(pos);
     //TODO
     return QStringList(QString());
 }
 
 QStringList XliffStorage::matchData(const DocPosition& pos) const
 {
+    Q_UNUSED(pos);
     return QStringList();
 }
 
