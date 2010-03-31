@@ -585,6 +585,8 @@ InlineTag XliffStorage::targetDeleteTag(const DocPosition& pos)
 
 void XliffStorage::setTarget(const DocPosition& pos, const QString& arg)
 {
+    Q_UNUSED(pos);
+    Q_UNUSED(arg);
 //TODO
 }
 
