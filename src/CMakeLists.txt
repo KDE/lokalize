@@ -42,7 +42,7 @@ set(lokalize_SRCS
     editorview.cpp
     xlifftextedit.cpp
     syntaxhighlighter.cpp
-    
+
     completionstorage.cpp
 
     phaseswindow.cpp
