@@ -94,7 +94,7 @@ public:
     virtual QString phase(const DocPosition& pos) const {Q_UNUSED(pos); return QString();}
     virtual Phase phase(const QString& name) const{Q_UNUSED(name); return Phase();}
     virtual QVector<Note> phaseNotes(const QString& phase) const{Q_UNUSED(phase); return QVector<Note>();}
-    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){Q_UNUSED(phase); return QVector<Note>();}
+    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){Q_UNUSED(phase); Q_UNUSED(notes); return QVector<Note>();}
 
     //the result must be guaranteed to have at least 1 string
     virtual QStringList context(const DocPosition&) const=0;
