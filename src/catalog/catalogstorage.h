@@ -128,7 +128,7 @@ public:
     virtual bool isEmpty(const DocPosition&) const=0;
 
     virtual bool isEquivTrans(const DocPosition&) const{return true;}
-    virtual void setEquivTrans(const DocPosition&, bool equivTrans){}
+    virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans);}
 
     virtual bool isApproved(const DocPosition&) const{return true;}
     virtual void setApproved(const DocPosition&, bool approved){}
