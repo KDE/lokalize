@@ -131,7 +131,7 @@ public:
     virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans);}
 
     virtual bool isApproved(const DocPosition&) const{return true;}
-    virtual void setApproved(const DocPosition&, bool approved){}
+    virtual void setApproved(const DocPosition&, bool approved){Q_UNUSED(approved);}
     virtual TargetState state(const DocPosition&) const{return New;}
     virtual TargetState setState(const DocPosition&, TargetState){return New;}
 
