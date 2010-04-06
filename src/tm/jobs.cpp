@@ -132,7 +132,7 @@ static qlonglong getFileId(const QString& path,
 static void addToIndex(qlonglong sourceId, QString sourceString,
                        QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
 {
-    kDebug(TM_AREA)<<sourceString;
+    //kDebug(TM_AREA)<<sourceString;
 
     QStringList words;
     doSplit(sourceString,words,rxClean1,accel);
@@ -440,7 +440,7 @@ static bool doInsertEntry(CatalogString source,
     else
     {
         sourceId=query1.value(0).toLongLong();
-        kDebug(TM_AREA)<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
+        //kDebug(TM_AREA)<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
     }
     query1.clear();
 //END get sourceId
@@ -466,6 +466,7 @@ static bool doInsertEntry(CatalogString source,
 //BEGIN target update
     if (query1.next())
     {
+        //kDebug(TM_AREA)<<target.string<<": update instead of adding record to main";
         mainId=query1.value(0).toLongLong();
         bits=query1.value(2).toLongLong();
         bits=bits&(0xff-1);//clear obsolete bit
@@ -553,6 +554,7 @@ static bool doInsertEntry(CatalogString source,
         }
         //else -> there will be new record insertion and main table update below
     }
+    //kDebug(TM_AREA)<<target.string<<": update instead of adding record to main NOT"<<query1.executedQuery();
     query1.clear();
 //END target update
 
@@ -614,7 +616,7 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(0, targetId);
         query1.bindValue(1, bits);
         bool ok=query1.exec();
-        kDebug(TM_AREA)<<"ok?"<<ok;
+        //kDebug(TM_AREA)<<"ok?"<<ok;
         return ok;
     }
 
@@ -633,12 +635,12 @@ static bool doInsertEntry(CatalogString source,
     query1.bindValue(0, sourceId);
     query1.bindValue(1, targetId);
     query1.bindValue(2, fileId);
-    query1.bindValue(3, ctxt);
+    query1.bindValue(3, ctxt.isEmpty()?QVariant():ctxt);
     query1.bindValue(4, bits);
     query1.bindValue(5, priorId!=-1?QVariant(priorId):QVariant());
     bool ok=query1.exec();
     mainId=query1.lastInsertId().toLongLong(); //TODO postgresql will suck here
-    kDebug(TM_AREA)<<"ok?"<<ok;
+    //kDebug(TM_AREA)<<"ok?"<<ok;
     return ok;
 }
 
@@ -761,13 +763,13 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
 {
     if (useCache && tmConfigCache.contains(db.databaseName()))
     {
-        kDebug()<<"using config cache for"<<db.databaseName();
+        //kDebug()<<"using config cache for"<<db.databaseName();
         return tmConfigCache.value(db.databaseName());
     }
 
     QSqlQuery query(db);
     bool ok=query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
-    kDebug(TM_AREA)<<"acessing tm db config"<<ok;
+    kDebug(TM_AREA)<<"accessing tm db config"<<ok<<"use cache:"<<useCache;
     Project& p=*(Project::instance());
     bool f=query.next();
     TMConfig c;
@@ -780,6 +782,7 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
     if (KDE_ISUNLIKELY(  !f )) //tmConfigCache[db.databaseName()]=c;
         setConfig(db,c);
 
+    tmConfigCache.insert(db.databaseName(), c);
     return c;
 }
 
@@ -914,12 +917,12 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
-    kDebug(TM_AREA)<<dbName<<m_source.string;
+    //kDebug(TM_AREA)<<dbName<<m_source.string;
 }
 
 SelectJob::~SelectJob()
 {
-    kDebug(TM_AREA)<<m_source.string;
+    //kDebug(TM_AREA)<<m_source.string;
 }
 
 void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
@@ -1368,7 +1371,7 @@ RemoveJob::~RemoveJob()
 
 void RemoveJob::run ()
 {
-    kWarning(TM_AREA)<<m_entry.dbName;
+    kDebug(TM_AREA)<<m_entry.dbName;
     QSqlDatabase db=QSqlDatabase::database(m_entry.dbName);
 
     //cleaning regexps for word index update
@@ -1397,6 +1400,7 @@ UpdateJob::UpdateJob(const QString& filePath,
     , m_approved(approved)
     , m_dbName(dbName)
 {
+    //kDebug(TM_AREA)<<m_newTarget.string;
 }
 
 void UpdateJob::run ()
