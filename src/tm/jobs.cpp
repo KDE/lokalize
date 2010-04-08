@@ -21,8 +21,6 @@
 
 **************************************************************************** */
 
-#undef KDE_NO_DEBUG_OUTPUT
-
 #include "jobs.h"
 #include "catalog.h"
 #include "project.h"
@@ -49,6 +47,10 @@ using namespace TM;
 #define TM_DELIMITER '\v'
 #define TM_SEPARATOR '\b'
 #define TM_NOTAPPROVED 0x04
+
+#ifndef KDE_NO_DEBUG_OUTPUT
+#define KDE_NO_DEBUG_OUTPUT
+#endif
 
 /**
  * splits string into words, removing any markup
@@ -132,7 +134,7 @@ static qlonglong getFileId(const QString& path,
 static void addToIndex(qlonglong sourceId, QString sourceString,
                        QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
 {
-    kDebug(TM_AREA)<<sourceString;
+    //kDebug(TM_AREA)<<sourceString;
 
     QStringList words;
     doSplit(sourceString,words,rxClean1,accel);
@@ -440,7 +442,7 @@ static bool doInsertEntry(CatalogString source,
     else
     {
         sourceId=query1.value(0).toLongLong();
-        kDebug(TM_AREA)<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
+        //kDebug(TM_AREA)<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
     }
     query1.clear();
 //END get sourceId
@@ -614,7 +616,7 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(0, targetId);
         query1.bindValue(1, bits);
         bool ok=query1.exec();
-        kDebug(TM_AREA)<<"ok?"<<ok;
+        //kDebug(TM_AREA)<<"ok?"<<ok;
         return ok;
     }
 
@@ -633,12 +635,12 @@ static bool doInsertEntry(CatalogString source,
     query1.bindValue(0, sourceId);
     query1.bindValue(1, targetId);
     query1.bindValue(2, fileId);
-    query1.bindValue(3, ctxt);
+    query1.bindValue(3, ctxt.isEmpty()?QVariant():ctxt);
     query1.bindValue(4, bits);
     query1.bindValue(5, priorId!=-1?QVariant(priorId):QVariant());
     bool ok=query1.exec();
     mainId=query1.lastInsertId().toLongLong(); //TODO postgresql will suck here
-    kDebug(TM_AREA)<<"ok?"<<ok;
+    //kDebug(TM_AREA)<<"ok?"<<ok;
     return ok;
 }
 
@@ -761,10 +763,7 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
 
 {
     if (useCache && tmConfigCache.contains(db.databaseName()))
-    {
-        kDebug()<<"using config cache for"<<db.databaseName();
         return tmConfigCache.value(db.databaseName());
-    }
     QSqlQuery query(db);
     query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
     Project& p=*(Project::instance());
@@ -779,6 +778,7 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
     if (KDE_ISUNLIKELY(  !f )) //tmConfigCache[db.databaseName()]=c;
         setConfig(db,c);
 
+    tmConfigCache.insert(db.databaseName(), c);
     return c;
 }
 
@@ -913,12 +913,12 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
-    kDebug(TM_AREA)<<m_source.string;
+    //kDebug(TM_AREA)<<m_source.string;
 }
 
 SelectJob::~SelectJob()
 {
-    kDebug(TM_AREA)<<m_source.string;
+    //kDebug(TM_AREA)<<m_source.string;
 }
 
 void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
