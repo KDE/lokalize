@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import Kross,Lokalize,Project,Editor
-import sys,os,re,string,codecs
+import sys,os,time,datetime,re,string,codecs
 
 try:
     from translate.storage import factory
@@ -24,11 +24,12 @@ def merge():
     if Lokalize.projectOverview(): files=Lokalize.projectOverview().selectedItems()
     elif Editor.isValid():         files=[Editor.currentFile()]
 
+    forms = Kross.module("forms")
+
     if not files: return
     if files[0].endswith('.po'):
         mergeOne=mergeOneGettext
         if os.system('which msgmerge')!=0:
-            forms = Kross.module("forms")
             forms.showMessageBox("Error", i18n("Gettext not found"), i18n("Install gettext package for this feature to work"))
     else:
         if not tt_present:
@@ -37,9 +38,9 @@ def merge():
             #forms.showMessageBox("Error", i18n("Translate-tolkit not found"), i18n("Install translate-toolkit package for this feature to work"))
         mergeOne=mergeOneOdf
 
+    okCount=0
     progress=0
     if len(files)>1:
-        forms = Kross.module("forms")
         progress=forms.showProgressDialog(i18n("Updating from templates..."), "")
         progress.setRange(0,len(files))
         #progress.setMaximum(len(files))
@@ -50,23 +51,36 @@ def merge():
             progress.addText(po)
             progress.setValue(counter)
             counter+=1
-        mergeOne(po)
-        editor=Lokalize.editorForFile(po)
-        if editor:
-            editor.reloadFile()
+
+        ok=mergeOne(po)
+        okCount+=ok
+        if ok:
+            editor=Lokalize.editorForFile(po)
+            if editor:
+                editor.reloadFile()
 
     if progress:
         progress.deleteLater()
+    if len(files)==1:
+        if okCount and mergeOne==mergeOneGettext:
+            potModifSeconds=os.path.getmtime(potForPo(files[0]))
+            potModifDelta=datetime.timedelta(seconds=time.time()-potModifSeconds)
+            potModifStr=time.strftime('%X %x %Z', time.localtime(potModifSeconds))
+            forms.showMessageBox("Information", i18n("Merge has been completed"), i18n("Merge has been completed.\nTemplate modification time: %1 (%2 days ago).",[str(potModifStr),potModifDelta.days]))
+
+def potForPo(po):
+    (path, pofilename)=os.path.split(po)
+    path=path.replace(Project.translationsRoot(),Project.templatesRoot())
+
+    (package, ext)=os.path.splitext(pofilename)
+    return path+'/'+package+'.pot'
+    
 
 def mergeOneGettext(po):
     if po=='' or not po.endswith('.po'): return False
     if Project.translationsRoot() not in po: return False
 
-    (path, pofilename)=os.path.split(po)
-    path=path.replace(Project.translationsRoot(),Project.templatesRoot())
-
-    (package, ext)=os.path.splitext(pofilename)
-    pot=path+'/'+package+'.pot'
+    pot=potForPo(po)
 
     pomtime=os.path.getmtime(po)
     os.system('msgmerge --previous -U %s %s' % (po,pot))
