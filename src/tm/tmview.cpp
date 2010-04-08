@@ -286,7 +286,7 @@ void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
             if (!m_catalog->isApproved(pos.entry))
             {
                 ///m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
-                removeTargetSubstring(m_catalog, pos, 0, m_catalog->sourceWithTags(pos).string.size());
+                removeTargetSubstring(m_catalog, pos, 0, m_catalog->targetWithTags(pos).string.size());
                 if ( ctxtMatches || !(m_markAsFuzzy||forceFuzzy) )
                     SetStateCmd::push(m_catalog,pos,true);
             }
