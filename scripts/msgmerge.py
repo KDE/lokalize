@@ -62,11 +62,15 @@ def merge():
     if progress:
         progress.deleteLater()
     if len(files)==1:
+        pot=potForPo(files[0])
         if okCount and mergeOne==mergeOneGettext:
-            potModifSeconds=os.path.getmtime(potForPo(files[0]))
+            potModifSeconds=os.path.getmtime(pot)
             potModifDelta=datetime.timedelta(seconds=time.time()-potModifSeconds)
             potModifStr=time.strftime('%X %x %Z', time.localtime(potModifSeconds))
             forms.showMessageBox("Information", i18n("Merge has been completed"), i18n("Merge has been completed.\nTemplate modification time: %1 (%2 days ago).",[str(potModifStr),potModifDelta.days]))
+        else:
+            if not os.path.exists(pot):
+                forms.showMessageBox("Error", i18n("Merge failed."), i18n("Could not find template file for the merge:\n%1",[pot]))
 
 def potForPo(po):
     (path, pofilename)=os.path.split(po)
