@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -173,7 +173,7 @@ protected:
 **/
 //TODO a mechanism to get rid of dead dups (use strigi?).
 //also, display usage of different translations and suggest user
-//to use only one of them (listview, checkboxes) 
+//to use only one of them (listview, checkboxes)
 class UpdateJob: public ThreadWeaver::Job
 {
     Q_OBJECT
