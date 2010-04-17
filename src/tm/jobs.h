@@ -169,7 +169,7 @@ protected:
 /**
  * used to eliminate a lot of duplicate entries
  *
- * it is supposed too run on entry switch/file close in Editor
+ * it is supposed to run on entry switch/file close in Editor
 **/
 //TODO a mechanism to get rid of dead dups (use strigi?).
 //also, display usage of different translations and suggest user
