@@ -137,7 +137,7 @@ public:
 
 
     virtual int binUnitsCount() const {return 0;}
-    virtual int unitById(const QString& id) const {return 0;}
+    virtual int unitById(const QString& id) const {Q_UNUSED(id); return 0;}
 
     const KUrl& url() const {return m_url;}
     void setUrl(const KUrl& u){m_url=u;}//TODO
