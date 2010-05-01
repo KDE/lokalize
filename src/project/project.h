@@ -60,7 +60,7 @@ public:
 
     void load(const QString &file);
     void save();
-    bool isLoaded(){return !m_path.isEmpty();}
+    bool isLoaded()const{return !m_path.isEmpty();}
     ProjectModel* model();
 
     //void setPath(const QString& p){m_path=p;}
@@ -81,11 +81,11 @@ public slots:
     Q_SCRIPTABLE QString templatesRoot()const{return potDir();}
 
 
-    Q_SCRIPTABLE QString targetLangCode(){return ProjectBase::langCode();}
-    Q_SCRIPTABLE QString sourceLangCode(){return ProjectBase::sourceLangCode();}
+    Q_SCRIPTABLE QString targetLangCode()const{return ProjectBase::langCode();}
+    Q_SCRIPTABLE QString sourceLangCode()const{return ProjectBase::sourceLangCode();}
     Q_SCRIPTABLE void init(const QString& path, const QString& kind, const QString& id,
                            const QString& sourceLang, const QString& targetLang);
-    Q_SCRIPTABLE QString kind(){return ProjectBase::kind();}
+    Q_SCRIPTABLE QString kind()const{return ProjectBase::kind();}
 
     Q_SCRIPTABLE QString absolutePath(const QString&) const;
 
