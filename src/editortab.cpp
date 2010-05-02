@@ -313,13 +313,13 @@ void EditorTab::setupActions()
     TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction( QLatin1String("showtmqueryview_action"), _tmView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(refreshRequested()),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
     connect (_tmView,SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SIGNAL(fileOpenRequested(KUrl,QString,QString)));
     connect (this,SIGNAL(fileAboutToBeClosed()),m_catalog,SLOT(flushUpdateDBBuffer()));
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalog,SLOT(flushUpdateDBBuffer()));
+    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition))); //do this after flushUpdateDBBuffer
 
     QVector<KAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]=
