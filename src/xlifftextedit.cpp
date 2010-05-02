@@ -171,7 +171,9 @@ void XliffTextEdit::projectConfigChanged()
         //"i use an english locale while translating kde pot files from english to hebrew"
         QLocale targetLocale(Project::instance()->targetLangCode());
         Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
-        if (targetLocale.language()==QLocale::Arabic || targetLocale.language()==QLocale::Hebrew)
+        if (targetLocale.language()==QLocale::Arabic || targetLocale.language()==QLocale::Hebrew
+            || targetLocale.language()==QLocale::Urdu || targetLocale.language()==QLocale::Persian
+            || targetLocale.language()==QLocale::Pashto)
             targetLanguageDirection=Qt::RightToLeft;
 
         setLayoutDirection(targetLanguageDirection);
