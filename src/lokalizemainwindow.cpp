@@ -89,6 +89,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
     m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
     m_mdiArea->setDocumentMode(true);
+
     setCentralWidget(m_mdiArea);
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
     setupActions();
@@ -517,6 +518,7 @@ void LokalizeMainWindow::saveProperties(KConfigGroup& stateGroup)
 void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
 {
     QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+    
     QStringList files;
     QStringList mergeFiles;
     QList<QByteArray> dockWidgets;
@@ -528,7 +530,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     while (--i>=0)
     {
         //if (editors.at(i)==m_projectSubWindow)
-        if (!qobject_cast<EditorTab*>(editors.at(i)->widget()))
+        if (!editors.at(i) || !qobject_cast<EditorTab*>(editors.at(i)->widget()))
             continue;
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
@@ -551,15 +553,18 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
 
     KConfig config;
     KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
-    ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
     projectStateGroup.writeEntry("Active",activeSWIndex);
     projectStateGroup.writeEntry("Files",files);
     projectStateGroup.writeEntry("MergeFiles",mergeFiles);
     projectStateGroup.writeEntry("DockWidgets",dockWidgets);
     //stateGroup.writeEntry("Offsets",offsets);
     projectStateGroup.writeEntry("Entries",entries);
-    if (w->unitsCount()>0)
-        projectStateGroup.writeEntry("UnitsCount", w->unitsCount());
+    if (m_projectSubWindow)
+    {
+        ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
+        if (w->unitsCount()>0)
+            projectStateGroup.writeEntry("UnitsCount", w->unitsCount());
+    }
 
 
     QString nameSpecifier=Project::instance()->path();
