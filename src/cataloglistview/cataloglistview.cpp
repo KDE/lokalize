@@ -101,6 +101,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
     m_browser->setWordWrap(true);
+    m_browser->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
 
     KConfig config;
@@ -123,7 +124,9 @@ void CatalogView::setFocus()
 
 void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(pos.entry,0)));
+    QModelIndex item=m_proxyModel->mapFromSource(m_model->index(pos.entry,0));
+    m_browser->setCurrentIndex(item);
+    m_browser->scrollTo(item/*,QAbstractItemView::PositionAtCenter*/);
 }
 
 void CatalogView::setFilterRegExp()
