@@ -90,6 +90,7 @@ private slots:
     //for Undo/Redo tracking
     void contentsChanged(int position,int charsRemoved,int charsAdded);
     void completionActivated(const QString&);
+    void projectConfigChanged();
 
 signals:
     void toggleApprovementRequested();

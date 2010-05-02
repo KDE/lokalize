@@ -154,15 +154,31 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     {
         connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
         connect (this,SIGNAL(cursorPositionChanged()), this, SLOT(emitCursorPositionChanged()));
-        m_highlighter->setCurrentLanguage(Project::instance()->targetLangCode());
     }
-    else
-        m_highlighter->setCurrentLanguage(Project::instance()->sourceLangCode());
+    projectConfigChanged();
+    connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
 
     setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
     setHighlighter(m_highlighter);
 }
 
+void XliffTextEdit::projectConfigChanged()
+{
+    if (m_part==DocPosition::Target)
+    {
+        m_highlighter->setCurrentLanguage(Project::instance()->targetLangCode());
+
+        //"i use an english locale while translating kde pot files from english to hebrew"
+        QLocale targetLocale(Project::instance()->targetLangCode());
+        Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
+        if (targetLocale.language()==QLocale::Arabic || targetLocale.language()==QLocale::Hebrew)
+            targetLanguageDirection=Qt::RightToLeft;
+
+        setLayoutDirection(targetLanguageDirection);
+    }
+    else
+        m_highlighter->setCurrentLanguage(Project::instance()->sourceLangCode());
+}
 
 void XliffTextEdit::reflectApprovementState()
 {
