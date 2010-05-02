@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -80,7 +80,7 @@ class MyCompletionBox: public KCompletionBox
 public:
     MyCompletionBox(QWidget* p):KCompletionBox(p){}
     QSize sizeHint() const;
-    
+
     bool eventFilter(QObject* , QEvent* ); //reimplemented to deliver more keypresses to XliffTextEdit
 };
 
@@ -244,7 +244,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     else
         setContent(catalogString,refStr.string.isEmpty()?m_catalog->sourceWithTags(docPosition):refStr);
     connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-    
+
     _oldMsgstrAscii=document()->toPlainText();
 
     //BEGIN pos
@@ -486,7 +486,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
         //kWarning()<<"char"<<editText[offset].unicode();
         if (charsAdded)
             m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
-        
+
     }
 
 /* TODO
@@ -502,7 +502,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit contentsModified(m_currentPos);
-    
+
     if (charsAdded==1)
         doCompletion(offset+1);
 
@@ -926,7 +926,7 @@ int XliffTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
 //         //try harder
 //         if (--pos>=0 && str.string.at(pos)==TAGRANGE_IMAGE_SYMBOL)
 //         {
-//             
+//
 //         }
 
         return -1;
@@ -1070,7 +1070,7 @@ void XliffTextEdit::spellReplace()
     const QStringList& suggestions=m_highlighter->suggestionsForWord(wordSelectCursor.selectedText());
     if (suggestions.isEmpty())
         return;
-            
+
     m_catalog->beginMacro(i18nc("@item Undo action item","Replace text"));
     wordSelectCursor.insertText(suggestions.first());
     m_catalog->endMacro();
@@ -1276,7 +1276,7 @@ void XliffTextEdit::doCompletion(int pos)
     }
 
     QStringList s=CompletionStorage::instance()->makeCompletion(target.mid(sp+1,len));
-    
+
     if (!m_completionBox)
     {
         m_completionBox=new MyCompletionBox(this);
