@@ -143,7 +143,9 @@ void CatalogView::setFocus()
 
 void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    m_browser->setCurrentIndex(m_proxyModel->mapFromSource(m_model->index(pos.entry,0)));
+    QModelIndex item=m_proxyModel->mapFromSource(m_model->index(pos.entry,0));
+    m_browser->setCurrentIndex(item);
+    m_browser->scrollTo(item/*,QAbstractItemView::PositionAtCenter*/);
 }
 
 void CatalogView::setFilterRegExp()
