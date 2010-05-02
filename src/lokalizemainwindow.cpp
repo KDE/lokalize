@@ -528,7 +528,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     while (--i>=0)
     {
         //if (editors.at(i)==m_projectSubWindow)
-        if (!qobject_cast<EditorTab*>(editors.at(i)->widget()))
+        if (!editors.at(i) || !qobject_cast<EditorTab*>(editors.at(i)->widget()))
             continue;
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
