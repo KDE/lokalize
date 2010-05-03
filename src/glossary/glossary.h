@@ -28,6 +28,10 @@
 #include <QMultiHash>
 #include <QAbstractListModel>
 #include <QList>
+#include <QSet>
+
+#include <QDomDocument>
+
 /**
  * Classes for TBX Glossary handling
  */
@@ -92,23 +96,36 @@ class Glossary: public QObject
     Q_OBJECT
 
 public:
-    QMultiHash<QString,int> wordHash;
-    QList<TermEntry> termList;
-    QStringList subjectFields;//first entry should be empty
-
-    QString path;
-
-    //for delayed saving
-    QStringList addedIds;
-    QStringList changedIds;
-    QStringList removedIds;
 
     Glossary(QObject* parent)
      : QObject(parent)
-     , subjectFields(QStringList(QLatin1String("")))
+     //, subjectFields(QStringList(QLatin1String("")))
     {}
 
     ~Glossary(){}
+
+    QString path() const{return m_path;}
+    bool isClean() {return m_clean;}
+
+    QStringList idsForLangWord(const QString& lang, const QString& word) const;
+
+    QString id(int index) const;
+    QStringList terms(int index, const QString& lang) const;
+    QStringList terms(const QString& id, const QString& lang) const;
+    void setTerm(const QString& id, const QString& lang, int i, const QString& term);
+    QString subjectField(const QString& id) const;
+    void setSubjectField(const QString& id, const QString& value);
+    QString definition(const QString& id) const;
+    void setDefinition(const QString& id, const QString& value);
+
+private:
+    QString descrip(const QString& id, const QString& type) const;
+    void setDescrip(const QString& id, const QString& type, const QString& value);
+
+public:
+    QStringList subjectFields() const;
+
+    int size() const{return m_entries.size();}
 
     void clear();
 
@@ -119,15 +136,42 @@ public:
     //in-memory changing
     QString generateNewId();
     void append(const QString& _english,const QString& _target);
-    void remove(int i);
+    void remove(const QString& id);
     void forceChangeSignal(){emit changed();}
+    void setClean(bool );
+
+
+    QString append(const QStringList& sourceTerms, const QStringList& targetTerms);
 
     //general
-    void hashTermEntry(int index);
-    void unhashTermEntry(int index);
+    void hashTermEntry(const QDomElement&);
+    void unhashTermEntry(const QDomElement&);
 
 signals:
     void changed();
+
+private:
+    QString m_path;
+
+    mutable QDomDocument m_doc;
+    QDomNodeList m_entries;
+
+    QMap<QString, QDomElement> m_entriesById;
+
+
+    QMap< QString, QMultiHash<QString,QString> > idsByLangWord;
+
+    QMultiHash<QString,int> wordHash_;
+    QList<TermEntry> termList_;
+    QMap< QString, QMultiHash<QString,int> > langWordEntry_;
+    QStringList subjectFields_;//first entry should be empty
+
+    //for delayed saving
+    QStringList addedIds_;
+    QStringList changedIds_;
+    QStringList removedIds;
+
+    bool m_clean;
 };
 
 
@@ -142,8 +186,8 @@ public:
 
     enum Columns
     {
-//         ID = 0,
-        English=0,
+        ID = 0,
+        English,
         Target,
         SubjectField,
         GlossaryModelColumnCount
@@ -152,16 +196,16 @@ public:
     GlossaryModel(QObject* parent/*, Glossary* glossary*/);
     ~GlossaryModel(){}
 
-    QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
+    //QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
-    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
+    QVariant data(const QModelIndex&, int role=Qt::DisplayRole) const;
     QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
     Qt::ItemFlags flags(const QModelIndex&) const;
 
-    bool removeRows(int row,int count,const QModelIndex& parent=QModelIndex());
+    bool removeRows(int row, int count, const QModelIndex& parent=QModelIndex());
     //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
-    bool appendRow(const QString& _english,const QString& _target);
+    QString appendRow(const QString& _english, const QString& _target);
     void forceReset();
 
 // private:

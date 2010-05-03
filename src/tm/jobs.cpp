@@ -917,7 +917,7 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
-    //kDebug(TM_AREA)<<dbName<<m_source.string;
+    kDebug(TM_AREA)<<dbName<<m_source.string;
 }
 
 SelectJob::~SelectJob()
@@ -1222,7 +1222,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run ()
 {
-    //kWarning(TM_AREA) <<"started";
+    kDebug(TM_AREA)<<"started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty()) //sanity check
         return;
     //thread()->setPriority(QThread::IdlePriority);
@@ -1400,11 +1400,12 @@ UpdateJob::UpdateJob(const QString& filePath,
     , m_approved(approved)
     , m_dbName(dbName)
 {
-    //kDebug(TM_AREA)<<m_newTarget.string;
+    kDebug(TM_AREA)<<m_english.string<<m_newTarget.string;
 }
 
 void UpdateJob::run ()
 {
+    kDebug(TM_AREA)<<"run"<<m_english.string<<m_newTarget.string;
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
     //cleaning regexps for word index update

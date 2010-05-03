@@ -128,8 +128,8 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
 
     QString source=m_catalog->source(pos);
-    QString sourceLow=source.toLower();
-    QString msg=sourceLow;
+    QString sourceLowered=source.toLower();
+    QString msg=sourceLowered;
     msg.remove(m_rxClean);
     QString msgStemmed;
 
@@ -142,21 +142,17 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //         pos=accel.pos(1);
 //     }
 
-    QList<int> termIndexes;
+    QStringList termIds;
     foreach (const QString& w, msg.split(m_rxSplit,QString::SkipEmptyParts))
     {
         QString word=stem(Project::instance()->sourceLangCode(),w);
-        if (glossary.wordHash.contains(word)
-            // && MULTI hash!! instead, we generate QSet later
-            // !termIndexes.contains(glossary.wordHash.value(word))
-           )
-        {
+        QStringList indexes=glossary.idsForLangWord(Project::instance()->sourceLangCode(),word);
+        //if (indexes.size())
             //kWarning()<<"found entry for:" <<word;
-            termIndexes+=glossary.wordHash.values(word);
-        }
+        termIds+=indexes;
         msgStemmed+=word+' ';
     }
-    if (termIndexes.isEmpty())
+    if (termIds.isEmpty())
         return clear();
 
     // we found entries that contain words from msgid
@@ -167,10 +163,10 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     bool found=false;
     //m_flowLayout->setEnabled(false);
-    foreach (int termIndex, termIndexes.toSet())
+    foreach (QString termId, termIds.toSet())
     {
         // now check which of them are really hits...
-        foreach (const QString& enTerm, glossary.termList.at(termIndex).english)
+        foreach (const QString& enTerm, glossary.terms(termId, Project::instance()->sourceLangCode()))
         {
             // ...and if so, which part of termEn list we must thank for match ...
             bool ok=msg.contains(enTerm);//,//Qt::CaseInsensitive  //we lowered terms on load 
@@ -185,8 +181,8 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
             {
                 //insert it into label
                 found=true;
-                int pos=sourceLow.indexOf(enTerm);
-                m_flowLayout->addTerm(enTerm,termIndex,/*uppercase*/pos!=-1 && source.at(pos).isUpper());
+                int pos=sourceLowered.indexOf(enTerm);
+                m_flowLayout->addTerm(enTerm,termId,/*uppercase*/pos!=-1 && source.at(pos).isUpper());
                 break;
             }
         }

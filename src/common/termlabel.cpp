@@ -62,10 +62,10 @@ using namespace GlossaryNS;
 void TermLabel::insert()
 {
     GlossaryNS::Glossary* glossary=Project::instance()->glossary();
-    if (m_termIndex==-1 || m_termIndex>=glossary->termList.size())
+    if (m_entryId.isEmpty())
         return;
     QString termTrans;
-    const QStringList& termTarget=glossary->termList.at(m_termIndex).target;
+    const QStringList& termTarget=glossary->terms(m_entryId, Project::instance()->targetLangCode());
     if( termTarget.count()>1)
     {
         QMenu menu;
@@ -103,21 +103,21 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
         {
 //         if (txt->text()==i18nc("Edit term","Edit"))
             //const TermEntry& a(Project::instance()->glossary()->termList.at(m_termIndex));
-            GlossaryWindow* gloWin=new GlossaryWindow;
-            gloWin->show();
-            gloWin->selectTerm(m_termIndex);
+            GlossaryWindow* glossaryWindow=new GlossaryWindow;
+            glossaryWindow->show();
+            glossaryWindow->selectEntry(m_entryId);
         }
     }
     else
         insert();
 }
 
-void TermLabel::setText(const QString& term, int entry, bool capFirst)
+void TermLabel::setText(const QString& term, const QString& entryId, bool capFirst)
 {
-    m_termIndex=entry;
+    m_entryId=entryId;
     m_capFirst=capFirst;
     QLabel::setText(term + QString(m_action?(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
-                + Project::instance()->glossary()->termList.at(m_termIndex).target.join("  \n  ")
+                + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join("  \n  ")
                     + "  \n  ");
 }
 

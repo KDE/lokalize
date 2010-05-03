@@ -177,7 +177,7 @@ void FlowLayout::clearTerms()
     setEnabled(true);
 }
 
-void FlowLayout::addTerm(const QString& term, int entry, bool capFirst)
+void FlowLayout::addTerm(const QString& term, const QString& entryId, bool capFirst)
 {
     //fill layout with labels
     while (m_index>=count())
@@ -187,7 +187,7 @@ void FlowLayout::addTerm(const QString& term, int entry, bool capFirst)
         addWidget(label);
     }
     TermLabel* label=static_cast<TermLabel*>(itemAt(m_index)->widget());
-    label->setText(term, entry, capFirst);
+    label->setText(term, entryId, capFirst);
     label->show();
     ++m_index;
 }

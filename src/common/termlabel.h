@@ -37,14 +37,14 @@ class TermLabel: public QLabel//QPushButton
 {
     Q_OBJECT
 public:
-    TermLabel(QAction* a=0): m_termIndex(-1),m_action(a){};
+    TermLabel(QAction* a=0): m_action(a){};
     ~TermLabel(){}
 
     /**
      * @param term is the term matched
      * @param entry is a whole entry
      */
-    void setText(const QString& term, int entry, bool capFirst);
+    void setText(const QString& term, const QString& entryId, bool capFirst);
     void mousePressEvent (QMouseEvent* /* event*/);
 
 public slots:
@@ -54,7 +54,7 @@ signals:
     void insertTerm(const QString&);
 
 private:
-    int m_termIndex;
+    QString m_entryId;
     bool m_capFirst;
     QAction* m_action; //used only for shortcut purposes
 };

@@ -59,7 +59,6 @@ set(lokalize_SRCS
     common/languagelistmodel.cpp
     common/stemming.cpp
     glossary/glossaryview.cpp
-    glossary/tbxparser.cpp
     glossary/glossary.cpp
     glossary/glossarywindow.cpp
 

@@ -39,6 +39,7 @@
 #include <QHBoxLayout>
 #include <QSortFilterProxyModel>
 #include <QAbstractItemModel>
+#include <QStringListModel>
 
 using namespace GlossaryNS;
 
@@ -58,10 +59,19 @@ GlossaryTreeView::GlossaryTreeView(QWidget *parent)
 
 }
 
-void GlossaryTreeView::currentChanged(const QModelIndex& current,const QModelIndex&/* previous*/)
+static QString modelIndexToId(const QModelIndex& item)
+{
+    return item.sibling(item.row(),0).data(Qt::DisplayRole).toString();
+}
+
+void GlossaryTreeView::currentChanged(const QModelIndex& current, const QModelIndex&/* previous*/)
 {
     if (current.isValid())
-        emit currentChanged(static_cast<QSortFilterProxyModel*>(model())->mapToSource(current).row());
+    {
+        //QModelIndex item=static_cast<QSortFilterProxyModel*>(model())->mapToSource(current);
+        //emit currentChanged(item.row());
+        emit currentChanged(modelIndexToId(current));
+    }
 }
 
 void GlossaryTreeView::selectRow(int i)
@@ -78,7 +88,9 @@ void GlossaryTreeView::selectRow(int i)
 
 
 //BEGIN SubjectFieldModel
+//typedef QStringListModel SubjectFieldModel;
 
+#if 0
 class SubjectFieldModel: public QAbstractItemModel
 {
 public:
@@ -183,7 +195,7 @@ bool SubjectFieldModel::setItemData(const QModelIndex& index, const QMap<int,QVa
     }
     return true;
 }
-
+#endif
 //END SubjectFieldModel
 
 //BEGIN GlossaryWindow
@@ -200,10 +212,11 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     setCentralWidget(splitter);
 
     m_proxyModel->setFilterKeyColumn(GlossaryModel::English);
-    GlossaryModel* gloModel=new GlossaryModel(this);
-    m_proxyModel->setSourceModel(gloModel);
+    GlossaryModel* model=new GlossaryModel(this);
+    m_proxyModel->setSourceModel(model);
     m_browser->setModel(m_proxyModel);
-    //m_browser->setColumnWidth(GlossaryModel::ID, m_browser->columnWidth(GlossaryModel::ID)/2); //man this is  HACK y
+
+    m_browser->setColumnHidden(GlossaryModel::ID,true);
     m_browser->setColumnWidth(GlossaryModel::English, m_browser->columnWidth(GlossaryModel::English)*2); //man this is  HACK y
     m_browser->setColumnWidth(GlossaryModel::Target, m_browser->columnWidth(GlossaryModel::Target)*2);
     m_browser->setAlternatingRowColors(true);
@@ -249,39 +262,83 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     splitter->addWidget(w);
 
     //right
-    w=new QWidget(splitter);
-    m_editor=w;
-    w->hide();
+    m_editor=new QWidget(splitter);
+    m_editor->hide();
     Ui_TermEdit ui_termEdit;
-    ui_termEdit.setupUi(w);
-    splitter->addWidget(w);
+    ui_termEdit.setupUi(m_editor);
+    splitter->addWidget(m_editor);
 
-    m_english=ui_termEdit.english;
-    m_target=ui_termEdit.target;
+
+    Project* project=Project::instance();
+    m_sourceTermsModel=new TermsListModel(project->glossary(), project->sourceLangCode(), this);
+    m_targetTermsModel=new TermsListModel(project->glossary(), project->targetLangCode(), this);
+
+    ui_termEdit.sourceTermsView->setModel(m_sourceTermsModel);
+    ui_termEdit.targetTermsView->setModel(m_targetTermsModel);
+    
+    m_sourceTermsView=ui_termEdit.sourceTermsView;
+    m_targetTermsView=ui_termEdit.targetTermsView;
     m_subjectField=ui_termEdit.subjectField;
     m_definition=ui_termEdit.definition;
 
-    connect (m_english,SIGNAL(textChanged()),   this,SLOT(chTerm()));
-    connect (m_target,SIGNAL(textChanged()),    this,SLOT(chTerm()));
-    connect (m_definition,SIGNAL(textChanged()),this,SLOT(chTerm()));
-    connect (m_subjectField,SIGNAL(editTextChanged(QString)),this,SLOT(chTerm()));
+    //connect (m_english,SIGNAL(textChanged()),   this,SLOT(applyEntryChange()));
+    //connect (m_target,SIGNAL(textChanged()),    this,SLOT(applyEntryChange()));
+    //connect (m_definition,SIGNAL(editingFinished()),this,SLOT(applyEntryChange()));
+    //connect (m_definition,SIGNAL(textChanged()),this,SLOT(applyEntryChange()));
+    //connect (m_subjectField,SIGNAL(editTextChanged(QString)),this,SLOT(applyEntryChange()));
+    connect (m_subjectField->lineEdit(),SIGNAL(editingFinished()),this,SLOT(applyEntryChange()));
 
 
-    //m_subjectField->addItems(Project::instance()->glossary()->subjectFields);
-    m_subjectField->setModel(new SubjectFieldModel(this));
+    //m_subjectField->addItems(Project::instance()->glossary()->subjectFields());
+    //m_subjectField->setModel(new SubjectFieldModel(this));
+    QStringList subjectFields=Project::instance()->glossary()->subjectFields();
+    qSort(subjectFields);
+    QStringListModel* subjectFieldsModel=new QStringListModel(this);
+    subjectFieldsModel->setStringList(subjectFields);
+    m_subjectField->setModel(subjectFieldsModel);
     connect(m_browser,SIGNAL(currentChanged(int)), this,SLOT(currentChanged(int)));
-    connect(m_browser,SIGNAL(clicked(QModelIndex)),m_english,SLOT(setFocus()));
+    connect(m_browser,SIGNAL(currentChanged(QString)), this,SLOT(currentChanged(QString)));
+    connect(m_browser,SIGNAL(clicked(QModelIndex)),ui_termEdit.sourceTermsView,SLOT(setFocus()));
 
+    //TODO
+    //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
 
     setAutoSaveSettings(QLatin1String("GlossaryWindow"),true);
-    Glossary* glo=Project::instance()->glossary();
-    setCaption(i18nc("@title:window","Glossary"),
-              !glo->changedIds.isEmpty()||!glo->addedIds.isEmpty()||!glo->removedIds.isEmpty());
+    //Glossary* glossary=Project::instance()->glossary();
+    /*setCaption(i18nc("@title:window","Glossary"),
+              !glossary->changedIds.isEmpty()||!glossary->addedIds.isEmpty()||!glossary->removedIds.isEmpty());
+              */
 }
 
 
 GlossaryWindow::~GlossaryWindow()
 {
+}
+
+void GlossaryWindow::currentChanged(const QString& id)
+{
+    if (m_editor->isVisible())
+        applyEntryChange();
+    else
+        m_editor->show();
+
+    m_id=id;
+
+    m_reactOnSignals=false;
+
+    Project* project=Project::instance();
+    Glossary* glossary=project->glossary();
+    m_subjectField->setCurrentItem(glossary->subjectField(id),/*insert*/true);
+    m_definition->setPlainText(glossary->definition(id));
+
+
+    m_sourceTermsModel->setEntry(id);
+    m_targetTermsModel->setEntry(id);
+
+    //m_sourceTermsModel->setStringList(glossary->terms(id,project->sourceLangCode()));
+    //m_targetTermsModel->setStringList(glossary->terms(id,project->targetLangCode()));
+
+    m_reactOnSignals=true;
 }
 
 void GlossaryWindow::currentChanged(int i)
@@ -290,55 +347,49 @@ void GlossaryWindow::currentChanged(int i)
     m_reactOnSignals=false;
 
     m_editor->show();
-
+/*
     const TermEntry& a=Project::instance()->glossary()->termList.at(i);
     m_english->setPlainText(a.english.join("\n"));
     m_target->setPlainText(a.target.join("\n"));
     m_subjectField->setCurrentIndex(a.subjectField);
     m_definition->setPlainText(a.definition);
-
+*/
     m_reactOnSignals=true;
     //kDebug()<<"end";
 }
 
-void GlossaryWindow::chTerm()
+void GlossaryWindow::applyEntryChange()
 {
-    if (!m_reactOnSignals)
+    if (!m_reactOnSignals || !m_browser->currentIndex().isValid())
         return;
 
-    kDebug();
+    QString id=m_id;//modelIndexToId(m_browser->currentIndex());
+
+    Project* project=Project::instance();
+    Glossary* glossary=project->glossary();
+
+    if (m_subjectField->currentText()!=glossary->subjectField(id))
+        glossary->setSubjectField(id, m_subjectField->currentText());
+
+    if (m_definition->toPlainText()!=glossary->definition(id))
+        glossary->setDefinition(id, m_definition->toPlainText());
+
+    //HACK to force finishing of the listview editing
+    QWidget* prevFocusWidget=QApplication::focusWidget();
+    m_browser->setFocus();
+    if (prevFocusWidget)
+        prevFocusWidget->setFocus();
+    
 //  QSortFilterProxyModel* proxyModel=static_cast<QSortFilterProxyModel*>(model());
     //GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
     const QModelIndex& idx=m_proxyModel->mapToSource( m_browser->currentIndex() );
     if (!idx.isValid())
         return;
-    setCaption(i18nc("@title:window","Glossary"),true);
-
-    int index=idx.row();
-    Glossary* glo=Project::instance()->glossary();
-    glo->unhashTermEntry(index);//we will rehash it after applying changes
-
-    QString id(glo->termList.at(index).id);
-    if (! (glo->changedIds.contains(id)||glo->addedIds.contains(id)) )
-    {
-        kDebug()<<"append";
-        glo->changedIds.append(id);
-    }
-
-    TermEntry& a=glo->termList[index];
-    a.english=m_english->toPlainText().split('\n');
-    a.target=m_target->toPlainText().split('\n');
-    a.definition=m_definition->toPlainText();
-    a.subjectField=glo->subjectFields.indexOf(m_subjectField->currentText());
-    if ((a.subjectField==-1) && !m_subjectField->currentText().isEmpty())
-    {
-        a.subjectField=glo->subjectFields.size();
-        glo->subjectFields.append(m_subjectField->currentText());
-    }
-
-    glo->hashTermEntry(index);
 
 
+    setCaption(i18nc("@title:window","Glossary"),!glossary->isClean());
+
+    /*
     //update the GUI
     const QModelIndex& parent=idx.parent();
     int row=m_browser->currentIndex().row();
@@ -346,28 +397,33 @@ void GlossaryWindow::chTerm()
     while (--i>=0)
         m_browser->update(m_proxyModel->index(row,i,parent));
 
-    kDebug()<<glo->changedIds;
-    glo->forceChangeSignal();
+    kDebug()<<glossary->changedIds;
+    */
+    //glossary->forceChangeSignal();
 }
 
+
+void GlossaryWindow::selectEntry(const QString& id)
+{
+    QModelIndexList items=m_proxyModel->match(m_proxyModel->index(0,0),Qt::DisplayRole,QVariant(id),1,0);
+    if (items.count())
+    {
+        m_browser->setCurrentIndex(items.first());
+        m_browser->scrollTo(items.first(),QAbstractItemView::PositionAtCenter);
+        kDebug()<<id<<items<<items.first().row();
+    }
+    else
+        kDebug()<<id<<0;
+}
 
 void GlossaryWindow::newTerm(QString _english, QString _target)
 {
 //     kDebug()<<"start";
     setCaption(i18nc("@title:window","Glossary"),true);
 
-    const Glossary* glo=Project::instance()->glossary();
     GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
-    if (sourceModel->appendRow(_english,_target))
-        m_browser->selectRow(glo->termList.size()-1);
-//     kDebug()<<"end";
-    m_english->setFocus();
-    kDebug()<<glo->addedIds;
-}
-
-void GlossaryWindow::selectTerm(int index)
-{
-    m_browser->selectRow(index);
+    QString id=sourceModel->appendRow(_english,_target);
+    selectEntry(id);
 }
 
 void GlossaryWindow::rmTerm(int i)
@@ -387,16 +443,14 @@ void GlossaryWindow::rmTerm(int i)
     }
 
     sourceModel->removeRow(i);
-    const Glossary* glo=Project::instance()->glossary();
-    kDebug()<<glo->removedIds;
 }
 
 void GlossaryWindow::restore()
 {
     setCaption(i18nc("@title:window","Glossary"),false);
 
-    Glossary* glo=Project::instance()->glossary();
-    glo->load(glo->path);
+    Glossary* glossary=Project::instance()->glossary();
+    glossary->load(glossary->path());
     GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
     sourceModel->forceReset();
 }
@@ -404,11 +458,10 @@ void GlossaryWindow::restore()
 
 bool GlossaryWindow::queryClose()
 {
-    Glossary* glo=Project::instance()->glossary();
+    Glossary* glossary=Project::instance()->glossary();
 
-    if (glo->changedIds.isEmpty()
-        &&glo->addedIds.isEmpty()
-        &&glo->removedIds.isEmpty())
+    applyEntryChange();
+    if (glossary->isClean())
         return true;
 
     switch(KMessageBox::warningYesNoCancel(this,
@@ -417,10 +470,10 @@ Do you want to save your changes or discard them?"),i18nc("@title:window","Warni
       KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
         case KMessageBox::Yes:
-            glo->save();
+            glossary->save();
             return true;
         case KMessageBox::No:
-            glo->load(glo->path);
+            glossary->load(glossary->path());
             return true;
         default:
             return false;
@@ -429,5 +482,20 @@ Do you want to save your changes or discard them?"),i18nc("@title:window","Warni
 
 
 //END GlossaryWindow
+
+void TermsListModel::setEntry(const QString& id)
+{
+    m_id=id;
+    QStringList terms=m_glossary->terms(m_id,m_lang);
+    terms.append(QString()); //allow adding new terms
+    setStringList(terms);
+}
+
+bool TermsListModel::setData(const QModelIndex& index, const QVariant& value, int role)
+{
+    m_glossary->setTerm(m_id,m_lang,index.row(),value.toString());
+    setEntry(m_id); //allow adding new terms
+    return true;
+}
 
 #include "glossarywindow.moc"
