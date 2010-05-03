@@ -459,7 +459,9 @@ void LokalizeMainWindow::setupActions()
     m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);
     action = proj->addAction("project_open_recent",m_openRecentProjectAction);
     connect(m_openRecentProjectAction,SIGNAL(urlSelected(KUrl)),this,SLOT(openProject(KUrl)));
-    connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()));
+
+    //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
+    connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()), Qt::QueuedConnection);
 
     setupGUI(Default,"lokalizemainwindowui.rc");
 
@@ -583,7 +585,11 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 
     QString path=stateGroup.readEntry("Project",QString());
     if (Project::instance()->isLoaded() || path.isEmpty())
-        projectLoaded(); //we weren't existing yet when the signal was emitted
+    {
+        //1. we weren't existing yet when the signal was emitted
+        //2. defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
+        QTimer::singleShot(0, this, SLOT(projectLoaded()));
+    }
     else
         Project::instance()->load(path);
 }
