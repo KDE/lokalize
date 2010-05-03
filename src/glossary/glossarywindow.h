@@ -43,7 +43,7 @@ class AuxTextEdit: public KTextEdit
 public:
     AuxTextEdit(QWidget* parent=0): KTextEdit(parent){}
 
-    void focusOutEvent(QFocusEvent* e){emit editingFinished();}
+    void focusOutEvent(QFocusEvent* e){Q_UNUSED(e); emit editingFinished();}
 signals:
     void editingFinished();
 };
