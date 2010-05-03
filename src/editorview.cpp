@@ -128,6 +128,7 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     connect (_msgidEdit,  SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
     connect (_msgstrEdit, SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
 
+    connect (this, SIGNAL(doExplicitCompletion()), _msgstrEdit, SLOT(doExplicitCompletion()));
 
     addWidget(m_pluralTabBar);
     addWidget(_msgidEdit);

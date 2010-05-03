@@ -136,6 +136,7 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
 
     connect (m_catalog,SIGNAL(signalFileAutoSaveFailed(QString)),this,SLOT(fileAutoSaveFailedWarning(QString)));
 
+
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
     //kWarning()<<chrono.elapsed();
@@ -517,6 +518,10 @@ void EditorTab::setupActions()
     action=edit->addAction("edit_clear-target",m_view->viewPort(),SLOT(removeTargetSubstring()));
     action->setShortcut(Qt::CTRL+Qt::Key_D);
     action->setText(i18nc("@action:inmenu","Clear"));
+
+    action=edit->addAction("edit_completion",m_view,SIGNAL(doExplicitCompletion()));
+    action->setShortcut(Qt::CTRL+Qt::ALT+Qt::Key_Space);
+    action->setText(i18nc("@action:inmenu","Completion"));
 
     action=edit->addAction("edit_tagmenu",m_view->viewPort(),SLOT(tagMenu()));
     action->setShortcut(Qt::CTRL+Qt::Key_T);
@@ -1292,7 +1297,6 @@ void EditorTab::indexWordsForCompletion()
 {
     CompletionStorage::instance()->scanCatalog(m_catalog);
 }
-
 
 //see also termlabel.h
 void EditorTab::defineNewTerm()

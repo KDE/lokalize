@@ -56,6 +56,7 @@
     <Action name="edit_msgid2msgstr"/>
     <Action name="edit_unwrap-target"/>
     <Action name="edit_clear-target"/>
+    <Action name="edit_completion"/>
     <Action name="edit_tagmenu"/>
     <Action name="edit_tagimmediate"/>
     <Action name="edit_spellreplace"/>

@@ -508,7 +508,20 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
     emit contentsModified(m_currentPos);
 
     if (charsAdded==1)
-        doCompletion(offset+1);
+    {
+        int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,offset);
+        int len=(offset-sp);
+        int wordCompletionLength=Settings::self()->wordCompletionLength();
+        if (wordCompletionLength<3||len<wordCompletionLength)
+        {
+            if (m_completionBox)
+                m_completionBox->hide();
+        }
+        else
+            doCompletion(offset+1);
+    }
+    else if (m_completionBox)
+            m_completionBox->hide();
 
     //kWarning()<<"finish";
 }
@@ -1272,13 +1285,6 @@ void XliffTextEdit::doCompletion(int pos)
     QString target=m_catalog->targetWithTags(m_currentPos).string;
     int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos-1);
     int len=(pos-sp)-1;
-    int wordCompletionLength=Settings::self()->wordCompletionLength();
-    if (wordCompletionLength<3||len<wordCompletionLength)
-    {
-        if (m_completionBox)
-            m_completionBox->hide();
-        return;
-    }
 
     QStringList s=CompletionStorage::instance()->makeCompletion(target.mid(sp+1,len));
 
@@ -1305,6 +1311,10 @@ void XliffTextEdit::doCompletion(int pos)
     kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
 }
 
+void XliffTextEdit::doExplicitCompletion()
+{
+    doCompletion(textCursor().anchor());
+}
 
 void XliffTextEdit::completionActivated(const QString& semiWord)
 {
