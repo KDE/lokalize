@@ -1277,6 +1277,7 @@ ScanJob::ScanJob(const KUrl& url,
                  QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_url(url)
+    , m_time(0)
     , m_size(0)
     , m_dbName(dbName)
 {
@@ -1297,13 +1298,18 @@ void ScanJob::run()
     m_added=0;      //stats
     m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    initDb(db);
     TMConfig c=getConfig(db,true);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
     Catalog catalog(thread());
     if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size)==0))
     {
-        initDb(db);
+        if (c.targetLangCode!=catalog.targetLangCode())
+        {
+            kWarning()<<"not indexing file because target languages don't match:"<<c.targetLangCode<<"in TM vs"<<catalog.targetLangCode()<<"in file";
+            return;
+        }
         qlonglong priorId=-1;
 
         QSqlQuery queryBegin("BEGIN",db);
