@@ -494,6 +494,7 @@ void TermsListModel::setEntry(const QString& id)
 
 bool TermsListModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
+    Q_UNUSED(role);
     m_glossary->setTerm(m_id,m_lang,index.row(),value.toString());
     setEntry(m_id); //allow adding new terms
     return true;
