@@ -343,6 +343,7 @@ void GlossaryWindow::currentChanged(const QString& id)
 
 void GlossaryWindow::currentChanged(int i)
 {
+    Q_UNUSED(i);
 //    kDebug()<<"start"<<i;
     m_reactOnSignals=false;
 
