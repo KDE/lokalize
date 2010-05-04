@@ -290,12 +290,15 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
+    
     langCode=Project::instance()->isLoaded()?
              Project::instance()->langCode():
              Settings::defaultLangCode();
+    QString language; //initialized with preexisting value or later
+    QString mailingList; //initialized with preexisting value or later
 
-    KConfig lll("all_languages", KConfig::NoGlobals, "locale");
-    lll.setLocale("");
+    KConfig allLanguagesConfig("all_languages", KConfig::NoGlobals, "locale");
+    allLanguagesConfig.setLocale("");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(QRegExp("^ *Language-Team:.*"));
@@ -303,33 +306,41 @@ void updateHeader(QString& header,
         {
             //really parse header
             QMap<QString,QString> map;
-            QStringList langlist = KGlobal::locale()->languageList();
-            foreach (const QString &myit, langlist)
+            foreach (const QString &runningLangCode, KGlobal::locale()->languageList())
             {
-                KConfigGroup cg(&lll, myit);
-                map[cg.readEntry("Name")]=myit;
+                KConfigGroup cg(&allLanguagesConfig, runningLangCode);
+                map[cg.readEntry("Name")]=runningLangCode;
             }
 
-            QRegExp re("^ *Language-Team: *(.*) *<");
-            QString val;
-            if ((re.indexIn(*it) != -1) && (map.contains( val=re.cap(1).trimmed() )))
-                langCode=map.value(val);
+            QRegExp re("^ *Language-Team: *(.*) *<([^>]*)>");
+            if (re.indexIn(*it) != -1 )
+            {
+                if (map.contains( language=re.cap(1).trimmed() ))
+                    langCode=map.value(language);
+                mailingList=re.cap(2).trimmed();
+            }
 
             ait=it;
         }
     }
 
-    //language=locale.languageCodeToName(d->_langCode);
-    KConfigGroup cg(&lll, langCode);
-    QString language=cg.readEntry("Name");
-    if (language.isEmpty())
-        language=langCode;
+    if (!found)
+    {
+        //language=locale.languageCodeToName(d->_langCode);
+        KConfigGroup cg(&allLanguagesConfig, langCode);
+        language=cg.readEntry("Name");
+        if (language.isEmpty())
+            language=langCode;
 
-    temp="Language-Team: "+language;
-    if (Project::instance()->isLoaded())
-        temp+=" <"+Project::instance()->mailingList()+'>';
-    else
-        temp+=" <"+Settings::defaultMailingList()+'>';
+        
+        if (Project::instance()->isLoaded())
+            mailingList=Project::instance()->mailingList();
+        else
+            mailingList=Settings::defaultMailingList();
+
+    }
+
+    temp="Language-Team: "+language+" <"+mailingList+'>';
     temp+="\\n";
 
     if (KDE_ISLIKELY( found ))
