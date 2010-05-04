@@ -139,7 +139,7 @@ void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
 }
 #endif
 
-XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
+TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
     , m_currentUnicodeNumber(0)
     , m_catalog(catalog)
@@ -163,7 +163,7 @@ XliffTextEdit::XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* 
     setHighlighter(m_highlighter);
 }
 
-void XliffTextEdit::projectConfigChanged()
+void TranslationUnitTextEdit::projectConfigChanged()
 {
     QString langCode=Project::instance()->sourceLangCode();
     if (m_part==DocPosition::Target)
@@ -180,7 +180,7 @@ void XliffTextEdit::projectConfigChanged()
     setLayoutDirection(targetLanguageDirection);
 }
 
-void XliffTextEdit::reflectApprovementState()
+void TranslationUnitTextEdit::reflectApprovementState()
 {
     if (m_part==DocPosition::Source || m_currentPos.entry==-1)
         return;
@@ -202,7 +202,7 @@ void XliffTextEdit::reflectApprovementState()
     else          emit translatedEntryDisplayed();
 }
 
-void XliffTextEdit::reflectUntranslatedState()
+void TranslationUnitTextEdit::reflectUntranslatedState()
 {
     if (m_part==DocPosition::Source || m_currentPos.entry==-1)
         return;
@@ -216,7 +216,7 @@ void XliffTextEdit::reflectUntranslatedState()
 /**
  * makes MsgEdit reflect current entry
  **/
-CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogString& refStr, bool keepCursor)
+CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const CatalogString& refStr, bool keepCursor)
 {
     docPosition.part=m_part;
     m_currentPos=docPosition;
@@ -269,7 +269,7 @@ CatalogString XliffTextEdit::showPos(DocPosition docPosition, const CatalogStrin
     return catalogString; //for the sake of not calling XliffStorage/doContent twice
 }
 
-void XliffTextEdit::setContent(const CatalogString& catStr, const CatalogString& refStr)
+void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const CatalogString& refStr)
 {
     //kWarning()<<"";
     //kWarning()<<"START";
@@ -415,7 +415,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 
 
-void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
+void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
     //kWarning()<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
     //HACK to workaround #218246
@@ -527,7 +527,7 @@ void XliffTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded
 }
 
 
-bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh)
+bool TranslationUnitTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh)
 {
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 ))
         return false;
@@ -546,7 +546,7 @@ bool XliffTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh
     return true;
 }
 
-void XliffTextEdit::insertCatalogString(CatalogString catStr, int start, bool refresh)
+void TranslationUnitTextEdit::insertCatalogString(CatalogString catStr, int start, bool refresh)
 {
     CatalogString source=m_catalog->sourceWithTags(m_currentPos);
     CatalogString target=m_catalog->targetWithTags(m_currentPos);
@@ -586,7 +586,7 @@ void XliffTextEdit::insertCatalogString(CatalogString catStr, int start, bool re
 
 
 
-QMimeData* XliffTextEdit::createMimeDataFromSelection() const
+QMimeData* TranslationUnitTextEdit::createMimeDataFromSelection() const
 {
     QMimeData *mimeData = new QMimeData;
 
@@ -630,7 +630,7 @@ QMimeData* XliffTextEdit::createMimeDataFromSelection() const
     return mimeData;
 }
 
-void XliffTextEdit::insertFromMimeData(const QMimeData* source)
+void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
 {
     if (m_part==DocPosition::Source)
         return;
@@ -711,7 +711,7 @@ static bool isMasked(const QString& str, uint col)
 
 static QString spclChars("abfnrtv'?\\");
 
-void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
+void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 {
     if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
         emit gotoPrevRequested();
@@ -878,7 +878,7 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         KTextEdit::keyPressEvent(keyEvent);
 }
 
-void XliffTextEdit::keyReleaseEvent(QKeyEvent* e)
+void TranslationUnitTextEdit::keyReleaseEvent(QKeyEvent* e)
 {
     if ( (e->key()==Qt::Key_Alt) && m_currentUnicodeNumber >= 32 )
     {
@@ -889,7 +889,7 @@ void XliffTextEdit::keyReleaseEvent(QKeyEvent* e)
         KTextEdit::keyReleaseEvent(e);
 }
 
-QString XliffTextEdit::toPlainText()
+QString TranslationUnitTextEdit::toPlainText()
 {
     QTextCursor cursor = textCursor();
     cursor.select(QTextCursor::Document);
@@ -905,12 +905,12 @@ QString XliffTextEdit::toPlainText()
 
 
 
-void XliffTextEdit::emitCursorPositionChanged()
+void TranslationUnitTextEdit::emitCursorPositionChanged()
 {
     emit cursorPositionChanged(textCursor().columnNumber());
 }
 
-void XliffTextEdit::insertTag(InlineTag tag)
+void TranslationUnitTextEdit::insertTag(InlineTag tag)
 {
     QTextCursor cursor=textCursor();
     tag.start=qMin(cursor.anchor(),cursor.position());
@@ -922,7 +922,7 @@ void XliffTextEdit::insertTag(InlineTag tag)
     setFocus();
 }
 
-int XliffTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
+int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
 {
     QTextCursor cursor=cursorForPosition(mice);
     int pos=cursor.position();
@@ -955,7 +955,7 @@ int XliffTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
     return result;
 }
 
-void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
+void TranslationUnitTextEdit::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button()==Qt::LeftButton)
     {
@@ -972,7 +972,7 @@ void XliffTextEdit::mouseReleaseEvent(QMouseEvent* event)
 }
 
 
-void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
+void TranslationUnitTextEdit::contextMenuEvent(QContextMenuEvent *event)
 {
     CatalogString str;
     int pos=strForMicePosIfUnderTag(event->pos(),str);
@@ -1042,7 +1042,7 @@ void XliffTextEdit::contextMenuEvent(QContextMenuEvent *event)
 //     event->accept();
 }
 
-void XliffTextEdit::wheelEvent(QWheelEvent *event)
+void TranslationUnitTextEdit::wheelEvent(QWheelEvent *event)
 {
     if (m_part==DocPosition::Source || !Settings::mouseWheelGo())
         return KTextEdit::wheelEvent(event);
@@ -1077,7 +1077,7 @@ void XliffTextEdit::wheelEvent(QWheelEvent *event)
     }
 }
 
-void XliffTextEdit::spellReplace()
+void TranslationUnitTextEdit::spellReplace()
 {
     QTextCursor wordSelectCursor=textCursor();
     wordSelectCursor.select(QTextCursor::WordUnderCursor);
@@ -1093,7 +1093,7 @@ void XliffTextEdit::spellReplace()
     m_catalog->endMacro();
 }
 
-bool XliffTextEdit::event(QEvent *event)
+bool TranslationUnitTextEdit::event(QEvent *event)
 {
     if (event->type()==QEvent::ToolTip)
     {
@@ -1112,10 +1112,10 @@ bool XliffTextEdit::event(QEvent *event)
 
 
 
-void XliffTextEdit::tagMenu()     {doTag(false);}
-void XliffTextEdit::tagImmediate(){doTag(true);}
+void TranslationUnitTextEdit::tagMenu()     {doTag(false);}
+void TranslationUnitTextEdit::tagImmediate(){doTag(true);}
 
-void XliffTextEdit::doTag(bool immediate)
+void TranslationUnitTextEdit::doTag(bool immediate)
 {
     QMenu menu;
     QAction* txt=0;
@@ -1191,7 +1191,7 @@ void XliffTextEdit::doTag(bool immediate)
 }
 
 
-void XliffTextEdit::source2target()
+void TranslationUnitTextEdit::source2target()
 {
     CatalogString sourceWithTags=m_catalog->sourceWithTags(m_currentPos);
     QString text=sourceWithTags.string;
@@ -1253,7 +1253,7 @@ void XliffTextEdit::source2target()
     }
 }
 
-void XliffTextEdit::requestToggleApprovement()
+void TranslationUnitTextEdit::requestToggleApprovement()
 {
     if (m_catalog->isApproved(m_currentPos.entry)||!Settings::autoApprove())
         return;
@@ -1271,7 +1271,7 @@ void XliffTextEdit::requestToggleApprovement()
 }
 
 
-void XliffTextEdit::cursorToStart()
+void TranslationUnitTextEdit::cursorToStart()
 {
     QTextCursor t=textCursor();
     t.movePosition(QTextCursor::Start);
@@ -1279,7 +1279,7 @@ void XliffTextEdit::cursorToStart()
 }
 
 
-void XliffTextEdit::doCompletion(int pos)
+void TranslationUnitTextEdit::doCompletion(int pos)
 {
     QTime a;a.start();
     QString target=m_catalog->targetWithTags(m_currentPos).string;
@@ -1311,12 +1311,12 @@ void XliffTextEdit::doCompletion(int pos)
     kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
 }
 
-void XliffTextEdit::doExplicitCompletion()
+void TranslationUnitTextEdit::doExplicitCompletion()
 {
     doCompletion(textCursor().anchor());
 }
 
-void XliffTextEdit::completionActivated(const QString& semiWord)
+void TranslationUnitTextEdit::completionActivated(const QString& semiWord)
 {
     QTextCursor cursor=textCursor();
     cursor.insertText(semiWord);

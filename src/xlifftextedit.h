@@ -34,11 +34,11 @@ class SyntaxHighlighter;//TODO rename
 class KCompletionBox;
 class MyCompletionBox;
 
-class XliffTextEdit: public KTextEdit
+class TranslationUnitTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    XliffTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent=0);
+    TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent=0);
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
 

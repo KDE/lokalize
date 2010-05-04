@@ -33,7 +33,7 @@
 
 class Catalog;
 class LedsWidget;
-class XliffTextEdit;
+class TranslationUnitTextEdit;
 class KTabBar;
 class QContextMenuEvent;
 class QDragEnterEvent;
@@ -79,8 +79,9 @@ public slots:
 private:
     Catalog* m_catalog;
 
-    XliffTextEdit* _msgidEdit;
-    XliffTextEdit* _msgstrEdit;
+    TranslationUnitTextEdit * m_sourceTextEdit;
+    TranslationUnitTextEdit * m_targetTextEdit
+;
 
     KTabBar* m_pluralTabBar;
     LedsWidget* _leds;
@@ -109,7 +110,8 @@ private slots:
     void resetFindForCurrent(const DocPosition& pos);
 
     //Edit menu
-    void unwrap(XliffTextEdit* editor=0);
+    void unwrap(TranslationUnitTextEdit
+* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
 

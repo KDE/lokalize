@@ -97,46 +97,46 @@ void LedsWidget::cursorPositionChanged(int column)
 EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     : QSplitter(Qt::Vertical,parent)
     , m_catalog(catalog)
-    , _msgidEdit(new XliffTextEdit(catalog,DocPosition::Source,this))
-    , _msgstrEdit(new XliffTextEdit(catalog,DocPosition::Target,this))
+    , m_sourceTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Source,this))
+    , m_targetTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Target,this))
     , m_pluralTabBar(new KTabBar(this))
     , _leds(0)
     , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
-    _msgidEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
+    m_sourceTextEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
                                   "<p>This part of the window shows the original message\n"
                                   "of the currently displayed entry.</p></qt>"));
 
-    connect (_msgstrEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
-    connect (_msgstrEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
-    connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), _msgstrEdit, SLOT(reflectApprovementState()));
-    connect (_msgidEdit, SIGNAL(tagInsertRequested(InlineTag)), _msgstrEdit, SLOT(insertTag(InlineTag)));
+    connect (m_targetTextEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
+    connect (m_targetTextEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
+    connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), m_targetTextEdit, SLOT(reflectApprovementState()));
+    connect (m_sourceTextEdit, SIGNAL(tagInsertRequested(InlineTag)), m_targetTextEdit, SLOT(insertTag(InlineTag)));
 
-    connect (_msgidEdit,  SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
-    connect (_msgstrEdit, SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
-    connect (_msgidEdit,  SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
-    connect (_msgstrEdit, SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
+    connect (m_sourceTextEdit,  SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
+    connect (m_targetTextEdit, SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
+    connect (m_sourceTextEdit,  SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
+    connect (m_targetTextEdit, SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
 
-    connect (_msgidEdit,  SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
-    connect (_msgstrEdit, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
+    connect (m_sourceTextEdit,  SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
+    connect (m_targetTextEdit, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
 
-    connect (_msgidEdit,  SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
-    connect (_msgstrEdit, SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
-    connect (_msgidEdit,  SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
-    connect (_msgstrEdit, SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
-    connect (_msgidEdit,  SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
-    connect (_msgstrEdit, SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
+    connect (m_sourceTextEdit,  SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
+    connect (m_targetTextEdit, SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
+    connect (m_sourceTextEdit,  SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
+    connect (m_targetTextEdit, SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
+    connect (m_sourceTextEdit,  SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
+    connect (m_targetTextEdit, SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
 
-    connect (this, SIGNAL(doExplicitCompletion()), _msgstrEdit, SLOT(doExplicitCompletion()));
+    connect (this, SIGNAL(doExplicitCompletion()), m_targetTextEdit, SLOT(doExplicitCompletion()));
 
     addWidget(m_pluralTabBar);
-    addWidget(_msgidEdit);
-    addWidget(_msgstrEdit);
+    addWidget(m_sourceTextEdit);
+    addWidget(m_targetTextEdit);
 
-    QWidget::setTabOrder(_msgstrEdit,_msgidEdit);
-    QWidget::setTabOrder(_msgidEdit,_msgstrEdit);
-    setFocusProxy(_msgstrEdit);
+    QWidget::setTabOrder(m_targetTextEdit,m_sourceTextEdit);
+    QWidget::setTabOrder(m_sourceTextEdit,m_targetTextEdit);
+    setFocusProxy(m_targetTextEdit);
 //     QTimer::singleShot(3000,this,SLOT(setupWhatsThis()));
     settingsChanged();
 }
@@ -156,19 +156,19 @@ void EditorView::resetFindForCurrent(const DocPosition& pos)
 void EditorView::settingsChanged()
 {
     //Settings::self()->config()->setGroup("Editor");
-    _msgidEdit->document()->setDefaultFont(Settings::msgFont());
-    _msgstrEdit->document()->setDefaultFont(Settings::msgFont());
+    m_sourceTextEdit->document()->setDefaultFont(Settings::msgFont());
+    m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
     if (_leds) _leds->setVisible(Settings::leds());
     else if (Settings::leds())
     {
         _leds=new LedsWidget(this);
         insertWidget(2,_leds);
-        connect (_msgstrEdit, SIGNAL(cursorPositionChanged(int)), _leds, SLOT(cursorPositionChanged(int)));
-        connect (_msgstrEdit, SIGNAL(nonApprovedEntryDisplayed()),_leds->ledFuzzy, SLOT(on()));
-        connect (_msgstrEdit, SIGNAL(approvedEntryDisplayed()),   _leds->ledFuzzy, SLOT(off()));
-        connect (_msgstrEdit, SIGNAL(untranslatedEntryDisplayed()),_leds->ledUntr, SLOT(on()));
-        connect (_msgstrEdit, SIGNAL(translatedEntryDisplayed()), _leds->ledUntr, SLOT(off()));
-        _msgstrEdit->showPos(_msgstrEdit->currentPos());
+        connect (m_targetTextEdit, SIGNAL(cursorPositionChanged(int)), _leds, SLOT(cursorPositionChanged(int)));
+        connect (m_targetTextEdit, SIGNAL(nonApprovedEntryDisplayed()),_leds->ledFuzzy, SLOT(on()));
+        connect (m_targetTextEdit, SIGNAL(approvedEntryDisplayed()),   _leds->ledFuzzy, SLOT(off()));
+        connect (m_targetTextEdit, SIGNAL(untranslatedEntryDisplayed()),_leds->ledUntr, SLOT(on()));
+        connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), _leds->ledUntr, SLOT(off()));
+        m_targetTextEdit->showPos(m_targetTextEdit->currentPos());
     }
 }
 
@@ -179,7 +179,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     setUpdatesEnabled(false);
 
     bool refresh=pos.entry==-1;
-    if (refresh) pos=_msgstrEdit->currentPos();
+    if (refresh) pos=m_targetTextEdit->currentPos();
     //kWarning()<<"refresh"<<refresh;
     //kWarning()<<"offset"<<pos.offset;
     //TODO trigger refresh directly via Catalog signal
@@ -206,20 +206,20 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 
     //bool keepCursor=DocPos(pos)==DocPos(_msgidEdit->currentPos());
     bool keepCursor=false;
-    CatalogString sourceWithTags=_msgidEdit->showPos(pos,CatalogString(),keepCursor);
+    CatalogString sourceWithTags=m_sourceTextEdit->showPos(pos,CatalogString(),keepCursor);
 
     //kWarning()<<"calling showPos";
-    QString targetString=_msgstrEdit->showPos(pos,sourceWithTags,keepCursor).string;
+    QString targetString=m_targetTextEdit->showPos(pos,sourceWithTags,keepCursor).string;
     //kWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
-    _msgidEdit->cursorToStart();
-    _msgstrEdit->cursorToStart();
+    m_sourceTextEdit->cursorToStart();
+    m_targetTextEdit->cursorToStart();
 
     bool untrans=targetString.isEmpty();
     //kWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection)
     {
-        XliffTextEdit* msgEdit=pos.part==DocPosition::Source?_msgidEdit:_msgstrEdit;
+        TranslationUnitTextEdit* msgEdit=pos.part==DocPosition::Source?m_sourceTextEdit:m_targetTextEdit;
         QTextCursor t=msgEdit->textCursor();
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
@@ -229,7 +229,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     }
     else if (!untrans)
     {
-        QTextCursor t=_msgstrEdit->textCursor();
+        QTextCursor t=m_targetTextEdit->textCursor();
         //what if msg starts with a tag?
         if (KDE_ISUNLIKELY( targetString.startsWith('<') ))
         {
@@ -243,11 +243,11 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }
-        _msgstrEdit->setTextCursor(t);
+        m_targetTextEdit->setTextCursor(t);
     }
     //kWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
     //kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
-    _msgstrEdit->setFocus();
+    m_targetTextEdit->setFocus();
     setUpdatesEnabled(true);
 }
 /*
@@ -267,16 +267,16 @@ void KAiderView::dropEvent(QDropEvent *event)
 
 
 //BEGIN edit actions that are easier to do in this class
-void EditorView::unwrap(XliffTextEdit* editor)
+void EditorView::unwrap(TranslationUnitTextEdit* editor)
 {
     if (!editor)
-        editor=_msgstrEdit;
+        editor=m_targetTextEdit;
 
     QTextCursor t=editor->document()->find(QRegExp("[^(\\\\n)]$"));
     if (t.isNull())
         return;
 
-    if (editor==_msgstrEdit)
+    if (editor==m_targetTextEdit)
         m_catalog->beginMacro(i18nc("@item Undo action item","Unwrap"));
     t.movePosition(QTextCursor::EndOfLine);
     if (!t.atEnd())
@@ -290,31 +290,31 @@ void EditorView::unwrap(XliffTextEdit* editor)
         if (!t.atEnd())
             t.deleteChar();
     }
-    if (editor==_msgstrEdit)
+    if (editor==m_targetTextEdit)
         m_catalog->endMacro();
 }
 
 void EditorView::insertTerm(const QString& term)
 {
-    _msgstrEdit->insertPlainText(term);
-    _msgstrEdit->setFocus();
+    m_targetTextEdit->insertPlainText(term);
+    m_targetTextEdit->setFocus();
 }
 
 
 QString EditorView::selectionInTarget() const
 {
     //TODO remove IMA
-    return _msgstrEdit->textCursor().selectedText();
+    return m_targetTextEdit->textCursor().selectedText();
 }
 
 QString EditorView::selectionInSource() const
 {
-    return _msgidEdit->textCursor().selectedText();
+    return m_sourceTextEdit->textCursor().selectedText();
 }
 
 void EditorView::setProperFocus()
 {
-    _msgstrEdit->setFocus();
+    m_targetTextEdit->setFocus();
 }
 
 
@@ -324,41 +324,41 @@ void EditorView::setProperFocus()
 
 QObject* EditorView::viewPort()
 {
-    return _msgstrEdit;
+    return m_targetTextEdit;
 }
 
 void EditorView::toggleBookmark(bool checked)
 {
-    if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1 ))
+    if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 
-    m_catalog->setBookmark(_msgstrEdit->currentPos().entry,checked);
+    m_catalog->setBookmark(m_targetTextEdit->currentPos().entry,checked);
 }
 
 void EditorView::toggleApprovement()
 {
     //kWarning()<<"called";
-    if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1 ))
+    if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 
-    bool newState=!m_catalog->isApproved(_msgstrEdit->currentPos().entry);
-    SetStateCmd::push(m_catalog,_msgstrEdit->currentPos(),newState);
+    bool newState=!m_catalog->isApproved(m_targetTextEdit->currentPos().entry);
+    SetStateCmd::push(m_catalog,m_targetTextEdit->currentPos(),newState);
     emit signalApprovedEntryDisplayed(newState);
 }
 
 void EditorView::setState(TargetState state)
 {
-    if (KDE_ISUNLIKELY( _msgstrEdit->currentPos().entry==-1
-        || m_catalog->state(_msgstrEdit->currentPos())==state))
+    if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1
+        || m_catalog->state(m_targetTextEdit->currentPos())==state))
         return;
 
-    SetStateCmd::instantiateAndPush(m_catalog,_msgstrEdit->currentPos(),state);
-    emit signalApprovedEntryDisplayed(m_catalog->isApproved(_msgstrEdit->currentPos()));
+    SetStateCmd::instantiateAndPush(m_catalog,m_targetTextEdit->currentPos(),state);
+    emit signalApprovedEntryDisplayed(m_catalog->isApproved(m_targetTextEdit->currentPos()));
 }
 
 void EditorView::setEquivTrans(bool equivTrans)
 {
-    m_catalog->push(new SetEquivTransCmd(m_catalog, _msgstrEdit->currentPos(), equivTrans));
+    m_catalog->push(new SetEquivTransCmd(m_catalog, m_targetTextEdit->currentPos(), equivTrans));
 }
 
 
