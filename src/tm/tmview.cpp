@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -545,7 +545,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 /*
 void TMView::slotPaletteChanged()
 {
-    
+
 }*/
 bool TMView::event(QEvent *event)
 {
@@ -914,7 +914,7 @@ nono
 //         }
 
         //this is for the case when +'s preceed -'s:
-        while ((--startPos>=0) 
+        while ((--startPos>=0)
                   &&(d.diffIndex.at(startPos)=='+')
                   //&&(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_))
               )
