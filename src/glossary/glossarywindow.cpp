@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -275,7 +275,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
 
     ui_termEdit.sourceTermsView->setModel(m_sourceTermsModel);
     ui_termEdit.targetTermsView->setModel(m_targetTermsModel);
-    
+
     m_sourceTermsView=ui_termEdit.sourceTermsView;
     m_targetTermsView=ui_termEdit.targetTermsView;
     m_subjectField=ui_termEdit.subjectField;
@@ -379,7 +379,7 @@ void GlossaryWindow::applyEntryChange()
     m_browser->setFocus();
     if (prevFocusWidget)
         prevFocusWidget->setFocus();
-    
+
 //  QSortFilterProxyModel* proxyModel=static_cast<QSortFilterProxyModel*>(model());
     //GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
     const QModelIndex& idx=m_proxyModel->mapToSource( m_browser->currentIndex() );
