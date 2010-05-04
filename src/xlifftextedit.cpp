@@ -512,13 +512,10 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
         int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,offset);
         int len=(offset-sp);
         int wordCompletionLength=Settings::self()->wordCompletionLength();
-        if (wordCompletionLength<3||len<wordCompletionLength)
-        {
-            if (m_completionBox)
-                m_completionBox->hide();
-        }
-        else
+        if (wordCompletionLength>=3 && len>=wordCompletionLength)
             doCompletion(offset+1);
+        else if (m_completionBox)
+                m_completionBox->hide();
     }
     else if (m_completionBox)
             m_completionBox->hide();
