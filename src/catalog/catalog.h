@@ -188,6 +188,8 @@ public slots: //DBus interface
     bool save();
     QByteArray contents();
     QString mimetype();
+    QString sourceLangCode() const;
+    QString targetLangCode() const;
 
 protected:
     virtual KAutoSaveFile* checkAutoSave(const KUrl& url);

@@ -144,14 +144,20 @@ public:
 
     virtual QString mimetype() const=0;
 
+    QString sourceLangCode() const{return m_sourceLangCode;}
+    QString targetLangCode() const{return m_targetLangCode;}
+
 protected:
     KUrl m_url;
-    QString m_langCode;
+    QString m_sourceLangCode;
+    QString m_targetLangCode;
+
     int m_numberOfPluralForms;
 };
 
 inline CatalogStorage::CatalogStorage()
     : m_numberOfPluralForms(0)
+    , m_sourceLangCode("en_US")
 {
 }
 

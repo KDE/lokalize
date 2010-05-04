@@ -82,8 +82,9 @@ int XliffStorage::load(QIODevice* device)
 
 
     QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    m_langCode=file.attribute("target-language");
-    m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_langCode);
+    m_sourceLangCode=file.attribute("source-language");
+    m_targetLangCode=file.attribute("target-language");
+    m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_targetLangCode);
 
     //Create entry mapping.
     //Along the way: for langs with more than 2 forms

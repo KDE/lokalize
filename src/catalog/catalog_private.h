@@ -73,8 +73,6 @@ public:
 
     QTextCodec *fileCodec;
 
-    QString _language;
-    QString _langCode;
     QString _emptyStr;
 
     int _numberOfPluralForms;

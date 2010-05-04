@@ -56,9 +56,7 @@ LanguageListModel::LanguageListModel(QObject* parent)
 {
     KIconLoader::global()->addExtraDesktopThemes();
     //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
-    kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
-    //kWarning()<<KGlobal::locale()->allLanguagesList();
-    kDebug()<<QLocale("uk").name();
+    //kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);
     m_sortModel->sort(0);
 }

@@ -426,6 +426,23 @@ QString Catalog::mimetype()
 
     return m_storage->mimetype();
 }
+
+QString Catalog::sourceLangCode() const
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return QString();
+
+    return m_storage->sourceLangCode();
+}
+
+QString Catalog::targetLangCode() const
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return QString();
+
+    return m_storage->targetLangCode();
+}
+
 //END STORAGE TRANSLATION
 
 //BEGIN OPEN/SAVE

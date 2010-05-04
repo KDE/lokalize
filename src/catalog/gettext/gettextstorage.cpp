@@ -92,7 +92,7 @@ bool GettextStorage::save(QIODevice* device)
     QString comment=m_header.comment();
     updateHeader(header,
                  comment,
-                 m_langCode,
+                 m_targetLangCode,
                  m_numberOfPluralForms,
                  m_url.fileName(),
                  m_generatedFromDocbook,
@@ -396,7 +396,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
 
       updateHeader(values,
                    comment,
-                   m_langCode,
+                   m_targetLangCode,
                    m_numberOfPluralForms,
                    m_url.fileName(),
                    m_generatedFromDocbook,

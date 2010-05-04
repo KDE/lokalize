@@ -156,27 +156,27 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
         connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
         connect (this,SIGNAL(cursorPositionChanged()), this, SLOT(emitCursorPositionChanged()));
     }
-    projectConfigChanged();
-    connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
+    connect (catalog,SIGNAL(signalFileLoaded()), this, SLOT(fileLoaded()));
+    //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
 
     setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
     setHighlighter(m_highlighter);
 }
 
-void TranslationUnitTextEdit::projectConfigChanged()
+void TranslationUnitTextEdit::fileLoaded()
 {
-    QString langCode=Project::instance()->sourceLangCode();
-    if (m_part==DocPosition::Target)
-        langCode=Project::instance()->targetLangCode();
-
+    QString langCode=m_part==DocPosition::Source? m_catalog->sourceLangCode():m_catalog->targetLangCode();
     m_highlighter->setCurrentLanguage(langCode);
 
-    //"i use an english locale while translating kde pot files from english to hebrew"
+    //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     QLocale langLocale(langCode);
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
-    if (langLocale.language()==QLocale::Arabic || langLocale.language()==QLocale::Hebrew)
+    QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
+    int i=sizeof (rtlLanguages);
+    while (--i>=0 && langLocale.language()!=rtlLanguages[i])
+        ;
+    if (i!=-1)
         targetLanguageDirection=Qt::RightToLeft;
-
     setLayoutDirection(targetLanguageDirection);
 }
 
