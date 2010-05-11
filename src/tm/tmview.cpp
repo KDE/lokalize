@@ -402,10 +402,10 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 
 
     //BEGIN query other DBs handling
-    Project* p=Project::instance();
-    const QString& pID=p->projectID();
+    Project* project=Project::instance();
+    const QString& projectID=project->projectID();
     //check if this is an additional query, from secondary DBs
-    if (job.m_dbName!=pID)
+    if (job.m_dbName!=projectID)
     {
         job.m_entries+=m_entries;
         qSort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
@@ -417,16 +417,16 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
     else if (job.m_entries.isEmpty()||job.m_entries.first().score<8500)
     {
         //be careful, as we switched to QDirModel!
-        const DBFilesModel& model=*(DBFilesModel::instance());
-        QModelIndex root=model.rootIndex();
-        int i=model.rowCount(root);
+        const DBFilesModel& dbFilesModel=*(DBFilesModel::instance());
+        QModelIndex root=dbFilesModel.rootIndex();
+        int i=dbFilesModel.rowCount(root);
         kWarning()<<"query other DBs,"<<i<<"total";
         while (--i>=0)
         {
-            const QString& db=model.data(model.index(i,0,root)).toString();
-            if (pID!=db)
+            const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root)).toString();
+            if (projectID!=dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode==catalog.targetLangCode())
             {
-                SelectJob* j=initSelectJob(m_catalog, m_pos, db);
+                SelectJob* j=initSelectJob(m_catalog, m_pos, dbName);
                 connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
                 m_jobs.append(j);
             }

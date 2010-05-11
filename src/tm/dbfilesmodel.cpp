@@ -118,7 +118,7 @@ void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
     OpenDBJob* j=static_cast<OpenDBJob*>(job);
     m_stats[j->m_dbName]=j->m_stat;
     m_configurations[j->m_dbName]=j->m_tmConfig;
-    kDebug()<<j->m_dbName<<j->m_tmConfig.sourceLangCode;
+    kDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
 }
 
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const

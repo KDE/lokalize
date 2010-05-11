@@ -156,8 +156,8 @@ protected:
 };
 
 inline CatalogStorage::CatalogStorage()
-    : m_numberOfPluralForms(0)
-    , m_sourceLangCode("en_US")
+    : m_sourceLangCode("en_US")
+    , m_numberOfPluralForms(0)
 {
 }
 
