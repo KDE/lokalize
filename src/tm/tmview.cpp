@@ -590,7 +590,8 @@ void TMView::contextMenu(const QPoint& pos)
     if (!r)
         return;
     if ((r->data().toInt()==Remove) &&
-        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("Do you really want to remove this entry from translation memory?"),i18nc("@title:window","Translation Memory Entry Removal")))
+        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  Qt::escape(e.target.string), e.dbName),
+                                                           i18nc("@title:window","Translation Memory Entry Removal")))
     {
         RemoveJob* job=new RemoveJob(e);
         connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
