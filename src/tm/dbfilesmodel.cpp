@@ -123,9 +123,11 @@ void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
 
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
-    if (role!=Qt::DisplayRole) return QVariant();
+    if (role!=Qt::DisplayRole && role!=NameRole) return QDirModel::data(index, role);
 
     QString res=fileName(index.sibling(index.row(),0)).remove(".db");
+
+    if (role==NameRole) return res;
 
     switch (index.column())
     {

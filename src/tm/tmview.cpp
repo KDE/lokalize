@@ -558,11 +558,13 @@ bool TMView::event(QEvent *event)
             kWarning()<<"block numbers don't match";
         if (block<m_entries.size())
         {
-            QString file=m_entries.at(block).file;
+            const TMEntry& tmEntry=m_entries.at(block);
+            QString file=tmEntry.file;
             if (file==m_catalog->url().toLocalFile())
                 file=i18nc("File argument in tooltip, when file is current file", "this");
-            QString tooltip=i18nc("@info:tooltip","File: %1<br />Date: %2",file,m_entries.at(block).date);
-            if (m_entries.at(block).obsolete)
+            QString tooltip=i18nc("@info:tooltip","File: %1<br />Date: %2",file,tmEntry.date);
+            tooltip+=i18nc("@info:tooltip on TM entry continues","<br />TM: %1", tmEntry.dbName);
+            if (tmEntry.obsolete)
                 tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Is not present in the file anymore");
             QToolTip::showText(helpEvent->globalPos(),tooltip);
             return true;

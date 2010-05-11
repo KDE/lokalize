@@ -49,6 +49,11 @@ public:
         ColumnCount
     };
 
+    enum Rolse
+    {
+        NameRole=Qt::UserRole
+    };
+
     DBFilesModel();
     ~DBFilesModel();
 

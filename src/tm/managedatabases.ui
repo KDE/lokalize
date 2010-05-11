@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TMManager</class>
- <widget class="QWidget" name="TMManager" >
-  <property name="geometry" >
+ <widget class="QWidget" name="TMManager">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,54 +10,61 @@
     <height>401</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <item row="3" column="0" >
-    <layout class="QHBoxLayout" >
+  <layout class="QGridLayout">
+   <item row="3" column="0">
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="create" >
-       <property name="text" >
+      <widget class="QPushButton" name="create">
+       <property name="text">
         <string>Create</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="addData" >
-       <property name="text" >
+      <widget class="QPushButton" name="addData">
+       <property name="text">
         <string>Add Data</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="importTMX" >
-       <property name="text" >
+      <widget class="QPushButton" name="importTMX">
+       <property name="text">
         <string>Add Data from TMX</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="exportTMX" >
-       <property name="text" >
+      <widget class="QPushButton" name="exportTMX">
+       <property name="text">
         <string>Export to TMX</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="remove">
+       <property name="text">
+        <string>Remove</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="0" column="0" >
-    <widget class="QTreeView" name="list" >
-     <property name="rootIsDecorated" >
+   <item row="0" column="0">
+    <widget class="QTreeView" name="list">
+     <property name="rootIsDecorated">
       <bool>false</bool>
      </property>
-     <property name="uniformRowHeights" >
+     <property name="uniformRowHeights">
       <bool>true</bool>
      </property>
-     <property name="itemsExpandable" >
+     <property name="itemsExpandable">
       <bool>false</bool>
      </property>
-     <property name="allColumnsShowFocus" >
+     <property name="allColumnsShowFocus">
       <bool>true</bool>
      </property>
-     <property name="expandsOnDoubleClick" >
+     <property name="expandsOnDoubleClick">
       <bool>false</bool>
      </property>
     </widget>

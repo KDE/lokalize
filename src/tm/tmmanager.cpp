@@ -66,6 +66,7 @@ TMManagerWin::TMManagerWin(QWidget *parent)
     connect(ui_tmManager.create,   SIGNAL(clicked(bool)),this,SLOT(addDB()));
     connect(ui_tmManager.importTMX,SIGNAL(clicked(bool)),this,SLOT(importTMX()));
     connect(ui_tmManager.exportTMX,SIGNAL(clicked(bool)),this,SLOT(exportTMX()));
+    connect(ui_tmManager.remove,   SIGNAL(clicked(bool)),this,SLOT(removeDB()));
 
     QTimer::singleShot(100,this,SLOT(initLater()));
 }
@@ -148,8 +149,12 @@ void TMManagerWin::addDB()
     dialog->show();
 }
 
-
-
+void TMManagerWin::removeDB()
+{
+    QModelIndex index=m_tmListWidget->currentIndex();
+    QFile::remove(DBFilesModel::instance()->filePath(index.sibling(index.row(),0)));
+    DBFilesModel::instance()->refresh();
+}
 
 
 void TMManagerWin::importTMX()
@@ -159,7 +164,7 @@ void TMManagerWin::importTMX()
                       this,
                       i18nc("@title:window","Select TMX file to be imported into selected database"));
 
-    QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
+    QString dbName=m_tmListWidget->currentIndex().data(DBFilesModel::NameRole).toString();
 
     if (!path.isEmpty())
     {
@@ -179,7 +184,7 @@ void TMManagerWin::exportTMX()
                       this,
                       i18nc("@title:window","Select TMX file to export selected database to"));
 
-    QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
+    QString dbName=m_tmListWidget->currentIndex().data(DBFilesModel::NameRole).toString();
 
     if (!path.isEmpty())
     {
