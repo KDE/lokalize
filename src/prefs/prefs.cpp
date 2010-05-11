@@ -27,6 +27,7 @@
 #include "projectlocal.h"
 #include "projectmodel.h"
 #include "languagelistmodel.h"
+#include "dbfilesmodel.h"
 
 #include "ui_prefs_identity.h"
 #include "ui_prefs_editor.h"
@@ -175,6 +176,17 @@ void ScriptsView::dropEvent(QDropEvent* event)
             scriptsModel->rootCollection()->readXmlFile(url.path());
 }
 
+void SettingsController::projectCreate()
+{
+    QString path(KFileDialog::getSaveFileName(KUrl(), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,0));
+    if (path.isEmpty())
+        return;
+
+    //TODO ask-n-save
+    Project::instance()->load(path);
+    Project::instance()->setDefaults();
+    projectConfigure();
+}
 
 void SettingsController::projectConfigure()
 {
@@ -261,6 +273,7 @@ void SettingsController::projectConfigure()
 
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),TM::DBFilesModel::instance(), SLOT(refresh()));
 //     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));
 
     dialog->show();

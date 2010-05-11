@@ -121,6 +121,15 @@ void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
     kDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
 }
 
+void DBFilesModel::refresh()
+{
+    if (projectDB && data(*projectDB).toString()!=Project::instance()->projectID())
+    {
+        delete projectDB; projectDB=0;
+    }
+    QDirModel::refresh(rootIndex());
+}
+
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
     if (role!=Qt::DisplayRole && role!=NameRole) return QDirModel::data(index, role);

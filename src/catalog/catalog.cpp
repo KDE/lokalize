@@ -728,6 +728,11 @@ void Catalog::flushUpdateDBBuffer()
         //kWarning()<<"nothing to flush or new file opened";
         return;
     }
+    if (Project::instance()->targetLangCode()!=targetLangCode())
+    {
+        kWarning()<<"not updating because target languages don't match";
+        return;
+    }
     kWarning()<<"updating!!";
     int form=-1;
     if (isPlural(pos.entry))

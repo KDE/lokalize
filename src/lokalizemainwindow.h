@@ -79,6 +79,7 @@ private slots:
     void initLater();
     void applyToBeActiveSubWindow();
     void projectLoaded();
+    void projectSettingsChanged();
     void loadProjectScripts();
 
     void editorClosed(QObject* obj);

@@ -97,6 +97,7 @@ LokalizeMainWindow::LokalizeMainWindow()
      //prevent relayout of dockwidgets
     m_mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation,true);
 
+    connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
     showProjectOverview();
 
     QString tmp=" ";
@@ -449,8 +450,8 @@ void LokalizeMainWindow::setupActions()
     action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project"));
 
-    action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
-    action->setText(i18nc("@action:inmenu","Configure project"));
+    action = proj->addAction("project_create",sc,SLOT(projectCreate()));
+    action->setText(i18nc("@action:inmenu","Create new project"));
 
     action = proj->addAction("project_open",this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project"));
@@ -596,18 +597,19 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 
 void LokalizeMainWindow::projectLoaded()
 {
-    kDebug()<<Project::instance()->path();
-    m_openRecentProjectAction->addUrl( KUrl::fromPath(Project::instance()->path()) );
+    QString projectPath=Project::instance()->path();
+    kDebug()<<projectPath;
+    m_openRecentProjectAction->addUrl( KUrl::fromPath(projectPath) );
 
     KConfig config;
 
-    QString nameSpecifier=Project::instance()->path();
+    QString nameSpecifier=projectPath;
     if (!nameSpecifier.isEmpty()) nameSpecifier.prepend('-');
     m_openRecentFileAction->loadEntries(KConfigGroup(&config,"RecentFiles"+nameSpecifier));
 
 
     //if project isn't loaded, still restore opened files from "State-"
-    KConfigGroup projectStateGroup(&config,"State-"+Project::instance()->path());
+    KConfigGroup projectStateGroup(&config,"State-"+projectPath);
 
     QStringList files;
     QStringList mergeFiles;
@@ -656,11 +658,15 @@ void LokalizeMainWindow::projectLoaded()
         QTimer::singleShot(0,this,SLOT(applyToBeActiveSubWindow()));
     }
 
-    setCaption(Project::instance()->projectID());
+    projectSettingsChanged();
 
     QTimer::singleShot(0,this,SLOT(loadProjectScripts()));
 }
 
+void LokalizeMainWindow::projectSettingsChanged()
+{
+    setCaption(Project::instance()->projectID());
+}
 
 
 //BEGIN DBus interface

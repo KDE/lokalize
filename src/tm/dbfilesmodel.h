@@ -77,7 +77,7 @@ private:
 public slots:
     void calcStats(const QModelIndex& parent, int start, int end);
     void openJobDone(ThreadWeaver::Job*);
-    void refresh(){QDirModel::refresh(rootIndex());}
+    void refresh();
 
 private:
     mutable QPersistentModelIndex* projectDB;

@@ -21,7 +21,7 @@
     <Action name="project_open"/>
     <!--<ActionList name="project_actions" />-->
     <Action name="project_open_recent"/>
-    <!--<Action name="project_create"/>-->
+    <Action name="project_create"/>
     <Merge/>
     <!--<Separator/>
     <Menu name="project_actions"><text>&amp;Scripts</text>

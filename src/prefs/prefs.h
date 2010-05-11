@@ -47,6 +47,7 @@ public slots:
     void slotSettings();
 
     void projectOpen(QString path=QString());
+    void projectCreate();
     void projectConfigure();
     void reflectRelativePathsHack();
 

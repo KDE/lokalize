@@ -420,7 +420,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         const DBFilesModel& dbFilesModel=*(DBFilesModel::instance());
         QModelIndex root=dbFilesModel.rootIndex();
         int i=dbFilesModel.rowCount(root);
-        kWarning()<<"query other DBs,"<<i<<"total";
+        //kWarning()<<"query other DBs,"<<i<<"total";
         while (--i>=0)
         {
             const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root)).toString();
