@@ -74,6 +74,8 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             QString code;
             if(langCode == "mn")
                 code = "mn_MN";
+            else if(langCode == "ne")
+                code = "ne_NP";
             else
                 code=QLocale(langCode).name();
             QString path;
