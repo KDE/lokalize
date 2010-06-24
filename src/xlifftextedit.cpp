@@ -761,8 +761,11 @@ void XliffTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     {
         if (m_completionBox&&m_completionBox->isVisible())
         {
+            if (m_completionBox->currentItem())
+                completionActivated(m_completionBox->currentItem()->text());
+            else
+                kWarning()<<"avoided a crash. a case for bug 238835!";
             m_completionBox->hide();
-            completionActivated(m_completionBox->currentItem()->text());
             return;
         }
         QString str=toPlainText();
