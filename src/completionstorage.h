@@ -38,7 +38,7 @@ public:
     static CompletionStorage* instance();
 
     void scanCatalog(Catalog*);
-    QStringList makeCompletion(QString);
+    QStringList makeCompletion(QString) const;
 
 public:
     QRegExp rxSplit;

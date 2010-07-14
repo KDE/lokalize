@@ -77,7 +77,7 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
     kDebug()<<"indexed"<<catalog->url()<<"for word completion in"<<a.elapsed()<<"msecs";
 }
 
-QStringList CompletionStorage::makeCompletion(QString word)
+QStringList CompletionStorage::makeCompletion(QString word) const
 {
     QTime a;a.start();
     QMultiMap<int,QString> hits; //we use the fact that qmap sorts it's items by keys
