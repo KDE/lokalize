@@ -83,7 +83,7 @@ QStringList CompletionStorage::makeCompletion(QString word) const
     QMultiMap<int,QString> hits; //we use the fact that qmap sorts it's items by keys
     QString cleanWord=word.toLower();
     QMap<QString,int>::const_iterator it=m_words.lowerBound(cleanWord);
-    while(it!=m_words.constEnd() && it.key().startsWith(cleanWord))
+    while(it!=m_words.end() && it.key().startsWith(cleanWord))
     {
         hits.insert(-it.value(),it.key().mid(word.length()));
         it++;
