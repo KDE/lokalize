@@ -75,8 +75,8 @@ NoteEditor::NoteEditor(QWidget* parent)
 
     KPushButton* ok=new KPushButton(KStandardGuiItem::save(), this);
     KPushButton* cancel=new KPushButton(KStandardGuiItem::discard(), this);
-    ok->setToolTip("Ctrl+Enter");
-    cancel->setToolTip("Esc");
+    ok->setToolTip(i18n("Ctrl+Enter"));
+    cancel->setToolTip(i18n("Esc"));
 
     connect(m_edit,SIGNAL(accepted()),this,SIGNAL(accepted()));
     connect(m_edit,SIGNAL(rejected()),this,SIGNAL(rejected()));
