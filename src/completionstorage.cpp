@@ -50,8 +50,10 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
     QTime a;a.start();
 
     int wordCompletionLength=Settings::self()->wordCompletionLength();
+    /* we can't skip the scanning because there might be explicit completion triggered
     if (wordCompletionLength<3 || !catalog->numberOfEntries())
         return;
+    */
     wordCompletionLength+=3;//only long words
 
     QString accel=Project::instance()->accel();
@@ -62,13 +64,11 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
         QString string=catalog->targetWithTags(pos).string;
         string.remove(accel);
 
-        QStringList words=string.toLower().split(rxSplit,QString::SkipEmptyParts);
+        const QStringList& words=string.toLower().split(rxSplit,QString::SkipEmptyParts);
         foreach(const QString& word, words)
         {
             if (word.length()<wordCompletionLength)
                 continue;
-            if (!m_words.contains(word))
-                m_words[word]=0;
             m_words[word]++;
         }
     }
@@ -80,6 +80,8 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
 QStringList CompletionStorage::makeCompletion(QString word) const
 {
     QTime a;a.start();
+    if (word.isEmpty())
+        return QStringList();
     QMultiMap<int,QString> hits; //we use the fact that qmap sorts it's items by keys
     QString cleanWord=word.toLower();
     QMap<QString,int>::const_iterator it=m_words.lowerBound(cleanWord);
