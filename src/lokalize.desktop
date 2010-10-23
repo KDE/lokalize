@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Lokalize
+Name[ast]=Lokalize
 Name[bg]=Lokalize
 Name[ca]=Lokalize
 Name[ca@valencia]=Lokalize
@@ -51,6 +52,7 @@ Categories=Qt;KDE;Development;Office;Translation;
 MimeType=application/x-xliff;text/x-gettext-translation;application/x-lokalize-project;
 X-DocPath=lokalize/index.html
 GenericName=Computer-Aided Translation System
+GenericName[ast]=Sistema de traducción asistíu por computadora
 GenericName[ca]=Sistema de traducció assistida per ordinador
 GenericName[ca@valencia]=Sistema de traducció assistida per ordinador
 GenericName[cs]=Systém pro překlad pomocí počítače
