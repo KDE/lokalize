@@ -60,6 +60,8 @@ public:
     void setLegacyUnitsCount(int to);
 
 signals:
+    void projectOpenRequested(QString path=QString());
+
     void fileOpenRequested(const KUrl&);
 
     void searchRequested(const KUrl::List&);

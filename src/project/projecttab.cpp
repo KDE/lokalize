@@ -85,14 +85,14 @@ ProjectTab::ProjectTab(QWidget *parent)
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCategory->addAction(_name);\
+    action = nav->addAction(_name);\
     action->setText(_text);\
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setIcon(KIcon(_icon));
 
     KAction *action;
     KActionCollection* ac=actionCollection();
-    KActionCategory* actionCategory=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
+    KActionCategory* nav=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp,"prevfuzzyuntrans")
     connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
@@ -124,9 +124,16 @@ ProjectTab::ProjectTab(QWidget *parent)
     ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
 
+    
+    KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);
+
+    action = proj->addAction("project_open",this,SIGNAL(projectOpenRequested()));
+    action->setText(i18nc("@action:inmenu","Open project"));
+
+    
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
-        statusBarItems.insert(i,"");
+        statusBarItems.insert(i,QString());
 
 }
 

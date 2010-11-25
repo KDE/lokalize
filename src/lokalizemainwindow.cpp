@@ -331,6 +331,7 @@ QObject* LokalizeMainWindow::projectOverview()
         w->showMaximized();
         m_projectSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
+        connect(w, SIGNAL(projectOpenRequested(QString)),this,SLOT(openProject(QString)));
     }
     if (m_mdiArea->currentSubWindow()==m_projectSubWindow)
         return m_projectSubWindow->widget();

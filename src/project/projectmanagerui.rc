@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="ProjectOverview" version="2">
+<kpartgui name="ProjectOverview" version="3">
 <MenuBar>
   <Menu name="go"><text>&amp;Go</text>
     <Action name="go_prev_fuzzyUntr"/>
@@ -16,6 +16,8 @@
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
+  <Action name="project_open"/>
+  <Separator/>
   <Action name="go_prev_fuzzyUntr"/>
   <Action name="go_next_fuzzyUntr"/>
 </ToolBar>
