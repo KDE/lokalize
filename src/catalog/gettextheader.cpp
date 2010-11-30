@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -170,6 +170,7 @@ QString GNUPluralForms(const QString& lang)
 
     //BEGIN alternative
     // NOTE does this work under M$ OS?
+    qWarning()<<"gonna call msginit";
     QString def="nplurals=2; plural=n != 1;";
 
     QStringList arguments;
@@ -201,6 +202,7 @@ QString GNUPluralForms(const QString& lang)
                    "\"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n\"\n"
                    "\"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n\"\n"
                    "\"Language-Team: LANGUAGE <LL@li.org>\\n\"\n"
+                   "\"Language: LL\\n\"\n"
                    "\"MIME-Version: 1.0\\n\"\n"
                    "\"Content-Type: text/plain; charset=UTF-8\\n\"\n"
                    "\"Content-Transfer-Encoding: ENCODING\\n\"\n"
@@ -349,14 +351,24 @@ void updateHeader(QString& header,
     }
 
 
+
     temp="Language-Team: "+language+" <"+mailingList+'>';
     temp+="\\n";
-
     if (KDE_ISLIKELY( found ))
         (*ait) = temp;
     else
         headerList.append(temp);
 
+    QRegExp langCodeRegExp("^ *Language: *([^ \\\\]*)");
+    temp="Language: "+langCode+'\n';
+    for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
+    {
+        found=(langCodeRegExp.indexIn(*it)!=-1);
+        //if (found) *it=temp;
+        //if (found) qWarning()<<"got explicit lang code:"<<langCodeRegExp.cap(1);
+    }
+    if (KDE_ISUNLIKELY( !found ))
+        headerList.append(temp);
 
     temp="Content-Type: text/plain; charset=UTF-8\\n";
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
