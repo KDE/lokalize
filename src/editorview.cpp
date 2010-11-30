@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize (some bits of KBabel code were reused)
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -178,7 +178,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 {
     setUpdatesEnabled(false);
 
-    bool refresh=pos.entry==-1;
+    bool refresh=(pos.entry==-1);
     if (refresh) pos=m_targetTextEdit->currentPos();
     //kWarning()<<"refresh"<<refresh;
     //kWarning()<<"offset"<<pos.offset;
@@ -219,7 +219,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 
     if (pos.offset || selection)
     {
-        TranslationUnitTextEdit* msgEdit=pos.part==DocPosition::Source?m_sourceTextEdit:m_targetTextEdit;
+        TranslationUnitTextEdit* msgEdit=(pos.part==DocPosition::Source?m_sourceTextEdit:m_targetTextEdit);
         QTextCursor t=msgEdit->textCursor();
         t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,pos.offset);
         //NOTE this was kinda bug due to on-the-fly msgid wordwrap
@@ -303,12 +303,13 @@ void EditorView::insertTerm(const QString& term)
 
 QString EditorView::selectionInTarget() const
 {
-    //TODO remove IMA
+    //TODO remove IMAGES
     return m_targetTextEdit->textCursor().selectedText();
 }
 
 QString EditorView::selectionInSource() const
 {
+    //TODO remove IMAGES
     return m_sourceTextEdit->textCursor().selectedText();
 }
 

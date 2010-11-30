@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -783,7 +783,7 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
 {
     if (!m_catalog->isClean())
     {
-        switch (KMessageBox::warningYesNoCancel(this,
+        switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
                                                 i18nc("@info","The document contains unsaved changes.\n"
                                                       "Do you want to save your changes or discard them?"),i18nc("@title:window","Warning"),
                                                 KStandardGuiItem::save(),KStandardGuiItem::discard())
@@ -801,7 +801,7 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
     {
         //Prevent crashes
         Project::instance()->model()->weaver()->suspend();
-        url=KFileDialog::getOpenFileName(baseUrl, "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",this);
+        url=KFileDialog::getOpenFileName(baseUrl, "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",SettingsController::instance()->mainWindowPtr());
         Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
@@ -840,6 +840,7 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
         //we delay gotoEntry(pos) until project is loaded;
 
 
+        //TODO "test" for the name????
         m_catalog->setActivePhase("test",Project::local()->role());
 //Project
         if (url.isLocalFile() && !_project->isLoaded())
@@ -858,6 +859,13 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
 
             //enforce autosync
             m_syncViewSecondary->mergeOpen(url);
+            
+            if (!_project->isLoaded() && _project->desirablePath().isEmpty())
+            {
+                _project->setDesirablePath(url.directory(KUrl::AppendTrailingSlash)+"index.lokalize");
+                //_project->setLangCode(m_catalog->targetLangCode());
+            }
+                
         }
 
         gotoEntry(pos);
@@ -1301,6 +1309,7 @@ void EditorTab::indexWordsForCompletion()
 //see also termlabel.h
 void EditorTab::defineNewTerm()
 {
+    //TODO just a word under cursor?
     QString en(m_view->selectionInSource().toLower());
     if (en.isEmpty())
         en=m_catalog->msgid(m_currentPos).toLower();

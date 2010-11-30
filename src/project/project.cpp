@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -78,9 +78,12 @@ Project::Project()
     , m_localConfig(new ProjectLocal())
     , m_model(0)
     , m_glossary(new GlossaryNS::Glossary(this))
+    , m_glossaryWindow(0)
+    , m_tmManagerWindow(0)
 {
     ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
 
+    setDefaults();
 /*
     qRegisterMetaType<DocPosition>("DocPosition");
     qDBusRegisterMetaType<DocPosition>();
@@ -108,12 +111,12 @@ Project::~Project()
     //Project::save()
 }
 
-void Project::load(const QString &file)
+void Project::load(const QString &newProjectPath)
 {
     QTime a;a.start();
 
     ThreadWeaver::Weaver::instance()->dequeue();
-    kDebug()<<"loading"<<file<<"Finishing jobs...";
+    kDebug()<<"loading"<<newProjectPath<<"Finishing jobs...";
 
     if (!m_path.isEmpty())
     {
@@ -124,15 +127,18 @@ void Project::load(const QString &file)
 
     kDebug()<<"5...";
 
-    setSharedConfig(KSharedConfig::openConfig(file, KConfig::NoGlobals));
+    setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
     kDebug()<<"4...";
     readConfig();
-    m_path=file;
+    m_path=newProjectPath;
+    m_desirablePath.clear();
 
     kDebug()<<"3...";
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
     m_localConfig->readConfig();
 
+    if (langCode().isEmpty())
+        setLangCode(KGlobal::locale()->language());
     kDebug()<<"2...";
 
     //KConfig config;
@@ -143,11 +149,13 @@ void Project::load(const QString &file)
     kDebug()<<"1...";
 
     //put 'em into thread?
-    QTimer::singleShot(0,this,SLOT(populateGlossary()));
+    //QTimer::singleShot(0,this,SLOT(populateGlossary()));
+    populateGlossary();//we cant postpone it becase project load can be called from define new term function
 
-    if (file.isEmpty())
+    if (newProjectPath.isEmpty())
         return;
 
+    //NOTE do we need to explicitly call it when project id changes?
     TM::DBFilesModel::instance()->openDB(projectID());
 
     kDebug()<<"until emitting signal"<<a.elapsed();
@@ -196,22 +204,30 @@ void Project::showGlossary()
 
 void Project::defineNewTerm(QString en,QString target)
 {
-    GlossaryNS::GlossaryWindow* gloWin=new GlossaryNS::GlossaryWindow;
-    gloWin->show();
+    if (!SettingsController::instance()->ensureProjectIsLoaded())
+        return;
+
+    if (!m_glossaryWindow)
+        m_glossaryWindow=new GlossaryNS::GlossaryWindow(SettingsController::instance()->mainWindowPtr());
+    m_glossaryWindow->show();
+    m_glossaryWindow->activateWindow();
     if (!en.isEmpty()||!target.isEmpty())
-        gloWin->newTerm(en,target);
+        m_glossaryWindow->newTerm(en,target);
 }
 
 void Project::showTMManager()
 {
-    TM::TMManagerWin* win=new TM::TMManagerWin;
-    win->show();
+    if (!m_tmManagerWindow)
+        m_tmManagerWindow=new TM::TMManagerWin(SettingsController::instance()->mainWindowPtr());
+    m_tmManagerWindow->show();
+    m_tmManagerWindow->activateWindow();
 }
 
 void Project::save()
 {
     m_localConfig->setFirstRun(false);
 
+    ProjectBase::setTargetLangCode(langCode());
     writeConfig();
     m_localConfig->writeConfig();
 }
@@ -222,6 +238,12 @@ ProjectModel* Project::model()
         m_model=new ProjectModel(this);
 
     return m_model;
+}
+
+void Project::setDefaults()
+{
+    ProjectBase::setDefaults();
+    setLangCode(KGlobal::locale()->language());
 }
 
 void Project::init(const QString& path, const QString& kind, const QString& id,

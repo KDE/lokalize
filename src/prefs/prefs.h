@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -43,12 +43,19 @@ public:
 
     bool dirty;
 
-public slots:
-    void slotSettings();
+    void setMainWindowPtr(QWidget* w){m_mainWindowPtr=w;}
+    QWidget* mainWindowPtr(){return m_mainWindowPtr;}
 
-    void projectOpen(QString path=QString());
-    void projectCreate();
+public slots:
+    void showSettingsDialog();
+
+    bool ensureProjectIsLoaded();
+    QString projectOpen(QString path=QString(), bool doOpen=true);
+    bool projectCreate();
     void projectConfigure();
+    
+    void reflectProjectConfigChange();
+    
     void reflectRelativePathsHack();
 
 signals:
@@ -58,13 +65,13 @@ private:
     KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
     KEditListBox* m_scriptsPrefWidget;
     Kross::ActionCollectionView* m_projectActionsView;
+    QWidget* m_mainWindowPtr;
 
 private:
     static SettingsController* _instance;
     static void cleanupSettingsController();
 public:
     static SettingsController* instance();
-
 };
 
 /**

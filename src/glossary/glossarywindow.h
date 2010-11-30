@@ -77,7 +77,7 @@ private:
     TermsListModel* m_sourceTermsModel;
     TermsListModel* m_targetTermsModel;
     QSortFilterProxyModel* m_proxyModel;
-    KLineEdit* m_lineEdit;
+    KLineEdit* m_filterEdit;
 
     KComboBox* m_subjectField;
     KTextEdit* m_definition;

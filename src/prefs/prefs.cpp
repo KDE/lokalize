@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -80,18 +80,19 @@ SettingsController* SettingsController::instance()
 SettingsController::SettingsController()
     : QObject(Project::instance())
     , dirty(false)
+    , m_mainWindowPtr(0)
 {}
 
 SettingsController::~SettingsController()
 {}
 
 
-void SettingsController::slotSettings()
+void SettingsController::showSettingsDialog()
 {
     if (KConfigDialog::showDialog("lokalize_settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(0, "lokalize_settings", Settings::self());
+    KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, "lokalize_settings", Settings::self());
     dialog->setFaceType(KPageDialog::List);
 
 // Identity
@@ -176,16 +177,52 @@ void ScriptsView::dropEvent(QDropEvent* event)
             scriptsModel->rootCollection()->readXmlFile(url.path());
 }
 
-void SettingsController::projectCreate()
+bool SettingsController::ensureProjectIsLoaded()
 {
-    QString path(KFileDialog::getSaveFileName(KUrl(), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,0));
+    if (Project::instance()->isLoaded())
+        return true;
+
+    int answer=KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires project to be loaded. Do you want to create new project or open existing project?"),
+        QString(), KGuiItem(i18nc("@action","New"),KIcon("document-new")), KGuiItem(i18nc("@action","Open"),KIcon("project-open"))
+    );
+    if (answer==KMessageBox::Yes)
+        return projectCreate();
+    if (answer==KMessageBox::No)
+        return !projectOpen().isEmpty();
+    return false;
+}
+
+QString SettingsController::projectOpen(QString path, bool doOpen)
+{
     if (path.isEmpty())
-        return;
+    {
+        Project::instance()->model()->weaver()->suspend();
+        path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
+                                          "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
+                                          m_mainWindowPtr);
+        Project::instance()->model()->weaver()->resume();
+    }
+
+    if (!path.isEmpty() && doOpen)
+        Project::instance()->load(path);
+
+    return path;
+}
+
+bool SettingsController::projectCreate()
+{
+    Project::instance()->model()->weaver()->suspend();
+    QString path=KFileDialog::getSaveFileName(KUrl(Project::instance()->desirablePath()), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,m_mainWindowPtr);
+    Project::instance()->model()->weaver()->resume();
+    if (path.isEmpty())
+        return false;
 
     //TODO ask-n-save
     Project::instance()->load(path);
-    Project::instance()->setDefaults();
-    projectConfigure();
+    Project::instance()->setDefaults(); //NOTE will this be an obstacle?
+    
+    QTimer::singleShot(0, this, SLOT(projectConfigure()));
+    return true;
 }
 
 void SettingsController::projectConfigure()
@@ -193,7 +230,7 @@ void SettingsController::projectConfigure()
     if (KConfigDialog::showDialog("project_settings"))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(0, "project_settings", Project::instance());
+    KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, "project_settings", Project::instance());
     dialog->setFaceType(KPageDialog::List);
 
 
@@ -274,17 +311,15 @@ void SettingsController::projectConfigure()
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
     connect(dialog, SIGNAL(settingsChanged(QString)),TM::DBFilesModel::instance(), SLOT(refresh()));
-//     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),this, SLOT(reflectProjectConfigChange()));
 
     dialog->show();
 }
 
-void SettingsController::projectOpen(QString path)
+void SettingsController::reflectProjectConfigChange()
 {
-    if (path.isEmpty())
-        return;
-
-    Project::instance()->load(path);
+    //TODO check target language change: reflect changes in TM and glossary
+    TM::DBFilesModel::instance()->openDB(Project::instance()->projectID());
 }
 
 void SettingsController::reflectRelativePathsHack()

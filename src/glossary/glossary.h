@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -97,11 +97,7 @@ class Glossary: public QObject
 
 public:
 
-    Glossary(QObject* parent)
-     : QObject(parent)
-     //, subjectFields(QStringList(QLatin1String("")))
-    {}
-
+    Glossary(QObject* parent);
     ~Glossary(){}
 
     QString path() const{return m_path;}

@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -395,7 +395,7 @@ void LokalizeMainWindow::setupActions()
 
 //Settings
     SettingsController* sc=SettingsController::instance();
-    KStandardAction::preferences(sc, SLOT(slotSettings()),ac);
+    KStandardAction::preferences(sc, SLOT(showSettingsDialog()),ac);
 
 #define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
     action = actionCategory->addAction(_name);\
@@ -456,7 +456,7 @@ void LokalizeMainWindow::setupActions()
 
     action = proj->addAction("project_open",this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project"));
-
+    action->setIcon(KIcon("project-open"));
 
     m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);
     action = proj->addAction("project_open_recent",m_openRecentProjectAction);
@@ -498,20 +498,13 @@ bool LokalizeMainWindow::closeProject()
 
 void LokalizeMainWindow::openProject(QString path)
 {
-    if (path.isEmpty())
-    {
-        Project::instance()->model()->weaver()->suspend();
-        path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
-                                          "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
-                                         0);
-        Project::instance()->model()->weaver()->resume();
-    }
+    path=SettingsController::instance()->projectOpen(path, false);//dry run
 
     if (path.isEmpty())
         return;
 
     if (closeProject())
-        SettingsController::instance()->projectOpen(path);
+        SettingsController::instance()->projectOpen(path, true);//really open
 }
 
 void LokalizeMainWindow::saveProperties(KConfigGroup& stateGroup)
@@ -666,6 +659,7 @@ void LokalizeMainWindow::projectLoaded()
 
 void LokalizeMainWindow::projectSettingsChanged()
 {
+    //TODO show langs
     setCaption(Project::instance()->projectID());
 }
 

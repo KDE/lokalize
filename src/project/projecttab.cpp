@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -129,7 +129,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     action = proj->addAction("project_open",this,SIGNAL(projectOpenRequested()));
     action->setText(i18nc("@action:inmenu","Open project"));
-
+    action->setIcon(KIcon("project-open"));
     
     int i=6;
     while (--i>ID_STATUS_PROGRESS)

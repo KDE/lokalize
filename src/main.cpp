@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -104,6 +104,7 @@ int main(int argc, char **argv)
             Project::instance()->load( QFileInfo(path).absoluteFilePath() );
         }
         LokalizeMainWindow* lmw=new LokalizeMainWindow;
+        SettingsController::instance()->setMainWindowPtr(lmw);
         kWarning()<<"showing LokalizeMainWindow";
         lmw->show();
         kWarning()<<"LokalizeMainWindow shown";

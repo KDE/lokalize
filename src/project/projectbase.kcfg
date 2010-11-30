@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
@@ -16,8 +16,11 @@
     <entry name="LangCode"  type="String">
 <!--
         <label>Language</label>
--->
+
         <default code="true">KGlobal::locale()->language()</default>
+-->
+    </entry>
+    <entry name="TargetLangCode"  type="String">
     </entry>
     <entry name="SourceLangCode"  type="String">
         <default>en_US</default>

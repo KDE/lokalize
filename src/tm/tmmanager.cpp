@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
@@ -53,6 +53,7 @@ using namespace TM;
 TMManagerWin::TMManagerWin(QWidget *parent)
  : KMainWindow(parent)
 {
+    setAttribute(Qt::WA_DeleteOnClose, false);
     setCaption(i18nc("@title:window", "Translation Memories"));
     setCentralWidget(new QWidget(this));
     Ui_TMManager ui_tmManager;

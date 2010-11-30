@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -36,7 +36,8 @@ class KRecentFilesAction;
 class ProjectModel;
 class ProjectLocal;
 namespace GlossaryNS{class Glossary;}
-
+namespace GlossaryNS{class GlossaryWindow;}
+namespace TM{class TMManagerWin;}
 
 /**
  * Singleton object that represents project.
@@ -73,6 +74,8 @@ public:
     GlossaryNS::Glossary* glossary()const{return m_glossary;}
     QString altTransDir()const{return absolutePath(altDir());}
 
+
+    void setDefaults();
 // private slots:
 //     void initLater();
 
@@ -88,6 +91,9 @@ public slots:
     Q_SCRIPTABLE QString kind()const{return ProjectBase::kind();}
 
     Q_SCRIPTABLE QString absolutePath(const QString&) const;
+
+    Q_SCRIPTABLE void setDesirablePath(const QString& path){m_desirablePath=path;}
+    Q_SCRIPTABLE QString desirablePath() const{return m_desirablePath;}
 
 signals:
     Q_SCRIPTABLE void loaded();
@@ -110,9 +116,12 @@ public:
 
 private:
     QString m_path;
+    QString m_desirablePath;
     ProjectLocal* m_localConfig;
     ProjectModel* m_model;
     GlossaryNS::Glossary* m_glossary;
+    GlossaryNS::GlossaryWindow* m_glossaryWindow;
+    TM::TMManagerWin* m_tmManagerWindow;
 
     QList<KAction*> m_projectActions;
     KRecentFilesAction* _openRecentProject;

@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -33,6 +33,7 @@
 #include <QFile>
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
+#include <QBuffer>
 
 using namespace GlossaryNS;
 
@@ -45,15 +46,45 @@ QStringList Glossary::idsForLangWord(const QString& lang, const QString& word) c
 }
 
 
+Glossary::Glossary(QObject* parent)
+ : QObject(parent)
+ //, subjectFields(QStringList(QLatin1String("")))
+{
+/*    m_doc.setContent(QByteArray(
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<!DOCTYPE martif PUBLIC \"ISO 12200:1999A//DTD MARTIF core (DXFcdV04)//EN\" \"TBXcdv04.dtd\">\n"
+"<martif type=\"TBX\" xml:lang=\"en_US\">\n"
+"    <text>\n"
+"        <body>\n"
+"        </body>\n"
+"    </text>\n"
+"</martif>\n"
+                     ));
+*/
+
+}
+
+
 //BEGIN DISK
 void Glossary::load(const QString& newPath)
 {
 //BEGIN NEW
-    QFile* device=new QFile(newPath);
+    QIODevice* device=new QFile(newPath);
     if (!device->open(QFile::ReadOnly | QFile::Text))
     {
         delete device;
-        return;
+        //return;
+        device=new QBuffer();
+        static_cast<QBuffer*>(device)->setData(QByteArray(
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<!DOCTYPE martif PUBLIC \"ISO 12200:1999A//DTD MARTIF core (DXFcdV04)//EN\" \"TBXcdv04.dtd\">\n"
+"<martif type=\"TBX\" xml:lang=\"en_US\">\n"
+"    <text>\n"
+"        <body>\n"
+"        </body>\n"
+"    </text>\n"
+"</martif>\n"
+));
     }
 
     QXmlSimpleReader reader;
@@ -112,6 +143,9 @@ void Glossary::load(const QString& newPath)
 
 void Glossary::save()
 {
+    if (m_path.isEmpty())
+        return;
+    
     QFile* device=new QFile(m_path);
     if (!device->open(QFile::WriteOnly | QFile::Truncate))
     {
@@ -486,6 +520,9 @@ QString Glossary::append(const QStringList& sourceTerms, const QStringList& targ
     setClean(false);
     QDomElement termEntry=m_doc.createElement("termEntry");
     m_doc.elementsByTagName("body").at(0).appendChild(termEntry);
+    
+    //m_entries=m_doc.elementsByTagName("termEntry");
+    
     QString id=generateNewId();
     termEntry.setAttribute("id", id);
     

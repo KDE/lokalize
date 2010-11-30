@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -206,7 +206,8 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
  , m_proxyModel(new QSortFilterProxyModel(this))
  , m_reactOnSignals(true)
 {
-    setAttribute(Qt::WA_DeleteOnClose, true);
+    //setAttribute(Qt::WA_DeleteOnClose, true);
+    setAttribute(Qt::WA_DeleteOnClose, false);
 
     QSplitter* splitter=new QSplitter(Qt::Horizontal,this);
     setCentralWidget(splitter);
@@ -224,15 +225,16 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //left
     QWidget* w=new QWidget(splitter);
     QVBoxLayout* layout=new QVBoxLayout(w);
-    m_lineEdit=new KLineEdit(w);
-    m_lineEdit->setClearButtonShown(true);
-    m_lineEdit->setFocus();
+    m_filterEdit=new KLineEdit(w);
+    m_filterEdit->setClearButtonShown(true);
+    m_filterEdit->setClickMessage(i18n("Quick search..."));
+    m_filterEdit->setFocus();
 //     connect (m_lineEdit,SIGNAL(textChanged(QString)),
 //              m_proxyModel,SLOT(setFilterFixedString(QString)));
-    connect (m_lineEdit,SIGNAL(textChanged(QString)),
+    connect (m_filterEdit,SIGNAL(textChanged(QString)),
              m_proxyModel,SLOT(setFilterRegExp(QString)));
 
-    layout->addWidget(m_lineEdit);
+    layout->addWidget(m_filterEdit);
     layout->addWidget(m_browser);
     {
         KPushButton* addBtn=new KPushButton(KStandardGuiItem::add(),w);
@@ -255,9 +257,9 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
         //QWidget::setTabOrder(m_browser,addBtn);
         QWidget::setTabOrder(addBtn,rmBtn);
         QWidget::setTabOrder(rmBtn,restoreBtn);
-        QWidget::setTabOrder(restoreBtn,m_lineEdit);
+        QWidget::setTabOrder(restoreBtn,m_filterEdit);
     }
-    QWidget::setTabOrder(m_lineEdit,m_browser);
+    QWidget::setTabOrder(m_filterEdit,m_browser);
 
     splitter->addWidget(w);
 
@@ -388,6 +390,7 @@ void GlossaryWindow::applyEntryChange()
         return;
 
 
+    //TODO display filename, optionally stripped like for filetab names
     setCaption(i18nc("@title:window","Glossary"),!glossary->isClean());
 
     /*
@@ -419,7 +422,6 @@ void GlossaryWindow::selectEntry(const QString& id)
 
 void GlossaryWindow::newTerm(QString _english, QString _target)
 {
-//     kDebug()<<"start";
     setCaption(i18nc("@title:window","Glossary"),true);
 
     GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
