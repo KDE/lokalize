@@ -182,7 +182,7 @@ bool SettingsController::ensureProjectIsLoaded()
     if (Project::instance()->isLoaded())
         return true;
 
-    int answer=KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires project to be loaded. Do you want to create new project or open existing project?"),
+    int answer=KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
         QString(), KGuiItem(i18nc("@action","New"),KIcon("document-new")), KGuiItem(i18nc("@action","Open"),KIcon("project-open"))
     );
     if (answer==KMessageBox::Yes)
