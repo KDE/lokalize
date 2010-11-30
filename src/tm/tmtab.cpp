@@ -1,7 +1,7 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -139,29 +139,39 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
     if (!filemask.isEmpty())
         fileQuery="AND files.path GLOB '"+escapedFilemask+"' ";
 
+    QString fromPart="FROM main JOIN source_strings ON (source_strings.id==main.source) "
+                     "JOIN target_strings ON (target_strings.id==main.target), files "
+                     "WHERE files.id==main.file "
+                     +sourceQuery
+                     +targetQuery
+                     +fileQuery;
 
     ExecQueryJob* job=new ExecQueryJob(
                 "SELECT source_strings.source, target_strings.target, "
                 "main.ctxt, files.path, "
                 "source_strings.source_accel, target_strings.target_accel, main.bits "
-                "FROM main JOIN source_strings ON (source_strings.id==main.source) "
-                "JOIN target_strings ON (target_strings.id==main.target), files "
-                "WHERE files.id==main.file "
-                +sourceQuery
-                +targetQuery
-                +fileQuery,m_dbName);
-
+                +fromPart,m_dbName);
 
     connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
     connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(job);
 
-    //kWarning()<<"TEST"<<BIG_COUNTER;
+
+    job=new ExecQueryJob("SELECT count(*) "+fromPart,m_dbName);
+    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+    connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
+    ThreadWeaver::Weaver::instance()->enqueue(job);
 }
 
 void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
 {
     ExecQueryJob* job=static_cast<ExecQueryJob*>(j);
+    if (job->query->lastQuery().startsWith("SELECT count(*) "))
+    {
+        job->query->next();
+        emit finalResultCountFetched(job->query->value(0).toInt());
+        return;
+    }
     setQuery(*(job->query));
     emit resultsFetched();
 }
@@ -337,6 +347,7 @@ TMTab::TMTab(QWidget *parent)
     view->setColumnHidden(TMDBModel::_Bits,true);
 
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
+    connect(m_model,SIGNAL(finalResultCountFetched(int)),this,SLOT(setTotalResultCount(int)));
 
     QButtonGroup* btnGrp=new QButtonGroup(this);
     btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
@@ -468,10 +479,13 @@ void TMTab::handleResults()
     }
     view->setFocus();
 //END resizeColumnToContents
-
-    statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1",rowCount));
 }
 
+void TMTab::setTotalResultCount(int count)
+{
+    statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1",count));    
+}
+    
 static void copy(Ui_QueryOptions* ui_queryOptions, int column)
 {
     QApplication::clipboard()->setText( ui_queryOptions->treeView->currentIndex().sibling(ui_queryOptions->treeView->currentIndex().row(),column).data().toString());

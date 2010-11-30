@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
@@ -84,6 +84,7 @@ public slots:
     void copyTarget();
     void openFile();
     void handleResults();
+    void setTotalResultCount(int);
 
 signals:
     void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
@@ -153,6 +154,7 @@ public slots:
 
 signals:
     void resultsFetched();
+    void finalResultCountFetched(int);
 
 
 private:

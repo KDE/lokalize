@@ -1839,26 +1839,25 @@ ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QO
     , m_dbName(dbName)
     , m_query(queryString)
 {
-    kWarning(TM_AREA)<<dbName<<queryString;
+    kDebug(TM_AREA)<<dbName<<queryString;
 }
 
 ExecQueryJob::~ExecQueryJob()
 {
     delete query;
-    kWarning(TM_AREA)<<"destroy";
-    std::cout<<"~ExecQueryJob"<<std::endl;
+    kDebug(TM_AREA)<<"destroy";
 }
 
 void ExecQueryJob::run()
 {
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    kWarning(TM_AREA)<<"running"<<m_dbName<<"db.isOpen() ="<<db.isOpen();
+    kDebug(TM_AREA)<<"running"<<m_dbName<<"db.isOpen() ="<<db.isOpen();
     //temporarily:
     if (!db.isOpen())
         kWarning(TM_AREA)<<"db.open()="<<db.open();
     query=new QSqlQuery(m_query,db);
     query->exec();
-    kWarning(TM_AREA)<<"done"<<query->lastError().text();
+    kDebug(TM_AREA)<<"done"<<query->lastError().text();
 }
 
 
