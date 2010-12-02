@@ -88,7 +88,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KActio
     m_browser->setBackgroundRole(QPalette::Background);
 
     m_rxClean.setMinimal(true);
-    connect (m_glossary,SIGNAL(changed()),this,SLOT(slotNewEntryDisplayed()));
+    connect (m_glossary,SIGNAL(changed()),this,SLOT(slotNewEntryDisplayed()),Qt::QueuedConnection);
 }
 
 GlossaryView::~GlossaryView()

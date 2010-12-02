@@ -53,7 +53,7 @@ Glossary::Glossary(QObject* parent)
 
 
 //BEGIN DISK
-void Glossary::load(const QString& newPath)
+bool Glossary::load(const QString& newPath)
 {
     QTime a;a.start();
 //BEGIN NEW
@@ -90,7 +90,7 @@ void Glossary::load(const QString& newPath)
     if (!success)
     {
         kWarning()<<errorMsg;
-        return; //errorLine+1;
+        return false; //errorLine+1;
     }
     clear();//does setClean(true);
     m_path=newPath;
@@ -114,19 +114,20 @@ void Glossary::load(const QString& newPath)
     if (!reader1.parse(xmlInputSource))
          kWarning() << "failed to load "<< path;
 #endif
-    emit changed();
+    emit loaded();
+    return true;
 }
 
-void Glossary::save()
+bool Glossary::save()
 {
     if (m_path.isEmpty())
-        return;
+        return false;
     
     QFile* device=new QFile(m_path);
     if (!device->open(QFile::WriteOnly | QFile::Truncate))
     {
         device->deleteLater();
-        return;
+        return false;
     }
     QTextStream stream(device);
     m_doc.save(stream,2);
@@ -134,6 +135,7 @@ void Glossary::save()
     device->deleteLater();
 
     setClean(true);
+    return true;
 }
 
 void Glossary::setClean(bool clean)
@@ -152,9 +154,8 @@ GlossaryModel::GlossaryModel(QObject* parent)
  , m_visibleCount(0)
  , m_glossary(Project::instance()->glossary())
 {
-    connect(m_glossary, SIGNAL(changed()), this, SLOT(forceReset()));
+    connect(m_glossary, SIGNAL(loaded()), this, SLOT(forceReset()));
 }
-
 
 void GlossaryModel::forceReset()
 {

@@ -456,6 +456,11 @@ void GlossaryWindow::restore()
     glossary->load(glossary->path());
 }
 
+bool GlossaryWindow::save()
+{
+    //TODO add error message
+    return Project::instance()->glossary()->save();
+}
 
 bool GlossaryWindow::queryClose()
 {
@@ -471,8 +476,7 @@ Do you want to save your changes or discard them?"),i18nc("@title:window","Warni
       KStandardGuiItem::save(),KStandardGuiItem::discard()))
     {
         case KMessageBox::Yes:
-            glossary->save();
-            return true;
+            return save();
         case KMessageBox::No:
             glossary->load(glossary->path());
             return true;

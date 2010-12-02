@@ -68,6 +68,7 @@ public slots:
     void newTerm(QString _english=QString(), QString _target=QString());
     void rmTerm(int i=-1);
     void restore();
+    bool save();
     void applyEntryChange();
     void selectEntry(const QString& id);
 

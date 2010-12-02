@@ -126,8 +126,8 @@ public:
     void clear();
 
     //disk
-    void load(const QString&);
-    void save();
+    bool load(const QString&);
+    bool save();
 
     //in-memory changing
     QString generateNewId();
@@ -145,6 +145,7 @@ public:
 
 signals:
     void changed();
+    void loaded();
 
 private:
     QString m_path;
