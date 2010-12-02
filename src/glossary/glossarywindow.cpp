@@ -34,6 +34,7 @@
 #include <kmessagebox.h>
 
 
+#include <QApplication>
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -400,7 +401,8 @@ void GlossaryWindow::applyEntryChange()
 
 void GlossaryWindow::selectEntry(const QString& id)
 {
-    kDebug()<<m_proxyModel->rowCount(QModelIndex());
+    qApp->processEvents(); //let it fetch the rows
+
     QModelIndexList items=m_proxyModel->match(m_proxyModel->index(0,0),Qt::DisplayRole,QVariant(id),1,0);
     if (items.count())
     {
@@ -424,8 +426,6 @@ void GlossaryWindow::newTerm(QString _english, QString _target)
     GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
     QString id=sourceModel->appendRow(_english,_target);
 
-    sourceModel->fetchMore(QModelIndex());
-    //QMetaObject::invokeMethod(this, "selectEntry", Qt::QueuedConnection, Q_ARG(QString,id));
     selectEntry(id);
 }
 
