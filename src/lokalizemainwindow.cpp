@@ -225,7 +225,7 @@ bool LokalizeMainWindow::queryClose()
             return false;
     }
 
-    return true;
+    return Project::instance()->queryCloseForAuxiliaryWindows();
 }
 
 EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile, bool silent)

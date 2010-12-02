@@ -74,6 +74,7 @@ public:
     GlossaryNS::Glossary* glossary()const{return m_glossary;}
     QString altTransDir()const{return absolutePath(altDir());}
 
+    bool queryCloseForAuxiliaryWindows();
 
     void setDefaults();
 // private slots:

@@ -217,6 +217,14 @@ GlossaryNS::GlossaryWindow* Project::defineNewTerm(QString en, QString target)
     return m_glossaryWindow;
 }
 
+bool Project::queryCloseForAuxiliaryWindows()
+{
+    if (m_glossaryWindow && m_glossaryWindow->isVisible())
+        return m_glossaryWindow->queryClose();
+    
+    return true;
+}
+
 void Project::showTMManager()
 {
     if (!m_tmManagerWindow)
