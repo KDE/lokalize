@@ -108,7 +108,7 @@ public:
     QString id(int index) const;
     QStringList terms(int index, const QString& lang) const;
     QStringList terms(const QString& id, const QString& lang) const;
-    void setTerm(const QString& id, const QString& lang, int i, const QString& term);
+    void setTerm(const QString& id, QString lang, int i, const QString& term);
     QString subjectField(const QString& id) const;
     void setSubjectField(const QString& id, const QString& value);
     QString definition(const QString& id) const;

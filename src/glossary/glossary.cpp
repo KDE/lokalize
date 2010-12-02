@@ -303,6 +303,9 @@ QStringList Glossary::terms(const QString& id, const QString& language) const
     while (!n.isNull())
     {
         QString lang=n.attribute("xml:lang", defaultLang);
+        if (lang=="en") //NOTE COMPAT
+            lang=defaultLang;
+
         if (language==lang)
         {
             QString term=n.firstChildElement("ntig").firstChildElement("termGrp").firstChildElement("term").text();
@@ -331,7 +334,7 @@ static void setText(QDomElement element, QString text)
         element.appendChild( element.ownerDocument().createTextNode(text));
 }
 
-void Glossary::setTerm(const QString& id, const QString& lang, int index, const QString& termText)
+void Glossary::setTerm(const QString& id, QString lang, int index, const QString& termText)
 {
     setClean(false);
 
@@ -340,7 +343,13 @@ void Glossary::setTerm(const QString& id, const QString& lang, int index, const 
     int i=0;
     while (!n.isNull())
     {
-        QString nLang=n.attribute("xml:lang", "en");
+        QString nLang=n.attribute("xml:lang", defaultLang);
+        if (lang=="en") //NOTE COMPAT
+        {
+            lang=defaultLang;
+            n.setAttribute("xml:lang", defaultLang);
+        }
+
         if (lang==nLang)
         {
             if (i==index)
@@ -425,7 +434,10 @@ QStringList Glossary::terms(int index, const QString& language) const
     QDomElement n = m_entries.at(index).firstChildElement("langSet");
     while (!n.isNull())
     {
-        QString lang=n.attribute("xml:lang", "en");
+        QString lang=n.attribute("xml:lang", defaultLang);
+        if (lang=="en") //NOTE COMPAT
+            lang=defaultLang;
+
         if (language==lang)
             result<<n.firstChildElement("ntig").firstChildElement("termGrp").firstChildElement("term").text();
         n = n.nextSiblingElement("langSet");
@@ -469,6 +481,9 @@ void Glossary::unhashTermEntry(const QDomElement& termEntry)
     while (!n.isNull())
     {
         QString lang=n.attribute("xml:lang", defaultLang);
+        if (lang=="en") //NOTE COMPAT
+            lang=defaultLang;
+
         QString term=n.firstChildElement("ntig").firstChildElement("termGrp").firstChildElement("term").text();
         foreach(const QString& word, term.split(' ',QString::SkipEmptyParts))
             idsByLangWord[lang].remove(stem(lang,word),termEntry.attribute("id"));
