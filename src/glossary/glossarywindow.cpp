@@ -71,6 +71,7 @@ void GlossaryTreeView::currentChanged(const QModelIndex& current, const QModelIn
         //QModelIndex item=static_cast<QSortFilterProxyModel*>(model())->mapToSource(current);
         //emit currentChanged(item.row());
         emit currentChanged(modelIndexToId(current));
+        scrollTo(current);
     }
 }
 
@@ -212,11 +213,14 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     QSplitter* splitter=new QSplitter(Qt::Horizontal,this);
     setCentralWidget(splitter);
 
-    m_proxyModel->setFilterKeyColumn(GlossaryModel::English);
+    m_proxyModel->setFilterKeyColumn(-1);
+    m_proxyModel->setDynamicSortFilter(true);;
     GlossaryModel* model=new GlossaryModel(this);
     m_proxyModel->setSourceModel(model);
     m_browser->setModel(m_proxyModel);
 
+    m_browser->setUniformRowHeights(true);
+    m_browser->setAutoScroll(true);
     m_browser->setColumnHidden(GlossaryModel::ID,true);
     m_browser->setColumnWidth(GlossaryModel::English, m_browser->columnWidth(GlossaryModel::English)*2); //man this is  HACK y
     m_browser->setColumnWidth(GlossaryModel::Target, m_browser->columnWidth(GlossaryModel::Target)*2);
@@ -299,8 +303,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     subjectFieldsModel->setStringList(subjectFields);
     m_subjectField->setModel(subjectFieldsModel);
     connect(m_browser,SIGNAL(currentChanged(int)), this,SLOT(currentChanged(int)));
-    connect(m_browser,SIGNAL(currentChanged(QString)), this,SLOT(currentChanged(QString)));
-    connect(m_browser,SIGNAL(clicked(QModelIndex)),ui_termEdit.sourceTermsView,SLOT(setFocus()));
+    connect(m_browser,SIGNAL(currentChanged(QString)), this,SLOT(showEntryInEditor(QString)));
 
     //TODO
     //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
@@ -317,7 +320,7 @@ GlossaryWindow::~GlossaryWindow()
 {
 }
 
-void GlossaryWindow::currentChanged(const QString& id)
+void GlossaryWindow::showEntryInEditor(const QString& id)
 {
     if (m_editor->isVisible())
         applyEntryChange();
@@ -392,32 +395,26 @@ void GlossaryWindow::applyEntryChange()
 
     //TODO display filename, optionally stripped like for filetab names
     setCaption(i18nc("@title:window","Glossary"),!glossary->isClean());
-
-    /*
-    //update the GUI
-    const QModelIndex& parent=idx.parent();
-    int row=m_browser->currentIndex().row();
-    int i=m_proxyModel->columnCount();
-    while (--i>=0)
-        m_browser->update(m_proxyModel->index(row,i,parent));
-
-    kDebug()<<glossary->changedIds;
-    */
-    //glossary->forceChangeSignal();
 }
 
 
 void GlossaryWindow::selectEntry(const QString& id)
 {
+    kDebug()<<m_proxyModel->rowCount(QModelIndex());
     QModelIndexList items=m_proxyModel->match(m_proxyModel->index(0,0),Qt::DisplayRole,QVariant(id),1,0);
     if (items.count())
     {
         m_browser->setCurrentIndex(items.first());
         m_browser->scrollTo(items.first(),QAbstractItemView::PositionAtCenter);
-        kDebug()<<id<<items<<items.first().row();
+        //kDebug()<<id<<items<<items.first().row();
     }
     else
-        kDebug()<<id<<0;
+    {
+        //the row is probably not fetched yet
+        m_browser->setCurrentIndex(QModelIndex());
+        showEntryInEditor(id);
+        //kDebug()<<id<<0;
+    }
 }
 
 void GlossaryWindow::newTerm(QString _english, QString _target)
@@ -426,6 +423,9 @@ void GlossaryWindow::newTerm(QString _english, QString _target)
 
     GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
     QString id=sourceModel->appendRow(_english,_target);
+
+    sourceModel->fetchMore(QModelIndex());
+    //QMetaObject::invokeMethod(this, "selectEntry", Qt::QueuedConnection, Q_ARG(QString,id));
     selectEntry(id);
 }
 
@@ -454,8 +454,6 @@ void GlossaryWindow::restore()
 
     Glossary* glossary=Project::instance()->glossary();
     glossary->load(glossary->path());
-    GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
-    sourceModel->forceReset();
 }
 
 

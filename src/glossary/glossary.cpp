@@ -48,26 +48,14 @@ QStringList Glossary::idsForLangWord(const QString& lang, const QString& word) c
 
 Glossary::Glossary(QObject* parent)
  : QObject(parent)
- //, subjectFields(QStringList(QLatin1String("")))
 {
-/*    m_doc.setContent(QByteArray(
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-"<!DOCTYPE martif PUBLIC \"ISO 12200:1999A//DTD MARTIF core (DXFcdV04)//EN\" \"TBXcdv04.dtd\">\n"
-"<martif type=\"TBX\" xml:lang=\"en_US\">\n"
-"    <text>\n"
-"        <body>\n"
-"        </body>\n"
-"    </text>\n"
-"</martif>\n"
-                     ));
-*/
-
 }
 
 
 //BEGIN DISK
 void Glossary::load(const QString& newPath)
 {
+    QTime a;a.start();
 //BEGIN NEW
     QIODevice* device=new QFile(newPath);
     if (!device->open(QFile::ReadOnly | QFile::Text))
@@ -104,27 +92,15 @@ void Glossary::load(const QString& newPath)
         kWarning()<<errorMsg;
         return; //errorLine+1;
     }
-    clear();//does setClean(true);;
+    clear();//does setClean(true);
     m_path=newPath;
     m_doc=newDoc;
-
-
-//BEGIN compat code
-    QDomNodeList langSets=m_doc.elementsByTagName("langSet");
-    for(int i=0;i<langSets.size();i++)
-    {
-        QDomElement langSet=langSets.at(i).toElement();
-        if (langSet.attribute("xml:lang")=="en")
-            langSet.setAttribute("xml:lang", defaultLang);
-    }
-//END compat code
 
     //QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
     m_entries=m_doc.elementsByTagName("termEntry");
     for(int i=0;i<m_entries.size();i++)
         hashTermEntry(m_entries.at(i).toElement());
 
-    
 //END NEW
 #if 0
     TbxParser parser(this);
@@ -169,12 +145,42 @@ void Glossary::setClean(bool clean)
 //END DISK
 
 //BEGIN MODEL
+#define FETCH_SIZE 64
+
+GlossaryModel::GlossaryModel(QObject* parent)
+ : QAbstractListModel(parent)
+ , m_visibleCount(0)
+ , m_glossary(Project::instance()->glossary())
+{
+    connect(m_glossary, SIGNAL(changed()), this, SLOT(forceReset()));
+}
+
+
+void GlossaryModel::forceReset()
+{
+    beginResetModel();
+    m_visibleCount=0;
+    endResetModel();
+}
+
+bool GlossaryModel::canFetchMore(const QModelIndex& parent) const
+{
+    return !parent.isValid() && m_glossary->size()!=m_visibleCount;
+}
+
+void GlossaryModel::fetchMore(const QModelIndex& parent)
+{
+    int newVisibleCount=qMin(m_visibleCount+FETCH_SIZE,m_glossary->size());
+    beginInsertRows(parent, m_visibleCount, newVisibleCount-1);
+    m_visibleCount=newVisibleCount;
+    endInsertRows();
+}
 
 int GlossaryModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return 0;
-    return Project::instance()->glossary()->size();
+    return m_visibleCount;
 }
 
 QVariant GlossaryModel::headerData( int section, Qt::Orientation /*orientation*/, int role) const
@@ -184,7 +190,7 @@ QVariant GlossaryModel::headerData( int section, Qt::Orientation /*orientation*/
 
     switch (section)
     {
-//         case ID: return i18nc("@title:column","ID");
+        //case ID: return i18nc("@title:column","ID");
         case English: return i18nc("@title:column Original text","Source");;
         case Target: return i18nc("@title:column Text in target language","Target");
         case SubjectField: return i18nc("@title:column","Subject Field");
@@ -194,12 +200,15 @@ QVariant GlossaryModel::headerData( int section, Qt::Orientation /*orientation*/
 
 QVariant GlossaryModel::data(const QModelIndex& index, int role) const
 {
+    //if (role==Qt::SizeHintRole)
+    //    return QVariant(QSize(50, 30));
+
     if (role!=Qt::DisplayRole)
         return QVariant();
 
-    static const QString nl="\n";
-    Project* project=Project::instance();
-    Glossary* glossary=project->glossary();
+    static const QString nl=QString(" ")+QChar(0x00B7)+' ';
+    static Project* project=Project::instance();
+    Glossary* glossary=m_glossary;
 
     QString id=glossary->id(index.row());
     switch (index.column())
@@ -224,13 +233,14 @@ int GlossaryModel::columnCount(const QModelIndex&) const
     return GlossaryModelColumnCount;
 }
 
+/*
 Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
 {
-/*    if (index.column()==FuzzyFlag)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;*/
+    if (index.column()==FuzzyFlag)
+        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
     return QAbstractItemModel::flags(index);
 }
-
+*/
 
 //END MODEL general (GlossaryModel continues below)
 
@@ -292,7 +302,7 @@ QStringList Glossary::terms(const QString& id, const QString& language) const
     QDomElement n = m_entriesById.value(id).firstChildElement("langSet");
     while (!n.isNull())
     {
-        QString lang=n.attribute("xml:lang", "en");
+        QString lang=n.attribute("xml:lang", defaultLang);
         if (language==lang)
         {
             QString term=n.firstChildElement("ntig").firstChildElement("termGrp").firstChildElement("term").text();
@@ -437,6 +447,12 @@ void Glossary::hashTermEntry(const QDomElement& termEntry)
     while (!n.isNull())
     {
         QString lang=n.attribute("xml:lang", defaultLang);
+        if (lang=="en") //NOTE COMPAT
+        {
+            lang=defaultLang;
+            //n.setAttribute("xml:lang", defaultLang); freezes lokalize on large TBX
+        }
+
         QString term=n.firstChildElement("ntig").firstChildElement("termGrp").firstChildElement("term").text();
         foreach(const QString& word, term.split(' ',QString::SkipEmptyParts))
             idsByLangWord[lang].insert(stem(lang,word),termEntry.attribute("id"));
@@ -546,6 +562,7 @@ void Glossary::clear()
     setClean(true);
     //path.clear();
     idsByLangWord.clear();
+    m_entriesById.clear();
 
     removedIds.clear();
     changedIds_.clear();
@@ -554,6 +571,8 @@ void Glossary::clear()
     termList_.clear();
     langWordEntry_.clear();
     subjectFields_=QStringList(QLatin1String(""));
+    
+    m_doc.clear();
 }
 
 
@@ -576,11 +595,17 @@ bool GlossaryModel::removeRows(int row, int count, const QModelIndex& parent)
 //         return false;
 QString GlossaryModel::appendRow(const QString& _english, const QString& _target)
 {
-    beginInsertRows(QModelIndex()/*parent*/,rowCount(),rowCount());
+    bool notify=!canFetchMore(QModelIndex());
+    if (notify)
+        beginInsertRows(QModelIndex(),rowCount(),rowCount());
 
-    QString id=Project::instance()->glossary()->append(QStringList(_english), QStringList(_target));
+    QString id=m_glossary->append(QStringList(_english), QStringList(_target));
 
-    endInsertRows();
+    if (notify)
+    {
+        m_visibleCount++;
+        endInsertRows();
+    }
     return id;
 }
 

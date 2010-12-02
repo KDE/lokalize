@@ -197,15 +197,15 @@ void Project::populateGlossary()
     m_glossary->load(glossaryPath());
 }
 
-void Project::showGlossary()
+GlossaryNS::GlossaryWindow* Project::showGlossary()
 {
-    defineNewTerm();
+    return defineNewTerm();
 }
 
-void Project::defineNewTerm(QString en,QString target)
+GlossaryNS::GlossaryWindow* Project::defineNewTerm(QString en, QString target)
 {
     if (!SettingsController::instance()->ensureProjectIsLoaded())
-        return;
+        return 0;
 
     if (!m_glossaryWindow)
         m_glossaryWindow=new GlossaryNS::GlossaryWindow(SettingsController::instance()->mainWindowPtr());
@@ -213,6 +213,8 @@ void Project::defineNewTerm(QString en,QString target)
     m_glossaryWindow->activateWindow();
     if (!en.isEmpty()||!target.isEmpty())
         m_glossaryWindow->newTerm(en,target);
+    
+    return m_glossaryWindow;
 }
 
 void Project::showTMManager()

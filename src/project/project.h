@@ -104,8 +104,8 @@ public slots:
     void populateGlossary();
 
     void showTMManager();
-    void showGlossary();
-    void defineNewTerm(QString en=QString(),QString target=QString());
+    GlossaryNS::GlossaryWindow* showGlossary();
+    GlossaryNS::GlossaryWindow* defineNewTerm(QString en=QString(),QString target=QString());
 
 private:
     static Project* _instance;

@@ -64,7 +64,7 @@ public:
 
 public slots:
     void currentChanged(int);
-    void currentChanged(const QString&);
+    void showEntryInEditor(const QString&);
     void newTerm(QString _english=QString(), QString _target=QString());
     void rmTerm(int i=-1);
     void restore();

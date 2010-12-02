@@ -177,7 +177,7 @@ private:
  */
 class GlossaryModel: public QAbstractListModel
 {
-    //Q_OBJECT
+    Q_OBJECT
 public:
 
     enum Columns
@@ -197,31 +197,23 @@ public:
     int columnCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex&, int role=Qt::DisplayRole) const;
     QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
-    Qt::ItemFlags flags(const QModelIndex&) const;
+    //Qt::ItemFlags flags(const QModelIndex&) const;
 
+    bool canFetchMore(const QModelIndex& parent) const;
+    void fetchMore(const QModelIndex& parent);
+    
     bool removeRows(int row, int count, const QModelIndex& parent=QModelIndex());
     //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
     QString appendRow(const QString& _english, const QString& _target);
+
+public slots:
     void forceReset();
 
-// private:
-//     Glossary* m_glossary;
-//^ we take it from Project::instance()->glossary()
+private:
+    int m_visibleCount;
+    Glossary* m_glossary; //taken from Project::instance()->glossary()
 };
 
 
-
-inline
-GlossaryModel::GlossaryModel(QObject* parent)
- : QAbstractListModel(parent)
-{
-}
-
-
-inline
-void GlossaryModel::forceReset()
-{
-    emit reset();
-}
 }
 #endif

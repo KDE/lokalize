@@ -1,4 +1,4 @@
-/* ****************************************************************************
+﻿/* ****************************************************************************
   This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
@@ -101,11 +101,9 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
         QAction* txt=menu.exec(event->globalPos());
         if (txt)
         {
-//         if (txt->text()==i18nc("Edit term","Edit"))
-            //const TermEntry& a(Project::instance()->glossary()->termList.at(m_termIndex));
-            GlossaryWindow* glossaryWindow=new GlossaryWindow;
-            glossaryWindow->show();
-            glossaryWindow->selectEntry(m_entryId);
+            GlossaryNS::GlossaryWindow* glossaryWindow=Project::instance()->showGlossary();
+            if (glossaryWindow)
+                glossaryWindow->selectEntry(m_entryId);
         }
     }
     else
