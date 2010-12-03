@@ -30,9 +30,10 @@
 #include <threadweaver/Job.h>
 #include <kurl.h>
 #include <QString>
-//#include <QMultiHash>
 #include <QSqlDatabase>
 class QSqlQuery;
+
+#define TM_DATABASE_EXTENSION ".db"
 
 #define TM_AREA 8111
 
@@ -97,6 +98,7 @@ public:
     ~CloseDBJob();
 
     int priority()const{return CLOSEDB;}
+    QString dbName(){return m_dbName;}
 
 protected:
     void run ();

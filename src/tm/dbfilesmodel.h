@@ -24,8 +24,11 @@
 #ifndef DBFILESMODEL_H
 #define DBFILESMODEL_H
 
-#include <QDirModel>
 #include "jobs.h"
+
+#include <QSortFilterProxyModel>
+#include <QTime>
+class QFileSystemModel;
 class QPersistentModelIndex;
 
 namespace ThreadWeaver{class Job;}
@@ -33,7 +36,7 @@ namespace ThreadWeaver{class Job;}
 namespace TM{
 class OpenDBJob;
 
-class DBFilesModel: public QDirModel
+class DBFilesModel: public QSortFilterProxyModel
 {
 Q_OBJECT
 public:
@@ -51,18 +54,21 @@ public:
 
     enum Rolse
     {
-        NameRole=Qt::UserRole
+        NameRole=Qt::UserRole+50
     };
 
     DBFilesModel();
     ~DBFilesModel();
 
     QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex&) const {return ColumnCount;}
+    int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
     Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
     QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const;
 
     QModelIndex rootIndex() const;
+    void removeTM(QModelIndex);
+    
+    
     //can be zero!!!
     QPersistentModelIndex* projectDBIndex()const{return projectDB;}
 
@@ -74,14 +80,21 @@ private:
     static DBFilesModel* _instance;
     static void cleanupDBFilesModel();
 
+protected:
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+
 public slots:
+    void updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void calcStats(const QModelIndex& parent, int start, int end);
     void openJobDone(ThreadWeaver::Job*);
-    void refresh();
+    void closeJobDone(ThreadWeaver::Job*);
+    void updateProjectTmIndex();
 
 private:
     mutable QPersistentModelIndex* projectDB;
-
+    QFileSystemModel* m_fileSystemModel;
+    QString m_tmRootPath;
+    QTime m_timeSinceLastUpdate;
 
     QMap< QString,OpenDBJob::DBStat> m_stats;
 public:

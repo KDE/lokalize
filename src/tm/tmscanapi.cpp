@@ -31,6 +31,7 @@
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
 #include <threadweaver/ThreadWeaver.h>
+#include "dbfilesmodel.h"
 
 namespace TM {
     static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
@@ -112,6 +113,7 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
     }
 
     metaJob->setJobs(result);
+    DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
 
     return result.size();
 }

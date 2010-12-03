@@ -89,7 +89,8 @@ void TMManagerWin::addDir()
     if (!dir.isEmpty())
     {
         QList<QUrl> dirs; dirs.append(QUrl(dir));
-        scanRecursive(dirs,DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString());
+        QModelIndex index=m_tmListWidget->currentIndex();
+        scanRecursive(dirs,index.sibling(index.row(), 0).data().toString());
     }
 
 }
@@ -113,6 +114,7 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
 
     setupUi(mainWidget());
     name->setFocus();
+    //TODO: visual feedback if empty, or not unique
 
     sourceLang->setModel(LanguageListModel::instance()->sortModel());
     targetLang->setModel(LanguageListModel::instance()->sortModel());
@@ -131,7 +133,7 @@ void DBPropertiesDialog::accept()
     if (!name->text().isEmpty())
     {
         OpenDBJob* openDBJob=new OpenDBJob(name->text());
-        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT(refresh()));
+        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT( updateProjectTmIndex()));
 
         openDBJob->m_setParams=true;
         openDBJob->m_tmConfig.markup=markup->text();
@@ -153,8 +155,7 @@ void TMManagerWin::addDB()
 void TMManagerWin::removeDB()
 {
     QModelIndex index=m_tmListWidget->currentIndex();
-    QFile::remove(DBFilesModel::instance()->filePath(index.sibling(index.row(),0)));
-    DBFilesModel::instance()->refresh();
+    DBFilesModel::instance()->removeTM(index);
 }
 
 
@@ -165,7 +166,8 @@ void TMManagerWin::importTMX()
                       this,
                       i18nc("@title:window","Select TMX file to be imported into selected database"));
 
-    QString dbName=m_tmListWidget->currentIndex().data(DBFilesModel::NameRole).toString();
+    QModelIndex index=m_tmListWidget->currentIndex();
+    QString dbName=index.sibling(index.row(), 0).data().toString();
 
     if (!path.isEmpty())
     {
@@ -174,18 +176,21 @@ void TMManagerWin::importTMX()
         connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
 
         ThreadWeaver::Weaver::instance()->enqueue(j);
+        DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
     }
 }
 
 
 void TMManagerWin::exportTMX()
 {
+    //TODO ask whether to save full paths of files, or just their names
     QString path=KFileDialog::getSaveFileName(KUrl("kfiledialog:///tmx"),
                       i18n("*.tmx *.xml|TMX files\n*|All files"),
                       this,
                       i18nc("@title:window","Select TMX file to export selected database to"));
 
-    QString dbName=m_tmListWidget->currentIndex().data(DBFilesModel::NameRole).toString();
+    QModelIndex index=m_tmListWidget->currentIndex();
+    QString dbName=index.sibling(index.row(), 0).data().toString();
 
     if (!path.isEmpty())
     {

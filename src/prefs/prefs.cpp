@@ -310,7 +310,7 @@ void SettingsController::projectConfigure()
 
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
     connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
-    connect(dialog, SIGNAL(settingsChanged(QString)),TM::DBFilesModel::instance(), SLOT(refresh()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),TM::DBFilesModel::instance(), SLOT( updateProjectTmIndex()));
     connect(dialog, SIGNAL(settingsChanged(QString)),this, SLOT(reflectProjectConfigChange()));
 
     dialog->show();

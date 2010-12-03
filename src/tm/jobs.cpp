@@ -50,6 +50,7 @@ using namespace TM;
 #define TM_SEPARATOR '\b'
 #define TM_NOTAPPROVED 0x04
 
+
 /**
  * splits string into words, removing any markup
  *
@@ -736,21 +737,23 @@ QMap<QString,TMConfig> tmConfigCache;
 
 static void setConfig(QSqlDatabase& db, const TMConfig& c)
 {
+    qDebug()<<"setConfig"<<db.databaseName();
     QSqlQuery query(db);
     query.prepare("INSERT INTO tm_config (key, value) "
                       "VALUES (?, ?)");
 
     query.addBindValue(0);
     query.addBindValue(c.markup);
-    kDebug(TM_AREA)<<"setting tm db config:"<<query.exec();
+    //kDebug(TM_AREA)<<"setting tm db config:"<<query.exec();
+    qDebug()<<"setting tm db config 1:"<<query.exec();
 
     query.addBindValue(1);
     query.addBindValue(c.accel);
-    query.exec();
+    qDebug()<<"setting tm db config 2:"<<query.exec();
 
     query.addBindValue(2);
     query.addBindValue(c.sourceLangCode);
-    query.exec();
+    qDebug()<<"setting tm db config 3:"<<query.exec();
 
     query.addBindValue(3);
     query.addBindValue(c.targetLangCode);
@@ -819,7 +822,7 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     , m_dbName(name)
     , m_setParams(false)
 {
-    kDebug(TM_AREA)<<m_dbName;
+    qDebug()<<m_dbName;
 }
 
 OpenDBJob::~OpenDBJob()
@@ -835,7 +838,7 @@ void OpenDBJob::run()
         thread()->setPriority(QThread::IdlePriority);
 
         QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
-        db.setDatabaseName(KStandardDirs::locateLocal("appdata", m_dbName+".db"));
+        db.setDatabaseName(KStandardDirs::locateLocal("appdata", m_dbName+TM_DATABASE_EXTENSION));
         if (KDE_ISUNLIKELY( !db.open() )) return;
         initDb(db);
     }

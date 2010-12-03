@@ -26,10 +26,14 @@
 #include "project.h"
 
 #include <QCoreApplication>
+#include <QFileSystemModel>
 
 #include <threadweaver/ThreadWeaver.h>
 #include <kstandarddirs.h>
 using namespace TM;
+
+static QString tmFileExtension(TM_DATABASE_EXTENSION);
+
 
 DBFilesModel* DBFilesModel::_instance=0;
 void DBFilesModel::cleanupDBFilesModel()
@@ -49,11 +53,23 @@ DBFilesModel* DBFilesModel::instance()
 
 
 DBFilesModel::DBFilesModel()
- : QDirModel(QStringList("*.db"),QDir::Files,QDir::Name)
+ : QSortFilterProxyModel()
  , projectDB(0)
+ , m_fileSystemModel(new QFileSystemModel(this))
+ , m_tmRootPath(KStandardDirs::locateLocal("appdata", ""))
 {
+    m_fileSystemModel->setRootPath(KStandardDirs::locateLocal("appdata", ""));
+    m_fileSystemModel->setNameFilters(QStringList(QString("*.") + TM_DATABASE_EXTENSION));
+    m_fileSystemModel->setFilter(QDir::Files);
+
+    setSourceModel(m_fileSystemModel);
     connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
              this,SLOT(calcStats(QModelIndex, int, int))/*,Qt::QueuedConnection*/);
+
+    connect (this,SIGNAL(dataChanged(QModelIndex, QModelIndex)),
+             this,SLOT(updateStats(QModelIndex,QModelIndex)),Qt::QueuedConnection);
+    m_timeSinceLastUpdate.start();
+
     int count=rowCount(rootIndex());
     kWarning(TM_AREA)<<"initial row count"<<count;
     if (count) calcStats(rootIndex(),0,count-1);
@@ -65,9 +81,19 @@ DBFilesModel::~DBFilesModel()
     delete projectDB;
 }
 
+
+bool DBFilesModel::filterAcceptsRow ( int source_row, const QModelIndex& source_parent ) const
+{
+    if (source_parent!=m_fileSystemModel->index(m_tmRootPath))
+        return true;
+    
+    const QString& fileName=m_fileSystemModel->index(source_row, 0, source_parent).data().toString();
+    return fileName.endsWith(tmFileExtension) && !fileName.endsWith("-journal.db");
+}
+
 QModelIndex DBFilesModel::rootIndex() const
 {
-    return index(KStandardDirs::locateLocal("appdata", ""));
+    return  mapFromSource(m_fileSystemModel->index(m_tmRootPath));
 }
 
 QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -99,16 +125,29 @@ void DBFilesModel::openDB(OpenDBJob* openDBJob)
     ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
 }
 
+void DBFilesModel::updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight)
+{
+    if (m_timeSinceLastUpdate.elapsed()<60000)
+        return;
+
+    qDebug()<<"DBFilesModel::updateStats() called";
+    calcStats(topLeft.parent(), topLeft.row(), bottomRight.row());
+    m_timeSinceLastUpdate.start();
+}
+
 void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
 {
+    if (parent!=rootIndex())
+        return;
+
     while (start<=end)
     {
-        QModelIndex index=QDirModel::index(start++, 0, parent);
-        QString res=fileName(index).remove(".db");
-        if (KDE_ISUNLIKELY(res==Project::instance()->projectID() && !projectDB))
+        QModelIndex index=QSortFilterProxyModel::index(start++, 0, parent);
+        QString res=index.data().toString();
+        if (KDE_ISUNLIKELY(res==Project::instance()->projectID() && (!projectDB || data(*projectDB).toString()!=Project::instance()->projectID())))
             projectDB=new QPersistentModelIndex(index);//TODO if user switches the project
-/*        if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
-            continue;*/
+//         if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
+//             continue;
         openDB(res);
     }
 }
@@ -121,22 +160,45 @@ void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
     kDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
 }
 
-void DBFilesModel::refresh()
+void DBFilesModel::removeTM ( QModelIndex index )
+{
+    index=index.sibling(index.row(),0);
+    CloseDBJob* closeDBJob=new CloseDBJob(index.data().toString());
+    connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
+    connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(closeJobDone(ThreadWeaver::Job*)));
+    ThreadWeaver::Weaver::instance()->enqueue(closeDBJob);
+}
+
+void DBFilesModel::closeJobDone(ThreadWeaver::Job* job)
+{
+    CloseDBJob* j=static_cast<CloseDBJob*>(job);
+    QFile::remove(m_fileSystemModel->rootPath() + '/' +  j->dbName() + tmFileExtension);
+}
+
+void DBFilesModel::updateProjectTmIndex()
 {
     if (projectDB && data(*projectDB).toString()!=Project::instance()->projectID())
     {
         delete projectDB; projectDB=0;
     }
-    QDirModel::refresh(rootIndex());
 }
+
+int DBFilesModel::columnCount ( const QModelIndex& parent ) const
+{
+	return 4; //FIXME the lat two columns are not displayed even if 6 is returned
+}
+
 
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
-    if (role!=Qt::DisplayRole && role!=NameRole) return QDirModel::data(index, role);
+    if (role!=Qt::DisplayRole && role!=NameRole && index.column()<QSortFilterProxyModel::columnCount(index.parent())) return QSortFilterProxyModel::data(index, role);
+    if (role!=Qt::DisplayRole && role!=NameRole) return QVariant();
 
-    QString res=fileName(index.sibling(index.row(),0)).remove(".db");
+    QString res=QSortFilterProxyModel::data(index.sibling(index.row(), 0), QFileSystemModel::FileNameRole).toString();
 
     if (role==NameRole) return res;
+    res.chop(tmFileExtension.size());
+    //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
 
     switch (index.column())
     {
