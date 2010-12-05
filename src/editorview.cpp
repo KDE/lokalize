@@ -1,4 +1,4 @@
-﻿/* ****************************************************************************
+/* ****************************************************************************
   This file is part of Lokalize (some bits of KBabel code were reused)
 
   Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
