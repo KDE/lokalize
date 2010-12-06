@@ -155,6 +155,7 @@ private:
     QDomNodeList m_entries;
 
     QMap<QString, QDomElement> m_entriesById;
+    QList<QString> m_idsForEntriesById;
 
 
     QMap< QString, QMultiHash<QString,QString> > idsByLangWord;
@@ -224,6 +225,7 @@ public:
      : QSortFilterProxyModel(parent)
     {}
     Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
+    void fetchMore(const QModelIndex& parent);
 
 public slots:
     void setFilterRegExp(const QString& s);
