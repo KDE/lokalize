@@ -41,6 +41,7 @@
 #include <QSortFilterProxyModel>
 #include <QAbstractItemModel>
 #include <QStringListModel>
+#include <QShortcut>
 
 using namespace GlossaryNS;
 
@@ -205,7 +206,7 @@ bool SubjectFieldModel::setItemData(const QModelIndex& index, const QMap<int,QVa
 GlossaryWindow::GlossaryWindow(QWidget *parent)
  : KMainWindow(parent)
  , m_browser(new GlossaryTreeView(this))
- , m_proxyModel(new QSortFilterProxyModel(this))
+ , m_proxyModel(new GlossarySortFilterProxyModel(this))
  , m_reactOnSignals(true)
 {
     //setAttribute(Qt::WA_DeleteOnClose, true);
@@ -234,6 +235,8 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_filterEdit->setClearButtonShown(true);
     m_filterEdit->setClickMessage(i18n("Quick search..."));
     m_filterEdit->setFocus();
+    new QShortcut(Qt::CTRL+Qt::Key_L,m_filterEdit,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
+
 //     connect (m_lineEdit,SIGNAL(textChanged(QString)),
 //              m_proxyModel,SLOT(setFilterFixedString(QString)));
     connect (m_filterEdit,SIGNAL(textChanged(QString)),

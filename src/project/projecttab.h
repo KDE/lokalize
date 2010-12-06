@@ -102,7 +102,7 @@ private slots:
 
 private:
     ProjectWidget* m_browser;
-    KLineEdit* m_lineEdit;
+    KLineEdit* m_filterEdit;
     QProgressBar* m_progressBar;
 
     int m_legacyUnitsCount, m_currentUnitsCount;

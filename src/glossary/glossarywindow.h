@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -33,7 +33,6 @@ class QListView;
 //class KTextEdit;
 class KLineEdit;
 class KComboBox;
-class QSortFilterProxyModel;
 //class QStringListModel;
 
 
@@ -53,6 +52,7 @@ namespace GlossaryNS {
 class GlossaryTreeView;
 class Glossary;
 class TermsListModel;
+class GlossarySortFilterProxyModel;
 
 class GlossaryWindow: public KMainWindow
 {
@@ -77,7 +77,7 @@ private:
     GlossaryTreeView* m_browser;
     TermsListModel* m_sourceTermsModel;
     TermsListModel* m_targetTermsModel;
-    QSortFilterProxyModel* m_proxyModel;
+    GlossarySortFilterProxyModel* m_proxyModel;
     KLineEdit* m_filterEdit;
 
     KComboBox* m_subjectField;
@@ -123,6 +123,8 @@ private:
     QString m_lang;
     QString m_id;
 };
+
+
 
 
 /*

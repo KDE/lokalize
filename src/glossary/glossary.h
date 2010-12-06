@@ -27,6 +27,7 @@
 #include <QStringList>
 #include <QMultiHash>
 #include <QAbstractListModel>
+#include <QSortFilterProxyModel>
 #include <QList>
 #include <QSet>
 
@@ -172,7 +173,6 @@ private:
 };
 
 
-
 /**
  * @short MVC wrapper around Glossary
  */
@@ -213,6 +213,21 @@ public slots:
 private:
     int m_visibleCount;
     Glossary* m_glossary; //taken from Project::instance()->glossary()
+};
+
+
+class GlossarySortFilterProxyModel: public QSortFilterProxyModel
+{
+    Q_OBJECT
+public:
+    GlossarySortFilterProxyModel(QObject* parent=0)
+     : QSortFilterProxyModel(parent)
+    {}
+    Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
+
+public slots:
+    void setFilterRegExp(const QString& s);
+
 };
 
 

@@ -34,6 +34,7 @@
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
 #include <QBuffer>
+#include <QApplication>
 
 using namespace GlossaryNS;
 
@@ -149,6 +150,18 @@ void Glossary::setClean(bool clean)
 //BEGIN MODEL
 #define FETCH_SIZE 64
 
+void GlossarySortFilterProxyModel::setFilterRegExp(const QString& s)
+{
+    //static const QRegExp lettersOnly("^[a-z]");
+    QSortFilterProxyModel::setFilterRegExp(s);
+    while (rowCount(QModelIndex())<FETCH_SIZE/2 && sourceModel()->canFetchMore(QModelIndex()))
+    {
+        sourceModel()->fetchMore(QModelIndex());
+        //qDebug()<<"filter:"<<rowCount(QModelIndex())<<"/"<<sourceModel()->rowCount();
+        qApp->processEvents();
+    }
+}
+
 GlossaryModel::GlossaryModel(QObject* parent)
  : QAbstractListModel(parent)
  , m_visibleCount(0)
@@ -237,11 +250,13 @@ int GlossaryModel::columnCount(const QModelIndex&) const
 /*
 Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
 {
-    if (index.column()==FuzzyFlag)
-        return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
-    return QAbstractItemModel::flags(index);
+    return Qt::ItemIsSelectable|Qt::ItemIsEnabled;
+    //if (index.column()==FuzzyFlag)
+    //    return Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled;
+    //return QAbstractItemModel::flags(index);
 }
 */
+
 
 //END MODEL general (GlossaryModel continues below)
 

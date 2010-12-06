@@ -46,7 +46,7 @@
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
-    , m_lineEdit(new KLineEdit(this))
+    , m_filterEdit(new KLineEdit(this))
     , m_legacyUnitsCount(-1)
     , m_currentUnitsCount(0)
 
@@ -56,13 +56,13 @@ ProjectTab::ProjectTab(QWidget *parent)
     QVBoxLayout* l=new QVBoxLayout(w);
 
     
-    m_lineEdit->setClearButtonShown(true);
-    m_lineEdit->setClickMessage(i18n("Quick search..."));
-    m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
-    connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
+    m_filterEdit->setClearButtonShown(true);
+    m_filterEdit->setClickMessage(i18n("Quick search..."));
+    m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
+    connect (m_filterEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
 
-    l->addWidget(m_lineEdit);
+    l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
     connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
     connect(Project::instance()->model(), SIGNAL(totalsChanged(int, int, int, bool)),
@@ -149,13 +149,13 @@ KUrl ProjectTab::currentUrl()
 
 void ProjectTab::setFocus()
 {
-    m_lineEdit->setFocus();
-    m_lineEdit->selectAll();
+    m_filterEdit->setFocus();
+    m_filterEdit->selectAll();
 }
 
 void ProjectTab::setFilterRegExp()
 {
-    QString newPattern=m_lineEdit->text();
+    QString newPattern=m_filterEdit->text();
     if (m_browser->proxyModel()->filterRegExp().pattern()==newPattern)
         return;
 
