@@ -285,8 +285,8 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     if(list.isEmpty())
         list.append( QString() );
 
-    static QRegExp breakStopReForHtml("[ >.%]");
-    QRegExp breakStopRe=containsHtml?breakStopReForHtml:QRegExp("[ .%]");
+    static QRegExp breakStopReForHtml("[ >.%]", Qt::CaseSensitive, QRegExp::Wildcard);
+    QRegExp breakStopRe=containsHtml?breakStopReForHtml:QRegExp("[ .%]", Qt::CaseSensitive, QRegExp::Wildcard);
 
     int max=m_wrapWidth-2;
     bool prependedEmptyLine=false;

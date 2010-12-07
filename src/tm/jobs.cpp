@@ -37,6 +37,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QStringBuilder>
 
 #include <QRegExp>
 #include <QMap>
@@ -62,7 +63,7 @@ static void doSplit(QString& cleanEn,
                     const QString& accel
                     )
 {
-    QRegExp rxSplit("\\W+|\\d+");
+    static QRegExp rxSplit("\\W+|\\d+");
 
     if (!rxClean1.pattern().isEmpty())
         cleanEn.replace(rxClean1," ");
@@ -181,8 +182,8 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
                 return;//this string is already indexed
 
             query1.prepare("UPDATE OR FAIL words "
-                        "SET "+field+"=? "
-                        "WHERE word=='"+words.at(j)+'\'');
+                        "SET "%field%"=? "
+                        "WHERE word=='"%words.at(j)%'\'');
 
             if (!arr.isEmpty())
                 arr+=' ';
@@ -234,10 +235,10 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
 //BEGIN check
     //TM_NOTAPPROVED=4
     if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main, target_strings WHERE "
-                    "main.source=="+QString::number(sourceId)+" AND "
+                    "main.source=="%QString::number(sourceId)%" AND "
                     "main.target==target_strings.id AND "
                     "target_strings.target NOTNULL AND "
-                    "main.id!="+QString::number(mainId)+" AND "
+                    "main.id!="%QString::number(mainId)%" AND "
                     "(main.bits&4)!=4")))
     {
         kWarning(TM_AREA) <<"select error 500: " <<query1.lastError().text();
@@ -256,7 +257,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     {
         // remove from record for the word (if we do not have it)
         if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM words WHERE "
-                    "word=='"+words.at(j)+'\'')))
+                    "word=='"%words.at(j)%'\'')))
         {
             kWarning(TM_AREA) <<"select error 3: " <<query1.lastError().text();
             return;
@@ -294,8 +295,8 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
 
 
         query1.prepare("UPDATE OR FAIL words "
-                        "SET "+field+"=? "
-                        "WHERE word=='"+words.at(j)+'\'');
+                        "SET "%field%"=? "
+                        "WHERE word=='"%words.at(j)%'\'');
 
         query1.bindValue(0, arr);
 
@@ -495,7 +496,7 @@ static bool doInsertEntry(CatalogString source,
 
         //check if target in TM matches
         if (KDE_ISUNLIKELY(!query1.exec("SELECT target, target_markup, target_accel FROM target_strings WHERE "
-                         "id=="+QString::number(targetId))))
+                         "id=="%QString::number(targetId))))
         {
             kWarning(TM_AREA)<<"select db target_strings error: " <<query1.lastError().text();
             return false;
@@ -612,7 +613,7 @@ static bool doInsertEntry(CatalogString source,
         //kWarning(TM_AREA) <<"YES! UPDATING!";
         query1.prepare("UPDATE OR FAIL main "
                                "SET target=?, bits=? "
-                               "WHERE id=="+QString::number(mainId));
+                               "WHERE id=="%QString::number(mainId));
 
         query1.bindValue(0, targetId);
         query1.bindValue(1, bits);
@@ -998,17 +999,18 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString tmp=c.markup;
     if (!c.markup.isEmpty())
         tmp+='|';
-    QRegExp rxSplit('('+tmp+"\\W+|\\d+)+");
+    QRegExp rxSplit('('%tmp%"\\W+|\\d+)+");
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
     QStringList englishList(sourceClean.toLower().split(rxSplit,QString::SkipEmptyParts));
-    QRegExp delPart("<KBABELDEL>.*</KBABELDEL>");
-    QRegExp addPart("<KBABELADD>.*</KBABELADD>");
+    static QRegExp delPart("<KBABELDEL>*</KBABELDEL>", Qt::CaseSensitive, QRegExp::Wildcard);
+    static QRegExp addPart("<KBABELADD>*</KBABELADD>", Qt::CaseSensitive, QRegExp::Wildcard);
     delPart.setMinimal(true);
     addPart.setMinimal(true);
-
+    
+    
     QList<uint> concordanceLevels( ( occurencies.values().toSet() ).toList() );
     qSort(concordanceLevels); //we start from entries with higher word-concordance level
     int i=concordanceLevels.size();
@@ -1035,7 +1037,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
         //get records containing current word
         QSqlQuery queryFetch("SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
-                             "source_strings.id IN ("+joined+')',db);
+                             "source_strings.id IN ("%joined%')',db);
         TMEntry e;
         while (queryFetch.next())
         {
@@ -1145,7 +1147,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                                 "FROM main, target_strings, files WHERE "
                                 "target_strings.id==main.target AND "
                                 "files.id=main.file AND "
-                                "main.source=="+QString::number(e.id)+" AND "
+                                "main.source=="%QString::number(e.id)%" AND "
                                 "(main.bits&4)!=4 AND "
                                 "target_strings.target NOTNULL"
                                 ,db); //ORDER BY tm_main.id ?
