@@ -58,7 +58,7 @@ static const char description[] =
 int main(int argc, char **argv)
 {
     KAboutData about("lokalize", 0, ki18nc("@title", "Lokalize"), version, ki18n(description),
-                     KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007-2009 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
+                     KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007-2011 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shaforostoff@kde.ru" );
     about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
     about.addCredit (ki18n("Translate-toolkit"), ki18n("provided excellent cross-format converting scripts"), QByteArray(), "http://translate.sourceforge.net");
