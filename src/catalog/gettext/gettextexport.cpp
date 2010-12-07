@@ -44,6 +44,7 @@
 #include <QList>
 #include <QTextStream>
 #include <QEventLoop>
+#include <QStringBuilder>
 
 #include <ksavefile.h>
 #include <kapplication.h>
@@ -64,7 +65,8 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
 {
     QTextStream stream(device);
 
-    if ( m_wrapWidth == -1 ) m_wrapWidth=80;
+    //if ( m_wrapWidth == -1 ) m_wrapWidth=80;
+    m_wrapWidth=80;
 
 #if 0
 //legacy
@@ -112,7 +114,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
         stream << "msgid \"\"\n";
 
-        writeKeyword( stream, "msgstr", catalog->m_header.msgstr() );
+        writeKeyword( stream, "msgstr", catalog->m_header.msgstr(), false );
     }
 
 
@@ -142,10 +144,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             const int forms = catalog->numberOfPluralForms();
             for ( int i = 0; i < forms; ++i )
             {
-                QString keyword ( "msgstr[" );
-                keyword += QString::number( i );
-                keyword += ']';
-
+                QString keyword = "msgstr[" % QString::number( i ) % ']';
                 writeKeyword( stream, keyword, ( catalog->m_entries.at(counter).msgstr(i) ) );
             }
         }
@@ -223,7 +222,7 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
     }
 }
 
-void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, QString text ) const
+void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml ) const
 {
     if ( text.isEmpty() )
     {
@@ -233,6 +232,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     }
 
     //TODO remove this for KDE 4.4
+    //NOTE not?
     int pos=0;
     while ((pos=text.indexOf("\\\"",pos))!=-1)
     {
@@ -285,20 +285,23 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     if(list.isEmpty())
         list.append( QString() );
 
+    static QRegExp breakStopReForHtml("[ >.%]");
+    QRegExp breakStopRe=containsHtml?breakStopReForHtml:QRegExp("[ .%]");
+
     int max=m_wrapWidth-2;
     bool prependedEmptyLine=false;
     QStringList::iterator itm;
     for( itm = list.begin(); itm != list.end(); ++itm )
     {
-        if (list.count()==1 && itm->length()>max-keyword.length()-1)
+        if (list.count()==1 && keyword.length()+1+itm->length()>=max)
         {
             prependedEmptyLine=true;
-            itm=list.insert(itm,"");
+            itm=list.insert(itm,QString());
         }
 
         if (itm->length()>max)
         {
-            int pos = itm->lastIndexOf(QRegExp("[ >.]"),max-1);
+            int pos = itm->lastIndexOf(breakStopRe,max-1);
             if (pos>0)
             {
                 int pos2 = itm->indexOf('<',pos);
