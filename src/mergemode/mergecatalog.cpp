@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -124,7 +124,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
     //TODO look also for changed/new <note>s
 
     //translation isn't changed
-    if (baseStorage.targetAllForms(basePos)==mergeStorage.targetAllForms(mergePos))
+    if (baseStorage.targetAllForms(basePos, true)==mergeStorage.targetAllForms(mergePos, true))
     {
         item.translationIsDifferent=baseStorage.isApproved(basePos)!=mergeStorage.isApproved(mergePos);
         item.score+=29+1*item.translationIsDifferent;

@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file is based on the one from KBabel
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
@@ -37,7 +37,6 @@
 #ifndef CATALOGPRIVATE_H
 #define CATALOGPRIVATE_H
 
-#include "catalogitem.h"
 #include "projectlocal.h"
 #include "state.h"
 #include "pos.h"

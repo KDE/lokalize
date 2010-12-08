@@ -187,13 +187,14 @@ InlineTag GettextStorage::targetDeleteTag(const DocPosition& pos)
     return makeInlineTag(pos.offset);
 }
 
-QStringList GettextStorage::sourceAllForms(const DocPosition& pos) const
+QStringList GettextStorage::sourceAllForms(const DocPosition& pos, bool stripNewLines) const
 {
-    return m_entries[pos.entry].d->_msgidPlural.toList();
+    return m_entries.at(pos.entry).allPluralForms(CatalogItem::Source, stripNewLines);
 }
-QStringList GettextStorage::targetAllForms(const DocPosition& pos) const
+
+QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNewLines) const
 {
-    return m_entries[pos.entry].d->_msgstrPlural.toList();
+    return m_entries.at(pos.entry).allPluralForms(CatalogItem::Target, stripNewLines);
 }
 
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const

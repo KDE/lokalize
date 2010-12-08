@@ -80,8 +80,8 @@ public:
     virtual QMap<QString,Tool> allTools() const{return QMap<QString,Tool>();}
 
     /// all plural forms. pos.form doesn't matter
-    virtual QStringList sourceAllForms(const DocPosition& pos) const=0;
-    virtual QStringList targetAllForms(const DocPosition& pos) const=0;
+    virtual QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const=0;
+    virtual QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const=0;
 
     virtual QVector<AltTrans> altTrans(const DocPosition& pos) const=0;
     virtual QVector<Note> notes(const DocPosition& pos) const=0;

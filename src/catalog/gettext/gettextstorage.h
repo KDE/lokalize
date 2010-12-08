@@ -62,8 +62,8 @@ public:
     void targetInsertTag(const DocPosition&, const InlineTag&);
     InlineTag targetDeleteTag(const DocPosition&);
 
-    QStringList sourceAllForms(const DocPosition& pos) const;
-    QStringList targetAllForms(const DocPosition& pos) const;
+    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const;
+    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const;
 
     QVector<Note> notes(const DocPosition& pos) const;
     Note setNote(DocPosition pos, const Note& note);

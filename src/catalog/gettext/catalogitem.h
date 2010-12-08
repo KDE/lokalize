@@ -5,7 +5,7 @@
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
   Copyright (C) 2002-2003 by Stanislav Visnovsky <visnovsky@kde.org>
   Copyright (C) 2006 by Nicolas GOUTTE <goutte@kde.org>
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -83,9 +83,10 @@ public:
     const QString& comment() const;
     const QString& msgctxt(const bool noNewlines = false) const;
     const QString& msgid(const int form=0) const;
-    const QVector<QString>& msgidPlural(const bool noNewlines = false) const;
     const QString& msgstr(const int form=0) const;
-    const QVector<QString>& msgstrPlural(const bool noNewlines = false) const;
+    const QVector<QString>& msgstrPlural() const;
+    enum Part {Source, Target};
+    QStringList allPluralForms(CatalogItem::Part, bool stripNewLines=false) const;
 
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
