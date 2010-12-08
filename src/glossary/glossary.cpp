@@ -198,7 +198,7 @@ void GlossaryModel::forceReset()
 
 bool GlossaryModel::canFetchMore(const QModelIndex& parent) const
 {
-    return !parent.isValid() && m_glossary->size()!=m_visibleCount;
+    return false;//!parent.isValid() && m_glossary->size()!=m_visibleCount;
 }
 
 void GlossaryModel::fetchMore(const QModelIndex& parent)
@@ -213,7 +213,7 @@ int GlossaryModel::rowCount(const QModelIndex& parent) const
 {
     if (parent.isValid())
         return 0;
-    return m_visibleCount;
+    return m_glossary->size();//m_visibleCount;
 }
 
 QVariant GlossaryModel::headerData( int section, Qt::Orientation /*orientation*/, int role) const
