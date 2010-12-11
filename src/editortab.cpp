@@ -1390,8 +1390,11 @@ void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransVi
 void EditorTab::setEntryTarget(int entry, int form, const QString& content)
 {
     DocPosition pos(entry,form);
+    //TODO uncomment when trunk is open for new strings
+    //m_catalog->beginMacro(i18nc("@item Undo action item","Set unit text"));
     removeTargetSubstring(m_catalog, pos);
     insertCatalogString(m_catalog, pos, CatalogString(content));
+    //m_catalog->endMacro();
     if (m_currentPos==pos)
         m_view->gotoEntry();
 }

@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -357,7 +357,7 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
     QString target=targetWithTags.string;
     kWarning()<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
     if (delLen==-1)
-        delLen=target.length();
+        delLen=target.length()-delStart;
 
     QMap<int,int> tagPlaces;
     if (target.isEmpty() || !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
