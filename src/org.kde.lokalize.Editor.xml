@@ -70,6 +70,11 @@
       <arg name="entry" type="i" direction="in"/>
       <arg name="form" type="i" direction="in"/>
     </method>
+    <method name="setEntryTarget">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="form" type="i" direction="in"/>
+      <arg name="content" type="s" direction="in"/>
+    </method>
     <method name="entryPluralFormCount">
       <arg type="i" direction="out"/>
       <arg name="entry" type="i" direction="in"/>

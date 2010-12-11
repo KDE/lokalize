@@ -136,6 +136,7 @@ public slots:
     Q_SCRIPTABLE int entryCount();
     Q_SCRIPTABLE QString entrySource(int entry, int form);
     Q_SCRIPTABLE QString entryTarget(int entry, int form);
+    Q_SCRIPTABLE void setEntryTarget(int entry, int form, const QString& content);
     Q_SCRIPTABLE int entryPluralFormCount(int entry);
     Q_SCRIPTABLE bool entryReady(int entry);
     Q_SCRIPTABLE void addEntryNote(int entry, const QString& note);

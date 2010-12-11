@@ -356,6 +356,8 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
     CatalogString targetWithTags=catalog->targetWithTags(pos);
     QString target=targetWithTags.string;
     kWarning()<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
+    if (delLen==-1)
+        delLen=target.length();
 
     QMap<int,int> tagPlaces;
     if (target.isEmpty() || !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))

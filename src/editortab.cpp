@@ -1387,6 +1387,15 @@ void EditorTab::addTemporaryEntryNote(int entry, const QString& note){m_notesVie
 
 void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransView->attachAltTransFile(path);}
 
+void EditorTab::setEntryTarget(int entry, int form, const QString& content)
+{
+    DocPosition pos(entry,form);
+    removeTargetSubstring(m_catalog, pos);
+    insertCatalogString(m_catalog, pos, CatalogString(content));
+    if (m_currentPos==pos)
+        m_view->gotoEntry();
+}
+
 //END DBus interface
 
 

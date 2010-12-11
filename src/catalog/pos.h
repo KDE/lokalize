@@ -65,6 +65,10 @@ struct DocPosition
         , form(form_)
         , offset(offset_)
         {}
+
+    bool operator==(const DocPosition& pos) const
+        {return entry==pos.entry && form==pos.form;};
+
 };
 Q_DECLARE_METATYPE(DocPosition)
 
