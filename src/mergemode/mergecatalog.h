@@ -107,6 +107,8 @@ public:
 public slots:
     void copyFromBaseCatalogIfInDiffIndex(const DocPosition& pos){copyFromBaseCatalog(pos, 0);}
 
+    bool save(); //reimplement to do save only when changes were actually done to this catalog
+
 private:
     MatchItem calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos);
     KAutoSaveFile* checkAutoSave(const KUrl&){return 0;}//rely on basecatalog restore
@@ -117,6 +119,7 @@ private:
     Catalog* m_baseCatalog;
     QLinkedList<int> m_mergeDiffIndex;//points to baseCatalog entries
     int m_unmatchedCount;
+    bool m_modified; //need own var here cause we don't use qundostack system for merging
 };
 
 #endif
