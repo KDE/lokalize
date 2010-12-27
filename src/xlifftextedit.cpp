@@ -892,7 +892,11 @@ void TranslationUnitTextEdit::keyReleaseEvent(QKeyEvent* e)
 QString TranslationUnitTextEdit::toPlainText()
 {
     QTextCursor cursor = textCursor();
-    cursor.select(QTextCursor::Document);
+    // HACK temporary fix for bug 249373
+    //cursor.select(QTextCursor::Document);
+    cursor.setPosition(0);
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+
     QString text=cursor.selectedText();
     text.replace(QChar(8233),'\n');
 /*
