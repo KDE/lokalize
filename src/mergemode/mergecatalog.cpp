@@ -35,6 +35,7 @@
 MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
+ , m_modified(false)
 {
     setActivePhase(baseCatalog->activePhase(),baseCatalog->activePhaseRole());
     if (saveChanges)
@@ -64,6 +65,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
         if (options&EvenIfNotInDiffIndex && a)
             m_mergeDiffIndex.removeAll(pos.entry);
 
+        m_modified=true;
         emit signalEntryModified(pos);
     }
 }
@@ -236,8 +238,16 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
         ++it;
     }*/
     m_unmatchedCount=numberOfEntries()-mergePositions.count();
+    m_modified=false;
 
     return 0;
+}
+
+bool MergeCatalog::save()
+{
+    bool ok = !m_modified || Catalog::save();
+    if (ok) m_modified=false;
+    return ok;
 }
 
 void MergeCatalog::copyToBaseCatalog(DocPosition& pos)
