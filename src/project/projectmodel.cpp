@@ -1233,7 +1233,7 @@ UpdateStatsJob::~UpdateStatsJob()
 {
 }
 
-static void initDb(QSqlDatabase& db)
+static void initDataBase(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
     queryMain.exec("PRAGMA encoding = \"UTF-8\"");
@@ -1257,7 +1257,7 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
         db.setDatabaseName(KStandardDirs::locateLocal("appdata", dbName+".sqlite"));
         if (KDE_ISUNLIKELY( !db.open() ))
             return KFileMetaInfo(file.url());
-        initDb(db);
+        initDataBase(db);
     }
     QSqlDatabase db=QSqlDatabase::database(dbName);
     if (!db.isOpen())
