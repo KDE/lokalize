@@ -360,7 +360,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     QRegExp langCodeRegExp("^ *Language: *([^ \\\\]*)");
-    temp="Language: "+langCode+'\n';
+    temp="Language: "+langCode+"\\n";
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=(langCodeRegExp.indexIn(*it)!=-1);
