@@ -48,10 +48,17 @@
 class PoItemDelegate: public QItemDelegate
 {
 public:
-    PoItemDelegate(QObject *parent=0): QItemDelegate(parent){}
+    PoItemDelegate(QObject *parent=0);
     ~PoItemDelegate(){}
     void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+private:
+    KColorScheme m_colorScheme;
 };
+
+PoItemDelegate::PoItemDelegate(QObject *parent)
+ : QItemDelegate(parent)
+ , m_colorScheme(QPalette::Normal)
+{}
 
 void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -68,24 +75,22 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         int fuzzy = rect.width();
         int total = translated + untranslated + fuzzy;
 
-        KColorScheme colorScheme(QPalette::Normal);
-        
         if (total > 0)
         {
             painter->setPen(Qt::white);
             QRect myRect(option.rect);
             myRect.setWidth(option.rect.width() * translated / total);
-            painter->fillRect(myRect, colorScheme.foreground(KColorScheme::PositiveText));
+            painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::PositiveText));
             //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
 
             myRect.setLeft(myRect.left() + myRect.width());
             myRect.setWidth(option.rect.width() * fuzzy / total);
-            painter->fillRect(myRect,colorScheme.foreground(KColorScheme::NeutralText));
+            painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NeutralText));
             // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
 
             myRect.setLeft(myRect.left() + myRect.width());
             myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
-            painter->fillRect(myRect, colorScheme.foreground(KColorScheme::NegativeText));
+            painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NegativeText));
             // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
         }
         else if (total == -1)
