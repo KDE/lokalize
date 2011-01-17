@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@
 
 #include "tmmanager.h"
 #include "ui_managedatabases.h"
-#include "ui_dbparams.h"
 #include "dbfilesmodel.h"
 #include "tmtab.h"
 #include "jobs.h"
@@ -42,11 +41,12 @@
 
 #include <QTimer>
 #include <QSortFilterProxyModel>
+#include <QStringBuilder>
 #include <kfiledialog.h>
-#include <kdialog.h>
 #include <kdebug.h>
 // #include <kstandarddirs.h>
 #include <threadweaver/ThreadWeaver.h>
+#include <kstandarddirs.h>
 
 using namespace TM;
 
@@ -92,29 +92,21 @@ void TMManagerWin::addDir()
         QModelIndex index=m_tmListWidget->currentIndex();
         scanRecursive(dirs,index.sibling(index.row(), 0).data().toString());
     }
-
 }
 
 
-class DBPropertiesDialog: public KDialog, Ui_DBParams
-{
-public:
-    DBPropertiesDialog(QWidget* parent, const QString& name=QString());
-private:
-    //void slotButtonClicked(int button);
-    void accept();
-};
-
 DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
  : KDialog(parent), Ui_DBParams()
+ , m_connectionOptionsValid(false)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
-    setCaption( i18nc("@title:window","New Translation Memory"));
+    setCaption( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
     setButtons( KDialog::Ok | KDialog::Cancel);
+    enableButtonOk(false);
 
     setupUi(mainWidget());
     name->setFocus();
-    //TODO: visual feedback if empty, or not unique
+    connect(name, SIGNAL(textChanged(QString)), this, SLOT(feedbackRegardingAcceptable()));
 
     sourceLang->setModel(LanguageListModel::instance()->sortModel());
     targetLang->setModel(LanguageListModel::instance()->sortModel());
@@ -126,23 +118,100 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
         sourceLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->sourceLangCode() ));
         targetLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
     }
+    
+    connectionBox->hide();
+    connect(dbType, SIGNAL(activated(int)), this, SLOT(setConnectionBoxVisible(int)));
+    m_checkDelayer.setInterval(2000);
+    m_checkDelayer.setSingleShot(true);
+    connect(&m_checkDelayer, SIGNAL(timeout()), this, SLOT(checkConnectionOptions()));
+    connect(this->dbName, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
+    connect(dbHost->lineEdit(), SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
+    connect(dbUser, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
+    connect(dbPasswd, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
+}
+
+void DBPropertiesDialog::setConnectionBoxVisible(int type)
+{
+    connectionBox->setVisible(type);
+    contentBox->setVisible(!type || m_connectionOptionsValid);
+}
+
+void DBPropertiesDialog::feedbackRegardingAcceptable()
+{
+    enableButtonOk(contentBox->isVisible() && !name->text().isEmpty());
+}
+
+void DBPropertiesDialog::checkConnectionOptions()
+{
+    m_connectionOptionsValid=false;
+    if (!connectionBox->isVisible() || name->text().isEmpty() || dbHost->currentText().isEmpty() || dbName->text().isEmpty() || dbUser->text().isEmpty())
+        return;
+
+    OpenDBJob::ConnectionParams connParams;
+    connParams.driver="QPSQL";
+    connParams.host=dbHost->currentText();
+    connParams.db=dbName->text();
+    connParams.user=dbUser->text();
+    connParams.passwd=dbPasswd->text();
+
+    OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(openJobDone(ThreadWeaver::Job*)));
+    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+}
+
+void DBPropertiesDialog::openJobDone(ThreadWeaver::Job* job)
+{
+    if (!connectionBox->isVisible()) //smth happened while we were trying to connect
+        return;
+
+    OpenDBJob* openDBJob=static_cast<OpenDBJob*>(job);
+    contentBox->setVisible(openDBJob->m_connectionSuccessful);
+    enableButtonOk(openDBJob->m_connectionSuccessful);
+    if (!openDBJob->m_connectionSuccessful)
+        return;
+
+    sourceLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(openDBJob->m_tmConfig.sourceLangCode));
+    targetLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(openDBJob->m_tmConfig.targetLangCode));
+    markup->setText(openDBJob->m_tmConfig.markup);
+    accel->setText(openDBJob->m_tmConfig.accel);
+    contentBox->show();
+    
+    dbHost->lineEdit()->setText(openDBJob->m_connParams.host);
+    dbName->setText(openDBJob->m_connParams.db);
+    dbUser->setText(openDBJob->m_connParams.user);
+    dbPasswd->setText(openDBJob->m_connParams.passwd);
 }
 
 void DBPropertiesDialog::accept()
 {
-    if (!name->text().isEmpty())
+    if (name->text().isEmpty() || !contentBox->isVisible())
+        return;
+
+    if (connectionBox->isVisible())
     {
-        OpenDBJob* openDBJob=new OpenDBJob(name->text());
-        connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT( updateProjectTmIndex()));
+        QFile rdb(KStandardDirs::locateLocal("appdata", name->text() % REMOTETM_DATABASE_EXTENSION));
+        if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
+            return;
 
-        openDBJob->m_setParams=true;
-        openDBJob->m_tmConfig.markup=markup->text();
-        openDBJob->m_tmConfig.accel=accel->text();
-        openDBJob->m_tmConfig.sourceLangCode=LanguageListModel::instance()->langCodeForSortModelRow(sourceLang->currentIndex());
-        openDBJob->m_tmConfig.targetLangCode=LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
-
-        DBFilesModel::instance()->openDB(openDBJob);
+        QTextStream rdbParams(&rdb);
+        rdbParams<<"QPSQL"<<"\n";
+        rdbParams<<dbHost->currentText()<<"\n";
+        rdbParams<<dbName->text()<<"\n";
+        rdbParams<<dbUser->text()<<"\n";
+        rdbParams<<dbPasswd->text()<<"\n";
     }
+
+    OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT( updateProjectTmIndex()));
+
+    openDBJob->m_setParams=true;
+    openDBJob->m_tmConfig.markup=markup->text();
+    openDBJob->m_tmConfig.accel=accel->text();
+    openDBJob->m_tmConfig.sourceLangCode=LanguageListModel::instance()->langCodeForSortModelRow(sourceLang->currentIndex());
+    openDBJob->m_tmConfig.targetLangCode=LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
+
+    DBFilesModel::instance()->openDB(openDBJob);
     KDialog::accept();
 }
 

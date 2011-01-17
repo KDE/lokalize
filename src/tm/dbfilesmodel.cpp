@@ -27,12 +27,14 @@
 
 #include <QCoreApplication>
 #include <QFileSystemModel>
+#include <QStringBuilder>
 
 #include <threadweaver/ThreadWeaver.h>
 #include <kstandarddirs.h>
 using namespace TM;
 
 static QString tmFileExtension(TM_DATABASE_EXTENSION);
+static QString remoteTmExtension(REMOTETM_DATABASE_EXTENSION);
 
 
 DBFilesModel* DBFilesModel::_instance=0;
@@ -58,9 +60,9 @@ DBFilesModel::DBFilesModel()
  , m_fileSystemModel(new QFileSystemModel(this))
  , m_tmRootPath(KStandardDirs::locateLocal("appdata", ""))
 {
-    m_fileSystemModel->setRootPath(KStandardDirs::locateLocal("appdata", ""));
     m_fileSystemModel->setNameFilters(QStringList(QString("*.") + TM_DATABASE_EXTENSION));
     m_fileSystemModel->setFilter(QDir::Files);
+    m_fileSystemModel->setRootPath(KStandardDirs::locateLocal("appdata", ""));
 
     setSourceModel(m_fileSystemModel);
     connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
@@ -88,7 +90,7 @@ bool DBFilesModel::filterAcceptsRow ( int source_row, const QModelIndex& source_
         return true;
     
     const QString& fileName=m_fileSystemModel->index(source_row, 0, source_parent).data().toString();
-    return fileName.endsWith(tmFileExtension) && !fileName.endsWith("-journal.db");
+    return (fileName.endsWith(tmFileExtension) && !fileName.endsWith("-journal.db")) || fileName.endsWith(remoteTmExtension);
 }
 
 QModelIndex DBFilesModel::rootIndex() const
@@ -115,7 +117,15 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
 
 void DBFilesModel::openDB(const QString& name)
 {
-    openDB(new OpenDBJob(name));
+    if (QFileInfo(KStandardDirs::locateLocal("appdata", name % REMOTETM_DATABASE_EXTENSION)).exists())
+        openDB(name, TM::Remote);
+    else
+        openDB(name, TM::Local);
+}
+
+void DBFilesModel::openDB(const QString& name, DbType type)
+{
+    openDB(new OpenDBJob(name, type));
 }
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
@@ -140,15 +150,16 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
     if (parent!=rootIndex())
         return;
 
+    const QString& projectID=Project::instance()->projectID();
     while (start<=end)
     {
         QModelIndex index=QSortFilterProxyModel::index(start++, 0, parent);
         QString res=index.data().toString();
-        if (KDE_ISUNLIKELY(res==Project::instance()->projectID() && (!projectDB || data(*projectDB).toString()!=Project::instance()->projectID())))
+        if (KDE_ISUNLIKELY(res==projectID && (!projectDB || data(*projectDB).toString()!=projectID)))
             projectDB=new QPersistentModelIndex(index);//TODO if user switches the project
 //         if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
 //             continue;
-        openDB(res);
+        openDB(res, DbType(index.data(NameRole).toString().endsWith(remoteTmExtension)));
     }
 }
 
@@ -197,7 +208,10 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
     QString res=QSortFilterProxyModel::data(index.sibling(index.row(), 0), QFileSystemModel::FileNameRole).toString();
 
     if (role==NameRole) return res;
-    res.chop(tmFileExtension.size());
+    if (res.endsWith(remoteTmExtension))
+        res.chop(remoteTmExtension.size());
+    else
+        res.chop(tmFileExtension.size());
     //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
 
     switch (index.column())

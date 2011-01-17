@@ -139,9 +139,9 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
     if (!filemask.isEmpty())
         fileQuery="AND files.path GLOB '"+escapedFilemask+"' ";
 
-    QString fromPart="FROM main JOIN source_strings ON (source_strings.id==main.source) "
-                     "JOIN target_strings ON (target_strings.id==main.target), files "
-                     "WHERE files.id==main.file "
+    QString fromPart="FROM main JOIN source_strings ON (source_strings.id=main.source) "
+                     "JOIN target_strings ON (target_strings.id=main.target), files "
+                     "WHERE files.id=main.file "
                      +sourceQuery
                      +targetQuery
                      +fileQuery;
@@ -218,15 +218,13 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
         if (pos!=-1)
             result=r.remove(pos, r.size());
     }
-    else if (item.column()<TMDBModel::Context)//source, target
+    else if (item.column()<TMDBModel::Context && !record(item.row()).isNull(TMDBModel::_SourceAccel+item.column()) )//source, target
     {
         const QVariant& posVar=record(item.row()).value(TMDBModel::_SourceAccel+item.column());
         int pos=-1;
         bool ok;
         if (posVar.isValid())
             pos=posVar.toInt(&ok);
-        //std::cout<<"ok "<<ok<<"; pos "<<pos<<"; column "<<item.column()<<" "<<TMDBModel::ColumnCount+item.column()<<std::endl;
-        //kWarning()<<QSqlQueryModel::data(QSqlQueryModel::index(item.row(),TMDBModel::TMDBModelColumnCount+item.column()));
         if (ok && pos!=-1)
         {
             QString r=result.toString();

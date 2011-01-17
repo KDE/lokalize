@@ -33,14 +33,18 @@
 #include <QSqlDatabase>
 class QSqlQuery;
 
-#define TM_DATABASE_EXTENSION ".db"
-
-#define TM_AREA 8111
-
 /**
  * Translation Memory classes. see initDb() function for the database scheme
  */
 namespace TM {
+
+#define TM_DATABASE_EXTENSION ".db"
+#define REMOTETM_DATABASE_EXTENSION ".remotedb"
+enum DbType {Local, Remote}; //is needed only on opening
+
+#define TM_AREA 8111
+
+
 
 #define CLOSEDB 10001
 #define OPENDB  10000
@@ -69,7 +73,13 @@ class OpenDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit OpenDBJob(const QString& dbName,QObject* parent=0);
+    struct ConnectionParams
+    {
+        QString driver, host, db, user, passwd;
+        bool isFilled(){return !host.isEmpty() && !db.isEmpty() && !user.isEmpty();}
+    };
+    
+    explicit OpenDBJob(const QString& dbName, DbType type=TM::Local, bool reconnect=false, const ConnectionParams& connParams=ConnectionParams(), QObject* parent=0);
     ~OpenDBJob();
 
     int priority()const{return OPENDB;}
@@ -81,12 +91,17 @@ protected:
 
 public:
     QString m_dbName;
+    DbType m_type;
     //statistics
     DBStat m_stat;
 
     //for the new DB creation
     TMConfig m_tmConfig;
     bool m_setParams;
+
+    bool m_connectionSuccessful;
+    bool m_reconnect;
+    ConnectionParams m_connParams;
 };
 
 //called on startup
@@ -94,7 +109,7 @@ class CloseDBJob: public ThreadWeaver::Job
 {
     Q_OBJECT
 public:
-    explicit CloseDBJob(const QString& dbName,QObject* parent=0);
+    explicit CloseDBJob(const QString& dbName, QObject* parent=0);
     ~CloseDBJob();
 
     int priority()const{return CLOSEDB;}

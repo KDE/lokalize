@@ -100,11 +100,11 @@ static qlonglong getFileId(const QString& path,
     QString escapedPath=path;
     escapedPath.replace('\'',"''");
 
-    QString pathExpr="path=='"+escapedPath+'\'';
+    QString pathExpr="path='"+escapedPath+'\'';
     if (path.isEmpty())
         pathExpr="path ISNULL";
     if (KDE_ISUNLIKELY(!query1.exec("SELECT id FROM files WHERE "
-                     "path=='"+escapedPath+'\'')))
+                     "path='"+escapedPath+'\'')))
         kWarning(TM_AREA) <<"select db error: " <<query1.lastError().text();
 
     if (KDE_ISLIKELY(query1.next()))
@@ -118,12 +118,17 @@ static qlonglong getFileId(const QString& path,
     query1.clear();
 
     //nope, this is new file
-    query1.prepare("INSERT INTO files (path) "
-                        "VALUES (?)");
+    bool qpsql=(db.driverName()=="QPSQL");
+    QString sql="INSERT INTO files (path) VALUES (?)";
+    if (qpsql)
+        sql+=" RETURNING id";
+    query1.prepare(sql);
 
     query1.bindValue(0, path);
     if (KDE_ISLIKELY(query1.exec()))
-        return query1.lastInsertId().toLongLong();
+        return qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
+    else
+        kWarning(TM_AREA) <<"insert db error: " <<query1.lastError().text();
 
     return -1;
 }
@@ -152,7 +157,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
     {
         // insert word (if we do not have it)
         if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM words WHERE "
-                    "word=='"+words.at(j)+'\'')))
+                    "word='"+words.at(j)+'\'')))
             kWarning(TM_AREA) <<"select error 3: " <<query1.lastError().text();
 
         //we _have_ it
@@ -181,9 +186,9 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
                 || arr==sourceIdStr)
                 return;//this string is already indexed
 
-            query1.prepare("UPDATE OR FAIL words "
+            query1.prepare("UPDATE words "
                         "SET "%field%"=? "
-                        "WHERE word=='"%words.at(j)%'\'');
+                        "WHERE word='"%words.at(j)%'\'');
 
             if (!arr.isEmpty())
                 arr+=' ';
@@ -235,8 +240,8 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
 //BEGIN check
     //TM_NOTAPPROVED=4
     if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main, target_strings WHERE "
-                    "main.source=="%QString::number(sourceId)%" AND "
-                    "main.target==target_strings.id AND "
+                    "main.source="%QString::number(sourceId)%" AND "
+                    "main.target=target_strings.id AND "
                     "target_strings.target NOTNULL AND "
                     "main.id!="%QString::number(mainId)%" AND "
                     "(main.bits&4)!=4")))
@@ -257,7 +262,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     {
         // remove from record for the word (if we do not have it)
         if (KDE_ISUNLIKELY(!query1.exec("SELECT word, ids_short, ids_long FROM words WHERE "
-                    "word=='"%words.at(j)%'\'')))
+                    "word='"%words.at(j)%'\'')))
         {
             kWarning(TM_AREA) <<"select error 3: " <<query1.lastError().text();
             return;
@@ -294,9 +299,9 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
             arr.clear();
 
 
-        query1.prepare("UPDATE OR FAIL words "
+        query1.prepare("UPDATE words "
                         "SET "%field%"=? "
-                        "WHERE word=='"%words.at(j)%'\'');
+                        "WHERE word='"%words.at(j)%'\'');
 
         query1.bindValue(0, arr);
 
@@ -311,7 +316,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     QSqlQuery query1(db);
 
     if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT source_strings.id, source_strings.source FROM source_strings, main WHERE "
-                     "source_strings.id==main.source AND main.id==%1").arg(mainId))))
+                     "source_strings.id=main.source AND main.id=%1").arg(mainId))))
         return false;
 
     if (!query1.next())
@@ -321,7 +326,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     QString source_string=query1.value(1).toString();
     query1.clear();
 
-    if(!query1.exec(QString("SELECT count(*) FROM main WHERE source==%1").arg(sourceId))
+    if(!query1.exec(QString("SELECT count(*) FROM main WHERE source=%1").arg(sourceId))
         || !query1.next())
         return false;
 
@@ -334,14 +339,14 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     }
 
     if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT target FROM main WHERE "
-                     "main.id==%1").arg(mainId))
+                     "main.id=%1").arg(mainId))
             || !query1.next()))
         return false;
 
     qlonglong targetId=query1.value(0).toLongLong();
     query1.clear();
 
-    if (!query1.exec(QString("SELECT count(*) FROM main WHERE target==%1").arg(targetId))
+    if (!query1.exec(QString("SELECT count(*) FROM main WHERE target=%1").arg(targetId))
         ||! query1.next())
         return false;
     theOnly=query1.value(0).toInt()==1;
@@ -378,6 +383,9 @@ static bool doInsertEntry(CatalogString source,
         kWarning(TM_AREA)<<"source empty";
         return false;
     }
+    
+    bool qpsql=(db.driverName()=="QPSQL");
+    
     //we store non-entranslaed entries to make search over all source parts possible
     bool untranslated=target.isEmpty();
     bool shouldBeInIndex=!untranslated&&approved;
@@ -399,9 +407,9 @@ static bool doInsertEntry(CatalogString source,
 
 //BEGIN get sourceId
     query1.prepare(QString("SELECT id FROM source_strings WHERE "
-                     "source==? AND (source_accel%1) AND source_markup%2").arg
-                                    (sourceAccelPos!=-1?"==?":"==-1 OR source_accel ISNULL").arg
-                                    (sourceTags.isEmpty()?" ISNULL":"==?"));
+                     "source=? AND (source_accel%1) AND source_markup%2").arg
+                                    (sourceAccelPos!=-1?"=?":"=-1 OR source_accel ISNULL").arg
+                                    (sourceTags.isEmpty()?" ISNULL":"=?"));
     int paranum=0;
     query1.bindValue(paranum++,source.string);
     if (sourceAccelPos!=-1)
@@ -419,9 +427,12 @@ static bool doInsertEntry(CatalogString source,
 //BEGIN insert source anew
         kDebug(TM_AREA) <<"insert source anew";;
 
+        QString sql="INSERT INTO source_strings (source, source_markup, source_accel) VALUES (?, ?, ?)";
+        if (qpsql)
+            sql+=" RETURNING id";
+
         query1.clear();
-        query1.prepare("INSERT INTO source_strings (source, source_markup, source_accel) "
-                        "VALUES (?, ?, ?)");
+        query1.prepare(sql);
 
         query1.bindValue(0, source.string);
         query1.bindValue(1, sourceTags);
@@ -431,7 +442,7 @@ static bool doInsertEntry(CatalogString source,
             kWarning(TM_AREA) <<"select db source_strings error: " <<query1.lastError().text();
             return false;
         }
-        sourceId=query1.lastInsertId().toLongLong();
+        sourceId=qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
         query1.clear();
 
         //update index
@@ -449,8 +460,8 @@ static bool doInsertEntry(CatalogString source,
 
 
     if (KDE_ISUNLIKELY(!query1.exec(QString("SELECT id, target, bits FROM main WHERE "
-                     "source==%1 AND file==%2 AND ctxt%3").arg(sourceId).arg(fileId).arg
-                                        (escapedCtxt.isEmpty()?" ISNULL":QString("=='"+escapedCtxt+'\'')))))
+                     "source=%1 AND file=%2 AND ctxt%3").arg(sourceId).arg(fileId).arg
+                                        (escapedCtxt.isEmpty()?" ISNULL":QString("='"+escapedCtxt+'\'')))))
     {
         kWarning(TM_AREA) <<"select db main error: " <<query1.lastError().text();
         return false;
@@ -481,9 +492,9 @@ static bool doInsertEntry(CatalogString source,
         bool approvalChanged=dbApproved!=approved;
         if (approvalChanged)
         {
-            query1.prepare("UPDATE OR FAIL main "
+            query1.prepare("UPDATE main "
                            "SET bits=? "
-                           "WHERE id=="+QString::number(mainId));
+                           "WHERE id="+QString::number(mainId));
 
             query1.bindValue(0, bits^TM_NOTAPPROVED);
             if (KDE_ISUNLIKELY(!query1.exec()))
@@ -496,7 +507,7 @@ static bool doInsertEntry(CatalogString source,
 
         //check if target in TM matches
         if (KDE_ISUNLIKELY(!query1.exec("SELECT target, target_markup, target_accel FROM target_strings WHERE "
-                         "id=="%QString::number(targetId))))
+                         "id="%QString::number(targetId))))
         {
             kWarning(TM_AREA)<<"select db target_strings error: " <<query1.lastError().text();
             return false;
@@ -533,7 +544,7 @@ static bool doInsertEntry(CatalogString source,
         }
         // no, translation has changed: just update old target if it isn't used elsewhere
         if (KDE_ISUNLIKELY(!query1.exec("SELECT count(*) FROM main WHERE "
-                         "target=="+QString::number(targetId))))
+                         "target="+QString::number(targetId))))
             kWarning(TM_AREA) <<"select db target_strings error: " <<query1.lastError().text();
 
         //kWarning(TM_AREA) <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
@@ -542,9 +553,9 @@ static bool doInsertEntry(CatalogString source,
             //TODO tnis may create duplicates, while no strings should be lost
             query1.clear();
 
-            query1.prepare("UPDATE OR FAIL target_strings "
+            query1.prepare("UPDATE target_strings "
                            "SET target=?, target_accel=?, target_markup=? "
-                           "WHERE id=="+QString::number(targetId));
+                           "WHERE id="+QString::number(targetId));
 
             query1.bindValue(0, target.string.isEmpty()?QVariant():target.string);
             query1.bindValue(1, targetAccelPos!=-1?QVariant(targetAccelPos):QVariant());
@@ -562,9 +573,9 @@ static bool doInsertEntry(CatalogString source,
 
 //BEGIN get targetId
     query1.prepare(QString("SELECT id FROM target_strings WHERE "
-                     "target==? AND (target_accel%1) AND target_markup%2").arg
-                                (targetAccelPos!=-1?"==?":"==-1 OR target_accel ISNULL").arg
-                                (targetTags.isEmpty()?" ISNULL":"==?"));
+                     "target=? AND (target_accel%1) AND target_markup%2").arg
+                                (targetAccelPos!=-1?"=?":"=-1 OR target_accel ISNULL").arg
+                                (targetTags.isEmpty()?" ISNULL":"=?"));
     paranum=0;
     query1.bindValue(paranum++,target.string);
     if (targetAccelPos!=-1)
@@ -579,9 +590,12 @@ static bool doInsertEntry(CatalogString source,
     qlonglong targetId;
     if (!query1.next())
     {
+        QString sql="INSERT INTO target_strings (target, target_markup, target_accel) VALUES (?, ?, ?)";
+        if (qpsql)
+            sql+=" RETURNING id";
+
         query1.clear();
-        query1.prepare("INSERT INTO target_strings (target, target_markup, target_accel) "
-                       "VALUES (?, ?, ?)");
+        query1.prepare(sql);
 
         query1.bindValue(0, target.string);
         query1.bindValue(1, target.tagsAsByteArray());
@@ -591,7 +605,7 @@ static bool doInsertEntry(CatalogString source,
             kWarning(TM_AREA)<<"error inserting";
             return false;
         }
-        targetId=query1.lastInsertId().toLongLong();
+        targetId=qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
     }
     else
     {
@@ -611,9 +625,9 @@ static bool doInsertEntry(CatalogString source,
         //(this is the case when target changed, but there were other users of the old one)
 
         //kWarning(TM_AREA) <<"YES! UPDATING!";
-        query1.prepare("UPDATE OR FAIL main "
+        query1.prepare("UPDATE main "
                                "SET target=?, bits=? "
-                               "WHERE id=="%QString::number(mainId));
+                               "WHERE id="%QString::number(mainId));
 
         query1.bindValue(0, targetId);
         query1.bindValue(1, bits);
@@ -628,8 +642,12 @@ static bool doInsertEntry(CatalogString source,
         //this adds source to index if it's not already there
         addToIndex(sourceId,source.string,rxClean1,accel,db);
 
-    query1.prepare("INSERT INTO main (source, target, file, ctxt, bits, prior) "
-                   "VALUES (?, ?, ?, ?, ?, ?)");
+    QString sql="INSERT INTO main (source, target, file, ctxt, bits, prior) "
+                "VALUES (?, ?, ?, ?, ?, ?)";
+    if (qpsql)
+        sql+=" RETURNING id";
+
+    query1.prepare(sql);
 
 //     query1.prepare(QString("INSERT INTO main (source, target, file, ctxt, bits%1) "
 //                    "VALUES (?, ?, ?, ?, ?%2)").arg((priorId!=-1)?", prior":"").arg((priorId!=-1)?", ?":""));
@@ -641,7 +659,7 @@ static bool doInsertEntry(CatalogString source,
     query1.bindValue(4, bits);
     query1.bindValue(5, priorId!=-1?QVariant(priorId):QVariant());
     bool ok=query1.exec();
-    mainId=query1.lastInsertId().toLongLong(); //TODO postgresql will suck here
+    mainId=qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
     //kDebug(TM_AREA)<<"ok?"<<ok;
     return ok;
 }
@@ -734,6 +752,75 @@ static void initDb(QSqlDatabase& db)
 //(see a little below)
 }
 
+//special SQL for PostgreSQL
+static void initPgDb(QSqlDatabase& db)
+{
+    QSqlQuery queryMain(db);
+    queryMain.exec("CREATE SEQUENCE source_id_serial");
+    queryMain.exec("CREATE TABLE source_strings ("
+                   "id INTEGER PRIMARY KEY DEFAULT nextval('source_id_serial'), "
+                   "source TEXT, "
+                   "source_markup TEXT, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
+                   "source_accel INTEGER "
+                   ")");
+
+    queryMain.exec("CREATE SEQUENCE target_id_serial");
+    queryMain.exec("CREATE TABLE target_strings ("
+                   "id INTEGER PRIMARY KEY DEFAULT nextval('target_id_serial'), "
+                   "target TEXT, "
+                   "target_markup TEXT, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
+                   "target_accel INTEGER "
+                   ")");
+
+    queryMain.exec("CREATE SEQUENCE main_id_serial");
+    queryMain.exec("CREATE TABLE main ("
+                   "id INTEGER PRIMARY KEY DEFAULT nextval('main_id_serial'), "
+                   "source INTEGER, "
+                   "target INTEGER, "
+                   "file INTEGER, "// AUTOINCREMENT,"
+                   "ctxt TEXT, "//context, after \v may be a plural form
+                   "date DATE DEFAULT CURRENT_DATE, "//last update date
+                   "bits INTEGER DEFAULT 0, "
+                   "prior INTEGER"// helps restoring full context!
+                   ")");
+
+    queryMain.exec("CREATE INDEX source_index ON source_strings ("
+                   "source"
+                   ")");
+
+    queryMain.exec("CREATE INDEX target_index ON target_strings ("
+                   "target"
+                   ")");
+
+    queryMain.exec("CREATE INDEX main_index ON main ("
+                   "source, target, file"
+                   ")");
+
+    queryMain.exec("CREATE SEQUENCE file_id_serial");
+    queryMain.exec("CREATE TABLE files ("
+                   "id INTEGER PRIMARY KEY DEFAULT nextval('file_id_serial'), "
+                   "path TEXT UNIQUE, "
+                   "date DATE DEFAULT CURRENT_DATE " //last edit date when last scanned
+                   ")");
+
+    //we create indexes manually, in a customized way
+//OR: SELECT (tm_links.id) FROM tm_links,words WHERE tm_links.wordid==words.wordid AND (words.word) IN ("africa","abidjan");
+    queryMain.exec("CREATE TABLE words ("
+                   "word TEXT UNIQUE, "
+                   "ids_short BYTEA, " // actually, it's text,
+                   "ids_long BYTEA "   //` but it will never contain non-latin chars
+                   ")");
+
+    queryMain.exec("CREATE TABLE tm_config ("
+                   "key INTEGER PRIMARY KEY, "// AUTOINCREMENT,"
+                   "value TEXT "
+                   ")");
+//config:
+    //accel
+    //markup
+//(see a little below)
+}
+
 QMap<QString,TMConfig> tmConfigCache;
 
 static void setConfig(QSqlDatabase& db, const TMConfig& c)
@@ -773,7 +860,7 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
 
     QSqlQuery query(db);
     bool ok=query.exec("SELECT key, value FROM tm_config ORDER BY key ASC");
-    kDebug(TM_AREA)<<"accessing tm db config"<<ok<<"use cache:"<<useCache;
+    qDebug()<<"accessing tm db config"<<ok<<"use cache:"<<useCache;
     Project& p=*(Project::instance());
     bool f=query.next();
     TMConfig c;
@@ -815,15 +902,20 @@ static void getStats(const QSqlDatabase& db,
         || !query.next())
         return;
     uniqueTranslationsCount=query.value(0).toInt();
+    kDebug(TM_AREA)<<"getStats ok";
     query.clear();
 }
 
-OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
+OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const ConnectionParams& connParams, QObject* parent)
     : ThreadWeaver::Job(parent)
     , m_dbName(name)
+    , m_type(type)
     , m_setParams(false)
+    , m_connectionSuccessful(false)
+    , m_reconnect(reconnect)
+    , m_connParams(connParams)
 {
-    qDebug()<<m_dbName;
+    kDebug(TM_AREA)<<m_dbName;
 }
 
 OpenDBJob::~OpenDBJob()
@@ -834,14 +926,60 @@ OpenDBJob::~OpenDBJob()
 void OpenDBJob::run()
 {
     QTime a;a.start();
-    if (!QSqlDatabase::contains(m_dbName))
+    if (!QSqlDatabase::contains(m_dbName) || m_reconnect)
     {
         thread()->setPriority(QThread::IdlePriority);
 
-        QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
-        db.setDatabaseName(KStandardDirs::locateLocal("appdata", m_dbName+TM_DATABASE_EXTENSION));
-        if (KDE_ISUNLIKELY( !db.open() )) return;
-        initDb(db);
+        if (m_type==TM::Local)
+        {
+            QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
+            db.setDatabaseName(KStandardDirs::locateLocal("appdata", m_dbName % TM_DATABASE_EXTENSION));
+            m_connectionSuccessful=db.open();
+            if (KDE_ISUNLIKELY( !m_connectionSuccessful ))
+            {
+                QSqlDatabase::removeDatabase(m_dbName);
+                return;
+            }
+            initDb(db);
+        }
+        else
+        {
+            if (QSqlDatabase::contains(m_dbName))//reconnect is true
+            {
+                QSqlDatabase::database(m_dbName).close();
+                QSqlDatabase::removeDatabase(m_dbName);
+            }
+
+            if (!m_connParams.isFilled())
+            {
+                QFile rdb(KStandardDirs::locateLocal("appdata", m_dbName % REMOTETM_DATABASE_EXTENSION));
+                if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text))
+                    return;
+
+                QTextStream rdbParams(&rdb);
+                
+                m_connParams.driver=rdbParams.readLine();
+                m_connParams.host=rdbParams.readLine();
+                m_connParams.db=rdbParams.readLine();
+                m_connParams.user=rdbParams.readLine();
+                m_connParams.passwd=rdbParams.readLine();
+            }
+
+            QSqlDatabase db=QSqlDatabase::addDatabase(m_connParams.driver,m_dbName);
+            db.setHostName(m_connParams.host);
+            db.setDatabaseName(m_connParams.db);
+            db.setUserName(m_connParams.user);
+            db.setPassword(m_connParams.passwd);
+            m_connectionSuccessful=db.open();
+            if (KDE_ISUNLIKELY( !m_connectionSuccessful ))
+            {
+                QSqlDatabase::removeDatabase(m_dbName);
+                return;
+            }
+            m_connParams.user=db.userName();
+            initPgDb(db);
+        }
+
     }
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
     //if (!m_markup.isEmpty()||!m_accel.isEmpty())
@@ -945,8 +1083,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
     QSqlQuery queryWords(db);
     //TODO ??? not sure. make another loop before to create QList< QList<qlonglong> > then reorder it by size
-    const char* const queryC[]={"SELECT ids_long FROM words WHERE word=='%1'",
-                               "SELECT ids_short FROM words WHERE word=='%1'"};
+    const char* const queryC[]={"SELECT ids_long FROM words WHERE word='%1'",
+                               "SELECT ids_short FROM words WHERE word='%1'"};
     QString queryString=queryC[isShort];
 
     //for each word...
@@ -960,8 +1098,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 //             queryWords.bindValue(0, words.at(o));
 //             if (KDE_ISUNLIKELY(!queryWords.exec()))
             queryWords.exec(queryString.arg(words.at(o)));
-            /*if (KDE_ISUNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
-                kWarning(TM_AREA) <<"select error: " <<queryWords.lastError().text() << endl;;*/
+            if (KDE_ISUNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
+                kWarning(TM_AREA) <<"select error: " <<queryWords.lastError().text() << endl;
 
             if (queryWords.next())
             {
@@ -1145,9 +1283,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                                 "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
                                 "files.path "
                                 "FROM main, target_strings, files WHERE "
-                                "target_strings.id==main.target AND "
+                                "target_strings.id=main.target AND "
                                 "files.id=main.file AND "
-                                "main.source=="%QString::number(e.id)%" AND "
+                                "main.source="%QString::number(e.id)%" AND "
                                 "(main.bits&4)!=4 AND "
                                 "target_strings.target NOTNULL"
                                 ,db); //ORDER BY tm_main.id ?
@@ -1318,9 +1456,12 @@ void ScanJob::run()
         qlonglong priorId=-1;
 
         QSqlQuery queryBegin("BEGIN",db);
+        //kWarning(TM_AREA) <<"queryBegin error: " <<queryBegin.lastError().text();
+
         qlonglong fileId=getFileId(m_url.pathOrUrl(),db);
         //mark everything as obsolete
-        queryBegin.exec(QString("UPDATE OR REPLACE main SET bits=(bits|1) WHERE file==%1").arg(fileId));
+        queryBegin.exec(QString("UPDATE main SET bits=(bits|1) WHERE file=%1").arg(fileId));
+        //kWarning(TM_AREA) <<"UPDATE error: " <<queryBegin.lastError().text();
 
         for (int i=0;i<catalog.numberOfEntries();++i)
         {
@@ -1360,7 +1501,7 @@ void ScanJob::run()
                 ++m_added;
         }
         QSqlQuery queryEnd("END",db);
-        //kWarning(TM_AREA) <<"ScanJob: done "<<a.elapsed();
+        kWarning(TM_AREA) <<"ScanJob: done "<<a.elapsed();
     }
     //kWarning(TM_AREA) <<"Done scanning "<<m_url.prettyUrl();
     m_time=a.elapsed();
@@ -1751,9 +1892,9 @@ void ExportTmxJob::run()
                                     "target_strings.target, target_strings.target_accel, "
                                     "files.path "
                                     "FROM main, source_strings, target_strings, files "
-                                    "WHERE source_strings.id==main.source AND "
-                                    "target_strings.id==main.target AND "
-                                    "files.id==main.file")))
+                                    "WHERE source_strings.id=main.source AND "
+                                    "target_strings.id=main.target AND "
+                                    "files.id=main.file")))
         kWarning(TM_AREA) <<"select error: " <<query1.lastError().text();
 
     TMConfig c=getConfig(db);

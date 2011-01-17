@@ -73,6 +73,7 @@ public:
     QPersistentModelIndex* projectDBIndex()const{return projectDB;}
 
     void openDB(const QString& name);
+    void openDB(const QString& name, DbType type);
     void openDB(OpenDBJob*);
 
     static DBFilesModel* instance();

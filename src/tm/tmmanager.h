@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -35,8 +35,14 @@
 
 #include <kmainwindow.h>
 #include <QModelIndex>
+#include <QTimer>
+
 class QTreeView;
 
+#include "ui_dbparams.h"
+#include <kdialog.h>
+namespace ThreadWeaver {class Job;};
+    
 namespace TM {
 /**
  * Window for managing Translation Memory databases
@@ -59,6 +65,27 @@ private slots:
 private:
     QTreeView* m_tmListWidget;
 };
+
+//TODO remote tms
+class DBPropertiesDialog: public KDialog, Ui_DBParams
+{
+    Q_OBJECT
+public:
+    DBPropertiesDialog(QWidget* parent, const QString& name=QString());
+private:
+    //void slotButtonClicked(int button);
+    void accept();
+private slots:
+    void setConnectionBoxVisible(int type);
+    void openJobDone(ThreadWeaver::Job*);
+    void checkConnectionOptions();
+    void feedbackRegardingAcceptable();
+private:
+    bool m_connectionOptionsValid;
+    QTimer m_checkDelayer;
+};
+
+
 
 }
 #endif
