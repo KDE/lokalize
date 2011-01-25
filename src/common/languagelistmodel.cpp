@@ -29,6 +29,7 @@
 #include <kicon.h>
 #include <klocale.h>
 
+#include <QStringBuilder>
 #include <QCoreApplication>
 #include <QSortFilterProxyModel>
 
@@ -81,7 +82,10 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             QString path;
             if (code.contains('_')) code=code.mid(3).toLower();
             if (code!="C")
-                path=KStandardDirs::locate("locale", QString("l10n/%1/flag.png").arg(code));
+            {
+                static QString flagPath("l10n/%1/flag.png");
+                path=KStandardDirs::locate("locale", flagPath.arg(code));
+            }
             iconCache[langCode]=QIcon(path);
         }
         return iconCache.value(langCode);
@@ -90,7 +94,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
     {
         const QString& code=stringList().at(index.row());
         //kDebug()<<"languageCodeToName"<<code;
-        return KGlobal::locale()->languageCodeToName(code)+" ("+code+')';
+        return QVariant::fromValue<QString>(KGlobal::locale()->languageCodeToName(code)%" ("%code%")");
     }
     return QStringListModel::data(index, role);
 }

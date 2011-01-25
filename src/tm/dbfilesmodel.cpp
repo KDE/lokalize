@@ -202,8 +202,9 @@ int DBFilesModel::columnCount ( const QModelIndex& parent ) const
 
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
-    if (role!=Qt::DisplayRole && role!=NameRole && index.column()<QSortFilterProxyModel::columnCount(index.parent())) return QSortFilterProxyModel::data(index, role);
-    if (role!=Qt::DisplayRole && role!=NameRole) return QVariant();
+    if (role==Qt::DecorationRole) return QVariant();
+    if (role!=Qt::DisplayRole && role!=NameRole && index.column()<4) return QSortFilterProxyModel::data(index, role);
+    //if (role!=Qt::DisplayRole && role!=NameRole) return QVariant();
 
     QString res=QSortFilterProxyModel::data(index.sibling(index.row(), 0), QFileSystemModel::FileNameRole).toString();
 

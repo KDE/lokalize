@@ -299,7 +299,6 @@ TMTab::TMTab(QWidget *parent)
     QShortcut* sh=new QShortcut(Qt::CTRL+Qt::Key_L, this);
     connect(sh,SIGNAL(activated()),ui_queryOptions->querySource,SLOT(setFocus()));
 
-
     QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);
     //view->setItemDelegate(delegate);
@@ -352,6 +351,16 @@ TMTab::TMTab(QWidget *parent)
     btnGrp->addButton(ui_queryOptions->like,(int)TMDBModel::WordOrder);
     btnGrp->addButton(ui_queryOptions->glob,(int)TMDBModel::Glob);
     connect(btnGrp,SIGNAL(buttonClicked(int)),m_model,SLOT(setQueryType(int)));
+
+    ui_queryOptions->dbName->setModel(DBFilesModel::instance());
+    ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
+    QPersistentModelIndex* pi=DBFilesModel::instance()->projectDBIndex();
+    if (pi)
+    {
+        ui_queryOptions->dbName->setCurrentIndex(pi->row());
+        ui_queryOptions->dbName->view()->setCurrentIndex(*pi);
+    }
+    connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
 
     setAcceptDrops(true);
     /*
