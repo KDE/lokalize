@@ -68,8 +68,6 @@ public:
     QString dbusObjectPath();
     int dbusId(){return m_dbusId;}
 
-    void selectDB(int);
-
 
 public slots:
     Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}

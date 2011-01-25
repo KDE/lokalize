@@ -363,14 +363,6 @@ TMTab::TMTab(QWidget *parent)
     connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
 
     setAcceptDrops(true);
-    /*
-    ui_queryOptions.db->setModel(DBFilesModel::instance());
-    ui_queryOptions.db->setCurrentIndex(ui_queryOptions.db->findText(Project::instance()->projectID()));
-    connect(ui_queryOptions.db,SIGNAL(currentIndexChanged(QString)),
-            m_model,SLOT(setDB(QString)));
-    */
-
-    //m_dbCombo->setCurrentIndex(m_dbCombo->findText(Project::instance()->projectID()));
 
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
@@ -394,12 +386,6 @@ TMTab::~TMTab()
 
     delete ui_queryOptions;
     ids.removeAll(m_dbusId);
-}
-
-void TMTab::selectDB(int i)
-{
-    Q_UNUSED(i);
-    //m_dbCombo->setCurrentIndex(i);
 }
 
 void TMTab::updateTM()
