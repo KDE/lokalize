@@ -823,12 +823,10 @@ OpenDBJob::OpenDBJob(const QString& name, QObject* parent)
     , m_dbName(name)
     , m_setParams(false)
 {
-    qDebug()<<m_dbName;
 }
 
 OpenDBJob::~OpenDBJob()
 {
-    kDebug(TM_AREA)<<m_dbName;
 }
 
 void OpenDBJob::run()
@@ -852,6 +850,9 @@ void OpenDBJob::run()
     kWarning(TM_AREA) <<"db"<<m_dbName<<" opened "<<a.elapsed()<<m_tmConfig.targetLangCode;
 
     getStats(db,m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
+    //the most basic workaround for sqlite leaking (see QTBUG-16967)
+    db.close();
+    db.open();
 }
 
 
