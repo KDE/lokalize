@@ -804,6 +804,8 @@ static void getStats(const QSqlDatabase& db,
         return;
     pairsCount=query.value(0).toInt();
     query.clear();
+    
+    return;//don't get info that isnt displayed, esp considering [buggy?] sqlite keeps it in cache forever
 
     if(!query.exec("SELECT count(*) FROM source_strings")
         || !query.next())
