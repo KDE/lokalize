@@ -51,6 +51,8 @@
 #include <QPainter>
 #include <QTextDocument>
 #include <KColorScheme>
+#include <kactioncategory.h>
+#include <kaction.h>
 
 
 
@@ -445,6 +447,13 @@ TMTab::TMTab(QWidget *parent)
     setXMLFile("translationmemoryrui.rc",true);
     dbusObjectPath();
 
+
+    KAction *action;
+    KActionCollection* ac=actionCollection();
+    KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);
+
+    action = tm->addAction("tools_tm_manage",Project::instance(),SLOT(showTMManager()));
+    action->setText(i18nc("@action:inmenu","Manage translation memories"));
 
 
     KConfig config;

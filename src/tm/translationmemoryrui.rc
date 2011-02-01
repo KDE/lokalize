@@ -1,5 +1,9 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="TranslationMemory" version="1">
+<kpartgui name="TranslationMemory" version="2">
 <MenuBar>
 </MenuBar>
+<ToolBar name="mainToolBar"><text>Main Toolbar</text>
+  <Separator/>
+  <Action name="tools_tm_manage"/>
+</ToolBar>
 </kpartgui>
