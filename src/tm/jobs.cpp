@@ -886,7 +886,7 @@ static void getStats(const QSqlDatabase& db,
 
 {
     QSqlQuery query(db);
-    if (!query.exec("SELECT count(*) FROM main")
+    if (!query.exec("SELECT count(id) FROM main")
         || !query.next())
         return;
     pairsCount=query.value(0).toInt();
@@ -902,6 +902,7 @@ static void getStats(const QSqlDatabase& db,
         || !query.next())
         return;
     uniqueTranslationsCount=query.value(0).toInt();
+
     kDebug(TM_AREA)<<"getStats ok";
     query.clear();
 }
@@ -990,6 +991,8 @@ void OpenDBJob::run()
     kWarning(TM_AREA) <<"db"<<m_dbName<<" opened "<<a.elapsed()<<m_tmConfig.targetLangCode;
 
     getStats(db,m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
+    db.close();
+    db.open();
 }
 
 

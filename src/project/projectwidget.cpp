@@ -41,68 +41,80 @@
 #include <QLinearGradient>
 #include <QHeaderView>
 #include <QItemDelegate>
+#include <QStyledItemDelegate>
 
 #undef KDE_NO_DEBUG_OUTPUT
 
 
-class PoItemDelegate: public QItemDelegate
+class PoItemDelegate: public QStyledItemDelegate
 {
 public:
     PoItemDelegate(QObject *parent=0);
     ~PoItemDelegate(){}
     void paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
 private:
     KColorScheme m_colorScheme;
 };
 
 PoItemDelegate::PoItemDelegate(QObject *parent)
- : QItemDelegate(parent)
+ : QStyledItemDelegate(parent)
  , m_colorScheme(QPalette::Normal)
 {}
+
+QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QString text=index.data().toString();
+    int lineCount=1;
+    int nPos=text.indexOf('\n');
+    if (nPos==-1)
+        nPos=text.size();
+    else
+        lineCount+=text.count('\n');
+    QFontMetrics metrics(option.font);
+    return QSize(metrics.averageCharWidth()*nPos, metrics.height()*lineCount);
+}
 
 void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     if (index.column() != ProjectModel::Graph)
-        return QItemDelegate::paint(painter,option,index);
+        return QStyledItemDelegate::paint(painter,option,index);
 
     QVariant graphData = index.data(Qt::DisplayRole);
-
-    if (graphData.isValid())
+    if (KDE_ISUNLIKELY( !graphData.isValid()))
     {
-        QRect rect = graphData.toRect();
-        int translated = rect.left();
-        int untranslated = rect.top();
-        int fuzzy = rect.width();
-        int total = translated + untranslated + fuzzy;
-
-        if (total > 0)
-        {
-            painter->setPen(Qt::white);
-            QRect myRect(option.rect);
-            myRect.setWidth(option.rect.width() * translated / total);
-            painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::PositiveText));
-            //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
-
-            myRect.setLeft(myRect.left() + myRect.width());
-            myRect.setWidth(option.rect.width() * fuzzy / total);
-            painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NeutralText));
-            // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
-
-            myRect.setLeft(myRect.left() + myRect.width());
-            myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
-            painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NegativeText));
-            // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
-        }
-        else if (total == -1)
-            painter->fillRect(option.rect,Qt::transparent);
-        else if (total == 0)
-            painter->fillRect(option.rect,QBrush(Qt::gray));
-    }
-    else
-    {
-        //no stats available
         painter->fillRect(option.rect,Qt::transparent);
+        return;
     }
+
+    QRect rect = graphData.toRect();
+    int translated = rect.left();
+    int untranslated = rect.top();
+    int fuzzy = rect.width();
+    int total = translated + untranslated + fuzzy;
+
+    if (total > 0)
+    {
+        painter->setPen(Qt::white);
+        QRect myRect(option.rect);
+        myRect.setWidth(option.rect.width() * translated / total);
+        painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::PositiveText));
+        //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
+
+        myRect.setLeft(myRect.left() + myRect.width());
+        myRect.setWidth(option.rect.width() * fuzzy / total);
+        painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NeutralText));
+        // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
+
+        myRect.setLeft(myRect.left() + myRect.width());
+        myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
+        painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NegativeText));
+        // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
+    }
+    else if (total == -1)
+        painter->fillRect(option.rect,Qt::transparent);
+    else if (total == 0)
+        painter->fillRect(option.rect,QBrush(Qt::gray));
 }
 
 

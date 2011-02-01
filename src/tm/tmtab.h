@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -30,10 +30,13 @@
 #include <KMainWindow>
 #include <KXMLGUIClient>
 #include <KUrl>
+#include <KColorScheme>
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
 #include <QItemDelegate>
+#include <QStaticText>
+#include <QCache>
 
 
 class Ui_QueryOptions;
@@ -131,8 +134,9 @@ public:
 
     enum Roles
     {
-        FullPath=Qt::UserRole,
-        TransState=Qt::UserRole+1
+        FullPathRole=Qt::UserRole,
+        TransStateRole=Qt::UserRole+1,
+        HtmlDisplayRole=Qt::UserRole+2
     };
 
     TMDBModel(QObject* parent);
@@ -140,7 +144,7 @@ public:
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const{Q_UNUSED(parent); return ColumnCount;}
-
+    
 public slots:
     void setFilter(const QString& source, const QString& target,
                    bool invertSource, bool invertTarget,
@@ -166,32 +170,37 @@ private:
 
 //const QString& sourceRefine, const QString& targetRefine
 
-#if 0
 class FastSizeHintItemDelegate: public QItemDelegate
 {
-  //  Q_OBJECT
+  Q_OBJECT
 
 public:
-    FastSizeHintItemDelegate(int columnCount, QObject *parent)
+    FastSizeHintItemDelegate(QObject *parent)
         : QItemDelegate(parent)
+        , activeScheme(QPalette::Active, KColorScheme::View)
     {}
     ~FastSizeHintItemDelegate(){}
+   
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+public slots:
+    void reset();
 
+private:
+    struct RowColumn
+    {
+        short row:16;
+        short column:16;
+    };
+    union RowColumnUnion
+    {
+        RowColumn index;
+        int v;
+    };
+    mutable QCache<int, QStaticText> cache;
 
-        self.di={}
-
-    def sizeHint(self, option, item=QModelIndex()):
-        if item.isValid() and item.row()>20:
-            if item.column() in self.di:
-                return self.di[item.column()]
-            item=item.sibling(0,item.column())
-            self.di[item.column()]=QItemDelegate.sizeHint(self, option, item)
-        return QItemDelegate.sizeHint(self, option, item)
-    //bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-//signals:
-//    void fileOpenRequested();
+    KColorScheme activeScheme;
 };
-#endif
 }
 
 #endif

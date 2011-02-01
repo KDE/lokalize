@@ -44,8 +44,13 @@
 #include <QShortcut>
 #include <QDragEnterEvent>
 #include <QSortFilterProxyModel>
+#include <QStyledItemDelegate>
+#include <QStringBuilder>
 
 #include <iostream>
+#include <QPainter>
+#include <QTextDocument>
+#include <KColorScheme>
 
 
 
@@ -54,22 +59,76 @@ using namespace TM;
 
 //TODO do things for case when user explicitly wants to find & accel mark
 
-
-class FastSizeHintItemDelegate: public QItemDelegate
+void FastSizeHintItemDelegate::reset()
 {
-  //Q_OBJECT
+    cache.clear();
+}
 
-public:
-    FastSizeHintItemDelegate(int columnCount, QObject *parent)
-        : QItemDelegate(parent)
-    {Q_UNUSED(columnCount);}
-    ~FastSizeHintItemDelegate(){}
+QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QString text=index.data().toString();
+    int lineCount=1;
+    int nPos=text.indexOf('\n');
+    if (nPos==-1)
+        nPos=text.size();
+    else
+        lineCount+=text.count('\n');
+    QFontMetrics metrics(option.font);
+    return QSize(metrics.averageCharWidth()*nPos, metrics.height()*lineCount);
+}
 
-/*    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    painter->save();
+
+    const KColorScheme& scheme=activeScheme;
+    //painter->save();
+    painter->setClipping(true);
+    painter->setClipRect(option.rect);
+    QBrush bgBrush;
+    if (option.state&QStyle::State_MouseOver)
+        bgBrush=scheme.background(KColorScheme::LinkBackground);
+    else if (index.row()%2)
+        bgBrush=scheme.background(KColorScheme::AlternateBackground);
+    else
+        bgBrush=scheme.background(KColorScheme::NormalBackground);
+    
+    painter->fillRect(option.rect, bgBrush);
+    //painter->setFont(option.font);
+
+    RowColumnUnion rc;
+    rc.index.row=index.row();
+    rc.index.column=index.column();
+    //TMDBModel* m=static_cast<const TMDBModel*>(index.model());
+    if (!cache.contains(rc.v))
     {
-        return QSize(100,30);
-    }*/
-};
+        QString text=index.data(TMDBModel::HtmlDisplayRole).toString();
+        cache.insert(rc.v, new QStaticText(text));
+        cache.object(rc.v)->setTextFormat(Qt::RichText);
+        //qDebug()<<"-------------------";
+        //qDebug()<<text;
+    }
+    QStaticText* staticText=cache.object(rc.v);
+    staticText->setTextWidth(option.rect.width());
+    painter->drawStaticText(option.rect.topLeft(), *staticText);
+
+
+    painter->setPen(bgBrush.color());
+    QPoint p1=option.rect.topRight();
+    QPoint p2=option.rect.bottomRight();
+    int limit=qMin(15, option.rect.width());
+    int i=limit;
+    while(--i>0)
+    {
+        painter->setOpacity(float(i)/limit);
+        painter->drawLine(p1, p2);
+        int newX=p1.x()-1;
+        p1.setX(newX);
+        p2.setX(newX);
+    }
+    painter->restore();
+}
+
 
 //BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject* parent)
@@ -131,13 +190,13 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
     else
     {
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "+invertSourceStr+"GLOB '"+escapedSource+"' ";
+            sourceQuery="AND source_strings.source "%invertSourceStr%"GLOB '"%escapedSource%"' ";
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "+invertTargetStr+"GLOB '"+escapedTarget+"' ";
+            targetQuery="AND target_strings.target "%invertTargetStr%"GLOB '"%escapedTarget%"' ";
 
     }
     if (!filemask.isEmpty())
-        fileQuery="AND files.path GLOB '"+escapedFilemask+"' ";
+        fileQuery="AND files.path GLOB '"%escapedFilemask%"' ";
 
     QString fromPart="FROM main JOIN source_strings ON (source_strings.id=main.source) "
                      "JOIN target_strings ON (target_strings.id=main.target), files "
@@ -193,16 +252,18 @@ int TMDBModel::translationStatus(const QModelIndex& item) const
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex& item, int role) const
 {
-    //TODO Qt::ForegroundRole -- brush for orphaned entries
-    if (role==Qt::FontRole && item.column()==TMDBModel::Target)
+    bool doHtml=(role==HtmlDisplayRole);
+    if (doHtml)
+        role=Qt::DisplayRole;
+    else if (role==Qt::FontRole && item.column()==TMDBModel::Target) //TODO Qt::ForegroundRole -- brush for orphaned entries
     {
         QFont font=QApplication::font();
         font.setItalic(!rowIsApproved(item.row()));
         return font;
     }
-    else if (role==FullPath && item.column()==TMDBModel::Filepath)
+    else if (role==FullPathRole && item.column()==TMDBModel::Filepath)
         return QSqlQueryModel::data(item, Qt::DisplayRole);
-    else if (role==TransState)
+    else if (role==TransStateRole)
         return translationStatus(item);
 
     QVariant result=QSqlQueryModel::data(item, role);
@@ -246,8 +307,18 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
                                    i18nc("@info:status","Untranslated")};
         return statuses[translationStatus(item)];
     }
-    return result;
+    //return result;
+    if (doHtml)
+    {
+        QString r=Qt::convertFromPlainText(result.toString()); //FIXME use another routine (this has bugs)
+        if (item.column()==TMDBModel::Target && !rowIsApproved(item.row()))
+            r="<p><i>" % r.mid(3, r.length()-3) % "</i></p>";
+        return r;
+    }
+    else
+        return result;
 }
+
 //END TMDBModel
 
 //BEGIN TMResultsSortFilterProxyModel
@@ -265,8 +336,8 @@ bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex& left, const QMod
 {
     if (left.column()==TMDBModel::TransationStatus)
     {
-        int l=left.data(TMDBModel::TransState).toInt();
-        int r=right.data(TMDBModel::TransState).toInt();
+        int l=left.data(TMDBModel::TransStateRole).toInt();
+        int r=right.data(TMDBModel::TransStateRole).toInt();
         if (l!=r)
             return l<r;
     }
@@ -298,6 +369,7 @@ TMTab::TMTab(QWidget *parent)
 
     QShortcut* sh=new QShortcut(Qt::CTRL+Qt::Key_L, this);
     connect(sh,SIGNAL(activated()),ui_queryOptions->querySource,SLOT(setFocus()));
+    setFocusProxy(ui_queryOptions->querySource);
 
     QTreeView* view=ui_queryOptions->treeView;
     //QueryResultDelegate* delegate=new QueryResultDelegate(this);
@@ -338,10 +410,12 @@ TMTab::TMTab(QWidget *parent)
     view->setModel(m_proxyModel);
     view->sortByColumn(TMDBModel::Filepath,Qt::AscendingOrder);
     view->setSortingEnabled(true);
-    //view->setItemDelegate(new FastSizeHintItemDelegate(4,this));
     view->setColumnHidden(TMDBModel::_SourceAccel,true);
     view->setColumnHidden(TMDBModel::_TargetAccel,true);
     view->setColumnHidden(TMDBModel::_Bits,true);
+    view->setItemDelegate(new FastSizeHintItemDelegate(this));
+    connect(m_model,SIGNAL(resultsFetched()),view->itemDelegate(),SLOT(reset()));
+
 
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
     connect(m_model,SIGNAL(finalResultCountFetched(int)),this,SLOT(setTotalResultCount(int)));
