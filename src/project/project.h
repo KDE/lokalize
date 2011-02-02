@@ -31,8 +31,6 @@
 
 #define WEBQUERY_ENABLE
 
-class KAction;
-class KRecentFilesAction;
 class ProjectModel;
 class ProjectLocal;
 namespace GlossaryNS{class Glossary;}
@@ -71,6 +69,7 @@ public:
     QString potDir()const{return absolutePath(potBaseDir());}
     QString branchDir()const{return absolutePath(ProjectBase::branchDir());}
     QString glossaryPath()const{return absolutePath(glossaryTbx());}
+    QString qaPath()const{return absolutePath(mainQA());}
     GlossaryNS::Glossary* glossary()const{return m_glossary;}
     QString altTransDir()const{return absolutePath(altDir());}
 
@@ -100,7 +99,6 @@ signals:
     Q_SCRIPTABLE void loaded();
 
 public slots:
-
     void populateDirModel();
     void populateGlossary();
 
@@ -123,10 +121,7 @@ private:
     GlossaryNS::Glossary* m_glossary;
     GlossaryNS::GlossaryWindow* m_glossaryWindow;
     TM::TMManagerWin* m_tmManagerWindow;
-
-    QList<KAction*> m_projectActions;
-    KRecentFilesAction* _openRecentProject;
-};
+ };
 
 
 

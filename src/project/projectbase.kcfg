@@ -48,6 +48,9 @@
 -->
         <default>./terms.tbx</default>
     </entry>
+    <entry name="MainQA"  type="String">
+        <default>./main.lqa</default>
+    </entry>
   </group>
   <group name="RegExps">
     <entry name="Accel"  type="String">

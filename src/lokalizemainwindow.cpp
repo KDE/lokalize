@@ -94,7 +94,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
     setupActions();
 
-     //prevent relayout of dockwidgets
+    //prevent relayout of dockwidgets
     m_mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation,true);
 
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));

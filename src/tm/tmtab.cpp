@@ -27,10 +27,7 @@
 #include "dbfilesmodel.h"
 #include "tmscanapi.h"
 
-#include <klocale.h>
-#include <kstandarddirs.h>
-#include <kxmlguifactory.h>
-#include <threadweaver/ThreadWeaver.h>
+#include <iostream>
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -46,14 +43,17 @@
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QStringBuilder>
-
-#include <iostream>
 #include <QPainter>
 #include <QTextDocument>
+#include <QDomDocument>
+
 #include <KColorScheme>
 #include <kactioncategory.h>
 #include <kaction.h>
-
+#include <klocale.h>
+#include <kstandarddirs.h>
+#include <kxmlguifactory.h>
+#include <threadweaver/ThreadWeaver.h>
 
 
 using namespace TM;
@@ -68,14 +68,18 @@ void FastSizeHintItemDelegate::reset()
 
 QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    QString text=index.data().toString();
     int lineCount=1;
-    int nPos=text.indexOf('\n');
-    if (nPos==-1)
-        nPos=text.size();
-    else
-        lineCount+=text.count('\n');
-    QFontMetrics metrics(option.font);
+    int nPos=20;
+    if (index.column()!=TMDBModel::Filepath && index.column()!=TMDBModel::TransationStatus)
+    {
+        QString text=index.data().toString();
+        nPos=text.indexOf('\n');
+        if (nPos==-1)
+            nPos=text.size();
+        else
+            lineCount+=text.count('\n');
+    }
+    static QFontMetrics metrics(option.font);
     return QSize(metrics.averageCharWidth()*nPos, metrics.height()*lineCount);
 }
 
@@ -106,7 +110,7 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
     {
         QString text=index.data(TMDBModel::HtmlDisplayRole).toString();
         cache.insert(rc.v, new QStaticText(text));
-        cache.object(rc.v)->setTextFormat(Qt::RichText);
+        cache.object(rc.v)->setTextFormat(index.column()<TMDBModel::Context?Qt::RichText:Qt::PlainText);
         //qDebug()<<"-------------------";
         //qDebug()<<text;
     }
@@ -118,7 +122,7 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
     painter->setPen(bgBrush.color());
     QPoint p1=option.rect.topRight();
     QPoint p2=option.rect.bottomRight();
-    int limit=qMin(15, option.rect.width());
+    int limit=qMin(16, option.rect.width());
     int i=limit;
     while(--i>0)
     {
@@ -309,7 +313,6 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
                                    i18nc("@info:status","Untranslated")};
         return statuses[translationStatus(item)];
     }
-    //return result;
     if (doHtml)
     {
         QString r=Qt::convertFromPlainText(result.toString()); //FIXME use another routine (this has bugs)
@@ -323,6 +326,21 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 
 //END TMDBModel
 
+struct StringRule
+{
+    QVector<QString> sources;
+    QVector<QString> targets;
+    QVector<QString> falseFriends;
+};
+
+struct Rule
+{
+    QVector<QRegExp> sources;
+    QVector<QRegExp> targets;
+    QVector<QRegExp> falseFriends;
+};
+
+
 //BEGIN TMResultsSortFilterProxyModel
 class TMResultsSortFilterProxyModel: public QSortFilterProxyModel
 {
@@ -330,8 +348,17 @@ public:
     TMResultsSortFilterProxyModel(QObject *parent)
         : QSortFilterProxyModel(parent)
     {}
+    void setRules(const QVector<Rule>& rules);
+    void fetchMore(const QModelIndex& parent);
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
 protected:
     bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+
+private:
+    QVector<Rule> m_rules;
+    mutable QMap<int,int> m_matchingRulesForSourceRow;
 };
 
 bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
@@ -340,10 +367,86 @@ bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex& left, const QMod
     {
         int l=left.data(TMDBModel::TransStateRole).toInt();
         int r=right.data(TMDBModel::TransStateRole).toInt();
-        if (l!=r)
-            return l<r;
+        return l<r;
     }
     return QSortFilterProxyModel::lessThan(left, right);
+}
+
+void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex& parent)
+{
+    int oldSourceRowCount=sourceModel()->rowCount();
+    int oldRowCount=rowCount();
+    QSortFilterProxyModel::fetchMore(parent);
+    
+    
+    while (oldRowCount==rowCount())
+    {
+        QSortFilterProxyModel::fetchMore(parent);
+        if (sourceModel()->rowCount()==oldSourceRowCount)
+            break;
+        oldSourceRowCount=sourceModel()->rowCount();
+    }
+    qDebug()<<"row count"<<sourceModel()->rowCount();
+}
+
+void TMResultsSortFilterProxyModel::setRules(const QVector<Rule>& rules)
+{
+    m_rules=rules;
+    invalidateFilter();
+}
+
+QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role) const
+{
+    QVariant result=QSortFilterProxyModel::data(index, role);
+
+    if (m_rules.isEmpty() || role!=TMDBModel::HtmlDisplayRole)
+        return result;
+
+    if (index.column()!=TMDBModel::Source && index.column()!=TMDBModel::Target)
+        return result;
+
+    int source_row=mapToSource(index).row();
+    QString string=result.toString();
+    QVector<QRegExp> regExps;
+    if (index.column()==TMDBModel::Source)
+        regExps=m_rules[m_matchingRulesForSourceRow[source_row]].sources;
+    else
+        regExps=m_rules[m_matchingRulesForSourceRow[source_row]].falseFriends;
+
+    foreach(const QRegExp& re, regExps)
+    {
+        int pos=re.indexIn(string);
+        if (pos!=-1)
+            return string.replace(pos, re.matchedLength(), "<b>" % re.cap(0) % "</b>");
+    }
+
+    return result;
+}
+    
+bool TMResultsSortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+{
+    if (m_rules.isEmpty())
+        return true;
+
+    QString source=sourceModel()->index(source_row, TMDBModel::Source, source_parent).data().toString();
+    QString target=sourceModel()->index(source_row, TMDBModel::Target, source_parent).data().toString();
+
+    bool accept=false;
+    int i=0;
+    foreach(const Rule& rule, m_rules)
+    {
+        if (rule.sources.first().indexIn(source)!=-1)
+        {
+            if (rule.falseFriends.first().indexIn(target)!=-1)
+            {
+                accept=true;
+                m_matchingRulesForSourceRow[source_row]=i;
+                break;
+            }
+        }
+        i++;
+    }
+    return accept;
 }
 //END TMResultsSortFilterProxyModel
 
@@ -356,6 +459,7 @@ TMTab::TMTab(QWidget *parent)
 {
     //setCaption(i18nc("@title:window","Translation Memory"),false);
     setWindowTitle(i18nc("@title:window","Translation Memory"));
+    setAcceptDrops(true);
 
     ui_queryOptions=new Ui_QueryOptions;
     QWidget* w=new QWidget(this);
@@ -374,10 +478,6 @@ TMTab::TMTab(QWidget *parent)
     setFocusProxy(ui_queryOptions->querySource);
 
     QTreeView* view=ui_queryOptions->treeView;
-    //QueryResultDelegate* delegate=new QueryResultDelegate(this);
-    //view->setItemDelegate(delegate);
-    //view->setSelectionBehavior(QAbstractItemView::SelectItems);
-    //connect(delegate,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
@@ -417,6 +517,9 @@ TMTab::TMTab(QWidget *parent)
     view->setColumnHidden(TMDBModel::_Bits,true);
     view->setItemDelegate(new FastSizeHintItemDelegate(this));
     connect(m_model,SIGNAL(resultsFetched()),view->itemDelegate(),SLOT(reset()));
+    connect(m_model,SIGNAL(modelReset()),view->itemDelegate(),SLOT(reset()));
+    connect(m_model,SIGNAL(layoutChanged()),view->itemDelegate(),SLOT(reset()));
+    connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
 
 
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
@@ -437,12 +540,14 @@ TMTab::TMTab(QWidget *parent)
         ui_queryOptions->dbName->view()->setCurrentIndex(*pi);
     }
     connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
+    //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
-    setAcceptDrops(true);
+    
+    connect(ui_queryOptions->qa, SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
 
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
-        statusBarItems.insert(i,"");
+        statusBarItems.insert(i,QString());
 
     setXMLFile("translationmemoryrui.rc",true);
     dbusObjectPath();
@@ -585,11 +690,84 @@ void TMTab::openFile()
                            item.sibling(item.row(),TMDBModel::Context).data().toString());
 }
 
-/*
-void TMWindow::setOptions(int i)
-{
 
-}*/
+static QRegExp domNodeToRegExp(const QDomNode& node)
+{
+    QRegExp re(node.toElement().text());
+    re.setMinimal(true);
+    return re;
+}
+
+static QVector<QRegExp> domListToRegExpVector(const QDomNodeList& nodes)
+{
+    QVector<QRegExp> result;
+    result.reserve(nodes.size());
+    for (int i=0;i<nodes.size();i++)
+        result.append(domNodeToRegExp(nodes.at(i)));
+
+    return result;
+}
+
+
+void TMTab::setQAMode(bool enable)
+{
+    if (!enable)
+    {
+        m_proxyModel->setRules(QVector<Rule>());
+        return;
+    }
+
+    qDebug()<<Project::instance()->qaPath();
+    QDomDocument doc;
+    QFile file(Project::instance()->qaPath());
+    if (file.open(QIODevice::ReadOnly))
+    {
+        bool ok=doc.setContent(&file);
+        file.close();
+        if (!ok)
+            return;
+    }
+    else
+    {
+        /*
+        doc.setContent(
+"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+"<qa version=\"1.0\">\n"
+"    <category name=\"default\">\n"
+"    </category>\n"
+"</qa>\n");
+*/
+    }
+
+    QVector<Rule> rules;
+    QDomNodeList m_categories=doc.elementsByTagName("category");
+    for (int i=0;i<m_categories.size();i++)
+    {
+        QDomNodeList m_rules=m_categories.at(i).toElement().elementsByTagName("rule");
+        for (int j=0;j<m_rules.size();j++)
+        {
+            Rule rule;
+            rule.sources=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("source"));
+            rule.falseFriends=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("falseFriend"));
+            rule.targets=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("target"));
+            rules.append(rule);
+        }
+    }
+    m_proxyModel->setRules(rules);
+    static_cast<FastSizeHintItemDelegate*>(ui_queryOptions->treeView->itemDelegate())->reset();
+
+    /*QDomElement docElem = m_categories.at(0).toElement();
+
+    QDomNode n = docElem.firstChildElement();
+    while(!n.isNull())
+    {
+        QDomElement e = n.toElement();
+        qDebug() << e.tagName();
+        n = n.nextSiblingElement();
+    }*/
+    
+    performQuery();
+}
 
 
 //END TMWindow

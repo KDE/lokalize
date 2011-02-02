@@ -38,7 +38,6 @@
 #include <QStaticText>
 #include <QCache>
 
-
 class Ui_QueryOptions;
 class KLineEdit;
 class QComboBox;
@@ -48,6 +47,8 @@ class QCheckBox;
 
 
 namespace ThreadWeaver{class Job;}
+
+class TMResultsSortFilterProxyModel;
 
 namespace TM {
 class TMDBModel;
@@ -86,6 +87,7 @@ public slots:
     void openFile();
     void handleResults();
     void setTotalResultCount(int);
+    void setQAMode(bool);
 
 signals:
     void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
@@ -98,7 +100,7 @@ private:
 private:
     Ui_QueryOptions* ui_queryOptions;
     TMDBModel* m_model;
-    QSortFilterProxyModel *m_proxyModel;
+    TMResultsSortFilterProxyModel *m_proxyModel;
 
     DocPosition::Part m_partToAlsoTryLater;
     //QString m_dbusObjectPath;
