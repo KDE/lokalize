@@ -28,6 +28,7 @@
 #include "catalogstring.h"
 
 #include <QString>
+#include <QDate>
 
 namespace TM {
 
@@ -36,9 +37,11 @@ struct TMEntry
     CatalogString source;
     CatalogString target;
 
-    QString date;
-    QString file;
     QString ctxt;
+    QString file;
+    QDate date;
+    QDate changeDate;
+    QString changeAuthor;
 
     //the remaining are used only for results
     qlonglong id;

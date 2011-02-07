@@ -194,7 +194,7 @@ void DBFilesModel::updateProjectTmIndex()
     }
 }
 
-int DBFilesModel::columnCount ( const QModelIndex& parent ) const
+int DBFilesModel::columnCount (const QModelIndex&) const
 {
 	return 4; //FIXME the lat two columns are not displayed even if 6 is returned
 }

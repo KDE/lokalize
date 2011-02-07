@@ -25,11 +25,37 @@
 
 #include <QMap>
 #include <QFileInfo>
+#include <QMutex>
+#include <QMutexLocker>
+#include <QDebug>
 
 #ifdef HAVE_HUNSPELL
 #include <hunspell/hunspell.hxx>
+#include <QTextCodec>
 
-static QMap<QString,Hunspell*> hunspellers;
+struct SpellerAndCodec
+{
+    Hunspell* speller;
+    QTextCodec* codec;
+    SpellerAndCodec():speller(0){}
+    SpellerAndCodec(const QString& langCode);
+};
+
+SpellerAndCodec::SpellerAndCodec(const QString& langCode)
+: speller(0)
+{
+        QString dic=QString("/usr/share/myspell/dicts/%1.dic").arg(langCode);
+        if (QFileInfo(dic).exists())
+        {
+            speller = new Hunspell(QString("/usr/share/myspell/dicts/%1.aff").arg(langCode).toUtf8().constData(),dic.toUtf8().constData());
+            codec=QTextCodec::codecForName(speller->get_dic_encoding());
+            if (!codec)
+                codec=QTextCodec::codecForLocale();
+        }
+}
+
+static QMap<QString,SpellerAndCodec> hunspellers;
+
 #endif
 
 QString stem(const QString& langCode, const QString& word)
@@ -37,26 +63,26 @@ QString stem(const QString& langCode, const QString& word)
     QString result=word;
 
 #ifdef HAVE_HUNSPELL
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
+
     if (!hunspellers.contains(langCode))
     {
-        QString dic=QString("/usr/share/myspell/dicts/%1.dic").arg(langCode);
-        Hunspell* speller=0;
-        if (QFileInfo(dic).exists())
-            speller = new Hunspell(QString("/usr/share/myspell/dicts/%1.aff").arg(langCode).toUtf8().constData(),dic.toUtf8().constData());
-        hunspellers.insert(langCode,speller);
+        hunspellers.insert(langCode,SpellerAndCodec(langCode));
     }
 
-    Hunspell* speller=hunspellers.value(langCode);
+    SpellerAndCodec sc(hunspellers.value(langCode));
+    Hunspell* speller=sc.speller;
     if (!speller)
         return word;
 
     char** result1;
     char** result2;
-    int n1 = speller->analyze(&result1, word.toUtf8());
+    int n1 = speller->analyze(&result1, sc.codec->fromUnicode(word));
     int n2 = speller->stem(&result2, result1, n1);
 
     if (n2)
-        result=QString::fromUtf8(result2[0]);
+        result=sc.codec->toUnicode(result2[0]);
 
     speller->free_list(&result1, n1);
     speller->free_list(&result2, n2);
@@ -68,7 +94,9 @@ QString stem(const QString& langCode, const QString& word)
 void cleanupSpellers()
 {
 #ifdef HAVE_HUNSPELL
-    qDeleteAll(hunspellers);
+    foreach(const SpellerAndCodec& sc, hunspellers)
+        delete sc.speller;
+    
 #endif
 }
 

@@ -562,7 +562,11 @@ bool TMView::event(QEvent *event)
             QString file=tmEntry.file;
             if (file==m_catalog->url().toLocalFile())
                 file=i18nc("File argument in tooltip, when file is current file", "this");
-            QString tooltip=i18nc("@info:tooltip","File: %1<br />Date: %2",file,tmEntry.date);
+            QString tooltip=i18nc("@info:tooltip","File: %1<br />Addition date: %2",file, tmEntry.date.toString(Qt::ISODate));
+            if (!tmEntry.changeDate.isNull() && tmEntry.changeDate!=tmEntry.date)
+                tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Last change date: %1", tmEntry.changeDate.toString(Qt::ISODate));
+            if (!tmEntry.changeAuthor.isEmpty())
+                tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Last change author: %1", tmEntry.changeAuthor);
             tooltip+=i18nc("@info:tooltip on TM entry continues","<br />TM: %1", tmEntry.dbName);
             if (tmEntry.obsolete)
                 tooltip+=i18nc("@info:tooltip on TM entry continues","<br />Is not present in the file anymore");

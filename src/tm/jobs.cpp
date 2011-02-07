@@ -30,6 +30,8 @@
 #include "prefs_lokalize.h"
 #include "version.h"
 
+#include "stemming.h"
+
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <threadweaver/ThreadWeaver.h>
@@ -493,7 +495,7 @@ static bool doInsertEntry(CatalogString source,
         if (approvalChanged)
         {
             query1.prepare("UPDATE main "
-                           "SET bits=? "
+                           "SET bits=?, change_date=CURRENT_DATE "
                            "WHERE id="+QString::number(mainId));
 
             query1.bindValue(0, bits^TM_NOTAPPROVED);
@@ -547,7 +549,6 @@ static bool doInsertEntry(CatalogString source,
                          "target="+QString::number(targetId))))
             kWarning(TM_AREA) <<"select db target_strings error: " <<query1.lastError().text();
 
-        //kWarning(TM_AREA) <<"DELETING OLD target_strings ENTRY?"<<query1.value(0).toLongLong();
         if (query1.next() && query1.value(0).toLongLong()==1)
         {
             //TODO tnis may create duplicates, while no strings should be lost
@@ -555,7 +556,7 @@ static bool doInsertEntry(CatalogString source,
 
             query1.prepare("UPDATE target_strings "
                            "SET target=?, target_accel=?, target_markup=? "
-                           "WHERE id="+QString::number(targetId));
+                           "WHERE id="%QString::number(targetId));
 
             query1.bindValue(0, target.string.isEmpty()?QVariant():target.string);
             query1.bindValue(1, targetAccelPos!=-1?QVariant(targetAccelPos):QVariant());
@@ -563,6 +564,8 @@ static bool doInsertEntry(CatalogString source,
             bool ok=query1.exec();//note the RETURN!!!!
             if (!ok)
                 kWarning(TM_AREA)<<"target update failed"<<query1.lastError().text();
+            else
+                ok=query1.exec("UPDATE main SET change_date=CURRENT_DATE WHERE target="%QString::number(targetId));
             return ok;
         }
         //else -> there will be new record insertion and main table update below
@@ -626,7 +629,7 @@ static bool doInsertEntry(CatalogString source,
 
         //kWarning(TM_AREA) <<"YES! UPDATING!";
         query1.prepare("UPDATE main "
-                               "SET target=?, bits=? "
+                               "SET target=?, bits=?, change_date=CURRENT_DATE "
                                "WHERE id="%QString::number(mainId));
 
         query1.bindValue(0, targetId);
@@ -664,7 +667,8 @@ static bool doInsertEntry(CatalogString source,
     return ok;
 }
 
-static void initDb(QSqlDatabase& db)
+//TODO smth with its usage in places except opendbjob
+static void initSqliteDb(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
     //NOTE do this only if no japanese, chinese etc?
@@ -689,7 +693,9 @@ static void initDb(QSqlDatabase& db)
                    "target INTEGER, "
                    "file INTEGER, "// AUTOINCREMENT,"
                    "ctxt TEXT, "//context, after \v may be a plural form
-                   "date DEFAULT CURRENT_DATE, "//last update date
+                   "date DEFAULT CURRENT_DATE, "//creation date
+                   "change_date DEFAULT CURRENT_DATE, "//last update date
+                   //change_author
                    "bits NUMERIC DEFAULT 0, "
                    //bits&0x01 means entry obsolete (not present in file)
                    //bits&0x02 means entry is NOT equiv-trans (see XLIFF spec)
@@ -702,6 +708,7 @@ static void initDb(QSqlDatabase& db)
                    ")");
 
     queryMain.exec("ALTER TABLE main ADD COLUMN prior INTEGER");
+    queryMain.exec("ALTER TABLE main ADD COLUMN change_date DEFAULT CURRENT_DATE");
 
 
     queryMain.exec("CREATE INDEX IF NOT EXISTS source_index ON source_strings ("
@@ -746,6 +753,10 @@ static void initDb(QSqlDatabase& db)
                    "key INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "value TEXT "
                    ")");
+                   
+                   
+    //queryMain.exec("CREATE TEMP TRIGGER set_user_id_trigger AFTER UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET change_author = 0 WHERE main.id=NEW.id; END;");
+                   //CREATE TEMP TRIGGER set_user_id_trigger INSTEAD OF UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET ctxt = 'test', source=NEW.source, target=NEW.target,  WHERE main.id=NEW.id; END;
 //config:
     //accel
     //markup
@@ -780,6 +791,8 @@ static void initPgDb(QSqlDatabase& db)
                    "file INTEGER, "// AUTOINCREMENT,"
                    "ctxt TEXT, "//context, after \v may be a plural form
                    "date DATE DEFAULT CURRENT_DATE, "//last update date
+                   "change_date DATE DEFAULT CURRENT_DATE, "//last update date
+                   "change_author OID, "//last update date
                    "bits INTEGER DEFAULT 0, "
                    "prior INTEGER"// helps restoring full context!
                    ")");
@@ -819,6 +832,16 @@ static void initPgDb(QSqlDatabase& db)
     //accel
     //markup
 //(see a little below)
+
+    queryMain.exec("CREATE OR REPLACE FUNCTION set_user_id() RETURNS trigger AS $$"
+                   "BEGIN"
+                   "  NEW.change_author = (SELECT usesysid FROM pg_user WHERE usename = CURRENT_USER);"
+                   "  RETURN NEW;"
+                   "END"
+                   "$$ LANGUAGE plpgsql;");
+
+    //DROP TRIGGER set_user_id_trigger ON main;
+    queryMain.exec("CREATE TRIGGER set_user_id_trigger BEFORE INSERT OR UPDATE ON main FOR EACH ROW EXECUTE PROCEDURE set_user_id();");
 }
 
 QMap<QString,TMConfig> tmConfigCache;
@@ -941,7 +964,7 @@ void OpenDBJob::run()
                 QSqlDatabase::removeDatabase(m_dbName);
                 return;
             }
-            initDb(db);
+            initSqliteDb(db);
         }
         else
         {
@@ -1081,6 +1104,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                          //QList<TMEntry>& entries,
                          bool isShort)
 {
+    bool qpsql=(db.driverName()=="QPSQL");
     QMap<qlonglong,uint> occurencies;
     QList<qlonglong> idsForWord;
 
@@ -1150,7 +1174,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     static QRegExp addPart("<KBABELADD>*</KBABELADD>", Qt::CaseSensitive, QRegExp::Wildcard);
     delPart.setMinimal(true);
     addPart.setMinimal(true);
-    
     
     QList<uint> concordanceLevels( ( occurencies.values().toSet() ).toList() );
     qSort(concordanceLevels); //we start from entries with higher word-concordance level
@@ -1282,9 +1305,13 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 continue;
 
 //BEGIN fetch rest of the data
+            QString change_author_str;
+            if (qpsql)
+                change_author_str=", main.change_author ";
+
             QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, main.bits, "
                                 "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
-                                "files.path "
+                                "files.path, main.change_date " % change_author_str % 
                                 "FROM main, target_strings, files WHERE "
                                 "target_strings.id=main.target AND "
                                 "files.id=main.file AND "
@@ -1297,7 +1324,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             while (queryRest.next())
             {
                 e.id=queryRest.value(0).toLongLong();
-                e.date=queryRest.value(1).toString();
+                e.date=queryRest.value(1).toDate();
                 e.ctxt=queryRest.value(2).toString();
                 e.target=CatalogString( makeAcceledString(queryRest.value(4).toString(), c.accel, queryRest.value(5)),
                                         queryRest.value(6).toByteArray() );
@@ -1308,6 +1335,10 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     continue;
 
                 e.obsolete=queryRest.value(3).toInt()&1;
+
+                e.changeDate=queryRest.value(8).toDate();
+                if (qpsql)
+                    e.changeAuthor=queryRest.value(9).toInt();
 
 //BEGIN exact match score++
                 if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
@@ -1444,7 +1475,7 @@ void ScanJob::run()
     m_added=0;      //stats
     m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    initDb(db);
+    initSqliteDb(db);
     TMConfig c=getConfig(db,true);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
@@ -1571,14 +1602,15 @@ void UpdateJob::run ()
     qlonglong fileId=getFileId(m_filePath,db);
 
     if (m_form!=-1)
-        m_ctxt+=TM_DELIMITER+QString::number(m_form);
+        m_ctxt+=TM_DELIMITER%QString::number(m_form);
 
+    QSqlQuery queryBegin("BEGIN",db);
     qlonglong priorId=-1;
     if (!doInsertEntry(m_english,m_newTarget,
                   m_ctxt, //TODO QStringList -- after XLIFF
                   m_approved, fileId,db,rxClean1,c.accel,priorId,priorId))
         kWarning(TM_AREA)<<"error updating db";
-
+    QSqlQuery queryEnd("END",db);
 }
 
 
@@ -1657,7 +1689,7 @@ TmxParser::TmxParser(const QString& dbName)
 
 bool TmxParser::startDocument()
 {
-    initDb(db);
+    initSqliteDb(db);
     m_fileIds.clear();
 
     QSqlQuery queryBegin("BEGIN",db);
@@ -1893,7 +1925,7 @@ void ExportTmxJob::run()
     if (KDE_ISUNLIKELY(!query1.exec("SELECT main.id, main.ctxt, main.date, main.bits, "
                                     "source_strings.source, source_strings.source_accel, "
                                     "target_strings.target, target_strings.target_accel, "
-                                    "files.path "
+                                    "files.path, main.change_date "
                                     "FROM main, source_strings, target_strings, files "
                                     "WHERE source_strings.id=main.source AND "
                                     "target_strings.id=main.target AND "
@@ -1920,6 +1952,7 @@ void ExportTmxJob::run()
             xmlOut.writeStartElement("tuv");
                 xmlOut.writeAttribute("xml:lang",dbLangCode);
                 xmlOut.writeAttribute("creationdate",QDate::fromString(  query1.value(2).toString(), Qt::ISODate  ).toString("yyyyMMdd"));
+                xmlOut.writeAttribute("changedate",QDate::fromString(  query1.value(9).toString(), Qt::ISODate  ).toString("yyyyMMdd"));
                 QString ctxt=query1.value(1).toString();
                 if (!ctxt.isEmpty())
                 {

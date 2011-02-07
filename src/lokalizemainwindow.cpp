@@ -126,7 +126,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 }
 void LokalizeMainWindow::initLater()
 {
-    if(!m_prevSubWindow)
+    if(!m_prevSubWindow && m_projectSubWindow)
         slotSubWindowActivated(m_projectSubWindow);
 }
 
@@ -611,8 +611,11 @@ void LokalizeMainWindow::projectLoaded()
     //QList<int> offsets;
     QList<int> entries;
 
-    ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
-    w->setLegacyUnitsCount(projectStateGroup.readEntry("UnitsCount", 0));
+    if (m_projectSubWindow)
+    {
+        ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
+        w->setLegacyUnitsCount(projectStateGroup.readEntry("UnitsCount", 0));
+    }
 
     entries=projectStateGroup.readEntry("Entries",entries);
 
