@@ -5,7 +5,7 @@
   Copyright (C) 1999-2000 by Matthias Kiefer
                             <matthias.kiefer@gmx.de>
 		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+		2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,9 +36,9 @@
 #ifndef CATALOGITEMPRIVATE_H
 #define CATALOGITEMPRIVATE_H
 
-//#include <QStringList>
 #include <QVector>
 #include <QString>
+#include <QByteArray>
 
 namespace GettextCatalog {
 
@@ -58,17 +58,17 @@ class CatalogItemPrivate
 {
 
 public:
-    bool _plural;
-    bool _valid;
-    bool _fuzzyCached;
+    bool _plural:8;
+    bool _valid:8;
+    bool _fuzzyCached:8;
 
-    QString _comment;
+    QByteArray _comment;
     QString _msgctxt;
 
     QVector<QString> _msgidPlural;
     QVector<QString> _msgstrPlural;
 
-    QVector<QString> _errors;
+    //QVector<QString> _errors;
 
     CatalogItemPrivate()
         : _plural(false)
@@ -93,7 +93,7 @@ void CatalogItemPrivate::clear()
     _msgctxt.clear();
     _msgidPlural.clear();
     _msgstrPlural.clear();
-    _errors.clear();
+    //_errors.clear();
 }
 
 inline
@@ -104,7 +104,7 @@ void CatalogItemPrivate::assign(const CatalogItemPrivate& other)
     _msgidPlural=other._msgidPlural;
     _msgstrPlural=other._msgstrPlural;
     _valid=other._valid;
-    _errors=other._errors;
+    //_errors=other._errors;
     _plural=other._plural;
     _fuzzyCached=other._fuzzyCached;
 }

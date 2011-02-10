@@ -44,7 +44,7 @@ public:
     int capabilities() const{return 0;}
 
     int load(QIODevice* device/*, bool readonly=false*/);
-    bool save(QIODevice* device);
+    bool save(QIODevice* device, bool belongsToProject=false);
 
     int size() const;
 

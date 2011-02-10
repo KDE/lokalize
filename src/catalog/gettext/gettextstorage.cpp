@@ -86,16 +86,19 @@ int GettextStorage::load(QIODevice* device/*, bool readonly*/)
     return status==OK?0:(errorLine+1);
 }
 
-bool GettextStorage::save(QIODevice* device)
+bool GettextStorage::save(QIODevice* device, bool belongsToProject)
 {
     QString header=m_header.msgstr();
     QString comment=m_header.comment();
+    QString catalogProjectId;//=m_url.fileName();
+    //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
     updateHeader(header,
                  comment,
                  m_targetLangCode,
                  m_numberOfPluralForms,
-                 m_url.fileName(),
+                 catalogProjectId,
                  m_generatedFromDocbook,
+                 belongsToProject,
                  /*forSaving*/true);
     m_header.setMsgstr(header);
     m_header.setComment(comment);
@@ -394,13 +397,17 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
       values.replace ("\\n", "\\n\n");
 //       kDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();
+      QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
+      //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
+      bool belongsToProject=m_url.path().contains(Project::instance()->poDir());
 
       updateHeader(values,
                    comment,
                    m_targetLangCode,
                    m_numberOfPluralForms,
-                   m_url.fileName(),
+                   catalogProjectId,
                    m_generatedFromDocbook,
+                   belongsToProject,
                   /*forSaving*/true);
       m_header=newHeader;
       m_header.setComment(comment);

@@ -604,8 +604,9 @@ bool Catalog::saveToUrl(KUrl url)
     else
     {
         QString localFilePath=url.toLocalFile();
-        if (!QFileInfo(QFileInfo(localFilePath).absolutePath()).exists())
-            if (!QDir::root().mkpath(QFileInfo(localFilePath).absolutePath()))
+        QString localPath=QFileInfo(localFilePath).absolutePath();
+        if (!QFileInfo(localPath).exists())
+            if (!QDir::root().mkpath(localPath))
                 return false;
         file=new QFile(localFilePath);
     }
@@ -613,7 +614,8 @@ bool Catalog::saveToUrl(KUrl url)
     if (KDE_ISUNLIKELY( !file->open(QIODevice::WriteOnly) )) //i18n("Wasn't able to open file %1",filename.ascii());
         return false;
 
-    if (KDE_ISUNLIKELY( !m_storage->save(file) ))
+    bool belongsToProject=url.path().contains(Project::instance()->poDir());
+    if (KDE_ISUNLIKELY( !m_storage->save(file, belongsToProject) ))
         return false;
 
     QString localFile=file->fileName();

@@ -35,6 +35,7 @@ void updateHeader(QString& header,
                   int& numberOfPluralForms,
                   const QString& CatalogProjectId,
                   bool generatedFromDocbook,
+                  bool belongsToProject,
                   bool forSaving);
 
 

@@ -64,7 +64,6 @@ void BinUnitsModel::entryModified(const DocPosition& pos)
 void BinUnitsModel::updateFile(QString path)
 {
     QString relPath=KUrl::relativePath(Project::instance()->projectDir(),path);
-    kWarning()<<path<<relPath;
 
     DocPosition pos(m_catalog->numberOfEntries());
     int limit=m_catalog->numberOfEntries()+m_catalog->binUnitsCount();
@@ -116,7 +115,7 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
             if (!m_imageCache.contains(path))
             {
                 QString absPath=Project::instance()->absolutePath(path);
-                KDirWatch::self()->addFile(absPath);
+                KDirWatch::self()->addFile(absPath); //TODO remember watched files to react only on them in dirty() signal handler
                 m_imageCache.insert(path, QImage(absPath).scaled(128,128,Qt::KeepAspectRatio));
             }
             return m_imageCache.value(path);

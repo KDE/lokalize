@@ -1315,6 +1315,13 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
 
 void UpdateStatsJob::run()
 {
+    static QString dbName="metainfocache";
+    bool ok=QSqlDatabase::contains(dbName);
+    if (ok)
+    {
+        QSqlDatabase db=QSqlDatabase::database(dbName);
+        QSqlQuery queryBegin("BEGIN",db);
+    }
     for (int pos=0; pos<m_files.count(); pos++)
     {
         if (m_status!=0)
@@ -1334,6 +1341,13 @@ void UpdateStatsJob::run()
         }
 
         m_info.append(info);
+    }
+    if (ok)
+    {
+        QSqlDatabase db=QSqlDatabase::database(dbName);
+        QSqlQuery queryEnd("END",db);
+        db.close();
+        db.open();
     }
 }
 

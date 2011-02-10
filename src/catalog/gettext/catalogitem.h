@@ -80,7 +80,7 @@ public:
     /** cleares the item */
     void clear();
 
-    const QString& comment() const;
+    QString comment() const;
     const QString& msgctxt(const bool noNewlines = false) const;
     const QString& msgid(const int form=0) const;
     const QString& msgstr(const int form=0) const;

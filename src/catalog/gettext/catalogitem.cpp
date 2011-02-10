@@ -4,7 +4,7 @@
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
 		2002	  by Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>
   Copyright (C) 2006      by Nicolas GOUTTE <goutte@kde.org> 
-                2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+                2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -40,8 +40,6 @@
 
 using namespace GettextCatalog;
 
-static const char* fuzzyRegExpStr="((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy";
-
 CatalogItem::CatalogItem()
  : d(new CatalogItemPrivate())
 {
@@ -60,9 +58,9 @@ CatalogItem::~CatalogItem()
 
 
 
-const QString& CatalogItem::comment() const
+QString CatalogItem::comment() const
 {
-    return d->_comment;
+    return QString::fromUtf8(d->_comment);
 }
 
 const QString& CatalogItem::msgctxt(const bool noNewlines) const
@@ -157,9 +155,10 @@ void CatalogItem::setMsgstr(const QVector<QString>& msg)
 
 void CatalogItem::setComment(const QString& com)
 {
-    d->_comment=com;
+    static QRegExp fuzzyRegExp("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy");
+    d->_fuzzyCached=com.contains( fuzzyRegExp );
+    d->_comment=com.toUtf8();
     d->_comment.squeeze();
-    d->_fuzzyCached=com.contains( QRegExp(fuzzyRegExpStr) );
 }
 
 void CatalogItem::setPlural(bool plural)
@@ -302,41 +301,38 @@ void CatalogItem::setFuzzy()
 {
     d->_fuzzyCached=true;
 
-    QString& comment=d->_comment;
-    if (comment.isEmpty())
+    if (d->_comment.isEmpty())
     {
-        comment="#, fuzzy";
+        d->_comment="#, fuzzy";
         return;
     }
 
-    int p=comment.indexOf("#,");
+    int p=d->_comment.indexOf("#,");
     if(p!=-1)
     {
-        comment.replace(p,2,"#, fuzzy,");
+        d->_comment.replace(p,2,"#, fuzzy,");
         return;
     }
 
-    QRegExp a("\\#\\:[^\n]*\n");
+    QString comment=QString::fromUtf8(d->_comment);
+    static QRegExp a("\\#\\:[^\n]*\n");
     p=a.indexIn(comment);
     if (p!=-1)
     {
-        comment.insert(p+a.matchedLength(),"#, fuzzy\n");
+        d->_comment=comment.insert(p+a.matchedLength(),"#, fuzzy\n").toUtf8();
         return;
     }
 
-    {
-        if( !(comment.endsWith('\n')) )
-            comment+='\n';
-        comment+="#, fuzzy";
-    }
+    if( !(d->_comment.endsWith('\n')) )
+        d->_comment+='\n';
+    d->_comment+="#, fuzzy";
 }
 
 void CatalogItem::unsetFuzzy()
 {
     d->_fuzzyCached=false;
 
-    QString& comment=d->_comment;
-    //kDebug()<<comment;
+    QString comment=QString::fromUtf8(d->_comment);
 
     static const QRegExp rmFuzzyRe(",\\s*fuzzy");
     comment.remove( rmFuzzyRe );
@@ -347,7 +343,7 @@ void CatalogItem::unsetFuzzy()
     comment.remove( QRegExp("#\\s*\n") );
     comment.remove( QRegExp("^#\\s*\n") );
 
-    //kDebug()<<comment;
+    d->_comment=comment.toUtf8();
 }
 
 
