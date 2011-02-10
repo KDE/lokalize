@@ -1014,8 +1014,12 @@ void OpenDBJob::run()
     kWarning(TM_AREA) <<"db"<<m_dbName<<" opened "<<a.elapsed()<<m_tmConfig.targetLangCode;
 
     getStats(db,m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
-    db.close();
-    db.open();
+    
+    if (m_type==TM::Local)
+    {
+        db.close();
+        db.open();
+    }
 }
 
 
