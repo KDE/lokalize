@@ -1211,6 +1211,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         {
             ++j;
             e.id=queryFetch.value(0).toLongLong();
+            if (queryFetch.value(3).toByteArray().size())
+                qDebug()<<"BA"<<queryFetch.value(3).toByteArray();
             e.source=CatalogString( makeAcceledString(queryFetch.value(1).toString(), c.accel, queryFetch.value(2)),
                                     queryFetch.value(3).toByteArray() );
             if (e.source.string.contains(TAGRANGE_IMAGE_SYMBOL))
@@ -1310,20 +1312,24 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 //BEGIN fetch rest of the data
             QString change_author_str;
+            QString authors_table_str;
             if (qpsql)
-                change_author_str=", main.change_author ";
+            {
+                //change_author_str=", main.change_author ";
+                change_author_str=", pg_user.usename ";
+                authors_table_str=" JOIN pg_user ON (pg_user.usesysid=main.change_author) ";
+            }
 
             QSqlQuery queryRest("SELECT main.id, main.date, main.ctxt, main.bits, "
                                 "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
                                 "files.path, main.change_date " % change_author_str % 
-                                "FROM main, target_strings, files WHERE "
-                                "target_strings.id=main.target AND "
-                                "files.id=main.file AND "
+                                "FROM main JOIN target_strings ON (target_strings.id=main.target) JOIN files ON (files.id=main.file) " % authors_table_str % "WHERE "
                                 "main.source="%QString::number(e.id)%" AND "
                                 "(main.bits&4)!=4 AND "
                                 "target_strings.target NOTNULL"
                                 ,db); //ORDER BY tm_main.id ?
             queryRest.exec();
+            //qDebug()<<"main select error"<<queryRest.lastError().text();
             QList<TMEntry> tempList;//to eliminate same targets from different files
             while (queryRest.next())
             {
@@ -1342,7 +1348,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
                 e.changeDate=queryRest.value(8).toDate();
                 if (qpsql)
-                    e.changeAuthor=queryRest.value(9).toInt();
+                    e.changeAuthor=queryRest.value(9).toString();
 
 //BEGIN exact match score++
                 if (possibleExactMatch) //"exact" match (case insensitive+w/o non-word characters!)
