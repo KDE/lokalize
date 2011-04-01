@@ -315,9 +315,13 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
             QString t=*itm;
             itm=list.insert(itm,t);
             itm++;
-            (*itm)=itm->remove(0,pos);
-            itm--;
-            itm->truncate(pos);
+            if (itm != list.end())
+            {
+                (*itm)=itm->remove(0,pos);
+                itm--;
+                if (itm != list.end())
+                    itm->truncate(pos);
+            }
         }
     }
 
