@@ -66,7 +66,6 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     QTextStream stream(device);
 
     //if ( m_wrapWidth == -1 ) m_wrapWidth=80;
-    m_wrapWidth=80;
 
 #if 0
 //legacy
@@ -228,7 +227,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     {
         // Whatever the wrapping mode, an empty line is an empty line
         stream << keyword << " \"\"\n";
-        return; 
+        return;
     }
 
     //TODO remove this for KDE 4.4
@@ -266,13 +265,27 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     }
 #endif
 
-    if ( m_wrapWidth <= 0 ) // Unknown special wrapping, so assume "no wrap" instead
+    if ( m_wrapWidth == 0 ) // Unknown special wrapping, so assume "no wrap" instead
     {
         // No wrapping (like Gettext's --no.wrap or -w0 )
         // we need to remove the \n characters, as they are extra characters
         QString realText( text );
         realText.remove( '\n' );
         stream << keyword << " \"" << realText << "\"\n";
+        return;
+    }
+    else if ( m_wrapWidth < 0 )
+    {
+        // No change in wrapping
+        QStringList list = text.split( '\n');
+        if (list.count()>1 || keyword.length()+3+text.length()>=80)
+            list.prepend(QString());
+
+        stream << keyword << " ";
+        QStringList::const_iterator it;
+        for( it = list.constBegin(); it != list.constEnd(); ++it )
+            stream << "\"" << (*it) << "\"\n";
+
         return;
     }
 
@@ -315,9 +328,13 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
             QString t=*itm;
             itm=list.insert(itm,t);
             itm++;
-            (*itm)=itm->remove(0,pos);
-            itm--;
-            itm->truncate(pos);
+            if (itm != list.end())
+            {
+                (*itm)=itm->remove(0,pos);
+                itm--;
+                if (itm != list.end())
+                    itm->truncate(pos);
+            }
         }
     }
 
