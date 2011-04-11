@@ -103,7 +103,8 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     m_header.setMsgstr(header);
     m_header.setComment(comment);
 
-    GettextExportPlugin exporter(m_maxLineLength>70?m_maxLineLength:-1, m_trailingNewLines);// this is kinda hackish...
+    //GettextExportPlugin exporter(m_maxLineLength>70?m_maxLineLength:-1, m_trailingNewLines);// this is kinda hackish...
+    GettextExportPlugin exporter(Project::instance()->wordWrap(), m_trailingNewLines);
 
     ConversionStatus status = OK;
     status = exporter.save(device/*x-gettext-translation*/,this);
@@ -393,7 +394,6 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
    {
       // normalize the values - ensure every key:value pair is only on a single line
       QString values = newHeader.msgstr();
-      values.remove ('\n');
       values.replace ("\\n", "\\n\n");
 //       kDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();

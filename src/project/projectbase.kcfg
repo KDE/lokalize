@@ -62,5 +62,8 @@
     <entry name="Markup"  type="String">
         <default>(&lt;[^&gt;]+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+</default>
     </entry>
+    <entry name="WordWrap"  type="Int">
+        <default>80</default>
+    </entry>
   </group>
 </kcfg>
