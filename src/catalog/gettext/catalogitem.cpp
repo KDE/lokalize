@@ -82,6 +82,16 @@ const QString& CatalogItem::msgstr(const int form) const
         return d->_msgstrPlural.last();
 }
 
+bool CatalogItem::prependEmptyForMsgid(const int form) const
+{
+    return d->_prependMsgIdEmptyLine;
+}
+
+bool CatalogItem::prependEmptyForMsgstr(const int form) const
+{
+    return d->_prependMsgStrEmptyLine;
+}
+
 const QVector<QString>& CatalogItem::msgstrPlural() const
 {
     return d->_msgstrPlural;
@@ -128,6 +138,14 @@ void CatalogItem::setMsgid(const QStringList& msg)
         it->squeeze();
 }
 
+void CatalogItem::setMsgid(const QStringList& msg, bool prependEmptyLine)
+{
+    d->_prependMsgIdEmptyLine=prependEmptyLine;
+    d->_msgidPlural=msg.toVector(); //TODO
+    for (QVector<QString>::iterator it=d->_msgidPlural.begin();it!=d->_msgidPlural.end();++it)
+        it->squeeze();
+}
+
 void CatalogItem::setMsgid(const QVector<QString>& msg)
 {
     d->_msgidPlural=msg;
@@ -145,6 +163,12 @@ void CatalogItem::setMsgstr(const QString& msg, const int form)
 void CatalogItem::setMsgstr(const QStringList& msg)
 {
     //TODO
+    d->_msgstrPlural=msg.toVector();
+}
+
+void CatalogItem::setMsgstr(const QStringList& msg, bool prependEmptyLine)
+{
+    d->_prependMsgStrEmptyLine=prependEmptyLine;
     d->_msgstrPlural=msg.toVector();
 }
 

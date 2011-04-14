@@ -66,7 +66,7 @@ private:
      * Write a PO keyword (msgctxt, msgid, msgstr, msgstr_plural, msgstr[0]) and the corresponding text.
      * This includes wrapping the text.
      */
-    void writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml=true ) const;
+    void writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml=true, bool startedWithEmptyLine=false ) const;
 
 public:
     /**

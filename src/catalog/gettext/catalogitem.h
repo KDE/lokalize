@@ -87,15 +87,19 @@ public:
     const QVector<QString>& msgstrPlural() const;
     enum Part {Source, Target};
     QStringList allPluralForms(CatalogItem::Part, bool stripNewLines=false) const;
+    bool prependEmptyForMsgid(const int form=0) const;
+    bool prependEmptyForMsgstr(const int form=0) const;
 
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
     void setMsgid(const QString& msg, const int form=0);
     void setMsgid(const QStringList& msg);
+    void setMsgid(const QStringList& msg, bool prependEmptyLine);
     void setMsgid(const QVector<QString>& msg);
     void setMsgstr(const QString& msg, const int form=0);
     void setMsgstr(const QStringList& msg);
+    void setMsgstr(const QStringList& msg, bool prependEmptyLine);
     void setMsgstr(const QVector<QString>& msg);
 
     void setValid(bool);

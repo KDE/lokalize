@@ -61,6 +61,8 @@ public:
     bool _plural:8;
     bool _valid:8;
     bool _fuzzyCached:8;
+    bool _prependMsgIdEmptyLine:4;
+    bool _prependMsgStrEmptyLine:4;
 
     QByteArray _comment;
     QString _msgctxt;

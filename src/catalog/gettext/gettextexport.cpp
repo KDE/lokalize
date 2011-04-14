@@ -117,6 +117,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     }
 
 
+    const QVector<CatalogItem>& catalogEntries=catalog->m_entries;
     int limit=catalog->numberOfEntries();
     QStringList list;
     for (int counter = 0; counter < limit; counter++)
@@ -124,18 +125,18 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         stream << '\n';
 
         // write entry
-        writeComment( stream, catalog->m_entries.at(counter).comment() );
+        writeComment( stream, catalogEntries.at(counter).comment() );
 
-        const QString& msgctxt = catalog->m_entries.at(counter).msgctxt();
+        const QString& msgctxt = catalogEntries.at(counter).msgctxt();
         if (! msgctxt.isEmpty() )
             writeKeyword( stream, "msgctxt", msgctxt );
 
-        writeKeyword( stream, "msgid", catalog->m_entries.at(counter).msgid() );
-        if ( catalog->m_entries.at(counter).isPlural() )
-            writeKeyword( stream, "msgid_plural", catalog->m_entries.at(counter).msgid(1) );
+        writeKeyword( stream, "msgid", catalogEntries.at(counter).msgid(), true, catalogEntries.at(counter).prependEmptyForMsgid() );
+        if ( catalogEntries.at(counter).isPlural() )
+            writeKeyword( stream, "msgid_plural", catalogEntries.at(counter).msgid(1), true, catalogEntries.at(counter).prependEmptyForMsgid() );
 
-        if (!catalog->m_entries.at(counter).isPlural())
-            writeKeyword( stream, "msgstr", catalog->m_entries.at(counter).msgstr() );
+        if (!catalogEntries.at(counter).isPlural())
+            writeKeyword( stream, "msgstr", catalogEntries.at(counter).msgstr(), true, catalogEntries.at(counter).prependEmptyForMsgstr() );
         else
         {
             kDebug() << "Saving gettext plural form";
@@ -144,7 +145,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             for ( int i = 0; i < forms; ++i )
             {
                 QString keyword = "msgstr[" % QString::number( i ) % ']';
-                writeKeyword( stream, keyword, ( catalog->m_entries.at(counter).msgstr(i) ) );
+                writeKeyword( stream, keyword, catalogEntries.at(counter).msgstr(i), true, catalogEntries.at(counter).prependEmptyForMsgstr() );
             }
         }
     }
@@ -221,7 +222,7 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
     }
 }
 
-void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml ) const
+void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml, bool startedWithEmptyLine ) const
 {
     if ( text.isEmpty() )
     {
@@ -278,7 +279,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     {
         // No change in wrapping
         QStringList list = text.split( '\n');
-        if (list.count()>1 || keyword.length()+3+text.length()>=80)
+        if (list.count()>1 || startedWithEmptyLine /* || keyword.length()+3+text.length()>=80*/)
             list.prepend(QString());
 
         stream << keyword << " ";

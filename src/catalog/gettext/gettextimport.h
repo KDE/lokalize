@@ -86,6 +86,8 @@ private:
     QStringList _msgid;
     QStringList _msgstr;
     QString _comment;
+    bool _msgidMultiline;
+    bool _msgstrMultiline;
     bool _gettextPluralForm;
     bool _testBorked;
     bool _obsolete;

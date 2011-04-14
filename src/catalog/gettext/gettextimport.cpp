@@ -183,8 +183,8 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
          {
             CatalogItem tempCatItem;
             tempCatItem.setPlural(_gettextPluralForm);
-            tempCatItem.setMsgid( _msgid );
-            tempCatItem.setMsgstr( _msgstr );
+            tempCatItem.setMsgid( _msgid, _msgidMultiline );
+            tempCatItem.setMsgstr( _msgstr, _msgstrMultiline );
             tempCatItem.setMsgctxt( _msgctxt );
             tempCatItem.setComment( _comment );
 
@@ -524,6 +524,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgIdRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgidMultiline=line.isEmpty();
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
@@ -606,6 +607,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgStrRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgstrMultiline=line.isEmpty();
                (*msgstrIt)=line;
             }
             else if( !_gettextPluralForm && ( line.contains( _rxMsgStrOther )) )
@@ -699,10 +701,9 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgLineRemStartQuote);
                line.remove(_rxMsgLineRemEndQuote);
 
-               if((*msgstrIt).isEmpty())
-                  (*msgstrIt)=line;
-               else
-                  (*msgstrIt)+=('\n'+line);
+               if(!(*msgstrIt).isEmpty())
+                  (*msgstrIt)+='\n';
+               (*msgstrIt)=line;
             }
             else if( _gettextPluralForm && ( line.contains( _rxMsgStrPlural ) ) )
             {
@@ -748,10 +749,9 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgLineRemStartQuote);
                line.remove(_rxMsgLineRemEndQuote);
 
-               if((*msgstrIt).isEmpty())
-                  (*msgstrIt)=line;
-               else
-                  (*msgstrIt)+=('\n'+line);
+               if(!(*msgstrIt).isEmpty())
+                  (*msgstrIt)+='\n';
+               (*msgstrIt)=line;
             }
             else
             {
@@ -787,4 +787,4 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
         return OK;
 }
 
-// kate: space-indent on; indent-width 3; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;
