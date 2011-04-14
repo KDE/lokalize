@@ -34,6 +34,7 @@
 
 #include <kcompletionbox.h>
 
+#include <QStringBuilder>
 #include <QPixmap>
 #include <QPushButton>
 #include <QPainter>
@@ -1106,6 +1107,10 @@ bool TranslationUnitTextEdit::event(QEvent *event)
             QToolTip::showText(helpEvent->globalPos(),tooltip);
             return true;
         }
+
+        QString langCode=m_highlighter->currentLanguage();
+        QToolTip::showText(helpEvent->globalPos(),
+                           KGlobal::locale()->languageCodeToName(langCode)%" ("%langCode%")");
     }
     return KTextEdit::event(event);
 }
