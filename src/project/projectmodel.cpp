@@ -1345,7 +1345,10 @@ void UpdateStatsJob::run()
     if (ok)
     {
         QSqlDatabase db=QSqlDatabase::database(dbName);
-        QSqlQuery queryEnd("END",db);
+        {
+            //braces are needed to avoid resource leak on close
+            QSqlQuery queryEnd("END",db);
+        }
         db.close();
         db.open();
     }
