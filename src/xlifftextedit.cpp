@@ -172,7 +172,7 @@ void TranslationUnitTextEdit::fileLoaded()
     QLocale langLocale(langCode);
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
     QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
-    int i=sizeof (rtlLanguages);
+    int i=sizeof(rtlLanguages)/sizeof(QLocale::Arabic);
     while (--i>=0 && langLocale.language()!=rtlLanguages[i])
         ;
     if (i!=-1)

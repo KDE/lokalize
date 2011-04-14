@@ -166,7 +166,7 @@ QString InlineTag::displayName() const
             I18N_NOOP2("XLIFF mark type", "truncated term: an abbreviated form of a term resulting from the omission of one or more term elements or syllables (e.g. 'flu' for 'influenza')"),
             I18N_NOOP2("XLIFF mark type", "variant: one of the alternate forms of a term")
         };
-        int i=sizeof(mrkTypes);
+        int i=sizeof(mrkTypes)/sizeof(char*);
         while(--i>=0 && mrkTypes[i]!=id)
             ;
         if (i!=-1)

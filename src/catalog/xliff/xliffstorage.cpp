@@ -616,7 +616,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
         };
         QString typeStr=elem.attribute("alttranstype");
         int i=-1;
-        while (++i<int(sizeof(types)) && types[i]!=typeStr)
+        while (++i<int(sizeof(types)/sizeof(char*)) && types[i]!=typeStr)
             ;
         aTrans.type=AltTrans::Type(i);
 

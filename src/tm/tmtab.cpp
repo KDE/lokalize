@@ -635,7 +635,7 @@ void TMTab::handleResults()
 //BEGIN resizeColumnToContents
     QTreeView* view=ui_queryOptions->treeView;
     static const int maxInitialWidths[4]={QApplication::desktop()->availableGeometry().width()/3,QApplication::desktop()->availableGeometry().width()/3, 50, 200};
-    int column=4;//sizeof(maxInitialWidths);
+    int column=sizeof(maxInitialWidths)/sizeof(int);
     while (--column>=0)
     {
         //view->resizeColumnToContents(i);
