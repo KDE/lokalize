@@ -186,11 +186,11 @@ void MergeView::mergeOpen(KUrl url)
         //special handling: open corresponding file in the branch
         //for AutoSync
 
-        QString path=url.pathOrUrl();
+        QString path=QFileInfo(url.toLocalFile()).canonicalFilePath(); //bug 245546 regarding symlinks
         QString oldPath=path;
         path.replace(Project::instance()->poDir(),Project::instance()->branchDir());
 
-        if (oldPath==path || url==KUrl(path) || !QFile::exists(path))
+        if (oldPath==path) //if file doesn't exist both are empty
         {
             cleanup();
             return;

@@ -98,10 +98,14 @@ int main(int argc, char **argv)
 
         if (!args->getOption("project").isEmpty())
         {
-            QString path = args->getOption("project").toUtf8();
             // load needs an absolute path
             // FIXME: I do not know how to handle urls here
-            Project::instance()->load( QFileInfo(path).absoluteFilePath() );
+            // bug 245546 regarding symlinks
+            QFileInfo projectFileInfo(args->getOption("project").toUtf8());
+            QString projectFilePath=projectFileInfo.canonicalFilePath();
+            if (projectFilePath.isEmpty())
+                projectFilePath=projectFileInfo.absoluteFilePath();
+            Project::instance()->load( projectFilePath );
         }
         LokalizeMainWindow* lmw=new LokalizeMainWindow;
         SettingsController::instance()->setMainWindowPtr(lmw);
