@@ -1240,7 +1240,19 @@ void EditorTab::showStatesMenu()
 {
     m_approveAction->menu()->clear();
     if (!(m_catalog->capabilities()&ExtendedStates))
+    {
+        QAction* a=m_approveAction->menu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"));
+        a->setData(QVariant(-1));
+        a->setCheckable(true);
+        a->setChecked(!m_catalog->isApproved(m_currentPos));
+
+        a=m_approveAction->menu()->addAction(i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"));
+        a->setData(QVariant(-2));
+        a->setCheckable(true);
+        a->setChecked(m_catalog->isApproved(m_currentPos));
+
         return;
+    }
 
     TargetState state=m_catalog->state(m_currentPos);
 
@@ -1259,7 +1271,11 @@ void EditorTab::showStatesMenu()
 
 void EditorTab::setState(QAction* a)
 {
-    m_view->setState(TargetState(a->data().toInt()));
+    if (!(m_catalog->capabilities()&ExtendedStates))
+        m_view->toggleApprovement();
+    else
+        m_view->setState(TargetState(a->data().toInt()));
+
     m_approveAction->menu()->clear();
 }
 
