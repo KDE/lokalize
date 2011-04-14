@@ -143,6 +143,7 @@ void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
 TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
     , m_currentUnicodeNumber(0)
+    , m_langUsesSpaces(true)
     , m_catalog(catalog)
     , m_part(part)
     , m_highlighter(new SyntaxHighlighter(this))
@@ -172,13 +173,23 @@ void TranslationUnitTextEdit::fileLoaded()
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     QLocale langLocale(langCode);
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
-    QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
+    static QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
     int i=sizeof(rtlLanguages)/sizeof(QLocale::Arabic);
     while (--i>=0 && langLocale.language()!=rtlLanguages[i])
         ;
     if (i!=-1)
         targetLanguageDirection=Qt::RightToLeft;
     setLayoutDirection(targetLanguageDirection);
+
+    if (m_part==DocPosition::Source)
+        return;
+
+    //"Some language do not need space between words. For example Chinese."
+    static QLocale::Language noSpaceLanguages[]={QLocale::Chinese};
+    i=sizeof(noSpaceLanguages)/sizeof(QLocale::Chinese);
+    while (--i>=0 && langLocale.language()!=noSpaceLanguages[i])
+        ;
+    m_langUsesSpaces=(i==-1);
 }
 
 void TranslationUnitTextEdit::reflectApprovementState()
@@ -801,7 +812,8 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         }
         else if(!(keyEvent->modifiers()&Qt::ControlModifier))
         {
-            if(pos>0
+            if(m_langUsesSpaces
+               &&pos>0
                &&!str.isEmpty()
                &&!str.at(pos-1).isSpace())
             {

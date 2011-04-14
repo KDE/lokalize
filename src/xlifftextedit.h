@@ -128,6 +128,7 @@ signals:
 
 private:
     int m_currentUnicodeNumber; //alt+NUM thing
+    bool m_langUsesSpaces; //e.g. Chinese doesn't
 
     Catalog* m_catalog;
     DocPosition::Part m_part;
