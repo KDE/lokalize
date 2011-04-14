@@ -166,4 +166,5 @@ install( FILES
         scriptsui.rc
         project/projectmanagerui.rc
         tm/translationmemoryrui.rc
+        lokalize.notifyrc
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize )

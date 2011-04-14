@@ -1,0 +1,13 @@
+[Global]
+IconName=lokalize
+Comment=Computer-aided translation system
+Name=Lokalize
+
+[Event/FilesOpenError]
+Name=Error opening files
+Action=Popup
+
+[Event/MergeFilesOpenError]
+Name=Error opening files for synchronization
+Action=Popup
+

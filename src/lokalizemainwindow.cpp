@@ -45,6 +45,7 @@
 #include <kstatusbar.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
+#include <knotification.h>
 #include <kapplication.h>
 
 
@@ -637,13 +638,9 @@ void LokalizeMainWindow::projectLoaded()
         kDebug()<<"failedFiles"<<failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
-        KDialog* dialog=new KDialog(this);
-        dialog->setAttribute(Qt::WA_DeleteOnClose,true);
-        dialog->showButton(KDialog::Ok,true);
-        dialog->showButton(KDialog::Cancel,false);
-        KMessageBox::createKMessageBox(dialog, QIcon(), i18nc("@info","Error opening the following files:"),
-                failedFiles, QString(), 0, KMessageBox::NoExec, QString(), QMessageBox::Warning);
-        dialog->show();
+        KNotification* notification=new KNotification("FilesOpenError", this);
+        notification->setText( i18nc("@info","Error opening the following files:\n\n")%"<filename>"%failedFiles.join("</filename><br><filename>")%"</filename>" );
+        notification->sendEvent();
     }
 
     if (files.isEmpty() && dockWidgets.size() > 0)
