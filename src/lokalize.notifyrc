@@ -1,6 +1,7 @@
 [Global]
 IconName=lokalize
 Comment=Computer-aided translation system
+Comment[nl]=Computerondersteund vertaalsysteem
 Comment[pt]=Sistema de traduções auxiliado pelo computador
 Comment[sv]=Datorstött översättningssystem
 Comment[uk]=Комп’ютерна система допомоги у перекладі
@@ -54,6 +55,7 @@ Name[zh_TW]=Lokalize
 
 [Event/FilesOpenError]
 Name=Error opening files
+Name[nl]=Fout bij openen van bestanden
 Name[pt]=Erro ao aceder aos ficheiros
 Name[sv]=Fel när filer skulle öppnas
 Name[uk]=Помилка під час відкриття файлів
@@ -62,6 +64,7 @@ Action=Popup
 
 [Event/MergeFilesOpenError]
 Name=Error opening files for synchronization
+Name[nl]=Fout bij openen van bestanden voor synchronisatie
 Name[pt]=Erro ao aceder aos ficheiros para a sincronização
 Name[sv]=Fel när filer skulle öppnas för synkronisering
 Name[uk]=Помилка під час відкриття файлів для синхронізації
