@@ -703,7 +703,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 
                if(!(*msgstrIt).isEmpty())
                   (*msgstrIt)+='\n';
-               (*msgstrIt)=line;
+               (*msgstrIt)+=line;
             }
             else if( _gettextPluralForm && ( line.contains( _rxMsgStrPlural ) ) )
             {
@@ -751,7 +751,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 
                if(!(*msgstrIt).isEmpty())
                   (*msgstrIt)+='\n';
-               (*msgstrIt)=line;
+               (*msgstrIt)+=line;
             }
             else
             {
