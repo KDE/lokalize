@@ -521,7 +521,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
     if (charsAdded==1)
     {
-        int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,offset);
+        int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,offset-1);
         int len=(offset-sp);
         int wordCompletionLength=Settings::self()->wordCompletionLength();
         if (wordCompletionLength>=3 && len>=wordCompletionLength)
