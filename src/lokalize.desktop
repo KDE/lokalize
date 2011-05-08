@@ -2,6 +2,7 @@
 Name=Lokalize
 Name[ast]=Lokalize
 Name[bg]=Lokalize
+Name[bs]=Lokalize
 Name[ca]=Lokalize
 Name[ca@valencia]=Lokalize
 Name[cs]=Lokalize
@@ -53,6 +54,7 @@ MimeType=application/x-xliff;text/x-gettext-translation;application/x-lokalize-p
 X-DocPath=lokalize/index.html
 GenericName=Computer-Aided Translation System
 GenericName[ast]=Sistema de traducción asistíu por computadora
+GenericName[bs]=Sistem za prevođenje pomoću računara
 GenericName[ca]=Sistema de traducció assistida per ordinador
 GenericName[ca@valencia]=Sistema de traducció assistida per ordinador
 GenericName[cs]=Systém pro překlad pomocí počítače
