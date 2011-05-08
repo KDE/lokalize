@@ -257,10 +257,10 @@ void updateHeader(QString& header,
     QString authorNameEmail;
 
     bool found=false;
-    authorNameEmail="Last-Translator: "%Settings::authorName();
+    authorNameEmail=Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
         authorNameEmail+=(" <"%Settings::authorEmail()%'>');
-    temp=authorNameEmail%"\\n";
+    temp="Last-Translator: "%authorNameEmail%"\\n";
 
     QRegExp lt("^ *Last-Translator:.*");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
@@ -560,9 +560,7 @@ void updateHeader(QString& header,
 //                        return;
     QStringList foundAuthors;
 
-    temp = "# ";
-    //temp += identityOptions->readEntry("authorName","");
-    temp+=authorNameEmail%", "%QDate::currentDate().toString("yyyy")%'.';
+    temp="# "%authorNameEmail%", "%QDate::currentDate().toString("yyyy")%'.';
 
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
     QRegExp regexpAuthorYear( "^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)" );
