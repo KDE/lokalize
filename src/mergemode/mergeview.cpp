@@ -233,9 +233,11 @@ void MergeView::mergeOpen(KUrl url)
             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, error line: %2",url.pathOrUrl(),errorLine) );
         else
         {
+            /* disable this as requested by bug 272587
             KNotification* notification=new KNotification("MergeFilesOpenError", this);
             notification->setText( i18nc("@info %1 is full filename","Error opening the file <filename>%1</filename> for synchronization",url.pathOrUrl()) );
             notification->sendEvent();
+            */
         }
         //i18nc("@info %1 is w/o path","No branch counterpart for <filename>%1</filename>",url.fileName()),
     }
