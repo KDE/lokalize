@@ -130,9 +130,9 @@ QVariant PhasesModel::data(const QModelIndex& index, int role) const
         case Date:       return phase.date.toString();
         case Process:    return phase.process;
         case Company:    return phase.company;
-        case Contact:    return phase.contact
+        case Contact:    return QString(phase.contact
                            +(phase.email.isEmpty()?"":QString(" <%1> ").arg(phase.email))
-                           +(phase.phone.isEmpty()?"":QString(", %1").arg(phase.phone));
+                           +(phase.phone.isEmpty()?"":QString(", %1").arg(phase.phone)));
         case ToolName:       return m_tools.value(phase.tool).name;
     }
     return QVariant();

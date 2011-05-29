@@ -114,9 +114,9 @@ void TermLabel::setText(const QString& term, const QString& entryId, bool capFir
 {
     m_entryId=entryId;
     m_capFirst=capFirst;
-    QLabel::setText(term + QString(m_action?(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
+    QLabel::setText(QString(term + QString(m_action?QString(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
                 + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join("  \n  ")
-                    + "  \n  ");
+                    + "  \n  "));
 }
 
 
