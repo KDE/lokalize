@@ -202,7 +202,7 @@ void CatalogView::fillFilterOptionsMenu()
     QMenu* basicMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Basic"));
     QMenu* extMenu=extStates?m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","States")):0;
     QMenu* allmenus[2]={basicMenu,extMenu};
-    QMenu* columnsMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Columns"));
+    QMenu* columnsMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Searchable column"));
 
     QAction* txt;
     for (int i=0;(1<<i)<CatalogTreeFilterModel::MaxOption;++i)
