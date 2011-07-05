@@ -95,20 +95,31 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
 
     if (total > 0)
     {
+        QBrush brush;
         painter->setPen(Qt::white);
         QRect myRect(option.rect);
-        myRect.setWidth(option.rect.width() * translated / total);
-        painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::PositiveText));
-        //painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.left()));
 
-        myRect.setLeft(myRect.left() + myRect.width());
-        myRect.setWidth(option.rect.width() * fuzzy / total);
-        painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NeutralText));
-        // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
+        if (translated)
+        {
+            brush=m_colorScheme.foreground(KColorScheme::PositiveText);
+            myRect.setWidth(option.rect.width() * translated / total);
+            painter->fillRect(myRect, brush);
+        }
 
+        if (fuzzy)
+        {
+            brush=m_colorScheme.foreground(KColorScheme::NeutralText);
+            myRect.setLeft(myRect.left() + myRect.width());
+            myRect.setWidth(option.rect.width() * fuzzy / total);
+            painter->fillRect(myRect, brush);
+            // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
+        }
+
+        if (untranslated)
+            brush=m_colorScheme.foreground(KColorScheme::NegativeText);
         myRect.setLeft(myRect.left() + myRect.width());
         myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
-        painter->fillRect(myRect, m_colorScheme.foreground(KColorScheme::NegativeText));
+        painter->fillRect(myRect, brush);
         // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
     }
     else if (total == -1)
