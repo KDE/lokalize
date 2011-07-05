@@ -313,9 +313,12 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
                                    i18nc("@info:status","Untranslated")};
         return statuses[translationStatus(item)];
     }
-    if (doHtml)
+    if (doHtml && item.column()<TMDBModel::Context)
     {
-        QString r=Qt::convertFromPlainText(result.toString()); //FIXME use another routine (this has bugs)
+        QString r=result.toString();
+        if (r.isEmpty())
+            return r;
+        r=Qt::convertFromPlainText(r); //FIXME use another routine (this has bugs)
         if (item.column()==TMDBModel::Target && !rowIsApproved(item.row()))
             r="<p><i>" % r.mid(3, r.length()-3) % "</i></p>";
         return r;
