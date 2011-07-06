@@ -44,7 +44,7 @@ public:
      * @param term is the term matched
      * @param entry is a whole entry
      */
-    void setText(const QString& term, const QString& entryId, bool capFirst);
+    void setText(const QString& term, const QByteArray& entryId, bool capFirst);
     void mousePressEvent (QMouseEvent* /* event*/);
 
 public slots:
@@ -54,7 +54,7 @@ signals:
     void insertTerm(const QString&);
 
 private:
-    QString m_entryId;
+    QByteArray m_entryId;
     bool m_capFirst;
     QAction* m_action; //used only for shortcut purposes
 };

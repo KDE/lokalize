@@ -104,20 +104,20 @@ public:
     QString path() const{return m_path;}
     bool isClean() {return m_clean;}
 
-    QStringList idsForLangWord(const QString& lang, const QString& word) const;
+    QList<QByteArray> idsForLangWord(const QString& lang, const QString& word) const;
 
-    QString id(int index) const;
+    QByteArray id(int index) const;
     QStringList terms(int index, const QString& lang) const;
-    QStringList terms(const QString& id, const QString& lang) const;
-    void setTerm(const QString& id, QString lang, int i, const QString& term);
-    QString subjectField(const QString& id) const;
-    void setSubjectField(const QString& id, const QString& value);
-    QString definition(const QString& id) const;
-    void setDefinition(const QString& id, const QString& value);
+    QStringList terms(const QByteArray& id, const QString& lang) const;
+    void setTerm(const QByteArray& id, QString lang, int i, const QString& term);
+    QString subjectField(const QByteArray& id) const;
+    void setSubjectField(const QByteArray& id, const QString& value);
+    QString definition(const QByteArray& id) const;
+    void setDefinition(const QByteArray& id, const QString& value);
 
 private:
-    QString descrip(const QString& id, const QString& type) const;
-    void setDescrip(const QString& id, const QString& type, const QString& value);
+    QString descrip(const QByteArray& id, const QString& type) const;
+    void setDescrip(const QByteArray& id, const QString& type, const QString& value);
 
 public:
     QStringList subjectFields() const;
@@ -131,14 +131,14 @@ public:
     bool save();
 
     //in-memory changing
-    QString generateNewId();
+    QByteArray generateNewId();
     void append(const QString& _english,const QString& _target);
-    void remove(const QString& id);
+    void remove(const QByteArray& id);
     void forceChangeSignal(){emit changed();}
     void setClean(bool );
 
 
-    QString append(const QStringList& sourceTerms, const QStringList& targetTerms);
+    QByteArray append(const QStringList& sourceTerms, const QStringList& targetTerms);
 
     //general
     void hashTermEntry(const QDomElement&);
@@ -154,11 +154,11 @@ private:
     mutable QDomDocument m_doc;
     QDomNodeList m_entries;
 
-    QMap<QString, QDomElement> m_entriesById;
-    QList<QString> m_idsForEntriesById;
+    QMap<QByteArray, QDomElement> m_entriesById;
+    QList<QByteArray> m_idsForEntriesById;
 
 
-    QMap< QString, QMultiHash<QString,QString> > idsByLangWord;
+    QMap< QString, QMultiHash<QString,QByteArray> > idsByLangWord;
 
     QMultiHash<QString,int> wordHash_;
     QList<TermEntry> termList_;
@@ -168,7 +168,7 @@ private:
     //for delayed saving
     QStringList addedIds_;
     QStringList changedIds_;
-    QStringList removedIds;
+    QList<QByteArray> removedIds;
 
     bool m_clean;
 };
@@ -206,7 +206,7 @@ public:
     
     bool removeRows(int row, int count, const QModelIndex& parent=QModelIndex());
     //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
-    QString appendRow(const QString& _english, const QString& _target);
+    QByteArray appendRow(const QString& _english, const QString& _target);
 
 public slots:
     void forceReset();

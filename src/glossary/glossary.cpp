@@ -48,7 +48,7 @@ static const QString id="id";
 
 
 
-QStringList Glossary::idsForLangWord(const QString& lang, const QString& word) const
+QList<QByteArray> Glossary::idsForLangWord(const QString& lang, const QString& word) const
 {
     //return glossary.wordHash.values(word);
     return idsByLangWord[lang].values(word);
@@ -243,7 +243,7 @@ QVariant GlossaryModel::data(const QModelIndex& index, int role) const
     static Project* project=Project::instance();
     Glossary* glossary=m_glossary;
 
-    QString id=glossary->id(index.row());
+    QByteArray id=glossary->id(index.row());
     switch (index.column())
     {
         case ID:      return id;
@@ -281,7 +281,7 @@ Qt::ItemFlags GlossaryModel::flags ( const QModelIndex & index ) const
 
 //BEGIN EDITING
 
-QString Glossary::generateNewId()
+QByteArray Glossary::generateNewId()
 {
     // generate unique ID
     int idNumber=0;
@@ -292,16 +292,16 @@ QString Glossary::generateNewId()
     QRegExp rx('^'+authorId+"\\-([0-9]*)$");
 
 
-    foreach(const QString& id, m_idsForEntriesById)
+    foreach(const QByteArray& id, m_idsForEntriesById)
     {
-        if (rx.exactMatch(id))
+        if (rx.exactMatch(QString::fromLatin1(id)))
             busyIdNumbers.append(rx.cap(1).toInt());
     }
 
     int i=removedIds.size();
     while(--i>=0)
     {
-        if (rx.exactMatch(removedIds.at(i)))
+        if (rx.exactMatch(QString::fromLatin1(removedIds.at(i))))
             busyIdNumbers.append(rx.cap(1).toInt());
     }
 
@@ -312,25 +312,25 @@ QString Glossary::generateNewId()
             ++idNumber;
     }
 
-    return QString(authorId+"-%1").arg(idNumber);
+    return QString(authorId+"-%1").arg(idNumber).toLatin1();
 }
 
 QStringList Glossary::subjectFields() const
 {
     QSet<QString> result;
-    foreach(const QString& id, m_idsForEntriesById)
+    foreach(const QByteArray& id, m_idsForEntriesById)
         result.insert(subjectField(id));
     return result.toList();
 }
 
-QString Glossary::id(int index) const
+QByteArray Glossary::id(int index) const
 {
     if (index<m_idsForEntriesById.size())
         return m_idsForEntriesById.at(index);
-    return QString();
+    return QByteArray();
 }
 
-QStringList Glossary::terms(const QString& id, const QString& language) const
+QStringList Glossary::terms(const QByteArray& id, const QString& language) const
 {
     QStringList result;
     QDomElement n = m_entriesById.value(id).firstChildElement(langSet);
@@ -366,7 +366,7 @@ static void setText(QDomElement element, QString text)
         element.appendChild( element.ownerDocument().createTextNode(text));
 }
 
-void Glossary::setTerm(const QString& id, QString lang, int index, const QString& termText)
+void Glossary::setTerm(const QByteArray& id, QString lang, int index, const QString& termText)
 {
     setClean(false);
 
@@ -404,7 +404,7 @@ void Glossary::setTerm(const QString& id, QString lang, int index, const QString
 }
 
 
-QString Glossary::descrip(const QString& id, const QString& type) const
+QString Glossary::descrip(const QByteArray& id, const QString& type) const
 {
     QDomElement n = m_entriesById.value(id).firstChildElement("descrip");
     while (!n.isNull())
@@ -418,7 +418,7 @@ QString Glossary::descrip(const QString& id, const QString& type) const
     return QString();
 }
 
-void Glossary::setDescrip(const QString& id, const QString& type, const QString& value)
+void Glossary::setDescrip(const QByteArray& id, const QString& type, const QString& value)
 {
     setClean(false);
 
@@ -438,22 +438,22 @@ void Glossary::setDescrip(const QString& id, const QString& type, const QString&
     descrip.appendChild( document.createTextNode(value));
 }
 
-QString Glossary::subjectField(const QString& id) const
+QString Glossary::subjectField(const QByteArray& id) const
 {
     return descrip(id, "subjectField");
 }
 
-QString Glossary::definition(const QString& id) const
+QString Glossary::definition(const QByteArray& id) const
 {
     return descrip(id, "definition");
 }
 
-void Glossary::setSubjectField(const QString& id, const QString& value)
+void Glossary::setSubjectField(const QByteArray& id, const QString& value)
 {
     setDescrip(id, "subjectField", value);
 }
 
-void Glossary::setDefinition(const QString& id, const QString& value)
+void Glossary::setDefinition(const QByteArray& id, const QString& value)
 {
     setDescrip(id, "definition", value);
 }
@@ -485,7 +485,7 @@ QStringList Glossary::terms(int index, const QString& language) const
 //                       int index)
 void Glossary::hashTermEntry(const QDomElement& termEntry)
 {
-    QString entryId=termEntry.attribute(::id);
+    QByteArray entryId=termEntry.attribute(::id).toLatin1();
     if (entryId.isEmpty())
         return;
 
@@ -511,7 +511,8 @@ void Glossary::hashTermEntry(const QDomElement& termEntry)
 
 void Glossary::unhashTermEntry(const QDomElement& termEntry)
 {
-    m_entriesById.remove(termEntry.attribute(::id));
+    QByteArray entryId=termEntry.attribute(::id).toLatin1();
+    m_entriesById.remove(entryId);
 
     QDomElement n = termEntry.firstChildElement(langSet);
     while (!n.isNull())
@@ -522,7 +523,7 @@ void Glossary::unhashTermEntry(const QDomElement& termEntry)
 
         QString termText=n.firstChildElement(ntig).firstChildElement(termGrp).firstChildElement(term).text();
         foreach(const QString& word, termText.split(' ',QString::SkipEmptyParts))
-            idsByLangWord[lang].remove(stem(lang,word),termEntry.attribute(::id));
+            idsByLangWord[lang].remove(stem(lang,word),entryId);
 
         n = n.nextSiblingElement(langSet);
     }
@@ -550,7 +551,7 @@ void Glossary::unhashTermEntry(int index)
 }
 #endif
 
-void Glossary::remove(const QString& id)
+void Glossary::remove(const QByteArray& id)
 {
     if (!m_entriesById.contains(id))
         return;
@@ -580,10 +581,10 @@ static void appendTerm(QDomElement entry, const QString& termText, const QString
     termElement.appendChild(doc.createTextNode(termText));
 }
 
-QString Glossary::append(const QStringList& sourceTerms, const QStringList& targetTerms)
+QByteArray Glossary::append(const QStringList& sourceTerms, const QStringList& targetTerms)
 {
     if (!m_doc.elementsByTagName("body").count())
-        return QString();
+        return QByteArray();
 
     setClean(false);
     QDomElement termEntry=m_doc.createElement("termEntry");
@@ -591,8 +592,8 @@ QString Glossary::append(const QStringList& sourceTerms, const QStringList& targ
 
     //m_entries=m_doc.elementsByTagName("termEntry");
 
-    QString newId=generateNewId();
-    termEntry.setAttribute(::id, newId);
+    QByteArray newId=generateNewId();
+    termEntry.setAttribute(::id, QString::fromLatin1(newId));
 
     foreach (QString sourceTerm, sourceTerms)
         appendTerm(termEntry, sourceTerm, Project::instance()->sourceLangCode());
@@ -646,13 +647,13 @@ bool GlossaryModel::removeRows(int row, int count, const QModelIndex& parent)
 // {
 //     if (row!=rowCount())
 //         return false;
-QString GlossaryModel::appendRow(const QString& _english, const QString& _target)
+QByteArray GlossaryModel::appendRow(const QString& _english, const QString& _target)
 {
     bool notify=!canFetchMore(QModelIndex());
     if (notify)
         beginInsertRows(QModelIndex(),rowCount(),rowCount());
 
-    QString id=m_glossary->append(QStringList(_english), QStringList(_target));
+    QByteArray id=m_glossary->append(QStringList(_english), QStringList(_target));
 
     if (notify)
     {

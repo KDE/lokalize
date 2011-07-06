@@ -142,11 +142,11 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //         pos=accel.pos(1);
 //     }
 
-    QStringList termIds;
+    QList<QByteArray> termIds;
     foreach (const QString& w, msg.split(m_rxSplit,QString::SkipEmptyParts))
     {
         QString word=stem(Project::instance()->sourceLangCode(),w);
-        QStringList indexes=glossary.idsForLangWord(Project::instance()->sourceLangCode(),word);
+        QList<QByteArray> indexes=glossary.idsForLangWord(Project::instance()->sourceLangCode(),word);
         //if (indexes.size())
             //kWarning()<<"found entry for:" <<word;
         termIds+=indexes;
@@ -163,7 +163,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     bool found=false;
     //m_flowLayout->setEnabled(false);
-    foreach (QString termId, termIds.toSet())
+    foreach (const QByteArray& termId, termIds.toSet())
     {
         // now check which of them are really hits...
         foreach (const QString& enTerm, glossary.terms(termId, Project::instance()->sourceLangCode()))

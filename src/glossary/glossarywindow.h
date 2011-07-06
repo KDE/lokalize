@@ -64,13 +64,13 @@ public:
 
 public slots:
     void currentChanged(int);
-    void showEntryInEditor(const QString&);
+    void showEntryInEditor(const QByteArray& id);
     void newTerm(QString _english=QString(), QString _target=QString());
     void rmTerm(int i=-1);
     void restore();
     bool save();
     void applyEntryChange();
-    void selectEntry(const QString& id);
+    void selectEntry(const QByteArray& id);
 
 private:
     QWidget* m_editor;
@@ -86,7 +86,7 @@ private:
     QListView* m_targetTermsView;
 
     bool m_reactOnSignals;
-    QString m_id;
+    QByteArray m_id;
 };
 
 class GlossaryTreeView: public QTreeView
@@ -116,12 +116,12 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
 
 public slots:
-    void setEntry(const QString& id);
+    void setEntry(const QByteArray& id);
 
 private:
     Glossary* m_glossary;
     QString m_lang;
-    QString m_id;
+    QByteArray m_id;
 };
 
 

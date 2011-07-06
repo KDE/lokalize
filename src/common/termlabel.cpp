@@ -110,7 +110,7 @@ void TermLabel::mousePressEvent (QMouseEvent* event)
         insert();
 }
 
-void TermLabel::setText(const QString& term, const QString& entryId, bool capFirst)
+void TermLabel::setText(const QString& term, const QByteArray& entryId, bool capFirst)
 {
     m_entryId=entryId;
     m_capFirst=capFirst;

@@ -177,7 +177,7 @@ void FlowLayout::clearTerms()
     setEnabled(true);
 }
 
-void FlowLayout::addTerm(const QString& term, const QString& entryId, bool capFirst)
+void FlowLayout::addTerm(const QString& term, const QByteArray& entryId, bool capFirst)
 {
     //fill layout with labels
     while (m_index>=count())

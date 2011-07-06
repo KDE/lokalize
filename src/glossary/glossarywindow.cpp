@@ -324,7 +324,7 @@ GlossaryWindow::~GlossaryWindow()
 {
 }
 
-void GlossaryWindow::showEntryInEditor(const QString& id)
+void GlossaryWindow::showEntryInEditor(const QByteArray& id)
 {
     if (m_editor->isVisible())
         applyEntryChange();
@@ -373,7 +373,7 @@ void GlossaryWindow::applyEntryChange()
     if (!m_reactOnSignals || !m_browser->currentIndex().isValid())
         return;
 
-    QString id=m_id;//modelIndexToId(m_browser->currentIndex());
+    QByteArray id=m_id;//modelIndexToId(m_browser->currentIndex());
 
     Project* project=Project::instance();
     Glossary* glossary=project->glossary();
@@ -402,7 +402,7 @@ void GlossaryWindow::applyEntryChange()
 }
 
 
-void GlossaryWindow::selectEntry(const QString& id)
+void GlossaryWindow::selectEntry(const QByteArray& id)
 {
     qApp->processEvents(); //let it fetch the rows
 
@@ -427,7 +427,7 @@ void GlossaryWindow::newTerm(QString _english, QString _target)
     setCaption(i18nc("@title:window","Glossary"),true);
 
     GlossaryModel* sourceModel=static_cast<GlossaryModel*>(m_proxyModel->sourceModel());
-    QString id=sourceModel->appendRow(_english,_target);
+    QByteArray id=sourceModel->appendRow(_english,_target);
 
     selectEntry(id);
 }
@@ -491,7 +491,7 @@ Do you want to save your changes or discard them?"),i18nc("@title:window","Warni
 
 //END GlossaryWindow
 
-void TermsListModel::setEntry(const QString& id)
+void TermsListModel::setEntry(const QByteArray& id)
 {
     m_id=id;
     QStringList terms=m_glossary->terms(m_id,m_lang);
