@@ -37,16 +37,6 @@
       <widget class="QComboBox" name="dbName"/>
      </item>
      <item>
-      <widget class="QToolButton" name="qa">
-       <property name="text">
-        <string>Quality assurance</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -62,7 +52,6 @@
     </layout>
    </item>
    <item>
-    <widget class="QWidget" name="queryWidget">
     <layout class="QHBoxLayout" name="queryLayout">
      <property name="sizeConstraint">
       <enum>QLayout::SetMinimumSize</enum>
@@ -238,7 +227,6 @@ Press Enter to start the search.</string>
       </layout>
      </item>
     </layout>
-    </widget>
    </item>
    <item>
     <widget class="QTreeView" name="treeView">

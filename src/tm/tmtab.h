@@ -38,6 +38,7 @@
 #include <QStaticText>
 #include <QCache>
 
+class QaView;
 class Ui_QueryOptions;
 class KLineEdit;
 class QComboBox;
@@ -101,6 +102,7 @@ private:
     Ui_QueryOptions* ui_queryOptions;
     TMDBModel* m_model;
     TMResultsSortFilterProxyModel *m_proxyModel;
+    QaView* m_qaView;
 
     DocPosition::Part m_partToAlsoTryLater;
     //QString m_dbusObjectPath;

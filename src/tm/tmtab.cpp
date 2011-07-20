@@ -26,6 +26,7 @@
 #include "project.h"
 #include "dbfilesmodel.h"
 #include "tmscanapi.h"
+#include "qaview.h"
 
 #include <iostream>
 
@@ -329,21 +330,6 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 
 //END TMDBModel
 
-struct StringRule
-{
-    QVector<QString> sources;
-    QVector<QString> targets;
-    QVector<QString> falseFriends;
-};
-
-struct Rule
-{
-    QVector<QRegExp> sources;
-    QVector<QRegExp> targets;
-    QVector<QRegExp> falseFriends;
-};
-
-
 //BEGIN TMResultsSortFilterProxyModel
 class TMResultsSortFilterProxyModel: public QSortFilterProxyModel
 {
@@ -546,8 +532,6 @@ TMTab::TMTab(QWidget *parent)
     //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
     
-    connect(ui_queryOptions->qa, SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
-
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
         statusBarItems.insert(i,QString());
@@ -562,6 +546,14 @@ TMTab::TMTab(QWidget *parent)
 
     action = tm->addAction("tools_tm_manage",Project::instance(),SLOT(showTMManager()));
     action->setText(i18nc("@action:inmenu","Manage translation memories"));
+
+    m_qaView = new QaView(this);
+    m_qaView->hide();
+    addDockWidget(Qt::RightDockWidgetArea, m_qaView);
+    tm->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
+
+
+    connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
 
 
     KConfig config;
@@ -694,23 +686,6 @@ void TMTab::openFile()
 }
 
 
-static QRegExp domNodeToRegExp(const QDomNode& node)
-{
-    QRegExp re(node.toElement().text());
-    re.setMinimal(true);
-    return re;
-}
-
-static QVector<QRegExp> domListToRegExpVector(const QDomNodeList& nodes)
-{
-    QVector<QRegExp> result;
-    result.reserve(nodes.size());
-    for (int i=0;i<nodes.size();i++)
-        result.append(domNodeToRegExp(nodes.at(i)));
-
-    return result;
-}
-
 
 void TMTab::setQAMode(bool enable)
 {
@@ -720,43 +695,7 @@ void TMTab::setQAMode(bool enable)
         return;
     }
 
-    qDebug()<<Project::instance()->qaPath();
-    QDomDocument doc;
-    QFile file(Project::instance()->qaPath());
-    if (file.open(QIODevice::ReadOnly))
-    {
-        bool ok=doc.setContent(&file);
-        file.close();
-        if (!ok)
-            return;
-    }
-    else
-    {
-        /*
-        doc.setContent(
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-"<qa version=\"1.0\">\n"
-"    <category name=\"default\">\n"
-"    </category>\n"
-"</qa>\n");
-*/
-    }
-
-    QVector<Rule> rules;
-    QDomNodeList m_categories=doc.elementsByTagName("category");
-    for (int i=0;i<m_categories.size();i++)
-    {
-        QDomNodeList m_rules=m_categories.at(i).toElement().elementsByTagName("rule");
-        for (int j=0;j<m_rules.size();j++)
-        {
-            Rule rule;
-            rule.sources=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("source"));
-            rule.falseFriends=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("falseFriend"));
-            rule.targets=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("target"));
-            rules.append(rule);
-        }
-    }
-    m_proxyModel->setRules(rules);
+    m_proxyModel->setRules(m_qaView->rules());
     static_cast<FastSizeHintItemDelegate*>(ui_queryOptions->treeView->itemDelegate())->reset();
 
     /*QDomElement docElem = m_categories.at(0).toElement();

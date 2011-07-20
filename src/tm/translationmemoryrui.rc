@@ -1,9 +1,16 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="TranslationMemory" version="2">
+<kpartgui name="TranslationMemory" version="3">
 <MenuBar>
+  <Menu name="tools">
+    <Action name="showqa_action"/>
+    <Separator/>
+    <MergeLocal/>
+  </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Separator/>
   <Action name="tools_tm_manage"/>
+  <Separator/>
+  <Action name="showqa_action"/>
 </ToolBar>
 </kpartgui>

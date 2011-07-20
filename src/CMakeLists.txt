@@ -83,6 +83,8 @@ set(lokalize_SRCS
     tm/dbfilesmodel.cpp
     tm/tmmanager.cpp
     tm/tmtab.cpp
+    tm/qaview.cpp
+    tm/qamodel.cpp
 
     catalog/phase.cpp
 
