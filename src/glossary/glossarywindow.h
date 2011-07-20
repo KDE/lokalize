@@ -101,8 +101,8 @@ public:
 
 signals:
     void currentChanged(int);
-    void currentChanged(const QString&);
-    void currentChanged(const QString& prev, const QString& current);
+    void currentChanged(const QByteArray&);
+    void currentChanged(const QByteArray& prev, const QByteArray& current);
 //private:
 };
 

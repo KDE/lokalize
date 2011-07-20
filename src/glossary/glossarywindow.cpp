@@ -61,9 +61,9 @@ GlossaryTreeView::GlossaryTreeView(QWidget *parent)
 
 }
 
-static QString modelIndexToId(const QModelIndex& item)
+static QByteArray modelIndexToId(const QModelIndex& item)
 {
-    return item.sibling(item.row(),0).data(Qt::DisplayRole).toString();
+    return item.sibling(item.row(),0).data(Qt::DisplayRole).toByteArray();
 }
 
 void GlossaryTreeView::currentChanged(const QModelIndex& current, const QModelIndex&/* previous*/)
@@ -307,7 +307,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     subjectFieldsModel->setStringList(subjectFields);
     m_subjectField->setModel(subjectFieldsModel);
     connect(m_browser,SIGNAL(currentChanged(int)), this,SLOT(currentChanged(int)));
-    connect(m_browser,SIGNAL(currentChanged(QString)), this,SLOT(showEntryInEditor(QString)));
+    connect(m_browser,SIGNAL(currentChanged(QByteArray)), this,SLOT(showEntryInEditor(QByteArray)));
 
     //TODO
     //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
