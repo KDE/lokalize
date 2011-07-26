@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy
+  by the membership of KDE e.V.), which shall act as a proxy 
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -21,40 +21,21 @@
 
 **************************************************************************** */
 
+#include "domroutines.h"
 
-#ifndef QAVIEW_H
-#define QAVIEW_H
-
-#include <QDockWidget>
-#include <QTreeView>
-#include <QDomDocument>
-
-#include "rule.h"
-
-class QaModel;
-
-class QaView: public QDockWidget
+void setText(QDomElement element, QString text)
 {
-    Q_OBJECT
+    QDomNodeList children=element.childNodes();
+    for (int i=0;i<children.count();i++)
+    {
+        if (children.at(i).isCharacterData())
+        {
+            children.at(i).toCharacterData().setData(text);
+            text.clear();
+        }
+    }
 
-public:
-    QaView(QWidget*);
-    ~QaView();
-    
-    bool loadRules(QString filename=QString());
-    QVector<Rule> rules() const;
-
-public slots:
-    void addRule();
-
-private:
-    QTreeView* m_browser;
-    QaModel* m_qaModel;
-
-    QVector<Rule> m_rules;
-};
-
-
-#endif // QAVIEW_H
-
+    if (!text.isEmpty())
+        element.appendChild( element.ownerDocument().createTextNode(text));
+}
 

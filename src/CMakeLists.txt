@@ -54,6 +54,8 @@ set(lokalize_SRCS
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
+    common/domroutines.cpp
+
     common/flowlayout.cpp
     common/termlabel.cpp
     common/languagelistmodel.cpp

@@ -29,6 +29,7 @@
 #include <KLocale>
 #include <QDomDocument>
 #include <QFile>
+#include <QAction>
 
 
 QaView::QaView(QWidget* parent)
@@ -40,6 +41,11 @@ QaView::QaView(QWidget* parent)
     loadRules();
     m_browser->setModel(m_qaModel);
     m_browser->setRootIsDecorated(false);
+
+    QAction* action=new QAction(i18nc("@action:inmenu", "Add"), m_browser);
+    connect(action, SIGNAL(triggered()), this, SLOT(addRule()));
+    m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
+    m_browser->addAction(action);
 }
 
 QaView::~QaView()
@@ -59,4 +65,11 @@ QVector< Rule > QaView::rules() const
 {
     return m_qaModel->toVector();
 }
+
+
+void QaView::addRule()
+{
+    m_qaModel->appendRow();
+}
+
 

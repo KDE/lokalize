@@ -27,6 +27,7 @@
 // #include "tbxparser.h"
 #include "project.h"
 #include "prefs_lokalize.h"
+#include "domroutines.h"
 
 #include <kdebug.h>
 
@@ -347,23 +348,6 @@ QStringList Glossary::terms(const QByteArray& id, const QString& language) const
     }
 
     return result;
-}
-
-
-static void setText(QDomElement element, QString text)
-{
-    QDomNodeList children=element.childNodes();
-    for (int i=0;i<children.count();i++)
-    {
-        if (children.at(i).isCharacterData())
-        {
-            children.at(i).toCharacterData().setData(text);
-            text.clear();
-        }
-    }
-
-    if (!text.isEmpty())
-        element.appendChild( element.ownerDocument().createTextNode(text));
 }
 
 void Glossary::setTerm(const QByteArray& id, QString lang, int index, const QString& termText)

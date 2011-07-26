@@ -47,18 +47,16 @@ public:
 
     bool loadRules(const QString& filename);
 
-    //QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const {return ColumnCount;}
+    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
+    Qt::ItemFlags flags(const QModelIndex&) const;
+    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
     QVariant data(const QModelIndex&, int role=Qt::DisplayRole) const;
     
     QVector<Rule> toVector() const;
-    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
-    //Qt::ItemFlags flags(const QModelIndex&) const;
 
-    //bool removeRows(int row, int count, const QModelIndex& parent=QModelIndex());
-    //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
-    //QByteArray appendRow(const QString& _english, const QString& _target);
+    void appendRow();
 
 private:
     QDomDocument m_doc;

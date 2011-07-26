@@ -18,9 +18,12 @@
 
 
 #include "qamodel.h"
+#include "domroutines.h"
 #include <QStringList>
 #include <klocalizedstring.h>
 #include <QFile>
+
+static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
 
 static QStringList domListToStringList(const QDomNodeList& nodes)
 {
@@ -78,16 +81,12 @@ QVariant QaModel::headerData(int section, Qt::Orientation , int role) const
 
 QVariant QaModel::data(const QModelIndex& item, int role) const
 {
-    if (role!=Qt::DisplayRole)
+    if (role!=Qt::DisplayRole && role!=Qt::EditRole)
         return QVariant();
 
-    static const QString nl=QString(" ")+QChar(0x00B7)+' ';
+    static const QString nl("\n");
     const QDomElement& entry=m_entries.at(item.row()).toElement();
-    switch (item.column())
-    {
-        case Source: return domListToStringList(entry.elementsByTagName("source")).join(nl);
-        case FalseFriend: return domListToStringList(entry.elementsByTagName("falseFriend")).join(nl);
-    }
+    return domListToStringList(entry.elementsByTagName(ruleTagNames[item.column()])).join(nl);
     return QVariant();
 }
 
@@ -101,8 +100,8 @@ QVector<Rule> QaModel::toVector() const
         for (int j=0;j<m_rules.size();j++)
         {
             Rule rule;
-            rule.sources=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("source"));
-            rule.falseFriends=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("falseFriend"));
+            rule.sources=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[Source]));
+            rule.falseFriends=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[FalseFriend]));
             rule.targets=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("target"));
             rules.append(rule);
         }
@@ -130,10 +129,48 @@ bool QaModel::loadRules(const QString& filename)
 "</qa>\n"));
     }
 
-    //QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
     m_entries=m_doc.elementsByTagName("rule");
+    return true;
+}
 
-    //qDebug()<<filename<<m_entries.size();
+
+void QaModel::appendRow()
+{
+    beginInsertRows(QModelIndex(),rowCount(),rowCount());
+    
+    QDomElement category=m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
+    QDomElement rule=category.appendChild(m_doc.createElement("rule")).toElement();
+    rule.appendChild(m_doc.createElement(ruleTagNames[Source]));
+    rule.appendChild(m_doc.createElement(ruleTagNames[FalseFriend]));
+
+    endInsertRows();
+}
+
+
+
+Qt::ItemFlags QaModel::flags(const QModelIndex& ) const
+{
+    return Qt::ItemIsSelectable|Qt::ItemIsEnabled|Qt::ItemIsEditable;
+}
+
+bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
+{
+    if (role!=Qt::DisplayRole && role!=Qt::EditRole)
+        return false;
+
+    QDomElement entry=m_entries.at(item.row()).toElement();
+    QDomNodeList sources=entry.elementsByTagName(ruleTagNames[item.column()]);
+    
+    QStringList newSources=value.toString().split('\n');
+    while(sources.size()<newSources.size())
+        entry.insertAfter(m_doc.createElement(ruleTagNames[item.column()]), sources.at(sources.size()-1));
+
+    while(sources.size()>newSources.size())
+        entry.removeChild(sources.at(sources.size()-1));
+
+    for (int i=0;i<sources.size();i++)
+        setText(sources.at(i).toElement(), newSources.at(i));
+
     return true;
 }
 
