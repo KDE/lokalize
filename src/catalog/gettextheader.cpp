@@ -276,9 +276,10 @@ void updateHeader(QString& header,
 
     QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
     temp="PO-Revision-Date: "%dateTimeString%"\\n";
+    QRegExp poRevDate("^ *PO-Revision-Date:.*");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
-        found=it->contains(QRegExp("^ *PO-Revision-Date:.*"));
+        found=it->contains(poRevDate);
         if (found && forSaving) *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
@@ -286,10 +287,10 @@ void updateHeader(QString& header,
 
     temp="Project-Id-Version: "%CatalogProjectId%"\\n";
     //temp.replace( "@PACKAGE@", packageName());
-
+    QRegExp projectIdVer("^ *Project-Id-Version:.*");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
-        found=it->contains(QRegExp("^ *Project-Id-Version:.*"));
+        found=it->contains(projectIdVer);
         if (found && it->contains("PACKAGE VERSION"))
             *it = temp;
     }
@@ -303,7 +304,12 @@ void updateHeader(QString& header,
     QString language; //initialized with preexisting value or later
     QString mailingList; //initialized with preexisting value or later
 
-    KConfig allLanguagesConfig("all_languages", KConfig::NoGlobals, "locale"); allLanguagesConfig.setLocale(QString());
+    static KConfig* allLanguagesConfig=0;
+    if (!allLanguagesConfig)
+    {
+      allLanguagesConfig = new KConfig("all_languages", KConfig::NoGlobals, "locale");
+      allLanguagesConfig->setLocale(QString());
+    }
     QRegExp langTeamRegExp("^ *Language-Team:.*");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
@@ -314,7 +320,7 @@ void updateHeader(QString& header,
             QMap<QString,QString> map;
             foreach (const QString &runningLangCode, KGlobal::locale()->allLanguagesList())
             {
-                KConfigGroup cg(&allLanguagesConfig, runningLangCode);
+                KConfigGroup cg(allLanguagesConfig, runningLangCode);
                 map[cg.readEntry("Name")]=runningLangCode;
             }
             if (map.size()<16) //may be just "en_US" and ""
@@ -338,7 +344,7 @@ void updateHeader(QString& header,
     if (language.isEmpty())
     {
         //language=locale.languageCodeToName(d->_langCode);
-        KConfigGroup cg(&allLanguagesConfig, langCode);
+        KConfigGroup cg(allLanguagesConfig, langCode);
         language=cg.readEntry("Name");
         if (language.isEmpty())
             language=langCode;
