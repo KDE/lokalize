@@ -129,6 +129,13 @@ void LokalizeMainWindow::initLater()
 {
     if(!m_prevSubWindow && m_projectSubWindow)
         slotSubWindowActivated(m_projectSubWindow);
+
+    if(!Project::instance()->isTmSupported())
+    {
+        KNotification* notification=new KNotification("NoSqlModulesAvailable", this);
+        notification->setText( i18nc("@info","No Qt Sql modules were found. Translation memory will not work.") );
+        notification->sendEvent();
+    }
 }
 
 LokalizeMainWindow::~LokalizeMainWindow()
@@ -347,6 +354,12 @@ void LokalizeMainWindow::showProjectOverview()
 
 TM::TMTab* LokalizeMainWindow::showTM()
 {
+    if (!Project::instance()->isTmSupported())
+    {
+        KMessageBox::information(0, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
+        return 0;
+    }
+
     if (!m_translationMemorySubWindow)
     {
         TM::TMTab* w=new TM::TMTab(this);
@@ -483,7 +496,7 @@ bool LokalizeMainWindow::closeProject()
     int i=editors.size();
     while (--i>=0)
     {
-        if (editors.at(i)==m_translationMemorySubWindow)
+        if (editors.at(i)==m_translationMemorySubWindow && m_translationMemorySubWindow)
             editors.at(i)->deleteLater();
         else if (qobject_cast<EditorTab*>(editors.at(i)->widget()))
         {

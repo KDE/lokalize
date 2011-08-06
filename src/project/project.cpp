@@ -53,6 +53,7 @@
 #include <threadweaver/DependencyPolicy.h>
 
 #include <QDBusArgument>
+#include <kmessagebox.h>
 
 
 using namespace Kross;
@@ -225,10 +226,24 @@ bool Project::queryCloseForAuxiliaryWindows()
     return true;
 }
 
+bool Project::isTmSupported() const
+{
+    QStringList drivers=QSqlDatabase::drivers();
+    return drivers.contains("QSQLITE");
+}
+
 void Project::showTMManager()
 {
     if (!m_tmManagerWindow)
+    {
+        if (!isTmSupported())
+        {
+            KMessageBox::information(0, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
+            return;
+        }
+
         m_tmManagerWindow=new TM::TMManagerWin(SettingsController::instance()->mainWindowPtr());
+    }
     m_tmManagerWindow->show();
     m_tmManagerWindow->activateWindow();
 }

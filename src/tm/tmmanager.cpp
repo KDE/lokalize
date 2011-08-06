@@ -128,6 +128,10 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     connect(dbHost->lineEdit(), SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
     connect(dbUser, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
     connect(dbPasswd, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
+
+    QStringList drivers=QSqlDatabase::drivers();
+    if (drivers.contains("QPSQL"))
+        dbType->addItem("PostgreSQL");
 }
 
 void DBPropertiesDialog::setConnectionBoxVisible(int type)

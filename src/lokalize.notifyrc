@@ -132,3 +132,6 @@ Name[x-test]=xxError opening files for synchronizationxx
 Name[zh_TW]=開啟檔案以同步時發生錯誤
 Action=Popup
 
+[Event/NoSqlModulesAvailable]
+Name=No Qt Sql modules were found
+Action=Popup

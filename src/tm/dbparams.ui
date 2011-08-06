@@ -28,11 +28,6 @@
        <string>Local</string>
       </property>
      </item>
-     <item>
-      <property name="text">
-       <string>PostgreSQL</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item row="1" column="0">

@@ -73,7 +73,6 @@ DBFilesModel::DBFilesModel()
     m_timeSinceLastUpdate.start();
 
     int count=rowCount(rootIndex());
-    kWarning(TM_AREA)<<"initial row count"<<count;
     if (count) calcStats(rootIndex(),0,count-1);
     openDB("default"); //behave when no project is loaded
 }

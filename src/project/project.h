@@ -95,6 +95,8 @@ public slots:
     Q_SCRIPTABLE void setDesirablePath(const QString& path){m_desirablePath=path;}
     Q_SCRIPTABLE QString desirablePath() const{return m_desirablePath;}
 
+    Q_SCRIPTABLE bool isTmSupported() const;
+
 signals:
     Q_SCRIPTABLE void loaded();
 
