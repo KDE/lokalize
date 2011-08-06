@@ -42,14 +42,23 @@ QaView::QaView(QWidget* parent)
     m_browser->setModel(m_qaModel);
     m_browser->setRootIsDecorated(false);
 
+
+    m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
+
     QAction* action=new QAction(i18nc("@action:inmenu", "Add"), m_browser);
     connect(action, SIGNAL(triggered()), this, SLOT(addRule()));
-    m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
     m_browser->addAction(action);
+
+    action=new QAction(i18nc("@action:inmenu", "Remove"), m_browser);
+    connect(action, SIGNAL(triggered()), this, SLOT(removeRule()));
+    m_browser->addAction(action);
+    
+    m_browser->setAlternatingRowColors(true);
 }
 
 QaView::~QaView()
 {
+    saveRules();
 }
 
 bool QaView::loadRules(QString filename)
@@ -57,9 +66,16 @@ bool QaView::loadRules(QString filename)
     if (filename.isEmpty())
         filename=Project::instance()->qaPath();
 
-    return m_qaModel->loadRules(filename);
+    bool ok=m_qaModel->loadRules(filename);
+    if (ok)
+        m_filename=filename;
+    return ok;
 }
 
+bool QaView::saveRules(QString filename)
+{
+    return m_qaModel->saveRules(filename.isEmpty()?m_filename:filename);
+}
 
 QVector< Rule > QaView::rules() const
 {
@@ -69,7 +85,15 @@ QVector< Rule > QaView::rules() const
 
 void QaView::addRule()
 {
-    m_qaModel->appendRow();
+    QModelIndex newRule=m_qaModel->appendRow();
+    m_browser->selectionModel()->select(newRule, QItemSelectionModel::ClearAndSelect);
+    m_browser->edit(newRule);
+}
+
+void QaView::removeRule()
+{
+    foreach(const QModelIndex& rowIndex, m_browser->selectionModel()->selectedRows())
+        m_qaModel->removeRow(rowIndex);
 }
 
 

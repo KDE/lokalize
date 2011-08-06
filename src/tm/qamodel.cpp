@@ -22,6 +22,7 @@
 #include <QStringList>
 #include <klocalizedstring.h>
 #include <QFile>
+#include <qtextstream.h>
 
 static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
 
@@ -133,19 +134,46 @@ bool QaModel::loadRules(const QString& filename)
     return true;
 }
 
+bool QaModel::saveRules(const QString& filename)
+{
+    if (filename.isEmpty())
+        return false;
 
-void QaModel::appendRow()
+    QFile device(filename);
+    if (!device.open(QFile::WriteOnly | QFile::Truncate))
+        return false;
+    QTextStream stream(&device);
+    m_doc.save(stream,2);
+
+    //setClean(true);
+    return true;
+}
+
+
+QModelIndex QaModel::appendRow()
 {
     beginInsertRows(QModelIndex(),rowCount(),rowCount());
-    
+
     QDomElement category=m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
     QDomElement rule=category.appendChild(m_doc.createElement("rule")).toElement();
     rule.appendChild(m_doc.createElement(ruleTagNames[Source]));
     rule.appendChild(m_doc.createElement(ruleTagNames[FalseFriend]));
 
     endInsertRows();
+    
+    return index(m_entries.count()-1);
 }
 
+void QaModel::removeRow(const QModelIndex& rowIndex)
+{
+    //TODO optimize for contiguous selectimoons
+    beginRemoveRows(QModelIndex(),rowIndex.row(),rowIndex.row());
+
+    QDomElement category=m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
+    category.removeChild(m_entries.at(rowIndex.row()));
+
+    endRemoveRows();
+}
 
 
 Qt::ItemFlags QaModel::flags(const QModelIndex& ) const

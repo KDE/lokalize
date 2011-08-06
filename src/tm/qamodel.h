@@ -46,6 +46,7 @@ public:
     ~QaModel(){}
 
     bool loadRules(const QString& filename);
+    bool saveRules(const QString& filename);
 
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const {return ColumnCount;}
@@ -53,10 +54,11 @@ public:
     Qt::ItemFlags flags(const QModelIndex&) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
     QVariant data(const QModelIndex&, int role=Qt::DisplayRole) const;
-    
+
     QVector<Rule> toVector() const;
 
-    void appendRow();
+    QModelIndex appendRow();
+    void removeRow(const QModelIndex&);
 
 private:
     QDomDocument m_doc;

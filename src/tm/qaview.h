@@ -42,14 +42,17 @@ public:
     ~QaView();
     
     bool loadRules(QString filename=QString());
+    bool saveRules(QString filename=QString());
     QVector<Rule> rules() const;
 
 public slots:
     void addRule();
+    void removeRule();
 
 private:
     QTreeView* m_browser;
     QaModel* m_qaModel;
+    QString m_filename;
 
     QVector<Rule> m_rules;
 };
