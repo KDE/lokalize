@@ -134,4 +134,9 @@ Action=Popup
 
 [Event/NoSqlModulesAvailable]
 Name=No Qt Sql modules were found
+Name[pt]=Não foram encontrados módulos de SQL do Qt
+Name[pt_BR]=Nenhum módulo Qt SQL foi encontrado
+Name[sv]=Inga Qt SQL-moduler hittades
+Name[uk]=Не знайдено модулів SQL Qt
+Name[x-test]=xxNo Qt Sql modules were foundxx
 Action=Popup
