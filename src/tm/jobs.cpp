@@ -708,7 +708,7 @@ static void initSqliteDb(QSqlDatabase& db)
                    ")");
 
     queryMain.exec("ALTER TABLE main ADD COLUMN prior INTEGER");
-    queryMain.exec("ALTER TABLE main ADD COLUMN change_date DEFAULT CURRENT_DATE");
+    queryMain.exec("ALTER TABLE main ADD COLUMN change_date"); //DEFAULT CURRENT_DATE is not possible here
 
 
     queryMain.exec("CREATE INDEX IF NOT EXISTS source_index ON source_strings ("
