@@ -107,17 +107,16 @@ public:
     QList<QByteArray> idsForLangWord(const QString& lang, const QString& word) const;
 
     QByteArray id(int index) const;
-    QStringList terms(int index, const QString& lang) const;
     QStringList terms(const QByteArray& id, const QString& lang) const;
     void setTerm(const QByteArray& id, QString lang, int i, const QString& term);
-    QString subjectField(const QByteArray& id) const;
-    void setSubjectField(const QByteArray& id, const QString& value);
-    QString definition(const QByteArray& id) const;
-    void setDefinition(const QByteArray& id, const QString& value);
+    QString subjectField(const QByteArray& id, const QString& lang=QString()) const;
+    void setSubjectField(const QByteArray& id, const QString& lang, const QString& value);
+    QString definition(const QByteArray& id, const QString& lang=QString()) const;
+    void setDefinition(const QByteArray& id, const QString& lang, const QString& value);
 
 private:
-    QString descrip(const QByteArray& id, const QString& type) const;
-    void setDescrip(const QByteArray& id, const QString& type, const QString& value);
+    QString descrip(const QByteArray& id, const QString& lang, const QString& type) const;
+    void setDescrip(const QByteArray& id, const QString& lang, const QString& type, const QString& value);
 
 public:
     QStringList subjectFields() const;

@@ -42,6 +42,7 @@ using namespace GlossaryNS;
 static const QString defaultLang="en_US";
 static const QString xmlLang="xml:lang";
 static const QString ntig="ntig";
+static const QString tig="tig";
 static const QString termGrp="termGrp";
 static const QString langSet="langSet";
 static const QString term="term";
@@ -340,9 +341,23 @@ QStringList Glossary::terms(const QByteArray& id, const QString& language) const
         QString lang=n.attribute(xmlLang, defaultLang);
         if (lang=="en") //NOTE COMPAT
             lang=defaultLang;
+        lang.replace('-', '_');
 
         if (language==lang)
-            result<<n.firstChildElement(ntig).firstChildElement(termGrp).firstChildElement(term).text();
+        {
+            QDomElement ntigElem=n.firstChildElement(ntig);
+            while (!ntigElem.isNull())
+            {
+                result<<ntigElem.firstChildElement(termGrp).firstChildElement(term).text();
+                ntigElem=ntigElem.nextSiblingElement(ntig);
+            }
+            QDomElement tigElem=n.firstChildElement(tig);
+            while (!tigElem.isNull())
+            {
+                result<<tigElem.firstChildElement(term).text();
+                tigElem=tigElem.nextSiblingElement(tig);
+            }
+        }
 
         n = n.nextSiblingElement(langSet);
     }
@@ -355,40 +370,70 @@ void Glossary::setTerm(const QByteArray& id, QString lang, int index, const QStr
     setClean(false);
 
     QDomElement n = m_entriesById.value(id).firstChildElement(langSet);
+    QDomElement ourLangSetElement; //will reference the lang we want if it exists
     QDomDocument document=n.ownerDocument();
     int i=0;
     while (!n.isNull())
     {
         QString nLang=n.attribute(xmlLang, defaultLang);
+        nLang.replace('-','_');
         if (lang=="en") //NOTE COMPAT
         {
             lang=defaultLang;
+            nLang.replace('_','-');
             n.setAttribute(xmlLang, defaultLang);
         }
 
         if (lang==nLang)
         {
-            if (i==index)
+            ourLangSetElement=n;
+            QDomElement ntigElem=n.firstChildElement(ntig);
+            while(!ntigElem.isNull())
             {
-                QDomElement termElement=n.firstChildElement(ntig).firstChildElement(termGrp).firstChildElement(term);
-                setText(termElement,termText);
-                return;
+                if (i==index)
+                {
+                    QDomElement termElement=ntigElem.firstChildElement(termGrp).firstChildElement(term);
+                    setText(termElement,termText);
+                    return;
+                }
+                ntigElem = ntigElem.nextSiblingElement(ntig);
+                i++;
             }
-            i++;
+            QDomElement tigElem=n.firstChildElement(tig);
+            while(!tigElem.isNull())
+            {
+                if (i==index)
+                {
+                    QDomElement termElement=tigElem.firstChildElement(term);
+                    setText(termElement,termText);
+                    return;
+                }
+                tigElem = tigElem.nextSiblingElement(tig);
+                i++;
+            }
         }
         n = n.nextSiblingElement(langSet);
     }
     n = m_entriesById.value(id).toElement();
-    QDomElement langSetElement=n.appendChild( document.createElement(langSet)).toElement();
-    langSetElement.setAttribute(xmlLang,lang);
-    QDomElement ntigElement=langSetElement.appendChild( document.createElement(ntig)).toElement();
+    if (ourLangSetElement.isNull())
+    {
+        ourLangSetElement=n.appendChild( document.createElement(langSet)).toElement();
+        lang.replace('_', '-');
+        ourLangSetElement.setAttribute(xmlLang,lang);
+    }
+/*
+    QDomElement ntigElement=ourLangSetElement.appendChild( document.createElement(ntig)).toElement();
     QDomElement termGrpElement=ntigElement.appendChild( document.createElement(termGrp)).toElement();
     QDomElement termElement=termGrpElement.appendChild( document.createElement(term)).toElement();
+    termElement.appendChild( document.createTextNode(termText));
+*/
+    QDomElement tigElement=ourLangSetElement.appendChild( document.createElement(tig)).toElement();
+    QDomElement termElement=tigElement.appendChild( document.createElement(term)).toElement();
     termElement.appendChild( document.createTextNode(termText));
 }
 
 
-QString Glossary::descrip(const QByteArray& id, const QString& type) const
+QString Glossary::descrip(const QByteArray& id, const QString& lang, const QString& type) const
 {
     QDomElement n = m_entriesById.value(id).firstChildElement("descrip");
     while (!n.isNull())
@@ -402,7 +447,7 @@ QString Glossary::descrip(const QByteArray& id, const QString& type) const
     return QString();
 }
 
-void Glossary::setDescrip(const QByteArray& id, const QString& type, const QString& value)
+void Glossary::setDescrip(const QByteArray& id, const QString& lang, const QString& type, const QString& value)
 {
     setClean(false);
 
@@ -422,45 +467,26 @@ void Glossary::setDescrip(const QByteArray& id, const QString& type, const QStri
     descrip.appendChild( document.createTextNode(value));
 }
 
-QString Glossary::subjectField(const QByteArray& id) const
+QString Glossary::subjectField(const QByteArray& id, const QString& lang) const
 {
-    return descrip(id, "subjectField");
+    return descrip(id, lang, "subjectField");
 }
 
-QString Glossary::definition(const QByteArray& id) const
+QString Glossary::definition(const QByteArray& id, const QString& lang) const
 {
-    return descrip(id, "definition");
+    return descrip(id, lang, "definition");
 }
 
-void Glossary::setSubjectField(const QByteArray& id, const QString& value)
+void Glossary::setSubjectField(const QByteArray& id, const QString& lang, const QString& value)
 {
-    setDescrip(id, "subjectField", value);
+    setDescrip(id, lang, "subjectField", value);
 }
 
-void Glossary::setDefinition(const QByteArray& id, const QString& value)
+void Glossary::setDefinition(const QByteArray& id, const QString& lang, const QString& value)
 {
-    setDescrip(id, "definition", value);
+    setDescrip(id, lang, "definition", value);
 }
 
-    
-QStringList Glossary::terms(int index, const QString& language) const
-{
-    QStringList result;
-    Q_ASSERT(index<m_entries.size());
-    QDomElement n = m_entries.at(index).firstChildElement(langSet);
-    while (!n.isNull())
-    {
-        QString lang=n.attribute(xmlLang, defaultLang);
-        if (lang=="en") //NOTE COMPAT
-            lang=defaultLang;
-
-        if (language==lang)
-            result<<n.firstChildElement(ntig).firstChildElement(termGrp).firstChildElement(term).text();
-        n = n.nextSiblingElement(langSet);
-    }
-
-    return result;
-}
 
 
 //add words to the hash
@@ -553,15 +579,17 @@ void Glossary::remove(const QByteArray& id)
     setClean(false);
 }
 
-static void appendTerm(QDomElement entry, const QString& termText, const QString& lang)
+static void appendTerm(QDomElement langSetElem, const QString& termText)
 {
-    QDomDocument doc=entry.ownerDocument();
-
-    QDomElement source=doc.createElement(langSet); entry.appendChild(source);
-    source.setAttribute(xmlLang, lang);
-    QDomElement ntigElement=doc.createElement(ntig); source.appendChild(ntigElement);
+    QDomDocument doc=langSetElem.ownerDocument();
+/*
+    QDomElement ntigElement=doc.createElement(ntig); langSetElem.appendChild(ntigElement);
     QDomElement termGrpElement=doc.createElement(termGrp); ntigElement.appendChild(termGrpElement);
     QDomElement termElement=doc.createElement(term); termGrpElement.appendChild(termElement);
+    termElement.appendChild(doc.createTextNode(termText));
+*/
+    QDomElement tigElement=doc.createElement(tig); langSetElem.appendChild(tigElement);
+    QDomElement termElement=doc.createElement(term); tigElement.appendChild(termElement);
     termElement.appendChild(doc.createTextNode(termText));
 }
 
@@ -579,10 +607,15 @@ QByteArray Glossary::append(const QStringList& sourceTerms, const QStringList& t
     QByteArray newId=generateNewId();
     termEntry.setAttribute(::id, QString::fromLatin1(newId));
 
+    QDomElement sourceElem=m_doc.createElement(langSet); termEntry.appendChild(sourceElem);
+    sourceElem.setAttribute(xmlLang, Project::instance()->sourceLangCode());
     foreach (QString sourceTerm, sourceTerms)
-        appendTerm(termEntry, sourceTerm, Project::instance()->sourceLangCode());
+        appendTerm(sourceElem, sourceTerm);
+
+    QDomElement targetElem=m_doc.createElement(langSet); termEntry.appendChild(targetElem);
+    targetElem.setAttribute(xmlLang, Project::instance()->targetLangCode());
     foreach (QString targetTerm, targetTerms)
-        appendTerm(termEntry, targetTerm, Project::instance()->targetLangCode());
+        appendTerm(targetElem, targetTerm);
 
     hashTermEntry(termEntry);
     m_idsForEntriesById=m_entriesById.keys();

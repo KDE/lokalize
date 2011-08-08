@@ -379,10 +379,10 @@ void GlossaryWindow::applyEntryChange()
     Glossary* glossary=project->glossary();
 
     if (m_subjectField->currentText()!=glossary->subjectField(id))
-        glossary->setSubjectField(id, m_subjectField->currentText());
+        glossary->setSubjectField(id, QString(), m_subjectField->currentText());
 
     if (m_definition->toPlainText()!=glossary->definition(id))
-        glossary->setDefinition(id, m_definition->toPlainText());
+        glossary->setDefinition(id, QString(), m_definition->toPlainText());
 
     //HACK to force finishing of the listview editing
     QWidget* prevFocusWidget=QApplication::focusWidget();
