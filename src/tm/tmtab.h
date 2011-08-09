@@ -87,8 +87,8 @@ public slots:
     void copyTarget();
     void openFile();
     void handleResults();
-    void setTotalResultCount(int);
-    void setQAMode(bool);
+    void displayTotalResultCount();
+    void setQAMode(bool enabled=true);
 
 signals:
     void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
@@ -148,7 +148,8 @@ public:
 
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const{Q_UNUSED(parent); return ColumnCount;}
-    
+    int totalResultCount()const{return m_totalResultCount;}
+
 public slots:
     void setFilter(const QString& source, const QString& target,
                    bool invertSource, bool invertTarget,
@@ -170,6 +171,7 @@ private:
 private:
     QueryType m_queryType;
     QString m_dbName;
+    int m_totalResultCount;
 };
 
 //const QString& sourceRefine, const QString& targetRefine

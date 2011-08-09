@@ -49,6 +49,9 @@ public slots:
     void addRule();
     void removeRule();
 
+signals:
+    void rulesChanged();
+
 private:
     QTreeView* m_browser;
     QaModel* m_qaModel;

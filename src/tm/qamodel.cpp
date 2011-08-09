@@ -22,7 +22,7 @@
 #include <QStringList>
 #include <klocalizedstring.h>
 #include <QFile>
-#include <qtextstream.h>
+#include <QTextStream>
 
 static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
 
@@ -199,6 +199,7 @@ bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
     for (int i=0;i<sources.size();i++)
         setText(sources.at(i).toElement(), newSources.at(i));
 
+    emit dataChanged(item, item);
     return true;
 }
 

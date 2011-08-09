@@ -54,6 +54,8 @@ QaView::QaView(QWidget* parent)
     m_browser->addAction(action);
     
     m_browser->setAlternatingRowColors(true);
+    
+    connect(m_qaModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(rulesChanged()));
 }
 
 QaView::~QaView()

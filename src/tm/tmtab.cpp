@@ -47,6 +47,7 @@
 #include <QPainter>
 #include <QTextDocument>
 #include <QDomDocument>
+#include <QStringBuilder>
 
 #include <KColorScheme>
 #include <kactioncategory.h>
@@ -141,6 +142,7 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
 TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
     , m_queryType(WordOrder)
+    , m_totalResultCount(0)
 {
     setHeaderData(TMDBModel::Source,            Qt::Horizontal, i18nc("@title:column Original text","Source"));
     setHeaderData(TMDBModel::Target,            Qt::Horizontal, i18nc("@title:column Text in target language","Target"));
@@ -178,9 +180,9 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
         escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
         escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+escapedSource+"%' ESCAPE '\b' ";
+            sourceQuery="AND source_strings.source "%invertSourceStr%"LIKE '%"+escapedSource+"%' ESCAPE '\b' ";
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+escapedTarget+"%' ESCAPE '\b' ";
+            targetQuery="AND target_strings.target "%invertTargetStr%"LIKE '%"+escapedTarget+"%' ESCAPE '\b' ";
     }
     else if (m_queryType==WordOrder)
     {
@@ -227,6 +229,8 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
     connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
     connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
     ThreadWeaver::Weaver::instance()->enqueue(job);
+    
+    m_totalResultCount=0;
 }
 
 void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
@@ -235,7 +239,8 @@ void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
     if (job->query->lastQuery().startsWith("SELECT count(*) "))
     {
         job->query->next();
-        emit finalResultCountFetched(job->query->value(0).toInt());
+        m_totalResultCount=job->query->value(0).toInt();
+        emit finalResultCountFetched(m_totalResultCount);
         return;
     }
     setQuery(*(job->query));
@@ -366,8 +371,10 @@ void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex& parent)
     int oldSourceRowCount=sourceModel()->rowCount();
     int oldRowCount=rowCount();
     QSortFilterProxyModel::fetchMore(parent);
-    
-    
+
+    if (m_rules.isEmpty())
+        return;
+
     while (oldRowCount==rowCount())
     {
         QSortFilterProxyModel::fetchMore(parent);
@@ -375,7 +382,8 @@ void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex& parent)
             break;
         oldSourceRowCount=sourceModel()->rowCount();
     }
-    qDebug()<<"row count"<<sourceModel()->rowCount();
+    qDebug()<<"row count"<<sourceModel()->rowCount()<<"   filtered:"<<rowCount();
+    emit layoutChanged();
 }
 
 void TMResultsSortFilterProxyModel::setRules(const QVector<Rule>& rules)
@@ -422,11 +430,11 @@ bool TMResultsSortFilterProxyModel::filterAcceptsRow(int source_row, const QMode
 
     bool accept=false;
     int i=0;
-    foreach(const Rule& rule, m_rules)
+    for(QVector<Rule>::const_iterator it=m_rules.constBegin();it!=m_rules.constEnd();it++)
     {
-        if (rule.sources.first().indexIn(source)!=-1)
+        if (it->sources.first().indexIn(source)!=-1)
         {
-            if (rule.falseFriends.first().indexIn(target)!=-1)
+            if (it->falseFriends.first().indexIn(target)!=-1)
             {
                 accept=true;
                 m_matchingRulesForSourceRow[source_row]=i;
@@ -507,12 +515,13 @@ TMTab::TMTab(QWidget *parent)
     view->setItemDelegate(new FastSizeHintItemDelegate(this));
     connect(m_model,SIGNAL(resultsFetched()),view->itemDelegate(),SLOT(reset()));
     connect(m_model,SIGNAL(modelReset()),view->itemDelegate(),SLOT(reset()));
-    connect(m_model,SIGNAL(layoutChanged()),view->itemDelegate(),SLOT(reset()));
-    connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
+    //connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
+    connect(m_proxyModel,SIGNAL(layoutChanged()),view->itemDelegate(),SLOT(reset()));
+    connect(m_proxyModel,SIGNAL(layoutChanged()),this,SLOT(displayTotalResultCount()));
 
 
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
-    connect(m_model,SIGNAL(finalResultCountFetched(int)),this,SLOT(setTotalResultCount(int)));
+    connect(m_model,SIGNAL(finalResultCountFetched(int)),this,SLOT(displayTotalResultCount()));
 
     QButtonGroup* btnGrp=new QButtonGroup(this);
     btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
@@ -553,6 +562,7 @@ TMTab::TMTab(QWidget *parent)
     tm->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
 
 
+    connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(setQAMode()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
 
 
@@ -657,9 +667,14 @@ void TMTab::handleResults()
 //END resizeColumnToContents
 }
 
-void TMTab::setTotalResultCount(int count)
+void TMTab::displayTotalResultCount()
 {
-    statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1",count));    
+    int total=m_model->totalResultCount();
+    int filtered=m_proxyModel->rowCount();
+    if (filtered==m_model->rowCount())
+        statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1",total));
+    else
+        statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1 (%2)",filtered,total));
 }
     
 static void copy(Ui_QueryOptions* ui_queryOptions, int column)
