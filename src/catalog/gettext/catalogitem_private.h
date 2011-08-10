@@ -58,11 +58,11 @@ class CatalogItemPrivate
 {
 
 public:
-    bool _plural:8;
-    bool _valid:8;
-    bool _fuzzyCached:8;
-    bool _prependMsgIdEmptyLine:4;
-    bool _prependMsgStrEmptyLine:4;
+    bool _plural;
+    bool _valid;
+    bool _fuzzyCached;
+    bool _prependMsgIdEmptyLine;
+    bool _prependMsgStrEmptyLine;
 
     QByteArray _comment;
     QString _msgctxt;
