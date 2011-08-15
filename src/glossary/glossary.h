@@ -109,6 +109,7 @@ public:
     QByteArray id(int index) const;
     QStringList terms(const QByteArray& id, const QString& lang) const;
     void setTerm(const QByteArray& id, QString lang, int i, const QString& term);
+    void rmTerm(const QByteArray& id, QString lang, int i);
     QString subjectField(const QByteArray& id, const QString& lang=QString()) const;
     void setSubjectField(const QByteArray& id, const QString& lang, const QString& value);
     QString definition(const QByteArray& id, const QString& lang=QString()) const;
@@ -116,7 +117,7 @@ public:
 
 private:
     QString descrip(const QByteArray& id, const QString& lang, const QString& type) const;
-    void setDescrip(const QByteArray& id, const QString& lang, const QString& type, const QString& value);
+    void setDescrip(const QByteArray& id, QString lang, const QString& type, const QString& value);
 
 public:
     QStringList subjectFields() const;
@@ -132,7 +133,7 @@ public:
     //in-memory changing
     QByteArray generateNewId();
     void append(const QString& _english,const QString& _target);
-    void remove(const QByteArray& id);
+    void removeEntry(const QByteArray& id);
     void forceChangeSignal(){emit changed();}
     void setClean(bool );
 

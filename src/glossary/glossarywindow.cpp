@@ -24,6 +24,7 @@
 #include "glossarywindow.h"
 #include "glossary.h"
 #include "project.h"
+#include "languagelistmodel.h"
 
 #include "ui_termedit.h"
 
@@ -235,10 +236,8 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_filterEdit->setClearButtonShown(true);
     m_filterEdit->setClickMessage(i18n("Quick search..."));
     m_filterEdit->setFocus();
-    new QShortcut(Qt::CTRL+Qt::Key_L,m_filterEdit,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
-
-//     connect (m_lineEdit,SIGNAL(textChanged(QString)),
-//              m_proxyModel,SLOT(setFilterFixedString(QString)));
+    m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
+    new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
     connect (m_filterEdit,SIGNAL(textChanged(QString)),
              m_proxyModel,SLOT(setFilterRegExp(QString)));
 
@@ -246,12 +245,12 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     layout->addWidget(m_browser);
     {
         KPushButton* addBtn=new KPushButton(KStandardGuiItem::add(),w);
-        connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTerm()));
+        connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTermEntry()));
 
         KPushButton* rmBtn=new KPushButton(KStandardGuiItem::remove(),w);
-        connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTerm()));
+        connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTermEntry()));
 
-        KPushButton* restoreBtn=new KPushButton(i18nc("@action:button reloads glossary from disk","Restore"),w);
+        KPushButton* restoreBtn=new KPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
         restoreBtn->setToolTip(i18nc("@info:tooltip","Reload glossary from disk, discarding any changes"));
         connect(restoreBtn,SIGNAL(clicked()),   this,SLOT(restore()));
 
@@ -285,11 +284,17 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
 
     ui_termEdit.sourceTermsView->setModel(m_sourceTermsModel);
     ui_termEdit.targetTermsView->setModel(m_targetTermsModel);
+    
+    connect(ui_termEdit.addEngTerm, SIGNAL(clicked(bool)), ui_termEdit.sourceTermsView, SLOT(addTerm()));
+    connect(ui_termEdit.remEngTerm, SIGNAL(clicked(bool)), ui_termEdit.sourceTermsView, SLOT(rmTerms()));
+    connect(ui_termEdit.addTargetTerm, SIGNAL(clicked(bool)), ui_termEdit.targetTermsView, SLOT(addTerm()));
+    connect(ui_termEdit.remTargetTerm, SIGNAL(clicked(bool)), ui_termEdit.targetTermsView, SLOT(rmTerms()));
 
     m_sourceTermsView=ui_termEdit.sourceTermsView;
     m_targetTermsView=ui_termEdit.targetTermsView;
     m_subjectField=ui_termEdit.subjectField;
     m_definition=ui_termEdit.definition;
+    m_definitionLang=ui_termEdit.definitionLang;
 
     //connect (m_english,SIGNAL(textChanged()),   this,SLOT(applyEntryChange()));
     //connect (m_target,SIGNAL(textChanged()),    this,SLOT(applyEntryChange()));
@@ -309,6 +314,10 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     connect(m_browser,SIGNAL(currentChanged(int)), this,SLOT(currentChanged(int)));
     connect(m_browser,SIGNAL(currentChanged(QByteArray)), this,SLOT(showEntryInEditor(QByteArray)));
 
+    connect(m_definitionLang, SIGNAL(activated(int)), this, SLOT(showDefinitionForLang(int)));
+    m_definitionLang->setModel(LanguageListModel::emptyLangInstance()->sortModel());
+    m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(m_defLang));//empty lang
+
     //TODO
     //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
 
@@ -319,10 +328,16 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
               */
 }
 
-
 GlossaryWindow::~GlossaryWindow()
 {
 }
+
+void GlossaryWindow::setFocus()
+{
+    m_filterEdit->setFocus();
+    m_filterEdit->selectAll();
+}
+
 
 void GlossaryWindow::showEntryInEditor(const QByteArray& id)
 {
@@ -338,7 +353,20 @@ void GlossaryWindow::showEntryInEditor(const QByteArray& id)
     Project* project=Project::instance();
     Glossary* glossary=project->glossary();
     m_subjectField->setCurrentItem(glossary->subjectField(id),/*insert*/true);
-    m_definition->setPlainText(glossary->definition(id));
+    
+    QStringList langsToTry=QStringList(m_defLang)<<"en"<<"en_US"<<project->targetLangCode();
+    foreach (const QString& lang, langsToTry)
+    {
+        QString d=glossary->definition(m_id, lang);
+        if (!d.isEmpty())
+        {
+            if (m_defLang!=lang)
+                m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(lang));
+            m_defLang=lang;
+            break;
+        }
+    }
+    m_definition->setPlainText(glossary->definition(m_id, m_defLang));
 
 
     m_sourceTermsModel->setEntry(id);
@@ -353,19 +381,16 @@ void GlossaryWindow::showEntryInEditor(const QByteArray& id)
 void GlossaryWindow::currentChanged(int i)
 {
     Q_UNUSED(i);
-//    kDebug()<<"start"<<i;
     m_reactOnSignals=false;
-
     m_editor->show();
-/*
-    const TermEntry& a=Project::instance()->glossary()->termList.at(i);
-    m_english->setPlainText(a.english.join("\n"));
-    m_target->setPlainText(a.target.join("\n"));
-    m_subjectField->setCurrentIndex(a.subjectField);
-    m_definition->setPlainText(a.definition);
-*/
     m_reactOnSignals=true;
-    //kDebug()<<"end";
+}
+
+void GlossaryWindow::showDefinitionForLang(int langModelIndex)
+{
+    applyEntryChange();
+    m_defLang=LanguageListModel::emptyLangInstance()->langCodeForSortModelRow(langModelIndex);
+    m_definition->setPlainText(Project::instance()->glossary()->definition(m_id, m_defLang));
 }
 
 void GlossaryWindow::applyEntryChange()
@@ -381,8 +406,8 @@ void GlossaryWindow::applyEntryChange()
     if (m_subjectField->currentText()!=glossary->subjectField(id))
         glossary->setSubjectField(id, QString(), m_subjectField->currentText());
 
-    if (m_definition->toPlainText()!=glossary->definition(id))
-        glossary->setDefinition(id, QString(), m_definition->toPlainText());
+    if (m_definition->toPlainText()!=glossary->definition(id, m_defLang))
+            glossary->setDefinition(id, m_defLang, m_definition->toPlainText());
 
     //HACK to force finishing of the listview editing
     QWidget* prevFocusWidget=QApplication::focusWidget();
@@ -422,7 +447,7 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     }
 }
 
-void GlossaryWindow::newTerm(QString _english, QString _target)
+void GlossaryWindow::newTermEntry(QString _english, QString _target)
 {
     setCaption(i18nc("@title:window","Glossary"),true);
 
@@ -432,7 +457,7 @@ void GlossaryWindow::newTerm(QString _english, QString _target)
     selectEntry(id);
 }
 
-void GlossaryWindow::rmTerm(int i)
+void GlossaryWindow::rmTermEntry(int i)
 {
     setCaption(i18nc("@title:window","Glossary"),true);
 
@@ -457,6 +482,9 @@ void GlossaryWindow::restore()
 
     Glossary* glossary=Project::instance()->glossary();
     glossary->load(glossary->path());
+    m_reactOnSignals=false;
+    showEntryInEditor(m_id);
+    m_reactOnSignals=true;
 }
 
 bool GlossaryWindow::save()
@@ -481,7 +509,7 @@ Do you want to save your changes or discard them?"),i18nc("@title:window","Warni
         case KMessageBox::Yes:
             return save();
         case KMessageBox::No:
-            glossary->load(glossary->path());
+            restore();
             return true;
         default:
             return false;
@@ -506,5 +534,29 @@ bool TermsListModel::setData(const QModelIndex& index, const QVariant& value, in
     setEntry(m_id); //allow adding new terms
     return true;
 }
+
+
+bool TermsListModel::removeRows(int row, int count, const QModelIndex& parent)
+{
+    if (row==rowCount()-1)
+        return false;// cannot delete non-existing item
+
+    m_glossary->rmTerm(m_id,m_lang,row);
+    return QStringListModel::removeRows(row, 1, parent);
+}
+
+
+void TermListView::addTerm()
+{
+    setCurrentIndex(model()->index(model()->rowCount()-1, 0));
+    edit(currentIndex());
+}
+
+void TermListView::rmTerms()
+{
+    foreach(const QModelIndex& row, selectionModel()->selectedRows())
+        model()->removeRow(row.row());
+}
+
 
 #include "glossarywindow.moc"

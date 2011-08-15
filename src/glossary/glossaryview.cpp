@@ -1,7 +1,7 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
-  Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -142,11 +142,12 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //         pos=accel.pos(1);
 //     }
 
+    QString sourceLangCode=Project::instance()->sourceLangCode();
     QList<QByteArray> termIds;
     foreach (const QString& w, msg.split(m_rxSplit,QString::SkipEmptyParts))
     {
-        QString word=stem(Project::instance()->sourceLangCode(),w);
-        QList<QByteArray> indexes=glossary.idsForLangWord(Project::instance()->sourceLangCode(),word);
+        QString word=stem(sourceLangCode,w);
+        QList<QByteArray> indexes=glossary.idsForLangWord(sourceLangCode,word);
         //if (indexes.size())
             //kWarning()<<"found entry for:" <<word;
         termIds+=indexes;
@@ -166,7 +167,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     foreach (const QByteArray& termId, termIds.toSet())
     {
         // now check which of them are really hits...
-        foreach (const QString& enTerm, glossary.terms(termId, Project::instance()->sourceLangCode()))
+        foreach (const QString& enTerm, glossary.terms(termId, sourceLangCode))
         {
             // ...and if so, which part of termEn list we must thank for match ...
             bool ok=msg.contains(enTerm);//,//Qt::CaseInsensitive  //we lowered terms on load 
@@ -174,7 +175,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
             {
                 QString enTermStemmed;
                 foreach (const QString& word, enTerm.split(m_rxSplit,QString::SkipEmptyParts))
-                    enTermStemmed+=stem(Project::instance()->sourceLangCode(),word)+' ';
+                    enTermStemmed+=stem(sourceLangCode,word)+' ';
                 ok=msgStemmed.contains(enTermStemmed);
             }
             if (ok)

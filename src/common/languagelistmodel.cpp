@@ -36,9 +36,11 @@
 
 
 LanguageListModel* LanguageListModel::_instance=0;
+LanguageListModel* LanguageListModel::_emptyLangInstance=0;
 void LanguageListModel::cleanupLanguageListModel()
 {
     delete LanguageListModel::_instance; LanguageListModel::_instance = 0;
+    delete LanguageListModel::_emptyLangInstance; LanguageListModel::_emptyLangInstance = 0;
 }
 
 LanguageListModel* LanguageListModel::instance()
@@ -51,10 +53,19 @@ LanguageListModel* LanguageListModel::instance()
     return _instance;
 }
 
-LanguageListModel::LanguageListModel(QObject* parent)
+LanguageListModel* LanguageListModel::emptyLangInstance()
+{
+    if (_emptyLangInstance==0 )
+        _emptyLangInstance=new LanguageListModel(EmptyLang);
+    return _emptyLangInstance;
+}
+
+
+LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
  : QStringListModel(KGlobal::locale()->allLanguagesList(),parent)
  , m_sortModel(new QSortFilterProxyModel(this))
 {
+    if (type==EmptyLang) insertRows(rowCount(), 1);
     KIconLoader::global()->addExtraDesktopThemes();
     //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
     //kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
@@ -93,6 +104,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
     else if (role==Qt::DisplayRole)
     {
         const QString& code=stringList().at(index.row());
+        if (code.isEmpty()) return code;
         //kDebug()<<"languageCodeToName"<<code;
         return QVariant::fromValue<QString>(KGlobal::locale()->languageCodeToName(code)%" ("%code%")");
     }

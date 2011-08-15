@@ -27,6 +27,7 @@
 #include <kmainwindow.h>
 #include <ktextedit.h>
 #include <QTreeView>
+#include <QListView>
 #include <QStringListModel>
 
 class QListView;
@@ -47,6 +48,17 @@ signals:
     void editingFinished();
 };
 
+class TermListView: public QListView
+{
+    Q_OBJECT
+public:
+    explicit TermListView(QWidget* parent = 0):QListView(parent){}
+
+public slots:
+    void rmTerms();
+    void addTerm();
+};
+
 
 namespace GlossaryNS {
 class GlossaryTreeView;
@@ -65,12 +77,14 @@ public:
 public slots:
     void currentChanged(int);
     void showEntryInEditor(const QByteArray& id);
-    void newTerm(QString _english=QString(), QString _target=QString());
-    void rmTerm(int i=-1);
+    void showDefinitionForLang(int);
+    void newTermEntry(QString _english=QString(), QString _target=QString());
+    void rmTermEntry(int i=-1);
     void restore();
     bool save();
     void applyEntryChange();
     void selectEntry(const QByteArray& id);
+    void setFocus();
 
 private:
     QWidget* m_editor;
@@ -82,11 +96,13 @@ private:
 
     KComboBox* m_subjectField;
     KTextEdit* m_definition;
+    KComboBox* m_definitionLang;
     QListView* m_sourceTermsView;
     QListView* m_targetTermsView;
 
     bool m_reactOnSignals;
     QByteArray m_id;
+    QString m_defLang;
 };
 
 class GlossaryTreeView: public QTreeView
@@ -103,7 +119,6 @@ signals:
     void currentChanged(int);
     void currentChanged(const QByteArray&);
     void currentChanged(const QByteArray& prev, const QByteArray& current);
-//private:
 };
 
 
@@ -114,6 +129,7 @@ public:
     TermsListModel(Glossary* glossary, const QString& lang, QObject* parent=0): QStringListModel(parent), m_glossary(glossary), m_lang(lang){}
 
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
 
 public slots:
     void setEntry(const QByteArray& id);

@@ -213,7 +213,7 @@ GlossaryNS::GlossaryWindow* Project::defineNewTerm(QString en, QString target)
     m_glossaryWindow->show();
     m_glossaryWindow->activateWindow();
     if (!en.isEmpty()||!target.isEmpty())
-        m_glossaryWindow->newTerm(en,target);
+        m_glossaryWindow->newTermEntry(en,target);
     
     return m_glossaryWindow;
 }

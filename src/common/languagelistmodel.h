@@ -31,14 +31,21 @@ class QSortFilterProxyModel;
 
 class LanguageListModel: public QStringListModel
 {
+    enum ModelType
+    {
+        Default,
+        EmptyLang
+    };
 public:
     static LanguageListModel* instance();
+    static LanguageListModel* emptyLangInstance();
 
 private:
     static LanguageListModel * _instance;
+    static LanguageListModel * _emptyLangInstance;
     static void cleanupLanguageListModel();
 
-    LanguageListModel(QObject* parent=0);
+    LanguageListModel(ModelType type=Default, QObject* parent=0);
     QSortFilterProxyModel* m_sortModel;
 
 public:
