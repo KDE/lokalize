@@ -37,6 +37,7 @@
 #include "catalogitem_private.h"
 
 #include <kdebug.h>
+#include <QMutexLocker>
 
 using namespace GettextCatalog;
 
@@ -179,6 +180,8 @@ void CatalogItem::setMsgstr(const QVector<QString>& msg)
 
 void CatalogItem::setComment(const QString& com)
 {
+    static QMutex reMutex;
+    QMutexLocker reLock(&reMutex); //avoid crash #281033
     static QRegExp fuzzyRegExp("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy");
     d->_fuzzyCached=com.contains( fuzzyRegExp );
     d->_comment=com.toUtf8();
