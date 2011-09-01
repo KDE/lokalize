@@ -80,6 +80,7 @@ SettingsController* SettingsController::instance()
 SettingsController::SettingsController()
     : QObject(Project::instance())
     , dirty(false)
+    , m_projectActionsView(0)
     , m_mainWindowPtr(0)
 {}
 
@@ -217,18 +218,29 @@ bool SettingsController::projectCreate()
     if (path.isEmpty())
         return false;
 
+    if (m_projectActionsView && m_projectActionsView->model())
+    {
+        //ActionCollectionModel is known to be have bad for the usecase of reinitializing krossplugin
+        m_projectActionsView->model()->deleteLater();
+        m_projectActionsView->setModel(0);
+    }
+
     //TODO ask-n-save
     Project::instance()->load(path);
     Project::instance()->setDefaults(); //NOTE will this be an obstacle?
-    
-    QTimer::singleShot(0, this, SLOT(projectConfigure()));
+
+    QTimer::singleShot(500, this, SLOT(projectConfigure()));
     return true;
 }
 
 void SettingsController::projectConfigure()
 {
     if (KConfigDialog::showDialog("project_settings"))
+    {
+        if (!m_projectActionsView->model())
+            m_projectActionsView->setModel(new Kross::ActionCollectionModel(m_projectActionsView,Kross::Manager::self().actionCollection()->collection(Project::instance()->kind())));
         return;
+    }
 
     KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, "project_settings", Project::instance());
     dialog->setFaceType(KPageDialog::List);
