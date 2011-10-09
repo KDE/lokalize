@@ -100,7 +100,7 @@
   </group>
   <group name="TM">
     <entry name="PrefetchTM"  type="Bool">
-        <default>true</default>
+        <default>false</default>
     </entry>
     <entry name="SuggCount"  type="Int">
         <default>7</default>
