@@ -372,7 +372,8 @@ void updateHeader(QString& header,
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=(langCodeRegExp.indexIn(*it)!=-1);
-        //if (found) *it=temp;
+        if (found && langCodeRegExp.cap(1).isEmpty())
+            *it=temp;
         //if (found) qWarning()<<"got explicit lang code:"<<langCodeRegExp.cap(1);
     }
     if (KDE_ISUNLIKELY( !found ))
