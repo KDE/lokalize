@@ -47,6 +47,4 @@ def convert():
 try: convert()
 except: print 'error occured'
 
-convert()
-
 Lokalize.busyCursor(False)
