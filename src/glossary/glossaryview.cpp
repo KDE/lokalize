@@ -199,7 +199,6 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     }
 
     setUpdatesEnabled(true);
-    kWarning()<<"ELA "<<time.elapsed();
 }
 
 void GlossaryView::clear()

@@ -214,10 +214,17 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     if (m_sourceString.contains(word))
         return;
 
+    QString accel=Project::instance()->accel();
+
+    if (!isWordMisspelled(word.remove(accel)))
+        return;
+    count=word.length();//safety
+    
     bool smthPreceeding=(start>0) &&
-            (Project::instance()->accel().endsWith(text.at(start-1))
+            (accel.endsWith(text.at(start-1))
                 || text.at(start-1)==QChar(0x0000AD) //soft hyphen
             );
+
     //HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding)
     {
@@ -226,14 +233,14 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
         if (realStart==-1)
             realStart=0;
         QString t=text.mid(realStart, count+start-realStart);
-        t.remove(Project::instance()->accel());
+        t.remove(accel);
         t.remove(QChar(0x0000AD));
         if (!isWordMisspelled(t))
             return;
     }
 
     bool smthAfter=(start+count+1<text.size()) &&
-            (Project::instance()->accel().startsWith(text.at(start+count))
+            (accel.startsWith(text.at(start+count))
                 || text.at(start+count)==QChar(0x0000AD) //soft hyphen
             );
     if (smthAfter)
@@ -243,7 +250,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
         if (realEnd==-1)
             realEnd=text.size();
         QString t=text.mid(start, realEnd-start);
-        t.remove(Project::instance()->accel());
+        t.remove(accel);
         t.remove(QChar(0x0000AD));
         if (!isWordMisspelled(t))
             return;
