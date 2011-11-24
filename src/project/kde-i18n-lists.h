@@ -45,6 +45,8 @@ static inline QString getMailingList()
         return "i18n-nb@lister.ping.uio.no";
     if(lang.startsWith("nn"))
         return "i18n-nn@lister.ping.uio.no";
+    if(lang.startsWith("pt_BR"))
+        return "kde-i18n-pt_BR@kde.org";
     if(lang.startsWith("ru"))
         return "kde-russian@lists.kde.ru";
     if(lang.startsWith("se"))
