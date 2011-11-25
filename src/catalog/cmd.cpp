@@ -433,14 +433,17 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
 
         //now dealing with tag
         kWarning()<<"posToTag.value(i)"<<posToTag.value(i)<<catStr.tags.size();
-        InlineTag tag=catStr.tags.at(posToTag.value(i));
-        kWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
-        if (tag.start==i) //this is an opening tag (may be single tag)
+        if (posToTag.value(i)<catStr.tags.size())
         {
-            pos.offset=start+i;
-            tag.start+=start;
-            tag.end+=start;
-            catalog->push(new InsTagCmd(catalog,pos,tag));
+            InlineTag tag=catStr.tags.at(posToTag.value(i));
+            kWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
+            if (tag.start==i) //this is an opening tag (may be single tag)
+            {
+                pos.offset=start+i;
+                tag.start+=start;
+                tag.end+=start;
+                catalog->push(new InsTagCmd(catalog,pos,tag));
+            }
         }
         prev=++i;
     }
