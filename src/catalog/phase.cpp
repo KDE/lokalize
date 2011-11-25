@@ -68,7 +68,7 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
     qSort(phases.begin(), phases.end(), qGreater<Phase>());
     foreach (const Phase& p, phases)
     {
-        if (!(options&ForceAdd) && p.contact==phase.contact)
+        if (!(options&ForceAdd) && p.contact==phase.contact && p.process==phase.process)
         {
             phase=p;
             break;

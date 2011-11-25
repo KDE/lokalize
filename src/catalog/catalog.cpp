@@ -115,6 +115,7 @@ Catalog::Catalog(QObject *parent)
     connect(this,SIGNAL(signalFileSaved()),   t,SLOT(start()));
     connect(this,SIGNAL(signalFileLoaded()),  t,SLOT(start()));
     connect(this,SIGNAL(indexChanged(int)),this,SLOT(setAutoSaveDirty()));
+    connect(Project::local(),SIGNAL(configChanged()),this,SLOT(projectConfigChanged()));
 }
 
 Catalog::~Catalog()
@@ -327,10 +328,35 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
 {
-    //TODO approved index cache change.
     d->_phase=phase;
     d->_phaseRole=role;
+    updateApprovedEmptyIndexCache();
     emit activePhaseChanged();
+}
+
+void Catalog::updateApprovedEmptyIndexCache()
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return;
+    
+    //index cache TODO profile?
+    d->_nonApprovedIndex.clear();
+    d->_emptyIndex.clear();
+
+    DocPosition pos(0);
+    const int limit=m_storage->size();
+    while (pos.entry<limit)
+    {
+        if (!isApproved(pos))
+            d->_nonApprovedIndex << pos.entry;
+        if (m_storage->isEmpty(pos))
+            d->_emptyIndex << pos.entry;
+
+        ++(pos.entry);
+    }
+    
+    emit signalNumberOfFuzziesChanged();
+    emit signalNumberOfEmptyChanged();
 }
 
 QString Catalog::phase(const DocPosition& pos) const
@@ -530,25 +556,11 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
     //ok...
     clear();
 
-    //index cache TODO profile?
-    d->_nonApprovedIndex.clear();
-    d->_emptyIndex.clear();
-
-    DocPosition pos(0);
-    int limit=storage->size();
-    while (pos.entry<limit)
-    {
-        if (!storage->isApproved(pos))
-            d->_nonApprovedIndex << pos.entry;
-        if (storage->isEmpty(pos))
-            d->_emptyIndex << pos.entry;
-
-        ++(pos.entry);
-    }
-
     //commit transaction
     m_storage=storage;
 
+    updateApprovedEmptyIndexCache();
+    
     d->_numberOfPluralForms = storage->numberOfPluralForms();
     d->_autoSaveDirty=true;
     d->_readOnly=readOnly;
@@ -668,6 +680,10 @@ void Catalog::doAutoSave()
     d->_autoSaveDirty=false;
 }
 
+void Catalog::projectConfigChanged()
+{
+    setActivePhase(activePhase(), Project::local()->role());
+}
 
 QByteArray Catalog::contents()
 {

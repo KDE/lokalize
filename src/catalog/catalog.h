@@ -202,6 +202,8 @@ protected slots:
 
     void doAutoSave();
     void setAutoSaveDirty(){d->_autoSaveDirty=true;}
+    
+    void projectConfigChanged();
 
 protected:
     /**
@@ -228,6 +230,8 @@ protected:
 
     /// @returns true if entry wasn't modified before
     bool setModified(DocPos entry, bool modif);
+    
+    void updateApprovedEmptyIndexCache();
 
 protected:
     CatalogPrivate *d;

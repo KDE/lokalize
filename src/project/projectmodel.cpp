@@ -129,8 +129,12 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
         m_rootNode.rows.clear();
         m_rootNode.poCount = 0;
         m_rootNode.translated = -1;
+        m_rootNode.translated_reviewer = -1;
+        m_rootNode.translated_approver = -1;
         m_rootNode.untranslated = -1;
         m_rootNode.fuzzy = -1;
+        m_rootNode.fuzzy_reviewer = -1;
+        m_rootNode.fuzzy_approver = -1;
 
         endRemoveRows();
     }
@@ -617,8 +621,8 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
     KFileItem item=itemForIndex(index);
     bool isDir = item.isDir();
 
-    int translated = node->translated;
-    int fuzzy = node->fuzzy;
+    int translated = node->translatedAsPerRole();
+    int fuzzy = node->fuzzyAsPerRole();
     int untranslated = node->untranslated;
     bool hasStats = translated != -1;
 
@@ -1160,10 +1164,10 @@ void ProjectModel::updateTotalsChanged()
     {
         done = updateDone(m_poModel.indexForUrl(m_poUrl), m_poModel) &&
                updateDone(m_potModel.indexForUrl(m_potUrl), m_potModel);
-        if (m_rootNode.fuzzy + m_rootNode.translated + m_rootNode.untranslated > 0 && !done)
+        if (m_rootNode.fuzzyAsPerRole() + m_rootNode.translatedAsPerRole() + m_rootNode.untranslated > 0 && !done)
             m_doneTimer->start(2000);
     }
-    emit totalsChanged(m_rootNode.fuzzy, m_rootNode.translated, m_rootNode.untranslated, done);
+    emit totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.untranslated, done);
 }
 
 
@@ -1176,8 +1180,12 @@ ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _p
     , potRowNumber(_potIndex)
     , poCount(0)
     , translated(-1)
+    , translated_reviewer(-1)
+    , translated_approver(-1)
     , untranslated(-10)
     , fuzzy(-1)
+    , fuzzy_reviewer(-10)
+    , fuzzy_approver(-10)
 {
     ++nodeCounter;
 }
@@ -1190,7 +1198,11 @@ ProjectModel::ProjectNode::~ProjectNode()
 void ProjectModel::ProjectNode::calculateDirStats()
 {
     fuzzy = 0;
+    fuzzy_reviewer = 0;
+    fuzzy_approver = 0;
     translated = 0;
+    translated_reviewer = 0;
+    translated_approver = 0;
     untranslated = 0;
 
     for (int pos = 0; pos < rows.count(); pos++)
@@ -1199,7 +1211,11 @@ void ProjectModel::ProjectNode::calculateDirStats()
         if (child->translated != -1)
         {
             fuzzy += child->fuzzy;
+            fuzzy_reviewer += child->fuzzy_reviewer;
+            fuzzy_approver += child->fuzzy_approver;
             translated += child->translated;
+            translated_reviewer += child->translated_reviewer;
+            translated_approver += child->translated_approver;
             untranslated += child->untranslated;
         }
     }
@@ -1212,8 +1228,16 @@ void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
         return;
 
     translated = info.item("translation.translated").value().toInt();
-    untranslated =info.item("translation.untranslated").value().toInt();
+    const QVariant translated_reviewer_variant = info.item("translation.translated_reviewer").value();
+    translated_reviewer = translated_reviewer_variant.isValid() ? translated_reviewer_variant.toInt() : translated;
+    const QVariant translated_approver_variant = info.item("translation.translated_approver").value();
+    translated_approver = translated_approver_variant.isValid() ? translated_approver_variant.toInt() : translated;
+    untranslated = info.item("translation.untranslated").value().toInt();
     fuzzy = info.item("translation.fuzzy").value().toInt();
+    const QVariant fuzzy_reviewer_variant = info.item("translation.fuzzy_reviewer").value();
+    fuzzy_reviewer = fuzzy_reviewer_variant.isValid() ? fuzzy_reviewer_variant.toInt() : fuzzy;
+    const QVariant fuzzy_approver_variant = info.item("translation.fuzzy_approver").value();
+    fuzzy_approver = fuzzy_approver_variant.isValid() ? fuzzy_approver_variant.toInt() : fuzzy;
     lastTranslator = info.item("translation.last_translator").value().toString();
     sourceDate = info.item("translation.source_date").value().toString();
     translationDate = info.item("translation.translation_date").value().toString();
@@ -1269,7 +1293,13 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
         "translation.fuzzy",
         "translation.last_translator",
         "translation.source_date",
-        "translation.translation_date"};
+        "translation.translation_date",
+        "translation.translated_reviewer",
+        "translation.translated_approver",
+        "translation.fuzzy_reviewer",
+        "translation.fuzzy_approver"
+    };
+    static const int nFields = sizeof(fields) / sizeof(fields[0]);
 
     QByteArray result;
 
@@ -1286,7 +1316,7 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
         KFileMetaInfo info;
         QVector<QVariant> keys;
         stream>>keys;
-        for(int i=0;i<6;i++)
+        for(int i=0;i<keys.count();i++)
             info.item(fields[i]).setValue(keys.at(i));
         return info;
     }
@@ -1295,8 +1325,8 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
 
     QDataStream stream(&result,QIODevice::WriteOnly);
     //this is synced with ProjectModel::ProjectNode::setFileStats
-    QVector<QVariant> keys(6);
-    for(int i=0;i<6;i++)
+    QVector<QVariant> keys(nFields);
+    for(int i=0;i<nFields;i++)
         keys[i] = info.item(fields[i]).value();
     stream<<keys;
 

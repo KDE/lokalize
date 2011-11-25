@@ -1138,7 +1138,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 queryWords.clear();
 
                 QList<QByteArray> ids(arr.split(' '));
-                long p=ids.size();
+                int p=ids.size();
                 while (--p>=0)
                     idsForWord.append(ids.at(p).toLongLong(/*bool ok*/0,36));
             }

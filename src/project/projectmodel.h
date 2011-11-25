@@ -34,6 +34,9 @@
 #include <QList>
 #include <kdebug.h>
 
+#include "project.h"
+#include "projectlocal.h"
+
 class QTimer;
 class UpdateStatsJob;
 namespace ThreadWeaver {class Weaver;}
@@ -59,6 +62,36 @@ class ProjectModel: public QAbstractItemModel
         ~ProjectNode();
         void calculateDirStats();
         void setFileStats(const KFileMetaInfo& info);
+        
+        int translatedAsPerRole() const
+        {
+            switch (Project::local()->role())
+            {
+                case ProjectLocal::Translator:
+                case ProjectLocal::Undefined:
+                    return translated;
+                case ProjectLocal::Reviewer:
+                    return translated_reviewer;
+                case ProjectLocal::Approver:
+                    return translated_approver;
+            }
+            return -1;
+        }
+        
+        int fuzzyAsPerRole() const
+        {
+            switch (Project::local()->role())
+            {
+                case ProjectLocal::Translator:
+                case ProjectLocal::Undefined:
+                    return fuzzy;
+                case ProjectLocal::Reviewer:
+                    return fuzzy_reviewer;
+                case ProjectLocal::Approver:
+                    return fuzzy_approver;
+            }
+            return -1;
+        }
 
         ProjectNode* parent;
         short rowNumber; //in parent's list
@@ -70,8 +103,12 @@ class ProjectModel: public QAbstractItemModel
         QList<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
 
         int translated;
+        int translated_reviewer;
+        int translated_approver;
         int untranslated;
         int fuzzy;
+        int fuzzy_reviewer;
+        int fuzzy_approver;
         QString sourceDate;
         QString lastTranslator;
         QString translationDate;
