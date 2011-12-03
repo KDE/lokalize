@@ -928,6 +928,25 @@ void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 
 
 
+DelayedFileOpener::DelayedFileOpener(const KUrl::List& urls, LokalizeMainWindow* lmw)
+ : QObject()
+ , m_urls(urls)
+ , m_lmw(lmw)
+{
+    //do the work just after project load handlind is finished
+    //(i.e. all the files from previous project session are loaded)
+    QTimer::singleShot(1,this,SLOT(doOpen()));
+}
+
+void DelayedFileOpener::doOpen()
+{
+    int lastIndex=m_urls.count()-1;
+    for (int i=0;i<=lastIndex;i++)
+        m_lmw->fileOpen(m_urls.at(i), 0, /*set as active*/i==lastIndex);
+    deleteLater();
+}
+
+
 #include "lokalizemainwindow.moc"
  //these have to be included somewhere ;)
 #include "lokalizesubwindowbase.moc"

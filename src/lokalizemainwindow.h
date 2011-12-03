@@ -176,4 +176,19 @@ private slots:
 };
 
 
+class DelayedFileOpener: public QObject
+{
+Q_OBJECT
+public:
+    DelayedFileOpener(const KUrl::List& urls, LokalizeMainWindow* lmw);
+
+private slots:
+    void doOpen();
+
+private:
+    KUrl::List m_urls;
+    LokalizeMainWindow* m_lmw;
+};
+
+
 #endif

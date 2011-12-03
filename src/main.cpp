@@ -110,12 +110,13 @@ int main(int argc, char **argv)
         }
         LokalizeMainWindow* lmw=new LokalizeMainWindow;
         SettingsController::instance()->setMainWindowPtr(lmw);
-        kWarning()<<"showing LokalizeMainWindow";
         lmw->show();
-        kWarning()<<"LokalizeMainWindow shown";
-        int j=args->count();
-        while (--j>=0)
-            lmw->fileOpen(args->url(j));
+
+        KUrl::List urls;
+        for (int j=0; j<args->count(); j++)
+            urls << args->url(j);
+        if (urls.size())
+            new DelayedFileOpener(urls, lmw);
 
         Project::instance()->model()->setCompleteScan(args->isSet("projectscan"));
         args->clear();
