@@ -284,7 +284,7 @@ void EditorTab::setupActions()
     connect(m_view, SIGNAL(signalChanged(uint)), m_notesView, SLOT(removeErrorNotes()));
     connect(m_notesView,SIGNAL(escaped()),this,SLOT(setProperFocus()));
 
-    action=glossary->addAction(QLatin1String("edit_addnote"),m_notesView,SLOT(addNoteUI()));
+    action=edit->addAction(QLatin1String("edit_addnote"),m_notesView,SLOT(addNoteUI()));
     //action->setShortcut(Qt::CTRL+glist[i]);
     action->setText(i18nc("@action:inmenu","Add a note"));
 

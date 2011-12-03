@@ -174,6 +174,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
 
     if (link.scheme()=="note")
     {
+        int capabilities=m_catalog->capabilities();
         if (!m_editor)
         {
             m_editor=new NoteEditor(this);
@@ -182,14 +183,21 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
             connect(m_editor,SIGNAL(rejected()),this,SLOT(noteEditRejected()));
         }
         m_editor->setNoteAuthors(m_catalog->noteAuthors());
-        if (path.endsWith("add"))
-            m_editor->setNote(Note(),-1);
+        QVector<Note> notes=m_catalog->notes(m_entry.toDocPosition());
+        int noteIndex=-1;//means add new note
+        Note note;
+        if (path.endsWith("add") && !capabilities&MultipleNotes && notes.size())
+        {
+            noteIndex=0; //so we don't overwrite the only possible note
+            note=notes.first();
+        }
         else
         {
-            int pos=path.toInt();
-            m_editor->setNote(m_catalog->notes(m_entry.toDocPosition()).at(pos),pos);
+            noteIndex=path.toInt();
+            note=notes.at(noteIndex);
         }
-        m_editor->setFromFieldVisible(m_catalog->capabilities()&KeepsNoteAuthors);
+        m_editor->setNote(note,noteIndex);
+        m_editor->setFromFieldVisible(capabilities&KeepsNoteAuthors);
         m_stackedLayout->setCurrentIndex(1);
     }
     else if (link.scheme()=="src")
