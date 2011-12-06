@@ -186,15 +186,15 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         QVector<Note> notes=m_catalog->notes(m_entry.toDocPosition());
         int noteIndex=-1;//means add new note
         Note note;
-        if (path.endsWith("add") && !capabilities&MultipleNotes && notes.size())
-        {
-            noteIndex=0; //so we don't overwrite the only possible note
-            note=notes.first();
-        }
-        else
+        if (!path.endsWith("add"))
         {
             noteIndex=path.toInt();
             note=notes.at(noteIndex);
+        }
+        else if (!(capabilities&MultipleNotes) && notes.size())
+        {
+            noteIndex=0; //so we don't overwrite the only possible note
+            note=notes.first();
         }
         m_editor->setNote(note,noteIndex);
         m_editor->setFromFieldVisible(capabilities&KeepsNoteAuthors);
