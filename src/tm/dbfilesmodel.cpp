@@ -136,7 +136,8 @@ void DBFilesModel::openDB(OpenDBJob* openDBJob)
 
 void DBFilesModel::updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight)
 {
-    if (m_timeSinceLastUpdate.elapsed()<60000)
+    if (m_timeSinceLastUpdate.elapsed()<60000
+        || !topLeft.isValid() || !bottomRight.isValid())
         return;
 
     qDebug()<<"DBFilesModel::updateStats() called";
