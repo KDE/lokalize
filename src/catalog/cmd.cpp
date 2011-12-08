@@ -104,7 +104,16 @@ bool InsTextCmd::mergeWith(const QUndoCommand *other)
         || (otherPos.offset!=_pos.offset+_str.size())
         )
         return false;
-    _str += static_cast<const InsTextCmd*>(other)->_str;
+    const QString& otherStr = static_cast<const InsTextCmd*>(other)->_str;
+
+    if (otherStr.isEmpty() || _str.isEmpty()) //just a precaution
+        return false;
+
+    //be close to behaviour of LibreOffice
+    if (!_str.at(_str.size()-1).isSpace() && otherStr.at(0).isSpace())
+        return false;
+
+    _str += otherStr;
     return true;
 }
 
