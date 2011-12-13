@@ -144,6 +144,7 @@ Action=Popup
 [Event/NoSqlModulesAvailable]
 Name=No Qt Sql modules were found
 Name[ca]=No s'ha trobat cap mòdul Qt Sql
+Name[kk]=Qt Sql модульдері табылмаған
 Name[nb]=Fant ingen Qt SQL-moduler
 Name[nl]=Geen Qt-Sql-modules gevonden
 Name[pt]=Não foram encontrados módulos de SQL do Qt
