@@ -102,6 +102,7 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
         bgBrush=scheme.background(KColorScheme::NormalBackground);
     
     painter->fillRect(option.rect, bgBrush);
+    painter->setClipRect(option.rect.adjusted(0,0,-2,0));
     //painter->setFont(option.font);
 
     RowColumnUnion rc;
@@ -113,26 +114,32 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
         QString text=index.data(TMDBModel::HtmlDisplayRole).toString();
         cache.insert(rc.v, new QStaticText(text));
         cache.object(rc.v)->setTextFormat(index.column()<TMDBModel::Context?Qt::RichText:Qt::PlainText);
-        //qDebug()<<"-------------------";
-        //qDebug()<<text;
     }
+    int rectWidth=option.rect.width();
     QStaticText* staticText=cache.object(rc.v);
-    staticText->setTextWidth(option.rect.width());
-    painter->drawStaticText(option.rect.topLeft(), *staticText);
+    //staticText->setTextWidth(rectWidth-4);
+    QPoint textStartPoint=option.rect.topLeft();
+    textStartPoint.rx()+=2;
+    painter->drawStaticText(textStartPoint, *staticText);
 
+
+    if (staticText->size().width()<=rectWidth-4)
+    {
+        painter->restore();
+        return;
+    }
 
     painter->setPen(bgBrush.color());
     QPoint p1=option.rect.topRight();
     QPoint p2=option.rect.bottomRight();
-    int limit=qMin(16, option.rect.width());
+    int limit=qMin(8, rectWidth-2);
     int i=limit;
     while(--i>0)
     {
         painter->setOpacity(float(i)/limit);
         painter->drawLine(p1, p2);
-        int newX=p1.x()-1;
-        p1.setX(newX);
-        p2.setX(newX);
+        p1.rx()--;
+        p2.rx()--;
     }
     painter->restore();
 }
@@ -644,7 +651,7 @@ void TMTab::handleResults()
     while (--column>=0)
     {
         //view->resizeColumnToContents(i);
-        int sum=0;
+        /*
         int max=0;
         int count=qMin(rowCount, 32);
         for (int row=0;row<count;++row)
@@ -652,16 +659,11 @@ void TMTab::handleResults()
             int w = view->itemDelegate()->sizeHint(QStyleOptionViewItemV2(),m_model->index(row,column)).width();
             if (w>max)
                 max=w;
-            sum+=w;
-            //qWarning()<<row<<column<<m_model->index(row,column).isValid();
-            //qWarning()<<view->sizeHintForIndex(m_model->index(row,column));
-            //qWarning()<<m_model->data(m_model->index(row,column), Qt::SizeHintRole).toSize();
-            //qWarning()<<m_model->span(m_model->index(row,column));
         }
         if (count) //qWarning()<<(sum/count);
-            //view->setColumnWidth(column, max);
-            //view->setColumnWidth(column, maxInitialWidths[column]);
             view->setColumnWidth(column, qMin(max, maxInitialWidths[column]));
+        */
+        view->setColumnWidth(column, maxInitialWidths[column]);
     }
     view->setFocus();
 //END resizeColumnToContents
