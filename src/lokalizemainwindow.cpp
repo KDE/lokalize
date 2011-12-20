@@ -90,6 +90,9 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
     m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
     m_mdiArea->setDocumentMode(true);
+#if QT_VERSION >= 0x040800
+    m_mdiArea->setTabsMovable(true);
+#endif
 
     setCentralWidget(m_mdiArea);
     connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));

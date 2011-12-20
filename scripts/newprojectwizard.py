@@ -427,9 +427,6 @@ class KdeSourcePage(QWizardPage):
 
             
         for langlang in [lang, lang[:2],'templates']:
-            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
-            os.system('svn --set-depth files up "%s/trunk/l10n-kde4/%s"' % (localsvnroot, langlang))
-            self.reportProgress(5)
             os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/messages"' % (localsvnroot, langlang))
             os.system('svn --set-depth infinity up "%s/trunk/l10n-kde4/%s/messages"' % (localsvnroot, langlang))
             self.reportProgress(15)

@@ -1317,6 +1317,17 @@ KUrl EditorWindow::mergeFile()
 }
 */
 
+//HACK to prevent redundant repaintings when widget isn't visible
+void EditorTab::paintEvent(QPaintEvent* event)
+{
+    if (QMdiSubWindow* sw=qobject_cast<QMdiSubWindow*>(parent()))
+    {
+        if (sw->mdiArea()->currentSubWindow()!=sw)
+           return;
+    }
+    LokalizeSubwindowBase2::paintEvent(event);
+}
+
 void EditorTab::indexWordsForCompletion()
 {
     CompletionStorage::instance()->scanCatalog(m_catalog);

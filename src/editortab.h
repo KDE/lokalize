@@ -241,6 +241,9 @@ private slots:
 
     void fileAutoSaveFailedWarning(const QString&);
 
+protected:
+    void paintEvent(QPaintEvent* event);
+    
 private:
     void setupAccel();
     void setupActions();

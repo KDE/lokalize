@@ -41,6 +41,9 @@
 #include <QMenu>
 #include <QShortcut>
 
+#include <QMdiSubWindow>
+#include <QMdiArea>
+
 #include <QKeyEvent>
 #include <QTreeView>
 
@@ -59,6 +62,18 @@ class CatalogTreeView: public QTreeView
         } else {
             QTreeView::keyReleaseEvent(e);
         }
+    }
+
+    //HACK to prevent redundant repaintings when widget isn't visible
+    void paintEvent(QPaintEvent* event)
+    {
+        if (QMdiSubWindow* sw=qobject_cast<QMdiSubWindow*>(parent()->parent()->parent()->parent()))
+        {
+            if (sw->mdiArea()->currentSubWindow()!=sw)
+               return;
+        }
+      
+        return QTreeView::paintEvent(event);
     }
 };
 
@@ -120,7 +135,8 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setColumnWidth(0,m_browser->columnWidth(0)/3);
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
-    m_browser->setWordWrap(true);
+    m_browser->setWordWrap(false);
+    m_browser->setUniformRowHeights(true);
     m_browser->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
 

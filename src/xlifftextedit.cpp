@@ -1258,7 +1258,6 @@ void TranslationUnitTextEdit::source2target()
 
     else {
         m_catalog->beginMacro(i18nc("@item Undo action item","Copy source to target"));
-        DocPosition pos=m_currentPos;pos.offset=0;
         removeTargetSubstring(0,-1,/*refresh*/false);
         insertCatalogString(sourceWithTags,0,/*refresh*/false);
         m_catalog->endMacro();
