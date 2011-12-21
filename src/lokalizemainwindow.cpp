@@ -155,8 +155,11 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     if (!w || m_prevSubWindow==w)
         return;
 
+    w->setUpdatesEnabled(true);  //QTBUG-23289
+
     if (m_prevSubWindow)
     {
+        m_prevSubWindow->setUpdatesEnabled(false);
         LokalizeSubwindowBase* prevEditor=static_cast<LokalizeSubwindowBase2*>( m_prevSubWindow->widget() );
         prevEditor->hideDocks();
         guiFactory()->removeClient( prevEditor->guiClient()   );
@@ -286,6 +289,8 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool
         m_toBeActiveSubWindow=sw;
         QTimer::singleShot(0,this,SLOT(applyToBeActiveSubWindow()));
     }
+    else
+        sw->setUpdatesEnabled(false); //QTBUG-23289
 
     if (!mergeFile.isEmpty())
         w->mergeOpen(mergeFile);
