@@ -84,12 +84,15 @@ void TMManagerWin::initLater()
 
 void TMManagerWin::addDir()
 {
+    QModelIndex index=m_tmListWidget->currentIndex();
+    if (!index.isValid())
+        return;
+
     QString dir=KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
                         i18nc("@title:window","Select Directory to be scanned"));
     if (!dir.isEmpty())
     {
         QList<QUrl> dirs; dirs.append(QUrl(dir));
-        QModelIndex index=m_tmListWidget->currentIndex();
         scanRecursive(dirs,index.sibling(index.row(), 0).data().toString());
     }
 }
@@ -228,7 +231,8 @@ void TMManagerWin::addDB()
 void TMManagerWin::removeDB()
 {
     QModelIndex index=m_tmListWidget->currentIndex();
-    DBFilesModel::instance()->removeTM(index);
+    if (index.isValid())
+        DBFilesModel::instance()->removeTM(index);
 }
 
 
@@ -240,6 +244,8 @@ void TMManagerWin::importTMX()
                       i18nc("@title:window","Select TMX file to be imported into selected database"));
 
     QModelIndex index=m_tmListWidget->currentIndex();
+    if (!index.isValid())
+        return;
     QString dbName=index.sibling(index.row(), 0).data().toString();
 
     if (!path.isEmpty())
@@ -263,6 +269,8 @@ void TMManagerWin::exportTMX()
                       i18nc("@title:window","Select TMX file to export selected database to"));
 
     QModelIndex index=m_tmListWidget->currentIndex();
+    if (!index.isValid())
+        return;
     QString dbName=index.sibling(index.row(), 0).data().toString();
 
     if (!path.isEmpty())
