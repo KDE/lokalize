@@ -64,17 +64,6 @@ class CatalogTreeView: public QTreeView
         }
     }
 
-    //HACK to prevent redundant repaintings when widget isn't visible
-    void paintEvent(QPaintEvent* event)
-    {
-        if (QMdiSubWindow* sw=qobject_cast<QMdiSubWindow*>(parent()->parent()->parent()->parent()))
-        {
-            if (sw->mdiArea()->currentSubWindow()!=sw)
-               return;
-        }
-      
-        return QTreeView::paintEvent(event);
-    }
 };
 
 
