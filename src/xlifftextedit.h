@@ -80,7 +80,7 @@ private:
     ///@a refStr is for proper numbering
     void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
 
-    int strForMicePosIfUnderTag(QPoint mice, CatalogString& str);
+    int strForMicePosIfUnderTag(QPoint mice, CatalogString& str, bool tryHarder=false);
 
     void requestToggleApprovement();
 
