@@ -1276,7 +1276,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
                     float score=9500*(pow(float(commonLen)/float(allLen),0.12f))//this was < 1 so we have increased it
                             //this was > 1 so we have decreased it, and increased result:
-                                    / exp(0.014*float(addLen)*log10(3+addSubStrCount));
+                                    / exp(0.014*float(addLen)*log10(3.0f+addSubStrCount));
 
                     if (delLen)
                     {
@@ -1284,7 +1284,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                         //<<pow(float(delLen*delSubStrCount),0.1)<<" "
                         //<<endl;
 
-                        float a=exp(0.008*float(delLen)*log10(3+delSubStrCount));
+                        float a=exp(0.008*float(delLen)*log10(3.0f+delSubStrCount));
 
                         if (a!=0.0)
                             score/=a;
@@ -1296,7 +1296,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 {
                     //kWarning(TM_AREA) <<"SelectJob:  b "<<int(pow(float(delLen*delSubStrCount),0.10));
                     float score=9900*(pow(float(commonLen)/float(allLen),0.15f))
-                            / exp(0.008*float(delLen)*log10(3+delSubStrCount));
+                            / exp(0.008*float(delLen)*log10(3.0f+delSubStrCount));
                     e.score=(int)score;
                 }
             }
