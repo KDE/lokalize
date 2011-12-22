@@ -145,6 +145,7 @@ Action=Popup
 Name=No Qt Sql modules were found
 Name[ca]=No s'ha trobat cap mòdul Qt Sql
 Name[es]=No se han encontrado módulos SQL para Qt
+Name[et]=Qt Sql moodulit ei leitud.
 Name[it]=Non è stato trovato nessun modulo Qt Sql
 Name[kk]=Qt Sql модульдері табылмаған
 Name[nb]=Fant ingen Qt SQL-moduler
