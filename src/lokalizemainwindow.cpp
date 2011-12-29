@@ -331,7 +331,7 @@ void LokalizeMainWindow::editorClosed(QObject* obj)
 
 EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
 {
-    EditorTab* w=fileOpen(url);
+    EditorTab* w=fileOpen(url, 0, true);
     if (!w)
         return 0;//TODO message
     w->findEntryBySourceContext(source,ctxt);
