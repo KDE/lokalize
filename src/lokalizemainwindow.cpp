@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2012 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,6 +26,7 @@
 #include "editortab.h"
 #include "projecttab.h"
 #include "tmtab.h"
+#include "filesearchtab.h"
 #include "prefs_lokalize.h"
 
 // #define WEBQUERY_ENABLE
@@ -242,7 +243,7 @@ bool LokalizeMainWindow::queryClose()
     return Project::instance()->queryCloseForAuxiliaryWindows();
 }
 
-EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile, bool silent)
+EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry, bool setAsActive, const QString& mergeFile, bool silent)
 {
     if (!url.isEmpty()&&m_fileToEditor.contains(url)&&m_fileToEditor.value(url))
     {
@@ -331,10 +332,19 @@ void LokalizeMainWindow::editorClosed(QObject* obj)
 
 EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
 {
-    EditorTab* w=fileOpen(url);
+    EditorTab* w=fileOpen(url, 0, true);
     if (!w)
         return 0;//TODO message
     w->findEntryBySourceContext(source,ctxt);
+    return w;
+}
+
+EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, DocPosition docPos, int selection)
+{
+    EditorTab* w=fileOpen(url, 0, true);
+    if (!w)
+        return 0;//TODO message
+    w->gotoEntry(docPos, selection);
     return w;
 }
 
@@ -348,6 +358,7 @@ QObject* LokalizeMainWindow::projectOverview()
         m_projectSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
         connect(w, SIGNAL(projectOpenRequested(QString)),this,SLOT(openProject(QString)));
+        connect(w, SIGNAL(searchRequested(QStringList)),this,SLOT(addFilesToSearch(QStringList)));
     }
     if (m_mdiArea->currentSubWindow()==m_projectSubWindow)
         return m_projectSubWindow->widget();
@@ -380,6 +391,36 @@ TM::TMTab* LokalizeMainWindow::showTM()
     m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
     return static_cast<TM::TMTab*>(m_translationMemorySubWindow->widget());
 }
+
+FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
+{
+    if (!m_fileSearchSubWindow)
+    {
+        FileSearchTab* w=new FileSearchTab(this);
+        m_fileSearchSubWindow=m_mdiArea->addSubWindow(w);
+        w->showMaximized();
+        m_fileSearchSubWindow->showMaximized();
+        connect(w, SIGNAL(fileOpenRequested(KUrl,DocPosition,int)),this,SLOT(fileOpen(KUrl,DocPosition,int)));
+    }
+
+    if (activate)
+        m_mdiArea->setActiveSubWindow(m_fileSearchSubWindow);
+    return static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget());
+}
+
+void LokalizeMainWindow::fileSearchNext()
+{
+    FileSearchTab* w=showFileSearch(/*activate=*/false);
+    //TODO fill search params based on current selection
+    w->fileSearchNext();
+}
+
+void LokalizeMainWindow::addFilesToSearch(const QStringList& files)
+{
+    FileSearchTab* w=showFileSearch();
+    w->addFilesToSearch(files);
+}
+
 
 void LokalizeMainWindow::applyToBeActiveSubWindow()
 {
@@ -454,10 +495,6 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_glossary",i18nc("@action:inmenu","Glossary"),Qt::CTRL+Qt::ALT+Qt::Key_G)
     connect(action,SIGNAL(triggered()),project,SLOT(showGlossary()));
 
-/*
-    ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Query translation memory"),Qt::CTRL+Qt::ALT+Qt::Key_M)
-    connect(action,SIGNAL(triggered()),project,SLOT(showTM()));
-*/
     actionCategory=tm;
     ADD_ACTION_SHORTCUT("tools_tm",i18nc("@action:inmenu","Translation memory"),Qt::Key_F7)
     connect(action,SIGNAL(triggered()),this,SLOT(showTM()));
@@ -486,6 +523,13 @@ void LokalizeMainWindow::setupActions()
 
     //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()), Qt::QueuedConnection);
+
+
+    ADD_ACTION_SHORTCUT("tools_filesearch",i18nc("@action:inmenu","Search and replace in files"),Qt::Key_F6)
+    connect(action,SIGNAL(triggered()),this,SLOT(showFileSearch()));
+
+    ADD_ACTION_SHORTCUT("tools_filesearch_next",i18nc("@action:inmenu","Find next in files"),Qt::META+Qt::Key_F3)
+    connect(action,SIGNAL(triggered()),this,SLOT(fileSearchNext()));
 
     setupGUI(Default,"lokalizemainwindowui.rc");
 

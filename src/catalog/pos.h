@@ -110,6 +110,7 @@ struct DocPos
     }
 
 };
+Q_DECLARE_METATYPE(DocPos)
 
 
 inline uint qHash(const DocPos &key)

@@ -64,7 +64,7 @@ public:
 
     //void setPath(const QString& p){m_path=p;}
     QString path()const{return m_path;}
-    QString projectDir()const;
+    QString projectDir()const{return m_projectDir;}
     QString poDir()const{return absolutePath(poBaseDir());}
     QString potDir()const{return absolutePath(potBaseDir());}
     QString branchDir()const{return absolutePath(ProjectBase::branchDir());}
@@ -123,6 +123,9 @@ private:
     GlossaryNS::Glossary* m_glossary;
     GlossaryNS::GlossaryWindow* m_glossaryWindow;
     TM::TMManagerWin* m_tmManagerWindow;
+
+    //cache
+    QString m_projectDir;
  };
 
 

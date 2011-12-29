@@ -480,22 +480,18 @@ KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
 {
     KAutoSaveFile* autoSave=0;
     QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(url);
-    if (!staleFiles.isEmpty())
+    foreach (KAutoSaveFile *stale, staleFiles)
     {
-        foreach (KAutoSaveFile *stale, staleFiles)
+        if (stale->open(QIODevice::ReadOnly) && !autoSave)
         {
-            if (stale->open(QIODevice::ReadOnly) && !autoSave)
-            {
-                autoSave=stale;
-                autoSave->setParent(this);
-            }
-            else
-                stale->deleteLater();
+            autoSave=stale;
+            autoSave->setParent(this);
         }
+        else
+            stale->deleteLater();
     }
-    qWarning()<<"autoSave"<<autoSave;
     if (autoSave)
-        qWarning()<<"autoSave"<<autoSave->fileName();
+        kWarning()<<"autoSave"<<autoSave->fileName();
     return autoSave;
 }
 

@@ -1507,24 +1507,25 @@ void ScanJob::run()
         queryBegin.exec(QString("UPDATE main SET bits=(bits|1) WHERE file=%1").arg(fileId));
         //kWarning(TM_AREA) <<"UPDATE error: " <<queryBegin.lastError().text();
 
-        for (int i=0;i<catalog.numberOfEntries();++i)
+        int numberOfEntries=catalog.numberOfEntries();
+        DocPosition pos(0);
+        for (;pos.entry<numberOfEntries;pos.entry++)
         {
             bool ok=true;
-            if (catalog.isPlural(i))
+            if (catalog.isPlural(pos.entry))
             {
-                DocPosition pos;
-                pos.entry=i;
-                for (pos.form=0;pos.form<catalog.numberOfPluralForms();++pos.form)
+                DocPosition ppos=pos;
+                for (ppos.form=0;ppos.form<catalog.numberOfPluralForms();++ppos.form)
                 {
 /*
                     QString target;
                     if ( catalog.isApproved(i) && !catalog.isUntranslated(pos))
                         target=catalog.target(pos);
 */
-                    ok=ok&&doInsertEntry(catalog.sourceWithTags(pos),
-                                          catalog.targetWithTags(pos),
-                                          catalog.context(i).first()+TM_DELIMITER+QString::number(pos.form),
-                                          catalog.isApproved(i),
+                    ok=ok&&doInsertEntry(catalog.sourceWithTags(ppos),
+                                          catalog.targetWithTags(ppos),
+                                          catalog.context(ppos).first()+TM_DELIMITER+QString::number(ppos.form),
+                                          catalog.isApproved(ppos),
                                           fileId,db,rxClean1,c.accel,priorId,priorId);
                 }
             }
@@ -1535,10 +1536,10 @@ void ScanJob::run()
                 if ( catalog.isApproved(i) && !catalog.isUntranslated(i))
                     target=catalog.target(i);
 */
-                ok=doInsertEntry(catalog.sourceWithTags(i),
-                                 catalog.targetWithTags(i),
-                                 catalog.context(i).first(),
-                                 catalog.isApproved(i),
+                ok=doInsertEntry(catalog.sourceWithTags(pos),
+                                 catalog.targetWithTags(pos),
+                                 catalog.context(pos).first(),
+                                 catalog.isApproved(pos),
                                  fileId,db,rxClean1,c.accel,priorId,priorId);
             }
             if (KDE_ISLIKELY( ok ))

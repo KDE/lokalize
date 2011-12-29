@@ -33,13 +33,15 @@
 
 namespace ThreadWeaver{class Job;}
 
+bool dragIsAcceptable(const QList<QUrl>& urls);
+QString shorterFilePath(const QString path);
+
+
 namespace TM {
 class ScanJob;
 
 ///wrapper. returns gross number of jobs started
 int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
-
-bool dragIsAcceptable(const QList<QUrl>& urls);
 
 class RecursiveScanJob: public KJob
 {

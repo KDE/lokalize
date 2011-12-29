@@ -1,0 +1,14 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="FileSearch" version="0">
+<MenuBar>
+  <Menu name="tools">
+    <Action name="showfilelist_action"/>
+    <Separator/>
+    <MergeLocal/>
+  </Menu>
+</MenuBar>
+<ToolBar name="mainToolBar"><text>Main Toolbar</text>
+  <Separator/>
+  <Action name="showfilelist_action"/>
+</ToolBar>
+</kpartgui>

@@ -40,7 +40,7 @@ class QaView: public QDockWidget
 public:
     QaView(QWidget*);
     ~QaView();
-    
+
     bool loadRules(QString filename=QString());
     bool saveRules(QString filename=QString());
     QVector<Rule> rules() const;

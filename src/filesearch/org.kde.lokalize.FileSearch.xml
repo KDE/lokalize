@@ -1,0 +1,10 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.Lokalize.FileSearch">
+    <method name="performSearch">
+    </method>
+    <method name="addFilesToSearch">
+      <arg type="as" direction="in"/>
+    </method>
+  </interface>
+</node>

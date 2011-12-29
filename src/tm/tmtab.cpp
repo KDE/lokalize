@@ -28,8 +28,6 @@
 #include "tmscanapi.h"
 #include "qaview.h"
 
-#include <iostream>
-
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTreeView>
@@ -37,7 +35,6 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QButtonGroup>
-#include <QShortcutEvent>
 #include <QClipboard>
 #include <QShortcut>
 #include <QDragEnterEvent>
@@ -46,7 +43,6 @@
 #include <QStringBuilder>
 #include <QPainter>
 #include <QTextDocument>
-#include <QDomDocument>
 #include <QStringBuilder>
 
 #include <KColorScheme>
@@ -314,10 +310,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     }
     else if (item.column()==TMDBModel::Filepath)
     {
-        QString path=result.toString();
-        QString pDir=Project::instance()->projectDir();
-        if (path.contains(pDir))//TODO cache projectDir?
-            return KUrl::relativePath(pDir,path).mid(2);
+        return shorterFilePath(result.toString());
     }
     else if (item.column()==TMDBModel::TransationStatus)
     {
@@ -834,7 +827,7 @@ void TMTab::lookup(QString source, QString target)
 
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
-    std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
+    //std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
     kWarning()<<package<<text;
     KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
     static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};

@@ -976,7 +976,7 @@ void EditorTab::gotoEntry()
     }
 }
 
-void EditorTab::gotoEntry(DocPosition pos,int selection)
+void EditorTab::gotoEntry(DocPosition pos, int selection)
 {
     //specially for dbus users
     if (pos.entry>=m_catalog->numberOfEntries()||pos.entry<0)

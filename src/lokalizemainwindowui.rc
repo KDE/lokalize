@@ -34,6 +34,9 @@
     <Separator/>
     <Action name="tools_tm"/>
     <Action name="tools_tm_manage"/>
+    <Separator/>
+    <Action name="tools_filesearch"/>
+    <Action name="tools_filesearch_next"/>
     <Merge/>
   </Menu>
   <Menu name="settings">

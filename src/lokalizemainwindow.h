@@ -44,6 +44,7 @@ class EditorTab;
 class MultiEditorAdaptor;
 class ProjectScriptingPlugin;
 namespace TM {class TMTab;}
+class FileSearchTab;
 
 /**
  * @short Lokalize MDI (tabbed) window.
@@ -127,9 +128,13 @@ public slots:
     //Q_SCRIPTABLE void processEvents();
 
     //returns 0 if error
-    EditorTab* fileOpen(KUrl url=KUrl(),int entry=0/*, int offset=0*//*, QMdiSubWindow**=0*/, bool setAsActive=false, const QString& mergeFile=QString(), bool silent=false);
+    EditorTab* fileOpen(KUrl url=KUrl(),int entry=0, bool setAsActive=false, const QString& mergeFile=QString(), bool silent=false);
     EditorTab* fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
+    EditorTab* fileOpen(const KUrl& url, DocPosition docPos, int selection);
     TM::TMTab* showTM();
+    FileSearchTab* showFileSearch(bool activate=true);
+    void fileSearchNext();
+    void addFilesToSearch(const QStringList&);
 
 signals:
     Q_SCRIPTABLE void editorAdded();
@@ -140,6 +145,7 @@ private:
     QPointer<QMdiSubWindow> m_prevSubWindow;
     QPointer<QMdiSubWindow> m_projectSubWindow;
     QPointer<QMdiSubWindow> m_translationMemorySubWindow;
+    QPointer<QMdiSubWindow> m_fileSearchSubWindow;
     QPointer<QMdiSubWindow> m_toBeActiveSubWindow;//used during session restore
 
     QActionGroup* m_editorActions;

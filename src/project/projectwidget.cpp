@@ -71,7 +71,7 @@ QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelI
         nPos=text.size();
     else
         lineCount+=text.count('\n');
-    QFontMetrics metrics(option.font);
+    static QFontMetrics metrics(option.font);
     return QSize(metrics.averageCharWidth()*nPos, metrics.height()*lineCount);
 }
 
@@ -347,8 +347,7 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
     }
 }
 
-static void recursiveAdd(KUrl::List& list,
-                         const QModelIndex& idx)
+static void recursiveAdd(KUrl::List& list, const QModelIndex& idx)
 {
     ProjectModel& model=*(Project::instance()->model());
     const KFileItem& item(model.itemForIndex(idx));

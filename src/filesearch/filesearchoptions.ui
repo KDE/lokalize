@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FileSearchOptions</class>
+ <widget class="QWidget" name="FileSearchOptions">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>278</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <layout class="QHBoxLayout" name="queryLayout">
+     <item>
+      <widget class="QLabel" name="querySourceLabel">
+       <property name="text">
+        <string>Source:</string>
+       </property>
+       <property name="buddy">
+        <cstring>querySource</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KLineEdit" name="querySource">
+       <property name="toolTip">
+        <string>Search expression for source language part.
+Press Enter to start the search.
+Press Ctrl+L to go to this control.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="queryTargetLabel">
+       <property name="text">
+        <string>Target:</string>
+       </property>
+       <property name="buddy">
+        <cstring>queryTarget</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KLineEdit" name="queryTarget">
+       <property name="toolTip">
+        <string>Search expression for target language part.
+Press Enter to start the search.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="regEx">
+       <property name="text">
+        <string>Regular expressions</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="doFind">
+       <property name="text">
+        <string>&amp;Search</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTreeView" name="treeView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

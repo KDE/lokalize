@@ -134,6 +134,9 @@ void Project::load(const QString &newProjectPath)
     m_path=newProjectPath;
     m_desirablePath.clear();
 
+    //cache:
+    m_projectDir=KUrl(m_path).directory();
+
     kDebug()<<"3...";
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
     m_localConfig->readConfig();
@@ -163,11 +166,6 @@ void Project::load(const QString &newProjectPath)
 
     emit loaded();
     kDebug()<<"loaded!"<<a.elapsed();
-}
-
-QString Project::projectDir() const
-{
-    return KUrl(m_path).directory();
 }
 
 QString Project::absolutePath(const QString& possiblyRelPath) const

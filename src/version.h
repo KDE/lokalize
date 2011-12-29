@@ -8,5 +8,5 @@
 //
 //
 #ifndef LOKALIZE_VERSION
-#define LOKALIZE_VERSION "1.4"
+#define LOKALIZE_VERSION "1.5"
 #endif

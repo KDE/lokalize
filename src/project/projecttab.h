@@ -64,6 +64,7 @@ signals:
 
     void fileOpenRequested(const KUrl&);
 
+    void searchRequested(const QStringList&);
     void searchRequested(const KUrl::List&);
     void replaceRequested(const KUrl::List&);
     void spellcheckRequested(const KUrl::List&);
@@ -81,6 +82,8 @@ private slots:
     void setFilterRegExp();
     void setFocus();
     void scanFilesToTM();
+    void searchInFiles(bool templ=false);
+    void searchInFilesInclTempl();
     void openFile();
     void findInFiles();
     void replaceInFiles();

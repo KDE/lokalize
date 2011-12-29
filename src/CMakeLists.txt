@@ -24,6 +24,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
     ${CMAKE_CURRENT_SOURCE_DIR}/webquery
     ${CMAKE_CURRENT_SOURCE_DIR}/tm
+    ${CMAKE_CURRENT_SOURCE_DIR}/filesearch
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${KDE4_INCLUDE_DIR}
     ${QT_INCLUDES}
@@ -79,6 +80,8 @@ set(lokalize_SRCS
     webquery/webquerycontroller.cpp
     webquery/myactioncollectionview.cpp
 
+    filesearch/filesearchtab.cpp
+
     tm/tmview.cpp
     tm/tmscanapi.cpp
     tm/jobs.cpp
@@ -112,6 +115,7 @@ kde4_add_ui_files(lokalize_SRCS
     project/prefs_project_local.ui
     project/prefs_projectmain.ui
     glossary/termedit.ui
+    filesearch/filesearchoptions.ui
     tm/queryoptions.ui
     tm/managedatabases.ui
     tm/dbparams.ui
@@ -130,6 +134,8 @@ qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
 qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
                      editortab.h EditorTab)
+qt4_add_dbus_adaptor(lokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
+                     filesearch/filesearchtab.h FileSearchTab)
 qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmtab.h TM::TMTab)
 qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
@@ -170,5 +176,6 @@ install( FILES
         scriptsui.rc
         project/projectmanagerui.rc
         tm/translationmemoryrui.rc
+        filesearch/filesearchtabui.rc
         lokalize.notifyrc
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize )

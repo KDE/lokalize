@@ -32,6 +32,7 @@
 #include <kjobtrackerinterface.h>
 #include <threadweaver/ThreadWeaver.h>
 #include "dbfilesmodel.h"
+#include <project.h>
 
 namespace TM {
     static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
@@ -146,7 +147,7 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
     return result;
 }
 
-bool TM::dragIsAcceptable(const QList<QUrl>& urls)
+bool dragIsAcceptable(const QList<QUrl>& urls)
 {
     int i=urls.size();
     while(--i>=0)
@@ -162,3 +163,14 @@ bool TM::dragIsAcceptable(const QList<QUrl>& urls)
     }
     return false;
 }
+
+
+QString shorterFilePath(const QString path)
+{
+    QString pDir=Project::instance()->projectDir();
+    if (path.contains(pDir))//TODO cache projectDir?
+        return KUrl::relativePath(pDir,path).mid(2);
+    return path;
+}
+
+

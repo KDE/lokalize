@@ -182,6 +182,9 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     */
     menu->addAction(i18nc("@action:inmenu","Add to translation memory"),this,SLOT(scanFilesToTM()));
 
+    menu->addAction(i18nc("@action:inmenu","Search in files"),this,SLOT(searchInFiles()));
+    if (QFileInfo(Project::instance()->templatesRoot()).exists())
+        menu->addAction(i18nc("@action:inmenu","Search in files (including templates)"),this,SLOT(searchInFilesInclTempl()));
 
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
 //             )
@@ -201,6 +204,31 @@ void ProjectTab::scanFilesToTM()
     foreach(const KUrl& url, m_browser->selectedItems())
         urls.append(url);
     TM::scanRecursive(urls,Project::instance()->projectID());
+}
+
+void ProjectTab::searchInFiles(bool templ)
+{
+    QStringList files;
+    foreach(const KUrl& url, m_browser->selectedItems())
+        files.append(url.toLocalFile());
+
+    if (!templ)
+    {
+        QString templatesRoot=Project::instance()->templatesRoot();
+        int i=files.size();
+        while(--i>=0)
+        {
+            if (files.at(i).startsWith(templatesRoot))
+                files.removeAt(i);
+        }
+    }
+
+    emit searchRequested(files);
+}
+
+void ProjectTab::searchInFilesInclTempl()
+{
+    searchInFiles(true);
 }
 
 void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem());}
