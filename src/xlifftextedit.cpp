@@ -456,7 +456,8 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
 //BEGIN XLIFF markup handling
     //protect from tag removal
-    bool markupRemoved=charsRemoved && target.mid(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
+    //TODO use midRef when Qt 4.8 is in distros
+    bool markupRemoved=charsRemoved && QString::fromRawData(target.unicode()+offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
     bool markupAdded=charsAdded && addedText.contains(TAGRANGE_IMAGE_SYMBOL);
     if (markupRemoved || markupAdded)
     {
@@ -1303,7 +1304,7 @@ void TranslationUnitTextEdit::doCompletion(int pos)
     int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos-1);
     int len=(pos-sp)-1;
 
-    QStringList s=CompletionStorage::instance()->makeCompletion(target.mid(sp+1,len));
+    QStringList s=CompletionStorage::instance()->makeCompletion(QString::fromRawData(target.unicode()+sp+1,len));
 
     if (!m_completionBox)
     {

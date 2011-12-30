@@ -971,6 +971,12 @@ bool isApproved(TargetState state, ProjectLocal::PersonRole role)
     return state>=marginStates[role];
 }
 
+bool isApproved(TargetState state)
+{
+    static const TargetState marginStates[]={Translated, Final, SignedOff};
+    return state==marginStates[0] || state==marginStates[1] || state==marginStates[2];
+}
+
 TargetState closestState(bool approved, ProjectLocal::PersonRole role)
 {
     static const TargetState approvementStates[][3]={

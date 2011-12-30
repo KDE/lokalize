@@ -77,9 +77,9 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
     kDebug()<<"indexed"<<catalog->url()<<"for word completion in"<<a.elapsed()<<"msecs";
 }
 
-QStringList CompletionStorage::makeCompletion(QString word) const
+QStringList CompletionStorage::makeCompletion(const QString& word) const
 {
-    QTime a;a.start();
+    //QTime a;a.start();
     if (word.isEmpty())
         return QStringList();
     QMultiMap<int,QString> hits; //we use the fact that qmap sorts it's items by keys
@@ -90,7 +90,7 @@ QStringList CompletionStorage::makeCompletion(QString word) const
         hits.insert(-it.value(),it.key().mid(word.length()));
         it++;
     }
-    kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
+    //kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
     return hits.values();
 }
 

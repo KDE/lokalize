@@ -57,6 +57,8 @@ set(lokalize_SRCS
 
     common/domroutines.cpp
 
+    common/fastsizehintitemdelegate.cpp
+
     common/flowlayout.cpp
     common/termlabel.cpp
     common/languagelistmodel.cpp

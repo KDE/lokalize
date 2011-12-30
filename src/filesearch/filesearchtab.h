@@ -33,6 +33,8 @@
 
 #include <QDockWidget>
 #include <QAbstractListModel>
+#include <state.h>
+#include <phase.h>
 
 class QStringListModel;
 class QComboBox;
@@ -95,6 +97,9 @@ private:
 
     QVector<ThreadWeaver::Job*> m_runningJobs;
 
+     //to avoid results from previous search showing up in the new one
+    QTime m_lastSearchStartTime;
+
     //QString m_dbusObjectPath;
     int m_dbusId;
     static QList<int> ids;
@@ -115,6 +120,10 @@ struct FileSearchResult
 
     QString source;
     QString target;
+
+    bool isApproved;
+    TargetState state;
+    //Phase activePhase;
 
     QVector<StartLen> sourcePositions;
     QVector<StartLen> targetPositions;
@@ -146,7 +155,7 @@ public:
         Target,
         //Context,
         Filepath,
-        TransationStatus,
+        TranslationStatus,
         Notes,
         ColumnCount
     };
@@ -186,6 +195,8 @@ public:
     void addFilesFast(const QStringList& files);
 
     QStringList files()const;
+
+    void scrollTo(const QString& file=QString());
 
 private:
     QTreeView* m_browser;

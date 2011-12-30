@@ -30,13 +30,9 @@
 #include <KMainWindow>
 #include <KXMLGUIClient>
 #include <KUrl>
-#include <KColorScheme>
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
-#include <QItemDelegate>
-#include <QStaticText>
-#include <QCache>
 
 class QaView;
 class Ui_QueryOptions;
@@ -140,7 +136,7 @@ public:
     {
         FullPathRole=Qt::UserRole,
         TransStateRole=Qt::UserRole+1,
-        HtmlDisplayRole=Qt::UserRole+2
+        //HtmlDisplayRole=FastSizeHintItemDelegate::HtmlDisplayRole
     };
 
     TMDBModel(QObject* parent);
@@ -176,37 +172,6 @@ private:
 
 //const QString& sourceRefine, const QString& targetRefine
 
-class FastSizeHintItemDelegate: public QItemDelegate
-{
-  Q_OBJECT
-
-public:
-    FastSizeHintItemDelegate(QObject *parent)
-        : QItemDelegate(parent)
-        , activeScheme(QPalette::Active, KColorScheme::View)
-    {}
-    ~FastSizeHintItemDelegate(){}
-   
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
-public slots:
-    void reset();
-
-private:
-    struct RowColumn
-    {
-        short row:16;
-        short column:16;
-    };
-    union RowColumnUnion
-    {
-        RowColumn index;
-        int v;
-    };
-    mutable QCache<int, QStaticText> cache;
-
-    KColorScheme activeScheme;
-};
 }
 
 #endif

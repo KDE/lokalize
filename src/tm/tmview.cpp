@@ -482,9 +482,9 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         //result.replace("&","&amp;");
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
-        result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
+        result.replace("{KBABELADD}","<font style=\"background-color:"%Settings::addColor().name()%";color:black\">");
         result.replace("{/KBABELADD}","</font>");
-        result.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
+        result.replace("{KBABELDEL}","<font style=\"background-color:"%Settings::delColor().name()%";color:black\">");
         result.replace("{/KBABELDEL}","</font>");
         result.replace("\\n","\\n<br>");
         result.replace("\\n","\\n<br>");
@@ -622,11 +622,14 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     //kWarning()<<"seeing"<<old.size()<<old;
     while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
     {
-        //kWarning()<<"abbr"<<rxAbbr.cap(0)<<rxAbbr.cap(0).mid(1);
-        if (rxAbbr.cap(0).mid(1).toLower()!=rxAbbr.cap(0).mid(1))
+        QString word=rxAbbr.cap(0);
+        //check if tail contains uppoer case characters
+        const QChar* c=word.unicode()+1;
+        int i=word.size()-1;
+        while (--i>=0)
         {
-            //kWarning()<<rxAbbr.cap(0);
-            break;
+            if ((c++)->isUpper())
+                break;
         }
         abbrPos+=rxAbbr.matchedLength();
     }
@@ -665,18 +668,18 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     //QString english=entry.english;
 
 
-    QRegExp rxAdd("<font style=\"background-color:[^>]*"+Settings::addColor().name()+"[^>]*\">([^>]*)</font>");
-    QRegExp rxDel("<font style=\"background-color:[^>]*"+Settings::delColor().name()+"[^>]*\">([^>]*)</font>");
+    QRegExp rxAdd("<font style=\"background-color:[^>]*" % Settings::addColor().name() % "[^>]*\">([^>]*)</font>");
+    QRegExp rxDel("<font style=\"background-color:[^>]*" % Settings::delColor().name() % "[^>]*\">([^>]*)</font>");
     //rxAdd.setMinimal(true);
     //rxDel.setMinimal(true);
 
     //first things first
     int pos=0;
     while ((pos=rxDel.indexIn(diff,pos))!=-1)
-        diff.replace(pos,rxDel.matchedLength(),"\tKBABELDEL\t"+rxDel.cap(1)+"\t/KBABELDEL\t");
+        diff.replace(pos,rxDel.matchedLength(),"\tKBABELDEL\t" % rxDel.cap(1) % "\t/KBABELDEL\t");
     pos=0;
     while ((pos=rxAdd.indexIn(diff,pos))!=-1)
-        diff.replace(pos,rxAdd.matchedLength(),"\tKBABELADD\t"+rxAdd.cap(1)+"\t/KBABELADD\t");
+        diff.replace(pos,rxAdd.matchedLength(),"\tKBABELADD\t" % rxAdd.cap(1) % "\t/KBABELADD\t");
 
     diff.replace("&lt;","<");
     diff.replace("&gt;",">");
@@ -751,7 +754,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 //BEGIN BEGIN HANDLING
     QRegExp rxNonTranslatable;
     if (tryMarkup)
-        rxNonTranslatable.setPattern("^(("+entry.markupExpr+")|(\\W|\\d)+)+");
+        rxNonTranslatable.setPattern("^((" % entry.markupExpr % ")|(\\W|\\d)+)+");
     else
         rxNonTranslatable.setPattern("^(\\W|\\d)+");
 
@@ -828,7 +831,7 @@ nono
 //END BEGIN HANDLING
 //BEGIN END HANDLING
     if (tryMarkup)
-        rxNonTranslatable.setPattern("(("+entry.markupExpr+")|(\\W|\\d)+)+$");
+        rxNonTranslatable.setPattern("(("% entry.markupExpr %")|(\\W|\\d)+)+$");
     else
         rxNonTranslatable.setPattern("(\\W|\\d)+$");
 

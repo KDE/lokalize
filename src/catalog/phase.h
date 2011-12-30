@@ -47,6 +47,17 @@ struct Phase
         , tool("lokalize-" LOKALIZE_VERSION)
     {}
 
+    Phase(const Phase& rhs)
+        : name(rhs.name)
+        , process(rhs.process)
+        , company(rhs.company)
+        , date(rhs.date)
+        , contact(rhs.contact)
+        , email(rhs.email)
+        , phone(rhs.phone)
+        , tool(rhs.tool)
+    {}
+
     bool operator<(const Phase& other) const
     {
         return date<other.date;

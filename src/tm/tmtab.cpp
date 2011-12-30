@@ -41,7 +41,6 @@
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QStringBuilder>
-#include <QPainter>
 #include <QTextDocument>
 #include <QStringBuilder>
 
@@ -52,94 +51,13 @@
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 #include <threadweaver/ThreadWeaver.h>
+#include <fastsizehintitemdelegate.h>
 
 
 using namespace TM;
 //static int BIG_COUNTER=0;
 
 //TODO do things for case when user explicitly wants to find & accel mark
-
-void FastSizeHintItemDelegate::reset()
-{
-    cache.clear();
-}
-
-QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    int lineCount=1;
-    int nPos=20;
-    if (index.column()!=TMDBModel::Filepath && index.column()!=TMDBModel::TransationStatus)
-    {
-        QString text=index.data().toString();
-        nPos=text.indexOf('\n');
-        if (nPos==-1)
-            nPos=text.size();
-        else
-            lineCount+=text.count('\n');
-    }
-    static QFontMetrics metrics(option.font);
-    return QSize(metrics.averageCharWidth()*nPos, metrics.height()*lineCount);
-}
-
-void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    painter->save();
-
-    const KColorScheme& scheme=activeScheme;
-    //painter->save();
-    painter->setClipping(true);
-    painter->setClipRect(option.rect);
-    QBrush bgBrush;
-    if (option.state&QStyle::State_MouseOver)
-        bgBrush=scheme.background(KColorScheme::LinkBackground);
-    else if (index.row()%2)
-        bgBrush=scheme.background(KColorScheme::AlternateBackground);
-    else
-        bgBrush=scheme.background(KColorScheme::NormalBackground);
-    
-    painter->fillRect(option.rect, bgBrush);
-    painter->setClipRect(option.rect.adjusted(0,0,-2,0));
-    //painter->setFont(option.font);
-
-    RowColumnUnion rc;
-    rc.index.row=index.row();
-    rc.index.column=index.column();
-    //TMDBModel* m=static_cast<const TMDBModel*>(index.model());
-    if (!cache.contains(rc.v))
-    {
-        QString text=index.data(TMDBModel::HtmlDisplayRole).toString();
-        cache.insert(rc.v, new QStaticText(text));
-        cache.object(rc.v)->setTextFormat(index.column()<TMDBModel::Context?Qt::RichText:Qt::PlainText);
-    }
-    int rectWidth=option.rect.width();
-    QStaticText* staticText=cache.object(rc.v);
-    //staticText->setTextWidth(rectWidth-4);
-    QPoint textStartPoint=option.rect.topLeft();
-    textStartPoint.rx()+=2;
-    painter->drawStaticText(textStartPoint, *staticText);
-
-
-    if (staticText->size().width()<=rectWidth-4)
-    {
-        painter->restore();
-        return;
-    }
-
-    painter->setPen(bgBrush.color());
-    QPoint p1=option.rect.topRight();
-    QPoint p2=option.rect.bottomRight();
-    int limit=qMin(8, rectWidth-2);
-    int i=limit;
-    while(--i>0)
-    {
-        painter->setOpacity(float(i)/limit);
-        painter->drawLine(p1, p2);
-        p1.rx()--;
-        p2.rx()--;
-    }
-    painter->restore();
-}
-
 
 //BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject* parent)
@@ -267,7 +185,7 @@ int TMDBModel::translationStatus(const QModelIndex& item) const
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex& item, int role) const
 {
-    bool doHtml=(role==HtmlDisplayRole);
+    bool doHtml=(role==FastSizeHintItemDelegate::HtmlDisplayRole);
     if (doHtml)
         role=Qt::DisplayRole;
     else if (role==Qt::FontRole && item.column()==TMDBModel::Target) //TODO Qt::ForegroundRole -- brush for orphaned entries
@@ -320,15 +238,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
         return statuses[translationStatus(item)];
     }
     if (doHtml && item.column()<TMDBModel::Context)
-    {
-        QString r=result.toString();
-        if (r.isEmpty())
-            return r;
-        r=Qt::convertFromPlainText(r); //FIXME use another routine (this has bugs)
-        if (item.column()==TMDBModel::Target && !rowIsApproved(item.row()))
-            r="<p><i>" % r.mid(3, r.length()-3) % "</i></p>";
-        return r;
-    }
+        return convertToHtml(result.toString(), item.column()==TMDBModel::Target && !rowIsApproved(item.row()));
     else
         return result;
 }
@@ -396,7 +306,7 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
 {
     QVariant result=QSortFilterProxyModel::data(index, role);
 
-    if (m_rules.isEmpty() || role!=TMDBModel::HtmlDisplayRole)
+    if (m_rules.isEmpty() || role!=FastSizeHintItemDelegate::HtmlDisplayRole)
         return result;
 
     if (index.column()!=TMDBModel::Source && index.column()!=TMDBModel::Target)
@@ -512,7 +422,16 @@ TMTab::TMTab(QWidget *parent)
     view->setColumnHidden(TMDBModel::_SourceAccel,true);
     view->setColumnHidden(TMDBModel::_TargetAccel,true);
     view->setColumnHidden(TMDBModel::_Bits,true);
-    view->setItemDelegate(new FastSizeHintItemDelegate(this));
+
+    QVector<bool> singleLineColumns(TMDBModel::ColumnCount, false);
+    singleLineColumns[TMDBModel::Filepath]=true;
+    singleLineColumns[TMDBModel::TransationStatus]=true;
+    singleLineColumns[TMDBModel::Context]=true;
+
+    QVector<bool> richTextColumns(TMDBModel::ColumnCount, false);
+    richTextColumns[TMDBModel::Source]=true;
+    richTextColumns[TMDBModel::Target]=true;
+    view->setItemDelegate(new FastSizeHintItemDelegate(this,singleLineColumns,richTextColumns));
     connect(m_model,SIGNAL(resultsFetched()),view->itemDelegate(),SLOT(reset()));
     connect(m_model,SIGNAL(modelReset()),view->itemDelegate(),SLOT(reset()));
     //connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));

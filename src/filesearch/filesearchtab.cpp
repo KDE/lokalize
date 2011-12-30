@@ -54,6 +54,7 @@
 #include <threadweaver/JobCollection.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/Thread.h>
+#include <fastsizehintitemdelegate.h>
 
 
 
@@ -112,6 +113,18 @@ QStringList SearchFileListView::files() const
     return m_model->stringList();
 }
 
+void SearchFileListView::scrollTo(const QString& file)
+{
+    if (file.isEmpty())
+    {
+        m_browser->scrollToTop();
+        return;
+    }
+    int idx=m_model->stringList().indexOf(file);
+    if (idx!=-1)
+        m_browser->scrollTo(m_model->index(idx, 0), QAbstractItemView::PositionAtCenter);
+}
+
 
 struct SearchParams
 {
@@ -131,6 +144,7 @@ class SearchJob: public ThreadWeaver::Job
 public:
     explicit SearchJob(const QStringList& f, 
                        const SearchParams& sp,
+                       QTime startTime,
                        QObject* parent=0);
     ~SearchJob(){}
 
@@ -139,16 +153,18 @@ protected:
 public:
     QStringList files;
     SearchParams searchParams;
+    QTime startTime;
     
     QMap<QString, QVector<FileSearchResult> > results; //filepath -> results
 
     int m_size;
 };
 
-SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, QObject* parent)
+SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, QTime st, QObject* parent)
  : ThreadWeaver::Job(parent)
  , files(f)
  , searchParams(sp)
+ , startTime(st)
 {
 }
 
@@ -193,6 +209,9 @@ void SearchJob::run()
                         r.targetPositions<<StartLen(searchParams.targetPattern.pos(), searchParams.targetPattern.matchedLength());
                     r.source=catalog.source(pos);
                     r.target=catalog.target(pos);
+                    r.state=catalog.state(pos);
+                    r.isApproved=catalog.isApproved(pos);
+                    //r.activePhase=catalog.activePhase();
 
                     catalogResults<<r;
                 }
@@ -203,6 +222,8 @@ void SearchJob::run()
     }
     qDebug()<<"done in"<<a.elapsed();
 }
+
+
 
 //BEGIN FileSearchModel
 FileSearchModel::FileSearchModel(QObject* parent)
@@ -220,7 +241,7 @@ QVariant FileSearchModel::headerData(int section, Qt::Orientation orientation, i
         case FileSearchModel::Target: return i18nc("@title:column Text in target language","Target");
         //case FileSearchModel::Context: return i18nc("@title:column","Context");
         case FileSearchModel::Filepath: return i18nc("@title:column","File");
-        case FileSearchModel::TransationStatus: return i18nc("@title:column","Translation Status");
+        case FileSearchModel::TranslationStatus: return i18nc("@title:column","Translation Status");
     }
     return QVariant();
 }
@@ -241,15 +262,48 @@ void FileSearchModel::clear()
 
 QVariant FileSearchModel::data(const QModelIndex& item, int role) const
 {
+    bool doHtml=(role==FastSizeHintItemDelegate::HtmlDisplayRole);
+    if (doHtml)
+        role=Qt::DisplayRole;
+
     if (role==Qt::DisplayRole)
     {
+        QString result;
         const SearchResult& sr=m_searchResults.at(item.row());
         if (item.column()==Source)
-            return sr.source;
+            result=sr.source;
         if (item.column()==Target)
-            return sr.target;
+            result=sr.target;
         if (item.column()==Filepath)
-            return shorterFilePath(sr.filepath);
+            result=shorterFilePath(sr.filepath);
+
+        if (doHtml && item.column()<=FileSearchModel::Target)
+        {
+            if (result.isEmpty())
+                return result;
+
+            static QString startBld="_STRT_";
+            static QString endBld="_ENDD_";
+
+            const QVector<StartLen>& occurences=item.column()==FileSearchModel::Source?sr.sourcePositions:sr.targetPositions;
+            int occ=occurences.count();
+            while (--occ>=0)
+            {
+                const StartLen& sl=occurences.at(occ);
+                result.insert(sl.start+sl.len, endBld);
+                result.insert(sl.start, startBld);
+            }
+             /* !isApproved(sr.state/*, Project::instance()->local()->role())*/
+            QString escaped=convertToHtml(result, item.column()==FileSearchModel::Target && !sr.isApproved);
+
+            static QString startBldTag="<b>";
+            static QString endBldTag="</b>";
+            escaped.replace(startBld, startBldTag);
+            escaped.replace(endBld, endBldTag);
+            return escaped;
+        }
+        return result;
+
     }
 
     if (role==Qt::UserRole)
@@ -268,6 +322,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
 FileSearchTab::FileSearchTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
 //    , m_proxyModel(new TMResultsSortFilterProxyModel(this))
+    , m_model(new FileSearchModel(this))
     , m_dbusId(-1)
 {
     setWindowTitle(i18nc("@title:window","Search and replace in files"));
@@ -286,6 +341,21 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     sh=new QShortcut(Qt::Key_Escape,this,SLOT(stopSearch()),0,Qt::WidgetWithChildrenShortcut);
 
     QTreeView* view=ui_fileSearchOptions->treeView;
+
+    QVector<bool> singleLineColumns(FileSearchModel::ColumnCount, false);
+    singleLineColumns[FileSearchModel::Filepath]=true;
+    singleLineColumns[FileSearchModel::TranslationStatus]=true;
+    //singleLineColumns[TMDBModel::Context]=true;
+
+    QVector<bool> richTextColumns(FileSearchModel::ColumnCount, false);
+    richTextColumns[FileSearchModel::Source]=true;
+    richTextColumns[FileSearchModel::Target]=true;
+    view->setItemDelegate(new FastSizeHintItemDelegate(this,singleLineColumns,richTextColumns));
+    connect(m_model,SIGNAL(modelReset()),view->itemDelegate(),SLOT(reset()));
+    //connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
+    //connect(m_proxyModel,SIGNAL(layoutChanged()),view->itemDelegate(),SLOT(reset()));
+    //connect(m_proxyModel,SIGNAL(layoutChanged()),this,SLOT(displayTotalResultCount()));
+
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
@@ -310,8 +380,6 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(ui_fileSearchOptions->querySource,SIGNAL(returnPressed()),this,SLOT(performSearch()));
     connect(ui_fileSearchOptions->queryTarget,SIGNAL(returnPressed()),this,SLOT(performSearch()));
     connect(ui_fileSearchOptions->doFind,SIGNAL(clicked()),           this,SLOT(performSearch()));
-
-    m_model = new FileSearchModel(this);
 
 //    m_proxyModel->setDynamicSortFilter(true);
 //    m_proxyModel->setSourceModel(m_model);
@@ -367,6 +435,9 @@ void FileSearchTab::performSearch()
 
     m_model->clear();
     statusBarItems.insert(1,QString());
+    m_searchFileListView->scrollTo();
+
+    m_lastSearchStartTime=QTime::currentTime();
 
     SearchParams sp;
     sp.sourcePattern.setPattern(ui_fileSearchOptions->querySource->text());
@@ -380,7 +451,13 @@ void FileSearchTab::performSearch()
         sp.sourcePattern.setPatternSyntax(QRegExp::FixedString);
         sp.targetPattern.setPatternSyntax(QRegExp::FixedString);
     }
-
+/*
+    else
+    {
+        sp.sourcePattern.setMinimal(true);
+        sp.targetPattern.setMinimal(true);
+    }
+*/
     stopSearch();
 
     QStringList files=m_searchFileListView->files();
@@ -391,7 +468,7 @@ void FileSearchTab::performSearch()
         for(int j=i; j<lim;j++)
             batch.append(files.at(j));
 
-        SearchJob* job=new SearchJob(batch, sp);
+        SearchJob* job=new SearchJob(batch, sp, m_lastSearchStartTime);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(searchJobDone(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -517,6 +594,8 @@ void FileSearchTab::addFilesToSearch(const QStringList& files)
 void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
 {
     SearchJob* j=static_cast<SearchJob*>(job);
+    if (j->startTime!=m_lastSearchStartTime)
+        return;
 
     SearchResults searchResults;
     
@@ -535,6 +614,8 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
     m_model->appendSearchResults(searchResults);
 
     statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1", m_model->rowCount()));
+    if (searchResults.size())
+        m_searchFileListView->scrollTo(searchResults.last().filepath);
 }
 
 //END FileSearchTab

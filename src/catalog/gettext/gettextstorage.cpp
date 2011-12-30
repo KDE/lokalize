@@ -312,7 +312,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
         //QStringList uiFiles=uiLine.mid(15).split(' ');
-        result+=uiLine.mid(15).split(' ');
+        result+=QString::fromRawData(uiLine.unicode()+15, uiLine.length()-15).split(' ');
     }
     bool hasUi=!result.isEmpty();
 
@@ -320,7 +320,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
         if (hasUi && cppLine.startsWith("#: rc.cpp")) continue;
-        QStringList cppFiles=cppLine.mid(3).split(' ');
+        QStringList cppFiles=QString::fromRawData(cppLine.unicode()+3, cppLine.length()-3).split(' ');
         result+=cppFiles;
     }
     return result;

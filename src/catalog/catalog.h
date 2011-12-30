@@ -56,6 +56,7 @@ namespace GettextCatalog {
 
 
 bool isApproved(TargetState state, ProjectLocal::PersonRole role);
+bool isApproved(TargetState state); //disregarding Phase
 TargetState closestState(bool approved, ProjectLocal::PersonRole role);
 int findPrevInList(const QLinkedList<int>& list,int index);
 int findNextInList(const QLinkedList<int>& list,int index);

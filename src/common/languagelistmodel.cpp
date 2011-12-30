@@ -91,7 +91,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             else
                 code=QLocale(langCode).name();
             QString path;
-            if (code.contains('_')) code=code.mid(3).toLower();
+            if (code.contains('_')) code=QString::fromRawData(code.unicode()+3, 2).toLower();
             if (code!="C")
             {
                 static QString flagPath("l10n/%1/flag.png");
