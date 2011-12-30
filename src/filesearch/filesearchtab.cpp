@@ -283,6 +283,8 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(sh,SIGNAL(activated()),ui_fileSearchOptions->querySource,SLOT(setFocus()));
     setFocusProxy(ui_fileSearchOptions->querySource);
 
+    sh=new QShortcut(Qt::Key_Escape,this,SLOT(stopSearch()),0,Qt::WidgetWithChildrenShortcut);
+
     QTreeView* view=ui_fileSearchOptions->treeView;
     view->setContextMenuPolicy(Qt::ActionsContextMenu);
 
@@ -349,6 +351,8 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 
 FileSearchTab::~FileSearchTab()
 {
+    stopSearch();
+
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("FileSearchResultsHeaderState",ui_fileSearchOptions->treeView->header()->saveState().toBase64());
@@ -377,10 +381,7 @@ void FileSearchTab::performSearch()
         sp.targetPattern.setPatternSyntax(QRegExp::FixedString);
     }
 
-    if (m_searchMetaJob)
-        m_searchMetaJob->stop(0);
-    m_searchMetaJob=new ThreadWeaver::JobCollection();
-    QObject::connect(m_searchMetaJob,SIGNAL(done(ThreadWeaver::Job*)),m_searchMetaJob,SLOT(deleteLater()));
+    stopSearch();
 
     QStringList files=m_searchFileListView->files();
     for(int i=0; i<files.size();i+=100)
@@ -393,11 +394,19 @@ void FileSearchTab::performSearch()
         SearchJob* job=new SearchJob(batch, sp);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(searchJobDone(ThreadWeaver::Job*)));
-        m_searchMetaJob->addJob(job);
-        //ThreadWeaver::Weaver::instance()->enqueue(job);
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+        m_runningJobs.append(job);
     }
-    ThreadWeaver::Weaver::instance()->enqueue(m_searchMetaJob);
 }
+
+void FileSearchTab::stopSearch()
+{
+    QVector<ThreadWeaver::Job*>::const_iterator it;
+    for (it = m_runningJobs.constBegin(); it != m_runningJobs.constEnd(); ++it)
+        ThreadWeaver::Weaver::instance()->dequeue(*it);
+    m_runningJobs.clear();
+}
+
 
 static void copy(QTreeView* view, int column)
 {

@@ -397,17 +397,6 @@ void updateHeader(QString& header,
     if (!found)
         headerList.append(temp);
 
-    temp="X-Generator: Lokalize %1\\n";
-    temp=temp.arg(LOKALIZE_VERSION);
-
-    for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
-    {
-        found=it->contains(QRegExp("^ *X-Generator:.*"));
-        if (found) *it = temp;
-    }
-    if (KDE_ISUNLIKELY( !found ))
-        headerList.append(temp);
-
     // ensure MIME-Version header
     temp="MIME-Version: 1.0\\n";
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
@@ -464,6 +453,17 @@ void updateHeader(QString& header,
         if ( !t.isEmpty() )
             headerList.append(QString("Plural-Forms: %1\\n").arg(t));
     }
+
+    temp="X-Generator: Lokalize %1\\n";
+    temp=temp.arg(LOKALIZE_VERSION);
+
+    for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
+    {
+        found=it->contains(QRegExp("^ *X-Generator:.*"));
+        if (found) *it = temp;
+    }
+    if (KDE_ISUNLIKELY( !found ))
+        headerList.append(temp);
 
     //m_header.setMsgstr( headerList.join( "\n" ) );
     header=headerList.join("\n");

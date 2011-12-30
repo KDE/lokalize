@@ -935,7 +935,7 @@ void TranslationUnitTextEdit::insertTag(InlineTag tag)
     setFocus();
 }
 
-int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str)
+int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str, bool tryHarder)
 {
     QTextCursor cursor=cursorForPosition(mice);
     int pos=cursor.position();
@@ -953,13 +953,9 @@ int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString&
 
     if (str.string.at(pos)!=TAGRANGE_IMAGE_SYMBOL)
     {
-//         //try harder
-//         if (--pos>=0 && str.string.at(pos)==TAGRANGE_IMAGE_SYMBOL)
-//         {
-//
-//         }
-
-        return -1;
+        bool cont=tryHarder && --pos>=0 && str.string.at(pos)==TAGRANGE_IMAGE_SYMBOL;
+        if (!cont)
+            return -1;
     }
 
     int result=str.tags.size();
@@ -1112,7 +1108,7 @@ bool TranslationUnitTextEdit::event(QEvent *event)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         CatalogString str;
-        int pos=strForMicePosIfUnderTag(helpEvent->pos(),str);
+        int pos=strForMicePosIfUnderTag(helpEvent->pos(),str,true);
         if (pos!=-1)
         {
             QString tooltip=str.tags.at(pos).displayName();

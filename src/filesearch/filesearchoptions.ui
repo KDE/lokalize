@@ -27,8 +27,9 @@
       <widget class="KLineEdit" name="querySource">
        <property name="toolTip">
         <string>Search expression for source language part.
+Press Ctrl+L to go to this control.
 Press Enter to start the search.
-Press Ctrl+L to go to this control.</string>
+Press Esc to stop the search.</string>
        </property>
       </widget>
      </item>

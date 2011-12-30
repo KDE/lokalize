@@ -110,8 +110,7 @@ private slots:
     void resetFindForCurrent(const DocPosition& pos);
 
     //Edit menu
-    void unwrap(TranslationUnitTextEdit
-* editor=0);
+    void unwrap(TranslationUnitTextEdit* editor=0);
     void toggleBookmark(bool);
     void insertTerm(const QString&);
 

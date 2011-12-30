@@ -30,6 +30,7 @@
 #include <klocale.h>
 
 #include <QApplication>
+#include <kcolorscheme.h>
 
 #define DYNAMICFILTER_LIMIT 256
 
@@ -124,7 +125,15 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             return font;
         }
     }
-    if (role==Qt::UserRole)
+    else if (role==Qt::ForegroundRole)
+    {
+       if (m_catalog->isBookmarked(index.row()))
+       {
+           static KColorScheme colorScheme(QPalette::Normal);
+           return colorScheme.foreground(KColorScheme::LinkText);
+       }
+    }
+    else if (role==Qt::UserRole)
     {
         switch (index.column())
         {

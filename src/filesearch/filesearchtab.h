@@ -30,24 +30,14 @@
 #include <KMainWindow>
 #include <KXMLGUIClient>
 #include <KUrl>
-#include <KColorScheme>
 
-#include <QSqlQueryModel>
-#include <QSqlDatabase>
-#include <QItemDelegate>
-#include <QStaticText>
-#include <QCache>
 #include <QDockWidget>
-#include <QPointer>
+#include <QAbstractListModel>
 
 class QStringListModel;
-class Ui_QueryOptions;
-class KLineEdit;
 class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
-class QCheckBox;
-
 
 namespace ThreadWeaver{class Job;}
 namespace ThreadWeaver{class JobCollection;}
@@ -83,6 +73,7 @@ public slots:
     Q_SCRIPTABLE void performSearch();
     Q_SCRIPTABLE void addFilesToSearch(const QStringList&);
     void fileSearchNext();
+    void stopSearch();
 
 private slots:
     void searchJobDone(ThreadWeaver::Job*);
@@ -102,7 +93,7 @@ private:
     //TMResultsSortFilterProxyModel *m_proxyModel;
     SearchFileListView* m_searchFileListView;
 
-    QPointer<ThreadWeaver::JobCollection> m_searchMetaJob;
+    QVector<ThreadWeaver::Job*> m_runningJobs;
 
     //QString m_dbusObjectPath;
     int m_dbusId;
@@ -178,16 +169,6 @@ public:
     SearchResult searchResult(const QModelIndex& item) const {return m_searchResults.at(item.row());}
     void appendSearchResults(const SearchResults&);
     void clear();
-
-
-signals:
-    void resultsFetched();
-    void finalResultCountFetched(int);
-
-
-private:
-    bool rowIsApproved(int row) const;
-    int translationStatus(const QModelIndex& item) const;
 
 private:
     SearchResults m_searchResults;

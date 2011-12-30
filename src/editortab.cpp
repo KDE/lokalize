@@ -1005,8 +1005,7 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     if (pos.part==DocPosition::UndefPart)
         m_currentPos.part=DocPosition::Target;
 
-    QTime time;
-    time.start();
+    //QTime time; time.start();
 
     if (newEntry)
     {
