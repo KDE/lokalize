@@ -125,76 +125,49 @@ Press Enter to start the search.</string>
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="optionsLayout">
-       <item>
-        <layout class="QHBoxLayout" name="filemaskLayout">
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>File mask:</string>
-           </property>
-           <property name="buddy">
-            <cstring>filemask</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="KLineEdit" name="filemask">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Show only results from files with path matching specified mask</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+      <layout class="QGridLayout" name="optionsLayout">
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_2">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>File mask:</string>
+         </property>
+         <property name="buddy">
+          <cstring>filemask</cstring>
+         </property>
+        </widget>
        </item>
-       <item>
-        <layout class="QHBoxLayout" name="queryStyleLayout">
-         <item>
-          <widget class="QRadioButton" name="substr">
-           <property name="toolTip">
-            <string>Case insensitive</string>
-           </property>
-           <property name="text">
-            <string comment="@option:radio">Substring</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="like">
-           <property name="toolTip">
-            <string>Space is AND operator. Case insensitive.</string>
-           </property>
-           <property name="text">
-            <string comment="@option:radio">Google-like</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="glob">
-           <property name="toolTip">
-            <string>Shell globs (* and ?). Case sensitive.</string>
-           </property>
-           <property name="text">
-            <string comment="@option:radio">Wildcard</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+       <item row="1" column="2">
+        <widget class="KLineEdit" name="filemask">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Show only results from files with path matching specified mask</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_s">
+         <property name="text">
+          <string>Query syntax:</string>
+         </property>
+         <property name="buddy">
+          <cstring>queryStyle</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="KComboBox" name="queryStyle">
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -251,6 +224,11 @@ Press Enter to start the search.</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
@@ -263,9 +241,7 @@ Press Enter to start the search.</string>
   <tabstop>invertSource</tabstop>
   <tabstop>invertTarget</tabstop>
   <tabstop>filemask</tabstop>
-  <tabstop>substr</tabstop>
-  <tabstop>like</tabstop>
-  <tabstop>glob</tabstop>
+  <tabstop>queryStyle</tabstop>
   <tabstop>doUpdateTM</tabstop>
   <tabstop>treeView</tabstop>
  </tabstops>

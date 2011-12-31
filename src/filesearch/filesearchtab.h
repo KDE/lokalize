@@ -98,7 +98,7 @@ private:
     QVector<ThreadWeaver::Job*> m_runningJobs;
 
      //to avoid results from previous search showing up in the new one
-    QTime m_lastSearchStartTime;
+    int m_lastSearchNumber;
 
     //QString m_dbusObjectPath;
     int m_dbusId;
@@ -156,7 +156,7 @@ public:
         //Context,
         Filepath,
         TranslationStatus,
-        Notes,
+        //Notes,
         ColumnCount
     };
 

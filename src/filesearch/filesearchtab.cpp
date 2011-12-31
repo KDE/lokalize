@@ -144,7 +144,7 @@ class SearchJob: public ThreadWeaver::Job
 public:
     explicit SearchJob(const QStringList& f, 
                        const SearchParams& sp,
-                       QTime startTime,
+                       int sn,
                        QObject* parent=0);
     ~SearchJob(){}
 
@@ -153,18 +153,19 @@ protected:
 public:
     QStringList files;
     SearchParams searchParams;
-    QTime startTime;
-    
-    QMap<QString, QVector<FileSearchResult> > results; //filepath -> results
+    int searchNumber;
+
+    //QMap<QString, QVector<FileSearchResult> > results; //filepath -> results
+    SearchResults results; //plain
 
     int m_size;
 };
 
-SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, QTime st, QObject* parent)
+SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, int sn, QObject* parent)
  : ThreadWeaver::Job(parent)
  , files(f)
  , searchParams(sp)
- , startTime(st)
+ , searchNumber(sn)
 {
 }
 
@@ -177,7 +178,7 @@ void SearchJob::run()
         if (KDE_ISUNLIKELY(catalog.loadFromUrl(KUrl::fromPath(path), KUrl(), &m_size)!=0))
             continue;
 
-        QVector<FileSearchResult> catalogResults;
+        //QVector<FileSearchResult> catalogResults;
         int numberOfEntries=catalog.numberOfEntries();
         DocPosition pos(0);
         for (;pos.entry<numberOfEntries;pos.entry++)
@@ -201,7 +202,9 @@ void SearchJob::run()
                 if (sp!=-1 && tp!=-1)
                 {
                     //TODO handle multiple results in same column
-                    FileSearchResult r;
+                    //FileSearchResult r;
+                    SearchResult r;
+                    r.filepath=path;
                     r.docPos=pos;
                     if (!searchParams.sourcePattern.isEmpty())
                         r.sourcePositions<<StartLen(searchParams.sourcePattern.pos(), searchParams.sourcePattern.matchedLength());
@@ -213,12 +216,13 @@ void SearchJob::run()
                     r.isApproved=catalog.isApproved(pos);
                     //r.activePhase=catalog.activePhase();
 
-                    catalogResults<<r;
+                    //catalogResults<<r;
+                    results<<r;
                 }
             }
         }
-        if (catalogResults.size())
-            results[path]=catalogResults;
+        //if (catalogResults.size())
+        //    results[path]=catalogResults;
     }
     qDebug()<<"done in"<<a.elapsed();
 }
@@ -323,6 +327,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
 //    , m_proxyModel(new TMResultsSortFilterProxyModel(this))
     , m_model(new FileSearchModel(this))
+    , m_lastSearchNumber(0)
     , m_dbusId(-1)
 {
     setWindowTitle(i18nc("@title:window","Search and replace in files"));
@@ -394,6 +399,12 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 //    connect(m_proxyModel,SIGNAL(layoutChanged()),this,SLOT(displayTotalResultCount()));
 
 
+//BEGIN resizeColumnToContents
+    static const int maxInitialWidths[]={QApplication::desktop()->availableGeometry().width()/3,QApplication::desktop()->availableGeometry().width()/3};
+    int column=sizeof(maxInitialWidths)/sizeof(int);
+    while (--column>=0)
+        view->setColumnWidth(column, maxInitialWidths[column]);
+//END resizeColumnToContents
 
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
@@ -437,7 +448,7 @@ void FileSearchTab::performSearch()
     statusBarItems.insert(1,QString());
     m_searchFileListView->scrollTo();
 
-    m_lastSearchStartTime=QTime::currentTime();
+    m_lastSearchNumber++;
 
     SearchParams sp;
     sp.sourcePattern.setPattern(ui_fileSearchOptions->querySource->text());
@@ -468,7 +479,7 @@ void FileSearchTab::performSearch()
         for(int j=i; j<lim;j++)
             batch.append(files.at(j));
 
-        SearchJob* job=new SearchJob(batch, sp, m_lastSearchStartTime);
+        SearchJob* job=new SearchJob(batch, sp, m_lastSearchNumber);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(searchJobDone(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -511,7 +522,7 @@ void FileSearchTab::openFile()
         docPos.offset=sr.targetPositions.first().start;
         selection    =sr.targetPositions.first().len;
     }
-    qDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
+    kDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
     emit fileOpenRequested(sr.filepath, docPos, selection);
 }
 
@@ -594,9 +605,10 @@ void FileSearchTab::addFilesToSearch(const QStringList& files)
 void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
 {
     SearchJob* j=static_cast<SearchJob*>(job);
-    if (j->startTime!=m_lastSearchStartTime)
+    if (j->searchNumber!=m_lastSearchNumber)
         return;
 
+/*
     SearchResults searchResults;
     
     FileSearchResults::const_iterator i = j->results.constBegin();
@@ -612,10 +624,14 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
     }
 
     m_model->appendSearchResults(searchResults);
+*/
+    m_model->appendSearchResults(j->results);
 
     statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1", m_model->rowCount()));
-    if (searchResults.size())
-        m_searchFileListView->scrollTo(searchResults.last().filepath);
+    if (j->results.size())
+        m_searchFileListView->scrollTo(j->results.last().filepath);
+
+    //ui_fileSearchOptions->treeView->setFocus();
 }
 
 //END FileSearchTab

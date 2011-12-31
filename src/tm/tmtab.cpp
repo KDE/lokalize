@@ -52,6 +52,7 @@
 #include <kxmlguifactory.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <fastsizehintitemdelegate.h>
+#include <QStringListModel>
 
 
 using namespace TM;
@@ -357,6 +358,31 @@ bool TMResultsSortFilterProxyModel::filterAcceptsRow(int source_row, const QMode
 }
 //END TMResultsSortFilterProxyModel
 
+class QueryStylesModel: public QStringListModel
+{
+public:
+    explicit QueryStylesModel(QObject* parent = 0);
+    QVariant data(const QModelIndex& item, int role) const;
+};
+
+QueryStylesModel::QueryStylesModel(QObject* parent): QStringListModel(parent)
+{
+    setStringList(QStringList(i18n("Substring"))<<i18n("Google-like")<<i18n("Wildcard"));
+}
+
+QVariant QueryStylesModel::data(const QModelIndex& item, int role) const
+{
+    if (role==Qt::ToolTipRole)
+    {
+        static QString tooltips[]={i18n("Case insensitive"),
+                                   i18n("Space is AND operator. Case insensitive."),
+                                   i18n("Shell globs (* and ?). Case sensitive.")};
+        return tooltips[item.row()];
+    }
+    return QStringListModel::data(item, role);
+}
+
+
 //BEGIN TMWindow
 TMTab::TMTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
@@ -442,11 +468,8 @@ TMTab::TMTab(QWidget *parent)
     connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
     connect(m_model,SIGNAL(finalResultCountFetched(int)),this,SLOT(displayTotalResultCount()));
 
-    QButtonGroup* btnGrp=new QButtonGroup(this);
-    btnGrp->addButton(ui_queryOptions->substr,(int)TMDBModel::SubStr);
-    btnGrp->addButton(ui_queryOptions->like,(int)TMDBModel::WordOrder);
-    btnGrp->addButton(ui_queryOptions->glob,(int)TMDBModel::Glob);
-    connect(btnGrp,SIGNAL(buttonClicked(int)),m_model,SLOT(setQueryType(int)));
+    ui_queryOptions->queryStyle->setModel(new QueryStylesModel(this));
+    connect(ui_queryOptions->queryStyle,SIGNAL(currentIndexChanged(int)),m_model,SLOT(setQueryType(int)));
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
@@ -459,6 +482,13 @@ TMTab::TMTab(QWidget *parent)
     connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
     //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
+//BEGIN resizeColumnToContents
+    static const int maxInitialWidths[4]={QApplication::desktop()->availableGeometry().width()/3,QApplication::desktop()->availableGeometry().width()/3, 50, 200};
+    int column=sizeof(maxInitialWidths)/sizeof(int);
+    while (--column>=0)
+        view->setColumnWidth(column, maxInitialWidths[column]);
+
+//END resizeColumnToContents
     
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
@@ -555,30 +585,8 @@ void TMTab::handleResults()
     }
     kDebug()<<"=DocPosition::UndefPart";
     m_partToAlsoTryLater=DocPosition::UndefPart;
-
-//BEGIN resizeColumnToContents
-    QTreeView* view=ui_queryOptions->treeView;
-    static const int maxInitialWidths[4]={QApplication::desktop()->availableGeometry().width()/3,QApplication::desktop()->availableGeometry().width()/3, 50, 200};
-    int column=sizeof(maxInitialWidths)/sizeof(int);
-    while (--column>=0)
-    {
-        //view->resizeColumnToContents(i);
-        /*
-        int max=0;
-        int count=qMin(rowCount, 32);
-        for (int row=0;row<count;++row)
-        {
-            int w = view->itemDelegate()->sizeHint(QStyleOptionViewItemV2(),m_model->index(row,column)).width();
-            if (w>max)
-                max=w;
-        }
-        if (count) //qWarning()<<(sum/count);
-            view->setColumnWidth(column, qMin(max, maxInitialWidths[column]));
-        */
-        view->setColumnWidth(column, maxInitialWidths[column]);
-    }
-    view->setFocus();
-//END resizeColumnToContents
+    
+    ui_queryOptions->treeView->setFocus();
 }
 
 void TMTab::displayTotalResultCount()
@@ -735,7 +743,7 @@ void TMTab::lookup(QString source, QString target)
     ui_queryOptions->queryTarget->setText(target);
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    ui_queryOptions->substr->click();
+    ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::SubStr);
     performQuery();
 }
 
@@ -762,7 +770,7 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     ui_queryOptions->invertTarget->setChecked(false);
     if (!package.isEmpty()) package='*'+package+'*';
     ui_queryOptions->filemask->setText(package);
-    ui_queryOptions->glob->click();
+    ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::Glob);
     performQuery();
 
     return true;

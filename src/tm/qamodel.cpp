@@ -166,7 +166,7 @@ QModelIndex QaModel::appendRow()
 
 void QaModel::removeRow(const QModelIndex& rowIndex)
 {
-    //TODO optimize for contiguous selectimoons
+    //TODO optimize for contiguous selections
     beginRemoveRows(QModelIndex(),rowIndex.row(),rowIndex.row());
 
     QDomElement category=m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
