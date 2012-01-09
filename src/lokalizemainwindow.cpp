@@ -236,7 +236,7 @@ bool LokalizeMainWindow::queryClose()
         //if (editors.at(i)==m_projectSubWindow)
         if (!qobject_cast<EditorTab*>(editors.at(i)->widget()))
             continue;
-        if (!  static_cast<EditorTab*>( editors.at(i)->widget() )->queryClose())
+        if (!static_cast<EditorTab*>( editors.at(i)->widget() )->queryClose())
             return false;
     }
 
