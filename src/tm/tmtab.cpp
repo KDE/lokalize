@@ -264,6 +264,7 @@ protected:
 private:
     QVector<Rule> m_rules;
     mutable QMap<int,int> m_matchingRulesForSourceRow;
+    //mutable QMap<int, QVector<StartLen> > m_highlightDataForSourceRow;
 };
 
 bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
@@ -300,6 +301,7 @@ void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex& parent)
 void TMResultsSortFilterProxyModel::setRules(const QVector<Rule>& rules)
 {
     m_rules=rules;
+    m_matchingRulesForSourceRow.clear();
     invalidateFilter();
 }
 
@@ -315,6 +317,7 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
 
     int source_row=mapToSource(index).row();
     QString string=result.toString();
+
     QVector<QRegExp> regExps;
     if (index.column()==TMDBModel::Source)
         regExps=m_rules[m_matchingRulesForSourceRow[source_row]].sources;
@@ -328,6 +331,8 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
             return string.replace(pos, re.matchedLength(), "<b>" % re.cap(0) % "</b>");
     }
 
+    //StartLen sl=m_highlightDataForSourceRow.value(source_row).at(index.column());
+
     return result;
 }
     
@@ -339,21 +344,12 @@ bool TMResultsSortFilterProxyModel::filterAcceptsRow(int source_row, const QMode
     QString source=sourceModel()->index(source_row, TMDBModel::Source, source_parent).data().toString();
     QString target=sourceModel()->index(source_row, TMDBModel::Target, source_parent).data().toString();
 
-    bool accept=false;
-    int i=0;
-    for(QVector<Rule>::const_iterator it=m_rules.constBegin();it!=m_rules.constEnd();it++)
-    {
-        if (it->sources.first().indexIn(source)!=-1)
-        {
-            if (it->falseFriends.first().indexIn(target)!=-1)
-            {
-                accept=true;
-                m_matchingRulesForSourceRow[source_row]=i;
-                break;
-            }
-        }
-        i++;
-    }
+    static QVector<StartLen> dummy_positions;
+    int i=findMatchingRule(m_rules, source, target, dummy_positions);
+    bool accept=(i!=-1);
+    if (accept)
+        m_matchingRulesForSourceRow[source_row]=i;
+
     return accept;
 }
 //END TMResultsSortFilterProxyModel
@@ -510,7 +506,6 @@ TMTab::TMTab(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
     tm->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
 
-
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(setQAMode()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
 
@@ -626,6 +621,8 @@ void TMTab::openFile()
 
 void TMTab::setQAMode(bool enable)
 {
+    static_cast<FastSizeHintItemDelegate*>(ui_queryOptions->treeView->itemDelegate())->reset();
+
     if (!enable)
     {
         m_proxyModel->setRules(QVector<Rule>());
@@ -633,7 +630,6 @@ void TMTab::setQAMode(bool enable)
     }
 
     m_proxyModel->setRules(m_qaView->rules());
-    static_cast<FastSizeHintItemDelegate*>(ui_queryOptions->treeView->itemDelegate())->reset();
 
     /*QDomElement docElem = m_categories.at(0).toElement();
 
@@ -644,7 +640,7 @@ void TMTab::setQAMode(bool enable)
         qDebug() << e.tagName();
         n = n.nextSiblingElement();
     }*/
-    
+
     performQuery();
 }
 

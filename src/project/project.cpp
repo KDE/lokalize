@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -34,6 +34,7 @@
 #include "glossarywindow.h"
 #include "editortab.h"
 #include "dbfilesmodel.h"
+#include "qamodel.h"
 
 #include <QTimer>
 #include <QTime>
@@ -48,12 +49,11 @@
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
 #include <kpassivepopup.h>
+#include <kmessagebox.h>
 
 #include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/DependencyPolicy.h>
 
 #include <QDBusArgument>
-#include <kmessagebox.h>
 
 
 using namespace Kross;
@@ -161,6 +161,12 @@ void Project::load(const QString &newProjectPath)
 
     //NOTE do we need to explicitly call it when project id changes?
     TM::DBFilesModel::instance()->openDB(projectID());
+
+    if (QaModel::isInstantiated())
+    {
+        QaModel::instance()->saveRules();
+        QaModel::instance()->loadRules(qaPath());
+    }
 
     kDebug()<<"until emitting signal"<<a.elapsed();
 

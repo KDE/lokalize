@@ -26,6 +26,7 @@
 
 #include "lokalizesubwindowbase.h"
 #include "pos.h"
+#include "rule.h"
 
 #include <KMainWindow>
 #include <KXMLGUIClient>
@@ -36,6 +37,7 @@
 #include <state.h>
 #include <phase.h>
 
+class QaView;
 class QStringListModel;
 class QComboBox;
 class QTreeView;
@@ -94,6 +96,7 @@ private:
     FileSearchModel* m_model;
     //TMResultsSortFilterProxyModel *m_proxyModel;
     SearchFileListView* m_searchFileListView;
+    QaView* m_qaView;
 
     QVector<ThreadWeaver::Job*> m_runningJobs;
 
@@ -103,15 +106,6 @@ private:
     //QString m_dbusObjectPath;
     int m_dbusId;
     static QList<int> ids;
-};
-
-
-struct StartLen
-{
-    short start;
-    short len;
-    
-    StartLen(short s=0, short l=0):start(s), len(l){}
 };
 
 struct FileSearchResult
@@ -128,6 +122,7 @@ struct FileSearchResult
     QVector<StartLen> sourcePositions;
     QVector<StartLen> targetPositions;
 
+    //int matchedQaRule;
     //short notePos;
     //char  noteindex;
 };

@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2011-2012 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -42,11 +42,11 @@ public:
         ColumnCount
     };
 
-    QaModel(QObject* parent/*, Glossary* glossary*/);
-    ~QaModel(){}
+    QaModel(QObject* parent=0/*, Glossary* glossary*/);
+    ~QaModel();
 
     bool loadRules(const QString& filename);
-    bool saveRules(const QString& filename);
+    bool saveRules(QString filename=QString());
 
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     int columnCount(const QModelIndex& parent=QModelIndex()) const {return ColumnCount;}
@@ -60,9 +60,18 @@ public:
     QModelIndex appendRow();
     void removeRow(const QModelIndex&);
 
+
+    static QaModel* instance();
+    static bool isInstantiated();
+private:
+    static QaModel* _instance;
+    static void cleanupQaModel();
+
+
 private:
     QDomDocument m_doc;
     QDomNodeList m_entries;
+    QString m_filename;
 };
 
 

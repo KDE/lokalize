@@ -60,6 +60,8 @@ private:
     QVector<Rule> m_rules;
 };
 
+int findMatchingRule(const QVector<Rule>& rules, const QString& source, const QString& target,
+                    QVector<StartLen>& positions);
 
 #endif // QAVIEW_H
 

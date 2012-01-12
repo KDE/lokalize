@@ -1,6 +1,6 @@
 /*
     <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) 2011  nick <shafff@ukr.net>
+    Copyright (C) 2011-2012  nick <shafff@ukr.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include <klocalizedstring.h>
 #include <QFile>
 #include <QTextStream>
+#include <QCoreApplication>
 
 static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
 
@@ -54,8 +55,35 @@ static QVector<QRegExp> domListToRegExpVector(const QDomNodeList& nodes)
 }
 
 
+QaModel* QaModel::_instance=0;
+void QaModel::cleanupQaModel()
+{
+    delete QaModel::_instance; QaModel::_instance = 0;
+}
+
+bool QaModel::isInstantiated()
+{
+    return _instance!=0;
+}
+
+QaModel* QaModel::instance()
+{
+    if (KDE_ISUNLIKELY( _instance==0 )) {
+        _instance=new QaModel;
+        qAddPostRoutine(QaModel::cleanupQaModel);
+    }
+
+    return _instance;
+}
+
+
 QaModel::QaModel(QObject* parent): QAbstractListModel(parent)
 {
+}
+
+QaModel::~QaModel()
+{
+    saveRules();
 }
 
 int QaModel::rowCount(const QModelIndex& parent) const
@@ -97,7 +125,8 @@ QVector<Rule> QaModel::toVector() const
     QDomNodeList m_categories=m_doc.elementsByTagName("category");
     for (int i=0;i<m_categories.size();i++)
     {
-        QDomNodeList m_rules=m_categories.at(i).toElement().elementsByTagName("rule");
+        static const QString ruleTagName("rule");
+        QDomNodeList m_rules=m_categories.at(i).toElement().elementsByTagName(ruleTagName);
         for (int j=0;j<m_rules.size();j++)
         {
             Rule rule;
@@ -131,11 +160,15 @@ bool QaModel::loadRules(const QString& filename)
     }
 
     m_entries=m_doc.elementsByTagName("rule");
+    m_filename=filename;
     return true;
 }
 
-bool QaModel::saveRules(const QString& filename)
+bool QaModel::saveRules(QString filename)
 {
+    if (filename.isEmpty())
+        filename=m_filename;
+
     if (filename.isEmpty())
         return false;
 

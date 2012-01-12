@@ -43,5 +43,12 @@ struct Rule
     QVector<QRegExp> falseFriends;
 };
 
+struct StartLen
+{
+    short start;
+    short len;
+    
+    StartLen(short s=0, short l=0):start(s), len(l){}
+};
 
 #endif

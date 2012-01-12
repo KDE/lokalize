@@ -27,6 +27,7 @@
 
 #include "tmscanapi.h" //TODO
 #include "state.h"
+#include "qaview.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -133,8 +134,15 @@ struct SearchParams
     QRegExp notesPattern;
 
     bool states[StateCount];
+
+    bool isEmpty() const;
 };
 
+bool SearchParams::isEmpty() const
+{
+    return sourcePattern.pattern().isEmpty()
+        && targetPattern.pattern().isEmpty();
+}
 
 
 
@@ -144,6 +152,7 @@ class SearchJob: public ThreadWeaver::Job
 public:
     explicit SearchJob(const QStringList& f, 
                        const SearchParams& sp,
+                       const QVector<Rule>& r,
                        int sn,
                        QObject* parent=0);
     ~SearchJob(){}
@@ -153,6 +162,7 @@ protected:
 public:
     QStringList files;
     SearchParams searchParams;
+    QVector<Rule> rules;
     int searchNumber;
 
     //QMap<QString, QVector<FileSearchResult> > results; //filepath -> results
@@ -161,10 +171,11 @@ public:
     int m_size;
 };
 
-SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, int sn, QObject* parent)
+SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject* parent)
  : ThreadWeaver::Job(parent)
  , files(f)
  , searchParams(sp)
+ , rules(r)
  , searchNumber(sn)
 {
 }
@@ -185,11 +196,8 @@ void SearchJob::run()
         {
             //if (!searchParams.states[catalog.state(pos)])
             //    return false;
-            if (catalog.isPlural(pos.entry))
-            {
-                //TODO
-            }
-            else
+            int lim=catalog.isPlural(pos.entry)?catalog.numberOfPluralForms():1;
+            for (pos.form=0;pos.form<lim;pos.form++)
             {
                 int sp=0;
                 int tp=0;
@@ -215,6 +223,17 @@ void SearchJob::run()
                     r.state=catalog.state(pos);
                     r.isApproved=catalog.isApproved(pos);
                     //r.activePhase=catalog.activePhase();
+                    if (rules.size())
+                    {
+                        QVector<StartLen> positions(2);
+                        int matchedQaRule=findMatchingRule(rules, r.source, r.target, positions);
+                        if (matchedQaRule==-1)
+                            continue;
+                        if (positions.at(0).len)
+                            r.sourcePositions<<positions.at(0);
+                        if (positions.at(1).len)
+                            r.targetPositions<<positions.at(1);
+                    }
 
                     //catalogResults<<r;
                     results<<r;
@@ -423,6 +442,14 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction( QLatin1String("showfilelist_action"), m_searchFileListView->toggleViewAction() );
 
+    m_qaView = new QaView(this);
+    m_qaView->hide();
+    addDockWidget(Qt::RightDockWidgetArea, m_qaView);
+    srf->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
+
+    connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
+    connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()));
+
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("FileSearchResultsHeaderState", QByteArray()) ));
@@ -453,8 +480,10 @@ void FileSearchTab::performSearch()
     SearchParams sp;
     sp.sourcePattern.setPattern(ui_fileSearchOptions->querySource->text());
     sp.targetPattern.setPattern(ui_fileSearchOptions->queryTarget->text());
+
+    QVector<Rule> rules=m_qaView->isVisible()?m_qaView->rules():QVector<Rule>();
     
-    if (sp.sourcePattern.pattern().isEmpty() && sp.targetPattern.pattern().isEmpty())
+    if (sp.isEmpty() && rules.isEmpty())
         return;
 
     if (!ui_fileSearchOptions->regEx->isChecked())
@@ -479,7 +508,7 @@ void FileSearchTab::performSearch()
         for(int j=i; j<lim;j++)
             batch.append(files.at(j));
 
-        SearchJob* job=new SearchJob(batch, sp, m_lastSearchNumber);
+        SearchJob* job=new SearchJob(batch, sp, rules, m_lastSearchNumber);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(searchJobDone(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -494,7 +523,6 @@ void FileSearchTab::stopSearch()
         ThreadWeaver::Weaver::instance()->dequeue(*it);
     m_runningJobs.clear();
 }
-
 
 static void copy(QTreeView* view, int column)
 {
