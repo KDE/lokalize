@@ -29,6 +29,15 @@
 #include <QMutexLocker>
 #include <QDebug>
 
+QString enhanceLangCode(const QString& langCode)
+{
+    if (langCode.length()!=2)
+        return langCode;
+
+    return QLocale(langCode).name();
+}
+
+
 #ifdef HAVE_HUNSPELL
 #include <hunspell/hunspell.hxx>
 #include <QTextCodec>
@@ -45,6 +54,8 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
 : speller(0)
 {
         QString dic=QString("/usr/share/myspell/dicts/%1.dic").arg(langCode);
+        if (!QFileInfo(dic).exists())
+            dic=QString("/usr/share/myspell/dicts/%1.dic").arg(enhanceLangCode(langCode));;
         if (QFileInfo(dic).exists())
         {
             speller = new Hunspell(QString("/usr/share/myspell/dicts/%1.aff").arg(langCode).toUtf8().constData(),dic.toUtf8().constData());

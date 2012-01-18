@@ -26,7 +26,7 @@
 
 #include <QString>
 
-
+QString enhanceLangCode(const QString& langCode); //it -> it_IT
 QString stem(const QString& langCode, const QString& word);
 void cleanupSpellers();
 
