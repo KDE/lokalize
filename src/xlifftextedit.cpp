@@ -168,10 +168,11 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
 void TranslationUnitTextEdit::fileLoaded()
 {
     QString langCode=m_part==DocPosition::Source? m_catalog->sourceLangCode():m_catalog->targetLangCode();
-    m_highlighter->setCurrentLanguage(langCode);
+
+    QLocale langLocale(langCode);
+    m_highlighter->setCurrentLanguage(langLocale.name());
 
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
-    QLocale langLocale(langCode);
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
     static QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
     int i=sizeof(rtlLanguages)/sizeof(QLocale::Arabic);

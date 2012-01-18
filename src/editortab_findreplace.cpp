@@ -29,6 +29,7 @@
 #include "project.h"
 #include "prefs_lokalize.h"
 #include "ui_kaider_findextension.h"
+#include "stemming.h"
 
 
 #include <kglobal.h>
@@ -542,7 +543,7 @@ void EditorTab::spellcheck()
     if (!m_sonnetDialog)
     {
         m_sonnetChecker=new Sonnet::BackgroundChecker(this);
-        m_sonnetChecker->changeLanguage(Project::instance()->langCode());
+        m_sonnetChecker->changeLanguage(enhanceLangCode(Project::instance()->langCode()));
         m_sonnetDialog=new Sonnet::Dialog(m_sonnetChecker,this);
         connect(m_sonnetDialog,SIGNAL(done(QString)),this,SLOT(spellcheckNext()));
         connect(m_sonnetDialog,SIGNAL(replace(QString,int,QString)),
