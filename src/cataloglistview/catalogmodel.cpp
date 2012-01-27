@@ -30,6 +30,7 @@
 #include <klocale.h>
 
 #include <QApplication>
+#include <QFontMetrics>
 
 #define DYNAMICFILTER_LIMIT 256
 
@@ -112,7 +113,12 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     if (m_catalog->numberOfEntries()<=index.row() )
         return QVariant();
 
-    if (role==Qt::FontRole/* && index.column()==Target*/)
+    if (role==Qt::SizeHintRole)
+    {
+        //no need to cache because of uniform row heights
+        return QFontMetrics(QApplication::font()).size(Qt::TextSingleLine, QString::fromLatin1("          "));
+    }
+    else if (role==Qt::FontRole/* && index.column()==Target*/)
     {
         bool fuzzy=!m_catalog->isApproved(index.row());
         bool modified=m_catalog->isModified(index.row());
