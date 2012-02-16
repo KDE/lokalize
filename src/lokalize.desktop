@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Lokalize
+Name[ar]=لوكالايز
 Name[ast]=Lokalize
 Name[bg]=Lokalize
 Name[bs]=Lokalize
@@ -36,6 +37,7 @@ Name[pt]=Lokalize
 Name[pt_BR]=Lokalize
 Name[ro]=Lokalize
 Name[ru]=Lokalize
+Name[sk]=Lokalize
 Name[sr]=Локализуј
 Name[sr@ijekavian]=Локализуј
 Name[sr@ijekavianlatin]=Lokalizuj
@@ -55,6 +57,7 @@ Categories=Qt;KDE;Development;Office;Translation;
 MimeType=application/x-xliff;text/x-gettext-translation;application/x-lokalize-project;
 X-DocPath=lokalize/index.html
 GenericName=Computer-Aided Translation System
+GenericName[ar]=برنامج ترجمة بمساعدة الحاسوب.
 GenericName[ast]=Sistema de traducción asistíu por computadora
 GenericName[bs]=Sistem za prevođenje pomoću računara
 GenericName[ca]=Sistema de traducció assistida per ordinador

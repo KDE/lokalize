@@ -1,6 +1,7 @@
 [Global]
 IconName=lokalize
 Comment=Computer-aided translation system
+Comment[ar]=برنامج ترجمة بمساعدة الحاسوب.
 Comment[bs]=Sistem za prevođenje pomoću računara
 Comment[ca]=Sistema de traducció assistida per ordinador
 Comment[ca@valencia]=Sistema de traducció assistida per ordinador
@@ -33,6 +34,7 @@ Comment[x-test]=xxComputer-aided translation systemxx
 Comment[zh_CN]=计算机辅助翻译系统
 Comment[zh_TW]=電腦協助翻譯系統
 Name=Lokalize
+Name[ar]=لوكالايز
 Name[ast]=Lokalize
 Name[bg]=Lokalize
 Name[bs]=Lokalize
@@ -69,6 +71,7 @@ Name[pt]=Lokalize
 Name[pt_BR]=Lokalize
 Name[ro]=Lokalize
 Name[ru]=Lokalize
+Name[sk]=Lokalize
 Name[sr]=Локализуј
 Name[sr@ijekavian]=Локализуј
 Name[sr@ijekavianlatin]=Lokalizuj
@@ -84,6 +87,7 @@ Name[zh_TW]=Lokalize
 
 [Event/FilesOpenError]
 Name=Error opening files
+Name[ar]=خطأ في فتح الملفات
 Name[bs]=Greška u otvaranju datoteka
 Name[ca]=S'ha produït un error en obrir els fitxers
 Name[ca@valencia]=S'ha produït un error en obrir els fitxers
