@@ -210,7 +210,7 @@ void DBPropertiesDialog::accept()
     }
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT( updateProjectTmIndex()));
+    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
 
     openDBJob->m_setParams=true;
     openDBJob->m_tmConfig.markup=markup->text();

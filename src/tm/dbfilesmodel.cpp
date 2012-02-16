@@ -65,10 +65,10 @@ DBFilesModel::DBFilesModel()
     m_fileSystemModel->setRootPath(KStandardDirs::locateLocal("appdata", ""));
 
     setSourceModel(m_fileSystemModel);
-    connect (this,SIGNAL(rowsInserted(QModelIndex, int, int)),
-             this,SLOT(calcStats(QModelIndex, int, int))/*,Qt::QueuedConnection*/);
+    connect (this,SIGNAL(rowsInserted(QModelIndex,int,int)),
+             this,SLOT(calcStats(QModelIndex,int,int))/*,Qt::QueuedConnection*/);
 
-    connect (this,SIGNAL(dataChanged(QModelIndex, QModelIndex)),
+    connect (this,SIGNAL(dataChanged(QModelIndex,QModelIndex)),
              this,SLOT(updateStats(QModelIndex,QModelIndex)),Qt::QueuedConnection);
     m_timeSinceLastUpdate.start();
 

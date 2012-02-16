@@ -65,8 +65,8 @@ ProjectTab::ProjectTab(QWidget *parent)
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
     connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
-    connect(Project::instance()->model(), SIGNAL(totalsChanged(int, int, int, bool)),
-            this, SLOT(updateStatusBar(int, int, int, bool)));
+    connect(Project::instance()->model(), SIGNAL(totalsChanged(int,int,int,bool)),
+            this, SLOT(updateStatusBar(int,int,int,bool)));
     connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
 
     setCentralWidget(w);
@@ -95,16 +95,16 @@ ProjectTab::ProjectTab(QWidget *parent)
     KActionCategory* nav=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp,"prevfuzzyuntrans")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzyUntr()) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzyUntr()) );
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzy()) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzy()) );
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
