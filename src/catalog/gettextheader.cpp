@@ -627,13 +627,23 @@ void updateHeader(QString& header,
             ait = foundAuthors.end();
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
             {
-                if ( it->contains(Settings::authorName()) || it->contains(Settings::authorEmail()) )
+                bool containsAuthorEmail = it->contains(Settings::authorEmail());
+                if ( it->contains(Settings::authorName()) || containsAuthorEmail )
                 {
                     foundAuthor = true;
                     if ( it->contains( cy ) )
                         found = true;
                     else
                         ait = it;
+
+                    if (!containsAuthorEmail)
+                    {
+                        //update mail
+                        QRegExp mre("<([^>]*)>");
+                        const int mail_pos = mre.lastIndexIn( *it );
+                        if ( mail_pos != -1 && Settings::authorEmail() != mre.cap(1) )
+                            it->replace(mail_pos+1, mre.matchedLength()-2, Settings::authorEmail());
+                    }
                 }
             }
             if ( !found )
