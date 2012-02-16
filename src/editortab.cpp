@@ -407,7 +407,7 @@ void EditorTab::setupActions()
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
     actionCollection()->addAction( QLatin1String("showwebqueryview_action"), _webQueryView->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_webQueryView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (_webQueryView,SIGNAL(textInsertRequested(const QString&)),m_view,SLOT(insertTerm(const QString&)));
+    connect (_webQueryView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
 #endif
 
 
@@ -547,14 +547,14 @@ void EditorTab::setupActions()
 
     action=nav->addAction(KStandardAction::Prior,this, SLOT(gotoPrev()));
     action->setText(i18nc("@action:inmenu entry","&Previous"));
-    connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
+    connect( this, SIGNAL(signalFirstDisplayed(bool)), action , SLOT(setDisabled(bool)) );
     connect(m_view->viewPort(),SIGNAL(gotoPrevRequested()),this,SLOT(gotoPrev()));
 
     action=nav->addAction(KStandardAction::FirstPage,this, SLOT(gotoFirst()));
     connect(m_view->viewPort(),SIGNAL(gotoFirstRequested()),this,SLOT(gotoFirst()));
     action->setText(i18nc("@action:inmenu","&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Home));
-    connect( this, SIGNAL( signalFirstDisplayed(bool) ), action , SLOT( setDisabled(bool) ) );
+    connect( this, SIGNAL(signalFirstDisplayed(bool)), action , SLOT(setDisabled(bool)) );
 
     action=nav->addAction(KStandardAction::LastPage,this, SLOT(gotoLast()));
     connect(m_view->viewPort(),SIGNAL(gotoLastRequested()),this,SLOT(gotoLast()));
@@ -567,33 +567,33 @@ void EditorTab::setupActions()
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzy() ) );
-    connect( m_view->viewPort(), SIGNAL( gotoPrevFuzzyRequested() ), this, SLOT(gotoPrevFuzzy()) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzy()) );
+    connect( m_view->viewPort(), SIGNAL(gotoPrevFuzzyRequested()), this, SLOT(gotoPrevFuzzy()) );
     connect( this, SIGNAL(signalPriorFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzy() ) );
-    connect( m_view->viewPort(), SIGNAL( gotoNextFuzzyRequested() ), this, SLOT(gotoNextFuzzy()) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzy()) );
+    connect( m_view->viewPort(), SIGNAL(gotoNextFuzzyRequested()), this, SLOT(gotoNextFuzzy()) );
     connect( this, SIGNAL(signalNextFuzzyAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
-    connect( m_view->viewPort(), SIGNAL( gotoPrevUntranslatedRequested() ), this, SLOT(gotoPrevUntranslated()) );
+    connect( m_view->viewPort(), SIGNAL(gotoPrevUntranslatedRequested()), this, SLOT(gotoPrevUntranslated()) );
     connect( this, SIGNAL(signalPriorUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
-    connect( m_view->viewPort(), SIGNAL( gotoNextUntranslatedRequested() ), this, SLOT(gotoNextUntranslated()) );
+    connect( m_view->viewPort(), SIGNAL(gotoNextUntranslatedRequested()), this, SLOT(gotoNextUntranslated()) );
     connect( this, SIGNAL(signalNextUntranslatedAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoPrevFuzzyUntr() ) );
-    connect( m_view->viewPort(), SIGNAL( gotoPrevFuzzyUntrRequested() ), this, SLOT(gotoPrevFuzzyUntr()) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzyUntr()) );
+    connect( m_view->viewPort(), SIGNAL(gotoPrevFuzzyUntrRequested()), this, SLOT(gotoPrevFuzzyUntr()) );
     connect( this, SIGNAL(signalPriorFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( gotoNextFuzzyUntr() ) );
-    connect( m_view->viewPort(), SIGNAL( gotoNextFuzzyUntrRequested() ), this, SLOT(gotoNextFuzzyUntr()) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzyUntr()) );
+    connect( m_view->viewPort(), SIGNAL(gotoNextFuzzyUntrRequested()), this, SLOT(gotoNextFuzzyUntr()) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
     action=nav->addAction("go_focus_earch_line",m_transUnitsView, SLOT(setFocus()));
@@ -623,15 +623,15 @@ void EditorTab::setupActions()
     actionCategory=tm;
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all exact suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
-    connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslate() ) );
+    connect( action, SIGNAL(triggered(bool)), _tmView, SLOT(slotBatchTranslate()) );
 
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
-    connect( action, SIGNAL( triggered(bool) ), _tmView, SLOT( slotBatchTranslateFuzzy() ) );
+    connect( action, SIGNAL(triggered(bool)), _tmView, SLOT(slotBatchTranslateFuzzy()) );
 
     actionCategory=tools;
     ADD_ACTION_SHORTCUT("tools_wordcount",i18nc("@action:inmenu","Word count"),Qt::CTRL+Qt::ALT+Qt::Key_C)
-    connect( action, SIGNAL( triggered(bool) ), this, SLOT( displayWordCount() ) );
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(displayWordCount()) );
 
 //MergeMode
     action = sync1->addAction("merge_open",m_syncView,SLOT(mergeOpen()));
