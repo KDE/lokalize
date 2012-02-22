@@ -31,6 +31,7 @@
 
 #include <KXMLGUIClient>
 
+class QStackedLayout;
 class ProjectWidget;
 class KLineEdit;
 class QContextMenuEvent;
@@ -74,6 +75,7 @@ public slots:
     ///@returns list of selected files recursively
     Q_SCRIPTABLE QStringList selectedItems() const;
     Q_SCRIPTABLE bool currentItemIsTranslationFile() const;
+    void showRealProjectOverview();
 
     //Q_SCRIPTABLE bool isShown() const;
 
@@ -104,6 +106,8 @@ private:
     ProjectWidget* m_browser;
     KLineEdit* m_filterEdit;
     QProgressBar* m_progressBar;
+    
+    QStackedLayout *m_stackedLayout;
 
     int m_legacyUnitsCount, m_currentUnitsCount;
 };

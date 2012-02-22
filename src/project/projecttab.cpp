@@ -25,6 +25,7 @@
 #include "project.h"
 #include "projectwidget.h"
 #include "tmscanapi.h"
+#include "prefs.h"
 
 #include <klocale.h>
 #include <kaction.h>
@@ -42,6 +43,9 @@
 #include <QShortcut>
 #include <QSortFilterProxyModel>
 #include <QProgressBar>
+#include <QStackedLayout>
+#include <QLabel>
+#include <QPushButton>
 
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
@@ -52,7 +56,58 @@ ProjectTab::ProjectTab(QWidget *parent)
 
 {
     setWindowTitle(i18nc("@title:window","Project Overview"));//setCaption(i18nc("@title:window","Project"),false);
+//BEGIN setup welcome widget
+    QWidget* welcomeWidget=new QWidget(this);
+    QVBoxLayout* wl=new QVBoxLayout(welcomeWidget);
+    QLabel* about = new QLabel(i18n("<html>" //copied from kaboutkdedialog_p.cpp
+        "You do not have to be a software developer to be a member of the "
+        "KDE team. You can join the national teams that translate "
+        "program interfaces. You can provide graphics, themes, sounds, and "
+        "improved documentation. You decide!"
+        "<br /><br />"
+        "Visit "
+        "<a href=\"%1\">%1</a> "
+        "for information on some projects in which you can participate."
+        "<br /><br />"
+        "If you need more information or documentation, then a visit to "
+        "<a href=\"%2\">%2</a> "
+        "will provide you with what you need.</html>",
+        QLatin1String("http://community.kde.org/Getinvolved"),
+        QLatin1String("http://techbase.kde.org/")), welcomeWidget);
+    about->setAlignment(Qt::AlignCenter);
+    about->setWordWrap(true);
+    about->setOpenExternalLinks(true);
+    about->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    about->setTextFormat(Qt::RichText);
+
+    QPushButton* conf = new QPushButton(i18n("&Configure %1...", "Lokalize"), welcomeWidget);
+    QPushButton* createProject = new QPushButton(i18nc("@action:inmenu","Create new project"), welcomeWidget);
+    QPushButton* openProject = new QPushButton(i18nc("@action:inmenu","Open project"), welcomeWidget);
+    connect(conf, SIGNAL(clicked(bool)), SettingsController::instance(),SLOT(showSettingsDialog()));
+    connect(openProject, SIGNAL(clicked(bool)), this, SIGNAL(projectOpenRequested()));
+    connect(createProject, SIGNAL(clicked(bool)), SettingsController::instance(), SLOT(projectCreate()));
+    QHBoxLayout* wbtnl=new QHBoxLayout();
+    wbtnl->addStretch(1);
+    wbtnl->addWidget(conf);
+    wbtnl->addWidget(createProject);
+    wbtnl->addWidget(openProject);
+    wbtnl->addStretch(1);
+
+    wl->addStretch(1);
+    wl->addWidget(about);
+    wl->addStretch(1);
+    wl->addLayout(wbtnl);
+    wl->addStretch(1);
+
+
+//END setup welcome widget
+    QWidget* baseWidget=new QWidget(this);
+    m_stackedLayout = new QStackedLayout(baseWidget);
     QWidget* w=new QWidget(this);
+    m_stackedLayout->addWidget(welcomeWidget);
+    m_stackedLayout->addWidget(w);
+    connect(Project::instance(), SIGNAL(loaded()), this, SLOT(showRealProjectOverview()));
+
     QVBoxLayout* l=new QVBoxLayout(w);
 
     
@@ -69,7 +124,7 @@ ProjectTab::ProjectTab(QWidget *parent)
             this, SLOT(updateStatusBar(int,int,int,bool)));
     connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
 
-    setCentralWidget(w);
+    setCentralWidget(baseWidget);
 
     KHBox *progressBox = new KHBox();
     KStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
@@ -140,6 +195,11 @@ ProjectTab::ProjectTab(QWidget *parent)
 ProjectTab::~ProjectTab()
 {
     //kWarning()<<"destroyed";
+}
+
+void ProjectTab::showRealProjectOverview()
+{
+    m_stackedLayout->setCurrentIndex(1);
 }
 
 KUrl ProjectTab::currentUrl()
