@@ -507,14 +507,17 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
             return ISNTREADABLE;
         readOnly=!info.isWritable();
     }
+    else
+      return DOESNTEXIST;
 
 
     QTime a;a.start();
 
     QString target;
-    if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
-        return ISNTREADABLE;
-    QFile* file=new QFile(target);
+    //if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
+    //    return ISNTREADABLE;
+    //QFile* file=new QFile(target);
+    QFile* file=new QFile(url.toLocalFile());
     file->deleteLater();//kung-fu
     if (!file->open(QIODevice::ReadOnly))
         return ISNTREADABLE;//TODO

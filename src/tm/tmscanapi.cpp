@@ -40,7 +40,7 @@ namespace TM {
 
 using namespace TM;
 
-RecursiveScanJob::RecursiveScanJob(const QString& dbName,QObject* parent)
+RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
     : KJob(parent)
     , m_dbName(dbName)
 {
