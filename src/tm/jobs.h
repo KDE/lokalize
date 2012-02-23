@@ -68,6 +68,8 @@ struct TMConfig
     QString targetLangCode;
 };
 
+void cancelAllJobs(); //HACK because threadweaver's dequeue is not workin'
+
 //called on startup
 class OpenDBJob: public ThreadWeaver::Job
 {

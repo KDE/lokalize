@@ -25,6 +25,7 @@
 #include "actionproxy.h"
 #include "editortab.h"
 #include "projecttab.h"
+#include "jobs.h"
 #include "tmtab.h"
 #include "prefs_lokalize.h"
 
@@ -239,7 +240,14 @@ bool LokalizeMainWindow::queryClose()
             return false;
     }
 
-    return Project::instance()->queryCloseForAuxiliaryWindows();
+    bool ok=Project::instance()->queryCloseForAuxiliaryWindows();
+    
+    if (ok)
+    {
+        TM::cancelAllJobs(); //this shit works l)
+        Project::instance()->model()->weaver()->dequeue();
+    }
+    return ok;
 }
 
 EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry/*, int offset*/,bool setAsActive, const QString& mergeFile, bool silent)

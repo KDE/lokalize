@@ -54,6 +54,9 @@ using namespace TM;
 #define TM_NOTAPPROVED 0x04
 
 
+static bool stop=false;
+void TM::cancelAllJobs(){stop=true;}
+
 /**
  * splits string into words, removing any markup
  *
@@ -1410,7 +1413,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 void SelectJob::run ()
 {
     kDebug(TM_AREA)<<"started"<<m_dbName<<m_source.string;
-    if (m_source.isEmpty()) //sanity check
+    if (m_source.isEmpty() || stop) //sanity check
         return;
     //thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
@@ -1478,6 +1481,8 @@ ScanJob::~ScanJob()
 
 void ScanJob::run()
 {
+    if (stop)
+      return;
     kWarning(TM_AREA) <<"started"<<m_url.pathOrUrl()<<m_dbName;
     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
