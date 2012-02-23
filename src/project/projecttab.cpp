@@ -80,7 +80,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     about->setTextInteractionFlags(Qt::TextBrowserInteraction);
     about->setTextFormat(Qt::RichText);
 
-    QPushButton* conf = new QPushButton(i18n("&Configure %1...", "Lokalize"), welcomeWidget);
+    QPushButton* conf = new QPushButton(i18n("&Configure %1...", QLatin1String("Lokalize")), welcomeWidget);
     QPushButton* createProject = new QPushButton(i18nc("@action:inmenu","Create new project"), welcomeWidget);
     QPushButton* openProject = new QPushButton(i18nc("@action:inmenu","Open project"), welcomeWidget);
     connect(conf, SIGNAL(clicked(bool)), SettingsController::instance(),SLOT(showSettingsDialog()));
