@@ -81,8 +81,8 @@ public:
     int lastChangedIndex() const {return m_mergeDiffIndex.isEmpty()?-1:m_mergeDiffIndex.last();}
     int nextChangedIndex(uint index) const {return findNextInList(m_mergeDiffIndex,index);}
     int prevChangedIndex(uint index) const {return findPrevInList(m_mergeDiffIndex,index);}
-    int isChanged(uint index) const {return m_mergeDiffIndex.contains(index);}
-    QLinkedList<int> changedEntries()const {return m_mergeDiffIndex;}
+    int isDifferent(uint index) const {return m_mergeDiffIndex.contains(index);}
+    QLinkedList<int> differentEntries()const {return m_mergeDiffIndex;}
 
     //override to use map
     QString msgstr(const DocPosition&) const;
@@ -94,6 +94,7 @@ public:
 
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const short int& entry) const;
+    bool isModified(DocPos)const;
 
     ///@arg pos in baseCatalog's coordinates
     void copyToBaseCatalog(DocPosition& pos);
@@ -118,6 +119,7 @@ private:
     QVector<int> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
     QLinkedList<int> m_mergeDiffIndex;//points to baseCatalog entries
+    QMap<DocPos, uint> m_originalHashes; //for modified units only
     int m_unmatchedCount;
     bool m_modified; //need own var here cause we don't use qundostack system for merging
 };

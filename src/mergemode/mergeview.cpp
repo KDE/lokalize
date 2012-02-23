@@ -131,7 +131,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
         setWindowTitle(m_hasInfoTitle);
     }
 
-    emit signalEntryWithMergeDisplayed(m_mergeCatalog->isChanged(pos.entry));
+    emit signalEntryWithMergeDisplayed(m_mergeCatalog->isDifferent(pos.entry));
 
     QString result=userVisibleWordDiff(m_baseCatalog->msgstr(pos),
                                        m_mergeCatalog->msgstr(pos),
@@ -159,6 +159,12 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
     {
         result.prepend("<i>");
         result.append("</i>");
+    }
+
+    if (m_mergeCatalog->isModified(pos))
+    {
+        result.prepend("<b>");
+        result.append("</b>");
     }
 
     m_browser->setHtml(result);
@@ -341,11 +347,11 @@ void MergeView::mergeAcceptAllForEmpty()
 {
     if(KDE_ISUNLIKELY(!m_mergeCatalog)) return;
 
-    bool update=m_mergeCatalog->changedEntries().contains(m_pos.entry);
+    bool update=m_mergeCatalog->differentEntries().contains(m_pos.entry);
 
     m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/MergeCatalog::HigherOnly);
 
-    if (update!=m_mergeCatalog->changedEntries().contains(m_pos.entry))
+    if (update!=m_mergeCatalog->differentEntries().contains(m_pos.entry))
         emit gotoEntry(m_pos,0);
 }
 
@@ -355,8 +361,8 @@ bool MergeView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip && m_mergeCatalog)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        QString text=i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
-                m_mergeCatalog->changedEntries().count(),m_mergeCatalog->unmatchedCount());
+        QString text="<b>" % url().prettyUrl() % "</b>\n" % i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
+                m_mergeCatalog->differentEntries().count(),m_mergeCatalog->unmatchedCount());
         text.replace('\n',"<br />");
         QToolTip::showText(helpEvent->globalPos(),text);
         return true;

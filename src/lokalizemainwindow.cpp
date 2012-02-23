@@ -214,6 +214,10 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
             //static_cast<Kross::Action*>(actionz.at(i))->trigger();
         }*/
 
+        QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
+        if(tw) tw->setTabToolTip(tw->currentIndex(), w->currentUrl().prettyUrl());
+
+
         emit editorActivated();
     }
 

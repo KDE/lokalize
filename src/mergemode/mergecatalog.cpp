@@ -59,6 +59,9 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
         if (m_storage->isApproved(ourPos)!=m_baseCatalog->isApproved(pos))
             //kWarning()<<ourPos.entry<<"SHIT";
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
+        DocPos p(pos);
+        if (!m_originalHashes.contains(p))
+            m_originalHashes[p]=qHash(m_storage->target(ourPos));
         m_storage->setTarget(ourPos,m_baseCatalog->target(pos));
         setModified(ourPos, true);
 
@@ -239,14 +242,21 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
     }*/
     m_unmatchedCount=numberOfEntries()-mergePositions.count();
     m_modified=false;
+    m_originalHashes.clear();
 
     return 0;
+}
+
+bool MergeCatalog::isModified(DocPos pos) const
+{
+    return Catalog::isModified(pos) && m_originalHashes.value(pos)!=qHash(target(pos.toDocPosition()));
 }
 
 bool MergeCatalog::save()
 {
     bool ok = !m_modified || Catalog::save();
     if (ok) m_modified=false;
+    m_originalHashes.clear();
     return ok;
 }
 
@@ -288,7 +298,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
     DocPosition pos;
     pos.offset=0;
     bool insHappened=false;
-    QLinkedList<int> changed=changedEntries();
+    QLinkedList<int> changed=differentEntries();
     foreach(int entry, changed)
     {
         pos.entry=entry;
