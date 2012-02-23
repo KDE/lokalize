@@ -65,7 +65,8 @@ public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void slotUpdate(const DocPosition&);
 
-    void gotoNextChanged();
+    void gotoNextChanged(bool approvedOnly=false);
+    void gotoNextChangedApproved();
     void gotoPrevChanged();
     void mergeAccept();
     void mergeAcceptAllForEmpty();

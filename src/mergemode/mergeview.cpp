@@ -302,12 +302,17 @@ void MergeView::gotoPrevChanged()
     emit gotoEntry(pos,0);
 }
 
-void MergeView::gotoNextChanged()
+void MergeView::gotoNextChangedApproved()
+{
+    gotoNextChanged(true);
+}
+
+void MergeView::gotoNextChanged(bool approvedOnly)
 {
     if (KDE_ISUNLIKELY( !m_mergeCatalog ))
         return;
 
-    DocPosition pos;
+    DocPosition pos=m_pos;
 
     //first, check if there any plural forms waiting to be synced
     int form=pluralFormsAvailableForward();
@@ -318,6 +323,12 @@ void MergeView::gotoNextChanged()
     }
     else if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1 ))
         return;
+
+    while (approvedOnly && !m_mergeCatalog->isApproved(pos.entry))
+    {
+        if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(pos.entry)) == -1 ))
+            return;      
+    }
 
     emit gotoEntry(pos,0);
 }

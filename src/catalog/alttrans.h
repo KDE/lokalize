@@ -42,7 +42,7 @@ struct AltTrans
     QString origin;
     QString phase;
 
-    AltTrans(CatalogString source_=CatalogString()):type(Other),source(source_){}
+    AltTrans(const CatalogString& s=CatalogString(), const QString& o=QString()):type(Other),source(s),origin(o){}
 };
 
 

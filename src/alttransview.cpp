@@ -82,13 +82,6 @@ void AltTransView::initLater()
     }
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(slotUseSuggestion(int)));
 
-    setToolTip(i18nc("@info:tooltip","<p>Sometimes, if original text is changed, its translation becomes deprecated and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. looses approval status), "
-    "or (only in case of XLIFF file) moved to the <emphasis>alternate&nbsp;translations</emphasis> section accompanying the unit.</p>"
-    "<p>This toolview also shows the difference between new original string and the old one, so that you can easily see which changes should be applied to existing translation.</p>"
-    "<p>Double-click any word in this toolview to insert it into translation.</p>"
-    "<p>Drop translation file onto this toolview to use it as a source for alternate translations.</p>"
-    ));
-
     connect(m_browser,SIGNAL(textInsertRequested(QString)),this,SIGNAL(textInsertRequested(QString)));
     //connect(m_browser,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(contextMenu(QPoint)));
 }
@@ -242,12 +235,26 @@ bool AltTransView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        
+        if (m_entryPositions.isEmpty())
+        {
+            QString tooltip=i18nc("@info:tooltip","<p>Sometimes, if source text is changed, its translation becomes deprecated and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. looses approval status), "
+            "or (only in case of XLIFF file) moved to the <emphasis>alternate&nbsp;translations</emphasis> section accompanying the unit.</p>"
+            "<p>This toolview also shows the difference between current source string and the previous source string, so that you can easily see which changes should be applied to existing translation to make it reflect current source.</p>"
+            "<p>Double-clicking any word in this toolview inserts it into translation.</p>"
+            "<p>Drop translation file onto this toolview to use it as a source for additional alternate translations.</p>"
+            );
+            QToolTip::showText(helpEvent->globalPos(),tooltip);
+            return true;
+        }
+
         int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
         int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
         if (block1!=block)
             kWarning()<<"block numbers don't match";
         if (block>=m_entries.size())
             return false;
+
         QString origin=m_entries.at(block).origin;
         if (origin.isEmpty())
             return false;

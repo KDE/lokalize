@@ -659,6 +659,12 @@ void EditorTab::setupActions()
     connect( m_syncView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
     m_syncView->addAction(action);
 
+    action = sync1->addAction("merge_nextapproved",m_syncView,SLOT(gotoNextChangedApproved()));
+    action->setText(i18nc("@action:inmenu","Next different approved"));
+    action->setShortcut(Qt::ALT+Qt::META+Qt::Key_Down);
+    connect( m_syncView, SIGNAL(signalNextChangedAvailable(bool)),action,SLOT(setEnabled(bool)) );
+    m_syncView->addAction(action);
+
     action = sync1->addAction("merge_accept",m_syncView,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
     action->setShortcut(Qt::ALT+Qt::Key_Return);

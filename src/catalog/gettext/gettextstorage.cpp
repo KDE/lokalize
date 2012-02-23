@@ -234,7 +234,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 
     QVector<AltTrans> result;
     if (!cur->isEmpty())
-        result<<AltTrans(CatalogString(*cur));
+        result<<AltTrans(CatalogString(*cur), i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
 
     return result;
 }

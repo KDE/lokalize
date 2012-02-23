@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Editor" version="9">
+<kpartgui name="Editor" version="10">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -180,6 +180,7 @@
     <Separator/>
     <Action name="merge_prev"/>
     <Action name="merge_next"/>
+    <Action name="merge_nextapproved"/>
     <Separator/>
     <Action name="merge_accept"/>
     <Action name="merge_acceptnew"/>
