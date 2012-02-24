@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -1105,6 +1105,28 @@ void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
     m_dequeued=true;
 }
 
+inline static QList<uint> sortedUniqueValues(const QMap<qlonglong,uint>& source)
+{
+    //uses the fact that map has its keys always sorted
+    QMap<uint,bool> sortingMap;
+    for(QMap<qlonglong,uint>::const_iterator i=source.constBegin(); i!=source.constEnd(); i++)
+    {
+        sortingMap[i.value()]=false;
+    }
+    return sortingMap.keys();
+}
+
+inline QMap<uint,qlonglong> invertMap(const QMap<qlonglong,uint>& source)
+{
+    //uses the fact that map has its keys always sorted
+    QMap<uint,qlonglong> sortingMap;
+    for(QMap<qlonglong,uint>::const_iterator i=source.constBegin(); i!=source.constEnd(); i++)
+    {
+        sortingMap.insertMulti(i.value(), i.key());
+    }
+    return sortingMap;
+}
+
 //returns true if seen translation with >85%
 bool SelectJob::doSelect(QSqlDatabase& db,
                          QStringList& words,
@@ -1113,12 +1135,12 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 {
     bool qpsql=(db.driverName()=="QPSQL");
     QMap<qlonglong,uint> occurencies;
-    QList<qlonglong> idsForWord;
+    QVector<qlonglong> idsForWord;
 
     QSqlQuery queryWords(db);
     //TODO ??? not sure. make another loop before to create QList< QList<qlonglong> > then reorder it by size
-    const char* const queryC[]={"SELECT ids_long FROM words WHERE word='%1'",
-                               "SELECT ids_short FROM words WHERE word='%1'"};
+    static const QString queryC[]={QString("SELECT ids_long FROM words WHERE word='%1'"),
+                               QString("SELECT ids_short FROM words WHERE word='%1'")};
     QString queryString=queryC[isShort];
 
     //for each word...
@@ -1129,8 +1151,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         if (!(   !idsForWord.isEmpty() && words.at(o)==words.at(o+1)   ))
         {
             idsForWord.clear();
-//             queryWords.bindValue(0, words.at(o));
-//             if (KDE_ISUNLIKELY(!queryWords.exec()))
             queryWords.exec(queryString.arg(words.at(o)));
             if (KDE_ISUNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
                 kWarning(TM_AREA) <<"select error: " <<queryWords.lastError().text() << endl;
@@ -1142,6 +1162,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
                 QList<QByteArray> ids(arr.split(' '));
                 int p=ids.size();
+                idsForWord.reserve(p);
                 while (--p>=0)
                     idsForWord.append(ids.at(p).toLongLong(/*bool ok*/0,36));
             }
@@ -1152,19 +1173,12 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             }
         }
 
-        int i=idsForWord.size();
         //kWarning(TM_AREA) <<"SelectJob: idsForWord.size() "<<idsForWord.size()<<endl;
 
         //iterate over ids: this computes hit count for each id
-        while (--i>=0)
-        {
-            uint a=1;
-            if (occurencies.contains(idsForWord.at(i)))
-                a+=occurencies.value(idsForWord.at(i));
-            occurencies.insert(idsForWord.at(i),a);
-        }
+        for(QVector<qlonglong>::const_iterator i=idsForWord.constBegin(); i!=idsForWord.constEnd(); i++)
+            occurencies[*i]++; //0 is default value
     }
-    idsForWord.clear();
 
     //accels are removed
     TMConfig c=getConfig(db);
@@ -1181,30 +1195,30 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     static QRegExp addPart("<KBABELADD>*</KBABELADD>", Qt::CaseSensitive, QRegExp::Wildcard);
     delPart.setMinimal(true);
     addPart.setMinimal(true);
-    
-    QList<uint> concordanceLevels( ( occurencies.values().toSet() ).toList() );
-    qSort(concordanceLevels); //we start from entries with higher word-concordance level
-    int i=concordanceLevels.size();
+
+    //QList<uint> concordanceLevels=sortedUniqueValues(occurencies); //we start from entries with higher word-concordance level
+    QMap<uint,qlonglong> concordanceLevelToIds=invertMap(occurencies);
+    if (concordanceLevelToIds.isEmpty())
+        return false;
     bool seen85=false;
-    int limit=21;
-    while ((--limit>=0)&&(--i>=0))
+    int limit=200;
+    QMap<uint,qlonglong>::const_iterator clit=concordanceLevelToIds.constEnd();
+    while (--limit>=0)
     {
-        //for every concordance level
-
-
         if (KDE_ISUNLIKELY( m_dequeued ))
             break;
 
-        QList<qlonglong> ids(occurencies.keys(concordanceLevels.at(i)));
-
-        int j=qMin(ids.size(),100);//hard limit
-        //kWarning(TM_AREA) <<"ScanJob: doin "<<concordanceLevels.at(i)<<" limit "<<j;
-        limit-=j;
-
+        //for every concordance level
+        qlonglong level=clit.key();
         QString joined;
-        while(--j>0)
-            joined+=QString("%1,").arg(ids.at(j));
-        joined+=QString::number(ids.at(j));
+        while(level==clit.key())
+        {
+            joined+=QString::number(clit.value())+',';
+            if (clit==concordanceLevelToIds.constBegin() || --limit<0)
+                break;
+            clit--;
+        }
+        joined.chop(1);
 
         //get records containing current word
         QSqlQuery queryFetch("SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
@@ -1212,7 +1226,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         TMEntry e;
         while (queryFetch.next())
         {
-            ++j;
             e.id=queryFetch.value(0).toLongLong();
             if (queryFetch.value(3).toByteArray().size())
                 qDebug()<<"BA"<<queryFetch.value(3).toByteArray();
@@ -1387,6 +1400,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             }
             queryRest.clear();
             //eliminate same targets from different files
+            //TODO use map intead
             qSort(tempList.begin(), tempList.end(), qGreater<TMEntry>());
             QHash<QString,int> hash;
             int recentlyAddedCount=0;
@@ -1406,6 +1420,9 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 //END fetch rest of the data
         }
         queryFetch.clear();
+        if (clit==concordanceLevelToIds.constBegin())
+            break;
+        if (seen85) limit-=100; //be more restrictive for the next concordance levels
     }
     return seen85;
 }
@@ -1490,7 +1507,7 @@ void ScanJob::run()
     m_added=0;      //stats
     m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    initSqliteDb(db);
+    //initSqliteDb(db);
     TMConfig c=getConfig(db,true);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
@@ -1705,7 +1722,7 @@ TmxParser::TmxParser(const QString& dbName)
 
 bool TmxParser::startDocument()
 {
-    initSqliteDb(db);
+    //initSqliteDb(db);
     m_fileIds.clear();
 
     QSqlQuery queryBegin("BEGIN",db);
@@ -1868,14 +1885,13 @@ void ImportTmxJob::run()
     thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
+    QFile file(m_filename);
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+         return;
 
     TmxParser parser(m_dbName);
     QXmlSimpleReader reader;
     reader.setContentHandler(&parser);
-
-    QFile file(m_filename);
-    if (!file.open(QFile::ReadOnly | QFile::Text))
-         return;
 
     QXmlInputSource xmlInputSource(&file);
     if (!reader.parse(xmlInputSource))
