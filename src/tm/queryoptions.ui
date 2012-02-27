@@ -268,6 +268,7 @@ Press Enter to start the search.</string>
   <tabstop>glob</tabstop>
   <tabstop>doUpdateTM</tabstop>
   <tabstop>treeView</tabstop>
+  <tabstop>dbName</tabstop>
  </tabstops>
  <resources/>
  <connections/>
