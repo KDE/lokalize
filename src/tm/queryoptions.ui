@@ -244,6 +244,7 @@ Press Enter to start the search.</string>
   <tabstop>queryStyle</tabstop>
   <tabstop>doUpdateTM</tabstop>
   <tabstop>treeView</tabstop>
+  <tabstop>dbName</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -1105,16 +1105,6 @@ void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
     m_dequeued=true;
 }
 
-inline static QList<uint> sortedUniqueValues(const QMap<qlonglong,uint>& source)
-{
-    //uses the fact that map has its keys always sorted
-    QMap<uint,bool> sortingMap;
-    for(QMap<qlonglong,uint>::const_iterator i=source.constBegin(); i!=source.constEnd(); i++)
-    {
-        sortingMap[i.value()]=false;
-    }
-    return sortingMap.keys();
-}
 
 inline QMap<uint,qlonglong> invertMap(const QMap<qlonglong,uint>& source)
 {
@@ -1422,7 +1412,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         queryFetch.clear();
         if (clit==concordanceLevelToIds.constBegin())
             break;
-        if (seen85) limit-=100; //be more restrictive for the next concordance levels
+        if (seen85) limit=qMin(limit, 50); //be more restrictive for the next concordance levels
     }
     return seen85;
 }
