@@ -30,7 +30,7 @@ WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
     ui->setupUi(mainWidget());
-    setCaption(i18n("Widget text capture"));
+    setCaption(i18nc("@title","Widget Text Capture"));
     setButtons(KDialog::Ok | KDialog::Cancel);
 
     KConfigGroup cg(KGlobal::config(), "Development");
