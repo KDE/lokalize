@@ -495,7 +495,7 @@ void LokalizeMainWindow::setupActions()
     connect(m_openRecentProjectAction,SIGNAL(urlSelected(KUrl)),this,SLOT(openProject(KUrl)));
 
     action = ac->addAction("tools_widgettextcapture",this,SLOT(widgetTextCapture()));
-    action->setText(i18nc("@action:inmenu","Widget text capture"));
+    action->setText(i18n("Widget Text Capture"));
 
     //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()), Qt::QueuedConnection);
