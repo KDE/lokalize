@@ -36,6 +36,8 @@
 #include "projectlocal.h"
 #include "prefs.h"
 
+#include "tools/widgettextcaptureconfig.h"
+
 #include "multieditoradaptor.h"
 
 #include <kglobal.h>
@@ -492,6 +494,9 @@ void LokalizeMainWindow::setupActions()
     action = proj->addAction("project_open_recent",m_openRecentProjectAction);
     connect(m_openRecentProjectAction,SIGNAL(urlSelected(KUrl)),this,SLOT(openProject(KUrl)));
 
+    action = ac->addAction("tools_widgettextcapture",this,SLOT(widgetTextCapture()));
+    action->setText(i18nc("@action:inmenu","Widget text capture"));
+
     //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()), Qt::QueuedConnection);
 
@@ -692,6 +697,11 @@ void LokalizeMainWindow::projectSettingsChanged()
     setCaption(Project::instance()->projectID());
 }
 
+void LokalizeMainWindow::widgetTextCapture()
+{
+    WidgetTextCaptureConfig* w=new WidgetTextCaptureConfig(this);
+    w->show();
+}
 
 //BEGIN DBus interface
 
