@@ -136,6 +136,7 @@ public slots:
     void fileSearchNext();
     void addFilesToSearch(const QStringList&);
 
+    void widgetTextCapture();
 signals:
     Q_SCRIPTABLE void editorAdded();
     Q_SCRIPTABLE void editorActivated();

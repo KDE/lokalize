@@ -37,6 +37,8 @@
 #include "projectlocal.h"
 #include "prefs.h"
 
+#include "tools/widgettextcaptureconfig.h"
+
 #include "multieditoradaptor.h"
 
 #include <kglobal.h>
@@ -543,6 +545,9 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_filesearch_next",i18nc("@action:inmenu","Find next in files"),Qt::META+Qt::Key_F3)
     connect(action,SIGNAL(triggered()),this,SLOT(fileSearchNext()));
 
+    action = ac->addAction("tools_widgettextcapture",this,SLOT(widgetTextCapture()));
+    action->setText(i18nc("@action:inmenu","Widget text capture"));
+
     setupGUI(Default,"lokalizemainwindowui.rc");
 
     kWarning()<<"finished"<<aaa.elapsed();
@@ -738,6 +743,12 @@ void LokalizeMainWindow::projectSettingsChanged()
 {
     //TODO show langs
     setCaption(Project::instance()->projectID());
+}
+
+void LokalizeMainWindow::widgetTextCapture()
+{
+    WidgetTextCaptureConfig* w=new WidgetTextCaptureConfig(this);
+    w->show();
 }
 
 

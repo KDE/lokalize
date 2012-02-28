@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>Form</class>
- <widget class="QWidget" name="Form" >
+ <class>WidgetTextCapture</class>
+ <widget class="QWidget" name="WidgetTextCapture" >
   <property name="geometry" >
    <rect>
     <x>0</x>

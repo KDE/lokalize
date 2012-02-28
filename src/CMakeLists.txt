@@ -81,6 +81,7 @@ set(lokalize_SRCS
     webquery/webqueryview.cpp
     webquery/webquerycontroller.cpp
     webquery/myactioncollectionview.cpp
+    tools/widgettextcaptureconfig.cpp
 
     filesearch/filesearchtab.cpp
 
@@ -123,6 +124,7 @@ kde4_add_ui_files(lokalize_SRCS
     tm/dbparams.ui
     kaider_findextension.ui
     webquery/querycontrol.ui
+    tools/widgettextcaptureconfig.ui
 )
 
 kde4_add_kcfg_files(lokalize_SRCS
