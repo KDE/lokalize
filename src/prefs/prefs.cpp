@@ -213,7 +213,10 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 bool SettingsController::projectCreate()
 {
     Project::instance()->model()->weaver()->suspend();
-    QString path=KFileDialog::getSaveFileName(KUrl(Project::instance()->desirablePath()), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,m_mainWindowPtr);
+    QString desirablePath=Project::instance()->desirablePath();
+    if (desirablePath.isEmpty())
+        desirablePath=QDir::homePath()+"/index.lokalize";
+    QString path=KFileDialog::getSaveFileName(KUrl(desirablePath), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,m_mainWindowPtr);
     Project::instance()->model()->weaver()->resume();
     if (path.isEmpty())
         return false;
