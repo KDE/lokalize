@@ -1193,7 +1193,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     bool seen85=false;
     int limit=200;
     QMap<uint,qlonglong>::const_iterator clit=concordanceLevelToIds.constEnd();
-    while (--limit>=0)
+    if (concordanceLevelToIds.size()) clit--;
+    if (concordanceLevelToIds.size()) while (--limit>=0)
     {
         if (KDE_ISUNLIKELY( m_dequeued ))
             break;
@@ -1336,7 +1337,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                                 ,db); //ORDER BY tm_main.id ?
             queryRest.exec();
             //qDebug()<<"main select error"<<queryRest.lastError().text();
-            QList<TMEntry> tempList;//to eliminate same targets from different files
+            QMap<TMEntry,bool> sortedEntryList;//to eliminate same targets from different files
             while (queryRest.next())
             {
                 e.id=queryRest.value(0).toLongLong();
@@ -1386,33 +1387,32 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     e.score+=33;
 //END exact match score++
                 //kWarning(TM_AREA)<<"appending"<<e.target;
-                tempList.append(e);
+                sortedEntryList.insertMulti(e, false);
             }
             queryRest.clear();
             //eliminate same targets from different files
-            //TODO use map intead
-            qSort(tempList.begin(), tempList.end(), qGreater<TMEntry>());
             QHash<QString,int> hash;
-            int recentlyAddedCount=0;
-            foreach(const TMEntry& e, tempList)
+            int oldCount=m_entries.size();
+            QMap<TMEntry,bool>::const_iterator it=sortedEntryList.constEnd();
+            if (sortedEntryList.size()) while(true)
             {
-                if (!hash.contains(e.target.string))
-                {
-                    hash[e.target.string]=1;
+                it--;
+                const TMEntry& e=it.key();
+                int& hits=hash[e.target.string];
+                if (!hits) //0 was default value
                     m_entries.append(e);
-                    recentlyAddedCount++;
-                }
-                else
-                    hash[e.target.string]++;
+                hits++;
+                if (it==sortedEntryList.constBegin())
+                  break;
             }
-            for (int i=m_entries.size()-recentlyAddedCount;i<m_entries.size();++i)
+            for (int i=oldCount;i<m_entries.size();++i)
                 m_entries[i].hits=hash.value(m_entries.at(i).target.string);
 //END fetch rest of the data
         }
         queryFetch.clear();
         if (clit==concordanceLevelToIds.constBegin())
             break;
-        if (seen85) limit=qMin(limit, 50); //be more restrictive for the next concordance levels
+        if (seen85) limit=qMin(limit, 100); //be more restrictive for the next concordance levels
     }
     return seen85;
 }

@@ -552,13 +552,11 @@ bool TMView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
-        int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
-        if (block1!=block)
-            kWarning()<<"block numbers don't match";
-        if (block<m_entries.size())
+        //int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
+        QMap<int,int>::const_iterator block=m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
+        if (block!=m_entryPositions.constEnd() && *block<m_entries.size())
         {
-            const TMEntry& tmEntry=m_entries.at(block);
+            const TMEntry& tmEntry=m_entries.at(*block);
             QString file=tmEntry.file;
             if (file==m_catalog->url().toLocalFile())
                 file=i18nc("File argument in tooltip, when file is current file", "this");
