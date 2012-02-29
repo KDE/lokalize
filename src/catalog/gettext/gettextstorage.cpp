@@ -311,7 +311,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     static const QRegExp i18n_file_re("^#. i18n: file: ");
     foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
-        QStringList uiFiles=uiLine.mid(15).split(' ');
+        result+=uiLine.mid(15).split(' ');
     }
 
     bool hasUi=!result.isEmpty();
@@ -319,7 +319,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
         if (hasUi && cppLine.startsWith("#: rc.cpp")) continue;
-        QStringList cppFiles=cppLine.mid(3, cppLine.length()-3).split(' ');
+        QStringList cppFiles=cppLine.mid(3).split(' ');
         result+=cppFiles;
     }
     return result;
