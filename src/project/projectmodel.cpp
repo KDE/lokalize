@@ -1193,6 +1193,7 @@ ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _p
 ProjectModel::ProjectNode::~ProjectNode()
 {
     --nodeCounter;
+    qDeleteAll(rows);
 }
 
 void ProjectModel::ProjectNode::calculateDirStats()

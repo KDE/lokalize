@@ -66,6 +66,8 @@ struct TMEntry
         }
         return score<other.score;
     }
+    
+    TMEntry():hits(0){}
 };
 
 }
