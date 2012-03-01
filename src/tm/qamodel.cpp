@@ -110,6 +110,9 @@ QVariant QaModel::headerData(int section, Qt::Orientation , int role) const
 
 QVariant QaModel::data(const QModelIndex& item, int role) const
 {
+    if (role==Qt::ToolTipRole)
+        return m_filename;
+
     if (role!=Qt::DisplayRole && role!=Qt::EditRole)
         return QVariant();
 

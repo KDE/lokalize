@@ -218,10 +218,14 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         }*/
 
         QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
-        if(tw) tw->setTabToolTip(tw->currentIndex(), w->currentUrl().prettyUrl());
-
+        if(tw) tw->setTabToolTip(tw->currentIndex(), w->currentUrl().toLocalFile());
 
         emit editorActivated();
+    }
+    else if (w==m_projectSubWindow && m_projectSubWindow)
+    {
+        QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
+        if(tw) tw->setTabToolTip(tw->currentIndex(), Project::instance()->path());
     }
 
     editor->showDocks();
@@ -698,6 +702,11 @@ void LokalizeMainWindow::projectLoaded()
     {
         ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
         w->setLegacyUnitsCount(projectStateGroup.readEntry("UnitsCount", 0));
+
+        QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
+        if(tw) for(int i=0;i<tw->count();i++)
+            if (tw->tabText(i)==w->windowTitle())
+                tw->setTabToolTip(i, Project::instance()->path());
     }
 
     entries=projectStateGroup.readEntry("Entries",entries);
