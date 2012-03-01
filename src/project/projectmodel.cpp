@@ -106,6 +106,9 @@ ProjectModel::~ProjectModel()
         m_activeJob->setStatus(-2);
 
     m_activeJob = NULL;
+    
+    for (int pos = 0; pos < m_rootNode.rows.count(); pos ++)
+        deleteSubtree(m_rootNode.rows.at(pos));
 }
 
 void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
@@ -1193,7 +1196,6 @@ ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _p
 ProjectModel::ProjectNode::~ProjectNode()
 {
     --nodeCounter;
-    qDeleteAll(rows);
 }
 
 void ProjectModel::ProjectNode::calculateDirStats()

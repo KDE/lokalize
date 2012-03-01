@@ -422,6 +422,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgIdRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgidMultiline=line.isEmpty();
                (*(_msgid).begin())=line;
 
            }
@@ -434,6 +435,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgid\\s*\"?"));
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgidMultiline=line.isEmpty();
                (*(_msgid).begin())=line;
 
                if(!line.isEmpty())
@@ -477,6 +479,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgIdRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgidMultiline=line.isEmpty();
                (*(_msgid).begin())=line;
             }
             // one of the quotation marks is missing
@@ -488,6 +491,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgid\\s*\"?"));
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgidMultiline=line.isEmpty();
                (*(_msgid).begin())=line;
 
                if(!line.isEmpty())
@@ -536,6 +540,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgid\\s*\"?"));
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgidMultiline=line.isEmpty();
                (*(_msgid).begin())=line;
 
                if(!line.isEmpty())
@@ -618,6 +623,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgStrRemQuotes);
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgstrMultiline=line.isEmpty();
                (*msgstrIt)=line;
 
                if(!line.isEmpty())
@@ -631,6 +637,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgstr\\[0\\]\\s*\"?"));
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgstrMultiline=line.isEmpty();
                (*msgstrIt)=line;
             }
             else if(KDE_ISUNLIKELY( /*_testBorked&&*/ _gettextPluralForm &&  line.contains( _rxMsgStrPluralStartBorked ) ))
@@ -641,6 +648,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgstr\\[0\\]\\s*\"?"));
                line.remove(_rxMsgLineRemEndQuote);
 
+               _msgstrMultiline=line.isEmpty();
                (*msgstrIt)=line;
 
                if(!line.isEmpty())
