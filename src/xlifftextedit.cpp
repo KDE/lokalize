@@ -448,6 +448,15 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
         return;
     }
 
+    //ktextedit spellcheck handling:
+    if (charsRemoved==0 && editText.isEmpty() && _oldMsgstr.length())
+        charsRemoved=_oldMsgstr.length();
+    if (charsAdded && editText.isEmpty())
+        charsAdded=0;
+    if (charsRemoved && _oldMsgstr.isEmpty())
+        charsRemoved=0;
+
+
     DocPosition pos=m_currentPos;
     pos.offset=offset;
     //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
