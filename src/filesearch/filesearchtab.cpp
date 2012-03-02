@@ -58,6 +58,9 @@
 #include <fastsizehintitemdelegate.h>
 
 
+static QStringList doScanRecursive(const QDir& dir);
+
+
 
 class FileListModel: public QStringListModel
 {
@@ -76,22 +79,35 @@ QVariant FileListModel::data(const QModelIndex& item, int role) const
 SearchFileListView::SearchFileListView(QWidget* parent)
  : QDockWidget ( i18nc("@title:window","File List"), parent)
  , m_browser(new QTreeView(this))
+ , m_background(new QLabel(i18n("Drop translation files here..."), this))
  , m_model(new FileListModel(this))
 {
-    setWidget(m_browser);
+    setWidget(m_background);
+    m_background->setMinimumWidth(QApplication::desktop()->width()/4);
+    m_background->setAlignment(Qt::AlignCenter);
+    m_browser->hide();
     m_browser->setModel(m_model);
     m_browser->setRootIsDecorated(false);
     m_browser->setHeaderHidden(true);
     m_browser->setUniformRowHeights(true);
+    m_browser->setAlternatingRowColors(true);
+
 
     m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
-    m_browser->setAlternatingRowColors(true);
+
+    QAction* action=new QAction(i18nc("@action:inmenu", "Clear"), m_browser);
+    connect(action, SIGNAL(triggered()), this, SLOT(clear()));
+    m_browser->addAction(action);
 }
 
 void SearchFileListView::addFiles(const QStringList& files)
 {
     if (files.isEmpty())
         return;
+
+    m_background->hide();
+    setWidget(m_browser);
+    m_browser->show();
 
     //ensure unquiness, sorting the list along the way
     QMap<QString, bool> map;
@@ -108,6 +124,12 @@ void SearchFileListView::addFilesFast(const QStringList& files)
     if (files.size())
         m_model->setStringList(m_model->stringList()+files);
 }
+
+void SearchFileListView::clear()
+{
+    m_model->setStringList(QStringList());
+}
+
 
 QStringList SearchFileListView::files() const
 {
@@ -448,7 +470,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     srf->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
 
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
-    connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()));
+    connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()), Qt::QueuedConnection);
 
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
@@ -469,7 +491,11 @@ FileSearchTab::~FileSearchTab()
 void FileSearchTab::performSearch()
 {
     if (m_searchFileListView->files().isEmpty())
-        return;
+    {
+        addFilesToSearch(doScanRecursive(QDir(Project::instance()->poDir())));
+        if (m_searchFileListView->files().isEmpty())
+            return;
+    }
 
     m_model->clear();
     statusBarItems.insert(1,QString());
@@ -482,7 +508,7 @@ void FileSearchTab::performSearch()
     sp.targetPattern.setPattern(ui_fileSearchOptions->queryTarget->text());
 
     QVector<Rule> rules=m_qaView->isVisible()?m_qaView->rules():QVector<Rule>();
-    
+
     if (sp.isEmpty() && rules.isEmpty())
         return;
 
@@ -567,8 +593,6 @@ void FileSearchTab::fileSearchNext()
     openFile();
 }
 
-
-static QStringList doScanRecursive(const QDir& dir);
 
 QStringList scanRecursive(const QList<QUrl>& urls)
 {

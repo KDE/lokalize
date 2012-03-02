@@ -37,6 +37,7 @@
 #include <state.h>
 #include <phase.h>
 
+class QLabel;
 class QaView;
 class QStringListModel;
 class QComboBox;
@@ -193,12 +194,27 @@ public:
 
     void scrollTo(const QString& file=QString());
 
+public slots:
+    void clear();
+
 private:
     QTreeView* m_browser;
+    QLabel* m_background;
     QStringListModel* m_model;
 };
 
 
+class MassReplaceView: public QDockWidget
+{
+    Q_OBJECT
+
+public:
+    MassReplaceView(QWidget*);
+    ~MassReplaceView(){}
+
+private:
+    QTreeView* m_browser;
+};
 
 //const QString& sourceRefine, const QString& targetRefine
 

@@ -671,7 +671,7 @@ static bool doInsertEntry(CatalogString source,
 }
 
 //TODO smth with its usage in places except opendbjob
-static void initSqliteDb(QSqlDatabase& db)
+static bool initSqliteDb(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
     //NOTE do this only if no japanese, chinese etc?
@@ -756,8 +756,11 @@ static void initSqliteDb(QSqlDatabase& db)
                    "key INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    "value TEXT "
                    ")");
-                   
-                   
+
+
+    bool ok=queryMain.exec("select * from main limit 1");
+    return ok || !queryMain.lastError().text().contains("database disk image is malformed");
+
     //queryMain.exec("CREATE TEMP TRIGGER set_user_id_trigger AFTER UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET change_author = 0 WHERE main.id=NEW.id; END;");
                    //CREATE TEMP TRIGGER set_user_id_trigger INSTEAD OF UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET ctxt = 'test', source=NEW.source, target=NEW.target,  WHERE main.id=NEW.id; END;
 //config:
@@ -967,7 +970,22 @@ void OpenDBJob::run()
                 QSqlDatabase::removeDatabase(m_dbName);
                 return;
             }
-            initSqliteDb(db);
+            if (!initSqliteDb(db)) //need to recreate db ;(
+            {
+                QString filename=db.databaseName();
+                db.close();
+                QSqlDatabase::removeDatabase(m_dbName);
+                QFile::remove(filename);
+
+                db=QSqlDatabase::addDatabase("QSQLITE",m_dbName);
+                db.setDatabaseName(filename);
+                m_connectionSuccessful=db.open() && initSqliteDb(db);
+                if (!m_connectionSuccessful)
+                {
+                    QSqlDatabase::removeDatabase(m_dbName);
+                    return;
+                }
+            }
         }
         else
         {
