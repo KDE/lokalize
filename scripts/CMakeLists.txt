@@ -8,10 +8,14 @@ IF (WIN32)
             DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 ELSE (WIN32)
     install( FILES
-            find-gui-text.sh
             newprojectwizard.rc
             newprojectwizard.py
             DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+
+    install( FILES find-gui-text.sh
+             PERMISSIONS  WORLD_EXECUTE
+             DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+
 ENDIF (WIN32)
 
 install( FILES
