@@ -26,8 +26,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-05-09</date>
-<releaseinfo>1.0</releaseinfo>
+<date>2012-02-20</date>
+<releaseinfo>1.5</releaseinfo>
 
 <abstract>
 <para>
@@ -61,7 +61,7 @@ It is targeted for software translation and also integrates external conversion 
   Usually program messages and documentation are written in English. Using a framework made of a set of tools and libraries, it is  possible to have your favorite applications speak your native non-English language. This process of adapting an application to a specific language is known as localization. The localization process includes translating the program's interfaces and documentation to the various languages users need and, in some countries or regions, making the inputs and outputs conform to particular conventions. &lokalize; is a tool which will assist you in the localization process to make an application's interface speaks many languages. Every internationalization-aware program makes available for translation one or more message-catalog files. The extension of these files is .pot. <acronym>POT</acronym> is an acronym for <quote>Portable Object Template</quote>.
 </para>
 <para>
-&lokalize; is an advanced and easy to use PO file (GNU gettext message catalogs) editor. It is a computer-aided translation system for translators, written from scratch using KDE Platform 4 framework. Aside from basic editing of PO files with nifty auxiliary details, it integrates support for glossary, translation memory, diff-modes for QA, project managing, &etc; It has many features like, full navigation capabilities, extensive editing functionality, search functions, syntax checking and statistics function.
+&lokalize; is an advanced and easy to use PO file (&GNU; gettext message catalogs) editor. It is a computer-aided translation system for translators, written from scratch using &kde; Platform 4 framework. Aside from basic editing of PO files with nifty auxiliary details, it integrates support for glossary, translation memory, diff-modes for QA, project managing, &etc; It has many features like, full navigation capabilities, extensive editing functionality, search functions, syntax checking and statistics function.
 </para>
 <para>
 Portable Object (.po) files: Each translator takes a copy of one of these POT templates and begins to fill in the blanks: each message is translated into the language desired. The file containing the translated text is referred to as a PO (Portable Object) file.
@@ -77,7 +77,7 @@ Portable Object (.po) files: Each translator takes a copy of one of these POT te
 By default, the main window contains six parts. The upper-right box is read-only and contains the current msgid (source text) field from the opened PO-file. The edit box just below this contains the msgstr (target text) field related to the msgid shown and here you can input or edit the translated text.
 </para>
 <screenshot>
-<screeninfo>The main default lokalize window</screeninfo>
+<screeninfo>The main default &lokalize; window</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
@@ -110,7 +110,7 @@ Also you may use filtering feature of <guilabel>Translation Units</guilabel> too
 Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that toolview.
 </para>
 <para>
-  To the main window one can add many more sections like <guilabel>Alternate Translations</guilabel>, <guilabel>Primary Sync</guilabel>, <guilabel>Secondary Sync</guilabel>, <guilabel>Binary Units</guilabel> by using <menuchoice><guimenu>Tools</guimenu><guimenuitem>Toolviews</guimenuitem></menuchoice> from the main menu.
+  To the main window one can add many more sections like <guilabel>Alternate Translations</guilabel>, <guilabel>Primary Sync</guilabel>, <guilabel>Secondary Sync</guilabel>, <guilabel>Binary Units</guilabel> by using <menuchoice><guimenu>Settings</guimenu><guimenuitem>Toolviews</guimenuitem></menuchoice> from the main menu.
 </para>
 </sect1>
 
@@ -211,10 +211,10 @@ when other projects are opened.
 <sect1 id="project-view">
 <title>Project Overview tab</title>
 <para>
-When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab. Project Overview is a file manager view, which helps you keep an overview over your PO files.The &lokalize; suite will help you to translate quickly and also to keep translations consistent. &lokalize; workflow implies that you start with creating/opening a project. The Project Overview tab displays a file tree with statistics with current project, such as percentage of the translated units completed and the last translator. It allows you to open a selected file in a tab of current lokalize window.
+When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab. Project Overview is a file manager view, which helps you keep an overview over your PO files. The &lokalize; suite will help you to translate quickly and also to keep translations consistent. &lokalize; workflow implies that you start with creating/opening a project. The Project Overview tab displays a file tree with statistics with current project, such as percentage of the translated units completed and the last translator. It allows you to open a selected file in a tab of current &lokalize; window.
 </para>
 <para>
-To Create new project use <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>. This will guide through the steps to create a new project. In Project menu you can also find options to like Project Overview, Configure Project, Open Project, Open recent Project. </para>
+  To Create new project use <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>. This will guide through the steps to create a new project. In <guimenu>Project</guimenu> menu you can also find options to like <guimenuitem>Project overview</guimenuitem>, <guimenuitem>Configure project</guimenuitem>, <guimenuitem>Open project</guimenuitem>, <guimenuitem>Open recent project</guimenuitem>.</para>
 <para>
 <screenshot>
 <screeninfo>Project Overview Tab</screeninfo>
@@ -273,14 +273,14 @@ glossary.
 
 <para>
 The <guilabel>Translation Memory</guilabel> view allows you to drag and drop a
-folder with translation files from say Dolphin into the view,
+folder with translation files from say &dolphin; into the view,
 and then, within few minutes, translation suggestions will be shown automatically on the unit switch.
 To insert the translation suggestions into the file, use
 <keycombo>&Ctrl;<keycap>1</keycap></keycombo>,
 <keycombo>&Ctrl;<keycap>2</keycap></keycombo> and so on, depending on the number of suggestion.
 </para>
 <para>
-Use <menuchoice><guimenu>Tools</guimenu><guimenuitem>Manage translation memories</guimenuitem></menuchoice> to add/manage projects to your Translation Memory. Here you can also import or export data from tmx file format.
+  Use <menuchoice><guimenu>Tools</guimenu><guimenuitem>Manage translation memories</guimenuitem></menuchoice> to add/manage projects to your Translation Memory. Here you can also import or export data from <filename role="extension">tmx</filename> file format.
 </para>
 
 <para>
@@ -379,7 +379,7 @@ they will automatically be replicated to the branch
 (of course, if it contains the same English string).
 </para>
 <para>
-For example, if you work on KDE translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename>
+For example, if you work on &kde; translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename>
 and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>.
 Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.lokalize</filename> and
 set <filename class="directory">BranchDir=../../../branches/stable/l10n-kde4/YOUR_LANG</filename>, then work via this project,
@@ -434,7 +434,7 @@ So you for example can specify <filename>../../scripts/lokalize/opensrc.py</file
 </para>
 <para>
 Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/kde4/apps/lokalize/scripts/</filename>)
-and in <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">KDE repository</ulink>.
+and in <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">&kde; repository</ulink>.
 <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save
 (this is achieved via special option in .rc file).
 If you're familiar with Python or JavaScript, the code should be self-explanatory.
