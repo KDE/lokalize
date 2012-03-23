@@ -156,6 +156,7 @@ Action=Popup
 Name=No Qt Sql modules were found
 Name[ca]=No s'ha trobat cap mòdul Qt Sql
 Name[ca@valencia]=No s'ha trobat cap mòdul Qt Sql
+Name[da]=Der blev ikke fundet nogen Qt sql-moduler
 Name[de]=Keine Qt-SQL-Module gefunden
 Name[el]=Δεν βρέθηκαν αρθρώματα Qt Sql
 Name[es]=No se han encontrado módulos SQL para Qt
