@@ -12,8 +12,7 @@ ELSE (WIN32)
             newprojectwizard.py
             DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 
-    install( FILES find-gui-text.sh
-             PERMISSIONS  WORLD_EXECUTE WORLD_READ 
+    install( PROGRAMS find-gui-text.sh
              DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 
 ENDIF (WIN32)
