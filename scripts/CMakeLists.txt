@@ -13,6 +13,7 @@ ELSE (WIN32)
             DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 
     install( PROGRAMS find-gui-text.sh
+             PERMISSIONS WORLD_EXECUTE
              DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 
 ENDIF (WIN32)

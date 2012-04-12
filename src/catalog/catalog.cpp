@@ -5,7 +5,7 @@
   Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2005   by Stanislav Visnovsky <visnovsky@kde.org>
                 2006        by Nicolas Goutte <goutte@kde.org>
-                2007-2009   by Nick Shaforostoff <shafff@ukr.net>
+                2007-2012   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -44,8 +44,8 @@
 #include "gettextstorage.h"
 #include "gettextimport.h"
 #include "gettextexport.h"
-
 #include "xliffstorage.h"
+#include "tsstorage.h"
 
 #include "mergecatalog.h"
 
@@ -68,7 +68,7 @@
 #include <ktemporaryfile.h>
 
 
-static const char* const extensions[]={".po",".pot",".xlf"};
+static const char* const extensions[]={".po",".pot",".xlf", ".ts"};
 
 static const char* const xliff_states[]={
         I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
@@ -527,6 +527,8 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
         storage=new GettextCatalog::GettextStorage;
     else if (url.fileName().endsWith(".xlf")||url.fileName().endsWith(".xliff"))
         storage=new XliffStorage;
+    else if (url.fileName().endsWith(".ts"))
+        storage=new TsStorage;
     else
     {
         //try harder

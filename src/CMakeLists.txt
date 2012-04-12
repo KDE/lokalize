@@ -19,6 +19,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog/gettext
     ${CMAKE_CURRENT_SOURCE_DIR}/catalog/xliff
+    ${CMAKE_CURRENT_SOURCE_DIR}/catalog/ts
     ${CMAKE_CURRENT_SOURCE_DIR}/cataloglistview
     ${CMAKE_CURRENT_SOURCE_DIR}/project
     ${CMAKE_CURRENT_SOURCE_DIR}/glossary
@@ -107,6 +108,7 @@ set(lokalize_SRCS
     catalog/gettext/gettextimport.cpp
     catalog/gettext/gettextexport.cpp
     catalog/xliff/xliffstorage.cpp
+    catalog/ts/tsstorage.cpp
 )
 
 kde4_add_ui_files(lokalize_SRCS

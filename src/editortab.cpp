@@ -807,7 +807,7 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
     {
         //Prevent crashes
         Project::instance()->model()->weaver()->suspend();
-        url=KFileDialog::getOpenFileName(baseUrl, "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff",SettingsController::instance()->mainWindowPtr());
+        url=KFileDialog::getOpenFileName(baseUrl, "text/x-gettext-translation text/x-gettext-translation-template application/x-xliff application/x-linguist",SettingsController::instance()->mainWindowPtr());
         Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used

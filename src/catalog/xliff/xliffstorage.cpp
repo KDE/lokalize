@@ -40,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <kdatetime.h>
 #include <QXmlSimpleReader>
 
-static const char* const noyes[]={"no","yes"};
-static const char* const bintargettarget[]={"bin-target","target"};
-static const char* const binsourcesource[]={"bin-source","source"};
+static const QString noyes[]={"no","yes"};
+static const QString bintargettarget[]={"bin-target","target"};
+static const QString binsourcesource[]={"bin-source","source"};
 
 XliffStorage::XliffStorage()
  : CatalogStorage()
@@ -375,12 +375,12 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
                         }
                         if (!newNode.lastChild().isCharacterData())
-                            newNode.appendChild( elem.ownerDocument().createTextNode(""));
+                            newNode.appendChild( elem.ownerDocument().createTextNode(QString()));
                     }
                     if (!mid.isEmpty())
                         elem.insertAfter( elem.ownerDocument().createTextNode(mid),newNode);
                     else if (!newNode.nextSibling().isCharacterData()) //keep our DOM in a nice state
-                        elem.insertAfter( elem.ownerDocument().createTextNode(""),newNode);
+                        elem.insertAfter( elem.ownerDocument().createTextNode(QString()),newNode);
 
                     data->actionType=ContentEditingData::CheckLength;
                     return QString('a');//we're done here
@@ -436,7 +436,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             //END DELETE TAG
 
             if (!seenCharacterDataAfterElement)  //add empty charData child so that user could add some text
-                elem.insertBefore( elem.ownerDocument().createTextNode(""),n);
+                elem.insertBefore( elem.ownerDocument().createTextNode(QString()),n);
             seenCharacterDataAfterElement=false;
 
             if (data)
@@ -472,7 +472,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
     if (!seenCharacterDataAfterElement)
     {
         //add empty charData child so that user could add some text
-        elem.appendChild( elem.ownerDocument().createTextNode(""));
+        elem.appendChild( elem.ownerDocument().createTextNode(QString()));
     }
 
     return result;
@@ -484,7 +484,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
 CatalogString XliffStorage::catalogString(QDomElement unit,  DocPosition::Part part) const
 {
-    static const char* names[]={"source","target"};
+    static const QString names[]={"source","target"};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
     catalogString.string=content(unit.firstChildElement( names[part==DocPosition::Target]), &data );
@@ -530,7 +530,7 @@ void XliffStorage::targetDelete(const DocPosition& pos, int count)
     else
     {
         //only bulk delete requests are generated
-        targetForPos(pos.entry).firstChildElement("external-file").setAttribute("href","");
+        targetForPos(pos.entry).firstChildElement("external-file").setAttribute("href",QString());
     }
 }
 
@@ -807,7 +807,7 @@ Note XliffStorage::setNote(DocPosition pos, const Note& note)
     {
         QDomElement ref=unit.lastChildElement("note");
         elem=unit.insertAfter( m_doc.createElement("note"),ref).toElement();
-        elem.appendChild(m_doc.createTextNode(""));
+        elem.appendChild(m_doc.createTextNode(QString()));
     }
     else
     {
