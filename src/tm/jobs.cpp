@@ -1128,7 +1128,7 @@ inline QMap<uint,qlonglong> invertMap(const QMap<qlonglong,uint>& source)
 {
     //uses the fact that map has its keys always sorted
     QMap<uint,qlonglong> sortingMap;
-    for(QMap<qlonglong,uint>::const_iterator i=source.constBegin(); i!=source.constEnd(); i++)
+    for(QMap<qlonglong,uint>::const_iterator i=source.constBegin(); i!=source.constEnd(); ++i)
     {
         sortingMap.insertMulti(i.value(), i.key());
     }
@@ -1211,7 +1211,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     bool seen85=false;
     int limit=200;
     QMap<uint,qlonglong>::const_iterator clit=concordanceLevelToIds.constEnd();
-    if (concordanceLevelToIds.size()) clit--;
+    if (concordanceLevelToIds.size()) --clit;
     if (concordanceLevelToIds.size()) while (--limit>=0)
     {
         if (KDE_ISUNLIKELY( m_dequeued ))
@@ -1225,7 +1225,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             joined+=QString::number(clit.value())+',';
             if (clit==concordanceLevelToIds.constBegin() || --limit<0)
                 break;
-            clit--;
+            --clit;
         }
         joined.chop(1);
 
@@ -1414,7 +1414,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             QMap<TMEntry,bool>::const_iterator it=sortedEntryList.constEnd();
             if (sortedEntryList.size()) while(true)
             {
-                it--;
+                --it;
                 const TMEntry& e=it.key();
                 int& hits=hash[e.target.string];
                 if (!hits) //0 was default value

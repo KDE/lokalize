@@ -523,11 +523,12 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
         return ISNTREADABLE;//TODO
 
     CatalogStorage* storage=0;
-    if (url.fileName().endsWith(".po")||url.fileName().endsWith(".pot"))
+    const QString& fileName=url.fileName();
+    if (fileName.endsWith(".po")||fileName.endsWith(".pot"))
         storage=new GettextCatalog::GettextStorage;
-    else if (url.fileName().endsWith(".xlf")||url.fileName().endsWith(".xliff"))
+    else if (fileName.endsWith(".xlf")||fileName.endsWith(".xliff"))
         storage=new XliffStorage;
-    else if (url.fileName().endsWith(".ts"))
+    else if (fileName.endsWith(".ts"))
         storage=new TsStorage;
     else
     {

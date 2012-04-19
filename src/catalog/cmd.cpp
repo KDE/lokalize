@@ -344,12 +344,13 @@ bool fillTagPlaces(QMap<int,int>& tagPlaces,
     while(--i>=0)
     {
         //qWarning()<<catalogString.ranges.at(i).getElementName();
-        if (tagPlaces.contains(catalogString.tags.at(i).start)
-            &&tagPlaces.contains(catalogString.tags.at(i).end))
+        const InlineTag& tag=catalogString.tags.at(i);
+        if (tagPlaces.contains(tag.start)
+            &&tagPlaces.contains(tag.end))
         {
             //qWarning()<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
-            tagPlaces[catalogString.tags.at(i).end]=2;
-            tagPlaces[catalogString.tags.at(i).start]=1;
+            tagPlaces[tag.end]=2;
+            tagPlaces[tag.start]=1;
         }
     }
 

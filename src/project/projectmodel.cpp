@@ -301,8 +301,9 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
         //reassign affected PO row POT indices
         for (int pos = 0; pos < node->poCount;pos ++)
         {
-            if (node->rows[pos]->potRowNumber >= start)
-                node->rows[pos]->potRowNumber += insertedCount;
+            ProjectNode* n=node->rows[pos];
+            if (n->potRowNumber >= start)
+                n->potRowNumber += insertedCount;
         }
 
         //assign new POT indices

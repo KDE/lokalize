@@ -124,19 +124,20 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     {
         stream << '\n';
 
+        const CatalogItem& catalogItem = catalogEntries.at(counter);
         // write entry
-        writeComment( stream, catalogEntries.at(counter).comment() );
+        writeComment( stream, catalogItem.comment() );
 
-        const QString& msgctxt = catalogEntries.at(counter).msgctxt();
+        const QString& msgctxt = catalogItem.msgctxt();
         if (! msgctxt.isEmpty() )
             writeKeyword( stream, "msgctxt", msgctxt );
 
-        writeKeyword( stream, "msgid", catalogEntries.at(counter).msgid(), true, catalogEntries.at(counter).prependEmptyForMsgid() );
-        if ( catalogEntries.at(counter).isPlural() )
-            writeKeyword( stream, "msgid_plural", catalogEntries.at(counter).msgid(1), true, catalogEntries.at(counter).prependEmptyForMsgid() );
+        writeKeyword( stream, "msgid", catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid() );
+        if ( catalogItem.isPlural() )
+            writeKeyword( stream, "msgid_plural", catalogItem.msgid(1), true, catalogItem.prependEmptyForMsgid() );
 
-        if (!catalogEntries.at(counter).isPlural())
-            writeKeyword( stream, "msgstr", catalogEntries.at(counter).msgstr(), true, catalogEntries.at(counter).prependEmptyForMsgstr() );
+        if (!catalogItem.isPlural())
+            writeKeyword( stream, "msgstr", catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr() );
         else
         {
             kDebug() << "Saving gettext plural form";
@@ -145,7 +146,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             for ( int i = 0; i < forms; ++i )
             {
                 QString keyword = "msgstr[" % QString::number( i ) % ']';
-                writeKeyword( stream, keyword, catalogEntries.at(counter).msgstr(i), true, catalogEntries.at(counter).prependEmptyForMsgstr() );
+                writeKeyword( stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr() );
             }
         }
     }
@@ -338,11 +339,11 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
             //itm=list.insert(itm,itm->left(pos));
             QString t=*itm;
             itm=list.insert(itm,t);
-            itm++;
+            ++itm;
             if (itm != list.end())
             {
                 (*itm)=itm->remove(0,pos);
-                itm--;
+                --itm;
                 if (itm != list.end())
                     itm->truncate(pos);
             }

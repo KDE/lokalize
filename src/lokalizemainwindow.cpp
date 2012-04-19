@@ -565,17 +565,15 @@ bool LokalizeMainWindow::closeProject()
     KConfigGroup emptyGroup; //don't save which project to reopen
     saveProjectState(emptyGroup);
     //close files from previous project
-    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
-    int i=editors.size();
-    while (--i>=0)
+    foreach (QMdiSubWindow* subwindow, m_mdiArea->subWindowList())
     {
-        if (editors.at(i)==m_translationMemorySubWindow && m_translationMemorySubWindow)
-            editors.at(i)->deleteLater();
-        else if (qobject_cast<EditorTab*>(editors.at(i)->widget()))
+        if (subwindow==m_translationMemorySubWindow && m_translationMemorySubWindow)
+            subwindow->deleteLater();
+        else if (qobject_cast<EditorTab*>(subwindow->widget()))
         {
-            m_fileToEditor.remove(static_cast<EditorTab*>(editors.at(i)->widget())->currentUrl());//safety
-            m_mdiArea->removeSubWindow(editors.at(i));
-            editors.at(i)->deleteLater();
+            m_fileToEditor.remove(static_cast<EditorTab*>(subwindow->widget())->currentUrl());//safety
+            m_mdiArea->removeSubWindow(subwindow);
+            subwindow->deleteLater();
         }
     }
     Project::instance()->load(QString());

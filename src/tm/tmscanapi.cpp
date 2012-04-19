@@ -99,18 +99,19 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
     int i=urls.size();
     while(--i>=0)
     {
-        if (urls.at(i).isEmpty() || urls.at(i).path().isEmpty() ) //NOTE is this a Qt bug?
+        const QUrl& url=urls.at(i);
+        if (url.isEmpty() || url.path().isEmpty() ) //NOTE is this a Qt bug?
             continue;
-        if (Catalog::extIsSupported(urls.at(i).path()))
+        if (Catalog::extIsSupported(url.path()))
         {
-            ScanJob* job=new ScanJob(KUrl(urls.at(i)),dbName);
+            ScanJob* job=new ScanJob(KUrl(url),dbName);
             QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
             QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
             ThreadWeaver::Weaver::instance()->enqueue(job);
             result.append(job);
         }
         else
-            result+=doScanRecursive(QDir(urls.at(i).toLocalFile()),dbName,metaJob);
+            result+=doScanRecursive(QDir(url.toLocalFile()),dbName,metaJob);
     }
 
     metaJob->setJobs(result);
