@@ -299,8 +299,11 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     if(list.isEmpty())
         list.append( QString() );
 
-    static QRegExp breakStopReForHtml("[ >.%]", Qt::CaseSensitive, QRegExp::Wildcard);
-    QRegExp breakStopRe=containsHtml?breakStopReForHtml:QRegExp("[ .%]", Qt::CaseSensitive, QRegExp::Wildcard);
+    //static QRegExp breakStopReForHtml("[ >.%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
+    //static QRegExp breakStopReForText("[ .%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
+    static QRegExp breakStopReForHtml("[ >%]", Qt::CaseSensitive, QRegExp::Wildcard);
+    static QRegExp breakStopReForText("[ &%]", Qt::CaseSensitive, QRegExp::Wildcard);
+    QRegExp breakStopRe=containsHtml?breakStopReForHtml:breakStopReForText;
 
     int max=m_wrapWidth-2;
     bool prependedEmptyLine=false;
@@ -316,7 +319,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         if (itm->length()>max)
         {
             int pos = itm->lastIndexOf(breakStopRe,max-1);
-            if (pos>0)
+            if (pos>(max/2))
             {
                 int pos2 = itm->indexOf('<',pos);
                 if (pos2>0&&pos2<max-1)
@@ -324,7 +327,14 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
                 ++pos;
             }
             else
+            {
+                if (itm->at(max-1)=='\\')
+                {
+                    do {--max;}
+                    while (max>=2 && itm->at(max-1)=='\\');
+                }
                 pos=max;
+            }
             //itm=list.insert(itm,itm->left(pos));
             QString t=*itm;
             itm=list.insert(itm,t);
