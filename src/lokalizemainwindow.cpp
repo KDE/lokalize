@@ -791,6 +791,9 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
                           PROJECTRCFILEPATH,
                           Project::instance()->kind(), lokalize)
 {
+    if (Project::instance()->projectDir().isEmpty())
+        return;
+
     QString filepath=PROJECTRCFILEPATH;
     if (!QFile::exists(filepath))
     {
