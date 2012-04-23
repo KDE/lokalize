@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -265,7 +265,7 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
                 //found pot node, that now has a PO index.
                 //remove the pot node and change the corresponding PO node
                 beginRemoveRows(parent, pos, pos);
-                node->rows.removeAt(pos);
+                node->rows.remove(pos);
                 deleteSubtree(potNode);
                 endRemoveRows();
 
@@ -393,7 +393,7 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
     {
         int potIndex = node->rows.at(pos)->potRowNumber;
         deleteSubtree(node->rows.at(pos));
-        node->rows.removeAt(pos);
+        node->rows.remove(pos);
 
         if (potIndex != -1)
             potRowsToInsert.append(potIndex);
@@ -470,7 +470,7 @@ void ProjectModel::pot_rowsRemoved(const QModelIndex& pot_parent, int start, int
             Q_ASSERT(childNode->potRowNumber >= start);
             Q_ASSERT(childNode->potRowNumber <= end);
             deleteSubtree(childNode);
-            node->rows.removeAt(pos);
+            node->rows.remove(pos);
         }
 
         //renumber remaining rows
@@ -708,12 +708,16 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
         return m_poModel.itemForIndex(index);
     }
     QModelIndex poIndex = poIndexForOuter(index);
-    QModelIndex potIndex = potIndexForOuter(index);
 
     if (poIndex.isValid())
         return m_poModel.itemForIndex(poIndex);
-    else if (potIndex.isValid())
-        return m_potModel.itemForIndex(potIndex);
+    else
+    {
+        QModelIndex potIndex = potIndexForOuter(index);
+
+        if (potIndex.isValid())
+            return m_potModel.itemForIndex(potIndex);
+    }
 
     kWarning()<<"returning empty KFileItem()"<<index.row()<<index.column();
     kWarning()<<"returning empty KFileItem()"<<index.parent().isValid();
@@ -1245,6 +1249,9 @@ void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
     lastTranslator = info.item("translation.last_translator").value().toString();
     sourceDate = info.item("translation.source_date").value().toString();
     translationDate = info.item("translation.translation_date").value().toString();
+    lastTranslator.squeeze();
+    sourceDate.squeeze();
+    translationDate.squeeze();
 }
 
 

@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -100,7 +100,7 @@ class ProjectModel: public QAbstractItemModel
         short potRowNumber; //row number in pot model, -1 if this has no pot item.
 
         short poCount; //number of items from PO in rows. The others will be form POT exclusively.
-        QList<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
+        QVector<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
 
         int translated;
         int translated_reviewer;
