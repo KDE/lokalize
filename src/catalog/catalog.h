@@ -175,6 +175,7 @@ public:
     bool isReadOnly(){return d->_readOnly;}
 
     void attachAltTransCatalog(Catalog*);
+    void attachAltTrans(int entry, const AltTrans& trans);
 
 
     virtual const DocPosition& undo();

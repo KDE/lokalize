@@ -40,6 +40,7 @@
 #include "projectlocal.h"
 #include "state.h"
 #include "pos.h"
+#include "alttrans.h"
 
 #include <kurl.h>
 #include <kautosavefile.h>
@@ -95,6 +96,7 @@ public:
 
 
     QLinkedList<Catalog*> _altTransCatalogs;
+    QMap<int, AltTrans> _altTranslations;
 
     //for undo/redo
     //keeps pos of the entry that was last modified

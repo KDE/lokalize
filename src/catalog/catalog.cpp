@@ -140,6 +140,8 @@ void Catalog::clear()
 
     while (!d->_altTransCatalogs.isEmpty())
         d->_altTransCatalogs.takeFirst()->deleteLater();
+    
+    d->_altTranslations.clear();
 /*
     d->msgidDiffList.clear();
     d->msgstr2MsgidDiffList.clear();
@@ -261,6 +263,11 @@ void Catalog::attachAltTransCatalog(Catalog* altCat)
         kWarning()<<altCat->url().prettyUrl()<<"has different number of entries";
 }
 
+void Catalog::attachAltTrans(int entry, const AltTrans& trans)
+{
+    d->_altTranslations.insert(entry, trans);
+}
+
 QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
 {
     QVector<AltTrans> result;
@@ -290,6 +297,8 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
             result.last().origin=altCat->url().prettyUrl();
         }
     }
+    if (d->_altTranslations.contains(pos.entry))
+        result<<d->_altTranslations.value(pos.entry);
     return result;
 }
 

@@ -113,6 +113,17 @@ void AltTransView::attachAltTransFile(const QString& path)
     m_catalog->attachAltTransCatalog(altCat);
 }
 
+void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool temp)
+{
+    qDebug()<<trans;
+    AltTrans altTrans;
+    altTrans.target=trans;
+    m_catalog->attachAltTrans(entry, altTrans);
+
+    m_prevEntry=DocPos();
+    QTimer::singleShot(0,this,SLOT(process()));
+}
+
 void AltTransView::fileLoaded()
 {
     m_prevEntry.entry=-1;

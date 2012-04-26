@@ -1417,6 +1417,8 @@ bool EditorTab::entryReady(int entry){return m_catalog->isApproved(entry);}
 void EditorTab::addEntryNote(int entry, const QString& note){m_notesView->addNote(entry, note);}
 void EditorTab::addTemporaryEntryNote(int entry, const QString& note){m_notesView->addTemporaryEntryNote(entry, note);}
 
+void EditorTab::addAlternateTranslation(int entry, const QString& translation){m_altTransView->addAlternateTranslation(entry, translation);}
+void EditorTab::addTemporaryAlternateTranslation(int entry, const QString& translation){m_altTransView->addAlternateTranslation(entry, translation);}
 void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransView->attachAltTransFile(path);}
 
 void EditorTab::setEntryTarget(int entry, int form, const QString& content)

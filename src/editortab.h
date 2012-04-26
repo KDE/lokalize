@@ -142,6 +142,8 @@ public slots:
     Q_SCRIPTABLE void addEntryNote(int entry, const QString& note);
     Q_SCRIPTABLE void addTemporaryEntryNote(int entry, const QString& note);
 
+    Q_SCRIPTABLE void addAlternateTranslation(int entry, const QString& translation);
+    Q_SCRIPTABLE void addTemporaryAlternateTranslation(int entry, const QString& translation);
 
     Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
     Q_SCRIPTABLE QByteArray currentFileContents();

@@ -91,6 +91,14 @@
       <arg name="entry" type="i" direction="in"/>
       <arg name="note" type="s" direction="in"/>
     </method>
+    <method name="addAlternateTranslation">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="translation" type="s" direction="in"/>
+    </method>
+    <method name="addTemporaryAlternateTranslation">
+      <arg name="entry" type="i" direction="in"/>
+      <arg name="translation" type="s" direction="in"/>
+    </method>
     <method name="currentFile">
       <arg type="s" direction="out"/>
     </method>
