@@ -137,6 +137,7 @@ public slots: //DBus interface
     bool isEmpty(const DocPosition&) const;
     bool isModified(DocPos entry) const;
     bool isModified(int entry) const;
+    bool isObsolete(int entry) const;
 
     /// so DocPosition::entry may actually be < size()+binUnitsCount()
     int binUnitsCount() const;

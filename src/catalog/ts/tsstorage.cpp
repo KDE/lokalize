@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static const char* const noyes[]={"no","yes"};
 
-static const QString names[]={"source",  "translation", "location",  "translatorcomment", "type",  "name", "numerus"};
-enum TagNames                {SourceTag, TargetTag,     LocationTag, NoteTag,             TypeTag, NameTag, PluralTag};
+static const QString names[]={"source" ,"translation","location" ,"oldsource" ,"translatorcomment","type" ,"name" ,"numerus"};
+enum TagNames                {SourceTag,TargetTag    ,LocationTag,OldSourceTag,NoteTag            ,TypeTag,NameTag,PluralTag};
 
 TsStorage::TsStorage()
  : CatalogStorage()
@@ -321,6 +321,11 @@ void TsStorage::setTarget(const DocPosition& pos, const QString& arg)
 QVector<AltTrans> TsStorage::altTrans(const DocPosition& pos) const
 {
     QVector<AltTrans> result;
+
+    QString oldsource=content(unitForPos(pos.entry).firstChildElement(names[OldSourceTag]));
+    if (!oldsource.isEmpty())
+        result<<AltTrans(CatalogString(oldsource), i18n("Previous source value, saved by lupdate tool"));
+
     return result;
 }
 
@@ -463,6 +468,13 @@ bool TsStorage::isApproved(const DocPosition& pos) const
 {
     QDomElement target=unitForPos(pos.entry).firstChildElement(names[TargetTag]);
     return !target.hasAttribute(names[TypeTag]);
+}
+
+bool TsStorage::isObsolete(int entry) const
+{
+    QDomElement target=unitForPos(entry).firstChildElement(names[TargetTag]);
+    static QString obsolete="obsolete";
+    return /*target.hasAttribute(names[TypeTag]) && */target.attribute(names[TypeTag])==obsolete;
 }
 
 bool TsStorage::isEmpty(const DocPosition& pos) const

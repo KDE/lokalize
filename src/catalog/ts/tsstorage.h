@@ -80,6 +80,8 @@ public:
     bool isApproved(const DocPosition& pos) const;
     void setApproved(const DocPosition& pos, bool approved);
 
+    bool isObsolete(int entry) const;
+
     QString mimetype()const{return "application/x-linguist";}
 
 private:

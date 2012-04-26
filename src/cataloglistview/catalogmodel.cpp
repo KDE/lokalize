@@ -138,6 +138,11 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
            static KColorScheme colorScheme(QPalette::Normal);
            return colorScheme.foreground(KColorScheme::LinkText);
        }
+       if (m_catalog->isObsolete(index.row()))
+       {
+           static KColorScheme colorScheme(QPalette::Normal);
+           return colorScheme.foreground(KColorScheme::InactiveText);
+       }
     }
     else if (role==Qt::UserRole)
     {

@@ -993,4 +993,13 @@ TargetState closestState(bool approved, ProjectLocal::PersonRole role)
 }
 
 
+bool Catalog::isObsolete(int entry) const
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return false;
+
+    return m_storage->isObsolete(entry);
+}
+
+
 #include "catalog.moc"
