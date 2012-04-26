@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static const char* const noyes[]={"no","yes"};
 
-static const QString names[]={"source" ,"translation","oldsource" ,"translatorcomment","name" ,"numerus"};
-enum TagNames                {SourceTag,TargetTag    ,OldSourceTag,NoteTag            ,NameTag,PluralTag};
+static const QString names[]={"source" ,"translation","oldsource" ,"translatorcomment","comment" ,"name" ,"numerus"};
+enum TagNames                {SourceTag,TargetTag    ,OldSourceTag,NoteTag            ,DevNoteTag,NameTag,PluralTag};
 
 static const QString attrnames[]={"location"  ,"type"  ,"obsolete"};
 enum AttrNames                   {LocationAttr,TypeAttr,ObsoleteAttr};
@@ -373,9 +373,18 @@ QVector<Note> TsStorage::notes(const DocPosition& pos) const
 
 QVector<Note> TsStorage::developerNotes(const DocPosition& pos) const
 {
-    Q_UNUSED(pos);
-    //TODO
-    return QVector<Note>();
+    QVector<Note> result;
+
+    QDomElement elem = unitForPos(pos.entry).firstChildElement(names[DevNoteTag]);
+    while (!elem.isNull())
+    {
+        Note note;
+        note.content=elem.text();
+        result.append(note);
+
+        elem=elem.nextSiblingElement(names[DevNoteTag]);
+    }
+    return result;
 }
 
 Note TsStorage::setNote(DocPosition pos, const Note& note)
