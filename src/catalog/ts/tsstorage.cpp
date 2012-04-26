@@ -42,8 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static const char* const noyes[]={"no","yes"};
 
-static const QString names[]={"source" ,"translation","location" ,"oldsource" ,"translatorcomment","type" ,"name" ,"numerus"};
-enum TagNames                {SourceTag,TargetTag    ,LocationTag,OldSourceTag,NoteTag            ,TypeTag,NameTag,PluralTag};
+static const QString names[]={"source" ,"translation","oldsource" ,"translatorcomment","name" ,"numerus"};
+enum TagNames                {SourceTag,TargetTag    ,OldSourceTag,NoteTag            ,NameTag,PluralTag};
+
+static const QString attrnames[]={"location"  ,"type"  ,"obsolete"};
+enum AttrNames                   {LocationAttr,TypeAttr,ObsoleteAttr};
+
+static const QString attrvalues[]={"obsolete"};
+enum AttValues                    {ObsoleteVal};
 
 TsStorage::TsStorage()
  : CatalogStorage()
@@ -334,7 +340,7 @@ QStringList TsStorage::sourceFiles(const DocPosition& pos) const
 {
     QStringList result;
 
-    QDomElement elem = unitForPos(pos.entry).firstChildElement(names[LocationTag]);
+    QDomElement elem = unitForPos(pos.entry).firstChildElement(attrnames[LocationAttr]);
     while (!elem.isNull())
     {
         QString sourcefile=elem.attribute("filename");
@@ -342,7 +348,7 @@ QStringList TsStorage::sourceFiles(const DocPosition& pos) const
         if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
             result.append(sourcefile+':'+linenumber);
 
-        elem=elem.nextSiblingElement(names[LocationTag]);
+        elem=elem.nextSiblingElement(attrnames[LocationAttr]);
     }
     //qSort(result);
 
@@ -458,23 +464,24 @@ void TsStorage::setApproved(const DocPosition& pos, bool approved)
 {
     targetInsert(pos,QString()); //adds <taget> if needed
     QDomElement target=unitForPos(pos.entry).firstChildElement(names[TargetTag]); //asking directly to bypass plural state detection
+    if (target.attribute(attrnames[TypeAttr])==attrvalues[ObsoleteVal])
+        return;
     if (approved)
-        target.removeAttribute(names[TypeTag]);
+        target.removeAttribute(attrnames[TypeAttr]);
     else
-        target.setAttribute(names[TypeTag],"unfinished");
+        target.setAttribute(attrnames[TypeAttr],"unfinished");
 }
 
 bool TsStorage::isApproved(const DocPosition& pos) const
 {
     QDomElement target=unitForPos(pos.entry).firstChildElement(names[TargetTag]);
-    return !target.hasAttribute(names[TypeTag]);
+    return !target.hasAttribute(attrnames[TypeAttr]);
 }
 
 bool TsStorage::isObsolete(int entry) const
 {
     QDomElement target=unitForPos(entry).firstChildElement(names[TargetTag]);
-    static QString obsolete="obsolete";
-    return /*target.hasAttribute(names[TypeTag]) && */target.attribute(names[TypeTag])==obsolete;
+    return target.attribute(attrnames[TypeAttr])==attrvalues[ObsoleteVal];
 }
 
 bool TsStorage::isEmpty(const DocPosition& pos) const
