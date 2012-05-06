@@ -32,7 +32,7 @@
 <abstract>
 <para>
 &lokalize; is a computer-aided translation system that focuses on productivity and
-quality assurance.  It has components usual for CAT tools: translation memory, glossary,
+quality assurance.  It has components usual included in CAT tools like translation memory, glossary,
 and also a unique translation merging (synchronization) capability.
 It is targeted for software translation and also integrates external conversion tools for freelance office document translation.
 </para>
@@ -58,10 +58,10 @@ It is targeted for software translation and also integrates external conversion 
 <chapter id="introduction">
 <title>Introduction</title>
 <para>
-  Usually program messages and documentation are written in English. Using a framework made of a set of tools and libraries, it is  possible to have your favorite applications speak your native non-English language. This process of adapting an application to a specific language is known as localization. The localization process includes translating the program's interfaces and documentation to the various languages users need and, in some countries or regions, making the inputs and outputs conform to particular conventions. &lokalize; is a tool which will assist you in the localization process to make an application's interface speaks many languages. Every internationalization-aware program makes available for translation one or more message-catalog files. The extension of these files is <filename class="extension">.pot</filename>. <acronym>POT</acronym> is an acronym for <quote>Portable Object Template</quote>.
+  Usually program messages and documentation are written in English. Using a framework made of a set of tools and libraries, it is possible to have your favorite applications speak your native non-English language. This process of adapting an application to a specific language is known as <emphasis>localization</emphasis>. The localization process includes translating the program's interfaces and documentation to the various languages users need and, in some countries or regions, making the inputs and outputs conform to particular conventions. &lokalize; is a tool which will assist you in the localization process to make an application's interface speaks many languages. 
 </para>
 <para>
-&lokalize; is an advanced and easy to use PO file (&GNU; gettext message catalogs) editor. It is a computer-aided translation system for translators, written from scratch using &kde; Platform 4 framework. Aside from basic editing of PO files with nifty auxiliary details, it integrates support for glossary, translation memory, diff-modes for QA, project managing, &etc; It has many features like, full navigation capabilities, extensive editing functionality, search functions, syntax checking and statistics function.
+Every internationalization-aware program makes available for translation one or more message-catalog files. The extension of these files is <filename class="extension">.pot</filename>. <acronym>POT</acronym> is an acronym for <quote>Portable Object Template</quote>.  &lokalize; is an advanced and easy to use PO file (&GNU; gettext message catalogs) editor. It is a computer-aided translation system for translators, written from scratch using the &kde; Platform 4 framework. Aside from basic editing of PO files with nifty auxiliary details, it integrates support for glossary, translation memory, diff-modes for QA, project managing, &etc; It has many features like full navigation capabilities, extensive editing functionality, search functions, syntax checking and statistics functions.
 </para>
 <para>
 Portable Object (.po) files: Each translator takes a copy of one of these POT templates and begins to fill in the blanks: each message is translated into the language desired. The file containing the translated text is referred to as a PO (Portable Object) file.
@@ -89,25 +89,25 @@ By default, the main window contains six parts. The upper-right box is read-only
 </screenshot>
 
 <para>
-The top-left part of the main window shows the Translation Units.  Below this, there is Unit Metadata section and it contains comments relevant to the currently displaying source text. In the lower-left, there is Translation Memory section which shows the suggested translations from the translation memory database for the current source text entry. On the lower-right corner of the window, glossary section is shown.
+The top-left part of the main window shows the Translation Units.  Below this, there is Unit Metadata section and it contains comments relevant to the currently displayed source text. In the lower-left, there is a Translation Memory section which shows the suggested translations from the translation memory database for the current source text entry. On the lower-right corner of the window, the glossary section is shown.
 </para>
 <para>
-Translation files are opened in separate tab, with two big multi-line edits as well as a bunch of <emphasis>toolviews</emphasis>.
+Translation files are opened in separate tabs, with two big multi-line edits as well as a bunch of <emphasis>tool views</emphasis>.
 These views can be stacked (similar to tabs), shown separately, or hidden.
 Translation files consist of many English-target pairs called <emphasis>units</emphasis>.
 A <emphasis>unit</emphasis> typically correspond to a single string in the
 user interface, or one paragraph in the documentation. The purpose of the first multi-line edit is to display the original part of the pair. The purpose of the second multi-line edit is to display the translation. You can navigate
 through the <emphasis>units</emphasis> via the <guilabel>Translation Units</guilabel> view or by using <keycap>Page Down</keycap> and <keycap>Page
-Up</keycap>
+Up</keycap>.
 </para>
 <para>
 A unit may be <emphasis>translated</emphasis> or <emphasis>untranslated</emphasis>.
 A translation of a translated unit may be <emphasis>ready</emphasis> or <emphasis>not ready</emphasis> (also called <emphasis>fuzzy</emphasis> sometimes).
 If the unit is not ready, its translation is rendered in italics.
 &lokalize; allows you to easily navigate through the file according to the state of their translation.
-See <guilabel>Go</guilabel> menu for the shortcuts. The status bar at the bottom of the window shows current string number, total number of strings, total untranslated strings, total not ready (fuzzy) strings and status of the current string respectively. When navigating, untranslated units are treated as not ready.
-Also you may use filtering feature of <guilabel>Translation Units</guilabel> toolview.
-Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that toolview.
+See <guilabel>Go</guilabel> menu for the shortcuts. The status bar at the bottom of the window shows the current string number, total number of strings, total untranslated strings, total not ready (fuzzy) strings and status of the current string respectively. When navigating, untranslated units are treated as not ready.
+Also, you may use the filtering feature of <guilabel>Translation Units</guilabel> toolview.
+Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that tool view.
 </para>
 <para>
   To the main window one can add many more sections like <guilabel>Alternate Translations</guilabel>, <guilabel>Primary Sync</guilabel>, <guilabel>Secondary Sync</guilabel>, <guilabel>Binary Units</guilabel> by using <menuchoice><guimenu>Settings</guimenu><guimenuitem>Toolviews</guimenuitem></menuchoice> from the main menu.
@@ -134,7 +134,7 @@ You can add or remove actions in the toolbar using <menuchoice><guimenu>Settings
 <sect1 id="shortcut-keys">
 <title>Shortcut keys</title>
 <para>
-Using shortcut keys during translation, one can save time. To configure shortcut keys, use <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Shortcuts...</guimenuitem></menuchoice> from the main menu.
+You can save time by using shortcut keys during translation. To configure shortcut keys, use <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Shortcuts...</guimenuitem></menuchoice> from the main menu.
 </para>
 <screenshot>
 <screeninfo>Configure Shortcuts</screeninfo>
@@ -162,7 +162,7 @@ and the wizard will download translation files for your language and will create
 It is recommended that you get used to the keyboard shortcuts instead of the
 menus and toolbars for increased productivity. For example, use the
 <keycombo>&Ctrl;<keycap>L</keycap></keycombo> to focus <guilabel>Quick search</guilabel>
-input line to filter unit list in <guilabel>Translation Units</guilabel> view.
+input line to filter the unit list in <guilabel>Translation Units</guilabel> view.
 Once you are done, press <keycap>Page Down</keycap> to start moving along the filtered list.
 </para>
 </tip>
@@ -195,7 +195,7 @@ when starting &lokalize; from the command line.
 
 <para>
 For each project you select your role in it (<emphasis>translator</emphasis>, <emphasis>reviewer</emphasis>, <emphasis>approver</emphasis>),
-which in turn affects a workflow phase &lokalize; automatically picks up for files you edit.
+which in turn affects the workflow phase &lokalize; automatically picks up for files you edit.
 </para>
 
 <note>
@@ -211,10 +211,10 @@ when other projects are opened.
 <sect1 id="project-view">
 <title>Project Overview tab</title>
 <para>
-When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab. Project Overview is a file manager view, which helps you keep an overview over your PO files. The &lokalize; suite will help you to translate quickly and also to keep translations consistent. &lokalize; workflow implies that you start with creating/opening a project. The Project Overview tab displays a file tree with statistics with current project, such as percentage of the translated units completed and the last translator. It allows you to open a selected file in a tab of current &lokalize; window.
+When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab. Project Overview is a file manager view, which helps you keep an overview of your PO files. The &lokalize; suite will help you to translate quickly and also to keep translations consistent. &lokalize; workflow implies that you start with creating/opening a project. The Project Overview tab displays a file tree with statistics with current project, such as percentage of the translated units completed and the last translator. It allows you to open a selected file in a tab of current &lokalize; window.
 </para>
 <para>
-  To Create new project use <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>. This will guide through the steps to create a new project. In <guimenu>Project</guimenu> menu you can also find options to like <guimenuitem>Project overview</guimenuitem>, <guimenuitem>Configure project</guimenuitem>, <guimenuitem>Open project</guimenuitem>, <guimenuitem>Open recent project</guimenuitem>.</para>
+  To create a new project, use <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>. This will guide through the steps to create a new project. In <guimenu>Project</guimenu> menu you can also find options like <guimenuitem>Project overview</guimenuitem>, <guimenuitem>Configure project</guimenuitem>, <guimenuitem>Open project</guimenuitem>, and <guimenuitem>Open recent project</guimenuitem>.</para>
 <para>
 <screenshot>
 <screeninfo>Project Overview Tab</screeninfo>
@@ -231,7 +231,7 @@ When you start &lokalize; first time, you will see an empty <guilabel>Project Ov
 <para>
 The <guilabel>Project Overview</guilabel> tab displays a file tree with statistics for a current project,
 such as the percentage of translated units completed and the last translator.
-It allows you to open a selected file in new tab of the current &lokalize;, window.
+It allows you to open a selected file in a new tab of the current &lokalize;, window.
 </para>
 
 </sect1>
@@ -284,15 +284,15 @@ To insert the translation suggestions into the file, use
 </para>
 
 <para>
-Pressing <keycombo><keycap>F7</keycap></keycombo> will open <guilabel>Translation Memory</guilabel> tab, which allows free querying TM.
-Clicking a search result will open corresponding file on corresponding unit.
+Pressing <keycombo><keycap>F7</keycap></keycombo> will open <guilabel>Translation Memory</guilabel> tab, which allows you to query the TM freely.
+Clicking a search result will open the corresponding file and unit.
 If you want to quickly open some file in the project (and it is added to TM), then instead of browsing <guilabel>Project Overview</guilabel>
-you just type its name into <guilabel>File mask</guilabel> field accompanied by '*'.
+you can just type its name into the <guilabel>File mask</guilabel> field, accompanied by '*'.
 </para>
 
 <para>
-TM engine indexes all entries, including non-ready and untranslated ones.
-This allows it to completely replace Search-in-Files feature which required scanning every file in the project each time a search is done.
+The TM engine indexes all entries, including non-ready and untranslated ones.
+This allows it to completely replace the Search-in-Files feature which required scanning every file in the project each time a search is done.
 </para>
 
 <screenshot>
@@ -400,7 +400,7 @@ In this case the old translation with it's (old) source is moved to alternate tr
 When translating software, usually gettext tools are used to prepare translation files.
 When original text changes, gettext tools update translation files and mark entries with changed original text as <emphasis>fuzzy</emphasis> (or <emphasis>non-ready</emphasis> in other terminology).
 They store previous original text so that translators could see what changes exactly were made.
-&lokalize; simplifies life of translator and highlights parts of original text that were changed in <guilabel>Alternate Translations</guilabel> view.
+&lokalize; simplifies the life of the translator and highlights parts of the original text that were changed in the <guilabel>Alternate Translations</guilabel> view.
 </para>
 
 <screenshot>
@@ -425,16 +425,16 @@ They store previous original text so that translators could see what changes exa
 
 <para>
 &lokalize; is extensible using scripts in several interpreted languages, including Python and JavaScript.
-Scripts are usually integrated into &lokalize; UI as menu actions (to which you may assign a keyboard shortcut).
-The location and name of menu entry for the script is defined in its accompanying .rc file.
-On each project open &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
+Scripts are usually integrated into the &lokalize; UI as menu actions (to which you may assign a keyboard shortcut).
+The location and name of the menu entry for the script is defined in its accompanying .rc file.
+On each project open, &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
 <filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
-RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they are tried both (actually they <emphasis>should</emphasis> be relative if you want to share .rc file with other people in your project).
-So you for example can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load script from <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
+RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they both are tried (though they <emphasis>should</emphasis> be kept in a relative location if you want to share them with other people in your project).
+For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
 </para>
 <para>
 Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/kde4/apps/lokalize/scripts/</filename>)
-and in <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">&kde; repository</ulink>.
+and in the <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">&kde; repository</ulink>.
 <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save
 (this is achieved via special option in .rc file).
 If you're familiar with Python or JavaScript, the code should be self-explanatory.
