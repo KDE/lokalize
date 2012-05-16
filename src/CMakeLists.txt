@@ -121,6 +121,7 @@ kde4_add_ui_files(lokalize_SRCS
     project/prefs_projectmain.ui
     glossary/termedit.ui
     filesearch/filesearchoptions.ui
+    filesearch/massreplaceoptions.ui
     tm/queryoptions.ui
     tm/managedatabases.ui
     tm/dbparams.ui

@@ -44,21 +44,22 @@ class KAction;
  *
  * copied from 'pretty' docs
  */
-class FlowLayout : public QLayout
+class FlowLayout: public QLayout
 {
 public:
 
     enum User
     {
         glossary,
-        webquery
+        webquery,
+        standard
     };
 
     /**
      * c'tor for glossary view
      */
-    FlowLayout(User user, QWidget *signalingWidget,
-               const QVector<KAction*>& actions, int margin = 0, int spacing = -1);
+    FlowLayout(User user=standard, QWidget *signalingWidget = 0,
+               const QVector<KAction*>& actions=QVector<KAction*>(), int margin = 0, int spacing = -1);
 
     ~FlowLayout();
 

@@ -175,8 +175,13 @@ public:
     void appendSearchResults(const SearchResults&);
     void clear();
 
+public slots:
+    void setReplacePreview(const QString&, const QString&);
+
 private:
     SearchResults m_searchResults;
+    QRegExp replaceWhat;
+    QString replaceWith;
 };
 
 class SearchFileListView: public QDockWidget
@@ -203,6 +208,7 @@ private:
     QStringListModel* m_model;
 };
 
+class Ui_MassReplaceOptions;
 
 class MassReplaceView: public QDockWidget
 {
@@ -210,10 +216,16 @@ class MassReplaceView: public QDockWidget
 
 public:
     MassReplaceView(QWidget*);
-    ~MassReplaceView(){}
+    ~MassReplaceView();
+
+signals:
+    void previewRequested(const QString&, const QString&);
+
+private slots:
+    void requestPreview(bool);
 
 private:
-    QTreeView* m_browser;
+    Ui_MassReplaceOptions* ui;
 };
 
 //const QString& sourceRefine, const QString& targetRefine
