@@ -181,6 +181,8 @@ public:
     virtual const DocPosition& undo();
     virtual const DocPosition& redo();
 
+    void setTarget(DocPosition pos, const CatalogString& s); //for batch use only!
+
     //void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
     void setUrl(const KUrl& u){d->_url=u;}//used for template load
 public slots: //DBus interface

@@ -10,6 +10,7 @@
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Separator/>
   <Action name="showfilelist_action"/>
+  <Action name="showmassreplace_action"/>
   <Action name="showqa_action"/>
 </ToolBar>
 </kpartgui>

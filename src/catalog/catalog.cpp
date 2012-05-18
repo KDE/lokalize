@@ -859,6 +859,12 @@ InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
     return tag;
 }
 
+void Catalog::setTarget(DocPosition pos, const CatalogString& s)
+{
+    //TODO for case of markup present
+    m_storage->setTarget(pos, s.string);
+}
+
 TargetState Catalog::setState(const DocPosition& pos, TargetState state)
 {
     bool extendedStates=m_storage->capabilities()&ExtendedStates;

@@ -171,7 +171,7 @@ bool SearchParams::isEmpty() const
 
 
 
-//scan one file
+/// @short scan one file
 class SearchJob: public ThreadWeaver::Job
 {
 public:
@@ -273,6 +273,62 @@ void SearchJob::run()
     qDebug()<<"done in"<<a.elapsed();
 }
 
+/// @short replace in files
+class MassReplaceJob: public ThreadWeaver::Job
+{
+public:
+    explicit MassReplaceJob(const SearchResults& srs,
+                            int pos,
+                            const QRegExp& s,
+                            const QString& r,
+                            //int sn,
+                           QObject* parent=0);
+    ~MassReplaceJob(){}
+
+protected:
+    void run ();
+public:
+    SearchResults searchResults;
+    int globalPos;
+    QRegExp replaceWhat;
+    QString replaceWith;
+};
+
+MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject* parent)
+ : ThreadWeaver::Job(parent)
+ , searchResults(srs)
+ , globalPos(pos)
+ , replaceWhat(s)
+ , replaceWith(r)
+{
+}
+
+void MassReplaceJob::run()
+{
+    QMultiHash<QString, int> map;
+    for (int i=0;i<searchResults.count();++i)
+        map.insertMulti(searchResults.at(i).filepath, i);
+
+    foreach(const QString& filepath, map.keys())
+    {
+        Catalog catalog(thread());
+        if (catalog.loadFromUrl(KUrl::fromPath(filepath), KUrl())!=0)
+            continue;
+        
+        foreach(int index, map.values(filepath))
+        {
+            SearchResult& sr=searchResults[index];
+            if (catalog.target(sr.docPos.toDocPosition())!=sr.target)
+                continue;
+
+            CatalogString s=catalog.targetWithTags(sr.docPos.toDocPosition());
+            s.string.replace(replaceWhat, replaceWith);
+            catalog.setTarget(sr.docPos.toDocPosition(), s);
+        }
+
+        catalog.save();
+    }
+}
 
 
 //BEGIN FileSearchModel
@@ -337,9 +393,9 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
             static QString startBldTag="<b >";
             static QString endBldTag="</b >";
 
-            if (item.column()==FileSearchModel::Target && !replaceWhat.isEmpty())
+            if (item.column()==FileSearchModel::Target && !m_replaceWhat.isEmpty())
             {
-                result.replace(replaceWhat, replaceWith);
+                result.replace(m_replaceWhat, m_replaceWith);
                 QString escaped=convertToHtml(result, !sr.isApproved);
                 escaped.replace(startBld, startBldTag);
                 escaped.replace(endBld, endBldTag);
@@ -375,10 +431,10 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
     return QVariant();
 }
 
-void FileSearchModel::setReplacePreview(const QString& s, const QString& r)
+void FileSearchModel::setReplacePreview(const QRegExp& s, const QString& r)
 {
-    replaceWhat.setPattern(s);
-    replaceWith="_ST_" % r % "_END_";
+    m_replaceWhat=s;
+    m_replaceWith="_ST_" % r % "_END_";
     
     emit dataChanged(index(0, Target), index(rowCount()-1, Target));
 }
@@ -491,7 +547,9 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     MassReplaceView* m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);
     srf->addAction( QLatin1String("showmassreplace_action"), m_massReplaceView->toggleViewAction() );
-    connect(m_massReplaceView, SIGNAL(previewRequested(QString,QString)), m_model, SLOT(setReplacePreview(QString,QString)));
+    connect(m_massReplaceView, SIGNAL(previewRequested(QRegExp,QString)), m_model, SLOT(setReplacePreview(QRegExp ,QString)));
+    connect(m_massReplaceView, SIGNAL(replaceRequested(QRegExp,QString)), this, SLOT(massReplace(QRegExp,QString)));
+    //m_massReplaceView->hide();
 
     m_qaView = new QaView(this);
     m_qaView->hide();
@@ -578,6 +636,29 @@ void FileSearchTab::stopSearch()
         ThreadWeaver::Weaver::instance()->dequeue(*it);
     m_runningJobs.clear();
 }
+
+
+void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
+{
+#define BATCH_SIZE 20
+
+    SearchResults searchResults=m_model->searchResults();
+
+    for (int i=0;i<searchResults.count();i+=BATCH_SIZE)
+    {
+        int last=qMin(i+BATCH_SIZE, searchResults.count()-1);
+        QString filepath=searchResults.at(last).filepath;
+        while (last+1<searchResults.count() && filepath==searchResults.at(last+1).filepath)
+            ++last;
+        
+        MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last-i), i, what, with);
+        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
+        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(replaceJobDone(ThreadWeaver::Job*)));
+        ThreadWeaver::Weaver::instance()->enqueue(job);
+        m_runningJobs.append(job);
+    }
+}
+
 
 static void copy(QTreeView* view, int column)
 {
@@ -715,6 +796,12 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
     //ui_fileSearchOptions->treeView->setFocus();
 }
 
+void FileSearchTab::replaceJobDone(ThreadWeaver::Job* )
+{
+
+}
+
+
 //END FileSearchTab
 
 //BEGIN MASS REPLACE
@@ -726,8 +813,9 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     QWidget* base=new QWidget(this);
     setWidget(base);
     ui->setupUi(base);
-    
+
     connect(ui->doPreview, SIGNAL(clicked(bool)), this, SLOT(requestPreview(bool)));
+    connect(ui->doReplace, SIGNAL(clicked(bool)), this, SLOT(requestReplace()));
 /*
     QLabel* rl=new QLabel(i18n("Replace:"), base);
     KLineEdit* searchEdit=new KLineEdit(base);
@@ -762,9 +850,23 @@ void MassReplaceView::requestPreview(bool enable)
     {
         s=ui->searchText->text();
         r=ui->replaceText->text();
+        
+        if (s.length())
+            ui->doReplace->setEnabled(true);
     }
 
-    emit previewRequested(s, r);
+    emit previewRequested(QRegExp(s), r);
+}
+
+void MassReplaceView::requestReplace()
+{
+    QString s=ui->searchText->text();
+    QString r=ui->replaceText->text();
+        
+    if (s.isEmpty())
+        return;
+
+    emit replaceRequested(QRegExp(s), r);
 }
 
 

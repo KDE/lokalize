@@ -79,9 +79,11 @@ public slots:
     Q_SCRIPTABLE void addFilesToSearch(const QStringList&);
     void fileSearchNext();
     void stopSearch();
+    void massReplace(const QRegExp &what, const QString& with);
 
 private slots:
     void searchJobDone(ThreadWeaver::Job*);
+    void replaceJobDone(ThreadWeaver::Job*);
 
 signals:
     void fileOpenRequested(const KUrl& url, DocPosition docPos, int selection);
@@ -171,17 +173,18 @@ public:
     int columnCount(const QModelIndex& parent=QModelIndex()) const {Q_UNUSED(parent) return ColumnCount;}
     int rowCount(const QModelIndex& parent = QModelIndex()) const {Q_UNUSED(parent) return m_searchResults.size();}
 
+    SearchResults searchResults()const {return m_searchResults;}
     SearchResult searchResult(const QModelIndex& item) const {return m_searchResults.at(item.row());}
     void appendSearchResults(const SearchResults&);
     void clear();
 
 public slots:
-    void setReplacePreview(const QString&, const QString&);
+    void setReplacePreview(const QRegExp&, const QString&);
 
 private:
     SearchResults m_searchResults;
-    QRegExp replaceWhat;
-    QString replaceWith;
+    QRegExp m_replaceWhat;
+    QString m_replaceWith;
 };
 
 class SearchFileListView: public QDockWidget
@@ -219,10 +222,12 @@ public:
     ~MassReplaceView();
 
 signals:
-    void previewRequested(const QString&, const QString&);
+    void previewRequested(const QRegExp&, const QString&);
+    void replaceRequested(const QRegExp&, const QString&);
 
 private slots:
     void requestPreview(bool);
+    void requestReplace();
 
 private:
     Ui_MassReplaceOptions* ui;
