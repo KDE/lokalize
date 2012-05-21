@@ -49,6 +49,7 @@ namespace ThreadWeaver{class JobCollection;}
 
 class FileSearchModel;
 class SearchFileListView;
+class MassReplaceView;
 class Ui_FileSearchOptions;
 
 /**
@@ -99,6 +100,7 @@ private:
     FileSearchModel* m_model;
     //TMResultsSortFilterProxyModel *m_proxyModel;
     SearchFileListView* m_searchFileListView;
+    MassReplaceView* m_massReplaceView;
     QaView* m_qaView;
 
     QVector<ThreadWeaver::Job*> m_runningJobs;
@@ -220,6 +222,8 @@ class MassReplaceView: public QDockWidget
 public:
     MassReplaceView(QWidget*);
     ~MassReplaceView();
+    
+    void deactivatePreview();
 
 signals:
     void previewRequested(const QRegExp&, const QString&);

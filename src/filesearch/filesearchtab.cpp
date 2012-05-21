@@ -308,7 +308,7 @@ void MassReplaceJob::run()
     QMultiHash<QString, int> map;
     for (int i=0;i<searchResults.count();++i)
         map.insertMulti(searchResults.at(i).filepath, i);
-
+    
     foreach(const QString& filepath, map.keys())
     {
         Catalog catalog(thread());
@@ -544,7 +544,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction( QLatin1String("showfilelist_action"), m_searchFileListView->toggleViewAction() );
 
-    MassReplaceView* m_massReplaceView = new MassReplaceView(this);
+    m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);
     srf->addAction( QLatin1String("showmassreplace_action"), m_massReplaceView->toggleViewAction() );
     connect(m_massReplaceView, SIGNAL(previewRequested(QRegExp,QString)), m_model, SLOT(setReplacePreview(QRegExp ,QString)));
@@ -613,6 +613,8 @@ void FileSearchTab::performSearch()
 */
     stopSearch();
 
+    m_massReplaceView->deactivatePreview();
+
     QStringList files=m_searchFileListView->files();
     for(int i=0; i<files.size();i+=100)
     {
@@ -650,8 +652,8 @@ void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
         QString filepath=searchResults.at(last).filepath;
         while (last+1<searchResults.count() && filepath==searchResults.at(last+1).filepath)
             ++last;
-        
-        MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last-i), i, what, with);
+
+        MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last+1-i), i, what, with);
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(replaceJobDone(ThreadWeaver::Job*)));
         ThreadWeaver::Weaver::instance()->enqueue(job);
@@ -796,8 +798,10 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
     //ui_fileSearchOptions->treeView->setFocus();
 }
 
-void FileSearchTab::replaceJobDone(ThreadWeaver::Job* )
+void FileSearchTab::replaceJobDone(ThreadWeaver::Job* job)
 {
+    MassReplaceJob* j=static_cast<MassReplaceJob*>(job);
+    ui_fileSearchOptions->treeView->scrollTo(m_model->index(j->globalPos+j->searchResults.count(), 0));
 
 }
 
@@ -814,7 +818,7 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     setWidget(base);
     ui->setupUi(base);
 
-    connect(ui->doPreview, SIGNAL(clicked(bool)), this, SLOT(requestPreview(bool)));
+    connect(ui->doPreview, SIGNAL(toggled(bool)), this, SLOT(requestPreview(bool)));
     connect(ui->doReplace, SIGNAL(clicked(bool)), this, SLOT(requestReplace()));
 /*
     QLabel* rl=new QLabel(i18n("Replace:"), base);
@@ -867,6 +871,12 @@ void MassReplaceView::requestReplace()
         return;
 
     emit replaceRequested(QRegExp(s), r);
+}
+
+void MassReplaceView::deactivatePreview()
+{
+    ui->doPreview->setChecked(false);
+    ui->doReplace->setEnabled(false);
 }
 
 
