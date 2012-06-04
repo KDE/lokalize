@@ -107,6 +107,8 @@ ProjectTab::ProjectTab(QWidget *parent)
     m_stackedLayout->addWidget(welcomeWidget);
     m_stackedLayout->addWidget(w);
     connect(Project::instance(), SIGNAL(loaded()), this, SLOT(showRealProjectOverview()));
+    if (Project::instance()->isLoaded()) //for --project cmd option
+        showRealProjectOverview();
 
     QVBoxLayout* l=new QVBoxLayout(w);
 
