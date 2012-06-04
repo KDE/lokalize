@@ -224,7 +224,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
         {
             QString r=result.toString();
             r.insert(pos,Project::instance()->accel());
-            return r;
+            result=r;
         }
     }
     else if (item.column()==TMDBModel::Filepath)
