@@ -1414,6 +1414,8 @@ QString EditorTab::entrySource(int entry, int form){return m_catalog->sourceWith
 QString EditorTab::entryTarget(int entry, int form){return m_catalog->targetWithTags(DocPosition(entry, form)).string;}
 int EditorTab::entryPluralFormCount(int entry){return m_catalog->isPlural(entry)?m_catalog->numberOfPluralForms():1;}
 bool EditorTab::entryReady(int entry){return m_catalog->isApproved(entry);}
+QString EditorTab::sourceLangCode(){return m_catalog->sourceLangCode();}
+QString EditorTab::targetLangCode(){return m_catalog->targetLangCode();}
 void EditorTab::addEntryNote(int entry, const QString& note){m_notesView->addNote(entry, note);}
 void EditorTab::addTemporaryEntryNote(int entry, const QString& note){m_notesView->addTemporaryEntryNote(entry, note);}
 

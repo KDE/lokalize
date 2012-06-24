@@ -105,6 +105,12 @@
     <method name="currentFileContents">
       <arg type="ay" direction="out"/>
     </method>
+    <method name="sourceLangCode">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="targetLangCode">
+      <arg type="s" direction="out"/>
+    </method>
     <method name="attachAlternateTranslationFile">
       <arg name="path" type="s" direction="in"/>
     </method>

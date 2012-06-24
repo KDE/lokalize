@@ -147,6 +147,8 @@ public slots:
 
     Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
     Q_SCRIPTABLE QByteArray currentFileContents();
+    Q_SCRIPTABLE QString sourceLangCode();
+    Q_SCRIPTABLE QString targetLangCode();
 
     Q_SCRIPTABLE void attachAlternateTranslationFile(const QString& path);
     Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
