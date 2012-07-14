@@ -130,7 +130,10 @@ You can add or remove actions in the toolbar using <menuchoice><guimenu>Settings
     </textobject>
   </mediaobject>
 </screenshot>
+<para>For more information read the section about <ulink url="help:/fundamentals/config.html#toolbars"
+>Toolbars</ulink> of the &kde; Fundamentals.</para>
 </sect1>
+
 <sect1 id="shortcut-keys">
 <title>Shortcut keys</title>
 <para>
@@ -147,6 +150,8 @@ You can save time by using shortcut keys during translation. To configure shortc
     </textobject>
   </mediaobject>
 </screenshot>
+<para>For more information read the section about <ulink url="help:/fundamentals/config.html#shortcuts"
+>Shortcuts</ulink> of the &kde; Fundamentals.</para>
 </sect1>
 
 <sect1 id="general-tips">
