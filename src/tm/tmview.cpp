@@ -553,8 +553,8 @@ bool TMView::event(QEvent *event)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         //int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
-        QMap<int,int>::const_iterator block=m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
-        if (block!=m_entryPositions.constEnd() && *block<m_entries.size())
+        QMap<int,int>::iterator block=m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
+        if (block!=m_entryPositions.end() && *block<m_entries.size())
         {
             const TMEntry& tmEntry=m_entries.at(*block);
             QString file=tmEntry.file;
