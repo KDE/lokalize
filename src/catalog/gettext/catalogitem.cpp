@@ -4,7 +4,7 @@
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
 		2002	  by Stanislav Visnovsky <visnovsky@nenya.ms.mff.cuni.cz>
   Copyright (C) 2006      by Nicolas GOUTTE <goutte@kde.org> 
-                2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+                2007-2012 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -123,6 +123,12 @@ void CatalogItem::setMsgctxt(const QString& msg)
 {
     d->_msgctxt=msg;
     d->_msgctxt.squeeze();
+    d->_keepEmptyMsgCtxt=msg.isEmpty();
+}
+
+bool CatalogItem::keepEmptyMsgCtxt() const
+{
+    return d->_keepEmptyMsgCtxt;
 }
 
 void CatalogItem::setMsgid(const QString& msg, const int form)

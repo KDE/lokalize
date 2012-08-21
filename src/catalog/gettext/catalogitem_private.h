@@ -63,6 +63,7 @@ public:
     bool _fuzzyCached;
     bool _prependMsgIdEmptyLine;
     bool _prependMsgStrEmptyLine;
+    bool _keepEmptyMsgCtxt;
 
     QByteArray _comment;
     QString _msgctxt;
@@ -76,6 +77,9 @@ public:
         : _plural(false)
         , _valid(true)
         , _fuzzyCached(false)
+        , _prependMsgIdEmptyLine(false)
+        , _prependMsgStrEmptyLine(false)
+        , _keepEmptyMsgCtxt(false)
     {}
 
     void clear();
