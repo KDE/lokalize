@@ -91,6 +91,7 @@ private:
     bool _gettextPluralForm;
     bool _testBorked;
     bool _obsolete;
+    bool _msgctxtPresent;
 
     //ExtraDataSaver* _extraDataSaver;
 
