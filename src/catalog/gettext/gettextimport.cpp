@@ -185,7 +185,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
             tempCatItem.setPlural(_gettextPluralForm);
             tempCatItem.setMsgid( _msgid, _msgidMultiline );
             tempCatItem.setMsgstr( _msgstr, _msgstrMultiline );
-            tempCatItem.setMsgctxt( _msgctxt );
+            if (_msgctxtPresent) tempCatItem.setMsgctxt( _msgctxt );
             tempCatItem.setComment( _comment );
 
                // add new entry to the list of entries
@@ -205,7 +205,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
             tempCatItem.setPlural(_gettextPluralForm);
             tempCatItem.setMsgid( _msgid );
             tempCatItem.setMsgstr( _msgstr );
-            tempCatItem.setMsgctxt( _msgctxt );
+            if (_msgctxtPresent) tempCatItem.setMsgctxt( _msgctxt );
             tempCatItem.setComment( _comment );
 
 
@@ -340,6 +340,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
    _msgid.clear();
    _msgid.append(QString());
    _msgctxt.clear();
+   _msgctxtPresent=false;
    _comment.clear();
    _gettextPluralForm=false;
    _obsolete=false;
@@ -412,6 +413,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgctxt\\s*\""));
                line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
+               _msgctxtPresent=true;
                seenMsgctxt=true;
            }
            else if( line.contains( _rxMsgId ) )
@@ -469,6 +471,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(QRegExp("^msgctxt\\s*\""));
                line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
+               _msgctxtPresent=true;
                seenMsgctxt=true;
             }
             else if( line.contains( _rxMsgId ) )
@@ -519,6 +522,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                   _msgctxt=line;
                else
                   _msgctxt+=('\n'+line);
+               _msgctxtPresent=true;
             }
             else if( line.contains( _rxMsgId ) )
             {
