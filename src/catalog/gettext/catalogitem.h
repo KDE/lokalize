@@ -89,6 +89,7 @@ public:
     QStringList allPluralForms(CatalogItem::Part, bool stripNewLines=false) const;
     bool prependEmptyForMsgid(const int form=0) const;
     bool prependEmptyForMsgstr(const int form=0) const;
+    bool keepEmptyMsgCtxt() const;
 
     QStringList msgstrAsList() const;
     void setComment(const QString& com);

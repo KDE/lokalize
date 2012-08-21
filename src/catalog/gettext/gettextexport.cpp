@@ -129,7 +129,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         writeComment( stream, catalogItem.comment() );
 
         const QString& msgctxt = catalogItem.msgctxt();
-        if (! msgctxt.isEmpty() )
+        if (! msgctxt.isEmpty() || catalogItem.keepEmptyMsgCtxt())
             writeKeyword( stream, "msgctxt", msgctxt );
 
         writeKeyword( stream, "msgid", catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid() );
