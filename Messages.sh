@@ -11,6 +11,7 @@ $XGETTEXT rc.cpp src/*.cpp \
 	    src/project/*.cpp \
 	    src/tm/*.cpp \
 	    src/webquery/*.cpp \
+            src/filesearch/*cpp \
 	    -o $podir/lokalize.pot
 rm -f rc.cpp
 $XGETTEXT --language=Python --join-existing scripts/*.py -o $podir/lokalize.pot
