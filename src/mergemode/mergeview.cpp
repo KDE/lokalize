@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -209,7 +209,7 @@ void MergeView::mergeOpen(KUrl url)
     if (url.isEmpty())
     {
         Project::instance()->model()->weaver()->suspend();
-        url=KFileDialog::getOpenUrl(KUrl("kfiledialog:///merge-source") /*m_baseCatalog->url()*/ , "text/x-gettext-translation",this);
+        url=KFileDialog::getOpenUrl(KUrl("kfiledialog:///merge-source") /*m_baseCatalog->url()*/ , Catalog::supportedMimeFilters, this);
         Project::instance()->model()->weaver()->resume();
     }
     if (url.isEmpty())

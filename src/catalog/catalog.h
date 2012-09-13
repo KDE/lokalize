@@ -255,6 +255,9 @@ protected:
     friend class MergeCatalog;
     friend class SetEquivTransCmd;
 
+public:
+    static QString supportedMimeFilters;
+
 signals:
     void signalEntryModified(const DocPosition&);
     void activePhaseChanged();
