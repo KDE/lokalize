@@ -32,6 +32,7 @@
 #include <QString>
 #include <QStringBuilder>
 #include <QMap>
+#include <QTextCodec>
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -246,7 +247,8 @@ void updateHeader(QString& header,
                   const QString& CatalogProjectId,
                   bool generatedFromDocbook,
                   bool belongsToProject,
-                  bool forSaving)
+                  bool forSaving,
+                  QTextCodec* codec)
 {
     QStringList headerList(header.split('\n',QString::SkipEmptyParts));
     QStringList commentList(comment.split('\n',QString::SkipEmptyParts));
@@ -379,7 +381,7 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    temp="Content-Type: text/plain; charset=UTF-8\\n";
+    temp="Content-Type: text/plain; charset="%codec->name()%"\\n";
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(QRegExp("^ *Content-Type:.*"));

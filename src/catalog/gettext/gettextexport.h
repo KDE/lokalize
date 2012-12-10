@@ -37,6 +37,7 @@
 #include <catalogfileplugin.h>
 
 #include <QStringList>
+#include <QTextCodec>
 #include <QTextStream>
 
 namespace GettextCatalog {
@@ -54,7 +55,8 @@ class GettextExportPlugin
 public:
     GettextExportPlugin(short wrapWidth=-1, short trailingNewLines=1);
     ConversionStatus save(QIODevice* device,
-                          const GettextStorage* catalog);
+                          const GettextStorage* catalog,
+                          QTextCodec* codec);
 
 private:
     /**

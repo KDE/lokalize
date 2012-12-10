@@ -25,6 +25,7 @@
 #define GETTEXTHEADER_H
 
 #include <QString>
+#include <QTextCodec>
 
 int numberOfPluralFormsFromHeader(const QString& header);
 QString GNUPluralForms(const QString& lang);
@@ -36,7 +37,8 @@ void updateHeader(QString& header,
                   const QString& CatalogProjectId,
                   bool generatedFromDocbook,
                   bool belongsToProject,
-                  bool forSaving);
+                  bool forSaving,
+                  QTextCodec* codec);
 
 
 //for XLIFF

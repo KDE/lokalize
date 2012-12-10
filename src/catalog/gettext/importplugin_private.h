@@ -36,7 +36,9 @@
 
 #include "catalogitem.h"
 #include "catalog.h"
+
 #include <QLinkedList>
+#include <QTextCodec>
 
 class QTextCodec;
 namespace GettextCatalog {

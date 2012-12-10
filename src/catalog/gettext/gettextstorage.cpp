@@ -99,7 +99,8 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
                  catalogProjectId,
                  m_generatedFromDocbook,
                  belongsToProject,
-                 /*forSaving*/true);
+                 /*forSaving*/true,
+                 m_codec);
     m_header.setMsgstr(header);
     m_header.setComment(comment);
 
@@ -107,7 +108,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     GettextExportPlugin exporter(Project::instance()->wordWrap(), m_trailingNewLines);
 
     ConversionStatus status = OK;
-    status = exporter.save(device/*x-gettext-translation*/,this);
+    status = exporter.save(device/*x-gettext-translation*/,this, m_codec);
 
     return status==OK;
 }
@@ -407,7 +408,8 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
                    catalogProjectId,
                    m_generatedFromDocbook,
                    belongsToProject,
-                  /*forSaving*/true);
+                   /*forSaving*/true,
+                   m_codec);
       m_header=newHeader;
       m_header.setComment(comment);
       m_header.setMsgstr(values);

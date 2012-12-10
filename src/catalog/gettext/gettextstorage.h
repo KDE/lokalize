@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GETTEXTSTORAGE_H
 #define GETTEXTSTORAGE_H
 
+#include <QTextCodec>
 #include <QVector>
 #include "catalogitem.h"
 #include "catalogstorage.h"
@@ -87,12 +88,15 @@ public:
 
 private:
     bool setHeader(const CatalogItem& newHeader);
+    void setCodec(QTextCodec* codec) {m_codec = codec;}
+
     QVector<Note> notes(const DocPosition& pos, const QRegExp& re, int preLen) const;
 
 private:
     QVector<CatalogItem> m_entries;
     QVector<CatalogItem> m_obsoleteEntries;
     CatalogItem m_header;
+    QTextCodec* m_codec;
 
     short m_maxLineLength;
     short m_trailingNewLines;

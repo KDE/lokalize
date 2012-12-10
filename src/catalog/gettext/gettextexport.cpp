@@ -61,37 +61,13 @@ GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines
 }
 
 ConversionStatus GettextExportPlugin::save(QIODevice* device,
-                                           const GettextStorage* catalog)
+                                           const GettextStorage* catalog,
+                                           QTextCodec* codec)
 {
     QTextStream stream(device);
+    stream.setCodec(codec);
 
     //if ( m_wrapWidth == -1 ) m_wrapWidth=80;
-
-#if 0
-//legacy
-    if (useOldEncoding && catalog->fileCodec())
-    {
-        stream.setCodec(catalog->fileCodec());
-    }
-    else
-
-    {
-        /*         switch(_saveSettings.encoding)
-                 {
-                    case ProjectSettingsBase::UTF8:
-                       stream.setCodec(QTextCodec::codecForName("utf-8"));
-                       break;
-                    case ProjectSettingsBase::UTF16:
-                       stream.setCodec(QTextCodec::codecForName("utf-16"));
-                       break;
-                    default:
-        	       stream.setCodec(QTextCodec::codecForLocale());
-                       break;
-                 }*/
-#endif
-    //NOTE i had a look and even ja team uses utf-8 now
-    stream.setCodec(QTextCodec::codecForName("utf-8"));
-
 
     // only save header if it is not empty
     const QString& headerComment( catalog->m_header.comment() );

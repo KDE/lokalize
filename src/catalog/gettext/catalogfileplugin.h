@@ -35,6 +35,7 @@
 
 #include <kdemacros.h>
 #include <QList>
+#include <QTextCodec>
 class QIODevice;
 class QString;
 class QStringList;
@@ -127,6 +128,9 @@ protected:
     void setCatalogExtraData( const QStringList& data );
     /** set the header catalog item */
     void setHeader( const CatalogItem& header );
+
+    /** Set the character encoding used in the catalog file. */
+    void setCodec( QTextCodec* codec );
 
     /** start a new transaction. You should never call this method. */
     void startTransaction();

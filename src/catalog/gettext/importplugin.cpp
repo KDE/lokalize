@@ -93,6 +93,11 @@ void CatalogImportPlugin::setHeader( const CatalogItem& item )
     d->_updateHeader=true;
 }
 
+void CatalogImportPlugin::setCodec( QTextCodec* codec )
+{
+    d->_codec = codec;
+}
+
 ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* catalog, int* line)
 {
     d->_catalog=catalog;
@@ -129,7 +134,9 @@ void CatalogImportPlugin::commitTransaction()
     for( QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/ )
         entries.append( *it );
 
-    //if( d->_updateCodec ) d->_catalog->setFileCodec(d->_codec);
+    // The codec is specified in the header, so it must be updated before the header is.
+    catalog->setCodec(d->_codec);
+
     catalog->m_catalogExtraData=d->_catalogExtraData;
     catalog->m_generatedFromDocbook=d->_generatedFromDocbook;
     catalog->setHeader(d->_header);

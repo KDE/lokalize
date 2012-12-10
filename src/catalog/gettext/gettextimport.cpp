@@ -244,7 +244,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    setHeader(tempHeader);
    setCatalogExtraData(_extraDataSaver.extraData);
    setErrorIndex(errorIndex);
-   //setFileCodec(codec);
+   setCodec(codec);
    //setMimeTypes( "text/x-gettext-translation" );
 #if 0
    if (KDE_ISUNLIKELY( recoveredErrorInHeader ))
