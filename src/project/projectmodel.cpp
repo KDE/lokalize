@@ -64,11 +64,9 @@ ProjectModel::ProjectModel(QObject *parent)
 {
     m_weaver->setMaximumNumberOfThreads(1);
 
-    m_poModel.dirLister()->setAutoUpdate(true);
     m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
     m_poModel.dirLister()->setNameFilter("*.po *.pot *.xlf");
 
-    m_potModel.dirLister()->setAutoUpdate(true);
     m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
     m_potModel.dirLister()->setNameFilter("*.pot");
 
