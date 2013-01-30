@@ -117,16 +117,16 @@ Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filte
 <sect1 id="toolbars">
 <title>Toolbars</title>
 <para>
-You can add or remove actions in the toolbar using <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Toolbars...</guimenuitem></menuchoice> from the main menu.
+You can add or remove actions in the toolbars using <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Toolbars...</guimenuitem></menuchoice> from the main menu.
 </para>
 <screenshot>
-<screeninfo>Configure Toolbar</screeninfo>
+<screeninfo>Configure Toolbars</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="configure_toolbar.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Here you can configure the toolbar.</phrase>
+      <phrase>Here you can configure the toolbars.</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
