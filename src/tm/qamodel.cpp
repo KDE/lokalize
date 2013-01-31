@@ -1,6 +1,6 @@
 /*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) 2011-2012  nick <shafff@ukr.net>
+    This file is part of Lokalize
+    Copyright (C) 2011-2012  Nick Shaforostoff <shafff@ukr.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

@@ -77,7 +77,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole)
     {
-        static QMap<QString,QIcon> iconCache;
+        static QMap<QString,QVariant> iconCache;
 
         QString langCode=stringList().at(index.row());
         if (!iconCache.contains(langCode))

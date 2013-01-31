@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -220,10 +220,10 @@ private:
 
     ProjectNode m_rootNode;
 
-    KIcon m_dirIcon;
-    KIcon m_poIcon;
-    KIcon m_poComplIcon;
-    KIcon m_potIcon;
+    QVariant m_dirIcon;
+    QVariant m_poIcon;
+    QVariant m_poComplIcon;
+    QVariant m_potIcon;
 
     //for updating stats
     QSet<ProjectNode *> m_dirsWaitingForMetadata;

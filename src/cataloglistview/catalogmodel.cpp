@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -35,11 +35,27 @@
 
 #define DYNAMICFILTER_LIMIT 256
 
+QVector<QVariant> CatalogTreeModel::m_fonts;
+
+
 CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
  : QAbstractItemModel(parent)
  , m_catalog(catalog)
  , m_ignoreAccel(true)
 {
+    if (m_fonts.isEmpty())
+    {
+        QVector<QFont> fonts(4, QApplication::font());
+        fonts[1].setItalic(true); //fuzzy
+
+        fonts[2].setBold(true);   //modified
+
+        fonts[3].setItalic(true); //fuzzy
+        fonts[3].setBold(true);   //modified
+
+        m_fonts.reserve(4);
+        for(int i=0;i<4;i++) m_fonts<<fonts.at(i);
+    }
     connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(reflectChanges(DocPosition)));
     connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
 }
@@ -123,13 +139,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     {
         bool fuzzy=!m_catalog->isApproved(index.row());
         bool modified=m_catalog->isModified(index.row());
-        if (fuzzy || modified)
-        {
-            QFont font=QApplication::font();
-            font.setItalic(fuzzy);
-            font.setBold(modified);
-            return font;
-        }
+        return m_fonts.at(fuzzy*1 | modified*2);
     }
     else if (role==Qt::ForegroundRole)
     {
