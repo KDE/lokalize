@@ -39,7 +39,7 @@
       <bool>false</bool>
      </property>
      <property name="buddy">
-      <cstring>kcfg_Email</cstring>
+      <cstring>kcfg_authorEmail</cstring>
      </property>
     </widget>
    </item>
@@ -52,7 +52,7 @@
       <bool>false</bool>
      </property>
      <property name="buddy">
-      <cstring>nameEdit</cstring>
+      <cstring>kcfg_authorName</cstring>
      </property>
     </widget>
    </item>
