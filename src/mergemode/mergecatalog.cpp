@@ -318,6 +318,9 @@ void MergeCatalog::copyToBaseCatalog(int options)
             {
                 if (!insHappened)
                 {
+                    //stop basecatalog from sending signalEntryModified to us
+                    //when we are the ones who does the modification
+                    disconnect (m_baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
                     insHappened=true;
                     m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept all new translations"));
                 }
@@ -335,7 +338,11 @@ void MergeCatalog::copyToBaseCatalog(int options)
     }
 
     if (insHappened)
+    {
         m_baseCatalog->endMacro();
+        //reconnect to catch all modifications coming from outside
+        connect (m_baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
+    }
 }
 
 #include "mergecatalog.moc"
