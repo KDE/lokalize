@@ -25,6 +25,7 @@
 #define MERGEVIEW_H
 
 #include "pos.h"
+#include "mergecatalog.h"
 
 #include <kurl.h>
 
@@ -81,6 +82,8 @@ signals:
     void signalEntryWithMergeDisplayed(bool);
 
     void gotoEntry(const DocPosition&,int);
+
+    void mergeCatalogPointerChanged(MergeCatalog* mergeCatalog);
 
 private:
     KTextEdit* m_browser;

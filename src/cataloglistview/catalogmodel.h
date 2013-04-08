@@ -24,6 +24,7 @@
 #ifndef CATALOGMODEL_H
 #define CATALOGMODEL_H
 
+#include "mergecatalog.h"
 #include "pos.h"
 
 #include <QAbstractItemModel>
@@ -101,28 +102,34 @@ public:
     {
         CaseInsensitive=1<<0,
         IgnoreAccel=1<<1,
+
         Ready=1<<2,
         NotReady=1<<3,
         NonEmpty=1<<4,
         Empty=1<<5,
         Modified=1<<6,
         NonModified=1<<7,
-        New=1<<8,
-        NeedsTranslation=1<<9,
-        NeedsL10n=1<<10,
-        NeedsAdaptation=1<<11,
-        Translated=1<<12,
-        NeedsReviewTranslation=1<<13,
-        NeedsReviewL10n=1<<14,
-        NeedsReviewAdaptation=1<<15,
-        Final=1<<16,
-        SignedOff=1<<17,
-        MaxOption=1<<18,
+        SameInSync=1<<8,
+        DifferentInSync=1<<9,
+        NotInSync=1<<10,
+        
+        //states (see defines below)
+        New=1<<11,
+        NeedsTranslation=1<<12,
+        NeedsL10n=1<<13,
+        NeedsAdaptation=1<<14,
+        Translated=1<<15,
+        NeedsReviewTranslation=1<<16,
+        NeedsReviewL10n=1<<17,
+        NeedsReviewAdaptation=1<<18,
+        Final=1<<19,
+        SignedOff=1<<20,
+        MaxOption=1<<21,
         AllStates=MaxOption-1
     };
 
-#define STATES ((0xffff<<8)&(AllStates))
-#define FIRSTSTATEPOSITION 8
+#define STATES ((0xffff<<11)&(AllStates))
+#define FIRSTSTATEPOSITION 11
 
 
     CatalogTreeFilterModel(QObject* parent);
@@ -138,13 +145,16 @@ public:
     bool individualRejectFilterEnabled(){return m_individualRejectFilterEnable;}
     void setEntryFilteredOut(int entry, bool filteredOut);
 
+    void setMergeCatalogPointer(MergeCatalog* pointer);
+
 public slots:
     void setEntriesFilteredOut(bool filteredOut=false);
 
 private:
     int m_filerOptions;
     bool m_individualRejectFilterEnable;
-    QVector<bool> m_individualRejectFilter;
+    QVector<bool> m_individualRejectFilter; //used from kross scripts
+    MergeCatalog* m_mergeCatalog;
 };
 
 

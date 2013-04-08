@@ -25,6 +25,7 @@
 #define CATALOGLISTVIEW_H
 
 #include "pos.h"
+#include "mergecatalog.h"
 
 #include <QDockWidget>
 class QTreeView;
@@ -59,6 +60,7 @@ public slots:
     void setEntriesFilteredOut(bool filteredOut=false);
     void setFocus();
     void reset();
+    void setMergeCatalogPointer(MergeCatalog* pointer);
 
 signals:
     void gotoEntry(const DocPosition&, int selection);

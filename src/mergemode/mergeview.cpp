@@ -71,6 +71,7 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
 MergeView::~MergeView()
 {
     delete m_mergeCatalog;
+    emit mergeCatalogPointerChanged(NULL);
 }
 
 KUrl MergeView::url()
@@ -173,7 +174,9 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 
 void MergeView::cleanup()
 {
-    delete m_mergeCatalog;m_mergeCatalog=0;
+    delete m_mergeCatalog;
+    m_mergeCatalog=0;
+    emit mergeCatalogPointerChanged(m_mergeCatalog);
     m_pos=DocPosition();
 
     emit signalPriorChangedAvailable(false);
@@ -215,7 +218,9 @@ void MergeView::mergeOpen(KUrl url)
     if (url.isEmpty())
         return;
 
-    delete m_mergeCatalog; m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
+    delete m_mergeCatalog;
+    m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
+    emit mergeCatalogPointerChanged(m_mergeCatalog);
     int errorLine=m_mergeCatalog->loadFromUrl(url);
     if (KDE_ISLIKELY( errorLine==0 ))
     {

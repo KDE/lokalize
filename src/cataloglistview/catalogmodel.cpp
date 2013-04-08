@@ -209,6 +209,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
  : QSortFilterProxyModel(parent)
  , m_filerOptions(AllStates)
  , m_individualRejectFilterEnable(false)
+ , m_mergeCatalog(NULL)
 {
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -267,7 +268,27 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         accepts=(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
     }
 
-    if (accepts&&((filerOptions&STATES)!=STATES))
+    // These are the possible sync options of a row:
+    // * SameInSync: The sync file contains a row with the same msgid and the same msgstr.
+    // * DifferentInSync: The sync file contains a row with the same msgid and different msgstr.
+    // * NotInSync: The sync file does not contain any row with the same msgid.
+    //
+    // The code below takes care of filtering rows when any of those options is not checked.
+    //
+    const int mask=(SameInSync|DifferentInSync|NotInSync);
+    if (accepts && m_mergeCatalog && (filerOptions&mask) && (filerOptions&mask)!=mask)
+    {
+        bool isPresent = m_mergeCatalog->isPresent(source_row);
+        bool isDifferent = m_mergeCatalog->isDifferent(source_row);
+
+        accepts = !
+           (  isPresent && !isDifferent && !bool(filerOptions&SameInSync)      ||
+              isPresent &&  isDifferent && !bool(filerOptions&DifferentInSync) ||
+             !isPresent &&                 !bool(filerOptions&NotInSync)
+           );
+    }
+
+    if (accepts && (filerOptions&STATES)!=STATES)
     {
         int state=sourceModel()->index(source_row,CatalogTreeModel::State,source_parent).data(Qt::UserRole).toInt();
         accepts=(filerOptions&(1<<(state+FIRSTSTATEPOSITION)));
@@ -276,4 +297,9 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     accepts=accepts&&!(m_individualRejectFilterEnable && source_row<m_individualRejectFilter.size() && m_individualRejectFilter.at(source_row));
 
     return accepts&&QSortFilterProxyModel::filterAcceptsRow(source_row,source_parent);
+}
+
+void CatalogTreeFilterModel::setMergeCatalogPointer(MergeCatalog* pointer)
+{
+    m_mergeCatalog = pointer;
 }

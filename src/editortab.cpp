@@ -275,6 +275,8 @@ void EditorTab::setupActions()
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_transUnitsView,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_transUnitsView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
     connect (m_transUnitsView,SIGNAL(escaped()),this,SLOT(setProperFocus()));
+    connect (m_syncView,SIGNAL(mergeCatalogPointerChanged(MergeCatalog*)),
+             m_transUnitsView, SLOT(setMergeCatalogPointer(MergeCatalog*)));
 
     m_notesView = new MsgCtxtView(this,m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);

@@ -199,7 +199,10 @@ void CatalogView::fillFilterOptionsMenu()
                                  I18N_NOOP("Non-empty"),
                                  I18N_NOOP("Empty"),
                                  I18N_NOOP("Changed since file open"),
-                                 I18N_NOOP("Unchanged since file open")
+                                 I18N_NOOP("Unchanged since file open"),
+                                 I18N_NOOP("Same in sync file"),
+                                 I18N_NOOP("Different in sync file"),
+                                 I18N_NOOP("Not in sync file")
                                  };
     const char* const* extTitles=Catalog::states();
     const char* const* alltitles[2]={basicTitles,extTitles};
@@ -218,7 +221,7 @@ void CatalogView::fillFilterOptionsMenu()
         txt->setData(1<<i);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filerOptions()&(1<<i));
-        if ((1<<i)==CatalogTreeFilterModel::CaseInsensitive)
+        if ((1<<i)==CatalogTreeFilterModel::IgnoreAccel)
             basicMenu->addSeparator();
     }
     if (!extStates)
@@ -241,6 +244,11 @@ void CatalogView::reset()
     m_lineEdit->clear();
     //emit gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
     slotItemActivated(m_browser->currentIndex());
+}
+
+void CatalogView::setMergeCatalogPointer(MergeCatalog* pointer)
+{
+    m_proxyModel->setMergeCatalogPointer(pointer);
 }
 
 int CatalogView::siblingEntry(int step)
