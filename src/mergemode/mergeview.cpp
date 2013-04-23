@@ -54,7 +54,6 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     , m_hasInfoTitle(m_normTitle+" [*]")
     , m_hasInfo(false)
     , m_primary(primary)
-
 {
     setObjectName(primary?"mergeView-primary":"mergeView-secondary");
     setWidget(m_browser);

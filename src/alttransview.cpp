@@ -133,6 +133,8 @@ void AltTransView::fileLoaded()
     QFileInfo info(Project::instance()->altTransDir()+'/'+relPath);
     if (info.canonicalFilePath()!=absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
+    else
+        qWarning()<<"alt trans file doesn't exist:"<<info.canonicalFilePath();
 }
 
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
