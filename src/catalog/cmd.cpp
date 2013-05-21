@@ -369,9 +369,13 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
     if (delLen==-1)
         delLen=target.length()-delStart;
 
+    bool doTags=catalog->capabilities()&Tags;
     QMap<int,int> tagPlaces;
-    if (target.isEmpty() || !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
+    if (target.isEmpty() || doTags && !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
+    {
+        kWarning()<<"error removing text"<<target;
         return false;
+    }
 
     catalog->beginMacro(i18nc("@item Undo action item","Remove text with markup"));
 
@@ -455,6 +459,12 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
                 catalog->push(new InsTagCmd(catalog,pos,tag));
             }
         }
+        else
+        {
+            //HACK to keep positions in sync
+            pos.offset=start+i;
+            catalog->push(new InsTextCmd(catalog,pos," "));
+        }            
         prev=++i;
     }
     pos.offset=start+prev;

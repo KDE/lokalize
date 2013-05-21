@@ -29,7 +29,8 @@ enum CatalogCapabilities
     KeepsNoteAuthors=1,
     MultipleNotes=2,
     Phases=4,
-    ExtendedStates=8
+    ExtendedStates=8,
+    Tags=16
 };
 
 #endif
