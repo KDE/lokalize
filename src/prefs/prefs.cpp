@@ -199,7 +199,7 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
     {
         Project::instance()->model()->weaver()->suspend();
         path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
-                                          "*.lokalize *.ktp|lokalize translation project"/*"text/x-lokalize-project"*/,
+                                          i18n("*.lokalize *.ktp|Lokalize translation project")/*"text/x-lokalize-project"*/,
                                           m_mainWindowPtr);
         Project::instance()->model()->weaver()->resume();
     }
