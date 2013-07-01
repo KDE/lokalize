@@ -330,7 +330,6 @@ void EditorTab::setupActions()
             Qt::Key_E,
             Qt::Key_H,
         //                         Qt::Key_G,
-            Qt::Key_H,          //help
         //                         Qt::Key_I,
         //                         Qt::Key_J,
         //                         Qt::Key_K,
