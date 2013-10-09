@@ -45,7 +45,6 @@
 #include <QMdiArea>
 
 #include <QKeyEvent>
-#include <QTreeView>
 
 class CatalogTreeView: public QTreeView
 {

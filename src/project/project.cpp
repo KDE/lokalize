@@ -154,7 +154,7 @@ void Project::load(const QString &newProjectPath)
 
     //put 'em into thread?
     //QTimer::singleShot(0,this,SLOT(populateGlossary()));
-    populateGlossary();//we cant postpone it becase project load can be called from define new term function
+    populateGlossary();//we cant postpone it because project load can be called from define new term function
 
     if (newProjectPath.isEmpty())
         return;

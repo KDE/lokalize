@@ -42,7 +42,6 @@
 #include <QStyledItemDelegate>
 #include <QStringBuilder>
 #include <QTextDocument>
-#include <QStringBuilder>
 
 #include <KColorScheme>
 #include <kactioncategory.h>
