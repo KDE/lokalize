@@ -46,7 +46,7 @@
  * this data was obtained by running GNUPluralForms()
  * on all languages KDE knows of
 **/
-#define NUM_LANG_WITH_INFO 40
+#define NUM_LANG_WITH_INFO 41
 static const char* langsWithPInfo[NUM_LANG_WITH_INFO]={
 "ar",
 "cs",
@@ -87,7 +87,8 @@ static const char* langsWithPInfo[NUM_LANG_WITH_INFO]={
 "th",
 "tr",
 "uk",
-"vi"
+"vi",
+"zh_CN"
 // '\0'
 };
 
@@ -131,6 +132,7 @@ static const char* pInfo[NUM_LANG_WITH_INFO]={
 "nplurals=1; plural=0;",
 "nplurals=2; plural=(n > 1);",
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
+"nplurals=1; plural=0;",
 "nplurals=1; plural=0;"
 };
 
