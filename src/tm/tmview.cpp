@@ -475,7 +475,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         html+=(entry.score>9500)?"<p class='close_match'>":"<p>";
         //kDebug()<<entry.target.string<<entry.hits;
 
-        html+=QString("/%1%/ ").arg(float(entry.score)/100);
+        html+=QString("/%1%/ ").arg(entry.score > 10000 ? 100: float(entry.score)/100);
 
         //int sourceStartPos=cur.position();
         QString result=Qt::escape(entry.diff);
