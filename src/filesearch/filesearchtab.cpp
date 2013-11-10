@@ -789,12 +789,13 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
 
     m_model->appendSearchResults(searchResults);
 */
-    m_model->appendSearchResults(j->results);
+    if (j->results.size())
+    {
+        m_model->appendSearchResults(j->results);
+        m_searchFileListView->scrollTo(j->results.last().filepath);
+    }
 
     statusBarItems.insert(1,i18nc("@info:status message entries","Total: %1", m_model->rowCount()));
-    if (j->results.size())
-        m_searchFileListView->scrollTo(j->results.last().filepath);
-
     //ui_fileSearchOptions->treeView->setFocus();
 }
 
