@@ -170,7 +170,12 @@ void TranslationUnitTextEdit::fileLoaded()
     QString langCode=m_part==DocPosition::Source? m_catalog->sourceLangCode():m_catalog->targetLangCode();
 
     QLocale langLocale(langCode);
+    // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
+    // If that fails, try to use the language code directly
+    if (m_highlighter->currentLanguage().isEmpty()) {
+        m_highlighter->setCurrentLanguage(langCode);
+    }
 
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
