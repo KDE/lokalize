@@ -81,7 +81,7 @@ void TermLabel::insert()
             return;
         termTrans=txt->text();
     }
-    else
+    else if (termTarget.count() == 1)
         termTrans=termTarget.first();
 
     if (m_capFirst && !termTrans.isEmpty())
