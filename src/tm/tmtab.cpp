@@ -468,12 +468,9 @@ TMTab::TMTab(QWidget *parent)
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
-    QPersistentModelIndex* pi=DBFilesModel::instance()->projectDBIndex();
-    if (pi)
-    {
-        ui_queryOptions->dbName->setCurrentIndex(pi->row());
-        ui_queryOptions->dbName->view()->setCurrentIndex(*pi);
-    }
+    int pos=ui_queryOptions->dbName->findText(Project::instance()->projectID());
+    if (pos>=0)
+        ui_queryOptions->dbName->setCurrentIndex(pos);
     connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
     //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
