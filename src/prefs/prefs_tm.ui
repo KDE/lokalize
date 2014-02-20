@@ -55,7 +55,7 @@
       <string>Set the maximum number of suggestions</string>
      </property>
      <property name="whatsThis" >
-      <string>You can change the maximum number of suggestions, default is 10.</string>
+      <string>You can change the maximum number of suggestions, default is 7.</string>
      </property>
     </widget>
    </item>
