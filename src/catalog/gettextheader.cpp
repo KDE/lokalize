@@ -454,8 +454,11 @@ void updateHeader(QString& header,
         //kDebug()<<"generating GNUPluralForms"<<langCode;
         QString t= GNUPluralForms(langCode);
         //kDebug()<<"here it is:";
-        if ( !t.isEmpty() )
-            headerList.append(QString("Plural-Forms: %1\\n").arg(t));
+        if ( !t.isEmpty() ) {
+            const QString pluralFormLine=QString("Plural-Forms: %1\\n").arg(t);
+            headerList.append(pluralFormLine);
+            numberOfPluralForms=numberOfPluralFormsFromHeader(pluralFormLine);
+        }
     }
 
     temp="X-Generator: Lokalize %1\\n";
