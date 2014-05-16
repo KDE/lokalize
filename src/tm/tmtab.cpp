@@ -45,7 +45,6 @@
 
 #include <KColorScheme>
 #include <kactioncategory.h>
-#include <kaction.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
@@ -490,7 +489,7 @@ TMTab::TMTab(QWidget *parent)
     dbusObjectPath();
 
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);
 
@@ -545,7 +544,7 @@ void TMTab::handleResults()
     int rowCount=m_model->rowCount();
     if (rowCount==0)
     {
-        kDebug()<<"m_model->rowCount()==0";
+        qDebug()<<"m_model->rowCount()==0";
         //try harder
         if(m_partToAlsoTryLater!=DocPosition::UndefPart)
         {
@@ -574,7 +573,7 @@ void TMTab::handleResults()
             return performQuery();
         }
     }
-    kDebug()<<"=DocPosition::UndefPart";
+    qDebug()<<"=DocPosition::UndefPart";
     m_partToAlsoTryLater=DocPosition::UndefPart;
     
     ui_queryOptions->treeView->setFocus();
@@ -747,7 +746,7 @@ void TMTab::lookup(QString source, QString target)
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
     //std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
-    kWarning()<<package<<text;
+    qWarning()<<package<<text;
     KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
     static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};
     QTextCodec* latin1=QTextCodec::codecForMib(4);

@@ -31,14 +31,14 @@
 #include <QDockWidget>
 namespace TM{class TextBrowser;}
 class Catalog;
-class KAction;
+class QAction;
 
 class AltTransView: public QDockWidget
 {
     Q_OBJECT
 
 public:
-    AltTransView(QWidget*,Catalog*,const QVector<KAction*>&);
+    AltTransView(QWidget*,Catalog*,const QVector<QAction*>&);
     ~AltTransView();
 
 
@@ -76,7 +76,7 @@ private:
 
     QVector<AltTrans> m_entries;
     QMap<int, int> m_entryPositions;
-    QVector<KAction*> m_actions;//need them to get shortcuts
+    QVector<QAction*> m_actions;//need them to get shortcuts
 };
 
 #endif

@@ -111,7 +111,7 @@ set(lokalize_SRCS
     catalog/ts/tsstorage.cpp
 )
 
-kde4_add_ui_files(lokalize_SRCS
+qt5_wrap_ui(lokalize_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_editor.ui
     prefs/prefs_appearance.ui
@@ -130,33 +130,40 @@ kde4_add_ui_files(lokalize_SRCS
     tools/widgettextcaptureconfig.ui
 )
 
-kde4_add_kcfg_files(lokalize_SRCS
+kconfig_add_kcfg_files(lokalize_SRCS
     prefs/prefs_lokalize.kcfgc
     project/projectbase.kcfgc
     project/projectlocal.kcfgc
 )
 
 #qt4_add_dbus_interface(lokalize_SRCS org.kde.lokalize.MainWindow.xml lokainterface)
-qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
+qt5_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
-qt4_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
+qt5_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
                      editortab.h EditorTab)
-qt4_add_dbus_adaptor(lokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
+qt5_add_dbus_adaptor(lokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
                      filesearch/filesearchtab.h FileSearchTab)
-qt4_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
+qt5_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmtab.h TM::TMTab)
-qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
+qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
                      project/project.h Project)
-qt4_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
+qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
                      project/projecttab.h ProjectTab)
 
 
 
-kde4_add_app_icon(lokalize_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-lokalize.png")
+#kde4_add_app_icon(lokalize_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-lokalize.png")
 
-kde4_add_executable(lokalize ${lokalize_SRCS})
+add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
+#KF5::KDELibs4Support
+#KF5::SonnetCore
+#KF5::SonnetUi
+#KF5::ThreadWeaver
+#KF5::KrossCore
+#KF5::KrossUi
+
     ${KDE4_KPARTS_LIBS}
     ${KDE4_KROSSCORE_LIBS}
     ${KDE4_KROSSUI_LIBS}

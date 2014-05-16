@@ -66,8 +66,8 @@
 #endif
 
 
+#include <kdemacros.h>
 #include <kio/netaccess.h>
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
@@ -77,7 +77,6 @@
 #include <kactioncategory.h>
 
 #include <kinputdialog.h>
-
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <ktabbar.h>
@@ -204,7 +203,7 @@ void EditorTab::setupActions()
 
     setXMLFile("editorui.rc");
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* actionCategory;
 
@@ -222,7 +221,7 @@ void EditorTab::setupActions()
 //BEGIN dockwidgets
     int i=0;
 
-    QVector<KAction*> altactions(ALTTRANS_SHORTCUTS);
+    QVector<QAction*> altactions(ALTTRANS_SHORTCUTS);
     Qt::Key altlist[ALTTRANS_SHORTCUTS]=
         {
             Qt::Key_1,
@@ -235,7 +234,7 @@ void EditorTab::setupActions()
             Qt::Key_8,
             Qt::Key_9
         };
-    KAction* altaction;
+    QAction* altaction;
     for (i=0;i<ALTTRANS_SHORTCUTS;++i)
     {
         altaction=tm->addAction(QString("alttrans_insert_%1").arg(i));
@@ -290,7 +289,7 @@ void EditorTab::setupActions()
     //action->setShortcut(Qt::CTRL+glist[i]);
     action->setText(i18nc("@action:inmenu","Add a note"));
 
-    QVector<KAction*> tmactions(TM_SHORTCUTS);
+    QVector<QAction*> tmactions(TM_SHORTCUTS);
     Qt::Key tmlist[TM_SHORTCUTS]=
         {
             Qt::Key_1,
@@ -304,7 +303,7 @@ void EditorTab::setupActions()
             Qt::Key_9,
             Qt::Key_0
         };
-    KAction* tmaction;
+    QAction* tmaction;
     for (i=0;i<TM_SHORTCUTS;++i)
     {
 //         action->setVisible(false);
@@ -324,7 +323,7 @@ void EditorTab::setupActions()
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalog,SLOT(flushUpdateDBBuffer()));
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition))); //do this after flushUpdateDBBuffer
 
-    QVector<KAction*> gactions(GLOSSARY_SHORTCUTS);
+    QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]=
         {
             Qt::Key_E,
@@ -349,7 +348,7 @@ void EditorTab::setupActions()
             Qt::Key_Semicolon,
             Qt::Key_Apostrophe
         };
-    KAction* gaction;
+    QAction* gaction;
 //     int i=0;
     for (i=0;i<GLOSSARY_SHORTCUTS;++i)
     {
@@ -380,7 +379,7 @@ void EditorTab::setupActions()
 
 //#ifdef WEBQUERY_ENABLE
 #if 0
-    QVector<KAction*> wqactions(WEBQUERY_SHORTCUTS);
+    QVector<QAction*> wqactions(WEBQUERY_SHORTCUTS);
     Qt::Key wqlist[WEBQUERY_SHORTCUTS]=
         {
             Qt::Key_1,
@@ -394,7 +393,7 @@ void EditorTab::setupActions()
             Qt::Key_9,
             Qt::Key_0,
         };
-    KAction* wqaction;
+    QAction* wqaction;
     for (i=0;i<WEBQUERY_SHORTCUTS;++i)
     {
 //         action->setVisible(false);

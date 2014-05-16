@@ -32,6 +32,7 @@
 #include <kstringhandler.h>
 #include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
+#include <kdemacros.h>
 
 #include <QTreeView>
 #include <QTimer>
@@ -42,6 +43,7 @@
 #include <QHeaderView>
 #include <QItemDelegate>
 #include <QStyledItemDelegate>
+#include <QCollator>
 
 #undef KDE_NO_DEBUG_OUTPUT
 
@@ -175,6 +177,7 @@ bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& s
 bool SortFilterProxyModel::lessThan(const QModelIndex& left,
                                         const QModelIndex& right) const
 {
+    static QCollator collator;
 //     kWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
     //<<left.data().toString()<<right.data().toString()
     ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
@@ -222,7 +225,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
     switch(left.column()) {
     case ProjectModel::FileName:
-        return KStringHandler::naturalCompare(leftFileItem.name(), rightFileItem.name(), sortCaseSensitivity()) < 0;
+        return collator.compare(leftFileItem.name(), rightFileItem.name()) < 0;
     case ProjectModel::Graph:{
         QRect leftRect(left.data(Qt::DisplayRole).toRect());
         QRect rightRect(right.data(Qt::DisplayRole).toRect());
@@ -259,7 +262,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
     case ProjectModel::LastTranslator:
     case ProjectModel::SourceDate:
     case ProjectModel::TranslationDate:
-        return KStringHandler::naturalCompare(projectModel->data(left).toString(), projectModel->data(right).toString(), sortCaseSensitivity()) < 0;
+        return collator.compare(projectModel->data(left).toString(), projectModel->data(right).toString()) < 0;
     case ProjectModel::TotalCount:
     case ProjectModel::TranslatedCount:
     case ProjectModel::UntranslatedCount:

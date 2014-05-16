@@ -42,6 +42,7 @@
 
 #include <kreplacedialog.h>
 #include <kreplace.h>
+#include <kdemacros.h>
 
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/dialog.h>

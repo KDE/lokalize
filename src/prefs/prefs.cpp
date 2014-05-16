@@ -38,6 +38,7 @@
 #include "ui_prefs_project_local.h"
 
 
+#include <keditlistbox.h>
 #include <kconfigdialog.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -57,6 +58,7 @@
 #include <QBoxLayout>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QTimer>
 
 //#include <sonnet/configwidget.h>
 

@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -33,6 +33,7 @@
 #include "completionstorage.h"
 
 #include <kcompletionbox.h>
+#include <kdemacros.h>
 
 #include <QStringBuilder>
 #include <QPixmap>
@@ -108,38 +109,6 @@ bool MyCompletionBox::eventFilter(QObject* object, QEvent* event)
 }
 
 
-#if 1
-class XliffTextEditSpellInterface: public KTextEditSpellInterface
-{
-public:
-    XliffTextEditSpellInterface(SyntaxHighlighter* highlighter);
-    ~XliffTextEditSpellInterface(){};
-
-    bool isSpellCheckingEnabled() const {return m_enabled;}
-    void setSpellCheckingEnabled(bool enable);
-    bool shouldBlockBeSpellChecked(const QString &block) const{Q_UNUSED(block); return true;}
-private:
-    bool m_enabled;
-    SyntaxHighlighter* m_highlighter;
-};
-
-XliffTextEditSpellInterface::XliffTextEditSpellInterface(SyntaxHighlighter* highlighter)
-    : KTextEditSpellInterface()
-    , m_enabled(Settings::autoSpellcheck())
-    , m_highlighter(highlighter)
-{
-    m_highlighter->setActive(m_enabled);
-}
-
-void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
-{
-    Settings::setAutoSpellcheck(enable);
-    m_enabled=enable;
-    m_highlighter->setActive(enable);
-    SettingsController::instance()->dirty=true;
-}
-#endif
-
 TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
     , m_currentUnicodeNumber(0)
@@ -147,6 +116,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     , m_catalog(catalog)
     , m_part(part)
     , m_highlighter(new SyntaxHighlighter(this))
+    , m_enabled(Settings::autoSpellcheck())
     , m_completionBox(0)
 {
     setReadOnly(part==DocPosition::Source);
@@ -161,9 +131,18 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     connect (catalog,SIGNAL(signalFileLoaded()), this, SLOT(fileLoaded()));
     //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
 
-    setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
+    m_highlighter->setActive(m_enabled);
     setHighlighter(m_highlighter);
 }
+
+void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
+{
+    Settings::setAutoSpellcheck(enable);
+    m_enabled=enable;
+    m_highlighter->setActive(enable);
+    SettingsController::instance()->dirty=true;
+}
+
 
 void TranslationUnitTextEdit::fileLoaded()
 {
@@ -803,7 +782,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             if (m_completionBox->currentItem())
                 completionActivated(m_completionBox->currentItem()->text());
             else
-                kWarning()<<"avoided a crash. a case for bug 238835!";
+                qWarning()<<"avoided a crash. a case for bug 238835!";
             m_completionBox->hide();
             return;
         }
@@ -857,7 +836,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                 (keyEvent->key()==Qt::Key_Delete)
                 && textCursor().atEnd())
     {
-        kWarning()<<"workaround for Qt/X11 bug";
+        qWarning()<<"workaround for Qt/X11 bug";
         QTextCursor t=textCursor();
         if(!t.hasSelection())
         {
@@ -943,7 +922,7 @@ void TranslationUnitTextEdit::insertTag(InlineTag tag)
     QTextCursor cursor=textCursor();
     tag.start=qMin(cursor.anchor(),cursor.position());
     tag.end=qMax(cursor.anchor(),cursor.position())+tag.isPaired();
-    kWarning()<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
+    qDebug()<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
     m_catalog->push(new InsTagCmd(m_catalog,currentPos(),tag));
     showPos(currentPos(),CatalogString(),/*keepCursor*/true);
     cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1+tag.isPaired());
@@ -1015,7 +994,6 @@ void TranslationUnitTextEdit::contextMenuEvent(QContextMenuEvent *event)
             QAction* result=menu.exec(event->globalPos());
             if (result)
             {
-                kWarning()<<entry<<xid;
                 if (entry>=m_catalog->numberOfEntries())
                     emit binaryUnitSelectRequested(xid);
                 else
@@ -1333,14 +1311,13 @@ void TranslationUnitTextEdit::doCompletion(int pos)
     {
         m_completionBox->setCurrentRow(0);
         //qApp->removeEventFilter( m_completionBox );
-        if (!m_completionBox->isVisible()) //NOTE remove the ckeck if kdelibs gets adapted
+        if (!m_completionBox->isVisible()) //NOTE remove the check if kdelibs gets adapted
             m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
         m_completionBox->move(viewport()->mapToGlobal(cursorRect().bottomRight()));
     }
     else
         m_completionBox->hide();
-    kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
 }
 
 void TranslationUnitTextEdit::doExplicitCompletion()

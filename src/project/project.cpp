@@ -52,6 +52,7 @@
 #include <kmessagebox.h>
 
 #include <threadweaver/ThreadWeaver.h>
+#include <kdemacros.h>
 
 #include <QDBusArgument>
 
@@ -138,7 +139,7 @@ void Project::load(const QString &newProjectPath)
     m_projectDir=KUrl(m_path).directory();
 
     kDebug()<<"3...";
-    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
+    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,QStandardPaths::DataLocation));
     m_localConfig->readConfig();
 
     if (langCode().isEmpty())

@@ -29,6 +29,8 @@
 
 #include <QSet>
 
+#include "kdemacros.h"
+
 const char* const* processes()
 {
     static const char* const processes[]={"translation","review","approval"};

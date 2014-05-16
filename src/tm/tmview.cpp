@@ -39,8 +39,8 @@
 #include <ktextbrowser.h>
 #include <kglobalsettings.h>
 #include <kpassivepopup.h>
-#include <kaction.h>
 #include <kmessagebox.h>
+#include <kdemacros.h>
 
 #include <QTime>
 #include <QDragEnterEvent>
@@ -143,7 +143,7 @@ void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
 }
 
 
-TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<KAction*>& actions)
+TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
     , m_browser(new TextBrowser(this))
     , m_catalog(catalog)

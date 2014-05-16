@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize (some bits of KBabel code were reused)
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
 
@@ -57,6 +57,7 @@
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>
 
+#include <kdemacros.h>
 
 //parent is set on qsplitter insertion
 

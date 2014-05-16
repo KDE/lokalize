@@ -263,7 +263,7 @@ private:
     Catalog* m_catalog;
 
     EditorView* m_view;
-    KAction* m_approveAction;
+    QAction* m_approveAction;
 
     DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace

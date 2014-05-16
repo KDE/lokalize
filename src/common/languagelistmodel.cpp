@@ -66,7 +66,9 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
  , m_sortModel(new QSortFilterProxyModel(this))
 {
     if (type==EmptyLang) insertRows(rowCount(), 1);
+#if 0 //KDE5PORT
     KIconLoader::global()->addExtraDesktopThemes();
+#endif
     //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
     //kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);

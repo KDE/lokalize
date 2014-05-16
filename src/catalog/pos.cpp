@@ -34,6 +34,7 @@
 #include "catalog.h"
 
 #include <QDBusArgument>
+#include <kdemacros.h>
 
 bool switchPrev(Catalog*& catalog,DocPosition& pos,int parts)
 {

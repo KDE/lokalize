@@ -43,7 +43,7 @@ using namespace GlossaryNS;
 
 FlowLayout::FlowLayout(User user,
                        QWidget *signalingWidget,
-                       const QVector<KAction*>& actions,
+                       const QVector<QAction*>& actions,
                        int margin,
                        int spacing)
         : QLayout()
@@ -56,7 +56,7 @@ FlowLayout::FlowLayout(User user,
 
     if (user==glossary)
     {
-        foreach (KAction* action, actions)
+        foreach (QAction* action, actions)
         {
             TermLabel* label=new TermLabel(action); /*this,m_keys.at(count())*/
             connect(action,SIGNAL(triggered(bool)),label,SLOT(insert()));

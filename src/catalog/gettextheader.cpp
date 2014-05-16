@@ -34,6 +34,7 @@
 #include <QMap>
 #include <QTextCodec>
 
+#include <kdemacros.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
@@ -311,8 +312,10 @@ void updateHeader(QString& header,
     static KConfig* allLanguagesConfig=0;
     if (!allLanguagesConfig)
     {
+#if 0 //KDE5PORT
       allLanguagesConfig = new KConfig("all_languages", KConfig::NoGlobals, "locale");
       allLanguagesConfig->setLocale(QString());
+#endif
     }
     QRegExp langTeamRegExp("^ *Language-Team:.*");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )

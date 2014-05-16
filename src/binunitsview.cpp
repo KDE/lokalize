@@ -69,7 +69,6 @@ void BinUnitsModel::updateFile(QString path)
     int limit=m_catalog->numberOfEntries()+m_catalog->binUnitsCount();
     while (pos.entry<limit)
     {
-        kWarning()<<m_catalog->target(pos);
         if (m_catalog->target(pos)==relPath || m_catalog->source(pos)==relPath)
         {
             int row=pos.entry-m_catalog->numberOfEntries();

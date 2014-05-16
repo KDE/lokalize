@@ -36,6 +36,7 @@
 #include "catalogitem.h"
 #include "catalogitem_private.h"
 
+#include <kdemacros.h>
 #include <kdebug.h>
 #include <QMutexLocker>
 

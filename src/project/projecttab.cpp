@@ -28,7 +28,6 @@
 #include "prefs.h"
 
 #include <klocale.h>
-#include <kaction.h>
 #include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
@@ -127,7 +126,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
 
     setCentralWidget(baseWidget);
-
+#if 0 //KDE5PORT
     KHBox *progressBox = new KHBox();
     KStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
 
@@ -137,6 +136,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     progressBox->setMaximumWidth(200);
     progressBox->setMaximumHeight(statusBar->sizeHint().height() - 4);
     statusBar->insertWidget(ID_STATUS_PROGRESS, progressBox, 1);
+#endif
 
     setXMLFile("projectmanagerui.rc",true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
@@ -147,7 +147,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     action->setShortcut(QKeySequence( _shortcut ));\
     action->setIcon(KIcon(_icon));
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* nav=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
 

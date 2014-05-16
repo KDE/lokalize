@@ -54,7 +54,6 @@
 
 
 #include <kio/netaccess.h>
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <kactioncategory.h>
 #include <kstandardaction.h>
@@ -108,13 +107,14 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
     showProjectOverview();
 
+#if 0 //KDE5PORT
     QString tmp=" ";
     statusBar()->insertItem(tmp,ID_STATUS_CURRENT);
     statusBar()->insertItem(tmp,ID_STATUS_TOTAL);
     statusBar()->insertItem(tmp,ID_STATUS_FUZZY);
     statusBar()->insertItem(tmp,ID_STATUS_UNTRANS);
     statusBar()->insertItem(tmp,ID_STATUS_ISFUZZY);
-
+#endif
 
 
 
@@ -229,7 +229,9 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     }
 
     editor->showDocks();
+#if 0 //KDE5PORT
     editor->statusBarItems.registerStatusBar(statusBar());
+#endif
     guiFactory()->addClient(  editor->guiClient()   );
 
     m_prevSubWindow=w;
@@ -455,7 +457,7 @@ void LokalizeMainWindow::setupActions()
 
     setStandardToolBarMenuEnabled(true);
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* actionCategory;
     KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);
@@ -1033,6 +1035,3 @@ void DelayedFileOpener::doOpen()
 
 
 #include "lokalizemainwindow.moc"
- //these have to be included somewhere ;)
-#include "lokalizesubwindowbase.moc"
-#include "multieditoradaptor.moc"

@@ -57,7 +57,7 @@
 
 using namespace GlossaryNS;
 
-GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
+GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)
         , m_browser(new QScrollArea(this))
         , m_catalog(catalog)

@@ -47,7 +47,7 @@ class GlossaryView: public QDockWidget
     Q_OBJECT
 
 public:
-    GlossaryView(QWidget*,Catalog*,const QVector<KAction*>&);
+    GlossaryView(QWidget*,Catalog*,const QVector<QAction*>&);
     ~GlossaryView();
 
 

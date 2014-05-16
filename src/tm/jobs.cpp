@@ -32,6 +32,7 @@
 
 #include "stemming.h"
 
+#include <kdemacros.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <threadweaver/ThreadWeaver.h>

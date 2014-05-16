@@ -74,7 +74,7 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
     }
     while (switchNext(catalog,pos));
 
-    kDebug()<<"indexed"<<catalog->url()<<"for word completion in"<<a.elapsed()<<"msecs";
+    qWarning()<<"indexed"<<catalog->url()<<"for word completion in"<<a.elapsed()<<"msecs";
 }
 
 QStringList CompletionStorage::makeCompletion(const QString& word) const

@@ -37,15 +37,15 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <kaction.h>
+#include <kdemacros.h>
 
 #include <QSignalMapper>
-//#include <QTime>
 #include <QFileInfo>
 #include <QToolTip>
+#include <QAction>
 
 
-AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<KAction*>& actions)
+AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Alternate Translations"), parent)
     , m_browser(new TM::TextBrowser(this))
     , m_catalog(catalog)

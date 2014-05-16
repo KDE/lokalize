@@ -61,7 +61,7 @@
 
 using namespace Kross;
 
-WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
+WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18n("Web Queries"), parent)
         , m_catalog(catalog)
         , m_splitter(new QSplitter(this))

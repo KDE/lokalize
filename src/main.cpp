@@ -42,6 +42,7 @@
 
 #include <kapplication.h>
 #include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
 
@@ -57,9 +58,24 @@ static const char description[] =
 
 int main(int argc, char **argv)
 {
-    KAboutData about("lokalize", 0, ki18nc("@title", "Lokalize"), version, ki18n(description),
-                     KAboutData::License_GPL, ki18nc("@info:credit", "(c) 2007-2013 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
-    about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shaforostoff@kde.ru" );
+#if 0
+    KAboutData about(QStringLiteral("lokalize"), QStringLiteral("Lokalize"), QString::fromLatin1(version), ki18n(description).toString(),
+                     KAboutLicense::GPL, ki18nc("@info:credit", "(c) 2007-2014 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers").toString() /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
+    about.addAuthor( ki18n("Nick Shaforostoff").toString(), QString(), "shaforostoff@gmail.com" );
+    about.addCredit (ki18n("Google Inc.").toString(), ki18n("sponsored development as part of Google Summer Of Code program").toString(), QByteArray(), "http://google.com");
+    about.addCredit (ki18n("Translate-toolkit").toString(), ki18n("provided excellent cross-format converting scripts").toString(), QByteArray(), "http://translate.sourceforge.net");
+    about.addCredit (ki18n("Viesturs Zarins").toString(), ki18n("project tree merging translation+templates").toString(), "viesturs.zarins@mii.lu.lv", QByteArray());
+    about.addCredit (ki18n("Stephan Johach").toString(), ki18n("bug fixing patches").toString(), "hunsum@gmx.de");
+    about.addCredit (ki18n("Chusslove Illich").toString(), ki18n("bug fixing patches").toString(), "caslav.ilic@gmx.net");
+    about.addCredit (ki18n("Jure Repinc").toString(), ki18n("testing and bug fixing").toString(), "jlp@holodeck1.com");
+    about.addCredit (ki18n("Stefan Asserhall").toString(), ki18n("patches").toString(), "stefan.asserhall@comhem.se");
+    about.addCredit (ki18n("Papp Laszlo").toString(), ki18n("bug fixing patches").toString(), "djszapi@archlinux.us");
+    about.addCredit (ki18n("Albert Astals Cid").toString(), ki18n("XLIFF improvements").toString(), "aacid@kde.org");
+#endif
+
+    K4AboutData about("lokalize", 0, ki18nc("@title", "Lokalize"), version, ki18n(description),
+                     K4AboutData::License_GPL, ki18nc("@info:credit", "(c) 2007-2013 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
+    about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shaforostoff@gmail.com" );
     about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
     about.addCredit (ki18n("Translate-toolkit"), ki18n("provided excellent cross-format converting scripts"), QByteArray(), "http://translate.sourceforge.net");
     about.addCredit (ki18n("Viesturs Zarins"), ki18n("project tree merging translation+templates"), "viesturs.zarins@mii.lu.lv", QByteArray());
@@ -69,6 +85,7 @@ int main(int argc, char **argv)
     about.addCredit (ki18n("Stefan Asserhall"), ki18n("patches"), "stefan.asserhall@comhem.se");
     about.addCredit (ki18n("Papp Laszlo"), ki18n("bug fixing patches"), "djszapi@archlinux.us");
     about.addCredit (ki18n("Albert Astals Cid"), ki18n("XLIFF improvements"), "aacid@kde.org");
+
 
     KCmdLineArgs::init(argc, argv, &about);
 

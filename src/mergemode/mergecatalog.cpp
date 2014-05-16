@@ -26,6 +26,7 @@
 #include "catalogstorage.h"
 #include "cmd.h"
 #include <kdebug.h>
+#include <kdemacros.h>
 #include <klocalizedstring.h>
 #include <QMultiHash>
 #include <QtAlgorithms>

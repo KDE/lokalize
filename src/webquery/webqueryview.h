@@ -60,7 +60,7 @@ class WebQueryView: public QDockWidget
     Q_OBJECT
 
 public:
-    WebQueryView(QWidget*,Catalog*,const QVector<KAction*>&);
+    WebQueryView(QWidget*,Catalog*,const QVector<QAction*>&);
     virtual ~WebQueryView();
 
 
@@ -90,7 +90,7 @@ private:
 //     FlowLayout *m_flowLayout;
     Ui_QueryControl* ui_queryControl;
 
-    QVector<KAction*> m_actions;//need them to get shortcuts
+    QVector<QAction*> m_actions;//need them to get shortcuts
     QVector<QString> m_suggestions;
 
 //     int m_entry; we'll use one from ui_queryControl

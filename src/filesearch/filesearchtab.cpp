@@ -51,7 +51,6 @@
 
 #include <KColorScheme>
 #include <kactioncategory.h>
-#include <kaction.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
@@ -59,6 +58,7 @@
 #include <threadweaver/JobCollection.h>
 #include <threadweaver/ThreadWeaver.h>
 #include <threadweaver/Thread.h>
+#include <kdemacros.h>
 
 
 static QStringList doScanRecursive(const QDir& dir);
@@ -688,7 +688,7 @@ void FileSearchTab::openFile()
         docPos.offset=sr.targetPositions.first().start;
         selection    =sr.targetPositions.first().len;
     }
-    kDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
+    qDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
     emit fileOpenRequested(sr.filepath, docPos, selection);
 }
 

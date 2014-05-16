@@ -38,6 +38,7 @@
 #include <ktextedit.h>
 #include <kaction.h>
 #include <threadweaver/ThreadWeaver.h>
+#include <kdemacros.h>
 
 #include <QDragEnterEvent>
 #include <QFile>

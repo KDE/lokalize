@@ -332,7 +332,6 @@ void PhasesWindow::displayPhaseNotes(const QModelIndex& current)
     QVector<Note> notes=m_phaseNotes.contains(phaseName)?
                         m_phaseNotes.value(phaseName)
                         :m_catalog->phaseNotes(phaseName);
-    kWarning()<<notes.size();
     displayNotes(m_browser, notes);
     m_noteView->show();
     m_stackedLayout->setCurrentIndex(0);

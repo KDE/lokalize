@@ -31,6 +31,8 @@
 
 #include <threadweaver/ThreadWeaver.h>
 #include <kstandarddirs.h>
+#include <kdemacros.h>
+
 using namespace TM;
 
 static QString tmFileExtension(TM_DATABASE_EXTENSION);
@@ -168,7 +170,7 @@ void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
     OpenDBJob* j=static_cast<OpenDBJob*>(job);
     m_stats[j->m_dbName]=j->m_stat;
     m_configurations[j->m_dbName]=j->m_tmConfig;
-    kDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
+    qDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
 }
 
 void DBFilesModel::removeTM ( QModelIndex index )

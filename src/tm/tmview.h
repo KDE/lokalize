@@ -50,7 +50,7 @@ class TMView: public QDockWidget
 {
     Q_OBJECT
 public:
-    TMView(QWidget*,Catalog*,const QVector<KAction*>&);
+    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
     ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -95,7 +95,7 @@ private:
     DocPosition m_pos;
 
     SelectJob* m_currentSelectJob;
-    QVector<KAction*> m_actions;//need them to get shortcuts
+    QVector<QAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
     QMap<int, int> m_entryPositions;
 

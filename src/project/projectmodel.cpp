@@ -32,6 +32,7 @@
 #include <klocale.h>
 #include <kapplication.h>
 #include <kstandarddirs.h>
+#include <kdemacros.h>
 
 #include <QTime>
 #include <QFile>
@@ -1316,7 +1317,7 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
     queryCache.prepare("SELECT * from metainfo where filepath=?");
     queryCache.bindValue(0, qHash(file.localPath()));
     queryCache.exec();
-    if (queryCache.next() && file.time(KFileItem::ModificationTime).dateTime()==queryCache.value(2).toDateTime())
+    if (queryCache.next() && file.time(KFileItem::ModificationTime)==queryCache.value(2).toDateTime())
     {
         result=queryCache.value(1).toByteArray();
         QDataStream stream(&result,QIODevice::ReadOnly);
@@ -1345,7 +1346,7 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
                         "VALUES (?, ?, ?)");
     query.bindValue(0, qHash(file.localPath()));
     query.bindValue(1, result);
-    query.bindValue(2, file.time(KFileItem::ModificationTime).dateTime());
+    query.bindValue(2, file.time(KFileItem::ModificationTime));
     if (KDE_ISUNLIKELY(!query.exec()))
         qWarning() <<"metainfo cache acquiring error: " <<query.lastError().text();
 
@@ -1368,7 +1369,7 @@ void UpdateStatsJob::run()
 
         const KFileItem& file=m_files.at(pos);
         KFileMetaInfo info;
-
+#if 0 //KDE5PORT
         if ((!file.isNull()) && (!file.isDir()))
         {
             //force population of metainfo, do not use the KFileItem default behavior
@@ -1378,7 +1379,7 @@ void UpdateStatsJob::run()
             else
                 info=file.metaInfo(false);
         }
-
+#endif
         m_info.append(info);
     }
     if (ok)
