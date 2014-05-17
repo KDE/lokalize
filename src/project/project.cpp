@@ -123,6 +123,7 @@ void Project::load(const QString &newProjectPath)
     {
         TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
         connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
+        ThreadWeaver::Weaver::instance()->enqueue(closeDBJob);
     }
     ThreadWeaver::Weaver::instance()->finish();//more safety
 
