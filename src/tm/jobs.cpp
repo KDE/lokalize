@@ -1520,7 +1520,7 @@ void ScanJob::run()
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
     Catalog catalog(thread());
-    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size)==0))
+    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size, true)==0))
     {
         if (c.targetLangCode!=catalog.targetLangCode())
         {

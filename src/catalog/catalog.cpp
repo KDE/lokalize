@@ -505,7 +505,7 @@ KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
     return autoSave;
 }
 
-int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
+int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize, bool fast)
 {
     bool readOnly=false;
     if (url.isLocalFile())
@@ -578,22 +578,25 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize)
     d->_readOnly=readOnly;
     d->_url=saidUrl.isEmpty()?url:saidUrl;
 
-    KAutoSaveFile* autoSave=checkAutoSave(d->_url);
-    d->_autoSaveRecovered=autoSave;
-    if (autoSave)
+    if (!fast)
     {
-        d->_autoSave->deleteLater();
-        d->_autoSave=autoSave;
+        KAutoSaveFile* autoSave=checkAutoSave(d->_url);
+        d->_autoSaveRecovered=autoSave;
+        if (autoSave)
+        {
+            d->_autoSave->deleteLater();
+            d->_autoSave=autoSave;
 
-        //restore 'modified' status for entries
-        MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
-        int errorLine=mergeCatalog->loadFromUrl(KUrl::fromPath(autoSave->fileName()));
-        if (KDE_ISLIKELY(errorLine==0))
-            mergeCatalog->copyToBaseCatalog();
-        mergeCatalog->deleteLater();
+            //restore 'modified' status for entries
+            MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
+            int errorLine=mergeCatalog->loadFromUrl(KUrl::fromPath(autoSave->fileName()));
+            if (KDE_ISLIKELY(errorLine==0))
+                mergeCatalog->copyToBaseCatalog();
+            mergeCatalog->deleteLater();
+        }
+        else
+            d->_autoSave->setManagedFile(d->_url);
     }
-    else
-        d->_autoSave->setManagedFile(d->_url);
 
     if (fileSize)
         *fileSize=file->size();
