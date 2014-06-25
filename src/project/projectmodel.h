@@ -25,14 +25,13 @@
 #ifndef PROJECTMODEL_H
 #define PROJECTMODEL_H
 
-#include <threadweaver/Job.h>
-
 #include <kdirmodel.h>
 #include <kdirlister.h>
 #include <kfilemetainfo.h>
 #include <kicon.h>
 #include <QHash>
 #include <QList>
+#include <QRunnable>
 #include <kdebug.h>
 #include <kurl.h>
 
@@ -40,8 +39,8 @@
 #include "projectlocal.h"
 
 class QTimer;
+class QThreadPool;
 class UpdateStatsJob;
-namespace ThreadWeaver {class Weaver;}
 
 /**
 *  Some notes:
@@ -165,8 +164,7 @@ public:
     bool canFetchMore(const QModelIndex& parent) const;
     void fetchMore(const QModelIndex& parent);
 
-
-    ThreadWeaver::Weaver* weaver(){return m_weaver;}
+    QThreadPool* threadPool(){return m_threadPool;}
     void setCompleteScan(bool enable){m_completeScan=enable;}
 
 signals:
@@ -182,8 +180,8 @@ private slots:
     void pot_rowsInserted(const QModelIndex& parent, int start, int end);
     void pot_rowsRemoved(const QModelIndex& parent, int start, int end);
 
-    void finishMetadataUpdate(ThreadWeaver::Job*);
-    void finishSingleMetadataUpdate(ThreadWeaver::Job*);
+    void finishMetadataUpdate(UpdateStatsJob*);
+    void finishSingleMetadataUpdate(UpdateStatsJob*);
 
     void updateTotalsChanged();
 
@@ -233,14 +231,14 @@ private:
     ProjectNode* m_activeNode;
     QTimer* m_doneTimer;
 
-    ThreadWeaver::Weaver* m_weaver;
+    QThreadPool* m_threadPool;
 
     bool m_completeScan;
 };
 
 
 
-class UpdateStatsJob: public ThreadWeaver::Job
+class UpdateStatsJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -257,6 +255,8 @@ public:
 protected:
     void run();
 
+signals:
+    void done(UpdateStatsJob*);
 };
 
 

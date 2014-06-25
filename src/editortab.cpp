@@ -806,9 +806,10 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
     if (url.isEmpty())
     {
         //Prevent crashes
-        Project::instance()->model()->weaver()->suspend();
+        //Project::instance()->model()->weaver()->suspend();
+        //KDE5PORT use mutex if the crash is still there with kfilemetadata library
         url=KFileDialog::getOpenFileName(baseUrl, Catalog::supportedMimeFilters + " text/x-gettext-translation-template", SettingsController::instance()->mainWindowPtr());
-        Project::instance()->model()->weaver()->resume();
+        //Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }

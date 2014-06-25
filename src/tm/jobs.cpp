@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -49,6 +49,14 @@
 
 #include <math.h>
 using namespace TM;
+
+
+QThreadPool* TM::threadPool()
+{
+    static QThreadPool* inst=new QThreadPool;
+    return inst;
+}
+
 
 #define TM_DELIMITER '\v'
 #define TM_SEPARATOR '\b'
@@ -938,7 +946,7 @@ static void getStats(const QSqlDatabase& db,
 }
 
 OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const ConnectionParams& connParams, QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_dbName(name)
     , m_type(type)
     , m_setParams(false)
@@ -946,6 +954,7 @@ OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const Con
     , m_reconnect(reconnect)
     , m_connParams(connParams)
 {
+    setAutoDelete(false);
     kDebug(TM_AREA)<<m_dbName;
 }
 
@@ -959,7 +968,7 @@ void OpenDBJob::run()
     QTime a;a.start();
     if (!QSqlDatabase::contains(m_dbName) || m_reconnect)
     {
-        thread()->setPriority(QThread::IdlePriority);
+        QThread::currentThread()->setPriority(QThread::IdlePriority);
 
         if (m_type==TM::Local)
         {
@@ -969,6 +978,7 @@ void OpenDBJob::run()
             if (KDE_ISUNLIKELY( !m_connectionSuccessful ))
             {
                 QSqlDatabase::removeDatabase(m_dbName);
+                emit done(this);
                 return;
             }
             if (!initSqliteDb(db)) //need to recreate db ;(
@@ -984,6 +994,7 @@ void OpenDBJob::run()
                 if (!m_connectionSuccessful)
                 {
                     QSqlDatabase::removeDatabase(m_dbName);
+                    emit done(this);
                     return;
                 }
             }
@@ -1000,7 +1011,10 @@ void OpenDBJob::run()
             {
                 QFile rdb(KStandardDirs::locateLocal("appdata", m_dbName % REMOTETM_DATABASE_EXTENSION));
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text))
+                {
+                    emit done(this);
                     return;
+                }
 
                 QTextStream rdbParams(&rdb);
                 
@@ -1020,6 +1034,7 @@ void OpenDBJob::run()
             if (KDE_ISUNLIKELY( !m_connectionSuccessful ))
             {
                 QSqlDatabase::removeDatabase(m_dbName);
+                emit done(this);
                 return;
             }
             m_connParams.user=db.userName();
@@ -1042,13 +1057,15 @@ void OpenDBJob::run()
         db.close();
         db.open();
     }
+    emit done(this);
 }
 
 
 CloseDBJob::CloseDBJob(const QString& name, QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_dbName(name)
 {
+    setAutoDelete(false);
     kWarning(TM_AREA)<<"here";
 }
 
@@ -1068,6 +1085,7 @@ void CloseDBJob::run ()
 
     QSqlDatabase::removeDatabase(m_dbName);
     kWarning(TM_AREA) <<"db closed "<<a.elapsed();
+    emit done(this);
 }
 
 
@@ -1091,8 +1109,8 @@ SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int 
                                  db.isEmpty()?Project::instance()->projectID():db);
     if (opt&Enqueue)
     {
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        QObject::connect(job, SIGNAL(done(SelectJob*)), job, SLOT(deleteLater()));
+        threadPool()->start(job, SELECT);
     }
     return job;
 }
@@ -1103,7 +1121,7 @@ SelectJob::SelectJob(const CatalogString& source,
                      const DocPosition& pos,
                      const QString& dbName,
                      QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_source(source)
     , m_ctxt(ctxt)
     , m_file(file)
@@ -1111,6 +1129,7 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_pos(pos)
     , m_dbName(dbName)
 {
+    setAutoDelete(false);
     kDebug(TM_AREA)<<dbName<<m_source.string;
 }
 
@@ -1118,12 +1137,6 @@ SelectJob::~SelectJob()
 {
     //kDebug(TM_AREA)<<m_source.string;
 }
-
-void SelectJob::aboutToBeDequeued(ThreadWeaver::WeaverInterface*)
-{
-    m_dequeued=true;
-}
-
 
 inline QMap<uint,qlonglong> invertMap(const QMap<qlonglong,uint>& source)
 {
@@ -1440,7 +1453,10 @@ void SelectJob::run ()
 {
     kDebug(TM_AREA)<<"started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) //sanity check
+    {
+        emit done(this);
         return;
+    }
     //thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
@@ -1453,7 +1469,10 @@ void SelectJob::run ()
     QStringList words;
     doSplit(cleanSource,words,rxClean1,c.accel);
     if (KDE_ISUNLIKELY( words.isEmpty() ))
+    {
+        emit done(this);
         return;
+    }
     qSort(words);//to speed up if some words occur multiple times
 
     bool isShort=words.size()<20;
@@ -1469,7 +1488,10 @@ void SelectJob::run ()
         m_entries.removeLast();
 
     if (KDE_ISUNLIKELY( m_dequeued ))
+    {
+        emit done(this);
         return;
+    }
 
     ++i;
     while(--i>=0)
@@ -1481,6 +1503,7 @@ void SelectJob::run ()
                                               m_entries.at(i).accelExpr,
                                               m_entries.at(i).markupExpr);
     }
+    emit done(this);
 }
 
 
@@ -1491,7 +1514,7 @@ void SelectJob::run ()
 ScanJob::ScanJob(const KUrl& url,
                  const QString& dbName,
                  QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_url(url)
     , m_time(0)
     , m_size(0)
@@ -1510,7 +1533,7 @@ void ScanJob::run()
     if (stop)
       return;
     kWarning(TM_AREA) <<"started"<<m_url.pathOrUrl()<<m_dbName;
-    thread()->setPriority(QThread::IdlePriority);
+    //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
     m_added=0;      //stats
@@ -1520,7 +1543,7 @@ void ScanJob::run()
     TMConfig c=getConfig(db,true);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
-    Catalog catalog(thread());
+    Catalog catalog(QThread::currentThread());
     if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size)==0))
     {
         if (c.targetLangCode!=catalog.targetLangCode())
@@ -1585,9 +1608,10 @@ void ScanJob::run()
 
 
 RemoveJob::RemoveJob(const TMEntry& entry, QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_entry(entry)
 {
+    setAutoDelete(false);
     kWarning(TM_AREA)<<m_entry.file<<m_entry.source.string;
 }
 
@@ -1607,6 +1631,8 @@ void RemoveJob::run ()
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
     kWarning(TM_AREA)<<doRemoveEntry(m_entry.id,rxClean1,c.accel,db);
+
+    emit done();
 }
 
 
@@ -1619,7 +1645,7 @@ UpdateJob::UpdateJob(const QString& filePath,
                      bool approved,
                      const QString& dbName,
                      QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_filePath(filePath)
     , m_ctxt(ctxt)
     , m_english(english)
@@ -1878,7 +1904,7 @@ bool TmxParser::characters ( const QString& ch )
 ImportTmxJob::ImportTmxJob(const QString& filename,//const KUrl& url,
                      const QString& dbName,
                      QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_filename(filename)
     , m_dbName(dbName)
 {
@@ -1891,7 +1917,6 @@ ImportTmxJob::~ImportTmxJob()
 
 void ImportTmxJob::run()
 {
-    thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
     QFile file(m_filename);
@@ -1918,7 +1943,7 @@ void ImportTmxJob::run()
 ExportTmxJob::ExportTmxJob(const QString& filename,//const KUrl& url,
                      const QString& dbName,
                      QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , m_filename(filename)
     , m_dbName(dbName)
 {
@@ -1931,7 +1956,6 @@ ExportTmxJob::~ExportTmxJob()
 
 void ExportTmxJob::run()
 {
-    thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
     QFile out(m_filename);
@@ -2057,11 +2081,12 @@ void ExportTmxJob::run()
 
 
 ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QObject* parent)
-    : ThreadWeaver::Job(parent)
+    : QRunnable()
     , query(0)
     , m_dbName(dbName)
     , m_query(queryString)
 {
+    setAutoDelete(false);
     kDebug(TM_AREA)<<dbName<<queryString;
 }
 
@@ -2080,6 +2105,7 @@ void ExecQueryJob::run()
         kWarning(TM_AREA)<<"db.open()="<<db.open();
     query=new QSqlQuery(m_query,db);
     query->exec();
+    emit done(this);
     kDebug(TM_AREA)<<"done"<<query->lastError().text();
 }
 

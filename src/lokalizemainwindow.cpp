@@ -66,8 +66,6 @@
 
 #include <kross/core/action.h>
 
-#include <threadweaver/ThreadWeaver.h>
-
 
 #include <QActionGroup>
 #include <QMdiArea>
@@ -258,7 +256,7 @@ bool LokalizeMainWindow::queryClose()
     if (ok)
     {
         TM::cancelAllJobs(); //this shit works l)
-        Project::instance()->model()->weaver()->dequeue();
+        Project::instance()->model()->threadPool()->clear();
     }
     return ok;
 }
@@ -1035,3 +1033,6 @@ void DelayedFileOpener::doOpen()
 
 
 #include "lokalizemainwindow.moc"
+#include "moc_lokalizesubwindowbase.cpp"
+#include "moc_multieditoradaptor.cpp"
+

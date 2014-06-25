@@ -157,21 +157,12 @@ qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
 add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
-#KF5::KDELibs4Support
-#KF5::SonnetCore
-#KF5::SonnetUi
-#KF5::ThreadWeaver
-#KF5::KrossCore
-#KF5::KrossUi
-
-    ${KDE4_KPARTS_LIBS}
-    ${KDE4_KROSSCORE_LIBS}
-    ${KDE4_KROSSUI_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KFILE_LIBS}
-    ${KDE4_KDEUI_LIBS}
-    ${KDE4_THREADWEAVER_LIBRARY}
-    ${QT_QTSQL_LIBRARY}
+KF5::KDELibs4Support
+KF5::SonnetCore
+KF5::SonnetUi
+KF5::KrossCore
+KF5::KrossUi
+Qt5::Sql
 )
 if(HUNSPELL_FOUND)
     target_link_libraries(lokalize ${HUNSPELL_LIBRARIES})

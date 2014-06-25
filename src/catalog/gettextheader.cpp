@@ -327,8 +327,8 @@ void updateHeader(QString& header,
             QMap<QString,QString> map;
             foreach (const QString &runningLangCode, KGlobal::locale()->allLanguagesList())
             {
-                KConfigGroup cg(allLanguagesConfig, runningLangCode);
-                map[cg.readEntry("Name")]=runningLangCode;
+                ///// KDE5PORT KConfigGroup cg(allLanguagesConfig, runningLangCode);
+                //////map[cg.readEntry("Name")]=runningLangCode;
             }
             if (map.size()<16) //may be just "en_US" and ""
                 kWarning()<<"seems that all_languages file is missing (usually located under /usr/share/locale)";
@@ -351,8 +351,9 @@ void updateHeader(QString& header,
     if (language.isEmpty())
     {
         //language=locale.languageCodeToName(d->_langCode);
-        KConfigGroup cg(allLanguagesConfig, langCode);
-        language=cg.readEntry("Name");
+        ////KDE5PORT
+        //////KConfigGroup cg(allLanguagesConfig, langCode);
+        /////language=cg.readEntry("Name");
         if (language.isEmpty())
             language=langCode;
     }

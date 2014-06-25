@@ -87,8 +87,8 @@ protected:
 public slots:
     void updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void calcStats(const QModelIndex& parent, int start, int end);
-    void openJobDone(ThreadWeaver::Job*);
-    void closeJobDone(ThreadWeaver::Job*);
+    void openJobDone(OpenDBJob*);
+    void closeJobDone(CloseDBJob*);
     void updateProjectTmIndex();
 
 private:

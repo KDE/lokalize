@@ -31,14 +31,13 @@
 #include <QTime>
 #include <QVector>
 
-namespace ThreadWeaver{class Job;}
-
 bool dragIsAcceptable(const QList<QUrl>& urls);
 QString shorterFilePath(const QString path);
 
 
 namespace TM {
 class ScanJob;
+class ScanJobFeedingBack;
 
 ///wrapper. returns gross number of jobs started
 int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
@@ -52,7 +51,7 @@ public:
     void start();
 
 public slots:
-    void scanJobFinished(ThreadWeaver::Job*);
+    void scanJobFinished(ScanJobFeedingBack*);
 protected:
     bool doKill();
 

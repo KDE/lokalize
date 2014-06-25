@@ -211,9 +211,10 @@ void MergeView::mergeOpen(KUrl url)
 
     if (url.isEmpty())
     {
-        Project::instance()->model()->weaver()->suspend();
+        //Project::instance()->model()->weaver()->suspend();
+        //KDE5PORT use mutex if needed
         url=KFileDialog::getOpenUrl(KUrl("kfiledialog:///merge-source") /*m_baseCatalog->url()*/ , Catalog::supportedMimeFilters, this);
-        Project::instance()->model()->weaver()->resume();
+        //Project::instance()->model()->weaver()->resume();
     }
     if (url.isEmpty())
         return;

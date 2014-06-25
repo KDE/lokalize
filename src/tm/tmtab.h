@@ -43,12 +43,11 @@ class QSortFilterProxyModel;
 class QCheckBox;
 
 
-namespace ThreadWeaver{class Job;}
-
 class TMResultsSortFilterProxyModel;
 
 namespace TM {
 class TMDBModel;
+class ExecQueryJob;
 
 /**
  * Translation Memory tab
@@ -106,7 +105,6 @@ private:
     static QList<int> ids;
 };
 
-
 class TMDBModel: public QSqlQueryModel
 {
     Q_OBJECT
@@ -153,7 +151,7 @@ public slots:
                    );
     void setQueryType(int);
     void setDB(const QString&);
-    void slotQueryExecuted(ThreadWeaver::Job*);
+    void slotQueryExecuted(ExecQueryJob*);
 
 signals:
     void resultsFetched();

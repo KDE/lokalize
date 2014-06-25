@@ -51,7 +51,6 @@
 #include <kpassivepopup.h>
 #include <kmessagebox.h>
 
-#include <threadweaver/ThreadWeaver.h>
 #include <kdemacros.h>
 
 #include <QDBusArgument>
@@ -83,8 +82,6 @@ Project::Project()
     , m_glossaryWindow(0)
     , m_tmManagerWindow(0)
 {
-    ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
-
     setDefaults();
 /*
     qRegisterMetaType<DocPosition>("DocPosition");
@@ -117,15 +114,15 @@ void Project::load(const QString &newProjectPath)
 {
     QTime a;a.start();
 
-    ThreadWeaver::Weaver::instance()->dequeue();
+    TM::threadPool()->clear();
     kDebug()<<"loading"<<newProjectPath<<"Finishing jobs...";
 
     if (!m_path.isEmpty())
     {
         TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
-        connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
+        TM::threadPool()->start(closeDBJob);
     }
-    ThreadWeaver::Weaver::instance()->finish();//more safety
+    TM::threadPool()->waitForDone(500);//more safety
 
     kDebug()<<"5...";
 

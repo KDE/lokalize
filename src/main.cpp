@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -46,8 +46,6 @@
 #include <kcmdlineargs.h>
 #include <klocale.h>
 
-#include <threadweaver/ThreadWeaver.h>
-
 
 
 
@@ -58,6 +56,9 @@ static const char description[] =
 
 int main(int argc, char **argv)
 {
+    TM::threadPool()->setMaxThreadCount(1);
+    TM::threadPool()->setExpiryTimeout(-1);
+
 #if 0
     KAboutData about(QStringLiteral("lokalize"), QStringLiteral("Lokalize"), QString::fromLatin1(version), ki18n(description).toString(),
                      KAboutLicense::GPL, ki18nc("@info:credit", "(c) 2007-2014 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers").toString() /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
@@ -142,8 +143,8 @@ int main(int argc, char **argv)
 
     int code=app.exec();
 
-    ThreadWeaver::Weaver::instance()->dequeue();
-    Project::instance()->model()->weaver()->dequeue();
+    TM::threadPool()->clear();
+    Project::instance()->model()->threadPool()->clear();
 
     if (SettingsController::instance()->dirty) //for config changes done w/o config dialog
         Settings::self()->writeConfig();
@@ -151,21 +152,17 @@ int main(int argc, char **argv)
     if (Project::instance()->isLoaded())
         Project::instance()->save();
 
-    qWarning()<<"QCoreApplication::processEvents()...";
-    QCoreApplication::processEvents();
-    QCoreApplication::sendPostedEvents(0,0);
-
     qWarning()<<"Finishing Project jobs...";
-    //Project::instance()->model()->weaver()->finish();
-    // HACK due to deadlock with libstreamanalyzer.so.0 -> libxml2.so.2 -> etree.so -> libpython2.5.so.1.0 -> PyThread_acquire_lock
-    while (!Project::instance()->model()->weaver()->isIdle())
+    qWarning()<<"Finishing TM jobs...";
+    int secs=5;
+    while(--secs>=0)
     {
+        Project::instance()->model()->threadPool()->waitForDone(1000);
+        TM::threadPool()->waitForDone(1000);
+        qWarning()<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0,0);
     }
-
-    qWarning()<<"Finishing TM jobs...";
-    ThreadWeaver::Weaver::instance()->finish();
 
     return code;
 }

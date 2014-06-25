@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -48,8 +48,10 @@
 #include <QHeaderView>
 #include <QStringListModel>
 #include <QBoxLayout>
+#include <QRunnable>
+#include <QThreadPool>
 
-#include <KColorScheme>
+#include <kcolorscheme.h>
 #include <kactioncategory.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -172,8 +174,9 @@ bool SearchParams::isEmpty() const
 
 
 /// @short scan one file
-class SearchJob: public ThreadWeaver::Job
+class SearchJob: public QObject, public QRunnable
 {
+    Q_OBJECT
 public:
     explicit SearchJob(const QStringList& f, 
                        const SearchParams& sp,
@@ -182,6 +185,8 @@ public:
                        QObject* parent=0);
     ~SearchJob(){}
 
+signals:
+    void done(SearchJob*);
 protected:
     void run ();
 public:
@@ -197,12 +202,13 @@ public:
 };
 
 SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject* parent)
- : ThreadWeaver::Job(parent)
+ : QRunnable()
  , files(f)
  , searchParams(sp)
  , rules(r)
  , searchNumber(sn)
 {
+    setAutoDelete(false);
 }
 
 void SearchJob::run()
@@ -210,7 +216,7 @@ void SearchJob::run()
     QTime a;a.start();
     foreach(const QString& path, files)
     {
-        Catalog catalog(thread());
+        Catalog catalog(QThread::currentThread());
         if (KDE_ISUNLIKELY(catalog.loadFromUrl(KUrl::fromPath(path), KUrl(), &m_size)!=0))
             continue;
 
@@ -274,8 +280,9 @@ void SearchJob::run()
 }
 
 /// @short replace in files
-class MassReplaceJob: public ThreadWeaver::Job
+class MassReplaceJob: public QObject, public QRunnable
 {
+    Q_OBJECT
 public:
     explicit MassReplaceJob(const SearchResults& srs,
                             int pos,
@@ -285,8 +292,11 @@ public:
                            QObject* parent=0);
     ~MassReplaceJob(){}
 
+signals:
+    void done(MassReplaceJob*);
+
 protected:
-    void run ();
+    void run();
 public:
     SearchResults searchResults;
     int globalPos;
@@ -295,12 +305,13 @@ public:
 };
 
 MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject* parent)
- : ThreadWeaver::Job(parent)
+ : QRunnable()
  , searchResults(srs)
  , globalPos(pos)
  , replaceWhat(s)
  , replaceWith(r)
 {
+    setAutoDelete(false);
 }
 
 void MassReplaceJob::run()
@@ -624,18 +635,19 @@ void FileSearchTab::performSearch()
             batch.append(files.at(j));
 
         SearchJob* job=new SearchJob(batch, sp, rules, m_lastSearchNumber);
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(searchJobDone(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        QObject::connect(job,SIGNAL(done(SearchJob*)),job,SLOT(deleteLater()));
+        QObject::connect(job,SIGNAL(done(SearchJob*)),this,SLOT(searchJobDone(SearchJob*)));
+        QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
     }
 }
 
 void FileSearchTab::stopSearch()
 {
-    QVector<ThreadWeaver::Job*>::const_iterator it;
-    for (it = m_runningJobs.constBegin(); it != m_runningJobs.constEnd(); ++it)
-        ThreadWeaver::Weaver::instance()->dequeue(*it);
+    QVector<QRunnable*>::const_iterator it;
+    ///// KDE5PORT
+    ////for (it = m_runningJobs.constBegin(); it != m_runningJobs.constEnd(); ++it)
+    ////    ThreadWeaver::Weaver::instance()->dequeue(*it);
     m_runningJobs.clear();
 }
 
@@ -654,9 +666,9 @@ void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
             ++last;
 
         MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last+1-i), i, what, with);
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(replaceJobDone(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        QObject::connect(job,SIGNAL(done(MassReplaceJob*)),job,SLOT(deleteLater()));
+        QObject::connect(job,SIGNAL(done(MassReplaceJob*)),this,SLOT(replaceJobDone(MassReplaceJob*)));
+        QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
     }
 }
@@ -766,9 +778,8 @@ void FileSearchTab::addFilesToSearch(const QStringList& files)
     performSearch();
 }
 
-void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
+void FileSearchTab::searchJobDone(SearchJob* j)
 {
-    SearchJob* j=static_cast<SearchJob*>(job);
     if (j->searchNumber!=m_lastSearchNumber)
         return;
 
@@ -799,9 +810,8 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
     //ui_fileSearchOptions->treeView->setFocus();
 }
 
-void FileSearchTab::replaceJobDone(ThreadWeaver::Job* job)
+void FileSearchTab::replaceJobDone(MassReplaceJob* j)
 {
-    MassReplaceJob* j=static_cast<MassReplaceJob*>(job);
     ui_fileSearchOptions->treeView->scrollTo(m_model->index(j->globalPos+j->searchResults.count(), 0));
 
 }

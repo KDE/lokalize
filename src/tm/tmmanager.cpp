@@ -162,17 +162,16 @@ void DBPropertiesDialog::checkConnectionOptions()
     connParams.passwd=dbPasswd->text();
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(openJobDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
+    threadPool()->start(openDBJob, OPENDB);
 }
 
-void DBPropertiesDialog::openJobDone(ThreadWeaver::Job* job)
+void DBPropertiesDialog::openJobDone(OpenDBJob* openDBJob)
 {
     if (!connectionBox->isVisible()) //smth happened while we were trying to connect
         return;
 
-    OpenDBJob* openDBJob=static_cast<OpenDBJob*>(job);
     contentBox->setVisible(openDBJob->m_connectionSuccessful);
     enableButtonOk(openDBJob->m_connectionSuccessful);
     if (!openDBJob->m_connectionSuccessful)
@@ -210,7 +209,8 @@ void DBPropertiesDialog::accept()
     }
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+    connect(openDBJob,SIGNAL(done(openDBJob*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(openDBJob*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
 
     openDBJob->m_setParams=true;
     openDBJob->m_tmConfig.markup=markup->text();
@@ -251,10 +251,8 @@ void TMManagerWin::importTMX()
     if (!path.isEmpty())
     {
         ImportTmxJob* j=new ImportTmxJob(path,dbName);
-        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
 
-        ThreadWeaver::Weaver::instance()->enqueue(j);
+        threadPool()->start(j, IMPORT);
         DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
     }
 }
@@ -276,8 +274,7 @@ void TMManagerWin::exportTMX()
     if (!path.isEmpty())
     {
         ExportTmxJob* j=new ExportTmxJob(path,dbName);
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-        ThreadWeaver::Weaver::instance()->enqueue(j);
+        threadPool()->start(j, EXPORT);
     }
 }
 

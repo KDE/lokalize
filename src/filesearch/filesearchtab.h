@@ -37,6 +37,9 @@
 #include <state.h>
 #include <phase.h>
 
+class MassReplaceJob;
+class SearchJob;
+class QRunnable;
 class QLabel;
 class QaView;
 class QStringListModel;
@@ -83,8 +86,8 @@ public slots:
     void massReplace(const QRegExp &what, const QString& with);
 
 private slots:
-    void searchJobDone(ThreadWeaver::Job*);
-    void replaceJobDone(ThreadWeaver::Job*);
+    void searchJobDone(SearchJob*);
+    void replaceJobDone(MassReplaceJob*);
 
 signals:
     void fileOpenRequested(const KUrl& url, DocPosition docPos, int selection);
@@ -103,7 +106,7 @@ private:
     MassReplaceView* m_massReplaceView;
     QaView* m_qaView;
 
-    QVector<ThreadWeaver::Job*> m_runningJobs;
+    QVector<QRunnable*> m_runningJobs;
 
      //to avoid results from previous search showing up in the new one
     int m_lastSearchNumber;

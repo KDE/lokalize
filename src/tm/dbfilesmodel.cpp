@@ -131,9 +131,9 @@ void DBFilesModel::openDB(const QString& name, DbType type)
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
 {
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(openJobDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    connect(openDBJob,SIGNAL(done(openDBJob*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(openDBJob*)),this,SLOT(openJobDone(openDBJob*)));
+    threadPool()->start(openDBJob, OPENDB);
 }
 
 void DBFilesModel::updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight)
@@ -165,9 +165,8 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
     }
 }
 
-void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
+void DBFilesModel::openJobDone(OpenDBJob* j)
 {
-    OpenDBJob* j=static_cast<OpenDBJob*>(job);
     m_stats[j->m_dbName]=j->m_stat;
     m_configurations[j->m_dbName]=j->m_tmConfig;
     qDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
@@ -177,15 +176,14 @@ void DBFilesModel::removeTM ( QModelIndex index )
 {
     index=index.sibling(index.row(),0);
     CloseDBJob* closeDBJob=new CloseDBJob(index.data().toString());
-    connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
-    connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(closeJobDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(closeDBJob);
+    connect(closeDBJob,SIGNAL(done(CloseDBJob*)),closeDBJob,SLOT(deleteLater()));
+    connect(closeDBJob,SIGNAL(done(CloseDBJob*)),this,SLOT(closeJobDone(CloseDBJob*)));
+    threadPool()->start(closeDBJob, CLOSEDB);
 }
 
-void DBFilesModel::closeJobDone(ThreadWeaver::Job* job)
+void DBFilesModel::closeJobDone(CloseDBJob* j)
 {
-    CloseDBJob* j=static_cast<CloseDBJob*>(job);
-    QFile::remove(m_fileSystemModel->rootPath() + '/' +  j->dbName() + tmFileExtension);
+    QFile::remove(m_fileSystemModel->rootPath() % '/' % j->dbName() % tmFileExtension);
 }
 
 void DBFilesModel::updateProjectTmIndex()

@@ -66,6 +66,8 @@ private:
     QTreeView* m_tmListWidget;
 };
 
+class OpenDBJob;
+
 //TODO remote tms
 class DBPropertiesDialog: public KDialog, Ui_DBParams
 {
@@ -77,7 +79,7 @@ private:
     void accept();
 private slots:
     void setConnectionBoxVisible(int type);
-    void openJobDone(ThreadWeaver::Job*);
+    void openJobDone(OpenDBJob*);
     void checkConnectionOptions();
     void feedbackRegardingAcceptable();
 private:

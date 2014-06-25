@@ -324,7 +324,7 @@ void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bo
 {
     int total = fuzzy + translated + untranslated;
     m_currentUnitsCount = total;
-
+/*   KDE5PORT
     if (m_progressBar->value() != total && m_legacyUnitsCount > 0)
         m_progressBar->setValue(total);
     if (m_progressBar->maximum() < qMax(total,m_legacyUnitsCount))
@@ -336,6 +336,7 @@ void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bo
     statusBarItems.insert(ID_STATUS_TOTAL, i18nc("@info:status message entries","Total: %1", total));
     reflectNonApprovedCount(fuzzy, total);
     reflectUntranslatedCount(untranslated, total);
+*/
 }
 
 void ProjectTab::initStatusBarProgress()

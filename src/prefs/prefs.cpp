@@ -54,7 +54,6 @@
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
 #include <kross/ui/model.h>
-#include <threadweaver/ThreadWeaver.h>
 #include <QBoxLayout>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -199,11 +198,12 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 {
     if (path.isEmpty())
     {
-        Project::instance()->model()->weaver()->suspend();
+        //Project::instance()->model()->weaver()->suspend();
+        //KDE5PORT mutex if needed
         path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
                                           i18n("*.lokalize *.ktp|Lokalize translation project")/*"text/x-lokalize-project"*/,
                                           m_mainWindowPtr);
-        Project::instance()->model()->weaver()->resume();
+        //Project::instance()->model()->weaver()->resume();
     }
 
     if (!path.isEmpty() && doOpen)
@@ -214,12 +214,13 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 
 bool SettingsController::projectCreate()
 {
-    Project::instance()->model()->weaver()->suspend();
+    //Project::instance()->model()->weaver()->suspend();
+    //KDE5PORT mutex if needed
     QString desirablePath=Project::instance()->desirablePath();
     if (desirablePath.isEmpty())
         desirablePath=QDir::homePath()+"/index.lokalize";
     QString path=KFileDialog::getSaveFileName(KUrl(desirablePath), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,m_mainWindowPtr);
-    Project::instance()->model()->weaver()->resume();
+    //Project::instance()->model()->weaver()->resume();
     if (path.isEmpty())
         return false;
 

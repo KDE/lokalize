@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -34,12 +34,11 @@
 #include <QMap>
 #include <QVector>
 
+class QRunnable;
 class Catalog;
 class KAction;
 class QDropEvent;
 class QDragEnterEvent;
-
-namespace ThreadWeaver{class Job;}
 
 #define TM_SHORTCUTS 10
 namespace TM {
@@ -65,7 +64,7 @@ signals:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition& pos=DocPosition());
-    void slotSuggestionsCame(ThreadWeaver::Job*);
+    void slotSuggestionsCame(SelectJob*);
 
     void slotUseSuggestion(int);
     void slotFileLoaded(const KUrl&);
@@ -79,8 +78,8 @@ private slots:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
 
-    void slotBatchSelectDone(ThreadWeaver::Job*);
-    void slotCacheSuggestions(ThreadWeaver::Job*);
+    void slotBatchSelectDone();
+    void slotCacheSuggestions(SelectJob*);
 
     void initLater();
     void contextMenu(const QPoint & pos);
@@ -107,7 +106,7 @@ private:
     bool m_markAsFuzzy;
     QMap<DocPos, QVector<TMEntry> > m_cache;
     DocPosition m_prevCachePos;//hacky hacky
-    QList<ThreadWeaver::Job*> m_jobs;//holds pointers to all the jobs for the current file
+    QList<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
 };
 
 class TextBrowser: public KTextBrowser

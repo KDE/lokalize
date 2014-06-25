@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,6 +27,7 @@
 #include "dbfilesmodel.h"
 #include "tmscanapi.h"
 #include "qaview.h"
+#include "jobs.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -43,12 +44,11 @@
 #include <QStringBuilder>
 #include <QTextDocument>
 
-#include <KColorScheme>
+#include <kcolorscheme.h>
 #include <kactioncategory.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
-#include <threadweaver/ThreadWeaver.h>
 #include <fastsizehintitemdelegate.h>
 #include <QStringListModel>
 
@@ -140,22 +140,21 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                 "source_strings.source_accel, target_strings.target_accel, main.bits "
                 +fromPart,m_dbName);
 
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(job);
+    connect(job,SIGNAL(done(ExecQueryJob*)),job,SLOT(deleteLater()));
+    connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
+    threadPool()->start(job);
 
 
     job=new ExecQueryJob("SELECT count(*) "+fromPart,m_dbName);
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(job);
+    connect(job,SIGNAL(done(ExecQueryJob*)),job,SLOT(deleteLater()));
+    connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
+    threadPool()->start(job);
     
     m_totalResultCount=0;
 }
 
-void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
+void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 {
-    ExecQueryJob* job=static_cast<ExecQueryJob*>(j);
     if (job->query->lastQuery().startsWith("SELECT count(*) "))
     {
         job->query->next();

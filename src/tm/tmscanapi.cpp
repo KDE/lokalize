@@ -49,8 +49,10 @@ RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
 
 bool RecursiveScanJob::doKill()
 {
+#if 0 //KDE5PORT
     foreach(ScanJob* job, m_jobs)
         ThreadWeaver::Weaver::instance()->dequeue(job);
+#endif
     return true;
 }
 
@@ -63,7 +65,7 @@ void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
         kill(KJob::EmitResult);
 }
 
-void RecursiveScanJob::scanJobFinished(ThreadWeaver::Job* j)
+void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 {
     ScanJob* job=static_cast<ScanJob*>(j);
 
@@ -104,10 +106,10 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
             continue;
         if (Catalog::extIsSupported(url.path()))
         {
-            ScanJob* job=new ScanJob(KUrl(url),dbName);
-            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-            QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
-            ThreadWeaver::Weaver::instance()->enqueue(job);
+            ScanJobFeedingBack* job=new ScanJobFeedingBack(KUrl(url),dbName);
+            QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
+            QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+            TM::threadPool()->start(job, SCAN);
             result.append(job);
         }
         else
@@ -138,10 +140,10 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
 
     while(--i>=0)
     {
-        ScanJob* job=new ScanJob(KUrl(dir.filePath(files.at(i))),dbName);
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),metaJob,SLOT(scanJobFinished(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        ScanJobFeedingBack* job=new ScanJobFeedingBack(KUrl(dir.filePath(files.at(i))),dbName);
+        QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
+        QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+        TM::threadPool()->start(job, SCAN);
         result.append(job);
     }
 

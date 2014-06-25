@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -35,7 +35,6 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <threadweaver/ThreadWeaver.h>
 #include <ktextbrowser.h>
 #include <kglobalsettings.h>
 #include <kpassivepopup.h>
@@ -168,9 +167,13 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 
 TMView::~TMView()
 {
+#if 0 //KDE5PORT set stop var of each job individually
     int i=m_jobs.size();
     while (--i>=0)
-        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
+        TM::weaver()->dequeue(m_jobs.takeLast());
+#else
+    m_jobs.clear();
+#endif
 }
 
 void TMView::initLater()
@@ -214,20 +217,20 @@ void TMView::slotFileLoaded(const KUrl& url)
     const QString& pID=Project::instance()->projectID();
 
     if (Settings::scanToTMOnOpen())
-    {
-        ScanJob* job=new ScanJob(url,pID);
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-    }
+        TM::threadPool()->start(new ScanJob(url,pID), SCAN);
 
     if (!Settings::prefetchTM()
         &&!m_isBatching)
         return;
 
     m_cache.clear();
+#if 0 //KDE5PORT
     int i=m_jobs.size();
     while (--i>=0)
-        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
+        TM::weaver()->dequeue(m_jobs.takeLast());
+#else
+    m_jobs.clear();
+#endif
 
     DocPosition pos;
     while(switchNext(m_catalog,pos))
@@ -236,30 +239,29 @@ void TMView::slotFileLoaded(const KUrl& url)
            &&m_catalog->isApproved(pos.entry))
             continue;
         SelectJob* j=initSelectJob(m_catalog, pos, pID);
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
+        connect(j,SIGNAL(done(SelectJob*)),this,SLOT(slotCacheSuggestions(SelectJob*)));
         m_jobs.append(j);
     }
 
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),m_seq,SLOT(deleteLater()));
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(m_seq);
+    connect(m_seq,SIGNAL(done()),m_seq,SLOT(deleteLater()));
+    connect(m_seq,SIGNAL(done()),this,SLOT(slotBatchSelectDone()));
+    TM::threadPool()->start(m_seq, BATCHSELECTFINISHED);
     m_jobs.append(m_seq);
 }
 
-void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
+void TMView::slotCacheSuggestions(SelectJob* job)
 {
-    m_jobs.removeAll(j);
-    SelectJob* job=static_cast<SelectJob*>(j);
+    m_jobs.removeAll(job);
     kDebug()<<job->m_pos.entry;
     if (job->m_pos.entry==m_pos.entry)
-        slotSuggestionsCame(j);
+        slotSuggestionsCame(job);
 
     m_cache[DocPos(job->m_pos)]=job->m_entries.toVector();
 }
 
-void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
+void TMView::slotBatchSelectDone()
 {
     m_jobs.clear();
     if (!m_isBatching)
@@ -330,7 +332,7 @@ void TMView::slotBatchTranslate()
     if (!Settings::prefetchTM())
         slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
-        return slotBatchSelectDone(0);
+        return slotBatchSelectDone();
     KPassivePopup::message(KPassivePopup::Balloon,
                            i18nc("@title","Batch translation"),
                            i18nc("@info","Batch translation has been scheduled."),
@@ -345,7 +347,7 @@ void TMView::slotBatchTranslateFuzzy()
     if (!Settings::prefetchTM())
         slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
-        slotBatchSelectDone(0);
+        slotBatchSelectDone();
     KPassivePopup::message(KPassivePopup::Balloon,
                            i18nc("@title","Batch translation"),
                            i18nc("@info","Batch translation has been scheduled."),
@@ -358,7 +360,8 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
 
-    ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
+    //KDE5PORT set stop var individually
+    //TM::weaver()->dequeue(m_currentSelectJob);
 
     //update DB
     //m_catalog->flushUpdateDBBuffer();
@@ -373,7 +376,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
         QTimer::singleShot(0,this,SLOT(displayFromCache()));
     }
     m_currentSelectJob=initSelectJob(m_catalog, m_pos);
-    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+    connect(m_currentSelectJob,SIGNAL(done(SelectJob*)),this,SLOT(slotSuggestionsCame(SelectJob*)));
 }
 
 void TMView::displayFromCache()
@@ -388,11 +391,11 @@ void TMView::displayFromCache()
     m_prevCachePos=m_pos;
 }
 
-void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
+void TMView::slotSuggestionsCame(SelectJob* j)
 {
     QTime time;time.start();
 
-    SelectJob& job=*(static_cast<SelectJob*>(j));
+    SelectJob& job=*j;
     if (job.m_pos.entry!=m_pos.entry)
         return;
 
@@ -596,9 +599,9 @@ void TMView::contextMenu(const QPoint& pos)
                                                            i18nc("@title:window","Translation Memory Entry Removal")))
     {
         RemoveJob* job=new RemoveJob(e);
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotNewEntryDisplayed()));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        connect(job,SIGNAL(done()),job,SLOT(deleteLater()));
+        connect(job,SIGNAL(done()),this,SLOT(slotNewEntryDisplayed()));
+        TM::threadPool()->start(job, REMOVE);
     }
     else if (r->data().toInt()==Open)
         emit fileOpenRequested(e.file, e.source.string, e.ctxt);

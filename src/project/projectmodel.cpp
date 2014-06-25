@@ -38,6 +38,7 @@
 #include <QFile>
 #include <QtAlgorithms>
 #include <QTimer>
+#include <QThreadPool>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -60,10 +61,11 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_potIcon(KIcon(QLatin1String("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
-    , m_weaver(new ThreadWeaver::Weaver())
+    , m_threadPool(new QThreadPool(this))
     , m_completeScan(true)
 {
-    m_weaver->setMaximumNumberOfThreads(1);
+    m_threadPool->setMaxThreadCount(1);
+    m_threadPool->setExpiryTimeout(-1);
 
     m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
     m_poModel.dirLister()->setNameFilter("*.po *.pot *.xlf");
@@ -1023,16 +1025,14 @@ void ProjectModel::startNewMetadataJob()
 
     m_activeJob = new UpdateStatsJob(files, this);
     connect(
-        m_activeJob,SIGNAL(done(ThreadWeaver::Job*)),
-        this,SLOT(finishMetadataUpdate(ThreadWeaver::Job*)));
+        m_activeJob,SIGNAL(done(UpdateStatsJob*)),
+        this,SLOT(finishMetadataUpdate(UpdateStatsJob*)));
 
-    m_weaver->enqueue(m_activeJob);
+    m_threadPool->start(m_activeJob);
 }
 
-void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
+void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
 {
-    UpdateStatsJob* job = static_cast<UpdateStatsJob *>(_job);
-
     if (job->m_status == -2)
     {
         delete job;
@@ -1076,16 +1076,14 @@ void ProjectModel::slotFileSaved(const KUrl& url)
     files.append(itemForIndex(index));
 
     UpdateStatsJob* j = new UpdateStatsJob(files);
-    connect(j,SIGNAL(done(ThreadWeaver::Job*)),
-        this,SLOT(finishSingleMetadataUpdate(ThreadWeaver::Job*)));
+    connect(j,SIGNAL(done(UpdateStatsJob*)),
+        this,SLOT(finishSingleMetadataUpdate(UpdateStatsJob*)));
 
-    m_weaver->enqueue(j);
+    m_threadPool->start(j);
 }
 
-void ProjectModel::finishSingleMetadataUpdate(ThreadWeaver::Job* _job)
+void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
 {
-    UpdateStatsJob* job = static_cast<UpdateStatsJob*>(_job);
-
     if (job->m_status != 0)
     {
         delete job;
@@ -1257,10 +1255,11 @@ void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
 //BEGIN UpdateStatsJob
 //these are run in separate thread
 UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject* owner)
-    : ThreadWeaver::Job(owner)
+    : QRunnable()
     , m_files(files)
     , m_status(0)
 {
+    setAutoDelete(false);
 }
 
 UpdateStatsJob::~UpdateStatsJob()
@@ -1365,7 +1364,10 @@ void UpdateStatsJob::run()
     for (int pos=0; pos<m_files.count(); pos++)
     {
         if (m_status!=0)
+        {
+            emit done(this);
             return;
+        }
 
         const KFileItem& file=m_files.at(pos);
         KFileMetaInfo info;
@@ -1392,6 +1394,7 @@ void UpdateStatsJob::run()
         db.close();
         db.open();
     }
+    emit done(this);
 }
 
 void UpdateStatsJob::setStatus(int status)

@@ -5,7 +5,7 @@
   Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2005   by Stanislav Visnovsky <visnovsky@kde.org>
                 2006        by Nicolas Goutte <goutte@kde.org>
-                2007-2012   by Nick Shaforostoff <shafff@ukr.net>
+                2007-2014   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -731,8 +731,7 @@ static void updateDB(
 {
     TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,newTarget,form,approved,
                                Project::instance()->projectID());
-    j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-    ThreadWeaver::Weaver::instance()->enqueue(j);
+    TM::threadPool()->start(j);
 }
 
 
