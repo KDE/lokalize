@@ -209,8 +209,8 @@ void DBPropertiesDialog::accept()
     }
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
-    connect(openDBJob,SIGNAL(done(openDBJob*)),openDBJob,SLOT(deleteLater()));
-    connect(openDBJob,SIGNAL(done(openDBJob*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
 
     openDBJob->m_setParams=true;
     openDBJob->m_tmConfig.markup=markup->text();

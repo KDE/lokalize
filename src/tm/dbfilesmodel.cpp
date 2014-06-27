@@ -131,8 +131,8 @@ void DBFilesModel::openDB(const QString& name, DbType type)
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
 {
-    connect(openDBJob,SIGNAL(done(openDBJob*)),openDBJob,SLOT(deleteLater()));
-    connect(openDBJob,SIGNAL(done(openDBJob*)),this,SLOT(openJobDone(openDBJob*)));
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
     threadPool()->start(openDBJob, OPENDB);
 }
 

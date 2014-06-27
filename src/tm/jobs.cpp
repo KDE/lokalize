@@ -1076,15 +1076,7 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run ()
 {
-    //kWarning(TM_AREA) <<"started";
-//     thread()->setPriority(QThread::IdlePriority);
-    QTime a;
-    a.start();
-
-//     QString dbFile=KStandardDirs::locateLocal("appdata", m_name+".db");
-
     QSqlDatabase::removeDatabase(m_dbName);
-    kWarning(TM_AREA) <<"db closed "<<a.elapsed();
     emit done(this);
 }
 

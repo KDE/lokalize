@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -104,6 +104,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
     showProjectOverview();
+    showTranslationMemory(); //temp HACK to workaround non-responding project tab
 
 #if 0 //KDE5PORT
     QString tmp=" ";

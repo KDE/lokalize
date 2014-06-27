@@ -153,7 +153,7 @@ protected:
 
 bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-#ifdef _MSC_VER
+#if 1//def _MSC_VER   KDE5PORT
     return true;
 #endif
 

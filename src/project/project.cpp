@@ -120,7 +120,8 @@ void Project::load(const QString &newProjectPath)
     if (!m_path.isEmpty())
     {
         TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
-        TM::threadPool()->start(closeDBJob);
+        closeDBJob->setAutoDelete(true);
+        TM::threadPool()->start(closeDBJob, CLOSEDB);
     }
     TM::threadPool()->waitForDone(500);//more safety
 
