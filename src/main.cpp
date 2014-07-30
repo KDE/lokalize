@@ -38,6 +38,7 @@
 #include "pos.h"
 #include <QMetaType>
 #include <QString>
+#include <QFile>
 #include <QFileInfo>
 
 #include <kapplication.h>
@@ -115,7 +116,11 @@ int main(int argc, char **argv)
 
         KUrl::List urls;
         for (int j=0; j<args->count(); j++)
-            urls << args->url(j);
+        {
+            QFile file(args->url(j).path());
+            if (file.exists())
+                urls << args->url(j);
+        }
         if (urls.size())
             new DelayedFileOpener(urls, lmw);
 
