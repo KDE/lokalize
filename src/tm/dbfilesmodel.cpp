@@ -29,7 +29,7 @@
 #include <QFileSystemModel>
 #include <QStringBuilder>
 
-#include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/threadweaver.h>
 #include <kstandarddirs.h>
 #include <kdemacros.h>
 

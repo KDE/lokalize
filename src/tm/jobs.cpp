@@ -35,8 +35,8 @@
 #include <kdemacros.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/Thread.h>
+#include <threadweaver/threadweaver.h>
+#include <threadweaver/thread.h>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>

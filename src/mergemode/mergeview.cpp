@@ -37,7 +37,7 @@
 #include <knotification.h>
 #include <ktextedit.h>
 #include <kaction.h>
-#include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/threadweaver.h>
 #include <kdemacros.h>
 
 #include <QDragEnterEvent>

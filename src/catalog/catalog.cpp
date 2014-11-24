@@ -53,7 +53,7 @@
 #include "prefs_lokalize.h"
 #include "jobs.h"
 
-#include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/threadweaver.h>
 
 #include <QProcess>
 #include <QString>

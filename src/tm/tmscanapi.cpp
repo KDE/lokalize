@@ -30,7 +30,7 @@
 #include <kio/global.h>
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
-#include <threadweaver/ThreadWeaver.h>
+#include <threadweaver/threadweaver.h>
 #include "dbfilesmodel.h"
 #include <project.h>
 
