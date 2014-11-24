@@ -341,6 +341,7 @@ void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bo
 
 void ProjectTab::initStatusBarProgress()
 {
+#if 0 //KDE5PORT
     if (m_legacyUnitsCount > 0)
     {
         if (m_progressBar->value() != 0)
@@ -349,6 +350,7 @@ void ProjectTab::initStatusBarProgress()
             m_progressBar->setMaximum(m_legacyUnitsCount);
         updateStatusBar();
     }
+#endif
 }
 
 void ProjectTab::setLegacyUnitsCount(int to)

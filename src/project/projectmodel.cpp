@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2015 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -25,8 +25,9 @@
 #include "projectmodel.h"
 #include "project.h"
 
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/Thread.h>
+#include <kfilemetadata/extractorcollection.h>
+#include <kfilemetadata/extractor.h>
+#include <kfilemetadata/simpleextractionresult.h>
 
 #include <kio/netaccess.h>
 #include <klocale.h>
@@ -1090,8 +1091,8 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
         return;
     }
 
-    const KFileMetaInfo& info=job->m_info.first();
-    QModelIndex index = indexForUrl(info.url());
+    const FileMetaData& info=job->m_info.first();
+    QModelIndex index = indexForUrl(info.filePath);
     if (!index.isValid())
         return;
 
@@ -1106,15 +1107,14 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
     delete job;
 }
 
-void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data)
+void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData>& data)
 {
     int dataCount = data.count();
     int rowsCount = node->rows.count();
     Q_ASSERT(dataCount == rowsCount);
 
-    for (int row = 0; row < rowsCount; row ++)
+    for (int row = 0; row < rowsCount; row++)
         node->rows[row]->setFileStats(data.at(row));
-
     if (!dataCount)
         return;
 
@@ -1227,28 +1227,18 @@ void ProjectModel::ProjectNode::calculateDirStats()
 }
 
 
-void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
+void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
 {
-    if (info.keys().count() == 0)
-        return;
-
-    translated = info.item("translation.translated").value().toInt();
-    const QVariant translated_reviewer_variant = info.item("translation.translated_reviewer").value();
-    translated_reviewer = translated_reviewer_variant.isValid() ? translated_reviewer_variant.toInt() : translated;
-    const QVariant translated_approver_variant = info.item("translation.translated_approver").value();
-    translated_approver = translated_approver_variant.isValid() ? translated_approver_variant.toInt() : translated;
-    untranslated = info.item("translation.untranslated").value().toInt();
-    fuzzy = info.item("translation.fuzzy").value().toInt();
-    const QVariant fuzzy_reviewer_variant = info.item("translation.fuzzy_reviewer").value();
-    fuzzy_reviewer = fuzzy_reviewer_variant.isValid() ? fuzzy_reviewer_variant.toInt() : fuzzy;
-    const QVariant fuzzy_approver_variant = info.item("translation.fuzzy_approver").value();
-    fuzzy_approver = fuzzy_approver_variant.isValid() ? fuzzy_approver_variant.toInt() : fuzzy;
-    lastTranslator = info.item("translation.last_translator").value().toString();
-    sourceDate = info.item("translation.source_date").value().toString();
-    translationDate = info.item("translation.translation_date").value().toString();
-    lastTranslator.squeeze();
-    sourceDate.squeeze();
-    translationDate.squeeze();
+    translated = info.translated;
+    translated_reviewer = info.translated_reviewer;
+    translated_approver = info.translated_approver;
+    untranslated = info.untranslated;
+    fuzzy = info.fuzzy;
+    fuzzy_reviewer = info.fuzzy_reviewer;
+    fuzzy_approver = info.fuzzy_approver;
+    lastTranslator = info.lastTranslator;
+    sourceDate = info.sourceDate;
+    translationDate = info.translationDate;
 }
 
 
@@ -1266,54 +1256,97 @@ UpdateStatsJob::~UpdateStatsJob()
 {
 }
 
+static FileMetaData metaData(QString filePath)
+{
+    FileMetaData m;
+
+    KFileMetaData::ExtractorCollection c;
+    QList<KFileMetaData::Extractor*> extractors = c.fetchExtractors(QStringLiteral("text/x-gettext-translation"));
+    if (!extractors.size())
+        return m;
+
+    KFileMetaData::SimpleExtractionResult r(filePath, QStringLiteral("text/x-gettext-translation"), KFileMetaData::ExtractionResult::ExtractEverything);
+    extractors.first()->extract(&r);
+    m.fuzzy      = r.properties().value(KFileMetaData::Property::TranslationUnitsWithDraftTranslation).toInt();
+    m.translated = r.properties().value(KFileMetaData::Property::TranslationUnitsWithTranslation).toInt()-m.fuzzy;
+    m.untranslated=r.properties().value(KFileMetaData::Property::TranslationUnitsTotal).toInt()-m.translated-m.fuzzy;
+    m.sourceDate = r.properties().value(KFileMetaData::Property::TranslationTemplateDate).toString();
+    m.translationDate = r.properties().value(KFileMetaData::Property::TranslationLastUpDate).toString();
+    m.lastTranslator  = r.properties().value(KFileMetaData::Property::TranslationLastAuthor).toString();
+    m.filePath = filePath;
+
+    //TODO
+    m.translated_approver=m.translated_reviewer=m.translated;
+    m.fuzzy_approver=m.fuzzy_reviewer=m.fuzzy;
+
+    return m;
+}
+
 static void initDataBase(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
     queryMain.exec("PRAGMA encoding = \"UTF-8\"");
-    queryMain.exec("CREATE TABLE IF NOT EXISTS metainfo ("
+    queryMain.exec("CREATE TABLE IF NOT EXISTS metadata ("
                    "filepath INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    //"filepath TEXT UNIQUE ON CONFLICT REPLACE, "
-                   "metainfo BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
+                   "metadata BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                    "changedate INTEGER"
                    ")");
 
     //queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
 }
 
-
-static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
+QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
 {
-    QString dbName="metainfocache";
+    s << d.translated;
+    s << d.translated_approver;
+    s << d.translated_reviewer;
+    s << d.fuzzy;
+    s << d.fuzzy_approver;
+    s << d.fuzzy_reviewer;
+    s << d.untranslated;
+    s << d.lastTranslator;
+    s << d.translationDate;
+    s << d.sourceDate;
+    return s;
+}
+QDataStream &operator>>(QDataStream &s, FileMetaData &d)
+{
+    s >> d.translated;
+    s >> d.translated_approver;
+    s >> d.translated_reviewer;
+    s >> d.fuzzy;
+    s >> d.fuzzy_approver;
+    s >> d.fuzzy_reviewer;
+    s >> d.untranslated;
+    s >> d.lastTranslator;
+    s >> d.translationDate;
+    s >> d.sourceDate;
+    return s;
+}
+
+static FileMetaData cachedMetaData(const KFileItem& file)
+{
+    if (file.isNull() || file.isDir())
+        return FileMetaData();
+
+    QString dbName=QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName))
     {
         QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",dbName);
         db.setDatabaseName(KStandardDirs::locateLocal("appdata", dbName+".sqlite"));
         if (KDE_ISUNLIKELY( !db.open() ))
-            return KFileMetaInfo(file.url());
+            return metaData(file.localPath());
         initDataBase(db);
     }
     QSqlDatabase db=QSqlDatabase::database(dbName);
     if (!db.isOpen())
-        return KFileMetaInfo(file.url());
-
-    static const QString fields[]={
-        "translation.translated",
-        "translation.untranslated",
-        "translation.fuzzy",
-        "translation.last_translator",
-        "translation.source_date",
-        "translation.translation_date",
-        "translation.translated_reviewer",
-        "translation.translated_approver",
-        "translation.fuzzy_reviewer",
-        "translation.fuzzy_approver"
-    };
-    static const int nFields = sizeof(fields) / sizeof(fields[0]);
+        return metaData(file.localPath());
 
     QByteArray result;
 
     QSqlQuery queryCache(db);
-    queryCache.prepare("SELECT * from metainfo where filepath=?");
+    queryCache.prepare(QStringLiteral("SELECT * from metadata where filepath=?"));
     queryCache.bindValue(0, qHash(file.localPath()));
     queryCache.exec();
     if (queryCache.next() && file.time(KFileItem::ModificationTime)==queryCache.value(2).toDateTime())
@@ -1322,74 +1355,52 @@ static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
         QDataStream stream(&result,QIODevice::ReadOnly);
 
         //unfortunately direct KFileMetaInfo << operator doesn't work
-        KFileMetaInfo info;
-        QVector<QVariant> keys;
-        stream>>keys;
-        for(int i=0;i<keys.count();i++)
-            info.item(fields[i]).setValue(keys.at(i));
+        FileMetaData info;
+        stream>>info;
         return info;
     }
 
-    KFileMetaInfo info(file.url());
+    FileMetaData m = metaData(file.localPath());
 
     QDataStream stream(&result,QIODevice::WriteOnly);
     //this is synced with ProjectModel::ProjectNode::setFileStats
-    QVector<QVariant> keys(nFields);
-    for(int i=0;i<nFields;i++)
-        keys[i] = info.item(fields[i]).value();
-    stream<<keys;
+    stream<<m;
 
     QSqlQuery query(db);
 
-    query.prepare("INSERT INTO metainfo (filepath, metainfo, changedate) "
-                        "VALUES (?, ?, ?)");
+    query.prepare(QStringLiteral("INSERT INTO metadata (filepath, metadata, changedate) "
+                        "VALUES (?, ?, ?)"));
     query.bindValue(0, qHash(file.localPath()));
     query.bindValue(1, result);
     query.bindValue(2, file.time(KFileItem::ModificationTime));
     if (KDE_ISUNLIKELY(!query.exec()))
         qWarning() <<"metainfo cache acquiring error: " <<query.lastError().text();
 
-    return info;
+    return m;
 }
 
 void UpdateStatsJob::run()
 {
-    static QString dbName="metainfocache";
+    QString dbName=QStringLiteral("metainfocache");
     bool ok=QSqlDatabase::contains(dbName);
     if (ok)
     {
         QSqlDatabase db=QSqlDatabase::database(dbName);
-        QSqlQuery queryBegin("BEGIN",db);
+        QSqlQuery queryBegin(QStringLiteral("BEGIN"),db);
     }
     for (int pos=0; pos<m_files.count(); pos++)
     {
         if (m_status!=0)
-        {
-            emit done(this);
-            return;
-        }
+            break;
 
-        const KFileItem& file=m_files.at(pos);
-        KFileMetaInfo info;
-#if 0 //KDE5PORT
-        if ((!file.isNull()) && (!file.isDir()))
-        {
-            //force population of metainfo, do not use the KFileItem default behavior
-            if (file.metaInfo(false).keys().isEmpty())
-                info=cachedMetaInfo(file);
-                //info=KFileMetaInfo(file.url());
-            else
-                info=file.metaInfo(false);
-        }
-#endif
-        m_info.append(info);
+        m_info.append(cachedMetaData(m_files.at(pos)));
     }
     if (ok)
     {
         QSqlDatabase db=QSqlDatabase::database(dbName);
         {
             //braces are needed to avoid resource leak on close
-            QSqlQuery queryEnd("END",db);
+            QSqlQuery queryEnd(QStringLiteral("END"),db);
         }
         db.close();
         db.open();

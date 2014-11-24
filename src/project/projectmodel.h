@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -42,6 +42,24 @@ class QTimer;
 class QThreadPool;
 class UpdateStatsJob;
 
+struct FileMetaData
+{
+    int translated;
+    int translated_reviewer;
+    int translated_approver;
+    int untranslated;
+    int fuzzy;
+    int fuzzy_reviewer;
+    int fuzzy_approver;
+
+    QString lastTranslator;
+    QString sourceDate;
+    QString translationDate;
+
+    QString filePath;
+};
+
+
 /**
 *  Some notes:
 *      Uses two KDirModels for template and translations dir.
@@ -62,7 +80,7 @@ class ProjectModel: public QAbstractItemModel
         ProjectNode(ProjectNode* parent, int rowNum, int poIndex, int potIndex);
         ~ProjectNode();
         void calculateDirStats();
-        void setFileStats(const KFileMetaInfo& info);
+        void setFileStats(const FileMetaData& info);
         
         int translatedAsPerRole() const
         {
@@ -209,7 +227,7 @@ private:
     void deleteSubtree(ProjectNode* node);
 
     void startNewMetadataJob();
-    void setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data);
+    void setMetadataForDir(ProjectNode* node, const QList<FileMetaData>& data);
     void updateDirStats(ProjectNode* node);
     bool updateDone(const QModelIndex& index, const KDirModel& model);
 
@@ -249,7 +267,7 @@ public:
     void setStatus(int status);
 
     QList<KFileItem> m_files;
-    QList<KFileMetaInfo> m_info;
+    QList<FileMetaData> m_info;
     volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
 
 protected:

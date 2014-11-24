@@ -14,7 +14,7 @@ include(KDECompilerSettings)
 
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Sql)
 
-find_package(KF5 REQUIRED KDELibs4Support I18n KIO XmlGui Notifications Config
+find_package(KF5 REQUIRED KDELibs4Support I18n KIO XmlGui Notifications Config FileMetaData
     ThreadWeaver CoreAddons DocTools Kross Sonnet 
 )
 
