@@ -89,10 +89,6 @@
 
 #include <QDir>
 #include <QTime>
-#include <threadweaver/threadweaver.h>
-
-
-
 
 
 EditorTab::EditorTab(QWidget* parent, bool valid)

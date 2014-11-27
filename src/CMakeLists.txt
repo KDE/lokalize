@@ -163,7 +163,6 @@ KF5::SonnetCore
 KF5::SonnetUi
 KF5::KrossCore
 KF5::KrossUi
-KF5::ThreadWeaver
 Qt5::Sql
 )
 if(HUNSPELL_FOUND)

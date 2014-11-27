@@ -44,8 +44,6 @@
 #include <QStringBuilder>
 #include <kfiledialog.h>
 #include <kdebug.h>
-// #include <kstandarddirs.h>
-#include <threadweaver/threadweaver.h>
 #include <kstandarddirs.h>
 
 using namespace TM;

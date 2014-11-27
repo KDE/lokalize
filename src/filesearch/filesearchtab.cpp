@@ -56,10 +56,6 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
-#include <threadweaver/job.h>
-#include <threadweaver/collection.h>
-#include <threadweaver/threadweaver.h>
-#include <threadweaver/thread.h>
 #include <kdemacros.h>
 
 
