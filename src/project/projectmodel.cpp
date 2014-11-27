@@ -1260,7 +1260,7 @@ static FileMetaData metaData(QString filePath)
 {
     FileMetaData m;
 
-    KFileMetaData::ExtractorCollection c;
+    static KFileMetaData::ExtractorCollection c;
     QList<KFileMetaData::Extractor*> extractors = c.fetchExtractors(QStringLiteral("text/x-gettext-translation"));
     if (!extractors.size())
         return m;

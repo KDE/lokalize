@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -24,6 +24,7 @@
 #include "actionproxy.h"
 
 #include <kdebug.h>
+#include <QLabel>
 #include <KStatusBar>
 
 #if 0
@@ -97,18 +98,21 @@ void ActionProxy::setChecked(bool checked)
 void StatusBarProxy::insert(int key,const QString& str)
 {
     if (m_currentStatusBar)
-        m_currentStatusBar->changeItem(str,key);
+        if (key<m_statusBarLabels.size()) m_statusBarLabels.at(key)->setText(str);
     QMap<int,QString>::insert(key,str);
 }
 
-void StatusBarProxy::registerStatusBar(KStatusBar* bar)
+void StatusBarProxy::registerStatusBar(QStatusBar* bar, const QVector<QLabel*>& statusBarLabels)
 {
     m_currentStatusBar=bar;
+    m_statusBarLabels=statusBarLabels;
+    for (int i=0;i<statusBarLabels.size();i++)
+        statusBarLabels.at(i)->setText(QString());
 
     QMap<int,QString>::const_iterator i = constBegin();
     while (i != constEnd())
     {
-        bar->changeItem(i.value(),i.key());
+        if (i.key()<statusBarLabels.size()) statusBarLabels.at(i.key())->setText(i.value());
         ++i;
     }
 }

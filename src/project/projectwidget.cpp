@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,6 +26,7 @@
 #include "project.h"
 #include "catalog.h"
 
+#include <kfilemetadata/extractorcollection.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kdirlister.h>
@@ -139,6 +140,7 @@ class SortFilterProxyModel : public KDirSortFilterProxyModel
 public:
     SortFilterProxyModel(QObject* parent=0)
         : KDirSortFilterProxyModel(parent)
+        , m_hideNonPo(KFileMetaData::ExtractorCollection().fetchExtractors(QStringLiteral("text/x-gettext-translation")).size())
     {
         connect(Project::instance()->model(),SIGNAL(totalsChanged(int,int,int,bool)),this,SLOT(invalidate()));
     }
@@ -148,13 +150,18 @@ protected:
                   const QModelIndex& right) const;
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
+private:
+    bool m_hideNonPo;
 };
 
 
 bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-#if 1//def _MSC_VER   KDE5PORT
+#ifdef _MSC_VER   //FIXME check extractors on win32
     return true;
+#else
+    if (!m_hideNonPo)
+        return true;
 #endif
 
     bool result=false;

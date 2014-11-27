@@ -126,17 +126,11 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
 
     setCentralWidget(baseWidget);
-#if 0 //KDE5PORT
-    KHBox *progressBox = new KHBox();
-    KStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
+    QStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
 
-    m_progressBar = new QProgressBar(progressBox);
+    m_progressBar = new QProgressBar(0);
     m_progressBar->setVisible(false);
-    progressBox->setMinimumWidth(200);
-    progressBox->setMaximumWidth(200);
-    progressBox->setMaximumHeight(statusBar->sizeHint().height() - 4);
-    statusBar->insertWidget(ID_STATUS_PROGRESS, progressBox, 1);
-#endif
+    statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
     setXMLFile("projectmanagerui.rc",true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
@@ -144,8 +138,8 @@ ProjectTab::ProjectTab(QWidget *parent)
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = nav->addAction(_name);\
     action->setText(_text);\
-    action->setShortcut(QKeySequence( _shortcut ));\
-    action->setIcon(KIcon(_icon));
+    action->setIcon(KIcon(_icon));\
+    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
 
     QAction *action;
     KActionCollection* ac=actionCollection();
@@ -324,7 +318,7 @@ void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bo
 {
     int total = fuzzy + translated + untranslated;
     m_currentUnitsCount = total;
-/*   KDE5PORT
+
     if (m_progressBar->value() != total && m_legacyUnitsCount > 0)
         m_progressBar->setValue(total);
     if (m_progressBar->maximum() < qMax(total,m_legacyUnitsCount))
@@ -336,12 +330,10 @@ void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bo
     statusBarItems.insert(ID_STATUS_TOTAL, i18nc("@info:status message entries","Total: %1", total));
     reflectNonApprovedCount(fuzzy, total);
     reflectUntranslatedCount(untranslated, total);
-*/
 }
 
 void ProjectTab::initStatusBarProgress()
 {
-#if 0 //KDE5PORT
     if (m_legacyUnitsCount > 0)
     {
         if (m_progressBar->value() != 0)
@@ -350,7 +342,6 @@ void ProjectTab::initStatusBarProgress()
             m_progressBar->setMaximum(m_legacyUnitsCount);
         updateStatusBar();
     }
-#endif
 }
 
 void ProjectTab::setLegacyUnitsCount(int to)

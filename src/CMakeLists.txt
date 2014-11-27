@@ -184,4 +184,4 @@ install( FILES
         tm/translationmemoryrui.rc
         filesearch/filesearchtabui.rc
         lokalize.notifyrc
-        DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+        DESTINATION  ${KXMLGUI_INSTALL_DIR}/lokalize )

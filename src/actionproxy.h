@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,8 +27,10 @@
 #include <QObject>
 #include <QKeySequence>
 #include <QMap>
-class KAction;
-class KStatusBar;
+#include <QVector>
+
+class QLabel;
+class QStatusBar;
 
 #if 0
 
@@ -80,22 +82,22 @@ public:
 
     void insert(int,const QString&);
 
-    void registerStatusBar(KStatusBar*);
+    void registerStatusBar(QStatusBar*, const QVector<QLabel*>& statusBarLabels);
     void unregisterStatusBar(){m_currentStatusBar=0;}
 
 private:
-    KStatusBar* m_currentStatusBar;
-
+    QStatusBar* m_currentStatusBar;
+    QVector<QLabel*> m_statusBarLabels;
 };
 
 
-#define ID_STATUS_PROGRESS 0
-#define ID_STATUS_CURRENT 1
-#define ID_STATUS_TOTAL 2
-#define ID_STATUS_FUZZY 3
-#define ID_STATUS_UNTRANS 4
-#define ID_STATUS_ISFUZZY 5
-#define TOTAL_ID_STATUSES 6
+#define ID_STATUS_CURRENT 0
+#define ID_STATUS_TOTAL 1
+#define ID_STATUS_FUZZY 2
+#define ID_STATUS_UNTRANS 3
+#define ID_STATUS_ISFUZZY 4
+#define ID_STATUS_PROGRESS 5
+//#define TOTAL_ID_STATUSES 6
 //#define ID_STATUS_READONLY 6
 //#define ID_STATUS_CURSOR 7
 

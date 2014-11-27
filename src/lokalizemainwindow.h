@@ -34,7 +34,7 @@
 #include <QMap>
 #include <QDBusObjectPath>
 
-
+class QLabel;
 class QMdiSubWindow;
 class QMdiArea;
 class QActionGroup;
@@ -43,8 +43,8 @@ class KRecentFilesAction;
 class EditorTab;
 class MultiEditorAdaptor;
 class ProjectScriptingPlugin;
-namespace TM {class TMTab;}
 class FileSearchTab;
+namespace TM {class TMTab;}
 
 /**
  * @short Lokalize MDI (tabbed) window.
@@ -153,6 +153,7 @@ private:
     QActionGroup* m_managerActions;
     KRecentFilesAction* m_openRecentFileAction;
     KRecentFilesAction* m_openRecentProjectAction;
+    QVector<QLabel*> m_statusBarLabels;
 
     QByteArray m_lastEditorState;
 

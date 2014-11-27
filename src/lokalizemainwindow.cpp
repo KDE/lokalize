@@ -71,6 +71,7 @@
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
+#include <QLabel>
 #include <kdialog.h>
 
 
@@ -106,16 +107,11 @@ LokalizeMainWindow::LokalizeMainWindow()
     showProjectOverview();
     showTranslationMemory(); //temp HACK to workaround non-responding project tab
 
-#if 0 //KDE5PORT
-    QString tmp=" ";
-    statusBar()->insertItem(tmp,ID_STATUS_CURRENT);
-    statusBar()->insertItem(tmp,ID_STATUS_TOTAL);
-    statusBar()->insertItem(tmp,ID_STATUS_FUZZY);
-    statusBar()->insertItem(tmp,ID_STATUS_UNTRANS);
-    statusBar()->insertItem(tmp,ID_STATUS_ISFUZZY);
-#endif
-
-
+    for (int i=ID_STATUS_CURRENT;i<=ID_STATUS_ISFUZZY;i++)
+    {
+        m_statusBarLabels.append(new QLabel());
+        statusBar()->insertWidget(i, m_statusBarLabels.last(), 2);
+    }
 
     setAttribute(Qt::WA_DeleteOnClose,true);
 
@@ -228,9 +224,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     }
 
     editor->showDocks();
-#if 0 //KDE5PORT
-    editor->statusBarItems.registerStatusBar(statusBar());
-#endif
+    editor->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
     guiFactory()->addClient(  editor->guiClient()   );
 
     m_prevSubWindow=w;
