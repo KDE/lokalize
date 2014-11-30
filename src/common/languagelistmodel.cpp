@@ -85,13 +85,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         if (!iconCache.contains(langCode))
         {
             // NOTE workaround for QTBUG-9370 - it will be removed later
-            QString code;
-            if(langCode == "mn")
-                code = "mn_MN";
-            else if(langCode == "ne")
-                code = "ne_NP";
-            else
-                code=QLocale(langCode).name();
+            QString code=QLocale(langCode).name();
             QString path;
             if (code.contains('_')) code=QString::fromRawData(code.unicode()+3, 2).toLower();
             if (code!="C")
@@ -108,7 +102,13 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         const QString& code=stringList().at(index.row());
         if (code.isEmpty()) return code;
         //kDebug()<<"languageCodeToName"<<code;
-        return QVariant::fromValue<QString>(KGlobal::locale()->languageCodeToName(code)%" ("%code%")");
+        static QVector<QString> displayNames(stringList().size());
+        if (displayNames.at(index.row()).length())
+            return displayNames.at(index.row());
+//        QLocale l(code);
+//        if (l.language()==QLocale::C && code!="C")
+            return QVariant::fromValue<QString>(displayNames[index.row()]=KGlobal::locale()->languageCodeToName(code)%" ("%code%")");
+//        return QVariant::fromValue<QString>(displayNames[index.row()]=QLocale::languageToString(l.language())%" ("%code%")");
     }
     return QStringListModel::data(index, role);
 }

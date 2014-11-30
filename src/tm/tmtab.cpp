@@ -568,7 +568,7 @@ void TMTab::handleResults()
         }
         if(!filemask.isEmpty() && !filemask.contains('*'))
         {
-            ui_queryOptions->filemask->setText('*'+filemask+'*');
+            ui_queryOptions->filemask->setText('*'%filemask%'*');
             return performQuery();
         }
     }

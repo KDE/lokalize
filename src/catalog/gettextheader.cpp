@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -309,38 +309,27 @@ void updateHeader(QString& header,
     QString language; //initialized with preexisting value or later
     QString mailingList; //initialized with preexisting value or later
 
-    static KConfig* allLanguagesConfig=0;
-    if (!allLanguagesConfig)
-    {
-#if 0 //KDE5PORT
-      allLanguagesConfig = new KConfig("all_languages", KConfig::NoGlobals, "locale");
-      allLanguagesConfig->setLocale(QString());
-#endif
-    }
-    QRegExp langTeamRegExp("^ *Language-Team:.*");
+    static QMap<QString,QLocale::Language> langEnums;
+    if (!langEnums.size())
+    for (int l=QLocale::Abkhazian; l<=QLocale::Akoose; ++l)
+        langEnums[QLocale::languageToString((QLocale::Language)l)]=(QLocale::Language)l;
+    
+    static QRegExp langTeamRegExp(QStringLiteral("^ *Language-Team:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(langTeamRegExp);
         if (found)
         {
             //really parse header
-            QMap<QString,QString> map;
-            foreach (const QString &runningLangCode, KGlobal::locale()->allLanguagesList())
-            {
-                ///// KDE5PORT KConfigGroup cg(allLanguagesConfig, runningLangCode);
-                //////map[cg.readEntry("Name")]=runningLangCode;
-            }
-            if (map.size()<16) //may be just "en_US" and ""
-                kWarning()<<"seems that all_languages file is missing (usually located under /usr/share/locale)";
-
-            QRegExp re("^ *Language-Team: *(.*) *<([^>]*)>");
+            QRegExp re(QStringLiteral("^ *Language-Team: *(.*) *<([^>]*)>"));
             if (re.indexIn(*it) != -1 )
             {
-                if (map.contains( re.cap(1).trimmed() ))
+                if (langEnums.contains( re.cap(1).trimmed() ))
                 {
                     language=re.cap(1).trimmed();
                     mailingList=re.cap(2).trimmed();
-                    langCode=map.value(language);                    
+                    QList<QLocale> locales = QLocale::matchingLocales(langEnums.value(language), QLocale::AnyScript, QLocale::AnyCountry);
+                    if (locales.size()) langCode=locales.first().name().left(2);
                 }
             }
 
@@ -350,10 +339,7 @@ void updateHeader(QString& header,
 
     if (language.isEmpty())
     {
-        //language=locale.languageCodeToName(d->_langCode);
-        ////KDE5PORT
-        //////KConfigGroup cg(allLanguagesConfig, langCode);
-        /////language=cg.readEntry("Name");
+        language=QLocale::languageToString(QLocale(langCode).language());
         if (language.isEmpty())
             language=langCode;
     }
@@ -368,14 +354,13 @@ void updateHeader(QString& header,
 
 
 
-    temp="Language-Team: "%language%" <"%mailingList%'>';
-    temp+="\\n";
+    temp="Language-Team: "%language%" <"%mailingList%'>' % "\\n";
     if (KDE_ISLIKELY( found ))
         (*ait) = temp;
     else
         headerList.append(temp);
 
-    QRegExp langCodeRegExp("^ *Language: *([^ \\\\]*)");
+    static QRegExp langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
     temp="Language: "%langCode%"\\n";
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
@@ -388,9 +373,10 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     temp="Content-Type: text/plain; charset="%codec->name()%"\\n";
+    static QRegExp ctRe("^ *Content-Type:.*");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
-        found=it->contains(QRegExp("^ *Content-Type:.*"));
+        found=it->contains(ctRe);
         if (found) *it=temp;
     }
     if (KDE_ISUNLIKELY( !found ))
@@ -437,7 +423,7 @@ void updateHeader(QString& header,
                 //kWarning()<<"generated: " << t;
                 if ( !t.isEmpty() )
                 {
-                    QRegExp pf("^ *Plural-Forms:\\s*nplurals.*\\\\n");
+                    static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
                     pf.setMinimal(true);
                     temp=QString("Plural-Forms: %1\\n").arg(t);
                     it->replace(pf,temp);

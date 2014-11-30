@@ -105,7 +105,6 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
     showProjectOverview();
-    showTranslationMemory(); //temp HACK to workaround non-responding project tab
 
     for (int i=ID_STATUS_CURRENT;i<=ID_STATUS_ISFUZZY;i++)
     {
