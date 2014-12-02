@@ -1113,7 +1113,7 @@ bool TranslationUnitTextEdit::event(QEvent *event)
         bool nospell=langCode.isEmpty();
         if (nospell)
             langCode=m_part==DocPosition::Source?m_catalog->sourceLangCode():m_catalog->targetLangCode();
-        QString tip=KGlobal::locale()->languageCodeToName(langCode)%" ("%langCode%")";
+        QString tip=KLocale::global()->languageCodeToName(langCode)%" ("%langCode%")";
         if (nospell)
             tip+=" - "%i18n("no spellcheck available");
         QToolTip::showText(helpEvent->globalPos(), tip);

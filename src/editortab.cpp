@@ -60,12 +60,7 @@
 #include <kmenubar.h>
 #include <kstatusbar.h>
 #include <kdebug.h>
-
-#if QT_VERSION >= 0x040400
-    #include <kfadewidgeteffect.h>
-#endif
-
-
+#include <kfadewidgeteffect.h>
 #include <kdemacros.h>
 #include <kio/netaccess.h>
 #include <kactioncollection.h>
@@ -85,6 +80,7 @@
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
+#include <QFileDialog>
 
 
 #include <QDir>
@@ -314,7 +310,7 @@ void EditorTab::setupActions()
     connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(refreshRequested()),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
     connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
-    connect (_tmView,SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SIGNAL(fileOpenRequested(KUrl,QString,QString)));
+    connect (_tmView,SIGNAL(fileOpenRequested(QString,QString,QString)),this,SIGNAL(fileOpenRequested(QString,QString,QString)));
     connect (this,SIGNAL(fileAboutToBeClosed()),m_catalog,SLOT(flushUpdateDBBuffer()));
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalog,SLOT(flushUpdateDBBuffer()));
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition))); //do this after flushUpdateDBBuffer
@@ -777,7 +773,7 @@ void EditorTab::updateCaptionPath()
 
 }
 
-bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
+bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent)
 {
     if (!m_catalog->isClean())
     {
@@ -791,39 +787,40 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
         case KMessageBox::Cancel:               return false;
         }
     }
-    if (baseUrl.isEmpty())
-        baseUrl=m_catalog->url();
+    if (suggestedDirPath.isEmpty())
+        suggestedDirPath=m_catalog->url().toLocalFile(); //TODO KDE5PORT
 
-    KUrl saidUrl;
-    if (url.isEmpty())
+    QString saidPath;
+    if (filePath.isEmpty())
     {
         //Prevent crashes
         //Project::instance()->model()->weaver()->suspend();
         //KDE5PORT use mutex if the crash is still there with kfilemetadata library
-        url=KFileDialog::getOpenFileName(baseUrl, Catalog::supportedMimeFilters + " text/x-gettext-translation-template", SettingsController::instance()->mainWindowPtr());
+        filePath=QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), i18n("Select translation file"),
+                                              suggestedDirPath, i18n("Gettext (*.po *.pot)")%QStringLiteral(";;")%i18n("XLIFF (*.xlf *.xliff)")); //TODO xliff Catalog::supportedMimeFilters + " text/x-gettext-translation-template");
         //Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
     }
-    else if (!QFile::exists(url.toLocalFile())&&Project::instance()->isLoaded())
+    else if (!QFile::exists(filePath)&&Project::instance()->isLoaded())
     {   //check if we are opening template
-        QString path=url.toLocalFile();
-        path.replace(Project::instance()->poDir(),Project::instance()->potDir());
-        if (QFile::exists(path) || QFile::exists(path=path+'t'))
+        QString newPath=filePath;
+        newPath.replace(Project::instance()->poDir(),Project::instance()->potDir());
+        if (QFile::exists(newPath) || QFile::exists(newPath+='t'))
         {
-            saidUrl=url;
-            url.setPath(path);
+            saidPath=filePath;
+            filePath=newPath;
         }
     }
-    if (url.isEmpty())
+    if (filePath.isEmpty())
         return false;
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
-    QString prevFilePath=currentFile();
+    QString prevFilePath=currentFilePath();
     bool wasOpen=!m_catalog->isEmpty();
     if (wasOpen) emit fileAboutToBeClosed();
-    int errorLine=m_catalog->loadFromUrl(url,saidUrl);
+    int errorLine=m_catalog->loadFromUrl(filePath,saidPath);
     if (wasOpen&&errorLine==0) {emit fileClosed();emit fileClosed(prevFilePath);}
 
     QApplication::restoreOverrideCursor();
@@ -842,26 +839,26 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
         //TODO "test" for the name????
         m_catalog->setActivePhase("test",Project::local()->role());
 //Project
-        if (url.isLocalFile() && !_project->isLoaded())
+        if (!_project->isLoaded())
         {
 //search for it
             int i=4;
-            QDir dir(url.directory());
-            QStringList proj("*.ktp");
-            proj.append("*.lokalize");
+            QFileInfo fileInfo(filePath);
+            QDir dir=fileInfo.dir();
+            QStringList proj(QStringLiteral("*.lokalize"));
             dir.setNameFilters(proj);
             while (--i && !dir.isRoot() && !_project->isLoaded())
             {
-                if (dir.entryList().isEmpty()) dir.cdUp();
+                if (dir.entryList().isEmpty()) {if (!dir.cdUp()) break;}
                 else _project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
 
             //enforce autosync
-            m_syncViewSecondary->mergeOpen(url);
+            m_syncViewSecondary->mergeOpen(filePath);
             
             if (!_project->isLoaded() && _project->desirablePath().isEmpty())
             {
-                _project->setDesirablePath(url.directory(KUrl::AppendTrailingSlash)+"index.lokalize");
+                _project->setDesirablePath(fileInfo.absolutePath()+QStringLiteral("/index.lokalize"));
                 //_project->setLangCode(m_catalog->targetLangCode());
             }
                 
@@ -880,8 +877,8 @@ bool EditorTab::fileOpen(KUrl url, KUrl baseUrl, bool silent)
     if (!silent)
     {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
-        if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",url.pathOrUrl(),errorLine) );
-        else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",url.pathOrUrl()) );
+        if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",filePath,errorLine) );
+        else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",filePath) );
     }
     return false;
 }
@@ -1351,7 +1348,7 @@ void EditorTab::reloadFile()
 {
     KUrl mergeFile=m_syncView->url();
     DocPosition p=m_currentPos;
-    if (!fileOpen(currentUrl()))
+    if (!fileOpen(currentFilePath()))
         return;
 
     gotoEntry(p);
@@ -1390,7 +1387,7 @@ QString EditorTab::dbusObjectPath()
 }
 
 
-KUrl EditorTab::currentUrl(){return m_catalog->url();}
+QString EditorTab::currentFilePath(){return m_catalog->url().toLocalFile();}
 QByteArray EditorTab::currentFileContents(){return m_catalog->contents();}
 QString EditorTab::currentEntryId(){return m_catalog->id(m_currentPos);}
 QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}

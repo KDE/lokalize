@@ -25,6 +25,7 @@
 
 #include "alttransview.h"
 #include <QDragEnterEvent>
+#include <QMimeData>
 
 #include "diff.h"
 #include "catalog.h"

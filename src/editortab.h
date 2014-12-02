@@ -97,7 +97,7 @@ public:
     //interface for LokalizeMainWindow
     void hideDocks();
     void showDocks();
-    KUrl currentUrl();
+    QString currentFilePath();
     void setFullPathShown(bool);
     void setProperCaption(QString,bool);//reimpl to remove ' - Lokalize'
 public slots:
@@ -110,7 +110,7 @@ public:
     //wrapper for cmdline handling
     void mergeOpen(KUrl url=KUrl());
 
-    bool fileOpen(KUrl url=KUrl(), KUrl baseUrl=KUrl(), bool silent=false);
+    bool fileOpen(QString filePath=QString(), QString suggestedDirPath=QString(), bool silent=false);
 
     QString dbusObjectPath();
     int dbusId(){return m_dbusId;}
@@ -145,7 +145,7 @@ public slots:
     Q_SCRIPTABLE void addAlternateTranslation(int entry, const QString& translation);
     Q_SCRIPTABLE void addTemporaryAlternateTranslation(int entry, const QString& translation);
 
-    Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
+    Q_SCRIPTABLE QString currentFile(){return currentFilePath();}
     Q_SCRIPTABLE QByteArray currentFileContents();
     Q_SCRIPTABLE QString sourceLangCode();
     Q_SCRIPTABLE QString targetLangCode();
@@ -310,7 +310,7 @@ signals:
 
     Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);
 
-    void fileOpenRequested(const KUrl& path, const QString& str, const QString& ctxt);
+    void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt);
 
     //emitted when mainwindow is closed or another file is opened
     void fileClosed();

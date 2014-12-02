@@ -65,7 +65,7 @@ public:
     void gotoNextTransOnly();
 
 signals:
-    void fileOpenRequested(const KUrl&);
+    void fileOpenRequested(const QString&);
     void newWindowOpenRequested(const KUrl&);
 
 private slots:

@@ -90,7 +90,7 @@ private slots:
     void replaceJobDone(MassReplaceJob*);
 
 signals:
-    void fileOpenRequested(const KUrl& url, DocPosition docPos, int selection);
+    void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection);
 
 private:
     void dragEnterEvent(QDragEnterEvent* event);

@@ -25,12 +25,11 @@
 #define LISTS_H
 
 #include <QString>
-#include <klocale.h>
-#include <kglobal.h>
+#include <QLocale>
 
 static inline QString getMailingList()
 {
-    QString lang(KGlobal::locale()->language());
+    QString lang(QLocale::system().name());
     if(lang.startsWith("ca"))
         return "kde-i18n-ca@kde.org";
     if(lang.startsWith("de"))

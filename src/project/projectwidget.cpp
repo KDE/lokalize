@@ -355,9 +355,9 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
     {
         ProjectModel * srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
-        KUrl fileUrl = srcModel->beginEditing(srcIndex);
+        KUrl fileUrl = srcModel->beginEditing(srcIndex); //TODO KDE5PORT
 
-        emit fileOpenRequested(fileUrl);
+        emit fileOpenRequested(fileUrl.toLocalFile());
     }
 }
 

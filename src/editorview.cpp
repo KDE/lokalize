@@ -251,20 +251,6 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     m_targetTextEdit->setFocus();
     setUpdatesEnabled(true);
 }
-/*
-void KAiderView::dragEnterEvent(QDragEnterEvent* event)
-{
-    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-        event->acceptProposedAction();
-}
-
-void KAiderView::dropEvent(QDropEvent *event)
-{
-    emit fileOpenRequested(KUrl(event->mimeData()->urls().first()));
-    event->acceptProposedAction();
-}
-
-*/
 
 
 //BEGIN edit actions that are easier to do in this class

@@ -107,7 +107,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             return displayNames.at(index.row());
 //        QLocale l(code);
 //        if (l.language()==QLocale::C && code!="C")
-            return QVariant::fromValue<QString>(displayNames[index.row()]=KGlobal::locale()->languageCodeToName(code)%" ("%code%")");
+            return QVariant::fromValue<QString>(displayNames[index.row()]=KLocale::global()->languageCodeToName(code)%" ("%code%")");
 //        return QVariant::fromValue<QString>(displayNames[index.row()]=QLocale::languageToString(l.language())%" ("%code%")");
     }
     return QStringListModel::data(index, role);

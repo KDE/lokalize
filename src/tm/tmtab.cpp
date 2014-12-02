@@ -39,6 +39,7 @@
 #include <QClipboard>
 #include <QShortcut>
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QStringBuilder>

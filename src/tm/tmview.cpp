@@ -43,6 +43,7 @@
 
 #include <QTime>
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QFileInfo>
 #include <QDir>
 #include <QSignalMapper>

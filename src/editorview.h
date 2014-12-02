@@ -29,7 +29,6 @@
 #include "catalogstring.h"
 
 #include <QSplitter>
-#include <KUrl>
 
 class Catalog;
 class LedsWidget;
@@ -94,7 +93,6 @@ signals:
     void signalApprovedEntryDisplayed(bool);
     void signalChangeStatusbar(const QString&);
     void signalChanged(uint index); //esp for mergemode...
-    //void fileOpenRequested(KUrl);
     void binaryUnitSelectRequested(const QString& id);
     void gotoEntryRequested(const DocPosition&);
     void tmLookupRequested(DocPosition::Part, const QString&);

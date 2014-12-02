@@ -131,9 +131,9 @@ int main(int argc, char **argv)
         SettingsController::instance()->setMainWindowPtr(lmw);
         lmw->show();
 
-        KUrl::List urls;
+        QVector<QString> urls;
         for (int j=0; j<args->count(); j++)
-            urls << args->url(j);
+            urls.append(args->url(j).toLocalFile());
         if (urls.size())
             new DelayedFileOpener(urls, lmw);
 

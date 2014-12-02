@@ -34,7 +34,7 @@
 	    <label>Default language code for new projects</label>
             <whatsthis>Default language code for new projects</whatsthis>
 -->
-        <default code="true">KGlobal::locale()->language()</default>
+        <default code="true">KLocale::global()->language()</default>
     </entry>
     <entry key="DefaultMailingList" type="String">
 <!--

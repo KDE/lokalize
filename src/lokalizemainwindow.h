@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -86,7 +86,7 @@ private slots:
     void editorClosed(QObject* obj);
     void resetMultiEditorAdaptor();
 
-    void openProject(const KUrl& url){openProject(url.path());}//convenience overload for recent projects action
+    void openProject(const QUrl& url){openProject(url.toLocalFile());}//convenience overload for recent projects action
     void openProject(){openProject(QString());}
 
 
@@ -128,9 +128,10 @@ public slots:
     //Q_SCRIPTABLE void processEvents();
 
     //returns 0 if error
-    EditorTab* fileOpen(KUrl url=KUrl(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
-    EditorTab* fileOpen(const KUrl& url, const QString& source, const QString& ctxt);
-    EditorTab* fileOpen(const KUrl& url, DocPosition docPos, int selection);
+    EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
+    EditorTab* fileOpen(const QString& url, const QString& source, const QString& ctxt);
+    EditorTab* fileOpen(const QString& url, DocPosition docPos, int selection);
+    EditorTab* fileOpen(const QUrl& url){return fileOpen(url.toLocalFile());}
     TM::TMTab* showTM();
     FileSearchTab* showFileSearch(bool activate=true);
     void fileSearchNext();
@@ -163,8 +164,8 @@ private:
     ProjectScriptingPlugin* m_projectScriptingPlugin;
 
     //using QPointer switches it.value() to 0 before we get to destroyed() handler
-    //typedef QMap<KUrl, QPointer<QMdiSubWindow> > FileToEditor;
-    typedef QMap<KUrl, QMdiSubWindow*> FileToEditor;
+    //typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
+    typedef QMap<QString, QMdiSubWindow*> FileToEditor;
     FileToEditor m_fileToEditor;
 };
 
@@ -188,13 +189,13 @@ class DelayedFileOpener: public QObject
 {
 Q_OBJECT
 public:
-    DelayedFileOpener(const KUrl::List& urls, LokalizeMainWindow* lmw);
+    DelayedFileOpener(const QVector<QString>& urls, LokalizeMainWindow* lmw);
 
 private slots:
     void doOpen();
 
 private:
-    KUrl::List m_urls;
+    QVector<QString> m_urls;
     LokalizeMainWindow* m_lmw;
 };
 

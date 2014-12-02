@@ -40,6 +40,7 @@
 #include <kdemacros.h>
 
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QFile>
 #include <QToolTip>
 

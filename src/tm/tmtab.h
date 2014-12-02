@@ -86,7 +86,7 @@ public slots:
     void setQAMode(bool enabled=true);
 
 signals:
-    void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
+    void fileOpenRequested(const QString& url, const QString& source, const QString& ctxt);
 
 private:
     void dragEnterEvent(QDragEnterEvent* event);

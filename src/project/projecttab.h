@@ -55,7 +55,7 @@ public:
     void hideDocks(){};
     void showDocks(){};
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
-    KUrl currentUrl();
+    QString currentFilePath();
 
     int unitsCount(){return m_currentUnitsCount;}
     void setLegacyUnitsCount(int to);
@@ -63,7 +63,7 @@ public:
 signals:
     void projectOpenRequested(QString path=QString());
 
-    void fileOpenRequested(const KUrl&);
+    void fileOpenRequested(const QString&);
 
     void searchRequested(const QStringList&);
     void searchRequested(const KUrl::List&);

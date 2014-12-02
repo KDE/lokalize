@@ -141,7 +141,7 @@ void Project::load(const QString &newProjectPath)
     m_localConfig->readConfig();
 
     if (langCode().isEmpty())
-        setLangCode(KGlobal::locale()->language());
+        setLangCode(KLocale::global()->language());
     kDebug()<<"2...";
 
     //KConfig config;
@@ -271,7 +271,7 @@ ProjectModel* Project::model()
 void Project::setDefaults()
 {
     ProjectBase::setDefaults();
-    setLangCode(KGlobal::locale()->language());
+    setLangCode(KLocale::global()->language());
 }
 
 void Project::init(const QString& path, const QString& kind, const QString& id,

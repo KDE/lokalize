@@ -49,7 +49,7 @@ public:
     virtual void showDocks()=0;
     //bool queryClose();
 
-    virtual KUrl currentUrl(){return KUrl();}
+    virtual QString currentFilePath(){return QString();}
 
 protected:
     void reflectNonApprovedCount(int count, int total);

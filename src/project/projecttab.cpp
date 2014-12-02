@@ -120,7 +120,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
-    connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
+    connect(m_browser,SIGNAL(fileOpenRequested(QString)),this,SIGNAL(fileOpenRequested(QString)));
     connect(Project::instance()->model(), SIGNAL(totalsChanged(int,int,int,bool)),
             this, SLOT(updateStatusBar(int,int,int,bool)));
     connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
@@ -198,9 +198,9 @@ void ProjectTab::showRealProjectOverview()
     m_stackedLayout->setCurrentIndex(1);
 }
 
-KUrl ProjectTab::currentUrl()
+QString ProjectTab::currentFilePath()
 {
-    return KUrl::fromLocalFile(Project::instance()->projectDir());
+    return Project::instance()->path();
 }
 
 void ProjectTab::setFocus()
@@ -287,7 +287,7 @@ void ProjectTab::searchInFilesInclTempl()
     searchInFiles(true);
 }
 
-void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem());}
+void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem().toLocalFile());}
 void ProjectTab::findInFiles()    {emit searchRequested(m_browser->selectedItems());}
 void ProjectTab::replaceInFiles() {emit replaceRequested(m_browser->selectedItems());}
 void ProjectTab::spellcheckFiles(){emit spellcheckRequested(m_browser->selectedItems());}
