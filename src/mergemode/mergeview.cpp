@@ -31,7 +31,6 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <kurl.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <knotification.h>
@@ -43,6 +42,7 @@
 #include <QMimeData>
 #include <QFile>
 #include <QToolTip>
+#include <QFileDialog>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     : QDockWidget ( primary?i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"), parent)
@@ -74,11 +74,11 @@ MergeView::~MergeView()
     emit mergeCatalogPointerChanged(NULL);
 }
 
-KUrl MergeView::url()
+QString MergeView::filePath()
 {
     if (m_mergeCatalog)
-        return m_mergeCatalog->url();
-    return KUrl();
+        return m_mergeCatalog->url().toLocalFile();
+    return QString();
 }
 
 void MergeView::dragEnterEvent(QDragEnterEvent* event)
@@ -89,7 +89,7 @@ void MergeView::dragEnterEvent(QDragEnterEvent* event)
 
 void MergeView::dropEvent(QDropEvent *event)
 {
-    mergeOpen(KUrl(event->mimeData()->urls().first()));
+    mergeOpen(event->mimeData()->urls().first().toLocalFile());
     event->acceptProposedAction();
 }
 
@@ -185,18 +185,18 @@ void MergeView::cleanup()
     m_browser->clear();
 }
 
-void MergeView::mergeOpen(KUrl url)
+void MergeView::mergeOpen(QString mergeFilePath)
 {
     if (KDE_ISUNLIKELY( !m_baseCatalog->numberOfEntries() ))
         return;
 
-    if (url==m_baseCatalog->url())
+    if (mergeFilePath==m_baseCatalog->url().toLocalFile())
     {
         //(we are likely to be _mergeViewSecondary)
         //special handling: open corresponding file in the branch
         //for AutoSync
 
-        QString path=QFileInfo(url.toLocalFile()).canonicalFilePath(); //bug 245546 regarding symlinks
+        QString path=QFileInfo(mergeFilePath).canonicalFilePath(); //bug 245546 regarding symlinks
         QString oldPath=path;
         path.replace(Project::instance()->poDir(),Project::instance()->branchDir());
 
@@ -206,23 +206,23 @@ void MergeView::mergeOpen(KUrl url)
             return;
         }
 
-        url=KUrl(path);
+        mergeFilePath=path;
     }
 
-    if (url.isEmpty())
+    if (mergeFilePath.isEmpty())
     {
         //Project::instance()->model()->weaver()->suspend();
         //KDE5PORT use mutex if needed
-        url=KFileDialog::getOpenUrl(KUrl("kfiledialog:///merge-source") /*m_baseCatalog->url()*/ , Catalog::supportedMimeFilters, this);
+        mergeFilePath=QFileDialog::getOpenFileName(this, i18nc("@title:window", "Select translation file"), QString(), Catalog::supportedFileTypes(false));
         //Project::instance()->model()->weaver()->resume();
     }
-    if (url.isEmpty())
+    if (mergeFilePath.isEmpty())
         return;
 
     delete m_mergeCatalog;
     m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
     emit mergeCatalogPointerChanged(m_mergeCatalog);
-    int errorLine=m_mergeCatalog->loadFromUrl(url);
+    int errorLine=m_mergeCatalog->loadFromUrl(KUrl(mergeFilePath));
     if (KDE_ISLIKELY( errorLine==0 ))
     {
         if (m_pos.entry>0)
@@ -242,7 +242,7 @@ void MergeView::mergeOpen(KUrl url)
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
         if (errorLine>0)
-            KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, error line: %2",url.pathOrUrl(),errorLine) );
+            KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, error line: %2",mergeFilePath,errorLine) );
         else
         {
             /* disable this as requested by bug 272587
@@ -378,7 +378,7 @@ bool MergeView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip && m_mergeCatalog)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        QString text="<b>" % url().prettyUrl() % "</b>\n" % i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
+        QString text="<b>" % QDir::toNativeSeparators(filePath()) % "</b>\n" % i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
                 m_mergeCatalog->differentEntries().count(),m_mergeCatalog->unmatchedCount());
         text.replace('\n',"<br />");
         QToolTip::showText(helpEvent->globalPos(),text);

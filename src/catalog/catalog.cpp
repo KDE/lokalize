@@ -68,7 +68,13 @@
 #include <kio/netaccess.h>
 #include <ktemporaryfile.h>
 
-QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist");
+QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
+QString Catalog::supportedFileTypes(bool includeTemplates)
+{
+    if (includeTemplates)
+        return QStringLiteral("Gettext (*.po *.pot);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
+    return QStringLiteral("Gettext (*.po);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
+}
 
 static const char* const extensions[]={".po",".pot",".xlf", ".ts"};
 

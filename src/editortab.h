@@ -61,12 +61,12 @@ struct EditorState
 {
 public:
     EditorState(){}
-    EditorState(const EditorState& ks){dockWidgets=ks.dockWidgets;url=ks.url;}
+    EditorState(const EditorState& s):dockWidgets(s.dockWidgets), filePath(s.filePath){}
     ~EditorState(){}
 
     QByteArray dockWidgets;
-    KUrl url;
-    KUrl mergeUrl;
+    QString filePath;
+    QString mergeFilePath;
     int entry;
     //int offset;
 };
@@ -108,7 +108,7 @@ public:
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 
     //wrapper for cmdline handling
-    void mergeOpen(KUrl url=KUrl());
+    void mergeOpen(QString mergeFilePath);
 
     bool fileOpen(QString filePath=QString(), QString suggestedDirPath=QString(), bool silent=false);
 
@@ -151,7 +151,7 @@ public slots:
     Q_SCRIPTABLE QString targetLangCode();
 
     Q_SCRIPTABLE void attachAlternateTranslationFile(const QString& path);
-    Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
+    Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(path);}
     Q_SCRIPTABLE void reloadFile();
 #endif
     Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());

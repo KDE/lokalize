@@ -257,6 +257,7 @@ protected:
 
 public:
     static QString supportedMimeFilters;
+    static QString supportedFileTypes(bool includeTemplates=true);
 
 signals:
     void signalEntryModified(const DocPosition&);

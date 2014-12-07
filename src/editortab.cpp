@@ -796,8 +796,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         //Prevent crashes
         //Project::instance()->model()->weaver()->suspend();
         //KDE5PORT use mutex if the crash is still there with kfilemetadata library
-        filePath=QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), i18n("Select translation file"),
-                                              suggestedDirPath, i18n("Gettext (*.po *.pot)")%QStringLiteral(";;")%i18n("XLIFF (*.xlf *.xliff)")); //TODO xliff Catalog::supportedMimeFilters + " text/x-gettext-translation-template");
+        filePath=QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), i18nc("@title:window", "Select translation file"),
+                                              suggestedDirPath, Catalog::supportedFileTypes(true));//" text/x-gettext-translation-template");
         //Project::instance()->model()->weaver()->resume();
         //TODO application/x-xliff, windows: just extensions
         //originalPath=url.path(); never used
@@ -919,8 +919,8 @@ EditorState EditorTab::state()
 {
     EditorState state;
     state.dockWidgets=saveState();
-    state.url=m_catalog->url();
-    state.mergeUrl=m_syncView->url();
+    state.filePath=m_catalog->url().toLocalFile();
+    state.mergeFilePath=m_syncView->filePath();
     state.entry=m_currentPos.entry;
     //state.offset=_currentPos.offset;
     return state;
@@ -1301,9 +1301,9 @@ void EditorTab::gotoNextBookmark()
 }
 
 //wrapper for cmdline handling...
-void EditorTab::mergeOpen(KUrl url)
+void EditorTab::mergeOpen(QString mergeFilePath)
 {
-    m_syncView->mergeOpen(url);
+    m_syncView->mergeOpen(mergeFilePath);
 }
 /*
 KUrl EditorWindow::mergeFile()
@@ -1346,14 +1346,14 @@ void EditorTab::defineNewTerm()
 
 void EditorTab::reloadFile()
 {
-    KUrl mergeFile=m_syncView->url();
+    QString mergeFilePath=m_syncView->filePath();
     DocPosition p=m_currentPos;
     if (!fileOpen(currentFilePath()))
         return;
 
     gotoEntry(p);
-    if (!mergeFile.isEmpty())
-        mergeOpen(mergeFile);
+    if (!mergeFilePath.isEmpty())
+        mergeOpen(mergeFilePath);
 }
 
 void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)

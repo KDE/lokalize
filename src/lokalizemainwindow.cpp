@@ -621,8 +621,8 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
         EditorState state=static_cast<EditorTab*>( editors.at(i)->widget() )->state();
-        files.append(state.url.pathOrUrl());
-        mergeFiles.append(state.mergeUrl.pathOrUrl());
+        files.append(state.filePath);
+        mergeFiles.append(state.mergeFilePath);
         dockWidgets.append(state.dockWidgets.toBase64());
         entries.append(state.entry);
         //offsets.append(state.offset);
