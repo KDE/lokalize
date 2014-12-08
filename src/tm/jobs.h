@@ -244,9 +244,7 @@ private:
 class ScanJob: public QRunnable
 {
 public:
-    explicit ScanJob(const KUrl& url,
-                     const QString& dbName,
-                     QObject* parent=0);
+    explicit ScanJob(const QString& url, const QString& dbName, QObject* parent = 0);
     ~ScanJob();
 
     int priority()const{return SCAN;}
@@ -254,7 +252,7 @@ public:
 protected:
     void run ();
 public:
-    KUrl m_url;
+    QString m_filePath;
 
     //statistics
     ushort m_time;
@@ -270,10 +268,10 @@ class ScanJobFeedingBack: public QObject, public ScanJob
 {
     Q_OBJECT
 public:
-    explicit ScanJobFeedingBack(const KUrl& url,
+    explicit ScanJobFeedingBack(const QString& filePath,
                      const QString& dbName,
                      QObject* parent=0)
-    : ScanJob(url, dbName, parent)
+    : ScanJob(filePath, dbName, parent)
     {
         setAutoDelete(false);
     }

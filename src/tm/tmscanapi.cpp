@@ -105,7 +105,7 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
             continue;
         if (Catalog::extIsSupported(url.path()))
         {
-            ScanJobFeedingBack* job=new ScanJobFeedingBack(KUrl(url),dbName);
+            ScanJobFeedingBack* job=new ScanJobFeedingBack(url.toLocalFile(),dbName);
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
             TM::threadPool()->start(job, SCAN);
@@ -139,7 +139,7 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
 
     while(--i>=0)
     {
-        ScanJobFeedingBack* job=new ScanJobFeedingBack(KUrl(dir.filePath(files.at(i))),dbName);
+        ScanJobFeedingBack* job=new ScanJobFeedingBack(dir.filePath(files.at(i)),dbName);
         QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
         TM::threadPool()->start(job, SCAN);

@@ -140,16 +140,17 @@ public:
     virtual int binUnitsCount() const {return 0;}
     virtual int unitById(const QString& id) const {Q_UNUSED(id); return 0;}
 
-    const KUrl& url() const {return m_url;}
-    void setUrl(const KUrl& u){m_url=u;}//TODO
+    const QString& url() const {return m_url;}
+    void setUrl(const QString& u){m_url=u;}//TODO
 
     virtual QString mimetype() const=0;
+    virtual QString fileType() const=0;
 
     QString sourceLangCode() const{return m_sourceLangCode;}
     QString targetLangCode() const{return m_targetLangCode;}
 
 protected:
-    KUrl m_url;
+    QString m_url;
     QString m_sourceLangCode;
     QString m_targetLangCode;
 

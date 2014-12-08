@@ -110,7 +110,7 @@ void AltTransView::dropEvent(QDropEvent *event)
 void AltTransView::attachAltTransFile(const QString& path)
 {
     MergeCatalog* altCat=new MergeCatalog(m_catalog, m_catalog, /*saveChanges*/false);
-    altCat->loadFromUrl(KUrl::fromLocalFile(path));
+    altCat->loadFromUrl(path);
     m_catalog->attachAltTransCatalog(altCat);
 }
 
@@ -128,7 +128,7 @@ void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool
 void AltTransView::fileLoaded()
 {
     m_prevEntry.entry=-1;
-    QString absPath=m_catalog->url().toLocalFile();
+    QString absPath=m_catalog->url();
     QString relPath=KUrl::relativePath(Project::instance()->projectDir(),absPath);
     
     QFileInfo info(Project::instance()->altTransDir()+'/'+relPath);

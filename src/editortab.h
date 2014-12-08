@@ -154,7 +154,7 @@ public slots:
     Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(path);}
     Q_SCRIPTABLE void reloadFile();
 #endif
-    Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());
+    Q_SCRIPTABLE bool saveFile(const QString& filePath=QString());
     Q_SCRIPTABLE bool saveFileAs();
     Q_SCRIPTABLE void close(){return parent()->deleteLater();}
     Q_SCRIPTABLE void gotoNextUnfiltered();

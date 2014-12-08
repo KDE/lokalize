@@ -256,7 +256,7 @@ void EditorTab::setupActions()
     sync2->addAction( QLatin1String("showmergeviewsecondary_action"), m_syncViewSecondary->toggleViewAction() );
     connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_syncViewSecondary,SLOT(slotNewEntryDisplayed(DocPosition)));
     connect (m_catalog,SIGNAL(signalFileLoaded()),m_syncViewSecondary,SLOT(cleanup()));
-    connect (m_catalog,SIGNAL(signalFileLoaded(KUrl)),m_syncViewSecondary,SLOT(mergeOpen(KUrl)),Qt::QueuedConnection);
+    connect (m_catalog,SIGNAL(signalFileLoaded(QString)),m_syncViewSecondary,SLOT(mergeOpen(QString)),Qt::QueuedConnection);
     connect (m_syncViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
              this,SLOT(gotoEntry(DocPosition,int)));
 
@@ -752,25 +752,22 @@ void EditorTab::setFullPathShown(bool fullPathShown)
 
 void EditorTab::updateCaptionPath()
 {
-    KUrl url=m_catalog->url();
-    if (!url.isLocalFile() || !_project->isLoaded())
-        _captionPath=url.pathOrUrl();
-    else
+    QString url=m_catalog->url();
+    if (!_project->isLoaded())
     {
-        if (m_fullPathShown)
-        {
-            _captionPath=KUrl::relativePath(
-                        KUrl(_project->path()).directory()
-                        ,url.toLocalFile());
-            if (_captionPath.contains("../.."))
-                _captionPath=url.toLocalFile();
-            else if (_captionPath.startsWith("./"))
-                _captionPath=_captionPath.mid(2);
-        }
-        else
-            _captionPath=url.fileName();
+        _captionPath=url;
+        return;
     }
-
+    if (!m_fullPathShown)
+    {
+        _captionPath=QFileInfo(url).fileName();
+        return;
+    }
+    _captionPath=QDir(QFileInfo(_project->path()).absolutePath()).relativeFilePath(url);
+    if (_captionPath.contains(QStringLiteral("../..")))
+        _captionPath=url;
+    else if (_captionPath.startsWith(QStringLiteral("./")))
+        _captionPath=_captionPath.mid(2);
 }
 
 bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent)
@@ -788,7 +785,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         }
     }
     if (suggestedDirPath.isEmpty())
-        suggestedDirPath=m_catalog->url().toLocalFile(); //TODO KDE5PORT
+        suggestedDirPath=m_catalog->url();
 
     QString saidPath;
     if (filePath.isEmpty())
@@ -885,24 +882,25 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 
 bool EditorTab::saveFileAs()
 {
-    KUrl url=KFileDialog::getSaveUrl(m_catalog->url(),m_catalog->mimetype(),this);
-    if (url.isEmpty()) return false;
-    return saveFile(url);
+    QString filePath=QFileDialog::getSaveFileName(this, i18nc("@title:window", "Save File As"),
+                                             QFileInfo(m_catalog->url()).absolutePath(), m_catalog->fileType());
+    if (filePath.isEmpty()) return false;
+    return saveFile(filePath);
 }
 
-bool EditorTab::saveFile(const KUrl& url)
+bool EditorTab::saveFile(const QString& filePath)
 {
-    if (m_catalog->saveToUrl(url))
+    if (m_catalog->saveToUrl(filePath))
     {
         updateCaptionPath();
         setModificationSign(/*clean*/true);
-        emit fileSaved(url.toLocalFile());
+        emit fileSaved(filePath);
         return true;
     }
 
     if ( KMessageBox::Continue==KMessageBox::warningContinueCancel(this,
                                             i18nc("@info","Error saving the file <filename>%1</filename>\n"
-                                                  "Do you want to save to another file or cancel?", m_catalog->url().pathOrUrl()),
+                                                  "Do you want to save to another file or cancel?", m_catalog->url()),
                                             i18nc("@title","Error"),KStandardGuiItem::save())
        )
         return saveFileAs();
@@ -919,7 +917,7 @@ EditorState EditorTab::state()
 {
     EditorState state;
     state.dockWidgets=saveState();
-    state.filePath=m_catalog->url().toLocalFile();
+    state.filePath=m_catalog->url();
     state.mergeFilePath=m_syncView->filePath();
     state.entry=m_currentPos.entry;
     //state.offset=_currentPos.offset;
@@ -1387,7 +1385,7 @@ QString EditorTab::dbusObjectPath()
 }
 
 
-QString EditorTab::currentFilePath(){return m_catalog->url().toLocalFile();}
+QString EditorTab::currentFilePath(){return m_catalog->url();}
 QByteArray EditorTab::currentFileContents(){return m_catalog->contents();}
 QString EditorTab::currentEntryId(){return m_catalog->id(m_currentPos);}
 QString EditorTab::selectionInTarget(){return m_view->selectionInTarget();}

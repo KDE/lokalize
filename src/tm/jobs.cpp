@@ -1094,7 +1094,7 @@ SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int 
 {
     SelectJob* job=new SelectJob(catalog->sourceWithTags(pos),
                                  catalog->context(pos.entry).first(),
-                                 catalog->url().pathOrUrl(),
+                                 catalog->url(),
                                  pos,
                                  db.isEmpty()?Project::instance()->projectID():db);
     if (opt&Enqueue)
@@ -1501,28 +1501,28 @@ void SelectJob::run ()
 
 
 
-ScanJob::ScanJob(const KUrl& url,
+ScanJob::ScanJob(const QString& filePath,
                  const QString& dbName,
                  QObject* parent)
     : QRunnable()
-    , m_url(url)
+    , m_filePath(filePath)
     , m_time(0)
     , m_size(0)
     , m_dbName(dbName)
 {
-    kDebug(TM_AREA)<<m_dbName<<m_url.pathOrUrl();
+    kDebug(TM_AREA)<<m_dbName<<m_filePath;
 }
 
 ScanJob::~ScanJob()
 {
-    kWarning(TM_AREA) <<m_url;
+    kWarning(TM_AREA) <<m_filePath;
 }
 
 void ScanJob::run()
 {
     if (stop)
       return;
-    kWarning(TM_AREA) <<"started"<<m_url.pathOrUrl()<<m_dbName;
+    kWarning(TM_AREA) <<"started"<<m_filePath<<m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
@@ -1534,7 +1534,7 @@ void ScanJob::run()
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
     Catalog catalog(QThread::currentThread());
-    if (KDE_ISLIKELY(catalog.loadFromUrl(m_url, KUrl(), &m_size)==0))
+    if (KDE_ISLIKELY(catalog.loadFromUrl(m_filePath, QString(), &m_size)==0))
     {
         if (c.targetLangCode!=catalog.targetLangCode())
         {
@@ -1546,7 +1546,7 @@ void ScanJob::run()
         QSqlQuery queryBegin("BEGIN",db);
         //kWarning(TM_AREA) <<"queryBegin error: " <<queryBegin.lastError().text();
 
-        qlonglong fileId=getFileId(m_url.pathOrUrl(),db);
+        qlonglong fileId=getFileId(m_filePath,db);
         //mark everything as obsolete
         queryBegin.exec(QString("UPDATE main SET bits=(bits|1) WHERE file=%1").arg(fileId));
         //kWarning(TM_AREA) <<"UPDATE error: " <<queryBegin.lastError().text();

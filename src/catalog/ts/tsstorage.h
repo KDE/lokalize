@@ -1,5 +1,5 @@
 /*
-Copyright 2008-2012 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2014 Nick Shaforostoff <shaforostoff@gmail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -82,7 +82,8 @@ public:
 
     bool isObsolete(int entry) const;
 
-    QString mimetype()const{return "application/x-linguist";}
+    QString mimetype()const{return QStringLiteral("application/x-linguist");}
+    QString fileType()const{return QStringLiteral("Qt Linguist (*.ts)");}
 
 private:
     QDomElement unitForPos(int pos) const;

@@ -63,17 +63,14 @@ class CatalogPrivate
 public:
 
     /** url of the po-file, that belongs to this catalog */
-    KUrl _url;
+    QString _url;
     QString _packageName;
     QString _packageDir;
 
     /** identification string for used import filter*/
     QString _importID;
-    QString _mimeTypes;
 
     QTextCodec *fileCodec;
-
-    QString _emptyStr;
 
     int _numberOfPluralForms;
 
@@ -108,8 +105,7 @@ public:
     ProjectLocal::PersonRole _phaseRole;
 
     explicit CatalogPrivate(QObject* parent)
-           : _mimeTypes( "text/plain" )
-           , fileCodec(0)
+           : fileCodec(0)
            , _numberOfPluralForms(-1)
            , _autoSave(new KAutoSaveFile(parent))
            , _autoSaveDirty(true)

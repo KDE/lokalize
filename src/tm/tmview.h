@@ -27,7 +27,6 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <kurl.h>
 #include <ktextbrowser.h>
 
 #include <QDockWidget>
@@ -67,7 +66,7 @@ public slots:
     void slotSuggestionsCame(SelectJob*);
 
     void slotUseSuggestion(int);
-    void slotFileLoaded(const KUrl&);
+    void slotFileLoaded(const QString& url);
     void displayFromCache();
 
     void slotBatchTranslate();

@@ -399,7 +399,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
       QString comment=newHeader.comment();
       QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
       //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
-      bool belongsToProject=m_url.path().contains(Project::instance()->poDir());
+      bool belongsToProject=m_url.contains(Project::instance()->poDir());
 
       updateHeader(values,
                    comment,

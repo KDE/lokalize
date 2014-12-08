@@ -77,7 +77,7 @@ MergeView::~MergeView()
 QString MergeView::filePath()
 {
     if (m_mergeCatalog)
-        return m_mergeCatalog->url().toLocalFile();
+        return m_mergeCatalog->url();
     return QString();
 }
 
@@ -190,7 +190,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     if (KDE_ISUNLIKELY( !m_baseCatalog->numberOfEntries() ))
         return;
 
-    if (mergeFilePath==m_baseCatalog->url().toLocalFile())
+    if (mergeFilePath==m_baseCatalog->url())
     {
         //(we are likely to be _mergeViewSecondary)
         //special handling: open corresponding file in the branch
@@ -222,7 +222,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     delete m_mergeCatalog;
     m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
     emit mergeCatalogPointerChanged(m_mergeCatalog);
-    int errorLine=m_mergeCatalog->loadFromUrl(KUrl(mergeFilePath));
+    int errorLine=m_mergeCatalog->loadFromUrl(mergeFilePath);
     if (KDE_ISLIKELY( errorLine==0 ))
     {
         if (m_pos.entry>0)

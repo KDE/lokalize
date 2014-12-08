@@ -214,7 +214,7 @@ void SearchJob::run()
     foreach(const QString& path, files)
     {
         Catalog catalog(QThread::currentThread());
-        if (KDE_ISUNLIKELY(catalog.loadFromUrl(KUrl::fromPath(path), KUrl(), &m_size)!=0))
+        if (KDE_ISUNLIKELY(catalog.loadFromUrl(path, QString(), &m_size)!=0))
             continue;
 
         //QVector<FileSearchResult> catalogResults;
@@ -320,7 +320,7 @@ void MassReplaceJob::run()
     foreach(const QString& filepath, map.keys())
     {
         Catalog catalog(thread());
-        if (catalog.loadFromUrl(KUrl::fromPath(filepath), KUrl())!=0)
+        if (catalog.loadFromUrl(filepath, QString())!=0)
             continue;
         
         foreach(int index, map.values(filepath))

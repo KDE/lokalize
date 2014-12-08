@@ -4,7 +4,7 @@
 
   Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004   by Stanislav Visnovsky <visnovsky@kde.org>
-                2007-2009   by Nick Shaforostoff <shafff@ukr.net>
+                2007-2014   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -47,7 +47,6 @@
 class CatalogStorage;
 
 #include <QUndoStack>
-#include <kurl.h>
 
 namespace GettextCatalog {
   class CatalogImportPlugin;
@@ -116,8 +115,8 @@ public slots: //DBus interface
     ///@returns previous phase-name
     QString setPhase(const DocPosition& pos, const QString& phase);
     QString phase(const DocPosition& pos) const;
-    QString activePhase() const{return d->_phase;}
-    ProjectLocal::PersonRole activePhaseRole() const{return d->_phaseRole;}
+    QString activePhase() const{return d._phase;}
+    ProjectLocal::PersonRole activePhaseRole() const{return d._phaseRole;}
     void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver);
     Phase phase(const QString& name) const;
     QList<Phase> allPhases() const;
@@ -144,35 +143,35 @@ public slots: //DBus interface
 
     int unitById(const QString& id) const;
 
-    bool isBookmarked(uint index) const{return d->_bookmarkIndex.contains(index);}
+    bool isBookmarked(uint index) const{return d._bookmarkIndex.contains(index);}
     void setBookmark(uint, bool);
 
-    int numberOfPluralForms() const {return d->_numberOfPluralForms;}
+    int numberOfPluralForms() const {return d._numberOfPluralForms;}
     int numberOfEntries() const;
-    int numberOfNonApproved() const {return d->_nonApprovedIndex.size();}
-    int numberOfUntranslated() const {return d->_emptyIndex.size();}
+    int numberOfNonApproved() const {return d._nonApprovedIndex.size();}
+    int numberOfUntranslated() const {return d._emptyIndex.size();}
 
 
 public:
-    int firstFuzzyIndex() const {return d->_nonApprovedIndex.isEmpty()?numberOfEntries():d->_nonApprovedIndex.first();}
-    int lastFuzzyIndex() const {return d->_nonApprovedIndex.isEmpty()?-1:d->_nonApprovedIndex.last();}
-    int nextFuzzyIndex(uint index) const {return findNextInList(d->_nonApprovedIndex,index);}
-    int prevFuzzyIndex(uint index) const {return findPrevInList(d->_nonApprovedIndex,index);}
-    int firstUntranslatedIndex() const {return d->_emptyIndex.isEmpty()?numberOfEntries():d->_emptyIndex.first();}
-    int lastUntranslatedIndex() const {return d->_emptyIndex.isEmpty()?-1:d->_emptyIndex.last();}
-    int nextUntranslatedIndex(uint index) const {return findNextInList(d->_emptyIndex,index);}
-    int prevUntranslatedIndex(uint index) const {return findPrevInList(d->_emptyIndex,index);}
+    int firstFuzzyIndex() const {return d._nonApprovedIndex.isEmpty()?numberOfEntries():d._nonApprovedIndex.first();}
+    int lastFuzzyIndex() const {return d._nonApprovedIndex.isEmpty()?-1:d._nonApprovedIndex.last();}
+    int nextFuzzyIndex(uint index) const {return findNextInList(d._nonApprovedIndex,index);}
+    int prevFuzzyIndex(uint index) const {return findPrevInList(d._nonApprovedIndex,index);}
+    int firstUntranslatedIndex() const {return d._emptyIndex.isEmpty()?numberOfEntries():d._emptyIndex.first();}
+    int lastUntranslatedIndex() const {return d._emptyIndex.isEmpty()?-1:d._emptyIndex.last();}
+    int nextUntranslatedIndex(uint index) const {return findNextInList(d._emptyIndex,index);}
+    int prevUntranslatedIndex(uint index) const {return findPrevInList(d._emptyIndex,index);}
 
-    int firstBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?numberOfEntries():d->_bookmarkIndex.first();}
-    int lastBookmarkIndex() const {return d->_bookmarkIndex.isEmpty()?-1:d->_bookmarkIndex.last();}
-    int nextBookmarkIndex(uint index) const {return findNextInList(d->_bookmarkIndex,index);}
-    int prevBookmarkIndex(uint index) const {return findPrevInList(d->_bookmarkIndex,index);}
+    int firstBookmarkIndex() const {return d._bookmarkIndex.isEmpty()?numberOfEntries():d._bookmarkIndex.first();}
+    int lastBookmarkIndex() const {return d._bookmarkIndex.isEmpty()?-1:d._bookmarkIndex.last();}
+    int nextBookmarkIndex(uint index) const {return findNextInList(d._bookmarkIndex,index);}
+    int prevBookmarkIndex(uint index) const {return findPrevInList(d._bookmarkIndex,index);}
 
-    bool autoSaveRecovered(){return d->_autoSaveRecovered;}
+    bool autoSaveRecovered(){return d._autoSaveRecovered;}
 public:
     void clear();
     bool isEmpty(){return !m_storage;}
-    bool isReadOnly(){return d->_readOnly;}
+    bool isReadOnly(){return d._readOnly;}
 
     void attachAltTransCatalog(Catalog*);
     void attachAltTrans(int entry, const AltTrans& trans);
@@ -183,21 +182,22 @@ public:
 
     void setTarget(DocPosition pos, const CatalogString& s); //for batch use only!
 
-    //void setErrorIndex(const QList<int>& errors){d->_errorIndex=errors;}
-    void setUrl(const KUrl& u){d->_url=u;}//used for template load
+    //void setErrorIndex(const QList<int>& errors){d._errorIndex=errors;}
+    void setUrl(const QString& u){d._url=u;}//used for template load
 public slots: //DBus interface
-    const KUrl& url() const {return d->_url;}
+    const QString& url() const {return d._url;}
     ///@returns 0 if success, >0 erroneous line (parsing error)
-    int loadFromUrl(const KUrl& url, const KUrl& saidUrl=KUrl(), int* fileSize=0);
-    bool saveToUrl(KUrl url);
+    int loadFromUrl(const QString& url, const QString& saidUrl=QString(), int* fileSize = 0);
+    bool saveToUrl(QString url);
     bool save();
     QByteArray contents();
     QString mimetype();
+    QString fileType();
     QString sourceLangCode() const;
     QString targetLangCode() const;
 
 protected:
-    virtual KAutoSaveFile* checkAutoSave(const KUrl& url);
+    virtual KAutoSaveFile* checkAutoSave(const QString& url);
 
 protected slots:
     /**
@@ -206,7 +206,7 @@ protected slots:
     void flushUpdateDBBuffer();
 
     void doAutoSave();
-    void setAutoSaveDirty(){d->_autoSaveDirty=true;}
+    void setAutoSaveDirty(){d._autoSaveDirty=true;}
     
     void projectConfigChanged();
 
@@ -239,7 +239,7 @@ protected:
     void updateApprovedEmptyIndexCache();
 
 protected:
-    CatalogPrivate *d;
+    CatalogPrivate d;
     CatalogStorage *m_storage;
 
     friend class GettextCatalog::CatalogImportPlugin;
@@ -265,9 +265,9 @@ signals:
     void signalNumberOfFuzziesChanged();
     void signalNumberOfEmptyChanged();
     Q_SCRIPTABLE void signalFileLoaded();
-    void signalFileLoaded(const KUrl&);
+    void signalFileLoaded(const QString&);
     Q_SCRIPTABLE void signalFileSaved();
-    void signalFileSaved(const KUrl&);
+    void signalFileSaved(const QString&);
     void signalFileAutoSaveFailed(const QString&);
 };
 

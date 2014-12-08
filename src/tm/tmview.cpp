@@ -155,15 +155,15 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     , m_isBatching(false)
     , m_markAsFuzzy(false)
 {
-    setObjectName("TMView");
+    setObjectName(QStringLiteral("TMView"));
     setWidget(m_browser);
 
-    m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
+    m_browser->document()->setDefaultStyleSheet(QStringLiteral("p.close_match { font-weight:bold; }"));
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
     QTimer::singleShot(0,this,SLOT(initLater()));
-    connect(m_catalog,SIGNAL(signalFileLoaded(KUrl)),
-            this,SLOT(slotFileLoaded(KUrl)));
+    connect(m_catalog,SIGNAL(signalFileLoaded(QString)),
+            this,SLOT(slotFileLoaded(QString)));
 }
 
 TMView::~TMView()
@@ -213,12 +213,12 @@ void TMView::dropEvent(QDropEvent *event)
         event->acceptProposedAction();
 }
 
-void TMView::slotFileLoaded(const KUrl& url)
+void TMView::slotFileLoaded(const QString& filePath)
 {
     const QString& pID=Project::instance()->projectID();
 
     if (Settings::scanToTMOnOpen())
-        TM::threadPool()->start(new ScanJob(url,pID), SCAN);
+        TM::threadPool()->start(new ScanJob(filePath,pID), SCAN);
 
     if (!Settings::prefetchTM()
         &&!m_isBatching)
@@ -476,7 +476,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html.reserve(1024);
 
         const TMEntry& entry=job.m_entries.at(i);
-        html+=(entry.score>9500)?"<p class='close_match'>":"<p>";
+        html+=(entry.score>9500)?QStringLiteral("<p class='close_match'>"):QStringLiteral("<p>");
         //kDebug()<<entry.target.string<<entry.hits;
 
         html+=QString("/%1%/ ").arg(entry.score > 10000 ? 100: float(entry.score)/100);
@@ -487,11 +487,11 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
         result.replace("{KBABELADD}","<font style=\"background-color:"%Settings::addColor().name()%";color:black\">");
-        result.replace("{/KBABELADD}","</font>");
+        result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
         result.replace("{KBABELDEL}","<font style=\"background-color:"%Settings::delColor().name()%";color:black\">");
-        result.replace("{/KBABELDEL}","</font>");
-        result.replace("\\n","\\n<br>");
-        result.replace("\\n","\\n<br>");
+        result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
+        result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
+        result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
         html+=result;
 #if 0
         cur.insertHtml(result);
@@ -512,14 +512,14 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 #endif
 
         //str.replace('&',"&amp;"); TODO check
-        html+="<br>";
+        html+=QStringLiteral("<br>");
         if (KDE_ISLIKELY( i<m_actions.size() ))
         {
             m_actions.at(i)->setStatusTip(entry.target.string);
             html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
         }
         else
-            html+="[ - ] ";
+            html+=QStringLiteral("[ - ] ");
 /*
         QString str(entry.target.string);
         str.replace('<',"&lt;");
@@ -531,7 +531,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         insertContent(cur,entry.target);
         m_entryPositions.insert(cur.anchor(),i);
 
-        html+=i?"<br></p>":"</p>";
+        html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
         cur.insertHtml(html);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))
@@ -540,7 +540,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
 
     }
-    m_browser->insertHtml("</html>");
+    m_browser->insertHtml(QStringLiteral("</html>"));
     setUpdatesEnabled(true);
 //    kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
@@ -562,7 +562,7 @@ bool TMView::event(QEvent *event)
         {
             const TMEntry& tmEntry=m_entries.at(*block);
             QString file=tmEntry.file;
-            if (file==m_catalog->url().toLocalFile())
+            if (file==m_catalog->url())
                 file=i18nc("File argument in tooltip, when file is current file", "this");
             QString tooltip=i18nc("@info:tooltip","File: %1<br />Addition date: %2",file, tmEntry.date.toString(Qt::ISODate));
             if (!tmEntry.changeDate.isNull() && tmEntry.changeDate!=tmEntry.date)
@@ -590,7 +590,7 @@ void TMView::contextMenu(const QPoint& pos)
     enum {Remove, Open};
     QMenu popup;
     popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
-    if (e.file!= m_catalog->url().toLocalFile() && QFile::exists(e.file))
+    if (e.file!= m_catalog->url() && QFile::exists(e.file))
         popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))->setData(Open);
     QAction* r=popup.exec(m_browser->mapToGlobal(pos));
     if (!r)
@@ -605,7 +605,7 @@ void TMView::contextMenu(const QPoint& pos)
         TM::threadPool()->start(job, REMOVE);
     }
     else if (r->data().toInt()==Open)
-        emit fileOpenRequested(e.file, e.source.string, e.ctxt);
+        emit (e.file, e.source.string, e.ctxt);
 }
 
 /**
@@ -615,8 +615,8 @@ void TMView::contextMenu(const QPoint& pos)
  */
 static int nextPlacableIn(const QString& old, int start, QString& cap)
 {
-    static QRegExp rxNum("[\\d\\.\\%]+");
-    static QRegExp rxAbbr("\\w+");
+    static QRegExp rxNum(QStringLiteral("[\\d\\.\\%]+"));
+    static QRegExp rxAbbr(QStringLiteral("\\w+"));
 
     int numPos=rxNum.indexIn(old,start);
 //    int abbrPos=rxAbbr.indexIn(old,start);
@@ -683,8 +683,8 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     while ((pos=rxAdd.indexIn(diff,pos))!=-1)
         diff.replace(pos,rxAdd.matchedLength(),"\tKBABELADD\t" % rxAdd.cap(1) % "\t/KBABELADD\t");
 
-    diff.replace("&lt;","<");
-    diff.replace("&gt;",">");
+    diff.replace(QStringLiteral("&lt;"),QStringLiteral("<"));
+    diff.replace(QStringLiteral("&gt;"),QStringLiteral(">"));
 
     //possible enhancement: search for non-translated words in removedSubstrings...
     //QStringList removedSubstrings;
@@ -758,7 +758,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     if (tryMarkup)
         rxNonTranslatable.setPattern("^((" % entry.markupExpr % ")|(\\W|\\d)+)+");
     else
-        rxNonTranslatable.setPattern("^(\\W|\\d)+");
+        rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
     //kWarning()<<"("+entry.markup+"|(\\W|\\d)+";
 
@@ -835,7 +835,7 @@ nono
     if (tryMarkup)
         rxNonTranslatable.setPattern("(("% entry.markupExpr %")|(\\W|\\d)+)+$");
     else
-        rxNonTranslatable.setPattern("(\\W|\\d)+$");
+        rxNonTranslatable.setPattern(QStringLiteral("(\\W|\\d)+$"));
 
     //handle the end
     if (!d.diffIndex.endsWith('0'))
