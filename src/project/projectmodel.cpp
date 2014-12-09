@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2015 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -37,6 +37,7 @@
 
 #include <QTime>
 #include <QFile>
+#include <QDir>
 #include <QtAlgorithms>
 #include <QTimer>
 #include <QThreadPool>
@@ -96,7 +97,7 @@ ProjectModel::ProjectModel(QObject *parent)
     m_doneTimer->setSingleShot(true);
     connect(m_doneTimer, SIGNAL(timeout()), this, SLOT(updateTotalsChanged()));
 
-    setUrl(KUrl(), KUrl());
+    setUrl(QUrl(), QUrl());
 }
 
 
@@ -113,7 +114,7 @@ ProjectModel::~ProjectModel()
         deleteSubtree(m_rootNode.rows.at(pos));
 }
 
-void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
+void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
     //kDebug() << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
 
@@ -145,10 +146,8 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
     }
 
     //add trailing slashes to base URLs, needed for potToPo and poToPot
-    m_poUrl = poUrl;
-    m_potUrl = potUrl;
-    m_poUrl.adjustPath(KUrl::AddTrailingSlash);
-    m_potUrl.adjustPath(KUrl::AddTrailingSlash);
+    m_poUrl = poUrl.adjusted(QUrl::StripTrailingSlash);
+    m_potUrl = potUrl.adjusted(QUrl::StripTrailingSlash);
 
     emit loading();
 
@@ -159,7 +158,7 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
 }
 
 
-KUrl ProjectModel::beginEditing(const QModelIndex& index)
+QUrl ProjectModel::beginEditing(const QModelIndex& index)
 {
     Q_ASSERT(index.isValid());
 
@@ -174,8 +173,8 @@ KUrl ProjectModel::beginEditing(const QModelIndex& index)
     else if (potIndex.isValid())
     {
         //copy over the file
-        KUrl potFile = m_potModel.itemForIndex(potIndex).url();
-        KUrl poFile = potToPo(potFile);
+        QUrl potFile = m_potModel.itemForIndex(potIndex).url();
+        QUrl poFile = potToPo(potFile);
 
         //EditorTab::fileOpen takes care of this
         //be careful, copy only if file does not exist already.
@@ -187,7 +186,7 @@ KUrl ProjectModel::beginEditing(const QModelIndex& index)
     else
     {
         Q_ASSERT(false);
-        return KUrl();
+        return QUrl();
     }
 }
 
@@ -758,7 +757,7 @@ QModelIndex ProjectModel::indexForNode(const ProjectNode* node)
     return index;
 }
 
-QModelIndex ProjectModel::indexForUrl(const KUrl& url)
+QModelIndex ProjectModel::indexForUrl(const QUrl& url)
 {
     if (m_poUrl.isParentOf(url))
     {
@@ -894,26 +893,26 @@ void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& 
     if (potRows == 0)
         return;
 
-    QList<KUrl> poOccupiedUrls;
+    QList<QUrl> poOccupiedUrls;
 
     for (int poPos = 0; poPos < poRows; poPos ++)
     {
         KFileItem file = m_poModel.itemForIndex(m_poModel.index(poPos, 0, poParent));
-        KUrl potUrl = poToPot(file.url());
+        QUrl potUrl = poToPot(file.url());
         poOccupiedUrls.append(potUrl);
     }
 
     for  (int potPos = 0; potPos < potRows; potPos ++)
     {
 
-        KUrl potUrl = m_potModel.itemForIndex(m_potModel.index(potPos, 0, potParent)).url();
+        QUrl potUrl = m_potModel.itemForIndex(m_potModel.index(potPos, 0, potParent)).url();
         int occupiedPos = -1;
 
         //TODO: this is slow
         for (int poPos = 0; occupiedPos == -1 && poPos < poOccupiedUrls.count(); poPos ++)
         {
-            KUrl& occupiedUrl = poOccupiedUrls[poPos];
-            if (potUrl.equals(occupiedUrl))
+            QUrl& occupiedUrl = poOccupiedUrls[poPos];
+            if (potUrl.matches(occupiedUrl, QUrl::StripTrailingSlash))
                 occupiedPos = poPos;
         }
 
@@ -922,43 +921,43 @@ void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& 
 }
 
 
-KUrl ProjectModel::poToPot(const KUrl& poPath) const
+QUrl ProjectModel::poToPot(const QUrl& poPath) const
 {
-    if (!m_poUrl.isParentOf(poPath))
+    if (!(m_poUrl.isParentOf(poPath)||m_poUrl.matches(poPath, QUrl::StripTrailingSlash)))
     {
         kWarning()<<"PO path not in project: " << poPath.url();
-        return KUrl();
+        return QUrl();
     }
 
-    QString pathToAdd = KUrl::relativeUrl(m_poUrl, poPath);
+    QString pathToAdd = QDir(m_poUrl.path()).relativeFilePath(poPath.path());
 
     //change ".po" into ".pot"
     if (pathToAdd.endsWith(".po")) //TODO: what about folders ??
         pathToAdd+='t';
 
-    KUrl potPath = m_potUrl;
-    potPath.addPath(pathToAdd);
+    QUrl potPath = m_potUrl;
+    potPath.setPath(potPath.path()%'/'%pathToAdd);
 
     //kDebug() << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;
 }
 
-KUrl ProjectModel::potToPo(const KUrl& potPath) const
+QUrl ProjectModel::potToPo(const QUrl& potPath) const
 {
-    if (!m_potUrl.isParentOf(potPath))
+    if (!(m_potUrl.isParentOf(potPath)||m_potUrl.matches(potPath, QUrl::StripTrailingSlash)))
     {
         kWarning()<<"POT path not in project: " << potPath.url();
-        return KUrl();
+        return QUrl();
     }
 
-    QString pathToAdd = KUrl::relativeUrl(m_potUrl, potPath);
+    QString pathToAdd = QDir(m_potUrl.path()).relativeFilePath(potPath.path());
 
     //change ".pot" into ".po"
     if (pathToAdd.endsWith(".pot")) //TODO: what about folders ??
         pathToAdd = pathToAdd.left(pathToAdd.length() - 1);
 
-    KUrl poPath = m_poUrl;
-    poPath.addPath(pathToAdd);
+    QUrl poPath = m_poUrl;
+    poPath.setPath(poPath.path()%'/'%pathToAdd);
 
     //kDebug() << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;
@@ -1066,9 +1065,9 @@ void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
 }
 
 
-void ProjectModel::slotFileSaved(const KUrl& url)
+void ProjectModel::slotFileSaved(const QString& filePath)
 {
-    QModelIndex index = indexForUrl(url);
+    QModelIndex index = indexForUrl(QUrl::fromLocalFile(filePath));
 
     if (!index.isValid())
         return;

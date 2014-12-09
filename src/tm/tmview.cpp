@@ -427,7 +427,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         //kWarning()<<"query other DBs,"<<i<<"total";
         while (--i>=0)
         {
-            const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root)).toString();
+            const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root), DBFilesModel::NameRole).toString();
             if (projectID!=dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode==catalog.targetLangCode())
             {
                 SelectJob* j=initSelectJob(m_catalog, m_pos, dbName);

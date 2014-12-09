@@ -54,7 +54,8 @@ public:
 
     enum Rolse
     {
-        NameRole=Qt::UserRole+50
+        FileNameRole=Qt::UserRole+50,
+        NameRole=Qt::UserRole+51
     };
 
     DBFilesModel();
@@ -72,8 +73,7 @@ public:
     //can be zero!!!
     QPersistentModelIndex* projectDBIndex()const{return projectDB;}
 
-    void openDB(const QString& name);
-    void openDB(const QString& name, DbType type);
+    void openDB(const QString& name, DbType type=Undefined, bool forceCurrentProjectConfig=false);
     void openDB(OpenDBJob*);
 
     static DBFilesModel* instance();

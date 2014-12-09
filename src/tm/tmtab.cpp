@@ -44,6 +44,7 @@
 #include <QStyledItemDelegate>
 #include <QStringBuilder>
 #include <QTextDocument>
+#include <QStringListModel>
 
 #include <kcolorscheme.h>
 #include <kactioncategory.h>
@@ -51,7 +52,6 @@
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 #include <fastsizehintitemdelegate.h>
-#include <QStringListModel>
 
 
 using namespace TM;
@@ -87,58 +87,61 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                           const QString& filemask
                           )
 {
-    QString escapedSource(source);escapedSource.replace('\'',"''");
-    QString escapedTarget(target);escapedTarget.replace('\'',"''");
-    QString invertSourceStr; if (invertSource) invertSourceStr="NOT ";
-    QString invertTargetStr; if (invertTarget) invertTargetStr="NOT ";
-    QString escapedFilemask(filemask);escapedFilemask.replace('\'',"''");
+    QString escapedSource(source);escapedSource.replace('\'',QStringLiteral("''"));
+    QString escapedTarget(target);escapedTarget.replace('\'',QStringLiteral("''"));
+    QString invertSourceStr; if (invertSource) invertSourceStr=QStringLiteral("NOT ");
+    QString invertTargetStr; if (invertTarget) invertTargetStr=QStringLiteral("NOT ");
+    QString escapedFilemask(filemask);escapedFilemask.replace('\'',QStringLiteral("''"));
     QString sourceQuery;
     QString targetQuery;
     QString fileQuery;
 
     if (m_queryType==SubStr)
     {
-        escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
-        escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");
+        escapedSource.replace('%',QStringLiteral("\b%"));escapedSource.replace('_',QStringLiteral("\b_"));
+        escapedTarget.replace('%',QStringLiteral("\b%"));escapedTarget.replace('_',QStringLiteral("\b_"));
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "%invertSourceStr%"LIKE '%"+escapedSource+"%' ESCAPE '\b' ";
+            sourceQuery=QStringLiteral("AND source_strings.source ")%invertSourceStr%QStringLiteral("LIKE '%")%escapedSource%QStringLiteral("%' ESCAPE '\b' ");
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "%invertTargetStr%"LIKE '%"+escapedTarget+"%' ESCAPE '\b' ";
+            targetQuery=QStringLiteral("AND target_strings.target ")%invertTargetStr%QStringLiteral("LIKE '%")%escapedTarget%QStringLiteral("%' ESCAPE '\b' ");
     }
     else if (m_queryType==WordOrder)
     {
         /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
         escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
-        QStringList sourceList=escapedSource.split(QRegExp("\\W"),QString::SkipEmptyParts);
-        QStringList targetList=escapedTarget.split(QRegExp("\\W"),QString::SkipEmptyParts);
+        QRegExp wre(QStringLiteral("\\W"));
+        QStringList sourceList=escapedSource.split(wre,QString::SkipEmptyParts);
+        QStringList targetList=escapedTarget.split(wre,QString::SkipEmptyParts);
 
         if (!sourceList.isEmpty())
-            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+sourceList.join("%' AND source_strings.source "+invertSourceStr+"LIKE '%")+"%' ";
+            sourceQuery=QStringLiteral("AND source_strings.source ")%invertSourceStr%QStringLiteral("LIKE '%")
+                        %sourceList.join(QStringLiteral("%' AND source_strings.source ")%invertSourceStr%QStringLiteral("LIKE '%"))%QStringLiteral("%' ");
         if (!targetList.isEmpty())
-            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+targetList.join("%' AND target_strings.target "+invertTargetStr+"LIKE '%")+"%' ";
+            targetQuery=QStringLiteral("AND target_strings.target ")%invertTargetStr%QStringLiteral("LIKE '%")
+                        %targetList.join(QStringLiteral("%' AND target_strings.target ")%invertTargetStr%QStringLiteral("LIKE '%"))%QStringLiteral("%' ");
     }
     else
     {
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "%invertSourceStr%"GLOB '"%escapedSource%"' ";
+            sourceQuery=QStringLiteral("AND source_strings.source ")%invertSourceStr%QStringLiteral("GLOB '")%escapedSource%QStringLiteral("' ");
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "%invertTargetStr%"GLOB '"%escapedTarget%"' ";
+            targetQuery=QStringLiteral("AND target_strings.target ")%invertTargetStr%QStringLiteral("GLOB '")%escapedTarget%QStringLiteral("' ");
 
     }
     if (!filemask.isEmpty())
-        fileQuery="AND files.path GLOB '"%escapedFilemask%"' ";
+        fileQuery=QStringLiteral("AND files.path GLOB '")%escapedFilemask%QStringLiteral("' ");
 
-    QString fromPart="FROM main JOIN source_strings ON (source_strings.id=main.source) "
+    QString fromPart=QStringLiteral("FROM main JOIN source_strings ON (source_strings.id=main.source) "
                      "JOIN target_strings ON (target_strings.id=main.target), files "
-                     "WHERE files.id=main.file "
-                     +sourceQuery
-                     +targetQuery
-                     +fileQuery;
+                     "WHERE files.id=main.file ")
+                     %sourceQuery
+                     %targetQuery
+                     %fileQuery;
 
-    ExecQueryJob* job=new ExecQueryJob(
+    ExecQueryJob* job=new ExecQueryJob(QStringLiteral(
                 "SELECT source_strings.source, target_strings.target, "
                 "main.ctxt, files.path, "
-                "source_strings.source_accel, target_strings.target_accel, main.bits "
+                "source_strings.source_accel, target_strings.target_accel, main.bits ")
                 +fromPart,m_dbName);
 
     connect(job,SIGNAL(done(ExecQueryJob*)),job,SLOT(deleteLater()));
@@ -146,7 +149,7 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
     threadPool()->start(job);
 
 
-    job=new ExecQueryJob("SELECT count(*) "+fromPart,m_dbName);
+    job=new ExecQueryJob(QStringLiteral("SELECT count(*) ")+fromPart,m_dbName);
     connect(job,SIGNAL(done(ExecQueryJob*)),job,SLOT(deleteLater()));
     connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
     threadPool()->start(job);
@@ -156,7 +159,7 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
 
 void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 {
-    if (job->query->lastQuery().startsWith("SELECT count(*) "))
+    if (job->query->lastQuery().startsWith(QStringLiteral("SELECT count(*) ")))
     {
         job->query->next();
         m_totalResultCount=job->query->value(0).toInt();
@@ -326,7 +329,7 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
     {
         int pos=re.indexIn(string);
         if (pos!=-1)
-            return string.replace(pos, re.matchedLength(), "<b>" % re.cap(0) % "</b>");
+            return string.replace(pos, re.matchedLength(), QStringLiteral("<b>") % re.cap(0) % QStringLiteral("</b>"));
     }
 
     //StartLen sl=m_highlightDataForSourceRow.value(source_row).at(index.column());
@@ -467,7 +470,7 @@ TMTab::TMTab(QWidget *parent)
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
-    int pos=ui_queryOptions->dbName->findText(Project::instance()->projectID());
+    int pos=ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
     if (pos>=0)
         ui_queryOptions->dbName->setCurrentIndex(pos);
     connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
@@ -719,10 +722,10 @@ QString TMTab::dbusObjectPath()
              ++i;
         ids.insert(i,i);
         m_dbusId=i;
-        QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId), this);
+        QDBusConnection::sessionBus().registerObject(QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId), this);
     }
 
-    return "/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId);
+    return QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId);
 }
 
 

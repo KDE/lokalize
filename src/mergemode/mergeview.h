@@ -59,7 +59,7 @@ private:
     bool event(QEvent *event);
 
 public slots:
-    void mergeOpen(QString mergeFilePath);
+    void mergeOpen(QString mergeFilePath=QString());
     void cleanup();
     void slotNewEntryDisplayed(const DocPosition&);
     void slotUpdate(const DocPosition&);

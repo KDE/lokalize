@@ -33,7 +33,6 @@
 #include <QList>
 #include <QRunnable>
 #include <kdebug.h>
-#include <kurl.h>
 
 #include "project.h"
 #include "projectlocal.h"
@@ -162,10 +161,10 @@ public:
     ProjectModel(QObject *parent);
     ~ProjectModel();
 
-    void setUrl(const KUrl &poUrl, const KUrl &potUrl);
-    QModelIndex indexForUrl(const KUrl& url);
+    void setUrl(const QUrl &poUrl, const QUrl &potUrl);
+    QModelIndex indexForUrl(const QUrl& url);
     KFileItem itemForIndex(const QModelIndex& index) const;
-    KUrl beginEditing(const QModelIndex& index); //copies POT file to PO file and returns url of the PO file
+    QUrl beginEditing(const QModelIndex& index); //copies POT file to PO file and returns url of the PO file
 
     // QAbstractItemModel methods
     int columnCount(const QModelIndex& parent = QModelIndex()) const;
@@ -204,7 +203,7 @@ private slots:
     void updateTotalsChanged();
 
 public slots:
-    void slotFileSaved(const KUrl&);
+    void slotFileSaved(const QString& filePath);
 
 private:
     ProjectNode* nodeForIndex(const QModelIndex& index) const;
@@ -220,8 +219,8 @@ private:
     QModelIndex indexForPotIndex(const QModelIndex& potIndex) const;
     void generatePOTMapping(QVector<int> & result, const QModelIndex& poParent, const QModelIndex& potParent) const;
 
-    KUrl poToPot(const KUrl& path) const;
-    KUrl potToPo(const KUrl& path) const;
+    QUrl poToPot(const QUrl& path) const;
+    QUrl potToPo(const QUrl& path) const;
 
     void enqueueNodeForMetadataUpdate(ProjectNode* node);
     void deleteSubtree(ProjectNode* node);
@@ -231,8 +230,8 @@ private:
     void updateDirStats(ProjectNode* node);
     bool updateDone(const QModelIndex& index, const KDirModel& model);
 
-    KUrl m_poUrl;
-    KUrl m_potUrl;
+    QUrl m_poUrl;
+    QUrl m_potUrl;
     KDirModel m_poModel;
     KDirModel m_potModel;
 

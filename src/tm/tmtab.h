@@ -29,7 +29,6 @@
 
 #include <KMainWindow>
 #include <KXMLGUIClient>
-#include <KUrl>
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>

@@ -115,17 +115,20 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
     return i18nc("@title:column",columns[section]);
 }
 
-void DBFilesModel::openDB(const QString& name)
+void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentProjectConfig)
 {
-    if (QFileInfo(KStandardDirs::locateLocal("appdata", name % REMOTETM_DATABASE_EXTENSION)).exists())
-        openDB(name, TM::Remote);
-    else
-        openDB(name, TM::Local);
-}
-
-void DBFilesModel::openDB(const QString& name, DbType type)
-{
-    openDB(new OpenDBJob(name, type));
+    if (type==TM::Undefined)
+        type=QFileInfo(KStandardDirs::locateLocal("appdata", name % QStringLiteral(REMOTETM_DATABASE_EXTENSION))).exists()?TM::Remote:TM::Local;
+    OpenDBJob* openDBJob=new OpenDBJob(name, type);
+    if (forceCurrentProjectConfig)
+    {
+        openDBJob->m_setParams=true;
+        openDBJob->m_tmConfig.markup=Project::instance()->markup();
+        openDBJob->m_tmConfig.accel=Project::instance()->accel();
+        openDBJob->m_tmConfig.sourceLangCode=Project::instance()->sourceLangCode();
+        openDBJob->m_tmConfig.targetLangCode=Project::instance()->targetLangCode();
+    }
+    openDB(openDBJob);
 }
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
@@ -160,7 +163,7 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
             projectDB=new QPersistentModelIndex(index);//TODO if user switches the project
 //         if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
 //             continue;
-        openDB(res, DbType(index.data(NameRole).toString().endsWith(remoteTmExtension)));
+        openDB(res, DbType(index.data(FileNameRole).toString().endsWith(remoteTmExtension)));
     }
 }
 
@@ -202,26 +205,26 @@ int DBFilesModel::columnCount (const QModelIndex&) const
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole) return QVariant();
-    if (role!=Qt::DisplayRole && role!=NameRole && index.column()<4) return QSortFilterProxyModel::data(index, role);
-    //if (role!=Qt::DisplayRole && role!=NameRole) return QVariant();
+    if (role!=Qt::DisplayRole && role!=FileNameRole  && role!=NameRole && index.column()<4) return QSortFilterProxyModel::data(index, role);
 
     QString res=QSortFilterProxyModel::data(index.sibling(index.row(), 0), QFileSystemModel::FileNameRole).toString();
 
-    if (role==NameRole) return res;
+    if (role==FileNameRole) return res;
     if (res.endsWith(remoteTmExtension))
         res.chop(remoteTmExtension.size());
     else
         res.chop(tmFileExtension.size());
-    //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
+    if (role==NameRole) return res;
 
+    //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
     switch (index.column())
     {
         case Name: return res;
-        case SourceLang: return m_configurations[res].sourceLangCode;
-        case TargetLang: return m_configurations[res].targetLangCode;
-        case Pairs: return m_stats[res].pairsCount;
-        case OriginalsCount: return m_stats[res].uniqueSourcesCount;
-        case TranslationsCount: return m_stats[res].uniqueTranslationsCount;
+        case SourceLang: return m_configurations.value(res).sourceLangCode;
+        case TargetLang: return m_configurations.value(res).targetLangCode;
+        case Pairs: return m_stats.value(res).pairsCount;
+        case OriginalsCount: return m_stats.value(res).uniqueSourcesCount;
+        case TranslationsCount: return m_stats.value(res).uniqueTranslationsCount;
     }
 
     return res;

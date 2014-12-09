@@ -43,7 +43,7 @@ namespace TM {
 
 #define TM_DATABASE_EXTENSION ".db"
 #define REMOTETM_DATABASE_EXTENSION ".remotedb"
-enum DbType {Local, Remote}; //is needed only on opening
+enum DbType {Local, Remote, Undefined}; //is needed only on opening
 
 #define TM_AREA 8111
 
@@ -85,7 +85,7 @@ public:
         QString driver, host, db, user, passwd;
         bool isFilled(){return !host.isEmpty() && !db.isEmpty() && !user.isEmpty();}
     };
-    
+
     explicit OpenDBJob(const QString& dbName, DbType type=TM::Local, bool reconnect=false, const ConnectionParams& connParams=ConnectionParams(), QObject* parent=0);
     ~OpenDBJob();
 

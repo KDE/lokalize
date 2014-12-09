@@ -159,7 +159,7 @@ void Project::load(const QString &newProjectPath)
         return;
 
     //NOTE do we need to explicitly call it when project id changes?
-    TM::DBFilesModel::instance()->openDB(projectID());
+    TM::DBFilesModel::instance()->openDB(projectID(), TM::Undefined, true);
 
     if (QaModel::isInstantiated())
     {

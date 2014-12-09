@@ -30,7 +30,6 @@
 
 #include <KMainWindow>
 #include <KXMLGUIClient>
-#include <KUrl>
 
 #include <QDockWidget>
 #include <QAbstractListModel>
