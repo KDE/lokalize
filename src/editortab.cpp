@@ -764,9 +764,9 @@ void EditorTab::updateCaptionPath()
         return;
     }
     _captionPath=QDir(QFileInfo(_project->path()).absolutePath()).relativeFilePath(url);
-    if (_captionPath.contains(QStringLiteral("../..")))
+    if (_captionPath.contains(QLatin1String("../..")))
         _captionPath=url;
-    else if (_captionPath.startsWith(QStringLiteral("./")))
+    else if (_captionPath.startsWith(QLatin1String("./")))
         _captionPath=_captionPath.mid(2);
 }
 

@@ -26,7 +26,6 @@
 #include "project.h"
 #include "catalog.h"
 
-#include <kfilemetadata/extractorcollection.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kdirlister.h>
@@ -140,7 +139,6 @@ class SortFilterProxyModel : public KDirSortFilterProxyModel
 public:
     SortFilterProxyModel(QObject* parent=0)
         : KDirSortFilterProxyModel(parent)
-        , m_hideNonPo(KFileMetaData::ExtractorCollection().fetchExtractors(QStringLiteral("text/x-gettext-translation")).size())
     {
         connect(Project::instance()->model(),SIGNAL(totalsChanged(int,int,int,bool)),this,SLOT(invalidate()));
     }
@@ -149,9 +147,6 @@ protected:
     bool lessThan(const QModelIndex& left,
                   const QModelIndex& right) const;
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
-
-private:
-    bool m_hideNonPo;
 };
 
 
@@ -159,9 +154,6 @@ bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& s
 {
 #ifdef _MSC_VER   //FIXME check extractors on win32
     return true;
-#else
-    if (!m_hideNonPo)
-        return true;
 #endif
 
     bool result=false;

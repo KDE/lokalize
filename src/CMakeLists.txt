@@ -76,6 +76,7 @@ set(lokalize_SRCS
     project/projectmodel.cpp
     project/projectwidget.cpp
     project/projecttab.cpp
+    project/poextractor.cpp
 
     prefs/prefs.cpp
 
@@ -157,7 +158,6 @@ qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
 add_executable(lokalize ${lokalize_SRCS})
 
 target_link_libraries(lokalize
-KF5::FileMetaData
 KF5::KDELibs4Support
 KF5::SonnetCore
 KF5::SonnetUi

@@ -300,7 +300,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     // "CHARSET" is the default charset entry in a template (pot).
     // characters in a template should be either pure ascii or
     // at least utf8, so utf8-codec can be used for both.
-    if ( charset.contains(QStringLiteral("CHARSET")))
+    if ( charset.contains(QLatin1String("CHARSET")))
     {
         kDebug() << QString("file seems to be a template: using utf-8 encoding.");
         return QTextCodec::codecForName("utf8");;
@@ -746,7 +746,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                if(!line.isEmpty())
                   recoverableError=true;
             }
-            else if(line.startsWith(QStringLiteral("msgstr")))
+            else if(line.startsWith(QLatin1String("msgstr")))
             {
                kDebug() << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
                error=true;

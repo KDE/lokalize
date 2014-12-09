@@ -538,11 +538,11 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
         return ISNTREADABLE;//TODO
 
     CatalogStorage* storage=0;
-    if (url.endsWith(QStringLiteral(".po"))||url.endsWith(QStringLiteral(".pot")))
+    if (url.endsWith(QLatin1String(".po"))||url.endsWith(QLatin1String(".pot")))
         storage=new GettextCatalog::GettextStorage;
-    else if (url.endsWith(QStringLiteral(".xlf"))||url.endsWith(QStringLiteral(".xliff")))
+    else if (url.endsWith(QLatin1String(".xlf"))||url.endsWith(QLatin1String(".xliff")))
         storage=new XliffStorage;
-    else if (url.endsWith(QStringLiteral(".ts")))
+    else if (url.endsWith(QLatin1String(".ts")))
         storage=new TsStorage;
     else
     {
@@ -551,7 +551,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
         int i=0;
         bool gettext=false;
         while (!in.atEnd()&& i<64 && !gettext)
-            gettext=in.readLine().contains(QStringLiteral("msgid"));
+            gettext=in.readLine().contains(QLatin1String("msgid"));
         if (gettext) storage=new GettextCatalog::GettextStorage;
         else return UNKNOWNFORMAT;
     }

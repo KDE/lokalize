@@ -91,10 +91,10 @@ static void doSplit(QString& cleanEn,
                 words.removeAt(i--);
             else if (words.at(i).startsWith('t')&&words.at(i).size()==4)
             {
-                if (words.at(i)==QStringLiteral("then")
-                || words.at(i)==QStringLiteral("than")
-                || words.at(i)==QStringLiteral("that")
-                || words.at(i)==QStringLiteral("this")
+                if (words.at(i)==QLatin1String("then")
+                || words.at(i)==QLatin1String("than")
+                || words.at(i)==QLatin1String("that")
+                || words.at(i)==QLatin1String("this")
                 )
                     words.removeAt(i--);
             }
@@ -130,7 +130,7 @@ static qlonglong getFileId(const QString& path,
     query1.clear();
 
     //nope, this is new file
-    bool qpsql=(db.driverName()==QStringLiteral("QPSQL"));
+    bool qpsql=(db.driverName()==QLatin1String("QPSQL"));
     QString sql=QStringLiteral("INSERT INTO files (path) VALUES (?)");
     if (qpsql)
         sql+=QStringLiteral(" RETURNING id");
@@ -766,7 +766,7 @@ static bool initSqliteDb(QSqlDatabase& db)
 
 
     bool ok=queryMain.exec(QStringLiteral("select * from main limit 1"));
-    return ok || !queryMain.lastError().text().contains(QStringLiteral("database disk image is malformed"));
+    return ok || !queryMain.lastError().text().contains(QLatin1String("database disk image is malformed"));
 
     //queryMain.exec("CREATE TEMP TRIGGER set_user_id_trigger AFTER UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET change_author = 0 WHERE main.id=NEW.id; END;");
                    //CREATE TEMP TRIGGER set_user_id_trigger INSTEAD OF UPDATE ON main FOR EACH ROW BEGIN UPDATE main SET ctxt = 'test', source=NEW.source, target=NEW.target,  WHERE main.id=NEW.id; END;

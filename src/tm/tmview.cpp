@@ -431,7 +431,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
             if (projectID!=dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode==catalog.targetLangCode())
             {
                 SelectJob* j=initSelectJob(m_catalog, m_pos, dbName);
-                connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+                connect(j,SIGNAL(done(SelectJob*)),this,SLOT(slotSuggestionsCame(SelectJob*)));
                 m_jobs.append(j);
             }
         }

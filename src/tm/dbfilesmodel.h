@@ -31,8 +31,6 @@
 class QFileSystemModel;
 class QPersistentModelIndex;
 
-namespace ThreadWeaver{class Job;}
-
 namespace TM{
 class OpenDBJob;
 

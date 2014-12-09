@@ -24,10 +24,7 @@
 
 #include "projectmodel.h"
 #include "project.h"
-
-#include <kfilemetadata/extractorcollection.h>
-#include <kfilemetadata/extractor.h>
-#include <kfilemetadata/simpleextractionresult.h>
+#include "poextractor.h"
 
 #include <kio/netaccess.h>
 #include <klocale.h>
@@ -1259,24 +1256,8 @@ static FileMetaData metaData(QString filePath)
 {
     FileMetaData m;
 
-    static KFileMetaData::ExtractorCollection c;
-    QList<KFileMetaData::Extractor*> extractors = c.fetchExtractors(QStringLiteral("text/x-gettext-translation"));
-    if (!extractors.size())
-        return m;
-
-    KFileMetaData::SimpleExtractionResult r(filePath, QStringLiteral("text/x-gettext-translation"), KFileMetaData::ExtractionResult::ExtractEverything);
-    extractors.first()->extract(&r);
-    m.fuzzy      = r.properties().value(KFileMetaData::Property::TranslationUnitsWithDraftTranslation).toInt();
-    m.translated = r.properties().value(KFileMetaData::Property::TranslationUnitsWithTranslation).toInt()-m.fuzzy;
-    m.untranslated=r.properties().value(KFileMetaData::Property::TranslationUnitsTotal).toInt()-m.translated-m.fuzzy;
-    m.sourceDate = r.properties().value(KFileMetaData::Property::TranslationTemplateDate).toString();
-    m.translationDate = r.properties().value(KFileMetaData::Property::TranslationLastUpDate).toString();
-    m.lastTranslator  = r.properties().value(KFileMetaData::Property::TranslationLastAuthor).toString();
-    m.filePath = filePath;
-
-    //TODO
-    m.translated_approver=m.translated_reviewer=m.translated;
-    m.fuzzy_approver=m.fuzzy_reviewer=m.fuzzy;
+    POExtractor extractor;
+    extractor.extract(filePath, m);
 
     return m;
 }
@@ -1284,13 +1265,14 @@ static FileMetaData metaData(QString filePath)
 static void initDataBase(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
-    queryMain.exec("PRAGMA encoding = \"UTF-8\"");
-    queryMain.exec("CREATE TABLE IF NOT EXISTS metadata ("
+    queryMain.exec(QStringLiteral("PRAGMA encoding = \"UTF-8\""));
+    queryMain.exec(QStringLiteral(
+                   "CREATE TABLE IF NOT EXISTS metadata ("
                    "filepath INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    //"filepath TEXT UNIQUE ON CONFLICT REPLACE, "
                    "metadata BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                    "changedate INTEGER"
-                   ")");
+                   ")"));
 
     //queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
 }
@@ -1329,7 +1311,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     if (file.isNull() || file.isDir())
         return FileMetaData();
 
-    QString dbName=QStringLiteral("metainfocache");
+    static QString dbName=QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName))
     {
         QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",dbName);
@@ -1356,6 +1338,8 @@ static FileMetaData cachedMetaData(const KFileItem& file)
         //unfortunately direct KFileMetaInfo << operator doesn't work
         FileMetaData info;
         stream>>info;
+
+        Q_ASSERT(info.translated==metaData(file.localPath()).translated);
         return info;
     }
 

@@ -164,7 +164,7 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
 
 void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 {
-    if (job->query->lastQuery().startsWith(QStringLiteral("SELECT count(*) ")))
+    if (job->query->lastQuery().startsWith(QLatin1String("SELECT count(*) ")))
     {
         job->query->next();
         m_totalResultCount=job->query->value(0).toInt();

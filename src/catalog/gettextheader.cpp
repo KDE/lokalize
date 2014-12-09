@@ -296,7 +296,7 @@ void updateHeader(QString& header,
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(projectIdVer);
-        if (found && it->contains(QStringLiteral("PACKAGE VERSION")))
+        if (found && it->contains(QLatin1String("PACKAGE VERSION")))
             *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))

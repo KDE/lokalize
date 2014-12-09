@@ -253,7 +253,7 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
     QStringList::iterator it=comment.begin();
     while (it!=comment.end())
     {
-        if (it->startsWith(QStringLiteral("# ")))
+        if (it->startsWith(QLatin1String("# ")))
             it=comment.erase(it);
         else
             ++it;
@@ -320,7 +320,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     static const QRegExp cpp_re(QStringLiteral("^#: "));
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
-        if (hasUi && cppLine.startsWith(QStringLiteral("#: rc.cpp"))) continue;
+        if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
         QStringList cppFiles=cppLine.mid(3).split(' ');
         result+=cppFiles;
     }

@@ -46,9 +46,6 @@ class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
 
-namespace ThreadWeaver{class Job;}
-namespace ThreadWeaver{class JobCollection;}
-
 class FileSearchModel;
 class SearchFileListView;
 class MassReplaceView;
