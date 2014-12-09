@@ -265,9 +265,9 @@ void updateHeader(QString& header,
     authorNameEmail=Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
         authorNameEmail+=(" <"%Settings::authorEmail()%'>');
-    temp="Last-Translator: "%authorNameEmail%"\\n";
+    temp=QStringLiteral("Last-Translator: ")%authorNameEmail%("\\n");
 
-    QRegExp lt("^ *Last-Translator:.*");
+    QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         if (it->contains(lt))
@@ -279,9 +279,9 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    QString dateTimeString = KDateTime::currentLocalDateTime().toString("%Y-%m-%d %H:%M%z");
-    temp="PO-Revision-Date: "%dateTimeString%"\\n";
-    QRegExp poRevDate("^ *PO-Revision-Date:.*");
+    QString dateTimeString = KDateTime::currentLocalDateTime().toString(QStringLiteral("%Y-%m-%d %H:%M%z"));
+    temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%QStringLiteral("\\n");
+    QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(poRevDate);
@@ -290,13 +290,13 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    temp="Project-Id-Version: "%CatalogProjectId%"\\n";
+    temp=QStringLiteral("Project-Id-Version: ")%CatalogProjectId%QStringLiteral("\\n");
     //temp.replace( "@PACKAGE@", packageName());
-    QRegExp projectIdVer("^ *Project-Id-Version:.*");
+    QRegExp projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(projectIdVer);
-        if (found && it->contains("PACKAGE VERSION"))
+        if (found && it->contains(QStringLiteral("PACKAGE VERSION")))
             *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
@@ -354,14 +354,14 @@ void updateHeader(QString& header,
 
 
 
-    temp="Language-Team: "%language%" <"%mailingList%'>' % "\\n";
+    temp=QStringLiteral("Language-Team: ")%language%QStringLiteral(" <")%mailingList%QStringLiteral(">\\n");
     if (KDE_ISLIKELY( found ))
         (*ait) = temp;
     else
         headerList.append(temp);
 
     static QRegExp langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
-    temp="Language: "%langCode%"\\n";
+    temp=QStringLiteral("Language: ")%langCode%QStringLiteral("\\n");
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=(langCodeRegExp.indexIn(*it)!=-1);
@@ -372,8 +372,8 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    temp="Content-Type: text/plain; charset="%codec->name()%"\\n";
-    static QRegExp ctRe("^ *Content-Type:.*");
+    temp=QStringLiteral("Content-Type: text/plain; charset=")%codec->name()%QStringLiteral("\\n");
+    QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=it->contains(ctRe);
@@ -384,18 +384,19 @@ void updateHeader(QString& header,
 
 
     found=false;
-    temp="Content-Transfer-Encoding: 8bit\\n";
-
+    temp=QStringLiteral("Content-Transfer-Encoding: 8bit\\n");
+    QRegExp cteRe(QStringLiteral("^ *Content-Transfer-Encoding:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
-        found=it->contains(QRegExp("^ *Content-Transfer-Encoding:.*"));
+        found=it->contains(cteRe);
     if (!found)
         headerList.append(temp);
 
     // ensure MIME-Version header
-    temp="MIME-Version: 1.0\\n";
+    temp=QStringLiteral("MIME-Version: 1.0\\n");
+    QRegExp mvRe(QStringLiteral("^ *MIME-Version:"));
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
     {
-        found=it->contains(QRegExp("^ *MIME-Version:"));
+        found=it->contains(mvRe);
         if (found) *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
@@ -404,8 +405,9 @@ void updateHeader(QString& header,
 
     //kDebug()<<"testing for GNUPluralForms";
     // update plural form header
+    QRegExp pfRe(QStringLiteral("^ *Plural-Forms:"));
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
-        found=it->contains(QRegExp("^ *Plural-Forms:"));
+        found=it->contains(pfRe);
     if (found)
     {
         --it;
@@ -425,7 +427,7 @@ void updateHeader(QString& header,
                 {
                     static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
                     pf.setMinimal(true);
-                    temp=QString("Plural-Forms: %1\\n").arg(t);
+                    temp=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
                     it->replace(pf,temp);
                     num=numberOfPluralFormsFromHeader(temp);
                 }
@@ -445,18 +447,18 @@ void updateHeader(QString& header,
         QString t= GNUPluralForms(langCode);
         //kDebug()<<"here it is:";
         if ( !t.isEmpty() ) {
-            const QString pluralFormLine=QString("Plural-Forms: %1\\n").arg(t);
+            const QString pluralFormLine=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
             headerList.append(pluralFormLine);
             numberOfPluralForms=numberOfPluralFormsFromHeader(pluralFormLine);
         }
     }
 
-    temp="X-Generator: Lokalize %1\\n";
+    temp=QStringLiteral("X-Generator: Lokalize %1\\n");
     temp=temp.arg(LOKALIZE_VERSION);
-
+    QRegExp xgRe(QStringLiteral("^ *X-Generator:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
     {
-        found=it->contains(QRegExp("^ *X-Generator:.*"));
+        found=it->contains(xgRe);
         if (found) *it = temp;
     }
     if (KDE_ISUNLIKELY( !found ))
@@ -468,12 +470,12 @@ void updateHeader(QString& header,
 
 //BEGIN comment = description, copyrights
     // U+00A9 is the Copyright sign
-    QRegExp fsfc("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc");
+    QRegExp fsfc(QStringLiteral("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc"));
     for ( it = commentList.begin(),found=false; it != commentList.end()&&!found; ++it )
     {
         found=it->contains( fsfc ) ;
         if (found)
-            it->replace("YEAR", QDate::currentDate().toString("yyyy"));
+            it->replace(QStringLiteral("YEAR"), QDate::currentDate().toString(QStringLiteral("yyyy")));
     }
 /*
                         	    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
@@ -564,11 +566,11 @@ void updateHeader(QString& header,
 //                        return;
     QStringList foundAuthors;
 
-    temp="# "%authorNameEmail%", "%QDate::currentDate().toString("yyyy")%'.';
+    temp=QStringLiteral("# ")%authorNameEmail%QStringLiteral(", ")%QDate::currentDate().toString(QStringLiteral("yyyy"))%'.';
 
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
-    QRegExp regexpAuthorYear( "^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)" );
-    QRegExp regexpYearAlone( "^# , \\d{4}.?\\s*$" );
+    QRegExp regexpAuthorYear( QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)") );
+    QRegExp regexpYearAlone( QStringLiteral("^# , \\d{4}.?\\s*$") );
     if (commentList.isEmpty())
     {
         commentList.append(temp);
@@ -580,11 +582,11 @@ void updateHeader(QString& header,
         while ( it != commentList.end() )
         {
             bool deleteItem = false;
-            if ( it->indexOf( "copyright", 0, Qt::CaseInsensitive ) != -1 )
+            if ( it->indexOf( QStringLiteral("copyright"), 0, Qt::CaseInsensitive ) != -1 )
             {
                 // We have a line with a copyright. It should not be moved.
             }
-            else if ( it->contains( QRegExp("#, *fuzzy") ) )
+            else if ( it->contains( QRegExp(QStringLiteral("#, *fuzzy")) ) )
                 deleteItem = true;
             else if ( it->contains( regexpYearAlone ) )
             {
@@ -593,9 +595,9 @@ void updateHeader(QString& header,
                 // Remove the entry
                 deleteItem = true;
             }
-            else if ( it->contains( "# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.") )
+            else if ( it->contains( QStringLiteral("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")) )
                 deleteItem = true;
-            else if ( it->contains( "# SOME DESCRIPTIVE TITLE"))
+            else if ( it->contains( QStringLiteral("# SOME DESCRIPTIVE TITLE")))
                 deleteItem = true;
             else if ( it->contains( regexpAuthorYear ) ) // email address followed by year
             {
@@ -619,7 +621,7 @@ void updateHeader(QString& header,
             found = false;
             bool foundAuthor = false;
 
-            const QString cy = QDate::currentDate().toString("yyyy");
+            const QString cy = QDate::currentDate().toString(QStringLiteral("yyyy"));
 
             ait = foundAuthors.end();
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
@@ -640,11 +642,11 @@ void updateHeader(QString& header,
                 else if ( ait != foundAuthors.end() )
                 {
                     //update years
-                    const int index = (*ait).lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
+                    const int index = (*ait).lastIndexOf( QRegExp(QStringLiteral("[\\d]+[\\d\\-, ]*")) );
                     if ( index == -1 )
-                        (*ait)+=", "%cy;
+                        (*ait)+=QStringLiteral(", ")%cy;
                     else
-                        ait->insert(index+1, ", "%cy);
+                        ait->insert(index+1, QStringLiteral(", ")%cy);
                 }
                 else
                     kDebug() << "INTERNAL ERROR: author found but iterator dangling!";

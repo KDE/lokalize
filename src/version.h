@@ -4,9 +4,9 @@
 // Description: 
 //
 //
-// Copyright: 2007-2012 Nick Shaforostoff <shafff@ukr.net>
+// Copyright: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
 //
 //
 #ifndef LOKALIZE_VERSION
-#define LOKALIZE_VERSION "1.5"
+#define LOKALIZE_VERSION "2.0"
 #endif

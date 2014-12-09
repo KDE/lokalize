@@ -62,26 +62,26 @@ using namespace GettextCatalog;
 //    , _extraDataSaver(extraDataSaver)
 GettextImportPlugin::GettextImportPlugin()
    : CatalogImportPlugin()
-   , _rxMsgCtxt          ("^msgctxt\\s*\".*\"$")
-   , _rxMsgId            ("^msgid\\s*\".*\"$")
-   , _rxMsgIdPlural      ("^msgid_plural\\s*\".*\"$")
-   , _rxMsgIdPluralBorked("^msgid_plural\\s*\"?.*\"?$")
-   , _rxMsgIdBorked      ("^msgid\\s*\"?.*\"?$")
-   , _rxMsgIdRemQuotes   ("^msgid\\s*\"")
-   , _rxMsgLineRemEndQuote      ("\"$")
-   , _rxMsgLineRemStartQuote    ("^\"")
-   , _rxMsgLine          ("^\".*\\n?\"$")
-   , _rxMsgLineBorked    ("^\"?.+\\n?\"?$")
-   , _rxMsgStr           ("^msgstr\\s*\".*\\n?\"$")
-   , _rxMsgStrOther      ("^msgstr\\s*\"?.*\\n?\"?$")
-   , _rxMsgStrPluralStart("^msgstr\\[0\\]\\s*\".*\\n?\"$")
-   , _rxMsgStrPluralStartBorked ("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$")
-   , _rxMsgStrPlural     ("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$")
-   , _rxMsgStrPluralBorked      ("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$")
-   , _rxMsgStrRemQuotes  ("^msgstr\\s*\"?")
-//    , _rxMsgId   ("^msgid\\s*\"?.*\"?$")
-   , _obsoleteStart("#~")
-   , _msgctxtStart("msgctxt")
+   , _rxMsgCtxt          (QStringLiteral("^msgctxt\\s*\".*\"$"))
+   , _rxMsgId            (QStringLiteral("^msgid\\s*\".*\"$"))
+   , _rxMsgIdPlural      (QStringLiteral("^msgid_plural\\s*\".*\"$"))
+   , _rxMsgIdPluralBorked(QStringLiteral("^msgid_plural\\s*\"?.*\"?$"))
+   , _rxMsgIdBorked      (QStringLiteral("^msgid\\s*\"?.*\"?$"))
+   , _rxMsgIdRemQuotes   (QStringLiteral("^msgid\\s*\""))
+   , _rxMsgLineRemEndQuote      (QStringLiteral("\"$"))
+   , _rxMsgLineRemStartQuote    (QStringLiteral("^\""))
+   , _rxMsgLine          (QStringLiteral("^\".*\\n?\"$"))
+   , _rxMsgLineBorked    (QStringLiteral("^\"?.+\\n?\"?$"))
+   , _rxMsgStr           (QStringLiteral("^msgstr\\s*\".*\\n?\"$"))
+   , _rxMsgStrOther      (QStringLiteral("^msgstr\\s*\"?.*\\n?\"?$"))
+   , _rxMsgStrPluralStart(QStringLiteral("^msgstr\\[0\\]\\s*\".*\\n?\"$"))
+   , _rxMsgStrPluralStartBorked (QStringLiteral("^msgstr\\[0\\]\\s*\"?.*\\n?\"?$"))
+   , _rxMsgStrPlural     (QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\".*\\n?\"$"))
+   , _rxMsgStrPluralBorked      (QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?.*\\n?\"?$"))
+   , _rxMsgStrRemQuotes  (QStringLiteral("^msgstr\\s*\"?"))
+//    , _rxMsgId   (QStringLiteral("^msgid\\s*\"?.*\"?$"))
+   , _obsoleteStart(QStringLiteral("#~"))
+   , _msgctxtStart(QStringLiteral("msgctxt"))
 
 {
 }
@@ -281,7 +281,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
         return codec;
     }
 
-    QRegExp regexp("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n");
+    QRegExp regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
     if ( regexp.indexIn( _msgstr.first() ) == -1 )
     {
         kDebug() << "no charset entry found";
@@ -300,7 +300,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     // "CHARSET" is the default charset entry in a template (pot).
     // characters in a template should be either pure ascii or
     // at least utf8, so utf8-codec can be used for both.
-    if ( charset.contains("CHARSET"))
+    if ( charset.contains(QStringLiteral("CHARSET")))
     {
         kDebug() << QString("file seems to be a template: using utf-8 encoding.");
         return QTextCodec::codecForName("utf8");;
@@ -320,9 +320,9 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 {
    ConversionStatus result=readEntryRaw(stream);
-   _msgstr.replaceInStrings("\\\"","\"");
-   _msgid.replaceInStrings("\\\"","\"");
-   _msgctxt.replace("\\\"","\"");
+   _msgstr.replaceInStrings(QStringLiteral("\\\""),QStringLiteral("\""));
+   _msgid.replaceInStrings(QStringLiteral("\\\""),QStringLiteral("\""));
+   _msgctxt.replace(QStringLiteral("\\\""),QStringLiteral("\""));
    return result;
 }
 
@@ -362,9 +362,9 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 
        kDebug() << "Parsing line: " << line;
 
-       static const QString lesslessless="<<<<<<<";
-       static const QString isisis="=======";
-       static const QString moremoremore=">>>>>>>";
+       static const QString lesslessless=QStringLiteral("<<<<<<<");
+       static const QString isisis=QStringLiteral("=======");
+       static const QString moremoremore=QStringLiteral(">>>>>>>");
        if (KDE_ISUNLIKELY( line.startsWith( lesslessless ) || line.startsWith( isisis ) || line.startsWith( moremoremore ) ))
        {
           // We have found a CVS/SVN conflict marker. Abort.
@@ -410,7 +410,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                part=Msgctxt;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgctxt\\s*\""));
+               line.remove(QRegExp(QStringLiteral("^msgctxt\\s*\"")));
                line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
                _msgctxtPresent=true;
@@ -434,7 +434,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgidMultiline=line.isEmpty();
@@ -468,7 +468,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                part=Msgctxt;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgctxt\\s*\""));
+               line.remove(QRegExp(QStringLiteral("^msgctxt\\s*\"")));
                line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
                _msgctxtPresent=true;
@@ -541,7 +541,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                part=Msgid;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgid\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgidMultiline=line.isEmpty();
@@ -588,7 +588,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                _gettextPluralForm = true;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid_plural\\s*\""));
+               line.remove(QRegExp(QStringLiteral("^msgid_plural\\s*\"")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgid.append(line);
@@ -600,7 +600,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                _gettextPluralForm = true;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgid_plural\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgid_plural\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgid.append(line);
@@ -638,7 +638,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgstr\\[0\\]\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgstrMultiline=line.isEmpty();
@@ -649,7 +649,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                part=Msgstr;
 
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgstr\\[0\\]\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgstr\\[0\\]\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgstrMultiline=line.isEmpty();
@@ -665,7 +665,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                error=true;
                break;
             }
-            else if ( line.startsWith( "msgid" ) )
+            else if ( line.startsWith( QStringLiteral("msgid") ) )
             {
                kDebug() << "Another msgid found after a msgid while parsing: " << _msgid.first();
                error=true;
@@ -720,14 +720,14 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             else if( _gettextPluralForm && ( line.contains( _rxMsgStrPlural ) ) )
             {
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgstr\\[[0-9]+\\]\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgstr\\[[0-9]+\\]\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgstr.append(line);
                msgstrIt=_msgstr.end();
                --msgstrIt;
             }
-            else if ( line.startsWith( '#' ) || line.startsWith( "msgid" ) )
+            else if ( line.startsWith( '#' ) || line.startsWith( QStringLiteral("msgid") ) )
             {
                _errorLine--;
                _bufferedLine=line;
@@ -736,7 +736,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             else if(KDE_ISUNLIKELY(/*_testBorked&&*/ _gettextPluralForm && ( line.contains( _rxMsgStrPluralBorked ) ) ))
             {
                // remove quotes at beginning and the end of the lines
-               line.remove(QRegExp("^msgstr\\[[0-9]\\]\\s*\"?"));
+               line.remove(QRegExp(QStringLiteral("^msgstr\\[[0-9]\\]\\s*\"?")));
                line.remove(_rxMsgLineRemEndQuote);
 
                _msgstr.append(line);
@@ -746,7 +746,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                if(!line.isEmpty())
                   recoverableError=true;
             }
-            else if(line.startsWith("msgstr"))
+            else if(line.startsWith(QStringLiteral("msgstr")))
             {
                kDebug() << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
                error=true;
