@@ -75,6 +75,11 @@ TMDBModel::TMDBModel(QObject* parent)
 void TMDBModel::setDB(const QString& str)
 {
     m_dbName=str;
+
+    QString sourceLangCode=DBFilesModel::instance()->m_configurations.value(str).sourceLangCode;
+    QString targetLangCode=DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
+    if (sourceLangCode.length()) setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text","Source")%QStringLiteral(": ")%sourceLangCode));
+    if (targetLangCode.length()) setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language","Target")%QStringLiteral(": ")%targetLangCode));
 }
 
 void TMDBModel::setQueryType(int type)
