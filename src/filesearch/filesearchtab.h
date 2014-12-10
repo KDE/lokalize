@@ -87,6 +87,7 @@ private slots:
 
 signals:
     void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection);
+    void fileOpenRequested(const QString& filePath);
 
 private:
     void dragEnterEvent(QDragEnterEvent* event);
@@ -205,6 +206,9 @@ public:
 
 public slots:
     void clear();
+    void requestFileOpen(const QModelIndex&);
+signals:
+    void fileOpenRequested(const QString& filePath);
 
 private:
     QTreeView* m_browser;
@@ -236,8 +240,43 @@ private:
     Ui_MassReplaceOptions* ui;
 };
 
-//const QString& sourceRefine, const QString& targetRefine
+struct SearchParams
+{
+    QRegExp sourcePattern;
+    QRegExp targetPattern;
+    QRegExp notesPattern;
 
+    bool states[StateCount];
+
+    bool isEmpty() const;
+};
+
+#include <QRunnable>
+class SearchJob: public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    explicit SearchJob(const QStringList& f, 
+                       const SearchParams& sp,
+                       const QVector<Rule>& r,
+                       int sn,
+                       QObject* parent=0);
+    ~SearchJob(){}
+
+signals:
+    void done(SearchJob*);
+protected:
+    void run ();
+public:
+    QStringList files;
+    SearchParams searchParams;
+    QVector<Rule> rules;
+    int searchNumber;
+
+    SearchResults results; //plain
+
+    int m_size;
+};
 
 
 

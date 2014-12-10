@@ -40,7 +40,7 @@ class ScanJob;
 class ScanJobFeedingBack;
 
 ///wrapper. returns gross number of jobs started
-int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
+int scanRecursive(const QStringList& urls, const QString& dbName);
 
 class RecursiveScanJob: public KJob
 {

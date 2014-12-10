@@ -27,11 +27,11 @@
 #include "pos.h"
 
 #include <kxmlguiwindow.h>
-#include <kurl.h>
 #include <kconfiggroup.h>
 
 #include <QPointer>
 #include <QMap>
+#include <QUrl>
 #include <QDBusObjectPath>
 
 class QLabel;

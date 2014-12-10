@@ -353,7 +353,7 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
     }
 }
 
-static void recursiveAdd(KUrl::List& list, const QModelIndex& idx)
+static void recursiveAdd(QStringList& list, const QModelIndex& idx)
 {
     ProjectModel& model=*(Project::instance()->model());
     const KFileItem& item(model.itemForIndex(idx));
@@ -367,16 +367,16 @@ static void recursiveAdd(KUrl::List& list, const QModelIndex& idx)
             if (childItem.isDir())
                 recursiveAdd(list,idx.child(j,0));
             else
-                list.prepend(childItem.url());
+                list.prepend(childItem.localPath());
         }
     }
     else //if (!list.contains(u))
-        list.prepend(item.url());
+        list.prepend(item.localPath());
 }
 
-KUrl::List ProjectWidget::selectedItems() const
+QStringList ProjectWidget::selectedItems() const
 {
-    KUrl::List list;
+    QStringList list;
     foreach(const QModelIndex& item, selectedIndexes())
     {
         if (item.column()==0)

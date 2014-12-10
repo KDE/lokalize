@@ -27,7 +27,6 @@
 #include "lokalizesubwindowbase.h"
 
 #include <KMainWindow>
-#include <KUrl>
 
 #include <KXMLGUIClient>
 
@@ -66,9 +65,8 @@ signals:
     void fileOpenRequested(const QString&);
 
     void searchRequested(const QStringList&);
-    void searchRequested(const KUrl::List&);
-    void replaceRequested(const KUrl::List&);
-    void spellcheckRequested(const KUrl::List&);
+    void replaceRequested(const QStringList&);
+    void spellcheckRequested(const QStringList&);
 
 public slots:
     Q_SCRIPTABLE void setCurrentItem(const QString& url);

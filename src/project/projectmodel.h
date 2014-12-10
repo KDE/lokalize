@@ -27,7 +27,6 @@
 
 #include <kdirmodel.h>
 #include <kdirlister.h>
-#include <kfilemetainfo.h>
 #include <kicon.h>
 #include <QHash>
 #include <QList>

@@ -90,7 +90,7 @@ void RecursiveScanJob::start()
                 qMakePair(i18n("TM"), m_dbName));
 }
 
-int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
+int TM::scanRecursive(const QStringList& urls, const QString& dbName)
 {
     RecursiveScanJob* metaJob = new RecursiveScanJob(dbName);
     KIO::getJobTracker()->registerJob(metaJob);
@@ -100,19 +100,19 @@ int TM::scanRecursive(const QList<QUrl>& urls, const QString& dbName)
     int i=urls.size();
     while(--i>=0)
     {
-        const QUrl& url=urls.at(i);
-        if (url.isEmpty() || url.path().isEmpty() ) //NOTE is this a Qt bug?
+        const QString& url=urls.at(i);
+        if (url.isEmpty())
             continue;
-        if (Catalog::extIsSupported(url.path()))
+        if (Catalog::extIsSupported(url))
         {
-            ScanJobFeedingBack* job=new ScanJobFeedingBack(url.toLocalFile(),dbName);
+            ScanJobFeedingBack* job=new ScanJobFeedingBack(url,dbName);
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
             TM::threadPool()->start(job, SCAN);
             result.append(job);
         }
         else
-            result+=doScanRecursive(QDir(url.toLocalFile()),dbName,metaJob);
+            result+=doScanRecursive(QDir(url),dbName,metaJob);
     }
 
     metaJob->setJobs(result);

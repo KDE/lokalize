@@ -26,6 +26,7 @@
 #include "project.h"
 #include "poextractor.h"
 
+#include <kicon.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
 #include <kapplication.h>
@@ -356,6 +357,8 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
     }
 
     enqueueNodeForMetadataUpdate(node);
+    //FIXME if templates folder doesn't contain an equivalent of po folder then it's stats will be broken:
+    // one way to fix this is to explicitly force scan of the files of the child folders of the 'node'
 }
 
 void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int end)
@@ -1008,7 +1011,7 @@ void ProjectModel::startNewMetadataJob()
     if (m_dirsWaitingForMetadata.isEmpty())
         return;
 
-    ProjectNode* node = *m_dirsWaitingForMetadata.begin();
+    ProjectNode* node = *m_dirsWaitingForMetadata.constBegin();
 
     //prepare new work
     m_activeNode = node;
@@ -1056,7 +1059,7 @@ void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
         }
     }
 
-    delete m_activeJob;
+    delete m_activeJob; m_activeJob = 0;
 
     startNewMetadataJob();
 }
@@ -1262,6 +1265,8 @@ static FileMetaData metaData(QString filePath)
     return m;
 }
 
+//#define NOMETAINFOCACHE
+#ifndef NOMETAINFOCACHE
 static void initDataBase(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
@@ -1305,12 +1310,15 @@ QDataStream &operator>>(QDataStream &s, FileMetaData &d)
     s >> d.sourceDate;
     return s;
 }
+#endif
 
 static FileMetaData cachedMetaData(const KFileItem& file)
 {
     if (file.isNull() || file.isDir())
         return FileMetaData();
-
+#ifdef NOMETAINFOCACHE
+    return metaData(file.localPath());
+#else
     static QString dbName=QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName))
     {
@@ -1360,10 +1368,12 @@ static FileMetaData cachedMetaData(const KFileItem& file)
         qWarning() <<"metainfo cache acquiring error: " <<query.lastError().text();
 
     return m;
+#endif
 }
 
 void UpdateStatsJob::run()
 {
+#ifndef NOMETAINFOCACHE
     QString dbName=QStringLiteral("metainfocache");
     bool ok=QSqlDatabase::contains(dbName);
     if (ok)
@@ -1371,6 +1381,7 @@ void UpdateStatsJob::run()
         QSqlDatabase db=QSqlDatabase::database(dbName);
         QSqlQuery queryBegin(QStringLiteral("BEGIN"),db);
     }
+#endif
     for (int pos=0; pos<m_files.count(); pos++)
     {
         if (m_status!=0)
@@ -1378,6 +1389,7 @@ void UpdateStatsJob::run()
 
         m_info.append(cachedMetaData(m_files.at(pos)));
     }
+#ifndef NOMETAINFOCACHE
     if (ok)
     {
         QSqlDatabase db=QSqlDatabase::database(dbName);
@@ -1388,6 +1400,7 @@ void UpdateStatsJob::run()
         db.close();
         db.open();
     }
+#endif
     emit done(this);
 }
 

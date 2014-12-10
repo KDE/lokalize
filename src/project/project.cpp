@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -39,7 +39,6 @@
 #include <QTimer>
 #include <QTime>
 
-#include <kurl.h>
 #include <kdirlister.h>
 #include <kdebug.h>
 #include <klocale.h>
@@ -125,24 +124,19 @@ void Project::load(const QString &newProjectPath)
     }
     TM::threadPool()->waitForDone(500);//more safety
 
-    kDebug()<<"5...";
-
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
-    kDebug()<<"4...";
     readConfig();
     m_path=newProjectPath;
     m_desirablePath.clear();
 
     //cache:
-    m_projectDir=KUrl(m_path).directory();
+    m_projectDir=QFileInfo(m_path).absolutePath();
 
-    kDebug()<<"3...";
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,QStandardPaths::DataLocation));
     m_localConfig->readConfig();
 
     if (langCode().isEmpty())
         setLangCode(KLocale::global()->language());
-    kDebug()<<"2...";
 
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
@@ -175,13 +169,8 @@ void Project::load(const QString &newProjectPath)
 
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
-    if (KUrl::isRelativeUrl(possiblyRelPath))
-    {
-        KUrl url(m_path);
-        url.setFileName(QString());
-        url.cd(possiblyRelPath);
-        return url.toLocalFile(KUrl::RemoveTrailingSlash);
-    }
+    if (QFileInfo(possiblyRelPath).isRelative())
+        return QDir::cleanPath(m_projectDir%'/'%possiblyRelPath);
     return possiblyRelPath;
 }
 
@@ -190,10 +179,10 @@ void Project::populateDirModel()
     if (KDE_ISUNLIKELY( m_path.isEmpty() || !QFile::exists(poDir()) ))
         return;
 
-    KUrl potUrl;
+    QUrl potUrl;
     if (QFile::exists(potDir()))
-        potUrl=KUrl::fromLocalFile(potDir());
-    model()->setUrl(KUrl(poDir()), potUrl);
+        potUrl=QUrl::fromLocalFile(potDir());
+    model()->setUrl(QUrl::fromLocalFile(poDir()), potUrl);
 }
 
 void Project::populateGlossary()

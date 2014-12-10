@@ -47,7 +47,7 @@ public:
 
     void setCurrentItem(const KUrl&);
     KUrl currentItem() const;
-    KUrl::List selectedItems() const;
+    QStringList selectedItems() const;
     bool currentIsTranslationFile() const;
 
     QSortFilterProxyModel* proxyModel();

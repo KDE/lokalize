@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,20 +27,20 @@
 #include "tmscanapi.h"
 #include "prefs.h"
 
+#include <kicon.h>
 #include <klocale.h>
 #include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include <klineedit.h>
-#include <kstatusbar.h>
-#include <khbox.h>
 
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QShortcut>
 #include <QSortFilterProxyModel>
+#include <QStatusBar>
 #include <QProgressBar>
 #include <QStackedLayout>
 #include <QLabel>
@@ -175,7 +175,10 @@ ProjectTab::ProjectTab(QWidget *parent)
     ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
 
-    
+    //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::ALT+Qt::Key_Down,"nextpo")
+    //connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
+    action=nav->addAction(KStandardAction::Find,this,SLOT(searchInFiles()));
+
     KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);
 
     action = proj->addAction("project_open",this,SIGNAL(projectOpenRequested()));
@@ -256,18 +259,12 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 
 void ProjectTab::scanFilesToTM()
 {
-    QList<QUrl> urls;
-    foreach(const KUrl& url, m_browser->selectedItems())
-        urls.append(url);
-    TM::scanRecursive(urls,Project::instance()->projectID());
+    TM::scanRecursive(m_browser->selectedItems(),Project::instance()->projectID());
 }
 
 void ProjectTab::searchInFiles(bool templ)
 {
-    QStringList files;
-    foreach(const KUrl& url, m_browser->selectedItems())
-        files.append(url.toLocalFile());
-
+    QStringList files=m_browser->selectedItems();
     if (!templ)
     {
         QString templatesRoot=Project::instance()->templatesRoot();
@@ -317,6 +314,7 @@ QStringList ProjectTab::selectedItems() const
 void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
 {
     int total = fuzzy + translated + untranslated;
+    qDebug()<<"updateStatusBar"<<total;
     m_currentUnitsCount = total;
 
     if (m_progressBar->value() != total && m_legacyUnitsCount > 0)

@@ -530,9 +530,7 @@ TMTab::~TMTab()
 
 void TMTab::updateTM()
 {
-    QList<QUrl> urls;
-    urls.append(Project::instance()->poDir());
-    scanRecursive(urls,Project::instance()->projectID());
+    scanRecursive(QStringList(Project::instance()->poDir()),Project::instance()->projectID());
 }
 
 void TMTab::performQuery()
@@ -707,7 +705,11 @@ void TMTab::dragEnterEvent(QDragEnterEvent* event)
 
 void TMTab::dropEvent(QDropEvent *event)
 {
-    if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
+    QStringList files;
+    foreach(const QUrl& url, event->mimeData()->urls())
+        files.append(url.toLocalFile());
+
+    if (scanRecursive(files,Project::instance()->projectID()))
         event->acceptProposedAction();
 }
 

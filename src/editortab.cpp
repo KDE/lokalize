@@ -67,7 +67,6 @@
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 #include <kxmlguifactory.h>
-#include <kurl.h>
 #include <kmenu.h>
 #include <kactioncategory.h>
 
@@ -1303,12 +1302,6 @@ void EditorTab::mergeOpen(QString mergeFilePath)
 {
     m_syncView->mergeOpen(mergeFilePath);
 }
-/*
-KUrl EditorWindow::mergeFile()
-{
-    return _mergeView->url();
-}
-*/
 
 //HACK to prevent redundant repaintings when widget isn't visible
 void EditorTab::paintEvent(QPaintEvent* event)

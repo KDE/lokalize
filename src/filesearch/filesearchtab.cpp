@@ -49,7 +49,6 @@
 #include <QHeaderView>
 #include <QStringListModel>
 #include <QBoxLayout>
-#include <QRunnable>
 #include <QThreadPool>
 
 #include <kcolorscheme.h>
@@ -69,12 +68,15 @@ class FileListModel: public QStringListModel
 public:
     FileListModel(QObject* parent): QStringListModel(parent){}
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
+    Qt::ItemFlags flags(const QModelIndex& index) const {return Qt::ItemIsEnabled|Qt::ItemIsSelectable;}
 };
 
 QVariant FileListModel::data(const QModelIndex& item, int role) const
 {
     if (role==Qt::DisplayRole)
         return shorterFilePath(stringList().at(item.row()));
+    if (role==Qt::UserRole)
+        return stringList().at(item.row());
     return QVariant();
 }
 
@@ -100,6 +102,14 @@ SearchFileListView::SearchFileListView(QWidget* parent)
     QAction* action=new QAction(i18nc("@action:inmenu", "Clear"), m_browser);
     connect(action, SIGNAL(triggered()), this, SLOT(clear()));
     m_browser->addAction(action);
+    
+    connect(m_browser, SIGNAL(activated(QModelIndex)), this, SLOT(requestFileOpen(QModelIndex)));
+}
+
+void SearchFileListView::requestFileOpen(const QModelIndex& item)
+{
+    emit fileOpenRequested(item.data(Qt::UserRole).toString());
+
 }
 
 void SearchFileListView::addFiles(const QStringList& files)
@@ -151,52 +161,26 @@ void SearchFileListView::scrollTo(const QString& file)
 }
 
 
-struct SearchParams
-{
-    QRegExp sourcePattern;
-    QRegExp targetPattern;
-    QRegExp notesPattern;
 
-    bool states[StateCount];
 
-    bool isEmpty() const;
-};
+
+
+
+
+
+
+
+
+
+
+
+
 
 bool SearchParams::isEmpty() const
 {
     return sourcePattern.pattern().isEmpty()
         && targetPattern.pattern().isEmpty();
 }
-
-
-
-/// @short scan one file
-class SearchJob: public QObject, public QRunnable
-{
-    Q_OBJECT
-public:
-    explicit SearchJob(const QStringList& f, 
-                       const SearchParams& sp,
-                       const QVector<Rule>& r,
-                       int sn,
-                       QObject* parent=0);
-    ~SearchJob(){}
-
-signals:
-    void done(SearchJob*);
-protected:
-    void run ();
-public:
-    QStringList files;
-    SearchParams searchParams;
-    QVector<Rule> rules;
-    int searchNumber;
-
-    //QMap<QString, QVector<FileSearchResult> > results; //filepath -> results
-    SearchResults results; //plain
-
-    int m_size;
-};
 
 SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject* parent)
  : QRunnable()
@@ -211,10 +195,10 @@ SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector
 void SearchJob::run()
 {
     QTime a;a.start();
-    foreach(const QString& path, files)
+    foreach(const QString& filePath, files)
     {
-        Catalog catalog(QThread::currentThread());
-        if (KDE_ISUNLIKELY(catalog.loadFromUrl(path, QString(), &m_size)!=0))
+        Catalog catalog(0); 
+        if (KDE_ISUNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size)!=0))
             continue;
 
         //QVector<FileSearchResult> catalogResults;
@@ -240,7 +224,7 @@ void SearchJob::run()
                     //TODO handle multiple results in same column
                     //FileSearchResult r;
                     SearchResult r;
-                    r.filepath=path;
+                    r.filepath=filePath;
                     r.docPos=pos;
                     if (!searchParams.sourcePattern.isEmpty())
                         r.sourcePositions<<StartLen(searchParams.sourcePattern.pos(), searchParams.sourcePattern.matchedLength());
@@ -274,6 +258,7 @@ void SearchJob::run()
         //    results[path]=catalogResults;
     }
     qDebug()<<"done in"<<a.elapsed();
+    emit done(this);
 }
 
 /// @short replace in files
@@ -495,19 +480,19 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(copySource()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copySource()));
     view->addAction(a);
 
     a=new QAction(i18n("Copy target to clipboard"),view);
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(copyTarget()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copyTarget()));
     view->addAction(a);
 
     a=new QAction(i18n("Open file"),view);
     a->setShortcut(QKeySequence(Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(openFile()));
+    connect(a,SIGNAL(triggered()), this, SLOT(openFile()));
     connect(view,SIGNAL(activated(QModelIndex)), this, SLOT(openFile()));
     view->addAction(a);
 
@@ -551,6 +536,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     //m_searchFileListView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction( QLatin1String("showfilelist_action"), m_searchFileListView->toggleViewAction() );
+    connect(m_searchFileListView, SIGNAL(fileOpenRequested(QString)), this, SIGNAL(fileOpenRequested(QString)));
 
     m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);

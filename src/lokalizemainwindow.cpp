@@ -423,6 +423,7 @@ FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
         w->showMaximized();
         m_fileSearchSubWindow->showMaximized();
         connect(w, SIGNAL(fileOpenRequested(QString,DocPosition,int)),this,SLOT(fileOpen(QString,DocPosition,int)));
+        connect(w, SIGNAL(fileOpenRequested(QString)),this,SLOT(fileOpen(QString)));
     }
 
     if (activate)
@@ -482,21 +483,9 @@ void LokalizeMainWindow::setupActions()
     SettingsController* sc=SettingsController::instance();
     KStandardAction::preferences(sc, SLOT(showSettingsDialog()),ac);
 
-#define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCategory->addAction(_name);\
-    action->setText(_text);\
-    action->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::_shortcut));\
-    action->setIcon(KIcon(_icon));
-
-#define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCategory->addAction(_name);\
-    action->setText(_text);\
-    action->setShortcut(QKeySequence( _shortcut ));\
-    action->setIcon(KIcon(_icon));
-
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
     action = actionCategory->addAction(_name);\
-    action->setShortcut(QKeySequence( _shortcut ));\
+    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));\
     action->setText(_text);
 
 

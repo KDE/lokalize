@@ -170,6 +170,8 @@ void POExtractor::extract(const QString& filePath, FileMetaData& m)
     m.untranslated=untranslated;
     m.filePath = filePath;
 
+    Q_ASSERT(messages>=0 && fuzzy>=0 && untranslated>=0);
+
     //TODO
     m.translated_approver=m.translated_reviewer=m.translated;
     m.fuzzy_approver=m.fuzzy_reviewer=m.fuzzy; 
