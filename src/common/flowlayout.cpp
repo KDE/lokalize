@@ -33,11 +33,9 @@
 
 #include "flowlayout.h"
 #include "termlabel.h"
-//#include "project.h"
 
 #include <QAction>
-
-#include <kdebug.h>
+#include <QDebug>
 
 using namespace GlossaryNS;
 

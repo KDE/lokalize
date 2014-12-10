@@ -39,11 +39,11 @@
 #include "project.h"
 #include "languagelistmodel.h"
 
+#include <QDebug>
 #include <QTimer>
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>
 #include <QFileDialog>
-#include <kdebug.h>
 #include <kstandarddirs.h>
 
 using namespace TM;

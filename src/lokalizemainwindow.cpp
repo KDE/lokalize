@@ -45,7 +45,6 @@
 #include <kstandarddirs.h>
 #include <kicon.h>
 #include <kmenubar.h>
-#include <kdebug.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <kapplication.h>
@@ -61,6 +60,7 @@
 #include <kross/core/action.h>
 
 
+#include <QDebug>
 #include <QActionGroup>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -170,7 +170,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
             int i=actionz.size();
             //projectActions->menuAction()->setVisible(i);
-            //kWarning()<<"adding object"<<actionz.at(0);
+            //qWarning()<<"adding object"<<actionz.at(0);
             while(--i>=0)
             {
                 disconnect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
@@ -197,7 +197,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
         int i=actionz.size();
         //projectActions->menuAction()->setVisible(i);
-        //kWarning()<<"adding object"<<actionz.at(0);
+        //qWarning()<<"adding object"<<actionz.at(0);
         while(--i>=0)
         {
             connect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
@@ -222,7 +222,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
     m_prevSubWindow=w;
 
-    //kWarning()<<"finished"<<aaa.elapsed();
+    //qWarning()<<"finished"<<aaa.elapsed();
 }
 
 
@@ -542,7 +542,7 @@ void LokalizeMainWindow::setupActions()
 
     setupGUI(Default,"lokalizemainwindowui.rc");
 
-    kWarning()<<"finished"<<aaa.elapsed();
+    qWarning()<<"finished"<<aaa.elapsed();
 }
 
 bool LokalizeMainWindow::closeProject()
@@ -610,7 +610,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
         dockWidgets.append(state.dockWidgets.toBase64());
         entries.append(state.entry);
         //offsets.append(state.offset);
-        //kWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
+        //qWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
@@ -665,7 +665,7 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 void LokalizeMainWindow::projectLoaded()
 {
     QString projectPath=Project::instance()->path();
-    kDebug()<<projectPath;
+    qDebug()<<projectPath;
     m_openRecentProjectAction->addUrl( QUrl::fromLocalFile(projectPath) );
 
     KConfig config;
@@ -713,7 +713,7 @@ void LokalizeMainWindow::projectLoaded()
     }
     if (!failedFiles.isEmpty())
     {
-        kDebug()<<"failedFiles"<<failedFiles;
+        qDebug()<<"failedFiles"<<failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KNotification* notification=new KNotification("FilesOpenError", this);
@@ -794,7 +794,7 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
         f.close();
     }
 
-    //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
+    //qWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
     addObject(lokalize,"Lokalize",ChildrenInterface::AutoConnectSignals);
     addObject(Project::instance(),"Project",ChildrenInterface::AutoConnectSignals);
     addObject(editor,"Editor",ChildrenInterface::AutoConnectSignals);
@@ -833,10 +833,10 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
 
     QString scriptsrc=PROJECTRCFILE;
     QDir rcdir(PROJECTRCFILEDIR);
-    kWarning()<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
+    qWarning()<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
     foreach(const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"),QDir::Files))
         if (rc!=scriptsrc)
-            kWarning()<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
+            qWarning()<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
 }
 
 /*
@@ -862,7 +862,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
     QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
-    //kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
+    //qWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 #ifndef Q_WS_MAC
     //TODO really fix!!!
     guiFactory()->addClient(new MyScriptingPlugin(this,m_multiEditorAdaptor));
@@ -994,7 +994,7 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
     Q_UNUSED(p);
-    kWarning()<<"avoiding destroying m_multiEditorAdaptor";
+    qWarning()<<"avoiding destroying m_multiEditorAdaptor";
     setParent(0);
 }
 

@@ -53,11 +53,9 @@
 #include "project.h"
 #include "prefs.h"
 
-#include <kglobal.h>
 #include <kicon.h>
 #include <ktoolbarpopupaction.h>
 #include <kmenubar.h>
-#include <kdebug.h>
 #include <kfadewidgeteffect.h>
 #include <kdemacros.h>
 #include <kio/netaccess.h>
@@ -125,7 +123,7 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
 
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
-    //kWarning()<<chrono.elapsed();
+    //qWarning()<<chrono.elapsed();
 }
 
 void EditorTab::initLater()
@@ -485,7 +483,7 @@ void EditorTab::setupActions()
 
 
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
-    QString systemLang=KGlobal::locale()->language();
+    QString systemLang=QLocale::system().name();
     if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
         || systemLang.startsWith("ja")
         || systemLang.startsWith("zh")
@@ -1030,7 +1028,7 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     }
 
     statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", m_currentPos.entry+1));
-    //kDebug()<<"ELA "<<time.elapsed();
+    //qDebug()<<"ELA "<<time.elapsed();
 }
 
 void EditorTab::msgStrChanged()

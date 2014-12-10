@@ -26,13 +26,13 @@
 #include "project.h"
 #include "catalog.h"
 
-#include <kdebug.h>
 #include <kdirlister.h>
 #include <kstringhandler.h>
 #include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
 #include <kdemacros.h>
 
+#include <QDebug>
 #include <QTreeView>
 #include <QTimer>
 #include <QMouseEvent>
@@ -176,7 +176,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
                                         const QModelIndex& right) const
 {
     static QCollator collator;
-//     kWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
+//     qWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
     //<<left.data().toString()<<right.data().toString()
     ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
     const KFileItem leftFileItem  = projectModel->itemForIndex(left);
@@ -193,7 +193,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
     if (leftFileItem.isNull() || rightFileItem.isNull())
     {
-        kWarning()<<".isNull()";
+        qWarning()<<".isNull()";
         return false;
     }
 

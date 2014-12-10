@@ -36,7 +36,6 @@
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
 
-#include <kdebug.h>
 #include <kdemacros.h>
 
 #include <QSignalMapper>
@@ -264,7 +263,7 @@ bool AltTransView::event(QEvent *event)
         int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
         int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
         if (block1!=block)
-            kWarning()<<"block numbers don't match";
+            qWarning()<<"block numbers don't match";
         if (block>=m_entries.size())
             return false;
 
@@ -291,7 +290,7 @@ void AltTransView::slotUseSuggestion(int i)
 
     CatalogString target=TM::targetAdapted(tmEntry, source);
 
-    kWarning()<<"0"<<target.string;
+    qWarning()<<"0"<<target.string;
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
@@ -304,7 +303,7 @@ void AltTransView::slotUseSuggestion(int i)
         removeTargetSubstring(m_catalog, m_entry.toDocPosition(), 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
-    kWarning()<<"1"<<target.string;
+    qWarning()<<"1"<<target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_entry.toDocPosition(), target, 0);

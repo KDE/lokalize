@@ -46,15 +46,13 @@
 
 #include <QLabel>
 #include <QHBoxLayout>
-
+#include <QDebug>
 
 #include <ktabbar.h>
 #include <kled.h>
 #include <kmessagebox.h>
-#include <kdebug.h>
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>
-
 #include <kdemacros.h>
 
 //parent is set on qsplitter insertion
@@ -179,8 +177,8 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 
     bool refresh=(pos.entry==-1);
     if (refresh) pos=m_targetTextEdit->currentPos();
-    //kWarning()<<"refresh"<<refresh;
-    //kWarning()<<"offset"<<pos.offset;
+    //qWarning()<<"refresh"<<refresh;
+    //qWarning()<<"offset"<<pos.offset;
     //TODO trigger refresh directly via Catalog signal
 
     if (KDE_ISUNLIKELY( m_catalog->isPlural(pos.entry)))
@@ -207,14 +205,14 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     bool keepCursor=false;
     CatalogString sourceWithTags=m_sourceTextEdit->showPos(pos,CatalogString(),keepCursor);
 
-    //kWarning()<<"calling showPos";
+    //qWarning()<<"calling showPos";
     QString targetString=m_targetTextEdit->showPos(pos,sourceWithTags,keepCursor).string;
-    //kWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
     m_sourceTextEdit->cursorToStart();
     m_targetTextEdit->cursorToStart();
 
     bool untrans=targetString.isEmpty();
-    //kWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection)
     {
@@ -244,8 +242,8 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         }
         m_targetTextEdit->setTextCursor(t);
     }
-    //kWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
-    //kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
+    //qWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
     m_targetTextEdit->setFocus();
     setUpdatesEnabled(true);
 }
@@ -323,7 +321,7 @@ void EditorView::toggleBookmark(bool checked)
 
 void EditorView::toggleApprovement()
 {
-    //kWarning()<<"called";
+    //qWarning()<<"called";
     if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 

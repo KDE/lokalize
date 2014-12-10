@@ -23,9 +23,7 @@
 
 #include "actionproxy.h"
 
-#include <kdebug.h>
 #include <QLabel>
-#include <KStatusBar>
 
 #if 0
 #include <QAction>

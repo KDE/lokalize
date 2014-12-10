@@ -26,10 +26,10 @@
 #include "catalog.h"
 #include "project.h"
 
-#include <kdebug.h>
 #include <klineedit.h>
 #include <KConfigGroup>
 
+#include <QDebug>
 #include <QTime>
 #include <QTreeView>
 #include <QHeaderView>
@@ -39,10 +39,8 @@
 #include <QAction>
 #include <QMenu>
 #include <QShortcut>
-
 #include <QMdiSubWindow>
 #include <QMdiArea>
-
 #include <QKeyEvent>
 
 class CatalogTreeView: public QTreeView
@@ -226,7 +224,7 @@ void CatalogView::fillFilterOptionsMenu()
         m_filterOptionsMenu->addSeparator();
     for (int i=-1;i<CatalogTreeModel::DisplayedColumnCount;++i)
     {
-        kWarning()<<i;
+        qWarning()<<i;
         txt=columnsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
                                                    m_model->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());
         txt->setData(-i-2);

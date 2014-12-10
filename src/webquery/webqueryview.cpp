@@ -44,8 +44,7 @@
 
 #include "webquerycontroller.h"
 
-#include <kdebug.h>
-
+#include <QDebug>
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSplitter>
@@ -133,7 +132,7 @@ void WebQueryView::slotSelectionChanged()
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
 //         {
-//             //kWarning() << " " <<;
+//             //qWarning() << " " <<;
 //             event->acceptProposedAction();
 //         };*/
 // }

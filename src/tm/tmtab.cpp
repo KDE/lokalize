@@ -655,15 +655,15 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
                                  const QStyleOptionViewItem& /*option*/,
                                  const QModelIndex& index)
 {
-    kWarning()<<"QEvent"<<event;
+    qWarning()<<"QEvent"<<event;
     if (event->type()==QEvent::Shortcut)
     {
-        kWarning()<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
+        qWarning()<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
         if (static_cast<QShortcutEvent*>(event)->key().matches(QKeySequence::Copy)
            && index.data().canConvert(QVariant::String))
         {
             QApplication::clipboard()->setText(index.data().toString());
-            kWarning()<<"index.data().toString()";
+            qWarning()<<"index.data().toString()";
         }
     }
     else if (event->type()==QEvent::MouseButtonRelease)

@@ -31,7 +31,6 @@
 #include "prefs_lokalize.h"
 
 #include <klocalizedstring.h>
-#include <kdebug.h>
 #include <ktextedit.h>
 #include <kcombobox.h>
 

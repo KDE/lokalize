@@ -47,9 +47,9 @@
 #include <QList>
 #include <QTextStream>
 #include <QEventLoop>
+#include <QDebug>
 
 #include <kapplication.h>
-#include <kdebug.h>
 #include <kgenericfactory.h>
 
 #include "catalogitem.h"
@@ -103,7 +103,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    // if somethings goes wrong with the parsing, we don't have deleted the old contents
    CatalogItem tempHeader;
 
-   kDebug() << "start parsing...";
+   qDebug() << "start parsing...";
    QTime aaa;
    aaa.start();
    // first read header
@@ -112,22 +112,22 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    bool recoveredErrorInHeader = false;
    if (KDE_ISUNLIKELY( status == RECOVERED_PARSE_ERROR ))
    {
-      kDebug() << "Recovered error in header entry";
+      qDebug() << "Recovered error in header entry";
       recoveredErrorInHeader = true;
    }
    else if (KDE_ISUNLIKELY( status != OK ))
    {
-      kWarning() << "Parse error in header entry";
+      qWarning() << "Parse error in header entry";
       return status;
    }
 
    bool reconstructedHeader=!_msgid.isEmpty() && !_msgid.first().isEmpty();
-   //kWarning() << "HEADER MSGID: " << _msgid;
-   //kWarning() << "HEADER MSGSTR: " << _msgstr;
+   //qWarning() << "HEADER MSGID: " << _msgid;
+   //qWarning() << "HEADER MSGSTR: " << _msgstr;
    if (KDE_ISUNLIKELY( reconstructedHeader ))
    {
       // The header must have an empty msgid
-      kWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
+      qWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
       tempHeader.setMsgid( QString() );
       QString tmp(
          "Content-Type: text/plain; charset=UTF-8\\n" // Unknown charset
@@ -196,7 +196,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       }
       else if(KDE_ISUNLIKELY( success==RECOVERED_PARSE_ERROR ))
       {
-         kDebug() << "Recovered parse error in entry: " << counter;
+         qDebug() << "Recovered parse error in entry: " << counter;
          recoveredError=true;
          errorIndex.append(counter);
 
@@ -213,12 +213,12 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       }
       else if (success == PARSE_ERROR)
       {
-         kDebug() << "Parse error in entry: " << counter;
+         qDebug() << "Parse error in entry: " << counter;
          return PARSE_ERROR;
       }
       else
       {
-         kDebug() << "Unknown success status, assumig parse error " << success;
+         qDebug() << "Unknown success status, assumig parse error " << success;
          return PARSE_ERROR;
       }
       counter++;
@@ -229,11 +229,11 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    if (KDE_ISUNLIKELY( !counter && !recoveredErrorInHeader ))
    {
       // Empty file? (Otherwise, there would be a try of getting an entry and the count would be 1 !)
-      kDebug() << " Empty file?";
+      qDebug() << " Empty file?";
       return PARSE_ERROR;
    }
 
-   kDebug() << " ready";
+   qDebug() << " ready";
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
@@ -248,18 +248,18 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
 #if 0
    if (KDE_ISUNLIKELY( recoveredErrorInHeader ))
    {
-      kDebug() << " Returning: header error";
+      qDebug() << " Returning: header error";
       return RECOVERED_HEADER_ERROR;
    }
    else if (KDE_ISUNLIKELY( recoveredError ))
    {
-      kDebug() << " Returning: recovered parse error";
+      qDebug() << " Returning: recovered parse error";
       return RECOVERED_PARSE_ERROR;
    }
    else
 #endif
    {
-      kDebug() << " Returning: OK! :-)";
+      qDebug() << " Returning: OK! :-)";
       return OK;
    }
 }
@@ -276,23 +276,23 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     ConversionStatus status = readEntry(stream);
     if (KDE_ISUNLIKELY( status!=OK && status != RECOVERED_PARSE_ERROR ))
     {
-        kDebug() << "wasn't able to read header";
+        qDebug() << "wasn't able to read header";
         return codec;
     }
 
     QRegExp regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
     if ( regexp.indexIn( _msgstr.first() ) == -1 )
     {
-        kDebug() << "no charset entry found";
+        qDebug() << "no charset entry found";
         return codec;
     }
 
     const QString charset = regexp.cap(1);
-    kDebug() << "charset: " << charset;
+    qDebug() << "charset: " << charset;
 
     if (charset.isEmpty())
     {
-        kWarning() << "No charset defined! Assuming UTF-8!";
+        qWarning() << "No charset defined! Assuming UTF-8!";
         return codec;
     }
 
@@ -301,7 +301,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     // at least utf8, so utf8-codec can be used for both.
     if ( charset.contains(QLatin1String("CHARSET")))
     {
-        kDebug() << QString("file seems to be a template: using utf-8 encoding.");
+        qDebug() << QString("file seems to be a template: using utf-8 encoding.");
         return QTextCodec::codecForName("utf8");;
     }
 
@@ -311,7 +311,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     if (t)
         return t;
     else
-       kWarning() << "charset found, but no codec available, using UTF-8 instead";
+       qWarning() << "charset found, but no codec available, using UTF-8 instead";
 
     return codec;//UTF-8
 }
@@ -327,7 +327,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
 ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 {
-   //kDebug() << " START";
+   //qDebug() << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
    _trailingNewLines=0;
@@ -359,7 +359,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
        else
            line=stream.readLine();
 
-       kDebug() << "Parsing line: " << line;
+       qDebug() << "Parsing line: " << line;
 
        static const QString lesslessless=QStringLiteral("<<<<<<<");
        static const QString isisis=QStringLiteral("=======");
@@ -444,7 +444,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
            }
            else
            {
-               kDebug() << "no comment, msgctxt or msgid found after a comment: " << line;
+               qDebug() << "no comment, msgctxt or msgid found after a comment: " << line;
                error=true;
                break;
            }
@@ -501,7 +501,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no comment or msgid found after a comment while parsing: " << _comment;
+               qDebug() << "no comment or msgid found after a comment while parsing: " << _comment;
                error=true;
                break;
             }
@@ -551,7 +551,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no msgid found after a msgctxt while parsing: " << _msgctxt;
+               qDebug() << "no msgid found after a msgctxt while parsing: " << _msgctxt;
                error=true;
                break;
             }
@@ -660,13 +660,13 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             else if ( line.startsWith( '#' ) )
             {
                // ### TODO: could this be considered recoverable?
-               kDebug() << "comment found after a msgid while parsing: " << _msgid.first();
+               qDebug() << "comment found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
             else if ( line.startsWith( QStringLiteral("msgid") ) )
             {
-               kDebug() << "Another msgid found after a msgid while parsing: " << _msgid.first();
+               qDebug() << "Another msgid found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
@@ -696,7 +696,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no msgstr found after a msgid while parsing: " << _msgid.first();
+               qDebug() << "no msgstr found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
@@ -747,7 +747,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else if(line.startsWith(QLatin1String("msgstr")))
             {
-               kDebug() << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
+               qDebug() << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
                error=true;
                break;
             }
@@ -766,7 +766,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               kDebug() << "no msgid or comment found after a msgstr while parsing: " << _msgstr.last();
+               qDebug() << "no msgid or comment found after a msgstr while parsing: " << _msgstr.last();
                error=true;
                break;
             }
@@ -776,20 +776,20 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 /*
    if(_gettextPluralForm)
    {
-       kDebug() << "gettext plural form:\n"
+       qDebug() << "gettext plural form:\n"
                  << "msgid:\n" << _msgid.first() << "\n"
                  << "msgid_plural:\n" << _msgid.last() << "\n" << endl;
        int counter=0;
        for(QStringList::Iterator it = _msgstr.begin(); it != _msgstr.end(); ++it)
        {
-           kDebug() << "msgstr[" << counter << "]:\n" 
+           qDebug() << "msgstr[" << counter << "]:\n" 
                      << (*it) << endl;
            counter++;
        }
    }
   */
 
-    //kDebug() << " NEAR RETURN";
+    //qDebug() << " NEAR RETURN";
     if(KDE_ISUNLIKELY(error))
         return PARSE_ERROR;
     else if(KDE_ISUNLIKELY(recoverableError))

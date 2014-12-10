@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -22,8 +22,8 @@
 **************************************************************************** */
 
 #include "catalogstring.h"
-#include <kdebug.h>
 #include <klocalizedstring.h>
+#include <QDebug>
 
 
 const char* InlineTag::getElementName(InlineElement type)
@@ -270,7 +270,7 @@ QDataStream &operator>>(QDataStream &in, CatalogString &myObj)
 
 void adaptCatalogString(CatalogString& target, const CatalogString& ref)
 {
-    kWarning()<<"HERE"<<target.string;
+    qWarning()<<"HERE"<<target.string;
     QHash<QString,int> id2tagIndex;
     QMultiMap<InlineTag::InlineElement,int> tagType2tagIndex;
     int i=ref.tags.size();
@@ -279,7 +279,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
         const InlineTag& t=ref.tags.at(i);
         id2tagIndex.insert(t.id,i);
         tagType2tagIndex.insert(t.type,i);
-        kWarning()<<"inserting"<<t.id<<t.type<<i;
+        qWarning()<<"inserting"<<t.id<<t.type<<i;
     }
 
     QList<InlineTag> oldTags=target.tags;
@@ -292,13 +292,13 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
         const InlineTag& targetTag=oldTags.at(i);
         if (id2tagIndex.contains(targetTag.id))
         {
-            kWarning()<<"matched"<<targetTag.id<<i;
+            qWarning()<<"matched"<<targetTag.id<<i;
             target.tags.append(targetTag);
             tagType2tagIndex.remove(targetTag.type, id2tagIndex.take(targetTag.id));
             oldTags.removeAt(i);
         }
     }
-    kWarning()<<"HERE 0"<<target.string;
+    qWarning()<<"HERE 0"<<target.string;
 
     //now all the tags left have to ID (exact) matches
     i=oldTags.size();
@@ -313,16 +313,16 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             foreach(int i, tagType2tagIndex.values(targetTag.type))
                 possibleRefMatches<<ref.tags.at(i);
             qSort(possibleRefMatches);
-            kWarning()<<"setting id:"<<targetTag.id<<possibleRefMatches.first().id;
+            qWarning()<<"setting id:"<<targetTag.id<<possibleRefMatches.first().id;
             targetTag.id=possibleRefMatches.first().id;
 
             target.tags.append(targetTag);
-            kWarning()<<"id??:"<<targetTag.id<<target.tags.first().id;
+            qWarning()<<"id??:"<<targetTag.id<<target.tags.first().id;
             tagType2tagIndex.remove(targetTag.type, id2tagIndex.take(targetTag.id));
             oldTags.removeAt(i);
         }
     }
-    kWarning()<<"HERE 1"<<target.string;
+    qWarning()<<"HERE 1"<<target.string;
     //now walk through unmatched tags and properly remove them.
     foreach(const InlineTag& tag, oldTags)
     {
@@ -330,6 +330,6 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             target.remove(tag.end, 1);
         target.remove(tag.start, 1);
     }
-    kWarning()<<"HERE 2"<<target.string;
+    qWarning()<<"HERE 2"<<target.string;
 }
 

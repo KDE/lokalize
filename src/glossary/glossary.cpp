@@ -29,8 +29,7 @@
 #include "prefs_lokalize.h"
 #include "domroutines.h"
 
-#include <kdebug.h>
-
+#include <QDebug>
 #include <QFile>
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
@@ -99,7 +98,7 @@ bool Glossary::load(const QString& newPath)
 
     if (!success)
     {
-        kWarning()<<errorMsg;
+        qWarning()<<errorMsg;
         return false; //errorLine+1;
     }
     clear();//does setClean(true);
@@ -123,7 +122,7 @@ bool Glossary::load(const QString& newPath)
          return;
     QXmlInputSource xmlInputSource(&file);
     if (!reader1.parse(xmlInputSource))
-         kWarning() << "failed to load "<< path;
+         qWarning() << "failed to load "<< path;
 #endif
     emit loaded();
 

@@ -40,8 +40,8 @@
 
 #include <QStringList>
 #include <QLinkedList>
+#include <QDebug>
 
-#include <kdebug.h>
 #include <kmessagebox.h>
 //#include <kservicetypetrader.h>
 

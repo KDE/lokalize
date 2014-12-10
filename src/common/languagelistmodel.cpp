@@ -23,7 +23,6 @@
 
 #include "languagelistmodel.h"
 #include <kglobal.h>
-#include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kiconloader.h>
 #include <kicon.h>
@@ -69,8 +68,8 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
 #if 0 //KDE5PORT
     KIconLoader::global()->addExtraDesktopThemes();
 #endif
-    //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
-    //kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
+    //qWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
+    //qDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);
     m_sortModel->sort(0);
 }
@@ -101,7 +100,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
     {
         const QString& code=stringList().at(index.row());
         if (code.isEmpty()) return code;
-        //kDebug()<<"languageCodeToName"<<code;
+        //qDebug()<<"languageCodeToName"<<code;
         static QVector<QString> displayNames(stringList().size());
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());

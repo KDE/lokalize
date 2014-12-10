@@ -192,7 +192,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
 ProjectTab::~ProjectTab()
 {
-    //kWarning()<<"destroyed";
+    //qWarning()<<"destroyed";
 }
 
 void ProjectTab::showRealProjectOverview()

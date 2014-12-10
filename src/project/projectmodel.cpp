@@ -113,7 +113,7 @@ ProjectModel::~ProjectModel()
 
 void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
-    //kDebug() << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
+    //qDebug() << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
 
     //cleanup old data
 
@@ -690,10 +690,10 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
 QModelIndex ProjectModel::index(int row, int column, const QModelIndex& parent) const
 {
     ProjectNode* parentNode = nodeForIndex(parent);
-    //kWarning()<<(sizeof(ProjectNode))<<nodeCounter;
+    //qWarning()<<(sizeof(ProjectNode))<<nodeCounter;
     if (row>=parentNode->rows.size())
     {
-        kWarning()<<"SHIT HAPPENED WITH INDEXES"<<row<<parentNode->rows.size()<<itemForIndex(parent).url();
+        qWarning()<<"SHIT HAPPENED WITH INDEXES"<<row<<parentNode->rows.size()<<itemForIndex(parent).url();
         return QModelIndex();
     }
     return createIndex(row, column, parentNode->rows.at(row));
@@ -719,12 +719,12 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
             return m_potModel.itemForIndex(potIndex);
     }
 
-    kWarning()<<"returning empty KFileItem()"<<index.row()<<index.column();
-    kWarning()<<"returning empty KFileItem()"<<index.parent().isValid();
-    kWarning()<<"returning empty KFileItem()"<<index.parent().internalPointer();
-    kWarning()<<"returning empty KFileItem()"<<index.parent().data().toString();
-    kWarning()<<"returning empty KFileItem()"<<index.internalPointer();
-    kWarning()<<"returning empty KFileItem()"<<static_cast<ProjectNode*>(index.internalPointer())->untranslated<<static_cast<ProjectNode*>(index.internalPointer())->sourceDate;
+    qWarning()<<"returning empty KFileItem()"<<index.row()<<index.column();
+    qWarning()<<"returning empty KFileItem()"<<index.parent().isValid();
+    qWarning()<<"returning empty KFileItem()"<<index.parent().internalPointer();
+    qWarning()<<"returning empty KFileItem()"<<index.parent().data().toString();
+    qWarning()<<"returning empty KFileItem()"<<index.internalPointer();
+    qWarning()<<"returning empty KFileItem()"<<static_cast<ProjectNode*>(index.internalPointer())->untranslated<<static_cast<ProjectNode*>(index.internalPointer())->sourceDate;
     return KFileItem();
 }
 
@@ -839,7 +839,7 @@ QModelIndex ProjectModel::poOrPotIndexForOuter(const QModelIndex& outerIndex) co
     QModelIndex potIndex = potIndexForOuter(outerIndex);
 
     if (!potIndex.isValid())
-        kWarning()<<"error mapping index to PO or POT";
+        qWarning()<<"error mapping index to PO or POT";
 
     return potIndex;
 }
@@ -872,7 +872,7 @@ QModelIndex ProjectModel::indexForPotIndex(const QModelIndex& potIndex) const
     if (row != node->rows.count())
         return index(row, potIndex.column(), outerParent);
 
-    kWarning()<<"error mapping index from POT to outer, searched for potRow:"<<potRow;
+    qWarning()<<"error mapping index from POT to outer, searched for potRow:"<<potRow;
     return QModelIndex();
 }
 
@@ -924,7 +924,7 @@ QUrl ProjectModel::poToPot(const QUrl& poPath) const
 {
     if (!(m_poUrl.isParentOf(poPath)||m_poUrl.matches(poPath, QUrl::StripTrailingSlash)))
     {
-        kWarning()<<"PO path not in project: " << poPath.url();
+        qWarning()<<"PO path not in project: " << poPath.url();
         return QUrl();
     }
 
@@ -937,7 +937,7 @@ QUrl ProjectModel::poToPot(const QUrl& poPath) const
     QUrl potPath = m_potUrl;
     potPath.setPath(potPath.path()%'/'%pathToAdd);
 
-    //kDebug() << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
+    //qDebug() << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;
 }
 
@@ -945,7 +945,7 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
 {
     if (!(m_potUrl.isParentOf(potPath)||m_potUrl.matches(potPath, QUrl::StripTrailingSlash)))
     {
-        kWarning()<<"POT path not in project: " << potPath.url();
+        qWarning()<<"POT path not in project: " << potPath.url();
         return QUrl();
     }
 
@@ -958,7 +958,7 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
     QUrl poPath = m_poUrl;
     poPath.setPath(poPath.path()%'/'%pathToAdd);
 
-    //kDebug() << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
+    //qDebug() << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;
 }
 
@@ -1138,7 +1138,7 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     if (node->parent->rows.count()==0 || node->parent->rows.count()>=node->rowNumber)
         return;
     QModelIndex index = indexForNode(node);
-    kWarning()<<index.row()<<node->parent->rows.count();
+    qWarning()<<index.row()<<node->parent->rows.count();
     if (index.row()>=node->parent->rows.count())
         return;
     QModelIndex topLeft = index.sibling(index.row(), Graph);

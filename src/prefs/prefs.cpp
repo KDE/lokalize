@@ -40,20 +40,19 @@
 
 #include <keditlistbox.h>
 #include <kconfigdialog.h>
-#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kicon.h>
-#include <kdebug.h>
-
 #include <kmessagebox.h>
-
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
 #include <kross/ui/model.h>
+
 #include <QBoxLayout>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QTimer>
+#include <QMimeData>
+#include <QDebug>
 
 //#include <sonnet/configwidget.h>
 

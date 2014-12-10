@@ -28,7 +28,8 @@
 #include "dbfilesmodel.h"
 #include "project.h"
 
-#include <kdebug.h>
+#include <QDebug>
+
 #include <kio/global.h>
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
@@ -78,7 +79,7 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
     if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
     {
         emitResult();
-        kWarning()<<"finished in"<<m_time.elapsed()<<"msecs";
+        qWarning()<<"finished in"<<m_time.elapsed()<<"msecs";
     }
 }
 

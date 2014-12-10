@@ -28,9 +28,9 @@
 #include <klineedit.h>
 #include <kdialog.h>
 
-#include <kdebug.h>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QDebug>
 
 using namespace GlossaryNS;
 //#include <QShortcutEvent>
@@ -44,7 +44,7 @@ using namespace GlossaryNS;
 //     {
 // //         setFlat(true);
 // //         grabShortcut(Qt::ALT+Qt::CTRL+key);
-// //         kWarning() << "dsds " << grabShortcut(Qt::ALT+key);
+// //         qWarning() << "dsds " << grabShortcut(Qt::ALT+key);
 //     }
 //     //~TermLabel(){}
 // // bool TermLabel::event(QEvent *event)
@@ -52,7 +52,7 @@ using namespace GlossaryNS;
 // //     if (event->type() != QEvent::Shortcut)
 // //         return QLabel::event(event);
 // // 
-// // //         kWarning() << "dsds " << m_termTransl;
+// // //         qWarning() << "dsds " << m_termTransl;
 // //     emit insertTerm(m_termTransl);
 // //     return true;
 // // }
@@ -121,7 +121,7 @@ void TermLabel::setText(const QString& term, const QByteArray& entryId, bool cap
 #if 0
 void QueryResultBtn::insert()
 {
-//     kWarning()<<"ins "<<text();
+//     qWarning()<<"ins "<<text();
     emit insertText(m_text);
 }
 
@@ -130,7 +130,7 @@ QueryResultBtn::QueryResultBtn(QAction* a)
     , m_action(a)
 {
     setWordWrap(true);
-//     kWarning()<<"ctor";
+//     qWarning()<<"ctor";
     //connect(this,SIGNAL(clicked(bool)),this,SLOT(insert()));
 }
 

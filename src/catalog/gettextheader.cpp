@@ -33,9 +33,9 @@
 #include <QStringBuilder>
 #include <QMap>
 #include <QTextCodec>
+#include <QDebug>
 
 #include <kdemacros.h>
-#include <kdebug.h>
 #include <kglobal.h>
 #include <kdatetime.h>
 
@@ -189,7 +189,7 @@ QString GNUPluralForms(const QString& lang)
     msginit.waitForStarted(5000);
     if (KDE_ISUNLIKELY( msginit.state()!=QProcess::Running ))
     {
-        //kWarning()<<"msginit error";
+        //qWarning()<<"msginit error";
         return def;
     }
 
@@ -216,7 +216,7 @@ QString GNUPluralForms(const QString& lang)
 
     if (KDE_ISUNLIKELY( !msginit.waitForFinished(5000) ))
     {
-        kWarning()<<"msginit error";
+        qWarning()<<"msginit error";
         return def;
     }
 
@@ -225,7 +225,7 @@ QString GNUPluralForms(const QString& lang)
     int pos = result.indexOf("Plural-Forms: ");
     if (KDE_ISUNLIKELY( pos==-1 ))
     {
-        //kWarning()<<"msginit error"<<result;
+        //qWarning()<<"msginit error"<<result;
         return def;
     }
     pos+=14;
@@ -233,7 +233,7 @@ QString GNUPluralForms(const QString& lang)
     int end = result.indexOf('"',pos);
     if (KDE_ISUNLIKELY( pos==-1 ))
     {
-        //kWarning()<<"msginit error"<<result;
+        //qWarning()<<"msginit error"<<result;
         return def;
     }
 
@@ -402,7 +402,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
 
-    //kDebug()<<"testing for GNUPluralForms";
+    //qDebug()<<"testing for GNUPluralForms";
     // update plural form header
     QRegExp pfRe(QStringLiteral("^ *Plural-Forms:"));
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
@@ -411,7 +411,7 @@ void updateHeader(QString& header,
     {
         --it;
 
-        //kDebug()<<"GNUPluralForms found";
+        //qDebug()<<"GNUPluralForms found";
         int num=numberOfPluralFormsFromHeader(header);
         if (!num)
         {
@@ -419,9 +419,9 @@ void updateHeader(QString& header,
                 num=1;
             else
             {
-                kWarning()<<"No plural form info in header, using project-defined one"<<langCode;
+                qWarning()<<"No plural form info in header, using project-defined one"<<langCode;
                 QString t=GNUPluralForms(langCode);
-                //kWarning()<<"generated: " << t;
+                //qWarning()<<"generated: " << t;
                 if ( !t.isEmpty() )
                 {
                     static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
@@ -432,7 +432,7 @@ void updateHeader(QString& header,
                 }
                 else
                 {
-                    kWarning()<<"no... smth went wrong :(\ncheck your gettext install";
+                    qWarning()<<"no... smth went wrong :(\ncheck your gettext install";
                     num=2;
                 }
             }
@@ -442,9 +442,9 @@ void updateHeader(QString& header,
     }
     else if ( !generatedFromDocbook)
     {
-        //kDebug()<<"generating GNUPluralForms"<<langCode;
+        //qDebug()<<"generating GNUPluralForms"<<langCode;
         QString t= GNUPluralForms(langCode);
-        //kDebug()<<"here it is:";
+        //qDebug()<<"here it is:";
         if ( !t.isEmpty() ) {
             const QString pluralFormLine=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
             headerList.append(pluralFormLine);
@@ -506,14 +506,14 @@ void updateHeader(QString& header,
         QString regexpstr = "^#\\s+" + QRegExp::escape( saveOptions.descriptionString.trimmed() ) + "\\s*$";
         regexpstr.replace( "@PACKAGE@", ".*" );
         regexpstr.replace( "@LANGUAGE@", ".*" );
-        //kDebug() << "REGEXPSTR: " <<  regexpstr;
+        //qDebug() << "REGEXPSTR: " <<  regexpstr;
         QRegExp regexp ( regexpstr );
 
         // The buggy variants exist in English too (of a time before KBabel got a translation for the corresponding language)
         QRegExp regexpUntranslated ( "^#\\s+translation of .* to .*\\s*$" );
 
 
-        kDebug () << "Temp is '" << temp << "'";
+        qDebug () << "Temp is '" << temp << "'";
 
         found=false;
         bool foundTemplate=false;
@@ -521,12 +521,12 @@ void updateHeader(QString& header,
         it = commentList.begin();
         while ( it != commentList.end() )
         {
-            kDebug () << "testing '" << (*it) << "'";
+            qDebug () << "testing '" << (*it) << "'";
             bool deleteItem = false;
 
             if ( (*it) == temp )
             {
-                kDebug () << "Match ";
+                qDebug () << "Match ";
                 if ( found )
                     deleteItem = true;
                 else
@@ -556,7 +556,7 @@ void updateHeader(QString& header,
         if (!found) commentList.prepend(temp);
     }
 #endif
-    // kDebug() << "HEADER COMMENT: " << commentList;
+    // qDebug() << "HEADER COMMENT: " << commentList;
 
     /*    if ( (!usePrefs || saveOptions.updateTranslatorCopyright)
             && ( ! identityOptions->readEntry("authorName","").isEmpty() )
@@ -648,7 +648,7 @@ void updateHeader(QString& header,
                         ait->insert(index+1, QStringLiteral(", ")%cy);
                 }
                 else
-                    kDebug() << "INTERNAL ERROR: author found but iterator dangling!";
+                    qDebug() << "INTERNAL ERROR: author found but iterator dangling!";
             }
 
         }

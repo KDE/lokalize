@@ -60,7 +60,6 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include <kdebug.h>
 #include <kglobal.h>
 #include <kdatetime.h>
 
@@ -266,7 +265,7 @@ void Catalog::attachAltTransCatalog(Catalog* altCat)
 {
     d._altTransCatalogs.append(altCat);
     if (numberOfEntries()!=altCat->numberOfEntries())
-        kWarning()<<altCat->url()<<"has different number of entries";
+        qWarning()<<altCat->url()<<"has different number of entries";
 }
 
 void Catalog::attachAltTrans(int entry, const AltTrans& trans)
@@ -284,13 +283,13 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
     {
         if (pos.entry>=altCat->numberOfEntries())
         {
-            kDebug()<<"ignoring"<<altCat->url()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
+            qDebug()<<"ignoring"<<altCat->url()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
             continue;
         }
 
         if (altCat->source(pos)!=source(pos))
         {
-            kDebug()<<"ignoring"<<altCat->url()<<"this time because <source>s don't match";
+            qDebug()<<"ignoring"<<altCat->url()<<"this time because <source>s don't match";
             continue;
         }
 
@@ -514,7 +513,7 @@ KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
             stale->deleteLater();
     }
     if (autoSave)
-        kWarning()<<"autoSave"<<autoSave->fileName();
+        qWarning()<<"autoSave"<<autoSave->fileName();
     return autoSave;
 }
 
@@ -566,7 +565,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
         return line;
     }
 
-    kWarning() <<"file opened in"<<a.elapsed();
+    qWarning() <<"file opened in"<<a.elapsed();
 
     //ok...
     clear();
@@ -745,12 +744,12 @@ void Catalog::flushUpdateDBBuffer()
     if (pos.entry==-1 || pos.entry>=numberOfEntries())
     {
         //nothing to flush
-        //kWarning()<<"nothing to flush or new file opened";
+        //qWarning()<<"nothing to flush or new file opened";
         return;
     }
     if (Project::instance()->targetLangCode()!=targetLangCode())
     {
-        kWarning()<<"not updating because target languages don't match";
+        qWarning()<<"not updating because target languages don't match";
         return;
     }
     int form=-1;

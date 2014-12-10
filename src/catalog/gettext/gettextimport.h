@@ -36,8 +36,7 @@
 
 #include "catalogfileplugin.h"
 
-#include <kdebug.h>
-
+#include <QDebug>
 #include <QStringList>
 #include <QTextStream>
 

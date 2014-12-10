@@ -34,8 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QList>
 
 
-#include <kdebug.h>
-#include <kglobal.h>
 #include <kdatetime.h>
 #include <QXmlSimpleReader>
 
@@ -82,7 +80,7 @@ int TsStorage::load(QIODevice* device)
 
     if (!success)
     {
-        kWarning()<<errorMsg;
+        qWarning()<<errorMsg;
         return errorLine+1;
     }
 
@@ -99,7 +97,7 @@ int TsStorage::load(QIODevice* device)
     entries=m_doc.elementsByTagName("message");
     int size=entries.size();
 
-    kWarning()<<chrono.elapsed();
+    qWarning()<<chrono.elapsed();
     return 0;
 }
 
@@ -233,7 +231,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             }
             //else
             //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //        kWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //        qWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -293,7 +291,7 @@ void TsStorage::targetDelete(const DocPosition& pos, int count)
 
 void TsStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    kWarning()<<pos.entry<<arg;
+    qWarning()<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos);
     //BEGIN add <*target>
     if (targetEl.isNull())
@@ -388,7 +386,7 @@ QVector<Note> TsStorage::developerNotes(const DocPosition& pos) const
 
 Note TsStorage::setNote(DocPosition pos, const Note& note)
 {
-    //kWarning()<<int(pos.form)<<note.content;
+    //qWarning()<<int(pos.form)<<note.content;
     QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;

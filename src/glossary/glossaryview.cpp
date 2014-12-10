@@ -41,8 +41,8 @@
 
 #include <klineedit.h>
 #include <kdialog.h>
-#include <kdebug.h>
 
+#include <QDebug>
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSet>
@@ -109,7 +109,7 @@ GlossaryView::~GlossaryView()
 
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
-    //kWarning()<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
+    //qWarning()<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
     QTime time;time.start();
     if (pos.entry==-1)
         pos.entry=m_currentIndex;
@@ -131,7 +131,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     QString msgStemmed;
 
 //     QRegExp accel(Project::instance()->accel());
-//     kWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
+//     qWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
 //     int pos=0;
 //     while ((pos=accel.indexIn(msg,pos))!=-1)
 //     {
@@ -146,7 +146,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         QString word=stem(sourceLangCode,w);
         QList<QByteArray> indexes=glossary.idsForLangWord(sourceLangCode,word);
         //if (indexes.size())
-            //kWarning()<<"found entry for:" <<word;
+            //qWarning()<<"found entry for:" <<word;
         termIds+=indexes;
         msgStemmed+=word+' ';
     }

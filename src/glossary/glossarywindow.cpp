@@ -28,12 +28,11 @@
 
 #include "ui_termedit.h"
 
-#include <kdebug.h>
 #include <klineedit.h>
 #include <kstandardguiitem.h>
 #include <kmessagebox.h>
 
-
+#include <QDebug>
 #include <QApplication>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -184,7 +183,7 @@ bool SubjectFieldModel::insertRows(int row, int count, const QModelIndex& parent
 
 bool SubjectFieldModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    kDebug()<<role;
+    qDebug()<<role;
     QStringList& subjectFields=Project::instance()->glossary()->subjectFields;
     subjectFields[index.row()]=value.toString();
     return true;
@@ -436,14 +435,14 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     {
         m_browser->setCurrentIndex(items.first());
         m_browser->scrollTo(items.first(),QAbstractItemView::PositionAtCenter);
-        //kDebug()<<id<<items<<items.first().row();
+        //qDebug()<<id<<items<<items.first().row();
     }
     else
     {
         //the row is probably not fetched yet
         m_browser->setCurrentIndex(QModelIndex());
         showEntryInEditor(id);
-        //kDebug()<<id<<0;
+        //qDebug()<<id<<0;
     }
 }
 

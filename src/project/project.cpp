@@ -38,9 +38,9 @@
 
 #include <QTimer>
 #include <QTime>
+#include <QDebug>
 
 #include <kdirlister.h>
-#include <kdebug.h>
 #include <kstandarddirs.h>
 
 #include <kross/core/action.h>
@@ -113,7 +113,7 @@ void Project::load(const QString &newProjectPath)
     QTime a;a.start();
 
     TM::threadPool()->clear();
-    kDebug()<<"loading"<<newProjectPath<<"Finishing jobs...";
+    qDebug()<<"loading"<<newProjectPath<<"Finishing jobs...";
 
     if (!m_path.isEmpty())
     {
@@ -158,10 +158,10 @@ void Project::load(const QString &newProjectPath)
         QaModel::instance()->loadRules(qaPath());
     }
 
-    kDebug()<<"until emitting signal"<<a.elapsed();
+    qDebug()<<"until emitting signal"<<a.elapsed();
 
     emit loaded();
-    kDebug()<<"loaded!"<<a.elapsed();
+    qDebug()<<"loaded!"<<a.elapsed();
 }
 
 QString Project::absolutePath(const QString& possiblyRelPath) const

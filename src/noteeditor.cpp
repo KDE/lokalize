@@ -27,10 +27,11 @@
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
-#include <kdebug.h>
 #include <kcombobox.h>
 #include <klocalizedstring.h>
+#include <kstandardguiitem.h>
 
+#include <QDebug>
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QLabel>
@@ -39,7 +40,6 @@
 #include <QTextBrowser>
 #include <QKeyEvent>
 #include <QStringListModel>
-#include <kstandardguiitem.h>
 
 void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
 {

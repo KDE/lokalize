@@ -32,12 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTime>
 #include <QPair>
 #include <QList>
-
-
-#include <kdebug.h>
-#include <kglobal.h>
-#include <kdatetime.h>
+#include <QDebug>
 #include <QXmlSimpleReader>
+
+#include <kdatetime.h>
 
 static const QString noyes[]={"no","yes"};
 static const QString bintargettarget[]={"bin-target","target"};
@@ -75,7 +73,7 @@ int XliffStorage::load(QIODevice* device)
 
     if (!success)
     {
-        kWarning()<<errorMsg;
+        qWarning()<<errorMsg;
         return errorLine+1;
     }
 
@@ -158,7 +156,7 @@ int XliffStorage::load(QIODevice* device)
         toolElem.setAttribute("tool-version",LOKALIZE_VERSION);
     }
 
-    kWarning()<<chrono.elapsed();
+    qWarning()<<chrono.elapsed();
     return 0;
 }
 
@@ -346,9 +344,9 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                                 {
                                     childrenCumulativeLen++;
                                     childrenCumulativeLen+=InlineTag::isPaired(InlineTag::getElementType(tmp.toElement().tagName().toUtf8()));
-                                    kWarning()<<"calling sub";
+                                    qWarning()<<"calling sub";
                                     QString subContent=doContent(tmp.toElement(),/*we don't care about position*/0,&subData);
-                                    kWarning()<<"called sub";
+                                    qWarning()<<"called sub";
                                     childrenCumulativeLen+=subContent.size();
                                 }
                                 else if (tmp.isCharacterData())
@@ -389,7 +387,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             }
             //else
             //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //        kWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //        qWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -462,7 +460,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 if (i==InlineTag::mrk)//TODO attr map
                     id=el.attribute("mtype");
 
-                //kWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
+                //qWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
                 data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute("xid")));
             }
         }
@@ -535,7 +533,7 @@ void XliffStorage::targetDelete(const DocPosition& pos, int count)
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    kWarning()<<pos.entry<<arg;
+    qWarning()<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos.entry);
     //BEGIN add <*target>
     if (targetEl.isNull())
@@ -798,7 +796,7 @@ QVector<Note> XliffStorage::developerNotes(const DocPosition& pos) const
 
 Note XliffStorage::setNote(DocPosition pos, const Note& note)
 {
-    //kWarning()<<int(pos.form)<<note.content;
+    //qWarning()<<int(pos.form)<<note.content;
     QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;

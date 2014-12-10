@@ -35,8 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QProcess>
 #include <QString>
 #include <QMap>
-
-#include <kdebug.h>
+#include <QDebug>
 
 // static QString GNUPluralForms(const QString& lang);
 
@@ -243,7 +242,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 
 Note GettextStorage::setNote(DocPosition pos, const Note& note)
 {
-    //kWarning()<<"s"<<m_entries.at(pos.entry).comment();
+    //qWarning()<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;
     QVector<Note> l=notes(pos);
     if (l.size()) oldNote=l.first();
@@ -262,7 +261,7 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
         comment.prepend(QStringLiteral("# ")+note.content.split('\n').join(QStringLiteral("\n# ")));
     m_entries[pos.entry].setComment(comment.join(QStringLiteral("\n")));
 
-    //kWarning()<<"e"<<m_entries.at(pos.entry).comment();
+    //qWarning()<<"e"<<m_entries.at(pos.entry).comment();
     return oldNote;
 }
 
@@ -396,7 +395,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
       // normalize the values - ensure every key:value pair is only on a single line
       QString values = newHeader.msgstr();
       values.replace (QStringLiteral("\\n"), QStringLiteral("\\n\n"));
-//       kDebug () << "Normalized header: " << values;
+//       qDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();
       QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
       //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
@@ -420,7 +419,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
 
       return true;
    }
-   kWarning () << "header Not valid";
+   qWarning () << "header Not valid";
    return false;
 }
 

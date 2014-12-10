@@ -29,7 +29,6 @@
 #include "diff.h"
 #include "projectmodel.h"
 
-#include <kdebug.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <ktextedit.h>
@@ -166,7 +165,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
     }
 
     m_browser->setHtml(result);
-//     kWarning()<<"ELA "<<time.elapsed();
+//     qWarning()<<"ELA "<<time.elapsed();
 }
 
 void MergeView::cleanup()

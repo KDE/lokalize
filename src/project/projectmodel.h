@@ -31,7 +31,6 @@
 #include <QHash>
 #include <QList>
 #include <QRunnable>
-#include <kdebug.h>
 
 #include "project.h"
 #include "projectlocal.h"

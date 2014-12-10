@@ -90,7 +90,7 @@ QStringList CompletionStorage::makeCompletion(const QString& word) const
         hits.insert(-it.value(),it.key().mid(word.length()));
         ++it;
     }
-    //kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
+    //qDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
     return hits.values();
 }
 

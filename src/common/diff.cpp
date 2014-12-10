@@ -33,8 +33,7 @@
 #include <QStringMatcher>
 #include <QStringBuilder>
 #include <QLinkedList>
-
-#include <kdebug.h>
+#include <QDebug>
 
 
 typedef enum
@@ -166,9 +165,9 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT-1);
         if (it1!=s1.constEnd())
         {
-            //kWarning() << "upleft '" << *it1 <<"'";
-            //kWarning() << "upleft 1s" << *it1Space;
-            //kWarning() << "upleft 2s" << *it2Space;
+            //qWarning() << "upleft '" << *it1 <<"'";
+            //qWarning() << "upleft 1s" << *it1Space;
+            //qWarning() << "upleft 2s" << *it2Space;
             if (haveSpaces)
             {
                 if((*it1)==(*it2))//case and accels
@@ -202,7 +201,7 @@ void LCSprinter::printLCS(uint index)
                 }
                 ++it1Space;
                 ++it2Space;
-                //kWarning() << " common " << *it1;
+                //qWarning() << " common " << *it1;
             }
             else
                 resultString.append(*it1);//we may guess that this is a batch job, i.e. TM search
@@ -215,8 +214,8 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT);
 //         if (it1!=s1.end())
         {
-            //kWarning()<<"APPENDDEL "<<*it1;
-            //kWarning()<<"APPENDDEL "<<*it1Space;
+            //qWarning()<<"APPENDDEL "<<*it1;
+            //qWarning()<<"APPENDDEL "<<*it1Space;
             resultString.append(delMarkerStart);
             resultString.append(*it1);
             ++it1;
@@ -236,7 +235,7 @@ void LCSprinter::printLCS(uint index)
         ++it2;
         if (haveSpaces)
         {
-            //kWarning() << "add2 " << *it2;
+            //qWarning() << "add2 " << *it2;
             resultString.append(*it2Space);
             ++it2Space;
         }
@@ -428,7 +427,7 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     QStringList result(calcLCS(s1,s2,s1Space,s2Space));
     result.removeFirst();//\t
     result.first().remove(0,1);//\b
-//     kWarning()<<"wordDiff 1 '" <<result<<"'";
+//     qWarning()<<"wordDiff 1 '" <<result<<"'";
     result.replaceInStrings(QStringLiteral("<KBABELDEL></KBABELDEL>"),QString());
     result.replaceInStrings(QStringLiteral("<KBABELADD></KBABELADD>"),QString());
 
@@ -445,7 +444,7 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     }
 
     //result.last().chop(1);//\b
-    //kWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
+    //qWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
 
     QString res(result.join(QString()));
     res.remove(QStringLiteral("{/KBABELADD}{KBABELADD}"));
