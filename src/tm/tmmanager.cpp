@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -43,8 +43,6 @@
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>
 #include <QFileDialog>
-#include <kfiledialog.h>
-#include <kurl.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
@@ -234,10 +232,8 @@ void TMManagerWin::removeDB()
 
 void TMManagerWin::importTMX()
 {
-    QString path=KFileDialog::getOpenFileName(KUrl("kfiledialog:///tmx"),
-                      i18n("*.tmx *.xml|TMX files\n*|All files"),
-                      this,
-                      i18nc("@title:window","Select TMX file to be imported into selected database"));
+    QString path=QFileDialog::getOpenFileName(this, i18nc("@title:window","Select TMX file to be imported into selected database"),
+                      QString(), i18n("TMX files (*.tmx *.xml)"));
 
     QModelIndex index=m_tmListWidget->currentIndex();
     if (!index.isValid())
@@ -257,10 +253,8 @@ void TMManagerWin::importTMX()
 void TMManagerWin::exportTMX()
 {
     //TODO ask whether to save full paths of files, or just their names
-    QString path=KFileDialog::getSaveFileName(KUrl("kfiledialog:///tmx"),
-                      i18n("*.tmx *.xml|TMX files\n*|All files"),
-                      this,
-                      i18nc("@title:window","Select TMX file to export selected database to"));
+    QString path=QFileDialog::getSaveFileName(this, i18nc("@title:window","Select TMX file to export selected database to"),
+                                              QString(), i18n("TMX files (*.tmx *.xml)"));
 
     QModelIndex index=m_tmListWidget->currentIndex();
     if (!index.isValid())

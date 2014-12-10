@@ -44,11 +44,8 @@
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kicon.h>
-#include <kstatusbar.h>
 #include <kdebug.h>
 
-#include <kurl.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
 
 #include <kross/core/manager.h>
@@ -106,7 +103,8 @@ void SettingsController::showSettingsDialog()
     KConfigGroup grp = Settings::self()->config()->group("Identity");
 
     ui_prefs_identity.DefaultLangCode->setModel(LanguageListModel::instance()->sortModel());
-    ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( grp.readEntry("DefaultLangCode",KGlobal::locale()->language()) ));
+    ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( grp.readEntry("DefaultLangCode",
+                                                                                                                             QLocale::system().name()) ));
 
     connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(int)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setLangCode(int)));
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
@@ -346,7 +344,7 @@ void SettingsController::reflectRelativePathsHack()
     QString projectDir(Project::instance()->projectDir());
     int i=actionz.size();
     while(--i>=0)
-        actionz[i]=KUrl::relativePath(projectDir,actionz.at(i));
+        actionz[i]=QDir(projectDir).relativeFilePath(actionz.at(i));
     m_scriptsRelPrefWidget->setItems(actionz);
 }
 
@@ -357,8 +355,7 @@ void LangCodeSaver::setLangCode(int index)
 
 void RelPathSaver::setText (const QString& txt)
 {
-    QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
-                       txt));
+    QLineEdit::setText(QDir(Project::instance()->projectDir()).relativeFilePath(txt));
 }
 
 

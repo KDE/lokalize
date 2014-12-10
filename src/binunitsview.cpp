@@ -31,7 +31,7 @@
 #include <krun.h>
 #include <QContextMenuEvent>
 #include <QMenu>
-#include <kfiledialog.h>
+#include <QFileDialog>
 #include <kdirwatch.h>
 
 
@@ -63,7 +63,7 @@ void BinUnitsModel::entryModified(const DocPosition& pos)
 
 void BinUnitsModel::updateFile(QString path)
 {
-    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),path);
+    QString relPath=QDir(Project::instance()->projectDir()).relativeFilePath(path);
 
     DocPosition pos(m_catalog->numberOfEntries());
     int limit=m_catalog->numberOfEntries()+m_catalog->binUnitsCount();
@@ -91,7 +91,7 @@ void BinUnitsModel::setTargetFilePath(int row, const QString& path)
         m_imageCache.remove(old);
     }
 
-    m_catalog->push(new InsTextCmd(m_catalog, pos, KUrl::relativePath(Project::instance()->projectDir(),path)));
+    m_catalog->push(new InsTextCmd(m_catalog, pos, QDir(Project::instance()->projectDir()).relativeFilePath(path)));
     QModelIndex item=index(row,TargetFilePath);
     emit dataChanged(item,item);
 }
@@ -208,10 +208,9 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
         m_model->setTargetFilePath(item.row(), sourceFilePath);
     else if (result==setTarget)
     {
-        KUrl targetFileUrl=KFileDialog::getOpenFileName(Project::instance()->projectDir(),
-                                        "*."+QFileInfo(sourceFilePath).completeSuffix(),this);
-        if (!targetFileUrl.isEmpty())
-            m_model->setTargetFilePath(item.row(), targetFileUrl.toLocalFile());
+        QString targetFilePath=QFileDialog::getOpenFileName(this, QString(), Project::instance()->projectDir());
+        if (!targetFilePath.isEmpty())
+            m_model->setTargetFilePath(item.row(), targetFilePath);
     }
     event->accept();
 }

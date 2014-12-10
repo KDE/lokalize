@@ -46,13 +46,10 @@
 #include <klocale.h>
 #include <kicon.h>
 #include <kmenubar.h>
-#include <kstatusbar.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <kapplication.h>
-
-
 #include <kio/netaccess.h>
 #include <kactioncollection.h>
 #include <kactioncategory.h>
@@ -61,8 +58,7 @@
 #include <krecentfilesaction.h>
 #include <kxmlguifactory.h>
 #include <kmenu.h>
-#include <kfiledialog.h>
-
+#include <kdialog.h>
 #include <kross/core/action.h>
 
 
@@ -70,8 +66,8 @@
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
+#include <QStatusBar>
 #include <QLabel>
-#include <kdialog.h>
 
 
 

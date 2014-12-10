@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -42,6 +42,7 @@
 
 #include <QSignalMapper>
 #include <QFileInfo>
+#include <QDir>
 #include <QToolTip>
 #include <QAction>
 
@@ -129,9 +130,9 @@ void AltTransView::fileLoaded()
 {
     m_prevEntry.entry=-1;
     QString absPath=m_catalog->url();
-    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),absPath);
+    QString relPath=QDir(Project::instance()->projectDir()).relativeFilePath(absPath);
     
-    QFileInfo info(Project::instance()->altTransDir()+'/'+relPath);
+    QFileInfo info(Project::instance()->altTransDir()%'/'%relPath);
     if (info.canonicalFilePath()!=absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
     else
@@ -190,21 +191,20 @@ void AltTransView::process()
         html.reserve(1024);
         if (!entry.source.isEmpty())
         {
-            html+="<p>";
+            html+=QStringLiteral("<p>");
 
             QString result=Qt::escape(userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup()));
             //result.replace("&","&amp;");
             //result.replace("<","&lt;");
             //result.replace(">","&gt;");
-            result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
-            result.replace("{/KBABELADD}","</font>");
-            result.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
-            result.replace("{/KBABELDEL}","</font>");
-            result.replace("\\n","\\n<br>");
-            result.replace("\\n","\\n<br>");
+            result.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
+            result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
+            result.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
+            result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
+            result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br><br>"));
 
             html+=result;
-            html+="<br>";
+            html+=QStringLiteral("<br>");
             cur.insertHtml(html); html.clear();
         }
         if (!entry.target.isEmpty())
@@ -212,17 +212,17 @@ void AltTransView::process()
             if (KDE_ISLIKELY( i<m_actions.size() ))
             {
                 m_actions.at(i)->setStatusTip(entry.target.string);
-                html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
+                html+=QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString());
             }
             else
-                html+="[ - ] ";
+                html+=QStringLiteral("[ - ] ");
 
             cur.insertText(html); html.clear();
             insertContent(cur,entry.target);
         }
         m_entryPositions.insert(cur.anchor(),i);
 
-        html+=i?"<br></p>":"</p>";
+        html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
         cur.insertHtml(html);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))

@@ -58,7 +58,6 @@
 #include <kicon.h>
 #include <ktoolbarpopupaction.h>
 #include <kmenubar.h>
-#include <kstatusbar.h>
 #include <kdebug.h>
 #include <kfadewidgeteffect.h>
 #include <kdemacros.h>
@@ -69,9 +68,7 @@
 #include <kxmlguifactory.h>
 #include <kmenu.h>
 #include <kactioncategory.h>
-
 #include <kinputdialog.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <ktabbar.h>
 

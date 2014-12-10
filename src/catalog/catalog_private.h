@@ -42,7 +42,6 @@
 #include "pos.h"
 #include "alttrans.h"
 
-#include <kurl.h>
 #include <kautosavefile.h>
 
 #include <QList>

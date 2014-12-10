@@ -287,7 +287,7 @@ class BatchSelectFinishedJob: public QObject, public QRunnable
     Q_OBJECT
 public:
     explicit BatchSelectFinishedJob(QWidget* view,QObject* parent=0)
-        : QRunnable()
+        : QObject(parent), QRunnable()
         , m_view(view)
     {}
     ~BatchSelectFinishedJob(){};

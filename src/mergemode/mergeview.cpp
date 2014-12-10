@@ -31,7 +31,6 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <ktextedit.h>

@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "alttrans.h"
 #include "catalogcapabilities.h"
 
-#include <kurl.h>
 #include <QStringList>
 
 
