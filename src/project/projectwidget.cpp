@@ -315,28 +315,28 @@ ProjectWidget::~ProjectWidget()
 
 }
 
-void ProjectWidget::setCurrentItem(const KUrl& u)
+void ProjectWidget::setCurrentItem(const QString& u)
 {
     if (u.isEmpty())
         return;
     setCurrentIndex(m_proxyModel->mapFromSource(
-                Project::instance()->model()->indexForUrl(u))
+                Project::instance()->model()->indexForUrl(QUrl::fromLocalFile(u)))
                                           /*,true*/);
 }
 
-KUrl ProjectWidget::currentItem() const
+QString ProjectWidget::currentItem() const
 {
     if (!currentIndex().isValid())
-        return KUrl();
+        return QString();
     return Project::instance()->model()->itemForIndex(
             m_proxyModel->mapToSource(currentIndex())
-                                                     ).url();
+                                                     ).localPath();
 }
 
 bool ProjectWidget::currentIsTranslationFile() const
 {
     //remember 'bout empty state
-    return Catalog::extIsSupported(currentItem().path());
+    return Catalog::extIsSupported(currentItem());
 }
 
 
@@ -347,7 +347,7 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
     {
         ProjectModel * srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
-        KUrl fileUrl = srcModel->beginEditing(srcIndex); //TODO KDE5PORT
+        QUrl fileUrl = srcModel->beginEditing(srcIndex);
 
         emit fileOpenRequested(fileUrl.toLocalFile());
     }

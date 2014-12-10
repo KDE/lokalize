@@ -27,8 +27,6 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <kurl.h>
-
 #include <QThreadPool>
 #include <QRunnable>
 

@@ -53,7 +53,6 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kdebug.h>
-#include <kurl.h>
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>
 

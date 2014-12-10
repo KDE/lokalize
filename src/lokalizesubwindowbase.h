@@ -29,7 +29,6 @@
 #include <KMainWindow>
 #include <KXMLGUIClient>
 
-#include <kurl.h>
 #include "actionproxy.h"
 
 

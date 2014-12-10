@@ -24,8 +24,6 @@
 #ifndef PROJECTWIDGET_H
 #define PROJECTWIDGET_H
 
-#include <kurl.h>
-
 #include <QTreeView>
 
 #include "projectmodel.h"
@@ -45,8 +43,8 @@ public:
     ProjectWidget(QWidget* parent);
     ~ProjectWidget();
 
-    void setCurrentItem(const KUrl&);
-    KUrl currentItem() const;
+    void setCurrentItem(const QString&);
+    QString currentItem() const;
     QStringList selectedItems() const;
     bool currentIsTranslationFile() const;
 
@@ -66,7 +64,7 @@ public:
 
 signals:
     void fileOpenRequested(const QString&);
-    void newWindowOpenRequested(const KUrl&);
+    void newWindowOpenRequested(const QUrl&);
 
 private slots:
     void slotItemActivated(const QModelIndex&);

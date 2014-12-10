@@ -284,7 +284,7 @@ void ProjectTab::searchInFilesInclTempl()
     searchInFiles(true);
 }
 
-void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem().toLocalFile());}
+void ProjectTab::openFile()       {emit fileOpenRequested(m_browser->currentItem());}
 void ProjectTab::findInFiles()    {emit searchRequested(m_browser->selectedItems());}
 void ProjectTab::replaceInFiles() {emit replaceRequested(m_browser->selectedItems());}
 void ProjectTab::spellcheckFiles(){emit spellcheckRequested(m_browser->selectedItems());}
@@ -301,15 +301,9 @@ void ProjectTab::gotoPrevTransOnly()    {m_browser->gotoPrevTransOnly();}
 void ProjectTab::gotoNextTransOnly()    {m_browser->gotoNextTransOnly();}
 
 bool ProjectTab::currentItemIsTranslationFile() const {return m_browser->currentIsTranslationFile();}
-void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(KUrl::fromLocalFile(url));}
-QString ProjectTab::currentItem() const {return m_browser->currentItem().toLocalFile();}
-QStringList ProjectTab::selectedItems() const
-{
-    QStringList result;
-    foreach (const KUrl& url, m_browser->selectedItems())
-        result.append(url.toLocalFile());
-    return result;
-}
+void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(url);}
+QString ProjectTab::currentItem() const {return m_browser->currentItem();}
+QStringList ProjectTab::selectedItems() const {return m_browser->selectedItems();}
 
 void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
 {

@@ -36,7 +36,6 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kdebug.h>
-#include <kurl.h>
 
 #include <kprogressdialog.h>
 

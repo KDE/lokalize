@@ -43,7 +43,6 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kdebug.h>
-#include <kurl.h>
 #include <kaction.h>
 
 #include <QDragEnterEvent>

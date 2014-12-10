@@ -34,7 +34,6 @@
 #include <kapplication.h>
 #include <kmainwindow.h>
 #include <kxmlguiclient.h>
-#include <kurl.h>
 
 #include <QHash>
 namespace Sonnet{class Dialog;}

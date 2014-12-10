@@ -155,8 +155,8 @@ public:
     ~GlossaryItemDelegate(){}
     bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
 signals:
-    void selected(const KUrl&);
-    void newWindowOpenRequested(const KUrl&);
+    void selected(const QUrl&);
+    void newWindowOpenRequested(const QUrl&);
 
 };
 

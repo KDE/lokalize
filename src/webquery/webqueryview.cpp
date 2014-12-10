@@ -46,7 +46,6 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <kurl.h>
 #include <ktextbrowser.h>
 #include <kaction.h>
 
@@ -143,7 +142,7 @@ void WebQueryView::slotSelectionChanged()
 // 
 // void WebQueryView::dropEvent(QDropEvent *event)
 // {
-//     /*    emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
+//     /*    emit mergeOpenRequested(event->mimeData()->urls().first());
 //         event->acceptProposedAction();*/
 // }
 

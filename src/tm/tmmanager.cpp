@@ -42,7 +42,9 @@
 #include <QTimer>
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>
+#include <QFileDialog>
 #include <kfiledialog.h>
+#include <kurl.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
@@ -86,8 +88,7 @@ void TMManagerWin::addDir()
     if (!index.isValid())
         return;
 
-    QString dir=KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
-                        i18nc("@title:window","Select Directory to be scanned"));
+    QString dir=QFileDialog::getExistingDirectory(this, i18nc("@title:window","Select Directory to be scanned"));
     if (!dir.isEmpty())
         scanRecursive(QStringList(dir),index.sibling(index.row(), 0).data().toString());
 }
