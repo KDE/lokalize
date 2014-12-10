@@ -27,13 +27,12 @@
 #include "cmd.h"
 #include "project.h"
 
-#include <klocale.h>
-#include <krun.h>
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QFileDialog>
-#include <kdirwatch.h>
 
+#include <krun.h>
+#include <kdirwatch.h>
 
 //BEGIN BinUnitsModel
 BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
@@ -159,7 +158,7 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
  , m_model(new BinUnitsModel(catalog, this))
  , m_view(new MyTreeView(this))
 {
-    setObjectName("binUnits");
+    setObjectName(QStringLiteral("binUnits"));
     hide();
 
     setWidget(m_view);

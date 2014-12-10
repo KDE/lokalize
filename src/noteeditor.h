@@ -26,15 +26,14 @@
 
 #include "note.h"
 
-#include <KTextEdit>
 #include <QPlainTextEdit>
 class QStringListModel;
 class QLabel;
+class QTextBrowser;
 class KComboBox;
-class KTextBrowser;
 class TextEdit;
 
-int displayNotes(KTextBrowser* m_browser, const QVector<Note>& notes, int active=0, bool multiple=true);
+int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active = 0, bool multiple = true);
 
 class NoteEditor: public QWidget
 {

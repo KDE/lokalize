@@ -54,7 +54,6 @@
 #include "prefs.h"
 
 #include <kglobal.h>
-#include <klocale.h>
 #include <kicon.h>
 #include <ktoolbarpopupaction.h>
 #include <kmenubar.h>

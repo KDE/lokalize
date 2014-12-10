@@ -27,7 +27,6 @@
 #include "catalog.h"
 
 #include <kdebug.h>
-#include <klocale.h>
 #include <kdirlister.h>
 #include <kstringhandler.h>
 #include <kdirsortfilterproxymodel.h>

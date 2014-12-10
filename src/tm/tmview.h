@@ -27,15 +27,13 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <ktextbrowser.h>
-
+#include <QTextBrowser>
 #include <QDockWidget>
 #include <QMap>
 #include <QVector>
 
 class QRunnable;
 class Catalog;
-class KAction;
 class QDropEvent;
 class QDragEnterEvent;
 
@@ -108,11 +106,11 @@ private:
     QList<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
 };
 
-class TextBrowser: public KTextBrowser
+class TextBrowser: public QTextBrowser
 {
     Q_OBJECT
 public:
-    TextBrowser(QWidget* parent):KTextBrowser(parent)
+    TextBrowser(QWidget* parent):QTextBrowser(parent)
     {
         setContextMenuPolicy(Qt::CustomContextMenu);
     }

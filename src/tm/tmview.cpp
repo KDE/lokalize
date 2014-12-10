@@ -33,9 +33,7 @@
 #include "diff.h"
 #include "xlifftextedit.h"
 
-#include <klocale.h>
 #include <kdebug.h>
-#include <ktextbrowser.h>
 #include <kglobalsettings.h>
 #include <kpassivepopup.h>
 #include <kmessagebox.h>
@@ -135,7 +133,7 @@ static DiffInfo getDiffInfo(const QString& diff)
 
 void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    KTextBrowser::mouseDoubleClickEvent(event);
+    QTextBrowser::mouseDoubleClickEvent(event);
 
     QString sel=textCursor().selectedText();
     if (!(sel.isEmpty()||sel.contains(' ')))

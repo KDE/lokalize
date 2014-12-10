@@ -25,7 +25,6 @@
 
 #include <QString>
 
-#include <klocale.h>
 #include <kdebug.h>
 
 #include "catalog_private.h"

@@ -36,7 +36,6 @@
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
 
-#include <klocale.h>
 #include <kdebug.h>
 #include <kdemacros.h>
 
@@ -52,11 +51,11 @@ AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<QActi
     , m_browser(new TM::TextBrowser(this))
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window","Alternate Translations"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
     , m_hasInfo(false)
     , m_actions(actions)
 {
-    setObjectName("msgIdDiff");
+    setObjectName(QStringLiteral("msgIdDiff"));
     setWidget(m_browser);
     hide();
 

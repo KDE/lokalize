@@ -48,7 +48,6 @@
 
 #include <kcolorscheme.h>
 #include <kactioncategory.h>
-#include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 #include <fastsizehintitemdelegate.h>

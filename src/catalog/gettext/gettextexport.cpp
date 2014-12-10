@@ -48,7 +48,6 @@
 
 #include <ksavefile.h>
 #include <kapplication.h>
-#include <klocale.h>
 #include <kdebug.h>
 
 

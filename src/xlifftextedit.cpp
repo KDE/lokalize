@@ -1109,13 +1109,18 @@ bool TranslationUnitTextEdit::event(QEvent *event)
             return true;
         }
 
+        QString tip;
+
         QString langCode=m_highlighter->currentLanguage();
         bool nospell=langCode.isEmpty();
         if (nospell)
             langCode=m_part==DocPosition::Source?m_catalog->sourceLangCode():m_catalog->targetLangCode();
-        QString tip=KLocale::global()->languageCodeToName(langCode)%" ("%langCode%")";
+        QLocale l(langCode);
+        if (l.language()!=QLocale::C) tip=l.nativeLanguageName()+" (";
+        tip+=langCode;
+        if (l.language()!=QLocale::C) tip +=')';
         if (nospell)
-            tip+=" - "%i18n("no spellcheck available");
+            tip+=QStringLiteral(" - ")%i18n("no spellcheck available");
         QToolTip::showText(helpEvent->globalPos(), tip);
     }
     return KTextEdit::event(event);

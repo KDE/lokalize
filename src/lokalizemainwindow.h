@@ -38,7 +38,6 @@ class QLabel;
 class QMdiSubWindow;
 class QMdiArea;
 class QActionGroup;
-class KAction;
 class KRecentFilesAction;
 class EditorTab;
 class MultiEditorAdaptor;

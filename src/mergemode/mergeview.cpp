@@ -29,12 +29,10 @@
 #include "diff.h"
 #include "projectmodel.h"
 
-#include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <ktextedit.h>
-#include <kaction.h>
 #include <kdemacros.h>
 
 #include <QDragEnterEvent>
@@ -55,7 +53,7 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     , m_hasInfo(false)
     , m_primary(primary)
 {
-    setObjectName(primary?"mergeView-primary":"mergeView-secondary");
+    setObjectName(primary?QStringLiteral("mergeView-primary"):QStringLiteral("mergeView-secondary"));
     setWidget(m_browser);
     setToolTip(i18nc("@info:tooltip","Drop file to be merged into / synced with the current one here"));
 

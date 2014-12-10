@@ -51,7 +51,6 @@
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kgenericfactory.h>
-#include <klocale.h>
 
 #include "catalogitem.h"
 

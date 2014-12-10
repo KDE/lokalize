@@ -28,7 +28,6 @@
 #include "prefs.h"
 
 #include <kicon.h>
-#include <klocale.h>
 #include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>

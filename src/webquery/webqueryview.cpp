@@ -44,14 +44,12 @@
 
 #include "webquerycontroller.h"
 
-#include <klocale.h>
 #include <kdebug.h>
-#include <ktextbrowser.h>
-#include <kaction.h>
 
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSplitter>
+#include <QTextBrowser>
 #include <QSignalMapper>
 #include <QTimer>
 
@@ -64,12 +62,12 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         : QDockWidget ( i18n("Web Queries"), parent)
         , m_catalog(catalog)
         , m_splitter(new QSplitter(this))
-        , m_browser(new KTextBrowser(m_splitter))
+        , m_browser(new QTextBrowser(m_splitter))
         , ui_queryControl(new Ui_QueryControl)
         , m_actions(actions)
 
 {
-    setObjectName("WebQueryView");
+    setObjectName(QStringLiteral("WebQueryView"));
     setWidget(m_splitter);
 
     hide();

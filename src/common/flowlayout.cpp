@@ -35,9 +35,9 @@
 #include "termlabel.h"
 //#include "project.h"
 
-// #include <klocale.h>
+#include <QAction>
+
 #include <kdebug.h>
-#include <kaction.h>
 
 using namespace GlossaryNS;
 

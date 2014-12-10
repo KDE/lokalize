@@ -43,7 +43,6 @@
 
 #include <kglobal.h>
 #include <kstandarddirs.h>
-#include <klocale.h>
 #include <kicon.h>
 #include <kmenubar.h>
 #include <kdebug.h>
@@ -977,7 +976,7 @@ void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCur
 MultiEditorAdaptor::MultiEditorAdaptor(EditorTab *parent)
  : EditorAdaptor(parent)
 {
-    setObjectName("MultiEditorAdaptor");
+    setObjectName(QStringLiteral("MultiEditorAdaptor"));
     connect(parent,SIGNAL(destroyed(QObject*)),this,SLOT(handleParentDestroy(QObject*)));
 }
 

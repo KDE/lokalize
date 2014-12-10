@@ -41,9 +41,7 @@
 
 #include <klineedit.h>
 #include <kdialog.h>
-#include <klocale.h>
 #include <kdebug.h>
-#include <kaction.h>
 
 #include <QDragEnterEvent>
 #include <QTime>
@@ -62,15 +60,15 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
-        , m_rxClean(Project::instance()->markup()+'|'+Project::instance()->accel())//cleaning regexp; NOTE isEmpty()?
-        , m_rxSplit("\\W|\\d")//splitting regexp
+        , m_rxClean(Project::instance()->markup()%'|'%Project::instance()->accel())//cleaning regexp; NOTE isEmpty()?
+        , m_rxSplit(QStringLiteral("\\W|\\d"))//splitting regexp
         , m_currentIndex(-1)
         , m_normTitle(i18nc("@title:window","Glossary"))
-        , m_hasInfoTitle(m_normTitle+" [*]")
+        , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
         , m_hasInfo(false)
 
 {
-    setObjectName("glossaryView");
+    setObjectName(QStringLiteral("glossaryView"));
     QWidget* w=new QWidget(m_browser);
     m_browser->setWidget(w);
     m_browser->setWidgetResizable(true);

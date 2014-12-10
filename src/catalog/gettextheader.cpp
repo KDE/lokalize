@@ -37,7 +37,6 @@
 #include <kdemacros.h>
 #include <kdebug.h>
 #include <kglobal.h>
-#include <klocale.h>
 #include <kdatetime.h>
 
 #include <kio/netaccess.h>

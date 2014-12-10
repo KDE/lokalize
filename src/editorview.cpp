@@ -51,7 +51,6 @@
 #include <ktabbar.h>
 #include <kled.h>
 #include <kmessagebox.h>
-#include <klocale.h>
 #include <kdebug.h>
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>

@@ -26,7 +26,6 @@
 #include "qamodel.h"
 #include "project.h"
 
-#include <KLocale>
 #include <QDomDocument>
 #include <QFile>
 #include <QAction>

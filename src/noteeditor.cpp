@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,19 +27,19 @@
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
-#include <klocale.h>
 #include <kdebug.h>
-#include <ktextedit.h>
-#include <ktextbrowser.h>
 #include <kcombobox.h>
-#include <kpushbutton.h>
+#include <klocalizedstring.h>
 
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QLabel>
-#include <QStringListModel>
 #include <QLineEdit>
+#include <QPushButton>
+#include <QTextBrowser>
 #include <QKeyEvent>
+#include <QStringListModel>
+#include <kstandardguiitem.h>
 
 void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
 {
@@ -73,8 +73,8 @@ NoteEditor::NoteEditor(QWidget* parent)
     prop->addWidget(m_from,42);
     main->addWidget(m_edit);
 
-    KPushButton* ok=new KPushButton(KStandardGuiItem::save(), this);
-    KPushButton* cancel=new KPushButton(KStandardGuiItem::discard(), this);
+    QPushButton* ok=new QPushButton(this); KGuiItem::assign(ok, KStandardGuiItem::save());
+    QPushButton* cancel=new QPushButton(this); KGuiItem::assign(cancel, KStandardGuiItem::discard());
     ok->setToolTip(i18n("Ctrl+Enter"));
     cancel->setToolTip(i18n("Esc"));
 
@@ -121,35 +121,36 @@ void NoteEditor::setNoteAuthors(const QStringList& authors)
 }
 
 
-int displayNotes(KTextBrowser* browser, const QVector<Note>& notes, int active, bool multiple)
+int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active, bool multiple)
 {
     QTextCursor t=browser->textCursor();
     t.movePosition(QTextCursor::End);
     int realOffset=0;
 
+    static const QString BR=QStringLiteral("<br />");
     if (!notes.isEmpty())
     {
-        t.insertHtml(i18nc("@info XLIFF notes representation","<b>Notes:</b>")+"<br />");
+        t.insertHtml(i18nc("@info XLIFF notes representation","<b>Notes:</b>")+BR);
         int i=0;
         foreach(const Note& note, notes)
         {
             if (!note.from.isEmpty())
-                t.insertHtml("<i>"+note.from+":</i> ");
+                t.insertHtml(QStringLiteral("<i>")%note.from%QStringLiteral(":</i> "));
 
             if (i==active)
                 realOffset=t.position();
             QString content=Qt::escape(note.content);
             if (!multiple && content.contains('\n')) content+='\n';
-            content.replace('\n',"<br />");
-            content+=QString(" (<a href=\"note:/%1\">").arg(i)+i18nc("link to edit note","edit...")+"</a>)<br />";
+            content.replace('\n',BR);
+            content+=QString(QStringLiteral(" (<a href=\"note:/%1\">")).arg(i)%i18nc("link to edit note","edit...")%QStringLiteral("</a>)<br />");
             t.insertHtml(content);
             i++;
         }
         if (multiple)
-            t.insertHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add...")+"</a> ");
+            t.insertHtml(QStringLiteral("<a href=\"note:/add\">")%i18nc("link to add a note","Add...")%QStringLiteral("</a> "));
     }
     else
-        browser->insertHtml("<a href=\"note:/add\">"+i18nc("link to add a note","Add a note...")+"</a> ");
+        browser->insertHtml(QStringLiteral("<a href=\"note:/add\">")%i18nc("link to add a note","Add a note...")%QStringLiteral("</a> "));
 
     return realOffset;
 }

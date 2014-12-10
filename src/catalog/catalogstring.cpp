@@ -23,7 +23,7 @@
 
 #include "catalogstring.h"
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 
 const char* InlineTag::getElementName(InlineElement type)

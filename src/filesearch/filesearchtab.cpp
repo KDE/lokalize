@@ -53,7 +53,6 @@
 
 #include <kcolorscheme.h>
 #include <kactioncategory.h>
-#include <klocale.h>
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 #include <kdemacros.h>
@@ -528,7 +527,6 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     dbusObjectPath();
 
 
-    //KAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* srf=new KActionCategory(i18nc("@title actions category","Search and replace in files"), ac);
 

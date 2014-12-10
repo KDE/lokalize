@@ -1,5 +1,5 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
 
   Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
 
@@ -37,14 +37,11 @@
 #include <QDockWidget>
 //#include <QList>
 class Catalog;
-// class FlowLayout;
-// class QHBoxLayout;
 class QSplitter;
-class KTextBrowser;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
-class KAction;
+class QTextBrowser;
 class Ui_QueryControl;
 #include <QVector>
 
@@ -85,7 +82,7 @@ private:
 //     QWidget* m_generalBrowser;
     Catalog* m_catalog;
     QSplitter* m_splitter;
-    KTextBrowser* m_browser;
+    QTextBrowser* m_browser;
 //     QHBoxLayout* m_boxLayout;
 //     FlowLayout *m_flowLayout;
     Ui_QueryControl* ui_queryControl;

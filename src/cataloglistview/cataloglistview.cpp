@@ -26,7 +26,6 @@
 #include "catalog.h"
 #include "project.h"
 
-#include <klocale.h>
 #include <kdebug.h>
 #include <klineedit.h>
 #include <KConfigGroup>
@@ -73,7 +72,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
-    setObjectName("catalogTreeView");
+    setObjectName(QStringLiteral("catalogTreeView"));
 
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);

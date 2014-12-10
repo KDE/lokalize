@@ -29,8 +29,6 @@
 #include <kdialog.h>
 
 #include <kdebug.h>
-#include <klocale.h>
-#include <kaction.h>
 #include <QMenu>
 #include <QMouseEvent>
 

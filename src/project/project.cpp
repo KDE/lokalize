@@ -41,7 +41,6 @@
 
 #include <kdirlister.h>
 #include <kdebug.h>
-#include <klocale.h>
 #include <kstandarddirs.h>
 
 #include <kross/core/action.h>
@@ -132,18 +131,16 @@ void Project::load(const QString &newProjectPath)
     //cache:
     m_projectDir=QFileInfo(m_path).absolutePath();
 
-    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,QStandardPaths::DataLocation));
+    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+QStringLiteral(".local"), KConfig::NoGlobals,QStandardPaths::DataLocation));
     m_localConfig->readConfig();
 
     if (langCode().isEmpty())
-        setLangCode(KLocale::global()->language());
+        setLangCode(QLocale::system().name());
 
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
 
     populateDirModel();
-
-    kDebug()<<"1...";
 
     //put 'em into thread?
     //QTimer::singleShot(0,this,SLOT(populateGlossary()));
@@ -260,7 +257,7 @@ ProjectModel* Project::model()
 void Project::setDefaults()
 {
     ProjectBase::setDefaults();
-    setLangCode(KLocale::global()->language());
+    setLangCode(QLocale::system().name());
 }
 
 void Project::init(const QString& path, const QString& kind, const QString& id,

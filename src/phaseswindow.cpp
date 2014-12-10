@@ -26,11 +26,12 @@
 #include "cmd.h"
 #include "noteeditor.h"
 
-#include <klocale.h>
-#include <KPushButton>
-#include <KTextBrowser>
-#include <KComboBox>
+#include <kcombobox.h>
+#include <klocalizedstring.h>
+#include <kstandardguiitem.h>
 
+#include <QPushButton>
+#include <QTextBrowser>
 #include <QTreeView>
 #include <QStringListModel>
 #include <QVBoxLayout>
@@ -38,11 +39,11 @@
 #include <QApplication>
 
 
-//BEGIN PhasesModel
 #include <QAbstractListModel>
 #include <QSplitter>
 #include <QStackedLayout>
 
+//BEGIN PhasesModel
 class PhasesModel: public QAbstractListModel
 {
 public:
@@ -193,7 +194,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
  , m_catalog(catalog)
  , m_model(new PhasesModel(catalog, this))
  , m_view(new MyTreeView(this))
- , m_browser(new KTextBrowser(this))
+ , m_browser(new QTextBrowser(this))
  , m_editor(0)
 {
     connect(this, SIGNAL(accepted()), SLOT(handleResult()));
@@ -202,14 +203,11 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     QHBoxLayout* btns=new QHBoxLayout;
     l->addLayout(btns);
 
-    KPushButton* add=new KPushButton(KStandardGuiItem::add(),this);
+    QPushButton* add=new QPushButton(this); KGuiItem::assign(add, KStandardGuiItem::add());
     connect(add, SIGNAL(clicked()),this,SLOT(addPhase()));
     btns->addWidget(add);
     btns->addStretch(5);
-/*
-    KPushButton* add=new KPushButton(i18nc("@action:button",""),this);
-    btns->addWidget(activate);
-*/
+
     QSplitter* splitter=new QSplitter(this);
     l->addWidget(splitter);
 

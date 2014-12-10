@@ -30,8 +30,7 @@
 
 #include <kdebug.h>
 #include <klineedit.h>
-#include <kpushbutton.h>
-#include <kguiitem.h>
+#include <kstandardguiitem.h>
 #include <kmessagebox.h>
 
 
@@ -43,6 +42,7 @@
 #include <QAbstractItemModel>
 #include <QStringListModel>
 #include <QShortcut>
+#include <QPushButton>
 
 using namespace GlossaryNS;
 
@@ -244,13 +244,13 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     layout->addWidget(m_filterEdit);
     layout->addWidget(m_browser);
     {
-        KPushButton* addBtn=new KPushButton(KStandardGuiItem::add(),w);
+        QPushButton* addBtn=new QPushButton(w); KGuiItem::assign(addBtn, KStandardGuiItem::add());
         connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTermEntry()));
 
-        KPushButton* rmBtn=new KPushButton(KStandardGuiItem::remove(),w);
+        QPushButton* rmBtn=new QPushButton(w); KGuiItem::assign(addBtn, KStandardGuiItem::remove());
         connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTermEntry()));
 
-        KPushButton* restoreBtn=new KPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
+        QPushButton* restoreBtn=new QPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
         restoreBtn->setToolTip(i18nc("@info:tooltip","Reload glossary from disk, discarding any changes"));
         connect(restoreBtn,SIGNAL(clicked()),   this,SLOT(restore()));
 

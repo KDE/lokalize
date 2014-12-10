@@ -28,7 +28,6 @@
 
 #include <kicon.h>
 #include <kio/netaccess.h>
-#include <klocale.h>
 #include <kapplication.h>
 #include <kstandarddirs.h>
 #include <kdemacros.h>

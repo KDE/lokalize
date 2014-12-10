@@ -27,11 +27,10 @@
 #include "project.h"
 
 #include <kdebug.h>
-#include <klocale.h>
+#include <kcolorscheme.h>
 
 #include <QApplication>
 #include <QFontMetrics>
-#include <kcolorscheme.h>
 
 #define DYNAMICFILTER_LIMIT 256
 

@@ -30,13 +30,10 @@
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
-
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kdebug.h>
-#include <ktextbrowser.h>
 #include <ktextedit.h>
 #include <kcombobox.h>
-#include <kpushbutton.h>
 
 #include <QTime>
 #include <QTimer>
@@ -45,16 +42,17 @@
 #include <QLabel>
 #include <QStringListModel>
 #include <QLineEdit>
+#include <QTextBrowser>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget (i18nc("@title toolview name","Unit metadata"), parent)
-    , m_browser(new KTextBrowser(this))
+    , m_browser(new QTextBrowser(this))
     , m_editor(0)
     , m_catalog(catalog)
     , m_hasInfo(false)
     , m_hasErrorNotes(false)
 {
-    setObjectName("msgCtxtView");
+    setObjectName(QStringLiteral("msgCtxtView"));
     QWidget* main=new QWidget(this);
     setWidget(main);
     m_stackedLayout = new QStackedLayout(main);
@@ -104,14 +102,15 @@ void MsgCtxtView::process()
     m_prevEntry=m_entry;
     m_browser->clear();
 
+    static const QString BR=QStringLiteral("<br />");
     if (m_tempNotes.contains(m_entry.entry))
     {
         QString html=i18nc("@info notes to translation unit which expire when the catalog is closed", "<b>Temporary notes:</b>");
-        html+="<br>";
+        html+=BR;
         foreach(const QString& note, m_tempNotes.values(m_entry.entry))
-            html+=Qt::escape(note)+"<br>";
-        html+="<br>";
-        m_browser->insertHtml(html.replace('\n',"<br>"));
+            html+=Qt::escape(note)+BR;
+        html+=BR;
+        m_browser->insertHtml(html.replace('\n',BR));
     }
 
     QString phaseName=m_catalog->phase(m_entry.toDocPosition());
@@ -120,30 +119,30 @@ void MsgCtxtView::process()
         Phase phase=m_catalog->phase(phaseName);
         QString html=i18nc("@info translation unit metadata","<b>Phase:</b><br>");
         if (phase.date.isValid())
-            html+=QString("%1: ").arg(phase.date.toString(Qt::ISODate));
+            html+=QString(QStringLiteral("%1: ")).arg(phase.date.toString(Qt::ISODate));
         html+=Qt::escape(phase.process);
         if (!phase.contact.isEmpty())
-            html+=QString(" (%1)").arg(Qt::escape(phase.contact));
-        m_browser->insertHtml(html+"<br>");
+            html+=QString(QStringLiteral(" (%1)")).arg(Qt::escape(phase.contact));
+        m_browser->insertHtml(html+BR);
     }
 
     const QVector<Note> notes=m_catalog->notes(m_entry.toDocPosition());
     m_hasErrorNotes=false;
     foreach (const Note& note, notes)
-        m_hasErrorNotes=m_hasErrorNotes||note.content.contains("[ERROR]");
+        m_hasErrorNotes=m_hasErrorNotes||note.content.contains(QLatin1String("[ERROR]"));
 
     int realOffset=displayNotes(m_browser, m_catalog->notes(m_entry.toDocPosition()), m_entry.form, m_catalog->capabilities()&MultipleNotes);
 
     QString html;
     foreach(const Note& note, m_catalog->developerNotes(m_entry.toDocPosition()))
-        html+="<br>"+Qt::escape(note.content);
+        html+=BR+Qt::escape(note.content);
 
     QStringList sourceFiles=m_catalog->sourceFiles(m_entry.toDocPosition());
     if (!sourceFiles.isEmpty())
     {
         html+=i18nc("@info PO comment parsing","<br><b>Files:</b><br>");
         foreach(const QString &sourceFile, sourceFiles)
-            html+=QString("<a href=\"src:/%1\">%2</a><br />").arg(sourceFile).arg(sourceFile);
+            html+=QString(QStringLiteral("<a href=\"src:/%1\">%2</a><br />")).arg(sourceFile).arg(sourceFile);
         html.chop(6);
     }
 
@@ -165,14 +164,14 @@ void MsgCtxtView::process()
 
 void MsgCtxtView::addNoteUI()
 {
-    anchorClicked(QUrl("note:/add"));
+    anchorClicked(QUrl(QStringLiteral("note:/add")));
 }
 
 void MsgCtxtView::anchorClicked(const QUrl& link)
 {
     QString path=link.path().mid(1);// minus '/'
 
-    if (link.scheme()=="note")
+    if (link.scheme()==QLatin1String("note"))
     {
         int capabilities=m_catalog->capabilities();
         if (!m_editor)
@@ -186,7 +185,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         QVector<Note> notes=m_catalog->notes(m_entry.toDocPosition());
         int noteIndex=-1;//means add new note
         Note note;
-        if (!path.endsWith("add"))
+        if (!path.endsWith(QLatin1String("add")))
         {
             noteIndex=path.toInt();
             note=notes.at(noteIndex);
@@ -200,7 +199,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         m_editor->setFromFieldVisible(capabilities&KeepsNoteAuthors);
         m_stackedLayout->setCurrentIndex(1);
     }
-    else if (link.scheme()=="src")
+    else if (link.scheme()==QLatin1String("src"))
     {
         int pos=path.lastIndexOf(':');
         emit srcFileOpenRequested(path.left(pos),path.mid(pos+1).toInt());
