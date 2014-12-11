@@ -36,11 +36,11 @@
 #include <kmainwindow.h>
 #include <QModelIndex>
 #include <QTimer>
+#include <QDialog>
 
 class QTreeView;
 
 #include "ui_dbparams.h"
-#include <kdialog.h>
 
 namespace TM {
 /**
@@ -68,7 +68,7 @@ private:
 class OpenDBJob;
 
 //TODO remote tms
-class DBPropertiesDialog: public KDialog, Ui_DBParams
+class DBPropertiesDialog: public QDialog, Ui_DBParams
 {
     Q_OBJECT
 public:

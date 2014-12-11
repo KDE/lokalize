@@ -25,15 +25,15 @@
 #include "ui_widgettextcaptureconfig.h"
 #include <klocalizedstring.h>
 #include <kglobal.h>
+#include <kconfiggroup.h>
 
 WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
- : KDialog(parent)
+ : QDialog(parent)
  , ui(new Ui_WidgetTextCapture)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
-    ui->setupUi(mainWidget());
-    setCaption(i18nc("@title","Widget Text Capture"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
+    ui->setupUi(this);
+    setWindowTitle(i18nc("@title","Widget Text Capture"));
 
     KConfigGroup cg(KGlobal::config(), "Development");
     bool copyWidgetText = cg.readEntry("CopyWidgetText", false);

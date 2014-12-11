@@ -28,7 +28,7 @@
 #include "phase.h"
 #include "note.h"
 
-#include <KDialog>
+#include <QDialog>
 #include <QModelIndex>
 #include <QVector>
 #include <QMap>
@@ -38,7 +38,7 @@ class QTextBrowser;
 class NoteEditor;
 class PhasesModel;
 class MyTreeView;
-class PhasesWindow: public KDialog
+class PhasesWindow: public QDialog
 {
 Q_OBJECT
 public:

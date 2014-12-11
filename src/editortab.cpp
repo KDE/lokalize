@@ -65,7 +65,6 @@
 #include <kxmlguifactory.h>
 #include <kmenu.h>
 #include <kactioncategory.h>
-#include <kinputdialog.h>
 #include <kmessagebox.h>
 #include <ktabbar.h>
 
@@ -74,6 +73,7 @@
 #include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QFileDialog>
+#include <QInputDialog>
 
 
 #include <QDir>
@@ -775,6 +775,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         {
         case KMessageBox::Yes: if (!saveFile()) return false;
         case KMessageBox::Cancel:               return false;
+        default:;
         }
     }
     if (suggestedDirPath.isEmpty())
@@ -949,14 +950,12 @@ void EditorTab::redo()
 
 void EditorTab::gotoEntry()
 {
+    bool ok=false;
     DocPosition pos=m_currentPos;
-    pos.entry=KInputDialog::getInteger(
-                  i18nc("@title","Jump to Entry"),
+    pos.entry=QInputDialog::getInt(this, i18nc("@title","Jump to Entry"),
                   i18nc("@label:spinbox","Enter entry number:"),
-                  pos.entry,1,
-                  m_catalog->numberOfEntries(),
-                  1,0,this);
-    if (pos.entry)
+                  pos.entry,1,m_catalog->numberOfEntries(),1, &ok);
+    if (ok)
     {
         --(pos.entry);
         gotoEntry(pos);

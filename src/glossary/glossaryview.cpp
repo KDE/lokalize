@@ -40,7 +40,6 @@
 #include "stemming.h"
 
 #include <klineedit.h>
-#include <kdialog.h>
 
 #include <QDebug>
 #include <QDragEnterEvent>

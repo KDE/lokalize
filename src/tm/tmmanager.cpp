@@ -93,15 +93,14 @@ void TMManagerWin::addDir()
 
 
 DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
- : KDialog(parent), Ui_DBParams()
+ : QDialog(parent), Ui_DBParams()
  , m_connectionOptionsValid(false)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
-    setCaption( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
-    setButtons( KDialog::Ok | KDialog::Cancel);
-    enableButtonOk(false);
+    setWindowTitle( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
 
-    setupUi(mainWidget());
+    setupUi(this);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     name->setFocus();
     connect(name, SIGNAL(textChanged(QString)), this, SLOT(feedbackRegardingAcceptable()));
 
@@ -139,7 +138,7 @@ void DBPropertiesDialog::setConnectionBoxVisible(int type)
 
 void DBPropertiesDialog::feedbackRegardingAcceptable()
 {
-    enableButtonOk(contentBox->isVisible() && !name->text().isEmpty());
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(contentBox->isVisible() && !name->text().isEmpty());
 }
 
 void DBPropertiesDialog::checkConnectionOptions()
@@ -167,7 +166,7 @@ void DBPropertiesDialog::openJobDone(OpenDBJob* openDBJob)
         return;
 
     contentBox->setVisible(openDBJob->m_connectionSuccessful);
-    enableButtonOk(openDBJob->m_connectionSuccessful);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(openDBJob->m_connectionSuccessful);
     if (!openDBJob->m_connectionSuccessful)
         return;
 
@@ -213,7 +212,7 @@ void DBPropertiesDialog::accept()
     openDBJob->m_tmConfig.targetLangCode=LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
 
     DBFilesModel::instance()->openDB(openDBJob);
-    KDialog::accept();
+    QDialog::accept();
 }
 
 void TMManagerWin::addDB()

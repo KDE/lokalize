@@ -42,6 +42,7 @@
 #include <QAbstractListModel>
 #include <QSplitter>
 #include <QStackedLayout>
+#include <QDialogButtonBox>
 
 //BEGIN PhasesModel
 class PhasesModel: public QAbstractListModel
@@ -158,7 +159,7 @@ QVariant PhasesModel::headerData(int section, Qt::Orientation, int role) const
 
 
 //BEGIN PhaseEditDialog
-class PhaseEditDialog: public KDialog
+class PhaseEditDialog: public QDialog
 {
 public:
     PhaseEditDialog(QWidget *parent);
@@ -171,15 +172,20 @@ private:
 
 
 PhaseEditDialog::PhaseEditDialog(QWidget *parent)
-    : KDialog(parent)
+    : QDialog(parent)
     , m_process(new KComboBox(this))
 {
     QStringList processes;
     processes<<i18n("Translation")<<i18n("Review")<<i18n("Approval");
-    m_process->setModel(new QStringListModel(processes,this));
+    m_process->setModel(new QStringListModel(processes, this));
 
-    QFormLayout* l=new QFormLayout(mainWidget());
-    l->addRow(i18n("Process"), m_process);
+    QFormLayout* l=new QFormLayout(this);
+    l->addRow(i18nc("noun", "Process"), m_process);
+
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    l->addRow(buttonBox);
 }
 
 Phase PhaseEditDialog::phase() const
@@ -190,7 +196,7 @@ Phase PhaseEditDialog::phase() const
 }
 
 PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
- : KDialog(parent)
+ : QDialog(parent)
  , m_catalog(catalog)
  , m_model(new PhasesModel(catalog, this))
  , m_view(new MyTreeView(this))
@@ -199,7 +205,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
 {
     connect(this, SIGNAL(accepted()), SLOT(handleResult()));
     //setAttribute(Qt::WA_DeleteOnClose, true);
-    QVBoxLayout* l=new QVBoxLayout(mainWidget());
+    QVBoxLayout* l=new QVBoxLayout(this);
     QHBoxLayout* btns=new QHBoxLayout;
     l->addLayout(btns);
 
@@ -210,6 +216,12 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
 
     QSplitter* splitter=new QSplitter(this);
     l->addWidget(splitter);
+
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    l->addWidget(buttonBox);
+
 
     m_view->setRootIsDecorated(false);
     m_view->setModel(m_model);
@@ -234,7 +246,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
 
     splitter->setStretchFactor(0,15);
     splitter->setStretchFactor(1,5);
-    setInitialSize(QSize(700,400));
+    resize(QSize(700,400));
 }
 
 void PhasesWindow::handleResult()

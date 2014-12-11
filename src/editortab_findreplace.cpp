@@ -35,8 +35,6 @@
 #include <kglobal.h>
 #include <kmessagebox.h>
 
-#include <kprogressdialog.h>
-
 #include <kreplacedialog.h>
 #include <kreplace.h>
 #include <kdemacros.h>

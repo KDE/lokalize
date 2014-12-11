@@ -26,7 +26,6 @@
 #include "glossarywindow.h"
 
 #include <klineedit.h>
-#include <kdialog.h>
 
 #include <QMenu>
 #include <QMouseEvent>

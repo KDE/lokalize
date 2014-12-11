@@ -41,7 +41,6 @@ namespace Sonnet{class BackgroundChecker;}
 
 class KFind;
 class KReplace;
-class KProgressDialog;
 class KActionCategory;
 
 class Catalog;

@@ -56,7 +56,6 @@
 #include <krecentfilesaction.h>
 #include <kxmlguifactory.h>
 #include <kmenu.h>
-#include <kdialog.h>
 #include <kross/core/action.h>
 
 
