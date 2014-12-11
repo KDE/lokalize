@@ -361,7 +361,7 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
 void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int end)
 {
     QModelIndex parent = indexForPoIndex(po_parent);
-    QModelIndex pot_parent = potIndexForOuter(parent);
+    //QModelIndex pot_parent = potIndexForOuter(parent);
     ProjectNode* node = nodeForIndex(parent);
     int removedCount = end + 1 - start;
 

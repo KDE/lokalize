@@ -77,7 +77,8 @@ int CatalogTreeModel::columnCount(const QModelIndex& parent) const
 
 void CatalogTreeModel::fileLoaded()
 {
-    reset();
+    beginResetModel();
+    endResetModel();
 }
 
 void CatalogTreeModel::reflectChanges(DocPosition pos)

@@ -44,7 +44,6 @@
 #include <QStyleOptionButton>
 #include <QMimeData>
 #include <QMetaType>
-
 #include <QMenu>
 #include <QMouseEvent>
 #include <QToolTip>
@@ -667,7 +666,7 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
             start=textCursor().position();
         }
 
-        insertCatalogString(qVariantValue<CatalogString>(v), start);
+        insertCatalogString(v.value<CatalogString>(), start);
         m_catalog->endMacro();
     }
     else

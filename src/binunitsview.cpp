@@ -47,8 +47,9 @@ BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
 
 void BinUnitsModel::fileLoaded()
 {
+    beginResetModel();
     m_imageCache.clear();
-    reset();
+    endResetModel();
 }
 
 void BinUnitsModel::entryModified(const DocPosition& pos)
