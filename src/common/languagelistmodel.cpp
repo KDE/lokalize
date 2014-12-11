@@ -22,7 +22,6 @@
 **************************************************************************** */
 
 #include "languagelistmodel.h"
-//#include <kglobal.h>
 //#include <kiconloader.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>

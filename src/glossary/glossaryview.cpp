@@ -39,8 +39,6 @@
 #include "glossarywindow.h"
 #include "stemming.h"
 
-#include <klineedit.h>
-
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QTime>

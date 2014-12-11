@@ -55,21 +55,6 @@ int main(int argc, char **argv)
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
 
-#if 0
-    KAboutData about(QStringLiteral("lokalize"), QStringLiteral("Lokalize"), QString::fromLatin1(version), ki18n(description).toString(),
-                     KAboutLicense::GPL, ki18nc("@info:credit", "(c) 2007-2014 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers").toString() /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
-    about.addAuthor( ki18n("Nick Shaforostoff").toString(), QString(), "shaforostoff@gmail.com" );
-    about.addCredit (ki18n("Google Inc.").toString(), ki18n("sponsored development as part of Google Summer Of Code program").toString(), QByteArray(), "http://google.com");
-    about.addCredit (ki18n("Translate-toolkit").toString(), ki18n("provided excellent cross-format converting scripts").toString(), QByteArray(), "http://translate.sourceforge.net");
-    about.addCredit (ki18n("Viesturs Zarins").toString(), ki18n("project tree merging translation+templates").toString(), "viesturs.zarins@mii.lu.lv", QByteArray());
-    about.addCredit (ki18n("Stephan Johach").toString(), ki18n("bug fixing patches").toString(), "hunsum@gmx.de");
-    about.addCredit (ki18n("Chusslove Illich").toString(), ki18n("bug fixing patches").toString(), "caslav.ilic@gmx.net");
-    about.addCredit (ki18n("Jure Repinc").toString(), ki18n("testing and bug fixing").toString(), "jlp@holodeck1.com");
-    about.addCredit (ki18n("Stefan Asserhall").toString(), ki18n("patches").toString(), "stefan.asserhall@comhem.se");
-    about.addCredit (ki18n("Papp Laszlo").toString(), ki18n("bug fixing patches").toString(), "djszapi@archlinux.us");
-    about.addCredit (ki18n("Albert Astals Cid").toString(), ki18n("XLIFF improvements").toString(), "aacid@kde.org");
-#endif
-
     QApplication app(argc, argv);
     QCommandLineParser parser;
     KAboutData about("lokalize", i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),

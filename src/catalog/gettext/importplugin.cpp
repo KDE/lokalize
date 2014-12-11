@@ -43,7 +43,6 @@
 #include <QDebug>
 
 #include <kmessagebox.h>
-//#include <kservicetypetrader.h>
 
 namespace GettextCatalog 
 {
