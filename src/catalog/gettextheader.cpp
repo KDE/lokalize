@@ -34,11 +34,9 @@
 #include <QMap>
 #include <QTextCodec>
 #include <QDebug>
+#include <QDateTime>
 
 #include <kdemacros.h>
-#include <kdatetime.h>
-
-#include <kio/netaccess.h>
 
 /**
  * this data was obtained by running GNUPluralForms()
@@ -276,7 +274,7 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    QString dateTimeString = KDateTime::currentLocalDateTime().toString(QStringLiteral("%Y-%m-%d %H:%M%z"));
+    QString dateTimeString = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mmt"));
     temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%QStringLiteral("\\n");
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )

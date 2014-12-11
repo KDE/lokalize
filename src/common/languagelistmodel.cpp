@@ -22,15 +22,16 @@
 **************************************************************************** */
 
 #include "languagelistmodel.h"
-#include <kglobal.h>
-
-#include <kiconloader.h>
-#include <klocale.h>
+//#include <kglobal.h>
+//#include <kiconloader.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
 
 #include <QStringBuilder>
 #include <QCoreApplication>
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
+#include <QLocale>
 #include <QIcon>
 
 
@@ -56,16 +57,18 @@ LanguageListModel* LanguageListModel::instance()
 LanguageListModel* LanguageListModel::emptyLangInstance()
 {
     if (_emptyLangInstance==0 )
-        _emptyLangInstance=new LanguageListModel(EmptyLang);
+        _emptyLangInstance=new LanguageListModel(WithEmptyLang);
     return _emptyLangInstance;
 }
 
-
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
- : QStringListModel(KLocale::global()->allLanguagesList(),parent)
+ : QStringListModel(parent)
  , m_sortModel(new QSortFilterProxyModel(this))
+ , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
 {
-    if (type==EmptyLang) insertRows(rowCount(), 1);
+    setStringList(m_systemLangList->groupList());
+
+    if (type==WithEmptyLang) insertRows(rowCount(), 1);
 #if 0 //KDE5PORT
     KIconLoader::global()->addExtraDesktopThemes();
 #endif
@@ -107,7 +110,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             return displayNames.at(index.row());
 //        QLocale l(code);
 //        if (l.language()==QLocale::C && code!="C")
-            return QVariant::fromValue<QString>(displayNames[index.row()]=KLocale::global()->languageCodeToName(code)%" ("%code%")");
+            return QVariant::fromValue<QString>(displayNames[index.row()]=KConfigGroup(m_systemLangList,code).readEntry("Name")%" ("%code%")");
 //        return QVariant::fromValue<QString>(displayNames[index.row()]=QLocale::languageToString(l.language())%" ("%code%")");
     }
     return QStringListModel::data(index, role);

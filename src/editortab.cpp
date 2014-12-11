@@ -54,16 +54,13 @@
 #include "prefs.h"
 
 #include <ktoolbarpopupaction.h>
-#include <kfadewidgeteffect.h>
 #include <kdemacros.h>
-#include <kio/netaccess.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 #include <kxmlguifactory.h>
 #include <kactioncategory.h>
 #include <kmessagebox.h>
-#include <ktabbar.h>
 
 #include <QIcon>
 #include <QActionGroup>

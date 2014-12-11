@@ -26,7 +26,6 @@
 #include "project.h"
 #include "poextractor.h"
 
-#include <kio/netaccess.h>
 #include <kdemacros.h>
 
 #include <QIcon>
@@ -1241,7 +1240,7 @@ void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
 
 //BEGIN UpdateStatsJob
 //these are run in separate thread
-UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject* owner)
+UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject*)
     : QRunnable()
     , m_files(files)
     , m_status(0)

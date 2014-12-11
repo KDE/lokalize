@@ -60,9 +60,6 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include <kdatetime.h>
-#include <kio/netaccess.h>
-
 QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
 QString Catalog::supportedFileTypes(bool includeTemplates)
 {
@@ -526,7 +523,6 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
 
     QTime a;a.start();
 
-    QString target;
     QFile* file=new QFile(url);
     file->deleteLater();//kung-fu
     if (!file->open(QIODevice::ReadOnly))
@@ -554,7 +550,6 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
     int line=storage->load(file);
 
     file->close();
-    KIO::NetAccess::removeTempFile(target);
 
     if (KDE_ISUNLIKELY(line!=0 || (!storage->size() && (line=-1) ) ))
     {

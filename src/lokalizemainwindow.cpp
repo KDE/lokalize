@@ -43,7 +43,6 @@
 
 #include <kmessagebox.h>
 #include <knotification.h>
-#include <kio/netaccess.h>
 #include <kactioncollection.h>
 #include <kactioncategory.h>
 #include <kstandardaction.h>

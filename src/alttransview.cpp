@@ -115,7 +115,6 @@ void AltTransView::attachAltTransFile(const QString& path)
 
 void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool temp)
 {
-    qDebug()<<trans;
     AltTrans altTrans;
     altTrans.target=trans;
     m_catalog->attachAltTrans(entry, altTrans);

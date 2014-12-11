@@ -44,7 +44,6 @@
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
-#include <kpassivepopup.h>
 #include <kmessagebox.h>
 
 #include <kdemacros.h>

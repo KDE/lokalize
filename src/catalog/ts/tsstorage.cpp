@@ -32,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTime>
 #include <QPair>
 #include <QList>
-
-
-#include <kdatetime.h>
 #include <QXmlSimpleReader>
 
 static const char* const noyes[]={"no","yes"};
@@ -85,9 +82,9 @@ int TsStorage::load(QIODevice* device)
     }
 
 
-    QDomElement file=m_doc.elementsByTagName("TS").at(0).toElement();
-    m_sourceLangCode=file.attribute("sourcelanguage");
-    m_targetLangCode=file.attribute("language");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("TS")).at(0).toElement();
+    m_sourceLangCode=file.attribute(QStringLiteral("sourcelanguage"));
+    m_targetLangCode=file.attribute(QStringLiteral("language"));
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_targetLangCode);
 
     //Create entry mapping.
@@ -95,9 +92,8 @@ int TsStorage::load(QIODevice* device)
     //we create any form-entries additionally needed
 
     entries=m_doc.elementsByTagName("message");
-    int size=entries.size();
 
-    qWarning()<<chrono.elapsed();
+    qWarning()<<chrono.elapsed()<<"secs, "<<entries.size()<<"entries";
     return 0;
 }
 
@@ -499,11 +495,14 @@ bool TsStorage::isEmpty(const DocPosition& pos) const
 
 bool TsStorage::isEquivTrans(const DocPosition& pos) const
 {
+    Q_UNUSED(pos)
     return true;//targetForPos(pos.entry).attribute("equiv-trans")!="no";
 }
 
 void TsStorage::setEquivTrans(const DocPosition& pos, bool equivTrans)
 {
+    Q_UNUSED(pos)
+    Q_UNUSED(equivTrans)
     //targetForPos(pos.entry).setAttribute("equiv-trans",noyes[equivTrans]);
 }
 

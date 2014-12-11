@@ -27,14 +27,14 @@
 
 #include <QStringListModel>
 class QSortFilterProxyModel;
-
+class KConfig;
 
 class LanguageListModel: public QStringListModel
 {
     enum ModelType
     {
         Default,
-        EmptyLang
+        WithEmptyLang
     };
 public:
     static LanguageListModel* instance();
@@ -47,6 +47,7 @@ private:
 
     LanguageListModel(ModelType type=Default, QObject* parent=0);
     QSortFilterProxyModel* m_sortModel;
+    KConfig* m_systemLangList;
 
 public:
     QVariant data(const QModelIndex& index, int role) const;

@@ -66,7 +66,7 @@ class FileListModel: public QStringListModel
 public:
     FileListModel(QObject* parent): QStringListModel(parent){}
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    Qt::ItemFlags flags(const QModelIndex& index) const {return Qt::ItemIsEnabled|Qt::ItemIsSelectable;}
+    Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsEnabled|Qt::ItemIsSelectable;}
 };
 
 QVariant FileListModel::data(const QModelIndex& item, int role) const
@@ -180,7 +180,7 @@ bool SearchParams::isEmpty() const
         && targetPattern.pattern().isEmpty();
 }
 
-SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject* parent)
+SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject*)
  : QRunnable()
  , files(f)
  , searchParams(sp)
@@ -284,7 +284,7 @@ public:
     QString replaceWith;
 };
 
-MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject* parent)
+MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject*)
  : QRunnable()
  , searchResults(srs)
  , globalPos(pos)
@@ -328,7 +328,7 @@ FileSearchModel::FileSearchModel(QObject* parent)
 {
 }
 
-QVariant FileSearchModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant FileSearchModel::headerData(int section, Qt::Orientation, int role) const
 {
     if (role!=Qt::DisplayRole)
         return QVariant();
@@ -401,7 +401,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
                 result.insert(sl.start+sl.len, endBld);
                 result.insert(sl.start, startBld);
             }
-             /* !isApproved(sr.state/*, Project::instance()->local()->role())*/
+             /* !isApproved(sr.state, Project::instance()->local()->role())*/
             QString escaped=convertToHtml(result, item.column()==FileSearchModel::Target && !sr.isApproved);
 
             escaped.replace(startBld, startBldTag);
