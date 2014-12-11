@@ -24,8 +24,9 @@
 #include "widgettextcaptureconfig.h"
 #include "ui_widgettextcaptureconfig.h"
 #include <klocalizedstring.h>
-#include <kglobal.h>
 #include <kconfiggroup.h>
+#include <ksharedconfig.h>
+#include <kconfig.h>
 
 WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
  : QDialog(parent)
@@ -35,7 +36,7 @@ WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
     ui->setupUi(this);
     setWindowTitle(i18nc("@title","Widget Text Capture"));
 
-    KConfigGroup cg(KGlobal::config(), "Development");
+    KConfigGroup cg(KSharedConfig::openConfig(), "Development");
     bool copyWidgetText = cg.readEntry("CopyWidgetText", false);
     QString copyWidgetTextCommand = cg.readEntry("CopyWidgetTextCommand", QString());
     ui->none->setChecked(!copyWidgetText);

@@ -32,7 +32,6 @@
 #include "stemming.h"
 
 
-#include <kglobal.h>
 #include <kmessagebox.h>
 
 #include <kreplacedialog.h>

@@ -60,11 +60,8 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include <kglobal.h>
 #include <kdatetime.h>
-
 #include <kio/netaccess.h>
-#include <ktemporaryfile.h>
 
 QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
 QString Catalog::supportedFileTypes(bool includeTemplates)

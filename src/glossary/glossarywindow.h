@@ -32,7 +32,7 @@
 
 class QListView;
 //class KTextEdit;
-class KLineEdit;
+class QLineEdit;
 class KComboBox;
 //class QStringListModel;
 
@@ -92,7 +92,7 @@ private:
     TermsListModel* m_sourceTermsModel;
     TermsListModel* m_targetTermsModel;
     GlossarySortFilterProxyModel* m_proxyModel;
-    KLineEdit* m_filterEdit;
+    QLineEdit* m_filterEdit;
 
     KComboBox* m_subjectField;
     KTextEdit* m_definition;

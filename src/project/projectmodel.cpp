@@ -26,12 +26,10 @@
 #include "project.h"
 #include "poextractor.h"
 
-#include <kicon.h>
 #include <kio/netaccess.h>
-#include <kapplication.h>
-#include <kstandarddirs.h>
 #include <kdemacros.h>
 
+#include <QIcon>
 #include <QTime>
 #include <QFile>
 #include <QDir>
@@ -41,6 +39,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QStandardPaths>
 
 #undef KDE_NO_DEBUG_OUTPUT
 static int nodeCounter=0;
@@ -54,10 +53,10 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_poModel(this)
     , m_potModel(this)
     , m_rootNode(ProjectNode(NULL, -1, -1, -1))
-    , m_dirIcon(KIcon(QLatin1String("inode-directory")))
-    , m_poIcon(KIcon(QLatin1String("flag-blue")))
-    , m_poComplIcon(KIcon(QLatin1String("flag-green")))
-    , m_potIcon(KIcon(QLatin1String("flag-black")))
+    , m_dirIcon(QIcon::fromTheme(QLatin1String("inode-directory")))
+    , m_poIcon(QIcon::fromTheme(QLatin1String("flag-blue")))
+    , m_poComplIcon(QIcon::fromTheme(QLatin1String("flag-green")))
+    , m_potIcon(QIcon::fromTheme(QLatin1String("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
     , m_threadPool(new QThreadPool(this))
@@ -1322,7 +1321,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     if (!QSqlDatabase::contains(dbName))
     {
         QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",dbName);
-        db.setDatabaseName(KStandardDirs::locateLocal("appdata", dbName+".sqlite"));
+        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % dbName % QStringLiteral(".sqlite"));
         if (KDE_ISUNLIKELY( !db.open() ))
             return metaData(file.localPath());
         initDataBase(db);

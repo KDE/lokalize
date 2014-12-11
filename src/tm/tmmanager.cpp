@@ -44,7 +44,8 @@
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>
 #include <QFileDialog>
-#include <kstandarddirs.h>
+#include <QStandardPaths>
+
 
 using namespace TM;
 
@@ -189,7 +190,7 @@ void DBPropertiesDialog::accept()
 
     if (connectionBox->isVisible())
     {
-        QFile rdb(KStandardDirs::locateLocal("appdata", name->text() % REMOTETM_DATABASE_EXTENSION));
+        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % name->text() % REMOTETM_DATABASE_EXTENSION);
         if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
             return;
 

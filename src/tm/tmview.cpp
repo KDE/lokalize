@@ -33,7 +33,6 @@
 #include "diff.h"
 #include "xlifftextedit.h"
 
-#include <kglobalsettings.h>
 #include <kpassivepopup.h>
 #include <kmessagebox.h>
 #include <kdemacros.h>
@@ -483,7 +482,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html+=QString("/%1%/ ").arg(entry.score > 10000 ? 100: float(entry.score)/100);
 
         //int sourceStartPos=cur.position();
-        QString result=Qt::escape(entry.diff);
+        QString result=entry.diff.toHtmlEscaped();
         //result.replace("&","&amp;");
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
@@ -597,7 +596,7 @@ void TMView::contextMenu(const QPoint& pos)
     if (!r)
         return;
     if ((r->data().toInt()==Remove) &&
-        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  Qt::escape(e.target.string), e.dbName),
+        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
                                                            i18nc("@title:window","Translation Memory Entry Removal")))
     {
         RemoveJob* job=new RemoveJob(e);
@@ -606,7 +605,7 @@ void TMView::contextMenu(const QPoint& pos)
         TM::threadPool()->start(job, REMOVE);
     }
     else if (r->data().toInt()==Open)
-        emit (e.file, e.source.string, e.ctxt);
+        emit fileOpenRequested(e.file, e.source.string, e.ctxt);
 }
 
 /**

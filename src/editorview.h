@@ -33,7 +33,7 @@
 class Catalog;
 class LedsWidget;
 class TranslationUnitTextEdit;
-class KTabBar;
+class QTabBar;
 class QContextMenuEvent;
 class QDragEnterEvent;
 
@@ -58,7 +58,7 @@ public:
     EditorView(QWidget *,Catalog*);
     virtual ~EditorView();
 
-    KTabBar* tabBar(){return m_pluralTabBar;}//to connect tabbar signals to controller (EditorWindow) slots
+    QTabBar* tabBar(){return m_pluralTabBar;}//to connect tabbar signals to controller (EditorWindow) slots
     QString selectionInTarget() const;//for non-batch replace
     QString selectionInSource() const;
 
@@ -82,8 +82,8 @@ private:
     TranslationUnitTextEdit * m_targetTextEdit
 ;
 
-    KTabBar* m_pluralTabBar;
-    LedsWidget* _leds;
+    QTabBar* m_pluralTabBar;
+    LedsWidget* m_leds;
 
 public:
     bool m_modifiedAfterFind;//for F3-search reset

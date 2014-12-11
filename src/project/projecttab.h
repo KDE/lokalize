@@ -32,7 +32,7 @@
 
 class QStackedLayout;
 class ProjectWidget;
-class KLineEdit;
+class QLineEdit;
 class QContextMenuEvent;
 class QProgressBar;
 
@@ -105,7 +105,7 @@ private slots:
 
 private:
     ProjectWidget* m_browser;
-    KLineEdit* m_filterEdit;
+    QLineEdit* m_filterEdit;
     QProgressBar* m_progressBar;
     
     QStackedLayout *m_stackedLayout;

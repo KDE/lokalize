@@ -53,7 +53,6 @@
 
 #include <kcolorscheme.h>
 #include <kactioncategory.h>
-#include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 #include <kdemacros.h>
 
@@ -814,7 +813,7 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     connect(ui->doReplace, SIGNAL(clicked(bool)), this, SLOT(requestReplace()));
 /*
     QLabel* rl=new QLabel(i18n("Replace:"), base);
-    KLineEdit* searchEdit=new KLineEdit(base);
+    QLineEdit* searchEdit=new QLineEdit(base);
     QHBoxLayout* searchL=new QHBoxLayout();
     searchL->addWidget(rl);
     searchL->addWidget(searchEdit);
@@ -822,7 +821,7 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     QLabel* wl=new QLabel(i18n("With:"), base);
     wl->setAlignment(Qt::AlignRight);
     wl->setMinimumSize(rl->minimumSizeHint());
-    KLineEdit* replacementEdit=new KLineEdit(base);
+    QLineEdit* replacementEdit=new QLineEdit(base);
     QHBoxLayout* replacementL=new QHBoxLayout();
     replacementL->addWidget(wl);
     replacementL->addWidget(replacementEdit);

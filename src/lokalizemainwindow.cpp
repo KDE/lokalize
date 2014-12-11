@@ -41,13 +41,8 @@
 
 #include "multieditoradaptor.h"
 
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <kicon.h>
-#include <kmenubar.h>
 #include <kmessagebox.h>
 #include <knotification.h>
-#include <kapplication.h>
 #include <kio/netaccess.h>
 #include <kactioncollection.h>
 #include <kactioncategory.h>
@@ -55,10 +50,10 @@
 #include <kstandardshortcut.h>
 #include <krecentfilesaction.h>
 #include <kxmlguifactory.h>
-#include <kmenu.h>
 #include <kross/core/action.h>
 
 
+#include <QMenu>
 #include <QDebug>
 #include <QActionGroup>
 #include <QMdiArea>
@@ -66,7 +61,8 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QLabel>
-
+#include <QIcon>
+#include <QApplication>
 
 
 LokalizeMainWindow::LokalizeMainWindow()
@@ -164,7 +160,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         }
             /*
 
-            KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+            QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
             QList<QAction*> actionz=projectActions->actions();
 
             int i=actionz.size();
@@ -191,7 +187,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         m_multiEditorAdaptor->setEditorTab(w);
 //         connect(m_multiEditorAdaptor,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(showTM()));
 /*
-        KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+        QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
         QList<QAction*> actionz=projectActions->actions();
 
         int i=actionz.size();
@@ -470,7 +466,7 @@ void LokalizeMainWindow::setupActions()
     file->addAction(KStandardAction::Open,this, SLOT(fileOpen()));
     m_openRecentFileAction = KStandardAction::openRecent(this,SLOT(fileOpen(QUrl)),ac);
 
-    file->addAction(KStandardAction::Quit,KApplication::kApplication(), SLOT(closeAllWindows()));
+    file->addAction(KStandardAction::Quit, qApp, SLOT(closeAllWindows()));
 
 
 //Settings
@@ -520,7 +516,7 @@ void LokalizeMainWindow::setupActions()
 
     action = proj->addAction("project_open",this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project"));
-    action->setIcon(KIcon("project-open"));
+    action->setIcon(QIcon::fromTheme("project-open"));
 
     m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);
     action = proj->addAction("project_open_recent",m_openRecentProjectAction);
@@ -867,7 +863,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     guiFactory()->addClient(new MyScriptingPlugin(this,m_multiEditorAdaptor));
 #endif
 
-    //KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+    //QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
 
 /*
     KActionCollection* actionCollection = mWindow->actionCollection();

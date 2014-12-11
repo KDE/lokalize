@@ -31,8 +31,6 @@
 #include "lokalizesubwindowbase.h"
 #include "pos.h"
 
-#include <kapplication.h>
-#include <kmainwindow.h>
 #include <kxmlguiclient.h>
 
 #include <QHash>

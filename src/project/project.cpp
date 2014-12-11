@@ -41,8 +41,6 @@
 #include <QDebug>
 
 #include <kdirlister.h>
-#include <kstandarddirs.h>
-
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
@@ -124,7 +122,7 @@ void Project::load(const QString &newProjectPath)
     TM::threadPool()->waitForDone(500);//more safety
 
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
-    readConfig();
+    ProjectBase::load();
     m_path=newProjectPath;
     m_desirablePath.clear();
 
@@ -132,7 +130,7 @@ void Project::load(const QString &newProjectPath)
     m_projectDir=QFileInfo(m_path).absolutePath();
 
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+QStringLiteral(".local"), KConfig::NoGlobals,QStandardPaths::DataLocation));
-    m_localConfig->readConfig();
+    m_localConfig->load();
 
     if (langCode().isEmpty())
         setLangCode(QLocale::system().name());
@@ -242,8 +240,8 @@ void Project::save()
     m_localConfig->setFirstRun(false);
 
     ProjectBase::setTargetLangCode(langCode());
-    writeConfig();
-    m_localConfig->writeConfig();
+    ProjectBase::save();
+    m_localConfig->save();
 }
 
 ProjectModel* Project::model()

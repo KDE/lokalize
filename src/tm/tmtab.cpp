@@ -28,6 +28,7 @@
 #include "tmscanapi.h"
 #include "qaview.h"
 #include "jobs.h"
+#include "fastsizehintitemdelegate.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -48,9 +49,7 @@
 
 #include <kcolorscheme.h>
 #include <kactioncategory.h>
-#include <kstandarddirs.h>
 #include <kxmlguifactory.h>
-#include <fastsizehintitemdelegate.h>
 
 
 using namespace TM;
@@ -564,7 +563,7 @@ void TMTab::handleResults()
                     findGuiText(text);
                 return;
             }
-            KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
+            QLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
             source_target_query[m_partToAlsoTryLater==DocPosition::Source]->setText(source_target_query[m_partToAlsoTryLater!=DocPosition::Source]->text());
             source_target_query[m_partToAlsoTryLater!=DocPosition::Source]->clear();
             m_partToAlsoTryLater=ui_queryOptions->filemask->text().isEmpty()?
@@ -756,7 +755,7 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
 {
     //std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
     qWarning()<<package<<text;
-    KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
+    QLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
     static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};
     QTextCodec* latin1=QTextCodec::codecForMib(4);
     DocPosition::Part tryNowPart=source_target[latin1->canEncode(text)];

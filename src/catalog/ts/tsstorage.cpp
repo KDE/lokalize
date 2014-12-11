@@ -103,6 +103,7 @@ int TsStorage::load(QIODevice* device)
 
 bool TsStorage::save(QIODevice* device, bool belongsToProject)
 {
+    Q_UNUSED(belongsToProject)
     QTextStream stream(device);
     m_doc.save(stream,4);
     return true;

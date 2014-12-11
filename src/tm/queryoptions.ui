@@ -59,7 +59,7 @@
      <item>
       <layout class="QGridLayout" name="mainQueryLayout">
        <item row="1" column="1">
-        <widget class="KLineEdit" name="querySource">
+        <widget class="QLineEdit" name="querySource">
          <property name="toolTip">
           <string>Search expression for source language part.
 Press Enter to start the search.
@@ -68,7 +68,7 @@ Press Ctrl+L to go to this control.</string>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="KLineEdit" name="queryTarget">
+        <widget class="QLineEdit" name="queryTarget">
          <property name="toolTip">
           <string>Search expression for target language part.
 Press Enter to start the search.</string>
@@ -140,7 +140,7 @@ Press Enter to start the search.</string>
         </widget>
        </item>
        <item row="1" column="2">
-        <widget class="KLineEdit" name="filemask">
+        <widget class="QLineEdit" name="filemask">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -227,11 +227,6 @@ Press Enter to start the search.</string>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

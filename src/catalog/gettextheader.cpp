@@ -36,11 +36,9 @@
 #include <QDebug>
 
 #include <kdemacros.h>
-#include <kglobal.h>
 #include <kdatetime.h>
 
 #include <kio/netaccess.h>
-#include <ktemporaryfile.h>
 
 /**
  * this data was obtained by running GNUPluralForms()

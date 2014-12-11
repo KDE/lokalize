@@ -33,7 +33,7 @@
 #include "stemming.h"
 
 #include <kdemacros.h>
-#include <kstandarddirs.h>
+
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -41,6 +41,7 @@
 #include <QDebug>
 #include <QRegExp>
 #include <QMap>
+#include <QStandardPaths>
 
 #include <iostream>
 
@@ -944,7 +945,7 @@ static void getStats(const QSqlDatabase& db,
     query.clear();
 }
 
-OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const ConnectionParams& connParams, QObject* parent)
+OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const ConnectionParams& connParams, QObject*)
     : QRunnable()
     , m_dbName(name)
     , m_type(type)
@@ -972,7 +973,7 @@ void OpenDBJob::run()
         if (m_type==TM::Local)
         {
             QSqlDatabase db=QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"),m_dbName);
-            db.setDatabaseName(KStandardDirs::locateLocal("appdata", m_dbName % TM_DATABASE_EXTENSION));
+            db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName % TM_DATABASE_EXTENSION);
             m_connectionSuccessful=db.open();
             if (KDE_ISUNLIKELY( !m_connectionSuccessful ))
             {
@@ -1008,7 +1009,7 @@ void OpenDBJob::run()
 
             if (!m_connParams.isFilled())
             {
-                QFile rdb(KStandardDirs::locateLocal("appdata", m_dbName % REMOTETM_DATABASE_EXTENSION));
+                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName % REMOTETM_DATABASE_EXTENSION);
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text))
                 {
                     emit done(this);
@@ -1060,7 +1061,7 @@ void OpenDBJob::run()
 }
 
 
-CloseDBJob::CloseDBJob(const QString& name, QObject* parent)
+CloseDBJob::CloseDBJob(const QString& name, QObject*)
     : QRunnable()
     , m_dbName(name)
 {
@@ -1110,7 +1111,7 @@ SelectJob::SelectJob(const CatalogString& source,
                      const QString& file,
                      const DocPosition& pos,
                      const QString& dbName,
-                     QObject* parent)
+                     QObject*)
     : QRunnable()
     , m_source(source)
     , m_ctxt(ctxt)
@@ -1506,7 +1507,7 @@ void SelectJob::run ()
 
 ScanJob::ScanJob(const QString& filePath,
                  const QString& dbName,
-                 QObject* parent)
+                 QObject*)
     : QRunnable()
     , m_filePath(filePath)
     , m_time(0)
@@ -1600,7 +1601,7 @@ void ScanJob::run()
 }
 
 
-RemoveJob::RemoveJob(const TMEntry& entry, QObject* parent)
+RemoveJob::RemoveJob(const TMEntry& entry, QObject*)
     : QRunnable()
     , m_entry(entry)
 {
@@ -1637,7 +1638,7 @@ UpdateJob::UpdateJob(const QString& filePath,
                      int form,
                      bool approved,
                      const QString& dbName,
-                     QObject* parent)
+                     QObject*)
     : QRunnable()
     , m_filePath(filePath)
     , m_ctxt(ctxt)
@@ -1894,7 +1895,7 @@ bool TmxParser::characters ( const QString& ch )
 
 
 
-ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName, QObject* parent)
+ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName, QObject*)
     : QRunnable()
     , m_filename(filename)
     , m_dbName(dbName)
@@ -1931,7 +1932,7 @@ void ImportTmxJob::run()
 
 #include <QXmlStreamWriter>
 
-ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName, QObject* parent)
+ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName, QObject*)
     : QRunnable()
     , m_filename(filename)
     , m_dbName(dbName)
@@ -2070,7 +2071,7 @@ void ExportTmxJob::run()
 //END TMX
 
 
-ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QObject* parent)
+ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QObject*)
     : QRunnable()
     , query(0)
     , m_dbName(dbName)

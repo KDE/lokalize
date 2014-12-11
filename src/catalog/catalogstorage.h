@@ -127,14 +127,14 @@ public:
     virtual bool isEmpty(const DocPosition&) const=0;
 
     virtual bool isEquivTrans(const DocPosition&) const{return true;}
-    virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans);}
+    virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans)}
 
     virtual bool isApproved(const DocPosition&) const{return true;}
-    virtual void setApproved(const DocPosition&, bool approved){Q_UNUSED(approved);}
+    virtual void setApproved(const DocPosition&, bool approved){Q_UNUSED(approved)}
     virtual TargetState state(const DocPosition&) const{return New;}
     virtual TargetState setState(const DocPosition&, TargetState){return New;}
 
-    virtual bool isObsolete(int entry) const{return false;}
+    virtual bool isObsolete(int entry) const{ Q_UNUSED(entry) return false;}
 
     virtual int binUnitsCount() const {return 0;}
     virtual int unitById(const QString& id) const {Q_UNUSED(id); return 0;}

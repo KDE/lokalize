@@ -27,13 +27,13 @@
 #include "tmscanapi.h"
 #include "prefs.h"
 
-#include <kicon.h>
 #include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
-#include <klineedit.h>
 
+#include <QLineEdit>
+#include <QIcon>
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QVBoxLayout>
@@ -48,7 +48,7 @@
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
-    , m_filterEdit(new KLineEdit(this))
+    , m_filterEdit(new QLineEdit(this))
     , m_legacyUnitsCount(-1)
     , m_currentUnitsCount(0)
 
@@ -111,8 +111,8 @@ ProjectTab::ProjectTab(QWidget *parent)
     QVBoxLayout* l=new QVBoxLayout(w);
 
     
-    m_filterEdit->setClearButtonShown(true);
-    m_filterEdit->setClickMessage(i18n("Quick search..."));
+    m_filterEdit->setClearButtonEnabled(true);
+    m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_filterEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
@@ -137,7 +137,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = nav->addAction(_name);\
     action->setText(_text);\
-    action->setIcon(KIcon(_icon));\
+    action->setIcon(QIcon::fromTheme(_icon));\
     ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
 
     QAction *action;
@@ -182,7 +182,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     action = proj->addAction("project_open",this,SIGNAL(projectOpenRequested()));
     action->setText(i18nc("@action:inmenu","Open project"));
-    action->setIcon(KIcon("project-open"));
+    action->setIcon(QIcon::fromTheme("project-open"));
     
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
@@ -307,7 +307,6 @@ QStringList ProjectTab::selectedItems() const {return m_browser->selectedItems()
 void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
 {
     int total = fuzzy + translated + untranslated;
-    qDebug()<<"updateStatusBar"<<total;
     m_currentUnitsCount = total;
 
     if (m_progressBar->value() != total && m_legacyUnitsCount > 0)

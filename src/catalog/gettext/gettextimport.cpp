@@ -49,9 +49,6 @@
 #include <QEventLoop>
 #include <QDebug>
 
-#include <kapplication.h>
-#include <kgenericfactory.h>
-
 #include "catalogitem.h"
 
 using namespace GettextCatalog;
@@ -162,7 +159,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    // now parse the rest of the file
    uint counter=0;
    QList<int> errorIndex;
-   bool recoveredError=false;
+   //bool recoveredError=false;
    bool docbookFile=false;
 
    ExtraDataSaver _extraDataSaver;
@@ -197,7 +194,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       else if(KDE_ISUNLIKELY( success==RECOVERED_PARSE_ERROR ))
       {
          qDebug() << "Recovered parse error in entry: " << counter;
-         recoveredError=true;
+         //recoveredError=true;
          errorIndex.append(counter);
 
             CatalogItem tempCatItem;
@@ -333,7 +330,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
    _trailingNewLines=0;
    bool error=false;
    bool recoverableError=false;
-   bool seenMsgctxt=false;
+   //bool seenMsgctxt=false;
    _msgstr.clear();
    _msgstr.append(QString());
    _msgid.clear();
@@ -359,8 +356,6 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
        else
            line=stream.readLine();
 
-       qDebug() << "Parsing line: " << line;
-
        static const QString lesslessless=QStringLiteral("<<<<<<<");
        static const QString isisis=QStringLiteral("=======");
        static const QString moremoremore=QStringLiteral(">>>>>>>");
@@ -368,7 +363,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
        {
           // We have found a CVS/SVN conflict marker. Abort.
           // (It cannot be any useful data of the PO file, as otherwise the line would start with at least a quote)
-          kError() << "CVS/SVN conflict marker found! Aborting!" << endl << line << endl;
+          qWarning() << "CVS/SVN conflict marker found! Aborting!" << endl << line << endl;
           return PARSE_ERROR;
        }
 
@@ -413,7 +408,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
                _msgctxtPresent=true;
-               seenMsgctxt=true;
+               //seenMsgctxt=true;
            }
            else if( line.contains( _rxMsgId ) )
            {
@@ -471,7 +466,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                line.remove(_rxMsgLineRemEndQuote);
                _msgctxt=line;
                _msgctxtPresent=true;
-               seenMsgctxt=true;
+               //seenMsgctxt=true;
             }
             else if( line.contains( _rxMsgId ) )
             {

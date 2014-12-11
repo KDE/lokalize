@@ -36,21 +36,19 @@
 
 #include "catalogstring.h"
 #include "pos.h"
+
 #include <QMetaType>
 #include <QString>
 #include <QFileInfo>
+#include <QApplication>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
 
-#include <kapplication.h>
+
 #include <kaboutdata.h>
-#include <k4aboutdata.h>
-#include <kcmdlineargs.h>
 #include <klocalizedstring.h>
 
 
-
-static const char version[] = LOKALIZE_VERSION;
-static const char description[] =
-    I18N_NOOP("Computer-aided translation system.\nDo not translate what had already been translated.");
 
 int main(int argc, char **argv)
 {
@@ -72,30 +70,32 @@ int main(int argc, char **argv)
     about.addCredit (ki18n("Albert Astals Cid").toString(), ki18n("XLIFF improvements").toString(), "aacid@kde.org");
 #endif
 
-    K4AboutData about("lokalize", 0, ki18nc("@title", "Lokalize"), version, ki18n(description),
-                     K4AboutData::License_GPL, ki18nc("@info:credit", "(c) 2007-2013 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
-    about.addAuthor( ki18n("Nick Shaforostoff"), KLocalizedString(), "shaforostoff@gmail.com" );
-    about.addCredit (ki18n("Google Inc."), ki18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
-    about.addCredit (ki18n("Translate-toolkit"), ki18n("provided excellent cross-format converting scripts"), QByteArray(), "http://translate.sourceforge.net");
-    about.addCredit (ki18n("Viesturs Zarins"), ki18n("project tree merging translation+templates"), "viesturs.zarins@mii.lu.lv", QByteArray());
-    about.addCredit (ki18n("Stephan Johach"), ki18n("bug fixing patches"), "hunsum@gmx.de");
-    about.addCredit (ki18n("Chusslove Illich"), ki18n("bug fixing patches"), "caslav.ilic@gmx.net");
-    about.addCredit (ki18n("Jure Repinc"), ki18n("testing and bug fixing"), "jlp@holodeck1.com");
-    about.addCredit (ki18n("Stefan Asserhall"), ki18n("patches"), "stefan.asserhall@comhem.se");
-    about.addCredit (ki18n("Papp Laszlo"), ki18n("bug fixing patches"), "djszapi@archlinux.us");
-    about.addCredit (ki18n("Albert Astals Cid"), ki18n("XLIFF improvements"), "aacid@kde.org");
+    QApplication app(argc, argv);
+    QCommandLineParser parser;
+    KAboutData about("lokalize", i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
+                     KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
+    about.addAuthor( i18n("Nick Shaforostoff"), QString(), "shaforostoff@gmail.com" );
+    about.addCredit (i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
+    about.addCredit (i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QByteArray(), "http://translate.sourceforge.net");
+    about.addCredit (i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), "viesturs.zarins@mii.lu.lv", QByteArray());
+    about.addCredit (i18n("Stephan Johach"), i18n("bug fixing patches"), "hunsum@gmx.de");
+    about.addCredit (i18n("Chusslove Illich"), i18n("bug fixing patches"), "caslav.ilic@gmx.net");
+    about.addCredit (i18n("Jure Repinc"), i18n("testing and bug fixing"), "jlp@holodeck1.com");
+    about.addCredit (i18n("Stefan Asserhall"), i18n("patches"), "stefan.asserhall@comhem.se");
+    about.addCredit (i18n("Papp Laszlo"), i18n("bug fixing patches"), "djszapi@archlinux.us");
+    about.addCredit (i18n("Albert Astals Cid"), i18n("XLIFF improvements"), "aacid@kde.org");
+    KAboutData::setApplicationData(about);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    about.setupCommandLine(&parser);
+    parser.process(app);
+    about.processCommandLine(&parser);
 
+    //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("noprojectscan"), i18n( "Do not scan files of the project.")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("project"), i18n( "Load specified project."), QLatin1String("filename")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("+[URL]"), i18n( "Document to open" )));
 
-    KCmdLineArgs::init(argc, argv, &about);
-
-    KCmdLineOptions options;
-    //options.add("merge-source <URL>", ki18n( "Source for the merge mode" ));
-    options.add("noprojectscan", ki18n( "Do not scan files of the project."));
-    options.add("project <filename>", ki18n( "Load specified project."));
-    options.add("+[URL]", ki18n( "Document to open" ));
-    KCmdLineArgs::addCmdLineOptions(options);
-
-    KApplication app;
 
     //qDebug() is important as it aviods compile 'optimization'.
     qDebug()<<qRegisterMetaType<DocPosition>();
@@ -112,15 +112,15 @@ int main(int argc, char **argv)
     else
     {
         // no session.. just start up normally
-        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-        if (!args->getOption("project").isEmpty())
+        QString projectFilePath = parser.value(QStringLiteral("project"));
+        if (projectFilePath.length())
         {
             // load needs an absolute path
             // FIXME: I do not know how to handle urls here
             // bug 245546 regarding symlinks
-            QFileInfo projectFileInfo(args->getOption("project").toUtf8());
-            QString projectFilePath=projectFileInfo.canonicalFilePath();
+            QFileInfo projectFileInfo(projectFilePath);
+            projectFilePath=projectFileInfo.canonicalFilePath();
             if (projectFilePath.isEmpty())
                 projectFilePath=projectFileInfo.absoluteFilePath();
             Project::instance()->load( projectFilePath );
@@ -130,13 +130,12 @@ int main(int argc, char **argv)
         lmw->show();
 
         QVector<QString> urls;
-        for (int j=0; j<args->count(); j++)
-            urls.append(args->url(j).toLocalFile());
+        for (int j=0; j<parser.positionalArguments().count(); j++)
+            urls.append(parser.positionalArguments().at(j));
         if (urls.size())
             new DelayedFileOpener(urls, lmw);
 
-        Project::instance()->model()->setCompleteScan(args->isSet("projectscan"));
-        args->clear();
+        //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
     }
 
     int code=app.exec();
@@ -145,7 +144,7 @@ int main(int argc, char **argv)
     Project::instance()->model()->threadPool()->clear();
 
     if (SettingsController::instance()->dirty) //for config changes done w/o config dialog
-        Settings::self()->writeConfig();
+        Settings::self()->save();
 
     if (Project::instance()->isLoaded())
         Project::instance()->save();

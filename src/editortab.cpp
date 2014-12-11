@@ -53,9 +53,7 @@
 #include "project.h"
 #include "prefs.h"
 
-#include <kicon.h>
 #include <ktoolbarpopupaction.h>
-#include <kmenubar.h>
 #include <kfadewidgeteffect.h>
 #include <kdemacros.h>
 #include <kio/netaccess.h>
@@ -63,19 +61,18 @@
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 #include <kxmlguifactory.h>
-#include <kmenu.h>
 #include <kactioncategory.h>
 #include <kmessagebox.h>
 #include <ktabbar.h>
 
+#include <QIcon>
 #include <QActionGroup>
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QInputDialog>
-
-
+#include <QApplication>
 #include <QDir>
 #include <QTime>
 
@@ -422,7 +419,7 @@ void EditorTab::setupActions()
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = actionCategory->addAction(_name);\
     action->setText(_text);\
-    action->setIcon(KIcon(_icon));\
+    action->setIcon(QIcon::fromTheme(_icon));\
     ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
@@ -455,7 +452,7 @@ void EditorTab::setupActions()
 
 
 //
-    action = actionCategory->addAction("edit_approve", new KToolBarPopupAction(KIcon("approved"),i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"),this));
+    action = actionCategory->addAction("edit_approve", new KToolBarPopupAction(QIcon::fromTheme("approved"),i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"),this));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_U));
 
     action->setCheckable(true);
@@ -730,7 +727,7 @@ void EditorTab::showDocks()
 void EditorTab::setProperCaption(QString title, bool modified)
 {
     if (m_catalog->autoSaveRecovered()) title+=' '+i18nc("editor tab name","(recovered)");
-    setWindowTitle(title+" [*]");
+    setWindowTitle(title+QStringLiteral(" [*]"));
     setWindowModified(modified);
 }
 

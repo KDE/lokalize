@@ -35,7 +35,6 @@
 
 class QaView;
 class Ui_QueryOptions;
-class KLineEdit;
 class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;

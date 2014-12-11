@@ -38,10 +38,9 @@
 #include "ui_prefs_project_local.h"
 
 
-#include <keditlistbox.h>
+#include <keditlistwidget.h>
 #include <kconfigdialog.h>
-#include <kstandarddirs.h>
-#include <kicon.h>
+#include <QIcon>
 #include <kmessagebox.h>
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
@@ -181,7 +180,7 @@ bool SettingsController::ensureProjectIsLoaded()
         return true;
 
     int answer=KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
-        QString(), KGuiItem(i18nc("@action","New"),KIcon("document-new")), KGuiItem(i18nc("@action","Open"),KIcon("project-open"))
+        QString(), KGuiItem(i18nc("@action","New"),QIcon::fromTheme("document-new")), KGuiItem(i18nc("@action","Open"),QIcon::fromTheme("project-open"))
     );
     if (answer==KMessageBox::Yes)
         return projectCreate();

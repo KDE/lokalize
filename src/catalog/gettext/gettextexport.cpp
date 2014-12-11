@@ -47,9 +47,6 @@
 #include <QStringBuilder>
 #include <QDebug>
 
-#include <ksavefile.h>
-#include <kapplication.h>
-
 
 using namespace GettextCatalog;
 
@@ -203,7 +200,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     if ( text.isEmpty() )
     {
         // Whatever the wrapping mode, an empty line is an empty line
-        stream << keyword << " \"\"\n";
+        stream << keyword << QStringLiteral(" \"\"\n");
         return;
     }
 

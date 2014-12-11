@@ -281,9 +281,9 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         bool isDifferent = m_mergeCatalog->isDifferent(source_row);
 
         accepts = !
-           (  isPresent && !isDifferent && !bool(filerOptions&SameInSync)      ||
-              isPresent &&  isDifferent && !bool(filerOptions&DifferentInSync) ||
-             !isPresent &&                 !bool(filerOptions&NotInSync)
+           ( (isPresent && !isDifferent && !bool(filerOptions&SameInSync))      ||
+             (isPresent &&  isDifferent && !bool(filerOptions&DifferentInSync)) ||
+            (!isPresent &&                 !bool(filerOptions&NotInSync))
            );
     }
 

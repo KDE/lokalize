@@ -23,14 +23,15 @@
 
 #include "languagelistmodel.h"
 #include <kglobal.h>
-#include <kstandarddirs.h>
+
 #include <kiconloader.h>
-#include <kicon.h>
 #include <klocale.h>
 
 #include <QStringBuilder>
 #include <QCoreApplication>
 #include <QSortFilterProxyModel>
+#include <QStandardPaths>
+#include <QIcon>
 
 
 
@@ -61,7 +62,7 @@ LanguageListModel* LanguageListModel::emptyLangInstance()
 
 
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
- : QStringListModel(KGlobal::locale()->allLanguagesList(),parent)
+ : QStringListModel(KLocale::global()->allLanguagesList(),parent)
  , m_sortModel(new QSortFilterProxyModel(this))
 {
     if (type==EmptyLang) insertRows(rowCount(), 1);
@@ -90,7 +91,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             if (code!="C")
             {
                 static QString flagPath("l10n/%1/flag.png");
-                path=KStandardDirs::locate("locale", flagPath.arg(code));
+                path=QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + flagPath.arg(code));
             }
             iconCache[langCode]=QIcon(path);
         }

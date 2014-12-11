@@ -27,7 +27,6 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
-#include <KDebug>
 #include <KColorScheme>
 
 #include <QTextEdit>

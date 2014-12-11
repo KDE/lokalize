@@ -86,11 +86,13 @@ const QString& CatalogItem::msgstr(const int form) const
 
 bool CatalogItem::prependEmptyForMsgid(const int form) const
 {
+    Q_UNUSED(form)
     return d->_prependMsgIdEmptyLine;
 }
 
 bool CatalogItem::prependEmptyForMsgstr(const int form) const
 {
+    Q_UNUSED(form)
     return d->_prependMsgStrEmptyLine;
 }
 

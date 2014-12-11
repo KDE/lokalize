@@ -173,7 +173,7 @@ void GlossarySortFilterProxyModel::setFilterRegExp(const QString& s)
     fetchMore(QModelIndex());
 }
 
-void GlossarySortFilterProxyModel::fetchMore(const QModelIndex& parent)
+void GlossarySortFilterProxyModel::fetchMore(const QModelIndex&)
 {
     int expectedCount=rowCount()+FETCH_SIZE/2;
     while (rowCount(QModelIndex())<expectedCount && sourceModel()->canFetchMore(QModelIndex()))
@@ -199,7 +199,7 @@ void GlossaryModel::forceReset()
     endResetModel();
 }
 
-bool GlossaryModel::canFetchMore(const QModelIndex& parent) const
+bool GlossaryModel::canFetchMore(const QModelIndex&) const
 {
     return false;//!parent.isValid() && m_glossary->size()!=m_visibleCount;
 }

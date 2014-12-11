@@ -191,7 +191,7 @@ void AltTransView::process()
         {
             html+=QStringLiteral("<p>");
 
-            QString result=Qt::escape(userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup()));
+            QString result=userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup()).toHtmlEscaped();
             //result.replace("&","&amp;");
             //result.replace("<","&lt;");
             //result.replace(">","&gt;");

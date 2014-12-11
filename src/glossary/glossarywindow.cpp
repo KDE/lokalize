@@ -25,13 +25,12 @@
 #include "glossary.h"
 #include "project.h"
 #include "languagelistmodel.h"
-
 #include "ui_termedit.h"
 
-#include <klineedit.h>
 #include <kstandardguiitem.h>
 #include <kmessagebox.h>
 
+#include <QLineEdit>
 #include <QDebug>
 #include <QApplication>
 #include <QSplitter>
@@ -231,9 +230,9 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //left
     QWidget* w=new QWidget(splitter);
     QVBoxLayout* layout=new QVBoxLayout(w);
-    m_filterEdit=new KLineEdit(w);
-    m_filterEdit->setClearButtonShown(true);
-    m_filterEdit->setClickMessage(i18n("Quick search..."));
+    m_filterEdit=new QLineEdit(w);
+    m_filterEdit->setClearButtonEnabled(true);
+    m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setFocus();
     m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);

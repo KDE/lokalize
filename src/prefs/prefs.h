@@ -25,7 +25,7 @@
 #define PREFS_H
 
 #include <QLineEdit>
-class KEditListBox;
+class KEditListWidget;
 class KLienEdit;
 
 namespace Kross {class ActionCollectionView;}
@@ -62,8 +62,8 @@ signals:
     void generalSettingsChanged();
 
 private:
-    KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
-    KEditListBox* m_scriptsPrefWidget;
+    KEditListWidget* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
+    KEditListWidget* m_scriptsPrefWidget;
     Kross::ActionCollectionView* m_projectActionsView;
     QWidget* m_mainWindowPtr;
 

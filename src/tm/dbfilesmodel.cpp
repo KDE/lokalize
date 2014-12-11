@@ -28,8 +28,8 @@
 #include <QCoreApplication>
 #include <QFileSystemModel>
 #include <QStringBuilder>
+#include <QStandardPaths>
 
-#include <kstandarddirs.h>
 #include <kdemacros.h>
 
 using namespace TM;
@@ -59,11 +59,11 @@ DBFilesModel::DBFilesModel()
  : QSortFilterProxyModel()
  , projectDB(0)
  , m_fileSystemModel(new QFileSystemModel(this))
- , m_tmRootPath(KStandardDirs::locateLocal("appdata", ""))
+ , m_tmRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
 {
-    m_fileSystemModel->setNameFilters(QStringList(QString("*.") + TM_DATABASE_EXTENSION));
+    m_fileSystemModel->setNameFilters(QStringList(QStringLiteral("*." TM_DATABASE_EXTENSION)));
     m_fileSystemModel->setFilter(QDir::Files);
-    m_fileSystemModel->setRootPath(KStandardDirs::locateLocal("appdata", ""));
+    m_fileSystemModel->setRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
 
     setSourceModel(m_fileSystemModel);
     connect (this,SIGNAL(rowsInserted(QModelIndex,int,int)),
@@ -118,7 +118,8 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
 void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentProjectConfig)
 {
     if (type==TM::Undefined)
-        type=QFileInfo(KStandardDirs::locateLocal("appdata", name % QStringLiteral(REMOTETM_DATABASE_EXTENSION))).exists()?TM::Remote:TM::Local;
+        type=QFileInfo(
+            QStandardPaths::writableLocation(QStandardPaths::DataLocation)%QLatin1Char('/')%name%QStringLiteral(REMOTETM_DATABASE_EXTENSION)).exists()?TM::Remote:TM::Local;
     OpenDBJob* openDBJob=new OpenDBJob(name, type);
     if (forceCurrentProjectConfig)
     {

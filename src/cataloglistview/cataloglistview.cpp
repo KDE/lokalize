@@ -26,9 +26,9 @@
 #include "catalog.h"
 #include "project.h"
 
-#include <klineedit.h>
 #include <KConfigGroup>
 
+#include <QLineEdit>
 #include <QDebug>
 #include <QTime>
 #include <QTreeView>
@@ -66,7 +66,7 @@ class CatalogTreeView: public QTreeView
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
     , m_browser(new CatalogTreeView(this))
-    , m_lineEdit(new KLineEdit(this))
+    , m_lineEdit(new QLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
@@ -80,8 +80,8 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     l->setSpacing(0);
     layout->addLayout(l);
 
-    m_lineEdit->setClearButtonShown(true);
-    m_lineEdit->setClickMessage(i18n("Quick search..."));
+    m_lineEdit->setClearButtonEnabled(true);
+    m_lineEdit->setPlaceholderText(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);

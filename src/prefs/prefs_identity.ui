@@ -57,7 +57,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="KLineEdit" name="kcfg_authorName">
+    <widget class="QLineEdit" name="kcfg_authorName">
      <property name="toolTip">
       <string>Your name, in English</string>
      </property>
@@ -77,7 +77,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="KLineEdit" name="kcfg_DefaultMailingList">
+    <widget class="QLineEdit" name="kcfg_DefaultMailingList">
      <property name="toolTip">
       <string>The email of your team mailing list</string>
      </property>
@@ -110,7 +110,7 @@
     </spacer>
    </item>
    <item row="1" column="1">
-    <widget class="KLineEdit" name="kcfg_authorEmail">
+    <widget class="QLineEdit" name="kcfg_authorEmail">
      <property name="toolTip">
       <string>Write your email</string>
      </property>
@@ -127,7 +127,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="KLineEdit" name="kcfg_authorLocalizedName">
+    <widget class="QLineEdit" name="kcfg_authorLocalizedName">
      <property name="toolTip">
       <string>Your name in your own language</string>
      </property>
@@ -146,11 +146,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

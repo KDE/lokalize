@@ -47,8 +47,8 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QTabBar>
 
-#include <ktabbar.h>
 #include <kled.h>
 #include <kmessagebox.h>
 #include <kstandardshortcut.h>
@@ -96,8 +96,8 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , m_catalog(catalog)
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Source,this))
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Target,this))
-    , m_pluralTabBar(new KTabBar(this))
-    , _leds(0)
+    , m_pluralTabBar(new QTabBar(this))
+    , m_leds(0)
     , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
@@ -155,16 +155,16 @@ void EditorView::settingsChanged()
     //Settings::self()->config()->setGroup("Editor");
     m_sourceTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
-    if (_leds) _leds->setVisible(Settings::leds());
+    if (m_leds) m_leds->setVisible(Settings::leds());
     else if (Settings::leds())
     {
-        _leds=new LedsWidget(this);
-        insertWidget(2,_leds);
-        connect (m_targetTextEdit, SIGNAL(cursorPositionChanged(int)), _leds, SLOT(cursorPositionChanged(int)));
-        connect (m_targetTextEdit, SIGNAL(nonApprovedEntryDisplayed()),_leds->ledFuzzy, SLOT(on()));
-        connect (m_targetTextEdit, SIGNAL(approvedEntryDisplayed()),   _leds->ledFuzzy, SLOT(off()));
-        connect (m_targetTextEdit, SIGNAL(untranslatedEntryDisplayed()),_leds->ledUntr, SLOT(on()));
-        connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), _leds->ledUntr, SLOT(off()));
+        m_leds=new LedsWidget(this);
+        insertWidget(2,m_leds);
+        connect (m_targetTextEdit, SIGNAL(cursorPositionChanged(int)), m_leds, SLOT(cursorPositionChanged(int)));
+        connect (m_targetTextEdit, SIGNAL(nonApprovedEntryDisplayed()),m_leds->ledFuzzy, SLOT(on()));
+        connect (m_targetTextEdit, SIGNAL(approvedEntryDisplayed()),   m_leds->ledFuzzy, SLOT(off()));
+        connect (m_targetTextEdit, SIGNAL(untranslatedEntryDisplayed()),m_leds->ledUntr, SLOT(on()));
+        connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), m_leds->ledUntr, SLOT(off()));
         m_targetTextEdit->showPos(m_targetTextEdit->currentPos());
     }
 }
