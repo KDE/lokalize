@@ -854,7 +854,6 @@ void LokalizeMainWindow::registerDBusAdaptor()
 {
     new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
-    QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
     //qWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 #ifndef Q_WS_MAC
@@ -873,15 +872,12 @@ void LokalizeMainWindow::registerDBusAdaptor()
 
 void LokalizeMainWindow::loadProjectScripts()
 {
-    qWarning()<<"loadProjectScripts() 1111"<<Project::instance()->poDir();
     if (m_projectScriptingPlugin)
     {
-        qWarning()<<"loadProjectScripts() 222";
         guiFactory()->removeClient(m_projectScriptingPlugin);
         delete m_projectScriptingPlugin;
     }
 
-    qWarning()<<"loadProjectScripts() 333";
     //a HACK to get new .rc files shown w/o requiring a restart
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
 
@@ -889,11 +885,8 @@ void LokalizeMainWindow::loadProjectScripts()
     //guiFactory()->removeClient(m_projectScriptingPlugin);
 
     delete m_projectScriptingPlugin;
-    qWarning()<<"loadProjectScripts() 444";
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
-    qWarning()<<"loadProjectScripts() 555";
     guiFactory()->addClient(m_projectScriptingPlugin);
-    qWarning()<<"loadProjectScripts() 666";
 }
 
 int LokalizeMainWindow::lookupInTranslationMemory(DocPosition::Part part, const QString& text)

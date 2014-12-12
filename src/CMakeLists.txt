@@ -137,7 +137,6 @@ kconfig_add_kcfg_files(lokalize_SRCS
     project/projectlocal.kcfgc
 )
 
-#qt4_add_dbus_interface(lokalize_SRCS org.kde.lokalize.MainWindow.xml lokainterface)
 qt5_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
 qt5_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml

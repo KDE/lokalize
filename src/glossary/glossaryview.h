@@ -27,13 +27,12 @@
 #include <pos.h>
 #include <QRegExp>
 #include <QDockWidget>
-//#include <QList>
 class Catalog;
 class FlowLayout;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
-class KAction;
+class QAction;
 class QFrame;
 class QScrollArea;
 #include <QVector>
