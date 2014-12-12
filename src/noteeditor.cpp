@@ -38,6 +38,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTextBrowser>
+#include <QDialogButtonBox>
 #include <QKeyEvent>
 #include <QStringListModel>
 
@@ -73,21 +74,16 @@ NoteEditor::NoteEditor(QWidget* parent)
     prop->addWidget(m_from,42);
     main->addWidget(m_edit);
 
-    QPushButton* ok=new QPushButton(this); KGuiItem::assign(ok, KStandardGuiItem::save());
-    QPushButton* cancel=new QPushButton(this); KGuiItem::assign(cancel, KStandardGuiItem::discard());
-    ok->setToolTip(i18n("Ctrl+Enter"));
-    cancel->setToolTip(i18n("Esc"));
+    QDialogButtonBox* box=new QDialogButtonBox(QDialogButtonBox::Save|QDialogButtonBox::Discard, this);
+    box->button(QDialogButtonBox::Save)->setToolTip(i18n("Ctrl+Enter"));
+    box->button(QDialogButtonBox::Discard)->setToolTip(i18n("Esc"));
 
     connect(m_edit,SIGNAL(accepted()),this,SIGNAL(accepted()));
     connect(m_edit,SIGNAL(rejected()),this,SIGNAL(rejected()));
-    connect(ok,SIGNAL(clicked()),this,SIGNAL(accepted()));
-    connect(cancel,SIGNAL(clicked()),this,SIGNAL(rejected()));
+    connect(box->button(QDialogButtonBox::Save),SIGNAL(clicked()),this,SIGNAL(accepted()));
+    connect(box->button(QDialogButtonBox::Discard),SIGNAL(clicked()),this,SIGNAL(rejected()));
 
-    QHBoxLayout* btns=new QHBoxLayout;
-    main->addLayout(btns);
-    btns->addStretch(42);
-    btns->addWidget(ok);
-    btns->addWidget(cancel);
+    main->addWidget(box);
 }
 
 void NoteEditor::setFromFieldVisible(bool v)
@@ -155,4 +151,3 @@ int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active
     return realOffset;
 }
 
-#include "noteeditor.moc"

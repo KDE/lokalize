@@ -46,6 +46,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 
+#include <klocalizedstring.h>
 
 using namespace TM;
 

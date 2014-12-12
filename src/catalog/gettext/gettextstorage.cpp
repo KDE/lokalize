@@ -1,5 +1,5 @@
 /*
-Copyright 2008 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2014 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QMap>
 #include <QDebug>
+
+#include <klocalizedstring.h>
 
 // static QString GNUPluralForms(const QString& lang);
 

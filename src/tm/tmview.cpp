@@ -32,10 +32,11 @@
 #include "dbfilesmodel.h"
 #include "diff.h"
 #include "xlifftextedit.h"
+#include "kdemacros.h"
 
-#include <kpassivepopup.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kdemacros.h>
+#include <kpassivepopup.h>
 
 #include <QDebug>
 #include <QTime>

@@ -41,6 +41,7 @@
 #include <kross/ui/model.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
+#include <klocalizedstring.h>
 
 #include "webquerycontroller.h"
 

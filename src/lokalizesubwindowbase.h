@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,10 +26,12 @@
 
 #include <QHash>
 #include <QString>
-#include <KMainWindow>
-#include <KXMLGUIClient>
 
 #include "actionproxy.h"
+
+#ifndef NOKDE
+#include <kmainwindow.h>
+#include <kxmlguiclient.h>
 
 
 /**
@@ -70,10 +72,102 @@ class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
     LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent),KXMLGUIClient(){}
-    virtual ~LokalizeSubwindowBase2(){};
+    virtual ~LokalizeSubwindowBase2(){}
 
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 };
+#else
+#include <QMainWindow>
+#include <QAction>
+namespace KStandardAction
+{
+  /**
+   * The standard menubar and toolbar actions.
+   */
+  enum StandardAction {
+    ActionNone,
 
+    // File Menu
+    New, Open, OpenRecent, Save, SaveAs, Revert, Close,
+    Print, PrintPreview, Mail, Quit,
+
+    // Edit Menu
+    Undo, Redo, Cut, Copy, Paste, SelectAll, Deselect, Find, FindNext, FindPrev,
+    Replace,
+
+    // View Menu
+    ActualSize, FitToPage, FitToWidth, FitToHeight, ZoomIn, ZoomOut,
+    Zoom, Redisplay,
+
+    // Go Menu
+    Up, Back, Forward, Home /*Home page*/, Prior, Next, Goto, GotoPage, GotoLine,
+    FirstPage, LastPage, DocumentBack, DocumentForward,
+
+    // Bookmarks Menu
+    AddBookmark, EditBookmarks,
+
+    // Tools Menu
+    Spelling,
+
+    // Settings Menu
+    ShowMenubar, ShowToolbar, ShowStatusbar,
+    SaveOptions, KeyBindings,
+    Preferences, ConfigureToolbars,
+
+    // Help Menu
+    Help, HelpContents, WhatsThis, ReportBug, AboutApp, AboutKDE,
+    TipofDay,
+
+    // Other standard actions
+    ConfigureNotifications,
+    FullScreen,
+    Clear,
+    PasteText,
+    SwitchApplicationLanguage
+  };
+};
+struct KActionCollection
+{
+    static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+    static QAction* addAction( const QLatin1String&, QAction* a){return a;}
+};
+struct KActionCategory
+{
+    KActionCategory(const QString&, KActionCollection*){}
+    QAction* addAction(const char*, QAction* a){return a;}
+    QAction* addAction( const QLatin1String&, QAction* a){return a;}
+    QAction* addAction( const QString& name){return new QAction(name, 0);} //TODO KDE5PORT memory
+    QAction* addAction( const QString& name, QObject* rcv, const char* slot)
+    {
+        QAction* a=new QAction(name, rcv);
+        QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
+        return a;        
+    }
+    QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot)
+    {
+        QAction* a=new QAction(QStringLiteral("std"), rcv);
+        QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
+        return a;        
+    }
+    
+
+    static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+};
+#define KToolBarPopupAction QAction
+class LokalizeSubwindowBase2: public QMainWindow
+{
+public:
+    LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent){}
+    virtual ~LokalizeSubwindowBase2(){}
+    
+    void setXMLFile(const char*){}
+    KActionCollection* actionCollection() const{return 0;}
+
+    StatusBarProxy statusBarItems;
+protected:
+    void reflectNonApprovedCount(int count, int total){}
+    void reflectUntranslatedCount(int count, int total){}
+};
+#endif
 
 #endif

@@ -32,8 +32,8 @@
 #include "stemming.h"
 
 
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
-
 #include <kreplacedialog.h>
 #include <kreplace.h>
 #include <kdemacros.h>
@@ -175,52 +175,8 @@ static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
             limit=qMin(data.size(),offset+length);//just safety
         }
 }
-
-void EditorTab::find()
-{
-    //QWidget* p=0; QWidget* next=qobject_cast<QWidget*>(parent()); while(next) { p=next; next=qobject_cast<QWidget*>(next->parent()); }
-    EntryFindDialog::instance(nativeParentWidget());
-
-    QString sel=selectionInTarget();
-    if (!(sel.isEmpty()&&selectionInSource().isEmpty()))
-    {
-        if (sel.isEmpty())
-            sel=selectionInSource();
-        if (_find&&_find->options()&IGNOREACCELS)
-            sel.remove('&');
-            EntryFindDialog::instance()->setPattern(sel);
-    }
-
-    if ( EntryFindDialog::instance()->exec() != QDialog::Accepted )
-        return;
-
-    if (_find)
-    {
-        _find->resetCounts();
-        _find->setPattern(EntryFindDialog::instance()->pattern());
-        _find->setOptions(EntryFindDialog::instance()->options());
-
-    }
-    else // This creates a find-next-prompt dialog if needed.
-    {
-        _find = new KFind(EntryFindDialog::instance()->pattern(),EntryFindDialog::instance()->options(),this,EntryFindDialog::instance());
-        connect(_find,SIGNAL(highlight(QString,int,int)),this, SLOT(highlightFound(QString,int,int)) );
-        connect(_find,SIGNAL(findNext()),this,SLOT(findNext()));
-        _find->closeFindNextDialog();
-    }
-
-    DocPosition pos;
-    if (_find->options() & KFind::FromCursor)
-        pos=m_currentPos;
-    else if (!determineStartingPos(_find,pos))
-            return;
-
-
-    findNext(pos);
-}
-
-bool EditorTab::determineStartingPos(KFind* find,
-                                  DocPosition& pos)
+static bool determineStartingPos(Catalog* m_catalog, KFind* find, DocPosition& pos) //search or replace
+                                                                //called from find() and findNext()
 {
     if (find->options() & KFind::FindBackwards)
     {
@@ -236,10 +192,53 @@ bool EditorTab::determineStartingPos(KFind* find,
     return true;
 }
 
+void EditorTab::find()
+{
+    //QWidget* p=0; QWidget* next=qobject_cast<QWidget*>(parent()); while(next) { p=next; next=qobject_cast<QWidget*>(next->parent()); }
+    EntryFindDialog::instance(nativeParentWidget());
+
+    QString sel=selectionInTarget();
+    if (!(sel.isEmpty()&&selectionInSource().isEmpty()))
+    {
+        if (sel.isEmpty())
+            sel=selectionInSource();
+        if (m_find&&m_find->options()&IGNOREACCELS)
+            sel.remove('&');
+            EntryFindDialog::instance()->setPattern(sel);
+    }
+
+    if ( EntryFindDialog::instance()->exec() != QDialog::Accepted )
+        return;
+
+    if (m_find)
+    {
+        m_find->resetCounts();
+        m_find->setPattern(EntryFindDialog::instance()->pattern());
+        m_find->setOptions(EntryFindDialog::instance()->options());
+
+    }
+    else // This creates a find-next-prompt dialog if needed.
+    {
+        m_find = new KFind(EntryFindDialog::instance()->pattern(),EntryFindDialog::instance()->options(),this,EntryFindDialog::instance());
+        connect(m_find,SIGNAL(highlight(QString,int,int)),this, SLOT(highlightFound(QString,int,int)) );
+        connect(m_find,SIGNAL(findNext()),this,SLOT(findNext()));
+        m_find->closeFindNextDialog();
+    }
+
+    DocPosition pos;
+    if (m_find->options() & KFind::FromCursor)
+        pos=m_currentPos;
+    else if (!determineStartingPos(m_catalog, m_find, pos))
+            return;
+
+
+    findNext(pos);
+}
+
 void EditorTab::findNext(const DocPosition& startingPos)
 {
     Catalog& catalog=*m_catalog;
-    KFind& find=*_find;
+    KFind& find=*m_find;
 
     if (KDE_ISUNLIKELY( catalog.numberOfEntries()<=startingPos.entry ))
         return;//for the case when app wasn't able to process event before file close
@@ -254,8 +253,8 @@ void EditorTab::findNext(const DocPosition& startingPos)
     QRegExp rx("[^(\\\\n)>]\n");
     QTime a;a.start();
     //_searchingPos.part=DocPosition::Source;
-    bool ignoreaccels=_find->options()&IGNOREACCELS;
-    bool includenotes=_find->options()&INCLUDENOTES;
+    bool ignoreaccels=m_find->options()&IGNOREACCELS;
+    bool includenotes=m_find->options()&INCLUDENOTES;
     int switchOptions=DocPosition::Source|DocPosition::Target|(includenotes*DocPosition::Comment);
     int flag=1;
     while (flag)
@@ -300,7 +299,7 @@ void EditorTab::findNext(const DocPosition& startingPos)
             if(find.shouldRestart(true,true))
             {
                 flag=1;
-                determineStartingPos(_find,_searchingPos);
+                determineStartingPos(m_catalog, m_find,_searchingPos);
             }
             find.resetCounts();
         }
@@ -309,7 +308,7 @@ void EditorTab::findNext(const DocPosition& startingPos)
 
 void EditorTab::findNext()
 {
-    if (_find)
+    if (m_find)
     {
         findNext((m_currentPos.entry==_searchingPos.entry&&_searchingPos.part==DocPosition::Comment)?
                         _searchingPos:m_currentPos);
@@ -322,9 +321,9 @@ void EditorTab::findNext()
 void EditorTab::findPrev()
 {
 
-    if (_find)
+    if (m_find)
     {
-        _find->setOptions(_find->options() ^ KFind::FindBackwards);
+        m_find->setOptions(m_find->options() ^ KFind::FindBackwards);
         findNext(m_currentPos);
     }
     else
@@ -336,7 +335,7 @@ void EditorTab::findPrev()
 
 void EditorTab::highlightFound(const QString &,int matchingIndex,int matchedLength)
 {
-    if (_find->options()&IGNOREACCELS && _searchingPos.part!=DocPosition::Comment)
+    if (m_find->options()&IGNOREACCELS && _searchingPos.part!=DocPosition::Comment)
     {
         QString data=m_catalog->catalogString(_searchingPos).string;
         calcOffsetWithAccels(data, matchingIndex, matchedLength);
@@ -352,7 +351,7 @@ void EditorTab::replace()
 
     if (!m_view->selectionInTarget().isEmpty())
     {
-        if (_replace&&_replace->options()&IGNOREACCELS)
+        if (m_replace&&m_replace->options()&IGNOREACCELS)
         {
             QString tmp(m_view->selectionInTarget());
             tmp.remove('&');
@@ -367,15 +366,15 @@ void EditorTab::replace()
         return;
 
 
-    if (_replace) _replace->deleteLater();// _replace=0;
+    if (m_replace) m_replace->deleteLater();// _replace=0;
 
     // This creates a find-next-prompt dialog if needed.
     {
-        _replace = new KReplace(EntryReplaceDialog::instance()->pattern(),EntryReplaceDialog::instance()->replacement(),EntryReplaceDialog::instance()->options(),this,EntryReplaceDialog::instance());
-        connect(_replace,SIGNAL(highlight(QString,int,int)),    this,SLOT(highlightFound_(QString,int,int)));
-        connect(_replace,SIGNAL(findNext()),                    this,SLOT(replaceNext()));
-        connect(_replace,SIGNAL(replace(QString,int,int,int)),  this,SLOT(doReplace(QString,int,int,int)));
-        connect(_replace,SIGNAL(dialogClosed()),                this,SLOT(cleanupReplace()));
+        m_replace = new KReplace(EntryReplaceDialog::instance()->pattern(),EntryReplaceDialog::instance()->replacement(),EntryReplaceDialog::instance()->options(),this,EntryReplaceDialog::instance());
+        connect(m_replace,SIGNAL(highlight(QString,int,int)),    this,SLOT(highlightFound_(QString,int,int)));
+        connect(m_replace,SIGNAL(findNext()),                    this,SLOT(replaceNext()));
+        connect(m_replace,SIGNAL(replace(QString,int,int,int)),  this,SLOT(doReplace(QString,int,int,int)));
+        connect(m_replace,SIGNAL(dialogClosed()),                this,SLOT(cleanupReplace()));
 //         _replace->closeReplaceNextDialog();
     }
 //     else
@@ -388,12 +387,12 @@ void EditorTab::replace()
     //m_catalog->beginMacro(i18nc("@item Undo action item","Replace"));
     m_doReplaceCalled=false;
 
-    if (_replace->options() & KFind::FromCursor)
+    if (m_replace->options() & KFind::FromCursor)
         replaceNext(m_currentPos);
     else
     {
         DocPosition pos;
-        if (!determineStartingPos(_replace,pos)) return;
+        if (!determineStartingPos(m_catalog, m_replace,pos)) return;
         replaceNext(pos);
     }
 
@@ -410,8 +409,8 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
 
 
     int flag=1;
-    bool ignoreaccels=_replace->options()&IGNOREACCELS;
-    bool includenotes=_replace->options()&INCLUDENOTES;
+    bool ignoreaccels=m_replace->options()&IGNOREACCELS;
+    bool includenotes=m_replace->options()&INCLUDENOTES;
     qWarning()<<"includenotes"<<includenotes;
     int switchOptions=DocPosition::Target|(includenotes*DocPosition::Comment);
     while (flag)
@@ -420,7 +419,7 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
         KFind::Result res=KFind::NoMatch;
         while (1)
         {
-            if (_replace->needData()||anotherEntry/*||m_view->m_modifiedAfterFind*/)
+            if (m_replace->needData()||anotherEntry/*||m_view->m_modifiedAfterFind*/)
             {
                 anotherEntry=false;
                 //m_view->m_modifiedAfterFind=false;//NOTE TEST THIS
@@ -433,14 +432,14 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
                     data=m_catalog->targetWithTags(_replacingPos).string;
                     if (ignoreaccels) data.remove('&');
                 }
-                _replace->setData(data);
+                m_replace->setData(data);
             }
-            res = _replace->replace();
+            res = m_replace->replace();
             if (res!=KFind::NoMatch)
                 break;
 
             if (!(
-                  (_replace->options()&KFind::FindBackwards)?
+                  (m_replace->options()&KFind::FindBackwards)?
                                 switchPrev(m_catalog,_replacingPos,switchOptions):
                                 switchNext(m_catalog,_replacingPos,switchOptions)
                  ))
@@ -449,21 +448,21 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
 
         if (res==KFind::NoMatch)
         {
-            if((_replace->options()&KFind::FromCursor)
-                &&_replace->shouldRestart(true))
+            if((m_replace->options()&KFind::FromCursor)
+                &&m_replace->shouldRestart(true))
             {
                 flag=1;
-                determineStartingPos(_replace,_replacingPos);
+                determineStartingPos(m_catalog, m_replace,_replacingPos);
             }
             else
             {
-                if(!(_replace->options() & KFind::FromCursor))
-                     _replace->displayFinalDialog();
+                if(!(m_replace->options() & KFind::FromCursor))
+                     m_replace->displayFinalDialog();
 
-                _replace->closeReplaceNextDialog();
+                m_replace->closeReplaceNextDialog();
                 cleanupReplace();
             }
-            _replace->resetCounts();
+            m_replace->resetCounts();
         }
     }
 }
@@ -484,7 +483,7 @@ void EditorTab::replaceNext()
 
 void EditorTab::highlightFound_(const QString &,int matchingIndex,int matchedLength)
 {
-    if (_replace->options()&IGNOREACCELS)
+    if (m_replace->options()&IGNOREACCELS)
     {
         QString data=m_catalog->targetWithTags(_replacingPos).string;
         calcOffsetWithAccels(data,matchingIndex,matchedLength);
@@ -509,7 +508,7 @@ void EditorTab::doReplace(const QString &newStr,int offset,int newLen,int remLen
     {
         QString oldStr=m_catalog->target(_replacingPos);
 
-        if (_replace->options()&IGNOREACCELS)
+        if (m_replace->options()&IGNOREACCELS)
             calcOffsetWithAccels(oldStr,offset,remLen);
 
         pos.offset=offset;
@@ -564,9 +563,9 @@ void EditorTab::spellcheck()
 
     _spellcheckPos=m_currentPos;
     _spellcheckStartPos=m_currentPos;
-    _spellcheckStop=false;
+    m_spellcheckStop=false;
     //m_catalog->beginMacro(i18n("Spellcheck"));
-    _spellcheckStartUndoIndex=m_catalog->index();
+    m_spellcheckStartUndoIndex=m_catalog->index();
     m_sonnetDialog->show();
 
 }
@@ -574,7 +573,7 @@ void EditorTab::spellcheck()
 
 void EditorTab::spellcheckNext()
 {
-    if (_spellcheckStop)
+    if (m_spellcheckStop)
         return;
 
     do
@@ -608,12 +607,12 @@ void EditorTab::spellcheckNext()
 
 void EditorTab::spellcheckStop()
 {
-    _spellcheckStop=true;
+    m_spellcheckStop=true;
 }
 
 void EditorTab::spellcheckCancel()
 {
-    m_catalog->setIndex(_spellcheckStartUndoIndex);
+    m_catalog->setIndex(m_spellcheckStartUndoIndex);
     gotoEntry(_spellcheckPos);
 }
 

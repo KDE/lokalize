@@ -27,11 +27,12 @@
 #include "catalog.h"
 #include "pos.h"
 #include "cmd.h"
-#include "prefs_lokalize.h"
 
 #include "completionstorage.h"
 
+#ifndef NOKDE
 #define WEBQUERY_ENABLE
+#endif
 
 //views
 #include "msgctxtview.h"
@@ -47,12 +48,12 @@
 
 #include "phaseswindow.h"
 #include "projectlocal.h"
-#include "projectmodel.h"
 
 
 #include "project.h"
 #include "prefs.h"
 
+#ifndef NOKDE
 #include <ktoolbarpopupaction.h>
 #include <kdemacros.h>
 #include <kactioncollection.h>
@@ -60,7 +61,10 @@
 #include <kstandardshortcut.h>
 #include <kxmlguifactory.h>
 #include <kactioncategory.h>
+#endif
+
 #include <kmessagebox.h>
+#include <klocalizedstring.h>
 
 #include <QIcon>
 #include <QActionGroup>
@@ -76,22 +80,28 @@
 
 EditorTab::EditorTab(QWidget* parent, bool valid)
         : LokalizeSubwindowBase2(parent)
-        , _project(Project::instance())
+        , m_project(Project::instance())
         , m_catalog(new Catalog(this))
         , m_view(new EditorView(this,m_catalog/*,new keyEventHandler(this,m_catalog)*/))
+#ifndef NOKDE
         , m_sonnetDialog(0)
-        , _spellcheckStartUndoIndex(0)
-        , _spellcheckStop(false)
+        , m_spellcheckStartUndoIndex(0)
+        , m_spellcheckStop(false)
+#endif
         , m_currentIsApproved(true)
         , m_currentIsUntr(true)
         , m_fullPathShown(false)
+#ifndef NOKDE
         , m_doReplaceCalled(false)
-        , _find(0)
-        , _replace(0)
+        , m_find(0)
+        , m_replace(0)
+#endif
         , m_syncView(0)
         , m_syncViewSecondary(0)
+#ifndef NOKDE
         , m_valid(valid)
         , m_dbusId(-1)
+#endif
 {
     //QTime chrono;chrono.start();
 
@@ -101,7 +111,9 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     setupActions();
 
 
+#ifndef NOKDE
     dbusObjectPath();
+#endif
 
     connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
     connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
@@ -133,7 +145,9 @@ EditorTab::~EditorTab()
         emit fileClosed(currentFile());
     }
 
+#ifndef NOKDE
     ids.removeAll(m_dbusId);
+#endif
 }
 
 
@@ -149,6 +163,7 @@ void EditorTab::setupStatusBar()
     connect(m_catalog,SIGNAL(signalNumberOfEmptyChanged()),this,SLOT(numberOfUntranslatedChanged()));
 }
 
+#ifndef NOKDE
 void LokalizeSubwindowBase::reflectNonApprovedCount(int count, int total)
 {
     QString text=i18nc("@info:status message entries\n'fuzzy' in gettext terminology","Not ready: %1", count);
@@ -164,6 +179,7 @@ void LokalizeSubwindowBase::reflectUntranslatedCount(int count, int total)
         text+=i18nc("percentages in statusbar", " (%1%)", int(100.0*count/total));
     statusBarItems.insert(ID_STATUS_UNTRANS,text);
 }
+#endif
 
 void EditorTab::numberOfFuzziesChanged()
 {
@@ -740,7 +756,7 @@ void EditorTab::setFullPathShown(bool fullPathShown)
 void EditorTab::updateCaptionPath()
 {
     QString url=m_catalog->url();
-    if (!_project->isLoaded())
+    if (!m_project->isLoaded())
     {
         _captionPath=url;
         return;
@@ -750,7 +766,7 @@ void EditorTab::updateCaptionPath()
         _captionPath=QFileInfo(url).fileName();
         return;
     }
-    _captionPath=QDir(QFileInfo(_project->path()).absolutePath()).relativeFilePath(url);
+    _captionPath=QDir(QFileInfo(m_project->path()).absolutePath()).relativeFilePath(url);
     if (_captionPath.contains(QLatin1String("../..")))
         _captionPath=url;
     else if (_captionPath.startsWith(QLatin1String("./")))
@@ -824,7 +840,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         //TODO "test" for the name????
         m_catalog->setActivePhase("test",Project::local()->role());
 //Project
-        if (!_project->isLoaded())
+        if (!m_project->isLoaded())
         {
 //search for it
             int i=4;
@@ -832,18 +848,18 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
             QDir dir=fileInfo.dir();
             QStringList proj(QStringLiteral("*.lokalize"));
             dir.setNameFilters(proj);
-            while (--i && !dir.isRoot() && !_project->isLoaded())
+            while (--i && !dir.isRoot() && !m_project->isLoaded())
             {
                 if (dir.entryList().isEmpty()) {if (!dir.cdUp()) break;}
-                else _project->load(dir.absoluteFilePath(dir.entryList().first()));
+                else m_project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
 
             //enforce autosync
             m_syncViewSecondary->mergeOpen(filePath);
             
-            if (!_project->isLoaded() && _project->desirablePath().isEmpty())
+            if (!m_project->isLoaded() && m_project->desirablePath().isEmpty())
             {
-                _project->setDesirablePath(fileInfo.absolutePath()+QStringLiteral("/index.lokalize"));
+                m_project->setDesirablePath(fileInfo.absolutePath()+QStringLiteral("/index.lokalize"));
                 //_project->setLangCode(m_catalog->targetLangCode());
             }
                 
@@ -861,9 +877,12 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 
     if (!silent)
     {
-        //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
+#ifndef NOKDE
         if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",filePath,errorLine) );
         else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",filePath) );
+#else
+                         KMessageBox::error(this, i18nc("@info","Error opening the file") );
+#endif
     }
     return false;
 }
@@ -885,12 +904,19 @@ bool EditorTab::saveFile(const QString& filePath)
         emit fileSaved(filePath);
         return true;
     }
-
+#ifndef NOKDE
     if ( KMessageBox::Continue==KMessageBox::warningContinueCancel(this,
                                             i18nc("@info","Error saving the file <filename>%1</filename>\n"
                                                   "Do you want to save to another file or cancel?", m_catalog->url()),
                                             i18nc("@title","Error"),KStandardGuiItem::save())
        )
+#else
+    if ( QMessageBox::Yes==QMessageBox::warning(this, QString(),
+                                            i18nc("@info","Error saving the file <filename>%1</filename>\n"
+                                                  "Do you want to save to another file or cancel?").arg(m_catalog->url()),
+                                            QMessageBox::Yes|QMessageBox::No)
+       )
+#endif
         return saveFileAs();
     return false;
 }
@@ -1318,7 +1344,7 @@ void EditorTab::defineNewTerm()
     if (target.isEmpty())
         target=m_catalog->msgstr(m_currentPos).toLower();
 
-    _project->defineNewTerm(en,target);
+    m_project->defineNewTerm(en,target);
 }
 
 
@@ -1345,6 +1371,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
 
 
 //BEGIN DBus interface
+#ifndef NOKDE
 #include "editoradaptor.h"
 QList<int> EditorTab::ids;
 
@@ -1394,16 +1421,14 @@ void EditorTab::attachAlternateTranslationFile(const QString& path){m_altTransVi
 void EditorTab::setEntryTarget(int entry, int form, const QString& content)
 {
     DocPosition pos(entry,form);
-    //TODO uncomment when trunk is open for new strings
-    //m_catalog->beginMacro(i18nc("@item Undo action item","Set unit text"));
+    m_catalog->beginMacro(i18nc("@item Undo action item","Set unit text"));
     removeTargetSubstring(m_catalog, pos);
     insertCatalogString(m_catalog, pos, CatalogString(content));
-    //m_catalog->endMacro();
+    m_catalog->endMacro();
     if (m_currentPos==pos)
         m_view->gotoEntry();
 }
-
+#endif
 //END DBus interface
 
 
-#include "editortab.moc"

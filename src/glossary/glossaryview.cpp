@@ -44,9 +44,9 @@
 #include <QTime>
 #include <QSet>
 #include <QScrollArea>
-// #include <QShortcutEvent>
 #include <QPushButton>
 
+#include <klocalizedstring.h>
 
 
 using namespace GlossaryNS;

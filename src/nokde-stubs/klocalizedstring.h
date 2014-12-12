@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -21,24 +21,18 @@
 
 **************************************************************************** */
 
-#ifndef STATE_H
-#define STATE_H
+#ifndef KLOCALIZEDSTRING_H
+#define KLOCALIZEDSTRING_H
 
-///@see @link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
-enum TargetState
-{
-    New,
-    NeedsTranslation,
-    NeedsL10n,
-    NeedsAdaptation,
-    Translated,
-    NeedsReviewTranslation,
-    NeedsReviewL10n,
-    NeedsReviewAdaptation,
-    Final,
-    SignedOff,
-    StateCount
-};
+#include <QObject> 
 
+#define i18n(x) QObject::tr(x)
+
+QString i18nc(const char* y, const char* x){return QObject::tr(x, y);}
+QString i18nc(const char* y, const char* x, int n){return QObject::tr(x, y, n);}
+QString i18nc(const char* y, const char* x, const QString& s){return QObject::tr(x, y).arg(s);}
+
+#define I18N_NOOP2(y, x) x
+#define I18N_NOOP(x) x
 
 #endif

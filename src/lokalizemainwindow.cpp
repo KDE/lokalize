@@ -41,6 +41,7 @@
 
 #include "multieditoradaptor.h"
 
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <kactioncollection.h>

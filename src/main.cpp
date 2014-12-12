@@ -22,32 +22,34 @@
 **************************************************************************** */
 
 
+#ifndef NOKDE
 #include "version.h"
+#include "projecttab.h"
+#include "projectmodel.h"
+#include "project.h"
 #include "prefs_lokalize.h"
 #include "prefs.h"
-#include "project.h"
-#include "jobs.h"
-#include "projectmodel.h"
 
 #include "lokalizemainwindow.h"
-#include "projecttab.h"
-
 #include "stemming.h"
+#endif
 
+#include "jobs.h"
 #include "catalogstring.h"
 #include "pos.h"
 
 #include <QMetaType>
+#include <QDebug>
 #include <QString>
 #include <QFileInfo>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
-
+#ifndef NOKDE
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
-
+#endif
 
 
 int main(int argc, char **argv)
@@ -57,6 +59,7 @@ int main(int argc, char **argv)
 
     QApplication app(argc, argv);
     QCommandLineParser parser;
+#ifndef NOKDE
     KAboutData about("lokalize", i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
                      KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( i18n("Nick Shaforostoff"), QString(), "shaforostoff@gmail.com" );
@@ -80,7 +83,7 @@ int main(int argc, char **argv)
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("noprojectscan"), i18n( "Do not scan files of the project.")));
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("project"), i18n( "Load specified project."), QLatin1String("filename")));
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("+[URL]"), i18n( "Document to open" )));
-
+#endif
 
     //qDebug() is important as it aviods compile 'optimization'.
     qDebug()<<qRegisterMetaType<DocPosition>();
@@ -89,6 +92,7 @@ int main(int argc, char **argv)
     qDebug()<<qRegisterMetaType<CatalogString>();
     qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
+#ifndef NOKDE
     qAddPostRoutine(&cleanupSpellers);
 
     // see if we are starting with session management
@@ -122,10 +126,11 @@ int main(int argc, char **argv)
 
         //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
     }
-
+#endif
     int code=app.exec();
 
     TM::threadPool()->clear();
+#ifndef NOKDE
     Project::instance()->model()->threadPool()->clear();
 
     if (SettingsController::instance()->dirty) //for config changes done w/o config dialog
@@ -145,7 +150,7 @@ int main(int argc, char **argv)
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0,0);
     }
-
+#endif
     return code;
 }
 

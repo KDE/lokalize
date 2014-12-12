@@ -31,9 +31,12 @@
 #include "prefs.h"
 #include "project.h"
 #include "completionstorage.h"
+#include "kdemacros.h"
 
+#include <klocalizedstring.h>
+#ifndef NOKDE
 #include <kcompletionbox.h>
-#include <kdemacros.h>
+#endif
 
 #include <QStringBuilder>
 #include <QPixmap>
@@ -47,12 +50,10 @@
 #include <QMenu>
 #include <QMouseEvent>
 #include <QToolTip>
-
-// static int im_count=0;
-// static int im_time=0;
+#include <QScrollBar>
+#include <QDebug>
 
 #undef KDE_NO_DEBUG_OUTPUT
-#include <QScrollBar>
 
 
 inline static QImage generateImage(const QString& str, const QFont& font)
@@ -75,7 +76,7 @@ inline static QImage generateImage(const QString& str, const QFont& font)
     //     qWarning()<<im_count<<im_time;
     return result;
 }
-
+#ifndef NOKDE
 class MyCompletionBox: public KCompletionBox
 {
 public:
@@ -106,7 +107,7 @@ bool MyCompletionBox::eventFilter(QObject* object, QEvent* event)
     }
     return KCompletionBox::eventFilter(object, event);
 }
-
+#endif
 
 TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
@@ -131,7 +132,9 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
 
     m_highlighter->setActive(m_enabled);
+#ifndef NOKDE
     setHighlighter(m_highlighter);
+#endif
 }
 
 void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
@@ -511,7 +514,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit contentsModified(m_currentPos);
-
+#ifndef NOKDE
     if (charsAdded==1)
     {
         int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,offset-1);
@@ -524,7 +527,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     }
     else if (m_completionBox)
             m_completionBox->hide();
-
+#endif
     //qWarning()<<"finish";
 }
 
@@ -776,6 +779,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
+#ifndef NOKDE
         if (m_completionBox&&m_completionBox->isVisible())
         {
             if (m_completionBox->currentItem())
@@ -785,6 +789,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             m_completionBox->hide();
             return;
         }
+#endif
         QString str=toPlainText();
         QTextCursor t=textCursor();
         int pos=t.position();
@@ -1295,6 +1300,7 @@ void TranslationUnitTextEdit::cursorToStart()
 
 void TranslationUnitTextEdit::doCompletion(int pos)
 {
+#ifndef NOKDE
     QTime a;a.start();
     QString target=m_catalog->targetWithTags(m_currentPos).string;
     int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos-1);
@@ -1322,6 +1328,7 @@ void TranslationUnitTextEdit::doCompletion(int pos)
     }
     else
         m_completionBox->hide();
+#endif
 }
 
 void TranslationUnitTextEdit::doExplicitCompletion()
@@ -1336,4 +1343,3 @@ void TranslationUnitTextEdit::completionActivated(const QString& semiWord)
     setTextCursor(cursor);
 }
 
-#include "xlifftextedit.moc"

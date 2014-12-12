@@ -27,6 +27,7 @@
 #include "project.h"
 
 #include <kcolorscheme.h>
+#include <klocalizedstring.h>
 
 #include <QDebug>
 #include <QApplication>

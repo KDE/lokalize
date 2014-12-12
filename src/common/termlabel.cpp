@@ -22,12 +22,13 @@
 **************************************************************************** */
 
 #include "termlabel.h"
-
 #include "glossarywindow.h"
 
 #include <QMenu>
 #include <QMouseEvent>
 #include <QDebug>
+
+#include <klocalizedstring.h>
 
 using namespace GlossaryNS;
 //#include <QShortcutEvent>

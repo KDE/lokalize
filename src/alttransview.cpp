@@ -24,8 +24,6 @@
 #define KDE_NO_DEBUG_OUTPUT
 
 #include "alttransview.h"
-#include <QDragEnterEvent>
-#include <QMimeData>
 
 #include "diff.h"
 #include "catalog.h"
@@ -36,14 +34,17 @@
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
 
-#include <kdemacros.h>
+#include "kdemacros.h"
 
+#include <QDragEnterEvent>
+#include <QMimeData>
 #include <QSignalMapper>
 #include <QFileInfo>
 #include <QDir>
 #include <QToolTip>
 #include <QAction>
 
+#include <klocalizedstring.h>
 
 AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Alternate Translations"), parent)

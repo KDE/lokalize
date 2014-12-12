@@ -29,6 +29,7 @@
 #include "diff.h"
 #include "projectmodel.h"
 
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotification.h>
 #include <ktextedit.h>

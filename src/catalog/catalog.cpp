@@ -60,6 +60,8 @@
 #include <QFileInfo>
 #include <QDir>
 
+#include <klocalizedstring.h>
+
 QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
 QString Catalog::supportedFileTypes(bool includeTemplates)
 {

@@ -36,6 +36,8 @@
 #include <QBuffer>
 #include <QApplication>
 
+#include <klocalizedstring.h>
+
 using namespace GlossaryNS;
 
 static const QString defaultLang="en_US";

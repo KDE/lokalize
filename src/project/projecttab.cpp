@@ -27,6 +27,7 @@
 #include "tmscanapi.h"
 #include "prefs.h"
 
+#include <klocalizedstring.h>
 #include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>

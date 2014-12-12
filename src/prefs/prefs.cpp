@@ -38,14 +38,15 @@
 #include "ui_prefs_project_local.h"
 
 
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
 #include <keditlistwidget.h>
 #include <kconfigdialog.h>
-#include <QIcon>
-#include <kmessagebox.h>
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
 #include <kross/ui/model.h>
 
+#include <QIcon>
 #include <QBoxLayout>
 #include <QDragEnterEvent>
 #include <QDropEvent>

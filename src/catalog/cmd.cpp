@@ -29,7 +29,9 @@
 #include "catalog_private.h"
 #include "catalogitem_private.h"
 #include "catalog.h"
-#include <project.h>
+#include "project.h"
+
+#include <klocalizedstring.h>
 
 
 //BEGIN LokalizeUnitCmd

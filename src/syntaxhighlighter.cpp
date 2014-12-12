@@ -176,9 +176,10 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
+#ifndef NOKDE
     if (spellCheckerFound())
         Sonnet::Highlighter::highlightBlock(text); // Resets current block state
-
+#endif
     setCurrentBlockState(currentBlockState);
 }
 

@@ -40,6 +40,8 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
+#include "kdemacros.h"
+
 #include <QTimer>
 #include <QMenu>
 #include <QDragEnterEvent>
@@ -49,14 +51,16 @@
 #include <QDebug>
 #include <QTabBar>
 
-#include <kled.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
+#ifndef NOKDE
+#include <kled.h>
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>
-#include <kdemacros.h>
+#endif
 
 //parent is set on qsplitter insertion
-
+#ifndef NOKDE
 LedsWidget::LedsWidget(QWidget* parent): QWidget(parent)
 {
     KColorScheme colorScheme(QPalette::Normal);
@@ -88,7 +92,7 @@ void LedsWidget::cursorPositionChanged(int column)
 {
     lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", column));
 }
-
+#endif
 
 
 EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
@@ -97,7 +101,9 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Source,this))
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Target,this))
     , m_pluralTabBar(new QTabBar(this))
+#ifndef NOKDE
     , m_leds(0)
+#endif
     , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
@@ -155,6 +161,7 @@ void EditorView::settingsChanged()
     //Settings::self()->config()->setGroup("Editor");
     m_sourceTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
+#ifndef NOKDE
     if (m_leds) m_leds->setVisible(Settings::leds());
     else if (Settings::leds())
     {
@@ -167,6 +174,7 @@ void EditorView::settingsChanged()
         connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), m_leds->ledUntr, SLOT(off()));
         m_targetTextEdit->showPos(m_targetTextEdit->currentPos());
     }
+#endif
 }
 
 
@@ -346,4 +354,3 @@ void EditorView::setEquivTrans(bool equivTrans)
 }
 
 
-#include "editorview.moc"

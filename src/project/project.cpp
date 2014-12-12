@@ -36,17 +36,19 @@
 #include "dbfilesmodel.h"
 #include "qamodel.h"
 
+#include "kdemacros.h"
+
 #include <QTimer>
 #include <QTime>
 #include <QDebug>
 
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
 #include <kdirlister.h>
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
-#include <kmessagebox.h>
 
-#include <kdemacros.h>
 
 #include <QDBusArgument>
 

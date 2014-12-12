@@ -31,6 +31,7 @@
 #include <QMenu>
 #include <QFileDialog>
 
+#include <klocalizedstring.h>
 #include <krun.h>
 #include <kdirwatch.h>
 

@@ -26,7 +26,7 @@
 #include "project.h"
 #include "poextractor.h"
 
-#include <kdemacros.h>
+#include "kdemacros.h"
 
 #include <QIcon>
 #include <QTime>
@@ -39,6 +39,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QStandardPaths>
+
+#include <klocalizedstring.h>
 
 #undef KDE_NO_DEBUG_OUTPUT
 static int nodeCounter=0;

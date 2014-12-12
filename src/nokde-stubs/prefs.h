@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -21,24 +21,44 @@
 
 **************************************************************************** */
 
-#ifndef STATE_H
-#define STATE_H
+#ifndef PREFS_H
+#define PREFS_H
 
-///@see @link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
-enum TargetState
+/**
+ * Singleton that manages cfgs for Lokalize and projects
+ */
+class SettingsController: public QObject
 {
-    New,
-    NeedsTranslation,
-    NeedsL10n,
-    NeedsAdaptation,
-    Translated,
-    NeedsReviewTranslation,
-    NeedsReviewL10n,
-    NeedsReviewAdaptation,
-    Final,
-    SignedOff,
-    StateCount
-};
+    Q_OBJECT
 
+public:
+    SettingsController(){}
+    ~SettingsController(){}
+
+    bool dirty;
+
+    void setMainWindowPtr(QWidget* w){m_mainWindowPtr=w;}
+    QWidget* mainWindowPtr(){return m_mainWindowPtr;}
+
+public slots:
+    void showSettingsDialog(){}
+
+    bool ensureProjectIsLoaded(){return true;}
+    QString projectOpen(QString path=QString(), bool doOpen=true){return QString();}
+    bool projectCreate(){return true;}
+    void projectConfigure(){}
+
+signals:
+    void generalSettingsChanged();
+
+private:
+    QWidget* m_mainWindowPtr;
+
+private:
+    static SettingsController* _instance;
+    static void cleanupSettingsController();
+public:
+    static SettingsController* instance();
+};
 
 #endif

@@ -24,13 +24,14 @@
 #include "dbfilesmodel.h"
 #include "jobs.h"
 #include "project.h"
+#include "kdemacros.h"
 
 #include <QCoreApplication>
 #include <QFileSystemModel>
 #include <QStringBuilder>
 #include <QStandardPaths>
 
-#include <kdemacros.h>
+#include <klocalizedstring.h>
 
 using namespace TM;
 

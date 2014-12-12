@@ -32,7 +32,7 @@
 
 #include "catalog.h"
 #include "fastsizehintitemdelegate.h"
-//#include "flowlayout.h"
+#include "kdemacros.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -51,10 +51,10 @@
 #include <QBoxLayout>
 #include <QThreadPool>
 
+#include <klocalizedstring.h>
 #include <kcolorscheme.h>
 #include <kactioncategory.h>
 #include <kxmlguifactory.h>
-#include <kdemacros.h>
 
 
 static QStringList doScanRecursive(const QDir& dir);

@@ -43,6 +43,8 @@
 #include <QMdiArea>
 #include <QKeyEvent>
 
+#include <klocalizedstring.h>
+
 class CatalogTreeView: public QTreeView
 {
     public:

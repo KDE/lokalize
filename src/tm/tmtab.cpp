@@ -47,8 +47,9 @@
 #include <QTextDocument>
 #include <QStringListModel>
 
-#include <kcolorscheme.h>
+#include <klocalizedstring.h>
 #include <kactioncategory.h>
+#include <kcolorscheme.h>
 #include <kxmlguifactory.h>
 
 

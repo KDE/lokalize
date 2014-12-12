@@ -30,6 +30,8 @@
 #include <QFile>
 #include <QAction>
 
+#include <klocalizedstring.h>
+
 
 QaView::QaView(QWidget* parent)
  : QDockWidget ( i18nc("@title:window","Quality Assurance"), parent)
