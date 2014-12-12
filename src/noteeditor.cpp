@@ -1,3 +1,4 @@
+
 /* ****************************************************************************
   This file is part of Lokalize
 
@@ -27,11 +28,10 @@
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
-#include <kcombobox.h>
 #include <klocalizedstring.h>
-#include <kstandardguiitem.h>
 
 #include <QDebug>
+#include <QStringBuilder>
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QLabel>
@@ -39,6 +39,8 @@
 #include <QPushButton>
 #include <QTextBrowser>
 #include <QDialogButtonBox>
+#include <QComboBox>
+#include <QCompleter>
 #include <QKeyEvent>
 #include <QStringListModel>
 
@@ -55,7 +57,7 @@ void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
 
 NoteEditor::NoteEditor(QWidget* parent)
  : QWidget(parent)
- , m_from(new KComboBox(this))
+ , m_from(new QComboBox(this))
  , m_fromLabel(new QLabel(i18nc("@info:label","From:"),this))
  , m_authors(new QStringListModel(this)) 
  , m_edit(new TextEdit(this))
@@ -64,8 +66,7 @@ NoteEditor::NoteEditor(QWidget* parent)
     m_from->setToolTip(i18nc("@info:tooltip","Author of this note"));
     m_from->setEditable(true);
     m_from->setModel(m_authors);
-    m_from->setAutoCompletion(true);
-    m_from->completionObject(true);
+    m_from->completer()->setModel(m_authors);
 
     QVBoxLayout* main=new QVBoxLayout(this);
     QHBoxLayout* prop=new QHBoxLayout;
@@ -105,7 +106,13 @@ void NoteEditor::setNote(const Note& note, int idx)
     m_edit->setPlainText(note.content);
     QString from=note.from;
     if (from.isEmpty()) from=Settings::authorName();
-    m_from->setCurrentItem(from,/*insert*/true);
+    m_from->setCurrentText(from);
+    QStringList l=m_authors->stringList();
+    if (!l.contains(from))
+    {
+        l.append(from);
+        m_authors->setStringList(l);
+    }
     m_idx=idx;
     m_edit->setFocus();
 }
@@ -113,9 +120,7 @@ void NoteEditor::setNote(const Note& note, int idx)
 void NoteEditor::setNoteAuthors(const QStringList& authors)
 {
     m_authors->setStringList(authors);
-    m_from->completionObject()->insertItems(authors);
 }
-
 
 int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active, bool multiple)
 {

@@ -79,7 +79,7 @@ FORMS    +=    glossary/termedit.ui\
     tm/managedatabases.ui\
     tm/dbparams.ui
 
-INCLUDEPATH += catalog cataloglistview mergemode glossary tm project nokde-stubs
+INCLUDEPATH += catalog cataloglistview mergemode glossary tm project common nokde-stubs
 
 
 mac: INCLUDEPATH += ../taglib ../taglib/taglib ../taglib/taglib/toolkit ../taglib/taglib/mpeg/id3v2 ../taglib/build

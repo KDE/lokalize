@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -32,8 +32,10 @@
 #include <QFileDialog>
 
 #include <klocalizedstring.h>
+#ifndef NOKDE
 #include <krun.h>
 #include <kdirwatch.h>
+#endif
 
 //BEGIN BinUnitsModel
 BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
@@ -42,8 +44,9 @@ BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
 {
     connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
     connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(entryModified(DocPosition)));
-
+#ifndef NOKDE
     connect(KDirWatch::self(),SIGNAL(dirty(QString)),this,SLOT(updateFile(QString)));
+#endif
 }
 
 void BinUnitsModel::fileLoaded()
@@ -115,7 +118,9 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
             if (!m_imageCache.contains(path))
             {
                 QString absPath=Project::instance()->absolutePath(path);
+#ifndef NOKDE
                 KDirWatch::self()->addFile(absPath); //TODO remember watched files to react only on them in dirty() signal handler
+#endif
                 m_imageCache.insert(path, QImage(absPath).scaled(128,128,Qt::KeepAspectRatio));
             }
             return m_imageCache.value(path);
@@ -218,7 +223,9 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
 
 void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
 {
+#ifndef NOKDE
     //FIXME child processes don't notify us about changes ;(
     if (item.column()<BinUnitsModel::Approved)
         new KRun(Project::instance()->absolutePath(item.data().toString()),this);
+#endif
 }

@@ -29,6 +29,8 @@
 #include <QVector>
 #include <QLinkedList>
 
+class KAutoSaveFile;
+
 struct MatchItem
 {
     short mergeEntry:16;

@@ -28,8 +28,10 @@
 #include "ui_termedit.h"
 
 #include <klocalizedstring.h>
-#include <kstandardguiitem.h>
 #include <kmessagebox.h>
+#ifndef NOKDE
+#include <kstandardguiitem.h>
+#endif
 
 #include <QLineEdit>
 #include <QDebug>
@@ -353,7 +355,7 @@ void GlossaryWindow::showEntryInEditor(const QByteArray& id)
     Glossary* glossary=project->glossary();
     m_subjectField->setCurrentItem(glossary->subjectField(id),/*insert*/true);
     
-    QStringList langsToTry=QStringList(m_defLang)<<"en"<<"en_US"<<project->targetLangCode();
+    QStringList langsToTry=QStringList(m_defLang)<<QStringLiteral("en")<<QStringLiteral("en_US")<<project->targetLangCode();
     foreach (const QString& lang, langsToTry)
     {
         QString d=glossary->definition(m_id, lang);
@@ -559,4 +561,3 @@ void TermListView::rmTerms()
 }
 
 
-#include "glossarywindow.moc"

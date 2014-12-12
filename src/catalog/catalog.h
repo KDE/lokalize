@@ -45,6 +45,7 @@
 #include "alttrans.h"
 #include "catalog_private.h"
 class CatalogStorage;
+class KAutoSaveFile;
 
 #include <QUndoStack>
 

@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,11 +26,14 @@
 #include "catalog.h"
 #include "project.h"
 
+#ifndef NOKDE
 #include <kcolorscheme.h>
+#endif
 #include <klocalizedstring.h>
 
 #include <QDebug>
 #include <QApplication>
+#include <QPalette>
 #include <QFontMetrics>
 
 #define DYNAMICFILTER_LIMIT 256
@@ -144,6 +147,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     }
     else if (role==Qt::ForegroundRole)
     {
+#ifndef NOKDE
        if (m_catalog->isBookmarked(index.row()))
        {
            static KColorScheme colorScheme(QPalette::Normal);
@@ -154,6 +158,16 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
            static KColorScheme colorScheme(QPalette::Normal);
            return colorScheme.foreground(KColorScheme::InactiveText);
        }
+#else
+       if (m_catalog->isBookmarked(index.row()))
+       {
+           return QApplication::palette().link();
+       }
+       if (m_catalog->isObsolete(index.row()))
+       {
+           return QApplication::palette().brightText();
+       }
+#endif
     }
     else if (role==Qt::UserRole)
     {

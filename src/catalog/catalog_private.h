@@ -42,7 +42,9 @@
 #include "pos.h"
 #include "alttrans.h"
 
+#ifndef NOKDE
 #include <kautosavefile.h>
+#endif
 
 #include <QList>
 #include <QLinkedList>
@@ -74,7 +76,9 @@ public:
     int _numberOfPluralForms;
 
     QTimer _autoSaveTimer;
+#ifndef NOKDE
     KAutoSaveFile* _autoSave;
+#endif
     bool _autoSaveDirty;
     bool _autoSaveRecovered;
 
@@ -106,7 +110,9 @@ public:
     explicit CatalogPrivate(QObject* parent)
            : fileCodec(0)
            , _numberOfPluralForms(-1)
+#ifndef NOKDE
            , _autoSave(new KAutoSaveFile(parent))
+#endif
            , _autoSaveDirty(true)
            , _autoSaveRecovered(false)
            , _readOnly(false)

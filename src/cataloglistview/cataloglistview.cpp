@@ -26,8 +26,6 @@
 #include "catalog.h"
 #include "project.h"
 
-#include <KConfigGroup>
-
 #include <QLineEdit>
 #include <QDebug>
 #include <QTime>
@@ -44,6 +42,9 @@
 #include <QKeyEvent>
 
 #include <klocalizedstring.h>
+#ifndef NOKDE
+#include <kconfiggroup.h>
+#endif
 
 class CatalogTreeView: public QTreeView
 {
@@ -126,17 +127,20 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setUniformRowHeights(true);
     m_browser->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
-
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     m_browser->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TreeHeaderState", QByteArray()) ));
+#endif
 }
 
 CatalogView::~CatalogView()
 {
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("TreeHeaderState",m_browser->header()->saveState().toBase64());
+#endif
 }
 
 void CatalogView::setFocus()
@@ -310,4 +314,3 @@ void CatalogView::setEntriesFilteredOut(bool filteredOut)
 }
 
 
-#include "cataloglistview.moc"

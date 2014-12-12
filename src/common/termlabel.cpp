@@ -139,4 +139,3 @@ void QueryResultBtn::mousePressEvent (QMouseEvent*/* event*/)
 
 #endif
 
-#include "termlabel.moc"

@@ -131,8 +131,8 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     connect (catalog,SIGNAL(signalFileLoaded()), this, SLOT(fileLoaded()));
     //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
 
-    m_highlighter->setActive(m_enabled);
 #ifndef NOKDE
+    m_highlighter->setActive(m_enabled);
     setHighlighter(m_highlighter);
 #endif
 }
@@ -141,7 +141,9 @@ void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
 {
     Settings::setAutoSpellcheck(enable);
     m_enabled=enable;
+#ifndef NOKDE
     m_highlighter->setActive(enable);
+#endif
     SettingsController::instance()->dirty=true;
 }
 
@@ -151,13 +153,14 @@ void TranslationUnitTextEdit::fileLoaded()
     QString langCode=m_part==DocPosition::Source? m_catalog->sourceLangCode():m_catalog->targetLangCode();
 
     QLocale langLocale(langCode);
+#ifndef NOKDE
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
     // If that fails, try to use the language code directly
     if (m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
     }
-
+#endif
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
     static QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
@@ -1085,6 +1088,7 @@ void TranslationUnitTextEdit::wheelEvent(QWheelEvent *event)
 
 void TranslationUnitTextEdit::spellReplace()
 {
+#ifndef NOKDE
     QTextCursor wordSelectCursor=textCursor();
     wordSelectCursor.select(QTextCursor::WordUnderCursor);
     if (!m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
@@ -1097,6 +1101,7 @@ void TranslationUnitTextEdit::spellReplace()
     m_catalog->beginMacro(i18nc("@item Undo action item","Replace text"));
     wordSelectCursor.insertText(suggestions.first());
     m_catalog->endMacro();
+#endif
 }
 
 bool TranslationUnitTextEdit::event(QEvent *event)
@@ -1113,6 +1118,7 @@ bool TranslationUnitTextEdit::event(QEvent *event)
             return true;
         }
 
+#ifndef NOKDE
         QString tip;
 
         QString langCode=m_highlighter->currentLanguage();
@@ -1126,6 +1132,7 @@ bool TranslationUnitTextEdit::event(QEvent *event)
         if (nospell)
             tip+=QStringLiteral(" - ")%i18n("no spellcheck available");
         QToolTip::showText(helpEvent->globalPos(), tip);
+#endif
     }
     return KTextEdit::event(event);
 }

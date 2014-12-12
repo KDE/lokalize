@@ -52,6 +52,7 @@
 
 #include "project.h"
 #include "prefs.h"
+#include "kdemacros.h"
 
 #ifndef NOKDE
 #include <ktoolbarpopupaction.h>

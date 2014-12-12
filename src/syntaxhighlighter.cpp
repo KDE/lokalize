@@ -40,10 +40,13 @@
 #define NUM_OF_RULES 5
 
 SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
+#ifndef NOKDE
     : Sonnet::Highlighter(parent)
     , tagBrush(KColorScheme::View,KColorScheme::VisitedText)
+#else
+    : QSyntaxHighlighter(parent->document())
+#endif
     , m_approved(true)
-//     , fuzzyState(false)
 //     , fromDocbook(docbook)
 {
     setAutomatic(false);
@@ -52,7 +55,11 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     HighlightingRule rule;
     //rule.format.setFontItalic(true);
 //     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
+#ifndef NOKDE
     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
+#else
+    tagFormat.setForeground(QApplication::palette().linkVisited());
+#endif
     //QTextCharFormat format;
     //tagFormat.setForeground(Qt::darkBlue);
 //     if (!docbook) //support multiline tags
@@ -65,7 +72,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
     //entity
     rule.format.setForeground(Qt::darkMagenta);
-    rule.pattern = QRegExp("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)");
+    rule.pattern = QRegExp(QStringLiteral("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)"));
     highlightingRules.append(rule);
 
     QString accel=Project::instance()->accel();
@@ -78,7 +85,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
     //\n \t \"
     rule.format.setForeground(Qt::darkGreen);
-    rule.pattern = QRegExp("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)");
+    rule.pattern = QRegExp(QStringLiteral("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)"));
     highlightingRules.append(rule);
 
 
@@ -93,7 +100,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(QString(" +$|^ +|.?")+QChar(0x0000AD)+".?"); //soft hyphen
+    QRegExp re(QStringLiteral(" +$|^ +|.?")%QChar(0x0000AD)%(".?")); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
     {
         KColorScheme colorScheme(QPalette::Normal);
@@ -246,7 +253,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     if (smthAfter)
     {
         qWarning()<<"smthAfter. ampersand is in the way. word len:"<<count;
-        int realEnd=text.indexOf(QRegExp("\\b"),start+count+2);
+        int realEnd=text.indexOf(QRegExp(QStringLiteral("\\b")),start+count+2);
         if (realEnd==-1)
             realEnd=text.size();
         QString t=text.mid(start, realEnd-start);
@@ -281,5 +288,4 @@ void SyntaxHighlighter::unsetMisspelled(int start, int count)
 
 
 
-#include "syntaxhighlighter.moc"
 

@@ -30,7 +30,7 @@
 class QStringListModel;
 class QLabel;
 class QTextBrowser;
-class KComboBox;
+class QComboBox;
 class TextEdit;
 
 int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active = 0, bool multiple = true);
@@ -54,7 +54,7 @@ signals:
     void rejected();
 
 private:
-    KComboBox* m_from;
+    QComboBox* m_from;
     QLabel* m_fromLabel;
     QStringListModel* m_authors;
     TextEdit* m_edit;

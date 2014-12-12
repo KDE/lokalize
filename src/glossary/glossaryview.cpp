@@ -40,6 +40,7 @@
 #include "stemming.h"
 
 #include <QDebug>
+#include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSet>
@@ -205,4 +206,3 @@ void GlossaryView::clear()
     }
 }
 
-#include "glossaryview.moc"

@@ -30,6 +30,8 @@
 #include "domroutines.h"
 
 #include <QDebug>
+#include <QStringBuilder>
+#include <QTime>
 #include <QFile>
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
@@ -40,14 +42,14 @@
 
 using namespace GlossaryNS;
 
-static const QString defaultLang="en_US";
-static const QString xmlLang="xml:lang";
-static const QString ntig="ntig";
-static const QString tig="tig";
-static const QString termGrp="termGrp";
-static const QString langSet="langSet";
-static const QString term="term";
-static const QString id="id";
+static const QString defaultLang=QStringLiteral("en_US");
+static const QString xmlLang=QStringLiteral("xml:lang");
+static const QString ntig=QStringLiteral("ntig");
+static const QString tig=QStringLiteral("tig");
+static const QString termGrp=QStringLiteral("termGrp");
+static const QString langSet=QStringLiteral("langSet");
+static const QString term=QStringLiteral("term");
+static const QString id=QStringLiteral("id");
 
 
 
@@ -108,7 +110,7 @@ bool Glossary::load(const QString& newPath)
     m_doc=newDoc;
 
     //QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    m_entries=m_doc.elementsByTagName("termEntry");
+    m_entries=m_doc.elementsByTagName(QStringLiteral("termEntry"));
     for(int i=0;i<m_entries.size();i++)
         hashTermEntry(m_entries.at(i).toElement());
     m_idsForEntriesById=m_entriesById.keys();
@@ -244,7 +246,7 @@ QVariant GlossaryModel::data(const QModelIndex& index, int role) const
     if (role!=Qt::DisplayRole)
         return QVariant();
 
-    static const QString nl=QString(" ")+QChar(0x00B7)+' ';
+    static const QString nl=QStringLiteral(" ")+QChar(0x00B7)+' ';
     static Project* project=Project::instance();
     Glossary* glossary=m_glossary;
 
@@ -294,7 +296,7 @@ QByteArray Glossary::generateNewId()
 
     QString authorId(Settings::authorName().toLower());
     authorId.replace(' ','_');
-    QRegExp rx('^'+authorId+"\\-([0-9]*)$");
+    QRegExp rx('^'%authorId%QStringLiteral("\\-([0-9]*)$"));
 
 
     foreach(const QByteArray& id, m_idsForEntriesById)
@@ -317,7 +319,7 @@ QByteArray Glossary::generateNewId()
             ++idNumber;
     }
 
-    return QString(authorId+"-%1").arg(idNumber).toLatin1();
+    return authorId.toLatin1()+'-'+QByteArray::number(idNumber);
 }
 
 QStringList Glossary::subjectFields() const
@@ -471,7 +473,7 @@ void Glossary::rmTerm(const QByteArray& id, QString lang, int index)
 static QDomElement firstDescripElemForLang(QDomElement termEntry, const QString& lang)
 {
     if (lang.isEmpty())
-        return termEntry.firstChildElement("descrip");
+        return termEntry.firstChildElement(QStringLiteral("descrip"));
 
     QString minusLang=lang;
     minusLang.replace('_', '-');
@@ -488,7 +490,7 @@ static QDomElement firstDescripElemForLang(QDomElement termEntry, const QString&
             //|| (enUSLangGiven && curLang=="en")
             //|| (enLangGiven && curLang==defaultLang)
         )
-            return n.firstChildElement("descrip");
+            return n.firstChildElement(QStringLiteral("descrip"));
 
         n = n.nextSiblingElement(langSet);
     }
@@ -521,10 +523,10 @@ void Glossary::setDescrip(const QByteArray& id, QString lang, const QString& typ
     QDomDocument document=descripElem.ownerDocument();
     while (!descripElem.isNull())
     {
-        if (descripElem.attribute("type")==type)
+        if (descripElem.attribute(QStringLiteral("type"))==type)
             return setText(descripElem,value);;
 
-        descripElem = descripElem.nextSiblingElement("descrip");
+        descripElem = descripElem.nextSiblingElement(QStringLiteral("descrip"));
     }
 
     //create new descrip element
@@ -565,22 +567,22 @@ void Glossary::setDescrip(const QByteArray& id, QString lang, const QString& typ
 
 QString Glossary::subjectField(const QByteArray& id, const QString& lang) const
 {
-    return descrip(id, lang, "subjectField");
+    return descrip(id, lang, QStringLiteral("subjectField"));
 }
 
 QString Glossary::definition(const QByteArray& id, const QString& lang) const
 {
-    return descrip(id, lang, "definition");
+    return descrip(id, lang, QStringLiteral("definition"));
 }
 
 void Glossary::setSubjectField(const QByteArray& id, const QString& lang, const QString& value)
 {
-    setDescrip(id, lang, "subjectField", value);
+    setDescrip(id, lang, QStringLiteral("subjectField"), value);
 }
 
 void Glossary::setDefinition(const QByteArray& id, const QString& lang, const QString& value)
 {
-    setDescrip(id, lang, "definition", value);
+    setDescrip(id, lang, QStringLiteral("definition"), value);
 }
 
 
@@ -674,12 +676,12 @@ static void appendTerm(QDomElement langSetElem, const QString& termText)
 
 QByteArray Glossary::append(const QStringList& sourceTerms, const QStringList& targetTerms)
 {
-    if (!m_doc.elementsByTagName("body").count())
+    if (!m_doc.elementsByTagName(QStringLiteral("body")).count())
         return QByteArray();
 
     setClean(false);
-    QDomElement termEntry=m_doc.createElement("termEntry");
-    m_doc.elementsByTagName("body").at(0).appendChild(termEntry);
+    QDomElement termEntry=m_doc.createElement(QStringLiteral("termEntry"));
+    m_doc.elementsByTagName(QStringLiteral("body")).at(0).appendChild(termEntry);
 
     //m_entries=m_doc.elementsByTagName("termEntry");
 
@@ -721,7 +723,7 @@ void Glossary::clear()
     wordHash_.clear();
     termList_.clear();
     langWordEntry_.clear();
-    subjectFields_=QStringList(QLatin1String(""));
+    subjectFields_=QStringList(QString());
 
     m_doc.clear();
 }
@@ -762,4 +764,3 @@ QByteArray GlossaryModel::appendRow(const QString& _english, const QString& _tar
 
 //END EDITING
 
-#include "glossary.moc"
