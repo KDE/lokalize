@@ -50,6 +50,7 @@
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QTabBar>
+#include <QStringBuilder>
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -238,13 +239,13 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         //what if msg starts with a tag?
         if (KDE_ISUNLIKELY( targetString.startsWith('<') ))
         {
-            int offset=targetString.indexOf(QRegExp(">[^<]"));
+            int offset=targetString.indexOf(QRegExp(QStringLiteral(">[^<]")));
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }
         else if (KDE_ISUNLIKELY( targetString.startsWith(TAGRANGE_IMAGE_SYMBOL) ))
         {
-            int offset=targetString.indexOf(QRegExp("[^"+TAGRANGE_IMAGE_SYMBOL+']'));
+            int offset=targetString.indexOf(QRegExp(QStringLiteral("[^")%QChar(TAGRANGE_IMAGE_SYMBOL)%']'));
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }

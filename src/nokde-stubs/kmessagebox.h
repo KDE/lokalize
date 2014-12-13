@@ -20,6 +20,7 @@ public:
                               int c=0,
                               const QString &dontAskAgainName=QString())
     {
+        Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(c) Q_UNUSED(dontAskAgainName)
         return warning(parent, caption, text, Yes|No|Cancel, Yes);
     }
     static QMessageBox::StandardButton questionYesNo(QWidget *parent, const QString &text,
@@ -28,6 +29,7 @@ public:
                               int n=0,
                               const QString &dontAskAgainName=QString())
     {
+        Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(dontAskAgainName)
         return question(parent, caption, text, Yes|No|Cancel, Yes);
     }
     static void information(QWidget *parent,
@@ -35,6 +37,7 @@ public:
                      const QString &caption = QString(),
                      const QString &dontShowAgainName = QString())
     {
+        Q_UNUSED(dontShowAgainName)
         QMessageBox::information(parent, caption, text);
     }
 

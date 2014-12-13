@@ -227,7 +227,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     {
         const QVariant& posVar=record(item.row()).value(TMDBModel::_SourceAccel+item.column());
         int pos=-1;
-        bool ok;
+        bool ok=false;
         if (posVar.isValid())
             pos=posVar.toInt(&ok);
         if (ok && pos!=-1)

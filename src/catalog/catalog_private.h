@@ -118,6 +118,7 @@ public:
            , _readOnly(false)
            , _phaseRole(ProjectLocal::Undefined)
     {
+        Q_UNUSED(parent)
         _statesIndex.resize(StateCount);
     }
 
