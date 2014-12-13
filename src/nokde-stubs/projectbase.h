@@ -9,7 +9,7 @@ class ProjectBase: public QObject
 {
   public:
 
-    ProjectBase():mProjectID("default"){}
+    ProjectBase();
     ~ProjectBase(){}
 
     void setProjectID( const QString & v )

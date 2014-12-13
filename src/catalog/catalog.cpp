@@ -54,9 +54,11 @@
 #include "version.h"
 #include "prefs_lokalize.h"
 #include "jobs.h"
+#include "dbfilesmodel.h"
 
 #include <QProcess>
 #include <QString>
+#include <QStringBuilder>
 #include <QMap>
 #include <QBuffer>
 #include <QFileInfo>
@@ -721,12 +723,13 @@ static void updateDB(
               const CatalogString& english,
               const CatalogString& newTarget,
               int form,
-              bool approved
+              bool approved,
+              const QString& dbName
               //const DocPosition&,//for back tracking
              )
 {
     TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,newTarget,form,approved,
-                               Project::instance()->projectID());
+                               dbName);
     TM::threadPool()->start(j);
 }
 
@@ -756,10 +759,29 @@ void Catalog::flushUpdateDBBuffer()
         //qWarning()<<"nothing to flush or new file opened";
         return;
     }
-    if (Project::instance()->targetLangCode()!=targetLangCode())
+    QString dbName;
+    if (Project::instance()->targetLangCode()==targetLangCode())
     {
-        qWarning()<<"not updating because target languages don't match"<<Project::instance()->targetLangCode()<<targetLangCode();
-        return;
+        dbName=Project::instance()->projectID();
+    }
+    else
+    {
+        dbName=sourceLangCode()%'-'%targetLangCode();
+        qWarning()<<"updating"<<dbName<<"because target language of project db does not match"<<Project::instance()->targetLangCode()<<targetLangCode();
+        if(!TM::DBFilesModel::instance()->m_configurations.contains(dbName))
+        {
+            TM::OpenDBJob* openDBJob=new TM::OpenDBJob(dbName, TM::Local, true);
+            connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
+            connect(openDBJob,SIGNAL(done(OpenDBJob*)),TM::DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+
+            openDBJob->m_setParams=true;
+            openDBJob->m_tmConfig.markup=Project::instance()->markup();
+            openDBJob->m_tmConfig.accel=Project::instance()->accel();
+            openDBJob->m_tmConfig.sourceLangCode=sourceLangCode();
+            openDBJob->m_tmConfig.targetLangCode=targetLangCode();
+
+            TM::DBFilesModel::instance()->openDB(openDBJob);
+        }
     }
     int form=-1;
     if (isPlural(pos.entry))
@@ -769,7 +791,8 @@ void Catalog::flushUpdateDBBuffer()
              sourceWithTags(pos),
              targetWithTags(pos),
              form,
-             isApproved(pos.entry));
+             isApproved(pos.entry),
+             dbName);
 
     d._lastModifiedPos=DocPosition();
 }

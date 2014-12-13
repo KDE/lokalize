@@ -43,6 +43,7 @@
 #include <QMap>
 #include <QStandardPaths>
 #include <QFile>
+#include <QDir>
 
 #include <iostream>
 
@@ -152,8 +153,6 @@ static qlonglong getFileId(const QString& path,
 static void addToIndex(qlonglong sourceId, QString sourceString,
                        QRegExp& rxClean1, const QString& accel, QSqlDatabase& db)
 {
-    //qDebug()<<sourceString;
-
     QStringList words;
     doSplit(sourceString,words,rxClean1,accel);
 
@@ -864,7 +863,6 @@ QMap<QString,TMConfig> tmConfigCache;
 
 static void setConfig(QSqlDatabase& db, const TMConfig& c)
 {
-    qDebug()<<"setConfig"<<db.databaseName()<<c.targetLangCode;
     QSqlQuery query(db);
     query.prepare(QStringLiteral("INSERT INTO tm_config (key, value) "
                       "VALUES (?, ?)"));
@@ -924,6 +922,8 @@ static void getStats(const QSqlDatabase& db,
                     )
 
 {
+    qDebug()<<"getStats"<<db.databaseName();
+
     QSqlQuery query(db);
     if (!query.exec(QStringLiteral("SELECT count(id) FROM main"))
         || !query.next())
@@ -974,10 +974,14 @@ void OpenDBJob::run()
         if (m_type==TM::Local)
         {
             QSqlDatabase db=QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"),m_dbName);
-            db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName % TM_DATABASE_EXTENSION);
+            QString dbFolder=QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+            QFileInfo fileInfo(dbFolder);
+            if (!fileInfo.exists(dbFolder)) fileInfo.absoluteDir().mkpath(fileInfo.fileName());
+            db.setDatabaseName(dbFolder % QLatin1Char('/') % m_dbName % TM_DATABASE_EXTENSION);
             m_connectionSuccessful=db.open();
             if (KDE_ISUNLIKELY( !m_connectionSuccessful ))
             {
+                qDebug()<<"failed to open db"<<db.databaseName()<<db.lastError().text();
                 QSqlDatabase::removeDatabase(m_dbName);
                 emit done(this);
                 return;
@@ -1123,7 +1127,7 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_dbName(dbName)
 {
     setAutoDelete(false);
-    qDebug()<<dbName<<m_source.string;
+    qDebug()<<"selectjob"<<dbName<<m_source.string;
 }
 
 SelectJob::~SelectJob()
@@ -1447,7 +1451,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run ()
 {
-    qDebug()<<"started"<<m_dbName<<m_source.string;
+    qDebug()<<"select started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) //sanity check
     {
         emit done(this);
@@ -1462,11 +1466,12 @@ void SelectJob::run ()
         return;
     }
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    if (KDE_ISUNLIKELY( !db.isOpen() ))
+    if (KDE_ISUNLIKELY(!db.isValid() || !db.isOpen() ))
     {
         emit done(this);
         return;
     }
+    qDebug()<<"select started 2"<<m_dbName<<m_source.string;
 
     TMConfig c=getConfig(db);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);

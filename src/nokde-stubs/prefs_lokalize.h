@@ -14,344 +14,124 @@ class Settings
     static Settings *self();
     ~Settings(){}
 
-
-    /**
-      Get authorName
-    */
     static
     QString authorName()
     {
       return self()->mAuthorName;
     }
 
-    /**
-      Get Item object corresponding to authorName()
-    */
-    QString *authorNameItem()
-    {
-      return mAuthorNameItem;
-    }
-
-
-    /**
-      Get authorLocalizedName
-    */
     static
     QString authorLocalizedName()
     {
       return self()->mAuthorLocalizedName;
     }
 
-    /**
-      Get Item object corresponding to authorLocalizedName()
-    */
-    QString *authorLocalizedNameItem()
-    {
-      return mAuthorLocalizedNameItem;
-    }
-
-
-    /**
-      Get authorEmail
-    */
     static
     QString authorEmail()
     {
       return self()->mAuthorEmail;
     }
 
-    /**
-      Get Item object corresponding to authorEmail()
-    */
-    QString *authorEmailItem()
-    {
-      return mAuthorEmailItem;
-    }
-
-
-    /**
-      Get DefaultLangCode
-    */
     static
     QString defaultLangCode()
     {
       return self()->mDefaultLangCode;
     }
 
-    /**
-      Get Item object corresponding to DefaultLangCode()
-    */
-    QString *defaultLangCodeItem()
-    {
-      return mDefaultLangCodeItem;
-    }
-
-
-    /**
-      Get DefaultMailingList
-    */
     static
     QString defaultMailingList()
     {
       return self()->mDefaultMailingList;
     }
 
-    /**
-      Get Item object corresponding to DefaultMailingList()
-    */
-    QString *defaultMailingListItem()
-    {
-      return mDefaultMailingListItem;
-    }
-
-
-    /**
-      Get AddColor
-    */
     static
     QColor addColor()
     {
       return self()->mAddColor;
     }
 
-    /**
-      Get Item object corresponding to AddColor()
-    */
-    QColor *addColorItem()
-    {
-      return mAddColorItem;
-    }
-
-
-    /**
-      Get DelColor
-    */
     static
     QColor delColor()
     {
       return self()->mDelColor;
     }
 
-    /**
-      Get Item object corresponding to DelColor()
-    */
-    QColor *delColorItem()
-    {
-      return mDelColorItem;
-    }
-
-
-    /**
-      Get HighlightSpaces
-    */
     static
     bool highlightSpaces()
     {
       return self()->mHighlightSpaces;
     }
 
-    /**
-      Get Item object corresponding to HighlightSpaces()
-    */
-    bool *highlightSpacesItem()
-    {
-      return mHighlightSpacesItem;
-    }
-
-
-    /**
-      Get MsgFont
-    */
     static
     QFont msgFont()
     {
       return self()->mMsgFont;
     }
 
-    /**
-      Get Item object corresponding to MsgFont()
-    */
-    QFont *msgFontItem()
-    {
-      return mMsgFontItem;
-    }
-
-    /**
-      Set Leds
-    */
     static
     void setLeds( bool v )
     {
         self()->mLeds = v;
     }
 
-    /**
-      Get Leds
-    */
     static
     bool leds()
     {
       return self()->mLeds;
     }
 
-    /**
-      Get Item object corresponding to Leds()
-    */
-    bool *ledsItem()
-    {
-      return mLedsItem;
-    }
-
-
-    /**
-      Get AutoApprove
-    */
     static
     bool autoApprove()
     {
       return self()->mAutoApprove;
     }
 
-    /**
-      Get Item object corresponding to AutoApprove()
-    */
-    bool *autoApproveItem()
-    {
-      return mAutoApproveItem;
-    }
-
-    /**
-      Set AutoSpellcheck
-    */
     static
     void setAutoSpellcheck( bool v )
     {
         self()->mAutoSpellcheck = v;
     }
 
-    /**
-      Get AutoSpellcheck
-    */
     static
     bool autoSpellcheck()
     {
       return self()->mAutoSpellcheck;
     }
 
-    /**
-      Get Item object corresponding to AutoSpellcheck()
-    */
-    bool *autoSpellcheckItem()
-    {
-      return mAutoSpellcheckItem;
-    }
-
-
-    /**
-      Get MouseWheelGo
-    */
     static
     bool mouseWheelGo()
     {
       return self()->mMouseWheelGo;
     }
 
-    /**
-      Get Item object corresponding to MouseWheelGo()
-    */
-    bool *mouseWheelGoItem()
-    {
-      return mMouseWheelGoItem;
-    }
-
-
-    /**
-      Get WordCompletionLength
-    */
     static
     int wordCompletionLength()
     {
       return self()->mWordCompletionLength;
     }
 
-    /**
-      Get Item object corresponding to WordCompletionLength()
-    */
-    int *wordCompletionLengthItem()
-    {
-      return mWordCompletionLengthItem;
-    }
-
-
-    /**
-      Get PrefetchTM
-    */
     static
     bool prefetchTM()
     {
       return self()->mPrefetchTM;
     }
 
-    /**
-      Get Item object corresponding to PrefetchTM()
-    */
-    bool *prefetchTMItem()
-    {
-      return mPrefetchTMItem;
-    }
-
-
-    /**
-      Get SuggCount
-    */
     static
     int suggCount()
     {
       return self()->mSuggCount;
     }
 
-    /**
-      Get Item object corresponding to SuggCount()
-    */
-    int *suggCountItem()
-    {
-      return mSuggCountItem;
-    }
-
-
-    /**
-      Get AutoaddTM
-    */
     static
     bool autoaddTM()
     {
       return self()->mAutoaddTM;
     }
 
-    /**
-      Get Item object corresponding to AutoaddTM()
-    */
-    bool *autoaddTMItem()
-    {
-      return mAutoaddTMItem;
-    }
-
-
-    /**
-      Get ScanToTMOnOpen
-    */
     static
     bool scanToTMOnOpen()
     {
       return self()->mScanToTMOnOpen;
-    }
-
-    /**
-      Get Item object corresponding to ScanToTMOnOpen()
-    */
-    bool *scanToTMOnOpenItem()
-    {
-      return mScanToTMOnOpenItem;
     }
 
   protected:
@@ -369,41 +149,22 @@ class Settings
     // Appearance
     QColor mAddColor;
     QColor mDelColor;
-    bool mHighlightSpaces;
     QFont mMsgFont;
+    bool mHighlightSpaces;
     bool mLeds;
 
     // Editor
     bool mAutoApprove;
     bool mAutoSpellcheck;
     bool mMouseWheelGo;
-    int mWordCompletionLength;
 
     // TM
     bool mPrefetchTM;
-    int mSuggCount;
     bool mAutoaddTM;
     bool mScanToTMOnOpen;
 
-  private:
-    QString *mAuthorNameItem;
-    QString *mAuthorLocalizedNameItem;
-    QString *mAuthorEmailItem;
-    QString *mDefaultLangCodeItem;
-    QString *mDefaultMailingListItem;
-    QColor *mAddColorItem;
-    QColor *mDelColorItem;
-    bool *mHighlightSpacesItem;
-    QFont *mMsgFontItem;
-    bool *mLedsItem;
-    bool *mAutoApproveItem;
-    bool *mAutoSpellcheckItem;
-    bool *mMouseWheelGoItem;
-    int *mWordCompletionLengthItem;
-    bool *mPrefetchTMItem;
-    int *mSuggCountItem;
-    bool *mAutoaddTMItem;
-    bool *mScanToTMOnOpenItem;
+    int mWordCompletionLength;
+    int mSuggCount;
 };
 
 #endif
