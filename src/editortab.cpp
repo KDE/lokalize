@@ -77,6 +77,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QTime>
+#include <QStringBuilder>
 
 
 EditorTab::EditorTab(QWidget* parent, bool valid)
@@ -1333,6 +1334,47 @@ void EditorTab::indexWordsForCompletion()
     CompletionStorage::instance()->scanCatalog(m_catalog);
 }
 
+void EditorTab::displayWordCount()
+{
+    //TODO in trans and fuzzy separately
+    int sourceCount=0;
+    int targetCount=0;
+    QRegExp rxClean(Project::instance()->markup()%'|'%Project::instance()->accel());//cleaning regexp; NOTE isEmpty()?
+    QRegExp rxSplit(QStringLiteral("\\W|\\d"));//splitting regexp
+    DocPosition pos(0);
+    do
+    {
+        QString msg=m_catalog->source(pos);
+        msg.remove(rxClean);
+        QStringList words=msg.split(rxSplit,QString::SkipEmptyParts);
+        sourceCount+=words.size();
+
+        msg=m_catalog->target(pos);
+        msg.remove(rxClean);
+        words=msg.split(rxSplit,QString::SkipEmptyParts);
+        targetCount+=words.size();
+    }
+    while (switchNext(m_catalog,pos));
+
+    KMessageBox::information(this, i18nc("@info words count",
+                            "Source text words: %1<br/>Target text words: %2",
+                                        sourceCount,targetCount),i18nc("@title","Word Count"));
+}
+bool EditorTab::findEntryBySourceContext(const QString& source, const QString& ctxt)
+{
+    DocPosition pos(0);
+    do
+    {
+        if (m_catalog->source(pos)==source && m_catalog->context(pos.entry)==QStringList(ctxt))
+        {
+            gotoEntry(pos);
+            return true;
+        }
+    }
+    while (switchNext(m_catalog,pos));
+    return false;
+}
+
 //see also termlabel.h
 void EditorTab::defineNewTerm()
 {
@@ -1391,6 +1433,7 @@ QString EditorTab::dbusObjectPath()
     }
     return "/ThisIsWhatYouWant/Editor/" + QString::number(m_dbusId);
 }
+#endif
 
 
 QString EditorTab::currentFilePath(){return m_catalog->url();}
@@ -1429,7 +1472,6 @@ void EditorTab::setEntryTarget(int entry, int form, const QString& content)
     if (m_currentPos==pos)
         m_view->gotoEntry();
 }
-#endif
 //END DBus interface
 
 

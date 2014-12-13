@@ -32,9 +32,7 @@
 
 #include "pos.h"
 #include "catalog.h"
-
-#include <QDBusArgument>
-#include <kdemacros.h>
+#include "kdemacros.h"
 
 bool switchPrev(Catalog*& catalog,DocPosition& pos,int parts)
 {
@@ -134,6 +132,8 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,int parts)
     return true;
 }
 
+#ifndef NOKDE
+#include <QDBusArgument>
 const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos)
 {
     int entry;
@@ -163,4 +163,4 @@ QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos)
 
     return argument;
 }
-
+#endif

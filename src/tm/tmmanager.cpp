@@ -279,4 +279,3 @@ void TMManagerWin::slotItemActivated(const QModelIndex&)
 
 
 
-#include "tmmanager.moc"

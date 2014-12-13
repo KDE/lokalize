@@ -46,9 +46,12 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#include <klocalizedstring.h>
+
 #ifndef NOKDE
 #include <kaboutdata.h>
-#include <klocalizedstring.h>
+#else
+#include "editortab.h"
 #endif
 
 
@@ -83,6 +86,10 @@ int main(int argc, char **argv)
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("noprojectscan"), i18n( "Do not scan files of the project.")));
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("project"), i18n( "Load specified project."), QLatin1String("filename")));
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("+[URL]"), i18n( "Document to open" )));
+#else
+    QCoreApplication::setApplicationName(QStringLiteral("Lokalize"));
+    QCoreApplication::setApplicationVersion(QStringLiteral("1.9"));
+    parser.process(app);
 #endif
 
     //qDebug() is important as it aviods compile 'optimization'.
@@ -125,6 +132,13 @@ int main(int argc, char **argv)
             new DelayedFileOpener(urls, lmw);
 
         //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
+    }
+#else
+    for (int j=0; j<parser.positionalArguments().count(); j++)
+    {
+        EditorTab* editor=new EditorTab(0);
+        editor->show();
+        editor->fileOpen(parser.positionalArguments().at(j));
     }
 #endif
     int code=app.exec();

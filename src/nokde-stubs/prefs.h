@@ -24,6 +24,8 @@
 #ifndef PREFS_H
 #define PREFS_H
 
+#include <QObject>
+
 /**
  * Singleton that manages cfgs for Lokalize and projects
  */

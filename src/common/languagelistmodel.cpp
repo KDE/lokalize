@@ -22,9 +22,12 @@
 **************************************************************************** */
 
 #include "languagelistmodel.h"
+
+#ifndef NOKDE
 //#include <kiconloader.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
+#endif
 
 #include <QStringBuilder>
 #include <QCoreApplication>
@@ -32,6 +35,7 @@
 #include <QStandardPaths>
 #include <QLocale>
 #include <QIcon>
+#include <QSet>
 
 
 
@@ -63,9 +67,20 @@ LanguageListModel* LanguageListModel::emptyLangInstance()
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
  : QStringListModel(parent)
  , m_sortModel(new QSortFilterProxyModel(this))
+#ifndef NOKDE
  , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
+#endif
 {
+#ifndef NOKDE
     setStringList(m_systemLangList->groupList());
+#else
+    QStringList ll;
+    QList<QLocale> allLocales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
+    foreach(const QLocale& l, allLocales)
+        ll.append(l.name());
+    ll=ll.toSet().toList();
+    setStringList(ll);
+#endif
 
     if (type==WithEmptyLang) insertRows(rowCount(), 1);
 #if 0 //KDE5PORT
@@ -81,12 +96,12 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole)
     {
+#ifndef NOKDE
         static QMap<QString,QVariant> iconCache;
 
         QString langCode=stringList().at(index.row());
         if (!iconCache.contains(langCode))
         {
-            // NOTE workaround for QTBUG-9370 - it will be removed later
             QString code=QLocale(langCode).name();
             QString path;
             if (code.contains('_')) code=QString::fromRawData(code.unicode()+3, 2).toLower();
@@ -98,6 +113,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             iconCache[langCode]=QIcon(path);
         }
         return iconCache.value(langCode);
+#endif
     }
     else if (role==Qt::DisplayRole)
     {
@@ -107,10 +123,13 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         static QVector<QString> displayNames(stringList().size());
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());
-//        QLocale l(code);
-//        if (l.language()==QLocale::C && code!="C")
+#ifndef NOKDE
             return QVariant::fromValue<QString>(displayNames[index.row()]=KConfigGroup(m_systemLangList,code).readEntry("Name")%" ("%code%")");
-//        return QVariant::fromValue<QString>(displayNames[index.row()]=QLocale::languageToString(l.language())%" ("%code%")");
+#else
+        QLocale l(code);
+//        if (l.language()==QLocale::C && code!="C")
+        return QVariant::fromValue<QString>(displayNames[index.row()]=QLocale::languageToString(l.language())%" ("%code%")");
+#endif
     }
     return QStringListModel::data(index, role);
 }

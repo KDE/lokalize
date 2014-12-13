@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "prefs_lokalize.h"
 
+#include <QDebug>
 #include <QProcess>
 #include <QString>
 #include <QMap>

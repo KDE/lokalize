@@ -116,6 +116,7 @@ private slots:
 };
 
 
+#ifndef NOKDE
 class KLed;
 class QLabel;
 class LedsWidget:public QWidget
@@ -132,8 +133,8 @@ public slots:
 public:
     KLed* ledFuzzy;
     KLed* ledUntr;
-    //KLed* ledErr;
     QLabel* lblColumn;
 };
+#endif
 
 #endif

@@ -5,8 +5,8 @@
 
 namespace KStandardGuiItem
 {
-    int save(){return 0;}
-    int discard(){return 0;}
+    static inline int save(){return 0;}
+    static inline int discard(){return 0;}
 };
 
 class KMessageBox: public QMessageBox
@@ -21,6 +21,14 @@ public:
                               const QString &dontAskAgainName=QString())
     {
         return warning(parent, caption, text, Yes|No|Cancel, Yes);
+    }
+    static QMessageBox::StandardButton questionYesNo(QWidget *parent, const QString &text,
+                              const QString &caption,
+                              int y=0,
+                              int n=0,
+                              const QString &dontAskAgainName=QString())
+    {
+        return question(parent, caption, text, Yes|No|Cancel, Yes);
     }
     static void information(QWidget *parent,
                      const QString &text,

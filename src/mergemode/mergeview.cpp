@@ -27,18 +27,21 @@
 #include "mergecatalog.h"
 #include "project.h"
 #include "diff.h"
-#include "projectmodel.h"
+#include "kdemacros.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <knotification.h>
 #include <ktextedit.h>
-#include <kdemacros.h>
+
+#ifndef NOKDE
+#include <knotification.h>
+#endif
 
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QFile>
 #include <QToolTip>
+#include <QStringBuilder>
 #include <QFileDialog>
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
@@ -238,6 +241,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
+#ifndef NOKDE
         if (errorLine>0)
             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename> for synchronization, error line: %2",mergeFilePath,errorLine) );
         else
@@ -248,6 +252,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
             notification->sendEvent();
             */
         }
+#endif
         //i18nc("@info %1 is w/o path","No branch counterpart for <filename>%1</filename>",url.fileName()),
     }
 
@@ -375,13 +380,12 @@ bool MergeView::event(QEvent *event)
     if (event->type()==QEvent::ToolTip && m_mergeCatalog)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        QString text="<b>" % QDir::toNativeSeparators(filePath()) % "</b>\n" % i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
+        QString text=QStringLiteral("<b>") % QDir::toNativeSeparators(filePath()) % QStringLiteral("</b>\n") % i18nc("@info:tooltip","Different entries: %1\nUnmatched entries: %2",
                 m_mergeCatalog->differentEntries().count(),m_mergeCatalog->unmatchedCount());
-        text.replace('\n',"<br />");
+        text.replace('\n',QStringLiteral("<br />"));
         QToolTip::showText(helpEvent->globalPos(),text);
         return true;
     }
     return QWidget::event(event);
 }
 
-#include "mergeview.moc"

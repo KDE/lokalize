@@ -12,7 +12,7 @@ class Settings
   public:
 
     static Settings *self();
-    ~Settings();
+    ~Settings(){}
 
 
     /**

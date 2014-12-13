@@ -31,9 +31,14 @@
 #include <QDebug>
 
 #include <klocalizedstring.h>
+
+#ifndef NOKDE
 #include <kio/global.h>
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
+#else
+class KJob;
+#endif
 
 namespace TM {
     static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
@@ -41,6 +46,7 @@ namespace TM {
 
 using namespace TM;
 
+#ifndef NOKDE
 RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
     : KJob(parent)
     , m_dbName(dbName)
@@ -91,12 +97,17 @@ void RecursiveScanJob::start()
                 i18n("Adding files to Lokalize translation memory"),
                 qMakePair(i18n("TM"), m_dbName));
 }
+#endif
 
 int TM::scanRecursive(const QStringList& urls, const QString& dbName)
 {
+#ifndef NOKDE
     RecursiveScanJob* metaJob = new RecursiveScanJob(dbName);
     KIO::getJobTracker()->registerJob(metaJob);
     metaJob->start();
+#else
+    KJob* metaJob=0;
+#endif
 
     QVector<ScanJob*> result;
     int i=urls.size();
@@ -109,7 +120,9 @@ int TM::scanRecursive(const QStringList& urls, const QString& dbName)
         {
             ScanJobFeedingBack* job=new ScanJobFeedingBack(url,dbName);
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
+#ifndef NOKDE
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+#endif
             TM::threadPool()->start(job, SCAN);
             result.append(job);
         }
@@ -117,7 +130,9 @@ int TM::scanRecursive(const QStringList& urls, const QString& dbName)
             result+=doScanRecursive(QDir(url),dbName,metaJob);
     }
 
+#ifndef NOKDE
     metaJob->setJobs(result);
+#endif
     DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
 
     return result.size();
@@ -143,7 +158,9 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
     {
         ScanJobFeedingBack* job=new ScanJobFeedingBack(dir.filePath(files.at(i)),dbName);
         QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
+#ifndef NOKDE
         QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+#endif
         TM::threadPool()->start(job, SCAN);
         result.append(job);
     }

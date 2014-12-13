@@ -2,12 +2,15 @@
 #ifndef PROJECTBASE_H
 #define PROJECTBASE_H
 
-class ProjectBase
+#include <QObject>
+#include <QString>
+
+class ProjectBase: public QObject
 {
   public:
 
-    ProjectBase();
-    ~ProjectBase();
+    ProjectBase():mProjectID("default"){}
+    ~ProjectBase(){}
 
     void setProjectID( const QString & v )
     {
@@ -210,6 +213,8 @@ class ProjectBase
       return mWordWrap;
     }
 
+    void save(){}
+    void setDefaults(){}
   protected:
 
     // General

@@ -22,14 +22,11 @@
 **************************************************************************** */
 
 #include "project.h"
-#include "projectmodel.h"
 #include "projectlocal.h"
 
 #include "prefs.h"
-#include "webquerycontroller.h"
 #include "jobs.h"
 #include "glossary.h"
-
 #include "tmmanager.h"
 #include "glossarywindow.h"
 #include "editortab.h"
@@ -38,22 +35,32 @@
 
 #include "kdemacros.h"
 
-#include <QTimer>
-#include <QTime>
-#include <QDebug>
-
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kdirlister.h>
+
+#include <QTimer>
+#include <QTime>
+#include <QDir>
+#include <QFileInfo>
+#include <QDebug>
+#include <QStringBuilder>
+
+#ifndef NOKDE
+#include "projectmodel.h"
+#include "webquerycontroller.h"
+
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
 
-
 #include <QDBusArgument>
-
-
 using namespace Kross;
+#endif
+
+
+
+
+
 
 Project* Project::_instance=0;
 void Project::cleanupProject()
@@ -112,7 +119,7 @@ void Project::load(const QString &newProjectPath)
     QTime a;a.start();
 
     TM::threadPool()->clear();
-    qDebug()<<"loading"<<newProjectPath<<"Finishing jobs...";
+    qDebug()<<"loading"<<newProjectPath<<"finishing tm jobs...";
 
     if (!m_path.isEmpty())
     {
@@ -122,16 +129,20 @@ void Project::load(const QString &newProjectPath)
     }
     TM::threadPool()->waitForDone(500);//more safety
 
+#ifndef NOKDE
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
     ProjectBase::load();
+#else
+#endif
     m_path=newProjectPath;
     m_desirablePath.clear();
 
     //cache:
     m_projectDir=QFileInfo(m_path).absolutePath();
-
+#ifndef NOKDE
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+QStringLiteral(".local"), KConfig::NoGlobals,QStandardPaths::DataLocation));
     m_localConfig->load();
+#endif
 
     if (langCode().isEmpty())
         setLangCode(QLocale::system().name());
@@ -148,6 +159,9 @@ void Project::load(const QString &newProjectPath)
     if (newProjectPath.isEmpty())
         return;
 
+
+    if (!isTmSupported())
+        qWarning()<<"no sqlite module available";
     //NOTE do we need to explicitly call it when project id changes?
     TM::DBFilesModel::instance()->openDB(projectID(), TM::Undefined, true);
 
@@ -172,6 +186,7 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 
 void Project::populateDirModel()
 {
+#ifndef NOKDE
     if (KDE_ISUNLIKELY( m_path.isEmpty() || !QFile::exists(poDir()) ))
         return;
 
@@ -179,6 +194,7 @@ void Project::populateDirModel()
     if (QFile::exists(potDir()))
         potUrl=QUrl::fromLocalFile(potDir());
     model()->setUrl(QUrl::fromLocalFile(poDir()), potUrl);
+#endif
 }
 
 void Project::populateGlossary()
@@ -247,10 +263,14 @@ void Project::save()
 
 ProjectModel* Project::model()
 {
+#ifndef NOKDE
     if (KDE_ISUNLIKELY(!m_model))
         m_model=new ProjectModel(this);
 
     return m_model;
+#else
+    return 0;
+#endif
 }
 
 void Project::setDefaults()
@@ -274,4 +294,3 @@ void Project::init(const QString& path, const QString& kind, const QString& id,
 }
 
 
-#include "project.moc"

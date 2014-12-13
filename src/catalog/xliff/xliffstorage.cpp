@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QProcess>
 #include <QString>
+#include <QStringBuilder>
 #include <QMap>
 #include <QDomDocument>
 #include <QTime>

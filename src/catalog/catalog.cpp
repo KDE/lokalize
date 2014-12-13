@@ -38,7 +38,9 @@
 #include "catalog.h"
 #include "catalog_private.h"
 #include "project.h"
+#ifndef NOKDE
 #include "projectmodel.h" //to notify about modification 
+#endif
 
 #include "catalogstorage.h"
 #include "gettextstorage.h"
@@ -105,10 +107,10 @@ Catalog::Catalog(QObject *parent)
     , d(this)
     , m_storage(0)
 {
+#ifndef NOKDE
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this,SIGNAL(signalFileSaved(QString)),
             Project::instance()->model(),SLOT(slotFileSaved(QString)),Qt::QueuedConnection);
-
 
     QTimer* t=&(d._autoSaveTimer);
     t->setInterval(5*60*1000);
@@ -117,6 +119,7 @@ Catalog::Catalog(QObject *parent)
     connect(this,SIGNAL(signalFileSaved()),   t,SLOT(start()));
     connect(this,SIGNAL(signalFileLoaded()),  t,SLOT(start()));
     connect(this,SIGNAL(indexChanged(int)),this,SLOT(setAutoSaveDirty()));
+#endif
     connect(Project::local(),SIGNAL(configChanged()),this,SLOT(projectConfigChanged()));
 }
 
@@ -496,6 +499,7 @@ QString Catalog::targetLangCode() const
 
 KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
 {
+#ifndef NOKDE
     KAutoSaveFile* autoSave=0;
     QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
     foreach (KAutoSaveFile *stale, staleFiles)
@@ -511,6 +515,9 @@ KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
     if (autoSave)
         qWarning()<<"autoSave"<<autoSave->fileName();
     return autoSave;
+#else
+    return 0;
+#endif
 }
 
 int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSize)
@@ -574,6 +581,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
     d._readOnly=readOnly;
     d._url=saidUrl.isEmpty()?url:saidUrl;
 
+#ifndef NOKDE
     KAutoSaveFile* autoSave=checkAutoSave(d._url);
     d._autoSaveRecovered=autoSave;
     if (autoSave)
@@ -590,6 +598,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
     }
     else
         d._autoSave->setManagedFile(d._url);
+#endif
 
     if (fileSize)
         *fileSize=file->size();
@@ -631,14 +640,18 @@ bool Catalog::saveToUrl(QString localFilePath)
     QString localFile=file->fileName();
     file->close();
 
+#ifndef NOKDE
     d._autoSave->remove();
+    d._autoSaveRecovered=false;
+#endif
     setClean(); //undo/redo
     if (nameChanged)
     {
         d._url=localFilePath;
+#ifndef NOKDE
         d._autoSave->setManagedFile(localFilePath);
+#endif
     }
-    d._autoSaveRecovered=false;
 
     //Settings::self()->setCurrentGroup("Bookmarks");
     //Settings::self()->addItemIntList(d._url.url(),d._bookmarkIndex);
@@ -661,6 +674,7 @@ bool Catalog::saveToUrl(QString localFilePath)
 
 void Catalog::doAutoSave()
 {
+#ifndef NOKDE
     if (isClean()||!(d._autoSaveDirty))
         return;
     if (KDE_ISUNLIKELY( !m_storage ))
@@ -674,6 +688,7 @@ void Catalog::doAutoSave()
     m_storage->save(d._autoSave);
     d._autoSave->close();
     d._autoSaveDirty=false;
+#endif
 }
 
 void Catalog::projectConfigChanged()
@@ -1000,4 +1015,3 @@ bool Catalog::isObsolete(int entry) const
 }
 
 
-#include "catalog.moc"

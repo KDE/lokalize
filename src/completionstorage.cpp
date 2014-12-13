@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -25,7 +25,7 @@
 #include "project.h"
 #include "prefs_lokalize.h"
 #include <QCoreApplication>
-
+#include <QDebug>
 
 
 CompletionStorage* CompletionStorage::_instance=0;

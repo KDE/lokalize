@@ -36,6 +36,8 @@
 
 #include "kdemacros.h"
 
+#include <QDebug>
+#include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QSignalMapper>
@@ -68,10 +70,11 @@ void AltTransView::initLater()
 {
     setAcceptDrops(true);
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup group(&config,"AltTransView");
     m_everShown=group.readEntry("EverShown",false);
-
+#endif
 
 
     QSignalMapper* signalMapper=new QSignalMapper(this);
@@ -229,7 +232,7 @@ void AltTransView::process()
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
     }
 
-
+#ifndef NOKDE
     if (!m_everShown)
     {
         m_everShown=true;
@@ -239,6 +242,7 @@ void AltTransView::process()
         KConfigGroup group(&config,"AltTransView");
         group.writeEntry("EverShown",true);
     }
+#endif
 }
 
 
@@ -314,4 +318,3 @@ void AltTransView::slotUseSuggestion(int i)
 }
 
 
-#include "alttransview.moc"

@@ -8,7 +8,7 @@ class ProjectLocal: public QObject
   public:
     enum PersonRole { Translator, Reviewer, Approver, Undefined };
 
-    ProjectLocal(){}
+    ProjectLocal():mRole(Translator){}
     ~ProjectLocal(){}
 
     void setRole( PersonRole v ){mRole = v;}
@@ -17,6 +17,8 @@ class ProjectLocal: public QObject
     void setFirstRun( bool v ){mFirstRun = v;}
     bool firstRun() const{return mFirstRun;}
 
+    void save(){}
+    void setDefaults(){}
   protected:
 
     // Personal

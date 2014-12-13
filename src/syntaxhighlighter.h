@@ -32,9 +32,11 @@
 
 #include <QHash>
 #include <QTextCharFormat>
+#include <QSyntaxHighlighter>
 
 
 class QTextDocument;
+class QTextEdit;
 
 #ifndef NOKDE
 class SyntaxHighlighter : public Sonnet::Highlighter

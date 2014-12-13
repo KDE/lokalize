@@ -48,6 +48,7 @@
 #include <QTimer>
 #include <QToolTip>
 #include <QMenu>
+#include <QStringBuilder>
 
 #ifdef NDEBUG
 #undef NDEBUG
@@ -148,7 +149,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     , m_currentSelectJob(0)
     , m_actions(actions)
     , m_normTitle(i18nc("@title:window","Translation Memory"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
     , m_hasInfo(false)
     , m_isBatching(false)
     , m_markAsFuzzy(false)
@@ -1017,5 +1018,3 @@ void TMView::slotUseSuggestion(int i)
     emit refreshRequested();
 }
 
-
-#include "tmview.moc"

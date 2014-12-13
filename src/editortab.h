@@ -174,8 +174,10 @@ public slots:
 #endif
 
 private slots:
+#ifndef NOKDE
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
+#endif
 
     void lookupSelectionInTranslationMemory();
 
@@ -193,6 +195,7 @@ private slots:
 
     void undo();
     void redo();
+#ifndef NOKDE
     void findNext();
     void findPrev();
     void find();
@@ -201,6 +204,7 @@ private slots:
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
     void cleanupReplace();//internal
+#endif
 
 //     void selectAll();
 //     void deselectAll();
@@ -221,12 +225,14 @@ private slots:
     void setApproveActionTitle();
 
 
+#ifndef NOKDE
     void spellcheck();
     void spellcheckNext();
     void spellcheckShow(const QString&,int);
     void spellcheckReplace(QString,int,const QString&);
     void spellcheckStop();
     void spellcheckCancel();
+#endif
 
     void gotoNextBookmark();
     void gotoPrevBookmark();

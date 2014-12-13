@@ -28,6 +28,7 @@
 #include "phase.h"
 #include "note.h"
 
+#include <QUrl>
 #include <QDialog>
 #include <QModelIndex>
 #include <QVector>

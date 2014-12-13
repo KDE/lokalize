@@ -245,12 +245,18 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     layout->addWidget(m_filterEdit);
     layout->addWidget(m_browser);
     {
-        QPushButton* addBtn=new QPushButton(w); KGuiItem::assign(addBtn, KStandardGuiItem::add());
+        QPushButton* addBtn=new QPushButton(w);
         connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTermEntry()));
 
-        QPushButton* rmBtn=new QPushButton(w); KGuiItem::assign(addBtn, KStandardGuiItem::remove());
+        QPushButton* rmBtn=new QPushButton(w);
         connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTermEntry()));
-
+#ifndef NOKDE
+        KGuiItem::assign(addBtn, KStandardGuiItem::add());
+        KGuiItem::assign( rmBtn, KStandardGuiItem::remove());
+#else
+        addBtn->setText(QApplication::translate("KStandardGuiItem", "Add"));
+        rmBtn->setText( QApplication::translate("KStandardGuiItem", "Remove"));
+#endif
         QPushButton* restoreBtn=new QPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
         restoreBtn->setToolTip(i18nc("@info:tooltip","Reload glossary from disk, discarding any changes"));
         connect(restoreBtn,SIGNAL(clicked()),   this,SLOT(restore()));
@@ -322,7 +328,9 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //TODO
     //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
 
+#ifndef NOKDE
     setAutoSaveSettings(QLatin1String("GlossaryWindow"),true);
+#endif
     //Glossary* glossary=Project::instance()->glossary();
     /*setCaption(i18nc("@title:window","Glossary"),
               !glossary->changedIds.isEmpty()||!glossary->addedIds.isEmpty()||!glossary->removedIds.isEmpty());

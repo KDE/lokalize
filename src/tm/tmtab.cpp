@@ -46,11 +46,16 @@
 #include <QStringBuilder>
 #include <QTextDocument>
 #include <QStringListModel>
+#include <QDebug>
+#include <QTextCodec>
 
 #include <klocalizedstring.h>
+
+#ifndef NOKDE
 #include <kactioncategory.h>
 #include <kcolorscheme.h>
 #include <kxmlguifactory.h>
+#endif
 
 
 using namespace TM;
@@ -512,19 +517,24 @@ TMTab::TMTab(QWidget *parent)
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
 
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TMSearchResultsHeaderState", QByteArray()) ));
+#endif
 }
 
 TMTab::~TMTab()
 {
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("TMSearchResultsHeaderState",ui_queryOptions->treeView->header()->saveState().toBase64());
 
-    delete ui_queryOptions;
     ids.removeAll(m_dbusId);
+#endif
+
+    delete ui_queryOptions;
 }
 
 void TMTab::updateTM()
@@ -712,13 +722,15 @@ void TMTab::dropEvent(QDropEvent *event)
         event->acceptProposedAction();
 }
 
+#ifndef NOKDE
 #include "translationmemoryadaptor.h"
-
+#endif
 //BEGIN DBus interface
 QList<int> TMTab::ids;
 
 QString TMTab::dbusObjectPath()
 {
+#ifndef NOKDE
     if ( m_dbusId==-1 )
     {
         new TranslationMemoryAdaptor(this);
@@ -732,8 +744,10 @@ QString TMTab::dbusObjectPath()
     }
 
     return QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId);
+#else
+    return QString();
+#endif
 }
-
 
 void TMTab::lookup(QString source, QString target)
 {
@@ -768,14 +782,11 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     source_target_query[tryNowPart==DocPosition::Source]->setText(text);
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    if (!package.isEmpty()) package='*'+package+'*';
+    if (!package.isEmpty()) package='*'%package%'*';
     ui_queryOptions->filemask->setText(package);
     ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::Glob);
     performQuery();
 
     return true;
 }
-
 //END DBus interface
-
-#include "tmtab.moc"

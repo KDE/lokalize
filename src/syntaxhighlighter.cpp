@@ -27,10 +27,13 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
-#include <KColorScheme>
+#ifndef NOKDE
+#include <kcolorscheme.h>
+#endif
 
 #include <QTextEdit>
 #include <QApplication>
+#include <QStringBuilder>
 
 #define STATE_NORMAL 0
 #define STATE_TAG 1
@@ -49,13 +52,13 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     , m_approved(true)
 //     , fromDocbook(docbook)
 {
-    setAutomatic(false);
 
     highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;
     //rule.format.setFontItalic(true);
 //     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
 #ifndef NOKDE
+    setAutomatic(false);
     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
 #else
     tagFormat.setForeground(QApplication::palette().linkVisited());
@@ -103,17 +106,25 @@ void SyntaxHighlighter::settingsChanged()
     QRegExp re(QStringLiteral(" +$|^ +|.?")%QChar(0x0000AD)%(".?")); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
     {
-        KColorScheme colorScheme(QPalette::Normal);
         HighlightingRule rule;
         rule.format.clearForeground();
 
+#ifndef NOKDE
+        KColorScheme colorScheme(QPalette::Normal);
         //nbsp
         rule.format.setBackground(colorScheme.background(KColorScheme::AlternateBackground));
+#else
+        rule.format.setBackground(QApplication::palette().alternateBase());
+#endif
         rule.pattern = QRegExp(QChar(0x00a0U));
         highlightingRules.append(rule);
 
         //usual spaces at the end
+#ifndef NOKDE
         rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
+#else
+        rule.format.setBackground(QApplication::palette().midlight());
+#endif
         rule.pattern = re;
         highlightingRules.append(rule);
         rehighlight();
@@ -216,6 +227,7 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
+#ifndef NOKDE
     QString text=currentBlock().text();
     QString word=text.mid(start,count);
     if (m_sourceString.contains(word))
@@ -274,6 +286,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
         f.setUnderlineColor(Qt::red);
         setFormat(start+i, 1, f);
     }
+#endif
 }
 
 void SyntaxHighlighter::unsetMisspelled(int start, int count)

@@ -27,20 +27,19 @@
 #include "lokalizesubwindowbase.h"
 #include "pos.h"
 
-#include <KMainWindow>
-#include <KXMLGUIClient>
+#include <kmainwindow.h>
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
 
-class QaView;
-class Ui_QueryOptions;
+class KXMLGUIClient;
 class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
 class QCheckBox;
 
-
+class QaView;
+class Ui_QueryOptions;
 class TMResultsSortFilterProxyModel;
 
 namespace TM {

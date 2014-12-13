@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -28,7 +28,10 @@
 
 #include <kcombobox.h>
 #include <klocalizedstring.h>
+
+#ifndef NOKDE
 #include <kstandardguiitem.h>
+#endif
 
 #include <QPushButton>
 #include <QTextBrowser>
@@ -37,8 +40,6 @@
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QApplication>
-
-
 #include <QAbstractListModel>
 #include <QSplitter>
 #include <QStackedLayout>
@@ -209,7 +210,12 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     QHBoxLayout* btns=new QHBoxLayout;
     l->addLayout(btns);
 
-    QPushButton* add=new QPushButton(this); KGuiItem::assign(add, KStandardGuiItem::add());
+    QPushButton* add=new QPushButton(this);
+#ifndef NOKDE
+    KGuiItem::assign(add, KStandardGuiItem::add());
+#else
+    add->setText(tr("Add"));
+#endif
     connect(add, SIGNAL(clicked()),this,SLOT(addPhase()));
     btns->addWidget(add);
     btns->addStretch(5);

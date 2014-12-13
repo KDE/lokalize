@@ -160,7 +160,7 @@ public:
     LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent){}
     virtual ~LokalizeSubwindowBase2(){}
     
-    void setXMLFile(const char*){}
+    void setXMLFile(const char*, bool f=false){}
     KActionCollection* actionCollection() const{return 0;}
 
     StatusBarProxy statusBarItems;

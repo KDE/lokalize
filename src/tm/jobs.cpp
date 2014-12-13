@@ -32,7 +32,7 @@
 
 #include "stemming.h"
 
-#include <kdemacros.h>
+#include "kdemacros.h"
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -42,6 +42,7 @@
 #include <QRegExp>
 #include <QMap>
 #include <QStandardPaths>
+#include <QFile>
 
 #include <iostream>
 
@@ -1075,7 +1076,8 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run ()
 {
-    QSqlDatabase::removeDatabase(m_dbName);
+    if (m_dbName.length())
+        QSqlDatabase::removeDatabase(m_dbName);
     emit done(this);
 }
 
@@ -1454,7 +1456,17 @@ void SelectJob::run ()
     //thread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
+    if (KDE_ISUNLIKELY( !QSqlDatabase::contains(m_dbName) ))
+    {
+        emit done(this);
+        return;
+    }
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    if (KDE_ISUNLIKELY( !db.isOpen() ))
+    {
+        emit done(this);
+        return;
+    }
 
     TMConfig c=getConfig(db);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
@@ -2101,5 +2113,3 @@ void ExecQueryJob::run()
 }
 
 
-
-#include "jobs.moc"

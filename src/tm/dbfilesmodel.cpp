@@ -30,6 +30,7 @@
 #include <QFileSystemModel>
 #include <QStringBuilder>
 #include <QStandardPaths>
+#include <QDebug>
 
 #include <klocalizedstring.h>
 
