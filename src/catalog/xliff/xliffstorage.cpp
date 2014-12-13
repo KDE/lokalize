@@ -461,7 +461,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     id=el.attribute(QStringLiteral("mtype"));
 
                 //qWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
-                data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute("xid")));
+                data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute(QStringLiteral("xid"))));
             }
         }
         n = n.nextSibling();
@@ -481,10 +481,12 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
 CatalogString XliffStorage::catalogString(QDomElement unit,  DocPosition::Part part) const
 {
-    static const QString names[]={QStringLiteral("source"),QStringLiteral("target")};
+    static const QString names[]={QStringLiteral("source"),QStringLiteral("target"), QStringLiteral("seg-source")};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
-    catalogString.string=content(unit.firstChildElement( names[part==DocPosition::Target]), &data );
+    int nameIndex=part==DocPosition::Target;
+    if (nameIndex==0 && !unit.firstChildElement(names[2]).isNull()) nameIndex=2;
+    catalogString.string=content(unit.firstChildElement( names[nameIndex]), &data );
     catalogString.tags=data.tags;
     return catalogString;
 }
@@ -539,10 +541,10 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
     if (targetEl.isNull())
     {
         QDomNode unitEl=unitForPos(pos.entry);
-        QDomNode refNode=unitEl.firstChildElement("seg-source");//obey standard
+        QDomNode refNode=unitEl.firstChildElement(QStringLiteral("seg-source"));//obey standard
         if (refNode.isNull()) refNode=unitEl.firstChildElement(binsourcesource[pos.entry<size()]);
         targetEl = unitEl.insertAfter(m_doc.createElement(bintargettarget[pos.entry<size()]),refNode).toElement();
-        targetEl.setAttribute("state","new");
+        targetEl.setAttribute(QStringLiteral("state"),QStringLiteral("new"));
 
         if (pos.entry<size())
         {
@@ -555,9 +557,9 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 
     if (pos.entry>=size())
     {
-        QDomElement ef=targetEl.firstChildElement("external-file");
+        QDomElement ef=targetEl.firstChildElement(QStringLiteral("external-file"));
         if (ef.isNull())
-            ef=targetEl.appendChild(m_doc.createElement("external-file")).toElement();
+            ef=targetEl.appendChild(m_doc.createElement(QStringLiteral("external-file"))).toElement();
         ef.setAttribute("href",arg);
         return;
     }
