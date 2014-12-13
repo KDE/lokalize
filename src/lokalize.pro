@@ -7,6 +7,7 @@
 QT       += core widgets xml sql
 
 TARGET = lokalize
+mac: TARGET = Lokalize
 TEMPLATE = app
 
 
@@ -137,13 +138,10 @@ FORMS    +=    glossary/termedit.ui\
 
 INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm project common nokde-stubs
 
+DEFINES += NOKDE
 
-mac: INCLUDEPATH += ../taglib ../taglib/taglib ../taglib/taglib/toolkit ../taglib/taglib/mpeg/id3v2 ../taglib/build
-mac: LIBS += -L../taglib/build/taglib
-
-unix: LIBS += -lhunspell
-unix: DEFINES += NOKDE
-
+mac: QMAKE_LFLAGS += -dead_strip
+#unix: LIBS += -lhunspell
 win32: LIBS += ../taglib/build/taglib/tag.lib
 win32: INCLUDEPATH += ../taglib ../taglib/taglib ../taglib/taglib/mpeg/id3v2 ../taglib/taglib/toolkit ../taglib/build
 #win32: INCLUDEPATH += ../taglib/include ../taglib/build
