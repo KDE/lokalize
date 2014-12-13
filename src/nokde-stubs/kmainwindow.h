@@ -6,7 +6,7 @@
 class KMainWindow: public QMainWindow
 {
 public:
-    KMainWindow(QWidget* p):QMainWindow(p){}
+    KMainWindow(QWidget* ):QMainWindow(0){}
     void setCaption(const QString& s, bool m=false){Q_UNUSED(m) setWindowTitle(s);}
 };
 

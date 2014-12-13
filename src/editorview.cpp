@@ -111,6 +111,8 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     m_sourceTextEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
                                   "<p>This part of the window shows the original message\n"
                                   "of the currently displayed entry.</p></qt>"));
+    m_sourceTextEdit->viewport()->setBackgroundRole(QPalette::Background);
+
 
     connect (m_targetTextEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
     connect (m_targetTextEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
