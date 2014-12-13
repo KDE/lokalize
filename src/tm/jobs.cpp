@@ -864,7 +864,7 @@ QMap<QString,TMConfig> tmConfigCache;
 
 static void setConfig(QSqlDatabase& db, const TMConfig& c)
 {
-    qDebug()<<"setConfig"<<db.databaseName();
+    qDebug()<<"setConfig"<<db.databaseName()<<c.targetLangCode;
     QSqlQuery query(db);
     query.prepare(QStringLiteral("INSERT INTO tm_config (key, value) "
                       "VALUES (?, ?)"));
@@ -1536,15 +1536,17 @@ ScanJob::~ScanJob()
 
 void ScanJob::run()
 {
-    if (stop)
+    if (stop || !QSqlDatabase::contains(m_dbName))
       return;
-    qWarning() <<"started"<<m_filePath<<m_dbName;
+    qWarning() <<"scan job started for"<<m_filePath<<m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
     m_added=0;      //stats
     m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
+    if (!db.isOpen())
+        return;
     //initSqliteDb(db);
     TMConfig c=getConfig(db,true);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);

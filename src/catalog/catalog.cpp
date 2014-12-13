@@ -758,7 +758,7 @@ void Catalog::flushUpdateDBBuffer()
     }
     if (Project::instance()->targetLangCode()!=targetLangCode())
     {
-        qWarning()<<"not updating because target languages don't match";
+        qWarning()<<"not updating because target languages don't match"<<Project::instance()->targetLangCode()<<targetLangCode();
         return;
     }
     int form=-1;

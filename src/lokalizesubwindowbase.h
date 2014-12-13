@@ -128,15 +128,18 @@ namespace KStandardAction
 };
 struct KActionCollection
 {
+    KActionCollection(QMainWindow* w):m_mainWindow(w){}
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
     static QAction* addAction( const QLatin1String&, QAction* a){return a;}
+
+    QMainWindow* m_mainWindow;
 };
 struct KActionCategory
 {
-    KActionCategory(const QString&, KActionCollection*){}
+    KActionCategory(const QString&, KActionCollection* c_):c(c_){}
     QAction* addAction(const char*, QAction* a){return a;}
     QAction* addAction( const QLatin1String&, QAction* a){return a;}
-    QAction* addAction( const QString& name){return new QAction(name, 0);} //TODO KDE5PORT memory
+    QAction* addAction( const QString& name){return new QAction(name, c->m_mainWindow);}
     QAction* addAction( const QString& name, QObject* rcv, const char* slot)
     {
         QAction* a=new QAction(name, rcv);
@@ -149,24 +152,27 @@ struct KActionCategory
         QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
         return a;        
     }
-    
 
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+
+    KActionCollection* c;
 };
 #define KToolBarPopupAction QAction
 class LokalizeSubwindowBase2: public QMainWindow
 {
 public:
-    LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent){}
+    LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent), c(new KActionCollection(this)){}
     virtual ~LokalizeSubwindowBase2(){}
     
     void setXMLFile(const char*, bool f=false){}
-    KActionCollection* actionCollection() const{return 0;}
+    KActionCollection* actionCollection() const{return c;}
 
     StatusBarProxy statusBarItems;
 protected:
     void reflectNonApprovedCount(int count, int total){}
     void reflectUntranslatedCount(int count, int total){}
+
+    KActionCollection* c;
 };
 #endif
 
