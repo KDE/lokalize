@@ -384,7 +384,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         QString name=tag.id;
         QString text;
         if (tag.type==InlineTag::mrk)
-            text="*";
+            text=QStringLiteral("*");
         else if (!tag.equivText.isEmpty())
             text=tag.equivText; //TODO add number? when? -- right now this is done for gettext qt's 156 mark
         else
@@ -395,14 +395,14 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             if (tag.start==i)
             {
                 //qWarning()<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
-                text.append(" {");
-                name.append("-start");
+                text.append(QStringLiteral(" {"));
+                name.append(QStringLiteral("-start"));
             }
             else
             {
                 //qWarning()<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
-                text.prepend("} ");
-                name.append("-end");
+                text.prepend(QStringLiteral("} "));
+                name.append(QStringLiteral("-end"));
             }
         }
         if (cursor.document()->resource(QTextDocument::ImageResource, QUrl(name)).isNull())
@@ -1106,6 +1106,13 @@ void TranslationUnitTextEdit::spellReplace()
 
 bool TranslationUnitTextEdit::event(QEvent *event)
 {
+    if (event->type()==QEvent::InputMethod)
+    {
+        QInputMethodEvent* e=static_cast<QInputMethodEvent*>(event);
+        insertPlainText(e->commitString());
+        e->accept();
+        return true;
+    }
     if (event->type()==QEvent::ToolTip)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);

@@ -204,7 +204,7 @@ void EditorTab::setupActions()
     KActionCollection* ac=actionCollection();
     KActionCategory* actionCategory;
 
-    KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);;
+    KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);
     KActionCategory* nav=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
     KActionCategory* edit=new KActionCategory(i18nc("@title actions category","Editing"), ac);
     KActionCategory* sync1=new KActionCategory(i18n("Synchronization 1"), ac);
