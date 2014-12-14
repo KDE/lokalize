@@ -77,8 +77,11 @@ public:
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 };
 #else
+#include <QApplication>
 #include <QMainWindow>
 #include <QAction>
+#include <QMenu>
+#include <QMenuBar>
 namespace KStandardAction
 {
   /**
@@ -128,23 +131,40 @@ namespace KStandardAction
 };
 struct KActionCollection
 {
-    KActionCollection(QMainWindow* w):m_mainWindow(w){}
+    KActionCollection(QMainWindow* w)
+     : m_mainWindow(w)
+     , file(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "File")))
+     , edit(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Edit")))
+     , sync(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Sync")))
+     , tm(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Translation Memory")))
+    {}
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
-    static QAction* addAction( const QLatin1String&, QAction* a){return a;}
 
+    QAction* addAction(const QString& name, QAction* a)
+    {
+        if (name.startsWith("file_")) file->addAction(a);
+        if (name.startsWith("edit_")) edit->addAction(a);
+        if (name.startsWith("merge_")) sync->addAction(a);
+        if (name.startsWith("tmquery_")) tm->addAction(a);
+        return a;
+    }
     QMainWindow* m_mainWindow;
+    QMenu* file;
+    QMenu* edit;
+    QMenu* sync;
+    QMenu* tm;
 };
 struct KActionCategory
 {
     KActionCategory(const QString&, KActionCollection* c_):c(c_){}
-    QAction* addAction(const char*, QAction* a){return a;}
-    QAction* addAction( const QLatin1String&, QAction* a){return a;}
-    QAction* addAction( const QString& name){return new QAction(name, c->m_mainWindow);}
+    QAction* addAction( const char* name, QAction* a){return c->addAction(name, a);}
+    QAction* addAction( const QLatin1String& name, QAction* a){return c->addAction(name, a);}
+    QAction* addAction( const QString& name){return c->addAction(name, new QAction(name, c->m_mainWindow));}
     QAction* addAction( const QString& name, QObject* rcv, const char* slot)
     {
         QAction* a=new QAction(name, rcv);
         QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
-        return a;        
+        return c->addAction(name, a);
     }
     QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot)
     {
@@ -161,7 +181,9 @@ struct KActionCategory
 class LokalizeSubwindowBase2: public QMainWindow
 {
 public:
-    LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent), c(new KActionCollection(this)){}
+    LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent), c(new KActionCollection(this))
+    {
+    }
     virtual ~LokalizeSubwindowBase2(){}
     
     void setXMLFile(const char*, bool f=false){}
@@ -171,7 +193,6 @@ public:
 protected:
     void reflectNonApprovedCount(int count, int total){}
     void reflectUntranslatedCount(int count, int total){}
-
     KActionCollection* c;
 };
 #endif

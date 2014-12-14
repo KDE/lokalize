@@ -306,7 +306,7 @@ void EditorTab::setupActions()
 //         action->setVisible(false);
         tmaction=tm->addAction(QString("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL+tmlist[i]));
-        tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",i));
+        tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",QString::number(i+1)));
         tmactions[i]=tmaction;
     }
     TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
@@ -494,6 +494,7 @@ void EditorTab::setupActions()
     connect(this, SIGNAL(signalEquivTranslatedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
 
 
+#ifndef Q_OS_DARWIN
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
     QString systemLang=QLocale::system().name();
     if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
@@ -501,6 +502,9 @@ void EditorTab::setupActions()
         || systemLang.startsWith("zh")
                     ))
         copyShortcut=Qt::ALT+Qt::Key_Space;
+#else
+    int copyShortcut=Qt::META+Qt::Key_Space;
+#endif
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
     connect(action, SIGNAL(triggered(bool)), m_view->viewPort(),SLOT(source2target()));
 
