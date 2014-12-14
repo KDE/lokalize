@@ -53,7 +53,7 @@ void LokalizeUnitCmd::redo()
     setJumpingPos();
     doRedo();
     _firstModificationForThisEntry=_catalog->setModified(DocPos(_pos),true);
-    _prevPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::UndefPart);
+//    _prevPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::UndefPart);
 }
 
 void LokalizeUnitCmd::undo()
@@ -62,7 +62,7 @@ void LokalizeUnitCmd::undo()
     doUndo();
     if (_firstModificationForThisEntry)
         _catalog->setModified(DocPos(_pos),false);
-    setPhaseForPart(_catalog,_prevPhase,_pos,DocPosition::UndefPart);
+//    setPhaseForPart(_catalog,_prevPhase,_pos,DocPosition::UndefPart);
 }
 
 void LokalizeUnitCmd::setJumpingPos()

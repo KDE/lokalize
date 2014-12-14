@@ -630,20 +630,20 @@ static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomEle
 {
     QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
     QDomElement header=file.firstChildElement(QStringLiteral("header"));
-    phasegroup=header.firstChildElement("phase-group");
+    phasegroup=header.firstChildElement(QStringLiteral("phase-group"));
     if (phasegroup.isNull())
     {
-        phasegroup=m_doc.createElement("phase-group");
+        phasegroup=m_doc.createElement(QStringLiteral("phase-group"));
         //order following XLIFF spec
-        QDomElement skl=header.firstChildElement("skl");
+        QDomElement skl=header.firstChildElement(QStringLiteral("skl"));
         if (!skl.isNull())
             header.insertAfter(phasegroup, skl);
         else
             header.insertBefore(phasegroup, header.firstChildElement());
     }
-    QDomElement phaseElem=phasegroup.firstChildElement("phase");
-    while (!phaseElem.isNull() && phaseElem.attribute("phase-name")!=name)
-        phaseElem=phaseElem.nextSiblingElement("phase");
+    QDomElement phaseElem=phasegroup.firstChildElement(QStringLiteral("phase"));
+    while (!phaseElem.isNull() && phaseElem.attribute(QStringLiteral("phase-name"))!=name)
+        phaseElem=phaseElem.nextSiblingElement(QStringLiteral("phase"));
 
     return phaseElem;
 }
@@ -651,14 +651,14 @@ static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomEle
 static Phase phaseFromElement(QDomElement phaseElem)
 {
     Phase phase;
-    phase.name      =phaseElem.attribute("phase-name");
-    phase.process   =phaseElem.attribute("process-name");
-    phase.company   =phaseElem.attribute("company-name");
-    phase.contact   =phaseElem.attribute("contact-name");
-    phase.email     =phaseElem.attribute("contact-email");
-    phase.phone     =phaseElem.attribute("contact-phone");
-    phase.tool      =phaseElem.attribute("tool-id");
-    phase.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
+    phase.name      =phaseElem.attribute(QStringLiteral("phase-name"));
+    phase.process   =phaseElem.attribute(QStringLiteral("process-name"));
+    phase.company   =phaseElem.attribute(QStringLiteral("company-name"));
+    phase.contact   =phaseElem.attribute(QStringLiteral("contact-name"));
+    phase.email     =phaseElem.attribute(QStringLiteral("contact-email"));
+    phase.phone     =phaseElem.attribute(QStringLiteral("contact-phone"));
+    phase.tool      =phaseElem.attribute(QStringLiteral("tool-id"));
+    phase.date=QDate::fromString(phaseElem.attribute(QStringLiteral("date")),Qt::ISODate);
     return phase;
 }
 
@@ -670,31 +670,31 @@ Phase XliffStorage::updatePhase(const Phase& phase)
 
     if (phaseElem.isNull()&&!phase.name.isEmpty())
     {
-        phaseElem=phasegroup.appendChild(m_doc.createElement("phase")).toElement();
-        phaseElem.setAttribute("phase-name",phase.name);
+        phaseElem=phasegroup.appendChild(m_doc.createElement(QStringLiteral("phase"))).toElement();
+        phaseElem.setAttribute(QStringLiteral("phase-name"),phase.name);
     }
 
-    phaseElem.setAttribute("process-name", phase.process);
-    if (!phase.company.isEmpty()) phaseElem.setAttribute("company-name", phase.company);
-    phaseElem.setAttribute("contact-name", phase.contact);
-    phaseElem.setAttribute("contact-email",phase.email);
+    phaseElem.setAttribute(QStringLiteral("process-name"), phase.process);
+    if (!phase.company.isEmpty()) phaseElem.setAttribute(QStringLiteral("company-name"), phase.company);
+    phaseElem.setAttribute(QStringLiteral("contact-name"), phase.contact);
+    phaseElem.setAttribute(QStringLiteral("contact-email"),phase.email);
     if (!phase.phone.isEmpty()) phaseElem.setAttribute("contact-phone",phase.phone);
-    phaseElem.setAttribute("tool-id",      phase.tool);
-    if (phase.date.isValid()) phaseElem.setAttribute("date",phase.date.toString(Qt::ISODate));
+    phaseElem.setAttribute(QStringLiteral("tool-id"),      phase.tool);
+    if (phase.date.isValid()) phaseElem.setAttribute(QStringLiteral("date"),phase.date.toString(Qt::ISODate));
     return prev;
 }
 
 QList<Phase> XliffStorage::allPhases() const
 {
     QList<Phase> result;
-    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    QDomElement header=file.firstChildElement("header");
-    QDomElement phasegroup=header.firstChildElement("phase-group");
-    QDomElement phaseElem=phasegroup.firstChildElement("phase");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    QDomElement header=file.firstChildElement(QStringLiteral("header"));
+    QDomElement phasegroup=header.firstChildElement(QStringLiteral("phase-group"));
+    QDomElement phaseElem=phasegroup.firstChildElement(QStringLiteral("phase"));
     while (!phaseElem.isNull())
     {
         result.append(phaseFromElement(phaseElem));
-        phaseElem=phaseElem.nextSiblingElement("phase");
+        phaseElem=phaseElem.nextSiblingElement(QStringLiteral("phase"));
     }
     return result;
 }
@@ -899,14 +899,15 @@ QVector<Note> XliffStorage::setPhaseNotes(const QString& phasename, QVector<Note
 
 QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
 {
+    QString PHASENAME=QStringLiteral("phase-name");
     targetInsert(pos,QString()); //adds <taget> if needed
 
     QDomElement target=targetForPos(pos.entry);
-    QString result=target.attribute("phase-name");
+    QString result=target.attribute(PHASENAME);
     if (phase.isEmpty())
-        target.removeAttribute("phase-name");
-    else
-        target.setAttribute("phase-name",phase);
+        target.removeAttribute(PHASENAME);
+    else if (phase!=result)
+        target.setAttribute(PHASENAME,phase);
 
     return result;
 }
