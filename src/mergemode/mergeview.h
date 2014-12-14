@@ -81,6 +81,7 @@ signals:
 
     void gotoEntry(const DocPosition&,int);
 
+    void mergeCatalogAvailable(bool);
     void mergeCatalogPointerChanged(MergeCatalog* mergeCatalog);
 
 private:

@@ -399,6 +399,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     QTime time;time.start();
 
     SelectJob& job=*j;
+    job.deleteLater();
     if (job.m_pos.entry!=m_pos.entry)
         return;
 
@@ -481,16 +482,16 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html+=(entry.score>9500)?QStringLiteral("<p class='close_match'>"):QStringLiteral("<p>");
         //qDebug()<<entry.target.string<<entry.hits;
 
-        html+=QString("/%1%/ ").arg(entry.score > 10000 ? 100: float(entry.score)/100);
+        html+=QString(QStringLiteral("/%1%/ ")).arg(entry.score > 10000 ? 100: float(entry.score)/100);
 
         //int sourceStartPos=cur.position();
         QString result=entry.diff.toHtmlEscaped();
         //result.replace("&","&amp;");
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
-        result.replace("{KBABELADD}","<font style=\"background-color:"%Settings::addColor().name()%";color:black\">");
+        result.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
         result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
-        result.replace("{KBABELDEL}","<font style=\"background-color:"%Settings::delColor().name()%";color:black\">");
+        result.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
         result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
         result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
         result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
@@ -518,7 +519,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         if (KDE_ISLIKELY( i<m_actions.size() ))
         {
             m_actions.at(i)->setStatusTip(entry.target.string);
-            html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
+            html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
         }
         else
             html+=QStringLiteral("[ - ] ");

@@ -67,6 +67,7 @@
 #include <kmessagebox.h>
 #include <klocalizedstring.h>
 
+#include <QDebug>
 #include <QIcon>
 #include <QActionGroup>
 #include <QMdiArea>
@@ -466,7 +467,7 @@ void EditorTab::setupActions()
     connect(m_view,SIGNAL(replaceRequested()),  this,SLOT(replace()));
 
 
-//
+
     action = actionCategory->addAction("edit_approve", new KToolBarPopupAction(QIcon::fromTheme("approved"),i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"),this));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_U));
 
@@ -475,17 +476,27 @@ void EditorTab::setupActions()
     connect(m_view, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SIGNAL(signalApprovedEntryDisplayed(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
     connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
+
     m_approveAction=action;
+#ifdef NOKDE
+    QMenu* am=new QMenu(i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","State"),this);
+    action=am->menuAction();
+    ac->addAction("edit_state",action);
+#endif
+    m_stateAction=action;
     connect(Project::local(), SIGNAL(configChanged()), SLOT(setApproveActionTitle()));
     connect(m_catalog, SIGNAL(activePhaseChanged()), SLOT(setApproveActionTitle()));
-    setApproveActionTitle();
-    connect(action->menu(), SIGNAL(aboutToShow()),this,SLOT(showStatesMenu()));
-    connect(action->menu(), SIGNAL(triggered(QAction*)),this,SLOT(setState(QAction*)));
+    connect(m_stateAction->menu(), SIGNAL(aboutToShow()),this,SLOT(showStatesMenu()));
+    connect(m_stateAction->menu(), SIGNAL(triggered(QAction*)),this,SLOT(setState(QAction*)));
 
 
     action = actionCategory->addAction("edit_approve_go_fuzzyUntr");
     action->setText(i18nc("@action:inmenu","Approve and go to next"));
     connect(action, SIGNAL(triggered()), SLOT(toggleApprovementGotoNextFuzzyUntr()));
+    m_approveAndGoAction = action;
+
+    setApproveActionTitle();
+
 
 
     action = actionCategory->addAction("edit_nonequiv",m_view,SLOT(setEquivTrans(bool)));
@@ -515,10 +526,6 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_D));
     action->setText(i18nc("@action:inmenu","Clear"));
 
-    action=edit->addAction("edit_completion",m_view,SIGNAL(doExplicitCompletion()));
-    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Space));
-    action->setText(i18nc("@action:inmenu","Completion"));
-
     action=edit->addAction("edit_tagmenu",m_view->viewPort(),SLOT(tagMenu()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_T));
     action->setText(i18nc("@action:inmenu","Insert Tag"));
@@ -527,10 +534,15 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_M));
     action->setText(i18nc("@action:inmenu","Insert Next Tag"));
 
+#ifndef NOKDE
+    action=edit->addAction("edit_completion",m_view,SIGNAL(doExplicitCompletion()));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Space));
+    action->setText(i18nc("@action:inmenu","Completion"));
+
     action=edit->addAction("edit_spellreplace",m_view->viewPort(),SLOT(spellReplace()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_Equal));
     action->setText(i18nc("@action:inmenu","Replace with best spellcheck suggestion"));
-
+#endif
 //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18nc("@action:inmenu","Define new term"));
 
@@ -664,6 +676,7 @@ void EditorTab::setupActions()
 
     action = sync1->addAction("merge_accept",m_syncView,SLOT(mergeAccept()));
     action->setText(i18nc("@action:inmenu","Copy from merging source"));
+    action->setEnabled(false);
     ac->setDefaultShortcut(action, QKeySequence(Qt::ALT+Qt::Key_Return));
     connect( m_syncView, SIGNAL(signalEntryWithMergeDisplayed(bool)),action,SLOT(setEnabled(bool)));
     m_syncView->addAction(action);
@@ -674,11 +687,13 @@ void EditorTab::setupActions()
     action->setToolTip(action->statusTip());
     action->setWhatsThis(action->statusTip());
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_A));
+    connect( m_syncView, SIGNAL(mergeCatalogAvailable(bool)),action,SLOT(setEnabled(bool)) );
     m_syncView->addAction(action);
     //action->setShortcut(Qt::ALT+Qt::Key_E);
 
     action = sync1->addAction("merge_back",m_syncView,SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu","Copy to merging source"));
+    connect( m_syncView, SIGNAL(mergeCatalogAvailable(bool)),action,SLOT(setEnabled(bool)) );
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Return));
     m_syncView->addAction(action);
 
@@ -1236,7 +1251,7 @@ void EditorTab::setApproveActionTitle()
         };
     const char* const helpText[]={
         I18N_NOOP2("@info:tooltip","Translation is done (although still may need a review)"),
-        I18N_NOOP2("@info:tooltip","Translation received positive review"),
+        I18N_NOOP2("@info:tooltip","Translation has received positive review"),
         I18N_NOOP2("@info:tooltip","Entry is fully localized (i.e. final)")
         };
 
@@ -1245,19 +1260,23 @@ void EditorTab::setApproveActionTitle()
         role=Project::local()->role();
     m_approveAction->setText(i18nc("@option:check trans-unit state",titles[role]));
     m_approveAction->setToolTip(i18nc("@info:tooltip",helpText[role]));
+    m_approveAndGoAction->setVisible(role==ProjectLocal::Approver);
+#ifdef NOKDE
+    m_stateAction->setVisible(m_catalog->capabilities()&ExtendedStates);
+#endif
 }
 
 void EditorTab::showStatesMenu()
 {
-    m_approveAction->menu()->clear();
+    m_stateAction->menu()->clear();
     if (!(m_catalog->capabilities()&ExtendedStates))
     {
-        QAction* a=m_approveAction->menu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"));
+        QAction* a=m_stateAction->menu()->addAction(i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"));
         a->setData(QVariant(-1));
         a->setCheckable(true);
         a->setChecked(!m_catalog->isApproved(m_currentPos));
 
-        a=m_approveAction->menu()->addAction(i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"));
+        a=m_stateAction->menu()->addAction(i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"));
         a->setData(QVariant(-2));
         a->setCheckable(true);
         a->setChecked(m_catalog->isApproved(m_currentPos));
@@ -1270,13 +1289,13 @@ void EditorTab::showStatesMenu()
     const char* const* states=Catalog::states();
     for (int i=0;i<StateCount;++i)
     {
-        QAction* a=m_approveAction->menu()->addAction(i18n(states[i]));
+        QAction* a=m_stateAction->menu()->addAction(i18n(states[i]));
         a->setData(QVariant(i));
         a->setCheckable(true);
         a->setChecked(state==i);
 
         if (i==New || i==Translated || i==Final)
-            m_approveAction->menu()->addSeparator();
+            m_stateAction->menu()->addSeparator();
     }
 }
 
@@ -1287,7 +1306,7 @@ void EditorTab::setState(QAction* a)
     else
         m_view->setState(TargetState(a->data().toInt()));
 
-    m_approveAction->menu()->clear();
+    m_stateAction->menu()->clear();
 }
 
 void EditorTab::openPhasesWindow()

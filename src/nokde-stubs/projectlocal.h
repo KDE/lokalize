@@ -8,7 +8,7 @@ class ProjectLocal: public QObject
   public:
     enum PersonRole { Translator, Reviewer, Approver, Undefined };
 
-    ProjectLocal():mRole(Approver){}
+    ProjectLocal():mRole(Translator){}
     ~ProjectLocal(){}
 
     void setRole( PersonRole v ){mRole = v;}

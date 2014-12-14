@@ -72,6 +72,7 @@ MergeView::~MergeView()
 {
     delete m_mergeCatalog;
     emit mergeCatalogPointerChanged(NULL);
+    emit mergeCatalogAvailable(false);
 }
 
 QString MergeView::filePath()
@@ -176,12 +177,13 @@ void MergeView::cleanup()
 {
     delete m_mergeCatalog;
     m_mergeCatalog=0;
-    emit mergeCatalogPointerChanged(m_mergeCatalog);
+    emit mergeCatalogPointerChanged(0);
+    emit mergeCatalogAvailable(false);
     m_pos=DocPosition();
 
     emit signalPriorChangedAvailable(false);
     emit signalNextChangedAvailable(false);
-
+    emit signalEntryWithMergeDisplayed(false);
     m_browser->clear();
 }
 
@@ -222,6 +224,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     delete m_mergeCatalog;
     m_mergeCatalog=new MergeCatalog(this,m_baseCatalog);
     emit mergeCatalogPointerChanged(m_mergeCatalog);
+    emit mergeCatalogAvailable(m_mergeCatalog);
     int errorLine=m_mergeCatalog->loadFromUrl(mergeFilePath);
     if (KDE_ISLIKELY( errorLine==0 ))
     {

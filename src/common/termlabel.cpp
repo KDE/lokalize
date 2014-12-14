@@ -27,6 +27,7 @@
 #include <QMenu>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QStringBuilder>
 
 #include <klocalizedstring.h>
 
@@ -110,9 +111,11 @@ void TermLabel::setText(const QString& term, const QByteArray& entryId, bool cap
 {
     m_entryId=entryId;
     m_capFirst=capFirst;
-    QLabel::setText(QString(term + QString(m_action?QString(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
-                + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join("  \n  ")
-                    + "  \n  "));
+
+    static const QString n = QStringLiteral("  \n  ");
+    QLabel::setText(QString(term + QString(m_action?QString(QStringLiteral(" [") % m_action->shortcut().toString(QKeySequence::NativeText)%QStringLiteral("]  \n  ")):n)//m_shortcut
+                % Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n)
+                    % n));
 }
 
 

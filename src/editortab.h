@@ -267,7 +267,9 @@ private:
     Catalog* m_catalog;
 
     EditorView* m_view;
+    QAction* m_approveAndGoAction;
     QAction* m_approveAction;
+    QAction* m_stateAction; //is = m_approveAction ifndef NOKDE
 
     DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace

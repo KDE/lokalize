@@ -213,7 +213,7 @@ void AltTransView::process()
             if (KDE_ISLIKELY( i<m_actions.size() ))
             {
                 m_actions.at(i)->setStatusTip(entry.target.string);
-                html+=QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString());
+                html+=QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
             }
             else
                 html+=QStringLiteral("[ - ] ");

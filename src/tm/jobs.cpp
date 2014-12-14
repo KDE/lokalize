@@ -1106,7 +1106,8 @@ SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int 
                                  db.isEmpty()?Project::instance()->projectID():db);
     if (opt&Enqueue)
     {
-        QObject::connect(job, SIGNAL(done(SelectJob*)), job, SLOT(deleteLater()));
+        //deletion should be done by receiver, e.g. slotSuggestionsCame()
+        //QObject::connect(job, SIGNAL(done(SelectJob*)), job, SLOT(deleteLater()));
         threadPool()->start(job, SELECT);
     }
     return job;
