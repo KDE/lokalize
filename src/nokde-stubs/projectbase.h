@@ -4,14 +4,33 @@
 
 #include <QObject>
 #include <QString>
+#include <QMap>
+
+class EditorTab;
 
 class ProjectBase: public QObject
 {
-  public:
+    Q_OBJECT
+public:
 
     ProjectBase();
     ~ProjectBase(){}
 
+
+public slots:
+    EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
+    void editorClosed(QObject* obj);
+
+private:
+    //using QPointer switches it.value() to 0 before we get to destroyed() handler
+    //typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
+    typedef QMap<QString, EditorTab*> FileToEditor;
+    FileToEditor m_fileToEditor;
+    QByteArray m_lastEditorState;
+
+
+
+public:
     void setProjectID( const QString & v )
     {
         mProjectID = v;

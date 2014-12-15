@@ -69,9 +69,10 @@
 QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
 QString Catalog::supportedFileTypes(bool includeTemplates)
 {
+    QString all=i18n("All supported files")+QStringLiteral(" (*.po *.pot *.xlf *.xliff *.ts);;");
     if (includeTemplates)
-        return QStringLiteral("Gettext (*.po *.pot);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
-    return QStringLiteral("Gettext (*.po);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
+        return all+QStringLiteral("Gettext (*.po *.pot);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
+    return all+QStringLiteral("Gettext (*.po);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
 }
 
 static const char* const extensions[]={".po",".pot",".xlf", ".ts"};

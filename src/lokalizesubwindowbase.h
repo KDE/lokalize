@@ -82,6 +82,7 @@ public:
 #include <QAction>
 #include <QMenu>
 #include <QMenuBar>
+#include "kmainwindow.h"
 namespace KStandardAction
 {
   /**
@@ -131,23 +132,11 @@ namespace KStandardAction
 };
 struct KActionCollection
 {
-    KActionCollection(QMainWindow* w)
-     : m_mainWindow(w)
-     , file(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "File")))
-     , edit(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Edit")))
-     , sync(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Sync")))
-     , tm(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Translation Memory")))
-    {}
+    KActionCollection(QMainWindow* w);
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
 
-    QAction* addAction(const QString& name, QAction* a)
-    {
-        if (name.startsWith("file_")) file->addAction(a);
-        if (name.startsWith("edit_")) edit->addAction(a);
-        if (name.startsWith("merge_")) sync->addAction(a);
-        if (name.startsWith("tmquery_")) tm->addAction(a);
-        return a;
-    }
+    QAction* addAction(const QString& name, QAction* a);
+
     QMainWindow* m_mainWindow;
     QMenu* file;
     QMenu* edit;
@@ -166,22 +155,17 @@ struct KActionCategory
         QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
         return c->addAction(name, a);
     }
-    QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot)
-    {
-        QAction* a=new QAction(QStringLiteral("std"), rcv);
-        QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
-        return a;        
-    }
+    QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot);
 
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
 
     KActionCollection* c;
 };
 #define KToolBarPopupAction QAction
-class LokalizeSubwindowBase2: public QMainWindow
+class LokalizeSubwindowBase2: public KMainWindow
 {
 public:
-    LokalizeSubwindowBase2(QWidget* parent): QMainWindow(parent), c(new KActionCollection(this))
+    LokalizeSubwindowBase2(QWidget* parent): KMainWindow(parent), c(new KActionCollection(this))
     {
     }
     virtual ~LokalizeSubwindowBase2(){}

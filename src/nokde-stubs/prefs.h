@@ -34,7 +34,7 @@ class SettingsController: public QObject
     Q_OBJECT
 
 public:
-    SettingsController(){}
+    SettingsController():m_mainWindowPtr(0){}
     ~SettingsController(){}
 
     bool dirty;

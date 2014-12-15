@@ -71,7 +71,8 @@ SOURCES += main.cpp\
     catalog/gettext/gettextexport.cpp\
     catalog/xliff/xliffstorage.cpp\
     catalog/ts/tsstorage.cpp\
-    nokde-stubs/prefs.cpp
+    nokde-stubs/prefs.cpp\
+    nokde-stubs/lokalizesubwindowbase.cpp
 
 HEADERS  += editortab.h\
     editorview.h\
@@ -129,7 +130,8 @@ HEADERS  += editortab.h\
     catalog/gettext/gettextexport.h\
     catalog/xliff/xliffstorage.h\
     catalog/ts/tsstorage.h\
-    nokde-stubs/prefs.h
+    nokde-stubs/prefs.h\
+    nokde-stubs/projectbase.h
 
 FORMS    +=    glossary/termedit.ui\
     tm/queryoptions.ui\
