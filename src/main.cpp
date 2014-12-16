@@ -22,16 +22,19 @@
 **************************************************************************** */
 
 
+#include "project.h"
+
 #ifndef NOKDE
 #include "version.h"
 #include "projecttab.h"
 #include "projectmodel.h"
-#include "project.h"
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
 #include "lokalizemainwindow.h"
 #include "stemming.h"
+#else
+#define LOKALIZE_VERSION QStringLiteral("1.9")
 #endif
 
 #include "jobs.h"
@@ -48,11 +51,8 @@
 
 #include <klocalizedstring.h>
 
-#ifndef NOKDE
 #include <kaboutdata.h>
-#else
 #include "editortab.h"
-#endif
 
 
 int main(int argc, char **argv)
@@ -62,7 +62,6 @@ int main(int argc, char **argv)
 
     QApplication app(argc, argv);
     QCommandLineParser parser;
-#ifndef NOKDE
     KAboutData about("lokalize", i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
                      KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( i18n("Nick Shaforostoff"), QString(), "shaforostoff@gmail.com" );
@@ -75,6 +74,7 @@ int main(int argc, char **argv)
     about.addCredit (i18n("Stefan Asserhall"), i18n("patches"), "stefan.asserhall@comhem.se");
     about.addCredit (i18n("Papp Laszlo"), i18n("bug fixing patches"), "djszapi@archlinux.us");
     about.addCredit (i18n("Albert Astals Cid"), i18n("XLIFF improvements"), "aacid@kde.org");
+#ifndef NOKDE
     KAboutData::setApplicationData(about);
     parser.addVersionOption();
     parser.addHelpOption();
@@ -88,7 +88,7 @@ int main(int argc, char **argv)
     parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("+[URL]"), i18n( "Document to open" )));
 #else
     QCoreApplication::setApplicationName(QStringLiteral("Lokalize"));
-    QCoreApplication::setApplicationVersion(QStringLiteral("1.9"));
+    QCoreApplication::setApplicationVersion(LOKALIZE_VERSION);
     parser.process(app);
 #endif
 
@@ -140,10 +140,12 @@ int main(int argc, char **argv)
         editor->show();
         editor->fileOpen(parser.positionalArguments().at(j));
     }
+    app.installEventFilter(Project::instance());
 #endif
     int code=app.exec();
 
     TM::threadPool()->clear();
+    TM::threadPool()->waitForDone(1000);
 #ifndef NOKDE
     Project::instance()->model()->threadPool()->clear();
 

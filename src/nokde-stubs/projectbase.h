@@ -16,6 +16,7 @@ public:
     ProjectBase();
     ~ProjectBase(){}
 
+    bool eventFilter(QObject *obj, QEvent *event);
 
 public slots:
     EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);

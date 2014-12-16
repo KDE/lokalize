@@ -140,6 +140,7 @@ struct KActionCollection
     QMainWindow* m_mainWindow;
     QMenu* file;
     QMenu* edit;
+    QMenu* view;
     QMenu* sync;
     QMenu* tm;
 };

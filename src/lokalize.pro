@@ -131,7 +131,8 @@ HEADERS  += editortab.h\
     catalog/xliff/xliffstorage.h\
     catalog/ts/tsstorage.h\
     nokde-stubs/prefs.h\
-    nokde-stubs/projectbase.h
+    nokde-stubs/projectbase.h\
+    nokde-stubs/kaboutdata.h
 
 FORMS    +=    glossary/termedit.ui\
     tm/queryoptions.ui\
@@ -149,4 +150,10 @@ win32: INCLUDEPATH += ../taglib ../taglib/taglib ../taglib/taglib/mpeg/id3v2 ../
 #win32: INCLUDEPATH += ../taglib/include ../taglib/build
 
 
+CONFIG += exceptions_off c++11 stl_off rtti_off
+
+mac: ICON = ../icons/osx/Lokalize.icns
+mac: QMAKE_INFO_PLIST = ../icons/osx/Info.plist
+
  
+mac: QMAKE_POST_LINK += cp -n ../icons/osx/LokalizePo*.icns ../icons/osx/LokalizeXliff.icns Lokalize.app/Contents/Resources/

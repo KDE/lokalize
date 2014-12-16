@@ -2,9 +2,14 @@
 #include "prefs_lokalize.h"
 #include "projectbase.h"
 
+#include "kaboutdata.h"
+
 #include <QLocale>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QFileOpenEvent>
+#include <QMessageBox>
+#include <QStringBuilder>
 
 SettingsController* SettingsController::_instance=0;
 void SettingsController::cleanupSettingsController()
@@ -166,11 +171,56 @@ void ProjectBase::editorClosed(QObject* obj)
     m_fileToEditor.remove(m_fileToEditor.key(static_cast<EditorTab*>(obj)));
 }
 
+bool ProjectBase::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::FileOpen)
+    {
+        QFileOpenEvent *e = static_cast<QFileOpenEvent *>(event);
+        fileOpen(e->file());
+        return true;
+    }
+    return QObject::eventFilter(obj, event);
+}
+
+KAboutData* KAboutData::instance=0;
+
+KAboutData::KAboutData(const char*, const QString& n, const QString& v, const QString& d, KAboutLicense::L, const QString& c)
+ : name(n)
+ , version(v)
+ , description(d)
+ , copyright(c)
+{
+    KAboutData::instance=this;
+}
+
+void KAboutData::addAuthor(const QString& name, const QString&, const QString& mail)
+{
+//    Credit c;
+//    c.name=name;
+//    c.mail=mail;
+//    credits.append(c);
+}
+
+void KAboutData::addCredit(const QString& name, const QString& forwhat, const QString& mail, const QString& site)
+{
+    Credit c;
+    c.name=name;
+    c.mail=mail;
+    c.what=forwhat;
+    c.site=site;
+    credits.append(c);
+}
 
 
-
-
-
+void KAboutData::doAbout()
+{
+    QString cs;
+    foreach(const Credit& c, credits)
+    {
+        cs+=c.name%": "%c.what%"<br >";
+    }
+    QMessageBox::about(0, name, "<h3>"%name%' '%version%"</h3><p>"%description%"</p><font style=\"font-weight:normal\"><p>"%copyright.replace('\n', "<br>")%"</p><br>Credits:<br>"%cs%"</font>");
+}
 
 
 
