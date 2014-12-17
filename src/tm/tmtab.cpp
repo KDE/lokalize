@@ -57,6 +57,11 @@
 #include <kxmlguifactory.h>
 #endif
 
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
+
 
 using namespace TM;
 //static int BIG_COUNTER=0;

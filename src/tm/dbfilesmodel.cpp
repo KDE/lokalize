@@ -34,6 +34,11 @@
 
 #include <klocalizedstring.h>
 
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
+
 using namespace TM;
 
 static QString tmFileExtension(TM_DATABASE_EXTENSION);

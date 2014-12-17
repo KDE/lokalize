@@ -19,9 +19,9 @@ KActionCollection::KActionCollection(QMainWindow* w)
     a->setShortcut(QKeySequence::Close);
 
     QMenu* help=m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Help"));
-    a=file->addAction(QApplication::translate("QMenuBar", "About Lokalize"), KAboutData::instance,SLOT(doAbout()));
+    a=help->addAction(QApplication::translate("QMenuBar", "About Lokalize"), KAboutData::instance,SLOT(doAbout()));
     a->setMenuRole(QAction::AboutRole);
-    a=file->addAction(QApplication::translate("QMenuBar", "About Qt"), qApp,SLOT(aboutQt()));
+    a=help->addAction(QApplication::translate("QMenuBar", "About Qt"), qApp,SLOT(aboutQt()));
     a->setMenuRole(QAction::AboutQtRole);
 }
 

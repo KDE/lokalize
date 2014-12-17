@@ -36,6 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QXmlSimpleReader>
 
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
+
 static const QString noyes[]={QStringLiteral("no"),QStringLiteral("yes")};
 static const QString bintargettarget[]={QStringLiteral("bin-target"),QStringLiteral("target")};
 static const QString binsourcesource[]={QStringLiteral("bin-source"),QStringLiteral("source")};

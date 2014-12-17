@@ -57,6 +57,10 @@ QThreadPool* TM::threadPool()
     return inst;
 }
 
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
 
 #define TM_DELIMITER '\v'
 #define TM_SEPARATOR '\b'

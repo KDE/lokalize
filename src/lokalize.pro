@@ -8,6 +8,7 @@ QT       += core widgets xml sql
 
 TARGET = lokalize
 mac: TARGET = Lokalize
+win32: TARGET = Lokalize
 TEMPLATE = app
 
 
@@ -145,10 +146,6 @@ DEFINES += NOKDE
 
 mac: QMAKE_LFLAGS += -dead_strip
 #unix: LIBS += -lhunspell
-win32: LIBS += ../taglib/build/taglib/tag.lib
-win32: INCLUDEPATH += ../taglib ../taglib/taglib ../taglib/taglib/mpeg/id3v2 ../taglib/taglib/toolkit ../taglib/build
-#win32: INCLUDEPATH += ../taglib/include ../taglib/build
-
 
 CONFIG += exceptions_off c++11 stl_off rtti_off
 
