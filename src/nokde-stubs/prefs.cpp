@@ -1,6 +1,8 @@
 #include "prefs.h"
 #include "prefs_lokalize.h"
 #include "projectbase.h"
+#include "projectlocal.h"
+#include "tmtab.h"
 
 #include "kaboutdata.h"
 
@@ -10,6 +12,7 @@
 #include <QFileOpenEvent>
 #include <QMessageBox>
 #include <QStringBuilder>
+#include <QSettings>
 
 SettingsController* SettingsController::_instance=0;
 void SettingsController::cleanupSettingsController()
@@ -33,7 +36,7 @@ Settings::Settings()
  , mAddColor(0x99,0xCC,0xFF)
  , mDelColor(0xFF,0x99,0x99)
  , mMsgFont()
- , mHighlightSpaces()
+ , mHighlightSpaces(true)
   , mLeds(false)
 
     // Editor
@@ -66,9 +69,9 @@ Settings *Settings::self()
 #include "editortab.h"
 
 ProjectBase::ProjectBase()
- : mProjectID("default")
+ : m_tmTab(0)
+ , mProjectID("default")
  , mKind()
- , mLangCode(Settings::defaultLangCode())
  , mTargetLangCode(Settings::defaultLangCode())
  , mSourceLangCode("en_US")
  , mPoBaseDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation))
@@ -82,9 +85,31 @@ ProjectBase::ProjectBase()
  , mAccel("&")
  , mMarkup("(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+")
  , mWordWrap(80)
-{}
+{
+    QSettings s;
+    mSourceLangCode = s.value("Project/SourceLangCode", mSourceLangCode).toString();
+    mTargetLangCode = s.value("Project/TargetLangCode", mTargetLangCode).toString();
+}
 
+void ProjectBase::save()
+{
+    QSettings s;
+    s.setValue("Project/SourceLangCode", mSourceLangCode);
+    s.setValue("Project/TargetLangCode", mTargetLangCode);
+}
 
+ProjectLocal::ProjectLocal()
+ : mRole(Translator)
+{
+    QSettings s;
+    mRole = s.value("Project/AuthorRole", mRole).toInt();
+}
+
+void ProjectLocal::save()
+{
+    QSettings s;
+    s.setValue("Project/AuthorRole", mRole);
+}
 
 EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, const QString& mergeFile, bool silent)
 {
@@ -181,6 +206,18 @@ bool ProjectBase::eventFilter(QObject *obj, QEvent *event)
     }
     return QObject::eventFilter(obj, event);
 }
+
+void ProjectBase::showTM()
+{
+    if (!m_tmTab)
+    {
+        m_tmTab=new TM::TMTab(0);
+        connect(m_tmTab, SIGNAL(fileOpenRequested(QString,QString,QString)),this,SLOT(fileOpen(QString,QString,QString)));
+    }
+    m_tmTab->show();
+}
+
+
 
 KAboutData* KAboutData::instance=0;
 

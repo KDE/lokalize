@@ -1,8 +1,33 @@
+/* ****************************************************************************
+  This file is part of Lokalize
+
+  Copyright (C) 2014 by Nick Shaforostoff <shafff@ukr.net>
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License or (at your option) version 3 or any later version
+  accepted by the membership of KDE e.V. (or its successor approved
+  by the membership of KDE e.V.), which shall act as a proxy 
+  defined in Section 14 of version 3 of the license.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+**************************************************************************** */
+
 #include "lokalizesubwindowbase.h"
 #include "project.h"
 #include "kaboutdata.h"
+#include "klocalizedstring.h"
 #include <QKeySequence>
 #include <QApplication>
+#include <QAction>
 
 KActionCollection::KActionCollection(QMainWindow* w)
     : m_mainWindow(w)
@@ -10,7 +35,8 @@ KActionCollection::KActionCollection(QMainWindow* w)
     , edit(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Edit")))
     , view(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "View")))
     , sync(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Sync")))
-    , tm  (m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Translation Memory")))
+    , tools(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Tools")))
+    , tm  (new QMenu(QApplication::translate("QMenuBar", "Translation Memory")))
 {
     QAction* a=file->addAction(QApplication::translate("QMenuBar", "Open..."), Project::instance(),SLOT(fileOpen()));
     a->setShortcut(QKeySequence::Open);
@@ -23,6 +49,9 @@ KActionCollection::KActionCollection(QMainWindow* w)
     a->setMenuRole(QAction::AboutRole);
     a=help->addAction(QApplication::translate("QMenuBar", "About Qt"), qApp,SLOT(aboutQt()));
     a->setMenuRole(QAction::AboutQtRole);
+
+    a=tools->addAction(i18nc("@action:inmenu","Translation memory"),Project::instance(),SLOT(showTM()));
+    a->setShortcut(Qt::Key_F7);
 }
 
 QAction* KActionCollection::addAction(const QString& name, QAction* a)
@@ -32,6 +61,8 @@ QAction* KActionCollection::addAction(const QString& name, QAction* a)
     if (name.startsWith("merge_")) sync->addAction(a);
     if (name.startsWith("tmquery_")) tm->addAction(a);
     if (name.startsWith("show")) view->addAction(a);
+
+    if (name=="mergesecondary_back") edit->addMenu(tm);
     return a;
 }
 

@@ -5,8 +5,11 @@
 #include <QObject>
 #include <QString>
 #include <QMap>
+#include <QDebug>
+#include <QPointer>
 
 class EditorTab;
+namespace TM{class TMTab;};
 
 class ProjectBase: public QObject
 {
@@ -14,13 +17,14 @@ class ProjectBase: public QObject
 public:
 
     ProjectBase();
-    ~ProjectBase(){}
+    ~ProjectBase(){save();}
 
     bool eventFilter(QObject *obj, QEvent *event);
 
 public slots:
     EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
     void editorClosed(QObject* obj);
+    void showTM();
 
 private:
     //using QPointer switches it.value() to 0 before we get to destroyed() handler
@@ -28,7 +32,7 @@ private:
     typedef QMap<QString, EditorTab*> FileToEditor;
     FileToEditor m_fileToEditor;
     QByteArray m_lastEditorState;
-
+    QPointer<TM::TMTab> m_tmTab;
 
 
 public:
@@ -54,36 +58,20 @@ public:
 
     void setLangCode( const QString & v )
     {
-        mLangCode = v;
+        //this is called from setDefaults()
+        //mTargetLangCode = v;
     }
 
     QString langCode() const
     {
-      return mLangCode;
-    }
-
-    void setTargetLangCode( const QString & v )
-    {
-        mTargetLangCode = v;
-    }
-
-    QString targetLangCode() const
-    {
       return mTargetLangCode;
     }
-
-    void setSourceLangCode( const QString & v )
-    {
-        mSourceLangCode = v;
-    }
-
-    /**
-      Get SourceLangCode
-    */
-    QString sourceLangCode() const
-    {
-      return mSourceLangCode;
-    }
+public slots:
+    void setTargetLangCode( const QString & v ){mTargetLangCode = v;}
+    void setSourceLangCode( const QString & v ){mSourceLangCode = v;}
+public:
+    QString targetLangCode() const {return mTargetLangCode;}
+    QString sourceLangCode() const {return mSourceLangCode;}
 
     void setMailingList( const QString & v )
     {
@@ -233,7 +221,7 @@ public:
       return mWordWrap;
     }
 
-    void save(){}
+    void save();
     void setDefaults(){}
   protected:
 

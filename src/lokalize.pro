@@ -73,7 +73,8 @@ SOURCES += main.cpp\
     catalog/xliff/xliffstorage.cpp\
     catalog/ts/tsstorage.cpp\
     nokde-stubs/prefs.cpp\
-    nokde-stubs/lokalizesubwindowbase.cpp
+    nokde-stubs/lokalizesubwindowbase.cpp\
+    nokde-stubs/welcometab.cpp
 
 HEADERS  += editortab.h\
     editorview.h\
@@ -98,7 +99,6 @@ HEADERS  += editortab.h\
     mergemode/mergecatalog.h\
     mergemode/mergeview.h\
     alttransview.h\
-    common/diff.h\
     project/project.h\
 #    project/projectmodel.h
 #    project/projectwidget.h
@@ -123,22 +123,17 @@ HEADERS  += editortab.h\
     catalog/pos.h\
     catalog/catalog.h\
     catalog/catalogstring.h\
-    catalog/gettextheader.h\
-    catalog/gettext/gettextstorage.h\
-    catalog/gettext/catalogitem.h\
-    catalog/gettext/importplugin_private.h\
-    catalog/gettext/gettextimport.h\
-    catalog/gettext/gettextexport.h\
-    catalog/xliff/xliffstorage.h\
-    catalog/ts/tsstorage.h\
     nokde-stubs/prefs.h\
     nokde-stubs/projectbase.h\
-    nokde-stubs/kaboutdata.h
+    nokde-stubs/projectlocal.h\
+    nokde-stubs/kaboutdata.h\
+    nokde-stubs/welcometab.h
 
 FORMS    +=    glossary/termedit.ui\
     tm/queryoptions.ui\
     tm/managedatabases.ui\
-    tm/dbparams.ui
+    tm/dbparams.ui\
+    nokde-stubs/welcomewidget.ui
 
 INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm project common nokde-stubs
 

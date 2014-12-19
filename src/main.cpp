@@ -35,6 +35,7 @@
 #include "stemming.h"
 #else
 #define LOKALIZE_VERSION QStringLiteral("1.9")
+#include "welcometab.h"
 #endif
 
 #include "jobs.h"
@@ -45,6 +46,7 @@
 #include <QDebug>
 #include <QString>
 #include <QFileInfo>
+#include <QDesktopWidget>
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
@@ -89,6 +91,8 @@ int main(int argc, char **argv)
 #else
     QCoreApplication::setApplicationName(QStringLiteral("Lokalize"));
     QCoreApplication::setApplicationVersion(LOKALIZE_VERSION);
+    QCoreApplication::setOrganizationName(QStringLiteral("KDE"));
+    QCoreApplication::setOrganizationDomain(QStringLiteral("kde.org"));
     parser.process(app);
 #endif
 
@@ -135,10 +139,12 @@ int main(int argc, char **argv)
     }
 #else
     for (int j=0; j<parser.positionalArguments().count(); j++)
+        Project::instance()->fileOpen(parser.positionalArguments().at(j));
+    if (!parser.positionalArguments().count())
     {
-        EditorTab* editor=new EditorTab(0);
-        editor->show();
-        editor->fileOpen(parser.positionalArguments().at(j));
+        WelcomeTab* welcome=new WelcomeTab(0);
+        welcome->move(QApplication::desktop()->screen()->rect().center() - welcome->rect().center());
+        welcome->show();
     }
     app.installEventFilter(Project::instance());
 #endif
