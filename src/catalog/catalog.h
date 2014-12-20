@@ -196,6 +196,7 @@ public slots: //DBus interface
     QString fileType();
     QString sourceLangCode() const;
     QString targetLangCode() const;
+    void setTargetLangCode(const QString& targetLangCode);
 
 protected:
     virtual KAutoSaveFile* checkAutoSave(const QString& url);

@@ -75,7 +75,7 @@ QString Catalog::supportedFileTypes(bool includeTemplates)
     return all+QStringLiteral("Gettext (*.po);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
 }
 
-static const char* const extensions[]={".po",".pot",".xlf", ".ts"};
+static const char* const extensions[]={".po",".pot",".xlf",".xliff", ".ts"};
 
 static const char* const xliff_states[]={
         I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
@@ -492,6 +492,14 @@ QString Catalog::targetLangCode() const
         return QString();
 
     return m_storage->targetLangCode();
+}
+
+void Catalog::setTargetLangCode(const QString& targetLangCode)
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return;
+
+    return m_storage->setTargetLangCode(targetLangCode);
 }
 
 //END STORAGE TRANSLATION

@@ -147,6 +147,7 @@ public:
 
     QString sourceLangCode() const{return m_sourceLangCode;}
     QString targetLangCode() const{return m_targetLangCode;}
+    virtual void setTargetLangCode(const QString& langCode) {m_targetLangCode=langCode;}
 
 protected:
     QString m_url;
@@ -157,7 +158,7 @@ protected:
 };
 
 inline CatalogStorage::CatalogStorage()
-    : m_sourceLangCode("en_US")
+    : m_sourceLangCode(QStringLiteral("en_US"))
     , m_numberOfPluralForms(0)
 {
 }

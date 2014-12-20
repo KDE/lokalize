@@ -100,6 +100,8 @@ public:
     QString mimetype()const{return QStringLiteral("application/x-xliff");}
     QString fileType()const{return QStringLiteral("XLIFF (*.xliff *.xlf)");}
 
+    void setTargetLangCode(const QString& langCode);
+
 private:
     QDomElement unitForPos(int pos) const;
     QDomElement targetForPos(int pos) const;

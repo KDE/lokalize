@@ -52,6 +52,7 @@
 
 #include "project.h"
 #include "prefs.h"
+#include "languagelistmodel.h"
 #include "kdemacros.h"
 
 #ifndef NOKDE
@@ -859,7 +860,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 
 
         //TODO "test" for the name????
-        m_catalog->setActivePhase("test",Project::local()->role());
+        //m_catalog->setActivePhase("test",Project::local()->role());
 //Project
         if (!m_project->isLoaded())
         {
@@ -878,9 +879,14 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
             //enforce autosync
             m_syncViewSecondary->mergeOpen(filePath);
             
-            if (!m_project->isLoaded() && m_project->desirablePath().isEmpty())
+            if (!m_project->isLoaded())
             {
-                m_project->setDesirablePath(fileInfo.absolutePath()+QStringLiteral("/index.lokalize"));
+                if (m_project->desirablePath().isEmpty())
+                    m_project->setDesirablePath(fileInfo.absolutePath()+QStringLiteral("/index.lokalize"));
+
+                if (m_catalog->targetLangCode().isEmpty() /*&& m_project->targetLangCode().length()*/)
+                    m_catalog->setTargetLangCode(getTargetLangCode(fileInfo.fileName()));
+
                 //_project->setLangCode(m_catalog->targetLangCode());
             }
                 
@@ -913,6 +919,9 @@ bool EditorTab::saveFileAs()
     QString filePath=QFileDialog::getSaveFileName(this, i18nc("@title:window", "Save File As"),
                                              QFileInfo(m_catalog->url()).absolutePath(), m_catalog->fileType());
     if (filePath.isEmpty()) return false;
+    if (!Catalog::extIsSupported(filePath)&&m_catalog->url().contains('.'))
+        filePath+=m_catalog->url().mid(m_catalog->url().lastIndexOf('.'));
+
     return saveFile(filePath);
 }
 

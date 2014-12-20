@@ -58,4 +58,6 @@ public:
     QString langCodeForSortModelRow(int);
 };
 
+QString getTargetLangCode(const QString& title);
+
 #endif // LANGUAGELISTMODEL_H

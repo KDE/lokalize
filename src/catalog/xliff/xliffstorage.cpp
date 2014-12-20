@@ -75,7 +75,7 @@ int XliffStorage::load(QIODevice* device)
     int errorLine;//+errorColumn;
     bool success=m_doc.setContent(&source, &reader, &errorMsg, &errorLine/*,errorColumn*/);
 
-    if (!success)
+    if (!success || m_doc.elementsByTagName(QStringLiteral("file")).isEmpty())
     {
         qWarning()<<errorMsg;
         return errorLine+1;
@@ -180,6 +180,17 @@ int XliffStorage::size() const
     return m_map.size();
 }
 
+void XliffStorage::setTargetLangCode(const QString& langCode)
+{
+    m_targetLangCode=langCode;
+
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    if (m_targetLangCode!=file.attribute(QStringLiteral("target-language")).replace('-', '_'))
+    {
+        QString l=langCode;
+        file.setAttribute(QStringLiteral("target-language"), l.replace('_', '-'));
+    }
+}
 
 
 

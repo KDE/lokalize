@@ -107,7 +107,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
             if (code.contains('_')) code=QString::fromRawData(code.unicode()+3, 2).toLower();
             if (code!="C")
             {
-                static QString flagPath("l10n/%1/flag.png");
+                static const QString flagPath("l10n/%1/flag.png");
                 path=QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + flagPath.arg(code));
             }
             iconCache[langCode]=QIcon(path);
@@ -124,11 +124,13 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());
 #ifndef NOKDE
-            return QVariant::fromValue<QString>(displayNames[index.row()]=KConfigGroup(m_systemLangList,code).readEntry("Name")%" ("%code%")");
+            return QVariant::fromValue<QString>(
+                displayNames[index.row()]=KConfigGroup(m_systemLangList,code).readEntry("Name")%QStringLiteral(" (")%code%')');
 #else
         QLocale l(code);
 //        if (l.language()==QLocale::C && code!="C")
-        return QVariant::fromValue<QString>(displayNames[index.row()]=QLocale::languageToString(l.language())%" ("%code%")");
+        return QVariant::fromValue<QString>(
+            displayNames[index.row()]=QLocale::languageToString(l.language())%QStringLiteral(" (")%code%')');
 #endif
     }
     return QStringListModel::data(index, role);
@@ -148,3 +150,36 @@ QString LanguageListModel::langCodeForSortModelRow(int row)
 {
     return stringList().at(m_sortModel->mapToSource(m_sortModel->index(row,0)).row());
 }
+
+
+#include "prefs.h"
+#include "project.h"
+#include <klocalizedstring.h>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QDialog>
+
+QString getTargetLangCode(const QString& title)
+{
+    QDialog dlg(SettingsController::instance()->mainWindowPtr());
+    dlg.setWindowTitle(title);
+    QHBoxLayout* l=new QHBoxLayout(&dlg);
+    l->addWidget(new QLabel(i18n("Target language:"), &dlg));
+    QComboBox* lc=new QComboBox(&dlg);
+    l->addWidget(lc);
+    lc->setModel(LanguageListModel::instance()->sortModel());
+    lc->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
+    QDialogButtonBox* btn=new QDialogButtonBox(QDialogButtonBox::Ok, &dlg);
+    l->addWidget(btn);
+    QObject::connect(btn, SIGNAL(accepted()), &dlg, SLOT(accept()));
+
+    if (!dlg.exec())
+        return Project::instance()->targetLangCode();
+
+    return LanguageListModel::instance()->langCodeForSortModelRow(lc->currentIndex());
+}
+
+
+
