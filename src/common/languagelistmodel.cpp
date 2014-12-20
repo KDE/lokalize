@@ -175,6 +175,8 @@ QString getTargetLangCode(const QString& title)
     l->addWidget(btn);
     QObject::connect(btn, SIGNAL(accepted()), &dlg, SLOT(accept()));
 
+    dlg.show();
+    dlg.activateWindow(); //if we're called from another app
     if (!dlg.exec())
         return Project::instance()->targetLangCode();
 

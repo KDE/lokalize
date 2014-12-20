@@ -46,7 +46,7 @@ QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, con
 {
     int lineCount=1;
     int nPos=20;
-    if (!singleLineColumns.at(index.column()))
+    if (index.column()>0 && !singleLineColumns.at(index.column()))
     {
         QString text=index.data().toString();
         nPos=text.indexOf('\n');
@@ -63,7 +63,6 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
 {
     painter->save();
 
-    //painter->save();
     painter->setClipping(true);
     painter->setClipRect(option.rect);
     QBrush bgBrush;

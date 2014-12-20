@@ -859,14 +859,15 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         //we delay gotoEntry(pos) until project is loaded;
 
 
-        //TODO "test" for the name????
-        //m_catalog->setActivePhase("test",Project::local()->role());
+        //set some sane role, a real phase with a nmae will be created later with the first edit command
+        m_catalog->setActivePhase(QString(),Project::local()->role());
 //Project
         if (!m_project->isLoaded())
         {
+            QFileInfo fileInfo(filePath);
+#ifndef NOKDE
 //search for it
             int i=4;
-            QFileInfo fileInfo(filePath);
             QDir dir=fileInfo.dir();
             QStringList proj(QStringLiteral("*.lokalize"));
             dir.setNameFilters(proj);
@@ -875,7 +876,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
                 if (dir.entryList().isEmpty()) {if (!dir.cdUp()) break;}
                 else m_project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
-
+#endif
             //enforce autosync
             m_syncViewSecondary->mergeOpen(filePath);
             

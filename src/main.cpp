@@ -164,14 +164,13 @@ int main(int argc, char **argv)
     TCHAR gClassName[100];
     wsprintf(gClassName, TEXT("LokalizeResponder"));
 
-    //if (GlobalFindAtom(L"Lokalize1"))
     HWND responder=FindWindow(gClassName, L"LokalizeResponder");
     if (responder)
     {
         for (int j=0; j<parser.positionalArguments().count(); j++)
         {
             strncpy(sentPath, parser.positionalArguments().at(j).toUtf8().constData(), 255);
-            MyCDS.dwData = 10;
+            MyCDS.dwData = FILEPATHMESSAGE;
             MyCDS.cbData = sizeof( sentPath );  // size of data
             MyCDS.lpData = &sentPath;           // data structure
             SendMessage(responder, WM_COPYDATA, 0, (LPARAM) (LPVOID) &MyCDS);
@@ -186,8 +185,8 @@ int main(int argc, char **argv)
     windowClass.cbWndExtra  = 0;
     windowClass.hInstance   = (HINSTANCE) GetModuleHandle(NULL);
     windowClass.hIcon = 0;
-    //windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-    //windowClass.hbrBackground = CreateSolidBrush(RGB(50, 50, 50));
+    windowClass.hCursor = 0;
+    windowClass.hbrBackground = 0;
     windowClass.lpszMenuName  = 0;
     windowClass.lpszClassName = gClassName;
     RegisterClass(&windowClass);

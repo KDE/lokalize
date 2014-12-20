@@ -1031,6 +1031,7 @@ bool isApproved(TargetState state)
 
 TargetState closestState(bool approved, ProjectLocal::PersonRole role)
 {
+    Q_ASSERT(role!=ProjectLocal::Undefined);
     static const TargetState approvementStates[][3]={
         {NeedsTranslation, NeedsReviewTranslation, NeedsReviewTranslation},
         {Translated, Final, SignedOff}
