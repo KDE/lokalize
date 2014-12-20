@@ -78,6 +78,7 @@ SOURCES += main.cpp\
 
 mac: CONFIG += objective_c
 mac: OBJECTIVE_SOURCES += common/machelpers.mm
+win32: SOURCES += common/winhelpers.cpp
 
 HEADERS  += editortab.h\
     editorview.h\
@@ -143,13 +144,13 @@ INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview 
 
 DEFINES += NOKDE
 
-mac: QMAKE_LFLAGS += -dead_strip
 #unix: LIBS += -lhunspell
 
 CONFIG += exceptions_off c++11 stl_off rtti_off
 
+mac: QMAKE_LFLAGS += -dead_strip
 mac: ICON = ../icons/osx/Lokalize.icns
 mac: QMAKE_INFO_PLIST = ../icons/osx/Info.plist
-
- 
 mac: QMAKE_POST_LINK += cp -n ../icons/osx/LokalizePo*.icns ../icons/osx/LokalizeXliff.icns Lokalize.app/Contents/Resources/
+
+
