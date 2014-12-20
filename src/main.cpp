@@ -56,6 +56,28 @@
 #include <kaboutdata.h>
 #include "editortab.h"
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#define FILEPATHMESSAGE 10
+char sentPath[256];
+COPYDATASTRUCT MyCDS;
+
+PCOPYDATASTRUCT pMyCDS;
+LONG_PTR WINAPI windowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    if (message == WM_COPYDATA)
+    {
+        pMyCDS = (PCOPYDATASTRUCT)lParam;
+        if (pMyCDS->dwData==FILEPATHMESSAGE)
+        {
+            EditorTab* t=Project::instance()->fileOpen(QString::fromUtf8((char*)pMyCDS->lpData));
+            if (t) t->activateWindow();
+        }
+        return 0;
+    }
+    return DefWindowProc(hWnd, message, wParam, lParam);
+}
+#endif
 
 int main(int argc, char **argv)
 {
@@ -138,6 +160,40 @@ int main(int argc, char **argv)
         //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
     }
 #else
+#ifdef Q_OS_WIN
+    TCHAR gClassName[100];
+    wsprintf(gClassName, TEXT("LokalizeResponder"));
+
+    //if (GlobalFindAtom(L"Lokalize1"))
+    HWND responder=FindWindow(gClassName, L"LokalizeResponder");
+    if (responder)
+    {
+        for (int j=0; j<parser.positionalArguments().count(); j++)
+        {
+            strncpy(sentPath, parser.positionalArguments().at(j).toUtf8().constData(), 255);
+            MyCDS.dwData = 10;
+            MyCDS.cbData = sizeof( sentPath );  // size of data
+            MyCDS.lpData = &sentPath;           // data structure
+            SendMessage(responder, WM_COPYDATA, 0, (LPARAM) (LPVOID) &MyCDS);
+        }
+        return 0;
+    }
+
+    WNDCLASS windowClass;
+    windowClass.style = CS_GLOBALCLASS | CS_DBLCLKS;
+    windowClass.lpfnWndProc = windowProc;
+    windowClass.cbClsExtra  = 0;
+    windowClass.cbWndExtra  = 0;
+    windowClass.hInstance   = (HINSTANCE) GetModuleHandle(NULL);
+    windowClass.hIcon = 0;
+    //windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+    //windowClass.hbrBackground = CreateSolidBrush(RGB(50, 50, 50));
+    windowClass.lpszMenuName  = 0;
+    windowClass.lpszClassName = gClassName;
+    RegisterClass(&windowClass);
+    responder = CreateWindow(gClassName, L"LokalizeResponder", 0, 0, 0, 10, 10, 0, (HMENU)0, (HINSTANCE)GetModuleHandle(NULL), 0);
+#endif
+
     for (int j=0; j<parser.positionalArguments().count(); j++)
         Project::instance()->fileOpen(parser.positionalArguments().at(j));
     if (!parser.positionalArguments().count())
@@ -150,6 +206,9 @@ int main(int argc, char **argv)
 #endif
     int code=app.exec();
 
+#ifdef Q_OS_WIN
+    DestroyWindow(responder);
+#endif
     TM::threadPool()->clear();
     TM::threadPool()->waitForDone(1000);
 #ifndef NOKDE
