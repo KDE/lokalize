@@ -7,30 +7,23 @@
 #include <QLocale>
 #include <QColor>
 #include <QFontDatabase>
-class Settings
+class Settings: public QObject
 {
-  public:
+    Q_OBJECT
+public:
 
     static Settings *self();
     ~Settings(){}
 
-    static
-    QString authorName()
-    {
-      return self()->mAuthorName;
-    }
+    void save();
 
-    static
-    QString authorLocalizedName()
-    {
-      return self()->mAuthorLocalizedName;
-    }
+public slots:
+    static void setAuthoName(const QString& v){self()->mAuthorName = v;}
 
-    static
-    QString authorEmail()
-    {
-      return self()->mAuthorEmail;
-    }
+public:
+    static QString authorName() {return self()->mAuthorName;}
+    static QString authorLocalizedName() {return self()->mAuthorLocalizedName;}
+    static QString authorEmail() {return self()->mAuthorEmail;}
 
     static
     QString defaultLangCode()

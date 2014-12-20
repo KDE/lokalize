@@ -23,13 +23,13 @@
 
 
 #include "project.h"
+#include "prefs.h"
+#include "prefs_lokalize.h"
 
 #ifndef NOKDE
 #include "version.h"
 #include "projecttab.h"
 #include "projectmodel.h"
-#include "prefs_lokalize.h"
-#include "prefs.h"
 
 #include "lokalizemainwindow.h"
 #include "stemming.h"
@@ -231,6 +231,8 @@ int main(int argc, char **argv)
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0,0);
     }
+#else
+    Settings::self()->save();
 #endif
     return code;
 }

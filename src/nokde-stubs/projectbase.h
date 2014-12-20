@@ -56,7 +56,7 @@ public:
       return mKind;
     }
 
-    void setLangCode( const QString & v )
+    void setLangCode( const QString & )
     {
         //this is called from setDefaults()
         //mTargetLangCode = v;

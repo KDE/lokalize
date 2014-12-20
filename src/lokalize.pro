@@ -124,6 +124,7 @@ HEADERS  += editortab.h\
     catalog/catalog.h\
     catalog/catalogstring.h\
     nokde-stubs/prefs.h\
+    nokde-stubs/prefs_lokalize.h\
     nokde-stubs/projectbase.h\
     nokde-stubs/projectlocal.h\
     nokde-stubs/kaboutdata.h\

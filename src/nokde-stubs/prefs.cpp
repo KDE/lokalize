@@ -37,7 +37,7 @@ Settings::Settings()
  , mDelColor(0xFF,0x99,0x99)
  , mMsgFont()
  , mHighlightSpaces(true)
-  , mLeds(false)
+ , mLeds(false)
 
     // Editor
  , mAutoApprove(true)
@@ -51,8 +51,16 @@ Settings::Settings()
 
  , mWordCompletionLength(3)
  , mSuggCount(10)
-{}
+{
+    QSettings s;
+    mAuthorName = s.value(QStringLiteral("Author/Name"), QString()).toString();
+}
 
+void Settings::save()
+{
+    QSettings s;
+    s.setValue(QStringLiteral("Author/Name"), mAuthorName);
+}
 
 Settings *Settings::self()
 {
@@ -70,7 +78,7 @@ Settings *Settings::self()
 
 ProjectBase::ProjectBase()
  : m_tmTab(0)
- , mProjectID("default")
+ , mProjectID(QStringLiteral("default"))
  , mKind()
  , mTargetLangCode(Settings::defaultLangCode())
  , mSourceLangCode("en_US")
@@ -87,15 +95,15 @@ ProjectBase::ProjectBase()
  , mWordWrap(80)
 {
     QSettings s;
-    mSourceLangCode = s.value("Project/SourceLangCode", mSourceLangCode).toString();
-    mTargetLangCode = s.value("Project/TargetLangCode", mTargetLangCode).toString();
+    mSourceLangCode = s.value(QStringLiteral("Project/SourceLangCode"), mSourceLangCode).toString();
+    mTargetLangCode = s.value(QStringLiteral("Project/TargetLangCode"), mTargetLangCode).toString();
 }
 
 void ProjectBase::save()
 {
     QSettings s;
-    s.setValue("Project/SourceLangCode", mSourceLangCode);
-    s.setValue("Project/TargetLangCode", mTargetLangCode);
+    s.setValue(QStringLiteral("Project/SourceLangCode"), mSourceLangCode);
+    s.setValue(QStringLiteral("Project/TargetLangCode"), mTargetLangCode);
 }
 
 ProjectLocal::ProjectLocal()
@@ -108,7 +116,7 @@ ProjectLocal::ProjectLocal()
 void ProjectLocal::save()
 {
     QSettings s;
-    s.setValue("Project/AuthorRole", mRole);
+    s.setValue(QStringLiteral("Project/AuthorRole"), mRole);
 }
 
 EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, const QString& mergeFile, bool silent)
