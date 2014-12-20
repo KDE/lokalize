@@ -76,6 +76,9 @@ SOURCES += main.cpp\
     nokde-stubs/lokalizesubwindowbase.cpp\
     nokde-stubs/welcometab.cpp
 
+mac: CONFIG += objective_c
+mac: OBJECTIVE_SOURCES += common/machelpers.mm
+
 HEADERS  += editortab.h\
     editorview.h\
     xlifftextedit.h\

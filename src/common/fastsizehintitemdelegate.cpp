@@ -46,7 +46,8 @@ QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, con
 {
     int lineCount=1;
     int nPos=20;
-    if (index.column()>0 && !singleLineColumns.at(index.column()))
+    int column=qMax(index.column(),0);
+    if (!singleLineColumns.at(column))
     {
         QString text=index.data().toString();
         nPos=text.indexOf('\n');

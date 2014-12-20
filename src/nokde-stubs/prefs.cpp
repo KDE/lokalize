@@ -31,6 +31,8 @@ SettingsController* SettingsController::instance()
     return _instance;
 }
 
+QString fullUserName();
+
 Settings::Settings()
  : mDefaultLangCode(QLocale::system().name())
  , mAddColor(0x99,0xCC,0xFF)
@@ -54,6 +56,7 @@ Settings::Settings()
 {
     QSettings s;
     mAuthorName = s.value(QStringLiteral("Author/Name"), QString()).toString();
+    if (mAuthorName.isEmpty()) mAuthorName = fullUserName();
 }
 
 void Settings::save()
