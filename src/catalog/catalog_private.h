@@ -64,7 +64,7 @@ class CatalogPrivate
 public:
 
     /** url of the po-file, that belongs to this catalog */
-    QString _url;
+    QString _filePath;
     QString _packageName;
     QString _packageDir;
 

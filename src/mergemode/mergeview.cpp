@@ -46,7 +46,7 @@
 
 MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     : QDockWidget ( primary?i18nc("@title:window that displays difference between current file and 'merge source'","Primary Sync"):i18nc("@title:window that displays difference between current file and 'merge source'","Secondary Sync"), parent)
-    , m_browser(new KTextEdit(this))
+    , m_browser(new QTextEdit(this))
     , m_baseCatalog(catalog)
     , m_mergeCatalog(0)
     , m_normTitle(primary?
@@ -169,7 +169,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
         result.prepend("<b>");
         result.append("</b>");
     }
-    result.replace(' ', "&nbsp;");
+    result.replace(' ', QChar::Nbsp);
     m_browser->setHtml(result);
     //qDebug()<<"ELA "<<time.elapsed();
 }
@@ -260,6 +260,11 @@ void MergeView::mergeOpen(QString mergeFilePath)
         //i18nc("@info %1 is w/o path","No branch counterpart for <filename>%1</filename>",url.fileName()),
     }
 
+}
+
+bool MergeView::isModified()
+{
+    return m_mergeCatalog && m_mergeCatalog->isModified(); //not isClean because mergecatalog doesn't keep history
 }
 
 int MergeView::pluralFormsAvailableForward()

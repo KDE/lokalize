@@ -28,7 +28,7 @@
 #include "mergecatalog.h"
 
 #include <QDockWidget>
-class KTextEdit;
+class QTextEdit;
 class Catalog;
 class MergeCatalog;
 class QDragEnterEvent;
@@ -47,6 +47,7 @@ public:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
     QString filePath();
+    bool isModified();
 
 private:
     /**
@@ -85,7 +86,7 @@ signals:
     void mergeCatalogPointerChanged(MergeCatalog* mergeCatalog);
 
 private:
-    KTextEdit* m_browser;
+    QTextEdit* m_browser;
     Catalog* m_baseCatalog;
     MergeCatalog* m_mergeCatalog;
     DocPosition m_pos;

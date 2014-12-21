@@ -187,7 +187,7 @@ private slots:
     //fuzzy, untr [statusbar] indication
     void msgStrChanged();
     //modif [caption] indication
-    void setModificationSign(bool clean){setProperCaption(_captionPath,!clean);}
+    void setModificationSign();
     void updateCaptionPath();
 
     //gui

@@ -185,9 +185,9 @@ public:
     void setTarget(DocPosition pos, const CatalogString& s); //for batch use only!
 
     //void setErrorIndex(const QList<int>& errors){d._errorIndex=errors;}
-    void setUrl(const QString& u){d._url=u;}//used for template load
+    void setUrl(const QString& u){d._filePath=u;}//used for template load
 public slots: //DBus interface
-    const QString& url() const {return d._url;}
+    const QString& url() const {return d._filePath;}
     ///@returns 0 if success, >0 erroneous line (parsing error)
     int loadFromUrl(const QString& url, const QString& saidUrl=QString(), int* fileSize = 0, bool fast = false);
     bool saveToUrl(QString url);

@@ -141,7 +141,7 @@ void Catalog::clear()
     d._nonApprovedIndex.clear();
     d._emptyIndex.clear();
     delete m_storage;m_storage=0;
-    d._url.clear();
+    d._filePath.clear();
     d._lastModifiedPos=DocPosition();
     d._modifiedEntries.clear();
 
@@ -591,7 +591,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
     d._numberOfPluralForms = storage->numberOfPluralForms();
     d._autoSaveDirty=true;
     d._readOnly=readOnly;
-    d._url=saidUrl.isEmpty()?url:saidUrl;
+    d._filePath=saidUrl.isEmpty()?url:saidUrl;
 
     //set some sane role, a real phase with a nmae will be created later with the first edit command
     setActivePhase(QString(),Project::local()->role());
@@ -599,7 +599,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
 #ifndef NOKDE
     if (!fast)
     {
-        KAutoSaveFile* autoSave=checkAutoSave(d._url);
+        KAutoSaveFile* autoSave=checkAutoSave(d._filePath);
         d._autoSaveRecovered=autoSave;
         if (autoSave)
         {
@@ -614,7 +614,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
             mergeCatalog->deleteLater();
         }
         else
-            d._autoSave->setManagedFile(d._url);
+            d._autoSave->setManagedFile(d._filePath);
     }
 #endif
 
@@ -622,13 +622,13 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
         *fileSize=file->size();
 
     emit signalFileLoaded();
-    emit signalFileLoaded(d._url);
+    emit signalFileLoaded(d._filePath);
     return 0;
 }
 
 bool Catalog::save()
 {
-    return saveToUrl(d._url);
+    return saveToUrl(d._filePath);
 }
 
 //this function is not called if QUndoStack::isClean() !
@@ -639,7 +639,7 @@ bool Catalog::saveToUrl(QString localFilePath)
 
     bool nameChanged=localFilePath.length();
     if (KDE_ISLIKELY( !nameChanged ))
-        localFilePath = d._url;
+        localFilePath = d._filePath;
 
 
     QString localPath=QFileInfo(localFilePath).absolutePath();
@@ -665,14 +665,14 @@ bool Catalog::saveToUrl(QString localFilePath)
     setClean(); //undo/redo
     if (nameChanged)
     {
-        d._url=localFilePath;
+        d._filePath=localFilePath;
 #ifndef NOKDE
         d._autoSave->setManagedFile(localFilePath);
 #endif
     }
 
     //Settings::self()->setCurrentGroup("Bookmarks");
-    //Settings::self()->addItemIntList(d._url.url(),d._bookmarkIndex);
+    //Settings::self()->addItemIntList(d._filePath.url(),d._bookmarkIndex);
 
     emit signalFileSaved();
     emit signalFileSaved(localFilePath);

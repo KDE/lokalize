@@ -419,9 +419,9 @@ void EditorTab::setupActions()
 
 // File
     action=file->addAction(KStandardAction::Save,this, SLOT(saveFile()));
-    action->setEnabled(false);
-    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
-    connect (m_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign(bool)));
+//    action->setEnabled(false);
+//    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
+    connect (m_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign()));
     file->addAction(KStandardAction::SaveAs,this, SLOT(saveFileAs()));
     //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
     //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
@@ -771,7 +771,13 @@ void EditorTab::setFullPathShown(bool fullPathShown)
     m_fullPathShown=fullPathShown;
 
     updateCaptionPath();
-    setModificationSign(m_catalog->isClean());
+    setModificationSign();
+}
+
+void EditorTab::setModificationSign()
+{
+    bool clean=m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
+    setProperCaption(_captionPath,!clean);
 }
 
 
@@ -893,7 +899,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         gotoEntry(pos);
 
         updateCaptionPath();
-        setModificationSign(m_catalog->isClean());
+        setModificationSign();
 
 //OK!!!
         emit fileOpened();
@@ -925,10 +931,18 @@ bool EditorTab::saveFileAs()
 
 bool EditorTab::saveFile(const QString& filePath)
 {
+    bool clean=m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
+    if (clean) return true;
+
+    if (m_catalog->isClean() && filePath.isEmpty())
+    {
+        emit m_catalog->signalFileSaved();
+        return true;
+    }
     if (m_catalog->saveToUrl(filePath))
     {
         updateCaptionPath();
-        setModificationSign(/*clean*/true);
+        setModificationSign();
         emit fileSaved(filePath);
         return true;
     }
@@ -969,7 +983,8 @@ EditorState EditorTab::state()
 
 bool EditorTab::queryClose()
 {
-    if (m_catalog->isClean()) return true;
+    bool clean=m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
+    if (clean) return true;
 
     //TODO caption
     switch (KMessageBox::warningYesNoCancel(this,

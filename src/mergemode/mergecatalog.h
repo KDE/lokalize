@@ -97,6 +97,7 @@ public:
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const int& entry) const;
     bool isModified(DocPos)const;
+    bool isModified()const{return m_modified;}
 
     ///@arg pos in baseCatalog's coordinates
     void copyToBaseCatalog(DocPosition& pos);
