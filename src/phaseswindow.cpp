@@ -25,6 +25,7 @@
 #include "catalog.h"
 #include "cmd.h"
 #include "noteeditor.h"
+#include "project.h"
 
 #include <kcombobox.h>
 #include <klocalizedstring.h>
@@ -168,6 +169,7 @@ public:
     ~PhaseEditDialog(){}
 
     Phase phase()const;
+    ProjectLocal::PersonRole role()const;
 private:
     KComboBox* m_process;
 };
@@ -182,7 +184,7 @@ PhaseEditDialog::PhaseEditDialog(QWidget *parent)
     m_process->setModel(new QStringListModel(processes, this));
 
     QFormLayout* l=new QFormLayout(this);
-    l->addRow(i18nc("noun", "Process"), m_process);
+    l->addRow(i18nc("noun", "Process (this will also change your role):"), m_process);
 
     QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
@@ -196,6 +198,12 @@ Phase PhaseEditDialog::phase() const
     phase.process=processes()[m_process->currentIndex()];
     return phase;
 }
+
+ProjectLocal::PersonRole PhaseEditDialog::role() const
+{
+    return (ProjectLocal::PersonRole)m_process->currentIndex();
+}
+
 
 PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
  : QDialog(parent)
@@ -224,10 +232,10 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     QSplitter* splitter=new QSplitter(this);
     l->addWidget(splitter);
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    l->addWidget(buttonBox);
+    m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
+    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    l->addWidget(m_buttonBox);
 
 
     m_view->setRootIsDecorated(false);
@@ -263,6 +271,7 @@ void PhasesWindow::handleResult()
     Phase last;
     foreach(const Phase& phase, m_model->addedPhases())
         static_cast<QUndoStack*>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last=phase));
+    Project::instance()->local()->setRole(roleForProcess(last.process));
     m_catalog->setActivePhase(last.name,roleForProcess(last.process));
 
     QMapIterator<QString, QVector<Note> > i(m_phaseNotes);
@@ -285,6 +294,8 @@ void PhasesWindow::addPhase()
     initPhaseForCatalog(m_catalog, phase, ForceAdd);
     m_view->setCurrentIndex(m_model->addPhase(phase));
     m_phaseNotes.insert(phase.name, QVector<Note>());
+
+    m_buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 static QString phaseNameFromView(QTreeView* view)

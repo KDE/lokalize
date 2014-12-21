@@ -34,6 +34,7 @@
 #include <QVector>
 #include <QMap>
 
+class QDialogButtonBox;
 class QStackedLayout;
 class QTextBrowser;
 class NoteEditor;
@@ -62,6 +63,7 @@ private:
     NoteEditor* m_editor;
     QWidget* m_noteView;
     QStackedLayout* m_stackedLayout;
+    QDialogButtonBox* m_buttonBox;
 
     QMap<QString, QVector<Note> > m_phaseNotes;
 };

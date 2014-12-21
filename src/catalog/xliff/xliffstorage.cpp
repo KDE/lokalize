@@ -988,6 +988,8 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
     QDomElement target=targetForPos(pos.entry);
     TargetState prev=stringToState(target.attribute("state"));
     target.setAttribute(QStringLiteral("state"),states[state]);
+
+    unitForPos(pos.entry).setAttribute(QStringLiteral("approved"), noyes[state==SignedOff]);
     return prev;
 }
 
