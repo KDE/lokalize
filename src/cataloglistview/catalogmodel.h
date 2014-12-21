@@ -51,9 +51,10 @@ public:
         Notes,
         Context,
         TranslationStatus,
-        Empty,
+        IsEmpty,
         State,
-        Modified,
+        IsModified,
+        IsPlural,
         ColumnCount,
         DisplayedColumnCount=TranslationStatus+1
     };
@@ -113,24 +114,27 @@ public:
         SameInSync=1<<8,
         DifferentInSync=1<<9,
         NotInSync=1<<10,
-        
+
+        Plural=1<<11,
+        NonPlural=1<<12,
+
         //states (see defines below)
-        New=1<<11,
-        NeedsTranslation=1<<12,
-        NeedsL10n=1<<13,
-        NeedsAdaptation=1<<14,
-        Translated=1<<15,
-        NeedsReviewTranslation=1<<16,
-        NeedsReviewL10n=1<<17,
-        NeedsReviewAdaptation=1<<18,
-        Final=1<<19,
-        SignedOff=1<<20,
-        MaxOption=1<<21,
+        New=1<<13,
+        NeedsTranslation=1<<14,
+        NeedsL10n=1<<15,
+        NeedsAdaptation=1<<16,
+        Translated=1<<17,
+        NeedsReviewTranslation=1<<18,
+        NeedsReviewL10n=1<<19,
+        NeedsReviewAdaptation=1<<20,
+        Final=1<<21,
+        SignedOff=1<<22,
+        MaxOption=1<<23,
         AllStates=MaxOption-1
     };
 
-#define STATES ((0xffff<<11)&(AllStates))
-#define FIRSTSTATEPOSITION 11
+#define STATES ((0xffff<<13)&(AllStates))
+#define FIRSTSTATEPOSITION 13
 
 
     CatalogTreeFilterModel(QObject* parent);

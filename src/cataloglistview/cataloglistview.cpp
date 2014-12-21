@@ -210,7 +210,9 @@ void CatalogView::fillFilterOptionsMenu()
                                  I18N_NOOP("Unchanged since file open"),
                                  I18N_NOOP("Same in sync file"),
                                  I18N_NOOP("Different in sync file"),
-                                 I18N_NOOP("Not in sync file")
+                                 I18N_NOOP("Not in sync file"),
+                                 I18N_NOOP("Plural"),
+                                 I18N_NOOP("Non-plural"),
                                  };
     const char* const* extTitles=Catalog::states();
     const char* const* alltitles[2]={basicTitles,extTitles};

@@ -175,9 +175,10 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         switch (index.column())
         {
             case TranslationStatus:   return m_catalog->isApproved(index.row());
-            case Empty:     return m_catalog->isEmpty(index.row());
+            case IsEmpty:     return m_catalog->isEmpty(index.row());
             case State:     return int(m_catalog->state(index.row()));
-            case Modified:  return m_catalog->isModified(index.row());
+            case IsModified:  return m_catalog->isModified(index.row());
+            case IsPlural:  return m_catalog->isPlural(index.row());
             default:        role=Qt::DisplayRole;
         }
     }
@@ -276,13 +277,18 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     }
     if (accepts&&bool(filerOptions&NonEmpty)!=bool(filerOptions&Empty))
     {
-        bool untr=sourceModel()->index(source_row,CatalogTreeModel::Empty,source_parent).data(Qt::UserRole).toBool();
+        bool untr=sourceModel()->index(source_row,CatalogTreeModel::IsEmpty,source_parent).data(Qt::UserRole).toBool();
         accepts=(untr==bool(filerOptions&Empty) || untr!=bool(filerOptions&NonEmpty));
     }
     if (accepts&&bool(filerOptions&Modified)!=bool(filerOptions&NonModified))
     {
-        bool modified=sourceModel()->index(source_row,CatalogTreeModel::Modified,source_parent).data(Qt::UserRole).toBool();
+        bool modified=sourceModel()->index(source_row,CatalogTreeModel::IsModified,source_parent).data(Qt::UserRole).toBool();
         accepts=(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
+    }
+    if (accepts&&bool(filerOptions&Plural)!=bool(filerOptions&NonPlural))
+    {
+        bool modified=sourceModel()->index(source_row,CatalogTreeModel::IsPlural,source_parent).data(Qt::UserRole).toBool();
+        accepts=(modified==bool(filerOptions&Plural) || modified!=bool(filerOptions&NonPlural));
     }
 
     // These are the possible sync options of a row:
