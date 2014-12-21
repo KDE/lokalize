@@ -358,6 +358,17 @@ void CatalogItem::setFuzzy()
         d->_comment=comment.insert(p+a.matchedLength(),"#, fuzzy\n").toUtf8();
         return;
     }
+    p=d->_comment.indexOf("\n#|");
+    if (p!=-1)
+    {
+        d->_comment.insert(p,"\n#, fuzzy");
+        return;
+    }
+    if (d->_comment.startsWith("#|"))
+    {
+        d->_comment.prepend("#, fuzzy\n");
+        return;
+    }
 
     if( !(d->_comment.endsWith('\n')) )
         d->_comment+='\n';

@@ -903,8 +903,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
     if (!silent)
     {
 #ifndef NOKDE
-        if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>, line: %2",filePath,errorLine) );
-        else             KMessageBox::error(this, i18nc("@info","Error opening the file <filename>%1</filename>",filePath) );
+        if (errorLine>0) KMessageBox::error(this, i18nc("@info","Error opening the file %1, line: %2",filePath,errorLine) );
+        else             KMessageBox::error(this, i18nc("@info","Error opening the file %1",filePath) );
 #else
                          KMessageBox::error(this, i18nc("@info","Error opening the file") );
 #endif
@@ -934,13 +934,13 @@ bool EditorTab::saveFile(const QString& filePath)
     }
 #ifndef NOKDE
     if ( KMessageBox::Continue==KMessageBox::warningContinueCancel(this,
-                                            i18nc("@info","Error saving the file <filename>%1</filename>\n"
+                                            i18nc("@info","Error saving the file %1\n"
                                                   "Do you want to save to another file or cancel?", m_catalog->url()),
                                             i18nc("@title","Error"),KStandardGuiItem::save())
        )
 #else
     if ( QMessageBox::Yes==QMessageBox::warning(this, QString(),
-                                            i18nc("@info","Error saving the file <filename>%1</filename>\n"
+                                            i18nc("@info","Error saving the file %1\n"
                                                   "Do you want to save to another file or cancel?").arg(m_catalog->url()),
                                             QMessageBox::Yes|QMessageBox::No)
        )
@@ -952,7 +952,7 @@ bool EditorTab::saveFile(const QString& filePath)
 void EditorTab::fileAutoSaveFailedWarning(const QString& fileName)
 {
     KMessageBox::information(this, i18nc("@info","Could not perform file autosaving.\n"
-                                                 "The target file was <filename>%1</filename>.", fileName) );
+                                                 "The target file was %1.", fileName) );
 }
 
 EditorState EditorTab::state()
