@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,21 +27,20 @@
 #include "tmscanapi.h"
 #include "prefs.h"
 
-#include <klocale.h>
-#include <kaction.h>
+#include <klocalizedstring.h>
 #include <kactioncategory.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
-#include <klineedit.h>
-#include <kstatusbar.h>
-#include <khbox.h>
 
+#include <QLineEdit>
+#include <QIcon>
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QShortcut>
 #include <QSortFilterProxyModel>
+#include <QStatusBar>
 #include <QProgressBar>
 #include <QStackedLayout>
 #include <QLabel>
@@ -50,7 +49,7 @@
 ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
-    , m_filterEdit(new KLineEdit(this))
+    , m_filterEdit(new QLineEdit(this))
     , m_legacyUnitsCount(-1)
     , m_currentUnitsCount(0)
 
@@ -113,30 +112,25 @@ ProjectTab::ProjectTab(QWidget *parent)
     QVBoxLayout* l=new QVBoxLayout(w);
 
     
-    m_filterEdit->setClearButtonShown(true);
-    m_filterEdit->setClickMessage(i18n("Quick search..."));
+    m_filterEdit->setClearButtonEnabled(true);
+    m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_filterEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
-    connect(m_browser,SIGNAL(fileOpenRequested(KUrl)),this,SIGNAL(fileOpenRequested(KUrl)));
+    connect(m_browser,SIGNAL(fileOpenRequested(QString)),this,SIGNAL(fileOpenRequested(QString)));
     connect(Project::instance()->model(), SIGNAL(totalsChanged(int,int,int,bool)),
             this, SLOT(updateStatusBar(int,int,int,bool)));
     connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
 
     setCentralWidget(baseWidget);
+    QStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
 
-    KHBox *progressBox = new KHBox();
-    KStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
-
-    m_progressBar = new QProgressBar(progressBox);
+    m_progressBar = new QProgressBar(0);
     m_progressBar->setVisible(false);
-    progressBox->setMinimumWidth(200);
-    progressBox->setMaximumWidth(200);
-    progressBox->setMaximumHeight(statusBar->sizeHint().height() - 4);
-    statusBar->insertWidget(ID_STATUS_PROGRESS, progressBox, 1);
+    statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
     setXMLFile("projectmanagerui.rc",true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
@@ -144,10 +138,10 @@ ProjectTab::ProjectTab(QWidget *parent)
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = nav->addAction(_name);\
     action->setText(_text);\
-    action->setShortcut(QKeySequence( _shortcut ));\
-    action->setIcon(KIcon(_icon));
+    action->setIcon(QIcon::fromTheme(_icon));\
+    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* nav=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
 
@@ -181,12 +175,15 @@ ProjectTab::ProjectTab(QWidget *parent)
     ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
 
-    
+    //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::ALT+Qt::Key_Down,"nextpo")
+    //connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
+    action=nav->addAction(KStandardAction::Find,this,SLOT(searchInFiles()));
+
     KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);
 
     action = proj->addAction("project_open",this,SIGNAL(projectOpenRequested()));
     action->setText(i18nc("@action:inmenu","Open project"));
-    action->setIcon(KIcon("project-open"));
+    action->setIcon(QIcon::fromTheme("project-open"));
     
     int i=6;
     while (--i>ID_STATUS_PROGRESS)
@@ -196,7 +193,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
 ProjectTab::~ProjectTab()
 {
-    //kWarning()<<"destroyed";
+    //qWarning()<<"destroyed";
 }
 
 void ProjectTab::showRealProjectOverview()
@@ -204,9 +201,9 @@ void ProjectTab::showRealProjectOverview()
     m_stackedLayout->setCurrentIndex(1);
 }
 
-KUrl ProjectTab::currentUrl()
+QString ProjectTab::currentFilePath()
 {
-    return KUrl::fromLocalFile(Project::instance()->projectDir());
+    return Project::instance()->path();
 }
 
 void ProjectTab::setFocus()
@@ -262,18 +259,12 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 
 void ProjectTab::scanFilesToTM()
 {
-    QList<QUrl> urls;
-    foreach(const KUrl& url, m_browser->selectedItems())
-        urls.append(url);
-    TM::scanRecursive(urls,Project::instance()->projectID());
+    TM::scanRecursive(m_browser->selectedItems(),Project::instance()->projectID());
 }
 
 void ProjectTab::searchInFiles(bool templ)
 {
-    QStringList files;
-    foreach(const KUrl& url, m_browser->selectedItems())
-        files.append(url.toLocalFile());
-
+    QStringList files=m_browser->selectedItems();
     if (!templ)
     {
         QString templatesRoot=Project::instance()->templatesRoot();
@@ -310,15 +301,9 @@ void ProjectTab::gotoPrevTransOnly()    {m_browser->gotoPrevTransOnly();}
 void ProjectTab::gotoNextTransOnly()    {m_browser->gotoNextTransOnly();}
 
 bool ProjectTab::currentItemIsTranslationFile() const {return m_browser->currentIsTranslationFile();}
-void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(KUrl::fromLocalFile(url));}
-QString ProjectTab::currentItem() const {return m_browser->currentItem().toLocalFile();}
-QStringList ProjectTab::selectedItems() const
-{
-    QStringList result;
-    foreach (const KUrl& url, m_browser->selectedItems())
-        result.append(url.toLocalFile());
-    return result;
-}
+void ProjectTab::setCurrentItem(const QString& url){m_browser->setCurrentItem(url);}
+QString ProjectTab::currentItem() const {return m_browser->currentItem();}
+QStringList ProjectTab::selectedItems() const {return m_browser->selectedItems();}
 
 void ProjectTab::updateStatusBar(int fuzzy, int translated, int untranslated, bool done)
 {

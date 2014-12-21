@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -28,7 +28,7 @@
 #include "pos.h"
 #include "catalogstring.h"
 
-#include <KTextEdit>
+#include <ktextedit.h>
 class QMouseEvent;
 class SyntaxHighlighter;//TODO rename
 class KCompletionBox;
@@ -47,6 +47,10 @@ public:
     DocPosition currentPos()const {return m_currentPos;}
 
     void cursorToStart();
+
+    bool isSpellCheckingEnabled() const {return m_enabled;}
+    void setSpellCheckingEnabled(bool enable);
+    bool shouldBlockBeSpellChecked(const QString &block) const{Q_UNUSED(block); return true;}
 
 public slots:
     void reflectApprovementState();
@@ -134,6 +138,7 @@ private:
     DocPosition::Part m_part;
     DocPosition m_currentPos;
     SyntaxHighlighter* m_highlighter;
+    bool m_enabled;
 
     MyCompletionBox* m_completionBox;
 

@@ -36,7 +36,8 @@
 #include "catalogitem.h"
 #include "catalogitem_private.h"
 
-#include <kdebug.h>
+#include <kdemacros.h>
+#include <QDebug>
 #include <QMutexLocker>
 
 using namespace GettextCatalog;
@@ -85,11 +86,13 @@ const QString& CatalogItem::msgstr(const int form) const
 
 bool CatalogItem::prependEmptyForMsgid(const int form) const
 {
+    Q_UNUSED(form)
     return d->_prependMsgIdEmptyLine;
 }
 
 bool CatalogItem::prependEmptyForMsgstr(const int form) const
 {
+    Q_UNUSED(form)
     return d->_prependMsgStrEmptyLine;
 }
 
@@ -103,7 +106,7 @@ QStringList CatalogItem::allPluralForms(CatalogItem::Part part, bool stripNewLin
     QStringList result=(part==CatalogItem::Source?d->_msgidPlural:d->_msgstrPlural).toList();
     if (stripNewLines)
     {
-        static QString nl="\n";
+        static QString nl=QStringLiteral("\n");
         result.replaceInStrings(nl, QString());
     }
     return result;
@@ -188,7 +191,7 @@ void CatalogItem::setComment(const QString& com)
 {
     static QMutex reMutex;
     QMutexLocker reLock(&reMutex); //avoid crash #281033
-    static QRegExp fuzzyRegExp("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy");
+    static QRegExp fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
     d->_fuzzyCached=com.contains( fuzzyRegExp );
     d->_comment=com.toUtf8();
     d->_comment.squeeze();
@@ -314,7 +317,7 @@ QStringList CatalogItem::msgstrAsList() const
 {
     if (d->_msgstrPlural.isEmpty())
     {
-        kWarning()<<"This should never happen!";
+        qWarning()<<"This should never happen!";
         return QStringList();
     }
     QStringList list(d->_msgstrPlural.first().split('\n', QString::SkipEmptyParts ));
@@ -367,14 +370,14 @@ void CatalogItem::unsetFuzzy()
 
     QString comment=QString::fromUtf8(d->_comment);
 
-    static const QRegExp rmFuzzyRe(",\\s*fuzzy");
+    static const QRegExp rmFuzzyRe(QStringLiteral(",\\s*fuzzy"));
     comment.remove( rmFuzzyRe );
 
     // remove empty comment lines
-    comment.remove( QRegExp("\n#\\s*$") );
-    comment.remove( QRegExp("^#\\s*$") );
-    comment.remove( QRegExp("#\\s*\n") );
-    comment.remove( QRegExp("^#\\s*\n") );
+    comment.remove( QRegExp(QStringLiteral("\n#\\s*$")) );
+    comment.remove( QRegExp(QStringLiteral("^#\\s*$")) );
+    comment.remove( QRegExp(QStringLiteral("#\\s*\n")) );
+    comment.remove( QRegExp(QStringLiteral("^#\\s*\n")) );
 
     d->_comment=comment.toUtf8();
 }

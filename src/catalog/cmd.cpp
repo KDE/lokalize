@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -24,14 +24,14 @@
 #include "cmd.h"
 
 #include <QString>
-
-#include <klocale.h>
-#include <kdebug.h>
+#include <QDebug>
 
 #include "catalog_private.h"
 #include "catalogitem_private.h"
 #include "catalog.h"
-#include <project.h>
+#include "project.h"
+
+#include <klocalizedstring.h>
 
 
 //BEGIN LokalizeUnitCmd
@@ -53,7 +53,7 @@ void LokalizeUnitCmd::redo()
     setJumpingPos();
     doRedo();
     _firstModificationForThisEntry=_catalog->setModified(DocPos(_pos),true);
-    _prevPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::UndefPart);
+//    _prevPhase=setPhaseForPart(_catalog,_catalog->activePhase(),_pos,DocPosition::UndefPart);
 }
 
 void LokalizeUnitCmd::undo()
@@ -62,7 +62,7 @@ void LokalizeUnitCmd::undo()
     doUndo();
     if (_firstModificationForThisEntry)
         _catalog->setModified(DocPos(_pos),false);
-    setPhaseForPart(_catalog,_prevPhase,_pos,DocPosition::UndefPart);
+//    setPhaseForPart(_catalog,_prevPhase,_pos,DocPosition::UndefPart);
 }
 
 void LokalizeUnitCmd::setJumpingPos()
@@ -235,7 +235,7 @@ DelTagCmd::DelTagCmd(Catalog *catalog, const DocPosition& pos)
 void DelTagCmd::doRedo()
 {
     _tag=_catalog->targetDeleteTag(_pos);
-    kWarning()<<"tag properties:"<<_tag.start<<_tag.end;
+    qWarning()<<"tag properties:"<<_tag.start<<_tag.end;
 }
 
 void DelTagCmd::doUndo()
@@ -365,15 +365,15 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
 {
     CatalogString targetWithTags=catalog->targetWithTags(pos);
     QString target=targetWithTags.string;
-    kWarning()<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
+    qWarning()<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
     if (delLen==-1)
         delLen=target.length()-delStart;
 
     bool doTags=catalog->capabilities()&Tags;
     QMap<int,int> tagPlaces;
-    if (target.isEmpty() || doTags && !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen))
+    if (target.isEmpty() || (doTags && !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen)))
     {
-        kWarning()<<"error removing text"<<target;
+        qWarning()<<"error removing text"<<target;
         return false;
     }
 
@@ -381,7 +381,7 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
 
     //all indexes are ok (or target is just plain text)
     //modified=true;
-    //kWarning()<<"all indexes are ok";
+    //qWarning()<<"all indexes are ok";
     QMapIterator<int,int> it(tagPlaces);
     it.toBack();
     while (it.hasPrevious())
@@ -394,24 +394,24 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
         delLen-=1+cmd->tag().isPaired();
         QString tmp=catalog->targetWithTags(pos).string;
         tmp.replace(TAGRANGE_IMAGE_SYMBOL, "*");
-        kWarning()<<"\tdeleting at"<<it.key()<<"current string:"<<tmp<<"delLen"<<delLen;
+        qWarning()<<"\tdeleting at"<<it.key()<<"current string:"<<tmp<<"delLen"<<delLen;
     }
     //charsRemoved-=lenDecrement;
     QString tmp=catalog->targetWithTags(pos).string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, "*");
-    kWarning()<<"offset"<<delStart<<delLen<<"current string:"<<tmp;
+    qWarning()<<"offset"<<delStart<<delLen<<"current string:"<<tmp;
     pos.offset=delStart;
     if (delLen)
     {
         QString rText=catalog->targetWithTags(pos).string.mid(delStart,delLen);
         rText.remove(TAGRANGE_IMAGE_SYMBOL);
-        kWarning()<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
+        qWarning()<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
         if (!rText.isEmpty())
             catalog->push(new DelTextCmd(catalog,pos,rText));
     }
     tmp=catalog->targetWithTags(pos).string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, "*");
-    kWarning()<<"current string:"<<tmp;
+    qWarning()<<"current string:"<<tmp;
 
     catalog->endMacro();
     return true;
@@ -425,8 +425,8 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     bool containsMarkup=i;
     while(--i>=0)
     {
-        //kWarning()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
-        kWarning()<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        //qWarning()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        qWarning()<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(catStr.tags.at(i).start,i);
         posToTag.insert(catStr.tags.at(i).end,i);
     }
@@ -437,7 +437,7 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
-        kWarning()<<"TAGRANGE_IMAGE_SYMBOL"<<i;
+        qWarning()<<"TAGRANGE_IMAGE_SYMBOL"<<i;
         //text that was before tag we found
         if (i-prev)
         {
@@ -446,11 +446,11 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
         }
 
         //now dealing with tag
-        kWarning()<<"posToTag.value(i)"<<posToTag.value(i)<<catStr.tags.size();
+        qWarning()<<"posToTag.value(i)"<<posToTag.value(i)<<catStr.tags.size();
         if (posToTag.value(i)<catStr.tags.size())
         {
             InlineTag tag=catStr.tags.at(posToTag.value(i));
-            kWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
+            qWarning()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
             if (tag.start==i) //this is an opening tag (may be single tag)
             {
                 pos.offset=start+i;

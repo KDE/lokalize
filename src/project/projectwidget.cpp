@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,13 +26,13 @@
 #include "project.h"
 #include "catalog.h"
 
-#include <kdebug.h>
-#include <klocale.h>
 #include <kdirlister.h>
 #include <kstringhandler.h>
 #include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
+#include <kdemacros.h>
 
+#include <QDebug>
 #include <QTreeView>
 #include <QTimer>
 #include <QMouseEvent>
@@ -42,6 +42,7 @@
 #include <QHeaderView>
 #include <QItemDelegate>
 #include <QStyledItemDelegate>
+#include <QCollator>
 
 #undef KDE_NO_DEBUG_OUTPUT
 
@@ -145,13 +146,12 @@ protected:
     bool lessThan(const QModelIndex& left,
                   const QModelIndex& right) const;
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
-
 };
 
 
 bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-#ifdef _MSC_VER
+#ifdef _MSC_VER   //FIXME check extractors on win32
     return true;
 #endif
 
@@ -175,7 +175,8 @@ bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& s
 bool SortFilterProxyModel::lessThan(const QModelIndex& left,
                                         const QModelIndex& right) const
 {
-//     kWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
+    static QCollator collator;
+//     qWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
     //<<left.data().toString()<<right.data().toString()
     ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
     const KFileItem leftFileItem  = projectModel->itemForIndex(left);
@@ -192,7 +193,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
     if (leftFileItem.isNull() || rightFileItem.isNull())
     {
-        kWarning()<<".isNull()";
+        qWarning()<<".isNull()";
         return false;
     }
 
@@ -222,7 +223,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
     switch(left.column()) {
     case ProjectModel::FileName:
-        return KStringHandler::naturalCompare(leftFileItem.name(), rightFileItem.name(), sortCaseSensitivity()) < 0;
+        return collator.compare(leftFileItem.name(), rightFileItem.name()) < 0;
     case ProjectModel::Graph:{
         QRect leftRect(left.data(Qt::DisplayRole).toRect());
         QRect rightRect(right.data(Qt::DisplayRole).toRect());
@@ -259,7 +260,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
     case ProjectModel::LastTranslator:
     case ProjectModel::SourceDate:
     case ProjectModel::TranslationDate:
-        return KStringHandler::naturalCompare(projectModel->data(left).toString(), projectModel->data(right).toString(), sortCaseSensitivity()) < 0;
+        return collator.compare(projectModel->data(left).toString(), projectModel->data(right).toString()) < 0;
     case ProjectModel::TotalCount:
     case ProjectModel::TranslatedCount:
     case ProjectModel::UntranslatedCount:
@@ -313,28 +314,28 @@ ProjectWidget::~ProjectWidget()
 
 }
 
-void ProjectWidget::setCurrentItem(const KUrl& u)
+void ProjectWidget::setCurrentItem(const QString& u)
 {
     if (u.isEmpty())
         return;
     setCurrentIndex(m_proxyModel->mapFromSource(
-                Project::instance()->model()->indexForUrl(u))
+                Project::instance()->model()->indexForUrl(QUrl::fromLocalFile(u)))
                                           /*,true*/);
 }
 
-KUrl ProjectWidget::currentItem() const
+QString ProjectWidget::currentItem() const
 {
     if (!currentIndex().isValid())
-        return KUrl();
+        return QString();
     return Project::instance()->model()->itemForIndex(
             m_proxyModel->mapToSource(currentIndex())
-                                                     ).url();
+                                                     ).localPath();
 }
 
 bool ProjectWidget::currentIsTranslationFile() const
 {
     //remember 'bout empty state
-    return Catalog::extIsSupported(currentItem().path());
+    return Catalog::extIsSupported(currentItem());
 }
 
 
@@ -345,13 +346,13 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
     {
         ProjectModel * srcModel = static_cast<ProjectModel *>(static_cast<QSortFilterProxyModel*>(m_proxyModel)->sourceModel());
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
-        KUrl fileUrl = srcModel->beginEditing(srcIndex);
+        QUrl fileUrl = srcModel->beginEditing(srcIndex);
 
-        emit fileOpenRequested(fileUrl);
+        emit fileOpenRequested(fileUrl.toLocalFile());
     }
 }
 
-static void recursiveAdd(KUrl::List& list, const QModelIndex& idx)
+static void recursiveAdd(QStringList& list, const QModelIndex& idx)
 {
     ProjectModel& model=*(Project::instance()->model());
     const KFileItem& item(model.itemForIndex(idx));
@@ -365,16 +366,16 @@ static void recursiveAdd(KUrl::List& list, const QModelIndex& idx)
             if (childItem.isDir())
                 recursiveAdd(list,idx.child(j,0));
             else
-                list.prepend(childItem.url());
+                list.prepend(childItem.localPath());
         }
     }
     else //if (!list.contains(u))
-        list.prepend(item.url());
+        list.prepend(item.localPath());
 }
 
-KUrl::List ProjectWidget::selectedItems() const
+QStringList ProjectWidget::selectedItems() const
 {
-    KUrl::List list;
+    QStringList list;
     foreach(const QModelIndex& item, selectedIndexes())
     {
         if (item.column()==0)

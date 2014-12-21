@@ -25,13 +25,14 @@
 #ifndef SCANAPI_H
 #define SCANAPI_H
 
-#include <kjob.h>
 #include <QDir>
 #include <QUrl>
 #include <QTime>
 #include <QVector>
 
-namespace ThreadWeaver{class Job;}
+#ifndef NOKDE
+#include <kjob.h>
+#endif
 
 bool dragIsAcceptable(const QList<QUrl>& urls);
 QString shorterFilePath(const QString path);
@@ -39,10 +40,12 @@ QString shorterFilePath(const QString path);
 
 namespace TM {
 class ScanJob;
+class ScanJobFeedingBack;
 
 ///wrapper. returns gross number of jobs started
-int scanRecursive(const QList<QUrl>& urls, const QString& dbName);
+int scanRecursive(const QStringList& urls, const QString& dbName);
 
+#ifndef NOKDE
 class RecursiveScanJob: public KJob
 {
     Q_OBJECT
@@ -52,7 +55,7 @@ public:
     void start();
 
 public slots:
-    void scanJobFinished(ThreadWeaver::Job*);
+    void scanJobFinished(ScanJobFeedingBack*);
 protected:
     bool doKill();
 
@@ -61,7 +64,7 @@ private:
     QTime m_time;
     QVector<ScanJob*> m_jobs;
 };
-
+#endif
 }
 
 #endif

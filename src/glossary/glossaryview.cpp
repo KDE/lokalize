@@ -39,39 +39,34 @@
 #include "glossarywindow.h"
 #include "stemming.h"
 
-#include <klineedit.h>
-#include <kdialog.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kurl.h>
-#include <kaction.h>
-
+#include <QDebug>
+#include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSet>
 #include <QScrollArea>
-// #include <QShortcutEvent>
 #include <QPushButton>
 
+#include <klocalizedstring.h>
 
 
 using namespace GlossaryNS;
 
-GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
+GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18nc("@title:window","Glossary"), parent)
         , m_browser(new QScrollArea(this))
         , m_catalog(catalog)
         , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this,actions,0,10))
         , m_glossary(Project::instance()->glossary())
-        , m_rxClean(Project::instance()->markup()+'|'+Project::instance()->accel())//cleaning regexp; NOTE isEmpty()?
-        , m_rxSplit("\\W|\\d")//splitting regexp
+        , m_rxClean(Project::instance()->markup()%'|'%Project::instance()->accel())//cleaning regexp; NOTE isEmpty()?
+        , m_rxSplit(QStringLiteral("\\W|\\d"))//splitting regexp
         , m_currentIndex(-1)
         , m_normTitle(i18nc("@title:window","Glossary"))
-        , m_hasInfoTitle(m_normTitle+" [*]")
+        , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
         , m_hasInfo(false)
 
 {
-    setObjectName("glossaryView");
+    setObjectName(QStringLiteral("glossaryView"));
     QWidget* w=new QWidget(m_browser);
     m_browser->setWidget(w);
     m_browser->setWidgetResizable(true);
@@ -112,7 +107,7 @@ GlossaryView::~GlossaryView()
 
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
-    //kWarning()<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
+    //qWarning()<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
     QTime time;time.start();
     if (pos.entry==-1)
         pos.entry=m_currentIndex;
@@ -134,7 +129,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     QString msgStemmed;
 
 //     QRegExp accel(Project::instance()->accel());
-//     kWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
+//     qWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
 //     int pos=0;
 //     while ((pos=accel.indexIn(msg,pos))!=-1)
 //     {
@@ -149,7 +144,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         QString word=stem(sourceLangCode,w);
         QList<QByteArray> indexes=glossary.idsForLangWord(sourceLangCode,word);
         //if (indexes.size())
-            //kWarning()<<"found entry for:" <<word;
+            //qWarning()<<"found entry for:" <<word;
         termIds+=indexes;
         msgStemmed+=word+' ';
     }
@@ -211,4 +206,3 @@ void GlossaryView::clear()
     }
 }
 
-#include "glossaryview.moc"

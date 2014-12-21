@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -25,16 +25,16 @@
 #include "glossary.h"
 #include "project.h"
 #include "languagelistmodel.h"
-
 #include "ui_termedit.h"
 
-#include <kdebug.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
-#include <kguiitem.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
+#ifndef NOKDE
+#include <kstandardguiitem.h>
+#endif
 
-
+#include <QLineEdit>
+#include <QDebug>
 #include <QApplication>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -43,6 +43,7 @@
 #include <QAbstractItemModel>
 #include <QStringListModel>
 #include <QShortcut>
+#include <QPushButton>
 
 using namespace GlossaryNS;
 
@@ -184,7 +185,7 @@ bool SubjectFieldModel::insertRows(int row, int count, const QModelIndex& parent
 
 bool SubjectFieldModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    kDebug()<<role;
+    qDebug()<<role;
     QStringList& subjectFields=Project::instance()->glossary()->subjectFields;
     subjectFields[index.row()]=value.toString();
     return true;
@@ -232,9 +233,9 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //left
     QWidget* w=new QWidget(splitter);
     QVBoxLayout* layout=new QVBoxLayout(w);
-    m_filterEdit=new KLineEdit(w);
-    m_filterEdit->setClearButtonShown(true);
-    m_filterEdit->setClickMessage(i18n("Quick search..."));
+    m_filterEdit=new QLineEdit(w);
+    m_filterEdit->setClearButtonEnabled(true);
+    m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setFocus();
     m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
@@ -244,13 +245,19 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     layout->addWidget(m_filterEdit);
     layout->addWidget(m_browser);
     {
-        KPushButton* addBtn=new KPushButton(KStandardGuiItem::add(),w);
+        QPushButton* addBtn=new QPushButton(w);
         connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTermEntry()));
 
-        KPushButton* rmBtn=new KPushButton(KStandardGuiItem::remove(),w);
+        QPushButton* rmBtn=new QPushButton(w);
         connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTermEntry()));
-
-        KPushButton* restoreBtn=new KPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
+#ifndef NOKDE
+        KGuiItem::assign(addBtn, KStandardGuiItem::add());
+        KGuiItem::assign( rmBtn, KStandardGuiItem::remove());
+#else
+        addBtn->setText(QApplication::translate("KStandardGuiItem", "Add"));
+        rmBtn->setText( QApplication::translate("KStandardGuiItem", "Remove"));
+#endif
+        QPushButton* restoreBtn=new QPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
         restoreBtn->setToolTip(i18nc("@info:tooltip","Reload glossary from disk, discarding any changes"));
         connect(restoreBtn,SIGNAL(clicked()),   this,SLOT(restore()));
 
@@ -321,7 +328,9 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //TODO
     //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
 
+#ifndef NOKDE
     setAutoSaveSettings(QLatin1String("GlossaryWindow"),true);
+#endif
     //Glossary* glossary=Project::instance()->glossary();
     /*setCaption(i18nc("@title:window","Glossary"),
               !glossary->changedIds.isEmpty()||!glossary->addedIds.isEmpty()||!glossary->removedIds.isEmpty());
@@ -354,7 +363,7 @@ void GlossaryWindow::showEntryInEditor(const QByteArray& id)
     Glossary* glossary=project->glossary();
     m_subjectField->setCurrentItem(glossary->subjectField(id),/*insert*/true);
     
-    QStringList langsToTry=QStringList(m_defLang)<<"en"<<"en_US"<<project->targetLangCode();
+    QStringList langsToTry=QStringList(m_defLang)<<QStringLiteral("en")<<QStringLiteral("en_US")<<project->targetLangCode();
     foreach (const QString& lang, langsToTry)
     {
         QString d=glossary->definition(m_id, lang);
@@ -436,14 +445,14 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     {
         m_browser->setCurrentIndex(items.first());
         m_browser->scrollTo(items.first(),QAbstractItemView::PositionAtCenter);
-        //kDebug()<<id<<items<<items.first().row();
+        //qDebug()<<id<<items<<items.first().row();
     }
     else
     {
         //the row is probably not fetched yet
         m_browser->setCurrentIndex(QModelIndex());
         showEntryInEditor(id);
-        //kDebug()<<id<<0;
+        //qDebug()<<id<<0;
     }
 }
 
@@ -538,6 +547,7 @@ bool TermsListModel::setData(const QModelIndex& index, const QVariant& value, in
 
 bool TermsListModel::removeRows(int row, int count, const QModelIndex& parent)
 {
+    Q_UNUSED(count)
     if (row==rowCount()-1)
         return false;// cannot delete non-existing item
 
@@ -559,4 +569,3 @@ void TermListView::rmTerms()
 }
 
 
-#include "glossarywindow.moc"

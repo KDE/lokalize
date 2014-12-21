@@ -22,17 +22,14 @@
 **************************************************************************** */
 
 #include "termlabel.h"
-
 #include "glossarywindow.h"
 
-#include <klineedit.h>
-#include <kdialog.h>
-
-#include <kdebug.h>
-#include <klocale.h>
-#include <kaction.h>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QDebug>
+#include <QStringBuilder>
+
+#include <klocalizedstring.h>
 
 using namespace GlossaryNS;
 //#include <QShortcutEvent>
@@ -46,7 +43,7 @@ using namespace GlossaryNS;
 //     {
 // //         setFlat(true);
 // //         grabShortcut(Qt::ALT+Qt::CTRL+key);
-// //         kWarning() << "dsds " << grabShortcut(Qt::ALT+key);
+// //         qWarning() << "dsds " << grabShortcut(Qt::ALT+key);
 //     }
 //     //~TermLabel(){}
 // // bool TermLabel::event(QEvent *event)
@@ -54,7 +51,7 @@ using namespace GlossaryNS;
 // //     if (event->type() != QEvent::Shortcut)
 // //         return QLabel::event(event);
 // // 
-// // //         kWarning() << "dsds " << m_termTransl;
+// // //         qWarning() << "dsds " << m_termTransl;
 // //     emit insertTerm(m_termTransl);
 // //     return true;
 // // }
@@ -114,16 +111,18 @@ void TermLabel::setText(const QString& term, const QByteArray& entryId, bool cap
 {
     m_entryId=entryId;
     m_capFirst=capFirst;
-    QLabel::setText(QString(term + QString(m_action?QString(" [" + m_action->shortcut().toString()+"]  \n  "):"  \n  ")//m_shortcut
-                + Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join("  \n  ")
-                    + "  \n  "));
+
+    static const QString n = QStringLiteral("  \n  ");
+    QLabel::setText(QString(term + QString(m_action?QString(QStringLiteral(" [") % m_action->shortcut().toString(QKeySequence::NativeText)%QStringLiteral("]  \n  ")):n)//m_shortcut
+                % Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n)
+                    % n));
 }
 
 
 #if 0
 void QueryResultBtn::insert()
 {
-//     kWarning()<<"ins "<<text();
+//     qWarning()<<"ins "<<text();
     emit insertText(m_text);
 }
 
@@ -132,7 +131,7 @@ QueryResultBtn::QueryResultBtn(QAction* a)
     , m_action(a)
 {
     setWordWrap(true);
-//     kWarning()<<"ctor";
+//     qWarning()<<"ctor";
     //connect(this,SIGNAL(clicked(bool)),this,SLOT(insert()));
 }
 
@@ -143,4 +142,3 @@ void QueryResultBtn::mousePressEvent (QMouseEvent*/* event*/)
 
 #endif
 
-#include "termlabel.moc"

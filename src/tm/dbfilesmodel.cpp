@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -24,13 +24,21 @@
 #include "dbfilesmodel.h"
 #include "jobs.h"
 #include "project.h"
+#include "kdemacros.h"
 
 #include <QCoreApplication>
 #include <QFileSystemModel>
 #include <QStringBuilder>
+#include <QStandardPaths>
+#include <QDebug>
 
-#include <threadweaver/ThreadWeaver.h>
-#include <kstandarddirs.h>
+#include <klocalizedstring.h>
+
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
+
 using namespace TM;
 
 static QString tmFileExtension(TM_DATABASE_EXTENSION);
@@ -58,11 +66,11 @@ DBFilesModel::DBFilesModel()
  : QSortFilterProxyModel()
  , projectDB(0)
  , m_fileSystemModel(new QFileSystemModel(this))
- , m_tmRootPath(KStandardDirs::locateLocal("appdata", ""))
+ , m_tmRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
 {
-    m_fileSystemModel->setNameFilters(QStringList(QString("*.") + TM_DATABASE_EXTENSION));
+    m_fileSystemModel->setNameFilters(QStringList(QStringLiteral("*." TM_DATABASE_EXTENSION)));
     m_fileSystemModel->setFilter(QDir::Files);
-    m_fileSystemModel->setRootPath(KStandardDirs::locateLocal("appdata", ""));
+    m_fileSystemModel->setRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
 
     setSourceModel(m_fileSystemModel);
     connect (this,SIGNAL(rowsInserted(QModelIndex,int,int)),
@@ -114,24 +122,27 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
     return i18nc("@title:column",columns[section]);
 }
 
-void DBFilesModel::openDB(const QString& name)
+void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentProjectConfig)
 {
-    if (QFileInfo(KStandardDirs::locateLocal("appdata", name % REMOTETM_DATABASE_EXTENSION)).exists())
-        openDB(name, TM::Remote);
-    else
-        openDB(name, TM::Local);
-}
-
-void DBFilesModel::openDB(const QString& name, DbType type)
-{
-    openDB(new OpenDBJob(name, type));
+    if (type==TM::Undefined)
+        type=QFileInfo(
+            QStandardPaths::writableLocation(QStandardPaths::DataLocation)%QLatin1Char('/')%name%QStringLiteral(REMOTETM_DATABASE_EXTENSION)).exists()?TM::Remote:TM::Local;
+    OpenDBJob* openDBJob=new OpenDBJob(name, type);
+    if (forceCurrentProjectConfig)
+    {
+        openDBJob->m_setParams=true;
+        openDBJob->m_tmConfig.markup=Project::instance()->markup();
+        openDBJob->m_tmConfig.accel=Project::instance()->accel();
+        openDBJob->m_tmConfig.sourceLangCode=Project::instance()->sourceLangCode();
+        openDBJob->m_tmConfig.targetLangCode=Project::instance()->targetLangCode();
+    }
+    openDB(openDBJob);
 }
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
 {
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(openJobDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
+    threadPool()->start(openDBJob, OPENDB);
 }
 
 void DBFilesModel::updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight)
@@ -159,31 +170,32 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
             projectDB=new QPersistentModelIndex(index);//TODO if user switches the project
 //         if (KDE_ISLIKELY( QSqlDatabase::contains(res) ))
 //             continue;
-        openDB(res, DbType(index.data(NameRole).toString().endsWith(remoteTmExtension)));
+        openDB(res, DbType(index.data(FileNameRole).toString().endsWith(remoteTmExtension)));
     }
 }
 
-void DBFilesModel::openJobDone(ThreadWeaver::Job* job)
+void DBFilesModel::openJobDone(OpenDBJob* j)
 {
-    OpenDBJob* j=static_cast<OpenDBJob*>(job);
+    j->deleteLater();
+
     m_stats[j->m_dbName]=j->m_stat;
     m_configurations[j->m_dbName]=j->m_tmConfig;
-    kDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
+    qDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
 }
 
 void DBFilesModel::removeTM ( QModelIndex index )
 {
     index=index.sibling(index.row(),0);
     CloseDBJob* closeDBJob=new CloseDBJob(index.data().toString());
-    connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
-    connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(closeJobDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(closeDBJob);
+    connect(closeDBJob,SIGNAL(done(CloseDBJob*)),this,SLOT(closeJobDone(CloseDBJob*)));
+    threadPool()->start(closeDBJob, CLOSEDB);
 }
 
-void DBFilesModel::closeJobDone(ThreadWeaver::Job* job)
+void DBFilesModel::closeJobDone(CloseDBJob* j)
 {
-    CloseDBJob* j=static_cast<CloseDBJob*>(job);
-    QFile::remove(m_fileSystemModel->rootPath() + '/' +  j->dbName() + tmFileExtension);
+    j->deleteLater();
+
+    QFile::remove(m_fileSystemModel->rootPath() % '/' % j->dbName() % tmFileExtension);
 }
 
 void DBFilesModel::updateProjectTmIndex()
@@ -203,26 +215,26 @@ int DBFilesModel::columnCount (const QModelIndex&) const
 QVariant DBFilesModel::data (const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole) return QVariant();
-    if (role!=Qt::DisplayRole && role!=NameRole && index.column()<4) return QSortFilterProxyModel::data(index, role);
-    //if (role!=Qt::DisplayRole && role!=NameRole) return QVariant();
+    if (role!=Qt::DisplayRole && role!=FileNameRole  && role!=NameRole && index.column()<4) return QSortFilterProxyModel::data(index, role);
 
     QString res=QSortFilterProxyModel::data(index.sibling(index.row(), 0), QFileSystemModel::FileNameRole).toString();
 
-    if (role==NameRole) return res;
+    if (role==FileNameRole) return res;
     if (res.endsWith(remoteTmExtension))
         res.chop(remoteTmExtension.size());
     else
         res.chop(tmFileExtension.size());
-    //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
+    if (role==NameRole) return res;
 
+    //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
     switch (index.column())
     {
         case Name: return res;
-        case SourceLang: return m_configurations[res].sourceLangCode;
-        case TargetLang: return m_configurations[res].targetLangCode;
-        case Pairs: return m_stats[res].pairsCount;
-        case OriginalsCount: return m_stats[res].uniqueSourcesCount;
-        case TranslationsCount: return m_stats[res].uniqueTranslationsCount;
+        case SourceLang: return m_configurations.value(res).sourceLangCode;
+        case TargetLang: return m_configurations.value(res).targetLangCode;
+        case Pairs: return m_stats.value(res).pairsCount;
+        case OriginalsCount: return m_stats.value(res).uniqueSourcesCount;
+        case TranslationsCount: return m_stats.value(res).uniqueTranslationsCount;
     }
 
     return res;

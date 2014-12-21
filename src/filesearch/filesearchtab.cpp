@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -32,7 +32,7 @@
 
 #include "catalog.h"
 #include "fastsizehintitemdelegate.h"
-//#include "flowlayout.h"
+#include "kdemacros.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -40,6 +40,7 @@
 #include <QClipboard>
 #include <QShortcut>
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QStringBuilder>
@@ -48,18 +49,15 @@
 #include <QHeaderView>
 #include <QStringListModel>
 #include <QBoxLayout>
+#include <QThreadPool>
 
-#include <KColorScheme>
+#include <klocalizedstring.h>
+
+#ifndef NOKDE
 #include <kactioncategory.h>
-#include <kaction.h>
-#include <klocale.h>
-#include <kstandarddirs.h>
+#include <kcolorscheme.h>
 #include <kxmlguifactory.h>
-#include <threadweaver/Job.h>
-#include <threadweaver/JobCollection.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/Thread.h>
-
+#endif
 
 static QStringList doScanRecursive(const QDir& dir);
 
@@ -70,12 +68,15 @@ class FileListModel: public QStringListModel
 public:
     FileListModel(QObject* parent): QStringListModel(parent){}
     QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
+    Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsEnabled|Qt::ItemIsSelectable;}
 };
 
 QVariant FileListModel::data(const QModelIndex& item, int role) const
 {
     if (role==Qt::DisplayRole)
         return shorterFilePath(stringList().at(item.row()));
+    if (role==Qt::UserRole)
+        return stringList().at(item.row());
     return QVariant();
 }
 
@@ -101,6 +102,14 @@ SearchFileListView::SearchFileListView(QWidget* parent)
     QAction* action=new QAction(i18nc("@action:inmenu", "Clear"), m_browser);
     connect(action, SIGNAL(triggered()), this, SLOT(clear()));
     m_browser->addAction(action);
+    
+    connect(m_browser, SIGNAL(activated(QModelIndex)), this, SLOT(requestFileOpen(QModelIndex)));
+}
+
+void SearchFileListView::requestFileOpen(const QModelIndex& item)
+{
+    emit fileOpenRequested(item.data(Qt::UserRole).toString());
+
 }
 
 void SearchFileListView::addFiles(const QStringList& files)
@@ -152,16 +161,20 @@ void SearchFileListView::scrollTo(const QString& file)
 }
 
 
-struct SearchParams
-{
-    QRegExp sourcePattern;
-    QRegExp targetPattern;
-    QRegExp notesPattern;
 
-    bool states[StateCount];
 
-    bool isEmpty() const;
-};
+
+
+
+
+
+
+
+
+
+
+
+
 
 bool SearchParams::isEmpty() const
 {
@@ -169,49 +182,23 @@ bool SearchParams::isEmpty() const
         && targetPattern.pattern().isEmpty();
 }
 
-
-
-/// @short scan one file
-class SearchJob: public ThreadWeaver::Job
-{
-public:
-    explicit SearchJob(const QStringList& f, 
-                       const SearchParams& sp,
-                       const QVector<Rule>& r,
-                       int sn,
-                       QObject* parent=0);
-    ~SearchJob(){}
-
-protected:
-    void run ();
-public:
-    QStringList files;
-    SearchParams searchParams;
-    QVector<Rule> rules;
-    int searchNumber;
-
-    //QMap<QString, QVector<FileSearchResult> > results; //filepath -> results
-    SearchResults results; //plain
-
-    int m_size;
-};
-
-SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject* parent)
- : ThreadWeaver::Job(parent)
+SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector<Rule>& r, int sn, QObject*)
+ : QRunnable()
  , files(f)
  , searchParams(sp)
  , rules(r)
  , searchNumber(sn)
 {
+    setAutoDelete(false);
 }
 
 void SearchJob::run()
 {
     QTime a;a.start();
-    foreach(const QString& path, files)
+    foreach(const QString& filePath, files)
     {
-        Catalog catalog(thread());
-        if (KDE_ISUNLIKELY(catalog.loadFromUrl(KUrl::fromPath(path), KUrl(), &m_size)!=0))
+        Catalog catalog(0); 
+        if (KDE_ISUNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size)!=0))
             continue;
 
         //QVector<FileSearchResult> catalogResults;
@@ -237,7 +224,7 @@ void SearchJob::run()
                     //TODO handle multiple results in same column
                     //FileSearchResult r;
                     SearchResult r;
-                    r.filepath=path;
+                    r.filepath=filePath;
                     r.docPos=pos;
                     if (!searchParams.sourcePattern.isEmpty())
                         r.sourcePositions<<StartLen(searchParams.sourcePattern.pos(), searchParams.sourcePattern.matchedLength());
@@ -271,36 +258,17 @@ void SearchJob::run()
         //    results[path]=catalogResults;
     }
     qDebug()<<"done in"<<a.elapsed();
+    emit done(this);
 }
 
-/// @short replace in files
-class MassReplaceJob: public ThreadWeaver::Job
-{
-public:
-    explicit MassReplaceJob(const SearchResults& srs,
-                            int pos,
-                            const QRegExp& s,
-                            const QString& r,
-                            //int sn,
-                           QObject* parent=0);
-    ~MassReplaceJob(){}
-
-protected:
-    void run ();
-public:
-    SearchResults searchResults;
-    int globalPos;
-    QRegExp replaceWhat;
-    QString replaceWith;
-};
-
-MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject* parent)
- : ThreadWeaver::Job(parent)
+MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject*)
+ : QRunnable()
  , searchResults(srs)
  , globalPos(pos)
  , replaceWhat(s)
  , replaceWith(r)
 {
+    setAutoDelete(false);
 }
 
 void MassReplaceJob::run()
@@ -311,19 +279,43 @@ void MassReplaceJob::run()
     
     foreach(const QString& filepath, map.keys())
     {
-        Catalog catalog(thread());
-        if (catalog.loadFromUrl(KUrl::fromPath(filepath), KUrl())!=0)
+        Catalog catalog(QThread::currentThread());
+        if (catalog.loadFromUrl(filepath, QString())!=0)
             continue;
         
         foreach(int index, map.values(filepath))
         {
             SearchResult& sr=searchResults[index];
-            if (catalog.target(sr.docPos.toDocPosition())!=sr.target)
+            DocPosition docPos=sr.docPos.toDocPosition();
+            if (catalog.target(docPos)!=sr.target)
+            {
+                qWarning()<<"skipping replace because"<<catalog.target(docPos)<<"!="<<sr.target;
                 continue;
+            }
 
-            CatalogString s=catalog.targetWithTags(sr.docPos.toDocPosition());
-            s.string.replace(replaceWhat, replaceWith);
-            catalog.setTarget(sr.docPos.toDocPosition(), s);
+            CatalogString s=catalog.targetWithTags(docPos);
+            int pos=replaceWhat.indexIn(s.string);
+            while (pos!=-1)
+            {
+                if (!s.string.midRef(pos, replaceWhat.matchedLength()).contains(TAGRANGE_IMAGE_SYMBOL))
+                {
+                    docPos.offset=pos;
+                    catalog.targetDelete(docPos, replaceWhat.matchedLength());
+                    catalog.targetInsert(docPos, replaceWith);
+                    s.string.replace(pos, replaceWhat.matchedLength(), replaceWith);
+                    pos+=replaceWith.length();
+                }
+                else
+                {
+                    pos+=replaceWhat.matchedLength();
+                    qWarning()<<"skipping replace because matched text contains markup"<<s.string;
+                }
+
+                if (pos>s.string.length() || replaceWhat.pattern().startsWith('^'))
+                    break;
+
+                pos=replaceWhat.indexIn(s.string, pos);
+            }
         }
 
         catalog.save();
@@ -337,7 +329,7 @@ FileSearchModel::FileSearchModel(QObject* parent)
 {
 }
 
-QVariant FileSearchModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant FileSearchModel::headerData(int section, Qt::Orientation, int role) const
 {
     if (role!=Qt::DisplayRole)
         return QVariant();
@@ -410,7 +402,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
                 result.insert(sl.start+sl.len, endBld);
                 result.insert(sl.start, startBld);
             }
-             /* !isApproved(sr.state/*, Project::instance()->local()->role())*/
+             /* !isApproved(sr.state, Project::instance()->local()->role())*/
             QString escaped=convertToHtml(result, item.column()==FileSearchModel::Target && !sr.isApproved);
 
             escaped.replace(startBld, startBldTag);
@@ -487,19 +479,19 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(copySource()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copySourceToClipboard()));
     view->addAction(a);
 
     a=new QAction(i18n("Copy target to clipboard"),view);
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(copyTarget()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copyTargetToClipboard()));
     view->addAction(a);
 
     a=new QAction(i18n("Open file"),view);
     a->setShortcut(QKeySequence(Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(openFile()));
+    connect(a,SIGNAL(triggered()), this, SLOT(openFile()));
     connect(view,SIGNAL(activated(QModelIndex)), this, SLOT(openFile()));
     view->addAction(a);
 
@@ -531,11 +523,11 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     while (--i>ID_STATUS_PROGRESS)
         statusBarItems.insert(i,QString());
 
+#ifndef NOKDE
     setXMLFile("filesearchtabui.rc",true);
     dbusObjectPath();
+#endif
 
-
-    //KAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* srf=new KActionCategory(i18nc("@title actions category","Search and replace in files"), ac);
 
@@ -543,6 +535,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     //m_searchFileListView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction( QLatin1String("showfilelist_action"), m_searchFileListView->toggleViewAction() );
+    connect(m_searchFileListView, SIGNAL(fileOpenRequested(QString)), this, SIGNAL(fileOpenRequested(QString)));
 
     m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);
@@ -559,20 +552,24 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()), Qt::QueuedConnection);
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("FileSearchResultsHeaderState", QByteArray()) ));
+#endif
 }
 
 FileSearchTab::~FileSearchTab()
 {
     stopSearch();
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("FileSearchResultsHeaderState",ui_fileSearchOptions->treeView->header()->saveState().toBase64());
 
     ids.removeAll(m_dbusId);
+#endif
 }
 
 void FileSearchTab::performSearch()
@@ -624,18 +621,18 @@ void FileSearchTab::performSearch()
             batch.append(files.at(j));
 
         SearchJob* job=new SearchJob(batch, sp, rules, m_lastSearchNumber);
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(searchJobDone(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        QObject::connect(job,SIGNAL(done(SearchJob*)),this,SLOT(searchJobDone(SearchJob*)));
+        QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
     }
 }
 
 void FileSearchTab::stopSearch()
 {
-    QVector<ThreadWeaver::Job*>::const_iterator it;
-    for (it = m_runningJobs.constBegin(); it != m_runningJobs.constEnd(); ++it)
-        ThreadWeaver::Weaver::instance()->dequeue(*it);
+    QVector<QRunnable*>::const_iterator it;
+    ///// KDE5PORT
+    ////for (it = m_runningJobs.constBegin(); it != m_runningJobs.constEnd(); ++it)
+    ////    ThreadWeaver::Weaver::instance()->dequeue(*it);
     m_runningJobs.clear();
 }
 
@@ -654,9 +651,8 @@ void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
             ++last;
 
         MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last+1-i), i, what, with);
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        QObject::connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(replaceJobDone(ThreadWeaver::Job*)));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        QObject::connect(job,SIGNAL(done(MassReplaceJob*)),this,SLOT(replaceJobDone(MassReplaceJob*)));
+        QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
     }
 }
@@ -667,12 +663,12 @@ static void copy(QTreeView* view, int column)
     QApplication::clipboard()->setText( view->currentIndex().sibling(view->currentIndex().row(),column).data().toString());
 }
 
-void FileSearchTab::copySource()
+void FileSearchTab::copySourceToClipboard()
 {
     copy(ui_fileSearchOptions->treeView, FileSearchModel::Source);
 }
 
-void FileSearchTab::copyTarget()
+void FileSearchTab::copyTargetToClipboard()
 {
     copy(ui_fileSearchOptions->treeView, FileSearchModel::Target);
 }
@@ -688,7 +684,7 @@ void FileSearchTab::openFile()
         docPos.offset=sr.targetPositions.first().start;
         selection    =sr.targetPositions.first().len;
     }
-    kDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
+    qDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
     emit fileOpenRequested(sr.filepath, docPos, selection);
 }
 
@@ -766,9 +762,21 @@ void FileSearchTab::addFilesToSearch(const QStringList& files)
     performSearch();
 }
 
-void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
+void FileSearchTab::setSourceQuery(const QString& query)
 {
-    SearchJob* j=static_cast<SearchJob*>(job);
+    ui_fileSearchOptions->querySource->setText(query);
+}
+
+void FileSearchTab::setTargetQuery(const QString& query)
+{
+    ui_fileSearchOptions->queryTarget->setText(query);
+}
+
+
+void FileSearchTab::searchJobDone(SearchJob* j)
+{
+    j->deleteLater();
+
     if (j->searchNumber!=m_lastSearchNumber)
         return;
 
@@ -799,9 +807,9 @@ void FileSearchTab::searchJobDone(ThreadWeaver::Job* job)
     //ui_fileSearchOptions->treeView->setFocus();
 }
 
-void FileSearchTab::replaceJobDone(ThreadWeaver::Job* job)
+void FileSearchTab::replaceJobDone(MassReplaceJob* j)
 {
-    MassReplaceJob* j=static_cast<MassReplaceJob*>(job);
+    j->deleteLater();
     ui_fileSearchOptions->treeView->scrollTo(m_model->index(j->globalPos+j->searchResults.count(), 0));
 
 }
@@ -823,7 +831,7 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     connect(ui->doReplace, SIGNAL(clicked(bool)), this, SLOT(requestReplace()));
 /*
     QLabel* rl=new QLabel(i18n("Replace:"), base);
-    KLineEdit* searchEdit=new KLineEdit(base);
+    QLineEdit* searchEdit=new QLineEdit(base);
     QHBoxLayout* searchL=new QHBoxLayout();
     searchL->addWidget(rl);
     searchL->addWidget(searchEdit);
@@ -831,7 +839,7 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     QLabel* wl=new QLabel(i18n("With:"), base);
     wl->setAlignment(Qt::AlignRight);
     wl->setMinimumSize(rl->minimumSizeHint());
-    KLineEdit* replacementEdit=new KLineEdit(base);
+    QLineEdit* replacementEdit=new QLineEdit(base);
     QHBoxLayout* replacementL=new QHBoxLayout();
     replacementL->addWidget(wl);
     replacementL->addWidget(replacementEdit);
@@ -855,9 +863,17 @@ void MassReplaceView::requestPreview(bool enable)
     {
         s=ui->searchText->text();
         r=ui->replaceText->text();
-        
+
         if (s.length())
             ui->doReplace->setEnabled(true);
+
+        connect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+        connect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+    }
+    else
+    {
+        disconnect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+        disconnect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
     }
 
     emit previewRequested(QRegExp(s), r);
@@ -880,7 +896,7 @@ void MassReplaceView::deactivatePreview()
     ui->doReplace->setEnabled(false);
 }
 
-
+#ifndef NOKDE
 #include "filesearchadaptor.h"
 #include <qdbusconnection.h>
 
@@ -904,8 +920,7 @@ QString FileSearchTab::dbusObjectPath()
 
     return "/ThisIsWhatYouWant/FileSearch/" + QString::number(m_dbusId);
 }
-
-
 //END DBus interface
 
-#include "filesearchtab.moc"
+#endif
+

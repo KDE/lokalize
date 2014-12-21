@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2009-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -25,24 +25,29 @@
 #include "catalog.h"
 #include "cmd.h"
 #include "noteeditor.h"
+#include "project.h"
 
-#include <klocale.h>
-#include <KPushButton>
-#include <KTextBrowser>
-#include <KComboBox>
+#include <kcombobox.h>
+#include <klocalizedstring.h>
 
+#ifndef NOKDE
+#include <kstandardguiitem.h>
+#endif
+
+#include <QStringBuilder>
+#include <QPushButton>
+#include <QTextBrowser>
 #include <QTreeView>
 #include <QStringListModel>
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QApplication>
-
-
-//BEGIN PhasesModel
 #include <QAbstractListModel>
 #include <QSplitter>
 #include <QStackedLayout>
+#include <QDialogButtonBox>
 
+//BEGIN PhasesModel
 class PhasesModel: public QAbstractListModel
 {
 public:
@@ -131,8 +136,8 @@ QVariant PhasesModel::data(const QModelIndex& index, int role) const
         case Process:    return phase.process;
         case Company:    return phase.company;
         case Contact:    return QString(phase.contact
-                           +(phase.email.isEmpty()?"":QString(" <%1> ").arg(phase.email))
-                           +(phase.phone.isEmpty()?"":QString(", %1").arg(phase.phone)));
+                           %(phase.email.isEmpty()?QString():QString(QStringLiteral(" <%1> ")).arg(phase.email))
+                           %(phase.phone.isEmpty()?QString():QString(QStringLiteral(", %1")).arg(phase.phone)));
         case ToolName:       return m_tools.value(phase.tool).name;
     }
     return QVariant();
@@ -157,28 +162,34 @@ QVariant PhasesModel::headerData(int section, Qt::Orientation, int role) const
 
 
 //BEGIN PhaseEditDialog
-class PhaseEditDialog: public KDialog
+class PhaseEditDialog: public QDialog
 {
 public:
     PhaseEditDialog(QWidget *parent);
     ~PhaseEditDialog(){}
 
     Phase phase()const;
+    ProjectLocal::PersonRole role()const;
 private:
     KComboBox* m_process;
 };
 
 
 PhaseEditDialog::PhaseEditDialog(QWidget *parent)
-    : KDialog(parent)
+    : QDialog(parent)
     , m_process(new KComboBox(this))
 {
     QStringList processes;
     processes<<i18n("Translation")<<i18n("Review")<<i18n("Approval");
-    m_process->setModel(new QStringListModel(processes,this));
+    m_process->setModel(new QStringListModel(processes, this));
 
-    QFormLayout* l=new QFormLayout(mainWidget());
-    l->addRow(i18n("Process"), m_process);
+    QFormLayout* l=new QFormLayout(this);
+    l->addRow(i18nc("noun", "Process (this will also change your role):"), m_process);
+
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    l->addRow(buttonBox);
 }
 
 Phase PhaseEditDialog::phase() const
@@ -188,30 +199,44 @@ Phase PhaseEditDialog::phase() const
     return phase;
 }
 
+ProjectLocal::PersonRole PhaseEditDialog::role() const
+{
+    return (ProjectLocal::PersonRole)m_process->currentIndex();
+}
+
+
 PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
- : KDialog(parent)
+ : QDialog(parent)
  , m_catalog(catalog)
  , m_model(new PhasesModel(catalog, this))
  , m_view(new MyTreeView(this))
- , m_browser(new KTextBrowser(this))
+ , m_browser(new QTextBrowser(this))
  , m_editor(0)
 {
     connect(this, SIGNAL(accepted()), SLOT(handleResult()));
     //setAttribute(Qt::WA_DeleteOnClose, true);
-    QVBoxLayout* l=new QVBoxLayout(mainWidget());
+    QVBoxLayout* l=new QVBoxLayout(this);
     QHBoxLayout* btns=new QHBoxLayout;
     l->addLayout(btns);
 
-    KPushButton* add=new KPushButton(KStandardGuiItem::add(),this);
+    QPushButton* add=new QPushButton(this);
+#ifndef NOKDE
+    KGuiItem::assign(add, KStandardGuiItem::add());
+#else
+    add->setText(tr("Add"));
+#endif
     connect(add, SIGNAL(clicked()),this,SLOT(addPhase()));
     btns->addWidget(add);
     btns->addStretch(5);
-/*
-    KPushButton* add=new KPushButton(i18nc("@action:button",""),this);
-    btns->addWidget(activate);
-*/
+
     QSplitter* splitter=new QSplitter(this);
     l->addWidget(splitter);
+
+    m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
+    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    l->addWidget(m_buttonBox);
+
 
     m_view->setRootIsDecorated(false);
     m_view->setModel(m_model);
@@ -236,7 +261,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
 
     splitter->setStretchFactor(0,15);
     splitter->setStretchFactor(1,5);
-    setInitialSize(QSize(700,400));
+    resize(QSize(700,400));
 }
 
 void PhasesWindow::handleResult()
@@ -246,6 +271,7 @@ void PhasesWindow::handleResult()
     Phase last;
     foreach(const Phase& phase, m_model->addedPhases())
         static_cast<QUndoStack*>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last=phase));
+    Project::instance()->local()->setRole(roleForProcess(last.process));
     m_catalog->setActivePhase(last.name,roleForProcess(last.process));
 
     QMapIterator<QString, QVector<Note> > i(m_phaseNotes);
@@ -268,6 +294,8 @@ void PhasesWindow::addPhase()
     initPhaseForCatalog(m_catalog, phase, ForceAdd);
     m_view->setCurrentIndex(m_model->addPhase(phase));
     m_phaseNotes.insert(phase.name, QVector<Note>());
+
+    m_buttonBox->button(QDialogButtonBox::Ok)->setFocus();
 }
 
 static QString phaseNameFromView(QTreeView* view)
@@ -332,7 +360,6 @@ void PhasesWindow::displayPhaseNotes(const QModelIndex& current)
     QVector<Note> notes=m_phaseNotes.contains(phaseName)?
                         m_phaseNotes.value(phaseName)
                         :m_catalog->phaseNotes(phaseName);
-    kWarning()<<notes.size();
     displayNotes(m_browser, notes);
     m_noteView->show();
     m_stackedLayout->setCurrentIndex(0);

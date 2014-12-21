@@ -20,10 +20,11 @@
 #include "qamodel.h"
 #include "domroutines.h"
 #include <QStringList>
-#include <klocalizedstring.h>
 #include <QFile>
 #include <QTextStream>
 #include <QCoreApplication>
+#include <klocalizedstring.h>
+#include <kdemacros.h>
 
 static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
 

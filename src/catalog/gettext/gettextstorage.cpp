@@ -1,5 +1,5 @@
 /*
-Copyright 2008 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2014 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -35,8 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QProcess>
 #include <QString>
 #include <QMap>
+#include <QDebug>
 
-#include <kdebug.h>
+#include <klocalizedstring.h>
 
 // static QString GNUPluralForms(const QString& lang);
 
@@ -126,7 +127,7 @@ int GettextStorage::size() const
 static const QChar altSep(156);
 static InlineTag makeInlineTag(int i)
 {
-    static const QString altSepText(" | ");
+    static const QString altSepText(QStringLiteral(" | "));
     static const QString ctype=i18n("separator for different-length string alternatives");
     return InlineTag(i,i,InlineTag::x,QString::number(i),QString(),altSepText,ctype);
 }
@@ -204,14 +205,15 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNew
 
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
-    QStringList prev=m_entries.at(pos.entry).comment().split('\n').filter(QRegExp("^#\\|"));
+    static const QRegExp alt_trans_mark_re(QStringLiteral("^#\\|"));
+    QStringList prev=m_entries.at(pos.entry).comment().split('\n').filter(alt_trans_mark_re);
 
     QString oldSingular;
     QString oldPlural;
 
     QString* cur=&oldSingular;
     QStringList::iterator it=prev.begin();
-    static const QString msgid_plural_alt="#| msgid_plural \"";
+    static const QString msgid_plural_alt=QStringLiteral("#| msgid_plural \"");
     while (it!=prev.end())
     {
         if (it->startsWith(msgid_plural_alt))
@@ -231,7 +233,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
     if (pos.form==0)
         cur=&oldSingular;
 
-    cur->replace("\\\"","\"");
+    cur->replace(QStringLiteral("\\\""),QStringLiteral("\""));
 
     QVector<AltTrans> result;
     if (!cur->isEmpty())
@@ -242,7 +244,7 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 
 Note GettextStorage::setNote(DocPosition pos, const Note& note)
 {
-    //kWarning()<<"s"<<m_entries.at(pos.entry).comment();
+    //qWarning()<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;
     QVector<Note> l=notes(pos);
     if (l.size()) oldNote=l.first();
@@ -252,16 +254,16 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
     QStringList::iterator it=comment.begin();
     while (it!=comment.end())
     {
-        if (it->startsWith("# "))
+        if (it->startsWith(QLatin1String("# ")))
             it=comment.erase(it);
         else
             ++it;
     }
     if (note.content.size())
-        comment.prepend("# "+note.content.split('\n').join("\n# "));
-    m_entries[pos.entry].setComment(comment.join("\n"));
+        comment.prepend(QStringLiteral("# ")+note.content.split('\n').join(QStringLiteral("\n# ")));
+    m_entries[pos.entry].setComment(comment.join(QStringLiteral("\n")));
 
-    //kWarning()<<"e"<<m_entries.at(pos.entry).comment();
+    //qWarning()<<"e"<<m_entries.at(pos.entry).comment();
     return oldNote;
 }
 
@@ -294,13 +296,13 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
 
 QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
 {
-    static const QRegExp nre("^# ");
+    static const QRegExp nre(QStringLiteral("^# "));
     return notes(docPosition,nre,2);
 }
 
 QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) const
 {
-    static const QRegExp dnre("^#\\. (?!i18n: file:)");
+    static const QRegExp dnre(QStringLiteral("^#\\. (?!i18n: file:)"));
     return notes(docPosition,dnre,3);
 }
 
@@ -309,17 +311,17 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     QStringList result;
     QStringList commentLines=m_entries.at(pos.entry).comment().split('\n');
 
-    static const QRegExp i18n_file_re("^#. i18n: file: ");
+    static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
     foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
         result+=uiLine.mid(15).split(' ');
     }
 
     bool hasUi=!result.isEmpty();
-    static const QRegExp cpp_re("^#: ");
+    static const QRegExp cpp_re(QStringLiteral("^#: "));
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
-        if (hasUi && cppLine.startsWith("#: rc.cpp")) continue;
+        if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
         QStringList cppFiles=cppLine.mid(3).split(' ');
         result+=cppFiles;
     }
@@ -394,12 +396,12 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
    {
       // normalize the values - ensure every key:value pair is only on a single line
       QString values = newHeader.msgstr();
-      values.replace ("\\n", "\\n\n");
-//       kDebug () << "Normalized header: " << values;
+      values.replace (QStringLiteral("\\n"), QStringLiteral("\\n\n"));
+//       qDebug () << "Normalized header: " << values;
       QString comment=newHeader.comment();
       QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
       //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
-      bool belongsToProject=m_url.path().contains(Project::instance()->poDir());
+      bool belongsToProject=m_url.contains(Project::instance()->poDir());
 
       updateHeader(values,
                    comment,
@@ -419,7 +421,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
 
       return true;
    }
-   kWarning () << "header Not valid";
+   qWarning () << "header Not valid";
    return false;
 }
 

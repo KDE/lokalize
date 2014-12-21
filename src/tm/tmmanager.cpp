@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -39,14 +39,14 @@
 #include "project.h"
 #include "languagelistmodel.h"
 
+#include <QDebug>
 #include <QTimer>
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>
-#include <kfiledialog.h>
-#include <kdebug.h>
-// #include <kstandarddirs.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <kstandarddirs.h>
+#include <QFileDialog>
+#include <QStandardPaths>
+
+#include <klocalizedstring.h>
 
 using namespace TM;
 
@@ -88,26 +88,21 @@ void TMManagerWin::addDir()
     if (!index.isValid())
         return;
 
-    QString dir=KFileDialog::getExistingDirectory(KUrl("kfiledialog:///tm-food"),this,
-                        i18nc("@title:window","Select Directory to be scanned"));
+    QString dir=QFileDialog::getExistingDirectory(this, i18nc("@title:window","Select Directory to be scanned"));
     if (!dir.isEmpty())
-    {
-        QList<QUrl> dirs; dirs.append(QUrl(dir));
-        scanRecursive(dirs,index.sibling(index.row(), 0).data().toString());
-    }
+        scanRecursive(QStringList(dir),index.sibling(index.row(), 0).data().toString());
 }
 
 
 DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
- : KDialog(parent), Ui_DBParams()
+ : QDialog(parent), Ui_DBParams()
  , m_connectionOptionsValid(false)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
-    setCaption( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
-    setButtons( KDialog::Ok | KDialog::Cancel);
-    enableButtonOk(false);
+    setWindowTitle( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
 
-    setupUi(mainWidget());
+    setupUi(this);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     name->setFocus();
     connect(name, SIGNAL(textChanged(QString)), this, SLOT(feedbackRegardingAcceptable()));
 
@@ -145,7 +140,7 @@ void DBPropertiesDialog::setConnectionBoxVisible(int type)
 
 void DBPropertiesDialog::feedbackRegardingAcceptable()
 {
-    enableButtonOk(contentBox->isVisible() && !name->text().isEmpty());
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(contentBox->isVisible() && !name->text().isEmpty());
 }
 
 void DBPropertiesDialog::checkConnectionOptions()
@@ -162,19 +157,19 @@ void DBPropertiesDialog::checkConnectionOptions()
     connParams.passwd=dbPasswd->text();
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),openDBJob,SLOT(deleteLater()));
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(openJobDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(openDBJob);
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
+    threadPool()->start(openDBJob, OPENDB);
 }
 
-void DBPropertiesDialog::openJobDone(ThreadWeaver::Job* job)
+void DBPropertiesDialog::openJobDone(OpenDBJob* openDBJob)
 {
+    openDBJob->deleteLater();
+
     if (!connectionBox->isVisible()) //smth happened while we were trying to connect
         return;
 
-    OpenDBJob* openDBJob=static_cast<OpenDBJob*>(job);
     contentBox->setVisible(openDBJob->m_connectionSuccessful);
-    enableButtonOk(openDBJob->m_connectionSuccessful);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(openDBJob->m_connectionSuccessful);
     if (!openDBJob->m_connectionSuccessful)
         return;
 
@@ -197,7 +192,7 @@ void DBPropertiesDialog::accept()
 
     if (connectionBox->isVisible())
     {
-        QFile rdb(KStandardDirs::locateLocal("appdata", name->text() % REMOTETM_DATABASE_EXTENSION));
+        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % name->text() % REMOTETM_DATABASE_EXTENSION);
         if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
             return;
 
@@ -210,7 +205,7 @@ void DBPropertiesDialog::accept()
     }
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
-    connect(openDBJob,SIGNAL(done(ThreadWeaver::Job*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+    connect(openDBJob,SIGNAL(done(OpenDBJob*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
 
     openDBJob->m_setParams=true;
     openDBJob->m_tmConfig.markup=markup->text();
@@ -219,7 +214,7 @@ void DBPropertiesDialog::accept()
     openDBJob->m_tmConfig.targetLangCode=LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
 
     DBFilesModel::instance()->openDB(openDBJob);
-    KDialog::accept();
+    QDialog::accept();
 }
 
 void TMManagerWin::addDB()
@@ -238,10 +233,8 @@ void TMManagerWin::removeDB()
 
 void TMManagerWin::importTMX()
 {
-    QString path=KFileDialog::getOpenFileName(KUrl("kfiledialog:///tmx"),
-                      i18n("*.tmx *.xml|TMX files\n*|All files"),
-                      this,
-                      i18nc("@title:window","Select TMX file to be imported into selected database"));
+    QString path=QFileDialog::getOpenFileName(this, i18nc("@title:window","Select TMX file to be imported into selected database"),
+                      QString(), i18n("TMX files (*.tmx *.xml)"));
 
     QModelIndex index=m_tmListWidget->currentIndex();
     if (!index.isValid())
@@ -251,10 +244,8 @@ void TMManagerWin::importTMX()
     if (!path.isEmpty())
     {
         ImportTmxJob* j=new ImportTmxJob(path,dbName);
-        connect(j,SIGNAL(failed(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
 
-        ThreadWeaver::Weaver::instance()->enqueue(j);
+        threadPool()->start(j, IMPORT);
         DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
     }
 }
@@ -263,10 +254,8 @@ void TMManagerWin::importTMX()
 void TMManagerWin::exportTMX()
 {
     //TODO ask whether to save full paths of files, or just their names
-    QString path=KFileDialog::getSaveFileName(KUrl("kfiledialog:///tmx"),
-                      i18n("*.tmx *.xml|TMX files\n*|All files"),
-                      this,
-                      i18nc("@title:window","Select TMX file to export selected database to"));
+    QString path=QFileDialog::getSaveFileName(this, i18nc("@title:window","Select TMX file to export selected database to"),
+                                              QString(), i18n("TMX files (*.tmx *.xml)"));
 
     QModelIndex index=m_tmListWidget->currentIndex();
     if (!index.isValid())
@@ -276,8 +265,7 @@ void TMManagerWin::exportTMX()
     if (!path.isEmpty())
     {
         ExportTmxJob* j=new ExportTmxJob(path,dbName);
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-        ThreadWeaver::Weaver::instance()->enqueue(j);
+        threadPool()->start(j, EXPORT);
     }
 }
 
@@ -291,4 +279,3 @@ void TMManagerWin::slotItemActivated(const QModelIndex&)
 
 
 
-#include "tmmanager.moc"

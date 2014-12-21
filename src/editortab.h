@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -28,27 +28,25 @@
 #include <config.h>
 #endif
 
-#include "lokalizesubwindowbase.h"
 #include "pos.h"
-
-#include <kapplication.h>
-#include <kmainwindow.h>
-#include <kxmlguiclient.h>
-#include <kurl.h>
+#include "lokalizesubwindowbase.h"
 
 #include <QHash>
+
+#ifndef NOKDE
 namespace Sonnet{class Dialog;}
 namespace Sonnet{class BackgroundChecker;}
 
+#include <kxmlguiclient.h>
+
 class KFind;
 class KReplace;
-class KProgressDialog;
 class KActionCategory;
+#endif
 
+class Project;
 class Catalog;
 class EditorView;
-class Project;
-class ProjectView;
 class MergeView;
 class CatalogView;
 class MsgCtxtView;
@@ -61,12 +59,12 @@ struct EditorState
 {
 public:
     EditorState(){}
-    EditorState(const EditorState& ks){dockWidgets=ks.dockWidgets;url=ks.url;}
+    EditorState(const EditorState& s):dockWidgets(s.dockWidgets), filePath(s.filePath){}
     ~EditorState(){}
 
     QByteArray dockWidgets;
-    KUrl url;
-    KUrl mergeUrl;
+    QString filePath;
+    QString mergeFilePath;
     int entry;
     //int offset;
 };
@@ -97,7 +95,7 @@ public:
     //interface for LokalizeMainWindow
     void hideDocks();
     void showDocks();
-    KUrl currentUrl();
+    QString currentFilePath();
     void setFullPathShown(bool);
     void setProperCaption(QString,bool);//reimpl to remove ' - Lokalize'
 public slots:
@@ -105,16 +103,17 @@ public slots:
 public:
     bool queryClose();
     EditorState state();
+#ifndef NOKDE
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
-
-    //wrapper for cmdline handling
-    void mergeOpen(KUrl url=KUrl());
-
-    bool fileOpen(KUrl url=KUrl(), KUrl baseUrl=KUrl(), bool silent=false);
-
     QString dbusObjectPath();
     int dbusId(){return m_dbusId;}
     QObject* adaptor(){return m_adaptor;}
+#endif
+
+    //wrapper for cmdline handling
+    void mergeOpen(QString mergeFilePath);
+
+    bool fileOpen(QString filePath=QString(), QString suggestedDirPath=QString(), bool silent=false);
 public slots:
     //for undo/redo, views
     void gotoEntry(DocPosition pos,int selection=0);
@@ -145,16 +144,16 @@ public slots:
     Q_SCRIPTABLE void addAlternateTranslation(int entry, const QString& translation);
     Q_SCRIPTABLE void addTemporaryAlternateTranslation(int entry, const QString& translation);
 
-    Q_SCRIPTABLE QString currentFile(){return currentUrl().pathOrUrl();}
+    Q_SCRIPTABLE QString currentFile(){return currentFilePath();}
     Q_SCRIPTABLE QByteArray currentFileContents();
     Q_SCRIPTABLE QString sourceLangCode();
     Q_SCRIPTABLE QString targetLangCode();
 
     Q_SCRIPTABLE void attachAlternateTranslationFile(const QString& path);
-    Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(KUrl(path));}
+    Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(path);}
     Q_SCRIPTABLE void reloadFile();
 #endif
-    Q_SCRIPTABLE bool saveFile(const KUrl& url = KUrl());
+    Q_SCRIPTABLE bool saveFile(const QString& filePath=QString());
     Q_SCRIPTABLE bool saveFileAs();
     Q_SCRIPTABLE void close(){return parent()->deleteLater();}
     Q_SCRIPTABLE void gotoNextUnfiltered();
@@ -169,13 +168,16 @@ public slots:
 
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
+#ifndef NOKDE
     Q_SCRIPTABLE bool isValid(){return m_valid;}
-
     Q_SCRIPTABLE void setSrcFileOpenRequestAccepted(bool a){m_srcFileOpenRequestAccepted=a;}
+#endif
 
 private slots:
+#ifndef NOKDE
     void highlightFound(const QString &,int,int);//for find/replace
     void highlightFound_(const QString &,int,int);//for find/replace
+#endif
 
     void lookupSelectionInTranslationMemory();
 
@@ -193,6 +195,7 @@ private slots:
 
     void undo();
     void redo();
+#ifndef NOKDE
     void findNext();
     void findPrev();
     void find();
@@ -201,6 +204,7 @@ private slots:
     void replaceNext();//internal
     void doReplace(const QString&,int,int,int);//internal
     void cleanupReplace();//internal
+#endif
 
 //     void selectAll();
 //     void deselectAll();
@@ -221,12 +225,14 @@ private slots:
     void setApproveActionTitle();
 
 
+#ifndef NOKDE
     void spellcheck();
     void spellcheckNext();
     void spellcheckShow(const QString&,int);
     void spellcheckReplace(QString,int,const QString&);
     void spellcheckStop();
     void spellcheckCancel();
+#endif
 
     void gotoNextBookmark();
     void gotoPrevBookmark();
@@ -255,15 +261,15 @@ private:
 
     void findNext(const DocPosition& startingPos);
     void replaceNext(const DocPosition&);
-    bool determineStartingPos(KFind*,//search or replace
-                              DocPosition&);//called from find() and findNext()
 
 private:
-    Project* _project;
+    Project* m_project;
     Catalog* m_catalog;
 
     EditorView* m_view;
-    KAction* m_approveAction;
+    QAction* m_approveAndGoAction;
+    QAction* m_approveAction;
+    QAction* m_stateAction; //is = m_approveAction ifndef NOKDE
 
     DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace
@@ -271,19 +277,23 @@ private:
     DocPosition _spellcheckPos;
     DocPosition _spellcheckStartPos;
 
+#ifndef NOKDE
     Sonnet::BackgroundChecker* m_sonnetChecker;
     Sonnet::Dialog* m_sonnetDialog;
-    int _spellcheckStartUndoIndex;
-    bool _spellcheckStop:1;
+    int m_spellcheckStartUndoIndex;
+    bool m_spellcheckStop:1;
+#endif
 
     bool m_currentIsApproved:1; //for statusbar animation
     bool m_currentIsUntr:1;  //for statusbar animation
 
     bool m_fullPathShown:1;
 
+#ifndef NOKDE
     bool m_doReplaceCalled:1;//used to prevent non-clean catalog status
-    KFind* _find;
-    KReplace* _replace;
+    KFind* m_find;
+    KReplace* m_replace;
+#endif
 
     //BEGIN views
     MergeView* m_syncView;
@@ -296,12 +306,15 @@ private:
 
     QString _captionPath;
 
+    bool m_srcFileOpenRequestAccepted;
+
     //BEGIN dbus
+#ifndef NOKDE
     bool m_valid;
     QObject* m_adaptor;
     int m_dbusId;
     static QList<int> ids;
-    bool m_srcFileOpenRequestAccepted;
+#endif
     //END dbus
 
 signals:
@@ -310,7 +323,7 @@ signals:
 
     Q_SCRIPTABLE void srcFileOpenRequested(const QString& srcPath, int line);
 
-    void fileOpenRequested(const KUrl& path, const QString& str, const QString& ctxt);
+    void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt);
 
     //emitted when mainwindow is closed or another file is opened
     void fileClosed();

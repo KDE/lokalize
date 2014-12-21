@@ -1,3 +1,108 @@
+include(ECMInstallIcons)
 add_subdirectory(global)
 
-kde4_install_icons(${DATA_INSTALL_DIR}/lokalize/icons)
+ecm_install_icons(ICONS
+    16-actions-approved.png
+    16-actions-insert_arg.png
+    16-actions-insert_tag.png
+    16-actions-msgid2msgstr.png
+    16-actions-nexterror.png
+    16-actions-nextfuzzy.png
+    16-actions-nextfuzzyuntrans.png
+    16-actions-nextpo.png
+    16-actions-nexttemplate.png
+    16-actions-nextuntranslated.png
+    16-actions-preverror.png
+    16-actions-prevfuzzy.png
+    16-actions-prevfuzzyuntrans.png
+    16-actions-prevpo.png
+    16-actions-prevtemplate.png
+    16-actions-prevuntranslated.png
+    16-actions-search2msgstr.png
+    16-actions-transsearch.png
+    22-actions-approved.png
+    22-actions-catalogmanager.png
+    22-actions-insert_arg.png
+    22-actions-insert_tag.png
+    22-actions-msgid2msgstr.png
+    22-actions-nexterror.png
+    22-actions-nextfuzzy.png
+    22-actions-nextfuzzyuntrans.png
+    22-actions-nextpo.png
+    22-actions-nexttemplate.png
+    22-actions-nextuntranslated.png
+    22-actions-preverror.png
+    22-actions-prevfuzzy.png
+    22-actions-prevfuzzyuntrans.png
+    22-actions-prevpo.png
+    22-actions-prevtemplate.png
+    22-actions-prevuntranslated.png
+    22-actions-search2msgstr.png
+    22-actions-transsearch.png
+    32-actions-approved.png
+    32-actions-catalogmanager.png
+    32-actions-diff.png
+    32-actions-insert_arg.png
+    32-actions-insert_tag.png
+    32-actions-msgid2msgstr.png
+    32-actions-nexterror.png
+    32-actions-nextfuzzy.png
+    32-actions-nextfuzzyuntrans.png
+    32-actions-nextpo.png
+    32-actions-nexttemplate.png
+    32-actions-nextuntranslated.png
+    32-actions-preverror.png
+    32-actions-prevfuzzy.png
+    32-actions-prevfuzzyuntrans.png
+    32-actions-prevpo.png
+    32-actions-prevtemplate.png
+    32-actions-prevuntranslated.png
+    32-actions-search2msgstr.png
+    32-actions-transsearch.png
+    48-actions-approved.png
+    sc-actions-approved.svgz
+    DESTINATION ${DATA_INSTALL_DIR}/lokalize/icons
+    THEME hicolor
+)
+ecm_install_icons(ICONS
+    16-actions-catalogmanager.png
+    16-actions-diff.png
+    16-actions-insert_arg.png
+    16-actions-insert_tag.png
+    16-actions-msgid2msgstr.png
+    16-actions-nexterror.png
+    16-actions-nextfuzzy.png
+    16-actions-nextfuzzyuntrans.png
+    16-actions-nextpo.png
+    16-actions-nexttemplate.png
+    16-actions-nextuntranslated.png
+    16-actions-preverror.png
+    16-actions-prevfuzzy.png
+    16-actions-prevfuzzyuntrans.png
+    16-actions-prevpo.png
+    16-actions-prevtemplate.png
+    16-actions-prevuntranslated.png
+    16-actions-search2msgstr.png
+    16-actions-transsearch.png
+    32-actions-catalogmanager.png
+    32-actions-diff.png
+    32-actions-insert_arg.png
+    32-actions-insert_tag.png
+    32-actions-msgid2msgstr.png
+    32-actions-nexterror.png
+    32-actions-nextfuzzy.png
+    32-actions-nextfuzzyuntrans.png
+    32-actions-nextpo.png
+    32-actions-nexttemplate.png
+    32-actions-nextuntranslated.png
+    32-actions-preverror.png
+    32-actions-prevfuzzy.png
+    32-actions-prevfuzzyuntrans.png
+    32-actions-prevpo.png
+    32-actions-prevtemplate.png
+    32-actions-prevuntranslated.png
+    32-actions-search2msgstr.png
+    32-actions-transsearch.png
+    DESTINATION ${DATA_INSTALL_DIR}/lokalize/icons
+    THEME locolor
+)

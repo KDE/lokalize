@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -25,8 +25,7 @@
 #define PREFS_H
 
 #include <QLineEdit>
-class KEditListBox;
-class KLienEdit;
+class KEditListWidget;
 
 namespace Kross {class ActionCollectionView;}
 
@@ -62,8 +61,8 @@ signals:
     void generalSettingsChanged();
 
 private:
-    KEditListBox* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
-    KEditListBox* m_scriptsPrefWidget;
+    KEditListWidget* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
+    KEditListWidget* m_scriptsPrefWidget;
     Kross::ActionCollectionView* m_projectActionsView;
     QWidget* m_mainWindowPtr;
 

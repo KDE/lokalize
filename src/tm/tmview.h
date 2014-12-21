@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,19 +27,15 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <kurl.h>
-#include <ktextbrowser.h>
-
+#include <QTextBrowser>
 #include <QDockWidget>
 #include <QMap>
 #include <QVector>
 
+class QRunnable;
 class Catalog;
-class KAction;
 class QDropEvent;
 class QDragEnterEvent;
-
-namespace ThreadWeaver{class Job;}
 
 #define TM_SHORTCUTS 10
 namespace TM {
@@ -50,7 +46,7 @@ class TMView: public QDockWidget
 {
     Q_OBJECT
 public:
-    TMView(QWidget*,Catalog*,const QVector<KAction*>&);
+    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
     ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -61,14 +57,14 @@ signals:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();
     void textInsertRequested(const QString&);
-    void fileOpenRequested(const KUrl& path, const QString& str, const QString& ctxt);
+    void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt);
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition& pos=DocPosition());
-    void slotSuggestionsCame(ThreadWeaver::Job*);
+    void slotSuggestionsCame(SelectJob*);
 
     void slotUseSuggestion(int);
-    void slotFileLoaded(const KUrl&);
+    void slotFileLoaded(const QString& url);
     void displayFromCache();
 
     void slotBatchTranslate();
@@ -79,8 +75,8 @@ private slots:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
 
-    void slotBatchSelectDone(ThreadWeaver::Job*);
-    void slotCacheSuggestions(ThreadWeaver::Job*);
+    void slotBatchSelectDone();
+    void slotCacheSuggestions(SelectJob*);
 
     void initLater();
     void contextMenu(const QPoint & pos);
@@ -95,7 +91,7 @@ private:
     DocPosition m_pos;
 
     SelectJob* m_currentSelectJob;
-    QVector<KAction*> m_actions;//need them to get shortcuts
+    QVector<QAction*> m_actions;//need them to get shortcuts
     QList<TMEntry> m_entries;
     QMap<int, int> m_entryPositions;
 
@@ -107,14 +103,14 @@ private:
     bool m_markAsFuzzy;
     QMap<DocPos, QVector<TMEntry> > m_cache;
     DocPosition m_prevCachePos;//hacky hacky
-    QList<ThreadWeaver::Job*> m_jobs;//holds pointers to all the jobs for the current file
+    QList<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
 };
 
-class TextBrowser: public KTextBrowser
+class TextBrowser: public QTextBrowser
 {
     Q_OBJECT
 public:
-    TextBrowser(QWidget* parent):KTextBrowser(parent)
+    TextBrowser(QWidget* parent):QTextBrowser(parent)
     {
         setContextMenuPolicy(Qt::CustomContextMenu);
     }

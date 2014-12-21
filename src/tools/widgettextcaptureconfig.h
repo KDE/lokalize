@@ -24,11 +24,11 @@
 #ifndef WIDGETTEXTCAPTURECONFIG_H
 #define WIDGETTEXTCAPTURECONFIG_H
 
-#include <KDialog>
+#include <QDialog>
 
 class Ui_WidgetTextCapture;
 
-class WidgetTextCaptureConfig: public KDialog
+class WidgetTextCaptureConfig: public QDialog
 {
     Q_OBJECT
 public:

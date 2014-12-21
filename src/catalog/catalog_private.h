@@ -42,8 +42,9 @@
 #include "pos.h"
 #include "alttrans.h"
 
-#include <kurl.h>
+#ifndef NOKDE
 #include <kautosavefile.h>
+#endif
 
 #include <QList>
 #include <QLinkedList>
@@ -63,22 +64,21 @@ class CatalogPrivate
 public:
 
     /** url of the po-file, that belongs to this catalog */
-    KUrl _url;
+    QString _url;
     QString _packageName;
     QString _packageDir;
 
     /** identification string for used import filter*/
     QString _importID;
-    QString _mimeTypes;
 
     QTextCodec *fileCodec;
-
-    QString _emptyStr;
 
     int _numberOfPluralForms;
 
     QTimer _autoSaveTimer;
+#ifndef NOKDE
     KAutoSaveFile* _autoSave;
+#endif
     bool _autoSaveDirty;
     bool _autoSaveRecovered;
 
@@ -108,15 +108,17 @@ public:
     ProjectLocal::PersonRole _phaseRole;
 
     explicit CatalogPrivate(QObject* parent)
-           : _mimeTypes( "text/plain" )
-           , fileCodec(0)
+           : fileCodec(0)
            , _numberOfPluralForms(-1)
+#ifndef NOKDE
            , _autoSave(new KAutoSaveFile(parent))
+#endif
            , _autoSaveDirty(true)
            , _autoSaveRecovered(false)
            , _readOnly(false)
            , _phaseRole(ProjectLocal::Undefined)
     {
+        Q_UNUSED(parent)
         _statesIndex.resize(StateCount);
     }
 

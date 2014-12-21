@@ -25,7 +25,8 @@
 
 #include "glossary.h"
 #include "project.h"
-#include <kdebug.h>
+
+#include <QDebug>
 
 using namespace GlossaryNS;
 

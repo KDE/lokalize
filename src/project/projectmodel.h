@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -25,21 +25,36 @@
 #ifndef PROJECTMODEL_H
 #define PROJECTMODEL_H
 
-#include <threadweaver/Job.h>
-
 #include <kdirmodel.h>
 #include <kdirlister.h>
-#include <kicon.h>
 #include <QHash>
 #include <QList>
-#include <kdebug.h>
+#include <QRunnable>
 
 #include "project.h"
 #include "projectlocal.h"
 
 class QTimer;
+class QThreadPool;
 class UpdateStatsJob;
-namespace ThreadWeaver {class Weaver;}
+
+struct FileMetaData
+{
+    int translated;
+    int translated_reviewer;
+    int translated_approver;
+    int untranslated;
+    int fuzzy;
+    int fuzzy_reviewer;
+    int fuzzy_approver;
+
+    QString lastTranslator;
+    QString sourceDate;
+    QString translationDate;
+
+    QString filePath;
+};
+
 
 /**
 *  Some notes:
@@ -61,7 +76,7 @@ class ProjectModel: public QAbstractItemModel
         ProjectNode(ProjectNode* parent, int rowNum, int poIndex, int potIndex);
         ~ProjectNode();
         void calculateDirStats();
-        void setFileStats(const KFileMetaInfo& info);
+        void setFileStats(const FileMetaData& info);
         
         int translatedAsPerRole() const
         {
@@ -143,10 +158,10 @@ public:
     ProjectModel(QObject *parent);
     ~ProjectModel();
 
-    void setUrl(const KUrl &poUrl, const KUrl &potUrl);
-    QModelIndex indexForUrl(const KUrl& url);
+    void setUrl(const QUrl &poUrl, const QUrl &potUrl);
+    QModelIndex indexForUrl(const QUrl& url);
     KFileItem itemForIndex(const QModelIndex& index) const;
-    KUrl beginEditing(const QModelIndex& index); //copies POT file to PO file and returns url of the PO file
+    QUrl beginEditing(const QModelIndex& index); //copies POT file to PO file and returns url of the PO file
 
     // QAbstractItemModel methods
     int columnCount(const QModelIndex& parent = QModelIndex()) const;
@@ -163,8 +178,7 @@ public:
     bool canFetchMore(const QModelIndex& parent) const;
     void fetchMore(const QModelIndex& parent);
 
-
-    ThreadWeaver::Weaver* weaver(){return m_weaver;}
+    QThreadPool* threadPool(){return m_threadPool;}
     void setCompleteScan(bool enable){m_completeScan=enable;}
 
 signals:
@@ -180,13 +194,13 @@ private slots:
     void pot_rowsInserted(const QModelIndex& parent, int start, int end);
     void pot_rowsRemoved(const QModelIndex& parent, int start, int end);
 
-    void finishMetadataUpdate(ThreadWeaver::Job*);
-    void finishSingleMetadataUpdate(ThreadWeaver::Job*);
+    void finishMetadataUpdate(UpdateStatsJob*);
+    void finishSingleMetadataUpdate(UpdateStatsJob*);
 
     void updateTotalsChanged();
 
 public slots:
-    void slotFileSaved(const KUrl&);
+    void slotFileSaved(const QString& filePath);
 
 private:
     ProjectNode* nodeForIndex(const QModelIndex& index) const;
@@ -202,19 +216,19 @@ private:
     QModelIndex indexForPotIndex(const QModelIndex& potIndex) const;
     void generatePOTMapping(QVector<int> & result, const QModelIndex& poParent, const QModelIndex& potParent) const;
 
-    KUrl poToPot(const KUrl& path) const;
-    KUrl potToPo(const KUrl& path) const;
+    QUrl poToPot(const QUrl& path) const;
+    QUrl potToPo(const QUrl& path) const;
 
     void enqueueNodeForMetadataUpdate(ProjectNode* node);
     void deleteSubtree(ProjectNode* node);
 
     void startNewMetadataJob();
-    void setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data);
+    void setMetadataForDir(ProjectNode* node, const QList<FileMetaData>& data);
     void updateDirStats(ProjectNode* node);
     bool updateDone(const QModelIndex& index, const KDirModel& model);
 
-    KUrl m_poUrl;
-    KUrl m_potUrl;
+    QUrl m_poUrl;
+    QUrl m_potUrl;
     KDirModel m_poModel;
     KDirModel m_potModel;
 
@@ -231,14 +245,14 @@ private:
     ProjectNode* m_activeNode;
     QTimer* m_doneTimer;
 
-    ThreadWeaver::Weaver* m_weaver;
+    QThreadPool* m_threadPool;
 
     bool m_completeScan;
 };
 
 
 
-class UpdateStatsJob: public ThreadWeaver::Job
+class UpdateStatsJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -249,12 +263,14 @@ public:
     void setStatus(int status);
 
     QList<KFileItem> m_files;
-    QList<KFileMetaInfo> m_info;
+    QList<FileMetaData> m_info;
     volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
 
 protected:
     void run();
 
+signals:
+    void done(UpdateStatsJob*);
 };
 
 

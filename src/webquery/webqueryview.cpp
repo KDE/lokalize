@@ -41,18 +41,15 @@
 #include <kross/ui/model.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
+#include <klocalizedstring.h>
 
 #include "webquerycontroller.h"
 
-#include <klocale.h>
-#include <kdebug.h>
-#include <kurl.h>
-#include <ktextbrowser.h>
-#include <kaction.h>
-
+#include <QDebug>
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSplitter>
+#include <QTextBrowser>
 #include <QSignalMapper>
 #include <QTimer>
 
@@ -61,16 +58,16 @@
 
 using namespace Kross;
 
-WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<KAction*>& actions)
+WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
         : QDockWidget ( i18n("Web Queries"), parent)
         , m_catalog(catalog)
         , m_splitter(new QSplitter(this))
-        , m_browser(new KTextBrowser(m_splitter))
+        , m_browser(new QTextBrowser(m_splitter))
         , ui_queryControl(new Ui_QueryControl)
         , m_actions(actions)
 
 {
-    setObjectName("WebQueryView");
+    setObjectName(QStringLiteral("WebQueryView"));
     setWidget(m_splitter);
 
     hide();
@@ -136,14 +133,14 @@ void WebQueryView::slotSelectionChanged()
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
 //         {
-//             //kWarning() << " " <<;
+//             //qWarning() << " " <<;
 //             event->acceptProposedAction();
 //         };*/
 // }
 // 
 // void WebQueryView::dropEvent(QDropEvent *event)
 // {
-//     /*    emit mergeOpenRequested(KUrl(event->mimeData()->urls().first()));
+//     /*    emit mergeOpenRequested(event->mimeData()->urls().first());
 //         event->acceptProposedAction();*/
 // }
 

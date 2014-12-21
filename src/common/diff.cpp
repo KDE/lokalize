@@ -33,8 +33,7 @@
 #include <QStringMatcher>
 #include <QStringBuilder>
 #include <QLinkedList>
-
-#include <kdebug.h>
+#include <QDebug>
 
 
 typedef enum
@@ -46,10 +45,10 @@ typedef enum
     FINAL         = 4
 } LCSMarker;
 
-static QString addMarkerStart="<KBABELADD>";
-static QString addMarkerEnd="</KBABELADD>";
-static QString delMarkerStart="<KBABELDEL>";
-static QString delMarkerEnd="</KBABELDEL>";
+static QString addMarkerStart=QStringLiteral("<KBABELADD>");
+static QString addMarkerEnd=QStringLiteral("</KBABELADD>");
+static QString delMarkerStart=QStringLiteral("<KBABELDEL>");
+static QString delMarkerEnd=QStringLiteral("</KBABELDEL>");
 
 QStringList calcLCS(const QStringList& s1Words,
                     const QStringList& s2Words,
@@ -166,9 +165,9 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT-1);
         if (it1!=s1.constEnd())
         {
-            //kWarning() << "upleft '" << *it1 <<"'";
-            //kWarning() << "upleft 1s" << *it1Space;
-            //kWarning() << "upleft 2s" << *it2Space;
+            //qWarning() << "upleft '" << *it1 <<"'";
+            //qWarning() << "upleft 1s" << *it1Space;
+            //qWarning() << "upleft 2s" << *it2Space;
             if (haveSpaces)
             {
                 if((*it1)==(*it2))//case and accels
@@ -194,15 +193,15 @@ void LCSprinter::printLCS(uint index)
 //???this is not really good if we use diff result in autosubst
 
                     empty=calcLCS(word2,word1,empty,empty);
-                    empty.replaceInStrings("KBABELADD>","KBABELTMP>");
-                    empty.replaceInStrings("KBABELDEL>","KBABELADD>");
-                    empty.replaceInStrings("KBABELTMP>","KBABELDEL>");
+                    empty.replaceInStrings(QStringLiteral("KBABELADD>"),QStringLiteral("KBABELTMP>"));
+                    empty.replaceInStrings(QStringLiteral("KBABELDEL>"),QStringLiteral("KBABELADD>"));
+                    empty.replaceInStrings(QStringLiteral("KBABELTMP>"),QStringLiteral("KBABELDEL>"));
 
                     resultString.append(empty.join(QString()));
                 }
                 ++it1Space;
                 ++it2Space;
-                //kWarning() << " common " << *it1;
+                //qWarning() << " common " << *it1;
             }
             else
                 resultString.append(*it1);//we may guess that this is a batch job, i.e. TM search
@@ -215,8 +214,8 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT);
 //         if (it1!=s1.end())
         {
-            //kWarning()<<"APPENDDEL "<<*it1;
-            //kWarning()<<"APPENDDEL "<<*it1Space;
+            //qWarning()<<"APPENDDEL "<<*it1;
+            //qWarning()<<"APPENDDEL "<<*it1Space;
             resultString.append(delMarkerStart);
             resultString.append(*it1);
             ++it1;
@@ -236,7 +235,7 @@ void LCSprinter::printLCS(uint index)
         ++it2;
         if (haveSpaces)
         {
-            //kWarning() << "add2 " << *it2;
+            //qWarning() << "add2 " << *it2;
             resultString.append(*it2Space);
             ++it2Space;
         }
@@ -341,13 +340,13 @@ QStringList calcLCS(const QStringList& s1Words,
 
 QString wordDiff(QStringList s1, QStringList s2)
 {
-    static QString space(" ");
+    static const QString space(QStringLiteral(" "));
     s1.prepend(space);
     s2.prepend(space);
 
     static QStringList empty;
     QStringList list=calcLCS(s1,s2,empty,empty);
-    bool r=list.first()==" ";
+    bool r=list.first()==space;
     if (r)
         list.removeFirst();
     else
@@ -358,8 +357,8 @@ QString wordDiff(QStringList s1, QStringList s2)
 
     if (!r)
         result.remove(0,1);
-    result.remove("</KBABELADD><KBABELADD>");
-    result.remove("</KBABELDEL><KBABELDEL>");
+    result.remove(QStringLiteral("</KBABELADD><KBABELADD>"));
+    result.remove(QStringLiteral("</KBABELDEL><KBABELDEL>"));
 
     return result;
 }
@@ -387,7 +386,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //i tried that but it failed:
     if (!markup.isEmpty())
         markup+='|';
-    QRegExp rxSplit('('%markup%"\\W+|\\d+)+");
+    QRegExp rxSplit('('%markup%QStringLiteral("\\W+|\\d+)+"));
 
     main=str.split(rxSplit,QString::SkipEmptyParts);
     main.prepend("\t");//little hack
@@ -428,36 +427,36 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     QStringList result(calcLCS(s1,s2,s1Space,s2Space));
     result.removeFirst();//\t
     result.first().remove(0,1);//\b
-//     kWarning()<<"wordDiff 1 '" <<result<<"'";
-    result.replaceInStrings("<KBABELDEL></KBABELDEL>","");
-    result.replaceInStrings("<KBABELADD></KBABELADD>","");
+//     qWarning()<<"wordDiff 1 '" <<result<<"'";
+    result.replaceInStrings(QStringLiteral("<KBABELDEL></KBABELDEL>"),QString());
+    result.replaceInStrings(QStringLiteral("<KBABELADD></KBABELADD>"),QString());
 
-    result.replaceInStrings("<KBABELADD>","{KBABELADD}");
-    result.replaceInStrings("</KBABELADD>","{/KBABELADD}");
-    result.replaceInStrings("<KBABELDEL>","{KBABELDEL}");
-    result.replaceInStrings("</KBABELDEL>","{/KBABELDEL}");
+    result.replaceInStrings(QStringLiteral("<KBABELADD>"),QStringLiteral("{KBABELADD}"));
+    result.replaceInStrings(QStringLiteral("</KBABELADD>"),QStringLiteral("{/KBABELADD}"));
+    result.replaceInStrings(QStringLiteral("<KBABELDEL>"),QStringLiteral("{KBABELDEL}"));
+    result.replaceInStrings(QStringLiteral("</KBABELDEL>"),QStringLiteral("{/KBABELDEL}"));
 
     if (options&Html)
     {
-        result.replaceInStrings("&","&amp;");
-        result.replaceInStrings("<","&lt;");
-        result.replaceInStrings(">","&gt;");
+        result.replaceInStrings(QStringLiteral("&"),QStringLiteral("&amp;"));
+        result.replaceInStrings(QStringLiteral("<"),QStringLiteral("&lt;"));
+        result.replaceInStrings(QStringLiteral(">"),QStringLiteral("&gt;"));
     }
 
     //result.last().chop(1);//\b
-    //kWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
+    //qWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
 
     QString res(result.join(QString()));
-    res.remove("{/KBABELADD}{KBABELADD}");
-    res.remove("{/KBABELDEL}{KBABELDEL}");
+    res.remove(QStringLiteral("{/KBABELADD}{KBABELADD}"));
+    res.remove(QStringLiteral("{/KBABELDEL}{KBABELDEL}"));
 
     if (options&Html)
     {
-        res.replace("{KBABELADD}","<font style=\"background-color:"%Settings::addColor().name()%";color:black\">");
-        res.replace("{/KBABELADD}","</font>");
-        res.replace("{KBABELDEL}","<font style=\"background-color:"%Settings::delColor().name()%";color:black\">");
-        res.replace("{/KBABELDEL}","</font>");
-        res.replace("\\n","\\n<br>");
+        res.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
+        res.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
+        res.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
+        res.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
+        res.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
     }
 
     return res;

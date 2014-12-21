@@ -24,8 +24,6 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "projectlocal.h"
-
 ///@see @link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
 enum TargetState
 {

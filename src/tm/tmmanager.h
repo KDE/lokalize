@@ -36,13 +36,12 @@
 #include <kmainwindow.h>
 #include <QModelIndex>
 #include <QTimer>
+#include <QDialog>
 
 class QTreeView;
 
 #include "ui_dbparams.h"
-#include <kdialog.h>
-namespace ThreadWeaver {class Job;};
-    
+
 namespace TM {
 /**
  * Window for managing Translation Memory databases
@@ -66,8 +65,10 @@ private:
     QTreeView* m_tmListWidget;
 };
 
+class OpenDBJob;
+
 //TODO remote tms
-class DBPropertiesDialog: public KDialog, Ui_DBParams
+class DBPropertiesDialog: public QDialog, Ui_DBParams
 {
     Q_OBJECT
 public:
@@ -77,7 +78,7 @@ private:
     void accept();
 private slots:
     void setConnectionBoxVisible(int type);
-    void openJobDone(ThreadWeaver::Job*);
+    void openJobDone(OpenDBJob*);
     void checkConnectionOptions();
     void feedbackRegardingAcceptable();
 private:

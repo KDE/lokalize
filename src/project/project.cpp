@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -22,41 +22,45 @@
 **************************************************************************** */
 
 #include "project.h"
-#include "projectmodel.h"
 #include "projectlocal.h"
 
 #include "prefs.h"
-#include "webquerycontroller.h"
 #include "jobs.h"
 #include "glossary.h"
-
 #include "tmmanager.h"
 #include "glossarywindow.h"
 #include "editortab.h"
 #include "dbfilesmodel.h"
 #include "qamodel.h"
 
+#include "kdemacros.h"
+
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
+
 #include <QTimer>
 #include <QTime>
+#include <QDir>
+#include <QFileInfo>
+#include <QDebug>
+#include <QStringBuilder>
 
-#include <kurl.h>
-#include <kdirlister.h>
-#include <kdebug.h>
-#include <klocale.h>
-#include <kstandarddirs.h>
+#ifndef NOKDE
+#include "projectmodel.h"
+#include "webquerycontroller.h"
 
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
 #include <kross/core/manager.h>
-#include <kpassivepopup.h>
-#include <kmessagebox.h>
-
-#include <threadweaver/ThreadWeaver.h>
 
 #include <QDBusArgument>
-
-
 using namespace Kross;
+#endif
+
+
+
+
+
 
 Project* Project::_instance=0;
 void Project::cleanupProject()
@@ -82,8 +86,6 @@ Project::Project()
     , m_glossaryWindow(0)
     , m_tmManagerWindow(0)
 {
-    ThreadWeaver::Weaver::instance()->setMaximumNumberOfThreads(1);
-
     setDefaults();
 /*
     qRegisterMetaType<DocPosition>("DocPosition");
@@ -116,42 +118,39 @@ void Project::load(const QString &newProjectPath)
 {
     QTime a;a.start();
 
-    ThreadWeaver::Weaver::instance()->dequeue();
-    kDebug()<<"loading"<<newProjectPath<<"Finishing jobs...";
+    TM::threadPool()->clear();
+    qDebug()<<"loading"<<newProjectPath<<"finishing tm jobs...";
 
     if (!m_path.isEmpty())
     {
         TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
-        connect(closeDBJob,SIGNAL(done(ThreadWeaver::Job*)),closeDBJob,SLOT(deleteLater()));
-        ThreadWeaver::Weaver::instance()->enqueue(closeDBJob);
+        closeDBJob->setAutoDelete(true);
+        TM::threadPool()->start(closeDBJob, CLOSEDB);
     }
-    ThreadWeaver::Weaver::instance()->finish();//more safety
+    TM::threadPool()->waitForDone(500);//more safety
 
-    kDebug()<<"5...";
-
+#ifndef NOKDE
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
-    kDebug()<<"4...";
-    readConfig();
+    ProjectBase::load();
+#else
+#endif
     m_path=newProjectPath;
     m_desirablePath.clear();
 
     //cache:
-    m_projectDir=KUrl(m_path).directory();
-
-    kDebug()<<"3...";
-    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+".local", KConfig::NoGlobals,"appdata"));
-    m_localConfig->readConfig();
+    m_projectDir=QFileInfo(m_path).absolutePath();
+#ifndef NOKDE
+    m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID()+QStringLiteral(".local"), KConfig::NoGlobals,QStandardPaths::DataLocation));
+    m_localConfig->load();
+#endif
 
     if (langCode().isEmpty())
-        setLangCode(KGlobal::locale()->language());
-    kDebug()<<"2...";
+        setLangCode(QLocale::system().name());
 
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
 
     populateDirModel();
-
-    kDebug()<<"1...";
 
     //put 'em into thread?
     //QTimer::singleShot(0,this,SLOT(populateGlossary()));
@@ -160,8 +159,11 @@ void Project::load(const QString &newProjectPath)
     if (newProjectPath.isEmpty())
         return;
 
+
+    if (!isTmSupported())
+        qWarning()<<"no sqlite module available";
     //NOTE do we need to explicitly call it when project id changes?
-    TM::DBFilesModel::instance()->openDB(projectID());
+    TM::DBFilesModel::instance()->openDB(projectID(), TM::Undefined, true);
 
     if (QaModel::isInstantiated())
     {
@@ -169,33 +171,30 @@ void Project::load(const QString &newProjectPath)
         QaModel::instance()->loadRules(qaPath());
     }
 
-    kDebug()<<"until emitting signal"<<a.elapsed();
+    qDebug()<<"until emitting signal"<<a.elapsed();
 
     emit loaded();
-    kDebug()<<"loaded!"<<a.elapsed();
+    qDebug()<<"loaded!"<<a.elapsed();
 }
 
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
-    if (KUrl::isRelativeUrl(possiblyRelPath))
-    {
-        KUrl url(m_path);
-        url.setFileName(QString());
-        url.cd(possiblyRelPath);
-        return url.toLocalFile(KUrl::RemoveTrailingSlash);
-    }
+    if (QFileInfo(possiblyRelPath).isRelative())
+        return QDir::cleanPath(m_projectDir%'/'%possiblyRelPath);
     return possiblyRelPath;
 }
 
 void Project::populateDirModel()
 {
+#ifndef NOKDE
     if (KDE_ISUNLIKELY( m_path.isEmpty() || !QFile::exists(poDir()) ))
         return;
 
-    KUrl potUrl;
+    QUrl potUrl;
     if (QFile::exists(potDir()))
-        potUrl=KUrl::fromLocalFile(potDir());
-    model()->setUrl(KUrl(poDir()), potUrl);
+        potUrl=QUrl::fromLocalFile(potDir());
+    model()->setUrl(QUrl::fromLocalFile(poDir()), potUrl);
+#endif
 }
 
 void Project::populateGlossary()
@@ -258,22 +257,26 @@ void Project::save()
     m_localConfig->setFirstRun(false);
 
     ProjectBase::setTargetLangCode(langCode());
-    writeConfig();
-    m_localConfig->writeConfig();
+    ProjectBase::save();
+    m_localConfig->save();
 }
 
 ProjectModel* Project::model()
 {
+#ifndef NOKDE
     if (KDE_ISUNLIKELY(!m_model))
         m_model=new ProjectModel(this);
 
     return m_model;
+#else
+    return 0;
+#endif
 }
 
 void Project::setDefaults()
 {
     ProjectBase::setDefaults();
-    setLangCode(KGlobal::locale()->language());
+    setLangCode(QLocale::system().name());
 }
 
 void Project::init(const QString& path, const QString& kind, const QString& id,
@@ -291,4 +294,3 @@ void Project::init(const QString& path, const QString& kind, const QString& id,
 }
 
 
-#include "project.moc"

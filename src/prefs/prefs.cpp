@@ -38,25 +38,21 @@
 #include "ui_prefs_project_local.h"
 
 
-#include <kconfigdialog.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
-#include <kicon.h>
-#include <kstatusbar.h>
-#include <kdebug.h>
-
-#include <kurl.h>
-#include <kfiledialog.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
-
+#include <keditlistwidget.h>
+#include <kconfigdialog.h>
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
 #include <kross/ui/model.h>
-#include <threadweaver/ThreadWeaver.h>
+
+#include <QIcon>
 #include <QBoxLayout>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QTimer>
+#include <QMimeData>
+#include <QDebug>
 
 //#include <sonnet/configwidget.h>
 
@@ -105,7 +101,8 @@ void SettingsController::showSettingsDialog()
     KConfigGroup grp = Settings::self()->config()->group("Identity");
 
     ui_prefs_identity.DefaultLangCode->setModel(LanguageListModel::instance()->sortModel());
-    ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( grp.readEntry("DefaultLangCode",KGlobal::locale()->language()) ));
+    ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( grp.readEntry("DefaultLangCode",
+                                                                                                                             QLocale::system().name()) ));
 
     connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(int)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setLangCode(int)));
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
@@ -184,7 +181,7 @@ bool SettingsController::ensureProjectIsLoaded()
         return true;
 
     int answer=KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
-        QString(), KGuiItem(i18nc("@action","New"),KIcon("document-new")), KGuiItem(i18nc("@action","Open"),KIcon("project-open"))
+        QString(), KGuiItem(i18nc("@action","New"),QIcon::fromTheme("document-new")), KGuiItem(i18nc("@action","Open"),QIcon::fromTheme("project-open"))
     );
     if (answer==KMessageBox::Yes)
         return projectCreate();
@@ -197,11 +194,11 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 {
     if (path.isEmpty())
     {
-        Project::instance()->model()->weaver()->suspend();
-        path=KFileDialog::getOpenFileName(KUrl()/*_catalog->url().directory()*/,
-                                          i18n("*.lokalize *.ktp|Lokalize translation project")/*"text/x-lokalize-project"*/,
-                                          m_mainWindowPtr);
-        Project::instance()->model()->weaver()->resume();
+        //Project::instance()->model()->weaver()->suspend();
+        //KDE5PORT mutex if needed
+        path=QFileDialog::getOpenFileName(m_mainWindowPtr, QString(), QDir::homePath()/*_catalog->url().directory()*/,
+                                          i18n("Lokalize translation project (*.lokalize)")/*"text/x-lokalize-project"*/);
+        //Project::instance()->model()->weaver()->resume();
     }
 
     if (!path.isEmpty() && doOpen)
@@ -212,12 +209,13 @@ QString SettingsController::projectOpen(QString path, bool doOpen)
 
 bool SettingsController::projectCreate()
 {
-    Project::instance()->model()->weaver()->suspend();
+    //Project::instance()->model()->weaver()->suspend();
+    //KDE5PORT mutex if needed
     QString desirablePath=Project::instance()->desirablePath();
     if (desirablePath.isEmpty())
         desirablePath=QDir::homePath()+"/index.lokalize";
-    QString path=KFileDialog::getSaveFileName(KUrl(desirablePath), i18n("*.lokalize|Lokalize translation project") /*"text/x-lokalize-project"*/,m_mainWindowPtr);
-    Project::instance()->model()->weaver()->resume();
+    QString path=QFileDialog::getSaveFileName(m_mainWindowPtr, QString(), desirablePath, i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
+    //Project::instance()->model()->weaver()->resume();
     if (path.isEmpty())
         return false;
 
@@ -344,7 +342,7 @@ void SettingsController::reflectRelativePathsHack()
     QString projectDir(Project::instance()->projectDir());
     int i=actionz.size();
     while(--i>=0)
-        actionz[i]=KUrl::relativePath(projectDir,actionz.at(i));
+        actionz[i]=QDir(projectDir).relativeFilePath(actionz.at(i));
     m_scriptsRelPrefWidget->setItems(actionz);
 }
 
@@ -355,8 +353,7 @@ void LangCodeSaver::setLangCode(int index)
 
 void RelPathSaver::setText (const QString& txt)
 {
-    QLineEdit::setText(KUrl::relativePath(Project::instance()->projectDir(),
-                       txt));
+    QLineEdit::setText(QDir(Project::instance()->projectDir()).relativeFilePath(txt));
 }
 
 

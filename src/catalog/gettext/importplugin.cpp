@@ -1,9 +1,9 @@
 /* ****************************************************************************
-  This file is part of KAider
+  This file is part of Lokalize
   This file is based on the one from KBabel
 
   Copyright (C) 2002-2003 by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+                2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
 
   This program is free software; you can redistribute it and/or modify
@@ -40,10 +40,9 @@
 
 #include <QStringList>
 #include <QLinkedList>
+#include <QDebug>
 
-#include <kdebug.h>
 #include <kmessagebox.h>
-//#include <kservicetypetrader.h>
 
 namespace GettextCatalog 
 {

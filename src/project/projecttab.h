@@ -27,13 +27,12 @@
 #include "lokalizesubwindowbase.h"
 
 #include <KMainWindow>
-#include <KUrl>
 
 #include <KXMLGUIClient>
 
 class QStackedLayout;
 class ProjectWidget;
-class KLineEdit;
+class QLineEdit;
 class QContextMenuEvent;
 class QProgressBar;
 
@@ -55,7 +54,7 @@ public:
     void hideDocks(){};
     void showDocks(){};
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
-    KUrl currentUrl();
+    QString currentFilePath();
 
     int unitsCount(){return m_currentUnitsCount;}
     void setLegacyUnitsCount(int to);
@@ -63,12 +62,11 @@ public:
 signals:
     void projectOpenRequested(QString path=QString());
 
-    void fileOpenRequested(const KUrl&);
+    void fileOpenRequested(const QString&);
 
     void searchRequested(const QStringList&);
-    void searchRequested(const KUrl::List&);
-    void replaceRequested(const KUrl::List&);
-    void spellcheckRequested(const KUrl::List&);
+    void replaceRequested(const QStringList&);
+    void spellcheckRequested(const QStringList&);
 
 public slots:
     Q_SCRIPTABLE void setCurrentItem(const QString& url);
@@ -107,7 +105,7 @@ private slots:
 
 private:
     ProjectWidget* m_browser;
-    KLineEdit* m_filterEdit;
+    QLineEdit* m_filterEdit;
     QProgressBar* m_progressBar;
     
     QStackedLayout *m_stackedLayout;

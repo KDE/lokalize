@@ -27,28 +27,24 @@
 #include "lokalizesubwindowbase.h"
 #include "pos.h"
 
-#include <KMainWindow>
-#include <KXMLGUIClient>
-#include <KUrl>
+#include <kmainwindow.h>
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
 
-class QaView;
-class Ui_QueryOptions;
-class KLineEdit;
+class KXMLGUIClient;
 class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
 class QCheckBox;
 
-
-namespace ThreadWeaver{class Job;}
-
+class QaView;
+class Ui_QueryOptions;
 class TMResultsSortFilterProxyModel;
 
 namespace TM {
 class TMDBModel;
+class ExecQueryJob;
 
 /**
  * Translation Memory tab
@@ -87,7 +83,7 @@ public slots:
     void setQAMode(bool enabled=true);
 
 signals:
-    void fileOpenRequested(const KUrl& url, const QString& source, const QString& ctxt);
+    void fileOpenRequested(const QString& url, const QString& source, const QString& ctxt);
 
 private:
     void dragEnterEvent(QDragEnterEvent* event);
@@ -105,7 +101,6 @@ private:
     int m_dbusId;
     static QList<int> ids;
 };
-
 
 class TMDBModel: public QSqlQueryModel
 {
@@ -153,7 +148,7 @@ public slots:
                    );
     void setQueryType(int);
     void setDB(const QString&);
-    void slotQueryExecuted(ThreadWeaver::Job*);
+    void slotQueryExecuted(ExecQueryJob*);
 
 signals:
     void resultsFetched();

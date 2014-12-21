@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,8 +27,9 @@
 #include "pos.h"
 #include "tmentry.h"
 
-#include <threadweaver/Job.h>
-#include <kurl.h>
+#include <QThreadPool>
+#include <QRunnable>
+
 #include <QString>
 #include <QSqlDatabase>
 class QSqlQuery;
@@ -40,10 +41,12 @@ namespace TM {
 
 #define TM_DATABASE_EXTENSION ".db"
 #define REMOTETM_DATABASE_EXTENSION ".remotedb"
-enum DbType {Local, Remote}; //is needed only on opening
+enum DbType {Local, Remote, Undefined}; //is needed only on opening
 
 #define TM_AREA 8111
 
+
+QThreadPool* threadPool();
 
 
 #define CLOSEDB 10001
@@ -71,7 +74,7 @@ struct TMConfig
 void cancelAllJobs(); //HACK because threadweaver's dequeue is not workin'
 
 //called on startup
-class OpenDBJob: public ThreadWeaver::Job
+class OpenDBJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -80,7 +83,7 @@ public:
         QString driver, host, db, user, passwd;
         bool isFilled(){return !host.isEmpty() && !db.isEmpty() && !user.isEmpty();}
     };
-    
+
     explicit OpenDBJob(const QString& dbName, DbType type=TM::Local, bool reconnect=false, const ConnectionParams& connParams=ConnectionParams(), QObject* parent=0);
     ~OpenDBJob();
 
@@ -90,6 +93,9 @@ public:
 
 protected:
     void run ();
+
+signals:
+    void done(OpenDBJob*);
 
 public:
     QString m_dbName;
@@ -107,7 +113,7 @@ public:
 };
 
 //called on startup
-class CloseDBJob: public ThreadWeaver::Job
+class CloseDBJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -116,6 +122,9 @@ public:
 
     int priority()const{return CLOSEDB;}
     QString dbName(){return m_dbName;}
+
+signals:
+    void done(CloseDBJob*);
 
 protected:
     void run ();
@@ -127,7 +136,7 @@ protected:
 
 
 
-class SelectJob: public ThreadWeaver::Job
+class SelectJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -141,9 +150,12 @@ public:
 
     int priority()const{return SELECT;}
 
+signals:
+    void done(SelectJob*);
+
 protected:
     void run ();
-    void aboutToBeDequeued(ThreadWeaver::WeaverInterface*);
+    //void aboutToBeDequeued(ThreadWeaver::WeaverInterface*); KDE5PORT
 
 private:
     //returns true if seen translation with >85%
@@ -170,7 +182,7 @@ SelectJob* initSelectJob(Catalog*, DocPosition pos, QString db=QString(), int op
 
 
 
-class RemoveJob: public ThreadWeaver::Job
+class RemoveJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -182,6 +194,9 @@ protected:
     void run();
 
     TMEntry m_entry;
+
+signals:
+    void done();
 };
 
 
@@ -193,9 +208,8 @@ protected:
 //TODO a mechanism to get rid of dead dups (use strigi?).
 //also, display usage of different translations and suggest user
 //to use only one of them (listview, checkboxes)
-class UpdateJob: public ThreadWeaver::Job
+class UpdateJob: public QRunnable
 {
-    Q_OBJECT
 public:
     explicit UpdateJob(const QString& filePath,
                        const QString& ctxt,
@@ -213,7 +227,6 @@ public:
 
 protected:
     void run ();
-// public:
 
 private:
     QString m_filePath;
@@ -226,13 +239,10 @@ private:
 };
 
 //scan one file
-class ScanJob: public ThreadWeaver::Job
+class ScanJob: public QRunnable
 {
-    Q_OBJECT
 public:
-    explicit ScanJob(const KUrl& url,
-                     const QString& dbName,
-                     QObject* parent=0);
+    explicit ScanJob(const QString& filePath, const QString& dbName, QObject* parent = 0);
     ~ScanJob();
 
     int priority()const{return SCAN;}
@@ -240,7 +250,7 @@ public:
 protected:
     void run ();
 public:
-    KUrl m_url;
+    QString m_filePath;
 
     //statistics
     ushort m_time;
@@ -252,22 +262,43 @@ public:
     QString m_dbName;
 };
 
+class ScanJobFeedingBack: public QObject, public ScanJob 
+{
+    Q_OBJECT
+public:
+    explicit ScanJobFeedingBack(const QString& filePath,
+                     const QString& dbName,
+                     QObject* parent=0)
+    : ScanJob(filePath, dbName, parent)
+    {
+        setAutoDelete(false);
+    }
+
+protected:
+    void run (){ScanJob::run();emit done(this);}
+
+signals:
+    void done(ScanJobFeedingBack*);
+};
 
 //helper
-class BatchSelectFinishedJob: public ThreadWeaver::Job
+class BatchSelectFinishedJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
     explicit BatchSelectFinishedJob(QWidget* view,QObject* parent=0)
-        : ThreadWeaver::Job(parent)
+        : QObject(parent), QRunnable()
         , m_view(view)
     {}
     ~BatchSelectFinishedJob(){};
 
     int priority()const{return BATCHSELECTFINISHED;}
 
+signals:
+    void done();
+
 protected:
-    void run (){};
+    void run (){emit done();};
 public:
     QWidget* m_view;
 };
@@ -277,7 +308,7 @@ we use index stored in db now...
 
 
 //create index --called on startup
-class IndexWordsJob: public ThreadWeaver::Job
+class IndexWordsJob: public QRunnable
 {
     Q_OBJECT
 public:
@@ -300,9 +331,8 @@ public:
 
 
 
-class ImportTmxJob: public ThreadWeaver::Job
+class ImportTmxJob: public QRunnable
 {
-    Q_OBJECT
 public:
     explicit ImportTmxJob(const QString& url,
                      const QString& dbName,
@@ -326,9 +356,8 @@ public:
 
 // #if 0
 
-class ExportTmxJob: public ThreadWeaver::Job
+class ExportTmxJob: public QRunnable
 {
-    Q_OBJECT
 public:
     explicit ExportTmxJob(const QString& url,
                      const QString& dbName,
@@ -351,9 +380,8 @@ public:
 };
 
 // #endif
-}
 
-class ExecQueryJob: public ThreadWeaver::Job
+class ExecQueryJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
@@ -364,6 +392,10 @@ public:
 
 
     QSqlQuery* query;
+
+signals:
+    void done(ExecQueryJob*);
+
 protected:
     void run ();
 
@@ -371,6 +403,8 @@ protected:
     QString m_query;
     //statistics?
 };
+
+}
 
 
 #endif

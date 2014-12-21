@@ -1,5 +1,5 @@
 /*
-Copyright 2008-2009 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2014 Nick Shaforostoff <shaforostoff@gmail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -84,7 +84,8 @@ public:
 
     bool isEmpty(const DocPosition& pos) const;
 
-    QString mimetype()const{return "text/x-gettext-translation";}
+    QString mimetype()const{return QStringLiteral("text/x-gettext-translation");}
+    QString fileType()const{return QStringLiteral("Gettext (*.po)");}
 
 private:
     bool setHeader(const CatalogItem& newHeader);

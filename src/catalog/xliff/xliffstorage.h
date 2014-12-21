@@ -1,5 +1,5 @@
 /*
-Copyright 2008-2009 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2014 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDomDocument>
 #include <QVector>
 #include <QMap>
+#include <QSet>
 // class QDomDocument;
 
 class XliffStorage: public CatalogStorage
@@ -51,8 +52,8 @@ public:
     CatalogString catalogString(const DocPosition& pos) const;
 
     /// all plural forms. pos.form doesn't matter TODO
-    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos); return QStringList();}
-    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos); return QStringList();}
+    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();}
+    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();}
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
@@ -96,7 +97,10 @@ public:
     int binUnitsCount() const;
     int unitById(const QString& id) const;
 
-    QString mimetype()const{return "application/x-xliff";}
+    QString mimetype()const{return QStringLiteral("application/x-xliff");}
+    QString fileType()const{return QStringLiteral("XLIFF (*.xliff *.xlf)");}
+
+    void setTargetLangCode(const QString& langCode);
 
 private:
     QDomElement unitForPos(int pos) const;

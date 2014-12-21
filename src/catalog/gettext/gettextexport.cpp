@@ -45,11 +45,7 @@
 #include <QTextStream>
 #include <QEventLoop>
 #include <QStringBuilder>
-
-#include <ksavefile.h>
-#include <kapplication.h>
-#include <klocale.h>
-#include <kdebug.h>
+#include <QDebug>
 
 
 using namespace GettextCatalog;
@@ -83,11 +79,11 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         if ( !headerMsgid.isEmpty() )
         {
             // ### perhaps it is grave enough for a user message
-            kWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
+            qWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
         }
 
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
-        stream << "msgid \"\"\n";
+        stream << QStringLiteral("msgid \"\"\n");
 
         writeKeyword( stream, "msgstr", catalog->m_header.msgstr(), false );
     }
@@ -106,22 +102,22 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
 
         const QString& msgctxt = catalogItem.msgctxt();
         if (! msgctxt.isEmpty() || catalogItem.keepEmptyMsgCtxt())
-            writeKeyword( stream, "msgctxt", msgctxt );
+            writeKeyword( stream, QStringLiteral("msgctxt"), msgctxt );
 
-        writeKeyword( stream, "msgid", catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid() );
+        writeKeyword( stream, QStringLiteral("msgid"), catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid() );
         if ( catalogItem.isPlural() )
-            writeKeyword( stream, "msgid_plural", catalogItem.msgid(1), true, catalogItem.prependEmptyForMsgid() );
+            writeKeyword( stream, QStringLiteral("msgid_plural"), catalogItem.msgid(1), true, catalogItem.prependEmptyForMsgid() );
 
         if (!catalogItem.isPlural())
-            writeKeyword( stream, "msgstr", catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr() );
+            writeKeyword( stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr() );
         else
         {
-            kDebug() << "Saving gettext plural form";
+            qDebug() << "Saving gettext plural form";
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for ( int i = 0; i < forms; ++i )
             {
-                QString keyword = "msgstr[" % QString::number( i ) % ']';
+                QString keyword = QStringLiteral("msgstr[") % QString::number( i ) % ']';
                 writeKeyword( stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr() );
             }
         }
@@ -204,14 +200,14 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     if ( text.isEmpty() )
     {
         // Whatever the wrapping mode, an empty line is an empty line
-        stream << keyword << " \"\"\n";
+        stream << keyword << QStringLiteral(" \"\"\n");
         return;
     }
 
     //TODO remove this for KDE 4.4
     //NOTE not?
     int pos=0;
-    while ((pos=text.indexOf("\\\"",pos))!=-1)
+    while ((pos=text.indexOf(QStringLiteral("\\\""),pos))!=-1)
     {
         if (pos==0 || text.at(pos-1)!='\\')
             text.replace(pos,2,'"');
@@ -259,10 +255,10 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         if (list.count()>1 || startedWithEmptyLine /* || keyword.length()+3+text.length()>=80*/)
             list.prepend(QString());
 
-        stream << keyword << " ";
+        stream << keyword << QStringLiteral(" ");
         QStringList::const_iterator it;
         for( it = list.constBegin(); it != list.constEnd(); ++it )
-            stream << "\"" << (*it) << "\"\n";
+            stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
 
         return;
     }
@@ -278,8 +274,8 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
 
     //static QRegExp breakStopReForHtml("[ >.%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
     //static QRegExp breakStopReForText("[ .%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
-    static QRegExp breakStopReForHtml("[ >%]", Qt::CaseSensitive, QRegExp::Wildcard);
-    static QRegExp breakStopReForText("[ &%]", Qt::CaseSensitive, QRegExp::Wildcard);
+    static QRegExp breakStopReForHtml(QStringLiteral("[ >%]"), Qt::CaseSensitive, QRegExp::Wildcard);
+    static QRegExp breakStopReForText(QStringLiteral("[ &%]"), Qt::CaseSensitive, QRegExp::Wildcard);
     QRegExp breakStopRe=containsHtml?breakStopReForHtml:breakStopReForText;
 
     int max=m_wrapWidth-2;
@@ -329,9 +325,9 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
     if( !prependedEmptyLine && list.count() > 1 )
         list.prepend( QString() );
 
-    stream << keyword << " ";
+    stream << keyword << QStringLiteral(" ");
 
     QStringList::const_iterator it;
     for( it = list.constBegin(); it != list.constEnd(); ++it )
-        stream << "\"" << (*it) << "\"\n";
+        stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
 }

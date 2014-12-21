@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="ProjectOverview" version="3">
+<kpartgui name="ProjectOverview" version="4">
 <MenuBar>
   <Menu name="go"><text>&amp;Go</text>
     <Action name="go_prev_fuzzyUntr"/>
@@ -13,6 +13,9 @@
     <Action name="go_next_templateOnly"/>
     <Action name="go_prev_transOnly"/>
     <Action name="go_next_transOnly"/>
+  </Menu>
+  <Menu name="edit"><text>&amp;Edit</text>
+    <Action name="edit_find"/>
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>

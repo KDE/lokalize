@@ -25,16 +25,24 @@
 #define HIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
+#ifndef NOKDE
 #include <sonnet/highlighter.h>
 #include <kcolorscheme.h>
+#endif
 
 #include <QHash>
 #include <QTextCharFormat>
+#include <QSyntaxHighlighter>
 
 
 class QTextDocument;
+class QTextEdit;
 
+#ifndef NOKDE
 class SyntaxHighlighter : public Sonnet::Highlighter
+#else
+class SyntaxHighlighter : public QSyntaxHighlighter
+#endif
 {
     Q_OBJECT
 
@@ -65,7 +73,9 @@ private:
 
 //     bool fromDocbook;
     QTextCharFormat tagFormat;
+#ifndef NOKDE
     KStatefulBrush tagBrush;
+#endif
     bool m_approved;
     QString m_sourceString;
 };

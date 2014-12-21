@@ -26,11 +26,8 @@
 #include "catalog.h"
 #include "project.h"
 
-#include <klocale.h>
-#include <kdebug.h>
-#include <klineedit.h>
-#include <KConfigGroup>
-
+#include <QLineEdit>
+#include <QDebug>
 #include <QTime>
 #include <QTreeView>
 #include <QHeaderView>
@@ -40,11 +37,14 @@
 #include <QAction>
 #include <QMenu>
 #include <QShortcut>
-
 #include <QMdiSubWindow>
 #include <QMdiArea>
-
 #include <QKeyEvent>
+
+#include <klocalizedstring.h>
+#ifndef NOKDE
+#include <kconfiggroup.h>
+#endif
 
 class CatalogTreeView: public QTreeView
 {
@@ -69,11 +69,11 @@ class CatalogTreeView: public QTreeView
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
     , m_browser(new CatalogTreeView(this))
-    , m_lineEdit(new KLineEdit(this))
+    , m_lineEdit(new QLineEdit(this))
     , m_model(new CatalogTreeModel(this,catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
-    setObjectName("catalogTreeView");
+    setObjectName(QStringLiteral("catalogTreeView"));
 
     QWidget* w=new QWidget(this);
     QVBoxLayout* layout=new QVBoxLayout(w);
@@ -83,8 +83,8 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     l->setSpacing(0);
     layout->addLayout(l);
 
-    m_lineEdit->setClearButtonShown(true);
-    m_lineEdit->setClickMessage(i18n("Quick search..."));
+    m_lineEdit->setClearButtonEnabled(true);
+    m_lineEdit->setPlaceholderText(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
@@ -117,6 +117,12 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setAllColumnsShowFocus(true);
     m_browser->setAlternatingRowColors(true);
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
+#ifdef Q_OS_DARWIN
+    QPalette p;
+    p.setColor(QPalette::AlternateBase, p.color(QPalette::Background).darker(110));
+    p.setColor(QPalette::Highlight, p.color(QPalette::Background).darker(150));
+    m_browser->setPalette(p);
+#endif
 
     m_proxyModel->setSourceModel(m_model);
     m_browser->setModel(m_proxyModel);
@@ -127,17 +133,20 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setUniformRowHeights(true);
     m_browser->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
-
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     m_browser->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TreeHeaderState", QByteArray()) ));
+#endif
 }
 
 CatalogView::~CatalogView()
 {
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("TreeHeaderState",m_browser->header()->saveState().toBase64());
+#endif
 }
 
 void CatalogView::setFocus()
@@ -227,7 +236,7 @@ void CatalogView::fillFilterOptionsMenu()
         m_filterOptionsMenu->addSeparator();
     for (int i=-1;i<CatalogTreeModel::DisplayedColumnCount;++i)
     {
-        kWarning()<<i;
+        qWarning()<<i;
         txt=columnsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
                                                    m_model->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());
         txt->setData(-i-2);
@@ -311,4 +320,3 @@ void CatalogView::setEntriesFilteredOut(bool filteredOut)
 }
 
 
-#include "cataloglistview.moc"

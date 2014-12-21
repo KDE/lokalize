@@ -29,7 +29,6 @@
 #endif
 
 #include "editoradaptor.h"
-#include <kdebug.h>
 
 /**
  * Hack over QDBusAbstractAdaptor to get kross active-editor-adaptor for free
@@ -39,7 +38,7 @@ class MultiEditorAdaptor: public EditorAdaptor
     Q_OBJECT
 public:
     MultiEditorAdaptor(EditorTab *parent);
-    ~MultiEditorAdaptor() { /*kWarning()<<"bye bye cruel world";*/ }
+    ~MultiEditorAdaptor() { /*qWarning()<<"bye bye cruel world";*/ }
 
     inline EditorTab* editorTab() const
     { return static_cast<EditorTab*>(QObject::parent()); }

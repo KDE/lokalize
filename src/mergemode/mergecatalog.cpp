@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -25,11 +25,11 @@
 #include "catalog_private.h"
 #include "catalogstorage.h"
 #include "cmd.h"
-#include <kdebug.h>
+#include <kdemacros.h>
 #include <klocalizedstring.h>
 #include <QMultiHash>
 #include <QtAlgorithms>
-
+#include <QDebug>
 
 
 MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges)
@@ -57,7 +57,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 
         //note the explicit use of map...
         if (m_storage->isApproved(ourPos)!=m_baseCatalog->isApproved(pos))
-            //kWarning()<<ourPos.entry<<"SHIT";
+            //qWarning()<<ourPos.entry<<"SHIT";
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         DocPos p(pos);
         if (!m_originalHashes.contains(p))
@@ -100,7 +100,7 @@ bool MergeCatalog::isPlural(uint index) const
     //sanity
     if (m_map.at(index) == -1)
     {
-         kWarning()<<"!!! index"<<index<<"m_map.at(index)"<<m_map.at(index)<<"numberOfEntries()"<<numberOfEntries();
+         qWarning()<<"!!! index"<<index<<"m_map.at(index)"<<m_map.at(index)<<"numberOfEntries()"<<numberOfEntries();
          return false;
     }
 
@@ -160,9 +160,9 @@ static QString strip(QString source)
     return source;
 }
 
-int MergeCatalog::loadFromUrl(const KUrl& url)
+int MergeCatalog::loadFromUrl(const QString& filePath)
 {
-    int errorLine=Catalog::loadFromUrl(url);
+    int errorLine=Catalog::loadFromUrl(filePath);
     if (KDE_ISUNLIKELY( errorLine!=0 ))
         return errorLine;
 
@@ -237,7 +237,7 @@ int MergeCatalog::loadFromUrl(const KUrl& url)
 /*    QMultiHash<QString, int>::iterator it = mergeMap.begin();
     while (it != mergeMap.end())
     {
-        //kWarning()<<it.value()<<it.key();
+        //qWarning()<<it.value()<<it.key();
         ++it;
     }*/
     m_unmatchedCount=numberOfEntries()-mergePositions.count();
@@ -345,4 +345,3 @@ void MergeCatalog::copyToBaseCatalog(int options)
     }
 }
 
-#include "mergecatalog.moc"

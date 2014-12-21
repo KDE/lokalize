@@ -32,7 +32,7 @@ class QTreeView;
 class CatalogTreeFilterModel;
 class CatalogTreeModel;
 class Catalog;
-class KLineEdit;
+class QLineEdit;
 class QMenu;
 class QAction;
 class QModelIndex;
@@ -74,7 +74,7 @@ private slots:
 
 private:
     CatalogTreeView* m_browser;
-    KLineEdit* m_lineEdit;
+    QLineEdit* m_lineEdit;
     QMenu* m_filterOptionsMenu;
     CatalogTreeModel* m_model;
     CatalogTreeFilterModel* m_proxyModel;

@@ -28,15 +28,14 @@
 #include "pos.h"
 #include "rule.h"
 
-#include <KMainWindow>
-#include <KXMLGUIClient>
-#include <KUrl>
-
 #include <QDockWidget>
 #include <QAbstractListModel>
 #include <state.h>
 #include <phase.h>
 
+class MassReplaceJob;
+class SearchJob;
+class QRunnable;
 class QLabel;
 class QaView;
 class QStringListModel;
@@ -44,8 +43,7 @@ class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
 
-namespace ThreadWeaver{class Job;}
-namespace ThreadWeaver{class JobCollection;}
+class KXMLGUIClient;
 
 class FileSearchModel;
 class SearchFileListView;
@@ -67,27 +65,31 @@ public:
 
     void hideDocks(){};
     void showDocks(){};
+#ifndef NOKDE
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
     QString dbusObjectPath();
     int dbusId(){return m_dbusId;}
-
+#endif
 
 public slots:
-    void copySource();
-    void copyTarget();
+    void copySourceToClipboard();
+    void copyTargetToClipboard();
     void openFile();
     Q_SCRIPTABLE void performSearch();
     Q_SCRIPTABLE void addFilesToSearch(const QStringList&);
+    Q_SCRIPTABLE void setSourceQuery(const QString&);
+    Q_SCRIPTABLE void setTargetQuery(const QString&);
     void fileSearchNext();
     void stopSearch();
     void massReplace(const QRegExp &what, const QString& with);
 
 private slots:
-    void searchJobDone(ThreadWeaver::Job*);
-    void replaceJobDone(ThreadWeaver::Job*);
+    void searchJobDone(SearchJob*);
+    void replaceJobDone(MassReplaceJob*);
 
 signals:
-    void fileOpenRequested(const KUrl& url, DocPosition docPos, int selection);
+    void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection);
+    void fileOpenRequested(const QString& filePath);
 
 private:
     void dragEnterEvent(QDragEnterEvent* event);
@@ -103,7 +105,7 @@ private:
     MassReplaceView* m_massReplaceView;
     QaView* m_qaView;
 
-    QVector<ThreadWeaver::Job*> m_runningJobs;
+    QVector<QRunnable*> m_runningJobs;
 
      //to avoid results from previous search showing up in the new one
     int m_lastSearchNumber;
@@ -206,6 +208,9 @@ public:
 
 public slots:
     void clear();
+    void requestFileOpen(const QModelIndex&);
+signals:
+    void fileOpenRequested(const QString& filePath);
 
 private:
     QTreeView* m_browser;
@@ -230,16 +235,75 @@ signals:
     void replaceRequested(const QRegExp&, const QString&);
 
 private slots:
-    void requestPreview(bool);
+    void requestPreview(bool enable=true);
     void requestReplace();
 
 private:
     Ui_MassReplaceOptions* ui;
 };
 
-//const QString& sourceRefine, const QString& targetRefine
+struct SearchParams
+{
+    QRegExp sourcePattern;
+    QRegExp targetPattern;
+    QRegExp notesPattern;
 
+    bool states[StateCount];
 
+    bool isEmpty() const;
+};
+
+#include <QRunnable>
+class SearchJob: public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    explicit SearchJob(const QStringList& f, 
+                       const SearchParams& sp,
+                       const QVector<Rule>& r,
+                       int sn,
+                       QObject* parent=0);
+    ~SearchJob(){}
+
+signals:
+    void done(SearchJob*);
+protected:
+    void run ();
+public:
+    QStringList files;
+    SearchParams searchParams;
+    QVector<Rule> rules;
+    int searchNumber;
+
+    SearchResults results; //plain
+
+    int m_size;
+};
+
+/// @short replace in files
+class MassReplaceJob: public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    explicit MassReplaceJob(const SearchResults& srs,
+                            int pos,
+                            const QRegExp& s,
+                            const QString& r,
+                            //int sn,
+                           QObject* parent=0);
+    ~MassReplaceJob(){}
+
+signals:
+    void done(MassReplaceJob*);
+
+protected:
+    void run();
+public:
+    SearchResults searchResults;
+    int globalPos;
+    QRegExp replaceWhat;
+    QString replaceWith;
+};
 
 
 #endif

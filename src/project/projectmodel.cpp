@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -24,22 +24,23 @@
 
 #include "projectmodel.h"
 #include "project.h"
+#include "poextractor.h"
 
-#include <threadweaver/ThreadWeaver.h>
-#include <threadweaver/Thread.h>
+#include "kdemacros.h"
 
-#include <kio/netaccess.h>
-#include <klocale.h>
-#include <kapplication.h>
-#include <kstandarddirs.h>
-
+#include <QIcon>
 #include <QTime>
 #include <QFile>
+#include <QDir>
 #include <QtAlgorithms>
 #include <QTimer>
+#include <QThreadPool>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QStandardPaths>
+
+#include <klocalizedstring.h>
 
 #undef KDE_NO_DEBUG_OUTPUT
 static int nodeCounter=0;
@@ -53,16 +54,17 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_poModel(this)
     , m_potModel(this)
     , m_rootNode(ProjectNode(NULL, -1, -1, -1))
-    , m_dirIcon(KIcon(QLatin1String("inode-directory")))
-    , m_poIcon(KIcon(QLatin1String("flag-blue")))
-    , m_poComplIcon(KIcon(QLatin1String("flag-green")))
-    , m_potIcon(KIcon(QLatin1String("flag-black")))
+    , m_dirIcon(QIcon::fromTheme(QLatin1String("inode-directory")))
+    , m_poIcon(QIcon::fromTheme(QLatin1String("flag-blue")))
+    , m_poComplIcon(QIcon::fromTheme(QLatin1String("flag-green")))
+    , m_potIcon(QIcon::fromTheme(QLatin1String("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
-    , m_weaver(new ThreadWeaver::Weaver())
+    , m_threadPool(new QThreadPool(this))
     , m_completeScan(true)
 {
-    m_weaver->setMaximumNumberOfThreads(1);
+    m_threadPool->setMaxThreadCount(1);
+    m_threadPool->setExpiryTimeout(-1);
 
     m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
     m_poModel.dirLister()->setNameFilter("*.po *.pot *.xlf");
@@ -92,7 +94,7 @@ ProjectModel::ProjectModel(QObject *parent)
     m_doneTimer->setSingleShot(true);
     connect(m_doneTimer, SIGNAL(timeout()), this, SLOT(updateTotalsChanged()));
 
-    setUrl(KUrl(), KUrl());
+    setUrl(QUrl(), QUrl());
 }
 
 
@@ -109,9 +111,9 @@ ProjectModel::~ProjectModel()
         deleteSubtree(m_rootNode.rows.at(pos));
 }
 
-void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
+void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
-    //kDebug() << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
+    //qDebug() << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
 
     //cleanup old data
 
@@ -141,10 +143,8 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
     }
 
     //add trailing slashes to base URLs, needed for potToPo and poToPot
-    m_poUrl = poUrl;
-    m_potUrl = potUrl;
-    m_poUrl.adjustPath(KUrl::AddTrailingSlash);
-    m_potUrl.adjustPath(KUrl::AddTrailingSlash);
+    m_poUrl = poUrl.adjusted(QUrl::StripTrailingSlash);
+    m_potUrl = potUrl.adjusted(QUrl::StripTrailingSlash);
 
     emit loading();
 
@@ -155,7 +155,7 @@ void ProjectModel::setUrl(const KUrl &poUrl, const KUrl &potUrl)
 }
 
 
-KUrl ProjectModel::beginEditing(const QModelIndex& index)
+QUrl ProjectModel::beginEditing(const QModelIndex& index)
 {
     Q_ASSERT(index.isValid());
 
@@ -170,8 +170,8 @@ KUrl ProjectModel::beginEditing(const QModelIndex& index)
     else if (potIndex.isValid())
     {
         //copy over the file
-        KUrl potFile = m_potModel.itemForIndex(potIndex).url();
-        KUrl poFile = potToPo(potFile);
+        QUrl potFile = m_potModel.itemForIndex(potIndex).url();
+        QUrl poFile = potToPo(potFile);
 
         //EditorTab::fileOpen takes care of this
         //be careful, copy only if file does not exist already.
@@ -183,7 +183,7 @@ KUrl ProjectModel::beginEditing(const QModelIndex& index)
     else
     {
         Q_ASSERT(false);
-        return KUrl();
+        return QUrl();
     }
 }
 
@@ -356,12 +356,14 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
     }
 
     enqueueNodeForMetadataUpdate(node);
+    //FIXME if templates folder doesn't contain an equivalent of po folder then it's stats will be broken:
+    // one way to fix this is to explicitly force scan of the files of the child folders of the 'node'
 }
 
 void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int end)
 {
     QModelIndex parent = indexForPoIndex(po_parent);
-    QModelIndex pot_parent = potIndexForOuter(parent);
+    //QModelIndex pot_parent = potIndexForOuter(parent);
     ProjectNode* node = nodeForIndex(parent);
     int removedCount = end + 1 - start;
 
@@ -688,10 +690,10 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
 QModelIndex ProjectModel::index(int row, int column, const QModelIndex& parent) const
 {
     ProjectNode* parentNode = nodeForIndex(parent);
-    //kWarning()<<(sizeof(ProjectNode))<<nodeCounter;
+    //qWarning()<<(sizeof(ProjectNode))<<nodeCounter;
     if (row>=parentNode->rows.size())
     {
-        kWarning()<<"SHIT HAPPENED WITH INDEXES"<<row<<parentNode->rows.size()<<itemForIndex(parent).url();
+        qWarning()<<"SHIT HAPPENED WITH INDEXES"<<row<<parentNode->rows.size()<<itemForIndex(parent).url();
         return QModelIndex();
     }
     return createIndex(row, column, parentNode->rows.at(row));
@@ -717,12 +719,12 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
             return m_potModel.itemForIndex(potIndex);
     }
 
-    kWarning()<<"returning empty KFileItem()"<<index.row()<<index.column();
-    kWarning()<<"returning empty KFileItem()"<<index.parent().isValid();
-    kWarning()<<"returning empty KFileItem()"<<index.parent().internalPointer();
-    kWarning()<<"returning empty KFileItem()"<<index.parent().data().toString();
-    kWarning()<<"returning empty KFileItem()"<<index.internalPointer();
-    kWarning()<<"returning empty KFileItem()"<<static_cast<ProjectNode*>(index.internalPointer())->untranslated<<static_cast<ProjectNode*>(index.internalPointer())->sourceDate;
+    qWarning()<<"returning empty KFileItem()"<<index.row()<<index.column();
+    qWarning()<<"returning empty KFileItem()"<<index.parent().isValid();
+    qWarning()<<"returning empty KFileItem()"<<index.parent().internalPointer();
+    qWarning()<<"returning empty KFileItem()"<<index.parent().data().toString();
+    qWarning()<<"returning empty KFileItem()"<<index.internalPointer();
+    qWarning()<<"returning empty KFileItem()"<<static_cast<ProjectNode*>(index.internalPointer())->untranslated<<static_cast<ProjectNode*>(index.internalPointer())->sourceDate;
     return KFileItem();
 }
 
@@ -754,7 +756,7 @@ QModelIndex ProjectModel::indexForNode(const ProjectNode* node)
     return index;
 }
 
-QModelIndex ProjectModel::indexForUrl(const KUrl& url)
+QModelIndex ProjectModel::indexForUrl(const QUrl& url)
 {
     if (m_poUrl.isParentOf(url))
     {
@@ -837,7 +839,7 @@ QModelIndex ProjectModel::poOrPotIndexForOuter(const QModelIndex& outerIndex) co
     QModelIndex potIndex = potIndexForOuter(outerIndex);
 
     if (!potIndex.isValid())
-        kWarning()<<"error mapping index to PO or POT";
+        qWarning()<<"error mapping index to PO or POT";
 
     return potIndex;
 }
@@ -870,7 +872,7 @@ QModelIndex ProjectModel::indexForPotIndex(const QModelIndex& potIndex) const
     if (row != node->rows.count())
         return index(row, potIndex.column(), outerParent);
 
-    kWarning()<<"error mapping index from POT to outer, searched for potRow:"<<potRow;
+    qWarning()<<"error mapping index from POT to outer, searched for potRow:"<<potRow;
     return QModelIndex();
 }
 
@@ -890,26 +892,26 @@ void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& 
     if (potRows == 0)
         return;
 
-    QList<KUrl> poOccupiedUrls;
+    QList<QUrl> poOccupiedUrls;
 
     for (int poPos = 0; poPos < poRows; poPos ++)
     {
         KFileItem file = m_poModel.itemForIndex(m_poModel.index(poPos, 0, poParent));
-        KUrl potUrl = poToPot(file.url());
+        QUrl potUrl = poToPot(file.url());
         poOccupiedUrls.append(potUrl);
     }
 
     for  (int potPos = 0; potPos < potRows; potPos ++)
     {
 
-        KUrl potUrl = m_potModel.itemForIndex(m_potModel.index(potPos, 0, potParent)).url();
+        QUrl potUrl = m_potModel.itemForIndex(m_potModel.index(potPos, 0, potParent)).url();
         int occupiedPos = -1;
 
         //TODO: this is slow
         for (int poPos = 0; occupiedPos == -1 && poPos < poOccupiedUrls.count(); poPos ++)
         {
-            KUrl& occupiedUrl = poOccupiedUrls[poPos];
-            if (potUrl.equals(occupiedUrl))
+            QUrl& occupiedUrl = poOccupiedUrls[poPos];
+            if (potUrl.matches(occupiedUrl, QUrl::StripTrailingSlash))
                 occupiedPos = poPos;
         }
 
@@ -918,45 +920,45 @@ void ProjectModel::generatePOTMapping(QVector<int> & result, const QModelIndex& 
 }
 
 
-KUrl ProjectModel::poToPot(const KUrl& poPath) const
+QUrl ProjectModel::poToPot(const QUrl& poPath) const
 {
-    if (!m_poUrl.isParentOf(poPath))
+    if (!(m_poUrl.isParentOf(poPath)||m_poUrl.matches(poPath, QUrl::StripTrailingSlash)))
     {
-        kWarning()<<"PO path not in project: " << poPath.url();
-        return KUrl();
+        qWarning()<<"PO path not in project: " << poPath.url();
+        return QUrl();
     }
 
-    QString pathToAdd = KUrl::relativeUrl(m_poUrl, poPath);
+    QString pathToAdd = QDir(m_poUrl.path()).relativeFilePath(poPath.path());
 
     //change ".po" into ".pot"
     if (pathToAdd.endsWith(".po")) //TODO: what about folders ??
         pathToAdd+='t';
 
-    KUrl potPath = m_potUrl;
-    potPath.addPath(pathToAdd);
+    QUrl potPath = m_potUrl;
+    potPath.setPath(potPath.path()%'/'%pathToAdd);
 
-    //kDebug() << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
+    //qDebug() << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;
 }
 
-KUrl ProjectModel::potToPo(const KUrl& potPath) const
+QUrl ProjectModel::potToPo(const QUrl& potPath) const
 {
-    if (!m_potUrl.isParentOf(potPath))
+    if (!(m_potUrl.isParentOf(potPath)||m_potUrl.matches(potPath, QUrl::StripTrailingSlash)))
     {
-        kWarning()<<"POT path not in project: " << potPath.url();
-        return KUrl();
+        qWarning()<<"POT path not in project: " << potPath.url();
+        return QUrl();
     }
 
-    QString pathToAdd = KUrl::relativeUrl(m_potUrl, potPath);
+    QString pathToAdd = QDir(m_potUrl.path()).relativeFilePath(potPath.path());
 
     //change ".pot" into ".po"
     if (pathToAdd.endsWith(".pot")) //TODO: what about folders ??
         pathToAdd = pathToAdd.left(pathToAdd.length() - 1);
 
-    KUrl poPath = m_poUrl;
-    poPath.addPath(pathToAdd);
+    QUrl poPath = m_poUrl;
+    poPath.setPath(poPath.path()%'/'%pathToAdd);
 
-    //kDebug() << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
+    //qDebug() << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;
 }
 
@@ -1008,7 +1010,7 @@ void ProjectModel::startNewMetadataJob()
     if (m_dirsWaitingForMetadata.isEmpty())
         return;
 
-    ProjectNode* node = *m_dirsWaitingForMetadata.begin();
+    ProjectNode* node = *m_dirsWaitingForMetadata.constBegin();
 
     //prepare new work
     m_activeNode = node;
@@ -1022,16 +1024,14 @@ void ProjectModel::startNewMetadataJob()
 
     m_activeJob = new UpdateStatsJob(files, this);
     connect(
-        m_activeJob,SIGNAL(done(ThreadWeaver::Job*)),
-        this,SLOT(finishMetadataUpdate(ThreadWeaver::Job*)));
+        m_activeJob,SIGNAL(done(UpdateStatsJob*)),
+        this,SLOT(finishMetadataUpdate(UpdateStatsJob*)));
 
-    m_weaver->enqueue(m_activeJob);
+    m_threadPool->start(m_activeJob);
 }
 
-void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
+void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
 {
-    UpdateStatsJob* job = static_cast<UpdateStatsJob *>(_job);
-
     if (job->m_status == -2)
     {
         delete job;
@@ -1058,15 +1058,15 @@ void ProjectModel::finishMetadataUpdate(ThreadWeaver::Job * _job)
         }
     }
 
-    delete m_activeJob;
+    delete m_activeJob; m_activeJob = 0;
 
     startNewMetadataJob();
 }
 
 
-void ProjectModel::slotFileSaved(const KUrl& url)
+void ProjectModel::slotFileSaved(const QString& filePath)
 {
-    QModelIndex index = indexForUrl(url);
+    QModelIndex index = indexForUrl(QUrl::fromLocalFile(filePath));
 
     if (!index.isValid())
         return;
@@ -1075,24 +1075,22 @@ void ProjectModel::slotFileSaved(const KUrl& url)
     files.append(itemForIndex(index));
 
     UpdateStatsJob* j = new UpdateStatsJob(files);
-    connect(j,SIGNAL(done(ThreadWeaver::Job*)),
-        this,SLOT(finishSingleMetadataUpdate(ThreadWeaver::Job*)));
+    connect(j,SIGNAL(done(UpdateStatsJob*)),
+        this,SLOT(finishSingleMetadataUpdate(UpdateStatsJob*)));
 
-    m_weaver->enqueue(j);
+    m_threadPool->start(j);
 }
 
-void ProjectModel::finishSingleMetadataUpdate(ThreadWeaver::Job* _job)
+void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
 {
-    UpdateStatsJob* job = static_cast<UpdateStatsJob*>(_job);
-
     if (job->m_status != 0)
     {
         delete job;
         return;
     }
 
-    const KFileMetaInfo& info=job->m_info.first();
-    QModelIndex index = indexForUrl(info.url());
+    const FileMetaData& info=job->m_info.first();
+    QModelIndex index = indexForUrl(info.filePath);
     if (!index.isValid())
         return;
 
@@ -1107,15 +1105,14 @@ void ProjectModel::finishSingleMetadataUpdate(ThreadWeaver::Job* _job)
     delete job;
 }
 
-void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<KFileMetaInfo>& data)
+void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData>& data)
 {
     int dataCount = data.count();
     int rowsCount = node->rows.count();
     Q_ASSERT(dataCount == rowsCount);
 
-    for (int row = 0; row < rowsCount; row ++)
+    for (int row = 0; row < rowsCount; row++)
         node->rows[row]->setFileStats(data.at(row));
-
     if (!dataCount)
         return;
 
@@ -1141,7 +1138,7 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     if (node->parent->rows.count()==0 || node->parent->rows.count()>=node->rowNumber)
         return;
     QModelIndex index = indexForNode(node);
-    kWarning()<<index.row()<<node->parent->rows.count();
+    qWarning()<<index.row()<<node->parent->rows.count();
     if (index.row()>=node->parent->rows.count())
         return;
     QModelIndex topLeft = index.sibling(index.row(), Graph);
@@ -1228,169 +1225,182 @@ void ProjectModel::ProjectNode::calculateDirStats()
 }
 
 
-void ProjectModel::ProjectNode::setFileStats(const KFileMetaInfo& info)
+void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
 {
-    if (info.keys().count() == 0)
-        return;
-
-    translated = info.item("translation.translated").value().toInt();
-    const QVariant translated_reviewer_variant = info.item("translation.translated_reviewer").value();
-    translated_reviewer = translated_reviewer_variant.isValid() ? translated_reviewer_variant.toInt() : translated;
-    const QVariant translated_approver_variant = info.item("translation.translated_approver").value();
-    translated_approver = translated_approver_variant.isValid() ? translated_approver_variant.toInt() : translated;
-    untranslated = info.item("translation.untranslated").value().toInt();
-    fuzzy = info.item("translation.fuzzy").value().toInt();
-    const QVariant fuzzy_reviewer_variant = info.item("translation.fuzzy_reviewer").value();
-    fuzzy_reviewer = fuzzy_reviewer_variant.isValid() ? fuzzy_reviewer_variant.toInt() : fuzzy;
-    const QVariant fuzzy_approver_variant = info.item("translation.fuzzy_approver").value();
-    fuzzy_approver = fuzzy_approver_variant.isValid() ? fuzzy_approver_variant.toInt() : fuzzy;
-    lastTranslator = info.item("translation.last_translator").value().toString();
-    sourceDate = info.item("translation.source_date").value().toString();
-    translationDate = info.item("translation.translation_date").value().toString();
-    lastTranslator.squeeze();
-    sourceDate.squeeze();
-    translationDate.squeeze();
+    translated = info.translated;
+    translated_reviewer = info.translated_reviewer;
+    translated_approver = info.translated_approver;
+    untranslated = info.untranslated;
+    fuzzy = info.fuzzy;
+    fuzzy_reviewer = info.fuzzy_reviewer;
+    fuzzy_approver = info.fuzzy_approver;
+    lastTranslator = info.lastTranslator;
+    sourceDate = info.sourceDate;
+    translationDate = info.translationDate;
 }
 
 
 //BEGIN UpdateStatsJob
 //these are run in separate thread
-UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject* owner)
-    : ThreadWeaver::Job(owner)
+UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject*)
+    : QRunnable()
     , m_files(files)
     , m_status(0)
 {
+    setAutoDelete(false);
 }
 
 UpdateStatsJob::~UpdateStatsJob()
 {
 }
 
+static FileMetaData metaData(QString filePath)
+{
+    FileMetaData m;
+
+    POExtractor extractor;
+    extractor.extract(filePath, m);
+
+    return m;
+}
+
+//#define NOMETAINFOCACHE
+#ifndef NOMETAINFOCACHE
 static void initDataBase(QSqlDatabase& db)
 {
     QSqlQuery queryMain(db);
-    queryMain.exec("PRAGMA encoding = \"UTF-8\"");
-    queryMain.exec("CREATE TABLE IF NOT EXISTS metainfo ("
+    queryMain.exec(QStringLiteral("PRAGMA encoding = \"UTF-8\""));
+    queryMain.exec(QStringLiteral(
+                   "CREATE TABLE IF NOT EXISTS metadata ("
                    "filepath INTEGER PRIMARY KEY ON CONFLICT REPLACE, "// AUTOINCREMENT,"
                    //"filepath TEXT UNIQUE ON CONFLICT REPLACE, "
-                   "metainfo BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
+                   "metadata BLOB, "//XLIFF markup info, see catalog/catalogstring.h catalog/xliff/*
                    "changedate INTEGER"
-                   ")");
+                   ")"));
 
     //queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
 }
 
-
-static KFileMetaInfo cachedMetaInfo(const KFileItem& file)
+QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
 {
-    QString dbName="metainfocache";
+    s << d.translated;
+    s << d.translated_approver;
+    s << d.translated_reviewer;
+    s << d.fuzzy;
+    s << d.fuzzy_approver;
+    s << d.fuzzy_reviewer;
+    s << d.untranslated;
+    s << d.lastTranslator;
+    s << d.translationDate;
+    s << d.sourceDate;
+    return s;
+}
+QDataStream &operator>>(QDataStream &s, FileMetaData &d)
+{
+    s >> d.translated;
+    s >> d.translated_approver;
+    s >> d.translated_reviewer;
+    s >> d.fuzzy;
+    s >> d.fuzzy_approver;
+    s >> d.fuzzy_reviewer;
+    s >> d.untranslated;
+    s >> d.lastTranslator;
+    s >> d.translationDate;
+    s >> d.sourceDate;
+    return s;
+}
+#endif
+
+static FileMetaData cachedMetaData(const KFileItem& file)
+{
+    if (file.isNull() || file.isDir())
+        return FileMetaData();
+#ifdef NOMETAINFOCACHE
+    return metaData(file.localPath());
+#else
+    static QString dbName=QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName))
     {
         QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",dbName);
-        db.setDatabaseName(KStandardDirs::locateLocal("appdata", dbName+".sqlite"));
+        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % dbName % QStringLiteral(".sqlite"));
         if (KDE_ISUNLIKELY( !db.open() ))
-            return KFileMetaInfo(file.url());
+            return metaData(file.localPath());
         initDataBase(db);
     }
     QSqlDatabase db=QSqlDatabase::database(dbName);
     if (!db.isOpen())
-        return KFileMetaInfo(file.url());
-
-    static const QString fields[]={
-        "translation.translated",
-        "translation.untranslated",
-        "translation.fuzzy",
-        "translation.last_translator",
-        "translation.source_date",
-        "translation.translation_date",
-        "translation.translated_reviewer",
-        "translation.translated_approver",
-        "translation.fuzzy_reviewer",
-        "translation.fuzzy_approver"
-    };
-    static const int nFields = sizeof(fields) / sizeof(fields[0]);
+        return metaData(file.localPath());
 
     QByteArray result;
 
     QSqlQuery queryCache(db);
-    queryCache.prepare("SELECT * from metainfo where filepath=?");
+    queryCache.prepare(QStringLiteral("SELECT * from metadata where filepath=?"));
     queryCache.bindValue(0, qHash(file.localPath()));
     queryCache.exec();
-    if (queryCache.next() && file.time(KFileItem::ModificationTime).dateTime()==queryCache.value(2).toDateTime())
+    if (queryCache.next() && file.time(KFileItem::ModificationTime)==queryCache.value(2).toDateTime())
     {
         result=queryCache.value(1).toByteArray();
         QDataStream stream(&result,QIODevice::ReadOnly);
 
         //unfortunately direct KFileMetaInfo << operator doesn't work
-        KFileMetaInfo info;
-        QVector<QVariant> keys;
-        stream>>keys;
-        for(int i=0;i<keys.count();i++)
-            info.item(fields[i]).setValue(keys.at(i));
+        FileMetaData info;
+        stream>>info;
+
+        Q_ASSERT(info.translated==metaData(file.localPath()).translated);
         return info;
     }
 
-    KFileMetaInfo info(file.url());
+    FileMetaData m = metaData(file.localPath());
 
     QDataStream stream(&result,QIODevice::WriteOnly);
     //this is synced with ProjectModel::ProjectNode::setFileStats
-    QVector<QVariant> keys(nFields);
-    for(int i=0;i<nFields;i++)
-        keys[i] = info.item(fields[i]).value();
-    stream<<keys;
+    stream<<m;
 
     QSqlQuery query(db);
 
-    query.prepare("INSERT INTO metainfo (filepath, metainfo, changedate) "
-                        "VALUES (?, ?, ?)");
+    query.prepare(QStringLiteral("INSERT INTO metadata (filepath, metadata, changedate) "
+                        "VALUES (?, ?, ?)"));
     query.bindValue(0, qHash(file.localPath()));
     query.bindValue(1, result);
-    query.bindValue(2, file.time(KFileItem::ModificationTime).dateTime());
+    query.bindValue(2, file.time(KFileItem::ModificationTime));
     if (KDE_ISUNLIKELY(!query.exec()))
         qWarning() <<"metainfo cache acquiring error: " <<query.lastError().text();
 
-    return info;
+    return m;
+#endif
 }
 
 void UpdateStatsJob::run()
 {
-    static QString dbName="metainfocache";
+#ifndef NOMETAINFOCACHE
+    QString dbName=QStringLiteral("metainfocache");
     bool ok=QSqlDatabase::contains(dbName);
     if (ok)
     {
         QSqlDatabase db=QSqlDatabase::database(dbName);
-        QSqlQuery queryBegin("BEGIN",db);
+        QSqlQuery queryBegin(QStringLiteral("BEGIN"),db);
     }
+#endif
     for (int pos=0; pos<m_files.count(); pos++)
     {
         if (m_status!=0)
-            return;
+            break;
 
-        const KFileItem& file=m_files.at(pos);
-        KFileMetaInfo info;
-
-        if ((!file.isNull()) && (!file.isDir()))
-        {
-            //force population of metainfo, do not use the KFileItem default behavior
-            if (file.metaInfo(false).keys().isEmpty())
-                info=cachedMetaInfo(file);
-                //info=KFileMetaInfo(file.url());
-            else
-                info=file.metaInfo(false);
-        }
-
-        m_info.append(info);
+        m_info.append(cachedMetaData(m_files.at(pos)));
     }
+#ifndef NOMETAINFOCACHE
     if (ok)
     {
         QSqlDatabase db=QSqlDatabase::database(dbName);
         {
             //braces are needed to avoid resource leak on close
-            QSqlQuery queryEnd("END",db);
+            QSqlQuery queryEnd(QStringLiteral("END"),db);
         }
         db.close();
         db.open();
     }
+#endif
+    emit done(this);
 }
 
 void UpdateStatsJob::setStatus(int status)

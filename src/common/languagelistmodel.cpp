@@ -22,16 +22,20 @@
 **************************************************************************** */
 
 #include "languagelistmodel.h"
-#include <kglobal.h>
-#include <kdebug.h>
-#include <kstandarddirs.h>
-#include <kiconloader.h>
-#include <kicon.h>
-#include <klocale.h>
+
+#ifndef NOKDE
+//#include <kiconloader.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
+#endif
 
 #include <QStringBuilder>
 #include <QCoreApplication>
 #include <QSortFilterProxyModel>
+#include <QStandardPaths>
+#include <QLocale>
+#include <QIcon>
+#include <QSet>
 
 
 
@@ -56,19 +60,34 @@ LanguageListModel* LanguageListModel::instance()
 LanguageListModel* LanguageListModel::emptyLangInstance()
 {
     if (_emptyLangInstance==0 )
-        _emptyLangInstance=new LanguageListModel(EmptyLang);
+        _emptyLangInstance=new LanguageListModel(WithEmptyLang);
     return _emptyLangInstance;
 }
 
-
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
- : QStringListModel(KGlobal::locale()->allLanguagesList(),parent)
+ : QStringListModel(parent)
  , m_sortModel(new QSortFilterProxyModel(this))
+#ifndef NOKDE
+ , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
+#endif
 {
-    if (type==EmptyLang) insertRows(rowCount(), 1);
+#ifndef NOKDE
+    setStringList(m_systemLangList->groupList());
+#else
+    QStringList ll;
+    QList<QLocale> allLocales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
+    foreach(const QLocale& l, allLocales)
+        ll.append(l.name());
+    ll=ll.toSet().toList();
+    setStringList(ll);
+#endif
+
+    if (type==WithEmptyLang) insertRows(rowCount(), 1);
+#if 0 //KDE5PORT
     KIconLoader::global()->addExtraDesktopThemes();
-    //kWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
-    //kDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
+#endif
+    //qWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
+    //qDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);
     m_sortModel->sort(0);
 }
@@ -77,36 +96,42 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole)
     {
+#ifndef NOKDE
         static QMap<QString,QVariant> iconCache;
 
         QString langCode=stringList().at(index.row());
         if (!iconCache.contains(langCode))
         {
-            // NOTE workaround for QTBUG-9370 - it will be removed later
-            QString code;
-            if(langCode == "mn")
-                code = "mn_MN";
-            else if(langCode == "ne")
-                code = "ne_NP";
-            else
-                code=QLocale(langCode).name();
+            QString code=QLocale(langCode).name();
             QString path;
             if (code.contains('_')) code=QString::fromRawData(code.unicode()+3, 2).toLower();
             if (code!="C")
             {
-                static QString flagPath("l10n/%1/flag.png");
-                path=KStandardDirs::locate("locale", flagPath.arg(code));
+                static const QString flagPath("l10n/%1/flag.png");
+                path=QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + flagPath.arg(code));
             }
             iconCache[langCode]=QIcon(path);
         }
         return iconCache.value(langCode);
+#endif
     }
     else if (role==Qt::DisplayRole)
     {
         const QString& code=stringList().at(index.row());
         if (code.isEmpty()) return code;
-        //kDebug()<<"languageCodeToName"<<code;
-        return QVariant::fromValue<QString>(KGlobal::locale()->languageCodeToName(code)%" ("%code%")");
+        //qDebug()<<"languageCodeToName"<<code;
+        static QVector<QString> displayNames(stringList().size());
+        if (displayNames.at(index.row()).length())
+            return displayNames.at(index.row());
+#ifndef NOKDE
+            return QVariant::fromValue<QString>(
+                displayNames[index.row()]=KConfigGroup(m_systemLangList,code).readEntry("Name")%QStringLiteral(" (")%code%')');
+#else
+        QLocale l(code);
+//        if (l.language()==QLocale::C && code!="C")
+        return QVariant::fromValue<QString>(
+            displayNames[index.row()]=QLocale::languageToString(l.language())%QStringLiteral(" (")%code%')');
+#endif
     }
     return QStringListModel::data(index, role);
 }
@@ -125,3 +150,38 @@ QString LanguageListModel::langCodeForSortModelRow(int row)
 {
     return stringList().at(m_sortModel->mapToSource(m_sortModel->index(row,0)).row());
 }
+
+
+#include "prefs.h"
+#include "project.h"
+#include <klocalizedstring.h>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QDialog>
+
+QString getTargetLangCode(const QString& title)
+{
+    QDialog dlg(SettingsController::instance()->mainWindowPtr());
+    dlg.setWindowTitle(title);
+    QHBoxLayout* l=new QHBoxLayout(&dlg);
+    l->addWidget(new QLabel(i18n("Target language:"), &dlg));
+    QComboBox* lc=new QComboBox(&dlg);
+    l->addWidget(lc);
+    lc->setModel(LanguageListModel::instance()->sortModel());
+    lc->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
+    QDialogButtonBox* btn=new QDialogButtonBox(QDialogButtonBox::Ok, &dlg);
+    l->addWidget(btn);
+    QObject::connect(btn, SIGNAL(accepted()), &dlg, SLOT(accept()));
+
+    dlg.show();
+    dlg.activateWindow(); //if we're called from another app
+    if (!dlg.exec())
+        return Project::instance()->targetLangCode();
+
+    return LanguageListModel::instance()->langCodeForSortModelRow(lc->currentIndex());
+}
+
+
+

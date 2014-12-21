@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -41,41 +41,28 @@
 
 #include "multieditoradaptor.h"
 
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <klocale.h>
-#include <kicon.h>
-#include <kmenubar.h>
-#include <kstatusbar.h>
-#include <kdebug.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotification.h>
-#include <kapplication.h>
-
-
-#include <kio/netaccess.h>
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <kactioncategory.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 #include <krecentfilesaction.h>
 #include <kxmlguifactory.h>
-#include <kurl.h>
-#include <kmenu.h>
-#include <kfiledialog.h>
-
 #include <kross/core/action.h>
 
-#include <threadweaver/ThreadWeaver.h>
 
-
+#include <QMenu>
+#include <QDebug>
 #include <QActionGroup>
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMenuBar>
-#include <kdialog.h>
-
+#include <QStatusBar>
+#include <QLabel>
+#include <QIcon>
+#include <QApplication>
 
 
 LokalizeMainWindow::LokalizeMainWindow()
@@ -108,15 +95,11 @@ LokalizeMainWindow::LokalizeMainWindow()
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
     showProjectOverview();
 
-    QString tmp=" ";
-    statusBar()->insertItem(tmp,ID_STATUS_CURRENT);
-    statusBar()->insertItem(tmp,ID_STATUS_TOTAL);
-    statusBar()->insertItem(tmp,ID_STATUS_FUZZY);
-    statusBar()->insertItem(tmp,ID_STATUS_UNTRANS);
-    statusBar()->insertItem(tmp,ID_STATUS_ISFUZZY);
-
-
-
+    for (int i=ID_STATUS_CURRENT;i<=ID_STATUS_ISFUZZY;i++)
+    {
+        m_statusBarLabels.append(new QLabel());
+        statusBar()->insertWidget(i, m_statusBarLabels.last(), 2);
+    }
 
     setAttribute(Qt::WA_DeleteOnClose,true);
 
@@ -177,12 +160,12 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         }
             /*
 
-            KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+            QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
             QList<QAction*> actionz=projectActions->actions();
 
             int i=actionz.size();
             //projectActions->menuAction()->setVisible(i);
-            //kWarning()<<"adding object"<<actionz.at(0);
+            //qWarning()<<"adding object"<<actionz.at(0);
             while(--i>=0)
             {
                 disconnect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
@@ -204,12 +187,12 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         m_multiEditorAdaptor->setEditorTab(w);
 //         connect(m_multiEditorAdaptor,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(showTM()));
 /*
-        KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+        QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
         QList<QAction*> actionz=projectActions->actions();
 
         int i=actionz.size();
         //projectActions->menuAction()->setVisible(i);
-        //kWarning()<<"adding object"<<actionz.at(0);
+        //qWarning()<<"adding object"<<actionz.at(0);
         while(--i>=0)
         {
             connect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
@@ -218,7 +201,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         }*/
 
         QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
-        if(tw) tw->setTabToolTip(tw->currentIndex(), w->currentUrl().toLocalFile());
+        if(tw) tw->setTabToolTip(tw->currentIndex(), w->currentFilePath());
 
         emit editorActivated();
     }
@@ -229,12 +212,12 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
     }
 
     editor->showDocks();
-    editor->statusBarItems.registerStatusBar(statusBar());
+    editor->statusBarItems.registerStatusBar(statusBar(), m_statusBarLabels);
     guiFactory()->addClient(  editor->guiClient()   );
 
     m_prevSubWindow=w;
 
-    //kWarning()<<"finished"<<aaa.elapsed();
+    //qWarning()<<"finished"<<aaa.elapsed();
 }
 
 
@@ -256,33 +239,43 @@ bool LokalizeMainWindow::queryClose()
     if (ok)
     {
         TM::cancelAllJobs(); //this shit works l)
-        Project::instance()->model()->weaver()->dequeue();
+        Project::instance()->model()->threadPool()->clear();
     }
     return ok;
 }
 
-EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry, bool setAsActive, const QString& mergeFile, bool silent)
+EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsActive, const QString& mergeFile, bool silent)
 {
-    if (!url.isEmpty()&&m_fileToEditor.contains(url)&&m_fileToEditor.value(url))
+    if (filePath.length())
     {
-        kWarning()<<"already opened";
-        QMdiSubWindow* sw=m_fileToEditor.value(url);
-        m_mdiArea->setActiveSubWindow(sw);
-        return static_cast<EditorTab*>(sw->widget());
+        FileToEditor::const_iterator it=m_fileToEditor.constFind(filePath);
+        if (it!=m_fileToEditor.constEnd())
+        {
+            qWarning()<<"already opened:"<<filePath;
+            if (QMdiSubWindow* sw=it.value())
+            {
+                m_mdiArea->setActiveSubWindow(sw);
+                return static_cast<EditorTab*>(sw->widget());
+            }
+        }
     }
 
     QByteArray state=m_lastEditorState;
     EditorTab* w=new EditorTab(this);
     QMdiSubWindow* sw=0;
-    if (!url.isEmpty())//create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
+    //create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
+    if (filePath.length())
         sw=m_mdiArea->addSubWindow(w);
 
-    KUrl baseUrl;
+    QString suggestedDirPath;
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
     if (activeSW && qobject_cast<LokalizeSubwindowBase*>(activeSW->widget()))
-        baseUrl=static_cast<LokalizeSubwindowBase*>(activeSW->widget())->currentUrl();
+    {
+        QString fp=static_cast<LokalizeSubwindowBase*>(activeSW->widget())->currentFilePath();
+        if (fp.length()) suggestedDirPath=QFileInfo(fp).absolutePath();
+    }
 
-    if (!w->fileOpen(url,baseUrl,silent))
+    if (!w->fileOpen(filePath,suggestedDirPath,silent))
     {
         if (sw)
         {
@@ -314,24 +307,25 @@ EditorTab* LokalizeMainWindow::fileOpen(KUrl url, int entry, bool setAsActive, c
     if (!mergeFile.isEmpty())
         w->mergeOpen(mergeFile);
 
-    m_openRecentFileAction->addUrl(w->currentUrl());
+    m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
     connect(sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     connect(w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
-    connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
+    connect(w, SIGNAL(fileOpenRequested(QString,QString,QString)),this,SLOT(fileOpen(QString,QString,QString)));
     connect(w, SIGNAL(tmLookupRequested(QString,QString)),this,SLOT(lookupInTranslationMemory(QString,QString)));
 
-    QString fn=url.fileName();
+    filePath=w->currentFilePath();
+    QStringRef fnSlashed=filePath.midRef(filePath.lastIndexOf('/'));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd())
     {
-        if (i.key().fileName()==fn)
+        if (i.key().endsWith(fnSlashed))
         {
             static_cast<EditorTab*>(i.value()->widget())->setFullPathShown(true);
             w->setFullPathShown(true);
         }
         ++i;
     }
-    m_fileToEditor.insert(w->currentUrl(),sw);
+    m_fileToEditor.insert(filePath,sw);
 
     sw->setAttribute(Qt::WA_DeleteOnClose,true);
     emit editorAdded();
@@ -348,18 +342,18 @@ void LokalizeMainWindow::editorClosed(QObject* obj)
     m_fileToEditor.remove(m_fileToEditor.key(static_cast<QMdiSubWindow*>(obj)));
 }
 
-EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, const QString& source, const QString& ctxt)
+EditorTab* LokalizeMainWindow::fileOpen(const QString& filePath, const QString& source, const QString& ctxt)
 {
-    EditorTab* w=fileOpen(url, 0, true);
+    EditorTab* w=fileOpen(filePath, 0, true);
     if (!w)
         return 0;//TODO message
     w->findEntryBySourceContext(source,ctxt);
     return w;
 }
 
-EditorTab* LokalizeMainWindow::fileOpen(const KUrl& url, DocPosition docPos, int selection)
+EditorTab* LokalizeMainWindow::fileOpen(const QString& filePath, DocPosition docPos, int selection)
 {
-    EditorTab* w=fileOpen(url, 0, true);
+    EditorTab* w=fileOpen(filePath, 0, true);
     if (!w)
         return 0;//TODO message
     w->gotoEntry(docPos, selection);
@@ -374,7 +368,7 @@ QObject* LokalizeMainWindow::projectOverview()
         m_projectSubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_projectSubWindow->showMaximized();
-        connect(w, SIGNAL(fileOpenRequested(KUrl)),this,SLOT(fileOpen(KUrl)));
+        connect(w, SIGNAL(fileOpenRequested(QString)),this,SLOT(fileOpen(QString)));
         connect(w, SIGNAL(projectOpenRequested(QString)),this,SLOT(openProject(QString)));
         connect(w, SIGNAL(searchRequested(QStringList)),this,SLOT(addFilesToSearch(QStringList)));
     }
@@ -403,7 +397,7 @@ TM::TMTab* LokalizeMainWindow::showTM()
         m_translationMemorySubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_translationMemorySubWindow->showMaximized();
-        connect(w, SIGNAL(fileOpenRequested(KUrl,QString,QString)),this,SLOT(fileOpen(KUrl,QString,QString)));
+        connect(w, SIGNAL(fileOpenRequested(QString,QString,QString)),this,SLOT(fileOpen(QString,QString,QString)));
     }
 
     m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
@@ -412,17 +406,29 @@ TM::TMTab* LokalizeMainWindow::showTM()
 
 FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
 {
+    EditorTab* precedingEditor=qobject_cast<EditorTab*>(activeEditor());
+
     if (!m_fileSearchSubWindow)
     {
         FileSearchTab* w=new FileSearchTab(this);
         m_fileSearchSubWindow=m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_fileSearchSubWindow->showMaximized();
-        connect(w, SIGNAL(fileOpenRequested(KUrl,DocPosition,int)),this,SLOT(fileOpen(KUrl,DocPosition,int)));
+        connect(w, SIGNAL(fileOpenRequested(QString,DocPosition,int)),this,SLOT(fileOpen(QString,DocPosition,int)));
+        connect(w, SIGNAL(fileOpenRequested(QString)),this,SLOT(fileOpen(QString)));
     }
 
     if (activate)
+    {
         m_mdiArea->setActiveSubWindow(m_fileSearchSubWindow);
+        if (precedingEditor)
+        {
+            if (precedingEditor->selectionInSource().length())
+                static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget())->setSourceQuery(precedingEditor->selectionInSource());
+            if (precedingEditor->selectionInTarget().length())
+                static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget())->setTargetQuery(precedingEditor->selectionInTarget());
+        }
+    }
     return static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget());
 }
 
@@ -455,7 +461,7 @@ void LokalizeMainWindow::setupActions()
 
     setStandardToolBarMenuEnabled(true);
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* actionCategory;
     KActionCategory* file=new KActionCategory(i18nc("@title actions category","File"), ac);
@@ -469,30 +475,18 @@ void LokalizeMainWindow::setupActions()
 // File
     //KStandardAction::open(this, SLOT(fileOpen()), ac);
     file->addAction(KStandardAction::Open,this, SLOT(fileOpen()));
-    m_openRecentFileAction = KStandardAction::openRecent(this,SLOT(fileOpen(KUrl)),ac);
+    m_openRecentFileAction = KStandardAction::openRecent(this,SLOT(fileOpen(QUrl)),ac);
 
-    file->addAction(KStandardAction::Quit,KApplication::kApplication(), SLOT(closeAllWindows()));
+    file->addAction(KStandardAction::Quit, qApp, SLOT(closeAllWindows()));
 
 
 //Settings
     SettingsController* sc=SettingsController::instance();
     KStandardAction::preferences(sc, SLOT(showSettingsDialog()),ac);
 
-#define ADD_ACTION_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCategory->addAction(_name);\
-    action->setText(_text);\
-    action->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::_shortcut));\
-    action->setIcon(KIcon(_icon));
-
-#define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = actionCategory->addAction(_name);\
-    action->setText(_text);\
-    action->setShortcut(QKeySequence( _shortcut ));\
-    action->setIcon(KIcon(_icon));
-
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
     action = actionCategory->addAction(_name);\
-    action->setShortcut(QKeySequence( _shortcut ));\
+    ac->setDefaultShortcut(action, QKeySequence( _shortcut ));\
     action->setText(_text);
 
 
@@ -533,11 +527,11 @@ void LokalizeMainWindow::setupActions()
 
     action = proj->addAction("project_open",this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project"));
-    action->setIcon(KIcon("project-open"));
+    action->setIcon(QIcon::fromTheme("project-open"));
 
     m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);
     action = proj->addAction("project_open_recent",m_openRecentProjectAction);
-    connect(m_openRecentProjectAction,SIGNAL(urlSelected(KUrl)),this,SLOT(openProject(KUrl)));
+    connect(m_openRecentProjectAction,SIGNAL(urlSelected(QUrl)),this,SLOT(openProject(QUrl)));
 
     //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(),SIGNAL(loaded()), this,SLOT(projectLoaded()), Qt::QueuedConnection);
@@ -554,7 +548,7 @@ void LokalizeMainWindow::setupActions()
 
     setupGUI(Default,"lokalizemainwindowui.rc");
 
-    kWarning()<<"finished"<<aaa.elapsed();
+    qWarning()<<"finished"<<aaa.elapsed();
 }
 
 bool LokalizeMainWindow::closeProject()
@@ -571,7 +565,7 @@ bool LokalizeMainWindow::closeProject()
             subwindow->deleteLater();
         else if (qobject_cast<EditorTab*>(subwindow->widget()))
         {
-            m_fileToEditor.remove(static_cast<EditorTab*>(subwindow->widget())->currentUrl());//safety
+            m_fileToEditor.remove(static_cast<EditorTab*>(subwindow->widget())->currentFilePath());//safety
             m_mdiArea->removeSubWindow(subwindow);
             subwindow->deleteLater();
         }
@@ -617,12 +611,12 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
         if (editors.at(i)==activeSW)
             activeSWIndex=files.size();
         EditorState state=static_cast<EditorTab*>( editors.at(i)->widget() )->state();
-        files.append(state.url.pathOrUrl());
-        mergeFiles.append(state.mergeUrl.pathOrUrl());
+        files.append(state.filePath);
+        mergeFiles.append(state.mergeFilePath);
         dockWidgets.append(state.dockWidgets.toBase64());
         entries.append(state.entry);
         //offsets.append(state.offset);
-        //kWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
+        //qWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
@@ -677,8 +671,8 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 void LokalizeMainWindow::projectLoaded()
 {
     QString projectPath=Project::instance()->path();
-    kDebug()<<projectPath;
-    m_openRecentProjectAction->addUrl( KUrl::fromPath(projectPath) );
+    qDebug()<<projectPath;
+    m_openRecentProjectAction->addUrl( QUrl::fromLocalFile(projectPath) );
 
     KConfig config;
 
@@ -719,12 +713,13 @@ void LokalizeMainWindow::projectLoaded()
     {
         if (i<dockWidgets.size())
             m_lastEditorState=dockWidgets.at(i);
+        qDebug()<<"fileopen"<<files.at(i);
         if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i),/*silent*/true))
             failedFiles.append(files.at(i));
     }
     if (!failedFiles.isEmpty())
     {
-        kDebug()<<"failedFiles"<<failedFiles;
+        qDebug()<<"failedFiles"<<failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KNotification* notification=new KNotification("FilesOpenError", this);
@@ -797,8 +792,7 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
     QString filepath=PROJECTRCFILEPATH;
     if (!QFile::exists(filepath))
     {
-        KUrl dir = KUrl(filepath).directory();
-        KIO::NetAccess::mkdir(dir, 0);
+        QDir(QFileInfo(QFileInfo(filepath).filePath()).filePath()).mkdir(QFileInfo(filepath).filePath());
         QFile f(filepath);
         f.open(QIODevice::WriteOnly);
         QTextStream out(&f);
@@ -806,7 +800,7 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
         f.close();
     }
 
-    //kWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
+    //qWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
     addObject(lokalize,"Lokalize",ChildrenInterface::AutoConnectSignals);
     addObject(Project::instance(),"Project",ChildrenInterface::AutoConnectSignals);
     addObject(editor,"Editor",ChildrenInterface::AutoConnectSignals);
@@ -845,10 +839,10 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
 
     QString scriptsrc=PROJECTRCFILE;
     QDir rcdir(PROJECTRCFILEDIR);
-    kWarning()<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
+    qWarning()<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
     foreach(const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"),QDir::Files))
         if (rc!=scriptsrc)
-            kWarning()<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
+            qWarning()<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
 }
 
 /*
@@ -872,15 +866,14 @@ void LokalizeMainWindow::registerDBusAdaptor()
 {
     new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
-    QDBusConnection::sessionBus().unregisterObject("/KDebug",QDBusConnection::UnregisterTree);
 
-    //kWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
+    //qWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 #ifndef Q_WS_MAC
     //TODO really fix!!!
     guiFactory()->addClient(new MyScriptingPlugin(this,m_multiEditorAdaptor));
 #endif
 
-    //KMenu* projectActions=static_cast<KMenu*>(factory()->container("project_actions",this));
+    //QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
 
 /*
     KActionCollection* actionCollection = mWindow->actionCollection();
@@ -891,15 +884,12 @@ void LokalizeMainWindow::registerDBusAdaptor()
 
 void LokalizeMainWindow::loadProjectScripts()
 {
-    qWarning()<<"loadProjectScripts() 1111"<<Project::instance()->poDir();
     if (m_projectScriptingPlugin)
     {
-        qWarning()<<"loadProjectScripts() 222";
         guiFactory()->removeClient(m_projectScriptingPlugin);
         delete m_projectScriptingPlugin;
     }
 
-    qWarning()<<"loadProjectScripts() 333";
     //a HACK to get new .rc files shown w/o requiring a restart
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
 
@@ -907,11 +897,8 @@ void LokalizeMainWindow::loadProjectScripts()
     //guiFactory()->removeClient(m_projectScriptingPlugin);
 
     delete m_projectScriptingPlugin;
-    qWarning()<<"loadProjectScripts() 444";
     m_projectScriptingPlugin=new ProjectScriptingPlugin(this,m_multiEditorAdaptor);
-    qWarning()<<"loadProjectScripts() 555";
     guiFactory()->addClient(m_projectScriptingPlugin);
-    qWarning()<<"loadProjectScripts() 666";
 }
 
 int LokalizeMainWindow::lookupInTranslationMemory(DocPosition::Part part, const QString& text)
@@ -940,7 +927,7 @@ int LokalizeMainWindow::showTranslationMemory()
 
 int LokalizeMainWindow::openFileInEditorAt(const QString& path, const QString& source, const QString& ctxt)
 {
-    EditorTab* w=fileOpen(KUrl(path),source,ctxt);
+    EditorTab* w=fileOpen(path,source,ctxt);
     if (!w) return -1;
     return w->dbusId();
 }
@@ -952,7 +939,7 @@ int LokalizeMainWindow::openFileInEditor(const QString& path)
 
 QObject* LokalizeMainWindow::activeEditor()
 {
-    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+    //QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
     if (!activeSW || !qobject_cast<EditorTab*>(activeSW->widget()))
         return 0;
@@ -961,8 +948,9 @@ QObject* LokalizeMainWindow::activeEditor()
 
 QObject* LokalizeMainWindow::editorForFile(const QString& path)
 {
-    if (!m_fileToEditor.contains(KUrl(path))) return 0;
-    QMdiSubWindow* w=m_fileToEditor.value(KUrl(path));
+    FileToEditor::const_iterator it=m_fileToEditor.constFind(QFileInfo(path).canonicalFilePath());
+    if (it==m_fileToEditor.constEnd()) return 0;
+    QMdiSubWindow* w=it.value();
     if (!w) return 0;
     return static_cast<EditorTab*>(w->widget());
 }
@@ -987,7 +975,7 @@ void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCur
 MultiEditorAdaptor::MultiEditorAdaptor(EditorTab *parent)
  : EditorAdaptor(parent)
 {
-    setObjectName("MultiEditorAdaptor");
+    setObjectName(QStringLiteral("MultiEditorAdaptor"));
     connect(parent,SIGNAL(destroyed(QObject*)),this,SLOT(handleParentDestroy(QObject*)));
 }
 
@@ -1005,7 +993,7 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
     Q_UNUSED(p);
-    kWarning()<<"avoiding destroying m_multiEditorAdaptor";
+    qWarning()<<"avoiding destroying m_multiEditorAdaptor";
     setParent(0);
 }
 
@@ -1013,7 +1001,7 @@ void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 
 
 
-DelayedFileOpener::DelayedFileOpener(const KUrl::List& urls, LokalizeMainWindow* lmw)
+DelayedFileOpener::DelayedFileOpener(const QVector<QString>& urls, LokalizeMainWindow* lmw)
  : QObject()
  , m_urls(urls)
  , m_lmw(lmw)
@@ -1033,6 +1021,6 @@ void DelayedFileOpener::doOpen()
 
 
 #include "lokalizemainwindow.moc"
- //these have to be included somewhere ;)
-#include "lokalizesubwindowbase.moc"
-#include "multieditoradaptor.moc"
+#include "moc_lokalizesubwindowbase.cpp"
+#include "moc_multieditoradaptor.cpp"
+

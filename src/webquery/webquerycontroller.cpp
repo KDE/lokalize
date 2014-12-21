@@ -39,8 +39,7 @@
 // #include <kio/netaccess.h>
 #include <kio/jobclasses.h>
 #include <kio/job.h>
-#include <kdebug.h>
-
+#include <QDebug>
 
 WebQueryController::WebQueryController(const QString& name, QObject* parent)
 //     : QThread(parent)
@@ -88,7 +87,7 @@ void WebQueryController::doDownloadAndFilter(QString urlStr, QString _codec, QSt
     QUrl url;
     url.setUrl(urlStr);
 
-    kWarning()<<"_real url: "<<url.toString();
+    qWarning()<<"_real url: "<<url.toString();
     KIO::StoredTransferJob* readJob = KIO::storedGet(url, KIO::NoReload, KIO::HideProgressInfo);
     connect(readJob,SIGNAL(result(KJob*)),this,SLOT(slotDownloadResult(KJob*)));
     readJob->setAutoDelete(false);//HACK HACK HACK
@@ -112,7 +111,7 @@ void WebQueryController::slotDownloadResult(KJob* job)
     if (filter.indexIn(stream.readAll())!=-1)
     {
         emit postProcess(filter.cap(1));
-        //kWarning()<<result;
+        //qWarning()<<result;
     }
     else
         m_queue.dequeue();

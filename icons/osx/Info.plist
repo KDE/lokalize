@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Created by Qt/QMake</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleExecutable</key>
+	<string>Lokalize</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.9</string>
+	<key>CFBundleVersion</key>
+	<string>1.9</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.kde.lokalize</string>
+	<key>CFBundleIconFile</key>
+   	<string>Lokalize.icns</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.7</string>
+
+
+
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>xlf</string>
+				<string>xliff</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LokalizeXliff.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-xliff+xml</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>XLIFF Translation File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>pot</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LokalizePot.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>text/x-gettext-translation-template</string>
+				<string>text/x-pot</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Gettext Translation Template</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>po</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LokalizePo.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>text/x-gettext-translation</string>
+				<string>text/x-gettext-catalog</string>
+				<string>text/x-po</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Gettext PO file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+</dict>
+</plist>

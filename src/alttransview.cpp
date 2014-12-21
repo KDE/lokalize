@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -24,7 +24,6 @@
 #define KDE_NO_DEBUG_OUTPUT
 
 #include "alttransview.h"
-#include <QDragEnterEvent>
 
 #include "diff.h"
 #include "catalog.h"
@@ -35,26 +34,30 @@
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
 
-#include <klocale.h>
-#include <kdebug.h>
-#include <kaction.h>
+#include "kdemacros.h"
 
+#include <QDebug>
+#include <QStringBuilder>
+#include <QDragEnterEvent>
+#include <QMimeData>
 #include <QSignalMapper>
-//#include <QTime>
 #include <QFileInfo>
+#include <QDir>
 #include <QToolTip>
+#include <QAction>
 
+#include <klocalizedstring.h>
 
-AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<KAction*>& actions)
+AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Alternate Translations"), parent)
     , m_browser(new TM::TextBrowser(this))
     , m_catalog(catalog)
     , m_normTitle(i18nc("@title:window","Alternate Translations"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
     , m_hasInfo(false)
     , m_actions(actions)
 {
-    setObjectName("msgIdDiff");
+    setObjectName(QStringLiteral("msgIdDiff"));
     setWidget(m_browser);
     hide();
 
@@ -67,10 +70,11 @@ void AltTransView::initLater()
 {
     setAcceptDrops(true);
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup group(&config,"AltTransView");
     m_everShown=group.readEntry("EverShown",false);
-
+#endif
 
 
     QSignalMapper* signalMapper=new QSignalMapper(this);
@@ -109,13 +113,12 @@ void AltTransView::dropEvent(QDropEvent *event)
 void AltTransView::attachAltTransFile(const QString& path)
 {
     MergeCatalog* altCat=new MergeCatalog(m_catalog, m_catalog, /*saveChanges*/false);
-    altCat->loadFromUrl(KUrl::fromLocalFile(path));
+    altCat->loadFromUrl(path);
     m_catalog->attachAltTransCatalog(altCat);
 }
 
 void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool temp)
 {
-    qDebug()<<trans;
     AltTrans altTrans;
     altTrans.target=trans;
     m_catalog->attachAltTrans(entry, altTrans);
@@ -127,10 +130,10 @@ void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool
 void AltTransView::fileLoaded()
 {
     m_prevEntry.entry=-1;
-    QString absPath=m_catalog->url().toLocalFile();
-    QString relPath=KUrl::relativePath(Project::instance()->projectDir(),absPath);
+    QString absPath=m_catalog->url();
+    QString relPath=QDir(Project::instance()->projectDir()).relativeFilePath(absPath);
     
-    QFileInfo info(Project::instance()->altTransDir()+'/'+relPath);
+    QFileInfo info(Project::instance()->altTransDir()%'/'%relPath);
     if (info.canonicalFilePath()!=absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
     else
@@ -189,21 +192,20 @@ void AltTransView::process()
         html.reserve(1024);
         if (!entry.source.isEmpty())
         {
-            html+="<p>";
+            html+=QStringLiteral("<p>");
 
-            QString result=Qt::escape(userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup()));
+            QString result=userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup()).toHtmlEscaped();
             //result.replace("&","&amp;");
             //result.replace("<","&lt;");
             //result.replace(">","&gt;");
-            result.replace("{KBABELADD}","<font style=\"background-color:"+Settings::addColor().name()+";color:black\">");
-            result.replace("{/KBABELADD}","</font>");
-            result.replace("{KBABELDEL}","<font style=\"background-color:"+Settings::delColor().name()+";color:black\">");
-            result.replace("{/KBABELDEL}","</font>");
-            result.replace("\\n","\\n<br>");
-            result.replace("\\n","\\n<br>");
+            result.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
+            result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
+            result.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
+            result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
+            result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br><br>"));
 
             html+=result;
-            html+="<br>";
+            html+=QStringLiteral("<br>");
             cur.insertHtml(html); html.clear();
         }
         if (!entry.target.isEmpty())
@@ -211,17 +213,17 @@ void AltTransView::process()
             if (KDE_ISLIKELY( i<m_actions.size() ))
             {
                 m_actions.at(i)->setStatusTip(entry.target.string);
-                html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
+                html+=QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
             }
             else
-                html+="[ - ] ";
+                html+=QStringLiteral("[ - ] ");
 
             cur.insertText(html); html.clear();
             insertContent(cur,entry.target);
         }
         m_entryPositions.insert(cur.anchor(),i);
 
-        html+=i?"<br></p>":"</p>";
+        html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
         cur.insertHtml(html);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))
@@ -230,7 +232,7 @@ void AltTransView::process()
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
     }
 
-
+#ifndef NOKDE
     if (!m_everShown)
     {
         m_everShown=true;
@@ -240,6 +242,7 @@ void AltTransView::process()
         KConfigGroup group(&config,"AltTransView");
         group.writeEntry("EverShown",true);
     }
+#endif
 }
 
 
@@ -264,7 +267,7 @@ bool AltTransView::event(QEvent *event)
         int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
         int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
         if (block1!=block)
-            kWarning()<<"block numbers don't match";
+            qWarning()<<"block numbers don't match";
         if (block>=m_entries.size())
             return false;
 
@@ -291,7 +294,7 @@ void AltTransView::slotUseSuggestion(int i)
 
     CatalogString target=TM::targetAdapted(tmEntry, source);
 
-    kWarning()<<"0"<<target.string;
+    qWarning()<<"0"<<target.string;
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
@@ -304,7 +307,7 @@ void AltTransView::slotUseSuggestion(int i)
         removeTargetSubstring(m_catalog, m_entry.toDocPosition(), 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
-    kWarning()<<"1"<<target.string;
+    qWarning()<<"1"<<target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_entry.toDocPosition(), target, 0);
@@ -315,4 +318,3 @@ void AltTransView::slotUseSuggestion(int i)
 }
 
 
-#include "alttransview.moc"

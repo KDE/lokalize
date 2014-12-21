@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,11 +26,12 @@
 
 #include <QHash>
 #include <QString>
-#include <KMainWindow>
-#include <KXMLGUIClient>
 
-#include <kurl.h>
 #include "actionproxy.h"
+
+#ifndef NOKDE
+#include <kmainwindow.h>
+#include <kxmlguiclient.h>
 
 
 /**
@@ -49,7 +50,7 @@ public:
     virtual void showDocks()=0;
     //bool queryClose();
 
-    virtual KUrl currentUrl(){return KUrl();}
+    virtual QString currentFilePath(){return QString();}
 
 protected:
     void reflectNonApprovedCount(int count, int total);
@@ -71,10 +72,116 @@ class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
     LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent),KXMLGUIClient(){}
-    virtual ~LokalizeSubwindowBase2(){};
+    virtual ~LokalizeSubwindowBase2(){}
 
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
 };
+#else
+#include <QApplication>
+#include <QMainWindow>
+#include <QAction>
+#include <QMenu>
+#include <QMenuBar>
+#include "kmainwindow.h"
+namespace KStandardAction
+{
+  /**
+   * The standard menubar and toolbar actions.
+   */
+  enum StandardAction {
+    ActionNone,
 
+    // File Menu
+    New, Open, OpenRecent, Save, SaveAs, Revert, Close,
+    Print, PrintPreview, Mail, Quit,
+
+    // Edit Menu
+    Undo, Redo, Cut, Copy, Paste, SelectAll, Deselect, Find, FindNext, FindPrev,
+    Replace,
+
+    // View Menu
+    ActualSize, FitToPage, FitToWidth, FitToHeight, ZoomIn, ZoomOut,
+    Zoom, Redisplay,
+
+    // Go Menu
+    Up, Back, Forward, Home /*Home page*/, Prior, Next, Goto, GotoPage, GotoLine,
+    FirstPage, LastPage, DocumentBack, DocumentForward,
+
+    // Bookmarks Menu
+    AddBookmark, EditBookmarks,
+
+    // Tools Menu
+    Spelling,
+
+    // Settings Menu
+    ShowMenubar, ShowToolbar, ShowStatusbar,
+    SaveOptions, KeyBindings,
+    Preferences, ConfigureToolbars,
+
+    // Help Menu
+    Help, HelpContents, WhatsThis, ReportBug, AboutApp, AboutKDE,
+    TipofDay,
+
+    // Other standard actions
+    ConfigureNotifications,
+    FullScreen,
+    Clear,
+    PasteText,
+    SwitchApplicationLanguage
+  };
+};
+struct KActionCollection
+{
+    KActionCollection(QMainWindow* w);
+    static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+
+    QAction* addAction(const QString& name, QAction* a);
+
+    QMainWindow* m_mainWindow;
+    QMenu* file;
+    QMenu* edit;
+    QMenu* view;
+    QMenu* go;
+    QMenu* sync;
+    QMenu* tools;
+    QMenu* tm;
+};
+struct KActionCategory
+{
+    KActionCategory(const QString&, KActionCollection* c_):c(c_){}
+    QAction* addAction( const char* name, QAction* a){return c->addAction(name, a);}
+    QAction* addAction( const QLatin1String& name, QAction* a){return c->addAction(name, a);}
+    QAction* addAction( const QString& name){return c->addAction(name, new QAction(name, c->m_mainWindow));}
+    QAction* addAction( const QString& name, QObject* rcv, const char* slot)
+    {
+        QAction* a=new QAction(name, rcv);
+        QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
+        return c->addAction(name, a);
+    }
+    QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot);
+
+    static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+
+    KActionCollection* c;
+};
+#define KToolBarPopupAction QAction
+class LokalizeSubwindowBase2: public KMainWindow
+{
+public:
+    LokalizeSubwindowBase2(QWidget* parent): KMainWindow(parent), c(new KActionCollection(this))
+    {
+    }
+    virtual ~LokalizeSubwindowBase2(){}
+    
+    void setXMLFile(const char*, bool f=false){}
+    KActionCollection* actionCollection() const{return c;}
+
+    StatusBarProxy statusBarItems;
+protected:
+    void reflectNonApprovedCount(int count, int total){}
+    void reflectUntranslatedCount(int count, int total){}
+    KActionCollection* c;
+};
+#endif
 
 #endif

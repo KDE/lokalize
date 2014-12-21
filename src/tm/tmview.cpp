@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -32,24 +32,23 @@
 #include "dbfilesmodel.h"
 #include "diff.h"
 #include "xlifftextedit.h"
+#include "kdemacros.h"
 
-#include <klocale.h>
-#include <kdebug.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <ktextbrowser.h>
-#include <kglobalsettings.h>
-#include <kpassivepopup.h>
-#include <kaction.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <kpassivepopup.h>
 
+#include <QDebug>
 #include <QTime>
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QFileInfo>
 #include <QDir>
 #include <QSignalMapper>
 #include <QTimer>
 #include <QToolTip>
 #include <QMenu>
+#include <QStringBuilder>
 
 #ifdef NDEBUG
 #undef NDEBUG
@@ -135,7 +134,7 @@ static DiffInfo getDiffInfo(const QString& diff)
 
 void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    KTextBrowser::mouseDoubleClickEvent(event);
+    QTextBrowser::mouseDoubleClickEvent(event);
 
     QString sel=textCursor().selectedText();
     if (!(sel.isEmpty()||sel.contains(' ')))
@@ -143,34 +142,38 @@ void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
 }
 
 
-TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<KAction*>& actions)
+TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget ( i18nc("@title:window","Translation Memory"), parent)
     , m_browser(new TextBrowser(this))
     , m_catalog(catalog)
     , m_currentSelectJob(0)
     , m_actions(actions)
     , m_normTitle(i18nc("@title:window","Translation Memory"))
-    , m_hasInfoTitle(m_normTitle+" [*]")
+    , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
     , m_hasInfo(false)
     , m_isBatching(false)
     , m_markAsFuzzy(false)
 {
-    setObjectName("TMView");
+    setObjectName(QStringLiteral("TMView"));
     setWidget(m_browser);
 
-    m_browser->document()->setDefaultStyleSheet("p.close_match { font-weight:bold; }");
+    m_browser->document()->setDefaultStyleSheet(QStringLiteral("p.close_match { font-weight:bold; }"));
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
     QTimer::singleShot(0,this,SLOT(initLater()));
-    connect(m_catalog,SIGNAL(signalFileLoaded(KUrl)),
-            this,SLOT(slotFileLoaded(KUrl)));
+    connect(m_catalog,SIGNAL(signalFileLoaded(QString)),
+            this,SLOT(slotFileLoaded(QString)));
 }
 
 TMView::~TMView()
 {
+#if 0 //KDE5PORT set stop var of each job individually
     int i=m_jobs.size();
     while (--i>=0)
-        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
+        TM::weaver()->dequeue(m_jobs.takeLast());
+#else
+    m_jobs.clear();
+#endif
 }
 
 void TMView::initLater()
@@ -205,29 +208,32 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
 
 void TMView::dropEvent(QDropEvent *event)
 {
-    if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
+    QStringList files;
+    foreach(const QUrl& url, event->mimeData()->urls())
+        files.append(url.toLocalFile());
+    if (scanRecursive(files,Project::instance()->projectID()))
         event->acceptProposedAction();
 }
 
-void TMView::slotFileLoaded(const KUrl& url)
+void TMView::slotFileLoaded(const QString& filePath)
 {
     const QString& pID=Project::instance()->projectID();
 
     if (Settings::scanToTMOnOpen())
-    {
-        ScanJob* job=new ScanJob(url,pID);
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
-    }
+        TM::threadPool()->start(new ScanJob(filePath,pID), SCAN);
 
     if (!Settings::prefetchTM()
         &&!m_isBatching)
         return;
 
     m_cache.clear();
+#if 0 //KDE5PORT
     int i=m_jobs.size();
     while (--i>=0)
-        ThreadWeaver::Weaver::instance()->dequeue(m_jobs.takeLast());
+        TM::weaver()->dequeue(m_jobs.takeLast());
+#else
+    m_jobs.clear();
+#endif
 
     DocPosition pos;
     while(switchNext(m_catalog,pos))
@@ -236,30 +242,28 @@ void TMView::slotFileLoaded(const KUrl& url)
            &&m_catalog->isApproved(pos.entry))
             continue;
         SelectJob* j=initSelectJob(m_catalog, pos, pID);
-        connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotCacheSuggestions(ThreadWeaver::Job*)));
+        connect(j,SIGNAL(done(SelectJob*)),this,SLOT(slotCacheSuggestions(SelectJob*)));
         m_jobs.append(j);
     }
 
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),m_seq,SLOT(deleteLater()));
-    connect(m_seq,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotBatchSelectDone(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(m_seq);
+    connect(m_seq,SIGNAL(done()),this,SLOT(slotBatchSelectDone()));
+    TM::threadPool()->start(m_seq, BATCHSELECTFINISHED);
     m_jobs.append(m_seq);
 }
 
-void TMView::slotCacheSuggestions(ThreadWeaver::Job* j)
+void TMView::slotCacheSuggestions(SelectJob* job)
 {
-    m_jobs.removeAll(j);
-    SelectJob* job=static_cast<SelectJob*>(j);
-    kDebug()<<job->m_pos.entry;
+    m_jobs.removeAll(job);
+    qDebug()<<job->m_pos.entry;
     if (job->m_pos.entry==m_pos.entry)
-        slotSuggestionsCame(j);
+        slotSuggestionsCame(job);
 
     m_cache[DocPos(job->m_pos)]=job->m_entries.toVector();
 }
 
-void TMView::slotBatchSelectDone(ThreadWeaver::Job* /*j*/)
+void TMView::slotBatchSelectDone()
 {
     m_jobs.clear();
     if (!m_isBatching)
@@ -330,7 +334,7 @@ void TMView::slotBatchTranslate()
     if (!Settings::prefetchTM())
         slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
-        return slotBatchSelectDone(0);
+        return slotBatchSelectDone();
     KPassivePopup::message(KPassivePopup::Balloon,
                            i18nc("@title","Batch translation"),
                            i18nc("@info","Batch translation has been scheduled."),
@@ -345,7 +349,7 @@ void TMView::slotBatchTranslateFuzzy()
     if (!Settings::prefetchTM())
         slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
-        slotBatchSelectDone(0);
+        slotBatchSelectDone();
     KPassivePopup::message(KPassivePopup::Balloon,
                            i18nc("@title","Batch translation"),
                            i18nc("@info","Batch translation has been scheduled."),
@@ -358,7 +362,8 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
 
-    ThreadWeaver::Weaver::instance()->dequeue(m_currentSelectJob);
+    //KDE5PORT set stop var individually
+    //TM::weaver()->dequeue(m_currentSelectJob);
 
     //update DB
     //m_catalog->flushUpdateDBBuffer();
@@ -373,7 +378,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
         QTimer::singleShot(0,this,SLOT(displayFromCache()));
     }
     m_currentSelectJob=initSelectJob(m_catalog, m_pos);
-    connect(m_currentSelectJob,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+    connect(m_currentSelectJob,SIGNAL(done(SelectJob*)),this,SLOT(slotSuggestionsCame(SelectJob*)));
 }
 
 void TMView::displayFromCache()
@@ -388,11 +393,12 @@ void TMView::displayFromCache()
     m_prevCachePos=m_pos;
 }
 
-void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
+void TMView::slotSuggestionsCame(SelectJob* j)
 {
     QTime time;time.start();
 
-    SelectJob& job=*(static_cast<SelectJob*>(j));
+    SelectJob& job=*j;
+    job.deleteLater();
     if (job.m_pos.entry!=m_pos.entry)
         return;
 
@@ -420,14 +426,14 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         const DBFilesModel& dbFilesModel=*(DBFilesModel::instance());
         QModelIndex root=dbFilesModel.rootIndex();
         int i=dbFilesModel.rowCount(root);
-        //kWarning()<<"query other DBs,"<<i<<"total";
+        //qWarning()<<"query other DBs,"<<i<<"total";
         while (--i>=0)
         {
-            const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root)).toString();
+            const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root), DBFilesModel::NameRole).toString();
             if (projectID!=dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode==catalog.targetLangCode())
             {
                 SelectJob* j=initSelectJob(m_catalog, m_pos, dbName);
-                connect(j,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotSuggestionsCame(ThreadWeaver::Job*)));
+                connect(j,SIGNAL(done(SelectJob*)),this,SLOT(slotSuggestionsCame(SelectJob*)));
                 m_jobs.append(j);
             }
         }
@@ -472,22 +478,22 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         html.reserve(1024);
 
         const TMEntry& entry=job.m_entries.at(i);
-        html+=(entry.score>9500)?"<p class='close_match'>":"<p>";
-        //kDebug()<<entry.target.string<<entry.hits;
+        html+=(entry.score>9500)?QStringLiteral("<p class='close_match'>"):QStringLiteral("<p>");
+        //qDebug()<<entry.target.string<<entry.hits;
 
-        html+=QString("/%1%/ ").arg(entry.score > 10000 ? 100: float(entry.score)/100);
+        html+=QString(QStringLiteral("/%1%/ ")).arg(entry.score > 10000 ? 100: float(entry.score)/100);
 
         //int sourceStartPos=cur.position();
-        QString result=Qt::escape(entry.diff);
+        QString result=entry.diff.toHtmlEscaped();
         //result.replace("&","&amp;");
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
-        result.replace("{KBABELADD}","<font style=\"background-color:"%Settings::addColor().name()%";color:black\">");
-        result.replace("{/KBABELADD}","</font>");
-        result.replace("{KBABELDEL}","<font style=\"background-color:"%Settings::delColor().name()%";color:black\">");
-        result.replace("{/KBABELDEL}","</font>");
-        result.replace("\\n","\\n<br>");
-        result.replace("\\n","\\n<br>");
+        result.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
+        result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
+        result.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
+        result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
+        result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
+        result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
         html+=result;
 #if 0
         cur.insertHtml(result);
@@ -508,14 +514,14 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
 #endif
 
         //str.replace('&',"&amp;"); TODO check
-        html+="<br>";
+        html+=QStringLiteral("<br>");
         if (KDE_ISLIKELY( i<m_actions.size() ))
         {
             m_actions.at(i)->setStatusTip(entry.target.string);
-            html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString());
+            html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
         }
         else
-            html+="[ - ] ";
+            html+=QStringLiteral("[ - ] ");
 /*
         QString str(entry.target.string);
         str.replace('<',"&lt;");
@@ -527,7 +533,7 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         insertContent(cur,entry.target);
         m_entryPositions.insert(cur.anchor(),i);
 
-        html+=i?"<br></p>":"</p>";
+        html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
         cur.insertHtml(html);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))
@@ -536,9 +542,9 @@ void TMView::slotSuggestionsCame(ThreadWeaver::Job* j)
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
 
     }
-    m_browser->insertHtml("</html>");
+    m_browser->insertHtml(QStringLiteral("</html>"));
     setUpdatesEnabled(true);
-//    kWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
+//    qWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
 
@@ -558,7 +564,7 @@ bool TMView::event(QEvent *event)
         {
             const TMEntry& tmEntry=m_entries.at(*block);
             QString file=tmEntry.file;
-            if (file==m_catalog->url().toLocalFile())
+            if (file==m_catalog->url())
                 file=i18nc("File argument in tooltip, when file is current file", "this");
             QString tooltip=i18nc("@info:tooltip","File: %1<br />Addition date: %2",file, tmEntry.date.toString(Qt::ISODate));
             if (!tmEntry.changeDate.isNull() && tmEntry.changeDate!=tmEntry.date)
@@ -578,7 +584,7 @@ bool TMView::event(QEvent *event)
 void TMView::contextMenu(const QPoint& pos)
 {
     int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(pos).anchor());
-    kWarning()<<block;
+    qWarning()<<block;
     if (block>=m_entries.size())
         return;
 
@@ -586,19 +592,18 @@ void TMView::contextMenu(const QPoint& pos)
     enum {Remove, Open};
     QMenu popup;
     popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
-    if (e.file!= m_catalog->url().toLocalFile() && QFile::exists(e.file))
+    if (e.file!= m_catalog->url() && QFile::exists(e.file))
         popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))->setData(Open);
     QAction* r=popup.exec(m_browser->mapToGlobal(pos));
     if (!r)
         return;
     if ((r->data().toInt()==Remove) &&
-        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  Qt::escape(e.target.string), e.dbName),
+        KMessageBox::Yes==KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
                                                            i18nc("@title:window","Translation Memory Entry Removal")))
     {
         RemoveJob* job=new RemoveJob(e);
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-        connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotNewEntryDisplayed()));
-        ThreadWeaver::Weaver::instance()->enqueue(job);
+        connect(job,SIGNAL(done()),this,SLOT(slotNewEntryDisplayed()));
+        TM::threadPool()->start(job, REMOVE);
     }
     else if (r->data().toInt()==Open)
         emit fileOpenRequested(e.file, e.source.string, e.ctxt);
@@ -611,13 +616,13 @@ void TMView::contextMenu(const QPoint& pos)
  */
 static int nextPlacableIn(const QString& old, int start, QString& cap)
 {
-    static QRegExp rxNum("[\\d\\.\\%]+");
-    static QRegExp rxAbbr("\\w+");
+    static QRegExp rxNum(QStringLiteral("[\\d\\.\\%]+"));
+    static QRegExp rxAbbr(QStringLiteral("\\w+"));
 
     int numPos=rxNum.indexIn(old,start);
 //    int abbrPos=rxAbbr.indexIn(old,start);
     int abbrPos=start;
-    //kWarning()<<"seeing"<<old.size()<<old;
+    //qWarning()<<"seeing"<<old.size()<<old;
     while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
     {
         QString word=rxAbbr.cap(0);
@@ -642,7 +647,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
 //         cap=rxAbbr.cap(0);
 
     cap=(pos==numPos?rxNum:rxAbbr).cap(0);
-    //kWarning()<<cap;
+    //qWarning()<<cap;
 
     return pos;
 }
@@ -659,7 +664,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
  */
 CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 {
-    kWarning()<<entry.source.string<<entry.target.string<<entry.diff;
+    qWarning()<<entry.source.string<<entry.target.string<<entry.diff;
 
     QString diff=entry.diff;
     CatalogString target=entry.target;
@@ -679,8 +684,8 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     while ((pos=rxAdd.indexIn(diff,pos))!=-1)
         diff.replace(pos,rxAdd.matchedLength(),"\tKBABELADD\t" % rxAdd.cap(1) % "\t/KBABELADD\t");
 
-    diff.replace("&lt;","<");
-    diff.replace("&gt;",">");
+    diff.replace(QStringLiteral("&lt;"),QStringLiteral("<"));
+    diff.replace(QStringLiteral("&gt;"),QStringLiteral(">"));
 
     //possible enhancement: search for non-translated words in removedSubstrings...
     //QStringList removedSubstrings;
@@ -708,10 +713,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         int replacingPos=0;
         while ((pos=rxMarkup.indexIn(d.old,pos))!=-1)
         {
-            //kWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
+            //qWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
             QByteArray diffIndexPart(d.diffIndex.mid(d.old2DiffClean.at(pos),
                                            d.old2DiffClean.at(pos+rxMarkup.matchedLength()-1)+1-d.old2DiffClean.at(pos)));
-            //kWarning()<<"diffMPart"<<diffMPart;
+            //qWarning()<<"diffMPart"<<diffMPart;
             if (diffIndexPart.contains('-')
                 ||diffIndexPart.contains('+'))
             {
@@ -733,13 +738,13 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                                 rxMarkup.cap(0).size(),
                                 newMarkup);
                     replacingPos=tmp;
-                    //kWarning()<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
+                    //qWarning()<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
 
                     //avoid trying this part again
                     tmp=d.old2DiffClean.at(pos+rxMarkup.matchedLength()-1);
                     while(--tmp>=d.old2DiffClean.at(pos))
                         d.diffIndex[tmp]='M';
-                    //kWarning()<<"M"<<diffM;
+                    //qWarning()<<"M"<<diffM;
                 }
             }
 
@@ -754,9 +759,9 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     if (tryMarkup)
         rxNonTranslatable.setPattern("^((" % entry.markupExpr % ")|(\\W|\\d)+)+");
     else
-        rxNonTranslatable.setPattern("^(\\W|\\d)+");
+        rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
-    //kWarning()<<"("+entry.markup+"|(\\W|\\d)+";
+    //qWarning()<<"("+entry.markup+"|(\\W|\\d)+";
 
 
     //handle the beginning
@@ -794,7 +799,7 @@ nono
                 oldMarkup.append(d.diffClean.at(j));
         }
 
-        //kWarning()<<"old"<<oldMarkup;
+        //qWarning()<<"old"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
         if (target.string.startsWith(oldMarkup))
@@ -809,12 +814,12 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(d.diffClean.at(j));
             }
-            //kWarning()<<"new"<<newMarkup;
+            //qWarning()<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
             newMarkup=rxNonTranslatable.cap(0);
 
             //replace
-            kWarning()<<"BEGIN HANDLING. replacing"<<target.string.left(oldMarkup.size())<<"with"<<newMarkup;
+            qWarning()<<"BEGIN HANDLING. replacing"<<target.string.left(oldMarkup.size())<<"with"<<newMarkup;
             target.remove(0,oldMarkup.size());
             target.insert(0,newMarkup);
 
@@ -822,7 +827,7 @@ nono
             j=diffMPart.size();
             while(--j>=0)
                 d.diffIndex[j]='M';
-            //kWarning()<<"M"<<diffM;
+            //qWarning()<<"M"<<diffM;
         }
 
     }
@@ -831,7 +836,7 @@ nono
     if (tryMarkup)
         rxNonTranslatable.setPattern("(("% entry.markupExpr %")|(\\W|\\d)+)+$");
     else
-        rxNonTranslatable.setPattern("(\\W|\\d)+$");
+        rxNonTranslatable.setPattern(QStringLiteral("(\\W|\\d)+$"));
 
     //handle the end
     if (!d.diffIndex.endsWith('0'))
@@ -854,7 +859,7 @@ nono
             if (diffMPart.at(j)!='+')
                 oldMarkup.append(d.diffClean.at(len+j));
         }
-        //kWarning()<<"old-"<<oldMarkup;
+        //qWarning()<<"old-"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
         if (target.string.endsWith(oldMarkup))
@@ -869,7 +874,7 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(d.diffClean.at(len+j));
             }
-            //kWarning()<<"new"<<newMarkup;
+            //qWarning()<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
             newMarkup=rxNonTranslatable.cap(0);
 
@@ -881,7 +886,7 @@ nono
             j=diffMPart.size();
             while(--j>=0)
                 d.diffIndex[len+j]='M';
-            //kWarning()<<"M"<<diffM;
+            //qWarning()<<"M"<<diffM;
         }
     }
 //END BEGIN HANDLING
@@ -893,10 +898,10 @@ nono
     QString cap;
     QString _;
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
-    kWarning()<<"string:"<<target.string<<"searching for placeables in"<<d.old;
+    qWarning()<<"string:"<<target.string<<"searching for placeables in"<<d.old;
     while ((pos=nextPlacableIn(d.old,pos,cap))!=-1)
     {
-        kWarning()<<"considering placable"<<cap;
+        qWarning()<<"considering placable"<<cap;
         //save these so we can use rxNum in a body
         int endPos1=pos+cap.size()-1;
         int endPos=d.old2DiffClean.at(endPos1);
@@ -904,7 +909,7 @@ nono
         QByteArray diffMPart=d.diffIndex.mid(startPos,
                                        endPos+1-startPos);
 
-        kWarning()<<"starting diffMPart"<<diffMPart;
+        qWarning()<<"starting diffMPart"<<diffMPart;
 
         //the following loop extends replacement text, e.g. for 1 -> 500 cases
         while ((++endPos<d.diffIndex.size())
@@ -913,12 +918,12 @@ nono
               )
             diffMPart.append('+');
 
-        kWarning()<<"diffMPart extended 1"<<diffMPart;
+        qWarning()<<"diffMPart extended 1"<<diffMPart;
 //         if ((pos-1>=0) && (d.old2DiffClean.at(pos)>=0))
 //         {
-//             kWarning()<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
-//             kWarning()<<"(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+')"<<(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+');
-//             //kWarning()<<(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_));
+//             qWarning()<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
+//             qWarning()<<"(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+')"<<(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+');
+//             //qWarning()<<(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_));
 //         }
 
         //this is for the case when +'s preceed -'s:
@@ -929,7 +934,7 @@ nono
             diffMPart.prepend('+');
         ++startPos;
 
-        kWarning()<<"diffMPart extended 2"<<diffMPart;
+        qWarning()<<"diffMPart extended 2"<<diffMPart;
 
         if ((diffMPart.contains('-')
             ||diffMPart.contains('+'))
@@ -945,14 +950,14 @@ nono
                     newMarkup.append(d.diffClean.at(startPos+j));
             }
             if (newMarkup.endsWith(' ')) newMarkup.chop(1);
-            //kWarning()<<"d.old"<<cap<<"new"<<newMarkup;
+            //qWarning()<<"d.old"<<cap<<"new"<<newMarkup;
 
 
             //replace first ocurrence
             int tmp=target.string.indexOf(cap,replacingPos);
             if (tmp!=-1)
             {
-                kWarning()<<"replacing"<<cap<<"with"<<newMarkup;
+                qWarning()<<"replacing"<<cap<<"with"<<newMarkup;
                 target.replace(tmp, cap.size(), newMarkup);
                 replacingPos=tmp;
 
@@ -960,10 +965,10 @@ nono
                 tmp=d.old2DiffClean.at(endPos1)+1;
                 while(--tmp>=d.old2DiffClean.at(pos))
                     d.diffIndex[tmp]='M';
-                //kWarning()<<"M"<<diffM;
+                //qWarning()<<"M"<<diffM;
             }
             else
-                kWarning()<<"newMarkup"<<newMarkup<<"wasn't used";
+                qWarning()<<"newMarkup"<<newMarkup<<"wasn't used";
         }
         pos=endPos1+1;
     }
@@ -981,10 +986,10 @@ void TMView::slotUseSuggestion(int i)
 #if 0
     QString tmp=target.string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, '*');
-    kWarning()<<"targetAdapted"<<tmp;
+    qWarning()<<"targetAdapted"<<tmp;
 
     foreach (InlineTag tag, target.tags)
-        kWarning()<<"tag"<<tag.start<<tag.end;
+        qWarning()<<"tag"<<tag.start<<tag.end;
 #endif
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
@@ -999,7 +1004,7 @@ void TMView::slotUseSuggestion(int i)
         removeTargetSubstring(m_catalog, m_pos, 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
-    kWarning()<<"1"<<target.string;
+    qWarning()<<"1"<<target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_pos, target, 0);
@@ -1012,5 +1017,3 @@ void TMView::slotUseSuggestion(int i)
     emit refreshRequested();
 }
 
-
-#include "tmview.moc"

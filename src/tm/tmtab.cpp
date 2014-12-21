@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,6 +27,8 @@
 #include "dbfilesmodel.h"
 #include "tmscanapi.h"
 #include "qaview.h"
+#include "jobs.h"
+#include "fastsizehintitemdelegate.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -38,20 +40,27 @@
 #include <QClipboard>
 #include <QShortcut>
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QStringBuilder>
 #include <QTextDocument>
-
-#include <KColorScheme>
-#include <kactioncategory.h>
-#include <kaction.h>
-#include <klocale.h>
-#include <kstandarddirs.h>
-#include <kxmlguifactory.h>
-#include <threadweaver/ThreadWeaver.h>
-#include <fastsizehintitemdelegate.h>
 #include <QStringListModel>
+#include <QDebug>
+#include <QTextCodec>
+
+#include <klocalizedstring.h>
+
+#ifndef NOKDE
+#include <kactioncategory.h>
+#include <kcolorscheme.h>
+#include <kxmlguifactory.h>
+#endif
+
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
 
 
 using namespace TM;
@@ -75,6 +84,11 @@ TMDBModel::TMDBModel(QObject* parent)
 void TMDBModel::setDB(const QString& str)
 {
     m_dbName=str;
+
+    QString sourceLangCode=DBFilesModel::instance()->m_configurations.value(str).sourceLangCode;
+    QString targetLangCode=DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
+    if (sourceLangCode.length()) setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text","Source")%QStringLiteral(": ")%sourceLangCode));
+    if (targetLangCode.length()) setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language","Target")%QStringLiteral(": ")%targetLangCode));
 }
 
 void TMDBModel::setQueryType(int type)
@@ -87,77 +101,79 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                           const QString& filemask
                           )
 {
-    QString escapedSource(source);escapedSource.replace('\'',"''");
-    QString escapedTarget(target);escapedTarget.replace('\'',"''");
-    QString invertSourceStr; if (invertSource) invertSourceStr="NOT ";
-    QString invertTargetStr; if (invertTarget) invertTargetStr="NOT ";
-    QString escapedFilemask(filemask);escapedFilemask.replace('\'',"''");
+    QString escapedSource(source);escapedSource.replace('\'',QStringLiteral("''"));
+    QString escapedTarget(target);escapedTarget.replace('\'',QStringLiteral("''"));
+    QString invertSourceStr; if (invertSource) invertSourceStr=QStringLiteral("NOT ");
+    QString invertTargetStr; if (invertTarget) invertTargetStr=QStringLiteral("NOT ");
+    QString escapedFilemask(filemask);escapedFilemask.replace('\'',QStringLiteral("''"));
     QString sourceQuery;
     QString targetQuery;
     QString fileQuery;
 
     if (m_queryType==SubStr)
     {
-        escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
-        escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");
+        escapedSource.replace('%',QStringLiteral("\b%"));escapedSource.replace('_',QStringLiteral("\b_"));
+        escapedTarget.replace('%',QStringLiteral("\b%"));escapedTarget.replace('_',QStringLiteral("\b_"));
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "%invertSourceStr%"LIKE '%"+escapedSource+"%' ESCAPE '\b' ";
+            sourceQuery=QStringLiteral("AND source_strings.source ")%invertSourceStr%QStringLiteral("LIKE '%")%escapedSource%QStringLiteral("%' ESCAPE '\b' ");
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "%invertTargetStr%"LIKE '%"+escapedTarget+"%' ESCAPE '\b' ";
+            targetQuery=QStringLiteral("AND target_strings.target ")%invertTargetStr%QStringLiteral("LIKE '%")%escapedTarget%QStringLiteral("%' ESCAPE '\b' ");
     }
     else if (m_queryType==WordOrder)
     {
         /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
         escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
-        QStringList sourceList=escapedSource.split(QRegExp("\\W"),QString::SkipEmptyParts);
-        QStringList targetList=escapedTarget.split(QRegExp("\\W"),QString::SkipEmptyParts);
+        QRegExp wre(QStringLiteral("\\W"));
+        QStringList sourceList=escapedSource.split(wre,QString::SkipEmptyParts);
+        QStringList targetList=escapedTarget.split(wre,QString::SkipEmptyParts);
 
         if (!sourceList.isEmpty())
-            sourceQuery="AND source_strings.source "+invertSourceStr+"LIKE '%"+sourceList.join("%' AND source_strings.source "+invertSourceStr+"LIKE '%")+"%' ";
+            sourceQuery=QStringLiteral("AND source_strings.source ")%invertSourceStr%QStringLiteral("LIKE '%")
+                        %sourceList.join(QStringLiteral("%' AND source_strings.source ")%invertSourceStr%QStringLiteral("LIKE '%"))%QStringLiteral("%' ");
         if (!targetList.isEmpty())
-            targetQuery="AND target_strings.target "+invertTargetStr+"LIKE '%"+targetList.join("%' AND target_strings.target "+invertTargetStr+"LIKE '%")+"%' ";
+            targetQuery=QStringLiteral("AND target_strings.target ")%invertTargetStr%QStringLiteral("LIKE '%")
+                        %targetList.join(QStringLiteral("%' AND target_strings.target ")%invertTargetStr%QStringLiteral("LIKE '%"))%QStringLiteral("%' ");
     }
     else
     {
         if (!escapedSource.isEmpty())
-            sourceQuery="AND source_strings.source "%invertSourceStr%"GLOB '"%escapedSource%"' ";
+            sourceQuery=QStringLiteral("AND source_strings.source ")%invertSourceStr%QStringLiteral("GLOB '")%escapedSource%QStringLiteral("' ");
         if (!escapedTarget.isEmpty())
-            targetQuery="AND target_strings.target "%invertTargetStr%"GLOB '"%escapedTarget%"' ";
+            targetQuery=QStringLiteral("AND target_strings.target ")%invertTargetStr%QStringLiteral("GLOB '")%escapedTarget%QStringLiteral("' ");
 
     }
     if (!filemask.isEmpty())
-        fileQuery="AND files.path GLOB '"%escapedFilemask%"' ";
+        fileQuery=QStringLiteral("AND files.path GLOB '")%escapedFilemask%QStringLiteral("' ");
 
-    QString fromPart="FROM main JOIN source_strings ON (source_strings.id=main.source) "
+    QString fromPart=QStringLiteral("FROM main JOIN source_strings ON (source_strings.id=main.source) "
                      "JOIN target_strings ON (target_strings.id=main.target), files "
-                     "WHERE files.id=main.file "
-                     +sourceQuery
-                     +targetQuery
-                     +fileQuery;
+                     "WHERE files.id=main.file ")
+                     %sourceQuery
+                     %targetQuery
+                     %fileQuery;
 
-    ExecQueryJob* job=new ExecQueryJob(
+    ExecQueryJob* job=new ExecQueryJob(QStringLiteral(
                 "SELECT source_strings.source, target_strings.target, "
                 "main.ctxt, files.path, "
-                "source_strings.source_accel, target_strings.target_accel, main.bits "
+                "source_strings.source_accel, target_strings.target_accel, main.bits ")
                 +fromPart,m_dbName);
 
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(job);
+    connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
+    threadPool()->start(job);
 
 
-    job=new ExecQueryJob("SELECT count(*) "+fromPart,m_dbName);
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),job,SLOT(deleteLater()));
-    connect(job,SIGNAL(done(ThreadWeaver::Job*)),this,SLOT(slotQueryExecuted(ThreadWeaver::Job*)));
-    ThreadWeaver::Weaver::instance()->enqueue(job);
+    job=new ExecQueryJob(QStringLiteral("SELECT count(*) ")+fromPart,m_dbName);
+    connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
+    threadPool()->start(job);
     
     m_totalResultCount=0;
 }
 
-void TMDBModel::slotQueryExecuted(ThreadWeaver::Job* j)
+void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 {
-    ExecQueryJob* job=static_cast<ExecQueryJob*>(j);
-    if (job->query->lastQuery().startsWith("SELECT count(*) "))
+    job->deleteLater();
+
+    if (job->query->lastQuery().startsWith(QLatin1String("SELECT count(*) ")))
     {
         job->query->next();
         m_totalResultCount=job->query->value(0).toInt();
@@ -216,7 +232,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     {
         const QVariant& posVar=record(item.row()).value(TMDBModel::_SourceAccel+item.column());
         int pos=-1;
-        bool ok;
+        bool ok=false;
         if (posVar.isValid())
             pos=posVar.toInt(&ok);
         if (ok && pos!=-1)
@@ -327,7 +343,7 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
     {
         int pos=re.indexIn(string);
         if (pos!=-1)
-            return string.replace(pos, re.matchedLength(), "<b>" % re.cap(0) % "</b>");
+            return string.replace(pos, re.matchedLength(), QStringLiteral("<b>") % re.cap(0) % QStringLiteral("</b>"));
     }
 
     //StartLen sl=m_highlightDataForSourceRow.value(source_row).at(index.column());
@@ -468,7 +484,7 @@ TMTab::TMTab(QWidget *parent)
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
-    int pos=ui_queryOptions->dbName->findText(Project::instance()->projectID());
+    int pos=ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
     if (pos>=0)
         ui_queryOptions->dbName->setCurrentIndex(pos);
     connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
@@ -490,7 +506,7 @@ TMTab::TMTab(QWidget *parent)
     dbusObjectPath();
 
 
-    KAction *action;
+    QAction *action;
     KActionCollection* ac=actionCollection();
     KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);
 
@@ -506,26 +522,29 @@ TMTab::TMTab(QWidget *parent)
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
 
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TMSearchResultsHeaderState", QByteArray()) ));
+#endif
 }
 
 TMTab::~TMTab()
 {
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("TMSearchResultsHeaderState",ui_queryOptions->treeView->header()->saveState().toBase64());
 
-    delete ui_queryOptions;
     ids.removeAll(m_dbusId);
+#endif
+
+    delete ui_queryOptions;
 }
 
 void TMTab::updateTM()
 {
-    QList<QUrl> urls;
-    urls.append(Project::instance()->poDir());
-    scanRecursive(urls,Project::instance()->projectID());
+    scanRecursive(QStringList(Project::instance()->poDir()),Project::instance()->projectID());
 }
 
 void TMTab::performQuery()
@@ -545,7 +564,7 @@ void TMTab::handleResults()
     int rowCount=m_model->rowCount();
     if (rowCount==0)
     {
-        kDebug()<<"m_model->rowCount()==0";
+        qDebug()<<"m_model->rowCount()==0";
         //try harder
         if(m_partToAlsoTryLater!=DocPosition::UndefPart)
         {
@@ -560,7 +579,7 @@ void TMTab::handleResults()
                     findGuiText(text);
                 return;
             }
-            KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
+            QLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
             source_target_query[m_partToAlsoTryLater==DocPosition::Source]->setText(source_target_query[m_partToAlsoTryLater!=DocPosition::Source]->text());
             source_target_query[m_partToAlsoTryLater!=DocPosition::Source]->clear();
             m_partToAlsoTryLater=ui_queryOptions->filemask->text().isEmpty()?
@@ -570,11 +589,11 @@ void TMTab::handleResults()
         }
         if(!filemask.isEmpty() && !filemask.contains('*'))
         {
-            ui_queryOptions->filemask->setText('*'+filemask+'*');
+            ui_queryOptions->filemask->setText('*'%filemask%'*');
             return performQuery();
         }
     }
-    kDebug()<<"=DocPosition::UndefPart";
+    qDebug()<<"=DocPosition::UndefPart";
     m_partToAlsoTryLater=DocPosition::UndefPart;
     
     ui_queryOptions->treeView->setFocus();
@@ -651,15 +670,15 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
                                  const QStyleOptionViewItem& /*option*/,
                                  const QModelIndex& index)
 {
-    kWarning()<<"QEvent"<<event;
+    qWarning()<<"QEvent"<<event;
     if (event->type()==QEvent::Shortcut)
     {
-        kWarning()<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
+        qWarning()<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
         if (static_cast<QShortcutEvent*>(event)->key().matches(QKeySequence::Copy)
            && index.data().canConvert(QVariant::String))
         {
             QApplication::clipboard()->setText(index.data().toString());
-            kWarning()<<"index.data().toString()";
+            qWarning()<<"index.data().toString()";
         }
     }
     else if (event->type()==QEvent::MouseButtonRelease)
@@ -700,17 +719,23 @@ void TMTab::dragEnterEvent(QDragEnterEvent* event)
 
 void TMTab::dropEvent(QDropEvent *event)
 {
-    if (scanRecursive(event->mimeData()->urls(),Project::instance()->projectID()))
+    QStringList files;
+    foreach(const QUrl& url, event->mimeData()->urls())
+        files.append(url.toLocalFile());
+
+    if (scanRecursive(files,Project::instance()->projectID()))
         event->acceptProposedAction();
 }
 
+#ifndef NOKDE
 #include "translationmemoryadaptor.h"
-
+#endif
 //BEGIN DBus interface
 QList<int> TMTab::ids;
 
 QString TMTab::dbusObjectPath()
 {
+#ifndef NOKDE
     if ( m_dbusId==-1 )
     {
         new TranslationMemoryAdaptor(this);
@@ -720,12 +745,14 @@ QString TMTab::dbusObjectPath()
              ++i;
         ids.insert(i,i);
         m_dbusId=i;
-        QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId), this);
+        QDBusConnection::sessionBus().registerObject(QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId), this);
     }
 
-    return "/ThisIsWhatYouWant/TranslationMemory/" + QString::number(m_dbusId);
+    return QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId);
+#else
+    return QString();
+#endif
 }
-
 
 void TMTab::lookup(QString source, QString target)
 {
@@ -747,8 +774,8 @@ void TMTab::lookup(QString source, QString target)
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
     //std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
-    kWarning()<<package<<text;
-    KLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
+    qWarning()<<package<<text;
+    QLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
     static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};
     QTextCodec* latin1=QTextCodec::codecForMib(4);
     DocPosition::Part tryNowPart=source_target[latin1->canEncode(text)];
@@ -760,14 +787,11 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     source_target_query[tryNowPart==DocPosition::Source]->setText(text);
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    if (!package.isEmpty()) package='*'+package+'*';
+    if (!package.isEmpty()) package='*'%package%'*';
     ui_queryOptions->filemask->setText(package);
     ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::Glob);
     performQuery();
 
     return true;
 }
-
 //END DBus interface
-
-#include "tmtab.moc"

@@ -61,7 +61,7 @@ void MyActionCollectionView::triggerSelectedActions()
 
 
         //we pass us into the queue.
-//         kWarning()<<action->object("WebQueryController");
+//         qWarning()<<action->object("WebQueryController");
 //         Project::instance()->aaaaa()->postQuery(data,
 //                           static_cast<WebQueryController*>(action->object("WebQueryController")));
 //         QMetaObject::invokeMethod(action->object("WebQueryController"),

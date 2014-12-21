@@ -31,8 +31,6 @@
 class QFileSystemModel;
 class QPersistentModelIndex;
 
-namespace ThreadWeaver{class Job;}
-
 namespace TM{
 class OpenDBJob;
 
@@ -54,7 +52,8 @@ public:
 
     enum Rolse
     {
-        NameRole=Qt::UserRole+50
+        FileNameRole=Qt::UserRole+50,
+        NameRole=Qt::UserRole+51
     };
 
     DBFilesModel();
@@ -72,8 +71,7 @@ public:
     //can be zero!!!
     QPersistentModelIndex* projectDBIndex()const{return projectDB;}
 
-    void openDB(const QString& name);
-    void openDB(const QString& name, DbType type);
+    void openDB(const QString& name, DbType type=Undefined, bool forceCurrentProjectConfig=false);
     void openDB(OpenDBJob*);
 
     static DBFilesModel* instance();
@@ -87,8 +85,8 @@ protected:
 public slots:
     void updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void calcStats(const QModelIndex& parent, int start, int end);
-    void openJobDone(ThreadWeaver::Job*);
-    void closeJobDone(ThreadWeaver::Job*);
+    void openJobDone(OpenDBJob*);
+    void closeJobDone(CloseDBJob*);
     void updateProjectTmIndex();
 
 private:

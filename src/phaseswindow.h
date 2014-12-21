@@ -28,17 +28,19 @@
 #include "phase.h"
 #include "note.h"
 
-#include <KDialog>
+#include <QUrl>
+#include <QDialog>
 #include <QModelIndex>
 #include <QVector>
 #include <QMap>
 
+class QDialogButtonBox;
 class QStackedLayout;
+class QTextBrowser;
 class NoteEditor;
 class PhasesModel;
 class MyTreeView;
-class KTextBrowser;
-class PhasesWindow: public KDialog
+class PhasesWindow: public QDialog
 {
 Q_OBJECT
 public:
@@ -57,10 +59,11 @@ private:
     Catalog* m_catalog;
     PhasesModel* m_model;
     MyTreeView* m_view;
-    KTextBrowser* m_browser;
+    QTextBrowser* m_browser;
     NoteEditor* m_editor;
     QWidget* m_noteView;
     QStackedLayout* m_stackedLayout;
+    QDialogButtonBox* m_buttonBox;
 
     QMap<QString, QVector<Note> > m_phaseNotes;
 };

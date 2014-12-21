@@ -4,7 +4,6 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile arg="true"/>
-  <include>klocale.h</include>
   <include>kde-i18n-lists.h</include>
   <group name="General">
     <entry name="ProjectID"  type="String">
@@ -16,8 +15,7 @@
     <entry name="LangCode"  type="String">
 <!--
         <label>Language</label>
-
-        <default code="true">KGlobal::locale()->language()</default>
+        <default code="true">QLocale::system().name()</default>
 -->
     </entry>
     <entry name="TargetLangCode"  type="String">

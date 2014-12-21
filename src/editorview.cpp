@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize (some bits of KBabel code were reused)
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
 
@@ -40,26 +40,28 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
+#include "kdemacros.h"
+
 #include <QTimer>
 #include <QMenu>
 #include <QDragEnterEvent>
 
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QDebug>
+#include <QTabBar>
+#include <QStringBuilder>
 
-
-#include <ktabbar.h>
-#include <kled.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kurl.h>
+#ifndef NOKDE
+#include <kled.h>
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>
-
+#endif
 
 //parent is set on qsplitter insertion
-
+#ifndef NOKDE
 LedsWidget::LedsWidget(QWidget* parent): QWidget(parent)
 {
     KColorScheme colorScheme(QPalette::Normal);
@@ -91,7 +93,7 @@ void LedsWidget::cursorPositionChanged(int column)
 {
     lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", column));
 }
-
+#endif
 
 
 EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
@@ -99,14 +101,18 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     , m_catalog(catalog)
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Source,this))
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog,DocPosition::Target,this))
-    , m_pluralTabBar(new KTabBar(this))
-    , _leds(0)
+    , m_pluralTabBar(new QTabBar(this))
+#ifndef NOKDE
+    , m_leds(0)
+#endif
     , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
     m_sourceTextEdit->setWhatsThis(i18n("<qt><p><b>Original String</b></p>\n"
                                   "<p>This part of the window shows the original message\n"
                                   "of the currently displayed entry.</p></qt>"));
+    m_sourceTextEdit->viewport()->setBackgroundRole(QPalette::Background);
+
 
     connect (m_targetTextEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
     connect (m_targetTextEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
@@ -158,18 +164,20 @@ void EditorView::settingsChanged()
     //Settings::self()->config()->setGroup("Editor");
     m_sourceTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
-    if (_leds) _leds->setVisible(Settings::leds());
+#ifndef NOKDE
+    if (m_leds) m_leds->setVisible(Settings::leds());
     else if (Settings::leds())
     {
-        _leds=new LedsWidget(this);
-        insertWidget(2,_leds);
-        connect (m_targetTextEdit, SIGNAL(cursorPositionChanged(int)), _leds, SLOT(cursorPositionChanged(int)));
-        connect (m_targetTextEdit, SIGNAL(nonApprovedEntryDisplayed()),_leds->ledFuzzy, SLOT(on()));
-        connect (m_targetTextEdit, SIGNAL(approvedEntryDisplayed()),   _leds->ledFuzzy, SLOT(off()));
-        connect (m_targetTextEdit, SIGNAL(untranslatedEntryDisplayed()),_leds->ledUntr, SLOT(on()));
-        connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), _leds->ledUntr, SLOT(off()));
+        m_leds=new LedsWidget(this);
+        insertWidget(2,m_leds);
+        connect (m_targetTextEdit, SIGNAL(cursorPositionChanged(int)), m_leds, SLOT(cursorPositionChanged(int)));
+        connect (m_targetTextEdit, SIGNAL(nonApprovedEntryDisplayed()),m_leds->ledFuzzy, SLOT(on()));
+        connect (m_targetTextEdit, SIGNAL(approvedEntryDisplayed()),   m_leds->ledFuzzy, SLOT(off()));
+        connect (m_targetTextEdit, SIGNAL(untranslatedEntryDisplayed()),m_leds->ledUntr, SLOT(on()));
+        connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), m_leds->ledUntr, SLOT(off()));
         m_targetTextEdit->showPos(m_targetTextEdit->currentPos());
     }
+#endif
 }
 
 
@@ -180,8 +188,8 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 
     bool refresh=(pos.entry==-1);
     if (refresh) pos=m_targetTextEdit->currentPos();
-    //kWarning()<<"refresh"<<refresh;
-    //kWarning()<<"offset"<<pos.offset;
+    //qWarning()<<"refresh"<<refresh;
+    //qWarning()<<"offset"<<pos.offset;
     //TODO trigger refresh directly via Catalog signal
 
     if (KDE_ISUNLIKELY( m_catalog->isPlural(pos.entry)))
@@ -208,14 +216,14 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     bool keepCursor=false;
     CatalogString sourceWithTags=m_sourceTextEdit->showPos(pos,CatalogString(),keepCursor);
 
-    //kWarning()<<"calling showPos";
+    //qWarning()<<"calling showPos";
     QString targetString=m_targetTextEdit->showPos(pos,sourceWithTags,keepCursor).string;
-    //kWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
     m_sourceTextEdit->cursorToStart();
     m_targetTextEdit->cursorToStart();
 
     bool untrans=targetString.isEmpty();
-    //kWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection)
     {
@@ -233,37 +241,23 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         //what if msg starts with a tag?
         if (KDE_ISUNLIKELY( targetString.startsWith('<') ))
         {
-            int offset=targetString.indexOf(QRegExp(">[^<]"));
+            int offset=targetString.indexOf(QRegExp(QStringLiteral(">[^<]")));
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }
         else if (KDE_ISUNLIKELY( targetString.startsWith(TAGRANGE_IMAGE_SYMBOL) ))
         {
-            int offset=targetString.indexOf(QRegExp("[^"+TAGRANGE_IMAGE_SYMBOL+']'));
+            int offset=targetString.indexOf(QRegExp(QStringLiteral("[^")%QChar(TAGRANGE_IMAGE_SYMBOL)%']'));
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }
         m_targetTextEdit->setTextCursor(t);
     }
-    //kWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
-    //kWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
+    //qWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
     m_targetTextEdit->setFocus();
     setUpdatesEnabled(true);
 }
-/*
-void KAiderView::dragEnterEvent(QDragEnterEvent* event)
-{
-    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
-        event->acceptProposedAction();
-}
-
-void KAiderView::dropEvent(QDropEvent *event)
-{
-    emit fileOpenRequested(KUrl(event->mimeData()->urls().first()));
-    event->acceptProposedAction();
-}
-
-*/
 
 
 //BEGIN edit actions that are easier to do in this class
@@ -338,7 +332,7 @@ void EditorView::toggleBookmark(bool checked)
 
 void EditorView::toggleApprovement()
 {
-    //kWarning()<<"called";
+    //qWarning()<<"called";
     if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 
@@ -363,4 +357,3 @@ void EditorView::setEquivTrans(bool equivTrans)
 }
 
 
-#include "editorview.moc"

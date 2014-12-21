@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2013 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -26,12 +26,15 @@
 #include "catalog.h"
 #include "project.h"
 
-#include <kdebug.h>
-#include <klocale.h>
-
-#include <QApplication>
-#include <QFontMetrics>
+#ifndef NOKDE
 #include <kcolorscheme.h>
+#endif
+#include <klocalizedstring.h>
+
+#include <QDebug>
+#include <QApplication>
+#include <QPalette>
+#include <QFontMetrics>
 
 #define DYNAMICFILTER_LIMIT 256
 
@@ -78,7 +81,8 @@ int CatalogTreeModel::columnCount(const QModelIndex& parent) const
 
 void CatalogTreeModel::fileLoaded()
 {
-    reset();
+    beginResetModel();
+    endResetModel();
 }
 
 void CatalogTreeModel::reflectChanges(DocPosition pos)
@@ -90,11 +94,11 @@ void CatalogTreeModel::reflectChanges(DocPosition pos)
     //lazy sorting/filtering
     if (rowCount()<DYNAMICFILTER_LIMIT || m_prevChanged!=pos)
     {
-        kWarning()<<"first dataChanged emitment"<<pos.entry;
+        qWarning()<<"first dataChanged emitment"<<pos.entry;
         emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount-1));
         if (!( rowCount()<DYNAMICFILTER_LIMIT ))
         {
-            kWarning()<<"second dataChanged emitment"<<m_prevChanged.entry;
+            qWarning()<<"second dataChanged emitment"<<m_prevChanged.entry;
             emit dataChanged(index(m_prevChanged.entry,0),index(m_prevChanged.entry,DisplayedColumnCount-1));
         }
     }
@@ -143,6 +147,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     }
     else if (role==Qt::ForegroundRole)
     {
+#ifndef NOKDE
        if (m_catalog->isBookmarked(index.row()))
        {
            static KColorScheme colorScheme(QPalette::Normal);
@@ -153,6 +158,16 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
            static KColorScheme colorScheme(QPalette::Normal);
            return colorScheme.foreground(KColorScheme::InactiveText);
        }
+#else
+       if (m_catalog->isBookmarked(index.row()))
+       {
+           return QApplication::palette().link();
+       }
+       if (m_catalog->isObsolete(index.row()))
+       {
+           return QApplication::palette().brightText();
+       }
+#endif
     }
     else if (role==Qt::UserRole)
     {
@@ -282,9 +297,9 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
         bool isDifferent = m_mergeCatalog->isDifferent(source_row);
 
         accepts = !
-           (  isPresent && !isDifferent && !bool(filerOptions&SameInSync)      ||
-              isPresent &&  isDifferent && !bool(filerOptions&DifferentInSync) ||
-             !isPresent &&                 !bool(filerOptions&NotInSync)
+           ( (isPresent && !isDifferent && !bool(filerOptions&SameInSync))      ||
+             (isPresent &&  isDifferent && !bool(filerOptions&DifferentInSync)) ||
+            (!isPresent &&                 !bool(filerOptions&NotInSync))
            );
     }
 

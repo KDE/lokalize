@@ -27,23 +27,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QProcess>
 #include <QString>
+#include <QStringBuilder>
 #include <QMap>
 #include <QDomDocument>
 #include <QTime>
 #include <QPair>
 #include <QList>
-
-
-#include <kdebug.h>
-#include <kglobal.h>
-#include <klocale.h>
-#include <kdatetime.h>
+#include <QDebug>
 #include <QXmlSimpleReader>
 
-static const QString noyes[]={"no","yes"};
-static const QString bintargettarget[]={"bin-target","target"};
-static const QString binsourcesource[]={"bin-source","source"};
+#if defined(Q_OS_WIN) && defined(QStringLiteral)
+#undef QStringLiteral
+#define QStringLiteral QLatin1String
+#endif
 
+static const QString noyes[]={QStringLiteral("no"),QStringLiteral("yes")};
+static const QString bintargettarget[]={QStringLiteral("bin-target"),QStringLiteral("target")};
+static const QString binsourcesource[]={QStringLiteral("bin-source"),QStringLiteral("source")};
+static const QString NOTE=QStringLiteral("note");
 XliffStorage::XliffStorage()
  : CatalogStorage()
 {
@@ -74,23 +75,23 @@ int XliffStorage::load(QIODevice* device)
     int errorLine;//+errorColumn;
     bool success=m_doc.setContent(&source, &reader, &errorMsg, &errorLine/*,errorColumn*/);
 
-    if (!success)
+    if (!success || m_doc.elementsByTagName(QStringLiteral("file")).isEmpty())
     {
-        kWarning()<<errorMsg;
+        qWarning()<<errorMsg;
         return errorLine+1;
     }
 
 
-    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    m_sourceLangCode=file.attribute("source-language");
-    m_targetLangCode=file.attribute("target-language");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    m_sourceLangCode=file.attribute(QStringLiteral("source-language")).replace('-', '_');
+    m_targetLangCode=file.attribute(QStringLiteral("target-language")).replace('-', '_');
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_targetLangCode);
 
     //Create entry mapping.
     //Along the way: for langs with more than 2 forms
     //we create any form-entries additionally needed
 
-    entries=m_doc.elementsByTagName("trans-unit");
+    entries=m_doc.elementsByTagName(QStringLiteral("trans-unit"));
     int size=entries.size();
     m_map.clear();
     m_map.reserve(size);
@@ -100,16 +101,16 @@ int XliffStorage::load(QIODevice* device)
         //if (KDE_ISUNLIKELY( e.isNull() ))//sanity
         //      continue;
         m_map<<i;
-        m_unitsById[entries.at(i).toElement().attribute("id")]=i;
+        m_unitsById[entries.at(i).toElement().attribute(QStringLiteral("id"))]=i;
 
-        if (parentElement.tagName()=="group" && parentElement.attribute("restype")=="x-gettext-plurals")
+        if (parentElement.tagName()=="group" && parentElement.attribute(QStringLiteral("restype"))=="x-gettext-plurals")
         {
             m_plurals.insert(i);
             int localPluralNum=m_numberOfPluralForms;
             while (--localPluralNum>0 && (++i)<size)
             {
                 QDomElement p=entries.at(i).parentNode().toElement();
-                if (p.tagName()=="group" && p.attribute("restype")=="x-gettext-plurals")
+                if (p.tagName()=="group" && p.attribute(QStringLiteral("restype"))=="x-gettext-plurals")
                     continue;
 
                 parentElement.appendChild(entries.at(m_map.last()).cloneNode());
@@ -117,11 +118,11 @@ int XliffStorage::load(QIODevice* device)
         }
     }
 
-    binEntries=m_doc.elementsByTagName("bin-unit");
+    binEntries=m_doc.elementsByTagName(QStringLiteral("bin-unit"));
     size=binEntries.size();
     int offset=m_map.size();
     for(int i=0;i<size;++i)
-        m_unitsById[binEntries.at(i).toElement().attribute("id")]=offset+i;
+        m_unitsById[binEntries.at(i).toElement().attribute(QStringLiteral("id"))]=offset+i;
 
 //    entries=m_doc.elementsByTagName("body");
 //     uint i=0;
@@ -144,27 +145,28 @@ int XliffStorage::load(QIODevice* device)
 //     }
 
 
-    QDomElement header=file.firstChildElement("header");
+    QDomElement header=file.firstChildElement(QStringLiteral("header"));
     if (header.isNull())
-        header=file.insertBefore(m_doc.createElement("header"), QDomElement()).toElement();
-    QDomElement toolElem=header.firstChildElement("tool");
-    while (!toolElem.isNull() && toolElem.attribute("tool-id")!="lokalize-" LOKALIZE_VERSION)
-        toolElem=toolElem.nextSiblingElement("tool");
+        header=file.insertBefore(m_doc.createElement(QStringLiteral("header")), QDomElement()).toElement();
+    QDomElement toolElem=header.firstChildElement(QStringLiteral("tool"));
+    while (!toolElem.isNull() && toolElem.attribute(QStringLiteral("tool-id"))!="lokalize-" LOKALIZE_VERSION)
+        toolElem=toolElem.nextSiblingElement(QStringLiteral("tool"));
 
     if (toolElem.isNull())
     {
-        toolElem=header.appendChild(m_doc.createElement("tool")).toElement();
-        toolElem.setAttribute("tool-id","lokalize-" LOKALIZE_VERSION);
-        toolElem.setAttribute("tool-name","Lokalize");
-        toolElem.setAttribute("tool-version",LOKALIZE_VERSION);
+        toolElem=header.appendChild(m_doc.createElement(QStringLiteral("tool"))).toElement();
+        toolElem.setAttribute(QStringLiteral("tool-id"),"lokalize-" LOKALIZE_VERSION);
+        toolElem.setAttribute(QStringLiteral("tool-name"),QStringLiteral("Lokalize"));
+        toolElem.setAttribute(QStringLiteral("tool-version"),LOKALIZE_VERSION);
     }
 
-    kWarning()<<chrono.elapsed();
+    qWarning()<<chrono.elapsed();
     return 0;
 }
 
 bool XliffStorage::save(QIODevice* device, bool belongsToProject)
 {
+    Q_UNUSED(belongsToProject)
     QTextStream stream(device);
     m_doc.save(stream,2);
     return true;
@@ -178,6 +180,17 @@ int XliffStorage::size() const
     return m_map.size();
 }
 
+void XliffStorage::setTargetLangCode(const QString& langCode)
+{
+    m_targetLangCode=langCode;
+
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    if (m_targetLangCode!=file.attribute(QStringLiteral("target-language")).replace('-', '_'))
+    {
+        QString l=langCode;
+        file.setAttribute(QStringLiteral("target-language"), l.replace('_', '-'));
+    }
+}
 
 
 
@@ -314,9 +327,9 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     if (mid.size())
                         c.deleteData(localStartPos,mid.size());
                     QDomElement newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n).toElement();
-                    newNode.setAttribute("id",tag.id);
+                    newNode.setAttribute(QStringLiteral("id"),tag.id);
                     if (!tag.xid.isEmpty())
-                        newNode.setAttribute("xid",tag.xid);
+                        newNode.setAttribute(QStringLiteral("xid"),tag.xid);
 
                     if (tag.isPaired()&&tag.end>(tag.start+1))
                     {
@@ -347,9 +360,9 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                                 {
                                     childrenCumulativeLen++;
                                     childrenCumulativeLen+=InlineTag::isPaired(InlineTag::getElementType(tmp.toElement().tagName().toUtf8()));
-                                    kWarning()<<"calling sub";
+                                    qWarning()<<"calling sub";
                                     QString subContent=doContent(tmp.toElement(),/*we don't care about position*/0,&subData);
-                                    kWarning()<<"called sub";
+                                    qWarning()<<"called sub";
                                     childrenCumulativeLen+=subContent.size();
                                 }
                                 else if (tmp.isCharacterData())
@@ -390,7 +403,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             }
             //else
             //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //        kWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //        qWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -459,12 +472,12 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
             if (data&&data->actionType==ContentEditingData::Get)
             {
-                QString id=el.attribute("id");
+                QString id=el.attribute(QStringLiteral("id"));
                 if (i==InlineTag::mrk)//TODO attr map
-                    id=el.attribute("mtype");
+                    id=el.attribute(QStringLiteral("mtype"));
 
-                //kWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
-                data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute("xid")));
+                //qWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
+                data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute(QStringLiteral("xid"))));
             }
         }
         n = n.nextSibling();
@@ -484,10 +497,12 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
 CatalogString XliffStorage::catalogString(QDomElement unit,  DocPosition::Part part) const
 {
-    static const QString names[]={"source","target"};
+    static const QString names[]={QStringLiteral("source"),QStringLiteral("target"), QStringLiteral("seg-source")};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
-    catalogString.string=content(unit.firstChildElement( names[part==DocPosition::Target]), &data );
+    int nameIndex=part==DocPosition::Target;
+    if (nameIndex==0 && !unit.firstChildElement(names[2]).isNull()) nameIndex=2;
+    catalogString.string=content(unit.firstChildElement( names[nameIndex]), &data );
     catalogString.tags=data.tags;
     return catalogString;
 }
@@ -508,7 +523,7 @@ CatalogString XliffStorage::sourceWithTags(DocPosition pos) const
 
 static QString genericContent(QDomElement elem, bool nonbin)
 {
-    return nonbin?content(elem):elem.firstChildElement("external-file").attribute("href");
+    return nonbin?content(elem):elem.firstChildElement(QStringLiteral("external-file")).attribute(QStringLiteral("href"));
 }
 QString XliffStorage::source(const DocPosition& pos) const
 {
@@ -530,22 +545,22 @@ void XliffStorage::targetDelete(const DocPosition& pos, int count)
     else
     {
         //only bulk delete requests are generated
-        targetForPos(pos.entry).firstChildElement("external-file").setAttribute("href",QString());
+        targetForPos(pos.entry).firstChildElement(QStringLiteral("external-file")).setAttribute(QStringLiteral("href"),QString());
     }
 }
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    kWarning()<<pos.entry<<arg;
+    qWarning()<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos.entry);
     //BEGIN add <*target>
     if (targetEl.isNull())
     {
         QDomNode unitEl=unitForPos(pos.entry);
-        QDomNode refNode=unitEl.firstChildElement("seg-source");//obey standard
+        QDomNode refNode=unitEl.firstChildElement(QStringLiteral("seg-source"));//obey standard
         if (refNode.isNull()) refNode=unitEl.firstChildElement(binsourcesource[pos.entry<size()]);
         targetEl = unitEl.insertAfter(m_doc.createElement(bintargettarget[pos.entry<size()]),refNode).toElement();
-        targetEl.setAttribute("state","new");
+        targetEl.setAttribute(QStringLiteral("state"),QStringLiteral("new"));
 
         if (pos.entry<size())
         {
@@ -558,9 +573,9 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 
     if (pos.entry>=size())
     {
-        QDomElement ef=targetEl.firstChildElement("external-file");
+        QDomElement ef=targetEl.firstChildElement(QStringLiteral("external-file"));
         if (ef.isNull())
-            ef=targetEl.appendChild(m_doc.createElement("external-file")).toElement();
+            ef=targetEl.appendChild(m_doc.createElement(QStringLiteral("external-file"))).toElement();
         ef.setAttribute("href",arg);
         return;
     }
@@ -596,16 +611,16 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
 {
     QVector<AltTrans> result;
 
-    QDomElement elem = unitForPos(pos.entry).firstChildElement("alt-trans");
+    QDomElement elem = unitForPos(pos.entry).firstChildElement(QStringLiteral("alt-trans"));
     while (!elem.isNull())
     {
         AltTrans aTrans;
         aTrans.source=catalogString(elem, DocPosition::Source);
         aTrans.target=catalogString(elem, DocPosition::Target);
-        aTrans.phase=elem.attribute("phase-name");
-        aTrans.origin=elem.attribute("origin");
-        aTrans.score=elem.attribute("match-quality").toInt();
-        aTrans.lang=elem.firstChildElement("target").attribute("xml:lang");
+        aTrans.phase=elem.attribute(QStringLiteral("phase-name"));
+        aTrans.origin=elem.attribute(QStringLiteral("origin"));
+        aTrans.score=elem.attribute(QStringLiteral("match-quality")).toInt();
+        aTrans.lang=elem.firstChildElement(QStringLiteral("target")).attribute(QStringLiteral("xml:lang"));
 
         const char* const types[]={
             "proposal",
@@ -614,7 +629,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
             "reference",
             "accepted"
         };
-        QString typeStr=elem.attribute("alttranstype");
+        QString typeStr=elem.attribute(("alttranstype"));
         int i=-1;
         while (++i<int(sizeof(types)/sizeof(char*)) && types[i]!=typeStr)
             ;
@@ -622,29 +637,29 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
 
         result<<aTrans;
 
-        elem=elem.nextSiblingElement("alt-trans");
+        elem=elem.nextSiblingElement(("alt-trans"));
     }
     return result;
 }
 
 static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomElement& phasegroup)
 {
-    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    QDomElement header=file.firstChildElement("header");
-    phasegroup=header.firstChildElement("phase-group");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    QDomElement header=file.firstChildElement(QStringLiteral("header"));
+    phasegroup=header.firstChildElement(QStringLiteral("phase-group"));
     if (phasegroup.isNull())
     {
-        phasegroup=m_doc.createElement("phase-group");
+        phasegroup=m_doc.createElement(QStringLiteral("phase-group"));
         //order following XLIFF spec
-        QDomElement skl=header.firstChildElement("skl");
+        QDomElement skl=header.firstChildElement(QStringLiteral("skl"));
         if (!skl.isNull())
             header.insertAfter(phasegroup, skl);
         else
             header.insertBefore(phasegroup, header.firstChildElement());
     }
-    QDomElement phaseElem=phasegroup.firstChildElement("phase");
-    while (!phaseElem.isNull() && phaseElem.attribute("phase-name")!=name)
-        phaseElem=phaseElem.nextSiblingElement("phase");
+    QDomElement phaseElem=phasegroup.firstChildElement(QStringLiteral("phase"));
+    while (!phaseElem.isNull() && phaseElem.attribute(QStringLiteral("phase-name"))!=name)
+        phaseElem=phaseElem.nextSiblingElement(QStringLiteral("phase"));
 
     return phaseElem;
 }
@@ -652,14 +667,14 @@ static QDomElement phaseElement(QDomDocument m_doc, const QString& name, QDomEle
 static Phase phaseFromElement(QDomElement phaseElem)
 {
     Phase phase;
-    phase.name      =phaseElem.attribute("phase-name");
-    phase.process   =phaseElem.attribute("process-name");
-    phase.company   =phaseElem.attribute("company-name");
-    phase.contact   =phaseElem.attribute("contact-name");
-    phase.email     =phaseElem.attribute("contact-email");
-    phase.phone     =phaseElem.attribute("contact-phone");
-    phase.tool      =phaseElem.attribute("tool-id");
-    phase.date=QDate::fromString(phaseElem.attribute("date"),Qt::ISODate);
+    phase.name      =phaseElem.attribute(QStringLiteral("phase-name"));
+    phase.process   =phaseElem.attribute(QStringLiteral("process-name"));
+    phase.company   =phaseElem.attribute(QStringLiteral("company-name"));
+    phase.contact   =phaseElem.attribute(QStringLiteral("contact-name"));
+    phase.email     =phaseElem.attribute(QStringLiteral("contact-email"));
+    phase.phone     =phaseElem.attribute(QStringLiteral("contact-phone"));
+    phase.tool      =phaseElem.attribute(QStringLiteral("tool-id"));
+    phase.date=QDate::fromString(phaseElem.attribute(QStringLiteral("date")),Qt::ISODate);
     return phase;
 }
 
@@ -671,31 +686,31 @@ Phase XliffStorage::updatePhase(const Phase& phase)
 
     if (phaseElem.isNull()&&!phase.name.isEmpty())
     {
-        phaseElem=phasegroup.appendChild(m_doc.createElement("phase")).toElement();
-        phaseElem.setAttribute("phase-name",phase.name);
+        phaseElem=phasegroup.appendChild(m_doc.createElement(QStringLiteral("phase"))).toElement();
+        phaseElem.setAttribute(QStringLiteral("phase-name"),phase.name);
     }
 
-    phaseElem.setAttribute("process-name", phase.process);
-    if (!phase.company.isEmpty()) phaseElem.setAttribute("company-name", phase.company);
-    phaseElem.setAttribute("contact-name", phase.contact);
-    phaseElem.setAttribute("contact-email",phase.email);
+    phaseElem.setAttribute(QStringLiteral("process-name"), phase.process);
+    if (!phase.company.isEmpty()) phaseElem.setAttribute(QStringLiteral("company-name"), phase.company);
+    phaseElem.setAttribute(QStringLiteral("contact-name"), phase.contact);
+    phaseElem.setAttribute(QStringLiteral("contact-email"),phase.email);
     if (!phase.phone.isEmpty()) phaseElem.setAttribute("contact-phone",phase.phone);
-    phaseElem.setAttribute("tool-id",      phase.tool);
-    if (phase.date.isValid()) phaseElem.setAttribute("date",phase.date.toString(Qt::ISODate));
+    phaseElem.setAttribute(QStringLiteral("tool-id"),      phase.tool);
+    if (phase.date.isValid()) phaseElem.setAttribute(QStringLiteral("date"),phase.date.toString(Qt::ISODate));
     return prev;
 }
 
 QList<Phase> XliffStorage::allPhases() const
 {
     QList<Phase> result;
-    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    QDomElement header=file.firstChildElement("header");
-    QDomElement phasegroup=header.firstChildElement("phase-group");
-    QDomElement phaseElem=phasegroup.firstChildElement("phase");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    QDomElement header=file.firstChildElement(QStringLiteral("header"));
+    QDomElement phasegroup=header.firstChildElement(QStringLiteral("phase-group"));
+    QDomElement phaseElem=phasegroup.firstChildElement(QStringLiteral("phase"));
     while (!phaseElem.isNull())
     {
         result.append(phaseFromElement(phaseElem));
-        phaseElem=phaseElem.nextSiblingElement("phase");
+        phaseElem=phaseElem.nextSiblingElement(QStringLiteral("phase"));
     }
     return result;
 }
@@ -732,28 +747,28 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
 {
     QStringList result;
 
-    QDomElement elem = unitForPos(pos.entry).firstChildElement("context-group");
+    QDomElement elem = unitForPos(pos.entry).firstChildElement(QStringLiteral("context-group"));
     while (!elem.isNull())
     {
-        if (elem.attribute("purpose").contains("location"))
+        if (elem.attribute(QStringLiteral("purpose")).contains("location"))
         {
-            QDomElement context = elem.firstChildElement("context");
+            QDomElement context = elem.firstChildElement(QStringLiteral("context"));
             while (!context.isNull())
             {
                 QString sourcefile;
                 QString linenumber;
-                if (context.attribute("context-type")=="sourcefile")
+                if (context.attribute(QStringLiteral("context-type"))=="sourcefile")
                     sourcefile=context.text();
-                else if (context.attribute("context-type")=="linenumber")
+                else if (context.attribute(QStringLiteral("context-type"))=="linenumber")
                     linenumber=context.text();
                 if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
-                    result.append(sourcefile+':'+linenumber);
+                    result.append(sourcefile%':'%linenumber);
 
-                context=context.nextSiblingElement("context");
+                context=context.nextSiblingElement(QStringLiteral("context"));
             }
         }
 
-        elem=elem.nextSiblingElement("context-group");
+        elem=elem.nextSiblingElement(QStringLiteral("context-group"));
     }
     //qSort(result);
 
@@ -763,14 +778,14 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
 static void initNoteFromElement(Note& note, QDomElement elem)
 {
     note.content=elem.text();
-    note.from=elem.attribute("from");
-    note.lang=elem.attribute("xml:lang");
-    if (elem.attribute("annotates")=="source")
+    note.from=elem.attribute(QStringLiteral("from"));
+    note.lang=elem.attribute(QStringLiteral("xml:lang"));
+    if (elem.attribute(QStringLiteral("annotates"))=="source")
         note.annotates=Note::Source;
-    else if (elem.attribute("annotates")=="target")
+    else if (elem.attribute(QStringLiteral("annotates"))=="target")
         note.annotates=Note::Target;
     bool ok;
-    note.priority=elem.attribute("priority").toInt(&ok);
+    note.priority=elem.attribute(QStringLiteral("priority")).toInt(&ok);
     if (!ok) note.priority=0;
 }
 
@@ -778,13 +793,13 @@ QVector<Note> XliffStorage::notes(const DocPosition& pos) const
 {
     QList<Note> result;
 
-    QDomElement elem = entries.at(m_map.at(pos.entry)).firstChildElement("note");
+    QDomElement elem = entries.at(m_map.at(pos.entry)).firstChildElement(NOTE);
     while (!elem.isNull())
     {
         Note note;
         initNoteFromElement(note,elem);
         result.append(note);
-        elem=elem.nextSiblingElement("note");
+        elem=elem.nextSiblingElement(NOTE);
     }
     qSort(result);
     return result.toVector();
@@ -799,23 +814,23 @@ QVector<Note> XliffStorage::developerNotes(const DocPosition& pos) const
 
 Note XliffStorage::setNote(DocPosition pos, const Note& note)
 {
-    //kWarning()<<int(pos.form)<<note.content;
+    //qWarning()<<int(pos.form)<<note.content;
     QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;
     if (pos.form==-1 && !note.content.isEmpty())
     {
-        QDomElement ref=unit.lastChildElement("note");
-        elem=unit.insertAfter( m_doc.createElement("note"),ref).toElement();
+        QDomElement ref=unit.lastChildElement(NOTE);
+        elem=unit.insertAfter( m_doc.createElement(NOTE),ref).toElement();
         elem.appendChild(m_doc.createTextNode(QString()));
     }
     else
     {
-        QDomNodeList list=unit.elementsByTagName("note");
+        QDomNodeList list=unit.elementsByTagName(NOTE);
         if (pos.form==-1) pos.form=list.size()-1;
         if (pos.form<list.size())
         {
-            elem = unit.elementsByTagName("note").at(pos.form).toElement();
+            elem = unit.elementsByTagName(NOTE).at(pos.form).toElement();
             initNoteFromElement(oldNote,elem);
         }
     }
@@ -843,7 +858,7 @@ Note XliffStorage::setNote(DocPosition pos, const Note& note)
 QStringList XliffStorage::noteAuthors() const
 {
     QSet<QString> result;
-    QDomNodeList notes=m_doc.elementsByTagName("note");
+    QDomNodeList notes=m_doc.elementsByTagName(NOTE);
     int i=notes.size();
     while (--i>=0)
     {
@@ -861,14 +876,14 @@ QVector<Note> phaseNotes(QDomDocument m_doc, const QString& phasename, bool remo
     QDomElement phasegroup;
     QDomElement phaseElem=phaseElement(m_doc,phasename,phasegroup);
 
-    QDomElement noteElem=phaseElem.firstChildElement("note");
+    QDomElement noteElem=phaseElem.firstChildElement(NOTE);
     while (!noteElem.isNull())
     {
         Note note;
         initNoteFromElement(note,noteElem);
         result.append(note);
         QDomElement old=noteElem;
-        noteElem=noteElem.nextSiblingElement("note");
+        noteElem=noteElem.nextSiblingElement(NOTE);
         if (remove) phaseElem.removeChild(old);
     }
     return result;
@@ -888,10 +903,10 @@ QVector<Note> XliffStorage::setPhaseNotes(const QString& phasename, QVector<Note
 
     foreach(const Note& note, notes)
     {
-        QDomElement elem=phaseElem.appendChild(m_doc.createElement("note")).toElement();
+        QDomElement elem=phaseElem.appendChild(m_doc.createElement(NOTE)).toElement();
         elem.appendChild(m_doc.createTextNode(note.content));
-        if (!note.from.isEmpty()) elem.setAttribute("from",note.from);
-        if (note.priority) elem.setAttribute("priority",note.priority);
+        if (!note.from.isEmpty()) elem.setAttribute(QStringLiteral("from"),note.from);
+        if (note.priority) elem.setAttribute(QStringLiteral("priority"),note.priority);
     }
 
     return result;
@@ -900,14 +915,15 @@ QVector<Note> XliffStorage::setPhaseNotes(const QString& phasename, QVector<Note
 
 QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
 {
+    QString PHASENAME=QStringLiteral("phase-name");
     targetInsert(pos,QString()); //adds <taget> if needed
 
     QDomElement target=targetForPos(pos.entry);
-    QString result=target.attribute("phase-name");
+    QString result=target.attribute(PHASENAME);
     if (phase.isEmpty())
-        target.removeAttribute("phase-name");
-    else
-        target.setAttribute("phase-name",phase);
+        target.removeAttribute(PHASENAME);
+    else if (phase!=result)
+        target.setAttribute(PHASENAME,phase);
 
     return result;
 }
@@ -915,7 +931,7 @@ QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
 QString XliffStorage::phase(const DocPosition& pos) const
 {
     QDomElement target=targetForPos(pos.entry);
-    return target.attribute("phase-name");
+    return target.attribute(QStringLiteral("phase-name"));
 }
 
 QStringList XliffStorage::context(const DocPosition& pos) const
@@ -933,7 +949,7 @@ QStringList XliffStorage::matchData(const DocPosition& pos) const
 
 QString XliffStorage::id(const DocPosition& pos) const
 {
-    return unitForPos(pos.entry).attribute("id");
+    return unitForPos(pos.entry).attribute(QStringLiteral("id"));
 }
 
 bool XliffStorage::isPlural(const DocPosition& pos) const
@@ -971,16 +987,18 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
     targetInsert(pos,QString()); //adds <taget> if needed
     QDomElement target=targetForPos(pos.entry);
     TargetState prev=stringToState(target.attribute("state"));
-    target.setAttribute("state",states[state]);
+    target.setAttribute(QStringLiteral("state"),states[state]);
+
+    unitForPos(pos.entry).setAttribute(QStringLiteral("approved"), noyes[state==SignedOff]);
     return prev;
 }
 
 TargetState XliffStorage::state(const DocPosition& pos) const
 {
     QDomElement target=targetForPos(pos.entry);
-    if (!target.hasAttribute("state") && unitForPos(pos.entry).attribute("approved")=="yes")
+    if (!target.hasAttribute(QStringLiteral("state")) && unitForPos(pos.entry).attribute(QStringLiteral("approved"))=="yes")
         return SignedOff;
-    return stringToState(target.attribute("state"));
+    return stringToState(target.attribute(QStringLiteral("state")));
 }
 
 bool XliffStorage::isEmpty(const DocPosition& pos) const
@@ -991,12 +1009,12 @@ bool XliffStorage::isEmpty(const DocPosition& pos) const
 
 bool XliffStorage::isEquivTrans(const DocPosition& pos) const
 {
-    return targetForPos(pos.entry).attribute("equiv-trans")!="no";
+    return targetForPos(pos.entry).attribute(QStringLiteral("equiv-trans"))!="no";
 }
 
 void XliffStorage::setEquivTrans(const DocPosition& pos, bool equivTrans)
 {
-    targetForPos(pos.entry).setAttribute("equiv-trans",noyes[equivTrans]);
+    targetForPos(pos.entry).setAttribute(QStringLiteral("equiv-trans"),noyes[equivTrans]);
 }
 
 QDomElement XliffStorage::unitForPos(int pos) const

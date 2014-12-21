@@ -4,8 +4,8 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="lokalizerc"/>
-  <include>kglobalsettings.h</include>
-  <include>klocale.h</include>
+  <include>QLocale</include>
+  <include>QFontDatabase</include>
   <include>kemailsettings.h</include>
   <include>kde-i18n-lists.h</include>
   <group name="Identity">
@@ -34,7 +34,7 @@
 	    <label>Default language code for new projects</label>
             <whatsthis>Default language code for new projects</whatsthis>
 -->
-        <default code="true">KGlobal::locale()->language()</default>
+        <default code="true">QLocale::system().name()</default>
     </entry>
     <entry key="DefaultMailingList" type="String">
 <!--
@@ -66,7 +66,7 @@
 <!--
         <label>Font for Messages</label>
 -->
-	<default code="true">KGlobalSettings::generalFont()</default>
+	<default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry name="Leds"  type="Bool">
 	<default>false</default>

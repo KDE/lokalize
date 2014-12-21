@@ -5,7 +5,7 @@
   Copyright (C) 1999-2000   by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2005   by Stanislav Visnovsky <visnovsky@kde.org>
                 2006        by Nicolas Goutte <goutte@kde.org>
-                2007-2012   by Nick Shaforostoff <shafff@ukr.net>
+                2007-2014   by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -38,7 +38,9 @@
 #include "catalog.h"
 #include "catalog_private.h"
 #include "project.h"
+#ifndef NOKDE
 #include "projectmodel.h" //to notify about modification 
+#endif
 
 #include "catalogstorage.h"
 #include "gettextstorage.h"
@@ -52,24 +54,28 @@
 #include "version.h"
 #include "prefs_lokalize.h"
 #include "jobs.h"
-
-#include <threadweaver/ThreadWeaver.h>
+#include "dbfilesmodel.h"
 
 #include <QProcess>
 #include <QString>
+#include <QStringBuilder>
 #include <QMap>
+#include <QBuffer>
+#include <QFileInfo>
+#include <QDir>
 
-#include <kdebug.h>
-#include <kglobal.h>
-#include <klocale.h>
-#include <kdatetime.h>
+#include <klocalizedstring.h>
 
-#include <kio/netaccess.h>
-#include <ktemporaryfile.h>
+QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
+QString Catalog::supportedFileTypes(bool includeTemplates)
+{
+    QString all=i18n("All supported files")+QStringLiteral(" (*.po *.pot *.xlf *.xliff *.ts);;");
+    if (includeTemplates)
+        return all+QStringLiteral("Gettext (*.po *.pot);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
+    return all+QStringLiteral("Gettext (*.po);;XLIFF (*.xlf *.xliff);;Linguist (*.ts)");
+}
 
-QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist");
-
-static const char* const extensions[]={".po",".pot",".xlf", ".ts"};
+static const char* const extensions[]={".po",".pot",".xlf",".xliff", ".ts"};
 
 static const char* const xliff_states[]={
         I18N_NOOP("New"),I18N_NOOP("Needs translation"),I18N_NOOP("Needs full localization"),I18N_NOOP("Needs adaptation"),I18N_NOOP("Translated"),
@@ -101,28 +107,28 @@ bool Catalog::extIsSupported(const QString& path)
 
 Catalog::Catalog(QObject *parent)
     : QUndoStack(parent)
-    , d(new CatalogPrivate(this))
+    , d(this)
     , m_storage(0)
 {
+#ifndef NOKDE
     //cause refresh events for files modified from lokalize itself aint delivered automatically
-    connect(this,SIGNAL(signalFileSaved(KUrl)),
-            Project::instance()->model(),SLOT(slotFileSaved(KUrl)),Qt::QueuedConnection);
+    connect(this,SIGNAL(signalFileSaved(QString)),
+            Project::instance()->model(),SLOT(slotFileSaved(QString)),Qt::QueuedConnection);
 
-
-    QTimer* t=&(d->_autoSaveTimer);
+    QTimer* t=&(d._autoSaveTimer);
     t->setInterval(5*60*1000);
     t->setSingleShot(false);
     connect(t,   SIGNAL(timeout()),        this,SLOT(doAutoSave()));
     connect(this,SIGNAL(signalFileSaved()),   t,SLOT(start()));
     connect(this,SIGNAL(signalFileLoaded()),  t,SLOT(start()));
     connect(this,SIGNAL(indexChanged(int)),this,SLOT(setAutoSaveDirty()));
+#endif
     connect(Project::local(),SIGNAL(configChanged()),this,SLOT(projectConfigChanged()));
 }
 
 Catalog::~Catalog()
 {
     clear();
-    delete d;
     //delete m_storage; //deleted in clear();
 }
 
@@ -131,22 +137,22 @@ void Catalog::clear()
 {
     setIndex(cleanIndex());//to keep TM in sync
     QUndoStack::clear();
-    d->_errorIndex.clear();
-    d->_nonApprovedIndex.clear();
-    d->_emptyIndex.clear();
+    d._errorIndex.clear();
+    d._nonApprovedIndex.clear();
+    d._emptyIndex.clear();
     delete m_storage;m_storage=0;
-    d->_url.clear();
-    d->_lastModifiedPos=DocPosition();
-    d->_modifiedEntries.clear();
+    d._url.clear();
+    d._lastModifiedPos=DocPosition();
+    d._modifiedEntries.clear();
 
-    while (!d->_altTransCatalogs.isEmpty())
-        d->_altTransCatalogs.takeFirst()->deleteLater();
+    while (!d._altTransCatalogs.isEmpty())
+        d._altTransCatalogs.takeFirst()->deleteLater();
     
-    d->_altTranslations.clear();
+    d._altTranslations.clear();
 /*
-    d->msgidDiffList.clear();
-    d->msgstr2MsgidDiffList.clear();
-    d->diffCache.clear();
+    d.msgidDiffList.clear();
+    d.msgstr2MsgidDiffList.clear();
+    d.diffCache.clear();
     */
 }
 
@@ -187,7 +193,7 @@ static DocPosition alterForSinglePlural(const Catalog* th, DocPosition pos)
 QString Catalog::msgid(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return d->CatalogPrivate::_emptyStr;
+        return QString();
 
     return m_storage->source(alterForSinglePlural(this, pos));
 }
@@ -195,7 +201,7 @@ QString Catalog::msgid(const DocPosition& pos) const
 QString Catalog::msgstr(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return d->CatalogPrivate::_emptyStr;
+        return QString();
 
    return m_storage->target(pos);
 }
@@ -259,14 +265,14 @@ QStringList Catalog::noteAuthors() const
 
 void Catalog::attachAltTransCatalog(Catalog* altCat)
 {
-    d->_altTransCatalogs.append(altCat);
+    d._altTransCatalogs.append(altCat);
     if (numberOfEntries()!=altCat->numberOfEntries())
-        kWarning()<<altCat->url().prettyUrl()<<"has different number of entries";
+        qWarning()<<altCat->url()<<"has different number of entries";
 }
 
 void Catalog::attachAltTrans(int entry, const AltTrans& trans)
 {
-    d->_altTranslations.insert(entry, trans);
+    d._altTranslations.insert(entry, trans);
 }
 
 QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
@@ -275,17 +281,17 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
     if (m_storage)
         result=m_storage->altTrans(pos);
 
-    foreach(Catalog* altCat, d->_altTransCatalogs)
+    foreach(Catalog* altCat, d._altTransCatalogs)
     {
         if (pos.entry>=altCat->numberOfEntries())
         {
-            kDebug()<<"ignoring"<<altCat->url().prettyUrl()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
+            qDebug()<<"ignoring"<<altCat->url()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
             continue;
         }
 
         if (altCat->source(pos)!=source(pos))
         {
-            kDebug()<<"ignoring"<<altCat->url().prettyUrl()<<"this time because <source>s don't match";
+            qDebug()<<"ignoring"<<altCat->url()<<"this time because <source>s don't match";
             continue;
         }
 
@@ -295,11 +301,11 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
             result<<AltTrans();
             result.last().target=target;
             result.last().type=AltTrans::Reference;
-            result.last().origin=altCat->url().prettyUrl();
+            result.last().origin=altCat->url();
         }
     }
-    if (d->_altTranslations.contains(pos.entry))
-        result<<d->_altTranslations.value(pos.entry);
+    if (d._altTranslations.contains(pos.entry))
+        result<<d._altTranslations.value(pos.entry);
     return result;
 }
 
@@ -314,7 +320,7 @@ QStringList Catalog::sourceFiles(const DocPosition& pos) const
 QString Catalog::id(const DocPosition& pos) const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
-        return d->CatalogPrivate::_emptyStr;
+        return QString();
 
     return m_storage->id(pos);
 }
@@ -338,8 +344,9 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
 {
-    d->_phase=phase;
-    d->_phaseRole=role;
+    qDebug()<<"setting active phase"<<phase<<role;
+    d._phase=phase;
+    d._phaseRole=role;
     updateApprovedEmptyIndexCache();
     emit activePhaseChanged();
 }
@@ -350,17 +357,17 @@ void Catalog::updateApprovedEmptyIndexCache()
         return;
     
     //index cache TODO profile?
-    d->_nonApprovedIndex.clear();
-    d->_emptyIndex.clear();
+    d._nonApprovedIndex.clear();
+    d._emptyIndex.clear();
 
     DocPosition pos(0);
     const int limit=m_storage->size();
     while (pos.entry<limit)
     {
         if (!isApproved(pos))
-            d->_nonApprovedIndex << pos.entry;
+            d._nonApprovedIndex << pos.entry;
         if (m_storage->isEmpty(pos))
-            d->_emptyIndex << pos.entry;
+            d._emptyIndex << pos.entry;
 
         ++(pos.entry);
     }
@@ -463,6 +470,14 @@ QString Catalog::mimetype()
     return m_storage->mimetype();
 }
 
+QString Catalog::fileType()
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return QString();
+
+    return m_storage->fileType();
+}
+
 QString Catalog::sourceLangCode() const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
@@ -479,6 +494,14 @@ QString Catalog::targetLangCode() const
     return m_storage->targetLangCode();
 }
 
+void Catalog::setTargetLangCode(const QString& targetLangCode)
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return;
+
+    return m_storage->setTargetLangCode(targetLangCode);
+}
+
 //END STORAGE TRANSLATION
 
 //BEGIN OPEN/SAVE
@@ -486,10 +509,11 @@ QString Catalog::targetLangCode() const
 #define ISNTREADABLE -2
 #define UNKNOWNFORMAT -3
 
-KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
+KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
 {
+#ifndef NOKDE
     KAutoSaveFile* autoSave=0;
-    QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(url);
+    QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
     foreach (KAutoSaveFile *stale, staleFiles)
     {
         if (stale->open(QIODevice::ReadOnly) && !autoSave)
@@ -501,44 +525,36 @@ KAutoSaveFile* Catalog::checkAutoSave(const KUrl& url)
             stale->deleteLater();
     }
     if (autoSave)
-        kWarning()<<"autoSave"<<autoSave->fileName();
+        qWarning()<<"autoSave"<<autoSave->fileName();
     return autoSave;
+#else
+    return 0;
+#endif
 }
 
-int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize, bool fast)
+int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSize, bool fast)
 {
-    bool readOnly=false;
-    if (url.isLocalFile())
-    {
-        QFileInfo info(url.toLocalFile());
-        if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
-            return DOESNTEXIST;
-        if(KDE_ISUNLIKELY( !info.isReadable() ))
-            return ISNTREADABLE;
-        readOnly=!info.isWritable();
-    }
-    else
-      return DOESNTEXIST;
+    QFileInfo info(url);
+    if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
+        return DOESNTEXIST;
+    if(KDE_ISUNLIKELY( !info.isReadable() ))
+        return ISNTREADABLE;
+    bool readOnly=!info.isWritable();
 
 
     QTime a;a.start();
 
-    QString target;
-    //if(KDE_ISUNLIKELY( !KIO::NetAccess::download(url,target,NULL) ))
-    //    return ISNTREADABLE;
-    //QFile* file=new QFile(target);
-    QFile* file=new QFile(url.toLocalFile());
+    QFile* file=new QFile(url);
     file->deleteLater();//kung-fu
     if (!file->open(QIODevice::ReadOnly))
         return ISNTREADABLE;//TODO
 
     CatalogStorage* storage=0;
-    const QString& fileName=url.fileName();
-    if (fileName.endsWith(".po")||fileName.endsWith(".pot"))
+    if (url.endsWith(QLatin1String(".po"))||url.endsWith(QLatin1String(".pot")))
         storage=new GettextCatalog::GettextStorage;
-    else if (fileName.endsWith(".xlf")||fileName.endsWith(".xliff"))
+    else if (url.endsWith(QLatin1String(".xlf"))||url.endsWith(QLatin1String(".xliff")))
         storage=new XliffStorage;
-    else if (fileName.endsWith(".ts"))
+    else if (url.endsWith(QLatin1String(".ts")))
         storage=new TsStorage;
     else
     {
@@ -547,7 +563,7 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize, bo
         int i=0;
         bool gettext=false;
         while (!in.atEnd()&& i<64 && !gettext)
-            gettext=in.readLine().contains("msgid");
+            gettext=in.readLine().contains(QLatin1String("msgid"));
         if (gettext) storage=new GettextCatalog::GettextStorage;
         else return UNKNOWNFORMAT;
     }
@@ -555,7 +571,6 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize, bo
     int line=storage->load(file);
 
     file->close();
-    KIO::NetAccess::removeTempFile(target);
 
     if (KDE_ISUNLIKELY(line!=0 || (!storage->size() && (line=-1) ) ))
     {
@@ -563,7 +578,7 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize, bo
         return line;
     }
 
-    kWarning() <<"file opened in"<<a.elapsed();
+    qWarning() <<"file opened in"<<a.elapsed();
 
     //ok...
     clear();
@@ -573,97 +588,94 @@ int Catalog::loadFromUrl(const KUrl& url, const KUrl& saidUrl, int* fileSize, bo
 
     updateApprovedEmptyIndexCache();
     
-    d->_numberOfPluralForms = storage->numberOfPluralForms();
-    d->_autoSaveDirty=true;
-    d->_readOnly=readOnly;
-    d->_url=saidUrl.isEmpty()?url:saidUrl;
+    d._numberOfPluralForms = storage->numberOfPluralForms();
+    d._autoSaveDirty=true;
+    d._readOnly=readOnly;
+    d._url=saidUrl.isEmpty()?url:saidUrl;
 
+    //set some sane role, a real phase with a nmae will be created later with the first edit command
+    setActivePhase(QString(),Project::local()->role());
+
+#ifndef NOKDE
     if (!fast)
     {
-        KAutoSaveFile* autoSave=checkAutoSave(d->_url);
-        d->_autoSaveRecovered=autoSave;
+        KAutoSaveFile* autoSave=checkAutoSave(d._url);
+        d._autoSaveRecovered=autoSave;
         if (autoSave)
         {
-            d->_autoSave->deleteLater();
-            d->_autoSave=autoSave;
+            d._autoSave->deleteLater();
+            d._autoSave=autoSave;
 
             //restore 'modified' status for entries
             MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
-            int errorLine=mergeCatalog->loadFromUrl(KUrl::fromPath(autoSave->fileName()));
+            int errorLine=mergeCatalog->loadFromUrl(autoSave->fileName());
             if (KDE_ISLIKELY(errorLine==0))
                 mergeCatalog->copyToBaseCatalog();
             mergeCatalog->deleteLater();
         }
         else
-            d->_autoSave->setManagedFile(d->_url);
+            d._autoSave->setManagedFile(d._url);
     }
+#endif
 
     if (fileSize)
         *fileSize=file->size();
 
     emit signalFileLoaded();
-    emit signalFileLoaded(d->_url);
+    emit signalFileLoaded(d._url);
     return 0;
 }
 
 bool Catalog::save()
 {
-    return saveToUrl(d->_url);
+    return saveToUrl(d._url);
 }
 
 //this function is not called if QUndoStack::isClean() !
-bool Catalog::saveToUrl(KUrl url)
+bool Catalog::saveToUrl(QString localFilePath)
 {
     if (KDE_ISUNLIKELY( !m_storage ))
         return true;
 
-    bool nameChanged=false;
-    if (KDE_ISLIKELY( url.isEmpty() ))
-        url = d->_url;
-    else
-        nameChanged=true;
+    bool nameChanged=localFilePath.length();
+    if (KDE_ISLIKELY( !nameChanged ))
+        localFilePath = d._url;
 
 
-    bool remote=!url.isLocalFile();
-    QFile* file;
-    if (KDE_ISUNLIKELY( remote ))
-        file=new KTemporaryFile();
-    else
-    {
-        QString localFilePath=url.toLocalFile();
-        QString localPath=QFileInfo(localFilePath).absolutePath();
-        if (!QFileInfo(localPath).exists())
-            if (!QDir::root().mkpath(localPath))
-                return false;
-        file=new QFile(localFilePath);
-    }
+    QString localPath=QFileInfo(localFilePath).absolutePath();
+    if (!QFileInfo(localPath).exists())
+        if (!QDir::root().mkpath(localPath))
+            return false;
+    QFile* file=new QFile(localFilePath);
     file->deleteLater(); //kung-fu ;)
     if (KDE_ISUNLIKELY( !file->open(QIODevice::WriteOnly) )) //i18n("Wasn't able to open file %1",filename.ascii());
         return false;
 
-    bool belongsToProject=url.path().contains(Project::instance()->poDir());
+    bool belongsToProject=localFilePath.contains(Project::instance()->poDir());
     if (KDE_ISUNLIKELY( !m_storage->save(file, belongsToProject) ))
         return false;
 
     QString localFile=file->fileName();
     file->close();
-    if (KDE_ISUNLIKELY(remote && !KIO::NetAccess::upload(localFile, url, NULL) ))
-        return false;
 
-    d->_autoSave->remove();
+#ifndef NOKDE
+    d._autoSave->remove();
+    d._autoSaveRecovered=false;
+#endif
     setClean(); //undo/redo
     if (nameChanged)
     {
-        d->_url=url;
-        d->_autoSave->setManagedFile(url);
+        d._url=localFilePath;
+#ifndef NOKDE
+        d._autoSave->setManagedFile(localFilePath);
+#endif
     }
-    d->_autoSaveRecovered=false;
 
     //Settings::self()->setCurrentGroup("Bookmarks");
-    //Settings::self()->addItemIntList(d->_url.url(),d->_bookmarkIndex);
+    //Settings::self()->addItemIntList(d._url.url(),d._bookmarkIndex);
 
     emit signalFileSaved();
-    emit signalFileSaved(url);
+    emit signalFileSaved(localFilePath);
     return true;
 /*
     else if (status==NO_PERMISSIONS)
@@ -680,19 +692,21 @@ bool Catalog::saveToUrl(KUrl url)
 
 void Catalog::doAutoSave()
 {
-    if (isClean()||!(d->_autoSaveDirty))
+#ifndef NOKDE
+    if (isClean()||!(d._autoSaveDirty))
         return;
     if (KDE_ISUNLIKELY( !m_storage ))
         return;
-    if (!d->_autoSave->open(QIODevice::WriteOnly))
+    if (!d._autoSave->open(QIODevice::WriteOnly))
     {
-        emit signalFileAutoSaveFailed(d->_autoSave->fileName());
+        emit signalFileAutoSaveFailed(d._autoSave->fileName());
         return;
     }
-    qWarning()<<"doAutoSave"<<d->_autoSave->fileName();
-    m_storage->save(d->_autoSave);
-    d->_autoSave->close();
-    d->_autoSaveDirty=false;
+    qWarning()<<"doAutoSave"<<d._autoSave->fileName();
+    m_storage->save(d._autoSave);
+    d._autoSave->close();
+    d._autoSaveDirty=false;
+#endif
 }
 
 void Catalog::projectConfigChanged()
@@ -725,14 +739,14 @@ static void updateDB(
               const CatalogString& english,
               const CatalogString& newTarget,
               int form,
-              bool approved
+              bool approved,
+              const QString& dbName
               //const DocPosition&,//for back tracking
              )
 {
     TM::UpdateJob* j=new TM::UpdateJob(filePath,ctxt,english,newTarget,form,approved,
-                               Project::instance()->projectID());
-    j->connect(j,SIGNAL(done(ThreadWeaver::Job*)),j,SLOT(deleteLater()));
-    ThreadWeaver::Weaver::instance()->enqueue(j);
+                               dbName);
+    TM::threadPool()->start(j);
 }
 
 
@@ -740,13 +754,13 @@ static void updateDB(
 const DocPosition& Catalog::undo()
 {
     QUndoStack::undo();
-    return d->_lastModifiedPos;
+    return d._lastModifiedPos;
 }
 
 const DocPosition& Catalog::redo()
 {
     QUndoStack::redo();
-    return d->_lastModifiedPos;
+    return d._lastModifiedPos;
 }
 
 void Catalog::flushUpdateDBBuffer()
@@ -754,30 +768,48 @@ void Catalog::flushUpdateDBBuffer()
     if (!Settings::autoaddTM())
         return;
 
-    DocPosition pos=d->_lastModifiedPos;
+    DocPosition pos=d._lastModifiedPos;
     if (pos.entry==-1 || pos.entry>=numberOfEntries())
     {
         //nothing to flush
-        //kWarning()<<"nothing to flush or new file opened";
+        //qWarning()<<"nothing to flush or new file opened";
         return;
     }
-    if (Project::instance()->targetLangCode()!=targetLangCode())
+    QString dbName;
+    if (Project::instance()->targetLangCode()==targetLangCode())
     {
-        kWarning()<<"not updating because target languages don't match";
-        return;
+        dbName=Project::instance()->projectID();
     }
-    kWarning()<<"updating!!";
+    else
+    {
+        dbName=sourceLangCode()%'-'%targetLangCode();
+        qWarning()<<"updating"<<dbName<<"because target language of project db does not match"<<Project::instance()->targetLangCode()<<targetLangCode();
+        if(!TM::DBFilesModel::instance()->m_configurations.contains(dbName))
+        {
+            TM::OpenDBJob* openDBJob=new TM::OpenDBJob(dbName, TM::Local, true);
+            connect(openDBJob,SIGNAL(done(OpenDBJob*)),TM::DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+
+            openDBJob->m_setParams=true;
+            openDBJob->m_tmConfig.markup=Project::instance()->markup();
+            openDBJob->m_tmConfig.accel=Project::instance()->accel();
+            openDBJob->m_tmConfig.sourceLangCode=sourceLangCode();
+            openDBJob->m_tmConfig.targetLangCode=targetLangCode();
+
+            TM::DBFilesModel::instance()->openDB(openDBJob);
+        }
+    }
     int form=-1;
     if (isPlural(pos.entry))
         form=pos.form;
-    updateDB(url().pathOrUrl(),
+    updateDB(url(),
              context(pos.entry).first(),
              sourceWithTags(pos),
              targetWithTags(pos),
              form,
-             isApproved(pos.entry));
+             isApproved(pos.entry),
+             dbName);
 
-    d->_lastModifiedPos=DocPosition();
+    d._lastModifiedPos=DocPosition();
 }
 
 void Catalog::setLastModifiedPos(const DocPosition& pos)
@@ -785,11 +817,11 @@ void Catalog::setLastModifiedPos(const DocPosition& pos)
     if (pos.entry>=numberOfEntries()) //bin-units
         return;
 
-    bool entryChanged=DocPos(d->_lastModifiedPos)!=DocPos(pos);
+    bool entryChanged=DocPos(d._lastModifiedPos)!=DocPos(pos);
     if (entryChanged)
         flushUpdateDBBuffer();
 
-    d->_lastModifiedPos=pos;
+    d._lastModifiedPos=pos;
 }
 
 bool CatalogPrivate::addToEmptyIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos, bool alreadyEmpty)
@@ -810,7 +842,7 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
     bool alreadyEmpty = m_storage->isEmpty(pos);
     m_storage->targetDelete(pos,count);
 
-    if (d->addToEmptyIndexIfAppropriate(m_storage,pos,alreadyEmpty))
+    if (d.addToEmptyIndexIfAppropriate(m_storage,pos,alreadyEmpty))
         emit signalNumberOfEmptyChanged();
     emit signalEntryModified(pos);
 }
@@ -830,7 +862,7 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
     if (KDE_ISUNLIKELY( !m_storage ))
         return;
 
-    if (d->removeFromUntransIndexIfAppropriate(m_storage,pos))
+    if (d.removeFromUntransIndexIfAppropriate(m_storage,pos))
         emit signalNumberOfEmptyChanged();
 
     m_storage->targetInsert(pos,arg);
@@ -842,7 +874,7 @@ void Catalog::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
     if (KDE_ISUNLIKELY( !m_storage ))
         return;
 
-    if (d->removeFromUntransIndexIfAppropriate(m_storage,pos))
+    if (d.removeFromUntransIndexIfAppropriate(m_storage,pos))
         emit signalNumberOfEmptyChanged();
 
     m_storage->targetInsertTag(pos,tag);
@@ -857,7 +889,7 @@ InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
     bool alreadyEmpty = m_storage->isEmpty(pos);
     InlineTag tag=m_storage->targetDeleteTag(pos);
 
-    if (d->addToEmptyIndexIfAppropriate(m_storage,pos,alreadyEmpty))
+    if (d.addToEmptyIndexIfAppropriate(m_storage,pos,alreadyEmpty))
         emit signalNumberOfEmptyChanged();
     emit signalEntryModified(pos);
     return tag;
@@ -882,8 +914,8 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
     if (extendedStates)
     {
         prevState=m_storage->setState(pos,state);
-        d->_statesIndex[prevState].removeAll(pos.entry);
-        insertInList(d->_statesIndex[state],pos.entry);
+        d._statesIndex[prevState].removeAll(pos.entry);
+        insertInList(d._statesIndex[state],pos.entry);
     }
     else
     {
@@ -892,9 +924,9 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
     }
 
     if (!approved)
-        insertInList(d->_nonApprovedIndex,pos.entry);
+        insertInList(d._nonApprovedIndex,pos.entry);
     else
-        d->_nonApprovedIndex.removeAll(pos.entry);
+        d._nonApprovedIndex.removeAll(pos.entry);
 
     emit signalNumberOfFuzziesChanged();
     emit signalEntryModified(pos);
@@ -916,18 +948,18 @@ bool Catalog::setModified(DocPos entry, bool modified)
 {
     if (modified)
     {
-        if (d->_modifiedEntries.contains(entry))
+        if (d._modifiedEntries.contains(entry))
             return false;
-        d->_modifiedEntries.insert(entry);
+        d._modifiedEntries.insert(entry);
     }
     else
-        d->_modifiedEntries.remove(entry);
+        d._modifiedEntries.remove(entry);
     return true;
 }
 
 bool Catalog::isModified(DocPos entry) const
 {
-    return d->_modifiedEntries.contains(entry);
+    return d._modifiedEntries.contains(entry);
 }
 
 bool Catalog::isModified(int entry) const
@@ -984,9 +1016,9 @@ void insertInList(QLinkedList<int>& list, int index)
 void Catalog::setBookmark(uint idx, bool set)
 {
     if (set)
-        insertInList(d->_bookmarkIndex,idx);
+        insertInList(d._bookmarkIndex,idx);
     else
-        d->_bookmarkIndex.removeAll(idx);
+        d._bookmarkIndex.removeAll(idx);
 }
 
 
@@ -1004,6 +1036,7 @@ bool isApproved(TargetState state)
 
 TargetState closestState(bool approved, ProjectLocal::PersonRole role)
 {
+    Q_ASSERT(role!=ProjectLocal::Undefined);
     static const TargetState approvementStates[][3]={
         {NeedsTranslation, NeedsReviewTranslation, NeedsReviewTranslation},
         {Translated, Final, SignedOff}
@@ -1021,4 +1054,3 @@ bool Catalog::isObsolete(int entry) const
 }
 
 
-#include "catalog.moc"

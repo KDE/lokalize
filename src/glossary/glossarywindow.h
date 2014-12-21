@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -32,7 +32,7 @@
 
 class QListView;
 //class KTextEdit;
-class KLineEdit;
+class QLineEdit;
 class KComboBox;
 //class QStringListModel;
 
@@ -92,7 +92,7 @@ private:
     TermsListModel* m_sourceTermsModel;
     TermsListModel* m_targetTermsModel;
     GlossarySortFilterProxyModel* m_proxyModel;
-    KLineEdit* m_filterEdit;
+    QLineEdit* m_filterEdit;
 
     KComboBox* m_subjectField;
     KTextEdit* m_definition;
@@ -155,8 +155,8 @@ public:
     ~GlossaryItemDelegate(){}
     bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
 signals:
-    void selected(const KUrl&);
-    void newWindowOpenRequested(const KUrl&);
+    void selected(const QUrl&);
+    void newWindowOpenRequested(const QUrl&);
 
 };
 

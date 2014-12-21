@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2012 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -31,8 +31,12 @@
 #include "prefs.h"
 #include "project.h"
 #include "completionstorage.h"
+#include "kdemacros.h"
 
+#include <klocalizedstring.h>
+#ifndef NOKDE
 #include <kcompletionbox.h>
+#endif
 
 #include <QStringBuilder>
 #include <QPixmap>
@@ -43,16 +47,13 @@
 #include <QStyleOptionButton>
 #include <QMimeData>
 #include <QMetaType>
-
 #include <QMenu>
 #include <QMouseEvent>
 #include <QToolTip>
-
-// static int im_count=0;
-// static int im_time=0;
+#include <QScrollBar>
+#include <QDebug>
 
 #undef KDE_NO_DEBUG_OUTPUT
-#include <QScrollBar>
 
 
 inline static QImage generateImage(const QString& str, const QFont& font)
@@ -72,10 +73,10 @@ inline static QImage generateImage(const QString& str, const QFont& font)
     QApplication::style()->drawControl(QStyle::CE_PushButton,&opt,&painter);
 
     //     im_time+=a.elapsed();
-    //     kWarning()<<im_count<<im_time;
+    //     qWarning()<<im_count<<im_time;
     return result;
 }
-
+#ifndef NOKDE
 class MyCompletionBox: public KCompletionBox
 {
 public:
@@ -106,38 +107,6 @@ bool MyCompletionBox::eventFilter(QObject* object, QEvent* event)
     }
     return KCompletionBox::eventFilter(object, event);
 }
-
-
-#if 1
-class XliffTextEditSpellInterface: public KTextEditSpellInterface
-{
-public:
-    XliffTextEditSpellInterface(SyntaxHighlighter* highlighter);
-    ~XliffTextEditSpellInterface(){};
-
-    bool isSpellCheckingEnabled() const {return m_enabled;}
-    void setSpellCheckingEnabled(bool enable);
-    bool shouldBlockBeSpellChecked(const QString &block) const{Q_UNUSED(block); return true;}
-private:
-    bool m_enabled;
-    SyntaxHighlighter* m_highlighter;
-};
-
-XliffTextEditSpellInterface::XliffTextEditSpellInterface(SyntaxHighlighter* highlighter)
-    : KTextEditSpellInterface()
-    , m_enabled(Settings::autoSpellcheck())
-    , m_highlighter(highlighter)
-{
-    m_highlighter->setActive(m_enabled);
-}
-
-void XliffTextEditSpellInterface::setSpellCheckingEnabled(bool enable)
-{
-    Settings::setAutoSpellcheck(enable);
-    m_enabled=enable;
-    m_highlighter->setActive(enable);
-    SettingsController::instance()->dirty=true;
-}
 #endif
 
 TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
@@ -147,6 +116,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     , m_catalog(catalog)
     , m_part(part)
     , m_highlighter(new SyntaxHighlighter(this))
+    , m_enabled(Settings::autoSpellcheck())
     , m_completionBox(0)
 {
     setReadOnly(part==DocPosition::Source);
@@ -161,22 +131,36 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     connect (catalog,SIGNAL(signalFileLoaded()), this, SLOT(fileLoaded()));
     //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
 
-    setSpellInterface(new XliffTextEditSpellInterface(m_highlighter));
+#ifndef NOKDE
+    m_highlighter->setActive(m_enabled);
     setHighlighter(m_highlighter);
+#endif
 }
+
+void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
+{
+    Settings::setAutoSpellcheck(enable);
+    m_enabled=enable;
+#ifndef NOKDE
+    m_highlighter->setActive(enable);
+#endif
+    SettingsController::instance()->dirty=true;
+}
+
 
 void TranslationUnitTextEdit::fileLoaded()
 {
     QString langCode=m_part==DocPosition::Source? m_catalog->sourceLangCode():m_catalog->targetLangCode();
 
     QLocale langLocale(langCode);
+#ifndef NOKDE
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
     // If that fails, try to use the language code directly
     if (m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
     }
-
+#endif
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     Qt::LayoutDirection targetLanguageDirection=Qt::LeftToRight;
     static QLocale::Language rtlLanguages[]={QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
@@ -248,10 +232,10 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
     QTextCursor cursor=textCursor();
     int pos=cursor.position();
     int anchor=cursor.anchor();
-    //kWarning()<<"called"<<"pos"<<pos<<anchor<<"keepCursor"<<keepCursor;
+    //qWarning()<<"called"<<"pos"<<pos<<anchor<<"keepCursor"<<keepCursor;
     if (!keepCursor && toPlainText()!=target)
     {
-        //kWarning()<<"resetting pos";
+        //qWarning()<<"resetting pos";
         pos=0;
         anchor=0;
     }
@@ -271,7 +255,7 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
     t.movePosition(QTextCursor::Start);
     if (pos || anchor)
     {
-        //kWarning()<<"setting"<<anchor<<pos;
+        //qWarning()<<"setting"<<anchor<<pos;
         // I don't know why the following (more correct) code does not work
         t.setPosition(anchor,QTextCursor::MoveAnchor);
         int length=pos-anchor;
@@ -279,7 +263,7 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
             t.movePosition(length<0?QTextCursor::PreviousCharacter:QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qAbs(length));
     }
     setTextCursor(t);
-    //kWarning()<<"set?"<<textCursor().anchor()<<textCursor().position();
+    //qWarning()<<"set?"<<textCursor().anchor()<<textCursor().position();
     //END pos
 
     reflectApprovementState();
@@ -289,9 +273,9 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
 
 void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const CatalogString& refStr)
 {
-    //kWarning()<<"";
-    //kWarning()<<"START";
-    //kWarning()<<str<<ranges.size();
+    //qWarning()<<"";
+    //qWarning()<<"START";
+    //qWarning()<<str<<ranges.size();
     //prevent undo tracking system from recording this 'action'
     document()->blockSignals(true);
     clear();
@@ -350,10 +334,10 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     QMap<int,int> posToTag;
     int i=catStr.tags.size();
-    //kDebug()<<"size:"<<i;
+    //qDebug()<<"size:"<<i;
     while(--i>=0)
     {
-        //kDebug()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        //qDebug()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(catStr.tags.at(i).start,i);
         posToTag.insert(catStr.tags.at(i).end,i);
     }
@@ -400,25 +384,25 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         QString name=tag.id;
         QString text;
         if (tag.type==InlineTag::mrk)
-            text="*";
+            text=QStringLiteral("*");
         else if (!tag.equivText.isEmpty())
             text=tag.equivText; //TODO add number? when? -- right now this is done for gettext qt's 156 mark
         else
             text=QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagIndex+refTagIndexOffset));
         if (tag.start!=tag.end)
         {
-            //kWarning()<<"b"<<i;
+            //qWarning()<<"b"<<i;
             if (tag.start==i)
             {
-                //kWarning()<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
-                text.append(" {");
-                name.append("-start");
+                //qWarning()<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
+                text.append(QStringLiteral(" {"));
+                name.append(QStringLiteral("-start"));
             }
             else
             {
-                //kWarning()<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
-                text.prepend("} ");
-                name.append("-end");
+                //qWarning()<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
+                text.prepend(QStringLiteral("} "));
+                name.append(QStringLiteral("-end"));
             }
         }
         if (cursor.document()->resource(QTextDocument::ImageResource, QUrl(name)).isNull())
@@ -435,12 +419,12 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
-    //kWarning()<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
+    //qWarning()<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
     //HACK to workaround #218246
     const QString& editTextAscii=document()->toPlainText();
     if (editTextAscii==_oldMsgstrAscii)
     {
-        //kWarning()<<"stopping"<<editTextAscii<<_oldMsgstrAscii;
+        //qWarning()<<"stopping"<<editTextAscii<<_oldMsgstrAscii;
         return;
     }
 
@@ -449,7 +433,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     const QString& editText=toPlainText();
     if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
-        //kWarning()<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
+        //qWarning()<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
         return;
     }
 
@@ -463,7 +447,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
     DocPosition pos=m_currentPos;
     pos.offset=offset;
-    //kWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //qWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
     QString target=m_catalog->targetWithTags(pos).string;
     const QString& addedText=editText.mid(offset,charsAdded);
@@ -498,11 +482,11 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
                 m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
         }
 
-        //kWarning()<<"calling showPos";
+        //qWarning()<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true);
         if (!modified)
         {
-            //kWarning()<<"stop";
+            //qWarning()<<"stop";
             return;
         }
     }
@@ -514,7 +498,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
         _oldMsgstr=editText;//newStr becomes OldStr
         _oldMsgstrAscii=editTextAscii;
-        //kWarning()<<"char"<<editText[offset].unicode();
+        //qWarning()<<"char"<<editText[offset].unicode();
         if (charsAdded)
             m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
 
@@ -533,7 +517,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     // for mergecatalog (remove entry from index)
     // and for statusbar
     emit contentsModified(m_currentPos);
-
+#ifndef NOKDE
     if (charsAdded==1)
     {
         int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,offset-1);
@@ -546,8 +530,8 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     }
     else if (m_completionBox)
             m_completionBox->hide();
-
-    //kWarning()<<"finish";
+#endif
+    //qWarning()<<"finish";
 }
 
 
@@ -563,7 +547,7 @@ bool TranslationUnitTextEdit::removeTargetSubstring(int delStart, int delLen, bo
 
     if (refresh)
     {
-        //kWarning()<<"calling showPos";
+        //qWarning()<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true/*false*/);
     }
     emit contentsModified(m_currentPos.entry);
@@ -600,7 +584,7 @@ void TranslationUnitTextEdit::insertCatalogString(CatalogString catStr, int star
 
     if (refresh)
     {
-        //kWarning()<<"calling showPos";
+        //qWarning()<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true/*false*/);
         QTextCursor cursor=textCursor();
         cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,catStr.string.size());
@@ -661,7 +645,7 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
 
     if (source->hasFormat("application/x-lokalize-xliff+xml"))
     {
-        //kWarning()<<"has";
+        //qWarning()<<"has";
         QVariant v;
         QByteArray data=source->data("application/x-lokalize-xliff+xml");
         QDataStream in(&data,QIODevice::ReadOnly);
@@ -688,7 +672,7 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
             start=textCursor().position();
         }
 
-        insertCatalogString(qVariantValue<CatalogString>(v), start);
+        insertCatalogString(v.value<CatalogString>(), start);
         m_catalog->endMacro();
     }
     else
@@ -798,15 +782,17 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
     //clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
+#ifndef NOKDE
         if (m_completionBox&&m_completionBox->isVisible())
         {
             if (m_completionBox->currentItem())
                 completionActivated(m_completionBox->currentItem()->text());
             else
-                kWarning()<<"avoided a crash. a case for bug 238835!";
+                qWarning()<<"avoided a crash. a case for bug 238835!";
             m_completionBox->hide();
             return;
         }
+#endif
         QString str=toPlainText();
         QTextCursor t=textCursor();
         int pos=t.position();
@@ -857,7 +843,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                 (keyEvent->key()==Qt::Key_Delete)
                 && textCursor().atEnd())
     {
-        kWarning()<<"workaround for Qt/X11 bug";
+        qWarning()<<"workaround for Qt/X11 bug";
         QTextCursor t=textCursor();
         if(!t.hasSelection())
         {
@@ -893,7 +879,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                     t.deletePreviousChar();
                     t.deletePreviousChar();
                     setTextCursor(t);
-                    //kWarning()<<"set-->"<<textCursor().anchor()<<textCursor().position();
+                    //qWarning()<<"set-->"<<textCursor().anchor()<<textCursor().position();
                 }
             }
 
@@ -926,7 +912,7 @@ QString TranslationUnitTextEdit::toPlainText()
 /*
     int ii=text.size();
     while(--ii>=0)
-        kWarning()<<text.at(ii).unicode();
+        qWarning()<<text.at(ii).unicode();
 */
     return text;
 }
@@ -943,7 +929,7 @@ void TranslationUnitTextEdit::insertTag(InlineTag tag)
     QTextCursor cursor=textCursor();
     tag.start=qMin(cursor.anchor(),cursor.position());
     tag.end=qMax(cursor.anchor(),cursor.position())+tag.isPaired();
-    kWarning()<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
+    qDebug()<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
     m_catalog->push(new InsTagCmd(m_catalog,currentPos(),tag));
     showPos(currentPos(),CatalogString(),/*keepCursor*/true);
     cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1+tag.isPaired());
@@ -956,7 +942,7 @@ int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString&
     int pos=cursor.position();
     str=m_catalog->catalogString(m_currentPos);
     if (pos==-1 || pos>=str.string.size()) return -1;
-    //kWarning()<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
+    //qWarning()<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
 
 
 //     if (pos>0)
@@ -1015,7 +1001,6 @@ void TranslationUnitTextEdit::contextMenuEvent(QContextMenuEvent *event)
             QAction* result=menu.exec(event->globalPos());
             if (result)
             {
-                kWarning()<<entry<<xid;
                 if (entry>=m_catalog->numberOfEntries())
                     emit binaryUnitSelectRequested(xid);
                 else
@@ -1103,6 +1088,7 @@ void TranslationUnitTextEdit::wheelEvent(QWheelEvent *event)
 
 void TranslationUnitTextEdit::spellReplace()
 {
+#ifndef NOKDE
     QTextCursor wordSelectCursor=textCursor();
     wordSelectCursor.select(QTextCursor::WordUnderCursor);
     if (!m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
@@ -1115,10 +1101,18 @@ void TranslationUnitTextEdit::spellReplace()
     m_catalog->beginMacro(i18nc("@item Undo action item","Replace text"));
     wordSelectCursor.insertText(suggestions.first());
     m_catalog->endMacro();
+#endif
 }
 
 bool TranslationUnitTextEdit::event(QEvent *event)
 {
+    if (event->type()==QEvent::InputMethod)
+    {
+        QInputMethodEvent* e=static_cast<QInputMethodEvent*>(event);
+        insertPlainText(e->commitString());
+        e->accept();
+        return true;
+    }
     if (event->type()==QEvent::ToolTip)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
@@ -1131,14 +1125,21 @@ bool TranslationUnitTextEdit::event(QEvent *event)
             return true;
         }
 
+#ifndef NOKDE
+        QString tip;
+
         QString langCode=m_highlighter->currentLanguage();
         bool nospell=langCode.isEmpty();
         if (nospell)
             langCode=m_part==DocPosition::Source?m_catalog->sourceLangCode():m_catalog->targetLangCode();
-        QString tip=KGlobal::locale()->languageCodeToName(langCode)%" ("%langCode%")";
+        QLocale l(langCode);
+        if (l.language()!=QLocale::C) tip=l.nativeLanguageName()+" (";
+        tip+=langCode;
+        if (l.language()!=QLocale::C) tip +=')';
         if (nospell)
-            tip+=" - "%i18n("no spellcheck available");
+            tip+=QStringLiteral(" - ")%i18n("no spellcheck available");
         QToolTip::showText(helpEvent->globalPos(), tip);
+#endif
     }
     return KTextEdit::event(event);
 }
@@ -1313,6 +1314,7 @@ void TranslationUnitTextEdit::cursorToStart()
 
 void TranslationUnitTextEdit::doCompletion(int pos)
 {
+#ifndef NOKDE
     QTime a;a.start();
     QString target=m_catalog->targetWithTags(m_currentPos).string;
     int sp=target.lastIndexOf(CompletionStorage::instance()->rxSplit,pos-1);
@@ -1333,14 +1335,14 @@ void TranslationUnitTextEdit::doCompletion(int pos)
     {
         m_completionBox->setCurrentRow(0);
         //qApp->removeEventFilter( m_completionBox );
-        if (!m_completionBox->isVisible()) //NOTE remove the ckeck if kdelibs gets adapted
+        if (!m_completionBox->isVisible()) //NOTE remove the check if kdelibs gets adapted
             m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
         m_completionBox->move(viewport()->mapToGlobal(cursorRect().bottomRight()));
     }
     else
         m_completionBox->hide();
-    kDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
+#endif
 }
 
 void TranslationUnitTextEdit::doExplicitCompletion()
@@ -1355,4 +1357,3 @@ void TranslationUnitTextEdit::completionActivated(const QString& semiWord)
     setTextCursor(cursor);
 }
 
-#include "xlifftextedit.moc"

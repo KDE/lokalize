@@ -49,7 +49,7 @@ public:
     bool saveRules(QString filename=QString());
 
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const {return ColumnCount;}
+    int columnCount(const QModelIndex& parent=QModelIndex()) const {return ColumnCount; Q_UNUSED(parent)}
     QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
     Qt::ItemFlags flags(const QModelIndex&) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);

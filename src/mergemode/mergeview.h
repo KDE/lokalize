@@ -27,8 +27,6 @@
 #include "pos.h"
 #include "mergecatalog.h"
 
-#include <kurl.h>
-
 #include <QDockWidget>
 class KTextEdit;
 class Catalog;
@@ -48,7 +46,7 @@ public:
 
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
-    KUrl url();
+    QString filePath();
 
 private:
     /**
@@ -61,7 +59,7 @@ private:
     bool event(QEvent *event);
 
 public slots:
-    void mergeOpen(KUrl url=KUrl());
+    void mergeOpen(QString mergeFilePath=QString());
     void cleanup();
     void slotNewEntryDisplayed(const DocPosition&);
     void slotUpdate(const DocPosition&);
@@ -83,6 +81,7 @@ signals:
 
     void gotoEntry(const DocPosition&,int);
 
+    void mergeCatalogAvailable(bool);
     void mergeCatalogPointerChanged(MergeCatalog* mergeCatalog);
 
 private:

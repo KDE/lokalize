@@ -1,5 +1,5 @@
 /*
-Copyright 2008-2012 Nick Shaforostoff <shaforostoff@kde.ru>
+Copyright 2008-2014 Nick Shaforostoff <shaforostoff@kde.ru>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "prefs_lokalize.h"
 
+#include <QDebug>
 #include <QProcess>
 #include <QString>
 #include <QMap>
@@ -32,13 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTime>
 #include <QPair>
 #include <QList>
-
-
-#include <kdebug.h>
-#include <kglobal.h>
-#include <klocale.h>
-#include <kdatetime.h>
 #include <QXmlSimpleReader>
+
+#include <klocalizedstring.h>
 
 static const char* const noyes[]={"no","yes"};
 
@@ -83,14 +80,14 @@ int TsStorage::load(QIODevice* device)
 
     if (!success)
     {
-        kWarning()<<errorMsg;
+        qWarning()<<errorMsg;
         return errorLine+1;
     }
 
 
-    QDomElement file=m_doc.elementsByTagName("TS").at(0).toElement();
-    m_sourceLangCode=file.attribute("sourcelanguage");
-    m_targetLangCode=file.attribute("language");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("TS")).at(0).toElement();
+    m_sourceLangCode=file.attribute(QStringLiteral("sourcelanguage"));
+    m_targetLangCode=file.attribute(QStringLiteral("language"));
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_targetLangCode);
 
     //Create entry mapping.
@@ -98,14 +95,14 @@ int TsStorage::load(QIODevice* device)
     //we create any form-entries additionally needed
 
     entries=m_doc.elementsByTagName("message");
-    int size=entries.size();
 
-    kWarning()<<chrono.elapsed();
+    qWarning()<<chrono.elapsed()<<"secs, "<<entries.size()<<"entries";
     return 0;
 }
 
 bool TsStorage::save(QIODevice* device, bool belongsToProject)
 {
+    Q_UNUSED(belongsToProject)
     QTextStream stream(device);
     m_doc.save(stream,4);
     return true;
@@ -234,7 +231,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             }
             //else
             //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //        kWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //        qWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -294,7 +291,7 @@ void TsStorage::targetDelete(const DocPosition& pos, int count)
 
 void TsStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    kWarning()<<pos.entry<<arg;
+    qWarning()<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos);
     //BEGIN add <*target>
     if (targetEl.isNull())
@@ -389,7 +386,7 @@ QVector<Note> TsStorage::developerNotes(const DocPosition& pos) const
 
 Note TsStorage::setNote(DocPosition pos, const Note& note)
 {
-    //kWarning()<<int(pos.form)<<note.content;
+    //qWarning()<<int(pos.form)<<note.content;
     QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;
@@ -501,11 +498,14 @@ bool TsStorage::isEmpty(const DocPosition& pos) const
 
 bool TsStorage::isEquivTrans(const DocPosition& pos) const
 {
+    Q_UNUSED(pos)
     return true;//targetForPos(pos.entry).attribute("equiv-trans")!="no";
 }
 
 void TsStorage::setEquivTrans(const DocPosition& pos, bool equivTrans)
 {
+    Q_UNUSED(pos)
+    Q_UNUSED(equivTrans)
     //targetForPos(pos.entry).setAttribute("equiv-trans",noyes[equivTrans]);
 }
 

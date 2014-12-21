@@ -30,9 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "alttrans.h"
 #include "catalogcapabilities.h"
 
-#include <kurl.h>
 #include <QStringList>
-
+#include <QVector>
 
 /**
  * Abstract interface for storage of translation file
@@ -128,28 +127,30 @@ public:
     virtual bool isEmpty(const DocPosition&) const=0;
 
     virtual bool isEquivTrans(const DocPosition&) const{return true;}
-    virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans);}
+    virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans)}
 
     virtual bool isApproved(const DocPosition&) const{return true;}
-    virtual void setApproved(const DocPosition&, bool approved){Q_UNUSED(approved);}
+    virtual void setApproved(const DocPosition&, bool approved){Q_UNUSED(approved)}
     virtual TargetState state(const DocPosition&) const{return New;}
     virtual TargetState setState(const DocPosition&, TargetState){return New;}
 
-    virtual bool isObsolete(int entry) const{return false;}
+    virtual bool isObsolete(int entry) const{ Q_UNUSED(entry) return false;}
 
     virtual int binUnitsCount() const {return 0;}
     virtual int unitById(const QString& id) const {Q_UNUSED(id); return 0;}
 
-    const KUrl& url() const {return m_url;}
-    void setUrl(const KUrl& u){m_url=u;}//TODO
+    const QString& url() const {return m_url;}
+    void setUrl(const QString& u){m_url=u;}//TODO
 
     virtual QString mimetype() const=0;
+    virtual QString fileType() const=0;
 
     QString sourceLangCode() const{return m_sourceLangCode;}
     QString targetLangCode() const{return m_targetLangCode;}
+    virtual void setTargetLangCode(const QString& langCode) {m_targetLangCode=langCode;}
 
 protected:
-    KUrl m_url;
+    QString m_url;
     QString m_sourceLangCode;
     QString m_targetLangCode;
 
@@ -157,7 +158,7 @@ protected:
 };
 
 inline CatalogStorage::CatalogStorage()
-    : m_sourceLangCode("en_US")
+    : m_sourceLangCode(QStringLiteral("en_US"))
     , m_numberOfPluralForms(0)
 {
 }

@@ -32,7 +32,9 @@ FastSizeHintItemDelegate::FastSizeHintItemDelegate(QObject *parent, const QVecto
     : QItemDelegate(parent)
     , singleLineColumns(slc)
     , richTextColumns(rtc)
+#ifndef NOKDE
     , activeScheme(QPalette::Active, KColorScheme::View)
+#endif
 {}
 
 void FastSizeHintItemDelegate::reset()
@@ -44,7 +46,8 @@ QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, con
 {
     int lineCount=1;
     int nPos=20;
-    if (!singleLineColumns.at(index.column()))
+    int column=qMax(index.column(),0);
+    if (!singleLineColumns.at(column))
     {
         QString text=index.data().toString();
         nPos=text.indexOf('\n');
@@ -61,17 +64,26 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
 {
     painter->save();
 
-    const KColorScheme& scheme=activeScheme;
-    //painter->save();
     painter->setClipping(true);
     painter->setClipRect(option.rect);
     QBrush bgBrush;
+#ifndef NOKDE
+    const KColorScheme& scheme=activeScheme;
     if (option.state&QStyle::State_MouseOver)
         bgBrush=scheme.background(KColorScheme::LinkBackground);
     else if (index.row()%2)
         bgBrush=scheme.background(KColorScheme::AlternateBackground);
     else
         bgBrush=scheme.background(KColorScheme::NormalBackground);
+#else
+    static QPalette p;
+    if (option.state&QStyle::State_MouseOver)
+        bgBrush=p.link();
+    else if (index.row()%2)
+        bgBrush=p.alternateBase();
+    else
+        bgBrush=p.base();
+#endif
     
     painter->fillRect(option.rect, bgBrush);
     painter->setClipRect(option.rect.adjusted(0,0,-2,0));

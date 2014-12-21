@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2009 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -30,9 +30,9 @@
 #include <QMap>
 #include <QDockWidget>
 
-class KTextBrowser;
 class Catalog;
 class NoteEditor;
+class QTextBrowser;
 class QStackedLayout;
 
 class MsgCtxtView: public QDockWidget
@@ -62,7 +62,7 @@ signals:
     void escaped();
 
 private:
-    KTextBrowser* m_browser;
+    QTextBrowser* m_browser;
     NoteEditor* m_editor;
     QStackedLayout* m_stackedLayout;
 
