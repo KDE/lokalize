@@ -79,6 +79,7 @@ SOURCES += main.cpp\
 mac: CONFIG += objective_c
 mac: OBJECTIVE_SOURCES += common/machelpers.mm
 win32: SOURCES += common/winhelpers.cpp
+unix:!mac: SOURCES += common/unixhelpers.cpp
 
 HEADERS  += editortab.h\
     editorview.h\

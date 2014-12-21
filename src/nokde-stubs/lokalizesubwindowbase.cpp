@@ -34,6 +34,7 @@ KActionCollection::KActionCollection(QMainWindow* w)
     , file(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "File")))
     , edit(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Edit")))
     , view(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "View")))
+    , go  (m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Go")))
     , sync(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Sync")))
     , tools(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Tools")))
     , tm  (new QMenu(QApplication::translate("QMenuBar", "Translation Memory")))
@@ -59,8 +60,10 @@ QAction* KActionCollection::addAction(const QString& name, QAction* a)
     if (name.startsWith("file_")) file->addAction(a);
     if (name.startsWith("edit_")) edit->addAction(a);
     if (name.startsWith("merge_")) sync->addAction(a);
+    if (name.startsWith("go_")) go->addAction(a);
     if (name.startsWith("tmquery_")) tm->addAction(a);
     if (name.startsWith("show")) view->addAction(a);
+    if (name.startsWith("tools")) tools->addAction(a);
 
     if (name=="mergesecondary_back") edit->addMenu(tm);
     return a;
@@ -76,6 +79,8 @@ QAction* KActionCategory::addAction(KStandardAction::StandardAction t, QObject* 
     {
         case KStandardAction::Save: name=QApplication::translate("QMenuBar","Save"); m=c->file; k=QKeySequence::Save; break;
         case KStandardAction::SaveAs: name=QApplication::translate("QMenuBar","Save As...");m=c->file;k-QKeySequence::SaveAs;break;
+        case KStandardAction::Next: m=c->go; k=QKeySequence::MoveToNextPage; break;
+        case KStandardAction::Prior: m=c->go; k=QKeySequence::MoveToPreviousPage; break;
         default:;
     }
     if (m)

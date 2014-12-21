@@ -56,7 +56,7 @@ Settings::Settings()
 {
     QSettings s;
     mAuthorName = s.value(QStringLiteral("Author/Name"), QString()).toString();
-    if (mAuthorName.isEmpty()) mAuthorName = fullUserName();
+    if (mAuthorName.isEmpty()) {mAuthorName = fullUserName(); if (mAuthorName.length()) mAuthorName[0]=mAuthorName.at(0).toUpper();}
 }
 
 void Settings::save()

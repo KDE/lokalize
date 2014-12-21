@@ -141,6 +141,7 @@ struct KActionCollection
     QMenu* file;
     QMenu* edit;
     QMenu* view;
+    QMenu* go;
     QMenu* sync;
     QMenu* tools;
     QMenu* tm;
