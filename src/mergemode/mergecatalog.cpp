@@ -107,7 +107,7 @@ bool MergeCatalog::isPlural(uint index) const
     return Catalog::isPlural(m_map.at(index));
 }
 
-bool MergeCatalog::isPresent(const short int& entry) const
+bool MergeCatalog::isPresent(const int& entry) const
 {
     return m_map.at(entry)!=-1;
 }
@@ -192,6 +192,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
         QString key=strip(baseStorage.source(i));
         const QList<int>& entries=mergeMap.values(key);
         QList<MatchItem> scores;
+
         int k=entries.size();
         if (k)
         {
@@ -207,7 +208,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
                 m_mergeDiffIndex.append(i.entry);
 
         }
-        ++i.entry;
+        ++(i.entry);
     }
 
 

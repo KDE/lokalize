@@ -58,13 +58,14 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
 {
     setObjectName(primary?QStringLiteral("mergeView-primary"):QStringLiteral("mergeView-secondary"));
     setWidget(m_browser);
-    setToolTip(i18nc("@info:tooltip","Drop file to be merged into / synced with the current one here"));
+    setToolTip(i18nc("@info:tooltip","Drop file to be merged into / synced with the current one here, then see context menu options"));
 
     hide();
 
     setAcceptDrops(true);
     m_browser->setReadOnly(true);
     m_browser->setContextMenuPolicy(Qt::NoContextMenu);
+    m_browser->viewport()->setBackgroundRole(QPalette::Background);
     setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
@@ -168,9 +169,9 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
         result.prepend("<b>");
         result.append("</b>");
     }
-
+    result.replace(' ', "&nbsp;");
     m_browser->setHtml(result);
-//     qWarning()<<"ELA "<<time.elapsed();
+    //qDebug()<<"ELA "<<time.elapsed();
 }
 
 void MergeView::cleanup()

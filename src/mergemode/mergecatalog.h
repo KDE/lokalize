@@ -33,8 +33,8 @@ class KAutoSaveFile;
 
 struct MatchItem
 {
-    short mergeEntry:16;
-    short baseEntry:16;
+    int mergeEntry:32;
+    int baseEntry:32;
     short score:16;
     short translationIsDifferent:16;
 
@@ -45,7 +45,7 @@ struct MatchItem
     , translationIsDifferent(false)
     {}
 
-    MatchItem(short m, short b, bool d)
+    MatchItem(int m, int b, bool d)
     : mergeEntry(m)
     , baseEntry(b)
     , score(0)
@@ -95,7 +95,7 @@ public:
     int unmatchedCount()const{return m_unmatchedCount;}
 
     /// whether 'merge source' has entry with such msgid
-    bool isPresent(const short int& entry) const;
+    bool isPresent(const int& entry) const;
     bool isModified(DocPos)const;
 
     ///@arg pos in baseCatalog's coordinates
