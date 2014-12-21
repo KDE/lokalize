@@ -141,7 +141,6 @@ void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentPro
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
 {
-    connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
     connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
     threadPool()->start(openDBJob, OPENDB);
 }
@@ -177,6 +176,8 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
 
 void DBFilesModel::openJobDone(OpenDBJob* j)
 {
+    j->deleteLater();
+
     m_stats[j->m_dbName]=j->m_stat;
     m_configurations[j->m_dbName]=j->m_tmConfig;
     qDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
@@ -186,13 +187,14 @@ void DBFilesModel::removeTM ( QModelIndex index )
 {
     index=index.sibling(index.row(),0);
     CloseDBJob* closeDBJob=new CloseDBJob(index.data().toString());
-    connect(closeDBJob,SIGNAL(done(CloseDBJob*)),closeDBJob,SLOT(deleteLater()));
     connect(closeDBJob,SIGNAL(done(CloseDBJob*)),this,SLOT(closeJobDone(CloseDBJob*)));
     threadPool()->start(closeDBJob, CLOSEDB);
 }
 
 void DBFilesModel::closeJobDone(CloseDBJob* j)
 {
+    j->deleteLater();
+
     QFile::remove(m_fileSystemModel->rootPath() % '/' % j->dbName() % tmFileExtension);
 }
 

@@ -74,6 +74,7 @@ void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
 
 void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 {
+    j->deleteLater();
     ScanJob* job=static_cast<ScanJob*>(j);
 
     setProcessedAmount(KJob::Files,processedAmount(KJob::Files)+1);
@@ -99,7 +100,7 @@ void RecursiveScanJob::start()
 }
 #endif
 
-int TM::scanRecursive(const QStringList& urls, const QString& dbName)
+int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
 {
 #ifndef NOKDE
     RecursiveScanJob* metaJob = new RecursiveScanJob(dbName);
@@ -110,24 +111,25 @@ int TM::scanRecursive(const QStringList& urls, const QString& dbName)
 #endif
 
     QVector<ScanJob*> result;
-    int i=urls.size();
+    int i=filePaths.size();
     while(--i>=0)
     {
-        const QString& url=urls.at(i);
-        if (url.isEmpty())
+        const QString& filePath=filePaths.at(i);
+        if (filePath.isEmpty())
             continue;
-        if (Catalog::extIsSupported(url))
+        if (Catalog::extIsSupported(filePath))
         {
-            ScanJobFeedingBack* job=new ScanJobFeedingBack(url,dbName);
-            QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
 #ifndef NOKDE
+            ScanJobFeedingBack* job=new ScanJobFeedingBack(filePath,dbName);
             QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+#else
+            ScanJob* job=new ScanJob(filePath,dbName);
 #endif
             TM::threadPool()->start(job, SCAN);
             result.append(job);
         }
         else
-            result+=doScanRecursive(QDir(url),dbName,metaJob);
+            result+=doScanRecursive(QDir(filePath),dbName,metaJob);
     }
 
 #ifndef NOKDE
@@ -156,10 +158,11 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
 
     while(--i>=0)
     {
-        ScanJobFeedingBack* job=new ScanJobFeedingBack(dir.filePath(files.at(i)),dbName);
-        QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),job,SLOT(deleteLater()));
 #ifndef NOKDE
+        ScanJobFeedingBack* job=new ScanJobFeedingBack(dir.filePath(files.at(i)),dbName);
         QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+#else
+        ScanJob* job=new ScanJob(dir.filePath(files.at(i)),dbName);
 #endif
         TM::threadPool()->start(job, SCAN);
         result.append(job);
@@ -188,8 +191,11 @@ bool dragIsAcceptable(const QList<QUrl>& urls)
 
 QString shorterFilePath(const QString path)
 {
+    if (!Project::instance()->isLoaded())
+        return path;
+
     QString pDir=Project::instance()->projectDir();
-    if (path.contains(pDir))//TODO cache projectDir?
+    if (path.startsWith(pDir))//TODO cache projectDir?
         return QDir(pDir).relativeFilePath(path);
     return path;
 }

@@ -593,6 +593,9 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
     d._readOnly=readOnly;
     d._url=saidUrl.isEmpty()?url:saidUrl;
 
+    //set some sane role, a real phase with a nmae will be created later with the first edit command
+    setActivePhase(QString(),Project::local()->role());
+
 #ifndef NOKDE
     KAutoSaveFile* autoSave=checkAutoSave(d._url);
     d._autoSaveRecovered=autoSave;
@@ -781,7 +784,6 @@ void Catalog::flushUpdateDBBuffer()
         if(!TM::DBFilesModel::instance()->m_configurations.contains(dbName))
         {
             TM::OpenDBJob* openDBJob=new TM::OpenDBJob(dbName, TM::Local, true);
-            connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
             connect(openDBJob,SIGNAL(done(OpenDBJob*)),TM::DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
 
             openDBJob->m_setParams=true;

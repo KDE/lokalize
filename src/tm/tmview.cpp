@@ -248,7 +248,6 @@ void TMView::slotFileLoaded(const QString& filePath)
 
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
-    connect(m_seq,SIGNAL(done()),m_seq,SLOT(deleteLater()));
     connect(m_seq,SIGNAL(done()),this,SLOT(slotBatchSelectDone()));
     TM::threadPool()->start(m_seq, BATCHSELECTFINISHED);
     m_jobs.append(m_seq);
@@ -603,7 +602,6 @@ void TMView::contextMenu(const QPoint& pos)
                                                            i18nc("@title:window","Translation Memory Entry Removal")))
     {
         RemoveJob* job=new RemoveJob(e);
-        connect(job,SIGNAL(done()),job,SLOT(deleteLater()));
         connect(job,SIGNAL(done()),this,SLOT(slotNewEntryDisplayed()));
         TM::threadPool()->start(job, REMOVE);
     }

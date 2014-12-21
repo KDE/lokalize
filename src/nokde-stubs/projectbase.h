@@ -8,6 +8,9 @@
 #include <QDebug>
 #include <QPointer>
 
+#include "pos.h"
+
+class FileSearchTab;
 class EditorTab;
 namespace TM{class TMTab;};
 
@@ -23,9 +26,15 @@ public:
 
 public slots:
     EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
-    void editorClosed(QObject* obj);
-    void showTM();
+    EditorTab* fileOpen(const QString& filePath, const QString& source, const QString& ctxt);
+    EditorTab* fileOpen(const QString& filePath, DocPosition docPos, int selection);
 
+    void lookupInTranslationMemory(const QString& source, const QString& target);
+    TM::TMTab* showTM();
+    void showFileSearch();
+    void fileSearchNext();
+
+    void editorClosed(QObject* obj);
 private:
     //using QPointer switches it.value() to 0 before we get to destroyed() handler
     //typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
@@ -33,6 +42,7 @@ private:
     FileToEditor m_fileToEditor;
     QByteArray m_lastEditorState;
     QPointer<TM::TMTab> m_tmTab;
+    QPointer<FileSearchTab> m_fileSearchTab;
 
 
 public:

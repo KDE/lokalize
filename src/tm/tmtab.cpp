@@ -158,13 +158,11 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                 "source_strings.source_accel, target_strings.target_accel, main.bits ")
                 +fromPart,m_dbName);
 
-    connect(job,SIGNAL(done(ExecQueryJob*)),job,SLOT(deleteLater()));
     connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
     threadPool()->start(job);
 
 
     job=new ExecQueryJob(QStringLiteral("SELECT count(*) ")+fromPart,m_dbName);
-    connect(job,SIGNAL(done(ExecQueryJob*)),job,SLOT(deleteLater()));
     connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
     threadPool()->start(job);
     
@@ -173,6 +171,8 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
 
 void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 {
+    job->deleteLater();
+
     if (job->query->lastQuery().startsWith(QLatin1String("SELECT count(*) ")))
     {
         job->query->next();

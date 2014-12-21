@@ -1111,7 +1111,6 @@ SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int 
     if (opt&Enqueue)
     {
         //deletion should be done by receiver, e.g. slotSuggestionsCame()
-        //QObject::connect(job, SIGNAL(done(SelectJob*)), job, SLOT(deleteLater()));
         threadPool()->start(job, SELECT);
     }
     return job;
@@ -1527,9 +1526,7 @@ void SelectJob::run ()
 
 
 
-ScanJob::ScanJob(const QString& filePath,
-                 const QString& dbName,
-                 QObject*)
+ScanJob::ScanJob(const QString& filePath, const QString& dbName, QObject* parent)
     : QRunnable()
     , m_filePath(filePath)
     , m_time(0)
@@ -1629,8 +1626,7 @@ RemoveJob::RemoveJob(const TMEntry& entry, QObject*)
     : QRunnable()
     , m_entry(entry)
 {
-    setAutoDelete(false);
-    qWarning()<<m_entry.file<<m_entry.source.string;
+    qWarning()<<"removing"<<m_entry.file<<m_entry.source.string;
 }
 
 RemoveJob::~RemoveJob()

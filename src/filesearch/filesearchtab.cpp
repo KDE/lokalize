@@ -52,10 +52,12 @@
 #include <QThreadPool>
 
 #include <klocalizedstring.h>
-#include <kcolorscheme.h>
-#include <kactioncategory.h>
-#include <kxmlguifactory.h>
 
+#ifndef NOKDE
+#include <kactioncategory.h>
+#include <kcolorscheme.h>
+#include <kxmlguifactory.h>
+#endif
 
 static QStringList doScanRecursive(const QDir& dir);
 
@@ -259,31 +261,6 @@ void SearchJob::run()
     emit done(this);
 }
 
-/// @short replace in files
-class MassReplaceJob: public QObject, public QRunnable
-{
-    Q_OBJECT
-public:
-    explicit MassReplaceJob(const SearchResults& srs,
-                            int pos,
-                            const QRegExp& s,
-                            const QString& r,
-                            //int sn,
-                           QObject* parent=0);
-    ~MassReplaceJob(){}
-
-signals:
-    void done(MassReplaceJob*);
-
-protected:
-    void run();
-public:
-    SearchResults searchResults;
-    int globalPos;
-    QRegExp replaceWhat;
-    QString replaceWith;
-};
-
 MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject*)
  : QRunnable()
  , searchResults(srs)
@@ -478,13 +455,13 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(copySource()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copySourceToClipboard()));
     view->addAction(a);
 
     a=new QAction(i18n("Copy target to clipboard"),view);
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(copyTarget()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copyTargetToClipboard()));
     view->addAction(a);
 
     a=new QAction(i18n("Open file"),view);
@@ -522,9 +499,10 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     while (--i>ID_STATUS_PROGRESS)
         statusBarItems.insert(i,QString());
 
+#ifndef NOKDE
     setXMLFile("filesearchtabui.rc",true);
     dbusObjectPath();
-
+#endif
 
     KActionCollection* ac=actionCollection();
     KActionCategory* srf=new KActionCategory(i18nc("@title actions category","Search and replace in files"), ac);
@@ -550,20 +528,24 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()), Qt::QueuedConnection);
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("FileSearchResultsHeaderState", QByteArray()) ));
+#endif
 }
 
 FileSearchTab::~FileSearchTab()
 {
     stopSearch();
 
+#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config,"MainWindow");
     cg.writeEntry("FileSearchResultsHeaderState",ui_fileSearchOptions->treeView->header()->saveState().toBase64());
 
     ids.removeAll(m_dbusId);
+#endif
 }
 
 void FileSearchTab::performSearch()
@@ -615,7 +597,6 @@ void FileSearchTab::performSearch()
             batch.append(files.at(j));
 
         SearchJob* job=new SearchJob(batch, sp, rules, m_lastSearchNumber);
-        QObject::connect(job,SIGNAL(done(SearchJob*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(SearchJob*)),this,SLOT(searchJobDone(SearchJob*)));
         QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
@@ -646,7 +627,6 @@ void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
             ++last;
 
         MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last+1-i), i, what, with);
-        QObject::connect(job,SIGNAL(done(MassReplaceJob*)),job,SLOT(deleteLater()));
         QObject::connect(job,SIGNAL(done(MassReplaceJob*)),this,SLOT(replaceJobDone(MassReplaceJob*)));
         QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
@@ -659,12 +639,12 @@ static void copy(QTreeView* view, int column)
     QApplication::clipboard()->setText( view->currentIndex().sibling(view->currentIndex().row(),column).data().toString());
 }
 
-void FileSearchTab::copySource()
+void FileSearchTab::copySourceToClipboard()
 {
     copy(ui_fileSearchOptions->treeView, FileSearchModel::Source);
 }
 
-void FileSearchTab::copyTarget()
+void FileSearchTab::copyTargetToClipboard()
 {
     copy(ui_fileSearchOptions->treeView, FileSearchModel::Target);
 }
@@ -758,8 +738,21 @@ void FileSearchTab::addFilesToSearch(const QStringList& files)
     performSearch();
 }
 
+void FileSearchTab::setSourceQuery(const QString& query)
+{
+    ui_fileSearchOptions->querySource->setText(query);
+}
+
+void FileSearchTab::setTargetQuery(const QString& query)
+{
+    ui_fileSearchOptions->queryTarget->setText(query);
+}
+
+
 void FileSearchTab::searchJobDone(SearchJob* j)
 {
+    j->deleteLater();
+
     if (j->searchNumber!=m_lastSearchNumber)
         return;
 
@@ -792,6 +785,7 @@ void FileSearchTab::searchJobDone(SearchJob* j)
 
 void FileSearchTab::replaceJobDone(MassReplaceJob* j)
 {
+    j->deleteLater();
     ui_fileSearchOptions->treeView->scrollTo(m_model->index(j->globalPos+j->searchResults.count(), 0));
 
 }
@@ -870,7 +864,7 @@ void MassReplaceView::deactivatePreview()
     ui->doReplace->setEnabled(false);
 }
 
-
+#ifndef NOKDE
 #include "filesearchadaptor.h"
 #include <qdbusconnection.h>
 
@@ -894,8 +888,7 @@ QString FileSearchTab::dbusObjectPath()
 
     return "/ThisIsWhatYouWant/FileSearch/" + QString::number(m_dbusId);
 }
-
-
 //END DBus interface
 
-#include "filesearchtab.moc"
+#endif
+

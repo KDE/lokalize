@@ -28,9 +28,6 @@
 #include "pos.h"
 #include "rule.h"
 
-#include <KMainWindow>
-#include <KXMLGUIClient>
-
 #include <QDockWidget>
 #include <QAbstractListModel>
 #include <state.h>
@@ -45,6 +42,8 @@ class QStringListModel;
 class QComboBox;
 class QTreeView;
 class QSortFilterProxyModel;
+
+class KXMLGUIClient;
 
 class FileSearchModel;
 class SearchFileListView;
@@ -66,17 +65,20 @@ public:
 
     void hideDocks(){};
     void showDocks(){};
+#ifndef NOKDE
     KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
     QString dbusObjectPath();
     int dbusId(){return m_dbusId;}
-
+#endif
 
 public slots:
-    void copySource();
-    void copyTarget();
+    void copySourceToClipboard();
+    void copyTargetToClipboard();
     void openFile();
     Q_SCRIPTABLE void performSearch();
     Q_SCRIPTABLE void addFilesToSearch(const QStringList&);
+    Q_SCRIPTABLE void setSourceQuery(const QString&);
+    Q_SCRIPTABLE void setTargetQuery(const QString&);
     void fileSearchNext();
     void stopSearch();
     void massReplace(const QRegExp &what, const QString& with);
@@ -278,6 +280,30 @@ public:
     int m_size;
 };
 
+/// @short replace in files
+class MassReplaceJob: public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    explicit MassReplaceJob(const SearchResults& srs,
+                            int pos,
+                            const QRegExp& s,
+                            const QString& r,
+                            //int sn,
+                           QObject* parent=0);
+    ~MassReplaceJob(){}
+
+signals:
+    void done(MassReplaceJob*);
+
+protected:
+    void run();
+public:
+    SearchResults searchResults;
+    int globalPos;
+    QRegExp replaceWhat;
+    QString replaceWith;
+};
 
 
 #endif

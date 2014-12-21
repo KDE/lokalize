@@ -858,9 +858,6 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         DocPosition pos(0);
         //we delay gotoEntry(pos) until project is loaded;
 
-
-        //set some sane role, a real phase with a nmae will be created later with the first edit command
-        m_catalog->setActivePhase(QString(),Project::local()->role());
 //Project
         if (!m_project->isLoaded())
         {

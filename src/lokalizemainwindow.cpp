@@ -406,6 +406,8 @@ TM::TMTab* LokalizeMainWindow::showTM()
 
 FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
 {
+    EditorTab* precedingEditor=qobject_cast<EditorTab*>(activeEditor());
+
     if (!m_fileSearchSubWindow)
     {
         FileSearchTab* w=new FileSearchTab(this);
@@ -417,7 +419,16 @@ FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
     }
 
     if (activate)
+    {
         m_mdiArea->setActiveSubWindow(m_fileSearchSubWindow);
+        if (precedingEditor)
+        {
+            if (precedingEditor->selectionInSource().length())
+                static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget())->setSourceQuery(precedingEditor->selectionInSource());
+            if (precedingEditor->selectionInTarget().length())
+                static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget())->setTargetQuery(precedingEditor->selectionInTarget());
+        }
+    }
     return static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget());
 }
 
@@ -928,7 +939,7 @@ int LokalizeMainWindow::openFileInEditor(const QString& path)
 
 QObject* LokalizeMainWindow::activeEditor()
 {
-    QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
+    //QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW=m_mdiArea->currentSubWindow();
     if (!activeSW || !qobject_cast<EditorTab*>(activeSW->widget()))
         return 0;

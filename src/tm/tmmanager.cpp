@@ -157,13 +157,14 @@ void DBPropertiesDialog::checkConnectionOptions()
     connParams.passwd=dbPasswd->text();
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
-    connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
     connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
     threadPool()->start(openDBJob, OPENDB);
 }
 
 void DBPropertiesDialog::openJobDone(OpenDBJob* openDBJob)
 {
+    openDBJob->deleteLater();
+
     if (!connectionBox->isVisible()) //smth happened while we were trying to connect
         return;
 
@@ -204,7 +205,6 @@ void DBPropertiesDialog::accept()
     }
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
-    connect(openDBJob,SIGNAL(done(OpenDBJob*)),openDBJob,SLOT(deleteLater()));
     connect(openDBJob,SIGNAL(done(OpenDBJob*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
 
     openDBJob->m_setParams=true;

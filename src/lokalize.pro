@@ -50,7 +50,7 @@ SOURCES += main.cpp\
 #    webquery/webquerycontroller.cpp
 #    webquery/myactioncollectionview.cpp
 #    tools/widgettextcaptureconfig.cpp
-##    filesearch/filesearchtab.cpp
+    filesearch/filesearchtab.cpp\
     tm/tmview.cpp\
     tm/tmscanapi.cpp\
     tm/jobs.cpp\
@@ -114,7 +114,7 @@ HEADERS  += editortab.h\
 #    webquery/webquerycontroller.h
 #    webquery/myactioncollectionview.h
 #    tools/widgettextcaptureconfig.h
-##    filesearch/filesearchtab.h
+    filesearch/filesearchtab.h\
     tm/tmview.h\
     tm/tmscanapi.h\
     tm/jobs.h\
@@ -139,9 +139,11 @@ FORMS    +=    glossary/termedit.ui\
     tm/queryoptions.ui\
     tm/managedatabases.ui\
     tm/dbparams.ui\
+    filesearch/filesearchoptions.ui\
+    filesearch/massreplaceoptions.ui\
     nokde-stubs/welcomewidget.ui
 
-INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm project common nokde-stubs
+INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm filesearch project common nokde-stubs
 
 DEFINES += NOKDE
 

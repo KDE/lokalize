@@ -242,7 +242,7 @@ private:
 class ScanJob: public QRunnable
 {
 public:
-    explicit ScanJob(const QString& url, const QString& dbName, QObject* parent = 0);
+    explicit ScanJob(const QString& filePath, const QString& dbName, QObject* parent = 0);
     ~ScanJob();
 
     int priority()const{return SCAN;}
