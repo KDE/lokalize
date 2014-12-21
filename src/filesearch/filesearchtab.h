@@ -235,7 +235,7 @@ signals:
     void replaceRequested(const QRegExp&, const QString&);
 
 private slots:
-    void requestPreview(bool);
+    void requestPreview(bool enable=true);
     void requestReplace();
 
 private:

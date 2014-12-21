@@ -45,6 +45,7 @@
 #include "alttrans.h"
 #include "catalog_private.h"
 class CatalogStorage;
+class MassReplaceJob;
 class KAutoSaveFile;
 
 #include <QUndoStack>
@@ -256,6 +257,7 @@ protected:
     friend class UpdatePhaseCmd;
     friend class MergeCatalog;
     friend class SetEquivTransCmd;
+    friend class MassReplaceJob;
 
 public:
     static QString supportedMimeFilters;

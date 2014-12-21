@@ -279,19 +279,43 @@ void MassReplaceJob::run()
     
     foreach(const QString& filepath, map.keys())
     {
-        Catalog catalog(thread());
+        Catalog catalog(0);
         if (catalog.loadFromUrl(filepath, QString())!=0)
             continue;
         
         foreach(int index, map.values(filepath))
         {
             SearchResult& sr=searchResults[index];
-            if (catalog.target(sr.docPos.toDocPosition())!=sr.target)
+            DocPosition docPos=sr.docPos.toDocPosition();
+            if (catalog.target(docPos)!=sr.target)
+            {
+                qWarning()<<"skipping replace because"<<catalog.target(docPos)<<"!="<<sr.target;
                 continue;
+            }
 
-            CatalogString s=catalog.targetWithTags(sr.docPos.toDocPosition());
-            s.string.replace(replaceWhat, replaceWith);
-            catalog.setTarget(sr.docPos.toDocPosition(), s);
+            CatalogString s=catalog.targetWithTags(docPos);
+            int pos=replaceWhat.indexIn(s.string);
+            while (pos!=-1)
+            {
+                if (!s.string.midRef(pos, replaceWhat.matchedLength()).contains(TAGRANGE_IMAGE_SYMBOL))
+                {
+                    docPos.offset=pos;
+                    catalog.targetDelete(docPos, replaceWhat.matchedLength());
+                    catalog.targetInsert(docPos, replaceWith);
+                    s.string.replace(pos, replaceWhat.matchedLength(), replaceWith);
+                    pos+=replaceWith.length();
+                }
+                else
+                {
+                    pos+=replaceWhat.matchedLength();
+                    qWarning()<<"skipping replace because matched text contains markup"<<s.string;
+                }
+
+                if (pos>s.string.length() || replaceWhat.pattern().startsWith('^'))
+                    break;
+
+                pos=replaceWhat.indexIn(s.string, pos);
+            }
         }
 
         catalog.save();
@@ -839,9 +863,17 @@ void MassReplaceView::requestPreview(bool enable)
     {
         s=ui->searchText->text();
         r=ui->replaceText->text();
-        
+
         if (s.length())
             ui->doReplace->setEnabled(true);
+
+        connect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+        connect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+    }
+    else
+    {
+        disconnect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+        disconnect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
     }
 
     emit previewRequested(QRegExp(s), r);
