@@ -49,6 +49,7 @@ public:
         Source,
         Target,
         Notes,
+        Context,
         TranslationStatus,
         Empty,
         State,

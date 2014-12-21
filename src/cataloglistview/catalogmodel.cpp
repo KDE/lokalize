@@ -124,6 +124,7 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
         case Source:    return i18nc("@title:column Original text","Source");
         case Target:    return i18nc("@title:column Text in target language","Target");
         case Notes:     return i18nc("@title:column","Notes");
+        case Context:   return i18nc("@title:column","Context");
         case TranslationStatus: return i18nc("@title:column","Translation Status");
     }
     return QVariant();
@@ -182,9 +183,9 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     }
     else if (role==StringFilterRole) //exclude UI strings
     {
-        if (index.column()>Notes)
+        if (index.column()>=TranslationStatus)
             return QVariant();
-        else if (index.column()) //>Key
+        else if (index.column()==Source || index.column()==Target)
         {
             static const DocPosition::Part parts[]={DocPosition::Source, DocPosition::Target};
             QString str=m_catalog->catalogString(DocPosition(index.row(),parts[index.column()==Target])).string;
@@ -209,6 +210,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
                 result+=note.content;
             return result;
         }
+        case Context:  qDebug()<<m_catalog->context(index.row()); return m_catalog->context(index.row());
         case TranslationStatus:
             static QString statuses[]={i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"),
                                     i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"),
