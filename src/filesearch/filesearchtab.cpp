@@ -856,27 +856,44 @@ MassReplaceView::~MassReplaceView()
     delete ui;
 }
 
+static QRegExp regExpFromUi(const QString& s, Ui_MassReplaceOptions* ui)
+{
+    return QRegExp(s, ui->matchCase->isChecked()?Qt::CaseSensitive:Qt::CaseInsensitive,
+                                  ui->useRegExps->isChecked()?QRegExp::FixedString:QRegExp::RegExp);
+}
+
+void MassReplaceView::requestPreviewUpdate()
+{
+    QString s=ui->searchText->text();
+    QString r=ui->replaceText->text();
+
+    if (s.length())
+        ui->doReplace->setEnabled(true);
+
+    emit previewRequested(regExpFromUi(s, ui), r);
+}
+
+
 void MassReplaceView::requestPreview(bool enable)
 {
-    QString s, r;
     if (enable)
     {
-        s=ui->searchText->text();
-        r=ui->replaceText->text();
+        connect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
+        connect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
+        connect(ui->useRegExps, SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
+        connect(ui->matchCase,  SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
 
-        if (s.length())
-            ui->doReplace->setEnabled(true);
-
-        connect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
-        connect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
+        requestPreviewUpdate();
     }
     else
     {
-        disconnect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
-        disconnect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreview()));
-    }
+        disconnect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
+        disconnect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
+        disconnect(ui->useRegExps, SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
+        disconnect(ui->matchCase,  SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
 
-    emit previewRequested(QRegExp(s), r);
+        emit previewRequested(QRegExp(), QString());
+    }
 }
 
 void MassReplaceView::requestReplace()
@@ -887,7 +904,7 @@ void MassReplaceView::requestReplace()
     if (s.isEmpty())
         return;
 
-    emit replaceRequested(QRegExp(s), r);
+    emit replaceRequested(regExpFromUi(s, ui), r);
 }
 
 void MassReplaceView::deactivatePreview()

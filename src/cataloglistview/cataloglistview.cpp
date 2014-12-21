@@ -261,7 +261,7 @@ void CatalogView::setMergeCatalogPointer(MergeCatalog* pointer)
     m_proxyModel->setMergeCatalogPointer(pointer);
 }
 
-int CatalogView::siblingEntry(int step)
+int CatalogView::siblingEntryNumber(int step)
 {
     QModelIndex item=m_browser->currentIndex();
     int lastRow=m_proxyModel->rowCount()-1;
@@ -281,14 +281,14 @@ int CatalogView::siblingEntry(int step)
     return m_proxyModel->mapToSource(item).row();
 }
 
-int CatalogView::nextEntry()
+int CatalogView::nextEntryNumber()
 {
-    return siblingEntry(1);
+    return siblingEntryNumber(1);
 }
 
-int CatalogView::prevEntry()
+int CatalogView::prevEntryNumber()
 {
-    return siblingEntry(-1);
+    return siblingEntryNumber(-1);
 }
 
 static int edgeEntry(CatalogTreeFilterModel* m_proxyModel, int row)
@@ -299,12 +299,12 @@ static int edgeEntry(CatalogTreeFilterModel* m_proxyModel, int row)
     return m_proxyModel->mapToSource(m_proxyModel->index(row,0)).row();
 }
 
-int CatalogView::firstEntry()
+int CatalogView::firstEntryNumber()
 {
     return edgeEntry(m_proxyModel,0);
 }
 
-int CatalogView::lastEntry()
+int CatalogView::lastEntryNumber()
 {
     return edgeEntry(m_proxyModel,m_proxyModel->rowCount()-1);
 }

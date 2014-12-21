@@ -1049,8 +1049,8 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
             emit signalNewEntryDisplayed(pos);
             emit entryDisplayed();
 
-            emit signalFirstDisplayed(pos.entry==m_transUnitsView->firstEntry());
-            emit signalLastDisplayed(pos.entry==m_transUnitsView->lastEntry());
+            emit signalFirstDisplayed(pos.entry==m_transUnitsView->firstEntryNumber());
+            emit signalLastDisplayed(pos.entry==m_transUnitsView->lastEntryNumber());
 
             emit signalPriorFuzzyAvailable(pos.entry>m_catalog->firstFuzzyIndex());
             emit signalNextFuzzyAvailable(pos.entry<m_catalog->lastFuzzyIndex());
@@ -1130,14 +1130,14 @@ void EditorTab::gotoLastUnfiltered(){gotoEntry(DocPosition(m_catalog->numberOfEn
 
 void EditorTab::gotoFirst()
 {
-    DocPosition pos=DocPosition(m_transUnitsView->firstEntry());
+    DocPosition pos=DocPosition(m_transUnitsView->firstEntryNumber());
     if (pos.entry!=-1)
         gotoEntry(pos);
 }
 
 void EditorTab::gotoLast()
 {
-    DocPosition pos=DocPosition(m_transUnitsView->lastEntry());
+    DocPosition pos=DocPosition(m_transUnitsView->lastEntryNumber());
     if (pos.entry!=-1)
         gotoEntry(pos);
 }
@@ -1149,7 +1149,7 @@ void EditorTab::gotoNext()
     if (m_catalog->isPlural(pos) && pos.form+1<m_catalog->numberOfPluralForms())
         pos.form++;
     else
-        pos=DocPosition(m_transUnitsView->nextEntry());
+        pos=DocPosition(m_transUnitsView->nextEntryNumber());
 
     if (pos.entry!=-1)
         gotoEntry(pos);
@@ -1161,7 +1161,7 @@ void EditorTab::gotoPrev()
     if (m_catalog->isPlural(pos) && pos.form>0)
         pos.form--;
     else
-        pos=DocPosition(m_transUnitsView->prevEntry());
+        pos=DocPosition(m_transUnitsView->prevEntryNumber());
 
     if (pos.entry!=-1)
         gotoEntry(pos);

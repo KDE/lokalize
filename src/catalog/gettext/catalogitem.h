@@ -38,9 +38,9 @@
 
 #include <QStringList>
 
-namespace GettextCatalog {
+#include "catalogitem_private.h"
 
-class CatalogItemPrivate;
+namespace GettextCatalog {
 
 /**
  * This class represents an entry in a catalog.
@@ -60,7 +60,7 @@ public:
     CatalogItem(const CatalogItem&);
     ~CatalogItem();
 
-    bool isFuzzy() const;      //", fuzzy" in comment
+    bool isFuzzy() const {return d._fuzzyCached;} //", fuzzy" in comment
     bool isCformat() const;    //", c-format" or possible-c-format in comment (from the debug parameter of xgettext)
     bool isNoCformat() const;  //", no-c-format" in comment
     bool isQtformat() const;   //", qt-format" in comment
@@ -80,9 +80,9 @@ public:
     /** cleares the item */
     void clear();
 
-    QString comment() const;
-    const QString& msgctxt(const bool noNewlines = false) const;
-    const QString& msgid(const int form=0) const;
+    const QString& comment() const {return d._comment;}
+    QString msgctxt(const bool noNewlines = false) const;
+    const QString& msgid(const int form=0) const{return d.msgid(form);}
     const QString& msgstr(const int form=0) const;
     const QVector<QString>& msgstrPlural() const;
     enum Part {Source, Target};
@@ -103,8 +103,9 @@ public:
     void setMsgstr(const QStringList& msg, bool prependEmptyLine);
     void setMsgstr(const QVector<QString>& msg);
 
-    void setValid(bool);
-    bool isValid() const;
+    void setValid(bool v) {d._valid=v;}
+    bool isValid() const {return d._valid;}
+
 #if 0
 	/**
 	 * @return the list of all errors of this item 
@@ -135,7 +136,7 @@ public:
     void operator=(const CatalogItem& rhs);
 
 private:
-    CatalogItemPrivate* const d;
+    CatalogItemPrivate d;
 
     friend class GettextStorage;
     void setFuzzy();

@@ -211,7 +211,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
                 result+=note.content;
             return result;
         }
-        case Context:  qDebug()<<m_catalog->context(index.row()); return m_catalog->context(index.row());
+        case Context: return m_catalog->context(index.row());
         case TranslationStatus:
             static QString statuses[]={i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"),
                                     i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"),

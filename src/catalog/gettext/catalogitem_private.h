@@ -65,7 +65,7 @@ public:
     bool _prependMsgStrEmptyLine;
     bool _keepEmptyMsgCtxt;
 
-    QByteArray _comment;
+    QString _comment;
     QString _msgctxt;
 
     QVector<QString> _msgidPlural;

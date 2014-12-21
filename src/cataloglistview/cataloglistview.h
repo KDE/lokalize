@@ -48,12 +48,12 @@ public:
 
     void setEntryFilteredOut(int entry, bool filteredOut);
 
-    int nextEntry();
-    int prevEntry();
-    int firstEntry();
-    int lastEntry();
+    int nextEntryNumber();
+    int prevEntryNumber();
+    int firstEntryNumber();
+    int lastEntryNumber();
 private:
-    int siblingEntry(int step);
+    int siblingEntryNumber(int step);
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);

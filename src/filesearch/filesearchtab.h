@@ -227,7 +227,7 @@ class MassReplaceView: public QDockWidget
 public:
     MassReplaceView(QWidget*);
     ~MassReplaceView();
-    
+
     void deactivatePreview();
 
 signals:
@@ -235,7 +235,8 @@ signals:
     void replaceRequested(const QRegExp&, const QString&);
 
 private slots:
-    void requestPreview(bool enable=true);
+    void requestPreview(bool enable);
+    void requestPreviewUpdate();
     void requestReplace();
 
 private:
