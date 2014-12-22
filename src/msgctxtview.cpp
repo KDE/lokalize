@@ -36,12 +36,15 @@
 
 #include <QTime>
 #include <QTimer>
+#include <QDebug>
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QLabel>
 #include <QStringListModel>
 #include <QLineEdit>
 #include <QTextBrowser>
+#include <QStringBuilder>
+#include <QDesktopServices>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget (i18nc("@title toolview name","Unit metadata"), parent)
@@ -134,7 +137,21 @@ void MsgCtxtView::process()
 
     QString html;
     foreach(const Note& note, m_catalog->developerNotes(m_entry.toDocPosition()))
-        html+=BR+note.content.toHtmlEscaped();
+    {
+        html+=BR;
+        static QRegularExpression urlDetector(QStringLiteral("(https?|ftp)://[^\\s/$.?#].[^\\s]*"));
+        QStringList parts=note.content.split(urlDetector);
+        if (parts.size()) html+=parts.takeFirst().toHtmlEscaped();
+
+        QRegularExpressionMatchIterator i = urlDetector.globalMatch(note.content);
+        while (i.hasNext())
+        {
+            QRegularExpressionMatch match = i.next();
+            QString word = match.captured(0);
+            html+=QStringLiteral("<a href=\"")%word.toHtmlEscaped()%QStringLiteral("\">")%word.toHtmlEscaped()%QStringLiteral("</a>");
+            if (parts.size()) html+=parts.takeFirst().toHtmlEscaped();
+        }
+    }
 
     QStringList sourceFiles=m_catalog->sourceFiles(m_entry.toDocPosition());
     if (!sourceFiles.isEmpty())
@@ -203,6 +220,8 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         int pos=path.lastIndexOf(':');
         emit srcFileOpenRequested(path.left(pos),path.mid(pos+1).toInt());
     }
+    else if (link.scheme().contains("tp"))
+        QDesktopServices::openUrl(link);
 }
 
 void MsgCtxtView::noteEditAccepted()

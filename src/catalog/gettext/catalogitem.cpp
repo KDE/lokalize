@@ -166,10 +166,13 @@ void CatalogItem::setMsgstr(const QVector<QString>& msg)
 
 void CatalogItem::setComment(const QString& com)
 {
-    static QMutex reMutex;
-    QMutexLocker reLock(&reMutex); //avoid crash #281033
-    static QRegExp fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
-    d._fuzzyCached=com.contains( fuzzyRegExp );
+    {
+        static QMutex reMutex;
+        QMutexLocker reLock(&reMutex); //avoid crash #281033
+        static QRegExp fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
+        d._fuzzyCached=com.contains( fuzzyRegExp );
+    }
+    d._comment=com;
     d._comment.squeeze();
 }
 

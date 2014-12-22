@@ -137,7 +137,7 @@ void AltTransView::fileLoaded()
     if (info.canonicalFilePath()!=absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
     else
-        qWarning()<<"alt trans file doesn't exist:"<<info.canonicalFilePath();
+        qWarning()<<"alt trans file doesn't exist:"<<Project::instance()->altTransDir()%'/'%relPath;
 }
 
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
