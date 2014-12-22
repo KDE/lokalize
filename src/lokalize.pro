@@ -33,6 +33,7 @@ SOURCES += main.cpp\
     common/termlabel.cpp\
     common/languagelistmodel.cpp\
     common/stemming.cpp\
+    common/htmlhelpers.cpp\
     glossary/glossaryview.cpp\
     glossary/glossary.cpp\
     glossary/glossarywindow.cpp\

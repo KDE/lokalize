@@ -138,19 +138,7 @@ void MsgCtxtView::process()
     QString html;
     foreach(const Note& note, m_catalog->developerNotes(m_entry.toDocPosition()))
     {
-        html+=BR;
-        static QRegularExpression urlDetector(QStringLiteral("(https?|ftp)://[^\\s/$.?#].[^\\s]*"));
-        QStringList parts=note.content.split(urlDetector);
-        if (parts.size()) html+=parts.takeFirst().toHtmlEscaped();
-
-        QRegularExpressionMatchIterator i = urlDetector.globalMatch(note.content);
-        while (i.hasNext())
-        {
-            QRegularExpressionMatch match = i.next();
-            QString word = match.captured(0);
-            html+=QStringLiteral("<a href=\"")%word.toHtmlEscaped()%QStringLiteral("\">")%word.toHtmlEscaped()%QStringLiteral("</a>");
-            if (parts.size()) html+=parts.takeFirst().toHtmlEscaped();
-        }
+        html+=BR+escapeWithLinks(note.content);
     }
 
     QStringList sourceFiles=m_catalog->sourceFiles(m_entry.toDocPosition());

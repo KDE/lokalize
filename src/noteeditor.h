@@ -34,6 +34,7 @@ class QComboBox;
 class TextEdit;
 
 int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active = 0, bool multiple = true);
+QString escapeWithLinks(const QString& text);//defined in htmlhelpers.cpp
 
 class NoteEditor: public QWidget
 {
