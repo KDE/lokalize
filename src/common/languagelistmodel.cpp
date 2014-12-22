@@ -163,6 +163,11 @@ QString LanguageListModel::langCodeForSortModelRow(int row)
 
 QString getTargetLangCode(const QString& title)
 {
+#ifndef NOKDE
+    if (Project::instance()->targetLangCode().length())
+        return Project::instance()->targetLangCode();
+    return QLocale::system().name();
+#else
     QDialog dlg(SettingsController::instance()->mainWindowPtr());
     dlg.setWindowTitle(title);
     QHBoxLayout* l=new QHBoxLayout(&dlg);
@@ -181,6 +186,7 @@ QString getTargetLangCode(const QString& title)
         return Project::instance()->targetLangCode();
 
     return LanguageListModel::instance()->langCodeForSortModelRow(lc->currentIndex());
+#endif
 }
 
 
