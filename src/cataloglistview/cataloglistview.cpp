@@ -25,6 +25,7 @@
 #include "catalogmodel.h"
 #include "catalog.h"
 #include "project.h"
+#include "prefs.h"
 
 #include <QLineEdit>
 #include <QDebug>
@@ -133,20 +134,12 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setUniformRowHeights(true);
     m_browser->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
-#ifndef NOKDE
-    KConfig config;
-    KConfigGroup cg(&config,"MainWindow");
-    m_browser->header()->restoreState(QByteArray::fromBase64( cg.readEntry("TreeHeaderState", QByteArray()) ));
-#endif
+    m_browser->header()->restoreState(readUiState("CatalogTreeViewState"));
 }
 
 CatalogView::~CatalogView()
 {
-#ifndef NOKDE
-    KConfig config;
-    KConfigGroup cg(&config,"MainWindow");
-    cg.writeEntry("TreeHeaderState",m_browser->header()->saveState().toBase64());
-#endif
+    writeUiState("CatalogTreeViewState", m_browser->header()->saveState());
 }
 
 void CatalogView::setFocus()

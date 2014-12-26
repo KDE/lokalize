@@ -45,7 +45,7 @@ public:
 public slots:
     void showSettingsDialog(){}
 
-    bool ensureProjectIsLoaded(){return true;}
+    bool ensureProjectIsLoaded();
     QString projectOpen(QString path=QString(), bool doOpen=true){return QString();}
     bool projectCreate(){return true;}
     void projectConfigure(){}
@@ -62,5 +62,8 @@ private:
 public:
     static SettingsController* instance();
 };
+
+void writeUiState(const char* elementName, const QByteArray&);
+QByteArray readUiState(const char* elementName);
 
 #endif

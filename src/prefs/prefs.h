@@ -115,5 +115,7 @@ public:
 
 };
 
+void writeUiState(const char* elementName, const QByteArray&);
+QByteArray readUiState(const char* elementName);
 
 #endif

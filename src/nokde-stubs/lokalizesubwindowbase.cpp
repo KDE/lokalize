@@ -38,6 +38,7 @@ KActionCollection::KActionCollection(QMainWindow* w)
     , sync(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Sync")))
     , tools(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Tools")))
     , tm  (new QMenu(QApplication::translate("QMenuBar", "Translation Memory")))
+    , glossary(new QMenu(QApplication::translate("QMenuBar", "Glossary")))
 {
     QAction* a=file->addAction(QApplication::translate("QMenuBar", "Open..."), Project::instance(),SLOT(fileOpen()));
     a->setShortcut(QKeySequence::Open);
@@ -70,10 +71,15 @@ QAction* KActionCollection::addAction(const QString& name, QAction* a)
     if (name.startsWith("merge_")) sync->addAction(a);
     if (name.startsWith("go_")) go->addAction(a);
     if (name.startsWith("tmquery_")) tm->addAction(a);
+    if (name.startsWith("glossary_insert")) glossary->addAction(a);
     if (name.startsWith("show")) view->addAction(a);
     if (name.startsWith("tools")) tools->addAction(a);
 
-    if (name=="mergesecondary_back") edit->addMenu(tm);
+    if (name=="mergesecondary_back")
+    {
+        if (!tm->isEmpty()) edit->addMenu(tm);
+        if (!glossary->isEmpty()) edit->addMenu(glossary);
+    }
     return a;
 }
 

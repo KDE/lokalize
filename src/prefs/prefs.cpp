@@ -357,6 +357,19 @@ void RelPathSaver::setText (const QString& txt)
 }
 
 
+void writeUiState(const char* elementName, const QByteArray& state)
+{
+    KConfig config;
+    KConfigGroup cg(&config,"MainWindow");
+    cg.writeEntry(elementName,state.toBase64());
+}
+
+QByteArray readUiState(const char* elementName)
+{
+    KConfig config;
+    KConfigGroup cg(&config,"MainWindow");
+    return QByteArray::fromBase64( cg.readEntry(elementName, QByteArray()) );
+}
 
 
 #include "prefs.moc"

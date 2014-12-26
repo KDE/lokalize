@@ -63,9 +63,9 @@ void CatalogImportPlugin::appendCatalogItem( const CatalogItem& item, const bool
     if (item.msgid().isEmpty())
         return;
     if( obsolete )
-	d->_obsoleteEntries.append(item);
+        d->_obsoleteEntries.append(item);
     else
-	d->_entries.append(item);
+        d->_entries.append(item);
 }
 
 void CatalogImportPlugin::setCatalogExtraData( const QStringList& data )

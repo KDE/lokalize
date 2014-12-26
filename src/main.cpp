@@ -194,7 +194,7 @@ int main(int argc, char **argv)
     RegisterClass(&windowClass);
     responder = CreateWindow(gClassName, L"LokalizeResponder", 0, 0, 0, 10, 10, 0, (HMENU)0, (HINSTANCE)GetModuleHandle(NULL), 0);
 #endif
-
+    SettingsController::instance()->ensureProjectIsLoaded();
     for (int j=0; j<parser.positionalArguments().count(); j++)
         if (QFile::exists(parser.positionalArguments().at(j))) Project::instance()->fileOpen(parser.positionalArguments().at(j));
     if (!parser.positionalArguments().count())

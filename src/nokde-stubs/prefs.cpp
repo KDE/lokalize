@@ -2,6 +2,7 @@
 #include "prefs_lokalize.h"
 #include "projectbase.h"
 #include "projectlocal.h"
+#include "project.h"
 #include "tmtab.h"
 #include "filesearchtab.h"
 
@@ -30,6 +31,12 @@ SettingsController* SettingsController::instance()
     }
 
     return _instance;
+}
+
+bool SettingsController::ensureProjectIsLoaded()
+{
+    Project::instance()->populateGlossary();
+    return true;
 }
 
 QString fullUserName();
@@ -73,6 +80,17 @@ Settings *Settings::self()
 }
 
 
+
+void writeUiState(const char* elementName, const QByteArray& state)
+{
+    QSettings s;
+    s.setValue(QStringLiteral("UI/")+QLatin1String(elementName), state.toBase64());
+}
+QByteArray readUiState(const char* elementName)
+{
+    QSettings s;
+	return QByteArray::fromBase64( s.value(QStringLiteral("UI/")+QLatin1String(elementName), QByteArray()).toByteArray() );
+}
 
 
 

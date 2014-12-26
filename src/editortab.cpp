@@ -238,7 +238,7 @@ void EditorTab::setupActions()
     {
         altaction=tm->addAction(QString("alttrans_insert_%1").arg(i));
         ac->setDefaultShortcut(altaction, QKeySequence(Qt::ALT+altlist[i]));
-        altaction->setText(i18nc("@action:inmenu","Insert alternate translation # %1",i));
+        altaction->setText(i18nc("@action:inmenu","Insert alternate translation #%1",QString::number(i)));
         altactions[i]=altaction;
     }
 
@@ -308,7 +308,7 @@ void EditorTab::setupActions()
 //         action->setVisible(false);
         tmaction=tm->addAction(QString("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL+tmlist[i]));
-        tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion # %1",QString::number(i+1)));
+        tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion #%1",QString::number(i+1)));
         tmactions[i]=tmaction;
     }
     TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
@@ -354,7 +354,7 @@ void EditorTab::setupActions()
 //         action->setVisible(false);
         gaction=glossary->addAction(QString("glossary_insert_%1").arg(i));
         ac->setDefaultShortcut(gaction, QKeySequence(Qt::CTRL+glist[i]));
-        gaction->setText(i18nc("@action:inmenu","Insert # %1 term translation",i));
+        gaction->setText(i18nc("@action:inmenu","Insert term translation #%1",QString::number(i)));
         gactions[i]=gaction;
     }
 
@@ -399,7 +399,7 @@ void EditorTab::setupActions()
         wqaction=actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
         wqaction->setShortcut(Qt::CTRL+Qt::ALT+wqlist[i]);
         //wqaction->setShortcut(Qt::META+wqlist[i]);
-        wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result # %1",i));
+        wqaction->setText(i18nc("@action:inmenu","Insert WebQuery result #%1",i));
         wqactions[i]=wqaction;
     }
     WebQueryView* _webQueryView = new WebQueryView(this,m_catalog,wqactions);

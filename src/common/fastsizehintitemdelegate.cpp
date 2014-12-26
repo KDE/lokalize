@@ -27,6 +27,7 @@
 #include <QPainter>
 #include <QStringBuilder>
 #include <QTextDocument>
+#include <QApplication>
 
 FastSizeHintItemDelegate::FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc)
     : QItemDelegate(parent)
@@ -78,7 +79,7 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
 #else
     static QPalette p;
     if (option.state&QStyle::State_MouseOver)
-        bgBrush=p.link();
+        bgBrush=p.highlight();
     else if (index.row()%2)
         bgBrush=p.alternateBase();
     else

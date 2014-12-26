@@ -145,6 +145,7 @@ struct KActionCollection
     QMenu* sync;
     QMenu* tools;
     QMenu* tm;
+    QMenu* glossary;
 };
 struct KActionCategory
 {
