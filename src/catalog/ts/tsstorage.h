@@ -85,6 +85,8 @@ public:
     QString mimetype()const{return QStringLiteral("application/x-linguist");}
     QString fileType()const{return QStringLiteral("Qt Linguist (*.ts)");}
 
+    void setTargetLangCode(const QString& langCode);
+
 private:
     QDomElement unitForPos(int pos) const;
     QDomElement targetForPos(DocPosition pos) const;

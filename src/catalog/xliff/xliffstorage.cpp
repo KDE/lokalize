@@ -36,15 +36,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QXmlSimpleReader>
 
-#if defined(Q_OS_WIN) && defined(QStringLiteral)
-#undef QStringLiteral
-#define QStringLiteral QLatin1String
+#ifdef Q_OS_WIN
+#define U QLatin1String
+#else
+#define U QStringLiteral
 #endif
 
-static const QString noyes[]={QStringLiteral("no"),QStringLiteral("yes")};
-static const QString bintargettarget[]={QStringLiteral("bin-target"),QStringLiteral("target")};
-static const QString binsourcesource[]={QStringLiteral("bin-source"),QStringLiteral("source")};
-static const QString NOTE=QStringLiteral("note");
+static const QString noyes[]={U("no"),U("yes")};
+static const QString bintargettarget[]={U("bin-target"),U("target")};
+static const QString binsourcesource[]={U("bin-source"),U("source")};
+static const QString NOTE=U("note");
 XliffStorage::XliffStorage()
  : CatalogStorage()
 {
@@ -67,8 +68,8 @@ int XliffStorage::load(QIODevice* device)
 
 
     QXmlSimpleReader reader;
-    reader.setFeature("http://qtsoftware.com/xml/features/report-whitespace-only-CharData",true);
-    reader.setFeature("http://xml.org/sax/features/namespaces",false);
+    reader.setFeature(QStringLiteral("http://qt-project.org/xml/features/report-whitespace-only-CharData"),true);
+    reader.setFeature(QStringLiteral("http://xml.org/sax/features/namespaces"),false);
     QXmlInputSource source(device);
 
     QString errorMsg;
@@ -497,7 +498,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
 CatalogString XliffStorage::catalogString(QDomElement unit,  DocPosition::Part part) const
 {
-    static const QString names[]={QStringLiteral("source"),QStringLiteral("target"), QStringLiteral("seg-source")};
+    static const QString names[]={U("source"),U("target"), U("seg-source")};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
     int nameIndex=part==DocPosition::Target;
@@ -629,7 +630,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
             "reference",
             "accepted"
         };
-        QString typeStr=elem.attribute(("alttranstype"));
+        QString typeStr=elem.attribute(QStringLiteral("alttranstype"));
         int i=-1;
         while (++i<int(sizeof(types)/sizeof(char*)) && types[i]!=typeStr)
             ;
@@ -637,7 +638,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
 
         result<<aTrans;
 
-        elem=elem.nextSiblingElement(("alt-trans"));
+        elem=elem.nextSiblingElement(QStringLiteral("alt-trans"));
     }
     return result;
 }

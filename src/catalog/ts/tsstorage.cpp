@@ -37,16 +37,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <klocalizedstring.h>
 
-static const char* const noyes[]={"no","yes"};
+#ifdef Q_OS_WIN
+#define U QLatin1String
+#else
+#define U QStringLiteral
+#endif
 
-static const QString names[]={"source" ,"translation","oldsource" ,"translatorcomment","comment" ,"name" ,"numerus"};
-enum TagNames                {SourceTag,TargetTag    ,OldSourceTag,NoteTag            ,DevNoteTag,NameTag,PluralTag};
+//static const char* const noyes[]={"no","yes"};
 
-static const QString attrnames[]={"location"  ,"type"  ,"obsolete"};
-enum AttrNames                   {LocationAttr,TypeAttr,ObsoleteAttr};
+static const QString names[]={U("source"),U("translation"),U("oldsource"),U("translatorcomment"),U("comment"),U("name"),U("numerus")};
+enum TagNames                {SourceTag  ,TargetTag       ,OldSourceTag  ,NoteTag               ,DevNoteTag  ,NameTag  ,PluralTag};
 
-static const QString attrvalues[]={"obsolete"};
-enum AttValues                    {ObsoleteVal};
+static const QString attrnames[]={U("location"),U("type"),U("obsolete")};
+enum AttrNames                   {LocationAttr ,TypeAttr ,ObsoleteAttr};
+
+static const QString attrvalues[]={U("obsolete"),U("vanished")};
+enum AttValues                    {ObsoleteVal  ,VanishedVal};
 
 TsStorage::TsStorage()
  : CatalogStorage()
@@ -70,8 +76,8 @@ int TsStorage::load(QIODevice* device)
 
 
     QXmlSimpleReader reader;
-    reader.setFeature("http://qtsoftware.com/xml/features/report-whitespace-only-CharData",true);
-    reader.setFeature("http://xml.org/sax/features/namespaces",false);
+    reader.setFeature(QStringLiteral("http://qt-project.org/xml/features/report-whitespace-only-CharData"),true);
+    reader.setFeature(QStringLiteral("http://xml.org/sax/features/namespaces"),false);
     QXmlInputSource source(device);
 
     QString errorMsg;
@@ -80,7 +86,7 @@ int TsStorage::load(QIODevice* device)
 
     if (!success)
     {
-        qWarning()<<errorMsg;
+        qWarning()<<"parse error"<<errorMsg<<errorLine;
         return errorLine+1;
     }
 
@@ -94,7 +100,7 @@ int TsStorage::load(QIODevice* device)
     //Along the way: for langs with more than 2 forms
     //we create any form-entries additionally needed
 
-    entries=m_doc.elementsByTagName("message");
+    entries=m_doc.elementsByTagName(QStringLiteral("message"));
 
     qWarning()<<chrono.elapsed()<<"secs, "<<entries.size()<<"entries";
     return 0;
@@ -340,8 +346,8 @@ QStringList TsStorage::sourceFiles(const DocPosition& pos) const
     QDomElement elem = unitForPos(pos.entry).firstChildElement(attrnames[LocationAttr]);
     while (!elem.isNull())
     {
-        QString sourcefile=elem.attribute("filename");
-        QString linenumber=elem.attribute("line");
+        QString sourcefile=elem.attribute(QStringLiteral("filename"));
+        QString linenumber=elem.attribute(QStringLiteral("line"));
         if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
             result.append(sourcefile+':'+linenumber);
 
@@ -475,19 +481,20 @@ void TsStorage::setApproved(const DocPosition& pos, bool approved)
     if (approved)
         target.removeAttribute(attrnames[TypeAttr]);
     else
-        target.setAttribute(attrnames[TypeAttr],"unfinished");
+        target.setAttribute(attrnames[TypeAttr],QStringLiteral("unfinished"));
 }
 
 bool TsStorage::isApproved(const DocPosition& pos) const
 {
     QDomElement target=unitForPos(pos.entry).firstChildElement(names[TargetTag]);
-    return !target.hasAttribute(attrnames[TypeAttr]);
+    return !target.hasAttribute(attrnames[TypeAttr]) || target.attribute(attrnames[TypeAttr])==attrvalues[VanishedVal];
 }
 
 bool TsStorage::isObsolete(int entry) const
 {
     QDomElement target=unitForPos(entry).firstChildElement(names[TargetTag]);
-    return target.attribute(attrnames[TypeAttr])==attrvalues[ObsoleteVal];
+    QString v=target.attribute(attrnames[TypeAttr]);
+    return v==attrvalues[ObsoleteVal] || v==attrvalues[VanishedVal];
 }
 
 bool TsStorage::isEmpty(const DocPosition& pos) const
@@ -523,9 +530,9 @@ QDomElement TsStorage::targetForPos(DocPosition pos) const
     
     if (pos.form==-1) pos.form=0;
     
-    QDomNodeList forms=translation.elementsByTagName("numerusform");
+    QDomNodeList forms=translation.elementsByTagName(QStringLiteral("numerusform"));
     while (pos.form>=forms.size())
-        translation.appendChild( unit.ownerDocument().createElement("numerusform") );
+        translation.appendChild( unit.ownerDocument().createElement(QStringLiteral("numerusform")) );
     return forms.at(pos.form).toElement();
 }
 
@@ -533,6 +540,19 @@ QDomElement TsStorage::sourceForPos(int pos) const
 {
     return unitForPos(pos).firstChildElement(names[SourceTag]);
 }
+
+void TsStorage::setTargetLangCode(const QString& langCode)
+{
+    m_targetLangCode=langCode;
+
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("TS")).at(0).toElement();
+    if (m_targetLangCode!=file.attribute(QStringLiteral("language")).replace('-', '_'))
+    {
+        QString l=langCode;
+        file.setAttribute(QStringLiteral("language"), l.replace('_', '-'));
+    }
+}
+
 
 //END STORAGE TRANSLATION
 

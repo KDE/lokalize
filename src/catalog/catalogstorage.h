@@ -135,6 +135,7 @@ public:
     virtual TargetState setState(const DocPosition&, TargetState){return New;}
 
     virtual bool isObsolete(int entry) const{ Q_UNUSED(entry) return false;}
+    virtual bool isTranslateable(int entry) const{ Q_UNUSED(entry) return true;}
 
     virtual int binUnitsCount() const {return 0;}
     virtual int unitById(const QString& id) const {Q_UNUSED(id); return 0;}

@@ -742,6 +742,23 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         else if(keyEvent->key()==Qt::Key_End)
             emit gotoLastRequested();
     }
+    else if (keyEvent->matches(QKeySequence::MoveToNextLine) || keyEvent->matches(QKeySequence::MoveToPreviousLine))
+    {
+        //static QTime lastUpDownPress;
+        //if (lastUpDownPress.msecsTo(QTime::currentTime())<500)
+        {
+            keyEvent->setAccepted(true);
+            bool up=keyEvent->key()==Qt::Key_Up;
+            QTextCursor c=textCursor();
+            if (!c.movePosition(up?QTextCursor::Up:QTextCursor::Down))
+            {
+                if (up) emit gotoPrevRequested();
+                else    emit gotoNextRequested();
+            }
+            setTextCursor(c);
+        }
+        //lastUpDownPress=QTime::currentTime();
+    }
     else if (m_part==DocPosition::Source)
         return KTextEdit::keyPressEvent(keyEvent);
 
@@ -887,7 +904,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         KTextEdit::keyPressEvent(keyEvent);
     }
     else if(keyEvent->key() == Qt::Key_Tab)
-        insertPlainText("\\t");
+        insertPlainText(QStringLiteral("\\t"));
     else
         KTextEdit::keyPressEvent(keyEvent);
 }
