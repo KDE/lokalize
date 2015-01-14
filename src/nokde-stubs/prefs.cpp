@@ -89,7 +89,7 @@ void writeUiState(const char* elementName, const QByteArray& state)
 QByteArray readUiState(const char* elementName)
 {
     QSettings s;
-	return QByteArray::fromBase64( s.value(QStringLiteral("UI/")+QLatin1String(elementName), QByteArray()).toByteArray() );
+    return QByteArray::fromBase64( s.value(QStringLiteral("UI/")+QLatin1String(elementName), QByteArray()).toByteArray() );
 }
 
 

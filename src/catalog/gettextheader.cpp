@@ -35,6 +35,7 @@
 #include <QTextCodec>
 #include <QDebug>
 #include <QDateTime>
+#include <QTimeZone>
 
 #include <kdemacros.h>
 
@@ -274,8 +275,11 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    QString dateTimeString = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mmt"));
-    temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%QStringLiteral("\\n");
+    QString dateTimeString = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyy-MM-dd hh:mm"));
+    QString zoneOffsetString1 = QTimeZone(QTimeZone::systemTimeZoneId()).displayName(QTimeZone::GenericTime, QTimeZone::OffsetName);
+    int zpos=qMax(0, zoneOffsetString1.indexOf('+'));
+    QString zoneOffsetString = QString::fromRawData(zoneOffsetString1.unicode()+zpos, zoneOffsetString1.length()-zpos);
+    temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%zoneOffsetString.remove(':')%QStringLiteral("\\n");
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
