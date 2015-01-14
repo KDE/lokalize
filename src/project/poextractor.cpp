@@ -145,11 +145,11 @@ void POExtractor::extract(const QString& filePath, FileMetaData& m)
             // handle special values in the first messsage
             // assumption is that value takes up only one line
             if (strncmp("\"POT-Creation-Date: ", line.c_str(), 20) == 0) {
-                m.sourceDate=QByteArray(line.c_str() + 20, line.size() - 21);
+                m.sourceDate=QByteArray(line.c_str() + 20, line.size() - 21 - 2 );
             } else if (strncmp("\"PO-Revision-Date: ", line.c_str(), 19) == 0) {
-                m.translationDate=QByteArray(line.c_str() + 19, line.size() - 20);
+                m.translationDate=QByteArray(line.c_str() + 19, line.size() - 20 - 2);
             } else if (strncmp("\"Last-Translator: ", line.c_str(), 18) == 0) {
-                m.lastTranslator=QString::fromUtf8(QByteArray::fromRawData(line.c_str() + 18, line.size() - 19));
+                m.lastTranslator=QString::fromUtf8(QByteArray::fromRawData(line.c_str() + 18, line.size() - 19 - 2));
             }
             fuzzy = 0;
         }
