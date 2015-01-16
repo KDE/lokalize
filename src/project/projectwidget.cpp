@@ -484,4 +484,3 @@ void ProjectWidget::gotoNextTransOnly()    {gotoIndex(currentIndex(), ProjectMod
 
 QSortFilterProxyModel* ProjectWidget::proxyModel(){return m_proxyModel;}
 
-#include "projectwidget.moc"

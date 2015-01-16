@@ -78,5 +78,4 @@ void MyActionCollectionView::triggerSelectedActions()
 
 }
 
-#include "myactioncollectionview.moc"
 

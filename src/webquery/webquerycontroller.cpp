@@ -139,5 +139,4 @@ void WebQueryController::setResult(QString result)
 }
 
 
-#include "webquerycontroller.moc"
 
