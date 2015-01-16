@@ -372,4 +372,3 @@ QByteArray readUiState(const char* elementName)
 }
 
 
-#include "prefs.moc"
