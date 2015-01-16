@@ -338,7 +338,7 @@ void PhasesWindow::noteEditAccepted()
     if (!m_phaseNotes.contains(phaseName))
         m_phaseNotes.insert(phaseName, m_catalog->phaseNotes(phaseName));
 
-    QVector<Note> notes=m_phaseNotes.value(phaseName);
+    //QVector<Note> notes=m_phaseNotes.value(phaseName);
     if (m_editor->noteIndex()==-1)
         m_phaseNotes[phaseName].append(m_editor->note());
     else

@@ -268,7 +268,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
     QString result;
 
     if (elem.isNull()
-        || (!result.isEmpty() && data->actionType==ContentEditingData::CheckLength))
+        || (!result.isEmpty() && data && data->actionType==ContentEditingData::CheckLength))
         return QString();
 
     bool seenCharacterDataAfterElement=false;

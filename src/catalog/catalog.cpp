@@ -654,7 +654,7 @@ bool Catalog::saveToUrl(QString localFilePath)
     if (KDE_ISUNLIKELY( !m_storage->save(file, belongsToProject) ))
         return false;
 
-    QString localFile=file->fileName();
+    //QString localFile=file->fileName();
     file->close();
 
 #ifndef NOKDE

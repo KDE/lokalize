@@ -425,10 +425,11 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     bool containsMarkup=i;
     while(--i>=0)
     {
+        const InlineTag& tag=catStr.tags.at(i);
         //qWarning()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
-        qWarning()<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
-        posToTag.insert(catStr.tags.at(i).start,i);
-        posToTag.insert(catStr.tags.at(i).end,i);
+        //qWarning()<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        posToTag.insert(tag.start,i);
+        posToTag.insert(tag.end,i);
     }
 
     if (containsMarkup) catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
