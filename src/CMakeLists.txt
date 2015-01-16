@@ -186,3 +186,12 @@ install( FILES
         filesearch/filesearchtabui.rc
         lokalize.notifyrc
         DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+
+install( FILES
+        editorui.rc
+        lokalizemainwindowui.rc
+        scriptsui.rc
+        project/projectmanagerui.rc
+        tm/translationmemoryrui.rc
+        filesearch/filesearchtabui.rc
+        DESTINATION  ${KXMLGUI_INSTALL_DIR}/lokalize )
