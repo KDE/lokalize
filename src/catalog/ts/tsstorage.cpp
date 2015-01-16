@@ -130,7 +130,7 @@ int TsStorage::size() const
 /**
  * helper structure used during XLIFF XML walk-through
  */
-struct ContentEditingData
+struct TsContentEditingData
 {
     enum ActionType{Get,DeleteText,InsertText,CheckLength};
 
@@ -140,21 +140,21 @@ struct ContentEditingData
     ActionType actionType;
 
     ///Get
-    ContentEditingData(ActionType type=Get)
+    TsContentEditingData(ActionType type=Get)
     : pos(-1)
     , lengthOfStringToRemove(-1)
     , actionType(type)
     {}
 
     ///DeleteText
-    ContentEditingData(int p, int l)
+    TsContentEditingData(int p, int l)
     : pos(p)
     , lengthOfStringToRemove(l)
     , actionType(DeleteText)
     {}
 
     ///InsertText
-    ContentEditingData(int p,const QString& s)
+    TsContentEditingData(int p,const QString& s)
     : stringToInsert(s)
     , pos(p)
     , lengthOfStringToRemove(-1)
@@ -162,27 +162,27 @@ struct ContentEditingData
     {}
 };
 
-static QString doContent(QDomElement elem, int startingPos, ContentEditingData* data);
+static QString doContent(QDomElement elem, int startingPos, TsContentEditingData* data);
 
 /**
- * walks through XLIFF XML and performs actions depending on ContentEditingData:
+ * walks through XLIFF XML and performs actions depending on TsContentEditingData:
  * - reads content
  * - deletes content, or
  * - inserts content
  */
-static QString content(QDomElement elem, ContentEditingData* data=0)
+static QString content(QDomElement elem, TsContentEditingData* data=0)
 {
     return doContent(elem, 0, data);
 }
 
-static QString doContent(QDomElement elem, int startingPos, ContentEditingData* data)
+static QString doContent(QDomElement elem, int startingPos, TsContentEditingData* data)
 {
     //actually startingPos is current pos
 
     QString result;
 
     if (elem.isNull()
-        || (!result.isEmpty() && ContentEditingData::CheckLength))
+        || (!result.isEmpty() && TsContentEditingData::CheckLength))
         return QString();
 
     bool seenCharacterDataAfterElement=false;
@@ -204,7 +204,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 int localStartPos=data->pos-startingPos;
 
                 //BEGIN DELETE TEXT
-                if (data->actionType==ContentEditingData::DeleteText) //(data->lengthOfStringToRemove!=-1)
+                if (data->actionType==TsContentEditingData::DeleteText) //(data->lengthOfStringToRemove!=-1)
                 {
                     if (localStartPos+data->lengthOfStringToRemove>cData.size())
                     {
@@ -221,16 +221,16 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     {
                         //qWarning()<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos,data->lengthOfStringToRemove);
-                        data->actionType=ContentEditingData::CheckLength;
+                        data->actionType=TsContentEditingData::CheckLength;
                         return QString('a');//so it exits 100%
                     }
                 }
                 //END DELETE TEXT
                 //INSERT
-                else if (data->actionType==ContentEditingData::InsertText)
+                else if (data->actionType==TsContentEditingData::InsertText)
                 {
                     c.insertData(localStartPos,data->stringToInsert);
-                    data->actionType=ContentEditingData::CheckLength;
+                    data->actionType=TsContentEditingData::CheckLength;
                     return QString('a');//so it exits 100%
                 }
                 cData=c.data();
@@ -260,7 +260,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 CatalogString TsStorage::catalogString(QDomElement contentElement) const
 {
     CatalogString catalogString;
-    ContentEditingData data(ContentEditingData::Get);
+    TsContentEditingData data(TsContentEditingData::Get);
     catalogString.string=content(contentElement, &data);
     return catalogString;
 }
@@ -291,7 +291,7 @@ QString TsStorage::target(const DocPosition& pos) const
 
 void TsStorage::targetDelete(const DocPosition& pos, int count)
 {
-    ContentEditingData data(pos.offset,count);
+    TsContentEditingData data(pos.offset,count);
     content(targetForPos(pos),&data);
 }
 
@@ -315,7 +315,7 @@ void TsStorage::targetInsert(const DocPosition& pos, const QString& arg)
     //END add <*target>
     if (arg.isEmpty()) return; //means we were called just to add <taget> tag
 
-    ContentEditingData data(pos.offset,arg);
+    TsContentEditingData data(pos.offset,arg);
     content(targetEl,&data);
 }
 
@@ -417,13 +417,13 @@ Note TsStorage::setNote(DocPosition pos, const Note& note)
 
     if (!elem.text().isEmpty())
     {
-        ContentEditingData data(0,elem.text().size());
+        TsContentEditingData data(0,elem.text().size());
         content(elem,&data);
     }
 
     if (!note.content.isEmpty())
     {
-        ContentEditingData data(0,note.content);
+        TsContentEditingData data(0,note.content);
         content(elem,&data);
     }
     else
@@ -499,7 +499,7 @@ bool TsStorage::isObsolete(int entry) const
 
 bool TsStorage::isEmpty(const DocPosition& pos) const
 {
-    ContentEditingData data(ContentEditingData::CheckLength);
+    TsContentEditingData data(TsContentEditingData::CheckLength);
     return content(targetForPos(pos),&data).isEmpty();
 }
 
