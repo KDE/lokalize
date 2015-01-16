@@ -268,7 +268,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
     QString result;
 
     if (elem.isNull()
-        || (!result.isEmpty() && ContentEditingData::CheckLength))
+        || (!result.isEmpty() && data->actionType==ContentEditingData::CheckLength))
         return QString();
 
     bool seenCharacterDataAfterElement=false;
@@ -466,7 +466,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             {
                 QString recursiveContent=doContent(el,startingPos,data);
                 if (!recursiveContent.isEmpty())
-                    result += recursiveContent; startingPos+=recursiveContent.size();
+                    {result += recursiveContent; startingPos+=recursiveContent.size();}
                 if (data)
                     {result += QChar(TAGRANGE_IMAGE_SYMBOL); ++startingPos;}
             }

@@ -561,7 +561,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
         QTextStream in(file);
         int i=0;
         bool gettext=false;
-        while (!in.atEnd()&& i<64 && !gettext)
+        while (!in.atEnd()&& ++i<64 && !gettext)
             gettext=in.readLine().contains(QLatin1String("msgid"));
         if (gettext) storage=new GettextCatalog::GettextStorage;
         else return UNKNOWNFORMAT;
@@ -571,7 +571,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
 
     file->close();
 
-    if (KDE_ISUNLIKELY(line!=0 || (!storage->size() && (line=-1) ) ))
+    if (KDE_ISUNLIKELY(line!=0 || (!storage->size() && (line==-1) ) ))
     {
         delete storage;
         return line;
@@ -902,7 +902,7 @@ void Catalog::setTarget(DocPosition pos, const CatalogString& s)
 
 TargetState Catalog::setState(const DocPosition& pos, TargetState state)
 {
-    bool extendedStates=m_storage->capabilities()&ExtendedStates;
+    bool extendedStates = m_storage && m_storage->capabilities()&ExtendedStates;
     bool approved=::isApproved(state,activePhaseRole());
     if (KDE_ISUNLIKELY( !m_storage
         || (extendedStates && m_storage->state(pos)==state)
