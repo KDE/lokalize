@@ -112,7 +112,7 @@ set(lokalize_SRCS
     catalog/ts/tsstorage.cpp
 )
 
-qt5_wrap_ui(lokalize_SRCS
+ki18n_wrap_ui(lokalize_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_editor.ui
     prefs/prefs_appearance.ui
