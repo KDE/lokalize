@@ -100,10 +100,10 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         painter->setPen(Qt::white);
         QRect myRect(option.rect);
 
+        myRect.setWidth(option.rect.width() * translated / total);
         if (translated)
         {
             brush=m_colorScheme.foreground(KColorScheme::PositiveText);
-            myRect.setWidth(option.rect.width() * translated / total);
             painter->fillRect(myRect, brush);
         }
 
@@ -118,6 +118,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
 
         if (untranslated)
             brush=m_colorScheme.foreground(KColorScheme::NegativeText);
+
         myRect.setLeft(myRect.left() + myRect.width());
         myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
         painter->fillRect(myRect, brush);
