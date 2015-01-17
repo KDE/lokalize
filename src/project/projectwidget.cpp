@@ -107,20 +107,21 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
             painter->fillRect(myRect, brush);
         }
 
+        myRect.setLeft(myRect.left() + myRect.width());
+        myRect.setWidth(option.rect.width() * fuzzy / total);
         if (fuzzy)
         {
             brush=m_colorScheme.foreground(KColorScheme::NeutralText);
-            myRect.setLeft(myRect.left() + myRect.width());
-            myRect.setWidth(option.rect.width() * fuzzy / total);
             painter->fillRect(myRect, brush);
             // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.width()));
         }
 
-        if (untranslated)
-            brush=m_colorScheme.foreground(KColorScheme::NegativeText);
-
         myRect.setLeft(myRect.left() + myRect.width());
         myRect.setWidth(option.rect.width() - myRect.left() + option.rect.left());
+        if (untranslated)
+            brush=m_colorScheme.foreground(KColorScheme::NegativeText);
+        //esle: paint what is left with the last brush used - blank, positive or neutral
+
         painter->fillRect(myRect, brush);
         // painter->drawText(myRect,Qt::AlignRight,QString("%1").arg(data.top()));
     }
