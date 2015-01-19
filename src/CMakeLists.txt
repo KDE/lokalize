@@ -77,6 +77,7 @@ set(lokalize_SRCS
     project/projectwidget.cpp
     project/projecttab.cpp
     project/poextractor.cpp
+    project/xliffextractor.cpp
 
     prefs/prefs.cpp
 

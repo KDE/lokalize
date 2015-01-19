@@ -58,6 +58,12 @@ public:
     QString langCodeForSortModelRow(int);
 };
 
-QString getTargetLangCode(const QString& title);
+QString getTargetLangCode(const QString& title, bool askUser = 
+#ifndef NOKDE
+false
+#else
+true
+#endif
+);
 
 #endif // LANGUAGELISTMODEL_H

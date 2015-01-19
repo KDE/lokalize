@@ -1455,7 +1455,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run ()
 {
-    qDebug()<<"select started"<<m_dbName<<m_source.string;
+    //qDebug()<<"select started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) //sanity check
     {
         emit done(this);
@@ -1475,7 +1475,7 @@ void SelectJob::run ()
         emit done(this);
         return;
     }
-    qDebug()<<"select started 2"<<m_dbName<<m_source.string;
+    //qDebug()<<"select started 2"<<m_dbName<<m_source.string;
 
     TMConfig c=getConfig(db);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);

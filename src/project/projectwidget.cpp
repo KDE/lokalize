@@ -153,10 +153,6 @@ protected:
 
 bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-#ifdef _MSC_VER   //FIXME check extractors on win32
-    return true;
-#endif
-
     bool result=false;
     const QAbstractItemModel* model=sourceModel();
     QModelIndex item=model->index(source_row,0,source_parent);

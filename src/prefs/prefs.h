@@ -52,9 +52,9 @@ public slots:
     QString projectOpen(QString path=QString(), bool doOpen=true);
     bool projectCreate();
     void projectConfigure();
-    
+
     void reflectProjectConfigChange();
-    
+
     void reflectRelativePathsHack();
 
 signals:

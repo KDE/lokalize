@@ -343,7 +343,7 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
 {
-    qDebug()<<"setting active phase"<<phase<<role;
+    //qDebug()<<"setting active phase"<<phase<<role;
     d._phase=phase;
     d._phaseRole=role;
     updateApprovedEmptyIndexCache();
@@ -531,9 +531,9 @@ KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
 #endif
 }
 
-int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSize, bool fast)
+int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* fileSize, bool fast)
 {
-    QFileInfo info(url);
+    QFileInfo info(filePath);
     if(KDE_ISUNLIKELY( !info.exists() || info.isDir()) )
         return DOESNTEXIST;
     if(KDE_ISUNLIKELY( !info.isReadable() ))
@@ -543,17 +543,17 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
 
     QTime a;a.start();
 
-    QFile* file=new QFile(url);
+    QFile* file=new QFile(filePath);
     file->deleteLater();//kung-fu
     if (!file->open(QIODevice::ReadOnly))
         return ISNTREADABLE;//TODO
 
     CatalogStorage* storage=0;
-    if (url.endsWith(QLatin1String(".po"))||url.endsWith(QLatin1String(".pot")))
+    if (filePath.endsWith(QLatin1String(".po"))||filePath.endsWith(QLatin1String(".pot")))
         storage=new GettextCatalog::GettextStorage;
-    else if (url.endsWith(QLatin1String(".xlf"))||url.endsWith(QLatin1String(".xliff")))
+    else if (filePath.endsWith(QLatin1String(".xlf"))||filePath.endsWith(QLatin1String(".xliff")))
         storage=new XliffStorage;
-    else if (url.endsWith(QLatin1String(".ts")))
+    else if (filePath.endsWith(QLatin1String(".ts")))
         storage=new TsStorage;
     else
     {
@@ -590,7 +590,7 @@ int Catalog::loadFromUrl(const QString& url, const QString& saidUrl, int* fileSi
     d._numberOfPluralForms = storage->numberOfPluralForms();
     d._autoSaveDirty=true;
     d._readOnly=readOnly;
-    d._filePath=saidUrl.isEmpty()?url:saidUrl;
+    d._filePath=saidUrl.isEmpty()?filePath:saidUrl;
 
     //set some sane role, a real phase with a nmae will be created later with the first edit command
     setActivePhase(QString(),Project::local()->role());

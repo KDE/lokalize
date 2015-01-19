@@ -1,17 +1,9 @@
 
 IF (WIN32)
-    install( FILES
-            #find-gui-text.sh TODO
-            newprojectwizard_win.rc
-            newprojectwizard_win.py
-            newprojectwizard.py
-            DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
+#    install( FILES
+#            #find-gui-text.sh TODO
+#            DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 ELSE (WIN32)
-    install( FILES
-            newprojectwizard.rc
-            newprojectwizard.py
-            DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
-
     install( PROGRAMS find-gui-text.sh
              DESTINATION  ${DATA_INSTALL_DIR}/lokalize/scripts )
 

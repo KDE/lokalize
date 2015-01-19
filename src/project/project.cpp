@@ -114,7 +114,7 @@ Project::~Project()
     //Project::save()
 }
 
-void Project::load(const QString &newProjectPath)
+void Project::load(const QString &newProjectPath, const QString& forcedTargetLangCode, const QString& forcedProjectId)
 {
     QTime a;a.start();
 
@@ -131,6 +131,7 @@ void Project::load(const QString &newProjectPath)
 
 #ifndef NOKDE
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
+    if (!QFile::exists(newProjectPath)) Project::instance()->setDefaults();
     ProjectBase::load();
 #else
 #endif
@@ -144,8 +145,14 @@ void Project::load(const QString &newProjectPath)
     m_localConfig->load();
 #endif
 
-    if (langCode().isEmpty())
+    if (forcedTargetLangCode.length())
+        setLangCode(forcedTargetLangCode);
+    else if (langCode().isEmpty())
         setLangCode(QLocale::system().name());
+
+    if (forcedProjectId.length())
+        setProjectID(forcedProjectId);
+
 
     //KConfig config;
     //delete m_localConfig; m_localConfig=new KConfigGroup(&config,"Project-"+path());
@@ -291,6 +298,49 @@ void Project::init(const QString& path, const QString& kind, const QString& id,
         else {load(path);stop=true;}
     }
     save();
+}
+
+
+
+
+
+
+
+
+#include <QProcess>
+#include <QFileDialog>
+#include "languagelistmodel.h"
+void Project::projectOdfCreate()
+{
+    QString odf2xliff=QStringLiteral("odf2xliff");
+    if (QProcess::execute(odf2xliff)==-2)
+    {
+        KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+        return;
+    }
+
+    QString odfPath=QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), QString(), QDir::homePath()/*_catalog->url().directory()*/,
+                                          i18n("OpenDocument files (*.odt *.ods)")/*"text/x-lokalize-project"*/);
+    if (odfPath.isEmpty())
+        return;
+
+    QString targetLangCode=getTargetLangCode(QString(), true);
+
+    QFileInfo fi(odfPath);
+    QString trFolderName=i18nc("project folder name. %2 is targetLangCode", "%1 %2 Translation", fi.baseName(), targetLangCode);
+    fi.absoluteDir().mkdir(trFolderName);
+
+    QStringList args(odfPath);
+    args.append(fi.absoluteDir().absoluteFilePath(trFolderName)%'/'%fi.baseName()%".xlf");
+    qDebug()<<args;
+    QProcess::execute(odf2xliff, args);
+
+    if (!QFile::exists(args.at(1)))
+        return;
+
+    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName)+"/index.lokalize", targetLangCode, fi.baseName()%'-'%targetLangCode);
+
+    emit fileOpenRequested(args.at(1));
 }
 
 

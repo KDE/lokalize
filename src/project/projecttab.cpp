@@ -1,3 +1,4 @@
+
 /* ****************************************************************************
   This file is part of Lokalize
 
@@ -79,17 +80,20 @@ ProjectTab::ProjectTab(QWidget *parent)
     about->setTextInteractionFlags(Qt::TextBrowserInteraction);
     about->setTextFormat(Qt::RichText);
 
-    QPushButton* conf = new QPushButton(i18n("&Configure Lokalize..."), welcomeWidget);
-    QPushButton* createProject = new QPushButton(i18nc("@action:inmenu","Create new project"), welcomeWidget);
+    QPushButton* conf = new QPushButton(i18n("&Configure Lokalize"), welcomeWidget);
     QPushButton* openProject = new QPushButton(i18nc("@action:inmenu","Open project"), welcomeWidget);
+    QPushButton* createProject = new QPushButton(i18nc("@action:inmenu","Translate software"), welcomeWidget);
+    QPushButton* createOdfProject = new QPushButton(i18nc("@action:inmenu","Translate OpenDocument"), welcomeWidget);
     connect(conf, SIGNAL(clicked(bool)), SettingsController::instance(),SLOT(showSettingsDialog()));
     connect(openProject, SIGNAL(clicked(bool)), this, SIGNAL(projectOpenRequested()));
     connect(createProject, SIGNAL(clicked(bool)), SettingsController::instance(), SLOT(projectCreate()));
+    connect(createOdfProject, SIGNAL(clicked(bool)), Project::instance(), SLOT(projectOdfCreate()));
     QHBoxLayout* wbtnl=new QHBoxLayout();
     wbtnl->addStretch(1);
     wbtnl->addWidget(conf);
-    wbtnl->addWidget(createProject);
     wbtnl->addWidget(openProject);
+    wbtnl->addWidget(createProject);
+    wbtnl->addWidget(createOdfProject);
     wbtnl->addStretch(1);
 
     wl->addStretch(1);
@@ -114,7 +118,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     
     m_filterEdit->setClearButtonEnabled(true);
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
-    m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
+    m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")%' '%i18nc("@info:tooltip","Accepts regular expressions"));
     connect (m_filterEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
 

@@ -57,7 +57,7 @@ public:
     explicit Project();
     virtual ~Project();
 
-    void load(const QString &file);
+    void load(const QString& newProjectPath, const QString& defaultTargetLangCode=QString(), const QString& defaultProjectId=QString());
     void save();
     bool isLoaded()const{return !m_path.isEmpty();}
     ProjectModel* model();
@@ -99,6 +99,7 @@ public slots:
 
 signals:
     Q_SCRIPTABLE void loaded();
+    void fileOpenRequested(const QString&);
 
 public slots:
     void populateDirModel();
@@ -107,6 +108,8 @@ public slots:
     void showTMManager();
     GlossaryNS::GlossaryWindow* showGlossary();
     GlossaryNS::GlossaryWindow* defineNewTerm(QString en=QString(),QString target=QString());
+
+    void projectOdfCreate();
 
 private:
     static Project* _instance;

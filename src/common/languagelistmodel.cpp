@@ -161,13 +161,15 @@ QString LanguageListModel::langCodeForSortModelRow(int row)
 #include <QDialogButtonBox>
 #include <QDialog>
 
-QString getTargetLangCode(const QString& title)
+QString getTargetLangCode(const QString& title, bool askUser)
 {
-#ifndef NOKDE
-    if (Project::instance()->targetLangCode().length())
-        return Project::instance()->targetLangCode();
-    return QLocale::system().name();
-#else
+    if (!askUser)
+    {
+        if (Project::instance()->targetLangCode().length())
+            return Project::instance()->targetLangCode();
+        return QLocale::system().name();
+    }
+
     QDialog dlg(SettingsController::instance()->mainWindowPtr());
     dlg.setWindowTitle(title);
     QHBoxLayout* l=new QHBoxLayout(&dlg);
@@ -186,7 +188,6 @@ QString getTargetLangCode(const QString& title)
         return Project::instance()->targetLangCode();
 
     return LanguageListModel::instance()->langCodeForSortModelRow(lc->currentIndex());
-#endif
 }
 
 

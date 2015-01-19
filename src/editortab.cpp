@@ -882,7 +882,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 #endif
             //enforce autosync
             m_syncViewSecondary->mergeOpen(filePath);
-            
+
             if (!m_project->isLoaded())
             {
                 if (m_project->desirablePath().isEmpty())

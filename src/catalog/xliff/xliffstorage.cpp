@@ -969,16 +969,16 @@ void XliffStorage::setApproved(const DocPosition& pos, bool approved)
 }
 */
 
-static const char* const states[]={
-    "new", "needs-translation", "needs-l10n", "needs-adaptation", "translated",
-    "needs-review-translation", "needs-review-l10n", "needs-review-adaptation", "final",
-    "signed-off"};
+static const QString xliff_states[]={
+    U("new"), U("needs-translation"), U("needs-l10n"), U("needs-adaptation"), U("translated"),
+    U("needs-review-translation"), U("needs-review-l10n"), U("needs-review-adaptation"),
+    U("final"), U("signed-off")};
 
 
-static TargetState stringToState(const QString& state)
+TargetState stringToState(const QString& state)
 {
-    int i=sizeof(states)/sizeof(char*);
-    while (--i>0 && state!=states[i])
+    int i=sizeof(xliff_states)/sizeof(QString);
+    while (--i>0 && state!=xliff_states[i])
         ;
     return TargetState(i);
 }
@@ -988,7 +988,7 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
     targetInsert(pos,QString()); //adds <taget> if needed
     QDomElement target=targetForPos(pos.entry);
     TargetState prev=stringToState(target.attribute("state"));
-    target.setAttribute(QStringLiteral("state"),states[state]);
+    target.setAttribute(QStringLiteral("state"),xliff_states[state]);
 
     unitForPos(pos.entry).setAttribute(QStringLiteral("approved"), noyes[state==SignedOff]);
     return prev;

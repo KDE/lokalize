@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2008-2014 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2008-2015 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -92,6 +92,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     //prevent relayout of dockwidgets
     m_mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation,true);
 
+    connect(Project::instance(), SIGNAL(fileOpenRequested(QString)),this,SLOT(fileOpen(QString)), Qt::QueuedConnection);
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
     showProjectOverview();
     showTranslationMemory(); //fix for #342558
@@ -521,13 +522,16 @@ void LokalizeMainWindow::setupActions()
     connect(action,SIGNAL(triggered()),this,SLOT(showProjectOverview()));
 
     action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
-    action->setText(i18nc("@action:inmenu","Configure project"));
+    action->setText(i18nc("@action:inmenu","Configure project..."));
 
     action = proj->addAction("project_create",sc,SLOT(projectCreate()));
-    action->setText(i18nc("@action:inmenu","Create new project"));
+    action->setText(i18nc("@action:inmenu","Create software translation project..."));
+
+    action = proj->addAction("project_create_odf",Project::instance(), SLOT(projectOdfCreate()));
+    action->setText(i18nc("@action:inmenu","Create OpenDocument translation project..."));
 
     action = proj->addAction("project_open",this,SLOT(openProject()));
-    action->setText(i18nc("@action:inmenu","Open project"));
+    action->setText(i18nc("@action:inmenu","Open project..."));
     action->setIcon(QIcon::fromTheme("project-open"));
 
     m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);

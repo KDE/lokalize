@@ -25,6 +25,7 @@
 #include "projectmodel.h"
 #include "project.h"
 #include "poextractor.h"
+#include "xliffextractor.h"
 
 #include "kdemacros.h"
 
@@ -1258,13 +1259,27 @@ static FileMetaData metaData(QString filePath)
 {
     FileMetaData m;
 
-    POExtractor extractor;
-    extractor.extract(filePath, m);
+    if (filePath.endsWith(QLatin1String(".po"))||filePath.endsWith(QLatin1String(".pot")))
+    {
+        POExtractor extractor;
+        extractor.extract(filePath, m);
+    }
+    else if (filePath.endsWith(QLatin1String(".xlf"))||filePath.endsWith(QLatin1String(".xliff")))
+    {
+        XliffExtractor extractor;
+        extractor.extract(filePath, m);
+    }
+    else if (filePath.endsWith(QLatin1String(".ts")))
+    {
+        //POExtractor extractor;
+        //extractor.extract(filePath, m);
+    }
+
 
     return m;
 }
 
-//#define NOMETAINFOCACHE
+#define NOMETAINFOCACHE
 #ifndef NOMETAINFOCACHE
 static void initDataBase(QSqlDatabase& db)
 {
