@@ -249,9 +249,14 @@ struct SearchParams
     QRegExp targetPattern;
     QRegExp notesPattern;
 
+    bool invertSource;
+    bool invertTarget;
+
     bool states[StateCount];
 
     bool isEmpty() const;
+
+    SearchParams():invertSource(false), invertTarget(false){memset(states, 0, sizeof(states));}
 };
 
 #include <QRunnable>

@@ -893,8 +893,9 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 
                 //_project->setLangCode(m_catalog->targetLangCode());
             }
-                
         }
+        if (m_catalog->targetLangCode().isEmpty() /*&& m_project->targetLangCode().length()*/)
+            m_catalog->setTargetLangCode(Project::instance()->targetLangCode());
 
         gotoEntry(pos);
 

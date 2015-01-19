@@ -552,7 +552,7 @@ void XliffStorage::targetDelete(const DocPosition& pos, int count)
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    qWarning()<<pos.entry<<arg;
+    //qWarning()<<"targetinsert"<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos.entry);
     //BEGIN add <*target>
     if (targetEl.isNull())

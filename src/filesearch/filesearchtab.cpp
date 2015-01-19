@@ -25,6 +25,7 @@
 #include "ui_filesearchoptions.h"
 #include "ui_massreplaceoptions.h"
 #include "project.h"
+#include "prefs.h"
 
 #include "tmscanapi.h" //TODO separate some decls into new header
 #include "state.h"
@@ -87,7 +88,7 @@ SearchFileListView::SearchFileListView(QWidget* parent)
  , m_model(new FileListModel(this))
 {
     setWidget(m_background);
-    m_background->setMinimumWidth(QApplication::desktop()->width()/4);
+    m_background->setMinimumWidth(QFontMetrics(font()).averageCharWidth()*30);
     m_background->setAlignment(Qt::AlignCenter);
     m_browser->hide();
     m_browser->setModel(m_model);
@@ -219,16 +220,16 @@ void SearchJob::run()
                     tp=searchParams.targetPattern.indexIn(catalog.target(pos));
                 //int np=searchParams.notesPattern.indexIn(catalog.notes(pos));
 
-                if (sp!=-1 && tp!=-1)
+                if ((sp!=-1)!=searchParams.invertSource && (tp!=-1)!=searchParams.invertTarget)
                 {
                     //TODO handle multiple results in same column
                     //FileSearchResult r;
                     SearchResult r;
                     r.filepath=filePath;
                     r.docPos=pos;
-                    if (!searchParams.sourcePattern.isEmpty())
+                    if (!searchParams.sourcePattern.isEmpty() && !searchParams.invertSource)
                         r.sourcePositions<<StartLen(searchParams.sourcePattern.pos(), searchParams.sourcePattern.matchedLength());
-                    if (!searchParams.targetPattern.isEmpty())
+                    if (!searchParams.targetPattern.isEmpty() && !searchParams.invertTarget)
                         r.targetPositions<<StartLen(searchParams.targetPattern.pos(), searchParams.targetPattern.matchedLength());
                     r.source=catalog.source(pos);
                     r.target=catalog.target(pos);
@@ -497,7 +498,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 
     connect(ui_fileSearchOptions->querySource,SIGNAL(returnPressed()),this,SLOT(performSearch()));
     connect(ui_fileSearchOptions->queryTarget,SIGNAL(returnPressed()),this,SLOT(performSearch()));
-    connect(ui_fileSearchOptions->doFind,SIGNAL(clicked()),           this,SLOT(performSearch()));
+    connect(ui_fileSearchOptions->doFind,     SIGNAL(clicked()),      this,SLOT(performSearch()));
 
 //    m_proxyModel->setDynamicSortFilter(true);
 //    m_proxyModel->setSourceModel(m_model);
@@ -552,22 +553,16 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()), Qt::QueuedConnection);
 
-#ifndef NOKDE
-    KConfig config;
-    KConfigGroup cg(&config,"MainWindow");
-    view->header()->restoreState(QByteArray::fromBase64( cg.readEntry("FileSearchResultsHeaderState", QByteArray()) ));
-#endif
+    view->header()->restoreState(readUiState("FileSearchResultsHeaderState"));
 }
 
 FileSearchTab::~FileSearchTab()
 {
     stopSearch();
 
-#ifndef NOKDE
-    KConfig config;
-    KConfigGroup cg(&config,"MainWindow");
-    cg.writeEntry("FileSearchResultsHeaderState",ui_fileSearchOptions->treeView->header()->saveState().toBase64());
+    writeUiState("FileSearchResultsHeaderState", ui_fileSearchOptions->treeView->header()->saveState());
 
+#ifndef NOKDE
     ids.removeAll(m_dbusId);
 #endif
 }
@@ -590,6 +585,8 @@ void FileSearchTab::performSearch()
     SearchParams sp;
     sp.sourcePattern.setPattern(ui_fileSearchOptions->querySource->text());
     sp.targetPattern.setPattern(ui_fileSearchOptions->queryTarget->text());
+    sp.invertSource=ui_fileSearchOptions->invertSource->isChecked();
+    sp.invertTarget=ui_fileSearchOptions->invertTarget->isChecked();
 
     QVector<Rule> rules=m_qaView->isVisible()?m_qaView->rules():QVector<Rule>();
 

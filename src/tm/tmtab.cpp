@@ -427,19 +427,19 @@ TMTab::TMTab(QWidget *parent)
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(copySource()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copySource()));
     view->addAction(a);
 
     a=new QAction(i18n("Copy target to clipboard"),view);
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(copyTarget()));
+    connect(a,SIGNAL(triggered()), this, SLOT(copyTarget()));
     view->addAction(a);
 
     a=new QAction(i18n("Open file"),view);
     a->setShortcut(QKeySequence(Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(activated()), this, SLOT(openFile()));
+    connect(a,SIGNAL(triggered()), this, SLOT(openFile()));
     connect(view,SIGNAL(activated(QModelIndex)), this, SLOT(openFile()));
     view->addAction(a);
 

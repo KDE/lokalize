@@ -37,6 +37,8 @@ QaView::QaView(QWidget* parent)
  : QDockWidget ( i18nc("@title:window","Quality Assurance"), parent)
  , m_browser(new QTreeView(this))
 {
+    setObjectName(QStringLiteral("QaView"));
+
     if (!QaModel::isInstantiated())
         QaModel::instance()->loadRules(Project::instance()->qaPath());
     m_qaModel=QaModel::instance();

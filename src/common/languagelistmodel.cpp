@@ -96,7 +96,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
     if (role==Qt::DecorationRole)
     {
-#ifndef NOKDE
+#if 0 //#ifndef NOKDE
         static QMap<QString,QVariant> iconCache;
 
         QString langCode=stringList().at(index.row());

@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>278</height>
+    <height>359</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <layout class="QHBoxLayout" name="queryLayout">
-     <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
       <widget class="QLabel" name="querySourceLabel">
        <property name="text">
         <string>Source:</string>
@@ -23,7 +23,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1">
       <widget class="QLineEdit" name="querySource">
        <property name="toolTip">
         <string>Search expression for source language part.
@@ -33,7 +33,7 @@ Press Esc to stop the search.</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="0">
       <widget class="QLabel" name="queryTargetLabel">
        <property name="text">
         <string>Target:</string>
@@ -43,7 +43,7 @@ Press Esc to stop the search.</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="1">
       <widget class="QLineEdit" name="queryTarget">
        <property name="toolTip">
         <string>Search expression for target language part.
@@ -51,17 +51,31 @@ Press Enter to start the search.</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QCheckBox" name="regEx">
+     <item row="0" column="2">
+      <widget class="QCheckBox" name="invertSource">
        <property name="text">
-        <string>Regular expressions</string>
+        <string>Invert</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="2">
+      <widget class="QCheckBox" name="invertTarget">
+       <property name="text">
+        <string>Invert</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
       <widget class="QPushButton" name="doFind">
        <property name="text">
         <string>&amp;Search</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QCheckBox" name="regEx">
+       <property name="text">
+        <string>Regular expressions</string>
        </property>
       </widget>
      </item>
@@ -80,9 +94,6 @@ Press Enter to start the search.</string>
      </property>
      <property name="rootIsDecorated">
       <bool>false</bool>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
