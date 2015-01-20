@@ -26,6 +26,7 @@
 #include "catalog.h"
 #include "project.h"
 #include "prefs.h"
+#include "headerviewmenu.h"
 
 #include <QLineEdit>
 #include <QDebug>
@@ -134,6 +135,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setUniformRowHeights(true);
     m_browser->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
+    new HeaderViewMenuHandler(m_browser->header());
     m_browser->header()->restoreState(readUiState("CatalogTreeViewState"));
 }
 
@@ -313,5 +315,4 @@ void CatalogView::setEntriesFilteredOut(bool filteredOut)
     show();
     m_proxyModel->setEntriesFilteredOut(filteredOut);
 }
-
 

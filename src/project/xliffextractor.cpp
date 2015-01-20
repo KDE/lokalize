@@ -55,6 +55,8 @@ public:
     int fuzzy_approver;
     QDate lastDate;
     QString lastTranslator;
+    QString lastTranslator_fallback;
+    QString lastDateString_fallback;
         
 private:
     bool currentEntryFuzzy;
@@ -71,8 +73,8 @@ bool XliffHandler::startElement(const QString&, const QString& localName, const 
     //if (fileType == Unknown) 
     //    fileType = strcmp(localname, "xliff") ? Other : XLF;
     
-    if (localName==QLatin1String("source")) total++;
-    if (localName==QLatin1String("target"))
+         if (localName==QLatin1String("source")) total++;
+    else if (localName==QLatin1String("target"))
     {
         charCount=0;
 
@@ -89,35 +91,33 @@ bool XliffHandler::startElement(const QString&, const QString& localName, const 
             }
         }
     }
-    /*
-    if (!strcmp(localname, "phase")) {
-        string contactNameString, contactEmailString, dateString;
-        for (int i = 0; i < nb_attributes; ++i) {
-            if (!strcmp(attr[i*5], "contact-name")) {
-                contactNameString = std::string(attr[i*5+3], (attr[i*5+4] - attr[i*5+3]));
-            } else if (!strcmp(attr[i*5], "contact-email")) {
-                contactEmailString = std::string(attr[i*5+3], (attr[i*5+4] - attr[i*5+3]));
-            } else if (!strcmp(attr[i*5], "date")) {
-                dateString = std::string(attr[i*5+3], (attr[i*5+4] - attr[i*5+3]));
-            }
-        }
-        
-        if (!dateString.empty()) {
-            const QDate thisDate = QDate::fromString(dateString.c_str(), Qt::ISODate);
-            if (lastDate.isNull() || thisDate >= lastDate) { // >= Assuming the last one in the file is the real last one
+    else if (localName==QLatin1String("phase"))
+    {
+        QString contactNameString  = atts.value(QLatin1String("contact-name"));
+        QString contactEmailString = atts.value(QLatin1String("contact-email"));
+        QString dateString         = atts.value(QLatin1String("date"));
+
+        QString currentLastTranslator;
+        if (contactNameString.length() && contactEmailString.length())
+            currentLastTranslator = contactNameString % " <" % contactEmailString % ">";
+        else if (contactNameString.length())
+            currentLastTranslator = contactNameString;
+        else if (contactEmailString.length())
+            currentLastTranslator = contactEmailString;
+
+        if (currentLastTranslator.length()) lastTranslator_fallback = currentLastTranslator;
+        if (dateString.length())
+        {
+            lastDateString_fallback = dateString;
+
+            const QDate thisDate = QDate::fromString(dateString, Qt::ISODate);
+            if (lastDate.isNull() || thisDate >= lastDate) // >= Assuming the last one in the file is the real last one
+            {
                 lastDate = thisDate;
-                if (!contactNameString.empty() && !contactEmailString.empty()) {
-                    lastTranslator = contactNameString + " <" + contactEmailString + ">";
-                } else if (!contactNameString.empty()) {
-                    lastTranslator = contactNameString;
-                } else if (!contactEmailString.empty()) {
-                    lastTranslator = contactEmailString;
-                } else {
-                    lastTranslator = string();
-                }
+                lastTranslator = currentLastTranslator;
             }
         }
-    }*/
+    }
     return true;
 }
 
@@ -185,4 +185,7 @@ void XliffExtractor::extract(const QString& filePath, FileMetaData& m)
     m.translated_reviewer=handler.total-handler.untranslated-handler.fuzzy_reviewer;
     m.fuzzy_approver=handler.fuzzy_approver;
     m.fuzzy_reviewer=handler.fuzzy_reviewer;
+
+    m.lastTranslator=handler.lastTranslator.length()?handler.lastTranslator:handler.lastTranslator_fallback;
+    m.translationDate=handler.lastDate.isValid()?handler.lastDate.toString(Qt::ISODate):handler.lastDateString_fallback;
 }

@@ -56,8 +56,8 @@ set(lokalize_SRCS
     cataloglistview/cataloglistview.cpp
     cataloglistview/catalogmodel.cpp
 
+    common/headerviewmenu.cpp
     common/domroutines.cpp
-
     common/htmlhelpers.cpp
     common/fastsizehintitemdelegate.cpp
     common/flowlayout.cpp

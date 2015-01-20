@@ -419,7 +419,11 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded)
 {
+    Q_ASSERT(m_catalog->targetLangCode().length());
+    Q_ASSERT(Project::instance()->targetLangCode().length());
+
     //qWarning()<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
+
     //HACK to workaround #218246
     const QString& editTextAscii=document()->toPlainText();
     if (editTextAscii==_oldMsgstrAscii)

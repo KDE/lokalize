@@ -27,6 +27,7 @@ SOURCES += main.cpp\
     binunitsview.cpp\
     cataloglistview/cataloglistview.cpp\
     cataloglistview/catalogmodel.cpp\
+    common/headerviewmenu.cpp\
     common/domroutines.cpp\
     common/fastsizehintitemdelegate.cpp\
     common/flowlayout.cpp\
@@ -93,7 +94,7 @@ HEADERS  += editortab.h\
     binunitsview.h\
     cataloglistview/cataloglistview.h\
     cataloglistview/catalogmodel.h\
-    common/domroutines.h\
+    common/headerviewmenu.h\
     common/fastsizehintitemdelegate.h\
     common/flowlayout.h\
     common/termlabel.h\

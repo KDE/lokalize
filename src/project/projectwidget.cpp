@@ -25,6 +25,7 @@
 
 #include "project.h"
 #include "catalog.h"
+#include "headerviewmenu.h"
 
 #include <kdirlister.h>
 #include <kstringhandler.h>
@@ -298,6 +299,8 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setSelectionBehavior(QAbstractItemView::SelectRows);
 //    QTimer::singleShot(0,this,SLOT(initLater()));
+
+    new HeaderViewMenuHandler(header());
 
     KConfig config;
     KConfigGroup stateGroup(&config,"ProjectWindow");
