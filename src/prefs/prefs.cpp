@@ -48,6 +48,7 @@
 
 #include <QIcon>
 #include <QBoxLayout>
+#include <QFileDialog>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QTimer>
@@ -214,7 +215,7 @@ bool SettingsController::projectCreate()
     QString desirablePath=Project::instance()->desirablePath();
     if (desirablePath.isEmpty())
         desirablePath=QDir::homePath()+"/index.lokalize";
-    QString path=QFileDialog::getSaveFileName(m_mainWindowPtr, QString(), desirablePath, i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
+    QString path=QFileDialog::getSaveFileName(m_mainWindowPtr, i18nc("@window:title", "Select folder with Gettext .po files to translate"), desirablePath, i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
     //Project::instance()->model()->weaver()->resume();
     if (path.isEmpty())
         return false;
@@ -227,8 +228,12 @@ bool SettingsController::projectCreate()
     }
 
     //TODO ask-n-save
-    Project::instance()->load(path);
-    Project::instance()->setDefaults(); //NOTE will this be an obstacle?
+    QDir projectFolder=QFileInfo(path).absoluteDir();
+    QString projectId=projectFolder.dirName();
+    if (projectFolder.cdUp()) projectId=projectFolder.dirName()%'-'%projectId;;
+    Project::instance()->load(path, QString(), projectId);
+    //Project::instance()->setDefaults(); //NOTE will this be an obstacle?
+    //Project::instance()->setProjectID();
 
     QTimer::singleShot(500, this, SLOT(projectConfigure()));
     return true;
@@ -320,9 +325,8 @@ void SettingsController::projectConfigure()
     ui_prefs_project_local.setupUi(w);
     dialog->addPage(w, Project::local(), i18nc("@title:tab","Personal"), "preferences-desktop-user");
 
-
-    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateGlossary()));
-    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(populateDirModel()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(reinit()));
+    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()), Qt::QueuedConnection);
     connect(dialog, SIGNAL(settingsChanged(QString)),TM::DBFilesModel::instance(), SLOT( updateProjectTmIndex()));
     connect(dialog, SIGNAL(settingsChanged(QString)),this, SLOT(reflectProjectConfigChange()));
 

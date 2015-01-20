@@ -184,6 +184,19 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     qDebug()<<"loaded!"<<a.elapsed();
 }
 
+void Project::reinit()
+{
+    TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
+    closeDBJob->setAutoDelete(true);
+    TM::threadPool()->start(closeDBJob, CLOSEDB);
+
+    populateDirModel();
+    populateGlossary();
+
+    TM::threadPool()->waitForDone(500);//more safety
+    TM::DBFilesModel::instance()->openDB(projectID(), TM::Undefined, true);
+}
+
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
     if (QFileInfo(possiblyRelPath).isRelative())

@@ -57,8 +57,6 @@ public:
     explicit Project();
     virtual ~Project();
 
-    void load(const QString& newProjectPath, const QString& defaultTargetLangCode=QString(), const QString& defaultProjectId=QString());
-    void save();
     bool isLoaded()const{return !m_path.isEmpty();}
     ProjectModel* model();
 
@@ -80,6 +78,10 @@ public:
 //     void initLater();
 
 public slots:
+    Q_SCRIPTABLE void load(const QString& newProjectPath, const QString& defaultTargetLangCode=QString(), const QString& defaultProjectId=QString());
+    Q_SCRIPTABLE void reinit();
+    Q_SCRIPTABLE void save();
+
     Q_SCRIPTABLE QString translationsRoot()const{return poDir();}
     Q_SCRIPTABLE QString templatesRoot()const{return potDir();}
 
