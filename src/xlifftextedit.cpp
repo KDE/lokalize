@@ -289,7 +289,7 @@ void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const Cata
         m_highlighter->setSourceString(refStr.string);
     else
         //reflectApprovementState() does this for Target
-        m_highlighter->rehighlight(); //explicitly because we disabled signals
+        m_highlighter->rehighlight(); //explicitly because the signals were disabled
 }
 
 #if 0
@@ -852,6 +852,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         {
             ins+='\n';
             insertPlainText(ins);
+            m_highlighter->rehighlight();
         }
         else
             KTextEdit::keyPressEvent(keyEvent);
