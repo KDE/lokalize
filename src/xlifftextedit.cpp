@@ -794,9 +794,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         insertPlainText(QChar(0x00a0U));
     else if( keyEvent->key() == Qt::Key_Minus && (keyEvent->modifiers()&Qt::AltModifier) )
         insertPlainText(QChar(0x0000AD));
-    else if (m_catalog->mimetype()!="text/x-gettext-translation")
-        KTextEdit::keyPressEvent(keyEvent);
-    //clever editing
+//BEGIN clever editing
     else if(keyEvent->key()==Qt::Key_Return||keyEvent->key()==Qt::Key_Enter)
     {
 #ifndef NOKDE
@@ -810,6 +808,9 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             return;
         }
 #endif
+        if (m_catalog->type()!=Gettext)
+            return KTextEdit::keyPressEvent(keyEvent);
+
         QString str=toPlainText();
         QTextCursor t=textCursor();
         int pos=t.position();
@@ -825,7 +826,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             }
             else
             {
-                ins="\\n";
+                ins=QStringLiteral("\\n");
             }
         }
         else if(!(keyEvent->modifiers()&Qt::ControlModifier))
@@ -844,7 +845,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             }
             else if(str.isEmpty())
             {
-                ins="\\n";
+                ins=QStringLiteral("\\n");
             }
         }
         if (!str.isEmpty())
@@ -855,6 +856,8 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         else
             KTextEdit::keyPressEvent(keyEvent);
     }
+    else if (m_catalog->type()!=Gettext)
+        KTextEdit::keyPressEvent(keyEvent);
     else if( (keyEvent->modifiers()&Qt::ControlModifier)?
                 (keyEvent->key()==Qt::Key_D) :
                 (keyEvent->key()==Qt::Key_Delete)
@@ -907,6 +910,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         insertPlainText(QStringLiteral("\\t"));
     else
         KTextEdit::keyPressEvent(keyEvent);
+//END clever editing
 }
 
 void TranslationUnitTextEdit::keyReleaseEvent(QKeyEvent* e)

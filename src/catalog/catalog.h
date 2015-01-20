@@ -195,6 +195,7 @@ public slots: //DBus interface
     QByteArray contents();
     QString mimetype();
     QString fileType();
+    CatalogType type();
     QString sourceLangCode() const;
     QString targetLangCode() const;
     void setTargetLangCode(const QString& targetLangCode);

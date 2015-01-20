@@ -145,6 +145,7 @@ public:
 
     virtual QString mimetype() const=0;
     virtual QString fileType() const=0;
+    virtual CatalogType type() const=0;
 
     QString sourceLangCode() const{return m_sourceLangCode;}
     QString targetLangCode() const{return m_targetLangCode;}

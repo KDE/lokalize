@@ -86,6 +86,7 @@ public:
 
     QString mimetype()const{return QStringLiteral("text/x-gettext-translation");}
     QString fileType()const{return QStringLiteral("Gettext (*.po)");}
+    CatalogType type()const{return Gettext;}
 
 private:
     bool setHeader(const CatalogItem& newHeader);

@@ -99,6 +99,7 @@ public:
 
     QString mimetype()const{return QStringLiteral("application/x-xliff");}
     QString fileType()const{return QStringLiteral("XLIFF (*.xliff *.xlf)");}
+    CatalogType type()const{return Xliff;}
 
     void setTargetLangCode(const QString& langCode);
 

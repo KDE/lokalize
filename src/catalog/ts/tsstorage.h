@@ -84,6 +84,7 @@ public:
 
     QString mimetype()const{return QStringLiteral("application/x-linguist");}
     QString fileType()const{return QStringLiteral("Qt Linguist (*.ts)");}
+    CatalogType type()const{return Ts;}
 
     void setTargetLangCode(const QString& langCode);
 

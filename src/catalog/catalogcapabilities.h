@@ -33,4 +33,11 @@ enum CatalogCapabilities
     Tags=16
 };
 
+enum CatalogType
+{
+    Gettext,
+    Xliff,
+    Ts
+};
+
 #endif

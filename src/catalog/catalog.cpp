@@ -477,6 +477,14 @@ QString Catalog::fileType()
     return m_storage->fileType();
 }
 
+CatalogType Catalog::type()
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return Gettext;
+
+    return m_storage->type();
+}
+
 QString Catalog::sourceLangCode() const
 {
     if (KDE_ISUNLIKELY( !m_storage ))
