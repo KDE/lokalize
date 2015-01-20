@@ -85,6 +85,8 @@ int main(int argc, char **argv)
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
 
+    KLocalizedString::setApplicationDomain("lokalize");
+
     QApplication app(argc, argv);
     QCommandLineParser parser;
     KAboutData about("lokalize", i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
