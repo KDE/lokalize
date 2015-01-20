@@ -689,6 +689,7 @@ void askAuthorInfoIfEmpty()
 
 #ifndef NOKDE
         Settings::self()->authorNameItem()->setValue(ok?contact:fullUserName());
+        Settings::self()->save();
 #else
         Settings::self()->setAuthorName(ok?contact:fullUserName());
 #endif
@@ -702,6 +703,7 @@ void askAuthorInfoIfEmpty()
         if (ok)
 #ifndef NOKDE
             Settings::self()->authorEmailItem()->setValue(email);
+            Settings::self()->save();
 #else
             Settings::self()->setAuthorEmail(email);
 #endif

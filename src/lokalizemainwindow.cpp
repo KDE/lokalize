@@ -94,6 +94,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     connect(Project::instance(), SIGNAL(fileOpenRequested(QString)),this,SLOT(fileOpen(QString)), Qt::QueuedConnection);
     connect(Project::instance(), SIGNAL(configChanged()), this, SLOT(projectSettingsChanged()));
+    connect(Project::instance(), SIGNAL(closed()), this, SLOT(closeProject()));
     showProjectOverview();
     showTranslationMemory(); //fix for #342558
 
@@ -695,6 +696,7 @@ void LokalizeMainWindow::projectLoaded()
     //QList<int> offsets;
     QList<int> entries;
 
+    projectOverview();
     if (m_projectSubWindow)
     {
         ProjectTab *w = static_cast<ProjectTab*>(m_projectSubWindow->widget());
@@ -718,7 +720,6 @@ void LokalizeMainWindow::projectLoaded()
     {
         if (i<dockWidgets.size())
             m_lastEditorState=dockWidgets.at(i);
-        qDebug()<<"fileopen"<<files.at(i);
         if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/,activeSWIndex==i,mergeFiles.at(i),/*silent*/true))
             failedFiles.append(files.at(i));
     }

@@ -350,6 +350,8 @@ void Project::projectOdfCreate()
 
     if (!QFile::exists(args.at(1)))
         return;
+    
+    emit closed();
 
     Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName)+"/index.lokalize", targetLangCode, fi.baseName()%'-'%targetLangCode);
 

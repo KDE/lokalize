@@ -102,6 +102,7 @@ public slots:
 signals:
     Q_SCRIPTABLE void loaded();
     void fileOpenRequested(const QString&);
+    void closed();
 
 public slots:
     void populateDirModel();
