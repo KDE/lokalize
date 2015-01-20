@@ -68,6 +68,8 @@ signals:
 
 private slots:
     void slotItemActivated(const QModelIndex&);
+    void modelAboutToReload();
+    void modelReloaded();
 
 private:
     enum gotoIndexResult {gotoIndex_end = -1, gotoIndex_notfound = 0, gotoIndex_found = 1};
@@ -77,8 +79,8 @@ private:
     gotoIndexResult gotoIndexFind(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
     gotoIndexResult gotoIndex(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
 
-    QWidget* m_parent;
     SortFilterProxyModel* m_proxyModel;
+    QString m_currentItemPathBeforeReload;
 };
 
 

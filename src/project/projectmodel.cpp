@@ -1,7 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
-  Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007-2015 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
   This program is free software; you can redistribute it and/or
@@ -61,6 +61,8 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_potIcon(QIcon::fromTheme(QLatin1String("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
+    , m_doneTimer(new QTimer(this))
+    , m_delayedReloadTimer(new QTimer(this))
     , m_threadPool(new QThreadPool(this))
     , m_completeScan(true)
 {
@@ -68,10 +70,10 @@ ProjectModel::ProjectModel(QObject *parent)
     m_threadPool->setExpiryTimeout(-1);
 
     m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
-    m_poModel.dirLister()->setNameFilter("*.po *.pot *.xlf");
+    m_poModel.dirLister()->setNameFilter(QStringLiteral("*.po *.pot *.xlf *.xliff *.ts"));
 
     m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
-    m_potModel.dirLister()->setNameFilter("*.pot");
+    m_potModel.dirLister()->setNameFilter(QStringLiteral("*.pot"));
 
     connect(&m_poModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             this, SLOT(po_dataChanged(QModelIndex,QModelIndex)));
@@ -91,9 +93,10 @@ ProjectModel::ProjectModel(QObject *parent)
     connect(&m_potModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
             this, SLOT(pot_rowsRemoved(QModelIndex,int,int)));
 
-    m_doneTimer = new QTimer();
+    m_delayedReloadTimer->setSingleShot(true);
     m_doneTimer->setSingleShot(true);
     connect(m_doneTimer, SIGNAL(timeout()), this, SLOT(updateTotalsChanged()));
+    connect(m_delayedReloadTimer, SIGNAL(timeout()), this, SLOT(reload()));
 
     setUrl(QUrl(), QUrl());
 }
@@ -115,6 +118,8 @@ ProjectModel::~ProjectModel()
 void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
     //qDebug() << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
+
+    emit loadingAboutToStart();
 
     //cleanup old data
 
@@ -146,8 +151,6 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
     //add trailing slashes to base URLs, needed for potToPo and poToPot
     m_poUrl = poUrl.adjusted(QUrl::StripTrailingSlash);
     m_potUrl = potUrl.adjusted(QUrl::StripTrailingSlash);
-
-    emit loading();
 
     if (!poUrl.isEmpty())
         m_poModel.dirLister()->openUrl(m_poUrl, KDirLister::Reload);
@@ -188,6 +191,12 @@ QUrl ProjectModel::beginEditing(const QModelIndex& index)
     }
 }
 
+void ProjectModel::reload()
+{
+    setUrl(m_poUrl, m_potUrl);
+}
+
+
 //Theese methds update the combined model from POT and PO model changes.
 //Quite complex stuff here, better do not change anything.
 
@@ -198,13 +207,21 @@ void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelInd
     QModelIndex topLeft = indexForPoIndex(po_topLeft);
     QModelIndex bottomRight = indexForPoIndex(po_bottomRight);
 
-    emit dataChanged(topLeft, bottomRight);
-
-    enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
+    if (topLeft.row()==bottomRight.row() && itemForIndex(topLeft).isFile())
+    {
+        //this code works fine only for lonely files
+        //and fails for more complex changes
+        //see bug 342959
+        emit dataChanged(topLeft, bottomRight);
+        enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
+    }
+    else
+        m_delayedReloadTimer->start(1000);
 }
 
 void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelIndex& pot_bottomRight)
 {
+#if 0
     //tricky here - some of the pot items may be represented by po items
     //let's propagate that all subitems changed
 
@@ -221,6 +238,11 @@ void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelI
     emit dataChanged(topLeft, bottomRight);
 
     enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
+#else
+    Q_UNUSED(pot_topLeft)
+    Q_UNUSED(pot_bottomRight)
+    m_delayedReloadTimer->start(1000);
+#endif
 }
 
 
@@ -370,6 +392,7 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
 
     if ((!parent.isValid()) && (node->rows.count() == 0))
     {
+        qDebug()<<"po_rowsRemoved fail";
         //events after removing entire contents
         return;
     }
@@ -622,7 +645,7 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
 
     if (!internalIndex.isValid())
         return QVariant();
-    
+
     KFileItem item=itemForIndex(index);
     bool isDir = item.isDir();
 
@@ -932,7 +955,7 @@ QUrl ProjectModel::poToPot(const QUrl& poPath) const
     QString pathToAdd = QDir(m_poUrl.path()).relativeFilePath(poPath.path());
 
     //change ".po" into ".pot"
-    if (pathToAdd.endsWith(".po")) //TODO: what about folders ??
+    if (pathToAdd.endsWith(QLatin1String(".po"))) //TODO: what about folders ??
         pathToAdd+='t';
 
     QUrl potPath = m_potUrl;
@@ -953,7 +976,7 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
     QString pathToAdd = QDir(m_potUrl.path()).relativeFilePath(potPath.path());
 
     //change ".pot" into ".po"
-    if (pathToAdd.endsWith(".pot")) //TODO: what about folders ??
+    if (pathToAdd.endsWith(QLatin1String(".pot"))) //TODO: what about folders ??
         pathToAdd = pathToAdd.left(pathToAdd.length() - 1);
 
     QUrl poPath = m_poUrl;
@@ -1170,6 +1193,8 @@ void ProjectModel::updateTotalsChanged()
                updateDone(m_potModel.indexForUrl(m_potUrl), m_potModel);
         if (m_rootNode.fuzzyAsPerRole() + m_rootNode.translatedAsPerRole() + m_rootNode.untranslated > 0 && !done)
             m_doneTimer->start(2000);
+
+        emit loadingFinished();
     }
     emit totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.untranslated, done);
 }
@@ -1279,7 +1304,7 @@ static FileMetaData metaData(QString filePath)
     return m;
 }
 
-#define NOMETAINFOCACHE
+//#define NOMETAINFOCACHE
 #ifndef NOMETAINFOCACHE
 static void initDataBase(QSqlDatabase& db)
 {

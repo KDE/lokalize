@@ -183,7 +183,8 @@ public:
 
 signals:
     void totalsChanged(int fuzzy, int translated, int untranslated, bool done);
-    void loading();
+    void loadingAboutToStart();
+    void loadingFinished(); //may be emitted a bit earlier
 
 private slots:
     void po_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
@@ -201,6 +202,7 @@ private slots:
 
 public slots:
     void slotFileSaved(const QString& filePath);
+    void reload();
 
 private:
     ProjectNode* nodeForIndex(const QModelIndex& index) const;
@@ -244,6 +246,7 @@ private:
     UpdateStatsJob* m_activeJob;
     ProjectNode* m_activeNode;
     QTimer* m_doneTimer;
+    QTimer* m_delayedReloadTimer;
 
     QThreadPool* m_threadPool;
 

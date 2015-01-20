@@ -347,6 +347,10 @@ void KAboutData::doAbout()
     QMessageBox::about(0, name, "<h3>"%name%' '%version%"</h3><p>"%description%"</p><font style=\"font-weight:normal\"><p>"%copyright.replace('\n', "<br>")%"</p><br>Credits:<br>"%cs%"</font>");
 }
 
+namespace KLocalizedString
+{
+    void setApplicationDomain(const char*){}
+};
 
 
 

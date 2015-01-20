@@ -35,6 +35,11 @@ static inline QString i18n(const char* x, int n, int m){return QObject::tr(x).ar
 static inline QString i18n(const char* x, const QString& s1, const QString& s2){return QObject::tr(x).arg(s1).arg(s2);}
 static inline QString i18n(const char* x){return QObject::tr(x);}
 
+namespace KLocalizedString
+{
+    void setApplicationDomain(const char*);
+};
+
 #if 0
 QString i18nc(const char* y, const char* x);
 QString i18nc(const char* y, const char* x, int n);

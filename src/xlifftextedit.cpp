@@ -189,8 +189,8 @@ void TranslationUnitTextEdit::reflectApprovementState()
 
     bool approved=m_catalog->isApproved(m_currentPos.entry);
 
-    m_highlighter->setApprovementState(approved);
     disconnect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    m_highlighter->setApprovementState(approved);
     m_highlighter->rehighlight();
     connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
     viewport()->setBackgroundRole(approved?QPalette::Base:QPalette::AlternateBase);

@@ -127,7 +127,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(m_browser,SIGNAL(fileOpenRequested(QString)),this,SIGNAL(fileOpenRequested(QString)));
     connect(Project::instance()->model(), SIGNAL(totalsChanged(int,int,int,bool)),
             this, SLOT(updateStatusBar(int,int,int,bool)));
-    connect(Project::instance()->model(),SIGNAL(loading()),this,SLOT(initStatusBarProgress()));
+    connect(Project::instance()->model(),SIGNAL(loadingAboutToStart()),this,SLOT(initStatusBarProgress()));
 
     setCentralWidget(baseWidget);
     QStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
