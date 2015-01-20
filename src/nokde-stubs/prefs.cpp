@@ -39,7 +39,7 @@ bool SettingsController::ensureProjectIsLoaded()
     return true;
 }
 
-QString fullUserName();
+QString fullUserName();// defined in <platform>helpers.cpp
 
 Settings::Settings()
  : mDefaultLangCode(QLocale::system().name())

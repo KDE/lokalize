@@ -27,7 +27,9 @@
 
 #include "version.h"
 #include "prefs_lokalize.h"
+#include "prefs.h"
 
+#include <QInputDialog>
 #include <QProcess>
 #include <QString>
 #include <QStringBuilder>
@@ -38,6 +40,7 @@
 #include <QTimeZone>
 
 #include <kdemacros.h>
+#include <klocalizedstring.h>
 
 /**
  * this data was obtained by running GNUPluralForms()
@@ -249,6 +252,8 @@ void updateHeader(QString& header,
                   bool forSaving,
                   QTextCodec* codec)
 {
+    askAuthorInfoIfEmpty();
+
     QStringList headerList(header.split('\n',QString::SkipEmptyParts));
     QStringList commentList(comment.split('\n',QString::SkipEmptyParts));
 
@@ -260,7 +265,7 @@ void updateHeader(QString& header,
     bool found=false;
     authorNameEmail=Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
-        authorNameEmail+=(" <"%Settings::authorEmail()%'>');
+        authorNameEmail+=(QStringLiteral(" <")%Settings::authorEmail()%'>');
     temp=QStringLiteral("Last-Translator: ")%authorNameEmail%("\\n");
 
     QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
@@ -670,3 +675,35 @@ void updateHeader(QString& header,
 //END comment = description, copyrights
 }
 
+
+
+QString fullUserName();// defined in <platform>helpers.cpp
+
+void askAuthorInfoIfEmpty()
+{
+    if (Settings::authorName().isEmpty())
+    {
+        bool ok;
+        QString contact = QInputDialog::getText(SettingsController::instance()->mainWindowPtr(), i18nc("@window:title", "Author name missing"), i18n("Your name:"), 
+            QLineEdit::Normal, fullUserName(), &ok);
+
+#ifndef NOKDE
+        Settings::self()->authorNameItem()->setValue(ok?contact:fullUserName());
+#else
+        Settings::self()->setAuthorName(ok?contact:fullUserName());
+#endif
+    }
+    if (Settings::authorEmail().isEmpty())
+    {
+        bool ok;
+        QString email = QInputDialog::getText(SettingsController::instance()->mainWindowPtr(), i18nc("@window:title", "Author email missing"), i18n("Your email:"), 
+            QLineEdit::Normal, QString(), &ok);
+
+        if (ok)
+#ifndef NOKDE
+            Settings::self()->authorEmailItem()->setValue(email);
+#else
+            Settings::self()->setAuthorEmail(email);
+#endif
+    }
+}

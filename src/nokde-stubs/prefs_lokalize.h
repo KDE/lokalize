@@ -18,7 +18,8 @@ public:
     void save();
 
 public slots:
-    static void setAuthoName(const QString& v){self()->mAuthorName = v;}
+    static void setAuthorName(const QString& v){self()->mAuthorName = v;}
+    static void setAuthorEmail(const QString& v){self()->mAuthorEmail = v;}
 
 public:
     static QString authorName() {return self()->mAuthorName;}

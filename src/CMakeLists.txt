@@ -59,6 +59,7 @@ set(lokalize_SRCS
     common/headerviewmenu.cpp
     common/domroutines.cpp
     common/htmlhelpers.cpp
+    common/unixhelpers.cpp
     common/fastsizehintitemdelegate.cpp
     common/flowlayout.cpp
     common/termlabel.cpp

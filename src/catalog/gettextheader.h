@@ -44,5 +44,7 @@ void updateHeader(QString& header,
 //for XLIFF
 int numberOfPluralFormsForLangCode(const QString& langCode);
 
+void askAuthorInfoIfEmpty();
+
 #endif
 

@@ -313,7 +313,7 @@ void Project::init(const QString& path, const QString& kind, const QString& id,
 void Project::projectOdfCreate()
 {
     QString odf2xliff=QStringLiteral("odf2xliff");
-    if (QProcess::execute(odf2xliff)==-2)
+    if (QProcess::execute(odf2xliff, QStringList("--version"))==-2)
     {
         KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
         return;

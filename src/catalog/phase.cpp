@@ -26,10 +26,13 @@
 #include "catalog.h"
 #include "project.h"
 #include "prefs_lokalize.h"
+#include "gettextheader.h"
 
 #include <QSet>
 
 #include "kdemacros.h"
+
+#include <klocalizedstring.h>
 
 const char* const* processes()
 {
@@ -60,9 +63,10 @@ void generatePhaseForCatalogIfNeeded(Catalog* catalog)
     catalog->setActivePhase(phase.name, roleForProcess(phase.process));
 }
 
-
 bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
 {
+    askAuthorInfoIfEmpty();
+
     phase.contact=Settings::authorName();
 
     QSet<QString> names;

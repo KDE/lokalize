@@ -695,6 +695,7 @@ Phase XliffStorage::updatePhase(const Phase& phase)
     if (!phase.company.isEmpty()) phaseElem.setAttribute(QStringLiteral("company-name"), phase.company);
     phaseElem.setAttribute(QStringLiteral("contact-name"), phase.contact);
     phaseElem.setAttribute(QStringLiteral("contact-email"),phase.email);
+    Q_ASSERT(phase.contact.length());
     if (!phase.phone.isEmpty()) phaseElem.setAttribute("contact-phone",phase.phone);
     phaseElem.setAttribute(QStringLiteral("tool-id"),      phase.tool);
     if (phase.date.isValid()) phaseElem.setAttribute(QStringLiteral("date"),phase.date.toString(Qt::ISODate));

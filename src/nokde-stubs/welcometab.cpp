@@ -63,7 +63,7 @@ WelcomeTab::WelcomeTab(QWidget *parent)
     connect(t, SIGNAL(langCodeSelected(QString)), Project::instance(), SLOT(setTargetLangCode(QString)));
 
     authorNameEdit->setText(Settings::self()->authorName());
-    connect(authorNameEdit, SIGNAL(textChanged(QString)), Settings::self(), SLOT(setAuthoName(QString)));
+    connect(authorNameEdit, SIGNAL(textChanged(QString)), Settings::self(), SLOT(setAuthorName(QString)));
 
     glossaryPathEdit->setText(Project::instance()->glossaryPath());
 }
