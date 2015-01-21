@@ -200,6 +200,12 @@ void ProjectModel::reload()
 //Theese methds update the combined model from POT and PO model changes.
 //Quite complex stuff here, better do not change anything.
 
+//TODO A comment from Viesturs Zarins 2009-05-17 20:53:11 UTC:
+//This is a design issue in projectview.cpp. The same issue happens when creating/deleting any folder in project.
+//When a node PO item is added, the existing POT node is deleted and new one created to represent both.
+//When view asks if there is more data in the new node, the POT model answers no, as all the data was already stored in POT node witch is now deleted.
+//To fix this either reuse the existing POT node or manually repopulate data form POT model.
+
 void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelIndex& po_bottomRight)
 {
     //nothing special here
