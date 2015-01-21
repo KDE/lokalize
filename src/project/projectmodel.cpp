@@ -1377,12 +1377,12 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     queryCache.prepare(QStringLiteral("SELECT * from metadata where filepath=?"));
     queryCache.bindValue(0, qHash(file.localPath()));
     queryCache.exec();
-    if (queryCache.next() && file.time(KFileItem::ModificationTime)==queryCache.value(2).toDateTime())
+    //not using file.time(KFileItem::ModificationTime) because it gives wrong result for files that have just been saved in editor
+    if (queryCache.next() && QFileInfo(file.localPath()).lastModified()==queryCache.value(2).toDateTime())
     {
         result=queryCache.value(1).toByteArray();
         QDataStream stream(&result,QIODevice::ReadOnly);
 
-        //unfortunately direct KFileMetaInfo << operator doesn't work
         FileMetaData info;
         stream>>info;
 
