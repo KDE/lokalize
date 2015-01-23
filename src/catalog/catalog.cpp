@@ -115,7 +115,7 @@ Catalog::Catalog(QObject *parent)
             Project::instance()->model(),SLOT(slotFileSaved(QString)),Qt::QueuedConnection);
 
     QTimer* t=&(d._autoSaveTimer);
-    t->setInterval(5*60*1000);
+    t->setInterval(2*60*1000);
     t->setSingleShot(false);
     connect(t,   SIGNAL(timeout()),        this,SLOT(doAutoSave()));
     connect(this,SIGNAL(signalFileSaved()),   t,SLOT(start()));
@@ -619,6 +619,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
             if (KDE_ISLIKELY(errorLine==0))
                 mergeCatalog->copyToBaseCatalog();
             mergeCatalog->deleteLater();
+            d._autoSave->close();
         }
         else
             d._autoSave->setManagedFile(d._filePath);
