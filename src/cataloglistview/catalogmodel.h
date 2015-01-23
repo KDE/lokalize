@@ -154,6 +154,7 @@ public:
 
 public slots:
     void setEntriesFilteredOut(bool filteredOut=false);
+    void setDynamicSortFilter(bool enabled){QSortFilterProxyModel::setDynamicSortFilter(enabled);}
 
 private:
     int m_filerOptions;

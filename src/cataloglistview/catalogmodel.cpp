@@ -232,7 +232,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
     setFilterRole(CatalogTreeModel::StringFilterRole);
-    //setDynamicSortFilter(true);
+    setDynamicSortFilter(false);
 }
 
 void CatalogTreeFilterModel::setSourceModel(QAbstractItemModel* sourceModel)

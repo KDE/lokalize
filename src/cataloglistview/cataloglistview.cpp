@@ -218,6 +218,10 @@ void CatalogView::fillFilterOptionsMenu()
     QMenu* columnsMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Searchable column"));
 
     QAction* txt;
+    txt=m_filterOptionsMenu->addAction(i18nc("@title:inmenu","Resort and refilter on content change"), m_proxyModel, SLOT(setDynamicSortFilter(bool)));
+    txt->setCheckable(true);
+    txt->setChecked(m_proxyModel->dynamicSortFilter());
+
     for (int i=0;(1<<i)<CatalogTreeFilterModel::MaxOption;++i)
     {
         bool ext=(1<<i)>=CatalogTreeFilterModel::New;
