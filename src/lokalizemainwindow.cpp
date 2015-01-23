@@ -874,7 +874,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
 
     //qWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
-#ifndef Q_WS_MAC
+#ifndef Q_OS_MAC
     //TODO really fix!!!
     guiFactory()->addClient(new MyScriptingPlugin(this,m_multiEditorAdaptor));
 #endif
