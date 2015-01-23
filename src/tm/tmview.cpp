@@ -101,17 +101,17 @@ static DiffInfo getDiffInfo(const QString& diff)
     {
         if (diff.at(pos)==sep)
         {
-            if (diff.indexOf("{KBABELDEL}",pos)==pos)
+            if (diff.indexOf(QLatin1String("{KBABELDEL}"),pos)==pos)
             {
                 state='-';
                 pos+=10;
             }
-            else if (diff.indexOf("{KBABELADD}",pos)==pos)
+            else if (diff.indexOf(QLatin1String("{KBABELADD}"),pos)==pos)
             {
                 state='+';
                 pos+=10;
             }
-            else if (diff.indexOf("{/KBABEL",pos)==pos)
+            else if (diff.indexOf(QLatin1String("{/KBABEL"),pos)==pos)
             {
                 state='0';
                 pos+=11;
@@ -478,7 +478,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html.reserve(1024);
 
         const TMEntry& entry=job.m_entries.at(i);
-        html+=(entry.score>9500)?QStringLiteral("<p class='close_match'>"):QStringLiteral("<p>");
+        html+=(entry.score>9500)?QLatin1String("<p class='close_match'>"):QLatin1String("<p>");
         //qDebug()<<entry.target.string<<entry.hits;
 
         html+=QString(QStringLiteral("/%1%/ ")).arg(entry.score > 10000 ? 100: float(entry.score)/100);
@@ -488,12 +488,12 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         //result.replace("&","&amp;");
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
-        result.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
-        result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
-        result.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
-        result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
-        result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
-        result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
+        result.replace(QLatin1String("{KBABELADD}"),QLatin1String("<font style=\"background-color:")%Settings::addColor().name()%QLatin1String(";color:black\">"));
+        result.replace(QLatin1String("{/KBABELADD}"),QLatin1String("</font>"));
+        result.replace(QLatin1String("{KBABELDEL}"),QLatin1String("<font style=\"background-color:")%Settings::delColor().name()%QLatin1String(";color:black\">"));
+        result.replace(QLatin1String("{/KBABELDEL}"),QLatin1String("</font>"));
+        result.replace(QLatin1String("\\n"),QLatin1String("\\n<br>"));
+        result.replace(QLatin1String("\\n"),QLatin1String("\\n<br>"));
         html+=result;
 #if 0
         cur.insertHtml(result);
@@ -514,14 +514,14 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 #endif
 
         //str.replace('&',"&amp;"); TODO check
-        html+=QStringLiteral("<br>");
+        html+=QLatin1String("<br>");
         if (KDE_ISLIKELY( i<m_actions.size() ))
         {
             m_actions.at(i)->setStatusTip(entry.target.string);
-            html+=QString("[%1] ").arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
+            html+=QStringLiteral("[%1] ").arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
         }
         else
-            html+=QStringLiteral("[ - ] ");
+            html+=QLatin1String("[ - ] ");
 /*
         QString str(entry.target.string);
         str.replace('<',"&lt;");
@@ -533,7 +533,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         insertContent(cur,entry.target);
         m_entryPositions.insert(cur.anchor(),i);
 
-        html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
+        html+=i?QLatin1String("<br></p>"):QLatin1String("</p>");
         cur.insertHtml(html);
 
         if (KDE_ISUNLIKELY( ++i>=limit ))
@@ -671,8 +671,8 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     //QString english=entry.english;
 
 
-    QRegExp rxAdd("<font style=\"background-color:[^>]*" % Settings::addColor().name() % "[^>]*\">([^>]*)</font>");
-    QRegExp rxDel("<font style=\"background-color:[^>]*" % Settings::delColor().name() % "[^>]*\">([^>]*)</font>");
+    QRegExp rxAdd(QLatin1String("<font style=\"background-color:[^>]*") % Settings::addColor().name() % QLatin1String("[^>]*\">([^>]*)</font>"));
+    QRegExp rxDel(QLatin1String("<font style=\"background-color:[^>]*") % Settings::delColor().name() % QLatin1String("[^>]*\">([^>]*)</font>"));
     //rxAdd.setMinimal(true);
     //rxDel.setMinimal(true);
 
@@ -757,7 +757,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 //BEGIN BEGIN HANDLING
     QRegExp rxNonTranslatable;
     if (tryMarkup)
-        rxNonTranslatable.setPattern("^((" % entry.markupExpr % ")|(\\W|\\d)+)+");
+        rxNonTranslatable.setPattern(QLatin1String("^((") % entry.markupExpr % QLatin1String(")|(\\W|\\d)+)+"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
@@ -834,7 +834,7 @@ nono
 //END BEGIN HANDLING
 //BEGIN END HANDLING
     if (tryMarkup)
-        rxNonTranslatable.setPattern("(("% entry.markupExpr %")|(\\W|\\d)+)+$");
+        rxNonTranslatable.setPattern(QLatin1String("((")% entry.markupExpr %QLatin1String(")|(\\W|\\d)+)+$"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("(\\W|\\d)+$"));
 

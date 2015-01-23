@@ -261,7 +261,7 @@ protected:
     friend class MassReplaceJob;
 
 public:
-    static QString supportedMimeFilters;
+    //static QString supportedMimeFilters;
     static QString supportedFileTypes(bool includeTemplates=true);
 
 signals:

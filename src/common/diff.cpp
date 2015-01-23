@@ -45,10 +45,10 @@ typedef enum
     FINAL         = 4
 } LCSMarker;
 
-static QString addMarkerStart=QStringLiteral("<KBABELADD>");
-static QString addMarkerEnd=QStringLiteral("</KBABELADD>");
-static QString delMarkerStart=QStringLiteral("<KBABELDEL>");
-static QString delMarkerEnd=QStringLiteral("</KBABELDEL>");
+static const QString addMarkerStart=QStringLiteral("<KBABELADD>");
+static const QString addMarkerEnd=QStringLiteral("</KBABELADD>");
+static const QString delMarkerStart=QStringLiteral("<KBABELDEL>");
+static const QString delMarkerEnd=QStringLiteral("</KBABELDEL>");
 
 QStringList calcLCS(const QStringList& s1Words,
                     const QStringList& s2Words,
@@ -386,7 +386,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //i tried that but it failed:
     if (!markup.isEmpty())
         markup+='|';
-    QRegExp rxSplit('('%markup%QStringLiteral("\\W+|\\d+)+"));
+    QRegExp rxSplit('('%markup%QLatin1String("\\W+|\\d+)+"));
 
     main=str.split(rxSplit,QString::SkipEmptyParts);
     main.prepend("\t");//little hack
@@ -452,11 +452,11 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
 
     if (options&Html)
     {
-        res.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
-        res.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
-        res.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
-        res.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
-        res.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br>"));
+        res.replace(QLatin1String("{KBABELADD}"),QLatin1String("<font style=\"background-color:")%Settings::addColor().name()%QLatin1String(";color:black\">"));
+        res.replace(QLatin1String("{/KBABELADD}"),QLatin1String("</font>"));
+        res.replace(QLatin1String("{KBABELDEL}"),QLatin1String("<font style=\"background-color:")%Settings::delColor().name()%QLatin1String(";color:black\">"));
+        res.replace(QLatin1String("{/KBABELDEL}"),QLatin1String("</font>"));
+        res.replace(QLatin1String("\\n"),QLatin1String("\\n<br>"));
     }
 
     return res;

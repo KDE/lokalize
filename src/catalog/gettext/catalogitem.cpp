@@ -59,7 +59,7 @@ CatalogItem::~CatalogItem()
 QString CatalogItem::msgctxt(const bool noNewlines) const
 {
     QString msgctxt=d._msgctxt;
-    if (noNewlines) return msgctxt.replace('\n', ' '); //" " or "" ?
+    if (noNewlines) return msgctxt.replace(QLatin1Char('\n'), QLatin1Char(' ')); //" " or "" ?
     else            return msgctxt;
 }
 
@@ -296,7 +296,7 @@ QStringList CatalogItem::msgstrAsList() const
     }
     QStringList list(d._msgstrPlural.first().split('\n', QString::SkipEmptyParts ));
 
-    if(d._msgstrPlural.first()=="\n")
+    if(d._msgstrPlural.first()==QLatin1String("\n"))
         list.prepend(QString());
 
     if(list.isEmpty())
@@ -313,14 +313,14 @@ void CatalogItem::setFuzzy()
 
     if (d._comment.isEmpty())
     {
-        d._comment="#, fuzzy";
+        d._comment=QStringLiteral("#, fuzzy");
         return;
     }
 
-    int p=d._comment.indexOf("#,");
+    int p=d._comment.indexOf(QLatin1String("#,"));
     if(p!=-1)
     {
-        d._comment.replace(p,2,"#, fuzzy,");
+        d._comment.replace(p,2,QStringLiteral("#, fuzzy,"));
         return;
     }
 
@@ -340,13 +340,13 @@ void CatalogItem::setFuzzy()
     }
     if (d._comment.startsWith(QLatin1String("#|")))
     {
-        d._comment.prepend("#, fuzzy\n");
+        d._comment.prepend(QLatin1String("#, fuzzy\n"));
         return;
     }
 
-    if( !(d._comment.endsWith('\n')) )
-        d._comment+='\n';
-    d._comment+="#, fuzzy";
+    if( !(d._comment.endsWith(QLatin1Char('\n'))) )
+        d._comment+=QLatin1Char('\n');
+    d._comment+=QLatin1String("#, fuzzy");
 }
 
 void CatalogItem::unsetFuzzy()
