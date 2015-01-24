@@ -558,9 +558,11 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     QTime a;a.start();
 
     QFile* file=new QFile(filePath);
-    file->deleteLater();//kung-fu
     if (!file->open(QIODevice::ReadOnly))
+    {
+        file->deleteLater();
         return ISNTREADABLE;//TODO
+    }
 
     CatalogStorage* storage=0;
     if (filePath.endsWith(QLatin1String(".po"))||filePath.endsWith(QLatin1String(".pot")))
@@ -578,7 +580,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
         while (!in.atEnd()&& ++i<64 && !gettext)
             gettext=in.readLine().contains(QLatin1String("msgid"));
         if (gettext) storage=new GettextCatalog::GettextStorage;
-        else return UNKNOWNFORMAT;
+        else {file->deleteLater(); return UNKNOWNFORMAT;}
     }
 
     int line=storage->load(file);
@@ -587,6 +589,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
 
     if (KDE_ISUNLIKELY(line!=0 || (!storage->size() && (line==-1) ) ))
     {
+        file->deleteLater();
         delete storage;
         return line;
     }
@@ -637,6 +640,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
 
     emit signalFileLoaded();
     emit signalFileLoaded(d._filePath);
+    file->deleteLater();
     return 0;
 }
 
