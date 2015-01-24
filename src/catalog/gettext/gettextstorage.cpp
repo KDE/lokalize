@@ -314,7 +314,11 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
     foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
+#if QT_VERSION >= 0x050400
+        result+=uiLine.midRef(15).split(' ');
+#else
         result+=uiLine.mid(15).split(' ');
+#endif
     }
 
     bool hasUi=!result.isEmpty();
@@ -322,7 +326,11 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
         if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
+#if QT_VERSION >= 0x050400
+        QStringList cppFiles=cppLine.midRef(3).split(' ');
+#else
         QStringList cppFiles=cppLine.mid(3).split(' ');
+#endif
         result+=cppFiles;
     }
     return result;

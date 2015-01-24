@@ -925,7 +925,7 @@ bool EditorTab::saveFileAs()
                                              QFileInfo(m_catalog->url()).absolutePath(), m_catalog->fileType());
     if (filePath.isEmpty()) return false;
     if (!Catalog::extIsSupported(filePath)&&m_catalog->url().contains('.'))
-        filePath+=m_catalog->url().mid(m_catalog->url().lastIndexOf('.'));
+        filePath+=m_catalog->url().midRef(m_catalog->url().lastIndexOf('.'));
 
     return saveFile(filePath);
 }

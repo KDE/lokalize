@@ -395,14 +395,14 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             if (tag.start==i)
             {
                 //qWarning()<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
-                text.append(QStringLiteral(" {"));
-                name.append(QStringLiteral("-start"));
+                text.append(QLatin1String(" {"));
+                name.append(QLatin1String("-start"));
             }
             else
             {
                 //qWarning()<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
-                text.prepend(QStringLiteral("} "));
-                name.append(QStringLiteral("-end"));
+                text.prepend(QLatin1String("} "));
+                name.append(QLatin1String("-end"));
             }
         }
         if (cursor.document()->resource(QTextDocument::ImageResource, QUrl(name)).isNull())
@@ -454,12 +454,12 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     //qWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
     QString target=m_catalog->targetWithTags(pos).string;
-    const QString& addedText=editText.mid(offset,charsAdded);
+    const QStringRef addedText=editText.midRef(offset,charsAdded);
 
 //BEGIN XLIFF markup handling
     //protect from tag removal
     //TODO use midRef when Qt 4.8 is in distros
-    bool markupRemoved=charsRemoved && QString::fromRawData(target.unicode()+offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
+    bool markupRemoved=charsRemoved && target.midRef(offset,charsRemoved).contains(TAGRANGE_IMAGE_SYMBOL);
     bool markupAdded=charsAdded && addedText.contains(TAGRANGE_IMAGE_SYMBOL);
     if (markupRemoved || markupAdded)
     {
@@ -483,7 +483,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
         {
             modified=removeTargetSubstring(offset, charsRemoved, /*refresh*/false);
             if (modified&&charsAdded)
-                m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
+                m_catalog->push(new InsTextCmd(m_catalog,pos,addedText.toString()));
         }
 
         //qWarning()<<"calling showPos";
@@ -504,7 +504,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
         _oldMsgstrAscii=editTextAscii;
         //qWarning()<<"char"<<editText[offset].unicode();
         if (charsAdded)
-            m_catalog->push(new InsTextCmd(m_catalog,pos,addedText));
+            m_catalog->push(new InsTextCmd(m_catalog,pos,addedText.toString()));
 
     }
 
@@ -572,13 +572,13 @@ void TranslationUnitTextEdit::insertCatalogString(CatalogString catStr, int star
     foreach(const InlineTag& tag, target.tags)
     {
         if (id2tagIndex.contains(tag.id))
-            source.tags[id2tagIndex.value(target.tags.at(i).id)].id="REMOVEME";
+            source.tags[id2tagIndex.value(target.tags.at(i).id)].id=QStringLiteral("REMOVEME");
     }
 
     //iterating from the end is essential
     i=source.tags.size();
     while(--i>=0)
-        if (source.tags.at(i).id=="REMOVEME")
+        if (source.tags.at(i).id==QLatin1String("REMOVEME"))
             source.tags.removeAt(i);
 
 
@@ -596,7 +596,7 @@ void TranslationUnitTextEdit::insertCatalogString(CatalogString catStr, int star
     }
 }
 
-
+const QString LOKALIZE_XLIFF_MIMETYPE=QStringLiteral("application/x-lokalize-xliff+xml");
 
 QMimeData* TranslationUnitTextEdit::createMimeDataFromSelection() const
 {
@@ -633,7 +633,7 @@ QMimeData* TranslationUnitTextEdit::createMimeDataFromSelection() const
         QVariant v;
         qVariantSetValue<CatalogString>(v,catalogString);
         out<<v;
-        mimeData->setData("application/x-lokalize-xliff+xml",a);
+        mimeData->setData(LOKALIZE_XLIFF_MIMETYPE,a);
     }
 
     QString text=catalogString.string;
@@ -647,11 +647,11 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
     if (m_part==DocPosition::Source)
         return;
 
-    if (source->hasFormat("application/x-lokalize-xliff+xml"))
+    if (source->hasFormat(LOKALIZE_XLIFF_MIMETYPE))
     {
         //qWarning()<<"has";
         QVariant v;
-        QByteArray data=source->data("application/x-lokalize-xliff+xml");
+        QByteArray data=source->data(LOKALIZE_XLIFF_MIMETYPE);
         QDataStream in(&data,QIODevice::ReadOnly);
         in>>v;
         //qWarning()<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
@@ -721,10 +721,10 @@ static bool isMasked(const QString& str, uint col)
     return !(bool)(counter%2);
 }
 
-static QString spclChars("abfnrtv'?\\");
-
 void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
 {
+    QString spclChars=QStringLiteral("abfnrtv'?\\");
+
     if(keyEvent->matches(QKeySequence::MoveToPreviousPage))
         emit gotoPrevRequested();
     else if(keyEvent->matches(QKeySequence::MoveToNextPage))
@@ -823,7 +823,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         {
             if(pos>0
                &&!str.isEmpty()
-               &&str.at(pos-1)=='\\'
+               &&str.at(pos-1)==QLatin1Char('\\')
                &&!isMasked(str,pos-1))
             {
                 ins='n';
@@ -840,12 +840,12 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                &&!str.isEmpty()
                &&!str.at(pos-1).isSpace())
             {
-                if(str.at(pos-1)=='\\'
+                if(str.at(pos-1)==QLatin1Char('\\')
                    &&!isMasked(str,pos-1))
-                    ins='\\';
+                    ins=QLatin1Char('\\');
                 // if there is no new line at the end
-                if(pos<2||str.midRef(pos-2,2)!="\\n")
-                    ins+=' ';
+                if(pos<2||str.midRef(pos-2,2)!=QLatin1String("\\n"))
+                    ins+=QLatin1Char(' ');
             }
             else if(str.isEmpty())
             {
@@ -899,7 +899,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             QString str=toPlainText();
             if(!str.isEmpty() && pos>0 && spclChars.contains(str.at(pos-1)))
             {
-                if(pos>1 && str.at(pos-2)=='\\' && !isMasked(str,pos-2))
+                if(pos>1 && str.at(pos-2)==QLatin1Char('\\') && !isMasked(str,pos-2))
                 {
                     t.deletePreviousChar();
                     t.deletePreviousChar();
@@ -1159,11 +1159,11 @@ bool TranslationUnitTextEdit::event(QEvent *event)
         if (nospell)
             langCode=m_part==DocPosition::Source?m_catalog->sourceLangCode():m_catalog->targetLangCode();
         QLocale l(langCode);
-        if (l.language()!=QLocale::C) tip=l.nativeLanguageName()+" (";
+        if (l.language()!=QLocale::C) tip=l.nativeLanguageName()+QLatin1String(" (");
         tip+=langCode;
         if (l.language()!=QLocale::C) tip +=')';
         if (nospell)
-            tip+=QStringLiteral(" - ")%i18n("no spellcheck available");
+            tip+=QLatin1String(" - ")%i18n("no spellcheck available");
         QToolTip::showText(helpEvent->globalPos(), tip);
 #endif
     }
@@ -1257,11 +1257,11 @@ void TranslationUnitTextEdit::source2target()
     QString text=sourceWithTags.string;
     QString out;
     QString ctxt=m_catalog->context(m_currentPos.entry).first();
-    QRegExp delimiter("\\s*,\\s*");
+    QRegExp delimiter(QStringLiteral("\\s*,\\s*"));
 
     //TODO ask for the fillment if the first time.
     //BEGIN KDE specific part
-    if( ctxt.startsWith( "NAME OF TRANSLATORS" ) || text.startsWith( "_: NAME OF TRANSLATORS\\n" ))
+    if( ctxt.startsWith( QLatin1String("NAME OF TRANSLATORS") ) || text.startsWith( QLatin1String("_: NAME OF TRANSLATORS\\n") ))
     {
         if (!document()->toPlainText().split(delimiter).contains(Settings::authorLocalizedName())) {
             if (!document()->isEmpty())
@@ -1269,28 +1269,28 @@ void TranslationUnitTextEdit::source2target()
             out+=Settings::authorLocalizedName();
         }
     }
-    else if( ctxt.startsWith( "EMAIL OF TRANSLATORS" ) || text.startsWith( "_: EMAIL OF TRANSLATORS\\n" )) {
+    else if( ctxt.startsWith( QLatin1String("EMAIL OF TRANSLATORS") ) || text.startsWith( QLatin1String("_: EMAIL OF TRANSLATORS\\n") )) {
         if (!document()->toPlainText().split(delimiter).contains(Settings::authorEmail())) {
             if (!document()->isEmpty())
                 out=", ";
             out+=Settings::authorEmail();
         }
     }
-    else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( "ROLES_OF_TRANSLATORS" ) )
+    else if( /*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith( QLatin1String("ROLES_OF_TRANSLATORS") ) )
     {
         if (!document()->isEmpty())
             out='\n';
-        out+="<othercredit role=\\\"translator\\\">\n"
+        out+=QLatin1String("<othercredit role=\\\"translator\\\">\n"
         "<firstname></firstname><surname></surname>\n"
-        "<affiliation><address><email>"+Settings::authorEmail()+"</email></address>\n"
-        "</affiliation><contrib></contrib></othercredit>";
+        "<affiliation><address><email>")%Settings::authorEmail()%QLatin1String("</email></address>\n"
+        "</affiliation><contrib></contrib></othercredit>");
     }
-    else if( text.startsWith( "CREDIT_FOR_TRANSLATORS" ) )
+    else if( text.startsWith( QLatin1String("CREDIT_FOR_TRANSLATORS") ) )
     {
         if (!document()->isEmpty())
             out='\n';
-        out+="<para>"+Settings::authorLocalizedName()+'\n'+
-            "<email>"+Settings::authorEmail()+"</email></para>";
+        out+=QLatin1String("<para>")%Settings::authorLocalizedName()%'\n'%
+            QLatin1String("<email>")%Settings::authorEmail()%QLatin1String("</email></para>");
     }
     //END KDE specific part
 

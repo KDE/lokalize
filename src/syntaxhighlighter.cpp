@@ -228,7 +228,7 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
 #ifndef NOKDE
-    QString text=currentBlock().text();
+    const QString text=currentBlock().text();
     QString word=text.mid(start,count);
     if (m_sourceString.contains(word))
         return;
