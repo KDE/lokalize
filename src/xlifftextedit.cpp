@@ -123,6 +123,11 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     setUndoRedoEnabled(false);
     setAcceptRichText(false);
 
+#ifndef NOKDE
+    m_highlighter->setActive(m_enabled);
+    setHighlighter(m_highlighter);
+#endif
+
     if (part==DocPosition::Target)
     {
         connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
@@ -130,11 +135,6 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     }
     connect (catalog,SIGNAL(signalFileLoaded()), this, SLOT(fileLoaded()));
     //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
-
-#ifndef NOKDE
-    m_highlighter->setActive(m_enabled);
-    setHighlighter(m_highlighter);
-#endif
 }
 
 void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
@@ -856,7 +856,6 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         {
             ins+='\n';
             insertPlainText(ins);
-            m_highlighter->rehighlight();
         }
         else
             KTextEdit::keyPressEvent(keyEvent);

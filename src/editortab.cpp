@@ -509,9 +509,9 @@ void EditorTab::setupActions()
 #ifndef Q_OS_DARWIN
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
     QString systemLang=QLocale::system().name();
-    if (KDE_ISUNLIKELY( systemLang.startsWith("ko")
-        || systemLang.startsWith("ja")
-        || systemLang.startsWith("zh")
+    if (KDE_ISUNLIKELY( systemLang.startsWith(QLatin1String("ko"))
+        || systemLang.startsWith(QLatin1String("ja"))
+        || systemLang.startsWith(QLatin1String("zh"))
                     ))
         copyShortcut=Qt::ALT+Qt::Key_Space;
 #else
