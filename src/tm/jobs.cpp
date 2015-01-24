@@ -119,10 +119,10 @@ static qlonglong getFileId(const QString& path,
     QString escapedPath=path;
     escapedPath.replace(QLatin1Char('\''),QLatin1String("''"));
 
-    QString pathExpr=QLatin1String("path='")%escapedPath%'\'';
+    QString pathExpr=QStringLiteral("path='")%escapedPath%'\'';
     if (path.isEmpty())
         pathExpr=QStringLiteral("path ISNULL");
-    if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT id FROM files WHERE "
+    if (KDE_ISUNLIKELY(!query1.exec(U("SELECT id FROM files WHERE "
                      "path='")%escapedPath%'\'')))
         qWarning() <<"select db error: " <<query1.lastError().text();
 
@@ -173,7 +173,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
     while (--j>=0)
     {
         // insert word (if we do not have it)
-        if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT word, ids_short, ids_long FROM words WHERE "
+        if (KDE_ISUNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE "
                     "word='")%words.at(j)%'\'')))
             qWarning() <<"select error 3: " <<query1.lastError().text();
 
@@ -203,7 +203,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
                 || arr==sourceIdStr)
                 return;//this string is already indexed
 
-            query1.prepare(QLatin1String("UPDATE words SET ")%field%QLatin1String("=? WHERE word='")%words.at(j)%'\'');
+            query1.prepare(QStringLiteral("UPDATE words SET ")%field%QStringLiteral("=? WHERE word='")%words.at(j)%'\'');
 
             if (!arr.isEmpty())
                 arr+=' ';
@@ -252,11 +252,11 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
 
 //BEGIN check
     //TM_NOTAPPROVED=4
-    if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT count(*) FROM main, target_strings WHERE "
-                    "main.source=")%QString::number(sourceId)%QLatin1String(" AND "
+    if (KDE_ISUNLIKELY(!query1.exec(U("SELECT count(*) FROM main, target_strings WHERE "
+                    "main.source=")%QString::number(sourceId)%U(" AND "
                     "main.target=target_strings.id AND "
                     "target_strings.target NOTNULL AND "
-                    "main.id!=")%QString::number(mainId)%QLatin1String(" AND "
+                    "main.id!=")%QString::number(mainId)%U(" AND "
                     "(main.bits&4)!=4"))))
     {
         qWarning() <<"select error 500: " <<query1.lastError().text();
@@ -274,7 +274,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     while (--j>=0)
     {
         // remove from record for the word (if we do not have it)
-        if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT word, ids_short, ids_long FROM words WHERE "
+        if (KDE_ISUNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE "
                     "word='")%words.at(j)%'\'')))
         {
             qWarning() <<"select error 3: " <<query1.lastError().text();
@@ -312,8 +312,8 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
             arr.clear();
 
 
-        query1.prepare(QLatin1String("UPDATE words "
-                        "SET ")%field%QLatin1String("=? "
+        query1.prepare(U("UPDATE words "
+                        "SET ")%field%U("=? "
                         "WHERE word='")%words.at(j)%'\'');
 
         query1.bindValue(0, arr);
@@ -328,7 +328,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
 {
     QSqlQuery query1(db);
 
-    if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT source_strings.id, source_strings.source FROM source_strings, main WHERE "
+    if (KDE_ISUNLIKELY(!query1.exec(U("SELECT source_strings.id, source_strings.source FROM source_strings, main WHERE "
                      "source_strings.id=main.source AND main.id=")+QString::number(mainId))))
         return false;
 
@@ -339,7 +339,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     QString source_string=query1.value(1).toString();
     query1.clear();
 
-    if(!query1.exec(QLatin1String("SELECT count(*) FROM main WHERE source=")+QString::number(sourceId))
+    if(!query1.exec(QStringLiteral("SELECT count(*) FROM main WHERE source=")+QString::number(sourceId))
         || !query1.next())
         return false;
 
@@ -351,7 +351,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
         qWarning()<<"ok delete?"<<query1.exec(QLatin1String("DELETE FROM source_strings WHERE id=")+QString::number(sourceId));
     }
 
-    if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT target FROM main WHERE "
+    if (KDE_ISUNLIKELY(!query1.exec(U("SELECT target FROM main WHERE "
                      "main.id=")+QString::number(mainId))
             || !query1.next()))
         return false;
@@ -359,7 +359,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     qlonglong targetId=query1.value(0).toLongLong();
     query1.clear();
 
-    if (!query1.exec(QLatin1String("SELECT count(*) FROM main WHERE target=")+QString::number(targetId))
+    if (!query1.exec(QStringLiteral("SELECT count(*) FROM main WHERE target=")+QString::number(targetId))
         ||! query1.next())
         return false;
     theOnly=query1.value(0).toInt()==1;
@@ -367,7 +367,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     if (theOnly)
         query1.exec(QLatin1String("DELETE FROM target_strings WHERE id=")+QString::number(targetId));
 
-    return query1.exec(QLatin1String("DELETE FROM main WHERE id=")+QString::number(mainId));
+    return query1.exec(QStringLiteral("DELETE FROM main WHERE id=")+QString::number(mainId));
 }
 
 static QString escape(QString str)
@@ -519,7 +519,7 @@ static bool doInsertEntry(CatalogString source,
         query1.clear();
 
         //check if target in TM matches
-        if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT target, target_markup, target_accel FROM target_strings WHERE "
+        if (KDE_ISUNLIKELY(!query1.exec(U("SELECT target, target_markup, target_accel FROM target_strings WHERE "
                          "id=")+QString::number(targetId))))
         {
             qWarning()<<"select db target_strings error: " <<query1.lastError().text();
@@ -556,7 +556,7 @@ static bool doInsertEntry(CatalogString source,
             return false;
         }
         // no, translation has changed: just update old target if it isn't used elsewhere
-        if (KDE_ISUNLIKELY(!query1.exec(QLatin1String("SELECT count(*) FROM main WHERE "
+        if (KDE_ISUNLIKELY(!query1.exec(U("SELECT count(*) FROM main WHERE "
                          "target=")+QString::number(targetId))))
             qWarning() <<"select db target_strings error: " <<query1.lastError().text();
 
@@ -565,7 +565,7 @@ static bool doInsertEntry(CatalogString source,
             //TODO tnis may create duplicates, while no strings should be lost
             query1.clear();
 
-            query1.prepare(QLatin1String("UPDATE target_strings "
+            query1.prepare(U("UPDATE target_strings "
                            "SET target=?, target_accel=?, target_markup=? "
                            "WHERE id=")%QString::number(targetId));
 
@@ -576,7 +576,7 @@ static bool doInsertEntry(CatalogString source,
             if (!ok)
                 qWarning()<<"target update failed"<<query1.lastError().text();
             else
-                ok=query1.exec(QLatin1String("UPDATE main SET change_date=CURRENT_DATE WHERE target=")%QString::number(targetId));
+                ok=query1.exec(QStringLiteral("UPDATE main SET change_date=CURRENT_DATE WHERE target=")%QString::number(targetId));
             return ok;
         }
         //else -> there will be new record insertion and main table update below
@@ -638,7 +638,7 @@ static bool doInsertEntry(CatalogString source,
         //just update main with new targetId
         //(this is the case when target changed, but there were other users of the old one)
 
-        query1.prepare(QLatin1String("UPDATE main "
+        query1.prepare(U("UPDATE main "
                                "SET target=?, bits=?, change_date=CURRENT_DATE "
                                "WHERE id=")+QString::number(mainId));
 
@@ -1207,7 +1207,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString tmp=c.markup;
     if (!c.markup.isEmpty())
         tmp+='|';
-    QRegExp rxSplit('('%tmp%QLatin1String("\\W+|\\d+)+"));
+    QRegExp rxSplit('('%tmp%QStringLiteral("\\W+|\\d+)+"));
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
@@ -1244,7 +1244,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         joined.chop(1);
 
         //get records containing current word
-        QSqlQuery queryFetch(QLatin1String(
+        QSqlQuery queryFetch(U(
                              "SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
                              "source_strings.id IN (")%joined%')',db);
         TMEntry e;
@@ -1360,13 +1360,13 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 authors_table_str=QStringLiteral(" JOIN pg_user ON (pg_user.usesysid=main.change_author) ");
             }
 
-            QSqlQuery queryRest(QLatin1String(
+            QSqlQuery queryRest(U(
                                 "SELECT main.id, main.date, main.ctxt, main.bits, "
                                 "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
-                                "files.path, main.change_date ") % change_author_str % QLatin1String(
+                                "files.path, main.change_date ") % change_author_str % U(
                                 "FROM main JOIN target_strings ON (target_strings.id=main.target) JOIN files ON (files.id=main.file) ")
-                                % authors_table_str % QLatin1String("WHERE "
-                                "main.source=")%QString::number(e.id)%QLatin1String(" AND "
+                                % authors_table_str % U("WHERE "
+                                "main.source=")%QString::number(e.id)%U(" AND "
                                 "(main.bits&4)!=4 AND "
                                 "target_strings.target NOTNULL")
                                 ,db); //ORDER BY tm_main.id ?
@@ -1572,7 +1572,7 @@ void ScanJob::run()
 
         qlonglong fileId=getFileId(m_filePath,db);
         //mark everything as obsolete
-        queryBegin.exec(QLatin1String("UPDATE main SET bits=(bits|1) WHERE file=")+QString::number(fileId));
+        queryBegin.exec(QStringLiteral("UPDATE main SET bits=(bits|1) WHERE file=")+QString::number(fileId));
         //qWarning() <<"UPDATE error: " <<queryBegin.lastError().text();
 
         int numberOfEntries=catalog.numberOfEntries();
