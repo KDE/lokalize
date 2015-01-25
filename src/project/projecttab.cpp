@@ -136,11 +136,11 @@ ProjectTab::ProjectTab(QWidget *parent)
     m_progressBar->setVisible(false);
     statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
-    setXMLFile("projectmanagerui.rc",true);
+    setXMLFile(QStringLiteral("projectmanagerui.rc"),true);
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
-    action = nav->addAction(_name);\
+    action = nav->addAction(QStringLiteral(_name));\
     action->setText(_text);\
     action->setIcon(QIcon::fromTheme(_icon));\
     ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
@@ -185,7 +185,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);
 
-    action = proj->addAction("project_open",this,SIGNAL(projectOpenRequested()));
+    action = proj->addAction(QStringLiteral("project_open"),this,SIGNAL(projectOpenRequested()));
     action->setText(i18nc("@action:inmenu","Open project"));
     action->setIcon(QIcon::fromTheme("project-open"));
     

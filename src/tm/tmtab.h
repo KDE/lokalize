@@ -97,7 +97,6 @@ private:
     QaView* m_qaView;
 
     DocPosition::Part m_partToAlsoTryLater;
-    //QString m_dbusObjectPath;
     int m_dbusId;
     static QList<int> ids;
 };

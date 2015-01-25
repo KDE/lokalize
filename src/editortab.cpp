@@ -1466,6 +1466,7 @@ QList<int> EditorTab::ids;
 
 QString EditorTab::dbusObjectPath()
 {
+    const QString EDITOR_PATH=QStringLiteral("/ThisIsWhatYouWant/Editor/");
     if ( m_dbusId==-1 )
     {
         m_adaptor=new EditorAdaptor(this);
@@ -1475,9 +1476,9 @@ QString EditorTab::dbusObjectPath()
              ++i;
         ids.insert(i,i);
         m_dbusId=i;
-        QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant/Editor/" + QString::number(m_dbusId), this);
+        QDBusConnection::sessionBus().registerObject(EDITOR_PATH + QString::number(m_dbusId), this);
     }
-    return "/ThisIsWhatYouWant/Editor/" + QString::number(m_dbusId);
+    return EDITOR_PATH + QString::number(m_dbusId);
 }
 #endif
 

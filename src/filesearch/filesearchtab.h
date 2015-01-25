@@ -110,7 +110,6 @@ private:
      //to avoid results from previous search showing up in the new one
     int m_lastSearchNumber;
 
-    //QString m_dbusObjectPath;
     int m_dbusId;
     static QList<int> ids;
 };

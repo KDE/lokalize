@@ -502,7 +502,7 @@ TMTab::TMTab(QWidget *parent)
     while (--i>ID_STATUS_PROGRESS)
         statusBarItems.insert(i,QString());
 
-    setXMLFile("translationmemoryrui.rc",true);
+    setXMLFile(QStringLiteral("translationmemoryrui.rc"),true);
     dbusObjectPath();
 
 
@@ -510,13 +510,13 @@ TMTab::TMTab(QWidget *parent)
     KActionCollection* ac=actionCollection();
     KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);
 
-    action = tm->addAction("tools_tm_manage",Project::instance(),SLOT(showTMManager()));
+    action = tm->addAction(QStringLiteral("tools_tm_manage"),Project::instance(),SLOT(showTMManager()));
     action->setText(i18nc("@action:inmenu","Manage translation memories"));
 
     m_qaView = new QaView(this);
     m_qaView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
-    tm->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
+    tm->addAction( QStringLiteral("showqa_action"), m_qaView->toggleViewAction() );
 
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(setQAMode()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
@@ -736,6 +736,7 @@ QList<int> TMTab::ids;
 QString TMTab::dbusObjectPath()
 {
 #ifndef NOKDE
+    const QString TM_PATH=QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/");
     if ( m_dbusId==-1 )
     {
         new TranslationMemoryAdaptor(this);
@@ -745,10 +746,10 @@ QString TMTab::dbusObjectPath()
              ++i;
         ids.insert(i,i);
         m_dbusId=i;
-        QDBusConnection::sessionBus().registerObject(QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId), this);
+        QDBusConnection::sessionBus().registerObject(TM_PATH + QString::number(m_dbusId), this);
     }
 
-    return QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/") + QString::number(m_dbusId);
+    return TM_PATH + QString::number(m_dbusId);
 #else
     return QString();
 #endif

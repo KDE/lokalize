@@ -525,7 +525,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
         statusBarItems.insert(i,QString());
 
 #ifndef NOKDE
-    setXMLFile("filesearchtabui.rc",true);
+    setXMLFile(QStringLiteral("filesearchtabui.rc"),true);
     dbusObjectPath();
 #endif
 
@@ -535,12 +535,12 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     m_searchFileListView = new SearchFileListView(this);
     //m_searchFileListView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
-    srf->addAction( QLatin1String("showfilelist_action"), m_searchFileListView->toggleViewAction() );
+    srf->addAction( QStringLiteral("showfilelist_action"), m_searchFileListView->toggleViewAction() );
     connect(m_searchFileListView, SIGNAL(fileOpenRequested(QString)), this, SIGNAL(fileOpenRequested(QString)));
 
     m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);
-    srf->addAction( QLatin1String("showmassreplace_action"), m_massReplaceView->toggleViewAction() );
+    srf->addAction( QStringLiteral("showmassreplace_action"), m_massReplaceView->toggleViewAction() );
     connect(m_massReplaceView, SIGNAL(previewRequested(QRegExp,QString)), m_model, SLOT(setReplacePreview(QRegExp ,QString)));
     connect(m_massReplaceView, SIGNAL(replaceRequested(QRegExp,QString)), this, SLOT(massReplace(QRegExp,QString)));
     //m_massReplaceView->hide();
@@ -548,7 +548,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     m_qaView = new QaView(this);
     m_qaView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
-    srf->addAction( QLatin1String("showqa_action"), m_qaView->toggleViewAction() );
+    srf->addAction( QStringLiteral("showqa_action"), m_qaView->toggleViewAction() );
 
     connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
     connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()), Qt::QueuedConnection);
@@ -920,6 +920,7 @@ QList<int> FileSearchTab::ids;
 
 QString FileSearchTab::dbusObjectPath()
 {
+    QString FILESEARCH_PATH=QStringLiteral("/ThisIsWhatYouWant/FileSearch/");
     if ( m_dbusId==-1 )
     {
         new FileSearchAdaptor(this);
@@ -929,10 +930,10 @@ QString FileSearchTab::dbusObjectPath()
             ++i;
         ids.insert(i,i);
         m_dbusId=i;
-        QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant/FileSearch/" + QString::number(m_dbusId), this);
+        QDBusConnection::sessionBus().registerObject(FILESEARCH_PATH + QString::number(m_dbusId), this);
     }
 
-    return "/ThisIsWhatYouWant/FileSearch/" + QString::number(m_dbusId);
+    return FILESEARCH_PATH + QString::number(m_dbusId);
 }
 //END DBus interface
 
