@@ -488,7 +488,7 @@ void LokalizeMainWindow::setupActions()
     KStandardAction::preferences(sc, SLOT(showSettingsDialog()),ac);
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
-    action = actionCategory->addAction(_name);\
+    action = actionCategory->addAction(QStringLiteral(_name));\
     ac->setDefaultShortcut(action, QKeySequence( _shortcut ));\
     action->setText(_text);
 
@@ -522,21 +522,21 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("project_overview",i18nc("@action:inmenu","Project overview"),Qt::Key_F4)
     connect(action,SIGNAL(triggered()),this,SLOT(showProjectOverview()));
 
-    action = proj->addAction("project_configure",sc,SLOT(projectConfigure()));
+    action = proj->addAction(QStringLiteral("project_configure"),sc,SLOT(projectConfigure()));
     action->setText(i18nc("@action:inmenu","Configure project..."));
 
-    action = proj->addAction("project_create",sc,SLOT(projectCreate()));
+    action = proj->addAction(QStringLiteral("project_create"),sc,SLOT(projectCreate()));
     action->setText(i18nc("@action:inmenu","Create software translation project..."));
 
-    action = proj->addAction("project_create_odf",Project::instance(), SLOT(projectOdfCreate()));
+    action = proj->addAction(QStringLiteral("project_create_odf"),Project::instance(), SLOT(projectOdfCreate()));
     action->setText(i18nc("@action:inmenu","Create OpenDocument translation project..."));
 
-    action = proj->addAction("project_open",this,SLOT(openProject()));
+    action = proj->addAction(QStringLiteral("project_open"),this,SLOT(openProject()));
     action->setText(i18nc("@action:inmenu","Open project..."));
     action->setIcon(QIcon::fromTheme("project-open"));
 
     m_openRecentProjectAction=new KRecentFilesAction(i18nc("@action:inmenu","Open recent project"),this);
-    action = proj->addAction("project_open_recent",m_openRecentProjectAction);
+    action = proj->addAction(QStringLiteral("project_open_recent"),m_openRecentProjectAction);
     connect(m_openRecentProjectAction,SIGNAL(urlSelected(QUrl)),this,SLOT(openProject(QUrl)));
 
     //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
@@ -549,10 +549,10 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_filesearch_next",i18nc("@action:inmenu","Find next in files"),Qt::META+Qt::Key_F3)
     connect(action,SIGNAL(triggered()),this,SLOT(fileSearchNext()));
 
-    action = ac->addAction("tools_widgettextcapture",this,SLOT(widgetTextCapture()));
+    action = ac->addAction(QStringLiteral("tools_widgettextcapture"),this,SLOT(widgetTextCapture()));
     action->setText(i18nc("@action:inmenu","Widget text capture"));
 
-    setupGUI(Default,"lokalizemainwindowui.rc");
+    setupGUI(Default,QStringLiteral("lokalizemainwindowui.rc"));
 
     qWarning()<<"finished"<<aaa.elapsed();
 }
