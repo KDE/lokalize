@@ -145,7 +145,7 @@ FORMS    +=    glossary/termedit.ui\
     filesearch/massreplaceoptions.ui\
     nokde-stubs/welcomewidget.ui
 
-INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm filesearch project common nokde-stubs
+INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm filesearch project common nokde-stubs filesearch
 
 DEFINES += NOKDE
 

@@ -151,6 +151,7 @@ struct KActionCategory
 {
     KActionCategory(const QString&, KActionCollection* c_):c(c_){}
     QAction* addAction( const char* name, QAction* a){return c->addAction(name, a);}
+    QAction* addAction( const QString& name, QAction* a){return c->addAction(name, a);}
     QAction* addAction( const QLatin1String& name, QAction* a){return c->addAction(name, a);}
     QAction* addAction( const QString& name){return c->addAction(name, new QAction(name, c->m_mainWindow));}
     QAction* addAction( const QString& name, QObject* rcv, const char* slot)
@@ -175,6 +176,7 @@ public:
     virtual ~LokalizeSubwindowBase2(){}
     
     void setXMLFile(const char*, bool f=false){}
+    void setXMLFile(const QString&, bool f=false){}
     KActionCollection* actionCollection() const{return c;}
 
     StatusBarProxy statusBarItems;

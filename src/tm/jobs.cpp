@@ -348,7 +348,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     if (theOnly)
     {
         removeFromIndex(mainId, sourceId, source_string, rxClean1, accel, db);
-        qWarning()<<"ok delete?"<<query1.exec(QLatin1String("DELETE FROM source_strings WHERE id=")+QString::number(sourceId));
+        qWarning()<<"ok delete?"<<query1.exec(QStringLiteral("DELETE FROM source_strings WHERE id=")+QString::number(sourceId));
     }
 
     if (KDE_ISUNLIKELY(!query1.exec(U("SELECT target FROM main WHERE "
@@ -365,7 +365,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     theOnly=query1.value(0).toInt()==1;
     query1.clear();
     if (theOnly)
-        query1.exec(QLatin1String("DELETE FROM target_strings WHERE id=")+QString::number(targetId));
+        query1.exec(QStringLiteral("DELETE FROM target_strings WHERE id=")+QString::number(targetId));
 
     return query1.exec(QStringLiteral("DELETE FROM main WHERE id=")+QString::number(mainId));
 }
@@ -505,9 +505,9 @@ static bool doInsertEntry(CatalogString source,
         bool approvalChanged=dbApproved!=approved;
         if (approvalChanged)
         {
-            query1.prepare(QLatin1String("UPDATE main "
-                           "SET bits=?, change_date=CURRENT_DATE "
-                           "WHERE id=")+QString::number(mainId));
+            query1.prepare(U("UPDATE main "
+                             "SET bits=?, change_date=CURRENT_DATE "
+                             "WHERE id=")+QString::number(mainId));
 
             query1.bindValue(0, bits^TM_NOTAPPROVED);
             if (KDE_ISUNLIKELY(!query1.exec()))
