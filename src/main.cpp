@@ -34,7 +34,7 @@
 #include "lokalizemainwindow.h"
 #include "stemming.h"
 #else
-#define LOKALIZE_VERSION QStringLiteral("1.9")
+#define LOKALIZE_VERSION QStringLiteral("2.0")
 #include "welcometab.h"
 #endif
 
@@ -91,16 +91,17 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     KAboutData about("lokalize", i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
                      KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
-    about.addAuthor( i18n("Nick Shaforostoff"), QString(), "shaforostoff@gmail.com" );
-    about.addCredit (i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QByteArray(), "http://google.com");
-    about.addCredit (i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QByteArray(), "http://translate.sourceforge.net");
-    about.addCredit (i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), "viesturs.zarins@mii.lu.lv", QByteArray());
-    about.addCredit (i18n("Stephan Johach"), i18n("bug fixing patches"), "hunsum@gmx.de");
-    about.addCredit (i18n("Chusslove Illich"), i18n("bug fixing patches"), "caslav.ilic@gmx.net");
-    about.addCredit (i18n("Jure Repinc"), i18n("testing and bug fixing"), "jlp@holodeck1.com");
-    about.addCredit (i18n("Stefan Asserhall"), i18n("patches"), "stefan.asserhall@comhem.se");
-    about.addCredit (i18n("Papp Laszlo"), i18n("bug fixing patches"), "djszapi@archlinux.us");
-    about.addCredit (i18n("Albert Astals Cid"), i18n("XLIFF improvements"), "aacid@kde.org");
+    about.addAuthor( i18n("Nick Shaforostoff"), QString(), QStringLiteral("shaforostoff@gmail.com") );
+    about.addCredit (i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QString(), QStringLiteral("http://google.com"));
+    about.addCredit (i18n("NLNet Foundation"), i18n("sponsored XLIFF-related work"), QString(), QStringLiteral("https://nlnet.nl/"));
+    about.addCredit (i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QString(), QStringLiteral("http://translate.sourceforge.net"));
+    about.addCredit (i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), QStringLiteral("viesturs.zarins@mii.lu.lv"), QString());
+    about.addCredit (i18n("Stephan Johach"), i18n("bug fixing patches"), QStringLiteral("hunsum@gmx.de"));
+    about.addCredit (i18n("Chusslove Illich"), i18n("bug fixing patches"), QStringLiteral("caslav.ilic@gmx.net"));
+    about.addCredit (i18n("Jure Repinc"), i18n("testing and bug fixing"), QStringLiteral("jlp@holodeck1.com"));
+    about.addCredit (i18n("Stefan Asserhall"), i18n("patches"), QStringLiteral("stefan.asserhall@comhem.se"));
+    about.addCredit (i18n("Papp Laszlo"), i18n("bug fixing patches"), QStringLiteral("djszapi@archlinux.us"));
+    about.addCredit (i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
 #ifndef NOKDE
     KAboutData::setApplicationData(about);
     parser.addVersionOption();
@@ -110,9 +111,9 @@ int main(int argc, char **argv)
     about.processCommandLine(&parser);
 
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("noprojectscan"), i18n( "Do not scan files of the project.")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("project"), i18n( "Load specified project."), QLatin1String("filename")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("+[URL]"), i18n( "Document to open" )));
+    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n( "Do not scan files of the project.")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("project"), i18n( "Load specified project."), QStringLiteral("filename")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("+[URL]"), i18n( "Document to open" )));
 #else
     QCoreApplication::setApplicationName(QStringLiteral("Lokalize"));
     QCoreApplication::setApplicationVersion(LOKALIZE_VERSION);
