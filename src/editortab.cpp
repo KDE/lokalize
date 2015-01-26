@@ -81,6 +81,7 @@
 #include <QTime>
 #include <QStringBuilder>
 #include <QProcess>
+#include <QStandardPaths>
 
 
 EditorTab::EditorTab(QWidget* parent, bool valid)
@@ -1486,6 +1487,10 @@ void EditorTab::mergeIntoOpenDocument()
     if (originalOdfFilePath.isEmpty())
         return;
 
+    saveFile();
+
+    //TODO check if odt did update (merge with new template is needed)
+
     QFileInfo originalOdfFileInfo(originalOdfFilePath);
     QString targetLangCode=m_catalog->targetLangCode();
 
@@ -1498,6 +1503,34 @@ void EditorTab::mergeIntoOpenDocument()
 
     if (!QFile::exists(args.at(1)))
         return;
+
+    //if (originalOdfFileInfo.suffix().toLower()==QLatin1String(".odt"))
+    {
+        QString lowriter=QStringLiteral("soffice");
+        if (QProcess::execute(lowriter, QStringList("--version"))==-2)
+        {
+            //TODO
+            //KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+            return;
+        }
+        QProcess::startDetached(lowriter, QStringList(args.at(1)));
+        QString reloaderScript=QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
+        if (reloaderScript.length())
+        {
+            QString python=QStringLiteral("python");
+            QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
+            if (QProcess::execute(python, unoArgs)!=0)
+            {
+                KMessageBox::information(SettingsController::instance()->mainWindowPtr(), i18n("Install python-uno package for additional functionality"));
+                return;
+            }
+
+            QStringList reloaderArgs(reloaderScript);
+            reloaderArgs.append(args.at(1));
+            reloaderArgs.append(currentEntryId());
+            QProcess::execute(python, reloaderArgs);
+        }
+    }
 }
 
 
