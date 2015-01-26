@@ -100,6 +100,8 @@ public:
     QString mimetype()const{return QStringLiteral("application/x-xliff");}
     QString fileType()const{return QStringLiteral("XLIFF (*.xliff *.xlf)");}
     CatalogType type()const{return Xliff;}
+    QString originalOdfFilePath();
+    void setOriginalOdfFilePath(const QString&);
 
     void setTargetLangCode(const QString& langCode);
 

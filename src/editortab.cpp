@@ -80,6 +80,7 @@
 #include <QDir>
 #include <QTime>
 #include <QStringBuilder>
+#include <QProcess>
 
 
 EditorTab::EditorTab(QWidget* parent, bool valid)
@@ -428,11 +429,6 @@ void EditorTab::setupActions()
 
     //KStandardAction::quit(kapp, SLOT(quit()), ac);
     //KStandardAction::quit(this, SLOT(deleteLater()), ac);
-
-    action = actionCategory->addAction(QStringLiteral("file_phases"));
-    action->setText(i18nc("@action:inmenu","Phases..."));
-    connect(action, SIGNAL(triggered()), SLOT(openPhasesWindow()));
-
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = actionCategory->addAction(QStringLiteral(_name));\
     action->setText(_text);\
@@ -443,6 +439,18 @@ void EditorTab::setupActions()
     action = actionCategory->addAction(QStringLiteral(_name));\
     action->setText(_text);\
     ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
+
+    action = actionCategory->addAction(QStringLiteral("file_phases"));
+    action->setText(i18nc("@action:inmenu","Phases..."));
+    connect(action, SIGNAL(triggered()), SLOT(openPhasesWindow()));
+
+    ADD_ACTION_SHORTCUT("file_wordcount",i18nc("@action:inmenu","Word count"),Qt::CTRL+Qt::ALT+Qt::Key_C)
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(displayWordCount()) );
+
+    ADD_ACTION_SHORTCUT("file_xliff2odf",i18nc("@action:inmenu","Merge translation into OpenDocument"),Qt::CTRL+Qt::Key_Backslash)
+    connect( action, SIGNAL(triggered(bool)), this, SLOT(mergeIntoOpenDocument()) );
+    connect( this, SIGNAL(xliffFileOpened(bool)), action, SLOT(setVisible(bool)) );
+    action->setVisible(false);
 
 
 //Edit
@@ -637,10 +645,6 @@ void EditorTab::setupActions()
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
     connect( action, SIGNAL(triggered(bool)), _tmView, SLOT(slotBatchTranslateFuzzy()) );
-
-    actionCategory=tools;
-    ADD_ACTION_SHORTCUT("tools_wordcount",i18nc("@action:inmenu","Word count"),Qt::CTRL+Qt::ALT+Qt::Key_C)
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(displayWordCount()) );
 
 //MergeMode
     action = sync1->addAction(QStringLiteral("merge_open"),m_syncView,SLOT(mergeOpen()));
@@ -903,6 +907,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
         setModificationSign();
 
 //OK!!!
+        emit xliffFileOpened(m_catalog->type()==Xliff);
         emit fileOpened();
         return true;
     }
@@ -1456,6 +1461,43 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
     if (!m_srcFileOpenRequestAccepted)
         KMessageBox::information(this, i18nc("@info","Cannot open source files: no scripts to do so are currently loaded. "
                                                      "Refer to the Lokalize handbook for script examples and how to plug them into your project.") );
+}
+
+void EditorTab::mergeIntoOpenDocument()
+{
+    if (!m_catalog || m_catalog->type()!=Xliff)
+        return;
+
+    QString xliff2odf=QStringLiteral("xliff2odf");
+    if (QProcess::execute(xliff2odf, QStringList("--version"))==-2)
+    {
+        KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+        return;
+    }
+    QString xliffFolder=QFileInfo(m_catalog->url()).absolutePath();
+
+    QString originalOdfFilePath=m_catalog->originalOdfFilePath();
+    if (originalOdfFilePath.isEmpty() || !QFile::exists(originalOdfFilePath))
+    {
+        originalOdfFilePath=QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), i18n("Select original OpenDocument on which current XLIFF file is based"), xliffFolder,
+                                          i18n("OpenDocument files (*.odt *.ods)")/*"text/x-lokalize-project"*/);
+        if (originalOdfFilePath.length()) m_catalog->setOriginalOdfFilePath(originalOdfFilePath);
+    }
+    if (originalOdfFilePath.isEmpty())
+        return;
+
+    QFileInfo originalOdfFileInfo(originalOdfFilePath);
+    QString targetLangCode=m_catalog->targetLangCode();
+
+    QStringList args(m_catalog->url());
+    args.append(xliffFolder%'/'%originalOdfFileInfo.baseName()%'-'%targetLangCode%'.'%originalOdfFileInfo.suffix());
+    args.append(QStringLiteral("-t"));
+    args.append(originalOdfFilePath);
+    qDebug()<<args;
+    QProcess::execute(xliff2odf, args);
+
+    if (!QFile::exists(args.at(1)))
+        return;
 }
 
 

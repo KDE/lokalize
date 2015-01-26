@@ -153,8 +153,10 @@ public slots: //DBus interface
     int numberOfNonApproved() const {return d._nonApprovedIndex.size();}
     int numberOfUntranslated() const {return d._emptyIndex.size();}
 
-
 public:
+    QString originalOdfFilePath();
+    void setOriginalOdfFilePath(const QString&);
+
     int firstFuzzyIndex() const {return d._nonApprovedIndex.isEmpty()?numberOfEntries():d._nonApprovedIndex.first();}
     int lastFuzzyIndex() const {return d._nonApprovedIndex.isEmpty()?-1:d._nonApprovedIndex.last();}
     int nextFuzzyIndex(uint index) const {return findNextInList(d._nonApprovedIndex,index);}

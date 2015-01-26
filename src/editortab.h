@@ -165,6 +165,7 @@ public slots:
     Q_SCRIPTABLE void gotoFirst();
     Q_SCRIPTABLE void gotoLast();
 
+    Q_SCRIPTABLE void mergeIntoOpenDocument();
 
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
@@ -357,6 +358,7 @@ signals:
     void signalNextBookmarkAvailable(bool);
     void signalBookmarkDisplayed(bool);
 
+    Q_SCRIPTABLE void xliffFileOpened(bool);
 };
 
 #endif

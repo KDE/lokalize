@@ -1066,4 +1066,20 @@ bool Catalog::isObsolete(int entry) const
     return m_storage->isObsolete(entry);
 }
 
+QString Catalog::originalOdfFilePath()
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return QString();
+
+    return m_storage->originalOdfFilePath();
+}
+
+void Catalog::setOriginalOdfFilePath(const QString& odfFilePath)
+{
+    if (KDE_ISUNLIKELY( !m_storage ))
+        return;
+
+    m_storage->setOriginalOdfFilePath(odfFilePath);
+}
+
 

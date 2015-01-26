@@ -76,14 +76,15 @@ int XliffStorage::load(QIODevice* device)
     int errorLine;//+errorColumn;
     bool success=m_doc.setContent(&source, &reader, &errorMsg, &errorLine/*,errorColumn*/);
 
-    if (!success || m_doc.elementsByTagName(QStringLiteral("file")).isEmpty())
+    QString FILE=QStringLiteral("file");
+    if (!success || m_doc.elementsByTagName(FILE).isEmpty())
     {
         qWarning()<<errorMsg;
         return errorLine+1;
     }
 
 
-    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    QDomElement file=m_doc.elementsByTagName(FILE).at(0).toElement();
     m_sourceLangCode=file.attribute(QStringLiteral("source-language")).replace('-', '_');
     m_targetLangCode=file.attribute(QStringLiteral("target-language")).replace('-', '_');
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_targetLangCode);
@@ -1045,6 +1046,18 @@ int XliffStorage::binUnitsCount() const
 int XliffStorage::unitById(const QString& id) const
 {
     return m_unitsById.contains(id)?m_unitsById.value(id):-1;
+}
+
+QString XliffStorage::originalOdfFilePath()
+{
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    return file.attribute(QStringLiteral("original"));
+}
+
+void XliffStorage::setOriginalOdfFilePath(const QString& odfFilePath)
+{
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    return file.setAttribute(QStringLiteral("original"), odfFilePath);
 }
 
 

@@ -147,6 +147,9 @@ public:
     virtual QString fileType() const=0;
     virtual CatalogType type() const=0;
 
+    virtual QString originalOdfFilePath(){return QString();}
+    virtual void setOriginalOdfFilePath(const QString&){}
+
     QString sourceLangCode() const{return m_sourceLangCode;}
     QString targetLangCode() const{return m_targetLangCode;}
     virtual void setTargetLangCode(const QString& langCode) {m_targetLangCode=langCode;}
