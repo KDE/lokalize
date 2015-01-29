@@ -25,6 +25,7 @@
 #include "jobs.h"
 #include "catalog.h"
 #include "prefs_lokalize.h"
+#include "gettextheader.h"
 #include "dbfilesmodel.h"
 #include "project.h"
 
@@ -109,6 +110,7 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
 #else
     KJob* metaJob=0;
 #endif
+    askAuthorInfoIfEmpty();
 
     QVector<ScanJob*> result;
     int i=filePaths.size();
