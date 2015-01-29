@@ -14,7 +14,7 @@ class KAboutData: public QObject
 {
     Q_OBJECT
 public:
-    KAboutData(const char*, const QString& n, const QString& v, const QString& d, KAboutLicense::L, const QString& c);
+    KAboutData(const QString&, const QString& n, const QString& v, const QString& d, KAboutLicense::L, const QString& c);
     void addAuthor(const QString& name, const QString&, const QString& mail);
     void addCredit(const QString& who, const QString& forwhat, const QString& mail, const QString& site=QString());
 

@@ -311,7 +311,7 @@ void ProjectBase::fileSearchNext()
 
 KAboutData* KAboutData::instance=0;
 
-KAboutData::KAboutData(const char*, const QString& n, const QString& v, const QString& d, KAboutLicense::L, const QString& c)
+KAboutData::KAboutData(const QString&, const QString& n, const QString& v, const QString& d, KAboutLicense::L, const QString& c)
  : name(n)
  , version(v)
  , description(d)
