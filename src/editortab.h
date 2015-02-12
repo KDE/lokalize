@@ -58,8 +58,8 @@ namespace GlossaryNS{class GlossaryView;}
 struct EditorState
 {
 public:
-    EditorState(){}
-    EditorState(const EditorState& s):dockWidgets(s.dockWidgets), filePath(s.filePath){}
+    EditorState(): entry(0){}
+    EditorState(const EditorState& s):dockWidgets(s.dockWidgets), filePath(s.filePath), entry(0) {}
     ~EditorState(){}
 
     QByteArray dockWidgets;

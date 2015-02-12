@@ -215,7 +215,7 @@ void EditorTab::setupActions()
     KActionCategory* sync2=new KActionCategory(i18n("Synchronization 2"), ac);
     KActionCategory* tm=new KActionCategory(i18n("Translation Memory"), ac);
     KActionCategory* glossary=new KActionCategory(i18nc("@title actions category","Glossary"), actionCollection());
-    KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), actionCollection());
+    //KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), actionCollection());
 
 
 

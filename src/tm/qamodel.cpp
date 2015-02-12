@@ -120,7 +120,6 @@ QVariant QaModel::data(const QModelIndex& item, int role) const
     static const QString nl("\n");
     const QDomElement& entry=m_entries.at(item.row()).toElement();
     return domListToStringList(entry.elementsByTagName(ruleTagNames[item.column()])).join(nl);
-    return QVariant();
 }
 
 QVector<Rule> QaModel::toVector() const

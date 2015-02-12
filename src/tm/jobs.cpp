@@ -1529,6 +1529,8 @@ ScanJob::ScanJob(const QString& filePath, const QString& dbName, QObject* parent
     : QRunnable()
     , m_filePath(filePath)
     , m_time(0)
+    , m_added(0)
+    , m_newVersions(0)
     , m_size(0)
     , m_dbName(dbName)
 {
@@ -1548,8 +1550,6 @@ void ScanJob::run()
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
-    m_added=0;      //stats
-    m_newVersions=0;//stats
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
     if (!db.isOpen())
         return;
@@ -1758,7 +1758,8 @@ private:
 
 
 TmxParser::TmxParser(const QString& dbName)
-    : m_dbLangCode(Project::instance()->langCode().toLower())
+    : m_hits(0)
+    , m_dbLangCode(Project::instance()->langCode().toLower())
 {
     m_added=0;      //stats
     db=QSqlDatabase::database(dbName);
@@ -1918,6 +1919,7 @@ bool TmxParser::characters ( const QString& ch )
 ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName, QObject*)
     : QRunnable()
     , m_filename(filename)
+    , m_time(0)
     , m_dbName(dbName)
 {
 }

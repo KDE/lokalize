@@ -132,6 +132,7 @@ void ProjectBase::save()
 
 ProjectLocal::ProjectLocal()
  : mRole(Translator)
+ , mFirstRun(true)
 {
     QSettings s;
     mRole = s.value("Project/AuthorRole", mRole).toInt();

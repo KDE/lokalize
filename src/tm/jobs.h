@@ -89,7 +89,11 @@ public:
 
     int priority()const{return OPENDB;}
 
-    struct DBStat{int pairsCount,uniqueSourcesCount,uniqueTranslationsCount;};
+    struct DBStat
+    {
+        int pairsCount,uniqueSourcesCount,uniqueTranslationsCount;
+        DBStat():pairsCount(0),uniqueSourcesCount(0),uniqueTranslationsCount(0){}
+    };
 
 protected:
     void run ();
@@ -348,8 +352,8 @@ public:
 
     //statistics
     ushort m_time;
-    ushort m_added;
-    ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
+    //ushort m_added;
+    //ushort m_newVersions;//e1.english==e2.english, e1.target!=e2.target
 
     QString m_dbName;
 };

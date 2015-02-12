@@ -189,6 +189,7 @@ SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector
  , searchParams(sp)
  , rules(r)
  , searchNumber(sn)
+ , m_size(0)
 {
     setAutoDelete(false);
 }
