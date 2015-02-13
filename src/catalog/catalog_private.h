@@ -116,6 +116,7 @@ public:
            , _autoSaveDirty(true)
            , _autoSaveRecovered(false)
            , _readOnly(false)
+           , _maxLineLength(80)
            , _phaseRole(ProjectLocal::Undefined)
     {
         Q_UNUSED(parent)

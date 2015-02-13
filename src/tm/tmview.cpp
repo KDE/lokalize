@@ -800,7 +800,7 @@ nono
         }
 
         //qWarning()<<"old"<<oldMarkup;
-        rxNonTranslatable.indexIn(oldMarkup);
+        rxNonTranslatable.indexIn(oldMarkup); //FIXME if it fails?
         oldMarkup=rxNonTranslatable.cap(0);
         if (target.string.startsWith(oldMarkup))
         {

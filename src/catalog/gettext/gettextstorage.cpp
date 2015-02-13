@@ -45,6 +45,7 @@ using namespace GettextCatalog;
 
 GettextStorage::GettextStorage()
  : CatalogStorage()
+ , m_codec(0)
 {
 }
 

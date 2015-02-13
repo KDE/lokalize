@@ -816,7 +816,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
                                                 KStandardGuiItem::save(),KStandardGuiItem::discard())
                )
         {
-        case KMessageBox::Yes: if (!saveFile()) return false;
+        case KMessageBox::Yes: if (!saveFile()) return false; break;
         case KMessageBox::Cancel:               return false;
         default:;
         }

@@ -1759,9 +1759,11 @@ private:
 
 TmxParser::TmxParser(const QString& dbName)
     : m_hits(0)
+    , m_state(null)
+    , m_lang(Null)
+    , m_added(0)
     , m_dbLangCode(Project::instance()->langCode().toLower())
 {
-    m_added=0;      //stats
     db=QSqlDatabase::database(dbName);
 
     TMConfig c=getConfig(db);
@@ -1957,6 +1959,7 @@ void ImportTmxJob::run()
 ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName, QObject*)
     : QRunnable()
     , m_filename(filename)
+    , m_time(0)
     , m_dbName(dbName)
 {
 }

@@ -67,7 +67,7 @@ struct TMEntry
         return score<other.score;
     }
     
-    TMEntry():hits(0){}
+    TMEntry(): id(-1), score(0), hits(0), obsolete(false) {}
 };
 
 }

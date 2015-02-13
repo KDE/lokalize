@@ -175,8 +175,7 @@ void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 
     if (job->query->lastQuery().startsWith(QLatin1String("SELECT count(*) ")))
     {
-        job->query->next();
-        m_totalResultCount=job->query->value(0).toInt();
+        m_totalResultCount=job->query->next()?job->query->value(0).toInt():-1;
         emit finalResultCountFetched(m_totalResultCount);
         return;
     }
