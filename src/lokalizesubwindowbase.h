@@ -82,6 +82,7 @@ public:
 #include <QAction>
 #include <QMenu>
 #include <QMenuBar>
+#include <QVector>
 #include "kmainwindow.h"
 namespace KStandardAction
 {
@@ -130,9 +131,11 @@ namespace KStandardAction
     SwitchApplicationLanguage
   };
 };
+class KActionCategory;
 struct KActionCollection
 {
     KActionCollection(QMainWindow* w);
+    ~KActionCollection(){qDeleteAll(categories);}
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
 
     QAction* addAction(const QString& name, QAction* a);
@@ -146,10 +149,12 @@ struct KActionCollection
     QMenu* tools;
     QMenu* tm;
     QMenu* glossary;
+
+    QVector<KActionCategory*> categories;
 };
 struct KActionCategory
 {
-    KActionCategory(const QString&, KActionCollection* c_):c(c_){}
+    KActionCategory(const QString&, KActionCollection* c_):c(c_){c->categories.append(this);}
     QAction* addAction( const char* name, QAction* a){return c->addAction(name, a);}
     QAction* addAction( const QString& name, QAction* a){return c->addAction(name, a);}
     QAction* addAction( const QLatin1String& name, QAction* a){return c->addAction(name, a);}
@@ -173,7 +178,7 @@ public:
     LokalizeSubwindowBase2(QWidget* parent): KMainWindow(parent), c(new KActionCollection(this))
     {
     }
-    virtual ~LokalizeSubwindowBase2(){}
+    virtual ~LokalizeSubwindowBase2(){delete c;}
     
     void setXMLFile(const char*, bool f=false){}
     void setXMLFile(const QString&, bool f=false){}
