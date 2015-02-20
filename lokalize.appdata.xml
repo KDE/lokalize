@@ -4,33 +4,24 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Lokalize</name>
-  <name xml:lang="ca">Lokalize</name>
-  <name xml:lang="cs">Lokalize</name>
-  <name xml:lang="da">Lokalize</name>
-  <name xml:lang="de">Lokalize</name>
-  <name xml:lang="en-GB">Lokalize</name>
-  <name xml:lang="es">Lokalize</name>
-  <name xml:lang="et">Lokalize</name>
-  <name xml:lang="fi">Lokalize</name>
-  <name xml:lang="fr">Lokalize</name>
-  <name xml:lang="hu">Lokalize</name>
-  <name xml:lang="it">Lokalize</name>
-  <name xml:lang="lt">Lokalize</name>
-  <name xml:lang="nds">Lokalize</name>
   <name xml:lang="nl">Lokalize</name>
-  <name xml:lang="pl">Lokalize</name>
-  <name xml:lang="pt">Lokalize</name>
   <name xml:lang="pt-BR">Lokalize</name>
-  <name xml:lang="sk">Lokalize</name>
-  <name xml:lang="sl">Lokalize</name>
-  <name xml:lang="sv">Kalgebra</name>
+  <name xml:lang="sv">Lokalize</name>
   <name xml:lang="uk">Lokalize</name>
   <name xml:lang="x-test">xxLokalizexx</name>
-  <name xml:lang="zh-CN">Lokalize</name>
-  <name xml:lang="zh-TW">Lokalize</name>
   <summary>Computer-aided translation system</summary>
+  <summary xml:lang="nl">Computerondersteund vertaalsysteem</summary>
+  <summary xml:lang="pt-BR">Sistema de tradução auxiliado pelo computador</summary>
+  <summary xml:lang="sv">Datorstött översättningssystem</summary>
+  <summary xml:lang="uk">Комп’ютерна система допомоги у перекладі</summary>
+  <summary xml:lang="x-test">xxComputer-aided translation systemxx</summary>
   <description>
     <p>Lokalize is the localization tool for KDE and other open source software. It is also a general computer-aided translation system (CAT) with which you can translate OpenDocument files (*.odt). Translate-Toolkit is used internally to extract text for translation from .odt to .xliff files and to merge translation back into .odt file.</p>
+    <p xml:lang="nl">Lokalize is het hulpprogramma voor lokalisatie voor KDE en andere open-source software. Het is ook een algemeen systeem "computer-aided translation (CAT)" (vertalen met behulp van de computer) waarmee u OpenDocument bestanden (*.odt)kunt vertalen. Translate-Toolkit wordt intern gebruikt om tekst te extraheren voor vertalen van .odt naar .xliff bestanden en de vertaling terug te brengen in het .odt bestand.</p>
+    <p xml:lang="pt-BR">Lokalize é uma ferramenta de localização para o KDE e outros softwares de código aberto. Ele é também um sistema de tradução auxiliado pelo computador (CAT), que permite-lhe traduzir arquivos OpenDocument (*.odt). O Translate-Toolkit é usado internamente para extrair texto de arquivos .odt e transformá-lo em .xliff, de forma que possam ser traduzidos e depois mesclados ao arquivo .odt.</p>
+    <p xml:lang="sv">Lokalize är översättningsverktyget för KDE och annan programvara med öppen källkod. Det är också ett allmänt datorstött översättningssystem (CAT), som kan användas för att översätta OpenDocument-filer (*.odt). Translate-Toolkit används internt för att extrahera text för översättning från .odt- till .xliff-filer och för att infoga översättningen tillbaka i .odt-filen.</p>
+    <p xml:lang="uk">Lokalize — інструмент для локалізації KDE та іншого програмного забезпечення із відкритим кодом. Це також загальна система комп’ютеризованого перекладу (CAT), за допомогою якої ви можете перекладати файли OpenDocument (*.odt). Для видобування тексту для перекладу з файлів .odt до файлів .xliff, а також для включення перекладу назад до файла .odt використовується Translate-Toolkit.</p>
+    <p xml:lang="x-test">xxLokalize is the localization tool for KDE and other open source software. It is also a general computer-aided translation system (CAT) with which you can translate OpenDocument files (*.odt). Translate-Toolkit is used internally to extract text for translation from .odt to .xliff files and to merge translation back into .odt file.xx</p>
   </description>
   <url type="homepage">http://userbase.kde.org/Lokalize</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=lokalize</url>
