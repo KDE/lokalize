@@ -20,6 +20,7 @@
   <name xml:lang="sv">Lokalize</name>
   <name xml:lang="uk">Lokalize</name>
   <name xml:lang="x-test">xxLokalizexx</name>
+  <name xml:lang="zh-CN">Lokalize</name>
   <name xml:lang="zh-TW">Lokalize</name>
   <summary>Computer-aided translation system</summary>
   <summary xml:lang="ca">Sistema de traducció assistida per ordinador</summary>
@@ -38,6 +39,7 @@
   <summary xml:lang="sv">Datorstött översättningssystem</summary>
   <summary xml:lang="uk">Комп’ютерна система допомоги у перекладі</summary>
   <summary xml:lang="x-test">xxComputer-aided translation systemxx</summary>
+  <summary xml:lang="zh-CN">计算机辅助翻译系统</summary>
   <summary xml:lang="zh-TW">電腦協助翻譯系統</summary>
   <description>
     <p>Lokalize is the localization tool for KDE and other open source software. It is also a general computer-aided translation system (CAT) with which you can translate OpenDocument files (*.odt). Translate-Toolkit is used internally to extract text for translation from .odt to .xliff files and to merge translation back into .odt file.</p>
