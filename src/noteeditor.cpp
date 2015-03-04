@@ -61,6 +61,7 @@ NoteEditor::NoteEditor(QWidget* parent)
  , m_fromLabel(new QLabel(i18nc("@info:label","From:"),this))
  , m_authors(new QStringListModel(this)) 
  , m_edit(new TextEdit(this))
+ , m_idx(-1)
 {
     setToolTip(i18nc("@info:tooltip","Save empty note to remove it"));
     m_from->setToolTip(i18nc("@info:tooltip","Author of this note"));

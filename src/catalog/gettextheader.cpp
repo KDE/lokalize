@@ -701,11 +701,13 @@ void askAuthorInfoIfEmpty()
             QLineEdit::Normal, QString(), &ok);
 
         if (ok)
+        {
 #ifndef NOKDE
             Settings::self()->authorEmailItem()->setValue(email);
             Settings::self()->save();
 #else
             Settings::self()->setAuthorEmail(email);
 #endif
+        }
     }
 }

@@ -261,8 +261,10 @@ static void setNote(Catalog& catalog, DocPosition& _pos, const Note& note, Note&
 {
     resultNote=catalog.setNote(_pos,note);
     int size=catalog.notes(_pos).size();
-    if (_pos.form==-1) _pos.form = size-1;
-    else if (_pos.form>=size) _pos.form = -1;
+    if (_pos.form>=size) _pos.form = -1;
+#if 0
+    else if (_pos.form==-1) _pos.form = size-1;
+#endif
 }
 
 void SetNoteCmd::doRedo()

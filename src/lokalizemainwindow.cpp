@@ -800,7 +800,8 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
     {
         QDir(QFileInfo(QFileInfo(filepath).filePath()).filePath()).mkdir(QFileInfo(filepath).filePath());
         QFile f(filepath);
-        f.open(QIODevice::WriteOnly);
+        if (!f.open(QIODevice::WriteOnly))
+            return;
         QTextStream out(&f);
         out <<"<!-- see help for the syntax -->";
         f.close();

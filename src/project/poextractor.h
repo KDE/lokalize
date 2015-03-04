@@ -45,7 +45,7 @@ private:
     int messages;
     int untranslated;
     int fuzzy;
-    bool isFuzzy=false, isTranslated=false;
+    bool isFuzzy, isTranslated;
 };
 
 

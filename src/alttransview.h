@@ -70,9 +70,9 @@ private:
     QString m_normTitle;
     QString m_hasInfoTitle;
     bool m_hasInfo;
+    bool m_everShown;
     DocPos m_entry;
     DocPos m_prevEntry;
-    bool m_everShown;
 
     QVector<AltTrans> m_entries;
     QMap<int, int> m_entryPositions;
