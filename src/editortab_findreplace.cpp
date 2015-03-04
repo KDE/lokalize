@@ -401,7 +401,7 @@ void EditorTab::replace()
 
 void EditorTab::replaceNext(const DocPosition& startingPos)
 {
-    bool anotherEntry=_replacingPos.entry!=_replacingPos.entry;
+    bool anotherEntry=m_currentPos.entry!=_replacingPos.entry;
     _replacingPos=startingPos;
 
     if (anotherEntry)

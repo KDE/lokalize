@@ -46,12 +46,12 @@ struct SpellerAndCodec
 {
     Hunspell* speller;
     QTextCodec* codec;
-    SpellerAndCodec():speller(0){}
+    SpellerAndCodec():speller(0), codec(0){}
     SpellerAndCodec(const QString& langCode);
 };
 
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)
-: speller(0)
+: speller(0), codec(0)
 {
         QString dic=QString("/usr/share/myspell/dicts/%1.dic").arg(langCode);
         if (!QFileInfo(dic).exists())

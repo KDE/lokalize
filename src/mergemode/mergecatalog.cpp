@@ -35,6 +35,7 @@
 MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges)
  : Catalog(parent)
  , m_baseCatalog(baseCatalog)
+ , m_unmatchedCount(0)
  , m_modified(false)
 {
     setActivePhase(baseCatalog->activePhase(),baseCatalog->activePhaseRole());

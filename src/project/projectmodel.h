@@ -53,6 +53,11 @@ struct FileMetaData
     QString translationDate;
 
     QString filePath;
+
+    FileMetaData()
+     : translated(0), translated_reviewer(0), translated_approver(0), untranslated(0)
+     , fuzzy(0), fuzzy_reviewer(0), fuzzy_approver(0)
+    {}
 };
 
 
