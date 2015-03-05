@@ -405,7 +405,7 @@ Note TsStorage::setNote(DocPosition pos, const Note& note)
     else
     {
         QDomNodeList list=unit.elementsByTagName(names[NoteTag]);
-        if (pos.form==-1) pos.form=list.size()-1;
+        //if (pos.form==-1) pos.form=list.size()-1;
         if (pos.form<list.size())
         {
             elem = unit.elementsByTagName(names[NoteTag]).at(pos.form).toElement();

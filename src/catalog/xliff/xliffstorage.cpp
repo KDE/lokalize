@@ -830,7 +830,7 @@ Note XliffStorage::setNote(DocPosition pos, const Note& note)
     else
     {
         QDomNodeList list=unit.elementsByTagName(NOTE);
-        if (pos.form==-1) pos.form=list.size()-1;
+        //if (pos.form==-1) pos.form=list.size()-1;
         if (pos.form<list.size())
         {
             elem = unit.elementsByTagName(NOTE).at(pos.form).toElement();

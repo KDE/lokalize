@@ -69,8 +69,8 @@ private:
     Catalog* m_catalog;
     QMap< DocPos,QPair<Note,int> > m_unfinishedNotes;//note and its index
     QMap< int,QString > m_tempNotes;
-    char m_selection;
-    char m_offset;
+    int  m_selection;
+    int  m_offset;
     bool m_hasInfo;
     bool m_hasErrorNotes;
     DocPos m_entry;

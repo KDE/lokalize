@@ -34,15 +34,17 @@ class XliffHandler: public QXmlDefaultHandler
 {
 public:
     XliffHandler()
-     : charCount(0)
-    {
-        total = 0;
-        untranslated = 0;
-        fuzzy = 0;
-        fuzzy_reviewer = 0;
-        fuzzy_approver = 0;
-        
-    }
+     : total(0)
+     , untranslated(0)
+     , fuzzy(0)
+     , fuzzy_reviewer(0)
+     , fuzzy_approver(0)
+     , currentEntryFuzzy(false)
+     , currentEntryFuzzy_reviewer(false)
+     , currentEntryFuzzy_approver(false)
+     , charCount(0)
+    {}
+
     bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts);
     bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName);
     bool characters(const QString&);
