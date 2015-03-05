@@ -51,6 +51,8 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     , m_browser(new QTextBrowser(this))
     , m_editor(0)
     , m_catalog(catalog)
+    , m_selection(0)
+    , m_offset(0)
     , m_hasInfo(false)
     , m_hasErrorNotes(false)
 {
