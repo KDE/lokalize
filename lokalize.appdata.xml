@@ -6,6 +6,7 @@
   <name>Lokalize</name>
   <name xml:lang="ast">Lokalize</name>
   <name xml:lang="ca">Lokalize</name>
+  <name xml:lang="cs">Lokalize</name>
   <name xml:lang="en-GB">Lokalize</name>
   <name xml:lang="es">Lokalize</name>
   <name xml:lang="fi">Lokalize</name>
@@ -27,6 +28,7 @@
   <summary>Computer-aided translation system</summary>
   <summary xml:lang="ast">Sistema de traducción asistíu per ordenador</summary>
   <summary xml:lang="ca">Sistema de traducció assistida per ordinador</summary>
+  <summary xml:lang="cs">Systém pro překlad pomocí počítače</summary>
   <summary xml:lang="en-GB">Computer-aided translation system</summary>
   <summary xml:lang="es">Sistema de traducción asistido por computador</summary>
   <summary xml:lang="fi">Tietokoneavusteinen käännösjärjestelmä</summary>
