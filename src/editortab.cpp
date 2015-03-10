@@ -69,6 +69,7 @@
 #include <klocalizedstring.h>
 
 #include <QDebug>
+#include <QDesktopServices>
 #include <QIcon>
 #include <QActionGroup>
 #include <QMdiArea>
@@ -1457,11 +1458,30 @@ void EditorTab::reloadFile()
 
 void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
 {
-    m_srcFileOpenRequestAccepted=false;
-    emit srcFileOpenRequested(srcPath,line);
-    if (!m_srcFileOpenRequestAccepted)
-        KMessageBox::information(this, i18nc("@info","Cannot open source files: no scripts to do so are currently loaded. "
-                                                     "Refer to the Lokalize handbook for script examples and how to plug them into your project.") );
+    // Try project scripts first.
+    m_srcFileOpenRequestAccepted = false;
+    emit srcFileOpenRequested(srcPath, line);
+    if (m_srcFileOpenRequestAccepted)
+        return;
+
+    // If project scripts do not handle opening the source file, check if the
+    // path exists relative to the current translation file path.
+    QDir relativePath(currentFilePath());
+    relativePath.cdUp();
+    QString srcAbsolutePath(relativePath.absoluteFilePath(srcPath));
+    if (QFile::exists(srcAbsolutePath)) {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(srcAbsolutePath));
+        return;
+    }
+
+    // Otherwise, let the user know how to create a project script to handle
+    // opening source file paths that are not relative to translation files.
+    KMessageBox::information(this, i18nc("@info",
+        "Cannot open the target source file: The target source file is not "
+        "relative to the current translation file, and there are currently no "
+        "scripts loaded to handle opening source files in custom paths. Refer "
+        "to the Lokalize handbook for script examples and how to plug them "
+        "into your project."));
 }
 
 void EditorTab::mergeIntoOpenDocument()
