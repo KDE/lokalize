@@ -1,3 +1,5 @@
+#!/bin/sh
+
 TEXT=$1
 PACKAGE=$2
 LOKALIZE_INSTANCES=`qdbus org.kde.lokalize*`
