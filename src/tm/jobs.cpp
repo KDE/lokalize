@@ -1546,7 +1546,7 @@ void ScanJob::run()
 {
     if (stop || !QSqlDatabase::contains(m_dbName))
       return;
-    qWarning() <<"scan job started for"<<m_filePath<<m_dbName;
+    qWarning() <<"scan job started for"<<m_filePath<<m_dbName<<stop<<m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 

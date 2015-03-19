@@ -486,7 +486,7 @@ TMTab::TMTab(QWidget *parent)
     int pos=ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
     if (pos>=0)
         ui_queryOptions->dbName->setCurrentIndex(pos);
-    connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), m_model, SLOT(setDB(QString)));
+    connect(ui_queryOptions->dbName, SIGNAL(currentIndexChanged(QString)), m_model, SLOT(setDB(QString)));
     //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
 //BEGIN resizeColumnToContents
@@ -548,6 +548,13 @@ void TMTab::updateTM()
 
 void TMTab::performQuery()
 {
+    if (ui_queryOptions->dbName->currentText().isEmpty())
+    {
+        int pos=ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
+        if (pos>=0)
+            ui_queryOptions->dbName->setCurrentIndex(pos); //m_model->setDB(Project::instance()->projectID());
+    }
+
     m_model->setFilter(ui_queryOptions->querySource->text(), ui_queryOptions->queryTarget->text(),
                        ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
                        ui_queryOptions->filemask->text()

@@ -560,29 +560,31 @@ bool TranslationUnitTextEdit::removeTargetSubstring(int delStart, int delLen, bo
 
 void TranslationUnitTextEdit::insertCatalogString(CatalogString catStr, int start, bool refresh)
 {
-    CatalogString source=m_catalog->sourceWithTags(m_currentPos);
-    CatalogString target=m_catalog->targetWithTags(m_currentPos);
+    QString REMOVEME=QStringLiteral("REMOVEME");
+    CatalogString sourceForReferencing=m_catalog->sourceWithTags(m_currentPos);
+    const CatalogString         target=m_catalog->targetWithTags(m_currentPos);
 
 
     QHash<QString,int> id2tagIndex;
-    int i=source.tags.size();
+    int i=sourceForReferencing.tags.size();
     while(--i>=0)
-        id2tagIndex.insert(source.tags.at(i).id,i);
+        id2tagIndex.insert(sourceForReferencing.tags.at(i).id,i);
 
+    //remove markup that is already in target, to avoid duplicates if the string being inserted contains it as well
     foreach(const InlineTag& tag, target.tags)
     {
         if (id2tagIndex.contains(tag.id))
-            source.tags[id2tagIndex.value(target.tags.at(i).id)].id=QStringLiteral("REMOVEME");
+            sourceForReferencing.tags[id2tagIndex.value(tag.id)].id=REMOVEME;
     }
 
     //iterating from the end is essential
-    i=source.tags.size();
+    i=sourceForReferencing.tags.size();
     while(--i>=0)
-        if (source.tags.at(i).id==QLatin1String("REMOVEME"))
-            source.tags.removeAt(i);
+        if (sourceForReferencing.tags.at(i).id==REMOVEME)
+            sourceForReferencing.tags.removeAt(i);
 
 
-    adaptCatalogString(catStr,source);
+    adaptCatalogString(catStr,sourceForReferencing);
 
     ::insertCatalogString(m_catalog,m_currentPos,catStr,start);
 
