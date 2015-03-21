@@ -218,6 +218,9 @@ void EditorTab::setupActions()
     KActionCategory* glossary=new KActionCategory(i18nc("@title actions category","Glossary"), actionCollection());
     //KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), actionCollection());
 
+#ifndef Q_OS_DARWIN
+    QLocale::Language systemLang = QLocale::system().language();
+#endif
 
 
 //BEGIN dockwidgets
@@ -314,6 +317,7 @@ void EditorTab::setupActions()
         tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion #%1",QString::number(i+1)));
         tmactions[i]=tmaction;
     }
+    if (systemLang==QLocale::Czech) ac->setDefaultShortcuts(tmactions[0], QList<QKeySequence>()<<QKeySequence(Qt::CTRL+tmlist[0])<<QKeySequence(Qt::CTRL+Qt::Key_Plus));
     TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction( QStringLiteral("showtmqueryview_action"), _tmView->toggleViewAction() );
@@ -518,10 +522,9 @@ void EditorTab::setupActions()
 
 #ifndef Q_OS_DARWIN
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
-    QString systemLang=QLocale::system().name();
-    if (KDE_ISUNLIKELY( systemLang.startsWith(QLatin1String("ko"))
-        || systemLang.startsWith(QLatin1String("ja"))
-        || systemLang.startsWith(QLatin1String("zh"))
+    if (KDE_ISUNLIKELY( systemLang==QLocale::Korean
+                     || systemLang==QLocale::Japanese
+                     || systemLang==QLocale::Chinese
                     ))
         copyShortcut=Qt::ALT+Qt::Key_Space;
 #else
