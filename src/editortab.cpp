@@ -317,7 +317,9 @@ void EditorTab::setupActions()
         tmaction->setText(i18nc("@action:inmenu","Insert TM suggestion #%1",QString::number(i+1)));
         tmactions[i]=tmaction;
     }
+#ifndef Q_OS_DARWIN
     if (systemLang==QLocale::Czech) ac->setDefaultShortcuts(tmactions[0], QList<QKeySequence>()<<QKeySequence(Qt::CTRL+tmlist[0])<<QKeySequence(Qt::CTRL+Qt::Key_Plus));
+#endif
     TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction( QStringLiteral("showtmqueryview_action"), _tmView->toggleViewAction() );
