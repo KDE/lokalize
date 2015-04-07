@@ -4,7 +4,6 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Lokalize</name>
-  <name xml:lang="ast">Lokalize</name>
   <name xml:lang="ca">Lokalize</name>
   <name xml:lang="cs">Lokalize</name>
   <name xml:lang="de">Lokalize</name>
@@ -30,7 +29,6 @@
   <name xml:lang="zh-CN">Lokalize</name>
   <name xml:lang="zh-TW">Lokalize</name>
   <summary>Computer-aided translation system</summary>
-  <summary xml:lang="ast">Sistema de traducción asistíu per ordenador</summary>
   <summary xml:lang="ca">Sistema de traducció assistida per ordinador</summary>
   <summary xml:lang="cs">Systém pro překlad pomocí počítače</summary>
   <summary xml:lang="de">Computergestütztes Übersetzungssystem</summary>
