@@ -52,6 +52,10 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#ifndef NOKDE
+#include <KDBusService>
+#endif
+
 #include <klocalizedstring.h>
 
 #include <kaboutdata.h>
@@ -131,6 +135,8 @@ int main(int argc, char **argv)
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
 #ifndef NOKDE
     qAddPostRoutine(&cleanupSpellers);
+
+    const KDBusService dbusService(KDBusService::Multiple);
 
     // see if we are starting with session management
     if (app.isSessionRestored())
