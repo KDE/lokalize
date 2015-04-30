@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Lokalize
 Name[ar]=لوكالايز
+Name[ast]=Lokalize
 Name[bg]=Lokalize
 Name[bs]=Lokalize
 Name[ca]=Lokalize
@@ -61,6 +62,7 @@ X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.lokalize
 GenericName=Computer-Aided Translation System
 GenericName[ar]=برنامج ترجمة بمساعدة الحاسوب.
+GenericName[ast]=Sistema de traducción asistíu por computadora
 GenericName[bs]=Sistem za prevođenje pomoću računara
 GenericName[ca]=Sistema de traducció assistida per ordinador
 GenericName[ca@valencia]=Sistema de traducció assistida per ordinador
