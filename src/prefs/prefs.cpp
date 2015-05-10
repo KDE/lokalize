@@ -243,7 +243,8 @@ void SettingsController::projectConfigure()
 {
     if (Project::instance()->path().isEmpty())
     {
-        KMessageBox::error(mainWindowPtr(), i18n("Create software or OpenDocument translation project first"));
+        KMessageBox::error(mainWindowPtr(),
+                           i18n("Create software or OpenDocument translation project first."));
         return;
     }
 

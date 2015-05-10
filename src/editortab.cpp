@@ -1497,7 +1497,8 @@ void EditorTab::mergeIntoOpenDocument()
     QString xliff2odf=QStringLiteral("xliff2odf");
     if (QProcess::execute(xliff2odf, QStringList("--version"))==-2)
     {
-        KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+        KMessageBox::error(SettingsController::instance()->mainWindowPtr(),
+                           i18n("Install translate-toolkit package and retry."));
         return;
     }
     QString xliffFolder=QFileInfo(m_catalog->url()).absolutePath();
@@ -1549,7 +1550,8 @@ void EditorTab::mergeIntoOpenDocument()
             QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
             if (QProcess::execute(python, unoArgs)!=0)
             {
-                KMessageBox::information(SettingsController::instance()->mainWindowPtr(), i18n("Install python-uno package for additional functionality"));
+                KMessageBox::information(SettingsController::instance()->mainWindowPtr(),
+                                         i18n("Install python-uno package for additional functionality."));
                 return;
             }
 
