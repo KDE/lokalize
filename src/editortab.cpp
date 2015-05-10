@@ -1505,8 +1505,11 @@ void EditorTab::mergeIntoOpenDocument()
     QString originalOdfFilePath=m_catalog->originalOdfFilePath();
     if (originalOdfFilePath.isEmpty() || !QFile::exists(originalOdfFilePath))
     {
-        originalOdfFilePath=QFileDialog::getOpenFileName(SettingsController::instance()->mainWindowPtr(), i18n("Select original OpenDocument on which current XLIFF file is based"), xliffFolder,
-                                          i18n("OpenDocument files (*.odt *.ods)")/*"text/x-lokalize-project"*/);
+        originalOdfFilePath=QFileDialog::getOpenFileName(
+            SettingsController::instance()->mainWindowPtr(),
+            i18n("Select original OpenDocument on which current XLIFF file is based"),
+            xliffFolder,
+            i18n("OpenDocument files (*.odt *.ods)")/*"text/x-lokalize-project"*/);
         if (originalOdfFilePath.length()) m_catalog->setOriginalOdfFilePath(originalOdfFilePath);
     }
     if (originalOdfFilePath.isEmpty())

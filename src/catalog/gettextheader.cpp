@@ -684,7 +684,9 @@ void askAuthorInfoIfEmpty()
     if (Settings::authorName().isEmpty())
     {
         bool ok;
-        QString contact = QInputDialog::getText(SettingsController::instance()->mainWindowPtr(), i18nc("@window:title", "Author name missing"), i18n("Your name:"), 
+        QString contact = QInputDialog::getText(
+            SettingsController::instance()->mainWindowPtr(),
+            i18nc("@window:title", "Author name missing"), i18n("Your name:"),
             QLineEdit::Normal, fullUserName(), &ok);
 
 #ifndef NOKDE
@@ -697,7 +699,9 @@ void askAuthorInfoIfEmpty()
     if (Settings::authorEmail().isEmpty())
     {
         bool ok;
-        QString email = QInputDialog::getText(SettingsController::instance()->mainWindowPtr(), i18nc("@window:title", "Author email missing"), i18n("Your email:"), 
+        QString email = QInputDialog::getText(
+            SettingsController::instance()->mainWindowPtr(),
+            i18nc("@window:title", "Author email missing"), i18n("Your email:"),
             QLineEdit::Normal, QString(), &ok);
 
         if (ok)
