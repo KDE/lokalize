@@ -796,9 +796,20 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
         return;
 
     QString filepath=PROJECTRCFILEPATH;
+
+    // Remove directory "scripts.rc" if it is empty. It could be
+    // mistakenly created by Lokalize 15.04.x.
+    if (QFileInfo(filepath).isDir() && !QDir().rmdir(filepath))
+    {
+        qCritical() << "Failed to remove directory" << filepath <<
+            "to create scripting configuration file with at the same path. " <<
+            "The directory may be not empty.";
+        return;
+    }
+
     if (!QFile::exists(filepath))
     {
-        QDir(QFileInfo(QFileInfo(filepath).filePath()).filePath()).mkdir(QFileInfo(filepath).filePath());
+        QDir().mkdir(QFileInfo(filepath).dir().path());
         QFile f(filepath);
         if (!f.open(QIODevice::WriteOnly))
             return;
