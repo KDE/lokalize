@@ -26,8 +26,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-02-20</date>
-<releaseinfo>1.5</releaseinfo>
+<date>2015-08-06</date>
+<releaseinfo>2.0</releaseinfo>
 
 <abstract>
 <para>
@@ -438,7 +438,7 @@ RC files also contain script paths, which may be relative to .rc file folder, or
 For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
 </para>
 <para>
-Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/kde4/apps/lokalize/scripts/</filename>)
+Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/lokalize/scripts/</filename>)
 and in the <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">&kde; repository</ulink>.
 <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save
 (this is achieved via special option in .rc file).
