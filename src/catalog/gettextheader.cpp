@@ -262,6 +262,31 @@ void updateHeader(QString& header,
     QString temp;
     QString authorNameEmail;
 
+    // Unwrap header since the following code
+    // assumes one header item per headerList element
+    it = headerList.begin();
+    while ( it != headerList.end() )
+    {
+        if (!(*it).endsWith("\\n"))
+        {
+            const QString line = *it;
+            it = headerList.erase(it);
+            if (it != headerList.end())
+            {
+                *it = line + *it;
+            }
+            else
+            {
+                // Something bad happened, put a warning on the command line
+                qWarning() << "Bad .po header, last header line was" << line;
+            }
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
     bool found=false;
     authorNameEmail=Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
