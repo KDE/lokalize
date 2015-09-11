@@ -253,7 +253,7 @@ bool Project::queryCloseForAuxiliaryWindows()
 bool Project::isTmSupported() const
 {
     QStringList drivers=QSqlDatabase::drivers();
-    return drivers.contains("QSQLITE");
+    return drivers.contains(QLatin1String("QSQLITE"));
 }
 
 void Project::showTMManager()

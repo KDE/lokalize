@@ -28,6 +28,8 @@
 #ifndef NOKDE
 #include <sonnet/highlighter.h>
 #include <kcolorscheme.h>
+#elif defined(SONNET_STATIC)
+#include "highlighter.h"
 #endif
 
 #include <QHash>
@@ -38,7 +40,7 @@
 class QTextDocument;
 class QTextEdit;
 
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
 class SyntaxHighlighter : public Sonnet::Highlighter
 #else
 class SyntaxHighlighter : public QSyntaxHighlighter

@@ -123,7 +123,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     setUndoRedoEnabled(false);
     setAcceptRichText(false);
 
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
     m_highlighter->setActive(m_enabled);
     setHighlighter(m_highlighter);
 #endif
@@ -141,7 +141,7 @@ void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
 {
     Settings::setAutoSpellcheck(enable);
     m_enabled=enable;
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
     m_highlighter->setActive(enable);
 #endif
     SettingsController::instance()->dirty=true;
@@ -153,12 +153,14 @@ void TranslationUnitTextEdit::fileLoaded()
     QString langCode=m_part==DocPosition::Source? m_catalog->sourceLangCode():m_catalog->targetLangCode();
 
     QLocale langLocale(langCode);
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
     // If that fails, try to use the language code directly
-    if (m_highlighter->currentLanguage().isEmpty()) {
+    if (m_highlighter->currentLanguage()!=langCode || m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
+        if (m_highlighter->currentLanguage()!=langCode && langCode.length()>2)
+            m_highlighter->setCurrentLanguage(langCode.left(2));
     }
 #endif
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
@@ -435,7 +437,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
 
     const QString& editText=toPlainText();
-    if (KDE_ISUNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
+    if (Q_UNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
         //qWarning()<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
         return;
@@ -541,7 +543,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
 bool TranslationUnitTextEdit::removeTargetSubstring(int delStart, int delLen, bool refresh)
 {
-    if (KDE_ISUNLIKELY( m_currentPos.entry==-1 ))
+    if (Q_UNLIKELY( m_currentPos.entry==-1 ))
         return false;
 
     if (!::removeTargetSubstring(m_catalog, m_currentPos, delStart, delLen))
@@ -789,7 +791,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
         //only for cases when:
         //-BkSpace was hit and cursor was atStart
         //-Del was hit and cursor was atEnd
-        if (KDE_ISUNLIKELY( !m_catalog->isApproved(m_currentPos.entry) && !textCursor().hasSelection() )
+        if (Q_UNLIKELY( !m_catalog->isApproved(m_currentPos.entry) && !textCursor().hasSelection() )
                             && ((textCursor().atStart()&&keyEvent->key()==Qt::Key_Backspace)
                                  ||(textCursor().atEnd()&&keyEvent->key()==Qt::Key_Delete) ))
             requestToggleApprovement();
@@ -1152,7 +1154,7 @@ bool TranslationUnitTextEdit::event(QEvent *event)
             return true;
         }
 
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
         QString tip;
 
         QString langCode=m_highlighter->currentLanguage();
@@ -1210,7 +1212,7 @@ void TranslationUnitTextEdit::doTag(bool immediate)
     }
     else
     {
-        if (KDE_ISUNLIKELY( Project::instance()->markup().isEmpty() ))
+        if (Q_UNLIKELY( Project::instance()->markup().isEmpty() ))
             return;
 
         //QRegExp tag("(<[^>]*>)+|\\&\\w+\\;");

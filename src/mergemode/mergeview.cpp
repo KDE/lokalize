@@ -190,7 +190,7 @@ void MergeView::cleanup()
 
 void MergeView::mergeOpen(QString mergeFilePath)
 {
-    if (KDE_ISUNLIKELY( !m_baseCatalog->numberOfEntries() ))
+    if (Q_UNLIKELY( !m_baseCatalog->numberOfEntries() ))
         return;
 
     if (mergeFilePath==m_baseCatalog->url())
@@ -298,22 +298,22 @@ int MergeView::pluralFormsAvailableBackward()
 
 void MergeView::gotoPrevChanged()
 {
-    if (KDE_ISUNLIKELY( !m_mergeCatalog ))
+    if (Q_UNLIKELY( !m_mergeCatalog ))
         return;
 
     DocPosition pos;
 
     //first, check if there any plural forms waiting to be synced
     int form=pluralFormsAvailableBackward();
-    if (KDE_ISUNLIKELY( form!=-1 ))
+    if (Q_UNLIKELY( form!=-1 ))
     {
         pos=m_pos;
         pos.form=form;
     }
-    else if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1 ))
+    else if(Q_UNLIKELY( (pos.entry=m_mergeCatalog->prevChangedIndex(m_pos.entry)) == -1 ))
         return;
 
-    if (KDE_ISUNLIKELY( m_mergeCatalog->isPlural(pos.entry)&&form==-1 ))
+    if (Q_UNLIKELY( m_mergeCatalog->isPlural(pos.entry)&&form==-1 ))
         pos.form=qMin(m_baseCatalog->numberOfPluralForms(),m_mergeCatalog->numberOfPluralForms())-1;
 
     emit gotoEntry(pos,0);
@@ -326,24 +326,24 @@ void MergeView::gotoNextChangedApproved()
 
 void MergeView::gotoNextChanged(bool approvedOnly)
 {
-    if (KDE_ISUNLIKELY( !m_mergeCatalog ))
+    if (Q_UNLIKELY( !m_mergeCatalog ))
         return;
 
     DocPosition pos=m_pos;
 
     //first, check if there any plural forms waiting to be synced
     int form=pluralFormsAvailableForward();
-    if (KDE_ISUNLIKELY( form!=-1 ))
+    if (Q_UNLIKELY( form!=-1 ))
     {
         pos=m_pos;
         pos.form=form;
     }
-    else if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1 ))
+    else if(Q_UNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(m_pos.entry)) == -1 ))
         return;
 
     while (approvedOnly && !m_mergeCatalog->isApproved(pos.entry))
     {
-        if(KDE_ISUNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(pos.entry)) == -1 ))
+        if(Q_UNLIKELY( (pos.entry=m_mergeCatalog->nextChangedIndex(pos.entry)) == -1 ))
             return;      
     }
 
@@ -373,7 +373,7 @@ void MergeView::mergeAccept()
 
 void MergeView::mergeAcceptAllForEmpty()
 {
-    if(KDE_ISUNLIKELY(!m_mergeCatalog)) return;
+    if(Q_UNLIKELY(!m_mergeCatalog)) return;
 
     bool update=m_mergeCatalog->differentEntries().contains(m_pos.entry);
 

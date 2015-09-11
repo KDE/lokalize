@@ -192,9 +192,9 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     //qWarning()<<"offset"<<pos.offset;
     //TODO trigger refresh directly via Catalog signal
 
-    if (KDE_ISUNLIKELY( m_catalog->isPlural(pos.entry)))
+    if (Q_UNLIKELY( m_catalog->isPlural(pos.entry)))
     {
-        if (KDE_ISUNLIKELY( m_catalog->numberOfPluralForms()!=m_pluralTabBar->count() ))
+        if (Q_UNLIKELY( m_catalog->numberOfPluralForms()!=m_pluralTabBar->count() ))
         {
             int i=m_pluralTabBar->count();
             if (m_catalog->numberOfPluralForms()>m_pluralTabBar->count())
@@ -239,13 +239,13 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     {
         QTextCursor t=m_targetTextEdit->textCursor();
         //what if msg starts with a tag?
-        if (KDE_ISUNLIKELY( targetString.startsWith('<') ))
+        if (Q_UNLIKELY( targetString.startsWith('<') ))
         {
             int offset=targetString.indexOf(QRegExp(QStringLiteral(">[^<]")));
             if ( offset!=-1 )
                 t.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,offset+1);
         }
-        else if (KDE_ISUNLIKELY( targetString.startsWith(TAGRANGE_IMAGE_SYMBOL) ))
+        else if (Q_UNLIKELY( targetString.startsWith(TAGRANGE_IMAGE_SYMBOL) ))
         {
             int offset=targetString.indexOf(QRegExp(QStringLiteral("[^")%QChar(TAGRANGE_IMAGE_SYMBOL)%']'));
             if ( offset!=-1 )
@@ -324,7 +324,7 @@ QObject* EditorView::viewPort()
 
 void EditorView::toggleBookmark(bool checked)
 {
-    if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
+    if (Q_UNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 
     m_catalog->setBookmark(m_targetTextEdit->currentPos().entry,checked);
@@ -333,7 +333,7 @@ void EditorView::toggleBookmark(bool checked)
 void EditorView::toggleApprovement()
 {
     //qWarning()<<"called";
-    if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
+    if (Q_UNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 
     bool newState=!m_catalog->isApproved(m_targetTextEdit->currentPos().entry);
@@ -343,7 +343,7 @@ void EditorView::toggleApprovement()
 
 void EditorView::setState(TargetState state)
 {
-    if (KDE_ISUNLIKELY( m_targetTextEdit->currentPos().entry==-1
+    if (Q_UNLIKELY( m_targetTextEdit->currentPos().entry==-1
         || m_catalog->state(m_targetTextEdit->currentPos())==state))
         return;
 

@@ -159,3 +159,11 @@ mac: QMAKE_INFO_PLIST = ../icons/osx/Info.plist
 mac: QMAKE_POST_LINK += cp -n ../icons/osx/LokalizePo*.icns ../icons/osx/LokalizeXliff.icns Lokalize.app/Contents/Resources/
 
 
+sonnet_static
+{
+    DEFINES += SONNET_STATIC SONNETCORE_EXPORT="" SONNETUI_EXPORT=""
+    INCLUDEPATH += ../../sonnet/src/core
+    INCLUDEPATH += ../../sonnet/src/ui
+    LIBS += -L../../sonnet/src/core -L../../sonnet/src/ui -L../../sonnet/src/plugins/nsspellchecker -lsonnet-core -lsonnet-ui -lsonnet-nsspellchecker
+}
+

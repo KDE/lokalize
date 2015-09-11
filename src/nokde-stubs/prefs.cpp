@@ -51,7 +51,7 @@ Settings::Settings()
 
     // Editor
  , mAutoApprove(true)
- , mAutoSpellcheck(false)
+ , mAutoSpellcheck(true)
  , mMouseWheelGo(false)
 
     // TM

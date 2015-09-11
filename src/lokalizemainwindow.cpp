@@ -1024,7 +1024,7 @@ DelayedFileOpener::DelayedFileOpener(const QVector<QString>& urls, LokalizeMainW
  , m_urls(urls)
  , m_lmw(lmw)
 {
-    //do the work just after project load handlind is finished
+    //do the work just after project loading is finished
     //(i.e. all the files from previous project session are loaded)
     QTimer::singleShot(1,this,SLOT(doOpen()));
 }

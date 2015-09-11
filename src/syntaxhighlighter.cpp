@@ -46,6 +46,8 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 #ifndef NOKDE
     : Sonnet::Highlighter(parent)
     , tagBrush(KColorScheme::View,KColorScheme::VisitedText)
+#elif defined(SONNET_STATIC)
+    : Sonnet::Highlighter(parent)
 #else
     : QSyntaxHighlighter(parent->document())
 #endif
@@ -57,8 +59,11 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     HighlightingRule rule;
     //rule.format.setFontItalic(true);
 //     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
     setAutomatic(false);
+#endif
+
+#ifndef NOKDE
     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
 #else
     tagFormat.setForeground(QApplication::palette().linkVisited());
@@ -194,7 +199,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
     if (spellCheckerFound())
         Sonnet::Highlighter::highlightBlock(text); // Resets current block state
 #endif
@@ -227,7 +232,7 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
-#ifndef NOKDE
+#if !defined(NOKDE) || defined(SONNET_STATIC)
     const QString text=currentBlock().text();
     QString word=text.mid(start,count);
     if (m_sourceString.contains(word))
