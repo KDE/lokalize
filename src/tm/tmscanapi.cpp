@@ -57,9 +57,9 @@ RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
 
 bool RecursiveScanJob::doKill()
 {
-#if 0 //KDE5PORT
+#if QT_VERSION >= 0x050500
     foreach(ScanJob* job, m_jobs)
-        ThreadWeaver::Weaver::instance()->dequeue(job);
+        TM::threadPool()->cancel(job);
 #endif
     return true;
 }

@@ -103,7 +103,7 @@ private:
     bool m_markAsFuzzy;
     QMap<DocPos, QVector<TMEntry> > m_cache;
     DocPosition m_prevCachePos;//hacky hacky
-    QList<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
+    QVector<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
 };
 
 class TextBrowser: public QTextBrowser

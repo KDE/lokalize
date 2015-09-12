@@ -167,12 +167,10 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 
 TMView::~TMView()
 {
-#if 0 //KDE5PORT set stop var of each job individually
+#if QT_VERSION >= 0x050500
     int i=m_jobs.size();
     while (--i>=0)
-        TM::weaver()->dequeue(m_jobs.takeLast());
-#else
-    m_jobs.clear();
+        TM::threadPool()->cancel(m_jobs.at(i));
 #endif
 }
 
@@ -227,13 +225,12 @@ void TMView::slotFileLoaded(const QString& filePath)
         return;
 
     m_cache.clear();
-#if 0 //KDE5PORT
+#if QT_VERSION >= 0x050500
     int i=m_jobs.size();
     while (--i>=0)
-        TM::weaver()->dequeue(m_jobs.takeLast());
-#else
-    m_jobs.clear();
+        TM::threadPool()->cancel(m_jobs.at(i));
 #endif
+    m_jobs.clear();
 
     DocPosition pos;
     while(switchNext(m_catalog,pos))
@@ -301,7 +298,7 @@ void TMView::slotBatchSelectDone()
             ///m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
             insertCatalogString(m_catalog, pos, entry.target, 0);
 
-            if (KDE_ISUNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
+            if (Q_UNLIKELY( m_pos.entry==pos.entry&&pos.form==m_pos.form ))
                 emit refreshRequested();
 
         }
@@ -362,8 +359,11 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries()<=pos.entry)
         return;//because of Qt::QueuedConnection
 
-    //KDE5PORT set stop var individually
-    //TM::weaver()->dequeue(m_currentSelectJob);
+#if QT_VERSION >= 0x050500
+    int i=m_jobs.size();
+    while (--i>=0)
+        TM::threadPool()->cancel(m_currentSelectJob);
+#endif
 
     //update DB
     //m_catalog->flushUpdateDBBuffer();
@@ -536,7 +536,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
         cur.insertHtml(html);
 
-        if (KDE_ISUNLIKELY( ++i>=limit ))
+        if (Q_UNLIKELY( ++i>=limit ))
             break;
 
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
@@ -978,7 +978,7 @@ nono
 
 void TMView::slotUseSuggestion(int i)
 {
-    if (KDE_ISUNLIKELY( i>=m_entries.size() ))
+    if (Q_UNLIKELY( i>=m_entries.size() ))
         return;
 
     CatalogString target=targetAdapted(m_entries.at(i), m_catalog->sourceWithTags(m_pos));
@@ -991,7 +991,7 @@ void TMView::slotUseSuggestion(int i)
     foreach (InlineTag tag, target.tags)
         qWarning()<<"tag"<<tag.start<<tag.end;
 #endif
-    if (KDE_ISUNLIKELY( target.isEmpty() ))
+    if (Q_UNLIKELY( target.isEmpty() ))
         return;
 
     m_catalog->beginMacro(i18nc("@item Undo action","Use translation memory suggestion"));

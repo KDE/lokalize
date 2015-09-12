@@ -627,10 +627,11 @@ void FileSearchTab::performSearch()
 
 void FileSearchTab::stopSearch()
 {
-    QVector<QRunnable*>::const_iterator it;
-    ///// KDE5PORT
-    ////for (it = m_runningJobs.constBegin(); it != m_runningJobs.constEnd(); ++it)
-    ////    ThreadWeaver::Weaver::instance()->dequeue(*it);
+#if QT_VERSION >= 0x050500
+    int i=m_runningJobs.size();
+    while (--i>=0)
+        QThreadPool::globalInstance()->cancel(m_runningJobs.at(i));
+#endif
     m_runningJobs.clear();
 }
 
