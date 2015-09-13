@@ -307,7 +307,7 @@ void updateHeader(QString& header,
 
     QString dateTimeString = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm"));
     QString zoneOffsetString1 = QTimeZone(QTimeZone::systemTimeZoneId()).displayName(QTimeZone::GenericTime, QTimeZone::OffsetName);
-    int zpos=qMax(0, zoneOffsetString1.indexOf('+'));
+    int zpos=qMax(qMax(0, zoneOffsetString1.indexOf('+')), zoneOffsetString1.indexOf('-'));
     QString zoneOffsetString = QString::fromRawData(zoneOffsetString1.unicode()+zpos, zoneOffsetString1.length()-zpos);
     temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%zoneOffsetString.remove(':')%QStringLiteral("\\n");
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
