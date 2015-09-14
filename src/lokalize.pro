@@ -159,11 +159,19 @@ mac: QMAKE_INFO_PLIST = ../icons/osx/Info.plist
 mac: QMAKE_POST_LINK += cp -n ../icons/osx/LokalizePo*.icns ../icons/osx/LokalizeXliff.icns Lokalize.app/Contents/Resources/
 
 
+#remove this block to get a simple build
 sonnet_static
 {
     DEFINES += SONNET_STATIC SONNETCORE_EXPORT="" SONNETUI_EXPORT=""
     INCLUDEPATH += ../../sonnet/src/core
     INCLUDEPATH += ../../sonnet/src/ui
-    LIBS += -L../../sonnet/src/core -L../../sonnet/src/ui -L../../sonnet/src/plugins/nsspellchecker -lsonnet-core -lsonnet-ui -lsonnet-nsspellchecker
+    LIBS += -L../../sonnet/src/core -lsonnet-core
+    LIBS += -L../../sonnet/src/ui -lsonnet-ui
+    mac:LIBS += -L../../sonnet/src/plugins/nsspellchecker -lsonnet-nsspellchecker
+    mac:LIBS += -L../../sonnet/src/plugins/hunspell -lsonnet-hunspell
+
+    DEFINES += HAVE_HUNSPELL
+    INCLUDEPATH += ../../hunspell/src
+    LIBS += -L../../hunspell/src/hunspell/.libs/ -lhunspell-1.2
 }
 

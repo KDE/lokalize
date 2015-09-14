@@ -132,11 +132,13 @@ namespace KStandardAction
   };
 };
 class KActionCategory;
-struct KActionCollection
+class KActionCollection
 {
+public:
     KActionCollection(QMainWindow* w);
     ~KActionCollection(){qDeleteAll(categories);}
     static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+    static void setDefaultShortcuts(QAction* a, const QList<QKeySequence>& l){a->setShortcuts(l);}
 
     QAction* addAction(const QString& name, QAction* a);
 

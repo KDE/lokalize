@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QMutex>
 #include <QMutexLocker>
+#include <QStringBuilder>
 #include <QDebug>
 
 QString enhanceLangCode(const QString& langCode)
@@ -53,16 +54,23 @@ struct SpellerAndCodec
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)
 : speller(0), codec(0)
 {
-        QString dic=QString("/usr/share/myspell/dicts/%1.dic").arg(langCode);
-        if (!QFileInfo(dic).exists())
-            dic=QString("/usr/share/myspell/dicts/%1.dic").arg(enhanceLangCode(langCode));;
-        if (QFileInfo(dic).exists())
-        {
-            speller = new Hunspell(QString("/usr/share/myspell/dicts/%1.aff").arg(langCode).toUtf8().constData(),dic.toUtf8().constData());
-            codec=QTextCodec::codecForName(speller->get_dic_encoding());
-            if (!codec)
-                codec=QTextCodec::codecForLocale();
-        }
+#ifdef Q_OS_MAC
+    QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") % langCode.leftRef(2) % '/';
+    if (langCode == QLatin1String("pl_PL")) dictPath = QStringLiteral("/System/Library/Spelling/");
+#else
+    QString dictPath = QStringLiteral("/usr/share/myspell/dicts/");
+#endif
+
+    QString dic = dictPath % langCode % QLatin1String(".dic");
+    if (!QFileInfo(dic).exists())
+        dic = dictPath % enhanceLangCode(langCode) % QLatin1String(".dic");
+    if (QFileInfo(dic).exists())
+    {
+        speller = new Hunspell(QString(dictPath % langCode % ".aff").toLatin1().constData(), dic.toLatin1().constData());
+        codec = QTextCodec::codecForName(speller->get_dic_encoding());
+        if (!codec)
+            codec = QTextCodec::codecForLocale();
+    }
 }
 
 static QMap<QString,SpellerAndCodec> hunspellers;
