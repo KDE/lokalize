@@ -58,7 +58,9 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
     QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") % langCode.leftRef(2) % '/';
     if (langCode == QLatin1String("pl_PL")) dictPath = QStringLiteral("/System/Library/Spelling/");
 #else
-    QString dictPath = QStringLiteral("/usr/share/myspell/dicts/");
+    QString dictPath = QStringLiteral("/usr/share/hunspell/");
+    if (!QFileInfo(dictPath).exists())
+        dictPath = QStringLiteral("/usr/share/myspell/");
 #endif
 
     QString dic = dictPath % langCode % QLatin1String(".dic");

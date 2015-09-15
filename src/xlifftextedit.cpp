@@ -336,7 +336,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     QMap<int,int> posToTag;
     int i=catStr.tags.size();
-    //qDebug()<<"size:"<<i;
     while(--i>=0)
     {
         //qDebug()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
@@ -958,7 +957,7 @@ void TranslationUnitTextEdit::insertTag(InlineTag tag)
     QTextCursor cursor=textCursor();
     tag.start=qMin(cursor.anchor(),cursor.position());
     tag.end=qMax(cursor.anchor(),cursor.position())+tag.isPaired();
-    qDebug()<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
+    qDebug()<<"insert tag"<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
     m_catalog->push(new InsTagCmd(m_catalog,currentPos(),tag));
     showPos(currentPos(),CatalogString(),/*keepCursor*/true);
     cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1+tag.isPaired());
