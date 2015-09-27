@@ -151,7 +151,7 @@ DEFINES += NOKDE
 
 #unix: LIBS += -lhunspell
 
-CONFIG += exceptions_off c++11 stl_off rtti_off
+CONFIG += exceptions_off c++11 stl_off
 
 mac: QMAKE_LFLAGS += -dead_strip
 mac: ICON = ../icons/osx/Lokalize.icns
@@ -159,19 +159,26 @@ mac: QMAKE_INFO_PLIST = ../icons/osx/Info.plist
 mac: QMAKE_POST_LINK += cp -n ../icons/osx/LokalizePo*.icns ../icons/osx/LokalizeXliff.icns Lokalize.app/Contents/Resources/
 
 
-#remove this block to get a simple build
+#remove this block to get a simpler build
 sonnet_static
 {
     DEFINES += SONNET_STATIC SONNETCORE_EXPORT="" SONNETUI_EXPORT=""
     INCLUDEPATH += ../../sonnet/src/core
     INCLUDEPATH += ../../sonnet/src/ui
-    LIBS += -L../../sonnet/src/core -lsonnet-core
-    LIBS += -L../../sonnet/src/ui -lsonnet-ui
-    mac:LIBS += -L../../sonnet/src/plugins/nsspellchecker -lsonnet-nsspellchecker
+    win32:LIBS += -L../../sonnet/src/core/release -lsonnet-core
+    win32:LIBS += -L../../sonnet/src/ui/release -lsonnet-ui
+    win32:LIBS += -L../../sonnet/src/plugins/hunspell/release -lsonnet-hunspell
+    mac:LIBS += -L../../sonnet/src/core -lsonnet-core
+    mac:LIBS += -L../../sonnet/src/ui -lsonnet-ui
     mac:LIBS += -L../../sonnet/src/plugins/hunspell -lsonnet-hunspell
+    mac:LIBS += -L../../sonnet/src/plugins/nsspellchecker -lsonnet-nsspellchecker
 
     DEFINES += HAVE_HUNSPELL
+    #win32: DEFINES += HUNSPELL_STATIC
     INCLUDEPATH += ../../hunspell/src
-    LIBS += -L../../hunspell/src/hunspell/.libs/ -lhunspell-1.2
+    mac:LIBS   += -L../../hunspell/src/hunspell/.libs/ -lhunspell-1.2
+    win32:LIBS += -L../../hunspell/src/win_api/x64/Release_dll -llibhunspell
+    win32:system("copy ..\\..\\hunspell\\src\\win_api\\x64\\Release_dll\\libhunspell.dll release")
+
 }
 

@@ -154,8 +154,9 @@ public:
 
     QVector<KActionCategory*> categories;
 };
-struct KActionCategory
+class KActionCategory
 {
+public:
     KActionCategory(const QString&, KActionCollection* c_):c(c_){c->categories.append(this);}
     QAction* addAction( const char* name, QAction* a){return c->addAction(name, a);}
     QAction* addAction( const QString& name, QAction* a){return c->addAction(name, a);}
