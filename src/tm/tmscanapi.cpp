@@ -82,7 +82,7 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
     emitPercent(processedAmount(KJob::Files),totalAmount(KJob::Files));
 
     setProcessedAmount(KJob::Bytes,processedAmount(KJob::Bytes)+job->m_size);
-    emitSpeed(1000*processedAmount(KJob::Bytes)/m_time.elapsed());
+    if (m_time.elapsed()) emitSpeed(1000*processedAmount(KJob::Bytes)/m_time.elapsed());
 
 
     if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
