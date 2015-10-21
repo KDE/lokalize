@@ -2121,8 +2121,8 @@ void ExecQueryJob::run()
         qWarning()<<"db.open()="<<db.open();
     query=new QSqlQuery(m_query,db);
     query->exec();
-    emit done(this);
     qDebug()<<"done"<<query->lastError().text();
+    emit done(this);
 }
 
 
