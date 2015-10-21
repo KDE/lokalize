@@ -118,7 +118,7 @@ HEADERS  += editortab.h\
 #    tools/widgettextcaptureconfig.h
     filesearch/filesearchtab.h\
     tm/tmview.h\
-    tm/tmscanapi.h\
+##    tm/tmscanapi.h\
     tm/jobs.h\
     tm/dbfilesmodel.h\
     tm/tmmanager.h\

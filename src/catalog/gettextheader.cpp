@@ -412,7 +412,6 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
 
-    found=false;
     temp=QStringLiteral("Content-Transfer-Encoding: 8bit\\n");
     QRegExp cteRe(QStringLiteral("^ *Content-Transfer-Encoding:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
