@@ -102,9 +102,11 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     setWindowTitle( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
 
     setupUi(this);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-    name->setFocus();
     connect(name, SIGNAL(textChanged(QString)), this, SLOT(feedbackRegardingAcceptable()));
+    name->setFocus();
 
     sourceLang->setModel(LanguageListModel::instance()->sortModel());
     targetLang->setModel(LanguageListModel::instance()->sortModel());
