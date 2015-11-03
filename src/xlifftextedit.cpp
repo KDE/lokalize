@@ -1133,6 +1133,7 @@ void TranslationUnitTextEdit::spellReplace()
 
 bool TranslationUnitTextEdit::event(QEvent *event)
 {
+#ifdef Q_OS_MAC
     if (event->type()==QEvent::InputMethod)
     {
         QInputMethodEvent* e=static_cast<QInputMethodEvent*>(event);
@@ -1140,6 +1141,7 @@ bool TranslationUnitTextEdit::event(QEvent *event)
         e->accept();
         return true;
     }
+#endif
     if (event->type()==QEvent::ToolTip)
     {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
