@@ -458,7 +458,7 @@ void updateHeader(QString& header,
                 {
                     static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
                     pf.setMinimal(true);
-                    temp=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
+                    temp=QStringLiteral("Plural-Forms: %1\\n").arg(t);
                     it->replace(pf,temp);
                     num=numberOfPluralFormsFromHeader(temp);
                 }
@@ -475,10 +475,10 @@ void updateHeader(QString& header,
     else if ( !generatedFromDocbook)
     {
         //qDebug()<<"generating GNUPluralForms"<<langCode;
-        QString t= GNUPluralForms(langCode);
+        QString t = GNUPluralForms(langCode);
         //qDebug()<<"here it is:";
         if ( !t.isEmpty() ) {
-            const QString pluralFormLine=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
+            const QString pluralFormLine=QStringLiteral("Plural-Forms: %1\\n").arg(t);
             headerList.append(pluralFormLine);
             numberOfPluralForms=numberOfPluralFormsFromHeader(pluralFormLine);
         }
@@ -496,7 +496,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     //m_header.setMsgstr( headerList.join( "\n" ) );
-    header=headerList.join("\n");
+    header=headerList.join(QStringLiteral("\n"));
 //END header itself
 
 //BEGIN comment = description, copyrights
@@ -613,7 +613,7 @@ void updateHeader(QString& header,
         while ( it != commentList.end() )
         {
             bool deleteItem = false;
-            if ( it->indexOf( QStringLiteral("copyright"), 0, Qt::CaseInsensitive ) != -1 )
+            if ( it->indexOf( QLatin1String("copyright"), 0, Qt::CaseInsensitive ) != -1 )
             {
                 // We have a line with a copyright. It should not be moved.
             }
@@ -626,9 +626,9 @@ void updateHeader(QString& header,
                 // Remove the entry
                 deleteItem = true;
             }
-            else if ( it->contains( QStringLiteral("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")) )
+            else if ( it->contains( QLatin1String("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")) )
                 deleteItem = true;
-            else if ( it->contains( QStringLiteral("# SOME DESCRIPTIVE TITLE")))
+            else if ( it->contains( QLatin1String("# SOME DESCRIPTIVE TITLE")))
                 deleteItem = true;
             else if ( it->contains( regexpAuthorYear ) ) // email address followed by year
             {
@@ -691,13 +691,13 @@ void updateHeader(QString& header,
         foreach (QString author, foundAuthors)
         {
             // ensure dot at the end of copyright
-            if ( !author.endsWith('.') ) author += '.';
+            if ( !author.endsWith(QLatin1Char('.')) ) author += QLatin1Char('.');
             commentList.append(author);
         }
     }
 
     //m_header.setComment( commentList.join( "\n" ) );
-    comment=commentList.join("\n");
+    comment=commentList.join(QStringLiteral("\n"));
 
 //END comment = description, copyrights
 }
