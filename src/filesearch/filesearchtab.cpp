@@ -200,7 +200,7 @@ void SearchJob::run()
     foreach(const QString& filePath, files)
     {
         Catalog catalog(0); 
-        if (KDE_ISUNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size)!=0))
+        if (KDE_ISUNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true)!=0))
             continue;
 
         //QVector<FileSearchResult> catalogResults;

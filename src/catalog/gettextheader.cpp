@@ -262,12 +262,14 @@ void updateHeader(QString& header,
     QString temp;
     QString authorNameEmail;
 
+    const QString BACKSLASH_N = QStringLiteral("\\n");
+
     // Unwrap header since the following code
     // assumes one header item per headerList element
     it = headerList.begin();
     while ( it != headerList.end() )
     {
-        if (!(*it).endsWith("\\n"))
+        if (!(*it).endsWith(BACKSLASH_N))
         {
             const QString line = *it;
             it = headerList.erase(it);
@@ -291,7 +293,7 @@ void updateHeader(QString& header,
     authorNameEmail=Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
         authorNameEmail+=(QStringLiteral(" <")%Settings::authorEmail()%'>');
-    temp=QStringLiteral("Last-Translator: ")%authorNameEmail%("\\n");
+    temp=QStringLiteral("Last-Translator: ") % authorNameEmail % BACKSLASH_N;
 
     QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
@@ -309,7 +311,7 @@ void updateHeader(QString& header,
     QString zoneOffsetString1 = QTimeZone(QTimeZone::systemTimeZoneId()).displayName(QTimeZone::GenericTime, QTimeZone::OffsetName);
     int zpos=qMax(qMax(0, zoneOffsetString1.indexOf('+')), zoneOffsetString1.indexOf('-'));
     QString zoneOffsetString = QString::fromRawData(zoneOffsetString1.unicode()+zpos, zoneOffsetString1.length()-zpos);
-    temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%zoneOffsetString.remove(':')%QStringLiteral("\\n");
+    temp=QStringLiteral("PO-Revision-Date: ") % dateTimeString % zoneOffsetString.remove(':') % BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
@@ -319,7 +321,7 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    temp=QStringLiteral("Project-Id-Version: ")%CatalogProjectId%QStringLiteral("\\n");
+    temp=QStringLiteral("Project-Id-Version: ") % CatalogProjectId % BACKSLASH_N;
     //temp.replace( "@PACKAGE@", packageName());
     QRegExp projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
@@ -390,7 +392,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     static QRegExp langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
-    temp=QStringLiteral("Language: ")%langCode%QStringLiteral("\\n");
+    temp=QStringLiteral("Language: ") % langCode % BACKSLASH_N;
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=(langCodeRegExp.indexIn(*it)!=-1);
@@ -401,7 +403,7 @@ void updateHeader(QString& header,
     if (KDE_ISUNLIKELY( !found ))
         headerList.append(temp);
 
-    temp=QStringLiteral("Content-Type: text/plain; charset=")%codec->name()%QStringLiteral("\\n");
+    temp=QStringLiteral("Content-Type: text/plain; charset=") % codec->name() % BACKSLASH_N;
     QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
