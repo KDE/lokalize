@@ -41,21 +41,6 @@
 
 using namespace GettextCatalog;
 
-CatalogItem::CatalogItem()
-{
-}
-
-CatalogItem::CatalogItem(const CatalogItem& item)
- : d(item.d)
-{
-}
-
-CatalogItem::~CatalogItem()
-{
-}
-
-
-
 QString CatalogItem::msgctxt(const bool noNewlines) const
 {
     QString msgctxt=d._msgctxt;
@@ -98,17 +83,11 @@ QStringList CatalogItem::allPluralForms(CatalogItem::Part part, bool stripNewLin
     return result;
 }
 
-
 void CatalogItem::setMsgctxt(const QString& msg)
 {
     d._msgctxt=msg;
     d._msgctxt.squeeze();
     d._keepEmptyMsgCtxt=msg.isEmpty();
-}
-
-bool CatalogItem::keepEmptyMsgCtxt() const
-{
-    return d._keepEmptyMsgCtxt;
 }
 
 void CatalogItem::setMsgid(const QString& msg, const int form)
@@ -167,23 +146,14 @@ void CatalogItem::setMsgstr(const QVector<QString>& msg)
 void CatalogItem::setComment(const QString& com)
 {
     {
-        static QMutex reMutex;
-        QMutexLocker reLock(&reMutex); //avoid crash #281033
+        //static QMutex reMutex;
+        //QMutexLocker reLock(&reMutex); //avoid crash #281033
+        //now we have a bigger scale mutex in GettextStorage
         static QRegExp fuzzyRegExp(QStringLiteral("((?:^|\n)#(?:,[^,]*)*),\\s*fuzzy"));
         d._fuzzyCached=com.contains( fuzzyRegExp );
     }
     d._comment=com;
     d._comment.squeeze();
-}
-
-void CatalogItem::setPlural(bool plural)
-{
-    d._plural=plural;
-}
-
-bool CatalogItem::isPlural() const
-{
-    return d._plural;
 }
 
 bool CatalogItem::isUntranslated() const
@@ -275,16 +245,6 @@ void CatalogItem::setSyntaxError(bool on)
 }
 
 #endif
-
-void CatalogItem::clear()
-{
-    d.clear();
-}
-
-void CatalogItem::operator=(const CatalogItem& rhs)
-{
-    d.assign(rhs.d);
-}
 
 
 QStringList CatalogItem::msgstrAsList() const

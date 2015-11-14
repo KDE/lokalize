@@ -131,7 +131,7 @@ bool Glossary::load(const QString& newPath)
 #endif
     emit loaded();
 
-    qDebug()<<"glossary loaded in"<<a.elapsed();
+    if (a.elapsed()>50) qDebug()<<"glossary loaded in"<<a.elapsed();
 
     return true;
 }

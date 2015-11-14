@@ -204,17 +204,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         return;
     }
 
-    //TODO remove this for KDE 4.4
-    //NOTE not?
-    int pos=0;
-    while ((pos=text.indexOf(QStringLiteral("\\\""),pos))!=-1)
-    {
-        if (pos==0 || text.at(pos-1)!='\\')
-            text.replace(pos,2,'"');
-        else
-            pos++;
-    }
-    text.replace('"',"\\\"");
+    text.replace(QLatin1Char('"'),QStringLiteral("\\\""));
 #if 0
     if ( m_wrapWidth == -1 )
     {
@@ -294,17 +284,19 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
             int pos = itm->lastIndexOf(breakStopRe,max-1);
             if (pos>(max/2))
             {
-                int pos2 = itm->indexOf('<',pos);
+                int pos2 = itm->indexOf(QLatin1Char('<'),pos);
                 if (pos2>0&&pos2<max-1)
-                    pos=itm->indexOf('<',pos);
-                ++pos;
+                {
+                    pos=itm->indexOf(QLatin1Char('<'),pos);
+                    ++pos;
+                }
             }
             else
             {
-                if (itm->at(max-1)=='\\')
+                if (itm->at(max-1)==QLatin1Char('\\'))
                 {
                     do {--max;}
-                    while (max>=2 && itm->at(max-1)=='\\');
+                    while (max>=2 && itm->at(max-1)==QLatin1Char('\\'));
                 }
                 pos=max;
             }

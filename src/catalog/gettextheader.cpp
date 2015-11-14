@@ -262,12 +262,14 @@ void updateHeader(QString& header,
     QString temp;
     QString authorNameEmail;
 
+    const QString BACKSLASH_N = QStringLiteral("\\n");
+
     // Unwrap header since the following code
     // assumes one header item per headerList element
     it = headerList.begin();
     while ( it != headerList.end() )
     {
-        if (!(*it).endsWith("\\n"))
+        if (!(*it).endsWith(BACKSLASH_N))
         {
             const QString line = *it;
             it = headerList.erase(it);
@@ -291,7 +293,7 @@ void updateHeader(QString& header,
     authorNameEmail=Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
         authorNameEmail+=(QStringLiteral(" <")%Settings::authorEmail()%'>');
-    temp=QStringLiteral("Last-Translator: ")%authorNameEmail%("\\n");
+    temp=QStringLiteral("Last-Translator: ") % authorNameEmail % BACKSLASH_N;
 
     QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
@@ -309,7 +311,7 @@ void updateHeader(QString& header,
     QString zoneOffsetString1 = QTimeZone(QTimeZone::systemTimeZoneId()).displayName(QTimeZone::GenericTime, QTimeZone::OffsetName);
     int zpos=qMax(qMax(0, zoneOffsetString1.indexOf('+')), zoneOffsetString1.indexOf('-'));
     QString zoneOffsetString = QString::fromRawData(zoneOffsetString1.unicode()+zpos, zoneOffsetString1.length()-zpos);
-    temp=QStringLiteral("PO-Revision-Date: ")%dateTimeString%zoneOffsetString.remove(':')%QStringLiteral("\\n");
+    temp=QStringLiteral("PO-Revision-Date: ") % dateTimeString % zoneOffsetString.remove(':') % BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
@@ -319,7 +321,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY( !found ))
         headerList.append(temp);
 
-    temp=QStringLiteral("Project-Id-Version: ")%CatalogProjectId%QStringLiteral("\\n");
+    temp=QStringLiteral("Project-Id-Version: ") % CatalogProjectId % BACKSLASH_N;
     //temp.replace( "@PACKAGE@", packageName());
     QRegExp projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
@@ -390,7 +392,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     static QRegExp langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
-    temp=QStringLiteral("Language: ")%langCode%QStringLiteral("\\n");
+    temp=QStringLiteral("Language: ") % langCode % BACKSLASH_N;
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
         found=(langCodeRegExp.indexIn(*it)!=-1);
@@ -401,7 +403,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY( !found ))
         headerList.append(temp);
 
-    temp=QStringLiteral("Content-Type: text/plain; charset=")%codec->name()%QStringLiteral("\\n");
+    temp=QStringLiteral("Content-Type: text/plain; charset=") % codec->name() % BACKSLASH_N;
     QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
@@ -455,7 +457,7 @@ void updateHeader(QString& header,
                 {
                     static QRegExp pf(QStringLiteral("^ *Plural-Forms:\\s*nplurals.*\\\\n"));
                     pf.setMinimal(true);
-                    temp=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
+                    temp=QStringLiteral("Plural-Forms: %1\\n").arg(t);
                     it->replace(pf,temp);
                     num=numberOfPluralFormsFromHeader(temp);
                 }
@@ -472,10 +474,10 @@ void updateHeader(QString& header,
     else if ( !generatedFromDocbook)
     {
         //qDebug()<<"generating GNUPluralForms"<<langCode;
-        QString t= GNUPluralForms(langCode);
+        QString t = GNUPluralForms(langCode);
         //qDebug()<<"here it is:";
         if ( !t.isEmpty() ) {
-            const QString pluralFormLine=QString(QStringLiteral("Plural-Forms: %1\\n")).arg(t);
+            const QString pluralFormLine=QStringLiteral("Plural-Forms: %1\\n").arg(t);
             headerList.append(pluralFormLine);
             numberOfPluralForms=numberOfPluralFormsFromHeader(pluralFormLine);
         }
@@ -493,7 +495,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     //m_header.setMsgstr( headerList.join( "\n" ) );
-    header=headerList.join("\n");
+    header=headerList.join(QStringLiteral("\n"));
 //END header itself
 
 //BEGIN comment = description, copyrights
@@ -610,7 +612,7 @@ void updateHeader(QString& header,
         while ( it != commentList.end() )
         {
             bool deleteItem = false;
-            if ( it->indexOf( QStringLiteral("copyright"), 0, Qt::CaseInsensitive ) != -1 )
+            if ( it->indexOf( QLatin1String("copyright"), 0, Qt::CaseInsensitive ) != -1 )
             {
                 // We have a line with a copyright. It should not be moved.
             }
@@ -623,9 +625,9 @@ void updateHeader(QString& header,
                 // Remove the entry
                 deleteItem = true;
             }
-            else if ( it->contains( QStringLiteral("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")) )
+            else if ( it->contains( QLatin1String("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.")) )
                 deleteItem = true;
-            else if ( it->contains( QStringLiteral("# SOME DESCRIPTIVE TITLE")))
+            else if ( it->contains( QLatin1String("# SOME DESCRIPTIVE TITLE")))
                 deleteItem = true;
             else if ( it->contains( regexpAuthorYear ) ) // email address followed by year
             {
@@ -688,13 +690,13 @@ void updateHeader(QString& header,
         foreach (QString author, foundAuthors)
         {
             // ensure dot at the end of copyright
-            if ( !author.endsWith('.') ) author += '.';
+            if ( !author.endsWith(QLatin1Char('.')) ) author += QLatin1Char('.');
             commentList.append(author);
         }
     }
 
     //m_header.setComment( commentList.join( "\n" ) );
-    comment=commentList.join("\n");
+    comment=commentList.join(QStringLiteral("\n"));
 
 //END comment = description, copyrights
 }

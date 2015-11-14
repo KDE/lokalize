@@ -88,6 +88,7 @@ int main(int argc, char **argv)
 {
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
+    QThreadPool::globalInstance()->setMaxThreadCount(1);
 
     KLocalizedString::setApplicationDomain("lokalize");
 
@@ -219,6 +220,7 @@ int main(int argc, char **argv)
 #ifdef Q_OS_WIN
     DestroyWindow(responder);
 #endif
+    QThreadPool::globalInstance()->clear();
     TM::threadPool()->clear();
     TM::threadPool()->waitForDone(1000);
 #ifndef NOKDE
@@ -237,7 +239,8 @@ int main(int argc, char **argv)
     {
         Project::instance()->model()->threadPool()->waitForDone(1000);
         TM::threadPool()->waitForDone(1000);
-        qWarning()<<"QCoreApplication::processEvents()...";
+        QThreadPool::globalInstance()->waitForDone(1000);
+        //qDebug()<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0,0);
     }

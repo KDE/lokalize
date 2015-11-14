@@ -106,7 +106,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    // if somethings goes wrong with the parsing, we don't have deleted the old contents
    CatalogItem tempHeader;
 
-   qDebug() << "start parsing...";
+   //qDebug() << "start parsing...";
    QTime aaa;
    aaa.start();
    // first read header
@@ -236,7 +236,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       return PARSE_ERROR;
    }
 
-   qDebug() << " ready";
+   //qDebug() << " ready";
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
@@ -262,7 +262,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    else
 #endif
    {
-      qDebug() << " Returning: OK! :-)";
+      //qDebug() << " Returning: OK! :-)";
       return OK;
    }
 }
@@ -291,7 +291,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     }
 
     const QString charset = regexp.cap(1);
-    qDebug() << "charset: " << charset;
+    if (charset!=QLatin1String("UTF-8")) qDebug() << "charset:" << charset;
 
     if (charset.isEmpty())
     {
@@ -322,9 +322,11 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
 ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 {
    ConversionStatus result=readEntryRaw(stream);
-   _msgstr.replaceInStrings(QStringLiteral("\\\""),QStringLiteral("\""));
-   _msgid.replaceInStrings(QStringLiteral("\\\""),QStringLiteral("\""));
-   _msgctxt.replace(QStringLiteral("\\\""),QStringLiteral("\""));
+   const QString FROM = QStringLiteral("\\\"");
+   const QString TO = QStringLiteral("\"");
+   _msgstr.replaceInStrings(FROM, TO);
+   _msgid.replaceInStrings(FROM, TO);
+   _msgctxt.replace(FROM, TO);
    return result;
 }
 

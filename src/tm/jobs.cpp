@@ -372,7 +372,7 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
 
 static QString escape(QString str)
 {
-    return str.replace('\'',"''");
+    return str.replace(QLatin1Char('\''),QStringLiteral("''"));
 }
 
 static bool doInsertEntry(CatalogString source,
@@ -873,15 +873,17 @@ static void setConfig(QSqlDatabase& db, const TMConfig& c)
     query.addBindValue(0);
     query.addBindValue(c.markup);
     //qDebug()<<"setting tm db config:"<<query.exec();
-    qDebug()<<"setting tm db config 1:"<<query.exec();
+    bool ok=query.exec();
+    if (!ok)
+        qWarning()<<"setting tm db config failed";
 
     query.addBindValue(1);
     query.addBindValue(c.accel);
-    qDebug()<<"setting tm db config 2:"<<query.exec();
+    query.exec();
 
     query.addBindValue(2);
     query.addBindValue(c.sourceLangCode);
-    qDebug()<<"setting tm db config 3:"<<query.exec();
+    query.exec();
 
     query.addBindValue(3);
     query.addBindValue(c.targetLangCode);
@@ -900,7 +902,6 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
 
     QSqlQuery query(db);
     bool ok=query.exec(QStringLiteral("SELECT key, value FROM tm_config ORDER BY key ASC"));
-    qDebug()<<"accessing tm db config"<<ok<<"use cache:"<<useCache;
     Project& p=*(Project::instance());
     bool f=query.next();
     TMConfig c;
@@ -912,6 +913,9 @@ static TMConfig getConfig(QSqlDatabase& db, bool useCache=true) //int& emptyTarg
 
     if (Q_UNLIKELY(  !f )) //tmConfigCache[db.databaseName()]=c;
         setConfig(db,c);
+
+    if (!ok)
+        qWarning()<<"accessing tm db config"<<ok<<"use cache:"<<useCache<<"lang:"<<c.sourceLangCode<<c.targetLangCode;
 
     tmConfigCache.insert(db.databaseName(), c);
     return c;
@@ -925,32 +929,38 @@ static void getStats(const QSqlDatabase& db,
                     )
 
 {
-    qDebug()<<"getStats"<<db.databaseName();
-
     QSqlQuery query(db);
     if (!query.exec(QStringLiteral("SELECT count(id) FROM main"))
         || !query.next())
+    {
+        qWarning()<<"getStats fail"<<db.databaseName();
         return;
+    }
     pairsCount=query.value(0).toInt();
     query.clear();
 
     if(!query.exec(QStringLiteral("SELECT count(*) FROM source_strings"))
         || !query.next())
+    {
+        qWarning()<<"getStats fail"<<db.databaseName();
         return;
+    }
     uniqueSourcesCount=query.value(0).toInt();
     query.clear();
 
     if(!query.exec(QStringLiteral("SELECT count(*) FROM target_strings"))
         || !query.next())
+    {
+        qWarning()<<"getStats fail"<<db.databaseName();
         return;
+    }
     uniqueTranslationsCount=query.value(0).toInt();
 
-    qDebug()<<"getStats ok";
     query.clear();
 }
 
-OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const ConnectionParams& connParams, QObject*)
-    : QRunnable()
+OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const ConnectionParams& connParams)
+    : QObject(), QRunnable()
     , m_dbName(name)
     , m_type(type)
     , m_setParams(false)
@@ -959,12 +969,12 @@ OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const Con
     , m_connParams(connParams)
 {
     setAutoDelete(false);
-    qDebug()<<m_dbName;
+    //qDebug()<<"OpenDBJob ctor"<<m_dbName;
 }
 
 OpenDBJob::~OpenDBJob()
 {
-    qDebug()<<m_dbName;
+    //qDebug()<<"OpenDBJob dtor"<<m_dbName;
 }
 
 void OpenDBJob::run()
@@ -1056,7 +1066,7 @@ void OpenDBJob::run()
         setConfig(db,m_tmConfig);
     else
         m_tmConfig=getConfig(db);
-    qWarning() <<"db"<<m_dbName<<" opened "<<a.elapsed()<<m_tmConfig.targetLangCode;
+    qDebug() <<"db"<<m_dbName<<"opened"<<a.elapsed()<<m_tmConfig.targetLangCode;
 
     getStats(db,m_stat.pairsCount,m_stat.uniqueSourcesCount,m_stat.uniqueTranslationsCount);
     
@@ -1069,8 +1079,8 @@ void OpenDBJob::run()
 }
 
 
-CloseDBJob::CloseDBJob(const QString& name, QObject*)
-    : QRunnable()
+CloseDBJob::CloseDBJob(const QString& name)
+    : QObject(), QRunnable()
     , m_dbName(name)
 {
     setAutoDelete(false);
@@ -1078,7 +1088,7 @@ CloseDBJob::CloseDBJob(const QString& name, QObject*)
 
 CloseDBJob::~CloseDBJob()
 {
-    qWarning()<<m_dbName;
+    qDebug()<<"closedb dtor"<<m_dbName;
 }
 
 void CloseDBJob::run ()
@@ -1119,9 +1129,8 @@ SelectJob::SelectJob(const CatalogString& source,
                      const QString& ctxt,
                      const QString& file,
                      const DocPosition& pos,
-                     const QString& dbName,
-                     QObject*)
-    : QRunnable()
+                     const QString& dbName)
+    : QObject(), QRunnable()
     , m_source(source)
     , m_ctxt(ctxt)
     , m_file(file)
@@ -1155,7 +1164,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                          //QList<TMEntry>& entries,
                          bool isShort)
 {
-    bool qpsql=(db.driverName()==QLatin1String("QPSQL"));
+    bool qpsql = (db.driverName()==QLatin1String("QPSQL"));
     QMap<qlonglong,uint> occurencies;
     QVector<qlonglong> idsForWord;
 
@@ -1207,7 +1216,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString tmp=c.markup;
     if (!c.markup.isEmpty())
         tmp+='|';
-    QRegExp rxSplit('('%tmp%QStringLiteral("\\W+|\\d+)+"));
+    QRegExp rxSplit(QLatin1Char('(') % tmp % QStringLiteral("\\W+|\\d+)+"));
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
@@ -1258,7 +1267,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             if (e.source.string.contains(TAGRANGE_IMAGE_SYMBOL))
             {
                 if (!e.source.tags.size())
-                    qWarning()<<queryFetch.value(3).toByteArray().size()<<queryFetch.value(3).toByteArray();
+                    qWarning()<<"problem:"<<queryFetch.value(3).toByteArray().size()<<queryFetch.value(3).toByteArray();
             }
             //e.target=queryFetch.value(2).toString();
             //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
@@ -1525,7 +1534,7 @@ void SelectJob::run ()
 
 
 
-ScanJob::ScanJob(const QString& filePath, const QString& dbName, QObject* parent)
+ScanJob::ScanJob(const QString& filePath, const QString& dbName)
     : QRunnable()
     , m_filePath(filePath)
     , m_time(0)
@@ -1539,14 +1548,14 @@ ScanJob::ScanJob(const QString& filePath, const QString& dbName, QObject* parent
 
 ScanJob::~ScanJob()
 {
-    qWarning() <<m_filePath;
+    qDebug()<<"scanjob dtor"<<m_filePath;
 }
 
 void ScanJob::run()
 {
     if (stop || !QSqlDatabase::contains(m_dbName))
       return;
-    qWarning() <<"scan job started for"<<m_filePath<<m_dbName<<stop<<m_dbName;
+    qWarning()<<"scan job started for"<<m_filePath<<m_dbName<<stop<<m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();
 
@@ -1614,36 +1623,38 @@ void ScanJob::run()
                 ++m_added;
         }
         QSqlQuery queryEnd(QStringLiteral("END"),db);
-        qWarning() <<"ScanJob: done "<<a.elapsed();
+        qDebug() <<"ScanJob: done "<<a.elapsed();
     }
     //qWarning() <<"Done scanning "<<m_url.prettyUrl();
     m_time=a.elapsed();
 }
 
 
-RemoveJob::RemoveJob(const TMEntry& entry, QObject*)
-    : QRunnable()
+RemoveJob::RemoveJob(const TMEntry& entry)
+    : QObject(), QRunnable()
     , m_entry(entry)
 {
-    qWarning()<<"removing"<<m_entry.file<<m_entry.source.string;
+    //RemoveJob instances are deleted automatically because their signal does not contain pointer to the job
+    qDebug()<<"removing"<<m_entry.dbName<<m_entry.file<<m_entry.source.string;
 }
 
 RemoveJob::~RemoveJob()
 {
-    qWarning()<<m_entry.file<<m_entry.source.string;
+    qDebug()<<"removejob dtor"<<m_entry.dbName<<m_entry.file<<m_entry.source.string;
 }
 
 
 void RemoveJob::run ()
 {
-    qDebug()<<m_entry.dbName;
+//    qDebug()<<m_entry.dbName;
     QSqlDatabase db=QSqlDatabase::database(m_entry.dbName);
 
     //cleaning regexps for word index update
     TMConfig c=getConfig(db);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
-    qWarning()<<doRemoveEntry(m_entry.id,rxClean1,c.accel,db);
+    if(!doRemoveEntry(m_entry.id,rxClean1,c.accel,db))
+        qWarning()<<"error removing entry"<<m_entry.dbName<<m_entry.file<<m_entry.source.string;
 
     emit done();
 }
@@ -1656,8 +1667,7 @@ UpdateJob::UpdateJob(const QString& filePath,
                      //const DocPosition&,//for back tracking
                      int form,
                      bool approved,
-                     const QString& dbName,
-                     QObject*)
+                     const QString& dbName)
     : QRunnable()
     , m_filePath(filePath)
     , m_ctxt(ctxt)
@@ -1672,7 +1682,7 @@ UpdateJob::UpdateJob(const QString& filePath,
 
 void UpdateJob::run ()
 {
-    qDebug()<<"run"<<m_english.string<<m_newTarget.string;
+    qDebug()<<"UpdateJob run"<<m_english.string<<m_newTarget.string;
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
 
     //cleaning regexps for word index update
@@ -1776,7 +1786,7 @@ bool TmxParser::startDocument()
     //initSqliteDb(db);
     m_fileIds.clear();
 
-    QSqlQuery queryBegin("BEGIN",db);
+    QSqlQuery queryBegin(QLatin1String("BEGIN"),db);
 
     m_state=null;
     m_lang=Null;
@@ -1786,7 +1796,7 @@ bool TmxParser::startDocument()
 
 TmxParser::~TmxParser()
 {
-    QSqlQuery queryEnd("END",db);
+    QSqlQuery queryEnd(QLatin1String("END"),db);
 }
 
 
@@ -1797,7 +1807,7 @@ bool TmxParser::startElement( const QString&, const QString&,
     if (qName==QLatin1String("tu"))
     {
         bool ok;
-        m_hits=attr.value("usagecount").toInt(&ok);
+        m_hits=attr.value(QLatin1String("usagecount")).toInt(&ok);
         if (!ok)
             m_hits=-1;
 
@@ -1855,11 +1865,10 @@ bool TmxParser::startElement( const QString&, const QString&,
 
 bool TmxParser::endElement(const QString&,const QString&,const QString& qName)
 {
-    const char* tmxFilename="tmx-import";
     if (qName==QLatin1String("tu"))
     {
         if (m_filePath.isEmpty())
-            m_filePath=tmxFilename;
+            m_filePath=QLatin1String("tmx-import");
         if (!m_fileIds.contains(m_filePath))
             m_fileIds.insert(m_filePath,getFileId(m_filePath,db));
         qlonglong fileId=m_fileIds.value(m_filePath);
@@ -1918,7 +1927,7 @@ bool TmxParser::characters ( const QString& ch )
 
 
 
-ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName, QObject*)
+ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName)
     : QRunnable()
     , m_filename(filename)
     , m_time(0)
@@ -1928,7 +1937,7 @@ ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName, QObje
 
 ImportTmxJob::~ImportTmxJob()
 {
-    qWarning() <<"ImportTmxJob dtor ";
+    qWarning() <<"ImportTmxJob dtor";
 }
 
 void ImportTmxJob::run()
@@ -1945,7 +1954,7 @@ void ImportTmxJob::run()
 
     QXmlInputSource xmlInputSource(&file);
     if (!reader.parse(xmlInputSource))
-         qWarning() << "failed to load "<< m_filename;
+         qWarning() << "failed to load"<< m_filename;
 
     //qWarning() <<"Done scanning "<<m_url.prettyUrl();
     m_time=a.elapsed();
@@ -1956,7 +1965,7 @@ void ImportTmxJob::run()
 
 #include <QXmlStreamWriter>
 
-ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName, QObject*)
+ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName)
     : QRunnable()
     , m_filename(filename)
     , m_time(0)
@@ -1966,7 +1975,7 @@ ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName, QObje
 
 ExportTmxJob::~ExportTmxJob()
 {
-    qWarning() <<"ExportTmxJob dtor ";
+    qDebug()<<"ExportTmxJob dtor";
 }
 
 void ExportTmxJob::run()
@@ -2088,7 +2097,7 @@ void ExportTmxJob::run()
     xmlOut.writeEndDocument();
     out.close();
 
-    qWarning() <<"Done exporting "<<a.elapsed();
+    qWarning()<<"ExportTmxJob done exporting:"<<a.elapsed();
     m_time=a.elapsed();
 }
 
@@ -2096,32 +2105,32 @@ void ExportTmxJob::run()
 //END TMX
 
 
-ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QObject*)
-    : QRunnable()
+ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName)
+    : QObject(), QRunnable()
     , query(0)
     , m_dbName(dbName)
     , m_query(queryString)
 {
     setAutoDelete(false);
-    qDebug()<<dbName<<queryString;
+    //qDebug()<<"ExecQueryJob"<<dbName<<queryString;
 }
 
 ExecQueryJob::~ExecQueryJob()
 {
     delete query;
-    qDebug()<<"destroy";
+    qDebug()<<"ExecQueryJob dtor";
 }
 
 void ExecQueryJob::run()
 {
     QSqlDatabase db=QSqlDatabase::database(m_dbName);
-    qDebug()<<"running"<<m_dbName<<"db.isOpen() ="<<db.isOpen();
+    qDebug()<<"ExecQueryJob"<<m_dbName<<"db.isOpen() ="<<db.isOpen();
     //temporarily:
     if (!db.isOpen())
-        qWarning()<<"db.open()="<<db.open();
+        qWarning()<<"ExecQueryJob db.open()="<<db.open();
     query=new QSqlQuery(m_query,db);
     query->exec();
-    qDebug()<<"done"<<query->lastError().text();
+    qDebug()<<"ExecQueryJob done"<<query->lastError().text();
     emit done(this);
 }
 
