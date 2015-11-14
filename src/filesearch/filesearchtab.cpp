@@ -259,7 +259,7 @@ void SearchJob::run()
         //if (catalogResults.size())
         //    results[path]=catalogResults;
     }
-    //qDebug()<<"searching took"<<a.elapsed();
+    qDebug()<<"searching took"<<a.elapsed();
     emit done(this);
 }
 
@@ -382,10 +382,10 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
             if (result.isEmpty())
                 return result;
 
-            static QString startBld="_ST_";
-            static QString endBld="_END_";
-            static QString startBldTag="<b >";
-            static QString endBldTag="</b >";
+            const QString startBld = QStringLiteral("_ST_");
+            const QString endBld = QStringLiteral("_END_");
+            const QString startBldTag = QStringLiteral("<b >");
+            const QString endBldTag = QStringLiteral("</b >");
 
             if (item.column()==FileSearchModel::Target && !m_replaceWhat.isEmpty())
             {
@@ -428,7 +428,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
 void FileSearchModel::setReplacePreview(const QRegExp& s, const QString& r)
 {
     m_replaceWhat=s;
-    m_replaceWith="_ST_" % r % "_END_";
+    m_replaceWith=QLatin1String("_ST_") % r % QLatin1String("_END_");
     
     emit dataChanged(index(0, Target), index(rowCount()-1, Target));
 }

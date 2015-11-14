@@ -56,9 +56,9 @@ class CatalogItem
 {
 
 public:
-    explicit CatalogItem();
-    CatalogItem(const CatalogItem&);
-    ~CatalogItem();
+    explicit CatalogItem() {}
+    CatalogItem(const CatalogItem& item): d(item.d) {}
+    ~CatalogItem() {}
 
     bool isFuzzy() const {return d._fuzzyCached;} //", fuzzy" in comment
     bool isCformat() const;    //", c-format" or possible-c-format in comment (from the debug parameter of xgettext)
@@ -69,8 +69,8 @@ public:
     bool isUntranslated(uint form) const;
 
 
-    bool isPlural() const;
-    void setPlural(bool plural=true);
+    inline bool isPlural() const {return d._plural;}
+    inline void setPlural(bool plural=true) {d._plural = plural;}
 
     void setSyntaxError(bool);
 
@@ -78,7 +78,7 @@ public:
     int totalLines() const;
  
     /** cleares the item */
-    void clear();
+    inline void clear() {d.clear();}
 
     const QString& comment() const {return d._comment;}
     QString msgctxt(const bool noNewlines = false) const;
@@ -89,7 +89,7 @@ public:
     QStringList allPluralForms(CatalogItem::Part, bool stripNewLines=false) const;
     bool prependEmptyForMsgid(const int form=0) const;
     bool prependEmptyForMsgstr(const int form=0) const;
-    bool keepEmptyMsgCtxt() const;
+    bool keepEmptyMsgCtxt() const {return d._keepEmptyMsgCtxt;}
 
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
@@ -133,7 +133,7 @@ public:
             , const QRegExp& singularPlural, const int neededLines);
 	
 #endif
-    void operator=(const CatalogItem& rhs);
+    inline void operator=(const CatalogItem& rhs) {d.assign(rhs.d);}
 
 private:
     CatalogItemPrivate d;

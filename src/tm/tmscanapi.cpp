@@ -94,7 +94,7 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 
 void RecursiveScanJob::start()
 {
-    printf("RecursiveScanJob::start\n");
+    qDebug()<<"RecursiveScanJob::start";
     m_time.start();
     emit description(this,
                 i18n("Adding files to Lokalize translation memory"),

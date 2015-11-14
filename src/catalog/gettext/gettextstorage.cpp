@@ -32,12 +32,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "diff.h"
 
+#include <QMutex>
+#include <QMutexLocker>
 #include <QProcess>
 #include <QString>
 #include <QMap>
 #include <QDebug>
 
 #include <klocalizedstring.h>
+
+QMutex regExMutex;
 
 // static QString GNUPluralForms(const QString& lang);
 
@@ -65,7 +69,10 @@ int GettextStorage::load(QIODevice* device/*, bool readonly*/)
     GettextImportPlugin importer;
     ConversionStatus status = OK;
     int errorLine;
-    status = importer.open(device,this,&errorLine);
+    {
+        QMutexLocker locker(&regExMutex);
+        status = importer.open(device,this,&errorLine);
+    }
 
     //for langs with more than 2 forms
     //we create any form-entries additionally needed
@@ -97,8 +104,9 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     QString comment=m_header.comment();
     QString catalogProjectId;//=m_url.fileName();
     //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
-    updateHeader(header,
-                 comment,
+    {
+        QMutexLocker locker(&regExMutex);
+        updateHeader(header, comment,
                  m_targetLangCode,
                  m_numberOfPluralForms,
                  catalogProjectId,
@@ -106,6 +114,7 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
                  belongsToProject,
                  /*forSaving*/true,
                  m_codec);
+    }
     m_header.setMsgstr(header);
     m_header.setComment(comment);
 
@@ -282,8 +291,7 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     {
         if (s.size()>=preLen)
         {
-            content+=s.midRef(preLen);
-            content+='\n';
+            content+=s.midRef(preLen) + QLatin1Char('\n');
         }
     }
 
@@ -312,22 +320,26 @@ QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) con
 
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
 {
-    QStringList result;
+    QVector<QStringRef> resultRef;
     QStringList commentLines=m_entries.at(pos.entry).comment().split('\n');
 
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
     foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
-        result+=uiLine.mid(15).split(' ');
+        resultRef += uiLine.midRef(15).split(' ');
     }
 
-    bool hasUi=!result.isEmpty();
+    bool hasUi=!resultRef.isEmpty();
     static const QRegExp cpp_re(QStringLiteral("^#: "));
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
         if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
-        QStringList cppFiles=cppLine.mid(3).split(' ');
-        result+=cppFiles;
+        resultRef += cppLine.midRef(3).split(' ');
+    }
+    QStringList result; result.reserve(resultRef.size());
+    foreach(const QStringRef &fileRef, resultRef)
+    {
+        result << fileRef.toString();
     }
     return result;
 }
