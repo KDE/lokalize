@@ -325,7 +325,7 @@ void ProjectWidget::modelReloaded()
     int i=10;
     while(--i>=0)
     {
-        QCoreApplication::processEvents();
+        QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers|QEventLoop::WaitForMoreEvents, 100);
         if (setCurrentItem(m_currentItemPathBeforeReload))
             break;
     }

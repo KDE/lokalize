@@ -185,7 +185,7 @@ void GlossarySortFilterProxyModel::fetchMore(const QModelIndex&)
     {
         sourceModel()->fetchMore(QModelIndex());
         //qDebug()<<"filter:"<<rowCount(QModelIndex())<<"/"<<sourceModel()->rowCount();
-        qApp->processEvents();
+        QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers);
     }
 }
 

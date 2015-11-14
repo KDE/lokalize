@@ -438,7 +438,8 @@ void GlossaryWindow::applyEntryChange()
 
 void GlossaryWindow::selectEntry(const QByteArray& id)
 {
-    qApp->processEvents(); //let it fetch the rows
+    //let it fetch the rows
+    QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers|QEventLoop::WaitForMoreEvents, 100);
 
     QModelIndexList items=m_proxyModel->match(m_proxyModel->index(0,0),Qt::DisplayRole,QVariant(id),1,0);
     if (items.count())

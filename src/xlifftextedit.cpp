@@ -1368,6 +1368,7 @@ void TranslationUnitTextEdit::doCompletion(int pos)
         if (!m_completionBox->isVisible()) //NOTE remove the check if kdelibs gets adapted
             m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
+        qDebug()<<viewport()->mapToGlobal(cursorRect().bottomRight());
         m_completionBox->move(viewport()->mapToGlobal(cursorRect().bottomRight()));
     }
     else

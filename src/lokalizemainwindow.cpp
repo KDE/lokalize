@@ -987,7 +987,7 @@ QString LokalizeMainWindow::currentProject(){return Project::instance()->path();
 
 #include <unistd.h>
 int LokalizeMainWindow::pid(){return getpid();}
-QString LokalizeMainWindow::dbusName(){return QString("org.kde.lokalize-%1").arg(pid());}
+QString LokalizeMainWindow::dbusName(){return QStringLiteral("org.kde.lokalize-%1").arg(pid());}
 void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCursor(Qt::WaitCursor):QApplication::restoreOverrideCursor();}
 // void LokalizeMainWindow::processEvents(){QCoreApplication::processEvents();}
 
