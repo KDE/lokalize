@@ -133,6 +133,8 @@ void LokalizeMainWindow::initLater()
 
 LokalizeMainWindow::~LokalizeMainWindow()
 {
+    TM::cancelAllJobs();
+
     KConfig config;
     KConfigGroup stateGroup(&config,"State");
     saveProjectState(stateGroup);
@@ -241,7 +243,7 @@ bool LokalizeMainWindow::queryClose()
     
     if (ok)
     {
-        TM::cancelAllJobs(); //this shit works l)
+        QThreadPool::globalInstance()->clear();
         Project::instance()->model()->threadPool()->clear();
     }
     return ok;

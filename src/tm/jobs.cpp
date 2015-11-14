@@ -1548,13 +1548,15 @@ ScanJob::ScanJob(const QString& filePath, const QString& dbName)
 
 ScanJob::~ScanJob()
 {
-    qDebug()<<"scanjob dtor"<<m_filePath;
 }
 
 void ScanJob::run()
 {
     if (stop || !QSqlDatabase::contains(m_dbName))
-      return;
+    {
+        qDebug()<<"scanjob dtop"<<m_filePath<<m_dbName<<QSqlDatabase::contains(m_dbName)<<stop;
+        return;
+    }
     qWarning()<<"scan job started for"<<m_filePath<<m_dbName<<stop<<m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a;a.start();

@@ -44,7 +44,8 @@ void updateHeader(QString& header,
 //for XLIFF
 int numberOfPluralFormsForLangCode(const QString& langCode);
 
-void askAuthorInfoIfEmpty();
+/// @returns false if author info is still empty after function finishes
+bool askAuthorInfoIfEmpty();
 
 #endif
 

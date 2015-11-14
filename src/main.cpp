@@ -221,6 +221,7 @@ int main(int argc, char **argv)
     DestroyWindow(responder);
 #endif
     QThreadPool::globalInstance()->clear();
+    TM::cancelAllJobs();
     TM::threadPool()->clear();
     TM::threadPool()->waitForDone(1000);
 #ifndef NOKDE

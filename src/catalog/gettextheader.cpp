@@ -31,6 +31,7 @@
 
 #include <QInputDialog>
 #include <QProcess>
+#include <QThread>
 #include <QString>
 #include <QStringBuilder>
 #include <QMap>
@@ -705,39 +706,44 @@ void updateHeader(QString& header,
 
 QString fullUserName();// defined in <platform>helpers.cpp
 
-void askAuthorInfoIfEmpty()
+bool askAuthorInfoIfEmpty()
 {
-    if (Settings::authorName().isEmpty())
+    if(QThread::currentThread() == qApp->thread())
     {
-        bool ok;
-        QString contact = QInputDialog::getText(
-            SettingsController::instance()->mainWindowPtr(),
-            i18nc("@window:title", "Author name missing"), i18n("Your name:"),
-            QLineEdit::Normal, fullUserName(), &ok);
 
-#ifndef NOKDE
-        Settings::self()->authorNameItem()->setValue(ok?contact:fullUserName());
-        Settings::self()->save();
-#else
-        Settings::self()->setAuthorName(ok?contact:fullUserName());
-#endif
-    }
-    if (Settings::authorEmail().isEmpty())
-    {
-        bool ok;
-        QString email = QInputDialog::getText(
-            SettingsController::instance()->mainWindowPtr(),
-            i18nc("@window:title", "Author email missing"), i18n("Your email:"),
-            QLineEdit::Normal, QString(), &ok);
-
-        if (ok)
+        if (Settings::authorName().isEmpty())
         {
+            bool ok;
+            QString contact = QInputDialog::getText(
+                SettingsController::instance()->mainWindowPtr(),
+                i18nc("@window:title", "Author name missing"), i18n("Your name:"),
+                QLineEdit::Normal, fullUserName(), &ok);
+
 #ifndef NOKDE
-            Settings::self()->authorEmailItem()->setValue(email);
+            Settings::self()->authorNameItem()->setValue(ok?contact:fullUserName());
             Settings::self()->save();
 #else
-            Settings::self()->setAuthorEmail(email);
+            Settings::self()->setAuthorName(ok?contact:fullUserName());
 #endif
         }
+        if (Settings::authorEmail().isEmpty())
+        {
+            bool ok;
+            QString email = QInputDialog::getText(
+                SettingsController::instance()->mainWindowPtr(),
+                i18nc("@window:title", "Author email missing"), i18n("Your email:"),
+                QLineEdit::Normal, QString(), &ok);
+
+            if (ok)
+            {
+#ifndef NOKDE
+                Settings::self()->authorEmailItem()->setValue(email);
+                Settings::self()->save();
+#else
+                Settings::self()->setAuthorEmail(email);
+#endif
+            }
+        }
     }
+    return !Settings::authorName().isEmpty() && !Settings::authorEmail().isEmpty();
 }

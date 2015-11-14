@@ -94,7 +94,6 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 
 void RecursiveScanJob::start()
 {
-    qDebug()<<"RecursiveScanJob::start";
     m_time.start();
     emit description(this,
                 i18n("Adding files to Lokalize translation memory"),
@@ -111,7 +110,8 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
 #else
     KJob* metaJob=0;
 #endif
-    askAuthorInfoIfEmpty();
+    if (!askAuthorInfoIfEmpty())
+        return 0;
 
     QVector<ScanJob*> result;
     int i=filePaths.size();
