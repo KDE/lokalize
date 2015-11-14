@@ -237,6 +237,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     QString word=text.mid(start,count);
     if (m_sourceString.contains(word))
         return;
+    qDebug()<<"mis"<<word;
 
     QString accel=Project::instance()->accel();
 

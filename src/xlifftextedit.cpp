@@ -157,7 +157,7 @@ void TranslationUnitTextEdit::fileLoaded()
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
     // If that fails, try to use the language code directly
-    if (m_highlighter->currentLanguage()!=langCode || m_highlighter->currentLanguage().isEmpty()) {
+    if (m_highlighter->currentLanguage()!=langLocale.name() || m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
         if (m_highlighter->currentLanguage()!=langCode && langCode.length()>2)
             m_highlighter->setCurrentLanguage(langCode.left(2));
