@@ -43,7 +43,7 @@ public:
     ProjectWidget(QWidget* parent);
     ~ProjectWidget();
 
-    void setCurrentItem(const QString&);
+    bool setCurrentItem(const QString&);
     QString currentItem() const;
     QStringList selectedItems() const;
     bool currentIsTranslationFile() const;

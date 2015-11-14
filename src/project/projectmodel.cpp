@@ -1139,7 +1139,13 @@ void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData
 {
     int dataCount = data.count();
     int rowsCount = node->rows.count();
-    Q_ASSERT(dataCount == rowsCount);
+    //Q_ASSERT(dataCount == rowsCount);
+    if (dataCount != rowsCount)
+    {
+        m_delayedReloadTimer->start(2000);
+        qWarning()<<"dataCount != rowsCount, scheduling full refresh";
+        return;
+    }
 
     for (int row = 0; row < rowsCount; row++)
         node->rows[row]->setFileStats(data.at(row));

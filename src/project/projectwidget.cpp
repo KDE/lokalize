@@ -284,7 +284,7 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     //m_proxyModel->setDynamicSortFilter(true);
     setModel(m_proxyModel);
     connect(Project::instance()->model(), SIGNAL(loadingAboutToStart()), this, SLOT(modelAboutToReload()));
-    connect(Project::instance()->model(), SIGNAL(loadingFinished()), this, SLOT(modelReloaded()));
+    connect(Project::instance()->model(), SIGNAL(loadingFinished()), this, SLOT(modelReloaded()), Qt::QueuedConnection);
 
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
@@ -322,17 +322,26 @@ void ProjectWidget::modelAboutToReload()
 
 void ProjectWidget::modelReloaded()
 {
-    setCurrentItem(m_currentItemPathBeforeReload);
+    int i=10;
+    while(--i>=0)
+    {
+        QCoreApplication::processEvents();
+        if (setCurrentItem(m_currentItemPathBeforeReload))
+            break;
+    }
+    if (proxyModel()->filterRegExp().pattern().size()>2)
+        expandItems();
 }
 
 
-void ProjectWidget::setCurrentItem(const QString& u)
+bool ProjectWidget::setCurrentItem(const QString& u)
 {
     if (u.isEmpty())
-        return;
-    setCurrentIndex(m_proxyModel->mapFromSource(
-                Project::instance()->model()->indexForUrl(QUrl::fromLocalFile(u)))
-                                          /*,true*/);
+        return true;
+    QModelIndex index = m_proxyModel->mapFromSource(Project::instance()->model()->indexForUrl(QUrl::fromLocalFile(u)));
+    if (index.isValid())
+        setCurrentIndex(index);
+    return index.isValid();
 }
 
 QString ProjectWidget::currentItem() const
