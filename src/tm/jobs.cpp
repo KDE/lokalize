@@ -71,6 +71,9 @@ QThreadPool* TM::threadPool()
 static bool stop=false;
 void TM::cancelAllJobs(){stop=true;}
 
+static qlonglong newTMSourceEntryCount = 0;
+static qlonglong reusedTMSourceEntryCount = 0;
+
 /**
  * splits string into words, removing any markup
  *
@@ -438,7 +441,8 @@ static bool doInsertEntry(CatalogString source,
     if (!query1.next())
     {
 //BEGIN insert source anew
-        qDebug() <<"insert source anew";;
+        //qDebug() <<"insert source anew";;
+        ++newTMSourceEntryCount;
 
         QString sql=QStringLiteral("INSERT INTO source_strings (source, source_markup, source_accel) VALUES (?, ?, ?)");
         if (qpsql)
@@ -466,6 +470,7 @@ static bool doInsertEntry(CatalogString source,
     else
     {
         sourceId=query1.value(0).toLongLong();
+        ++reusedTMSourceEntryCount;
         //qDebug()<<"SOURCE ALREADY PRESENT"<<source.string<<sourceId;
     }
     query1.clear();
@@ -1554,7 +1559,6 @@ void ScanJob::run()
 {
     if (stop || !QSqlDatabase::contains(m_dbName))
     {
-        qDebug()<<"scanjob dtop"<<m_filePath<<m_dbName<<QSqlDatabase::contains(m_dbName)<<stop;
         return;
     }
     qWarning()<<"scan job started for"<<m_filePath<<m_dbName<<stop<<m_dbName;
@@ -1568,7 +1572,7 @@ void ScanJob::run()
     TMConfig c=getConfig(db,true);
     QRegExp rxClean1(c.markup);rxClean1.setMinimal(true);
 
-    Catalog catalog(QThread::currentThread());
+    Catalog catalog(0);
     if (Q_LIKELY(catalog.loadFromUrl(m_filePath, QString(), &m_size, /*no auto save*/true)==0))
     {
         if (c.targetLangCode!=catalog.targetLangCode())
@@ -1625,7 +1629,7 @@ void ScanJob::run()
                 ++m_added;
         }
         QSqlQuery queryEnd(QStringLiteral("END"),db);
-        qDebug() <<"ScanJob: done "<<a.elapsed();
+        qDebug() <<"ScanJob: done "<<a.elapsed()<<"new source entries:"<<newTMSourceEntryCount<<"reused:"<<reusedTMSourceEntryCount;
     }
     //qWarning() <<"Done scanning "<<m_url.prettyUrl();
     m_time=a.elapsed();
