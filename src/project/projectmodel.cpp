@@ -1433,6 +1433,7 @@ void UpdateStatsJob::run()
         QSqlQuery queryBegin(QStringLiteral("BEGIN"),db);
     }
 #endif
+    m_info.reserve(m_files.count());
     for (int pos=0; pos<m_files.count(); pos++)
     {
         if (m_status!=0)
