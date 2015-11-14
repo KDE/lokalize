@@ -233,18 +233,21 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
 #if !defined(NOKDE) || defined(SONNET_STATIC)
+    const Project& project = *Project::instance();
+
     const QString text=currentBlock().text();
     QString word=text.mid(start,count);
-    if (m_sourceString.contains(word))
+    if (m_sourceString.contains(word)
+        && project.targetLangCode().leftRef(2) != project.sourceLangCode().leftRef(2))
         return;
 
-    QString accel=Project::instance()->accel();
+    const QString accel = project.accel();
 
     if (!isWordMisspelled(word.remove(accel)))
         return;
     count=word.length();//safety
     
-    bool smthPreceeding=(start>0) &&
+    bool smthPreceeding = (start>0) &&
             (accel.endsWith(text.at(start-1))
                 || text.at(start-1)==QChar(0x0000AD) //soft hyphen
             );

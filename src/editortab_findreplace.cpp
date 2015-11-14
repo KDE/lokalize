@@ -584,7 +584,8 @@ void EditorTab::spellcheckNext()
             qWarning()<<_spellcheckStartPos.form;
             bool continueFromStart=
                 !(_spellcheckStartPos.entry==0 && _spellcheckStartPos.form==0)
-                && KMessageBox::questionYesNo(this,i18n("Lokalize has reached end of document. Do you want to continue from start?"), i18nc("@title", "Spellcheck"))==KMessageBox::Yes;
+                && KMessageBox::questionYesNo(this,i18n("Lokalize has reached end of document. Do you want to continue from start?"),
+                                              i18nc("@title", "Spellcheck"))==KMessageBox::Yes;
             if (continueFromStart)
             {
                 _spellcheckStartPos.entry=0;
@@ -600,9 +601,7 @@ void EditorTab::spellcheckNext()
     }
     while (m_catalog->msgstr(_spellcheckPos).isEmpty() || !m_catalog->isApproved(_spellcheckPos.entry));
 
-    QString text=m_catalog->msgstr(_spellcheckPos);
-    text.remove('&');
-    m_sonnetDialog->setBuffer(text);
+    m_sonnetDialog->setBuffer(m_catalog->msgstr(_spellcheckPos).remove(Project::instance()->accel()));
 }
 
 void EditorTab::spellcheckStop()
@@ -618,14 +617,18 @@ void EditorTab::spellcheckCancel()
 
 void EditorTab::spellcheckShow(const QString &word, int offset)
 {
+    const Project& project = *Project::instance();
+    const QString accel = project.accel();
+
     QString source=m_catalog->source(_spellcheckPos);
-    source.remove('&');
-    if (source.contains(word))
+    source.remove(accel);
+    if (source.contains(word) && project.targetLangCode().leftRef(2) != project.sourceLangCode().leftRef(2))
     {
         m_sonnetDialog->setUpdatesEnabled(false);
         m_sonnetChecker->continueChecking();
         return;
     }
+
     m_sonnetDialog->setUpdatesEnabled(true);
 
     show();
