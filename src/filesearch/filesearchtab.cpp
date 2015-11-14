@@ -197,6 +197,10 @@ SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector
 void SearchJob::run()
 {
     QTime a;a.start();
+    bool removeAmpFromSource = searchParams.sourcePattern.patternSyntax()==QRegExp::FixedString
+                            && !searchParams.sourcePattern.pattern().contains(QLatin1Char('&'));
+    bool removeAmpFromTarget = searchParams.targetPattern.patternSyntax()==QRegExp::FixedString
+                            && !searchParams.targetPattern.pattern().contains(QLatin1Char('&'));
     foreach(const QString& filePath, files)
     {
         Catalog catalog(0); 
@@ -216,9 +220,9 @@ void SearchJob::run()
                 int sp=0;
                 int tp=0;
                 if (!searchParams.sourcePattern.isEmpty())
-                    sp=searchParams.sourcePattern.indexIn(catalog.source(pos));
+                    sp=searchParams.sourcePattern.indexIn(removeAmpFromSource?catalog.source(pos).remove(QLatin1Char('&')):catalog.source(pos));
                 if (!searchParams.targetPattern.isEmpty())
-                    tp=searchParams.targetPattern.indexIn(catalog.target(pos));
+                    tp=searchParams.targetPattern.indexIn(removeAmpFromTarget?catalog.target(pos).remove(QLatin1Char('&')):catalog.target(pos));
                 //int np=searchParams.notesPattern.indexIn(catalog.notes(pos));
 
                 if ((sp!=-1)!=searchParams.invertSource && (tp!=-1)!=searchParams.invertTarget)
