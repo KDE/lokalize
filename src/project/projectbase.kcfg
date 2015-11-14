@@ -58,7 +58,7 @@
 -->
     </entry>
     <entry name="Markup"  type="String">
-        <default>(&lt;[^&gt;]+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;)+</default>
+        <default>(&lt;[^&gt;]+&gt;)+|(&amp;[A-Za-z_:][A-Za-z0-9_\.:-]*;|%[0-9])+</default>
     </entry>
     <entry name="WordWrap"  type="Int">
         <default>80</default>
