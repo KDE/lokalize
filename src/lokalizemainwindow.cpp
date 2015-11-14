@@ -554,7 +554,7 @@ void LokalizeMainWindow::setupActions()
 
     setupGUI(Default,QStringLiteral("lokalizemainwindowui.rc"));
 
-    qWarning()<<"finished"<<aaa.elapsed();
+    //qDebug()<<"action setup finished"<<aaa.elapsed();
 }
 
 bool LokalizeMainWindow::closeProject()

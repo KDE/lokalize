@@ -240,7 +240,7 @@ int main(int argc, char **argv)
         Project::instance()->model()->threadPool()->waitForDone(1000);
         TM::threadPool()->waitForDone(1000);
         QThreadPool::globalInstance()->waitForDone(1000);
-        qWarning()<<"QCoreApplication::processEvents()...";
+        //qDebug()<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0,0);
     }

@@ -84,7 +84,7 @@ public:
         bool isFilled(){return !host.isEmpty() && !db.isEmpty() && !user.isEmpty();}
     };
 
-    explicit OpenDBJob(const QString& dbName, DbType type=TM::Local, bool reconnect=false, const ConnectionParams& connParams=ConnectionParams(), QObject* parent=0);
+    explicit OpenDBJob(const QString& dbName, DbType type=TM::Local, bool reconnect=false, const ConnectionParams& connParams=ConnectionParams());
     ~OpenDBJob();
 
     int priority()const{return OPENDB;}
@@ -121,7 +121,7 @@ class CloseDBJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit CloseDBJob(const QString& dbName, QObject* parent=0);
+    explicit CloseDBJob(const QString& dbName);
     ~CloseDBJob();
 
     int priority()const{return CLOSEDB;}
@@ -148,8 +148,7 @@ public:
               const QString& ctxt,
               const QString& file,
               const DocPosition&,//for back tracking
-              const QString& dbName,
-              QObject* parent=0);
+              const QString& dbName);
     ~SelectJob();
 
     int priority()const{return SELECT;}
@@ -190,7 +189,7 @@ class RemoveJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit RemoveJob(const TMEntry& entry, QObject* parent=0);
+    explicit RemoveJob(const TMEntry& entry);
     ~RemoveJob();
     int priority()const{return REMOVE;}
 
@@ -222,8 +221,7 @@ public:
                        int form,
                        bool approved,
                        //const DocPosition&,//for back tracking
-                       const QString& dbName,
-                       QObject* parent=0);
+                       const QString& dbName);
 
     ~UpdateJob(){}
 
@@ -246,7 +244,7 @@ private:
 class ScanJob: public QRunnable
 {
 public:
-    explicit ScanJob(const QString& filePath, const QString& dbName, QObject* parent = 0);
+    explicit ScanJob(const QString& filePath, const QString& dbName);
     ~ScanJob();
 
     int priority()const{return SCAN;}
@@ -271,9 +269,8 @@ class ScanJobFeedingBack: public QObject, public ScanJob
     Q_OBJECT
 public:
     explicit ScanJobFeedingBack(const QString& filePath,
-                     const QString& dbName,
-                     QObject* parent=0)
-    : ScanJob(filePath, dbName, parent)
+                     const QString& dbName)
+    : QObject(), ScanJob(filePath, dbName)
     {
         setAutoDelete(false);
     }
@@ -290,8 +287,8 @@ class BatchSelectFinishedJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit BatchSelectFinishedJob(QWidget* view,QObject* parent=0)
-        : QObject(parent), QRunnable()
+    explicit BatchSelectFinishedJob(QWidget* view)
+        : QObject(), QRunnable()
         , m_view(view)
     {}
     ~BatchSelectFinishedJob(){};
@@ -339,8 +336,7 @@ class ImportTmxJob: public QRunnable
 {
 public:
     explicit ImportTmxJob(const QString& url,
-                     const QString& dbName,
-                     QObject* parent=0);
+                     const QString& dbName);
     ~ImportTmxJob();
 
     int priority()const{return IMPORT;}
@@ -362,8 +358,7 @@ class ExportTmxJob: public QRunnable
 {
 public:
     explicit ExportTmxJob(const QString& url,
-                     const QString& dbName,
-                     QObject* parent=0);
+                     const QString& dbName);
     ~ExportTmxJob();
 
     int priority()const{return IMPORT;}
@@ -385,7 +380,7 @@ class ExecQueryJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit ExecQueryJob(const QString& queryString, const QString& dbName, QObject* parent=0);
+    explicit ExecQueryJob(const QString& queryString, const QString& dbName);
     ~ExecQueryJob();
 
     int priority()const{return TMTABSELECT;}

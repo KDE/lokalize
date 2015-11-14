@@ -259,7 +259,7 @@ void SearchJob::run()
         //if (catalogResults.size())
         //    results[path]=catalogResults;
     }
-    qDebug()<<"done in"<<a.elapsed();
+    //qDebug()<<"searching took"<<a.elapsed();
     emit done(this);
 }
 

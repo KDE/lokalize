@@ -590,7 +590,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
         return line;
     }
 
-    qWarning() <<"file opened in"<<a.elapsed();
+    if (a.elapsed()>100) qDebug()<<filePath<<"opened in"<<a.elapsed();
 
     //ok...
     clear();

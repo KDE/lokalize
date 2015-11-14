@@ -123,7 +123,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
 
     if (!m_path.isEmpty())
     {
-        TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
+        TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID());
         closeDBJob->setAutoDelete(true);
         TM::threadPool()->start(closeDBJob, CLOSEDB);
     }
@@ -178,15 +178,15 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
         QaModel::instance()->loadRules(qaPath());
     }
 
-    qDebug()<<"until emitting signal"<<a.elapsed();
+    //qDebug()<<"until emitting signal"<<a.elapsed();
 
     emit loaded();
-    qDebug()<<"loaded!"<<a.elapsed();
+    //qDebug()<<"loaded!"<<a.elapsed();
 }
 
 void Project::reinit()
 {
-    TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID(),this);
+    TM::CloseDBJob* closeDBJob=new TM::CloseDBJob(projectID());
     closeDBJob->setAutoDelete(true);
     TM::threadPool()->start(closeDBJob, CLOSEDB);
 
@@ -200,7 +200,7 @@ void Project::reinit()
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
     if (QFileInfo(possiblyRelPath).isRelative())
-        return QDir::cleanPath(m_projectDir%'/'%possiblyRelPath);
+        return QDir::cleanPath(m_projectDir % QLatin1Char('/') % possiblyRelPath);
     return possiblyRelPath;
 }
 
