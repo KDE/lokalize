@@ -112,13 +112,13 @@ int main(int argc, char **argv)
     parser.addVersionOption();
     parser.addHelpOption();
     about.setupCommandLine(&parser);
-    parser.process(app);
-    about.processCommandLine(&parser);
-
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
     parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n( "Do not scan files of the project.")));
     parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("project"), i18n( "Load specified project."), QStringLiteral("filename")));
     parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("+[URL]"), i18n( "Document to open" )));
+    parser.process(app);
+    about.processCommandLine(&parser);
+
 #else
     QCoreApplication::setApplicationName(QStringLiteral("Lokalize"));
     QCoreApplication::setApplicationVersion(LOKALIZE_VERSION);
@@ -147,6 +147,14 @@ int main(int argc, char **argv)
         // no session.. just start up normally
 
         QString projectFilePath = parser.value(QStringLiteral("project"));
+
+        QVector<QString> urls;
+        Q_FOREACH (const QString& filePath, parser.positionalArguments())
+            if (filePath.endsWith(QLatin1String(".lokalize")))
+                projectFilePath = filePath;
+            else if (QFile::exists(filePath))
+                urls.append(filePath);
+
         if (projectFilePath.length())
         {
             // load needs an absolute path
@@ -162,9 +170,6 @@ int main(int argc, char **argv)
         SettingsController::instance()->setMainWindowPtr(lmw);
         lmw->show();
 
-        QVector<QString> urls;
-        for (int j=0; j<parser.positionalArguments().count(); j++)
-            if (QFile::exists(parser.positionalArguments().at(j))) urls.append(parser.positionalArguments().at(j));
         if (urls.size())
             new DelayedFileOpener(urls, lmw);
 
