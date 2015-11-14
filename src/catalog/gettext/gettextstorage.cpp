@@ -291,7 +291,8 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     {
         if (s.size()>=preLen)
         {
-            content+=s.midRef(preLen) + QLatin1Char('\n');
+            content+=s.midRef(preLen);
+            content+=QLatin1Char('\n');
         }
     }
 
