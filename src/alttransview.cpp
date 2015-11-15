@@ -178,7 +178,7 @@ void AltTransView::process()
     if(!isVisible() && !Settings::self()->altTransViewEverShownWithData())
     {
         if (KMessageBox::questionYesNo(this,i18n("There is useful data available in Alternate Translations view.\n\n"
-            "For Gettext PO files it displays difference between current source text"
+            "For Gettext PO files it displays difference between current source text "
             "and the source text corresponding to the fuzzy translation found by msgmerge when updating PO based on POT template.\n\n"
             "Do you want to show the view with the data?"), m_normTitle)==KMessageBox::Yes)
           show();
