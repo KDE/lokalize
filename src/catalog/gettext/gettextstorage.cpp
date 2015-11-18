@@ -321,26 +321,27 @@ QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) con
 
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
 {
-    QVector<QStringRef> resultRef;
+    QStringList result;
     QStringList commentLines=m_entries.at(pos.entry).comment().split('\n');
 
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
     foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
     {
-        resultRef += uiLine.midRef(15).split(' ');
+        foreach(const QStringRef &fileRef, uiLine.midRef(15).split(' '))
+        {
+            result << fileRef.toString();
+        }
     }
 
-    bool hasUi=!resultRef.isEmpty();
+    bool hasUi=!result.isEmpty();
     static const QRegExp cpp_re(QStringLiteral("^#: "));
     foreach(const QString &cppLine, commentLines.filter(cpp_re))
     {
         if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
-        resultRef += cppLine.midRef(3).split(' ');
-    }
-    QStringList result; result.reserve(resultRef.size());
-    foreach(const QStringRef &fileRef, resultRef)
-    {
-        result << fileRef.toString();
+        foreach(const QStringRef &fileRef, cppLine.midRef(3).split(' '))
+        {
+            result << fileRef.toString();
+        }
     }
     return result;
 }
