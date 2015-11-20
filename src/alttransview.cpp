@@ -175,7 +175,7 @@ void AltTransView::process()
         m_hasInfo=true;
         setWindowTitle(m_hasInfoTitle);
     }
-    if(!isVisible() && !Settings::self()->altTransViewEverShownWithData())
+    if(!isVisible() && !Settings::altTransViewEverShownWithData())
     {
         if (KMessageBox::questionYesNo(this,i18n("There is useful data available in Alternate Translations view.\n\n"
             "For Gettext PO files it displays difference between current source text "
@@ -183,7 +183,7 @@ void AltTransView::process()
             "Do you want to show the view with the data?"), m_normTitle)==KMessageBox::Yes)
           show();
 
-        Settings::self()->altTransViewEverShownWithDataItem()->setProperty(true);
+        Settings::setAltTransViewEverShownWithData(true);
     }
 
     CatalogString source=m_catalog->sourceWithTags(m_entry.toDocPosition());

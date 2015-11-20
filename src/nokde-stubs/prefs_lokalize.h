@@ -99,6 +99,18 @@ public:
     }
 
     static
+    bool altTransViewEverShownWithData()
+    {
+        return self()->mAltTransViewEverShownWithData;
+    }
+
+    static
+    void setAltTransViewEverShownWithData( bool v )
+    {
+        self()->mAltTransViewEverShownWithData = v;
+    }
+
+    static
     int wordCompletionLength()
     {
       return self()->mWordCompletionLength;
@@ -151,6 +163,7 @@ public:
     bool mAutoApprove;
     bool mAutoSpellcheck;
     bool mMouseWheelGo;
+    bool mAltTransViewEverShownWithData;
 
     // TM
     bool mPrefetchTM;

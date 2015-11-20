@@ -53,6 +53,7 @@ Settings::Settings()
  , mAutoApprove(true)
  , mAutoSpellcheck(true)
  , mMouseWheelGo(false)
+ , mAltTransViewEverShownWithData(false)
 
     // TM
  , mPrefetchTM(false)
@@ -66,6 +67,8 @@ Settings::Settings()
     mAuthorName = s.value(QStringLiteral("Author/Name"), QString()).toString();
     if (mAuthorName.isEmpty()) {mAuthorName = fullUserName(); if (mAuthorName.length()) mAuthorName[0]=mAuthorName.at(0).toUpper();}
     mAuthorEmail = s.value(QStringLiteral("Author/Email"), QString()).toString();
+
+    mAltTransViewEverShownWithData = s.value(QStringLiteral("Editor/AltTransViewEverShownWithData"),false).toBool();
 }
 
 void Settings::save()
@@ -73,6 +76,8 @@ void Settings::save()
     QSettings s;
     s.setValue(QStringLiteral("Author/Name"), mAuthorName);
     s.setValue(QStringLiteral("Author/Email"), mAuthorEmail);
+
+    s.setValue(QStringLiteral("Editor/AltTransViewEverShownWithData"), mAltTransViewEverShownWithData);
 }
 
 Settings *Settings::self()
