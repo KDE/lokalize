@@ -41,8 +41,8 @@
 
 using namespace TM;
 
-static QString tmFileExtension(TM_DATABASE_EXTENSION);
-static QString remoteTmExtension(REMOTETM_DATABASE_EXTENSION);
+static QString tmFileExtension = QStringLiteral(TM_DATABASE_EXTENSION);
+static QString remoteTmExtension = QStringLiteral(REMOTETM_DATABASE_EXTENSION);
 
 
 DBFilesModel* DBFilesModel::_instance=0;
@@ -82,7 +82,7 @@ DBFilesModel::DBFilesModel()
 
     int count=rowCount(rootIndex());
     if (count) calcStats(rootIndex(),0,count-1);
-    openDB("default"); //behave when no project is loaded
+    openDB(QStringLiteral("default")); //behave when no project is loaded
 }
 
 DBFilesModel::~DBFilesModel()
@@ -97,7 +97,7 @@ bool DBFilesModel::filterAcceptsRow ( int source_row, const QModelIndex& source_
         return true;
     
     const QString& fileName=m_fileSystemModel->index(source_row, 0, source_parent).data().toString();
-    return (fileName.endsWith(tmFileExtension) && !fileName.endsWith("-journal.db")) || fileName.endsWith(remoteTmExtension);
+    return (fileName.endsWith(tmFileExtension) && !fileName.endsWith(QLatin1String("-journal.db"))) || fileName.endsWith(remoteTmExtension);
 }
 
 QModelIndex DBFilesModel::rootIndex() const
