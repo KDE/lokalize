@@ -2,7 +2,7 @@
 File=lokalize.kcfg
 ClassName=Settings
 Singleton=true
-Mutators=Leds,AutoSpellcheck
+Mutators=Leds,AutoSpellcheck,AltTransViewEverShownWithData
 ItemAccessors=true
 SetUserTexts=true
 # will create the necessary code for setting those variables
