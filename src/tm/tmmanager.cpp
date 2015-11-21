@@ -88,7 +88,7 @@ void TMManagerWin::addDir()
     if (!index.isValid())
         return;
 
-    QString dir=QFileDialog::getExistingDirectory(this, i18nc("@title:window","Select Directory to be scanned"));
+    QString dir=QFileDialog::getExistingDirectory(this, i18nc("@title:window","Select Directory to be scanned"), Project::instance()->translationsRoot());
     if (!dir.isEmpty())
         scanRecursive(QStringList(dir),index.sibling(index.row(), 0).data().toString());
 }
