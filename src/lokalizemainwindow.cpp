@@ -821,10 +821,10 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
     }
 
     //qWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
-    addObject(lokalize,"Lokalize",ChildrenInterface::AutoConnectSignals);
-    addObject(Project::instance(),"Project",ChildrenInterface::AutoConnectSignals);
-    addObject(editor,"Editor",ChildrenInterface::AutoConnectSignals);
-    setXMLFile("scriptsui.rc",true);
+    addObject(lokalize,QLatin1String("Lokalize"),ChildrenInterface::AutoConnectSignals);
+    addObject(Project::instance(),QLatin1String("Project"),ChildrenInterface::AutoConnectSignals);
+    addObject(editor,QLatin1String("Editor"),ChildrenInterface::AutoConnectSignals);
+    setXMLFile(QLatin1String("scriptsui.rc"),true);
 }
 
 void ProjectScriptingPlugin::setDOMDocument (const QDomDocument &document, bool merge)
@@ -885,7 +885,7 @@ void LokalizeMainWindow::checkForProjectAlreadyOpened()
 void LokalizeMainWindow::registerDBusAdaptor()
 {
     new MainWindowAdaptor(this);
-    QDBusConnection::sessionBus().registerObject("/ThisIsWhatYouWant", this);
+    QDBusConnection::sessionBus().registerObject(QLatin1String("/ThisIsWhatYouWant"), this);
 
     //qWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 #ifndef Q_OS_MAC

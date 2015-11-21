@@ -85,8 +85,8 @@ int XliffStorage::load(QIODevice* device)
 
 
     QDomElement file=m_doc.elementsByTagName(FILE).at(0).toElement();
-    m_sourceLangCode=file.attribute(QStringLiteral("source-language")).replace('-', '_');
-    m_targetLangCode=file.attribute(QStringLiteral("target-language")).replace('-', '_');
+    m_sourceLangCode=file.attribute(QStringLiteral("source-language")).replace(u'-', u'_');
+    m_targetLangCode=file.attribute(QStringLiteral("target-language")).replace(u'-', u'_');
     m_numberOfPluralForms=numberOfPluralFormsForLangCode(m_targetLangCode);
 
     //Create entry mapping.
@@ -105,14 +105,14 @@ int XliffStorage::load(QIODevice* device)
         m_map<<i;
         m_unitsById[entries.at(i).toElement().attribute(QStringLiteral("id"))]=i;
 
-        if (parentElement.tagName()=="group" && parentElement.attribute(QStringLiteral("restype"))=="x-gettext-plurals")
+        if (parentElement.tagName()==QLatin1String("group") && parentElement.attribute(QStringLiteral("restype"))==QLatin1String("x-gettext-plurals"))
         {
             m_plurals.insert(i);
             int localPluralNum=m_numberOfPluralForms;
             while (--localPluralNum>0 && (++i)<size)
             {
                 QDomElement p=entries.at(i).parentNode().toElement();
-                if (p.tagName()=="group" && p.attribute(QStringLiteral("restype"))=="x-gettext-plurals")
+                if (p.tagName()==QLatin1String("group") && p.attribute(QStringLiteral("restype"))==QLatin1String("x-gettext-plurals"))
                     continue;
 
                 parentElement.appendChild(entries.at(m_map.last()).cloneNode());
@@ -151,15 +151,15 @@ int XliffStorage::load(QIODevice* device)
     if (header.isNull())
         header=file.insertBefore(m_doc.createElement(QStringLiteral("header")), QDomElement()).toElement();
     QDomElement toolElem=header.firstChildElement(QStringLiteral("tool"));
-    while (!toolElem.isNull() && toolElem.attribute(QStringLiteral("tool-id"))!="lokalize-" LOKALIZE_VERSION)
+    while (!toolElem.isNull() && toolElem.attribute(QStringLiteral("tool-id"))!=QLatin1String("lokalize-" LOKALIZE_VERSION))
         toolElem=toolElem.nextSiblingElement(QStringLiteral("tool"));
 
     if (toolElem.isNull())
     {
         toolElem=header.appendChild(m_doc.createElement(QStringLiteral("tool"))).toElement();
-        toolElem.setAttribute(QStringLiteral("tool-id"),"lokalize-" LOKALIZE_VERSION);
+        toolElem.setAttribute(QStringLiteral("tool-id"),QStringLiteral("lokalize-" LOKALIZE_VERSION));
         toolElem.setAttribute(QStringLiteral("tool-name"),QStringLiteral("Lokalize"));
-        toolElem.setAttribute(QStringLiteral("tool-version"),LOKALIZE_VERSION);
+        toolElem.setAttribute(QStringLiteral("tool-version"),QStringLiteral(LOKALIZE_VERSION));
     }
 
     qWarning()<<chrono.elapsed();
@@ -187,10 +187,10 @@ void XliffStorage::setTargetLangCode(const QString& langCode)
     m_targetLangCode=langCode;
 
     QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
-    if (m_targetLangCode!=file.attribute(QStringLiteral("target-language")).replace('-', '_'))
+    if (m_targetLangCode!=file.attribute(QStringLiteral("target-language")).replace(u'-', u'_'))
     {
         QString l=langCode;
-        file.setAttribute(QStringLiteral("target-language"), l.replace('_', '-'));
+        file.setAttribute(QStringLiteral("target-language"), l.replace(u'_', u'-'));
     }
 }
 
@@ -325,7 +325,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 {
                     const InlineTag& tag=data->tags.first();
                     QString mid=cData.mid(localStartPos);
-                    qWarning()<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
+                    qDebug()<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
                     if (mid.size())
                         c.deleteData(localStartPos,mid.size());
                     QDomElement newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n).toElement();
@@ -398,7 +398,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                         elem.insertAfter( elem.ownerDocument().createTextNode(QString()),newNode);
 
                     data->actionType=ContentEditingData::CheckLength;
-                    return QString('a');//we're done here
+                    return QStringLiteral("a");//we're done here
                 }
                 //END INSERT TAG
                 cData=c.data();
@@ -446,7 +446,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 n=n.nextSibling();
                 elem.removeChild(temp);
                 data->actionType=ContentEditingData::CheckLength;
-                return QString('a');//we're done here
+                return QStringLiteral("a");//we're done here
             }
             //END DELETE TAG
 
@@ -578,7 +578,7 @@ void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
         QDomElement ef=targetEl.firstChildElement(QStringLiteral("external-file"));
         if (ef.isNull())
             ef=targetEl.appendChild(m_doc.createElement(QStringLiteral("external-file"))).toElement();
-        ef.setAttribute("href",arg);
+        ef.setAttribute(QStringLiteral("href"),arg);
         return;
     }
 
@@ -697,7 +697,7 @@ Phase XliffStorage::updatePhase(const Phase& phase)
     phaseElem.setAttribute(QStringLiteral("contact-name"), phase.contact);
     phaseElem.setAttribute(QStringLiteral("contact-email"),phase.email);
     //Q_ASSERT(phase.contact.length()); //is empty when exiting w/o saving
-    if (!phase.phone.isEmpty()) phaseElem.setAttribute("contact-phone",phase.phone);
+    if (!phase.phone.isEmpty()) phaseElem.setAttribute(QLatin1String("contact-phone"),phase.phone);
     phaseElem.setAttribute(QStringLiteral("tool-id"),      phase.tool);
     if (phase.date.isValid()) phaseElem.setAttribute(QStringLiteral("date"),phase.date.toString(Qt::ISODate));
     return prev;
@@ -729,19 +729,19 @@ Phase XliffStorage::phase(const QString& name) const
 QMap<QString,Tool> XliffStorage::allTools() const
 {
     QMap<QString,Tool> result;
-    QDomElement file=m_doc.elementsByTagName("file").at(0).toElement();
-    QDomElement header=file.firstChildElement("header");
-    QDomElement toolElem=header.firstChildElement("tool");
+    QDomElement file=m_doc.elementsByTagName(QStringLiteral("file")).at(0).toElement();
+    QDomElement header=file.firstChildElement(QStringLiteral("header"));
+    QDomElement toolElem=header.firstChildElement(QStringLiteral("tool"));
     while (!toolElem.isNull())
     {
         Tool tool;
-        tool.tool       =toolElem.attribute("tool-id");
-        tool.name       =toolElem.attribute("tool-name");
-        tool.version    =toolElem.attribute("tool-version");
-        tool.company    =toolElem.attribute("tool-company");
+        tool.tool       =toolElem.attribute(QStringLiteral("tool-id"));
+        tool.name       =toolElem.attribute(QStringLiteral("tool-name"));
+        tool.version    =toolElem.attribute(QStringLiteral("tool-version"));
+        tool.company    =toolElem.attribute(QStringLiteral("tool-company"));
 
         result.insert(tool.tool, tool);
-        toolElem=toolElem.nextSiblingElement("tool");
+        toolElem=toolElem.nextSiblingElement(QStringLiteral("tool"));
     }
     return result;
 }
@@ -753,19 +753,20 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
     QDomElement elem = unitForPos(pos.entry).firstChildElement(QStringLiteral("context-group"));
     while (!elem.isNull())
     {
-        if (elem.attribute(QStringLiteral("purpose")).contains("location"))
+        if (elem.attribute(QStringLiteral("purpose")).contains(QLatin1String("location")))
         {
             QDomElement context = elem.firstChildElement(QStringLiteral("context"));
             while (!context.isNull())
             {
                 QString sourcefile;
                 QString linenumber;
-                if (context.attribute(QStringLiteral("context-type"))=="sourcefile")
-                    sourcefile=context.text();
-                else if (context.attribute(QStringLiteral("context-type"))=="linenumber")
-                    linenumber=context.text();
-                if (!( sourcefile.isEmpty()&&linenumber.isEmpty() ))
-                    result.append(sourcefile%':'%linenumber);
+                const QString contextType = context.attribute(QStringLiteral("context-type"));
+                if (contextType == QLatin1String("sourcefile"))
+                    sourcefile = context.text();
+                else if (contextType == QLatin1String("linenumber"))
+                    linenumber = context.text();
+                if (!( sourcefile.isEmpty() && linenumber.isEmpty() ))
+                    result.append(sourcefile % ':' % linenumber);
 
                 context=context.nextSiblingElement(QStringLiteral("context"));
             }
@@ -783,9 +784,9 @@ static void initNoteFromElement(Note& note, QDomElement elem)
     note.content=elem.text();
     note.from=elem.attribute(QStringLiteral("from"));
     note.lang=elem.attribute(QStringLiteral("xml:lang"));
-    if (elem.attribute(QStringLiteral("annotates"))=="source")
+    if (elem.attribute(QStringLiteral("annotates"))==QLatin1String("source"))
         note.annotates=Note::Source;
-    else if (elem.attribute(QStringLiteral("annotates"))=="target")
+    else if (elem.attribute(QStringLiteral("annotates"))==QLatin1String("target"))
         note.annotates=Note::Target;
     bool ok;
     note.priority=elem.attribute(QStringLiteral("priority")).toInt(&ok);
@@ -849,8 +850,8 @@ Note XliffStorage::setNote(DocPosition pos, const Note& note)
     if (!note.content.isEmpty())
     {
         ContentEditingData data(0,note.content); content(elem,&data);
-        if (!note.from.isEmpty()) elem.setAttribute("from",note.from);
-        if (note.priority) elem.setAttribute("priority",note.priority);
+        if (!note.from.isEmpty()) elem.setAttribute(QStringLiteral("from"),note.from);
+        if (note.priority) elem.setAttribute(QStringLiteral("priority"),note.priority);
     }
     else
         unit.removeChild(elem);
@@ -865,7 +866,7 @@ QStringList XliffStorage::noteAuthors() const
     int i=notes.size();
     while (--i>=0)
     {
-        QString from=notes.at(i).toElement().attribute("from");
+        QString from=notes.at(i).toElement().attribute(QStringLiteral("from"));
         if (!from.isEmpty())
             result.insert(from);
     }
@@ -989,7 +990,7 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 {
     targetInsert(pos,QString()); //adds <taget> if needed
     QDomElement target=targetForPos(pos.entry);
-    TargetState prev=stringToState(target.attribute("state"));
+    TargetState prev=stringToState(target.attribute(QStringLiteral("state")));
     target.setAttribute(QStringLiteral("state"),xliff_states[state]);
 
     unitForPos(pos.entry).setAttribute(QStringLiteral("approved"), noyes[state==SignedOff]);
@@ -999,7 +1000,7 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 TargetState XliffStorage::state(const DocPosition& pos) const
 {
     QDomElement target=targetForPos(pos.entry);
-    if (!target.hasAttribute(QStringLiteral("state")) && unitForPos(pos.entry).attribute(QStringLiteral("approved"))=="yes")
+    if (!target.hasAttribute(QStringLiteral("state")) && unitForPos(pos.entry).attribute(QStringLiteral("approved"))==QLatin1String("yes"))
         return SignedOff;
     return stringToState(target.attribute(QStringLiteral("state")));
 }
@@ -1012,7 +1013,7 @@ bool XliffStorage::isEmpty(const DocPosition& pos) const
 
 bool XliffStorage::isEquivTrans(const DocPosition& pos) const
 {
-    return targetForPos(pos.entry).attribute(QStringLiteral("equiv-trans"))!="no";
+    return targetForPos(pos.entry).attribute(QStringLiteral("equiv-trans"))!=QLatin1String("no");
 }
 
 void XliffStorage::setEquivTrans(const DocPosition& pos, bool equivTrans)

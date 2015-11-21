@@ -674,7 +674,7 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
         //sets right cursor position implicitly -- needed for mouse paste
         {
             QMimeData mimeData;
-            mimeData.setText("");
+            mimeData.setText(QString());
             KTextEdit::insertFromMimeData(&mimeData);
             start=textCursor().position();
         }
@@ -1163,9 +1163,9 @@ bool TranslationUnitTextEdit::event(QEvent *event)
         if (nospell)
             langCode=m_part==DocPosition::Source?m_catalog->sourceLangCode():m_catalog->targetLangCode();
         QLocale l(langCode);
-        if (l.language()!=QLocale::C) tip=l.nativeLanguageName()+QLatin1String(" (");
+        if (l.language()!=QLocale::C) tip = l.nativeLanguageName() + QLatin1String(" (");
         tip+=langCode;
-        if (l.language()!=QLocale::C) tip +=')';
+        if (l.language()!=QLocale::C) tip += ')';
         if (nospell)
             tip+=QLatin1String(" - ")%i18n("no spellcheck available");
         QToolTip::showText(helpEvent->globalPos(), tip);
@@ -1269,14 +1269,14 @@ void TranslationUnitTextEdit::source2target()
     {
         if (!document()->toPlainText().split(delimiter).contains(Settings::authorLocalizedName())) {
             if (!document()->isEmpty())
-                out=", ";
+                out=QLatin1String(", ");
             out+=Settings::authorLocalizedName();
         }
     }
     else if( ctxt.startsWith( QLatin1String("EMAIL OF TRANSLATORS") ) || text.startsWith( QLatin1String("_: EMAIL OF TRANSLATORS\\n") )) {
         if (!document()->toPlainText().split(delimiter).contains(Settings::authorEmail())) {
             if (!document()->isEmpty())
-                out=", ";
+                out=QLatin1String(", ");
             out+=Settings::authorEmail();
         }
     }

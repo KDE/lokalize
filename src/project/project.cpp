@@ -38,6 +38,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
+#include <QLocale>
 #include <QTimer>
 #include <QTime>
 #include <QDir>
@@ -57,7 +58,38 @@
 using namespace Kross;
 #endif
 
+QString getMailingList()
+{
+    QString lang = QLocale::system().name();
+    if(lang.startsWith(QLatin1String("ca")))
+        return QLatin1String("kde-i18n-ca@kde.org");
+    if(lang.startsWith(QLatin1String("de")))
+        return QLatin1String("kde-i18n-de@kde.org");
+    if(lang.startsWith(QLatin1String("hu")))
+        return QLatin1String("kde-l10n-hu@kde.org");
+    if(lang.startsWith(QLatin1String("tr")))
+        return QLatin1String("kde-l10n-tr@kde.org");
+    if(lang.startsWith(QLatin1String("it")))
+        return QLatin1String("kde-i18n-it@kde.org");
+    if(lang.startsWith(QLatin1String("lt")))
+        return QLatin1String("kde-i18n-lt@kde.org");
+    if(lang.startsWith(QLatin1String("nb")))
+        return QLatin1String("i18n-nb@lister.ping.uio.no");
+    if(lang.startsWith(QLatin1String("nl")))
+        return QLatin1String("kde-i18n-nl@kde.org");
+    if(lang.startsWith(QLatin1String("nn")))
+        return QLatin1String("i18n-nn@lister.ping.uio.no");
+    if(lang.startsWith(QLatin1String("pt_BR")))
+        return QLatin1String("kde-i18n-pt_BR@kde.org");
+    if(lang.startsWith(QLatin1String("ru")))
+        return QLatin1String("kde-russian@lists.kde.ru");
+    if(lang.startsWith(QLatin1String("se")))
+        return QLatin1String("i18n-sme@lister.ping.uio.no");
+    if(lang.startsWith(QLatin1String("sl")))
+        return QLatin1String("lugos-slo@lugos.si");
 
+    return QLatin1String("kde-i18n-doc@kde.org");
+}
 
 
 
@@ -326,7 +358,7 @@ void Project::init(const QString& path, const QString& kind, const QString& id,
 void Project::projectOdfCreate()
 {
     QString odf2xliff=QStringLiteral("odf2xliff");
-    if (QProcess::execute(odf2xliff, QStringList("--version"))==-2)
+    if (QProcess::execute(odf2xliff, QStringList(QLatin1String("--version")))==-2)
     {
         KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
         return;
@@ -344,7 +376,7 @@ void Project::projectOdfCreate()
     fi.absoluteDir().mkdir(trFolderName);
 
     QStringList args(odfPath);
-    args.append(fi.absoluteDir().absoluteFilePath(trFolderName)%'/'%fi.baseName()%".xlf");
+    args.append(fi.absoluteDir().absoluteFilePath(trFolderName) % '/' % fi.baseName() % QLatin1String(".xlf"));
     qDebug()<<args;
     QProcess::execute(odf2xliff, args);
 
@@ -353,7 +385,7 @@ void Project::projectOdfCreate()
     
     emit closed();
 
-    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName)+"/index.lokalize", targetLangCode, fi.baseName()%'-'%targetLangCode);
+    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName)+QLatin1String("/index.lokalize"), targetLangCode, fi.baseName()%'-'%targetLangCode);
 
     emit fileOpenRequested(args.at(1));
 }

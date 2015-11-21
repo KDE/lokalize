@@ -440,7 +440,7 @@ void EditorTab::setupActions()
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = actionCategory->addAction(QStringLiteral(_name));\
     action->setText(_text);\
-    action->setIcon(QIcon::fromTheme(_icon));\
+    action->setIcon(QIcon::fromTheme(QStringLiteral(_icon)));\
     ac->setDefaultShortcut(action, QKeySequence( _shortcut ));
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
@@ -485,7 +485,9 @@ void EditorTab::setupActions()
 
 
 
-    action = actionCategory->addAction(QStringLiteral("edit_approve"), new KToolBarPopupAction(QIcon::fromTheme("approved"),i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"),this));
+    action = actionCategory->addAction(QStringLiteral("edit_approve"),
+                                       new KToolBarPopupAction(QIcon::fromTheme(QStringLiteral("approved")),
+                                                               i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","Approved"), this));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_U));
 
     action->setCheckable(true);
@@ -498,7 +500,7 @@ void EditorTab::setupActions()
 #ifdef NOKDE
     QMenu* am=new QMenu(i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)","State"),this);
     action=am->menuAction();
-    ac->addAction("edit_state",action);
+    ac->addAction(QStringLiteral("edit_state"),action);
 #endif
     m_stateAction=action;
     connect(Project::local(), SIGNAL(configChanged()), SLOT(setApproveActionTitle()));
@@ -620,7 +622,7 @@ void EditorTab::setupActions()
     connect( m_view->viewPort(), SIGNAL(gotoNextFuzzyUntrRequested()), this, SLOT(gotoNextFuzzyUntr()) );
     connect( this, SIGNAL(signalNextFuzzyOrUntrAvailable(bool)),action,SLOT(setEnabled(bool)) );
 
-    action=nav->addAction("go_focus_earch_line",m_transUnitsView, SLOT(setFocus()));
+    action=nav->addAction(QStringLiteral("go_focus_earch_line"),m_transUnitsView, SLOT(setFocus()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_L));
     action->setText(i18nc("@action:inmenu","Focus the search line of Translation Units view"));
 
@@ -1495,7 +1497,7 @@ void EditorTab::mergeIntoOpenDocument()
         return;
 
     QString xliff2odf=QStringLiteral("xliff2odf");
-    if (QProcess::execute(xliff2odf, QStringList("--version"))==-2)
+    if (QProcess::execute(xliff2odf, QStringList(QLatin1String("--version")))==-2)
     {
         KMessageBox::error(SettingsController::instance()->mainWindowPtr(),
                            i18n("Install translate-toolkit package and retry."));

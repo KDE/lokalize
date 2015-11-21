@@ -94,7 +94,7 @@ int main(int argc, char **argv)
 
     QApplication app(argc, argv);
     QCommandLineParser parser;
-    KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
+    KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), QStringLiteral(LOKALIZE_VERSION), i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
                      KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor( i18n("Nick Shaforostoff"), QString(), QStringLiteral("shaforostoff@gmail.com") );
     about.addCredit (i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QString(), QStringLiteral("http://google.com"));

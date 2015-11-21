@@ -507,10 +507,10 @@ QString Glossary::descrip(const QByteArray& id, const QString& lang, const QStri
 
     while (!n.isNull())
     {
-        if (n.attribute("type")==type)
+        if (n.attribute(QStringLiteral("type"))==type)
             return n.text();
 
-        n = n.nextSiblingElement("descrip");
+        n = n.nextSiblingElement(QStringLiteral("descrip"));
     }
     return QString();
 }
@@ -540,7 +540,7 @@ void Glossary::setDescrip(const QByteArray& id, QString lang, const QString& typ
         {
             QString nLang=langSetElem.attribute(xmlLang, defaultLang);
             nLang.replace('-','_');
-            if (lang=="en") //NOTE COMPAT
+            if (lang==QLatin1String("en")) //NOTE COMPAT
             {
                 lang=defaultLang;
                 nLang.replace('_','-');
@@ -561,8 +561,8 @@ void Glossary::setDescrip(const QByteArray& id, QString lang, const QString& typ
             parentForDescrip.setAttribute(xmlLang,lang);
         }
     }
-    QDomElement descrip=parentForDescrip.insertBefore( document.createElement("descrip"), parentForDescrip.firstChild() ).toElement();
-    descrip.setAttribute("type",type);
+    QDomElement descrip=parentForDescrip.insertBefore( document.createElement(QStringLiteral("descrip")), parentForDescrip.firstChild() ).toElement();
+    descrip.setAttribute(QStringLiteral("type"),type);
     descrip.appendChild( document.createTextNode(value));
 }
 

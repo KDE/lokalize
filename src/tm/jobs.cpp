@@ -424,8 +424,8 @@ static bool doInsertEntry(CatalogString source,
 //BEGIN get sourceId
     query1.prepare(QString(U("SELECT id FROM source_strings WHERE "
                      "source=? AND (source_accel%1) AND source_markup%2")).arg
-                                    (sourceAccelPos!=-1?QStringLiteral("=?"):QStringLiteral("=-1 OR source_accel ISNULL")).arg
-                                    (sourceTags.isEmpty()?QStringLiteral(" ISNULL"):QStringLiteral("=?")));
+                                    (sourceAccelPos!=-1?QStringLiteral("=?"):QStringLiteral("=-1 OR source_accel ISNULL"),
+                                     sourceTags.isEmpty()?QStringLiteral(" ISNULL"):QStringLiteral("=?")));
     int paranum=0;
     query1.bindValue(paranum++,source.string);
     if (sourceAccelPos!=-1)
@@ -593,8 +593,8 @@ static bool doInsertEntry(CatalogString source,
 //BEGIN get targetId
     query1.prepare(QString(U("SELECT id FROM target_strings WHERE "
                      "target=? AND (target_accel%1) AND target_markup%2")).arg
-                                (targetAccelPos!=-1?QStringLiteral("=?"):QStringLiteral("=-1 OR target_accel ISNULL")).arg
-                                (targetTags.isEmpty()?QStringLiteral(" ISNULL"):QStringLiteral("=?")));
+                                (targetAccelPos!=-1?QStringLiteral("=?"):QStringLiteral("=-1 OR target_accel ISNULL"),
+                                 targetTags.isEmpty()?QStringLiteral(" ISNULL"):QStringLiteral("=?")));
     paranum=0;
     query1.bindValue(paranum++,target.string);
     if (targetAccelPos!=-1)
@@ -1863,7 +1863,7 @@ bool TmxParser::startElement( const QString&, const QString&,
         {
             m_segment[m_lang].string+=QChar(TAGRANGE_IMAGE_SYMBOL);
             int pos=m_segment[m_lang].string.size();
-            m_inlineTags.append(InlineTag(pos, pos, t, attr.value("id")));
+            m_inlineTags.append(InlineTag(pos, pos, t, attr.value(QStringLiteral("id"))));
         }
     }
     return true;
@@ -2008,7 +2008,7 @@ void ExportTmxJob::run()
         xmlOut.writeAttribute(QStringLiteral("o-encoding"),QStringLiteral("UTF-8"));
     xmlOut.writeEndElement();
 
-    xmlOut.writeStartElement("body");
+    xmlOut.writeStartElement(QStringLiteral("body"));
 
 
 
@@ -2030,6 +2030,9 @@ void ExportTmxJob::run()
 
     TMConfig c=getConfig(db);
 
+    const QString DATE_FORMAT = QStringLiteral("yyyyMMdd");
+    const QString PROP = QStringLiteral("prop");
+    const QString TYPE = QStringLiteral("type");
     while (query1.next())
     {
         QString source=makeAcceledString(query1.value(4).toString(),c.accel,query1.value(5));
@@ -2039,7 +2042,7 @@ void ExportTmxJob::run()
             xmlOut.writeAttribute(QStringLiteral("tuid"),QString::number(query1.value(0).toLongLong()));
 
             xmlOut.writeStartElement(QStringLiteral("tuv"));
-                xmlOut.writeAttribute(QStringLiteral("xml:lang"),"en");
+                xmlOut.writeAttribute(QStringLiteral("xml:lang"),QStringLiteral("en"));
                 xmlOut.writeStartElement(QStringLiteral("seg"));
                     xmlOut.writeCharacters(source);
                 xmlOut.writeEndElement();
@@ -2047,8 +2050,8 @@ void ExportTmxJob::run()
 
             xmlOut.writeStartElement(QStringLiteral("tuv"));
                 xmlOut.writeAttribute(QStringLiteral("xml:lang"),dbLangCode);
-                xmlOut.writeAttribute(QStringLiteral("creationdate"),QDate::fromString(  query1.value(2).toString(), Qt::ISODate  ).toString("yyyyMMdd"));
-                xmlOut.writeAttribute(QStringLiteral("changedate"),QDate::fromString(  query1.value(9).toString(), Qt::ISODate  ).toString("yyyyMMdd"));
+                xmlOut.writeAttribute(QStringLiteral("creationdate"),QDate::fromString(  query1.value(2).toString(), Qt::ISODate  ).toString(DATE_FORMAT));
+                xmlOut.writeAttribute(QStringLiteral("changedate"),QDate::fromString(  query1.value(9).toString(), Qt::ISODate  ).toString(DATE_FORMAT));
                 QString ctxt=query1.value(1).toString();
                 if (!ctxt.isEmpty())
                 {
@@ -2058,15 +2061,15 @@ void ExportTmxJob::run()
                         QString plural=ctxt;
                         plural.remove(0,pos+1);
                         ctxt.remove(pos, plural.size());
-                        xmlOut.writeStartElement("prop");
-                            xmlOut.writeAttribute("type","x-pluralform");
+                        xmlOut.writeStartElement(PROP);
+                            xmlOut.writeAttribute(TYPE,"x-pluralform");
                             xmlOut.writeCharacters(plural);
                         xmlOut.writeEndElement();
                     }
                     if (!ctxt.isEmpty())
                     {
-                        xmlOut.writeStartElement("prop");
-                            xmlOut.writeAttribute("type","x-context");
+                        xmlOut.writeStartElement(PROP);
+                            xmlOut.writeAttribute(TYPE,"x-context");
                             xmlOut.writeCharacters(ctxt);
                         xmlOut.writeEndElement();
                     }
@@ -2074,8 +2077,8 @@ void ExportTmxJob::run()
                 QString filePath=query1.value(8).toString();
                 if (!filePath.isEmpty())
                 {
-                    xmlOut.writeStartElement("prop");
-                        xmlOut.writeAttribute("type","x-file");
+                    xmlOut.writeStartElement(PROP);
+                        xmlOut.writeAttribute(TYPE,"x-file");
                         xmlOut.writeCharacters(filePath);
                     xmlOut.writeEndElement();
                 }
@@ -2083,8 +2086,8 @@ void ExportTmxJob::run()
                 if (bits&TM_NOTAPPROVED)
                 if (!filePath.isEmpty())
                 {
-                    xmlOut.writeStartElement("prop");
-                        xmlOut.writeAttribute("type","x-approved");
+                    xmlOut.writeStartElement(PROP);
+                        xmlOut.writeAttribute(TYPE,"x-approved");
                         xmlOut.writeCharacters("no");
                     xmlOut.writeEndElement();
                 }

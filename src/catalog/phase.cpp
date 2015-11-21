@@ -85,7 +85,7 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
     if (phase.name.isEmpty())
     {
         int i=0;
-        while (names.contains(phase.name=phase.process+QString("-%1").arg(++i)))
+        while (names.contains(phase.name=phase.process+QStringLiteral("-%1").arg(++i)))
             ;
         phase.date=QDate::currentDate();
         phase.email=Settings::authorEmail();
@@ -93,3 +93,8 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
     }
     return false;
 }
+
+Phase::Phase()
+    : date(QDate::currentDate())
+    , tool(QStringLiteral("lokalize-" LOKALIZE_VERSION))
+{}

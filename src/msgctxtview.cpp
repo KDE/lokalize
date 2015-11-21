@@ -148,7 +148,7 @@ void MsgCtxtView::process()
     {
         html+=i18nc("@info PO comment parsing","<br><b>Files:</b><br>");
         foreach(const QString &sourceFile, sourceFiles)
-            html+=QString(QStringLiteral("<a href=\"src:/%1\">%2</a><br />")).arg(sourceFile).arg(sourceFile);
+            html+=QString(QStringLiteral("<a href=\"src:/%1\">%2</a><br />")).arg(sourceFile, sourceFile);
         html.chop(6);
     }
 
@@ -208,9 +208,9 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
     else if (link.scheme()==QLatin1String("src"))
     {
         int pos=path.lastIndexOf(':');
-        emit srcFileOpenRequested(path.left(pos),path.mid(pos+1).toInt());
+        emit srcFileOpenRequested(path.left(pos),path.midRef(pos+1).toInt());
     }
-    else if (link.scheme().contains("tp"))
+    else if (link.scheme().contains(QLatin1String("tp")))
         QDesktopServices::openUrl(link);
 }
 
@@ -254,7 +254,7 @@ void MsgCtxtView::removeErrorNotes()
     p.form=notes.size();
     while(--(p.form)>=0)
     {
-        if (notes.at(p.form).content.contains("[ERROR]"))
+        if (notes.at(p.form).content.contains(QLatin1String("[ERROR]")))
             m_catalog->push(new SetNoteCmd(m_catalog,p,Note()));
     }
 

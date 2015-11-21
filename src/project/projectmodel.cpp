@@ -55,10 +55,10 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_poModel(this)
     , m_potModel(this)
     , m_rootNode(ProjectNode(NULL, -1, -1, -1))
-    , m_dirIcon(QIcon::fromTheme(QLatin1String("inode-directory")))
-    , m_poIcon(QIcon::fromTheme(QLatin1String("flag-blue")))
-    , m_poComplIcon(QIcon::fromTheme(QLatin1String("flag-green")))
-    , m_potIcon(QIcon::fromTheme(QLatin1String("flag-black")))
+    , m_dirIcon(QIcon::fromTheme(QStringLiteral("inode-directory")))
+    , m_poIcon(QIcon::fromTheme(QStringLiteral("flag-blue")))
+    , m_poComplIcon(QIcon::fromTheme(QStringLiteral("flag-green")))
+    , m_potIcon(QIcon::fromTheme(QStringLiteral("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
     , m_doneTimer(new QTimer(this))
@@ -1370,11 +1370,11 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 #ifdef NOMETAINFOCACHE
     return metaData(file.localPath());
 #else
-    static QString dbName=QStringLiteral("metainfocache");
+    QString dbName=QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName))
     {
-        QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",dbName);
-        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % dbName % QStringLiteral(".sqlite"));
+        QSqlDatabase db=QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"),dbName);
+        db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % dbName % QLatin1String(".sqlite"));
         if (KDE_ISUNLIKELY( !db.open() ))
             return metaData(file.localPath());
         initDataBase(db);

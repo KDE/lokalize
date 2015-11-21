@@ -307,7 +307,7 @@ void PhasesWindow::anchorClicked(QUrl link)
 {
     QString path=link.path().mid(1);// minus '/'
 
-    if (link.scheme()=="note")
+    if (link.scheme()==QLatin1String("note"))
     {
         if (!m_editor)
         {
@@ -317,7 +317,7 @@ void PhasesWindow::anchorClicked(QUrl link)
             connect(m_editor,SIGNAL(rejected()),this,SLOT(noteEditRejected()));
         }
         m_editor->setNoteAuthors(m_catalog->noteAuthors());
-        if (path.endsWith("add"))
+        if (path.endsWith(QLatin1String("add")))
             m_editor->setNote(Note(),-1);
         else
         {

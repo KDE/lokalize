@@ -25,39 +25,7 @@
 #define LISTS_H
 
 #include <QString>
-#include <QLocale>
 
-static inline QString getMailingList()
-{
-    QString lang(QLocale::system().name());
-    if(lang.startsWith("ca"))
-        return "kde-i18n-ca@kde.org";
-    if(lang.startsWith("de"))
-        return "kde-i18n-de@kde.org";
-    if(lang.startsWith("hu"))
-        return "kde-l10n-hu@kde.org";
-    if(lang.startsWith("tr"))
-        return "kde-l10n-tr@kde.org";
-    if(lang.startsWith("it"))
-        return "kde-i18n-it@kde.org";
-    if(lang.startsWith("lt"))
-        return "kde-i18n-lt@kde.org";
-    if(lang.startsWith("nb"))
-        return "i18n-nb@lister.ping.uio.no";
-    if(lang.startsWith("nl"))
-        return "kde-i18n-nl@kde.org";
-    if(lang.startsWith("nn"))
-        return "i18n-nn@lister.ping.uio.no";
-    if(lang.startsWith("pt_BR"))
-        return "kde-i18n-pt_BR@kde.org";
-    if(lang.startsWith("ru"))
-        return "kde-russian@lists.kde.ru";
-    if(lang.startsWith("se"))
-        return "i18n-sme@lister.ping.uio.no";
-    if(lang.startsWith("sl"))
-        return "lugos-slo@lugos.si";
-
-    return "kde-i18n-doc@kde.org";
-}
+QString getMailingList(); //implementation is in project.cpp
 
 #endif

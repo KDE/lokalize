@@ -42,10 +42,7 @@ struct Phase
     QString phone;
     QString tool;
 
-    Phase()
-        : date(QDate::currentDate())
-        , tool("lokalize-" LOKALIZE_VERSION)
-    {}
+    Phase();
 
     Phase(const Phase& rhs)
         : name(rhs.name)
