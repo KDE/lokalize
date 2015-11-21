@@ -43,6 +43,8 @@ WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
     ui->clipboard->setChecked(copyWidgetText && copyWidgetTextCommand.isEmpty());
     ui->search->setChecked(copyWidgetText && !copyWidgetTextCommand.isEmpty());
 
+    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(this,SIGNAL(accepted()),this,SLOT(writeConfig()));
 }
 
@@ -53,7 +55,7 @@ WidgetTextCaptureConfig::~WidgetTextCaptureConfig()
 
 void WidgetTextCaptureConfig::writeConfig()
 {
-    KConfig konfig(QString::fromLatin1("kdeglobals"), KConfig::NoGlobals);
+    KConfig konfig(QLatin1String("kdeglobals"), KConfig::NoGlobals);
     KConfigGroup cg=konfig.group("Development");
     cg.writeEntry("CopyWidgetText", !ui->none->isChecked());
     if (ui->clipboard->isChecked())

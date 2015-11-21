@@ -181,6 +181,7 @@ QString getTargetLangCode(const QString& title, bool askUser)
     QDialogButtonBox* btn=new QDialogButtonBox(QDialogButtonBox::Ok, &dlg);
     l->addWidget(btn);
     QObject::connect(btn, SIGNAL(accepted()), &dlg, SLOT(accept()));
+    QObject::connect(btn, SIGNAL(rejected()), &dlg, SLOT(reject()));
 
     dlg.show();
     dlg.activateWindow(); //if we're called from another app
