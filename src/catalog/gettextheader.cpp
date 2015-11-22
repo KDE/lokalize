@@ -140,7 +140,7 @@ static const char* pInfo[NUM_LANG_WITH_INFO]={
 
 int numberOfPluralFormsFromHeader(const QString& header)
 {
-    QRegExp rxplural("Plural-Forms:\\s*nplurals=(.);");
+    QRegExp rxplural(QStringLiteral("Plural-Forms:\\s*nplurals=(.);"));
     if (rxplural.indexIn(header) == -1)
         return 0;
     bool ok;
@@ -153,7 +153,7 @@ int numberOfPluralFormsForLangCode(const QString& langCode)
 {
     QString expr=GNUPluralForms(langCode);
 
-    QRegExp rxplural("nplurals=(.);");
+    QRegExp rxplural(QStringLiteral("nplurals=(.);"));
     if (rxplural.indexIn(expr) == -1)
         return 0;
     bool ok;
@@ -176,16 +176,16 @@ QString GNUPluralForms(const QString& lang)
     //BEGIN alternative
     // NOTE does this work under M$ OS?
     qWarning()<<"gonna call msginit";
-    QString def="nplurals=2; plural=n != 1;";
+    QString def=QStringLiteral("nplurals=2; plural=n != 1;");
 
     QStringList arguments;
-    arguments << "-l" << lang
-              << "-i" << "-"
-              << "-o" << "-"
-              << "--no-translator"
-              << "--no-wrap";
+    arguments << QLatin1String("-l") << lang
+              << QLatin1String("-i") << QLatin1String("-")
+              << QLatin1String("-o") << QLatin1String("-")
+              << QLatin1String("--no-translator")
+              << QLatin1String("--no-wrap");
     QProcess msginit;
-    msginit.start("msginit", arguments);
+    msginit.start(QLatin1String("msginit"), arguments);
 
     msginit.waitForStarted(5000);
     if (Q_UNLIKELY( msginit.state()!=QProcess::Running ))
@@ -484,8 +484,7 @@ void updateHeader(QString& header,
         }
     }
 
-    temp=QStringLiteral("X-Generator: Lokalize %1\\n");
-    temp=temp.arg(LOKALIZE_VERSION);
+    temp=QStringLiteral("X-Generator: Lokalize %1\\n").arg(QStringLiteral(LOKALIZE_VERSION));
     QRegExp xgRe(QStringLiteral("^ *X-Generator:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end()&& !found; ++it )
     {
