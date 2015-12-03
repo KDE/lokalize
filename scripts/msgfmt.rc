@@ -1,0 +1,5 @@
+<KrossScripting>
+  <collection comment="Tools" name="tools" text="Tools" >
+    <script icon="text-x-python" comment="Compile .po and make it available to applications" name="msgfmt" file="msgfmt.py" interpreter="python" text="Compile .po" />
+  </collection>
+</KrossScripting>
