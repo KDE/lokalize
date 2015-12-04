@@ -61,7 +61,7 @@ void WidgetTextCaptureConfig::writeConfig()
     if (ui->clipboard->isChecked())
         cg.writeEntry("CopyWidgetTextCommand", QString());
     else if (ui->search->isChecked())
-        cg.writeEntry("CopyWidgetTextCommand", "/bin/sh `kde4-config --path data --locate lokalize/scripts/find-gui-text.sh` \"%1\" \"%2\"");
+        cg.writeEntry("CopyWidgetTextCommand", "/bin/sh /usr/share/lokalize/scripts/find-gui-text.sh \"%1\" \"%2\"");
 
     konfig.sync();
 }

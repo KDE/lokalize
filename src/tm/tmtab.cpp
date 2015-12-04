@@ -780,7 +780,6 @@ void TMTab::lookup(QString source, QString target)
 
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
-    //std::cout<<package.toLatin1().constData()<<text.toLatin1().constData()<<std::endl;
     qWarning()<<package<<text;
     QLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
     static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};

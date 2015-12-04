@@ -14,6 +14,7 @@ LOKALIZE_INSTANCES=`qdbus org.kde.lokalize*` ;\
 done
 
 for LOKALIZE_INSTANCE in $LOKALIZE_INSTANCES; do \
+    qdbus $LOKALIZE_INSTANCE /ThisIsWhatYouWant/FileSearch/0 org.kde.Lokalize.FileSearch.findGuiTextPackage "$TEXT" "$PACKAGE"; \
     qdbus $LOKALIZE_INSTANCE /ThisIsWhatYouWant org.kde.Lokalize.MainWindow.showTranslationMemory; \
     qdbus $LOKALIZE_INSTANCE /ThisIsWhatYouWant/TranslationMemory/0 org.kde.Lokalize.TranslationMemory.findGuiTextPackage "$TEXT" "$PACKAGE"; \
 done

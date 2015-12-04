@@ -6,5 +6,20 @@
     <method name="addFilesToSearch">
       <arg type="as" direction="in"/>
     </method>
+    <method name="setSourceQuery">
+      <arg type="s" direction="in"/>
+    </method>
+    <method name="setTargetQuery">
+      <arg type="s" direction="in"/>
+    </method>
+    <method name="findGuiText">
+      <arg type="b" direction="out"/>
+      <arg name="text" type="s" direction="in"/>
+    </method>
+    <method name="findGuiTextPackage">
+      <arg type="b" direction="out"/>
+      <arg name="text" type="s" direction="in"/>
+      <arg name="package" type="s" direction="in"/>
+    </method>
   </interface>
 </node>
