@@ -1,5 +1,5 @@
 deps (in order of importance):
--qt 5.3, with sqlite plugin
+-qt 5.5, with sqlite plugin
 -kde frameworks 5
 -libhunspell (for stemming)
 -krosspython
@@ -9,3 +9,7 @@ deps (in order of importance):
 -gettext (used by converting and merging scripts +as a fallback for getting plural expressions for langs)
 -poxml (recommend)
 -subversion (recommend)
+
+not needed anymore since migration to kf5:
+-python-kde4
+-kdesdk-strigi-plugins
