@@ -966,6 +966,7 @@ void TranslationUnitTextEdit::insertTag(InlineTag tag)
 
 int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString& str, bool tryHarder)
 {
+    if (m_currentPos.entry==-1) return -1;
     QTextCursor cursor=cursorForPosition(mice);
     int pos=cursor.position();
     str=m_catalog->catalogString(m_currentPos);
