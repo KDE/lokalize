@@ -47,6 +47,7 @@ CompletionStorage* CompletionStorage::instance()
 
 void CompletionStorage::scanCatalog(Catalog* catalog)
 {
+    if (!catalog->numberOfEntries()) return;
     QTime a;a.start();
 
     int wordCompletionLength=Settings::self()->wordCompletionLength();
