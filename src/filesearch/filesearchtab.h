@@ -79,8 +79,10 @@ public slots:
     Q_SCRIPTABLE void addFilesToSearch(const QStringList&);
     Q_SCRIPTABLE void setSourceQuery(const QString&);
     Q_SCRIPTABLE void setTargetQuery(const QString&);
+#ifndef NOKDE
     Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
+#endif
     void fileSearchNext();
     void stopSearch();
     void massReplace(const QRegExp &what, const QString& with);
