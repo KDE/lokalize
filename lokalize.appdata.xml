@@ -16,6 +16,7 @@
   <name xml:lang="fr">Lokalize</name>
   <name xml:lang="gl">Lokalize</name>
   <name xml:lang="it">Lokalize</name>
+  <name xml:lang="lt">Lokalize</name>
   <name xml:lang="nl">Lokalize</name>
   <name xml:lang="nn">Lokalize</name>
   <name xml:lang="pl">Lokalize</name>
@@ -45,6 +46,7 @@
   <summary xml:lang="fr">Outil de traduction assistée par ordinateur</summary>
   <summary xml:lang="gl">Sistema de tradución asistida por computador.</summary>
   <summary xml:lang="it">Sistema di traduzione assistita</summary>
+  <summary xml:lang="lt">Kompiuterizuota vertimo sistema</summary>
   <summary xml:lang="nl">Computerondersteund vertaalsysteem</summary>
   <summary xml:lang="nn">Dataassistert omsetjing</summary>
   <summary xml:lang="pl">System tłumaczeń wspomagany komputerowo</summary>
