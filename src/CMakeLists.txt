@@ -181,15 +181,7 @@ install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
-install( FILES
-        editorui.rc
-        lokalizemainwindowui.rc
-        scriptsui.rc
-        project/projectmanagerui.rc
-        tm/translationmemoryrui.rc
-        filesearch/filesearchtabui.rc
-        lokalize.notifyrc
-        DESTINATION  ${DATA_INSTALL_DIR}/lokalize )
+install( FILES lokalize.notifyrc DESTINATION  ${KNOTIFYRC_INSTALL_DIR} )
 
 install( FILES
         editorui.rc
