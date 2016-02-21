@@ -152,7 +152,7 @@ int main(int argc, char **argv)
         Q_FOREACH (const QString& filePath, parser.positionalArguments())
             if (filePath.endsWith(QLatin1String(".lokalize")))
                 projectFilePath = filePath;
-            else if (QFile::exists(filePath))
+            else if (QFileInfo::exists(filePath))
                 urls.append(filePath);
 
         if (projectFilePath.length())
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     {
         for (int j=0; j<parser.positionalArguments().count(); j++)
         {
-            if (!QFile::exists(parser.positionalArguments().at(j))) continue;
+            if (!QFileInfo::exists(parser.positionalArguments().at(j))) continue;
             strncpy(sentPath, parser.positionalArguments().at(j).toUtf8().constData(), 255);
             MyCDS.dwData = FILEPATHMESSAGE;
             MyCDS.cbData = sizeof( sentPath );  // size of data
@@ -211,7 +211,7 @@ int main(int argc, char **argv)
 #endif
     SettingsController::instance()->ensureProjectIsLoaded();
     for (int j=0; j<parser.positionalArguments().count(); j++)
-        if (QFile::exists(parser.positionalArguments().at(j))) Project::instance()->fileOpen(parser.positionalArguments().at(j));
+        if (QFileInfo::exists(parser.positionalArguments().at(j))) Project::instance()->fileOpen(parser.positionalArguments().at(j));
     if (!parser.positionalArguments().count())
     {
         WelcomeTab* welcome=new WelcomeTab(0);

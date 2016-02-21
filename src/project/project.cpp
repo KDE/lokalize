@@ -163,7 +163,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
 
 #ifndef NOKDE
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
-    if (!QFile::exists(newProjectPath)) Project::instance()->setDefaults();
+    if (!QFileInfo::exists(newProjectPath)) Project::instance()->setDefaults();
     ProjectBase::load();
 #else
 #endif
@@ -239,11 +239,11 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 void Project::populateDirModel()
 {
 #ifndef NOKDE
-    if (KDE_ISUNLIKELY( m_path.isEmpty() || !QFile::exists(poDir()) ))
+    if (KDE_ISUNLIKELY( m_path.isEmpty() || !QFileInfo::exists(poDir()) ))
         return;
 
     QUrl potUrl;
-    if (QFile::exists(potDir()))
+    if (QFileInfo::exists(potDir()))
         potUrl=QUrl::fromLocalFile(potDir());
     model()->setUrl(QUrl::fromLocalFile(poDir()), potUrl);
 #endif

@@ -246,7 +246,7 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(i18nc("@action:inmenu","Add to translation memory"),this,SLOT(scanFilesToTM()));
 
     menu->addAction(i18nc("@action:inmenu","Search in files"),this,SLOT(searchInFiles()));
-    if (QFileInfo(Project::instance()->templatesRoot()).exists())
+    if (QDir(Project::instance()->templatesRoot()).exists())
         menu->addAction(i18nc("@action:inmenu","Search in files (including templates)"),this,SLOT(searchInFilesInclTempl()));
 
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))

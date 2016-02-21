@@ -61,14 +61,14 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
     QString dictPath = QStringLiteral("C:/Program Files (x86)/LibreOffice 5/share/extensions/dict-") % langCode.leftRef(2) % '/';
 #else
     QString dictPath = QStringLiteral("/usr/share/hunspell/");
-    if (!QFileInfo(dictPath).exists())
+    if (!QFileInfo::exists(dictPath))
         dictPath = QStringLiteral("/usr/share/myspell/");
 #endif
 
     QString dic = dictPath % langCode % QLatin1String(".dic");
-    if (!QFileInfo(dic).exists())
+    if (!QFileInfo::exists(dic))
         dic = dictPath % enhanceLangCode(langCode) % QLatin1String(".dic");
-    if (QFileInfo(dic).exists())
+    if (QFileInfo::exists(dic))
     {
         speller = new Hunspell(QString(dictPath % langCode % ".aff").toLatin1().constData(), dic.toLatin1().constData());
         codec = QTextCodec::codecForName(speller->get_dic_encoding());
