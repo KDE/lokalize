@@ -4,6 +4,9 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile arg="true"/>
+  <group name="General">
+    <entry name="SourceDir"  type="String"></entry>
+  </group>
   <group name="Personal">
     <entry name="Role" type="Enum">
       <choices name="PersonRole">

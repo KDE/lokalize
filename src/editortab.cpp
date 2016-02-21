@@ -1463,11 +1463,18 @@ void EditorTab::reloadFile()
         mergeOpen(mergeFilePath);
 }
 
-void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
+static void openLxrSearch(const QString& srcFileRelPath)
+{
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://lxr.kde.org/search?_filestring=")
+                                   + QString::fromLatin1(QUrl::toPercentEncoding(srcFileRelPath))));
+}
+
+
+void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int line)
 {
     // Try project scripts first.
     m_srcFileOpenRequestAccepted = false;
-    emit srcFileOpenRequested(srcPath, line);
+    emit srcFileOpenRequested(srcFileRelPath, line);
     if (m_srcFileOpenRequestAccepted)
         return;
 
@@ -1475,11 +1482,87 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcPath, int line)
     // path exists relative to the current translation file path.
     QDir relativePath(currentFilePath());
     relativePath.cdUp();
-    QString srcAbsolutePath(relativePath.absoluteFilePath(srcPath));
+    QString srcAbsolutePath(relativePath.absoluteFilePath(srcFileRelPath));
     if (QFile::exists(srcAbsolutePath)) {
         QDesktopServices::openUrl(QUrl::fromLocalFile(srcAbsolutePath));
         return;
     }
+
+    QString dir = Project::instance()->local()->sourceDir();
+    if (dir.isEmpty())
+    {
+        switch (KMessageBox::questionYesNoCancel(SettingsController::instance()->mainWindowPtr(),
+                                       i18nc("@info","Would you like to search for the source file locally or via lxr.kde.org?"),i18nc("@title:window","Source file lookup"),
+                                             KGuiItem(i18n("Locally")), KGuiItem("lxr.kde.org")
+                                            ))
+        {
+            case KMessageBox::Yes: break;
+            case KMessageBox::No: openLxrSearch(srcFileRelPath);
+            case KMessageBox::Cancel:
+            default:
+                return;
+        }
+    }
+
+    //hard fallback
+    if (dir.isEmpty())
+    {
+        dir = QFileDialog::getExistingDirectory(this, i18n("Select project's base folder for source file lookup"), QDir::homePath());
+        if (dir.length())
+            Project::instance()->local()->setSourceDir(dir);
+    }
+    if (dir.length())
+    {
+        auto doOpen = [srcFileRelPath]()
+        {
+            auto sourceFilePaths = Project::instance()->sourceFilePaths();
+            bool found = false;
+            QByteArray fn = srcFileRelPath.midRef(srcFileRelPath.lastIndexOf('/')+1).toUtf8();
+            auto it=sourceFilePaths.constFind(fn);
+            while (it!=sourceFilePaths.constEnd() && it.key() == fn)
+            {
+                const QString absFilePath = QString::fromUtf8(it.value()+'/'+fn);
+                if (!absFilePath.endsWith(srcFileRelPath) || !QFileInfo::exists(absFilePath) ) //for the case when link contained also folders
+                {
+                    it++;
+                    continue;
+                }
+                found = true;
+                QDesktopServices::openUrl(QUrl::fromLocalFile(absFilePath));
+                it++;
+            }
+            if (!found)
+            {
+                switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
+                                                i18nc("@info","Could not find source file in the folder specified,\n"
+                                                      "Do you want to change source files folder?"),i18nc("@title:window","Source file lookup"),
+                                                      KStandardGuiItem::yes(), KStandardGuiItem::no(), KGuiItem(i18n("lxr.kde.org"))))
+                {
+                    case KMessageBox::Cancel:
+                        Project::instance()->local()->setSourceDir(QString());
+                        Project::instance()->resetSourceFilePaths();
+                        openLxrSearch(srcFileRelPath);
+                    case KMessageBox::No:
+                        return;
+                    default: ; //fall through to dir selection
+                }
+
+                QString dir = QFileDialog::getExistingDirectory(0, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
+                if (dir.length())
+                {
+                    Project::instance()->local()->setSourceDir(dir);
+                    Project::instance()->resetSourceFilePaths();
+                }
+
+            }
+        };
+        if (!Project::instance()->sourceFilePaths().isEmpty())
+            doOpen();
+        else
+            connect(Project::instance(), &Project::sourceFilePathsAreReady, doOpen);
+        return;
+    }
+
 
     // Otherwise, let the user know how to create a project script to handle
     // opening source file paths that are not relative to translation files.

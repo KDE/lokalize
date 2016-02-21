@@ -232,3 +232,7 @@ Name[x-test]=xxNo Qt Sql modules were foundxx
 Name[zh_CN]=未找到 Qt SQL 模块
 Name[zh_TW]=找不到 Qt Sql 模組
 Action=Popup
+
+[Event/SourceFileScan]
+Name=Scanning folders with source files...
+Action=Popup

@@ -1238,7 +1238,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
         return false;
     bool seen85=false;
     int limit=200;
-    QMap<uint,qlonglong>::const_iterator clit=concordanceLevelToIds.constEnd();
+    auto clit=concordanceLevelToIds.constEnd();
     if (concordanceLevelToIds.size()) --clit;
     if (concordanceLevelToIds.size()) while (--limit>=0)
     {

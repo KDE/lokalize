@@ -37,6 +37,7 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <knotification.h>
 
 #include <QLocale>
 #include <QTimer>
@@ -49,6 +50,10 @@
 #ifndef NOKDE
 #include "projectmodel.h"
 #include "webquerycontroller.h"
+
+#include <kio/global.h>
+#include <kjob.h>
+#include <kjobtrackerinterface.h>
 
 #include <kross/core/action.h>
 #include <kross/core/actioncollection.h>
@@ -194,6 +199,8 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     //put 'em into thread?
     //QTimer::singleShot(0,this,SLOT(populateGlossary()));
     populateGlossary();//we cant postpone it because project load can be called from define new term function
+
+    m_sourceFilePaths.clear();
 
     if (newProjectPath.isEmpty())
         return;
@@ -347,7 +354,115 @@ void Project::init(const QString& path, const QString& kind, const QString& id,
 
 
 
+static void fillFilePathsRecursive(const QDir& dir, QMultiMap<QByteArray, QByteArray>& sourceFilePaths)
+{
+    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
+    int i=subDirs.size();
+    while(--i>=0)
+        fillFilePathsRecursive(QDir(dir.filePath(subDirs.at(i))),sourceFilePaths);
 
+    static QStringList filters = QStringList(QStringLiteral("*.cpp"))
+                                           <<QStringLiteral("*.c")
+                                           <<QStringLiteral("*.cc")
+                                           <<QStringLiteral("*.mm")
+                                           <<QStringLiteral("*.ui")
+                                           <<QStringLiteral("*rc");
+    QStringList files(dir.entryList(filters, QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
+    i=files.size();
+
+    QByteArray absDirPath=dir.absolutePath().toUtf8(); absDirPath.squeeze();
+    while(--i>=0)
+    {
+        //qDebug()<<files.at(i)<<absDirPath;
+        QByteArray fn=files.at(i).toUtf8(); fn.squeeze();
+        auto it=sourceFilePaths.constFind(fn);
+        if (it!=sourceFilePaths.constEnd())
+            sourceFilePaths.insert(it.key(), absDirPath); //avoid having identical qbytearray objects to save memory
+        else
+            sourceFilePaths.insert(fn, absDirPath);
+    }
+}
+
+
+#ifndef NOKDE
+class SourceFilesSearchJob: public KJob
+{
+public:
+    SourceFilesSearchJob(const QString& folderName, QObject* parent=0);
+    void start();
+    void finish(){emitResult(); emit Project::instance()->sourceFilePathsAreReady();}
+protected:
+    bool doKill();
+
+private:
+    QString m_folderName;
+};
+
+SourceFilesSearchJob::SourceFilesSearchJob(const QString& folderName, QObject* parent)
+    : KJob(parent)
+    , m_folderName(folderName)
+{
+    setCapabilities(KJob::Killable);
+}
+
+bool SourceFilesSearchJob::doKill()
+{
+    //TODO
+    return true;
+}
+
+class FillSourceFilePathsJob: public QRunnable
+{
+public:
+    explicit FillSourceFilePathsJob(const QDir& dir, SourceFilesSearchJob* j):startingDir(dir),kj(j){}
+
+protected:
+    void run()
+    {
+        QMultiMap<QByteArray, QByteArray> sourceFilePaths;
+        fillFilePathsRecursive(startingDir, sourceFilePaths);
+        Project::instance()->m_sourceFilePaths = sourceFilePaths;
+        QTimer::singleShot(0, kj, &SourceFilesSearchJob::finish);
+    }
+public:
+    QDir startingDir;
+    SourceFilesSearchJob* kj;
+};
+
+
+void SourceFilesSearchJob::start()
+{
+    QThreadPool::globalInstance()->start(new FillSourceFilePathsJob(QDir(m_folderName), this));
+    emit description(this,
+                i18n("Scanning folders with source files"),
+                qMakePair(i18n("Editor"), m_folderName));
+}
+#endif
+
+const QMultiMap<QByteArray, QByteArray>& Project::sourceFilePaths()
+{
+    if (m_sourceFilePaths.isEmpty())
+    {
+        QDir dir(local()->sourceDir());
+        if (dir.exists())
+        {
+#ifndef NOKDE
+            SourceFilesSearchJob* metaJob = new SourceFilesSearchJob(local()->sourceDir());
+            KIO::getJobTracker()->registerJob(metaJob);
+            metaJob->start();
+
+            //KNotification* notification=new KNotification("SourceFileScan", 0);
+            //notification->setText( i18nc("@info","Please wait while %1 is being scanned for source files.", local()->sourceDir()) );
+            //notification->sendEvent();
+#else
+            QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+            fillFilePathsRecursive(dir, m_sourceFilePaths);
+            QApplication::restoreOverrideCursor();
+#endif
+        }
+    }
+    return m_sourceFilePaths;
+}
 
 
 

@@ -121,6 +121,13 @@ public:
     static Project* instance();
     static ProjectLocal* local(){return instance()->m_localConfig;}
 
+    const QMultiMap<QByteArray, QByteArray>& sourceFilePaths();
+    void resetSourceFilePaths(){m_sourceFilePaths.clear();}
+
+    friend class FillSourceFilePathsJob;
+signals:
+    void sourceFilePathsAreReady();
+
 private:
     QString m_path;
     QString m_desirablePath;
@@ -129,6 +136,8 @@ private:
     GlossaryNS::Glossary* m_glossary;
     GlossaryNS::GlossaryWindow* m_glossaryWindow;
     TM::TMManagerWin* m_tmManagerWindow;
+
+    QMultiMap<QByteArray, QByteArray> m_sourceFilePaths;
 
     //cache
     QString m_projectDir;
