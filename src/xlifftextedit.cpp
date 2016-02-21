@@ -759,8 +759,12 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             QTextCursor c=textCursor();
             if (!c.movePosition(up?QTextCursor::Up:QTextCursor::Down))
             {
-                if (up) emit gotoPrevRequested();
-                else    emit gotoNextRequested();
+                QTextCursor::MoveOperation op;
+                if (up && !c.atStart()) op = QTextCursor::Start;
+                else if (!up && !c.atEnd()) op = QTextCursor::End;
+                else if (up) { emit gotoPrevRequested(); op = QTextCursor::End;}
+                else         { emit gotoNextRequested(); op = QTextCursor::Start;}
+                c.movePosition(op);
             }
             setTextCursor(c);
         }
@@ -1369,8 +1373,10 @@ void TranslationUnitTextEdit::doCompletion(int pos)
         if (!m_completionBox->isVisible()) //NOTE remove the check if kdelibs gets adapted
             m_completionBox->show();
         m_completionBox->resize(m_completionBox->sizeHint());
-        qDebug()<<viewport()->mapToGlobal(cursorRect().bottomRight());
-        m_completionBox->move(viewport()->mapToGlobal(cursorRect().bottomRight()));
+        QPoint p = cursorRect().bottomRight();
+        if (p.x()<10) //workaround Qt bug
+            p.rx() += textCursor().verticalMovementX() + QFontMetrics(currentFont()).width('W');
+        m_completionBox->move(viewport()->mapToGlobal(p));
     }
     else
         m_completionBox->hide();
