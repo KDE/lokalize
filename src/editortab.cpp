@@ -1533,7 +1533,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
             if (!found)
             {
                 switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
-                                                i18nc("@info","Could not find source file in the folder specified,\n"
+                                                i18nc("@info","Could not find source file in the folder specified.\n"
                                                       "Do you want to change source files folder?"),i18nc("@title:window","Source file lookup"),
                                                       KStandardGuiItem::yes(), KStandardGuiItem::no(), KGuiItem(i18n("lxr.kde.org"))))
                 {
