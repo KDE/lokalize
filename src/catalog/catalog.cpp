@@ -123,10 +123,10 @@ Catalog::Catalog(QObject *parent)
     QTimer* t=&(d._autoSaveTimer);
     t->setInterval(2*60*1000);
     t->setSingleShot(false);
-    connect(t,   SIGNAL(timeout()),        this,SLOT(doAutoSave()));
+    connect(t, &QTimer::timeout, this, &Catalog::doAutoSave);
     connect(this,SIGNAL(signalFileSaved()),   t,SLOT(start()));
     connect(this,SIGNAL(signalFileLoaded()),  t,SLOT(start()));
-    connect(this,SIGNAL(indexChanged(int)),this,SLOT(setAutoSaveDirty()));
+    connect(this, &Catalog::indexChanged, this, &Catalog::setAutoSaveDirty);
 #endif
     connect(Project::local(),SIGNAL(configChanged()),this,SLOT(projectConfigChanged()));
 }

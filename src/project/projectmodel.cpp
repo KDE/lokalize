@@ -75,28 +75,22 @@ ProjectModel::ProjectModel(QObject *parent)
     m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
     m_potModel.dirLister()->setNameFilter(QStringLiteral("*.pot"));
 
-    connect(&m_poModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(po_dataChanged(QModelIndex,QModelIndex)));
+    connect(&m_poModel, &KDirModel::dataChanged, this, &ProjectModel::po_dataChanged);
 
-    connect(&m_poModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-            this, SLOT(po_rowsInserted(QModelIndex,int,int)));
+    connect(&m_poModel, &KDirModel::rowsInserted, this, &ProjectModel::po_rowsInserted);
 
-    connect(&m_poModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
-            this, SLOT(po_rowsRemoved(QModelIndex,int,int)));
+    connect(&m_poModel, &KDirModel::rowsRemoved, this, &ProjectModel::po_rowsRemoved);
 
-    connect(&m_potModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(pot_dataChanged(QModelIndex,QModelIndex)));
+    connect(&m_potModel, &KDirModel::dataChanged, this, &ProjectModel::pot_dataChanged);
 
-    connect(&m_potModel, SIGNAL(rowsInserted(QModelIndex,int,int)),
-            this, SLOT(pot_rowsInserted(QModelIndex,int,int)));
+    connect(&m_potModel, &KDirModel::rowsInserted, this, &ProjectModel::pot_rowsInserted);
 
-    connect(&m_potModel, SIGNAL(rowsRemoved(QModelIndex,int,int)),
-            this, SLOT(pot_rowsRemoved(QModelIndex,int,int)));
+    connect(&m_potModel, &KDirModel::rowsRemoved, this, &ProjectModel::pot_rowsRemoved);
 
     m_delayedReloadTimer->setSingleShot(true);
     m_doneTimer->setSingleShot(true);
-    connect(m_doneTimer, SIGNAL(timeout()), this, SLOT(updateTotalsChanged()));
-    connect(m_delayedReloadTimer, SIGNAL(timeout()), this, SLOT(reload()));
+    connect(m_doneTimer, &QTimer::timeout, this, &ProjectModel::updateTotalsChanged);
+    connect(m_delayedReloadTimer, &QTimer::timeout, this, &ProjectModel::reload);
 
     setUrl(QUrl(), QUrl());
 }
@@ -1053,9 +1047,7 @@ void ProjectModel::startNewMetadataJob()
         files.append(itemForIndex(index(row, 0, item)));
 
     m_activeJob = new UpdateStatsJob(files, this);
-    connect(
-        m_activeJob,SIGNAL(done(UpdateStatsJob*)),
-        this,SLOT(finishMetadataUpdate(UpdateStatsJob*)));
+    connect(m_activeJob, &UpdateStatsJob::done, this, &ProjectModel::finishMetadataUpdate);
 
     m_threadPool->start(m_activeJob);
 }
@@ -1105,8 +1097,7 @@ void ProjectModel::slotFileSaved(const QString& filePath)
     files.append(itemForIndex(index));
 
     UpdateStatsJob* j = new UpdateStatsJob(files);
-    connect(j,SIGNAL(done(UpdateStatsJob*)),
-        this,SLOT(finishSingleMetadataUpdate(UpdateStatsJob*)));
+    connect(j, &UpdateStatsJob::done, this, &ProjectModel::finishSingleMetadataUpdate);
 
     m_threadPool->start(j);
 }

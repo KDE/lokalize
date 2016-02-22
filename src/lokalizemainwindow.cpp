@@ -311,7 +311,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         w->mergeOpen(mergeFile);
 
     m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
-    connect(sw, &QObject::destroyed,this,&LokalizeMainWindow::editorClosed);
+    connect(sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
     connect(w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
     connect(w, SIGNAL(fileOpenRequested(QString,QString,QString)),this,SLOT(fileOpen(QString,QString,QString)));
     connect(w, SIGNAL(tmLookupRequested(QString,QString)),this,SLOT(lookupInTranslationMemory(QString,QString)));
