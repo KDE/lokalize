@@ -64,7 +64,7 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
 
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
     m_browser->setOpenLinks(false);
-    connect(m_browser,SIGNAL(anchorClicked(QUrl)),this,SLOT(anchorClicked(QUrl)));
+    connect(m_browser,&QTextBrowser::anchorClicked,this,&MsgCtxtView::anchorClicked);
 }
 
 MsgCtxtView::~MsgCtxtView()

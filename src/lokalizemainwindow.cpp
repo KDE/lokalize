@@ -81,12 +81,10 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
     m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
     m_mdiArea->setDocumentMode(true);
-#if QT_VERSION >= 0x040800
     m_mdiArea->setTabsMovable(true);
-#endif
 
     setCentralWidget(m_mdiArea);
-    connect(m_mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(slotSubWindowActivated(QMdiSubWindow*)));
+    connect(m_mdiArea, &QMdiArea::subWindowActivated,this,&LokalizeMainWindow::slotSubWindowActivated);
     setupActions();
 
     //prevent relayout of dockwidgets
@@ -313,7 +311,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         w->mergeOpen(mergeFile);
 
     m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
-    connect(sw, SIGNAL(destroyed(QObject*)),this,SLOT(editorClosed(QObject*)));
+    connect(sw, &QObject::destroyed,this,&LokalizeMainWindow::editorClosed);
     connect(w, SIGNAL(aboutToBeClosed()),this,SLOT(resetMultiEditorAdaptor()));
     connect(w, SIGNAL(fileOpenRequested(QString,QString,QString)),this,SLOT(fileOpen(QString,QString,QString)));
     connect(w, SIGNAL(tmLookupRequested(QString,QString)),this,SLOT(lookupInTranslationMemory(QString,QString)));
