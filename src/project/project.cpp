@@ -37,7 +37,6 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <knotification.h>
 
 #include <QLocale>
 #include <QTimer>
@@ -50,6 +49,8 @@
 #ifndef NOKDE
 #include "projectmodel.h"
 #include "webquerycontroller.h"
+
+#include <knotification.h>
 
 #include <kio/global.h>
 #include <kjob.h>

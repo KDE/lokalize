@@ -22,6 +22,9 @@ public:
     void setFirstRun( bool v ){mFirstRun = v;}
     bool firstRun() const{return mFirstRun;}
 
+    void setSourceDir( const QString& s){mSourceDir = s;}
+    QString sourceDir() const{return mSourceDir;}
+
     void save();
     void setDefaults(){}
   protected:
@@ -29,6 +32,7 @@ public:
     // Personal
     int mRole;
     bool mFirstRun;
+    QString mSourceDir;
 
   private:
 };

@@ -7,7 +7,11 @@ namespace KStandardGuiItem
 {
     static inline int save(){return 0;}
     static inline int discard(){return 0;}
+    static inline int yes(){return 0;}
+    static inline int no(){return 0;}
 };
+
+#define KGuiItem(x) 0
 
 class KMessageBox: public QMessageBox
 {
@@ -23,6 +27,17 @@ public:
         Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(c) Q_UNUSED(dontAskAgainName)
         return warning(parent, caption, text, Yes|No|Cancel, Yes);
     }
+    static QMessageBox::StandardButton questionYesNoCancel(QWidget *parent, const QString &text,
+                               const QString &caption,
+                               int y=0,
+                               int n=0,
+                               int c=0,
+                               const QString &dontAskAgainName=QString())
+    {
+        Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(c) Q_UNUSED(dontAskAgainName)
+        return question(parent, caption, text, Yes|No|Cancel, Yes);
+    }
+
     static QMessageBox::StandardButton questionYesNo(QWidget *parent, const QString &text,
                               const QString &caption,
                               int y=0,

@@ -141,12 +141,14 @@ ProjectLocal::ProjectLocal()
 {
     QSettings s;
     mRole = s.value("Project/AuthorRole", mRole).toInt();
+    mSourceDir = s.value("Project/SourceDir", mSourceDir).toString();
 }
 
 void ProjectLocal::save()
 {
     QSettings s;
     s.setValue(QStringLiteral("Project/AuthorRole"), mRole);
+    s.setValue(QStringLiteral("Project/SourceDir"), mSourceDir);
 }
 
 EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, const QString& mergeFile, bool silent)
