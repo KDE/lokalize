@@ -703,7 +703,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     DiffInfo d=getDiffInfo(diff);
 
     bool sameMarkup=Project::instance()->markup()==entry.markupExpr&&!entry.markupExpr.isEmpty();
-    bool tryMarkup=entry.target.tags.size() && sameMarkup;
+    bool tryMarkup=!entry.target.tags.size() && sameMarkup;
     //search for changed markup
     if (tryMarkup)
     {
