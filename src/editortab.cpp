@@ -145,6 +145,9 @@ void EditorTab::initLater()
 
 EditorTab::~EditorTab()
 {
+    disconnect(m_catalog,&Catalog::signalNumberOfFuzziesChanged,this,&EditorTab::numberOfFuzziesChanged);
+    disconnect(m_catalog,&Catalog::signalNumberOfEmptyChanged,this,&EditorTab::numberOfUntranslatedChanged);
+
     if (!m_catalog->isEmpty())
     {
         emit fileAboutToBeClosed();

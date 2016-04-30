@@ -108,7 +108,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(QStringLiteral(" +$|^ +|.?")%QChar(0x0000AD)%(".?")); //soft hyphen
+    QRegExp re(" +$|^ +|.?"%QChar(0x0000AD)%".?"); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
     {
         HighlightingRule rule;
@@ -117,14 +117,18 @@ void SyntaxHighlighter::settingsChanged()
 #ifndef NOKDE
         KColorScheme colorScheme(QPalette::Normal);
         //nbsp
-        rule.format.setBackground(colorScheme.background(KColorScheme::AlternateBackground));
+        //rule.format.setBackground(colorScheme.background(KColorScheme::NegativeBackground));
+        rule.format.setBackground(colorScheme.foreground(KColorScheme::InactiveText));
 #else
         rule.format.setBackground(QApplication::palette().alternateBase());
 #endif
-        rule.pattern = QRegExp(QChar(0x00a0U));
+        rule.format.setFontLetterSpacing(200);
+
+        rule.pattern = QRegExp(QChar(0x00a0U), Qt::CaseSensitive, QRegExp::FixedString);
         highlightingRules.append(rule);
 
         //usual spaces at the end
+        rule.format.setFontLetterSpacing(100);
 #ifndef NOKDE
         rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
 #else
