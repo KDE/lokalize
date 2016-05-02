@@ -1637,9 +1637,14 @@ void EditorTab::mergeIntoOpenDocument()
             QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
             if (QProcess::execute(python, unoArgs)!=0)
             {
-                KMessageBox::information(SettingsController::instance()->mainWindowPtr(),
+                python=QStringLiteral("python3");
+                QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
+                if (QProcess::execute(python, unoArgs)!=0)
+                {
+                    KMessageBox::information(SettingsController::instance()->mainWindowPtr(),
                                          i18n("Install python-uno package for additional functionality."));
-                return;
+                    return;
+                }
             }
 
             QStringList reloaderArgs(reloaderScript);

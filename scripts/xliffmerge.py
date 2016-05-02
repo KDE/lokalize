@@ -6,8 +6,8 @@
 #TODO: mark as 'needs adaptation' when only punctuation is changed
 #check id's change after document update
 
-from PyQt4.QtCore import *
-from PyQt4.QtXml import *
+from PyQt5.QtCore import *
+from PyQt5.QtXml import *
 
 import itertools
 import math
