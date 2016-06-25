@@ -629,7 +629,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
             d._autoSave->close();
         }
         else
-            d._autoSave->setManagedFile(d._filePath);
+            d._autoSave->setManagedFile(QUrl::fromLocalFile(d._filePath));
     }
 #endif
 
@@ -680,7 +680,7 @@ bool Catalog::saveToUrl(QString localFilePath)
     {
         d._filePath=localFilePath;
 #ifndef NOKDE
-        d._autoSave->setManagedFile(localFilePath);
+        d._autoSave->setManagedFile(QUrl::fromLocalFile(localFilePath));
 #endif
     }
 

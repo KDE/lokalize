@@ -1111,7 +1111,7 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
     }
 
     const FileMetaData& info=job->m_info.first();
-    QModelIndex index = indexForUrl(info.filePath);
+    QModelIndex index = indexForUrl(QUrl::fromLocalFile(info.filePath));
     if (!index.isValid())
         return;
 

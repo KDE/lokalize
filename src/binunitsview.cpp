@@ -226,6 +226,6 @@ void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
 #ifndef NOKDE
     //FIXME child processes don't notify us about changes ;(
     if (item.column()<BinUnitsModel::Approved)
-        new KRun(Project::instance()->absolutePath(item.data().toString()),this);
+        new KRun(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())), this);
 #endif
 }

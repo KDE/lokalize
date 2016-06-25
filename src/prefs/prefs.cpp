@@ -282,8 +282,8 @@ void SettingsController::projectConfigure()
             ui_prefs_projectmain.kcfg_PoBaseDir,SLOT(setText(QString)));
     connect(ui_prefs_projectmain.glossaryTbx,SIGNAL(textChanged(QString)),
             ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(QString)));
-    ui_prefs_projectmain.poBaseDir->setUrl(p.poDir());
-    ui_prefs_projectmain.glossaryTbx->setUrl(p.glossaryPath());
+    ui_prefs_projectmain.poBaseDir->setUrl(QUrl::fromLocalFile(p.poDir()));
+    ui_prefs_projectmain.glossaryTbx->setUrl(QUrl::fromLocalFile(p.glossaryPath()));
 
 
 
@@ -302,9 +302,9 @@ void SettingsController::projectConfigure()
     connect(ui_project_advanced.potBaseDir,SIGNAL(textChanged(QString)), ui_project_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
     connect(ui_project_advanced.branchDir,SIGNAL(textChanged(QString)),  ui_project_advanced.kcfg_BranchDir,SLOT(setText(QString)));
     connect(ui_project_advanced.altDir,SIGNAL(textChanged(QString)),  ui_project_advanced.kcfg_AltDir,SLOT(setText(QString)));
-    ui_project_advanced.potBaseDir->setUrl(p.potDir());
-    ui_project_advanced.branchDir->setUrl(p.branchDir());
-    ui_project_advanced.altDir->setUrl(p.altTransDir());
+    ui_project_advanced.potBaseDir->setUrl(QUrl::fromLocalFile(p.potDir()));
+    ui_project_advanced.branchDir->setUrl(QUrl::fromLocalFile(p.branchDir()));
+    ui_project_advanced.altDir->setUrl(QUrl::fromLocalFile(p.altTransDir()));
     dialog->addPage(w, i18nc("@title:tab","Advanced"), "applications-development-translation");
 
     //Scripts
