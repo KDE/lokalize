@@ -20,13 +20,13 @@ def show_in_ooo(odfpathname,entryid):
 
     try: ctx = establish_connection()
     except:
-        os.system('soffice "-accept=socket,host=localhost,port=2002;urp;"')
+        os.system('soffice "--accept=socket,host=localhost,port=2002;urp;"')
         for c in range(30):
             time.sleep(1) #sleeps rule )))
             try:ctx = establish_connection()
             except: continue
             break
-    print "file://"+odfpathname
+    print ("file://"+odfpathname)
     
     desktop = ctx.ServiceManager.createInstanceWithContext( "com.sun.star.frame.Desktop",ctx)
     model = desktop.loadComponentFromURL( "file://"+odfpathname,"_default", 0, () )
@@ -40,11 +40,11 @@ def show_in_ooo(odfpathname,entryid):
     cursor = model.Text.createTextCursor()
     cursor.gotoStart(False)
     try:
-        print entryid
+        print (entryid)
         #office:document-content[0]/office:body[0]/office:text[0]/text:h[0]
         standardstart='office:document-content[0]/office:body[0]/office:text[0]/'
         if entryid.startswith(standardstart): entryid=entryid[len(standardstart):]
-        else: print 'non-standard start: %s' % entryid
+        else: print ('non-standard start: %s' % entryid)
 
         numre=re.compile('\\[([0-9]*)\\]')
         elemre=re.compile(':([^\\[]*)\\[')
@@ -70,7 +70,7 @@ def show_in_ooo(odfpathname,entryid):
         c.gotoRange(cursor,False)
 
     except:
-        print 'error determining pos'
+        print ('error determining pos')
         #return ctx
 
     ctx.ServiceManager
