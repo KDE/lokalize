@@ -36,4 +36,6 @@ add_subdirectory(scripts)
 add_subdirectory(icons)
 #add_subdirectory(strigi-analyzer)
 
+install(FILES org.kde.lokalize.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
