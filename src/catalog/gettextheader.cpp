@@ -308,7 +308,8 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY( !found ))
         headerList.append(temp);
 
-    QString dateTimeString = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm"));
+    QLocale cLocale(QLocale::C);
+    QString dateTimeString = cLocale.toString(QDateTime::currentDateTime(), QStringLiteral("yyyy-MM-dd hh:mm"));
     QString zoneOffsetString1 = QTimeZone(QTimeZone::systemTimeZoneId()).displayName(QTimeZone::GenericTime, QTimeZone::OffsetName);
     int zpos=qMax(qMax(0, zoneOffsetString1.indexOf('+')), zoneOffsetString1.indexOf('-'));
     QString zoneOffsetString = QString::fromRawData(zoneOffsetString1.unicode()+zpos, zoneOffsetString1.length()-zpos);
@@ -505,13 +506,13 @@ void updateHeader(QString& header,
     {
         found=it->contains( fsfc ) ;
         if (found)
-            it->replace(QStringLiteral("YEAR"), QDate::currentDate().toString(QStringLiteral("yyyy")));
+            it->replace(QStringLiteral("YEAR"), cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")));
     }
 /*
                         	    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
                         	    {
                         		    //update years
-                        		    QString cy = QDate::currentDate().toString("yyyy");
+                        		    QString cy = cLocale.toString(QDate::currentDate(), "yyyy");
                         		    if( !it->contains( QRegExp(cy)) ) // is the year already included?
                         		    {
                         			int index = it->lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
@@ -596,7 +597,7 @@ void updateHeader(QString& header,
 //                        return;
     QStringList foundAuthors;
 
-    temp=QStringLiteral("# ")%authorNameEmail%QStringLiteral(", ")%QDate::currentDate().toString(QStringLiteral("yyyy"))%'.';
+    temp=QStringLiteral("# ")%authorNameEmail%QStringLiteral(", ")%cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy"))%'.';
 
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
     QRegExp regexpAuthorYear( QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)") );
@@ -651,7 +652,7 @@ void updateHeader(QString& header,
             found = false;
             bool foundAuthor = false;
 
-            const QString cy = QDate::currentDate().toString(QStringLiteral("yyyy"));
+            const QString cy = cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy"));
 
             ait = foundAuthors.end();
             for ( it = foundAuthors.begin() ; it!=foundAuthors.end(); ++it )
