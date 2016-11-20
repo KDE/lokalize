@@ -938,7 +938,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 bool EditorTab::saveFileAs()
 {
     QString filePath=QFileDialog::getSaveFileName(this, i18nc("@title:window", "Save File As"),
-                                             QFileInfo(m_catalog->url()).absolutePath(), m_catalog->fileType());
+                                             QFileInfo(m_catalog->url()).absoluteFilePath(), m_catalog->fileType());
     if (filePath.isEmpty()) return false;
     if (!Catalog::extIsSupported(filePath)&&m_catalog->url().contains('.'))
         filePath+=m_catalog->url().midRef(m_catalog->url().lastIndexOf('.'));
