@@ -26,10 +26,10 @@ def show_in_ooo(odfpathname,entryid):
             try:ctx = establish_connection()
             except: continue
             break
-    print ("file://"+odfpathname)
+    print (uno.systemPathToFileUrl(odfpathname))
     
     desktop = ctx.ServiceManager.createInstanceWithContext( "com.sun.star.frame.Desktop",ctx)
-    model = desktop.loadComponentFromURL( "file://"+odfpathname,"_default", 0, () )
+    model = desktop.loadComponentFromURL( uno.systemPathToFileUrl(odfpathname),"_default", 0, () )
 
     dispatcher = ctx.ServiceManager.createInstanceWithContext( "com.sun.star.frame.DispatchHelper",ctx)
     dispatcher.executeDispatch(model.getCurrentController().getFrame(),".uno:Reload","",0,())
