@@ -27,8 +27,6 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/tm
     ${CMAKE_CURRENT_SOURCE_DIR}/filesearch
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
-    ${KDE4_INCLUDE_DIR}
-    ${QT_INCLUDES}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
@@ -154,7 +152,8 @@ qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
 
 
 
-#kde4_add_app_icon(lokalize_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-lokalize.png")
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/global/*-apps-lokalize.png")
+ecm_add_app_icon(lokalize_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(lokalize ${lokalize_SRCS})
 

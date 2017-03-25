@@ -6,11 +6,12 @@ set (QT_MIN_VERSION "5.5.0")
 
 
 # search packages used by KDE
-find_package(ECM 0.0.10 REQUIRED CONFIG)
+find_package(ECM 1.7 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
+include(ECMAddAppIcon)
 
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Sql)
 
