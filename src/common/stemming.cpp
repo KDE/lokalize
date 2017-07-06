@@ -40,7 +40,7 @@ QString enhanceLangCode(const QString& langCode)
 
 
 #ifdef HAVE_HUNSPELL
-#include <hunspell/hunspell.hxx>
+#include <hunspell.hxx>
 #include <QTextCodec>
 
 struct SpellerAndCodec
