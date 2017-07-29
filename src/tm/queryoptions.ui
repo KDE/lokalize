@@ -34,7 +34,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="dbName"/>
+      <widget class="QComboBox" name="dbName">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer">
