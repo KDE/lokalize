@@ -51,30 +51,34 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="l1">
-     <property name="toolTip">
-      <string>Set to 2 to disable word completion</string>
-     </property>
-     <property name="text">
-      <string>Minimum word length for word completion</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QSpinBox" name="kcfg_WordCompletionLength">
-     <property name="toolTip">
-      <string>Set to 2 to disable word completion</string>
-     </property>
-     <property name="specialValueText">
-      <string>Disable word completion</string>
-     </property>
-     <property name="minimum">
-      <number>2</number>
-     </property>
-     <property name="maximum">
-      <number>20</number>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QLabel" name="l1">
+       <property name="toolTip">
+        <string>Set to 2 to disable word completion</string>
+       </property>
+       <property name="text">
+        <string>Minimum word length for word completion</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="kcfg_WordCompletionLength">
+       <property name="toolTip">
+        <string>Set to 2 to disable word completion</string>
+       </property>
+       <property name="specialValueText">
+        <string>Disable word completion</string>
+       </property>
+       <property name="minimum">
+        <number>2</number>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
