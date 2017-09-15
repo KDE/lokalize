@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Lokalize</name>
+  <name xml:lang="ar">لوكالايز</name>
   <name xml:lang="ast">Lokalize</name>
   <name xml:lang="ca">Lokalize</name>
   <name xml:lang="ca-valencia">Lokalize</name>
@@ -41,6 +42,7 @@
   <name xml:lang="zh-CN">Lokalize</name>
   <name xml:lang="zh-TW">Lokalize</name>
   <summary>Computer-aided translation system</summary>
+  <summary xml:lang="ar">نظام ترجمة بمساعدة الحاسوب</summary>
   <summary xml:lang="ca">Sistema de traducció assistida per ordinador</summary>
   <summary xml:lang="ca-valencia">Sistema de traducció assistida per ordinador</summary>
   <summary xml:lang="cs">Systém pro překlad pomocí počítače</summary>
@@ -78,6 +80,7 @@
   <summary xml:lang="zh-TW">電腦協助翻譯系統</summary>
   <description>
     <p>Lokalize is the localization tool for KDE software and other free and open source software. It is also a general computer-aided translation system (CAT) with which you can translate OpenDocument files (*.odt). Translate-Toolkit is used internally to extract text for translation from .odt to .xliff files and to merge translation back into .odt file.</p>
+    <p xml:lang="ar">«لوكالايز» أداة توطين لبرمجيّات «كدي» والبرمجيّات مالفتوحة المصدر والحرّة الأخرى. يمكن اعتباره أيضًا نظام ترجمة بمساعدة الحاسوب (CAT) يمكن استخدامه لترجمة ملفّات «المستندالمفتوح» (‎*.odt). تُستخدم «عُدّة التّرجمة» داخليًّا لاستخراج النّصوص لترجمتها من ملفّ ”‎.odt“ إلى ملفّات ”‎.xliff“ وأيضًا لدمج التّرجمة مرّة أخرى بملفّ ”‎.odt“.</p>
     <p xml:lang="ca">El Lokalize és l'eina de traducció pel programari de KDE i altre programari de codi lliure i obert. També és un sistema de traducció assistit per ordinador (CAT) general que amb el que es poden traduir fitxers OpenDocument (*.odt). Internament s'utilitza el Translate-Toolkit per extreure text per a la traducció des de fitxers .odt a .xliff i per tornar a fusionar la traducció al fitxer .odt.</p>
     <p xml:lang="ca-valencia">El Lokalize és l'eina de traducció pel programari de KDE i altre programari de codi lliure i obert. També és un sistema de traducció assistit per ordinador (CAT) general que amb el que es poden traduir fitxers OpenDocument (*.odt). Internament s'utilitza el Translate-Toolkit per extreure text per a la traducció des de fitxers .odt a .xliff i per tornar a fusionar la traducció al fitxer .odt.</p>
     <p xml:lang="de">Lokalize ist ein Lokalisierungs-Programm für KDE-Programme und andere freie und quelloffene Software. Es ist außerdem ein  rechnergestütztes Übersetzungssystem (CAT), mit dem Sie auch OpenDocument-Dateien (odt) übersetzen können. Intern wird „Translate-Toolkit“ zum Extrahieren von Text für die Übersetzung aus „odt“- in „xliff“-Dateien und für das Einfügen der Übersetzung zurück in „odt“-Dateien verwendet.</p>
