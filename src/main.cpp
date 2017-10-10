@@ -90,9 +90,8 @@ int main(int argc, char **argv)
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
 
-    KLocalizedString::setApplicationDomain("lokalize");
-
     QApplication app(argc, argv);
+    KLocalizedString::setApplicationDomain("lokalize");
     QCommandLineParser parser;
     KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
                      KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
