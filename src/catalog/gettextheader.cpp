@@ -47,95 +47,58 @@
  * this data was obtained by running GNUPluralForms()
  * on all languages KDE knows of
 **/
-#define NUM_LANG_WITH_INFO 41
-static const char* langsWithPInfo[NUM_LANG_WITH_INFO]={
-"ar",
-"cs",
-"da",
-"de",
-"el",
-"en",
-"en_GB",
-"en_US",
-"eo",
-"es",
-"et",
-"fi",
-"fo",
-"fr",
-"ga",
-"he",
-"hr",
-"hu",
-"it",
-"ja",
-"ko",
-"lt",
-"lv",
-"nb",
-"nl",
-"nn",
-"pl",
-"pt",
-"pt_BR",
-"ro",
-"ru",
-"sk",
-"sl",
-"sr",
-"sr@latin",
-"sv",
-"th",
-"tr",
-"uk",
-"vi",
-"zh_CN"
-// '\0'
+
+struct langPInfo
+{
+  const char *lang;
+  const char *plural;
 };
 
-static const char* pInfo[NUM_LANG_WITH_INFO]={
-"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;",
-"nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n > 1);",
-"nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;",
-"nplurals=2; plural=(n != 1);",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=1; plural=0;",
-"nplurals=1; plural=0;",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=2; plural=(n > 1);",
-"nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;",
-"nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=2; plural=(n != 1);",
-"nplurals=1; plural=0;",
-"nplurals=2; plural=(n > 1);",
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
-"nplurals=1; plural=0;",
-"nplurals=1; plural=0;"
+static const langPInfo langsWithPInfo[] = {
+    { "ar", "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;" },
+    { "cs", "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;" },
+    { "da", "nplurals=2; plural=(n != 1);" },
+    { "de", "nplurals=2; plural=(n != 1);" },
+    { "el", "nplurals=2; plural=(n != 1);" },
+    { "en", "nplurals=2; plural=(n != 1);" },
+    { "en_GB", "nplurals=2; plural=(n != 1);" },
+    { "en_US", "nplurals=2; plural=(n != 1);" },
+    { "eo", "nplurals=2; plural=(n != 1);" },
+    { "es", "nplurals=2; plural=(n != 1);" },
+    { "et", "nplurals=2; plural=(n != 1);" },
+    { "fi", "nplurals=2; plural=(n != 1);" },
+    { "fo", "nplurals=2; plural=(n != 1);" },
+    { "fr", "nplurals=2; plural=(n > 1);" },
+    { "ga", "nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;" },
+    { "he", "nplurals=2; plural=(n != 1);" },
+    { "hr", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "hu", "nplurals=2; plural=(n != 1);" },
+    { "it", "nplurals=2; plural=(n != 1);" },
+    { "ja", "nplurals=1; plural=0;" },
+    { "ko", "nplurals=1; plural=0;" },
+    { "lt", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "lv", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);" },
+    { "nb", "nplurals=2; plural=(n != 1);" },
+    { "nl", "nplurals=2; plural=(n != 1);" },
+    { "nn", "nplurals=2; plural=(n != 1);" },
+    { "pl", "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "pt", "nplurals=2; plural=(n != 1);" },
+    { "pt_BR", "nplurals=2; plural=(n > 1);" },
+    { "ro", "nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;" },
+    { "ru", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "sk", "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;" },
+    { "sl", "nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);" },
+    { "sr", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "sr@latin", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "sv", "nplurals=2; plural=(n != 1);" },
+    { "th", "nplurals=1; plural=0;" },
+    { "tr", "nplurals=2; plural=(n > 1);" },
+    { "uk", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "vi", "nplurals=1; plural=0;" },
+    { "zh_CN", "nplurals=1; plural=0;" }
 };
+
+static const size_t langsWithPInfoCount = sizeof (langsWithPInfo) / sizeof (langsWithPInfo[0]);
 
 
 int numberOfPluralFormsFromHeader(const QString& header)
@@ -165,12 +128,11 @@ int numberOfPluralFormsForLangCode(const QString& langCode)
 QString GNUPluralForms(const QString& lang)
 {
     QByteArray l(lang.toUtf8());
-    int i=NUM_LANG_WITH_INFO;
-    while(--i>=0 && l!=langsWithPInfo[i])
+    int i=langsWithPInfoCount;
+    while(--i>=0 && l!=langsWithPInfo[i].lang)
         ;
-    //if (KDE_ISLIKELY( langsWithPInfo[i]))
     if (KDE_ISLIKELY( i>=0 ))
-        return QString::fromLatin1(pInfo[i]);
+        return QString::fromLatin1(langsWithPInfo[i].plural);
 
 
     //BEGIN alternative
