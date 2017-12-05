@@ -107,9 +107,9 @@
     <p xml:lang="uk">Lokalize — інструмент для локалізації програмного забезпечення KDE та іншого програмного забезпечення із відкритим кодом. Це також загальна система комп’ютеризованого перекладу (CAT), за допомогою якої ви можете перекладати файли OpenDocument (*.odt). Для видобування тексту для перекладу з файлів .odt до файлів .xliff, а також для включення перекладу назад до файла .odt використовується Translate-Toolkit.</p>
     <p xml:lang="x-test">xxLokalize is the localization tool for KDE software and other free and open source software. It is also a general computer-aided translation system (CAT) with which you can translate OpenDocument files (*.odt). Translate-Toolkit is used internally to extract text for translation from .odt to .xliff files and to merge translation back into .odt file.xx</p>
   </description>
-  <url type="homepage">http://userbase.kde.org/Lokalize</url>
+  <url type="homepage">https://userbase.kde.org/Lokalize</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=lokalize</url>
-  <url type="help">http://docs.kde.org/stable/en/kdesdk/lokalize/index.html</url>
+  <url type="help">https://docs.kde.org/?application=lokalize</url>
   <screenshots>
     <screenshot type="default">
       <image>https://www.kde.org/images/screenshots/lokalize.png</image>
