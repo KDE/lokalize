@@ -162,6 +162,12 @@ QString GNUPluralForms(const QString& lang)
     if (KDE_ISLIKELY( i>=0 ))
         return QString::fromLatin1(langsWithPInfo[i].plural);
 
+    i=langsWithPInfoCount;
+    while(--i>=0 && !l.startsWith(langsWithPInfo[i].lang))
+        ;
+    if (KDE_ISLIKELY( i>=0 ))
+        return QString::fromLatin1(langsWithPInfo[i].plural);
+
 
     //BEGIN alternative
     // NOTE does this work under M$ OS?
@@ -325,7 +331,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY( !found ))
         headerList.append(temp);
 
-    
+
     langCode=Project::instance()->isLoaded()?
              Project::instance()->langCode():
              Settings::defaultLangCode();

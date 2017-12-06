@@ -42,8 +42,7 @@ bool SettingsController::ensureProjectIsLoaded()
 QString fullUserName();// defined in <platform>helpers.cpp
 
 Settings::Settings()
- : mDefaultLangCode(QLocale::system().name())
- , mAddColor(0x99,0xCC,0xFF)
+ : mAddColor(0x99,0xCC,0xFF)
  , mDelColor(0xFF,0x99,0x99)
  , mMsgFont()
  , mHighlightSpaces(true)
@@ -68,6 +67,8 @@ Settings::Settings()
     if (mAuthorName.isEmpty()) {mAuthorName = fullUserName(); if (mAuthorName.length()) mAuthorName[0]=mAuthorName.at(0).toUpper();}
     mAuthorEmail = s.value(QStringLiteral("Author/Email"), QString()).toString();
 
+    mDefaultLangCode = s.value(QStringLiteral("Editor/TargetLangCode"), QLocale::system().name()).toString();
+
     mAltTransViewEverShownWithData = s.value(QStringLiteral("Editor/AltTransViewEverShownWithData"),false).toBool();
 }
 
@@ -76,6 +77,8 @@ void Settings::save()
     QSettings s;
     s.setValue(QStringLiteral("Author/Name"), mAuthorName);
     s.setValue(QStringLiteral("Author/Email"), mAuthorEmail);
+
+    s.setValue(QStringLiteral("Editor/TargetLangCode"), mDefaultLangCode);
 
     s.setValue(QStringLiteral("Editor/AltTransViewEverShownWithData"), mAltTransViewEverShownWithData);
 }

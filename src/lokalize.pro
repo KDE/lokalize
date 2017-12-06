@@ -175,6 +175,7 @@ sonnet_static
 
     DEFINES += HAVE_HUNSPELL
     #win32: DEFINES += HUNSPELL_STATIC
+    INCLUDEPATH += ../../hunspell/src/hunspell
     INCLUDEPATH += ../../hunspell/src
     mac:LIBS   += -L../../hunspell/src/hunspell/.libs/ -lhunspell-1.2
     win32:LIBS += -L../../hunspell/src/win_api/x64/Release_dll -llibhunspell

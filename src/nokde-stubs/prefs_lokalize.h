@@ -20,6 +20,7 @@ public:
 public slots:
     static void setAuthorName(const QString& v){self()->mAuthorName = v;}
     static void setAuthorEmail(const QString& v){self()->mAuthorEmail = v;}
+    static void setDefaultLangCode(const QString& v){self()->mDefaultLangCode = v;}
 
 public:
     static QString authorName() {return self()->mAuthorName;}
