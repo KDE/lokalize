@@ -197,7 +197,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
 ProjectTab::~ProjectTab()
 {
-    //qWarning()<<"destroyed";
+    //qCWarning(LOKALIZE_LOG)<<"destroyed";
 }
 
 void ProjectTab::showRealProjectOverview()

@@ -23,12 +23,13 @@
 
 #include "stemming.h"
 
+#include "lokalize_debug.h"
+
 #include <QMap>
 #include <QFileInfo>
 #include <QMutex>
 #include <QMutexLocker>
 #include <QStringBuilder>
-#include <QDebug>
 
 QString enhanceLangCode(const QString& langCode)
 {

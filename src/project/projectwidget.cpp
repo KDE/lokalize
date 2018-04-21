@@ -23,6 +23,8 @@
 
 #include "projectwidget.h"
 
+#include "lokalize_debug.h"
+
 #include "project.h"
 #include "catalog.h"
 #include "headerviewmenu.h"
@@ -33,7 +35,6 @@
 #include <kcolorscheme.h>
 #include <kdemacros.h>
 
-#include <QDebug>
 #include <QTreeView>
 #include <QTimer>
 #include <QMouseEvent>
@@ -44,8 +45,6 @@
 #include <QItemDelegate>
 #include <QStyledItemDelegate>
 #include <QCollator>
-
-#undef KDE_NO_DEBUG_OUTPUT
 
 
 class PoItemDelegate: public QStyledItemDelegate
@@ -175,7 +174,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
                                         const QModelIndex& right) const
 {
     static QCollator collator;
-//     qWarning()<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
+//     qCWarning(LOKALIZE_LOG)<<right.column()<<"--"<<left.row()<<right.row()<<left.internalPointer()<<right.internalPointer()<<left.parent().isValid()<<right.parent().isValid();
     //<<left.data().toString()<<right.data().toString()
     ProjectModel* projectModel = static_cast<ProjectModel*>(sourceModel());
     const KFileItem leftFileItem  = projectModel->itemForIndex(left);
@@ -192,7 +191,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
 
     if (leftFileItem.isNull() || rightFileItem.isNull())
     {
-        qWarning()<<".isNull()";
+        qCWarning(LOKALIZE_LOG)<<".isNull()";
         return false;
     }
 

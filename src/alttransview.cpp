@@ -21,9 +21,9 @@
 
 **************************************************************************** */
 
-#define KDE_NO_DEBUG_OUTPUT
-
 #include "alttransview.h"
+
+#include "lokalize_debug.h"
 
 #include "diff.h"
 #include "catalog.h"
@@ -36,7 +36,6 @@
 
 #include "kdemacros.h"
 
-#include <QDebug>
 #include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QMimeData>
@@ -139,7 +138,7 @@ void AltTransView::fileLoaded()
     if (info.canonicalFilePath()!=absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
     else
-        qWarning()<<"alt trans file doesn't exist:"<<Project::instance()->altTransDir()%'/'%relPath;
+        qCWarning(LOKALIZE_LOG)<<"alt trans file doesn't exist:"<<Project::instance()->altTransDir()%'/'%relPath;
 }
 
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
@@ -278,7 +277,7 @@ bool AltTransView::event(QEvent *event)
         int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
         int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
         if (block1!=block)
-            qWarning()<<"block numbers don't match";
+            qCWarning(LOKALIZE_LOG)<<"block numbers don't match";
         if (block>=m_entries.size())
             return false;
 
@@ -305,7 +304,7 @@ void AltTransView::slotUseSuggestion(int i)
 
     CatalogString target=TM::targetAdapted(tmEntry, source);
 
-    qWarning()<<"0"<<target.string;
+    qCWarning(LOKALIZE_LOG)<<"0"<<target.string;
     if (KDE_ISUNLIKELY( target.isEmpty() ))
         return;
 
@@ -318,7 +317,7 @@ void AltTransView::slotUseSuggestion(int i)
         removeTargetSubstring(m_catalog, m_entry.toDocPosition(), 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
-    qWarning()<<"1"<<target.string;
+    qCWarning(LOKALIZE_LOG)<<"1"<<target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_entry.toDocPosition(), target, 0);

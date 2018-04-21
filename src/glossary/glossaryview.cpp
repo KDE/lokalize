@@ -31,6 +31,9 @@
 **************************************************************************** */
 
 #include "glossaryview.h"
+
+#include "lokalize_debug.h"
+
 #include "glossary.h"
 #include "project.h"
 #include "catalog.h"
@@ -39,7 +42,6 @@
 #include "glossarywindow.h"
 #include "stemming.h"
 
-#include <QDebug>
 #include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QTime>
@@ -107,7 +109,7 @@ GlossaryView::~GlossaryView()
 
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
-    //qWarning()<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
+    //qCWarning(LOKALIZE_LOG)<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
     QTime time;time.start();
     if (pos.entry==-1)
         pos.entry=m_currentIndex;
@@ -129,7 +131,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     QString msgStemmed;
 
 //     QRegExp accel(Project::instance()->accel());
-//     qWarning()<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
+//     qCWarning(LOKALIZE_LOG)<<endl<<endl<<"valvalvalvalval " <<Project::instance()->accel()<<endl;
 //     int pos=0;
 //     while ((pos=accel.indexIn(msg,pos))!=-1)
 //     {
@@ -144,7 +146,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
         QString word=stem(sourceLangCode,w);
         QList<QByteArray> indexes=glossary.idsForLangWord(sourceLangCode,word);
         //if (indexes.size())
-            //qWarning()<<"found entry for:" <<word;
+            //qCWarning(LOKALIZE_LOG)<<"found entry for:" <<word;
         termIds+=indexes;
         msgStemmed+=word+' ';
     }

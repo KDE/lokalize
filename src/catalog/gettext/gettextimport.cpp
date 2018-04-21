@@ -34,9 +34,10 @@
 
 **************************************************************************** */
 
-#define KDE_NO_DEBUG_OUTPUT
-
 #include "gettextimport.h"
+
+#include "lokalize_debug.h"
+
 //#include <resources.h>
 
 #include <QFile>
@@ -47,7 +48,6 @@
 #include <QList>
 #include <QTextStream>
 #include <QEventLoop>
-#include <QDebug>
 
 #include "catalogitem.h"
 
@@ -106,7 +106,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    // if somethings goes wrong with the parsing, we don't have deleted the old contents
    CatalogItem tempHeader;
 
-   //qDebug() << "start parsing...";
+   //qCDebug(LOKALIZE_LOG) << "start parsing...";
    QTime aaa;
    aaa.start();
    // first read header
@@ -115,22 +115,22 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    bool recoveredErrorInHeader = false;
    if (Q_UNLIKELY( status == RECOVERED_PARSE_ERROR ))
    {
-      qDebug() << "Recovered error in header entry";
+      qCDebug(LOKALIZE_LOG) << "Recovered error in header entry";
       recoveredErrorInHeader = true;
    }
    else if (Q_UNLIKELY( status != OK ))
    {
-      qWarning() << "Parse error in header entry";
+      qCWarning(LOKALIZE_LOG) << "Parse error in header entry";
       return status;
    }
 
    bool reconstructedHeader=!_msgid.isEmpty() && !_msgid.first().isEmpty();
-   //qWarning() << "HEADER MSGID: " << _msgid;
-   //qWarning() << "HEADER MSGSTR: " << _msgstr;
+   //qCWarning(LOKALIZE_LOG) << "HEADER MSGID: " << _msgid;
+   //qCWarning(LOKALIZE_LOG) << "HEADER MSGSTR: " << _msgstr;
    if (Q_UNLIKELY( reconstructedHeader ))
    {
       // The header must have an empty msgid
-      qWarning() << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
+      qCWarning(LOKALIZE_LOG) << "Header entry has non-empty msgid. Creating a temporary header! " << _msgid;
       tempHeader.setMsgid( QString() );
       QString tmp(
          "Content-Type: text/plain; charset=UTF-8\\n" // Unknown charset
@@ -199,7 +199,7 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       }
       else if(Q_UNLIKELY( success==RECOVERED_PARSE_ERROR ))
       {
-         qDebug() << "Recovered parse error in entry: " << counter;
+         qCDebug(LOKALIZE_LOG) << "Recovered parse error in entry: " << counter;
          //recoveredError=true;
          errorIndex.append(counter);
 
@@ -216,12 +216,12 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
       }
       else if (success == PARSE_ERROR)
       {
-         qDebug() << "Parse error in entry: " << counter;
+         qCDebug(LOKALIZE_LOG) << "Parse error in entry: " << counter;
          return PARSE_ERROR;
       }
       else
       {
-         qDebug() << "Unknown success status, assumig parse error " << success;
+         qCDebug(LOKALIZE_LOG) << "Unknown success status, assumig parse error " << success;
          return PARSE_ERROR;
       }
       counter++;
@@ -232,15 +232,15 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
    if (Q_UNLIKELY( !counter && !recoveredErrorInHeader ))
    {
       // Empty file? (Otherwise, there would be a try of getting an entry and the count would be 1 !)
-      qDebug() << " Empty file?";
+      qCDebug(LOKALIZE_LOG) << " Empty file?";
       return PARSE_ERROR;
    }
 
-   //qDebug() << " ready";
+   //qCDebug(LOKALIZE_LOG) << " ready";
 
    // We have successfully loaded the file (perhaps with recovered errors)
 
-//    qWarning() << " done in " << aaa.elapsed() <<_extraDataSaver->extraData.size() << endl;
+//    qCWarning(LOKALIZE_LOG) << " done in " << aaa.elapsed() <<_extraDataSaver->extraData.size() << endl;
 
    setGeneratedFromDocbook(docbookContent || docbookFile);
    setHeader(tempHeader);
@@ -251,18 +251,18 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
 #if 0
    if (Q_UNLIKELY( recoveredErrorInHeader ))
    {
-      qDebug() << " Returning: header error";
+      qCDebug(LOKALIZE_LOG) << " Returning: header error";
       return RECOVERED_HEADER_ERROR;
    }
    else if (Q_UNLIKELY( recoveredError ))
    {
-      qDebug() << " Returning: recovered parse error";
+      qCDebug(LOKALIZE_LOG) << " Returning: recovered parse error";
       return RECOVERED_PARSE_ERROR;
    }
    else
 #endif
    {
-      //qDebug() << " Returning: OK! :-)";
+      //qCDebug(LOKALIZE_LOG) << " Returning: OK! :-)";
       return OK;
    }
 }
@@ -279,23 +279,23 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     ConversionStatus status = readEntry(stream);
     if (Q_UNLIKELY( status!=OK && status != RECOVERED_PARSE_ERROR ))
     {
-        qDebug() << "wasn't able to read header";
+        qCDebug(LOKALIZE_LOG) << "wasn't able to read header";
         return codec;
     }
 
     QRegExp regexp(QStringLiteral("Content-Type:\\s*\\w+/[-\\w]+;?\\s*charset\\s*=\\s*(\\S+)\\s*\\\\n"));
     if ( regexp.indexIn( _msgstr.first() ) == -1 )
     {
-        qDebug() << "no charset entry found";
+        qCDebug(LOKALIZE_LOG) << "no charset entry found";
         return codec;
     }
 
     const QString charset = regexp.cap(1);
-    if (charset!=QLatin1String("UTF-8")) qDebug() << "charset:" << charset;
+    if (charset!=QLatin1String("UTF-8")) qCDebug(LOKALIZE_LOG) << "charset:" << charset;
 
     if (charset.isEmpty())
     {
-        qWarning() << "No charset defined! Assuming UTF-8!";
+        qCWarning(LOKALIZE_LOG) << "No charset defined! Assuming UTF-8!";
         return codec;
     }
 
@@ -304,7 +304,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     // at least utf8, so utf8-codec can be used for both.
     if ( charset.contains(QLatin1String("CHARSET")))
     {
-        qDebug() << QString("file seems to be a template: using utf-8 encoding.");
+        qCDebug(LOKALIZE_LOG) << QString("file seems to be a template: using utf-8 encoding.");
         return QTextCodec::codecForName("utf8");;
     }
 
@@ -314,7 +314,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
     if (t)
         return t;
     else
-       qWarning() << "charset found, but no codec available, using UTF-8 instead";
+       qCWarning(LOKALIZE_LOG) << "charset found, but no codec available, using UTF-8 instead";
 
     return codec;//UTF-8
 }
@@ -332,7 +332,7 @@ ConversionStatus GettextImportPlugin::readEntry(QTextStream& stream)
 
 ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 {
-   //qDebug() << " START";
+   //qCDebug(LOKALIZE_LOG) << " START";
    enum {Begin,Comment,Msgctxt,Msgid,Msgstr} part=Begin;
 
    _trailingNewLines=0;
@@ -371,7 +371,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
        {
           // We have found a CVS/SVN conflict marker. Abort.
           // (It cannot be any useful data of the PO file, as otherwise the line would start with at least a quote)
-          qWarning() << "CVS/SVN conflict marker found! Aborting!" << endl << line << endl;
+          qCWarning(LOKALIZE_LOG) << "CVS/SVN conflict marker found! Aborting!" << endl << line << endl;
           return PARSE_ERROR;
        }
 
@@ -447,7 +447,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
            }
            else
            {
-               qDebug() << "no comment, msgctxt or msgid found after a comment: " << line;
+               qCDebug(LOKALIZE_LOG) << "no comment, msgctxt or msgid found after a comment: " << line;
                error=true;
                break;
            }
@@ -504,7 +504,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               qDebug() << "no comment or msgid found after a comment while parsing: " << _comment;
+               qCDebug(LOKALIZE_LOG) << "no comment or msgid found after a comment while parsing: " << _comment;
                error=true;
                break;
             }
@@ -554,7 +554,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               qDebug() << "no msgid found after a msgctxt while parsing: " << _msgctxt;
+               qCDebug(LOKALIZE_LOG) << "no msgid found after a msgctxt while parsing: " << _msgctxt;
                error=true;
                break;
             }
@@ -663,13 +663,13 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             else if ( line.startsWith( '#' ) )
             {
                // ### TODO: could this be considered recoverable?
-               qDebug() << "comment found after a msgid while parsing: " << _msgid.first();
+               qCDebug(LOKALIZE_LOG) << "comment found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
             else if ( line.startsWith( QStringLiteral("msgid") ) )
             {
-               qDebug() << "Another msgid found after a msgid while parsing: " << _msgid.first();
+               qCDebug(LOKALIZE_LOG) << "Another msgid found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
@@ -699,7 +699,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               qDebug() << "no msgstr found after a msgid while parsing: " << _msgid.first();
+               qCDebug(LOKALIZE_LOG) << "no msgstr found after a msgid while parsing: " << _msgid.first();
                error=true;
                break;
             }
@@ -750,7 +750,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else if(line.startsWith(QLatin1String("msgstr")))
             {
-               qDebug() << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
+               qCDebug(LOKALIZE_LOG) << "Another msgstr found after a msgstr while parsing: " << line << _msgstr.last();
                error=true;
                break;
             }
@@ -769,7 +769,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
             }
             else
             {
-               qDebug() << "no msgid or comment found after a msgstr while parsing: " << _msgstr.last();
+               qCDebug(LOKALIZE_LOG) << "no msgid or comment found after a msgstr while parsing: " << _msgstr.last();
                error=true;
                break;
             }
@@ -779,20 +779,20 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
 /*
    if(_gettextPluralForm)
    {
-       qDebug() << "gettext plural form:\n"
+       qCDebug(LOKALIZE_LOG) << "gettext plural form:\n"
                  << "msgid:\n" << _msgid.first() << "\n"
                  << "msgid_plural:\n" << _msgid.last() << "\n" << endl;
        int counter=0;
        for(QStringList::Iterator it = _msgstr.begin(); it != _msgstr.end(); ++it)
        {
-           qDebug() << "msgstr[" << counter << "]:\n" 
+           qCDebug(LOKALIZE_LOG) << "msgstr[" << counter << "]:\n"
                      << (*it) << endl;
            counter++;
        }
    }
   */
 
-    //qDebug() << " NEAR RETURN";
+    //qCDebug(LOKALIZE_LOG) << " NEAR RETURN";
     if(Q_UNLIKELY(error))
         return PARSE_ERROR;
     else if(Q_UNLIKELY(recoverableError))

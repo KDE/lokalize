@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "tmtab.h"
+
+#include "lokalize_debug.h"
+
 #include "ui_queryoptions.h"
 #include "project.h"
 #include "dbfilesmodel.h"
@@ -46,7 +49,6 @@
 #include <QStringBuilder>
 #include <QTextDocument>
 #include <QStringListModel>
-#include <QDebug>
 #include <QTextCodec>
 
 #include <klocalizedstring.h>
@@ -308,7 +310,7 @@ void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex& parent)
             break;
         oldSourceRowCount=sourceModel()->rowCount();
     }
-    qDebug()<<"row count"<<sourceModel()->rowCount()<<"   filtered:"<<rowCount();
+    qCDebug(LOKALIZE_LOG)<<"row count"<<sourceModel()->rowCount()<<"   filtered:"<<rowCount();
     emit layoutChanged();
 }
 
@@ -570,7 +572,7 @@ void TMTab::handleResults()
     int rowCount=m_model->rowCount();
     if (rowCount==0)
     {
-        qDebug()<<"m_model->rowCount()==0";
+        qCDebug(LOKALIZE_LOG)<<"m_model->rowCount()==0";
         //try harder
         if(m_partToAlsoTryLater!=DocPosition::UndefPart)
         {
@@ -599,7 +601,7 @@ void TMTab::handleResults()
             return performQuery();
         }
     }
-    qDebug()<<"=DocPosition::UndefPart";
+    qCDebug(LOKALIZE_LOG)<<"=DocPosition::UndefPart";
     m_partToAlsoTryLater=DocPosition::UndefPart;
     
     ui_queryOptions->treeView->setFocus();
@@ -658,7 +660,7 @@ void TMTab::setQAMode(bool enable)
     while(!n.isNull())
     {
         QDomElement e = n.toElement();
-        qDebug() << e.tagName();
+        qCDebug(LOKALIZE_LOG) << e.tagName();
         n = n.nextSiblingElement();
     }*/
 
@@ -676,15 +678,15 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
                                  const QStyleOptionViewItem& /*option*/,
                                  const QModelIndex& index)
 {
-    qWarning()<<"QEvent"<<event;
+    qCWarning(LOKALIZE_LOG)<<"QEvent"<<event;
     if (event->type()==QEvent::Shortcut)
     {
-        qWarning()<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
+        qCWarning(LOKALIZE_LOG)<<"QEvent::Shortcut"<<index.data().canConvert(QVariant::String);
         if (static_cast<QShortcutEvent*>(event)->key().matches(QKeySequence::Copy)
            && index.data().canConvert(QVariant::String))
         {
             QApplication::clipboard()->setText(index.data().toString());
-            qWarning()<<"index.data().toString()";
+            qCWarning(LOKALIZE_LOG)<<"index.data().toString()";
         }
     }
     else if (event->type()==QEvent::MouseButtonRelease)
@@ -780,7 +782,7 @@ void TMTab::lookup(QString source, QString target)
 
 bool TMTab::findGuiTextPackage(QString text, QString package)
 {
-    qWarning()<<package<<text;
+    qCWarning(LOKALIZE_LOG)<<package<<text;
     QLineEdit* const source_target_query[]={ui_queryOptions->queryTarget,ui_queryOptions->querySource};
     static const DocPosition::Part source_target[]={DocPosition::Target,DocPosition::Source};
     QTextCodec* latin1=QTextCodec::codecForMib(4);

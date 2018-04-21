@@ -23,6 +23,8 @@
 
 #include "tmview.h"
 
+#include "lokalize_debug.h"
+
 #include "jobs.h"
 #include "tmscanapi.h"
 #include "catalog.h"
@@ -38,7 +40,6 @@
 #include <kmessagebox.h>
 #include <kpassivepopup.h>
 
-#include <QDebug>
 #include <QTime>
 #include <QDragEnterEvent>
 #include <QMimeData>
@@ -253,7 +254,7 @@ void TMView::slotFileLoaded(const QString& filePath)
 void TMView::slotCacheSuggestions(SelectJob* job)
 {
     m_jobs.removeAll(job);
-    qDebug()<<job->m_pos.entry;
+    qCDebug(LOKALIZE_LOG)<<job->m_pos.entry;
     if (job->m_pos.entry==m_pos.entry)
         slotSuggestionsCame(job);
 
@@ -426,7 +427,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         const DBFilesModel& dbFilesModel=*(DBFilesModel::instance());
         QModelIndex root=dbFilesModel.rootIndex();
         int i=dbFilesModel.rowCount(root);
-        //qWarning()<<"query other DBs,"<<i<<"total";
+        //qCWarning(LOKALIZE_LOG)<<"query other DBs,"<<i<<"total";
         while (--i>=0)
         {
             const QString& dbName=dbFilesModel.data(dbFilesModel.index(i,0,root), DBFilesModel::NameRole).toString();
@@ -479,7 +480,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
         const TMEntry& entry=job.m_entries.at(i);
         html+=(entry.score>9500)?QStringLiteral("<p class='close_match'>"):QStringLiteral("<p>");
-        //qDebug()<<entry.target.string<<entry.hits;
+        //qCDebug(LOKALIZE_LOG)<<entry.target.string<<entry.hits;
 
         html+=QString(QStringLiteral("/%1%/ ")).arg(entry.score > 10000 ? 100: float(entry.score)/100);
 
@@ -544,7 +545,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     }
     m_browser->insertHtml(QStringLiteral("</html>"));
     setUpdatesEnabled(true);
-//    qWarning()<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
+//    qCWarning(LOKALIZE_LOG)<<"ELA "<<time.elapsed()<<"BLOCK COUNT "<<m_browser->document()->blockCount();
 }
 
 
@@ -584,7 +585,7 @@ bool TMView::event(QEvent *event)
 void TMView::contextMenu(const QPoint& pos)
 {
     int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(pos).anchor());
-    qWarning()<<block;
+    qCWarning(LOKALIZE_LOG)<<block;
     if (block>=m_entries.size())
         return;
 
@@ -622,7 +623,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
     int numPos=rxNum.indexIn(old,start);
 //    int abbrPos=rxAbbr.indexIn(old,start);
     int abbrPos=start;
-    //qWarning()<<"seeing"<<old.size()<<old;
+    //qCWarning(LOKALIZE_LOG)<<"seeing"<<old.size()<<old;
     while (((abbrPos=rxAbbr.indexIn(old,abbrPos))!=-1))
     {
         QString word=rxAbbr.cap(0);
@@ -647,7 +648,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
 //         cap=rxAbbr.cap(0);
 
     cap=(pos==numPos?rxNum:rxAbbr).cap(0);
-    //qWarning()<<cap;
+    //qCWarning(LOKALIZE_LOG)<<cap;
 
     return pos;
 }
@@ -664,7 +665,7 @@ static int nextPlacableIn(const QString& old, int start, QString& cap)
  */
 CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 {
-    qWarning()<<entry.source.string<<entry.target.string<<entry.diff;
+    qCWarning(LOKALIZE_LOG)<<entry.source.string<<entry.target.string<<entry.diff;
 
     QString diff=entry.diff;
     CatalogString target=entry.target;
@@ -713,10 +714,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         int replacingPos=0;
         while ((pos=rxMarkup.indexIn(d.old,pos))!=-1)
         {
-            //qWarning()<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
+            //qCWarning(LOKALIZE_LOG)<<"size"<<oldM.size()<<pos<<pos+rxMarkup.matchedLength();
             QByteArray diffIndexPart(d.diffIndex.mid(d.old2DiffClean.at(pos),
                                            d.old2DiffClean.at(pos+rxMarkup.matchedLength()-1)+1-d.old2DiffClean.at(pos)));
-            //qWarning()<<"diffMPart"<<diffMPart;
+            //qCWarning(LOKALIZE_LOG)<<"diffMPart"<<diffMPart;
             if (diffIndexPart.contains('-')
                 ||diffIndexPart.contains('+'))
             {
@@ -738,13 +739,13 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                                 rxMarkup.cap(0).size(),
                                 newMarkup);
                     replacingPos=tmp;
-                    //qWarning()<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
+                    //qCWarning(LOKALIZE_LOG)<<"d.old"<<rxMarkup.cap(0)<<"new"<<newMarkup;
 
                     //avoid trying this part again
                     tmp=d.old2DiffClean.at(pos+rxMarkup.matchedLength()-1);
                     while(--tmp>=d.old2DiffClean.at(pos))
                         d.diffIndex[tmp]='M';
-                    //qWarning()<<"M"<<diffM;
+                    //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
                 }
             }
 
@@ -761,7 +762,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     else
         rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
-    //qWarning()<<"("+entry.markup+"|(\\W|\\d)+";
+    //qCWarning(LOKALIZE_LOG)<<"("+entry.markup+"|(\\W|\\d)+";
 
 
     //handle the beginning
@@ -799,7 +800,7 @@ nono
                 oldMarkup.append(d.diffClean.at(j));
         }
 
-        //qWarning()<<"old"<<oldMarkup;
+        //qCWarning(LOKALIZE_LOG)<<"old"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup); //FIXME if it fails?
         oldMarkup=rxNonTranslatable.cap(0);
         if (target.string.startsWith(oldMarkup))
@@ -814,12 +815,12 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(d.diffClean.at(j));
             }
-            //qWarning()<<"new"<<newMarkup;
+            //qCWarning(LOKALIZE_LOG)<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
             newMarkup=rxNonTranslatable.cap(0);
 
             //replace
-            qWarning()<<"BEGIN HANDLING. replacing"<<target.string.left(oldMarkup.size())<<"with"<<newMarkup;
+            qCWarning(LOKALIZE_LOG)<<"BEGIN HANDLING. replacing"<<target.string.left(oldMarkup.size())<<"with"<<newMarkup;
             target.remove(0,oldMarkup.size());
             target.insert(0,newMarkup);
 
@@ -827,7 +828,7 @@ nono
             j=diffMPart.size();
             while(--j>=0)
                 d.diffIndex[j]='M';
-            //qWarning()<<"M"<<diffM;
+            //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
         }
 
     }
@@ -859,7 +860,7 @@ nono
             if (diffMPart.at(j)!='+')
                 oldMarkup.append(d.diffClean.at(len+j));
         }
-        //qWarning()<<"old-"<<oldMarkup;
+        //qCWarning(LOKALIZE_LOG)<<"old-"<<oldMarkup;
         rxNonTranslatable.indexIn(oldMarkup);
         oldMarkup=rxNonTranslatable.cap(0);
         if (target.string.endsWith(oldMarkup))
@@ -874,7 +875,7 @@ nono
                 if (diffMPart.at(j)!='-')
                     newMarkup.append(d.diffClean.at(len+j));
             }
-            //qWarning()<<"new"<<newMarkup;
+            //qCWarning(LOKALIZE_LOG)<<"new"<<newMarkup;
             rxNonTranslatable.indexIn(newMarkup);
             newMarkup=rxNonTranslatable.cap(0);
 
@@ -886,7 +887,7 @@ nono
             j=diffMPart.size();
             while(--j>=0)
                 d.diffIndex[len+j]='M';
-            //qWarning()<<"M"<<diffM;
+            //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
         }
     }
 //END BEGIN HANDLING
@@ -898,10 +899,10 @@ nono
     QString cap;
     QString _;
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
-    qWarning()<<"string:"<<target.string<<"searching for placeables in"<<d.old;
+    qCWarning(LOKALIZE_LOG)<<"string:"<<target.string<<"searching for placeables in"<<d.old;
     while ((pos=nextPlacableIn(d.old,pos,cap))!=-1)
     {
-        qWarning()<<"considering placable"<<cap;
+        qCWarning(LOKALIZE_LOG)<<"considering placable"<<cap;
         //save these so we can use rxNum in a body
         int endPos1=pos+cap.size()-1;
         int endPos=d.old2DiffClean.at(endPos1);
@@ -909,7 +910,7 @@ nono
         QByteArray diffMPart=d.diffIndex.mid(startPos,
                                        endPos+1-startPos);
 
-        qWarning()<<"starting diffMPart"<<diffMPart;
+        qCWarning(LOKALIZE_LOG)<<"starting diffMPart"<<diffMPart;
 
         //the following loop extends replacement text, e.g. for 1 -> 500 cases
         while ((++endPos<d.diffIndex.size())
@@ -918,12 +919,12 @@ nono
               )
             diffMPart.append('+');
 
-        qWarning()<<"diffMPart extended 1"<<diffMPart;
+        qCWarning(LOKALIZE_LOG)<<"diffMPart extended 1"<<diffMPart;
 //         if ((pos-1>=0) && (d.old2DiffClean.at(pos)>=0))
 //         {
-//             qWarning()<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
-//             qWarning()<<"(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+')"<<(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+');
-//             //qWarning()<<(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_));
+//             qCWarning(LOKALIZE_LOG)<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
+//             qCWarning(LOKALIZE_LOG)<<"(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+')"<<(d.diffIndex.at(d.old2DiffClean.at(pos-1))=='+');
+//             //qCWarning(LOKALIZE_LOG)<<(-1!=nextPlacableIn(QString(d.diffClean.at(d.old2DiffClean.at(pos))),0,_));
 //         }
 
         //this is for the case when +'s preceed -'s:
@@ -934,7 +935,7 @@ nono
             diffMPart.prepend('+');
         ++startPos;
 
-        qWarning()<<"diffMPart extended 2"<<diffMPart;
+        qCWarning(LOKALIZE_LOG)<<"diffMPart extended 2"<<diffMPart;
 
         if ((diffMPart.contains('-')
             ||diffMPart.contains('+'))
@@ -950,14 +951,14 @@ nono
                     newMarkup.append(d.diffClean.at(startPos+j));
             }
             if (newMarkup.endsWith(' ')) newMarkup.chop(1);
-            //qWarning()<<"d.old"<<cap<<"new"<<newMarkup;
+            //qCWarning(LOKALIZE_LOG)<<"d.old"<<cap<<"new"<<newMarkup;
 
 
             //replace first ocurrence
             int tmp=target.string.indexOf(cap,replacingPos);
             if (tmp!=-1)
             {
-                qWarning()<<"replacing"<<cap<<"with"<<newMarkup;
+                qCWarning(LOKALIZE_LOG)<<"replacing"<<cap<<"with"<<newMarkup;
                 target.replace(tmp, cap.size(), newMarkup);
                 replacingPos=tmp;
 
@@ -965,10 +966,10 @@ nono
                 tmp=d.old2DiffClean.at(endPos1)+1;
                 while(--tmp>=d.old2DiffClean.at(pos))
                     d.diffIndex[tmp]='M';
-                //qWarning()<<"M"<<diffM;
+                //qCWarning(LOKALIZE_LOG)<<"M"<<diffM;
             }
             else
-                qWarning()<<"newMarkup"<<newMarkup<<"wasn't used";
+                qCWarning(LOKALIZE_LOG)<<"newMarkup"<<newMarkup<<"wasn't used";
         }
         pos=endPos1+1;
     }
@@ -986,10 +987,10 @@ void TMView::slotUseSuggestion(int i)
 #if 0
     QString tmp=target.string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, '*');
-    qWarning()<<"targetAdapted"<<tmp;
+    qCWarning(LOKALIZE_LOG)<<"targetAdapted"<<tmp;
 
     foreach (InlineTag tag, target.tags)
-        qWarning()<<"tag"<<tag.start<<tag.end;
+        qCWarning(LOKALIZE_LOG)<<"tag"<<tag.start<<tag.end;
 #endif
     if (Q_UNLIKELY( target.isEmpty() ))
         return;
@@ -1004,7 +1005,7 @@ void TMView::slotUseSuggestion(int i)
         removeTargetSubstring(m_catalog, m_pos, 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
-    qWarning()<<"1"<<target.string;
+    qCWarning(LOKALIZE_LOG)<<"1"<<target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_pos, target, 0);

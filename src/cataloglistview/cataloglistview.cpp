@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "cataloglistview.h"
+
+#include "lokalize_debug.h"
+
 #include "catalogmodel.h"
 #include "catalog.h"
 #include "project.h"
@@ -29,7 +32,6 @@
 #include "headerviewmenu.h"
 
 #include <QLineEdit>
-#include <QDebug>
 #include <QTime>
 #include <QTreeView>
 #include <QHeaderView>
@@ -237,7 +239,7 @@ void CatalogView::fillFilterOptionsMenu()
         m_filterOptionsMenu->addSeparator();
     for (int i=-1;i<CatalogTreeModel::DisplayedColumnCount;++i)
     {
-        qWarning()<<i;
+        qCWarning(LOKALIZE_LOG)<<i;
         txt=columnsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
                                                    m_model->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());
         txt->setData(-i-2);

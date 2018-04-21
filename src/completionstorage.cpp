@@ -22,10 +22,12 @@
 **************************************************************************** */
 
 #include "completionstorage.h"
+
+#include "lokalize_debug.h"
+
 #include "project.h"
 #include "prefs_lokalize.h"
 #include <QCoreApplication>
-#include <QDebug>
 
 
 CompletionStorage* CompletionStorage::_instance=0;
@@ -75,7 +77,7 @@ void CompletionStorage::scanCatalog(Catalog* catalog)
     }
     while (switchNext(catalog,pos));
 
-    qWarning()<<"indexed"<<catalog->url()<<"for word completion in"<<a.elapsed()<<"msecs";
+    qCWarning(LOKALIZE_LOG)<<"indexed"<<catalog->url()<<"for word completion in"<<a.elapsed()<<"msecs";
 }
 
 QStringList CompletionStorage::makeCompletion(const QString& word) const
@@ -91,7 +93,7 @@ QStringList CompletionStorage::makeCompletion(const QString& word) const
         hits.insert(-it.value(),it.key().mid(word.length()));
         ++it;
     }
-    //qDebug()<<"hits generated in"<<a.elapsed()<<"msecs";
+    //qCDebug(LOKALIZE_LOG)<<"hits generated in"<<a.elapsed()<<"msecs";
     return hits.values();
 }
 

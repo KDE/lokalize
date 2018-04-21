@@ -2,10 +2,11 @@
 #ifndef PROJECTBASE_H
 #define PROJECTBASE_H
 
+#include "lokalize_debug.h"
+
 #include <QObject>
 #include <QString>
 #include <QMap>
-#include <QDebug>
 #include <QPointer>
 
 #include "pos.h"

@@ -86,8 +86,8 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
 #if 0 //KDE5PORT
     KIconLoader::global()->addExtraDesktopThemes();
 #endif
-    //qWarning()<<KIconLoader::global()->hasContext(KIconLoader::International);
-    //qDebug()<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
+    //qCWarning(LOKALIZE_LOG)<<KIconLoader::global()->hasContext(KIconLoader::International);
+    //qCDebug(LOKALIZE_LOG)<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);
     m_sortModel->sort(0);
 }
@@ -119,7 +119,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
     {
         const QString& code=stringList().at(index.row());
         if (code.isEmpty()) return code;
-        //qDebug()<<"languageCodeToName"<<code;
+        //qCDebug(LOKALIZE_LOG)<<"languageCodeToName"<<code;
         static QVector<QString> displayNames(stringList().size());
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());

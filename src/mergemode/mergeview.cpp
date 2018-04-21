@@ -171,7 +171,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
     }
     result.replace(' ', QChar::Nbsp);
     m_browser->setHtml(result);
-    //qDebug()<<"ELA "<<time.elapsed();
+    //qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
 
 void MergeView::cleanup()

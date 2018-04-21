@@ -20,12 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "tsstorage.h"
 
+#include "lokalize_debug.h"
+
 #include "gettextheader.h"
 #include "project.h"
 #include "version.h"
 #include "prefs_lokalize.h"
 
-#include <QDebug>
 #include <QProcess>
 #include <QString>
 #include <QMap>
@@ -86,7 +87,7 @@ int TsStorage::load(QIODevice* device)
 
     if (!success)
     {
-        qWarning()<<"parse error"<<errorMsg<<errorLine;
+        qCWarning(LOKALIZE_LOG)<<"parse error"<<errorMsg<<errorLine;
         return errorLine+1;
     }
 
@@ -102,7 +103,7 @@ int TsStorage::load(QIODevice* device)
 
     entries=m_doc.elementsByTagName(QStringLiteral("message"));
 
-    qWarning()<<chrono.elapsed()<<"secs, "<<entries.size()<<"entries";
+    qCWarning(LOKALIZE_LOG)<<chrono.elapsed()<<"secs, "<<entries.size()<<"entries";
     return 0;
 }
 
@@ -210,16 +211,16 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
                     {
                         //text is fragmented into several QDomCharacterData
                         int localDelLen=cData.size()-localStartPos;
-                        //qWarning()<<"text is fragmented into several QDomCharacterData. localDelLen:"<<localDelLen<<"cData:"<<cData;
+                        //qCWarning(LOKALIZE_LOG)<<"text is fragmented into several QDomCharacterData. localDelLen:"<<localDelLen<<"cData:"<<cData;
                         c.deleteData(localStartPos,localDelLen);
                         //setup data for future iterations
                         data->lengthOfStringToRemove=data->lengthOfStringToRemove-localDelLen;
                         //data->pos=startingPos;
-                        //qWarning()<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
+                        //qCWarning(LOKALIZE_LOG)<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
                     }
                     else
                     {
-                        //qWarning()<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
+                        //qCWarning(LOKALIZE_LOG)<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos,data->lengthOfStringToRemove);
                         data->actionType=TsContentEditingData::CheckLength;
                         return QString('a');//so it exits 100%
@@ -237,7 +238,7 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
             }
             //else
             //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //        qWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //        qCWarning(LOKALIZE_LOG)<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -297,7 +298,7 @@ void TsStorage::targetDelete(const DocPosition& pos, int count)
 
 void TsStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    qWarning()<<pos.entry<<arg;
+    qCWarning(LOKALIZE_LOG)<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos);
     //BEGIN add <*target>
     if (targetEl.isNull())
@@ -392,7 +393,7 @@ QVector<Note> TsStorage::developerNotes(const DocPosition& pos) const
 
 Note TsStorage::setNote(DocPosition pos, const Note& note)
 {
-    //qWarning()<<int(pos.form)<<note.content;
+    //qCWarning(LOKALIZE_LOG)<<int(pos.form)<<note.content;
     QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;

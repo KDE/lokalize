@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "xliffstorage.h"
 
+#include "lokalize_debug.h"
+
 #include "gettextheader.h"
 #include "project.h"
 #include "version.h"
@@ -33,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTime>
 #include <QPair>
 #include <QList>
-#include <QDebug>
 #include <QXmlSimpleReader>
 
 #ifdef Q_OS_WIN
@@ -79,7 +80,7 @@ int XliffStorage::load(QIODevice* device)
     QString FILE=QStringLiteral("file");
     if (!success || m_doc.elementsByTagName(FILE).isEmpty())
     {
-        qWarning()<<errorMsg;
+        qCWarning(LOKALIZE_LOG)<<errorMsg;
         return errorLine+1;
     }
 
@@ -162,7 +163,7 @@ int XliffStorage::load(QIODevice* device)
         toolElem.setAttribute(QStringLiteral("tool-version"),QStringLiteral(LOKALIZE_VERSION));
     }
 
-    qWarning()<<chrono.elapsed();
+    qCWarning(LOKALIZE_LOG)<<chrono.elapsed();
     return 0;
 }
 
@@ -297,16 +298,16 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     {
                         //text is fragmented into several QDomCharacterData
                         int localDelLen=cData.size()-localStartPos;
-                        //qWarning()<<"text is fragmented into several QDomCharacterData. localDelLen:"<<localDelLen<<"cData:"<<cData;
+                        //qCWarning(LOKALIZE_LOG)<<"text is fragmented into several QDomCharacterData. localDelLen:"<<localDelLen<<"cData:"<<cData;
                         c.deleteData(localStartPos,localDelLen);
                         //setup data for future iterations
                         data->lengthOfStringToRemove=data->lengthOfStringToRemove-localDelLen;
                         //data->pos=startingPos;
-                        //qWarning()<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
+                        //qCWarning(LOKALIZE_LOG)<<"\tsetup:"<<data->pos<<data->lengthOfStringToRemove;
                     }
                     else
                     {
-                        //qWarning()<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
+                        //qCWarning(LOKALIZE_LOG)<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos,data->lengthOfStringToRemove);
                         data->actionType=ContentEditingData::CheckLength;
                         return QString('a');//so it exits 100%
@@ -325,7 +326,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 {
                     const InlineTag& tag=data->tags.first();
                     QString mid=cData.mid(localStartPos);
-                    qDebug()<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
+                    qCDebug(LOKALIZE_LOG)<<"inserting tag"<<tag.name()<<tag.id<<tag.start<<tag.end<<mid<<data->pos<<startingPos;
                     if (mid.size())
                         c.deleteData(localStartPos,mid.size());
                     QDomElement newNode=elem.insertAfter( elem.ownerDocument().createElement(tag.getElementName()),n).toElement();
@@ -335,19 +336,19 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
                     if (tag.isPaired()&&tag.end>(tag.start+1))
                     {
-                        //qWarning()<<"isPaired";
+                        //qCWarning(LOKALIZE_LOG)<<"isPaired";
                         int len=tag.end-tag.start-1;//-image symbol
                         int localLen=qMin(len,mid.size());
                         if (localLen)//appending text
                         {
-                            //qWarning()<<"localLen. appending"<<localLen<<mid.left(localLen);
+                            //qCWarning(LOKALIZE_LOG)<<"localLen. appending"<<localLen<<mid.left(localLen);
                             newNode.appendChild( elem.ownerDocument().createTextNode(mid.left(localLen)) );
                             mid=mid.mid(localLen);
                         }
                         if (len-localLen) //need to eat more (strings or elements) into newNode
                         {
                             int missingLen=len-localLen;
-                            //qWarning()<<"len-localLen";
+                            //qCWarning(LOKALIZE_LOG)<<"len-localLen";
                             //iterate over siblings until we get childrenCumulativeLen>missingLen (or siblings end)
                             int childrenCumulativeLen=0;
                             QDomNode sibling=newNode.nextSibling();
@@ -362,14 +363,14 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                                 {
                                     childrenCumulativeLen++;
                                     childrenCumulativeLen+=InlineTag::isPaired(InlineTag::getElementType(tmp.toElement().tagName().toUtf8()));
-                                    qWarning()<<"calling sub";
+                                    qCWarning(LOKALIZE_LOG)<<"calling sub";
                                     QString subContent=doContent(tmp.toElement(),/*we don't care about position*/0,&subData);
-                                    qWarning()<<"called sub";
+                                    qCWarning(LOKALIZE_LOG)<<"called sub";
                                     childrenCumulativeLen+=subContent.size();
                                 }
                                 else if (tmp.isCharacterData())
                                     childrenCumulativeLen+=tmp.toCharacterData().data().size();
-                                //qWarning()<<"brbr"<<tmp.nodeName()<<tmp.nodeValue()
+                                //qCWarning(LOKALIZE_LOG)<<"brbr"<<tmp.nodeName()<<tmp.nodeValue()
                                 //<<childrenCumulativeLen<<missingLen;
 
                                 if (childrenCumulativeLen>missingLen)
@@ -381,7 +382,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                                         QString last=endData.left(endData.size()-(childrenCumulativeLen-missingLen));
                                         newNode.appendChild( elem.ownerDocument().createTextNode(last));
                                         tmp.toCharacterData().deleteData(0,last.size());
-                                        //qWarning()<<"end of add"<<last;
+                                        //qCWarning(LOKALIZE_LOG)<<"end of add"<<last;
                                     }
                                     break;
                                 }
@@ -405,7 +406,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             }
             //else
             //    if (data&&data->pos!=-1/*&& n.nextSibling().isNull()*/)
-            //        qWarning()<<"arg!"<<startingPos<<"data->pos"<<data->pos;
+            //        qCWarning(LOKALIZE_LOG)<<"arg!"<<startingPos<<"data->pos"<<data->pos;
 
             result += cData;
             startingPos+=cData.size();
@@ -417,7 +418,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             if (data&&data->actionType==ContentEditingData::DeleteTag
                 &&data->pos==startingPos)
             {
-                //qWarning()<<"start deleting tag";
+                //qCWarning(LOKALIZE_LOG)<<"start deleting tag";
                 data->tags.append(InlineTag(startingPos, -1, InlineTag::getElementType(el.tagName().toUtf8()), el.attribute("id"), el.attribute("xid")));
                 if (data->tags.first().isPaired())
                 {
@@ -425,7 +426,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     ContentEditingData subData(ContentEditingData::Get);
                     QString subContent=doContent(el,startingPos,&subData);
                     data->tags[0].end=1+startingPos+subContent.size();//tagsymbol+text
-                    //qWarning()<<"get end position"<<startingPos<<subContent.size();
+                    //qCWarning(LOKALIZE_LOG)<<"get end position"<<startingPos<<subContent.size();
 
                     //move children upper
                     QDomNode local = n.firstChild();
@@ -436,7 +437,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                         local = local.nextSibling();
                         if (!tmp.isAttr())
                         {
-                            //qWarning()<<"here is another child"<<tmp.nodeType()<<tmp.nodeName()<<tmp.nodeValue();
+                            //qCWarning(LOKALIZE_LOG)<<"here is another child"<<tmp.nodeType()<<tmp.nodeName()<<tmp.nodeValue();
                             refNode=elem.insertAfter(tmp,refNode);
                         }
                     }
@@ -478,7 +479,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 if (i==InlineTag::mrk)//TODO attr map
                     id=el.attribute(QStringLiteral("mtype"));
 
-                //qWarning()<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
+                //qCWarning(LOKALIZE_LOG)<<"tagName"<<el.tagName()<<"id"<<id<<"start"<<oldStartingPos-1<<startingPos-1;
                 data->tags.append(InlineTag(oldStartingPos-1,startingPos-1,i,id,el.attribute(QStringLiteral("xid"))));
             }
         }
@@ -553,7 +554,7 @@ void XliffStorage::targetDelete(const DocPosition& pos, int count)
 
 void XliffStorage::targetInsert(const DocPosition& pos, const QString& arg)
 {
-    //qWarning()<<"targetinsert"<<pos.entry<<arg;
+    //qCWarning(LOKALIZE_LOG)<<"targetinsert"<<pos.entry<<arg;
     QDomElement targetEl=targetForPos(pos.entry);
     //BEGIN add <*target>
     if (targetEl.isNull())
@@ -818,7 +819,7 @@ QVector<Note> XliffStorage::developerNotes(const DocPosition& pos) const
 
 Note XliffStorage::setNote(DocPosition pos, const Note& note)
 {
-    //qWarning()<<int(pos.form)<<note.content;
+    //qCWarning(LOKALIZE_LOG)<<int(pos.form)<<note.content;
     QDomElement unit=unitForPos(pos.entry);
     QDomElement elem;
     Note oldNote;

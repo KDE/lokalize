@@ -35,8 +35,9 @@
 
 #include "catalogitem.h"
 
+#include "lokalize_debug.h"
+
 #include <kdemacros.h>
-#include <QDebug>
 #include <QMutexLocker>
 
 using namespace GettextCatalog;
@@ -251,7 +252,7 @@ QStringList CatalogItem::msgstrAsList() const
 {
     if (d._msgstrPlural.isEmpty())
     {
-        qWarning()<<"This should never happen!";
+        qCWarning(LOKALIZE_LOG)<<"This should never happen!";
         return QStringList();
     }
     QStringList list(d._msgstrPlural.first().split('\n', QString::SkipEmptyParts ));

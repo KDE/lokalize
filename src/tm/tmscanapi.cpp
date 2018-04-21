@@ -22,14 +22,15 @@
 **************************************************************************** */
 
 #include "tmscanapi.h"
+
+#include "lokalize_debug.h"
+
 #include "jobs.h"
 #include "catalog.h"
 #include "prefs_lokalize.h"
 #include "gettextheader.h"
 #include "dbfilesmodel.h"
 #include "project.h"
-
-#include <QDebug>
 
 #include <klocalizedstring.h>
 
@@ -88,7 +89,7 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
     if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
     {
         emitResult();
-        qWarning()<<"finished in"<<m_time.elapsed()<<"msecs";
+        qCWarning(LOKALIZE_LOG)<<"finished in"<<m_time.elapsed()<<"msecs";
     }
 }
 

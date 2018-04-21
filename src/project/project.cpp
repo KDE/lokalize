@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "project.h"
+
+#include "lokalize_debug.h"
+
 #include "projectlocal.h"
 
 #include "prefs.h"
@@ -43,7 +46,6 @@
 #include <QTime>
 #include <QDir>
 #include <QFileInfo>
-#include <QDebug>
 #include <QStringBuilder>
 
 #ifndef NOKDE
@@ -157,7 +159,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     QTime a;a.start();
 
     TM::threadPool()->clear();
-    qDebug()<<"loading"<<newProjectPath<<"finishing tm jobs...";
+    qCDebug(LOKALIZE_LOG)<<"loading"<<newProjectPath<<"finishing tm jobs...";
 
     if (!m_path.isEmpty())
     {
@@ -208,7 +210,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
 
 
     if (!isTmSupported())
-        qWarning()<<"no sqlite module available";
+        qCWarning(LOKALIZE_LOG)<<"no sqlite module available";
     //NOTE do we need to explicitly call it when project id changes?
     TM::DBFilesModel::instance()->openDB(projectID(), TM::Undefined, true);
 
@@ -218,10 +220,10 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
         QaModel::instance()->loadRules(qaPath());
     }
 
-    //qDebug()<<"until emitting signal"<<a.elapsed();
+    //qCDebug(LOKALIZE_LOG)<<"until emitting signal"<<a.elapsed();
 
     emit loaded();
-    //qDebug()<<"loaded!"<<a.elapsed();
+    //qCDebug(LOKALIZE_LOG)<<"loaded!"<<a.elapsed();
 }
 
 void Project::reinit()
@@ -374,7 +376,7 @@ static void fillFilePathsRecursive(const QDir& dir, QMultiMap<QByteArray, QByteA
     QByteArray absDirPath=dir.absolutePath().toUtf8(); absDirPath.squeeze();
     while(--i>=0)
     {
-        //qDebug()<<files.at(i)<<absDirPath;
+        //qCDebug(LOKALIZE_LOG)<<files.at(i)<<absDirPath;
         QByteArray fn=files.at(i).toUtf8(); fn.squeeze();
         auto it=sourceFilePaths.constFind(fn);
         if (it!=sourceFilePaths.constEnd())
@@ -493,7 +495,7 @@ void Project::projectOdfCreate()
 
     QStringList args(odfPath);
     args.append(fi.absoluteDir().absoluteFilePath(trFolderName) % '/' % fi.baseName() % QLatin1String(".xlf"));
-    qDebug()<<args;
+    qCDebug(LOKALIZE_LOG)<<args;
     QProcess::execute(odf2xliff, args);
 
     if (!QFile::exists(args.at(1)))

@@ -21,12 +21,12 @@
 
 **************************************************************************** */
 
+#include "lokalize_debug.h"
+
 #include "tbxparser.h"
 
 #include "glossary.h"
 #include "project.h"
-
-#include <QDebug>
 
 using namespace GlossaryNS;
 

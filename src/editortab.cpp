@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "editortab.h"
+
+#include "lokalize_debug.h"
+
 #include "actionproxy.h"
 #include "editorview.h"
 #include "catalog.h"
@@ -68,7 +71,6 @@
 #include <kmessagebox.h>
 #include <klocalizedstring.h>
 
-#include <QDebug>
 #include <QDesktopServices>
 #include <QIcon>
 #include <QActionGroup>
@@ -136,7 +138,7 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
 
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
     //QTimer::singleShot(0,this,SLOT(initLater()));
-    //qWarning()<<chrono.elapsed();
+    //qCWarning(LOKALIZE_LOG)<<chrono.elapsed();
 }
 
 void EditorTab::initLater()
@@ -1107,7 +1109,7 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     }
 
     statusBarItems.insert(ID_STATUS_CURRENT,i18nc("@info:status","Current: %1", m_currentPos.entry+1));
-    //qDebug()<<"ELA "<<time.elapsed();
+    //qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
 
 void EditorTab::msgStrChanged()
@@ -1614,7 +1616,7 @@ void EditorTab::mergeIntoOpenDocument()
     args.append(xliffFolder%'/'%originalOdfFileInfo.baseName()%'-'%targetLangCode%'.'%originalOdfFileInfo.suffix());
     args.append(QStringLiteral("-t"));
     args.append(originalOdfFilePath);
-    qDebug()<<args;
+    qCDebug(LOKALIZE_LOG)<<args;
     QProcess::execute(xliff2odf, args);
 
     if (!QFile::exists(args.at(1)))

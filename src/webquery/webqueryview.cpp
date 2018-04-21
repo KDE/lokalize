@@ -31,6 +31,9 @@
 **************************************************************************** */
 
 #include "webqueryview.h"
+
+#include "lokalize_debug.h"
+
 #include "project.h"
 #include "catalog.h"
 #include "flowlayout.h"
@@ -45,7 +48,6 @@
 
 #include "webquerycontroller.h"
 
-#include <QDebug>
 #include <QDragEnterEvent>
 #include <QTime>
 #include <QSplitter>
@@ -133,7 +135,7 @@ void WebQueryView::slotSelectionChanged()
 // {
 //     /*    if(event->mimeData()->hasUrls() && event->mimeData()->urls().first().path().endsWith(".po"))
 //         {
-//             //qWarning() << " " <<;
+//             //qCWarning(LOKALIZE_LOG) << " " <<;
 //             event->acceptProposedAction();
 //         };*/
 // }

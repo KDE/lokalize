@@ -35,6 +35,8 @@
 
 #include "gettextexport.h"
 
+#include "lokalize_debug.h"
+
 //#include <resources.h>
 #include "gettextstorage.h"
 #include "catalogitem.h"
@@ -45,7 +47,6 @@
 #include <QTextStream>
 #include <QEventLoop>
 #include <QStringBuilder>
-#include <QDebug>
 
 
 using namespace GettextCatalog;
@@ -79,7 +80,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         if ( !headerMsgid.isEmpty() )
         {
             // ### perhaps it is grave enough for a user message
-            qWarning() << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
+            qCWarning(LOKALIZE_LOG) << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
         }
 
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
@@ -112,7 +113,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             writeKeyword( stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr() );
         else
         {
-            qDebug() << "Saving gettext plural form";
+            qCDebug(LOKALIZE_LOG) << "Saving gettext plural form";
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for ( int i = 0; i < forms; ++i )

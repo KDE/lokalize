@@ -112,6 +112,13 @@ set(lokalize_SRCS
     catalog/ts/tsstorage.cpp
 )
 
+ecm_qt_declare_logging_category(lokalize_SRCS
+    HEADER lokalize_debug.h
+    IDENTIFIER LOKALIZE_LOG
+    CATEGORY_NAME org.kde.lokalize
+    DEFAULT_SEVERITY Warning
+)
+
 ki18n_wrap_ui(lokalize_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_editor.ui
@@ -181,6 +188,7 @@ install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES lokalize.notifyrc DESTINATION  ${KNOTIFYRC_INSTALL_DIR} )
+install( FILES lokalize.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
 
 install( FILES
         editorui.rc

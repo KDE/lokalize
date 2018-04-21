@@ -33,6 +33,9 @@
 **************************************************************************** */
 
 #include "editorview.h"
+
+#include "lokalize_debug.h"
+
 #include "xlifftextedit.h"
 #include "project.h"
 #include "catalog.h"
@@ -48,7 +51,6 @@
 
 #include <QLabel>
 #include <QHBoxLayout>
-#include <QDebug>
 #include <QTabBar>
 #include <QStringBuilder>
 
@@ -188,8 +190,8 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 
     bool refresh=(pos.entry==-1);
     if (refresh) pos=m_targetTextEdit->currentPos();
-    //qWarning()<<"refresh"<<refresh;
-    //qWarning()<<"offset"<<pos.offset;
+    //qCWarning(LOKALIZE_LOG)<<"refresh"<<refresh;
+    //qCWarning(LOKALIZE_LOG)<<"offset"<<pos.offset;
     //TODO trigger refresh directly via Catalog signal
 
     if (Q_UNLIKELY( m_catalog->isPlural(pos.entry)))
@@ -216,14 +218,14 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
     bool keepCursor=false;
     CatalogString sourceWithTags=m_sourceTextEdit->showPos(pos,CatalogString(),keepCursor);
 
-    //qWarning()<<"calling showPos";
+    //qCWarning(LOKALIZE_LOG)<<"calling showPos";
     QString targetString=m_targetTextEdit->showPos(pos,sourceWithTags,keepCursor).string;
-    //qWarning()<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qCWarning(LOKALIZE_LOG)<<"ss"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
     m_sourceTextEdit->cursorToStart();
     m_targetTextEdit->cursorToStart();
 
     bool untrans=targetString.isEmpty();
-    //qWarning()<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qCWarning(LOKALIZE_LOG)<<"ss1"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
 
     if (pos.offset || selection)
     {
@@ -253,8 +255,8 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
         }
         m_targetTextEdit->setTextCursor(t);
     }
-    //qWarning()<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
-    //qWarning()<<"anchor"<<t.anchor()<<"pos"<<t.position();
+    //qCWarning(LOKALIZE_LOG)<<"set-->"<<_msgstrEdit->textCursor().anchor()<<_msgstrEdit->textCursor().position();
+    //qCWarning(LOKALIZE_LOG)<<"anchor"<<t.anchor()<<"pos"<<t.position();
     m_targetTextEdit->setFocus();
     setUpdatesEnabled(true);
 }
@@ -332,7 +334,7 @@ void EditorView::toggleBookmark(bool checked)
 
 void EditorView::toggleApprovement()
 {
-    //qWarning()<<"called";
+    //qCWarning(LOKALIZE_LOG)<<"called";
     if (Q_UNLIKELY( m_targetTextEdit->currentPos().entry==-1 ))
         return;
 

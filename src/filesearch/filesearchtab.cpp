@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "filesearchtab.h"
+
+#include "lokalize_debug.h"
+
 #include "ui_filesearchoptions.h"
 #include "ui_massreplaceoptions.h"
 #include "project.h"
@@ -263,7 +266,7 @@ void SearchJob::run()
         //if (catalogResults.size())
         //    results[path]=catalogResults;
     }
-    qDebug()<<"searching took"<<a.elapsed();
+    qCDebug(LOKALIZE_LOG)<<"searching took"<<a.elapsed();
     emit done(this);
 }
 
@@ -295,7 +298,7 @@ void MassReplaceJob::run()
             DocPosition docPos=sr.docPos.toDocPosition();
             if (catalog.target(docPos)!=sr.target)
             {
-                qWarning()<<"skipping replace because"<<catalog.target(docPos)<<"!="<<sr.target;
+                qCWarning(LOKALIZE_LOG)<<"skipping replace because"<<catalog.target(docPos)<<"!="<<sr.target;
                 continue;
             }
 
@@ -314,7 +317,7 @@ void MassReplaceJob::run()
                 else
                 {
                     pos+=replaceWhat.matchedLength();
-                    qWarning()<<"skipping replace because matched text contains markup"<<s.string;
+                    qCWarning(LOKALIZE_LOG)<<"skipping replace because matched text contains markup"<<s.string;
                 }
 
                 if (pos>s.string.length() || replaceWhat.pattern().startsWith('^'))
@@ -687,7 +690,7 @@ void FileSearchTab::openFile()
         docPos.offset=sr.targetPositions.first().start;
         selection    =sr.targetPositions.first().len;
     }
-    qDebug()<<"fileOpenRequest"<<docPos.offset<<selection;
+    qCDebug(LOKALIZE_LOG)<<"fileOpenRequest"<<docPos.offset<<selection;
     emit fileOpenRequested(sr.filepath, docPos, selection);
 }
 

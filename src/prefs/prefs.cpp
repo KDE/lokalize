@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "prefs.h"
+
+#include "lokalize_debug.h"
+
 #include "prefs_lokalize.h"
 #include "project.h"
 #include "projectlocal.h"
@@ -53,7 +56,6 @@
 #include <QDropEvent>
 #include <QTimer>
 #include <QMimeData>
-#include <QDebug>
 
 //#include <sonnet/configwidget.h>
 

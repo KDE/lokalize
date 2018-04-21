@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "lokalizemainwindow.h"
+
+#include "lokalize_debug.h"
+
 #include "actionproxy.h"
 #include "editortab.h"
 #include "projecttab.h"
@@ -54,7 +57,6 @@
 
 
 #include <QMenu>
-#include <QDebug>
 #include <QActionGroup>
 #include <QMdiArea>
 #include <QMdiSubWindow>
@@ -168,7 +170,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
             int i=actionz.size();
             //projectActions->menuAction()->setVisible(i);
-            //qWarning()<<"adding object"<<actionz.at(0);
+            //qCWarning(LOKALIZE_LOG)<<"adding object"<<actionz.at(0);
             while(--i>=0)
             {
                 disconnect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
@@ -195,7 +197,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
         int i=actionz.size();
         //projectActions->menuAction()->setVisible(i);
-        //qWarning()<<"adding object"<<actionz.at(0);
+        //qCWarning(LOKALIZE_LOG)<<"adding object"<<actionz.at(0);
         while(--i>=0)
         {
             connect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
@@ -220,7 +222,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
 
     m_prevSubWindow=w;
 
-    //qWarning()<<"finished"<<aaa.elapsed();
+    //qCWarning(LOKALIZE_LOG)<<"finished"<<aaa.elapsed();
 }
 
 
@@ -254,7 +256,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         FileToEditor::const_iterator it=m_fileToEditor.constFind(filePath);
         if (it!=m_fileToEditor.constEnd())
         {
-            qWarning()<<"already opened:"<<filePath;
+            qCWarning(LOKALIZE_LOG)<<"already opened:"<<filePath;
             if (QMdiSubWindow* sw=it.value())
             {
                 m_mdiArea->setActiveSubWindow(sw);
@@ -554,7 +556,7 @@ void LokalizeMainWindow::setupActions()
 
     setupGUI(Default,QStringLiteral("lokalizemainwindowui.rc"));
 
-    //qDebug()<<"action setup finished"<<aaa.elapsed();
+    //qCDebug(LOKALIZE_LOG)<<"action setup finished"<<aaa.elapsed();
 }
 
 bool LokalizeMainWindow::closeProject()
@@ -622,7 +624,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
         dockWidgets.append(state.dockWidgets.toBase64());
         entries.append(state.entry);
         //offsets.append(state.offset);
-        //qWarning()<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
+        //qCWarning(LOKALIZE_LOG)<<static_cast<EditorWindow*>(editors.at(i)->widget() )->state().url;
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
@@ -677,7 +679,7 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 void LokalizeMainWindow::projectLoaded()
 {
     QString projectPath=Project::instance()->path();
-    qDebug()<<projectPath;
+    qCDebug(LOKALIZE_LOG)<<projectPath;
     m_openRecentProjectAction->addUrl( QUrl::fromLocalFile(projectPath) );
 
     KConfig config;
@@ -725,7 +727,7 @@ void LokalizeMainWindow::projectLoaded()
     }
     if (!failedFiles.isEmpty())
     {
-        qDebug()<<"failedFiles"<<failedFiles;
+        qCDebug(LOKALIZE_LOG)<<"failedFiles"<<failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KNotification* notification=new KNotification("FilesOpenError", this);
@@ -801,7 +803,7 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
     // mistakenly created by Lokalize 15.04.x.
     if (QFileInfo(filepath).isDir() && !QDir().rmdir(filepath))
     {
-        qCritical() << "Failed to remove directory" << filepath <<
+        qCCritical(LOKALIZE_LOG) << "Failed to remove directory" << filepath <<
             "to create scripting configuration file with at the same path. " <<
             "The directory may be not empty.";
         return;
@@ -818,7 +820,7 @@ ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* edito
         f.close();
     }
 
-    //qWarning()<<Kross::Manager::self().hasInterpreterInfo("python");
+    //qCWarning(LOKALIZE_LOG)<<Kross::Manager::self().hasInterpreterInfo("python");
     addObject(lokalize,QLatin1String("Lokalize"),ChildrenInterface::AutoConnectSignals);
     addObject(Project::instance(),QLatin1String("Project"),ChildrenInterface::AutoConnectSignals);
     addObject(editor,QLatin1String("Editor"),ChildrenInterface::AutoConnectSignals);
@@ -857,10 +859,10 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
 
     QString scriptsrc=PROJECTRCFILE;
     QDir rcdir(PROJECTRCFILEDIR);
-    qWarning()<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
+    qCWarning(LOKALIZE_LOG)<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
     foreach(const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"),QDir::Files))
         if (rc!=scriptsrc)
-            qWarning()<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
+            qCWarning(LOKALIZE_LOG)<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
 }
 
 /*
@@ -885,7 +887,7 @@ void LokalizeMainWindow::registerDBusAdaptor()
     new MainWindowAdaptor(this);
     QDBusConnection::sessionBus().registerObject(QLatin1String("/ThisIsWhatYouWant"), this);
 
-    //qWarning()<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
+    //qCWarning(LOKALIZE_LOG)<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
 #ifndef Q_OS_MAC
     //TODO really fix!!!
     guiFactory()->addClient(new MyScriptingPlugin(this,m_multiEditorAdaptor));
@@ -1011,7 +1013,7 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
     Q_UNUSED(p);
-    qWarning()<<"avoiding destroying m_multiEditorAdaptor";
+    qCWarning(LOKALIZE_LOG)<<"avoiding destroying m_multiEditorAdaptor";
     setParent(0);
 }
 

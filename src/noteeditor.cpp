@@ -24,13 +24,14 @@
 
 #include "noteeditor.h"
 
+#include "lokalize_debug.h"
+
 #include "catalog.h"
 #include "cmd.h"
 #include "prefs_lokalize.h"
 
 #include <klocalizedstring.h>
 
-#include <QDebug>
 #include <QStringBuilder>
 #include <QBoxLayout>
 #include <QStackedLayout>

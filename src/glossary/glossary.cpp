@@ -23,13 +23,14 @@
 
 #include "glossary.h"
 
+#include "lokalize_debug.h"
+
 #include "stemming.h"
 // #include "tbxparser.h"
 #include "project.h"
 #include "prefs_lokalize.h"
 #include "domroutines.h"
 
-#include <QDebug>
 #include <QStringBuilder>
 #include <QTime>
 #include <QFile>
@@ -103,7 +104,7 @@ bool Glossary::load(const QString& newPath)
 
     if (!success)
     {
-        qWarning()<<errorMsg;
+        qCWarning(LOKALIZE_LOG)<<errorMsg;
         return false; //errorLine+1;
     }
     clear();//does setClean(true);
@@ -127,11 +128,11 @@ bool Glossary::load(const QString& newPath)
          return;
     QXmlInputSource xmlInputSource(&file);
     if (!reader1.parse(xmlInputSource))
-         qWarning() << "failed to load "<< path;
+         qCWarning(LOKALIZE_LOG) << "failed to load "<< path;
 #endif
     emit loaded();
 
-    if (a.elapsed()>50) qDebug()<<"glossary loaded in"<<a.elapsed();
+    if (a.elapsed()>50) qCDebug(LOKALIZE_LOG)<<"glossary loaded in"<<a.elapsed();
 
     return true;
 }
@@ -184,7 +185,7 @@ void GlossarySortFilterProxyModel::fetchMore(const QModelIndex&)
     while (rowCount(QModelIndex())<expectedCount && sourceModel()->canFetchMore(QModelIndex()))
     {
         sourceModel()->fetchMore(QModelIndex());
-        //qDebug()<<"filter:"<<rowCount(QModelIndex())<<"/"<<sourceModel()->rowCount();
+        //qCDebug(LOKALIZE_LOG)<<"filter:"<<rowCount(QModelIndex())<<"/"<<sourceModel()->rowCount();
         QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers);
     }
 }
@@ -379,7 +380,7 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
     QString minusLang=lang; minusLang.replace('_', '-');
     QStringRef soleLang=lang.leftRef(2);
 
-    //qDebug()<<"started walking over"<<lang<<index;
+    //qCDebug(LOKALIZE_LOG)<<"started walking over"<<lang<<index;
     QDomElement n = termEntry.firstChildElement(langSet);
     QDomDocument document=n.ownerDocument();
     int i=0;
@@ -393,7 +394,7 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
             QDomElement ntigElem=n.firstChildElement(ntig);
             while(!ntigElem.isNull())
             {
-                //qDebug()<<i<<ntigElem.firstChildElement(termGrp).firstChildElement(term).text();
+                //qCDebug(LOKALIZE_LOG)<<i<<ntigElem.firstChildElement(termGrp).firstChildElement(term).text();
                 if (i==index)
                 {
                     tigElement=ntigElem;
@@ -406,7 +407,7 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
             QDomElement tigElem=n.firstChildElement(tig);
             while(!tigElem.isNull())
             {
-                //qDebug()<<i<<tigElem.firstChildElement(term).text();
+                //qCDebug(LOKALIZE_LOG)<<i<<tigElem.firstChildElement(term).text();
                 if (i==index)
                 {
                     tigElement=tigElem;

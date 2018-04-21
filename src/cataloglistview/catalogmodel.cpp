@@ -23,6 +23,8 @@
 
 #include "catalogmodel.h"
 
+#include "lokalize_debug.h"
+
 #include "catalog.h"
 #include "project.h"
 
@@ -31,7 +33,6 @@
 #endif
 #include <klocalizedstring.h>
 
-#include <QDebug>
 #include <QApplication>
 #include <QPalette>
 #include <QFontMetrics>
@@ -94,11 +95,11 @@ void CatalogTreeModel::reflectChanges(DocPosition pos)
     //lazy sorting/filtering
     if (rowCount()<DYNAMICFILTER_LIMIT || m_prevChanged!=pos)
     {
-        qWarning()<<"first dataChanged emitment"<<pos.entry;
+        qCWarning(LOKALIZE_LOG)<<"first dataChanged emitment"<<pos.entry;
         emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount-1));
         if (!( rowCount()<DYNAMICFILTER_LIMIT ))
         {
-            qWarning()<<"second dataChanged emitment"<<m_prevChanged.entry;
+            qCWarning(LOKALIZE_LOG)<<"second dataChanged emitment"<<m_prevChanged.entry;
             emit dataChanged(index(m_prevChanged.entry,0),index(m_prevChanged.entry,DisplayedColumnCount-1));
         }
     }

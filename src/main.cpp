@@ -22,6 +22,8 @@
 **************************************************************************** */
 
 
+#include "lokalize_debug.h"
+
 #include "project.h"
 #include "prefs.h"
 #include "prefs_lokalize.h"
@@ -43,7 +45,6 @@
 #include "pos.h"
 
 #include <QMetaType>
-#include <QDebug>
 #include <QString>
 #include <QFile>
 #include <QFileInfo>
@@ -126,11 +127,11 @@ int main(int argc, char **argv)
     parser.process(app);
 #endif
 
-    //qDebug() is important as it aviods compile 'optimization'.
-    qDebug()<<qRegisterMetaType<DocPosition>();
-    qDebug()<<qRegisterMetaType<DocPos>();
-    qDebug()<<qRegisterMetaType<InlineTag>();
-    qDebug()<<qRegisterMetaType<CatalogString>();
+    //qCDebug(LOKALIZE_LOG) is important as it aviods compile 'optimization'.
+    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<DocPosition>();
+    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<DocPos>();
+    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<InlineTag>();
+    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<CatalogString>();
     qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
 #ifndef NOKDE
@@ -237,15 +238,15 @@ int main(int argc, char **argv)
     if (Project::instance()->isLoaded())
         Project::instance()->save();
 
-    qWarning()<<"Finishing Project jobs...";
-    qWarning()<<"Finishing TM jobs...";
+    qCWarning(LOKALIZE_LOG)<<"Finishing Project jobs...";
+    qCWarning(LOKALIZE_LOG)<<"Finishing TM jobs...";
     int secs=5;
     while(--secs>=0)
     {
         Project::instance()->model()->threadPool()->waitForDone(1000);
         TM::threadPool()->waitForDone(1000);
         QThreadPool::globalInstance()->waitForDone(1000);
-        //qDebug()<<"QCoreApplication::processEvents()...";
+        //qCDebug(LOKALIZE_LOG)<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0,0);
     }

@@ -23,8 +23,9 @@
 
 #include "cmd.h"
 
+#include "lokalize_debug.h"
+
 #include <QString>
-#include <QDebug>
 
 #include "catalog_private.h"
 #include "catalogitem_private.h"
@@ -236,7 +237,7 @@ DelTagCmd::DelTagCmd(Catalog *catalog, const DocPosition& pos)
 void DelTagCmd::doRedo()
 {
     _tag=_catalog->targetDeleteTag(_pos);
-    qDebug()<<"tag properties:"<<_tag.start<<_tag.end;
+    qCDebug(LOKALIZE_LOG)<<"tag properties:"<<_tag.start<<_tag.end;
 }
 
 void DelTagCmd::doUndo()
@@ -346,12 +347,12 @@ bool fillTagPlaces(QMap<int,int>& tagPlaces,
     int i=catalogString.tags.size();
     while(--i>=0)
     {
-        //qWarning()<<catalogString.ranges.at(i).getElementName();
+        //qCWarning(LOKALIZE_LOG)<<catalogString.ranges.at(i).getElementName();
         const InlineTag& tag=catalogString.tags.at(i);
         if (tagPlaces.contains(tag.start)
             &&tagPlaces.contains(tag.end))
         {
-            //qWarning()<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
+            //qCWarning(LOKALIZE_LOG)<<"start"<<catalogString.ranges.at(i).start<<"end"<<catalogString.ranges.at(i).end;
             tagPlaces[tag.end]=2;
             tagPlaces[tag.start]=1;
         }
@@ -368,7 +369,7 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
 {
     CatalogString targetWithTags=catalog->targetWithTags(pos);
     QString target=targetWithTags.string;
-    qDebug()<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
+    qCDebug(LOKALIZE_LOG)<<"called with"<<delStart<<"delLen"<<delLen<<"target:"<<target;
     if (delLen==-1)
         delLen=target.length()-delStart;
 
@@ -376,7 +377,7 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
     QMap<int,int> tagPlaces;
     if (target.isEmpty() || (doTags && !fillTagPlaces(tagPlaces,targetWithTags,delStart,delLen)))
     {
-        qWarning()<<"error removing text"<<target;
+        qCWarning(LOKALIZE_LOG)<<"error removing text"<<target;
         return false;
     }
 
@@ -384,7 +385,7 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
 
     //all indexes are ok (or target is just plain text)
     //modified=true;
-    //qWarning()<<"all indexes are ok";
+    //qCWarning(LOKALIZE_LOG)<<"all indexes are ok";
     QMapIterator<int,int> it(tagPlaces);
     it.toBack();
     while (it.hasPrevious())
@@ -397,24 +398,24 @@ bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart, int 
         delLen-=1+cmd->tag().isPaired();
         QString tmp=catalog->targetWithTags(pos).string;
         tmp.replace(TAGRANGE_IMAGE_SYMBOL, u'*');
-        qDebug()<<"\tdeleting at"<<it.key()<<"current string:"<<tmp<<"delLen"<<delLen;
+        qCDebug(LOKALIZE_LOG)<<"\tdeleting at"<<it.key()<<"current string:"<<tmp<<"delLen"<<delLen;
     }
     //charsRemoved-=lenDecrement;
     QString tmp=catalog->targetWithTags(pos).string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, u'*');
-    qDebug()<<"offset"<<delStart<<delLen<<"current string:"<<tmp;
+    qCDebug(LOKALIZE_LOG)<<"offset"<<delStart<<delLen<<"current string:"<<tmp;
     pos.offset=delStart;
     if (delLen)
     {
         QString rText=catalog->targetWithTags(pos).string.mid(delStart,delLen);
         rText.remove(TAGRANGE_IMAGE_SYMBOL);
-        qDebug()<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
+        qCDebug(LOKALIZE_LOG)<<"rText"<<rText<<"delStart"<<delStart<<rText.size();
         if (!rText.isEmpty())
             catalog->push(new DelTextCmd(catalog,pos,rText));
     }
     tmp=catalog->targetWithTags(pos).string;
     tmp.replace(TAGRANGE_IMAGE_SYMBOL, u'*');
-    qDebug()<<"current string:"<<tmp;
+    qCDebug(LOKALIZE_LOG)<<"current string:"<<tmp;
 
     catalog->endMacro();
     return true;
@@ -429,8 +430,8 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     while(--i>=0)
     {
         const InlineTag& tag=catStr.tags.at(i);
-        //qWarning()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
-        //qWarning()<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        //qCWarning(LOKALIZE_LOG)<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        //qCWarning(LOKALIZE_LOG)<<"\ttag"<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(tag.start,i);
         posToTag.insert(tag.end,i);
     }
@@ -441,7 +442,7 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
     int prev=0;
     while ((i = catStr.string.indexOf(TAGRANGE_IMAGE_SYMBOL, i)) != -1)
     {
-        qDebug()<<"TAGRANGE_IMAGE_SYMBOL"<<i;
+        qCDebug(LOKALIZE_LOG)<<"TAGRANGE_IMAGE_SYMBOL"<<i;
         //text that was before tag we found
         if (i-prev)
         {
@@ -450,11 +451,11 @@ void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString&
         }
 
         //now dealing with tag
-        qDebug()<<"posToTag.value(i)"<<posToTag.value(i)<<catStr.tags.size();
+        qCDebug(LOKALIZE_LOG)<<"posToTag.value(i)"<<posToTag.value(i)<<catStr.tags.size();
         if (posToTag.value(i)<catStr.tags.size())
         {
             InlineTag tag=catStr.tags.at(posToTag.value(i));
-            qDebug()<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
+            qCDebug(LOKALIZE_LOG)<<i<<"testing for tag"<<tag.name()<<tag.start<<tag.start;
             if (tag.start==i) //this is an opening tag (may be single tag)
             {
                 pos.offset=start+i;

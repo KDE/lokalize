@@ -161,7 +161,7 @@ EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, 
         FileToEditor::const_iterator it=m_fileToEditor.constFind(filePath);
         if (it!=m_fileToEditor.constEnd())
         {
-            qWarning()<<"already opened:"<<filePath;
+            qCWarning(LOKALIZE_LOG)<<"already opened:"<<filePath;
             if (EditorTab* e=it.value())
             {
                 e->activateWindow();
@@ -190,7 +190,7 @@ EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, 
         FileToEditor::const_iterator it=m_fileToEditor.constFind(filePath);
         if (it!=m_fileToEditor.constEnd())
         {
-            qWarning()<<"already opened:"<<filePath;
+            qCWarning(LOKALIZE_LOG)<<"already opened:"<<filePath;
             if (EditorTab* e=it.value())
             {
                 e->activateWindow();

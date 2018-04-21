@@ -19,8 +19,10 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
 #include "xliffextractor.h"
+
+#include "lokalize_debug.h"
+
 #include "catalog.h"
 #include <QFile>
 #include <QXmlInputSource>
@@ -171,7 +173,7 @@ void XliffExtractor::extract(const QString& filePath, FileMetaData& m)
     bool ok = xmlReader.parse(source);
 
     if (!ok)
-        qDebug() << "Parsing failed.";
+        qCDebug(LOKALIZE_LOG) << "Parsing failed.";
 
 
     //TODO WordCount
@@ -180,7 +182,7 @@ void XliffExtractor::extract(const QString& filePath, FileMetaData& m)
     m.untranslated=handler.untranslated;
     m.filePath = filePath;
 
-    //qDebug()<<"parsed"<<filePath<<m.fuzzy<<m.translated<<m.untranslated<<handler.fuzzy_approver<<handler.fuzzy_reviewer;
+    //qCDebug(LOKALIZE_LOG)<<"parsed"<<filePath<<m.fuzzy<<m.translated<<m.untranslated<<handler.fuzzy_approver<<handler.fuzzy_reviewer;
     Q_ASSERT(m.fuzzy>=0 && m.untranslated>=0 && handler.total>=0);
 
     m.translated_approver=handler.total-handler.untranslated-handler.fuzzy_approver;

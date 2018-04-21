@@ -21,8 +21,6 @@
 
 **************************************************************************** */
 
-#define KDE_NO_DEBUG_OUTPUT
-
 #include "msgctxtview.h"
 
 #include "noteeditor.h"
@@ -36,7 +34,6 @@
 
 #include <QTime>
 #include <QTimer>
-#include <QDebug>
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QLabel>

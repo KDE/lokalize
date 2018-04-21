@@ -1,9 +1,10 @@
 #ifndef KMAINWINDOW_H
 #define KMAINWINDOW_H
 
+#include "lokalize_debug.h"
+
 #include <QMainWindow>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QApplication>
 
 class KMainWindow: public QMainWindow

@@ -23,6 +23,8 @@
 
 #include "syntaxhighlighter.h"
 
+#include "lokalize_debug.h"
+
 #include "project.h"
 #include "prefs_lokalize.h"
 #include "prefs.h"
@@ -259,7 +261,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     //HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding)
     {
-        qWarning()<<"ampersand is in the way. word len:"<<count;
+        qCWarning(LOKALIZE_LOG)<<"ampersand is in the way. word len:"<<count;
         int realStart=text.lastIndexOf(QRegExp("\\b"),start-2);
         if (realStart==-1)
             realStart=0;
@@ -276,7 +278,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
             );
     if (smthAfter)
     {
-        qWarning()<<"smthAfter. ampersand is in the way. word len:"<<count;
+        qCWarning(LOKALIZE_LOG)<<"smthAfter. ampersand is in the way. word len:"<<count;
         int realEnd=text.indexOf(QRegExp(QStringLiteral("\\b")),start+count+2);
         if (realEnd==-1)
             realEnd=text.size();

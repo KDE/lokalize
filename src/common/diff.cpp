@@ -25,6 +25,8 @@
 
 #include "diff.h"
 
+#include "lokalize_debug.h"
+
 // #include "project.h"
 #include "prefs_lokalize.h"
 
@@ -33,7 +35,6 @@
 #include <QStringMatcher>
 #include <QStringBuilder>
 #include <QLinkedList>
-#include <QDebug>
 
 
 typedef enum
@@ -165,9 +166,9 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT-1);
         if (it1!=s1.constEnd())
         {
-            //qWarning() << "upleft '" << *it1 <<"'";
-            //qWarning() << "upleft 1s" << *it1Space;
-            //qWarning() << "upleft 2s" << *it2Space;
+            //qCWarning(LOKALIZE_LOG) << "upleft '" << *it1 <<"'";
+            //qCWarning(LOKALIZE_LOG) << "upleft 1s" << *it1Space;
+            //qCWarning(LOKALIZE_LOG) << "upleft 2s" << *it2Space;
             if (haveSpaces)
             {
                 if((*it1)==(*it2))//case and accels
@@ -201,7 +202,7 @@ void LCSprinter::printLCS(uint index)
                 }
                 ++it1Space;
                 ++it2Space;
-                //qWarning() << " common " << *it1;
+                //qCWarning(LOKALIZE_LOG) << " common " << *it1;
             }
             else
                 resultString.append(*it1);//we may guess that this is a batch job, i.e. TM search
@@ -214,8 +215,8 @@ void LCSprinter::printLCS(uint index)
         printLCS(index-nT);
 //         if (it1!=s1.end())
         {
-            //qWarning()<<"APPENDDEL "<<*it1;
-            //qWarning()<<"APPENDDEL "<<*it1Space;
+            //qCWarning(LOKALIZE_LOG)<<"APPENDDEL "<<*it1;
+            //qCWarning(LOKALIZE_LOG)<<"APPENDDEL "<<*it1Space;
             resultString.append(delMarkerStart);
             resultString.append(*it1);
             ++it1;
@@ -235,7 +236,7 @@ void LCSprinter::printLCS(uint index)
         ++it2;
         if (haveSpaces)
         {
-            //qWarning() << "add2 " << *it2;
+            //qCWarning(LOKALIZE_LOG) << "add2 " << *it2;
             resultString.append(*it2Space);
             ++it2Space;
         }
@@ -350,7 +351,7 @@ QString wordDiff(QStringList s1, QStringList s2)
     if (r)
         list.removeFirst();
     else
-        qDebug()<<"first ' ' assumption is wrong"<<list.first();
+        qCDebug(LOKALIZE_LOG)<<"first ' ' assumption is wrong"<<list.first();
 
     QString result=list.join(QString());
 
@@ -427,7 +428,7 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     QStringList result(calcLCS(s1,s2,s1Space,s2Space));
     result.removeFirst();//\t
     result.first().remove(0,1);//\b
-//     qWarning()<<"wordDiff 1 '" <<result<<"'";
+//     qCWarning(LOKALIZE_LOG)<<"wordDiff 1 '" <<result<<"'";
     result.replaceInStrings(QStringLiteral("<KBABELDEL></KBABELDEL>"),QString());
     result.replaceInStrings(QStringLiteral("<KBABELADD></KBABELADD>"),QString());
 
@@ -444,7 +445,7 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     }
 
     //result.last().chop(1);//\b
-    //qWarning()<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
+    //qCWarning(LOKALIZE_LOG)<<"DIFF RESULT '" <<result<<"' '"<<result<<"'";
 
     QString res(result.join(QString()));
     res.remove(QStringLiteral("{/KBABELADD}{KBABELADD}"));

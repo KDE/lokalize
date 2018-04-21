@@ -31,6 +31,9 @@
 **************************************************************************** */
 
 #include "tmmanager.h"
+
+#include "lokalize_debug.h"
+
 #include "ui_managedatabases.h"
 #include "dbfilesmodel.h"
 #include "tmtab.h"
@@ -39,7 +42,6 @@
 #include "project.h"
 #include "languagelistmodel.h"
 
-#include <QDebug>
 #include <QTimer>
 #include <QSortFilterProxyModel>
 #include <QStringBuilder>

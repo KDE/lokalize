@@ -38,7 +38,7 @@ class MultiEditorAdaptor: public EditorAdaptor
     Q_OBJECT
 public:
     MultiEditorAdaptor(EditorTab *parent);
-    ~MultiEditorAdaptor() { /*qWarning()<<"bye bye cruel world";*/ }
+    ~MultiEditorAdaptor() { /*qCWarning(LOKALIZE_LOG)<<"bye bye cruel world";*/ }
 
     inline EditorTab* editorTab() const
     { return static_cast<EditorTab*>(QObject::parent()); }

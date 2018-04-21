@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "mergecatalog.h"
+
+#include "lokalize_debug.h"
+
 #include "catalog_private.h"
 #include "catalogstorage.h"
 #include "cmd.h"
@@ -29,7 +32,6 @@
 #include <klocalizedstring.h>
 #include <QMultiHash>
 #include <QtAlgorithms>
-#include <QDebug>
 
 
 MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges)
@@ -58,7 +60,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 
         //note the explicit use of map...
         if (m_storage->isApproved(ourPos)!=m_baseCatalog->isApproved(pos))
-            //qWarning()<<ourPos.entry<<"SHIT";
+            //qCWarning(LOKALIZE_LOG)<<ourPos.entry<<"MISMATCH";
             m_storage->setApproved(ourPos, m_baseCatalog->isApproved(pos));
         DocPos p(pos);
         if (!m_originalHashes.contains(p))
@@ -101,7 +103,7 @@ bool MergeCatalog::isPlural(uint index) const
     //sanity
     if (m_map.at(index) == -1)
     {
-         qWarning()<<"!!! index"<<index<<"m_map.at(index)"<<m_map.at(index)<<"numberOfEntries()"<<numberOfEntries();
+         qCWarning(LOKALIZE_LOG)<<"!!! index"<<index<<"m_map.at(index)"<<m_map.at(index)<<"numberOfEntries()"<<numberOfEntries();
          return false;
     }
 
@@ -138,18 +140,18 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos,const DocPositi
 #if 0
     if (baseStorage.source(basePos)=="%1 (%2)")
     {
-        qDebug()<<"BASE";
-        qDebug()<<m_baseCatalog->url();
-        qDebug()<<basePos.entry;
-        qDebug()<<baseStorage.source(basePos);
-        qDebug()<<baseMatchData.first();
-        qDebug()<<"MERGE";
-        qDebug()<<url();
-        qDebug()<<mergePos.entry;
-        qDebug()<<mergeStorage.source(mergePos);
-        qDebug()<<mergeStorage.matchData(mergePos).first();
-        qDebug()<<item.score;
-        qDebug()<<"";
+        qCDebug(LOKALIZE_LOG)<<"BASE";
+        qCDebug(LOKALIZE_LOG)<<m_baseCatalog->url();
+        qCDebug(LOKALIZE_LOG)<<basePos.entry;
+        qCDebug(LOKALIZE_LOG)<<baseStorage.source(basePos);
+        qCDebug(LOKALIZE_LOG)<<baseMatchData.first();
+        qCDebug(LOKALIZE_LOG)<<"MERGE";
+        qCDebug(LOKALIZE_LOG)<<url();
+        qCDebug(LOKALIZE_LOG)<<mergePos.entry;
+        qCDebug(LOKALIZE_LOG)<<mergeStorage.source(mergePos);
+        qCDebug(LOKALIZE_LOG)<<mergeStorage.matchData(mergePos).first();
+        qCDebug(LOKALIZE_LOG)<<item.score;
+        qCDebug(LOKALIZE_LOG)<<"";
     }
 #endif
     return item;
@@ -221,7 +223,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
         if (basePositions.size()==1)
             continue;
 
-        //qDebug()<<"kv"<<mergePosition<<basePositions;
+        //qCDebug(LOKALIZE_LOG)<<"kv"<<mergePosition<<basePositions;
         QList<MatchItem> scores;
         foreach(int value, basePositions)
             scores<<calcMatchItem(DocPosition(value), mergePosition);
@@ -230,7 +232,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
         int i=scores.size();
         while(--i>0)
         {
-            //qDebug()<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";
+            //qCDebug(LOKALIZE_LOG)<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";
             m_map[scores.at(i).baseEntry]=-1;
         }
     }
@@ -239,7 +241,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
 /*    QMultiHash<QString, int>::iterator it = mergeMap.begin();
     while (it != mergeMap.end())
     {
-        //qWarning()<<it.value()<<it.key();
+        //qCWarning(LOKALIZE_LOG)<<it.value()<<it.key();
         ++it;
     }*/
     m_unmatchedCount=numberOfEntries()-mergePositions.count();

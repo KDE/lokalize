@@ -22,11 +22,13 @@
 **************************************************************************** */
 
 #include "termlabel.h"
+
+#include "lokalize_debug.h"
+
 #include "glossarywindow.h"
 
 #include <QMenu>
 #include <QMouseEvent>
-#include <QDebug>
 #include <QStringBuilder>
 
 #include <klocalizedstring.h>
@@ -43,7 +45,7 @@ using namespace GlossaryNS;
 //     {
 // //         setFlat(true);
 // //         grabShortcut(Qt::ALT+Qt::CTRL+key);
-// //         qWarning() << "dsds " << grabShortcut(Qt::ALT+key);
+// //         qCWarning(LOKALIZE_LOG) << "dsds " << grabShortcut(Qt::ALT+key);
 //     }
 //     //~TermLabel(){}
 // // bool TermLabel::event(QEvent *event)
@@ -51,7 +53,7 @@ using namespace GlossaryNS;
 // //     if (event->type() != QEvent::Shortcut)
 // //         return QLabel::event(event);
 // // 
-// // //         qWarning() << "dsds " << m_termTransl;
+// // //         qCWarning(LOKALIZE_LOG) << "dsds " << m_termTransl;
 // //     emit insertTerm(m_termTransl);
 // //     return true;
 // // }
@@ -122,7 +124,7 @@ void TermLabel::setText(const QString& term, const QByteArray& entryId, bool cap
 #if 0
 void QueryResultBtn::insert()
 {
-//     qWarning()<<"ins "<<text();
+//     qCWarning(LOKALIZE_LOG)<<"ins "<<text();
     emit insertText(m_text);
 }
 
@@ -131,7 +133,7 @@ QueryResultBtn::QueryResultBtn(QAction* a)
     , m_action(a)
 {
     setWordWrap(true);
-//     qWarning()<<"ctor";
+//     qCWarning(LOKALIZE_LOG)<<"ctor";
     //connect(this,SIGNAL(clicked(bool)),this,SLOT(insert()));
 }
 

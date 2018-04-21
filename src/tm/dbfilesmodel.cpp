@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "dbfilesmodel.h"
+
+#include "lokalize_debug.h"
+
 #include "jobs.h"
 #include "project.h"
 #include "kdemacros.h"
@@ -30,7 +33,6 @@
 #include <QFileSystemModel>
 #include <QStringBuilder>
 #include <QStandardPaths>
-#include <QDebug>
 
 #include <klocalizedstring.h>
 
@@ -151,7 +153,7 @@ void DBFilesModel::updateStats(const QModelIndex& topLeft, const QModelIndex& bo
         || !topLeft.isValid() || !bottomRight.isValid())
         return;
 
-    qDebug()<<"DBFilesModel::updateStats() called";
+    qCDebug(LOKALIZE_LOG)<<"DBFilesModel::updateStats() called";
     calcStats(topLeft.parent(), topLeft.row(), bottomRight.row());
     m_timeSinceLastUpdate.start();
 }
@@ -180,7 +182,7 @@ void DBFilesModel::openJobDone(OpenDBJob* j)
 
     m_stats[j->m_dbName]=j->m_stat;
     m_configurations[j->m_dbName]=j->m_tmConfig;
-    qDebug()<<j->m_dbName<<j->m_tmConfig.targetLangCode;
+    qCDebug(LOKALIZE_LOG)<<j->m_dbName<<j->m_tmConfig.targetLangCode;
 }
 
 void DBFilesModel::removeTM ( QModelIndex index )
@@ -226,7 +228,7 @@ QVariant DBFilesModel::data (const QModelIndex& index, int role) const
         res.chop(tmFileExtension.size());
     if (role==NameRole) return res;
 
-    //qDebug()<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
+    //qCDebug(LOKALIZE_LOG)<<m_stats[res].uniqueSourcesCount<<(index.column()==OriginalsCount);
     switch (index.column())
     {
         case Name: return res;

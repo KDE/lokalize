@@ -21,9 +21,10 @@
 
 **************************************************************************** */
 
-#undef KDE_NO_DEBUG_OUTPUT
-
 #include "xlifftextedit.h"
+
+#include "lokalize_debug.h"
+
 #include "catalog.h"
 #include "cmd.h"
 #include "syntaxhighlighter.h"
@@ -51,9 +52,6 @@
 #include <QMouseEvent>
 #include <QToolTip>
 #include <QScrollBar>
-#include <QDebug>
-
-#undef KDE_NO_DEBUG_OUTPUT
 
 
 inline static QImage generateImage(const QString& str, const QFont& font)
@@ -73,7 +71,7 @@ inline static QImage generateImage(const QString& str, const QFont& font)
     QApplication::style()->drawControl(QStyle::CE_PushButton,&opt,&painter);
 
     //     im_time+=a.elapsed();
-    //     qWarning()<<im_count<<im_time;
+    //     qCWarning(LOKALIZE_LOG)<<im_count<<im_time;
     return result;
 }
 #ifndef NOKDE
@@ -234,10 +232,10 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
     QTextCursor cursor=textCursor();
     int pos=cursor.position();
     int anchor=cursor.anchor();
-    //qWarning()<<"called"<<"pos"<<pos<<anchor<<"keepCursor"<<keepCursor;
+    //qCWarning(LOKALIZE_LOG)<<"called"<<"pos"<<pos<<anchor<<"keepCursor"<<keepCursor;
     if (!keepCursor && toPlainText()!=target)
     {
-        //qWarning()<<"resetting pos";
+        //qCWarning(LOKALIZE_LOG)<<"resetting pos";
         pos=0;
         anchor=0;
     }
@@ -257,7 +255,7 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
     t.movePosition(QTextCursor::Start);
     if (pos || anchor)
     {
-        //qWarning()<<"setting"<<anchor<<pos;
+        //qCWarning(LOKALIZE_LOG)<<"setting"<<anchor<<pos;
         // I don't know why the following (more correct) code does not work
         t.setPosition(anchor,QTextCursor::MoveAnchor);
         int length=pos-anchor;
@@ -265,7 +263,7 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
             t.movePosition(length<0?QTextCursor::PreviousCharacter:QTextCursor::NextCharacter,QTextCursor::KeepAnchor,qAbs(length));
     }
     setTextCursor(t);
-    //qWarning()<<"set?"<<textCursor().anchor()<<textCursor().position();
+    //qCWarning(LOKALIZE_LOG)<<"set?"<<textCursor().anchor()<<textCursor().position();
     //END pos
 
     reflectApprovementState();
@@ -275,9 +273,9 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
 
 void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const CatalogString& refStr)
 {
-    //qWarning()<<"";
-    //qWarning()<<"START";
-    //qWarning()<<str<<ranges.size();
+    //qCWarning(LOKALIZE_LOG)<<"";
+    //qCWarning(LOKALIZE_LOG)<<"START";
+    //qCWarning(LOKALIZE_LOG)<<str<<ranges.size();
     //prevent undo tracking system from recording this 'action'
     document()->blockSignals(true);
     clear();
@@ -338,7 +336,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     int i=catStr.tags.size();
     while(--i>=0)
     {
-        //qDebug()<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
+        //qCDebug(LOKALIZE_LOG)<<"\t"<<catStr.tags.at(i).getElementName()<<catStr.tags.at(i).id<<catStr.tags.at(i).start<<catStr.tags.at(i).end;
         posToTag.insert(catStr.tags.at(i).start,i);
         posToTag.insert(catStr.tags.at(i).end,i);
     }
@@ -392,16 +390,16 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             text=QString::number(sourceTagIdToIndex.contains(tag.id)?sourceTagIdToIndex.value(tag.id):(tagIndex+refTagIndexOffset));
         if (tag.start!=tag.end)
         {
-            //qWarning()<<"b"<<i;
+            //qCWarning(LOKALIZE_LOG)<<"b"<<i;
             if (tag.start==i)
             {
-                //qWarning()<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
+                //qCWarning(LOKALIZE_LOG)<<"\t\tstart:"<<tag.getElementName()<<tag.id<<tag.start;
                 text.append(QLatin1String(" {"));
                 name.append(QLatin1String("-start"));
             }
             else
             {
-                //qWarning()<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
+                //qCWarning(LOKALIZE_LOG)<<"\t\tend:"<<tag.getElementName()<<tag.id<<tag.end;
                 text.prepend(QLatin1String("} "));
                 name.append(QLatin1String("-end"));
             }
@@ -423,13 +421,13 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     Q_ASSERT(m_catalog->targetLangCode().length());
     Q_ASSERT(Project::instance()->targetLangCode().length());
 
-    //qWarning()<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
+    //qCWarning(LOKALIZE_LOG)<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
 
     //HACK to workaround #218246
     const QString& editTextAscii=document()->toPlainText();
     if (editTextAscii==_oldMsgstrAscii)
     {
-        //qWarning()<<"stopping"<<editTextAscii<<_oldMsgstrAscii;
+        //qCWarning(LOKALIZE_LOG)<<"stopping"<<editTextAscii<<_oldMsgstrAscii;
         return;
     }
 
@@ -438,7 +436,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     const QString& editText=toPlainText();
     if (Q_UNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
     {
-        //qWarning()<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
+        //qCWarning(LOKALIZE_LOG)<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
         return;
     }
 
@@ -452,7 +450,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
     DocPosition pos=m_currentPos;
     pos.offset=offset;
-    //qWarning()<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
+    //qCWarning(LOKALIZE_LOG)<<"offset"<<offset<<"charsRemoved"<<charsRemoved<<"_oldMsgstr"<<_oldMsgstr;
 
     QString target=m_catalog->targetWithTags(pos).string;
     const QStringRef addedText=editText.midRef(offset,charsAdded);
@@ -487,11 +485,11 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
                 m_catalog->push(new InsTextCmd(m_catalog,pos,addedText.toString()));
         }
 
-        //qWarning()<<"calling showPos";
+        //qCWarning(LOKALIZE_LOG)<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true);
         if (!modified)
         {
-            //qWarning()<<"stop";
+            //qCWarning(LOKALIZE_LOG)<<"stop";
             return;
         }
     }
@@ -503,7 +501,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
         _oldMsgstr=editText;//newStr becomes OldStr
         _oldMsgstrAscii=editTextAscii;
-        //qWarning()<<"char"<<editText[offset].unicode();
+        //qCWarning(LOKALIZE_LOG)<<"char"<<editText[offset].unicode();
         if (charsAdded)
             m_catalog->push(new InsTextCmd(m_catalog,pos,addedText.toString()));
 
@@ -536,7 +534,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
     else if (m_completionBox)
             m_completionBox->hide();
 #endif
-    //qWarning()<<"finish";
+    //qCWarning(LOKALIZE_LOG)<<"finish";
 }
 
 
@@ -552,7 +550,7 @@ bool TranslationUnitTextEdit::removeTargetSubstring(int delStart, int delLen, bo
 
     if (refresh)
     {
-        //qWarning()<<"calling showPos";
+        //qCWarning(LOKALIZE_LOG)<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true/*false*/);
     }
     emit contentsModified(m_currentPos.entry);
@@ -591,7 +589,7 @@ void TranslationUnitTextEdit::insertCatalogString(CatalogString catStr, int star
 
     if (refresh)
     {
-        //qWarning()<<"calling showPos";
+        //qCWarning(LOKALIZE_LOG)<<"calling showPos";
         showPos(m_currentPos,CatalogString(),/*keepCursor*/true/*false*/);
         QTextCursor cursor=textCursor();
         cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,catStr.string.size());
@@ -652,12 +650,12 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
 
     if (source->hasFormat(LOKALIZE_XLIFF_MIMETYPE))
     {
-        //qWarning()<<"has";
+        //qCWarning(LOKALIZE_LOG)<<"has";
         QVariant v;
         QByteArray data=source->data(LOKALIZE_XLIFF_MIMETYPE);
         QDataStream in(&data,QIODevice::ReadOnly);
         in>>v;
-        //qWarning()<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
+        //qCWarning(LOKALIZE_LOG)<<"ins"<<qVariantValue<CatalogString>(v).string<<qVariantValue<CatalogString>(v).ranges.size();
 
         int start=0;
         m_catalog->beginMacro(i18nc("@item Undo action item","Insert text with markup"));
@@ -814,7 +812,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
             if (m_completionBox->currentItem())
                 completionActivated(m_completionBox->currentItem()->text());
             else
-                qWarning()<<"avoided a crash. a case for bug 238835!";
+                qCWarning(LOKALIZE_LOG)<<"avoided a crash. a case for bug 238835!";
             m_completionBox->hide();
             return;
         }
@@ -874,7 +872,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                 (keyEvent->key()==Qt::Key_Delete)
                 && textCursor().atEnd())
     {
-        qWarning()<<"workaround for Qt/X11 bug";
+        qCWarning(LOKALIZE_LOG)<<"workaround for Qt/X11 bug";
         QTextCursor t=textCursor();
         if(!t.hasSelection())
         {
@@ -910,7 +908,7 @@ void TranslationUnitTextEdit::keyPressEvent(QKeyEvent *keyEvent)
                     t.deletePreviousChar();
                     t.deletePreviousChar();
                     setTextCursor(t);
-                    //qWarning()<<"set-->"<<textCursor().anchor()<<textCursor().position();
+                    //qCWarning(LOKALIZE_LOG)<<"set-->"<<textCursor().anchor()<<textCursor().position();
                 }
             }
 
@@ -944,7 +942,7 @@ QString TranslationUnitTextEdit::toPlainText()
 /*
     int ii=text.size();
     while(--ii>=0)
-        qWarning()<<text.at(ii).unicode();
+        qCWarning(LOKALIZE_LOG)<<text.at(ii).unicode();
 */
     return text;
 }
@@ -961,7 +959,7 @@ void TranslationUnitTextEdit::insertTag(InlineTag tag)
     QTextCursor cursor=textCursor();
     tag.start=qMin(cursor.anchor(),cursor.position());
     tag.end=qMax(cursor.anchor(),cursor.position())+tag.isPaired();
-    qDebug()<<"insert tag"<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
+    qCDebug(LOKALIZE_LOG)<<"insert tag"<<(m_part==DocPosition::Source)<<tag.start<<tag.end;
     m_catalog->push(new InsTagCmd(m_catalog,currentPos(),tag));
     showPos(currentPos(),CatalogString(),/*keepCursor*/true);
     cursor.movePosition(QTextCursor::NextCharacter,QTextCursor::MoveAnchor,tag.end+1+tag.isPaired());
@@ -975,7 +973,7 @@ int TranslationUnitTextEdit::strForMicePosIfUnderTag(QPoint mice, CatalogString&
     int pos=cursor.position();
     str=m_catalog->catalogString(m_currentPos);
     if (pos==-1 || pos>=str.string.size()) return -1;
-    //qWarning()<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
+    //qCWarning(LOKALIZE_LOG)<<"here1"<<str.string.at(pos)<<str.string.at(pos-1)<<str.string.at(pos+1);
 
 
 //     if (pos>0)

@@ -32,10 +32,12 @@
 **************************************************************************** */
 
 #include "flowlayout.h"
+
+#include "lokalize_debug.h"
+
 #include "termlabel.h"
 
 #include <QAction>
-#include <QDebug>
 
 using namespace GlossaryNS;
 

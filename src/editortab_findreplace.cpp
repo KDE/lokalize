@@ -21,6 +21,8 @@
 
 **************************************************************************** */
 
+#include "lokalize_debug.h"
+
 #include "editortab.h"
 #include "editorview.h"
 #include "catalog.h"
@@ -41,7 +43,6 @@
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/dialog.h>
 
-#include <QDebug>
 #include <QTimer>
 #include <QPointer>
 
@@ -411,7 +412,7 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
     int flag=1;
     bool ignoreaccels=m_replace->options()&IGNOREACCELS;
     bool includenotes=m_replace->options()&INCLUDENOTES;
-    qWarning()<<"includenotes"<<includenotes;
+    qCWarning(LOKALIZE_LOG)<<"includenotes"<<includenotes;
     int switchOptions=DocPosition::Target|(includenotes*DocPosition::Comment);
     while (flag)
     {
@@ -580,8 +581,8 @@ void EditorTab::spellcheckNext()
     {
         if (!switchNext(m_catalog,_spellcheckPos))
         {
-            qWarning()<<_spellcheckStartPos.entry;
-            qWarning()<<_spellcheckStartPos.form;
+            qCWarning(LOKALIZE_LOG)<<_spellcheckStartPos.entry;
+            qCWarning(LOKALIZE_LOG)<<_spellcheckStartPos.form;
             bool continueFromStart=
                 !(_spellcheckStartPos.entry==0 && _spellcheckStartPos.form==0)
                 && KMessageBox::questionYesNo(this,i18n("Lokalize has reached end of document. Do you want to continue from start?"),

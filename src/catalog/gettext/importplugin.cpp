@@ -33,6 +33,8 @@
 
 **************************************************************************** */
 
+#include "lokalize_debug.h"
+
 #include "catalogfileplugin.h"
 #include "importplugin_private.h"
 
@@ -40,7 +42,6 @@
 
 #include <QStringList>
 #include <QLinkedList>
-#include <QDebug>
 
 #include <kmessagebox.h>
 

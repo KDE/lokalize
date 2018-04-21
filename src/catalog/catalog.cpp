@@ -33,7 +33,6 @@
   your version.
 
 **************************************************************************** */
-// #define KDE_NO_DEBUG_OUTPUT
 
 #include "catalog.h"
 #include "catalog_private.h"
@@ -272,7 +271,7 @@ void Catalog::attachAltTransCatalog(Catalog* altCat)
 {
     d._altTransCatalogs.append(altCat);
     if (numberOfEntries()!=altCat->numberOfEntries())
-        qWarning()<<altCat->url()<<"has different number of entries";
+        qCWarning(LOKALIZE_LOG)<<altCat->url()<<"has different number of entries";
 }
 
 void Catalog::attachAltTrans(int entry, const AltTrans& trans)
@@ -290,13 +289,13 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
     {
         if (pos.entry>=altCat->numberOfEntries())
         {
-            qDebug()<<"ignoring"<<altCat->url()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
+            qCDebug(LOKALIZE_LOG)<<"ignoring"<<altCat->url()<<"this time because"<<pos.entry<<"<"<<altCat->numberOfEntries();
             continue;
         }
 
         if (altCat->source(pos)!=source(pos))
         {
-            qDebug()<<"ignoring"<<altCat->url()<<"this time because <source>s don't match";
+            qCDebug(LOKALIZE_LOG)<<"ignoring"<<altCat->url()<<"this time because <source>s don't match";
             continue;
         }
 
@@ -349,7 +348,7 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
 {
-    //qDebug()<<"setting active phase"<<phase<<role;
+    //qCDebug(LOKALIZE_LOG)<<"setting active phase"<<phase<<role;
     d._phase=phase;
     d._phaseRole=role;
     updateApprovedEmptyIndexCache();
@@ -540,7 +539,7 @@ KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
             stale->deleteLater();
     }
     if (autoSave)
-        qWarning()<<"autoSave"<<autoSave->fileName();
+        qCInfo(LOKALIZE_LOG)<<"autoSave"<<autoSave->fileName();
     return autoSave;
 #else
     return 0;
@@ -592,7 +591,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
         return line;
     }
 
-    if (a.elapsed()>100) qDebug()<<filePath<<"opened in"<<a.elapsed();
+    if (a.elapsed()>100) qCDebug(LOKALIZE_LOG)<<filePath<<"opened in"<<a.elapsed();
 
     //ok...
     clear();
@@ -715,7 +714,7 @@ void Catalog::doAutoSave()
         emit signalFileAutoSaveFailed(d._autoSave->fileName());
         return;
     }
-    qWarning()<<"doAutoSave"<<d._autoSave->fileName();
+    qCInfo(LOKALIZE_LOG)<<"doAutoSave"<<d._autoSave->fileName();
     m_storage->save(d._autoSave);
     d._autoSave->close();
     d._autoSaveDirty=false;
@@ -785,7 +784,7 @@ void Catalog::flushUpdateDBBuffer()
     if (pos.entry==-1 || pos.entry>=numberOfEntries())
     {
         //nothing to flush
-        //qWarning()<<"nothing to flush or new file opened";
+        //qCWarning(LOKALIZE_LOG)<<"nothing to flush or new file opened";
         return;
     }
     QString dbName;
@@ -796,7 +795,7 @@ void Catalog::flushUpdateDBBuffer()
     else
     {
         dbName=sourceLangCode()%'-'%targetLangCode();
-        qWarning()<<"updating"<<dbName<<"because target language of project db does not match"<<Project::instance()->targetLangCode()<<targetLangCode();
+        qCInfo(LOKALIZE_LOG)<<"updating"<<dbName<<"because target language of project db does not match"<<Project::instance()->targetLangCode()<<targetLangCode();
         if(!TM::DBFilesModel::instance()->m_configurations.contains(dbName))
         {
             TM::OpenDBJob* openDBJob=new TM::OpenDBJob(dbName, TM::Local, true);

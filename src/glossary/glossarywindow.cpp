@@ -22,6 +22,9 @@
 **************************************************************************** */
 
 #include "glossarywindow.h"
+
+#include "lokalize_debug.h"
+
 #include "glossary.h"
 #include "project.h"
 #include "languagelistmodel.h"
@@ -34,7 +37,6 @@
 #endif
 
 #include <QLineEdit>
-#include <QDebug>
 #include <QApplication>
 #include <QSplitter>
 #include <QVBoxLayout>
@@ -185,7 +187,7 @@ bool SubjectFieldModel::insertRows(int row, int count, const QModelIndex& parent
 
 bool SubjectFieldModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    qDebug()<<role;
+    qCDebug(LOKALIZE_LOG)<<role;
     QStringList& subjectFields=Project::instance()->glossary()->subjectFields;
     subjectFields[index.row()]=value.toString();
     return true;
@@ -446,14 +448,14 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     {
         m_browser->setCurrentIndex(items.first());
         m_browser->scrollTo(items.first(),QAbstractItemView::PositionAtCenter);
-        //qDebug()<<id<<items<<items.first().row();
+        //qCDebug(LOKALIZE_LOG)<<id<<items<<items.first().row();
     }
     else
     {
         //the row is probably not fetched yet
         m_browser->setCurrentIndex(QModelIndex());
         showEntryInEditor(id);
-        //qDebug()<<id<<0;
+        //qCDebug(LOKALIZE_LOG)<<id<<0;
     }
 }
 
