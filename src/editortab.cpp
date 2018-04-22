@@ -56,11 +56,9 @@
 #include "project.h"
 #include "prefs.h"
 #include "languagelistmodel.h"
-#include "kdemacros.h"
 
 #ifndef NOKDE
 #include <ktoolbarpopupaction.h>
-#include <kdemacros.h>
 #include <kactioncollection.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
@@ -530,7 +528,7 @@ void EditorTab::setupActions()
 
 #ifndef Q_OS_DARWIN
     int copyShortcut=Qt::CTRL+Qt::Key_Space;
-    if (KDE_ISUNLIKELY( systemLang==QLocale::Korean
+    if (Q_UNLIKELY( systemLang==QLocale::Korean
                      || systemLang==QLocale::Japanese
                      || systemLang==QLocale::Chinese
                     ))

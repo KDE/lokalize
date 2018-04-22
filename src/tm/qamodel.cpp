@@ -24,7 +24,6 @@
 #include <QTextStream>
 #include <QCoreApplication>
 #include <klocalizedstring.h>
-#include <kdemacros.h>
 
 static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
 
@@ -69,7 +68,7 @@ bool QaModel::isInstantiated()
 
 QaModel* QaModel::instance()
 {
-    if (KDE_ISUNLIKELY( _instance==0 )) {
+    if (Q_UNLIKELY( _instance==0 )) {
         _instance=new QaModel;
         qAddPostRoutine(QaModel::cleanupQaModel);
     }

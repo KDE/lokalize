@@ -36,8 +36,6 @@
 #include "dbfilesmodel.h"
 #include "qamodel.h"
 
-#include "kdemacros.h"
-
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
@@ -249,7 +247,7 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 void Project::populateDirModel()
 {
 #ifndef NOKDE
-    if (KDE_ISUNLIKELY( m_path.isEmpty() || !QFileInfo::exists(poDir()) ))
+    if (Q_UNLIKELY( m_path.isEmpty() || !QFileInfo::exists(poDir()) ))
         return;
 
     QUrl potUrl;
@@ -326,7 +324,7 @@ void Project::save()
 ProjectModel* Project::model()
 {
 #ifndef NOKDE
-    if (KDE_ISUNLIKELY(!m_model))
+    if (Q_UNLIKELY(!m_model))
         m_model=new ProjectModel(this);
 
     return m_model;

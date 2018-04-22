@@ -43,8 +43,6 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
-#include "kdemacros.h"
-
 #include <QTimer>
 #include <QMenu>
 #include <QDragEnterEvent>

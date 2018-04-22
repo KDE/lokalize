@@ -41,7 +41,6 @@
 #include <QDateTime>
 #include <QTimeZone>
 
-#include <kdemacros.h>
 #include <klocalizedstring.h>
 
 /**
@@ -160,13 +159,13 @@ QString GNUPluralForms(const QString& lang)
     int i=langsWithPInfoCount;
     while(--i>=0 && l!=langsWithPInfo[i].lang)
         ;
-    if (KDE_ISLIKELY( i>=0 ))
+    if (Q_LIKELY( i>=0 ))
         return QString::fromLatin1(langsWithPInfo[i].plural);
 
     i=langsWithPInfoCount;
     while(--i>=0 && !l.startsWith(langsWithPInfo[i].lang))
         ;
-    if (KDE_ISLIKELY( i>=0 ))
+    if (Q_LIKELY( i>=0 ))
         return QString::fromLatin1(langsWithPInfo[i].plural);
 
 
@@ -385,7 +384,7 @@ void updateHeader(QString& header,
 
 
     temp=QStringLiteral("Language-Team: ")%language%QStringLiteral(" <")%mailingList%QStringLiteral(">\\n");
-    if (KDE_ISLIKELY( found ))
+    if (Q_LIKELY( found ))
         (*ait) = temp;
     else
         headerList.append(temp);

@@ -34,7 +34,6 @@
 #include "dbfilesmodel.h"
 #include "diff.h"
 #include "xlifftextedit.h"
-#include "kdemacros.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -516,7 +515,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
         //str.replace('&',"&amp;"); TODO check
         html+=QLatin1String("<br>");
-        if (KDE_ISLIKELY( i<m_actions.size() ))
+        if (Q_LIKELY( i<m_actions.size() ))
         {
             m_actions.at(i)->setStatusTip(entry.target.string);
             html+=QStringLiteral("[%1] ").arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));

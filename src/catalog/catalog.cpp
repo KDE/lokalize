@@ -622,7 +622,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
             //restore 'modified' status for entries
             MergeCatalog* mergeCatalog=new MergeCatalog(this,this);
             int errorLine=mergeCatalog->loadFromUrl(autoSave->fileName());
-            if (KDE_ISLIKELY(errorLine==0))
+            if (Q_LIKELY(errorLine==0))
                 mergeCatalog->copyToBaseCatalog();
             mergeCatalog->deleteLater();
             d._autoSave->close();
@@ -652,7 +652,7 @@ bool Catalog::saveToUrl(QString localFilePath)
         return true;
 
     bool nameChanged=localFilePath.length();
-    if (KDE_ISLIKELY( !nameChanged ))
+    if (Q_LIKELY( !nameChanged ))
         localFilePath = d._filePath;
 
 

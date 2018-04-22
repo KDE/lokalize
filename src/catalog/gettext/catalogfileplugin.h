@@ -33,7 +33,6 @@
 #ifndef KATALOGFILEPLUGIN_H
 #define KATALOGFILEPLUGIN_H
 
-#include <kdemacros.h>
 #include <QList>
 #include <QTextCodec>
 class QIODevice;

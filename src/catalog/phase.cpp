@@ -30,8 +30,6 @@
 
 #include <QSet>
 
-#include "kdemacros.h"
-
 #include <klocalizedstring.h>
 
 const char* const* processes()
@@ -51,7 +49,7 @@ ProjectLocal::PersonRole roleForProcess(const QString& process)
 
 void generatePhaseForCatalogIfNeeded(Catalog* catalog)
 {
-    if (KDE_ISLIKELY( !(catalog->capabilities()&Phases) || catalog->activePhaseRole()==ProjectLocal::Undefined ))
+    if (Q_LIKELY( !(catalog->capabilities()&Phases) || catalog->activePhaseRole()==ProjectLocal::Undefined ))
         return;
 
     Phase phase;

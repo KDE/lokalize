@@ -33,7 +33,6 @@
 #include <kstringhandler.h>
 #include <kdirsortfilterproxymodel.h>
 #include <kcolorscheme.h>
-#include <kdemacros.h>
 
 #include <QTreeView>
 #include <QTimer>
@@ -82,7 +81,7 @@ void PoItemDelegate::paint (QPainter *painter, const QStyleOptionViewItem &optio
         return QStyledItemDelegate::paint(painter,option,index);
 
     QVariant graphData = index.data(Qt::DisplayRole);
-    if (KDE_ISUNLIKELY( !graphData.isValid()))
+    if (Q_UNLIKELY( !graphData.isValid()))
     {
         painter->fillRect(option.rect,Qt::transparent);
         return;

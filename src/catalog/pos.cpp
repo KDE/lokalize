@@ -32,7 +32,6 @@
 
 #include "pos.h"
 #include "catalog.h"
-#include "kdemacros.h"
 
 bool switchPrev(Catalog*& catalog,DocPosition& pos,int parts)
 {
@@ -61,10 +60,10 @@ bool switchPrev(Catalog*& catalog,DocPosition& pos,int parts)
     if (!switchEntry)
         return true;
 
-    if (KDE_ISUNLIKELY( pos.form>0
+    if (Q_UNLIKELY( pos.form>0
             && catalog->isPlural(pos.entry)))
         pos.form--;
-    else if (KDE_ISUNLIKELY( pos.entry==0 ))
+    else if (Q_UNLIKELY( pos.entry==0 ))
         return false;
     else
     {
@@ -114,11 +113,11 @@ bool switchNext(Catalog*& catalog,DocPosition& pos,int parts)
         return true;
 
 
-    if (KDE_ISUNLIKELY( pos.entry!=-1
+    if (Q_UNLIKELY( pos.entry!=-1
             && pos.form+1 < catalog->numberOfPluralForms()
             && catalog->isPlural(pos.entry)))
         pos.form++;
-    else if (KDE_ISUNLIKELY( pos.entry==catalog->numberOfEntries()-1 ))
+    else if (Q_UNLIKELY( pos.entry==catalog->numberOfEntries()-1 ))
         return false;
     else
     {

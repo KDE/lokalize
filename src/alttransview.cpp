@@ -34,8 +34,6 @@
 #include "mergecatalog.h"
 #include "prefs_lokalize.h"
 
-#include "kdemacros.h"
-
 #include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QMimeData>
@@ -220,7 +218,7 @@ void AltTransView::process()
         }
         if (!entry.target.isEmpty())
         {
-            if (KDE_ISLIKELY( i<m_actions.size() ))
+            if (Q_LIKELY( i<m_actions.size() ))
             {
                 m_actions.at(i)->setStatusTip(entry.target.string);
                 html+=QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
@@ -236,7 +234,7 @@ void AltTransView::process()
         html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
         cur.insertHtml(html);
 
-        if (KDE_ISUNLIKELY( ++i>=limit ))
+        if (Q_UNLIKELY( ++i>=limit ))
             break;
 
         cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
@@ -294,7 +292,7 @@ bool AltTransView::event(QEvent *event)
 
 void AltTransView::slotUseSuggestion(int i)
 {
-    if (KDE_ISUNLIKELY( i>=m_entries.size() ))
+    if (Q_UNLIKELY( i>=m_entries.size() ))
         return;
 
     TM::TMEntry tmEntry;
@@ -305,7 +303,7 @@ void AltTransView::slotUseSuggestion(int i)
     CatalogString target=TM::targetAdapted(tmEntry, source);
 
     qCWarning(LOKALIZE_LOG)<<"0"<<target.string;
-    if (KDE_ISUNLIKELY( target.isEmpty() ))
+    if (Q_UNLIKELY( target.isEmpty() ))
         return;
 
     m_catalog->beginMacro(i18nc("@item Undo action","Use alternate translation"));

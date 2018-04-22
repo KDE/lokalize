@@ -28,7 +28,6 @@
 #include "catalog_private.h"
 #include "catalogstorage.h"
 #include "cmd.h"
-#include <kdemacros.h>
 #include <klocalizedstring.h>
 #include <QMultiHash>
 #include <QtAlgorithms>
@@ -166,7 +165,7 @@ static QString strip(QString source)
 int MergeCatalog::loadFromUrl(const QString& filePath)
 {
     int errorLine=Catalog::loadFromUrl(filePath);
-    if (KDE_ISUNLIKELY( errorLine!=0 ))
+    if (Q_UNLIKELY( errorLine!=0 ))
         return errorLine;
 
     //now calc the entry mapping

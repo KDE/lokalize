@@ -30,8 +30,6 @@
 #include "poextractor.h"
 #include "xliffextractor.h"
 
-#include "kdemacros.h"
-
 #include <QIcon>
 #include <QTime>
 #include <QFile>
@@ -1368,7 +1366,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     {
         QSqlDatabase db=QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"),dbName);
         db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % dbName % QLatin1String(".sqlite"));
-        if (KDE_ISUNLIKELY( !db.open() ))
+        if (Q_UNLIKELY( !db.open() ))
             return metaData(file.localPath());
         initDataBase(db);
     }
@@ -1408,7 +1406,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     query.bindValue(0, qHash(file.localPath()));
     query.bindValue(1, result);
     query.bindValue(2, file.time(KFileItem::ModificationTime));
-    if (KDE_ISUNLIKELY(!query.exec()))
+    if (Q_UNLIKELY(!query.exec()))
         qCWarning(LOKALIZE_LOG) <<"metainfo cache acquiring error: " <<query.lastError().text();
 
     return m;

@@ -27,7 +27,6 @@
 #include "mergecatalog.h"
 #include "project.h"
 #include "diff.h"
-#include "kdemacros.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -227,7 +226,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     emit mergeCatalogPointerChanged(m_mergeCatalog);
     emit mergeCatalogAvailable(m_mergeCatalog);
     int errorLine=m_mergeCatalog->loadFromUrl(mergeFilePath);
-    if (KDE_ISLIKELY( errorLine==0 ))
+    if (Q_LIKELY( errorLine==0 ))
     {
         if (m_pos.entry>0)
             emit signalPriorChangedAvailable(m_pos.entry>m_mergeCatalog->firstChangedIndex());
@@ -269,7 +268,7 @@ bool MergeView::isModified()
 
 int MergeView::pluralFormsAvailableForward()
 {
-    if(KDE_ISLIKELY( m_pos.entry==-1 || !m_mergeCatalog->isPlural(m_pos.entry) ))
+    if(Q_LIKELY( m_pos.entry==-1 || !m_mergeCatalog->isPlural(m_pos.entry) ))
         return -1;
 
     int formLimit=qMin(m_baseCatalog->numberOfPluralForms(),m_mergeCatalog->numberOfPluralForms());//just sanity check
@@ -284,7 +283,7 @@ int MergeView::pluralFormsAvailableForward()
 
 int MergeView::pluralFormsAvailableBackward()
 {
-    if(KDE_ISLIKELY( m_pos.entry==-1 || !m_mergeCatalog->isPlural(m_pos.entry) ))
+    if(Q_LIKELY( m_pos.entry==-1 || !m_mergeCatalog->isPlural(m_pos.entry) ))
         return -1;
 
     DocPosition pos=m_pos;

@@ -32,7 +32,6 @@
 #include "prefs.h"
 #include "project.h"
 #include "completionstorage.h"
-#include "kdemacros.h"
 
 #include <klocalizedstring.h>
 #ifndef NOKDE

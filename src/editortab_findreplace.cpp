@@ -38,7 +38,6 @@
 #include <kmessagebox.h>
 #include <kreplacedialog.h>
 #include <kreplace.h>
-#include <kdemacros.h>
 
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/dialog.h>
@@ -164,13 +163,13 @@ static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
 {
     int i=0;
     for (;i<offset;++i)
-        if (KDE_ISUNLIKELY( data.at(i)=='&' ))
+        if (Q_UNLIKELY( data.at(i)=='&' ))
             ++offset;
 
     //if & is inside highlighted word
     int limit=offset+length;
     for (i=offset;i<limit;++i)
-        if (KDE_ISUNLIKELY( data.at(i)=='&' ))
+        if (Q_UNLIKELY( data.at(i)=='&' ))
         {
             ++length;
             limit=qMin(data.size(),offset+length);//just safety
@@ -241,7 +240,7 @@ void EditorTab::findNext(const DocPosition& startingPos)
     Catalog& catalog=*m_catalog;
     KFind& find=*m_find;
 
-    if (KDE_ISUNLIKELY( catalog.numberOfEntries()<=startingPos.entry ))
+    if (Q_UNLIKELY( catalog.numberOfEntries()<=startingPos.entry ))
         return;//for the case when app wasn't able to process event before file close
 
     bool anotherEntry=_searchingPos.entry!=m_currentPos.entry;

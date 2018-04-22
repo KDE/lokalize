@@ -36,7 +36,6 @@
 
 #include "catalog.h"
 #include "fastsizehintitemdelegate.h"
-#include "kdemacros.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -207,7 +206,7 @@ void SearchJob::run()
     foreach(const QString& filePath, files)
     {
         Catalog catalog(0); 
-        if (KDE_ISUNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true)!=0))
+        if (Q_UNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true)!=0))
             continue;
 
         //QVector<FileSearchResult> catalogResults;

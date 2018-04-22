@@ -101,7 +101,7 @@ int XliffStorage::load(QIODevice* device)
     for(int i=0;i<size;++i)
     {
         QDomElement parentElement=entries.at(i).parentNode().toElement();
-        //if (KDE_ISUNLIKELY( e.isNull() ))//sanity
+        //if (Q_UNLIKELY( e.isNull() ))//sanity
         //      continue;
         m_map<<i;
         m_unitsById[entries.at(i).toElement().attribute(QStringLiteral("id"))]=i;

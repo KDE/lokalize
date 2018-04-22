@@ -33,8 +33,6 @@
 
 #include "stemming.h"
 
-#include "kdemacros.h"
-
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
