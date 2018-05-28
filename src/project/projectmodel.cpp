@@ -544,21 +544,36 @@ int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
 
 QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
 {
-    if (role!=Qt::DisplayRole)
-        return QVariant();
-
-    switch (section)
+    switch(role)
     {
-        case FileName:          return i18nc("@title:column File name","Name");
-        case Graph:             return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
-        case TotalCount:        return i18nc("@title:column Number of entries","Total");
-        case TranslatedCount:   return i18nc("@title:column Number of entries","Translated");
-        case FuzzyCount:        return i18nc("@title:column Number of entries","Not ready");
-        case UntranslatedCount: return i18nc("@title:column Number of entries","Untranslated");
-        case TranslationDate:   return i18nc("@title:column","Last Translation");
-        case SourceDate:        return i18nc("@title:column","Template Revision");
-        case LastTranslator:    return i18nc("@title:column","Last Translator");
-        default:                return QVariant();
+        case Qt::TextAlignmentRole:
+        {
+            switch (section)
+            {
+                case TotalCount:        return QVariant(Qt::AlignRight);
+                case TranslatedCount:   return QVariant(Qt::AlignRight);
+                case FuzzyCount:        return QVariant(Qt::AlignRight);
+                case UntranslatedCount: return QVariant(Qt::AlignRight);
+                default:                return QVariant(Qt::AlignLeft);
+            }
+        }
+        case Qt::DisplayRole:
+        {
+            switch (section)
+            {
+                case FileName:          return i18nc("@title:column File name","Name");
+                case Graph:             return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts","Graph");
+                case TotalCount:        return i18nc("@title:column Number of entries","Total");
+                case TranslatedCount:   return i18nc("@title:column Number of entries","Translated");
+                case FuzzyCount:        return i18nc("@title:column Number of entries","Not ready");
+                case UntranslatedCount: return i18nc("@title:column Number of entries","Untranslated");
+                case TranslationDate:   return i18nc("@title:column","Last Translation");
+                case SourceDate:        return i18nc("@title:column","Template Revision");
+                case LastTranslator:    return i18nc("@title:column","Last Translator");
+                default:                return QVariant();
+            }
+        }
+        default: return QVariant();
     }
 }
 
@@ -656,6 +671,8 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
 
     switch(role)
     {
+    case Qt::TextAlignmentRole:
+        return ProjectModel::headerData(column, Qt::Horizontal, role); // Use same alignment as header
     case Qt::DisplayRole:
         switch (column)
         {
