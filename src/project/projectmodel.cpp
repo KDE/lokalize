@@ -550,10 +550,12 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
         {
             switch (section)
             {
-                case TotalCount:        return QVariant(Qt::AlignRight);
-                case TranslatedCount:   return QVariant(Qt::AlignRight);
-                case FuzzyCount:        return QVariant(Qt::AlignRight);
-                case UntranslatedCount: return QVariant(Qt::AlignRight);
+                // Align numeric columns to the right and other columns to the left
+                // Qt::AlignAbsolute is needed for RTL languages, ref. https://phabricator.kde.org/D13098
+                case TotalCount:        return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
+                case TranslatedCount:   return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
+                case FuzzyCount:        return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
+                case UntranslatedCount: return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
                 default:                return QVariant(Qt::AlignLeft);
             }
         }
