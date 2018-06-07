@@ -1,6 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
+  Copyright (C) 2018 by Karl Ove Hufthammer <karl@huftis.org>
   Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
@@ -145,6 +146,7 @@ public:
         TranslatedCount,
         FuzzyCount,
         UntranslatedCount,
+        IncompleteCount,
         SourceDate,
         TranslationDate,
         LastTranslator,

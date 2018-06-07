@@ -1,6 +1,7 @@
 /* ****************************************************************************
   This file is part of Lokalize
 
+  Copyright (C) 2018 by Karl Ove Hufthammer <karl@huftis.org>
   Copyright (C) 2007-2015 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
 
@@ -556,6 +557,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
                 case TranslatedCount:   return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
                 case FuzzyCount:        return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
                 case UntranslatedCount: return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
+                case IncompleteCount:   return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
                 default:                return QVariant(Qt::AlignLeft);
             }
         }
@@ -569,6 +571,7 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
                 case TranslatedCount:   return i18nc("@title:column Number of entries","Translated");
                 case FuzzyCount:        return i18nc("@title:column Number of entries","Not ready");
                 case UntranslatedCount: return i18nc("@title:column Number of entries","Untranslated");
+                case IncompleteCount:   return i18nc("@title:column Number of fuzzy or untranslated entries","Incomplete");
                 case TranslationDate:   return i18nc("@title:column","Last Translation");
                 case SourceDate:        return i18nc("@title:column","Template Revision");
                 case LastTranslator:    return i18nc("@title:column","Last Translator");
@@ -684,6 +687,7 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
             case TranslatedCount:return hasStats?translated:QVariant();
             case FuzzyCount:    return hasStats?fuzzy:QVariant();
             case UntranslatedCount:return hasStats?untranslated:QVariant();
+            case IncompleteCount:return hasStats?(untranslated + fuzzy):QVariant();
             case SourceDate:    return node->sourceDate;
             case TranslationDate:return node->translationDate;
             case LastTranslator:return node->lastTranslator;
