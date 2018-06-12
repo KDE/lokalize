@@ -261,6 +261,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
     case ProjectModel::TotalCount:
     case ProjectModel::TranslatedCount:
     case ProjectModel::UntranslatedCount:
+    case ProjectModel::IncompleteCount:
     case ProjectModel::FuzzyCount:
         return projectModel->data(left).toInt() < projectModel->data(right).toInt();
     default:
