@@ -109,8 +109,6 @@ int main(int argc, char **argv)
     about.addCredit (i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
 #ifndef NOKDE
     KAboutData::setApplicationData(about);
-    parser.addVersionOption();
-    parser.addHelpOption();
     about.setupCommandLine(&parser);
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
     parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n( "Do not scan files of the project.")));
