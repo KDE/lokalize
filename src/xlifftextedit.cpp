@@ -1083,6 +1083,14 @@ void TranslationUnitTextEdit::contextMenuEvent(QContextMenuEvent *event)
 
 void TranslationUnitTextEdit::wheelEvent(QWheelEvent *event)
 {
+    //Override default KTextEdit behavior which ignores Ctrl+wheelEvent when the field is not ReadOnly (i/o zooming)
+    if (m_part==DocPosition::Target && !Settings::mouseWheelGo() && (event->modifiers() == Qt::ControlModifier))
+    {
+        float delta=event->angleDelta().y() / 120.f;
+        zoomInF(delta);
+        return;
+    }
+
     if (m_part==DocPosition::Source || !Settings::mouseWheelGo())
         return KTextEdit::wheelEvent(event);
 
