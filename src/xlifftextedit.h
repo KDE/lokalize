@@ -75,6 +75,8 @@ protected:
     QMimeData* createMimeDataFromSelection() const;
     void insertFromMimeData(const QMimeData* source);
     void mouseReleaseEvent(QMouseEvent* event);
+    void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
 
     void contextMenuEvent(QContextMenuEvent *event);
     void wheelEvent(QWheelEvent *event);
@@ -145,6 +147,10 @@ private:
     //for undo/redo tracking
     QString _oldMsgstr;
     QString _oldMsgstrAscii; //HACK to workaround #218246
+
+    //For text move with mouse
+    int m_cursorSelectionStart;
+    int m_cursorSelectionEnd;
 };
 
 

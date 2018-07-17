@@ -115,6 +115,8 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     , m_highlighter(new SyntaxHighlighter(this))
     , m_enabled(Settings::autoSpellcheck())
     , m_completionBox(0)
+    , m_cursorSelectionStart(0)
+    , m_cursorSelectionEnd(0)
 {
     setReadOnly(part==DocPosition::Source);
     setUndoRedoEnabled(false);
@@ -642,6 +644,39 @@ QMimeData* TranslationUnitTextEdit::createMimeDataFromSelection() const
     return mimeData;
 }
 
+void TranslationUnitTextEdit::dragEnterEvent(QDragEnterEvent *event)
+{
+    QObject* dragSource = event->source();
+    if (dragSource->objectName().compare("qt_scrollarea_viewport")==0)
+      dragSource = dragSource->parent();
+    //This is a deplacement within the Target area
+    if (m_part==DocPosition::Target && this==dragSource)
+    {
+        QTextCursor cursor=textCursor();
+        int start=qMin(cursor.anchor(),cursor.position());
+        int end=qMax(cursor.anchor(),cursor.position());
+
+        m_cursorSelectionEnd = end;
+        m_cursorSelectionStart = start;
+    }
+    QTextEdit::dragEnterEvent(event);
+}
+void TranslationUnitTextEdit::dropEvent(QDropEvent *event)
+{
+    //Ensure the cursor moves to the correct location
+    if (m_part==DocPosition::Target)
+    {
+        setTextCursor(cursorForPosition(event->pos()));
+        //This is a copy modifier, disable the selection flags
+        if (event->keyboardModifiers() & Qt::ControlModifier)
+        {
+            m_cursorSelectionEnd = 0;
+            m_cursorSelectionStart = 0;
+        }
+    }
+    QTextEdit::dropEvent(event);
+}
+
 void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
 {
     if (m_part==DocPosition::Source)
@@ -672,6 +707,17 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
         {
             QMimeData mimeData;
             mimeData.setText(QString());
+
+            if (m_cursorSelectionEnd != m_cursorSelectionStart)
+            {
+                int oldCursorPosition = textCursor().position();
+                removeTargetSubstring(m_cursorSelectionStart,m_cursorSelectionEnd-m_cursorSelectionStart);
+                if (oldCursorPosition >= m_cursorSelectionEnd)
+                {
+                    cursor.setPosition(oldCursorPosition-(m_cursorSelectionEnd-m_cursorSelectionStart));
+                    setTextCursor(cursor);
+                }
+            }
             KTextEdit::insertFromMimeData(&mimeData);
             start=textCursor().position();
         }
@@ -686,23 +732,6 @@ void TranslationUnitTextEdit::insertFromMimeData(const QMimeData* source)
         insertPlainText(text);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 static bool isMasked(const QString& str, uint col)
 {
