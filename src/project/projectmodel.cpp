@@ -716,6 +716,8 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
             default:
                 return QVariant();
         }
+    case FuzzyUntrCountAllRole:
+        return hasStats?(fuzzy + untranslated):0;
     case FuzzyUntrCountRole:
         return item.isFile()?(fuzzy + untranslated):0;
     case FuzzyCountRole:

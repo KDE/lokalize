@@ -99,6 +99,7 @@ private slots:
     void gotoNextTemplateOnly();
     void gotoPrevTransOnly();
     void gotoNextTransOnly();
+    void toggleTranslatedFiles();
 
     void updateStatusBar(int fuzzy = 0, int translated = 0, int untranslated = 0, bool done = false);
     void initStatusBarProgress();

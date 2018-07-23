@@ -61,6 +61,7 @@ public:
     void gotoNextTemplateOnly();
     void gotoPrevTransOnly();
     void gotoNextTransOnly();
+    void toggleTranslatedFiles();
 
 signals:
     void fileOpenRequested(const QString&);

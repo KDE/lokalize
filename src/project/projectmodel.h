@@ -155,6 +155,7 @@ public:
 
     enum AdditionalRoles {
         FuzzyUntrCountRole = Qt::UserRole,
+        FuzzyUntrCountAllRole,
         FuzzyCountRole,
         UntransCountRole,
         TemplateOnlyRole,

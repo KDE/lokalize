@@ -143,12 +143,20 @@ public:
         connect(Project::instance()->model(),SIGNAL(totalsChanged(int,int,int,bool)),this,SLOT(invalidate()));
     }
     ~SortFilterProxyModel(){}
+    void toggleTranslatedFiles();
 protected:
     bool lessThan(const QModelIndex& left,
                   const QModelIndex& right) const;
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+private:
+    bool m_hideTranslatedFiles = false;
 };
 
+void SortFilterProxyModel::toggleTranslatedFiles()
+{
+    m_hideTranslatedFiles = !m_hideTranslatedFiles;
+    invalidateFilter();
+}
 
 bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
@@ -161,6 +169,9 @@ bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& s
 */
     if (item.data(ProjectModel::TotalRole) == 0)
         return false; // Hide rows with no translations
+
+    if (item.data(ProjectModel::FuzzyUntrCountAllRole) == 0 && m_hideTranslatedFiles)
+        return false; // Hide rows with no untranslated items if the filter is enabled
 
     int i=model->rowCount(item);
     while(--i>=0 && !result)
@@ -501,6 +512,10 @@ void ProjectWidget::gotoPrevTemplateOnly() {gotoIndex(currentIndex(), ProjectMod
 void ProjectWidget::gotoNextTemplateOnly() {gotoIndex(currentIndex(), ProjectModel::TemplateOnlyRole,   +1);}
 void ProjectWidget::gotoPrevTransOnly()    {gotoIndex(currentIndex(), ProjectModel::TransOnlyRole,      -1);}
 void ProjectWidget::gotoNextTransOnly()    {gotoIndex(currentIndex(), ProjectModel::TransOnlyRole,      +1);}
+void ProjectWidget::toggleTranslatedFiles()
+{
+    m_proxyModel->toggleTranslatedFiles();
+}
 
 QSortFilterProxyModel* ProjectWidget::proxyModel(){return m_proxyModel;}
 

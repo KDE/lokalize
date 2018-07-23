@@ -179,6 +179,14 @@ ProjectTab::ProjectTab(QWidget *parent)
     ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
     connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
 
+    action=nav->addAction(QStringLiteral("toggle_translated_files"));
+    action->setText(i18nc("@action:inmenu","Hide completed items"));
+    action->setToolTip(i18nc("@action:inmenu","Hide fully translated files and folders"));
+    action->setIcon(QIcon::fromTheme("hide_table_row"));
+    action->setCheckable(true);
+    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_T));
+    connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
+
     //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::ALT+Qt::Key_Down,"nextpo")
     //connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
     action=nav->addAction(KStandardAction::Find,this,SLOT(searchInFiles()));
@@ -203,6 +211,11 @@ ProjectTab::~ProjectTab()
 void ProjectTab::showRealProjectOverview()
 {
     m_stackedLayout->setCurrentIndex(1);
+}
+
+void ProjectTab::toggleTranslatedFiles()
+{
+    m_browser->toggleTranslatedFiles();
 }
 
 QString ProjectTab::currentFilePath()
