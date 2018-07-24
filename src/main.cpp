@@ -62,6 +62,7 @@
 #include <kaboutdata.h>
 #include "editortab.h"
 
+#ifdef NOKDE
 #ifdef Q_OS_WIN
 #include <windows.h>
 #define FILEPATHMESSAGE 10
@@ -83,6 +84,7 @@ LONG_PTR WINAPI windowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     }
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
+#endif
 #endif
 
 int main(int argc, char **argv)
@@ -207,6 +209,7 @@ int main(int argc, char **argv)
     RegisterClass(&windowClass);
     responder = CreateWindow(gClassName, L"LokalizeResponder", 0, 0, 0, 10, 10, 0, (HMENU)0, (HINSTANCE)GetModuleHandle(NULL), 0);
 #endif
+
     SettingsController::instance()->ensureProjectIsLoaded();
     for (int j=0; j<parser.positionalArguments().count(); j++)
         if (QFileInfo::exists(parser.positionalArguments().at(j))) Project::instance()->fileOpen(parser.positionalArguments().at(j));
@@ -220,8 +223,10 @@ int main(int argc, char **argv)
 #endif
     int code=app.exec();
 
+#ifdef NOKDE
 #ifdef Q_OS_WIN
     DestroyWindow(responder);
+#endif
 #endif
     QThreadPool::globalInstance()->clear();
     TM::cancelAllJobs();

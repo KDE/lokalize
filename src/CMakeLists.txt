@@ -57,7 +57,6 @@ set(lokalize_SRCS
     common/headerviewmenu.cpp
     common/domroutines.cpp
     common/htmlhelpers.cpp
-    common/unixhelpers.cpp
     common/fastsizehintitemdelegate.cpp
     common/flowlayout.cpp
     common/termlabel.cpp
@@ -111,6 +110,12 @@ set(lokalize_SRCS
     catalog/xliff/xliffstorage.cpp
     catalog/ts/tsstorage.cpp
 )
+
+if(WIN32)
+    list (APPEND lokalize_SRCS common/winhelpers.cpp)
+else(WIN32)
+    list (APPEND lokalize_SRCS common/unixhelpers.cpp)
+endif(WIN32)
 
 ecm_qt_declare_logging_category(lokalize_SRCS
     HEADER lokalize_debug.h

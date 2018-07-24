@@ -985,8 +985,19 @@ int LokalizeMainWindow::editorIndexForFile(const QString& path)
 
 QString LokalizeMainWindow::currentProject(){return Project::instance()->path();}
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+int LokalizeMainWindow::pid()
+{
+    return GetCurrentProcessId();
+}
+#else
 #include <unistd.h>
-int LokalizeMainWindow::pid(){return getpid();}
+int LokalizeMainWindow::pid(){
+    return getpid();
+}
+#endif
+
 QString LokalizeMainWindow::dbusName(){return QStringLiteral("org.kde.lokalize-%1").arg(pid());}
 void LokalizeMainWindow::busyCursor(bool busy){busy?QApplication::setOverrideCursor(Qt::WaitCursor):QApplication::restoreOverrideCursor();}
 // void LokalizeMainWindow::processEvents(){QCoreApplication::processEvents();}
