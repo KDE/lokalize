@@ -1,4 +1,4 @@
-<ui version="4.0" >
+<ui version="5.0" >
  <class>project_advanced</class>
  <widget class="QWidget" name="project_advanced" >
   <property name="geometry" >
@@ -52,6 +52,26 @@ It is only used for gettext PO files, as XLIFF format has its own way of specify
         </property>
        </widget>
       </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="l2" >
+        <property name="text" >
+         <string comment="@label:textbox" >Word wrap:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="kcfg_WordWrap" >
+        <property name="toolTip" >
+         <string>Width used for the automatic msgfmg-like word wrap. Use the negative value '-1' to disable the word wrap.</string>
+        </property>
+        <property name="minimum" >
+         <number>-1</number>
+        </property>
+        <property name="maximum" >
+         <number>100000</number>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -65,7 +85,7 @@ It is only used for gettext PO files, as XLIFF format has its own way of specify
        <enum>QFormLayout::ExpandingFieldsGrow</enum>
       </property>
       <item row="0" column="0" >
-       <widget class="QLabel" name="l2" >
+       <widget class="QLabel" name="l3" >
         <property name="text" >
          <string comment="@label:textbox" >Template files folder:</string>
         </property>
@@ -93,7 +113,7 @@ shared among all subprojects.</string>
        </widget>
       </item>
       <item row="1" column="0" >
-       <widget class="QLabel" name="l3" >
+       <widget class="QLabel" name="l4" >
         <property name="text" >
          <string comment="@label:textbox" >Branch folder:</string>
         </property>
@@ -127,7 +147,7 @@ See documentation for more details.</string>
        </widget>
       </item>
       <item row="2" column="0" >
-       <widget class="QLabel" name="l4" >
+       <widget class="QLabel" name="l5" >
         <property name="text" >
          <string comment="@label:textbox" >Alternate translations folder:</string>
         </property>
