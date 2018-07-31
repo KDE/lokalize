@@ -300,6 +300,8 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
                     while (max>=2 && itm->at(max-1)==QLatin1Char('\\'));
                 }
                 pos=max;
+                //Restore the max variable to the m_wordWrap - 2 value
+                max=m_wrapWidth-2;
             }
             //itm=list.insert(itm,itm->left(pos));
             QString t=*itm;
