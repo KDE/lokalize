@@ -239,7 +239,7 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         stream << keyword << " \"" << realText << "\"\n";
         return;
     }
-    else if ( m_wrapWidth < 0 )
+    else if ( m_wrapWidth <= 3 )
     {
         // No change in wrapping
         QStringList list = text.split( '\n');
