@@ -26,8 +26,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2015-08-06</date>
-<releaseinfo>2.0 (Applications 15.08)</releaseinfo>
+<date>2018-07-31</date>
+<releaseinfo>2.0 (Applications 18.12)</releaseinfo>
 
 <abstract>
 <para>
@@ -203,6 +203,10 @@ For each project you select your role in it (<emphasis>translator</emphasis>, <e
 which in turn affects the workflow phase &lokalize; automatically picks up for files you edit.
 </para>
 
+<para>
+    It is possible to define a word wrapping position on a project level. Just use the <menuchoice><guimenu>Project</guimenu> <guimenuitem>Configure project...</guimenuitem></menuchoice> menu item then go to the <guilabel>Advanced</guilabel> page.
+</para>
+
 <note>
 <para>
 Translation memories (unlike project files, glossary and scripts) are not shared between the translation team members,
@@ -238,6 +242,12 @@ The <guilabel>Project Overview</guilabel> tab displays a file tree with statisti
 such as the percentage of translated units completed and the last translator.
 It allows you to open a selected file in a new tab of the current &lokalize;, window.
 </para>
+
+<note>
+    <para>
+        You can switch off the completely translated files from the <guilabel>Project Overview</guilabel> using the <guibutton>Hide completed items</guibutton> button on the main toolbar or <keycombo>&Ctrl;<keycap>T</keycap></keycombo> default shortcut.
+    </para>
+</note>
 
 </sect1>
 
@@ -477,7 +487,7 @@ Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</
 </para>
 
 <para>
-Program Copyright &copy; 2007-2009, Nick Shaforostoff
+Program Copyright &copy; 2007-2015, Nick Shaforostoff
 <email>shaforostoff@kde.ru</email>
 </para>
 
