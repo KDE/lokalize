@@ -30,6 +30,7 @@
 #include "dbfilesmodel.h"
 #include "tmscanapi.h"
 #include "qaview.h"
+#include "prefs_lokalize.h"
 #include "jobs.h"
 #include "fastsizehintitemdelegate.h"
 
@@ -43,6 +44,7 @@
 #include <QClipboard>
 #include <QShortcut>
 #include <QDragEnterEvent>
+#include <QFile>
 #include <QMimeData>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
@@ -51,12 +53,12 @@
 #include <QStringListModel>
 #include <QTextCodec>
 
-#include <klocalizedstring.h>
-
 #ifndef NOKDE
 #include <kactioncategory.h>
 #include <kcolorscheme.h>
 #include <kxmlguifactory.h>
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
 #endif
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)
@@ -528,6 +530,10 @@ TMTab::~TMTab()
 void TMTab::updateTM()
 {
     scanRecursive(QStringList(Project::instance()->poDir()), Project::instance()->projectID());
+    if (Settings::deleteFromTMOnMissing()) {
+        RemoveMissingFilesJob* job = new RemoveMissingFilesJob(Project::instance()->projectID());
+        TM::threadPool()->start(job, REMOVEMISSINGFILES);
+    }
 }
 
 void TMTab::performQuery()
@@ -612,6 +618,17 @@ void TMTab::copyTarget()
 void TMTab::openFile()
 {
     QModelIndex item = ui_queryOptions->treeView->currentIndex();
+    if (Settings::deleteFromTMOnMissing()) {
+        //Check if the file exists and delete it if it doesn't
+        QString filePath = item.sibling(item.row(), TMDBModel::Filepath).data(Qt::UserRole).toString();
+        if (Project::instance()->isFileMissing(filePath)) {
+            //File doesn't exist
+            RemoveFileJob* job = new RemoveFileJob(filePath, ui_queryOptions->dbName->currentText());
+            TM::threadPool()->start(job, REMOVEFILE);
+            KMessageBox::information(this, i18nc("@info", "The file %1 doesn't exist, it has been removed from the Translation Memory.", filePath));
+            return performQuery();//We relaunch the query
+        }
+    }
     emit fileOpenRequested(item.sibling(item.row(), TMDBModel::Filepath).data(Qt::UserRole).toString(),
                            item.sibling(item.row(), TMDBModel::Source).data().toString(),
                            item.sibling(item.row(), TMDBModel::Context).data().toString());

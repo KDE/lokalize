@@ -43,6 +43,8 @@ namespace TM
 class ScanJob;
 class ScanJobFeedingBack;
 
+void purgeMissingFilesFromTM(const QStringList& urls, const QString& dbName);
+
 ///wrapper. returns gross number of jobs started
 int scanRecursive(const QStringList& urls, const QString& dbName);
 

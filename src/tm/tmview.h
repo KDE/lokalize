@@ -90,6 +90,7 @@ private slots:
 
 private:
     bool event(QEvent *event);
+    void deleteFile(const TMEntry& e, const bool showPopUp);
 
 
 private:

@@ -55,14 +55,15 @@ QThreadPool* threadPool();
 #define TMTABSELECT  100
 #define UPDATE  80
 #define REMOVE  70
+#define REMOVEFILE  69
 #define INSERT  60
 #define SELECT  50
 #define BATCHSELECTFINISHED  49
 #define IMPORT 30
 #define EXPORT 25
+#define REMOVEMISSINGFILES    11
 #define SCAN    10
 #define SCANFINISHED 9
-
 
 struct TMConfig {
     QString markup;
@@ -89,7 +90,7 @@ public:
     explicit OpenDBJob(const QString& dbName, DbType type = TM::Local, bool reconnect = false, const ConnectionParams& connParams = ConnectionParams());
     ~OpenDBJob();
 
-    int priority()const
+    int priority() const
     {
         return OPENDB;
     }
@@ -128,7 +129,7 @@ public:
     explicit CloseDBJob(const QString& dbName);
     ~CloseDBJob();
 
-    int priority()const
+    int priority() const
     {
         return CLOSEDB;
     }
@@ -161,7 +162,7 @@ public:
               const QString& dbName);
     ~SelectJob();
 
-    int priority()const
+    int priority() const
     {
         return SELECT;
     }
@@ -197,6 +198,48 @@ enum {Enqueue = 1};
 SelectJob* initSelectJob(Catalog*, DocPosition pos, QString db = QString(), int opt = Enqueue);
 
 
+class RemoveMissingFilesJob: public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    explicit RemoveMissingFilesJob(const QString& dbName);
+    ~RemoveMissingFilesJob();
+    int priority() const
+    {
+        return REMOVEMISSINGFILES;
+    }
+
+protected:
+    void run();
+
+    QString m_dbName;
+
+signals:
+    void done();
+};
+
+class RemoveFileJob: public QObject, public QRunnable
+{
+    Q_OBJECT
+public:
+    explicit RemoveFileJob(const QString& filePath, const QString& dbName, QObject *parent = nullptr);
+    ~RemoveFileJob();
+    int priority() const
+    {
+        return REMOVEFILE;
+    }
+
+protected:
+    void run();
+
+    QString m_filePath;
+    QString m_dbName;
+    QObject m_parent;
+
+signals:
+    void done();
+};
+
 
 class RemoveJob: public QObject, public QRunnable
 {
@@ -204,7 +247,7 @@ class RemoveJob: public QObject, public QRunnable
 public:
     explicit RemoveJob(const TMEntry& entry);
     ~RemoveJob();
-    int priority()const
+    int priority() const
     {
         return REMOVE;
     }
@@ -241,7 +284,7 @@ public:
 
     ~UpdateJob() {}
 
-    int priority()const
+    int priority() const
     {
         return UPDATE;
     }
@@ -266,7 +309,7 @@ public:
     explicit ScanJob(const QString& filePath, const QString& dbName);
     ~ScanJob();
 
-    int priority()const
+    int priority() const
     {
         return SCAN;
     }
@@ -319,7 +362,7 @@ public:
     {}
     ~BatchSelectFinishedJob() {};
 
-    int priority()const
+    int priority() const
     {
         return BATCHSELECTFINISHED;
     }
@@ -348,7 +391,7 @@ public:
     IndexWordsJob(QObject* parent = 0);
     ~IndexWordsJob();
 
-    int priority()const
+    int priority() const
     {
         return 100;
     }
@@ -374,7 +417,7 @@ public:
                           const QString& dbName);
     ~ImportTmxJob();
 
-    int priority()const
+    int priority() const
     {
         return IMPORT;
     }
@@ -399,7 +442,7 @@ public:
                           const QString& dbName);
     ~ExportTmxJob();
 
-    int priority()const
+    int priority() const
     {
         return IMPORT;
     }
@@ -424,7 +467,7 @@ public:
     explicit ExecQueryJob(const QString& queryString, const QString& dbName);
     ~ExecQueryJob();
 
-    int priority()const
+    int priority() const
     {
         return TMTABSELECT;
     }

@@ -111,8 +111,6 @@ static void doSplit(QString& cleanEn,
 
 }
 
-
-
 static qlonglong getFileId(const QString& path,
                            QSqlDatabase& db)
 {
@@ -353,6 +351,51 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
         query1.exec(QStringLiteral("DELETE FROM target_strings WHERE id=") + QString::number(targetId));
 
     return query1.exec(QStringLiteral("DELETE FROM main WHERE id=") + QString::number(mainId));
+}
+
+
+static bool doRemoveFile(const QString& filePath, QSqlDatabase& db)
+{
+    qlonglong fileId = getFileId(filePath, db);
+    QSqlQuery query1(db);
+
+    if (Q_UNLIKELY(!query1.exec(U("SELECT id FROM files WHERE "
+                                  "id=") + QString::number(fileId))))
+        return false;
+
+    if (!query1.next())
+        return false;
+
+    query1.clear();
+
+    query1.exec(QStringLiteral("DELETE source_strings FROM source_strings, main WHERE source_strings.id = main.source AND main.file =") + QString::number(fileId));
+    query1.exec(QStringLiteral("DELETE target_strings FROM target_strings, main WHERE target_strings.id = main.target AND main.file =") + QString::number(fileId));
+    query1.exec(QStringLiteral("DELETE FROM main WHERE file = ") + QString::number(fileId));
+    return query1.exec(QStringLiteral("DELETE FROM files WHERE id=") + QString::number(fileId));
+}
+
+static int doRemoveMissingFiles(QSqlDatabase& db, const QString& dbName, QObject *job)
+{
+    int deletedFiles = 0;
+    QSqlQuery query1(db);
+
+    if (Q_UNLIKELY(!query1.exec(U("SELECT files.path FROM files"))))
+        return false;
+
+    if (!query1.next())
+        return false;
+
+    do {
+        QString filePath = query1.value(0).toString();
+        if (Project::instance()->isFileMissing(filePath)) {
+            qCWarning(LOKALIZE_LOG) << "Removing file " << filePath << " from translation memory";
+            RemoveFileJob* job_removefile = new RemoveFileJob(filePath, dbName, job);
+            TM::threadPool()->start(job_removefile, REMOVEFILE);
+            deletedFiles++;
+        }
+    } while (query1.next());
+
+    return deletedFiles;
 }
 
 static QString escape(QString str)
@@ -1539,6 +1582,60 @@ void ScanJob::run()
     }
     //qCWarning(LOKALIZE_LOG) <<"Done scanning "<<m_url.prettyUrl();
     m_time = a.elapsed();
+}
+
+RemoveMissingFilesJob::RemoveMissingFilesJob(const QString& dbName)
+    : QObject(), QRunnable()
+    , m_dbName(dbName)
+{
+    qCDebug(LOKALIZE_LOG) << "removingmissingfiles" << m_dbName;
+}
+
+
+RemoveMissingFilesJob::~RemoveMissingFilesJob()
+{
+    qCDebug(LOKALIZE_LOG) << "removingmissingfilesjob dtor" << m_dbName;
+}
+
+
+
+void RemoveMissingFilesJob::run()
+{
+//    qCDebug(LOKALIZE_LOG)<<m_dbName;
+    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+
+    doRemoveMissingFiles(db, m_dbName, this);
+
+    emit done();
+}
+
+RemoveFileJob::RemoveFileJob(const QString& filePath, const QString& dbName, QObject *parent)
+    : QObject(), QRunnable()
+    , m_filePath(filePath)
+    , m_dbName(dbName)
+    , m_parent(parent)
+{
+    qCDebug(LOKALIZE_LOG) << "removingfile" << m_dbName << m_filePath;
+}
+
+
+RemoveFileJob::~RemoveFileJob()
+{
+    qCDebug(LOKALIZE_LOG) << "removingfilejob dtor" << m_dbName << m_filePath;
+}
+
+
+
+void RemoveFileJob::run()
+{
+//    qCDebug(LOKALIZE_LOG)<<m_dbName;
+    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+
+    if (!doRemoveFile(m_filePath, db)) {
+        qCWarning(LOKALIZE_LOG) << "error while removing file" << m_dbName << m_filePath;
+    }
+
+    emit done();
 }
 
 

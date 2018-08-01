@@ -307,6 +307,19 @@ void Project::showTMManager()
     m_tmManagerWindow->activateWindow();
 }
 
+bool Project::isFileMissing(const QString& filePath) const
+{
+    if (!QFile::exists(filePath) && isLoaded()) {
+        //check if we are opening template
+        QString newPath = filePath;
+        newPath.replace(poDir(), potDir());
+        if (!QFile::exists(newPath) && !QFile::exists(newPath += 't')) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Project::save()
 {
     m_localConfig->setFirstRun(false);

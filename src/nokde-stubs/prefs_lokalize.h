@@ -160,6 +160,12 @@ public:
     }
 
 protected:
+    static
+    bool deleteFromTMOnMissing()
+    {
+        return self()->mDeleteFromTMOnMissing;
+    }
+
     Settings();
     friend class SettingsHelper;
 
@@ -188,6 +194,7 @@ protected:
     bool mPrefetchTM;
     bool mAutoaddTM;
     bool mScanToTMOnOpen;
+    bool mDeleteFromTMOnMissing;
 
     int mWordCompletionLength;
     int mSuggCount;

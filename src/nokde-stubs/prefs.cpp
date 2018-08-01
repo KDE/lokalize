@@ -58,6 +58,7 @@ Settings::Settings()
     , mPrefetchTM(false)
     , mAutoaddTM(true)
     , mScanToTMOnOpen(false)
+    , mDeleteFromTMOnMissing(false)
 
     , mWordCompletionLength(3)
     , mSuggCount(10)

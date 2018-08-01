@@ -154,6 +154,10 @@ public:
     {
         return m_totalResultCount;
     }
+    QString dbName()const
+    {
+        return m_dbName;
+    }
 
 public slots:
     void setFilter(const QString& source, const QString& target,
