@@ -239,6 +239,7 @@ private slots:
     void gotoPrevBookmark();
 
     void displayWordCount();
+    void clearTranslatedEntries();
 
     void openPhasesWindow();
 

@@ -452,13 +452,16 @@ void EditorTab::setupActions()
 
     action = actionCategory->addAction(QStringLiteral("file_phases"));
     action->setText(i18nc("@action:inmenu","Phases..."));
-    connect(action, SIGNAL(triggered()), SLOT(openPhasesWindow()));
+    connect(action, &QAction::triggered, this, &EditorTab::openPhasesWindow);
 
     ADD_ACTION_SHORTCUT("file_wordcount",i18nc("@action:inmenu","Word count"),Qt::CTRL+Qt::ALT+Qt::Key_C)
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(displayWordCount()) );
+    connect(action, &QAction::triggered, this, &EditorTab::displayWordCount);
+
+    ADD_ACTION_SHORTCUT("file_cleartarget",i18nc("@action:inmenu","Clear all translated entries"),Qt::CTRL+Qt::ALT+Qt::Key_D)
+    connect(action, &QAction::triggered, this, &EditorTab::clearTranslatedEntries);
 
     ADD_ACTION_SHORTCUT("file_xliff2odf",i18nc("@action:inmenu","Merge translation into OpenDocument"),Qt::CTRL+Qt::Key_Backslash)
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(mergeIntoOpenDocument()) );
+    connect(action, &QAction::triggered, this, &EditorTab::mergeIntoOpenDocument);
     connect( this, SIGNAL(xliffFileOpened(bool)), action, SLOT(setVisible(bool)) );
     action->setVisible(false);
 
@@ -1394,6 +1397,28 @@ void EditorTab::paintEvent(QPaintEvent* event)
 void EditorTab::indexWordsForCompletion()
 {
     CompletionStorage::instance()->scanCatalog(m_catalog);
+}
+
+void EditorTab::clearTranslatedEntries()
+{
+    switch (KMessageBox::warningYesNoCancel(this,
+                                            i18nc("@info","This will delete all the translations from the file.\n"
+                                                      "Do you really want to clear all translated entries?"),i18nc("@title:window","Warning"),
+                                            KStandardGuiItem::yes(),KStandardGuiItem::no()))
+    {
+    case KMessageBox::Yes:
+    {
+        DocPosition pos(0);
+        do
+        {
+            removeTargetSubstring(m_catalog, pos);
+        }
+        while (switchNext(m_catalog,pos));
+        msgStrChanged();
+        gotoEntry(m_currentPos);
+    }
+    default:;
+    }
 }
 
 void EditorTab::displayWordCount()
