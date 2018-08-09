@@ -154,7 +154,7 @@ public slots:
     Q_SCRIPTABLE void reloadFile();
 #endif
     Q_SCRIPTABLE bool saveFile(const QString& filePath=QString());
-    Q_SCRIPTABLE bool saveFileAs();
+    Q_SCRIPTABLE bool saveFileAs(const QString& defaultPath=QString());
     Q_SCRIPTABLE void close(){return parent()->deleteLater();}
     Q_SCRIPTABLE void gotoNextUnfiltered();
     Q_SCRIPTABLE void gotoPrevUnfiltered();

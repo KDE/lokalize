@@ -655,7 +655,6 @@ bool Catalog::saveToUrl(QString localFilePath)
     if (Q_LIKELY( !nameChanged ))
         localFilePath = d._filePath;
 
-
     QString localPath=QFileInfo(localFilePath).absolutePath();
     if (!QFileInfo::exists(localPath))
         if (!QDir::root().mkpath(localPath))

@@ -935,10 +935,10 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
     return false;
 }
 
-bool EditorTab::saveFileAs()
+bool EditorTab::saveFileAs(const QString& defaultPath)
 {
     QString filePath=QFileDialog::getSaveFileName(this, i18nc("@title:window", "Save File As"),
-                                             QFileInfo(m_catalog->url()).absoluteFilePath(), m_catalog->fileType());
+                                             QFileInfo(defaultPath.isEmpty() ? m_catalog->url() : defaultPath).absoluteFilePath(), m_catalog->fileType());
     if (filePath.isEmpty()) return false;
     if (!Catalog::extIsSupported(filePath)&&m_catalog->url().contains('.'))
         filePath+=m_catalog->url().midRef(m_catalog->url().lastIndexOf('.'));
@@ -948,9 +948,8 @@ bool EditorTab::saveFileAs()
 
 bool EditorTab::saveFile(const QString& filePath)
 {
-    bool clean=m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
+    bool clean=m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified() && filePath == m_catalog->url();
     if (clean) return true;
-
     if (m_catalog->isClean() && filePath.isEmpty())
     {
         emit m_catalog->signalFileSaved();
@@ -963,20 +962,21 @@ bool EditorTab::saveFile(const QString& filePath)
         emit fileSaved(filePath);
         return true;
     }
+    const QString errorFilePath = filePath.isEmpty() ? m_catalog->url() : filePath;
 #ifndef NOKDE
     if ( KMessageBox::Continue==KMessageBox::warningContinueCancel(this,
                                             i18nc("@info","Error saving the file %1\n"
-                                                  "Do you want to save to another file or cancel?", m_catalog->url()),
+                                                  "Do you want to save to another file or cancel?", errorFilePath),
                                             i18nc("@title","Error"),KStandardGuiItem::save())
        )
 #else
     if ( QMessageBox::Yes==QMessageBox::warning(this, QString(),
                                             i18nc("@info","Error saving the file %1\n"
-                                                  "Do you want to save to another file or cancel?").arg(m_catalog->url()),
+                                                  "Do you want to save to another file or cancel?").arg(errorFilePath),
                                             QMessageBox::Yes|QMessageBox::No)
        )
 #endif
-        return saveFileAs();
+        return saveFileAs(errorFilePath);
     return false;
 }
 
