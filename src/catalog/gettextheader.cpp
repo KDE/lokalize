@@ -306,10 +306,11 @@ void updateHeader(QString& header,
 
     QLocale cLocale(QLocale::C);
     QString dateTimeString = cLocale.toString(QDateTime::currentDateTime(), QStringLiteral("yyyy-MM-dd hh:mm"));
-    QString zoneOffsetString1 = QTimeZone(QTimeZone::systemTimeZoneId()).displayName(QTimeZone::GenericTime, QTimeZone::OffsetName);
-    int zpos=qMax(qMax(0, zoneOffsetString1.indexOf('+')), zoneOffsetString1.indexOf('-'));
-    QString zoneOffsetString = QString::fromRawData(zoneOffsetString1.unicode()+zpos, zoneOffsetString1.length()-zpos);
-    temp=QStringLiteral("PO-Revision-Date: ") % dateTimeString % zoneOffsetString.remove(':') % BACKSLASH_N;
+    const int offset_seconds = QDateTime::currentDateTime().offsetFromUtc();
+    const int offset_hours = abs(offset_seconds) / 3600;
+    const int offset_minutes = abs(offset_seconds % 3600) / 60;
+    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') % (offset_hours < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_hours) % (offset_minutes < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_minutes);
+    temp=QStringLiteral("PO-Revision-Date: ") % dateTimeString % zoneOffsetString % BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for ( it = headerList.begin(),found=false; it != headerList.end() && !found; ++it )
     {
