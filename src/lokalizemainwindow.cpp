@@ -84,6 +84,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     m_mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
     m_mdiArea->setDocumentMode(true);
     m_mdiArea->setTabsMovable(true);
+    m_mdiArea->setTabsClosable(true);
 
     setCentralWidget(m_mdiArea);
     connect(m_mdiArea, &QMdiArea::subWindowActivated,this,&LokalizeMainWindow::slotSubWindowActivated);
