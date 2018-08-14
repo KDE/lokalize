@@ -26,7 +26,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-07-31</date>
+<date>2018-08-14</date>
 <releaseinfo>2.0 (Applications 18.12)</releaseinfo>
 
 <abstract>
@@ -108,6 +108,9 @@ If the unit is not ready, its translation is rendered in italics.
 See <guilabel>Go</guilabel> menu for the shortcuts. The status bar at the bottom of the window shows the current string number, total number of strings, total untranslated strings, total not ready (fuzzy) strings and status of the current string respectively. When navigating, untranslated units are treated as not ready.
 Also, you may use the filtering feature of <guilabel>Translation Units</guilabel> toolview.
 Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that tool view.
+</para>
+<para>
+    If you have no access to the original translation template file (it is a common practice on some commercial translation projects) then you can use a translation file from the related language. Just choose the <menuchoice><guimenu>File</guimenu><guimenuitem>Clear all translated entries</guimenuitem></menuchoice> menu item or use <keycombo>&Ctrl;&Alt;<keycap>D</keycap></keycombo> shortcut to clear all translation units.
 </para>
 <para>
   To the main window one can add many more sections like <guilabel>Alternate Translations</guilabel>, <guilabel>Primary Sync</guilabel>, <guilabel>Secondary Sync</guilabel>, <guilabel>Binary Units</guilabel> by using <menuchoice><guimenu>Settings</guimenu><guimenuitem>Toolviews</guimenuitem></menuchoice> from the main menu.
