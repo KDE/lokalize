@@ -153,7 +153,8 @@ public:
     void setMergeCatalogPointer(MergeCatalog* pointer);
 
 public slots:
-    void setEntriesFilteredOut(bool filteredOut=false);
+    void setEntriesFilteredOut();
+    void setEntriesFilteredOut(bool filteredOut);
     void setDynamicSortFilter(bool enabled){QSortFilterProxyModel::setDynamicSortFilter(enabled);}
 
 private:

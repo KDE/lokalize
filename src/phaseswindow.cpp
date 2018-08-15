@@ -187,8 +187,8 @@ PhaseEditDialog::PhaseEditDialog(QWidget *parent)
     l->addRow(i18nc("noun", "Process (this will also change your role):"), m_process);
 
     QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &PhaseEditDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &PhaseEditDialog::reject);
     l->addRow(buttonBox);
 }
 
@@ -213,7 +213,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
  , m_browser(new QTextBrowser(this))
  , m_editor(0)
 {
-    connect(this, SIGNAL(accepted()), SLOT(handleResult()));
+    connect(this, &PhasesWindow::accepted, this, &PhasesWindow::handleResult);
     //setAttribute(Qt::WA_DeleteOnClose, true);
     QVBoxLayout* l=new QVBoxLayout(this);
     QHBoxLayout* btns=new QHBoxLayout;
@@ -225,7 +225,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
 #else
     add->setText(tr("Add"));
 #endif
-    connect(add, SIGNAL(clicked()),this,SLOT(addPhase()));
+    connect(add, &QPushButton::clicked, this, &PhasesWindow::addPhase);
     btns->addWidget(add);
     btns->addStretch(5);
 
@@ -233,8 +233,8 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     l->addWidget(splitter);
 
     m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel, this);
-    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(m_buttonBox, &QDialogButtonBox::accepted, this, &PhasesWindow::accept);
+    connect(m_buttonBox, &QDialogButtonBox::rejected, this, &PhasesWindow::reject);
     l->addWidget(m_buttonBox);
 
 
@@ -246,7 +246,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
         m_view->resizeColumnToContents(column);
     if (m_model->rowCount())
         m_view->setCurrentIndex(m_model->activePhaseIndex());
-    connect(m_view, SIGNAL(currentIndexChanged(QModelIndex)), SLOT(displayPhaseNotes(QModelIndex)));
+    connect(m_view, &MyTreeView::currentIndexChanged, this, &PhasesWindow::displayPhaseNotes);
 
 
     m_noteView=new QWidget(this);
@@ -257,7 +257,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
 
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
     m_browser->setOpenLinks(false);
-    connect(m_browser,SIGNAL(anchorClicked(QUrl)),this,SLOT(anchorClicked(QUrl)));
+    connect(m_browser, &QTextBrowser::anchorClicked, this, &PhasesWindow::anchorClicked);
 
     splitter->setStretchFactor(0,15);
     splitter->setStretchFactor(1,5);
@@ -313,8 +313,8 @@ void PhasesWindow::anchorClicked(QUrl link)
         {
             m_editor=new NoteEditor(this);
             m_stackedLayout->addWidget(m_editor);
-            connect(m_editor,SIGNAL(accepted()),this,SLOT(noteEditAccepted()));
-            connect(m_editor,SIGNAL(rejected()),this,SLOT(noteEditRejected()));
+            connect(m_editor, &NoteEditor::accepted, this, &PhasesWindow::noteEditAccepted);
+            connect(m_editor, &NoteEditor::rejected, this, &PhasesWindow::noteEditRejected);
         }
         m_editor->setNoteAuthors(m_catalog->noteAuthors());
         if (path.endsWith(QLatin1String("add")))

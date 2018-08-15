@@ -107,7 +107,7 @@ void SettingsController::showSettingsDialog()
     ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( grp.readEntry("DefaultLangCode",
                                                                                                                              QLocale::system().name()) ));
 
-    connect(ui_prefs_identity.DefaultLangCode,SIGNAL(activated(int)),ui_prefs_identity.kcfg_DefaultLangCode,SLOT(setLangCode(int)));
+    connect(ui_prefs_identity.DefaultLangCode, QOverload<int>::of(&KComboBox::activated), ui_prefs_identity.kcfg_DefaultLangCode, &LangCodeSaver::setLangCode);
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
     dialog->addPage(w, i18nc("@title:tab","Identity"), "preferences-desktop-user");
@@ -130,7 +130,7 @@ void SettingsController::showSettingsDialog()
     ui_prefs_tm.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab","Translation Memory"), "configure");
 
-    connect(dialog,SIGNAL(settingsChanged(QString)),this,SIGNAL(generalSettingsChanged()));
+    connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::generalSettingsChanged);
 
 
 //Spellcheck
@@ -237,7 +237,7 @@ bool SettingsController::projectCreate()
     //Project::instance()->setDefaults(); //NOTE will this be an obstacle?
     //Project::instance()->setProjectID();
 
-    QTimer::singleShot(500, this, SLOT(projectConfigure()));
+    QTimer::singleShot(500, this, &SettingsController::projectConfigure);
     return true;
 }
 
@@ -274,16 +274,13 @@ void SettingsController::projectConfigure()
     Project& p=*(Project::instance());
     ui_prefs_projectmain.LangCode->setModel(LanguageListModel::instance()->sortModel());
     ui_prefs_projectmain.LangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(p.langCode()));
-    connect(ui_prefs_projectmain.LangCode,SIGNAL(activated(int)),
-            ui_prefs_projectmain.kcfg_LangCode,SLOT(setLangCode(int)));
+    connect(ui_prefs_projectmain.LangCode, QOverload<int>::of(&KComboBox::activated), ui_prefs_projectmain.kcfg_LangCode, &LangCodeSaver::setLangCode);
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setFilter("*.tbx\n*.xml");
-    connect(ui_prefs_projectmain.poBaseDir,SIGNAL(textChanged(QString)),
-            ui_prefs_projectmain.kcfg_PoBaseDir,SLOT(setText(QString)));
-    connect(ui_prefs_projectmain.glossaryTbx,SIGNAL(textChanged(QString)),
-            ui_prefs_projectmain.kcfg_GlossaryTbx,SLOT(setText(QString)));
+    connect(ui_prefs_projectmain.poBaseDir, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_PoBaseDir, &RelPathSaver::setText);
+    connect(ui_prefs_projectmain.glossaryTbx, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_GlossaryTbx, &RelPathSaver::setText);
     ui_prefs_projectmain.poBaseDir->setUrl(QUrl::fromLocalFile(p.poDir()));
     ui_prefs_projectmain.glossaryTbx->setUrl(QUrl::fromLocalFile(p.glossaryPath()));
 
@@ -301,9 +298,9 @@ void SettingsController::projectConfigure()
     ui_project_advanced.potBaseDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_project_advanced.branchDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
     ui_project_advanced.altDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-    connect(ui_project_advanced.potBaseDir,SIGNAL(textChanged(QString)), ui_project_advanced.kcfg_PotBaseDir,SLOT(setText(QString)));
-    connect(ui_project_advanced.branchDir,SIGNAL(textChanged(QString)),  ui_project_advanced.kcfg_BranchDir,SLOT(setText(QString)));
-    connect(ui_project_advanced.altDir,SIGNAL(textChanged(QString)),  ui_project_advanced.kcfg_AltDir,SLOT(setText(QString)));
+    connect(ui_project_advanced.potBaseDir, &KUrlRequester::textChanged, ui_project_advanced.kcfg_PotBaseDir, &RelPathSaver::setText);
+    connect(ui_project_advanced.branchDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_BranchDir, &RelPathSaver::setText);
+    connect(ui_project_advanced.altDir, &KUrlRequester::textChanged,  ui_project_advanced.kcfg_AltDir, &RelPathSaver::setText);
     ui_project_advanced.potBaseDir->setUrl(QUrl::fromLocalFile(p.potDir()));
     ui_project_advanced.branchDir->setUrl(QUrl::fromLocalFile(p.branchDir()));
     ui_project_advanced.altDir->setUrl(QUrl::fromLocalFile(p.altTransDir()));
@@ -334,10 +331,10 @@ void SettingsController::projectConfigure()
     ui_prefs_project_local.setupUi(w);
     dialog->addPage(w, Project::local(), i18nc("@title:tab","Personal"), "preferences-desktop-user");
 
-    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(reinit()));
-    connect(dialog, SIGNAL(settingsChanged(QString)),Project::instance(), SLOT(save()), Qt::QueuedConnection);
-    connect(dialog, SIGNAL(settingsChanged(QString)),TM::DBFilesModel::instance(), SLOT( updateProjectTmIndex()));
-    connect(dialog, SIGNAL(settingsChanged(QString)),this, SLOT(reflectProjectConfigChange()));
+    connect(dialog, &KConfigDialog::settingsChanged, Project::instance(), &Project::reinit);
+    connect(dialog, &KConfigDialog::settingsChanged, Project::instance(), &Project::save, Qt::QueuedConnection);
+    connect(dialog, &KConfigDialog::settingsChanged, TM::DBFilesModel::instance(), &TM::DBFilesModel::updateProjectTmIndex);
+    connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::reflectProjectConfigChange);
 
     dialog->show();
 }

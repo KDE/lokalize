@@ -140,7 +140,7 @@ public:
     SortFilterProxyModel(QObject* parent=0)
         : KDirSortFilterProxyModel(parent)
     {
-        connect(Project::instance()->model(),SIGNAL(totalsChanged(int,int,int,bool)),this,SLOT(invalidate()));
+        connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &SortFilterProxyModel::invalidate);
     }
     ~SortFilterProxyModel(){}
     void toggleTranslatedFiles();
@@ -288,13 +288,13 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     PoItemDelegate* delegate=new PoItemDelegate(this);
     setItemDelegate(delegate);
 
-    connect(this,SIGNAL(activated(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
+    connect(this, &ProjectWidget::activated, this, &ProjectWidget::slotItemActivated);
 
     m_proxyModel->setSourceModel(Project::instance()->model());
     //m_proxyModel->setDynamicSortFilter(true);
     setModel(m_proxyModel);
-    connect(Project::instance()->model(), SIGNAL(loadingAboutToStart()), this, SLOT(modelAboutToReload()));
-    connect(Project::instance()->model(), SIGNAL(loadingFinished()), this, SLOT(modelReloaded()), Qt::QueuedConnection);
+    connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectWidget::modelAboutToReload);
+    connect(Project::instance()->model(), &ProjectModel::loadingFinished, this, &ProjectWidget::modelReloaded, Qt::QueuedConnection);
 
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);

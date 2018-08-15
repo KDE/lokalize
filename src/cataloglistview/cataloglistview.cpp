@@ -90,10 +90,10 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18n("Quick search..."));
     m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
-    connect (m_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
+    connect (m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
-    QShortcut* esc=new QShortcut(QKeySequence(Qt::Key_Escape),this,0,0,Qt::WidgetWithChildrenShortcut);
-    connect(esc,SIGNAL(activated()),this,SIGNAL(escaped()));
+    QShortcut* esc=new QShortcut(QKeySequence(Qt::Key_Escape), this, 0, 0, Qt::WidgetWithChildrenShortcut);
+    connect(esc, &QShortcut::activated, this, &CatalogView::escaped);
 
 
     QToolButton* btn=new QToolButton(w);
@@ -102,8 +102,8 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     //btn->setArrowType(Qt::DownArrow);
     btn->setMenu(new QMenu(this));
     m_filterOptionsMenu=btn->menu();
-    connect(m_filterOptionsMenu,SIGNAL(aboutToShow()),this,SLOT(fillFilterOptionsMenu()));
-    connect(m_filterOptionsMenu,SIGNAL(triggered(QAction*)),this,SLOT(filterOptionToggled(QAction*)));
+    connect(m_filterOptionsMenu, &QMenu::aboutToShow, this, &CatalogView::fillFilterOptionsMenu);
+    connect(m_filterOptionsMenu, &QMenu::triggered, this, &CatalogView::filterOptionToggled);
 
     l->addWidget(m_lineEdit);
     l->addWidget(btn);
@@ -116,7 +116,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 
     setWidget(w);
 
-    connect(m_browser,SIGNAL(clicked(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
+    connect(m_browser, &CatalogTreeView::clicked, this, &CatalogView::slotItemActivated);
     m_browser->setRootIsDecorated(false);
     m_browser->setAllColumnsShowFocus(true);
     m_browser->setAlternatingRowColors(true);

@@ -103,10 +103,10 @@ SearchFileListView::SearchFileListView(QWidget* parent)
     m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* action=new QAction(i18nc("@action:inmenu", "Clear"), m_browser);
-    connect(action, SIGNAL(triggered()), this, SLOT(clear()));
+    connect(action, &QAction::triggered, this, &SearchFileListView::clear);
     m_browser->addAction(action);
     
-    connect(m_browser, SIGNAL(activated(QModelIndex)), this, SLOT(requestFileOpen(QModelIndex)));
+    connect(m_browser, &QTreeView::activated, this, &SearchFileListView::requestFileOpen);
 }
 
 void SearchFileListView::requestFileOpen(const QModelIndex& item)
@@ -460,7 +460,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 
 
     QShortcut* sh=new QShortcut(Qt::CTRL+Qt::Key_L, this);
-    connect(sh,SIGNAL(activated()),ui_fileSearchOptions->querySource,SLOT(setFocus()));
+    connect(sh, &QShortcut::activated, ui_fileSearchOptions->querySource, QOverload<>::of(&QLineEdit::setFocus));
     setFocusProxy(ui_fileSearchOptions->querySource);
 
     sh=new QShortcut(Qt::Key_Escape,this,SLOT(stopSearch()),0,Qt::WidgetWithChildrenShortcut);
@@ -476,8 +476,8 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     richTextColumns[FileSearchModel::Source]=true;
     richTextColumns[FileSearchModel::Target]=true;
     view->setItemDelegate(new FastSizeHintItemDelegate(this,singleLineColumns,richTextColumns));
-    connect(m_model,SIGNAL(modelReset()),view->itemDelegate(),SLOT(reset()));
-    connect(m_model,SIGNAL(dataChanged(QModelIndex,QModelIndex)),view->itemDelegate(),SLOT(reset()));
+    connect(m_model, &FileSearchModel::modelReset, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
+    connect(m_model, &FileSearchModel::dataChanged, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
     //connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
     //connect(m_proxyModel,SIGNAL(layoutChanged()),view->itemDelegate(),SLOT(reset()));
     //connect(m_proxyModel,SIGNAL(layoutChanged()),this,SLOT(displayTotalResultCount()));
@@ -487,25 +487,25 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(copySourceToClipboard()));
+    connect(a, &QAction::triggered, this, &FileSearchTab::copySourceToClipboard);
     view->addAction(a);
 
     a=new QAction(i18n("Copy target to clipboard"),view);
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(copyTargetToClipboard()));
+    connect(a, &QAction::triggered, this, &FileSearchTab::copyTargetToClipboard);
     view->addAction(a);
 
     a=new QAction(i18n("Open file"),view);
     a->setShortcut(QKeySequence(Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(openFile()));
-    connect(view,SIGNAL(activated(QModelIndex)), this, SLOT(openFile()));
+    connect(a, &QAction::triggered, this, &FileSearchTab::openFile);
+    connect(view, &QTreeView::activated, this, &FileSearchTab::openFile);
     view->addAction(a);
 
-    connect(ui_fileSearchOptions->querySource,SIGNAL(returnPressed()),this,SLOT(performSearch()));
-    connect(ui_fileSearchOptions->queryTarget,SIGNAL(returnPressed()),this,SLOT(performSearch()));
-    connect(ui_fileSearchOptions->doFind,     SIGNAL(clicked()),      this,SLOT(performSearch()));
+    connect(ui_fileSearchOptions->querySource, &QLineEdit::returnPressed, this, &FileSearchTab::performSearch);
+    connect(ui_fileSearchOptions->queryTarget, &QLineEdit::returnPressed, this, &FileSearchTab::performSearch);
+    connect(ui_fileSearchOptions->doFind, &QPushButton::clicked, this, &FileSearchTab::performSearch);
 
 //    m_proxyModel->setDynamicSortFilter(true);
 //    m_proxyModel->setSourceModel(m_model);
@@ -543,13 +543,13 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     //m_searchFileListView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction( QStringLiteral("showfilelist_action"), m_searchFileListView->toggleViewAction() );
-    connect(m_searchFileListView, SIGNAL(fileOpenRequested(QString)), this, SIGNAL(fileOpenRequested(QString)));
+    connect(m_searchFileListView, &SearchFileListView::fileOpenRequested, this, QOverload<const QString &>::of(&FileSearchTab::fileOpenRequested));
 
     m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);
     srf->addAction( QStringLiteral("showmassreplace_action"), m_massReplaceView->toggleViewAction() );
-    connect(m_massReplaceView, SIGNAL(previewRequested(QRegExp,QString)), m_model, SLOT(setReplacePreview(QRegExp ,QString)));
-    connect(m_massReplaceView, SIGNAL(replaceRequested(QRegExp,QString)), this, SLOT(massReplace(QRegExp,QString)));
+    connect(m_massReplaceView, &MassReplaceView::previewRequested, m_model, &FileSearchModel::setReplacePreview);
+    connect(m_massReplaceView, &MassReplaceView::replaceRequested, this, &FileSearchTab::massReplace);
     //m_massReplaceView->hide();
 
     m_qaView = new QaView(this);
@@ -557,8 +557,8 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
     srf->addAction( QStringLiteral("showqa_action"), m_qaView->toggleViewAction() );
 
-    connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(performSearch()));
-    connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(performSearch()), Qt::QueuedConnection);
+    connect(m_qaView, &QaView::rulesChanged, this, &FileSearchTab::performSearch);
+    connect(m_qaView->toggleViewAction(), &QAction::toggled, this, &FileSearchTab::performSearch, Qt::QueuedConnection);
 
     view->header()->restoreState(readUiState("FileSearchResultsHeaderState"));
 }
@@ -625,7 +625,7 @@ void FileSearchTab::performSearch()
             batch.append(files.at(j));
 
         SearchJob* job=new SearchJob(batch, sp, rules, m_lastSearchNumber);
-        QObject::connect(job,SIGNAL(done(SearchJob*)),this,SLOT(searchJobDone(SearchJob*)));
+        QObject::connect(job, &SearchJob::done, this, &FileSearchTab::searchJobDone);
         QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
     }
@@ -656,7 +656,7 @@ void FileSearchTab::massReplace(const QRegExp &what, const QString& with)
             ++last;
 
         MassReplaceJob* job=new MassReplaceJob(searchResults.mid(i, last+1-i), i, what, with);
-        QObject::connect(job,SIGNAL(done(MassReplaceJob*)),this,SLOT(replaceJobDone(MassReplaceJob*)));
+        QObject::connect(job, &MassReplaceJob::done, this, &FileSearchTab::replaceJobDone);
         QThreadPool::globalInstance()->start(job);
         m_runningJobs.append(job);
     }
@@ -832,8 +832,8 @@ MassReplaceView::MassReplaceView(QWidget* parent)
     setWidget(base);
     ui->setupUi(base);
 
-    connect(ui->doPreview, SIGNAL(toggled(bool)), this, SLOT(requestPreview(bool)));
-    connect(ui->doReplace, SIGNAL(clicked(bool)), this, SLOT(requestReplace()));
+    connect(ui->doPreview, &QPushButton::toggled, this, &MassReplaceView::requestPreview);
+    connect(ui->doReplace, &QPushButton::clicked, this, &MassReplaceView::requestReplace);
 /*
     QLabel* rl=new QLabel(i18n("Replace:"), base);
     QLineEdit* searchEdit=new QLineEdit(base);
@@ -883,19 +883,19 @@ void MassReplaceView::requestPreview(bool enable)
 {
     if (enable)
     {
-        connect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
-        connect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
-        connect(ui->useRegExps, SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
-        connect(ui->matchCase,  SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
+        connect(ui->searchText, &QLineEdit::textEdited, this, &MassReplaceView::requestPreviewUpdate);
+        connect(ui->replaceText, &QLineEdit::textEdited, this, &MassReplaceView::requestPreviewUpdate);
+        connect(ui->useRegExps, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
+        connect(ui->matchCase, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
 
         requestPreviewUpdate();
     }
     else
     {
-        disconnect(ui->searchText, SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
-        disconnect(ui->replaceText,SIGNAL(textEdited(QString)), this, SLOT(requestPreviewUpdate()));
-        disconnect(ui->useRegExps, SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
-        disconnect(ui->matchCase,  SIGNAL(toggled(bool)),       this, SLOT(requestPreviewUpdate()));
+        disconnect(ui->searchText, &QLineEdit::textEdited, this, &MassReplaceView::requestPreviewUpdate);
+        disconnect(ui->replaceText, &QLineEdit::textEdited, this, &MassReplaceView::requestPreviewUpdate);
+        disconnect(ui->useRegExps, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
+        disconnect(ui->matchCase, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
 
         emit previewRequested(QRegExp(), QString());
     }

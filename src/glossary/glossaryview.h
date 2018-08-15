@@ -55,7 +55,8 @@ public:
 //     bool event(QEvent*);
 public slots:
     //plural messages usually contain the same words...
-    void slotNewEntryDisplayed(DocPosition pos=DocPosition());//a little hacky, but... :)
+    void slotNewEntryDisplayed();
+    void slotNewEntryDisplayed(DocPosition pos);//a little hacky, but... :)
 
 signals:
     void termInsertRequested(const QString&);

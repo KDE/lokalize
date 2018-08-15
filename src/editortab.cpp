@@ -23,6 +23,8 @@
 
 #include "editortab.h"
 
+#include "xlifftextedit.h"
+
 #include "lokalize_debug.h"
 
 #include "actionproxy.h"
@@ -122,16 +124,17 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     dbusObjectPath();
 #endif
 
-    connect(m_view, SIGNAL(signalChanged(uint)), this, SLOT(msgStrChanged())); msgStrChanged();
-    connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),m_view, SLOT(settingsChanged()));
-    connect(m_view->tabBar(),&QTabBar::currentChanged,this,&EditorTab::switchForm);
+    connect(m_view, &EditorView::signalChanged, this, &EditorTab::msgStrChanged);
+    msgStrChanged();
+    connect(SettingsController::instance(), &SettingsController::generalSettingsChanged, m_view, &EditorView::settingsChanged);
+    connect(m_view->tabBar(), &QTabBar::currentChanged, this, &EditorTab::switchForm);
 
-    connect(m_view, SIGNAL(gotoEntryRequested(DocPosition)),this,SLOT(gotoEntry(DocPosition)));
-    connect(m_view, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SLOT(lookupSelectionInTranslationMemory()));
+    connect(m_view, QOverload<const DocPosition &>::of(&EditorView::gotoEntryRequested), this, QOverload<DocPosition>::of(&EditorTab::gotoEntry));
+    connect(m_view, &EditorView::tmLookupRequested, this, &EditorTab::lookupSelectionInTranslationMemory);
 
-    connect(this, SIGNAL(fileOpened()), this, SLOT(indexWordsForCompletion()),Qt::QueuedConnection);
+    connect(this, &EditorTab::fileOpened, this, &EditorTab::indexWordsForCompletion,Qt::QueuedConnection);
 
-    connect (m_catalog,&Catalog::signalFileAutoSaveFailed,this,&EditorTab::fileAutoSaveFailedWarning);
+    connect(m_catalog, &Catalog::signalFileAutoSaveFailed, this, &EditorTab::fileAutoSaveFailedWarning);
 
 
     //defer some work to make window appear earlier (~200 msec on my Core Duo)
@@ -145,8 +148,8 @@ void EditorTab::initLater()
 
 EditorTab::~EditorTab()
 {
-    disconnect(m_catalog,&Catalog::signalNumberOfFuzziesChanged,this,&EditorTab::numberOfFuzziesChanged);
-    disconnect(m_catalog,&Catalog::signalNumberOfEmptyChanged,this,&EditorTab::numberOfUntranslatedChanged);
+    disconnect(m_catalog, &Catalog::signalNumberOfFuzziesChanged, this, &EditorTab::numberOfFuzziesChanged);
+    disconnect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
 
     if (!m_catalog->isEmpty())
     {
@@ -169,8 +172,8 @@ void EditorTab::setupStatusBar()
     statusBarItems.insert(ID_STATUS_UNTRANS,i18nc("@info:status message entries","Untranslated: %1",0));
     statusBarItems.insert(ID_STATUS_ISFUZZY,QString());
 
-    connect(m_catalog,&Catalog::signalNumberOfFuzziesChanged,this,&EditorTab::numberOfFuzziesChanged);
-    connect(m_catalog,&Catalog::signalNumberOfEmptyChanged,this,&EditorTab::numberOfUntranslatedChanged);
+    connect(m_catalog, &Catalog::signalNumberOfFuzziesChanged, this, &EditorTab::numberOfFuzziesChanged);
+    connect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
 }
 
 #ifndef NOKDE
@@ -193,12 +196,12 @@ void LokalizeSubwindowBase::reflectUntranslatedCount(int count, int total)
 
 void EditorTab::numberOfFuzziesChanged()
 {
-    reflectNonApprovedCount(m_catalog->numberOfNonApproved(),m_catalog->numberOfEntries());
+    reflectNonApprovedCount(m_catalog->numberOfNonApproved(), m_catalog->numberOfEntries());
 }
 
 void EditorTab::numberOfUntranslatedChanged()
 {
-    reflectUntranslatedCount(m_catalog->numberOfUntranslated(),m_catalog->numberOfEntries());
+    reflectUntranslatedCount(m_catalog->numberOfUntranslated(), m_catalog->numberOfEntries());
 }
 
 void EditorTab::setupActions()
@@ -251,48 +254,46 @@ void EditorTab::setupActions()
         altactions[i]=altaction;
     }
 
-    m_altTransView = new AltTransView(this,m_catalog,altactions);
+    m_altTransView = new AltTransView(this, m_catalog, altactions);
     addDockWidget(Qt::BottomDockWidgetArea, m_altTransView);
-    actionCollection()->addAction( QStringLiteral("showmsgiddiff_action"), m_altTransView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_altTransView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_altTransView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
-    connect (m_altTransView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
-    connect (m_catalog,SIGNAL(signalFileLoaded()),m_altTransView,SLOT(fileLoaded()));
+    actionCollection()->addAction(QStringLiteral("showmsgiddiff_action"), m_altTransView->toggleViewAction());
+    connect (this, QOverload<const DocPosition &>::of(&EditorTab::signalNewEntryDisplayed), m_altTransView, QOverload<const DocPosition &>::of(&AltTransView::slotNewEntryDisplayed));
+    connect (m_altTransView, &AltTransView::textInsertRequested, m_view, &EditorView::insertTerm);
+    connect (m_altTransView, &AltTransView::refreshRequested, m_view, QOverload<>::of(&EditorView::gotoEntry), Qt::QueuedConnection);
+    connect (m_catalog, QOverload<>::of(&Catalog::signalFileLoaded), m_altTransView, &AltTransView::fileLoaded);
 
-    m_syncView = new MergeView(this,m_catalog,true);
+    m_syncView = new MergeView(this, m_catalog, true);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncView);
-    sync1->addAction( QStringLiteral("showmergeview_action"), m_syncView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_syncView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_catalog,SIGNAL(signalFileLoaded()),m_syncView,SLOT(cleanup()));
-    connect (m_syncView,SIGNAL(gotoEntry(DocPosition,int)),
-             this,SLOT(gotoEntry(DocPosition,int)));
+    sync1->addAction(QStringLiteral("showmergeview_action"), m_syncView->toggleViewAction());
+    connect (this, QOverload<const DocPosition &>::of(&EditorTab::signalNewEntryDisplayed), m_syncView, QOverload<const DocPosition &>::of(&MergeView::slotNewEntryDisplayed));
+    connect (m_catalog, QOverload<>::of(&Catalog::signalFileLoaded), m_syncView, &MergeView::cleanup);
+    connect (m_syncView, &MergeView::gotoEntry, this, QOverload<DocPosition, int>::of(&EditorTab::gotoEntry));
 
-    m_syncViewSecondary = new MergeView(this,m_catalog,false);
+    m_syncViewSecondary = new MergeView(this, m_catalog, false);
     addDockWidget(Qt::BottomDockWidgetArea, m_syncViewSecondary);
-    sync2->addAction( QStringLiteral("showmergeviewsecondary_action"), m_syncViewSecondary->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_syncViewSecondary,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_catalog,SIGNAL(signalFileLoaded()),m_syncViewSecondary,SLOT(cleanup()));
-    connect (m_catalog,SIGNAL(signalFileLoaded(QString)),m_syncViewSecondary,SLOT(mergeOpen(QString)),Qt::QueuedConnection);
-    connect (m_syncViewSecondary,SIGNAL(gotoEntry(DocPosition,int)),
-             this,SLOT(gotoEntry(DocPosition,int)));
+    sync2->addAction(QStringLiteral("showmergeviewsecondary_action"), m_syncViewSecondary->toggleViewAction());
+    connect (this, QOverload<const DocPosition &>::of(&EditorTab::signalNewEntryDisplayed), m_syncViewSecondary, QOverload<const DocPosition &>::of(&MergeView::slotNewEntryDisplayed));
+    connect (m_catalog, QOverload<>::of(&Catalog::signalFileLoaded), m_syncViewSecondary, &MergeView::cleanup);
+    connect (m_catalog, QOverload<const QString &>::of(&Catalog::signalFileLoaded), m_syncViewSecondary, QOverload<QString>::of(&MergeView::mergeOpen), Qt::QueuedConnection);
+    connect (m_syncViewSecondary, &MergeView::gotoEntry, this, QOverload<DocPosition, int>::of(&EditorTab::gotoEntry));
 
-    m_transUnitsView = new CatalogView(this,m_catalog);
+    m_transUnitsView = new CatalogView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_transUnitsView);
-    actionCollection()->addAction( QStringLiteral("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_transUnitsView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (m_transUnitsView,SIGNAL(gotoEntry(DocPosition,int)),this,SLOT(gotoEntry(DocPosition,int)));
-    connect (m_transUnitsView,&CatalogView::escaped,this,&EditorTab::setProperFocus);
-    connect (m_syncView,&MergeView::mergeCatalogPointerChanged, m_transUnitsView, &CatalogView::setMergeCatalogPointer);
+    actionCollection()->addAction(QStringLiteral("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction());
+    connect (this, QOverload<const DocPosition &>::of(&EditorTab::signalNewEntryDisplayed), m_transUnitsView, QOverload<const DocPosition &>::of(&CatalogView::slotNewEntryDisplayed));
+    connect (m_transUnitsView, &CatalogView::gotoEntry, this, QOverload<DocPosition, int>::of(&EditorTab::gotoEntry));
+    connect (m_transUnitsView, &CatalogView::escaped, this, &EditorTab::setProperFocus);
+    connect (m_syncView, &MergeView::mergeCatalogPointerChanged, m_transUnitsView, &CatalogView::setMergeCatalogPointer);
 
-    m_notesView = new MsgCtxtView(this,m_catalog);
+    m_notesView = new MsgCtxtView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
     actionCollection()->addAction( QStringLiteral("showmsgctxt_action"), m_notesView->toggleViewAction() );
-    connect(m_catalog,SIGNAL(signalFileLoaded()),m_notesView,SLOT(cleanup()));
-    connect(m_notesView,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(dispatchSrcFileOpenRequest(QString,int)));
-    connect(m_view, SIGNAL(signalChanged(uint)), m_notesView, SLOT(removeErrorNotes()));
-    connect(m_notesView,&MsgCtxtView::escaped,this,&EditorTab::setProperFocus);
+    connect(m_catalog, QOverload<>::of(&Catalog::signalFileLoaded), m_notesView, &MsgCtxtView::cleanup);
+    connect(m_notesView, &MsgCtxtView::srcFileOpenRequested, this, &EditorTab::dispatchSrcFileOpenRequest);
+    connect(m_view, &EditorView::signalChanged, m_notesView, &MsgCtxtView::removeErrorNotes);
+    connect(m_notesView, &MsgCtxtView::escaped, this, &EditorTab::setProperFocus);
 
-    action=edit->addAction(QStringLiteral("edit_addnote"),m_notesView,SLOT(addNoteUI()));
+    action=edit->addAction(QStringLiteral("edit_addnote"), m_notesView, SLOT(addNoteUI()));
     //action->setShortcut(Qt::CTRL+glist[i]);
     action->setText(i18nc("@action:inmenu","Add a note"));
 
@@ -325,13 +326,13 @@ void EditorTab::setupActions()
     TM::TMView* _tmView = new TM::TMView(this,m_catalog,tmactions);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction( QStringLiteral("showtmqueryview_action"), _tmView->toggleViewAction() );
-    connect (_tmView,SIGNAL(refreshRequested()),m_view,SLOT(gotoEntry()),Qt::QueuedConnection);
-    connect (_tmView,SIGNAL(refreshRequested()),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
-    connect (_tmView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
-    connect (_tmView,SIGNAL(fileOpenRequested(QString,QString,QString)),this,SIGNAL(fileOpenRequested(QString,QString,QString)));
-    connect (this,SIGNAL(fileAboutToBeClosed()),m_catalog,SLOT(flushUpdateDBBuffer()));
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),m_catalog,SLOT(flushUpdateDBBuffer()));
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_tmView,SLOT(slotNewEntryDisplayed(DocPosition))); //do this after flushUpdateDBBuffer
+    connect(_tmView, &TM::TMView::refreshRequested, m_view, QOverload<>::of(&EditorView::gotoEntry), Qt::QueuedConnection);
+    connect(_tmView, &TM::TMView::refreshRequested, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
+    connect(_tmView, &TM::TMView::textInsertRequested, m_view, &EditorView::insertTerm);
+    connect(_tmView, &TM::TMView::fileOpenRequested, this, &EditorTab::fileOpenRequested);
+    connect(this, &EditorTab::fileAboutToBeClosed, m_catalog, &Catalog::flushUpdateDBBuffer);
+    connect(this, &EditorTab::signalNewEntryDisplayed, m_catalog, &Catalog::flushUpdateDBBuffer);
+    connect(this, &EditorTab::signalNewEntryDisplayed, _tmView, QOverload<const DocPosition &>::of(&TM::TMView::slotNewEntryDisplayed)); //do this after flushUpdateDBBuffer
 
     QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
     Qt::Key glist[GLOSSARY_SHORTCUTS]=
@@ -372,8 +373,8 @@ void EditorTab::setupActions()
     GlossaryNS::GlossaryView* _glossaryView = new GlossaryNS::GlossaryView(this,m_catalog,gactions);
     addDockWidget(Qt::BottomDockWidgetArea, _glossaryView);
     glossary->addAction( QStringLiteral("showglossaryview_action"), _glossaryView->toggleViewAction() );
-    connect (this,&EditorTab::signalNewEntryDisplayed,_glossaryView,&GlossaryNS::GlossaryView::slotNewEntryDisplayed);
-    connect (_glossaryView,SIGNAL(termInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
+    connect (this, &EditorTab::signalNewEntryDisplayed, _glossaryView, QOverload<DocPosition>::of(&GlossaryNS::GlossaryView::slotNewEntryDisplayed));
+    connect (_glossaryView, &GlossaryNS::GlossaryView::termInsertRequested, m_view, &EditorView::insertTerm);
 
     gaction = glossary->addAction(QStringLiteral("glossary_define"),this,SLOT(defineNewTerm()));
     gaction->setText(i18nc("@action:inmenu","Define new term"));
@@ -384,7 +385,7 @@ void EditorTab::setupActions()
     BinUnitsView* binUnitsView=new BinUnitsView(m_catalog,this);
     addDockWidget(Qt::BottomDockWidgetArea, binUnitsView);
     edit->addAction( QStringLiteral("showbinunitsview_action"), binUnitsView->toggleViewAction() );
-    connect(m_view,&EditorView::binaryUnitSelectRequested,binUnitsView,&BinUnitsView::selectUnit);
+    connect(m_view, &EditorView::binaryUnitSelectRequested, binUnitsView, &BinUnitsView::selectUnit);
 
 
 //#ifdef WEBQUERY_ENABLE
@@ -416,8 +417,8 @@ void EditorTab::setupActions()
     WebQueryView* _webQueryView = new WebQueryView(this,m_catalog,wqactions);
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
     actionCollection()->addAction( QStringLiteral("showwebqueryview_action"), _webQueryView->toggleViewAction() );
-    connect (this,SIGNAL(signalNewEntryDisplayed(DocPosition)),_webQueryView,SLOT(slotNewEntryDisplayed(DocPosition)));
-    connect (_webQueryView,SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
+    connect (this, &EditorTab::signalNewEntryDisplayed, _webQueryView, SLOT(slotNewEntryDisplayed(DocPosition)));
+    connect (_webQueryView, SIGNAL(textInsertRequested(QString)),m_view,SLOT(insertTerm(QString)));
 #endif
 
 
@@ -432,7 +433,7 @@ void EditorTab::setupActions()
     action=file->addAction(KStandardAction::Save,this, SLOT(saveFile()));
 //    action->setEnabled(false);
 //    connect (m_catalog,SIGNAL(cleanChanged(bool)),action,SLOT(setDisabled(bool)));
-    connect (m_catalog,SIGNAL(cleanChanged(bool)),this,SLOT(setModificationSign()));
+    connect (m_catalog, &Catalog::cleanChanged, this, &EditorTab::setModificationSign);
     file->addAction(KStandardAction::SaveAs,this, SLOT(saveFileAs()));
     //action = KStandardAction::quit(qApp, SLOT(quit()), ac);
     //action->setText(i18nc("@action:inmenu","Close all Lokalize windows"));
@@ -462,31 +463,31 @@ void EditorTab::setupActions()
 
     ADD_ACTION_SHORTCUT("file_xliff2odf",i18nc("@action:inmenu","Merge translation into OpenDocument"),Qt::CTRL+Qt::Key_Backslash)
     connect(action, &QAction::triggered, this, &EditorTab::mergeIntoOpenDocument);
-    connect( this, SIGNAL(xliffFileOpened(bool)), action, SLOT(setVisible(bool)) );
+    connect(this, &EditorTab::xliffFileOpened, action, &QAction::setVisible);
     action->setVisible(false);
 
 
 //Edit
     actionCategory=edit;
-    action=edit->addAction(KStandardAction::Undo,this,SLOT(undo()));
-    connect(m_view->viewPort(),SIGNAL(undoRequested()),this,SLOT(undo()));
-    connect(m_catalog,SIGNAL(canUndoChanged(bool)),action,SLOT(setEnabled(bool)) );
+    action=edit->addAction(KStandardAction::Undo, this, SLOT(undo()));
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::undoRequested, this, &EditorTab::undo);
+    connect(m_catalog, &Catalog::canUndoChanged, action, &QAction::setEnabled);
     action->setEnabled(false);
 
-    action=edit->addAction(KStandardAction::Redo,this,SLOT(redo()));
-    connect(m_view->viewPort(),SIGNAL(redoRequested()),this,SLOT(redo()));
-    connect(m_catalog,SIGNAL(canRedoChanged(bool)),action,SLOT(setEnabled(bool)) );
+    action=edit->addAction(KStandardAction::Redo, this, SLOT(redo()));
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::redoRequested, this, &EditorTab::redo);
+    connect(m_catalog, &Catalog::canRedoChanged, action, &QAction::setEnabled);
     action->setEnabled(false);
 
-    action=nav->addAction(KStandardAction::Find,this,SLOT(find()));
-    action=nav->addAction(KStandardAction::FindNext,this,SLOT(findNext()));
-    action=nav->addAction(KStandardAction::FindPrev,this,SLOT(findPrev()));
+    action=nav->addAction(KStandardAction::Find, this, SLOT(find()));
+    action=nav->addAction(KStandardAction::FindNext, this, SLOT(findNext()));
+    action=nav->addAction(KStandardAction::FindPrev, this, SLOT(findPrev()));
     action->setText(i18nc("@action:inmenu","Change searching direction"));
-    action=edit->addAction(KStandardAction::Replace,this,SLOT(replace()));
+    action=edit->addAction(KStandardAction::Replace, this, SLOT(replace()));
 
-    connect(m_view,SIGNAL(findRequested()),     this,SLOT(find()));
-    connect(m_view,SIGNAL(findNextRequested()), this,SLOT(findNext()));
-    connect(m_view,SIGNAL(replaceRequested()),  this,SLOT(replace()));
+    connect(m_view, &EditorView::findRequested,     this, &EditorTab::find);
+    connect(m_view, &EditorView::findNextRequested, this, QOverload<>::of(&EditorTab::findNext));
+    connect(m_view, &EditorView::replaceRequested,  this, &EditorTab::replace);
 
 
 
@@ -496,10 +497,10 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_U));
 
     action->setCheckable(true);
-    connect(action, SIGNAL(triggered()), m_view,SLOT(toggleApprovement()));
-    connect(m_view, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SIGNAL(signalApprovedEntryDisplayed(bool)));
-    connect(this, &EditorTab::signalApprovedEntryDisplayed,action,&QAction::setChecked);
-    connect(this, SIGNAL(signalApprovedEntryDisplayed(bool)),this,SLOT(msgStrChanged()),Qt::QueuedConnection);
+    connect(action, &QAction::triggered, m_view, &EditorView::toggleApprovement);
+    connect(m_view, &EditorView::signalApprovedEntryDisplayed, this, &EditorTab::signalApprovedEntryDisplayed);
+    connect(this, &EditorTab::signalApprovedEntryDisplayed, action, &QAction::setChecked);
+    connect(this, &EditorTab::signalApprovedEntryDisplayed, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
 
     m_approveAction=action;
 #ifdef NOKDE
@@ -508,15 +509,15 @@ void EditorTab::setupActions()
     ac->addAction(QStringLiteral("edit_state"),action);
 #endif
     m_stateAction=action;
-    connect(Project::local(), SIGNAL(configChanged()), SLOT(setApproveActionTitle()));
-    connect(m_catalog, SIGNAL(activePhaseChanged()), SLOT(setApproveActionTitle()));
-    connect(m_stateAction->menu(), SIGNAL(aboutToShow()),this,SLOT(showStatesMenu()));
-    connect(m_stateAction->menu(), SIGNAL(triggered(QAction*)),this,SLOT(setState(QAction*)));
+    connect(Project::local(), &ProjectLocal::configChanged, this, &EditorTab::setApproveActionTitle);
+    connect(m_catalog, &Catalog::activePhaseChanged, this, &EditorTab::setApproveActionTitle);
+    connect(m_stateAction->menu(), &QMenu::aboutToShow, this, &EditorTab::showStatesMenu);
+    connect(m_stateAction->menu(), &QMenu::triggered, this, &EditorTab::setState);
 
 
     action = actionCategory->addAction(QStringLiteral("edit_approve_go_fuzzyUntr"));
     action->setText(i18nc("@action:inmenu","Approve and go to next"));
-    connect(action, SIGNAL(triggered()), SLOT(toggleApprovementGotoNextFuzzyUntr()));
+    connect(action, &QAction::triggered, this, &EditorTab::toggleApprovementGotoNextFuzzyUntr);
     m_approveAndGoAction = action;
 
     setApproveActionTitle();
@@ -526,7 +527,7 @@ void EditorTab::setupActions()
     action = actionCategory->addAction(QStringLiteral("edit_nonequiv"),m_view,SLOT(setEquivTrans(bool)));
     action->setText(i18nc("@action:inmenu","Equivalent translation"));
     action->setCheckable(true);
-    connect(this, SIGNAL(signalEquivTranslatedEntryDisplayed(bool)),action,SLOT(setChecked(bool)));
+    connect(this, &EditorTab::signalEquivTranslatedEntryDisplayed, action, &QAction::setChecked);
 
 
 #ifndef Q_OS_DARWIN
@@ -540,31 +541,31 @@ void EditorTab::setupActions()
     int copyShortcut=Qt::META+Qt::Key_Space;
 #endif
     ADD_ACTION_SHORTCUT_ICON("edit_msgid2msgstr",i18nc("@action:inmenu","Copy source to target"),copyShortcut,"msgid2msgstr")
-    connect(action, SIGNAL(triggered(bool)), m_view->viewPort(),SLOT(source2target()));
+    connect(action, &QAction::triggered, (const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::source2target);
 
     ADD_ACTION_SHORTCUT("edit_unwrap-target",i18nc("@action:inmenu","Unwrap target"),Qt::CTRL+Qt::Key_I)
-    connect(action, SIGNAL(triggered(bool)), m_view,SLOT(unwrap()));
+    connect(action, &QAction::triggered, m_view, QOverload<>::of(&EditorView::unwrap));
 
-    action=edit->addAction(QStringLiteral("edit_clear-target"),m_view->viewPort(),SLOT(removeTargetSubstring()));
+    action=edit->addAction(QStringLiteral("edit_clear-target"), m_view->viewPort(), SLOT(removeTargetSubstring()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_D));
-    action->setText(i18nc("@action:inmenu","Clear"));
+    action->setText(i18nc("@action:inmenu", "Clear"));
 
-    action=edit->addAction(QStringLiteral("edit_tagmenu"),m_view->viewPort(),SLOT(tagMenu()));
+    action=edit->addAction(QStringLiteral("edit_tagmenu"), m_view->viewPort(), SLOT(tagMenu()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_T));
-    action->setText(i18nc("@action:inmenu","Insert Tag"));
+    action->setText(i18nc("@action:inmenu", "Insert Tag"));
 
-    action=edit->addAction(QStringLiteral("edit_tagimmediate"),m_view->viewPort(),SLOT(tagImmediate()));
+    action=edit->addAction(QStringLiteral("edit_tagimmediate"), m_view->viewPort(), SLOT(tagImmediate()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_M));
-    action->setText(i18nc("@action:inmenu","Insert Next Tag"));
+    action->setText(i18nc("@action:inmenu", "Insert Next Tag"));
 
 #ifndef NOKDE
-    action=edit->addAction(QStringLiteral("edit_completion"),m_view,SIGNAL(doExplicitCompletion()));
+    action=edit->addAction(QStringLiteral("edit_completion"), m_view, SIGNAL(doExplicitCompletion()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Space));
-    action->setText(i18nc("@action:inmenu","Completion"));
+    action->setText(i18nc("@action:inmenu", "Completion"));
 
-    action=edit->addAction(QStringLiteral("edit_spellreplace"),m_view->viewPort(),SLOT(spellReplace()));
+    action=edit->addAction(QStringLiteral("edit_spellreplace"), m_view->viewPort(), SLOT(spellReplace()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_Equal));
-    action->setText(i18nc("@action:inmenu","Replace with best spellcheck suggestion"));
+    action->setText(i18nc("@action:inmenu", "Replace with best spellcheck suggestion"));
 #endif
 //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18nc("@action:inmenu","Define new term"));
@@ -573,59 +574,59 @@ void EditorTab::setupActions()
     actionCategory=nav;
     action=nav->addAction(KStandardAction::Next,this, SLOT(gotoNext()));
     action->setText(i18nc("@action:inmenu entry","&Next"));
-    connect( this, &EditorTab::signalLastDisplayed, action, &QAction::setDisabled);
-    connect(m_view->viewPort(),SIGNAL(gotoNextRequested()),this,SLOT(gotoNext()));
+    connect(this, &EditorTab::signalLastDisplayed, action, &QAction::setDisabled);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextRequested, this, &EditorTab::gotoNext);
 
     action=nav->addAction(KStandardAction::Prior,this, SLOT(gotoPrev()));
     action->setText(i18nc("@action:inmenu entry","&Previous"));
-    connect( this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
-    connect(m_view->viewPort(),SIGNAL(gotoPrevRequested()),this,SLOT(gotoPrev()));
+    connect(this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevRequested, this, &EditorTab::gotoPrev);
 
     action=nav->addAction(KStandardAction::FirstPage,this, SLOT(gotoFirst()));
-    connect(m_view->viewPort(),SIGNAL(gotoFirstRequested()),this,SLOT(gotoFirst()));
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoFirstRequested, this, &EditorTab::gotoFirst);
     action->setText(i18nc("@action:inmenu","&First Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_Home));
-    connect( this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
+    connect(this, &EditorTab::signalFirstDisplayed, action, &QAction::setDisabled);
 
     action=nav->addAction(KStandardAction::LastPage,this, SLOT(gotoLast()));
-    connect(m_view->viewPort(),SIGNAL(gotoLastRequested()),this,SLOT(gotoLast()));
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoLastRequested, this, &EditorTab::gotoLast);
     action->setText(i18nc("@action:inmenu","&Last Entry"));
     action->setShortcut(QKeySequence(Qt::CTRL+Qt::ALT+Qt::Key_End));
-    connect( this, &EditorTab::signalLastDisplayed,action,&QAction::setDisabled);
+    connect(this, &EditorTab::signalLastDisplayed,action,&QAction::setDisabled);
 
-    action=nav->addAction(KStandardAction::GotoPage,this, SLOT(gotoEntry()));
+    action=nav->addAction(KStandardAction::GotoPage, this, SLOT(gotoEntry()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_G));
     action->setText(i18nc("@action:inmenu","Entry by number"));
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzy()) );
-    connect( m_view->viewPort(), SIGNAL(gotoPrevFuzzyRequested()), this, SLOT(gotoPrevFuzzy()) );
-    connect( this, &EditorTab::signalPriorFuzzyAvailable,action,&QAction::setEnabled);
+    connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzy);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyRequested, this, &EditorTab::gotoPrevFuzzy);
+    connect(this, &EditorTab::signalPriorFuzzyAvailable,action,&QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzy()) );
-    connect( m_view->viewPort(), SIGNAL(gotoNextFuzzyRequested()), this, SLOT(gotoNextFuzzy()) );
-    connect( this, &EditorTab::signalNextFuzzyAvailable,action,&QAction::setEnabled);
+    connect(action, &QAction::triggered, this, &EditorTab::gotoNextFuzzy);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyRequested, this, &EditorTab::gotoNextFuzzy);
+    connect(this, &EditorTab::signalNextFuzzyAvailable,action,&QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
-    connect( m_view->viewPort(), SIGNAL(gotoPrevUntranslatedRequested()), this, SLOT(gotoPrevUntranslated()) );
-    connect( this, &EditorTab::signalPriorUntranslatedAvailable,action,&QAction::setEnabled);
+    connect(action, &QAction::triggered, this, &EditorTab::gotoPrevUntranslated);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevUntranslatedRequested, this, &EditorTab::gotoPrevUntranslated);
+    connect(this, &EditorTab::signalPriorUntranslatedAvailable,action,&QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
-    connect( m_view->viewPort(), SIGNAL(gotoNextUntranslatedRequested()), this, SLOT(gotoNextUntranslated()) );
-    connect( this, &EditorTab::signalNextUntranslatedAvailable,action,&QAction::setEnabled);
+    connect(action, &QAction::triggered, this, &EditorTab::gotoNextUntranslated);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextUntranslatedRequested, this, &EditorTab::gotoNextUntranslated);
+    connect(this, &EditorTab::signalNextUntranslatedAvailable,action,&QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT/*ALT*/+Qt::Key_PageUp,"prevfuzzyuntrans")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzyUntr()) );
-    connect( m_view->viewPort(), SIGNAL(gotoPrevFuzzyUntrRequested()), this, SLOT(gotoPrevFuzzyUntr()) );
-    connect( this, &EditorTab::signalPriorFuzzyOrUntrAvailable,action,&QAction::setEnabled);
+    connect(action, &QAction::triggered, this, &EditorTab::gotoPrevFuzzyUntr);
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoPrevFuzzyUntrRequested, this, &EditorTab::gotoPrevFuzzyUntr);
+    connect(this, &EditorTab::signalPriorFuzzyOrUntrAvailable,action,&QAction::setEnabled);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzyUntr()) );
-    connect( m_view->viewPort(), SIGNAL(gotoNextFuzzyUntrRequested()), this, SLOT(gotoNextFuzzyUntr()) );
-    connect( this, &EditorTab::signalNextFuzzyOrUntrAvailable,action,&QAction::setEnabled);
+    connect(action, &QAction::triggered, this, QOverload<>::of(&EditorTab::gotoNextFuzzyUntr));
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::gotoNextFuzzyUntrRequested, this, QOverload<>::of(&EditorTab::gotoNextFuzzyUntr));
+    connect(this, &EditorTab::signalNextFuzzyOrUntrAvailable,action,&QAction::setEnabled);
 
     action=nav->addAction(QStringLiteral("go_focus_earch_line"),m_transUnitsView, SLOT(setFocus()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL+Qt::Key_L));
@@ -638,15 +639,15 @@ void EditorTab::setupActions()
     action->setText(i18nc("@option:check","Bookmark message"));
     action->setCheckable(true);
     //connect(action, SIGNAL(triggered(bool)),m_view,SLOT(toggleBookmark(bool)));
-    connect( this, &EditorTab::signalBookmarkDisplayed,action,&QAction::setChecked);
+    connect(this, &EditorTab::signalBookmarkDisplayed,action,&QAction::setChecked);
 
     action=nav->addAction(QStringLiteral("bookmark_prior"),this,SLOT(gotoPrevBookmark()));
     action->setText(i18nc("@action:inmenu","Previous bookmark"));
-    connect( this, &EditorTab::signalPriorBookmarkAvailable,action,&QAction::setEnabled);
+    connect(this, &EditorTab::signalPriorBookmarkAvailable,action,&QAction::setEnabled);
 
     action=nav->addAction(QStringLiteral("bookmark_next"),this,SLOT(gotoNextBookmark()));
     action->setText(i18nc("@action:inmenu","Next bookmark"));
-    connect( this, &EditorTab::signalNextBookmarkAvailable,action,&QAction::setEnabled);
+    connect(this, &EditorTab::signalNextBookmarkAvailable,action,&QAction::setEnabled);
 
 //Tools
     edit->addAction(KStandardAction::Spelling,this,SLOT(spellcheck()));
@@ -654,11 +655,11 @@ void EditorTab::setupActions()
     actionCategory=tm;
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch",i18nc("@action:inmenu","Fill in all exact suggestions"),Qt::CTRL+Qt::ALT+Qt::Key_B)
-    connect( action, SIGNAL(triggered(bool)), _tmView, SLOT(slotBatchTranslate()) );
+    connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslate);
 
     // xgettext: no-c-format
     ADD_ACTION_SHORTCUT("tools_tm_batch_fuzzy",i18nc("@action:inmenu","Fill in all exact suggestions and mark as fuzzy"),Qt::CTRL+Qt::ALT+Qt::Key_N)
-    connect( action, SIGNAL(triggered(bool)), _tmView, SLOT(slotBatchTranslateFuzzy()) );
+    connect(action, &QAction::triggered, _tmView, &TM::TMView::slotBatchTranslateFuzzy);
 
 //MergeMode
     action = sync1->addAction(QStringLiteral("merge_open"),m_syncView,SLOT(mergeOpen()));
@@ -1044,7 +1045,10 @@ void EditorTab::gotoEntry()
         gotoEntry(pos);
     }
 }
-
+void EditorTab::gotoEntry(DocPosition pos)
+{
+    return gotoEntry(pos, 0);
+}
 void EditorTab::gotoEntry(DocPosition pos, int selection)
 {
     //specially for dbus users
@@ -1254,6 +1258,11 @@ void EditorTab::gotoPrevFuzzyUntr()
         return;
 
     gotoEntry(pos);
+}
+
+bool EditorTab::gotoNextFuzzyUntr()
+{
+    return gotoNextFuzzyUntr(DocPosition());
 }
 
 bool EditorTab::gotoNextFuzzyUntr(const DocPosition& p)
@@ -1742,5 +1751,3 @@ void EditorTab::setEntryTarget(int entry, int form, const QString& content)
         m_view->gotoEntry();
 }
 //END DBus interface
-
-

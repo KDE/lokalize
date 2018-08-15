@@ -127,6 +127,7 @@ public slots:
     //Q_SCRIPTABLE void processEvents();
 
     //returns 0 if error
+    EditorTab* fileOpen_(QString url);
     EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
     EditorTab* fileOpen(const QString& url, const QString& source, const QString& ctxt);
     EditorTab* fileOpen(const QString& url, DocPosition docPos, int selection);

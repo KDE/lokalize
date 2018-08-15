@@ -165,7 +165,7 @@ public:
     QAction* addAction( const QString& name, QObject* rcv, const char* slot)
     {
         QAction* a=new QAction(name, rcv);
-        QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
+        QObject::connect(a, &QAction::triggered, rcv, slot);
         return c->addAction(name, a);
     }
     QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot);

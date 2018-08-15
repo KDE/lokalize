@@ -79,7 +79,7 @@ void MsgCtxtView::gotoEntry(const DocPosition& pos, int selection)
     m_entry=DocPos(pos);
     m_selection=selection;
     m_offset=pos.offset;
-    QTimer::singleShot(0,this,SLOT(process()));
+    QTimer::singleShot(0, this, &MsgCtxtView::process);
 }
 
 void MsgCtxtView::process()
@@ -181,8 +181,8 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         {
             m_editor=new NoteEditor(this);
             m_stackedLayout->addWidget(m_editor);
-            connect(m_editor,SIGNAL(accepted()),this,SLOT(noteEditAccepted()));
-            connect(m_editor,SIGNAL(rejected()),this,SLOT(noteEditRejected()));
+            connect(m_editor, &NoteEditor::accepted, this, &MsgCtxtView::noteEditAccepted);
+            connect(m_editor, &NoteEditor::rejected, this, &MsgCtxtView::noteEditRejected);
         }
         m_editor->setNoteAuthors(m_catalog->noteAuthors());
         QVector<Note> notes=m_catalog->notes(m_entry.toDocPosition());

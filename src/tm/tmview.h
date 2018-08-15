@@ -60,7 +60,8 @@ signals:
     void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt);
 
 public slots:
-    void slotNewEntryDisplayed(const DocPosition& pos=DocPosition());
+    void slotNewEntryDisplayed();
+    void slotNewEntryDisplayed(const DocPosition& pos);
     void slotSuggestionsCame(SelectJob*);
 
     void slotUseSuggestion(int);

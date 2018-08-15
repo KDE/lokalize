@@ -106,6 +106,11 @@ bool MyCompletionBox::eventFilter(QObject* object, QEvent* event)
 }
 #endif
 
+TranslationUnitTextEdit::~TranslationUnitTextEdit()
+{
+    disconnect(document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
+}
+
 TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent)
     : KTextEdit(parent)
     , m_currentUnicodeNumber(0)
@@ -129,11 +134,11 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
 
     if (part==DocPosition::Target)
     {
-        connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
-        connect (this,SIGNAL(cursorPositionChanged()), this, SLOT(emitCursorPositionChanged()));
+        connect(document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
+        connect(this, &TranslationUnitTextEdit::cursorPositionChanged, this, &TranslationUnitTextEdit::emitCursorPositionChanged);
     }
-    connect (catalog,SIGNAL(signalFileLoaded()), this, SLOT(fileLoaded()));
-    //connect (Project::instance(),SIGNAL(configChanged()), this, SLOT(projectConfigChanged()));
+    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &TranslationUnitTextEdit::fileLoaded);
+    //connect (Project::instance(), &Project::configChanged, this, &TranslationUnitTextEdit::projectConfigChanged);
 }
 
 void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
@@ -190,10 +195,10 @@ void TranslationUnitTextEdit::reflectApprovementState()
 
     bool approved=m_catalog->isApproved(m_currentPos.entry);
 
-    disconnect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    disconnect (document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
     m_highlighter->setApprovementState(approved);
     m_highlighter->rehighlight();
-    connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    connect (document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
     viewport()->setBackgroundRole(approved?QPalette::Base:QPalette::AlternateBase);
 
 
@@ -242,12 +247,12 @@ CatalogString TranslationUnitTextEdit::showPos(DocPosition docPosition, const Ca
     }
     //END pos
 
-    disconnect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    disconnect (document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
     if (docPosition.part==DocPosition::Source)
         setContent(catalogString);
     else
         setContent(catalogString,refStr.string.isEmpty()?m_catalog->sourceWithTags(docPosition):refStr);
-    connect (document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(contentsChanged(int,int,int)));
+    connect (document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
 
     _oldMsgstrAscii=document()->toPlainText();
 
@@ -435,7 +440,7 @@ void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int 
 
 
     const QString& editText=toPlainText();
-    if (Q_UNLIKELY( m_currentPos.entry==-1 || editText==_oldMsgstr ))
+    if (Q_UNLIKELY(m_currentPos.entry == -1 || editText==_oldMsgstr))
     {
         //qCWarning(LOKALIZE_LOG)<<"stopping"<<m_currentPos.entry<<editText<<_oldMsgstr;
         return;
@@ -1394,9 +1399,9 @@ void TranslationUnitTextEdit::doCompletion(int pos)
     if (!m_completionBox)
     {
 //BEGIN creation
-        m_completionBox=new MyCompletionBox(this);
-        connect(m_completionBox,SIGNAL(activated(QString)),this,SLOT(completionActivated(QString)));
-        m_completionBox->setSizePolicy(QSizePolicy::Maximum,QSizePolicy::Preferred);
+        m_completionBox = new MyCompletionBox(this);
+        connect(m_completionBox, &MyCompletionBox::activated, this, &TranslationUnitTextEdit::completionActivated);
+        m_completionBox->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
 //END creation
     }
     m_completionBox->setItems(s);

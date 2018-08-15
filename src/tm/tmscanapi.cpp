@@ -125,7 +125,7 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
         {
 #ifndef NOKDE
             ScanJobFeedingBack* job=new ScanJobFeedingBack(filePath,dbName);
-            QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+            QObject::connect(job, &ScanJobFeedingBack::done, metaJob, &RecursiveScanJob::scanJobFinished);
 #else
             ScanJob* job=new ScanJob(filePath,dbName);
 #endif
@@ -164,7 +164,7 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
     {
 #ifndef NOKDE
         ScanJobFeedingBack* job=new ScanJobFeedingBack(dir.filePath(files.at(i)),dbName);
-        QObject::connect(job,SIGNAL(done(ScanJobFeedingBack*)),metaJob,SLOT(scanJobFinished(ScanJobFeedingBack*)));
+        QObject::connect(job, &ScanJobFeedingBack::done, (RecursiveScanJob*)metaJob, &RecursiveScanJob::scanJobFinished);
 #else
         ScanJob* job=new ScanJob(dir.filePath(files.at(i)),dbName);
 #endif

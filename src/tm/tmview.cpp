@@ -160,9 +160,8 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     m_browser->document()->setDefaultStyleSheet(QStringLiteral("p.close_match { font-weight:bold; }"));
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
-    QTimer::singleShot(0,this,SLOT(initLater()));
-    connect(m_catalog,SIGNAL(signalFileLoaded(QString)),
-            this,SLOT(slotFileLoaded(QString)));
+    QTimer::singleShot(0, this, &TMView::initLater);
+    connect(m_catalog, QOverload<const QString &>::of(&Catalog::signalFileLoaded), this, &TMView::slotFileLoaded);
 }
 
 TMView::~TMView()
@@ -182,17 +181,17 @@ void TMView::initLater()
     int i=m_actions.size();
     while(--i>=0)
     {
-        connect(m_actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
+        connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
         signalMapper->setMapping(m_actions.at(i), i);
     }
-    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(slotUseSuggestion(int)));
+    connect(signalMapper, QOverload<int>::of(&QSignalMapper::mapped), this, &TMView::slotUseSuggestion);
 
     setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
 
     DBFilesModel::instance();
 
-    connect(m_browser,SIGNAL(textInsertRequested(QString)),this,SIGNAL(textInsertRequested(QString)));
-    connect(m_browser,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(contextMenu(QPoint)));
+    connect(m_browser, &TM::TextBrowser::textInsertRequested, this, &TMView::textInsertRequested);
+    connect(m_browser, &TM::TextBrowser::customContextMenuRequested, this, &TMView::contextMenu);
     //TODO ? kdisplayPaletteChanged
 //     connect(KGlobalSettings::self(),,SIGNAL(kdisplayPaletteChanged()),this,SLOT(slotPaletteChanged()));
 
@@ -239,13 +238,13 @@ void TMView::slotFileLoaded(const QString& filePath)
            &&m_catalog->isApproved(pos.entry))
             continue;
         SelectJob* j=initSelectJob(m_catalog, pos, pID);
-        connect(j,SIGNAL(done(SelectJob*)),this,SLOT(slotCacheSuggestions(SelectJob*)));
+        connect(j, &SelectJob::done, this, &TMView::slotCacheSuggestions);
         m_jobs.append(j);
     }
 
     //dummy job for the finish indication
     BatchSelectFinishedJob* m_seq=new BatchSelectFinishedJob(this);
-    connect(m_seq,SIGNAL(done()),this,SLOT(slotBatchSelectDone()));
+    connect(m_seq, &BatchSelectFinishedJob::done, this, &TMView::slotBatchSelectDone);
     TM::threadPool()->start(m_seq, BATCHSELECTFINISHED);
     m_jobs.append(m_seq);
 }
@@ -354,6 +353,11 @@ void TMView::slotBatchTranslateFuzzy()
 
 }
 
+void TMView::slotNewEntryDisplayed()
+{
+    return slotNewEntryDisplayed(DocPosition());
+}
+
 void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 {
     if (m_catalog->numberOfEntries()<=pos.entry)
@@ -375,10 +379,10 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (Settings::prefetchTM()
         &&m_cache.contains(DocPos(m_pos)))
     {
-        QTimer::singleShot(0,this,SLOT(displayFromCache()));
+        QTimer::singleShot(0, this, &TMView::displayFromCache);
     }
-    m_currentSelectJob=initSelectJob(m_catalog, m_pos);
-    connect(m_currentSelectJob,SIGNAL(done(SelectJob*)),this,SLOT(slotSuggestionsCame(SelectJob*)));
+    m_currentSelectJob = initSelectJob(m_catalog, m_pos);
+    connect(m_currentSelectJob, &TM::SelectJob::done, this, &TMView::slotSuggestionsCame);
 }
 
 void TMView::displayFromCache()
@@ -395,7 +399,8 @@ void TMView::displayFromCache()
 
 void TMView::slotSuggestionsCame(SelectJob* j)
 {
-    QTime time;time.start();
+    QTime time;
+    time.start();
 
     SelectJob& job=*j;
     job.deleteLater();
@@ -433,7 +438,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
             if (projectID!=dbName && dbFilesModel.m_configurations.value(dbName).targetLangCode==catalog.targetLangCode())
             {
                 SelectJob* j=initSelectJob(m_catalog, m_pos, dbName);
-                connect(j,SIGNAL(done(SelectJob*)),this,SLOT(slotSuggestionsCame(SelectJob*)));
+                connect(j, &SelectJob::done, this, &TMView::slotSuggestionsCame);
                 m_jobs.append(j);
             }
         }
@@ -602,7 +607,7 @@ void TMView::contextMenu(const QPoint& pos)
                                                            i18nc("@title:window","Translation Memory Entry Removal")))
     {
         RemoveJob* job=new RemoveJob(e);
-        connect(job,SIGNAL(done()),this,SLOT(slotNewEntryDisplayed()));
+        connect(job, &RemoveJob::done, this, QOverload<>::of(&TMView::slotNewEntryDisplayed));
         TM::threadPool()->start(job, REMOVE);
     }
     else if (r->data().toInt()==Open)

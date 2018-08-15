@@ -220,8 +220,8 @@ void EditorTab::find()
     else // This creates a find-next-prompt dialog if needed.
     {
         m_find = new KFind(EntryFindDialog::instance()->pattern(),EntryFindDialog::instance()->options(),this,EntryFindDialog::instance());
-        connect(m_find,SIGNAL(highlight(QString,int,int)),this, SLOT(highlightFound(QString,int,int)) );
-        connect(m_find,SIGNAL(findNext()),this,SLOT(findNext()));
+        connect(m_find, QOverload<const QString &, int, int>::of(&KFind::highlight), this, &EditorTab::highlightFound);
+        connect(m_find, &KFind::findNext, this, QOverload<>::of(&EditorTab::findNext));
         m_find->closeFindNextDialog();
     }
 
@@ -371,10 +371,10 @@ void EditorTab::replace()
     // This creates a find-next-prompt dialog if needed.
     {
         m_replace = new KReplace(EntryReplaceDialog::instance()->pattern(),EntryReplaceDialog::instance()->replacement(),EntryReplaceDialog::instance()->options(),this,EntryReplaceDialog::instance());
-        connect(m_replace,SIGNAL(highlight(QString,int,int)),    this,SLOT(highlightFound_(QString,int,int)));
-        connect(m_replace,SIGNAL(findNext()),                    this,SLOT(replaceNext()));
-        connect(m_replace,SIGNAL(replace(QString,int,int,int)),  this,SLOT(doReplace(QString,int,int,int)));
-        connect(m_replace,SIGNAL(dialogClosed()),                this,SLOT(cleanupReplace()));
+        connect(m_replace, QOverload<const QString &, int, int>::of(&KReplace::highlight), this, &EditorTab::highlightFound_);
+        connect(m_replace, &KReplace::findNext, this, QOverload<>::of(&EditorTab::replaceNext));
+        connect(m_replace, QOverload<const QString &, int, int, int>::of(&KReplace::replace), this, &EditorTab::doReplace);
+        connect(m_replace, &KReplace::dialogClosed, this, &EditorTab::cleanupReplace);
 //         _replace->closeReplaceNextDialog();
     }
 //     else
@@ -520,18 +520,9 @@ void EditorTab::doReplace(const QString &newStr,int offset,int newLen,int remLen
     if (pos.entry==m_currentPos.entry)
     {
         pos.offset+=newLen;
-        m_view->gotoEntry(pos);
+        m_view->gotoEntry(pos, 0);
     }
 }
-
-
-
-
-
-
-
-
-
 
 void EditorTab::spellcheck()
 {
@@ -540,14 +531,12 @@ void EditorTab::spellcheck()
         m_sonnetChecker=new Sonnet::BackgroundChecker(this);
         m_sonnetChecker->changeLanguage(enhanceLangCode(Project::instance()->langCode()));
         m_sonnetDialog=new Sonnet::Dialog(m_sonnetChecker,this);
-        connect(m_sonnetDialog,SIGNAL(done(QString)),this,SLOT(spellcheckNext()));
-        connect(m_sonnetDialog,SIGNAL(replace(QString,int,QString)),
-            this,SLOT(spellcheckReplace(QString,int,QString)));
-        connect(m_sonnetDialog,SIGNAL(stop()),this,SLOT(spellcheckStop()));
-        connect(m_sonnetDialog,SIGNAL(cancel()),this,SLOT(spellcheckCancel()));
+        connect(m_sonnetDialog, QOverload<const QString &>::of(&Sonnet::Dialog::done), this, &EditorTab::spellcheckNext);
+        connect(m_sonnetDialog, &Sonnet::Dialog::replace, this, &EditorTab::spellcheckReplace);
+        connect(m_sonnetDialog, &Sonnet::Dialog::stop, this, &EditorTab::spellcheckStop);
+        connect(m_sonnetDialog, &Sonnet::Dialog::cancel, this, &EditorTab::spellcheckCancel);
 
-        connect(m_sonnetDialog/*m_sonnetChecker*/,SIGNAL(misspelling(QString,int)),
-            this,SLOT(spellcheckShow(QString,int)));
+        connect(m_sonnetDialog/*m_sonnetChecker*/, &Sonnet::Dialog::misspelling, this, &EditorTab::spellcheckShow);
 //         disconnect(/*m_sonnetDialog*/m_sonnetChecker,SIGNAL(misspelling(QString,int)),
 //             m_sonnetDialog,SLOT(slotMisspelling(QString,int)));
 // 

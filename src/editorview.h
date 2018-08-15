@@ -66,10 +66,17 @@ public:
     void setProperFocus();
 
 public slots:
-    void gotoEntry(DocPosition pos=DocPosition(),int selection=0/*, bool updateHistory=true*/);
+    void gotoEntry(DocPosition pos, int selection/*, bool updateHistory=true*/);
+    void gotoEntry();
     void toggleApprovement();
     void setState(TargetState);
     void setEquivTrans(bool);
+    void settingsChanged();
+    void insertTerm(const QString&);
+    //workaround for qt ctrl+z bug
+    //Edit menu
+    void unwrap();
+    void unwrap(TranslationUnitTextEdit* editor);
 
 /*
     void dragEnterEvent(QDragEnterEvent* event);
@@ -102,17 +109,9 @@ signals:
     void replaceRequested();
     void doExplicitCompletion();
 
-
 private slots:
-    void settingsChanged();
     void resetFindForCurrent(const DocPosition& pos);
-
-    //Edit menu
-    void unwrap(TranslationUnitTextEdit* editor=0);
     void toggleBookmark(bool);
-    void insertTerm(const QString&);
-
-//workaround for qt ctrl+z bug
 };
 
 

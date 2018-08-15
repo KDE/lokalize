@@ -65,19 +65,19 @@ TMManagerWin::TMManagerWin(QWidget *parent)
     ui_tmManager.list->setRootIndex(DBFilesModel::instance()->rootIndex());
     m_tmListWidget=ui_tmManager.list;
 
-    connect(ui_tmManager.addData,  SIGNAL(clicked(bool)),this,SLOT(addDir()));
-    connect(ui_tmManager.create,   SIGNAL(clicked(bool)),this,SLOT(addDB()));
-    connect(ui_tmManager.importTMX,SIGNAL(clicked(bool)),this,SLOT(importTMX()));
-    connect(ui_tmManager.exportTMX,SIGNAL(clicked(bool)),this,SLOT(exportTMX()));
-    connect(ui_tmManager.remove,   SIGNAL(clicked(bool)),this,SLOT(removeDB()));
+    connect(ui_tmManager.addData, &QPushButton::clicked, this, &TMManagerWin::addDir);
+    connect(ui_tmManager.create, &QPushButton::clicked, this, &TMManagerWin::addDB);
+    connect(ui_tmManager.importTMX, &QPushButton::clicked, this, &TMManagerWin::importTMX);
+    connect(ui_tmManager.exportTMX, &QPushButton::clicked, this, &TMManagerWin::exportTMX);
+    connect(ui_tmManager.remove, &QPushButton::clicked, this, &TMManagerWin::removeDB);
 
-    QTimer::singleShot(100,this,SLOT(initLater()));
+    QTimer::singleShot(100, this, &TMManagerWin::initLater);
 }
 
 
 void TMManagerWin::initLater()
 {
-    connect(m_tmListWidget,SIGNAL(activated(QModelIndex)),this,SLOT(slotItemActivated(QModelIndex)));
+    connect(m_tmListWidget, &QTreeView::activated, this, &TMManagerWin::slotItemActivated);
 
     QPersistentModelIndex* projectDBIndex=DBFilesModel::instance()->projectDBIndex();
     if (projectDBIndex)
@@ -104,10 +104,10 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     setWindowTitle( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
 
     setupUi(this);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &DBPropertiesDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &DBPropertiesDialog::reject);
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-    connect(name, SIGNAL(textChanged(QString)), this, SLOT(feedbackRegardingAcceptable()));
+    connect(name, &QLineEdit::textChanged, this, &DBPropertiesDialog::feedbackRegardingAcceptable);
     name->setFocus();
 
     sourceLang->setModel(LanguageListModel::instance()->sortModel());
@@ -122,14 +122,14 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     }
     
     connectionBox->hide();
-    connect(dbType, SIGNAL(activated(int)), this, SLOT(setConnectionBoxVisible(int)));
+    connect(dbType, QOverload<int>::of(&QComboBox::activated), this, &DBPropertiesDialog::setConnectionBoxVisible);
     m_checkDelayer.setInterval(2000);
     m_checkDelayer.setSingleShot(true);
-    connect(&m_checkDelayer, SIGNAL(timeout()), this, SLOT(checkConnectionOptions()));
-    connect(this->dbName, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
-    connect(dbHost->lineEdit(), SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
-    connect(dbUser, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
-    connect(dbPasswd, SIGNAL(textChanged(QString)), &m_checkDelayer, SLOT(start()));
+    connect(&m_checkDelayer, &QTimer::timeout, this, &DBPropertiesDialog::checkConnectionOptions);
+    connect(this->dbName, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
+    connect(dbHost->lineEdit(), &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
+    connect(dbUser, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
+    connect(dbPasswd, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
 
     QStringList drivers=QSqlDatabase::drivers();
     if (drivers.contains("QPSQL"))
@@ -161,7 +161,7 @@ void DBPropertiesDialog::checkConnectionOptions()
     connParams.passwd=dbPasswd->text();
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
-    connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
+    connect(openDBJob, &OpenDBJob::done, this, &DBPropertiesDialog::openJobDone);
     threadPool()->start(openDBJob, OPENDB);
 }
 
@@ -209,7 +209,7 @@ void DBPropertiesDialog::accept()
     }
 
     OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
-    connect(openDBJob,SIGNAL(done(OpenDBJob*)),DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+    connect(openDBJob, &OpenDBJob::done, DBFilesModel::instance(), &DBFilesModel::updateProjectTmIndex);
 
     openDBJob->m_setParams=true;
     openDBJob->m_tmConfig.markup=markup->text();

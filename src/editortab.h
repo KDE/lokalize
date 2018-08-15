@@ -116,7 +116,8 @@ public:
     bool fileOpen(QString filePath=QString(), QString suggestedDirPath=QString(), bool silent=false);
 public slots:
     //for undo/redo, views
-    void gotoEntry(DocPosition pos,int selection=0);
+    void gotoEntry(DocPosition pos);
+    void gotoEntry(DocPosition pos, int selection);
 #ifdef qdbuscpp2xml
     Q_SCRIPTABLE void gotoEntry(int entry){gotoEntry(DocPosition(entry));}
     Q_SCRIPTABLE void gotoEntryForm(int entry,int form){gotoEntry(DocPosition(entry,form));}
@@ -216,7 +217,8 @@ private slots:
     void gotoEntry();
 
     void gotoPrevFuzzyUntr();
-    bool gotoNextFuzzyUntr(const DocPosition& pos=DocPosition());
+    bool gotoNextFuzzyUntr(const DocPosition& pos);
+    bool gotoNextFuzzyUntr();
     void gotoNextFuzzy();
     void gotoPrevFuzzy();
     void gotoNextUntranslated();

@@ -42,10 +42,10 @@ BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
     : QAbstractListModel(parent)
     , m_catalog(catalog)
 {
-    connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
-    connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(entryModified(DocPosition)));
+    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &BinUnitsModel::fileLoaded);
+    connect(catalog, &Catalog::signalEntryModified, this, &BinUnitsModel::entryModified);
 #ifndef NOKDE
-    connect(KDirWatch::self(),SIGNAL(dirty(QString)),this,SLOT(updateFile(QString)));
+    connect(KDirWatch::self(), &KDirWatch::dirty, this, &BinUnitsModel::updateFile);
 #endif
 }
 
@@ -173,9 +173,9 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
     m_view->setRootIsDecorated(false);
     m_view->setAlternatingRowColors(true);
     m_view->viewport()->setBackgroundRole(QPalette::Background);
-    connect(m_view,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(mouseDoubleClicked(QModelIndex)));
+    connect(m_view, &MyTreeView::doubleClicked, this, &BinUnitsView::mouseDoubleClicked);
 
-    connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
+    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &BinUnitsView::fileLoaded);
 }
 
 void BinUnitsView::fileLoaded()

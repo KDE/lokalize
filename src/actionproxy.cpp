@@ -39,7 +39,7 @@ ActionProxy::ActionProxy(QObject* parent,QObject* receiver,const char* slot)
     if (receiver)
         connect(this,SIGNAL(triggered(bool)),receiver,slot);
 
-    connect(this,SIGNAL(toggled(bool)),this,SLOT(handleToggled(bool)));
+    connect(this, &ActionProxy::toggled, this, &ActionProxy::handleToggled);
 }
 
 ActionProxy::~ActionProxy()

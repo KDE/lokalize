@@ -78,8 +78,10 @@ public slots:
     void currentChanged(int);
     void showEntryInEditor(const QByteArray& id);
     void showDefinitionForLang(int);
-    void newTermEntry(QString _english=QString(), QString _target=QString());
-    void rmTermEntry(int i=-1);
+    void newTermEntry(QString _english, QString _target);
+    void newTermEntry();
+    void rmTermEntry(int i);
+    void rmTermEntry();
     void restore();
     bool save();
     void applyEntryChange();

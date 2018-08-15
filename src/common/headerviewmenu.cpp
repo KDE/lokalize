@@ -28,7 +28,7 @@
 HeaderViewMenuHandler::HeaderViewMenuHandler(QHeaderView* headerView): QObject(headerView)
 {
     headerView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(headerView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(headerMenuRequested(QPoint)));
+    connect(headerView, &QHeaderView::customContextMenuRequested, this, &HeaderViewMenuHandler::headerMenuRequested);
 }
 
 void HeaderViewMenuHandler::headerMenuRequested(QPoint pos)
@@ -36,8 +36,8 @@ void HeaderViewMenuHandler::headerMenuRequested(QPoint pos)
     QHeaderView* headerView = static_cast<QHeaderView*>(parent());
     bool allowHiding = (headerView->count() - headerView->hiddenSectionCount()) > 1;
     QMenu* headerMenu = new QMenu(headerView);
-    connect(headerMenu, SIGNAL(aboutToHide()), headerMenu, SLOT(deleteLater()), Qt::QueuedConnection);
-    connect(headerMenu, SIGNAL(triggered(QAction*)), this, SLOT(headerMenuActionToggled(QAction*)));
+    connect(headerMenu, &QMenu::aboutToHide, headerMenu, &QMenu::deleteLater, Qt::QueuedConnection);
+    connect(headerMenu, &QMenu::triggered, this, &HeaderViewMenuHandler::headerMenuActionToggled);
     for (int i=0;i<headerView->count();++i)
     {
         QAction* a=headerMenu->addAction(headerView->model()->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());

@@ -42,8 +42,8 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChang
     setActivePhase(baseCatalog->activePhase(),baseCatalog->activePhaseRole());
     if (saveChanges)
     {
-        connect (baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
-        connect (baseCatalog,SIGNAL(signalFileSaved()),this,SLOT(save()));
+        connect(baseCatalog, &Catalog::signalEntryModified, this, &MergeCatalog::copyFromBaseCatalogIfInDiffIndex);
+        connect(baseCatalog, QOverload<>::of(&Catalog::signalFileSaved), this, &MergeCatalog::save);
     }
 }
 
@@ -323,7 +323,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
                 {
                     //stop basecatalog from sending signalEntryModified to us
                     //when we are the ones who does the modification
-                    disconnect (m_baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
+                    disconnect(m_baseCatalog, &Catalog::signalEntryModified, this, &MergeCatalog::copyFromBaseCatalogIfInDiffIndex);
                     insHappened=true;
                     m_baseCatalog->beginMacro(i18nc("@item Undo action item","Accept all new translations"));
                 }
@@ -344,7 +344,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
     {
         m_baseCatalog->endMacro();
         //reconnect to catch all modifications coming from outside
-        connect (m_baseCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(copyFromBaseCatalogIfInDiffIndex(DocPosition)));
+        connect(m_baseCatalog, &Catalog::signalEntryModified, this, &MergeCatalog::copyFromBaseCatalogIfInDiffIndex);
     }
 }
 

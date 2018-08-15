@@ -80,7 +80,8 @@ public slots:
     void openFile();
     void handleResults();
     void displayTotalResultCount();
-    void setQAMode(bool enabled=true);
+    void setQAMode();
+    void setQAMode(bool enabled);
 
 signals:
     void fileOpenRequested(const QString& url, const QString& source, const QString& ctxt);

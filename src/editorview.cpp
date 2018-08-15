@@ -114,27 +114,27 @@ EditorView::EditorView(QWidget *parent,Catalog* catalog/*,keyEventHandler* kh*/)
     m_sourceTextEdit->viewport()->setBackgroundRole(QPalette::Background);
 
 
-    connect (m_targetTextEdit, SIGNAL(contentsModified(DocPosition)), this, SLOT(resetFindForCurrent(DocPosition)));
-    connect (m_targetTextEdit, SIGNAL(toggleApprovementRequested()), this, SLOT(toggleApprovement()));
-    connect (this, SIGNAL(signalApprovedEntryDisplayed(bool)), m_targetTextEdit, SLOT(reflectApprovementState()));
-    connect (m_sourceTextEdit, SIGNAL(tagInsertRequested(InlineTag)), m_targetTextEdit, SLOT(insertTag(InlineTag)));
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::contentsModified, this, &EditorView::resetFindForCurrent);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::toggleApprovementRequested, this, &EditorView::toggleApprovement);
+    connect (this, &EditorView::signalApprovedEntryDisplayed, m_targetTextEdit, &TranslationUnitTextEdit::reflectApprovementState);
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::tagInsertRequested, m_targetTextEdit, &TranslationUnitTextEdit::insertTag);
 
-    connect (m_sourceTextEdit,  SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
-    connect (m_targetTextEdit, SIGNAL(binaryUnitSelectRequested(QString)), this, SIGNAL(binaryUnitSelectRequested(QString)));
-    connect (m_sourceTextEdit,  SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
-    connect (m_targetTextEdit, SIGNAL(gotoEntryRequested(DocPosition)), this, SIGNAL(gotoEntryRequested(DocPosition)));
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::binaryUnitSelectRequested, this, &EditorView::binaryUnitSelectRequested);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::binaryUnitSelectRequested, this, &EditorView::binaryUnitSelectRequested);
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::gotoEntryRequested, this, &EditorView::gotoEntryRequested);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::gotoEntryRequested, this, &EditorView::gotoEntryRequested);
 
-    connect (m_sourceTextEdit,  SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
-    connect (m_targetTextEdit, SIGNAL(tmLookupRequested(DocPosition::Part,QString)), this, SIGNAL(tmLookupRequested(DocPosition::Part,QString)));
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::tmLookupRequested, this, &EditorView::tmLookupRequested);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::tmLookupRequested, this, &EditorView::tmLookupRequested);
 
-    connect (m_sourceTextEdit,  SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
-    connect (m_targetTextEdit, SIGNAL(findRequested()),      this, SIGNAL(findRequested()));
-    connect (m_sourceTextEdit,  SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
-    connect (m_targetTextEdit, SIGNAL(findNextRequested()),  this, SIGNAL(findNextRequested()));
-    connect (m_sourceTextEdit,  SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
-    connect (m_targetTextEdit, SIGNAL(replaceRequested()),   this, SIGNAL(replaceRequested()));
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::findRequested, this, &EditorView::findRequested);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::findRequested, this, &EditorView::findRequested);
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::findNextRequested, this, &EditorView::findNextRequested);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::findNextRequested, this, &EditorView::findNextRequested);
+    connect (m_sourceTextEdit, &TranslationUnitTextEdit::replaceRequested, this, &EditorView::replaceRequested);
+    connect (m_targetTextEdit, &TranslationUnitTextEdit::replaceRequested, this, &EditorView::replaceRequested);
 
-    connect (this, SIGNAL(doExplicitCompletion()), m_targetTextEdit, SLOT(doExplicitCompletion()));
+    connect (this, &EditorView::doExplicitCompletion, m_targetTextEdit, &TranslationUnitTextEdit::doExplicitCompletion);
 
     addWidget(m_pluralTabBar);
     addWidget(m_sourceTextEdit);
@@ -168,19 +168,24 @@ void EditorView::settingsChanged()
     if (m_leds) m_leds->setVisible(Settings::leds());
     else if (Settings::leds())
     {
-        m_leds=new LedsWidget(this);
-        insertWidget(2,m_leds);
-        connect (m_targetTextEdit, SIGNAL(cursorPositionChanged(int)), m_leds, SLOT(cursorPositionChanged(int)));
-        connect (m_targetTextEdit, SIGNAL(nonApprovedEntryDisplayed()),m_leds->ledFuzzy, SLOT(on()));
-        connect (m_targetTextEdit, SIGNAL(approvedEntryDisplayed()),   m_leds->ledFuzzy, SLOT(off()));
-        connect (m_targetTextEdit, SIGNAL(untranslatedEntryDisplayed()),m_leds->ledUntr, SLOT(on()));
-        connect (m_targetTextEdit, SIGNAL(translatedEntryDisplayed()), m_leds->ledUntr, SLOT(off()));
+        m_leds = new LedsWidget(this);
+        insertWidget(2, m_leds);
+        connect (m_targetTextEdit, &TranslationUnitTextEdit::cursorPositionChanged, m_leds, &LedsWidget::cursorPositionChanged);
+        connect (m_targetTextEdit, &TranslationUnitTextEdit::nonApprovedEntryDisplayed,m_leds->ledFuzzy, &KLed::on);
+        connect (m_targetTextEdit, &TranslationUnitTextEdit::approvedEntryDisplayed, m_leds->ledFuzzy, &KLed::off);
+        connect (m_targetTextEdit, &TranslationUnitTextEdit::untranslatedEntryDisplayed,m_leds->ledUntr, &KLed::on);
+        connect (m_targetTextEdit, &TranslationUnitTextEdit::translatedEntryDisplayed, m_leds->ledUntr, &KLed::off);
         m_targetTextEdit->showPos(m_targetTextEdit->currentPos());
     }
 #endif
 }
 
 
+
+void EditorView::gotoEntry()
+{
+    return gotoEntry(DocPosition(), 0);
+}
 //main function in this file :)
 void EditorView::gotoEntry(DocPosition pos, int selection)
 {
@@ -261,6 +266,10 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 
 
 //BEGIN edit actions that are easier to do in this class
+void EditorView::unwrap()
+{
+    unwrap(0);
+}
 void EditorView::unwrap(TranslationUnitTextEdit* editor)
 {
     if (!editor)

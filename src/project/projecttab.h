@@ -60,7 +60,8 @@ public:
     void setLegacyUnitsCount(int to);
 
 signals:
-    void projectOpenRequested(QString path=QString());
+    void projectOpenRequested(QString path);
+    void projectOpenRequested();
 
     void fileOpenRequested(const QString&);
 

@@ -80,7 +80,7 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     QWidget* w=new QWidget(m_splitter);
     ui_queryControl->setupUi(w);
 
-    QTimer::singleShot(0,this,SLOT(initLater()));
+    QTimer::singleShot(0, this, &WebQueryView::initLater);
 }
 
 WebQueryView::~WebQueryView()
@@ -91,9 +91,9 @@ WebQueryView::~WebQueryView()
 
 void WebQueryView::initLater()
 {
-    connect(ui_queryControl->queryBtn,SIGNAL(clicked()),ui_queryControl->actionzView,SLOT(triggerSelectedActions()));
+    connect(ui_queryControl->queryBtn, &QPushButton::clicked, ui_queryControl->actionzView, &MyActionCollectionView::triggerSelectedActions);
 
-//     connect(this,SIGNAL(addWebQueryResult(const QString&)),m_flowLayout,SLOT(addWebQueryResult(const QString&)));
+//     connect(this, &WebQueryView::addWebQueryResult, m_flowLayout, SLOT(addWebQueryResult(const QString&)));
 //  ActionCollectionModel::Mode mode(
 //                                      ActionCollectionModel::Icons
 //                                     | ActionCollectionModel::ToolTips | ActionCollectionModel::UserCheckable );*/
@@ -110,12 +110,11 @@ void WebQueryView::initLater()
     int i=m_actions.size();
     while(--i>=0)
     {
-        connect(m_actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
+        connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
         signalMapper->setMapping(m_actions.at(i), i);
     }
-    connect(signalMapper, SIGNAL(mapped(int)),
-             this, SLOT(slotUseSuggestion(int)));
-    connect(m_browser,SIGNAL(selectionChanged()),this,SLOT(slotSelectionChanged()));
+    connect(signalMapper, QOverload<int>::of(&QSignalMapper::mapped), this, &WebQueryView::slotUseSuggestion);
+    connect(m_browser, &QTextBrowser::selectionChanged, this, &WebQueryView::slotSelectionChanged);
 
 }
 

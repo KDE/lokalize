@@ -85,7 +85,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     m_browser->setBackgroundRole(QPalette::Background);
 
     m_rxClean.setMinimal(true);
-    connect (m_glossary,SIGNAL(changed()),this,SLOT(slotNewEntryDisplayed()),Qt::QueuedConnection);
+    connect (m_glossary, &Glossary::changed, this, QOverload<>::of(&GlossaryView::slotNewEntryDisplayed), Qt::QueuedConnection);
 }
 
 GlossaryView::~GlossaryView()
@@ -106,6 +106,11 @@ GlossaryView::~GlossaryView()
 // {
 //         event->acceptProposedAction();*/
 // }
+
+void GlossaryView::slotNewEntryDisplayed()
+{
+    slotNewEntryDisplayed(DocPosition());
+}
 
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {

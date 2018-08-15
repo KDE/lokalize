@@ -180,8 +180,8 @@ QString getTargetLangCode(const QString& title, bool askUser)
     lc->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
     QDialogButtonBox* btn=new QDialogButtonBox(QDialogButtonBox::Ok, &dlg);
     l->addWidget(btn);
-    QObject::connect(btn, SIGNAL(accepted()), &dlg, SLOT(accept()));
-    QObject::connect(btn, SIGNAL(rejected()), &dlg, SLOT(reject()));
+    QObject::connect(btn, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+    QObject::connect(btn, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
 
     dlg.show();
     dlg.activateWindow(); //if we're called from another app

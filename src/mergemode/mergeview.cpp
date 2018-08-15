@@ -234,7 +234,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
         emit signalNextChangedAvailable(m_pos.entry<m_mergeCatalog->lastChangedIndex());
 
         //a bit hacky :)
-        connect (m_mergeCatalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(slotUpdate(DocPosition)));
+        connect(m_mergeCatalog, &MergeCatalog::signalEntryModified, this, &MergeView::slotUpdate);
 
         if (m_pos.entry!=-1)
             slotNewEntryDisplayed(m_pos);

@@ -116,18 +116,17 @@ Catalog::Catalog(QObject *parent)
 {
 #ifndef NOKDE
     //cause refresh events for files modified from lokalize itself aint delivered automatically
-    connect(this,SIGNAL(signalFileSaved(QString)),
-            Project::instance()->model(),SLOT(slotFileSaved(QString)),Qt::QueuedConnection);
+    connect(this, QOverload<const QString &>::of(&Catalog::signalFileSaved), Project::instance()->model(), QOverload<const QString &>::of(&ProjectModel::slotFileSaved),Qt::QueuedConnection);
 
     QTimer* t=&(d._autoSaveTimer);
     t->setInterval(2*60*1000);
     t->setSingleShot(false);
     connect(t, &QTimer::timeout, this, &Catalog::doAutoSave);
-    connect(this,SIGNAL(signalFileSaved()),   t,SLOT(start()));
-    connect(this,SIGNAL(signalFileLoaded()),  t,SLOT(start()));
+    connect(this, QOverload<>::of(&Catalog::signalFileSaved), t, QOverload<>::of(&QTimer::start));
+    connect(this, QOverload<>::of(&Catalog::signalFileLoaded), t, QOverload<>::of(&QTimer::start));
     connect(this, &Catalog::indexChanged, this, &Catalog::setAutoSaveDirty);
 #endif
-    connect(Project::local(),SIGNAL(configChanged()),this,SLOT(projectConfigChanged()));
+    connect(Project::local(), &Project::configChanged, this, &Catalog::projectConfigChanged);
 }
 
 Catalog::~Catalog()
@@ -798,7 +797,7 @@ void Catalog::flushUpdateDBBuffer()
         if(!TM::DBFilesModel::instance()->m_configurations.contains(dbName))
         {
             TM::OpenDBJob* openDBJob=new TM::OpenDBJob(dbName, TM::Local, true);
-            connect(openDBJob,SIGNAL(done(OpenDBJob*)),TM::DBFilesModel::instance(),SLOT(updateProjectTmIndex()));
+            connect(openDBJob, &TM::OpenDBJob::done, TM::DBFilesModel::instance(), &TM::DBFilesModel::updateProjectTmIndex);
 
             openDBJob->m_setParams=true;
             openDBJob->m_tmConfig.markup=Project::instance()->markup();

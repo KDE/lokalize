@@ -91,7 +91,7 @@ void WebQueryController::doDownloadAndFilter(QString urlStr, QString _codec, QSt
 
     qCWarning(LOKALIZE_LOG)<<"_real url: "<<url.toString();
     KIO::StoredTransferJob* readJob = KIO::storedGet(url, KIO::NoReload, KIO::HideProgressInfo);
-    connect(readJob,SIGNAL(result(KJob*)),this,SLOT(slotDownloadResult(KJob*)));
+    connect(readJob, &KIO::StoredTransferJob::result, this, &WebQueryController::slotDownloadResult);
     readJob->setAutoDelete(false);//HACK HACK HACK
 
     codec=QTextCodec::codecForName(_codec.toUtf8());
@@ -126,11 +126,9 @@ void WebQueryController::setResult(QString result)
 {
     //webQueryView may be deleted before we get result...
     WebQueryView* a=m_queue.dequeue().webQueryView;
-    connect (this,SIGNAL(addWebQueryResult(const QString&,const QString&)),
-             a,SLOT(addWebQueryResult(const QString&,const QString&)));
+    connect (this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
     emit addWebQueryResult(m_name,result);
-    disconnect (this,SIGNAL(addWebQueryResult(const QString&,const QString&)),
-             a,SLOT(addWebQueryResult(const QString&,const QString&)));
+    disconnect (this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
 
     if(!m_queue.isEmpty())
     {

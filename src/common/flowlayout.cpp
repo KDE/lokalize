@@ -37,6 +37,8 @@
 
 #include "termlabel.h"
 
+#include "glossaryview.h"
+
 #include <QAction>
 
 using namespace GlossaryNS;
@@ -59,8 +61,8 @@ FlowLayout::FlowLayout(User user,
         foreach (QAction* action, actions)
         {
             TermLabel* label=new TermLabel(action); /*this,m_keys.at(count())*/
-            connect(action,SIGNAL(triggered(bool)),label,SLOT(insert()));
-            connect(label,SIGNAL(insertTerm(QString)),m_receiver,SIGNAL(termInsertRequested(QString)));
+            connect(action, &QAction::triggered, label, &GlossaryNS::TermLabel::insert);
+            connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
             label->hide();
             addWidget(label);
         }
@@ -183,7 +185,7 @@ void FlowLayout::addTerm(const QString& term, const QByteArray& entryId, bool ca
     while (m_index>=count())
     {
         TermLabel* label=new TermLabel;
-        connect(label,SIGNAL(insertTerm(QString)),m_receiver,SIGNAL(termInsertRequested(QString)));
+        connect(label, &TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
         addWidget(label);
     }
     TermLabel* label=static_cast<TermLabel*>(itemAt(m_index)->widget());

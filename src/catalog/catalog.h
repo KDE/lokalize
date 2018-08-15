@@ -201,16 +201,15 @@ public slots: //DBus interface
     QString sourceLangCode() const;
     QString targetLangCode() const;
     void setTargetLangCode(const QString& targetLangCode);
-
-protected:
-    virtual KAutoSaveFile* checkAutoSave(const QString& url);
-
-protected slots:
     /**
      * updates DB for _posBuffer and accompanying _originalForLastModified
      */
     void flushUpdateDBBuffer();
 
+protected:
+    virtual KAutoSaveFile* checkAutoSave(const QString& url);
+
+protected slots:
     void doAutoSave();
     void setAutoSaveDirty(){d._autoSaveDirty=true;}
     

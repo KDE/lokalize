@@ -62,7 +62,7 @@ AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<QActi
 
     m_browser->setReadOnly(true);
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
-    QTimer::singleShot(0,this,SLOT(initLater()));
+    QTimer::singleShot(0, this, &AltTransView::initLater);
 }
 
 void AltTransView::initLater()
@@ -80,13 +80,13 @@ void AltTransView::initLater()
     int i=m_actions.size();
     while(--i>=0)
     {
-        connect(m_actions.at(i),SIGNAL(triggered()),signalMapper,SLOT(map()));
+        connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
         signalMapper->setMapping(m_actions.at(i), i);
     }
-    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(slotUseSuggestion(int)));
+    connect(signalMapper, QOverload<int>::of(&QSignalMapper::mapped), this, &AltTransView::slotUseSuggestion);
 
-    connect(m_browser,SIGNAL(textInsertRequested(QString)),this,SIGNAL(textInsertRequested(QString)));
-    //connect(m_browser,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(contextMenu(QPoint)));
+    connect(m_browser, &TM::TextBrowser::textInsertRequested, this, &AltTransView::textInsertRequested);
+    //connect(m_browser, &TM::TextBrowser::customContextMenuRequested, this, &AltTransView::contextMenu);
 }
 
 AltTransView::~AltTransView()
@@ -106,7 +106,7 @@ void AltTransView::dropEvent(QDropEvent *event)
 
     //update
     m_prevEntry.entry=-1;
-    QTimer::singleShot(0,this,SLOT(process()));
+    QTimer::singleShot(0, this, &AltTransView::process);
 }
 
 void AltTransView::attachAltTransFile(const QString& path)
@@ -123,7 +123,7 @@ void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool
     m_catalog->attachAltTrans(entry, altTrans);
 
     m_prevEntry=DocPos();
-    QTimer::singleShot(0,this,SLOT(process()));
+    QTimer::singleShot(0, this, &AltTransView::process);
 }
 
 void AltTransView::fileLoaded()
@@ -142,7 +142,7 @@ void AltTransView::fileLoaded()
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
 {
     m_entry=DocPos(pos);
-    QTimer::singleShot(0,this,SLOT(process()));
+    QTimer::singleShot(0, this, &AltTransView::process);
 }
 
 void AltTransView::process()

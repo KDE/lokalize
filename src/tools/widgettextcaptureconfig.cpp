@@ -43,9 +43,9 @@ WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
     ui->clipboard->setChecked(copyWidgetText && copyWidgetTextCommand.isEmpty());
     ui->search->setChecked(copyWidgetText && !copyWidgetTextCommand.isEmpty());
 
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-    connect(this,SIGNAL(accepted()),this,SLOT(writeConfig()));
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &WidgetTextCaptureConfig::accept);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &WidgetTextCaptureConfig::reject);
+    connect(this, &WidgetTextCaptureConfig::accepted, this, &WidgetTextCaptureConfig::writeConfig);
 }
 
 WidgetTextCaptureConfig::~WidgetTextCaptureConfig()

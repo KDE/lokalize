@@ -195,7 +195,7 @@ GlossaryModel::GlossaryModel(QObject* parent)
  , m_visibleCount(0)
  , m_glossary(Project::instance()->glossary())
 {
-    connect(m_glossary, SIGNAL(loaded()), this, SLOT(forceReset()));
+    connect(m_glossary, &Glossary::loaded, this, &GlossaryModel::forceReset);
 }
 
 void GlossaryModel::forceReset()

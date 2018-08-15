@@ -84,10 +84,10 @@ ProjectTab::ProjectTab(QWidget *parent)
     QPushButton* openProject = new QPushButton(i18nc("@action:inmenu","Open project"), welcomeWidget);
     QPushButton* createProject = new QPushButton(i18nc("@action:inmenu","Translate software"), welcomeWidget);
     QPushButton* createOdfProject = new QPushButton(i18nc("@action:inmenu","Translate OpenDocument"), welcomeWidget);
-    connect(conf, SIGNAL(clicked(bool)), SettingsController::instance(),SLOT(showSettingsDialog()));
-    connect(openProject, SIGNAL(clicked(bool)), this, SIGNAL(projectOpenRequested()));
-    connect(createProject, SIGNAL(clicked(bool)), SettingsController::instance(), SLOT(projectCreate()));
-    connect(createOdfProject, SIGNAL(clicked(bool)), Project::instance(), SLOT(projectOdfCreate()));
+    connect(conf, &QPushButton::clicked, SettingsController::instance(),&SettingsController::showSettingsDialog);
+    connect(openProject, &QPushButton::clicked, this, QOverload<>::of(&ProjectTab::projectOpenRequested));
+    connect(createProject, &QPushButton::clicked, SettingsController::instance(), &SettingsController::projectCreate);
+    connect(createOdfProject, &QPushButton::clicked, Project::instance(), &Project::projectOdfCreate);
     QHBoxLayout* wbtnl=new QHBoxLayout();
     wbtnl->addStretch(1);
     wbtnl->addWidget(conf);
@@ -109,7 +109,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     QWidget* w=new QWidget(this);
     m_stackedLayout->addWidget(welcomeWidget);
     m_stackedLayout->addWidget(w);
-    connect(Project::instance(), SIGNAL(loaded()), this, SLOT(showRealProjectOverview()));
+    connect(Project::instance(), &Project::loaded, this, &ProjectTab::showRealProjectOverview);
     if (Project::instance()->isLoaded()) //for --project cmd option
         showRealProjectOverview();
 
@@ -119,15 +119,14 @@ ProjectTab::ProjectTab(QWidget *parent)
     m_filterEdit->setClearButtonEnabled(true);
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")%' '%i18nc("@info:tooltip","Accepts regular expressions"));
-    connect (m_filterEdit,SIGNAL(textChanged(QString)),this,SLOT(setFilterRegExp()),Qt::QueuedConnection);
+    connect (m_filterEdit, &QLineEdit::textChanged, this, &ProjectTab::setFilterRegExp, Qt::QueuedConnection);
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
-    connect(m_browser,SIGNAL(fileOpenRequested(QString)),this,SIGNAL(fileOpenRequested(QString)));
-    connect(Project::instance()->model(), SIGNAL(totalsChanged(int,int,int,bool)),
-            this, SLOT(updateStatusBar(int,int,int,bool)));
-    connect(Project::instance()->model(),SIGNAL(loadingAboutToStart()),this,SLOT(initStatusBarProgress()));
+    connect(m_browser, &ProjectWidget::fileOpenRequested, this, &ProjectTab::fileOpenRequested);
+    connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &ProjectTab::updateStatusBar);
+    connect(Project::instance()->model(), &ProjectModel::loadingAboutToStart, this, &ProjectTab::initStatusBarProgress);
 
     setCentralWidget(baseWidget);
     QStatusBar* statusBar = static_cast<LokalizeSubwindowBase2*>(parent)->statusBar();
@@ -150,34 +149,34 @@ ProjectTab::ProjectTab(QWidget *parent)
     KActionCategory* nav=new KActionCategory(i18nc("@title actions category","Navigation"), ac);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageUp,"prevfuzzyuntrans")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzyUntr()) );
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzyUntr);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzyUntr",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next not ready"),Qt::CTRL+Qt::SHIFT+Qt::Key_PageDown,"nextfuzzyuntrans")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzyUntr()) );
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzyUntr);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Previous non-empty but not ready"),Qt::CTRL+Qt::Key_PageUp,"prevfuzzy")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevFuzzy()) );
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevFuzzy);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_fuzzy",i18nc("@action:inmenu\n'not ready' means 'fuzzy' in gettext terminology","Next non-empty but not ready"),Qt::CTRL+Qt::Key_PageDown,"nextfuzzy")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextFuzzy()) );
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoNextFuzzy);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_untrans",i18nc("@action:inmenu","Previous untranslated"),Qt::ALT+Qt::Key_PageUp,"prevuntranslated")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevUntranslated()));
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevUntranslated);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_untrans",i18nc("@action:inmenu","Next untranslated"),Qt::ALT+Qt::Key_PageDown,"nextuntranslated")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextUntranslated()));
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoNextUntranslated);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_templateOnly",i18nc("@action:inmenu","Previous template only"),Qt::CTRL+Qt::Key_Up,"prevtemplate")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevTemplateOnly()));
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTemplateOnly);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_templateOnly",i18nc("@action:inmenu","Next template only"),Qt::CTRL+Qt::Key_Down,"nexttemplate")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTemplateOnly()));
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTemplateOnly);
 
     ADD_ACTION_SHORTCUT_ICON("go_prev_transOnly",i18nc("@action:inmenu","Previous translation only"),Qt::ALT+Qt::Key_Up,"prevpo")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoPrevTransOnly()));
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoPrevTransOnly);
 
     ADD_ACTION_SHORTCUT_ICON("go_next_transOnly",i18nc("@action:inmenu","Next translation only"),Qt::ALT+Qt::Key_Down,"nextpo")
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
+    connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
 
     action=nav->addAction(QStringLiteral("toggle_translated_files"));
     action->setText(i18nc("@action:inmenu","Hide completed items"));
@@ -188,13 +187,13 @@ ProjectTab::ProjectTab(QWidget *parent)
     connect(action, &QAction::triggered, this, &ProjectTab::toggleTranslatedFiles);
 
     //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::ALT+Qt::Key_Down,"nextpo")
-    //connect( action, SIGNAL(triggered(bool)), this, SLOT(gotoNextTransOnly()));
-    action=nav->addAction(KStandardAction::Find,this,SLOT(searchInFiles()));
+    //connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
+    action=nav->addAction(KStandardAction::Find, this, SLOT(searchInFiles()));
 
     KActionCategory* proj=new KActionCategory(i18nc("@title actions category","Project"), ac);
 
-    action = proj->addAction(QStringLiteral("project_open"),this,SIGNAL(projectOpenRequested()));
-    action->setText(i18nc("@action:inmenu","Open project"));
+    action = proj->addAction(QStringLiteral("project_open"), this, SIGNAL(projectOpenRequested()));
+    action->setText(i18nc("@action:inmenu", "Open project"));
     action->setIcon(QIcon::fromTheme("project-open"));
     
     int i=6;
@@ -243,7 +242,7 @@ void ProjectTab::setFilterRegExp()
 void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu* menu=new QMenu(this);
-    connect(menu,SIGNAL(aboutToHide()),menu,SLOT(deleteLater()));
+    connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
 
     if (m_browser->currentIsTranslationFile())
     {

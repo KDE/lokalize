@@ -241,17 +241,16 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_filterEdit->setFocus();
     m_filterEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
     new QShortcut(Qt::CTRL+Qt::Key_L,this,SLOT(setFocus()),0,Qt::WidgetWithChildrenShortcut);
-    connect (m_filterEdit,SIGNAL(textChanged(QString)),
-             m_proxyModel,SLOT(setFilterRegExp(QString)));
+    connect (m_filterEdit, &QLineEdit::textChanged, m_proxyModel, &GlossaryNS::GlossarySortFilterProxyModel::setFilterRegExp);
 
     layout->addWidget(m_filterEdit);
     layout->addWidget(m_browser);
     {
         QPushButton* addBtn=new QPushButton(w);
-        connect(addBtn,SIGNAL(clicked()),       this,SLOT(newTermEntry()));
+        connect(addBtn, &QPushButton::clicked, this, QOverload<>::of(&GlossaryWindow::newTermEntry));
 
         QPushButton* rmBtn=new QPushButton(w);
-        connect(rmBtn,SIGNAL(clicked()),        this,SLOT(rmTermEntry()));
+        connect(rmBtn, &QPushButton::clicked, this, QOverload<>::of(&GlossaryWindow::rmTermEntry));
 #ifndef NOKDE
         KGuiItem::assign(addBtn, KStandardGuiItem::add());
         KGuiItem::assign( rmBtn, KStandardGuiItem::remove());
@@ -261,7 +260,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
 #endif
         QPushButton* restoreBtn=new QPushButton(i18nc("@action:button reloads glossary from disk","Restore from disk"),w);
         restoreBtn->setToolTip(i18nc("@info:tooltip","Reload glossary from disk, discarding any changes"));
-        connect(restoreBtn,SIGNAL(clicked()),   this,SLOT(restore()));
+        connect(restoreBtn, &QPushButton::clicked, this, &GlossaryWindow::restore);
 
         QWidget* btns=new QWidget(w);
         QHBoxLayout* btnsLayout=new QHBoxLayout(btns);
@@ -294,10 +293,10 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     ui_termEdit.sourceTermsView->setModel(m_sourceTermsModel);
     ui_termEdit.targetTermsView->setModel(m_targetTermsModel);
     
-    connect(ui_termEdit.addEngTerm, SIGNAL(clicked(bool)), ui_termEdit.sourceTermsView, SLOT(addTerm()));
-    connect(ui_termEdit.remEngTerm, SIGNAL(clicked(bool)), ui_termEdit.sourceTermsView, SLOT(rmTerms()));
-    connect(ui_termEdit.addTargetTerm, SIGNAL(clicked(bool)), ui_termEdit.targetTermsView, SLOT(addTerm()));
-    connect(ui_termEdit.remTargetTerm, SIGNAL(clicked(bool)), ui_termEdit.targetTermsView, SLOT(rmTerms()));
+    connect(ui_termEdit.addEngTerm, &QToolButton::clicked, ui_termEdit.sourceTermsView, &TermListView::addTerm);
+    connect(ui_termEdit.remEngTerm, &QToolButton::clicked, ui_termEdit.sourceTermsView, &TermListView::rmTerms);
+    connect(ui_termEdit.addTargetTerm, &QToolButton::clicked, ui_termEdit.targetTermsView, &TermListView::addTerm);
+    connect(ui_termEdit.remTargetTerm, &QToolButton::clicked, ui_termEdit.targetTermsView, &TermListView::rmTerms);
 
     m_sourceTermsView=ui_termEdit.sourceTermsView;
     m_targetTermsView=ui_termEdit.targetTermsView;
@@ -310,7 +309,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //connect (m_definition,SIGNAL(editingFinished()),this,SLOT(applyEntryChange()));
     //connect (m_definition,SIGNAL(textChanged()),this,SLOT(applyEntryChange()));
     //connect (m_subjectField,SIGNAL(editTextChanged(QString)),this,SLOT(applyEntryChange()));
-    connect (m_subjectField->lineEdit(),SIGNAL(editingFinished()),this,SLOT(applyEntryChange()));
+    connect (m_subjectField->lineEdit(), &QLineEdit::editingFinished, this, &GlossaryWindow::applyEntryChange);
 
 
     //m_subjectField->addItems(Project::instance()->glossary()->subjectFields());
@@ -320,10 +319,10 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     QStringListModel* subjectFieldsModel=new QStringListModel(this);
     subjectFieldsModel->setStringList(subjectFields);
     m_subjectField->setModel(subjectFieldsModel);
-    connect(m_browser,SIGNAL(currentChanged(int)), this,SLOT(currentChanged(int)));
-    connect(m_browser,SIGNAL(currentChanged(QByteArray)), this,SLOT(showEntryInEditor(QByteArray)));
+    connect(m_browser, QOverload<int>::of(&GlossaryTreeView::currentChanged), this, &GlossaryWindow::currentChanged);
+    connect(m_browser, QOverload<const QByteArray &>::of(&GlossaryTreeView::currentChanged), this, &GlossaryWindow::showEntryInEditor);
 
-    connect(m_definitionLang, SIGNAL(activated(int)), this, SLOT(showDefinitionForLang(int)));
+    connect(m_definitionLang, QOverload<int>::of(&KComboBox::activated), this, &GlossaryWindow::showDefinitionForLang);
     m_definitionLang->setModel(LanguageListModel::emptyLangInstance()->sortModel());
     m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(m_defLang));//empty lang
 
@@ -459,6 +458,11 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     }
 }
 
+void GlossaryWindow::newTermEntry()
+{
+    newTermEntry(QString(), QString());
+}
+
 void GlossaryWindow::newTermEntry(QString _english, QString _target)
 {
     setCaption(i18nc("@title:window","Glossary"),true);
@@ -467,6 +471,11 @@ void GlossaryWindow::newTermEntry(QString _english, QString _target)
     QByteArray id=sourceModel->appendRow(_english,_target);
 
     selectEntry(id);
+}
+
+void GlossaryWindow::rmTermEntry()
+{
+    rmTermEntry(-1);
 }
 
 void GlossaryWindow::rmTermEntry(int i)

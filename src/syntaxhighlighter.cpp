@@ -104,7 +104,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
     //spaces
     settingsChanged();
-    connect(SettingsController::instance(),SIGNAL(generalSettingsChanged()),this, SLOT(settingsChanged()));
+    connect(SettingsController::instance(), &SettingsController::generalSettingsChanged, this, &SyntaxHighlighter::settingsChanged);
 
 }
 

@@ -49,16 +49,16 @@ QaView::QaView(QWidget* parent)
     m_browser->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QAction* action=new QAction(i18nc("@action:inmenu", "Add"), m_browser);
-    connect(action, SIGNAL(triggered()), this, SLOT(addRule()));
+    connect(action, &QAction::triggered, this, &QaView::addRule);
     m_browser->addAction(action);
 
     action=new QAction(i18nc("@action:inmenu", "Remove"), m_browser);
-    connect(action, SIGNAL(triggered()), this, SLOT(removeRule()));
+    connect(action, &QAction::triggered, this, &QaView::removeRule);
     m_browser->addAction(action);
     
     m_browser->setAlternatingRowColors(true);
     
-    connect(m_qaModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SIGNAL(rulesChanged()));
+    connect(m_qaModel, &QaModel::dataChanged, this, &QaView::rulesChanged);
 }
 
 QaView::~QaView()

@@ -81,10 +81,10 @@ NoteEditor::NoteEditor(QWidget* parent)
     box->button(QDialogButtonBox::Save)->setToolTip(i18n("Ctrl+Enter"));
     box->button(QDialogButtonBox::Discard)->setToolTip(i18n("Esc"));
 
-    connect(m_edit,SIGNAL(accepted()),this,SIGNAL(accepted()));
-    connect(m_edit,SIGNAL(rejected()),this,SIGNAL(rejected()));
-    connect(box->button(QDialogButtonBox::Save),SIGNAL(clicked()),this,SIGNAL(accepted()));
-    connect(box->button(QDialogButtonBox::Discard),SIGNAL(clicked()),this,SIGNAL(rejected()));
+    connect(m_edit, &TextEdit::accepted, this, &NoteEditor::accepted);
+    connect(m_edit, &TextEdit::rejected, this, &NoteEditor::rejected);
+    connect(box->button(QDialogButtonBox::Save), &QPushButton::clicked, this, &NoteEditor::accepted);
+    connect(box->button(QDialogButtonBox::Discard), &QPushButton::clicked, this, &NoteEditor::rejected);
 
     main->addWidget(box);
 }

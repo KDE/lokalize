@@ -160,12 +160,12 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                 "source_strings.source_accel, target_strings.target_accel, main.bits ")
                 +fromPart,m_dbName);
 
-    connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
+    connect(job, &ExecQueryJob::done, this, &TMDBModel::slotQueryExecuted);
     threadPool()->start(job);
 
 
     job=new ExecQueryJob(QStringLiteral("SELECT count(*) ")+fromPart,m_dbName);
-    connect(job,SIGNAL(done(ExecQueryJob*)),this,SLOT(slotQueryExecuted(ExecQueryJob*)));
+    connect(job, &ExecQueryJob::done, this, &TMDBModel::slotQueryExecuted);
     threadPool()->start(job);
     
     m_totalResultCount=0;
@@ -412,14 +412,14 @@ TMTab::TMTab(QWidget *parent)
     setCentralWidget(w);
     ui_queryOptions->queryLayout->setStretchFactor(ui_queryOptions->mainQueryLayout,42);
 
-    connect(ui_queryOptions->querySource,SIGNAL(returnPressed()),this,SLOT(performQuery()));
-    connect(ui_queryOptions->queryTarget,SIGNAL(returnPressed()),this,SLOT(performQuery()));
-    connect(ui_queryOptions->filemask,SIGNAL(returnPressed()),   this,SLOT(performQuery()));
-    connect(ui_queryOptions->doFind,SIGNAL(clicked()),           this,SLOT(performQuery()));
-    connect(ui_queryOptions->doUpdateTM,SIGNAL(clicked()),       this,SLOT(updateTM()));
+    connect(ui_queryOptions->querySource, &QLineEdit::returnPressed, this, &TMTab::performQuery);
+    connect(ui_queryOptions->queryTarget, &QLineEdit::returnPressed, this, &TMTab::performQuery);
+    connect(ui_queryOptions->filemask, &QLineEdit::returnPressed, this, &TMTab::performQuery);
+    connect(ui_queryOptions->doFind, &QPushButton::clicked, this, &TMTab::performQuery);
+    connect(ui_queryOptions->doUpdateTM, &QPushButton::clicked, this, &TMTab::updateTM);
 
     QShortcut* sh=new QShortcut(Qt::CTRL+Qt::Key_L, this);
-    connect(sh,SIGNAL(activated()),ui_queryOptions->querySource,SLOT(setFocus()));
+    connect(sh, &QShortcut::activated, ui_queryOptions->querySource, QOverload<>::of(&QLineEdit::setFocus));
     setFocusProxy(ui_queryOptions->querySource);
 
     QTreeView* view=ui_queryOptions->treeView;
@@ -428,20 +428,20 @@ TMTab::TMTab(QWidget *parent)
     QAction* a=new QAction(i18n("Copy source to clipboard"),view);
     a->setShortcut(Qt::CTRL + Qt::Key_S);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(copySource()));
+    connect(a, &QAction::triggered, this, &TMTab::copySource);
     view->addAction(a);
 
     a=new QAction(i18n("Copy target to clipboard"),view);
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(copyTarget()));
+    connect(a, &QAction::triggered, this, &TMTab::copyTarget);
     view->addAction(a);
 
     a=new QAction(i18n("Open file"),view);
     a->setShortcut(QKeySequence(Qt::Key_Return));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    connect(a,SIGNAL(triggered()), this, SLOT(openFile()));
-    connect(view,SIGNAL(activated(QModelIndex)), this, SLOT(openFile()));
+    connect(a, &QAction::triggered, this, &TMTab::openFile);
+    connect(view, &QTreeView::activated, this, &TMTab::openFile);
     view->addAction(a);
 
     //view->addAction(KStandardAction::copy(this),this,SLOT(),this);
@@ -470,25 +470,25 @@ TMTab::TMTab(QWidget *parent)
     richTextColumns[TMDBModel::Source]=true;
     richTextColumns[TMDBModel::Target]=true;
     view->setItemDelegate(new FastSizeHintItemDelegate(this,singleLineColumns,richTextColumns));
-    connect(m_model,SIGNAL(resultsFetched()),view->itemDelegate(),SLOT(reset()));
-    connect(m_model,SIGNAL(modelReset()),view->itemDelegate(),SLOT(reset()));
+    connect(m_model, &TMDBModel::resultsFetched, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
+    connect(m_model, &TMDBModel::modelReset, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
     //connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
-    connect(m_proxyModel,SIGNAL(layoutChanged()),view->itemDelegate(),SLOT(reset()));
-    connect(m_proxyModel,SIGNAL(layoutChanged()),this,SLOT(displayTotalResultCount()));
+    connect(m_proxyModel, &TMResultsSortFilterProxyModel::layoutChanged, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
+    connect(m_proxyModel, &TMResultsSortFilterProxyModel::layoutChanged, this, &TMTab::displayTotalResultCount);
 
 
-    connect(m_model,SIGNAL(resultsFetched()),this,SLOT(handleResults()));
-    connect(m_model,SIGNAL(finalResultCountFetched(int)),this,SLOT(displayTotalResultCount()));
+    connect(m_model, &TMDBModel::resultsFetched, this, &TMTab::handleResults);
+    connect(m_model, &TMDBModel::finalResultCountFetched, this, &TMTab::displayTotalResultCount);
 
     ui_queryOptions->queryStyle->setModel(new QueryStylesModel(this));
-    connect(ui_queryOptions->queryStyle,SIGNAL(currentIndexChanged(int)),m_model,SLOT(setQueryType(int)));
+    connect(ui_queryOptions->queryStyle, QOverload<int>::of(&KComboBox::currentIndexChanged), m_model, &TMDBModel::setQueryType);
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
     int pos=ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
     if (pos>=0)
         ui_queryOptions->dbName->setCurrentIndex(pos);
-    connect(ui_queryOptions->dbName, SIGNAL(currentIndexChanged(QString)), m_model, SLOT(setDB(QString)));
+    connect(ui_queryOptions->dbName, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), m_model, &TMDBModel::setDB);
     //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
 //BEGIN resizeColumnToContents
@@ -511,7 +511,7 @@ TMTab::TMTab(QWidget *parent)
     KActionCollection* ac=actionCollection();
     KActionCategory* tm=new KActionCategory(i18nc("@title actions category","Translation Memory"), ac);
 
-    action = tm->addAction(QStringLiteral("tools_tm_manage"),Project::instance(),SLOT(showTMManager()));
+    action = tm->addAction(QStringLiteral("tools_tm_manage"), Project::instance(), SLOT(showTMManager()));
     action->setText(i18nc("@action:inmenu","Manage translation memories"));
 
     m_qaView = new QaView(this);
@@ -519,8 +519,8 @@ TMTab::TMTab(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
     tm->addAction( QStringLiteral("showqa_action"), m_qaView->toggleViewAction() );
 
-    connect(m_qaView, SIGNAL(rulesChanged()), this, SLOT(setQAMode()));
-    connect(m_qaView->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setQAMode(bool)));
+    connect(m_qaView, &QaView::rulesChanged, this, QOverload<>::of(&TMTab::setQAMode));
+    connect(m_qaView->toggleViewAction(), &QAction::toggled, this, QOverload<bool>::of(&TMTab::setQAMode));
 
 
 #ifndef NOKDE
@@ -640,7 +640,10 @@ void TMTab::openFile()
                            item.sibling(item.row(),TMDBModel::Context).data().toString());
 }
 
-
+void TMTab::setQAMode()
+{
+    return setQAMode(true);
+}
 
 void TMTab::setQAMode(bool enable)
 {

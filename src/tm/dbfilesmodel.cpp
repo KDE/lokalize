@@ -74,11 +74,9 @@ DBFilesModel::DBFilesModel()
     m_fileSystemModel->setRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
 
     setSourceModel(m_fileSystemModel);
-    connect (this,SIGNAL(rowsInserted(QModelIndex,int,int)),
-             this,SLOT(calcStats(QModelIndex,int,int))/*,Qt::QueuedConnection*/);
+    connect (this, &DBFilesModel::rowsInserted, this, &DBFilesModel::calcStats/*,Qt::QueuedConnection*/);
 
-    connect (this,SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-             this,SLOT(updateStats(QModelIndex,QModelIndex)),Qt::QueuedConnection);
+    connect (this, &DBFilesModel::dataChanged, this, &DBFilesModel::updateStats, Qt::QueuedConnection);
     m_timeSinceLastUpdate.start();
 
     int count=rowCount(rootIndex());
@@ -142,7 +140,7 @@ void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentPro
 
 void DBFilesModel::openDB(OpenDBJob* openDBJob)
 {
-    connect(openDBJob,SIGNAL(done(OpenDBJob*)),this,SLOT(openJobDone(OpenDBJob*)));
+    connect(openDBJob, &OpenDBJob::done, this, &DBFilesModel::openJobDone);
     threadPool()->start(openDBJob, OPENDB);
 }
 
@@ -188,7 +186,7 @@ void DBFilesModel::removeTM ( QModelIndex index )
 {
     index=index.sibling(index.row(),0);
     CloseDBJob* closeDBJob=new CloseDBJob(index.data().toString());
-    connect(closeDBJob,SIGNAL(done(CloseDBJob*)),this,SLOT(closeJobDone(CloseDBJob*)));
+    connect(closeDBJob, &CloseDBJob::done, this, &DBFilesModel::closeJobDone);
     threadPool()->start(closeDBJob, CLOSEDB);
 }
 

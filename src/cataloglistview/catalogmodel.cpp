@@ -60,8 +60,8 @@ CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
         m_fonts.reserve(4);
         for(int i=0;i<4;i++) m_fonts<<fonts.at(i);
     }
-    connect(catalog,SIGNAL(signalEntryModified(DocPosition)),this,SLOT(reflectChanges(DocPosition)));
-    connect(catalog,SIGNAL(signalFileLoaded()),this,SLOT(fileLoaded()));
+    connect(catalog, &Catalog::signalEntryModified, this, &CatalogTreeModel::reflectChanges);
+    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &CatalogTreeModel::fileLoaded);
 }
 
 QModelIndex CatalogTreeModel::index(int row,int column,const QModelIndex& /*parent*/) const
@@ -239,10 +239,14 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
 void CatalogTreeFilterModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
     QSortFilterProxyModel::setSourceModel(sourceModel);
-    connect(sourceModel,SIGNAL(modelReset()),SLOT(setEntriesFilteredOut()));
+    connect(sourceModel, &QAbstractItemModel::modelReset, this, QOverload<>::of(&CatalogTreeFilterModel::setEntriesFilteredOut));
     setEntriesFilteredOut(false);
 }
 
+void CatalogTreeFilterModel::setEntriesFilteredOut()
+{
+    return setEntriesFilteredOut(false);
+}
 void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
 {
     m_individualRejectFilter.fill(filteredOut, sourceModel()->rowCount());
