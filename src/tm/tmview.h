@@ -47,7 +47,7 @@ class TMView: public QDockWidget
 {
     Q_OBJECT
 public:
-    TMView(QWidget*, Catalog*, const QVector<QAction*>&);
+    TMView(QWidget*, Catalog*, const QVector<QAction*>&, const QVector<QAction*>&);
     ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -69,6 +69,7 @@ public slots:
     void slotSuggestionsCame(SelectJob*);
 
     void slotUseSuggestion(int);
+    void slotRemoveSuggestion(int);
     void slotFileLoaded(const QString& url);
     void displayFromCache();
 
@@ -85,6 +86,7 @@ private slots:
 
     void initLater();
     void contextMenu(const QPoint & pos);
+    void removeEntry(const TMEntry & e);
 
 private:
     bool event(QEvent *event);
@@ -96,7 +98,8 @@ private:
     DocPosition m_pos;
 
     SelectJob* m_currentSelectJob;
-    QVector<QAction*> m_actions;//need them to get shortcuts
+    QVector<QAction*> m_actions_insert;//need them to get insertion shortcuts
+    QVector<QAction*> m_actions_remove;//need them to get deletion shortcuts
     QList<TMEntry> m_entries;
     QMap<int, int> m_entryPositions;
 

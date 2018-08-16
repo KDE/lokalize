@@ -294,7 +294,8 @@ void EditorTab::setupActions()
     //action->setShortcut(Qt::CTRL+glist[i]);
     action->setText(i18nc("@action:inmenu", "Add a note"));
 
-    QVector<QAction*> tmactions(TM_SHORTCUTS);
+    QVector<QAction*> tmactions_insert(TM_SHORTCUTS);
+    QVector<QAction*> tmactions_remove(TM_SHORTCUTS);
     Qt::Key tmlist[TM_SHORTCUTS] = {
         Qt::Key_1,
         Qt::Key_2,
@@ -312,13 +313,21 @@ void EditorTab::setupActions()
 //         action->setVisible(false);
         tmaction = tm->addAction(QStringLiteral("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL + tmlist[i]));
-        tmaction->setText(i18nc("@action:inmenu", "Insert TM suggestion #%1", QString::number(i + 1)));
-        tmactions[i] = tmaction;
+        tmaction->setText(i18nc("@action:inmenu", "Insert TM suggestion #%1", i + 1));
+        tmactions_insert[i] = tmaction;
+
+        tmaction = tm->addAction(QStringLiteral("tmquery_remove_%1").arg(i));
+        ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL + Qt::ALT + tmlist[i]));
+        tmaction->setText(i18nc("@action:inmenu", "Remove TM suggestion #%1", i + 1));
+        tmactions_remove[i] = tmaction;
     }
 #ifndef Q_OS_DARWIN
-    if (systemLang == QLocale::Czech) ac->setDefaultShortcuts(tmactions[0], QList<QKeySequence>() << QKeySequence(Qt::CTRL + tmlist[0]) << QKeySequence(Qt::CTRL + Qt::Key_Plus));
+    if (systemLang == QLocale::Czech) {
+        ac->setDefaultShortcuts(tmactions_insert[0], QList<QKeySequence>() << QKeySequence(Qt::CTRL + tmlist[0]) << QKeySequence(Qt::CTRL + Qt::Key_Plus));
+        ac->setDefaultShortcuts(tmactions_remove[0], QList<QKeySequence>() << QKeySequence(Qt::CTRL + Qt::ALT + tmlist[0]) << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Plus));
+    }
 #endif
-    TM::TMView* _tmView = new TM::TMView(this, m_catalog, tmactions);
+    TM::TMView* _tmView = new TM::TMView(this, m_catalog, tmactions_insert, tmactions_remove);
     addDockWidget(Qt::BottomDockWidgetArea, _tmView);
     tm->addAction(QStringLiteral("showtmqueryview_action"), _tmView->toggleViewAction());
     connect(_tmView, &TM::TMView::refreshRequested, m_view, QOverload<>::of(&EditorView::gotoEntry), Qt::QueuedConnection);

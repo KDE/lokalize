@@ -131,12 +131,13 @@ void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
 }
 
 
-TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
+TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions_insert, const QVector<QAction*>& actions_remove)
     : QDockWidget(i18nc("@title:window", "Translation Memory"), parent)
     , m_browser(new TextBrowser(this))
     , m_catalog(catalog)
     , m_currentSelectJob(0)
-    , m_actions(actions)
+    , m_actions_insert(actions_insert)
+    , m_actions_remove(actions_remove)
     , m_normTitle(i18nc("@title:window", "Translation Memory"))
     , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
     , m_hasInfo(false)
@@ -166,13 +167,21 @@ void TMView::initLater()
 {
     setAcceptDrops(true);
 
-    QSignalMapper* signalMapper = new QSignalMapper(this);
-    int i = m_actions.size();
+    QSignalMapper* signalMapper_insert = new QSignalMapper(this);
+    QSignalMapper* signalMapper_remove = new QSignalMapper(this);
+    int i = m_actions_insert.size();
     while (--i >= 0) {
-        connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
-        signalMapper->setMapping(m_actions.at(i), i);
+        connect(m_actions_insert.at(i), &QAction::triggered, signalMapper_insert, QOverload<>::of(&QSignalMapper::map));
+        signalMapper_insert->setMapping(m_actions_insert.at(i), i);
     }
-    connect(signalMapper, QOverload<int>::of(&QSignalMapper::mapped), this, &TMView::slotUseSuggestion);
+
+    i = m_actions_remove.size();
+    while (--i >= 0) {
+        connect(m_actions_remove.at(i), &QAction::triggered, signalMapper_remove, QOverload<>::of(&QSignalMapper::map));
+        signalMapper_remove->setMapping(m_actions_remove.at(i), i);
+    }
+    connect(signalMapper_insert, QOverload<int>::of(&QSignalMapper::mapped), this, &TMView::slotUseSuggestion);
+    connect(signalMapper_remove, QOverload<int>::of(&QSignalMapper::mapped), this, &TMView::slotRemoveSuggestion);
 
     setToolTip(i18nc("@info:tooltip", "Double-click any word to insert it into translation"));
 
@@ -490,9 +499,9 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
         //str.replace('&',"&amp;"); TODO check
         html += QLatin1String("<br>");
-        if (Q_LIKELY(i < m_actions.size())) {
-            m_actions.at(i)->setStatusTip(entry.target.string);
-            html += QStringLiteral("[%1] ").arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
+        if (Q_LIKELY(i < m_actions_insert.size())) {
+            m_actions_insert.at(i)->setStatusTip(entry.target.string);
+            html += QStringLiteral("[%1] ").arg(m_actions_insert.at(i)->shortcut().toString(QKeySequence::NativeText));
         } else
             html += QLatin1String("[ - ] ");
         /*
@@ -552,6 +561,16 @@ bool TMView::event(QEvent *event)
     return QWidget::event(event);
 }
 
+void TMView::removeEntry(const TMEntry& e)
+{
+    if (KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
+            i18nc("@title:window", "Translation Memory Entry Removal"))) {
+        RemoveJob* job = new RemoveJob(e);
+        connect(job, SIGNAL(done()), this, SLOT(slotNewEntryDisplayed()));
+        TM::threadPool()->start(job, REMOVE);
+    }
+}
+
 void TMView::contextMenu(const QPoint& pos)
 {
     int block = *m_entryPositions.lowerBound(m_browser->cursorForPosition(pos).anchor());
@@ -568,14 +587,11 @@ void TMView::contextMenu(const QPoint& pos)
     QAction* r = popup.exec(m_browser->mapToGlobal(pos));
     if (!r)
         return;
-    if ((r->data().toInt() == Remove) &&
-        KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
-                i18nc("@title:window", "Translation Memory Entry Removal"))) {
-        RemoveJob* job = new RemoveJob(e);
-        connect(job, &RemoveJob::done, this, QOverload<>::of(&TMView::slotNewEntryDisplayed));
-        TM::threadPool()->start(job, REMOVE);
-    } else if (r->data().toInt() == Open)
+    if (r->data().toInt() == Remove) {
+        removeEntry(e);
+    } else if (r->data().toInt() == Open) {
         emit fileOpenRequested(e.file, e.source.string, e.ctxt);
+    }
 }
 
 /**
@@ -920,6 +936,15 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     }
     adaptCatalogString(target, ref);
     return target;
+}
+
+void TMView::slotRemoveSuggestion(int i)
+{
+    if (Q_UNLIKELY(i >= m_entries.size()))
+        return;
+
+    const TMEntry& e = m_entries.at(i);
+    removeEntry(e);
 }
 
 void TMView::slotUseSuggestion(int i)

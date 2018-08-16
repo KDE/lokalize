@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Editor" version="12">
+<kpartgui name="Editor" version="13">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -122,6 +122,20 @@
         <Action name="tmquery_insert_10"/>
         <Action name="tmquery_insert_11"/>
         <Action name="tmquery_insert_12"/>
+        <Separator/>
+        <Action name="tmquery_remove_0"/>
+        <Action name="tmquery_remove_1"/>
+        <Action name="tmquery_remove_2"/>
+        <Action name="tmquery_remove_3"/>
+        <Action name="tmquery_remove_4"/>
+        <Action name="tmquery_remove_5"/>
+        <Action name="tmquery_remove_6"/>
+        <Action name="tmquery_remove_7"/>
+        <Action name="tmquery_remove_8"/>
+        <Action name="tmquery_remove_9"/>
+        <Action name="tmquery_remove_10"/>
+        <Action name="tmquery_remove_11"/>
+        <Action name="tmquery_remove_12"/>
     </Menu>
     <Menu name="alttrans"><text>Alternative Translations</text>
         <Action name="alttrans_attach"/>
