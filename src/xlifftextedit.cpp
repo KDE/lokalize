@@ -979,7 +979,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         }
         if (textCursor().hasSelection()) {
             QMenu menu;
-            QAction* lookup = menu.addAction(i18nc("@action:inmenu", "Lookup selected text in translation memory"));
+            menu.addAction(i18nc("@action:inmenu", "Lookup selected text in translation memory"));
             if (menu.exec(event->globalPos()))
                 emit tmLookupRequested(m_part, textCursor().selectedText());
             return;

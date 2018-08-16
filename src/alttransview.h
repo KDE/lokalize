@@ -49,7 +49,7 @@ public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void fileLoaded();
     void attachAltTransFile(const QString&);
-    void addAlternateTranslation(int entry, const QString&, bool temp = true);
+    void addAlternateTranslation(int entry, const QString&);
 
 private slots:
     //void contextMenu(const QPoint & pos);
