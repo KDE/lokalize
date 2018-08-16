@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -34,33 +34,33 @@ KActionCollection::KActionCollection(QMainWindow* w)
     , file(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "File")))
     , edit(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Edit")))
     , view(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "View")))
-    , go  (m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Go")))
+    , go(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Go")))
     , sync(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Sync")))
     , tools(m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Tools")))
-    , tm  (new QMenu(QApplication::translate("QMenuBar", "Translation Memory")))
+    , tm(new QMenu(QApplication::translate("QMenuBar", "Translation Memory")))
     , glossary(new QMenu(QApplication::translate("QMenuBar", "Glossary")))
 {
-    QAction* a=file->addAction(QApplication::translate("QMenuBar", "Open..."), Project::instance(),SLOT(fileOpen()));
+    QAction* a = file->addAction(QApplication::translate("QMenuBar", "Open..."), Project::instance(), SLOT(fileOpen()));
     a->setShortcut(QKeySequence::Open);
 
-    a=file->addAction(QApplication::translate("QMenuBar", "Close"), m_mainWindow,SLOT(close()));
+    a = file->addAction(QApplication::translate("QMenuBar", "Close"), m_mainWindow, SLOT(close()));
     a->setShortcut(QKeySequence::Close);
 
-    QMenu* help=m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Help"));
-    a=help->addAction(QApplication::translate("QMenuBar", "About Lokalize"), KAboutData::instance,SLOT(doAbout()));
+    QMenu* help = m_mainWindow->menuBar()->addMenu(QApplication::translate("QMenuBar", "Help"));
+    a = help->addAction(QApplication::translate("QMenuBar", "About Lokalize"), KAboutData::instance, SLOT(doAbout()));
     a->setMenuRole(QAction::AboutRole);
-    a=help->addAction(QApplication::translate("QMenuBar", "About Qt"), qApp,SLOT(aboutQt()));
+    a = help->addAction(QApplication::translate("QMenuBar", "About Qt"), qApp, SLOT(aboutQt()));
     a->setMenuRole(QAction::AboutQtRole);
 
-    a=tools->addAction(i18nc("@action:inmenu","Search and replace in files"),Project::instance(),SLOT(showFileSearch()));
+    a = tools->addAction(i18nc("@action:inmenu", "Search and replace in files"), Project::instance(), SLOT(showFileSearch()));
     a->setShortcut(QKeySequence::Find);
 
-    a=tools->addAction(i18nc("@action:inmenu","Find next in files"),Project::instance(),SLOT(fileSearchNext()));
+    a = tools->addAction(i18nc("@action:inmenu", "Find next in files"), Project::instance(), SLOT(fileSearchNext()));
     a->setShortcut(QKeySequence::FindNext);
 
     tools->addSeparator();
 
-    a=tools->addAction(i18nc("@action:inmenu","Translation memory"),Project::instance(),SLOT(showTM()));
+    a = tools->addAction(i18nc("@action:inmenu", "Translation memory"), Project::instance(), SLOT(showTM()));
     a->setShortcut(Qt::Key_F7);
 }
 
@@ -75,8 +75,7 @@ QAction* KActionCollection::addAction(const QString& name, QAction* a)
     if (name.startsWith("show")) view->addAction(a);
     if (name.startsWith("tools")) tools->addAction(a);
 
-    if (name=="mergesecondary_back")
-    {
+    if (name == "mergesecondary_back") {
         if (!tm->isEmpty()) edit->addMenu(tm);
         if (!glossary->isEmpty()) edit->addMenu(glossary);
     }
@@ -86,27 +85,25 @@ QAction* KActionCollection::addAction(const QString& name, QAction* a)
 
 QAction* KActionCategory::addAction(KStandardAction::StandardAction t, QObject* rcv, const char* slot)
 {
-    QString name=QStringLiteral("std");
+    QString name = QStringLiteral("std");
     QMenu* m = 0;
-    QKeySequence::StandardKey k=QKeySequence::UnknownKey;
-    switch(t)
-    {
-        case KStandardAction::Save: name=QApplication::translate("QMenuBar","Save"); m=c->file; k=QKeySequence::Save; break;
-        case KStandardAction::SaveAs: name=QApplication::translate("QMenuBar","Save As...");m=c->file;k-QKeySequence::SaveAs;break;
-        case KStandardAction::Next: m=c->go; k=QKeySequence::MoveToNextPage; break;
-        case KStandardAction::Prior: m=c->go; k=QKeySequence::MoveToPreviousPage; break;
-        default:;
+    QKeySequence::StandardKey k = QKeySequence::UnknownKey;
+    switch (t) {
+    case KStandardAction::Save: name = QApplication::translate("QMenuBar", "Save"); m = c->file; k = QKeySequence::Save; break;
+    case KStandardAction::SaveAs: name = QApplication::translate("QMenuBar", "Save As..."); m = c->file; k - QKeySequence::SaveAs; break;
+    case KStandardAction::Next: m = c->go; k = QKeySequence::MoveToNextPage; break;
+    case KStandardAction::Prior: m = c->go; k = QKeySequence::MoveToPreviousPage; break;
+    default:;
     }
-    if (m)
-    {
-        QAction* a=m->addAction(name, rcv, slot);
+    if (m) {
+        QAction* a = m->addAction(name, rcv, slot);
         if ((int)k) a->setShortcut(k);
-        if (t==KStandardAction::SaveAs)
+        if (t == KStandardAction::SaveAs)
             c->file->addSeparator();
         return a;
     }
 
-    QAction* a=new QAction(name, rcv);
+    QAction* a = new QAction(name, rcv);
     QObject::connect(a, SIGNAL(triggered(bool)), rcv, slot);
     return a;
 }

@@ -1,7 +1,7 @@
 //
 // C++ Interface: version
 //
-// Description: 
+// Description:
 //
 //
 // Copyright: 2007-2014 Nick Shaforostoff <shafff@ukr.net>

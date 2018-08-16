@@ -3,7 +3,7 @@
   This file contains parts of KBabel code
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
-		2001-2002 by Stanislav Visnovsky <visnovsky@kde.org>
+        2001-2002 by Stanislav Visnovsky <visnovsky@kde.org>
   Copyright (C) 2005,2006 by Nicolas GOUTTE <goutte@kde.org>
 
   This program is free software; you can redistribute it and/or modify
@@ -58,8 +58,8 @@ GettextExportPlugin::GettextExportPlugin(short wrapWidth, short trailingNewLines
 }
 
 ConversionStatus GettextExportPlugin::save(QIODevice* device,
-                                           const GettextStorage* catalog,
-                                           QTextCodec* codec)
+        const GettextStorage* catalog,
+        QTextCodec* codec)
 {
     QTextStream stream(device);
     stream.setCodec(codec);
@@ -67,18 +67,16 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     //if ( m_wrapWidth == -1 ) m_wrapWidth=80;
 
     // only save header if it is not empty
-    const QString& headerComment( catalog->m_header.comment() );
+    const QString& headerComment(catalog->m_header.comment());
     // ### why is this useful to have a header with an empty msgstr?
-    if ( !headerComment.isEmpty() || !catalog->m_header.msgstrPlural().isEmpty() )
-    {
+    if (!headerComment.isEmpty() || !catalog->m_header.msgstrPlural().isEmpty()) {
         // write header
-        writeComment( stream, headerComment );
+        writeComment(stream, headerComment);
 
-        const QString& headerMsgid (catalog->m_header.msgid());
+        const QString& headerMsgid(catalog->m_header.msgid());
 
         // Gettext PO files should have an empty msgid as header
-        if ( !headerMsgid.isEmpty() )
-        {
+        if (!headerMsgid.isEmpty()) {
             // ### perhaps it is grave enough for a user message
             qCWarning(LOKALIZE_LOG) << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
         }
@@ -86,109 +84,96 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
         stream << QStringLiteral("msgid \"\"\n");
 
-        writeKeyword( stream, QStringLiteral("msgstr"), catalog->m_header.msgstr(), false );
+        writeKeyword(stream, QStringLiteral("msgstr"), catalog->m_header.msgstr(), false);
     }
 
 
-    const QVector<CatalogItem>& catalogEntries=catalog->m_entries;
-    int limit=catalog->numberOfEntries();
+    const QVector<CatalogItem>& catalogEntries = catalog->m_entries;
+    int limit = catalog->numberOfEntries();
     QStringList list;
-    for (int counter = 0; counter < limit; counter++)
-    {
+    for (int counter = 0; counter < limit; counter++) {
         stream << '\n';
 
         const CatalogItem& catalogItem = catalogEntries.at(counter);
         // write entry
-        writeComment( stream, catalogItem.comment() );
+        writeComment(stream, catalogItem.comment());
 
         const QString& msgctxt = catalogItem.msgctxt();
         if (! msgctxt.isEmpty() || catalogItem.keepEmptyMsgCtxt())
-            writeKeyword( stream, QStringLiteral("msgctxt"), msgctxt );
+            writeKeyword(stream, QStringLiteral("msgctxt"), msgctxt);
 
-        writeKeyword( stream, QStringLiteral("msgid"), catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid() );
-        if ( catalogItem.isPlural() )
-            writeKeyword( stream, QStringLiteral("msgid_plural"), catalogItem.msgid(1), true, catalogItem.prependEmptyForMsgid() );
+        writeKeyword(stream, QStringLiteral("msgid"), catalogItem.msgid(), true, catalogItem.prependEmptyForMsgid());
+        if (catalogItem.isPlural())
+            writeKeyword(stream, QStringLiteral("msgid_plural"), catalogItem.msgid(1), true, catalogItem.prependEmptyForMsgid());
 
         if (!catalogItem.isPlural())
-            writeKeyword( stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr() );
-        else
-        {
+            writeKeyword(stream, QStringLiteral("msgstr"), catalogItem.msgstr(), true, catalogItem.prependEmptyForMsgstr());
+        else {
             qCDebug(LOKALIZE_LOG) << "Saving gettext plural form";
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
-            for ( int i = 0; i < forms; ++i )
-            {
-                QString keyword = QStringLiteral("msgstr[") % QString::number( i ) % ']';
-                writeKeyword( stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr() );
+            for (int i = 0; i < forms; ++i) {
+                QString keyword = QStringLiteral("msgstr[") % QString::number(i) % ']';
+                writeKeyword(stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr());
             }
         }
     }
 
 #if 0
 //legacy
-    if ( _saveSettings.saveObsolete )
+    if (_saveSettings.saveObsolete)
 #endif
     {
         QList<QString>::const_iterator oit;
-        const QStringList& _obsolete=catalog->m_catalogExtraData;
-        oit=_obsolete.constBegin();
-        if (oit!=_obsolete.constEnd())
-        {
+        const QStringList& _obsolete = catalog->m_catalogExtraData;
+        oit = _obsolete.constBegin();
+        if (oit != _obsolete.constEnd()) {
             stream << "\n" << (*oit);
-            while((++oit)!=_obsolete.constEnd())
+            while ((++oit) != _obsolete.constEnd())
                 stream << "\n\n" << (*oit);
         }
     }
 
-    int i=m_trailingNewLines+1;
-    while (--i>=0)
+    int i = m_trailingNewLines + 1;
+    while (--i >= 0)
         stream << '\n';
 
     return OK;
 }
 
-void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comment ) const
+void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comment) const
 {
-    if( !comment.isEmpty() )
-    {
+    if (!comment.isEmpty()) {
         // We must check that each comment line really starts with a #, to avoid syntax errors
         int pos = 0;
-        for(;;)
-        {
-            const int newpos = comment.indexOf( '\n', pos, Qt::CaseInsensitive );
-            if ( newpos == pos )
-            {
+        for (;;) {
+            const int newpos = comment.indexOf('\n', pos, Qt::CaseInsensitive);
+            if (newpos == pos) {
                 ++pos;
                 stream << '\n';
                 continue;
             }
-            const QString& span ((newpos==-1 ) ? comment.mid(pos) : comment.mid(pos, newpos-pos) );
+            const QString& span((newpos == -1) ? comment.mid(pos) : comment.mid(pos, newpos - pos));
 
             const int len = span.length();
             QString spaces; // Stored leading spaces
-            for ( int i = 0 ; i < len ; ++i )
-            {
+            for (int i = 0 ; i < len ; ++i) {
                 const QChar& ch = span[ i ];
-                if ( ch == '#' )
-                {
-                    stream << spaces << span.mid( i );
+                if (ch == '#') {
+                    stream << spaces << span.mid(i);
                     break;
-                }
-                else if ( ch == ' ' || ch == '\t' )
-                {
+                } else if (ch == ' ' || ch == '\t') {
                     // We have a leading white space character, so store it temporary
                     spaces += ch;
-                }
-                else
-                {
+                } else {
                     // Not leading white space and not a # character. so consider that the # character was missing at first position.
-                    stream << "# " << spaces << span.mid( i );
+                    stream << "# " << spaces << span.mid(i);
                     break;
                 }
             }
             stream << '\n';
 
-            if ( newpos == -1 )
+            if (newpos == -1)
                 break;
             else
                 pos = newpos + 1;
@@ -196,120 +181,107 @@ void GettextExportPlugin::writeComment( QTextStream& stream, const QString& comm
     }
 }
 
-void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml, bool startedWithEmptyLine ) const
+void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool containsHtml, bool startedWithEmptyLine) const
 {
-    if ( text.isEmpty() )
-    {
+    if (text.isEmpty()) {
         // Whatever the wrapping mode, an empty line is an empty line
         stream << keyword << QStringLiteral(" \"\"\n");
         return;
     }
 
-    text.replace(QLatin1Char('"'),QStringLiteral("\\\""));
+    text.replace(QLatin1Char('"'), QStringLiteral("\\\""));
 #if 0
-    if ( m_wrapWidth == -1 )
-    {
+    if (m_wrapWidth == -1) {
         // Traditional KBabel wrapping
-        QStringList list = text.split( '\n', QString::SkipEmptyParts );
+        QStringList list = text.split('\n', QString::SkipEmptyParts);
 
-        if ( text.startsWith( '\n' ) )
-            list.prepend( QString() );
+        if (text.startsWith('\n'))
+            list.prepend(QString());
 
-        if(list.isEmpty())
-            list.append( QString() );
+        if (list.isEmpty())
+            list.append(QString());
 
-        if( list.count() > 1 )
-            list.prepend( QString() );
+        if (list.count() > 1)
+            list.prepend(QString());
 
         stream << keyword << ' ';
 
         QStringList::const_iterator it;
-        for( it = list.constBegin(); it != list.constEnd(); ++it )
+        for (it = list.constBegin(); it != list.constEnd(); ++it)
             stream << '\"' << (*it) << "\"\n";
         return;
     }
 #endif
 
-    if ( m_wrapWidth == 0 ) // Unknown special wrapping, so assume "no wrap" instead
-    {
+    if (m_wrapWidth == 0) { // Unknown special wrapping, so assume "no wrap" instead
         // No wrapping (like Gettext's --no.wrap or -w0 )
         // we need to remove the \n characters, as they are extra characters
-        QString realText( text );
-        realText.remove( '\n' );
+        QString realText(text);
+        realText.remove('\n');
         stream << keyword << " \"" << realText << "\"\n";
         return;
-    }
-    else if ( m_wrapWidth <= 3 )
-    {
+    } else if (m_wrapWidth <= 3) {
         // No change in wrapping
-        QStringList list = text.split( '\n');
-        if (list.count()>1 || startedWithEmptyLine /* || keyword.length()+3+text.length()>=80*/)
+        QStringList list = text.split('\n');
+        if (list.count() > 1 || startedWithEmptyLine /* || keyword.length()+3+text.length()>=80*/)
             list.prepend(QString());
 
         stream << keyword << QStringLiteral(" ");
         QStringList::const_iterator it;
-        for( it = list.constBegin(); it != list.constEnd(); ++it )
+        for (it = list.constBegin(); it != list.constEnd(); ++it)
             stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
 
         return;
     }
 
     // lazy wrapping
-    QStringList list = text.split( '\n', QString::SkipEmptyParts );
+    QStringList list = text.split('\n', QString::SkipEmptyParts);
 
-    if ( text.startsWith( '\n' ) )
-        list.prepend( QString() );
+    if (text.startsWith('\n'))
+        list.prepend(QString());
 
-    if(list.isEmpty())
-        list.append( QString() );
+    if (list.isEmpty())
+        list.append(QString());
 
     //static QRegExp breakStopReForHtml("[ >.%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
     //static QRegExp breakStopReForText("[ .%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
     static QRegExp breakStopReForHtml(QStringLiteral("[ >%]"), Qt::CaseSensitive, QRegExp::Wildcard);
     static QRegExp breakStopReForText(QStringLiteral("[ &%]"), Qt::CaseSensitive, QRegExp::Wildcard);
-    QRegExp breakStopRe=containsHtml?breakStopReForHtml:breakStopReForText;
+    QRegExp breakStopRe = containsHtml ? breakStopReForHtml : breakStopReForText;
 
-    int max=m_wrapWidth-2;
-    bool prependedEmptyLine=false;
+    int max = m_wrapWidth - 2;
+    bool prependedEmptyLine = false;
     QStringList::iterator itm;
-    for( itm = list.begin(); itm != list.end(); ++itm )
-    {
-        if (list.count()==1 && keyword.length()+1+itm->length()>=max)
-        {
-            prependedEmptyLine=true;
-            itm=list.insert(itm,QString());
+    for (itm = list.begin(); itm != list.end(); ++itm) {
+        if (list.count() == 1 && keyword.length() + 1 + itm->length() >= max) {
+            prependedEmptyLine = true;
+            itm = list.insert(itm, QString());
         }
 
-        if (itm->length()>max)
-        {
-            int pos = itm->lastIndexOf(breakStopRe,max-1);
-            if (pos>(max/2))
-            {
-                int pos2 = itm->indexOf(QLatin1Char('<'),pos);
-                if (pos2>0&&pos2<max-1)
-                {
-                    pos=itm->indexOf(QLatin1Char('<'),pos);
+        if (itm->length() > max) {
+            int pos = itm->lastIndexOf(breakStopRe, max - 1);
+            if (pos > (max / 2)) {
+                int pos2 = itm->indexOf(QLatin1Char('<'), pos);
+                if (pos2 > 0 && pos2 < max - 1) {
+                    pos = itm->indexOf(QLatin1Char('<'), pos);
                     ++pos;
                 }
-            }
-            else
-            {
-                if (itm->at(max-1)==QLatin1Char('\\'))
-                {
-                    do {--max;}
-                    while (max>=2 && itm->at(max-1)==QLatin1Char('\\'));
+            } else {
+                if (itm->at(max - 1) == QLatin1Char('\\')) {
+                    do {
+                        --max;
+                    } while (max >= 2 && itm->at(max - 1) == QLatin1Char('\\'));
                 }
-                pos=max;
+                pos = max;
                 //Restore the max variable to the m_wordWrap - 2 value
-                max=m_wrapWidth-2;
+                max = m_wrapWidth - 2;
             }
             //itm=list.insert(itm,itm->left(pos));
-            QString t=*itm;
-            itm=list.insert(itm,t);
+            QString t = *itm;
+            itm = list.insert(itm, t);
             ++itm;
-            if (itm != list.end())
-            {
-                (*itm)=itm->remove(0,pos);
+            if (itm != list.end()) {
+                (*itm) = itm->remove(0, pos);
                 --itm;
                 if (itm != list.end())
                     itm->truncate(pos);
@@ -317,12 +289,12 @@ void GettextExportPlugin::writeKeyword( QTextStream& stream, const QString& keyw
         }
     }
 
-    if( !prependedEmptyLine && list.count() > 1 )
-        list.prepend( QString() );
+    if (!prependedEmptyLine && list.count() > 1)
+        list.prepend(QString());
 
     stream << keyword << QStringLiteral(" ");
 
     QStringList::const_iterator it;
-    for( it = list.constBegin(); it != list.constEnd(); ++it )
+    for (it = list.constBegin(); it != list.constEnd(); ++it)
         stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
 }

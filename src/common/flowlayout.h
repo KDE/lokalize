@@ -48,8 +48,7 @@ class FlowLayout: public QLayout
 {
 public:
 
-    enum User
-    {
+    enum User {
         glossary,
         webquery,
         standard
@@ -58,8 +57,8 @@ public:
     /**
      * c'tor for glossary view
      */
-    FlowLayout(User user=standard, QWidget *signalingWidget = 0,
-               const QVector<QAction*>& actions=QVector<QAction*>(), int margin = 0, int spacing = -1);
+    FlowLayout(User user = standard, QWidget *signalingWidget = 0,
+               const QVector<QAction*>& actions = QVector<QAction*>(), int margin = 0, int spacing = -1);
 
     ~FlowLayout();
 
@@ -78,7 +77,7 @@ public:
      * @param term is the term matched
      * @param entry is index of entry in the Glossary list
      */
-    void addTerm(const QString& term, const QByteArray& entryId, bool capFirst=false);
+    void addTerm(const QString& term, const QByteArray& entryId, bool capFirst = false);
     void clearTerms();
 
 private:

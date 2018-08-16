@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -34,11 +34,10 @@
 #include "catalogstring.h"
 class Catalog;
 
-enum Commands
-{
+enum Commands {
     Insert, Delete,
     InsertTag, DeleteTag,
-    ToggleApprovement, EquivTrans, 
+    ToggleApprovement, EquivTrans,
     SetNote, UpdatePhase
 };
 
@@ -46,13 +45,16 @@ class LokalizeUnitCmd: public QUndoCommand
 {
 public:
     LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
-    virtual ~LokalizeUnitCmd(){};
+    virtual ~LokalizeUnitCmd() {};
     virtual void undo();
     virtual void redo();
-    DocPosition pos()const{return _pos;}
+    DocPosition pos()const
+    {
+        return _pos;
+    }
 protected:
-    virtual void doRedo()=0;
-    virtual void doUndo()=0;
+    virtual void doRedo() = 0;
+    virtual void doUndo() = 0;
     /**
      * may be overridden to set customized pos
      * alternatively customized pos may be set manually in do*()
@@ -69,7 +71,7 @@ class LokalizeTargetCmd: public LokalizeUnitCmd
 {
 public:
     LokalizeTargetCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
-    virtual ~LokalizeTargetCmd(){};
+    virtual ~LokalizeTargetCmd() {};
     void undo();
     void redo();
 protected:
@@ -86,8 +88,11 @@ class InsTextCmd: public LokalizeTargetCmd
 {
 public:
     InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
-    ~InsTextCmd(){};
-    int id () const {return Insert;}
+    ~InsTextCmd() {};
+    int id() const
+    {
+        return Insert;
+    }
     bool mergeWith(const QUndoCommand *other);
     void doRedo();
     void doUndo();
@@ -100,8 +105,11 @@ class DelTextCmd: public LokalizeTargetCmd
 {
 public:
     DelTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
-    ~DelTextCmd(){};
-    int id () const {return Delete;}
+    ~DelTextCmd() {};
+    int id() const
+    {
+        return Delete;
+    }
     bool mergeWith(const QUndoCommand *other);
     void doRedo();
     void doUndo();
@@ -114,9 +122,12 @@ class SetStateCmd: public LokalizeUnitCmd
 private:
     SetStateCmd(Catalog *catalog, const DocPosition& pos, TargetState state);
 public:
-    ~SetStateCmd(){};
+    ~SetStateCmd() {};
 
-    int id () const {return ToggleApprovement;}
+    int id() const
+    {
+        return ToggleApprovement;
+    }
     void doRedo();
     void doUndo();
 
@@ -133,8 +144,11 @@ class InsTagCmd: public LokalizeTargetCmd
 public:
     /// offset is taken from @a tag and not from @a pos
     InsTagCmd(Catalog *catalog, const DocPosition& pos, const InlineTag& tag);
-    ~InsTagCmd(){};
-    int id () const {return InsertTag;}
+    ~InsTagCmd() {};
+    int id() const
+    {
+        return InsertTag;
+    }
     void doRedo();
     void doUndo();
 private:
@@ -150,11 +164,17 @@ class DelTagCmd: public LokalizeTargetCmd
 {
 public:
     DelTagCmd(Catalog *catalog, const DocPosition& pos);
-    ~DelTagCmd(){};
-    int id () const {return DeleteTag;}
+    ~DelTagCmd() {};
+    int id() const
+    {
+        return DeleteTag;
+    }
     void doRedo();
     void doUndo();
-    InlineTag tag()const{return _tag;}//used to get proprties of deleted tag
+    InlineTag tag()const
+    {
+        return _tag;   //used to get proprties of deleted tag
+    }
 private:
     InlineTag _tag;
 };
@@ -165,8 +185,11 @@ class SetNoteCmd: public LokalizeUnitCmd
 public:
     /// @a pos.form is note number
     SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& note);
-    ~SetNoteCmd(){};
-    int id () const {return SetNote;}
+    ~SetNoteCmd() {};
+    int id() const
+    {
+        return SetNote;
+    }
 protected:
     void doRedo();
     void doUndo();
@@ -182,8 +205,11 @@ class UpdatePhaseCmd: public QUndoCommand
 public:
     /// @a pos.form is note number
     UpdatePhaseCmd(Catalog *catalog, const Phase& phase);
-    ~UpdatePhaseCmd(){};
-    int id () const {return UpdatePhase;}
+    ~UpdatePhaseCmd() {};
+    int id() const
+    {
+        return UpdatePhase;
+    }
     void redo();
     void undo();
 private:
@@ -197,8 +223,11 @@ class SetEquivTransCmd: public LokalizeTargetCmd
 {
 public:
     SetEquivTransCmd(Catalog *catalog, const DocPosition& pos, bool equivTrans);
-    ~SetEquivTransCmd(){};
-    int id () const {return EquivTrans;}
+    ~SetEquivTransCmd() {};
+    int id() const
+    {
+        return EquivTrans;
+    }
     void doRedo();
     void doUndo();
 private:
@@ -213,8 +242,8 @@ private:
  * 1 means this is start, 2 means this is end
  * @returns false if it can't find second part of any paired tag in the range
  */
-bool fillTagPlaces(QMap<int,int>& tagPlaces, const CatalogString& catalogString, int start, int len);
-bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart=0, int delLen=-1);
-void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString& catStr, int start=0);
+bool fillTagPlaces(QMap<int, int>& tagPlaces, const CatalogString& catalogString, int start, int len);
+bool removeTargetSubstring(Catalog* catalog, DocPosition pos, int delStart = 0, int delLen = -1);
+void insertCatalogString(Catalog* catalog, DocPosition pos, const CatalogString& catStr, int start = 0);
 
 #endif // CMD_H

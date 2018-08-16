@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -50,10 +50,16 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 
 public:
     explicit SyntaxHighlighter(QTextEdit *parent);
-    ~SyntaxHighlighter(){};
+    ~SyntaxHighlighter() {};
 
-    void setApprovementState(bool a){m_approved=a;};
-    void setSourceString(const QString& s){m_sourceString=s;}
+    void setApprovementState(bool a)
+    {
+        m_approved = a;
+    };
+    void setSourceString(const QString& s)
+    {
+        m_sourceString = s;
+    }
 
 protected:
     void highlightBlock(const QString &text);
@@ -66,8 +72,7 @@ private slots:
 
 //    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);
 private:
-    struct HighlightingRule
-    {
+    struct HighlightingRule {
         QRegExp pattern;
         QTextCharFormat format;
     };

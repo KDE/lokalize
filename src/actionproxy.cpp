@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -29,15 +29,15 @@
 #include <QAction>
 
 
-ActionProxy::ActionProxy(QObject* parent,QObject* receiver,const char* slot)
- : QObject(parent)
- , m_currentAction(0)
- , m_disabled(false)
- , m_checked(false)
+ActionProxy::ActionProxy(QObject* parent, QObject* receiver, const char* slot)
+    : QObject(parent)
+    , m_currentAction(0)
+    , m_disabled(false)
+    , m_checked(false)
 // , m_checkable(false)
 {
     if (receiver)
-        connect(this,SIGNAL(triggered(bool)),receiver,slot);
+        connect(this, SIGNAL(triggered(bool)), receiver, slot);
 
     connect(this, &ActionProxy::toggled, this, &ActionProxy::handleToggled);
 }
@@ -49,29 +49,29 @@ ActionProxy::~ActionProxy()
 
 void ActionProxy::registerAction(QAction* a)
 {
-    if (a==m_currentAction)
+    if (a == m_currentAction)
         return;
 
-    m_currentAction=a;
+    m_currentAction = a;
     a->setChecked(m_checked);
     a->setDisabled(m_disabled);
     a->setStatusTip(m_statusTip);
-    m_keySequence=a->shortcut();
+    m_keySequence = a->shortcut();
 
-    connect(a,SIGNAL(triggered(bool)),this,SIGNAL(triggered(bool)));
-    connect(a,SIGNAL(toggled(bool)),this,SIGNAL(toggled(bool)));
+    connect(a, SIGNAL(triggered(bool)), this, SIGNAL(triggered(bool)));
+    connect(a, SIGNAL(toggled(bool)), this, SIGNAL(toggled(bool)));
 }
 void ActionProxy::unregisterAction(/*QAction**/)
 {
-    disconnect(m_currentAction,SIGNAL(triggered(bool)),this,SIGNAL(triggered(bool)));
-    disconnect(m_currentAction,SIGNAL(toggled(bool)),this,SIGNAL(toggled(bool)));
+    disconnect(m_currentAction, SIGNAL(triggered(bool)), this, SIGNAL(triggered(bool)));
+    disconnect(m_currentAction, SIGNAL(toggled(bool)), this, SIGNAL(toggled(bool)));
     m_currentAction->setStatusTip(QString());
-    m_currentAction=0;
+    m_currentAction = 0;
 }
 
 void ActionProxy::handleToggled(bool checked)
 {
-    m_checked=checked;
+    m_checked = checked;
 }
 
 void ActionProxy::setDisabled(bool disabled)
@@ -79,7 +79,7 @@ void ActionProxy::setDisabled(bool disabled)
     if (m_currentAction)
         m_currentAction->setDisabled(disabled);
 
-    m_disabled=disabled;
+    m_disabled = disabled;
 }
 
 void ActionProxy::setChecked(bool checked)
@@ -87,30 +87,29 @@ void ActionProxy::setChecked(bool checked)
     if (m_currentAction)
         m_currentAction->setChecked(checked); //handleToggled is called implicitly via signal/slot mechanism
     else
-        m_checked=checked;
+        m_checked = checked;
 }
 
 
 #endif
 
-void StatusBarProxy::insert(int key,const QString& str)
+void StatusBarProxy::insert(int key, const QString& str)
 {
     if (m_currentStatusBar)
-        if (key<m_statusBarLabels.size()) m_statusBarLabels.at(key)->setText(str);
-    QMap<int,QString>::insert(key,str);
+        if (key < m_statusBarLabels.size()) m_statusBarLabels.at(key)->setText(str);
+    QMap<int, QString>::insert(key, str);
 }
 
 void StatusBarProxy::registerStatusBar(QStatusBar* bar, const QVector<QLabel*>& statusBarLabels)
 {
-    m_currentStatusBar=bar;
-    m_statusBarLabels=statusBarLabels;
-    for (int i=0;i<statusBarLabels.size();i++)
+    m_currentStatusBar = bar;
+    m_statusBarLabels = statusBarLabels;
+    for (int i = 0; i < statusBarLabels.size(); i++)
         statusBarLabels.at(i)->setText(QString());
 
-    QMap<int,QString>::const_iterator i = constBegin();
-    while (i != constEnd())
-    {
-        if (i.key()<statusBarLabels.size()) statusBarLabels.at(i.key())->setText(i.value());
+    QMap<int, QString>::const_iterator i = constBegin();
+    while (i != constEnd()) {
+        if (i.key() < statusBarLabels.size()) statusBarLabels.at(i.key())->setText(i.value());
         ++i;
     }
 }

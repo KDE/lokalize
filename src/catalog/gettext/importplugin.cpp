@@ -45,7 +45,7 @@
 
 #include <kmessagebox.h>
 
-namespace GettextCatalog 
+namespace GettextCatalog
 {
 
 CatalogImportPlugin::CatalogImportPlugin()
@@ -61,23 +61,23 @@ CatalogImportPlugin::~CatalogImportPlugin()
     delete d;
 }
 
-void CatalogImportPlugin::appendCatalogItem( const CatalogItem& item, const bool obsolete )
+void CatalogImportPlugin::appendCatalogItem(const CatalogItem& item, const bool obsolete)
 {
     if (item.msgid().isEmpty())
         return;
-    if( obsolete )
+    if (obsolete)
         d->_obsoleteEntries.append(item);
     else
         d->_entries.append(item);
 }
 
-void CatalogImportPlugin::setCatalogExtraData( const QStringList& data )
+void CatalogImportPlugin::setCatalogExtraData(const QStringList& data)
 {
-    d->_catalogExtraData=data;
-    d->_updateCatalogExtraData=true;
+    d->_catalogExtraData = data;
+    d->_updateCatalogExtraData = true;
 }
 
-void CatalogImportPlugin::setGeneratedFromDocbook( const bool generated )
+void CatalogImportPlugin::setGeneratedFromDocbook(const bool generated)
 {
     d->_generatedFromDocbook = generated;
     d->_updateGeneratedFromDocbook = true;
@@ -89,28 +89,28 @@ void CatalogImportPlugin::setErrorIndex(const QList<int>& errors)
     d->_updateErrorList = true;
 }
 
-void CatalogImportPlugin::setHeader( const CatalogItem& item )
+void CatalogImportPlugin::setHeader(const CatalogItem& item)
 {
-    d->_header=item;
-    d->_updateHeader=true;
+    d->_header = item;
+    d->_updateHeader = true;
 }
 
-void CatalogImportPlugin::setCodec( QTextCodec* codec )
+void CatalogImportPlugin::setCodec(QTextCodec* codec)
 {
     d->_codec = codec;
 }
 
 ConversionStatus CatalogImportPlugin::open(QIODevice* device, GettextStorage* catalog, int* line)
 {
-    d->_catalog=catalog;
+    d->_catalog = catalog;
     startTransaction();
 
     ConversionStatus result = load(device);
 
-    if( result == OK || result == RECOVERED_PARSE_ERROR || result == RECOVERED_HEADER_ERROR )
-	commitTransaction();
+    if (result == OK || result == RECOVERED_PARSE_ERROR || result == RECOVERED_HEADER_ERROR)
+        commitTransaction();
     if (line)
-        (*line)=_errorLine;
+        (*line) = _errorLine;
     return result;
 }
 
@@ -126,26 +126,26 @@ void CatalogImportPlugin::startTransaction()
 
 void CatalogImportPlugin::commitTransaction()
 {
-    GettextStorage* catalog=d->_catalog;
+    GettextStorage* catalog = d->_catalog;
 
     //catalog->clear();
 
     // fill in the entries
-    QVector<CatalogItem>& entries=catalog->m_entries;
-    entries.reserve( d->_entries.count() ); //d->_catalog->setEntries( e );
-    for( QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/ )
-        entries.append( *it );
+    QVector<CatalogItem>& entries = catalog->m_entries;
+    entries.reserve(d->_entries.count());   //d->_catalog->setEntries( e );
+    for (QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/)
+        entries.append(*it);
 
     // The codec is specified in the header, so it must be updated before the header is.
     catalog->setCodec(d->_codec);
 
-    catalog->m_catalogExtraData=d->_catalogExtraData;
-    catalog->m_generatedFromDocbook=d->_generatedFromDocbook;
+    catalog->m_catalogExtraData = d->_catalogExtraData;
+    catalog->m_generatedFromDocbook = d->_generatedFromDocbook;
     catalog->setHeader(d->_header);
     //if( d->_updateErrorList ) d->_catalog->setErrorIndex(d->_errorList);
 
-    catalog->m_maxLineLength=_maxLineLength;
-    catalog->m_trailingNewLines=_trailingNewLines;
+    catalog->m_maxLineLength = _maxLineLength;
+    catalog->m_trailingNewLines = _trailingNewLines;
 }
 
 }

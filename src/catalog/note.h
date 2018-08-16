@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -26,9 +26,8 @@
 
 #include <QString>
 
-struct Note
-{
-    enum Owner{General,Source,Target};
+struct Note {
+    enum Owner {General, Source, Target};
 
     QString content;
     char priority;//1 is the highest
@@ -36,23 +35,23 @@ struct Note
     QString from;
     QString lang;
 
-    Note(const QString& content_=QString())
+    Note(const QString& content_ = QString())
         : content(content_)
         , priority(5)
         , annotates(General)
-        {}
+    {}
 
-    Note(const QString& content_,char priority_,Owner annotates_,const QString& from_,const QString& lang_)
+    Note(const QString& content_, char priority_, Owner annotates_, const QString& from_, const QString& lang_)
         : content(content_)
         , priority(priority_)
         , annotates(annotates_)
         , from(from_)
         , lang(lang_)
-        {}
+    {}
 
     bool operator<(const Note& other) const
     {
-        return priority<other.priority;
+        return priority < other.priority;
     }
 
 };

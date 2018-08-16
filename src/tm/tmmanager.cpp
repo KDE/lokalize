@@ -53,7 +53,7 @@
 using namespace TM;
 
 TMManagerWin::TMManagerWin(QWidget *parent)
- : KMainWindow(parent)
+    : KMainWindow(parent)
 {
     setAttribute(Qt::WA_DeleteOnClose, false);
     setCaption(i18nc("@title:window", "Translation Memories"));
@@ -63,7 +63,7 @@ TMManagerWin::TMManagerWin(QWidget *parent)
 
     ui_tmManager.list->setModel(DBFilesModel::instance());
     ui_tmManager.list->setRootIndex(DBFilesModel::instance()->rootIndex());
-    m_tmListWidget=ui_tmManager.list;
+    m_tmListWidget = ui_tmManager.list;
 
     connect(ui_tmManager.addData, &QPushButton::clicked, this, &TMManagerWin::addDir);
     connect(ui_tmManager.create, &QPushButton::clicked, this, &TMManagerWin::addDB);
@@ -79,29 +79,29 @@ void TMManagerWin::initLater()
 {
     connect(m_tmListWidget, &QTreeView::activated, this, &TMManagerWin::slotItemActivated);
 
-    QPersistentModelIndex* projectDBIndex=DBFilesModel::instance()->projectDBIndex();
+    QPersistentModelIndex* projectDBIndex = DBFilesModel::instance()->projectDBIndex();
     if (projectDBIndex)
         m_tmListWidget->setCurrentIndex(*projectDBIndex);
 }
 
 void TMManagerWin::addDir()
 {
-    QModelIndex index=m_tmListWidget->currentIndex();
+    QModelIndex index = m_tmListWidget->currentIndex();
     if (!index.isValid())
         return;
 
-    QString dir=QFileDialog::getExistingDirectory(this, i18nc("@title:window","Select Directory to be scanned"), Project::instance()->translationsRoot());
+    QString dir = QFileDialog::getExistingDirectory(this, i18nc("@title:window", "Select Directory to be scanned"), Project::instance()->translationsRoot());
     if (!dir.isEmpty())
-        scanRecursive(QStringList(dir),index.sibling(index.row(), 0).data().toString());
+        scanRecursive(QStringList(dir), index.sibling(index.row(), 0).data().toString());
 }
 
 
 DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
- : QDialog(parent), Ui_DBParams()
- , m_connectionOptionsValid(false)
+    : QDialog(parent), Ui_DBParams()
+    , m_connectionOptionsValid(false)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
-    setWindowTitle( dbName.isEmpty()?i18nc("@title:window","New Translation Memory"):i18nc("@title:window","Translation Memory Properties"));
+    setWindowTitle(dbName.isEmpty() ? i18nc("@title:window", "New Translation Memory") : i18nc("@title:window", "Translation Memory Properties"));
 
     setupUi(this);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &DBPropertiesDialog::accept);
@@ -113,14 +113,13 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     sourceLang->setModel(LanguageListModel::instance()->sortModel());
     targetLang->setModel(LanguageListModel::instance()->sortModel());
 
-    if (dbName.isEmpty())
-    {
+    if (dbName.isEmpty()) {
         accel->setText(Project::instance()->accel());
         markup->setText(Project::instance()->markup());
-        sourceLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->sourceLangCode() ));
-        targetLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
+        sourceLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(Project::instance()->sourceLangCode()));
+        targetLang->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(Project::instance()->targetLangCode()));
     }
-    
+
     connectionBox->hide();
     connect(dbType, QOverload<int>::of(&QComboBox::activated), this, &DBPropertiesDialog::setConnectionBoxVisible);
     m_checkDelayer.setInterval(2000);
@@ -131,7 +130,7 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     connect(dbUser, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
     connect(dbPasswd, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
 
-    QStringList drivers=QSqlDatabase::drivers();
+    QStringList drivers = QSqlDatabase::drivers();
     if (drivers.contains("QPSQL"))
         dbType->addItem("PostgreSQL");
 }
@@ -149,18 +148,18 @@ void DBPropertiesDialog::feedbackRegardingAcceptable()
 
 void DBPropertiesDialog::checkConnectionOptions()
 {
-    m_connectionOptionsValid=false;
+    m_connectionOptionsValid = false;
     if (!connectionBox->isVisible() || name->text().isEmpty() || dbHost->currentText().isEmpty() || dbName->text().isEmpty() || dbUser->text().isEmpty())
         return;
 
     OpenDBJob::ConnectionParams connParams;
-    connParams.driver="QPSQL";
-    connParams.host=dbHost->currentText();
-    connParams.db=dbName->text();
-    connParams.user=dbUser->text();
-    connParams.passwd=dbPasswd->text();
+    connParams.driver = "QPSQL";
+    connParams.host = dbHost->currentText();
+    connParams.db = dbName->text();
+    connParams.user = dbUser->text();
+    connParams.passwd = dbPasswd->text();
 
-    OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
+    OpenDBJob* openDBJob = new OpenDBJob(name->text(), TM::Remote, /*reconnect*/true, connParams);
     connect(openDBJob, &OpenDBJob::done, this, &DBPropertiesDialog::openJobDone);
     threadPool()->start(openDBJob, OPENDB);
 }
@@ -182,7 +181,7 @@ void DBPropertiesDialog::openJobDone(OpenDBJob* openDBJob)
     markup->setText(openDBJob->m_tmConfig.markup);
     accel->setText(openDBJob->m_tmConfig.accel);
     contentBox->show();
-    
+
     dbHost->lineEdit()->setText(openDBJob->m_connParams.host);
     dbName->setText(openDBJob->m_connParams.db);
     dbUser->setText(openDBJob->m_connParams.user);
@@ -194,28 +193,27 @@ void DBPropertiesDialog::accept()
     if (name->text().isEmpty() || !contentBox->isVisible())
         return;
 
-    if (connectionBox->isVisible())
-    {
+    if (connectionBox->isVisible()) {
         QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % name->text() % REMOTETM_DATABASE_EXTENSION);
         if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
             return;
 
         QTextStream rdbParams(&rdb);
-        rdbParams<<"QPSQL"<<"\n";
-        rdbParams<<dbHost->currentText()<<"\n";
-        rdbParams<<dbName->text()<<"\n";
-        rdbParams<<dbUser->text()<<"\n";
-        rdbParams<<dbPasswd->text()<<"\n";
+        rdbParams << "QPSQL" << "\n";
+        rdbParams << dbHost->currentText() << "\n";
+        rdbParams << dbName->text() << "\n";
+        rdbParams << dbUser->text() << "\n";
+        rdbParams << dbPasswd->text() << "\n";
     }
 
-    OpenDBJob* openDBJob=new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
+    OpenDBJob* openDBJob = new OpenDBJob(name->text(), TM::DbType(connectionBox->isVisible()), true);
     connect(openDBJob, &OpenDBJob::done, DBFilesModel::instance(), &DBFilesModel::updateProjectTmIndex);
 
-    openDBJob->m_setParams=true;
-    openDBJob->m_tmConfig.markup=markup->text();
-    openDBJob->m_tmConfig.accel=accel->text();
-    openDBJob->m_tmConfig.sourceLangCode=LanguageListModel::instance()->langCodeForSortModelRow(sourceLang->currentIndex());
-    openDBJob->m_tmConfig.targetLangCode=LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
+    openDBJob->m_setParams = true;
+    openDBJob->m_tmConfig.markup = markup->text();
+    openDBJob->m_tmConfig.accel = accel->text();
+    openDBJob->m_tmConfig.sourceLangCode = LanguageListModel::instance()->langCodeForSortModelRow(sourceLang->currentIndex());
+    openDBJob->m_tmConfig.targetLangCode = LanguageListModel::instance()->langCodeForSortModelRow(targetLang->currentIndex());
 
     DBFilesModel::instance()->openDB(openDBJob);
     QDialog::accept();
@@ -223,13 +221,13 @@ void DBPropertiesDialog::accept()
 
 void TMManagerWin::addDB()
 {
-    DBPropertiesDialog* dialog=new DBPropertiesDialog(this);
+    DBPropertiesDialog* dialog = new DBPropertiesDialog(this);
     dialog->show();
 }
 
 void TMManagerWin::removeDB()
 {
-    QModelIndex index=m_tmListWidget->currentIndex();
+    QModelIndex index = m_tmListWidget->currentIndex();
     if (index.isValid())
         DBFilesModel::instance()->removeTM(index);
 }
@@ -237,17 +235,16 @@ void TMManagerWin::removeDB()
 
 void TMManagerWin::importTMX()
 {
-    QString path=QFileDialog::getOpenFileName(this, i18nc("@title:window","Select TMX file to be imported into selected database"),
-                      QString(), i18n("TMX files (*.tmx *.xml)"));
+    QString path = QFileDialog::getOpenFileName(this, i18nc("@title:window", "Select TMX file to be imported into selected database"),
+                   QString(), i18n("TMX files (*.tmx *.xml)"));
 
-    QModelIndex index=m_tmListWidget->currentIndex();
+    QModelIndex index = m_tmListWidget->currentIndex();
     if (!index.isValid())
         return;
-    QString dbName=index.sibling(index.row(), 0).data().toString();
+    QString dbName = index.sibling(index.row(), 0).data().toString();
 
-    if (!path.isEmpty())
-    {
-        ImportTmxJob* j=new ImportTmxJob(path,dbName);
+    if (!path.isEmpty()) {
+        ImportTmxJob* j = new ImportTmxJob(path, dbName);
 
         threadPool()->start(j, IMPORT);
         DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
@@ -258,17 +255,16 @@ void TMManagerWin::importTMX()
 void TMManagerWin::exportTMX()
 {
     //TODO ask whether to save full paths of files, or just their names
-    QString path=QFileDialog::getSaveFileName(this, i18nc("@title:window","Select TMX file to export selected database to"),
-                                              QString(), i18n("TMX files (*.tmx *.xml)"));
+    QString path = QFileDialog::getSaveFileName(this, i18nc("@title:window", "Select TMX file to export selected database to"),
+                   QString(), i18n("TMX files (*.tmx *.xml)"));
 
-    QModelIndex index=m_tmListWidget->currentIndex();
+    QModelIndex index = m_tmListWidget->currentIndex();
     if (!index.isValid())
         return;
-    QString dbName=index.sibling(index.row(), 0).data().toString();
+    QString dbName = index.sibling(index.row(), 0).data().toString();
 
-    if (!path.isEmpty())
-    {
-        ExportTmxJob* j=new ExportTmxJob(path,dbName);
+    if (!path.isEmpty()) {
+        ExportTmxJob* j = new ExportTmxJob(path, dbName);
         threadPool()->start(j, EXPORT);
     }
 }
@@ -276,9 +272,9 @@ void TMManagerWin::exportTMX()
 void TMManagerWin::slotItemActivated(const QModelIndex&)
 {
     //QString dbName=DBFilesModel::instance()->data(m_tmListWidget->currentIndex()).toString();
-/*    TMWindow* win=new TMWindow;
-    win->selectDB(m_tmListWidget->currentIndex().row());
-    win->show();*/
+    /*    TMWindow* win=new TMWindow;
+        win->selectDB(m_tmListWidget->currentIndex().row());
+        win->show();*/
 }
 
 

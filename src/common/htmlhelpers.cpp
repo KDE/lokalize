@@ -29,16 +29,15 @@ QString escapeWithLinks(const QString& text)
 {
     QString html;
     static QRegularExpression urlDetector(QStringLiteral("(https?|ftp)://[^\\s/$.?#].[^\\s]*"));
-    QStringList parts=text.split(urlDetector);
-    if (parts.size()) html+=parts.takeFirst().toHtmlEscaped();
+    QStringList parts = text.split(urlDetector);
+    if (parts.size()) html += parts.takeFirst().toHtmlEscaped();
 
     QRegularExpressionMatchIterator i = urlDetector.globalMatch(text);
-    while (i.hasNext())
-    {
+    while (i.hasNext()) {
         QRegularExpressionMatch match = i.next();
         QString word = match.captured(0);
-        html+=QStringLiteral("<a href=\"")%word.toHtmlEscaped()%QStringLiteral("\">")%word.toHtmlEscaped()%QStringLiteral("</a>");
-        if (parts.size()) html+=parts.takeFirst().toHtmlEscaped();
+        html += QStringLiteral("<a href=\"") % word.toHtmlEscaped() % QStringLiteral("\">") % word.toHtmlEscaped() % QStringLiteral("</a>");
+        if (parts.size()) html += parts.takeFirst().toHtmlEscaped();
     }
     return html;
 }

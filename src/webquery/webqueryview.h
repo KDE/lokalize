@@ -57,7 +57,7 @@ class WebQueryView: public QDockWidget
     Q_OBJECT
 
 public:
-    WebQueryView(QWidget*,Catalog*,const QVector<QAction*>&);
+    WebQueryView(QWidget*, Catalog*, const QVector<QAction*>&);
     virtual ~WebQueryView();
 
 
@@ -70,7 +70,7 @@ public slots:
 //     void populateWebQueryActions();
 //     void doQuery();
     void slotUseSuggestion(int i);
-    void addWebQueryResult(const QString&,const QString&);
+    void addWebQueryResult(const QString&, const QString&);
 
     void slotSelectionChanged();
     void initLater();

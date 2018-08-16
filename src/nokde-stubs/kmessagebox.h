@@ -5,10 +5,22 @@
 
 namespace KStandardGuiItem
 {
-    static inline int save(){return 0;}
-    static inline int discard(){return 0;}
-    static inline int yes(){return 0;}
-    static inline int no(){return 0;}
+static inline int save()
+{
+    return 0;
+}
+static inline int discard()
+{
+    return 0;
+}
+static inline int yes()
+{
+    return 0;
+}
+static inline int no()
+{
+    return 0;
+}
 };
 
 #define KGuiItem(x) 0
@@ -16,41 +28,41 @@ namespace KStandardGuiItem
 class KMessageBox: public QMessageBox
 {
 public:
-    enum {Continue=QMessageBox::Ignore};
+    enum {Continue = QMessageBox::Ignore};
     static QMessageBox::StandardButton warningYesNoCancel(QWidget *parent, const QString &text,
-                              const QString &caption,
-                              int y=0,
-                              int n=0,
-                              int c=0,
-                              const QString &dontAskAgainName=QString())
+            const QString &caption,
+            int y = 0,
+            int n = 0,
+            int c = 0,
+            const QString &dontAskAgainName = QString())
     {
         Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(c) Q_UNUSED(dontAskAgainName)
-        return warning(parent, caption, text, Yes|No|Cancel, Yes);
+        return warning(parent, caption, text, Yes | No | Cancel, Yes);
     }
     static QMessageBox::StandardButton questionYesNoCancel(QWidget *parent, const QString &text,
-                               const QString &caption,
-                               int y=0,
-                               int n=0,
-                               int c=0,
-                               const QString &dontAskAgainName=QString())
+            const QString &caption,
+            int y = 0,
+            int n = 0,
+            int c = 0,
+            const QString &dontAskAgainName = QString())
     {
         Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(c) Q_UNUSED(dontAskAgainName)
-        return question(parent, caption, text, Yes|No|Cancel, Yes);
+        return question(parent, caption, text, Yes | No | Cancel, Yes);
     }
 
     static QMessageBox::StandardButton questionYesNo(QWidget *parent, const QString &text,
-                              const QString &caption,
-                              int y=0,
-                              int n=0,
-                              const QString &dontAskAgainName=QString())
+            const QString &caption,
+            int y = 0,
+            int n = 0,
+            const QString &dontAskAgainName = QString())
     {
         Q_UNUSED(y) Q_UNUSED(n) Q_UNUSED(dontAskAgainName)
-        return question(parent, caption, text, Yes|No|Cancel, Yes);
+        return question(parent, caption, text, Yes | No | Cancel, Yes);
     }
     static void information(QWidget *parent,
-                     const QString &text,
-                     const QString &caption = QString(),
-                     const QString &dontShowAgainName = QString())
+                            const QString &text,
+                            const QString &caption = QString(),
+                            const QString &dontShowAgainName = QString())
     {
         Q_UNUSED(dontShowAgainName)
         QMessageBox::information(parent, caption, text);

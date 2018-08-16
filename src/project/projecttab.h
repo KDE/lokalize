@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -51,12 +51,18 @@ public:
 
     void contextMenuEvent(QContextMenuEvent *event);
 
-    void hideDocks(){};
-    void showDocks(){};
-    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    void hideDocks() {};
+    void showDocks() {};
+    KXMLGUIClient* guiClient()
+    {
+        return (KXMLGUIClient*)this;
+    }
     QString currentFilePath();
 
-    int unitsCount(){return m_currentUnitsCount;}
+    int unitsCount()
+    {
+        return m_currentUnitsCount;
+    }
     void setLegacyUnitsCount(int to);
 
 signals:
@@ -83,7 +89,7 @@ private slots:
     void setFilterRegExp();
     void setFocus();
     void scanFilesToTM();
-    void searchInFiles(bool templ=false);
+    void searchInFiles(bool templ = false);
     void searchInFilesInclTempl();
     void openFile();
     void findInFiles();
@@ -109,7 +115,7 @@ private:
     ProjectWidget* m_browser;
     QLineEdit* m_filterEdit;
     QProgressBar* m_progressBar;
-    
+
     QStackedLayout *m_stackedLayout;
 
     int m_legacyUnitsCount, m_currentUnitsCount;

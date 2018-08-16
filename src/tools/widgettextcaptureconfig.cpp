@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -29,12 +29,12 @@
 #include <kconfig.h>
 
 WidgetTextCaptureConfig::WidgetTextCaptureConfig(QWidget* parent)
- : QDialog(parent)
- , ui(new Ui_WidgetTextCapture)
+    : QDialog(parent)
+    , ui(new Ui_WidgetTextCapture)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
     ui->setupUi(this);
-    setWindowTitle(i18nc("@title","Widget Text Capture"));
+    setWindowTitle(i18nc("@title", "Widget Text Capture"));
 
     KConfigGroup cg(KSharedConfig::openConfig(), "Development");
     bool copyWidgetText = cg.readEntry("CopyWidgetText", false);
@@ -56,7 +56,7 @@ WidgetTextCaptureConfig::~WidgetTextCaptureConfig()
 void WidgetTextCaptureConfig::writeConfig()
 {
     KConfig konfig(QLatin1String("kdeglobals"), KConfig::NoGlobals);
-    KConfigGroup cg=konfig.group("Development");
+    KConfigGroup cg = konfig.group("Development");
     cg.writeEntry("CopyWidgetText", !ui->none->isChecked());
     if (ui->clipboard->isChecked())
         cg.writeEntry("CopyWidgetTextCommand", QString());

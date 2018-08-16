@@ -60,13 +60,13 @@
 
 using namespace Kross;
 
-WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
-        : QDockWidget ( i18n("Web Queries"), parent)
-        , m_catalog(catalog)
-        , m_splitter(new QSplitter(this))
-        , m_browser(new QTextBrowser(m_splitter))
-        , ui_queryControl(new Ui_QueryControl)
-        , m_actions(actions)
+WebQueryView::WebQueryView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
+    : QDockWidget(i18n("Web Queries"), parent)
+    , m_catalog(catalog)
+    , m_splitter(new QSplitter(this))
+    , m_browser(new QTextBrowser(m_splitter))
+    , ui_queryControl(new Ui_QueryControl)
+    , m_actions(actions)
 
 {
     setObjectName(QStringLiteral("WebQueryView"));
@@ -76,8 +76,8 @@ WebQueryView::WebQueryView(QWidget* parent,Catalog* catalog,const QVector<QActio
 
     m_browser->viewport()->setBackgroundRole(QPalette::Background);
 
-    m_browser->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-    QWidget* w=new QWidget(m_splitter);
+    m_browser->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QWidget* w = new QWidget(m_splitter);
     ui_queryControl->setupUi(w);
 
     QTimer::singleShot(0, this, &WebQueryView::initLater);
@@ -100,16 +100,15 @@ void WebQueryView::initLater()
     ActionCollectionModel* m = new ActionCollectionModel(ui_queryControl->actionzView, Manager::self().actionCollection()/*, mode*/);
     ui_queryControl->actionzView->setModel(m);
 //     m_boxLayout->addWidget(w);
-    ui_queryControl->actionzView->data.webQueryView=this;
+    ui_queryControl->actionzView->data.webQueryView = this;
 
 
-    m_browser->setToolTip(i18nc("@info:tooltip","Double-click any word to insert it into translation"));
+    m_browser->setToolTip(i18nc("@info:tooltip", "Double-click any word to insert it into translation"));
 
 
-    QSignalMapper* signalMapper=new QSignalMapper(this);
-    int i=m_actions.size();
-    while(--i>=0)
-    {
+    QSignalMapper* signalMapper = new QSignalMapper(this);
+    int i = m_actions.size();
+    while (--i >= 0) {
         connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
         signalMapper->setMapping(m_actions.at(i), i);
     }
@@ -123,8 +122,7 @@ void WebQueryView::slotSelectionChanged()
     //NOTE works fine only for dbl-click word selection
     //(actually, quick word insertion is exactly the purpose of this slot:)
     QString sel(m_browser->textCursor().selectedText());
-    if (!sel.isEmpty())
-    {
+    if (!sel.isEmpty()) {
         emit textInsertRequested(sel);
     }
 }
@@ -138,7 +136,7 @@ void WebQueryView::slotSelectionChanged()
 //             event->acceptProposedAction();
 //         };*/
 // }
-// 
+//
 // void WebQueryView::dropEvent(QDropEvent *event)
 // {
 //     /*    emit mergeOpenRequested(event->mimeData()->urls().first());
@@ -151,7 +149,7 @@ void WebQueryView::slotNewEntryDisplayed(const DocPosition& pos)
     m_browser->clear();
     m_suggestions.clear();
 
-    ui_queryControl->actionzView->data.msg=m_catalog->msgid(pos);
+    ui_queryControl->actionzView->data.msg = m_catalog->msgid(pos);
     //TODO pass DocPosition also, as tmview does
 
     if (ui_queryControl->autoQuery->isChecked())
@@ -160,22 +158,22 @@ void WebQueryView::slotNewEntryDisplayed(const DocPosition& pos)
 
 void WebQueryView::slotUseSuggestion(int i)
 {
-    if (i>=m_suggestions.size())
+    if (i >= m_suggestions.size())
         return;
     emit textInsertRequested(m_suggestions.at(i));
 }
 
 
-void WebQueryView::addWebQueryResult(const QString& name,const QString& str)
+void WebQueryView::addWebQueryResult(const QString& name, const QString& str)
 {
     QString html(str);
-    html.replace('<',"&lt;");
-    html.replace('>',"&gt;");
+    html.replace('<', "&lt;");
+    html.replace('>', "&gt;");
     html.append(QString("<br><br>"));
     html.prepend(QString("[%2] /%1/ ").arg(name).arg(
-                (m_suggestions.size()<m_actions.size())?
-                m_actions.at(m_suggestions.size())->shortcut().toString():
-                " - "));
+                     (m_suggestions.size() < m_actions.size()) ?
+                     m_actions.at(m_suggestions.size())->shortcut().toString() :
+                     " - "));
 
     m_browser->insertHtml(html);
     //m_flowLayout->addWebQueryResult(str);

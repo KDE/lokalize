@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -42,8 +42,9 @@
 class KJob;
 #endif
 
-namespace TM {
-    static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
+namespace TM
+{
+static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob);
 }
 
 using namespace TM;
@@ -59,7 +60,7 @@ RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
 bool RecursiveScanJob::doKill()
 {
 #if QT_VERSION >= 0x050500
-    foreach(ScanJob* job, m_jobs)
+    foreach (ScanJob* job, m_jobs)
         TM::threadPool()->cancel(job);
 #endif
     return true;
@@ -67,8 +68,8 @@ bool RecursiveScanJob::doKill()
 
 void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
 {
-    m_jobs=jobs;
-    setTotalAmount(KJob::Files,jobs.size());
+    m_jobs = jobs;
+    setTotalAmount(KJob::Files, jobs.size());
 
     if (!jobs.size())
         kill(KJob::EmitResult);
@@ -77,19 +78,18 @@ void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
 void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 {
     j->deleteLater();
-    ScanJob* job=static_cast<ScanJob*>(j);
+    ScanJob* job = static_cast<ScanJob*>(j);
 
-    setProcessedAmount(KJob::Files,processedAmount(KJob::Files)+1);
-    emitPercent(processedAmount(KJob::Files),totalAmount(KJob::Files));
+    setProcessedAmount(KJob::Files, processedAmount(KJob::Files) + 1);
+    emitPercent(processedAmount(KJob::Files), totalAmount(KJob::Files));
 
-    setProcessedAmount(KJob::Bytes,processedAmount(KJob::Bytes)+job->m_size);
-    if (m_time.elapsed()) emitSpeed(1000*processedAmount(KJob::Bytes)/m_time.elapsed());
+    setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes) + job->m_size);
+    if (m_time.elapsed()) emitSpeed(1000 * processedAmount(KJob::Bytes) / m_time.elapsed());
 
 
-    if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
-    {
+    if (processedAmount(KJob::Files) == totalAmount(KJob::Files)) {
         emitResult();
-        qCWarning(LOKALIZE_LOG)<<"finished in"<<m_time.elapsed()<<"msecs";
+        qCWarning(LOKALIZE_LOG) << "finished in" << m_time.elapsed() << "msecs";
     }
 }
 
@@ -97,8 +97,8 @@ void RecursiveScanJob::start()
 {
     m_time.start();
     emit description(this,
-                i18n("Adding files to Lokalize translation memory"),
-                qMakePair(i18n("TM"), m_dbName));
+                     i18n("Adding files to Lokalize translation memory"),
+                     qMakePair(i18n("TM"), m_dbName));
 }
 #endif
 
@@ -109,31 +109,28 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
     KIO::getJobTracker()->registerJob(metaJob);
     metaJob->start();
 #else
-    KJob* metaJob=0;
+    KJob* metaJob = 0;
 #endif
     if (!askAuthorInfoIfEmpty())
         return 0;
 
     QVector<ScanJob*> result;
-    int i=filePaths.size();
-    while(--i>=0)
-    {
-        const QString& filePath=filePaths.at(i);
+    int i = filePaths.size();
+    while (--i >= 0) {
+        const QString& filePath = filePaths.at(i);
         if (filePath.isEmpty())
             continue;
-        if (Catalog::extIsSupported(filePath))
-        {
+        if (Catalog::extIsSupported(filePath)) {
 #ifndef NOKDE
-            ScanJobFeedingBack* job=new ScanJobFeedingBack(filePath,dbName);
+            ScanJobFeedingBack* job = new ScanJobFeedingBack(filePath, dbName);
             QObject::connect(job, &ScanJobFeedingBack::done, metaJob, &RecursiveScanJob::scanJobFinished);
 #else
-            ScanJob* job=new ScanJob(filePath,dbName);
+            ScanJob* job = new ScanJob(filePath, dbName);
 #endif
             TM::threadPool()->start(job, SCAN);
             result.append(job);
-        }
-        else
-            result+=doScanRecursive(QDir(filePath),dbName,metaJob);
+        } else
+            result += doScanRecursive(QDir(filePath), dbName, metaJob);
     }
 
 #ifndef NOKDE
@@ -145,28 +142,27 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
 }
 
 //returns gross number of jobs started
-static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbName,KJob* metaJob)
+static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbName, KJob* metaJob)
 {
     QVector<ScanJob*> result;
-    QStringList subDirs(dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot|QDir::Readable));
-    int i=subDirs.size();
-    while(--i>=0)
-        result+=TM::doScanRecursive(QDir(dir.filePath(subDirs.at(i))),dbName,metaJob);
+    QStringList subDirs(dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable));
+    int i = subDirs.size();
+    while (--i >= 0)
+        result += TM::doScanRecursive(QDir(dir.filePath(subDirs.at(i))), dbName, metaJob);
 
-    QStringList filters=Catalog::supportedExtensions();
-    i=filters.size();
-    while(--i>=0)
+    QStringList filters = Catalog::supportedExtensions();
+    i = filters.size();
+    while (--i >= 0)
         filters[i].prepend('*');
-    QStringList files(dir.entryList(filters,QDir::Files|QDir::NoDotAndDotDot|QDir::Readable));
-    i=files.size();
+    QStringList files(dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot | QDir::Readable));
+    i = files.size();
 
-    while(--i>=0)
-    {
+    while (--i >= 0) {
 #ifndef NOKDE
-        ScanJobFeedingBack* job=new ScanJobFeedingBack(dir.filePath(files.at(i)),dbName);
+        ScanJobFeedingBack* job = new ScanJobFeedingBack(dir.filePath(files.at(i)), dbName);
         QObject::connect(job, &ScanJobFeedingBack::done, (RecursiveScanJob*)metaJob, &RecursiveScanJob::scanJobFinished);
 #else
-        ScanJob* job=new ScanJob(dir.filePath(files.at(i)),dbName);
+        ScanJob* job = new ScanJob(dir.filePath(files.at(i)), dbName);
 #endif
         TM::threadPool()->start(job, SCAN);
         result.append(job);
@@ -177,14 +173,12 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
 
 bool dragIsAcceptable(const QList<QUrl>& urls)
 {
-    int i=urls.size();
-    while(--i>=0)
-    {
-        bool ok=Catalog::extIsSupported(urls.at(i).path());
-        if (!ok)
-        {
+    int i = urls.size();
+    while (--i >= 0) {
+        bool ok = Catalog::extIsSupported(urls.at(i).path());
+        if (!ok) {
             QFileInfo info(urls.at(i).toLocalFile());
-            ok=info.exists() && info.isDir();
+            ok = info.exists() && info.isDir();
         }
         if (ok)
             return true;
@@ -198,7 +192,7 @@ QString shorterFilePath(const QString path)
     if (!Project::instance()->isLoaded())
         return path;
 
-    QString pDir=Project::instance()->projectDir();
+    QString pDir = Project::instance()->projectDir();
     if (path.startsWith(pDir))//TODO cache projectDir?
         return QDir(pDir).relativeFilePath(path);
     return path;

@@ -41,8 +41,8 @@ public:
     QaView(QWidget*);
     ~QaView();
 
-    bool loadRules(QString filename=QString());
-    bool saveRules(QString filename=QString());
+    bool loadRules(QString filename = QString());
+    bool saveRules(QString filename = QString());
     QVector<Rule> rules() const;
 
 public slots:
@@ -61,7 +61,7 @@ private:
 };
 
 int findMatchingRule(const QVector<Rule>& rules, const QString& source, const QString& target,
-                    QVector<StartLen>& positions);
+                     QVector<StartLen>& positions);
 
 #endif // QAVIEW_H
 

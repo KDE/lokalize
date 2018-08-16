@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -28,7 +28,8 @@
 
 #include "glossary.h"
 
-namespace GlossaryNS {
+namespace GlossaryNS
+{
 
 /**
  * loads only data we need to store in memory
@@ -40,18 +41,16 @@ namespace GlossaryNS {
  */
 class TbxParser : public QXmlDefaultHandler
 {
-    enum State //localstate for getting chars into right place
-    {
-        null=0,
+    enum State { //localstate for getting chars into right place
+        null = 0,
 //        termGrp,
         term,
         descripDefinition,
         descripSubjectField
     };
 
-    enum Lang
-    {
-        langNull=0,
+    enum Lang {
+        langNull = 0,
         langEn,
         langTarget
     };
@@ -62,17 +61,17 @@ public:
         , m_glossary(glossary)
     {}
 
-    ~TbxParser(){}
+    ~TbxParser() {}
 
     bool startDocument();
-    bool startElement(const QString&,const QString&,const QString&,const QXmlAttributes&);
-    bool endElement(const QString&,const QString&,const QString&);
+    bool startElement(const QString&, const QString&, const QString&, const QXmlAttributes&);
+    bool endElement(const QString&, const QString&, const QString&);
     bool characters(const QString&);
 
 private:
 //    bool inTermTag:1;
-    State m_state:8;
-    Lang m_lang:8;
+    State m_state: 8;
+    Lang m_lang: 8;
     QString m_termEn;
     QString m_termOther;
     TermEntry m_entry;

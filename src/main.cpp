@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -72,12 +72,10 @@ COPYDATASTRUCT MyCDS;
 PCOPYDATASTRUCT pMyCDS;
 LONG_PTR WINAPI windowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    if (message == WM_COPYDATA)
-    {
+    if (message == WM_COPYDATA) {
         pMyCDS = (PCOPYDATASTRUCT)lParam;
-        if (pMyCDS->dwData==FILEPATHMESSAGE)
-        {
-            EditorTab* t=Project::instance()->fileOpen(QString::fromUtf8((char*)pMyCDS->lpData));
+        if (pMyCDS->dwData == FILEPATHMESSAGE) {
+            EditorTab* t = Project::instance()->fileOpen(QString::fromUtf8((char*)pMyCDS->lpData));
             if (t) t->activateWindow();
         }
         return 0;
@@ -98,24 +96,24 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
                      KAboutLicense::GPL, i18nc("@info:credit", "(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
-    about.addAuthor( i18n("Nick Shaforostoff"), QString(), QStringLiteral("shaforostoff@gmail.com") );
-    about.addCredit (i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QString(), QStringLiteral("http://google.com"));
-    about.addCredit (i18n("NLNet Foundation"), i18n("sponsored XLIFF-related work"), QString(), QStringLiteral("https://nlnet.nl/"));
-    about.addCredit (i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QString(), QStringLiteral("http://translate.sourceforge.net"));
-    about.addCredit (i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), QStringLiteral("viesturs.zarins@mii.lu.lv"), QString());
-    about.addCredit (i18n("Stephan Johach"), i18n("bug fixing patches"), QStringLiteral("hunsum@gmx.de"));
-    about.addCredit (i18n("Chusslove Illich"), i18n("bug fixing patches"), QStringLiteral("caslav.ilic@gmx.net"));
-    about.addCredit (i18n("Jure Repinc"), i18n("testing and bug fixing"), QStringLiteral("jlp@holodeck1.com"));
-    about.addCredit (i18n("Stefan Asserhall"), i18n("patches"), QStringLiteral("stefan.asserhall@comhem.se"));
-    about.addCredit (i18n("Papp Laszlo"), i18n("bug fixing patches"), QStringLiteral("djszapi@archlinux.us"));
-    about.addCredit (i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
+    about.addAuthor(i18n("Nick Shaforostoff"), QString(), QStringLiteral("shaforostoff@gmail.com"));
+    about.addCredit(i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QString(), QStringLiteral("http://google.com"));
+    about.addCredit(i18n("NLNet Foundation"), i18n("sponsored XLIFF-related work"), QString(), QStringLiteral("https://nlnet.nl/"));
+    about.addCredit(i18n("Translate-toolkit"), i18n("provided excellent cross-format converting scripts"), QString(), QStringLiteral("http://translate.sourceforge.net"));
+    about.addCredit(i18n("Viesturs Zarins"), i18n("project tree merging translation+templates"), QStringLiteral("viesturs.zarins@mii.lu.lv"), QString());
+    about.addCredit(i18n("Stephan Johach"), i18n("bug fixing patches"), QStringLiteral("hunsum@gmx.de"));
+    about.addCredit(i18n("Chusslove Illich"), i18n("bug fixing patches"), QStringLiteral("caslav.ilic@gmx.net"));
+    about.addCredit(i18n("Jure Repinc"), i18n("testing and bug fixing"), QStringLiteral("jlp@holodeck1.com"));
+    about.addCredit(i18n("Stefan Asserhall"), i18n("patches"), QStringLiteral("stefan.asserhall@comhem.se"));
+    about.addCredit(i18n("Papp Laszlo"), i18n("bug fixing patches"), QStringLiteral("djszapi@archlinux.us"));
+    about.addCredit(i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
 #ifndef NOKDE
     KAboutData::setApplicationData(about);
     about.setupCommandLine(&parser);
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n( "Do not scan files of the project.")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("project"), i18n( "Load specified project."), QStringLiteral("filename")));
-    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("+[URL]"), i18n( "Document to open" )));
+    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("noprojectscan"), i18n("Do not scan files of the project.")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("project"), i18n("Load specified project."), QStringLiteral("filename")));
+    parser.addOption(QCommandLineOption(QStringList() <<  QStringLiteral("+[URL]"), i18n("Document to open")));
     parser.process(app);
     about.processCommandLine(&parser);
 
@@ -128,10 +126,10 @@ int main(int argc, char **argv)
 #endif
 
     //qCDebug(LOKALIZE_LOG) is important as it aviods compile 'optimization'.
-    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<DocPosition>();
-    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<DocPos>();
-    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<InlineTag>();
-    qCDebug(LOKALIZE_LOG)<<qRegisterMetaType<CatalogString>();
+    qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPosition>();
+    qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPos>();
+    qCDebug(LOKALIZE_LOG) << qRegisterMetaType<InlineTag>();
+    qCDebug(LOKALIZE_LOG) << qRegisterMetaType<CatalogString>();
     qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
 #ifndef NOKDE
@@ -142,8 +140,7 @@ int main(int argc, char **argv)
     // see if we are starting with session management
     if (app.isSessionRestored())
         kRestoreMainWindows<LokalizeMainWindow>();
-    else
-    {
+    else {
         // no session.. just start up normally
 
         QString projectFilePath = parser.value(QStringLiteral("project"));
@@ -155,18 +152,17 @@ int main(int argc, char **argv)
             else if (QFileInfo::exists(filePath))
                 urls.append(filePath);
 
-        if (projectFilePath.length())
-        {
+        if (projectFilePath.length()) {
             // load needs an absolute path
             // FIXME: I do not know how to handle urls here
             // bug 245546 regarding symlinks
             QFileInfo projectFileInfo(projectFilePath);
-            projectFilePath=projectFileInfo.canonicalFilePath();
+            projectFilePath = projectFileInfo.canonicalFilePath();
             if (projectFilePath.isEmpty())
-                projectFilePath=projectFileInfo.absoluteFilePath();
-            Project::instance()->load( projectFilePath );
+                projectFilePath = projectFileInfo.absoluteFilePath();
+            Project::instance()->load(projectFilePath);
         }
-        LokalizeMainWindow* lmw=new LokalizeMainWindow;
+        LokalizeMainWindow* lmw = new LokalizeMainWindow;
         SettingsController::instance()->setMainWindowPtr(lmw);
         lmw->show();
 
@@ -180,17 +176,15 @@ int main(int argc, char **argv)
     TCHAR gClassName[100];
     wsprintf(gClassName, TEXT("LokalizeResponder"));
 
-    HWND responder=FindWindow(gClassName, L"LokalizeResponder");
-    if (responder)
-    {
-        for (int j=0; j<parser.positionalArguments().count(); j++)
-        {
+    HWND responder = FindWindow(gClassName, L"LokalizeResponder");
+    if (responder) {
+        for (int j = 0; j < parser.positionalArguments().count(); j++) {
             if (!QFileInfo::exists(parser.positionalArguments().at(j))) continue;
             strncpy(sentPath, parser.positionalArguments().at(j).toUtf8().constData(), 255);
             MyCDS.dwData = FILEPATHMESSAGE;
-            MyCDS.cbData = sizeof( sentPath );  // size of data
+            MyCDS.cbData = sizeof(sentPath);    // size of data
             MyCDS.lpData = &sentPath;           // data structure
-            SendMessage(responder, WM_COPYDATA, 0, (LPARAM) (LPVOID) &MyCDS);
+            SendMessage(responder, WM_COPYDATA, 0, (LPARAM)(LPVOID) &MyCDS);
         }
         return 0;
     }
@@ -211,17 +205,16 @@ int main(int argc, char **argv)
 #endif
 
     SettingsController::instance()->ensureProjectIsLoaded();
-    for (int j=0; j<parser.positionalArguments().count(); j++)
+    for (int j = 0; j < parser.positionalArguments().count(); j++)
         if (QFileInfo::exists(parser.positionalArguments().at(j))) Project::instance()->fileOpen(parser.positionalArguments().at(j));
-    if (!parser.positionalArguments().count())
-    {
-        WelcomeTab* welcome=new WelcomeTab(0);
+    if (!parser.positionalArguments().count()) {
+        WelcomeTab* welcome = new WelcomeTab(0);
         welcome->move(QApplication::desktop()->screen()->rect().center() - welcome->rect().center());
         welcome->show();
     }
     app.installEventFilter(Project::instance());
 #endif
-    int code=app.exec();
+    int code = app.exec();
 
 #ifdef NOKDE
 #ifdef Q_OS_WIN
@@ -241,17 +234,16 @@ int main(int argc, char **argv)
     if (Project::instance()->isLoaded())
         Project::instance()->save();
 
-    qCWarning(LOKALIZE_LOG)<<"Finishing Project jobs...";
-    qCWarning(LOKALIZE_LOG)<<"Finishing TM jobs...";
-    int secs=5;
-    while(--secs>=0)
-    {
+    qCWarning(LOKALIZE_LOG) << "Finishing Project jobs...";
+    qCWarning(LOKALIZE_LOG) << "Finishing TM jobs...";
+    int secs = 5;
+    while (--secs >= 0) {
         Project::instance()->model()->threadPool()->waitForDone(1000);
         TM::threadPool()->waitForDone(1000);
         QThreadPool::globalInstance()->waitForDone(1000);
         //qCDebug(LOKALIZE_LOG)<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
-        QCoreApplication::sendPostedEvents(0,0);
+        QCoreApplication::sendPostedEvents(0, 0);
     }
 #else
     Settings::self()->save();

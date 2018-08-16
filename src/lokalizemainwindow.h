@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -43,7 +43,10 @@ class EditorTab;
 class MultiEditorAdaptor;
 class ProjectScriptingPlugin;
 class FileSearchTab;
-namespace TM {class TMTab;}
+namespace TM
+{
+class TMTab;
+}
 
 /**
  * @short Lokalize MDI (tabbed) window.
@@ -85,8 +88,14 @@ private slots:
     void editorClosed(QObject* obj);
     void resetMultiEditorAdaptor();
 
-    void openProject(const QUrl& url){openProject(url.toLocalFile());}//convenience overload for recent projects action
-    void openProject(){openProject(QString());}
+    void openProject(const QUrl& url)
+    {
+        openProject(url.toLocalFile());   //convenience overload for recent projects action
+    }
+    void openProject()
+    {
+        openProject(QString());
+    }
 
 
 public slots:
@@ -108,7 +117,7 @@ public slots:
 
     /// @returns 0 if current tab is not of Editor type
     Q_SCRIPTABLE QObject* activeEditor();
-    
+
     /// @returns editor with @param path loaded or 0 if there is no such editor.
     Q_SCRIPTABLE QObject* editorForFile(const QString& path);
     /**
@@ -128,12 +137,15 @@ public slots:
 
     //returns 0 if error
     EditorTab* fileOpen_(QString url);
-    EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
+    EditorTab* fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString& mergeFile = QString(), bool silent = false);
     EditorTab* fileOpen(const QString& url, const QString& source, const QString& ctxt);
     EditorTab* fileOpen(const QString& url, DocPosition docPos, int selection);
-    EditorTab* fileOpen(const QUrl& url){return fileOpen(url.toLocalFile());}
+    EditorTab* fileOpen(const QUrl& url)
+    {
+        return fileOpen(url.toLocalFile());
+    }
     TM::TMTab* showTM();
-    FileSearchTab* showFileSearch(bool activate=true);
+    FileSearchTab* showFileSearch(bool activate = true);
     void fileSearchNext();
     void addFilesToSearch(const QStringList&);
 
@@ -174,11 +186,11 @@ private:
 
 class ProjectScriptingPlugin: public Kross::ScriptingPlugin
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
     ~ProjectScriptingPlugin();
-    void setDOMDocument (const QDomDocument &document, bool merge = false);
+    void setDOMDocument(const QDomDocument &document, bool merge = false);
 
 private slots:
     void doAutoruns();
@@ -187,7 +199,7 @@ private slots:
 
 class DelayedFileOpener: public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     DelayedFileOpener(const QVector<QString>& urls, LokalizeMainWindow* lmw);
 

@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -30,20 +30,20 @@
 
 const char* InlineTag::getElementName(InlineElement type)
 {
-    static const char* inlineElementNames[(int)InlineElementCount]={
-    "_unknown",
-    "bpt",
-    "ept",
-    "ph",
-    "it",
-    //"_NEVERSHOULDBECHOSEN",
-    "mrk",
-    "g",
-    "sub",
-    "_NEVERSHOULDBECHOSEN",
-    "x",
-    "bx",
-    "ex"
+    static const char* inlineElementNames[(int)InlineElementCount] = {
+        "_unknown",
+        "bpt",
+        "ept",
+        "ph",
+        "it",
+        //"_NEVERSHOULDBECHOSEN",
+        "mrk",
+        "g",
+        "sub",
+        "_NEVERSHOULDBECHOSEN",
+        "x",
+        "bx",
+        "ex"
     };
 
     return inlineElementNames[(int)type];
@@ -51,17 +51,17 @@ const char* InlineTag::getElementName(InlineElement type)
 
 InlineTag InlineTag::getPlaceholder() const
 {
-    InlineTag tagRange=*this;
-    tagRange.start=-1;
-    tagRange.end=-1;
+    InlineTag tagRange = *this;
+    tagRange.start = -1;
+    tagRange.end = -1;
     return tagRange;
 }
 
 InlineTag::InlineElement InlineTag::getElementType(const QByteArray& tag)
 {
-    int i=InlineTag::InlineElementCount;
-    while(--i>0)
-        if (getElementName(InlineElement(i))==tag)
+    int i = InlineTag::InlineElementCount;
+    while (--i > 0)
+        if (getElementName(InlineElement(i)) == tag)
             break;
     return InlineElement(i);
 }
@@ -69,7 +69,7 @@ InlineTag::InlineElement InlineTag::getElementType(const QByteArray& tag)
 
 QString InlineTag::displayName() const
 {
-    static const char* inlineElementNames[(int)InlineElementCount]={
+    static const char* inlineElementNames[(int)InlineElementCount] = {
         "_unknown",
         I18N_NOOP2("XLIFF inline tag name", "Start of paired tag"),
         I18N_NOOP2("XLIFF inline tag name", "End of paired tag"),
@@ -85,11 +85,10 @@ QString InlineTag::displayName() const
         I18N_NOOP2("XLIFF inline tag name", "End of paired placeholder")
     };
 
-    QString result=i18nc("XLIFF inline tag name", inlineElementNames[type]);
+    QString result = i18nc("XLIFF inline tag name", inlineElementNames[type]);
 
-    if (type==mrk)
-    {
-        static const char* mrkTypes[]={
+    if (type == mrk) {
+        static const char* mrkTypes[] = {
             "abbrev",
             "abbreviated-form",
             "abbreviation",
@@ -129,7 +128,7 @@ QString InlineTag::displayName() const
             "variant"
         };
 
-        static const char* mrkTypeNames[]={
+        static const char* mrkTypeNames[] = {
             I18N_NOOP2("XLIFF mark type", "abbreviation"),
             I18N_NOOP2("XLIFF mark type", "abbreviated form: a term resulting from the omission of any part of the full term while designating the same concept"),
             I18N_NOOP2("XLIFF mark type", "abbreviation: an abbreviated form of a simple term resulting from the omission of some of its letters (e.g. 'adj.' for 'adjective')"),
@@ -168,31 +167,29 @@ QString InlineTag::displayName() const
             I18N_NOOP2("XLIFF mark type", "truncated term: an abbreviated form of a term resulting from the omission of one or more term elements or syllables (e.g. 'flu' for 'influenza')"),
             I18N_NOOP2("XLIFF mark type", "variant: one of the alternate forms of a term")
         };
-        int i=sizeof(mrkTypes)/sizeof(char*);
-        while(--i>=0 && mrkTypes[i]!=id)
+        int i = sizeof(mrkTypes) / sizeof(char*);
+        while (--i >= 0 && mrkTypes[i] != id)
             ;
-        if (i!=-1)
-        {
-            result=i18nc("XLIFF mark type", mrkTypeNames[i]);
+        if (i != -1) {
+            result = i18nc("XLIFF mark type", mrkTypeNames[i]);
             if (!result.isEmpty())
-                result[0]=result.at(0).toUpper();
+                result[0] = result.at(0).toUpper();
         }
     }
-    
+
     if (!ctype.isEmpty())
-        result+=" ("+ctype+")";
+        result += " (" + ctype + ")";
 
     return result;
 }
 
 
-QMap<QString,int> CatalogString::tagIdToIndex() const
+QMap<QString, int> CatalogString::tagIdToIndex() const
 {
-    QMap<QString,int> result;
-    int index=0;
-    int count=tags.size();
-    for (int i=0;i<count;++i)
-    {
+    QMap<QString, int> result;
+    int index = 0;
+    int count = tags.size();
+    for (int i = 0; i < count; ++i) {
         if (!result.contains(tags.at(i).id))
             result.insert(tags.at(i).id, index++);
     }
@@ -202,10 +199,9 @@ QMap<QString,int> CatalogString::tagIdToIndex() const
 QByteArray CatalogString::tagsAsByteArray()const
 {
     QByteArray result;
-    if (tags.size())
-    {
-        QDataStream stream(&result,QIODevice::WriteOnly);
-        stream<<tags;
+    if (tags.size()) {
+        QDataStream stream(&result, QIODevice::WriteOnly);
+        stream << tags;
     }
     return result;
 }
@@ -213,125 +209,117 @@ QByteArray CatalogString::tagsAsByteArray()const
 CatalogString::CatalogString(QString str, QByteArray tagsByteArray)
     : string(str)
 {
-    if (tagsByteArray.size())
-    {
+    if (tagsByteArray.size()) {
         QDataStream stream(tagsByteArray);
-        stream>>tags;
+        stream >> tags;
     }
 }
 
 static void adjustTags(QList<InlineTag>& tags, int position, int value)
 {
-    int i=tags.size();
-    while(--i>=0)
-    {
-        InlineTag& t=tags[i];
-        if (t.start>position)
-            t.start+=value;
-        if (t.end>=position) //cases when strict > is needed?
-            t.end+=value;
+    int i = tags.size();
+    while (--i >= 0) {
+        InlineTag& t = tags[i];
+        if (t.start > position)
+            t.start += value;
+        if (t.end >= position) //cases when strict > is needed?
+            t.end += value;
     }
 }
 
 void CatalogString::remove(int position, int len)
 {
-    string.remove(position,len);
-    adjustTags(tags,position,-len);
+    string.remove(position, len);
+    adjustTags(tags, position, -len);
 }
 
 void CatalogString::insert(int position, const QString& str)
 {
     string.insert(position, str);
-    adjustTags(tags,position,str.size());
+    adjustTags(tags, position, str.size());
 }
 
 
 QDataStream &operator<<(QDataStream &out, const InlineTag &t)
 {
-    return out<<int(t.type)<<t.start<<t.end<<t.id;
+    return out << int(t.type) << t.start << t.end << t.id;
 }
 
 QDataStream &operator>>(QDataStream &in, InlineTag &t)
 {
     int type;
-    in>>type>>t.start>>t.end>>t.id;
-    t.type=InlineTag::InlineElement(type);
+    in >> type >> t.start >> t.end >> t.id;
+    t.type = InlineTag::InlineElement(type);
     return in;
 }
 
 QDataStream &operator<<(QDataStream &out, const CatalogString &myObj)
 {
-    return out<<myObj.string<<myObj.tags;
+    return out << myObj.string << myObj.tags;
 }
 QDataStream &operator>>(QDataStream &in, CatalogString &myObj)
 {
-    return in>>myObj.string>>myObj.tags;
+    return in >> myObj.string >> myObj.tags;
 }
 
 
 
 void adaptCatalogString(CatalogString& target, const CatalogString& ref)
 {
-    qCWarning(LOKALIZE_LOG)<<"HERE"<<target.string;
-    QHash<QString,int> id2tagIndex;
-    QMultiMap<InlineTag::InlineElement,int> tagType2tagIndex;
-    int i=ref.tags.size();
-    while(--i>=0)
-    {
-        const InlineTag& t=ref.tags.at(i);
-        id2tagIndex.insert(t.id,i);
-        tagType2tagIndex.insert(t.type,i);
-        qCWarning(LOKALIZE_LOG)<<"inserting"<<t.id<<t.type<<i;
+    qCWarning(LOKALIZE_LOG) << "HERE" << target.string;
+    QHash<QString, int> id2tagIndex;
+    QMultiMap<InlineTag::InlineElement, int> tagType2tagIndex;
+    int i = ref.tags.size();
+    while (--i >= 0) {
+        const InlineTag& t = ref.tags.at(i);
+        id2tagIndex.insert(t.id, i);
+        tagType2tagIndex.insert(t.type, i);
+        qCWarning(LOKALIZE_LOG) << "inserting" << t.id << t.type << i;
     }
 
-    QList<InlineTag> oldTags=target.tags;
+    QList<InlineTag> oldTags = target.tags;
     target.tags.clear();
     //we actually walking from beginning to end:
     qSort(oldTags.begin(), oldTags.end(), qGreater<InlineTag>());
-    i=oldTags.size();
-    while(--i>=0)
-    {
-        const InlineTag& targetTag=oldTags.at(i);
-        if (id2tagIndex.contains(targetTag.id))
-        {
-            qCWarning(LOKALIZE_LOG)<<"matched"<<targetTag.id<<i;
+    i = oldTags.size();
+    while (--i >= 0) {
+        const InlineTag& targetTag = oldTags.at(i);
+        if (id2tagIndex.contains(targetTag.id)) {
+            qCWarning(LOKALIZE_LOG) << "matched" << targetTag.id << i;
             target.tags.append(targetTag);
             tagType2tagIndex.remove(targetTag.type, id2tagIndex.take(targetTag.id));
             oldTags.removeAt(i);
         }
     }
-    qCWarning(LOKALIZE_LOG)<<"HERE 0"<<target.string;
+    qCWarning(LOKALIZE_LOG) << "HERE 0" << target.string;
 
     //now all the tags left have to ID (exact) matches
-    i=oldTags.size();
-    while(--i>=0)
-    {
-        InlineTag targetTag=oldTags.at(i);
-        if (tagType2tagIndex.contains(targetTag.type))
-        {
+    i = oldTags.size();
+    while (--i >= 0) {
+        InlineTag targetTag = oldTags.at(i);
+        if (tagType2tagIndex.contains(targetTag.type)) {
             //try to match by position
             //we're _taking_ first so the next one becomes new 'first' for the next time.
             QList<InlineTag> possibleRefMatches;
-            foreach(int i, tagType2tagIndex.values(targetTag.type))
-                possibleRefMatches<<ref.tags.at(i);
+            foreach (int i, tagType2tagIndex.values(targetTag.type))
+                possibleRefMatches << ref.tags.at(i);
             qSort(possibleRefMatches);
-            qCWarning(LOKALIZE_LOG)<<"setting id:"<<targetTag.id<<possibleRefMatches.first().id;
-            targetTag.id=possibleRefMatches.first().id;
+            qCWarning(LOKALIZE_LOG) << "setting id:" << targetTag.id << possibleRefMatches.first().id;
+            targetTag.id = possibleRefMatches.first().id;
 
             target.tags.append(targetTag);
-            qCWarning(LOKALIZE_LOG)<<"id??:"<<targetTag.id<<target.tags.first().id;
+            qCWarning(LOKALIZE_LOG) << "id??:" << targetTag.id << target.tags.first().id;
             tagType2tagIndex.remove(targetTag.type, id2tagIndex.take(targetTag.id));
             oldTags.removeAt(i);
         }
     }
-    qCWarning(LOKALIZE_LOG)<<"HERE 1"<<target.string;
+    qCWarning(LOKALIZE_LOG) << "HERE 1" << target.string;
     //now walk through unmatched tags and properly remove them.
-    foreach(const InlineTag& tag, oldTags)
-    {
+    foreach (const InlineTag& tag, oldTags) {
         if (tag.isPaired())
             target.remove(tag.end, 1);
         target.remove(tag.start, 1);
     }
-    qCWarning(LOKALIZE_LOG)<<"HERE 2"<<target.string;
+    qCWarning(LOKALIZE_LOG) << "HERE 2" << target.string;
 }
 

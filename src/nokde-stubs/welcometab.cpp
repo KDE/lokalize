@@ -46,15 +46,15 @@ WelcomeTab::WelcomeTab(QWidget *parent)
     setupUi(centralWidget());
 
     QStringList i;
-    i<<i18n("Translator")<<i18n("Reviewer")<<i18n("Approver");
+    i << i18n("Translator") << i18n("Reviewer") << i18n("Approver");
     roleCombo->addItems(i);
     roleCombo->setCurrentIndex(Project::instance()->local()->role());
     connect(roleCombo, SIGNAL(currentIndexChanged(int)), Project::instance()->local(), SLOT(setRole(int)));
 
     sourceLangCombo->setModel(LanguageListModel::instance()->sortModel());
     targetLangCombo->setModel(LanguageListModel::instance()->sortModel());
-    sourceLangCombo->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->sourceLangCode() ));
-    targetLangCombo->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
+    sourceLangCombo->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(Project::instance()->sourceLangCode()));
+    targetLangCombo->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(Project::instance()->targetLangCode()));
     LangCodeSaver* s = new LangCodeSaver(this);
     LangCodeSaver* t = new LangCodeSaver(this);
     connect(sourceLangCombo, SIGNAL(currentIndexChanged(int)), s, SLOT(setLangCode(int)));
@@ -80,18 +80,16 @@ void LangCodeSaver::setLangCode(int index)
 
 void WelcomeTab::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(dragIsAcceptable(event->mimeData()->urls()))
+    if (dragIsAcceptable(event->mimeData()->urls()))
         event->acceptProposedAction();
 }
 
 void WelcomeTab::dropEvent(QDropEvent* event)
 {
-    foreach(const QUrl& url, event->mimeData()->urls())
-    {
-        const QString& filePath=url.toLocalFile();
+    foreach (const QUrl& url, event->mimeData()->urls()) {
+        const QString& filePath = url.toLocalFile();
         if (Catalog::extIsSupported(filePath)
-            && Project::instance()->fileOpen(filePath))
-        {
+            && Project::instance()->fileOpen(filePath)) {
             event->acceptProposedAction();
         }
     }

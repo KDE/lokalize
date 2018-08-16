@@ -38,27 +38,37 @@ class TranslationUnitTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent=0);
+    TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent = 0);
     ~TranslationUnitTextEdit();
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
 
     ///@returns targetWithTags for the sake of not calling XliffStorage/doContent twice
-    CatalogString showPos(DocPosition pos, const CatalogString& refStr=CatalogString(), bool keepCursor=true);
-    DocPosition currentPos()const {return m_currentPos;}
+    CatalogString showPos(DocPosition pos, const CatalogString& refStr = CatalogString(), bool keepCursor = true);
+    DocPosition currentPos()const
+    {
+        return m_currentPos;
+    }
 
     void cursorToStart();
 
-    bool isSpellCheckingEnabled() const {return m_enabled;}
+    bool isSpellCheckingEnabled() const
+    {
+        return m_enabled;
+    }
     void setSpellCheckingEnabled(bool enable);
-    bool shouldBlockBeSpellChecked(const QString &block) const{Q_UNUSED(block); return true;}
+    bool shouldBlockBeSpellChecked(const QString &block) const
+    {
+        Q_UNUSED(block);
+        return true;
+    }
 
 public slots:
     void reflectApprovementState();
     void reflectUntranslatedState();
 
-    bool removeTargetSubstring(int start=0, int end=-1, bool refresh=true);
-    void insertCatalogString(CatalogString catStr, int start=0, bool refresh=true);
+    bool removeTargetSubstring(int start = 0, int end = -1, bool refresh = true);
+    void insertCatalogString(CatalogString catStr, int start = 0, bool refresh = true);
 
     void source2target();
     void tagMenu();
@@ -85,9 +95,9 @@ protected:
 
 private:
     ///@a refStr is for proper numbering
-    void setContent(const CatalogString& catStr, const CatalogString& refStr=CatalogString());
+    void setContent(const CatalogString& catStr, const CatalogString& refStr = CatalogString());
 
-    int strForMicePosIfUnderTag(QPoint mice, CatalogString& str, bool tryHarder=false);
+    int strForMicePosIfUnderTag(QPoint mice, CatalogString& str, bool tryHarder = false);
 
     void requestToggleApprovement();
 
@@ -97,7 +107,7 @@ private:
 
 private slots:
     //for Undo/Redo tracking
-    void contentsChanged(int position,int charsRemoved,int charsAdded);
+    void contentsChanged(int position, int charsRemoved, int charsAdded);
     void completionActivated(const QString&);
     void fileLoaded();
 
@@ -124,7 +134,7 @@ signals:
     void tagInsertRequested(const InlineTag& tag);
 
     void binaryUnitSelectRequested(const QString&);
-    void tmLookupRequested(DocPosition::Part,const QString&);
+    void tmLookupRequested(DocPosition::Part, const QString&);
 
     void contentsModified(const DocPosition&);
     void approvedEntryDisplayed();
@@ -155,7 +165,7 @@ private:
 };
 
 
-void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr=CatalogString(), bool insertText=true);
+void insertContent(QTextCursor& cursor, const CatalogString& catStr, const CatalogString& refStr = CatalogString(), bool insertText = true);
 
 
 #endif

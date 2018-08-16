@@ -4,8 +4,8 @@
 
   Copyright (C) 1999-2000 by Matthias Kiefer
                             <matthias.kiefer@gmx.de>
-		2002	  by Stanislav Visnovsky <visnovsky@kde.org>
-		2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+        2002      by Stanislav Visnovsky <visnovsky@kde.org>
+        2007-2011 by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
 #ifndef CATALOGITEMPRIVATE_H
 #define CATALOGITEMPRIVATE_H
@@ -40,7 +40,8 @@
 #include <QString>
 #include <QByteArray>
 
-namespace GettextCatalog {
+namespace GettextCatalog
+{
 
 /**
 * This class represents data for an entry in a catalog.
@@ -93,8 +94,8 @@ public:
 inline
 void CatalogItemPrivate::clear()
 {
-    _plural=false;
-    _valid=true;
+    _plural = false;
+    _valid = true;
     _comment.clear();
     _msgctxt.clear();
     _msgidPlural.clear();
@@ -105,21 +106,21 @@ void CatalogItemPrivate::clear()
 inline
 void CatalogItemPrivate::assign(const CatalogItemPrivate& other)
 {
-    _comment=other._comment;
-    _msgctxt=other._msgctxt;
-    _msgidPlural=other._msgidPlural;
-    _msgstrPlural=other._msgstrPlural;
-    _valid=other._valid;
+    _comment = other._comment;
+    _msgctxt = other._msgctxt;
+    _msgidPlural = other._msgidPlural;
+    _msgstrPlural = other._msgstrPlural;
+    _valid = other._valid;
     //_errors=other._errors;
-    _plural=other._plural;
-    _fuzzyCached=other._fuzzyCached;
+    _plural = other._plural;
+    _fuzzyCached = other._fuzzyCached;
 }
 
 inline
 bool CatalogItemPrivate::isUntranslated() const
 {
-    int i=_msgstrPlural.size();
-    while (--i>=0)
+    int i = _msgstrPlural.size();
+    while (--i >= 0)
         if (_msgstrPlural.at(i).isEmpty())
             return true;
     return false;
@@ -128,7 +129,7 @@ bool CatalogItemPrivate::isUntranslated() const
 inline
 bool CatalogItemPrivate::isUntranslated(uint form) const
 {
-    if ((int)form<_msgstrPlural.size())
+    if ((int)form < _msgstrPlural.size())
         return _msgstrPlural.at(form).isEmpty();
     else
         return true;
@@ -138,7 +139,7 @@ inline
 const QString& CatalogItemPrivate::msgid(const int form) const
 {
     //if original lang is english, we have only 2 formz
-    return (form<_msgidPlural.size())?_msgidPlural.at(form):_msgidPlural.last();
+    return (form < _msgidPlural.size()) ? _msgidPlural.at(form) : _msgidPlural.last();
 }
 
 }

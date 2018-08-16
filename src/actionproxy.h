@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -43,25 +43,34 @@ class ActionProxy: public QObject
     Q_OBJECT
 
 public:
-    ActionProxy(QObject* parent,QObject* receiver=0,const char* slot=0);
+    ActionProxy(QObject* parent, QObject* receiver = 0, const char* slot = 0);
     ~ActionProxy();
 
     void registerAction(QAction*);
     void unregisterAction(/*QAction**/);
 
-    void setStatusTip(const QString& st){m_statusTip=st;}//for TM suggestions
-    QKeySequence shortcut(){return m_keySequence;};//for TM suggestions
+    void setStatusTip(const QString& st)
+    {
+        m_statusTip = st;   //for TM suggestions
+    }
+    QKeySequence shortcut()
+    {
+        return m_keySequence;
+    };//for TM suggestions
 
 public slots:
     void setDisabled(bool);
-    void setEnabled(bool enabled){setDisabled(!enabled);}
+    void setEnabled(bool enabled)
+    {
+        setDisabled(!enabled);
+    }
     void setChecked(bool);
 
 private slots:
     void handleToggled(bool);
 
 signals:
-    void triggered(bool=false);
+    void triggered(bool = false);
     void toggled(bool);
 
 private:
@@ -74,16 +83,19 @@ private:
 
 #endif
 
-class StatusBarProxy: public QMap<int,QString>
+class StatusBarProxy: public QMap<int, QString>
 {
 public:
-    StatusBarProxy():m_currentStatusBar(0){}
-    ~StatusBarProxy(){}
+    StatusBarProxy(): m_currentStatusBar(0) {}
+    ~StatusBarProxy() {}
 
-    void insert(int,const QString&);
+    void insert(int, const QString&);
 
     void registerStatusBar(QStatusBar*, const QVector<QLabel*>& statusBarLabels);
-    void unregisterStatusBar(){m_currentStatusBar=0;}
+    void unregisterStatusBar()
+    {
+        m_currentStatusBar = 0;
+    }
 
 private:
     QStatusBar* m_currentStatusBar;

@@ -2,8 +2,8 @@
   This file is part of KAider
   This file contains parts of KBabel code
 
-  Copyright (C) 2002-2003	 by Stanislav Visnovsky
-                        	    <visnovsky@kde.org>
+  Copyright (C) 2002-2003    by Stanislav Visnovsky
+                                <visnovsky@kde.org>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -39,7 +39,8 @@ class QIODevice;
 class QString;
 class QStringList;
 
-namespace GettextCatalog {
+namespace GettextCatalog
+{
 
 class GettextStorage;
 class CatalogItem;
@@ -49,8 +50,8 @@ class CatalogExportPluginPrivate;
 /**
  * Result of the conversion
  */
-enum ConversionStatus { 
-    OK=0,
+enum ConversionStatus {
+    OK = 0,
     NOT_IMPLEMENTED,
     NO_FILE,
     NO_PERMISSIONS,
@@ -71,8 +72,8 @@ enum ConversionStatus {
  * (when whole DOM-tree is stored in memory to prevent file clashes)
   *
  * This class is the base for import plugins for catalogs.
- * It provides "transactional behavior", so the changes are stored in 
- * catalog only if the import process finishes successfully. 
+ * It provides "transactional behavior", so the changes are stored in
+ * catalog only if the import process finishes successfully.
  *
  * To use it, just subclass and redefine load() and id() methods.
  * When importing, you can use the protected methods for setting
@@ -90,7 +91,7 @@ public:
     /**
      * Load the file and fill the corresponding catalog. The file
      * is considered to be of @ref mimetype MIME type.
-     * 
+     *
      * @param file     local file name to be opened
      * @param mimetype the MIME type is should be handled as
      * @param catalog  the catalog to be filled
@@ -103,7 +104,7 @@ public:
     * Throughout the run, you can use the protected methods for setting
     * the contents of the resulting catalog.
     * This method must call \see setMimeTypes to setup correct MIME types
-    * for the loaded file. Also, it should use \see isStopped to 
+    * for the loaded file. Also, it should use \see isStopped to
     * abort loading and the signals for providing user feedback.
     * @param file file to be loaded
     * @param mimetype the expected MIME type (the type used for plugin selection
@@ -115,7 +116,7 @@ protected:
      *  @param item the new item
      *  @param obsolete flag that the item is obsolete
      */
-    void appendCatalogItem( const CatalogItem& item, const bool obsolete = false );
+    void appendCatalogItem(const CatalogItem& item, const bool obsolete = false);
 
     /** set flag that the file is generated from DocBook */
     void setGeneratedFromDocbook(const bool fromDocbook);
@@ -124,12 +125,12 @@ protected:
 
     /** set extra data for the catalog, which can't be stored in
      *  @ref CatalogItem. The format can be arbitrary */
-    void setCatalogExtraData( const QStringList& data );
+    void setCatalogExtraData(const QStringList& data);
     /** set the header catalog item */
-    void setHeader( const CatalogItem& header );
+    void setHeader(const CatalogItem& header);
 
     /** Set the character encoding used in the catalog file. */
-    void setCodec( QTextCodec* codec );
+    void setCodec(QTextCodec* codec);
 
     /** start a new transaction. You should never call this method. */
     void startTransaction();

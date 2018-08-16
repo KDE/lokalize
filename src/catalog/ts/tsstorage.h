@@ -38,7 +38,7 @@ public:
     int capabilities() const;
 
     int load(QIODevice* device);
-    bool save(QIODevice* device, bool belongsToProject=false);
+    bool save(QIODevice* device, bool belongsToProject = false);
 
     int size() const;
     bool isEmpty() const;
@@ -51,8 +51,14 @@ public:
     CatalogString catalogString(const DocPosition& pos) const;
 
     /// all plural forms. pos.form doesn't matter TODO
-    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();}
-    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();}
+    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines = false) const
+    {
+        Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();
+    }
+    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines = false) const
+    {
+        Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();
+    }
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
@@ -82,9 +88,18 @@ public:
 
     bool isObsolete(int entry) const;
 
-    QString mimetype()const{return QStringLiteral("application/x-linguist");}
-    QString fileType()const{return QStringLiteral("Qt Linguist (*.ts)");}
-    CatalogType type()const{return Ts;}
+    QString mimetype()const
+    {
+        return QStringLiteral("application/x-linguist");
+    }
+    QString fileType()const
+    {
+        return QStringLiteral("Qt Linguist (*.ts)");
+    }
+    CatalogType type()const
+    {
+        return Ts;
+    }
 
     void setTargetLangCode(const QString& langCode);
 

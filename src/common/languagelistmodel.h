@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -31,8 +31,7 @@ class KConfig;
 
 class LanguageListModel: public QStringListModel
 {
-    enum ModelType
-    {
+    enum ModelType {
         Default,
         WithEmptyLang
     };
@@ -45,7 +44,7 @@ private:
     static LanguageListModel * _emptyLangInstance;
     static void cleanupLanguageListModel();
 
-    LanguageListModel(ModelType type=Default, QObject* parent=0);
+    LanguageListModel(ModelType type = Default, QObject* parent = 0);
     QSortFilterProxyModel* m_sortModel;
     KConfig* m_systemLangList;
 
@@ -53,17 +52,20 @@ public:
     QVariant data(const QModelIndex& index, int role) const;
     QFlags< Qt::ItemFlag > flags(const QModelIndex& index) const;
 
-    QSortFilterProxyModel* sortModel() const{return m_sortModel;};
+    QSortFilterProxyModel* sortModel() const
+    {
+        return m_sortModel;
+    };
     int sortModelRowForLangCode(const QString&);
     QString langCodeForSortModelRow(int);
 };
 
-QString getTargetLangCode(const QString& title, bool askUser = 
+QString getTargetLangCode(const QString& title, bool askUser =
 #ifndef NOKDE
-false
+                              false
 #else
-true
+                              true
 #endif
-);
+                         );
 
 #endif // LANGUAGELISTMODEL_H

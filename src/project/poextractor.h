@@ -40,7 +40,8 @@ private:
 
 
     enum PoState {COMMENT, MSGCTXT, MSGID, MSGID_PLURAL, MSGSTR, MSGSTR_PLURAL,
-        WHITESPACE, ERROR};
+                  WHITESPACE, ERROR
+                 };
     PoState state;
     int messages;
     int untranslated;

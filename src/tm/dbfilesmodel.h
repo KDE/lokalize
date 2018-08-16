@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -31,17 +31,17 @@
 class QFileSystemModel;
 class QPersistentModelIndex;
 
-namespace TM{
+namespace TM
+{
 class OpenDBJob;
 
 class DBFilesModel: public QSortFilterProxyModel
 {
-Q_OBJECT
+    Q_OBJECT
 public:
 
-    enum Columns
-    {
-        Name=0,
+    enum Columns {
+        Name = 0,
         SourceLang,
         TargetLang,
         Pairs,
@@ -50,28 +50,33 @@ public:
         ColumnCount
     };
 
-    enum Rolse
-    {
-        FileNameRole=Qt::UserRole+50,
-        NameRole=Qt::UserRole+51
+    enum Rolse {
+        FileNameRole = Qt::UserRole + 50,
+        NameRole = Qt::UserRole + 51
     };
 
     DBFilesModel();
     ~DBFilesModel();
 
-    QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
-    int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
-    Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
-    QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex&) const
+    {
+        return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    }
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
     QModelIndex rootIndex() const;
     void removeTM(QModelIndex);
-    
-    
-    //can be zero!!!
-    QPersistentModelIndex* projectDBIndex()const{return projectDB;}
 
-    void openDB(const QString& name, DbType type=Undefined, bool forceCurrentProjectConfig=false);
+
+    //can be zero!!!
+    QPersistentModelIndex* projectDBIndex()const
+    {
+        return projectDB;
+    }
+
+    void openDB(const QString& name, DbType type = Undefined, bool forceCurrentProjectConfig = false);
     void openDB(OpenDBJob*);
 
     static DBFilesModel* instance();
@@ -95,9 +100,9 @@ private:
     QString m_tmRootPath;
     QTime m_timeSinceLastUpdate;
 
-    QMap< QString,OpenDBJob::DBStat> m_stats;
+    QMap< QString, OpenDBJob::DBStat> m_stats;
 public:
-    QMap< QString,TMConfig> m_configurations;
+    QMap< QString, TMConfig> m_configurations;
 };
 
 }

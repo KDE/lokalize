@@ -34,8 +34,14 @@
 #include <QHash>
 
 #ifndef NOKDE
-namespace Sonnet{class Dialog;}
-namespace Sonnet{class BackgroundChecker;}
+namespace Sonnet
+{
+class Dialog;
+}
+namespace Sonnet
+{
+class BackgroundChecker;
+}
 
 #include <kxmlguiclient.h>
 
@@ -51,16 +57,18 @@ class MergeView;
 class CatalogView;
 class MsgCtxtView;
 class AltTransView;
-namespace GlossaryNS{class GlossaryView;}
-
-
-
-struct EditorState
+namespace GlossaryNS
 {
+class GlossaryView;
+}
+
+
+
+struct EditorState {
 public:
-    EditorState(): entry(0){}
-    EditorState(const EditorState& s):dockWidgets(s.dockWidgets), filePath(s.filePath), entry(0) {}
-    ~EditorState(){}
+    EditorState(): entry(0) {}
+    EditorState(const EditorState& s): dockWidgets(s.dockWidgets), filePath(s.filePath), entry(0) {}
+    ~EditorState() {}
 
     QByteArray dockWidgets;
     QString filePath;
@@ -88,7 +96,7 @@ class EditorTab: public LokalizeSubwindowBase2
 #define qdbuscpp2xml
 
 public:
-    EditorTab(QWidget* parent, bool valid=true);
+    EditorTab(QWidget* parent, bool valid = true);
     ~EditorTab();
 
 
@@ -97,36 +105,63 @@ public:
     void showDocks();
     QString currentFilePath();
     void setFullPathShown(bool);
-    void setProperCaption(QString,bool);//reimpl to remove ' - Lokalize'
+    void setProperCaption(QString, bool); //reimpl to remove ' - Lokalize'
 public slots:
     void setProperFocus();
 public:
     bool queryClose();
     EditorState state();
 #ifndef NOKDE
-    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    KXMLGUIClient* guiClient()
+    {
+        return (KXMLGUIClient*)this;
+    }
     QString dbusObjectPath();
-    int dbusId(){return m_dbusId;}
-    QObject* adaptor(){return m_adaptor;}
+    int dbusId()
+    {
+        return m_dbusId;
+    }
+    QObject* adaptor()
+    {
+        return m_adaptor;
+    }
 #endif
 
     //wrapper for cmdline handling
     void mergeOpen(QString mergeFilePath);
 
-    bool fileOpen(QString filePath=QString(), QString suggestedDirPath=QString(), bool silent=false);
+    bool fileOpen(QString filePath = QString(), QString suggestedDirPath = QString(), bool silent = false);
 public slots:
     //for undo/redo, views
     void gotoEntry(DocPosition pos);
     void gotoEntry(DocPosition pos, int selection);
 #ifdef qdbuscpp2xml
-    Q_SCRIPTABLE void gotoEntry(int entry){gotoEntry(DocPosition(entry));}
-    Q_SCRIPTABLE void gotoEntryForm(int entry,int form){gotoEntry(DocPosition(entry,form));}
-    Q_SCRIPTABLE void gotoEntryFormOffset(int entry,int form, int offset){gotoEntry(DocPosition(entry,form,offset));}
-    Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry,int form, int offset, int selection){gotoEntry(DocPosition(entry,form,offset),selection);}
+    Q_SCRIPTABLE void gotoEntry(int entry)
+    {
+        gotoEntry(DocPosition(entry));
+    }
+    Q_SCRIPTABLE void gotoEntryForm(int entry, int form)
+    {
+        gotoEntry(DocPosition(entry, form));
+    }
+    Q_SCRIPTABLE void gotoEntryFormOffset(int entry, int form, int offset)
+    {
+        gotoEntry(DocPosition(entry, form, offset));
+    }
+    Q_SCRIPTABLE void gotoEntryFormOffsetSelection(int entry, int form, int offset, int selection)
+    {
+        gotoEntry(DocPosition(entry, form, offset), selection);
+    }
 
     Q_SCRIPTABLE QString currentEntryId();
-    Q_SCRIPTABLE int currentEntry(){return m_currentPos.entry;}
-    Q_SCRIPTABLE int currentForm(){return m_currentPos.form;}
+    Q_SCRIPTABLE int currentEntry()
+    {
+        return m_currentPos.entry;
+    }
+    Q_SCRIPTABLE int currentForm()
+    {
+        return m_currentPos.form;
+    }
     Q_SCRIPTABLE QString selectionInTarget();
     Q_SCRIPTABLE QString selectionInSource();
 
@@ -145,18 +180,27 @@ public slots:
     Q_SCRIPTABLE void addAlternateTranslation(int entry, const QString& translation);
     Q_SCRIPTABLE void addTemporaryAlternateTranslation(int entry, const QString& translation);
 
-    Q_SCRIPTABLE QString currentFile(){return currentFilePath();}
+    Q_SCRIPTABLE QString currentFile()
+    {
+        return currentFilePath();
+    }
     Q_SCRIPTABLE QByteArray currentFileContents();
     Q_SCRIPTABLE QString sourceLangCode();
     Q_SCRIPTABLE QString targetLangCode();
 
     Q_SCRIPTABLE void attachAlternateTranslationFile(const QString& path);
-    Q_SCRIPTABLE void openSyncSource(QString path){mergeOpen(path);}
+    Q_SCRIPTABLE void openSyncSource(QString path)
+    {
+        mergeOpen(path);
+    }
     Q_SCRIPTABLE void reloadFile();
 #endif
-    Q_SCRIPTABLE bool saveFile(const QString& filePath=QString());
-    Q_SCRIPTABLE bool saveFileAs(const QString& defaultPath=QString());
-    Q_SCRIPTABLE void close(){return parent()->deleteLater();}
+    Q_SCRIPTABLE bool saveFile(const QString& filePath = QString());
+    Q_SCRIPTABLE bool saveFileAs(const QString& defaultPath = QString());
+    Q_SCRIPTABLE void close()
+    {
+        return parent()->deleteLater();
+    }
     Q_SCRIPTABLE void gotoNextUnfiltered();
     Q_SCRIPTABLE void gotoPrevUnfiltered();
     Q_SCRIPTABLE void gotoFirstUnfiltered();
@@ -171,14 +215,20 @@ public slots:
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
 #ifndef NOKDE
-    Q_SCRIPTABLE bool isValid(){return m_valid;}
-    Q_SCRIPTABLE void setSrcFileOpenRequestAccepted(bool a){m_srcFileOpenRequestAccepted=a;}
+    Q_SCRIPTABLE bool isValid()
+    {
+        return m_valid;
+    }
+    Q_SCRIPTABLE void setSrcFileOpenRequestAccepted(bool a)
+    {
+        m_srcFileOpenRequestAccepted = a;
+    }
 #endif
 
 private slots:
 #ifndef NOKDE
-    void highlightFound(const QString &,int,int);//for find/replace
-    void highlightFound_(const QString &,int,int);//for find/replace
+    void highlightFound(const QString &, int, int); //for find/replace
+    void highlightFound_(const QString &, int, int); //for find/replace
 #endif
 
     void lookupSelectionInTranslationMemory();
@@ -204,7 +254,7 @@ private slots:
 
     void replace();
     void replaceNext();//internal
-    void doReplace(const QString&,int,int,int);//internal
+    void doReplace(const QString&, int, int, int); //internal
     void cleanupReplace();//internal
 #endif
 
@@ -231,8 +281,8 @@ private slots:
 #ifndef NOKDE
     void spellcheck();
     void spellcheckNext();
-    void spellcheckShow(const QString&,int);
-    void spellcheckReplace(QString,int,const QString&);
+    void spellcheckShow(const QString&, int);
+    void spellcheckReplace(QString, int, const QString&);
     void spellcheckStop();
     void spellcheckCancel();
 #endif
@@ -257,7 +307,7 @@ private slots:
 
 protected:
     void paintEvent(QPaintEvent* event);
-    
+
 private:
     void setupAccel();
     void setupActions();
@@ -285,16 +335,16 @@ private:
     Sonnet::BackgroundChecker* m_sonnetChecker;
     Sonnet::Dialog* m_sonnetDialog;
     int m_spellcheckStartUndoIndex;
-    bool m_spellcheckStop:1;
+    bool m_spellcheckStop: 1;
 #endif
 
-    bool m_currentIsApproved:1; //for statusbar animation
-    bool m_currentIsUntr:1;  //for statusbar animation
+    bool m_currentIsApproved: 1; //for statusbar animation
+    bool m_currentIsUntr: 1; //for statusbar animation
 
-    bool m_fullPathShown:1;
+    bool m_fullPathShown: 1;
 
 #ifndef NOKDE
-    bool m_doReplaceCalled:1;//used to prevent non-clean catalog status
+    bool m_doReplaceCalled: 1; //used to prevent non-clean catalog status
     KFind* m_find;
     KReplace* m_replace;
 #endif
@@ -338,7 +388,7 @@ signals:
 
     Q_SCRIPTABLE void entryDisplayed();
     void signalNewEntryDisplayed(const DocPosition&);
-    void signalEntryWithMergeDisplayed(bool,const DocPosition&);
+    void signalEntryWithMergeDisplayed(bool, const DocPosition&);
     void signalFirstDisplayed(bool);
     void signalLastDisplayed(bool);
 

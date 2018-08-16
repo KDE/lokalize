@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -30,10 +30,10 @@
 #include <QString>
 #include <QDate>
 
-namespace TM {
-
-struct TMEntry
+namespace TM
 {
+
+struct TMEntry {
     CatalogString source;
     CatalogString target;
 
@@ -45,9 +45,9 @@ struct TMEntry
 
     //the remaining are used only for results
     qlonglong id;
-    short score:16;//100.00%==10000
-    ushort hits:15;
-    bool obsolete:1;
+    short score: 16; //100.00%==10000
+    ushort hits: 15;
+    bool obsolete: 1;
     QString dbName;
 
     QString diff;
@@ -58,15 +58,14 @@ struct TMEntry
 
     bool operator<(const TMEntry& other) const
     {
-        if (score==other.score)
-        {
-            if (hits==other.hits)
-                return date<other.date;
-            return hits<other.hits;
+        if (score == other.score) {
+            if (hits == other.hits)
+                return date < other.date;
+            return hits < other.hits;
         }
-        return score<other.score;
+        return score < other.score;
     }
-    
+
     TMEntry(): id(-1), score(0), hits(0), obsolete(false) {}
 };
 

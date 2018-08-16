@@ -37,7 +37,8 @@ class QSqlQuery;
 /**
  * Translation Memory classes. see initDb() function for the database scheme
  */
-namespace TM {
+namespace TM
+{
 
 #define TM_DATABASE_EXTENSION ".db"
 #define REMOTETM_DATABASE_EXTENSION ".remotedb"
@@ -63,8 +64,7 @@ QThreadPool* threadPool();
 #define SCANFINISHED 9
 
 
-struct TMConfig
-{
+struct TMConfig {
     QString markup;
     QString accel;
     QString sourceLangCode;
@@ -78,25 +78,29 @@ class OpenDBJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    struct ConnectionParams
-    {
+    struct ConnectionParams {
         QString driver, host, db, user, passwd;
-        bool isFilled(){return !host.isEmpty() && !db.isEmpty() && !user.isEmpty();}
+        bool isFilled()
+        {
+            return !host.isEmpty() && !db.isEmpty() && !user.isEmpty();
+        }
     };
 
-    explicit OpenDBJob(const QString& dbName, DbType type=TM::Local, bool reconnect=false, const ConnectionParams& connParams=ConnectionParams());
+    explicit OpenDBJob(const QString& dbName, DbType type = TM::Local, bool reconnect = false, const ConnectionParams& connParams = ConnectionParams());
     ~OpenDBJob();
 
-    int priority()const{return OPENDB;}
-
-    struct DBStat
+    int priority()const
     {
-        int pairsCount,uniqueSourcesCount,uniqueTranslationsCount;
-        DBStat():pairsCount(0),uniqueSourcesCount(0),uniqueTranslationsCount(0){}
+        return OPENDB;
+    }
+
+    struct DBStat {
+        int pairsCount, uniqueSourcesCount, uniqueTranslationsCount;
+        DBStat(): pairsCount(0), uniqueSourcesCount(0), uniqueTranslationsCount(0) {}
     };
 
 protected:
-    void run ();
+    void run();
 
 signals:
     void done(OpenDBJob*);
@@ -124,14 +128,20 @@ public:
     explicit CloseDBJob(const QString& dbName);
     ~CloseDBJob();
 
-    int priority()const{return CLOSEDB;}
-    QString dbName(){return m_dbName;}
+    int priority()const
+    {
+        return CLOSEDB;
+    }
+    QString dbName()
+    {
+        return m_dbName;
+    }
 
 signals:
     void done(CloseDBJob*);
 
 protected:
-    void run ();
+    void run();
 
     QString m_dbName;
     //statistics?
@@ -151,13 +161,16 @@ public:
               const QString& dbName);
     ~SelectJob();
 
-    int priority()const{return SELECT;}
+    int priority()const
+    {
+        return SELECT;
+    }
 
 signals:
     void done(SelectJob*);
 
 protected:
-    void run ();
+    void run();
     //void aboutToBeDequeued(ThreadWeaver::WeaverInterface*); KDE5PORT
 
 private:
@@ -180,8 +193,8 @@ public:
     QString m_dbName;
 };
 
-enum {Enqueue=1};
-SelectJob* initSelectJob(Catalog*, DocPosition pos, QString db=QString(), int opt=Enqueue);
+enum {Enqueue = 1};
+SelectJob* initSelectJob(Catalog*, DocPosition pos, QString db = QString(), int opt = Enqueue);
 
 
 
@@ -191,7 +204,10 @@ class RemoveJob: public QObject, public QRunnable
 public:
     explicit RemoveJob(const TMEntry& entry);
     ~RemoveJob();
-    int priority()const{return REMOVE;}
+    int priority()const
+    {
+        return REMOVE;
+    }
 
 protected:
     void run();
@@ -223,12 +239,15 @@ public:
                        //const DocPosition&,//for back tracking
                        const QString& dbName);
 
-    ~UpdateJob(){}
+    ~UpdateJob() {}
 
-    int priority()const{return UPDATE;}
+    int priority()const
+    {
+        return UPDATE;
+    }
 
 protected:
-    void run ();
+    void run();
 
 private:
     QString m_filePath;
@@ -247,10 +266,13 @@ public:
     explicit ScanJob(const QString& filePath, const QString& dbName);
     ~ScanJob();
 
-    int priority()const{return SCAN;}
+    int priority()const
+    {
+        return SCAN;
+    }
 
 protected:
-    void run ();
+    void run();
 public:
     QString m_filePath;
 
@@ -264,19 +286,23 @@ public:
     QString m_dbName;
 };
 
-class ScanJobFeedingBack: public QObject, public ScanJob 
+class ScanJobFeedingBack: public QObject, public ScanJob
 {
     Q_OBJECT
 public:
     explicit ScanJobFeedingBack(const QString& filePath,
-                     const QString& dbName)
-    : QObject(), ScanJob(filePath, dbName)
+                                const QString& dbName)
+        : QObject(), ScanJob(filePath, dbName)
     {
         setAutoDelete(false);
     }
 
 protected:
-    void run (){ScanJob::run();emit done(this);}
+    void run()
+    {
+        ScanJob::run();
+        emit done(this);
+    }
 
 signals:
     void done(ScanJobFeedingBack*);
@@ -291,15 +317,21 @@ public:
         : QObject(), QRunnable()
         , m_view(view)
     {}
-    ~BatchSelectFinishedJob(){};
+    ~BatchSelectFinishedJob() {};
 
-    int priority()const{return BATCHSELECTFINISHED;}
+    int priority()const
+    {
+        return BATCHSELECTFINISHED;
+    }
 
 signals:
     void done();
 
 protected:
-    void run (){emit done();};
+    void run()
+    {
+        emit done();
+    };
 public:
     QWidget* m_view;
 };
@@ -313,13 +345,16 @@ class IndexWordsJob: public QRunnable
 {
     Q_OBJECT
 public:
-    IndexWordsJob(QObject* parent=0);
+    IndexWordsJob(QObject* parent = 0);
     ~IndexWordsJob();
 
-    int priority()const{return 100;}
+    int priority()const
+    {
+        return 100;
+    }
 
 protected:
-    void run ();
+    void run();
 public:
     TMWordHash m_tmWordHash;
 
@@ -336,13 +371,16 @@ class ImportTmxJob: public QRunnable
 {
 public:
     explicit ImportTmxJob(const QString& url,
-                     const QString& dbName);
+                          const QString& dbName);
     ~ImportTmxJob();
 
-    int priority()const{return IMPORT;}
+    int priority()const
+    {
+        return IMPORT;
+    }
 
 protected:
-    void run ();
+    void run();
 public:
     QString m_filename;
 
@@ -358,13 +396,16 @@ class ExportTmxJob: public QRunnable
 {
 public:
     explicit ExportTmxJob(const QString& url,
-                     const QString& dbName);
+                          const QString& dbName);
     ~ExportTmxJob();
 
-    int priority()const{return IMPORT;}
+    int priority()const
+    {
+        return IMPORT;
+    }
 
 protected:
-    void run ();
+    void run();
 public:
     QString m_filename;
 
@@ -383,7 +424,10 @@ public:
     explicit ExecQueryJob(const QString& queryString, const QString& dbName);
     ~ExecQueryJob();
 
-    int priority()const{return TMTABSELECT;}
+    int priority()const
+    {
+        return TMTABSELECT;
+    }
 
 
     QSqlQuery* query;
@@ -392,7 +436,7 @@ signals:
     void done(ExecQueryJob*);
 
 protected:
-    void run ();
+    void run();
 
     QString m_dbName;
     QString m_query;

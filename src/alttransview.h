@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -29,7 +29,10 @@
 #include "pos.h"
 #include "alttrans.h"
 #include <QDockWidget>
-namespace TM{class TextBrowser;}
+namespace TM
+{
+class TextBrowser;
+}
 class Catalog;
 class QAction;
 
@@ -38,7 +41,7 @@ class AltTransView: public QDockWidget
     Q_OBJECT
 
 public:
-    AltTransView(QWidget*,Catalog*,const QVector<QAction*>&);
+    AltTransView(QWidget*, Catalog*, const QVector<QAction*>&);
     ~AltTransView();
 
 
@@ -46,7 +49,7 @@ public slots:
     void slotNewEntryDisplayed(const DocPosition&);
     void fileLoaded();
     void attachAltTransFile(const QString&);
-    void addAlternateTranslation(int entry, const QString&, bool temp=true);
+    void addAlternateTranslation(int entry, const QString&, bool temp = true);
 
 private slots:
     //void contextMenu(const QPoint & pos);

@@ -13,58 +13,76 @@ class Settings: public QObject
 public:
 
     static Settings *self();
-    ~Settings(){}
+    ~Settings() {}
 
     void save();
 
 public slots:
-    static void setAuthorName(const QString& v){self()->mAuthorName = v;}
-    static void setAuthorEmail(const QString& v){self()->mAuthorEmail = v;}
-    static void setDefaultLangCode(const QString& v){self()->mDefaultLangCode = v;}
+    static void setAuthorName(const QString& v)
+    {
+        self()->mAuthorName = v;
+    }
+    static void setAuthorEmail(const QString& v)
+    {
+        self()->mAuthorEmail = v;
+    }
+    static void setDefaultLangCode(const QString& v)
+    {
+        self()->mDefaultLangCode = v;
+    }
 
 public:
-    static QString authorName() {return self()->mAuthorName;}
-    static QString authorLocalizedName() {return self()->mAuthorLocalizedName;}
-    static QString authorEmail() {return self()->mAuthorEmail;}
+    static QString authorName()
+    {
+        return self()->mAuthorName;
+    }
+    static QString authorLocalizedName()
+    {
+        return self()->mAuthorLocalizedName;
+    }
+    static QString authorEmail()
+    {
+        return self()->mAuthorEmail;
+    }
 
     static
     QString defaultLangCode()
     {
-      return self()->mDefaultLangCode;
+        return self()->mDefaultLangCode;
     }
 
     static
     QString defaultMailingList()
     {
-      return self()->mDefaultMailingList;
+        return self()->mDefaultMailingList;
     }
 
     static
     QColor addColor()
     {
-      return self()->mAddColor;
+        return self()->mAddColor;
     }
 
     static
     QColor delColor()
     {
-      return self()->mDelColor;
+        return self()->mDelColor;
     }
 
     static
     bool highlightSpaces()
     {
-      return self()->mHighlightSpaces;
+        return self()->mHighlightSpaces;
     }
 
     static
     QFont msgFont()
     {
-      return self()->mMsgFont;
+        return self()->mMsgFont;
     }
 
     static
-    void setLeds( bool v )
+    void setLeds(bool v)
     {
         self()->mLeds = v;
     }
@@ -72,17 +90,17 @@ public:
     static
     bool leds()
     {
-      return self()->mLeds;
+        return self()->mLeds;
     }
 
     static
     bool autoApprove()
     {
-      return self()->mAutoApprove;
+        return self()->mAutoApprove;
     }
 
     static
-    void setAutoSpellcheck( bool v )
+    void setAutoSpellcheck(bool v)
     {
         self()->mAutoSpellcheck = v;
     }
@@ -90,13 +108,13 @@ public:
     static
     bool autoSpellcheck()
     {
-      return self()->mAutoSpellcheck;
+        return self()->mAutoSpellcheck;
     }
 
     static
     bool mouseWheelGo()
     {
-      return self()->mMouseWheelGo;
+        return self()->mMouseWheelGo;
     }
 
     static
@@ -106,7 +124,7 @@ public:
     }
 
     static
-    void setAltTransViewEverShownWithData( bool v )
+    void setAltTransViewEverShownWithData(bool v)
     {
         self()->mAltTransViewEverShownWithData = v;
     }
@@ -114,34 +132,34 @@ public:
     static
     int wordCompletionLength()
     {
-      return self()->mWordCompletionLength;
+        return self()->mWordCompletionLength;
     }
 
     static
     bool prefetchTM()
     {
-      return self()->mPrefetchTM;
+        return self()->mPrefetchTM;
     }
 
     static
     int suggCount()
     {
-      return self()->mSuggCount;
+        return self()->mSuggCount;
     }
 
     static
     bool autoaddTM()
     {
-      return self()->mAutoaddTM;
+        return self()->mAutoaddTM;
     }
 
     static
     bool scanToTMOnOpen()
     {
-      return self()->mScanToTMOnOpen;
+        return self()->mScanToTMOnOpen;
     }
 
-  protected:
+protected:
     Settings();
     friend class SettingsHelper;
 

@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -33,7 +33,7 @@
 
 QString enhanceLangCode(const QString& langCode)
 {
-    if (langCode.length()!=2)
+    if (langCode.length() != 2)
         return langCode;
 
     return QLocale(langCode).name();
@@ -44,16 +44,15 @@ QString enhanceLangCode(const QString& langCode)
 #include <hunspell.hxx>
 #include <QTextCodec>
 
-struct SpellerAndCodec
-{
+struct SpellerAndCodec {
     Hunspell* speller;
     QTextCodec* codec;
-    SpellerAndCodec():speller(0), codec(0){}
+    SpellerAndCodec(): speller(0), codec(0) {}
     SpellerAndCodec(const QString& langCode);
 };
 
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)
-: speller(0), codec(0)
+    : speller(0), codec(0)
 {
 #ifdef Q_OS_MAC
     QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") % langCode.leftRef(2) % '/';
@@ -69,8 +68,7 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
     QString dic = dictPath % langCode % QLatin1String(".dic");
     if (!QFileInfo::exists(dic))
         dic = dictPath % enhanceLangCode(langCode) % QLatin1String(".dic");
-    if (QFileInfo::exists(dic))
-    {
+    if (QFileInfo::exists(dic)) {
         speller = new Hunspell(QString(dictPath % langCode % ".aff").toLatin1().constData(), dic.toLatin1().constData());
         codec = QTextCodec::codecForName(speller->get_dic_encoding());
         if (!codec)
@@ -78,25 +76,24 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
     }
 }
 
-static QMap<QString,SpellerAndCodec> hunspellers;
+static QMap<QString, SpellerAndCodec> hunspellers;
 
 #endif
 
 QString stem(const QString& langCode, const QString& word)
 {
-    QString result=word;
+    QString result = word;
 
 #ifdef HAVE_HUNSPELL
     static QMutex mutex;
     QMutexLocker locker(&mutex);
 
-    if (!hunspellers.contains(langCode))
-    {
-        hunspellers.insert(langCode,SpellerAndCodec(langCode));
+    if (!hunspellers.contains(langCode)) {
+        hunspellers.insert(langCode, SpellerAndCodec(langCode));
     }
 
     SpellerAndCodec sc(hunspellers.value(langCode));
-    Hunspell* speller=sc.speller;
+    Hunspell* speller = sc.speller;
     if (!speller)
         return word;
 
@@ -106,7 +103,7 @@ QString stem(const QString& langCode, const QString& word)
     int n2 = speller->stem(&result2, result1, n1);
 
     if (n2)
-        result=sc.codec->toUnicode(result2[0]);
+        result = sc.codec->toUnicode(result2[0]);
 
     speller->free_list(&result1, n1);
     speller->free_list(&result2, n2);
@@ -118,9 +115,9 @@ QString stem(const QString& langCode, const QString& word)
 void cleanupSpellers()
 {
 #ifdef HAVE_HUNSPELL
-    foreach(const SpellerAndCodec& sc, hunspellers)
+    foreach (const SpellerAndCodec& sc, hunspellers)
         delete sc.speller;
-    
+
 #endif
 }
 

@@ -4,10 +4,10 @@
 
 namespace  KPassivePopup
 {
-    enum {Balloon};
-    void message( int, const QString &caption, const QString &text,
-                   QWidget *parent )
-    {}
+enum {Balloon};
+void message(int, const QString &caption, const QString &text,
+             QWidget *parent)
+{}
 
 };
 

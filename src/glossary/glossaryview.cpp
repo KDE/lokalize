@@ -54,30 +54,30 @@
 
 using namespace GlossaryNS;
 
-GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QAction*>& actions)
-        : QDockWidget ( i18nc("@title:window","Glossary"), parent)
-        , m_browser(new QScrollArea(this))
-        , m_catalog(catalog)
-        , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this,actions,0,10))
-        , m_glossary(Project::instance()->glossary())
-        , m_rxClean(Project::instance()->markup()%'|'%Project::instance()->accel())//cleaning regexp; NOTE isEmpty()?
-        , m_rxSplit(QStringLiteral("\\W|\\d"))//splitting regexp
-        , m_currentIndex(-1)
-        , m_normTitle(i18nc("@title:window","Glossary"))
-        , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
-        , m_hasInfo(false)
+GlossaryView::GlossaryView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
+    : QDockWidget(i18nc("@title:window", "Glossary"), parent)
+    , m_browser(new QScrollArea(this))
+    , m_catalog(catalog)
+    , m_flowLayout(new FlowLayout(FlowLayout::glossary,/*who gets signals*/this, actions, 0, 10))
+    , m_glossary(Project::instance()->glossary())
+    , m_rxClean(Project::instance()->markup() % '|' % Project::instance()->accel()) //cleaning regexp; NOTE isEmpty()?
+    , m_rxSplit(QStringLiteral("\\W|\\d"))//splitting regexp
+    , m_currentIndex(-1)
+    , m_normTitle(i18nc("@title:window", "Glossary"))
+    , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
+    , m_hasInfo(false)
 
 {
     setObjectName(QStringLiteral("glossaryView"));
-    QWidget* w=new QWidget(m_browser);
+    QWidget* w = new QWidget(m_browser);
     m_browser->setWidget(w);
     m_browser->setWidgetResizable(true);
     w->setLayout(m_flowLayout);
     w->show();
 
-    setToolTip(i18nc("@info:tooltip","<p>Translations for common terms appear here.</p>"
-    "<p>Press shortcut displayed near the term to insert its translation.</p>"
-    "<p>Use context menu to add new entry (tip:&nbsp;select words in original and translation fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"));
+    setToolTip(i18nc("@info:tooltip", "<p>Translations for common terms appear here.</p>"
+                     "<p>Press shortcut displayed near the term to insert its translation.</p>"
+                     "<p>Use context menu to add new entry (tip:&nbsp;select words in original and translation fields before calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"));
 
     setWidget(m_browser);
     m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
@@ -85,7 +85,7 @@ GlossaryView::GlossaryView(QWidget* parent,Catalog* catalog,const QVector<QActio
     m_browser->setBackgroundRole(QPalette::Background);
 
     m_rxClean.setMinimal(true);
-    connect (m_glossary, &Glossary::changed, this, QOverload<>::of(&GlossaryView::slotNewEntryDisplayed), Qt::QueuedConnection);
+    connect(m_glossary, &Glossary::changed, this, QOverload<>::of(&GlossaryView::slotNewEntryDisplayed), Qt::QueuedConnection);
 }
 
 GlossaryView::~GlossaryView()
@@ -101,7 +101,7 @@ GlossaryView::~GlossaryView()
 //             event->acceptProposedAction();
 //         };*/
 // }
-// 
+//
 // void GlossaryView::dropEvent(QDropEvent *event)
 // {
 //         event->acceptProposedAction();*/
@@ -115,23 +115,23 @@ void GlossaryView::slotNewEntryDisplayed()
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
     //qCWarning(LOKALIZE_LOG)<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
-    QTime time;time.start();
-    if (pos.entry==-1)
-        pos.entry=m_currentIndex;
+    QTime time; time.start();
+    if (pos.entry == -1)
+        pos.entry = m_currentIndex;
     else
-        m_currentIndex=pos.entry;
+        m_currentIndex = pos.entry;
 
-    if (pos.entry==-1 || m_catalog->numberOfEntries()<=pos.entry)
+    if (pos.entry == -1 || m_catalog->numberOfEntries() <= pos.entry)
         return;//because of Qt::QueuedConnection
     //if (!toggleViewAction()->isChecked())
     //  return;
 
-    Glossary& glossary=*m_glossary;
+    Glossary& glossary = *m_glossary;
 
 
-    QString source=m_catalog->source(pos);
-    QString sourceLowered=source.toLower();
-    QString msg=sourceLowered;
+    QString source = m_catalog->source(pos);
+    QString sourceLowered = source.toLower();
+    QString msg = sourceLowered;
     msg.remove(m_rxClean);
     QString msgStemmed;
 
@@ -144,16 +144,15 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 //         pos=accel.pos(1);
 //     }
 
-    QString sourceLangCode=Project::instance()->sourceLangCode();
+    QString sourceLangCode = Project::instance()->sourceLangCode();
     QList<QByteArray> termIds;
-    foreach (const QString& w, msg.split(m_rxSplit,QString::SkipEmptyParts))
-    {
-        QString word=stem(sourceLangCode,w);
-        QList<QByteArray> indexes=glossary.idsForLangWord(sourceLangCode,word);
+    foreach (const QString& w, msg.split(m_rxSplit, QString::SkipEmptyParts)) {
+        QString word = stem(sourceLangCode, w);
+        QList<QByteArray> indexes = glossary.idsForLangWord(sourceLangCode, word);
         //if (indexes.size())
-            //qCWarning(LOKALIZE_LOG)<<"found entry for:" <<word;
-        termIds+=indexes;
-        msgStemmed+=word+' ';
+        //qCWarning(LOKALIZE_LOG)<<"found entry for:" <<word;
+        termIds += indexes;
+        msgStemmed += word + ' ';
     }
     if (termIds.isEmpty())
         return clear();
@@ -164,28 +163,24 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
     if (m_hasInfo)
         m_flowLayout->clearTerms();
 
-    bool found=false;
+    bool found = false;
     //m_flowLayout->setEnabled(false);
-    foreach (const QByteArray& termId, termIds.toSet())
-    {
+    foreach (const QByteArray& termId, termIds.toSet()) {
         // now check which of them are really hits...
-        foreach (const QString& enTerm, glossary.terms(termId, sourceLangCode))
-        {
+        foreach (const QString& enTerm, glossary.terms(termId, sourceLangCode)) {
             // ...and if so, which part of termEn list we must thank for match ...
-            bool ok=msg.contains(enTerm);//,//Qt::CaseInsensitive  //we lowered terms on load 
-            if (!ok)
-            {
+            bool ok = msg.contains(enTerm); //,//Qt::CaseInsensitive  //we lowered terms on load
+            if (!ok) {
                 QString enTermStemmed;
-                foreach (const QString& word, enTerm.split(m_rxSplit,QString::SkipEmptyParts))
-                    enTermStemmed+=stem(sourceLangCode,word)+' ';
-                ok=msgStemmed.contains(enTermStemmed);
+                foreach (const QString& word, enTerm.split(m_rxSplit, QString::SkipEmptyParts))
+                    enTermStemmed += stem(sourceLangCode, word) + ' ';
+                ok = msgStemmed.contains(enTermStemmed);
             }
-            if (ok)
-            {
+            if (ok) {
                 //insert it into label
-                found=true;
-                int pos=sourceLowered.indexOf(enTerm);
-                m_flowLayout->addTerm(enTerm,termId,/*uppercase*/pos!=-1 && source.at(pos).isUpper());
+                found = true;
+                int pos = sourceLowered.indexOf(enTerm);
+                m_flowLayout->addTerm(enTerm, termId,/*uppercase*/pos != -1 && source.at(pos).isUpper());
                 break;
             }
         }
@@ -194,9 +189,8 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     if (!found)
         clear();
-    else if (!m_hasInfo)
-    {
-        m_hasInfo=true;
+    else if (!m_hasInfo) {
+        m_hasInfo = true;
         setWindowTitle(m_hasInfoTitle);
     }
 
@@ -205,10 +199,9 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
 void GlossaryView::clear()
 {
-    if (m_hasInfo)
-    {
+    if (m_hasInfo) {
         m_flowLayout->clearTerms();
-        m_hasInfo=false;
+        m_hasInfo = false;
         setWindowTitle(m_normTitle);
     }
 }

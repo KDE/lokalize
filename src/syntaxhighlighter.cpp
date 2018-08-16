@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -47,7 +47,7 @@
 SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 #ifndef NOKDE
     : Sonnet::Highlighter(parent)
-    , tagBrush(KColorScheme::View,KColorScheme::VisitedText)
+    , tagBrush(KColorScheme::View, KColorScheme::VisitedText)
 #elif defined(SONNET_STATIC)
     : Sonnet::Highlighter(parent)
 #else
@@ -85,9 +85,8 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     rule.pattern = QRegExp(QStringLiteral("(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)"));
     highlightingRules.append(rule);
 
-    QString accel=Project::instance()->accel();
-    if (!accel.isEmpty())
-    {
+    QString accel = Project::instance()->accel();
+    if (!accel.isEmpty()) {
         rule.format.setForeground(Qt::darkMagenta);
         rule.pattern = QRegExp(accel);
         highlightingRules.append(rule);
@@ -110,9 +109,8 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(" +$|^ +|.?"%QChar(0x0000AD)%".?"); //soft hyphen
-    if (Settings::highlightSpaces() && highlightingRules.last().pattern!=re)
-    {
+    QRegExp re(" +$|^ +|.?" % QChar(0x0000AD) % ".?"); //soft hyphen
+    if (Settings::highlightSpaces() && highlightingRules.last().pattern != re) {
         HighlightingRule rule;
         rule.format.clearForeground();
 
@@ -139,10 +137,8 @@ void SyntaxHighlighter::settingsChanged()
         rule.pattern = re;
         highlightingRules.append(rule);
         rehighlight();
-    }
-    else if (!Settings::highlightSpaces() && highlightingRules.last().pattern==re)
-    {
-        highlightingRules.resize(highlightingRules.size()-2);
+    } else if (!Settings::highlightSpaces() && highlightingRules.last().pattern == re) {
+        highlightingRules.resize(highlightingRules.size() - 2);
         rehighlight();
     }
 }
@@ -172,33 +168,27 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         if (previousBlockState() != STATE_TAG)
             startIndex = text.indexOf('<');
 
-        while (startIndex >= 0)
-        {
+        while (startIndex >= 0) {
             int endIndex = text.indexOf('>', startIndex);
             int commentLength;
-            if (endIndex == -1)
-            {
+            if (endIndex == -1) {
                 currentBlockState = STATE_TAG;
                 commentLength = text.length() - startIndex;
-            }
-            else
-            {
+            } else {
                 commentLength = endIndex - startIndex
-                                +1/*+ commentEndExpression.matchedLength()*/;
+                                + 1/*+ commentEndExpression.matchedLength()*/;
             }
             setFormat(startIndex, commentLength, tagFormat);
             startIndex = text.indexOf('<', startIndex + commentLength);
         }
     }
 
-    foreach (const HighlightingRule &rule, highlightingRules)
-    {
+    foreach (const HighlightingRule &rule, highlightingRules) {
         QRegExp expression(rule.pattern);
         int index = expression.indexIn(text);
-        while (index >= 0)
-        {
+        while (index >= 0) {
             int length = expression.matchedLength();
-            QTextCharFormat f=rule.format;
+            QTextCharFormat f = rule.format;
             f.setFontItalic(!m_approved);
             setFormat(index, length, f);
             index = expression.indexIn(text, index + length);
@@ -216,22 +206,21 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QTextCharFormat f)
 {
     QVector<bool> underLines(count);
-    for (int i=0;i<count;++i)
-        underLines[i]=format(start+i).fontUnderline();
+    for (int i = 0; i < count; ++i)
+        underLines[i] = format(start + i).fontUnderline();
 
     setFormat(start, count, f);
 
     f.setFontUnderline(true);
-    int prevStart=-1;
-    bool isPrevUnderLined=false;
-    for (int i=0;i<count;++i)
-    {
-        if (!underLines.at(i) && prevStart!=-1)
-            setFormat(start+isPrevUnderLined, i-prevStart, f);
-        else if (underLines.at(i)&&!isPrevUnderLined)
-            prevStart=i;
+    int prevStart = -1;
+    bool isPrevUnderLined = false;
+    for (int i = 0; i < count; ++i) {
+        if (!underLines.at(i) && prevStart != -1)
+            setFormat(start + isPrevUnderLined, i - prevStart, f);
+        else if (underLines.at(i) && !isPrevUnderLined)
+            prevStart = i;
 
-        isPrevUnderLined=underLines.at(i);
+        isPrevUnderLined = underLines.at(i);
     }
 }
 #endif
@@ -241,8 +230,8 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
 #if !defined(NOKDE) || defined(SONNET_STATIC)
     const Project& project = *Project::instance();
 
-    const QString text=currentBlock().text();
-    QString word=text.mid(start,count);
+    const QString text = currentBlock().text();
+    QString word = text.mid(start, count);
     if (m_sourceString.contains(word)
         && project.targetLangCode().leftRef(2) != project.sourceLangCode().leftRef(2))
         return;
@@ -251,65 +240,61 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
 
     if (!isWordMisspelled(word.remove(accel)))
         return;
-    count=word.length();//safety
-    
-    bool smthPreceeding = (start>0) &&
-            (accel.endsWith(text.at(start-1))
-                || text.at(start-1)==QChar(0x0000AD) //soft hyphen
-            );
+    count = word.length(); //safety
+
+    bool smthPreceeding = (start > 0) &&
+                          (accel.endsWith(text.at(start - 1))
+                           || text.at(start - 1) == QChar(0x0000AD) //soft hyphen
+                          );
 
     //HACK. Needs Sonnet API redesign (KDE 5)
-    if (smthPreceeding)
-    {
-        qCWarning(LOKALIZE_LOG)<<"ampersand is in the way. word len:"<<count;
-        int realStart=text.lastIndexOf(QRegExp("\\b"),start-2);
-        if (realStart==-1)
-            realStart=0;
-        QString t=text.mid(realStart, count+start-realStart);
+    if (smthPreceeding) {
+        qCWarning(LOKALIZE_LOG) << "ampersand is in the way. word len:" << count;
+        int realStart = text.lastIndexOf(QRegExp("\\b"), start - 2);
+        if (realStart == -1)
+            realStart = 0;
+        QString t = text.mid(realStart, count + start - realStart);
         t.remove(accel);
         t.remove(QChar(0x0000AD));
         if (!isWordMisspelled(t))
             return;
     }
 
-    bool smthAfter=(start+count+1<text.size()) &&
-            (accel.startsWith(text.at(start+count))
-                || text.at(start+count)==QChar(0x0000AD) //soft hyphen
-            );
-    if (smthAfter)
-    {
-        qCWarning(LOKALIZE_LOG)<<"smthAfter. ampersand is in the way. word len:"<<count;
-        int realEnd=text.indexOf(QRegExp(QStringLiteral("\\b")),start+count+2);
-        if (realEnd==-1)
-            realEnd=text.size();
-        QString t=text.mid(start, realEnd-start);
+    bool smthAfter = (start + count + 1 < text.size()) &&
+                     (accel.startsWith(text.at(start + count))
+                      || text.at(start + count) == QChar(0x0000AD) //soft hyphen
+                     );
+    if (smthAfter) {
+        qCWarning(LOKALIZE_LOG) << "smthAfter. ampersand is in the way. word len:" << count;
+        int realEnd = text.indexOf(QRegExp(QStringLiteral("\\b")), start + count + 2);
+        if (realEnd == -1)
+            realEnd = text.size();
+        QString t = text.mid(start, realEnd - start);
         t.remove(accel);
         t.remove(QChar(0x0000AD));
         if (!isWordMisspelled(t))
             return;
     }
 
-    if (count && format(start)==tagFormat)
+    if (count && format(start) == tagFormat)
         return;
 
-    for (int i=0;i<count;++i)
-    {
-        QTextCharFormat f(format(start+i));
+    for (int i = 0; i < count; ++i) {
+        QTextCharFormat f(format(start + i));
         f.setFontUnderline(true);
         f.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
         f.setUnderlineColor(Qt::red);
-        setFormat(start+i, 1, f);
+        setFormat(start + i, 1, f);
     }
 #endif
 }
 
 void SyntaxHighlighter::unsetMisspelled(int start, int count)
 {
-    for (int i=0;i<count;++i)
-    {
-        QTextCharFormat f(format(start+i));
+    for (int i = 0; i < count; ++i) {
+        QTextCharFormat f(format(start + i));
         f.setFontUnderline(false);
-        setFormat(start+i, 1, f);
+        setFormat(start + i, 1, f);
     }
 }
 

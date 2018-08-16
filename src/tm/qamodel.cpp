@@ -25,13 +25,13 @@
 #include <QCoreApplication>
 #include <klocalizedstring.h>
 
-static QString ruleTagNames[]={QString("source"), QString("falseFriend"), QString("target")};
+static QString ruleTagNames[] = {QString("source"), QString("falseFriend"), QString("target")};
 
 static QStringList domListToStringList(const QDomNodeList& nodes)
 {
     QStringList result;
     result.reserve(nodes.size());
-    for (int i=0;i<nodes.size();i++)
+    for (int i = 0; i < nodes.size(); i++)
         result.append(nodes.at(i).toElement().text());
 
     return result;
@@ -48,14 +48,14 @@ static QVector<QRegExp> domListToRegExpVector(const QDomNodeList& nodes)
 {
     QVector<QRegExp> result;
     result.reserve(nodes.size());
-    for (int i=0;i<nodes.size();i++)
+    for (int i = 0; i < nodes.size(); i++)
         result.append(domNodeToRegExp(nodes.at(i)));
 
     return result;
 }
 
 
-QaModel* QaModel::_instance=0;
+QaModel* QaModel::_instance = 0;
 void QaModel::cleanupQaModel()
 {
     delete QaModel::_instance; QaModel::_instance = 0;
@@ -63,13 +63,13 @@ void QaModel::cleanupQaModel()
 
 bool QaModel::isInstantiated()
 {
-    return _instance!=0;
+    return _instance != 0;
 }
 
 QaModel* QaModel::instance()
 {
-    if (Q_UNLIKELY( _instance==0 )) {
-        _instance=new QaModel;
+    if (Q_UNLIKELY(_instance == 0)) {
+        _instance = new QaModel;
         qAddPostRoutine(QaModel::cleanupQaModel);
     }
 
@@ -93,16 +93,15 @@ int QaModel::rowCount(const QModelIndex& parent) const
     return m_entries.count();
 }
 
-QVariant QaModel::headerData(int section, Qt::Orientation , int role) const
+QVariant QaModel::headerData(int section, Qt::Orientation, int role) const
 {
-    if (role!=Qt::DisplayRole)
+    if (role != Qt::DisplayRole)
         return QVariant();
 
-    switch (section)
-    {
-        //case ID: return i18nc("@title:column","ID");
-        case Source: return i18nc("@title:column Original text","Source");;
-        case FalseFriend: return i18nc("@title:column Translator's false friend","False Friend");
+    switch (section) {
+    //case ID: return i18nc("@title:column","ID");
+    case Source: return i18nc("@title:column Original text", "Source");;
+    case FalseFriend: return i18nc("@title:column Translator's false friend", "False Friend");
     }
     return QVariant();
 }
@@ -110,31 +109,29 @@ QVariant QaModel::headerData(int section, Qt::Orientation , int role) const
 
 QVariant QaModel::data(const QModelIndex& item, int role) const
 {
-    if (role==Qt::ToolTipRole)
+    if (role == Qt::ToolTipRole)
         return m_filename;
 
-    if (role!=Qt::DisplayRole && role!=Qt::EditRole)
+    if (role != Qt::DisplayRole && role != Qt::EditRole)
         return QVariant();
 
     static const QString nl("\n");
-    const QDomElement& entry=m_entries.at(item.row()).toElement();
+    const QDomElement& entry = m_entries.at(item.row()).toElement();
     return domListToStringList(entry.elementsByTagName(ruleTagNames[item.column()])).join(nl);
 }
 
 QVector<Rule> QaModel::toVector() const
 {
     QVector<Rule> rules;
-    QDomNodeList m_categories=m_doc.elementsByTagName("category");
-    for (int i=0;i<m_categories.size();i++)
-    {
+    QDomNodeList m_categories = m_doc.elementsByTagName("category");
+    for (int i = 0; i < m_categories.size(); i++) {
         static const QString ruleTagName("rule");
-        QDomNodeList m_rules=m_categories.at(i).toElement().elementsByTagName(ruleTagName);
-        for (int j=0;j<m_rules.size();j++)
-        {
+        QDomNodeList m_rules = m_categories.at(i).toElement().elementsByTagName(ruleTagName);
+        for (int j = 0; j < m_rules.size(); j++) {
             Rule rule;
-            rule.sources=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[Source]));
-            rule.falseFriends=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[FalseFriend]));
-            rule.targets=domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("target"));
+            rule.sources = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[Source]));
+            rule.falseFriends = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[FalseFriend]));
+            rule.targets = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("target"));
             rules.append(rule);
         }
     }
@@ -144,32 +141,29 @@ QVector<Rule> QaModel::toVector() const
 bool QaModel::loadRules(const QString& filename)
 {
     QFile file(filename);
-    if (file.open(QIODevice::ReadOnly))
-    {
-        bool ok=m_doc.setContent(&file);
+    if (file.open(QIODevice::ReadOnly)) {
+        bool ok = m_doc.setContent(&file);
         file.close();
         if (!ok)
             return false;
-    }
-    else
-    {
+    } else {
         m_doc.setContent(QByteArray(
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-"<qa version=\"1.0\">\n"
-"    <category name=\"default\">\n"
-"    </category>\n"
-"</qa>\n"));
+                             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                             "<qa version=\"1.0\">\n"
+                             "    <category name=\"default\">\n"
+                             "    </category>\n"
+                             "</qa>\n"));
     }
 
-    m_entries=m_doc.elementsByTagName("rule");
-    m_filename=filename;
+    m_entries = m_doc.elementsByTagName("rule");
+    m_filename = filename;
     return true;
 }
 
 bool QaModel::saveRules(QString filename)
 {
     if (filename.isEmpty())
-        filename=m_filename;
+        filename = m_filename;
 
     if (filename.isEmpty())
         return false;
@@ -178,7 +172,7 @@ bool QaModel::saveRules(QString filename)
     if (!device.open(QFile::WriteOnly | QFile::Truncate))
         return false;
     QTextStream stream(&device);
-    m_doc.save(stream,2);
+    m_doc.save(stream, 2);
 
     //setClean(true);
     return true;
@@ -187,51 +181,51 @@ bool QaModel::saveRules(QString filename)
 
 QModelIndex QaModel::appendRow()
 {
-    beginInsertRows(QModelIndex(),rowCount(),rowCount());
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
 
-    QDomElement category=m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
-    QDomElement rule=category.appendChild(m_doc.createElement("rule")).toElement();
+    QDomElement category = m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
+    QDomElement rule = category.appendChild(m_doc.createElement("rule")).toElement();
     rule.appendChild(m_doc.createElement(ruleTagNames[Source]));
     rule.appendChild(m_doc.createElement(ruleTagNames[FalseFriend]));
 
     endInsertRows();
-    
-    return index(m_entries.count()-1);
+
+    return index(m_entries.count() - 1);
 }
 
 void QaModel::removeRow(const QModelIndex& rowIndex)
 {
     //TODO optimize for contiguous selections
-    beginRemoveRows(QModelIndex(),rowIndex.row(),rowIndex.row());
+    beginRemoveRows(QModelIndex(), rowIndex.row(), rowIndex.row());
 
-    QDomElement category=m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
+    QDomElement category = m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
     category.removeChild(m_entries.at(rowIndex.row()));
 
     endRemoveRows();
 }
 
 
-Qt::ItemFlags QaModel::flags(const QModelIndex& ) const
+Qt::ItemFlags QaModel::flags(const QModelIndex&) const
 {
-    return Qt::ItemIsSelectable|Qt::ItemIsEnabled|Qt::ItemIsEditable;
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
 }
 
 bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
 {
-    if (role!=Qt::DisplayRole && role!=Qt::EditRole)
+    if (role != Qt::DisplayRole && role != Qt::EditRole)
         return false;
 
-    QDomElement entry=m_entries.at(item.row()).toElement();
-    QDomNodeList sources=entry.elementsByTagName(ruleTagNames[item.column()]);
-    
-    QStringList newSources=value.toString().split('\n');
-    while(sources.size()<newSources.size())
-        entry.insertAfter(m_doc.createElement(ruleTagNames[item.column()]), sources.at(sources.size()-1));
+    QDomElement entry = m_entries.at(item.row()).toElement();
+    QDomNodeList sources = entry.elementsByTagName(ruleTagNames[item.column()]);
 
-    while(sources.size()>newSources.size())
-        entry.removeChild(sources.at(sources.size()-1));
+    QStringList newSources = value.toString().split('\n');
+    while (sources.size() < newSources.size())
+        entry.insertAfter(m_doc.createElement(ruleTagNames[item.column()]), sources.at(sources.size() - 1));
 
-    for (int i=0;i<sources.size();i++)
+    while (sources.size() > newSources.size())
+        entry.removeChild(sources.at(sources.size() - 1));
+
+    for (int i = 0; i < sources.size(); i++)
         setText(sources.at(i).toElement(), newSources.at(i));
 
     emit dataChanged(item, item);

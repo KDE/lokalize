@@ -30,7 +30,7 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
- 
+
 **************************************************************************** */
 
 #ifndef CATALOG_H
@@ -50,17 +50,18 @@ class KAutoSaveFile;
 
 #include <QUndoStack>
 
-namespace GettextCatalog {
-  class CatalogImportPlugin;
-  class CatalogExportPlugin;
+namespace GettextCatalog
+{
+class CatalogImportPlugin;
+class CatalogExportPlugin;
 }
 
 
 bool isApproved(TargetState state, ProjectLocal::PersonRole role);
 bool isApproved(TargetState state); //disregarding Phase
 TargetState closestState(bool approved, ProjectLocal::PersonRole role);
-int findPrevInList(const QLinkedList<int>& list,int index);
-int findNextInList(const QLinkedList<int>& list,int index);
+int findPrevInList(const QLinkedList<int>& list, int index);
+int findNextInList(const QLinkedList<int>& list, int index);
 void insertInList(QLinkedList<int>& list, int index); // insert index in the right place in the list
 
 
@@ -93,8 +94,14 @@ public:
     void push(QUndoCommand* cmd);
 
 public slots: //DBus interface
-    QString source(const DocPosition& pos) const {return msgid(pos);}
-    QString target(const DocPosition& pos) const {return msgstr(pos);}
+    QString source(const DocPosition& pos) const
+    {
+        return msgid(pos);
+    }
+    QString target(const DocPosition& pos) const
+    {
+        return msgstr(pos);
+    }
     // used by XLIFF storage)
     CatalogString sourceWithTags(const DocPosition& pos) const;
     CatalogString targetWithTags(const DocPosition& pos) const;
@@ -117,20 +124,32 @@ public slots: //DBus interface
     ///@returns previous phase-name
     QString setPhase(const DocPosition& pos, const QString& phase);
     QString phase(const DocPosition& pos) const;
-    QString activePhase() const{return d._phase;}
-    ProjectLocal::PersonRole activePhaseRole() const{return d._phaseRole;}
-    void setActivePhase(const QString& phase, ProjectLocal::PersonRole role=ProjectLocal::Approver);
+    QString activePhase() const
+    {
+        return d._phase;
+    }
+    ProjectLocal::PersonRole activePhaseRole() const
+    {
+        return d._phaseRole;
+    }
+    void setActivePhase(const QString& phase, ProjectLocal::PersonRole role = ProjectLocal::Approver);
     Phase phase(const QString& name) const;
     QList<Phase> allPhases() const;
-    QMap<QString,Tool> allTools() const;
+    QMap<QString, Tool> allTools() const;
     QVector<Note> phaseNotes(const QString& phase) const;
     ///@arg pos.entry - number of phase, @arg pos.form - number of note
     QVector<Note> setPhaseNotes(const QString& phase, QVector<Note>);
 
     bool isPlural(uint index) const;
-    bool isPlural(const DocPosition& pos) const{return isPlural(pos.entry);}
+    bool isPlural(const DocPosition& pos) const
+    {
+        return isPlural(pos.entry);
+    }
     bool isApproved(uint index) const;
-    bool isApproved(const DocPosition& pos) const{return isApproved(pos.entry);}
+    bool isApproved(const DocPosition& pos) const
+    {
+        return isApproved(pos.entry);
+    }
     TargetState state(const DocPosition& pos) const;
     bool isEquivTrans(const DocPosition&) const;
     ///@returns true if at least one form is untranslated
@@ -145,37 +164,94 @@ public slots: //DBus interface
 
     int unitById(const QString& id) const;
 
-    bool isBookmarked(uint index) const{return d._bookmarkIndex.contains(index);}
+    bool isBookmarked(uint index) const
+    {
+        return d._bookmarkIndex.contains(index);
+    }
     void setBookmark(uint, bool);
 
-    int numberOfPluralForms() const {return d._numberOfPluralForms;}
+    int numberOfPluralForms() const
+    {
+        return d._numberOfPluralForms;
+    }
     int numberOfEntries() const;
-    int numberOfNonApproved() const {return d._nonApprovedIndex.size();}
-    int numberOfUntranslated() const {return d._emptyIndex.size();}
+    int numberOfNonApproved() const
+    {
+        return d._nonApprovedIndex.size();
+    }
+    int numberOfUntranslated() const
+    {
+        return d._emptyIndex.size();
+    }
 
 public:
     QString originalOdfFilePath();
     void setOriginalOdfFilePath(const QString&);
 
-    int firstFuzzyIndex() const {return d._nonApprovedIndex.isEmpty()?numberOfEntries():d._nonApprovedIndex.first();}
-    int lastFuzzyIndex() const {return d._nonApprovedIndex.isEmpty()?-1:d._nonApprovedIndex.last();}
-    int nextFuzzyIndex(uint index) const {return findNextInList(d._nonApprovedIndex,index);}
-    int prevFuzzyIndex(uint index) const {return findPrevInList(d._nonApprovedIndex,index);}
-    int firstUntranslatedIndex() const {return d._emptyIndex.isEmpty()?numberOfEntries():d._emptyIndex.first();}
-    int lastUntranslatedIndex() const {return d._emptyIndex.isEmpty()?-1:d._emptyIndex.last();}
-    int nextUntranslatedIndex(uint index) const {return findNextInList(d._emptyIndex,index);}
-    int prevUntranslatedIndex(uint index) const {return findPrevInList(d._emptyIndex,index);}
+    int firstFuzzyIndex() const
+    {
+        return d._nonApprovedIndex.isEmpty() ? numberOfEntries() : d._nonApprovedIndex.first();
+    }
+    int lastFuzzyIndex() const
+    {
+        return d._nonApprovedIndex.isEmpty() ? -1 : d._nonApprovedIndex.last();
+    }
+    int nextFuzzyIndex(uint index) const
+    {
+        return findNextInList(d._nonApprovedIndex, index);
+    }
+    int prevFuzzyIndex(uint index) const
+    {
+        return findPrevInList(d._nonApprovedIndex, index);
+    }
+    int firstUntranslatedIndex() const
+    {
+        return d._emptyIndex.isEmpty() ? numberOfEntries() : d._emptyIndex.first();
+    }
+    int lastUntranslatedIndex() const
+    {
+        return d._emptyIndex.isEmpty() ? -1 : d._emptyIndex.last();
+    }
+    int nextUntranslatedIndex(uint index) const
+    {
+        return findNextInList(d._emptyIndex, index);
+    }
+    int prevUntranslatedIndex(uint index) const
+    {
+        return findPrevInList(d._emptyIndex, index);
+    }
 
-    int firstBookmarkIndex() const {return d._bookmarkIndex.isEmpty()?numberOfEntries():d._bookmarkIndex.first();}
-    int lastBookmarkIndex() const {return d._bookmarkIndex.isEmpty()?-1:d._bookmarkIndex.last();}
-    int nextBookmarkIndex(uint index) const {return findNextInList(d._bookmarkIndex,index);}
-    int prevBookmarkIndex(uint index) const {return findPrevInList(d._bookmarkIndex,index);}
+    int firstBookmarkIndex() const
+    {
+        return d._bookmarkIndex.isEmpty() ? numberOfEntries() : d._bookmarkIndex.first();
+    }
+    int lastBookmarkIndex() const
+    {
+        return d._bookmarkIndex.isEmpty() ? -1 : d._bookmarkIndex.last();
+    }
+    int nextBookmarkIndex(uint index) const
+    {
+        return findNextInList(d._bookmarkIndex, index);
+    }
+    int prevBookmarkIndex(uint index) const
+    {
+        return findPrevInList(d._bookmarkIndex, index);
+    }
 
-    bool autoSaveRecovered(){return d._autoSaveRecovered;}
+    bool autoSaveRecovered()
+    {
+        return d._autoSaveRecovered;
+    }
 public:
     void clear();
-    bool isEmpty(){return !m_storage;}
-    bool isReadOnly(){return d._readOnly;}
+    bool isEmpty()
+    {
+        return !m_storage;
+    }
+    bool isReadOnly()
+    {
+        return d._readOnly;
+    }
 
     void attachAltTransCatalog(Catalog*);
     void attachAltTrans(int entry, const AltTrans& trans);
@@ -187,11 +263,17 @@ public:
     void setTarget(DocPosition pos, const CatalogString& s); //for batch use only!
 
     //void setErrorIndex(const QList<int>& errors){d._errorIndex=errors;}
-    void setUrl(const QString& u){d._filePath=u;}//used for template load
+    void setUrl(const QString& u)
+    {
+        d._filePath = u;   //used for template load
+    }
 public slots: //DBus interface
-    const QString& url() const {return d._filePath;}
+    const QString& url() const
+    {
+        return d._filePath;
+    }
     ///@returns 0 if success, >0 erroneous line (parsing error)
-    int loadFromUrl(const QString& url, const QString& saidUrl=QString(), int* fileSize = 0, bool fast = false);
+    int loadFromUrl(const QString& url, const QString& saidUrl = QString(), int* fileSize = 0, bool fast = false);
     bool saveToUrl(QString url);
     bool save();
     QByteArray contents();
@@ -211,8 +293,11 @@ protected:
 
 protected slots:
     void doAutoSave();
-    void setAutoSaveDirty(){d._autoSaveDirty=true;}
-    
+    void setAutoSaveDirty()
+    {
+        d._autoSaveDirty = true;
+    }
+
     void projectConfigChanged();
 
 protected:
@@ -240,7 +325,7 @@ protected:
 
     /// @returns true if entry wasn't modified before
     bool setModified(DocPos entry, bool modif);
-    
+
     void updateApprovedEmptyIndexCache();
 
 protected:
@@ -263,7 +348,7 @@ protected:
 
 public:
     //static QString supportedMimeFilters;
-    static QString supportedFileTypes(bool includeTemplates=true);
+    static QString supportedFileTypes(bool includeTemplates = true);
 
 signals:
     void signalEntryModified(const DocPosition&);

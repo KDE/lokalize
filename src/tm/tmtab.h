@@ -42,7 +42,8 @@ class QaView;
 class Ui_QueryOptions;
 class TMResultsSortFilterProxyModel;
 
-namespace TM {
+namespace TM
+{
 class TMDBModel;
 class ExecQueryJob;
 
@@ -59,15 +60,24 @@ public:
     TMTab(QWidget *parent);
     ~TMTab();
 
-    void hideDocks(){};
-    void showDocks(){};
-    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    void hideDocks() {};
+    void showDocks() {};
+    KXMLGUIClient* guiClient()
+    {
+        return (KXMLGUIClient*)this;
+    }
     QString dbusObjectPath();
-    int dbusId(){return m_dbusId;}
+    int dbusId()
+    {
+        return m_dbusId;
+    }
 
 
 public slots:
-    Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}
+    Q_SCRIPTABLE bool findGuiText(QString text)
+    {
+        return findGuiTextPackage(text, QString());
+    }
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
     Q_SCRIPTABLE void lookup(QString source, QString target);
     //void lookup(DocPosition::Part, QString text);
@@ -107,9 +117,8 @@ class TMDBModel: public QSqlQueryModel
     Q_OBJECT
 public:
 
-    enum TMDBModelColumns
-    {
-        Source=0,
+    enum TMDBModelColumns {
+        Source = 0,
         Target,
         Context,
         Filepath,
@@ -120,32 +129,37 @@ public:
         ColumnCount
     };
 
-    enum QueryType
-    {
-        SubStr=0,
+    enum QueryType {
+        SubStr = 0,
         WordOrder,
         Glob
     };
 
-    enum Roles
-    {
-        FullPathRole=Qt::UserRole,
-        TransStateRole=Qt::UserRole+1,
+    enum Roles {
+        FullPathRole = Qt::UserRole,
+        TransStateRole = Qt::UserRole + 1,
         //HtmlDisplayRole=FastSizeHintItemDelegate::HtmlDisplayRole
     };
 
     TMDBModel(QObject* parent);
-    ~TMDBModel(){}
+    ~TMDBModel() {}
 
-    QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{Q_UNUSED(parent); return ColumnCount;}
-    int totalResultCount()const{return m_totalResultCount;}
+    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    {
+        Q_UNUSED(parent);
+        return ColumnCount;
+    }
+    int totalResultCount()const
+    {
+        return m_totalResultCount;
+    }
 
 public slots:
     void setFilter(const QString& source, const QString& target,
                    bool invertSource, bool invertTarget,
                    const QString& filemask
-                   );
+                  );
     void setQueryType(int);
     void setDB(const QString&);
     void slotQueryExecuted(ExecQueryJob*);

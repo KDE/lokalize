@@ -6,8 +6,8 @@
 class KTextEdit: public QTextEdit
 {
 public:
-    KTextEdit(QWidget* p):QTextEdit(p){}
-    void setHighlighter(void*){}
+    KTextEdit(QWidget* p): QTextEdit(p) {}
+    void setHighlighter(void*) {}
 
 };
 

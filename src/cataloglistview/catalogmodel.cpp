@@ -43,12 +43,11 @@ QVector<QVariant> CatalogTreeModel::m_fonts;
 
 
 CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
- : QAbstractItemModel(parent)
- , m_catalog(catalog)
- , m_ignoreAccel(true)
+    : QAbstractItemModel(parent)
+    , m_catalog(catalog)
+    , m_ignoreAccel(true)
 {
-    if (m_fonts.isEmpty())
-    {
+    if (m_fonts.isEmpty()) {
         QVector<QFont> fonts(4, QApplication::font());
         fonts[1].setItalic(true); //fuzzy
 
@@ -58,13 +57,13 @@ CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
         fonts[3].setBold(true);   //modified
 
         m_fonts.reserve(4);
-        for(int i=0;i<4;i++) m_fonts<<fonts.at(i);
+        for (int i = 0; i < 4; i++) m_fonts << fonts.at(i);
     }
     connect(catalog, &Catalog::signalEntryModified, this, &CatalogTreeModel::reflectChanges);
     connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &CatalogTreeModel::fileLoaded);
 }
 
-QModelIndex CatalogTreeModel::index(int row,int column,const QModelIndex& /*parent*/) const
+QModelIndex CatalogTreeModel::index(int row, int column, const QModelIndex& /*parent*/) const
 {
     return createIndex(row, column);
 }
@@ -88,22 +87,20 @@ void CatalogTreeModel::fileLoaded()
 
 void CatalogTreeModel::reflectChanges(DocPosition pos)
 {
-    emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount-1));
+    emit dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
 
 #if 0
     I disabled dynamicSortFilter function
     //lazy sorting/filtering
-    if (rowCount()<DYNAMICFILTER_LIMIT || m_prevChanged!=pos)
-    {
-        qCWarning(LOKALIZE_LOG)<<"first dataChanged emitment"<<pos.entry;
-        emit dataChanged(index(pos.entry,0),index(pos.entry,DisplayedColumnCount-1));
-        if (!( rowCount()<DYNAMICFILTER_LIMIT ))
-        {
-            qCWarning(LOKALIZE_LOG)<<"second dataChanged emitment"<<m_prevChanged.entry;
-            emit dataChanged(index(m_prevChanged.entry,0),index(m_prevChanged.entry,DisplayedColumnCount-1));
+    if (rowCount() < DYNAMICFILTER_LIMIT || m_prevChanged != pos) {
+        qCWarning(LOKALIZE_LOG) << "first dataChanged emitment" << pos.entry;
+        emit dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
+        if (!(rowCount() < DYNAMICFILTER_LIMIT)) {
+            qCWarning(LOKALIZE_LOG) << "second dataChanged emitment" << m_prevChanged.entry;
+            emit dataChanged(index(m_prevChanged.entry, 0), index(m_prevChanged.entry, DisplayedColumnCount - 1));
         }
     }
-    m_prevChanged=pos;
+    m_prevChanged = pos;
 #endif
 }
 
@@ -116,119 +113,102 @@ int CatalogTreeModel::rowCount(const QModelIndex& parent) const
 
 QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation*/, int role) const
 {
-    if (role!=Qt::DisplayRole)
+    if (role != Qt::DisplayRole)
         return QVariant();
 
-    switch (section)
-    {
-        case Key:       return i18nc("@title:column","Entry");
-        case Source:    return i18nc("@title:column Original text","Source");
-        case Target:    return i18nc("@title:column Text in target language","Target");
-        case Notes:     return i18nc("@title:column","Notes");
-        case Context:   return i18nc("@title:column","Context");
-        case TranslationStatus: return i18nc("@title:column","Translation Status");
+    switch (section) {
+    case Key:       return i18nc("@title:column", "Entry");
+    case Source:    return i18nc("@title:column Original text", "Source");
+    case Target:    return i18nc("@title:column Text in target language", "Target");
+    case Notes:     return i18nc("@title:column", "Notes");
+    case Context:   return i18nc("@title:column", "Context");
+    case TranslationStatus: return i18nc("@title:column", "Translation Status");
     }
     return QVariant();
 }
 
 QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
 {
-    if (m_catalog->numberOfEntries()<=index.row() )
+    if (m_catalog->numberOfEntries() <= index.row())
         return QVariant();
 
-    if (role==Qt::SizeHintRole)
-    {
+    if (role == Qt::SizeHintRole) {
         //no need to cache because of uniform row heights
         return QFontMetrics(QApplication::font()).size(Qt::TextSingleLine, QString::fromLatin1("          "));
-    }
-    else if (role==Qt::FontRole/* && index.column()==Target*/)
-    {
-        bool fuzzy=!m_catalog->isApproved(index.row());
-        bool modified=m_catalog->isModified(index.row());
-        return m_fonts.at(fuzzy*1 | modified*2);
-    }
-    else if (role==Qt::ForegroundRole)
-    {
+    } else if (role == Qt::FontRole/* && index.column()==Target*/) {
+        bool fuzzy = !m_catalog->isApproved(index.row());
+        bool modified = m_catalog->isModified(index.row());
+        return m_fonts.at(fuzzy * 1 | modified * 2);
+    } else if (role == Qt::ForegroundRole) {
 #ifndef NOKDE
-       if (m_catalog->isBookmarked(index.row()))
-       {
-           static KColorScheme colorScheme(QPalette::Normal);
-           return colorScheme.foreground(KColorScheme::LinkText);
-       }
-       if (m_catalog->isObsolete(index.row()))
-       {
-           static KColorScheme colorScheme(QPalette::Normal);
-           return colorScheme.foreground(KColorScheme::InactiveText);
-       }
+        if (m_catalog->isBookmarked(index.row())) {
+            static KColorScheme colorScheme(QPalette::Normal);
+            return colorScheme.foreground(KColorScheme::LinkText);
+        }
+        if (m_catalog->isObsolete(index.row())) {
+            static KColorScheme colorScheme(QPalette::Normal);
+            return colorScheme.foreground(KColorScheme::InactiveText);
+        }
 #else
-       if (m_catalog->isBookmarked(index.row()))
-       {
-           return QApplication::palette().link();
-       }
-       if (m_catalog->isObsolete(index.row()))
-       {
-           return QApplication::palette().brightText();
-       }
+        if (m_catalog->isBookmarked(index.row())) {
+            return QApplication::palette().link();
+        }
+        if (m_catalog->isObsolete(index.row())) {
+            return QApplication::palette().brightText();
+        }
 #endif
-    }
-    else if (role==Qt::UserRole)
-    {
-        switch (index.column())
-        {
-            case TranslationStatus:   return m_catalog->isApproved(index.row());
-            case IsEmpty:     return m_catalog->isEmpty(index.row());
-            case State:     return int(m_catalog->state(index.row()));
-            case IsModified:  return m_catalog->isModified(index.row());
-            case IsPlural:  return m_catalog->isPlural(index.row());
-            default:        role=Qt::DisplayRole;
+    } else if (role == Qt::UserRole) {
+        switch (index.column()) {
+        case TranslationStatus:   return m_catalog->isApproved(index.row());
+        case IsEmpty:     return m_catalog->isEmpty(index.row());
+        case State:     return int(m_catalog->state(index.row()));
+        case IsModified:  return m_catalog->isModified(index.row());
+        case IsPlural:  return m_catalog->isPlural(index.row());
+        default:        role = Qt::DisplayRole;
         }
-    }
-    else if (role==StringFilterRole) //exclude UI strings
-    {
-        if (index.column()>=TranslationStatus)
+    } else if (role == StringFilterRole) { //exclude UI strings
+        if (index.column() >= TranslationStatus)
             return QVariant();
-        else if (index.column()==Source || index.column()==Target)
-        {
-            static const DocPosition::Part parts[]={DocPosition::Source, DocPosition::Target};
-            QString str=m_catalog->catalogString(DocPosition(index.row(),parts[index.column()==Target])).string;
-            return m_ignoreAccel?str.remove(Project::instance()->accel()):str;
+        else if (index.column() == Source || index.column() == Target) {
+            static const DocPosition::Part parts[] = {DocPosition::Source, DocPosition::Target};
+            QString str = m_catalog->catalogString(DocPosition(index.row(), parts[index.column() == Target])).string;
+            return m_ignoreAccel ? str.remove(Project::instance()->accel()) : str;
         }
-        role=Qt::DisplayRole;
+        role = Qt::DisplayRole;
     }
-    if (role!=Qt::DisplayRole)
+    if (role != Qt::DisplayRole)
         return QVariant();
 
 
 
-    switch (index.column())
-    {
-        case Key:    return index.row()+1;
-        case Source: return m_catalog->msgid(index.row());
-        case Target: return m_catalog->msgstr(index.row());
-        case Notes:
-        {
-            QString result;
-            foreach(const Note &note, m_catalog->notes(index.row()))
-                result+=note.content;
-            return result;
-        }
-        case Context: return m_catalog->context(index.row());
-        case TranslationStatus:
-            static QString statuses[]={i18nc("@info:status 'non-fuzzy' in gettext terminology","Ready"),
-                                    i18nc("@info:status 'fuzzy' in gettext terminology","Needs review"),
-                                    i18nc("@info:status","Untranslated")};
-            if (m_catalog->isEmpty(index.row()))
-                return statuses[2];
-            return statuses[!m_catalog->isApproved(index.row())];
+    switch (index.column()) {
+    case Key:    return index.row() + 1;
+    case Source: return m_catalog->msgid(index.row());
+    case Target: return m_catalog->msgstr(index.row());
+    case Notes: {
+        QString result;
+        foreach (const Note &note, m_catalog->notes(index.row()))
+            result += note.content;
+        return result;
+    }
+    case Context: return m_catalog->context(index.row());
+    case TranslationStatus:
+        static QString statuses[] = {i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready"),
+                                     i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"),
+                                     i18nc("@info:status", "Untranslated")
+                                    };
+        if (m_catalog->isEmpty(index.row()))
+            return statuses[2];
+        return statuses[!m_catalog->isApproved(index.row())];
     }
     return QVariant();
 }
 
 CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
- : QSortFilterProxyModel(parent)
- , m_filerOptions(AllStates)
- , m_individualRejectFilterEnable(false)
- , m_mergeCatalog(NULL)
+    : QSortFilterProxyModel(parent)
+    , m_filerOptions(AllStates)
+    , m_individualRejectFilterEnable(false)
+    , m_mergeCatalog(NULL)
 {
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -250,7 +230,7 @@ void CatalogTreeFilterModel::setEntriesFilteredOut()
 void CatalogTreeFilterModel::setEntriesFilteredOut(bool filteredOut)
 {
     m_individualRejectFilter.fill(filteredOut, sourceModel()->rowCount());
-    m_individualRejectFilterEnable=filteredOut;
+    m_individualRejectFilterEnable = filteredOut;
     invalidateFilter();
 }
 
@@ -258,42 +238,38 @@ void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
 {
 //     if (entry>=m_individualRejectFilter.size())
 //         sourceModelReset();
-    m_individualRejectFilter[entry]=filteredOut;
-    m_individualRejectFilterEnable=true;
+    m_individualRejectFilter[entry] = filteredOut;
+    m_individualRejectFilterEnable = true;
     invalidateFilter();
 }
 
 void CatalogTreeFilterModel::setFilerOptions(int o)
 {
-    m_filerOptions=o;
-    setFilterCaseSensitivity(o&CaseInsensitive?Qt::CaseInsensitive:Qt::CaseSensitive);
-    static_cast<CatalogTreeModel*>(sourceModel())->setIgnoreAccel(o&IgnoreAccel);
+    m_filerOptions = o;
+    setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
+    static_cast<CatalogTreeModel*>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
     invalidateFilter();
 }
 
 bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-    int filerOptions=m_filerOptions;
-    bool accepts=true;
-    if (bool(filerOptions&Ready)!=bool(filerOptions&NotReady))
-    {
-        bool ready=sourceModel()->index(source_row,CatalogTreeModel::TranslationStatus,source_parent).data(Qt::UserRole).toBool();
-        accepts=(ready==bool(filerOptions&Ready) || ready!=bool(filerOptions&NotReady));
+    int filerOptions = m_filerOptions;
+    bool accepts = true;
+    if (bool(filerOptions & Ready) != bool(filerOptions & NotReady)) {
+        bool ready = sourceModel()->index(source_row, CatalogTreeModel::TranslationStatus, source_parent).data(Qt::UserRole).toBool();
+        accepts = (ready == bool(filerOptions & Ready) || ready != bool(filerOptions & NotReady));
     }
-    if (accepts&&bool(filerOptions&NonEmpty)!=bool(filerOptions&Empty))
-    {
-        bool untr=sourceModel()->index(source_row,CatalogTreeModel::IsEmpty,source_parent).data(Qt::UserRole).toBool();
-        accepts=(untr==bool(filerOptions&Empty) || untr!=bool(filerOptions&NonEmpty));
+    if (accepts && bool(filerOptions & NonEmpty) != bool(filerOptions & Empty)) {
+        bool untr = sourceModel()->index(source_row, CatalogTreeModel::IsEmpty, source_parent).data(Qt::UserRole).toBool();
+        accepts = (untr == bool(filerOptions & Empty) || untr != bool(filerOptions & NonEmpty));
     }
-    if (accepts&&bool(filerOptions&Modified)!=bool(filerOptions&NonModified))
-    {
-        bool modified=sourceModel()->index(source_row,CatalogTreeModel::IsModified,source_parent).data(Qt::UserRole).toBool();
-        accepts=(modified==bool(filerOptions&Modified) || modified!=bool(filerOptions&NonModified));
+    if (accepts && bool(filerOptions & Modified) != bool(filerOptions & NonModified)) {
+        bool modified = sourceModel()->index(source_row, CatalogTreeModel::IsModified, source_parent).data(Qt::UserRole).toBool();
+        accepts = (modified == bool(filerOptions & Modified) || modified != bool(filerOptions & NonModified));
     }
-    if (accepts&&bool(filerOptions&Plural)!=bool(filerOptions&NonPlural))
-    {
-        bool modified=sourceModel()->index(source_row,CatalogTreeModel::IsPlural,source_parent).data(Qt::UserRole).toBool();
-        accepts=(modified==bool(filerOptions&Plural) || modified!=bool(filerOptions&NonPlural));
+    if (accepts && bool(filerOptions & Plural) != bool(filerOptions & NonPlural)) {
+        bool modified = sourceModel()->index(source_row, CatalogTreeModel::IsPlural, source_parent).data(Qt::UserRole).toBool();
+        accepts = (modified == bool(filerOptions & Plural) || modified != bool(filerOptions & NonPlural));
     }
 
     // These are the possible sync options of a row:
@@ -303,28 +279,26 @@ bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     //
     // The code below takes care of filtering rows when any of those options is not checked.
     //
-    const int mask=(SameInSync|DifferentInSync|NotInSync);
-    if (accepts && m_mergeCatalog && (filerOptions&mask) && (filerOptions&mask)!=mask)
-    {
+    const int mask = (SameInSync | DifferentInSync | NotInSync);
+    if (accepts && m_mergeCatalog && (filerOptions & mask) && (filerOptions & mask) != mask) {
         bool isPresent = m_mergeCatalog->isPresent(source_row);
         bool isDifferent = m_mergeCatalog->isDifferent(source_row);
 
         accepts = !
-           ( (isPresent && !isDifferent && !bool(filerOptions&SameInSync))      ||
-             (isPresent &&  isDifferent && !bool(filerOptions&DifferentInSync)) ||
-            (!isPresent &&                 !bool(filerOptions&NotInSync))
-           );
+                  ((isPresent && !isDifferent && !bool(filerOptions & SameInSync))      ||
+                   (isPresent &&  isDifferent && !bool(filerOptions & DifferentInSync)) ||
+                   (!isPresent &&                 !bool(filerOptions & NotInSync))
+                  );
     }
 
-    if (accepts && (filerOptions&STATES)!=STATES)
-    {
-        int state=sourceModel()->index(source_row,CatalogTreeModel::State,source_parent).data(Qt::UserRole).toInt();
-        accepts=(filerOptions&(1<<(state+FIRSTSTATEPOSITION)));
+    if (accepts && (filerOptions & STATES) != STATES) {
+        int state = sourceModel()->index(source_row, CatalogTreeModel::State, source_parent).data(Qt::UserRole).toInt();
+        accepts = (filerOptions & (1 << (state + FIRSTSTATEPOSITION)));
     }
 
-    accepts=accepts&&!(m_individualRejectFilterEnable && source_row<m_individualRejectFilter.size() && m_individualRejectFilter.at(source_row));
+    accepts = accepts && !(m_individualRejectFilterEnable && source_row < m_individualRejectFilter.size() && m_individualRejectFilter.at(source_row));
 
-    return accepts&&QSortFilterProxyModel::filterAcceptsRow(source_row,source_parent);
+    return accepts && QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
 }
 
 void CatalogTreeFilterModel::setMergeCatalogPointer(MergeCatalog* pointer)

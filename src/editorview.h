@@ -55,10 +55,13 @@ class EditorView: public QSplitter
 {
     Q_OBJECT
 public:
-    EditorView(QWidget *,Catalog*);
+    EditorView(QWidget *, Catalog*);
     virtual ~EditorView();
 
-    QTabBar* tabBar(){return m_pluralTabBar;}//to connect tabbar signals to controller (EditorWindow) slots
+    QTabBar* tabBar()
+    {
+        return m_pluralTabBar;   //to connect tabbar signals to controller (EditorWindow) slots
+    }
     QString selectionInTarget() const;//for non-batch replace
     QString selectionInSource() const;
 
@@ -78,16 +81,16 @@ public slots:
     void unwrap();
     void unwrap(TranslationUnitTextEdit* editor);
 
-/*
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
-*/
+    /*
+        void dragEnterEvent(QDragEnterEvent* event);
+        void dropEvent(QDropEvent*);
+    */
 private:
     Catalog* m_catalog;
 
     TranslationUnitTextEdit * m_sourceTextEdit;
     TranslationUnitTextEdit * m_targetTextEdit
-;
+    ;
 
     QTabBar* m_pluralTabBar;
     LedsWidget* m_leds;
@@ -118,9 +121,9 @@ private slots:
 #ifndef NOKDE
 class KLed;
 class QLabel;
-class LedsWidget:public QWidget
+class LedsWidget: public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     LedsWidget(QWidget* parent);
 private:

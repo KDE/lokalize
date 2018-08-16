@@ -33,26 +33,25 @@
 #include <KColorScheme>
 #endif
 
-QString convertToHtml(QString string, bool italics=false);
+QString convertToHtml(QString string, bool italics = false);
 
 /**
  * remember to connect appropriate signals to reset slot
  * for delegate to have actual cache
- * 
+ *
  * @author Nick Shaforostoff
  */
 class FastSizeHintItemDelegate: public QItemDelegate
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-    enum Roles
-    {
-        HtmlDisplayRole=Qt::UserRole+5
+    enum Roles {
+        HtmlDisplayRole = Qt::UserRole + 5
     };
 
     FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc);
-    ~FastSizeHintItemDelegate(){}
+    ~FastSizeHintItemDelegate() {}
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
     QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
@@ -64,13 +63,11 @@ private:
     QVector<bool> singleLineColumns;
     QVector<bool> richTextColumns;
 
-    struct RowColumn
-    {
-        short row:16;
-        short column:16;
+    struct RowColumn {
+        short row: 16;
+        short column: 16;
     };
-    union RowColumnUnion
-    {
+    union RowColumnUnion {
         RowColumn index;
         int v;
     };

@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -27,7 +27,10 @@
 #include <QLineEdit>
 class KEditListWidget;
 
-namespace Kross {class ActionCollectionView;}
+namespace Kross
+{
+class ActionCollectionView;
+}
 
 /**
  * Singleton that manages cfgs for Lokalize and projects
@@ -42,14 +45,20 @@ public:
 
     bool dirty;
 
-    void setMainWindowPtr(QWidget* w){m_mainWindowPtr=w;}
-    QWidget* mainWindowPtr(){return m_mainWindowPtr;}
+    void setMainWindowPtr(QWidget* w)
+    {
+        m_mainWindowPtr = w;
+    }
+    QWidget* mainWindowPtr()
+    {
+        return m_mainWindowPtr;
+    }
 
 public slots:
     void showSettingsDialog();
 
     bool ensureProjectIsLoaded();
-    QString projectOpen(QString path=QString(), bool doOpen=true);
+    QString projectOpen(QString path = QString(), bool doOpen = true);
     bool projectCreate();
     void projectConfigure();
 
@@ -79,9 +88,9 @@ public:
  */
 class RelPathSaver: public QLineEdit
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    RelPathSaver(QWidget* p):QLineEdit(p){}
+    RelPathSaver(QWidget* p): QLineEdit(p) {}
 public slots:
     void setText(const QString&);
 };
@@ -93,9 +102,9 @@ public slots:
  */
 class LangCodeSaver: public QLineEdit
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    LangCodeSaver(QWidget* p):QLineEdit(p){}
+    LangCodeSaver(QWidget* p): QLineEdit(p) {}
 public slots:
     void setLangCode(int);
 };
@@ -103,7 +112,7 @@ public slots:
 #include <kross/ui/view.h>
 class ScriptsView: public Kross::ActionCollectionView
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     ScriptsView(QWidget* parent);
 

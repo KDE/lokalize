@@ -46,12 +46,12 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
-AltTransView::AltTransView(QWidget* parent, Catalog* catalog,const QVector<QAction*>& actions)
-    : QDockWidget ( i18nc("@title:window","Alternate Translations"), parent)
+AltTransView::AltTransView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
+    : QDockWidget(i18nc("@title:window", "Alternate Translations"), parent)
     , m_browser(new TM::TextBrowser(this))
     , m_catalog(catalog)
-    , m_normTitle(i18nc("@title:window","Alternate Translations"))
-    , m_hasInfoTitle(m_normTitle+QStringLiteral(" [*]"))
+    , m_normTitle(i18nc("@title:window", "Alternate Translations"))
+    , m_hasInfoTitle(m_normTitle + QStringLiteral(" [*]"))
     , m_hasInfo(false)
     , m_everShown(false)
     , m_actions(actions)
@@ -71,15 +71,14 @@ void AltTransView::initLater()
 
 #ifndef NOKDE
     KConfig config;
-    KConfigGroup group(&config,"AltTransView");
-    m_everShown=group.readEntry("EverShown",false);
+    KConfigGroup group(&config, "AltTransView");
+    m_everShown = group.readEntry("EverShown", false);
 #endif
 
 
-    QSignalMapper* signalMapper=new QSignalMapper(this);
-    int i=m_actions.size();
-    while(--i>=0)
-    {
+    QSignalMapper* signalMapper = new QSignalMapper(this);
+    int i = m_actions.size();
+    while (--i >= 0) {
         connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
         signalMapper->setMapping(m_actions.at(i), i);
     }
@@ -95,7 +94,7 @@ AltTransView::~AltTransView()
 
 void AltTransView::dragEnterEvent(QDragEnterEvent* event)
 {
-    if(event->mimeData()->hasUrls() && Catalog::extIsSupported(event->mimeData()->urls().first().path()))
+    if (event->mimeData()->hasUrls() && Catalog::extIsSupported(event->mimeData()->urls().first().path()))
         event->acceptProposedAction();
 }
 
@@ -105,13 +104,13 @@ void AltTransView::dropEvent(QDropEvent *event)
     attachAltTransFile(event->mimeData()->urls().first().toLocalFile());
 
     //update
-    m_prevEntry.entry=-1;
+    m_prevEntry.entry = -1;
     QTimer::singleShot(0, this, &AltTransView::process);
 }
 
 void AltTransView::attachAltTransFile(const QString& path)
 {
-    MergeCatalog* altCat=new MergeCatalog(m_catalog, m_catalog, /*saveChanges*/false);
+    MergeCatalog* altCat = new MergeCatalog(m_catalog, m_catalog, /*saveChanges*/false);
     altCat->loadFromUrl(path);
     m_catalog->attachAltTransCatalog(altCat);
 }
@@ -119,136 +118,126 @@ void AltTransView::attachAltTransFile(const QString& path)
 void AltTransView::addAlternateTranslation(int entry, const QString& trans, bool temp)
 {
     AltTrans altTrans;
-    altTrans.target=trans;
+    altTrans.target = trans;
     m_catalog->attachAltTrans(entry, altTrans);
 
-    m_prevEntry=DocPos();
+    m_prevEntry = DocPos();
     QTimer::singleShot(0, this, &AltTransView::process);
 }
 
 void AltTransView::fileLoaded()
 {
-    m_prevEntry.entry=-1;
-    QString absPath=m_catalog->url();
-    QString relPath=QDir(Project::instance()->projectDir()).relativeFilePath(absPath);
-    
-    QFileInfo info(Project::instance()->altTransDir()%'/'%relPath);
-    if (info.canonicalFilePath()!=absPath && info.exists())
+    m_prevEntry.entry = -1;
+    QString absPath = m_catalog->url();
+    QString relPath = QDir(Project::instance()->projectDir()).relativeFilePath(absPath);
+
+    QFileInfo info(Project::instance()->altTransDir() % '/' % relPath);
+    if (info.canonicalFilePath() != absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
     else
-        qCWarning(LOKALIZE_LOG)<<"alt trans file doesn't exist:"<<Project::instance()->altTransDir()%'/'%relPath;
+        qCWarning(LOKALIZE_LOG) << "alt trans file doesn't exist:" << Project::instance()->altTransDir() % '/' % relPath;
 }
 
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    m_entry=DocPos(pos);
+    m_entry = DocPos(pos);
     QTimer::singleShot(0, this, &AltTransView::process);
 }
 
 void AltTransView::process()
 {
-    if (m_entry==m_prevEntry) return;
-    if (m_catalog->numberOfEntries()<=m_entry.entry)
+    if (m_entry == m_prevEntry) return;
+    if (m_catalog->numberOfEntries() <= m_entry.entry)
         return;//because of Qt::QueuedConnection
 
-    m_prevEntry=m_entry;
+    m_prevEntry = m_entry;
     m_browser->clear();
     m_entryPositions.clear();
 
-    const QVector<AltTrans>& entries=m_catalog->altTrans(m_entry.toDocPosition());
-    m_entries=entries;
+    const QVector<AltTrans>& entries = m_catalog->altTrans(m_entry.toDocPosition());
+    m_entries = entries;
 
-    if (entries.isEmpty())
-    {
-        if (m_hasInfo)
-        {
-            m_hasInfo=false;
+    if (entries.isEmpty()) {
+        if (m_hasInfo) {
+            m_hasInfo = false;
             setWindowTitle(m_normTitle);
         }
         return;
     }
-    if (!m_hasInfo)
-    {
-        m_hasInfo=true;
+    if (!m_hasInfo) {
+        m_hasInfo = true;
         setWindowTitle(m_hasInfoTitle);
     }
-    if(!isVisible() && !Settings::altTransViewEverShownWithData())
-    {
-        if (KMessageBox::questionYesNo(this,i18n("There is useful data available in Alternate Translations view.\n\n"
-            "For Gettext PO files it displays difference between current source text "
-            "and the source text corresponding to the fuzzy translation found by msgmerge when updating PO based on POT template.\n\n"
-            "Do you want to show the view with the data?"), m_normTitle)==KMessageBox::Yes)
-          show();
+    if (!isVisible() && !Settings::altTransViewEverShownWithData()) {
+        if (KMessageBox::questionYesNo(this, i18n("There is useful data available in Alternate Translations view.\n\n"
+                                       "For Gettext PO files it displays difference between current source text "
+                                       "and the source text corresponding to the fuzzy translation found by msgmerge when updating PO based on POT template.\n\n"
+                                       "Do you want to show the view with the data?"), m_normTitle) == KMessageBox::Yes)
+            show();
 
         Settings::setAltTransViewEverShownWithData(true);
     }
 
-    CatalogString source=m_catalog->sourceWithTags(m_entry.toDocPosition());
+    CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
 
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
     QTextCharFormat noncloseMatchCharFormat;
     QTextCharFormat closeMatchCharFormat;  closeMatchCharFormat.setFontWeight(QFont::Bold);
-    int i=0;
-    int limit=entries.size();
-    forever
-    {
-        const AltTrans& entry=entries.at(i);
+    int i = 0;
+    int limit = entries.size();
+    forever {
+        const AltTrans& entry = entries.at(i);
 
-        QTextCursor cur=m_browser->textCursor();
+        QTextCursor cur = m_browser->textCursor();
         QString html;
         html.reserve(1024);
-        if (!entry.source.isEmpty())
-        {
-            html+=QStringLiteral("<p>");
+        if (!entry.source.isEmpty()) {
+            html += QStringLiteral("<p>");
 
-            QString result=userVisibleWordDiff(entry.source.string, source.string,Project::instance()->accel(),Project::instance()->markup()).toHtmlEscaped();
+            QString result = userVisibleWordDiff(entry.source.string, source.string, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
             //result.replace("&","&amp;");
             //result.replace("<","&lt;");
             //result.replace(">","&gt;");
-            result.replace(QStringLiteral("{KBABELADD}"),QStringLiteral("<font style=\"background-color:")%Settings::addColor().name()%QStringLiteral(";color:black\">"));
-            result.replace(QStringLiteral("{/KBABELADD}"),QStringLiteral("</font>"));
-            result.replace(QStringLiteral("{KBABELDEL}"),QStringLiteral("<font style=\"background-color:")%Settings::delColor().name()%QStringLiteral(";color:black\">"));
-            result.replace(QStringLiteral("{/KBABELDEL}"),QStringLiteral("</font>"));
-            result.replace(QStringLiteral("\\n"),QStringLiteral("\\n<br><br>"));
+            result.replace(QStringLiteral("{KBABELADD}"), QStringLiteral("<font style=\"background-color:") % Settings::addColor().name() % QStringLiteral(";color:black\">"));
+            result.replace(QStringLiteral("{/KBABELADD}"), QStringLiteral("</font>"));
+            result.replace(QStringLiteral("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") % Settings::delColor().name() % QStringLiteral(";color:black\">"));
+            result.replace(QStringLiteral("{/KBABELDEL}"), QStringLiteral("</font>"));
+            result.replace(QStringLiteral("\\n"), QStringLiteral("\\n<br><br>"));
 
-            html+=result;
-            html+=QStringLiteral("<br>");
+            html += result;
+            html += QStringLiteral("<br>");
             cur.insertHtml(html); html.clear();
         }
-        if (!entry.target.isEmpty())
-        {
-            if (Q_LIKELY( i<m_actions.size() ))
-            {
+        if (!entry.target.isEmpty()) {
+            if (Q_LIKELY(i < m_actions.size())) {
                 m_actions.at(i)->setStatusTip(entry.target.string);
-                html+=QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
-            }
-            else
-                html+=QStringLiteral("[ - ] ");
+                html += QString(QStringLiteral("[%1] ")).arg(m_actions.at(i)->shortcut().toString(QKeySequence::NativeText));
+            } else
+                html += QStringLiteral("[ - ] ");
 
             cur.insertText(html); html.clear();
-            insertContent(cur,entry.target);
+            insertContent(cur, entry.target);
         }
-        m_entryPositions.insert(cur.anchor(),i);
+        m_entryPositions.insert(cur.anchor(), i);
 
-        html+=i?QStringLiteral("<br></p>"):QStringLiteral("</p>");
+        html += i ? QStringLiteral("<br></p>") : QStringLiteral("</p>");
         cur.insertHtml(html);
 
-        if (Q_UNLIKELY( ++i>=limit ))
+        if (Q_UNLIKELY(++i >= limit))
             break;
 
-        cur.insertBlock(i%2?blockFormatAlternate:blockFormatBase);
+        cur.insertBlock(i % 2 ? blockFormatAlternate : blockFormatBase);
     }
 
 #ifndef NOKDE
-    if (!m_everShown)
-    {
-        m_everShown=true;
+    if (!m_everShown) {
+        m_everShown = true;
         show();
 
         KConfig config;
-        KConfigGroup group(&config,"AltTransView");
-        group.writeEntry("EverShown",true);
+        KConfigGroup group(&config, "AltTransView");
+        group.writeEntry("EverShown", true);
     }
 #endif
 }
@@ -256,35 +245,33 @@ void AltTransView::process()
 
 bool AltTransView::event(QEvent *event)
 {
-    if (event->type()==QEvent::ToolTip)
-    {
+    if (event->type() == QEvent::ToolTip) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        
-        if (m_entryPositions.isEmpty())
-        {
-            QString tooltip=i18nc("@info:tooltip","<p>Sometimes, if source text is changed, its translation becomes deprecated and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. looses approval status), "
-            "or (only in case of XLIFF file) moved to the <emphasis>alternate&nbsp;translations</emphasis> section accompanying the unit.</p>"
-            "<p>This toolview also shows the difference between current source string and the previous source string, so that you can easily see which changes should be applied to existing translation to make it reflect current source.</p>"
-            "<p>Double-clicking any word in this toolview inserts it into translation.</p>"
-            "<p>Drop translation file onto this toolview to use it as a source for additional alternate translations.</p>"
-            );
-            QToolTip::showText(helpEvent->globalPos(),tooltip);
+
+        if (m_entryPositions.isEmpty()) {
+            QString tooltip = i18nc("@info:tooltip", "<p>Sometimes, if source text is changed, its translation becomes deprecated and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. looses approval status), "
+                                    "or (only in case of XLIFF file) moved to the <emphasis>alternate&nbsp;translations</emphasis> section accompanying the unit.</p>"
+                                    "<p>This toolview also shows the difference between current source string and the previous source string, so that you can easily see which changes should be applied to existing translation to make it reflect current source.</p>"
+                                    "<p>Double-clicking any word in this toolview inserts it into translation.</p>"
+                                    "<p>Drop translation file onto this toolview to use it as a source for additional alternate translations.</p>"
+                                   );
+            QToolTip::showText(helpEvent->globalPos(), tooltip);
             return true;
         }
 
-        int block1=m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
-        int block=*m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
-        if (block1!=block)
-            qCWarning(LOKALIZE_LOG)<<"block numbers don't match";
-        if (block>=m_entries.size())
+        int block1 = m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).blockNumber();
+        int block = *m_entryPositions.lowerBound(m_browser->cursorForPosition(m_browser->viewport()->mapFromGlobal(helpEvent->globalPos())).anchor());
+        if (block1 != block)
+            qCWarning(LOKALIZE_LOG) << "block numbers don't match";
+        if (block >= m_entries.size())
             return false;
 
-        QString origin=m_entries.at(block).origin;
+        QString origin = m_entries.at(block).origin;
         if (origin.isEmpty())
             return false;
 
-        QString tooltip=i18nc("@info:tooltip","Origin: %1",origin);
-        QToolTip::showText(helpEvent->globalPos(),tooltip);
+        QString tooltip = i18nc("@info:tooltip", "Origin: %1", origin);
+        QToolTip::showText(helpEvent->globalPos(), tooltip);
         return true;
     }
     return QWidget::event(event);
@@ -292,30 +279,29 @@ bool AltTransView::event(QEvent *event)
 
 void AltTransView::slotUseSuggestion(int i)
 {
-    if (Q_UNLIKELY( i>=m_entries.size() ))
+    if (Q_UNLIKELY(i >= m_entries.size()))
         return;
 
     TM::TMEntry tmEntry;
-    tmEntry.target=m_entries.at(i).target;
-    CatalogString source=m_catalog->sourceWithTags(m_entry.toDocPosition());
-    tmEntry.diff=userVisibleWordDiff(m_entries.at(i).source.string, source.string,Project::instance()->accel(),Project::instance()->markup());
+    tmEntry.target = m_entries.at(i).target;
+    CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
+    tmEntry.diff = userVisibleWordDiff(m_entries.at(i).source.string, source.string, Project::instance()->accel(), Project::instance()->markup());
 
-    CatalogString target=TM::targetAdapted(tmEntry, source);
+    CatalogString target = TM::targetAdapted(tmEntry, source);
 
-    qCWarning(LOKALIZE_LOG)<<"0"<<target.string;
-    if (Q_UNLIKELY( target.isEmpty() ))
+    qCWarning(LOKALIZE_LOG) << "0" << target.string;
+    if (Q_UNLIKELY(target.isEmpty()))
         return;
 
-    m_catalog->beginMacro(i18nc("@item Undo action","Use alternate translation"));
+    m_catalog->beginMacro(i18nc("@item Undo action", "Use alternate translation"));
 
-    QString old=m_catalog->targetWithTags(m_entry.toDocPosition()).string;
-    if (!old.isEmpty())
-    {
+    QString old = m_catalog->targetWithTags(m_entry.toDocPosition()).string;
+    if (!old.isEmpty()) {
         //FIXME test!
         removeTargetSubstring(m_catalog, m_entry.toDocPosition(), 0, old.size());
         //m_catalog->push(new DelTextCmd(m_catalog,m_pos,m_catalog->msgstr(m_pos)));
     }
-    qCWarning(LOKALIZE_LOG)<<"1"<<target.string;
+    qCWarning(LOKALIZE_LOG) << "1" << target.string;
 
     //m_catalog->push(new InsTextCmd(m_catalog,m_pos,target)/*,true*/);
     insertCatalogString(m_catalog, m_entry.toDocPosition(), target, 0);

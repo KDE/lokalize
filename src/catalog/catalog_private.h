@@ -3,8 +3,8 @@
   This file is based on the one from KBabel
 
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
-		2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
-		2007	  by Nick Shaforostoff <shafff@ukr.net>
+        2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
+        2007      by Nick Shaforostoff <shafff@ukr.net>
 
 
   This program is free software; you can redistribute it and/or modify
@@ -108,16 +108,16 @@ public:
     ProjectLocal::PersonRole _phaseRole;
 
     explicit CatalogPrivate(QObject* parent)
-           : fileCodec(0)
-           , _numberOfPluralForms(-1)
+        : fileCodec(0)
+        , _numberOfPluralForms(-1)
 #ifndef NOKDE
-           , _autoSave(new KAutoSaveFile(parent))
+        , _autoSave(new KAutoSaveFile(parent))
 #endif
-           , _autoSaveDirty(true)
-           , _autoSaveRecovered(false)
-           , _readOnly(false)
-           , _maxLineLength(80)
-           , _phaseRole(ProjectLocal::Undefined)
+        , _autoSaveDirty(true)
+        , _autoSaveRecovered(false)
+        , _readOnly(false)
+        , _maxLineLength(80)
+        , _phaseRole(ProjectLocal::Undefined)
     {
         Q_UNUSED(parent)
         _statesIndex.resize(StateCount);

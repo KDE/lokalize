@@ -31,7 +31,7 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-  
+
 **************************************************************************** */
 #ifndef CATALOGITEM_H
 #define CATALOGITEM_H
@@ -40,7 +40,8 @@
 
 #include "catalogitem_private.h"
 
-namespace GettextCatalog {
+namespace GettextCatalog
+{
 
 /**
  * This class represents an entry in a catalog.
@@ -60,7 +61,10 @@ public:
     CatalogItem(const CatalogItem& item): d(item.d) {}
     ~CatalogItem() {}
 
-    bool isFuzzy() const {return d._fuzzyCached;} //", fuzzy" in comment
+    bool isFuzzy() const
+    {
+        return d._fuzzyCached;   //", fuzzy" in comment
+    }
     bool isCformat() const;    //", c-format" or possible-c-format in comment (from the debug parameter of xgettext)
     bool isNoCformat() const;  //", no-c-format" in comment
     bool isQtformat() const;   //", qt-format" in comment
@@ -69,71 +73,98 @@ public:
     bool isUntranslated(uint form) const;
 
 
-    inline bool isPlural() const {return d._plural;}
-    inline void setPlural(bool plural=true) {d._plural = plural;}
+    inline bool isPlural() const
+    {
+        return d._plural;
+    }
+    inline void setPlural(bool plural = true)
+    {
+        d._plural = plural;
+    }
 
     void setSyntaxError(bool);
 
     /** returns the number of lines, the entry will need in a file */
     int totalLines() const;
- 
-    /** cleares the item */
-    inline void clear() {d.clear();}
 
-    const QString& comment() const {return d._comment;}
+    /** cleares the item */
+    inline void clear()
+    {
+        d.clear();
+    }
+
+    const QString& comment() const
+    {
+        return d._comment;
+    }
     QString msgctxt(const bool noNewlines = false) const;
-    const QString& msgid(const int form=0) const{return d.msgid(form);}
-    const QString& msgstr(const int form=0) const;
+    const QString& msgid(const int form = 0) const
+    {
+        return d.msgid(form);
+    }
+    const QString& msgstr(const int form = 0) const;
     const QVector<QString>& msgstrPlural() const;
     enum Part {Source, Target};
-    QStringList allPluralForms(CatalogItem::Part, bool stripNewLines=false) const;
-    bool prependEmptyForMsgid(const int form=0) const;
-    bool prependEmptyForMsgstr(const int form=0) const;
-    bool keepEmptyMsgCtxt() const {return d._keepEmptyMsgCtxt;}
+    QStringList allPluralForms(CatalogItem::Part, bool stripNewLines = false) const;
+    bool prependEmptyForMsgid(const int form = 0) const;
+    bool prependEmptyForMsgstr(const int form = 0) const;
+    bool keepEmptyMsgCtxt() const
+    {
+        return d._keepEmptyMsgCtxt;
+    }
 
     QStringList msgstrAsList() const;
     void setComment(const QString& com);
     void setMsgctxt(const QString& msg);
-    void setMsgid(const QString& msg, const int form=0);
+    void setMsgid(const QString& msg, const int form = 0);
     void setMsgid(const QStringList& msg);
     void setMsgid(const QStringList& msg, bool prependEmptyLine);
     void setMsgid(const QVector<QString>& msg);
-    void setMsgstr(const QString& msg, const int form=0);
+    void setMsgstr(const QString& msg, const int form = 0);
     void setMsgstr(const QStringList& msg);
     void setMsgstr(const QStringList& msg, bool prependEmptyLine);
     void setMsgstr(const QVector<QString>& msg);
 
-    void setValid(bool v) {d._valid=v;}
-    bool isValid() const {return d._valid;}
+    void setValid(bool v)
+    {
+        d._valid = v;
+    }
+    bool isValid() const
+    {
+        return d._valid;
+    }
 
 #if 0
-	/**
-	 * @return the list of all errors of this item 
-	 */
-	QStringList errors() const;
-	
-	QString nextError() const;
-	void clearErrors();
-	void removeError(const QString& error);
-	void appendError(const QString& error);
+    /**
+     * @return the list of all errors of this item
+     */
+    QStringList errors() const;
 
-	/**
-	 * makes some sanity checks and set status accordingly
-	 * @return the new status of this item
-	 * @see CatalogItem::Error
-	 * @param accelMarker a char, that marks the keyboard accelerators
-	 * @param contextInfo a regular expression, that determines what is 
-	 * the context information
-	 * @param singularPlural a regular expression, that determines what is 
-	 * string with singular and plural form
+    QString nextError() const;
+    void clearErrors();
+    void removeError(const QString& error);
+    void appendError(const QString& error);
+
+    /**
+     * makes some sanity checks and set status accordingly
+     * @return the new status of this item
+     * @see CatalogItem::Error
+     * @param accelMarker a char, that marks the keyboard accelerators
+     * @param contextInfo a regular expression, that determines what is
+     * the context information
+     * @param singularPlural a regular expression, that determines what is
+     * string with singular and plural form
      * @param neededLines how many lines a string with singular-plural form
      * must have
-	 */
-	int checkErrors(QChar accelMarker, const QRegExp& contextInfo
-            , const QRegExp& singularPlural, const int neededLines);
-	
+     */
+    int checkErrors(QChar accelMarker, const QRegExp& contextInfo
+                    , const QRegExp& singularPlural, const int neededLines);
+
 #endif
-    inline void operator=(const CatalogItem& rhs) {d.assign(rhs.d);}
+    inline void operator=(const CatalogItem& rhs)
+    {
+        d.assign(rhs.d);
+    }
 
 private:
     CatalogItemPrivate d;

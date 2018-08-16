@@ -33,9 +33,18 @@
 
 class ProjectModel;
 class ProjectLocal;
-namespace GlossaryNS{class Glossary;}
-namespace GlossaryNS{class GlossaryWindow;}
-namespace TM{class TMManagerWin;}
+namespace GlossaryNS
+{
+class Glossary;
+}
+namespace GlossaryNS
+{
+class GlossaryWindow;
+}
+namespace TM
+{
+class TMManagerWin;
+}
 
 /**
  * Singleton object that represents project.
@@ -57,19 +66,49 @@ public:
     explicit Project();
     virtual ~Project();
 
-    bool isLoaded()const{return !m_path.isEmpty();}
+    bool isLoaded()const
+    {
+        return !m_path.isEmpty();
+    }
     ProjectModel* model();
 
     //void setPath(const QString& p){m_path=p;}
-    QString path()const{return m_path;}
-    QString projectDir()const{return m_projectDir;}
-    QString poDir()const{return absolutePath(poBaseDir());}
-    QString potDir()const{return absolutePath(potBaseDir());}
-    QString branchDir()const{return absolutePath(ProjectBase::branchDir());}
-    QString glossaryPath()const{return absolutePath(glossaryTbx());}
-    QString qaPath()const{return absolutePath(mainQA());}
-    GlossaryNS::Glossary* glossary()const{return m_glossary;}
-    QString altTransDir()const{return absolutePath(altDir());}
+    QString path()const
+    {
+        return m_path;
+    }
+    QString projectDir()const
+    {
+        return m_projectDir;
+    }
+    QString poDir()const
+    {
+        return absolutePath(poBaseDir());
+    }
+    QString potDir()const
+    {
+        return absolutePath(potBaseDir());
+    }
+    QString branchDir()const
+    {
+        return absolutePath(ProjectBase::branchDir());
+    }
+    QString glossaryPath()const
+    {
+        return absolutePath(glossaryTbx());
+    }
+    QString qaPath()const
+    {
+        return absolutePath(mainQA());
+    }
+    GlossaryNS::Glossary* glossary()const
+    {
+        return m_glossary;
+    }
+    QString altTransDir()const
+    {
+        return absolutePath(altDir());
+    }
 
     bool queryCloseForAuxiliaryWindows();
 
@@ -78,24 +117,45 @@ public:
 //     void initLater();
 
 public slots:
-    Q_SCRIPTABLE void load(const QString& newProjectPath, const QString& defaultTargetLangCode=QString(), const QString& defaultProjectId=QString());
+    Q_SCRIPTABLE void load(const QString& newProjectPath, const QString& defaultTargetLangCode = QString(), const QString& defaultProjectId = QString());
     Q_SCRIPTABLE void reinit();
     Q_SCRIPTABLE void save();
 
-    Q_SCRIPTABLE QString translationsRoot()const{return poDir();}
-    Q_SCRIPTABLE QString templatesRoot()const{return potDir();}
+    Q_SCRIPTABLE QString translationsRoot()const
+    {
+        return poDir();
+    }
+    Q_SCRIPTABLE QString templatesRoot()const
+    {
+        return potDir();
+    }
 
 
-    Q_SCRIPTABLE QString targetLangCode()const{return ProjectBase::langCode();}
-    Q_SCRIPTABLE QString sourceLangCode()const{return ProjectBase::sourceLangCode();}
+    Q_SCRIPTABLE QString targetLangCode()const
+    {
+        return ProjectBase::langCode();
+    }
+    Q_SCRIPTABLE QString sourceLangCode()const
+    {
+        return ProjectBase::sourceLangCode();
+    }
     Q_SCRIPTABLE void init(const QString& path, const QString& kind, const QString& id,
                            const QString& sourceLang, const QString& targetLang);
-    Q_SCRIPTABLE QString kind()const{return ProjectBase::kind();}
+    Q_SCRIPTABLE QString kind()const
+    {
+        return ProjectBase::kind();
+    }
 
     Q_SCRIPTABLE QString absolutePath(const QString&) const;
 
-    Q_SCRIPTABLE void setDesirablePath(const QString& path){m_desirablePath=path;}
-    Q_SCRIPTABLE QString desirablePath() const{return m_desirablePath;}
+    Q_SCRIPTABLE void setDesirablePath(const QString& path)
+    {
+        m_desirablePath = path;
+    }
+    Q_SCRIPTABLE QString desirablePath() const
+    {
+        return m_desirablePath;
+    }
 
     Q_SCRIPTABLE bool isTmSupported() const;
 
@@ -110,7 +170,7 @@ public slots:
 
     void showTMManager();
     GlossaryNS::GlossaryWindow* showGlossary();
-    GlossaryNS::GlossaryWindow* defineNewTerm(QString en=QString(),QString target=QString());
+    GlossaryNS::GlossaryWindow* defineNewTerm(QString en = QString(), QString target = QString());
 
     void projectOdfCreate();
 
@@ -119,10 +179,16 @@ private:
     static void cleanupProject();
 public:
     static Project* instance();
-    static ProjectLocal* local(){return instance()->m_localConfig;}
+    static ProjectLocal* local()
+    {
+        return instance()->m_localConfig;
+    }
 
     const QMultiMap<QByteArray, QByteArray>& sourceFilePaths();
-    void resetSourceFilePaths(){m_sourceFilePaths.clear();}
+    void resetSourceFilePaths()
+    {
+        m_sourceFilePaths.clear();
+    }
 
     friend class FillSourceFilePathsJob;
 signals:
@@ -141,7 +207,7 @@ private:
 
     //cache
     QString m_projectDir;
- };
+};
 
 
 

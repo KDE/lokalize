@@ -52,13 +52,14 @@
 
 class CatalogTreeView: public QTreeView
 {
-    public:
+public:
     CatalogTreeView(QWidget * parent)
         : QTreeView(parent) {}
     ~CatalogTreeView() {}
 
-    protected:
-    void keyReleaseEvent(QKeyEvent *e) {
+protected:
+    void keyReleaseEvent(QKeyEvent *e)
+    {
         if (e->key() == Qt::Key_Return && currentIndex().isValid()) {
             emit clicked(currentIndex());
             e->accept();
@@ -71,37 +72,37 @@ class CatalogTreeView: public QTreeView
 
 
 CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
-    : QDockWidget ( i18nc("@title:window aka Message Tree","Translation Units"), parent)
+    : QDockWidget(i18nc("@title:window aka Message Tree", "Translation Units"), parent)
     , m_browser(new CatalogTreeView(this))
     , m_lineEdit(new QLineEdit(this))
-    , m_model(new CatalogTreeModel(this,catalog))
+    , m_model(new CatalogTreeModel(this, catalog))
     , m_proxyModel(new CatalogTreeFilterModel(this))
 {
     setObjectName(QStringLiteral("catalogTreeView"));
 
-    QWidget* w=new QWidget(this);
-    QVBoxLayout* layout=new QVBoxLayout(w);
-    layout->setContentsMargins(0,0,0,0);
-    QHBoxLayout* l=new QHBoxLayout;
-    l->setContentsMargins(0,0,0,0);
+    QWidget* w = new QWidget(this);
+    QVBoxLayout* layout = new QVBoxLayout(w);
+    layout->setContentsMargins(0, 0, 0, 0);
+    QHBoxLayout* l = new QHBoxLayout;
+    l->setContentsMargins(0, 0, 0, 0);
     l->setSpacing(0);
     layout->addLayout(l);
 
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18n("Quick search..."));
-    m_lineEdit->setToolTip(i18nc("@info:tooltip","Activated by Ctrl+L.")+" "+i18nc("@info:tooltip","Accepts regular expressions"));
-    connect (m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
+    m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + " " + i18nc("@info:tooltip", "Accepts regular expressions"));
+    connect(m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
-    QShortcut* esc=new QShortcut(QKeySequence(Qt::Key_Escape), this, 0, 0, Qt::WidgetWithChildrenShortcut);
+    QShortcut* esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, 0, 0, Qt::WidgetWithChildrenShortcut);
     connect(esc, &QShortcut::activated, this, &CatalogView::escaped);
 
 
-    QToolButton* btn=new QToolButton(w);
+    QToolButton* btn = new QToolButton(w);
     btn->setPopupMode(QToolButton::InstantPopup);
     btn->setText(i18n("options"));
     //btn->setArrowType(Qt::DownArrow);
     btn->setMenu(new QMenu(this));
-    m_filterOptionsMenu=btn->menu();
+    m_filterOptionsMenu = btn->menu();
     connect(m_filterOptionsMenu, &QMenu::aboutToShow, this, &CatalogView::fillFilterOptionsMenu);
     connect(m_filterOptionsMenu, &QMenu::triggered, this, &CatalogView::filterOptionToggled);
 
@@ -130,7 +131,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 
     m_proxyModel->setSourceModel(m_model);
     m_browser->setModel(m_proxyModel);
-    m_browser->setColumnWidth(0,m_browser->columnWidth(0)/3);
+    m_browser->setColumnWidth(0, m_browser->columnWidth(0) / 3);
     m_browser->setSortingEnabled(true);
     m_browser->sortByColumn(0, Qt::AscendingOrder);
     m_browser->setWordWrap(false);
@@ -154,21 +155,21 @@ void CatalogView::setFocus()
 
 void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
 {
-    QModelIndex item=m_proxyModel->mapFromSource(m_model->index(pos.entry,0));
+    QModelIndex item = m_proxyModel->mapFromSource(m_model->index(pos.entry, 0));
     m_browser->setCurrentIndex(item);
     m_browser->scrollTo(item/*,QAbstractItemView::PositionAtCenter*/);
 }
 
 void CatalogView::setFilterRegExp()
 {
-    QString expr=m_lineEdit->text();
-    if (m_proxyModel->filterRegExp().pattern()!=expr)
-        m_proxyModel->setFilterRegExp(m_proxyModel->filerOptions()&CatalogTreeFilterModel::IgnoreAccel?expr.remove(Project::instance()->accel()):expr);
+    QString expr = m_lineEdit->text();
+    if (m_proxyModel->filterRegExp().pattern() != expr)
+        m_proxyModel->setFilterRegExp(m_proxyModel->filerOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
 }
 
 void CatalogView::slotItemActivated(const QModelIndex& idx)
 {
-    emit gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()),0);
+    emit gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()), 0);
 }
 
 void CatalogView::filterOptionToggled(QAction* action)
@@ -176,12 +177,11 @@ void CatalogView::filterOptionToggled(QAction* action)
     if (action->data().isNull())
         return;
 
-    int opt=action->data().toInt();
-    if (opt>0)
+    int opt = action->data().toInt();
+    if (opt > 0)
         m_proxyModel->setFilerOptions(m_proxyModel->filerOptions()^opt);
-    else
-    {
-        if (opt!=-1) opt=-opt-2;
+    else {
+        if (opt != -1) opt = -opt - 2;
         m_proxyModel->setFilterKeyColumn(opt);
     }
     m_filterOptionsMenu->clear();
@@ -191,60 +191,58 @@ void CatalogView::fillFilterOptionsMenu()
     m_filterOptionsMenu->clear();
 
     if (m_proxyModel->individualRejectFilterEnabled())
-        m_filterOptionsMenu->addAction(i18n("Reset individual filter"),this,SLOT(setEntriesFilteredOut()));
+        m_filterOptionsMenu->addAction(i18n("Reset individual filter"), this, SLOT(setEntriesFilteredOut()));
 
 
-    bool extStates=m_model->catalog()->capabilities()&ExtendedStates;
+    bool extStates = m_model->catalog()->capabilities()&ExtendedStates;
 
-    const char* const basicTitles[]={
-                                 I18N_NOOP("Case insensitive"),
-                                 I18N_NOOP("Ignore accelerator marks"),
-                                 I18N_NOOP("Ready"),
-                                 I18N_NOOP("Non-ready"),
-                                 I18N_NOOP("Non-empty"),
-                                 I18N_NOOP("Empty"),
-                                 I18N_NOOP("Changed since file open"),
-                                 I18N_NOOP("Unchanged since file open"),
-                                 I18N_NOOP("Same in sync file"),
-                                 I18N_NOOP("Different in sync file"),
-                                 I18N_NOOP("Not in sync file"),
-                                 I18N_NOOP("Plural"),
-                                 I18N_NOOP("Non-plural"),
-                                 };
-    const char* const* extTitles=Catalog::states();
-    const char* const* alltitles[2]={basicTitles,extTitles};
+    const char* const basicTitles[] = {
+        I18N_NOOP("Case insensitive"),
+        I18N_NOOP("Ignore accelerator marks"),
+        I18N_NOOP("Ready"),
+        I18N_NOOP("Non-ready"),
+        I18N_NOOP("Non-empty"),
+        I18N_NOOP("Empty"),
+        I18N_NOOP("Changed since file open"),
+        I18N_NOOP("Unchanged since file open"),
+        I18N_NOOP("Same in sync file"),
+        I18N_NOOP("Different in sync file"),
+        I18N_NOOP("Not in sync file"),
+        I18N_NOOP("Plural"),
+        I18N_NOOP("Non-plural"),
+    };
+    const char* const* extTitles = Catalog::states();
+    const char* const* alltitles[2] = {basicTitles, extTitles};
 
-    QMenu* basicMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Basic"));
-    QMenu* extMenu=extStates?m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","States")):0;
-    QMenu* allmenus[2]={basicMenu,extMenu};
-    QMenu* columnsMenu=m_filterOptionsMenu->addMenu(i18nc("@title:inmenu","Searchable column"));
+    QMenu* basicMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Basic"));
+    QMenu* extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : 0;
+    QMenu* allmenus[2] = {basicMenu, extMenu};
+    QMenu* columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Searchable column"));
 
     QAction* txt;
-    txt=m_filterOptionsMenu->addAction(i18nc("@title:inmenu","Resort and refilter on content change"), m_proxyModel, SLOT(setDynamicSortFilter(bool)));
+    txt = m_filterOptionsMenu->addAction(i18nc("@title:inmenu", "Resort and refilter on content change"), m_proxyModel, SLOT(setDynamicSortFilter(bool)));
     txt->setCheckable(true);
     txt->setChecked(m_proxyModel->dynamicSortFilter());
 
-    for (int i=0;(1<<i)<CatalogTreeFilterModel::MaxOption;++i)
-    {
-        bool ext=(1<<i)>=CatalogTreeFilterModel::New;
-        if (!extStates&&ext) break;
-        txt=allmenus[ext]->addAction(i18n(alltitles[ext][i-ext*FIRSTSTATEPOSITION]));
-        txt->setData(1<<i);
+    for (int i = 0; (1 << i) < CatalogTreeFilterModel::MaxOption; ++i) {
+        bool ext = (1 << i) >= CatalogTreeFilterModel::New;
+        if (!extStates && ext) break;
+        txt = allmenus[ext]->addAction(i18n(alltitles[ext][i - ext * FIRSTSTATEPOSITION]));
+        txt->setData(1 << i);
         txt->setCheckable(true);
-        txt->setChecked(m_proxyModel->filerOptions()&(1<<i));
-        if ((1<<i)==CatalogTreeFilterModel::IgnoreAccel)
+        txt->setChecked(m_proxyModel->filerOptions() & (1 << i));
+        if ((1 << i) == CatalogTreeFilterModel::IgnoreAccel)
             basicMenu->addSeparator();
     }
     if (!extStates)
         m_filterOptionsMenu->addSeparator();
-    for (int i=-1;i<CatalogTreeModel::DisplayedColumnCount;++i)
-    {
-        qCWarning(LOKALIZE_LOG)<<i;
-        txt=columnsMenu->addAction((i==-1)?i18nc("@item:inmenu all columns","All"):
-                                                   m_model->headerData(i,Qt::Horizontal,Qt::DisplayRole).toString());
-        txt->setData(-i-2);
+    for (int i = -1; i < CatalogTreeModel::DisplayedColumnCount; ++i) {
+        qCWarning(LOKALIZE_LOG) << i;
+        txt = columnsMenu->addAction((i == -1) ? i18nc("@item:inmenu all columns", "All") :
+                                     m_model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
+        txt->setData(-i - 2);
         txt->setCheckable(true);
-        txt->setChecked(m_proxyModel->filterKeyColumn()==i);
+        txt->setChecked(m_proxyModel->filterKeyColumn() == i);
     }
 }
 
@@ -264,20 +262,17 @@ void CatalogView::setMergeCatalogPointer(MergeCatalog* pointer)
 
 int CatalogView::siblingEntryNumber(int step)
 {
-    QModelIndex item=m_browser->currentIndex();
-    int lastRow=m_proxyModel->rowCount()-1;
-    if (!item.isValid())
-    {
-        if (lastRow==-1)
+    QModelIndex item = m_browser->currentIndex();
+    int lastRow = m_proxyModel->rowCount() - 1;
+    if (!item.isValid()) {
+        if (lastRow == -1)
             return -1;
-        item=m_proxyModel->index((step==1)?0:lastRow,0);
+        item = m_proxyModel->index((step == 1) ? 0 : lastRow, 0);
         m_browser->setCurrentIndex(item);
-    }
-    else
-    {
-        if ( item.row() == ((step==-1)?0:lastRow) )
+    } else {
+        if (item.row() == ((step == -1) ? 0 : lastRow))
             return -1;
-        item=item.sibling(item.row()+step,0);
+        item = item.sibling(item.row() + step, 0);
     }
     return m_proxyModel->mapToSource(item).row();
 }
@@ -297,23 +292,23 @@ static int edgeEntry(CatalogTreeFilterModel* m_proxyModel, int row)
     if (!m_proxyModel->rowCount())
         return -1;
 
-    return m_proxyModel->mapToSource(m_proxyModel->index(row,0)).row();
+    return m_proxyModel->mapToSource(m_proxyModel->index(row, 0)).row();
 }
 
 int CatalogView::firstEntryNumber()
 {
-    return edgeEntry(m_proxyModel,0);
+    return edgeEntry(m_proxyModel, 0);
 }
 
 int CatalogView::lastEntryNumber()
 {
-    return edgeEntry(m_proxyModel,m_proxyModel->rowCount()-1);
+    return edgeEntry(m_proxyModel, m_proxyModel->rowCount() - 1);
 }
 
 
 void CatalogView::setEntryFilteredOut(int entry, bool filteredOut)
 {
-    m_proxyModel->setEntryFilteredOut(entry,filteredOut);
+    m_proxyModel->setEntryFilteredOut(entry, filteredOut);
 }
 
 void CatalogView::setEntriesFilteredOut(bool filteredOut)

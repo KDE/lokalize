@@ -40,12 +40,11 @@ class Catalog;
  */
 class CatalogTreeModel: public QAbstractItemModel
 {
-Q_OBJECT
+    Q_OBJECT
 public:
 
-    enum CatalogModelColumns
-    {
-        Key=0,
+    enum CatalogModelColumns {
+        Key = 0,
         Source,
         Target,
         Notes,
@@ -56,27 +55,32 @@ public:
         IsModified,
         IsPlural,
         ColumnCount,
-        DisplayedColumnCount=TranslationStatus+1
+        DisplayedColumnCount = TranslationStatus + 1
     };
 
-    enum Roles
-    {
-        StringFilterRole=Qt::UserRole+1
+    enum Roles {
+        StringFilterRole = Qt::UserRole + 1
     };
 
     CatalogTreeModel(QObject* parent, Catalog* catalog);
-    ~CatalogTreeModel(){}
+    ~CatalogTreeModel() {}
 
-    QModelIndex index (int row, int column, const QModelIndex& parent=QModelIndex())const;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex())const;
     QModelIndex parent(const QModelIndex&) const;
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const;
-    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
-    QVariant headerData(int section,Qt::Orientation, int role=Qt::DisplayRole) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
 
-    Catalog* catalog()const{return m_catalog;}
+    Catalog* catalog()const
+    {
+        return m_catalog;
+    }
 
-    void setIgnoreAccel(bool n){m_ignoreAccel=n;}
+    void setIgnoreAccel(bool n)
+    {
+        m_ignoreAccel = n;
+    }
 
 public slots:
     void reflectChanges(DocPosition);
@@ -98,39 +102,38 @@ private:
 
 class CatalogTreeFilterModel: public QSortFilterProxyModel
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    enum FilterOptions
-    {
-        CaseInsensitive=1<<0,
-        IgnoreAccel=1<<1,
+    enum FilterOptions {
+        CaseInsensitive = 1 << 0,
+        IgnoreAccel = 1 << 1,
 
-        Ready=1<<2,
-        NotReady=1<<3,
-        NonEmpty=1<<4,
-        Empty=1<<5,
-        Modified=1<<6,
-        NonModified=1<<7,
-        SameInSync=1<<8,
-        DifferentInSync=1<<9,
-        NotInSync=1<<10,
+        Ready = 1 << 2,
+        NotReady = 1 << 3,
+        NonEmpty = 1 << 4,
+        Empty = 1 << 5,
+        Modified = 1 << 6,
+        NonModified = 1 << 7,
+        SameInSync = 1 << 8,
+        DifferentInSync = 1 << 9,
+        NotInSync = 1 << 10,
 
-        Plural=1<<11,
-        NonPlural=1<<12,
+        Plural = 1 << 11,
+        NonPlural = 1 << 12,
 
         //states (see defines below)
-        New=1<<13,
-        NeedsTranslation=1<<14,
-        NeedsL10n=1<<15,
-        NeedsAdaptation=1<<16,
-        Translated=1<<17,
-        NeedsReviewTranslation=1<<18,
-        NeedsReviewL10n=1<<19,
-        NeedsReviewAdaptation=1<<20,
-        Final=1<<21,
-        SignedOff=1<<22,
-        MaxOption=1<<23,
-        AllStates=MaxOption-1
+        New = 1 << 13,
+        NeedsTranslation = 1 << 14,
+        NeedsL10n = 1 << 15,
+        NeedsAdaptation = 1 << 16,
+        Translated = 1 << 17,
+        NeedsReviewTranslation = 1 << 18,
+        NeedsReviewL10n = 1 << 19,
+        NeedsReviewAdaptation = 1 << 20,
+        Final = 1 << 21,
+        SignedOff = 1 << 22,
+        MaxOption = 1 << 23,
+        AllStates = MaxOption - 1
     };
 
 #define STATES ((0xffff<<13)&(AllStates))
@@ -138,16 +141,22 @@ public:
 
 
     CatalogTreeFilterModel(QObject* parent);
-    ~CatalogTreeFilterModel(){}
+    ~CatalogTreeFilterModel() {}
 
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
     void setFilerOptions(int o);
-    int filerOptions()const{return m_filerOptions;}
+    int filerOptions()const
+    {
+        return m_filerOptions;
+    }
 
     void setSourceModel(QAbstractItemModel* sourceModel);
 
-    bool individualRejectFilterEnabled(){return m_individualRejectFilterEnable;}
+    bool individualRejectFilterEnabled()
+    {
+        return m_individualRejectFilterEnable;
+    }
     void setEntryFilteredOut(int entry, bool filteredOut);
 
     void setMergeCatalogPointer(MergeCatalog* pointer);
@@ -155,7 +164,10 @@ public:
 public slots:
     void setEntriesFilteredOut();
     void setEntriesFilteredOut(bool filteredOut);
-    void setDynamicSortFilter(bool enabled){QSortFilterProxyModel::setDynamicSortFilter(enabled);}
+    void setDynamicSortFilter(bool enabled)
+    {
+        QSortFilterProxyModel::setDynamicSortFilter(enabled);
+    }
 
 private:
     int m_filerOptions;

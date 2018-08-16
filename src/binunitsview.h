@@ -39,7 +39,7 @@ class MyTreeView;
 
 class BinUnitsView: public QDockWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     BinUnitsView(Catalog* catalog, QWidget *parent);
 
@@ -61,23 +61,26 @@ private:
 
 class BinUnitsModel: public QAbstractListModel
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    enum BinUnitsModelColumns
-    {
-        SourceFilePath=0,
+    enum BinUnitsModelColumns {
+        SourceFilePath = 0,
         TargetFilePath,
         Approved,
         ColumnCount
     };
 
     BinUnitsModel(Catalog* catalog, QObject* parent);
-    ~BinUnitsModel(){}
+    ~BinUnitsModel() {}
 
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const{Q_UNUSED(parent); return ColumnCount;}
-    QVariant data(const QModelIndex&,int role=Qt::DisplayRole) const;
-    QVariant headerData(int section, Qt::Orientation, int role=Qt::DisplayRole) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    {
+        Q_UNUSED(parent);
+        return ColumnCount;
+    }
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
 
     void setTargetFilePath(int row, const QString&);
 
@@ -88,7 +91,7 @@ private slots:
 
 private:
     Catalog* m_catalog;
-    mutable QHash<QString,QImage> m_imageCache;
+    mutable QHash<QString, QImage> m_imageCache;
 
 };
 

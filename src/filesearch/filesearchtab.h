@@ -63,12 +63,18 @@ public:
     FileSearchTab(QWidget *parent);
     ~FileSearchTab();
 
-    void hideDocks(){};
-    void showDocks(){};
+    void hideDocks() {};
+    void showDocks() {};
 #ifndef NOKDE
-    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    KXMLGUIClient* guiClient()
+    {
+        return (KXMLGUIClient*)this;
+    }
     QString dbusObjectPath();
-    int dbusId(){return m_dbusId;}
+    int dbusId()
+    {
+        return m_dbusId;
+    }
 #endif
 
 public slots:
@@ -80,7 +86,10 @@ public slots:
     Q_SCRIPTABLE void setSourceQuery(const QString&);
     Q_SCRIPTABLE void setTargetQuery(const QString&);
 #ifndef NOKDE
-    Q_SCRIPTABLE bool findGuiText(QString text){return findGuiTextPackage(text,QString());}
+    Q_SCRIPTABLE bool findGuiText(QString text)
+    {
+        return findGuiTextPackage(text, QString());
+    }
     Q_SCRIPTABLE bool findGuiTextPackage(QString text, QString package);
 #endif
     void fileSearchNext();
@@ -111,15 +120,14 @@ private:
 
     QVector<QRunnable*> m_runningJobs;
 
-     //to avoid results from previous search showing up in the new one
+    //to avoid results from previous search showing up in the new one
     int m_lastSearchNumber;
 
     int m_dbusId;
     static QList<int> ids;
 };
 
-struct FileSearchResult
-{
+struct FileSearchResult {
     DocPos docPos;
 
     QString source;
@@ -139,12 +147,11 @@ struct FileSearchResult
 
 typedef QMap<QString, QVector<FileSearchResult> > FileSearchResults;
 
-struct SearchResult: public FileSearchResult
-{
+struct SearchResult: public FileSearchResult {
     QString filepath;
 
-    SearchResult(const FileSearchResult& fsr):FileSearchResult(fsr){}
-    SearchResult(){}
+    SearchResult(const FileSearchResult& fsr): FileSearchResult(fsr) {}
+    SearchResult() {}
 };
 
 typedef QVector<SearchResult> SearchResults;
@@ -154,9 +161,8 @@ class FileSearchModel: public QAbstractListModel
     Q_OBJECT
 public:
 
-    enum FileSearchModelColumns
-    {
-        Source=0,
+    enum FileSearchModelColumns {
+        Source = 0,
         Target,
         //Context,
         Filepath,
@@ -165,23 +171,34 @@ public:
         ColumnCount
     };
 
-    enum Roles
-    {
-        FullPathRole=Qt::UserRole,
-        TransStateRole=Qt::UserRole+1,
-        HtmlDisplayRole=Qt::UserRole+2
+    enum Roles {
+        FullPathRole = Qt::UserRole,
+        TransStateRole = Qt::UserRole + 1,
+        HtmlDisplayRole = Qt::UserRole + 2
     };
 
     FileSearchModel(QObject* parent);
-    ~FileSearchModel(){}
+    ~FileSearchModel() {}
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    QVariant data(const QModelIndex& item, int role=Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const {Q_UNUSED(parent) return ColumnCount;}
-    int rowCount(const QModelIndex& parent = QModelIndex()) const {Q_UNUSED(parent) return m_searchResults.size();}
+    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    {
+        Q_UNUSED(parent) return ColumnCount;
+    }
+    int rowCount(const QModelIndex& parent = QModelIndex()) const
+    {
+        Q_UNUSED(parent) return m_searchResults.size();
+    }
 
-    SearchResults searchResults()const {return m_searchResults;}
-    SearchResult searchResult(const QModelIndex& item) const {return m_searchResults.at(item.row());}
+    SearchResults searchResults()const
+    {
+        return m_searchResults;
+    }
+    SearchResult searchResult(const QModelIndex& item) const
+    {
+        return m_searchResults.at(item.row());
+    }
     void appendSearchResults(const SearchResults&);
     void clear();
 
@@ -200,14 +217,14 @@ class SearchFileListView: public QDockWidget
 
 public:
     SearchFileListView(QWidget*);
-    ~SearchFileListView(){}
+    ~SearchFileListView() {}
 
     void addFiles(const QStringList& files);
     void addFilesFast(const QStringList& files);
 
     QStringList files()const;
 
-    void scrollTo(const QString& file=QString());
+    void scrollTo(const QString& file = QString());
 
 public slots:
     void clear();
@@ -246,8 +263,7 @@ private:
     Ui_MassReplaceOptions* ui;
 };
 
-struct SearchParams
-{
+struct SearchParams {
     QRegExp sourcePattern;
     QRegExp targetPattern;
     QRegExp notesPattern;
@@ -259,7 +275,10 @@ struct SearchParams
 
     bool isEmpty() const;
 
-    SearchParams():invertSource(false), invertTarget(false){memset(states, 0, sizeof(states));}
+    SearchParams(): invertSource(false), invertTarget(false)
+    {
+        memset(states, 0, sizeof(states));
+    }
 };
 
 #include <QRunnable>
@@ -267,17 +286,17 @@ class SearchJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit SearchJob(const QStringList& f, 
+    explicit SearchJob(const QStringList& f,
                        const SearchParams& sp,
                        const QVector<Rule>& r,
                        int sn,
-                       QObject* parent=0);
-    ~SearchJob(){}
+                       QObject* parent = 0);
+    ~SearchJob() {}
 
 signals:
     void done(SearchJob*);
 protected:
-    void run ();
+    void run();
 public:
     QStringList files;
     SearchParams searchParams;
@@ -299,8 +318,8 @@ public:
                             const QRegExp& s,
                             const QString& r,
                             //int sn,
-                           QObject* parent=0);
-    ~MassReplaceJob(){}
+                            QObject* parent = 0);
+    ~MassReplaceJob() {}
 
 signals:
     void done(MassReplaceJob*);

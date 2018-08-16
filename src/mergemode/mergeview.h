@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -41,7 +41,7 @@ class MergeView: public QDockWidget
     Q_OBJECT
 
 public:
-    MergeView(QWidget*,Catalog*,bool primary);
+    MergeView(QWidget*, Catalog*, bool primary);
     virtual ~MergeView();
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -60,12 +60,12 @@ private:
     bool event(QEvent *event);
 
 public slots:
-    void mergeOpen(QString mergeFilePath=QString());
+    void mergeOpen(QString mergeFilePath = QString());
     void cleanup();
     void slotNewEntryDisplayed(const DocPosition&);
     void slotUpdate(const DocPosition&);
 
-    void gotoNextChanged(bool approvedOnly=false);
+    void gotoNextChanged(bool approvedOnly = false);
     void gotoNextChangedApproved();
     void gotoPrevChanged();
     void mergeAccept();
@@ -80,7 +80,7 @@ signals:
     void signalNextChangedAvailable(bool);
     void signalEntryWithMergeDisplayed(bool);
 
-    void gotoEntry(const DocPosition&,int);
+    void gotoEntry(const DocPosition&, int);
 
     void mergeCatalogAvailable(bool);
     void mergeCatalogPointerChanged(MergeCatalog* mergeCatalog);

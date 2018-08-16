@@ -10,7 +10,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -39,8 +39,7 @@ class QTimer;
 class QThreadPool;
 class UpdateStatsJob;
 
-struct FileMetaData
-{
+struct FileMetaData {
     int translated;
     int translated_reviewer;
     int translated_approver;
@@ -56,8 +55,8 @@ struct FileMetaData
     QString filePath;
 
     FileMetaData()
-     : translated(0), translated_reviewer(0), translated_approver(0), untranslated(0)
-     , fuzzy(0), fuzzy_reviewer(0), fuzzy_approver(0)
+        : translated(0), translated_reviewer(0), translated_approver(0), untranslated(0)
+        , fuzzy(0), fuzzy_reviewer(0), fuzzy_approver(0)
     {}
 };
 
@@ -83,33 +82,31 @@ class ProjectModel: public QAbstractItemModel
         ~ProjectNode();
         void calculateDirStats();
         void setFileStats(const FileMetaData& info);
-        
+
         int translatedAsPerRole() const
         {
-            switch (Project::local()->role())
-            {
-                case ProjectLocal::Translator:
-                case ProjectLocal::Undefined:
-                    return translated;
-                case ProjectLocal::Reviewer:
-                    return translated_reviewer;
-                case ProjectLocal::Approver:
-                    return translated_approver;
+            switch (Project::local()->role()) {
+            case ProjectLocal::Translator:
+            case ProjectLocal::Undefined:
+                return translated;
+            case ProjectLocal::Reviewer:
+                return translated_reviewer;
+            case ProjectLocal::Approver:
+                return translated_approver;
             }
             return -1;
         }
-        
+
         int fuzzyAsPerRole() const
         {
-            switch (Project::local()->role())
-            {
-                case ProjectLocal::Translator:
-                case ProjectLocal::Undefined:
-                    return fuzzy;
-                case ProjectLocal::Reviewer:
-                    return fuzzy_reviewer;
-                case ProjectLocal::Approver:
-                    return fuzzy_approver;
+            switch (Project::local()->role()) {
+            case ProjectLocal::Translator:
+            case ProjectLocal::Undefined:
+                return fuzzy;
+            case ProjectLocal::Reviewer:
+                return fuzzy_reviewer;
+            case ProjectLocal::Approver:
+                return fuzzy_approver;
             }
             return -1;
         }
@@ -138,8 +135,7 @@ class ProjectModel: public QAbstractItemModel
 
 public:
 
-    enum ProjectModelColumns
-    {
+    enum ProjectModelColumns {
         FileName,
         Graph,
         TotalCount,
@@ -186,8 +182,14 @@ public:
     bool canFetchMore(const QModelIndex& parent) const;
     void fetchMore(const QModelIndex& parent);
 
-    QThreadPool* threadPool(){return m_threadPool;}
-    void setCompleteScan(bool enable){m_completeScan=enable;}
+    QThreadPool* threadPool()
+    {
+        return m_threadPool;
+    }
+    void setCompleteScan(bool enable)
+    {
+        m_completeScan = enable;
+    }
 
 signals:
     void totalsChanged(int fuzzy, int translated, int untranslated, bool done);
@@ -267,9 +269,12 @@ class UpdateStatsJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner=0);
+    explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner = 0);
     ~UpdateStatsJob();
-    int priority()const{return 35;} //SEE jobs.h
+    int priority()const
+    {
+        return 35;   //SEE jobs.h
+    }
 
     void setStatus(int status);
 

@@ -6,7 +6,7 @@ modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of
 the License or (at your option) version 3 or any later version
 accepted by the membership of KDE e.V. (or its successor approved
-by the membership of KDE e.V.), which shall act as a proxy 
+by the membership of KDE e.V.), which shall act as a proxy
 defined in Section 14 of version 3 of the license.
 
 This program is distributed in the hope that it will be useful,
@@ -30,8 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * Implementation of Gettext PO format support
  */
-namespace GettextCatalog {
-    
+namespace GettextCatalog
+{
+
 /**
  * @short Implementation of storage for Gettext PO
  * @author Nick Shaforostoff <shafff@ukr.net>
@@ -42,10 +43,13 @@ public:
     GettextStorage();
     ~GettextStorage();
 
-    int capabilities() const{return 0;}
+    int capabilities() const
+    {
+        return 0;
+    }
 
     int load(QIODevice* device/*, bool readonly=false*/);
-    bool save(QIODevice* device, bool belongsToProject=false);
+    bool save(QIODevice* device, bool belongsToProject = false);
 
     int size() const;
 
@@ -54,7 +58,10 @@ public:
     QString target(const DocPosition& pos) const;
     CatalogString sourceWithTags(DocPosition pos) const;
     CatalogString targetWithTags(DocPosition pos) const;
-    CatalogString catalogString(const DocPosition& pos) const{return pos.part==DocPosition::Target?targetWithTags(pos):sourceWithTags(pos);}
+    CatalogString catalogString(const DocPosition& pos) const
+    {
+        return pos.part == DocPosition::Target ? targetWithTags(pos) : sourceWithTags(pos);
+    }
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
@@ -63,8 +70,8 @@ public:
     void targetInsertTag(const DocPosition&, const InlineTag&);
     InlineTag targetDeleteTag(const DocPosition&);
 
-    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const;
-    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const;
+    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines = false) const;
+    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines = false) const;
 
     QVector<Note> notes(const DocPosition& pos) const;
     Note setNote(DocPosition pos, const Note& note);
@@ -84,13 +91,25 @@ public:
 
     bool isEmpty(const DocPosition& pos) const;
 
-    QString mimetype()const{return QStringLiteral("text/x-gettext-translation");}
-    QString fileType()const{return QStringLiteral("Gettext (*.po)");}
-    CatalogType type()const{return Gettext;}
+    QString mimetype()const
+    {
+        return QStringLiteral("text/x-gettext-translation");
+    }
+    QString fileType()const
+    {
+        return QStringLiteral("Gettext (*.po)");
+    }
+    CatalogType type()const
+    {
+        return Gettext;
+    }
 
 private:
     bool setHeader(const CatalogItem& newHeader);
-    void setCodec(QTextCodec* codec) {m_codec = codec;}
+    void setCodec(QTextCodec* codec)
+    {
+        m_codec = codec;
+    }
 
     QVector<Note> notes(const DocPosition& pos, const QRegExp& re, int preLen) const;
 

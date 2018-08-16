@@ -1,7 +1,7 @@
 /*****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007      by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -43,8 +43,7 @@ class WebQueryView;
 class QTextCodec;
 class KJob;
 
-struct CatalogData
-{
+struct CatalogData {
     QString msg;
 
     //used when the script asks for the same file but with another target language
@@ -73,7 +72,7 @@ public slots:
 
     void slotDownloadResult(KJob*);
 signals:
-    void addWebQueryResult(const QString&,const QString&);
+    void addWebQueryResult(const QString&, const QString&);
 
 //These are for scripts:
 signals:
@@ -102,15 +101,15 @@ public slots:
     void doDownloadAndFilter(QString url, QString codec, QString rx/*, int repeat*/);
 
     void setResult(QString);
-    
-    
-    
-    
-    
 
-/*    // If emitted calls the update() scripting function
-    // if available.
-    void update();*/
+
+
+
+
+
+    /*    // If emitted calls the update() scripting function
+        // if available.
+        void update();*/
 
 // protected:
 //     void run();

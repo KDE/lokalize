@@ -10,7 +10,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -42,12 +42,12 @@
  *
  * @author Nick Shaforostoff <shafff@ukr.net>
  */
-enum {Html=1};
+enum {Html = 1};
 QString userVisibleWordDiff(const QString& oldString,
-                 const QString& newString,
-                 const QString& accelRx,
-                 const QString& markupRx,
-                 int options=0);
+                            const QString& newString,
+                            const QString& accelRx,
+                            const QString& markupRx,
+                            int options = 0);
 
 
 

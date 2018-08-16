@@ -39,8 +39,8 @@
 
 
 
-LanguageListModel* LanguageListModel::_instance=0;
-LanguageListModel* LanguageListModel::_emptyLangInstance=0;
+LanguageListModel* LanguageListModel::_instance = 0;
+LanguageListModel* LanguageListModel::_emptyLangInstance = 0;
 void LanguageListModel::cleanupLanguageListModel()
 {
     delete LanguageListModel::_instance; LanguageListModel::_instance = 0;
@@ -49,9 +49,8 @@ void LanguageListModel::cleanupLanguageListModel()
 
 LanguageListModel* LanguageListModel::instance()
 {
-    if (_instance==0 )
-    {
-        _instance=new LanguageListModel();
+    if (_instance == 0) {
+        _instance = new LanguageListModel();
         qAddPostRoutine(LanguageListModel::cleanupLanguageListModel);
     }
     return _instance;
@@ -59,16 +58,16 @@ LanguageListModel* LanguageListModel::instance()
 
 LanguageListModel* LanguageListModel::emptyLangInstance()
 {
-    if (_emptyLangInstance==0 )
-        _emptyLangInstance=new LanguageListModel(WithEmptyLang);
+    if (_emptyLangInstance == 0)
+        _emptyLangInstance = new LanguageListModel(WithEmptyLang);
     return _emptyLangInstance;
 }
 
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
- : QStringListModel(parent)
- , m_sortModel(new QSortFilterProxyModel(this))
+    : QStringListModel(parent)
+    , m_sortModel(new QSortFilterProxyModel(this))
 #ifndef NOKDE
- , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
+    , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
 #endif
 {
 #ifndef NOKDE
@@ -76,13 +75,13 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
 #else
     QStringList ll;
     QList<QLocale> allLocales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
-    foreach(const QLocale& l, allLocales)
+    foreach (const QLocale& l, allLocales)
         ll.append(l.name());
-    ll=ll.toSet().toList();
+    ll = ll.toSet().toList();
     setStringList(ll);
 #endif
 
-    if (type==WithEmptyLang) insertRows(rowCount(), 1);
+    if (type == WithEmptyLang) insertRows(rowCount(), 1);
 #if 0 //KDE5PORT
     KIconLoader::global()->addExtraDesktopThemes();
 #endif
@@ -94,43 +93,38 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
 
 QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
-    if (role==Qt::DecorationRole)
-    {
+    if (role == Qt::DecorationRole) {
 #if 0 //#ifndef NOKDE
-        static QMap<QString,QVariant> iconCache;
+        static QMap<QString, QVariant> iconCache;
 
-        QString langCode=stringList().at(index.row());
-        if (!iconCache.contains(langCode))
-        {
-            QString code=QLocale(langCode).name();
+        QString langCode = stringList().at(index.row());
+        if (!iconCache.contains(langCode)) {
+            QString code = QLocale(langCode).name();
             QString path;
-            if (code.contains('_')) code=QString::fromRawData(code.unicode()+3, 2).toLower();
-            if (code!="C")
-            {
+            if (code.contains('_')) code = QString::fromRawData(code.unicode() + 3, 2).toLower();
+            if (code != "C") {
                 static const QString flagPath("l10n/%1/flag.png");
-                path=QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + flagPath.arg(code));
+                path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("locale/") + flagPath.arg(code));
             }
-            iconCache[langCode]=QIcon(path);
+            iconCache[langCode] = QIcon(path);
         }
         return iconCache.value(langCode);
 #endif
-    }
-    else if (role==Qt::DisplayRole)
-    {
-        const QString& code=stringList().at(index.row());
+    } else if (role == Qt::DisplayRole) {
+        const QString& code = stringList().at(index.row());
         if (code.isEmpty()) return code;
         //qCDebug(LOKALIZE_LOG)<<"languageCodeToName"<<code;
         static QVector<QString> displayNames(stringList().size());
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());
 #ifndef NOKDE
-            return QVariant::fromValue<QString>(
-                displayNames[index.row()]=KConfigGroup(m_systemLangList,code).readEntry("Name")%QStringLiteral(" (")%code%')');
+        return QVariant::fromValue<QString>(
+                   displayNames[index.row()] = KConfigGroup(m_systemLangList, code).readEntry("Name") % QStringLiteral(" (") % code % ')');
 #else
         QLocale l(code);
 //        if (l.language()==QLocale::C && code!="C")
         return QVariant::fromValue<QString>(
-            displayNames[index.row()]=QLocale::languageToString(l.language())%QStringLiteral(" (")%code%')');
+                   displayNames[index.row()] = QLocale::languageToString(l.language()) % QStringLiteral(" (") % code % ')');
 #endif
     }
     return QStringListModel::data(index, role);
@@ -148,7 +142,7 @@ int LanguageListModel::sortModelRowForLangCode(const QString& langCode)
 
 QString LanguageListModel::langCodeForSortModelRow(int row)
 {
-    return stringList().at(m_sortModel->mapToSource(m_sortModel->index(row,0)).row());
+    return stringList().at(m_sortModel->mapToSource(m_sortModel->index(row, 0)).row());
 }
 
 
@@ -163,8 +157,7 @@ QString LanguageListModel::langCodeForSortModelRow(int row)
 
 QString getTargetLangCode(const QString& title, bool askUser)
 {
-    if (!askUser)
-    {
+    if (!askUser) {
         if (Project::instance()->targetLangCode().length())
             return Project::instance()->targetLangCode();
         return QLocale::system().name();
@@ -172,13 +165,13 @@ QString getTargetLangCode(const QString& title, bool askUser)
 
     QDialog dlg(SettingsController::instance()->mainWindowPtr());
     dlg.setWindowTitle(title);
-    QHBoxLayout* l=new QHBoxLayout(&dlg);
+    QHBoxLayout* l = new QHBoxLayout(&dlg);
     l->addWidget(new QLabel(i18n("Target language:"), &dlg));
-    QComboBox* lc=new QComboBox(&dlg);
+    QComboBox* lc = new QComboBox(&dlg);
     l->addWidget(lc);
     lc->setModel(LanguageListModel::instance()->sortModel());
-    lc->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode( Project::instance()->targetLangCode() ));
-    QDialogButtonBox* btn=new QDialogButtonBox(QDialogButtonBox::Ok, &dlg);
+    lc->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(Project::instance()->targetLangCode()));
+    QDialogButtonBox* btn = new QDialogButtonBox(QDialogButtonBox::Ok, &dlg);
     l->addWidget(btn);
     QObject::connect(btn, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
     QObject::connect(btn, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);

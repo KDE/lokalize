@@ -34,26 +34,29 @@ class QaModel: public QAbstractListModel
     //Q_OBJECT
 public:
 
-    enum Columns
-    {
+    enum Columns {
         //ID = 0,
         Source = 0,
         FalseFriend,
         ColumnCount
     };
 
-    QaModel(QObject* parent=0/*, Glossary* glossary*/);
+    QaModel(QObject* parent = 0/*, Glossary* glossary*/);
     ~QaModel();
 
     bool loadRules(const QString& filename);
-    bool saveRules(QString filename=QString());
+    bool saveRules(QString filename = QString());
 
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const {return ColumnCount; Q_UNUSED(parent)}
-    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    {
+        return ColumnCount;
+        Q_UNUSED(parent)
+    }
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
     Qt::ItemFlags flags(const QModelIndex&) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
-    QVariant data(const QModelIndex&, int role=Qt::DisplayRole) const;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
 
     QVector<Rule> toVector() const;
 

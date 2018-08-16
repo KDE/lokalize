@@ -44,9 +44,9 @@ protected:
 //helps translate 'Russian (ru_UA)' -> 'ru_UA'
 class LangCodeSaver: public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    LangCodeSaver(QWidget* p):QObject(p){}
+    LangCodeSaver(QWidget* p): QObject(p) {}
 public slots:
     void setLangCode(int index);
 signals:

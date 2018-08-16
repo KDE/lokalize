@@ -43,7 +43,7 @@ class CatalogView: public QDockWidget
     Q_OBJECT
 
 public:
-    CatalogView(QWidget*,Catalog*);
+    CatalogView(QWidget*, Catalog*);
     ~CatalogView();
 
     void setEntryFilteredOut(int entry, bool filteredOut);
@@ -57,7 +57,7 @@ private:
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
-    void setEntriesFilteredOut(bool filteredOut=false);
+    void setEntriesFilteredOut(bool filteredOut = false);
     void setFocus();
     void reset();
     void setMergeCatalogPointer(MergeCatalog* pointer);

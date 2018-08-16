@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -30,8 +30,8 @@
 class CompletionStorage
 {
 private:
-    CompletionStorage():rxSplit("\\W+|\\d+"){};
-    ~CompletionStorage(){};
+    CompletionStorage(): rxSplit("\\W+|\\d+") {};
+    ~CompletionStorage() {};
     static CompletionStorage* _instance;
     static void cleanupCompletionStorage();
 public:
@@ -43,7 +43,7 @@ public:
 public:
     QRegExp rxSplit;
 private:
-    QMap<QString,int> m_words;//how many occurencies a word has
+    QMap<QString, int> m_words; //how many occurencies a word has
     //QSet save which files we scanned?
 };
 

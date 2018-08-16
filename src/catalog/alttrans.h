@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -27,8 +27,7 @@
 #include "catalogstring.h"
 #include "tmentry.h"
 
-struct AltTrans
-{
+struct AltTrans {
     ///@see @link http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
     enum Type {Proposal, PreviousVersion, Rejected, Reference, Accepted, Other};
     Type type;
@@ -42,7 +41,7 @@ struct AltTrans
     QString origin;
     QString phase;
 
-    AltTrans(const CatalogString& s=CatalogString(), const QString& o=QString()):type(Other),source(s),score(0),origin(o){}
+    AltTrans(const CatalogString& s = CatalogString(), const QString& o = QString()): type(Other), source(s), score(0), origin(o) {}
 };
 
 

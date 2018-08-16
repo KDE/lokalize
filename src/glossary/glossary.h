@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -36,7 +36,8 @@
 /**
  * Classes for TBX Glossary handling
  */
-namespace GlossaryNS {
+namespace GlossaryNS
+{
 
 /**
  * struct that contains types data we work with.
@@ -47,8 +48,7 @@ namespace GlossaryNS {
  *
  * @short Contains parts of 'entry' tag in TBX that we support
  */
-struct TermEntry
-{
+struct TermEntry {
     QStringList english;
     QStringList target;
     QString definition;
@@ -60,7 +60,7 @@ struct TermEntry
               const QStringList& _target,
               const QString& _definition,
               int _subjectField,
-              const QString& _id=QString()
+              const QString& _id = QString()
              )
         : english(_english)
         , target(_target)
@@ -78,7 +78,7 @@ struct TermEntry
         english.clear();
         target.clear();
         definition.clear();
-        subjectField=0;
+        subjectField = 0;
     }
 };
 
@@ -99,10 +99,16 @@ class Glossary: public QObject
 public:
 
     Glossary(QObject* parent);
-    ~Glossary(){}
+    ~Glossary() {}
 
-    QString path() const{return m_path;}
-    bool isClean() {return m_clean;}
+    QString path() const
+    {
+        return m_path;
+    }
+    bool isClean()
+    {
+        return m_clean;
+    }
 
     QList<QByteArray> idsForLangWord(const QString& lang, const QString& word) const;
 
@@ -110,9 +116,9 @@ public:
     QStringList terms(const QByteArray& id, const QString& lang) const;
     void setTerm(const QByteArray& id, QString lang, int i, const QString& term);
     void rmTerm(const QByteArray& id, QString lang, int i);
-    QString subjectField(const QByteArray& id, const QString& lang=QString()) const;
+    QString subjectField(const QByteArray& id, const QString& lang = QString()) const;
     void setSubjectField(const QByteArray& id, const QString& lang, const QString& value);
-    QString definition(const QByteArray& id, const QString& lang=QString()) const;
+    QString definition(const QByteArray& id, const QString& lang = QString()) const;
     void setDefinition(const QByteArray& id, const QString& lang, const QString& value);
 
 private:
@@ -122,7 +128,10 @@ private:
 public:
     QStringList subjectFields() const;
 
-    int size() const{return m_entries.size();}
+    int size() const
+    {
+        return m_entries.size();
+    }
 
     void clear();
 
@@ -132,10 +141,13 @@ public:
 
     //in-memory changing
     QByteArray generateNewId();
-    void append(const QString& _english,const QString& _target);
+    void append(const QString& _english, const QString& _target);
     void removeEntry(const QByteArray& id);
-    void forceChangeSignal(){emit changed();}
-    void setClean(bool );
+    void forceChangeSignal()
+    {
+        emit changed();
+    }
+    void setClean(bool);
 
 
     QByteArray append(const QStringList& sourceTerms, const QStringList& targetTerms);
@@ -158,11 +170,11 @@ private:
     QList<QByteArray> m_idsForEntriesById;
 
 
-    QMap< QString, QMultiHash<QString,QByteArray> > idsByLangWord;
+    QMap< QString, QMultiHash<QString, QByteArray> > idsByLangWord;
 
-    QMultiHash<QString,int> wordHash_;
+    QMultiHash<QString, int> wordHash_;
     QList<TermEntry> termList_;
-    QMap< QString, QMultiHash<QString,int> > langWordEntry_;
+    QMap< QString, QMultiHash<QString, int> > langWordEntry_;
     QStringList subjectFields_;//first entry should be empty
 
     //for delayed saving
@@ -182,8 +194,7 @@ class GlossaryModel: public QAbstractListModel
     Q_OBJECT
 public:
 
-    enum Columns
-    {
+    enum Columns {
         ID = 0,
         English,
         Target,
@@ -192,19 +203,19 @@ public:
     };
 
     GlossaryModel(QObject* parent/*, Glossary* glossary*/);
-    ~GlossaryModel(){}
+    ~GlossaryModel() {}
 
     //QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-    int columnCount(const QModelIndex& parent=QModelIndex()) const;
-    QVariant data(const QModelIndex&, int role=Qt::DisplayRole) const;
-    QVariant headerData(int section,Qt::Orientation, int role = Qt::DisplayRole ) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
     //Qt::ItemFlags flags(const QModelIndex&) const;
 
     bool canFetchMore(const QModelIndex& parent) const;
     void fetchMore(const QModelIndex& parent);
-    
-    bool removeRows(int row, int count, const QModelIndex& parent=QModelIndex());
+
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
     //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
     QByteArray appendRow(const QString& _english, const QString& _target);
 
@@ -221,10 +232,13 @@ class GlossarySortFilterProxyModel: public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    GlossarySortFilterProxyModel(QObject* parent=0)
-     : QSortFilterProxyModel(parent)
+    GlossarySortFilterProxyModel(QObject* parent = 0)
+        : QSortFilterProxyModel(parent)
     {}
-    Qt::ItemFlags flags(const QModelIndex&) const {return Qt::ItemIsSelectable|Qt::ItemIsEnabled;}
+    Qt::ItemFlags flags(const QModelIndex&) const
+    {
+        return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    }
     void fetchMore(const QModelIndex& parent);
 
 public slots:

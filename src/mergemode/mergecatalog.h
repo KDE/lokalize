@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -31,30 +31,29 @@
 
 class KAutoSaveFile;
 
-struct MatchItem
-{
-    int mergeEntry:32;
-    int baseEntry:32;
-    short score:16;
-    short translationIsDifferent:16;
+struct MatchItem {
+    int mergeEntry: 32;
+    int baseEntry: 32;
+    short score: 16;
+    short translationIsDifferent: 16;
 
     MatchItem()
-    : mergeEntry(0)
-    , baseEntry(0)
-    , score(0)
-    , translationIsDifferent(false)
+        : mergeEntry(0)
+        , baseEntry(0)
+        , score(0)
+        , translationIsDifferent(false)
     {}
 
     MatchItem(int m, int b, bool d)
-    : mergeEntry(m)
-    , baseEntry(b)
-    , score(0)
-    , translationIsDifferent(d)
+        : mergeEntry(m)
+        , baseEntry(b)
+        , score(0)
+        , translationIsDifferent(d)
     {}
 
     bool operator<(const MatchItem& other) const
     {
-        return score<other.score;
+        return score < other.score;
     }
 
 };
@@ -74,17 +73,35 @@ class MergeCatalog: public Catalog
 {
     Q_OBJECT
 public:
-    MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges=true);
-    ~MergeCatalog(){};
+    MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges = true);
+    ~MergeCatalog() {};
 
     int loadFromUrl(const QString& filePath);
 
-    int firstChangedIndex() const {return m_mergeDiffIndex.isEmpty()?numberOfEntries():m_mergeDiffIndex.first();}
-    int lastChangedIndex() const {return m_mergeDiffIndex.isEmpty()?-1:m_mergeDiffIndex.last();}
-    int nextChangedIndex(uint index) const {return findNextInList(m_mergeDiffIndex,index);}
-    int prevChangedIndex(uint index) const {return findPrevInList(m_mergeDiffIndex,index);}
-    int isDifferent(uint index) const {return m_mergeDiffIndex.contains(index);}
-    QLinkedList<int> differentEntries()const {return m_mergeDiffIndex;}
+    int firstChangedIndex() const
+    {
+        return m_mergeDiffIndex.isEmpty() ? numberOfEntries() : m_mergeDiffIndex.first();
+    }
+    int lastChangedIndex() const
+    {
+        return m_mergeDiffIndex.isEmpty() ? -1 : m_mergeDiffIndex.last();
+    }
+    int nextChangedIndex(uint index) const
+    {
+        return findNextInList(m_mergeDiffIndex, index);
+    }
+    int prevChangedIndex(uint index) const
+    {
+        return findPrevInList(m_mergeDiffIndex, index);
+    }
+    int isDifferent(uint index) const
+    {
+        return m_mergeDiffIndex.contains(index);
+    }
+    QLinkedList<int> differentEntries()const
+    {
+        return m_mergeDiffIndex;
+    }
 
     //override to use map
     QString msgstr(const DocPosition&) const;
@@ -92,30 +109,48 @@ public:
     bool isPlural(uint index) const;
     TargetState state(const DocPosition& pos) const;
 
-    int unmatchedCount()const{return m_unmatchedCount;}
+    int unmatchedCount()const
+    {
+        return m_unmatchedCount;
+    }
 
     /// whether 'merge source' has entry with such msgid
     bool isPresent(const int& entry) const;
     bool isModified(DocPos)const;
-    bool isModified()const{return m_modified;}
+    bool isModified()const
+    {
+        return m_modified;
+    }
 
     ///@arg pos in baseCatalog's coordinates
     void copyToBaseCatalog(DocPosition& pos);
-    enum CopyToBaseOptions {EmptyOnly=1, HigherOnly=2};
-    void copyToBaseCatalog(int options=0);
+    enum CopyToBaseOptions {EmptyOnly = 1, HigherOnly = 2};
+    void copyToBaseCatalog(int options = 0);
 
-    inline void removeFromDiffIndex(uint index){m_mergeDiffIndex.removeAll(index);}
-    enum CopyFromBaseOptions {EvenIfNotInDiffIndex=1};
+    inline void removeFromDiffIndex(uint index)
+    {
+        m_mergeDiffIndex.removeAll(index);
+    }
+    enum CopyFromBaseOptions {EvenIfNotInDiffIndex = 1};
     void copyFromBaseCatalog(const DocPosition&, int options);
-    void copyFromBaseCatalog(const DocPosition& pos){copyFromBaseCatalog(pos, EvenIfNotInDiffIndex);}
+    void copyFromBaseCatalog(const DocPosition& pos)
+    {
+        copyFromBaseCatalog(pos, EvenIfNotInDiffIndex);
+    }
 public slots:
-    void copyFromBaseCatalogIfInDiffIndex(const DocPosition& pos){copyFromBaseCatalog(pos, 0);}
+    void copyFromBaseCatalogIfInDiffIndex(const DocPosition& pos)
+    {
+        copyFromBaseCatalog(pos, 0);
+    }
 
     bool save(); //reimplement to do save only when changes were actually done to this catalog
 
 private:
-    MatchItem calcMatchItem(const DocPosition& basePos,const DocPosition& mergePos);
-    KAutoSaveFile* checkAutoSave(const QString&){return 0;}//rely on basecatalog restore
+    MatchItem calcMatchItem(const DocPosition& basePos, const DocPosition& mergePos);
+    KAutoSaveFile* checkAutoSave(const QString&)
+    {
+        return 0;   //rely on basecatalog restore
+    }
 
 
 private:

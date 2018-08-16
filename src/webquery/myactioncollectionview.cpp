@@ -1,7 +1,7 @@
 /*****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007      by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@
 using namespace Kross;
 
 MyActionCollectionView::MyActionCollectionView(QWidget *parent)
- : Kross::ActionCollectionView(parent)
+    : Kross::ActionCollectionView(parent)
 {
     setSelectionMode(QAbstractItemView::MultiSelection);
     //qRegisterMetaType<CatalogData>("CatalogData");
@@ -54,8 +54,7 @@ MyActionCollectionView::~MyActionCollectionView()
 
 void MyActionCollectionView::triggerSelectedActions()
 {
-    foreach(const QModelIndex &index, itemSelection().indexes())
-    {
+    foreach (const QModelIndex &index, itemSelection().indexes()) {
         Action* action = ActionCollectionModel::action(index);
         static_cast<WebQueryController*>(action->object("WebQueryController"))->query(data);
 

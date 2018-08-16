@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -31,8 +31,7 @@
 #include <QDate>
 
 class Catalog;
-struct Phase
-{
+struct Phase {
     QString name;
     QString process;
     QString company;
@@ -57,13 +56,12 @@ struct Phase
 
     bool operator<(const Phase& other) const
     {
-        return date<other.date;
+        return date < other.date;
     }
 };
 
 
-struct Tool
-{
+struct Tool {
     QString tool;
     QString name;
     QString version;
@@ -72,9 +70,9 @@ struct Tool
 
 const char* const* processes();
 ProjectLocal::PersonRole roleForProcess(const QString& phase);
-enum InitOptions {ForceAdd=1};
+enum InitOptions {ForceAdd = 1};
 ///@returns true if phase must be added to catalog;
-bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options=0);
+bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options = 0);
 void generatePhaseForCatalogIfNeeded(Catalog* catalog);
 
 #endif

@@ -45,20 +45,19 @@ void FastSizeHintItemDelegate::reset()
 
 QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    int lineCount=1;
-    int nPos=20;
-    int column=qMax(index.column(),0);
-    if (!singleLineColumns.at(column))
-    {
-        QString text=index.data().toString();
-        nPos=text.indexOf('\n');
-        if (nPos==-1)
-            nPos=text.size();
+    int lineCount = 1;
+    int nPos = 20;
+    int column = qMax(index.column(), 0);
+    if (!singleLineColumns.at(column)) {
+        QString text = index.data().toString();
+        nPos = text.indexOf('\n');
+        if (nPos == -1)
+            nPos = text.size();
         else
-            lineCount+=text.count('\n');
+            lineCount += text.count('\n');
     }
     static QFontMetrics metrics(option.font);
-    return QSize(metrics.averageCharWidth()*nPos, metrics.height()*lineCount);
+    return QSize(metrics.averageCharWidth() * nPos, metrics.height() * lineCount);
 }
 
 void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -69,59 +68,56 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
     painter->setClipRect(option.rect);
     QBrush bgBrush;
 #ifndef NOKDE
-    const KColorScheme& scheme=activeScheme;
-    if (option.state&QStyle::State_MouseOver)
-        bgBrush=scheme.background(KColorScheme::LinkBackground);
-    else if (index.row()%2)
-        bgBrush=scheme.background(KColorScheme::AlternateBackground);
+    const KColorScheme& scheme = activeScheme;
+    if (option.state & QStyle::State_MouseOver)
+        bgBrush = scheme.background(KColorScheme::LinkBackground);
+    else if (index.row() % 2)
+        bgBrush = scheme.background(KColorScheme::AlternateBackground);
     else
-        bgBrush=scheme.background(KColorScheme::NormalBackground);
+        bgBrush = scheme.background(KColorScheme::NormalBackground);
 #else
     static QPalette p;
-    if (option.state&QStyle::State_MouseOver)
-        bgBrush=p.highlight();
-    else if (index.row()%2)
-        bgBrush=p.alternateBase();
+    if (option.state & QStyle::State_MouseOver)
+        bgBrush = p.highlight();
+    else if (index.row() % 2)
+        bgBrush = p.alternateBase();
     else
-        bgBrush=p.base();
+        bgBrush = p.base();
 #endif
-    
+
     painter->fillRect(option.rect, bgBrush);
-    painter->setClipRect(option.rect.adjusted(0,0,-2,0));
+    painter->setClipRect(option.rect.adjusted(0, 0, -2, 0));
     //painter->setFont(option.font);
 
     RowColumnUnion rc;
-    rc.index.row=index.row();
-    rc.index.column=index.column();
+    rc.index.row = index.row();
+    rc.index.column = index.column();
     //TMDBModel* m=static_cast<const TMDBModel*>(index.model());
-    if (!cache.contains(rc.v))
-    {
-        QString text=index.data(FastSizeHintItemDelegate::HtmlDisplayRole).toString();
+    if (!cache.contains(rc.v)) {
+        QString text = index.data(FastSizeHintItemDelegate::HtmlDisplayRole).toString();
         cache.insert(rc.v, new QStaticText(text));
-        cache.object(rc.v)->setTextFormat(richTextColumns.at(index.column())?Qt::RichText:Qt::PlainText);
+        cache.object(rc.v)->setTextFormat(richTextColumns.at(index.column()) ? Qt::RichText : Qt::PlainText);
     }
-    int rectWidth=option.rect.width();
-    QStaticText* staticText=cache.object(rc.v);
+    int rectWidth = option.rect.width();
+    QStaticText* staticText = cache.object(rc.v);
     //staticText->setTextWidth(rectWidth-4);
-    QPoint textStartPoint=option.rect.topLeft();
-    textStartPoint.rx()+=2;
+    QPoint textStartPoint = option.rect.topLeft();
+    textStartPoint.rx() += 2;
     painter->drawStaticText(textStartPoint, *staticText);
 
 
-    if (staticText->size().width()<=rectWidth-4)
-    {
+    if (staticText->size().width() <= rectWidth - 4) {
         painter->restore();
         return;
     }
 
     painter->setPen(bgBrush.color());
-    QPoint p1=option.rect.topRight();
-    QPoint p2=option.rect.bottomRight();
-    int limit=qMin(8, rectWidth-2);
-    int i=limit;
-    while(--i>0)
-    {
-        painter->setOpacity(float(i)/limit);
+    QPoint p1 = option.rect.topRight();
+    QPoint p2 = option.rect.bottomRight();
+    int limit = qMin(8, rectWidth - 2);
+    int i = limit;
+    while (--i > 0) {
+        painter->setOpacity(float(i) / limit);
         painter->drawLine(p1, p2);
         p1.rx()--;
         p2.rx()--;
@@ -131,15 +127,15 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
 
 QString convertToHtml(QString str, bool italics)
 {
-/*
-    if (str.isEmpty())
-        return str;
-*/
+    /*
+        if (str.isEmpty())
+            return str;
+    */
 
-    str=Qt::convertFromPlainText(str); //FIXME use another routine (this has bugs)
+    str = Qt::convertFromPlainText(str); //FIXME use another routine (this has bugs)
 
     if (italics)
-        str="<p><i>" % QString::fromRawData(str.unicode()+3, str.length()-3-4) % "</i></p>";
+        str = "<p><i>" % QString::fromRawData(str.unicode() + 3, str.length() - 3 - 4) % "</i></p>";
 
     return str;
 }

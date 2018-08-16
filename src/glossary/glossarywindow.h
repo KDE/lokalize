@@ -41,9 +41,13 @@ class AuxTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    AuxTextEdit(QWidget* parent=0): KTextEdit(parent){}
+    AuxTextEdit(QWidget* parent = 0): KTextEdit(parent) {}
 
-    void focusOutEvent(QFocusEvent* e){Q_UNUSED(e); emit editingFinished();}
+    void focusOutEvent(QFocusEvent* e)
+    {
+        Q_UNUSED(e);
+        emit editingFinished();
+    }
 signals:
     void editingFinished();
 };
@@ -52,7 +56,7 @@ class TermListView: public QListView
 {
     Q_OBJECT
 public:
-    explicit TermListView(QWidget* parent = 0):QListView(parent){}
+    explicit TermListView(QWidget* parent = 0): QListView(parent) {}
 
 public slots:
     void rmTerms();
@@ -60,7 +64,8 @@ public slots:
 };
 
 
-namespace GlossaryNS {
+namespace GlossaryNS
+{
 class GlossaryTreeView;
 class Glossary;
 class TermsListModel;
@@ -68,7 +73,7 @@ class GlossarySortFilterProxyModel;
 
 class GlossaryWindow: public KMainWindow
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     GlossaryWindow(QWidget *parent = 0);
     ~GlossaryWindow();
@@ -109,10 +114,10 @@ private:
 
 class GlossaryTreeView: public QTreeView
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     GlossaryTreeView(QWidget *parent = 0);
-    ~GlossaryTreeView(){}
+    ~GlossaryTreeView() {}
 
     void currentChanged(const QModelIndex& current, const QModelIndex& previous);
     void selectRow(int i);
@@ -128,7 +133,7 @@ class TermsListModel: public QStringListModel
 {
     Q_OBJECT
 public:
-    TermsListModel(Glossary* glossary, const QString& lang, QObject* parent=0): QStringListModel(parent), m_glossary(glossary), m_lang(lang){}
+    TermsListModel(Glossary* glossary, const QString& lang, QObject* parent = 0): QStringListModel(parent), m_glossary(glossary), m_lang(lang) {}
 
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
     bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());

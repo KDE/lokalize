@@ -41,62 +41,106 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * @short Abstract interface for storage of translation file
  * @author Nick Shaforostoff <shafff@ukr.net>
 */
-class CatalogStorage {
+class CatalogStorage
+{
 public:
     CatalogStorage();
     virtual ~CatalogStorage();
 
-    virtual int capabilities() const=0;
+    virtual int capabilities() const = 0;
 
-    virtual int load(QIODevice* device)=0;
-    virtual bool save(QIODevice* device, bool belongsToProject=false)=0;
+    virtual int load(QIODevice* device) = 0;
+    virtual bool save(QIODevice* device, bool belongsToProject = false) = 0;
 
-    virtual int size() const=0;
-    int numberOfEntries()const{return size();}
-    int numberOfPluralForms() const{return m_numberOfPluralForms;}
+    virtual int size() const = 0;
+    int numberOfEntries()const
+    {
+        return size();
+    }
+    int numberOfPluralForms() const
+    {
+        return m_numberOfPluralForms;
+    }
 
     /**
      * flat-model interface (ignores XLIFF grouping)
      *
      * format-specific texts like \" for gettext PO should be eliminated
     **/
-    virtual QString source(const DocPosition& pos) const=0;
-    virtual QString target(const DocPosition& pos) const=0;
-    virtual CatalogString sourceWithTags(DocPosition pos) const=0;
-    virtual CatalogString targetWithTags(DocPosition pos) const=0;
-    virtual CatalogString catalogString(const DocPosition& pos) const=0;
+    virtual QString source(const DocPosition& pos) const = 0;
+    virtual QString target(const DocPosition& pos) const = 0;
+    virtual CatalogString sourceWithTags(DocPosition pos) const = 0;
+    virtual CatalogString targetWithTags(DocPosition pos) const = 0;
+    virtual CatalogString catalogString(const DocPosition& pos) const = 0;
 
     /**
      * edit operations used by undo/redo  system and sync-mode
     **/
-    virtual void targetDelete(const DocPosition& pos, int count)=0;
-    virtual void targetInsert(const DocPosition& pos, const QString& arg)=0;
-    virtual void setTarget(const DocPosition& pos, const QString& arg)=0;//called for mergeCatalog TODO switch to CatalogString
-    virtual void targetInsertTag(const DocPosition&, const InlineTag&){}
-    virtual InlineTag targetDeleteTag(const DocPosition&){return InlineTag();}
-    virtual Phase updatePhase(const Phase&){return Phase();}
-    virtual QList<Phase> allPhases() const{return QList<Phase>();}
-    virtual QMap<QString,Tool> allTools() const{return QMap<QString,Tool>();}
+    virtual void targetDelete(const DocPosition& pos, int count) = 0;
+    virtual void targetInsert(const DocPosition& pos, const QString& arg) = 0;
+    virtual void setTarget(const DocPosition& pos, const QString& arg) = 0; //called for mergeCatalog TODO switch to CatalogString
+    virtual void targetInsertTag(const DocPosition&, const InlineTag&) {}
+    virtual InlineTag targetDeleteTag(const DocPosition&)
+    {
+        return InlineTag();
+    }
+    virtual Phase updatePhase(const Phase&)
+    {
+        return Phase();
+    }
+    virtual QList<Phase> allPhases() const
+    {
+        return QList<Phase>();
+    }
+    virtual QMap<QString, Tool> allTools() const
+    {
+        return QMap<QString, Tool>();
+    }
 
     /// all plural forms. pos.form doesn't matter
-    virtual QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const=0;
-    virtual QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const=0;
+    virtual QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines = false) const = 0;
+    virtual QStringList targetAllForms(const DocPosition& pos, bool stripNewLines = false) const = 0;
 
-    virtual QVector<AltTrans> altTrans(const DocPosition& pos) const=0;
-    virtual QVector<Note> notes(const DocPosition& pos) const=0;
-    virtual Note setNote(DocPosition pos, const Note& note)=0;
-    virtual QStringList noteAuthors() const{return QStringList();}
-    virtual QVector<Note> developerNotes(const DocPosition& pos) const=0;
-    virtual QStringList sourceFiles(const DocPosition& pos) const=0;
+    virtual QVector<AltTrans> altTrans(const DocPosition& pos) const = 0;
+    virtual QVector<Note> notes(const DocPosition& pos) const = 0;
+    virtual Note setNote(DocPosition pos, const Note& note) = 0;
+    virtual QStringList noteAuthors() const
+    {
+        return QStringList();
+    }
+    virtual QVector<Note> developerNotes(const DocPosition& pos) const = 0;
+    virtual QStringList sourceFiles(const DocPosition& pos) const = 0;
 
-    virtual QString setPhase(const DocPosition& pos, const QString& phase){Q_UNUSED(pos); Q_UNUSED(phase); return QString();}
-    virtual QString phase(const DocPosition& pos) const {Q_UNUSED(pos); return QString();}
-    virtual Phase phase(const QString& name) const{Q_UNUSED(name); return Phase();}
-    virtual QVector<Note> phaseNotes(const QString& phase) const{Q_UNUSED(phase); return QVector<Note>();}
-    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes){Q_UNUSED(phase); Q_UNUSED(notes); return QVector<Note>();}
+    virtual QString setPhase(const DocPosition& pos, const QString& phase)
+    {
+        Q_UNUSED(pos);
+        Q_UNUSED(phase);
+        return QString();
+    }
+    virtual QString phase(const DocPosition& pos) const
+    {
+        Q_UNUSED(pos);
+        return QString();
+    }
+    virtual Phase phase(const QString& name) const
+    {
+        Q_UNUSED(name);
+        return Phase();
+    }
+    virtual QVector<Note> phaseNotes(const QString& phase) const
+    {
+        Q_UNUSED(phase);
+        return QVector<Note>();
+    }
+    virtual QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes)
+    {
+        Q_UNUSED(phase);
+        Q_UNUSED(notes);
+        return QVector<Note>();
+    }
 
     //the result must be guaranteed to have at least 1 string
-    virtual QStringList context(const DocPosition&) const=0;
+    virtual QStringList context(const DocPosition&) const = 0;
     //DocPosition.form - number of <context>
     //virtual QString context(const DocPosition&) const=0;
     //virtual int contextCount(const DocPosition&) const=0;
@@ -113,46 +157,95 @@ public:
      *
      * pos.form doesn't matter
     **/
-    virtual QStringList matchData(const DocPosition&) const=0;
+    virtual QStringList matchData(const DocPosition&) const = 0;
 
     /**
      * entry id unique for this file
      *
      * pos.form doesn't matter
     **/
-    virtual QString id(const DocPosition&) const=0;
+    virtual QString id(const DocPosition&) const = 0;
 
-    virtual bool isPlural(const DocPosition&) const=0;
+    virtual bool isPlural(const DocPosition&) const = 0;
 
-    virtual bool isEmpty(const DocPosition&) const=0;
+    virtual bool isEmpty(const DocPosition&) const = 0;
 
-    virtual bool isEquivTrans(const DocPosition&) const{return true;}
-    virtual void setEquivTrans(const DocPosition&, bool equivTrans){Q_UNUSED(equivTrans)}
+    virtual bool isEquivTrans(const DocPosition&) const
+    {
+        return true;
+    }
+    virtual void setEquivTrans(const DocPosition&, bool equivTrans)
+    {
+        Q_UNUSED(equivTrans)
+    }
 
-    virtual bool isApproved(const DocPosition&) const{return true;}
-    virtual void setApproved(const DocPosition&, bool approved){Q_UNUSED(approved)}
-    virtual TargetState state(const DocPosition&) const{return New;}
-    virtual TargetState setState(const DocPosition&, TargetState){return New;}
+    virtual bool isApproved(const DocPosition&) const
+    {
+        return true;
+    }
+    virtual void setApproved(const DocPosition&, bool approved)
+    {
+        Q_UNUSED(approved)
+    }
+    virtual TargetState state(const DocPosition&) const
+    {
+        return New;
+    }
+    virtual TargetState setState(const DocPosition&, TargetState)
+    {
+        return New;
+    }
 
-    virtual bool isObsolete(int entry) const{ Q_UNUSED(entry) return false;}
-    virtual bool isTranslateable(int entry) const{ Q_UNUSED(entry) return true;}
+    virtual bool isObsolete(int entry) const
+    {
+        Q_UNUSED(entry) return false;
+    }
+    virtual bool isTranslateable(int entry) const
+    {
+        Q_UNUSED(entry) return true;
+    }
 
-    virtual int binUnitsCount() const {return 0;}
-    virtual int unitById(const QString& id) const {Q_UNUSED(id); return 0;}
+    virtual int binUnitsCount() const
+    {
+        return 0;
+    }
+    virtual int unitById(const QString& id) const
+    {
+        Q_UNUSED(id);
+        return 0;
+    }
 
-    const QString& url() const {return m_url;}
-    void setUrl(const QString& u){m_url=u;}//TODO
+    const QString& url() const
+    {
+        return m_url;
+    }
+    void setUrl(const QString& u)
+    {
+        m_url = u;   //TODO
+    }
 
-    virtual QString mimetype() const=0;
-    virtual QString fileType() const=0;
-    virtual CatalogType type() const=0;
+    virtual QString mimetype() const = 0;
+    virtual QString fileType() const = 0;
+    virtual CatalogType type() const = 0;
 
-    virtual QString originalOdfFilePath(){return QString();}
-    virtual void setOriginalOdfFilePath(const QString&){}
+    virtual QString originalOdfFilePath()
+    {
+        return QString();
+    }
+    virtual void setOriginalOdfFilePath(const QString&) {}
 
-    QString sourceLangCode() const{return m_sourceLangCode;}
-    QString targetLangCode() const{return m_targetLangCode;}
-    virtual void setTargetLangCode(const QString& langCode) {m_targetLangCode=langCode;}
+    QString sourceLangCode() const
+    {
+        return m_sourceLangCode;
+    }
+    QString targetLangCode() const
+    {
+        return m_targetLangCode;
+    }
+    virtual void setTargetLangCode(const QString& langCode)
+    {
+        m_targetLangCode = langCode;
+    }
 
 protected:
     QString m_url;

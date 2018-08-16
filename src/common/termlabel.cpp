@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -52,7 +52,7 @@ using namespace GlossaryNS;
 // // {
 // //     if (event->type() != QEvent::Shortcut)
 // //         return QLabel::event(event);
-// // 
+// //
 // // //         qCWarning(LOKALIZE_LOG) << "dsds " << m_termTransl;
 // //     emit insertTerm(m_termTransl);
 // //     return true;
@@ -60,64 +60,59 @@ using namespace GlossaryNS;
 
 void TermLabel::insert()
 {
-    GlossaryNS::Glossary* glossary=Project::instance()->glossary();
+    GlossaryNS::Glossary* glossary = Project::instance()->glossary();
     if (m_entryId.isEmpty())
         return;
     QString termTrans;
-    const QStringList& termTarget=glossary->terms(m_entryId, Project::instance()->targetLangCode());
-    if( termTarget.count()>1)
-    {
+    const QStringList& termTarget = glossary->terms(m_entryId, Project::instance()->targetLangCode());
+    if (termTarget.count() > 1) {
         QMenu menu;
 
-        int limit=termTarget.count();
+        int limit = termTarget.count();
         menu.setActiveAction(menu.addAction(termTarget.at(0)));
-        int i=1;
-        for (;i<limit;++i)
+        int i = 1;
+        for (; i < limit; ++i)
             menu.addAction(termTarget.at(i));
 
-        QAction* txt=menu.exec(mapToGlobal(QPoint(0,0)));
+        QAction* txt = menu.exec(mapToGlobal(QPoint(0, 0)));
         if (!txt)
             return;
-        termTrans=txt->text();
-    }
-    else if (termTarget.count() == 1)
-        termTrans=termTarget.first();
+        termTrans = txt->text();
+    } else if (termTarget.count() == 1)
+        termTrans = termTarget.first();
 
     if (m_capFirst && !termTrans.isEmpty())
-        termTrans[0]=termTrans.at(0).toUpper();
+        termTrans[0] = termTrans.at(0).toUpper();
 
     emit insertTerm(termTrans);
 }
 
-void TermLabel::mousePressEvent (QMouseEvent* event)
+void TermLabel::mousePressEvent(QMouseEvent* event)
 {
-    if (event->button()==Qt::RightButton)
-    {
+    if (event->button() == Qt::RightButton) {
         QMenu menu;
 
-        menu.addAction(i18nc("@action:inmenu Edit term","Edit"));
+        menu.addAction(i18nc("@action:inmenu Edit term", "Edit"));
 
-        QAction* txt=menu.exec(event->globalPos());
-        if (txt)
-        {
-            GlossaryNS::GlossaryWindow* glossaryWindow=Project::instance()->showGlossary();
+        QAction* txt = menu.exec(event->globalPos());
+        if (txt) {
+            GlossaryNS::GlossaryWindow* glossaryWindow = Project::instance()->showGlossary();
             if (glossaryWindow)
                 glossaryWindow->selectEntry(m_entryId);
         }
-    }
-    else
+    } else
         insert();
 }
 
 void TermLabel::setText(const QString& term, const QByteArray& entryId, bool capFirst)
 {
-    m_entryId=entryId;
-    m_capFirst=capFirst;
+    m_entryId = entryId;
+    m_capFirst = capFirst;
 
     static const QString n = QStringLiteral("  \n  ");
-    QLabel::setText(QString(term + QString(m_action?QString(QStringLiteral(" [") % m_action->shortcut().toString(QKeySequence::NativeText)%QStringLiteral("]  \n  ")):n)//m_shortcut
-                % Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n)
-                    % n));
+    QLabel::setText(QString(term + QString(m_action ? QString(QStringLiteral(" [") % m_action->shortcut().toString(QKeySequence::NativeText) % QStringLiteral("]  \n  ")) : n) //m_shortcut
+                            % Project::instance()->glossary()->terms(m_entryId, Project::instance()->targetLangCode()).join(n)
+                            % n));
 }
 
 
@@ -137,7 +132,7 @@ QueryResultBtn::QueryResultBtn(QAction* a)
     //connect(this,SIGNAL(clicked(bool)),this,SLOT(insert()));
 }
 
-void QueryResultBtn::mousePressEvent (QMouseEvent*/* event*/)
+void QueryResultBtn::mousePressEvent(QMouseEvent*/* event*/)
 {
     emit insertText(m_text);
 }

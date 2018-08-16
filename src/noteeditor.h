@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -38,14 +38,17 @@ QString escapeWithLinks(const QString& text);//defined in htmlhelpers.cpp
 
 class NoteEditor: public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     NoteEditor(QWidget* parent);
-    ~NoteEditor(){}
+    ~NoteEditor() {}
 
     Note note();
     void setNote(const Note&, int idx);
-    int noteIndex(){return m_idx;}
+    int noteIndex()
+    {
+        return m_idx;
+    }
 
     void setNoteAuthors(const QStringList&);
     void setFromFieldVisible(bool);
@@ -66,9 +69,9 @@ private:
 
 class TextEdit: public QPlainTextEdit
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    TextEdit(QWidget* parent): QPlainTextEdit(parent){}
+    TextEdit(QWidget* parent): QPlainTextEdit(parent) {}
     void keyPressEvent(QKeyEvent* e);
 signals:
     void accepted();

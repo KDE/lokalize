@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -40,10 +40,10 @@ class MsgCtxtView: public QDockWidget
     Q_OBJECT
 
 public:
-    MsgCtxtView(QWidget*,Catalog*);
+    MsgCtxtView(QWidget*, Catalog*);
     ~MsgCtxtView();
 
-    void gotoEntry(const DocPosition&, int selection=0);
+    void gotoEntry(const DocPosition&, int selection = 0);
     void addNote(DocPosition, const QString& text);
     void addTemporaryEntryNote(int entry, const QString& text);
 public slots:
@@ -67,8 +67,8 @@ private:
     QStackedLayout* m_stackedLayout;
 
     Catalog* m_catalog;
-    QMap< DocPos,QPair<Note,int> > m_unfinishedNotes;//note and its index
-    QMap< int,QString > m_tempNotes;
+    QMap< DocPos, QPair<Note, int> > m_unfinishedNotes; //note and its index
+    QMap< int, QString > m_tempNotes;
     int  m_selection;
     int  m_offset;
     bool m_hasInfo;

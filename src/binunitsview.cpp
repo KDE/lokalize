@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -58,26 +58,24 @@ void BinUnitsModel::fileLoaded()
 
 void BinUnitsModel::entryModified(const DocPosition& pos)
 {
-    if (pos.entry<m_catalog->numberOfEntries())
+    if (pos.entry < m_catalog->numberOfEntries())
         return;
 
-    QModelIndex item=index(pos.entry-m_catalog->numberOfEntries(),TargetFilePath);
-    emit dataChanged(item,item);
+    QModelIndex item = index(pos.entry - m_catalog->numberOfEntries(), TargetFilePath);
+    emit dataChanged(item, item);
 }
 
 void BinUnitsModel::updateFile(QString path)
 {
-    QString relPath=QDir(Project::instance()->projectDir()).relativeFilePath(path);
+    QString relPath = QDir(Project::instance()->projectDir()).relativeFilePath(path);
 
     DocPosition pos(m_catalog->numberOfEntries());
-    int limit=m_catalog->numberOfEntries()+m_catalog->binUnitsCount();
-    while (pos.entry<limit)
-    {
-        if (m_catalog->target(pos)==relPath || m_catalog->source(pos)==relPath)
-        {
-            int row=pos.entry-m_catalog->numberOfEntries();
+    int limit = m_catalog->numberOfEntries() + m_catalog->binUnitsCount();
+    while (pos.entry < limit) {
+        if (m_catalog->target(pos) == relPath || m_catalog->source(pos) == relPath) {
+            int row = pos.entry - m_catalog->numberOfEntries();
             m_imageCache.remove(relPath);
-            emit dataChanged(index(row,SourceFilePath),index(row,TargetFilePath));
+            emit dataChanged(index(row, SourceFilePath), index(row, TargetFilePath));
             return;
         }
 
@@ -87,17 +85,16 @@ void BinUnitsModel::updateFile(QString path)
 
 void BinUnitsModel::setTargetFilePath(int row, const QString& path)
 {
-    DocPosition pos(row+m_catalog->numberOfEntries());
-    QString old=m_catalog->target(pos);
-    if (!old.isEmpty())
-    {
+    DocPosition pos(row + m_catalog->numberOfEntries());
+    QString old = m_catalog->target(pos);
+    if (!old.isEmpty()) {
         m_catalog->push(new DelTextCmd(m_catalog, pos, old));
         m_imageCache.remove(old);
     }
 
     m_catalog->push(new InsTextCmd(m_catalog, pos, QDir(Project::instance()->projectDir()).relativeFilePath(path)));
-    QModelIndex item=index(row,TargetFilePath);
-    emit dataChanged(item,item);
+    QModelIndex item = index(row, TargetFilePath);
+    emit dataChanged(item, item);
 }
 
 int BinUnitsModel::rowCount(const QModelIndex& parent) const
@@ -109,50 +106,44 @@ int BinUnitsModel::rowCount(const QModelIndex& parent) const
 
 QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
 {
-    if (role==Qt::DecorationRole)
-    {
-        DocPosition pos(index.row()+m_catalog->numberOfEntries());
-        if (index.column()<Approved)
-        {
-            QString path=index.column()==SourceFilePath?m_catalog->source(pos):m_catalog->target(pos);
-            if (!m_imageCache.contains(path))
-            {
-                QString absPath=Project::instance()->absolutePath(path);
+    if (role == Qt::DecorationRole) {
+        DocPosition pos(index.row() + m_catalog->numberOfEntries());
+        if (index.column() < Approved) {
+            QString path = index.column() == SourceFilePath ? m_catalog->source(pos) : m_catalog->target(pos);
+            if (!m_imageCache.contains(path)) {
+                QString absPath = Project::instance()->absolutePath(path);
 #ifndef NOKDE
                 KDirWatch::self()->addFile(absPath); //TODO remember watched files to react only on them in dirty() signal handler
 #endif
-                m_imageCache.insert(path, QImage(absPath).scaled(128,128,Qt::KeepAspectRatio));
+                m_imageCache.insert(path, QImage(absPath).scaled(128, 128, Qt::KeepAspectRatio));
             }
             return m_imageCache.value(path);
         }
-    }
-    else if (role==Qt::TextAlignmentRole)
-        return int(Qt::AlignLeft|Qt::AlignTop);
+    } else if (role == Qt::TextAlignmentRole)
+        return int(Qt::AlignLeft | Qt::AlignTop);
 
-    if (role!=Qt::DisplayRole)
+    if (role != Qt::DisplayRole)
         return QVariant();
 
-    static const char* noyes[]={I18N_NOOP("no"),I18N_NOOP("yes")};
-    DocPosition pos(index.row()+m_catalog->numberOfEntries());
-    switch (index.column())
-    {
-        case SourceFilePath:    return m_catalog->source(pos);
-        case TargetFilePath:    return m_catalog->target(pos);
-        case Approved:          return noyes[m_catalog->isApproved(pos)];
+    static const char* noyes[] = {I18N_NOOP("no"), I18N_NOOP("yes")};
+    DocPosition pos(index.row() + m_catalog->numberOfEntries());
+    switch (index.column()) {
+    case SourceFilePath:    return m_catalog->source(pos);
+    case TargetFilePath:    return m_catalog->target(pos);
+    case Approved:          return noyes[m_catalog->isApproved(pos)];
     }
     return QVariant();
 }
 
 QVariant BinUnitsModel::headerData(int section, Qt::Orientation, int role) const
 {
-    if (role!=Qt::DisplayRole)
+    if (role != Qt::DisplayRole)
         return QVariant();
 
-    switch (section)
-    {
-        case SourceFilePath:    return i18nc("@title:column","Source");
-        case TargetFilePath:    return i18nc("@title:column","Target");
-        case Approved:          return i18nc("@title:column","Approved");
+    switch (section) {
+    case SourceFilePath:    return i18nc("@title:column", "Source");
+    case TargetFilePath:    return i18nc("@title:column", "Target");
+    case Approved:          return i18nc("@title:column", "Approved");
     }
     return QVariant();
 }
@@ -160,10 +151,10 @@ QVariant BinUnitsModel::headerData(int section, Qt::Orientation, int role) const
 
 
 BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
- : QDockWidget(i18nc("@title toolview name","Binary Units"),parent)
- , m_catalog(catalog)
- , m_model(new BinUnitsModel(catalog, this))
- , m_view(new MyTreeView(this))
+    : QDockWidget(i18nc("@title toolview name", "Binary Units"), parent)
+    , m_catalog(catalog)
+    , m_model(new BinUnitsModel(catalog, this))
+    , m_view(new MyTreeView(this))
 {
     setObjectName(QStringLiteral("binUnits"));
     hide();
@@ -185,7 +176,7 @@ void BinUnitsView::fileLoaded()
 
 void BinUnitsView::selectUnit(const QString& id)
 {
-    QModelIndex item=m_model->index(m_catalog->unitById(id)-m_catalog->numberOfEntries());
+    QModelIndex item = m_model->index(m_catalog->unitById(id) - m_catalog->numberOfEntries());
     m_view->setCurrentIndex(item);
     m_view->scrollTo(item);
     show();
@@ -193,28 +184,27 @@ void BinUnitsView::selectUnit(const QString& id)
 
 void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
 {
-    QModelIndex item=m_view->currentIndex();
+    QModelIndex item = m_view->currentIndex();
     if (!item.isValid())
         return;
 
     QMenu menu;
-    QAction* setTarget=menu.addAction(i18nc("@action:inmenu","Set the file"));
-    QAction* useSource=menu.addAction(i18nc("@action:inmenu","Use source file"));
+    QAction* setTarget = menu.addAction(i18nc("@action:inmenu", "Set the file"));
+    QAction* useSource = menu.addAction(i18nc("@action:inmenu", "Use source file"));
 
 //     menu.addSeparator();
 //     QAction* openSource=menu.addAction(i18nc("@action:inmenu","Open source file in external program"));
 //     QAction* openTarget=menu.addAction(i18nc("@action:inmenu","Open target file in external program"));
 
-    QAction* result=menu.exec(event->globalPos());
+    QAction* result = menu.exec(event->globalPos());
     if (!result)
         return;
 
-    QString sourceFilePath=item.sibling(item.row(),BinUnitsModel::SourceFilePath).data().toString();
-    if (result==useSource)
+    QString sourceFilePath = item.sibling(item.row(), BinUnitsModel::SourceFilePath).data().toString();
+    if (result == useSource)
         m_model->setTargetFilePath(item.row(), sourceFilePath);
-    else if (result==setTarget)
-    {
-        QString targetFilePath=QFileDialog::getOpenFileName(this, QString(), Project::instance()->projectDir());
+    else if (result == setTarget) {
+        QString targetFilePath = QFileDialog::getOpenFileName(this, QString(), Project::instance()->projectDir());
         if (!targetFilePath.isEmpty())
             m_model->setTargetFilePath(item.row(), targetFilePath);
     }
@@ -225,7 +215,7 @@ void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
 {
 #ifndef NOKDE
     //FIXME child processes don't notify us about changes ;(
-    if (item.column()<BinUnitsModel::Approved)
+    if (item.column() < BinUnitsModel::Approved)
         new KRun(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())), this);
 #endif
 }

@@ -13,7 +13,10 @@
 
 class FileSearchTab;
 class EditorTab;
-namespace TM{class TMTab;};
+namespace TM
+{
+class TMTab;
+};
 
 class ProjectBase: public QObject
 {
@@ -21,12 +24,15 @@ class ProjectBase: public QObject
 public:
 
     ProjectBase();
-    ~ProjectBase(){save();}
+    ~ProjectBase()
+    {
+        save();
+    }
 
     bool eventFilter(QObject *obj, QEvent *event);
 
 public slots:
-    EditorTab* fileOpen(QString url=QString(),int entry=0, bool setAsActive=true, const QString& mergeFile=QString(), bool silent=false);
+    EditorTab* fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString& mergeFile = QString(), bool silent = false);
     EditorTab* fileOpen(const QString& filePath, const QString& source, const QString& ctxt);
     EditorTab* fileOpen(const QString& filePath, DocPosition docPos, int selection);
 
@@ -47,27 +53,27 @@ private:
 
 
 public:
-    void setProjectID( const QString & v )
+    void setProjectID(const QString & v)
     {
         mProjectID = v;
     }
 
     QString projectID() const
     {
-      return mProjectID;
+        return mProjectID;
     }
 
-    void setKind( const QString & v )
+    void setKind(const QString & v)
     {
         mKind = v;
     }
 
     QString kind() const
     {
-      return mKind;
+        return mKind;
     }
 
-    void setLangCode( const QString & )
+    void setLangCode(const QString &)
     {
         //this is called from setDefaults()
         //mTargetLangCode = v;
@@ -75,39 +81,51 @@ public:
 
     QString langCode() const
     {
-      return mTargetLangCode;
+        return mTargetLangCode;
     }
 public slots:
-    void setTargetLangCode( const QString & v ){mTargetLangCode = v;}
-    void setSourceLangCode( const QString & v ){mSourceLangCode = v;}
+    void setTargetLangCode(const QString & v)
+    {
+        mTargetLangCode = v;
+    }
+    void setSourceLangCode(const QString & v)
+    {
+        mSourceLangCode = v;
+    }
 public:
-    QString targetLangCode() const {return mTargetLangCode;}
-    QString sourceLangCode() const {return mSourceLangCode;}
+    QString targetLangCode() const
+    {
+        return mTargetLangCode;
+    }
+    QString sourceLangCode() const
+    {
+        return mSourceLangCode;
+    }
 
-    void setMailingList( const QString & v )
+    void setMailingList(const QString & v)
     {
         mMailingList = v;
     }
 
     QString mailingList() const
     {
-      return mMailingList;
+        return mMailingList;
     }
 
-    void setPoBaseDir( const QString & v )
+    void setPoBaseDir(const QString & v)
     {
         mPoBaseDir = v;
     }
 
     QString poBaseDir() const
     {
-      return mPoBaseDir;
+        return mPoBaseDir;
     }
 
     /**
       Set PotBaseDir
     */
-    void setPotBaseDir( const QString & v )
+    void setPotBaseDir(const QString & v)
     {
         mPotBaseDir = v;
     }
@@ -117,13 +135,13 @@ public:
     */
     QString potBaseDir() const
     {
-      return mPotBaseDir;
+        return mPotBaseDir;
     }
 
     /**
       Set BranchDir
     */
-    void setBranchDir( const QString & v )
+    void setBranchDir(const QString & v)
     {
         mBranchDir = v;
     }
@@ -133,13 +151,13 @@ public:
     */
     QString branchDir() const
     {
-      return mBranchDir;
+        return mBranchDir;
     }
 
     /**
       Set AltDir
     */
-    void setAltDir( const QString & v )
+    void setAltDir(const QString & v)
     {
         mAltDir = v;
     }
@@ -149,13 +167,13 @@ public:
     */
     QString altDir() const
     {
-      return mAltDir;
+        return mAltDir;
     }
 
     /**
       Set GlossaryTbx
     */
-    void setGlossaryTbx( const QString & v )
+    void setGlossaryTbx(const QString & v)
     {
         mGlossaryTbx = v;
     }
@@ -165,13 +183,13 @@ public:
     */
     QString glossaryTbx() const
     {
-      return mGlossaryTbx;
+        return mGlossaryTbx;
     }
 
     /**
       Set MainQA
     */
-    void setMainQA( const QString & v )
+    void setMainQA(const QString & v)
     {
         mMainQA = v;
     }
@@ -181,13 +199,13 @@ public:
     */
     QString mainQA() const
     {
-      return mMainQA;
+        return mMainQA;
     }
 
     /**
       Set Accel
     */
-    void setAccel( const QString & v )
+    void setAccel(const QString & v)
     {
         mAccel = v;
     }
@@ -197,13 +215,13 @@ public:
     */
     QString accel() const
     {
-      return mAccel;
+        return mAccel;
     }
 
     /**
       Set Markup
     */
-    void setMarkup( const QString & v )
+    void setMarkup(const QString & v)
     {
         mMarkup = v;
     }
@@ -213,13 +231,13 @@ public:
     */
     QString markup() const
     {
-      return mMarkup;
+        return mMarkup;
     }
 
     /**
       Set WordWrap
     */
-    void setWordWrap( int v )
+    void setWordWrap(int v)
     {
         mWordWrap = v;
     }
@@ -229,12 +247,12 @@ public:
     */
     int wordWrap() const
     {
-      return mWordWrap;
+        return mWordWrap;
     }
 
     void save();
-    void setDefaults(){}
-  protected:
+    void setDefaults() {}
+protected:
 
     // General
     QString mProjectID;
@@ -255,7 +273,7 @@ public:
     QString mMarkup;
     int mWordWrap;
 
-  private:
+private:
 };
 
 #endif

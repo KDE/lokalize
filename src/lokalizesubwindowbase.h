@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -39,18 +39,24 @@
  */
 class LokalizeSubwindowBase: public KMainWindow
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    LokalizeSubwindowBase(QWidget* parent):KMainWindow(parent){}
-    virtual ~LokalizeSubwindowBase(){emit aboutToBeClosed();}
-    virtual KXMLGUIClient* guiClient()=0;
+    LokalizeSubwindowBase(QWidget* parent): KMainWindow(parent) {}
+    virtual ~LokalizeSubwindowBase()
+    {
+        emit aboutToBeClosed();
+    }
+    virtual KXMLGUIClient* guiClient() = 0;
 
     //interface for LokalizeMainWindow
-    virtual void hideDocks()=0;
-    virtual void showDocks()=0;
+    virtual void hideDocks() = 0;
+    virtual void showDocks() = 0;
     //bool queryClose();
 
-    virtual QString currentFilePath(){return QString();}
+    virtual QString currentFilePath()
+    {
+        return QString();
+    }
 
 protected:
     void reflectNonApprovedCount(int count, int total);
@@ -71,10 +77,13 @@ public:
 class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
-    LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent),KXMLGUIClient(){}
-    virtual ~LokalizeSubwindowBase2(){}
+    LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent), KXMLGUIClient() {}
+    virtual ~LokalizeSubwindowBase2() {}
 
-    KXMLGUIClient* guiClient(){return (KXMLGUIClient*)this;}
+    KXMLGUIClient* guiClient()
+    {
+        return (KXMLGUIClient*)this;
+    }
 };
 #else
 #include <QApplication>
@@ -86,10 +95,10 @@ public:
 #include "kmainwindow.h"
 namespace KStandardAction
 {
-  /**
-   * The standard menubar and toolbar actions.
-   */
-  enum StandardAction {
+/**
+ * The standard menubar and toolbar actions.
+ */
+enum StandardAction {
     ActionNone,
 
     // File Menu
@@ -129,16 +138,25 @@ namespace KStandardAction
     Clear,
     PasteText,
     SwitchApplicationLanguage
-  };
+};
 };
 class KActionCategory;
 class KActionCollection
 {
 public:
     KActionCollection(QMainWindow* w);
-    ~KActionCollection(){qDeleteAll(categories);}
-    static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
-    static void setDefaultShortcuts(QAction* a, const QList<QKeySequence>& l){a->setShortcuts(l);}
+    ~KActionCollection()
+    {
+        qDeleteAll(categories);
+    }
+    static void setDefaultShortcut(QAction* a, const QKeySequence& s)
+    {
+        a->setShortcut(s);
+    }
+    static void setDefaultShortcuts(QAction* a, const QList<QKeySequence>& l)
+    {
+        a->setShortcuts(l);
+    }
 
     QAction* addAction(const QString& name, QAction* a);
 
@@ -157,20 +175,38 @@ public:
 class KActionCategory
 {
 public:
-    KActionCategory(const QString&, KActionCollection* c_):c(c_){c->categories.append(this);}
-    QAction* addAction( const char* name, QAction* a){return c->addAction(name, a);}
-    QAction* addAction( const QString& name, QAction* a){return c->addAction(name, a);}
-    QAction* addAction( const QLatin1String& name, QAction* a){return c->addAction(name, a);}
-    QAction* addAction( const QString& name){return c->addAction(name, new QAction(name, c->m_mainWindow));}
-    QAction* addAction( const QString& name, QObject* rcv, const char* slot)
+    KActionCategory(const QString&, KActionCollection* c_): c(c_)
     {
-        QAction* a=new QAction(name, rcv);
+        c->categories.append(this);
+    }
+    QAction* addAction(const char* name, QAction* a)
+    {
+        return c->addAction(name, a);
+    }
+    QAction* addAction(const QString& name, QAction* a)
+    {
+        return c->addAction(name, a);
+    }
+    QAction* addAction(const QLatin1String& name, QAction* a)
+    {
+        return c->addAction(name, a);
+    }
+    QAction* addAction(const QString& name)
+    {
+        return c->addAction(name, new QAction(name, c->m_mainWindow));
+    }
+    QAction* addAction(const QString& name, QObject* rcv, const char* slot)
+    {
+        QAction* a = new QAction(name, rcv);
         QObject::connect(a, &QAction::triggered, rcv, slot);
         return c->addAction(name, a);
     }
     QAction* addAction(KStandardAction::StandardAction, QObject* rcv, const char* slot);
 
-    static void setDefaultShortcut(QAction* a, const QKeySequence& s){a->setShortcut(s);}
+    static void setDefaultShortcut(QAction* a, const QKeySequence& s)
+    {
+        a->setShortcut(s);
+    }
 
     KActionCollection* c;
 };
@@ -181,16 +217,22 @@ public:
     LokalizeSubwindowBase2(QWidget* parent): KMainWindow(parent), c(new KActionCollection(this))
     {
     }
-    virtual ~LokalizeSubwindowBase2(){delete c;}
-    
-    void setXMLFile(const char*, bool f=false){}
-    void setXMLFile(const QString&, bool f=false){}
-    KActionCollection* actionCollection() const{return c;}
+    virtual ~LokalizeSubwindowBase2()
+    {
+        delete c;
+    }
+
+    void setXMLFile(const char*, bool f = false) {}
+    void setXMLFile(const QString&, bool f = false) {}
+    KActionCollection* actionCollection() const
+    {
+        return c;
+    }
 
     StatusBarProxy statusBarItems;
 protected:
-    void reflectNonApprovedCount(int count, int total){}
-    void reflectUntranslatedCount(int count, int total){}
+    void reflectNonApprovedCount(int count, int total) {}
+    void reflectUntranslatedCount(int count, int total) {}
     KActionCollection* c;
 };
 #endif

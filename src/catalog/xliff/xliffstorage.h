@@ -39,7 +39,7 @@ public:
     int capabilities() const;
 
     int load(QIODevice* device);
-    bool save(QIODevice* device, bool belongsToProject=false);
+    bool save(QIODevice* device, bool belongsToProject = false);
 
     int size() const;
     bool isEmpty() const;
@@ -52,8 +52,14 @@ public:
     CatalogString catalogString(const DocPosition& pos) const;
 
     /// all plural forms. pos.form doesn't matter TODO
-    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();}
-    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines=false) const{Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();}
+    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines = false) const
+    {
+        Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();
+    }
+    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines = false) const
+    {
+        Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();
+    }
 
     void targetDelete(const DocPosition& pos, int count);
     void targetInsert(const DocPosition& pos, const QString& arg);
@@ -63,7 +69,7 @@ public:
     Phase updatePhase(const Phase& phase);
     QList<Phase> allPhases() const;
     Phase phase(const QString& name) const;
-    QMap<QString,Tool> allTools() const;
+    QMap<QString, Tool> allTools() const;
     QVector<Note> phaseNotes(const QString& phase) const;
     QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes);
 
@@ -97,9 +103,18 @@ public:
     int binUnitsCount() const;
     int unitById(const QString& id) const;
 
-    QString mimetype()const{return QStringLiteral("application/x-xliff");}
-    QString fileType()const{return QStringLiteral("XLIFF (*.xliff *.xlf)");}
-    CatalogType type()const{return Xliff;}
+    QString mimetype()const
+    {
+        return QStringLiteral("application/x-xliff");
+    }
+    QString fileType()const
+    {
+        return QStringLiteral("XLIFF (*.xliff *.xlf)");
+    }
+    CatalogType type()const
+    {
+        return Xliff;
+    }
     QString originalOdfFilePath();
     void setOriginalOdfFilePath(const QString&);
 
@@ -118,7 +133,7 @@ private:
 
     QDomNodeList entries;
     QDomNodeList binEntries;
-    QMap<QString,int> m_unitsById;
+    QMap<QString, int> m_unitsById;
 
 };
 

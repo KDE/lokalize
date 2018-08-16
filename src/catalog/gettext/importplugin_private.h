@@ -2,8 +2,8 @@
   This file is part of Lokalize
   This file contains parts of KBabel code
 
-  Copyright (C) 2002-2003 	by Stanislav Visnovsky
-                        	    <visnovsky@kde.org>
+  Copyright (C) 2002-2003   by Stanislav Visnovsky
+                                <visnovsky@kde.org>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -41,7 +41,8 @@
 #include <QTextCodec>
 
 class QTextCodec;
-namespace GettextCatalog {
+namespace GettextCatalog
+{
 class GettextStorage;
 
 class CatalogImportPluginPrivate

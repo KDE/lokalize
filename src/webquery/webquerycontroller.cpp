@@ -1,7 +1,7 @@
 /*****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007      by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -54,9 +54,8 @@ WebQueryController::WebQueryController(const QString& name, QObject* parent)
 void WebQueryController::query(const CatalogData& data)
 {
     m_queue.enqueue(data);
-    if(!m_running)
-    {
-        m_running=true;
+    if (!m_running) {
+        m_running = true;
         emit doQuery();
     }
 }
@@ -89,20 +88,19 @@ void WebQueryController::doDownloadAndFilter(QString urlStr, QString _codec, QSt
     QUrl url;
     url.setUrl(urlStr);
 
-    qCWarning(LOKALIZE_LOG)<<"_real url: "<<url.toString();
+    qCWarning(LOKALIZE_LOG) << "_real url: " << url.toString();
     KIO::StoredTransferJob* readJob = KIO::storedGet(url, KIO::NoReload, KIO::HideProgressInfo);
     connect(readJob, &KIO::StoredTransferJob::result, this, &WebQueryController::slotDownloadResult);
     readJob->setAutoDelete(false);//HACK HACK HACK
 
-    codec=QTextCodec::codecForName(_codec.toUtf8());
-    filter=QRegExp(rx);
+    codec = QTextCodec::codecForName(_codec.toUtf8());
+    filter = QRegExp(rx);
 }
 
 void WebQueryController::slotDownloadResult(KJob* job)
 {
-    m_running=false;
-    if ( job->error() )
-    {
+    m_running = false;
+    if (job->error()) {
         m_queue.dequeue();
         delete job;
         return;
@@ -110,12 +108,10 @@ void WebQueryController::slotDownloadResult(KJob* job)
 
     QTextStream stream(static_cast<KIO::StoredTransferJob*>(job)->data());
     stream.setCodec(codec);
-    if (filter.indexIn(stream.readAll())!=-1)
-    {
+    if (filter.indexIn(stream.readAll()) != -1) {
         emit postProcess(filter.cap(1));
         //qCWarning(LOKALIZE_LOG)<<result;
-    }
-    else
+    } else
         m_queue.dequeue();
 
     delete job;
@@ -125,14 +121,13 @@ void WebQueryController::slotDownloadResult(KJob* job)
 void WebQueryController::setResult(QString result)
 {
     //webQueryView may be deleted before we get result...
-    WebQueryView* a=m_queue.dequeue().webQueryView;
-    connect (this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
-    emit addWebQueryResult(m_name,result);
-    disconnect (this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
+    WebQueryView* a = m_queue.dequeue().webQueryView;
+    connect(this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
+    emit addWebQueryResult(m_name, result);
+    disconnect(this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
 
-    if(!m_queue.isEmpty())
-    {
-        m_running=true;
+    if (!m_queue.isEmpty()) {
+        m_running = true;
         emit doQuery();
     }
 

@@ -40,7 +40,8 @@
 #include <QTextCodec>
 #include <QTextStream>
 
-namespace GettextCatalog {
+namespace GettextCatalog
+{
 class GettextStorage;
 
 
@@ -53,7 +54,7 @@ class GettextStorage;
 class GettextExportPlugin
 {
 public:
-    GettextExportPlugin(short wrapWidth=-1, short trailingNewLines=1);
+    GettextExportPlugin(short wrapWidth = -1, short trailingNewLines = 1);
     ConversionStatus save(QIODevice* device,
                           const GettextStorage* catalog,
                           QTextCodec* codec);
@@ -62,13 +63,13 @@ private:
     /**
      * Write a PO comment to @p stream and take care that each comment lines start with a # character
      */
-    void writeComment( QTextStream& stream, const QString& comment ) const;
+    void writeComment(QTextStream& stream, const QString& comment) const;
 
     /**
      * Write a PO keyword (msgctxt, msgid, msgstr, msgstr_plural, msgstr[0]) and the corresponding text.
      * This includes wrapping the text.
      */
-    void writeKeyword( QTextStream& stream, const QString& keyword, QString text, bool containsHtml=true, bool startedWithEmptyLine=false ) const;
+    void writeKeyword(QTextStream& stream, const QString& keyword, QString text, bool containsHtml = true, bool startedWithEmptyLine = false) const;
 
 public:
     /**

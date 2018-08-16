@@ -49,11 +49,11 @@ QMutex regExMutex;
 using namespace GettextCatalog;
 
 GettextStorage::GettextStorage()
- : CatalogStorage()
- , m_codec(0)
- , m_maxLineLength(80)
- , m_trailingNewLines(0)
- , m_generatedFromDocbook(false)
+    : CatalogStorage()
+    , m_codec(0)
+    , m_maxLineLength(80)
+    , m_trailingNewLines(0)
+    , m_generatedFromDocbook(false)
 {
 }
 
@@ -72,22 +72,20 @@ int GettextStorage::load(QIODevice* device/*, bool readonly*/)
     int errorLine;
     {
         QMutexLocker locker(&regExMutex);
-        status = importer.open(device,this,&errorLine);
+        status = importer.open(device, this, &errorLine);
     }
 
     //for langs with more than 2 forms
     //we create any form-entries additionally needed
-    uint i=0;
-    uint lim=size();
-    while (i<lim)
-    {
-        CatalogItem& item=m_entries[i];
+    uint i = 0;
+    uint lim = size();
+    while (i < lim) {
+        CatalogItem& item = m_entries[i];
         if (item.isPlural()
-            && item.msgstrPlural().count()<m_numberOfPluralForms
-           )
-        {
+            && item.msgstrPlural().count() < m_numberOfPluralForms
+           ) {
             QVector<QString> msgstr(item.msgstrPlural());
-            while (msgstr.count()<m_numberOfPluralForms)
+            while (msgstr.count() < m_numberOfPluralForms)
                 msgstr.append(QString());
             item.setMsgstr(msgstr);
         }
@@ -96,25 +94,25 @@ int GettextStorage::load(QIODevice* device/*, bool readonly*/)
     }
     //qCompress(m_storage->m_catalogExtraData.join("\n\n").toUtf8(),9);
 
-    return status==OK?0:(errorLine+1);
+    return status == OK ? 0 : (errorLine + 1);
 }
 
 bool GettextStorage::save(QIODevice* device, bool belongsToProject)
 {
-    QString header=m_header.msgstr();
-    QString comment=m_header.comment();
+    QString header = m_header.msgstr();
+    QString comment = m_header.comment();
     QString catalogProjectId;//=m_url.fileName();
     //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
     {
         QMutexLocker locker(&regExMutex);
         updateHeader(header, comment,
-                 m_targetLangCode,
-                 m_numberOfPluralForms,
-                 catalogProjectId,
-                 m_generatedFromDocbook,
-                 belongsToProject,
-                 /*forSaving*/true,
-                 m_codec);
+                     m_targetLangCode,
+                     m_numberOfPluralForms,
+                     catalogProjectId,
+                     m_generatedFromDocbook,
+                     belongsToProject,
+                     /*forSaving*/true,
+                     m_codec);
     }
     m_header.setMsgstr(header);
     m_header.setComment(comment);
@@ -123,9 +121,9 @@ bool GettextStorage::save(QIODevice* device, bool belongsToProject)
     GettextExportPlugin exporter(Project::instance()->wordWrap(), m_trailingNewLines);
 
     ConversionStatus status = OK;
-    status = exporter.save(device/*x-gettext-translation*/,this, m_codec);
+    status = exporter.save(device/*x-gettext-translation*/, this, m_codec);
 
-    return status==OK;
+    return status == OK;
 }
 
 //END OPEN/SAVE
@@ -142,20 +140,19 @@ static const QChar altSep(156);
 static InlineTag makeInlineTag(int i)
 {
     static const QString altSepText(QStringLiteral(" | "));
-    static const QString ctype=i18n("separator for different-length string alternatives");
-    return InlineTag(i,i,InlineTag::x,QString::number(i),QString(),altSepText,ctype);
+    static const QString ctype = i18n("separator for different-length string alternatives");
+    return InlineTag(i, i, InlineTag::x, QString::number(i), QString(), altSepText, ctype);
 }
 
 static CatalogString makeCatalogString(const QString& string)
 {
     CatalogString result;
-    result.string=string;
+    result.string = string;
 
-    int i=0;
+    int i = 0;
 
-    while((i=result.string.indexOf(altSep, i))!=-1)
-    {
-        result.string[i]=TAGRANGE_IMAGE_SYMBOL;
+    while ((i = result.string.indexOf(altSep, i)) != -1) {
+        result.string[i] = TAGRANGE_IMAGE_SYMBOL;
         result.tags.append(makeInlineTag(i));
         ++i;
     }
@@ -191,19 +188,19 @@ void GettextStorage::targetInsert(const DocPosition& pos, const QString& arg)
 }
 void GettextStorage::setTarget(const DocPosition& pos, const QString& arg)
 {
-    m_entries[pos.entry].d._msgstrPlural[pos.form]=arg;
+    m_entries[pos.entry].d._msgstrPlural[pos.form] = arg;
 }
 
 
 void GettextStorage::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
 {
     Q_UNUSED(tag);
-    targetInsert(pos,altSep);
+    targetInsert(pos, altSep);
 }
 
 InlineTag GettextStorage::targetDeleteTag(const DocPosition& pos)
 {
-    targetDelete(pos,1);
+    targetDelete(pos, 1);
     return makeInlineTag(pos.offset);
 }
 
@@ -220,38 +217,36 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNew
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
     static const QRegExp alt_trans_mark_re(QStringLiteral("^#\\|"));
-    QStringList prev=m_entries.at(pos.entry).comment().split('\n').filter(alt_trans_mark_re);
+    QStringList prev = m_entries.at(pos.entry).comment().split('\n').filter(alt_trans_mark_re);
 
     QString oldSingular;
     QString oldPlural;
 
-    QString* cur=&oldSingular;
-    QStringList::iterator it=prev.begin();
-    static const QString msgid_plural_alt=QStringLiteral("#| msgid_plural \"");
-    while (it!=prev.end())
-    {
+    QString* cur = &oldSingular;
+    QStringList::iterator it = prev.begin();
+    static const QString msgid_plural_alt = QStringLiteral("#| msgid_plural \"");
+    while (it != prev.end()) {
         if (it->startsWith(msgid_plural_alt))
-            cur=&oldPlural;
+            cur = &oldPlural;
 
-        int start=it->indexOf('\"')+1;
-        int end=it->lastIndexOf('\"');
-        if (start&&end!=-1)
-        {
+        int start = it->indexOf('\"') + 1;
+        int end = it->lastIndexOf('\"');
+        if (start && end != -1) {
             if (!cur->isEmpty())
-                (*cur)+='\n';
-            if (!(  cur->isEmpty() && (end-start)==0 ))//for multiline msgs
-                (*cur)+=it->midRef(start,end-start);
+                (*cur) += '\n';
+            if (!(cur->isEmpty() && (end - start) == 0)) //for multiline msgs
+                (*cur) += it->midRef(start, end - start);
         }
         ++it;
     }
-    if (pos.form==0)
-        cur=&oldSingular;
+    if (pos.form == 0)
+        cur = &oldSingular;
 
-    cur->replace(QStringLiteral("\\\""),QStringLiteral("\""));
+    cur->replace(QStringLiteral("\\\""), QStringLiteral("\""));
 
     QVector<AltTrans> result;
     if (!cur->isEmpty())
-        result<<AltTrans(CatalogString(*cur), i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
+        result << AltTrans(CatalogString(*cur), i18n("Previous source value, saved by Gettext during transition to a newer POT template"));
 
     return result;
 }
@@ -260,21 +255,20 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
 {
     //qCWarning(LOKALIZE_LOG)<<"s"<<m_entries.at(pos.entry).comment();
     Note oldNote;
-    QVector<Note> l=notes(pos);
-    if (l.size()) oldNote=l.first();
+    QVector<Note> l = notes(pos);
+    if (l.size()) oldNote = l.first();
 
-    QStringList comment=m_entries.at(pos.entry).comment().split('\n');
+    QStringList comment = m_entries.at(pos.entry).comment().split('\n');
     //remove previous comment;
-    QStringList::iterator it=comment.begin();
-    while (it!=comment.end())
-    {
+    QStringList::iterator it = comment.begin();
+    while (it != comment.end()) {
         if (it->startsWith(QLatin1String("# ")))
-            it=comment.erase(it);
+            it = comment.erase(it);
         else
             ++it;
     }
     if (note.content.size())
-        comment.prepend(QStringLiteral("# ")+note.content.split('\n').join(QStringLiteral("\n# ")));
+        comment.prepend(QStringLiteral("# ") + note.content.split('\n').join(QStringLiteral("\n# ")));
     m_entries[pos.entry].setComment(comment.join(QStringLiteral("\n")));
 
     //qCWarning(LOKALIZE_LOG)<<"e"<<m_entries.at(pos.entry).comment();
@@ -286,21 +280,18 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     QVector<Note> result;
     QString content;
 
-    QStringList note=m_entries.at(docPosition.entry).comment().split('\n').filter(re);
+    QStringList note = m_entries.at(docPosition.entry).comment().split('\n').filter(re);
 
-    foreach(const QString &s, note)
-    {
-        if (s.size()>=preLen)
-        {
-            content+=s.midRef(preLen);
-            content+=QLatin1Char('\n');
+    foreach (const QString &s, note) {
+        if (s.size() >= preLen) {
+            content += s.midRef(preLen);
+            content += QLatin1Char('\n');
         }
     }
 
-    if (!content.isEmpty())
-    {
+    if (!content.isEmpty()) {
         content.chop(1);
-        result<<Note(content);
+        result << Note(content);
     }
     return result;
 
@@ -311,36 +302,32 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
 QVector<Note> GettextStorage::notes(const DocPosition& docPosition) const
 {
     static const QRegExp nre(QStringLiteral("^# "));
-    return notes(docPosition,nre,2);
+    return notes(docPosition, nre, 2);
 }
 
 QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) const
 {
     static const QRegExp dnre(QStringLiteral("^#\\. (?!i18n: file:)"));
-    return notes(docPosition,dnre,3);
+    return notes(docPosition, dnre, 3);
 }
 
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
 {
     QStringList result;
-    QStringList commentLines=m_entries.at(pos.entry).comment().split('\n');
+    QStringList commentLines = m_entries.at(pos.entry).comment().split('\n');
 
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
-    foreach(const QString &uiLine, commentLines.filter(i18n_file_re))
-    {
-        foreach(const QStringRef &fileRef, uiLine.midRef(15).split(' '))
-        {
+    foreach (const QString &uiLine, commentLines.filter(i18n_file_re)) {
+        foreach (const QStringRef &fileRef, uiLine.midRef(15).split(' ')) {
             result << fileRef.toString();
         }
     }
 
-    bool hasUi=!result.isEmpty();
+    bool hasUi = !result.isEmpty();
     static const QRegExp cpp_re(QStringLiteral("^#: "));
-    foreach(const QString &cppLine, commentLines.filter(cpp_re))
-    {
+    foreach (const QString &cppLine, commentLines.filter(cpp_re)) {
         if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
-        foreach(const QStringRef &fileRef, cppLine.midRef(3).split(' '))
-        {
+        foreach (const QStringRef &fileRef, cppLine.midRef(3).split(' ')) {
             result << fileRef.toString();
         }
     }
@@ -354,16 +341,16 @@ QStringList GettextStorage::context(const DocPosition& pos) const
 
 QStringList GettextStorage::matchData(const DocPosition& pos) const
 {
-    QString ctxt=m_entries.at(pos.entry).msgctxt();
+    QString ctxt = m_entries.at(pos.entry).msgctxt();
 
     //KDE-specific
     //Splits @info:whatsthis and actual note
-/*    if (ctxt.startsWith('@') && ctxt.contains(' '))
-    {
-        QStringList result(ctxt.section(' ',0,0,QString::SectionSkipEmpty));
-        result<<ctxt.section(' ',1,-1,QString::SectionSkipEmpty);
-        return result;
-    }*/
+    /*    if (ctxt.startsWith('@') && ctxt.contains(' '))
+        {
+            QStringList result(ctxt.section(' ',0,0,QString::SectionSkipEmpty));
+            result<<ctxt.section(' ',1,-1,QString::SectionSkipEmpty);
+            return result;
+        }*/
     return QStringList(ctxt);
 }
 
@@ -372,13 +359,13 @@ QString GettextStorage::id(const DocPosition& pos) const
     //entries in gettext format may be non-unique
     //only if their msgctxts are different
 
-    QString result=source(pos);
+    QString result = source(pos);
     result.remove('\n');
-    result.prepend(m_entries.at(pos.entry).msgctxt()+":\n");
+    result.prepend(m_entries.at(pos.entry).msgctxt() + ":\n");
     return result;
-/*    QByteArray result=source(pos).toUtf8();
-    result+=m_entries.at(pos.entry).msgctxt().toUtf8();
-    return QString qChecksum(result);*/
+    /*    QByteArray result=source(pos).toUtf8();
+        result+=m_entries.at(pos.entry).msgctxt().toUtf8();
+        return QString qChecksum(result);*/
 }
 
 bool GettextStorage::isPlural(const DocPosition& pos) const
@@ -411,37 +398,36 @@ bool GettextStorage::isEmpty(const DocPosition& pos) const
 //called from importer
 bool GettextStorage::setHeader(const CatalogItem& newHeader)
 {
-   if(newHeader.isValid())
-   {
-      // normalize the values - ensure every key:value pair is only on a single line
-      QString values = newHeader.msgstr();
-      values.replace (QStringLiteral("\\n"), QStringLiteral("\\n\n"));
+    if (newHeader.isValid()) {
+        // normalize the values - ensure every key:value pair is only on a single line
+        QString values = newHeader.msgstr();
+        values.replace(QStringLiteral("\\n"), QStringLiteral("\\n\n"));
 //       qCDebug(LOKALIZE_LOG) << "Normalized header: " << values;
-      QString comment=newHeader.comment();
-      QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
-      //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
-      bool belongsToProject=m_url.contains(Project::instance()->poDir());
+        QString comment = newHeader.comment();
+        QString catalogProjectId;//=m_url.fileName(); FIXME m_url is always empty
+        //catalogProjectId=catalogProjectId.left(catalogProjectId.lastIndexOf('.'));
+        bool belongsToProject = m_url.contains(Project::instance()->poDir());
 
-      updateHeader(values,
-                   comment,
-                   m_targetLangCode,
-                   m_numberOfPluralForms,
-                   catalogProjectId,
-                   m_generatedFromDocbook,
-                   belongsToProject,
-                   /*forSaving*/true,
-                   m_codec);
-      m_header=newHeader;
-      m_header.setComment(comment);
-      m_header.setMsgstr(values);
+        updateHeader(values,
+                     comment,
+                     m_targetLangCode,
+                     m_numberOfPluralForms,
+                     catalogProjectId,
+                     m_generatedFromDocbook,
+                     belongsToProject,
+                     /*forSaving*/true,
+                     m_codec);
+        m_header = newHeader;
+        m_header.setComment(comment);
+        m_header.setMsgstr(values);
 
 //       setClean(false);
-      //emit signalHeaderChanged();
+        //emit signalHeaderChanged();
 
-      return true;
-   }
-   qCWarning(LOKALIZE_LOG) << "header Not valid";
-   return false;
+        return true;
+    }
+    qCWarning(LOKALIZE_LOG) << "header Not valid";
+    return false;
 }
 
 

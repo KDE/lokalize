@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -34,26 +34,26 @@
 
 const char* const* processes()
 {
-    static const char* const processes[]={"translation","review","approval"};
+    static const char* const processes[] = {"translation", "review", "approval"};
     return processes;
 }
 
 //guess role
 ProjectLocal::PersonRole roleForProcess(const QString& process)
 {
-    int i=ProjectLocal::Undefined;
-    while (i>=0 && !process.startsWith(processes()[--i]))
+    int i = ProjectLocal::Undefined;
+    while (i >= 0 && !process.startsWith(processes()[--i]))
         ;
-    return (i==-1)?Project::local()->role():ProjectLocal::PersonRole(i);
+    return (i == -1) ? Project::local()->role() : ProjectLocal::PersonRole(i);
 }
 
 void generatePhaseForCatalogIfNeeded(Catalog* catalog)
 {
-    if (Q_LIKELY( !(catalog->capabilities()&Phases) || catalog->activePhaseRole()==ProjectLocal::Undefined ))
+    if (Q_LIKELY(!(catalog->capabilities()&Phases) || catalog->activePhaseRole() == ProjectLocal::Undefined))
         return;
 
     Phase phase;
-    phase.process=processes()[Project::local()->role()];
+    phase.process = processes()[Project::local()->role()];
 
     if (initPhaseForCatalog(catalog, phase))
         static_cast<QUndoStack*>(catalog)->push(new UpdatePhaseCmd(catalog, phase));
@@ -65,28 +65,25 @@ bool initPhaseForCatalog(Catalog* catalog, Phase& phase, int options)
 {
     askAuthorInfoIfEmpty();
 
-    phase.contact=Settings::authorName();
+    phase.contact = Settings::authorName();
 
     QSet<QString> names;
-    QList<Phase> phases=catalog->allPhases();
+    QList<Phase> phases = catalog->allPhases();
     qSort(phases.begin(), phases.end(), qGreater<Phase>());
-    foreach (const Phase& p, phases)
-    {
-        if (!(options&ForceAdd) && p.contact==phase.contact && p.process==phase.process)
-        {
-            phase=p;
+    foreach (const Phase& p, phases) {
+        if (!(options & ForceAdd) && p.contact == phase.contact && p.process == phase.process) {
+            phase = p;
             break;
         }
         names.insert(p.name);
     }
 
-    if (phase.name.isEmpty())
-    {
-        int i=0;
-        while (names.contains(phase.name=phase.process+QStringLiteral("-%1").arg(++i)))
+    if (phase.name.isEmpty()) {
+        int i = 0;
+        while (names.contains(phase.name = phase.process + QStringLiteral("-%1").arg(++i)))
             ;
-        phase.date=QDate::currentDate();
-        phase.email=Settings::authorEmail();
+        phase.date = QDate::currentDate();
+        phase.email = Settings::authorEmail();
         return true;
     }
     return false;

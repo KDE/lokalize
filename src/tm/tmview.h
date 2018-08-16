@@ -8,7 +8,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -38,7 +38,8 @@ class QDropEvent;
 class QDragEnterEvent;
 
 #define TM_SHORTCUTS 10
-namespace TM {
+namespace TM
+{
 class TextBrowser;
 class SelectJob;
 
@@ -46,13 +47,16 @@ class TMView: public QDockWidget
 {
     Q_OBJECT
 public:
-    TMView(QWidget*,Catalog*,const QVector<QAction*>&);
+    TMView(QWidget*, Catalog*, const QVector<QAction*>&);
     ~TMView();
 
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent*);
 
-    QSize sizeHint() const{return QSize(300,100);}
+    QSize sizeHint() const
+    {
+        return QSize(300, 100);
+    }
 signals:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();
@@ -111,7 +115,7 @@ class TextBrowser: public QTextBrowser
 {
     Q_OBJECT
 public:
-    TextBrowser(QWidget* parent):QTextBrowser(parent)
+    TextBrowser(QWidget* parent): QTextBrowser(parent)
     {
         setContextMenuPolicy(Qt::CustomContextMenu);
     }

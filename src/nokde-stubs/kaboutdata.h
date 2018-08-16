@@ -4,10 +4,9 @@
 
 namespace KAboutLicense
 {
-    enum L {GPL};
+enum L {GPL};
 };
-struct Credit
-{
+struct Credit {
     QString name, what, mail, site;
 };
 class KAboutData: public QObject
@@ -16,7 +15,7 @@ class KAboutData: public QObject
 public:
     KAboutData(const QString&, const QString& n, const QString& v, const QString& d, KAboutLicense::L, const QString& c);
     void addAuthor(const QString& name, const QString&, const QString& mail);
-    void addCredit(const QString& who, const QString& forwhat, const QString& mail, const QString& site=QString());
+    void addCredit(const QString& who, const QString& forwhat, const QString& mail, const QString& site = QString());
 
     static KAboutData* instance;
 public slots:

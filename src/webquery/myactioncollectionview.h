@@ -1,7 +1,7 @@
 /*****************************************************************************
   This file is part of KAider
 
-  Copyright (C) 2007	  by Nick Shaforostoff <shafff@ukr.net>
+  Copyright (C) 2007      by Nick Shaforostoff <shafff@ukr.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -46,12 +46,15 @@ class MyActionCollectionView : public Kross::ActionCollectionView
 {
     Q_OBJECT
 public:
-    MyActionCollectionView(QWidget *parent=0);
+    MyActionCollectionView(QWidget *parent = 0);
     ~MyActionCollectionView();
 
 public slots:
     void triggerSelectedActions();
-    void reset(){Kross::ActionCollectionView::reset();/*selectAll();*/}
+    void reset()
+    {
+        Kross::ActionCollectionView::reset();/*selectAll();*/
+    }
 
 signals:
     void query(const CatalogData& data);

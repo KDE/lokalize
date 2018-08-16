@@ -48,19 +48,17 @@ FlowLayout::FlowLayout(User user,
                        const QVector<QAction*>& actions,
                        int margin,
                        int spacing)
-        : QLayout()
-        , m_index(0)
-        , m_receiver(signalingWidget)
+    : QLayout()
+    , m_index(0)
+    , m_receiver(signalingWidget)
 {
     setSizeConstraint(QLayout::SetMinAndMaxSize);
     setMargin(margin);
     setSpacing(spacing);
 
-    if (user==glossary)
-    {
-        foreach (QAction* action, actions)
-        {
-            TermLabel* label=new TermLabel(action); /*this,m_keys.at(count())*/
+    if (user == glossary) {
+        foreach (QAction* action, actions) {
+            TermLabel* label = new TermLabel(action); /*this,m_keys.at(count())*/
             connect(action, &QAction::triggered, label, &GlossaryNS::TermLabel::insert);
             connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
             label->hide();
@@ -86,7 +84,7 @@ FlowLayout::FlowLayout(User user,
 //                 m_keys.append((Qt::Key)i);
 //             }
 //         }
-// 
+//
 //     }
 
 }
@@ -112,10 +110,22 @@ QLayoutItem *FlowLayout::itemAt(int index) const
     return itemList.value(index);
 }
 
-void FlowLayout::addItem(QLayoutItem *item) {itemList.append(item);}
-int FlowLayout::count() const {return itemList.size();}
-Qt::Orientations FlowLayout::expandingDirections() const {return 0;}
-bool FlowLayout::hasHeightForWidth() const {return true;}
+void FlowLayout::addItem(QLayoutItem *item)
+{
+    itemList.append(item);
+}
+int FlowLayout::count() const
+{
+    return itemList.size();
+}
+Qt::Orientations FlowLayout::expandingDirections() const
+{
+    return 0;
+}
+bool FlowLayout::hasHeightForWidth() const
+{
+    return true;
+}
 
 int FlowLayout::heightForWidth(int width) const
 {
@@ -140,7 +150,7 @@ QSize FlowLayout::minimumSize() const
     foreach (QLayoutItem* item, itemList)
         size = size.expandedTo(item->minimumSize());
 
-    size += QSize(2*margin(), 2*margin());
+    size += QSize(2 * margin(), 2 * margin());
     return size;
 }
 
@@ -150,11 +160,9 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int y = rect.y();
     int lineHeight = 0;
 
-    foreach (QLayoutItem* item, itemList)
-    {
+    foreach (QLayoutItem* item, itemList) {
         int nextX = x + item->sizeHint().width() + spacing();
-        if (nextX - spacing() > rect.right() && lineHeight > 0)
-        {
+        if (nextX - spacing() > rect.right() && lineHeight > 0) {
             x = rect.x();
             y = y + lineHeight + spacing();
             nextX = x + item->sizeHint().width() + spacing();
@@ -175,20 +183,19 @@ void FlowLayout::clearTerms()
     setEnabled(false);
     foreach (QLayoutItem* item, itemList)
         static_cast<TermLabel*>(item->widget())->hide();
-    m_index=0;
+    m_index = 0;
     setEnabled(true);
 }
 
 void FlowLayout::addTerm(const QString& term, const QByteArray& entryId, bool capFirst)
 {
     //fill layout with labels
-    while (m_index>=count())
-    {
-        TermLabel* label=new TermLabel;
+    while (m_index >= count()) {
+        TermLabel* label = new TermLabel;
         connect(label, &TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
         addWidget(label);
     }
-    TermLabel* label=static_cast<TermLabel*>(itemAt(m_index)->widget());
+    TermLabel* label = static_cast<TermLabel*>(itemAt(m_index)->widget());
     label->setText(term, entryId, capFirst);
     label->show();
     ++m_index;
