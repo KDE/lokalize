@@ -625,7 +625,7 @@ void TMTab::openFile()
             //File doesn't exist
             RemoveFileJob* job = new RemoveFileJob(filePath, ui_queryOptions->dbName->currentText());
             TM::threadPool()->start(job, REMOVEFILE);
-            KMessageBox::information(this, i18nc("@info", "The file %1 doesn't exist, it has been removed from the Translation Memory.", filePath));
+            KMessageBox::information(this, i18nc("@info", "The file %1 does not exist, it has been removed from the translation memory.", filePath));
             return performQuery();//We relaunch the query
         }
     }

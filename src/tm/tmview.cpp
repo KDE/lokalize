@@ -581,7 +581,7 @@ void TMView::deleteFile(const TMEntry& e, const bool showPopUp)
         connect(job, SIGNAL(done()), this, SLOT(slotNewEntryDisplayed()));
         TM::threadPool()->start(job, REMOVEFILE);
         if (showPopUp) {
-            KMessageBox::information(this, i18nc("@info", "The file %1 doesn't exist, it has been removed from the Translation Memory.", e.file));
+            KMessageBox::information(this, i18nc("@info", "The file %1 does not exist, it has been removed from the translation memory.", e.file));
         }
         return;
     }
