@@ -211,8 +211,14 @@ void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelInd
         //see bug 342959
         emit dataChanged(topLeft, bottomRight);
         enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
-    } else
+    } else if (topLeft.row() == bottomRight.row() && itemForIndex(topLeft).isDir()) {
+        //Something happened inside this folder, nothing to do on the folder itself
+    } else if (topLeft.row() != bottomRight.row() && itemForIndex(topLeft).isDir() && itemForIndex(bottomRight).isDir()) {
+        //Something happened between two folders, no need to reload them
+    } else {
+        qCWarning(LOKALIZE_LOG) << "Delayed reload triggered in po_dataChanged";
         m_delayedReloadTimer->start(1000);
+    }
 }
 
 void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelIndex& pot_bottomRight)
@@ -237,6 +243,7 @@ void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelI
 #else
     Q_UNUSED(pot_topLeft)
     Q_UNUSED(pot_bottomRight)
+    qCWarning(LOKALIZE_LOG) << "Delayed reload triggered in pot_dataChanged";
     m_delayedReloadTimer->start(1000);
 #endif
 }
@@ -290,7 +297,6 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
             }
         }
     }
-
     enqueueNodeForMetadataUpdate(node);
 }
 
@@ -359,7 +365,6 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
 
         endInsertRows();
     }
-
     enqueueNodeForMetadataUpdate(node);
     //FIXME if templates folder doesn't contain an equivalent of po folder then it's stats will be broken:
     // one way to fix this is to explicitly force scan of the files of the child folders of the 'node'
@@ -966,6 +971,7 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
 
 void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
 {
+    //qCWarning(LOKALIZE_LOG) << "Enqueued node for metadata Update : " << node->rowNumber;
     m_doneTimer->stop();
 
     if (m_dirsWaitingForMetadata.contains(node)) {
@@ -1016,8 +1022,11 @@ void ProjectModel::startNewMetadataJob()
 
     QModelIndex item = indexForNode(node);
 
-    for (int row = 0; row < node->rows.count(); row ++)
-        files.append(itemForIndex(index(row, 0, item)));
+    for (int row = 0; row < node->rows.count(); row ++) {
+        KFileItem fileItem = itemForIndex(index(row, 0, item));
+        if (fileItem.isFile())//Do not seek items that are not files
+            files.append(fileItem);
+    }
 
     m_activeJob = new UpdateStatsJob(files, this);
     connect(m_activeJob, &UpdateStatsJob::done, this, &ProjectModel::finishMetadataUpdate);
@@ -1097,25 +1106,32 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
 
 void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData>& data)
 {
-    int dataCount = data.count();
-    int rowsCount = node->rows.count();
+    const QModelIndex item = indexForNode(node);
+    const int dataCount = data.count();
+    int rowsCount = 0;
+    for (int row = 0; row < node->rows.count(); row++)
+        if (itemForIndex(index(row, 0, item)).isFile())
+            rowsCount++;
     //Q_ASSERT(dataCount == rowsCount);
     if (dataCount != rowsCount) {
         m_delayedReloadTimer->start(2000);
         qCWarning(LOKALIZE_LOG) << "dataCount != rowsCount, scheduling full refresh";
         return;
     }
-
-    for (int row = 0; row < rowsCount; row++)
-        node->rows[row]->setFileStats(data.at(row));
+    int dataId = 0;
+    for (int row = 0; row < node->rows.count(); row++) {
+        if (itemForIndex(index(row, 0, item)).isFile()) {
+            node->rows[row]->setFileStats(data.at(dataId));
+            dataId++;
+        }
+    }
     if (!dataCount)
         return;
 
     updateDirStats(node);
 
-    QModelIndex item = indexForNode(node);
-    QModelIndex topLeft = index(0, Graph, item);
-    QModelIndex bottomRight = index(rowsCount - 1, ProjectModelColumnCount - 1, item);
+    const QModelIndex topLeft = index(0, Graph, item);
+    const QModelIndex bottomRight = index(rowsCount - 1, ProjectModelColumnCount - 1, item);
     emit dataChanged(topLeft, bottomRight);
 }
 
