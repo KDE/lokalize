@@ -26,7 +26,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-08-14</date>
+<date>2018-08-27</date>
 <releaseinfo>2.0 (Applications 18.12)</releaseinfo>
 
 <abstract>
@@ -313,6 +313,11 @@ The TM engine indexes all entries, including non-ready and untranslated ones.
 This allows it to completely replace the Search-in-Files feature which required scanning every file in the project each time a search is done.
 </para>
 
+<note>
+    <para>The outdated TM entries will be deleted from the &lokalize; translation memory on rescan or clicking a missing entry if you check the <guilabel>Delete missing files from translation memory on Rescan or when clicking a missing entry</guilabel> item on the page <guilabel>Translation Memory</guilabel> of the configuration window which can be opened by choosing the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &lokalize;...</guimenuitem></menuchoice> main menu item.
+    </para>
+</note>
+
 <screenshot>
 <screeninfo>&lokalize; with translation memory search results for the current unit</screeninfo>
   <mediaobject>
@@ -397,10 +402,10 @@ they will automatically be replicated to the branch
 (of course, if it contains the same English string).
 </para>
 <para>
-For example, if you work on &kde; translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG</filename>
+For example, if you work on &kde; translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG</filename>
 and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>.
-Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kde4/YOUR_LANG/project.lokalize</filename> and
-set <filename class="directory">BranchDir=../../../branches/stable/l10n-kde4/YOUR_LANG</filename>, then work via this project,
+Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG/project.lokalize</filename> and
+set <filename class="directory">BranchDir=../../../branches/stable/l10n-kf5/YOUR_LANG</filename>, then work via this project,
 and commit changes in both trunk and branch folders.
 </para>
 </sect1>
@@ -442,20 +447,20 @@ They store previous original text so that translators could see what changes exa
 <title>Scripting &lokalize;</title>
 
 <para>
-&lokalize; is extensible using scripts in several interpreted languages, including Python and JavaScript.
+&lokalize; is extensible using scripts in several interpreted languages, including Python and &javascript;.
 Scripts are usually integrated into the &lokalize; UI as menu actions (to which you may assign a keyboard shortcut).
 The location and name of the menu entry for the script is defined in its accompanying .rc file.
 On each project open, &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
 <filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
 RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they both are tried (though they <emphasis>should</emphasis> be kept in a relative location if you want to share them with other people in your project).
-For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
+For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
 </para>
 <para>
 Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/lokalize/scripts/</filename>)
-and in the <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/">&kde; repository</ulink>.
-<ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including JavaScript-based <filename>check-gui.js</filename> that runs automatically on each file save
+and in the <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/">&kde; repository</ulink>.
+<ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/">Here</ulink> you can find more script examples, including &javascript;-based <filename>check-gui.js</filename> that runs automatically on each file save
 (this is achieved via special option in .rc file).
-If you're familiar with Python or JavaScript, the code should be self-explanatory.
+If you're familiar with Python or &javascript;, the code should be self-explanatory.
 </para>
 <para>
 Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</emphasis> may be used from scripts.
