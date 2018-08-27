@@ -131,10 +131,11 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             stream << "\n" << (*oit);
             while ((++oit) != _obsolete.constEnd())
                 stream << "\n\n" << (*oit);
+            stream << '\n';
         }
     }
 
-    int i = m_trailingNewLines + 1;
+    int i = m_trailingNewLines;
     while (--i >= 0)
         stream << '\n';
 
