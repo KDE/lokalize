@@ -58,7 +58,9 @@ ProjectModel::ProjectModel(QObject *parent)
     , m_rootNode(ProjectNode(NULL, -1, -1, -1))
     , m_dirIcon(QIcon::fromTheme(QStringLiteral("inode-directory")))
     , m_poIcon(QIcon::fromTheme(QStringLiteral("flag-blue")))
+    , m_poInvalidIcon(QIcon::fromTheme(QStringLiteral("flag-red")))
     , m_poComplIcon(QIcon::fromTheme(QStringLiteral("flag-green")))
+    , m_poEmptyIcon(QIcon::fromTheme(QStringLiteral("flag-yellow")))
     , m_potIcon(QIcon::fromTheme(QStringLiteral("flag-black")))
     , m_activeJob(NULL)
     , m_activeNode(NULL)
@@ -138,6 +140,7 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
         m_rootNode.fuzzy = -1;
         m_rootNode.fuzzy_reviewer = -1;
         m_rootNode.fuzzy_approver = -1;
+        m_rootNode.invalid_file = false;
 
         endRemoveRows();
     }
@@ -609,25 +612,26 @@ void ProjectModel::fetchMore(const QModelIndex & parent)
  *          left() top() width()
  *
  */
-QVariant ProjectModel::data(const QModelIndex& index, int role) const
+QVariant ProjectModel::data(const QModelIndex& index, const int role) const
 {
     if (!index.isValid())
         return QVariant();
 
     const ProjectModelColumns& column = (ProjectModelColumns)index.column();
-    ProjectNode* node = nodeForIndex(index);
-    QModelIndex internalIndex = poOrPotIndexForOuter(index);
+    const ProjectNode* node = nodeForIndex(index);
+    const QModelIndex internalIndex = poOrPotIndexForOuter(index);
 
     if (!internalIndex.isValid())
         return QVariant();
 
-    KFileItem item = itemForIndex(index);
-    bool isDir = item.isDir();
+    const KFileItem item = itemForIndex(index);
+    const bool isDir = item.isDir();
 
-    int translated = node->translatedAsPerRole();
-    int fuzzy = node->fuzzyAsPerRole();
-    int untranslated = node->untranslated;
-    bool hasStats = translated != -1;
+    const int translated = node->translatedAsPerRole();
+    const int fuzzy = node->fuzzyAsPerRole();
+    const int untranslated = node->untranslated;
+    const bool invalid_file = node->invalid_file;
+    const bool hasStats = translated != -1 || invalid_file;
 
     switch (role) {
     case Qt::TextAlignmentRole:
@@ -658,9 +662,14 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
         case FileName:
             if (isDir)
                 return m_dirIcon;
-            if (hasStats && fuzzy == 0 && untranslated == 0)
-                return m_poComplIcon;
-            else if (node->poRowNumber != -1)
+            if (invalid_file)
+                return m_poInvalidIcon;
+            else if (hasStats && fuzzy == 0 && untranslated == 0) {
+                if (translated == 0)
+                    return m_poEmptyIcon;
+                else
+                    return m_poComplIcon;
+            } else if (node->poRowNumber != -1)
                 return m_poIcon;
             else if (node->potRowNumber != -1)
                 return m_potIcon;
@@ -681,6 +690,8 @@ QVariant ProjectModel::data(const QModelIndex& index, int role) const
         return item.isFile() ? (node->poRowNumber == -1) : 0;
     case TransOnlyRole:
         return item.isFile() ? (node->potRowNumber == -1) : 0;
+    case DirectoryRole:
+        return isDir ? 1 : 0;
     case TotalRole:
         return hasStats ? (fuzzy + untranslated + translated) : 0;
     default:
@@ -1165,6 +1176,7 @@ ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _p
     , poRowNumber(_poIndex)
     , potRowNumber(_potIndex)
     , poCount(0)
+    , invalid_file(false)
     , translated(-1)
     , translated_reviewer(-1)
     , translated_approver(-1)
@@ -1193,7 +1205,7 @@ void ProjectModel::ProjectNode::calculateDirStats()
 
     for (int pos = 0; pos < rows.count(); pos++) {
         ProjectNode* child = rows.at(pos);
-        if (child->translated != -1) {
+        if (!child->invalid_file && child->translated != -1) {
             fuzzy += child->fuzzy;
             fuzzy_reviewer += child->fuzzy_reviewer;
             fuzzy_approver += child->fuzzy_approver;
@@ -1208,6 +1220,7 @@ void ProjectModel::ProjectNode::calculateDirStats()
 
 void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
 {
+    invalid_file = info.invalid_file;
     translated = info.translated;
     translated_reviewer = info.translated_reviewer;
     translated_approver = info.translated_approver;
@@ -1273,6 +1286,10 @@ static void initDataBase(QSqlDatabase& db)
 
 QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
 {
+    //Magic number
+    s << (quint32)0xABC42BCA;
+    //Version
+    s << (qint32)1;
     s << d.translated;
     s << d.translated_approver;
     s << d.translated_reviewer;
@@ -1283,11 +1300,24 @@ QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
     s << d.lastTranslator;
     s << d.translationDate;
     s << d.sourceDate;
+    s << d.invalid_file;
     return s;
 }
 QDataStream &operator>>(QDataStream &s, FileMetaData &d)
 {
-    s >> d.translated;
+    //Read the magic number
+    qint32 version = 0;
+    quint32 magic;
+    s >> magic;
+    if (magic == 0xABC42BCA) {
+        //This is a valid magic number, we can expect a version number
+        //Else it's the old format
+        s >> version;
+        s >> d.translated;
+    } else {
+        //Legacy format, the magic number was actually the translated count
+        d.translated = magic;
+    }
     s >> d.translated_approver;
     s >> d.translated_reviewer;
     s >> d.fuzzy;
@@ -1297,6 +1327,9 @@ QDataStream &operator>>(QDataStream &s, FileMetaData &d)
     s >> d.lastTranslator;
     s >> d.translationDate;
     s >> d.sourceDate;
+    if (version >= 1) {
+        s >> d.invalid_file;
+    }
     return s;
 }
 #endif
@@ -1333,7 +1366,6 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 
         FileMetaData info;
         stream >> info;
-
         Q_ASSERT(info.translated == metaData(file.localPath()).translated);
         return info;
     }
@@ -1350,7 +1382,7 @@ static FileMetaData cachedMetaData(const KFileItem& file)
                                  "VALUES (?, ?, ?)"));
     query.bindValue(0, qHash(file.localPath()));
     query.bindValue(1, result);
-    query.bindValue(2, file.time(KFileItem::ModificationTime));
+    query.bindValue(2, QFileInfo(file.localPath()).lastModified());
     if (Q_UNLIKELY(!query.exec()))
         qCWarning(LOKALIZE_LOG) << "metainfo cache acquiring error: " << query.lastError().text();
 

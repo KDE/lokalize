@@ -40,6 +40,7 @@ class QThreadPool;
 class UpdateStatsJob;
 
 struct FileMetaData {
+    bool invalid_file;
     int translated;
     int translated_reviewer;
     int translated_approver;
@@ -55,7 +56,7 @@ struct FileMetaData {
     QString filePath;
 
     FileMetaData()
-        : translated(0), translated_reviewer(0), translated_approver(0), untranslated(0)
+        : invalid_file(false), translated(0), translated_reviewer(0), translated_approver(0), untranslated(0)
         , fuzzy(0), fuzzy_reviewer(0), fuzzy_approver(0)
     {}
 };
@@ -120,6 +121,7 @@ class ProjectModel: public QAbstractItemModel
         short poCount; //number of items from PO in rows. The others will be form POT exclusively.
         QVector<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
 
+        bool invalid_file;
         int translated;
         int translated_reviewer;
         int translated_approver;
@@ -156,6 +158,7 @@ public:
         UntransCountRole,
         TemplateOnlyRole,
         TransOnlyRole,
+        DirectoryRole,
         TotalRole
     };
 
@@ -175,7 +178,7 @@ public:
     QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
     QModelIndex parent(const QModelIndex& index) const ;
 
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex& index, const int role = Qt::DisplayRole) const;
     int rowCount(const QModelIndex& parent = QModelIndex()) const;
     bool hasChildren(const QModelIndex& parent = QModelIndex()) const;
 
@@ -248,7 +251,9 @@ private:
 
     QVariant m_dirIcon;
     QVariant m_poIcon;
+    QVariant m_poInvalidIcon;
     QVariant m_poComplIcon;
+    QVariant m_poEmptyIcon;
     QVariant m_potIcon;
 
     //for updating stats

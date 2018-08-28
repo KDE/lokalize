@@ -162,8 +162,8 @@ bool SortFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex& s
         if (model->hasChildren(item))
             model->fetchMore(item);
     */
-    if (item.data(ProjectModel::TotalRole) == 0)
-        return false; // Hide rows with no translations
+    if (item.data(ProjectModel::DirectoryRole) == 1 && item.data(ProjectModel::TotalRole) == 0)
+        return false; // Hide rows with no translations if they are folders
 
     if (item.data(ProjectModel::FuzzyUntrCountAllRole) == 0 && m_hideTranslatedFiles)
         return false; // Hide rows with no untranslated items if the filter is enabled
