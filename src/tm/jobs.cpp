@@ -567,8 +567,6 @@ static bool doInsertEntry(CatalogString source,
         }
 
         if (matches) { //TODO XLIFF target_markup
-            if (!target.string.isEmpty())
-                qCWarning(LOKALIZE_LOG) << "oops, it just matches!" << source.string << target.string;
             return false;
         }
         // no, translation has changed: just update old target if it isn't used elsewhere
