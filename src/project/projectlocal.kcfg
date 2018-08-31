@@ -21,4 +21,8 @@
       <default>true</default>
     </entry>
   </group>
+  <group name="Pology">
+    <entry name="PologyEnabled" type="Bool"></entry>
+    <entry name="PologyCommandEntry" type="String"></entry>
+  </group>
 </kcfg>

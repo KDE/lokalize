@@ -27,6 +27,9 @@
 #include "catalog.h"
 #include "cmd.h"
 #include "prefs_lokalize.h"
+#include "project.h"
+
+#include "lokalize_debug.h"
 
 #include <klocalizedstring.h>
 #include <ktextedit.h>
@@ -42,6 +45,7 @@
 #include <QTextBrowser>
 #include <QStringBuilder>
 #include <QDesktopServices>
+#include <QRegularExpression>
 
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget(i18nc("@title toolview name", "Unit metadata"), parent)
@@ -80,6 +84,7 @@ void MsgCtxtView::gotoEntry(const DocPosition& pos, int selection)
     m_selection = selection;
     m_offset = pos.offset;
     QTimer::singleShot(0, this, &MsgCtxtView::process);
+    QTimer::singleShot(0, this, &MsgCtxtView::pology);
 }
 
 void MsgCtxtView::process()
@@ -157,7 +162,63 @@ void MsgCtxtView::process()
     t.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, m_selection);
     m_browser->setTextCursor(t);
 }
+void MsgCtxtView::pology()
+{
+    if (Project::instance()->local()->pologyEnabled()) {
+        QString command = Project::instance()->local()->pologyCommandEntry();
+        command = command.replace(QStringLiteral("%u"), QString::number(m_entry.entry + 1)).replace(QStringLiteral("%f"), m_catalog->url()).replace(QStringLiteral("\n"), QStringLiteral(" "));
+        m_pologyProcess = new KProcess;
+        m_pologyProcess->setShellCommand(command);
+        m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
+        m_pologyStartedReceivingOutput = false;
+        connect(m_pologyProcess, &KProcess::readyReadStandardOutput,
+                this, &MsgCtxtView::pologyReceivedStandardOutput);
+        connect(m_pologyProcess, &KProcess::readyReadStandardError,
+                this, &MsgCtxtView::pologyReceivedStandardError);
+        connect(m_pologyProcess, QOverload<int>::of(&KProcess::finished),
+                this, &MsgCtxtView::pologyHasFinished);
+        m_pologyData = QStringLiteral("[pology] ");
+        m_pologyProcess->start();
+        m_pologyProcess->waitForFinished();
+    }
+}
+void MsgCtxtView::pologyReceivedStandardOutput()
+{
+    if (!m_pologyStartedReceivingOutput) {
+        m_pologyStartedReceivingOutput = true;
+    }
+    static const QString grossPologyOutput = m_pologyProcess->readAllStandardOutput();
+    static const QStringList pologyTmpLines = grossPologyOutput.split('\n', QString::SkipEmptyParts);
+    foreach (const QString pologyTmp, pologyTmpLines) {
+        if (pologyTmp.startsWith(QStringLiteral("[note]")))
+            m_pologyData += pologyTmp;
+    }
+}
 
+void MsgCtxtView::pologyReceivedStandardError()
+{
+    if (!m_pologyStartedReceivingOutput) {
+        m_pologyStartedReceivingOutput = true;
+    }
+    static const QString BR = QStringLiteral("<br />");
+    m_pologyData += m_pologyProcess->readAllStandardError().replace('\n', BR);
+}
+void MsgCtxtView::pologyHasFinished()
+{
+    if (!m_pologyStartedReceivingOutput) {
+        m_pologyStartedReceivingOutput = true;
+        m_pologyData += i18nc("@info The pology command didn't return anything", "(empty)");
+    }
+    if (!m_tempNotes.value(m_entry.entry).startsWith(QStringLiteral("Failed rules:"))) {
+        //This was not opened by pology
+        //Delete the previous pology notes
+        if (m_tempNotes.value(m_entry.entry).startsWith(QStringLiteral("[pology] "))) {
+            m_tempNotes.remove(m_entry.entry);
+        }
+        addTemporaryEntryNote(m_entry.entry, m_pologyData);
+    }
+    m_pologyProcess->deleteLater();
+}
 
 void MsgCtxtView::addNoteUI()
 {

@@ -131,6 +131,7 @@ ki18n_wrap_ui(lokalize_SRCS
     prefs/prefs_tm.ui
     project/prefs_project_advanced.ui
     project/prefs_project_local.ui
+    project/prefs_project_pology.ui
     project/prefs_projectmain.ui
     glossary/termedit.ui
     filesearch/filesearchoptions.ui

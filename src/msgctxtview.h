@@ -29,6 +29,7 @@
 
 #include <QMap>
 #include <QDockWidget>
+#include <KProcess>
 
 class Catalog;
 class NoteEditor;
@@ -56,6 +57,10 @@ private slots:
     void noteEditAccepted();
     void noteEditRejected();
     void process();
+    void pology();
+    void pologyReceivedStandardOutput();
+    void pologyReceivedStandardError();
+    void pologyHasFinished();
 
 signals:
     void srcFileOpenRequested(const QString& srcPath, int line);
@@ -65,6 +70,10 @@ private:
     QTextBrowser* m_browser;
     NoteEditor* m_editor;
     QStackedLayout* m_stackedLayout;
+
+    KProcess* m_pologyProcess;
+    bool m_pologyStartedReceivingOutput;
+    QString m_pologyData;
 
     Catalog* m_catalog;
     QMap< DocPos, QPair<Note, int> > m_unfinishedNotes; //note and its index

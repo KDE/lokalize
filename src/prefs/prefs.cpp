@@ -39,6 +39,7 @@
 #include "ui_prefs_projectmain.h"
 #include "ui_prefs_project_advanced.h"
 #include "ui_prefs_project_local.h"
+#include "ui_prefs_project_pology.h"
 
 
 #include <klocalizedstring.h>
@@ -326,6 +327,11 @@ void SettingsController::projectConfigure()
     Ui_prefs_project_local ui_prefs_project_local;
     ui_prefs_project_local.setupUi(w);
     dialog->addPage(w, Project::local(), i18nc("@title:tab", "Personal"), "preferences-desktop-user");
+
+    w = new QWidget(dialog);
+    Ui_prefs_project_pology ui_prefs_project_pology;
+    ui_prefs_project_pology.setupUi(w);
+    dialog->addPage(w, Project::local(), i18nc("@title:tab", "Pology"), "preferences-desktop-filetype-association");
 
     connect(dialog, &KConfigDialog::settingsChanged, Project::instance(), &Project::reinit);
     connect(dialog, &KConfigDialog::settingsChanged, Project::instance(), &Project::save, Qt::QueuedConnection);
