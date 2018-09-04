@@ -202,6 +202,13 @@ QString Catalog::msgid(const DocPosition& pos) const
     return m_storage->source(alterForSinglePlural(this, pos));
 }
 
+QString Catalog::msgidWithPlurals(const DocPosition& pos) const
+{
+    if (Q_UNLIKELY(!m_storage))
+        return QString();
+    return m_storage->sourceWithPlurals(pos);
+}
+
 QString Catalog::msgstr(const DocPosition& pos) const
 {
     if (Q_UNLIKELY(!m_storage))
@@ -209,6 +216,15 @@ QString Catalog::msgstr(const DocPosition& pos) const
 
     return m_storage->target(pos);
 }
+
+QString Catalog::msgstrWithPlurals(const DocPosition& pos) const
+{
+    if (Q_UNLIKELY(!m_storage))
+        return QString();
+
+    return m_storage->targetWithPlurals(pos);
+}
+
 
 CatalogString Catalog::sourceWithTags(const DocPosition& pos) const
 {

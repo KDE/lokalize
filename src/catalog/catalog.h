@@ -84,6 +84,8 @@ public:
 
     QString msgid(const DocPosition&) const;
     virtual QString msgstr(const DocPosition&) const;
+    QString msgidWithPlurals(const DocPosition&) const;
+    QString msgstrWithPlurals(const DocPosition&) const;
 
     static QStringList supportedExtensions();
     static bool extIsSupported(const QString& path);

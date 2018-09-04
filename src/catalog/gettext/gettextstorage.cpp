@@ -177,6 +177,38 @@ QString GettextStorage::target(const DocPosition& pos) const
 {
     return m_entries.at(pos.entry).msgstr(pos.form);
 }
+QString GettextStorage::sourceWithPlurals(const DocPosition& pos) const
+{
+    if (m_entries.at(pos.entry).isPlural()) {
+        const QVector<QString> plurals = m_entries.at(pos.entry).msgidPlural();
+        QString pluralString = QString();
+        for (int i = 0; i < plurals.size(); i++) {
+            pluralString += plurals.at(i);
+            if (i != plurals.size() - 1) {
+                pluralString += "|";
+            }
+        }
+        return pluralString;
+    } else {
+        return m_entries.at(pos.entry).msgid(pos.form);
+    }
+}
+QString GettextStorage::targetWithPlurals(const DocPosition& pos) const
+{
+    if (m_entries.at(pos.entry).isPlural()) {
+        const QVector<QString> plurals = m_entries.at(pos.entry).msgstrPlural();
+        QString pluralString = QString();
+        for (int i = 0; i < plurals.size(); i++) {
+            pluralString += plurals.at(i);
+            if (i != plurals.size() - 1) {
+                pluralString += "|";
+            }
+        }
+        return pluralString;
+    } else {
+        return m_entries.at(pos.entry).msgstr(pos.form);
+    }
+}
 
 void GettextStorage::targetDelete(const DocPosition& pos, int count)
 {

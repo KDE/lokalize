@@ -104,6 +104,7 @@ public:
     }
     const QString& msgstr(const int form = 0) const;
     const QVector<QString>& msgstrPlural() const;
+    const QVector<QString>& msgidPlural() const;
     enum Part {Source, Target};
     QStringList allPluralForms(CatalogItem::Part, bool stripNewLines = false) const;
     bool prependEmptyForMsgid(const int form = 0) const;

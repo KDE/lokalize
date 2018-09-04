@@ -72,6 +72,10 @@ const QVector<QString>& CatalogItem::msgstrPlural() const
 {
     return d._msgstrPlural;
 }
+const QVector<QString>& CatalogItem::msgidPlural() const
+{
+    return d._msgidPlural;
+}
 
 QStringList CatalogItem::allPluralForms(CatalogItem::Part part, bool stripNewLines) const
 {

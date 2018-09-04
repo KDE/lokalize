@@ -170,8 +170,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         if (index.column() >= TranslationStatus)
             return QVariant();
         else if (index.column() == Source || index.column() == Target) {
-            static const DocPosition::Part parts[] = {DocPosition::Source, DocPosition::Target};
-            QString str = m_catalog->catalogString(DocPosition(index.row(), parts[index.column() == Target])).string;
+            QString str = index.column() == Source ? m_catalog->msgidWithPlurals(index.row()) : m_catalog->msgstrWithPlurals(index.row());
             return m_ignoreAccel ? str.remove(Project::instance()->accel()) : str;
         }
         role = Qt::DisplayRole;
@@ -183,8 +182,10 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
 
     switch (index.column()) {
     case Key:    return index.row() + 1;
-    case Source: return m_catalog->msgid(index.row());
-    case Target: return m_catalog->msgstr(index.row());
+    case Source:
+        return m_catalog->msgidWithPlurals(index.row());
+    case Target:
+        return m_catalog->msgstrWithPlurals(index.row());
     case Notes: {
         QString result;
         foreach (const Note &note, m_catalog->notes(index.row()))

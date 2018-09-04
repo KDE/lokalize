@@ -69,6 +69,8 @@ public:
     **/
     virtual QString source(const DocPosition& pos) const = 0;
     virtual QString target(const DocPosition& pos) const = 0;
+    virtual QString sourceWithPlurals(const DocPosition& pos) const = 0;
+    virtual QString targetWithPlurals(const DocPosition& pos) const = 0;
     virtual CatalogString sourceWithTags(DocPosition pos) const = 0;
     virtual CatalogString targetWithTags(DocPosition pos) const = 0;
     virtual CatalogString catalogString(const DocPosition& pos) const = 0;

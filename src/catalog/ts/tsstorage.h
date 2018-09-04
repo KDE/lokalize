@@ -46,6 +46,8 @@ public:
     //flat-model interface (ignores TS grouping)
     QString source(const DocPosition& pos) const;
     QString target(const DocPosition& pos) const;
+    QString sourceWithPlurals(const DocPosition& pos) const;
+    QString targetWithPlurals(const DocPosition& pos) const;
     CatalogString targetWithTags(DocPosition pos) const;
     CatalogString sourceWithTags(DocPosition pos) const;
     CatalogString catalogString(const DocPosition& pos) const;

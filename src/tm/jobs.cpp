@@ -588,8 +588,7 @@ static bool doInsertEntry(CatalogString source,
             bool ok = query1.exec(); //note the RETURN!!!!
             if (!ok)
                 qCWarning(LOKALIZE_LOG) << "doInsertEntry: target update failed" << query1.lastError().text();
-            else
-            {
+            else {
                 ok = query1.exec(QStringLiteral("UPDATE main SET change_date=CURRENT_DATE WHERE target=") % QString::number(targetId));
                 if (!ok)
                     qCWarning(LOKALIZE_LOG) << "doInsertEntry: main update failed" << query1.lastError().text();
@@ -1714,8 +1713,8 @@ void UpdateJob::run()
     QSqlQuery queryBegin(QStringLiteral("BEGIN"), db);
     qlonglong priorId = -1;
     doInsertEntry(m_english, m_newTarget,
-                       m_ctxt, //TODO QStringList -- after XLIFF
-                       m_approved, fileId, db, rxClean1, c.accel, priorId, priorId);
+                  m_ctxt, //TODO QStringList -- after XLIFF
+                  m_approved, fileId, db, rxClean1, c.accel, priorId, priorId);
     QSqlQuery queryEnd(QStringLiteral("END"), db);
 }
 

@@ -278,6 +278,15 @@ QString TsStorage::target(const DocPosition& pos) const
     return content(targetForPos(pos));
 }
 
+QString TsStorage::sourceWithPlurals(const DocPosition& pos) const
+{
+    return source(pos);
+}
+QString TsStorage::targetWithPlurals(const DocPosition& pos) const
+{
+    return target(pos);
+}
+
 
 void TsStorage::targetDelete(const DocPosition& pos, int count)
 {

@@ -509,6 +509,14 @@ QString XliffStorage::target(const DocPosition& pos) const
 {
     return genericContent(targetForPos(pos.entry), pos.entry < size());
 }
+QString XliffStorage::sourceWithPlurals(const DocPosition& pos) const
+{
+    return source(pos);
+}
+QString XliffStorage::targetWithPlurals(const DocPosition& pos) const
+{
+    return target(pos);
+}
 
 
 void XliffStorage::targetDelete(const DocPosition& pos, int count)
