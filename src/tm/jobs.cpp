@@ -420,7 +420,7 @@ static bool doInsertEntry(CatalogString source,
     mainId = -1;
 
     if (Q_UNLIKELY(source.isEmpty())) {
-        qCWarning(LOKALIZE_LOG) << "source empty";
+        qCWarning(LOKALIZE_LOG) << "doInsertEntry: source empty";
         return false;
     }
 
@@ -457,7 +457,7 @@ static bool doInsertEntry(CatalogString source,
     if (!sourceTags.isEmpty())
         query1.bindValue(paranum++, sourceTags);
     if (Q_UNLIKELY(!query1.exec())) {
-        qCWarning(LOKALIZE_LOG) << "select db source_strings error: " << query1.lastError().text();
+        qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db source_strings error: " << query1.lastError().text();
         return false;
     }
     qlonglong sourceId;
@@ -477,7 +477,7 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(1, sourceTags);
         query1.bindValue(2, sourceAccelPos != -1 ? QVariant(sourceAccelPos) : QVariant());
         if (Q_UNLIKELY(!query1.exec())) {
-            qCWarning(LOKALIZE_LOG) << "select db source_strings error: " << query1.lastError().text();
+            qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db source_strings error: " << query1.lastError().text();
             return false;
         }
         sourceId = qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
@@ -499,7 +499,7 @@ static bool doInsertEntry(CatalogString source,
     if (Q_UNLIKELY(!query1.exec(QString(U("SELECT id, target, bits FROM main WHERE "
                                           "source=%1 AND file=%2 AND ctxt%3")).arg(sourceId).arg(fileId).arg
                                 (escapedCtxt.isEmpty() ? QStringLiteral(" ISNULL") : QString("='" % escapedCtxt % '\''))))) {
-        qCWarning(LOKALIZE_LOG) << "select db main error: " << query1.lastError().text();
+        qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db main error: " << query1.lastError().text();
         return false;
     }
 
@@ -532,7 +532,7 @@ static bool doInsertEntry(CatalogString source,
 
             query1.bindValue(0, bits ^ TM_NOTAPPROVED);
             if (Q_UNLIKELY(!query1.exec())) {
-                qCWarning(LOKALIZE_LOG) << "fail #9" << query1.lastError().text();
+                qCWarning(LOKALIZE_LOG) << "doInsertEntry: fail #9" << query1.lastError().text();
                 return false;
             }
         }
@@ -541,12 +541,12 @@ static bool doInsertEntry(CatalogString source,
         //check if target in TM matches
         if (Q_UNLIKELY(!query1.exec(U("SELECT target, target_markup, target_accel FROM target_strings WHERE "
                                       "id=") + QString::number(targetId)))) {
-            qCWarning(LOKALIZE_LOG) << "select db target_strings error: " << query1.lastError().text();
+            qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db target_strings error: " << query1.lastError().text();
             return false;
         }
 
         if (Q_UNLIKELY(!query1.next())) {
-            qCWarning(LOKALIZE_LOG) << "linking to non-existing target should never happen";
+            qCWarning(LOKALIZE_LOG) << "doInsertEntry: linking to non-existing target should never happen";
             return false;
         }
         QString dbTarget = query1.value(0).toString();
@@ -572,7 +572,7 @@ static bool doInsertEntry(CatalogString source,
         // no, translation has changed: just update old target if it isn't used elsewhere
         if (Q_UNLIKELY(!query1.exec(U("SELECT count(*) FROM main WHERE "
                                       "target=") + QString::number(targetId))))
-            qCWarning(LOKALIZE_LOG) << "select db target_strings error: " << query1.lastError().text();
+            qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db target_strings error: " << query1.lastError().text();
 
         if (query1.next() && query1.value(0).toLongLong() == 1) {
             //TODO tnis may create duplicates, while no strings should be lost
@@ -587,9 +587,13 @@ static bool doInsertEntry(CatalogString source,
             query1.bindValue(2, target.tagsAsByteArray());
             bool ok = query1.exec(); //note the RETURN!!!!
             if (!ok)
-                qCWarning(LOKALIZE_LOG) << "target update failed" << query1.lastError().text();
+                qCWarning(LOKALIZE_LOG) << "doInsertEntry: target update failed" << query1.lastError().text();
             else
+            {
                 ok = query1.exec(QStringLiteral("UPDATE main SET change_date=CURRENT_DATE WHERE target=") % QString::number(targetId));
+                if (!ok)
+                    qCWarning(LOKALIZE_LOG) << "doInsertEntry: main update failed" << query1.lastError().text();
+            }
             return ok;
         }
         //else -> there will be new record insertion and main table update below
@@ -610,7 +614,7 @@ static bool doInsertEntry(CatalogString source,
     if (!targetTags.isEmpty())
         query1.bindValue(paranum++, targetTags);
     if (Q_UNLIKELY(!query1.exec())) {
-        qCWarning(LOKALIZE_LOG) << "select db target_strings error: " << query1.lastError().text();
+        qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db target_strings error: " << query1.lastError().text();
         return false;
     }
     qlonglong targetId;
@@ -626,7 +630,7 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(1, target.tagsAsByteArray());
         query1.bindValue(2, targetAccelPos != -1 ? QVariant(targetAccelPos) : QVariant());
         if (Q_UNLIKELY(!query1.exec())) {
-            qCWarning(LOKALIZE_LOG) << "error inserting";
+            qCWarning(LOKALIZE_LOG) << "doInsertEntry: error inserting";
             return false;
         }
         targetId = qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
@@ -653,6 +657,8 @@ static bool doInsertEntry(CatalogString source,
         query1.bindValue(1, bits);
         bool ok = query1.exec();
         //qCDebug(LOKALIZE_LOG)<<"ok?"<<ok;
+        if (!ok)
+            qCWarning(LOKALIZE_LOG) << "doInsertEntry: main update failed" << query1.lastError().text();
         return ok;
     }
 
@@ -680,6 +686,8 @@ static bool doInsertEntry(CatalogString source,
     query1.bindValue(5, priorId != -1 ? QVariant(priorId) : QVariant());
     bool ok = query1.exec();
     mainId = qpsql ? (query1.next(), query1.value(0).toLongLong()) : query1.lastInsertId().toLongLong();
+    if (!ok)
+        qCWarning(LOKALIZE_LOG) << "doInsertEntry: main insert failed" << query1.lastError().text();
     //qCDebug(LOKALIZE_LOG)<<"ok?"<<ok;
     return ok;
 }
@@ -1704,10 +1712,9 @@ void UpdateJob::run()
 
     QSqlQuery queryBegin(QStringLiteral("BEGIN"), db);
     qlonglong priorId = -1;
-    if (!doInsertEntry(m_english, m_newTarget,
+    doInsertEntry(m_english, m_newTarget,
                        m_ctxt, //TODO QStringList -- after XLIFF
-                       m_approved, fileId, db, rxClean1, c.accel, priorId, priorId))
-        qCWarning(LOKALIZE_LOG) << "error updating db";
+                       m_approved, fileId, db, rxClean1, c.accel, priorId, priorId);
     QSqlQuery queryEnd(QStringLiteral("END"), db);
 }
 
