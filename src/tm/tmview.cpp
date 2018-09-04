@@ -409,13 +409,14 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     if (job.m_dbName != projectID) {
         job.m_entries += m_entries;
         qSort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
-        int limit = qMin(Settings::suggCount(), job.m_entries.size());
+        const int limit = qMin(Settings::suggCount(), job.m_entries.size());
+        const int minScore = Settings::suggScore() * 100;
         int i = job.m_entries.size();
-        while (--i >= limit)
+        while (--i >= limit || job.m_entries.last().score < minScore)
             job.m_entries.removeLast();
     } else if (job.m_entries.isEmpty() || job.m_entries.first().score < 8500) {
         //be careful, as we switched to QDirModel!
-        const DBFilesModel& dbFilesModel = *(DBFilesModel::instance());
+        DBFilesModel& dbFilesModel = *(DBFilesModel::instance());
         QModelIndex root = dbFilesModel.rootIndex();
         int i = dbFilesModel.rowCount(root);
         //qCWarning(LOKALIZE_LOG)<<"query other DBs,"<<i<<"total";
@@ -432,7 +433,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
     m_entries = job.m_entries;
 
-    int limit = job.m_entries.size();
+    const int limit = job.m_entries.size();
 
     if (!limit) {
         if (m_hasInfo) {
@@ -455,9 +456,11 @@ void TMView::slotSuggestionsCame(SelectJob* j)
 
     int i = 0;
     QTextBlockFormat blockFormatBase;
-    QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
+    QTextBlockFormat blockFormatAlternate;
+    blockFormatAlternate.setBackground(QPalette().alternateBase());
     QTextCharFormat noncloseMatchCharFormat;
-    QTextCharFormat closeMatchCharFormat;  closeMatchCharFormat.setFontWeight(QFont::Bold);
+    QTextCharFormat closeMatchCharFormat;
+    closeMatchCharFormat.setFontWeight(QFont::Bold);
     forever {
         QTextCursor cur = m_browser->textCursor();
         QString html;

@@ -62,6 +62,7 @@ Settings::Settings()
 
     , mWordCompletionLength(3)
     , mSuggCount(10)
+    , mSuggScore(0)
 {
     QSettings s;
     mAuthorName = s.value(QStringLiteral("Author/Name"), QString()).toString();

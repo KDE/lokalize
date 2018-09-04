@@ -108,6 +108,9 @@
     <entry name="SuggCount"  type="Int">
         <default>7</default>
     </entry>
+    <entry name="SuggScore"  type="Int">
+        <default>0</default>
+    </entry>
     <entry name="AutoaddTM"  type="Bool">
         <default>true</default>
     </entry>

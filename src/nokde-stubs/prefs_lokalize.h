@@ -148,6 +148,12 @@ public:
     }
 
     static
+    int suggScore()
+    {
+        return self()->mSuggScore;
+    }
+
+    static
     bool autoaddTM()
     {
         return self()->mAutoaddTM;
@@ -198,6 +204,7 @@ protected:
 
     int mWordCompletionLength;
     int mSuggCount;
+    int mSuggScore;
 };
 
 #endif

@@ -1476,8 +1476,9 @@ void SelectJob::run()
     //qCWarning(LOKALIZE_LOG) <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
     qSort(m_entries.begin(), m_entries.end(), qGreater<TMEntry>());
     int limit = qMin(Settings::suggCount(), m_entries.size());
+    int minScore = Settings::suggScore() * 100;
     int i = m_entries.size();
-    while (--i >= limit)
+    while (--i >= limit || m_entries.last().score < minScore)
         m_entries.removeLast();
 
     if (Q_UNLIKELY(m_dequeued)) {
