@@ -411,9 +411,12 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         qSort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
         const int limit = qMin(Settings::suggCount(), job.m_entries.size());
         const int minScore = Settings::suggScore() * 100;
-        int i = job.m_entries.size();
-        while (--i >= limit || job.m_entries.last().score < minScore)
+        int i = job.m_entries.size() - 1;
+        while (i >= 0 && (i >= limit || job.m_entries.last().score < minScore))
+        {
             job.m_entries.removeLast();
+            i--;
+        }
     } else if (job.m_entries.isEmpty() || job.m_entries.first().score < 8500) {
         //be careful, as we switched to QDirModel!
         DBFilesModel& dbFilesModel = *(DBFilesModel::instance());
