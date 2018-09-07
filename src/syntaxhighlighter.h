@@ -34,7 +34,6 @@
 
 #include <QHash>
 #include <QTextCharFormat>
-#include <QSyntaxHighlighter>
 
 
 class QTextDocument;

@@ -1,3 +1,6 @@
+#ifndef KABOUTDATA_H
+#define KABOUTDATA_H
+
 #include <QString>
 #include <QObject>
 #include <QVector>
@@ -24,3 +27,5 @@ private:
     QString name, version, description, copyright;
     QVector<Credit> credits;
 };
+
+#endif

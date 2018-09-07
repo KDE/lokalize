@@ -1,6 +1,3 @@
-class BinUnitsModel;
-class Catalog;
-class Catalog;
 /* ****************************************************************************
   This file is part of Lokalize
 
@@ -24,8 +21,8 @@ class Catalog;
 
 **************************************************************************** */
 
-#ifndef BINUNITSWINDOW_H
-#define BINUNITSWINDOW_H
+#ifndef BINUNITSVIEW_H
+#define BINUNITSVIEW_H
 
 class Catalog;
 class BinUnitsModel;
@@ -95,4 +92,4 @@ private:
 
 };
 
-#endif // BINUNITSWINDOW_H
+#endif // BINUNITSVIEW_H

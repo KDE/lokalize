@@ -387,10 +387,10 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
                 return escaped;
             }
 
-            const QVector<StartLen>& occurences = item.column() == FileSearchModel::Source ? sr.sourcePositions : sr.targetPositions;
-            int occ = occurences.count();
+            const QVector<StartLen>& occurrences = item.column() == FileSearchModel::Source ? sr.sourcePositions : sr.targetPositions;
+            int occ = occurrences.count();
             while (--occ >= 0) {
-                const StartLen& sl = occurences.at(occ);
+                const StartLen& sl = occurrences.at(occ);
                 result.insert(sl.start + sl.len, endBld);
                 result.insert(sl.start, startBld);
             }

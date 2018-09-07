@@ -30,8 +30,8 @@
   you do not wish to do so, delete this exception statement from
   your version.
 **************************************************************************** */
-#ifndef KATALOGFILEPLUGIN_H
-#define KATALOGFILEPLUGIN_H
+#ifndef CATALOGFILEPLUGIN_H
+#define CATALOGFILEPLUGIN_H
 
 #include <QList>
 #include <QTextCodec>
