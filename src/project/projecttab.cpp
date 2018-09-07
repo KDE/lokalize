@@ -27,6 +27,7 @@
 #include "projectwidget.h"
 #include "tmscanapi.h"
 #include "prefs.h"
+#include "catalog.h"
 
 #include <klocalizedstring.h>
 #include <kactioncategory.h>
@@ -244,7 +245,10 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     QMenu* menu = new QMenu(this);
     connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
 
-    if (m_browser->currentIsTranslationFile()) {
+    if (m_browser->selectedItems().size() > 1 || (m_browser->selectedItems().size() == 1 && !m_browser->currentIsTranslationFile())) {
+        menu->addAction(i18nc("@action:inmenu", "Open selected files"), this, SLOT(openFile()));
+        menu->addSeparator();
+    } else if (m_browser->currentIsTranslationFile()) {
         menu->addAction(i18nc("@action:inmenu", "Open"), this, SLOT(openFile()));
         menu->addSeparator();
     }
@@ -299,7 +303,13 @@ void ProjectTab::searchInFilesInclTempl()
 
 void ProjectTab::openFile()
 {
-    emit fileOpenRequested(m_browser->currentItem());
+    QStringList files = m_browser->selectedItems();
+    int i = files.size();
+    while (--i >= 0) {
+        if (Catalog::extIsSupported(files.at(i)))  {
+            emit fileOpenRequested(files.at(i), true);
+        }
+    }
 }
 void ProjectTab::findInFiles()
 {

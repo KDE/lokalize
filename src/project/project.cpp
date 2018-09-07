@@ -513,7 +513,7 @@ void Project::projectOdfCreate()
 
     Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1String("/index.lokalize"), targetLangCode, fi.baseName() % '-' % targetLangCode);
 
-    emit fileOpenRequested(args.at(1));
+    emit fileOpenRequested(args.at(1), true);
 }
 
 

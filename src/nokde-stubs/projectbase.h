@@ -33,8 +33,8 @@ public:
 
 public slots:
     EditorTab* fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString& mergeFile = QString(), bool silent = false);
-    EditorTab* fileOpen(const QString& filePath, const QString& source, const QString& ctxt);
-    EditorTab* fileOpen(const QString& filePath, DocPosition docPos, int selection);
+    EditorTab* fileOpen(const QString& filePath, const QString& source, const QString& ctxt, const bool setAsActive);
+    EditorTab* fileOpen(const QString& filePath, DocPosition docPos, int selection, const bool setAsActive);
 
     void lookupInTranslationMemory(const QString& source, const QString& target);
     TM::TMTab* showTM();

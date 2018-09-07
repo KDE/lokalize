@@ -620,7 +620,7 @@ void TMView::contextMenu(const QPoint& pos)
     if (r->data().toInt() == Remove) {
         removeEntry(e);
     } else if (r->data().toInt() == Open) {
-        emit fileOpenRequested(e.file, e.source.string, e.ctxt);
+        emit fileOpenRequested(e.file, e.source.string, e.ctxt, true);
     } else if ((r->data().toInt() == RemoveFile) &&
                KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.file, e.dbName),
                        i18nc("@title:window", "Translation Memory Missing File Removal"))) {

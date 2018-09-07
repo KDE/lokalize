@@ -61,7 +61,7 @@ signals:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();
     void textInsertRequested(const QString&);
-    void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt);
+    void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt, const bool setAsActive);
 
 public slots:
     void slotNewEntryDisplayed();

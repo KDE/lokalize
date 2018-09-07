@@ -162,7 +162,7 @@ public slots:
 
 signals:
     Q_SCRIPTABLE void loaded();
-    void fileOpenRequested(const QString&);
+    void fileOpenRequested(const QString&, const bool setAsActive);
     void closed();
 
 public slots:

@@ -136,13 +136,13 @@ public slots:
     //Q_SCRIPTABLE void processEvents();
 
     //returns 0 if error
-    EditorTab* fileOpen_(QString url);
+    EditorTab* fileOpen_(QString url, const bool setAsActive);
     EditorTab* fileOpen(QString url = QString(), int entry = 0, bool setAsActive = true, const QString& mergeFile = QString(), bool silent = false);
-    EditorTab* fileOpen(const QString& url, const QString& source, const QString& ctxt);
-    EditorTab* fileOpen(const QString& url, DocPosition docPos, int selection);
+    EditorTab* fileOpen(const QString& url, const QString& source, const QString& ctxt, const bool setAsActive);
+    EditorTab* fileOpen(const QString& url, DocPosition docPos, int selection, const bool setAsActive);
     EditorTab* fileOpen(const QUrl& url)
     {
-        return fileOpen(url.toLocalFile());
+        return fileOpen(url.toLocalFile(), 0, true);
     }
     TM::TMTab* showTM();
     FileSearchTab* showFileSearch(bool activate = true);

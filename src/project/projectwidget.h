@@ -64,7 +64,7 @@ public:
     void toggleTranslatedFiles();
 
 signals:
-    void fileOpenRequested(const QString&);
+    void fileOpenRequested(const QString&, const bool setAsActive);
     void newWindowOpenRequested(const QUrl&);
 
 private slots:

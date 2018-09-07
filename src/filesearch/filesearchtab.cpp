@@ -114,8 +114,7 @@ SearchFileListView::SearchFileListView(QWidget* parent)
 
 void SearchFileListView::requestFileOpen(const QModelIndex& item)
 {
-    emit fileOpenRequested(item.data(Qt::UserRole).toString());
-
+    emit fileOpenRequested(item.data(Qt::UserRole).toString(), true);
 }
 
 void SearchFileListView::addFiles(const QStringList& files)
@@ -527,7 +526,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     //m_searchFileListView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction(QStringLiteral("showfilelist_action"), m_searchFileListView->toggleViewAction());
-    connect(m_searchFileListView, &SearchFileListView::fileOpenRequested, this, QOverload<const QString &>::of(&FileSearchTab::fileOpenRequested));
+    connect(m_searchFileListView, &SearchFileListView::fileOpenRequested, this, QOverload<const QString &, const bool>::of(&FileSearchTab::fileOpenRequested));
 
     m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);
@@ -669,7 +668,7 @@ void FileSearchTab::openFile()
         selection    = sr.targetPositions.first().len;
     }
     qCDebug(LOKALIZE_LOG) << "fileOpenRequest" << docPos.offset << selection;
-    emit fileOpenRequested(sr.filepath, docPos, selection);
+    emit fileOpenRequested(sr.filepath, docPos, selection, true);
 }
 
 void FileSearchTab::fileSearchNext()

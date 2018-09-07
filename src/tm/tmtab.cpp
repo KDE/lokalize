@@ -631,7 +631,8 @@ void TMTab::openFile()
     }
     emit fileOpenRequested(item.sibling(item.row(), TMDBModel::Filepath).data(Qt::UserRole).toString(),
                            item.sibling(item.row(), TMDBModel::Source).data().toString(),
-                           item.sibling(item.row(), TMDBModel::Context).data().toString());
+                           item.sibling(item.row(), TMDBModel::Context).data().toString(),
+                           true);
 }
 
 void TMTab::setQAMode()

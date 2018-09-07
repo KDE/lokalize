@@ -101,8 +101,8 @@ private slots:
     void replaceJobDone(MassReplaceJob*);
 
 signals:
-    void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection);
-    void fileOpenRequested(const QString& filePath);
+    void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection, const bool setAsActive);
+    void fileOpenRequested(const QString& filePath, const bool setAsActive);
 
 private:
     void dragEnterEvent(QDragEnterEvent* event);
@@ -230,7 +230,7 @@ public slots:
     void clear();
     void requestFileOpen(const QModelIndex&);
 signals:
-    void fileOpenRequested(const QString& filePath);
+    void fileOpenRequested(const QString& filePath, const bool setAsActive);
 
 private:
     QTreeView* m_browser;

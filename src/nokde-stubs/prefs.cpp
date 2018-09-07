@@ -210,7 +210,7 @@ EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, 
 
 //    m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
     connect(w, SIGNAL(destroyed(QObject*)), this, SLOT(editorClosed(QObject*)));
-    connect(w, SIGNAL(fileOpenRequested(QString, QString, QString)), this, SLOT(fileOpen(QString, QString, QString)));
+    connect(w, SIGNAL(fileOpenRequested(QString, QString, QString, bool)), this, SLOT(fileOpen(QString, QString, QString, bool)));
     connect(w, SIGNAL(tmLookupRequested(QString, QString)), this, SLOT(lookupInTranslationMemory(QString, QString)));
 
     filePath = w->currentFilePath();
@@ -229,18 +229,18 @@ EditorTab* ProjectBase::fileOpen(QString filePath, int entry, bool setAsActive, 
     return w;
 }
 
-EditorTab* ProjectBase::fileOpen(const QString& filePath, const QString& source, const QString& ctxt)
+EditorTab* ProjectBase::fileOpen(const QString& filePath, const QString& source, const QString& ctxt, const bool setAsActive)
 {
-    EditorTab* w = fileOpen(filePath, 0, true);
+    EditorTab* w = fileOpen(filePath, 0, setAsActive);
     if (!w)
         return 0;//TODO message
     w->findEntryBySourceContext(source, ctxt);
     return w;
 }
 
-EditorTab* ProjectBase::fileOpen(const QString& filePath, DocPosition docPos, int selection)
+EditorTab* ProjectBase::fileOpen(const QString& filePath, DocPosition docPos, int selection, const bool setAsActive)
 {
-    EditorTab* w = fileOpen(filePath, 0, true);
+    EditorTab* w = fileOpen(filePath, 0, setAsActive);
     if (!w)
         return 0;//TODO message
     w->gotoEntry(docPos, selection);
@@ -272,7 +272,7 @@ TM::TMTab* ProjectBase::showTM()
 {
     if (!m_tmTab) {
         m_tmTab = new TM::TMTab(0);
-        connect(m_tmTab, SIGNAL(fileOpenRequested(QString, QString, QString)), this, SLOT(fileOpen(QString, QString, QString)));
+        connect(m_tmTab, SIGNAL(fileOpenRequested(QString, QString, QString, bool)), this, SLOT(fileOpen(QString, QString, QString, bool)));
     }
     m_tmTab->show();
     m_tmTab->activateWindow();
@@ -283,8 +283,8 @@ void ProjectBase::showFileSearch()
 {
     if (!m_fileSearchTab) {
         m_fileSearchTab = new FileSearchTab(0);
-        connect(m_fileSearchTab, SIGNAL(fileOpenRequested(QString, DocPosition, int)), this, SLOT(fileOpen(QString, DocPosition, int)));
-        connect(m_fileSearchTab, SIGNAL(fileOpenRequested(QString)), this, SLOT(fileOpen(QString)));
+        connect(m_fileSearchTab, SIGNAL(fileOpenRequested(QString, DocPosition, int, bool)), this, SLOT(fileOpen(QString, DocPosition, int, bool)));
+        connect(m_fileSearchTab, SIGNAL(fileOpenRequested(QString, bool)), this, SLOT(fileOpen(QString, bool)));
     }
 
     if (EditorTab* e = qobject_cast<EditorTab*>(QApplication::activeWindow())) {

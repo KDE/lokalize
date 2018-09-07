@@ -69,7 +69,7 @@ signals:
     void projectOpenRequested(QString path);
     void projectOpenRequested();
 
-    void fileOpenRequested(const QString&);
+    void fileOpenRequested(const QString&, const bool setAsActive);
 
     void searchRequested(const QStringList&);
     void replaceRequested(const QStringList&);
