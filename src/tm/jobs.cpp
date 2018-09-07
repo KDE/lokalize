@@ -1477,8 +1477,7 @@ void SelectJob::run()
     const int limit = qMin(Settings::suggCount(), m_entries.size());
     const int minScore = Settings::suggScore() * 100;
     int i = m_entries.size() - 1;
-    while (i >= 0 && (i >= limit || m_entries.last().score < minScore))
-    {
+    while (i >= 0 && (i >= limit || m_entries.last().score < minScore)) {
         m_entries.removeLast();
         i--;
     }

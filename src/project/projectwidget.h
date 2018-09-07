@@ -79,6 +79,7 @@ private:
     QModelIndex gotoIndexPrevNext(const QModelIndex& currentIndex, int direction) const;
     gotoIndexResult gotoIndexFind(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
     gotoIndexResult gotoIndex(const QModelIndex& currentIndex, ProjectModel::AdditionalRoles role, int direction);
+    void recursiveAdd(QStringList& list, const QModelIndex& idx) const;
 
     SortFilterProxyModel* m_proxyModel;
     QString m_currentItemPathBeforeReload;

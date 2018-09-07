@@ -139,10 +139,10 @@ public:
     }
     ~SortFilterProxyModel() {}
     void toggleTranslatedFiles();
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 protected:
     bool lessThan(const QModelIndex& left,
                   const QModelIndex& right) const;
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 private:
     bool m_hideTranslatedFiles = false;
 };
@@ -375,8 +375,11 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
     }
 }
 
-static void recursiveAdd(QStringList& list, const QModelIndex& idx)
+void ProjectWidget::recursiveAdd(QStringList& list, const QModelIndex& idx) const
 {
+    if (!m_proxyModel->filterAcceptsRow(idx.row(), idx.parent())) {
+        return;
+    }
     ProjectModel& model = *(Project::instance()->model());
     const KFileItem& item(model.itemForIndex(idx));
     if (item.isDir()) {
@@ -386,7 +389,7 @@ static void recursiveAdd(QStringList& list, const QModelIndex& idx)
 
             if (childItem.isDir())
                 recursiveAdd(list, idx.child(j, 0));
-            else
+            else if (m_proxyModel->filterAcceptsRow(j, idx))
                 list.prepend(childItem.localPath());
         }
     } else //if (!list.contains(u))

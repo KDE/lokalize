@@ -412,8 +412,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         const int limit = qMin(Settings::suggCount(), job.m_entries.size());
         const int minScore = Settings::suggScore() * 100;
         int i = job.m_entries.size() - 1;
-        while (i >= 0 && (i >= limit || job.m_entries.last().score < minScore))
-        {
+        while (i >= 0 && (i >= limit || job.m_entries.last().score < minScore)) {
             job.m_entries.removeLast();
             i--;
         }
