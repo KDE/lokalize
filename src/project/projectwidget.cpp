@@ -293,7 +293,8 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
 
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
-    int widthDefaults[] = {6, 1, 1, 1, 1, 1, 4, 4};
+    int widthDefaults[] = {6, 1, 1, 1, 1, 1, 1, 4, 4, 4};
+    //FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, SourceDate, TranslationDate, LastTranslator
     int i = sizeof(widthDefaults) / sizeof(int);
     int baseWidth = columnWidth(0);
     while (--i >= 0)
@@ -311,6 +312,13 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
     KConfig config;
     KConfigGroup stateGroup(&config, "ProjectWindow");
     header()->restoreState(QByteArray::fromBase64(stateGroup.readEntry("ListHeaderState", QByteArray())));
+    i = sizeof(widthDefaults) / sizeof(int);
+    while (--i >= 0) {
+        if (columnWidth(i) > 5 * baseWidth * widthDefaults[i]) {
+            //The column width is more than 5 times its normal width
+            setColumnWidth(i, 5 * baseWidth * widthDefaults[i]);
+        }
+    }
 }
 
 ProjectWidget::~ProjectWidget()

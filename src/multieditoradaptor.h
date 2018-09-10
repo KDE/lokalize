@@ -38,7 +38,10 @@ class MultiEditorAdaptor: public EditorAdaptor
     Q_OBJECT
 public:
     MultiEditorAdaptor(EditorTab *parent);
-    ~MultiEditorAdaptor() { /*qCWarning(LOKALIZE_LOG)<<"bye bye cruel world";*/ }
+    ~MultiEditorAdaptor()
+    {
+        /*qCWarning(LOKALIZE_LOG)<<"bye bye cruel world";*/
+    }
 
     inline EditorTab* editorTab() const
     {
