@@ -26,6 +26,9 @@
 
 #include <QHash>
 #include <QString>
+#include <QFile>
+#include <QFileInfo>
+#include <QDateTime>
 
 #include "actionproxy.h"
 
@@ -47,6 +50,8 @@ public:
         emit aboutToBeClosed();
     }
     virtual KXMLGUIClient* guiClient() = 0;
+    virtual void reloadUpdatedXML() = 0;
+    virtual void setUpdatedXMLFile() = 0;
 
     //interface for LokalizeMainWindow
     virtual void hideDocks() = 0;
@@ -69,6 +74,8 @@ public:
     //QHash<QString,ActionProxy*> supportedActions;
     StatusBarProxy statusBarItems;
 
+protected:
+    QDateTime lastXMLUpdate;
 };
 
 /**
@@ -83,6 +90,26 @@ public:
     KXMLGUIClient* guiClient()
     {
         return (KXMLGUIClient*)this;
+    }
+
+    void setUpdatedXMLFile()
+    {
+        QString localXml = guiClient()->localXMLFile();
+        if (QFile::exists(localXml)) {
+            lastXMLUpdate = QFileInfo(localXml).lastModified();
+        }
+    }
+
+    void reloadUpdatedXML()
+    {
+        QString localXml = guiClient()->localXMLFile();
+        if (QFile::exists(localXml)) {
+            QDateTime newXMLUpdate = QFileInfo(localXml).lastModified();
+            if (newXMLUpdate > lastXMLUpdate) {
+                lastXMLUpdate = newXMLUpdate;
+                guiClient()->reloadXML();
+            }
+        }
     }
 };
 #else

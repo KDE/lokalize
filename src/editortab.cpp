@@ -209,6 +209,7 @@ void EditorTab::setupActions()
     //(via QTimer::singleShot) go to initLater()
 
     setXMLFile(QStringLiteral("editorui.rc"));
+    setUpdatedXMLFile();
 
     QAction *action;
     KActionCollection* ac = actionCollection();
@@ -220,8 +221,8 @@ void EditorTab::setupActions()
     KActionCategory* sync1 = new KActionCategory(i18n("Synchronization 1"), ac);
     KActionCategory* sync2 = new KActionCategory(i18n("Synchronization 2"), ac);
     KActionCategory* tm = new KActionCategory(i18n("Translation Memory"), ac);
-    KActionCategory* glossary = new KActionCategory(i18nc("@title actions category", "Glossary"), actionCollection());
-    //KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), actionCollection());
+    KActionCategory* glossary = new KActionCategory(i18nc("@title actions category", "Glossary"), ac);
+    //KActionCategory* tools=new KActionCategory(i18nc("@title actions category","Tools"), ac);
 
 #ifndef Q_OS_DARWIN
     QLocale::Language systemLang = QLocale::system().language();
@@ -253,7 +254,7 @@ void EditorTab::setupActions()
 
     m_altTransView = new AltTransView(this, m_catalog, altactions);
     addDockWidget(Qt::BottomDockWidgetArea, m_altTransView);
-    actionCollection()->addAction(QStringLiteral("showmsgiddiff_action"), m_altTransView->toggleViewAction());
+    ac->addAction(QStringLiteral("showmsgiddiff_action"), m_altTransView->toggleViewAction());
     connect(this, QOverload<const DocPosition &>::of(&EditorTab::signalNewEntryDisplayed), m_altTransView, QOverload<const DocPosition &>::of(&AltTransView::slotNewEntryDisplayed));
     connect(m_altTransView, &AltTransView::textInsertRequested, m_view, &EditorView::insertTerm);
     connect(m_altTransView, &AltTransView::refreshRequested, m_view, QOverload<>::of(&EditorView::gotoEntry), Qt::QueuedConnection);
@@ -276,7 +277,7 @@ void EditorTab::setupActions()
 
     m_transUnitsView = new CatalogView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_transUnitsView);
-    actionCollection()->addAction(QStringLiteral("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction());
+    ac->addAction(QStringLiteral("showcatalogtreeview_action"), m_transUnitsView->toggleViewAction());
     connect(this, QOverload<const DocPosition &>::of(&EditorTab::signalNewEntryDisplayed), m_transUnitsView, QOverload<const DocPosition &>::of(&CatalogView::slotNewEntryDisplayed));
     connect(m_transUnitsView, &CatalogView::gotoEntry, this, QOverload<DocPosition, int>::of(&EditorTab::gotoEntry));
     connect(m_transUnitsView, &CatalogView::escaped, this, &EditorTab::setProperFocus);
@@ -284,7 +285,7 @@ void EditorTab::setupActions()
 
     m_notesView = new MsgCtxtView(this, m_catalog);
     addDockWidget(Qt::LeftDockWidgetArea, m_notesView);
-    actionCollection()->addAction(QStringLiteral("showmsgctxt_action"), m_notesView->toggleViewAction());
+    ac->addAction(QStringLiteral("showmsgctxt_action"), m_notesView->toggleViewAction());
     connect(m_catalog, QOverload<>::of(&Catalog::signalFileLoaded), m_notesView, &MsgCtxtView::cleanup);
     connect(m_notesView, &MsgCtxtView::srcFileOpenRequested, this, &EditorTab::dispatchSrcFileOpenRequest);
     connect(m_view, &EditorView::signalChanged, m_notesView, &MsgCtxtView::removeErrorNotes);
@@ -408,7 +409,7 @@ void EditorTab::setupActions()
     QAction* wqaction;
     for (i = 0; i < WEBQUERY_SHORTCUTS; ++i) {
 //         action->setVisible(false);
-        wqaction = actionCollection()->addAction(QString("webquery_insert_%1").arg(i));
+        wqaction = ac->addAction(QString("webquery_insert_%1").arg(i));
         wqaction->setShortcut(Qt::CTRL + Qt::ALT + wqlist[i]);
         //wqaction->setShortcut(Qt::META+wqlist[i]);
         wqaction->setText(i18nc("@action:inmenu", "Insert WebQuery result #%1", i));
@@ -416,7 +417,7 @@ void EditorTab::setupActions()
     }
     WebQueryView* _webQueryView = new WebQueryView(this, m_catalog, wqactions);
     addDockWidget(Qt::BottomDockWidgetArea, _webQueryView);
-    actionCollection()->addAction(QStringLiteral("showwebqueryview_action"), _webQueryView->toggleViewAction());
+    ac->addAction(QStringLiteral("showwebqueryview_action"), _webQueryView->toggleViewAction());
     connect(this, &EditorTab::signalNewEntryDisplayed, _webQueryView, SLOT(slotNewEntryDisplayed(DocPosition)));
     connect(_webQueryView, SIGNAL(textInsertRequested(QString)), m_view, SLOT(insertTerm(QString)));
 #endif
@@ -757,7 +758,6 @@ void EditorTab::setupActions()
     action = sync2->addAction(QStringLiteral("mergesecondary_back"), m_syncViewSecondary, SLOT(mergeBack()));
     action->setText(i18nc("@action:inmenu", "Copy to merging source"));
     m_syncViewSecondary->addAction(action);
-
 }
 
 void EditorTab::setProperFocus()

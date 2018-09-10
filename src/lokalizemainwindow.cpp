@@ -189,6 +189,8 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         */
     }
     LokalizeSubwindowBase* editor = static_cast<LokalizeSubwindowBase2*>(w->widget());
+
+    editor->reloadUpdatedXML();
     if (qobject_cast<EditorTab*>(editor)) {
         EditorTab* w = static_cast<EditorTab*>(editor);
         w->setProperFocus();
@@ -454,7 +456,8 @@ void LokalizeMainWindow::setupActions()
     //all operations that can be done after initial setup
     //(via QTimer::singleShot) go to initLater()
 
-    QTime aaa; aaa.start();
+    QTime aaa;
+    aaa.start();
 
     setStandardToolBarMenuEnabled(true);
 
@@ -462,7 +465,7 @@ void LokalizeMainWindow::setupActions()
     KActionCollection* ac = actionCollection();
     KActionCategory* actionCategory;
     KActionCategory* file = new KActionCategory(i18nc("@title actions category", "File"), ac);
-    //KActionCategory* config=new KActionCategory(i18nc("@title actions category","Configuration"), ac);
+    //KActionCategory* config=new KActionCategory(i18nc("@title actions category","Settings"), ac);
     KActionCategory* glossary = new KActionCategory(i18nc("@title actions category", "Glossary"), ac);
     KActionCategory* tm = new KActionCategory(i18nc("@title actions category", "Translation Memory"), ac);
     KActionCategory* proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
@@ -479,7 +482,7 @@ void LokalizeMainWindow::setupActions()
 
 //Settings
     SettingsController* sc = SettingsController::instance();
-    KStandardAction::preferences(sc, SLOT(showSettingsDialog()), ac);
+    KStandardAction::preferences(sc, &SettingsController::showSettingsDialog, ac);
 
 #define ADD_ACTION_SHORTCUT(_name,_text,_shortcut)\
     action = actionCategory->addAction(QStringLiteral(_name));\

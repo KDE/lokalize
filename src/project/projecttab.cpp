@@ -137,6 +137,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
+    setUpdatedXMLFile();
     //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
 
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\

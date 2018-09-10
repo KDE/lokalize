@@ -488,6 +488,7 @@ TMTab::TMTab(QWidget *parent)
         statusBarItems.insert(i, QString());
 
     setXMLFile(QStringLiteral("translationmemoryrui.rc"), true);
+    setUpdatedXMLFile();
     dbusObjectPath();
 
 
