@@ -107,6 +107,7 @@ int main(int argc, char **argv)
     about.addCredit(i18n("Stefan Asserhall"), i18n("patches"), QStringLiteral("stefan.asserhall@comhem.se"));
     about.addCredit(i18n("Papp Laszlo"), i18n("bug fixing patches"), QStringLiteral("djszapi@archlinux.us"));
     about.addCredit(i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
+    about.addCredit(i18n("Simon Depiets"), i18n("bug fixing and improvements"), QStringLiteral("sdepiets@gmail.com"));
 #ifndef NOKDE
     KAboutData::setApplicationData(about);
     about.setupCommandLine(&parser);

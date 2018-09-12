@@ -47,10 +47,6 @@
 
 static int nodeCounter = 0;
 
-//TODO: figure out how to handle file and folder renames...
-//TODO: fix behavior on folder removing, adding.
-
-
 ProjectModel::ProjectModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_poModel(this)
