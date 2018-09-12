@@ -1339,6 +1339,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 if (seen85 && e.score < 6000)
                     continue;
 
+                if (e.score < Settings::suggScore() * 100)
+                    continue;
 //BEGIN fetch rest of the data
                 QString change_author_str;
                 QString authors_table_str;
@@ -1404,8 +1406,6 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     if (e.file == m_file)
                         e.score += 33;
 //END exact match score++
-                    if (e.score < Settings::suggScore() * 100)
-                        continue;
                     //qCWarning(LOKALIZE_LOG)<<"appending"<<e.target;
                     sortedEntryList.insertMulti(e, false);
                 }
