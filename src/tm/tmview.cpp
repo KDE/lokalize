@@ -472,7 +472,12 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         html += (entry.score > 9500) ? QStringLiteral("<p class='close_match'>") : QStringLiteral("<p>");
         //qCDebug(LOKALIZE_LOG)<<entry.target.string<<entry.hits;
 
-        html += QString(QStringLiteral("/%1%/ ")).arg(entry.score > 10000 ? 100 : float(entry.score) / 100);
+        html += QStringLiteral("/");
+        html += QString(i18nc("%1 is the TM entry score in percentage", "%1%", entry.score > 10000 ? 100 : float(entry.score) / 100));
+        html += QStringLiteral(" ");
+        html += QString(i18ncp("%1 is the number of times this TM entry has been found", "(1 time)", "(%1 times)", entry.hits));
+        html += QStringLiteral("/ ");
+
 
         //int sourceStartPos=cur.position();
         QString result = entry.diff.toHtmlEscaped();

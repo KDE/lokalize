@@ -1404,6 +1404,8 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     if (e.file == m_file)
                         e.score += 33;
 //END exact match score++
+                    if (e.score < Settings::suggScore() * 100)
+                        continue;
                     //qCWarning(LOKALIZE_LOG)<<"appending"<<e.target;
                     sortedEntryList.insertMulti(e, false);
                 }
