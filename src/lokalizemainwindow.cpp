@@ -139,10 +139,11 @@ LokalizeMainWindow::~LokalizeMainWindow()
     m_multiEditorAdaptor->deleteLater();
 
     //Disconnect the signals pointing to this MainWindow object
-    QList<QMdiSubWindow*>::iterator sw;
-    for (sw = m_fileToEditor.values().begin(); sw != m_fileToEditor.values().end(); ++sw) {
-        disconnect(*sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
-        EditorTab* w = static_cast<EditorTab*>((*sw)->widget());
+    QMdiSubWindow* sw;
+    for (int i = 0; i < m_fileToEditor.values().count(); i++) {
+        sw = m_fileToEditor.values().at(i);
+        disconnect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
+        EditorTab* w = static_cast<EditorTab*>(sw->widget());
         disconnect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
         disconnect(w, QOverload<const QString &, const QString &, const QString &, const bool>::of(&EditorTab::fileOpenRequested), this, QOverload<const QString &, const QString &, const QString &, const bool>::of(&LokalizeMainWindow::fileOpen));
         disconnect(w, QOverload<const QString &, const QString &>::of(&EditorTab::tmLookupRequested), this, QOverload<const QString &, const QString &>::of(&LokalizeMainWindow::lookupInTranslationMemory));
