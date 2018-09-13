@@ -100,9 +100,10 @@ private:
     QString m_tmRootPath;
     QTime m_timeSinceLastUpdate;
 
-    QMap< QString, OpenDBJob::DBStat> m_stats;
+    QMap<QString, OpenDBJob::DBStat> m_stats;
 public:
-    QMap< QString, TMConfig> m_configurations;
+    QMap<QString, TMConfig> m_configurations;
+    QList<QString> m_openingDb;
 };
 
 }
