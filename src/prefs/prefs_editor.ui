@@ -85,7 +85,7 @@
      <item>
       <widget class="QLabel" name="l2">
        <property name="toolTip">
-        <string>Defines the behavior of the next/previous tab shortcuts </string>
+        <string>Defines the behavior of the next/previous tab shortcuts</string>
        </property>
        <property name="text">
         <string>Next/previous tab shortcut behavior</string>
