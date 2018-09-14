@@ -58,8 +58,8 @@
 
 #include <QMenu>
 #include <QActionGroup>
-#include <QMdiArea>
 #include <QMdiSubWindow>
+#include <QMdiArea>
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QLabel>
@@ -69,7 +69,7 @@
 
 LokalizeMainWindow::LokalizeMainWindow()
     : KXmlGuiWindow()
-    , m_mdiArea(new QMdiArea)
+    , m_mdiArea(new LokalizeMdiArea)
     , m_prevSubWindow(0)
     , m_projectSubWindow(0)
     , m_translationMemorySubWindow(0)
@@ -117,6 +117,7 @@ LokalizeMainWindow::LokalizeMainWindow()
 
     QTimer::singleShot(0, this, &LokalizeMainWindow::initLater);
 }
+
 void LokalizeMainWindow::initLater()
 {
     if (!m_prevSubWindow && m_projectSubWindow)
@@ -496,10 +497,13 @@ void LokalizeMainWindow::setupActions()
     //KStandardAction::close(m_mdiArea, SLOT(closeActiveSubWindow()), ac);
 
     actionCategory = file;
-    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::CTRL + Qt::Key_BracketRight)
-    connect(action, &QAction::triggered, m_mdiArea, &QMdiArea::activateNextSubWindow);
+    ADD_ACTION_SHORTCUT("next-tab", i18n("Next tab"), Qt::CTRL + Qt::Key_Tab)
+    connect(action, &QAction::triggered, m_mdiArea, &LokalizeMdiArea::activateNextSubWindow);
 
-    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::CTRL + Qt::Key_BracketLeft)
+    ADD_ACTION_SHORTCUT("prev-tab", i18n("Previous tab"), Qt::CTRL + Qt::SHIFT + Qt::Key_Tab)
+    connect(action, &QAction::triggered, m_mdiArea, &LokalizeMdiArea::activatePreviousSubWindow);
+
+    ADD_ACTION_SHORTCUT("prev-active-tab", i18n("Previously active tab"), Qt::CTRL + Qt::Key_BracketLeft)
     connect(action, &QAction::triggered, m_mdiArea, &QMdiArea::activatePreviousSubWindow);
 
 //Tools
@@ -991,8 +995,21 @@ void LokalizeMainWindow::busyCursor(bool busy)
 {
     busy ? QApplication::setOverrideCursor(Qt::WaitCursor) : QApplication::restoreOverrideCursor();
 }
-// void LokalizeMainWindow::processEvents(){QCoreApplication::processEvents();}
 
+
+void LokalizeMdiArea::activateNextSubWindow()
+{
+    this->setActivationOrder((QMdiArea::WindowOrder)Settings::tabSwitch());
+    this->QMdiArea::activateNextSubWindow();
+    this->setActivationOrder(QMdiArea::ActivationHistoryOrder);
+}
+
+void LokalizeMdiArea::activatePreviousSubWindow()
+{
+    this->setActivationOrder((QMdiArea::WindowOrder)Settings::tabSwitch());
+    this->QMdiArea::activatePreviousSubWindow();
+    this->setActivationOrder(QMdiArea::ActivationHistoryOrder);
+}
 
 MultiEditorAdaptor::MultiEditorAdaptor(EditorTab *parent)
     : EditorAdaptor(parent)
@@ -1015,7 +1032,6 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
     Q_UNUSED(p);
-    qCWarning(LOKALIZE_LOG) << "avoiding destroying m_multiEditorAdaptor";
     setParent(0);
 }
 

@@ -61,6 +61,7 @@ Settings::Settings()
     , mDeleteFromTMOnMissing(false)
 
     , mWordCompletionLength(3)
+    , mTabSwitch(0)
     , mSuggCount(10)
     , mSuggScore(0)
 {

@@ -32,12 +32,14 @@
 #include <QPointer>
 #include <QMap>
 #include <QUrl>
+#include <QMdiArea>
 #include <QDBusObjectPath>
 
 class QLabel;
 class QMdiSubWindow;
 class QMdiArea;
 class QActionGroup;
+class LokalizeMdiArea;
 class KRecentFilesAction;
 class EditorTab;
 class MultiEditorAdaptor;
@@ -155,7 +157,7 @@ signals:
     Q_SCRIPTABLE void editorActivated();
 
 private:
-    QMdiArea* m_mdiArea;
+    LokalizeMdiArea* m_mdiArea;
     QPointer<QMdiSubWindow> m_prevSubWindow;
     QPointer<QMdiSubWindow> m_projectSubWindow;
     QPointer<QMdiSubWindow> m_translationMemorySubWindow;
@@ -181,6 +183,13 @@ private:
     FileToEditor m_fileToEditor;
 };
 
+class LokalizeMdiArea: public QMdiArea
+{
+    Q_OBJECT
+public slots:
+    void activateNextSubWindow();
+    void activatePreviousSubWindow();
+};
 
 #include <kross/ui/plugin.h>
 

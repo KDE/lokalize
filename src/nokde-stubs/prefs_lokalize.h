@@ -136,6 +136,12 @@ public:
     }
 
     static
+    int tabSwitch()
+    {
+        return self()->mTabSwitch;
+    }
+
+    static
     bool prefetchTM()
     {
         return self()->mPrefetchTM;
@@ -203,6 +209,7 @@ protected:
     bool mDeleteFromTMOnMissing;
 
     int mWordCompletionLength;
+    int mTabSwitch;
     int mSuggCount;
     int mSuggScore;
 };

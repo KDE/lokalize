@@ -41,8 +41,6 @@
 #include <QAction>
 #include <QMenu>
 #include <QShortcut>
-#include <QMdiSubWindow>
-#include <QMdiArea>
 #include <QKeyEvent>
 
 #include <klocalizedstring.h>
