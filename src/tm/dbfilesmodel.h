@@ -28,6 +28,7 @@
 
 #include <QSortFilterProxyModel>
 #include <QTime>
+#include <QMutex>
 class QFileSystemModel;
 class QPersistentModelIndex;
 
@@ -104,6 +105,7 @@ private:
 public:
     QMap<QString, TMConfig> m_configurations;
     QList<QString> m_openingDb;
+    QMutex m_openingDbLock;
 };
 
 }

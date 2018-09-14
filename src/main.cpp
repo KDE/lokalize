@@ -126,7 +126,7 @@ int main(int argc, char **argv)
     parser.process(app);
 #endif
 
-    //qCDebug(LOKALIZE_LOG) is important as it aviods compile 'optimization'.
+    //qCDebug(LOKALIZE_LOG) is important as it avoids compile 'optimization'.
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPosition>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPos>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<InlineTag>();

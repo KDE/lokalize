@@ -155,13 +155,13 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
             "SELECT source_strings.source, target_strings.target, "
             "main.ctxt, files.path, "
             "source_strings.source_accel, target_strings.target_accel, main.bits ")
-                                         + fromPart, m_dbName);
+                                         + fromPart, m_dbName, &m_dbOperationMutex);
 
     connect(job, &ExecQueryJob::done, this, &TMDBModel::slotQueryExecuted);
     threadPool()->start(job);
 
 
-    job = new ExecQueryJob(QStringLiteral("SELECT count(*) ") + fromPart, m_dbName);
+    job = new ExecQueryJob(QStringLiteral("SELECT count(*) ") + fromPart, m_dbName, &m_dbOperationMutex);
     connect(job, &ExecQueryJob::done, this, &TMDBModel::slotQueryExecuted);
     threadPool()->start(job);
 
@@ -171,14 +171,21 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
 void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 {
     job->deleteLater();
+    m_dbOperationMutex.lock();
 
     if (job->query->lastQuery().startsWith(QLatin1String("SELECT count(*) "))) {
+
         m_totalResultCount = job->query->next() ? job->query->value(0).toInt() : -1;
+        m_dbOperationMutex.unlock();
         emit finalResultCountFetched(m_totalResultCount);
         return;
     }
+    query().finish();
+    query().clear();
     setQuery(*(job->query));
+    m_dbOperationMutex.unlock();
     emit resultsFetched();
+
 }
 
 bool TMDBModel::rowIsApproved(int row) const
@@ -190,6 +197,7 @@ bool TMDBModel::rowIsApproved(int row) const
 
 int TMDBModel::translationStatus(const QModelIndex& item) const
 {
+    //QMutexLocker locker(&m_dbOperationMutex);
     if (QSqlQueryModel::data(item.sibling(item.row(), Target), Qt::DisplayRole).toString().isEmpty())
         return 2;
     return int(!rowIsApproved(item.row()));
@@ -198,6 +206,7 @@ int TMDBModel::translationStatus(const QModelIndex& item) const
 #define TM_DELIMITER '\v'
 QVariant TMDBModel::data(const QModelIndex& item, int role) const
 {
+    //QMutexLocker locker(&m_dbOperationMutex);
     bool doHtml = (role == FastSizeHintItemDelegate::HtmlDisplayRole);
     if (doHtml)
         role = Qt::DisplayRole;
@@ -544,11 +553,12 @@ void TMTab::performQuery()
         if (pos >= 0)
             ui_queryOptions->dbName->setCurrentIndex(pos); //m_model->setDB(Project::instance()->projectID());
     }
-
+    m_model->m_dbOperationMutex.lock();
     m_model->setFilter(ui_queryOptions->querySource->text(), ui_queryOptions->queryTarget->text(),
                        ui_queryOptions->invertSource->isChecked(), ui_queryOptions->invertTarget->isChecked(),
                        ui_queryOptions->filemask->text()
                       );
+    m_model->m_dbOperationMutex.unlock();
     QApplication::setOverrideCursor(Qt::BusyCursor);
 }
 
@@ -557,7 +567,9 @@ void TMTab::handleResults()
     QApplication::restoreOverrideCursor();
     QString filemask = ui_queryOptions->filemask->text();
     //ui_queryOptions->regexSource->text(),ui_queryOptions->regexTarget->text()
+    m_model->m_dbOperationMutex.lock();
     int rowCount = m_model->rowCount();
+    m_model->m_dbOperationMutex.unlock();
     if (rowCount == 0) {
         qCDebug(LOKALIZE_LOG) << "m_model->rowCount()==0";
         //try harder
@@ -593,12 +605,14 @@ void TMTab::handleResults()
 
 void TMTab::displayTotalResultCount()
 {
+    m_model->m_dbOperationMutex.lock();
     int total = m_model->totalResultCount();
     int filtered = m_proxyModel->rowCount();
     if (filtered == m_model->rowCount())
         statusBarItems.insert(1, i18nc("@info:status message entries", "Total: %1", total));
     else
         statusBarItems.insert(1, i18nc("@info:status message entries", "Total: %1 (%2)", filtered, total));
+    m_model->m_dbOperationMutex.unlock();
 }
 
 static void copy(Ui_QueryOptions* ui_queryOptions, int column)

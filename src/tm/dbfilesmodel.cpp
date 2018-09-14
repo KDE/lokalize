@@ -123,9 +123,13 @@ QVariant DBFilesModel::headerData(int section, Qt::Orientation orientation, int 
 
 void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentProjectConfig)
 {
-    if (m_openingDb.contains(name))//Database already being opened
+    m_openingDbLock.lock();
+    if (m_openingDb.contains(name)) { //Database already being opened
+        m_openingDbLock.unlock();
         return;
+    }
     m_openingDb.append(name);
+    m_openingDbLock.unlock();
     if (type == TM::Undefined)
         type = QFileInfo(
                    QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % name % QStringLiteral(REMOTETM_DATABASE_EXTENSION)).exists() ? TM::Remote : TM::Local;
@@ -176,7 +180,9 @@ void DBFilesModel::calcStats(const QModelIndex& parent, int start, int end)
 
 void DBFilesModel::openJobDone(OpenDBJob* j)
 {
+    m_openingDbLock.lock();
     m_openingDb.removeAll(j->m_dbName);
+    m_openingDbLock.unlock();
     j->deleteLater();
 
     m_stats[j->m_dbName] = j->m_stat;

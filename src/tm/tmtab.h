@@ -31,6 +31,7 @@
 
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
+#include <QMutex>
 
 class KXMLGUIClient;
 class QComboBox;
@@ -181,6 +182,8 @@ private:
     QueryType m_queryType;
     QString m_dbName;
     int m_totalResultCount;
+public:
+    mutable QMutex m_dbOperationMutex;
 };
 
 //const QString& sourceRefine, const QString& targetRefine

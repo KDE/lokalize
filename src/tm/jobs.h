@@ -31,6 +31,7 @@
 #include <QRunnable>
 
 #include <QString>
+#include <QMutex>
 #include <QSqlDatabase>
 class QSqlQuery;
 
@@ -464,7 +465,7 @@ class ExecQueryJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit ExecQueryJob(const QString& queryString, const QString& dbName);
+    explicit ExecQueryJob(const QString& queryString, const QString& dbName, QMutex *dbOperation);
     ~ExecQueryJob();
 
     int priority() const
@@ -483,6 +484,7 @@ protected:
 
     QString m_dbName;
     QString m_query;
+    QMutex* m_dbOperationMutex;
     //statistics?
 };
 

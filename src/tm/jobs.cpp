@@ -2102,11 +2102,12 @@ void ExportTmxJob::run()
 //END TMX
 
 
-ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName)
+ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QMutex *dbOperation)
     : QObject(), QRunnable()
     , query(0)
     , m_dbName(dbName)
     , m_query(queryString)
+    , m_dbOperationMutex(dbOperation)
 {
     setAutoDelete(false);
     //qCDebug(LOKALIZE_LOG)<<"ExecQueryJob"<<dbName<<queryString;
@@ -2114,12 +2115,15 @@ ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName)
 
 ExecQueryJob::~ExecQueryJob()
 {
+    m_dbOperationMutex->lock();
     delete query;
+    m_dbOperationMutex->unlock();
     qCDebug(LOKALIZE_LOG) << "ExecQueryJob dtor";
 }
 
 void ExecQueryJob::run()
 {
+    m_dbOperationMutex->lock();
     QSqlDatabase db = QSqlDatabase::database(m_dbName);
     qCDebug(LOKALIZE_LOG) << "ExecQueryJob" << m_dbName << "db.isOpen() =" << db.isOpen();
     //temporarily:
@@ -2128,6 +2132,7 @@ void ExecQueryJob::run()
     query = new QSqlQuery(m_query, db);
     query->exec();
     qCDebug(LOKALIZE_LOG) << "ExecQueryJob done" << query->lastError().text();
+    m_dbOperationMutex->unlock();
     emit done(this);
 }
 
