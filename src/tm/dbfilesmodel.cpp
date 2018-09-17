@@ -201,8 +201,9 @@ void DBFilesModel::removeTM(QModelIndex index)
 void DBFilesModel::closeJobDone(CloseDBJob* j)
 {
     j->deleteLater();
-
-    QFile::remove(m_fileSystemModel->rootPath() % '/' % j->dbName() % tmFileExtension);
+    QString filename = m_fileSystemModel->rootPath() % '/' % j->dbName() % tmFileExtension;
+    qCWarning(LOKALIZE_LOG) << "removing file " << filename;
+    QFile::remove(filename);
 }
 
 void DBFilesModel::updateProjectTmIndex()

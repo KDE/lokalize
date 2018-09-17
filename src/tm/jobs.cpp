@@ -1010,6 +1010,7 @@ void OpenDBJob::run()
                 QString filename = db.databaseName();
                 db.close();
                 QSqlDatabase::removeDatabase(m_dbName);
+                qCWarning(LOKALIZE_LOG) << "We need to recreate the database " << filename;
                 QFile::remove(filename);
 
                 db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), m_dbName);

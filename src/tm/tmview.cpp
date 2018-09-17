@@ -906,7 +906,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     //while ((pos=rxNum.indexIn(old,pos))!=-1)
     qCWarning(LOKALIZE_LOG) << "string:" << target.string << "searching for placeables in" << d.old;
     while ((pos = nextPlacableIn(d.old, pos, cap)) != -1) {
-        qCWarning(LOKALIZE_LOG) << "considering placable" << cap;
+        qCDebug(LOKALIZE_LOG) << "considering placable" << cap;
         //save these so we can use rxNum in a body
         int endPos1 = pos + cap.size() - 1;
         int endPos = d.old2DiffClean.at(endPos1);
@@ -914,7 +914,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
         QByteArray diffMPart = d.diffIndex.mid(startPos,
                                                endPos + 1 - startPos);
 
-        qCWarning(LOKALIZE_LOG) << "starting diffMPart" << diffMPart;
+        qCDebug(LOKALIZE_LOG) << "starting diffMPart" << diffMPart;
 
         //the following loop extends replacement text, e.g. for 1 -> 500 cases
         while ((++endPos < d.diffIndex.size())
@@ -923,7 +923,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
               )
             diffMPart.append('+');
 
-        qCWarning(LOKALIZE_LOG) << "diffMPart extended 1" << diffMPart;
+        qCDebug(LOKALIZE_LOG) << "diffMPart extended 1" << diffMPart;
 //         if ((pos-1>=0) && (d.old2DiffClean.at(pos)>=0))
 //         {
 //             qCWarning(LOKALIZE_LOG)<<"d.diffIndex"<<d.diffIndex<<d.old2DiffClean.at(pos)-1;
@@ -939,7 +939,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
             diffMPart.prepend('+');
         ++startPos;
 
-        qCWarning(LOKALIZE_LOG) << "diffMPart extended 2" << diffMPart;
+        qCDebug(LOKALIZE_LOG) << "diffMPart extended 2" << diffMPart;
 
         if ((diffMPart.contains('-')
              || diffMPart.contains('+'))

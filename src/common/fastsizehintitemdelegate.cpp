@@ -96,7 +96,11 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
     if (!cache.contains(rc.v)) {
         QString text = index.data(FastSizeHintItemDelegate::HtmlDisplayRole).toString();
         cache.insert(rc.v, new QStaticText(text));
+        QTextOption textOption = cache.object(rc.v)->textOption();
+        textOption.setWrapMode(QTextOption::NoWrap);
+        cache.object(rc.v)->setTextOption(textOption);
         cache.object(rc.v)->setTextFormat(richTextColumns.at(index.column()) ? Qt::RichText : Qt::PlainText);
+
     }
     int rectWidth = option.rect.width();
     QStaticText* staticText = cache.object(rc.v);
