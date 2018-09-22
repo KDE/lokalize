@@ -72,7 +72,7 @@ private:
     QStackedLayout* m_stackedLayout;
 
     KProcess* m_pologyProcess;
-    bool m_pologyProcessInProgress = false;
+    int m_pologyProcessInProgress;
     bool m_pologyStartedReceivingOutput;
     QString m_pologyData;
 
