@@ -71,11 +71,6 @@ private:
     NoteEditor* m_editor;
     QStackedLayout* m_stackedLayout;
 
-    KProcess* m_pologyProcess;
-    int m_pologyProcessInProgress;
-    bool m_pologyStartedReceivingOutput;
-    QString m_pologyData;
-
     Catalog* m_catalog;
     QMap< DocPos, QPair<Note, int> > m_unfinishedNotes; //note and its index
     QMap< int, QString > m_tempNotes;
@@ -85,6 +80,11 @@ private:
     bool m_hasErrorNotes;
     DocPos m_entry;
     DocPos m_prevEntry;
+
+    KProcess* m_pologyProcess;
+    int m_pologyProcessInProgress;
+    bool m_pologyStartedReceivingOutput;
+    QString m_pologyData;
 
     static const QString BR;
 };
