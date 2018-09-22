@@ -72,6 +72,8 @@ MsgCtxtView::~MsgCtxtView()
 {
 }
 
+const QString MsgCtxtView::BR = "<br />";
+
 void MsgCtxtView::cleanup()
 {
     m_unfinishedNotes.clear();
@@ -106,14 +108,13 @@ void MsgCtxtView::process()
     m_prevEntry = m_entry;
     m_browser->clear();
 
-    static const QString BR = QStringLiteral("<br />");
     if (m_tempNotes.contains(m_entry.entry)) {
         QString html = i18nc("@info notes to translation unit which expire when the catalog is closed", "<b>Temporary notes:</b>");
-        html += BR;
+        html += MsgCtxtView::BR;
         foreach (const QString& note, m_tempNotes.values(m_entry.entry))
-            html += note.toHtmlEscaped() + BR;
-        html += BR;
-        m_browser->insertHtml(html.replace('\n', BR));
+            html += note.toHtmlEscaped() + MsgCtxtView::BR;
+        html += MsgCtxtView::BR;
+        m_browser->insertHtml(html.replace('\n', MsgCtxtView::BR));
     }
 
     QString phaseName = m_catalog->phase(m_entry.toDocPosition());
@@ -125,7 +126,7 @@ void MsgCtxtView::process()
         html += phase.process.toHtmlEscaped();
         if (!phase.contact.isEmpty())
             html += QString(QStringLiteral(" (%1)")).arg(phase.contact.toHtmlEscaped());
-        m_browser->insertHtml(html + BR);
+        m_browser->insertHtml(html + MsgCtxtView::BR);
     }
 
     const QVector<Note> notes = m_catalog->notes(m_entry.toDocPosition());
@@ -137,7 +138,7 @@ void MsgCtxtView::process()
 
     QString html;
     foreach (const Note& note, m_catalog->developerNotes(m_entry.toDocPosition())) {
-        html += BR + escapeWithLinks(note.content);
+        html += MsgCtxtView::BR + escapeWithLinks(note.content);
     }
 
     QStringList sourceFiles = m_catalog->sourceFiles(m_entry.toDocPosition());
@@ -164,7 +165,7 @@ void MsgCtxtView::process()
 }
 void MsgCtxtView::pology()
 {
-    if (Project::instance()->local()->pologyEnabled()) {
+    if (Project::instance()->local()->pologyEnabled() && !m_pologyProcessInProgress) {
         QString command = Project::instance()->local()->pologyCommandEntry();
         command = command.replace(QStringLiteral("%u"), QString::number(m_entry.entry + 1)).replace(QStringLiteral("%f"), m_catalog->url()).replace(QStringLiteral("\n"), QStringLiteral(" "));
         m_pologyProcess = new KProcess;
@@ -178,8 +179,8 @@ void MsgCtxtView::pology()
         connect(m_pologyProcess, QOverload<int>::of(&KProcess::finished),
                 this, &MsgCtxtView::pologyHasFinished);
         m_pologyData = QStringLiteral("[pology] ");
+        m_pologyProcessInProgress = true;
         m_pologyProcess->start();
-        m_pologyProcess->waitForFinished();
     }
 }
 void MsgCtxtView::pologyReceivedStandardOutput()
@@ -187,27 +188,36 @@ void MsgCtxtView::pologyReceivedStandardOutput()
     if (!m_pologyStartedReceivingOutput) {
         m_pologyStartedReceivingOutput = true;
     }
-    static const QString grossPologyOutput = m_pologyProcess->readAllStandardOutput();
-    static const QStringList pologyTmpLines = grossPologyOutput.split('\n', QString::SkipEmptyParts);
+    const QString grossPologyOutput = m_pologyProcess->readAllStandardOutput();
+    const QStringList pologyTmpLines = grossPologyOutput.split('\n', QString::SkipEmptyParts);
     foreach (const QString pologyTmp, pologyTmpLines) {
         if (pologyTmp.startsWith(QStringLiteral("[note]")))
             m_pologyData += pologyTmp;
     }
 }
 
+
 void MsgCtxtView::pologyReceivedStandardError()
 {
     if (!m_pologyStartedReceivingOutput) {
         m_pologyStartedReceivingOutput = true;
     }
-    static const QString BR = QStringLiteral("<br />");
-    m_pologyData += m_pologyProcess->readAllStandardError().replace('\n', BR);
+    m_pologyData += m_pologyProcess->readAllStandardError().replace('\n', MsgCtxtView::BR);
 }
 void MsgCtxtView::pologyHasFinished()
 {
     if (!m_pologyStartedReceivingOutput) {
         m_pologyStartedReceivingOutput = true;
-        m_pologyData += i18nc("@info The pology command didn't return anything", "(empty)");
+        const QString grossPologyOutput = m_pologyProcess->readAllStandardOutput();
+        const QStringList pologyTmpLines = grossPologyOutput.split('\n', QString::SkipEmptyParts);
+        if (pologyTmpLines.count() == 0) {
+            m_pologyData += i18nc("@info The pology command didn't return anything", "(empty)");
+        } else {
+            foreach (const QString pologyTmp, pologyTmpLines) {
+                if (pologyTmp.startsWith(QStringLiteral("[note]")))
+                    m_pologyData += pologyTmp;
+            }
+        }
     }
     if (!m_tempNotes.value(m_entry.entry).startsWith(QStringLiteral("Failed rules:"))) {
         //This was not opened by pology
@@ -218,6 +228,7 @@ void MsgCtxtView::pologyHasFinished()
         addTemporaryEntryNote(m_entry.entry, m_pologyData);
     }
     m_pologyProcess->deleteLater();
+    m_pologyProcessInProgress = false;
 }
 
 void MsgCtxtView::addNoteUI()

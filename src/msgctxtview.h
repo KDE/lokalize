@@ -72,6 +72,7 @@ private:
     QStackedLayout* m_stackedLayout;
 
     KProcess* m_pologyProcess;
+    bool m_pologyProcessInProgress = false;
     bool m_pologyStartedReceivingOutput;
     QString m_pologyData;
 
@@ -84,6 +85,8 @@ private:
     bool m_hasErrorNotes;
     DocPos m_entry;
     DocPos m_prevEntry;
+
+    static const QString BR;
 };
 
 
