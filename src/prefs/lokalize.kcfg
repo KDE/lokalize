@@ -91,6 +91,9 @@
     <entry name="AutoSpellcheck"  type="Bool">
         <default>true</default>
     </entry>
+    <entry name="VisualizeSeparators"  type="Bool">
+        <default>false</default>
+    </entry>
     <entry name="MouseWheelGo"  type="Bool">
         <default>false</default>
     </entry>

@@ -57,6 +57,7 @@ public:
         return m_enabled;
     }
     void setSpellCheckingEnabled(bool enable);
+    void setVisualizeSeparators(bool enable);
     bool shouldBlockBeSpellChecked(const QString &block) const
     {
         Q_UNUSED(block);

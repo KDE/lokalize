@@ -148,6 +148,19 @@ void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
     SettingsController::instance()->dirty = true;
 }
 
+void TranslationUnitTextEdit::setVisualizeSeparators(bool enable)
+{
+    if (enable) {
+        QTextOption textoption = document()->defaultTextOption();
+        textoption.setFlags(textoption.flags() | QTextOption::ShowLineAndParagraphSeparators | QTextOption::ShowTabsAndSpaces);
+        document()->setDefaultTextOption(textoption);
+    } else {
+        QTextOption textoption = document()->defaultTextOption();
+        textoption.setFlags(textoption.flags() & (!QTextOption::ShowLineAndParagraphSeparators) & (!QTextOption::ShowTabsAndSpaces));
+        document()->setDefaultTextOption(textoption);
+    }
+}
+
 
 void TranslationUnitTextEdit::fileLoaded()
 {

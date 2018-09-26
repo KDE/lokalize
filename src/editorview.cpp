@@ -113,6 +113,9 @@ EditorView::EditorView(QWidget *parent, Catalog* catalog/*,keyEventHandler* kh*/
                                         "of the currently displayed entry.</p></qt>"));
     m_sourceTextEdit->viewport()->setBackgroundRole(QPalette::Background);
 
+    m_sourceTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
+    m_targetTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
+
 
     connect(m_targetTextEdit, &TranslationUnitTextEdit::contentsModified, this, &EditorView::resetFindForCurrent);
     connect(m_targetTextEdit, &TranslationUnitTextEdit::toggleApprovementRequested, this, &EditorView::toggleApprovement);
@@ -164,6 +167,8 @@ void EditorView::settingsChanged()
     //Settings::self()->config()->setGroup("Editor");
     m_sourceTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
+    m_sourceTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
+    m_targetTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
 #ifndef NOKDE
     if (m_leds) m_leds->setVisible(Settings::leds());
     else if (Settings::leds()) {
