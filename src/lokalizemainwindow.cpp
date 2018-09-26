@@ -705,7 +705,8 @@ void LokalizeMainWindow::projectLoaded()
 
     entries = projectStateGroup.readEntry("Entries", entries);
 
-    files = projectStateGroup.readEntry("Files", files);
+    if (Settings::self()->restoreRecentFilesOnStartup())
+        files = projectStateGroup.readEntry("Files", files);
     mergeFiles = projectStateGroup.readEntry("MergeFiles", mergeFiles);
     dockWidgets = projectStateGroup.readEntry("DockWidgets", dockWidgets);
     int i = files.size();

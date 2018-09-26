@@ -34,6 +34,7 @@
 
 #include "ui_prefs_identity.h"
 #include "ui_prefs_editor.h"
+#include "ui_prefs_general.h"
 #include "ui_prefs_appearance.h"
 #include "ui_prefs_tm.h"
 #include "ui_prefs_projectmain.h"
@@ -112,6 +113,12 @@ void SettingsController::showSettingsDialog()
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
     dialog->addPage(w, i18nc("@title:tab", "Identity"), "preferences-desktop-user");
+
+//General
+    w = new QWidget(dialog);
+    Ui_prefs_general ui_prefs_general;
+    ui_prefs_general.setupUi(w);
+    dialog->addPage(w, i18nc("@title:tab", "General"), "preferences-system-windows");
 
 //Editor
     w = new QWidget(dialog);

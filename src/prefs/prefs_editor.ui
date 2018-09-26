@@ -87,40 +87,6 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <layout class="QHBoxLayout">
-     <item>
-      <widget class="QLabel" name="l2">
-       <property name="toolTip">
-        <string>Defines the behavior of the next/previous tab shortcuts</string>
-       </property>
-       <property name="text">
-        <string>Next/previous tab shortcut behavior</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="kcfg_TabSwitch" >
-       <item>
-        <property name="text" >
-         <string>According to tab position</string>
-        </property>
-        <property name="data">
-         <number>0</number>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>According to tab activation order</string>
-        </property>
-        <property name="data">
-         <number>2</number>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
   </layout>
  </widget>
  <resources/>

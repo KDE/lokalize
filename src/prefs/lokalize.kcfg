@@ -84,6 +84,14 @@
     </entry>
 -->
   </group>
+  <group name="General">
+    <entry name="TabSwitch"  type="Int">
+        <default>0</default>
+    </entry>
+    <entry name="RestoreRecentFilesOnStartup"  type="Bool">
+        <default>true</default>
+    </entry>
+  </group>
   <group name="Editor">
     <entry name="AutoApprove"  type="Bool">
         <default>true</default>
@@ -99,9 +107,6 @@
     </entry>
     <entry name="WordCompletionLength"  type="Int">
         <default>4</default>
-    </entry>
-    <entry name="TabSwitch"  type="Int">
-        <default>0</default>
     </entry>
     <entry name="AltTransViewEverShownWithData" type="Bool">
       <default>false</default>

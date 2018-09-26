@@ -126,6 +126,7 @@ ecm_qt_declare_logging_category(lokalize_SRCS
 
 ki18n_wrap_ui(lokalize_SRCS
     prefs/prefs_identity.ui
+    prefs/prefs_general.ui
     prefs/prefs_editor.ui
     prefs/prefs_appearance.ui
     prefs/prefs_tm.ui
