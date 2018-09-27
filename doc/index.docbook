@@ -26,7 +26,7 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-08-27</date>
+<date>2018-09-27</date>
 <releaseinfo>2.0 (Applications 18.12)</releaseinfo>
 
 <abstract>
@@ -89,7 +89,7 @@ By default, the main window contains six parts. The upper-right box is read-only
 </screenshot>
 
 <para>
-The top-left part of the main window shows the Translation Units.  Below this, there is Unit Metadata section and it contains comments relevant to the currently displayed source text. In the lower-left, there is a Translation Memory section which shows the suggested translations from the translation memory database for the current source text entry. On the lower-right corner of the window, the glossary section is shown.
+The top-left part of the main window shows the Translation Units. Below this, there is Unit Metadata section and it contains comments relevant to the currently displayed source text. In the lower-left, there is a Translation Memory section which shows the suggested translations from the translation memory database for the current source text entry. On the lower-right corner of the window, the glossary section is shown.
 </para>
 <para>
 Translation files are opened in separate tabs, with two big multi-line edits as well as a bunch of <emphasis>tool views</emphasis>.
@@ -108,6 +108,9 @@ If the unit is not ready, its translation is rendered in italics.
 See <guilabel>Go</guilabel> menu for the shortcuts. The status bar at the bottom of the window shows the current string number, total number of strings, total untranslated strings, total not ready (fuzzy) strings and status of the current string respectively. When navigating, untranslated units are treated as not ready.
 Also, you may use the filtering feature of <guilabel>Translation Units</guilabel> toolview.
 Pressing <keycap>Page Down</keycap> actually takes you to the next unit in filtered/sorted list of that tool view.
+</para>
+<para>
+    To ease up translation of the console applications where spacers in messages are important you can check the <guilabel>Visualize separators such as spaces, tabs and new lines in the editor</guilabel> item on the page <guilabel>Editing</guilabel> of the configuration window which can be opened by choosing the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &lokalize;...</guimenuitem></menuchoice> main menu item.
 </para>
 <para>
     If you have no access to the original translation template file (it is a common practice on some commercial translation projects) then you can use a translation file from the related language. Just choose the <menuchoice><guimenu>File</guimenu><guimenuitem>Clear all translated entries</guimenuitem></menuchoice> menu item or use <keycombo>&Ctrl;&Alt;<keycap>D</keycap></keycombo> shortcut to clear all translation units.
@@ -251,7 +254,9 @@ It allows you to open a selected file in a new tab of the current &lokalize;, wi
         You can switch off the completely translated files from the <guilabel>Project Overview</guilabel> using the <guibutton>Hide completed items</guibutton> button on the main toolbar or <keycombo>&Ctrl;<keycap>T</keycap></keycombo> default shortcut.
     </para>
 </note>
-
+<para>
+    When you start &lokalize; the next time it will show the last opened file by default. You can switch off this behavior with the <guilabel>Restore the previously opened files when opening &lokalize;</guilabel> item on the page <guilabel>General</guilabel> of the configuration window which can be opened by choosing the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &lokalize;...</guimenuitem></menuchoice> main menu item. The same page can be used to configure &lokalize; behavior when you switch to the next/previous tab in it. It is possible to go through the tab list according to the tab positions or according to their activation order.
+</para>
 </sect1>
 
 </chapter>
