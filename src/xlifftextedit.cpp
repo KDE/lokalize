@@ -156,7 +156,7 @@ void TranslationUnitTextEdit::setVisualizeSeparators(bool enable)
         document()->setDefaultTextOption(textoption);
     } else {
         QTextOption textoption = document()->defaultTextOption();
-        textoption.setFlags(textoption.flags() & (!QTextOption::ShowLineAndParagraphSeparators) & (!QTextOption::ShowTabsAndSpaces));
+        textoption.setFlags(textoption.flags() & (~QTextOption::ShowLineAndParagraphSeparators) & (~QTextOption::ShowTabsAndSpaces));
         document()->setDefaultTextOption(textoption);
     }
 }
