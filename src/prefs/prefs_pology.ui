@@ -1,0 +1,83 @@
+<ui version="4.0" >
+ <class>prefs_pology</class>
+ <widget class="QWidget" name="prefs_pology" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>439</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <layout class="QFormLayout" name="formLayout" >
+     <property name="fieldGrowthPolicy" >
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QCheckBox" name="kcfg_PologyEnabled">
+       <property name="text">
+        <string>Enable Pology verification</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QLabel" name="textLabel3_0">
+       <property name="text">
+        <string comment="@label:textbox">The Pology command to run in order to check a single entry. Use the following placeholders in order to set-up the commands: %u is the entry number, %f is the file name. For instance: posieve -u %u check-rules %f</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QPlainTextEdit" name="kcfg_PologyCommandEntry">
+       <property name="maximumSize">
+        <size>
+         <width>611</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>The Pology command to run in order to check a single entry.</string>
+       </property>
+       <property name="whatsThis">
+        <string>Please enter here the Pology command to be run in order to check a single entry</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QLabel" name="textLabel4_0">
+       <property name="text">
+        <string comment="@label:textbox">The Pology command to run in order to check a whole file. This command should include "-s lokalize", placeholder %f is the file name. For instance: posieve -s lokalize check-rules %f</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="2">
+      <widget class="QPlainTextEdit" name="kcfg_PologyCommandFile">
+       <property name="maximumSize">
+        <size>
+         <width>611</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>The Pology command to run in order to check a whole file.</string>
+       </property>
+       <property name="whatsThis">
+        <string>Please enter here the Pology command to be run in order to check a whole file</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

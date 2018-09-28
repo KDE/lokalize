@@ -26,13 +26,17 @@
 #include "projectwidget.h"
 #include "tmscanapi.h"
 #include "prefs.h"
+#include "prefs_lokalize.h"
 #include "catalog.h"
+#include "lokalize_debug.h"
 
-#include <klocalizedstring.h>
-#include <kactioncategory.h>
-#include <kactioncollection.h>
-#include <kstandardaction.h>
-#include <kxmlguifactory.h>
+#include <KLocalizedString>
+#include <KActionCategory>
+#include <KActionCollection>
+#include <KStandardAction>
+#include <KXMLGUIFactory>
+#include <KProcess>
+#include <KMessageBox>
 
 #include <QLineEdit>
 #include <QIcon>
@@ -51,6 +55,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_browser(new ProjectWidget(this))
     , m_filterEdit(new QLineEdit(this))
+    , m_pologyProcessInProgress(false)
     , m_legacyUnitsCount(-1)
     , m_currentUnitsCount(0)
 
@@ -261,6 +266,9 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(i18nc("@action:inmenu", "Add to translation memory"), this, SLOT(scanFilesToTM()));
 
     menu->addAction(i18nc("@action:inmenu", "Search in files"), this, SLOT(searchInFiles()));
+    if (Settings::self()->pologyEnabled()) {
+        menu->addAction(i18nc("@action:inmenu", "Launch Pology on files"), this, &ProjectTab::pologyOnFiles);
+    }
     if (QDir(Project::instance()->templatesRoot()).exists())
         menu->addAction(i18nc("@action:inmenu", "Search in files (including templates)"), this, SLOT(searchInFilesInclTempl()));
 
@@ -294,6 +302,46 @@ void ProjectTab::searchInFiles(bool templ)
     }
 
     emit searchRequested(files);
+}
+
+void ProjectTab::pologyOnFiles()
+{
+    if (!m_pologyProcessInProgress) {
+        QStringList files = m_browser->selectedItems();
+        QString templatesRoot = Project::instance()->templatesRoot();
+        QString filesAsString;
+        int i = files.size();
+        while (--i >= 0) {
+            if (files.at(i).endsWith(QStringLiteral(".po")))
+                filesAsString += QStringLiteral("\"") + files.at(i) + QStringLiteral("\" ");
+        }
+
+        QString command = Settings::self()->pologyCommandFile().replace(QStringLiteral("%f"), filesAsString);
+        m_pologyProcess = new KProcess;
+        m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
+        qCWarning(LOKALIZE_LOG) << "Launching pology command: " << command;
+        connect(m_pologyProcess, QOverload<int, QProcess::ExitStatus>::of(&KProcess::finished),
+                this, &ProjectTab::pologyHasFinished);
+        m_pologyProcess->setShellCommand(command);
+        m_pologyProcessInProgress = true;
+        m_pologyProcess->start();
+    } else {
+        KMessageBox::error(this, i18n("A Pology check is already in progress."), i18n("Pology error"));
+    }
+}
+
+void ProjectTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    const QString pologyError = m_pologyProcess->readAllStandardError();
+    if (exitStatus == QProcess::CrashExit) {
+        KMessageBox::error(this, i18n("The Pology check has crashed unexpectedly:\n%1", pologyError), i18n("Pology error"));
+    } else if (exitCode == 0) {
+        KMessageBox::information(this, i18n("The Pology check has succeeded"), i18n("Pology success"));
+    } else {
+        KMessageBox::error(this, i18n("The Pology check has returned an error:\n%1", pologyError), i18n("Pology error"));
+    }
+    m_pologyProcess->deleteLater();
+    m_pologyProcessInProgress = false;
 }
 
 void ProjectTab::searchInFilesInclTempl()

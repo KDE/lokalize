@@ -54,11 +54,11 @@
 #include <QTextCodec>
 
 #ifndef NOKDE
-#include <kactioncategory.h>
-#include <kcolorscheme.h>
-#include <kxmlguifactory.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KActionCategory>
+#include <KColorScheme>
+#include <KXMLGUIFactory>
+#include <KLocalizedString>
+#include <KMessageBox>
 #endif
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)

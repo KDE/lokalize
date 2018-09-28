@@ -132,4 +132,15 @@
         <default>false</default>
     </entry>
   </group>
+  <group name="Pology">
+    <entry name="PologyEnabled" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="PologyCommandEntry" type="String">
+        <default>posieve -u %u check-rules %f</default>
+    </entry>
+    <entry name="PologyCommandFile" type="String">
+        <default>posieve -s lokalize check-rules %f</default>
+    </entry>
+  </group>
 </kcfg>

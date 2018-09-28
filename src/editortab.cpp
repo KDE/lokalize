@@ -57,19 +57,20 @@
 
 #include "project.h"
 #include "prefs.h"
+#include "prefs_lokalize.h"
 #include "languagelistmodel.h"
 
 #ifndef NOKDE
-#include <ktoolbarpopupaction.h>
-#include <kactioncollection.h>
-#include <kstandardaction.h>
-#include <kstandardshortcut.h>
-#include <kxmlguifactory.h>
-#include <kactioncategory.h>
+#include <KToolBarPopupAction>
+#include <KActionCollection>
+#include <KStandardAction>
+#include <KStandardShortcut>
+#include <KXMLGUIFactory>
+#include <KActionCategory>
 #endif
 
-#include <kmessagebox.h>
-#include <klocalizedstring.h>
+#include <KMessageBox>
+#include <KLocalizedString>
 
 #include <QDesktopServices>
 #include <QIcon>
@@ -92,6 +93,7 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     , m_project(Project::instance())
     , m_catalog(new Catalog(this))
     , m_view(new EditorView(this, m_catalog/*,new keyEventHandler(this,m_catalog)*/))
+    , m_pologyProcessInProgress(false)
 #ifndef NOKDE
     , m_sonnetDialog(0)
     , m_spellcheckStartUndoIndex(0)
@@ -461,6 +463,10 @@ void EditorTab::setupActions()
 
     ADD_ACTION_SHORTCUT("file_cleartarget", i18nc("@action:inmenu", "Clear all translated entries"), Qt::CTRL + Qt::ALT + Qt::Key_D)
     connect(action, &QAction::triggered, this, &EditorTab::clearTranslatedEntries);
+
+    ADD_ACTION_SHORTCUT("file_pology", i18nc("@action:inmenu", "Launch the Pology command on this file"), Qt::CTRL + Qt::ALT + Qt::Key_P)
+    action->setEnabled(Settings::self()->pologyEnabled());
+    connect(action, &QAction::triggered, this, &EditorTab::launchPology);
 
     ADD_ACTION_SHORTCUT("file_xliff2odf", i18nc("@action:inmenu", "Merge translation into OpenDocument"), Qt::CTRL + Qt::Key_Backslash)
     connect(action, &QAction::triggered, this, &EditorTab::mergeIntoOpenDocument);
@@ -1393,6 +1399,37 @@ void EditorTab::paintEvent(QPaintEvent* event)
 void EditorTab::indexWordsForCompletion()
 {
     CompletionStorage::instance()->scanCatalog(m_catalog);
+}
+
+void EditorTab::launchPology()
+{
+    if (!m_pologyProcessInProgress) {
+        QString command = Settings::self()->pologyCommandFile().replace(QStringLiteral("%f"), QStringLiteral("\"") + currentFilePath() + QStringLiteral("\""));
+        m_pologyProcess = new KProcess;
+        m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
+        qCWarning(LOKALIZE_LOG) << "Launching pology command: " << command;
+        connect(m_pologyProcess, QOverload<int, QProcess::ExitStatus>::of(&KProcess::finished),
+                this, &EditorTab::pologyHasFinished);
+        m_pologyProcess->setShellCommand(command);
+        m_pologyProcessInProgress = true;
+        m_pologyProcess->start();
+    } else {
+        KMessageBox::error(this, i18n("A Pology check is already in progress."), i18n("Pology error"));
+    }
+}
+
+void EditorTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    const QString pologyError = m_pologyProcess->readAllStandardError();
+    if (exitStatus == QProcess::CrashExit) {
+        KMessageBox::error(this, i18n("The Pology check has crashed unexpectedly:\n%1", pologyError), i18n("Pology error"));
+    } else if (exitCode == 0) {
+        KMessageBox::information(this, i18n("The Pology check has succeeded."), i18n("Pology success"));
+    } else {
+        KMessageBox::error(this, i18n("The Pology check has returned an error:\n%1", pologyError), i18n("Pology error"));
+    }
+    m_pologyProcess->deleteLater();
+    m_pologyProcessInProgress = false;
 }
 
 void EditorTab::clearTranslatedEntries()

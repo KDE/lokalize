@@ -167,9 +167,9 @@ void MsgCtxtView::process()
 }
 void MsgCtxtView::pology()
 {
-    if (Project::instance()->local()->pologyEnabled() && m_pologyProcessInProgress == 0) {
-        QString command = Project::instance()->local()->pologyCommandEntry();
-        command = command.replace(QStringLiteral("%u"), QString::number(m_entry.entry + 1)).replace(QStringLiteral("%f"), m_catalog->url()).replace(QStringLiteral("\n"), QStringLiteral(" "));
+    if (Settings::self()->pologyEnabled() && m_pologyProcessInProgress == 0) {
+        QString command = Settings::self()->pologyCommandEntry();
+        command = command.replace(QStringLiteral("%u"), QString::number(m_entry.entry + 1)).replace(QStringLiteral("%f"),  QStringLiteral("\"") + m_catalog->url() + QStringLiteral("\"")).replace(QStringLiteral("\n"), QStringLiteral(" "));
         m_pologyProcess = new KProcess;
         m_pologyProcess->setShellCommand(command);
         m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
@@ -183,7 +183,7 @@ void MsgCtxtView::pology()
         m_pologyData = QStringLiteral("[pology] ");
         m_pologyProcessInProgress = m_entry.entry + 1;
         m_pologyProcess->start();
-    } else if (Project::instance()->local()->pologyEnabled() && m_pologyProcessInProgress > 0) {
+    } else if (Settings::self()->pologyEnabled() && m_pologyProcessInProgress > 0) {
         QTimer::singleShot(1000, this, &MsgCtxtView::pology);
     }
 }

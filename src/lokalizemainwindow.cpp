@@ -44,15 +44,15 @@
 
 #include "multieditoradaptor.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <knotification.h>
-#include <kactioncollection.h>
-#include <kactioncategory.h>
-#include <kstandardaction.h>
-#include <kstandardshortcut.h>
-#include <krecentfilesaction.h>
-#include <kxmlguifactory.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KNotification>
+#include <KActionCollection>
+#include <KActionCategory>
+#include <KStandardAction>
+#include <KStandardShortcut>
+#include <KRecentFilesAction>
+#include <KXMLGUIFactory>
 #include <kross/core/action.h>
 
 

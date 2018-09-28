@@ -54,12 +54,12 @@
 #include <QBoxLayout>
 #include <QThreadPool>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #ifndef NOKDE
-#include <kactioncategory.h>
-#include <kcolorscheme.h>
-#include <kxmlguifactory.h>
+#include <KActionCategory>
+#include <KColorScheme>
+#include <KXMLGUIFactory>
 #endif
 
 static QStringList doScanRecursive(const QDir& dir);

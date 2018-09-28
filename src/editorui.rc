@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="Editor" version="13">
+<kpartgui name="Editor" version="14">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -22,6 +22,7 @@
     <Action name="file_mail"/>
     <MergeLocal name="mail_merge"/>
     <Separator/>
+    <Action name="file_pology"/>
     <Action name="file_cleartarget"/>
     <Action name="file_phases"/>
     <Action name="file_wordcount"/>

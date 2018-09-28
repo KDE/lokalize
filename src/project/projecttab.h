@@ -27,6 +27,7 @@
 #include "lokalizesubwindowbase.h"
 
 #include <KMainWindow>
+#include <KProcess>
 
 #include <KXMLGUIClient>
 
@@ -89,6 +90,7 @@ private slots:
     void setFilterRegExp();
     void setFocus();
     void scanFilesToTM();
+    void pologyOnFiles();
     void searchInFiles(bool templ = false);
     void searchInFilesInclTempl();
     void openFile();
@@ -111,12 +113,17 @@ private slots:
     void updateStatusBar(int fuzzy = 0, int translated = 0, int untranslated = 0, bool done = false);
     void initStatusBarProgress();
 
+    void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
+
 private:
     ProjectWidget* m_browser;
     QLineEdit* m_filterEdit;
     QProgressBar* m_progressBar;
 
     QStackedLayout *m_stackedLayout;
+
+    KProcess* m_pologyProcess;
+    bool m_pologyProcessInProgress;
 
     int m_legacyUnitsCount, m_currentUnitsCount;
 };

@@ -32,6 +32,7 @@
 #include "lokalizesubwindowbase.h"
 
 #include <QHash>
+#include <KProcess>
 
 #ifndef NOKDE
 namespace Sonnet
@@ -292,6 +293,7 @@ private slots:
 
     void displayWordCount();
     void clearTranslatedEntries();
+    void launchPology();
 
     void openPhasesWindow();
 
@@ -304,6 +306,8 @@ private slots:
     void indexWordsForCompletion();
 
     void fileAutoSaveFailedWarning(const QString&);
+
+    void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -324,6 +328,9 @@ private:
     QAction* m_approveAndGoAction;
     QAction* m_approveAction;
     QAction* m_stateAction; //is = m_approveAction ifndef NOKDE
+
+    KProcess* m_pologyProcess;
+    bool m_pologyProcessInProgress;
 
     DocPosition m_currentPos;
     DocPosition _searchingPos; //for find/replace
