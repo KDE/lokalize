@@ -580,8 +580,8 @@ void EditorTab::spellcheckNext()
     {
         if (!switchNext(m_catalog,_spellcheckPos))
         {
-            qCWarning(LOKALIZE_LOG)<<_spellcheckStartPos.entry;
-            qCWarning(LOKALIZE_LOG)<<_spellcheckStartPos.form;
+            qCDebug(LOKALIZE_LOG)<<_spellcheckStartPos.entry;
+            qCDebug(LOKALIZE_LOG)<<_spellcheckStartPos.form;
             bool continueFromStart=
                 !(_spellcheckStartPos.entry==0 && _spellcheckStartPos.form==0)
                 && KMessageBox::questionYesNo(this,i18n("Lokalize has reached end of document. Do you want to continue from start?"),

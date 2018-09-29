@@ -89,7 +89,7 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
     if (processedAmount(KJob::Files)==totalAmount(KJob::Files))
     {
         emitResult();
-        qCWarning(LOKALIZE_LOG)<<"finished in"<<m_time.elapsed()<<"msecs";
+        qCDebug(LOKALIZE_LOG)<<"finished in"<<m_time.elapsed()<<"msecs";
     }
 }
 

@@ -859,7 +859,7 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
 
     QString scriptsrc=PROJECTRCFILE;
     QDir rcdir(PROJECTRCFILEDIR);
-    qCWarning(LOKALIZE_LOG)<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
+    qCDebug(LOKALIZE_LOG)<<rcdir.entryList(QStringList("*.rc"),QDir::Files);
     foreach(const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"),QDir::Files))
         if (rc!=scriptsrc)
             qCWarning(LOKALIZE_LOG)<<rc<<collection->readXmlFile(rcdir.absoluteFilePath(rc));
@@ -1013,7 +1013,7 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
     Q_UNUSED(p);
-    qCWarning(LOKALIZE_LOG)<<"avoiding destroying m_multiEditorAdaptor";
+    qCDebug(LOKALIZE_LOG)<<"avoiding destroying m_multiEditorAdaptor";
     setParent(0);
 }
 
