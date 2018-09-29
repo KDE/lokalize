@@ -170,7 +170,7 @@ QString GNUPluralForms(const QString& lang)
 
     //BEGIN alternative
     // NOTE does this work under M$ OS?
-    qCWarning(LOKALIZE_LOG) << "gonna call msginit";
+    qCDebug(LOKALIZE_LOG) << "gonna call msginit";
     QString def = QStringLiteral("nplurals=2; plural=n != 1;");
 
     QStringList arguments;
@@ -421,7 +421,7 @@ void updateHeader(QString& header,
             if (generatedFromDocbook)
                 num = 1;
             else {
-                qCWarning(LOKALIZE_LOG) << "No plural form info in header, using project-defined one" << langCode;
+                qCDebug(LOKALIZE_LOG) << "No plural form info in header, using project-defined one" << langCode;
                 QString t = GNUPluralForms(langCode);
                 //qCWarning(LOKALIZE_LOG)<<"generated: " << t;
                 if (!t.isEmpty()) {

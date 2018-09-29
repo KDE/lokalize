@@ -1528,7 +1528,7 @@ void ScanJob::run()
     if (stop || !QSqlDatabase::contains(m_dbName)) {
         return;
     }
-    qCWarning(LOKALIZE_LOG) << "scan job started for" << m_filePath << m_dbName << stop << m_dbName;
+    qCDebug(LOKALIZE_LOG) << "scan job started for" << m_filePath << m_dbName << stop << m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QTime a; a.start();
 
@@ -1938,7 +1938,7 @@ ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName)
 
 ImportTmxJob::~ImportTmxJob()
 {
-    qCWarning(LOKALIZE_LOG) << "ImportTmxJob dtor";
+    qCDebug(LOKALIZE_LOG) << "ImportTmxJob dtor";
 }
 
 void ImportTmxJob::run()

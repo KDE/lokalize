@@ -846,7 +846,7 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
 
     QString scriptsrc = PROJECTRCFILE;
     QDir rcdir(PROJECTRCFILEDIR);
-    qCWarning(LOKALIZE_LOG) << rcdir.entryList(QStringList("*.rc"), QDir::Files);
+    qCDebug(LOKALIZE_LOG) << rcdir.entryList(QStringList("*.rc"), QDir::Files);
     foreach (const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"), QDir::Files))
         if (rc != scriptsrc)
             qCWarning(LOKALIZE_LOG) << rc << collection->readXmlFile(rcdir.absoluteFilePath(rc));

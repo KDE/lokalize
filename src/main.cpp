@@ -235,8 +235,8 @@ int main(int argc, char **argv)
     if (Project::instance()->isLoaded())
         Project::instance()->save();
 
-    qCWarning(LOKALIZE_LOG) << "Finishing Project jobs...";
-    qCWarning(LOKALIZE_LOG) << "Finishing TM jobs...";
+    qCDebug(LOKALIZE_LOG) << "Finishing Project jobs...";
+    qCDebug(LOKALIZE_LOG) << "Finishing TM jobs...";
     int secs = 5;
     while (--secs >= 0) {
         Project::instance()->model()->threadPool()->waitForDone(1000);
