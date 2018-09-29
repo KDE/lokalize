@@ -52,15 +52,15 @@ KActionCollection::KActionCollection(QMainWindow* w)
     a = help->addAction(QApplication::translate("QMenuBar", "About Qt"), qApp, SLOT(aboutQt()));
     a->setMenuRole(QAction::AboutQtRole);
 
-    a = tools->addAction(i18nc("@action:inmenu", "Search and replace in files"), Project::instance(), SLOT(showFileSearch()));
+    a = tools->addAction(i18nc("@action:inmenu", "Search and replace in files"), Project::instance(), &Project::showFileSearch);
     a->setShortcut(QKeySequence::Find);
 
-    a = tools->addAction(i18nc("@action:inmenu", "Find next in files"), Project::instance(), SLOT(fileSearchNext()));
+    a = tools->addAction(i18nc("@action:inmenu", "Find next in files"), Project::instance(), &Project::fileSearchNext);
     a->setShortcut(QKeySequence::FindNext);
 
     tools->addSeparator();
 
-    a = tools->addAction(i18nc("@action:inmenu", "Translation memory"), Project::instance(), SLOT(showTM()));
+    a = tools->addAction(i18nc("@action:inmenu", "Translation memory"), Project::instance(), &Project::showTM);
     a->setShortcut(Qt::Key_F7);
 }
 

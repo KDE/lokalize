@@ -125,7 +125,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") % ' ' % i18nc("@info:tooltip", "Accepts regular expressions"));
     connect(m_filterEdit, &QLineEdit::textChanged, this, &ProjectTab::setFilterRegExp, Qt::QueuedConnection);
-    new QShortcut(Qt::CTRL + Qt::Key_L, this, SLOT(setFocus()), 0, Qt::WidgetWithChildrenShortcut);
+    new QShortcut(Qt::CTRL + Qt::Key_L, this, SLOT(setFocus), 0, Qt::WidgetWithChildrenShortcut);
 
     l->addWidget(m_filterEdit);
     l->addWidget(m_browser);
@@ -142,7 +142,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
     setUpdatedXMLFile();
-    //QAction* action = KStandardAction::find(Project::instance(),SLOT(showTM()),actionCollection());
+    //QAction* action = KStandardAction::find(Project::instance(),&ProjectTab::showTM,actionCollection());
 
 #define ADD_ACTION_SHORTCUT_ICON(_name,_text,_shortcut,_icon)\
     action = nav->addAction(QStringLiteral(_name));\
@@ -251,32 +251,32 @@ void ProjectTab::contextMenuEvent(QContextMenuEvent *event)
     connect(menu, &QMenu::aboutToHide, menu, &QMenu::deleteLater);
 
     if (m_browser->selectedItems().size() > 1 || (m_browser->selectedItems().size() == 1 && !m_browser->currentIsTranslationFile())) {
-        menu->addAction(i18nc("@action:inmenu", "Open selected files"), this, SLOT(openFile()));
+        menu->addAction(i18nc("@action:inmenu", "Open selected files"), this, &ProjectTab::openFile);
         menu->addSeparator();
     } else if (m_browser->currentIsTranslationFile()) {
-        menu->addAction(i18nc("@action:inmenu", "Open"), this, SLOT(openFile()));
+        menu->addAction(i18nc("@action:inmenu", "Open"), this, &ProjectTab::openFile);
         menu->addSeparator();
     }
-    /*menu.addAction(i18nc("@action:inmenu","Find in files"),this,SLOT(findInFiles()));
-    menu.addAction(i18nc("@action:inmenu","Replace in files"),this,SLOT(replaceInFiles()));
-    menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,SLOT(spellcheckFiles()));
+    /*menu.addAction(i18nc("@action:inmenu","Find in files"),this,&ProjectTab::findInFiles);
+    menu.addAction(i18nc("@action:inmenu","Replace in files"),this,&ProjectTab::replaceInFiles);
+    menu.addAction(i18nc("@action:inmenu","Spellcheck files"),this,&ProjectTab::spellcheckFiles);
     menu.addSeparator();
-    menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,SLOT(expandItems()));
+    menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
     */
-    menu->addAction(i18nc("@action:inmenu", "Add to translation memory"), this, SLOT(scanFilesToTM()));
+    menu->addAction(i18nc("@action:inmenu", "Add to translation memory"), this, &ProjectTab::scanFilesToTM);
 
-    menu->addAction(i18nc("@action:inmenu", "Search in files"), this, SLOT(searchInFiles()));
+    menu->addAction(i18nc("@action:inmenu", "Search in files"), this, &ProjectTab::searchInFiles);
     if (Settings::self()->pologyEnabled()) {
         menu->addAction(i18nc("@action:inmenu", "Launch Pology on files"), this, &ProjectTab::pologyOnFiles);
     }
     if (QDir(Project::instance()->templatesRoot()).exists())
-        menu->addAction(i18nc("@action:inmenu", "Search in files (including templates)"), this, SLOT(searchInFilesInclTempl()));
+        menu->addAction(i18nc("@action:inmenu", "Search in files (including templates)"), this, &ProjectTab::searchInFilesInclTempl);
 
 //     else if (Project::instance()->model()->hasChildren(/*m_proxyModel->mapToSource(*/(m_browser->currentIndex()))
 //             )
 //     {
 //         menu.addSeparator();
-//         menu.addAction(i18n("Force Scanning"),this,SLOT(slotForceStats()));
+//         menu.addAction(i18n("Force Scanning"),this,&ProjectTab::slotForceStats);
 //
 //     }
 
