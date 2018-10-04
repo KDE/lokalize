@@ -120,7 +120,6 @@ bool switchNext(Catalog*& catalog, DocPosition& pos, int parts)
     return true;
 }
 
-#ifndef NOKDE
 #include <QDBusArgument>
 const QDBusArgument &operator>>(const QDBusArgument &argument, DocPosition& pos)
 {
@@ -151,4 +150,3 @@ QDBusArgument &operator<<(QDBusArgument &argument, const DocPosition &pos)
 
     return argument;
 }
-#endif

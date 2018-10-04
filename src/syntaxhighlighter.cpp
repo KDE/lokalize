@@ -29,9 +29,7 @@
 #include "prefs_lokalize.h"
 #include "prefs.h"
 
-#ifndef NOKDE
 #include <kcolorscheme.h>
-#endif
 
 #include <QTextEdit>
 #include <QApplication>
@@ -45,14 +43,8 @@
 #define NUM_OF_RULES 5
 
 SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
-#ifndef NOKDE
     : Sonnet::Highlighter(parent)
     , tagBrush(KColorScheme::View, KColorScheme::VisitedText)
-#elif defined(SONNET_STATIC)
-    : Sonnet::Highlighter(parent)
-#else
-    : QSyntaxHighlighter(parent->document())
-#endif
     , m_approved(true)
 //     , fromDocbook(docbook)
 {
@@ -61,15 +53,10 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     HighlightingRule rule;
     //rule.format.setFontItalic(true);
 //     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
-#if !defined(NOKDE) || defined(SONNET_STATIC)
     setAutomatic(false);
-#endif
 
-#ifndef NOKDE
     tagFormat.setForeground(tagBrush.brush(QApplication::palette()));
-#else
-    tagFormat.setForeground(QApplication::palette().linkVisited());
-#endif
+
     //QTextCharFormat format;
     //tagFormat.setForeground(Qt::darkBlue);
 //     if (!docbook) //support multiline tags
@@ -114,14 +101,10 @@ void SyntaxHighlighter::settingsChanged()
         HighlightingRule rule;
         rule.format.clearForeground();
 
-#ifndef NOKDE
         KColorScheme colorScheme(QPalette::Normal);
         //nbsp
         //rule.format.setBackground(colorScheme.background(KColorScheme::NegativeBackground));
         rule.format.setBackground(colorScheme.foreground(KColorScheme::InactiveText));
-#else
-        rule.format.setBackground(QApplication::palette().alternateBase());
-#endif
         rule.format.setFontLetterSpacing(200);
 
         rule.pattern = QRegExp(QChar(0x00a0U), Qt::CaseSensitive, QRegExp::FixedString);
@@ -129,11 +112,7 @@ void SyntaxHighlighter::settingsChanged()
 
         //usual spaces at the end
         rule.format.setFontLetterSpacing(100);
-#ifndef NOKDE
         rule.format.setBackground(colorScheme.background(KColorScheme::ActiveBackground));
-#else
-        rule.format.setBackground(QApplication::palette().midlight());
-#endif
         rule.pattern = re;
         highlightingRules.append(rule);
         rehighlight();
@@ -195,10 +174,8 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
         }
     }
 
-#if !defined(NOKDE) || defined(SONNET_STATIC)
     if (spellCheckerFound())
         Sonnet::Highlighter::highlightBlock(text); // Resets current block state
-#endif
     setCurrentBlockState(currentBlockState);
 }
 
@@ -227,7 +204,6 @@ void SyntaxHighlighter::setFormatRetainingUnderlines(int start, int count, QText
 
 void SyntaxHighlighter::setMisspelled(int start, int count)
 {
-#if !defined(NOKDE) || defined(SONNET_STATIC)
     const Project& project = *Project::instance();
 
     const QString text = currentBlock().text();
@@ -286,7 +262,6 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
         f.setUnderlineColor(Qt::red);
         setFormat(start + i, 1, f);
     }
-#endif
 }
 
 void SyntaxHighlighter::unsetMisspelled(int start, int count)

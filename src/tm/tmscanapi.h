@@ -30,9 +30,7 @@
 #include <QTime>
 #include <QVector>
 
-#ifndef NOKDE
 #include <kjob.h>
-#endif
 
 bool dragIsAcceptable(const QList<QUrl>& urls);
 QString shorterFilePath(const QString path);
@@ -48,7 +46,6 @@ void purgeMissingFilesFromTM(const QStringList& urls, const QString& dbName);
 ///wrapper. returns gross number of jobs started
 int scanRecursive(const QStringList& urls, const QString& dbName);
 
-#ifndef NOKDE
 class RecursiveScanJob: public KJob
 {
     Q_OBJECT
@@ -67,7 +64,6 @@ private:
     QTime m_time;
     QVector<ScanJob*> m_jobs;
 };
-#endif
 }
 
 #endif

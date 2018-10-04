@@ -73,10 +73,7 @@ SOURCES += main.cpp\
     catalog/gettext/gettextimport.cpp\
     catalog/gettext/gettextexport.cpp\
     catalog/xliff/xliffstorage.cpp\
-    catalog/ts/tsstorage.cpp\
-    nokde-stubs/prefs.cpp\
-    nokde-stubs/lokalizesubwindowbase.cpp\
-    nokde-stubs/welcometab.cpp
+    catalog/ts/tsstorage.cpp
 
 mac: CONFIG += objective_c
 mac: OBJECTIVE_SOURCES += common/machelpers.mm
@@ -129,25 +126,16 @@ HEADERS  += editortab.h\
     catalog/cmd.h\
     catalog/pos.h\
     catalog/catalog.h\
-    catalog/catalogstring.h\
-    nokde-stubs/prefs.h\
-    nokde-stubs/prefs_lokalize.h\
-    nokde-stubs/projectbase.h\
-    nokde-stubs/projectlocal.h\
-    nokde-stubs/kaboutdata.h\
-    nokde-stubs/welcometab.h
+    catalog/catalogstring.h
 
 FORMS    +=    glossary/termedit.ui\
     tm/queryoptions.ui\
     tm/managedatabases.ui\
     tm/dbparams.ui\
     filesearch/filesearchoptions.ui\
-    filesearch/massreplaceoptions.ui\
-    nokde-stubs/welcomewidget.ui
+    filesearch/massreplaceoptions.ui
 
-INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm filesearch project common nokde-stubs filesearch
-
-DEFINES += NOKDE
+INCLUDEPATH += catalog catalog/gettext catalog/xliff catalog/ts cataloglistview mergemode glossary tm filesearch project common filesearch
 
 #unix: LIBS += -lhunspell
 

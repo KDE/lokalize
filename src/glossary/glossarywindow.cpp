@@ -32,9 +32,7 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#ifndef NOKDE
 #include <kstandardguiitem.h>
-#endif
 
 #include <QLineEdit>
 #include <QApplication>
@@ -237,7 +235,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_filterEdit->setClearButtonEnabled(true);
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setFocus();
-    m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + " " + i18nc("@info:tooltip", "Accepts regular expressions"));
+    m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + ' ' + i18nc("@info:tooltip", "Accepts regular expressions"));
     new QShortcut(Qt::CTRL + Qt::Key_L, this, SLOT(setFocus()), 0, Qt::WidgetWithChildrenShortcut);
     connect(m_filterEdit, &QLineEdit::textChanged, m_proxyModel, &GlossaryNS::GlossarySortFilterProxyModel::setFilterRegExp);
 
@@ -249,13 +247,9 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
 
         QPushButton* rmBtn = new QPushButton(w);
         connect(rmBtn, &QPushButton::clicked, this, QOverload<>::of(&GlossaryWindow::rmTermEntry));
-#ifndef NOKDE
         KGuiItem::assign(addBtn, KStandardGuiItem::add());
         KGuiItem::assign(rmBtn, KStandardGuiItem::remove());
-#else
-        addBtn->setText(QApplication::translate("KStandardGuiItem", "Add"));
-        rmBtn->setText(QApplication::translate("KStandardGuiItem", "Remove"));
-#endif
+
         QPushButton* restoreBtn = new QPushButton(i18nc("@action:button reloads glossary from disk", "Restore from disk"), w);
         restoreBtn->setToolTip(i18nc("@info:tooltip", "Reload glossary from disk, discarding any changes"));
         connect(restoreBtn, &QPushButton::clicked, this, &GlossaryWindow::restore);
@@ -327,9 +321,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     //TODO
     //connect(m_targetTermsModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),m_browser,SLOT(setFocus()));
 
-#ifndef NOKDE
     setAutoSaveSettings(QLatin1String("GlossaryWindow"), true);
-#endif
     //Glossary* glossary=Project::instance()->glossary();
     /*setCaption(i18nc("@title:window","Glossary"),
               !glossary->changedIds.isEmpty()||!glossary->addedIds.isEmpty()||!glossary->removedIds.isEmpty());

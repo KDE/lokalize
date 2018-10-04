@@ -28,9 +28,7 @@
 #include "catalog.h"
 #include "project.h"
 
-#ifndef NOKDE
 #include <kcolorscheme.h>
-#endif
 #include <klocalizedstring.h>
 
 #include <QApplication>
@@ -140,7 +138,6 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         bool modified = m_catalog->isModified(index.row());
         return m_fonts.at(fuzzy * 1 | modified * 2);
     } else if (role == Qt::ForegroundRole) {
-#ifndef NOKDE
         if (m_catalog->isBookmarked(index.row())) {
             static KColorScheme colorScheme(QPalette::Normal);
             return colorScheme.foreground(KColorScheme::LinkText);
@@ -149,14 +146,6 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             static KColorScheme colorScheme(QPalette::Normal);
             return colorScheme.foreground(KColorScheme::InactiveText);
         }
-#else
-        if (m_catalog->isBookmarked(index.row())) {
-            return QApplication::palette().link();
-        }
-        if (m_catalog->isObsolete(index.row())) {
-            return QApplication::palette().brightText();
-        }
-#endif
     } else if (role == Qt::UserRole) {
         switch (index.column()) {
         case TranslationStatus:   return m_catalog->isApproved(index.row());

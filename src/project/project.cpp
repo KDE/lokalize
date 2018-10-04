@@ -46,7 +46,6 @@
 #include <QFileInfo>
 #include <QStringBuilder>
 
-#ifndef NOKDE
 #include "projectmodel.h"
 #include "webquerycontroller.h"
 
@@ -62,7 +61,6 @@
 
 #include <QDBusArgument>
 using namespace Kross;
-#endif
 
 QString getMailingList()
 {
@@ -165,21 +163,16 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     }
     TM::threadPool()->waitForDone(500);//more safety
 
-#ifndef NOKDE
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
     if (!QFileInfo::exists(newProjectPath)) Project::instance()->setDefaults();
     ProjectBase::load();
-#else
-#endif
     m_path = newProjectPath;
     m_desirablePath.clear();
 
     //cache:
     m_projectDir = QFileInfo(m_path).absolutePath();
-#ifndef NOKDE
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID() + QStringLiteral(".local"), KConfig::NoGlobals, QStandardPaths::DataLocation));
     m_localConfig->load();
-#endif
 
     if (forcedTargetLangCode.length())
         setLangCode(forcedTargetLangCode);
@@ -243,7 +236,6 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 
 void Project::populateDirModel()
 {
-#ifndef NOKDE
     if (Q_UNLIKELY(m_path.isEmpty() || !QFileInfo::exists(poDir())))
         return;
 
@@ -251,7 +243,6 @@ void Project::populateDirModel()
     if (QFileInfo::exists(potDir()))
         potUrl = QUrl::fromLocalFile(potDir());
     model()->setUrl(QUrl::fromLocalFile(poDir()), potUrl);
-#endif
 }
 
 void Project::populateGlossary()
@@ -331,14 +322,10 @@ void Project::save()
 
 ProjectModel* Project::model()
 {
-#ifndef NOKDE
     if (Q_UNLIKELY(!m_model))
         m_model = new ProjectModel(this);
 
     return m_model;
-#else
-    return 0;
-#endif
 }
 
 void Project::setDefaults()
@@ -394,7 +381,6 @@ static void fillFilePathsRecursive(const QDir& dir, QMultiMap<QByteArray, QByteA
 }
 
 
-#ifndef NOKDE
 class SourceFilesSearchJob: public KJob
 {
 public:
@@ -451,14 +437,12 @@ void SourceFilesSearchJob::start()
                      i18n("Scanning folders with source files"),
                      qMakePair(i18n("Editor"), m_folderName));
 }
-#endif
 
 const QMultiMap<QByteArray, QByteArray>& Project::sourceFilePaths()
 {
     if (m_sourceFilePaths.isEmpty()) {
         QDir dir(local()->sourceDir());
         if (dir.exists()) {
-#ifndef NOKDE
             SourceFilesSearchJob* metaJob = new SourceFilesSearchJob(local()->sourceDir());
             KIO::getJobTracker()->registerJob(metaJob);
             metaJob->start();
@@ -466,11 +450,6 @@ const QMultiMap<QByteArray, QByteArray>& Project::sourceFilePaths()
             //KNotification* notification=new KNotification("SourceFileScan", 0);
             //notification->setText( i18nc("@info","Please wait while %1 is being scanned for source files.", local()->sourceDir()) );
             //notification->sendEvent();
-#else
-            QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-            fillFilePathsRecursive(dir, m_sourceFilePaths);
-            QApplication::restoreOverrideCursor();
-#endif
         }
     }
     return m_sourceFilePaths;

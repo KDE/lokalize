@@ -34,13 +34,9 @@
 
 #include <klocalizedstring.h>
 
-#ifndef NOKDE
 #include <kio/global.h>
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
-#else
-class KJob;
-#endif
 
 namespace TM
 {
@@ -49,7 +45,6 @@ static QVector<ScanJob*> doScanRecursive(const QDir& dir, const QString& dbName,
 
 using namespace TM;
 
-#ifndef NOKDE
 RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
     : KJob(parent)
     , m_dbName(dbName)
@@ -100,17 +95,12 @@ void RecursiveScanJob::start()
                      i18n("Adding files to Lokalize translation memory"),
                      qMakePair(i18n("TM"), m_dbName));
 }
-#endif
 
 int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
 {
-#ifndef NOKDE
     RecursiveScanJob* metaJob = new RecursiveScanJob(dbName);
     KIO::getJobTracker()->registerJob(metaJob);
     metaJob->start();
-#else
-    KJob* metaJob = 0;
-#endif
     if (!askAuthorInfoIfEmpty())
         return 0;
 
@@ -121,21 +111,15 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
         if (filePath.isEmpty())
             continue;
         if (Catalog::extIsSupported(filePath)) {
-#ifndef NOKDE
             ScanJobFeedingBack* job = new ScanJobFeedingBack(filePath, dbName);
             QObject::connect(job, &ScanJobFeedingBack::done, metaJob, &RecursiveScanJob::scanJobFinished);
-#else
-            ScanJob* job = new ScanJob(filePath, dbName);
-#endif
             TM::threadPool()->start(job, SCAN);
             result.append(job);
         } else
             result += doScanRecursive(QDir(filePath), dbName, metaJob);
     }
 
-#ifndef NOKDE
     metaJob->setJobs(result);
-#endif
     DBFilesModel::instance()->openDB(dbName); //update stats after it finishes
 
     return result.size();
@@ -158,12 +142,8 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
     i = files.size();
 
     while (--i >= 0) {
-#ifndef NOKDE
         ScanJobFeedingBack* job = new ScanJobFeedingBack(dir.filePath(files.at(i)), dbName);
         QObject::connect(job, &ScanJobFeedingBack::done, (RecursiveScanJob*)metaJob, &RecursiveScanJob::scanJobFinished);
-#else
-        ScanJob* job = new ScanJob(dir.filePath(files.at(i)), dbName);
-#endif
         TM::threadPool()->start(job, SCAN);
         result.append(job);
     }

@@ -652,12 +652,8 @@ bool askAuthorInfoIfEmpty()
                                   i18nc("@window:title", "Author name missing"), i18n("Your name:"),
                                   QLineEdit::Normal, fullUserName(), &ok);
 
-#ifndef NOKDE
             Settings::self()->authorNameItem()->setValue(ok ? contact : fullUserName());
             Settings::self()->save();
-#else
-            Settings::self()->setAuthorName(ok ? contact : fullUserName());
-#endif
         }
         if (Settings::authorEmail().isEmpty()) {
             bool ok;
@@ -667,12 +663,8 @@ bool askAuthorInfoIfEmpty()
                                 QLineEdit::Normal, QString(), &ok);
 
             if (ok) {
-#ifndef NOKDE
                 Settings::self()->authorEmailItem()->setValue(email);
                 Settings::self()->save();
-#else
-                Settings::self()->setAuthorEmail(email);
-#endif
             }
         }
     }

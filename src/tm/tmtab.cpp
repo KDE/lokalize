@@ -53,13 +53,11 @@
 #include <QStringListModel>
 #include <QTextCodec>
 
-#ifndef NOKDE
 #include <KActionCategory>
 #include <KColorScheme>
 #include <KXMLGUIFactory>
 #include <KLocalizedString>
 #include <KMessageBox>
-#endif
 
 #if defined(Q_OS_WIN) && defined(QStringLiteral)
 #undef QStringLiteral
@@ -517,22 +515,18 @@ TMTab::TMTab(QWidget *parent)
     connect(m_qaView->toggleViewAction(), &QAction::toggled, this, QOverload<bool>::of(&TMTab::setQAMode));
 
 
-#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config, "MainWindow");
     view->header()->restoreState(QByteArray::fromBase64(cg.readEntry("TMSearchResultsHeaderState", QByteArray())));
-#endif
 }
 
 TMTab::~TMTab()
 {
-#ifndef NOKDE
     KConfig config;
     KConfigGroup cg(&config, "MainWindow");
     cg.writeEntry("TMSearchResultsHeaderState", ui_queryOptions->treeView->header()->saveState().toBase64());
 
     ids.removeAll(m_dbusId);
-#endif
 
     delete ui_queryOptions;
 }
@@ -737,15 +731,12 @@ void TMTab::dropEvent(QDropEvent *event)
         event->acceptProposedAction();
 }
 
-#ifndef NOKDE
 #include "translationmemoryadaptor.h"
-#endif
 //BEGIN DBus interface
 QList<int> TMTab::ids;
 
 QString TMTab::dbusObjectPath()
 {
-#ifndef NOKDE
     const QString TM_PATH = QStringLiteral("/ThisIsWhatYouWant/TranslationMemory/");
     if (m_dbusId == -1) {
         new TranslationMemoryAdaptor(this);
@@ -759,9 +750,6 @@ QString TMTab::dbusObjectPath()
     }
 
     return TM_PATH + QString::number(m_dbusId);
-#else
-    return QString();
-#endif
 }
 
 void TMTab::lookup(QString source, QString target)

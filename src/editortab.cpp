@@ -35,9 +35,7 @@
 
 #include "completionstorage.h"
 
-#ifndef NOKDE
 #define WEBQUERY_ENABLE
-#endif
 
 //views
 #include "msgctxtview.h"
@@ -60,15 +58,12 @@
 #include "prefs_lokalize.h"
 #include "languagelistmodel.h"
 
-#ifndef NOKDE
 #include <KToolBarPopupAction>
 #include <KActionCollection>
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KXMLGUIFactory>
 #include <KActionCategory>
-#endif
-
 #include <KMessageBox>
 #include <KLocalizedString>
 
@@ -94,25 +89,19 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     , m_catalog(new Catalog(this))
     , m_view(new EditorView(this, m_catalog/*,new keyEventHandler(this,m_catalog)*/))
     , m_pologyProcessInProgress(false)
-#ifndef NOKDE
     , m_sonnetDialog(0)
     , m_spellcheckStartUndoIndex(0)
     , m_spellcheckStop(false)
-#endif
     , m_currentIsApproved(true)
     , m_currentIsUntr(true)
     , m_fullPathShown(false)
-#ifndef NOKDE
     , m_doReplaceCalled(false)
     , m_find(0)
     , m_replace(0)
-#endif
     , m_syncView(0)
     , m_syncViewSecondary(0)
-#ifndef NOKDE
     , m_valid(valid)
     , m_dbusId(-1)
-#endif
 {
     //QTime chrono;chrono.start();
 
@@ -121,10 +110,7 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     setupStatusBar(); //--NOT called from initLater() !
     setupActions();
 
-
-#ifndef NOKDE
     dbusObjectPath();
-#endif
 
     connect(m_view, &EditorView::signalChanged, this, &EditorTab::msgStrChanged);
     msgStrChanged();
@@ -159,9 +145,7 @@ EditorTab::~EditorTab()
         emit fileClosed(currentFile());
     }
 
-#ifndef NOKDE
     ids.removeAll(m_dbusId);
-#endif
 }
 
 
@@ -177,7 +161,6 @@ void EditorTab::setupStatusBar()
     connect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
 }
 
-#ifndef NOKDE
 void LokalizeSubwindowBase::reflectNonApprovedCount(int count, int total)
 {
     QString text = i18nc("@info:status message entries\n'fuzzy' in gettext terminology", "Not ready: %1", count);
@@ -193,7 +176,6 @@ void LokalizeSubwindowBase::reflectUntranslatedCount(int count, int total)
         text += i18nc("percentages in statusbar", " (%1%)", int(100.0 * count / total));
     statusBarItems.insert(ID_STATUS_UNTRANS, text);
 }
-#endif
 
 void EditorTab::numberOfFuzziesChanged()
 {
@@ -510,11 +492,6 @@ void EditorTab::setupActions()
     connect(this, &EditorTab::signalApprovedEntryDisplayed, this, &EditorTab::msgStrChanged, Qt::QueuedConnection);
 
     m_approveAction = action;
-#ifdef NOKDE
-    QMenu* am = new QMenu(i18nc("@option:check whether message is marked as translated/reviewed/approved (depending on your role)", "State"), this);
-    action = am->menuAction();
-    ac->addAction(QStringLiteral("edit_state"), action);
-#endif
     m_stateAction = action;
     connect(Project::local(), &ProjectLocal::configChanged, this, &EditorTab::setApproveActionTitle);
     connect(m_catalog, &Catalog::activePhaseChanged, this, &EditorTab::setApproveActionTitle);
@@ -565,7 +542,6 @@ void EditorTab::setupActions()
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_M));
     action->setText(i18nc("@action:inmenu", "Insert Next Tag"));
 
-#ifndef NOKDE
     action = edit->addAction(QStringLiteral("edit_completion"), m_view, SIGNAL(doExplicitCompletion()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_Space));
     action->setText(i18nc("@action:inmenu", "Completion"));
@@ -573,7 +549,6 @@ void EditorTab::setupActions()
     action = edit->addAction(QStringLiteral("edit_spellreplace"), m_view->viewPort(), SLOT(spellReplace()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_Equal));
     action->setText(i18nc("@action:inmenu", "Replace with best spellcheck suggestion"));
-#endif
 //     action = ac->addAction("glossary_define",m_view,SLOT(defineNewTerm()));
 //     action->setText(i18nc("@action:inmenu","Define new term"));
 
@@ -887,7 +862,6 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
 //Project
         if (!m_project->isLoaded()) {
             QFileInfo fileInfo(filePath);
-#ifndef NOKDE
 //search for it
             int i = 4;
             QDir dir = fileInfo.dir();
@@ -898,7 +872,6 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
                     if (!dir.cdUp()) break;
                 } else m_project->load(dir.absoluteFilePath(dir.entryList().first()));
             }
-#endif
             //enforce autosync
             m_syncViewSecondary->mergeOpen(filePath);
 
@@ -927,12 +900,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
     }
 
     if (!silent) {
-#ifndef NOKDE
         if (errorLine > 0) KMessageBox::error(this, i18nc("@info", "Error opening the file %1, line: %2", filePath, errorLine));
         else             KMessageBox::error(this, i18nc("@info", "Error opening the file %1", filePath));
-#else
-        KMessageBox::error(this, i18nc("@info", "Error opening the file"));
-#endif
     }
     return false;
 }
@@ -963,19 +932,11 @@ bool EditorTab::saveFile(const QString& filePath)
         return true;
     }
     const QString errorFilePath = filePath.isEmpty() ? m_catalog->url() : filePath;
-#ifndef NOKDE
     if (KMessageBox::Continue == KMessageBox::warningContinueCancel(this,
             i18nc("@info", "Error saving the file %1\n"
                   "Do you want to save to another file or cancel?", errorFilePath),
             i18nc("@title", "Error"), KStandardGuiItem::save())
        )
-#else
-    if (QMessageBox::Yes == QMessageBox::warning(this, QString(),
-            i18nc("@info", "Error saving the file %1\n"
-                  "Do you want to save to another file or cancel?").arg(errorFilePath),
-            QMessageBox::Yes | QMessageBox::No)
-       )
-#endif
         return saveFileAs(errorFilePath);
     return false;
 }
@@ -1308,9 +1269,6 @@ void EditorTab::setApproveActionTitle()
     m_approveAction->setText(i18nc("@option:check trans-unit state", titles[role]));
     m_approveAction->setToolTip(i18nc("@info:tooltip", helpText[role]));
     m_approveAndGoAction->setVisible(role == ProjectLocal::Approver);
-#ifdef NOKDE
-    m_stateAction->setVisible(m_catalog->capabilities()&ExtendedStates);
-#endif
 }
 
 void EditorTab::showStatesMenu()
@@ -1690,7 +1648,6 @@ void EditorTab::mergeIntoOpenDocument()
 
 
 //BEGIN DBus interface
-#ifndef NOKDE
 #include "editoradaptor.h"
 QList<int> EditorTab::ids;
 
@@ -1709,7 +1666,6 @@ QString EditorTab::dbusObjectPath()
     }
     return EDITOR_PATH + QString::number(m_dbusId);
 }
-#endif
 
 
 QString EditorTab::currentFilePath()

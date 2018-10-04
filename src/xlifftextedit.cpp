@@ -34,9 +34,7 @@
 #include "completionstorage.h"
 
 #include <klocalizedstring.h>
-#ifndef NOKDE
 #include <kcompletionbox.h>
-#endif
 
 #include <QStringBuilder>
 #include <QPixmap>
@@ -73,7 +71,6 @@ inline static QImage generateImage(const QString& str, const QFont& font)
     //     qCWarning(LOKALIZE_LOG)<<im_count<<im_time;
     return result;
 }
-#ifndef NOKDE
 class MyCompletionBox: public KCompletionBox
 {
 public:
@@ -102,7 +99,6 @@ bool MyCompletionBox::eventFilter(QObject* object, QEvent* event)
     }
     return KCompletionBox::eventFilter(object, event);
 }
-#endif
 
 TranslationUnitTextEdit::~TranslationUnitTextEdit()
 {
@@ -125,10 +121,8 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     setUndoRedoEnabled(false);
     setAcceptRichText(false);
 
-#if !defined(NOKDE) || defined(SONNET_STATIC)
     m_highlighter->setActive(m_enabled);
     setHighlighter(m_highlighter);
-#endif
 
     if (part == DocPosition::Target) {
         connect(document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
@@ -142,9 +136,7 @@ void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
 {
     Settings::setAutoSpellcheck(enable);
     m_enabled = enable;
-#if !defined(NOKDE) || defined(SONNET_STATIC)
     m_highlighter->setActive(enable);
-#endif
     SettingsController::instance()->dirty = true;
 }
 
@@ -167,7 +159,6 @@ void TranslationUnitTextEdit::fileLoaded()
     QString langCode = m_part == DocPosition::Source ? m_catalog->sourceLangCode() : m_catalog->targetLangCode();
 
     QLocale langLocale(langCode);
-#if !defined(NOKDE) || defined(SONNET_STATIC)
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
     // If that fails, try to use the language code directly
@@ -176,7 +167,6 @@ void TranslationUnitTextEdit::fileLoaded()
         if (m_highlighter->currentLanguage() != langCode && langCode.length() > 2)
             m_highlighter->setCurrentLanguage(langCode.left(2));
     }
-#endif
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     Qt::LayoutDirection targetLanguageDirection = Qt::LeftToRight;
     static QLocale::Language rtlLanguages[] = {QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
@@ -511,7 +501,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         // for mergecatalog (remove entry from index)
         // and for statusbar
         emit contentsModified(m_currentPos);
-#ifndef NOKDE
         if (charsAdded == 1) {
             int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, offset - 1);
             int len = (offset - sp);
@@ -522,7 +511,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 m_completionBox->hide();
         } else if (m_completionBox)
             m_completionBox->hide();
-#endif
         //qCWarning(LOKALIZE_LOG)<<"finish";
     }
 
@@ -792,7 +780,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             insertPlainText(QChar(0x0000AD));
 //BEGIN clever editing
         else if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
-#ifndef NOKDE
             if (m_completionBox && m_completionBox->isVisible()) {
                 if (m_completionBox->currentItem())
                     completionActivated(m_completionBox->currentItem()->text());
@@ -801,7 +788,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 m_completionBox->hide();
                 return;
             }
-#endif
             if (m_catalog->type() != Gettext)
                 return KTextEdit::keyPressEvent(keyEvent);
 
@@ -1068,7 +1054,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     }
 
     void TranslationUnitTextEdit::spellReplace() {
-#ifndef NOKDE
         QTextCursor wordSelectCursor = textCursor();
         wordSelectCursor.select(QTextCursor::WordUnderCursor);
         if (!m_highlighter->isWordMisspelled(wordSelectCursor.selectedText()))
@@ -1081,7 +1066,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         m_catalog->beginMacro(i18nc("@item Undo action item", "Replace text"));
         wordSelectCursor.insertText(suggestions.first());
         m_catalog->endMacro();
-#endif
     }
 
     bool TranslationUnitTextEdit::event(QEvent * event) {
@@ -1103,7 +1087,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 return true;
             }
 
-#if !defined(NOKDE) || defined(SONNET_STATIC)
             QString tip;
 
             QString langCode = m_highlighter->currentLanguage();
@@ -1117,7 +1100,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             if (nospell)
                 tip += QLatin1String(" - ") % i18n("no spellcheck available");
             QToolTip::showText(helpEvent->globalPos(), tip);
-#endif
         }
         return KTextEdit::event(event);
     }
@@ -1275,7 +1257,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 
     void TranslationUnitTextEdit::doCompletion(int pos) {
-#ifndef NOKDE
         QTime a; a.start();
         QString target = m_catalog->targetWithTags(m_currentPos).string;
         int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, pos - 1);
@@ -1303,7 +1284,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             m_completionBox->move(viewport()->mapToGlobal(p));
         } else
             m_completionBox->hide();
-#endif
     }
 
     void TranslationUnitTextEdit::doExplicitCompletion() {

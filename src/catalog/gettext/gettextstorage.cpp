@@ -185,7 +185,7 @@ QString GettextStorage::sourceWithPlurals(const DocPosition& pos) const
         for (int i = 0; i < plurals.size(); i++) {
             pluralString += plurals.at(i);
             if (i != plurals.size() - 1) {
-                pluralString += "|";
+                pluralString += '|';
             }
         }
         return pluralString;
@@ -201,7 +201,7 @@ QString GettextStorage::targetWithPlurals(const DocPosition& pos) const
         for (int i = 0; i < plurals.size(); i++) {
             pluralString += plurals.at(i);
             if (i != plurals.size() - 1) {
-                pluralString += "|";
+                pluralString += '|';
             }
         }
         return pluralString;

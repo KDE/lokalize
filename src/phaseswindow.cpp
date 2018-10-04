@@ -29,10 +29,7 @@
 
 #include <kcombobox.h>
 #include <klocalizedstring.h>
-
-#ifndef NOKDE
 #include <kstandardguiitem.h>
-#endif
 
 #include <QStringBuilder>
 #include <QPushButton>
@@ -223,11 +220,8 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     l->addLayout(btns);
 
     QPushButton* add = new QPushButton(this);
-#ifndef NOKDE
     KGuiItem::assign(add, KStandardGuiItem::add());
-#else
-    add->setText(tr("Add"));
-#endif
+
     connect(add, &QPushButton::clicked, this, &PhasesWindow::addPhase);
     btns->addWidget(add);
     btns->addStretch(5);

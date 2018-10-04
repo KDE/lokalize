@@ -54,14 +54,11 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#ifndef NOKDE
 #include <kled.h>
 #include <kstandardshortcut.h>
 #include <kcolorscheme.h>
-#endif
 
 //parent is set on qsplitter insertion
-#ifndef NOKDE
 LedsWidget::LedsWidget(QWidget* parent): QWidget(parent)
 {
     KColorScheme colorScheme(QPalette::Normal);
@@ -93,7 +90,6 @@ void LedsWidget::cursorPositionChanged(int column)
 {
     lblColumn->setText(i18nc("@info:label cursor position", "Column: %1", column));
 }
-#endif
 
 
 EditorView::EditorView(QWidget *parent, Catalog* catalog/*,keyEventHandler* kh*/)
@@ -102,9 +98,7 @@ EditorView::EditorView(QWidget *parent, Catalog* catalog/*,keyEventHandler* kh*/
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Source, this))
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Target, this))
     , m_pluralTabBar(new QTabBar(this))
-#ifndef NOKDE
     , m_leds(0)
-#endif
     , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
@@ -169,7 +163,6 @@ void EditorView::settingsChanged()
     m_targetTextEdit->document()->setDefaultFont(Settings::msgFont());
     m_sourceTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
     m_targetTextEdit->setVisualizeSeparators(Settings::self()->visualizeSeparators());
-#ifndef NOKDE
     if (m_leds) m_leds->setVisible(Settings::leds());
     else if (Settings::leds()) {
         m_leds = new LedsWidget(this);
@@ -181,7 +174,6 @@ void EditorView::settingsChanged()
         connect(m_targetTextEdit, &TranslationUnitTextEdit::translatedEntryDisplayed, m_leds->ledUntr, &KLed::off);
         m_targetTextEdit->showPos(m_targetTextEdit->currentPos());
     }
-#endif
 }
 
 

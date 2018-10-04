@@ -28,17 +28,12 @@
 #include "prefs.h"
 #include "prefs_lokalize.h"
 
-#ifndef NOKDE
 #include "version.h"
 #include "projecttab.h"
 #include "projectmodel.h"
 
 #include "lokalizemainwindow.h"
 #include "stemming.h"
-#else
-#define LOKALIZE_VERSION QStringLiteral("2.0")
-#include "welcometab.h"
-#endif
 
 #include "jobs.h"
 #include "catalogstring.h"
@@ -53,37 +48,12 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
-#ifndef NOKDE
 #include <KDBusService>
-#endif
 
 #include <klocalizedstring.h>
 
 #include <kaboutdata.h>
 #include "editortab.h"
-
-#ifdef NOKDE
-#ifdef Q_OS_WIN
-#include <windows.h>
-#define FILEPATHMESSAGE 10
-char sentPath[256];
-COPYDATASTRUCT MyCDS;
-
-PCOPYDATASTRUCT pMyCDS;
-LONG_PTR WINAPI windowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    if (message == WM_COPYDATA) {
-        pMyCDS = (PCOPYDATASTRUCT)lParam;
-        if (pMyCDS->dwData == FILEPATHMESSAGE) {
-            EditorTab* t = Project::instance()->fileOpen(QString::fromUtf8((char*)pMyCDS->lpData));
-            if (t) t->activateWindow();
-        }
-        return 0;
-    }
-    return DefWindowProc(hWnd, message, wParam, lParam);
-}
-#endif
-#endif
 
 int main(int argc, char **argv)
 {
@@ -108,7 +78,6 @@ int main(int argc, char **argv)
     about.addCredit(i18n("Papp Laszlo"), i18n("bug fixing patches"), QStringLiteral("djszapi@archlinux.us"));
     about.addCredit(i18n("Albert Astals Cid"), i18n("XLIFF improvements"), QStringLiteral("aacid@kde.org"));
     about.addCredit(i18n("Simon Depiets"), i18n("bug fixing and improvements"), QStringLiteral("sdepiets@gmail.com"));
-#ifndef NOKDE
     KAboutData::setApplicationData(about);
     about.setupCommandLine(&parser);
     //parser.addOption(QCommandLineOption(QStringList() <<  QLatin1String("source"), i18n( "Source for the merge mode" ), QLatin1String("URL")));
@@ -118,14 +87,6 @@ int main(int argc, char **argv)
     parser.process(app);
     about.processCommandLine(&parser);
 
-#else
-    QCoreApplication::setApplicationName(QStringLiteral("Lokalize"));
-    QCoreApplication::setApplicationVersion(LOKALIZE_VERSION);
-    QCoreApplication::setOrganizationName(QStringLiteral("KDE"));
-    QCoreApplication::setOrganizationDomain(QStringLiteral("kde.org"));
-    parser.process(app);
-#endif
-
     //qCDebug(LOKALIZE_LOG) is important as it avoids compile 'optimization'.
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPosition>();
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<DocPos>();
@@ -133,7 +94,6 @@ int main(int argc, char **argv)
     qCDebug(LOKALIZE_LOG) << qRegisterMetaType<CatalogString>();
     qRegisterMetaTypeStreamOperators<InlineTag>("InlineTag");
     qRegisterMetaTypeStreamOperators<CatalogString>("CatalogString");
-#ifndef NOKDE
     qAddPostRoutine(&cleanupSpellers);
 
     const KDBusService dbusService(KDBusService::Multiple);
@@ -172,61 +132,12 @@ int main(int argc, char **argv)
 
         //Project::instance()->model()->setCompleteScan(parser.isSet("noprojectscan"));// TODO: negate check (and ensure nobody passes the no-op --noprojectscan argument)
     }
-#else
-#ifdef Q_OS_WIN
-    TCHAR gClassName[100];
-    wsprintf(gClassName, TEXT("LokalizeResponder"));
-
-    HWND responder = FindWindow(gClassName, L"LokalizeResponder");
-    if (responder) {
-        for (int j = 0; j < parser.positionalArguments().count(); j++) {
-            if (!QFileInfo::exists(parser.positionalArguments().at(j))) continue;
-            strncpy(sentPath, parser.positionalArguments().at(j).toUtf8().constData(), 255);
-            MyCDS.dwData = FILEPATHMESSAGE;
-            MyCDS.cbData = sizeof(sentPath);    // size of data
-            MyCDS.lpData = &sentPath;           // data structure
-            SendMessage(responder, WM_COPYDATA, 0, (LPARAM)(LPVOID) &MyCDS);
-        }
-        return 0;
-    }
-
-    WNDCLASS windowClass;
-    windowClass.style = CS_GLOBALCLASS | CS_DBLCLKS;
-    windowClass.lpfnWndProc = windowProc;
-    windowClass.cbClsExtra  = 0;
-    windowClass.cbWndExtra  = 0;
-    windowClass.hInstance   = (HINSTANCE) GetModuleHandle(NULL);
-    windowClass.hIcon = 0;
-    windowClass.hCursor = 0;
-    windowClass.hbrBackground = 0;
-    windowClass.lpszMenuName  = 0;
-    windowClass.lpszClassName = gClassName;
-    RegisterClass(&windowClass);
-    responder = CreateWindow(gClassName, L"LokalizeResponder", 0, 0, 0, 10, 10, 0, (HMENU)0, (HINSTANCE)GetModuleHandle(NULL), 0);
-#endif
-
-    SettingsController::instance()->ensureProjectIsLoaded();
-    for (int j = 0; j < parser.positionalArguments().count(); j++)
-        if (QFileInfo::exists(parser.positionalArguments().at(j))) Project::instance()->fileOpen(parser.positionalArguments().at(j));
-    if (!parser.positionalArguments().count()) {
-        WelcomeTab* welcome = new WelcomeTab(0);
-        welcome->move(QApplication::desktop()->screen()->rect().center() - welcome->rect().center());
-        welcome->show();
-    }
-    app.installEventFilter(Project::instance());
-#endif
     int code = app.exec();
 
-#ifdef NOKDE
-#ifdef Q_OS_WIN
-    DestroyWindow(responder);
-#endif
-#endif
     QThreadPool::globalInstance()->clear();
     TM::cancelAllJobs();
     TM::threadPool()->clear();
     TM::threadPool()->waitForDone(1000);
-#ifndef NOKDE
     Project::instance()->model()->threadPool()->clear();
 
     if (SettingsController::instance()->dirty) //for config changes done w/o config dialog
@@ -246,9 +157,6 @@ int main(int argc, char **argv)
         QCoreApplication::processEvents();
         QCoreApplication::sendPostedEvents(0, 0);
     }
-#else
-    Settings::self()->save();
-#endif
     return code;
 }
 

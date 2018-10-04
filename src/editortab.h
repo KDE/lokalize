@@ -34,7 +34,6 @@
 #include <QHash>
 #include <KProcess>
 
-#ifndef NOKDE
 namespace Sonnet
 {
 class Dialog;
@@ -49,7 +48,6 @@ class BackgroundChecker;
 class KFind;
 class KReplace;
 class KActionCategory;
-#endif
 
 class Project;
 class Catalog;
@@ -112,7 +110,6 @@ public slots:
 public:
     bool queryClose();
     EditorState state();
-#ifndef NOKDE
     KXMLGUIClient* guiClient()
     {
         return (KXMLGUIClient*)this;
@@ -126,7 +123,6 @@ public:
     {
         return m_adaptor;
     }
-#endif
 
     //wrapper for cmdline handling
     void mergeOpen(QString mergeFilePath);
@@ -215,7 +211,6 @@ public slots:
 
     Q_SCRIPTABLE bool findEntryBySourceContext(const QString& source, const QString& ctxt);
 
-#ifndef NOKDE
     Q_SCRIPTABLE bool isValid()
     {
         return m_valid;
@@ -224,13 +219,10 @@ public slots:
     {
         m_srcFileOpenRequestAccepted = a;
     }
-#endif
 
 private slots:
-#ifndef NOKDE
     void highlightFound(const QString &, int, int); //for find/replace
     void highlightFound_(const QString &, int, int); //for find/replace
-#endif
 
     void lookupSelectionInTranslationMemory();
 
@@ -248,7 +240,6 @@ private slots:
 
     void undo();
     void redo();
-#ifndef NOKDE
     void findNext();
     void findPrev();
     void find();
@@ -257,7 +248,6 @@ private slots:
     void replaceNext();//internal
     void doReplace(const QString&, int, int, int); //internal
     void cleanupReplace();//internal
-#endif
 
 //     void selectAll();
 //     void deselectAll();
@@ -279,14 +269,12 @@ private slots:
     void setApproveActionTitle();
 
 
-#ifndef NOKDE
     void spellcheck();
     void spellcheckNext();
     void spellcheckShow(const QString&, int);
     void spellcheckReplace(QString, int, const QString&);
     void spellcheckStop();
     void spellcheckCancel();
-#endif
 
     void gotoNextBookmark();
     void gotoPrevBookmark();
@@ -327,7 +315,7 @@ private:
     EditorView* m_view;
     QAction* m_approveAndGoAction;
     QAction* m_approveAction;
-    QAction* m_stateAction; //is = m_approveAction ifndef NOKDE
+    QAction* m_stateAction;
 
     KProcess* m_pologyProcess;
     bool m_pologyProcessInProgress;
@@ -338,23 +326,19 @@ private:
     DocPosition _spellcheckPos;
     DocPosition _spellcheckStartPos;
 
-#ifndef NOKDE
     Sonnet::BackgroundChecker* m_sonnetChecker;
     Sonnet::Dialog* m_sonnetDialog;
     int m_spellcheckStartUndoIndex;
     bool m_spellcheckStop: 1;
-#endif
 
     bool m_currentIsApproved: 1; //for statusbar animation
     bool m_currentIsUntr: 1; //for statusbar animation
 
     bool m_fullPathShown: 1;
 
-#ifndef NOKDE
     bool m_doReplaceCalled: 1; //used to prevent non-clean catalog status
     KFind* m_find;
     KReplace* m_replace;
-#endif
 
     //BEGIN views
     MergeView* m_syncView;
@@ -370,12 +354,10 @@ private:
     bool m_srcFileOpenRequestAccepted;
 
     //BEGIN dbus
-#ifndef NOKDE
     bool m_valid;
     QObject* m_adaptor;
     int m_dbusId;
     static QList<int> ids;
-#endif
     //END dbus
 
 signals:

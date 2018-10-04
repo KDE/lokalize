@@ -32,10 +32,8 @@
 #include <QFileDialog>
 
 #include <klocalizedstring.h>
-#ifndef NOKDE
 #include <krun.h>
 #include <kdirwatch.h>
-#endif
 
 //BEGIN BinUnitsModel
 BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
@@ -44,9 +42,7 @@ BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
 {
     connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &BinUnitsModel::fileLoaded);
     connect(catalog, &Catalog::signalEntryModified, this, &BinUnitsModel::entryModified);
-#ifndef NOKDE
     connect(KDirWatch::self(), &KDirWatch::dirty, this, &BinUnitsModel::updateFile);
-#endif
 }
 
 void BinUnitsModel::fileLoaded()
@@ -112,9 +108,7 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
             QString path = index.column() == SourceFilePath ? m_catalog->source(pos) : m_catalog->target(pos);
             if (!m_imageCache.contains(path)) {
                 QString absPath = Project::instance()->absolutePath(path);
-#ifndef NOKDE
                 KDirWatch::self()->addFile(absPath); //TODO remember watched files to react only on them in dirty() signal handler
-#endif
                 m_imageCache.insert(path, QImage(absPath).scaled(128, 128, Qt::KeepAspectRatio));
             }
             return m_imageCache.value(path);
@@ -213,9 +207,7 @@ void BinUnitsView::contextMenuEvent(QContextMenuEvent *event)
 
 void BinUnitsView::mouseDoubleClicked(const QModelIndex& item)
 {
-#ifndef NOKDE
     //FIXME child processes don't notify us about changes ;(
     if (item.column() < BinUnitsModel::Approved)
         new KRun(QUrl::fromLocalFile(Project::instance()->absolutePath(item.data().toString())), this);
-#endif
 }

@@ -69,11 +69,9 @@ void AltTransView::initLater()
 {
     setAcceptDrops(true);
 
-#ifndef NOKDE
     KConfig config;
     KConfigGroup group(&config, "AltTransView");
     m_everShown = group.readEntry("EverShown", false);
-#endif
 
 
     QSignalMapper* signalMapper = new QSignalMapper(this);
@@ -230,7 +228,6 @@ void AltTransView::process()
         cur.insertBlock(i % 2 ? blockFormatAlternate : blockFormatBase);
     }
 
-#ifndef NOKDE
     if (!m_everShown) {
         m_everShown = true;
         show();
@@ -239,7 +236,6 @@ void AltTransView::process()
         KConfigGroup group(&config, "AltTransView");
         group.writeEntry("EverShown", true);
     }
-#endif
 }
 
 

@@ -33,9 +33,7 @@ FastSizeHintItemDelegate::FastSizeHintItemDelegate(QObject *parent, const QVecto
     : QItemDelegate(parent)
     , singleLineColumns(slc)
     , richTextColumns(rtc)
-#ifndef NOKDE
     , activeScheme(QPalette::Active, KColorScheme::View)
-#endif
 {}
 
 void FastSizeHintItemDelegate::reset()
@@ -67,7 +65,6 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
     painter->setClipping(true);
     painter->setClipRect(option.rect);
     QBrush bgBrush;
-#ifndef NOKDE
     const KColorScheme& scheme = activeScheme;
     if (option.state & QStyle::State_MouseOver)
         bgBrush = scheme.background(KColorScheme::LinkBackground);
@@ -75,15 +72,6 @@ void FastSizeHintItemDelegate::paint(QPainter* painter, const QStyleOptionViewIt
         bgBrush = scheme.background(KColorScheme::AlternateBackground);
     else
         bgBrush = scheme.background(KColorScheme::NormalBackground);
-#else
-    static QPalette p;
-    if (option.state & QStyle::State_MouseOver)
-        bgBrush = p.highlight();
-    else if (index.row() % 2)
-        bgBrush = p.alternateBase();
-    else
-        bgBrush = p.base();
-#endif
 
     painter->fillRect(option.rect, bgBrush);
     painter->setClipRect(option.rect.adjusted(0, 0, -2, 0));

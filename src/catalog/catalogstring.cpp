@@ -178,7 +178,7 @@ QString InlineTag::displayName() const
     }
 
     if (!ctype.isEmpty())
-        result += " (" + ctype + ")";
+        result += " (" + ctype + ')';
 
     return result;
 }

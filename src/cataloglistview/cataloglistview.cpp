@@ -43,10 +43,8 @@
 #include <QShortcut>
 #include <QKeyEvent>
 
-#include <klocalizedstring.h>
-#ifndef NOKDE
-#include <kconfiggroup.h>
-#endif
+#include <KLocalizedString>
+#include <KConfigGroup>
 
 class CatalogTreeView: public QTreeView
 {
@@ -88,7 +86,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
 
     m_lineEdit->setClearButtonEnabled(true);
     m_lineEdit->setPlaceholderText(i18n("Quick search..."));
-    m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + " " + i18nc("@info:tooltip", "Accepts regular expressions"));
+    m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + ' ' + i18nc("@info:tooltip", "Accepts regular expressions"));
     connect(m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
     QShortcut* esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, 0, 0, Qt::WidgetWithChildrenShortcut);

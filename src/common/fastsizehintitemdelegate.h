@@ -29,9 +29,7 @@
 #include <QStaticText>
 #include <QCache>
 
-#ifndef NOKDE
 #include <KColorScheme>
-#endif
 
 QString convertToHtml(QString string, bool italics = false);
 
@@ -73,9 +71,7 @@ private:
     };
     mutable QCache<int, QStaticText> cache;
 
-#ifndef NOKDE
     KColorScheme activeScheme;
-#endif
 };
 #endif // FASTSIZEHINTITEMDELEGATE_H
 

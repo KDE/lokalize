@@ -31,10 +31,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktextedit.h>
-
-#ifndef NOKDE
 #include <knotification.h>
-#endif
 
 #include <QDragEnterEvent>
 #include <QMimeData>
@@ -230,7 +227,6 @@ void MergeView::mergeOpen(QString mergeFilePath)
     } else {
         //KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
         cleanup();
-#ifndef NOKDE
         if (errorLine > 0)
             KMessageBox::error(this, i18nc("@info", "Error opening the file <filename>%1</filename> for synchronization, error line: %2", mergeFilePath, errorLine));
         else {
@@ -240,7 +236,6 @@ void MergeView::mergeOpen(QString mergeFilePath)
             notification->sendEvent();
             */
         }
-#endif
         //i18nc("@info %1 is w/o path","No branch counterpart for <filename>%1</filename>",url.fileName()),
     }
 

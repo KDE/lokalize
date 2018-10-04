@@ -56,11 +56,9 @@
 
 #include <KLocalizedString>
 
-#ifndef NOKDE
 #include <KActionCategory>
 #include <KColorScheme>
 #include <KXMLGUIFactory>
-#endif
 
 static QStringList doScanRecursive(const QDir& dir);
 
@@ -514,10 +512,8 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     while (--i > ID_STATUS_PROGRESS)
         statusBarItems.insert(i, QString());
 
-#ifndef NOKDE
     setXMLFile(QStringLiteral("filesearchtabui.rc"), true);
     dbusObjectPath();
-#endif
 
     KActionCollection* ac = actionCollection();
     KActionCategory* srf = new KActionCategory(i18nc("@title actions category", "Search and replace in files"), ac);
@@ -552,9 +548,7 @@ FileSearchTab::~FileSearchTab()
 
     writeUiState("FileSearchResultsHeaderState", ui_fileSearchOptions->treeView->header()->saveState());
 
-#ifndef NOKDE
     ids.removeAll(m_dbusId);
-#endif
 }
 
 void FileSearchTab::performSearch()
@@ -891,7 +885,6 @@ void MassReplaceView::deactivatePreview()
     ui->doReplace->setEnabled(false);
 }
 
-#ifndef NOKDE
 #include "filesearchadaptor.h"
 #include <qdbusconnection.h>
 
@@ -925,5 +918,4 @@ bool FileSearchTab::findGuiTextPackage(QString text, QString package)
 }
 //END DBus interface
 
-#endif
 

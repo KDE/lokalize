@@ -23,11 +23,8 @@
 
 #include "languagelistmodel.h"
 
-#ifndef NOKDE
-//#include <kiconloader.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#endif
 
 #include <QStringBuilder>
 #include <QCoreApplication>
@@ -66,20 +63,9 @@ LanguageListModel* LanguageListModel::emptyLangInstance()
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
     : QStringListModel(parent)
     , m_sortModel(new QSortFilterProxyModel(this))
-#ifndef NOKDE
     , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
-#endif
 {
-#ifndef NOKDE
     setStringList(m_systemLangList->groupList());
-#else
-    QStringList ll;
-    QList<QLocale> allLocales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
-    foreach (const QLocale& l, allLocales)
-        ll.append(l.name());
-    ll = ll.toSet().toList();
-    setStringList(ll);
-#endif
 
     if (type == WithEmptyLang) insertRows(rowCount(), 1);
 #if 0 //KDE5PORT
@@ -94,7 +80,7 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
 QVariant LanguageListModel::data(const QModelIndex& index, int role) const
 {
     if (role == Qt::DecorationRole) {
-#if 0 //#ifndef NOKDE
+#if 0 //#
         static QMap<QString, QVariant> iconCache;
 
         QString langCode = stringList().at(index.row());
@@ -117,15 +103,8 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         static QVector<QString> displayNames(stringList().size());
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());
-#ifndef NOKDE
         return QVariant::fromValue<QString>(
                    displayNames[index.row()] = KConfigGroup(m_systemLangList, code).readEntry("Name") % QStringLiteral(" (") % code % ')');
-#else
-        QLocale l(code);
-//        if (l.language()==QLocale::C && code!="C")
-        return QVariant::fromValue<QString>(
-                   displayNames[index.row()] = QLocale::languageToString(l.language()) % QStringLiteral(" (") % code % ')');
-#endif
     }
     return QStringListModel::data(index, role);
 }

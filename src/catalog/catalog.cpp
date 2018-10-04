@@ -37,9 +37,7 @@
 #include "catalog.h"
 #include "catalog_private.h"
 #include "project.h"
-#ifndef NOKDE
 #include "projectmodel.h" //to notify about modification 
-#endif
 
 #include "catalogstorage.h"
 #include "gettextstorage.h"
@@ -115,7 +113,6 @@ Catalog::Catalog(QObject *parent)
     , d(this)
     , m_storage(0)
 {
-#ifndef NOKDE
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this, QOverload<const QString &>::of(&Catalog::signalFileSaved), Project::instance()->model(), QOverload<const QString &>::of(&ProjectModel::slotFileSaved), Qt::QueuedConnection);
 
@@ -126,7 +123,6 @@ Catalog::Catalog(QObject *parent)
     connect(this, QOverload<>::of(&Catalog::signalFileSaved), t, QOverload<>::of(&QTimer::start));
     connect(this, QOverload<>::of(&Catalog::signalFileLoaded), t, QOverload<>::of(&QTimer::start));
     connect(this, &Catalog::indexChanged, this, &Catalog::setAutoSaveDirty);
-#endif
     connect(Project::local(), &Project::configChanged, this, &Catalog::projectConfigChanged);
 }
 
@@ -536,7 +532,6 @@ void Catalog::setTargetLangCode(const QString& targetLangCode)
 
 KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
 {
-#ifndef NOKDE
     KAutoSaveFile* autoSave = 0;
     QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
     foreach (KAutoSaveFile *stale, staleFiles) {
@@ -549,9 +544,6 @@ KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
     if (autoSave)
         qCInfo(LOKALIZE_LOG) << "autoSave" << autoSave->fileName();
     return autoSave;
-#else
-    return 0;
-#endif
 }
 
 int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* fileSize, bool fast)
@@ -615,7 +607,6 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     //set some sane role, a real phase with a nmae will be created later with the first edit command
     setActivePhase(QString(), Project::local()->role());
 
-#ifndef NOKDE
     if (!fast) {
         KAutoSaveFile* autoSave = checkAutoSave(d._filePath);
         d._autoSaveRecovered = autoSave;
@@ -633,7 +624,6 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
         } else
             d._autoSave->setManagedFile(QUrl::fromLocalFile(d._filePath));
     }
-#endif
 
     if (fileSize)
         *fileSize = file.size();
@@ -672,16 +662,12 @@ bool Catalog::saveToUrl(QString localFilePath)
 
     file.close();
 
-#ifndef NOKDE
     d._autoSave->remove();
     d._autoSaveRecovered = false;
-#endif
     setClean(); //undo/redo
     if (nameChanged) {
         d._filePath = localFilePath;
-#ifndef NOKDE
         d._autoSave->setManagedFile(QUrl::fromLocalFile(localFilePath));
-#endif
     }
 
     //Settings::self()->setCurrentGroup("Bookmarks");
@@ -705,7 +691,6 @@ bool Catalog::saveToUrl(QString localFilePath)
 
 void Catalog::doAutoSave()
 {
-#ifndef NOKDE
     if (isClean() || !(d._autoSaveDirty))
         return;
     if (Q_UNLIKELY(!m_storage))
@@ -718,7 +703,6 @@ void Catalog::doAutoSave()
     m_storage->save(d._autoSave);
     d._autoSave->close();
     d._autoSaveDirty = false;
-#endif
 }
 
 void Catalog::projectConfigChanged()
