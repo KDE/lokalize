@@ -319,38 +319,41 @@ static bool doRemoveEntry(qlonglong mainId, QRegExp& rxClean1, const QString& ac
     if (!query1.next())
         return false;
 
-    qlonglong sourceId = query1.value(0).toLongLong();
-    QString source_string = query1.value(1).toString();
+    const qlonglong sourceId = query1.value(0).toLongLong();
+    const QString sourceString = query1.value(1).toString();
+
     query1.clear();
+
+    if (Q_UNLIKELY(!query1.exec(U("SELECT target_strings.id FROM target_strings, main WHERE target_strings.id=main.target AND main.id=") + QString::number(mainId))))
+        return false;
+
+    if (!query1.next())
+        return false;
+
+    const qlonglong targetId = query1.value(0).toLongLong();
+    query1.clear();
+
+    query1.exec(QStringLiteral("DELETE FROM main WHERE source=") + QString::number(sourceId) + QStringLiteral(" AND target=") + QString::number(targetId));
 
     if (!query1.exec(QStringLiteral("SELECT count(*) FROM main WHERE source=") + QString::number(sourceId))
         || !query1.next())
         return false;
 
-    bool theOnly = query1.value(0).toInt() == 1;
+    const bool noSourceLeft = query1.value(0).toInt() == 0;
     query1.clear();
-    if (theOnly) {
-        removeFromIndex(mainId, sourceId, source_string, rxClean1, accel, db);
-        qCWarning(LOKALIZE_LOG) << "ok delete?" << query1.exec(QStringLiteral("DELETE FROM source_strings WHERE id=") + QString::number(sourceId));
+    if (noSourceLeft) {
+        removeFromIndex(mainId, sourceId, sourceString, rxClean1, accel, db);
+        query1.exec(QStringLiteral("DELETE FROM source_strings WHERE id=") + QString::number(sourceId));
     }
-
-    if (Q_UNLIKELY(!query1.exec(U("SELECT target FROM main WHERE "
-                                  "main.id=") + QString::number(mainId))
-                   || !query1.next()))
-        return false;
-
-    qlonglong targetId = query1.value(0).toLongLong();
-    query1.clear();
 
     if (!query1.exec(QStringLiteral("SELECT count(*) FROM main WHERE target=") + QString::number(targetId))
         || ! query1.next())
         return false;
-    theOnly = query1.value(0).toInt() == 1;
+    const bool noTargetLeft = query1.value(0).toInt() == 0;
     query1.clear();
-    if (theOnly)
+    if (noTargetLeft)
         query1.exec(QStringLiteral("DELETE FROM target_strings WHERE id=") + QString::number(targetId));
-
-    return query1.exec(QStringLiteral("DELETE FROM main WHERE id=") + QString::number(mainId));
+    return true;
 }
 
 
@@ -1655,12 +1658,12 @@ RemoveJob::RemoveJob(const TMEntry& entry)
     , m_entry(entry)
 {
     //RemoveJob instances are deleted automatically because their signal does not contain pointer to the job
-    qCDebug(LOKALIZE_LOG) << "removing" << m_entry.dbName << m_entry.file << m_entry.source.string;
+    qCDebug(LOKALIZE_LOG) << "removing" << m_entry.dbName << m_entry.source.string << m_entry.target.string;
 }
 
 RemoveJob::~RemoveJob()
 {
-    qCDebug(LOKALIZE_LOG) << "removejob dtor" << m_entry.dbName << m_entry.file << m_entry.source.string;
+    qCDebug(LOKALIZE_LOG) << "removejob dtor" << m_entry.dbName << m_entry.source.string << m_entry.target.string;
 }
 
 
@@ -1674,7 +1677,7 @@ void RemoveJob::run()
     QRegExp rxClean1(c.markup); rxClean1.setMinimal(true);
 
     if (!doRemoveEntry(m_entry.id, rxClean1, c.accel, db))
-        qCWarning(LOKALIZE_LOG) << "error removing entry" << m_entry.dbName << m_entry.file << m_entry.source.string;
+        qCWarning(LOKALIZE_LOG) << "error removing entry" << m_entry.dbName << m_entry.source.string << m_entry.target.string;
 
     emit done();
 }
