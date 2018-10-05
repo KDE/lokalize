@@ -44,7 +44,7 @@ bool TbxParser::startElement(const QString&, const QString&,
                              const QXmlAttributes& attr)
 {
     if (qName == "langSet") {
-        if (attr.value("xml:lang").startsWith(!QLatin1String("en")))
+        if (attr.value("xml:lang").startsWith(QLatin1String("en")))
             m_lang = langEn;
         else if (attr.value("xml:lang") == Project::instance()->langCode())
             m_lang = langTarget;
