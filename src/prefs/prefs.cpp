@@ -43,10 +43,10 @@
 #include "ui_prefs_project_local.h"
 
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <keditlistwidget.h>
-#include <kconfigdialog.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KEditListWidget>
+#include <KConfigDialog>
 #include <kross/core/manager.h>
 #include <kross/core/actioncollection.h>
 #include <kross/ui/model.h>
@@ -188,7 +188,7 @@ void ScriptsView::dropEvent(QDropEvent* event)
 {
     Kross::ActionCollectionModel* scriptsModel = static_cast<Kross::ActionCollectionModel*>(model());
     foreach (const QUrl& url, event->mimeData()->urls())
-        if (url.path().endsWith(".rc"))
+        if (url.path().endsWith(QLatin1String(".rc")))
             scriptsModel->rootCollection()->readXmlFile(url.path());
 }
 

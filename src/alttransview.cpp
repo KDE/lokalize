@@ -43,8 +43,8 @@
 #include <QToolTip>
 #include <QAction>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 AltTransView::AltTransView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget(i18nc("@title:window", "Alternate Translations"), parent)

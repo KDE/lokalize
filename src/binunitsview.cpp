@@ -31,9 +31,9 @@
 #include <QMenu>
 #include <QFileDialog>
 
-#include <klocalizedstring.h>
-#include <krun.h>
-#include <kdirwatch.h>
+#include <KLocalizedString>
+#include <KRun>
+#include <KDirWatch>
 
 //BEGIN BinUnitsModel
 BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)

@@ -181,7 +181,7 @@ QString GettextStorage::sourceWithPlurals(const DocPosition& pos) const
 {
     if (m_entries.at(pos.entry).isPlural()) {
         const QVector<QString> plurals = m_entries.at(pos.entry).msgidPlural();
-        QString pluralString = QString();
+        QString pluralString;
         for (int i = 0; i < plurals.size(); i++) {
             pluralString += plurals.at(i);
             if (i != plurals.size() - 1) {
@@ -197,7 +197,7 @@ QString GettextStorage::targetWithPlurals(const DocPosition& pos) const
 {
     if (m_entries.at(pos.entry).isPlural()) {
         const QVector<QString> plurals = m_entries.at(pos.entry).msgstrPlural();
-        QString pluralString = QString();
+        QString pluralString;
         for (int i = 0; i < plurals.size(); i++) {
             pluralString += plurals.at(i);
             if (i != plurals.size() - 1) {
