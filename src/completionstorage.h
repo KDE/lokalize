@@ -30,8 +30,8 @@
 class CompletionStorage
 {
 private:
-    CompletionStorage(): rxSplit("\\W+|\\d+") {};
-    ~CompletionStorage() {};
+    CompletionStorage(): rxSplit("\\W+|\\d+") {}
+    ~CompletionStorage() {}
     static CompletionStorage* _instance;
     static void cleanupCompletionStorage();
 public:

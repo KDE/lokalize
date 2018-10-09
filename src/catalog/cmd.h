@@ -45,7 +45,7 @@ class LokalizeUnitCmd: public QUndoCommand
 {
 public:
     LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
-    virtual ~LokalizeUnitCmd() {};
+    virtual ~LokalizeUnitCmd() {}
     virtual void undo();
     virtual void redo();
     DocPosition pos()const
@@ -71,7 +71,7 @@ class LokalizeTargetCmd: public LokalizeUnitCmd
 {
 public:
     LokalizeTargetCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
-    virtual ~LokalizeTargetCmd() {};
+    virtual ~LokalizeTargetCmd() {}
     void undo();
     void redo();
 protected:
@@ -88,7 +88,7 @@ class InsTextCmd: public LokalizeTargetCmd
 {
 public:
     InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
-    ~InsTextCmd() {};
+    ~InsTextCmd() {}
     int id() const
     {
         return Insert;
@@ -105,7 +105,7 @@ class DelTextCmd: public LokalizeTargetCmd
 {
 public:
     DelTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
-    ~DelTextCmd() {};
+    ~DelTextCmd() {}
     int id() const
     {
         return Delete;
@@ -122,7 +122,7 @@ class SetStateCmd: public LokalizeUnitCmd
 private:
     SetStateCmd(Catalog *catalog, const DocPosition& pos, TargetState state);
 public:
-    ~SetStateCmd() {};
+    ~SetStateCmd() {}
 
     int id() const
     {
@@ -144,7 +144,7 @@ class InsTagCmd: public LokalizeTargetCmd
 public:
     /// offset is taken from @a tag and not from @a pos
     InsTagCmd(Catalog *catalog, const DocPosition& pos, const InlineTag& tag);
-    ~InsTagCmd() {};
+    ~InsTagCmd() {}
     int id() const
     {
         return InsertTag;
@@ -164,7 +164,7 @@ class DelTagCmd: public LokalizeTargetCmd
 {
 public:
     DelTagCmd(Catalog *catalog, const DocPosition& pos);
-    ~DelTagCmd() {};
+    ~DelTagCmd() {}
     int id() const
     {
         return DeleteTag;
@@ -185,7 +185,7 @@ class SetNoteCmd: public LokalizeUnitCmd
 public:
     /// @a pos.form is note number
     SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& note);
-    ~SetNoteCmd() {};
+    ~SetNoteCmd() {}
     int id() const
     {
         return SetNote;
@@ -205,7 +205,7 @@ class UpdatePhaseCmd: public QUndoCommand
 public:
     /// @a pos.form is note number
     UpdatePhaseCmd(Catalog *catalog, const Phase& phase);
-    ~UpdatePhaseCmd() {};
+    ~UpdatePhaseCmd() {}
     int id() const
     {
         return UpdatePhase;
@@ -223,7 +223,7 @@ class SetEquivTransCmd: public LokalizeTargetCmd
 {
 public:
     SetEquivTransCmd(Catalog *catalog, const DocPosition& pos, bool equivTrans);
-    ~SetEquivTransCmd() {};
+    ~SetEquivTransCmd() {}
     int id() const
     {
         return EquivTrans;

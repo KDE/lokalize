@@ -63,8 +63,8 @@ public:
     FileSearchTab(QWidget *parent);
     ~FileSearchTab();
 
-    void hideDocks() {};
-    void showDocks() {};
+    void hideDocks() {}
+    void showDocks() {}
     KXMLGUIClient* guiClient()
     {
         return (KXMLGUIClient*)this;

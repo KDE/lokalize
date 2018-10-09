@@ -52,7 +52,7 @@ class TMManagerWin: public KMainWindow
     Q_OBJECT
 public:
     TMManagerWin(QWidget *parent = 0);
-    ~TMManagerWin() {};
+    ~TMManagerWin() {}
 private slots:
     void addDir();
     void addDB();

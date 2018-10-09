@@ -61,8 +61,8 @@ public:
     TMTab(QWidget *parent);
     ~TMTab();
 
-    void hideDocks() {};
-    void showDocks() {};
+    void hideDocks() {}
+    void showDocks() {}
     KXMLGUIClient* guiClient()
     {
         return (KXMLGUIClient*)this;

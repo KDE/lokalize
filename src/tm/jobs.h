@@ -361,7 +361,7 @@ public:
         : QObject(), QRunnable()
         , m_view(view)
     {}
-    ~BatchSelectFinishedJob() {};
+    ~BatchSelectFinishedJob() {}
 
     int priority() const
     {

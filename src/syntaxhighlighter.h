@@ -41,7 +41,7 @@ class SyntaxHighlighter : public Sonnet::Highlighter
 
 public:
     explicit SyntaxHighlighter(QTextEdit *parent);
-    ~SyntaxHighlighter() {};
+    ~SyntaxHighlighter() {}
 
     void setApprovementState(bool a)
     {

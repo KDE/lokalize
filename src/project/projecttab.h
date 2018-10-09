@@ -52,8 +52,8 @@ public:
 
     void contextMenuEvent(QContextMenuEvent *event);
 
-    void hideDocks() {};
-    void showDocks() {};
+    void hideDocks() {}
+    void showDocks() {}
     KXMLGUIClient* guiClient()
     {
         return (KXMLGUIClient*)this;

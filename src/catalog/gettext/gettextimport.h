@@ -62,7 +62,7 @@ class ExtraDataSkipSaver: public ExtraDataSaver
 {
 public:
     ExtraDataSkipSaver() {}
-    void operator()(const QString&) {};
+    void operator()(const QString&) {}
 };
 
 /**
