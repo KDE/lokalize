@@ -41,7 +41,7 @@ class MsgCtxtView: public QDockWidget
     Q_OBJECT
 
 public:
-    MsgCtxtView(QWidget*, Catalog*);
+    explicit MsgCtxtView(QWidget*, Catalog*);
     ~MsgCtxtView();
 
     void gotoEntry(const DocPosition&, int selection = 0);

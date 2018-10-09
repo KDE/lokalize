@@ -32,7 +32,7 @@ class WidgetTextCaptureConfig: public QDialog
 {
     Q_OBJECT
 public:
-    explicit WidgetTextCaptureConfig(QWidget* parent = 0);
+    explicit WidgetTextCaptureConfig(QWidget* parent = nullptr);
     ~WidgetTextCaptureConfig();
 public slots:
     void writeConfig();

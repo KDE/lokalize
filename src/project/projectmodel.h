@@ -171,19 +171,19 @@ public:
     QUrl beginEditing(const QModelIndex& index); //copies POT file to PO file and returns url of the PO file
 
     // QAbstractItemModel methods
-    int columnCount(const QModelIndex& parent = QModelIndex()) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    Qt::ItemFlags flags(const QModelIndex& index) const;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex& index) const ;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex& index) const  override;
 
-    QVariant data(const QModelIndex& index, const int role = Qt::DisplayRole) const;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    bool hasChildren(const QModelIndex& parent = QModelIndex()) const;
+    QVariant data(const QModelIndex& index, const int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    bool hasChildren(const QModelIndex& parent = QModelIndex()) const override;
 
-    bool canFetchMore(const QModelIndex& parent) const;
-    void fetchMore(const QModelIndex& parent);
+    bool canFetchMore(const QModelIndex& parent) const override;
+    void fetchMore(const QModelIndex& parent) override;
 
     QThreadPool* threadPool()
     {
@@ -288,7 +288,7 @@ public:
     volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
 
 protected:
-    void run();
+    void run() override;
 
 signals:
     void done(UpdateStatsJob*);

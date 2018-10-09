@@ -1758,10 +1758,10 @@ public:
     ~TmxParser();
 
 private:
-    bool startDocument();
-    bool startElement(const QString&, const QString&, const QString&, const QXmlAttributes&);
-    bool endElement(const QString&, const QString&, const QString&);
-    bool characters(const QString&);
+    bool startDocument() override;
+    bool startElement(const QString&, const QString&, const QString&, const QXmlAttributes&) override;
+    bool endElement(const QString&, const QString&, const QString&) override;
+    bool characters(const QString&) override;
 
 private:
     QSqlDatabase db;

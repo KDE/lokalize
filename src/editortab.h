@@ -100,17 +100,17 @@ public:
 
 
     //interface for LokalizeMainWindow
-    void hideDocks();
-    void showDocks();
-    QString currentFilePath();
+    void hideDocks() override;
+    void showDocks() override;
+    QString currentFilePath() override;
     void setFullPathShown(bool);
     void setProperCaption(QString, bool); //reimpl to remove ' - Lokalize'
 public slots:
     void setProperFocus();
 public:
-    bool queryClose();
+    bool queryClose() override;
     EditorState state();
-    KXMLGUIClient* guiClient()
+    KXMLGUIClient* guiClient() override
     {
         return (KXMLGUIClient*)this;
     }
@@ -298,7 +298,7 @@ private slots:
     void pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 protected:
-    void paintEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* event) override;
 
 private:
     void setupAccel();

@@ -43,7 +43,7 @@ class CatalogView: public QDockWidget
     Q_OBJECT
 
 public:
-    CatalogView(QWidget*, Catalog*);
+    explicit CatalogView(QWidget*, Catalog*);
     ~CatalogView();
 
     void setEntryFilteredOut(int entry, bool filteredOut);

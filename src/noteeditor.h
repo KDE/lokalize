@@ -40,7 +40,7 @@ class NoteEditor: public QWidget
 {
     Q_OBJECT
 public:
-    NoteEditor(QWidget* parent);
+    explicit NoteEditor(QWidget* parent);
     ~NoteEditor() {}
 
     Note note();
@@ -72,7 +72,7 @@ class TextEdit: public QPlainTextEdit
     Q_OBJECT
 public:
     TextEdit(QWidget* parent): QPlainTextEdit(parent) {}
-    void keyPressEvent(QKeyEvent* e);
+    void keyPressEvent(QKeyEvent* e) override;
 signals:
     void accepted();
     void rejected();

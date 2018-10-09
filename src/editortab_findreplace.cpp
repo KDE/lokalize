@@ -66,7 +66,7 @@ public:
     {
         return makeOptions(KFindDialog::options(), ui_findExtension);
     }
-    static EntryFindDialog* instance(QWidget* parent = 0);
+    static EntryFindDialog* instance(QWidget* parent = nullptr);
 private:
     static QPointer<EntryFindDialog> _instance;
     static void cleanup()
@@ -120,7 +120,7 @@ public:
     {
         return makeOptions(KReplaceDialog::options(), ui_findExtension);
     }
-    static EntryReplaceDialog* instance(QWidget* parent = 0);
+    static EntryReplaceDialog* instance(QWidget* parent = nullptr);
 private:
     static QPointer<EntryReplaceDialog> _instance;
     static void cleanup()

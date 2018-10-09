@@ -50,10 +50,10 @@ public:
     TMView(QWidget*, Catalog*, const QVector<QAction*>&, const QVector<QAction*>&);
     ~TMView();
 
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent*) override;
 
-    QSize sizeHint() const
+    QSize sizeHint() const override
     {
         return QSize(300, 100);
     }
@@ -89,7 +89,7 @@ private slots:
     void removeEntry(const TMEntry & e);
 
 private:
-    bool event(QEvent *event);
+    bool event(QEvent *event) override;
     void deleteFile(const TMEntry& e, const bool showPopUp);
 
 
@@ -123,7 +123,7 @@ public:
     {
         setContextMenuPolicy(Qt::CustomContextMenu);
     }
-    void mouseDoubleClickEvent(QMouseEvent* event);
+    void mouseDoubleClickEvent(QMouseEvent* event) override;
 signals:
     void textInsertRequested(const QString&);
 };

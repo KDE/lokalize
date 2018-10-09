@@ -264,12 +264,12 @@ public:
         : QSortFilterProxyModel(parent)
     {}
     void setRules(const QVector<Rule>& rules);
-    void fetchMore(const QModelIndex& parent);
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    void fetchMore(const QModelIndex& parent) override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
 protected:
-    bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+    bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 
 private:
     QVector<Rule> m_rules;
@@ -364,8 +364,8 @@ bool TMResultsSortFilterProxyModel::filterAcceptsRow(int source_row, const QMode
 class QueryStylesModel: public QStringListModel
 {
 public:
-    explicit QueryStylesModel(QObject* parent = 0);
-    QVariant data(const QModelIndex& item, int role) const;
+    explicit QueryStylesModel(QObject* parent = nullptr);
+    QVariant data(const QModelIndex& item, int role) const override;
 };
 
 QueryStylesModel::QueryStylesModel(QObject* parent): QStringListModel(parent)

@@ -59,13 +59,13 @@ public:
     DBFilesModel();
     ~DBFilesModel();
 
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const;
-    Qt::ItemFlags flags(const QModelIndex&) const
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    Qt::ItemFlags flags(const QModelIndex&) const override
     {
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
     }
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
     QModelIndex rootIndex() const;
     void removeTM(QModelIndex);
@@ -86,7 +86,7 @@ private:
     static void cleanupDBFilesModel();
 
 protected:
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 
 public slots:
     void updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight);

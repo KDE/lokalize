@@ -44,7 +44,7 @@ public slots:
     void selectUnit(const QString& id);
 
 private:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
 private slots:
     void mouseDoubleClicked(const QModelIndex&);
     void fileLoaded();
@@ -70,14 +70,14 @@ public:
     BinUnitsModel(Catalog* catalog, QObject* parent);
     ~BinUnitsModel() {}
 
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override
     {
         Q_UNUSED(parent);
         return ColumnCount;
     }
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
-    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const override;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
 
     void setTargetFilePath(int row, const QString&);
 

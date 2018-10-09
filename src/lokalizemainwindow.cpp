@@ -392,7 +392,7 @@ void LokalizeMainWindow::showProjectOverview()
 TM::TMTab* LokalizeMainWindow::showTM()
 {
     if (!Project::instance()->isTmSupported()) {
-        KMessageBox::information(0, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
+        KMessageBox::information(nullptr, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
         return 0;
     }
 

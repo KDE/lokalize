@@ -480,7 +480,7 @@ void updateHeader(QString& header,
                                         int index = it->lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
                                         if( index == -1 )
                                         {
-                                            KMessageBox::information(0,i18n("Free Software Foundation Copyright does not contain any year. "
+                                            KMessageBox::information(nullptr,i18n("Free Software Foundation Copyright does not contain any year. "
                                             "It will not be updated."));
                                         } else {
                                             it->insert(index+1, QString(", ")+cy);

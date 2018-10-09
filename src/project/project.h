@@ -113,7 +113,7 @@ public:
     bool queryCloseForAuxiliaryWindows();
     bool isFileMissing(const QString& filePath) const;
 
-    void setDefaults();
+    void setDefaults() override;
 // private slots:
 //     void initLater();
 

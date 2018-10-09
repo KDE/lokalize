@@ -61,9 +61,9 @@ public:
     TMTab(QWidget *parent);
     ~TMTab();
 
-    void hideDocks() {}
-    void showDocks() {}
-    KXMLGUIClient* guiClient()
+    void hideDocks() override {}
+    void showDocks() override {}
+    KXMLGUIClient* guiClient() override
     {
         return (KXMLGUIClient*)this;
     }
@@ -98,8 +98,8 @@ signals:
     void fileOpenRequested(const QString& url, const QString& source, const QString& ctxt, const bool setAsActive);
 
 private:
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent*) override;
 
 
 private:
@@ -145,8 +145,8 @@ public:
     TMDBModel(QObject* parent);
     ~TMDBModel() {}
 
-    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override
     {
         Q_UNUSED(parent);
         return ColumnCount;

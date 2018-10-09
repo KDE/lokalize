@@ -68,8 +68,8 @@ class FileListModel: public QStringListModel
 {
 public:
     FileListModel(QObject* parent): QStringListModel(parent) {}
-    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const;
-    Qt::ItemFlags flags(const QModelIndex&) const
+    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
+    Qt::ItemFlags flags(const QModelIndex&) const override
     {
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }

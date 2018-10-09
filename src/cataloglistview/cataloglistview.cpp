@@ -54,7 +54,7 @@ public:
     ~CatalogTreeView() {}
 
 protected:
-    void keyReleaseEvent(QKeyEvent *e)
+    void keyReleaseEvent(QKeyEvent *e) override
     {
         if (e->key() == Qt::Key_Return && currentIndex().isValid()) {
             emit clicked(currentIndex());

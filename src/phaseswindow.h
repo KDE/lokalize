@@ -45,7 +45,7 @@ class PhasesWindow: public QDialog
     Q_OBJECT
 public:
     PhasesWindow(Catalog* catalog, QWidget *parent);
-    ~PhasesWindow() {}
+    ~PhasesWindow() override {}
 
 private slots:
     void displayPhaseNotes(const QModelIndex& current);
@@ -81,7 +81,7 @@ public:
 signals:
     void currentIndexChanged(const QModelIndex& current);
 private:
-    void currentChanged(const QModelIndex& current, const QModelIndex&)
+    void currentChanged(const QModelIndex& current, const QModelIndex&) override
     {
         emit currentIndexChanged(current);
     }

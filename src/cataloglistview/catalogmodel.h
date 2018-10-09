@@ -62,15 +62,15 @@ public:
         StringFilterRole = Qt::UserRole + 1
     };
 
-    CatalogTreeModel(QObject* parent, Catalog* catalog);
-    ~CatalogTreeModel() {}
+    explicit CatalogTreeModel(QObject* parent, Catalog* catalog);
+    ~CatalogTreeModel() override {}
 
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex())const;
-    QModelIndex parent(const QModelIndex&) const;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const;
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
-    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex())const override;
+    QModelIndex parent(const QModelIndex&) const override;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const override;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
 
     Catalog* catalog()const
     {
@@ -143,7 +143,7 @@ public:
     CatalogTreeFilterModel(QObject* parent);
     ~CatalogTreeFilterModel() {}
 
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 
     void setFilerOptions(int o);
     int filerOptions()const
@@ -151,7 +151,7 @@ public:
         return m_filerOptions;
     }
 
-    void setSourceModel(QAbstractItemModel* sourceModel);
+    void setSourceModel(QAbstractItemModel* sourceModel) override;
 
     bool individualRejectFilterEnabled()
     {

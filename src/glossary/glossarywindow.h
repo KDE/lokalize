@@ -41,9 +41,9 @@ class AuxTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    AuxTextEdit(QWidget* parent = 0): KTextEdit(parent) {}
+    AuxTextEdit(QWidget* parent = nullptr): KTextEdit(parent) {}
 
-    void focusOutEvent(QFocusEvent* e)
+    void focusOutEvent(QFocusEvent* e) override
     {
         Q_UNUSED(e);
         emit editingFinished();
@@ -56,7 +56,7 @@ class TermListView: public QListView
 {
     Q_OBJECT
 public:
-    explicit TermListView(QWidget* parent = 0): QListView(parent) {}
+    explicit TermListView(QWidget* parent = nullptr): QListView(parent) {}
 
 public slots:
     void rmTerms();
@@ -75,9 +75,9 @@ class GlossaryWindow: public KMainWindow
 {
     Q_OBJECT
 public:
-    GlossaryWindow(QWidget *parent = 0);
-    ~GlossaryWindow();
-    bool queryClose();
+    explicit GlossaryWindow(QWidget *parent = nullptr);
+    ~GlossaryWindow() override;
+    bool queryClose() override;
 
 public slots:
     void currentChanged(int);
@@ -116,10 +116,10 @@ class GlossaryTreeView: public QTreeView
 {
     Q_OBJECT
 public:
-    GlossaryTreeView(QWidget *parent = 0);
-    ~GlossaryTreeView() {}
+    explicit GlossaryTreeView(QWidget *parent = nullptr);
+    ~GlossaryTreeView() override {}
 
-    void currentChanged(const QModelIndex& current, const QModelIndex& previous);
+    void currentChanged(const QModelIndex& current, const QModelIndex& previous) override;
     void selectRow(int i);
 
 signals:
@@ -133,10 +133,10 @@ class TermsListModel: public QStringListModel
 {
     Q_OBJECT
 public:
-    TermsListModel(Glossary* glossary, const QString& lang, QObject* parent = 0): QStringListModel(parent), m_glossary(glossary), m_lang(lang) {}
+    TermsListModel(Glossary* glossary, const QString& lang, QObject* parent = nullptr): QStringListModel(parent), m_glossary(glossary), m_lang(lang) {}
 
-    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
-    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
 public slots:
     void setEntry(const QByteArray& id);

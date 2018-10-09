@@ -77,7 +77,7 @@ public:
     GettextImportPlugin();
     //GettextImportPlugin(ExtraDataSaver* extraDataSaver);
     //~GettextImportPlugin(){delete _extraDataSaver;}
-    ConversionStatus load(QIODevice*);
+    ConversionStatus load(QIODevice*) override;
     const QString id()
     {
         return "GNU gettext";

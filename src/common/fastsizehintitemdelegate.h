@@ -51,8 +51,8 @@ public:
     FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc);
     ~FastSizeHintItemDelegate() {}
 
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
 public slots:
     void reset();

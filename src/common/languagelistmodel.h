@@ -44,13 +44,13 @@ private:
     static LanguageListModel * _emptyLangInstance;
     static void cleanupLanguageListModel();
 
-    LanguageListModel(ModelType type = Default, QObject* parent = 0);
+    LanguageListModel(ModelType type = Default, QObject* parent = nullptr);
     QSortFilterProxyModel* m_sortModel;
     KConfig* m_systemLangList;
 
 public:
-    QVariant data(const QModelIndex& index, int role) const;
-    QFlags< Qt::ItemFlag > flags(const QModelIndex& index) const;
+    QVariant data(const QModelIndex& index, int role) const override;
+    QFlags< Qt::ItemFlag > flags(const QModelIndex& index) const override;
 
     QSortFilterProxyModel* sortModel() const
     {

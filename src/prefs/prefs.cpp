@@ -238,7 +238,7 @@ bool SettingsController::projectCreate()
     if (m_projectActionsView && m_projectActionsView->model()) {
         //ActionCollectionModel is known to be have bad for the usecase of reinitializing krossplugin
         m_projectActionsView->model()->deleteLater();
-        m_projectActionsView->setModel(0);
+        m_projectActionsView->setModel(nullptr);
     }
 
     //TODO ask-n-save

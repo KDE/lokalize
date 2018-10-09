@@ -62,9 +62,9 @@ signals:
     void textInsertRequested(const QString&);
 
 private:
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent *event);
-    bool event(QEvent *event);
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent *event) override;
+    bool event(QEvent *event) override;
 
 
 private:

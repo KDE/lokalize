@@ -45,7 +45,7 @@ public:
      * @param entry is a whole entry
      */
     void setText(const QString& term, const QByteArray& entryId, bool capFirst);
-    void mousePressEvent(QMouseEvent* /* event*/);
+    void mousePressEvent(QMouseEvent* /* event*/) override;
 
 public slots:
     void insert();

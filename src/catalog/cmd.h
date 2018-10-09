@@ -45,9 +45,9 @@ class LokalizeUnitCmd: public QUndoCommand
 {
 public:
     LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
-    virtual ~LokalizeUnitCmd() {}
-    virtual void undo();
-    virtual void redo();
+    ~LokalizeUnitCmd() override {}
+    void undo() override;
+    void redo() override;
     DocPosition pos()const
     {
         return _pos;
@@ -72,8 +72,8 @@ class LokalizeTargetCmd: public LokalizeUnitCmd
 public:
     LokalizeTargetCmd(Catalog *catalog, const DocPosition& pos, const QString& name);
     virtual ~LokalizeTargetCmd() {}
-    void undo();
-    void redo();
+    void undo() override;
+    void redo() override;
 protected:
     QString _prevTargetPhase;
 };
@@ -89,13 +89,13 @@ class InsTextCmd: public LokalizeTargetCmd
 public:
     InsTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
     ~InsTextCmd() {}
-    int id() const
+    int id() const override
     {
         return Insert;
     }
-    bool mergeWith(const QUndoCommand *other);
-    void doRedo();
-    void doUndo();
+    bool mergeWith(const QUndoCommand *other) override;
+    void doRedo() override;
+    void doUndo() override;
 private:
     QString _str;
 };
@@ -106,13 +106,13 @@ class DelTextCmd: public LokalizeTargetCmd
 public:
     DelTextCmd(Catalog *catalog, const DocPosition& pos, const QString& str);
     ~DelTextCmd() {}
-    int id() const
+    int id() const override
     {
         return Delete;
     }
-    bool mergeWith(const QUndoCommand *other);
-    void doRedo();
-    void doUndo();
+    bool mergeWith(const QUndoCommand *other) override;
+    void doRedo() override;
+    void doUndo() override;
 private:
     QString _str;
 };
@@ -124,12 +124,12 @@ private:
 public:
     ~SetStateCmd() {}
 
-    int id() const
+    int id() const override
     {
         return ToggleApprovement;
     }
-    void doRedo();
-    void doUndo();
+    void doRedo() override;
+    void doUndo() override;
 
     static void push(Catalog *catalog, const DocPosition& pos, bool approved);
     static void instantiateAndPush(Catalog *catalog, const DocPosition& pos, TargetState state);
@@ -145,12 +145,12 @@ public:
     /// offset is taken from @a tag and not from @a pos
     InsTagCmd(Catalog *catalog, const DocPosition& pos, const InlineTag& tag);
     ~InsTagCmd() {}
-    int id() const
+    int id() const override
     {
         return InsertTag;
     }
-    void doRedo();
-    void doUndo();
+    void doRedo() override;
+    void doUndo() override;
 private:
     InlineTag _tag;
 };
@@ -165,12 +165,12 @@ class DelTagCmd: public LokalizeTargetCmd
 public:
     DelTagCmd(Catalog *catalog, const DocPosition& pos);
     ~DelTagCmd() {}
-    int id() const
+    int id() const override
     {
         return DeleteTag;
     }
-    void doRedo();
-    void doUndo();
+    void doRedo() override;
+    void doUndo() override;
     InlineTag tag()const
     {
         return _tag;   //used to get proprties of deleted tag
@@ -186,14 +186,14 @@ public:
     /// @a pos.form is note number
     SetNoteCmd(Catalog *catalog, const DocPosition& pos, const Note& note);
     ~SetNoteCmd() {}
-    int id() const
+    int id() const override
     {
         return SetNote;
     }
 protected:
-    void doRedo();
-    void doUndo();
-    void setJumpingPos();
+    void doRedo() override;
+    void doUndo() override;
+    void setJumpingPos() override;
 private:
     Note _note;
     Note _prevNote;
@@ -206,12 +206,12 @@ public:
     /// @a pos.form is note number
     UpdatePhaseCmd(Catalog *catalog, const Phase& phase);
     ~UpdatePhaseCmd() {}
-    int id() const
+    int id() const override
     {
         return UpdatePhase;
     }
-    void redo();
-    void undo();
+    void redo() override;
+    void undo() override;
 private:
     Catalog* _catalog;
     Phase _phase;
@@ -224,12 +224,12 @@ class SetEquivTransCmd: public LokalizeTargetCmd
 public:
     SetEquivTransCmd(Catalog *catalog, const DocPosition& pos, bool equivTrans);
     ~SetEquivTransCmd() {}
-    int id() const
+    int id() const override
     {
         return EquivTrans;
     }
-    void doRedo();
-    void doUndo();
+    void doRedo() override;
+    void doUndo() override;
 private:
     bool _equivTrans;
 };

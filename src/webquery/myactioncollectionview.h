@@ -46,12 +46,12 @@ class MyActionCollectionView : public Kross::ActionCollectionView
 {
     Q_OBJECT
 public:
-    MyActionCollectionView(QWidget *parent = 0);
+    MyActionCollectionView(QWidget *parent = nullptr);
     ~MyActionCollectionView();
 
 public slots:
     void triggerSelectedActions();
-    void reset()
+    void reset() override
     {
         Kross::ActionCollectionView::reset();/*selectAll();*/
     }

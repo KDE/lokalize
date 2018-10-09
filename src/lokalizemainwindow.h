@@ -73,9 +73,9 @@ public:
 
 protected:
     void saveProjectState(KConfigGroup&);
-    void saveProperties(KConfigGroup& stateGroup);
-    bool queryClose();
-    void readProperties(const KConfigGroup& stateGroup);
+    void saveProperties(KConfigGroup& stateGroup) override;
+    bool queryClose() override;
+    void readProperties(const KConfigGroup& stateGroup) override;
     void registerDBusAdaptor();
     void setupActions();
 
@@ -199,7 +199,7 @@ class ProjectScriptingPlugin: public Kross::ScriptingPlugin
 public:
     ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
     ~ProjectScriptingPlugin();
-    void setDOMDocument(const QDomDocument &document, bool merge = false);
+    void setDOMDocument(const QDomDocument &document, bool merge = false) override;
 
 private slots:
     void doAutoruns();

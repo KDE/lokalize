@@ -275,7 +275,7 @@ public slots: //DBus interface
         return d._filePath;
     }
     ///@returns 0 if success, >0 erroneous line (parsing error)
-    int loadFromUrl(const QString& url, const QString& saidUrl = QString(), int* fileSize = 0, bool fast = false);
+    int loadFromUrl(const QString& url, const QString& saidUrl = QString(), int* fileSize = nullptr, bool fast = false);
     bool saveToUrl(QString url);
     bool save();
     QByteArray contents();

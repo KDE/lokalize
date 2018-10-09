@@ -73,8 +73,8 @@ class MergeCatalog: public Catalog
 {
     Q_OBJECT
 public:
-    MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges = true);
-    ~MergeCatalog() {}
+    explicit MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges = true);
+    ~MergeCatalog() override {}
 
     int loadFromUrl(const QString& filePath);
 
@@ -104,7 +104,7 @@ public:
     }
 
     //override to use map
-    QString msgstr(const DocPosition&) const;
+    QString msgstr(const DocPosition&) const override;
     bool isApproved(uint index) const;
     bool isPlural(uint index) const;
     TargetState state(const DocPosition& pos) const;
@@ -147,7 +147,7 @@ public slots:
 
 private:
     MatchItem calcMatchItem(const DocPosition& basePos, const DocPosition& mergePos);
-    KAutoSaveFile* checkAutoSave(const QString&)
+    KAutoSaveFile* checkAutoSave(const QString&) override
     {
         return 0;   //rely on basecatalog restore
     }

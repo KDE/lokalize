@@ -63,9 +63,9 @@ public:
     FileSearchTab(QWidget *parent);
     ~FileSearchTab();
 
-    void hideDocks() {}
-    void showDocks() {}
-    KXMLGUIClient* guiClient()
+    void hideDocks() override {}
+    void showDocks() override {}
+    KXMLGUIClient* guiClient() override
     {
         return (KXMLGUIClient*)this;
     }
@@ -101,8 +101,8 @@ signals:
     void fileOpenRequested(const QString& filePath, const bool setAsActive);
 
 private:
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent*) override;
 
 
 private:
@@ -176,13 +176,13 @@ public:
     FileSearchModel(QObject* parent);
     ~FileSearchModel() {}
 
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override
     {
         Q_UNUSED(parent) return ColumnCount;
     }
-    int rowCount(const QModelIndex& parent = QModelIndex()) const
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override
     {
         Q_UNUSED(parent) return m_searchResults.size();
     }
@@ -286,13 +286,13 @@ public:
                        const SearchParams& sp,
                        const QVector<Rule>& r,
                        int sn,
-                       QObject* parent = 0);
+                       QObject* parent = nullptr);
     ~SearchJob() {}
 
 signals:
     void done(SearchJob*);
 protected:
-    void run();
+    void run() override;
 public:
     QStringList files;
     SearchParams searchParams;
@@ -314,14 +314,14 @@ public:
                             const QRegExp& s,
                             const QString& r,
                             //int sn,
-                            QObject* parent = 0);
+                            QObject* parent = nullptr);
     ~MassReplaceJob() {}
 
 signals:
     void done(MassReplaceJob*);
 
 protected:
-    void run();
+    void run() override;
 public:
     SearchResults searchResults;
     int globalPos;

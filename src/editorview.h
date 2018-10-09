@@ -55,7 +55,7 @@ class EditorView: public QSplitter
 {
     Q_OBJECT
 public:
-    EditorView(QWidget *, Catalog*);
+    explicit EditorView(QWidget *, Catalog*);
     virtual ~EditorView();
 
     QTabBar* tabBar()
@@ -126,7 +126,7 @@ class LedsWidget: public QWidget
 public:
     LedsWidget(QWidget* parent);
 private:
-    void contextMenuEvent(QContextMenuEvent* event);
+    void contextMenuEvent(QContextMenuEvent* event) override;
 
 public slots:
     void cursorPositionChanged(int column);

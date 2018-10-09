@@ -288,7 +288,7 @@ void Project::showTMManager()
 {
     if (!m_tmManagerWindow) {
         if (!isTmSupported()) {
-            KMessageBox::information(0, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
+            KMessageBox::information(nullptr, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
             return;
         }
 
@@ -384,15 +384,15 @@ static void fillFilePathsRecursive(const QDir& dir, QMultiMap<QByteArray, QByteA
 class SourceFilesSearchJob: public KJob
 {
 public:
-    SourceFilesSearchJob(const QString& folderName, QObject* parent = 0);
-    void start();
+    SourceFilesSearchJob(const QString& folderName, QObject* parent = nullptr);
+    void start() override;
     void finish()
     {
         emitResult();
         emit Project::instance()->sourceFilePathsAreReady();
     }
 protected:
-    bool doKill();
+    bool doKill() override;
 
 private:
     QString m_folderName;
@@ -417,7 +417,7 @@ public:
     explicit FillSourceFilePathsJob(const QDir& dir, SourceFilesSearchJob* j): startingDir(dir), kj(j) {}
 
 protected:
-    void run()
+    void run() override
     {
         QMultiMap<QByteArray, QByteArray> sourceFilePaths;
         fillFilePathsRecursive(startingDir, sourceFilePaths);

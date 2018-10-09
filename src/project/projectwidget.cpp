@@ -52,8 +52,8 @@ class PoItemDelegate: public QStyledItemDelegate
 public:
     PoItemDelegate(QObject *parent = 0);
     ~PoItemDelegate() {}
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 private:
     KColorScheme m_colorScheme;
 };
@@ -133,17 +133,17 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 class SortFilterProxyModel : public KDirSortFilterProxyModel
 {
 public:
-    SortFilterProxyModel(QObject* parent = 0)
+    SortFilterProxyModel(QObject* parent = nullptr)
         : KDirSortFilterProxyModel(parent)
     {
         connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &SortFilterProxyModel::invalidate);
     }
     ~SortFilterProxyModel() {}
     void toggleTranslatedFiles();
-    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 protected:
     bool lessThan(const QModelIndex& left,
-                  const QModelIndex& right) const;
+                  const QModelIndex& right) const override;
 private:
     bool m_hideTranslatedFiles = false;
 };

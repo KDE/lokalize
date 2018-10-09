@@ -44,8 +44,8 @@ public:
     MergeView(QWidget*, Catalog*, bool primary);
     virtual ~MergeView();
 
-    void dragEnterEvent(QDragEnterEvent* event);
-    void dropEvent(QDropEvent*);
+    void dragEnterEvent(QDragEnterEvent* event) override;
+    void dropEvent(QDropEvent*) override;
     QString filePath();
     bool isModified();
 
@@ -57,7 +57,7 @@ private:
     int pluralFormsAvailableForward();
     int pluralFormsAvailableBackward();
 
-    bool event(QEvent *event);
+    bool event(QEvent *event) override;
 
 public slots:
     void mergeOpen(QString mergeFilePath = QString());

@@ -51,7 +51,7 @@ class TMManagerWin: public KMainWindow
 {
     Q_OBJECT
 public:
-    TMManagerWin(QWidget *parent = 0);
+    TMManagerWin(QWidget *parent = nullptr);
     ~TMManagerWin() {}
 private slots:
     void addDir();
@@ -76,7 +76,7 @@ public:
     DBPropertiesDialog(QWidget* parent, const QString& name = QString());
 private:
     //void slotButtonClicked(int button);
-    void accept();
+    void accept() override;
 private slots:
     void setConnectionBoxVisible(int type);
     void openJobDone(OpenDBJob*);

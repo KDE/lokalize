@@ -102,7 +102,7 @@ public:
     };
 
 protected:
-    void run();
+    void run() override;
 
 signals:
     void done(OpenDBJob*);
@@ -143,7 +143,7 @@ signals:
     void done(CloseDBJob*);
 
 protected:
-    void run();
+    void run() override;
 
     QString m_dbName;
     //statistics?
@@ -172,7 +172,7 @@ signals:
     void done(SelectJob*);
 
 protected:
-    void run();
+    void run() override;
     //void aboutToBeDequeued(ThreadWeaver::WeaverInterface*); KDE5PORT
 
 private:
@@ -211,7 +211,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 
     QString m_dbName;
 
@@ -231,7 +231,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 
     QString m_filePath;
     QString m_dbName;
@@ -254,7 +254,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 
     TMEntry m_entry;
 
@@ -291,7 +291,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 
 private:
     QString m_filePath;
@@ -316,7 +316,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 public:
     QString m_filePath;
 
@@ -342,7 +342,7 @@ public:
     }
 
 protected:
-    void run()
+    void run() override
     {
         ScanJob::run();
         emit done(this);
@@ -372,7 +372,7 @@ signals:
     void done();
 
 protected:
-    void run()
+    void run() override
     {
         emit done();
     };
@@ -389,7 +389,7 @@ class IndexWordsJob: public QRunnable
 {
     Q_OBJECT
 public:
-    IndexWordsJob(QObject* parent = 0);
+    IndexWordsJob(QObject* parent = nullptr);
     ~IndexWordsJob();
 
     int priority() const
@@ -424,7 +424,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 public:
     QString m_filename;
 
@@ -449,7 +449,7 @@ public:
     }
 
 protected:
-    void run();
+    void run() override;
 public:
     QString m_filename;
 
@@ -480,7 +480,7 @@ signals:
     void done(ExecQueryJob*);
 
 protected:
-    void run();
+    void run() override;
 
     QString m_dbName;
     QString m_query;

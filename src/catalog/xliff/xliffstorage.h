@@ -34,93 +34,93 @@ class XliffStorage: public CatalogStorage
 {
 public:
     XliffStorage();
-    ~XliffStorage();
+    ~XliffStorage() override;
 
-    int capabilities() const;
+    int capabilities() const override;
 
-    int load(QIODevice* device);
-    bool save(QIODevice* device, bool belongsToProject = false);
+    int load(QIODevice* device) override;
+    bool save(QIODevice* device, bool belongsToProject = false) override;
 
-    int size() const;
+    int size() const override;
     bool isEmpty() const;
 
     //flat-model interface (ignores XLIFF grouping)
-    QString source(const DocPosition& pos) const;
-    QString target(const DocPosition& pos) const;
-    QString sourceWithPlurals(const DocPosition& pos) const;
-    QString targetWithPlurals(const DocPosition& pos) const;
-    CatalogString targetWithTags(DocPosition pos) const;
-    CatalogString sourceWithTags(DocPosition pos) const;
-    CatalogString catalogString(const DocPosition& pos) const;
+    QString source(const DocPosition& pos) const override;
+    QString target(const DocPosition& pos) const override;
+    QString sourceWithPlurals(const DocPosition& pos) const override;
+    QString targetWithPlurals(const DocPosition& pos) const override;
+    CatalogString targetWithTags(DocPosition pos) const override;
+    CatalogString sourceWithTags(DocPosition pos) const override;
+    CatalogString catalogString(const DocPosition& pos) const override;
 
     /// all plural forms. pos.form doesn't matter TODO
-    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines = false) const
+    QStringList sourceAllForms(const DocPosition& pos, bool stripNewLines = false) const override
     {
         Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();
     }
-    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines = false) const
+    QStringList targetAllForms(const DocPosition& pos, bool stripNewLines = false) const override
     {
         Q_UNUSED(pos) Q_UNUSED(stripNewLines) return QStringList();
     }
 
-    void targetDelete(const DocPosition& pos, int count);
-    void targetInsert(const DocPosition& pos, const QString& arg);
-    void setTarget(const DocPosition& pos, const QString& arg);//called for mergeCatalog
-    void targetInsertTag(const DocPosition&, const InlineTag&);
-    InlineTag targetDeleteTag(const DocPosition&);
-    Phase updatePhase(const Phase& phase);
-    QList<Phase> allPhases() const;
-    Phase phase(const QString& name) const;
-    QMap<QString, Tool> allTools() const;
-    QVector<Note> phaseNotes(const QString& phase) const;
-    QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes);
+    void targetDelete(const DocPosition& pos, int count) override;
+    void targetInsert(const DocPosition& pos, const QString& arg) override;
+    void setTarget(const DocPosition& pos, const QString& arg) override;//called for mergeCatalog
+    void targetInsertTag(const DocPosition&, const InlineTag&) override;
+    InlineTag targetDeleteTag(const DocPosition&) override;
+    Phase updatePhase(const Phase& phase) override;
+    QList<Phase> allPhases() const override;
+    Phase phase(const QString& name) const override;
+    QMap<QString, Tool> allTools() const override;
+    QVector<Note> phaseNotes(const QString& phase) const override;
+    QVector<Note> setPhaseNotes(const QString& phase, QVector<Note> notes) override;
 
-    QStringList sourceFiles(const DocPosition& pos) const;
-    QVector<AltTrans> altTrans(const DocPosition& pos) const;
+    QStringList sourceFiles(const DocPosition& pos) const override;
+    QVector<AltTrans> altTrans(const DocPosition& pos) const override;
 
     ///@a pos.form is note number
-    Note setNote(DocPosition pos, const Note& note);
-    QVector<Note> notes(const DocPosition& pos) const;
-    QStringList noteAuthors() const;
-    QVector<Note> developerNotes(const DocPosition& pos) const;
+    Note setNote(DocPosition pos, const Note& note) override;
+    QVector<Note> notes(const DocPosition& pos) const override;
+    QStringList noteAuthors() const override;
+    QVector<Note> developerNotes(const DocPosition& pos) const override;
 
-    QString setPhase(const DocPosition& pos, const QString& phase);
-    QString phase(const DocPosition& pos) const;
+    QString setPhase(const DocPosition& pos, const QString& phase) override;
+    QString phase(const DocPosition& pos) const override;
 
-    QStringList context(const DocPosition& pos) const;
+    QStringList context(const DocPosition& pos) const override;
 
-    QStringList matchData(const DocPosition& pos) const;
-    QString id(const DocPosition& pos) const;
+    QStringList matchData(const DocPosition& pos) const override;
+    QString id(const DocPosition& pos) const override;
 
-    bool isPlural(const DocPosition& pos) const;
-    bool isEmpty(const DocPosition& pos) const;
+    bool isPlural(const DocPosition& pos) const override;
+    bool isEmpty(const DocPosition& pos) const override;
 
-    bool isEquivTrans(const DocPosition& pos) const;
-    void setEquivTrans(const DocPosition& pos, bool equivTrans);
+    bool isEquivTrans(const DocPosition& pos) const override;
+    void setEquivTrans(const DocPosition& pos, bool equivTrans) override;
 
-    TargetState state(const DocPosition& pos) const;
-    TargetState setState(const DocPosition& pos, TargetState state);
+    TargetState state(const DocPosition& pos) const override;
+    TargetState setState(const DocPosition& pos, TargetState state) override;
 
 
-    int binUnitsCount() const;
-    int unitById(const QString& id) const;
+    int binUnitsCount() const override;
+    int unitById(const QString& id) const override;
 
-    QString mimetype()const
+    QString mimetype() const override
     {
         return QStringLiteral("application/x-xliff");
     }
-    QString fileType()const
+    QString fileType() const override
     {
         return QStringLiteral("XLIFF (*.xliff *.xlf)");
     }
-    CatalogType type()const
+    CatalogType type() const override
     {
         return Xliff;
     }
-    QString originalOdfFilePath();
-    void setOriginalOdfFilePath(const QString&);
+    QString originalOdfFilePath() override;
+    void setOriginalOdfFilePath(const QString&) override;
 
-    void setTargetLangCode(const QString& langCode);
+    void setTargetLangCode(const QString& langCode) override;
 
 private:
     QDomElement unitForPos(int pos) const;

@@ -43,7 +43,7 @@ class LokalizeSubwindowBase: public KMainWindow
 {
     Q_OBJECT
 public:
-    LokalizeSubwindowBase(QWidget* parent): KMainWindow(parent) {}
+    explicit LokalizeSubwindowBase(QWidget* parent): KMainWindow(parent) {}
     virtual ~LokalizeSubwindowBase()
     {
         emit aboutToBeClosed();
@@ -83,15 +83,15 @@ protected:
 class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
-    LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent), KXMLGUIClient() {}
-    virtual ~LokalizeSubwindowBase2() {}
+    explicit LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent), KXMLGUIClient() {}
+    ~LokalizeSubwindowBase2() override {}
 
-    KXMLGUIClient* guiClient()
+    KXMLGUIClient* guiClient() override
     {
         return (KXMLGUIClient*)this;
     }
 
-    void setUpdatedXMLFile()
+    void setUpdatedXMLFile() override
     {
         QString localXml = guiClient()->localXMLFile();
         if (QFile::exists(localXml)) {
@@ -99,7 +99,7 @@ public:
         }
     }
 
-    void reloadUpdatedXML()
+    void reloadUpdatedXML() override
     {
         QString localXml = guiClient()->localXMLFile();
         if (QFile::exists(localXml)) {

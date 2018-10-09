@@ -206,16 +206,16 @@ public:
     ~GlossaryModel() {}
 
     //QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const;
-    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
-    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const override;
+    QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const override;
     //Qt::ItemFlags flags(const QModelIndex&) const;
 
-    bool canFetchMore(const QModelIndex& parent) const;
-    void fetchMore(const QModelIndex& parent);
+    bool canFetchMore(const QModelIndex& parent) const override;
+    void fetchMore(const QModelIndex& parent) override;
 
-    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
     //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
     QByteArray appendRow(const QString& _english, const QString& _target);
 
@@ -232,14 +232,14 @@ class GlossarySortFilterProxyModel: public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    GlossarySortFilterProxyModel(QObject* parent = 0)
+    GlossarySortFilterProxyModel(QObject* parent = nullptr)
         : QSortFilterProxyModel(parent)
     {}
-    Qt::ItemFlags flags(const QModelIndex&) const
+    Qt::ItemFlags flags(const QModelIndex&) const override
     {
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
     }
-    void fetchMore(const QModelIndex& parent);
+    void fetchMore(const QModelIndex& parent) override;
 
 public slots:
     void setFilterRegExp(const QString& s);

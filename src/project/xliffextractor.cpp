@@ -47,9 +47,9 @@ public:
         , charCount(0)
     {}
 
-    bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts);
-    bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName);
-    bool characters(const QString&);
+    bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts) override;
+    bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName) override;
+    bool characters(const QString&) override;
     //void endAnalysis(bool complete);
 
     int total;

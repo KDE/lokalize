@@ -50,15 +50,15 @@ public:
     ProjectTab(QWidget *parent);
     ~ProjectTab();
 
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
-    void hideDocks() {}
-    void showDocks() {}
-    KXMLGUIClient* guiClient()
+    void hideDocks() override {}
+    void showDocks() override {}
+    KXMLGUIClient* guiClient() override
     {
         return (KXMLGUIClient*)this;
     }
-    QString currentFilePath();
+    QString currentFilePath() override;
 
     int unitsCount()
     {

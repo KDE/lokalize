@@ -38,7 +38,7 @@ class TranslationUnitTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent = 0);
+    TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent = nullptr);
     ~TranslationUnitTextEdit();
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
@@ -58,7 +58,7 @@ public:
     }
     void setSpellCheckingEnabled(bool enable);
     void setVisualizeSeparators(bool enable);
-    bool shouldBlockBeSpellChecked(const QString &block) const
+    bool shouldBlockBeSpellChecked(const QString &block) const override
     {
         Q_UNUSED(block);
         return true;
@@ -82,17 +82,17 @@ public slots:
     void doExplicitCompletion();
 
 protected:
-    void keyPressEvent(QKeyEvent *keyEvent);
-    void keyReleaseEvent(QKeyEvent* e);
-    QMimeData* createMimeDataFromSelection() const;
-    void insertFromMimeData(const QMimeData* source);
-    void mouseReleaseEvent(QMouseEvent* event);
-    void dropEvent(QDropEvent *event);
-    void dragEnterEvent(QDragEnterEvent *event);
+    void keyPressEvent(QKeyEvent *keyEvent) override;
+    void keyReleaseEvent(QKeyEvent* e) override;
+    QMimeData* createMimeDataFromSelection() const override;
+    void insertFromMimeData(const QMimeData* source) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void dropEvent(QDropEvent *event) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
 
-    void contextMenuEvent(QContextMenuEvent *event);
-    void wheelEvent(QWheelEvent *event);
-    bool event(QEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+    bool event(QEvent *event) override;
 
 private:
     ///@a refStr is for proper numbering

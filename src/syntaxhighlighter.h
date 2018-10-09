@@ -41,22 +41,22 @@ class SyntaxHighlighter : public Sonnet::Highlighter
 
 public:
     explicit SyntaxHighlighter(QTextEdit *parent);
-    ~SyntaxHighlighter() {}
+    ~SyntaxHighlighter() override {}
 
     void setApprovementState(bool a)
     {
         m_approved = a;
-    };
+    }
     void setSourceString(const QString& s)
     {
         m_sourceString = s;
     }
 
 protected:
-    void highlightBlock(const QString &text);
+    void highlightBlock(const QString &text) override;
 
-    void setMisspelled(int start, int count);
-    void unsetMisspelled(int start, int count);
+    void setMisspelled(int start, int count) override;
+    void unsetMisspelled(int start, int count) override;
 
 private slots:
     void settingsChanged();
