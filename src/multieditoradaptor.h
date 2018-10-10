@@ -37,7 +37,7 @@ class MultiEditorAdaptor: public EditorAdaptor
 {
     Q_OBJECT
 public:
-    MultiEditorAdaptor(EditorTab *parent);
+    explicit MultiEditorAdaptor(EditorTab *parent);
     ~MultiEditorAdaptor()
     {
         /*qCWarning(LOKALIZE_LOG)<<"bye bye cruel world";*/

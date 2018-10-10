@@ -65,7 +65,7 @@ class WebQueryController: public /*QThread*/QObject
     Q_OBJECT
 public:
 
-    WebQueryController(const QString& name, QObject* parent);
+    explicit WebQueryController(const QString& name, QObject* parent);
 
 public slots:
     void query(const CatalogData& data);

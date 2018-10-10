@@ -562,7 +562,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     if (!file.open(QIODevice::ReadOnly))
         return ISNTREADABLE;//TODO
 
-    CatalogStorage* storage = 0;
+    CatalogStorage* storage = nullptr;
     if (filePath.endsWith(QLatin1String(".po")) || filePath.endsWith(QLatin1String(".pot")))
         storage = new GettextCatalog::GettextStorage;
     else if (filePath.endsWith(QLatin1String(".xlf")) || filePath.endsWith(QLatin1String(".xliff")))

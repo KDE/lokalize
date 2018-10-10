@@ -79,7 +79,7 @@ class Catalog: public QUndoStack
     Q_CLASSINFO("D-Bus Interface", "org.Lokalize.FileContainer")
 
 public:
-    Catalog(QObject* parent);
+    explicit Catalog(QObject* parent);
     virtual ~Catalog();
 
     QString msgid(const DocPosition&) const;

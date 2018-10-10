@@ -47,8 +47,8 @@ class TMView: public QDockWidget
 {
     Q_OBJECT
 public:
-    TMView(QWidget*, Catalog*, const QVector<QAction*>&, const QVector<QAction*>&);
-    ~TMView();
+    explicit TMView(QWidget*, Catalog*, const QVector<QAction*>&, const QVector<QAction*>&);
+    ~TMView() override;
 
     void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent*) override;

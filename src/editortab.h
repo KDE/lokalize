@@ -95,8 +95,8 @@ class EditorTab: public LokalizeSubwindowBase2
 #define qdbuscpp2xml
 
 public:
-    EditorTab(QWidget* parent, bool valid = true);
-    ~EditorTab();
+    explicit EditorTab(QWidget* parent, bool valid = true);
+    ~EditorTab() override;
 
 
     //interface for LokalizeMainWindow

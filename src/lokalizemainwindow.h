@@ -69,7 +69,7 @@ class LokalizeMainWindow: public KXmlGuiWindow
 
 public:
     LokalizeMainWindow();
-    ~LokalizeMainWindow();
+    ~LokalizeMainWindow() override;
 
 protected:
     void saveProjectState(KConfigGroup&);

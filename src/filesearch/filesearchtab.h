@@ -60,8 +60,8 @@ class FileSearchTab: public LokalizeSubwindowBase2
     //qdbuscpp2xml -m -s filesearch/filesearchtab.h -o filesearch/org.kde.lokalize.FileSearch.xml
 
 public:
-    FileSearchTab(QWidget *parent);
-    ~FileSearchTab();
+    explicit FileSearchTab(QWidget *parent);
+    ~FileSearchTab() override;
 
     void hideDocks() override {}
     void showDocks() override {}
@@ -173,8 +173,8 @@ public:
         HtmlDisplayRole = Qt::UserRole + 2
     };
 
-    FileSearchModel(QObject* parent);
-    ~FileSearchModel() {}
+    explicit FileSearchModel(QObject* parent);
+    ~FileSearchModel() override {}
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
@@ -212,7 +212,7 @@ class SearchFileListView: public QDockWidget
     Q_OBJECT
 
 public:
-    SearchFileListView(QWidget*);
+    explicit SearchFileListView(QWidget*);
     ~SearchFileListView() {}
 
     void addFiles(const QStringList& files);
@@ -241,7 +241,7 @@ class MassReplaceView: public QDockWidget
     Q_OBJECT
 
 public:
-    MassReplaceView(QWidget*);
+    explicit MassReplaceView(QWidget*);
     ~MassReplaceView();
 
     void deactivatePreview();
@@ -287,7 +287,7 @@ public:
                        const QVector<Rule>& r,
                        int sn,
                        QObject* parent = nullptr);
-    ~SearchJob() {}
+    ~SearchJob() override {}
 
 signals:
     void done(SearchJob*);
@@ -315,7 +315,7 @@ public:
                             const QString& r,
                             //int sn,
                             QObject* parent = nullptr);
-    ~MassReplaceJob() {}
+    ~MassReplaceJob() override {}
 
 signals:
     void done(MassReplaceJob*);

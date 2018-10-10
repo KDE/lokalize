@@ -1248,7 +1248,7 @@ void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
 
 //BEGIN UpdateStatsJob
 //these are run in separate thread
-UpdateStatsJob::UpdateStatsJob(QList<KFileItem> files, QObject*)
+UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject*)
     : QRunnable()
     , m_files(files)
     , m_status(0)

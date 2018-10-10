@@ -40,7 +40,7 @@ class ProjectWidget: public QTreeView
 {
     Q_OBJECT
 public:
-    ProjectWidget(QWidget* parent);
+    explicit ProjectWidget(QWidget* parent);
     ~ProjectWidget();
 
     bool setCurrentItem(const QString&);

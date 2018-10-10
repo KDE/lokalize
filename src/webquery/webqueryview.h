@@ -57,7 +57,7 @@ class WebQueryView: public QDockWidget
     Q_OBJECT
 
 public:
-    WebQueryView(QWidget*, Catalog*, const QVector<QAction*>&);
+    explicit WebQueryView(QWidget*, Catalog*, const QVector<QAction*>&);
     virtual ~WebQueryView();
 
 

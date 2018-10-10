@@ -58,8 +58,8 @@ class TMTab: public LokalizeSubwindowBase2
     //qdbuscpp2xml -m -s tm/tmtab.h -o tm/org.kde.lokalize.TranslationMemory.xml
 
 public:
-    TMTab(QWidget *parent);
-    ~TMTab();
+    explicit TMTab(QWidget *parent);
+    ~TMTab() override;
 
     void hideDocks() override {}
     void showDocks() override {}

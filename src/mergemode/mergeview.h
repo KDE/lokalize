@@ -41,8 +41,8 @@ class MergeView: public QDockWidget
     Q_OBJECT
 
 public:
-    MergeView(QWidget*, Catalog*, bool primary);
-    virtual ~MergeView();
+    explicit MergeView(QWidget*, Catalog*, bool primary);
+    ~MergeView() override;
 
     void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent*) override;

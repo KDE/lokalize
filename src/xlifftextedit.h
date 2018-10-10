@@ -38,8 +38,8 @@ class TranslationUnitTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent = nullptr);
-    ~TranslationUnitTextEdit();
+    explicit TranslationUnitTextEdit(Catalog* catalog, DocPosition::Part part, QWidget* parent = nullptr);
+    ~TranslationUnitTextEdit() override;
     //NOTE remove this when Qt is fixed (hack for unbreakable spaces bug #162016)
     QString toPlainText();
 

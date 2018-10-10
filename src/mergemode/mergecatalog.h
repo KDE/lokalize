@@ -149,7 +149,7 @@ private:
     MatchItem calcMatchItem(const DocPosition& basePos, const DocPosition& mergePos);
     KAutoSaveFile* checkAutoSave(const QString&) override
     {
-        return 0;   //rely on basecatalog restore
+        return nullptr;   //rely on basecatalog restore
     }
 
 

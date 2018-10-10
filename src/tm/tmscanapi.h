@@ -50,7 +50,7 @@ class RecursiveScanJob: public KJob
 {
     Q_OBJECT
 public:
-    RecursiveScanJob(const QString& dbName, QObject* parent = nullptr);
+    explicit RecursiveScanJob(const QString& dbName, QObject* parent = nullptr);
     void setJobs(const QVector<ScanJob*>& jobs);
     void start() override;
 

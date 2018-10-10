@@ -48,8 +48,8 @@ public:
         HtmlDisplayRole = Qt::UserRole + 5
     };
 
-    FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc);
-    ~FastSizeHintItemDelegate() {}
+    explicit FastSizeHintItemDelegate(QObject *parent, const QVector<bool>& slc, const QVector<bool>& rtc);
+    ~FastSizeHintItemDelegate() override {}
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
     QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;

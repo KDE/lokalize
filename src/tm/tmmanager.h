@@ -51,7 +51,7 @@ class TMManagerWin: public KMainWindow
 {
     Q_OBJECT
 public:
-    TMManagerWin(QWidget *parent = nullptr);
+    explicit TMManagerWin(QWidget *parent = nullptr);
     ~TMManagerWin() {}
 private slots:
     void addDir();

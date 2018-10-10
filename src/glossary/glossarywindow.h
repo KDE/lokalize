@@ -41,7 +41,7 @@ class AuxTextEdit: public KTextEdit
 {
     Q_OBJECT
 public:
-    AuxTextEdit(QWidget* parent = nullptr): KTextEdit(parent) {}
+    explicit AuxTextEdit(QWidget* parent = nullptr): KTextEdit(parent) {}
 
     void focusOutEvent(QFocusEvent* e) override
     {

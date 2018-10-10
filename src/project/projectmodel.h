@@ -162,8 +162,8 @@ public:
         TotalRole
     };
 
-    ProjectModel(QObject *parent);
-    ~ProjectModel();
+    explicit ProjectModel(QObject *parent);
+    ~ProjectModel() override;
 
     void setUrl(const QUrl &poUrl, const QUrl &potUrl);
     QModelIndex indexForUrl(const QUrl& url);
@@ -274,8 +274,8 @@ class UpdateStatsJob: public QObject, public QRunnable
 {
     Q_OBJECT
 public:
-    explicit UpdateStatsJob(QList<KFileItem> files, QObject* owner = 0);
-    ~UpdateStatsJob();
+    explicit UpdateStatsJob(const QList<KFileItem> &files, QObject* owner = nullptr);
+    ~UpdateStatsJob() override;
     int priority()const
     {
         return 35;   //SEE jobs.h

@@ -41,8 +41,8 @@ class AltTransView: public QDockWidget
     Q_OBJECT
 
 public:
-    AltTransView(QWidget*, Catalog*, const QVector<QAction*>&);
-    ~AltTransView();
+    explicit AltTransView(QWidget*, Catalog*, const QVector<QAction*>&);
+    ~AltTransView() override;
 
 
 public slots:

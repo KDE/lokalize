@@ -47,8 +47,8 @@ class ProjectTab: public LokalizeSubwindowBase2
     //qdbuscpp2xml -m -s projecttab.h -o org.kde.lokalize.ProjectOverview.xml
 
 public:
-    ProjectTab(QWidget *parent);
-    ~ProjectTab();
+    explicit ProjectTab(QWidget *parent);
+    ~ProjectTab() override;
 
     void contextMenuEvent(QContextMenuEvent *event) override;
 

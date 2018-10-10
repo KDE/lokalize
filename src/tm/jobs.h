@@ -361,7 +361,7 @@ public:
         : QObject(), QRunnable()
         , m_view(view)
     {}
-    ~BatchSelectFinishedJob() {}
+    ~BatchSelectFinishedJob() override {}
 
     int priority() const
     {
@@ -375,7 +375,7 @@ protected:
     void run() override
     {
         emit done();
-    };
+    }
 public:
     QWidget* m_view;
 };

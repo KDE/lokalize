@@ -97,17 +97,17 @@ struct DocPos {
     bool operator<(const DocPos& pos) const
     {
         return entry == pos.entry ? form < pos.form : entry < pos.entry;
-    };
+    }
 
     bool operator==(const DocPos& pos) const
     {
         return entry == pos.entry && form == pos.form;
-    };
+    }
 
     bool operator!=(const DocPos& pos) const
     {
         return entry != pos.entry || form != pos.form;
-    };
+    }
 
     DocPosition toDocPosition()
     {

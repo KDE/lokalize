@@ -38,7 +38,7 @@ class QaView: public QDockWidget
     Q_OBJECT
 
 public:
-    QaView(QWidget*);
+    explicit QaView(QWidget*);
     ~QaView();
 
     bool loadRules(QString filename = QString());

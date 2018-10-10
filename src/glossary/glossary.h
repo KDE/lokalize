@@ -98,7 +98,7 @@ class Glossary: public QObject
 
 public:
 
-    Glossary(QObject* parent);
+    explicit Glossary(QObject* parent);
     ~Glossary() {}
 
     QString path() const

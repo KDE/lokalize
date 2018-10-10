@@ -33,7 +33,7 @@ class TsStorage: public CatalogStorage
 {
 public:
     TsStorage();
-    ~TsStorage();
+    ~TsStorage() override;
 
     int capabilities() const override;
 

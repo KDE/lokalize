@@ -55,7 +55,7 @@ public:
     QSortFilterProxyModel* sortModel() const
     {
         return m_sortModel;
-    };
+    }
     int sortModelRowForLangCode(const QString&);
     QString langCodeForSortModelRow(int);
 };

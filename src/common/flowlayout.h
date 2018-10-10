@@ -57,10 +57,10 @@ public:
     /**
      * c'tor for glossary view
      */
-    FlowLayout(User user = standard, QWidget *signalingWidget = 0,
+    explicit FlowLayout(User user = standard, QWidget *signalingWidget = nullptr,
                const QVector<QAction*>& actions = QVector<QAction*>(), int margin = 0, int spacing = -1);
 
-    ~FlowLayout();
+    ~FlowLayout() override;
 
     void addItem(QLayoutItem *item) override;
     Qt::Orientations expandingDirections() const override;
