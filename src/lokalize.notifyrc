@@ -2,7 +2,6 @@
 IconName=lokalize
 Comment=Computer-aided translation system
 Comment[ar]=برنامج ترجمة بمساعدة الحاسوب.
-Comment[ast]=Sistema de traducción per ordenador
 Comment[bs]=Sistem za prevođenje pomoću računara
 Comment[ca]=Sistema de traducció assistida per ordinador
 Comment[ca@valencia]=Sistema de traducció assistida per ordinador
@@ -49,7 +48,6 @@ Comment[zh_CN]=计算机辅助翻译系统
 Comment[zh_TW]=電腦協助翻譯系統
 Name=Lokalize
 Name[ar]=لوكالايز
-Name[ast]=Lokalize
 Name[bg]=Lokalize
 Name[bs]=Lokalize
 Name[ca]=Lokalize
@@ -106,7 +104,6 @@ Name[zh_TW]=Lokalize
 [Event/FilesOpenError]
 Name=Error opening files
 Name[ar]=خطأ في فتح الملفات
-Name[ast]=Fallu abriendo ficheros
 Name[bs]=Greška u otvaranju datoteka
 Name[ca]=S'ha produït un error en obrir els fitxers
 Name[ca@valencia]=S'ha produït un error en obrir els fitxers
@@ -155,7 +152,6 @@ Action=Popup
 [Event/MergeFilesOpenError]
 Name=Error opening files for synchronization
 Name[ar]=خطأ في فتح الملفّات للمزامنة
-Name[ast]=Fallu abriendo ficheros pa la sincronización
 Name[bs]=Greška u otvaranju datoteka za sinhronizaciju
 Name[ca]=S'ha produït un error en obrir els fitxers a sincronitzar
 Name[ca@valencia]=S'ha produït un error en obrir els fitxers a sincronitzar
@@ -203,7 +199,6 @@ Action=Popup
 [Event/NoSqlModulesAvailable]
 Name=No Qt Sql modules were found
 Name[ar]=لم يُعثر على وحدات Qt Sql
-Name[ast]=Nun s'alcontraron módulos Qt Sql
 Name[bs]=Nema Qt Sql modula
 Name[ca]=No s'ha trobat cap mòdul Sql a les Qt
 Name[ca@valencia]=No s'ha trobat cap mòdul Sql a les Qt
@@ -251,7 +246,6 @@ Action=Popup
 [Event/SourceFileScan]
 Name=Scanning folders with source files...
 Name[ar]=يفحص المجلّدات بحثًا عن الملفّات المصدر...
-Name[ast]=Escaniando carpetes con ficheros fonte...
 Name[ca]=S'estan explorant les carpetes amb els fitxers de codi font...
 Name[ca@valencia]=S'estan explorant les carpetes amb els fitxers de codi font...
 Name[da]=Scanner mapper med kildefiler...
