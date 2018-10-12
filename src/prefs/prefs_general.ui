@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QCheckBox" name="kcfg_RestoreRecentFilesOnStartup">
      <property name="text">
-      <string>Restore the previously opened files when opening Lokalize</string>
+      <string>Restore the previously opened files when launching Lokalize</string>
      </property>
     </widget>
    </item>
