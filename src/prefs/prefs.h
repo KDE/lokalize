@@ -90,7 +90,7 @@ class RelPathSaver: public QLineEdit
 {
     Q_OBJECT
 public:
-    RelPathSaver(QWidget* p): QLineEdit(p) {}
+    explicit RelPathSaver(QWidget* p): QLineEdit(p) {}
 public slots:
     void setText(const QString&);
 };
@@ -104,7 +104,7 @@ class LangCodeSaver: public QLineEdit
 {
     Q_OBJECT
 public:
-    LangCodeSaver(QWidget* p): QLineEdit(p) {}
+    explicit LangCodeSaver(QWidget* p): QLineEdit(p) {}
 public slots:
     void setLangCode(int);
 };
@@ -114,7 +114,7 @@ class ScriptsView: public Kross::ActionCollectionView
 {
     Q_OBJECT
 public:
-    ScriptsView(QWidget* parent);
+    explicit ScriptsView(QWidget* parent);
 
 // public slots:
 //     void addScsetText(const QString&);

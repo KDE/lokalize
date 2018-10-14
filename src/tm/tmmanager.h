@@ -73,7 +73,7 @@ class DBPropertiesDialog: public QDialog, Ui_DBParams
 {
     Q_OBJECT
 public:
-    DBPropertiesDialog(QWidget* parent, const QString& name = QString());
+    explicit DBPropertiesDialog(QWidget* parent, const QString& name = QString());
 private:
     //void slotButtonClicked(int button);
     void accept() override;

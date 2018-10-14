@@ -71,7 +71,7 @@ class TextEdit: public QPlainTextEdit
 {
     Q_OBJECT
 public:
-    TextEdit(QWidget* parent): QPlainTextEdit(parent) {}
+    explicit TextEdit(QWidget* parent): QPlainTextEdit(parent) {}
     void keyPressEvent(QKeyEvent* e) override;
 signals:
     void accepted();

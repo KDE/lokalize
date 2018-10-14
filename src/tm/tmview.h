@@ -119,7 +119,7 @@ class TextBrowser: public QTextBrowser
 {
     Q_OBJECT
 public:
-    TextBrowser(QWidget* parent): QTextBrowser(parent)
+    explicit TextBrowser(QWidget* parent): QTextBrowser(parent)
     {
         setContextMenuPolicy(Qt::CustomContextMenu);
     }

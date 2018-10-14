@@ -56,7 +56,7 @@ class TbxParser : public QXmlDefaultHandler
     };
 
 public:
-    TbxParser(Glossary* glossary)
+    explicit TbxParser(Glossary* glossary)
         : QXmlDefaultHandler()
         , m_glossary(glossary)
     {}

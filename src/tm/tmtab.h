@@ -142,7 +142,7 @@ public:
         //HtmlDisplayRole=FastSizeHintItemDelegate::HtmlDisplayRole
     };
 
-    TMDBModel(QObject* parent);
+    explicit TMDBModel(QObject* parent);
     ~TMDBModel() {}
 
     QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;

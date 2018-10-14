@@ -140,7 +140,7 @@ public:
 #define FIRSTSTATEPOSITION 13
 
 
-    CatalogTreeFilterModel(QObject* parent);
+    explicit CatalogTreeFilterModel(QObject* parent);
     ~CatalogTreeFilterModel() {}
 
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;

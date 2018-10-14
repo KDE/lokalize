@@ -75,7 +75,7 @@ class MyTreeView: public QTreeView
 {
     Q_OBJECT
 public:
-    MyTreeView(QWidget* parent): QTreeView(parent) {}
+    explicit MyTreeView(QWidget* parent): QTreeView(parent) {}
     ~MyTreeView() override {}
 
 signals:

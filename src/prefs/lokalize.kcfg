@@ -3,11 +3,11 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
-  <kcfgfile name="lokalizerc"/>
   <include>QLocale</include>
   <include>QFontDatabase</include>
   <include>kemailsettings.h</include>
   <include>kde-i18n-lists.h</include>
+  <kcfgfile name="lokalizerc"/>
   <group name="Identity">
     <entry key="authorName" type="String">
 <!--

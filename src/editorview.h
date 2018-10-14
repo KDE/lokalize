@@ -124,7 +124,7 @@ class LedsWidget: public QWidget
 {
     Q_OBJECT
 public:
-    LedsWidget(QWidget* parent);
+    explicit LedsWidget(QWidget* parent);
 private:
     void contextMenuEvent(QContextMenuEvent* event) override;
 

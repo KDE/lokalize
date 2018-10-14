@@ -202,7 +202,7 @@ public:
         GlossaryModelColumnCount
     };
 
-    GlossaryModel(QObject* parent/*, Glossary* glossary*/);
+    explicit GlossaryModel(QObject* parent/*, Glossary* glossary*/);
     ~GlossaryModel() {}
 
     //QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
@@ -232,7 +232,7 @@ class GlossarySortFilterProxyModel: public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    GlossarySortFilterProxyModel(QObject* parent = nullptr)
+    explicit GlossarySortFilterProxyModel(QObject* parent = nullptr)
         : QSortFilterProxyModel(parent)
     {}
     Qt::ItemFlags flags(const QModelIndex&) const override

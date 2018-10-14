@@ -54,7 +54,7 @@ class GettextStorage;
 class GettextExportPlugin
 {
 public:
-    GettextExportPlugin(short wrapWidth = -1, short trailingNewLines = 1);
+    explicit GettextExportPlugin(short wrapWidth = -1, short trailingNewLines = 1);
     ConversionStatus save(QIODevice* device,
                           const GettextStorage* catalog,
                           QTextCodec* codec);
