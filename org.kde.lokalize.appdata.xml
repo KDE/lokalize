@@ -115,6 +115,7 @@
   <url type="homepage">https://userbase.kde.org/Lokalize</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=lokalize</url>
   <url type="help">https://docs.kde.org/?application=lokalize</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=lokalize&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
       <image>https://www.kde.org/images/screenshots/lokalize.png</image>
