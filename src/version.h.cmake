@@ -23,5 +23,5 @@
 **************************************************************************** */
 
 #ifndef LOKALIZE_VERSION
-#define LOKALIZE_VERSION "2.0"
+#define LOKALIZE_VERSION "${KDE_APPLICATIONS_VERSION}"
 #endif
