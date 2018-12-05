@@ -31,6 +31,9 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+configure_file(version.h.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h)
+
 set(lokalize_SRCS
     main.cpp
     lokalizemainwindow.cpp
