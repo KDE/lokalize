@@ -209,7 +209,7 @@ void MsgCtxtView::pologyReceivedStandardError()
         if (!m_pologyStartedReceivingOutput) {
             m_pologyStartedReceivingOutput = true;
         }
-        m_pologyData += m_pologyProcess->readAllStandardError().replace('\n', MsgCtxtView::BR);
+        m_pologyData += m_pologyProcess->readAllStandardError().replace('\n', MsgCtxtView::BR.toLatin1());
     }
 }
 void MsgCtxtView::pologyHasFinished()
