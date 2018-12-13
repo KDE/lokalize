@@ -42,7 +42,7 @@ public:
 
     /**
      * @param term is the term matched
-     * @param entry is a whole entry
+     * @param entryId is a whole entry
      */
     void setText(const QString& term, const QByteArray& entryId, bool capFirst);
     void mousePressEvent(QMouseEvent* /* event*/) override;

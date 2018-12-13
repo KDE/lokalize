@@ -75,7 +75,7 @@ public:
 
     /**
      * @param term is the term matched
-     * @param entry is index of entry in the Glossary list
+     * @param entryId is index of entry in the Glossary list
      */
     void addTerm(const QString& term, const QByteArray& entryId, bool capFirst = false);
     void clearTerms();

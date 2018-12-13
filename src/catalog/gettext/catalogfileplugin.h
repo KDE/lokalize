@@ -90,9 +90,9 @@ public:
 
     /**
      * Load the file and fill the corresponding catalog. The file
-     * is considered to be of @ref mimetype MIME type.
+     * is considered to be of @p mimetype MIME type.
      *
-     * @param file     local file name to be opened
+     * @param device   local file name to be opened
      * @param mimetype the MIME type is should be handled as
      * @param catalog  the catalog to be filled
      * @return result of the operation
@@ -106,8 +106,7 @@ public:
     * This method must call \see setMimeTypes to setup correct MIME types
     * for the loaded file. Also, it should use \see isStopped to
     * abort loading and the signals for providing user feedback.
-    * @param file file to be loaded
-    * @param mimetype the expected MIME type (the type used for plugin selection
+    * @param device file to be loaded
     */
     virtual ConversionStatus load(QIODevice*) = 0;
 
