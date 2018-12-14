@@ -48,6 +48,7 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#include <KCrash>
 #include <KDBusService>
 
 #include <klocalizedstring.h>
@@ -60,6 +61,7 @@ int main(int argc, char **argv)
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
+    KCrash::initialize();
 
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("lokalize");
