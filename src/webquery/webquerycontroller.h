@@ -96,7 +96,6 @@ public slots:
      * @param codec e.g. UTF-8
      * @param rx RegExp that gives result in the first cap.
      *        e.g. "<div id=result_box dir=ltr>([^<]+)</div>"
-     * @param repeat whether func should be called again (frames)
      */
     void doDownloadAndFilter(QString url, QString codec, QString rx/*, int repeat*/);
 

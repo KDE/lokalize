@@ -93,8 +93,8 @@ public:
      * is considered to be of @p mimetype MIME type.
      *
      * @param device   local file name to be opened
-     * @param mimetype the MIME type is should be handled as
      * @param catalog  the catalog to be filled
+     * @param errorLine the number of erroneous line
      * @return result of the operation
      */
     ConversionStatus open(QIODevice*, GettextStorage* catalog, int* errorLine);

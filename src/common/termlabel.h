@@ -43,6 +43,7 @@ public:
     /**
      * @param term is the term matched
      * @param entryId is a whole entry
+     * @param capFirst whether the first letter should be capitalized
      */
     void setText(const QString& term, const QByteArray& entryId, bool capFirst);
     void mousePressEvent(QMouseEvent* /* event*/) override;
@@ -58,11 +59,6 @@ private:
     bool m_capFirst;
     QAction* m_action; //used only for shortcut purposes
 };
-
-
-
-
-
 
 }
 #endif
