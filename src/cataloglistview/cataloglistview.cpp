@@ -154,13 +154,22 @@ void CatalogView::slotNewEntryDisplayed(const DocPosition& pos)
     QModelIndex item = m_proxyModel->mapFromSource(m_model->index(pos.entry, 0));
     m_browser->setCurrentIndex(item);
     m_browser->scrollTo(item/*,QAbstractItemView::PositionAtCenter*/);
+    m_lastKnownDocPosition = pos.entry;
 }
 
 void CatalogView::setFilterRegExp()
 {
     QString expr = m_lineEdit->text();
     if (m_proxyModel->filterRegExp().pattern() != expr)
-        m_proxyModel->setFilterRegExp(m_proxyModel->filerOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
+        m_proxyModel->setFilterRegExp(m_proxyModel->filterOptions()&CatalogTreeFilterModel::IgnoreAccel ? expr.remove(Project::instance()->accel()) : expr);
+    refreshCurrentIndex();
+}
+
+void CatalogView::refreshCurrentIndex()
+{
+    QModelIndex newPositionOfSelectedItem = m_proxyModel->mapFromSource(m_model->index(m_lastKnownDocPosition, 0));
+    m_browser->setCurrentIndex(newPositionOfSelectedItem);
+    m_browser->scrollTo(newPositionOfSelectedItem);
 }
 
 void CatalogView::slotItemActivated(const QModelIndex& idx)
@@ -175,12 +184,13 @@ void CatalogView::filterOptionToggled(QAction* action)
 
     int opt = action->data().toInt();
     if (opt > 0)
-        m_proxyModel->setFilerOptions(m_proxyModel->filerOptions()^opt);
+        m_proxyModel->setFilterOptions(m_proxyModel->filterOptions()^opt);
     else {
         if (opt != -1) opt = -opt - 2;
         m_proxyModel->setFilterKeyColumn(opt);
     }
     m_filterOptionsMenu->clear();
+    refreshCurrentIndex();
 }
 void CatalogView::fillFilterOptionsMenu()
 {
@@ -226,7 +236,7 @@ void CatalogView::fillFilterOptionsMenu()
         txt = allmenus[ext]->addAction(i18n(alltitles[ext][i - ext * FIRSTSTATEPOSITION]));
         txt->setData(1 << i);
         txt->setCheckable(true);
-        txt->setChecked(m_proxyModel->filerOptions() & (1 << i));
+        txt->setChecked(m_proxyModel->filterOptions() & (1 << i));
         if ((1 << i) == CatalogTreeFilterModel::IgnoreAccel)
             basicMenu->addSeparator();
     }
@@ -240,13 +250,15 @@ void CatalogView::fillFilterOptionsMenu()
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filterKeyColumn() == i);
     }
+    refreshCurrentIndex();
 }
 
 void CatalogView::reset()
 {
     m_proxyModel->setFilterKeyColumn(-1);
-    m_proxyModel->setFilerOptions(CatalogTreeFilterModel::AllStates);
+    m_proxyModel->setFilterOptions(CatalogTreeFilterModel::AllStates);
     m_lineEdit->clear();
+    refreshCurrentIndex();
     //emit gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
     slotItemActivated(m_browser->currentIndex());
 }
@@ -305,11 +317,13 @@ int CatalogView::lastEntryNumber()
 void CatalogView::setEntryFilteredOut(int entry, bool filteredOut)
 {
     m_proxyModel->setEntryFilteredOut(entry, filteredOut);
+    refreshCurrentIndex();
 }
 
 void CatalogView::setEntriesFilteredOut(bool filteredOut)
 {
     show();
     m_proxyModel->setEntriesFilteredOut(filteredOut);
+    refreshCurrentIndex();
 }
 

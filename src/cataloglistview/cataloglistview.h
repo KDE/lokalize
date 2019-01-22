@@ -54,6 +54,7 @@ public:
     int lastEntryNumber();
 private:
     int siblingEntryNumber(int step);
+    void refreshCurrentIndex();
 
 public slots:
     void slotNewEntryDisplayed(const DocPosition&);
@@ -78,6 +79,7 @@ private:
     QMenu* m_filterOptionsMenu;
     CatalogTreeModel* m_model;
     CatalogTreeFilterModel* m_proxyModel;
+    int m_lastKnownDocPosition;
 };
 
 #endif

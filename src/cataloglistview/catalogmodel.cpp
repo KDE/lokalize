@@ -196,7 +196,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
 
 CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
-    , m_filerOptions(AllStates)
+    , m_filterOptions(AllStates)
     , m_individualRejectFilterEnable(false)
     , m_mergeCatalog(NULL)
 {
@@ -233,9 +233,9 @@ void CatalogTreeFilterModel::setEntryFilteredOut(int entry, bool filteredOut)
     invalidateFilter();
 }
 
-void CatalogTreeFilterModel::setFilerOptions(int o)
+void CatalogTreeFilterModel::setFilterOptions(int o)
 {
-    m_filerOptions = o;
+    m_filterOptions = o;
     setFilterCaseSensitivity(o & CaseInsensitive ? Qt::CaseInsensitive : Qt::CaseSensitive);
     static_cast<CatalogTreeModel*>(sourceModel())->setIgnoreAccel(o & IgnoreAccel);
     invalidateFilter();
@@ -243,7 +243,7 @@ void CatalogTreeFilterModel::setFilerOptions(int o)
 
 bool CatalogTreeFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-    int filerOptions = m_filerOptions;
+    int filerOptions = m_filterOptions;
     bool accepts = true;
     if (bool(filerOptions & Ready) != bool(filerOptions & NotReady)) {
         bool ready = sourceModel()->index(source_row, CatalogTreeModel::TranslationStatus, source_parent).data(Qt::UserRole).toBool();
