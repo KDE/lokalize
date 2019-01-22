@@ -145,10 +145,10 @@ public:
 
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 
-    void setFilerOptions(int o);
-    int filerOptions()const
+    void setFilterOptions(int o);
+    int filterOptions()const
     {
-        return m_filerOptions;
+        return m_filterOptions;
     }
 
     void setSourceModel(QAbstractItemModel* sourceModel) override;
@@ -170,7 +170,7 @@ public slots:
     }
 
 private:
-    int m_filerOptions;
+    int m_filterOptions;
     bool m_individualRejectFilterEnable;
     QVector<bool> m_individualRejectFilter; //used from kross scripts
     MergeCatalog* m_mergeCatalog;
