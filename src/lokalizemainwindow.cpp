@@ -136,6 +136,9 @@ LokalizeMainWindow::~LokalizeMainWindow()
 
     KConfig config;
     KConfigGroup stateGroup(&config, "State");
+    if (!m_lastEditorState.isEmpty()) {
+        stateGroup.writeEntry("DefaultDockWidgets", m_lastEditorState);
+    }
     saveProjectState(stateGroup);
     m_multiEditorAdaptor->deleteLater();
 
@@ -274,6 +277,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
 
     QByteArray state = m_lastEditorState;
     EditorTab* w = new EditorTab(this);
+
     QMdiSubWindow* sw = 0;
     //create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
     if (filePath.length())
@@ -300,8 +304,15 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     w->showMaximized();
     sw->showMaximized();
 
-    if (!state.isEmpty())
+    if (!state.isEmpty()) {
         w->restoreState(QByteArray::fromBase64(state));
+        m_lastEditorState = state;
+    }
+    else
+    {
+        //Dummy restore to "initialize" widgets
+        w->restoreState(w->saveState());
+    }
 
     if (entry/* || offset*/)
         w->gotoEntry(DocPosition(entry/*, DocPosition::Target, 0, offset*/));
@@ -609,13 +620,17 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     QMdiSubWindow* activeSW = m_mdiArea->currentSubWindow();
     int activeSWIndex = -1;
     int i = editors.size();
+
     while (--i >= 0) {
         //if (editors.at(i)==m_projectSubWindow)
         if (!editors.at(i) || !qobject_cast<EditorTab*>(editors.at(i)->widget()))
             continue;
-        if (editors.at(i) == activeSW)
-            activeSWIndex = files.size();
+
         EditorState state = static_cast<EditorTab*>(editors.at(i)->widget())->state();
+        if (editors.at(i) == activeSW) {
+            activeSWIndex = files.size();
+            m_lastEditorState = state.dockWidgets.toBase64();
+        }
         files.append(state.filePath);
         mergeFiles.append(state.mergeFilePath);
         dockWidgets.append(state.dockWidgets.toBase64());
@@ -625,9 +640,9 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     }
     //if (activeSWIndex==-1 && activeSW==m_projectSubWindow)
 
-    if (files.size() == 0 && !m_lastEditorState.isEmpty())
+    if (files.size() == 0 && !m_lastEditorState.isEmpty()) {
         dockWidgets.append(m_lastEditorState); // save last state if no editor open
-
+    }
     if (stateGroup.isValid())
         stateGroup.writeEntry("Project", Project::instance()->path());
 
@@ -684,6 +699,7 @@ void LokalizeMainWindow::projectLoaded()
 
 
     //if project isn't loaded, still restore opened files from "State-"
+    KConfigGroup stateGroup(&config, "State");
     KConfigGroup projectStateGroup(&config, "State-" + projectPath);
 
     QStringList files;
@@ -702,7 +718,6 @@ void LokalizeMainWindow::projectLoaded()
                 if (tw->tabText(i) == w->windowTitle())
                     tw->setTabToolTip(i, Project::instance()->path());
     }
-
     entries = projectStateGroup.readEntry("Entries", entries);
 
     if (Settings::self()->restoreRecentFilesOnStartup())
@@ -713,8 +728,9 @@ void LokalizeMainWindow::projectLoaded()
     int activeSWIndex = projectStateGroup.readEntry("Active", -1);
     QStringList failedFiles;
     while (--i >= 0) {
-        if (i < dockWidgets.size())
+        if (i < dockWidgets.size()) {
             m_lastEditorState = dockWidgets.at(i);
+        }
         if (!fileOpen(files.at(i), entries.at(i)/*, offsets.at(i)*//*,&activeSW11*/, activeSWIndex == i, mergeFiles.at(i),/*silent*/true))
             failedFiles.append(files.at(i));
     }
@@ -727,8 +743,11 @@ void LokalizeMainWindow::projectLoaded()
         notification->sendEvent();
     }
 
-    if (files.isEmpty() && dockWidgets.size() > 0)
-        m_lastEditorState = dockWidgets.first(); // restore last state if no editor open
+    if (files.isEmpty() && dockWidgets.size() > 0) {
+        m_lastEditorState = dockWidgets.last(); // restore last state if no editor open
+    } else {
+        m_lastEditorState = stateGroup.readEntry("DefaultDockWidgets", m_lastEditorState); // restore default state if no last editor for this project
+    }
 
     if (activeSWIndex == -1) {
         m_toBeActiveSubWindow = m_projectSubWindow;
