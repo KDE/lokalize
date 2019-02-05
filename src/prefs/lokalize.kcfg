@@ -91,12 +91,6 @@
     <entry name="RestoreRecentFilesOnStartup"  type="Bool">
         <default>true</default>
     </entry>
-    <entry name="CustomEditorEnabled"  type="Bool">
-        <default>false</default>
-    </entry>
-    <entry name="CustomEditorCommand"  type="String">
-        <default>kate %1:%2</default>
-    </entry>
   </group>
   <group name="Editor">
     <entry name="AutoApprove"  type="Bool">

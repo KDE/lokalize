@@ -118,8 +118,6 @@ void SettingsController::showSettingsDialog()
     w = new QWidget(dialog);
     Ui_prefs_general ui_prefs_general;
     ui_prefs_general.setupUi(w);
-    connect(ui_prefs_general.kcfg_CustomEditorEnabled, &QCheckBox::toggled, ui_prefs_general.kcfg_CustomEditorCommand, &QLineEdit::setEnabled);
-    ui_prefs_general.kcfg_CustomEditorCommand->setEnabled(Settings::self()->customEditorEnabled());
     dialog->addPage(w, i18nc("@title:tab", "General"), "preferences-system-windows");
 
 //Editor

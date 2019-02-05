@@ -1478,13 +1478,6 @@ static void openLxrSearch(const QString& srcFileRelPath)
                                    + QString::fromLatin1(QUrl::toPercentEncoding(srcFileRelPath))));
 }
 
-static void openLocalSource(const QString& file, int line)
-{
-    if (Settings::self()->customEditorEnabled())
-        QProcess::startDetached(QString(Settings::self()->customEditorCommand()).arg(file).arg(line));
-    else
-        QDesktopServices::openUrl(QUrl::fromLocalFile(file));
-}
 
 void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int line)
 {
@@ -1500,7 +1493,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
     relativePath.cdUp();
     QString srcAbsolutePath(relativePath.absoluteFilePath(srcFileRelPath));
     if (QFile::exists(srcAbsolutePath)) {
-        openLocalSource(srcAbsolutePath, line);
+        QDesktopServices::openUrl(QUrl::fromLocalFile(srcAbsolutePath));
         return;
     }
 
@@ -1525,7 +1518,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
             Project::instance()->local()->setSourceDir(dir);
     }
     if (dir.length()) {
-        auto doOpen = [srcFileRelPath, line]() {
+        auto doOpen = [srcFileRelPath]() {
             auto sourceFilePaths = Project::instance()->sourceFilePaths();
             bool found = false;
             QByteArray fn = srcFileRelPath.midRef(srcFileRelPath.lastIndexOf('/') + 1).toUtf8();
@@ -1537,7 +1530,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                     continue;
                 }
                 found = true;
-                openLocalSource(absFilePath, line);
+                QDesktopServices::openUrl(QUrl::fromLocalFile(absFilePath));
                 it++;
             }
             if (!found) {

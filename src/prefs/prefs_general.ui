@@ -71,22 +71,6 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="kcfg_CustomEditorEnabled">
-     <property name="text">
-      <string>Use a custom editor to open source files</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLineEdit" name="kcfg_CustomEditorCommand">
-     <property name="toolTip">
-      <string>The following parameters are available
-%1 - Path of the source file
-%2 - Line number</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
