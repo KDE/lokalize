@@ -509,13 +509,27 @@ QString XliffStorage::target(const DocPosition& pos) const
 {
     return genericContent(targetForPos(pos.entry), pos.entry < size());
 }
-QString XliffStorage::sourceWithPlurals(const DocPosition& pos) const
+QString XliffStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
-    return source(pos);
+    QString str = source(pos);
+    if (truncateFirstLine)
+    {
+        int truncatePos = str.indexOf("\n");
+        if (truncatePos != -1)
+            str.truncate(truncatePos);
+    }
+    return str;
 }
-QString XliffStorage::targetWithPlurals(const DocPosition& pos) const
+QString XliffStorage::targetWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
-    return target(pos);
+    QString str = target(pos);
+    if (truncateFirstLine)
+    {
+        int truncatePos = str.indexOf("\n");
+        if (truncatePos != -1)
+            str.truncate(truncatePos);
+    }
+    return str;
 }
 
 

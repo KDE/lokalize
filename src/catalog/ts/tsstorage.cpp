@@ -278,13 +278,27 @@ QString TsStorage::target(const DocPosition& pos) const
     return content(targetForPos(pos));
 }
 
-QString TsStorage::sourceWithPlurals(const DocPosition& pos) const
+QString TsStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
-    return source(pos);
+    QString str = source(pos);
+    if (truncateFirstLine)
+    {
+        int truncatePos = str.indexOf("\n");
+        if (truncatePos != -1)
+            str.truncate(truncatePos);
+    }
+    return str;
 }
-QString TsStorage::targetWithPlurals(const DocPosition& pos) const
+QString TsStorage::targetWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
-    return target(pos);
+    QString str = target(pos);
+    if (truncateFirstLine)
+    {
+        int truncatePos = str.indexOf("\n");
+        if (truncatePos != -1)
+            str.truncate(truncatePos);
+    }
+    return str;
 }
 
 

@@ -198,11 +198,11 @@ QString Catalog::msgid(const DocPosition& pos) const
     return m_storage->source(alterForSinglePlural(this, pos));
 }
 
-QString Catalog::msgidWithPlurals(const DocPosition& pos) const
+QString Catalog::msgidWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
-    return m_storage->sourceWithPlurals(pos);
+    return m_storage->sourceWithPlurals(pos, truncateFirstLine);
 }
 
 QString Catalog::msgstr(const DocPosition& pos) const
@@ -213,12 +213,12 @@ QString Catalog::msgstr(const DocPosition& pos) const
     return m_storage->target(pos);
 }
 
-QString Catalog::msgstrWithPlurals(const DocPosition& pos) const
+QString Catalog::msgstrWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
     if (Q_UNLIKELY(!m_storage))
         return QString();
 
-    return m_storage->targetWithPlurals(pos);
+    return m_storage->targetWithPlurals(pos, truncateFirstLine);
 }
 
 
