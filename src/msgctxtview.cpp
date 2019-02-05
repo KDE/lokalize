@@ -167,7 +167,7 @@ void MsgCtxtView::process()
 }
 void MsgCtxtView::pology()
 {
-    if (Settings::self()->pologyEnabled() && m_pologyProcessInProgress == 0) {
+    if (Settings::self()->pologyEnabled() && m_pologyProcessInProgress == 0 && QFile::exists(m_catalog->url())) {
         QString command = Settings::self()->pologyCommandEntry();
         command = command.replace(QStringLiteral("%u"), QString::number(m_entry.entry + 1)).replace(QStringLiteral("%f"),  QStringLiteral("\"") + m_catalog->url() + QStringLiteral("\"")).replace(QStringLiteral("\n"), QStringLiteral(" "));
         m_pologyProcess = new KProcess;
