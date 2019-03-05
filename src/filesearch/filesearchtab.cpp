@@ -834,7 +834,7 @@ MassReplaceView::~MassReplaceView()
 static QRegExp regExpFromUi(const QString& s, Ui_MassReplaceOptions* ui)
 {
     return QRegExp(s, ui->matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                   ui->useRegExps->isChecked() ? QRegExp::FixedString : QRegExp::RegExp);
+                   ui->useRegExps->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
 }
 
 void MassReplaceView::requestPreviewUpdate()
