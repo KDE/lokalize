@@ -6,6 +6,7 @@
                             <matthias.kiefer@gmx.de>
         2002      by Stanislav Visnovsky <visnovsky@kde.org>
         2007-2011 by Nick Shaforostoff <shafff@ukr.net>
+                2018-2019 by Simon Depiets <sdepiets@gmail.com>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

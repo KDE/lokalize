@@ -3,6 +3,7 @@
 
     Copyright (C) 2011 Albert Astals Cid <aacid@kde.org>
     Copyright (C) 2015 Nick Shaforostoff <shaforostoff@gmail.com>
+                2018-2019 by Simon Depiets <sdepiets@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public

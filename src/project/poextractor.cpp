@@ -4,6 +4,7 @@
     Copyright (C) 2007 Montel Laurent <montel@kde.org>
     Copyright (C) 2009 Jos van den Oever <jos@vandenoever.info>
     Copyright (C) 2014 Nick Shaforostoff <shaforostoff@gmail.com>
+                2018-2019 by Simon Depiets <sdepiets@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public

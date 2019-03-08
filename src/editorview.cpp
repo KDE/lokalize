@@ -4,6 +4,7 @@
   Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
                 2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
+                2018-2019 by Simon Depiets <sdepiets@gmail.com>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

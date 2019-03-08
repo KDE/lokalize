@@ -5,6 +5,7 @@
   Copyright (C) 1999-2000 by Matthias Kiefer <matthias.kiefer@gmx.de>
         2001-2004 by Stanislav Visnovsky <visnovsky@kde.org>
         2007      by Nick Shaforostoff <shafff@ukr.net>
+                2018-2019 by Simon Depiets <sdepiets@gmail.com>
 
 
   This program is free software; you can redistribute it and/or modify

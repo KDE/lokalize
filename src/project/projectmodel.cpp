@@ -4,6 +4,7 @@
   Copyright (C) 2018 by Karl Ove Hufthammer <karl@huftis.org>
   Copyright (C) 2007-2015 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
+                2018-2019 by Simon Depiets <sdepiets@gmail.com>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
