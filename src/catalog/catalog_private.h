@@ -83,6 +83,7 @@ public:
     short _maxLineLength;
 
     QLinkedList<int> _nonApprovedIndex;
+    QLinkedList<int> _nonApprovedNonEmptyIndex;
     QLinkedList<int> _emptyIndex;
     QLinkedList<int> _errorIndex;
 

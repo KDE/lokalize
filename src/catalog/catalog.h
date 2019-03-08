@@ -179,7 +179,7 @@ public slots: //DBus interface
     int numberOfEntries() const;
     int numberOfNonApproved() const
     {
-        return d._nonApprovedIndex.size();
+        return d._nonApprovedNonEmptyIndex.size();
     }
     int numberOfUntranslated() const
     {
