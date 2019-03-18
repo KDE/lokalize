@@ -141,7 +141,7 @@ void MsgCtxtView::process()
 
     QString html;
     foreach (const Note& note, m_catalog->developerNotes(m_entry.toDocPosition())) {
-        html += MsgCtxtView::BR + escapeWithLinks(note.content);
+        html += MsgCtxtView::BR + escapeWithLinks(note.content).replace('\n', BR);
     }
 
     QStringList sourceFiles = m_catalog->sourceFiles(m_entry.toDocPosition());
