@@ -282,8 +282,7 @@ QString TsStorage::target(const DocPosition& pos) const
 QString TsStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
     QString str = source(pos);
-    if (truncateFirstLine)
-    {
+    if (truncateFirstLine) {
         int truncatePos = str.indexOf("\n");
         if (truncatePos != -1)
             str.truncate(truncatePos);
@@ -293,8 +292,7 @@ QString TsStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstL
 QString TsStorage::targetWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
     QString str = target(pos);
-    if (truncateFirstLine)
-    {
+    if (truncateFirstLine) {
         int truncatePos = str.indexOf("\n");
         if (truncatePos != -1)
             str.truncate(truncatePos);

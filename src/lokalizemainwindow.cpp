@@ -308,9 +308,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     if (!state.isEmpty()) {
         w->restoreState(QByteArray::fromBase64(state));
         m_lastEditorState = state;
-    }
-    else
-    {
+    } else {
         //Dummy restore to "initialize" widgets
         w->restoreState(w->saveState());
     }

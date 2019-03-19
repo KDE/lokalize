@@ -380,11 +380,9 @@ void Catalog::updateApprovedEmptyIndexCache()
     while (pos.entry < limit) {
         if (m_storage->isEmpty(pos))
             d._emptyIndex << pos.entry;
-        if (!isApproved(pos))
-        {
+        if (!isApproved(pos)) {
             d._nonApprovedIndex << pos.entry;
-            if (!m_storage->isEmpty(pos))
-            {
+            if (!m_storage->isEmpty(pos)) {
                 d._nonApprovedNonEmptyIndex << pos.entry;
             }
         }
@@ -917,14 +915,11 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
         m_storage->setApproved(pos, approved);
     }
 
-    if (!approved)
-    {
+    if (!approved) {
         insertInList(d._nonApprovedIndex, pos.entry);
         if (!m_storage->isEmpty(pos))
             insertInList(d._nonApprovedNonEmptyIndex, pos.entry);
-    }
-    else
-    {
+    } else {
         d._nonApprovedIndex.removeAll(pos.entry);
         d._nonApprovedNonEmptyIndex.removeAll(pos.entry);
     }

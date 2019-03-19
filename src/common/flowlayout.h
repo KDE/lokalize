@@ -59,7 +59,7 @@ public:
      * c'tor for glossary view
      */
     explicit FlowLayout(User user = standard, QWidget *signalingWidget = nullptr,
-               const QVector<QAction*>& actions = QVector<QAction*>(), int margin = 0, int spacing = -1);
+                        const QVector<QAction*>& actions = QVector<QAction*>(), int margin = 0, int spacing = -1);
 
     ~FlowLayout() override;
 

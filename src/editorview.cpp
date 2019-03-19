@@ -286,7 +286,7 @@ void EditorView::unwrap(TranslationUnitTextEdit* editor)
 
 void EditorView::insertTerm(const QString& term)
 {
-    m_targetTextEdit->insertPlainText(term);
+    m_targetTextEdit->insertPlainTextWithCursorCheck(term);
     m_targetTextEdit->setFocus();
 }
 

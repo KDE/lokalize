@@ -513,8 +513,7 @@ QString XliffStorage::target(const DocPosition& pos) const
 QString XliffStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
     QString str = source(pos);
-    if (truncateFirstLine)
-    {
+    if (truncateFirstLine) {
         int truncatePos = str.indexOf("\n");
         if (truncatePos != -1)
             str.truncate(truncatePos);
@@ -524,8 +523,7 @@ QString XliffStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFir
 QString XliffStorage::targetWithPlurals(const DocPosition& pos, bool truncateFirstLine) const
 {
     QString str = target(pos);
-    if (truncateFirstLine)
-    {
+    if (truncateFirstLine) {
         int truncatePos = str.indexOf("\n");
         if (truncatePos != -1)
             str.truncate(truncatePos);
