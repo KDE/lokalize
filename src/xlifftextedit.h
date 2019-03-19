@@ -64,6 +64,7 @@ public:
         Q_UNUSED(block);
         return true;
     }
+    void insertPlainTextWithCursorCheck(const QString &text);
 
 public slots:
     void reflectApprovementState();

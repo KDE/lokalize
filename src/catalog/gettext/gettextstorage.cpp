@@ -185,8 +185,7 @@ QString GettextStorage::sourceWithPlurals(const DocPosition& pos, bool truncateF
         QString pluralString;
         for (int i = 0; i < plurals.size(); i++) {
             QString str = plurals.at(i);
-            if (truncateFirstLine)
-            {
+            if (truncateFirstLine) {
                 int truncatePos = str.indexOf("\n");
                 if (truncatePos != -1)
                     str.truncate(truncatePos);
@@ -199,8 +198,7 @@ QString GettextStorage::sourceWithPlurals(const DocPosition& pos, bool truncateF
         return pluralString;
     } else {
         QString str = m_entries.at(pos.entry).msgid(pos.form);
-        if (truncateFirstLine)
-        {
+        if (truncateFirstLine) {
             int truncatePos = str.indexOf("\n");
             if (truncatePos != -1)
                 str.truncate(truncatePos);
@@ -215,8 +213,7 @@ QString GettextStorage::targetWithPlurals(const DocPosition& pos, bool truncateF
         QString pluralString;
         for (int i = 0; i < plurals.size(); i++) {
             QString str = plurals.at(i);
-            if (truncateFirstLine)
-            {
+            if (truncateFirstLine) {
                 int truncatePos = str.indexOf("\n");
                 if (truncatePos != -1)
                     str.truncate(truncatePos);
@@ -229,8 +226,7 @@ QString GettextStorage::targetWithPlurals(const DocPosition& pos, bool truncateF
         return pluralString;
     } else {
         QString str = m_entries.at(pos.entry).msgstr(pos.form);
-        if (truncateFirstLine)
-        {
+        if (truncateFirstLine) {
             int truncatePos = str.indexOf("\n");
             if (truncatePos != -1)
                 str.truncate(truncatePos);

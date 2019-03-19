@@ -685,7 +685,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         } else {
             QString text = source->text();
             text.remove(TAGRANGE_IMAGE_SYMBOL);
-            insertPlainText(text);
+            insertPlainTextWithCursorCheck(text);
         }
     }
 
@@ -777,9 +777,9 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             else
                 KTextEdit::keyPressEvent(keyEvent);
         } else if (keyEvent->key() == Qt::Key_Space && (keyEvent->modifiers()&Qt::AltModifier))
-            insertPlainText(QChar(0x00a0U));
+            insertPlainTextWithCursorCheck(QChar(0x00a0U));
         else if (keyEvent->key() == Qt::Key_Minus && (keyEvent->modifiers()&Qt::AltModifier))
-            insertPlainText(QChar(0x0000AD));
+            insertPlainTextWithCursorCheck(QChar(0x0000AD));
 //BEGIN clever editing
         else if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
             if (m_completionBox && m_completionBox->isVisible()) {
@@ -823,7 +823,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             }
             if (!str.isEmpty()) {
                 ins += '\n';
-                insertPlainText(ins);
+                insertPlainTextWithCursorCheck(ins);
             } else
                 KTextEdit::keyPressEvent(keyEvent);
         } else if (m_catalog->type() != Gettext)
@@ -868,7 +868,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             }
             KTextEdit::keyPressEvent(keyEvent);
         } else if (keyEvent->key() == Qt::Key_Tab)
-            insertPlainText(QStringLiteral("\\t"));
+            insertPlainTextWithCursorCheck(QStringLiteral("\\t"));
         else
             KTextEdit::keyPressEvent(keyEvent);
 //END clever editing
@@ -876,10 +876,15 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     void TranslationUnitTextEdit::keyReleaseEvent(QKeyEvent * e) {
         if ((e->key() == Qt::Key_Alt) && m_currentUnicodeNumber >= 32) {
-            insertPlainText(QChar(m_currentUnicodeNumber));
+            insertPlainTextWithCursorCheck(QChar(m_currentUnicodeNumber));
             m_currentUnicodeNumber = 0;
         } else
             KTextEdit::keyReleaseEvent(e);
+    }
+
+    void TranslationUnitTextEdit::insertPlainTextWithCursorCheck(const QString & text) {
+        insertPlainText(text);
+        KTextEdit::ensureCursorVisible();
     }
 
     QString TranslationUnitTextEdit::toPlainText() {
@@ -1074,7 +1079,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 #ifdef Q_OS_MAC
         if (event->type() == QEvent::InputMethod) {
             QInputMethodEvent* e = static_cast<QInputMethodEvent*>(event);
-            insertPlainText(e->commitString());
+            insertPlainTextWithCursorCheck(e->commitString());
             e->accept();
             return true;
         }
@@ -1163,7 +1168,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
                 if (posInMsgStr != -1 && (posInMsgStr = target.indexOf(tag.cap(0), posInMsgStr)) == -1) {
                     if (immediate) {
-                        insertPlainText(txt->text());
+                        insertPlainTextWithCursorCheck(txt->text());
                         return;
                     }
                     menu.setActiveAction(txt);
@@ -1176,7 +1181,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             //txt=menu.exec(_msgidEdit->mapToGlobal(QPoint(0,0)));
             txt = menu.exec(mapToGlobal(cursorRect().bottomRight()));
             if (txt)
-                insertPlainText(txt->text());
+                insertPlainTextWithCursorCheck(txt->text());
         }
     }
 
