@@ -1526,8 +1526,13 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
             Project::instance()->local()->setSourceDir(dir);
     }
     if (dir.length()) {
-        auto doOpen = [srcFileRelPath, line]() {
+        auto doOpen = [srcFileRelPath, dir, line]() {
             auto sourceFilePaths = Project::instance()->sourceFilePaths();
+            QString absFilePath = QString("%1/%2").arg(dir, srcFileRelPath);
+            if (QFileInfo::exists(absFilePath)) {
+                openLocalSource(absFilePath, line);
+                return;
+            }
             bool found = false;
             QByteArray fn = srcFileRelPath.midRef(srcFileRelPath.lastIndexOf('/') + 1).toUtf8();
             auto it = sourceFilePaths.constFind(fn);
