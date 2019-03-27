@@ -98,16 +98,11 @@ QString stem(const QString& langCode, const QString& word)
     if (!speller)
         return word;
 
-    char** result1;
-    char** result2;
-    int n1 = speller->analyze(&result1, sc.codec->fromUnicode(word));
-    int n2 = speller->stem(&result2, result1, n1);
+    const std::vector<std::string> result1 = speller->analyze(sc.codec->fromUnicode(word).toStdString());
+    const std::vector<std::string> result2 = speller->stem(result1);
 
-    if (n2)
-        result = sc.codec->toUnicode(result2[0]);
-
-    speller->free_list(&result1, n1);
-    speller->free_list(&result2, n2);
+    if (!result2.empty())
+        result = sc.codec->toUnicode(QByteArray::fromStdString(result2[0]));
 #endif
 
     return result;
