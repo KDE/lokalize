@@ -408,7 +408,7 @@ they will automatically be replicated to the branch
 </para>
 <para>
 For example, if you work on &kde; translation, you can checkout trunk to <filename class="directory">/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG</filename>
-and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kde4/YOUR_LANG</filename>.
+and branch to <filename class="directory">/home/xx/hacking/kde/branches/stable/l10n-kf5/YOUR_LANG</filename>.
 Create &lokalize; project: <filename>/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG/project.lokalize</filename> and
 set <filename class="directory">BranchDir=../../../branches/stable/l10n-kf5/YOUR_LANG</filename>, then work via this project,
 and commit changes in both trunk and branch folders.
@@ -458,7 +458,7 @@ The location and name of the menu entry for the script is defined in its accompa
 On each project open, &lokalize; scans <filename>PROJECTDIR/lokalize-scripts</filename> folder for .rc files and adds them to a <emphasis>cache</emphasis> file called
 <filename>PROJECTDIR/lokalize-scripts/scripts.rc</filename> (so you shouldn't generally want to add it project's version control system).
 RC files also contain script paths, which may be relative to .rc file folder, or to a system scripts folder - they both are tried (though they <emphasis>should</emphasis> be kept in a relative location if you want to share them with other people in your project).
-For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/">global kde4-l10n scripts folder</ulink> (&ie; not specific to your language).
+For example, you can specify <filename>../../scripts/lokalize/opensrc.py</filename> to load a script from the <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/">global kf5-l10n scripts folder</ulink> (&ie; not specific to your language).
 </para>
 <para>
 Examples of .rc files may be found in &lokalize; install folder (usually <filename>/usr/share/lokalize/scripts/</filename>)
