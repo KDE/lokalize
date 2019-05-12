@@ -113,6 +113,9 @@ void SettingsController::showSettingsDialog()
     connect(ui_prefs_identity.DefaultLangCode, QOverload<int>::of(&KComboBox::activated), ui_prefs_identity.kcfg_DefaultLangCode, &LangCodeSaver::setLangCode);
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
+    connect(ui_prefs_identity.kcfg_overrideLangTeam, &QCheckBox::toggled, ui_prefs_identity.kcfg_userLangTeam, &QLineEdit::setEnabled);
+    connect(ui_prefs_identity.kcfg_overrideLangTeam, &QCheckBox::toggled, ui_prefs_identity.kcfg_userLangTeam, &QLineEdit::focusWidget);
+
     dialog->addPage(w, i18nc("@title:tab", "Identity"), "preferences-desktop-user");
 
 //General
@@ -297,6 +300,11 @@ void SettingsController::projectConfigure()
     ui_prefs_projectmain.poBaseDir->setUrl(QUrl::fromLocalFile(p.poDir()));
     ui_prefs_projectmain.glossaryTbx->setUrl(QUrl::fromLocalFile(p.glossaryPath()));
 
+    auto kcfg_ProjLangTeam = ui_prefs_projectmain.kcfg_ProjLangTeam;
+    connect(ui_prefs_projectmain.kcfg_LanguageSource, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged),
+        this, [kcfg_ProjLangTeam](int index) { kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project); });
+    connect(ui_prefs_projectmain.kcfg_LanguageSource, static_cast<void(KComboBox::*)(const QString &)>(&KComboBox::currentIndexChanged),
+        this, [kcfg_ProjLangTeam] { kcfg_ProjLangTeam->setFocus(); });
 
 
 

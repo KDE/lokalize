@@ -3,3 +3,4 @@ ClassName=ProjectBase
 Singleton=false
 Mutators=true
 GlobalEnums=true
+UseEnumTypes=true

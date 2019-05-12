@@ -23,6 +23,20 @@
 -->
         <default code="true">KEMailSettings().getSetting(KEMailSettings::RealName)</default>
     </entry>
+    <entry key="overrideLangTeam" type="Bool">
+<!--
+        <label>Override Language Team</label>
+            <whatsthis>Use user-provided language team name instead of generating it</whatsthis>
+-->
+        <default>false</default>
+    </entry>
+    <entry key="userLangTeam" type="String">
+<!--
+        <label>Language Team</label>
+            <whatsthis>Translator team's name</whatsthis>
+-->
+        <default></default>
+    </entry>
     <entry key="authorEmail" type="String">
 <!--
             <whatsthis>Translator's email</whatsthis>

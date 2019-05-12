@@ -26,6 +26,33 @@
     <entry name="MailingList"  type="String">
         <default code="true">getMailingList()</default>
     </entry>
+    <entry name="UserLangTeam" type="String">
+<!--
+        <label>User Language Team in Lokalize settings</label>
+-->
+        <default></default>
+    </entry>
+    <entry name="OverrideLangTeam" type="Bool">
+<!--
+        <label>Override Lokalize Language Team</label>
+-->
+        <default>false</default>
+    </entry>
+    <entry name="ProjLangTeam" type="String">
+<!--
+        <label>Project Language Team</label>
+-->
+        <default></default>
+    </entry>
+    <entry name="LanguageSource" type="Enum">
+            <choices name="LangSource">
+            <choice name="Automatic" />
+            <choice name="Application" />
+            <choice name="Project" />
+            <choice name="Undefined" />
+        </choices>
+        <default>Application</default>
+    </entry>
     <entry name="PoBaseDir"  type="String">
 <!--
         <label>The base directory for PO files (translations)</label>

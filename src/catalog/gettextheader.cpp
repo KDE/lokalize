@@ -363,7 +363,17 @@ void updateHeader(QString& header,
 
 
 
-    temp = QStringLiteral("Language-Team: ") % language % QStringLiteral(" <") % mailingList % QStringLiteral(">\\n");
+    Project::LangSource projLangSource = Project::instance()->languageSource();
+    QString projLT = Project::instance()->projLangTeam();
+    if (projLangSource == Project::LangSource::Project) {
+        temp = QStringLiteral("Language-Team: ")%projLT%QStringLiteral("\\n");
+    }
+    else if ((projLangSource == Project::LangSource::Application) && (Settings::overrideLangTeam())) {
+        temp = QStringLiteral("Language-Team: ")%Settings::userLangTeam()%QStringLiteral("\\n");
+    }
+    else {
+        temp = QStringLiteral("Language-Team: ")%language%QStringLiteral(" <")%mailingList%QStringLiteral(">\\n");
+    }
     if (Q_LIKELY(found))
         (*ait) = temp;
     else

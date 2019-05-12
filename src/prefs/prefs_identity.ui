@@ -14,7 +14,16 @@
    <string>Fill in your identity and information about your translation team. This information is used when updating the header of a file.</string>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>11</number>
+   </property>
+   <property name="topMargin">
+    <number>11</number>
+   </property>
+   <property name="rightMargin">
+    <number>11</number>
+   </property>
+   <property name="bottomMargin">
     <number>11</number>
    </property>
    <property name="spacing">
@@ -33,7 +42,7 @@
    <item row="1" column="0">
     <widget class="QLabel" name="textLabel2">
      <property name="text">
-      <string comment="@label:textbox">Email:</string>
+      <string comment="@label:textbox">&amp;Email:</string>
      </property>
      <property name="wordWrap">
       <bool>false</bool>
@@ -46,7 +55,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="textLabel2_2">
      <property name="text">
-      <string comment="@label:textbox">Name:</string>
+      <string comment="@label:textbox">&amp;Name:</string>
      </property>
      <property name="wordWrap">
       <bool>false</bool>
@@ -56,7 +65,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="0" column="2">
     <widget class="QLineEdit" name="kcfg_authorName">
      <property name="toolTip">
       <string>Your name, in English</string>
@@ -69,14 +78,14 @@
    <item row="3" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string comment="@label:textbox">Default mailing list:</string>
+      <string comment="@label:textbox">&amp;Default mailing list:</string>
      </property>
      <property name="buddy">
       <cstring>kcfg_DefaultMailingList</cstring>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="3" column="2">
     <widget class="QLineEdit" name="kcfg_DefaultMailingList">
      <property name="toolTip">
       <string>The email of your team mailing list</string>
@@ -86,7 +95,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="2" column="2">
     <widget class="KComboBox" name="DefaultLangCode">
      <property name="toolTip">
       <string>Language you translate to</string>
@@ -96,7 +105,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="2">
+   <item row="8" column="0" colspan="3">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -109,7 +118,7 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="1">
+   <item row="1" column="2">
     <widget class="QLineEdit" name="kcfg_authorEmail">
      <property name="toolTip">
       <string>Write your email</string>
@@ -119,14 +128,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="6" column="2">
     <widget class="LangCodeSaver" name="kcfg_DefaultLangCode">
      <property name="enabled">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
+   <item row="5" column="2">
     <widget class="QLineEdit" name="kcfg_authorLocalizedName">
      <property name="toolTip">
       <string>Your name in your own language</string>
@@ -136,10 +145,27 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="5" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string comment="@label:textbox">Localized name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="kcfg_overrideLangTeam">
+     <property name="text">
+      <string>Default Language-Team:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QLineEdit" name="kcfg_userLangTeam">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>
