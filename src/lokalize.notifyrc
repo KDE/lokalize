@@ -1,5 +1,6 @@
 [Global]
 IconName=lokalize
+DesktopEntry=org.kde.lokalize
 Comment=Computer-aided translation system
 Comment[ar]=برنامج ترجمة بمساعدة الحاسوب.
 Comment[ast]=Sistema de traducción asistíu per ordenador
