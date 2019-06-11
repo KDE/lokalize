@@ -25,7 +25,7 @@
 #ifndef POEXTRACTOR_H
 #define POEXTRACTOR_H
 
-#include "projectmodel.h"
+#include "filemetadata.h"
 
 class POExtractor
 {

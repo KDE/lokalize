@@ -69,6 +69,8 @@ set(lokalize_SRCS
     glossary/glossary.cpp
     glossary/glossarywindow.cpp
 
+    metadata/filemetadata.cpp
+
     mergemode/mergecatalog.cpp
     mergemode/mergeview.cpp
     alttransview.cpp
@@ -77,8 +79,8 @@ set(lokalize_SRCS
     project/projectmodel.cpp
     project/projectwidget.cpp
     project/projecttab.cpp
-    project/poextractor.cpp
-    project/xliffextractor.cpp
+    metadata/poextractor.cpp
+    metadata/xliffextractor.cpp
 
     prefs/prefs.cpp
 

@@ -22,12 +22,11 @@
 
 #include "xliffextractor.h"
 
-#include "lokalize_debug.h"
-
-#include "catalog.h"
 #include <QFile>
 #include <QXmlInputSource>
-#include <fstream>
+
+#include "lokalize_debug.h"
+#include "catalog/catalog.h"
 
 XliffExtractor::XliffExtractor()
 {

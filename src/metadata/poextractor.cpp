@@ -23,8 +23,10 @@
 
 
 #include "poextractor.h"
-#include <QFile>
+
 #include <fstream>
+
+#include <QFile>
 
 POExtractor::POExtractor()
     : state(WHITESPACE)

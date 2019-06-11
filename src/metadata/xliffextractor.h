@@ -24,7 +24,7 @@
 #ifndef XLIFFEXTRACTOR_H
 #define XLIFFEXTRACTOR_H
 
-#include "projectmodel.h"
+#include "filemetadata.h"
 
 class XliffExtractor
 {

@@ -35,33 +35,11 @@
 
 #include "project.h"
 #include "projectlocal.h"
+#include "metadata/filemetadata.h"
 
 class QTimer;
 class QThreadPool;
 class UpdateStatsJob;
-
-struct FileMetaData {
-    bool invalid_file;
-    int translated;
-    int translated_reviewer;
-    int translated_approver;
-    int untranslated;
-    int fuzzy;
-    int fuzzy_reviewer;
-    int fuzzy_approver;
-
-    QString lastTranslator;
-    QString sourceDate;
-    QString translationDate;
-
-    QString filePath;
-
-    FileMetaData()
-        : invalid_file(false), translated(0), translated_reviewer(0), translated_approver(0), untranslated(0)
-        , fuzzy(0), fuzzy_reviewer(0), fuzzy_approver(0)
-    {}
-};
-
 
 /**
 *  Some notes:

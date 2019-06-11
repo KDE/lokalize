@@ -29,8 +29,8 @@
 #include "lokalize_debug.h"
 
 #include "project.h"
-#include "poextractor.h"
-#include "xliffextractor.h"
+#include "metadata/poextractor.h"
+#include "metadata/xliffextractor.h"
 
 #include <QIcon>
 #include <QTime>
@@ -1295,55 +1295,6 @@ static void initDataBase(QSqlDatabase& db)
                        ")"));
 
     //queryMain.exec("CREATE INDEX IF NOT EXISTS filepath_index ON metainfo ("filepath)");
-}
-
-QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
-{
-    //Magic number
-    s << (quint32)0xABC42BCA;
-    //Version
-    s << (qint32)1;
-    s << d.translated;
-    s << d.translated_approver;
-    s << d.translated_reviewer;
-    s << d.fuzzy;
-    s << d.fuzzy_approver;
-    s << d.fuzzy_reviewer;
-    s << d.untranslated;
-    s << d.lastTranslator;
-    s << d.translationDate;
-    s << d.sourceDate;
-    s << d.invalid_file;
-    return s;
-}
-QDataStream &operator>>(QDataStream &s, FileMetaData &d)
-{
-    //Read the magic number
-    qint32 version = 0;
-    quint32 magic;
-    s >> magic;
-    if (magic == 0xABC42BCA) {
-        //This is a valid magic number, we can expect a version number
-        //Else it's the old format
-        s >> version;
-        s >> d.translated;
-    } else {
-        //Legacy format, the magic number was actually the translated count
-        d.translated = magic;
-    }
-    s >> d.translated_approver;
-    s >> d.translated_reviewer;
-    s >> d.fuzzy;
-    s >> d.fuzzy_approver;
-    s >> d.fuzzy_reviewer;
-    s >> d.untranslated;
-    s >> d.lastTranslator;
-    s >> d.translationDate;
-    s >> d.sourceDate;
-    if (version >= 1) {
-        s >> d.invalid_file;
-    }
-    return s;
 }
 #endif
 
