@@ -44,7 +44,7 @@ class CatalogTreeModel: public QAbstractItemModel
     Q_OBJECT
 public:
 
-    enum CatalogModelColumns {
+    enum class CatalogModelColumns {
         Key = 0,
         Source,
         Target,
@@ -56,8 +56,8 @@ public:
         IsModified,
         IsPlural,
         ColumnCount,
-        DisplayedColumnCount = TranslationStatus + 1
     };
+    static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::TranslationStatus) + 1;
 
     enum Roles {
         StringFilterRole = Qt::UserRole + 1
