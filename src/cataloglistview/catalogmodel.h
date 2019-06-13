@@ -44,7 +44,7 @@ class CatalogTreeModel: public QAbstractItemModel
     Q_OBJECT
 public:
 
-    enum CatalogModelColumns {
+    enum class CatalogModelColumns {
         Key = 0,
         Source,
         Target,
@@ -56,11 +56,22 @@ public:
         IsModified,
         IsPlural,
         ColumnCount,
-        DisplayedColumnCount = TranslationStatus + 1
+    };
+    static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::TranslationStatus) + 1;
+
+    // Possible values in column "Translation Status".
+    enum class TranslationStatus {
+        // translated
+        Ready,
+        // fuzzy
+        NeedsReview,
+        // empty
+        Untranslated,
     };
 
     enum Roles {
-        StringFilterRole = Qt::UserRole + 1
+        StringFilterRole = Qt::UserRole + 1,
+        SortRole = Qt::UserRole + 2,
     };
 
     explicit CatalogTreeModel(QObject* parent, Catalog* catalog);
@@ -86,7 +97,10 @@ public:
 public slots:
     void reflectChanges(DocPosition);
     void fileLoaded();
+
 private:
+    TranslationStatus getTranslationStatus(int row) const;
+
     Catalog* m_catalog;
     bool m_ignoreAccel;
 
