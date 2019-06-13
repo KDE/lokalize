@@ -116,8 +116,8 @@ class ProjectModel: public QAbstractItemModel
 
 public:
 
-    enum ProjectModelColumns {
-        FileName,
+    enum class ProjectModelColumns {
+        FileName = 0,
         Graph,
         TotalCount,
         TranslatedCount,
@@ -127,8 +127,9 @@ public:
         SourceDate,
         TranslationDate,
         LastTranslator,
-        ProjectModelColumnCount
+        ProjectModelColumnCount,
     };
+    const int ProjectModelColumnCount = static_cast<int>(ProjectModelColumns::ProjectModelColumnCount);
 
     enum AdditionalRoles {
         FuzzyUntrCountRole = Qt::UserRole,
