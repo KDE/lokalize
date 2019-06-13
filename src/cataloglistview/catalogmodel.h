@@ -59,6 +59,16 @@ public:
     };
     static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::TranslationStatus) + 1;
 
+    // Possible values in column "Translation Status".
+    enum class TranslationStatus {
+        // translated
+        Ready,
+        // fuzzy
+        NeedsReview,
+        // empty
+        Untranslated,
+    };
+
     enum Roles {
         StringFilterRole = Qt::UserRole + 1
     };
@@ -86,7 +96,10 @@ public:
 public slots:
     void reflectChanges(DocPosition);
     void fileLoaded();
+
 private:
+    TranslationStatus getTranslationStatus(int row) const;
+
     Catalog* m_catalog;
     bool m_ignoreAccel;
 

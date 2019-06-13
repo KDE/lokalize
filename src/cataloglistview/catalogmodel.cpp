@@ -199,15 +199,29 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         }
         case CatalogModelColumns::Context: return m_catalog->context(index.row());
         case CatalogModelColumns::TranslationStatus:
-            static QString statuses[] = {i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready"),
-                                         i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"),
-                                         i18nc("@info:status", "Untranslated")
-                                        };
-            if (m_catalog->isEmpty(index.row()))
-                return statuses[2];
-            return statuses[!m_catalog->isApproved(index.row())];
+            switch (getTranslationStatus(index.row())) {
+                case TranslationStatus::Ready:
+                    return i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
+                case TranslationStatus::NeedsReview:
+                    return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
+                case TranslationStatus::Untranslated:
+                    return i18nc("@info:status", "Untranslated");
+            }
     }
     return QVariant();
+}
+
+CatalogTreeModel::TranslationStatus CatalogTreeModel::getTranslationStatus(int row) const
+{
+    if (m_catalog->isEmpty(row)) {
+        return CatalogTreeModel::TranslationStatus::Untranslated;
+    }
+
+    if (m_catalog->isApproved(row)) {
+        return CatalogTreeModel::TranslationStatus::Ready;
+    } else {
+        return CatalogTreeModel::TranslationStatus::NeedsReview;
+    }
 }
 
 CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
