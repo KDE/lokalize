@@ -34,7 +34,7 @@ include_directories(
 configure_file(version.h.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
-set(lokalize_SRCS
+set(liblokalize_SRCS
     main.cpp
     lokalizemainwindow.cpp
     actionproxy.cpp
@@ -117,19 +117,19 @@ set(lokalize_SRCS
 )
 
 if(WIN32)
-    list (APPEND lokalize_SRCS common/winhelpers.cpp)
+    list (APPEND liblokalize_SRCS common/winhelpers.cpp)
 else(WIN32)
-    list (APPEND lokalize_SRCS common/unixhelpers.cpp)
+    list (APPEND liblokalize_SRCS common/unixhelpers.cpp)
 endif(WIN32)
 
-ecm_qt_declare_logging_category(lokalize_SRCS
+ecm_qt_declare_logging_category(liblokalize_SRCS
     HEADER lokalize_debug.h
     IDENTIFIER LOKALIZE_LOG
     CATEGORY_NAME org.kde.lokalize
     DEFAULT_SEVERITY Warning
 )
 
-ki18n_wrap_ui(lokalize_SRCS
+ki18n_wrap_ui(liblokalize_SRCS
     prefs/prefs_identity.ui
     prefs/prefs_general.ui
     prefs/prefs_editor.ui
@@ -150,47 +150,53 @@ ki18n_wrap_ui(lokalize_SRCS
     tools/widgettextcaptureconfig.ui
 )
 
-kconfig_add_kcfg_files(lokalize_SRCS
+kconfig_add_kcfg_files(liblokalize_SRCS
     prefs/prefs_lokalize.kcfgc
     project/projectbase.kcfgc
     project/projectlocal.kcfgc
 )
 
-qt5_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.MainWindow.xml
+qt5_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
-qt5_add_dbus_adaptor(lokalize_SRCS org.kde.lokalize.Editor.xml
+qt5_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.Editor.xml
                      editortab.h EditorTab)
-qt5_add_dbus_adaptor(lokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
+qt5_add_dbus_adaptor(liblokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
                      filesearch/filesearchtab.h FileSearchTab)
-qt5_add_dbus_adaptor(lokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
+qt5_add_dbus_adaptor(liblokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmtab.h TM::TMTab)
-qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.Project.xml
+qt5_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.Project.xml
                      project/project.h Project)
-qt5_add_dbus_adaptor(lokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
+qt5_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
                      project/projecttab.h ProjectTab)
 
 
+### Build intermediate library (will be used by unit tests) ###
+add_library(liblokalize STATIC ${liblokalize_SRCS})
+target_link_libraries(liblokalize
+    KF5::KIOFileWidgets
+    KF5::ItemViews
+    KF5::Notifications
+    KF5::SonnetCore
+    KF5::SonnetUi
+    KF5::KrossCore
+    KF5::KrossUi
+    KF5::DBusAddons
+    KF5::Crash
+    Qt5::Sql
+)
+if(HUNSPELL_FOUND)
+    target_link_libraries(liblokalize ${HUNSPELL_LIBRARIES})
+endif(HUNSPELL_FOUND)
+
+
+### Build Lokalize executable ###
+set(lokalize_SRCS main.cpp)
 
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/global/*-apps-lokalize.png")
 ecm_add_app_icon(lokalize_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(lokalize ${lokalize_SRCS})
-
-target_link_libraries(lokalize
-KF5::KIOFileWidgets
-KF5::ItemViews
-KF5::Notifications
-KF5::SonnetCore
-KF5::SonnetUi
-KF5::KrossCore
-KF5::KrossUi
-KF5::DBusAddons
-KF5::Crash
-Qt5::Sql
-)
-if(HUNSPELL_FOUND)
-    target_link_libraries(lokalize ${HUNSPELL_LIBRARIES})
-endif(HUNSPELL_FOUND)
+target_link_libraries(lokalize liblokalize)
 
 install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
@@ -215,3 +221,7 @@ install( FILES
         tm/translationmemoryrui.rc
         filesearch/filesearchtabui.rc
         DESTINATION  ${KXMLGUI_INSTALL_DIR}/lokalize )
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
