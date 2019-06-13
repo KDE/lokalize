@@ -79,7 +79,7 @@ QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelI
 
 void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (index.column() != ProjectModel::Graph)
+    if (static_cast<ProjectModel::ProjectModelColumns>(index.column()) != ProjectModel::ProjectModelColumns::Graph)
         return QStyledItemDelegate::paint(painter, option, index);
 
     QVariant graphData = index.data(Qt::DisplayRole);
@@ -225,10 +225,10 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
         return false;
     }
 
-    switch (left.column()) {
-    case ProjectModel::FileName:
+    switch (static_cast<ProjectModel::ProjectModelColumns>(left.column())) {
+    case ProjectModel::ProjectModelColumns::FileName:
         return collator.compare(leftFileItem.name(), rightFileItem.name()) < 0;
-    case ProjectModel::Graph: {
+    case ProjectModel::ProjectModelColumns::Graph: {
         QRect leftRect(left.data(Qt::DisplayRole).toRect());
         QRect rightRect(right.data(Qt::DisplayRole).toRect());
 
@@ -261,15 +261,15 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
             return true;
         return false;
     }
-    case ProjectModel::LastTranslator:
-    case ProjectModel::SourceDate:
-    case ProjectModel::TranslationDate:
+    case ProjectModel::ProjectModelColumns::LastTranslator:
+    case ProjectModel::ProjectModelColumns::SourceDate:
+    case ProjectModel::ProjectModelColumns::TranslationDate:
         return collator.compare(projectModel->data(left).toString(), projectModel->data(right).toString()) < 0;
-    case ProjectModel::TotalCount:
-    case ProjectModel::TranslatedCount:
-    case ProjectModel::UntranslatedCount:
-    case ProjectModel::IncompleteCount:
-    case ProjectModel::FuzzyCount:
+    case ProjectModel::ProjectModelColumns::TotalCount:
+    case ProjectModel::ProjectModelColumns::TranslatedCount:
+    case ProjectModel::ProjectModelColumns::UntranslatedCount:
+    case ProjectModel::ProjectModelColumns::IncompleteCount:
+    case ProjectModel::ProjectModelColumns::FuzzyCount:
         return projectModel->data(left).toInt() < projectModel->data(right).toInt();
     default:
         return false;

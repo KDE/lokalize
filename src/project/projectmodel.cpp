@@ -4,7 +4,8 @@
   Copyright (C) 2018 by Karl Ove Hufthammer <karl@huftis.org>
   Copyright (C) 2007-2015 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  Copyright (C) 2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  Copyright (C) 2019 by Alexander Potashev <aspotashev@gmail.com>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -52,7 +53,7 @@ ProjectModel::ProjectModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_poModel(this)
     , m_potModel(this)
-    , m_rootNode(ProjectNode(NULL, -1, -1, -1))
+    , m_rootNode(NULL, -1, -1, -1)
     , m_dirIcon(QIcon::fromTheme(QStringLiteral("inode-directory")))
     , m_poIcon(QIcon::fromTheme(QStringLiteral("flag-blue")))
     , m_poInvalidIcon(QIcon::fromTheme(QStringLiteral("flag-red")))
@@ -130,14 +131,7 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
             deleteSubtree(m_rootNode.rows.at(pos));
         m_rootNode.rows.clear();
         m_rootNode.poCount = 0;
-        m_rootNode.translated = -1;
-        m_rootNode.translated_reviewer = -1;
-        m_rootNode.translated_approver = -1;
-        m_rootNode.untranslated = -1;
-        m_rootNode.fuzzy = -1;
-        m_rootNode.fuzzy_reviewer = -1;
-        m_rootNode.fuzzy_approver = -1;
-        m_rootNode.invalid_file = false;
+        m_rootNode.resetMetaData();
 
         endRemoveRows();
     }
@@ -513,42 +507,58 @@ int ProjectModel::columnCount(const QModelIndex& /*parent*/)const
 
 QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
 {
+    const auto column = static_cast<ProjectModelColumns>(section);
+
     switch (role) {
     case Qt::TextAlignmentRole: {
-        switch (section) {
-        // Align numeric columns to the right and other columns to the left
-        // Qt::AlignAbsolute is needed for RTL languages, ref. https://phabricator.kde.org/D13098
-        case TotalCount:        return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
-        case TranslatedCount:   return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
-        case FuzzyCount:        return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
-        case UntranslatedCount: return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
-        case IncompleteCount:   return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
-        default:                return QVariant(Qt::AlignLeft);
+        switch (column) {
+            // Align numeric columns to the right and other columns to the left
+            // Qt::AlignAbsolute is needed for RTL languages, ref. https://phabricator.kde.org/D13098
+            case ProjectModelColumns::TotalCount:
+            case ProjectModelColumns::TranslatedCount:
+            case ProjectModelColumns::FuzzyCount:
+            case ProjectModelColumns::UntranslatedCount:
+            case ProjectModelColumns::IncompleteCount:
+                return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
+            default:
+                return QVariant(Qt::AlignLeft);
         }
     }
     case Qt::DisplayRole: {
-        switch (section) {
-        case FileName:          return i18nc("@title:column File name", "Name");
-        case Graph:             return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts", "Graph");
-        case TotalCount:        return i18nc("@title:column Number of entries", "Total");
-        case TranslatedCount:   return i18nc("@title:column Number of entries", "Translated");
-        case FuzzyCount:        return i18nc("@title:column Number of entries", "Not ready");
-        case UntranslatedCount: return i18nc("@title:column Number of entries", "Untranslated");
-        case IncompleteCount:   return i18nc("@title:column Number of fuzzy or untranslated entries", "Incomplete");
-        case TranslationDate:   return i18nc("@title:column", "Last Translation");
-        case SourceDate:        return i18nc("@title:column", "Template Revision");
-        case LastTranslator:    return i18nc("@title:column", "Last Translator");
-        default:                return QVariant();
+        switch (column) {
+            case ProjectModelColumns::FileName:
+                return i18nc("@title:column File name", "Name");
+            case ProjectModelColumns::Graph:
+                return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts", "Graph");
+            case ProjectModelColumns::TotalCount:
+                return i18nc("@title:column Number of entries", "Total");
+            case ProjectModelColumns::TranslatedCount:
+                return i18nc("@title:column Number of entries", "Translated");
+            case ProjectModelColumns::FuzzyCount:
+                return i18nc("@title:column Number of entries", "Not ready");
+            case ProjectModelColumns::UntranslatedCount:
+                return i18nc("@title:column Number of entries", "Untranslated");
+            case ProjectModelColumns::IncompleteCount:
+                return i18nc("@title:column Number of fuzzy or untranslated entries", "Incomplete");
+            case ProjectModelColumns::TranslationDate:
+                return i18nc("@title:column", "Last Translation");
+            case ProjectModelColumns::SourceDate:
+                return i18nc("@title:column", "Template Revision");
+            case ProjectModelColumns::LastTranslator:
+                return i18nc("@title:column", "Last Translator");
+            default:
+                return {};
         }
     }
-    default: return QVariant();
+    default:
+        return {};
     }
 }
 
 
 Qt::ItemFlags ProjectModel::flags(const QModelIndex & index) const
 {
-    if (index.column() == FileName)
+    if (static_cast<ProjectModelColumns>(index.column()) == ProjectModelColumns::FileName)
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
     else
         return Qt::ItemIsSelectable;
@@ -619,7 +629,7 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
     if (!index.isValid())
         return QVariant();
 
-    const ProjectModelColumns& column = (ProjectModelColumns)index.column();
+    const auto column = static_cast<ProjectModelColumns>(index.column());
     const ProjectNode* node = nodeForIndex(index);
     const QModelIndex internalIndex = poOrPotIndexForOuter(index);
 
@@ -629,57 +639,69 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
     const KFileItem item = itemForIndex(index);
     const bool isDir = item.isDir();
 
+    const bool invalid_file = node->metaDataStatus == ProjectNode::Status::InvalidFile;
+    const bool hasStats = node->metaDataStatus != ProjectNode::Status::NoStats;
+
     const int translated = node->translatedAsPerRole();
     const int fuzzy = node->fuzzyAsPerRole();
-    const int untranslated = node->untranslated;
-    const bool invalid_file = node->invalid_file;
-    const bool hasStats = translated != -1 || invalid_file;
+    const int untranslated = node->metaData.untranslated;
 
     switch (role) {
     case Qt::TextAlignmentRole:
-        return ProjectModel::headerData(column, Qt::Horizontal, role); // Use same alignment as header
+        return ProjectModel::headerData(index.column(), Qt::Horizontal, role); // Use same alignment as header
     case Qt::DisplayRole:
         switch (column) {
-        case FileName:      return item.text();
-        case Graph:         return hasStats ? QRect(translated, untranslated, fuzzy, 0) : QVariant();
-        case TotalCount:    return hasStats ? (translated + untranslated + fuzzy) : QVariant();
-        case TranslatedCount: return hasStats ? translated : QVariant();
-        case FuzzyCount:    return hasStats ? fuzzy : QVariant();
-        case UntranslatedCount: return hasStats ? untranslated : QVariant();
-        case IncompleteCount: return hasStats ? (untranslated + fuzzy) : QVariant();
-        case SourceDate:    return node->sourceDate;
-        case TranslationDate: return node->translationDate;
-        case LastTranslator: return node->lastTranslator;
-        default:            return QVariant();
+            case ProjectModelColumns::FileName:
+                return item.text();
+            case ProjectModelColumns::Graph:
+                return hasStats ? QRect(translated, untranslated, fuzzy, 0) : QVariant();
+            case ProjectModelColumns::TotalCount:
+                return hasStats ? (translated + untranslated + fuzzy) : QVariant();
+            case ProjectModelColumns::TranslatedCount:
+                return hasStats ? translated : QVariant();
+            case ProjectModelColumns::FuzzyCount:
+                return hasStats ? fuzzy : QVariant();
+            case ProjectModelColumns::UntranslatedCount:
+                return hasStats ? untranslated : QVariant();
+            case ProjectModelColumns::IncompleteCount:
+                return hasStats ? (untranslated + fuzzy) : QVariant();
+            case ProjectModelColumns::SourceDate:
+                return node->metaData.sourceDate;
+            case ProjectModelColumns::TranslationDate:
+                return node->metaData.translationDate;
+            case ProjectModelColumns::LastTranslator:
+                return node->metaData.lastTranslator;
+            default:
+                return {};
         }
     case Qt::ToolTipRole:
-        switch (column) {
-        case FileName: return item.text();
-        default:       return QVariant();
+        if (column == ProjectModelColumns::FileName) {
+            return item.text();
+        } else {
+            return {};
         }
     case KDirModel::FileItemRole:
         return QVariant::fromValue(item);
     case Qt::DecorationRole:
-        switch (column) {
-        case FileName:
-            if (isDir)
-                return m_dirIcon;
-            if (invalid_file)
-                return m_poInvalidIcon;
-            else if (hasStats && fuzzy == 0 && untranslated == 0) {
-                if (translated == 0)
-                    return m_poEmptyIcon;
-                else
-                    return m_poComplIcon;
-            } else if (node->poRowNumber != -1)
-                return m_poIcon;
-            else if (node->potRowNumber != -1)
-                return m_potIcon;
-            else
-                return QVariant();
-        default:
+        if (column != ProjectModelColumns::FileName) {
             return QVariant();
         }
+
+        if (isDir)
+            return m_dirIcon;
+        if (invalid_file)
+            return m_poInvalidIcon;
+        else if (hasStats && fuzzy == 0 && untranslated == 0) {
+            if (translated == 0)
+                return m_poEmptyIcon;
+            else
+                return m_poComplIcon;
+        } else if (node->poRowNumber != -1)
+            return m_poIcon;
+        else if (node->potRowNumber != -1)
+            return m_potIcon;
+        else
+            return QVariant();
     case FuzzyUntrCountAllRole:
         return hasStats ? (fuzzy + untranslated) : 0;
     case FuzzyUntrCountRole:
@@ -736,7 +758,9 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.parent().internalPointer();
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.parent().data().toString();
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.internalPointer();
-    qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << static_cast<ProjectNode*>(index.internalPointer())->untranslated << static_cast<ProjectNode*>(index.internalPointer())->sourceDate;
+    qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" <<
+        static_cast<ProjectNode*>(index.internalPointer())->metaData.untranslated <<
+        static_cast<ProjectNode*>(index.internalPointer())->metaData.sourceDate;
     return KFileItem();
 }
 
@@ -1094,7 +1118,7 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
     node->setFileStats(job->m_info.first());
     updateDirStats(nodeForIndex(index.parent()));
 
-    QModelIndex topLeft = index.sibling(index.row(), Graph);
+    QModelIndex topLeft = index.sibling(index.row(), static_cast<int>(ProjectModelColumns::Graph));
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
     emit dataChanged(topLeft, bottomRight);
 
@@ -1127,7 +1151,7 @@ void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData
 
     updateDirStats(node);
 
-    const QModelIndex topLeft = index(0, Graph, item);
+    const QModelIndex topLeft = index(0, static_cast<int>(ProjectModelColumns::Graph), item);
     const QModelIndex bottomRight = index(rowsCount - 1, ProjectModelColumnCount - 1, item);
     emit dataChanged(topLeft, bottomRight);
 }
@@ -1148,7 +1172,7 @@ void ProjectModel::updateDirStats(ProjectNode* node)
     qCDebug(LOKALIZE_LOG) << index.row() << node->parent->rows.count();
     if (index.row() >= node->parent->rows.count())
         return;
-    QModelIndex topLeft = index.sibling(index.row(), Graph);
+    QModelIndex topLeft = index.sibling(index.row(), static_cast<int>(ProjectModelColumns::Graph));
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
     emit dataChanged(topLeft, bottomRight);
 }
@@ -1172,12 +1196,12 @@ void ProjectModel::updateTotalsChanged()
     if (done) {
         done = updateDone(m_poModel.indexForUrl(m_poUrl), m_poModel) &&
                updateDone(m_potModel.indexForUrl(m_potUrl), m_potModel);
-        if (m_rootNode.fuzzyAsPerRole() + m_rootNode.translatedAsPerRole() + m_rootNode.untranslated > 0 && !done)
+        if (m_rootNode.fuzzyAsPerRole() + m_rootNode.translatedAsPerRole() + m_rootNode.metaData.untranslated > 0 && !done)
             m_doneTimer->start(2000);
 
         emit loadingFinished();
     }
-    emit totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.untranslated, done);
+    emit totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.metaData.untranslated, done);
 }
 
 
@@ -1189,14 +1213,8 @@ ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _p
     , poRowNumber(_poIndex)
     , potRowNumber(_potIndex)
     , poCount(0)
-    , invalid_file(false)
-    , translated(-1)
-    , translated_reviewer(-1)
-    , translated_approver(-1)
-    , untranslated(-10)
-    , fuzzy(-1)
-    , fuzzy_reviewer(-10)
-    , fuzzy_approver(-10)
+    , metaDataStatus(Status::NoStats)
+    , metaData()
 {
     ++nodeCounter;
 }
@@ -1208,24 +1226,25 @@ ProjectModel::ProjectNode::~ProjectNode()
 
 void ProjectModel::ProjectNode::calculateDirStats()
 {
-    fuzzy = 0;
-    fuzzy_reviewer = 0;
-    fuzzy_approver = 0;
-    translated = 0;
-    translated_reviewer = 0;
-    translated_approver = 0;
-    untranslated = 0;
+    metaData.fuzzy = 0;
+    metaData.fuzzy_reviewer = 0;
+    metaData.fuzzy_approver = 0;
+    metaData.translated = 0;
+    metaData.translated_reviewer = 0;
+    metaData.translated_approver = 0;
+    metaData.untranslated = 0;
+    metaDataStatus = ProjectNode::Status::HasStats;
 
     for (int pos = 0; pos < rows.count(); pos++) {
         ProjectNode* child = rows.at(pos);
-        if (!child->invalid_file && child->translated != -1) {
-            fuzzy += child->fuzzy;
-            fuzzy_reviewer += child->fuzzy_reviewer;
-            fuzzy_approver += child->fuzzy_approver;
-            translated += child->translated;
-            translated_reviewer += child->translated_reviewer;
-            translated_approver += child->translated_approver;
-            untranslated += child->untranslated;
+        if (child->metaDataStatus == ProjectNode::Status::HasStats) {
+            metaData.fuzzy += child->metaData.fuzzy;
+            metaData.fuzzy_reviewer += child->metaData.fuzzy_reviewer;
+            metaData.fuzzy_approver += child->metaData.fuzzy_approver;
+            metaData.translated += child->metaData.translated;
+            metaData.translated_reviewer += child->metaData.translated_reviewer;
+            metaData.translated_approver += child->metaData.translated_approver;
+            metaData.untranslated += child->metaData.untranslated;
         }
     }
 }
@@ -1233,17 +1252,14 @@ void ProjectModel::ProjectNode::calculateDirStats()
 
 void ProjectModel::ProjectNode::setFileStats(const FileMetaData& info)
 {
-    invalid_file = info.invalid_file;
-    translated = info.translated;
-    translated_reviewer = info.translated_reviewer;
-    translated_approver = info.translated_approver;
-    untranslated = info.untranslated;
-    fuzzy = info.fuzzy;
-    fuzzy_reviewer = info.fuzzy_reviewer;
-    fuzzy_approver = info.fuzzy_approver;
-    lastTranslator = info.lastTranslator;
-    sourceDate = info.sourceDate;
-    translationDate = info.translationDate;
+    metaData = info;
+    metaDataStatus = info.invalid_file ? Status::InvalidFile : Status::HasStats;
+}
+
+void ProjectModel::ProjectNode::resetMetaData()
+{
+    metaDataStatus = Status::NoStats;
+    metaData = FileMetaData();
 }
 
 

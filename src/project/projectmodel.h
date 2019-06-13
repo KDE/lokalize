@@ -4,7 +4,8 @@
   Copyright (C) 2018 by Karl Ove Hufthammer <karl@huftis.org>
   Copyright (C) 2007-2014 by Nick Shaforostoff <shafff@ukr.net>
   Copyright (C) 2009 by Viesturs Zarins <viesturs.zarins@mii.lu.lv>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  Copyright (C) 2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  Copyright (C) 2019 by Alexander Potashev <aspotashev@gmail.com>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -58,6 +59,8 @@ class ProjectModel: public QAbstractItemModel
     class ProjectNode
     {
     public:
+        ProjectNode() = delete;
+        explicit ProjectNode(const ProjectNode&) = delete;
         ProjectNode(ProjectNode* parent, int rowNum, int poIndex, int potIndex);
         ~ProjectNode();
         void calculateDirStats();
@@ -68,11 +71,11 @@ class ProjectModel: public QAbstractItemModel
             switch (Project::local()->role()) {
             case ProjectLocal::Translator:
             case ProjectLocal::Undefined:
-                return translated;
+                return metaData.translated;
             case ProjectLocal::Reviewer:
-                return translated_reviewer;
+                return metaData.translated_reviewer;
             case ProjectLocal::Approver:
-                return translated_approver;
+                return metaData.translated_approver;
             }
             return -1;
         }
@@ -82,14 +85,16 @@ class ProjectModel: public QAbstractItemModel
             switch (Project::local()->role()) {
             case ProjectLocal::Translator:
             case ProjectLocal::Undefined:
-                return fuzzy;
+                return metaData.fuzzy;
             case ProjectLocal::Reviewer:
-                return fuzzy_reviewer;
+                return metaData.fuzzy_reviewer;
             case ProjectLocal::Approver:
-                return fuzzy_approver;
+                return metaData.fuzzy_approver;
             }
             return -1;
         }
+
+        void resetMetaData();
 
         ProjectNode* parent;
         short rowNumber; //in parent's list
@@ -100,24 +105,24 @@ class ProjectModel: public QAbstractItemModel
         short poCount; //number of items from PO in rows. The others will be form POT exclusively.
         QVector<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
 
-        bool invalid_file;
-        int translated;
-        int translated_reviewer;
-        int translated_approver;
-        int untranslated;
-        int fuzzy;
-        int fuzzy_reviewer;
-        int fuzzy_approver;
-        QString sourceDate;
-        QString lastTranslator;
-        QString translationDate;
+        enum class Status {
+            // metadata not initialized yet
+            NoStats,
+            // tried to initialize metadata, but failed
+            InvalidFile,
+            // metadata is initialized
+            HasStats,
+        };
+
+        Status metaDataStatus;
+        FileMetaData metaData;
     };
 
 
 public:
 
-    enum ProjectModelColumns {
-        FileName,
+    enum class ProjectModelColumns {
+        FileName = 0,
         Graph,
         TotalCount,
         TranslatedCount,
@@ -127,8 +132,9 @@ public:
         SourceDate,
         TranslationDate,
         LastTranslator,
-        ProjectModelColumnCount
+        ProjectModelColumnCount,
     };
+    const int ProjectModelColumnCount = static_cast<int>(ProjectModelColumns::ProjectModelColumnCount);
 
     enum AdditionalRoles {
         FuzzyUntrCountRole = Qt::UserRole,
