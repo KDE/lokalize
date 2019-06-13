@@ -58,6 +58,8 @@ class ProjectModel: public QAbstractItemModel
     class ProjectNode
     {
     public:
+        ProjectNode() = delete;
+        explicit ProjectNode(const ProjectNode&) = delete;
         ProjectNode(ProjectNode* parent, int rowNum, int poIndex, int potIndex);
         ~ProjectNode();
         void calculateDirStats();
