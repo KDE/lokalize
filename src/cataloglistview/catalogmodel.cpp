@@ -129,8 +129,9 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
             return i18nc("@title:column", "Context");
         case CatalogModelColumns::TranslationStatus:
             return i18nc("@title:column", "Translation Status");
+        default:
+            return {};
     }
-    return QVariant();
 }
 
 QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
@@ -230,9 +231,11 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
                 result += note.content;
             return result;
         }
-        case CatalogModelColumns::Context: return m_catalog->context(index.row());
+        case CatalogModelColumns::Context:
+            return m_catalog->context(index.row());
+        default:
+            return {};
     }
-    return QVariant();
 }
 
 CatalogTreeModel::TranslationStatus CatalogTreeModel::getTranslationStatus(int row) const
