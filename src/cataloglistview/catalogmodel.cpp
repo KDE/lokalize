@@ -35,6 +35,7 @@
 #include <QApplication>
 #include <QPalette>
 #include <QFontMetrics>
+#include <QIcon>
 
 #define DYNAMICFILTER_LIMIT 256
 
@@ -155,6 +156,32 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             static KColorScheme colorScheme(QPalette::Normal);
             return colorScheme.foreground(KColorScheme::InactiveText);
         }
+    } else if (role == Qt::ToolTipRole) {
+        if (column != CatalogModelColumns::TranslationStatus) {
+            return {};
+        }
+
+        switch (getTranslationStatus(index.row())) {
+            case TranslationStatus::Ready:
+                return i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
+            case TranslationStatus::NeedsReview:
+                return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
+            case TranslationStatus::Untranslated:
+                return i18nc("@info:status", "Untranslated");
+        }
+    } else if (role == Qt::DecorationRole) {
+        if (column != CatalogModelColumns::TranslationStatus) {
+            return {};
+        }
+
+        switch (getTranslationStatus(index.row())) {
+            case TranslationStatus::Ready:
+                return QIcon::fromTheme("emblem-checked");
+            case TranslationStatus::NeedsReview:
+                return QIcon::fromTheme("emblem-question");
+            case TranslationStatus::Untranslated:
+                return QIcon::fromTheme("emblem-unavailable");
+        }
     } else if (role == Qt::UserRole) {
         switch (column) {
             case CatalogModelColumns::TranslationStatus:
@@ -178,6 +205,12 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             return m_ignoreAccel ? str.remove(Project::instance()->accel()) : str;
         }
         role = Qt::DisplayRole;
+    } else if (role == SortRole) { //exclude UI strings
+        if (column == CatalogModelColumns::TranslationStatus) {
+            return static_cast<int>(getTranslationStatus(index.row()));
+        }
+
+        role = Qt::DisplayRole;
     }
     if (role != Qt::DisplayRole)
         return QVariant();
@@ -198,15 +231,6 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             return result;
         }
         case CatalogModelColumns::Context: return m_catalog->context(index.row());
-        case CatalogModelColumns::TranslationStatus:
-            switch (getTranslationStatus(index.row())) {
-                case TranslationStatus::Ready:
-                    return i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
-                case TranslationStatus::NeedsReview:
-                    return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
-                case TranslationStatus::Untranslated:
-                    return i18nc("@info:status", "Untranslated");
-            }
     }
     return QVariant();
 }
@@ -233,6 +257,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
     setFilterRole(CatalogTreeModel::StringFilterRole);
+    setSortRole(CatalogTreeModel::SortRole);
     setDynamicSortFilter(false);
 }
 

@@ -70,7 +70,8 @@ public:
     };
 
     enum Roles {
-        StringFilterRole = Qt::UserRole + 1
+        StringFilterRole = Qt::UserRole + 1,
+        SortRole = Qt::UserRole + 2,
     };
 
     explicit CatalogTreeModel(QObject* parent, Catalog* catalog);
