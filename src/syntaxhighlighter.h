@@ -33,7 +33,6 @@
 #include <QTextCharFormat>
 
 
-class QTextDocument;
 class QTextEdit;
 
 class SyntaxHighlighter : public Sonnet::Highlighter
@@ -42,7 +41,7 @@ class SyntaxHighlighter : public Sonnet::Highlighter
 
 public:
     explicit SyntaxHighlighter(QTextEdit *parent);
-    ~SyntaxHighlighter() override {}
+    ~SyntaxHighlighter() override = default;
 
     void setApprovementState(bool a)
     {

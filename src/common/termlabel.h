@@ -39,7 +39,7 @@ class TermLabel: public QLabel//QPushButton
     Q_OBJECT
 public:
     explicit TermLabel(QAction* a = nullptr): m_capFirst(false), m_action(a) {}
-    ~TermLabel() override {}
+    ~TermLabel() override = default;
 
     /**
      * @param term is the term matched

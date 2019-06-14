@@ -53,10 +53,6 @@ XliffStorage::XliffStorage()
 {
 }
 
-XliffStorage::~XliffStorage()
-{
-}
-
 int XliffStorage::capabilities() const
 {
     return KeepsNoteAuthors | MultipleNotes | Phases | ExtendedStates | Tags;

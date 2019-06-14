@@ -48,11 +48,6 @@ MyActionCollectionView::MyActionCollectionView(QWidget *parent)
     //qRegisterMetaType<CatalogData>("CatalogData");
 }
 
-
-MyActionCollectionView::~MyActionCollectionView()
-{
-}
-
 void MyActionCollectionView::triggerSelectedActions()
 {
     foreach (const QModelIndex &index, itemSelection().indexes()) {

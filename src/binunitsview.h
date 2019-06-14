@@ -69,7 +69,7 @@ public:
     };
 
     BinUnitsModel(Catalog* catalog, QObject* parent);
-    ~BinUnitsModel() {}
+    ~BinUnitsModel() override = default;
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     int columnCount(const QModelIndex& parent = QModelIndex()) const override

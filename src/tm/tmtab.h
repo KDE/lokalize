@@ -144,7 +144,7 @@ public:
     };
 
     explicit TMDBModel(QObject* parent);
-    ~TMDBModel() {}
+    ~TMDBModel() override = default;
 
     QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
     int columnCount(const QModelIndex& parent = QModelIndex()) const override

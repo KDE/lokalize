@@ -209,11 +209,6 @@ ProjectTab::ProjectTab(QWidget *parent)
 
 }
 
-ProjectTab::~ProjectTab()
-{
-    //qCWarning(LOKALIZE_LOG)<<"destroyed";
-}
-
 void ProjectTab::showRealProjectOverview()
 {
     m_stackedLayout->setCurrentIndex(1);

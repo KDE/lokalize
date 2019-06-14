@@ -77,7 +77,7 @@ class GlossaryWindow: public KMainWindow
     Q_OBJECT
 public:
     explicit GlossaryWindow(QWidget *parent = nullptr);
-    ~GlossaryWindow() override;
+    ~GlossaryWindow() override = default;
     bool queryClose() override;
 
 public slots:
@@ -118,7 +118,7 @@ class GlossaryTreeView: public QTreeView
     Q_OBJECT
 public:
     explicit GlossaryTreeView(QWidget *parent = nullptr);
-    ~GlossaryTreeView() override {}
+    ~GlossaryTreeView() override = default;
 
     void currentChanged(const QModelIndex& current, const QModelIndex& previous) override;
     void selectRow(int i);

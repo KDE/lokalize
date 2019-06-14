@@ -44,10 +44,6 @@ UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject*)
     setAutoDelete(false);
 }
 
-UpdateStatsJob::~UpdateStatsJob()
-{
-}
-
 //#define NOMETAINFOCACHE
 #ifndef NOMETAINFOCACHE
 static void initDataBase(QSqlDatabase& db)

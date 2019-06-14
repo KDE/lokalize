@@ -40,8 +40,9 @@ class UpdateStatsJob: public QObject, public QRunnable
 
 public:
     explicit UpdateStatsJob(const QList<KFileItem> &files, QObject* owner = nullptr);
-    ~UpdateStatsJob() override;
-    int priority()const
+    ~UpdateStatsJob() override = default;
+
+    int priority() const
     {
         return 35;   //SEE jobs.h
     }

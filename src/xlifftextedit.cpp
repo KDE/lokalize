@@ -76,7 +76,7 @@ class MyCompletionBox: public KCompletionBox
 {
 public:
     MyCompletionBox(QWidget* p): KCompletionBox(p) {}
-    ~MyCompletionBox() override {}
+    ~MyCompletionBox() override = default;
     QSize sizeHint() const override;
 
     bool eventFilter(QObject*, QEvent*) override;   //reimplemented to deliver more keypresses to XliffTextEdit

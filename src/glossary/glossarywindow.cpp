@@ -329,10 +329,6 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
               */
 }
 
-GlossaryWindow::~GlossaryWindow()
-{
-}
-
 void GlossaryWindow::setFocus()
 {
     m_filterEdit->setFocus();

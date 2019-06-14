@@ -75,7 +75,7 @@ public:
     };
 
     explicit CatalogTreeModel(QObject* parent, Catalog* catalog);
-    ~CatalogTreeModel() override {}
+    ~CatalogTreeModel() override = default;
 
     QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex())const override;
     QModelIndex parent(const QModelIndex&) const override;

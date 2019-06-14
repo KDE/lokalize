@@ -42,7 +42,7 @@ class GettextStorage: public CatalogStorage
 {
 public:
     GettextStorage();
-    ~GettextStorage() override;
+    ~GettextStorage() override = default;
 
     int capabilities() const override
     {

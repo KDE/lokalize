@@ -35,7 +35,7 @@ class XliffStorage: public CatalogStorage
 {
 public:
     XliffStorage();
-    ~XliffStorage() override;
+    ~XliffStorage() override = default;
 
     int capabilities() const override;
 

@@ -58,11 +58,6 @@ GettextStorage::GettextStorage()
 {
 }
 
-
-GettextStorage::~GettextStorage()
-{
-}
-
 //BEGIN OPEN/SAVE
 
 int GettextStorage::load(QIODevice* device/*, bool readonly*/)

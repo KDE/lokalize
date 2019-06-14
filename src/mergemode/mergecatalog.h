@@ -75,7 +75,7 @@ class MergeCatalog: public Catalog
     Q_OBJECT
 public:
     explicit MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges = true);
-    ~MergeCatalog() override {}
+    ~MergeCatalog() override = default;
 
     int loadFromUrl(const QString& filePath);
 

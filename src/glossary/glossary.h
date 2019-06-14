@@ -204,7 +204,7 @@ public:
     };
 
     explicit GlossaryModel(QObject* parent/*, Glossary* glossary*/);
-    ~GlossaryModel() {}
+    ~GlossaryModel() override = default;
 
     //QModelIndex index (int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;

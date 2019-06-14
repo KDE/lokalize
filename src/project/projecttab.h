@@ -49,7 +49,7 @@ class ProjectTab: public LokalizeSubwindowBase2
 
 public:
     explicit ProjectTab(QWidget *parent);
-    ~ProjectTab() override;
+    ~ProjectTab() override = default;
 
     void contextMenuEvent(QContextMenuEvent *event) override;
 

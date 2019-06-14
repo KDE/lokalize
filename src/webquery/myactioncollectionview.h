@@ -48,7 +48,7 @@ class MyActionCollectionView : public Kross::ActionCollectionView
     Q_OBJECT
 public:
     explicit MyActionCollectionView(QWidget *parent = nullptr);
-    ~MyActionCollectionView() override;
+    ~MyActionCollectionView() override = default;
 
 public slots:
     void triggerSelectedActions();

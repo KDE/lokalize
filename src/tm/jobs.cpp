@@ -986,11 +986,6 @@ OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const Con
     //qCDebug(LOKALIZE_LOG)<<"OpenDBJob ctor"<<m_dbName;
 }
 
-OpenDBJob::~OpenDBJob()
-{
-    //qCDebug(LOKALIZE_LOG)<<"OpenDBJob dtor"<<m_dbName;
-}
-
 void OpenDBJob::run()
 {
     QTime a; a.start();
@@ -1521,10 +1516,6 @@ ScanJob::ScanJob(const QString& filePath, const QString& dbName)
     , m_dbName(dbName)
 {
     qCDebug(LOKALIZE_LOG) << m_dbName << m_filePath;
-}
-
-ScanJob::~ScanJob()
-{
 }
 
 void ScanJob::run()

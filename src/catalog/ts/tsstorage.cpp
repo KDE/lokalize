@@ -61,10 +61,6 @@ TsStorage::TsStorage()
 {
 }
 
-TsStorage::~TsStorage()
-{
-}
-
 int TsStorage::capabilities() const
 {
     return 0;//MultipleNotes;

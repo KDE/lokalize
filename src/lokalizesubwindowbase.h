@@ -85,7 +85,7 @@ class LokalizeSubwindowBase2: public LokalizeSubwindowBase, public KXMLGUIClient
 {
 public:
     explicit LokalizeSubwindowBase2(QWidget* parent): LokalizeSubwindowBase(parent), KXMLGUIClient() {}
-    ~LokalizeSubwindowBase2() override {}
+    ~LokalizeSubwindowBase2() override = default;
 
     KXMLGUIClient* guiClient() override
     {
