@@ -28,10 +28,6 @@
 #include "lokalize_debug.h"
 #include "catalog/catalog.h"
 
-XliffExtractor::XliffExtractor()
-{
-}
-
 class XliffHandler: public QXmlDefaultHandler
 {
 public:
@@ -144,11 +140,12 @@ bool XliffHandler::characters(const QString& ch)
 }
 
 
-void XliffExtractor::extract(const QString& filePath, FileMetaData& m)
+FileMetaData XliffExtractor::extract(const QString& filePath)
 {
     QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return {};
+    }
 
     QXmlInputSource source(&file);
     QXmlSimpleReader xmlReader;
@@ -162,6 +159,7 @@ void XliffExtractor::extract(const QString& filePath, FileMetaData& m)
 
 
     //TODO WordCount
+    FileMetaData m;
     m.fuzzy      = handler.fuzzy;
     m.translated = handler.total - handler.untranslated - handler.fuzzy;
     m.untranslated = handler.untranslated;
@@ -177,4 +175,6 @@ void XliffExtractor::extract(const QString& filePath, FileMetaData& m)
 
     m.lastTranslator = handler.lastTranslator.length() ? handler.lastTranslator : handler.lastTranslator_fallback;
     m.translationDate = handler.lastDate.isValid() ? handler.lastDate.toString(Qt::ISODate) : handler.lastDateString_fallback;
+
+    return m;
 }

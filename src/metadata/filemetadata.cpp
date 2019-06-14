@@ -44,20 +44,18 @@ FileMetaData::FileMetaData()
 // static
 FileMetaData FileMetaData::extract(const QString &filePath)
 {
-    FileMetaData m;
-
     if (filePath.endsWith(QLatin1String(".po")) || filePath.endsWith(QLatin1String(".pot"))) {
         POExtractor extractor;
-        extractor.extract(filePath, m);
+        return extractor.extract(filePath);
     } else if (filePath.endsWith(QLatin1String(".xlf")) || filePath.endsWith(QLatin1String(".xliff"))) {
         XliffExtractor extractor;
-        extractor.extract(filePath, m);
+        return extractor.extract(filePath);
     } else if (filePath.endsWith(QLatin1String(".ts"))) {
         //POExtractor extractor;
         //extractor.extract(filePath, m);
     }
 
-    return m;
+    return {};
 }
 
 QDataStream &operator<<(QDataStream &s, const FileMetaData &d)

@@ -21,7 +21,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
 #include "poextractor.h"
 
 #include <fstream>
@@ -125,11 +124,11 @@ void POExtractor::handleLine(const char* data, uint32_t length)
 #endif
 }
 
-void POExtractor::extract(const QString& filePath, FileMetaData& m)
+FileMetaData POExtractor::extract(const QString& filePath)
 {
     std::ifstream fstream(QFile::encodeName(filePath));
     if (!fstream.is_open()) {
-        return;
+        return {};
     }
 
     state = WHITESPACE;
@@ -141,6 +140,7 @@ void POExtractor::extract(const QString& filePath, FileMetaData& m)
 
     std::string line;
     int lines = 0;
+    FileMetaData m;
     while (std::getline(fstream, line)) {
         //TODO add a parsed text of translation units
         //QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
@@ -189,4 +189,6 @@ void POExtractor::extract(const QString& filePath, FileMetaData& m)
     //TODO
     m.translated_approver = m.translated_reviewer = m.translated;
     m.fuzzy_approver = m.fuzzy_reviewer = m.fuzzy;
+
+    return m;
 }

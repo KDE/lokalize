@@ -32,7 +32,7 @@ class POExtractor
 
 public:
     POExtractor();
-    void extract(const QString& filePath, FileMetaData& data);
+    FileMetaData extract(const QString& filePath);
 
 private:
     void endMessage();
@@ -49,6 +49,5 @@ private:
     int fuzzy;
     bool isFuzzy, isTranslated;
 };
-
 
 #endif // PLAINTEXTEXTRACTOR_H

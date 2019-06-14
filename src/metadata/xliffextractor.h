@@ -20,7 +20,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
 #ifndef XLIFFEXTRACTOR_H
 #define XLIFFEXTRACTOR_H
 
@@ -30,9 +29,8 @@ class XliffExtractor
 {
 
 public:
-    XliffExtractor();
-    void extract(const QString& filePath, FileMetaData& data);
+    XliffExtractor() = default;
+    FileMetaData extract(const QString& filePath);
 };
-
 
 #endif // PLAINTEXTEXTRACTOR_H
