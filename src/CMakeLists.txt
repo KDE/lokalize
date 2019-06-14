@@ -198,7 +198,12 @@ install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES lokalize.notifyrc DESTINATION  ${KNOTIFYRC_INSTALL_DIR} )
-install( FILES lokalize.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
+
+if (${ECM_VERSION} STRGREATER "5.58.0")
+    install( FILES lokalize.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR} )
+else()
+    install( FILES lokalize.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
+endif()
 
 install( FILES
         editorui.rc
