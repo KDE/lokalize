@@ -27,9 +27,12 @@
 
 #include <QString>
 #include <QTextCodec>
+#include <QDateTime>
 
 int numberOfPluralFormsFromHeader(const QString& header);
 QString GNUPluralForms(const QString& lang);
+
+QString formatGettextDate(const QDateTime &dt);
 
 void updateHeader(QString& header,
                   QString& comment,
