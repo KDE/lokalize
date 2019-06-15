@@ -234,6 +234,17 @@ QString GNUPluralForms(const QString& lang)
     //END alternative
 }
 
+QString formatGettextDate(const QDateTime &dt)
+{
+    QLocale cLocale(QLocale::C);
+    QString dateTimeString = cLocale.toString(dt, QStringLiteral("yyyy-MM-dd HH:mm"));
+    const int offset_seconds = dt.offsetFromUtc();
+    const int offset_hours = abs(offset_seconds) / 3600;
+    const int offset_minutes = abs(offset_seconds % 3600) / 60;
+    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') % (offset_hours < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_hours) % (offset_minutes < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_minutes);
+
+    return dateTimeString % zoneOffsetString;
+}
 
 void updateHeader(QString& header,
                   QString& comment,
@@ -291,13 +302,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    QLocale cLocale(QLocale::C);
-    QString dateTimeString = cLocale.toString(QDateTime::currentDateTime(), QStringLiteral("yyyy-MM-dd hh:mm"));
-    const int offset_seconds = QDateTime::currentDateTime().offsetFromUtc();
-    const int offset_hours = abs(offset_seconds) / 3600;
-    const int offset_minutes = abs(offset_seconds % 3600) / 60;
-    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') % (offset_hours < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_hours) % (offset_minutes < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_minutes);
-    temp = QStringLiteral("PO-Revision-Date: ") % dateTimeString % zoneOffsetString % BACKSLASH_N;
+    temp = QStringLiteral("PO-Revision-Date: ") % formatGettextDate(QDateTime::currentDateTime()) % BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(poRevDate);
@@ -474,12 +479,14 @@ void updateHeader(QString& header,
 //END header itself
 
 //BEGIN comment = description, copyrights
+    QLocale cLocale(QLocale::C);
     // U+00A9 is the Copyright sign
     QRegExp fsfc(QStringLiteral("^# *Copyright (\\(C\\)|\\x00a9).*Free Software Foundation, Inc"));
     for (it = commentList.begin(), found = false; it != commentList.end() && !found; ++it) {
         found = it->contains(fsfc) ;
-        if (found)
+        if (found) {
             it->replace(QStringLiteral("YEAR"), cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")));
+        }
     }
     /*
                                     if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
