@@ -79,6 +79,7 @@ set(liblokalize_SRCS
     project/projectmodel.cpp
     project/projectwidget.cpp
     project/projecttab.cpp
+    project/updatestatsjob.cpp
     metadata/poextractor.cpp
     metadata/xliffextractor.cpp
 

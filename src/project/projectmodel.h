@@ -28,11 +28,10 @@
 #ifndef PROJECTMODEL_H
 #define PROJECTMODEL_H
 
-#include <kdirmodel.h>
-#include <kdirlister.h>
 #include <QHash>
 #include <QList>
-#include <QRunnable>
+
+#include <KDirModel>
 
 #include "project.h"
 #include "projectlocal.h"
@@ -252,32 +251,5 @@ private:
 
     bool m_completeScan;
 };
-
-
-
-class UpdateStatsJob: public QObject, public QRunnable
-{
-    Q_OBJECT
-public:
-    explicit UpdateStatsJob(const QList<KFileItem> &files, QObject* owner = nullptr);
-    ~UpdateStatsJob() override;
-    int priority()const
-    {
-        return 35;   //SEE jobs.h
-    }
-
-    void setStatus(int status);
-
-    QList<KFileItem> m_files;
-    QList<FileMetaData> m_info;
-    volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
-
-protected:
-    void run() override;
-
-signals:
-    void done(UpdateStatsJob*);
-};
-
 
 #endif
