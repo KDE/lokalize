@@ -48,6 +48,7 @@ struct FileMetaData {
     QString filePath;
 
     FileMetaData();
+    static FileMetaData extract(const QString &filePath);
 };
 
 QDataStream &operator<<(QDataStream &s, const FileMetaData &d);

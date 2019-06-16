@@ -27,6 +27,9 @@
 
 #include "filemetadata.h"
 
+#include "poextractor.h"
+#include "xliffextractor.h"
+
 FileMetaData::FileMetaData()
     : invalid_file(false)
     , translated(0)
@@ -37,6 +40,25 @@ FileMetaData::FileMetaData()
     , fuzzy_reviewer(0)
     , fuzzy_approver(0)
 {}
+
+// static
+FileMetaData FileMetaData::extract(const QString &filePath)
+{
+    FileMetaData m;
+
+    if (filePath.endsWith(QLatin1String(".po")) || filePath.endsWith(QLatin1String(".pot"))) {
+        POExtractor extractor;
+        extractor.extract(filePath, m);
+    } else if (filePath.endsWith(QLatin1String(".xlf")) || filePath.endsWith(QLatin1String(".xliff"))) {
+        XliffExtractor extractor;
+        extractor.extract(filePath, m);
+    } else if (filePath.endsWith(QLatin1String(".ts"))) {
+        //POExtractor extractor;
+        //extractor.extract(filePath, m);
+    }
+
+    return m;
+}
 
 QDataStream &operator<<(QDataStream &s, const FileMetaData &d)
 {

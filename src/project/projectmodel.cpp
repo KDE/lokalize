@@ -1277,25 +1277,6 @@ UpdateStatsJob::~UpdateStatsJob()
 {
 }
 
-static FileMetaData metaData(QString filePath)
-{
-    FileMetaData m;
-
-    if (filePath.endsWith(QLatin1String(".po")) || filePath.endsWith(QLatin1String(".pot"))) {
-        POExtractor extractor;
-        extractor.extract(filePath, m);
-    } else if (filePath.endsWith(QLatin1String(".xlf")) || filePath.endsWith(QLatin1String(".xliff"))) {
-        XliffExtractor extractor;
-        extractor.extract(filePath, m);
-    } else if (filePath.endsWith(QLatin1String(".ts"))) {
-        //POExtractor extractor;
-        //extractor.extract(filePath, m);
-    }
-
-
-    return m;
-}
-
 //#define NOMETAINFOCACHE
 #ifndef NOMETAINFOCACHE
 static void initDataBase(QSqlDatabase& db)
@@ -1319,19 +1300,19 @@ static FileMetaData cachedMetaData(const KFileItem& file)
     if (file.isNull() || file.isDir())
         return FileMetaData();
 #ifdef NOMETAINFOCACHE
-    return metaData(file.localPath());
+    return FileMetaData::extract(file.localPath());
 #else
     QString dbName = QStringLiteral("metainfocache");
     if (!QSqlDatabase::contains(dbName)) {
         QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), dbName);
         db.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % dbName % QLatin1String(".sqlite"));
         if (Q_UNLIKELY(!db.open()))
-            return metaData(file.localPath());
+            return FileMetaData::extract(file.localPath());
         initDataBase(db);
     }
     QSqlDatabase db = QSqlDatabase::database(dbName);
     if (!db.isOpen())
-        return metaData(file.localPath());
+        return FileMetaData::extract(file.localPath());
 
     QByteArray result;
 
@@ -1346,11 +1327,11 @@ static FileMetaData cachedMetaData(const KFileItem& file)
 
         FileMetaData info;
         stream >> info;
-        Q_ASSERT(info.translated == metaData(file.localPath()).translated);
+        Q_ASSERT(info.translated == FileMetaData::extract(file.localPath()).translated);
         return info;
     }
 
-    FileMetaData m = metaData(file.localPath());
+    FileMetaData m = FileMetaData::extract(file.localPath());
 
     QDataStream stream(&result, QIODevice::WriteOnly);
     //this is synced with ProjectModel::ProjectNode::setFileStats
