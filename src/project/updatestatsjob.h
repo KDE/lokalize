@@ -25,33 +25,38 @@
 
 **************************************************************************** */
 
-#ifndef LOKALIZE_FILEMETADATA_H
-#define LOKALIZE_FILEMETADATA_H
+#ifndef LOKALIZE_UPDATESTATSJOB_H
+#define LOKALIZE_UPDATESTATSJOB_H
 
-#include <QString>
-#include <QDataStream>
+#include <QRunnable>
 
-struct FileMetaData {
-    bool invalid_file;
-    int translated;
-    int translated_reviewer;
-    int translated_approver;
-    int untranslated;
-    int fuzzy;
-    int fuzzy_reviewer;
-    int fuzzy_approver;
+#include <KFileItem>
 
-    QString lastTranslator;
-    QString sourceDate;
-    QString translationDate;
+#include "metadata/filemetadata.h"
 
-    QString filePath;
+class UpdateStatsJob: public QObject, public QRunnable
+{
+    Q_OBJECT
 
-    FileMetaData();
-    static FileMetaData extract(const QString &filePath);
+public:
+    explicit UpdateStatsJob(const QList<KFileItem> &files, QObject* owner = nullptr);
+    ~UpdateStatsJob() override;
+    int priority()const
+    {
+        return 35;   //SEE jobs.h
+    }
+
+    void setStatus(int status);
+
+    QList<KFileItem> m_files;
+    QList<FileMetaData> m_info;
+    volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
+
+protected:
+    void run() override;
+
+signals:
+    void done(UpdateStatsJob*);
 };
 
-QDataStream &operator<<(QDataStream &s, const FileMetaData &d);
-QDataStream &operator>>(QDataStream &s, FileMetaData &d);
-
-#endif //LOKALIZE_FILEMETADATA_H
+#endif //LOKALIZE_UPDATESTATSJOB_H
