@@ -51,6 +51,6 @@ void GettextHeaderTest::testFormatDate()
         QDateTime(QDate(2018, 8, 3), QTime(7, 31, 32), QTimeZone("Asia/Calcutta"))), "2018-08-03 07:31+0530");
 }
 
-QTEST_MAIN(GettextHeaderTest)
+QTEST_GUILESS_MAIN(GettextHeaderTest)
 
 #include "gettextheadertest.moc"
