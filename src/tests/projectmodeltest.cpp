@@ -104,6 +104,6 @@ void ProjectModelTest::testHalfTranslated()
     QCOMPARE(model->data(model->index(0, 9), Qt::DisplayRole), QStringLiteral("Alexander Potashev <aspotashev@gmail.com>"));
 }
 
-QTEST_MAIN(ProjectModelTest)
+QTEST_GUILESS_MAIN(ProjectModelTest)
 
 #include "projectmodeltest.moc"
