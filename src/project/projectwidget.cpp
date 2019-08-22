@@ -395,10 +395,10 @@ void ProjectWidget::recursiveAdd(QStringList& list, const QModelIndex& idx) cons
     if (item.isDir()) {
         int j = model.rowCount(idx);
         while (--j >= 0) {
-            const KFileItem& childItem(model.itemForIndex(idx.child(j, 0)));
+            const KFileItem& childItem(model.itemForIndex(model.index(j, 0, idx)));
 
             if (childItem.isDir())
-                recursiveAdd(list, idx.child(j, 0));
+                recursiveAdd(list, model.index(j, 0, idx));
             else if (m_proxyModel->filterAcceptsRow(j, idx))
                 list.prepend(childItem.localPath());
         }

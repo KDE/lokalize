@@ -194,7 +194,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
             while (--k >= 0)
                 scores << calcMatchItem(i, DocPosition(entries.at(k)));
 
-            qSort(scores.begin(), scores.end(), qGreater<MatchItem>());
+            std::sort(scores.begin(), scores.end(), qGreater<MatchItem>());
 
             m_map[i.entry] = scores.first().mergeEntry;
             backMap.insert(scores.first().mergeEntry, i.entry);
@@ -219,7 +219,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
         foreach (int value, basePositions)
             scores << calcMatchItem(DocPosition(value), mergePosition);
 
-        qSort(scores.begin(), scores.end(), qGreater<MatchItem>());
+        std::sort(scores.begin(), scores.end(), qGreater<MatchItem>());
         int i = scores.size();
         while (--i > 0) {
             //qCDebug(LOKALIZE_LOG)<<"erasing"<<scores.at(i).baseEntry<<m_map[scores.at(i).baseEntry]<<",m_map["<<scores.at(i).baseEntry<<"]=-1";

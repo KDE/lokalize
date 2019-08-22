@@ -38,7 +38,6 @@
 #include <QStringBuilder>
 #include <QDragEnterEvent>
 #include <QMimeData>
-#include <QSignalMapper>
 #include <QFileInfo>
 #include <QDir>
 #include <QToolTip>
@@ -75,13 +74,10 @@ void AltTransView::initLater()
     m_everShown = group.readEntry("EverShown", false);
 
 
-    QSignalMapper* signalMapper = new QSignalMapper(this);
     int i = m_actions.size();
     while (--i >= 0) {
-        connect(m_actions.at(i), &QAction::triggered, signalMapper, QOverload<>::of(&QSignalMapper::map));
-        signalMapper->setMapping(m_actions.at(i), i);
+        connect(m_actions.at(i), &QAction::triggered, this, [this, i] { slotUseSuggestion(i); });
     }
-    connect(signalMapper, QOverload<int>::of(&QSignalMapper::mapped), this, &AltTransView::slotUseSuggestion);
 
     connect(m_browser, &TM::TextBrowser::textInsertRequested, this, &AltTransView::textInsertRequested);
     //connect(m_browser, &TM::TextBrowser::customContextMenuRequested, this, &AltTransView::contextMenu);

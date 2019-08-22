@@ -781,7 +781,7 @@ QVector<Note> XliffStorage::notes(const DocPosition& pos) const
         result.append(note);
         elem = elem.nextSiblingElement(NOTE);
     }
-    qSort(result);
+    std::sort(result.begin(), result.end());
     return result.toVector();
 }
 

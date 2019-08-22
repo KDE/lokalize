@@ -399,7 +399,7 @@ void ProjectModel::po_rowsRemoved(const QModelIndex& po_parent, int start, int e
     endRemoveRows(); //< fires removed event - the list has to be consistent now
 
     //add back rows that have POT files and fix row order
-    qSort(potRowsToInsert.begin(), potRowsToInsert.end());
+    std::sort(potRowsToInsert.begin(), potRowsToInsert.end());
 
     int insertionPoint = node->poCount;
 

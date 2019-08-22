@@ -46,7 +46,6 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QDir>
-#include <QSignalMapper>
 #include <QTimer>
 #include <QToolTip>
 #include <QMenu>
@@ -169,21 +168,15 @@ void TMView::initLater()
 {
     setAcceptDrops(true);
 
-    QSignalMapper* signalMapper_insert = new QSignalMapper(this);
-    QSignalMapper* signalMapper_remove = new QSignalMapper(this);
     int i = m_actions_insert.size();
     while (--i >= 0) {
-        connect(m_actions_insert.at(i), &QAction::triggered, signalMapper_insert, QOverload<>::of(&QSignalMapper::map));
-        signalMapper_insert->setMapping(m_actions_insert.at(i), i);
+        connect(m_actions_insert.at(i), &QAction::triggered, this, [this, i] { slotUseSuggestion(i); });
     }
 
     i = m_actions_remove.size();
     while (--i >= 0) {
-        connect(m_actions_remove.at(i), &QAction::triggered, signalMapper_remove, QOverload<>::of(&QSignalMapper::map));
-        signalMapper_remove->setMapping(m_actions_remove.at(i), i);
+        connect(m_actions_remove.at(i), &QAction::triggered, this, [this, i] { slotRemoveSuggestion(i); });
     }
-    connect(signalMapper_insert, QOverload<int>::of(&QSignalMapper::mapped), this, &TMView::slotUseSuggestion);
-    connect(signalMapper_remove, QOverload<int>::of(&QSignalMapper::mapped), this, &TMView::slotRemoveSuggestion);
 
     setToolTip(i18nc("@info:tooltip", "Double-click any word to insert it into translation"));
 
@@ -409,7 +402,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     //check if this is an additional query, from secondary DBs
     if (job.m_dbName != projectID) {
         job.m_entries += m_entries;
-        qSort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
+        std::sort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
         const int limit = qMin(Settings::suggCount(), job.m_entries.size());
         const int minScore = Settings::suggScore() * 100;
         int i = job.m_entries.size() - 1;

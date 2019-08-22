@@ -308,7 +308,7 @@ QByteArray Glossary::generateNewId()
     }
 
     if (!busyIdNumbers.isEmpty()) {
-        qSort(busyIdNumbers);
+        std::sort(busyIdNumbers.begin(), busyIdNumbers.end());
         while (busyIdNumbers.contains(idNumber))
             ++idNumber;
     }

@@ -281,7 +281,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
     QList<InlineTag> oldTags = target.tags;
     target.tags.clear();
     //we actually walking from beginning to end:
-    qSort(oldTags.begin(), oldTags.end(), qGreater<InlineTag>());
+    std::sort(oldTags.begin(), oldTags.end(), qGreater<InlineTag>());
     i = oldTags.size();
     while (--i >= 0) {
         const InlineTag& targetTag = oldTags.at(i);
@@ -304,7 +304,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             QList<InlineTag> possibleRefMatches;
             foreach (int i, tagType2tagIndex.values(targetTag.type))
                 possibleRefMatches << ref.tags.at(i);
-            qSort(possibleRefMatches);
+            std::sort(possibleRefMatches.begin(), possibleRefMatches.end());
             qCWarning(LOKALIZE_LOG) << "setting id:" << targetTag.id << possibleRefMatches.first().id;
             targetTag.id = possibleRefMatches.first().id;
 

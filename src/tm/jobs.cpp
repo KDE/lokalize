@@ -1467,7 +1467,7 @@ void SelectJob::run()
         emit done(this);
         return;
     }
-    qSort(words);//to speed up if some words occur multiple times
+    std::sort(words.begin(), words.end());//to speed up if some words occur multiple times
 
     bool isShort = words.size() < 20;
 
@@ -1475,7 +1475,7 @@ void SelectJob::run()
         doSelect(db, words, !isShort);
 
     //qCWarning(LOKALIZE_LOG) <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
-    qSort(m_entries.begin(), m_entries.end(), qGreater<TMEntry>());
+    std::sort(m_entries.begin(), m_entries.end(), qGreater<TMEntry>());
     const int limit = qMin(Settings::suggCount(), m_entries.size());
     const int minScore = Settings::suggScore() * 100;
     int i = m_entries.size() - 1;
