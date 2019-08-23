@@ -48,7 +48,7 @@ void GettextHeaderTest::testFormatDate()
     QCOMPARE(formatGettextDate(
         QDateTime(QDate(2018, 8, 3), QTime(7, 31, 32), QTimeZone(14 * 3600))), "2018-08-03 07:31+1400");
     QCOMPARE(formatGettextDate(
-        QDateTime(QDate(2018, 8, 3), QTime(7, 31, 32), QTimeZone("Asia/Calcutta"))), "2018-08-03 07:31+0530");
+        QDateTime(QDate(2018, 8, 3), QTime(7, 31, 32), QTimeZone("Asia/Kolkata"))), "2018-08-03 07:31+0530");
 }
 
 QTEST_GUILESS_MAIN(GettextHeaderTest)
