@@ -57,6 +57,7 @@ public:
 
 public slots:
     void scanJobFinished(ScanJobFeedingBack*);
+    void scanJobDestroyed();
 protected:
     bool doKill() override;
 
@@ -64,6 +65,7 @@ private:
     QString m_dbName;
     QTime m_time;
     QVector<ScanJob*> m_jobs;
+    qulonglong m_destroyedJobs = 0;
 };
 }
 

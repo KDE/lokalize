@@ -73,7 +73,6 @@ void RecursiveScanJob::setJobs(const QVector<ScanJob*>& jobs)
 
 void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 {
-    j->deleteLater();
     ScanJob* job = static_cast<ScanJob*>(j);
 
     setProcessedAmount(KJob::Files, processedAmount(KJob::Files) + 1);
@@ -81,11 +80,13 @@ void RecursiveScanJob::scanJobFinished(ScanJobFeedingBack* j)
 
     setProcessedAmount(KJob::Bytes, processedAmount(KJob::Bytes) + job->m_size);
     if (m_time.elapsed()) emitSpeed(1000 * processedAmount(KJob::Bytes) / m_time.elapsed());
+}
 
-
-    if (processedAmount(KJob::Files) == totalAmount(KJob::Files)) {
+void RecursiveScanJob::scanJobDestroyed()
+{
+    m_destroyedJobs += 1;
+    if (m_destroyedJobs == totalAmount(KJob::Files)) {
         emitResult();
-        qCDebug(LOKALIZE_LOG) << "finished in" << m_time.elapsed() << "msecs";
     }
 }
 
@@ -114,6 +115,7 @@ int TM::scanRecursive(const QStringList& filePaths, const QString& dbName)
         if (Catalog::extIsSupported(filePath)) {
             ScanJobFeedingBack* job = new ScanJobFeedingBack(filePath, dbName);
             QObject::connect(job, &ScanJobFeedingBack::done, metaJob, &RecursiveScanJob::scanJobFinished);
+            QObject::connect(job, &QObject::destroyed, metaJob, &RecursiveScanJob::scanJobDestroyed);
             TM::threadPool()->start(job, SCAN);
             result.append(job);
         } else
