@@ -174,6 +174,8 @@ void AltTransView::process()
     }
 
     CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
+    QString context = m_catalog->context(m_entry.toDocPosition()).first();
+    QString contextWithNewline = context + (context.isEmpty() ? "" : "\n");
 
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());
@@ -190,7 +192,7 @@ void AltTransView::process()
         if (!entry.source.isEmpty()) {
             html += QStringLiteral("<p>");
 
-            QString result = userVisibleWordDiff(entry.source.string, source.string, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
+            QString result = userVisibleWordDiff(entry.source.string, contextWithNewline + source.string, Project::instance()->accel(), Project::instance()->markup()).toHtmlEscaped();
             //result.replace("&","&amp;");
             //result.replace("<","&lt;");
             //result.replace(">","&gt;");
