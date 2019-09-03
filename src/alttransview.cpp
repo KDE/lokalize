@@ -200,7 +200,7 @@ void AltTransView::process()
             result.replace(QStringLiteral("{/KBABELADD}"), QStringLiteral("</font>"));
             result.replace(QStringLiteral("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") % Settings::delColor().name() % QStringLiteral(";color:black\">"));
             result.replace(QStringLiteral("{/KBABELDEL}"), QStringLiteral("</font>"));
-            result.replace(QStringLiteral("\\n"), QStringLiteral("\\n<br><br>"));
+            result.replace(QStringLiteral("\\n"), QStringLiteral("\\n<br>"));
 
             html += result;
             html += QStringLiteral("<br>");
