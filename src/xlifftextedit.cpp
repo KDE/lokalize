@@ -983,7 +983,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 return;
             }
         }
-        if (textCursor().hasSelection()) {
+        if (textCursor().hasSelection() && m_part == DocPosition::Target) {
             QMenu menu;
             menu.addAction(i18nc("@action:inmenu", "Lookup selected text in translation memory"));
             if (menu.exec(event->globalPos()))
@@ -991,7 +991,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             return;
         }
 
-        if (m_part != DocPosition::Target)
+        if (m_part != DocPosition::Source && m_part != DocPosition::Target)
             return;
 
         KTextEdit::contextMenuEvent(event);
