@@ -54,6 +54,7 @@ public:
     PoItemDelegate(QObject *parent = 0);
     ~PoItemDelegate() {}
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QString displayText(const QVariant & value, const QLocale & locale) const override;
     QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 private:
     KColorScheme m_colorScheme;
@@ -127,6 +128,11 @@ void PoItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->fillRect(option.rect, QBrush(Qt::gray));
 }
 
+// Temporary workaround for Qt bug https://bugreports.qt.io/browse/QTBUG-78094
+// to ensure that large numbers are formatted using a thousands separator
+QString PoItemDelegate::displayText(const QVariant & value, const QLocale & locale) const {
+    return QStyledItemDelegate::displayText(value, QLocale::system());
+}
 
 
 
