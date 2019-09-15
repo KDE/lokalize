@@ -378,8 +378,10 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     bool hasUi = !result.isEmpty();
     static const QRegExp cpp_re(QStringLiteral("^#: "));
     foreach (const QString &cppLine, commentLines.filter(cpp_re)) {
-        if (hasUi && cppLine.startsWith(QLatin1String("#: rc.cpp"))) continue;
         foreach (const QStringRef &fileRef, cppLine.midRef(3).split(' ')) {
+            if (hasUi && fileRef.startsWith(QLatin1String("rc.cpp:"))) {
+                continue;
+            }
             result << fileRef.toString();
         }
     }
