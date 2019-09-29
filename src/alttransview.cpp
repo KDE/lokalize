@@ -124,7 +124,7 @@ void AltTransView::fileLoaded()
 {
     m_prevEntry.entry = -1;
     QString absPath = m_catalog->url();
-    QString relPath = QDir(Project::instance()->projectDir()).relativeFilePath(absPath);
+    QString relPath = QDir(Project::instance()->poDir()).relativeFilePath(absPath);
 
     QFileInfo info(Project::instance()->altTransDir() % '/' % relPath);
     if (info.canonicalFilePath() != absPath && info.exists())
