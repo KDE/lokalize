@@ -44,16 +44,8 @@ struct Phase {
 
     Phase();
 
-    Phase(const Phase& rhs)
-        : name(rhs.name)
-        , process(rhs.process)
-        , company(rhs.company)
-        , date(rhs.date)
-        , contact(rhs.contact)
-        , email(rhs.email)
-        , phone(rhs.phone)
-        , tool(rhs.tool)
-    {}
+    Phase(const Phase& rhs) = default;
+    Phase &operator=(const Phase& rhs) = default;
 
     bool operator<(const Phase& other) const
     {
