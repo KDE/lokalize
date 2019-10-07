@@ -1105,7 +1105,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             tip += langCode;
             if (l.language() != QLocale::C) tip += ')';
             if (nospell)
-                tip += QLatin1String(" - ") % i18n("no spellcheck available");
+                tip += QLatin1String(" - ") + i18n("no spellcheck available");
             QToolTip::showText(helpEvent->globalPos(), tip);
         }
         return KTextEdit::event(event);
@@ -1212,13 +1212,13 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 out = '\n';
             out += QLatin1String("<othercredit role=\\\"translator\\\">\n"
                                  "<firstname></firstname><surname></surname>\n"
-                                 "<affiliation><address><email>") % Settings::authorEmail() % QLatin1String("</email></address>\n"
+                                 "<affiliation><address><email>") + Settings::authorEmail() + QLatin1String("</email></address>\n"
                                          "</affiliation><contrib></contrib></othercredit>");
         } else if (text.startsWith(QLatin1String("CREDIT_FOR_TRANSLATORS"))) {
             if (!document()->isEmpty())
                 out = '\n';
-            out += QLatin1String("<para>") % Settings::authorLocalizedName() % '\n' %
-                   QLatin1String("<email>") % Settings::authorEmail() % QLatin1String("</email></para>");
+            out += QLatin1String("<para>") + Settings::authorLocalizedName() + '\n' +
+                   QLatin1String("<email>") + Settings::authorEmail() + QLatin1String("</email></para>");
         }
         //END KDE specific part
 

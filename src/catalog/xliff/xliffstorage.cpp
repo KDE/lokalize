@@ -743,7 +743,7 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
                 else if (contextType == QLatin1String("linenumber"))
                     linenumber = context.text();
                 if (!(sourcefile.isEmpty() && linenumber.isEmpty()))
-                    result.append(sourcefile % ':' % linenumber);
+                    result.append(sourcefile + ':' + linenumber);
 
                 context = context.nextSiblingElement(QStringLiteral("context"));
             }

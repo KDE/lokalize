@@ -124,7 +124,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     m_filterEdit->setClearButtonEnabled(true);
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
-    m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") % ' ' % i18nc("@info:tooltip", "Accepts regular expressions"));
+    m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + ' ' + i18nc("@info:tooltip", "Accepts regular expressions"));
     connect(m_filterEdit, &QLineEdit::textChanged, this, &ProjectTab::setFilterRegExp, Qt::QueuedConnection);
     new QShortcut(Qt::CTRL + Qt::Key_L, this, SLOT(setFocus()), 0, Qt::WidgetWithChildrenShortcut);
 

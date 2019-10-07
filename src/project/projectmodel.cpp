@@ -955,7 +955,7 @@ QUrl ProjectModel::poToPot(const QUrl& poPath) const
         pathToAdd += 't';
 
     QUrl potPath = m_potUrl;
-    potPath.setPath(potPath.path() % '/' % pathToAdd);
+    potPath.setPath(potPath.path() + '/' + pathToAdd);
 
     //qCDebug(LOKALIZE_LOG) << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;
@@ -975,7 +975,7 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
         pathToAdd = pathToAdd.left(pathToAdd.length() - 1);
 
     QUrl poPath = m_poUrl;
-    poPath.setPath(poPath.path() % '/' % pathToAdd);
+    poPath.setPath(poPath.path() + '/' + pathToAdd);
 
     //qCDebug(LOKALIZE_LOG) << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;

@@ -361,7 +361,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //i tried that but it failed:
     if (!markup.isEmpty())
         markup += '|';
-    QRegExp rxSplit('(' % markup % QLatin1String("\\W+|\\d+)+"));
+    QRegExp rxSplit('(' + markup + QLatin1String("\\W+|\\d+)+"));
 
     main = str.split(rxSplit, QString::SkipEmptyParts);
     main.prepend("\t");//little hack
@@ -424,9 +424,9 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     res.remove(QStringLiteral("{/KBABELDEL}{KBABELDEL}"));
 
     if (options & Html) {
-        res.replace(QLatin1String("{KBABELADD}"), QLatin1String("<font style=\"background-color:") % Settings::addColor().name() % QLatin1String(";color:black\">"));
+        res.replace(QLatin1String("{KBABELADD}"), QLatin1String("<font style=\"background-color:") + Settings::addColor().name() + QLatin1String(";color:black\">"));
         res.replace(QLatin1String("{/KBABELADD}"), QLatin1String("</font>"));
-        res.replace(QLatin1String("{KBABELDEL}"), QLatin1String("<font style=\"background-color:") % Settings::delColor().name() % QLatin1String(";color:black\">"));
+        res.replace(QLatin1String("{KBABELDEL}"), QLatin1String("<font style=\"background-color:") + Settings::delColor().name() + QLatin1String(";color:black\">"));
         res.replace(QLatin1String("{/KBABELDEL}"), QLatin1String("</font>"));
         res.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
     }

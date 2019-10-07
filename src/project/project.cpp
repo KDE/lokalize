@@ -231,7 +231,7 @@ void Project::reinit()
 QString Project::absolutePath(const QString& possiblyRelPath) const
 {
     if (QFileInfo(possiblyRelPath).isRelative())
-        return QDir::cleanPath(m_projectDir % QLatin1Char('/') % possiblyRelPath);
+        return QDir::cleanPath(m_projectDir + QLatin1Char('/') + possiblyRelPath);
     return possiblyRelPath;
 }
 
@@ -482,7 +482,7 @@ void Project::projectOdfCreate()
     fi.absoluteDir().mkdir(trFolderName);
 
     QStringList args(odfPath);
-    args.append(fi.absoluteDir().absoluteFilePath(trFolderName) % '/' % fi.baseName() % QLatin1String(".xlf"));
+    args.append(fi.absoluteDir().absoluteFilePath(trFolderName) + '/' + fi.baseName() + QLatin1String(".xlf"));
     qCDebug(LOKALIZE_LOG) << args;
     QProcess::execute(odf2xliff, args);
 
@@ -491,7 +491,7 @@ void Project::projectOdfCreate()
 
     emit closed();
 
-    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1String("/index.lokalize"), targetLangCode, fi.baseName() % '-' % targetLangCode);
+    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1String("/index.lokalize"), targetLangCode, fi.baseName() + '-' + targetLangCode);
 
     emit fileOpenRequested(args.at(1), true);
 }

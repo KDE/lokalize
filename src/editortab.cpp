@@ -1416,7 +1416,7 @@ void EditorTab::displayWordCount()
     //TODO in trans and fuzzy separately
     int sourceCount = 0;
     int targetCount = 0;
-    QRegExp rxClean(Project::instance()->markup() % '|' % Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
+    QRegExp rxClean(Project::instance()->markup() + '|' + Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
     QRegExp rxSplit(QStringLiteral("\\W|\\d"));//splitting regexp
     DocPosition pos(0);
     do {
@@ -1621,7 +1621,7 @@ void EditorTab::mergeIntoOpenDocument()
     QString targetLangCode = m_catalog->targetLangCode();
 
     QStringList args(m_catalog->url());
-    args.append(xliffFolder % '/' % originalOdfFileInfo.baseName() % '-' % targetLangCode % '.' % originalOdfFileInfo.suffix());
+    args.append(xliffFolder + '/' + originalOdfFileInfo.baseName() + '-' + targetLangCode + '.' + originalOdfFileInfo.suffix());
     args.append(QStringLiteral("-t"));
     args.append(originalOdfFilePath);
     qCDebug(LOKALIZE_LOG) << args;

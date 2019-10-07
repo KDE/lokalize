@@ -478,9 +478,9 @@ void TMView::slotSuggestionsCame(SelectJob* j)
         //result.replace("&","&amp;");
         //result.replace("<","&lt;");
         //result.replace(">","&gt;");
-        result.replace(QLatin1String("{KBABELADD}"), QStringLiteral("<font style=\"background-color:") % Settings::addColor().name() % QStringLiteral(";color:black\">"));
+        result.replace(QLatin1String("{KBABELADD}"), QStringLiteral("<font style=\"background-color:") + Settings::addColor().name() + QStringLiteral(";color:black\">"));
         result.replace(QLatin1String("{/KBABELADD}"), QLatin1String("</font>"));
-        result.replace(QLatin1String("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") % Settings::delColor().name() % QStringLiteral(";color:black\">"));
+        result.replace(QLatin1String("{KBABELDEL}"), QStringLiteral("<font style=\"background-color:") + Settings::delColor().name() + QStringLiteral(";color:black\">"));
         result.replace(QLatin1String("{/KBABELDEL}"), QLatin1String("</font>"));
         result.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
         result.replace(QLatin1String("\\n"), QLatin1String("\\n<br>"));
@@ -687,18 +687,18 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     //QString english=entry.english;
 
 
-    QRegExp rxAdd(QLatin1String("<font style=\"background-color:[^>]*") % Settings::addColor().name() % QLatin1String("[^>]*\">([^>]*)</font>"));
-    QRegExp rxDel(QLatin1String("<font style=\"background-color:[^>]*") % Settings::delColor().name() % QLatin1String("[^>]*\">([^>]*)</font>"));
+    QRegExp rxAdd(QLatin1String("<font style=\"background-color:[^>]*") + Settings::addColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
+    QRegExp rxDel(QLatin1String("<font style=\"background-color:[^>]*") + Settings::delColor().name() + QLatin1String("[^>]*\">([^>]*)</font>"));
     //rxAdd.setMinimal(true);
     //rxDel.setMinimal(true);
 
     //first things first
     int pos = 0;
     while ((pos = rxDel.indexIn(diff, pos)) != -1)
-        diff.replace(pos, rxDel.matchedLength(), "\tKBABELDEL\t" % rxDel.cap(1) % "\t/KBABELDEL\t");
+        diff.replace(pos, rxDel.matchedLength(), "\tKBABELDEL\t" + rxDel.cap(1) + "\t/KBABELDEL\t");
     pos = 0;
     while ((pos = rxAdd.indexIn(diff, pos)) != -1)
-        diff.replace(pos, rxAdd.matchedLength(), "\tKBABELADD\t" % rxAdd.cap(1) % "\t/KBABELADD\t");
+        diff.replace(pos, rxAdd.matchedLength(), "\tKBABELADD\t" + rxAdd.cap(1) + "\t/KBABELADD\t");
 
     diff.replace(QStringLiteral("&lt;"), QStringLiteral("<"));
     diff.replace(QStringLiteral("&gt;"), QStringLiteral(">"));
@@ -768,7 +768,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 //BEGIN BEGIN HANDLING
     QRegExp rxNonTranslatable;
     if (tryMarkup)
-        rxNonTranslatable.setPattern(QStringLiteral("^((") % entry.markupExpr % QStringLiteral(")|(\\W|\\d)+)+"));
+        rxNonTranslatable.setPattern(QStringLiteral("^((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("^(\\W|\\d)+"));
 
@@ -839,7 +839,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
 //END BEGIN HANDLING
 //BEGIN END HANDLING
     if (tryMarkup)
-        rxNonTranslatable.setPattern(QStringLiteral("((") % entry.markupExpr % QStringLiteral(")|(\\W|\\d)+)+$"));
+        rxNonTranslatable.setPattern(QStringLiteral("((") + entry.markupExpr + QStringLiteral(")|(\\W|\\d)+)+$"));
     else
         rxNonTranslatable.setPattern(QStringLiteral("(\\W|\\d)+$"));
 

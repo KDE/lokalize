@@ -195,7 +195,7 @@ void DBPropertiesDialog::accept()
         return;
 
     if (connectionBox->isVisible()) {
-        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) % QLatin1Char('/') % name->text() % REMOTETM_DATABASE_EXTENSION);
+        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + name->text() + REMOTETM_DATABASE_EXTENSION);
         if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
             return;
 

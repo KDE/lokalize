@@ -37,7 +37,7 @@ QString escapeWithLinks(const QString& text)
     while (i.hasNext()) {
         QRegularExpressionMatch match = i.next();
         QString word = match.captured(0);
-        html += QStringLiteral("<a href=\"") % word.toHtmlEscaped() % QStringLiteral("\">") % word.toHtmlEscaped() % QStringLiteral("</a>");
+        html += QStringLiteral("<a href=\"") + word.toHtmlEscaped() + QStringLiteral("\">") + word.toHtmlEscaped() + QStringLiteral("</a>");
         if (parts.size()) html += parts.takeFirst().toHtmlEscaped();
     }
     return html;

@@ -416,7 +416,7 @@ QVariant FileSearchModel::data(const QModelIndex& item, int role) const
 void FileSearchModel::setReplacePreview(const QRegExp& s, const QString& r)
 {
     m_replaceWhat = s;
-    m_replaceWith = QLatin1String("_ST_") % r % QLatin1String("_END_");
+    m_replaceWith = QLatin1String("_ST_") + r + QLatin1String("_END_");
 
     emit dataChanged(index(0, Target), index(rowCount() - 1, Target));
 }

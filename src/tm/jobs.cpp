@@ -119,11 +119,11 @@ static qlonglong getFileId(const QString& path,
     QString escapedPath = path;
     escapedPath.replace(QLatin1Char('\''), QLatin1String("''"));
 
-    QString pathExpr = QStringLiteral("path='") % escapedPath % '\'';
+    QString pathExpr = QStringLiteral("path='") + escapedPath + '\'';
     if (path.isEmpty())
         pathExpr = QStringLiteral("path ISNULL");
     if (Q_UNLIKELY(!query1.exec(U("SELECT id FROM files WHERE "
-                                  "path='") % escapedPath % '\'')))
+                                  "path='") + escapedPath + '\'')))
         qCWarning(LOKALIZE_LOG) << "select db error: " << query1.lastError().text();
 
     if (Q_LIKELY(query1.next())) {
@@ -172,7 +172,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
     while (--j >= 0) {
         // insert word (if we do not have it)
         if (Q_UNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE "
-                                      "word='") % words.at(j) % '\'')))
+                                      "word='") + words.at(j) + '\'')))
             qCWarning(LOKALIZE_LOG) << "select error 3: " << query1.lastError().text();
 
         //we _have_ it
@@ -191,13 +191,13 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
             }
             query1.clear();
 
-            if (arr.contains(' ' % sourceIdStr % ' ')
+            if (arr.contains(' ' + sourceIdStr + ' ')
                 || arr.startsWith(sourceIdStr + ' ')
                 || arr.endsWith(' ' + sourceIdStr)
                 || arr == sourceIdStr)
                 return;//this string is already indexed
 
-            query1.prepare(QStringLiteral("UPDATE words SET ") % field % QStringLiteral("=? WHERE word='") % words.at(j) % '\'');
+            query1.prepare(QStringLiteral("UPDATE words SET ") + field + QStringLiteral("=? WHERE word='") + words.at(j) + '\'');
 
             if (!arr.isEmpty())
                 arr += ' ';
@@ -245,10 +245,10 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
 //BEGIN check
     //TM_NOTAPPROVED=4
     if (Q_UNLIKELY(!query1.exec(U("SELECT count(*) FROM main, target_strings WHERE "
-                                  "main.source=") % QString::number(sourceId) % U(" AND "
+                                  "main.source=") + QString::number(sourceId) + U(" AND "
                                           "main.target=target_strings.id AND "
                                           "target_strings.target NOTNULL AND "
-                                          "main.id!=") % QString::number(mainId) % U(" AND "
+                                          "main.id!=") + QString::number(mainId) + U(" AND "
                                                   "(main.bits&4)!=4")))) {
         qCWarning(LOKALIZE_LOG) << "select error 500: " << query1.lastError().text();
         return;
@@ -265,7 +265,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     while (--j >= 0) {
         // remove from record for the word (if we do not have it)
         if (Q_UNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE "
-                                      "word='") % words.at(j) % '\''))) {
+                                      "word='") + words.at(j) + '\''))) {
             qCWarning(LOKALIZE_LOG) << "select error 3: " << query1.lastError().text();
             return;
         }
@@ -298,8 +298,8 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
 
 
         query1.prepare(U("UPDATE words "
-                         "SET ") % field % U("=? "
-                                             "WHERE word='") % words.at(j) % '\'');
+                         "SET ") + field + U("=? "
+                                             "WHERE word='") + words.at(j) + '\'');
 
         query1.bindValue(0, arr);
 
@@ -502,7 +502,7 @@ static bool doInsertEntry(CatalogString source,
 
     if (Q_UNLIKELY(!query1.exec(QString(U("SELECT id, target, bits FROM main WHERE "
                                           "source=%1 AND file=%2 AND ctxt%3")).arg(sourceId).arg(fileId).arg
-                                (escapedCtxt.isEmpty() ? QStringLiteral(" ISNULL") : QString("='" % escapedCtxt % '\''))))) {
+                                (escapedCtxt.isEmpty() ? QStringLiteral(" ISNULL") : QString("='" + escapedCtxt + '\''))))) {
         qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db main error: " << query1.lastError().text();
         return false;
     }
@@ -584,7 +584,7 @@ static bool doInsertEntry(CatalogString source,
 
             query1.prepare(U("UPDATE target_strings "
                              "SET target=?, target_accel=?, target_markup=? "
-                             "WHERE id=") % QString::number(targetId));
+                             "WHERE id=") + QString::number(targetId));
 
             query1.bindValue(0, target.string.isEmpty() ? QVariant() : target.string);
             query1.bindValue(1, targetAccelPos != -1 ? QVariant(targetAccelPos) : QVariant());
@@ -593,7 +593,7 @@ static bool doInsertEntry(CatalogString source,
             if (!ok)
                 qCWarning(LOKALIZE_LOG) << "doInsertEntry: target update failed" << query1.lastError().text();
             else {
-                ok = query1.exec(QStringLiteral("UPDATE main SET change_date=CURRENT_DATE WHERE target=") % QString::number(targetId));
+                ok = query1.exec(QStringLiteral("UPDATE main SET change_date=CURRENT_DATE WHERE target=") + QString::number(targetId));
                 if (!ok)
                     qCWarning(LOKALIZE_LOG) << "doInsertEntry: main update failed" << query1.lastError().text();
             }
@@ -997,7 +997,7 @@ void OpenDBJob::run()
             QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
             QFileInfo fileInfo(dbFolder);
             if (!fileInfo.exists(dbFolder)) fileInfo.absoluteDir().mkpath(fileInfo.fileName());
-            db.setDatabaseName(dbFolder % QLatin1Char('/') % m_dbName % TM_DATABASE_EXTENSION);
+            db.setDatabaseName(dbFolder + QLatin1Char('/') + m_dbName + TM_DATABASE_EXTENSION);
             m_connectionSuccessful = db.open();
             if (Q_UNLIKELY(!m_connectionSuccessful)) {
                 qCDebug(LOKALIZE_LOG) << "failed to open db" << db.databaseName() << db.lastError().text();
@@ -1028,7 +1028,7 @@ void OpenDBJob::run()
             }
 
             if (!m_connParams.isFilled()) {
-                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName % REMOTETM_DATABASE_EXTENSION);
+                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName + REMOTETM_DATABASE_EXTENSION);
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text)) {
                     emit done(this);
                     return;
@@ -1208,7 +1208,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString tmp = c.markup;
     if (!c.markup.isEmpty())
         tmp += '|';
-    QRegExp rxSplit(QLatin1Char('(') % tmp % QStringLiteral("\\W+|\\d+)+"));
+    QRegExp rxSplit(QLatin1Char('(') + tmp + QStringLiteral("\\W+|\\d+)+"));
 
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
@@ -1245,7 +1245,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             //get records containing current word
             QSqlQuery queryFetch(U(
                                      "SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
-                                     "source_strings.id IN (") % joined % ')', db);
+                                     "source_strings.id IN (") + joined + ')', db);
             TMEntry e;
             while (queryFetch.next()) {
                 e.id = queryFetch.value(0).toLongLong();
@@ -1353,10 +1353,10 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 QSqlQuery queryRest(U(
                                         "SELECT main.id, main.date, main.ctxt, main.bits, "
                                         "target_strings.target, target_strings.target_accel, target_strings.target_markup, "
-                                        "files.path, main.change_date ") % change_author_str % U(
+                                        "files.path, main.change_date ") + change_author_str + U(
                                         "FROM main JOIN target_strings ON (target_strings.id=main.target) JOIN files ON (files.id=main.file) ")
-                                    % authors_table_str % U("WHERE "
-                                            "main.source=") % QString::number(e.id) % U(" AND "
+                                    + authors_table_str + U("WHERE "
+                                            "main.source=") + QString::number(e.id) + U(" AND "
                                                     "(main.bits&4)!=4 AND "
                                                     "target_strings.target NOTNULL")
                                     , db); //ORDER BY tm_main.id ?
@@ -1564,7 +1564,7 @@ void ScanJob::run()
                     */
                     ok = ok && doInsertEntry(catalog.sourceWithTags(ppos),
                                              catalog.targetWithTags(ppos),
-                                             catalog.context(ppos).first() % TM_DELIMITER % QString::number(ppos.form),
+                                             catalog.context(ppos).first() + TM_DELIMITER + QString::number(ppos.form),
                                              catalog.isApproved(ppos),
                                              fileId, db, rxClean1, c.accel, priorId, priorId);
                 }

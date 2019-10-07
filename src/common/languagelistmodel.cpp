@@ -105,7 +105,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());
         return QVariant::fromValue<QString>(
-                   displayNames[index.row()] = KConfigGroup(m_systemLangList, code).readEntry("Name") % QStringLiteral(" (") % code % ')');
+                   displayNames[index.row()] = KConfigGroup(m_systemLangList, code).readEntry("Name") + QStringLiteral(" (") + code + ')');
     }
     return QStringListModel::data(index, role);
 }

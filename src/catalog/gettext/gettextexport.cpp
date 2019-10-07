@@ -113,7 +113,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for (int i = 0; i < forms; ++i) {
-                QString keyword = QStringLiteral("msgstr[") % QString::number(i) % ']';
+                QString keyword = QStringLiteral("msgstr[") + QString::number(i) + ']';
                 writeKeyword(stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr());
             }
         }

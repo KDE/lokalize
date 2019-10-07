@@ -241,9 +241,9 @@ QString formatGettextDate(const QDateTime &dt)
     const int offset_seconds = dt.offsetFromUtc();
     const int offset_hours = abs(offset_seconds) / 3600;
     const int offset_minutes = abs(offset_seconds % 3600) / 60;
-    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') % (offset_hours < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_hours) % (offset_minutes < 10 ? QStringLiteral("0") : QStringLiteral("")) % QString::number(offset_minutes);
+    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') + (offset_hours < 10 ? QStringLiteral("0") : QStringLiteral("")) + QString::number(offset_hours) + (offset_minutes < 10 ? QStringLiteral("0") : QStringLiteral("")) + QString::number(offset_minutes);
 
-    return dateTimeString % zoneOffsetString;
+    return dateTimeString + zoneOffsetString;
 }
 
 void updateHeader(QString& header,
@@ -289,8 +289,8 @@ void updateHeader(QString& header,
     bool found = false;
     authorNameEmail = Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
-        authorNameEmail += (QStringLiteral(" <") % Settings::authorEmail() % '>');
-    temp = QStringLiteral("Last-Translator: ") % authorNameEmail % BACKSLASH_N;
+        authorNameEmail += (QStringLiteral(" <") + Settings::authorEmail() + '>');
+    temp = QStringLiteral("Last-Translator: ") + authorNameEmail + BACKSLASH_N;
 
     QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
@@ -302,7 +302,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    temp = QStringLiteral("PO-Revision-Date: ") % formatGettextDate(QDateTime::currentDateTime()) % BACKSLASH_N;
+    temp = QStringLiteral("PO-Revision-Date: ") + formatGettextDate(QDateTime::currentDateTime()) + BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(poRevDate);
@@ -311,7 +311,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    temp = QStringLiteral("Project-Id-Version: ") % CatalogProjectId % BACKSLASH_N;
+    temp = QStringLiteral("Project-Id-Version: ") + CatalogProjectId + BACKSLASH_N;
     //temp.replace( "@PACKAGE@", packageName());
     QRegExp projectIdVer(QStringLiteral("^ *Project-Id-Version:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
@@ -371,13 +371,13 @@ void updateHeader(QString& header,
     Project::LangSource projLangSource = Project::instance()->languageSource();
     QString projLT = Project::instance()->projLangTeam();
     if (projLangSource == Project::LangSource::Project) {
-        temp = QStringLiteral("Language-Team: ")%projLT%QStringLiteral("\\n");
+        temp = QStringLiteral("Language-Team: ")+projLT+QStringLiteral("\\n");
     }
     else if ((projLangSource == Project::LangSource::Application) && (Settings::overrideLangTeam())) {
-        temp = QStringLiteral("Language-Team: ")%Settings::userLangTeam()%QStringLiteral("\\n");
+        temp = QStringLiteral("Language-Team: ")+Settings::userLangTeam()+QStringLiteral("\\n");
     }
     else {
-        temp = QStringLiteral("Language-Team: ")%language%QStringLiteral(" <")%mailingList%QStringLiteral(">\\n");
+        temp = QStringLiteral("Language-Team: ")+language+QStringLiteral(" <")+mailingList+QStringLiteral(">\\n");
     }
     if (Q_LIKELY(found))
         (*ait) = temp;
@@ -385,7 +385,7 @@ void updateHeader(QString& header,
         headerList.append(temp);
 
     static QRegExp langCodeRegExp(QStringLiteral("^ *Language: *([^ \\\\]*)"));
-    temp = QStringLiteral("Language: ") % langCode % BACKSLASH_N;
+    temp = QStringLiteral("Language: ") + langCode + BACKSLASH_N;
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = (langCodeRegExp.indexIn(*it) != -1);
         if (found && langCodeRegExp.cap(1).isEmpty())
@@ -395,7 +395,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    temp = QStringLiteral("Content-Type: text/plain; charset=") % codec->name() % BACKSLASH_N;
+    temp = QStringLiteral("Content-Type: text/plain; charset=") + codec->name() + BACKSLASH_N;
     QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(ctRe);
@@ -568,7 +568,7 @@ void updateHeader(QString& header,
 //                        return;
     QStringList foundAuthors;
 
-    temp = QStringLiteral("# ") % authorNameEmail % QStringLiteral(", ") % cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) % '.';
+    temp = QStringLiteral("# ") + authorNameEmail + QStringLiteral(", ") + cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) + '.';
 
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
     QRegExp regexpAuthorYear(QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)"));
@@ -631,9 +631,9 @@ void updateHeader(QString& header,
                     //update years
                     const int index = (*ait).lastIndexOf(QRegExp(QStringLiteral("[\\d]+[\\d\\-, ]*")));
                     if (index == -1)
-                        (*ait) += QStringLiteral(", ") % cy;
+                        (*ait) += QStringLiteral(", ") + cy;
                     else
-                        ait->insert(index + 1, QStringLiteral(", ") % cy);
+                        ait->insert(index + 1, QStringLiteral(", ") + cy);
                 } else
                     qCDebug(LOKALIZE_LOG) << "INTERNAL ERROR: author found but iterator dangling!";
             }

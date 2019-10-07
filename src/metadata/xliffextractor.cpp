@@ -94,7 +94,7 @@ bool XliffHandler::startElement(const QString&, const QString& localName, const 
 
         QString currentLastTranslator;
         if (contactNameString.length() && contactEmailString.length())
-            currentLastTranslator = contactNameString % " <" % contactEmailString % ">";
+            currentLastTranslator = contactNameString + " <" + contactEmailString + ">";
         else if (contactNameString.length())
             currentLastTranslator = contactNameString;
         else if (contactEmailString.length())

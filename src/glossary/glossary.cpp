@@ -293,7 +293,7 @@ QByteArray Glossary::generateNewId()
 
     QString authorId(Settings::authorName().toLower());
     authorId.replace(' ', '_');
-    QRegExp rx('^' % authorId % QStringLiteral("\\-([0-9]*)$"));
+    QRegExp rx('^' + authorId + QStringLiteral("\\-([0-9]*)$"));
 
 
     foreach (const QByteArray& id, m_idsForEntriesById) {

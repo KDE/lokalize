@@ -240,7 +240,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
             if (offset != -1)
                 t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, offset + 1);
         } else if (Q_UNLIKELY(targetString.startsWith(TAGRANGE_IMAGE_SYMBOL))) {
-            int offset = targetString.indexOf(QRegExp(QStringLiteral("[^") % QChar(TAGRANGE_IMAGE_SYMBOL) % ']'));
+            int offset = targetString.indexOf(QRegExp(QStringLiteral("[^") + QChar(TAGRANGE_IMAGE_SYMBOL) + ']'));
             if (offset != -1)
                 t.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, offset + 1);
         }

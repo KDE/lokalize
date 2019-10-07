@@ -780,7 +780,7 @@ void Catalog::flushUpdateDBBuffer()
     if (Project::instance()->targetLangCode() == targetLangCode()) {
         dbName = Project::instance()->projectID();
     } else {
-        dbName = sourceLangCode() % '-' % targetLangCode();
+        dbName = sourceLangCode() + '-' + targetLangCode();
         qCInfo(LOKALIZE_LOG) << "updating" << dbName << "because target language of project db does not match" << Project::instance()->targetLangCode() << targetLangCode();
         if (!TM::DBFilesModel::instance()->m_configurations.contains(dbName)) {
             TM::OpenDBJob* openDBJob = new TM::OpenDBJob(dbName, TM::Local, true);

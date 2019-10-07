@@ -738,7 +738,7 @@ void LokalizeMainWindow::projectLoaded()
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
         KNotification* notification = new KNotification("FilesOpenError", this);
-        notification->setText(i18nc("@info", "Error opening the following files:\n\n") % "<filename>" % failedFiles.join("</filename><br><filename>") % "</filename>");
+        notification->setText(i18nc("@info", "Error opening the following files:\n\n") + "<filename>" + failedFiles.join("</filename><br><filename>") + "</filename>");
         notification->sendEvent();
     }
 

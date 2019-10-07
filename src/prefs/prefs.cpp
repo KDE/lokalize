@@ -250,7 +250,7 @@ bool SettingsController::projectCreate()
     //TODO ask-n-save
     QDir projectFolder = QFileInfo(path).absoluteDir();
     QString projectId = projectFolder.dirName();
-    if (projectFolder.cdUp()) projectId = projectFolder.dirName() % '-' % projectId;;
+    if (projectFolder.cdUp()) projectId = projectFolder.dirName() + '-' + projectId;;
     Project::instance()->load(path, QString(), projectId);
     //Project::instance()->setDefaults(); //NOTE will this be an obstacle?
     //Project::instance()->setProjectID();

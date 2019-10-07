@@ -56,21 +56,21 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
     : speller(0), codec(0)
 {
 #ifdef Q_OS_MAC
-    QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") % langCode.leftRef(2) % '/';
+    QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") + langCode.leftRef(2) + '/';
     if (langCode == QLatin1String("pl_PL")) dictPath = QStringLiteral("/System/Library/Spelling/");
 #elif defined(Q_OS_WIN)
-    QString dictPath = QStringLiteral("C:/Program Files (x86)/LibreOffice 5/share/extensions/dict-") % langCode.leftRef(2) % '/';
+    QString dictPath = QStringLiteral("C:/Program Files (x86)/LibreOffice 5/share/extensions/dict-") + langCode.leftRef(2) + '/';
 #else
     QString dictPath = QStringLiteral("/usr/share/hunspell/");
     if (!QFileInfo::exists(dictPath))
         dictPath = QStringLiteral("/usr/share/myspell/");
 #endif
 
-    QString dic = dictPath % langCode % QLatin1String(".dic");
+    QString dic = dictPath + langCode + QLatin1String(".dic");
     if (!QFileInfo::exists(dic))
-        dic = dictPath % enhanceLangCode(langCode) % QLatin1String(".dic");
+        dic = dictPath + enhanceLangCode(langCode) + QLatin1String(".dic");
     if (QFileInfo::exists(dic)) {
-        speller = new Hunspell(QString(dictPath % langCode % ".aff").toLatin1().constData(), dic.toLatin1().constData());
+        speller = new Hunspell(QString(dictPath + langCode + ".aff").toLatin1().constData(), dic.toLatin1().constData());
         codec = QTextCodec::codecForName(speller->get_dic_encoding());
         if (!codec)
             codec = QTextCodec::codecForLocale();

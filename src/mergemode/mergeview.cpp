@@ -361,7 +361,7 @@ bool MergeView::event(QEvent *event)
 {
     if (event->type() == QEvent::ToolTip && m_mergeCatalog) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-        QString text = QStringLiteral("<b>") % QDir::toNativeSeparators(filePath()) % QStringLiteral("</b>\n") % i18nc("@info:tooltip", "Different entries: %1\nUnmatched entries: %2",
+        QString text = QStringLiteral("<b>") + QDir::toNativeSeparators(filePath()) + QStringLiteral("</b>\n") + i18nc("@info:tooltip", "Different entries: %1\nUnmatched entries: %2",
                        m_mergeCatalog->differentEntries().count(), m_mergeCatalog->unmatchedCount());
         text.replace('\n', QStringLiteral("<br />"));
         QToolTip::showText(helpEvent->globalPos(), text);

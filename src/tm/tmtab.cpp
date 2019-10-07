@@ -90,8 +90,8 @@ void TMDBModel::setDB(const QString& str)
 
     QString sourceLangCode = DBFilesModel::instance()->m_configurations.value(str).sourceLangCode;
     QString targetLangCode = DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
-    if (sourceLangCode.length()) setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text", "Source") % QStringLiteral(": ") % sourceLangCode));
-    if (targetLangCode.length()) setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language", "Target") % QStringLiteral(": ") % targetLangCode));
+    if (sourceLangCode.length()) setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text", "Source") + QStringLiteral(": ") + sourceLangCode));
+    if (targetLangCode.length()) setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language", "Target") + QStringLiteral(": ") + targetLangCode));
 }
 
 void TMDBModel::setQueryType(int type)
@@ -117,9 +117,9 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
         escapedSource.replace('%', QStringLiteral("\b%")); escapedSource.replace('_', QStringLiteral("\b_"));
         escapedTarget.replace('%', QStringLiteral("\b%")); escapedTarget.replace('_', QStringLiteral("\b_"));
         if (!escapedSource.isEmpty())
-            sourceQuery = QStringLiteral("AND source_strings.source ") % invertSourceStr % QStringLiteral("LIKE '%") % escapedSource % QStringLiteral("%' ESCAPE '\b' ");
+            sourceQuery = QStringLiteral("AND source_strings.source ") + invertSourceStr + QStringLiteral("LIKE '%") + escapedSource + QStringLiteral("%' ESCAPE '\b' ");
         if (!escapedTarget.isEmpty())
-            targetQuery = QStringLiteral("AND target_strings.target ") % invertTargetStr % QStringLiteral("LIKE '%") % escapedTarget % QStringLiteral("%' ESCAPE '\b' ");
+            targetQuery = QStringLiteral("AND target_strings.target ") + invertTargetStr + QStringLiteral("LIKE '%") + escapedTarget + QStringLiteral("%' ESCAPE '\b' ");
     } else if (m_queryType == WordOrder) {
         /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
         escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
@@ -128,27 +128,27 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
         QStringList targetList = escapedTarget.split(wre, QString::SkipEmptyParts);
 
         if (!sourceList.isEmpty())
-            sourceQuery = QStringLiteral("AND source_strings.source ") % invertSourceStr % QStringLiteral("LIKE '%")
-                          % sourceList.join(QStringLiteral("%' AND source_strings.source ") % invertSourceStr % QStringLiteral("LIKE '%")) % QStringLiteral("%' ");
+            sourceQuery = QStringLiteral("AND source_strings.source ") + invertSourceStr + QStringLiteral("LIKE '%")
+                          + sourceList.join(QStringLiteral("%' AND source_strings.source ") + invertSourceStr + QStringLiteral("LIKE '%")) + QStringLiteral("%' ");
         if (!targetList.isEmpty())
-            targetQuery = QStringLiteral("AND target_strings.target ") % invertTargetStr % QStringLiteral("LIKE '%")
-                          % targetList.join(QStringLiteral("%' AND target_strings.target ") % invertTargetStr % QStringLiteral("LIKE '%")) % QStringLiteral("%' ");
+            targetQuery = QStringLiteral("AND target_strings.target ") + invertTargetStr + QStringLiteral("LIKE '%")
+                          + targetList.join(QStringLiteral("%' AND target_strings.target ") + invertTargetStr + QStringLiteral("LIKE '%")) + QStringLiteral("%' ");
     } else {
         if (!escapedSource.isEmpty())
-            sourceQuery = QStringLiteral("AND source_strings.source ") % invertSourceStr % QStringLiteral("GLOB '") % escapedSource % QStringLiteral("' ");
+            sourceQuery = QStringLiteral("AND source_strings.source ") + invertSourceStr + QStringLiteral("GLOB '") + escapedSource + QStringLiteral("' ");
         if (!escapedTarget.isEmpty())
-            targetQuery = QStringLiteral("AND target_strings.target ") % invertTargetStr % QStringLiteral("GLOB '") % escapedTarget % QStringLiteral("' ");
+            targetQuery = QStringLiteral("AND target_strings.target ") + invertTargetStr + QStringLiteral("GLOB '") + escapedTarget + QStringLiteral("' ");
 
     }
     if (!filemask.isEmpty())
-        fileQuery = QStringLiteral("AND files.path GLOB '") % escapedFilemask % QStringLiteral("' ");
+        fileQuery = QStringLiteral("AND files.path GLOB '") + escapedFilemask + QStringLiteral("' ");
 
     QString fromPart = QStringLiteral("FROM main JOIN source_strings ON (source_strings.id=main.source) "
                                       "JOIN target_strings ON (target_strings.id=main.target), files "
                                       "WHERE files.id=main.file ")
-                       % sourceQuery
-                       % targetQuery
-                       % fileQuery;
+                       + sourceQuery
+                       + targetQuery
+                       + fileQuery;
 
     ExecQueryJob* job = new ExecQueryJob(QStringLiteral(
             "SELECT source_strings.source, target_strings.target, "
@@ -336,7 +336,7 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
     foreach (const QRegExp& re, regExps) {
         int pos = re.indexIn(string);
         if (pos != -1)
-            return string.replace(pos, re.matchedLength(), QStringLiteral("<b>") % re.cap(0) % QStringLiteral("</b>"));
+            return string.replace(pos, re.matchedLength(), QStringLiteral("<b>") + re.cap(0) + QStringLiteral("</b>"));
     }
 
     //StartLen sl=m_highlightDataForSourceRow.value(source_row).at(index.column());
@@ -588,7 +588,7 @@ void TMTab::handleResults()
             return performQuery();
         }
         if (!filemask.isEmpty() && !filemask.contains('*')) {
-            ui_queryOptions->filemask->setText('*' % filemask % '*');
+            ui_queryOptions->filemask->setText('*' + filemask + '*');
             return performQuery();
         }
     }
@@ -785,7 +785,7 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     source_target_query[tryNowPart == DocPosition::Source]->setText(text);
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    if (!package.isEmpty()) package = '*' % package % '*';
+    if (!package.isEmpty()) package = '*' + package + '*';
     ui_queryOptions->filemask->setText(package);
     ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::Glob);
     performQuery();
