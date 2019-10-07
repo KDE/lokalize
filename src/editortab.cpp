@@ -147,6 +147,8 @@ EditorTab::~EditorTab()
     }
 
     ids.removeAll(m_dbusId);
+
+    delete m_catalog;
 }
 
 
