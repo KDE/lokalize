@@ -56,6 +56,9 @@
        <property name="text">
         <string>Next/previous tab shortcut behavior</string>
        </property>
+       <property name="buddy">
+        <cstring>kcfg_TabSwitch</cstring>
+       </property>
       </widget>
      </item>
      <item>

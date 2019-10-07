@@ -59,6 +59,9 @@
        <property name="text">
         <string>Maximum number of suggestions:</string>
        </property>
+       <property name="buddy">
+        <cstring>kcfg_SuggCount</cstring>
+       </property>
       </widget>
      </item>
      <item>
@@ -92,6 +95,9 @@
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Minimum score (0-100) of suggestions:</string>
+       </property>
+       <property name="buddy">
+        <cstring>kcfg_SuggScore</cstring>
        </property>
       </widget>
      </item>

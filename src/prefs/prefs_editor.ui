@@ -11,7 +11,16 @@
    </rect>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>11</number>
+   </property>
+   <property name="topMargin">
+    <number>11</number>
+   </property>
+   <property name="rightMargin">
+    <number>11</number>
+   </property>
+   <property name="bottomMargin">
     <number>11</number>
    </property>
    <property name="spacing">
@@ -59,6 +68,9 @@
        </property>
        <property name="text">
         <string>Minimum word length for word completion</string>
+       </property>
+       <property name="buddy">
+        <cstring>kcfg_WordCompletionLength</cstring>
        </property>
       </widget>
      </item>
