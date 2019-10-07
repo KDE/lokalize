@@ -1,100 +1,110 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>prefs_appearance</class>
- <widget class="QWidget" name="prefs_appearance" >
-  <property name="geometry" >
+ <widget class="QWidget" name="prefs_appearance">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
+    <width>576</width>
     <height>515</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <property name="margin" >
+  <layout class="QGridLayout">
+   <property name="leftMargin">
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <property name="spacing">
     <number>6</number>
    </property>
-   <item row="0" column="0" >
-    <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label" >
-       <property name="text" >
+   <item row="0" column="0">
+    <layout class="QGridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
         <string>Editor font:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="KFontRequester" name="kcfg_MsgFont" >
-       <property name="toolTip" >
+     <item row="0" column="1">
+      <widget class="KFontRequester" name="kcfg_MsgFont">
+       <property name="toolTip">
         <string>Change the font for the editor</string>
        </property>
-       <property name="whatsThis" >
+       <property name="whatsThis">
         <string>Choose a new font for the area where you write the translated message.</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="2" >
-      <widget class="QCheckBox" name="kcfg_Leds" >
-       <property name="toolTip" >
+     <item row="1" column="0" colspan="2">
+      <widget class="QCheckBox" name="kcfg_Leds">
+       <property name="toolTip">
         <string>Display LEDS for message status</string>
        </property>
-       <property name="whatsThis" >
+       <property name="whatsThis">
         <string>If checked, LEDS will be shown to display the message status: Fuzzy, Untranslated or Error. If unchecked, no LEDs will be displayed.</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>LEDs to indicate Fuzzy and Untranslated status as well as cursor column number</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="3" column="0" >
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="whatsThis" >
+   <item row="3" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="whatsThis">
       <string>Text colors for the changes in the message.</string>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>String Matching</string>
      </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
-         <string comment="@label:chooser" >Text added in the newer string:</string>
+     <layout class="QGridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string comment="@label:chooser">Text added in the newer string:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="KColorButton" name="kcfg_AddColor" >
-        <property name="toolTip" >
+      <item row="0" column="1">
+       <widget class="KColorButton" name="kcfg_AddColor">
+        <property name="toolTip">
          <string>Change the color for the new text added</string>
         </property>
-        <property name="whatsThis" >
+        <property name="whatsThis">
          <string>You can set another color for viewing the text that was added to the string.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_3" >
-        <property name="text" >
-         <string comment="@label:chooser" >Text removed in the newer string:</string>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string comment="@label:chooser">Text removed in the newer string:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="KColorButton" name="kcfg_DelColor" >
-        <property name="toolTip" >
+      <item row="1" column="1">
+       <widget class="KColorButton" name="kcfg_DelColor">
+        <property name="toolTip">
          <string>Change the color for the text removed</string>
         </property>
-        <property name="whatsThis" >
+        <property name="whatsThis">
          <string>You can set another color for viewing the text that was removed from the string.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string/>
         </property>
        </widget>
@@ -102,12 +112,12 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0" >
+   <item row="4" column="0">
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -115,19 +125,19 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="0" >
-    <widget class="QCheckBox" name="kcfg_HighlightSpaces" >
-     <property name="toolTip" >
+   <item row="1" column="0">
+    <widget class="QCheckBox" name="kcfg_HighlightSpaces">
+     <property name="toolTip">
       <string>Check to see if a string ends in a space (which is often important when displaying it in the user interface, or when it gets concatenated with others).</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Highlight spaces at the end</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
-  <customwidgets>
+ <customwidgets>
   <customwidget>
    <class>KColorButton</class>
    <extends>QPushButton</extends>
