@@ -78,8 +78,8 @@ ProjectTab::ProjectTab(QWidget *parent)
                                     "If you need more information or documentation, then a visit to "
                                     "<a href=\"%2\">%2</a> "
                                     "will provide you with what you need.</html>",
-                                    QLatin1String("http://community.kde.org/Get_Involved"),
-                                    QLatin1String("http://techbase.kde.org/")), welcomeWidget);
+                                    QLatin1String("https://community.kde.org/Get_Involved"),
+                                    QLatin1String("https://techbase.kde.org/")), welcomeWidget);
     about->setAlignment(Qt::AlignCenter);
     about->setWordWrap(true);
     about->setOpenExternalLinks(true);

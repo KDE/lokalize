@@ -25,7 +25,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-///@see http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
+///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
 enum TargetState {
     New,
     NeedsTranslation,

@@ -45,7 +45,7 @@
 struct InlineTag {
     //sub       = can contain <sub>-flow tag
     //recursive = can contain other inline markup tags
-    ///@see http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html
+    ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html
     enum InlineElement {
         _unknown,
         bpt,    //sub

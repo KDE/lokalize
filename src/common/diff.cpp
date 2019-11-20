@@ -4,7 +4,7 @@
   wordDiff algorithm adoption and further refinement:
         Copyright (C) 2007 by Nick Shaforostoff <shafff@ukr.net>
                 2018-2019 by Simon Depiets <sdepiets@gmail.com>
-  (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem. - http://www.markusstengel.de/text/en/i_4_1_5_3.html)
+  (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.)
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as

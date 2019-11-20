@@ -32,7 +32,7 @@ find_package(HUNSPELL)
 set_package_properties(
     HUNSPELL PROPERTIES
     DESCRIPTION "Library used for stemming"
-    URL         "http://hunspell.sourceforge.net/"
+    URL         "https://hunspell.github.io/"
     TYPE        REQUIRED 
     PURPOSE     "Required to build Lokalize.")
 

@@ -29,7 +29,7 @@
 #include "tmentry.h"
 
 struct AltTrans {
-    ///@see http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
+    ///@see https://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#alttranstype
     enum Type {Proposal, PreviousVersion, Rejected, Reference, Accepted, Other};
     Type type;
 
