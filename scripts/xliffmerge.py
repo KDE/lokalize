@@ -52,7 +52,7 @@ def getDocUnitsList(path):
     file=QFile(path)
     file.open(QIODevice.ReadOnly)
     reader=QXmlSimpleReader()
-    reader.setFeature('http://qtsoftware.com/xml/features/report-whitespace-only-CharData',True)
+    reader.setFeature('http://qt-project.org/xml/features/report-whitespace-only-CharData',True)
     reader.setFeature('http://xml.org/sax/features/namespaces',False)
     source=QXmlInputSource(file)
     doc.setContent(source,reader)
