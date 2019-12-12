@@ -1,1 +1,2 @@
-org.kde.lokalize Lokalize
+org.kde.lokalize Lokalize (lokalize) DEFAULT_SEVERITY [WARNING] IDENTIFIER [LOKALIZE_LOG]
+

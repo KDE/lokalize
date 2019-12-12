@@ -204,7 +204,7 @@ install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ########### install files ###############
 
-install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES lokalize.notifyrc DESTINATION  ${KNOTIFYRC_INSTALL_DIR} )
 
