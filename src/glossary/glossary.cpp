@@ -321,7 +321,7 @@ QStringList Glossary::subjectFields() const
     QSet<QString> result;
     foreach (const QByteArray& id, m_idsForEntriesById)
         result.insert(subjectField(id));
-    return result.toList();
+    return result.values();
 }
 
 QByteArray Glossary::id(int index) const

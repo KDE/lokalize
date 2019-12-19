@@ -838,7 +838,7 @@ QStringList XliffStorage::noteAuthors() const
         if (!from.isEmpty())
             result.insert(from);
     }
-    return result.toList();
+    return result.values();
 }
 
 QVector<Note> phaseNotes(QDomDocument m_doc, const QString& phasename, bool remove = false)
