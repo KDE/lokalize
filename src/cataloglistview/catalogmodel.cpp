@@ -127,6 +127,8 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
             return i18nc("@title:column", "Notes");
         case CatalogModelColumns::Context:
             return i18nc("@title:column", "Context");
+        case CatalogModelColumns::Files:
+            return i18nc("@title:column", "Files");
         case CatalogModelColumns::TranslationStatus:
             return i18nc("@title:column", "Translation Status");
         default:
@@ -233,6 +235,8 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         }
         case CatalogModelColumns::Context:
             return m_catalog->context(index.row());
+        case CatalogModelColumns::Files:
+            return m_catalog->sourceFiles(index.row()).join('|');
         default:
             return {};
     }

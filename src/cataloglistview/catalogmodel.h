@@ -50,6 +50,7 @@ public:
         Target,
         Notes,
         Context,
+        Files,
         TranslationStatus,
         IsEmpty,
         State,

@@ -243,7 +243,7 @@ void CatalogView::fillFilterOptionsMenu()
     }
     if (!extStates)
         m_filterOptionsMenu->addSeparator();
-    for (int i = -1; i < CatalogTreeModel::DisplayedColumnCount; ++i) {
+    for (int i = -1; i < CatalogTreeModel::DisplayedColumnCount-1; ++i) {
         qCWarning(LOKALIZE_LOG) << i;
         txt = columnsMenu->addAction((i == -1) ? i18nc("@item:inmenu all columns", "All") :
                                      m_model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
