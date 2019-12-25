@@ -131,6 +131,8 @@ EditorView::EditorView(QWidget *parent, Catalog* catalog/*,keyEventHandler* kh*/
     connect(m_targetTextEdit, &TranslationUnitTextEdit::findNextRequested, this, &EditorView::findNextRequested);
     connect(m_sourceTextEdit, &TranslationUnitTextEdit::replaceRequested, this, &EditorView::replaceRequested);
     connect(m_targetTextEdit, &TranslationUnitTextEdit::replaceRequested, this, &EditorView::replaceRequested);
+    connect(m_sourceTextEdit, &TranslationUnitTextEdit::zoomRequested, m_targetTextEdit, &TranslationUnitTextEdit::zoomRequestedSlot);
+    connect(m_targetTextEdit, &TranslationUnitTextEdit::zoomRequested, m_sourceTextEdit, &TranslationUnitTextEdit::zoomRequestedSlot);
 
     connect(this, &EditorView::doExplicitCompletion, m_targetTextEdit, &TranslationUnitTextEdit::doExplicitCompletion);
 

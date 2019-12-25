@@ -1019,17 +1019,35 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 //     QAction* spellchecking=menu.addAction();
 //     event->accept();
     }
+    void TranslationUnitTextEdit::zoomRequestedSlot(qreal fontSize)
+    {
+        QFont curFont = font();
+        curFont.setPointSizeF(fontSize);
+        setFont(curFont);
+    }
 
     void TranslationUnitTextEdit::wheelEvent(QWheelEvent * event) {
         //Override default KTextEdit behavior which ignores Ctrl+wheelEvent when the field is not ReadOnly (i/o zooming)
         if (m_part == DocPosition::Target && !Settings::mouseWheelGo() && (event->modifiers() == Qt::ControlModifier)) {
             float delta = event->angleDelta().y() / 120.f;
             zoomInF(delta);
+            //Also zoom in the source
+            emit zoomRequested(font().pointSizeF());
             return;
         }
 
         if (m_part == DocPosition::Source || !Settings::mouseWheelGo())
+        {
+            if (event->modifiers() == Qt::ControlModifier)
+            {
+                float delta = event->angleDelta().y() / 120.f;
+                zoomInF(delta);
+                //Also zoom in the target
+                emit zoomRequested(font().pointSizeF());
+                return;
+            }
             return KTextEdit::wheelEvent(event);
+        }
 
         switch (event->modifiers()) {
         case Qt::ControlModifier:

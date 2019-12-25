@@ -82,6 +82,7 @@ public slots:
     void emitCursorPositionChanged();//for leds
 
     void doExplicitCompletion();
+    void zoomRequestedSlot(qreal fontSize);
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent) override;
@@ -132,6 +133,7 @@ signals:
     void gotoPrevFuzzyUntrRequested();
     void gotoNextFuzzyUntrRequested();
     void gotoEntryRequested(const DocPosition&);
+    void zoomRequested(qreal);
 
 
     void tagInsertRequested(const InlineTag& tag);
