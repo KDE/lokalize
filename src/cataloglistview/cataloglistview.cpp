@@ -226,6 +226,7 @@ void CatalogView::fillFilterOptionsMenu()
     QMenu* allmenus[2] = {basicMenu, extMenu};
     QMenu* columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Searchable column"));
 
+    QActionGroup* columnsMenuGroup = new QActionGroup(columnsMenu);
     QAction* txt;
     txt = m_filterOptionsMenu->addAction(i18nc("@title:inmenu", "Resort and refilter on content change"), m_proxyModel, &CatalogTreeFilterModel::setDynamicSortFilter);
     txt->setCheckable(true);
@@ -244,12 +245,12 @@ void CatalogView::fillFilterOptionsMenu()
     if (!extStates)
         m_filterOptionsMenu->addSeparator();
     for (int i = -1; i < CatalogTreeModel::DisplayedColumnCount-1; ++i) {
-        qCWarning(LOKALIZE_LOG) << i;
         txt = columnsMenu->addAction((i == -1) ? i18nc("@item:inmenu all columns", "All") :
                                      m_model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
         txt->setData(-i - 2);
         txt->setCheckable(true);
         txt->setChecked(m_proxyModel->filterKeyColumn() == i);
+        txt->setActionGroup(columnsMenuGroup);
     }
     refreshCurrentIndex();
 }
