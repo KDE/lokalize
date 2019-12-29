@@ -74,7 +74,7 @@ WebQueryView::WebQueryView(QWidget* parent, Catalog* catalog, const QVector<QAct
 
     hide();
 
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->viewport()->setBackgroundRole(QPalette::Window);
 
     m_browser->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QWidget* w = new QWidget(m_splitter);

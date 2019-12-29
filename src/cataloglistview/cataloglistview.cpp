@@ -118,11 +118,11 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_browser->setRootIsDecorated(false);
     m_browser->setAllColumnsShowFocus(true);
     m_browser->setAlternatingRowColors(true);
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->viewport()->setBackgroundRole(QPalette::Window);
 #ifdef Q_OS_DARWIN
     QPalette p;
-    p.setColor(QPalette::AlternateBase, p.color(QPalette::Background).darker(110));
-    p.setColor(QPalette::Highlight, p.color(QPalette::Background).darker(150));
+    p.setColor(QPalette::AlternateBase, p.color(QPalette::Window).darker(110));
+    p.setColor(QPalette::Highlight, p.color(QPalette::Window).darker(150));
     m_browser->setPalette(p);
 #endif
 

@@ -66,7 +66,7 @@ MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     m_stackedLayout = new QStackedLayout(main);
     m_stackedLayout->addWidget(m_browser);
 
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->viewport()->setBackgroundRole(QPalette::Window);
     m_browser->setOpenLinks(false);
     connect(m_browser, &QTextBrowser::anchorClicked, this, &MsgCtxtView::anchorClicked);
 }

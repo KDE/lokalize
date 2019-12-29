@@ -331,7 +331,7 @@ void SettingsController::projectConfigure()
     w = new QWidget(dialog);
     QVBoxLayout* layout = new QVBoxLayout(w);
     layout->setSpacing(6);
-    layout->setMargin(11);
+    layout->setContentsMargins(11, 11, 11, 11);
 
 
     //m_projectActionsEditor=new Kross::ActionCollectionEditor(Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID()),w);
