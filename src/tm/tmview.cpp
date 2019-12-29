@@ -149,7 +149,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     setWidget(m_browser);
 
     m_browser->document()->setDefaultStyleSheet(QStringLiteral("p.close_match { font-weight:bold; }"));
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->viewport()->setBackgroundRole(QPalette::Window);
 
     QTimer::singleShot(0, this, &TMView::initLater);
     connect(m_catalog, QOverload<const QString &>::of(&Catalog::signalFileLoaded), this, &TMView::slotFileLoaded);

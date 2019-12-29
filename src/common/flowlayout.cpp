@@ -54,7 +54,7 @@ FlowLayout::FlowLayout(User user,
     , m_receiver(signalingWidget)
 {
     setSizeConstraint(QLayout::SetMinAndMaxSize);
-    setMargin(margin);
+    setContentsMargins(margin, margin, margin, margin);
     setSpacing(spacing);
 
     if (user == glossary) {
@@ -121,7 +121,7 @@ int FlowLayout::count() const
 }
 Qt::Orientations FlowLayout::expandingDirections() const
 {
-    return 0;
+    return {};
 }
 bool FlowLayout::hasHeightForWidth() const
 {

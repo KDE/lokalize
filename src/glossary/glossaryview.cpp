@@ -48,6 +48,7 @@
 #include <QTime>
 #include <QSet>
 #include <QScrollArea>
+#include <QElapsedTimer>
 #include <QPushButton>
 
 #include <klocalizedstring.h>
@@ -83,7 +84,7 @@ GlossaryView::GlossaryView(QWidget* parent, Catalog* catalog, const QVector<QAct
     setWidget(m_browser);
     m_browser->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     m_browser->setAutoFillBackground(true);
-    m_browser->setBackgroundRole(QPalette::Background);
+    m_browser->setBackgroundRole(QPalette::Window);
 
     m_rxClean.setMinimal(true);
     connect(m_glossary, &Glossary::changed, this, QOverload<>::of(&GlossaryView::slotNewEntryDisplayed), Qt::QueuedConnection);
@@ -116,7 +117,7 @@ void GlossaryView::slotNewEntryDisplayed()
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
     //qCWarning(LOKALIZE_LOG)<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
-    QTime time; time.start();
+    QElapsedTimer time; time.start();
     if (pos.entry == -1)
         pos.entry = m_currentIndex;
     else

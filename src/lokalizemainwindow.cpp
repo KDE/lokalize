@@ -66,6 +66,7 @@
 #include <QLabel>
 #include <QIcon>
 #include <QApplication>
+#include <QElapsedTimer>
 
 
 LokalizeMainWindow::LokalizeMainWindow()
@@ -468,7 +469,7 @@ void LokalizeMainWindow::setupActions()
     //all operations that can be done after initial setup
     //(via QTimer::singleShot) go to initLater()
 
-    QTime aaa;
+    QElapsedTimer aaa;
     aaa.start();
 
     setStandardToolBarMenuEnabled(true);

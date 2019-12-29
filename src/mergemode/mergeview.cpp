@@ -62,7 +62,7 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     setAcceptDrops(true);
     m_browser->setReadOnly(true);
     m_browser->setContextMenuPolicy(Qt::NoContextMenu);
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->viewport()->setBackgroundRole(QPalette::Window);
     setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 

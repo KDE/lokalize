@@ -61,7 +61,7 @@ AltTransView::AltTransView(QWidget* parent, Catalog* catalog, const QVector<QAct
     hide();
 
     m_browser->setReadOnly(true);
-    m_browser->viewport()->setBackgroundRole(QPalette::Background);
+    m_browser->viewport()->setBackgroundRole(QPalette::Window);
     QTimer::singleShot(0, this, &AltTransView::initLater);
 }
 

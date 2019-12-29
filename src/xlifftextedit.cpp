@@ -50,6 +50,7 @@
 #include <QMouseEvent>
 #include <QToolTip>
 #include <QScrollBar>
+#include <QElapsedTimer>
 
 
 inline static QImage generateImage(const QString& str, const QFont& font)
@@ -1051,19 +1052,19 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
         switch (event->modifiers()) {
         case Qt::ControlModifier:
-            if (event->delta() > 0)
+            if (event->angleDelta().y() > 0)
                 emit gotoPrevFuzzyRequested();
             else
                 emit gotoNextFuzzyRequested();
             break;
         case Qt::AltModifier:
-            if (event->delta() > 0)
+            if (event->angleDelta().y() > 0)
                 emit gotoPrevUntranslatedRequested();
             else
                 emit gotoNextUntranslatedRequested();
             break;
         case Qt::ControlModifier + Qt::ShiftModifier:
-            if (event->delta() > 0)
+            if (event->angleDelta().y() > 0)
                 emit gotoPrevFuzzyUntrRequested();
             else
                 emit gotoNextFuzzyUntrRequested();
@@ -1071,7 +1072,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         case Qt::ShiftModifier:
             return KTextEdit::wheelEvent(event);
         default:
-            if (event->delta() > 0)
+            if (event->angleDelta().y() > 0)
                 emit gotoPrevRequested();
             else
                 emit gotoNextRequested();
@@ -1282,7 +1283,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 
     void TranslationUnitTextEdit::doCompletion(int pos) {
-        QTime a; a.start();
+        QElapsedTimer a; a.start();
         QString target = m_catalog->targetWithTags(m_currentPos).string;
         int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, pos - 1);
         int len = (pos - sp) - 1;

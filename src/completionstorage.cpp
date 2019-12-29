@@ -29,7 +29,7 @@
 #include "project.h"
 #include "prefs_lokalize.h"
 #include <QCoreApplication>
-
+#include <QElapsedTimer>
 
 CompletionStorage* CompletionStorage::_instance = 0;
 void CompletionStorage::cleanupCompletionStorage()
@@ -50,7 +50,7 @@ CompletionStorage* CompletionStorage::instance()
 void CompletionStorage::scanCatalog(Catalog* catalog)
 {
     if (!catalog->numberOfEntries()) return;
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 
     int wordCompletionLength = Settings::self()->wordCompletionLength();
     /* we can't skip the scanning because there might be explicit completion triggered

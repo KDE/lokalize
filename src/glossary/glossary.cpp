@@ -39,6 +39,7 @@
 #include <QXmlStreamReader>
 #include <QBuffer>
 #include <QApplication>
+#include <QElapsedTimer>
 
 #include <klocalizedstring.h>
 
@@ -71,7 +72,7 @@ Glossary::Glossary(QObject* parent)
 //BEGIN DISK
 bool Glossary::load(const QString& newPath)
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 //BEGIN NEW
     QIODevice* device = new QFile(newPath);
     if (!device->open(QFile::ReadOnly | QFile::Text)) {

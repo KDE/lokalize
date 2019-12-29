@@ -158,7 +158,7 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
     m_view->setModel(m_model);
     m_view->setRootIsDecorated(false);
     m_view->setAlternatingRowColors(true);
-    m_view->viewport()->setBackgroundRole(QPalette::Background);
+    m_view->viewport()->setBackgroundRole(QPalette::Window);
     connect(m_view, &MyTreeView::doubleClicked, this, &BinUnitsView::mouseDoubleClicked);
 
     connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &BinUnitsView::fileLoaded);

@@ -43,6 +43,7 @@
 #include <QLocale>
 #include <QTimer>
 #include <QTime>
+#include <QElapsedTimer>
 #include <QDir>
 #include <QFileInfo>
 #include <QStringBuilder>
@@ -152,7 +153,7 @@ Project::~Project()
 
 void Project::load(const QString &newProjectPath, const QString& forcedTargetLangCode, const QString& forcedProjectId)
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 
     TM::threadPool()->clear();
     qCDebug(LOKALIZE_LOG) << "loading" << newProjectPath << "finishing tm jobs...";
