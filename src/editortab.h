@@ -33,6 +33,8 @@
 #include "lokalizesubwindowbase.h"
 
 #include <QHash>
+#include <QMdiSubWindow>
+#include <QMap>
 #include <KProcess>
 
 namespace Sonnet
@@ -128,7 +130,7 @@ public:
     //wrapper for cmdline handling
     void mergeOpen(QString mergeFilePath);
 
-    bool fileOpen(QString filePath = QString(), QString suggestedDirPath = QString(), bool silent = false);
+    bool fileOpen(QString filePath = QString(), QString suggestedDirPath = QString(), QMap<QString, QMdiSubWindow*> openedFiles = QMap<QString, QMdiSubWindow*>(), bool silent = false);
 public slots:
     //for undo/redo, views
     void gotoEntry(DocPosition pos);

@@ -291,7 +291,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         if (fp.length()) suggestedDirPath = QFileInfo(fp).absolutePath();
     }
 
-    if (!w->fileOpen(filePath, suggestedDirPath, silent)) {
+    if (!w->fileOpen(filePath, suggestedDirPath, m_fileToEditor, silent)) {
         if (sw) {
             m_mdiArea->removeSubWindow(sw);
             sw->deleteLater();
@@ -299,6 +299,8 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
         w->deleteLater();
         return 0;
     }
+    filePath = w->currentFilePath();
+    m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
 
     if (!sw)
         sw = m_mdiArea->addSubWindow(w);
@@ -326,13 +328,11 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     if (!mergeFile.isEmpty())
         w->mergeOpen(mergeFile);
 
-    m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
     connect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
     connect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
     connect(w, QOverload<const QString &, const QString &, const QString &, const bool>::of(&EditorTab::fileOpenRequested), this, QOverload<const QString &, const QString &, const QString &, const bool>::of(&LokalizeMainWindow::fileOpen));
     connect(w, QOverload<const QString &, const QString &>::of(&EditorTab::tmLookupRequested), this, QOverload<const QString &, const QString &>::of(&LokalizeMainWindow::lookupInTranslationMemory));
 
-    filePath = w->currentFilePath();
     QStringRef fnSlashed = filePath.midRef(filePath.lastIndexOf('/'));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd()) {

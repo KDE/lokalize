@@ -802,7 +802,7 @@ void EditorTab::updateCaptionPath()
         _captionPath = _captionPath.mid(2);
 }
 
-bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent)
+bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QString, QMdiSubWindow*> openedFiles, bool silent)
 {
     if (!m_catalog->isClean()) {
         switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
@@ -839,6 +839,11 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, bool silent
     }
     if (filePath.isEmpty())
         return false;
+    QMap<QString, QMdiSubWindow*>::const_iterator it = openedFiles.constFind(filePath);
+    if (it != openedFiles.constEnd()) {
+        qCWarning(LOKALIZE_LOG) << "already opened:" << filePath;
+        return false;
+    }
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
