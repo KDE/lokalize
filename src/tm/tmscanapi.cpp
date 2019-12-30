@@ -57,7 +57,7 @@ bool RecursiveScanJob::doKill()
 {
 #if QT_VERSION >= 0x050500
     foreach (ScanJob* job, m_jobs)
-        TM::threadPool()->cancel(job);
+        TM::threadPool()->tryTake(job);
 #endif
     return true;
 }

@@ -611,7 +611,7 @@ void FileSearchTab::stopSearch()
 #if QT_VERSION >= 0x050500
     int i = m_runningJobs.size();
     while (--i >= 0)
-        QThreadPool::globalInstance()->cancel(m_runningJobs.at(i));
+        QThreadPool::globalInstance()->tryTake(m_runningJobs.at(i));
 #endif
     m_runningJobs.clear();
 }

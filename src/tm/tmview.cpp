@@ -160,7 +160,7 @@ TMView::~TMView()
 #if QT_VERSION >= 0x050500
     int i = m_jobs.size();
     while (--i >= 0)
-        TM::threadPool()->cancel(m_jobs.at(i));
+        TM::threadPool()->tryTake(m_jobs.at(i));
 #endif
 }
 
@@ -219,7 +219,7 @@ void TMView::slotFileLoaded(const QString& filePath)
 #if QT_VERSION >= 0x050500
     int i = m_jobs.size();
     while (--i >= 0)
-        TM::threadPool()->cancel(m_jobs.at(i));
+        TM::threadPool()->tryTake(m_jobs.at(i));
 #endif
     m_jobs.clear();
 
@@ -351,7 +351,7 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
 #if QT_VERSION >= 0x050500
     int i = m_jobs.size();
     while (--i >= 0)
-        TM::threadPool()->cancel(m_currentSelectJob);
+        TM::threadPool()->tryTake(m_currentSelectJob);
 #endif
 
     //update DB

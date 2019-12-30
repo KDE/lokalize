@@ -338,7 +338,9 @@ public:
     explicit ScanJobFeedingBack(const QString& filePath,
                                 const QString& dbName)
         : QObject(), ScanJob(filePath, dbName)
-    {}
+    {
+        setAutoDelete(false);
+    }
 
 protected:
     void run() override
