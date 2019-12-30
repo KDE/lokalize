@@ -213,6 +213,10 @@ void ProjectTab::showRealProjectOverview()
 {
     m_stackedLayout->setCurrentIndex(1);
 }
+void ProjectTab::showWelcomeScreen()
+{
+    m_stackedLayout->setCurrentIndex(0);
+}
 
 void ProjectTab::toggleTranslatedFiles()
 {

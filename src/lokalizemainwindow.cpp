@@ -548,6 +548,10 @@ void LokalizeMainWindow::setupActions()
     action->setText(i18nc("@action:inmenu", "Open project..."));
     action->setIcon(QIcon::fromTheme("project-open"));
 
+    action = proj->addAction(QStringLiteral("project_close"), this, SLOT(closeProject()));
+    action->setText(i18nc("@action:inmenu", "Close project"));
+    action->setIcon(QIcon::fromTheme("project-close"));
+
     m_openRecentProjectAction = new KRecentFilesAction(i18nc("@action:inmenu", "Open recent project"), this);
     action = proj->addAction(QStringLiteral("project_open_recent"), m_openRecentProjectAction);
     connect(m_openRecentProjectAction, QOverload<const QUrl &>::of(&KRecentFilesAction::urlSelected), this, QOverload<const QUrl &>::of(&LokalizeMainWindow::openProject));
@@ -586,6 +590,8 @@ bool LokalizeMainWindow::closeProject()
             m_mdiArea->removeSubWindow(subwindow);
             subwindow->deleteLater();
         }
+        else if (subwindow == m_projectSubWindow && m_projectSubWindow)
+            static_cast<ProjectTab*>(m_projectSubWindow->widget())->showWelcomeScreen();
     }
     Project::instance()->load(QString());
     //TODO scripts

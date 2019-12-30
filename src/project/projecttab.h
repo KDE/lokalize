@@ -84,6 +84,7 @@ public slots:
     Q_SCRIPTABLE QStringList selectedItems() const;
     Q_SCRIPTABLE bool currentItemIsTranslationFile() const;
     void showRealProjectOverview();
+    void showWelcomeScreen();
 
     //Q_SCRIPTABLE bool isShown() const;
 

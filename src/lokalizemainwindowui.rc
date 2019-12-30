@@ -21,6 +21,8 @@
     <Action name="project_open"/>
     <!--<ActionList name="project_actions" />-->
     <Action name="project_open_recent"/>
+    <Action name="project_close"/>
+    <Separator/>
     <Action name="project_create"/>
     <Action name="project_create_odf"/>
     <Merge/>
