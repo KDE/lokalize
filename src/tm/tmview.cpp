@@ -402,7 +402,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     //check if this is an additional query, from secondary DBs
     if (job.m_dbName != projectID) {
         job.m_entries += m_entries;
-        std::sort(job.m_entries.begin(), job.m_entries.end(), qGreater<TMEntry>());
+        std::sort(job.m_entries.begin(), job.m_entries.end(), std::greater<TMEntry>());
         const int limit = qMin(Settings::suggCount(), job.m_entries.size());
         const int minScore = Settings::suggScore() * 100;
         int i = job.m_entries.size() - 1;

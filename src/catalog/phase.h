@@ -51,6 +51,10 @@ struct Phase {
     {
         return date < other.date;
     }
+    bool operator>(const Phase& other) const
+    {
+        return date > other.date;
+    }
 };
 
 

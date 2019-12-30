@@ -126,6 +126,11 @@ struct InlineTag {
         return start < other.start;
     }
 
+    bool operator>(const InlineTag& other)const
+    {
+        return start > other.start;
+    }
+
 };
 Q_DECLARE_METATYPE(InlineTag)
 Q_DECLARE_METATYPE(QList<InlineTag>)

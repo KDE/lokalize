@@ -30,6 +30,7 @@
 #include "rule.h"
 
 #include <QDockWidget>
+#include <QScreen>
 #include <QAbstractListModel>
 #include <state.h>
 #include <phase.h>

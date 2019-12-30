@@ -33,6 +33,7 @@
 #include <QSqlQueryModel>
 #include <QSqlDatabase>
 #include <QMutex>
+#include <QScreen>
 
 class KXMLGUIClient;
 class QComboBox;

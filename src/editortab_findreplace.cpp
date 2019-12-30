@@ -506,7 +506,7 @@ void EditorTab::spellcheck()
         m_sonnetChecker = new Sonnet::BackgroundChecker(this);
         m_sonnetChecker->changeLanguage(enhanceLangCode(Project::instance()->langCode()));
         m_sonnetDialog = new Sonnet::Dialog(m_sonnetChecker, this);
-        connect(m_sonnetDialog, QOverload<const QString &>::of(&Sonnet::Dialog::done), this, &EditorTab::spellcheckNext);
+        connect(m_sonnetDialog, QOverload<const QString &>::of(&Sonnet::Dialog::spellCheckDone), this, &EditorTab::spellcheckNext);
         connect(m_sonnetDialog, &Sonnet::Dialog::replace, this, &EditorTab::spellcheckReplace);
         connect(m_sonnetDialog, &Sonnet::Dialog::stop, this, &EditorTab::spellcheckStop);
         connect(m_sonnetDialog, &Sonnet::Dialog::cancel, this, &EditorTab::spellcheckCancel);

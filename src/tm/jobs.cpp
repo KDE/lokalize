@@ -1475,7 +1475,7 @@ void SelectJob::run()
         doSelect(db, words, !isShort);
 
     //qCWarning(LOKALIZE_LOG) <<"SelectJob: done "<<a.elapsed()<<m_entries.size();
-    std::sort(m_entries.begin(), m_entries.end(), qGreater<TMEntry>());
+    std::sort(m_entries.begin(), m_entries.end(), std::greater<TMEntry>());
     const int limit = qMin(Settings::suggCount(), m_entries.size());
     const int minScore = Settings::suggScore() * 100;
     int i = m_entries.size() - 1;

@@ -503,7 +503,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 
 
 //BEGIN resizeColumnToContents
-    static const int maxInitialWidths[] = {QApplication::desktop()->availableGeometry().width() / 3, QApplication::desktop()->availableGeometry().width() / 3};
+    static const int maxInitialWidths[] = {QGuiApplication::primaryScreen()->availableGeometry().width() / 3, QGuiApplication::primaryScreen()->availableGeometry().width() / 3};
     int column = sizeof(maxInitialWidths) / sizeof(int);
     while (--column >= 0)
         view->setColumnWidth(column, maxInitialWidths[column]);

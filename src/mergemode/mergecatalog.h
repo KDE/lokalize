@@ -52,9 +52,9 @@ struct MatchItem {
         , translationIsDifferent(d)
     {}
 
-    bool operator<(const MatchItem& other) const
+    bool operator>(const MatchItem& other) const
     {
-        return score < other.score;
+        return score > other.score;
     }
 
 };

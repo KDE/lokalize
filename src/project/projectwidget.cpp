@@ -477,7 +477,7 @@ ProjectWidget::gotoIndexResult ProjectWidget::gotoIndexFind(
         }
 
         // Handle child recursively if index is not a leaf
-        QModelIndex child = index.child((direction == 1) ? 0 : (m_proxyModel->rowCount(index) - 1), index.column());
+        QModelIndex child = index.model()->index((direction == 1) ? 0 : (m_proxyModel->rowCount(index) - 1), index.column());
         if (child.isValid()) {
             ProjectWidget::gotoIndexResult result = gotoIndexFind(child, role, direction);
             if (result != gotoIndex_notfound)

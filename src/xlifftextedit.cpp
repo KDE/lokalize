@@ -1306,7 +1306,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             m_completionBox->resize(m_completionBox->sizeHint());
             QPoint p = cursorRect().bottomRight();
             if (p.x() < 10) //workaround Qt bug
-                p.rx() += textCursor().verticalMovementX() + QFontMetrics(currentFont()).width('W');
+                p.rx() += textCursor().verticalMovementX() + QFontMetrics(currentFont()).horizontalAdvance('W');
             m_completionBox->move(viewport()->mapToGlobal(p));
         } else
             m_completionBox->hide();

@@ -484,7 +484,7 @@ TMTab::TMTab(QWidget *parent)
     //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
 
 //BEGIN resizeColumnToContents
-    static const int maxInitialWidths[4] = {QApplication::desktop()->availableGeometry().width() / 3, QApplication::desktop()->availableGeometry().width() / 3, 50, 200};
+    static const int maxInitialWidths[4] = {QGuiApplication::primaryScreen()->availableGeometry().width() / 3, QGuiApplication::primaryScreen()->availableGeometry().width() / 3, 50, 200};
     int column = sizeof(maxInitialWidths) / sizeof(int);
     while (--column >= 0)
         view->setColumnWidth(column, maxInitialWidths[column]);

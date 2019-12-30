@@ -281,7 +281,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
     QList<InlineTag> oldTags = target.tags;
     target.tags.clear();
     //we actually walking from beginning to end:
-    std::sort(oldTags.begin(), oldTags.end(), qGreater<InlineTag>());
+    std::sort(oldTags.begin(), oldTags.end(), std::greater<InlineTag>());
     i = oldTags.size();
     while (--i >= 0) {
         const InlineTag& targetTag = oldTags.at(i);
