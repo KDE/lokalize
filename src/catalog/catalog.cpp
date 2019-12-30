@@ -358,7 +358,6 @@ QString Catalog::setPhase(const DocPosition& pos, const QString& phase)
 
 void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role)
 {
-    //qCDebug(LOKALIZE_LOG)<<"setting active phase"<<phase<<role;
     d._phase = phase;
     d._phaseRole = role;
     updateApprovedEmptyIndexCache();

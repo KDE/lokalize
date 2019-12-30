@@ -185,7 +185,6 @@ bool SubjectFieldModel::insertRows(int row, int count, const QModelIndex& parent
 
 bool SubjectFieldModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    qCDebug(LOKALIZE_LOG) << role;
     QStringList& subjectFields = Project::instance()->glossary()->subjectFields;
     subjectFields[index.row()] = value.toString();
     return true;
@@ -431,12 +430,10 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     if (items.count()) {
         m_browser->setCurrentIndex(items.first());
         m_browser->scrollTo(items.first(), QAbstractItemView::PositionAtCenter);
-        //qCDebug(LOKALIZE_LOG)<<id<<items<<items.first().row();
     } else {
         //the row is probably not fetched yet
         m_browser->setCurrentIndex(QModelIndex());
         showEntryInEditor(id);
-        //qCDebug(LOKALIZE_LOG)<<id<<0;
     }
 }
 

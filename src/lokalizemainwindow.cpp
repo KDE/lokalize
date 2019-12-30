@@ -672,16 +672,13 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
     if (!nameSpecifier.isEmpty()) nameSpecifier.prepend('-');
     KConfig* c = stateGroup.isValid() ? stateGroup.config() : &config;
     m_openRecentFileAction->saveEntries(KConfigGroup(c, "RecentFiles" + nameSpecifier));
-
     m_openRecentProjectAction->saveEntries(KConfigGroup(&config, "RecentProjects"));
 }
 
 void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 {
     KConfig config;
-    const KConfig* c = stateGroup.isValid() ? stateGroup.config() : &config;
-    m_openRecentProjectAction->loadEntries(KConfigGroup(c, "RecentProjects"));
-
+    m_openRecentProjectAction->loadEntries(KConfigGroup(&config, "RecentProjects"));
     QString path = stateGroup.readEntry("Project", QString());
     if (Project::instance()->isLoaded() || path.isEmpty()) {
         //1. we weren't existing yet when the signal was emitted
@@ -694,8 +691,9 @@ void LokalizeMainWindow::readProperties(const KConfigGroup& stateGroup)
 void LokalizeMainWindow::projectLoaded()
 {
     QString projectPath = Project::instance()->path();
-    qCDebug(LOKALIZE_LOG) << projectPath;
-    m_openRecentProjectAction->addUrl(QUrl::fromLocalFile(projectPath));
+    qCDebug(LOKALIZE_LOG) << "Loaded project : " << projectPath;
+    if (!projectPath.isEmpty())
+        m_openRecentProjectAction->addUrl(QUrl::fromLocalFile(projectPath));
 
     KConfig config;
 

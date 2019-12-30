@@ -183,7 +183,6 @@ void GlossarySortFilterProxyModel::fetchMore(const QModelIndex&)
     int expectedCount = rowCount() + FETCH_SIZE / 2;
     while (rowCount(QModelIndex()) < expectedCount && sourceModel()->canFetchMore(QModelIndex())) {
         sourceModel()->fetchMore(QModelIndex());
-        //qCDebug(LOKALIZE_LOG)<<"filter:"<<rowCount(QModelIndex())<<"/"<<sourceModel()->rowCount();
         QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents | QEventLoop::ExcludeSocketNotifiers);
     }
 }
@@ -369,7 +368,6 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
     QString minusLang = lang; minusLang.replace('_', '-');
     QStringRef soleLang = lang.leftRef(2);
 
-    //qCDebug(LOKALIZE_LOG)<<"started walking over"<<lang<<index;
     QDomElement n = termEntry.firstChildElement(langSet);
     QDomDocument document = n.ownerDocument();
     int i = 0;
@@ -380,7 +378,6 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
             ourLangSetElement = n;
             QDomElement ntigElem = n.firstChildElement(ntig);
             while (!ntigElem.isNull()) {
-                //qCDebug(LOKALIZE_LOG)<<i<<ntigElem.firstChildElement(termGrp).firstChildElement(term).text();
                 if (i == index) {
                     tigElement = ntigElem;
                     termElement = ntigElem.firstChildElement(termGrp).firstChildElement(term);
