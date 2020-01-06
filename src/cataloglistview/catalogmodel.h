@@ -52,13 +52,15 @@ public:
         Context,
         Files,
         TranslationStatus,
+        SourceLength,
+        TargetLength,
         IsEmpty,
         State,
         IsModified,
         IsPlural,
         ColumnCount,
     };
-    static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::TranslationStatus) + 1;
+    static const int DisplayedColumnCount = static_cast<int>(CatalogModelColumns::TargetLength) + 1;
 
     // Possible values in column "Translation Status".
     enum class TranslationStatus {

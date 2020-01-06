@@ -131,6 +131,10 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
             return i18nc("@title:column", "Files");
         case CatalogModelColumns::TranslationStatus:
             return i18nc("@title:column", "Translation Status");
+        case CatalogModelColumns::SourceLength:
+            return i18nc("@title:column Length of the original text", "Source length");
+        case CatalogModelColumns::TargetLength:
+            return i18nc("@title:column Length of the text in target language", "Target length");
         default:
             return {};
     }
@@ -237,6 +241,10 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
             return m_catalog->context(index.row());
         case CatalogModelColumns::Files:
             return m_catalog->sourceFiles(index.row()).join('|');
+        case CatalogModelColumns::SourceLength:
+          return QString::number(m_catalog->msgidWithPlurals(index.row(), true).length());
+        case CatalogModelColumns::TargetLength:
+          return QString::number(m_catalog->msgstrWithPlurals(index.row(), true).length());
         default:
             return {};
     }
