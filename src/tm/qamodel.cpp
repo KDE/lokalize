@@ -26,7 +26,7 @@
 #include <QCoreApplication>
 #include <klocalizedstring.h>
 
-static QString ruleTagNames[] = {QString("source"), QString("falseFriend"), QString("target")};
+static const QString ruleTagNames[] = {QString("source"), QString("falseFriend"), QString("target")};
 
 static QStringList domListToStringList(const QDomNodeList& nodes)
 {

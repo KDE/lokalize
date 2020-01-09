@@ -172,7 +172,7 @@ void TranslationUnitTextEdit::fileLoaded()
     }
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     Qt::LayoutDirection targetLanguageDirection = Qt::LeftToRight;
-    static QLocale::Language rtlLanguages[] = {QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
+    static const QLocale::Language rtlLanguages[] = {QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
     int i = sizeof(rtlLanguages) / sizeof(QLocale::Arabic);
     while (--i >= 0 && langLocale.language() != rtlLanguages[i])
         ;
@@ -184,7 +184,7 @@ void TranslationUnitTextEdit::fileLoaded()
         return;
 
     //"Some language do not need space between words. For example Chinese."
-    static QLocale::Language noSpaceLanguages[] = {QLocale::Chinese};
+    static const QLocale::Language noSpaceLanguages[] = {QLocale::Chinese};
     i = sizeof(noSpaceLanguages) / sizeof(QLocale::Chinese);
     while (--i >= 0 && langLocale.language() != noSpaceLanguages[i])
         ;
