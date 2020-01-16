@@ -468,8 +468,8 @@ void LokalizeMainWindow::setupActions()
     //all operations that can be done after initial setup
     //(via QTimer::singleShot) go to initLater()
 
-    QTime aaa;
-    aaa.start();
+    // QTime aaa;
+    // aaa.start();
 
     setStandardToolBarMenuEnabled(true);
 

@@ -33,7 +33,7 @@
 #include "domroutines.h"
 
 #include <QStringBuilder>
-#include <QTime>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>
@@ -71,7 +71,7 @@ Glossary::Glossary(QObject* parent)
 //BEGIN DISK
 bool Glossary::load(const QString& newPath)
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 //BEGIN NEW
     QIODevice* device = new QFile(newPath);
     if (!device->open(QFile::ReadOnly | QFile::Text)) {
@@ -321,7 +321,7 @@ QStringList Glossary::subjectFields() const
     QSet<QString> result;
     foreach (const QByteArray& id, m_idsForEntriesById)
         result.insert(subjectField(id));
-    return result.toList();
+    return result.values();
 }
 
 QByteArray Glossary::id(int index) const

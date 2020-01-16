@@ -42,6 +42,7 @@
 #include <QMap>
 #include <QStandardPaths>
 #include <QFile>
+#include <QElapsedTimer>
 #include <QDir>
 
 #include <iostream>
@@ -419,7 +420,7 @@ static bool doInsertEntry(CatalogString source,
                           qlonglong& mainId
                          )
 {
-    QTime a; a.start();
+//     QTime a; a.start();
 
     mainId = -1;
 
@@ -988,7 +989,7 @@ OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const Con
 
 void OpenDBJob::run()
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
     if (!QSqlDatabase::contains(m_dbName) || m_reconnect) {
         QThread::currentThread()->setPriority(QThread::IdlePriority);
 
@@ -1444,7 +1445,7 @@ void SelectJob::run()
         return;
     }
     //thread()->setPriority(QThread::IdlePriority);
-    QTime a; a.start();
+//     QTime a; a.start();
 
     if (Q_UNLIKELY(!QSqlDatabase::contains(m_dbName))) {
         emit done(this);
@@ -1525,7 +1526,7 @@ void ScanJob::run()
     }
     qCDebug(LOKALIZE_LOG) << "scan job started for" << m_filePath << m_dbName << stop << m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 
     QSqlDatabase db = QSqlDatabase::database(m_dbName);
     if (!db.isOpen())
@@ -1938,7 +1939,7 @@ ImportTmxJob::~ImportTmxJob()
 
 void ImportTmxJob::run()
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 
     QFile file(m_filename);
     if (!file.open(QFile::ReadOnly | QFile::Text))
@@ -1976,7 +1977,7 @@ ExportTmxJob::~ExportTmxJob()
 
 void ExportTmxJob::run()
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 
     QFile out(m_filename);
     if (!out.open(QFile::WriteOnly | QFile::Text))

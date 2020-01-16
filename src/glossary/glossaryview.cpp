@@ -116,7 +116,6 @@ void GlossaryView::slotNewEntryDisplayed()
 void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 {
     //qCWarning(LOKALIZE_LOG)<<"\n\n\n\nstart"<<pos.entry<<m_currentIndex;
-    QTime time; time.start();
     if (pos.entry == -1)
         pos.entry = m_currentIndex;
     else

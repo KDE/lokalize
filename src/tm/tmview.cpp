@@ -383,8 +383,8 @@ void TMView::displayFromCache()
 
 void TMView::slotSuggestionsCame(SelectJob* j)
 {
-    QTime time;
-    time.start();
+//     QTime time;
+//     time.start();
 
     SelectJob& job = *j;
     job.deleteLater();

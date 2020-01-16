@@ -152,7 +152,7 @@ Project::~Project()
 
 void Project::load(const QString &newProjectPath, const QString& forcedTargetLangCode, const QString& forcedProjectId)
 {
-    QTime a; a.start();
+//     QTime a; a.start();
 
     TM::threadPool()->clear();
     qCDebug(LOKALIZE_LOG) << "loading" << newProjectPath << "finishing tm jobs...";
