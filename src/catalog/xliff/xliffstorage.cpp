@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStringBuilder>
 #include <QMap>
 #include <QDomDocument>
-#include <QTime>
+#include <QElapsedTimer>
 #include <QPair>
 #include <QList>
 #include <QXmlSimpleReader>
@@ -62,7 +62,7 @@ int XliffStorage::capabilities() const
 
 int XliffStorage::load(QIODevice* device)
 {
-    QTime chrono; chrono.start();
+    QElapsedTimer chrono; chrono.start();
 
 
     QXmlSimpleReader reader;

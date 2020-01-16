@@ -603,7 +603,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             QByteArray a;
             QDataStream out(&a, QIODevice::WriteOnly);
             QVariant v;
-            qVariantSetValue<CatalogString>(v, catalogString);
+            v.setValue<CatalogString>(catalogString);
             out << v;
             mimeData->setData(LOKALIZE_XLIFF_MIMETYPE, a);
         }
@@ -1283,7 +1283,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 
     void TranslationUnitTextEdit::doCompletion(int pos) {
-        QElapsedTimer a; a.start();
         QString target = m_catalog->targetWithTags(m_currentPos).string;
         int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, pos - 1);
         int len = (pos - sp) - 1;

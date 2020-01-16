@@ -33,7 +33,7 @@
 #include "domroutines.h"
 
 #include <QStringBuilder>
-#include <QTime>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QXmlSimpleReader>
 #include <QXmlStreamReader>

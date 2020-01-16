@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QMap>
 #include <QDomDocument>
-#include <QTime>
+#include <QElapsedTimer>
 #include <QPair>
 #include <QList>
 #include <QXmlSimpleReader>
@@ -70,7 +70,7 @@ int TsStorage::capabilities() const
 
 int TsStorage::load(QIODevice* device)
 {
-    QTime chrono; chrono.start();
+    QElapsedTimer chrono; chrono.start();
 
 
     QXmlSimpleReader reader;
