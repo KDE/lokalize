@@ -426,7 +426,7 @@ void GlossaryWindow::selectEntry(const QByteArray& id)
     //let it fetch the rows
     QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents | QEventLoop::ExcludeSocketNotifiers | QEventLoop::WaitForMoreEvents, 100);
 
-    QModelIndexList items = m_proxyModel->match(m_proxyModel->index(0, 0), Qt::DisplayRole, QVariant(id), 1, 0);
+    QModelIndexList items = m_proxyModel->match(m_proxyModel->index(0, 0), Qt::DisplayRole, QVariant(id), 1, Qt::MatchExactly);
     if (items.count()) {
         m_browser->setCurrentIndex(items.first());
         m_browser->scrollTo(items.first(), QAbstractItemView::PositionAtCenter);
