@@ -39,7 +39,6 @@
 #include <QXmlStreamReader>
 #include <QBuffer>
 #include <QApplication>
-#include <QElapsedTimer>
 
 #include <klocalizedstring.h>
 
