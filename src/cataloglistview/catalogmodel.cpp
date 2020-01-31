@@ -242,9 +242,9 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         case CatalogModelColumns::Files:
             return m_catalog->sourceFiles(index.row()).join('|');
         case CatalogModelColumns::SourceLength:
-          return QString::number(m_catalog->msgidWithPlurals(index.row(), true).length());
+          return m_catalog->msgidWithPlurals(index.row(), true).length();
         case CatalogModelColumns::TargetLength:
-          return QString::number(m_catalog->msgstrWithPlurals(index.row(), true).length());
+          return m_catalog->msgstrWithPlurals(index.row(), true).length();
         default:
             return {};
     }
