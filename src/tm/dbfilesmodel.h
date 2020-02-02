@@ -28,7 +28,7 @@
 #include "jobs.h"
 
 #include <QSortFilterProxyModel>
-#include <QTime>
+#include <QElapsedTimer>
 #include <QMutex>
 class QFileSystemModel;
 class QPersistentModelIndex;
@@ -100,7 +100,7 @@ private:
     mutable QPersistentModelIndex* projectDB;
     QFileSystemModel* m_fileSystemModel;
     QString m_tmRootPath;
-    QTime m_timeSinceLastUpdate;
+    QElapsedTimer m_timeSinceLastUpdate;
 
     QMap<QString, OpenDBJob::DBStat> m_stats;
 public:

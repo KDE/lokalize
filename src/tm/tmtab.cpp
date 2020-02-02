@@ -243,10 +243,10 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
     } else if (item.column() == TMDBModel::Filepath) {
         return shorterFilePath(result.toString());
     } else if (item.column() == TMDBModel::TransationStatus) {
-        static QString statuses[] = {i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready"),
-                                     i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"),
-                                     i18nc("@info:status", "Untranslated")
-                                    };
+        static const QString statuses[] = {i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready"),
+                                           i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review"),
+                                           i18nc("@info:status", "Untranslated")
+                                          };
         return statuses[translationStatus(item)];
     }
     if (doHtml && item.column() < TMDBModel::Context)
@@ -377,10 +377,10 @@ QueryStylesModel::QueryStylesModel(QObject* parent): QStringListModel(parent)
 QVariant QueryStylesModel::data(const QModelIndex& item, int role) const
 {
     if (role == Qt::ToolTipRole) {
-        static QString tooltips[] = {i18n("Case insensitive"),
-                                     i18n("Space is AND operator. Case insensitive."),
-                                     i18n("Shell globs (* and ?). Case sensitive.")
-                                    };
+        static const QString tooltips[] = {i18n("Case insensitive"),
+                                           i18n("Space is AND operator. Case insensitive."),
+                                           i18n("Shell globs (* and ?). Case sensitive.")
+                                          };
         return tooltips[item.row()];
     }
     return QStringListModel::data(item, role);

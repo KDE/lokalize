@@ -31,13 +31,15 @@
 #include "catalog.h"
 #include "lokalize_debug.h"
 
-#include <KLocalizedString>
 #include <KActionCategory>
 #include <KActionCollection>
-#include <KStandardAction>
-#include <KXMLGUIFactory>
-#include <KProcess>
+#include <KGuiItem>
+#include <KLocalizedString>
 #include <KMessageBox>
+#include <KProcess>
+#include <KStandardAction>
+#include <KStandardGuiItem>
+#include <KXMLGUIFactory>
 
 #include <QLineEdit>
 #include <QIcon>
@@ -353,6 +355,24 @@ void ProjectTab::openFile()
 {
     QStringList files = m_browser->selectedItems();
     int i = files.size();
+
+    if (i > 50) {
+        QString caption = i18np("You are about to open %1 file", "You are about to open %1 files", i);
+        QString text = i18n("Opening a large number of files at the same time can make Lokalize unresponsive.")
+                       + QStringLiteral("\n\n")
+                       + i18n("Are you sure you want to open this many files?");
+        auto yes = KGuiItem(
+            i18np("&Open %1 File", "&Open %1 Files", i),
+            QStringLiteral("document-open")
+        );
+        const int answer = KMessageBox::warningYesNo(
+            this, text, caption, yes, KStandardGuiItem::cancel()
+        );
+        if (answer != KMessageBox::Yes) {
+            return;
+        }
+    }
+
     while (--i >= 0) {
         if (Catalog::extIsSupported(files.at(i)))  {
             emit fileOpenRequested(files.at(i), true);

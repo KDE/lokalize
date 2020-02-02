@@ -39,6 +39,7 @@
 #include "fastsizehintitemdelegate.h"
 
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QDesktopWidget>
 #include <QTreeView>
 #include <QClipboard>
@@ -198,7 +199,7 @@ SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector
 
 void SearchJob::run()
 {
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
     bool removeAmpFromSource = searchParams.sourcePattern.patternSyntax() == QRegExp::FixedString
                                && !searchParams.sourcePattern.pattern().contains(QLatin1Char('&'));
     bool removeAmpFromTarget = searchParams.targetPattern.patternSyntax() == QRegExp::FixedString

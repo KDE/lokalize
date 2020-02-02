@@ -27,8 +27,8 @@
 #define SCANAPI_H
 
 #include <QDir>
+#include <QElapsedTimer>
 #include <QUrl>
-#include <QTime>
 #include <QVector>
 
 #include <kjob.h>
@@ -63,7 +63,7 @@ protected:
 
 private:
     QString m_dbName;
-    QTime m_time;
+    QElapsedTimer m_time;
     QVector<ScanJob*> m_jobs;
     qulonglong m_destroyedJobs = 0;
 };

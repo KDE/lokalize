@@ -561,7 +561,7 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     bool readOnly = !info.isWritable();
 
 
-    QTime a; a.start();
+    QElapsedTimer a; a.start();
 
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly))

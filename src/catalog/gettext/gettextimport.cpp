@@ -108,8 +108,8 @@ ConversionStatus GettextImportPlugin::load(QIODevice* device)
     CatalogItem tempHeader;
 
     //qCDebug(LOKALIZE_LOG) << "start parsing...";
-    QTime aaa;
-    aaa.start();
+//     QTime aaa;
+//     aaa.start();
     // first read header
     const ConversionStatus status = readEntry(stream);
 
