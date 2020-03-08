@@ -278,6 +278,8 @@ void EditorTab::setupActions()
     connect(m_view, &EditorView::signalChanged, m_notesView, &MsgCtxtView::removeErrorNotes);
     connect(m_notesView, &MsgCtxtView::escaped, this, &EditorTab::setProperFocus);
 
+    connect((const TranslationUnitTextEdit*)m_view->viewPort(), &TranslationUnitTextEdit::languageToolChanged, m_notesView, &MsgCtxtView::languageTool);
+
     action = edit->addAction(QStringLiteral("edit_addnote"), m_notesView, SLOT(addNoteUI()));
     //action->setShortcut(Qt::CTRL+glist[i]);
     action->setText(i18nc("@action:inmenu", "Add a note"));
@@ -540,6 +542,10 @@ void EditorTab::setupActions()
     action = edit->addAction(QStringLiteral("edit_tagmenu"), m_view->viewPort(), SLOT(tagMenu()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_T));
     action->setText(i18nc("@action:inmenu", "Insert Tag"));
+
+    action = edit->addAction(QStringLiteral("edit_languagetool"), m_view->viewPort(), SLOT(launchLanguageTool()));
+    ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_J));
+    action->setText(i18nc("@action:inmenu", "Check this unit using LanguageTool"));
 
     action = edit->addAction(QStringLiteral("edit_tagimmediate"), m_view->viewPort(), SLOT(tagImmediate()));
     ac->setDefaultShortcut(action, QKeySequence(Qt::CTRL + Qt::Key_M));

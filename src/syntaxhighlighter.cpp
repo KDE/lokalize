@@ -49,7 +49,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     , m_approved(true)
 //     , fromDocbook(docbook)
 {
-
     highlightingRules.reserve(NUM_OF_RULES);
     HighlightingRule rule;
     //rule.format.setFontItalic(true);
@@ -84,10 +83,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
     rule.format.setForeground(Qt::darkGreen);
     rule.pattern = QRegExp(QStringLiteral("(\\\\[abfnrtv'\?\\\\])|(\\\\\\d+)|(\\\\x[\\dabcdef]+)"));
     highlightingRules.append(rule);
-
-
-
-
 
     //spaces
     settingsChanged();

@@ -38,6 +38,7 @@
 #include "ui_prefs_general.h"
 #include "ui_prefs_appearance.h"
 #include "ui_prefs_pology.h"
+#include "ui_prefs_languagetool.h"
 #include "ui_prefs_tm.h"
 #include "ui_prefs_projectmain.h"
 #include "ui_prefs_project_advanced.h"
@@ -123,7 +124,11 @@ void SettingsController::showSettingsDialog()
     Ui_prefs_general ui_prefs_general;
     ui_prefs_general.setupUi(w);
     connect(ui_prefs_general.kcfg_CustomEditorEnabled, &QCheckBox::toggled, ui_prefs_general.kcfg_CustomEditorCommand, &QLineEdit::setEnabled);
-    ui_prefs_general.kcfg_CustomEditorCommand->setEnabled(Settings::self()->customEditorEnabled());
+    ui_prefs_general.kcfg_CustomEditorCommand->setEnabled(Settings::self()->customEditorEnabled());    
+    //Set here to avoid I18N_ARGUMENT_MISSING if set in ui file
+    ui_prefs_general.kcfg_CustomEditorCommand->setToolTip(i18n(
+        "The following parameters are available\n%1 - Path of the source file\n%2 - Line number"
+    ,QStringLiteral("%1"),QStringLiteral("%2")));
     dialog->addPage(w, i18nc("@title:tab", "General"), "preferences-system-windows");
 
 //Editor
@@ -149,6 +154,12 @@ void SettingsController::showSettingsDialog()
     Ui_prefs_pology ui_prefs_pology;
     ui_prefs_pology.setupUi(w);
     dialog->addPage(w, i18nc("@title:tab", "Pology"), "preferences-desktop-filetype-association");
+
+//LanguageTool
+    w = new QWidget(dialog);
+    Ui_prefs_languagetool ui_prefs_languagetool;
+    ui_prefs_languagetool.setupUi(w);
+    dialog->addPage(w, i18nc("@title:tab", "LanguageTool"), "lokalize");
 
     connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::generalSettingsChanged);
 

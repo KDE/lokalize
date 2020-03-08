@@ -64,6 +64,7 @@
     <Action name="edit_tagmenu"/>
     <Action name="edit_tagimmediate"/>
     <Action name="edit_spellreplace"/>
+    <Action name="edit_languagetool"/>
     <Action name="edit_addnote"/>
     <Menu name="glossary"><text>&amp;Glossary</text>
         <Action name="glossary_define"/>

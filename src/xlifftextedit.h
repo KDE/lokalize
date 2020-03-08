@@ -78,6 +78,7 @@ public slots:
     void tagImmediate();
     void insertTag(InlineTag tag);
     void spellReplace();
+    void launchLanguageTool();
 
     void emitCursorPositionChanged();//for leds
 
@@ -115,6 +116,9 @@ private slots:
     void completionActivated(const QString&);
     void fileLoaded();
 
+    void slotLanguageToolFinished(const QString &result);
+    void slotLanguageToolError(const QString &str);
+
 signals:
     void toggleApprovementRequested();
     void undoRequested();
@@ -139,6 +143,7 @@ signals:
     void tagInsertRequested(const InlineTag& tag);
 
     void binaryUnitSelectRequested(const QString&);
+    void languageToolChanged(const QString&);
     void tmLookupRequested(DocPosition::Part, const QString&);
 
     void contentsModified(const DocPosition&);

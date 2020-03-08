@@ -27,6 +27,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/tm
     ${CMAKE_CURRENT_SOURCE_DIR}/filesearch
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
+    ${CMAKE_CURRENT_SOURCE_DIR}/languagetool
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
 )
@@ -88,6 +89,12 @@ set(liblokalize_SRCS
     webquery/webqueryview.cpp
     webquery/webquerycontroller.cpp
     webquery/myactioncollectionview.cpp
+
+    languagetool/languagetoolresultjob.cpp
+    languagetool/languagetoolmanager.cpp
+    languagetool/languagetoolparser.cpp
+    languagetool/languagetoolgrammarerror.cpp
+
     tools/widgettextcaptureconfig.cpp
 
     filesearch/filesearchtab.cpp
@@ -137,6 +144,7 @@ ki18n_wrap_ui(liblokalize_SRCS
     prefs/prefs_appearance.ui
     prefs/prefs_tm.ui
     prefs/prefs_pology.ui
+    prefs/prefs_languagetool.ui
     project/prefs_project_advanced.ui
     project/prefs_project_local.ui
     project/prefs_projectmain.ui

@@ -27,6 +27,7 @@
 
 #include <QSyntaxHighlighter>
 #include <sonnet/highlighter.h>
+#include <sonnet/speller.h>
 #include <kcolorscheme.h>
 
 #include <QHash>

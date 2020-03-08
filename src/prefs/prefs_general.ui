@@ -85,12 +85,7 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QLineEdit" name="kcfg_CustomEditorCommand">
-     <property name="toolTip">
-      <string>The following parameters are available
-%1 - Path of the source file
-%2 - Line number</string>
-     </property>
+    <widget class="QLineEdit" name="kcfg_CustomEditorCommand">     
     </widget>
    </item>
   </layout>

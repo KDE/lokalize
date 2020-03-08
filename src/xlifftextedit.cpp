@@ -33,6 +33,9 @@
 #include "prefs.h"
 #include "project.h"
 #include "completionstorage.h"
+#include "languagetoolmanager.h"
+#include "languagetoolresultjob.h"
+#include "languagetoolparser.h"
 
 #include <klocalizedstring.h>
 #include <kcompletionbox.h>
@@ -51,7 +54,8 @@
 #include <QToolTip>
 #include <QScrollBar>
 #include <QElapsedTimer>
-
+#include <QJsonDocument>
+#include <QJsonObject>
 
 inline static QImage generateImage(const QString& str, const QFont& font)
 {
@@ -164,12 +168,19 @@ void TranslationUnitTextEdit::fileLoaded()
     QLocale langLocale(langCode);
     // First try to use a locale name derived from the language code
     m_highlighter->setCurrentLanguage(langLocale.name());
+    //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langLocale.name();
     // If that fails, try to use the language code directly
     if (m_highlighter->currentLanguage() != langLocale.name() || m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
+        //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langCode;
         if (m_highlighter->currentLanguage() != langCode && langCode.length() > 2)
+        {
             m_highlighter->setCurrentLanguage(langCode.left(2));
+            //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langCode.left(2);
+        }
     }
+    //qCWarning(LOKALIZE_LOG) << "Spellchecker found "<<m_highlighter->spellCheckerFound()<< " as "<<m_highlighter->currentLanguage();
+    //setSpellCheckingLanguage(m_highlighter->currentLanguage());
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989
     Qt::LayoutDirection targetLanguageDirection = Qt::LeftToRight;
     static const QLocale::Language rtlLanguages[] = {QLocale::Arabic, QLocale::Hebrew, QLocale::Urdu, QLocale::Persian, QLocale::Pashto};
@@ -1116,6 +1127,8 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             QString tip;
 
             QString langCode = m_highlighter->currentLanguage();
+
+            //qCWarning(LOKALIZE_LOG) << "Spellchecker found "<<m_highlighter->spellCheckerFound()<< " as "<<m_highlighter->currentLanguage();
             bool nospell = langCode.isEmpty();
             if (nospell)
                 langCode = m_part == DocPosition::Source ? m_catalog->sourceLangCode() : m_catalog->targetLangCode();
@@ -1130,8 +1143,29 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         return KTextEdit::event(event);
     }
 
+    void TranslationUnitTextEdit::slotLanguageToolFinished(const QString &result)
+    {
+        LanguageToolParser parser;
+        const QJsonDocument doc = QJsonDocument::fromJson(result.toUtf8());
+        const QJsonObject fields = doc.object();
+        emit languageToolChanged(parser.parseResult(fields, toPlainText()));
+    }
 
+    void TranslationUnitTextEdit::slotLanguageToolError(const QString &str)
+    {        
+        emit languageToolChanged(i18n("An error was reported: %1", str));
+    }
 
+    void TranslationUnitTextEdit::launchLanguageTool()     {
+        LanguageToolResultJob *job = new LanguageToolResultJob(this);
+        job->setUrl(LanguageToolManager::self()->languageToolCheckPath());
+        job->setNetworkAccessManager(LanguageToolManager::self()->networkAccessManager());
+        job->setText(toPlainText());
+        job->setLanguage(m_catalog->targetLangCode());
+        connect(job, &LanguageToolResultJob::finished, this, &TranslationUnitTextEdit::slotLanguageToolFinished);
+        connect(job, &LanguageToolResultJob::error, this, &TranslationUnitTextEdit::slotLanguageToolError);
+        job->start();
+    }
     void TranslationUnitTextEdit::tagMenu()     {
         doTag(false);
     }
