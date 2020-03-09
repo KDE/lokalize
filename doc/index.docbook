@@ -26,8 +26,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2018-10-14</date>
-<releaseinfo>Applications 18.12</releaseinfo>
+<date>2020-03-09</date>
+<releaseinfo>Applications 20.04</releaseinfo>
 
 <abstract>
 <para>
@@ -500,6 +500,23 @@ Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</
 </para>
 <para>
     For more information, please refer to <ulink url="http://pology.nedohodnik.net/">Pology homepage</ulink>.
+</para>
+</sect1>
+
+<sect1 id="languagetool">
+<title>LanguageTool</title>
+
+<para>
+    <application>LanguageTool</application> offers spell and grammar checking of your translation units.
+</para>
+<para>
+    You can configure your custom <application>LanguageTool</application> server using the page <guilabel>LanguageTool</guilabel> of the configuration window which can be opened by choosing the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &lokalize;...</guimenuitem></menuchoice> main menu item.
+</para>
+<para>
+    To utilize <application>LanguageTool</application> checking capabilities use the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Check this unit using LanguageTool</guimenuitem></menuchoice> menu item or use <keycombo>&Ctrl;<keycap>J</keycap></keycombo> shortcut.
+</para>
+<para>
+    For more information, please refer to <ulink url="https://languagetool.org/">LanguageTool homepage</ulink>.
 </para>
 </sect1>
 </chapter>
