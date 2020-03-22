@@ -139,6 +139,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &TranslationUnitTextEdit::fileLoaded);
     //connect (Project::instance(), &Project::configChanged, this, &TranslationUnitTextEdit::projectConfigChanged);
     connect(m_languageToolTimer, &QTimer::timeout, this, &TranslationUnitTextEdit::launchLanguageTool);
+    m_languageToolTimer->setSingleShot(true);
 }
 
 void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
