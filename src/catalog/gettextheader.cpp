@@ -58,6 +58,7 @@ static const langPInfo langsWithPInfo[] = {
     { "ar", "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;" },
     { "be@latin", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
     { "be", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
+    { "bg", "nplurals=2; plural=(n != 1);" },
     { "br", "nplurals=2; plural=(n > 1);" },
     { "bs", "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;" },
     { "csb", "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)" },
@@ -124,6 +125,7 @@ static const langPInfo langsWithPInfo[] = {
     { "zh_CN", "nplurals=1; plural=0;" },
     { "zh_HK", "nplurals=1; plural=0;" },
     { "zh_TW", "nplurals=1; plural=0;" }
+
 };
 
 static const size_t langsWithPInfoCount = sizeof(langsWithPInfo) / sizeof(langsWithPInfo[0]);
