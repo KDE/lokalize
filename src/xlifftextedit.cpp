@@ -123,6 +123,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     , m_completionBox(0)
     , m_cursorSelectionStart(0)
     , m_cursorSelectionEnd(0)
+    , m_languageToolTimer(new QTimer(this))
 {
     setReadOnly(part == DocPosition::Source);
     setUndoRedoEnabled(false);
@@ -137,6 +138,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     }
     connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &TranslationUnitTextEdit::fileLoaded);
     //connect (Project::instance(), &Project::configChanged, this, &TranslationUnitTextEdit::projectConfigChanged);
+    connect(m_languageToolTimer, &QTimer::timeout, this, &TranslationUnitTextEdit::launchLanguageTool);
 }
 
 void TranslationUnitTextEdit::setSpellCheckingEnabled(bool enable)
@@ -308,6 +310,10 @@ void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const Cata
     else
         //reflectApprovementState() does this for Target
         m_highlighter->rehighlight(); //explicitly because the signals were disabled
+    if (Settings::self()->languageToolDelay() > 0)
+    {
+        m_languageToolTimer->start(Settings::self()->languageToolDelay() * 1000);
+    }
 }
 
 #if 0
@@ -526,6 +532,11 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         } else if (m_completionBox)
             m_completionBox->hide();
         //qCWarning(LOKALIZE_LOG)<<"finish";
+        //Start LanguageToolTimer
+        if (Settings::self()->languageToolDelay() > 0)
+        {
+            m_languageToolTimer->start(Settings::self()->languageToolDelay() * 1000);
+        }
     }
 
 

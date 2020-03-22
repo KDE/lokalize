@@ -50,7 +50,7 @@
         </item>
         </layout>
     </item>
-   <!--<item row="3" column="0">
+   <item row="3" column="0">
     <layout class="QHBoxLayout">
      <item>
       <widget class="QLabel" name="l1">
@@ -79,7 +79,7 @@
       </widget>
      </item>
     </layout>
-   </item>-->
+   </item>
     </layout>
    </item>
   </layout>

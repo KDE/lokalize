@@ -172,6 +172,9 @@ private:
     //For text move with mouse
     int m_cursorSelectionStart;
     int m_cursorSelectionEnd;
+
+    //For LanguageTool timer
+    QTimer* m_languageToolTimer;
 };
 
 
