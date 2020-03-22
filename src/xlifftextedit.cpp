@@ -1169,6 +1169,8 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     }
 
     void TranslationUnitTextEdit::launchLanguageTool()     {
+        if (toPlainText().length() == 0)
+            return;
         LanguageToolResultJob *job = new LanguageToolResultJob(this);
         job->setUrl(LanguageToolManager::self()->languageToolCheckPath());
         job->setNetworkAccessManager(LanguageToolManager::self()->networkAccessManager());
