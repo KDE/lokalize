@@ -470,7 +470,7 @@ bool TsStorage::isPlural(const DocPosition& pos) const
 
 void TsStorage::setApproved(const DocPosition& pos, bool approved)
 {
-    targetInsert(pos, QString()); //adds <taget> if needed
+    targetInsert(pos, QString()); //adds <target> if needed
     QDomElement target = unitForPos(pos.entry).firstChildElement(names[TargetTag]); //asking directly to bypass plural state detection
     if (target.attribute(attrnames[TypeAttr]) == attrvalues[ObsoleteVal])
         return;
