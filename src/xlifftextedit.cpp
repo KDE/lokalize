@@ -135,10 +135,10 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     if (part == DocPosition::Target) {
         connect(document(), &QTextDocument::contentsChange, this, &TranslationUnitTextEdit::contentsChanged);
         connect(this, &KTextEdit::cursorPositionChanged, this, &TranslationUnitTextEdit::emitCursorPositionChanged);
+        connect(m_languageToolTimer, &QTimer::timeout, this, &TranslationUnitTextEdit::launchLanguageTool);
     }
     connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &TranslationUnitTextEdit::fileLoaded);
     //connect (Project::instance(), &Project::configChanged, this, &TranslationUnitTextEdit::projectConfigChanged);
-    connect(m_languageToolTimer, &QTimer::timeout, this, &TranslationUnitTextEdit::launchLanguageTool);
     m_languageToolTimer->setSingleShot(true);
 }
 
@@ -924,8 +924,6 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         return text;
     }
 
-
-
     void TranslationUnitTextEdit::emitCursorPositionChanged() {
         emit cursorPositionChanged(textCursor().columnNumber());
     }
@@ -1171,10 +1169,11 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     void TranslationUnitTextEdit::launchLanguageTool()     {
         if (toPlainText().length() == 0)
             return;
+
         LanguageToolResultJob *job = new LanguageToolResultJob(this);
         job->setUrl(LanguageToolManager::self()->languageToolCheckPath());
         job->setNetworkAccessManager(LanguageToolManager::self()->networkAccessManager());
-        job->setText(toPlainText());
+        job->setText(toPlainText().toHtmlEscaped().replace(QStringLiteral("%"), QStringLiteral("%25")));
         job->setLanguage(m_catalog->targetLangCode());
         connect(job, &LanguageToolResultJob::finished, this, &TranslationUnitTextEdit::slotLanguageToolFinished);
         connect(job, &LanguageToolResultJob::error, this, &TranslationUnitTextEdit::slotLanguageToolError);
