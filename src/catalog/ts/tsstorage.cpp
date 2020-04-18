@@ -56,20 +56,33 @@ enum AttrNames                   {LocationAttr, TypeAttr, ObsoleteAttr};
 static const QString attrvalues[] = {U("obsolete"), U("vanished")};
 enum AttValues                    {ObsoleteVal, VanishedVal};
 
-TsStorage::TsStorage()
-    : CatalogStorage()
-{
-}
-
-QString TsStorage::protect(const QString & str) const
+static QString protect(const QString & str)
 {
     QString p = str;
+    p.replace(QLatin1Char('&'), QLatin1String("&amp;"));
     p.replace(QLatin1Char('\"'), QLatin1String("&quot;"));
     p.replace(QLatin1Char('>'),  QLatin1String("&gt;"));
     p.replace(QLatin1Char('<'),  QLatin1String("&lt;"));
     p.replace(QLatin1Char('\''), QLatin1String("&apos;"));
     return p;
 }
+
+static QString unprotect(const QString & str)
+{
+    QString p = str;
+    p.replace(QLatin1String("&amp;"), QLatin1String("&"));
+    p.replace(QLatin1String("&quot;"), QLatin1String("\""));
+    p.replace(QLatin1String("&gt;"), QLatin1String(">"));
+    p.replace(QLatin1String("&lt;"), QLatin1String("<"));
+    p.replace(QLatin1String("&apos;"), QLatin1String("\'"));
+    return p;
+}
+
+TsStorage::TsStorage()
+    : CatalogStorage()
+{
+}
+
 int TsStorage::capabilities() const
 {
     return 0;//MultipleNotes;
@@ -110,12 +123,12 @@ int TsStorage::load(QIODevice* device)
         for (int pos = 0; pos < entries.size(); pos++) {
             QDomElement refNode = entries.at(pos).firstChildElement(names[SourceTag]).toElement();
             QDomNode firstRef = refNode.firstChild();
-            refNode.appendChild(m_doc.createCDATASection(protect(refNode.text())));
+            refNode.appendChild(m_doc.createCDATASection(refNode.text()));
             refNode.removeChild(firstRef);
             QDomElement targetEl = unitForPos(pos).firstChildElement(names[TargetTag]).toElement();
             if (!targetEl.isNull()) {
                 QDomNode firstTarget = targetEl.firstChild();
-                targetEl.appendChild(m_doc.createCDATASection(protect(targetEl.text())));
+                targetEl.appendChild(m_doc.createCDATASection(targetEl.text()));
                 targetEl.removeChild(firstTarget);
             }
 
@@ -123,7 +136,7 @@ int TsStorage::load(QIODevice* device)
             if (!noteEl.isNull()) {
                 QDomNode firstNote = noteEl.firstChild();
                 qCWarning(LOKALIZE_LOG) << noteEl.text() << " is note EL";
-                noteEl.appendChild(m_doc.createCDATASection(protect(noteEl.text())));
+                noteEl.appendChild(m_doc.createCDATASection(noteEl.text()));
                 noteEl.removeChild(firstNote);
             }
         }
@@ -142,10 +155,48 @@ bool TsStorage::save(QIODevice* device, bool belongsToProject)
     } else {
         QString tempString;
         QTextStream tempStream(&tempString);
+        entries = m_doc.elementsByTagName(QStringLiteral("message"));
+        if (!Settings::self()->convertXMLChars()) {
+            for (int pos = 0; pos < entries.size(); pos++) {
+                QDomElement refNode = entries.at(pos).firstChildElement(names[SourceTag]).toElement();
+                QDomCDATASection firstRef = refNode.firstChild().toCDATASection();
+                firstRef.setData(protect(firstRef.data()));
+                QDomElement targetEl = unitForPos(pos).firstChildElement(names[TargetTag]).toElement();
+                if (!targetEl.isNull()) {
+                    QDomCDATASection firstTarget = targetEl.firstChild().toCDATASection();
+                    firstTarget.setData(protect(firstTarget.data()));
+                }
 
+                QDomElement noteEl = unitForPos(pos).firstChildElement(names[NoteTag]).toElement();
+                if (!noteEl.isNull()) {
+                    QDomCDATASection firstNote = noteEl.firstChild().toCDATASection();
+                    firstNote.setData(protect(firstNote.data()));
+                }
+            }
+        }
         m_doc.save(tempStream, 4);
+        if (!Settings::self()->convertXMLChars()) {
+            for (int pos = 0; pos < entries.size(); pos++) {
+                QDomElement refNode = entries.at(pos).firstChildElement(names[SourceTag]).toElement();
+                QDomCDATASection firstRef = refNode.firstChild().toCDATASection();
+                firstRef.setData(unprotect(firstRef.data()));
+                QDomElement targetEl = unitForPos(pos).firstChildElement(names[TargetTag]).toElement();
+                if (!targetEl.isNull()) {
+                    QDomCDATASection firstTarget = targetEl.firstChild().toCDATASection();
+                    firstTarget.setData(unprotect(firstTarget.data()));
+                }
+
+                QDomElement noteEl = unitForPos(pos).firstChildElement(names[NoteTag]).toElement();
+                if (!noteEl.isNull()) {
+                    QDomCDATASection firstNote = noteEl.firstChild().toCDATASection();
+                    firstNote.setData(unprotect(firstNote.data()));
+                }
+            }
+        }
         stream << tempString.replace(QStringLiteral("<source><![CDATA["), QStringLiteral("<source>"))
                .replace(QStringLiteral("<translation><![CDATA["), QStringLiteral("<translation>"))
+               .replace(QStringLiteral("<translation type=\"vanished\"><![CDATA["), QStringLiteral("<translation type=\"vanished\">"))
+               .replace(QStringLiteral("<translation type=\"unfinished\"><![CDATA["), QStringLiteral("<translation type=\"unfinished\">"))
                .replace(QStringLiteral("<translatorcomment><![CDATA["), QStringLiteral("<translatorcomment>"))
                .replace(QStringLiteral("]]></source>"), QStringLiteral("</source>"))
                .replace(QStringLiteral("]]></translation>"), QStringLiteral("</translation>"))
@@ -253,7 +304,7 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
                 //END DELETE TEXT
                 //INSERT
                 else if (data->actionType == TsContentEditingData::InsertText) {
-                    c.insertData(localStartPos, data->stringToInsert);
+                    c.insertData(localStartPos, Settings::self()->convertXMLChars() ? data->stringToInsert : protect(data->stringToInsert));
                     data->actionType = TsContentEditingData::CheckLength;
                     return QString('a');//so it exits 100%
                 }
