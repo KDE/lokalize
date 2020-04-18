@@ -111,7 +111,7 @@ private:
     QDomElement targetForPos(DocPosition pos) const;
     QDomElement sourceForPos(int pos) const;
     CatalogString catalogString(QDomElement contentElement) const;
-
+    QString protect(const QString & str) const;
 private:
     mutable QDomDocument m_doc;
 

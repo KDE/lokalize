@@ -122,6 +122,9 @@
     <entry name="VisualizeSeparators"  type="Bool">
         <default>false</default>
     </entry>
+    <entry name="ConvertXMLChars"  type="Bool">
+        <default>false</default>
+    </entry>
     <entry name="MouseWheelGo"  type="Bool">
         <default>false</default>
     </entry>
