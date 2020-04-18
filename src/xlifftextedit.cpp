@@ -176,8 +176,7 @@ void TranslationUnitTextEdit::fileLoaded()
     if (m_highlighter->currentLanguage() != langLocale.name() || m_highlighter->currentLanguage().isEmpty()) {
         m_highlighter->setCurrentLanguage(langCode);
         //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langCode;
-        if (m_highlighter->currentLanguage() != langCode && langCode.length() > 2)
-        {
+        if (m_highlighter->currentLanguage() != langCode && langCode.length() > 2) {
             m_highlighter->setCurrentLanguage(langCode.left(2));
             //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langCode.left(2);
         }
@@ -311,8 +310,7 @@ void TranslationUnitTextEdit::setContent(const CatalogString& catStr, const Cata
     else
         //reflectApprovementState() does this for Target
         m_highlighter->rehighlight(); //explicitly because the signals were disabled
-    if (Settings::self()->languageToolDelay() > 0)
-    {
+    if (Settings::self()->languageToolDelay() > 0) {
         m_languageToolTimer->start(Settings::self()->languageToolDelay() * 1000);
     }
 }
@@ -534,8 +532,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             m_completionBox->hide();
         //qCWarning(LOKALIZE_LOG)<<"finish";
         //Start LanguageToolTimer
-        if (Settings::self()->languageToolDelay() > 0)
-        {
+        if (Settings::self()->languageToolDelay() > 0) {
             m_languageToolTimer->start(Settings::self()->languageToolDelay() * 1000);
         }
     }
@@ -1041,8 +1038,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 //     QAction* spellchecking=menu.addAction();
 //     event->accept();
     }
-    void TranslationUnitTextEdit::zoomRequestedSlot(qreal fontSize)
-    {
+    void TranslationUnitTextEdit::zoomRequestedSlot(qreal fontSize) {
         QFont curFont = font();
         curFont.setPointSizeF(fontSize);
         setFont(curFont);
@@ -1058,10 +1054,8 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             return;
         }
 
-        if (m_part == DocPosition::Source || !Settings::mouseWheelGo())
-        {
-            if (event->modifiers() == Qt::ControlModifier)
-            {
+        if (m_part == DocPosition::Source || !Settings::mouseWheelGo()) {
+            if (event->modifiers() == Qt::ControlModifier) {
                 float delta = event->angleDelta().y() / 120.f;
                 zoomInF(delta);
                 //Also zoom in the target
@@ -1153,16 +1147,14 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         return KTextEdit::event(event);
     }
 
-    void TranslationUnitTextEdit::slotLanguageToolFinished(const QString &result)
-    {
+    void TranslationUnitTextEdit::slotLanguageToolFinished(const QString & result) {
         LanguageToolParser parser;
         const QJsonDocument doc = QJsonDocument::fromJson(result.toUtf8());
         const QJsonObject fields = doc.object();
         emit languageToolChanged(parser.parseResult(fields, toPlainText()));
     }
 
-    void TranslationUnitTextEdit::slotLanguageToolError(const QString &str)
-    {        
+    void TranslationUnitTextEdit::slotLanguageToolError(const QString & str) {
         emit languageToolChanged(i18n("An error was reported: %1", str));
     }
 

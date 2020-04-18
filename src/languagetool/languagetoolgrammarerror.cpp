@@ -35,7 +35,7 @@ LanguageToolGrammarError::~LanguageToolGrammarError()
 
 QString LanguageToolGrammarError::parse(const QJsonObject &obj, const QString &text)
 {
-    
+
     QString mError = obj[QStringLiteral("message")].toString();
     int mStart = obj[QStringLiteral("offset")].toInt(-1);
     int mLength = obj[QStringLiteral("length")].toInt(-1);

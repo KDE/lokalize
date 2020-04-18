@@ -91,7 +91,7 @@ bool Glossary::load(const QString& newPath)
     }
 
     QXmlSimpleReader reader;
-    reader.setFeature("http://qt-project.org/xml/features/report-whitespace-only-CharData",true);
+    reader.setFeature("http://qt-project.org/xml/features/report-whitespace-only-CharData", true);
     reader.setFeature("http://xml.org/sax/features/namespaces", false);
     QXmlInputSource source(device);
 

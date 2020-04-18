@@ -124,11 +124,11 @@ void SettingsController::showSettingsDialog()
     Ui_prefs_general ui_prefs_general;
     ui_prefs_general.setupUi(w);
     connect(ui_prefs_general.kcfg_CustomEditorEnabled, &QCheckBox::toggled, ui_prefs_general.kcfg_CustomEditorCommand, &QLineEdit::setEnabled);
-    ui_prefs_general.kcfg_CustomEditorCommand->setEnabled(Settings::self()->customEditorEnabled());    
+    ui_prefs_general.kcfg_CustomEditorCommand->setEnabled(Settings::self()->customEditorEnabled());
     //Set here to avoid I18N_ARGUMENT_MISSING if set in ui file
     ui_prefs_general.kcfg_CustomEditorCommand->setToolTip(i18n(
-        "The following parameters are available\n%1 - Path of the source file\n%2 - Line number"
-    ,QStringLiteral("%1"),QStringLiteral("%2")));
+                "The following parameters are available\n%1 - Path of the source file\n%2 - Line number"
+                , QStringLiteral("%1"), QStringLiteral("%2")));
     dialog->addPage(w, i18nc("@title:tab", "General"), "preferences-system-windows");
 
 //Editor
@@ -313,9 +313,11 @@ void SettingsController::projectConfigure()
 
     auto kcfg_ProjLangTeam = ui_prefs_projectmain.kcfg_ProjLangTeam;
     connect(ui_prefs_projectmain.kcfg_LanguageSource, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged),
-        this, [kcfg_ProjLangTeam](int index) { kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project); });
+    this, [kcfg_ProjLangTeam](int index) {
+        kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project);
+    });
     connect(ui_prefs_projectmain.kcfg_LanguageSource, static_cast<void(KComboBox::*)(const QString &)>(&KComboBox::currentIndexChanged),
-        this, [kcfg_ProjLangTeam] { kcfg_ProjLangTeam->setFocus(); });
+            this, [kcfg_ProjLangTeam] { kcfg_ProjLangTeam->setFocus(); });
 
 
 

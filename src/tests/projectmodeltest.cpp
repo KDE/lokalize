@@ -29,7 +29,7 @@
 
 class ProjectModelTest : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 
 private Q_SLOTS:
     void testInvalid();
@@ -43,7 +43,7 @@ void ProjectModelTest::testInvalid()
     connect(model, &ProjectModel::loadingFinished, [&loaded]() {
         loaded.fetchAndAddRelaxed(1);
     });
-    connect(model, &ProjectModel::totalsChanged, [=](int fuzzy, int translated, int untranslated, bool done) {
+    connect(model, &ProjectModel::totalsChanged, [ = ](int fuzzy, int translated, int untranslated, bool done) {
         QCOMPARE(fuzzy, 0);
         QCOMPARE(translated, 0);
         QCOMPARE(untranslated, 0);
@@ -77,7 +77,7 @@ void ProjectModelTest::testHalfTranslated()
     connect(model, &ProjectModel::loadingFinished, [&loaded]() {
         loaded.fetchAndAddRelaxed(1);
     });
-    connect(model, &ProjectModel::totalsChanged, [=](int fuzzy, int translated, int untranslated, bool done) {
+    connect(model, &ProjectModel::totalsChanged, [ = ](int fuzzy, int translated, int untranslated, bool done) {
         QCOMPARE(fuzzy, 1);
         QCOMPARE(translated, 3);
         QCOMPARE(untranslated, 2);

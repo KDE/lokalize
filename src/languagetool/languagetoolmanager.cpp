@@ -53,7 +53,7 @@ QNetworkAccessManager *LanguageToolManager::networkAccessManager() const
 QString LanguageToolManager::languageToolCheckPath() const
 {
     return (Settings::self()->languageToolCustom() ?
-        Settings::self()->languageToolInstancePath() :
-        QStringLiteral("https://languagetool.org/api/v2")
-        ) + QStringLiteral("/check");
+            Settings::self()->languageToolInstancePath() :
+            QStringLiteral("https://languagetool.org/api/v2")
+           ) + QStringLiteral("/check");
 }

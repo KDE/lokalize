@@ -89,7 +89,7 @@ void LanguageToolResultJob::start()
 void LanguageToolResultJob::slotFinish(QNetworkReply *reply)
 {
     if (reply->error() != QNetworkReply::NoError) {
-        qCWarning(LOKALIZE_LOG) << " Error reply - "<<reply->errorString();
+        qCWarning(LOKALIZE_LOG) << " Error reply - " << reply->errorString();
         Q_EMIT error(reply->errorString());
     }
 }

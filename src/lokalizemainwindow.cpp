@@ -589,8 +589,7 @@ bool LokalizeMainWindow::closeProject()
             m_fileToEditor.remove(static_cast<EditorTab*>(subwindow->widget())->currentFilePath());//safety
             m_mdiArea->removeSubWindow(subwindow);
             subwindow->deleteLater();
-        }
-        else if (subwindow == m_projectSubWindow && m_projectSubWindow)
+        } else if (subwindow == m_projectSubWindow && m_projectSubWindow)
             static_cast<ProjectTab*>(m_projectSubWindow->widget())->showWelcomeScreen();
     }
     Project::instance()->load(QString());

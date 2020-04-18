@@ -117,26 +117,26 @@ QVariant CatalogTreeModel::headerData(int section, Qt::Orientation /*orientation
         return QVariant();
 
     switch (static_cast<CatalogModelColumns>(section)) {
-        case CatalogModelColumns::Key:
-            return i18nc("@title:column", "Entry");
-        case CatalogModelColumns::Source:
-            return i18nc("@title:column Original text", "Source");
-        case CatalogModelColumns::Target:
-            return i18nc("@title:column Text in target language", "Target");
-        case CatalogModelColumns::Notes:
-            return i18nc("@title:column", "Notes");
-        case CatalogModelColumns::Context:
-            return i18nc("@title:column", "Context");
-        case CatalogModelColumns::Files:
-            return i18nc("@title:column", "Files");
-        case CatalogModelColumns::TranslationStatus:
-            return i18nc("@title:column", "Translation Status");
-        case CatalogModelColumns::SourceLength:
-            return i18nc("@title:column Length of the original text", "Source length");
-        case CatalogModelColumns::TargetLength:
-            return i18nc("@title:column Length of the text in target language", "Target length");
-        default:
-            return {};
+    case CatalogModelColumns::Key:
+        return i18nc("@title:column", "Entry");
+    case CatalogModelColumns::Source:
+        return i18nc("@title:column Original text", "Source");
+    case CatalogModelColumns::Target:
+        return i18nc("@title:column Text in target language", "Target");
+    case CatalogModelColumns::Notes:
+        return i18nc("@title:column", "Notes");
+    case CatalogModelColumns::Context:
+        return i18nc("@title:column", "Context");
+    case CatalogModelColumns::Files:
+        return i18nc("@title:column", "Files");
+    case CatalogModelColumns::TranslationStatus:
+        return i18nc("@title:column", "Translation Status");
+    case CatalogModelColumns::SourceLength:
+        return i18nc("@title:column Length of the original text", "Source length");
+    case CatalogModelColumns::TargetLength:
+        return i18nc("@title:column Length of the text in target language", "Target length");
+    default:
+        return {};
     }
 }
 
@@ -169,12 +169,12 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         }
 
         switch (getTranslationStatus(index.row())) {
-            case TranslationStatus::Ready:
-                return i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
-            case TranslationStatus::NeedsReview:
-                return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
-            case TranslationStatus::Untranslated:
-                return i18nc("@info:status", "Untranslated");
+        case TranslationStatus::Ready:
+            return i18nc("@info:status 'non-fuzzy' in gettext terminology", "Ready");
+        case TranslationStatus::NeedsReview:
+            return i18nc("@info:status 'fuzzy' in gettext terminology", "Needs review");
+        case TranslationStatus::Untranslated:
+            return i18nc("@info:status", "Untranslated");
         }
     } else if (role == Qt::DecorationRole) {
         if (column != CatalogModelColumns::TranslationStatus) {
@@ -182,27 +182,27 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         }
 
         switch (getTranslationStatus(index.row())) {
-            case TranslationStatus::Ready:
-                return QIcon::fromTheme("emblem-checked");
-            case TranslationStatus::NeedsReview:
-                return QIcon::fromTheme("emblem-question");
-            case TranslationStatus::Untranslated:
-                return QIcon::fromTheme("emblem-unavailable");
+        case TranslationStatus::Ready:
+            return QIcon::fromTheme("emblem-checked");
+        case TranslationStatus::NeedsReview:
+            return QIcon::fromTheme("emblem-question");
+        case TranslationStatus::Untranslated:
+            return QIcon::fromTheme("emblem-unavailable");
         }
     } else if (role == Qt::UserRole) {
         switch (column) {
-            case CatalogModelColumns::TranslationStatus:
-                return m_catalog->isApproved(index.row());
-            case CatalogModelColumns::IsEmpty:
-                return m_catalog->isEmpty(index.row());
-            case CatalogModelColumns::State:
-                return int(m_catalog->state(index.row()));
-            case CatalogModelColumns::IsModified:
-                return m_catalog->isModified(index.row());
-            case CatalogModelColumns::IsPlural:
-                return m_catalog->isPlural(index.row());
-            default:
-                role = Qt::DisplayRole;
+        case CatalogModelColumns::TranslationStatus:
+            return m_catalog->isApproved(index.row());
+        case CatalogModelColumns::IsEmpty:
+            return m_catalog->isEmpty(index.row());
+        case CatalogModelColumns::State:
+            return int(m_catalog->state(index.row()));
+        case CatalogModelColumns::IsModified:
+            return m_catalog->isModified(index.row());
+        case CatalogModelColumns::IsPlural:
+            return m_catalog->isPlural(index.row());
+        default:
+            role = Qt::DisplayRole;
         }
     } else if (role == StringFilterRole) { //exclude UI strings
         if (column >= CatalogModelColumns::TranslationStatus)
@@ -225,28 +225,28 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
 
 
     switch (column) {
-        case CatalogModelColumns::Key:
-            return index.row() + 1;
-        case CatalogModelColumns::Source:
-            return m_catalog->msgidWithPlurals(index.row(), true);
-        case CatalogModelColumns::Target:
-            return m_catalog->msgstrWithPlurals(index.row(), true);
-        case CatalogModelColumns::Notes: {
-            QString result;
-            foreach (const Note &note, m_catalog->notes(index.row()))
-                result += note.content;
-            return result;
-        }
-        case CatalogModelColumns::Context:
-            return m_catalog->context(index.row());
-        case CatalogModelColumns::Files:
-            return m_catalog->sourceFiles(index.row()).join('|');
-        case CatalogModelColumns::SourceLength:
-          return m_catalog->msgidWithPlurals(index.row(), false).length();
-        case CatalogModelColumns::TargetLength:
-          return m_catalog->msgstrWithPlurals(index.row(), false).length();
-        default:
-            return {};
+    case CatalogModelColumns::Key:
+        return index.row() + 1;
+    case CatalogModelColumns::Source:
+        return m_catalog->msgidWithPlurals(index.row(), true);
+    case CatalogModelColumns::Target:
+        return m_catalog->msgstrWithPlurals(index.row(), true);
+    case CatalogModelColumns::Notes: {
+        QString result;
+        foreach (const Note &note, m_catalog->notes(index.row()))
+            result += note.content;
+        return result;
+    }
+    case CatalogModelColumns::Context:
+        return m_catalog->context(index.row());
+    case CatalogModelColumns::Files:
+        return m_catalog->sourceFiles(index.row()).join('|');
+    case CatalogModelColumns::SourceLength:
+        return m_catalog->msgidWithPlurals(index.row(), false).length();
+    case CatalogModelColumns::TargetLength:
+        return m_catalog->msgstrWithPlurals(index.row(), false).length();
+    default:
+        return {};
     }
 }
 

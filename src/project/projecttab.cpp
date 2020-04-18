@@ -362,12 +362,12 @@ void ProjectTab::openFile()
                        + QStringLiteral("\n\n")
                        + i18n("Are you sure you want to open this many files?");
         auto yes = KGuiItem(
-            i18np("&Open %1 File", "&Open %1 Files", i),
-            QStringLiteral("document-open")
-        );
+                       i18np("&Open %1 File", "&Open %1 Files", i),
+                       QStringLiteral("document-open")
+                   );
         const int answer = KMessageBox::warningYesNo(
-            this, text, caption, yes, KStandardGuiItem::cancel()
-        );
+                               this, text, caption, yes, KStandardGuiItem::cancel()
+                           );
         if (answer != KMessageBox::Yes) {
             return;
         }

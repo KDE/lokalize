@@ -507,42 +507,42 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
     switch (role) {
     case Qt::TextAlignmentRole: {
         switch (column) {
-            // Align numeric columns to the right and other columns to the left
-            // Qt::AlignAbsolute is needed for RTL languages, ref. https://phabricator.kde.org/D13098
-            case ProjectModelColumns::TotalCount:
-            case ProjectModelColumns::TranslatedCount:
-            case ProjectModelColumns::FuzzyCount:
-            case ProjectModelColumns::UntranslatedCount:
-            case ProjectModelColumns::IncompleteCount:
-                return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
-            default:
-                return QVariant(Qt::AlignLeft);
+        // Align numeric columns to the right and other columns to the left
+        // Qt::AlignAbsolute is needed for RTL languages, ref. https://phabricator.kde.org/D13098
+        case ProjectModelColumns::TotalCount:
+        case ProjectModelColumns::TranslatedCount:
+        case ProjectModelColumns::FuzzyCount:
+        case ProjectModelColumns::UntranslatedCount:
+        case ProjectModelColumns::IncompleteCount:
+            return QVariant(Qt::AlignRight | Qt::AlignAbsolute);
+        default:
+            return QVariant(Qt::AlignLeft);
         }
     }
     case Qt::DisplayRole: {
         switch (column) {
-            case ProjectModelColumns::FileName:
-                return i18nc("@title:column File name", "Name");
-            case ProjectModelColumns::Graph:
-                return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts", "Graph");
-            case ProjectModelColumns::TotalCount:
-                return i18nc("@title:column Number of entries", "Total");
-            case ProjectModelColumns::TranslatedCount:
-                return i18nc("@title:column Number of entries", "Translated");
-            case ProjectModelColumns::FuzzyCount:
-                return i18nc("@title:column Number of entries", "Not ready");
-            case ProjectModelColumns::UntranslatedCount:
-                return i18nc("@title:column Number of entries", "Untranslated");
-            case ProjectModelColumns::IncompleteCount:
-                return i18nc("@title:column Number of fuzzy or untranslated entries", "Incomplete");
-            case ProjectModelColumns::TranslationDate:
-                return i18nc("@title:column", "Last Translation");
-            case ProjectModelColumns::SourceDate:
-                return i18nc("@title:column", "Template Revision");
-            case ProjectModelColumns::LastTranslator:
-                return i18nc("@title:column", "Last Translator");
-            default:
-                return {};
+        case ProjectModelColumns::FileName:
+            return i18nc("@title:column File name", "Name");
+        case ProjectModelColumns::Graph:
+            return i18nc("@title:column Graphical representation of Translated/Fuzzy/Untranslated counts", "Graph");
+        case ProjectModelColumns::TotalCount:
+            return i18nc("@title:column Number of entries", "Total");
+        case ProjectModelColumns::TranslatedCount:
+            return i18nc("@title:column Number of entries", "Translated");
+        case ProjectModelColumns::FuzzyCount:
+            return i18nc("@title:column Number of entries", "Not ready");
+        case ProjectModelColumns::UntranslatedCount:
+            return i18nc("@title:column Number of entries", "Untranslated");
+        case ProjectModelColumns::IncompleteCount:
+            return i18nc("@title:column Number of fuzzy or untranslated entries", "Incomplete");
+        case ProjectModelColumns::TranslationDate:
+            return i18nc("@title:column", "Last Translation");
+        case ProjectModelColumns::SourceDate:
+            return i18nc("@title:column", "Template Revision");
+        case ProjectModelColumns::LastTranslator:
+            return i18nc("@title:column", "Last Translator");
+        default:
+            return {};
         }
     }
     default:
@@ -646,28 +646,28 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
         return ProjectModel::headerData(index.column(), Qt::Horizontal, role); // Use same alignment as header
     case Qt::DisplayRole:
         switch (column) {
-            case ProjectModelColumns::FileName:
-                return item.text();
-            case ProjectModelColumns::Graph:
-                return hasStats ? QRect(translated, untranslated, fuzzy, 0) : QVariant();
-            case ProjectModelColumns::TotalCount:
-                return hasStats ? (translated + untranslated + fuzzy) : QVariant();
-            case ProjectModelColumns::TranslatedCount:
-                return hasStats ? translated : QVariant();
-            case ProjectModelColumns::FuzzyCount:
-                return hasStats ? fuzzy : QVariant();
-            case ProjectModelColumns::UntranslatedCount:
-                return hasStats ? untranslated : QVariant();
-            case ProjectModelColumns::IncompleteCount:
-                return hasStats ? (untranslated + fuzzy) : QVariant();
-            case ProjectModelColumns::SourceDate:
-                return node->metaData.sourceDate;
-            case ProjectModelColumns::TranslationDate:
-                return node->metaData.translationDate;
-            case ProjectModelColumns::LastTranslator:
-                return node->metaData.lastTranslator;
-            default:
-                return {};
+        case ProjectModelColumns::FileName:
+            return item.text();
+        case ProjectModelColumns::Graph:
+            return hasStats ? QRect(translated, untranslated, fuzzy, 0) : QVariant();
+        case ProjectModelColumns::TotalCount:
+            return hasStats ? (translated + untranslated + fuzzy) : QVariant();
+        case ProjectModelColumns::TranslatedCount:
+            return hasStats ? translated : QVariant();
+        case ProjectModelColumns::FuzzyCount:
+            return hasStats ? fuzzy : QVariant();
+        case ProjectModelColumns::UntranslatedCount:
+            return hasStats ? untranslated : QVariant();
+        case ProjectModelColumns::IncompleteCount:
+            return hasStats ? (untranslated + fuzzy) : QVariant();
+        case ProjectModelColumns::SourceDate:
+            return node->metaData.sourceDate;
+        case ProjectModelColumns::TranslationDate:
+            return node->metaData.translationDate;
+        case ProjectModelColumns::LastTranslator:
+            return node->metaData.lastTranslator;
+        default:
+            return {};
         }
     case Qt::ToolTipRole:
         if (column == ProjectModelColumns::FileName) {
@@ -754,8 +754,8 @@ KFileItem ProjectModel::itemForIndex(const QModelIndex& index) const
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.parent().data().toString();
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" << index.internalPointer();
     qCInfo(LOKALIZE_LOG) << "returning empty KFileItem()" <<
-        static_cast<ProjectNode*>(index.internalPointer())->metaData.untranslated <<
-        static_cast<ProjectNode*>(index.internalPointer())->metaData.sourceDate;
+                         static_cast<ProjectNode*>(index.internalPointer())->metaData.untranslated <<
+                         static_cast<ProjectNode*>(index.internalPointer())->metaData.sourceDate;
     return KFileItem();
 }
 
