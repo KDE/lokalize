@@ -127,15 +127,23 @@ int TsStorage::load(QIODevice* device)
             refNode.removeChild(firstRef);
             QDomElement targetEl = unitForPos(pos).firstChildElement(names[TargetTag]).toElement();
             if (!targetEl.isNull()) {
-                QDomNode firstTarget = targetEl.firstChild();
-                targetEl.appendChild(m_doc.createCDATASection(targetEl.text()));
-                targetEl.removeChild(firstTarget);
+                if (unitForPos(pos).hasAttribute(names[PluralTag])) {
+                    QDomNodeList forms = targetEl.elementsByTagName(QStringLiteral("numerusform"));
+                    for (int f = 0; f < forms.size(); f++) {
+                        QDomNode firstTarget = forms.at(f).firstChild();
+                        forms.at(f).appendChild(m_doc.createCDATASection(forms.at(f).toElement().text()));
+                        forms.at(f).removeChild(firstTarget);
+                    }
+                } else {
+                    QDomNode firstTarget = targetEl.firstChild();
+                    targetEl.appendChild(m_doc.createCDATASection(targetEl.text()));
+                    targetEl.removeChild(firstTarget);
+                }
             }
 
             QDomElement noteEl = unitForPos(pos).firstChildElement(names[NoteTag]).toElement();
             if (!noteEl.isNull()) {
                 QDomNode firstNote = noteEl.firstChild();
-                qCWarning(LOKALIZE_LOG) << noteEl.text() << " is note EL";
                 noteEl.appendChild(m_doc.createCDATASection(noteEl.text()));
                 noteEl.removeChild(firstNote);
             }
@@ -163,8 +171,16 @@ bool TsStorage::save(QIODevice* device, bool belongsToProject)
                 firstRef.setData(protect(firstRef.data()));
                 QDomElement targetEl = unitForPos(pos).firstChildElement(names[TargetTag]).toElement();
                 if (!targetEl.isNull()) {
-                    QDomCDATASection firstTarget = targetEl.firstChild().toCDATASection();
-                    firstTarget.setData(protect(firstTarget.data()));
+                    if (unitForPos(pos).hasAttribute(names[PluralTag])) {
+                        QDomNodeList forms = targetEl.elementsByTagName(QStringLiteral("numerusform"));
+                        for (int f = 0; f < forms.size(); f++) {
+                            QDomCDATASection firstTarget = forms.at(f).firstChild().toCDATASection();
+                            firstTarget.setData(protect(firstTarget.data()));
+                        }
+                    } else {
+                        QDomCDATASection firstTarget = targetEl.firstChild().toCDATASection();
+                        firstTarget.setData(protect(firstTarget.data()));
+                    }
                 }
 
                 QDomElement noteEl = unitForPos(pos).firstChildElement(names[NoteTag]).toElement();
@@ -182,8 +198,16 @@ bool TsStorage::save(QIODevice* device, bool belongsToProject)
                 firstRef.setData(unprotect(firstRef.data()));
                 QDomElement targetEl = unitForPos(pos).firstChildElement(names[TargetTag]).toElement();
                 if (!targetEl.isNull()) {
-                    QDomCDATASection firstTarget = targetEl.firstChild().toCDATASection();
-                    firstTarget.setData(unprotect(firstTarget.data()));
+                    if (unitForPos(pos).hasAttribute(names[PluralTag])) {
+                        QDomNodeList forms = targetEl.elementsByTagName(QStringLiteral("numerusform"));
+                        for (int f = 0; f < forms.size(); f++) {
+                            QDomCDATASection firstTarget = forms.at(f).firstChild().toCDATASection();
+                            firstTarget.setData(unprotect(firstTarget.data()));
+                        }
+                    } else {
+                        QDomCDATASection firstTarget = targetEl.firstChild().toCDATASection();
+                        firstTarget.setData(unprotect(firstTarget.data()));
+                    }
                 }
 
                 QDomElement noteEl = unitForPos(pos).firstChildElement(names[NoteTag]).toElement();
@@ -195,11 +219,13 @@ bool TsStorage::save(QIODevice* device, bool belongsToProject)
         }
         stream << tempString.replace(QStringLiteral("<source><![CDATA["), QStringLiteral("<source>"))
                .replace(QStringLiteral("<translation><![CDATA["), QStringLiteral("<translation>"))
+               .replace(QStringLiteral("<numerusform><![CDATA["), QStringLiteral("<numerusform>"))
                .replace(QStringLiteral("<translation type=\"vanished\"><![CDATA["), QStringLiteral("<translation type=\"vanished\">"))
                .replace(QStringLiteral("<translation type=\"unfinished\"><![CDATA["), QStringLiteral("<translation type=\"unfinished\">"))
                .replace(QStringLiteral("<translatorcomment><![CDATA["), QStringLiteral("<translatorcomment>"))
                .replace(QStringLiteral("]]></source>"), QStringLiteral("</source>"))
                .replace(QStringLiteral("]]></translation>"), QStringLiteral("</translation>"))
+               .replace(QStringLiteral("]]></numerusform>"), QStringLiteral("</numerusform>"))
                .replace(QStringLiteral("]]></translatorcomment>"), QStringLiteral("</translatorcomment>"));
     }
     return true;
@@ -304,7 +330,7 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
                 //END DELETE TEXT
                 //INSERT
                 else if (data->actionType == TsContentEditingData::InsertText) {
-                    c.insertData(localStartPos, Settings::self()->convertXMLChars() ? data->stringToInsert : protect(data->stringToInsert));
+                    c.insertData(localStartPos, data->stringToInsert);
                     data->actionType = TsContentEditingData::CheckLength;
                     return QString('a');//so it exits 100%
                 }
