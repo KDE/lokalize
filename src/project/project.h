@@ -190,6 +190,7 @@ public:
     void resetSourceFilePaths()
     {
         m_sourceFilePaths.clear();
+        m_sourceFilePathsReady = false;
     }
 
     friend class FillSourceFilePathsJob;
@@ -206,6 +207,7 @@ private:
     TM::TMManagerWin* m_tmManagerWindow;
 
     QMultiMap<QByteArray, QByteArray> m_sourceFilePaths;
+    bool m_sourceFilePathsReady;
 
     //cache
     QString m_projectDir;
