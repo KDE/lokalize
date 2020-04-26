@@ -87,7 +87,7 @@ void ProjectModelTest::testHalfTranslated()
     model->setUrl(QUrl::fromLocalFile(QFINDTESTDATA("data/dir-halftranslated")), {});
 
     // Wait for signal
-    while (!loaded.load()) {
+    while (!loaded.loadRelaxed()) {
         QCoreApplication::processEvents();
     }
 
