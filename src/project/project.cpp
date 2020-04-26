@@ -195,6 +195,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     populateGlossary();//we cant postpone it because project load can be called from define new term function
 
     m_sourceFilePaths.clear();
+    m_sourceFilePathsReady = false;
 
     if (newProjectPath.isEmpty())
         return;
@@ -404,6 +405,7 @@ SourceFilesSearchJob::SourceFilesSearchJob(const QString& folderName, QObject* p
     : KJob(parent)
     , m_folderName(folderName)
 {
+    qCWarning(LOKALIZE_LOG) << "Starting SourceFilesSearchJob on " << folderName;
     setCapabilities(KJob::Killable);
 }
 
@@ -424,6 +426,7 @@ protected:
         QMultiMap<QByteArray, QByteArray> sourceFilePaths;
         fillFilePathsRecursive(startingDir, sourceFilePaths);
         Project::instance()->m_sourceFilePaths = sourceFilePaths;
+        Project::instance()->m_sourceFilePathsReady = true;
         QTimer::singleShot(0, kj, &SourceFilesSearchJob::finish);
     }
 public:
@@ -442,7 +445,7 @@ void SourceFilesSearchJob::start()
 
 const QMultiMap<QByteArray, QByteArray>& Project::sourceFilePaths()
 {
-    if (m_sourceFilePaths.isEmpty()) {
+    if (!m_sourceFilePathsReady && m_sourceFilePaths.isEmpty()) {
         QDir dir(local()->sourceDir());
         if (dir.exists()) {
             SourceFilesSearchJob* metaJob = new SourceFilesSearchJob(local()->sourceDir());
