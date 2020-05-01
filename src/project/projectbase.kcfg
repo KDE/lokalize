@@ -92,4 +92,12 @@
         <default>80</default>
     </entry>
   </group>
+  <group name="Comments">
+    <entry name="CommentsFiles" type="StringList">
+    <default></default>
+    </entry>
+    <entry name="CommentsTexts" type="StringList">
+    <default></default>
+    </entry>
+  </group>
 </kcfg>

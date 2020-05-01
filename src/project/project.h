@@ -149,6 +149,7 @@ public slots:
     }
 
     Q_SCRIPTABLE QString absolutePath(const QString&) const;
+    Q_SCRIPTABLE QString relativePath(const QString&) const;
 
     Q_SCRIPTABLE void setDesirablePath(const QString& path)
     {

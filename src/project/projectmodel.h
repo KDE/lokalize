@@ -128,6 +128,7 @@ public:
         FuzzyCount,
         UntranslatedCount,
         IncompleteCount,
+        Comment,
         SourceDate,
         TranslationDate,
         LastTranslator,

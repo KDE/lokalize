@@ -271,6 +271,7 @@ bool SortFilterProxyModel::lessThan(const QModelIndex& left,
     case ProjectModel::ProjectModelColumns::LastTranslator:
     case ProjectModel::ProjectModelColumns::SourceDate:
     case ProjectModel::ProjectModelColumns::TranslationDate:
+    case ProjectModel::ProjectModelColumns::Comment:
         return collator.compare(projectModel->data(left).toString(), projectModel->data(right).toString()) < 0;
     case ProjectModel::ProjectModelColumns::TotalCount:
     case ProjectModel::ProjectModelColumns::TranslatedCount:
@@ -301,8 +302,8 @@ ProjectWidget::ProjectWidget(/*Catalog* catalog, */QWidget* parent)
 
     setUniformRowHeights(true);
     setAllColumnsShowFocus(true);
-    int widthDefaults[] = {6, 1, 1, 1, 1, 1, 1, 4, 4, 4};
-    //FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, SourceDate, TranslationDate, LastTranslator
+    int widthDefaults[] = {6, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4};
+    //FileName, Graph, TotalCount, TranslatedCount, FuzzyCount, UntranslatedCount, IncompleteCount, Comment, SourceDate, TranslationDate, LastTranslator
     int i = sizeof(widthDefaults) / sizeof(int);
     int baseWidth = columnWidth(0);
     while (--i >= 0)

@@ -537,6 +537,8 @@ QVariant ProjectModel::headerData(int section, Qt::Orientation, int role) const
             return i18nc("@title:column Number of fuzzy or untranslated entries", "Incomplete");
         case ProjectModelColumns::TranslationDate:
             return i18nc("@title:column", "Last Translation");
+        case ProjectModelColumns::Comment:
+            return i18nc("@title:column", "Comment");
         case ProjectModelColumns::SourceDate:
             return i18nc("@title:column", "Template Revision");
         case ProjectModelColumns::LastTranslator:
@@ -640,6 +642,11 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
     const int translated = node->translatedAsPerRole();
     const int fuzzy = node->fuzzyAsPerRole();
     const int untranslated = node->metaData.untranslated;
+    QString comment(QStringLiteral(""));
+    int existingItem = Project::instance()->commentsFiles().indexOf(Project::instance()->relativePath(item.localPath()));
+    if (existingItem != -1 && Project::instance()->commentsTexts().count() > existingItem) {
+        comment = Project::instance()->commentsTexts().at(existingItem);
+    }
 
     switch (role) {
     case Qt::TextAlignmentRole:
@@ -660,6 +667,8 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
             return hasStats ? untranslated : QVariant();
         case ProjectModelColumns::IncompleteCount:
             return hasStats ? (untranslated + fuzzy) : QVariant();
+        case ProjectModelColumns::Comment:
+            return comment;
         case ProjectModelColumns::SourceDate:
             return node->metaData.sourceDate;
         case ProjectModelColumns::TranslationDate:

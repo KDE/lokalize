@@ -93,6 +93,7 @@ private slots:
     void setFocus();
     void scanFilesToTM();
     void pologyOnFiles();
+    void addComment();
     void searchInFiles(bool templ = false);
     void searchInFilesInclTempl();
     void openFile();

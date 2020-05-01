@@ -237,6 +237,17 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
     return possiblyRelPath;
 }
 
+
+QString Project::relativePath(const QString& possiblyAbsPath) const
+{
+    if (QFileInfo(possiblyAbsPath).isAbsolute()) {
+        if (projectDir().endsWith('/'))
+            return QString(possiblyAbsPath).remove(projectDir());
+        return QString(possiblyAbsPath).remove(projectDir() + QLatin1Char('/'));
+    }
+    return possiblyAbsPath;
+}
+
 void Project::populateDirModel()
 {
     if (Q_UNLIKELY(m_path.isEmpty() || !QFileInfo::exists(poDir())))
