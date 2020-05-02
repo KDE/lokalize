@@ -643,9 +643,11 @@ QVariant ProjectModel::data(const QModelIndex& index, const int role) const
     const int fuzzy = node->fuzzyAsPerRole();
     const int untranslated = node->metaData.untranslated;
     QString comment(QStringLiteral(""));
-    int existingItem = Project::instance()->commentsFiles().indexOf(Project::instance()->relativePath(item.localPath()));
-    if (existingItem != -1 && Project::instance()->commentsTexts().count() > existingItem) {
-        comment = Project::instance()->commentsTexts().at(existingItem);
+    if (Project::instance()->commentsFiles().count() > 0 && Project::instance()->commentsTexts().count() > 0) {
+        int existingItem = Project::instance()->commentsFiles().indexOf(Project::instance()->relativePath(item.localPath()));
+        if (existingItem != -1 && Project::instance()->commentsTexts().count() > existingItem) {
+            comment = Project::instance()->commentsTexts().at(existingItem);
+        }
     }
 
     switch (role) {
