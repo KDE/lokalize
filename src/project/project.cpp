@@ -47,6 +47,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStringBuilder>
+#include <QFileSystemWatcher>
 
 #include "projectmodel.h"
 #include "webquerycontroller.h"
@@ -210,6 +211,11 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
         QaModel::instance()->saveRules();
         QaModel::instance()->loadRules(qaPath());
     }
+
+    //Set a watch for config change/reload
+    m_projectFileWatcher = new QFileSystemWatcher(this);
+    m_projectFileWatcher->addPath(newProjectPath);
+    connect(m_projectFileWatcher, &QFileSystemWatcher::fileChanged, Project::instance(), &KCoreConfigSkeleton::load);
 
     //qCDebug(LOKALIZE_LOG)<<"until emitting signal"<<a.elapsed();
 

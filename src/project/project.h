@@ -28,6 +28,7 @@
 
 #include <QVector>
 #include <QList>
+#include <QFileSystemWatcher>
 #include "projectbase.h"
 
 #define WEBQUERY_ENABLE
@@ -201,6 +202,7 @@ signals:
 private:
     QString m_path;
     QString m_desirablePath;
+    QFileSystemWatcher* m_projectFileWatcher;
     ProjectLocal* m_localConfig;
     ProjectModel* m_model;
     GlossaryNS::Glossary* m_glossary;
