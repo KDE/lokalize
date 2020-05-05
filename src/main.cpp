@@ -62,6 +62,8 @@ int main(int argc, char **argv)
     TM::threadPool()->setMaxThreadCount(1);
     TM::threadPool()->setExpiryTimeout(-1);
     QThreadPool::globalInstance()->setMaxThreadCount(1);
+    // Fixes blurry icons with fractional scaling, see https://phabricator.kde.org/D29376
+    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication app(argc, argv);
     KCrash::initialize();
     KLocalizedString::setApplicationDomain("lokalize");
