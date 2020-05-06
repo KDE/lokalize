@@ -166,7 +166,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     bool found = false;
     //m_flowLayout->setEnabled(false);
-    foreach (const QByteArray& termId, QSet<QByteArray>(termIds.begin(), termIds.end())) {
+    foreach (const QByteArray& termId, termIds.toSet()) {
         // now check which of them are really hits...
         foreach (const QString& enTerm, glossary.terms(termId, sourceLangCode)) {
             // ...and if so, which part of termEn list we must thank for match ...
