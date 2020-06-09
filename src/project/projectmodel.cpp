@@ -322,7 +322,7 @@ void ProjectModel::pot_rowsInserted(const QModelIndex& pot_parent, int start, in
                 newPotNodes.append(potIndex);
         }
     } else {
-        for (int pos = start; pos < end; pos ++)
+        for (int pos = start; pos <= end; pos ++)
             newPotNodes.append(pos);
     }
 
