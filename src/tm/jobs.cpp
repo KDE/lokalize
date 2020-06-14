@@ -73,6 +73,10 @@ void TM::cancelAllJobs()
 {
     stop = true;
 }
+static const QString getConnectionName(const QString dbName)
+{
+    return dbName + QString::number((long)QThread::currentThreadId());
+}
 
 static qlonglong newTMSourceEntryCount = 0;
 static qlonglong reusedTMSourceEntryCount = 0;
@@ -984,48 +988,49 @@ OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const Con
     , m_connParams(connParams)
 {
     setAutoDelete(false);
-    //qCDebug(LOKALIZE_LOG)<<"OpenDBJob ctor"<<m_dbName;
+    //qCWarning(LOKALIZE_LOG)<<"OpenDBJob ctor"<<m_dbName;
 }
 
 void OpenDBJob::run()
 {
     QElapsedTimer a; a.start();
-    if (!QSqlDatabase::contains(m_dbName) || m_reconnect) {
+    const QString connectionName = getConnectionName(m_dbName);
+    if (!QSqlDatabase::contains(connectionName) || m_reconnect) {
         QThread::currentThread()->setPriority(QThread::IdlePriority);
 
         if (m_type == TM::Local) {
-            QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), m_dbName);
+            QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
             QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
             QFileInfo fileInfo(dbFolder);
             if (!fileInfo.exists(dbFolder)) fileInfo.absoluteDir().mkpath(fileInfo.fileName());
             db.setDatabaseName(dbFolder + QLatin1Char('/') + m_dbName + TM_DATABASE_EXTENSION);
             m_connectionSuccessful = db.open();
             if (Q_UNLIKELY(!m_connectionSuccessful)) {
-                qCDebug(LOKALIZE_LOG) << "failed to open db" << db.databaseName() << db.lastError().text();
-                QSqlDatabase::removeDatabase(m_dbName);
+                qCWarning(LOKALIZE_LOG) << "failed to open db" << db.databaseName() << db.lastError().text();
+                QSqlDatabase::removeDatabase(connectionName);
                 emit done(this);
                 return;
             }
             if (!initSqliteDb(db)) { //need to recreate db ;(
                 QString filename = db.databaseName();
                 db.close();
-                QSqlDatabase::removeDatabase(m_dbName);
+                QSqlDatabase::removeDatabase(connectionName);
                 qCWarning(LOKALIZE_LOG) << "We need to recreate the database " << filename;
                 QFile::remove(filename);
 
-                db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), m_dbName);
+                db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
                 db.setDatabaseName(filename);
                 m_connectionSuccessful = db.open() && initSqliteDb(db);
                 if (!m_connectionSuccessful) {
-                    QSqlDatabase::removeDatabase(m_dbName);
+                    QSqlDatabase::removeDatabase(connectionName);
                     emit done(this);
                     return;
                 }
             }
         } else {
-            if (QSqlDatabase::contains(m_dbName)) { //reconnect is true
-                QSqlDatabase::database(m_dbName).close();
-                QSqlDatabase::removeDatabase(m_dbName);
+            if (QSqlDatabase::contains(connectionName)) { //reconnect is true
+                QSqlDatabase::database(connectionName).close();
+                QSqlDatabase::removeDatabase(connectionName);
             }
 
             if (!m_connParams.isFilled()) {
@@ -1044,14 +1049,14 @@ void OpenDBJob::run()
                 m_connParams.passwd = rdbParams.readLine();
             }
 
-            QSqlDatabase db = QSqlDatabase::addDatabase(m_connParams.driver, m_dbName);
+            QSqlDatabase db = QSqlDatabase::addDatabase(m_connParams.driver, connectionName);
             db.setHostName(m_connParams.host);
             db.setDatabaseName(m_connParams.db);
             db.setUserName(m_connParams.user);
             db.setPassword(m_connParams.passwd);
             m_connectionSuccessful = db.open();
             if (Q_UNLIKELY(!m_connectionSuccessful)) {
-                QSqlDatabase::removeDatabase(m_dbName);
+                QSqlDatabase::removeDatabase(connectionName);
                 emit done(this);
                 return;
             }
@@ -1060,13 +1065,13 @@ void OpenDBJob::run()
         }
 
     }
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
     //if (!m_markup.isEmpty()||!m_accel.isEmpty())
     if (m_setParams)
         setConfig(db, m_tmConfig);
     else
         m_tmConfig = getConfig(db);
-    qCDebug(LOKALIZE_LOG) << "db" << m_dbName << "opened" << a.elapsed() << m_tmConfig.targetLangCode;
+    qCWarning(LOKALIZE_LOG) << "db" << connectionName << "opened" << a.elapsed() << m_tmConfig.targetLangCode;
 
     getStats(db, m_stat.pairsCount, m_stat.uniqueSourcesCount, m_stat.uniqueTranslationsCount);
 
@@ -1092,8 +1097,10 @@ CloseDBJob::~CloseDBJob()
 
 void CloseDBJob::run()
 {
-    if (m_dbName.length())
-        QSqlDatabase::removeDatabase(m_dbName);
+    const QString connectionName = getConnectionName(m_dbName);
+    if (connectionName.length())
+        QSqlDatabase::removeDatabase(connectionName);
+    qCDebug(LOKALIZE_LOG) << "closedb " << connectionName;
     emit done(this);
 }
 
@@ -1439,6 +1446,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
 
 void SelectJob::run()
 {
+    const QString connectionName = getConnectionName(m_dbName);
     //qCDebug(LOKALIZE_LOG)<<"select started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) { //sanity check
         emit done(this);
@@ -1447,11 +1455,11 @@ void SelectJob::run()
     //thread()->setPriority(QThread::IdlePriority);
 //     QTime a; a.start();
 
-    if (Q_UNLIKELY(!QSqlDatabase::contains(m_dbName))) {
+    if (Q_UNLIKELY(!QSqlDatabase::contains(connectionName))) {
         emit done(this);
         return;
     }
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
     if (Q_UNLIKELY(!db.isValid() || !db.isOpen())) {
         emit done(this);
         return;
@@ -1521,14 +1529,15 @@ ScanJob::ScanJob(const QString& filePath, const QString& dbName)
 
 void ScanJob::run()
 {
-    if (stop || !QSqlDatabase::contains(m_dbName)) {
+    const QString connectionName = getConnectionName(m_dbName);
+    if (stop || !QSqlDatabase::contains(connectionName)) {
         return;
     }
     qCDebug(LOKALIZE_LOG) << "scan job started for" << m_filePath << m_dbName << stop << m_dbName;
     //QThread::currentThread()->setPriority(QThread::IdlePriority);
     QElapsedTimer a; a.start();
 
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
     if (!db.isOpen())
         return;
     //initSqliteDb(db);
@@ -1608,8 +1617,9 @@ RemoveMissingFilesJob::~RemoveMissingFilesJob()
 
 void RemoveMissingFilesJob::run()
 {
+    const QString connectionName = getConnectionName(m_dbName);
 //    qCDebug(LOKALIZE_LOG)<<m_dbName;
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
 
     doRemoveMissingFiles(db, m_dbName, this);
 
@@ -1635,8 +1645,9 @@ RemoveFileJob::~RemoveFileJob()
 
 void RemoveFileJob::run()
 {
+    const QString connectionName = getConnectionName(m_dbName);
 //    qCDebug(LOKALIZE_LOG)<<m_dbName;
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
 
     if (!doRemoveFile(m_filePath, db)) {
         qCWarning(LOKALIZE_LOG) << "error while removing file" << m_dbName << m_filePath;
@@ -1698,8 +1709,9 @@ UpdateJob::UpdateJob(const QString& filePath,
 
 void UpdateJob::run()
 {
+    const QString connectionName = getConnectionName(m_dbName);
     qCDebug(LOKALIZE_LOG) << "UpdateJob run" << m_english.string << m_newTarget.string;
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
 
     //cleaning regexps for word index update
     TMConfig c = getConfig(db);
@@ -1977,6 +1989,7 @@ ExportTmxJob::~ExportTmxJob()
 
 void ExportTmxJob::run()
 {
+    const QString connectionName = getConnectionName(m_dbName);
     QElapsedTimer a; a.start();
 
     QFile out(m_filename);
@@ -2005,7 +2018,7 @@ void ExportTmxJob::run()
 
     QString dbLangCode = Project::instance()->langCode();
 
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
     QSqlQuery query1(db);
 
     if (Q_UNLIKELY(!query1.exec(U(
@@ -2120,9 +2133,10 @@ ExecQueryJob::~ExecQueryJob()
 
 void ExecQueryJob::run()
 {
+    const QString connectionName = getConnectionName(m_dbName);
     m_dbOperationMutex->lock();
-    QSqlDatabase db = QSqlDatabase::database(m_dbName);
-    qCDebug(LOKALIZE_LOG) << "ExecQueryJob" << m_dbName << "db.isOpen() =" << db.isOpen();
+    QSqlDatabase db = QSqlDatabase::database(connectionName);
+    qCDebug(LOKALIZE_LOG) << "ExecQueryJob " << m_dbName << " " << connectionName <<" db.isOpen() =" << db.isOpen();
     //temporarily:
     if (!db.isOpen())
         qCWarning(LOKALIZE_LOG) << "ExecQueryJob db.open()=" << db.open();

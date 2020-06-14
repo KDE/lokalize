@@ -159,12 +159,14 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     TM::threadPool()->clear();
     qCDebug(LOKALIZE_LOG) << "loading" << newProjectPath << "finishing tm jobs...";
 
-    if (!m_path.isEmpty()) {
+    //It is not necessary to close the TM Databases, as they are opened by default for statistics purposes
+    //This just causes issues when changing project because the previous TM is closed
+    /*if (!m_path.isEmpty()) {
         TM::CloseDBJob* closeDBJob = new TM::CloseDBJob(projectID());
         closeDBJob->setAutoDelete(true);
         TM::threadPool()->start(closeDBJob, CLOSEDB);
     }
-    TM::threadPool()->waitForDone(500);//more safety
+    TM::threadPool()->waitForDone(500);//more safety*/
 
     setSharedConfig(KSharedConfig::openConfig(newProjectPath, KConfig::NoGlobals));
     if (!QFileInfo::exists(newProjectPath)) Project::instance()->setDefaults();
