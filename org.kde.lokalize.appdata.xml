@@ -139,4 +139,5 @@
     <release version="20.04.0" date="2020-04-23"/>
     <release version="19.12.1" date="2020-01-09"/>
   </releases>
+  <content_rating type="oars-1.1"/>
 </component>
