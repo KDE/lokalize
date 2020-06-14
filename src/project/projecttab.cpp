@@ -411,7 +411,10 @@ void ProjectTab::openFile()
 
     while (--i >= 0) {
         if (Catalog::extIsSupported(files.at(i)))  {
-            emit fileOpenRequested(files.at(i), true);
+            if (files.at(i).endsWith(QLatin1String(".pot")))
+                emit fileOpenRequested(Project::instance()->model()->potToPo(files.at(i)).toLocalFile(), true);
+            else
+                emit fileOpenRequested(files.at(i), true);
         }
     }
 }

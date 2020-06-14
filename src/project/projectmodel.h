@@ -170,6 +170,9 @@ public:
     bool canFetchMore(const QModelIndex& parent) const override;
     void fetchMore(const QModelIndex& parent) override;
 
+    QUrl poToPot(const QUrl& path) const;
+    QUrl potToPo(const QUrl& path) const;
+
     QThreadPool* threadPool()
     {
         return m_threadPool;
@@ -215,9 +218,6 @@ private:
     QModelIndex indexForPoIndex(const QModelIndex& poIndex) const;
     QModelIndex indexForPotIndex(const QModelIndex& potIndex) const;
     void generatePOTMapping(QVector<int> & result, const QModelIndex& poParent, const QModelIndex& potParent) const;
-
-    QUrl poToPot(const QUrl& path) const;
-    QUrl potToPo(const QUrl& path) const;
 
     void enqueueNodeForMetadataUpdate(ProjectNode* node);
     void deleteSubtree(ProjectNode* node);
