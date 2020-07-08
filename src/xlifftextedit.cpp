@@ -170,7 +170,7 @@ void TranslationUnitTextEdit::fileLoaded()
 
     QLocale langLocale(langCode);
     // First try to use a locale name derived from the language code
-    m_highlighter->setCurrentLanguage(langLocale.name());
+    m_highlighter->setCurrentLanguage(langLocale.name());    
     //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langLocale.name();
     // If that fails, try to use the language code directly
     if (m_highlighter->currentLanguage() != langLocale.name() || m_highlighter->currentLanguage().isEmpty()) {
@@ -181,6 +181,7 @@ void TranslationUnitTextEdit::fileLoaded()
             //qCWarning(LOKALIZE_LOG) << "Attempting to set highlighting for " << m_part << " as " << langCode.left(2);
         }
     }
+    m_highlighter->setAutoDetectLanguageDisabled(m_highlighter->spellCheckerFound());
     //qCWarning(LOKALIZE_LOG) << "Spellchecker found "<<m_highlighter->spellCheckerFound()<< " as "<<m_highlighter->currentLanguage();
     //setSpellCheckingLanguage(m_highlighter->currentLanguage());
     //"i use an english locale while translating kde pot files from english to hebrew" Bug #181989

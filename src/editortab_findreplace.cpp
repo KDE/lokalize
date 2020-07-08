@@ -504,6 +504,7 @@ void EditorTab::spellcheck()
     if (!m_sonnetDialog) {
         m_sonnetChecker = new Sonnet::BackgroundChecker(this);
         m_sonnetChecker->changeLanguage(enhanceLangCode(Project::instance()->langCode()));
+        m_sonnetChecker->setAutoDetectLanguageDisabled(true);
         m_sonnetDialog = new Sonnet::Dialog(m_sonnetChecker, this);
         connect(m_sonnetDialog, &Sonnet::Dialog::spellCheckDone, this, &EditorTab::spellcheckNext);
         connect(m_sonnetDialog, &Sonnet::Dialog::replace, this, &EditorTab::spellcheckReplace);
