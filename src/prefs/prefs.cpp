@@ -304,7 +304,7 @@ void SettingsController::projectConfigure()
     connect(ui_prefs_projectmain.LangCode, QOverload<int>::of(&KComboBox::activated), ui_prefs_projectmain.kcfg_LangCode, &LangCodeSaver::setLangCode);
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
-    ui_prefs_projectmain.glossaryTbx->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
+    ui_prefs_projectmain.glossaryTbx->setMode(KFile::File | KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setFilter("*.tbx\n*.xml");
     connect(ui_prefs_projectmain.poBaseDir, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_PoBaseDir, &RelPathSaver::setText);
     connect(ui_prefs_projectmain.glossaryTbx, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_GlossaryTbx, &RelPathSaver::setText);
