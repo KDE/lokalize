@@ -75,6 +75,7 @@ LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
     //qCWarning(LOKALIZE_LOG)<<KIconLoader::global()->hasContext(KIconLoader::International);
     //qCDebug(LOKALIZE_LOG)<<KIconLoader::global()->queryIconsByContext(KIconLoader::NoGroup,KIconLoader::International);
     m_sortModel->setSourceModel(this);
+    m_sortModel->setSortLocaleAware(true);
     m_sortModel->sort(0);
 }
 
