@@ -24,8 +24,8 @@
 
 #include "languagelistmodel.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
+#include <klanguagename.h>
+#include <klocalizedstring.h>
 
 #include <QStringBuilder>
 #include <QCoreApplication>
@@ -64,9 +64,8 @@ LanguageListModel* LanguageListModel::emptyLangInstance()
 LanguageListModel::LanguageListModel(ModelType type, QObject* parent)
     : QStringListModel(parent)
     , m_sortModel(new QSortFilterProxyModel(this))
-    , m_systemLangList(new KConfig(QLatin1String("locale/kf5_all_languages"), KConfig::NoGlobals, QStandardPaths::GenericDataLocation))
 {
-    setStringList(m_systemLangList->groupList());
+    setStringList(KLanguageName::allLanguageCodes());
 
     if (type == WithEmptyLang) insertRows(rowCount(), 1);
 #if 0 //KDE5PORT
@@ -105,7 +104,7 @@ QVariant LanguageListModel::data(const QModelIndex& index, int role) const
         if (displayNames.at(index.row()).length())
             return displayNames.at(index.row());
         return QVariant::fromValue<QString>(
-                   displayNames[index.row()] = KConfigGroup(m_systemLangList, code).readEntry("Name") + QStringLiteral(" (") + code + ')');
+                   displayNames[index.row()] = i18nc("%1 is a language name, e.g. Irish, %2 is language code, e.g. ga", "%1 (%2)", KLanguageName::nameForCode(code), code));
     }
     return QStringListModel::data(index, role);
 }

@@ -28,7 +28,6 @@
 
 #include <QStringListModel>
 class QSortFilterProxyModel;
-class KConfig;
 
 class LanguageListModel: public QStringListModel
 {
@@ -47,7 +46,6 @@ private:
 
     LanguageListModel(ModelType type = Default, QObject* parent = nullptr);
     QSortFilterProxyModel* m_sortModel;
-    KConfig* m_systemLangList;
 
 public:
     QVariant data(const QModelIndex& index, int role) const override;
