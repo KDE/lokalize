@@ -695,7 +695,7 @@ bool QueryResultDelegate::editorEvent(QEvent* event,
         }
     } else if (event->type() == QEvent::MouseButtonRelease) {
         QMouseEvent* mEvent = static_cast<QMouseEvent*>(event);
-        if (mEvent->button() == Qt::MidButton) {
+        if (mEvent->button() == Qt::MiddleButton) {
         }
     } else if (event->type() == QEvent::KeyPress) {
         QKeyEvent* kEvent = static_cast<QKeyEvent*>(event);
