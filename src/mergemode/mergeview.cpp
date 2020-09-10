@@ -232,7 +232,8 @@ void MergeView::mergeOpen(QString mergeFilePath)
             KMessageBox::error(this, i18nc("@info", "Error opening the file <filename>%1</filename> for synchronization, error line: %2", mergeFilePath, errorLine));
         else {
             /* disable this as requested by bug 272587
-            KNotification* notification=new KNotification("MergeFilesOpenError", this);
+            KNotification* notification=new KNotification("MergeFilesOpenError");
+            notification->setWidget(this);
             notification->setText( i18nc("@info %1 is full filename","Error opening the file <filename>%1</filename> for synchronization",url.pathOrUrl()) );
             notification->sendEvent();
             */

@@ -126,7 +126,8 @@ void LokalizeMainWindow::initLater()
         slotSubWindowActivated(m_projectSubWindow);
 
     if (!Project::instance()->isTmSupported()) {
-        KNotification* notification = new KNotification("NoSqlModulesAvailable", this);
+        KNotification* notification = new KNotification("NoSqlModulesAvailable");
+        notification->setWidget(this);
         notification->setText(i18nc("@info", "No Qt Sql modules were found. Translation memory will not work."));
         notification->sendEvent();
     }
@@ -741,7 +742,8 @@ void LokalizeMainWindow::projectLoaded()
         qCDebug(LOKALIZE_LOG) << "failedFiles" << failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
-        KNotification* notification = new KNotification("FilesOpenError", this);
+        KNotification* notification = new KNotification("FilesOpenError");
+        notification->setWidget(this);
         notification->setText(i18nc("@info", "Error opening the following files:\n\n") + "<filename>" + failedFiles.join("</filename><br><filename>") + "</filename>");
         notification->sendEvent();
     }
