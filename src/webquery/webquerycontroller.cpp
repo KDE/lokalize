@@ -92,7 +92,6 @@ void WebQueryController::doDownloadAndFilter(QString urlStr, QString _codec, QSt
     qCWarning(LOKALIZE_LOG) << "_real url: " << url.toString();
     KIO::StoredTransferJob* readJob = KIO::storedGet(url, KIO::NoReload, KIO::HideProgressInfo);
     connect(readJob, &KIO::StoredTransferJob::result, this, &WebQueryController::slotDownloadResult);
-    readJob->setAutoDelete(false);//HACK HACK HACK
 
     codec = QTextCodec::codecForName(_codec.toUtf8());
     filter = QRegExp(rx);
@@ -103,7 +102,6 @@ void WebQueryController::slotDownloadResult(KJob* job)
     m_running = false;
     if (job->error()) {
         m_queue.dequeue();
-        delete job;
         return;
     }
 
@@ -114,8 +112,6 @@ void WebQueryController::slotDownloadResult(KJob* job)
         //qCWarning(LOKALIZE_LOG)<<result;
     } else
         m_queue.dequeue();
-
-    delete job;
 }
 
 
