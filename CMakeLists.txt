@@ -27,6 +27,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED I18n KIO XmlGui Notifications Confi
 
 add_definitions(-DQT_USE_QSTRINGBUILDER)
 add_definitions(-DQT_NO_CAST_TO_ASCII)
+add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 find_package(HUNSPELL)
 set_package_properties(

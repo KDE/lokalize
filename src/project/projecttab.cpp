@@ -411,10 +411,12 @@ void ProjectTab::openFile()
 
     while (--i >= 0) {
         if (Catalog::extIsSupported(files.at(i)))  {
-            if (files.at(i).endsWith(QLatin1String(".pot")))
-                emit fileOpenRequested(Project::instance()->model()->potToPo(QUrl::fromLocalFile(files.at(i))).toLocalFile(), true);
-            else
+            if (files.at(i).endsWith(QLatin1String(".pot"))) {
+                const QUrl potUrl = QUrl::fromLocalFile(files.at(i));
+                emit fileOpenRequested(Project::instance()->model()->potToPo(potUrl).toLocalFile(), true);
+            } else {
                 emit fileOpenRequested(files.at(i), true);
+            }
         }
     }
 }
