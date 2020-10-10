@@ -31,6 +31,7 @@
   <name xml:lang="pl">Lokalize</name>
   <name xml:lang="pt">Lokalize</name>
   <name xml:lang="pt-BR">Lokalize</name>
+  <name xml:lang="ro">Lokalize</name>
   <name xml:lang="ru">Lokalize</name>
   <name xml:lang="sk">Lokalize</name>
   <name xml:lang="sl">Lokalize</name>
@@ -72,6 +73,7 @@
   <summary xml:lang="pl">System tłumaczeń wspomagany komputerowo</summary>
   <summary xml:lang="pt">Sistema de traduções auxiliado por computador</summary>
   <summary xml:lang="pt-BR">Sistema de tradução auxiliado pelo computador</summary>
+  <summary xml:lang="ro">Sistem de traducere asistată de calculator</summary>
   <summary xml:lang="ru">Система автоматизированного перевода</summary>
   <summary xml:lang="sk">Počítačovo riadený prekladový systém</summary>
   <summary xml:lang="sl">Računalniško podprt prevajalni sistem</summary>
