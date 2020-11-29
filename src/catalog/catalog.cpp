@@ -112,7 +112,7 @@ bool Catalog::extIsSupported(const QString& path)
 Catalog::Catalog(QObject *parent)
     : QUndoStack(parent)
     , d(this)
-    , m_storage(0)
+    , m_storage(nullptr)
 {
     //cause refresh events for files modified from lokalize itself aint delivered automatically
     connect(this, QOverload<const QString &>::of(&Catalog::signalFileSaved), Project::instance()->model(), QOverload<const QString &>::of(&ProjectModel::slotFileSaved), Qt::QueuedConnection);
@@ -142,7 +142,7 @@ void Catalog::clear()
     d._nonApprovedIndex.clear();
     d._nonApprovedNonEmptyIndex.clear();
     d._emptyIndex.clear();
-    delete m_storage; m_storage = 0;
+    delete m_storage; m_storage = nullptr;
     d._filePath.clear();
     d._lastModifiedPos = DocPosition();
     d._modifiedEntries.clear();
@@ -537,7 +537,7 @@ void Catalog::setTargetLangCode(const QString& targetLangCode)
 
 KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
 {
-    KAutoSaveFile* autoSave = 0;
+    KAutoSaveFile* autoSave = nullptr;
     QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
     foreach (KAutoSaveFile *stale, staleFiles) {
         if (stale->open(QIODevice::ReadOnly) && !autoSave) {

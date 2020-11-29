@@ -90,17 +90,17 @@ EditorTab::EditorTab(QWidget* parent, bool valid)
     , m_catalog(new Catalog(this))
     , m_view(new EditorView(this, m_catalog/*,new keyEventHandler(this,m_catalog)*/))
     , m_pologyProcessInProgress(false)
-    , m_sonnetDialog(0)
+    , m_sonnetDialog(nullptr)
     , m_spellcheckStartUndoIndex(0)
     , m_spellcheckStop(false)
     , m_currentIsApproved(true)
     , m_currentIsUntr(true)
     , m_fullPathShown(false)
     , m_doReplaceCalled(false)
-    , m_find(0)
-    , m_replace(0)
-    , m_syncView(0)
-    , m_syncViewSecondary(0)
+    , m_find(nullptr)
+    , m_replace(nullptr)
+    , m_syncView(nullptr)
+    , m_syncViewSecondary(nullptr)
     , m_valid(valid)
     , m_dbusId(-1)
 {
@@ -1573,7 +1573,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                 default: ; //fall through to dir selection
                 }
 
-                QString dir = QFileDialog::getExistingDirectory(0, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
+                QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
                 if (dir.length()) {
                     Project::instance()->local()->setSourceDir(dir);
                     Project::instance()->resetSourceFilePaths();

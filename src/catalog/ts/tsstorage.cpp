@@ -281,7 +281,7 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
  * - deletes content, or
  * - inserts content
  */
-static QString content(QDomElement elem, TsContentEditingData* data = 0)
+static QString content(QDomElement elem, TsContentEditingData* data = nullptr)
 {
     return doContent(elem, 0, data);
 }

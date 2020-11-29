@@ -106,7 +106,7 @@ public:
     ProjectLocal::PersonRole _phaseRole;
 
     explicit CatalogPrivate(QObject* parent)
-        : fileCodec(0)
+        : fileCodec(nullptr)
         , _numberOfPluralForms(-1)
         , _autoSave(new KAutoSaveFile(parent))
         , _autoSaveDirty(true)

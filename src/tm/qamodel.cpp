@@ -56,20 +56,20 @@ static QVector<QRegExp> domListToRegExpVector(const QDomNodeList& nodes)
 }
 
 
-QaModel* QaModel::_instance = 0;
+QaModel* QaModel::_instance = nullptr;
 void QaModel::cleanupQaModel()
 {
-    delete QaModel::_instance; QaModel::_instance = 0;
+    delete QaModel::_instance; QaModel::_instance = nullptr;
 }
 
 bool QaModel::isInstantiated()
 {
-    return _instance != 0;
+    return _instance != nullptr;
 }
 
 QaModel* QaModel::instance()
 {
-    if (Q_UNLIKELY(_instance == 0)) {
+    if (Q_UNLIKELY(_instance == nullptr)) {
         _instance = new QaModel;
         qAddPostRoutine(QaModel::cleanupQaModel);
     }

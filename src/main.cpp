@@ -160,7 +160,7 @@ int main(int argc, char **argv)
         QThreadPool::globalInstance()->waitForDone(1000);
         //qCDebug(LOKALIZE_LOG)<<"QCoreApplication::processEvents()...";
         QCoreApplication::processEvents();
-        QCoreApplication::sendPostedEvents(0, 0);
+        QCoreApplication::sendPostedEvents(nullptr, 0);
     }
     return code;
 }

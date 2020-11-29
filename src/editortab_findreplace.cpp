@@ -79,10 +79,10 @@ private:
     Ui_findExtension* ui_findExtension;
 };
 
-QPointer<EntryFindDialog> EntryFindDialog::_instance = 0;
+QPointer<EntryFindDialog> EntryFindDialog::_instance = nullptr;
 EntryFindDialog* EntryFindDialog::instance(QWidget* parent)
 {
-    if (_instance == 0) {
+    if (_instance == nullptr) {
         _instance = new EntryFindDialog(parent);
         qAddPostRoutine(EntryFindDialog::cleanup);
     }
@@ -133,10 +133,10 @@ private:
     Ui_findExtension* ui_findExtension;
 };
 
-QPointer<EntryReplaceDialog> EntryReplaceDialog::_instance = 0;
+QPointer<EntryReplaceDialog> EntryReplaceDialog::_instance = nullptr;
 EntryReplaceDialog* EntryReplaceDialog::instance(QWidget* parent)
 {
-    if (_instance == 0) {
+    if (_instance == nullptr) {
         _instance = new EntryReplaceDialog(parent);
         qAddPostRoutine(EntryReplaceDialog::cleanup);
     }

@@ -101,15 +101,15 @@ QString getMailingList()
 
 
 
-Project* Project::_instance = 0;
+Project* Project::_instance = nullptr;
 void Project::cleanupProject()
 {
-    delete Project::_instance; Project::_instance = 0;
+    delete Project::_instance; Project::_instance = nullptr;
 }
 
 Project* Project::instance()
 {
-    if (_instance == 0) {
+    if (_instance == nullptr) {
         _instance = new Project();
         qAddPostRoutine(Project::cleanupProject);
     }
@@ -119,10 +119,10 @@ Project* Project::instance()
 Project::Project()
     : ProjectBase()
     , m_localConfig(new ProjectLocal())
-    , m_model(0)
+    , m_model(nullptr)
     , m_glossary(new GlossaryNS::Glossary(this))
-    , m_glossaryWindow(0)
-    , m_tmManagerWindow(0)
+    , m_glossaryWindow(nullptr)
+    , m_tmManagerWindow(nullptr)
 {
     setDefaults();
     /*
@@ -280,7 +280,7 @@ GlossaryNS::GlossaryWindow* Project::showGlossary()
 GlossaryNS::GlossaryWindow* Project::defineNewTerm(QString en, QString target)
 {
     if (!SettingsController::instance()->ensureProjectIsLoaded())
-        return 0;
+        return nullptr;
 
     if (!m_glossaryWindow)
         m_glossaryWindow = new GlossaryNS::GlossaryWindow(SettingsController::instance()->mainWindowPtr());

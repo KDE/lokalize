@@ -212,7 +212,7 @@ PhasesWindow::PhasesWindow(Catalog* catalog, QWidget *parent)
     , m_model(new PhasesModel(catalog, this))
     , m_view(new MyTreeView(this))
     , m_browser(new QTextBrowser(this))
-    , m_editor(0)
+    , m_editor(nullptr)
 {
     connect(this, &PhasesWindow::accepted, this, &PhasesWindow::handleResult);
     //setAttribute(Qt::WA_DeleteOnClose, true);

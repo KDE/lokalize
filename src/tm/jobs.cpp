@@ -1197,7 +1197,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 int p = ids.size();
                 idsForWord.reserve(p);
                 while (--p >= 0)
-                    idsForWord.append(ids.at(p).toLongLong(/*bool ok*/0, 36));
+                    idsForWord.append(ids.at(p).toLongLong(/*bool ok*/nullptr, 36));
             } else {
                 queryWords.clear();
                 continue;
@@ -1544,7 +1544,7 @@ void ScanJob::run()
     TMConfig c = getConfig(db, true);
     QRegExp rxClean1(c.markup); rxClean1.setMinimal(true);
 
-    Catalog catalog(0);
+    Catalog catalog(nullptr);
     if (Q_LIKELY(catalog.loadFromUrl(m_filePath, QString(), &m_size, /*no auto save*/true) == 0)) {
         if (c.targetLangCode != catalog.targetLangCode()) {
             qCWarning(LOKALIZE_LOG) << "not indexing file because target languages don't match:" << c.targetLangCode << "in TM vs" << catalog.targetLangCode() << "in file";
@@ -2114,7 +2114,7 @@ void ExportTmxJob::run()
 
 ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QMutex *dbOperation)
     : QObject(), QRunnable()
-    , query(0)
+    , query(nullptr)
     , m_dbName(dbName)
     , m_query(queryString)
     , m_dbOperationMutex(dbOperation)

@@ -48,12 +48,12 @@ QString enhanceLangCode(const QString& langCode)
 struct SpellerAndCodec {
     Hunspell* speller;
     QTextCodec* codec;
-    SpellerAndCodec(): speller(0), codec(0) {}
+    SpellerAndCodec(): speller(nullptr), codec(nullptr) {}
     SpellerAndCodec(const QString& langCode);
 };
 
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)
-    : speller(0), codec(0)
+    : speller(nullptr), codec(nullptr)
 {
 #ifdef Q_OS_MAC
     QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") + langCode.leftRef(2) + '/';

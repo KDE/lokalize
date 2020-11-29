@@ -205,7 +205,7 @@ void SearchJob::run()
     bool removeAmpFromTarget = searchParams.targetPattern.patternSyntax() == QRegExp::FixedString
                                && !searchParams.targetPattern.pattern().contains(QLatin1Char('&'));
     foreach (const QString& filePath, files) {
-        Catalog catalog(0);
+        Catalog catalog(nullptr);
         if (Q_UNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true) != 0))
             continue;
 
@@ -446,7 +446,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(sh, &QShortcut::activated, ui_fileSearchOptions->querySource, QOverload<>::of(&QLineEdit::setFocus));
     setFocusProxy(ui_fileSearchOptions->querySource);
 
-    sh = new QShortcut(Qt::Key_Escape, this, SLOT(stopSearch()), 0, Qt::WidgetWithChildrenShortcut);
+    sh = new QShortcut(Qt::Key_Escape, this, SLOT(stopSearch()), nullptr, Qt::WidgetWithChildrenShortcut);
 
     QTreeView* view = ui_fileSearchOptions->treeView;
 

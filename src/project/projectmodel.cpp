@@ -48,15 +48,15 @@ ProjectModel::ProjectModel(QObject *parent)
     : QAbstractItemModel(parent)
     , m_poModel(this)
     , m_potModel(this)
-    , m_rootNode(NULL, -1, -1, -1)
+    , m_rootNode(nullptr, -1, -1, -1)
     , m_dirIcon(QIcon::fromTheme(QStringLiteral("inode-directory")))
     , m_poIcon(QIcon::fromTheme(QStringLiteral("flag-blue")))
     , m_poInvalidIcon(QIcon::fromTheme(QStringLiteral("flag-red")))
     , m_poComplIcon(QIcon::fromTheme(QStringLiteral("flag-green")))
     , m_poEmptyIcon(QIcon::fromTheme(QStringLiteral("flag-yellow")))
     , m_potIcon(QIcon::fromTheme(QStringLiteral("flag-black")))
-    , m_activeJob(NULL)
-    , m_activeNode(NULL)
+    , m_activeJob(nullptr)
+    , m_activeNode(nullptr)
     , m_doneTimer(new QTimer(this))
     , m_delayedReloadTimer(new QTimer(this))
     , m_threadPool(new QThreadPool(this))
@@ -65,10 +65,10 @@ ProjectModel::ProjectModel(QObject *parent)
     m_threadPool->setMaxThreadCount(1);
     m_threadPool->setExpiryTimeout(-1);
 
-    m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
+    m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
     m_poModel.dirLister()->setNameFilter(QStringLiteral("*.po *.pot *.xlf *.xliff *.ts"));
 
-    m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, NULL);
+    m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
     m_potModel.dirLister()->setNameFilter(QStringLiteral("*.pot"));
 
     connect(&m_poModel, &KDirModel::dataChanged, this, &ProjectModel::po_dataChanged);
@@ -96,10 +96,10 @@ ProjectModel::~ProjectModel()
 {
     m_dirsWaitingForMetadata.clear();
 
-    if (m_activeJob != NULL)
+    if (m_activeJob != nullptr)
         m_activeJob->setStatus(-2);
 
-    m_activeJob = NULL;
+    m_activeJob = nullptr;
 
     for (int pos = 0; pos < m_rootNode.rows.count(); pos ++)
         deleteSubtree(m_rootNode.rows.at(pos));
@@ -115,9 +115,9 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 
     m_dirsWaitingForMetadata.clear();
 
-    if (m_activeJob != NULL)
+    if (m_activeJob != nullptr)
         m_activeJob->setStatus(-1);
-    m_activeJob = NULL;
+    m_activeJob = nullptr;
 
     if (m_rootNode.rows.count()) {
         beginRemoveRows(QModelIndex(), 0, m_rootNode.rows.count());
@@ -775,11 +775,11 @@ ProjectModel::ProjectNode* ProjectModel::nodeForIndex(const QModelIndex& index) 
 {
     if (index.isValid()) {
         ProjectNode * node = static_cast<ProjectNode *>(index.internalPointer());
-        Q_ASSERT(node != NULL);
+        Q_ASSERT(node != nullptr);
         return node;
     } else {
         ProjectNode * node = const_cast<ProjectNode *>(&m_rootNode);
-        Q_ASSERT(node != NULL);
+        Q_ASSERT(node != nullptr);
         return node;
     }
 }
@@ -1002,7 +1002,7 @@ void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
     m_doneTimer->stop();
 
     if (m_dirsWaitingForMetadata.contains(node)) {
-        if ((m_activeJob != NULL) && (m_activeNode == node))
+        if ((m_activeJob != nullptr) && (m_activeNode == node))
             m_activeJob->setStatus(-1);
 
         return;
@@ -1010,7 +1010,7 @@ void ProjectModel::enqueueNodeForMetadataUpdate(ProjectNode* node)
 
     m_dirsWaitingForMetadata.insert(node);
 
-    if (m_activeJob == NULL)
+    if (m_activeJob == nullptr)
         startNewMetadataJob();
 }
 
@@ -1022,7 +1022,7 @@ void ProjectModel::deleteSubtree(ProjectNode* node)
 
     m_dirsWaitingForMetadata.remove(node);
 
-    if ((m_activeJob != NULL) && (m_activeNode == node))
+    if ((m_activeJob != nullptr) && (m_activeNode == node))
         m_activeJob->setStatus(-1);
 
     delete node;
@@ -1034,8 +1034,8 @@ void ProjectModel::startNewMetadataJob()
     if (!m_completeScan) //hack for debugging
         return;
 
-    m_activeJob = NULL;
-    m_activeNode = NULL;
+    m_activeJob = nullptr;
+    m_activeNode = nullptr;
 
     if (m_dirsWaitingForMetadata.isEmpty())
         return;
@@ -1086,7 +1086,7 @@ void ProjectModel::finishMetadataUpdate(UpdateStatsJob* job)
         }
     }
 
-    delete m_activeJob; m_activeJob = 0;
+    delete m_activeJob; m_activeJob = nullptr;
 
     startNewMetadataJob();
 }

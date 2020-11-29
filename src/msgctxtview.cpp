@@ -51,7 +51,7 @@
 MsgCtxtView::MsgCtxtView(QWidget* parent, Catalog* catalog)
     : QDockWidget(i18nc("@title toolview name", "Unit metadata"), parent)
     , m_browser(new QTextBrowser(this))
-    , m_editor(0)
+    , m_editor(nullptr)
     , m_catalog(catalog)
     , m_selection(0)
     , m_offset(0)

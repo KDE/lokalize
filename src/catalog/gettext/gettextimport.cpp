@@ -285,7 +285,7 @@ QTextCodec* GettextImportPlugin::codecForDevice(QIODevice* device/*, bool* hadCo
         return QTextCodec::codecForName("utf8");;
     }
 
-    QTextCodec* t = 0;
+    QTextCodec* t = nullptr;
     t = QTextCodec::codecForName(charset.toLatin1());
 
     if (t)

@@ -37,17 +37,17 @@
 
 
 
-LanguageListModel* LanguageListModel::_instance = 0;
-LanguageListModel* LanguageListModel::_emptyLangInstance = 0;
+LanguageListModel* LanguageListModel::_instance = nullptr;
+LanguageListModel* LanguageListModel::_emptyLangInstance = nullptr;
 void LanguageListModel::cleanupLanguageListModel()
 {
-    delete LanguageListModel::_instance; LanguageListModel::_instance = 0;
-    delete LanguageListModel::_emptyLangInstance; LanguageListModel::_emptyLangInstance = 0;
+    delete LanguageListModel::_instance; LanguageListModel::_instance = nullptr;
+    delete LanguageListModel::_emptyLangInstance; LanguageListModel::_emptyLangInstance = nullptr;
 }
 
 LanguageListModel* LanguageListModel::instance()
 {
-    if (_instance == 0) {
+    if (_instance == nullptr) {
         _instance = new LanguageListModel();
         qAddPostRoutine(LanguageListModel::cleanupLanguageListModel);
     }
@@ -56,7 +56,7 @@ LanguageListModel* LanguageListModel::instance()
 
 LanguageListModel* LanguageListModel::emptyLangInstance()
 {
-    if (_emptyLangInstance == 0)
+    if (_emptyLangInstance == nullptr)
         _emptyLangInstance = new LanguageListModel(WithEmptyLang);
     return _emptyLangInstance;
 }

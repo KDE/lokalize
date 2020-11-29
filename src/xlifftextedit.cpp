@@ -120,7 +120,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
     , m_part(part)
     , m_highlighter(new SyntaxHighlighter(this))
     , m_enabled(Settings::autoSpellcheck())
-    , m_completionBox(0)
+    , m_completionBox(nullptr)
     , m_cursorSelectionStart(0)
     , m_cursorSelectionEnd(0)
     , m_languageToolTimer(new QTimer(this))
@@ -1181,7 +1181,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     void TranslationUnitTextEdit::doTag(bool immediate) {
         QMenu menu;
-        QAction* txt = 0;
+        QAction* txt = nullptr;
 
         CatalogString sourceWithTags = m_catalog->sourceWithTags(m_currentPos);
         int count = sourceWithTags.tags.size();

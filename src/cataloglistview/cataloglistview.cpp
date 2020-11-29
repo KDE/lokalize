@@ -90,7 +90,7 @@ CatalogView::CatalogView(QWidget* parent, Catalog* catalog)
     m_lineEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + ' ' + i18nc("@info:tooltip", "Accepts regular expressions"));
     connect(m_lineEdit, &QLineEdit::textChanged, this, &CatalogView::setFilterRegExp, Qt::QueuedConnection);
     // QShortcut* ctrlEsc=new QShortcut(QKeySequence(Qt::META+Qt::Key_Escape),this,SLOT(reset()),0,Qt::WidgetWithChildrenShortcut);
-    QShortcut* esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, 0, 0, Qt::WidgetWithChildrenShortcut);
+    QShortcut* esc = new QShortcut(QKeySequence(Qt::Key_Escape), this, nullptr, nullptr, Qt::WidgetWithChildrenShortcut);
     connect(esc, &QShortcut::activated, this, &CatalogView::escaped);
 
 
@@ -222,7 +222,7 @@ void CatalogView::fillFilterOptionsMenu()
     const char* const* alltitles[2] = {basicTitles, extTitles};
 
     QMenu* basicMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Basic"));
-    QMenu* extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : 0;
+    QMenu* extMenu = extStates ? m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "States")) : nullptr;
     QMenu* allmenus[2] = {basicMenu, extMenu};
     QMenu* columnsMenu = m_filterOptionsMenu->addMenu(i18nc("@title:inmenu", "Searchable column"));
 

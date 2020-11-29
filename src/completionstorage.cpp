@@ -31,15 +31,15 @@
 #include <QCoreApplication>
 #include <QElapsedTimer>
 
-CompletionStorage* CompletionStorage::_instance = 0;
+CompletionStorage* CompletionStorage::_instance = nullptr;
 void CompletionStorage::cleanupCompletionStorage()
 {
-    delete CompletionStorage::_instance; CompletionStorage::_instance = 0;
+    delete CompletionStorage::_instance; CompletionStorage::_instance = nullptr;
 }
 
 CompletionStorage* CompletionStorage::instance()
 {
-    if (_instance == 0) {
+    if (_instance == nullptr) {
         _instance = new CompletionStorage();
         qAddPostRoutine(CompletionStorage::cleanupCompletionStorage);
     }

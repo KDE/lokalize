@@ -103,7 +103,7 @@ QLayoutItem *FlowLayout::takeAt(int index)
     if (index >= 0 && index < itemList.size())
         return itemList.takeAt(index);
     else
-        return 0;
+        return nullptr;
 }
 
 QLayoutItem *FlowLayout::itemAt(int index) const

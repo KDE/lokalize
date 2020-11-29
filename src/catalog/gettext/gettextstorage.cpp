@@ -51,7 +51,7 @@ using namespace GettextCatalog;
 
 GettextStorage::GettextStorage()
     : CatalogStorage()
-    , m_codec(0)
+    , m_codec(nullptr)
     , m_maxLineLength(80)
     , m_trailingNewLines(0)
     , m_generatedFromDocbook(false)

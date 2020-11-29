@@ -267,7 +267,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
     , m_filterOptions(AllStates)
     , m_individualRejectFilterEnable(false)
-    , m_mergeCatalog(NULL)
+    , m_mergeCatalog(nullptr)
 {
     setFilterKeyColumn(-1);
     setFilterCaseSensitivity(Qt::CaseInsensitive);

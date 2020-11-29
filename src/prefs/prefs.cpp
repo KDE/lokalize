@@ -63,16 +63,16 @@
 
 //#include <sonnet/configwidget.h>
 
-SettingsController* SettingsController::_instance = 0;
+SettingsController* SettingsController::_instance = nullptr;
 void SettingsController::cleanupSettingsController()
 {
     delete SettingsController::_instance;
-    SettingsController::_instance = 0;
+    SettingsController::_instance = nullptr;
 }
 
 SettingsController* SettingsController::instance()
 {
-    if (_instance == 0) {
+    if (_instance == nullptr) {
         _instance = new SettingsController;
         qAddPostRoutine(SettingsController::cleanupSettingsController);
     }
@@ -83,8 +83,8 @@ SettingsController* SettingsController::instance()
 SettingsController::SettingsController()
     : QObject(Project::instance())
     , dirty(false)
-    , m_projectActionsView(0)
-    , m_mainWindowPtr(0)
+    , m_projectActionsView(nullptr)
+    , m_mainWindowPtr(nullptr)
 {}
 
 SettingsController::~SettingsController()

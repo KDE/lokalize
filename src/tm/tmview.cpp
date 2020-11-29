@@ -136,7 +136,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     : QDockWidget(i18nc("@title:window", "Translation Memory"), parent)
     , m_browser(new TextBrowser(this))
     , m_catalog(catalog)
-    , m_currentSelectJob(0)
+    , m_currentSelectJob(nullptr)
     , m_actions_insert(actions_insert)
     , m_actions_remove(actions_remove)
     , m_normTitle(i18nc("@title:window", "Translation Memory"))

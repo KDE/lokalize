@@ -45,7 +45,7 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     : QDockWidget(primary ? i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") : i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"), parent)
     , m_browser(new QTextEdit(this))
     , m_baseCatalog(catalog)
-    , m_mergeCatalog(0)
+    , m_mergeCatalog(nullptr)
     , m_normTitle(primary ?
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") :
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"))
@@ -69,7 +69,7 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
 MergeView::~MergeView()
 {
     delete m_mergeCatalog;
-    emit mergeCatalogPointerChanged(NULL);
+    emit mergeCatalogPointerChanged(nullptr);
     emit mergeCatalogAvailable(false);
 }
 
@@ -166,8 +166,8 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 void MergeView::cleanup()
 {
     delete m_mergeCatalog;
-    m_mergeCatalog = 0;
-    emit mergeCatalogPointerChanged(0);
+    m_mergeCatalog = nullptr;
+    emit mergeCatalogPointerChanged(nullptr);
     emit mergeCatalogAvailable(false);
     m_pos = DocPosition();
 

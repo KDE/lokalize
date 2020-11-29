@@ -72,14 +72,14 @@
 LokalizeMainWindow::LokalizeMainWindow()
     : KXmlGuiWindow()
     , m_mdiArea(new LokalizeMdiArea)
-    , m_prevSubWindow(0)
-    , m_projectSubWindow(0)
-    , m_translationMemorySubWindow(0)
+    , m_prevSubWindow(nullptr)
+    , m_projectSubWindow(nullptr)
+    , m_translationMemorySubWindow(nullptr)
     , m_editorActions(new QActionGroup(this))
     , m_managerActions(new QActionGroup(this))
     , m_spareEditor(new EditorTab(this, false))
     , m_multiEditorAdaptor(new MultiEditorAdaptor(m_spareEditor))
-    , m_projectScriptingPlugin(0)
+    , m_projectScriptingPlugin(nullptr)
 {
     m_spareEditor->hide();
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
@@ -281,7 +281,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     QByteArray state = m_lastEditorState;
     EditorTab* w = new EditorTab(this);
 
-    QMdiSubWindow* sw = 0;
+    QMdiSubWindow* sw = nullptr;
     //create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
     if (filePath.length())
         sw = m_mdiArea->addSubWindow(w);
@@ -299,7 +299,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
             sw->deleteLater();
         }
         w->deleteLater();
-        return 0;
+        return nullptr;
     }
     filePath = w->currentFilePath();
     m_openRecentFileAction->addUrl(QUrl::fromLocalFile(filePath));//(w->currentUrl());
@@ -365,7 +365,7 @@ EditorTab* LokalizeMainWindow::fileOpen(const QString& filePath, const QString& 
 {
     EditorTab* w = fileOpen(filePath, 0, setAsActive);
     if (!w)
-        return 0;//TODO message
+        return nullptr;//TODO message
     w->findEntryBySourceContext(source, ctxt);
     return w;
 }
@@ -373,7 +373,7 @@ EditorTab* LokalizeMainWindow::fileOpen(const QString& filePath, DocPosition doc
 {
     EditorTab* w = fileOpen(filePath, 0, setAsActive);
     if (!w)
-        return 0;//TODO message
+        return nullptr;//TODO message
     w->gotoEntry(docPos, selection);
     return w;
 }
@@ -392,7 +392,7 @@ QObject* LokalizeMainWindow::projectOverview()
     }
     if (m_mdiArea->currentSubWindow() == m_projectSubWindow)
         return m_projectSubWindow->widget();
-    return 0;
+    return nullptr;
 }
 
 void LokalizeMainWindow::showProjectOverview()
@@ -405,7 +405,7 @@ TM::TMTab* LokalizeMainWindow::showTM()
 {
     if (!Project::instance()->isTmSupported()) {
         KMessageBox::information(nullptr, i18n("TM facility requires SQLite Qt module."), i18n("No SQLite module available"));
-        return 0;
+        return nullptr;
     }
 
     if (!m_translationMemorySubWindow) {
@@ -972,16 +972,16 @@ QObject* LokalizeMainWindow::activeEditor()
     //QList<QMdiSubWindow*> editors=m_mdiArea->subWindowList();
     QMdiSubWindow* activeSW = m_mdiArea->currentSubWindow();
     if (!activeSW || !qobject_cast<EditorTab*>(activeSW->widget()))
-        return 0;
+        return nullptr;
     return activeSW->widget();
 }
 
 QObject* LokalizeMainWindow::editorForFile(const QString& path)
 {
     FileToEditor::const_iterator it = m_fileToEditor.constFind(QFileInfo(path).canonicalFilePath());
-    if (it == m_fileToEditor.constEnd()) return 0;
+    if (it == m_fileToEditor.constEnd()) return nullptr;
     QMdiSubWindow* w = it.value();
-    if (!w) return 0;
+    if (!w) return nullptr;
     return static_cast<EditorTab*>(w->widget());
 }
 
@@ -1057,7 +1057,7 @@ void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 void MultiEditorAdaptor::handleParentDestroy(QObject* p)
 {
     Q_UNUSED(p);
-    setParent(0);
+    setParent(nullptr);
 }
 
 //END DBus interface

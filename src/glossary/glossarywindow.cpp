@@ -236,7 +236,7 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     m_filterEdit->setPlaceholderText(i18n("Quick search..."));
     m_filterEdit->setFocus();
     m_filterEdit->setToolTip(i18nc("@info:tooltip", "Activated by Ctrl+L.") + ' ' + i18nc("@info:tooltip", "Accepts regular expressions"));
-    new QShortcut(Qt::CTRL + Qt::Key_L, this, SLOT(setFocus()), 0, Qt::WidgetWithChildrenShortcut);
+    new QShortcut(Qt::CTRL + Qt::Key_L, this, SLOT(setFocus()), nullptr, Qt::WidgetWithChildrenShortcut);
     connect(m_filterEdit, &QLineEdit::textChanged, m_proxyModel, &GlossaryNS::GlossarySortFilterProxyModel::setFilterRegExp);
 
     layout->addWidget(m_filterEdit);

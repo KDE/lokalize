@@ -99,7 +99,7 @@ EditorView::EditorView(QWidget *parent, Catalog* catalog/*,keyEventHandler* kh*/
     , m_sourceTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Source, this))
     , m_targetTextEdit(new TranslationUnitTextEdit(catalog, DocPosition::Target, this))
     , m_pluralTabBar(new QTabBar(this))
-    , m_leds(0)
+    , m_leds(nullptr)
     , m_modifiedAfterFind(false)
 {
     m_pluralTabBar->hide();
@@ -258,7 +258,7 @@ void EditorView::gotoEntry(DocPosition pos, int selection)
 //BEGIN edit actions that are easier to do in this class
 void EditorView::unwrap()
 {
-    unwrap(0);
+    unwrap(nullptr);
 }
 void EditorView::unwrap(TranslationUnitTextEdit* editor)
 {

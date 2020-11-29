@@ -47,15 +47,15 @@ static QString tmFileExtension = QStringLiteral(TM_DATABASE_EXTENSION);
 static QString remoteTmExtension = QStringLiteral(REMOTETM_DATABASE_EXTENSION);
 
 
-DBFilesModel* DBFilesModel::_instance = 0;
+DBFilesModel* DBFilesModel::_instance = nullptr;
 void DBFilesModel::cleanupDBFilesModel()
 {
-    delete DBFilesModel::_instance; DBFilesModel::_instance = 0;
+    delete DBFilesModel::_instance; DBFilesModel::_instance = nullptr;
 }
 
 DBFilesModel* DBFilesModel::instance()
 {
-    if (Q_UNLIKELY(_instance == 0)) {
+    if (Q_UNLIKELY(_instance == nullptr)) {
         _instance = new DBFilesModel;
         qAddPostRoutine(DBFilesModel::cleanupDBFilesModel);
     }
@@ -66,7 +66,7 @@ DBFilesModel* DBFilesModel::instance()
 
 DBFilesModel::DBFilesModel()
     : QSortFilterProxyModel()
-    , projectDB(0)
+    , projectDB(nullptr)
     , m_fileSystemModel(new QFileSystemModel(this))
     , m_tmRootPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
 {
@@ -210,7 +210,7 @@ void DBFilesModel::closeJobDone(CloseDBJob* j)
 void DBFilesModel::updateProjectTmIndex()
 {
     if (projectDB && data(*projectDB).toString() != Project::instance()->projectID()) {
-        delete projectDB; projectDB = 0;
+        delete projectDB; projectDB = nullptr;
     }
 }
 

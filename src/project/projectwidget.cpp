@@ -51,7 +51,7 @@
 class PoItemDelegate: public QStyledItemDelegate
 {
 public:
-    PoItemDelegate(QObject *parent = 0);
+    PoItemDelegate(QObject *parent = nullptr);
     ~PoItemDelegate() {}
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QString displayText(const QVariant & value, const QLocale & locale) const override;
