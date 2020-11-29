@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="FileSearch" version="0">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="FileSearch" version="0">
 <MenuBar>
   <Menu name="tools">
     <Action name="showfilelist_action"/>
@@ -13,4 +14,4 @@
   <Action name="showmassreplace_action"/>
   <Action name="showqa_action"/>
 </ToolBar>
-</kpartgui>
+</gui>

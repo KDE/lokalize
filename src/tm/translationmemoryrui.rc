@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="TranslationMemory" version="3">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="TranslationMemory" version="3">
 <MenuBar>
   <Menu name="tools">
     <Action name="showqa_action"/>
@@ -13,4 +14,4 @@
   <Separator/>
   <Action name="showqa_action"/>
 </ToolBar>
-</kpartgui>
+</gui>

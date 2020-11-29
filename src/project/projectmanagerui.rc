@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="ProjectOverview" version="5">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="ProjectOverview" version="5">
 <MenuBar>
   <Menu name="go"><text>&amp;Go</text>
     <Action name="go_prev_fuzzyUntr"/>
@@ -30,4 +31,4 @@
   <Separator/>
   <Action name="toggle_translated_files"/>
 </ToolBar>
-</kpartgui>
+</gui>
