@@ -124,8 +124,8 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
         /*escapedSource.replace('%',"\b%");escapedSource.replace('_',"\b_");
         escapedTarget.replace('%',"\b%");escapedTarget.replace('_',"\b_");*/
         QRegExp wre(QStringLiteral("\\W"));
-        QStringList sourceList = escapedSource.split(wre, QString::SkipEmptyParts);
-        QStringList targetList = escapedTarget.split(wre, QString::SkipEmptyParts);
+        QStringList sourceList = escapedSource.split(wre, Qt::SkipEmptyParts);
+        QStringList targetList = escapedTarget.split(wre, Qt::SkipEmptyParts);
 
         if (!sourceList.isEmpty())
             sourceQuery = QStringLiteral("AND source_strings.source ") + invertSourceStr + QStringLiteral("LIKE '%")

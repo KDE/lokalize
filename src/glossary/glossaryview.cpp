@@ -147,7 +147,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
     QList<QByteArray> termIds;
-    foreach (const QString& w, msg.split(m_rxSplit, QString::SkipEmptyParts)) {
+    foreach (const QString& w, msg.split(m_rxSplit, Qt::SkipEmptyParts)) {
         QString word = stem(sourceLangCode, w);
         QList<QByteArray> indexes = glossary.idsForLangWord(sourceLangCode, word);
         //if (indexes.size())
@@ -173,7 +173,7 @@ void GlossaryView::slotNewEntryDisplayed(DocPosition pos)
             bool ok = msg.contains(enTerm); //,//Qt::CaseInsensitive  //we lowered terms on load
             if (!ok) {
                 QString enTermStemmed;
-                foreach (const QString& word, enTerm.split(m_rxSplit, QString::SkipEmptyParts))
+                foreach (const QString& word, enTerm.split(m_rxSplit, Qt::SkipEmptyParts))
                     enTermStemmed += stem(sourceLangCode, word) + ' ';
                 ok = msgStemmed.contains(enTermStemmed);
             }

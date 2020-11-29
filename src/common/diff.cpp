@@ -363,7 +363,7 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
         markup += '|';
     QRegExp rxSplit('(' + markup + QLatin1String("\\W+|\\d+)+"));
 
-    main = str.split(rxSplit, QString::SkipEmptyParts);
+    main = str.split(rxSplit, Qt::SkipEmptyParts);
     main.prepend("\t");//little hack
 
 
@@ -394,8 +394,8 @@ QString userVisibleWordDiff(const QString& str1ForMatching,
     //QRegExp rxSpace("[^(\\W+|\\d+)]");
     //i tried that but it failed:
     //QRegExp rxSpace("[^("+Project::instance()->markup()+"|\\W+|\\d+)]");
-    //QStringList s1Space(str1ForMatching.split(rxSpace,QString::SkipEmptyParts));
-    //QStringList s2Space(str2ForMatching.split(rxSpace,QString::SkipEmptyParts));
+    //QStringList s1Space(str1ForMatching.split(rxSpace,Qt::SkipEmptyParts));
+    //QStringList s2Space(str2ForMatching.split(rxSpace,Qt::SkipEmptyParts));
 
 
     QStringList result(calcLCS(s1, s2, s1Space, s2Space));

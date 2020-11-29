@@ -98,7 +98,7 @@ static void doSplit(QString& cleanEn,
         cleanEn.replace(rxClean1, QStringLiteral(" "));
     cleanEn.remove(accel);
 
-    words = cleanEn.toLower().split(rxSplit, QString::SkipEmptyParts);
+    words = cleanEn.toLower().split(rxSplit, Qt::SkipEmptyParts);
     if (words.size() > 4) {
         int i = 0;
         for (; i < words.size(); ++i) {
@@ -1221,7 +1221,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     QString sourceClean(m_source.string);
     sourceClean.remove(c.accel);
     //split m_english for use in wordDiff later--all words are needed so we cant use list we already have
-    QStringList englishList(sourceClean.toLower().split(rxSplit, QString::SkipEmptyParts));
+    QStringList englishList(sourceClean.toLower().split(rxSplit, Qt::SkipEmptyParts));
     static QRegExp delPart(QStringLiteral("<KBABELDEL>*</KBABELDEL>"), Qt::CaseSensitive, QRegExp::Wildcard);
     static QRegExp addPart(QStringLiteral("<KBABELADD>*</KBABELADD>"), Qt::CaseSensitive, QRegExp::Wildcard);
     delPart.setMinimal(true);
@@ -1266,7 +1266,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                         qCWarning(LOKALIZE_LOG) << "problem:" << queryFetch.value(3).toByteArray().size() << queryFetch.value(3).toByteArray();
                 }
                 //e.target=queryFetch.value(2).toString();
-                //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',QString::SkipEmptyParts);
+                //QStringList e_ctxt=queryFetch.value(3).toString().split('\b',Qt::SkipEmptyParts);
                 //e.date=queryFetch.value(4).toString();
                 e.markupExpr = c.markup;
                 e.accelExpr = c.accel;
@@ -1277,7 +1277,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                 QString str = e.source.string;
                 str.remove(c.accel);
 
-                QStringList englishSuggList(str.toLower().split(rxSplit, QString::SkipEmptyParts));
+                QStringList englishSuggList(str.toLower().split(rxSplit, Qt::SkipEmptyParts));
                 if (englishSuggList.size() > 10 * englishList.size())
                     continue;
                 //sugg is 'old' --translator has to adapt its translation to 'new'--current
@@ -1378,7 +1378,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     e.target = CatalogString(makeAcceledString(queryRest.value(4).toString(), c.accel, queryRest.value(5)),
                                              queryRest.value(6).toByteArray());
 
-                    QStringList matchData = queryRest.value(2).toString().split(TM_DELIMITER, QString::KeepEmptyParts); //context|plural
+                    QStringList matchData = queryRest.value(2).toString().split(TM_DELIMITER, Qt::KeepEmptyParts); //context|plural
                     e.file = queryRest.value(7).toString();
                     if (e.target.isEmpty())
                         continue;

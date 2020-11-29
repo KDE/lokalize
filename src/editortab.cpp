@@ -1433,12 +1433,12 @@ void EditorTab::displayWordCount()
     do {
         QString msg = m_catalog->source(pos);
         msg.remove(rxClean);
-        QStringList words = msg.split(rxSplit, QString::SkipEmptyParts);
+        QStringList words = msg.split(rxSplit, Qt::SkipEmptyParts);
         sourceCount += words.size();
 
         msg = m_catalog->target(pos);
         msg.remove(rxClean);
-        words = msg.split(rxSplit, QString::SkipEmptyParts);
+        words = msg.split(rxSplit, Qt::SkipEmptyParts);
         targetCount += words.size();
     } while (switchNext(m_catalog, pos));
 

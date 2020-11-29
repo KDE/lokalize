@@ -260,8 +260,8 @@ void updateHeader(QString& header,
 {
     askAuthorInfoIfEmpty();
 
-    QStringList headerList(header.split('\n', QString::SkipEmptyParts));
-    QStringList commentList(comment.split('\n', QString::SkipEmptyParts));
+    QStringList headerList(header.split('\n', Qt::SkipEmptyParts));
+    QStringList commentList(comment.split('\n', Qt::SkipEmptyParts));
 
 //BEGIN header itself
     QStringList::Iterator it, ait;

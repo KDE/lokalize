@@ -401,8 +401,8 @@ QStringList GettextStorage::matchData(const DocPosition& pos) const
     //Splits @info:whatsthis and actual note
     /*    if (ctxt.startsWith('@') && ctxt.contains(' '))
         {
-            QStringList result(ctxt.section(' ',0,0,QString::SectionSkipEmpty));
-            result<<ctxt.section(' ',1,-1,QString::SectionSkipEmpty);
+            QStringList result(ctxt.section(' ',0,0,Qt::SectionSkipEmpty));
+            result<<ctxt.section(' ',1,-1,Qt::SectionSkipEmpty);
             return result;
         }*/
     return QStringList(ctxt);

@@ -573,7 +573,7 @@ void Glossary::hashTermEntry(const QDomElement& termEntry)
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
     foreach (const QString& termText, terms(entryId, sourceLangCode)) {
-        foreach (const QString& word, termText.split(' ', QString::SkipEmptyParts))
+        foreach (const QString& word, termText.split(' ', Qt::SkipEmptyParts))
             idsByLangWord[sourceLangCode].insert(stem(sourceLangCode, word), entryId);
     }
 }
@@ -585,7 +585,7 @@ void Glossary::unhashTermEntry(const QDomElement& termEntry)
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
     foreach (const QString& termText, terms(entryId, sourceLangCode)) {
-        foreach (const QString& word, termText.split(' ', QString::SkipEmptyParts))
+        foreach (const QString& word, termText.split(' ', Qt::SkipEmptyParts))
             idsByLangWord[sourceLangCode].remove(stem(sourceLangCode, word), entryId);
     }
 }
@@ -595,7 +595,7 @@ void Glossary::hashTermEntry(int index)
 {
     Q_ASSERT(index < termList.size());
     foreach (const QString& term, termList_.at(index).english) {
-        foreach (const QString& word, term.split(' ', QString::SkipEmptyParts))
+        foreach (const QString& word, term.split(' ', Qt::SkipEmptyParts))
             wordHash_.insert(stem(Project::instance()->sourceLangCode(), word), index);
     }
 }
@@ -604,7 +604,7 @@ void Glossary::unhashTermEntry(int index)
 {
     Q_ASSERT(index < termList.size());
     foreach (const QString& term, termList_.at(index).english) {
-        foreach (const QString& word, term.split(' ', QString::SkipEmptyParts))
+        foreach (const QString& word, term.split(' ', Qt::SkipEmptyParts))
             wordHash_.remove(stem(Project::instance()->sourceLangCode(), word), index);
     }
 }

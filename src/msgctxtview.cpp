@@ -219,7 +219,7 @@ void MsgCtxtView::pologyReceivedStandardOutput()
             m_pologyStartedReceivingOutput = true;
         }
         const QString grossPologyOutput = m_pologyProcess->readAllStandardOutput();
-        const QStringList pologyTmpLines = grossPologyOutput.split('\n', QString::SkipEmptyParts);
+        const QStringList pologyTmpLines = grossPologyOutput.split('\n', Qt::SkipEmptyParts);
         foreach (const QString pologyTmp, pologyTmpLines) {
             if (pologyTmp.startsWith(QStringLiteral("[note]")))
                 m_pologyData += pologyTmp;
@@ -243,7 +243,7 @@ void MsgCtxtView::pologyHasFinished()
         if (!m_pologyStartedReceivingOutput) {
             m_pologyStartedReceivingOutput = true;
             const QString grossPologyOutput = m_pologyProcess->readAllStandardOutput();
-            const QStringList pologyTmpLines = grossPologyOutput.split('\n', QString::SkipEmptyParts);
+            const QStringList pologyTmpLines = grossPologyOutput.split('\n', Qt::SkipEmptyParts);
             if (pologyTmpLines.count() == 0) {
                 m_pologyData += i18nc("@info The pology command didn't return anything", "(empty)");
             } else {

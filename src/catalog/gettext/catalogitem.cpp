@@ -253,7 +253,7 @@ QStringList CatalogItem::msgstrAsList() const
         qCWarning(LOKALIZE_LOG) << "This should never happen!";
         return QStringList();
     }
-    QStringList list(d._msgstrPlural.first().split('\n', QString::SkipEmptyParts));
+    QStringList list(d._msgstrPlural.first().split('\n', Qt::SkipEmptyParts));
 
     if (d._msgstrPlural.first() == QLatin1String("\n"))
         list.prepend(QString());
