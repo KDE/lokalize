@@ -53,7 +53,7 @@ void ProjectModelTest::testInvalid()
     model->setUrl(QUrl::fromLocalFile(QFINDTESTDATA("data/dir-invalid")), {});
 
     // Wait for signal
-    while (!loaded.load()) {
+    while (!loaded.loadRelaxed()) {
         QCoreApplication::processEvents();
     }
 
