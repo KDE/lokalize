@@ -1187,7 +1187,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             idsForWord.clear();
             queryWords.exec(queryString.arg(words.at(o)));
             if (Q_UNLIKELY(!queryWords.exec(queryString.arg(words.at(o)))))
-                qCWarning(LOKALIZE_LOG) << "select error: " << queryWords.lastError().text() << endl;
+                qCWarning(LOKALIZE_LOG) << "select error: " << queryWords.lastError().text() << Qt::endl;
 
             if (queryWords.next()) {
                 QByteArray arr(queryWords.value(0).toByteArray());

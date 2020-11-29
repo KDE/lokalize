@@ -344,7 +344,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
         if (Q_UNLIKELY(line.startsWith(lesslessless) || line.startsWith(isisis) || line.startsWith(moremoremore))) {
             // We have found a CVS/SVN conflict marker. Abort.
             // (It cannot be any useful data of the PO file, as otherwise the line would start with at least a quote)
-            qCWarning(LOKALIZE_LOG) << "CVS/SVN conflict marker found! Aborting!" << endl << line << endl;
+            qCWarning(LOKALIZE_LOG) << "CVS/SVN conflict marker found! Aborting!" << Qt::endl << line << Qt::endl;
             return PARSE_ERROR;
         }
 

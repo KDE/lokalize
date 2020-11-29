@@ -78,7 +78,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         // Gettext PO files should have an empty msgid as header
         if (!headerMsgid.isEmpty()) {
             // ### perhaps it is grave enough for a user message
-            qCWarning(LOKALIZE_LOG) << "Non-empty msgid for the header, assuming empty msgid!" << endl << headerMsgid << "---";
+            qCWarning(LOKALIZE_LOG) << "Non-empty msgid for the header, assuming empty msgid!" << Qt::endl << headerMsgid << "---";
         }
 
         // ### FIXME: if it is the header, then the msgid should be empty! (Even if KBabel has made something out of a non-header first entry!)
