@@ -474,17 +474,17 @@ Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</
 <itemizedlist>
 <listitem>
 <para>
-<ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html">Editor</ulink> object API reference
+<ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html">Editor</ulink> object API reference
 </para>
 </listitem>
 <listitem>
 <para>
-<ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html">&lokalize;</ulink> object API reference
+<ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html">&lokalize;</ulink> object API reference
 </para>
 </listitem>
 <listitem>
 <para>
-<ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html">Project</ulink> object API reference
+<ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html">Project</ulink> object API reference
 </para>
 </listitem>
 </itemizedlist>
