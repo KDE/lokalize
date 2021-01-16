@@ -223,7 +223,7 @@ Action=Popup
 [Event/NoSqlModulesAvailable]
 Name=No Qt Sql modules were found
 Name[ar]=لم يُعثر على وحدات Qt Sql
-Name[ast]=Nun s'alcontraron módulos SQL de Qt
+Name[ast]=Nun s'atoparon módulos SQL de Qt
 Name[az]=Qt Sql modulu tapılmadı
 Name[bs]=Nema Qt Sql modula
 Name[ca]=No s'ha trobat cap mòdul Sql a les Qt
