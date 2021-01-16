@@ -135,6 +135,8 @@ ecm_qt_declare_logging_category(liblokalize_SRCS
     IDENTIFIER LOKALIZE_LOG
     CATEGORY_NAME org.kde.lokalize
     DEFAULT_SEVERITY Warning
+    DESCRIPTION "Lokalize (lokalize)"
+    EXPORT LOKALIZE
 )
 
 ki18n_wrap_ui(liblokalize_SRCS
@@ -216,11 +218,12 @@ install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR}
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES lokalize.notifyrc DESTINATION  ${KNOTIFYRC_INSTALL_DIR} )
 
-if (${ECM_VERSION} STRGREATER "5.58.0")
-    install( FILES lokalize.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR} )
-else()
-    install( FILES lokalize.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
-endif()
+ecm_qt_install_logging_categories(
+        EXPORT LOKALIZE
+        FILE lokalize.categories
+        DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+        )
+
 
 install( FILES
         editorui.rc
