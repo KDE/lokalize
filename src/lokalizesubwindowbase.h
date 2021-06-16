@@ -47,7 +47,7 @@ public:
     explicit LokalizeSubwindowBase(QWidget* parent): KMainWindow(parent) {}
     virtual ~LokalizeSubwindowBase()
     {
-        emit aboutToBeClosed();
+        Q_EMIT aboutToBeClosed();
     }
     virtual KXMLGUIClient* guiClient() = 0;
     virtual void reloadUpdatedXML() = 0;

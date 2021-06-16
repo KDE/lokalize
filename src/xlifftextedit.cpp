@@ -219,12 +219,12 @@ void TranslationUnitTextEdit::reflectApprovementState()
     viewport()->setBackgroundRole(approved ? QPalette::Base : QPalette::AlternateBase);
 
 
-    if (approved) emit approvedEntryDisplayed();
-    else          emit nonApprovedEntryDisplayed();
+    if (approved) Q_EMIT approvedEntryDisplayed();
+    else          Q_EMIT nonApprovedEntryDisplayed();
 
     bool untr = m_catalog->isEmpty(m_currentPos);
-    if (untr)     emit untranslatedEntryDisplayed();
-    else          emit translatedEntryDisplayed();
+    if (untr)     Q_EMIT untranslatedEntryDisplayed();
+    else          Q_EMIT translatedEntryDisplayed();
 }
 
 void TranslationUnitTextEdit::reflectUntranslatedState()
@@ -233,8 +233,8 @@ void TranslationUnitTextEdit::reflectUntranslatedState()
         return;
 
     bool untr = m_catalog->isEmpty(m_currentPos);
-    if (untr)     emit untranslatedEntryDisplayed();
-    else          emit translatedEntryDisplayed();
+    if (untr)     Q_EMIT untranslatedEntryDisplayed();
+    else          Q_EMIT translatedEntryDisplayed();
 }
 
 
@@ -520,7 +520,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
         // for mergecatalog (remove entry from index)
         // and for statusbar
-        emit contentsModified(m_currentPos);
+        Q_EMIT contentsModified(m_currentPos);
         if (charsAdded == 1) {
             int sp = target.lastIndexOf(CompletionStorage::instance()->rxSplit, offset - 1);
             int len = (offset - sp);
@@ -552,7 +552,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             //qCWarning(LOKALIZE_LOG)<<"calling showPos";
             showPos(m_currentPos, CatalogString(),/*keepCursor*/true/*false*/);
         }
-        emit contentsModified(m_currentPos.entry);
+        Q_EMIT contentsModified(m_currentPos.entry);
         return true;
     }
 
@@ -730,24 +730,24 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         QString spclChars = QStringLiteral("abfnrtv'?\\");
 
         if (keyEvent->matches(QKeySequence::MoveToPreviousPage))
-            emit gotoPrevRequested();
+            Q_EMIT gotoPrevRequested();
         else if (keyEvent->matches(QKeySequence::MoveToNextPage))
-            emit gotoNextRequested();
+            Q_EMIT gotoNextRequested();
         else if (keyEvent->matches(QKeySequence::Undo))
-            emit undoRequested();
+            Q_EMIT undoRequested();
         else if (keyEvent->matches(QKeySequence::Redo))
-            emit redoRequested();
+            Q_EMIT redoRequested();
         else if (keyEvent->matches(QKeySequence::Find))
-            emit findRequested();
+            Q_EMIT findRequested();
         else if (keyEvent->matches(QKeySequence::FindNext))
-            emit findNextRequested();
+            Q_EMIT findNextRequested();
         else if (keyEvent->matches(QKeySequence::Replace))
-            emit replaceRequested();
+            Q_EMIT replaceRequested();
         else if (keyEvent->modifiers() == (Qt::AltModifier | Qt::ControlModifier)) {
             if (keyEvent->key() == Qt::Key_Home)
-                emit gotoFirstRequested();
+                Q_EMIT gotoFirstRequested();
             else if (keyEvent->key() == Qt::Key_End)
-                emit gotoLastRequested();
+                Q_EMIT gotoLastRequested();
         } else if (keyEvent->matches(QKeySequence::MoveToNextLine) || keyEvent->matches(QKeySequence::MoveToPreviousLine)) {
             //static QTime lastUpDownPress;
             //if (lastUpDownPress.msecsTo(QTime::currentTime())<500)
@@ -760,10 +760,10 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                     if (up && !c.atStart()) op = QTextCursor::Start;
                     else if (!up && !c.atEnd()) op = QTextCursor::End;
                     else if (up) {
-                        emit gotoPrevRequested();
+                        Q_EMIT gotoPrevRequested();
                         op = QTextCursor::End;
                     } else         {
-                        emit gotoNextRequested();
+                        Q_EMIT gotoNextRequested();
                         op = QTextCursor::Start;
                     }
                     c.movePosition(op);
@@ -923,7 +923,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     }
 
     void TranslationUnitTextEdit::emitCursorPositionChanged() {
-        emit cursorPositionChanged(textCursor().columnNumber());
+        Q_EMIT cursorPositionChanged(textCursor().columnNumber());
     }
 
     void TranslationUnitTextEdit::insertTag(InlineTag tag) {
@@ -970,7 +970,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             CatalogString str;
             int pos = strForMicePosIfUnderTag(event->pos(), str);
             if (pos != -1 && m_part == DocPosition::Source) {
-                emit tagInsertRequested(str.tags.at(pos));
+                Q_EMIT tagInsertRequested(str.tags.at(pos));
                 event->accept();
                 return;
             }
@@ -995,9 +995,9 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 QAction* result = menu.exec(event->globalPos());
                 if (result) {
                     if (entry >= m_catalog->numberOfEntries())
-                        emit binaryUnitSelectRequested(xid);
+                        Q_EMIT binaryUnitSelectRequested(xid);
                     else
-                        emit gotoEntryRequested(DocPosition(entry));
+                        Q_EMIT gotoEntryRequested(DocPosition(entry));
                     event->accept();
                 }
                 return;
@@ -1007,7 +1007,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             QMenu menu;
             menu.addAction(i18nc("@action:inmenu", "Lookup selected text in translation memory"));
             if (menu.exec(event->globalPos()))
-                emit tmLookupRequested(m_part, textCursor().selectedText());
+                Q_EMIT tmLookupRequested(m_part, textCursor().selectedText());
             return;
         }
 
@@ -1051,7 +1051,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             float delta = event->angleDelta().y() / 120.f;
             zoomInF(delta);
             //Also zoom in the source
-            emit zoomRequested(font().pointSizeF());
+            Q_EMIT zoomRequested(font().pointSizeF());
             return;
         }
 
@@ -1060,7 +1060,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 float delta = event->angleDelta().y() / 120.f;
                 zoomInF(delta);
                 //Also zoom in the target
-                emit zoomRequested(font().pointSizeF());
+                Q_EMIT zoomRequested(font().pointSizeF());
                 return;
             }
             return KTextEdit::wheelEvent(event);
@@ -1069,29 +1069,29 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         switch (event->modifiers()) {
         case Qt::ControlModifier:
             if (event->angleDelta().y() > 0)
-                emit gotoPrevFuzzyRequested();
+                Q_EMIT gotoPrevFuzzyRequested();
             else
-                emit gotoNextFuzzyRequested();
+                Q_EMIT gotoNextFuzzyRequested();
             break;
         case Qt::AltModifier:
             if (event->angleDelta().y() > 0)
-                emit gotoPrevUntranslatedRequested();
+                Q_EMIT gotoPrevUntranslatedRequested();
             else
-                emit gotoNextUntranslatedRequested();
+                Q_EMIT gotoNextUntranslatedRequested();
             break;
         case Qt::ControlModifier + Qt::ShiftModifier:
             if (event->angleDelta().y() > 0)
-                emit gotoPrevFuzzyUntrRequested();
+                Q_EMIT gotoPrevFuzzyUntrRequested();
             else
-                emit gotoNextFuzzyUntrRequested();
+                Q_EMIT gotoNextFuzzyUntrRequested();
             break;
         case Qt::ShiftModifier:
             return KTextEdit::wheelEvent(event);
         default:
             if (event->angleDelta().y() > 0)
-                emit gotoPrevRequested();
+                Q_EMIT gotoPrevRequested();
             else
-                emit gotoNextRequested();
+                Q_EMIT gotoNextRequested();
         }
     }
 
@@ -1152,11 +1152,11 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         LanguageToolParser parser;
         const QJsonDocument doc = QJsonDocument::fromJson(result.toUtf8());
         const QJsonObject fields = doc.object();
-        emit languageToolChanged(parser.parseResult(fields, toPlainText()));
+        Q_EMIT languageToolChanged(parser.parseResult(fields, toPlainText()));
     }
 
     void TranslationUnitTextEdit::slotLanguageToolError(const QString & str) {
-        emit languageToolChanged(i18n("An error was reported: %1", str));
+        Q_EMIT languageToolChanged(i18n("An error was reported: %1", str));
     }
 
     void TranslationUnitTextEdit::launchLanguageTool()     {
@@ -1311,7 +1311,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 skip = skip || !m_catalog->isModified(pos);
         }
         if (!skip)
-            emit toggleApprovementRequested();
+            Q_EMIT toggleApprovementRequested();
     }
 
 

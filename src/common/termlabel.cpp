@@ -55,7 +55,7 @@ using namespace GlossaryNS;
 // //         return QLabel::event(event);
 // //
 // // //         qCWarning(LOKALIZE_LOG) << "dsds " << m_termTransl;
-// //     emit insertTerm(m_termTransl);
+// //     Q_EMIT insertTerm(m_termTransl);
 // //     return true;
 // // }
 
@@ -85,7 +85,7 @@ void TermLabel::insert()
     if (m_capFirst && !termTrans.isEmpty())
         termTrans[0] = termTrans.at(0).toUpper();
 
-    emit insertTerm(termTrans);
+    Q_EMIT insertTerm(termTrans);
 }
 
 void TermLabel::mousePressEvent(QMouseEvent* event)
@@ -121,7 +121,7 @@ void TermLabel::setText(const QString& term, const QByteArray& entryId, bool cap
 void QueryResultBtn::insert()
 {
 //     qCWarning(LOKALIZE_LOG)<<"ins "<<text();
-    emit insertText(m_text);
+    Q_EMIT insertText(m_text);
 }
 
 QueryResultBtn::QueryResultBtn(QAction* a)
@@ -135,7 +135,7 @@ QueryResultBtn::QueryResultBtn(QAction* a)
 
 void QueryResultBtn::mousePressEvent(QMouseEvent*/* event*/)
 {
-    emit insertText(m_text);
+    Q_EMIT insertText(m_text);
 }
 
 #endif

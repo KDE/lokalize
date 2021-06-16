@@ -73,8 +73,8 @@ void GlossaryTreeView::currentChanged(const QModelIndex& current, const QModelIn
 {
     if (current.isValid()) {
         //QModelIndex item=static_cast<QSortFilterProxyModel*>(model())->mapToSource(current);
-        //emit currentChanged(item.row());
-        emit currentChanged(modelIndexToId(current));
+        //Q_EMIT currentChanged(item.row());
+        Q_EMIT currentChanged(modelIndexToId(current));
         scrollTo(current);
     }
 }

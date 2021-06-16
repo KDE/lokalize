@@ -146,7 +146,7 @@ public:
     void removeEntry(const QByteArray& id);
     void forceChangeSignal()
     {
-        emit changed();
+        Q_EMIT changed();
     }
     void setClean(bool);
 

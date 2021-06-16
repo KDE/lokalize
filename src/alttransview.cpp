@@ -303,7 +303,7 @@ void AltTransView::slotUseSuggestion(int i)
 
     m_catalog->endMacro();
 
-    emit refreshRequested();
+    Q_EMIT refreshRequested();
 }
 
 

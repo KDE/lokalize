@@ -57,7 +57,7 @@ void WebQueryController::query(const CatalogData& data)
     m_queue.enqueue(data);
     if (!m_running) {
         m_running = true;
-        emit doQuery();
+        Q_EMIT doQuery();
     }
 }
 
@@ -108,7 +108,7 @@ void WebQueryController::slotDownloadResult(KJob* job)
     QTextStream stream(static_cast<KIO::StoredTransferJob*>(job)->data());
     stream.setCodec(codec);
     if (filter.indexIn(stream.readAll()) != -1) {
-        emit postProcess(filter.cap(1));
+        Q_EMIT postProcess(filter.cap(1));
         //qCWarning(LOKALIZE_LOG)<<result;
     } else
         m_queue.dequeue();
@@ -120,12 +120,12 @@ void WebQueryController::setResult(QString result)
     //webQueryView may be deleted before we get result...
     WebQueryView* a = m_queue.dequeue().webQueryView;
     connect(this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
-    emit addWebQueryResult(m_name, result);
+    Q_EMIT addWebQueryResult(m_name, result);
     disconnect(this, &WebQueryController::addWebQueryResult, a, &WebQueryView::addWebQueryResult);
 
     if (!m_queue.isEmpty()) {
         m_running = true;
-        emit doQuery();
+        Q_EMIT doQuery();
     }
 
 }

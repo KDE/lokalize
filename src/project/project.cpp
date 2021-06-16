@@ -221,7 +221,7 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
 
     //qCDebug(LOKALIZE_LOG)<<"until emitting signal"<<a.elapsed();
 
-    emit loaded();
+    Q_EMIT loaded();
     //qCDebug(LOKALIZE_LOG)<<"loaded!"<<a.elapsed();
 }
 
@@ -411,7 +411,7 @@ public:
     void finish()
     {
         emitResult();
-        emit Project::instance()->sourceFilePathsAreReady();
+        Q_EMIT Project::instance()->sourceFilePathsAreReady();
     }
 protected:
     bool doKill() override;
@@ -457,7 +457,7 @@ public:
 void SourceFilesSearchJob::start()
 {
     QThreadPool::globalInstance()->start(new FillSourceFilePathsJob(QDir(m_folderName), this));
-    emit description(this,
+    Q_EMIT description(this,
                      i18n("Scanning folders with source files"),
                      qMakePair(i18n("Editor"), m_folderName));
 }
@@ -512,11 +512,11 @@ void Project::projectOdfCreate()
     if (!QFile::exists(args.at(1)))
         return;
 
-    emit closed();
+    Q_EMIT closed();
 
     Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1String("/index.lokalize"), targetLangCode, fi.baseName() + '-' + targetLangCode);
 
-    emit fileOpenRequested(args.at(1), true);
+    Q_EMIT fileOpenRequested(args.at(1), true);
 }
 
 

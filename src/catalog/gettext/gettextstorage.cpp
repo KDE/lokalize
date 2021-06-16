@@ -476,7 +476,7 @@ bool GettextStorage::setHeader(const CatalogItem& newHeader)
         m_header.setMsgstr(values);
 
 //       setClean(false);
-        //emit signalHeaderChanged();
+        //Q_EMIT signalHeaderChanged();
 
         return true;
     }

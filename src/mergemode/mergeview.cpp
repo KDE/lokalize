@@ -69,8 +69,8 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
 MergeView::~MergeView()
 {
     delete m_mergeCatalog;
-    emit mergeCatalogPointerChanged(nullptr);
-    emit mergeCatalogAvailable(false);
+    Q_EMIT mergeCatalogPointerChanged(nullptr);
+    Q_EMIT mergeCatalogAvailable(false);
 }
 
 QString MergeView::filePath()
@@ -105,9 +105,9 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
     if (!m_mergeCatalog)
         return;
 
-    emit signalPriorChangedAvailable((pos.entry > m_mergeCatalog->firstChangedIndex())
+    Q_EMIT signalPriorChangedAvailable((pos.entry > m_mergeCatalog->firstChangedIndex())
                                      || (pluralFormsAvailableBackward() != -1));
-    emit signalNextChangedAvailable((pos.entry < m_mergeCatalog->lastChangedIndex())
+    Q_EMIT signalNextChangedAvailable((pos.entry < m_mergeCatalog->lastChangedIndex())
                                     || (pluralFormsAvailableForward() != -1));
 
     if (!m_mergeCatalog->isPresent(pos.entry)) {
@@ -118,7 +118,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
             m_browser->clear();
 //             m_browser->viewport()->setBackgroundRole(QPalette::Base);
         }
-        emit signalEntryWithMergeDisplayed(false);
+        Q_EMIT signalEntryWithMergeDisplayed(false);
 
         /// no editing at all!  ////////////
         return;
@@ -128,7 +128,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
         setWindowTitle(m_hasInfoTitle);
     }
 
-    emit signalEntryWithMergeDisplayed(m_mergeCatalog->isDifferent(pos.entry));
+    Q_EMIT signalEntryWithMergeDisplayed(m_mergeCatalog->isDifferent(pos.entry));
 
     QString result = userVisibleWordDiff(m_baseCatalog->msgstr(pos),
                                          m_mergeCatalog->msgstr(pos),
@@ -167,13 +167,13 @@ void MergeView::cleanup()
 {
     delete m_mergeCatalog;
     m_mergeCatalog = nullptr;
-    emit mergeCatalogPointerChanged(nullptr);
-    emit mergeCatalogAvailable(false);
+    Q_EMIT mergeCatalogPointerChanged(nullptr);
+    Q_EMIT mergeCatalogAvailable(false);
     m_pos = DocPosition();
 
-    emit signalPriorChangedAvailable(false);
-    emit signalNextChangedAvailable(false);
-    emit signalEntryWithMergeDisplayed(false);
+    Q_EMIT signalPriorChangedAvailable(false);
+    Q_EMIT signalNextChangedAvailable(false);
+    Q_EMIT signalEntryWithMergeDisplayed(false);
     m_browser->clear();
 }
 
@@ -210,14 +210,14 @@ void MergeView::mergeOpen(QString mergeFilePath)
 
     delete m_mergeCatalog;
     m_mergeCatalog = new MergeCatalog(this, m_baseCatalog);
-    emit mergeCatalogPointerChanged(m_mergeCatalog);
-    emit mergeCatalogAvailable(m_mergeCatalog);
+    Q_EMIT mergeCatalogPointerChanged(m_mergeCatalog);
+    Q_EMIT mergeCatalogAvailable(m_mergeCatalog);
     int errorLine = m_mergeCatalog->loadFromUrl(mergeFilePath);
     if (Q_LIKELY(errorLine == 0)) {
         if (m_pos.entry > 0)
-            emit signalPriorChangedAvailable(m_pos.entry > m_mergeCatalog->firstChangedIndex());
+            Q_EMIT signalPriorChangedAvailable(m_pos.entry > m_mergeCatalog->firstChangedIndex());
 
-        emit signalNextChangedAvailable(m_pos.entry < m_mergeCatalog->lastChangedIndex());
+        Q_EMIT signalNextChangedAvailable(m_pos.entry < m_mergeCatalog->lastChangedIndex());
 
         //a bit hacky :)
         connect(m_mergeCatalog, &MergeCatalog::signalEntryModified, this, &MergeView::slotUpdate);
@@ -293,7 +293,7 @@ void MergeView::gotoPrevChanged()
     if (Q_UNLIKELY(m_mergeCatalog->isPlural(pos.entry) && form == -1))
         pos.form = qMin(m_baseCatalog->numberOfPluralForms(), m_mergeCatalog->numberOfPluralForms()) - 1;
 
-    emit gotoEntry(pos, 0);
+    Q_EMIT gotoEntry(pos, 0);
 }
 
 void MergeView::gotoNextChangedApproved()
@@ -321,7 +321,7 @@ void MergeView::gotoNextChanged(bool approvedOnly)
             return;
     }
 
-    emit gotoEntry(pos, 0);
+    Q_EMIT gotoEntry(pos, 0);
 }
 
 void MergeView::mergeBack()
@@ -342,7 +342,7 @@ void MergeView::mergeAccept()
 
     m_mergeCatalog->copyToBaseCatalog(m_pos);
 
-    emit gotoEntry(m_pos, 0);
+    Q_EMIT gotoEntry(m_pos, 0);
 }
 
 void MergeView::mergeAcceptAllForEmpty()
@@ -354,7 +354,7 @@ void MergeView::mergeAcceptAllForEmpty()
     m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/MergeCatalog::HigherOnly);
 
     if (update != m_mergeCatalog->differentEntries().contains(m_pos.entry))
-        emit gotoEntry(m_pos, 0);
+        Q_EMIT gotoEntry(m_pos, 0);
 }
 
 

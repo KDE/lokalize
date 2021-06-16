@@ -47,7 +47,7 @@ public:
     void focusOutEvent(QFocusEvent* e) override
     {
         Q_UNUSED(e);
-        emit editingFinished();
+        Q_EMIT editingFinished();
     }
 Q_SIGNALS:
     void editingFinished();

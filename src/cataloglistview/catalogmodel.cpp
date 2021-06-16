@@ -87,17 +87,17 @@ void CatalogTreeModel::fileLoaded()
 
 void CatalogTreeModel::reflectChanges(DocPosition pos)
 {
-    emit dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
+    Q_EMIT dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
 
 #if 0
     I disabled dynamicSortFilter function
     //lazy sorting/filtering
     if (rowCount() < DYNAMICFILTER_LIMIT || m_prevChanged != pos) {
         qCWarning(LOKALIZE_LOG) << "first dataChanged emitment" << pos.entry;
-        emit dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
+        Q_EMIT dataChanged(index(pos.entry, 0), index(pos.entry, DisplayedColumnCount - 1));
         if (!(rowCount() < DYNAMICFILTER_LIMIT)) {
             qCWarning(LOKALIZE_LOG) << "second dataChanged emitment" << m_prevChanged.entry;
-            emit dataChanged(index(m_prevChanged.entry, 0), index(m_prevChanged.entry, DisplayedColumnCount - 1));
+            Q_EMIT dataChanged(index(m_prevChanged.entry, 0), index(m_prevChanged.entry, DisplayedColumnCount - 1));
         }
     }
     m_prevChanged = pos;

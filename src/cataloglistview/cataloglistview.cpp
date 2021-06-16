@@ -58,7 +58,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *e) override
     {
         if (e->key() == Qt::Key_Return && currentIndex().isValid()) {
-            emit clicked(currentIndex());
+            Q_EMIT clicked(currentIndex());
             e->accept();
         } else {
             QTreeView::keyReleaseEvent(e);
@@ -175,7 +175,7 @@ void CatalogView::refreshCurrentIndex()
 
 void CatalogView::slotItemActivated(const QModelIndex& idx)
 {
-    emit gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()), 0);
+    Q_EMIT gotoEntry(DocPosition(m_proxyModel->mapToSource(idx).row()), 0);
 }
 
 void CatalogView::filterOptionToggled(QAction* action)
@@ -261,7 +261,7 @@ void CatalogView::reset()
     m_proxyModel->setFilterOptions(CatalogTreeFilterModel::AllStates);
     m_lineEdit->clear();
     refreshCurrentIndex();
-    //emit gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
+    //Q_EMIT gotoEntry(DocPosition(m_proxyModel->mapToSource(m_browser->currentIndex()).row()),0);
     slotItemActivated(m_browser->currentIndex());
 }
 

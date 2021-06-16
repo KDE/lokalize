@@ -120,7 +120,7 @@ void WebQueryView::slotSelectionChanged()
     //(actually, quick word insertion is exactly the purpose of this slot:)
     QString sel(m_browser->textCursor().selectedText());
     if (!sel.isEmpty()) {
-        emit textInsertRequested(sel);
+        Q_EMIT textInsertRequested(sel);
     }
 }
 
@@ -136,7 +136,7 @@ void WebQueryView::slotSelectionChanged()
 //
 // void WebQueryView::dropEvent(QDropEvent *event)
 // {
-//     /*    emit mergeOpenRequested(event->mimeData()->urls().first());
+//     /*    Q_EMIT mergeOpenRequested(event->mimeData()->urls().first());
 //         event->acceptProposedAction();*/
 // }
 
@@ -157,7 +157,7 @@ void WebQueryView::slotUseSuggestion(int i)
 {
     if (i >= m_suggestions.size())
         return;
-    emit textInsertRequested(m_suggestions.at(i));
+    Q_EMIT textInsertRequested(m_suggestions.at(i));
 }
 
 

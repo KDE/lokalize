@@ -141,9 +141,9 @@ EditorTab::~EditorTab()
     disconnect(m_catalog, &Catalog::signalNumberOfEmptyChanged, this, &EditorTab::numberOfUntranslatedChanged);
 
     if (!m_catalog->isEmpty()) {
-        emit fileAboutToBeClosed();
-        emit fileClosed();
-        emit fileClosed(currentFile());
+        Q_EMIT fileAboutToBeClosed();
+        Q_EMIT fileClosed();
+        Q_EMIT fileClosed(currentFile());
     }
 
     ids.removeAll(m_dbusId);
@@ -855,11 +855,11 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
 
     QString prevFilePath = currentFilePath();
     bool wasOpen = !m_catalog->isEmpty();
-    if (wasOpen) emit fileAboutToBeClosed();
+    if (wasOpen) Q_EMIT fileAboutToBeClosed();
     int errorLine = m_catalog->loadFromUrl(filePath, saidPath);
     if (wasOpen && errorLine == 0) {
-        emit fileClosed();
-        emit fileClosed(prevFilePath);
+        Q_EMIT fileClosed();
+        Q_EMIT fileClosed(prevFilePath);
     }
 
     QApplication::restoreOverrideCursor();
@@ -908,8 +908,8 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         setModificationSign();
 
 //OK!!!
-        emit xliffFileOpened(m_catalog->type() == Xliff);
-        emit fileOpened();
+        Q_EMIT xliffFileOpened(m_catalog->type() == Xliff);
+        Q_EMIT fileOpened();
         return true;
     }
 
@@ -936,13 +936,13 @@ bool EditorTab::saveFile(const QString& filePath)
     bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified() && filePath == m_catalog->url();
     if (clean) return true;
     if (m_catalog->isClean() && filePath.isEmpty()) {
-        emit m_catalog->signalFileSaved();
+        Q_EMIT m_catalog->signalFileSaved();
         return true;
     }
     if (m_catalog->saveToUrl(filePath)) {
         updateCaptionPath();
         setModificationSign();
-        emit fileSaved(filePath);
+        Q_EMIT fileSaved(filePath);
         return true;
     }
     const QString errorFilePath = filePath.isEmpty() ? m_catalog->url() : filePath;
@@ -1050,30 +1050,30 @@ void EditorTab::gotoEntry(DocPosition pos, int selection)
     if (newEntry) {
         m_currentPos = pos;
         if (true) {
-            emit signalNewEntryDisplayed(pos);
-            emit entryDisplayed();
+            Q_EMIT signalNewEntryDisplayed(pos);
+            Q_EMIT entryDisplayed();
 
-            emit signalFirstDisplayed(pos.entry == m_transUnitsView->firstEntryNumber());
-            emit signalLastDisplayed(pos.entry == m_transUnitsView->lastEntryNumber());
+            Q_EMIT signalFirstDisplayed(pos.entry == m_transUnitsView->firstEntryNumber());
+            Q_EMIT signalLastDisplayed(pos.entry == m_transUnitsView->lastEntryNumber());
 
-            emit signalPriorFuzzyAvailable(pos.entry > m_catalog->firstFuzzyIndex());
-            emit signalNextFuzzyAvailable(pos.entry < m_catalog->lastFuzzyIndex());
+            Q_EMIT signalPriorFuzzyAvailable(pos.entry > m_catalog->firstFuzzyIndex());
+            Q_EMIT signalNextFuzzyAvailable(pos.entry < m_catalog->lastFuzzyIndex());
 
-            emit signalPriorUntranslatedAvailable(pos.entry > m_catalog->firstUntranslatedIndex());
-            emit signalNextUntranslatedAvailable(pos.entry < m_catalog->lastUntranslatedIndex());
+            Q_EMIT signalPriorUntranslatedAvailable(pos.entry > m_catalog->firstUntranslatedIndex());
+            Q_EMIT signalNextUntranslatedAvailable(pos.entry < m_catalog->lastUntranslatedIndex());
 
-            emit signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex()
+            Q_EMIT signalPriorFuzzyOrUntrAvailable(pos.entry > m_catalog->firstFuzzyIndex()
                                                  || pos.entry > m_catalog->firstUntranslatedIndex()
                                                 );
-            emit signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex()
+            Q_EMIT signalNextFuzzyOrUntrAvailable(pos.entry < m_catalog->lastFuzzyIndex()
                                                 || pos.entry < m_catalog->lastUntranslatedIndex());
 
-            emit signalPriorBookmarkAvailable(pos.entry > m_catalog->firstBookmarkIndex());
-            emit signalNextBookmarkAvailable(pos.entry < m_catalog->lastBookmarkIndex());
-            emit signalBookmarkDisplayed(m_catalog->isBookmarked(pos.entry));
+            Q_EMIT signalPriorBookmarkAvailable(pos.entry > m_catalog->firstBookmarkIndex());
+            Q_EMIT signalNextBookmarkAvailable(pos.entry < m_catalog->lastBookmarkIndex());
+            Q_EMIT signalBookmarkDisplayed(m_catalog->isBookmarked(pos.entry));
 
-            emit signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(pos));
-            emit signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
+            Q_EMIT signalEquivTranslatedEntryDisplayed(m_catalog->isEquivTrans(pos));
+            Q_EMIT signalApprovedEntryDisplayed(m_catalog->isApproved(pos));
         }
 
     }
@@ -1504,7 +1504,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
 {
     // Try project scripts first.
     m_srcFileOpenRequestAccepted = false;
-    emit srcFileOpenRequested(srcFileRelPath, line);
+    Q_EMIT srcFileOpenRequested(srcFileRelPath, line);
     if (m_srcFileOpenRequestAccepted)
         return;
 
@@ -1717,7 +1717,7 @@ QString EditorTab::selectionInSource()
 
 void EditorTab::lookupSelectionInTranslationMemory()
 {
-    emit tmLookupRequested(selectionInSource(), selectionInTarget());
+    Q_EMIT tmLookupRequested(selectionInSource(), selectionInTarget());
 }
 
 

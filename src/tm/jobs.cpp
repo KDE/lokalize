@@ -1008,7 +1008,7 @@ void OpenDBJob::run()
             if (Q_UNLIKELY(!m_connectionSuccessful)) {
                 qCWarning(LOKALIZE_LOG) << "failed to open db" << db.databaseName() << db.lastError().text();
                 QSqlDatabase::removeDatabase(connectionName);
-                emit done(this);
+                Q_EMIT done(this);
                 return;
             }
             if (!initSqliteDb(db)) { //need to recreate db ;(
@@ -1023,7 +1023,7 @@ void OpenDBJob::run()
                 m_connectionSuccessful = db.open() && initSqliteDb(db);
                 if (!m_connectionSuccessful) {
                     QSqlDatabase::removeDatabase(connectionName);
-                    emit done(this);
+                    Q_EMIT done(this);
                     return;
                 }
             }
@@ -1036,7 +1036,7 @@ void OpenDBJob::run()
             if (!m_connParams.isFilled()) {
                 QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName + REMOTETM_DATABASE_EXTENSION);
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                    emit done(this);
+                    Q_EMIT done(this);
                     return;
                 }
 
@@ -1057,7 +1057,7 @@ void OpenDBJob::run()
             m_connectionSuccessful = db.open();
             if (Q_UNLIKELY(!m_connectionSuccessful)) {
                 QSqlDatabase::removeDatabase(connectionName);
-                emit done(this);
+                Q_EMIT done(this);
                 return;
             }
             m_connParams.user = db.userName();
@@ -1079,7 +1079,7 @@ void OpenDBJob::run()
         db.close();
         db.open();
     }
-    emit done(this);
+    Q_EMIT done(this);
 }
 
 
@@ -1101,7 +1101,7 @@ void CloseDBJob::run()
     if (connectionName.length())
         QSqlDatabase::removeDatabase(connectionName);
     qCDebug(LOKALIZE_LOG) << "closedb " << connectionName;
-    emit done(this);
+    Q_EMIT done(this);
 }
 
 
@@ -1449,19 +1449,19 @@ void SelectJob::run()
     const QString connectionName = getConnectionName(m_dbName);
     //qCDebug(LOKALIZE_LOG)<<"select started"<<m_dbName<<m_source.string;
     if (m_source.isEmpty() || stop) { //sanity check
-        emit done(this);
+        Q_EMIT done(this);
         return;
     }
     //thread()->setPriority(QThread::IdlePriority);
 //     QTime a; a.start();
 
     if (Q_UNLIKELY(!QSqlDatabase::contains(connectionName))) {
-        emit done(this);
+        Q_EMIT done(this);
         return;
     }
     QSqlDatabase db = QSqlDatabase::database(connectionName);
     if (Q_UNLIKELY(!db.isValid() || !db.isOpen())) {
-        emit done(this);
+        Q_EMIT done(this);
         return;
     }
     //qCDebug(LOKALIZE_LOG)<<"select started 2"<<m_dbName<<m_source.string;
@@ -1473,7 +1473,7 @@ void SelectJob::run()
     QStringList words;
     doSplit(cleanSource, words, rxClean1, c.accel);
     if (Q_UNLIKELY(words.isEmpty())) {
-        emit done(this);
+        Q_EMIT done(this);
         return;
     }
     std::sort(words.begin(), words.end());//to speed up if some words occur multiple times
@@ -1494,7 +1494,7 @@ void SelectJob::run()
     }
 
     if (Q_UNLIKELY(m_dequeued)) {
-        emit done(this);
+        Q_EMIT done(this);
         return;
     }
 
@@ -1507,7 +1507,7 @@ void SelectJob::run()
                                                 m_entries.at(i).accelExpr,
                                                 m_entries.at(i).markupExpr);
     }
-    emit done(this);
+    Q_EMIT done(this);
 }
 
 
@@ -1623,7 +1623,7 @@ void RemoveMissingFilesJob::run()
 
     doRemoveMissingFiles(db, m_dbName, this);
 
-    emit done();
+    Q_EMIT done();
 }
 
 RemoveFileJob::RemoveFileJob(const QString& filePath, const QString& dbName, QObject *parent)
@@ -1653,7 +1653,7 @@ void RemoveFileJob::run()
         qCWarning(LOKALIZE_LOG) << "error while removing file" << m_dbName << m_filePath;
     }
 
-    emit done();
+    Q_EMIT done();
 }
 
 
@@ -1683,7 +1683,7 @@ void RemoveJob::run()
     if (!doRemoveEntry(m_entry.id, rxClean1, c.accel, db))
         qCWarning(LOKALIZE_LOG) << "error removing entry" << m_entry.dbName << m_entry.source.string << m_entry.target.string;
 
-    emit done();
+    Q_EMIT done();
 }
 
 
@@ -2144,7 +2144,7 @@ void ExecQueryJob::run()
     query->exec();
     qCDebug(LOKALIZE_LOG) << "ExecQueryJob done" << query->lastError().text();
     m_dbOperationMutex->unlock();
-    emit done(this);
+    Q_EMIT done(this);
 }
 
 

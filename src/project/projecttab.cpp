@@ -339,7 +339,7 @@ void ProjectTab::searchInFiles(bool templ)
         }
     }
 
-    emit searchRequested(files);
+    Q_EMIT searchRequested(files);
 }
 
 void ProjectTab::pologyOnFiles()
@@ -413,24 +413,24 @@ void ProjectTab::openFile()
         if (Catalog::extIsSupported(files.at(i)))  {
             if (files.at(i).endsWith(QLatin1String(".pot"))) {
                 const QUrl potUrl = QUrl::fromLocalFile(files.at(i));
-                emit fileOpenRequested(Project::instance()->model()->potToPo(potUrl).toLocalFile(), true);
+                Q_EMIT fileOpenRequested(Project::instance()->model()->potToPo(potUrl).toLocalFile(), true);
             } else {
-                emit fileOpenRequested(files.at(i), true);
+                Q_EMIT fileOpenRequested(files.at(i), true);
             }
         }
     }
 }
 void ProjectTab::findInFiles()
 {
-    emit searchRequested(m_browser->selectedItems());
+    Q_EMIT searchRequested(m_browser->selectedItems());
 }
 void ProjectTab::replaceInFiles()
 {
-    emit replaceRequested(m_browser->selectedItems());
+    Q_EMIT replaceRequested(m_browser->selectedItems());
 }
 void ProjectTab::spellcheckFiles()
 {
-    emit spellcheckRequested(m_browser->selectedItems());
+    Q_EMIT spellcheckRequested(m_browser->selectedItems());
 }
 
 void ProjectTab::gotoPrevFuzzyUntr()

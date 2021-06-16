@@ -155,7 +155,7 @@ EditorView::~EditorView()
 void EditorView::resetFindForCurrent(const DocPosition& pos)
 {
     m_modifiedAfterFind = true;
-    emit signalChanged(pos.entry);
+    Q_EMIT signalChanged(pos.entry);
 }
 
 
@@ -336,7 +336,7 @@ void EditorView::toggleApprovement()
 
     bool newState = !m_catalog->isApproved(m_targetTextEdit->currentPos().entry);
     SetStateCmd::push(m_catalog, m_targetTextEdit->currentPos(), newState);
-    emit signalApprovedEntryDisplayed(newState);
+    Q_EMIT signalApprovedEntryDisplayed(newState);
 }
 
 void EditorView::setState(TargetState state)
@@ -346,7 +346,7 @@ void EditorView::setState(TargetState state)
         return;
 
     SetStateCmd::instantiateAndPush(m_catalog, m_targetTextEdit->currentPos(), state);
-    emit signalApprovedEntryDisplayed(m_catalog->isApproved(m_targetTextEdit->currentPos()));
+    Q_EMIT signalApprovedEntryDisplayed(m_catalog->isApproved(m_targetTextEdit->currentPos()));
 }
 
 void EditorView::setEquivTrans(bool equivTrans)

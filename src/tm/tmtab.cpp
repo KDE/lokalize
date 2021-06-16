@@ -176,14 +176,14 @@ void TMDBModel::slotQueryExecuted(ExecQueryJob* job)
 
         m_totalResultCount = job->query->next() ? job->query->value(0).toInt() : -1;
         m_dbOperationMutex.unlock();
-        emit finalResultCountFetched(m_totalResultCount);
+        Q_EMIT finalResultCountFetched(m_totalResultCount);
         return;
     }
     query().finish();
     query().clear();
     setQuery(*(job->query));
     m_dbOperationMutex.unlock();
-    emit resultsFetched();
+    Q_EMIT resultsFetched();
 
 }
 
@@ -304,7 +304,7 @@ void TMResultsSortFilterProxyModel::fetchMore(const QModelIndex& parent)
         oldSourceRowCount = sourceModel()->rowCount();
     }
     qCDebug(LOKALIZE_LOG) << "row count" << sourceModel()->rowCount() << "   filtered:" << rowCount();
-    emit layoutChanged();
+    Q_EMIT layoutChanged();
 }
 
 void TMResultsSortFilterProxyModel::setRules(const QVector<Rule>& rules)
@@ -639,7 +639,7 @@ void TMTab::openFile()
             return performQuery();//We relaunch the query
         }
     }
-    emit fileOpenRequested(item.sibling(item.row(), TMDBModel::Filepath).data(Qt::UserRole).toString(),
+    Q_EMIT fileOpenRequested(item.sibling(item.row(), TMDBModel::Filepath).data(Qt::UserRole).toString(),
                            item.sibling(item.row(), TMDBModel::Source).data().toString(),
                            item.sibling(item.row(), TMDBModel::Context).data().toString(),
                            true);

@@ -294,7 +294,7 @@ void MsgCtxtView::anchorClicked(const QUrl& link)
         m_stackedLayout->setCurrentIndex(1);
     } else if (link.scheme() == QLatin1String("src")) {
         int pos = path.lastIndexOf(':');
-        emit srcFileOpenRequested(path.left(pos), path.midRef(pos + 1).toInt());
+        Q_EMIT srcFileOpenRequested(path.left(pos), path.midRef(pos + 1).toInt());
     } else if (link.scheme().contains(QLatin1String("tp")))
         QDesktopServices::openUrl(link);
 }
@@ -314,7 +314,7 @@ void MsgCtxtView::noteEditRejected()
 {
     m_stackedLayout->setCurrentIndex(0);
     m_unfinishedNotes.remove(m_entry);
-    emit escaped();
+    Q_EMIT escaped();
 }
 
 void MsgCtxtView::addNote(DocPosition p, const QString& text)

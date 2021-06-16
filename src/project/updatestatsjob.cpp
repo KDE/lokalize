@@ -146,7 +146,7 @@ void UpdateStatsJob::run()
         db.open();
     }
 #endif
-    emit done(this);
+    Q_EMIT done(this);
 }
 
 void UpdateStatsJob::setStatus(int status)

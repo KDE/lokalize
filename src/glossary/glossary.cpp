@@ -129,7 +129,7 @@ bool Glossary::load(const QString& newPath)
     if (!reader1.parse(xmlInputSource))
         qCWarning(LOKALIZE_LOG) << "failed to load " << path;
 #endif
-    emit loaded();
+    Q_EMIT loaded();
 
     if (a.elapsed() > 50) qCDebug(LOKALIZE_LOG) << "glossary loaded in" << a.elapsed();
 
@@ -158,7 +158,7 @@ bool Glossary::save()
 void Glossary::setClean(bool clean)
 {
     m_clean = clean;
-    emit changed();//may be emitted multiple times in a row. so what? :)
+    Q_EMIT changed();//may be emitted multiple times in a row. so what? :)
 }
 
 //END DISK

@@ -389,7 +389,7 @@ void ProjectWidget::slotItemActivated(const QModelIndex& index)
         QModelIndex srcIndex = static_cast<QSortFilterProxyModel*>(m_proxyModel)->mapToSource(index);
         QUrl fileUrl = srcModel->beginEditing(srcIndex);
 
-        emit fileOpenRequested(fileUrl.toLocalFile(), !(QApplication::keyboardModifiers() & Qt::ControlModifier));
+        Q_EMIT fileOpenRequested(fileUrl.toLocalFile(), !(QApplication::keyboardModifiers() & Qt::ControlModifier));
     }
 }
 

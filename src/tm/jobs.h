@@ -346,7 +346,7 @@ protected:
     void run() override
     {
         ScanJob::run();
-        emit done(this);
+        Q_EMIT done(this);
     }
 
 Q_SIGNALS:
@@ -375,7 +375,7 @@ Q_SIGNALS:
 protected:
     void run() override
     {
-        emit done();
+        Q_EMIT done();
     }
 public:
     QWidget* m_view;

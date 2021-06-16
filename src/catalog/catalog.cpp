@@ -361,7 +361,7 @@ void Catalog::setActivePhase(const QString& phase, ProjectLocal::PersonRole role
     d._phase = phase;
     d._phaseRole = role;
     updateApprovedEmptyIndexCache();
-    emit activePhaseChanged();
+    Q_EMIT activePhaseChanged();
 }
 
 void Catalog::updateApprovedEmptyIndexCache()
@@ -388,8 +388,8 @@ void Catalog::updateApprovedEmptyIndexCache()
         ++(pos.entry);
     }
 
-    emit signalNumberOfFuzziesChanged();
-    emit signalNumberOfEmptyChanged();
+    Q_EMIT signalNumberOfFuzziesChanged();
+    Q_EMIT signalNumberOfEmptyChanged();
 }
 
 QString Catalog::phase(const DocPosition& pos) const
@@ -525,7 +525,7 @@ void Catalog::setTargetLangCode(const QString& targetLangCode)
 
     bool notify = m_storage->targetLangCode() != targetLangCode;
     m_storage->setTargetLangCode(targetLangCode);
-    if (notify) emit signalFileLoaded();
+    if (notify) Q_EMIT signalFileLoaded();
 }
 
 //END STORAGE TRANSLATION
@@ -633,8 +633,8 @@ int Catalog::loadFromUrl(const QString& filePath, const QString& saidUrl, int* f
     if (fileSize)
         *fileSize = file.size();
 
-    emit signalFileLoaded();
-    emit signalFileLoaded(d._filePath);
+    Q_EMIT signalFileLoaded();
+    Q_EMIT signalFileLoaded(d._filePath);
     return 0;
 }
 
@@ -678,8 +678,8 @@ bool Catalog::saveToUrl(QString localFilePath)
     //Settings::self()->setCurrentGroup("Bookmarks");
     //Settings::self()->addItemIntList(d._filePath.url(),d._bookmarkIndex);
 
-    emit signalFileSaved();
-    emit signalFileSaved(localFilePath);
+    Q_EMIT signalFileSaved();
+    Q_EMIT signalFileSaved(localFilePath);
     return true;
     /*
         else if (status==NO_PERMISSIONS)
@@ -701,7 +701,7 @@ void Catalog::doAutoSave()
     if (Q_UNLIKELY(!m_storage))
         return;
     if (!d._autoSave->open(QIODevice::WriteOnly)) {
-        emit signalFileAutoSaveFailed(d._autoSave->fileName());
+        Q_EMIT signalFileAutoSaveFailed(d._autoSave->fileName());
         return;
     }
     qCInfo(LOKALIZE_LOG) << "doAutoSave" << d._autoSave->fileName();
@@ -838,8 +838,8 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
     m_storage->targetDelete(pos, count);
 
     if (d.addToEmptyIndexIfAppropriate(m_storage, pos, alreadyEmpty))
-        emit signalNumberOfEmptyChanged();
-    emit signalEntryModified(pos);
+        Q_EMIT signalNumberOfEmptyChanged();
+    Q_EMIT signalEntryModified(pos);
 }
 
 bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
@@ -857,10 +857,10 @@ void Catalog::targetInsert(const DocPosition& pos, const QString& arg)
         return;
 
     if (d.removeFromUntransIndexIfAppropriate(m_storage, pos))
-        emit signalNumberOfEmptyChanged();
+        Q_EMIT signalNumberOfEmptyChanged();
 
     m_storage->targetInsert(pos, arg);
-    emit signalEntryModified(pos);
+    Q_EMIT signalEntryModified(pos);
 }
 
 void Catalog::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
@@ -869,10 +869,10 @@ void Catalog::targetInsertTag(const DocPosition& pos, const InlineTag& tag)
         return;
 
     if (d.removeFromUntransIndexIfAppropriate(m_storage, pos))
-        emit signalNumberOfEmptyChanged();
+        Q_EMIT signalNumberOfEmptyChanged();
 
     m_storage->targetInsertTag(pos, tag);
-    emit signalEntryModified(pos);
+    Q_EMIT signalEntryModified(pos);
 }
 
 InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
@@ -884,8 +884,8 @@ InlineTag Catalog::targetDeleteTag(const DocPosition& pos)
     InlineTag tag = m_storage->targetDeleteTag(pos);
 
     if (d.addToEmptyIndexIfAppropriate(m_storage, pos, alreadyEmpty))
-        emit signalNumberOfEmptyChanged();
-    emit signalEntryModified(pos);
+        Q_EMIT signalNumberOfEmptyChanged();
+    Q_EMIT signalEntryModified(pos);
     return tag;
 }
 
@@ -923,8 +923,8 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
         d._nonApprovedNonEmptyIndex.removeAll(pos.entry);
     }
 
-    emit signalNumberOfFuzziesChanged();
-    emit signalEntryModified(pos);
+    Q_EMIT signalNumberOfFuzziesChanged();
+    Q_EMIT signalEntryModified(pos);
 
     return prevState;
 }

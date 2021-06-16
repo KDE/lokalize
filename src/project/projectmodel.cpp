@@ -109,7 +109,7 @@ void ProjectModel::setUrl(const QUrl &poUrl, const QUrl &potUrl)
 {
     //qCDebug(LOKALIZE_LOG) << "ProjectModel::openUrl("<< poUrl.pathOrUrl() << +", " << potUrl.pathOrUrl() << ")";
 
-    emit loadingAboutToStart();
+    Q_EMIT loadingAboutToStart();
 
     //cleanup old data
 
@@ -195,7 +195,7 @@ void ProjectModel::po_dataChanged(const QModelIndex& po_topLeft, const QModelInd
         //this code works fine only for lonely files
         //and fails for more complex changes
         //see bug 342959
-        emit dataChanged(topLeft, bottomRight);
+        Q_EMIT dataChanged(topLeft, bottomRight);
         enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
     } else if (topLeft.row() == bottomRight.row() && itemForIndex(topLeft).isDir()) {
         //Something happened inside this folder, nothing to do on the folder itself
@@ -223,7 +223,7 @@ void ProjectModel::pot_dataChanged(const QModelIndex& pot_topLeft, const QModelI
     QModelIndex topLeft = index(0, pot_topLeft.column(), parent);
     QModelIndex bottomRight = index(count - 1, pot_bottomRight.column(), parent);
 
-    emit dataChanged(topLeft, bottomRight);
+    Q_EMIT dataChanged(topLeft, bottomRight);
 
     enqueueNodeForMetadataUpdate(nodeForIndex(topLeft.parent()));
 #else
@@ -1126,7 +1126,7 @@ void ProjectModel::finishSingleMetadataUpdate(UpdateStatsJob* job)
 
     QModelIndex topLeft = index.sibling(index.row(), static_cast<int>(ProjectModelColumns::Graph));
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
-    emit dataChanged(topLeft, bottomRight);
+    Q_EMIT dataChanged(topLeft, bottomRight);
 
     delete job;
 }
@@ -1159,7 +1159,7 @@ void ProjectModel::setMetadataForDir(ProjectNode* node, const QList<FileMetaData
 
     const QModelIndex topLeft = index(0, static_cast<int>(ProjectModelColumns::Graph), item);
     const QModelIndex bottomRight = index(rowsCount - 1, ProjectModelColumnCount - 1, item);
-    emit dataChanged(topLeft, bottomRight);
+    Q_EMIT dataChanged(topLeft, bottomRight);
 }
 
 void ProjectModel::updateDirStats(ProjectNode* node)
@@ -1180,7 +1180,7 @@ void ProjectModel::updateDirStats(ProjectNode* node)
         return;
     QModelIndex topLeft = index.sibling(index.row(), static_cast<int>(ProjectModelColumns::Graph));
     QModelIndex bottomRight = index.sibling(index.row(), ProjectModelColumnCount - 1);
-    emit dataChanged(topLeft, bottomRight);
+    Q_EMIT dataChanged(topLeft, bottomRight);
 }
 
 bool ProjectModel::updateDone(const QModelIndex& index, const KDirModel& model)
@@ -1205,9 +1205,9 @@ void ProjectModel::updateTotalsChanged()
         if (m_rootNode.fuzzyAsPerRole() + m_rootNode.translatedAsPerRole() + m_rootNode.metaData.untranslated > 0 && !done)
             m_doneTimer->start(2000);
 
-        emit loadingFinished();
+        Q_EMIT loadingFinished();
     }
-    emit totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.metaData.untranslated, done);
+    Q_EMIT totalsChanged(m_rootNode.fuzzyAsPerRole(), m_rootNode.translatedAsPerRole(), m_rootNode.metaData.untranslated, done);
 }
 
 

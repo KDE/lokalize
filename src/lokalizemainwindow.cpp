@@ -225,7 +225,7 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
         if (tw) tw->setTabToolTip(tw->currentIndex(), w->currentFilePath());
 
-        emit editorActivated();
+        Q_EMIT editorActivated();
     } else if (w == m_projectSubWindow && m_projectSubWindow) {
         QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
         if (tw) tw->setTabToolTip(tw->currentIndex(), Project::instance()->path());
@@ -347,7 +347,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     m_fileToEditor.insert(filePath, sw);
 
     sw->setAttribute(Qt::WA_DeleteOnClose, true);
-    emit editorAdded();
+    Q_EMIT editorAdded();
     return w;
 }
 

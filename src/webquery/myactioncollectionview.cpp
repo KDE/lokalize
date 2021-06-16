@@ -65,7 +65,7 @@ void MyActionCollectionView::triggerSelectedActions()
 //                                  );
 //         connect(this,SIGNAL(query(const CatalogData&)),
 //                action->object("WebQueryController"),SLOT(query(const CatalogData&)),Qt::QueuedConnection);
-//         emit query(data);
+//         Q_EMIT query(data);
 //         disconnect(this,SIGNAL(query(const CatalogData&)),
 //                action->object("WebQueryController"),SLOT(query(const CatalogData&)));
 

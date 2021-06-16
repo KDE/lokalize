@@ -49,9 +49,9 @@ void TextEdit::keyPressEvent(QKeyEvent* keyEvent)
 {
     if (keyEvent->modifiers()& Qt::ControlModifier
         && keyEvent->key() == Qt::Key_Return)
-        emit accepted();
+        Q_EMIT accepted();
     else if (keyEvent->key() == Qt::Key_Escape)
-        emit rejected();
+        Q_EMIT rejected();
     else
         QPlainTextEdit::keyPressEvent(keyEvent);
 }

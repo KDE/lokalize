@@ -84,7 +84,7 @@ Q_SIGNALS:
 private:
     void currentChanged(const QModelIndex& current, const QModelIndex&) override
     {
-        emit currentIndexChanged(current);
+        Q_EMIT currentIndexChanged(current);
     }
 };
 

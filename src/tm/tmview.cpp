@@ -128,7 +128,7 @@ void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
 
     QString sel = textCursor().selectedText();
     if (!(sel.isEmpty() || sel.contains(' ')))
-        emit textInsertRequested(sel);
+        Q_EMIT textInsertRequested(sel);
 }
 
 
@@ -285,7 +285,7 @@ void TMView::slotBatchSelectDone()
             insertCatalogString(m_catalog, pos, entry.target, 0);
 
             if (Q_UNLIKELY(m_pos.entry == pos.entry && pos.form == m_pos.form))
-                emit refreshRequested();
+                Q_EMIT refreshRequested();
 
         }
         if (!insHappened) {
@@ -619,7 +619,7 @@ void TMView::contextMenu(const QPoint& pos)
     if (r->data().toInt() == Remove) {
         removeEntry(e);
     } else if (r->data().toInt() == Open) {
-        emit fileOpenRequested(e.file, e.source.string, e.ctxt, true);
+        Q_EMIT fileOpenRequested(e.file, e.source.string, e.ctxt, true);
     } else if ((r->data().toInt() == RemoveFile) &&
                KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.file, e.dbName),
                        i18nc("@title:window", "Translation Memory Missing File Removal"))) {
@@ -1017,6 +1017,6 @@ void TMView::slotUseSuggestion(int i)
 
     m_catalog->endMacro();
 
-    emit refreshRequested();
+    Q_EMIT refreshRequested();
 }
 

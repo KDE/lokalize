@@ -70,7 +70,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
             m_mergeDiffIndex.removeAll(pos.entry);
 
         m_modified = true;
-        emit signalEntryModified(pos);
+        Q_EMIT signalEntryModified(pos);
     }
 }
 

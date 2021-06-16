@@ -59,7 +59,7 @@ void BinUnitsModel::entryModified(const DocPosition& pos)
         return;
 
     QModelIndex item = index(pos.entry - m_catalog->numberOfEntries(), TargetFilePath);
-    emit dataChanged(item, item);
+    Q_EMIT dataChanged(item, item);
 }
 
 void BinUnitsModel::updateFile(QString path)
@@ -72,7 +72,7 @@ void BinUnitsModel::updateFile(QString path)
         if (m_catalog->target(pos) == relPath || m_catalog->source(pos) == relPath) {
             int row = pos.entry - m_catalog->numberOfEntries();
             m_imageCache.remove(relPath);
-            emit dataChanged(index(row, SourceFilePath), index(row, TargetFilePath));
+            Q_EMIT dataChanged(index(row, SourceFilePath), index(row, TargetFilePath));
             return;
         }
 
@@ -91,7 +91,7 @@ void BinUnitsModel::setTargetFilePath(int row, const QString& path)
 
     m_catalog->push(new InsTextCmd(m_catalog, pos, QDir(Project::instance()->projectDir()).relativeFilePath(path)));
     QModelIndex item = index(row, TargetFilePath);
-    emit dataChanged(item, item);
+    Q_EMIT dataChanged(item, item);
 }
 
 int BinUnitsModel::rowCount(const QModelIndex& parent) const

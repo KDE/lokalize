@@ -114,7 +114,7 @@ SearchFileListView::SearchFileListView(QWidget* parent)
 
 void SearchFileListView::requestFileOpen(const QModelIndex& item)
 {
-    emit fileOpenRequested(item.data(Qt::UserRole).toString(), true);
+    Q_EMIT fileOpenRequested(item.data(Qt::UserRole).toString(), true);
 }
 
 void SearchFileListView::addFiles(const QStringList& files)
@@ -262,7 +262,7 @@ void SearchJob::run()
         //    results[path]=catalogResults;
     }
     qCDebug(LOKALIZE_LOG) << "searching took" << a.elapsed();
-    emit done(this);
+    Q_EMIT done(this);
 }
 
 MassReplaceJob::MassReplaceJob(const SearchResults& srs, int pos, const QRegExp& s, const QString& r, QObject*)
@@ -419,7 +419,7 @@ void FileSearchModel::setReplacePreview(const QRegExp& s, const QString& r)
     m_replaceWhat = s;
     m_replaceWith = QLatin1String("_ST_") + r + QLatin1String("_END_");
 
-    emit dataChanged(index(0, Target), index(rowCount() - 1, Target));
+    Q_EMIT dataChanged(index(0, Target), index(rowCount() - 1, Target));
 }
 
 
@@ -664,7 +664,7 @@ void FileSearchTab::openFile()
         selection    = sr.targetPositions.first().len;
     }
     qCDebug(LOKALIZE_LOG) << "fileOpenRequest" << docPos.offset << selection;
-    emit fileOpenRequested(sr.filepath, docPos, selection, true);
+    Q_EMIT fileOpenRequested(sr.filepath, docPos, selection, true);
 }
 
 void FileSearchTab::fileSearchNext()
@@ -847,7 +847,7 @@ void MassReplaceView::requestPreviewUpdate()
     if (s.length())
         ui->doReplace->setEnabled(true);
 
-    emit previewRequested(regExpFromUi(s, ui), r);
+    Q_EMIT previewRequested(regExpFromUi(s, ui), r);
 }
 
 
@@ -866,7 +866,7 @@ void MassReplaceView::requestPreview(bool enable)
         disconnect(ui->useRegExps, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
         disconnect(ui->matchCase, &QCheckBox::toggled, this, &MassReplaceView::requestPreviewUpdate);
 
-        emit previewRequested(QRegExp(), QString());
+        Q_EMIT previewRequested(QRegExp(), QString());
     }
 }
 
@@ -878,7 +878,7 @@ void MassReplaceView::requestReplace()
     if (s.isEmpty())
         return;
 
-    emit replaceRequested(regExpFromUi(s, ui), r);
+    Q_EMIT replaceRequested(regExpFromUi(s, ui), r);
 }
 
 void MassReplaceView::deactivatePreview()
