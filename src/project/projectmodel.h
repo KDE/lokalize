@@ -182,12 +182,12 @@ public:
         m_completeScan = enable;
     }
 
-signals:
+Q_SIGNALS:
     void totalsChanged(int fuzzy, int translated, int untranslated, bool done);
     void loadingAboutToStart();
     void loadingFinished(); //may be emitted a bit earlier
 
-private slots:
+private Q_SLOTS:
     void po_dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void po_rowsInserted(const QModelIndex& parent, int start, int end);
     void po_rowsRemoved(const QModelIndex& parent, int start, int end);
@@ -201,7 +201,7 @@ private slots:
 
     void updateTotalsChanged();
 
-public slots:
+public Q_SLOTS:
     void slotFileSaved(const QString& filePath);
     void reload();
 

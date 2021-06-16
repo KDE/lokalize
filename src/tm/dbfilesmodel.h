@@ -89,7 +89,7 @@ private:
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 
-public slots:
+public Q_SLOTS:
     void updateStats(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void calcStats(const QModelIndex& parent, int start, int end);
     void openJobDone(OpenDBJob*);

@@ -68,21 +68,21 @@ public:
 
     explicit WebQueryController(const QString& name, QObject* parent);
 
-public slots:
+public Q_SLOTS:
     void query(const CatalogData& data);
 
     void slotDownloadResult(KJob*);
-signals:
+Q_SIGNALS:
     void addWebQueryResult(const QString&, const QString&);
 
 //These are for scripts:
-signals:
+Q_SIGNALS:
     void doQuery();
     void postProcess(QString);
 
 
 //these are for scripts:
-public slots:
+public Q_SLOTS:
     QString msg();
 
     QString filePath();

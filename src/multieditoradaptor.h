@@ -51,7 +51,7 @@ public:
 
     void setEditorTab(EditorTab* e);
 
-private slots:
+private Q_SLOTS:
     void handleParentDestroy(QObject* p);
 };
 

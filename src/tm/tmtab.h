@@ -76,7 +76,7 @@ public:
     }
 
 
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE bool findGuiText(QString text)
     {
         return findGuiTextPackage(text, QString());
@@ -85,7 +85,7 @@ public slots:
     Q_SCRIPTABLE void lookup(QString source, QString target);
     //void lookup(DocPosition::Part, QString text);
 
-public slots:
+public Q_SLOTS:
     void performQuery();
     void updateTM();
     void copySource();
@@ -96,7 +96,7 @@ public slots:
     void setQAMode();
     void setQAMode(bool enabled);
 
-signals:
+Q_SIGNALS:
     void fileOpenRequested(const QString& url, const QString& source, const QString& ctxt, const bool setAsActive);
 
 private:
@@ -162,7 +162,7 @@ public:
         return m_dbName;
     }
 
-public slots:
+public Q_SLOTS:
     void setFilter(const QString& source, const QString& target,
                    bool invertSource, bool invertTarget,
                    const QString& filemask
@@ -171,7 +171,7 @@ public slots:
     void setDB(const QString&);
     void slotQueryExecuted(ExecQueryJob*);
 
-signals:
+Q_SIGNALS:
     void resultsFetched();
     void finalResultCountFetched(int);
 

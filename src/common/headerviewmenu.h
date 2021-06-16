@@ -35,7 +35,7 @@ class HeaderViewMenuHandler: public QObject
     Q_OBJECT
 public:
     explicit HeaderViewMenuHandler(QHeaderView* parent);
-private slots:
+private Q_SLOTS:
     void headerMenuRequested(QPoint);
     void headerMenuActionToggled(QAction*);
 };

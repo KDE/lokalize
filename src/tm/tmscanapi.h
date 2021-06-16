@@ -55,7 +55,7 @@ public:
     void setJobs(const QVector<ScanJob*>& jobs);
     void start() override;
 
-public slots:
+public Q_SLOTS:
     void scanJobFinished(ScanJobFeedingBack*);
     void scanJobDestroyed();
 protected:

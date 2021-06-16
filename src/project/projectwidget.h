@@ -64,11 +64,11 @@ public:
     void gotoNextTransOnly();
     void toggleTranslatedFiles();
 
-signals:
+Q_SIGNALS:
     void fileOpenRequested(const QString&, const bool setAsActive);
     void newWindowOpenRequested(const QUrl&);
 
-private slots:
+private Q_SLOTS:
     void slotItemActivated(const QModelIndex&);
     void modelAboutToReload();
     void modelReloaded();

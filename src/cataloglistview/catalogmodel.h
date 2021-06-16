@@ -97,7 +97,7 @@ public:
         m_ignoreAccel = n;
     }
 
-public slots:
+public Q_SLOTS:
     void reflectChanges(DocPosition);
     void fileLoaded();
 
@@ -179,7 +179,7 @@ public:
 
     void setMergeCatalogPointer(MergeCatalog* pointer);
 
-public slots:
+public Q_SLOTS:
     void setEntriesFilteredOut();
     void setEntriesFilteredOut(bool filteredOut);
     void setDynamicSortFilter(bool enabled)

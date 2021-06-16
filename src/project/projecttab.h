@@ -67,7 +67,7 @@ public:
     }
     void setLegacyUnitsCount(int to);
 
-signals:
+Q_SIGNALS:
     void projectOpenRequested(QString path);
     void projectOpenRequested();
 
@@ -77,7 +77,7 @@ signals:
     void replaceRequested(const QStringList&);
     void spellcheckRequested(const QStringList&);
 
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE void setCurrentItem(const QString& url);
     Q_SCRIPTABLE QString currentItem() const;
     ///@returns list of selected files recursively
@@ -88,7 +88,7 @@ public slots:
 
     //Q_SCRIPTABLE bool isShown() const;
 
-private slots:
+private Q_SLOTS:
     void setFilterRegExp();
     void setFocus();
     void scanFilesToTM();

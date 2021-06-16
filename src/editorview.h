@@ -69,7 +69,7 @@ public:
     QObject* viewPort();
     void setProperFocus();
 
-public slots:
+public Q_SLOTS:
     void gotoEntry(DocPosition pos, int selection/*, bool updateHistory=true*/);
     void gotoEntry();
     void toggleApprovement();
@@ -99,7 +99,7 @@ private:
 public:
     bool m_modifiedAfterFind;//for F3-search reset
 
-signals:
+Q_SIGNALS:
     void signalEquivTranslatedEntryDisplayed(bool);
     void signalApprovedEntryDisplayed(bool);
     void signalChangeStatusbar(const QString&);
@@ -113,7 +113,7 @@ signals:
     void replaceRequested();
     void doExplicitCompletion();
 
-private slots:
+private Q_SLOTS:
     void resetFindForCurrent(const DocPosition& pos);
     void toggleBookmark(bool);
 };
@@ -129,7 +129,7 @@ public:
 private:
     void contextMenuEvent(QContextMenuEvent* event) override;
 
-public slots:
+public Q_SLOTS:
     void cursorPositionChanged(int column);
 
 public:

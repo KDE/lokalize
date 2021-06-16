@@ -116,10 +116,10 @@ public:
     bool isFileMissing(const QString& filePath) const;
 
     void setDefaults() override;
-// private slots:
+// private Q_SLOTS:
 //     void initLater();
 
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE void load(const QString& newProjectPath, const QString& defaultTargetLangCode = QString(), const QString& defaultProjectId = QString());
     Q_SCRIPTABLE void reinit();
     Q_SCRIPTABLE void save();
@@ -163,12 +163,12 @@ public slots:
 
     Q_SCRIPTABLE bool isTmSupported() const;
 
-signals:
+Q_SIGNALS:
     Q_SCRIPTABLE void loaded();
     void fileOpenRequested(const QString&, const bool setAsActive);
     void closed();
 
-public slots:
+public Q_SLOTS:
     void populateDirModel();
     void populateGlossary();
 
@@ -196,7 +196,7 @@ public:
     }
 
     friend class FillSourceFilePathsJob;
-signals:
+Q_SIGNALS:
     void sourceFilePathsAreReady();
 
 private:

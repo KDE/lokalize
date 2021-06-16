@@ -41,12 +41,12 @@ class BinUnitsView: public QDockWidget
 public:
     explicit BinUnitsView(Catalog* catalog, QWidget *parent);
 
-public slots:
+public Q_SLOTS:
     void selectUnit(const QString& id);
 
 private:
     void contextMenuEvent(QContextMenuEvent *event) override;
-private slots:
+private Q_SLOTS:
     void mouseDoubleClicked(const QModelIndex&);
     void fileLoaded();
 
@@ -82,7 +82,7 @@ public:
 
     void setTargetFilePath(int row, const QString&);
 
-private slots:
+private Q_SLOTS:
     void fileLoaded();
     void entryModified(const DocPosition&);
     void updateFile(QString path);

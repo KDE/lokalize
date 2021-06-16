@@ -80,7 +80,7 @@ protected:
     void registerDBusAdaptor();
     void setupActions();
 
-private slots:
+private Q_SLOTS:
     void slotSubWindowActivated(QMdiSubWindow*);
     void initLater();
     void applyToBeActiveSubWindow();
@@ -101,7 +101,7 @@ private slots:
     }
 
 
-public slots:
+public Q_SLOTS:
     /**
      * Adds new editor with @param path loaded,
      * or just activates already existing editor with this file.
@@ -153,7 +153,7 @@ public slots:
     void addFilesToSearch(const QStringList&);
 
     void widgetTextCapture();
-signals:
+Q_SIGNALS:
     Q_SCRIPTABLE void editorAdded();
     Q_SCRIPTABLE void editorActivated();
 
@@ -187,7 +187,7 @@ private:
 class LokalizeMdiArea: public QMdiArea
 {
     Q_OBJECT
-public slots:
+public Q_SLOTS:
     void activateNextSubWindow();
     void activatePreviousSubWindow();
 };
@@ -202,7 +202,7 @@ public:
     ~ProjectScriptingPlugin();
     void setDOMDocument(const QDomDocument &document, bool merge = false) override;
 
-private slots:
+private Q_SLOTS:
     void doAutoruns();
 };
 
@@ -213,7 +213,7 @@ class DelayedFileOpener: public QObject
 public:
     DelayedFileOpener(const QVector<QString>& urls, LokalizeMainWindow* lmw);
 
-private slots:
+private Q_SLOTS:
     void doOpen();
 
 private:

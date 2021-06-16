@@ -59,7 +59,7 @@ protected:
     void setMisspelled(int start, int count) override;
     void unsetMisspelled(int start, int count) override;
 
-private slots:
+private Q_SLOTS:
     void settingsChanged();
 
 //    void setFormatRetainingUnderlines(int start, int count, QTextCharFormat format);

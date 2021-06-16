@@ -66,7 +66,7 @@ public:
     }
     void insertPlainTextWithCursorCheck(const QString &text);
 
-public slots:
+public Q_SLOTS:
     void reflectApprovementState();
     void reflectUntranslatedState();
 
@@ -110,7 +110,7 @@ private:
 
     void doCompletion(int pos);
 
-private slots:
+private Q_SLOTS:
     //for Undo/Redo tracking
     void contentsChanged(int position, int charsRemoved, int charsAdded);
     void completionActivated(const QString&);
@@ -119,7 +119,7 @@ private slots:
     void slotLanguageToolFinished(const QString &result);
     void slotLanguageToolError(const QString &str);
 
-signals:
+Q_SIGNALS:
     void toggleApprovementRequested();
     void undoRequested();
     void redoRequested();

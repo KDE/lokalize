@@ -49,10 +49,10 @@ public:
     void setText(const QString& term, const QByteArray& entryId, bool capFirst);
     void mousePressEvent(QMouseEvent* /* event*/) override;
 
-public slots:
+public Q_SLOTS:
     void insert();
 //     bool event(QEvent *event);
-signals:
+Q_SIGNALS:
     void insertTerm(const QString&);
 
 private:

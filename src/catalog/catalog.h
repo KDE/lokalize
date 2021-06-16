@@ -96,7 +96,7 @@ public:
 
     void push(QUndoCommand* cmd);
 
-public slots: //DBus interface
+public Q_SLOTS: //DBus interface
     QString source(const DocPosition& pos) const
     {
         return msgid(pos);
@@ -270,7 +270,7 @@ public:
     {
         d._filePath = u;   //used for template load
     }
-public slots: //DBus interface
+public Q_SLOTS: //DBus interface
     const QString& url() const
     {
         return d._filePath;
@@ -294,7 +294,7 @@ public slots: //DBus interface
 protected:
     virtual KAutoSaveFile* checkAutoSave(const QString& url);
 
-protected slots:
+protected Q_SLOTS:
     void doAutoSave();
     void setAutoSaveDirty()
     {
@@ -353,7 +353,7 @@ public:
     //static QString supportedMimeFilters;
     static QString supportedFileTypes(bool includeTemplates = true);
 
-signals:
+Q_SIGNALS:
     void signalEntryModified(const DocPosition&);
     void activePhaseChanged();
     void signalNumberOfFuzziesChanged();

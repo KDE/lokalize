@@ -77,7 +77,7 @@ public:
         return m_dbusId;
     }
 
-public slots:
+public Q_SLOTS:
     void copySourceToClipboard();
     void copyTargetToClipboard();
     void openFile();
@@ -94,11 +94,11 @@ public slots:
     void stopSearch();
     void massReplace(const QRegExp &what, const QString& with);
 
-private slots:
+private Q_SLOTS:
     void searchJobDone(SearchJob*);
     void replaceJobDone(MassReplaceJob*);
 
-signals:
+Q_SIGNALS:
     void fileOpenRequested(const QString& filePath, DocPosition docPos, int selection, const bool setAsActive);
     void fileOpenRequested(const QString& filePath, const bool setAsActive);
 
@@ -200,7 +200,7 @@ public:
     void appendSearchResults(const SearchResults&);
     void clear();
 
-public slots:
+public Q_SLOTS:
     void setReplacePreview(const QRegExp&, const QString&);
 
 private:
@@ -224,10 +224,10 @@ public:
 
     void scrollTo(const QString& file = QString());
 
-public slots:
+public Q_SLOTS:
     void clear();
     void requestFileOpen(const QModelIndex&);
-signals:
+Q_SIGNALS:
     void fileOpenRequested(const QString& filePath, const bool setAsActive);
 
 private:
@@ -248,11 +248,11 @@ public:
 
     void deactivatePreview();
 
-signals:
+Q_SIGNALS:
     void previewRequested(const QRegExp&, const QString&);
     void replaceRequested(const QRegExp&, const QString&);
 
-private slots:
+private Q_SLOTS:
     void requestPreview(bool enable);
     void requestPreviewUpdate();
     void requestReplace();
@@ -291,7 +291,7 @@ public:
                        QObject* parent = nullptr);
     ~SearchJob() override = default;
 
-signals:
+Q_SIGNALS:
     void done(SearchJob*);
 protected:
     void run() override;
@@ -319,7 +319,7 @@ public:
                             QObject* parent = nullptr);
     ~MassReplaceJob() override = default;
 
-signals:
+Q_SIGNALS:
     void done(MassReplaceJob*);
 
 protected:

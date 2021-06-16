@@ -57,18 +57,18 @@ private:
     int siblingEntryNumber(int step);
     void refreshCurrentIndex();
 
-public slots:
+public Q_SLOTS:
     void slotNewEntryDisplayed(const DocPosition&);
     void setEntriesFilteredOut(bool filteredOut = false);
     void setFocus();
     void reset();
     void setMergeCatalogPointer(MergeCatalog* pointer);
 
-signals:
+Q_SIGNALS:
     void gotoEntry(const DocPosition&, int selection);
     void escaped();
 
-private slots:
+private Q_SLOTS:
     void slotItemActivated(const QModelIndex&);
     void setFilterRegExp();
     void fillFilterOptionsMenu();

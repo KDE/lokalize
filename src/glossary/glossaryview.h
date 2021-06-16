@@ -55,12 +55,12 @@ public:
 //     void dragEnterEvent(QDragEnterEvent* event);
 //     void dropEvent(QDropEvent*);
 //     bool event(QEvent*);
-public slots:
+public Q_SLOTS:
     //plural messages usually contain the same words...
     void slotNewEntryDisplayed();
     void slotNewEntryDisplayed(DocPosition pos);//a little hacky, but... :)
 
-signals:
+Q_SIGNALS:
     void termInsertRequested(const QString&);
 
 private:

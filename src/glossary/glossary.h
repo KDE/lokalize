@@ -157,7 +157,7 @@ public:
     void hashTermEntry(const QDomElement&);
     void unhashTermEntry(const QDomElement&);
 
-signals:
+Q_SIGNALS:
     void changed();
     void loaded();
 
@@ -220,7 +220,7 @@ public:
     //bool insertRows(int row,int count,const QModelIndex& parent=QModelIndex());
     QByteArray appendRow(const QString& _english, const QString& _target);
 
-public slots:
+public Q_SLOTS:
     void forceReset();
 
 private:
@@ -242,7 +242,7 @@ public:
     }
     void fetchMore(const QModelIndex& parent) override;
 
-public slots:
+public Q_SLOTS:
     void setFilterRegExp(const QString& s);
 
 };

@@ -54,7 +54,7 @@ class TMManagerWin: public KMainWindow
 public:
     explicit TMManagerWin(QWidget *parent = nullptr);
     ~TMManagerWin() {}
-private slots:
+private Q_SLOTS:
     void addDir();
     void addDB();
     void importTMX();
@@ -78,7 +78,7 @@ public:
 private:
     //void slotButtonClicked(int button);
     void accept() override;
-private slots:
+private Q_SLOTS:
     void setConnectionBoxVisible(int type);
     void openJobDone(OpenDBJob*);
     void checkConnectionOptions();

@@ -46,11 +46,11 @@ public:
     bool saveRules(QString filename = QString());
     QVector<Rule> rules() const;
 
-public slots:
+public Q_SLOTS:
     void addRule();
     void removeRule();
 
-signals:
+Q_SIGNALS:
     void rulesChanged();
 
 private:

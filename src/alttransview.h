@@ -46,19 +46,19 @@ public:
     ~AltTransView() override;
 
 
-public slots:
+public Q_SLOTS:
     void slotNewEntryDisplayed(const DocPosition&);
     void fileLoaded();
     void attachAltTransFile(const QString&);
     void addAlternateTranslation(int entry, const QString&);
 
-private slots:
+private Q_SLOTS:
     //void contextMenu(const QPoint & pos);
     void process();
     void initLater();
     void slotUseSuggestion(int);
 
-signals:
+Q_SIGNALS:
     void refreshRequested();
     void textInsertRequested(const QString&);
 

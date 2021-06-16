@@ -56,7 +56,7 @@ public:
 protected:
     void run() override;
 
-signals:
+Q_SIGNALS:
     void done(UpdateStatsJob*);
 };
 

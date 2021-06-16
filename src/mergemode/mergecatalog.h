@@ -138,7 +138,7 @@ public:
     {
         copyFromBaseCatalog(pos, EvenIfNotInDiffIndex);
     }
-public slots:
+public Q_SLOTS:
     void copyFromBaseCatalogIfInDiffIndex(const DocPosition& pos)
     {
         copyFromBaseCatalog(pos, 0);

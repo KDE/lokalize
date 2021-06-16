@@ -66,7 +66,7 @@ public:
 //     void dropEvent(QDropEvent*);
 //     bool event(QEvent*);
 
-public slots:
+public Q_SLOTS:
     void slotNewEntryDisplayed(const DocPosition&);
 //     void populateWebQueryActions();
 //     void doQuery();
@@ -76,7 +76,7 @@ public slots:
     void slotSelectionChanged();
     void initLater();
 
-signals:
+Q_SIGNALS:
     void textInsertRequested(const QString&);
 
 private:

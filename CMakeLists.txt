@@ -25,9 +25,12 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED I18n KIO XmlGui Notifications Config CoreAddons DocTools Kross Sonnet DBusAddons Crash)
 
-add_definitions(-DQT_USE_QSTRINGBUILDER)
-add_definitions(-DQT_NO_CAST_TO_ASCII)
-add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
+add_definitions(
+    -DQT_USE_QSTRINGBUILDER
+    -DQT_NO_CAST_TO_ASCII
+    -DQT_NO_URL_CAST_FROM_STRING
+    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+)
 
 find_package(HUNSPELL)
 set_package_properties(

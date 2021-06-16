@@ -60,7 +60,7 @@ private:
 
     bool event(QEvent *event) override;
 
-public slots:
+public Q_SLOTS:
     void mergeOpen(QString mergeFilePath = QString());
     void cleanup();
     void slotNewEntryDisplayed(const DocPosition&);
@@ -73,7 +73,7 @@ public slots:
     void mergeAcceptAllForEmpty();
     void mergeBack();
 
-signals:
+Q_SIGNALS:
 //     //we connect it to our internal mergeCatalog to remove entry from index
 //     void entryModified(uint);
 

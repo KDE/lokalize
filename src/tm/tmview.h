@@ -58,13 +58,13 @@ public:
     {
         return QSize(300, 100);
     }
-signals:
+Q_SIGNALS:
 //     void textReplaceRequested(const QString&);
     void refreshRequested();
     void textInsertRequested(const QString&);
     void fileOpenRequested(const QString& filePath, const QString& str, const QString& ctxt, const bool setAsActive);
 
-public slots:
+public Q_SLOTS:
     void slotNewEntryDisplayed();
     void slotNewEntryDisplayed(const DocPosition& pos);
     void slotSuggestionsCame(SelectJob*);
@@ -77,7 +77,7 @@ public slots:
     void slotBatchTranslate();
     void slotBatchTranslateFuzzy();
 
-private slots:
+private Q_SLOTS:
     //i think we do not wanna cache suggestions:
     //what if good sugg may be generated
     //from the entry user translated 1 minute ago?
@@ -125,7 +125,7 @@ public:
         setContextMenuPolicy(Qt::CustomContextMenu);
     }
     void mouseDoubleClickEvent(QMouseEvent* event) override;
-signals:
+Q_SIGNALS:
     void textInsertRequested(const QString&);
 };
 

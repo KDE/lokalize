@@ -54,7 +54,7 @@ public:
     void setNoteAuthors(const QStringList&);
     void setFromFieldVisible(bool);
 
-signals:
+Q_SIGNALS:
     void accepted();
     void rejected();
 
@@ -74,7 +74,7 @@ class TextEdit: public QPlainTextEdit
 public:
     explicit TextEdit(QWidget* parent): QPlainTextEdit(parent) {}
     void keyPressEvent(QKeyEvent* e) override;
-signals:
+Q_SIGNALS:
     void accepted();
     void rejected();
 };

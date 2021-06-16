@@ -105,7 +105,7 @@ public:
 protected:
     void run() override;
 
-signals:
+Q_SIGNALS:
     void done(OpenDBJob*);
 
 public:
@@ -140,7 +140,7 @@ public:
         return m_dbName;
     }
 
-signals:
+Q_SIGNALS:
     void done(CloseDBJob*);
 
 protected:
@@ -169,7 +169,7 @@ public:
         return SELECT;
     }
 
-signals:
+Q_SIGNALS:
     void done(SelectJob*);
 
 protected:
@@ -216,7 +216,7 @@ protected:
 
     QString m_dbName;
 
-signals:
+Q_SIGNALS:
     void done();
 };
 
@@ -238,7 +238,7 @@ protected:
     QString m_dbName;
     QObject m_parent;
 
-signals:
+Q_SIGNALS:
     void done();
 };
 
@@ -259,7 +259,7 @@ protected:
 
     TMEntry m_entry;
 
-signals:
+Q_SIGNALS:
     void done();
 };
 
@@ -349,7 +349,7 @@ protected:
         emit done(this);
     }
 
-signals:
+Q_SIGNALS:
     void done(ScanJobFeedingBack*);
 };
 
@@ -369,7 +369,7 @@ public:
         return BATCHSELECTFINISHED;
     }
 
-signals:
+Q_SIGNALS:
     void done();
 
 protected:
@@ -477,7 +477,7 @@ public:
 
     QSqlQuery* query;
 
-signals:
+Q_SIGNALS:
     void done(ExecQueryJob*);
 
 protected:

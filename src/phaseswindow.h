@@ -48,7 +48,7 @@ public:
     explicit PhasesWindow(Catalog* catalog, QWidget *parent);
     ~PhasesWindow() override = default;
 
-private slots:
+private Q_SLOTS:
     void displayPhaseNotes(const QModelIndex& current);
     void addPhase();
     void handleResult();
@@ -79,7 +79,7 @@ public:
     explicit MyTreeView(QWidget* parent): QTreeView(parent) {}
     ~MyTreeView() override = default;
 
-signals:
+Q_SIGNALS:
     void currentIndexChanged(const QModelIndex& current);
 private:
     void currentChanged(const QModelIndex& current, const QModelIndex&) override

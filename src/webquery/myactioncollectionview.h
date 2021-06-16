@@ -50,14 +50,14 @@ public:
     explicit MyActionCollectionView(QWidget *parent = nullptr);
     ~MyActionCollectionView() override = default;
 
-public slots:
+public Q_SLOTS:
     void triggerSelectedActions();
     void reset() override
     {
         Kross::ActionCollectionView::reset();/*selectAll();*/
     }
 
-signals:
+Q_SIGNALS:
     void query(const CatalogData& data);
 
 public:

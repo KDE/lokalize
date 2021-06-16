@@ -48,12 +48,12 @@ public:
     void gotoEntry(const DocPosition&, int selection = 0);
     void addNote(DocPosition, const QString& text);
     void addTemporaryEntryNote(int entry, const QString& text);
-public slots:
+public Q_SLOTS:
     void removeErrorNotes();
     void cleanup();
     void languageTool(const QString& text);
     void addNoteUI();
-private slots:
+private Q_SLOTS:
     void anchorClicked(const QUrl& link);
     void noteEditAccepted();
     void noteEditRejected();
@@ -63,7 +63,7 @@ private slots:
     void pologyReceivedStandardError();
     void pologyHasFinished();
 
-signals:
+Q_SIGNALS:
     void srcFileOpenRequested(const QString& srcPath, int line);
     void escaped();
 

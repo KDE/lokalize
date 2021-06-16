@@ -67,7 +67,7 @@ protected:
     void reflectNonApprovedCount(int count, int total);
     void reflectUntranslatedCount(int count, int total);
 
-signals:
+Q_SIGNALS:
     void aboutToBeClosed();
 
 public:

@@ -49,7 +49,7 @@ public:
         Q_UNUSED(e);
         emit editingFinished();
     }
-signals:
+Q_SIGNALS:
     void editingFinished();
 };
 
@@ -59,7 +59,7 @@ class TermListView: public QListView
 public:
     explicit TermListView(QWidget* parent = nullptr): QListView(parent) {}
 
-public slots:
+public Q_SLOTS:
     void rmTerms();
     void addTerm();
 };
@@ -80,7 +80,7 @@ public:
     ~GlossaryWindow() override = default;
     bool queryClose() override;
 
-public slots:
+public Q_SLOTS:
     void currentChanged(int);
     void showEntryInEditor(const QByteArray& id);
     void showDefinitionForLang(int);
@@ -123,7 +123,7 @@ public:
     void currentChanged(const QModelIndex& current, const QModelIndex& previous) override;
     void selectRow(int i);
 
-signals:
+Q_SIGNALS:
     void currentChanged(int);
     void currentChanged(const QByteArray&);
     void currentChanged(const QByteArray& prev, const QByteArray& current);
@@ -139,7 +139,7 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
     bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
-public slots:
+public Q_SLOTS:
     void setEntry(const QByteArray& id);
 
 private:
@@ -162,7 +162,7 @@ public:
     {}
     ~GlossaryItemDelegate(){}
     bool editorEvent (QEvent* event,QAbstractItemModel* model,const QStyleOptionViewItem& option,const QModelIndex& index);
-signals:
+Q_SIGNALS:
     void selected(const QUrl&);
     void newWindowOpenRequested(const QUrl&);
 

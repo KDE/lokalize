@@ -108,7 +108,7 @@ public:
     QString currentFilePath() override;
     void setFullPathShown(bool);
     void setProperCaption(QString, bool); //reimpl to remove ' - Lokalize'
-public slots:
+public Q_SLOTS:
     void setProperFocus();
 public:
     bool queryClose() override;
@@ -131,7 +131,7 @@ public:
     void mergeOpen(QString mergeFilePath);
 
     bool fileOpen(QString filePath = QString(), QString suggestedDirPath = QString(), QMap<QString, QMdiSubWindow*> openedFiles = QMap<QString, QMdiSubWindow*>(), bool silent = false);
-public slots:
+public Q_SLOTS:
     //for undo/redo, views
     void gotoEntry(DocPosition pos);
     void gotoEntry(DocPosition pos, int selection);
@@ -223,7 +223,7 @@ public slots:
         m_srcFileOpenRequestAccepted = a;
     }
 
-private slots:
+private Q_SLOTS:
     void highlightFound(const QString &, int, int); //for find/replace
     void highlightFound_(const QString &, int, int); //for find/replace
 
@@ -363,7 +363,7 @@ private:
     static QList<int> ids;
     //END dbus
 
-signals:
+Q_SIGNALS:
     void tmLookupRequested(DocPosition::Part, const QString&);
     void tmLookupRequested(const QString& source, const QString& target);
 

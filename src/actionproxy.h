@@ -59,7 +59,7 @@ public:
         return m_keySequence;
     };//for TM suggestions
 
-public slots:
+public Q_SLOTS:
     void setDisabled(bool);
     void setEnabled(bool enabled)
     {
@@ -67,10 +67,10 @@ public slots:
     }
     void setChecked(bool);
 
-private slots:
+private Q_SLOTS:
     void handleToggled(bool);
 
-signals:
+Q_SIGNALS:
     void triggered(bool = false);
     void toggled(bool);
 

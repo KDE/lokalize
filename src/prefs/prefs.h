@@ -55,7 +55,7 @@ public:
         return m_mainWindowPtr;
     }
 
-public slots:
+public Q_SLOTS:
     void showSettingsDialog();
 
     bool ensureProjectIsLoaded();
@@ -67,7 +67,7 @@ public slots:
 
     void reflectRelativePathsHack();
 
-signals:
+Q_SIGNALS:
     void generalSettingsChanged();
 
 private:
@@ -92,7 +92,7 @@ class RelPathSaver: public QLineEdit
     Q_OBJECT
 public:
     explicit RelPathSaver(QWidget* p): QLineEdit(p) {}
-public slots:
+public Q_SLOTS:
     void setText(const QString&);
 };
 
@@ -106,7 +106,7 @@ class LangCodeSaver: public QLineEdit
     Q_OBJECT
 public:
     explicit LangCodeSaver(QWidget* p): QLineEdit(p) {}
-public slots:
+public Q_SLOTS:
     void setLangCode(int);
 };
 
@@ -117,7 +117,7 @@ class ScriptsView: public Kross::ActionCollectionView
 public:
     explicit ScriptsView(QWidget* parent);
 
-// public slots:
+// public Q_SLOTS:
 //     void addScsetText(const QString&);
 
     void dragEnterEvent(QDragEnterEvent* event) override;
