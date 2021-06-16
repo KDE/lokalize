@@ -207,14 +207,14 @@ ecm_add_app_icon(lokalize_SRCS ICONS ${ICONS_SRCS})
 add_executable(lokalize ${lokalize_SRCS})
 target_link_libraries(lokalize liblokalize)
 
-install(TARGETS lokalize ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install(TARGETS lokalize ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 
 ########### install files ###############
 
-install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES prefs/lokalize.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
-install( FILES lokalize.notifyrc DESTINATION  ${KNOTIFYRC_INSTALL_DIR} )
+install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
+install( FILES prefs/lokalize.kcfg  DESTINATION  ${KDE_INSTALL_KCFGDIR} )
+install( FILES lokalize.notifyrc DESTINATION  ${KDE_INSTALL_KNOTIFY5RCDIR} )
 
 ecm_qt_install_logging_categories(
         EXPORT LOKALIZE
@@ -230,7 +230,7 @@ install( FILES
         project/projectmanagerui.rc
         tm/translationmemoryrui.rc
         filesearch/filesearchtabui.rc
-        DESTINATION  ${KXMLGUI_INSTALL_DIR}/lokalize )
+        DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/lokalize )
 
 if(BUILD_TESTING)
     add_subdirectory(tests)

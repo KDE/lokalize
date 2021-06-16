@@ -61,7 +61,7 @@ ecm_install_icons(ICONS
     32-actions-transsearch.png
     48-actions-approved.png
     sc-actions-approved.svgz
-    DESTINATION ${DATA_INSTALL_DIR}/lokalize/icons
+    DESTINATION ${KDE_INSTALL_DATADIR}/lokalize/icons
     THEME hicolor
 )
 ecm_install_icons(ICONS
@@ -103,6 +103,6 @@ ecm_install_icons(ICONS
     32-actions-prevuntranslated.png
     32-actions-search2msgstr.png
     32-actions-transsearch.png
-    DESTINATION ${DATA_INSTALL_DIR}/lokalize/icons
+    DESTINATION ${KDE_INSTALL_DATADIR}/lokalize/icons
     THEME locolor
 )
