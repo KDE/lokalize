@@ -28,8 +28,6 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/filesearch
     ${CMAKE_CURRENT_SOURCE_DIR}/mergemode
     ${CMAKE_CURRENT_SOURCE_DIR}/languagetool
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 configure_file(version.h.cmake

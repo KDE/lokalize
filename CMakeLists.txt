@@ -37,10 +37,6 @@ set_package_properties(
     TYPE        REQUIRED 
     PURPOSE     "Required to build Lokalize.")
 
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR}) 
-
-
-
 add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(scripts)
