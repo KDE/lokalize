@@ -417,7 +417,8 @@ void ProjectWidget::recursiveAdd(QStringList& list, const QModelIndex& idx) cons
 QStringList ProjectWidget::selectedItems() const
 {
     QStringList list;
-    foreach (const QModelIndex& item, selectedIndexes()) {
+    const auto items = selectedIndexes();
+    for (const QModelIndex& item : items) {
         if (item.column() == 0)
             recursiveAdd(list, m_proxyModel->mapToSource(item));
     }

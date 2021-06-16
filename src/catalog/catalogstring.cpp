@@ -302,7 +302,8 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
             //try to match by position
             //we're _taking_ first so the next one becomes new 'first' for the next time.
             QList<InlineTag> possibleRefMatches;
-            foreach (int i, tagType2tagIndex.values(targetTag.type))
+            const auto indexes = tagType2tagIndex.values(targetTag.type);
+            for (int i : indexes)
                 possibleRefMatches << ref.tags.at(i);
             std::sort(possibleRefMatches.begin(), possibleRefMatches.end());
             qCWarning(LOKALIZE_LOG) << "setting id:" << targetTag.id << possibleRefMatches.first().id;
@@ -316,7 +317,7 @@ void adaptCatalogString(CatalogString& target, const CatalogString& ref)
     }
     //qCWarning(LOKALIZE_LOG) << "HERE 1" << target.string;
     //now walk through unmatched tags and properly remove them.
-    foreach (const InlineTag& tag, oldTags) {
+    for (const InlineTag& tag : qAsConst(oldTags)) {
         if (tag.isPaired())
             target.remove(tag.end, 1);
         target.remove(tag.start, 1);

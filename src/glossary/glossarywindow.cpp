@@ -350,8 +350,8 @@ void GlossaryWindow::showEntryInEditor(const QByteArray& id)
     Glossary* glossary = project->glossary();
     m_subjectField->setCurrentItem(glossary->subjectField(id),/*insert*/true);
 
-    QStringList langsToTry = QStringList(m_defLang) << QStringLiteral("en") << QStringLiteral("en_US") << project->targetLangCode();
-    foreach (const QString& lang, langsToTry) {
+    const QStringList langsToTry = QStringList(m_defLang) << QStringLiteral("en") << QStringLiteral("en_US") << project->targetLangCode();
+    for (const QString& lang : langsToTry) {
         QString d = glossary->definition(m_id, lang);
         if (!d.isEmpty()) {
             if (m_defLang != lang)
@@ -553,7 +553,8 @@ void TermListView::addTerm()
 
 void TermListView::rmTerms()
 {
-    foreach (const QModelIndex& row, selectionModel()->selectedRows())
+    const auto rows = selectionModel()->selectedRows();
+    for (const QModelIndex& row : rows)
         model()->removeRow(row.row());
 }
 

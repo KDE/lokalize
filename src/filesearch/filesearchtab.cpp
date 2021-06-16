@@ -128,9 +128,10 @@ void SearchFileListView::addFiles(const QStringList& files)
 
     //ensure unquiness, sorting the list along the way
     QMap<QString, bool> map;
-    foreach (const QString& filepath, m_model->stringList())
+    const auto filepaths = m_model->stringList();
+    for (const QString& filepath : filepaths)
         map[filepath] = true;
-    foreach (const QString& filepath, files)
+    for (const QString& filepath : files)
         map[filepath] = true;
 
     m_model->setStringList(map.keys());
@@ -204,7 +205,7 @@ void SearchJob::run()
                                && !searchParams.sourcePattern.pattern().contains(QLatin1Char('&'));
     bool removeAmpFromTarget = searchParams.targetPattern.patternSyntax() == QRegExp::FixedString
                                && !searchParams.targetPattern.pattern().contains(QLatin1Char('&'));
-    foreach (const QString& filePath, files) {
+    for (const QString& filePath : qAsConst(files)) {
         Catalog catalog(nullptr);
         if (Q_UNLIKELY(catalog.loadFromUrl(filePath, QString(), &m_size, true) != 0))
             continue;
@@ -281,12 +282,14 @@ void MassReplaceJob::run()
     for (int i = 0; i < searchResults.count(); ++i)
         map.insertMulti(searchResults.at(i).filepath, i);
 
-    foreach (const QString& filepath, map.keys()) {
+    const auto filepaths = map.keys();
+    for (const QString& filepath : filepaths) {
         Catalog catalog(QThread::currentThread());
         if (catalog.loadFromUrl(filepath, QString()) != 0)
             continue;
 
-        foreach (int index, map.values(filepath)) {
+        const auto indexes = map.values(filepath);
+        for (int index : indexes) {
             SearchResult& sr = searchResults[index];
             DocPosition docPos = sr.docPos.toDocPosition();
             if (catalog.target(docPos) != sr.target) {

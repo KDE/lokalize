@@ -97,7 +97,8 @@ void QaView::addRule()
 
 void QaView::removeRule()
 {
-    foreach (const QModelIndex& rowIndex, m_browser->selectionModel()->selectedRows())
+    const auto selectedRows = m_browser->selectionModel()->selectedRows();
+    for (const QModelIndex& rowIndex : selectedRows)
         m_qaModel->removeRow(rowIndex);
 }
 

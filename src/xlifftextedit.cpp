@@ -568,7 +568,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             id2tagIndex.insert(sourceForReferencing.tags.at(i).id, i);
 
         //remove markup that is already in target, to avoid duplicates if the string being inserted contains it as well
-        foreach (const InlineTag& tag, target.tags) {
+        for (const InlineTag& tag : target.tags) {
             if (id2tagIndex.contains(tag.id))
                 sourceForReferencing.tags[id2tagIndex.value(tag.id)].id = REMOVEME;
         }

@@ -332,9 +332,9 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     QVector<Note> result;
     QString content;
 
-    QStringList note = m_entries.at(docPosition.entry).comment().split('\n').filter(re);
+    const QStringList note = m_entries.at(docPosition.entry).comment().split('\n').filter(re);
 
-    foreach (const QString &s, note) {
+    for (const QString &s : note) {
         if (s.size() >= preLen) {
             content += s.midRef(preLen);
             content += QLatin1Char('\n');
@@ -369,16 +369,20 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     QStringList commentLines = m_entries.at(pos.entry).comment().split('\n');
 
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
-    foreach (const QString &uiLine, commentLines.filter(i18n_file_re)) {
-        foreach (const QStringRef &fileRef, uiLine.midRef(15).split(' ')) {
+    const auto uiLines = commentLines.filter(i18n_file_re);
+    for (const QString &uiLine : uiLines) {
+        const auto fileRefs = uiLine.midRef(15).split(' ');
+        for (const QStringRef &fileRef : fileRefs) {
             result << fileRef.toString();
         }
     }
 
     bool hasUi = !result.isEmpty();
     static const QRegExp cpp_re(QStringLiteral("^#: "));
-    foreach (const QString &cppLine, commentLines.filter(cpp_re)) {
-        foreach (const QStringRef &fileRef, cppLine.midRef(3).split(' ')) {
+    const auto cppLines = commentLines.filter(cpp_re);
+    for (const QString &cppLine : cppLines) {
+        const auto fileRefs = cppLine.midRef(3).split(' ');
+        for (const QStringRef &fileRef : fileRefs) {
             if (hasUi && fileRef.startsWith(QLatin1String("rc.cpp:"))) {
                 continue;
             }

@@ -267,7 +267,8 @@ void PhasesWindow::handleResult()
     m_catalog->beginMacro(i18nc("@item Undo action item", "Edit phases"));
 
     Phase last;
-    foreach (const Phase& phase, m_model->addedPhases())
+    const auto addedPhases = m_model->addedPhases();
+    for (const Phase& phase : addedPhases)
         static_cast<QUndoStack*>(m_catalog)->push(new UpdatePhaseCmd(m_catalog, last = phase));
     Project::instance()->local()->setRole(roleForProcess(last.process));
     m_catalog->setActivePhase(last.name, roleForProcess(last.process));

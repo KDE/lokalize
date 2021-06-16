@@ -133,7 +133,7 @@ int displayNotes(QTextBrowser* browser, const QVector< Note >& notes, int active
     if (!notes.isEmpty()) {
         t.insertHtml(i18nc("@info XLIFF notes representation", "<b>Notes:</b>") + BR);
         int i = 0;
-        foreach (const Note& note, notes) {
+        for (const Note& note : notes) {
             if (!note.from.isEmpty())
                 t.insertHtml(QStringLiteral("<i>") + note.from + QStringLiteral(":</i> "));
 

@@ -204,7 +204,8 @@ void ScriptsView::dragEnterEvent(QDragEnterEvent* event)
 void ScriptsView::dropEvent(QDropEvent* event)
 {
     Kross::ActionCollectionModel* scriptsModel = static_cast<Kross::ActionCollectionModel*>(model());
-    foreach (const QUrl& url, event->mimeData()->urls())
+    const auto urls = event->mimeData()->urls();
+    for (const QUrl& url : urls)
         if (url.path().endsWith(QLatin1String(".rc")))
             scriptsModel->rootCollection()->readXmlFile(url.path());
 }

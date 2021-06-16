@@ -209,14 +209,14 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
 
     //maintain one-to-one relation
     const QList<int>& mergePositions = backMap.uniqueKeys();
-    foreach (int mergePosition, mergePositions) {
+    for (int mergePosition : mergePositions) {
         const QList<int>& basePositions = backMap.values(mergePosition);
         if (basePositions.size() == 1)
             continue;
 
         //qCDebug(LOKALIZE_LOG)<<"kv"<<mergePosition<<basePositions;
         QList<MatchItem> scores;
-        foreach (int value, basePositions)
+        for (int value : basePositions)
             scores << calcMatchItem(DocPosition(value), mergePosition);
 
         std::sort(scores.begin(), scores.end(), std::greater<MatchItem>());
@@ -290,8 +290,8 @@ void MergeCatalog::copyToBaseCatalog(int options)
     DocPosition pos;
     pos.offset = 0;
     bool insHappened = false;
-    QLinkedList<int> changed = differentEntries();
-    foreach (int entry, changed) {
+    const QLinkedList<int> changed = differentEntries();
+    for (int entry : changed) {
         pos.entry = entry;
         if (options & EmptyOnly && !m_baseCatalog->isEmpty(entry))
             continue;

@@ -58,7 +58,7 @@ FlowLayout::FlowLayout(User user,
     setSpacing(spacing);
 
     if (user == glossary) {
-        foreach (QAction* action, actions) {
+        for (QAction* action : actions) {
             TermLabel* label = new TermLabel(action); /*this,m_keys.at(count())*/
             connect(action, &QAction::triggered, label, &GlossaryNS::TermLabel::insert);
             connect(label, &GlossaryNS::TermLabel::insertTerm, (GlossaryNS::GlossaryView*)m_receiver, &GlossaryNS::GlossaryView::termInsertRequested);
@@ -148,7 +148,7 @@ QSize FlowLayout::sizeHint() const
 QSize FlowLayout::minimumSize() const
 {
     QSize size;
-    foreach (QLayoutItem* item, itemList)
+    for (QLayoutItem* item : itemList)
         size = size.expandedTo(item->minimumSize());
 
     size += QSize(2 * margin(), 2 * margin());
@@ -161,7 +161,7 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int y = rect.y();
     int lineHeight = 0;
 
-    foreach (QLayoutItem* item, itemList) {
+    for (QLayoutItem* item : itemList) {
         int nextX = x + item->sizeHint().width() + spacing();
         if (nextX - spacing() > rect.right() && lineHeight > 0) {
             x = rect.x();
@@ -182,7 +182,7 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 void FlowLayout::clearTerms()
 {
     setEnabled(false);
-    foreach (QLayoutItem* item, itemList)
+    for (QLayoutItem* item : qAsConst(itemList))
         static_cast<TermLabel*>(item->widget())->hide();
     m_index = 0;
     setEnabled(true);

@@ -112,7 +112,8 @@ int main(int argc, char **argv)
         QString projectFilePath = parser.value(QStringLiteral("project"));
 
         QVector<QString> urls;
-        Q_FOREACH (const QString& filePath, parser.positionalArguments())
+        const auto filePaths = parser.positionalArguments();
+        for (const QString& filePath : filePaths)
             if (filePath.endsWith(QLatin1String(".lokalize")))
                 projectFilePath = filePath;
             else if (QFileInfo::exists(filePath))

@@ -95,7 +95,7 @@ inline
 QStringList LCSprinter::operator()()
 {
     QStringList result;
-    foreach (const QString& str, resultString)
+    for (const QString& str : qAsConst(resultString))
         result << str;
 
     return result;

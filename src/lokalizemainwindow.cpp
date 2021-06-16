@@ -583,7 +583,8 @@ bool LokalizeMainWindow::closeProject()
     KConfigGroup emptyGroup; //don't save which project to reopen
     saveProjectState(emptyGroup);
     //close files from previous project
-    foreach (QMdiSubWindow* subwindow, m_mdiArea->subWindowList()) {
+    const auto subwindows = m_mdiArea->subWindowList();
+    for (QMdiSubWindow* subwindow : subwindows) {
         if (subwindow == m_translationMemorySubWindow && m_translationMemorySubWindow)
             subwindow->deleteLater();
         else if (qobject_cast<EditorTab*>(subwindow->widget())) {
@@ -850,11 +851,13 @@ void ProjectScriptingPlugin::doAutoruns()
 {
     Kross::ActionCollection* collection = Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
     if (!collection) return;
-    foreach (const QString &collectionname, collection->collections()) {
+    const auto collections = collection->collections();
+    for (const QString &collectionname : collections) {
         Kross::ActionCollection* c = collection->collection(collectionname);
         if (!c->isEnabled()) continue;
 
-        foreach (Kross::Action* action, c->actions()) {
+        const auto actions = c->actions();
+        for (Kross::Action* action : actions) {
             if (action->property("autorun").toBool())
                 action->trigger();
             if (action->property("first-run").toBool() && Project::local()->firstRun())
@@ -871,7 +874,8 @@ ProjectScriptingPlugin::~ProjectScriptingPlugin()
     QString scriptsrc = PROJECTRCFILE;
     QDir rcdir(PROJECTRCFILEDIR);
     qCDebug(LOKALIZE_LOG) << rcdir.entryList(QStringList("*.rc"), QDir::Files);
-    foreach (const QString& rc, QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"), QDir::Files))
+    const auto rcs = QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"), QDir::Files);
+    for (const QString& rc : rcs)
         if (rc != scriptsrc)
             qCWarning(LOKALIZE_LOG) << rc << collection->readXmlFile(rcdir.absoluteFilePath(rc));
 }

@@ -233,7 +233,8 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         return m_catalog->msgstrWithPlurals(index.row(), true);
     case CatalogModelColumns::Notes: {
         QString result;
-        foreach (const Note &note, m_catalog->notes(index.row()))
+        const auto notes = m_catalog->notes(index.row());
+        for (const Note &note : notes)
             result += note.content;
         return result;
     }

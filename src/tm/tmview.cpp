@@ -198,7 +198,8 @@ void TMView::dragEnterEvent(QDragEnterEvent* event)
 void TMView::dropEvent(QDropEvent *event)
 {
     QStringList files;
-    foreach (const QUrl& url, event->mimeData()->urls())
+    const auto urls = event->mimeData()->urls();
+    for (const QUrl& url : urls)
         files.append(url.toLocalFile());
     if (scanRecursive(files, Project::instance()->projectID()))
         event->acceptProposedAction();

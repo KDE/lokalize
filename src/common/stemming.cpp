@@ -111,7 +111,7 @@ QString stem(const QString& langCode, const QString& word)
 void cleanupSpellers()
 {
 #ifdef HAVE_HUNSPELL
-    foreach (const SpellerAndCodec& sc, hunspellers)
+    for (const SpellerAndCodec& sc : qAsConst(hunspellers))
         delete sc.speller;
 
 #endif

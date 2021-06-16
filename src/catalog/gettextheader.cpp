@@ -642,7 +642,7 @@ void updateHeader(QString& header,
             foundAuthors.append(temp);
 
 
-        foreach (QString author, foundAuthors) {
+        for (QString author : qAsConst(foundAuthors)) {
             // ensure dot at the end of copyright
             if (!author.endsWith(QLatin1Char('.'))) author += QLatin1Char('.');
             commentList.append(author);

@@ -56,7 +56,7 @@ RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
 bool RecursiveScanJob::doKill()
 {
 #if QT_VERSION >= 0x050500
-    foreach (ScanJob* job, m_jobs)
+    for (ScanJob* job : qAsConst(m_jobs))
         TM::threadPool()->tryTake(job);
 #endif
     return true;

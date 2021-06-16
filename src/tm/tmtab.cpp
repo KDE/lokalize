@@ -327,13 +327,13 @@ QVariant TMResultsSortFilterProxyModel::data(const QModelIndex& index, int role)
     int source_row = mapToSource(index).row();
     QString string = result.toString();
 
-    QVector<QRegExp> regExps;
-    if (index.column() == TMDBModel::Source)
-        regExps = m_rules[m_matchingRulesForSourceRow[source_row]].sources;
-    else
-        regExps = m_rules[m_matchingRulesForSourceRow[source_row]].falseFriends;
+    const QVector<QRegExp> regExps =
+        (index.column() == TMDBModel::Source) ?
+            m_rules[m_matchingRulesForSourceRow[source_row]].sources
+        :
+            m_rules[m_matchingRulesForSourceRow[source_row]].falseFriends;
 
-    foreach (const QRegExp& re, regExps) {
+    for (const QRegExp& re : regExps) {
         int pos = re.indexIn(string);
         if (pos != -1)
             return string.replace(pos, re.matchedLength(), QStringLiteral("<b>") + re.cap(0) + QStringLiteral("</b>"));
@@ -725,7 +725,8 @@ void TMTab::dragEnterEvent(QDragEnterEvent* event)
 void TMTab::dropEvent(QDropEvent *event)
 {
     QStringList files;
-    foreach (const QUrl& url, event->mimeData()->urls())
+    const auto urls = event->mimeData()->urls();
+    for (const QUrl& url : urls)
         files.append(url.toLocalFile());
 
     if (scanRecursive(files, Project::instance()->projectID()))

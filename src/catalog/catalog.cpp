@@ -299,7 +299,7 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
     if (m_storage)
         result = m_storage->altTrans(pos);
 
-    foreach (Catalog* altCat, d._altTransCatalogs) {
+    for (Catalog* altCat : d._altTransCatalogs) {
         if (pos.entry >= altCat->numberOfEntries()) {
             qCDebug(LOKALIZE_LOG) << "ignoring" << altCat->url() << "this time because" << pos.entry << "<" << altCat->numberOfEntries();
             continue;
@@ -538,8 +538,8 @@ void Catalog::setTargetLangCode(const QString& targetLangCode)
 KAutoSaveFile* Catalog::checkAutoSave(const QString& url)
 {
     KAutoSaveFile* autoSave = nullptr;
-    QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
-    foreach (KAutoSaveFile *stale, staleFiles) {
+    const QList<KAutoSaveFile*> staleFiles = KAutoSaveFile::staleFiles(QUrl::fromLocalFile(url));
+    for (KAutoSaveFile *stale : staleFiles) {
         if (stale->open(QIODevice::ReadOnly) && !autoSave) {
             autoSave = stale;
             autoSave->setParent(this);
@@ -975,7 +975,7 @@ bool Catalog::isModified(int entry) const
 int findNextInList(const QLinkedList<int>& list, int index)
 {
     int nextIndex = -1;
-    foreach (int key, list) {
+    for (int key : list) {
         if (Q_UNLIKELY(key > index)) {
             nextIndex = key;
             break;
@@ -987,7 +987,7 @@ int findNextInList(const QLinkedList<int>& list, int index)
 int findPrevInList(const QLinkedList<int>& list, int index)
 {
     int prevIndex = -1;
-    foreach (int key, list) {
+    for (int key : list) {
         if (Q_UNLIKELY(key >= index))
             break;
         prevIndex = key;

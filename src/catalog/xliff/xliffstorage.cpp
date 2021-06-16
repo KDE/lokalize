@@ -872,7 +872,7 @@ QVector<Note> XliffStorage::setPhaseNotes(const QString& phasename, QVector<Note
     QDomElement phasegroup;
     QDomElement phaseElem = phaseElement(m_doc, phasename, phasegroup);
 
-    foreach (const Note& note, notes) {
+    for (const Note& note : qAsConst(notes)) {
         QDomElement elem = phaseElem.appendChild(m_doc.createElement(NOTE)).toElement();
         elem.appendChild(m_doc.createTextNode(note.content));
         if (!note.from.isEmpty()) elem.setAttribute(QStringLiteral("from"), note.from);

@@ -295,7 +295,7 @@ QByteArray Glossary::generateNewId()
     QRegExp rx('^' + authorId + QStringLiteral("\\-([0-9]*)$"));
 
 
-    foreach (const QByteArray& id, m_idsForEntriesById) {
+    for (const QByteArray& id : qAsConst(m_idsForEntriesById)) {
         if (rx.exactMatch(QString::fromLatin1(id)))
             busyIdNumbers.append(rx.cap(1).toInt());
     }
@@ -318,7 +318,7 @@ QByteArray Glossary::generateNewId()
 QStringList Glossary::subjectFields() const
 {
     QSet<QString> result;
-    foreach (const QByteArray& id, m_idsForEntriesById)
+    for (const QByteArray& id : m_idsForEntriesById)
         result.insert(subjectField(id));
     return result.values();
 }
@@ -572,8 +572,10 @@ void Glossary::hashTermEntry(const QDomElement& termEntry)
     m_entriesById.insert(entryId, termEntry);
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
-    foreach (const QString& termText, terms(entryId, sourceLangCode)) {
-        foreach (const QString& word, termText.split(' ', Qt::SkipEmptyParts))
+    const auto termTexts = terms(entryId, sourceLangCode);
+    for (const QString& termText : termTexts) {
+        const auto words = termText.split(' ', Qt::SkipEmptyParts);
+        for (const QString& word : words)
             idsByLangWord[sourceLangCode].insert(stem(sourceLangCode, word), entryId);
     }
 }
@@ -584,8 +586,10 @@ void Glossary::unhashTermEntry(const QDomElement& termEntry)
     m_entriesById.remove(entryId);
 
     QString sourceLangCode = Project::instance()->sourceLangCode();
-    foreach (const QString& termText, terms(entryId, sourceLangCode)) {
-        foreach (const QString& word, termText.split(' ', Qt::SkipEmptyParts))
+    const auto termTexts = terms(entryId, sourceLangCode);
+    for (const QString& termText : termTexts) {
+        const auto words = termText.split(' ', Qt::SkipEmptyParts);
+        for (const QString& word : words)
             idsByLangWord[sourceLangCode].remove(stem(sourceLangCode, word), entryId);
     }
 }
@@ -658,12 +662,12 @@ QByteArray Glossary::append(const QStringList& sourceTerms, const QStringList& t
 
     QDomElement sourceElem = m_doc.createElement(langSet); termEntry.appendChild(sourceElem);
     sourceElem.setAttribute(xmlLang, Project::instance()->sourceLangCode().replace('_', '-'));
-    foreach (QString sourceTerm, sourceTerms)
+    for (const QString &sourceTerm : sourceTerms)
         appendTerm(sourceElem, sourceTerm);
 
     QDomElement targetElem = m_doc.createElement(langSet); termEntry.appendChild(targetElem);
     targetElem.setAttribute(xmlLang, Project::instance()->targetLangCode().replace('_', '-'));
-    foreach (QString targetTerm, targetTerms)
+    for (const QString &targetTerm : targetTerms)
         appendTerm(targetElem, targetTerm);
 
     hashTermEntry(termEntry);
