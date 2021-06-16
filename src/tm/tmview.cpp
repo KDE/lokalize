@@ -458,7 +458,7 @@ void TMView::slotSuggestionsCame(SelectJob* j)
     QTextCharFormat noncloseMatchCharFormat;
     QTextCharFormat closeMatchCharFormat;
     closeMatchCharFormat.setFontWeight(QFont::Bold);
-    forever {
+    while (true) {
         QTextCursor cur = m_browser->textCursor();
         QString html;
         html.reserve(1024);

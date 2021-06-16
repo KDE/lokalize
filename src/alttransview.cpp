@@ -183,7 +183,7 @@ void AltTransView::process()
     QTextCharFormat closeMatchCharFormat;  closeMatchCharFormat.setFontWeight(QFont::Bold);
     int i = 0;
     int limit = entries.size();
-    forever {
+    while (true) {
         const AltTrans& entry = entries.at(i);
 
         QTextCursor cur = m_browser->textCursor();
