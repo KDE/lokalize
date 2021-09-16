@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of KAider
   This file contains parts of KBabel code
 
@@ -17,7 +17,7 @@
   your version of the file, but you are not obligated to do so.  If
   you do not wish to do so, delete this exception statement from
   your version.
-**************************************************************************** */
+*/
 #ifndef CATALOGFILEPLUGIN_H
 #define CATALOGFILEPLUGIN_H
 

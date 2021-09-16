@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is based on the one from KBabel
 
   SPDX-FileCopyrightText: 1999-2000 Matthias Kiefer <matthias.kiefer@gmx.de>
@@ -20,7 +20,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #include "catalogitem.h"
 

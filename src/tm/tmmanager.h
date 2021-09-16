@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of Lokalize
 
   SPDX-FileCopyrightText: 2007-2011 Nick Shaforostoff <shafff@ukr.net>
@@ -17,7 +17,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #ifndef TMMANAGER_H
 #define TMMANAGER_H

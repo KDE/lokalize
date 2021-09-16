@@ -17,7 +17,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #ifndef MYACTIONCOLLECTIONVIEW_H
 #define MYACTIONCOLLECTIONVIEW_H

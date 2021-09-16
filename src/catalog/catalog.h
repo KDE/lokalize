@@ -20,7 +20,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #ifndef CATALOG_H
 #define CATALOG_H

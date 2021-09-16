@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of Lokalize (some bits of KBabel code were reused)
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
@@ -19,7 +19,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #include "editorview.h"
 

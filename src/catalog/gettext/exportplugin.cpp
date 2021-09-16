@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of KAider
   This file is based on the one from KBabel
 
@@ -19,7 +19,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #include "catalogfileplugin.h"
 

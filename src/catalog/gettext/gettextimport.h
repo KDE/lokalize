@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of Lokalize
   This file is based on the one from KBabel
 
@@ -18,7 +18,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 #ifndef GETTEXTIMPORTPLUGIN_H
 #define GETTEXTIMPORTPLUGIN_H
 

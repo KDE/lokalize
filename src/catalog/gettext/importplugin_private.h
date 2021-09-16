@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of Lokalize
   This file contains parts of KBabel code
 
@@ -18,7 +18,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 #ifndef IMPORTPLUGINPRIVATE_H
 #define IMPORTPLUGINPRIVATE_H
 

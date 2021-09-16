@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of Lokalize
 
   SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shafff@ukr.net>
@@ -6,7 +6,7 @@
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-**************************************************************************** */
+*/
 
 #ifndef ACTIONPROXY_H
 #define ACTIONPROXY_H

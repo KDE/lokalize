@@ -1,4 +1,4 @@
-/* ****************************************************************************
+/*
   This file is part of KAider
 
   SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
@@ -18,7 +18,7 @@
   you do not wish to do so, delete this exception statement from
   your version.
 
-**************************************************************************** */
+*/
 
 #include "flowlayout.h"
 
