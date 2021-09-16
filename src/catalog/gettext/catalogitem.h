@@ -6,7 +6,7 @@
   SPDX-FileCopyrightText: 2002-2003 Stanislav Visnovsky <visnovsky@kde.org>
   SPDX-FileCopyrightText: 2006 Nicolas GOUTTE <goutte@kde.org>
   SPDX-FileCopyrightText: 2007-2011 Nick Shaforostoff <shafff@ukr.net>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-or-later
 

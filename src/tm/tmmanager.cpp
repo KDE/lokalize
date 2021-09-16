@@ -2,7 +2,7 @@
   This file is part of Lokalize
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-or-later
 

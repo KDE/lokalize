@@ -3,7 +3,7 @@
   This file contains parts of KBabel code
 
   SPDX-FileCopyrightText: 1999-2000 Matthias Kiefer <matthias.kiefer@gmx.de>
-        2001-2002 by Stanislav Visnovsky <visnovsky@kde.org>
+  SPDX-FileCopyrightText: 2001-2002 Stanislav Visnovsky <visnovsky@kde.org>
   SPDX-FileCopyrightText: 2005, 2006 Nicolas GOUTTE <goutte@kde.org>
 
   SPDX-License-Identifier: GPL-2.0-or-later

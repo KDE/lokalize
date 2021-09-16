@@ -3,8 +3,8 @@
   This file is based on the one from KBabel
 
   SPDX-FileCopyrightText: 2002-2003 Stanislav Visnovsky <visnovsky@kde.org>
-                2007-2014 by Nick Shaforostoff <shafff@ukr.net>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
 
   SPDX-License-Identifier: GPL-2.0-or-later

@@ -3,10 +3,10 @@
   This file is based on the one from KBabel
 
   SPDX-FileCopyrightText: 1999-2000 Matthias Kiefer <matthias.kiefer@gmx.de>
-                2001-2003 by Stanislav Visnovsky <visnovsky@kde.org>
-                2006 by Nicolas GOUTTE <nicolasg@snafu.de>
-                2007 by Nick Shaforostoff <shafff@ukr.net>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2001-2003 Stanislav Visnovsky <visnovsky@kde.org>
+  SPDX-FileCopyrightText: 2006 Nicolas GOUTTE <nicolasg@snafu.de>
+  SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-or-later
 

@@ -4,7 +4,7 @@
     SPDX-FileCopyrightText: 2007 Montel Laurent <montel@kde.org>
     SPDX-FileCopyrightText: 2009 Jos van den Oever <jos@vandenoever.info>
     SPDX-FileCopyrightText: 2014 Nick Shaforostoff <shaforostoff@gmail.com>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
     SPDX-License-Identifier: LGPL-2.1-or-later
 */

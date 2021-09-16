@@ -1,6 +1,6 @@
 /*
 SPDX-FileCopyrightText: 2008-2009 Nick Shaforostoff <shaforostoff@kde.ru>
-                2018-2019 by Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
 
 SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
