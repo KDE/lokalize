@@ -2,7 +2,7 @@
   This file is part of Lokalize
 
   wordDiff algorithm adoption and further refinement:
-        SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
+  SPDX-FileCopyrightText: 2007 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   (based on Markus Stengel's GPL implementation of LCS-Delta algorithm as it is described in "Introduction to Algorithms", MIT Press, 2001, Second Edition, written by Thomas H. Cormen et. al. It uses dynamic programming to solve the Longest Common Subsequence (LCS) problem.)
 

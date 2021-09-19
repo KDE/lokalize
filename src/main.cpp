@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     KLocalizedString::setApplicationDomain("lokalize");
     QCommandLineParser parser;
     KAboutData about(QStringLiteral("lokalize"), i18nc("@title", "Lokalize"), LOKALIZE_VERSION, i18n("Computer-aided translation system.\nDo not translate what had already been translated."),
-                     KAboutLicense::GPL, i18nc("@info:credit", "(c) 2018-2019 Simon Depiets\nSPDX-FileCopyrightText: 2007-2015 Nick Shaforostoff \n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
+                     KAboutLicense::GPL, i18nc("@info:credit", "(c) 2018-2019 Simon Depiets\n(c) 2007-2015 Nick Shaforostoff\n(c) 1999-2006 The KBabel developers") /*, KLocalizedString(), 0, "shafff@ukr.net"*/);
     about.addAuthor(i18n("Nick Shaforostoff"), QString(), QStringLiteral("shaforostoff@gmail.com"));
     about.addCredit(i18n("Google Inc."), i18n("sponsored development as part of Google Summer Of Code program"), QString(), QStringLiteral("https://google.com"));
     about.addCredit(i18n("NLNet Foundation"), i18n("sponsored XLIFF-related work"), QString(), QStringLiteral("https://nlnet.nl/"));
