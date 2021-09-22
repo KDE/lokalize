@@ -226,7 +226,7 @@ when other projects are opened.
 <sect1 id="project-view">
 <title>Project Overview tab</title>
 <para>
-When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab. Project Overview is a file manager view, which helps you keep an overview of your PO files. The &lokalize; suite will help you to translate quickly and also to keep translations consistent. &lokalize; workflow implies that you start with creating/opening a project. The Project Overview tab displays a file tree with statistics with current project, such as percentage of the translated units completed and the last translator. It allows you to open a selected file in a tab of current &lokalize; window.
+When you start &lokalize; first time, you will see an empty <guilabel>Project Overview</guilabel> tab. Project Overview is a file manager view, which helps you keep an overview of your PO files. The &lokalize; suite will help you to translate quickly and also to keep translations consistent. &lokalize; workflow implies that you start with creating/opening a project.
 </para>
 <para>
   To create a new project, use <menuchoice><guimenu>Project</guimenu><guimenuitem>Create new project</guimenuitem></menuchoice>. This will guide through the steps to create a new project. In <guimenu>Project</guimenu> menu you can also find options like <guimenuitem>Project overview</guimenuitem>, <guimenuitem>Configure project</guimenuitem>, <guimenuitem>Open project</guimenuitem>, and <guimenuitem>Open recent project</guimenuitem>.</para>
@@ -246,7 +246,7 @@ When you start &lokalize; first time, you will see an empty <guilabel>Project Ov
 <para>
 The <guilabel>Project Overview</guilabel> tab displays a file tree with statistics for a current project,
 such as the percentage of translated units completed and the last translator.
-It allows you to open a selected file in a new tab of the current &lokalize;, window.
+It allows you to open a selected file in a new tab of the current &lokalize; window.
 </para>
 
 <note>
@@ -268,7 +268,7 @@ It allows you to open a selected file in a new tab of the current &lokalize;, wi
 Have you ever become tired of typing the same long text sequence several times
 just because it would take more time to find its translation for a copy and
 paste? Now you will only have to find the (frequent) word sequence in the
-<guilabel>Glossary View</guilabel>, and then insert it by pressing a shortcut.
+<guilabel>Glossary</guilabel> view, and then insert it by pressing a shortcut.
 </para>
 
 <para>
