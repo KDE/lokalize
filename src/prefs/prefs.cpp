@@ -34,9 +34,6 @@
 #include <KMessageBox>
 #include <KEditListWidget>
 #include <KConfigDialog>
-#include <kross/core/manager.h>
-#include <kross/core/actioncollection.h>
-#include <kross/ui/model.h>
 
 #include <QIcon>
 #include <QBoxLayout>
@@ -68,7 +65,6 @@ SettingsController* SettingsController::instance()
 SettingsController::SettingsController()
     : QObject(Project::instance())
     , dirty(false)
-    , m_projectActionsView(nullptr)
     , m_mainWindowPtr(nullptr)
 {}
 
@@ -172,29 +168,6 @@ void SettingsController::showSettingsDialog()
 
 }
 
-
-
-
-ScriptsView::ScriptsView(QWidget* parent): Kross::ActionCollectionView(parent)
-{
-    setAcceptDrops(true);
-}
-
-void ScriptsView::dragEnterEvent(QDragEnterEvent* event)
-{
-    if (!event->mimeData()->urls().isEmpty() && event->mimeData()->urls().first().path().endsWith(QLatin1String(".rc")))
-        event->accept();
-}
-
-void ScriptsView::dropEvent(QDropEvent* event)
-{
-    Kross::ActionCollectionModel* scriptsModel = static_cast<Kross::ActionCollectionModel*>(model());
-    const auto urls = event->mimeData()->urls();
-    for (const QUrl& url : urls)
-        if (url.path().endsWith(QLatin1String(".rc")))
-            scriptsModel->rootCollection()->readXmlFile(url.path());
-}
-
 bool SettingsController::ensureProjectIsLoaded()
 {
     if (Project::instance()->isLoaded())
@@ -238,12 +211,6 @@ bool SettingsController::projectCreate()
     if (path.isEmpty())
         return false;
 
-    if (m_projectActionsView && m_projectActionsView->model()) {
-        //ActionCollectionModel is known to be have bad for the usecase of reinitializing krossplugin
-        m_projectActionsView->model()->deleteLater();
-        m_projectActionsView->setModel(nullptr);
-    }
-
     //TODO ask-n-save
     QDir projectFolder = QFileInfo(path).absoluteDir();
     QString projectId = projectFolder.dirName();
@@ -261,12 +228,6 @@ void SettingsController::projectConfigure()
     if (Project::instance()->path().isEmpty()) {
         KMessageBox::error(mainWindowPtr(),
                            i18n("Create software or OpenDocument translation project first."));
-        return;
-    }
-
-    if (KConfigDialog::showDialog("project_settings")) {
-        if (!m_projectActionsView->model())
-            m_projectActionsView->setModel(new Kross::ActionCollectionModel(m_projectActionsView, Kross::Manager::self().actionCollection()->collection(Project::instance()->kind())));
         return;
     }
 
@@ -331,20 +292,6 @@ void SettingsController::projectConfigure()
     QVBoxLayout* layout = new QVBoxLayout(w);
     layout->setSpacing(6);
     layout->setContentsMargins(11, 11, 11, 11);
-
-
-    //m_projectActionsEditor=new Kross::ActionCollectionEditor(Kross::Manager::self().actionCollection()->collection(Project::instance()->projectID()),w);
-    m_projectActionsView = new ScriptsView(w);
-    layout->addWidget(m_projectActionsView);
-    m_projectActionsView->setModel(new Kross::ActionCollectionModel(w, Kross::Manager::self().actionCollection()->collection(Project::instance()->kind())));
-
-    QHBoxLayout* btns = new QHBoxLayout();
-    layout->addLayout(btns);
-    btns->addWidget(m_projectActionsView->createButton(w, "edit"));
-
-
-    dialog->addPage(w, i18nc("@title:tab", "Scripts"), "preferences-system-windows-actions");
-
 
     w = new QWidget(dialog);
     Ui_prefs_project_local ui_prefs_project_local;

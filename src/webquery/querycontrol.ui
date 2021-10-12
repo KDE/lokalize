@@ -26,16 +26,11 @@
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="MyActionCollectionView" name="actionzView" />
-   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyActionCollectionView</class>
    <extends>QTreeView</extends>
-   <header>myactioncollectionview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

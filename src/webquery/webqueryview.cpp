@@ -15,13 +15,10 @@
 #include "catalog.h"
 #include "flowlayout.h"
 
-#include "ui_querycontrol.h"
+#include <KLocalizedString>
+#include <QAction>
 
-#include <kross/ui/view.h>
-#include <kross/ui/model.h>
-#include <kross/core/actioncollection.h>
-#include <kross/core/manager.h>
-#include <klocalizedstring.h>
+#include "ui_querycontrol.h"
 
 #include "webquerycontroller.h"
 
@@ -30,11 +27,6 @@
 #include <QSplitter>
 #include <QTextBrowser>
 #include <QTimer>
-
-// #include <QShortcutEvent>
-#include "myactioncollectionview.h"
-
-using namespace Kross;
 
 WebQueryView::WebQueryView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actions)
     : QDockWidget(i18n("Web Queries"), parent)
@@ -67,18 +59,6 @@ WebQueryView::~WebQueryView()
 
 void WebQueryView::initLater()
 {
-    connect(ui_queryControl->queryBtn, &QPushButton::clicked, ui_queryControl->actionzView, &MyActionCollectionView::triggerSelectedActions);
-
-//     connect(this, &WebQueryView::addWebQueryResult, m_flowLayout, SLOT(addWebQueryResult(const QString&)));
-//  ActionCollectionModel::Mode mode(
-//                                      ActionCollectionModel::Icons
-//                                     | ActionCollectionModel::ToolTips | ActionCollectionModel::UserCheckable );*/
-    ActionCollectionModel* m = new ActionCollectionModel(ui_queryControl->actionzView, Manager::self().actionCollection()/*, mode*/);
-    ui_queryControl->actionzView->setModel(m);
-//     m_boxLayout->addWidget(w);
-    ui_queryControl->actionzView->data.webQueryView = this;
-
-
     m_browser->setToolTip(i18nc("@info:tooltip", "Double-click any word to insert it into translation"));
 
 
@@ -121,12 +101,6 @@ void WebQueryView::slotNewEntryDisplayed(const DocPosition& pos)
     //m_flowLayout->clearWebQueryResult();
     m_browser->clear();
     m_suggestions.clear();
-
-    ui_queryControl->actionzView->data.msg = m_catalog->msgid(pos);
-    //TODO pass DocPosition also, as tmview does
-
-    if (ui_queryControl->autoQuery->isChecked())
-        ui_queryControl->actionzView->triggerSelectedActions();
 }
 
 void WebQueryView::slotUseSuggestion(int i)

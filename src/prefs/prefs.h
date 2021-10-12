@@ -13,11 +13,6 @@
 #include <QLineEdit>
 class KEditListWidget;
 
-namespace Kross
-{
-class ActionCollectionView;
-}
-
 /**
  * Singleton that manages cfgs for Lokalize and projects
  */
@@ -58,7 +53,6 @@ Q_SIGNALS:
 private:
     KEditListWidget* m_scriptsRelPrefWidget; //HACK to get relative filenames in the project file
     KEditListWidget* m_scriptsPrefWidget;
-    Kross::ActionCollectionView* m_projectActionsView;
     QWidget* m_mainWindowPtr;
 
 private:
@@ -93,21 +87,6 @@ public:
     explicit LangCodeSaver(QWidget* p): QLineEdit(p) {}
 public Q_SLOTS:
     void setLangCode(int);
-};
-
-#include <kross/ui/view.h>
-class ScriptsView: public Kross::ActionCollectionView
-{
-    Q_OBJECT
-public:
-    explicit ScriptsView(QWidget* parent);
-
-// public Q_SLOTS:
-//     void addScsetText(const QString&);
-
-    void dragEnterEvent(QDragEnterEvent* event) override;
-    void dropEvent(QDropEvent* event) override;
-
 };
 
 void writeUiState(const char* elementName, const QByteArray&);

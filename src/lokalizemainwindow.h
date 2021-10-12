@@ -29,7 +29,6 @@ class LokalizeMdiArea;
 class KRecentFilesAction;
 class EditorTab;
 class MultiEditorAdaptor;
-class ProjectScriptingPlugin;
 class FileSearchTab;
 namespace TM
 {
@@ -71,7 +70,6 @@ private Q_SLOTS:
     void applyToBeActiveSubWindow();
     void projectLoaded();
     void projectSettingsChanged();
-    void loadProjectScripts();
 
     void editorClosed(QObject* obj);
     void resetMultiEditorAdaptor();
@@ -161,7 +159,6 @@ private:
     //used for kross API
     EditorTab* m_spareEditor;
     MultiEditorAdaptor* m_multiEditorAdaptor;
-    ProjectScriptingPlugin* m_projectScriptingPlugin;
 
     //using QPointer switches it.value() to 0 before we get to destroyed() handler
     //typedef QMap<QUrl, QPointer<QMdiSubWindow> > FileToEditor;
@@ -176,21 +173,6 @@ public Q_SLOTS:
     void activateNextSubWindow();
     void activatePreviousSubWindow();
 };
-
-#include <kross/ui/plugin.h>
-
-class ProjectScriptingPlugin: public Kross::ScriptingPlugin
-{
-    Q_OBJECT
-public:
-    ProjectScriptingPlugin(QObject* lokalize, QObject* editor);
-    ~ProjectScriptingPlugin();
-    void setDOMDocument(const QDomDocument &document, bool merge = false) override;
-
-private Q_SLOTS:
-    void doAutoruns();
-};
-
 
 class DelayedFileOpener: public QObject
 {

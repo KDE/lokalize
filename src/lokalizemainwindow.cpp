@@ -39,10 +39,10 @@
 #include <KStandardShortcut>
 #include <KRecentFilesAction>
 #include <KXMLGUIFactory>
-#include <kross/core/action.h>
 
 
 #include <QMenu>
+#include <QTabBar>
 #include <QActionGroup>
 #include <QMdiSubWindow>
 #include <QMdiArea>
@@ -64,7 +64,6 @@ LokalizeMainWindow::LokalizeMainWindow()
     , m_managerActions(new QActionGroup(this))
     , m_spareEditor(new EditorTab(this, false))
     , m_multiEditorAdaptor(new MultiEditorAdaptor(m_spareEditor))
-    , m_projectScriptingPlugin(nullptr)
 {
     m_spareEditor->hide();
     m_mdiArea->setViewMode(QMdiArea::TabbedView);
@@ -164,22 +163,6 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
             EditorState state = w->state();
             m_lastEditorState = state.dockWidgets.toBase64();
         }
-        /*
-
-        QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
-        QList<QAction*> actionz=projectActions->actions();
-
-        int i=actionz.size();
-        //projectActions->menuAction()->setVisible(i);
-        //qCWarning(LOKALIZE_LOG)<<"adding object"<<actionz.at(0);
-        while(--i>=0)
-        {
-            disconnect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
-            //static_cast<Kross::Action*>(actionz.at(i))->addObject(static_cast<EditorWindow*>( editor )->adaptor(),"Editor",Kross::ChildrenInterface::AutoConnectSignals);
-            //static_cast<Kross::Action*>(actionz.at(i))->trigger();
-        }
-        }
-        */
     }
     LokalizeSubwindowBase* editor = static_cast<LokalizeSubwindowBase2*>(w->widget());
 
@@ -192,20 +175,6 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         m_lastEditorState = state.dockWidgets.toBase64();
 
         m_multiEditorAdaptor->setEditorTab(w);
-//         connect(m_multiEditorAdaptor,SIGNAL(srcFileOpenRequested(QString,int)),this,SLOT(showTM()));
-        /*
-                QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
-                QList<QAction*> actionz=projectActions->actions();
-
-                int i=actionz.size();
-                //projectActions->menuAction()->setVisible(i);
-                //qCWarning(LOKALIZE_LOG)<<"adding object"<<actionz.at(0);
-                while(--i>=0)
-                {
-                    connect(w, SIGNAL(signalNewEntryDisplayed()),actionz.at(i),SLOT(signalNewEntryDisplayed()));
-                    //static_cast<Kross::Action*>(actionz.at(i))->addObject(static_cast<EditorWindow*>( editor )->adaptor(),"Editor",Kross::ChildrenInterface::AutoConnectSignals);
-                    //static_cast<Kross::Action*>(actionz.at(i))->trigger();
-                }*/
 
         QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
         if (tw) tw->setTabToolTip(tw->currentIndex(), w->currentFilePath());
@@ -746,8 +715,6 @@ void LokalizeMainWindow::projectLoaded()
     }
 
     projectSettingsChanged();
-
-    QTimer::singleShot(0, this, &LokalizeMainWindow::loadProjectScripts);
 }
 
 void LokalizeMainWindow::projectSettingsChanged()
@@ -767,103 +734,6 @@ void LokalizeMainWindow::widgetTextCapture()
 
 //#include "plugin.h"
 #include "mainwindowadaptor.h"
-#include <kross/core/actioncollection.h>
-#include <kross/core/manager.h>
-
-using namespace Kross;
-
-class MyScriptingPlugin: public Kross::ScriptingPlugin
-{
-public:
-    MyScriptingPlugin(QObject* lokalize, QObject* editor)
-        : Kross::ScriptingPlugin(lokalize)
-    {
-        addObject(lokalize, "Lokalize");
-        addObject(Project::instance(), "Project");
-        addObject(editor, "Editor");
-        setXMLFile("scriptsui.rc", true);
-    }
-    ~MyScriptingPlugin() {}
-};
-
-#define PROJECTRCFILE "scripts.rc"
-#define PROJECTRCFILEDIR  Project::instance()->projectDir()+"/lokalize-scripts"
-#define PROJECTRCFILEPATH Project::instance()->projectDir()+"/lokalize-scripts" "/" PROJECTRCFILE
-//TODO be lazy creating scripts dir
-ProjectScriptingPlugin::ProjectScriptingPlugin(QObject* lokalize, QObject* editor)
-    : Kross::ScriptingPlugin(Project::instance()->kind(),
-                             PROJECTRCFILEPATH,
-                             Project::instance()->kind(), lokalize)
-{
-    if (Project::instance()->projectDir().isEmpty())
-        return;
-
-    QString filepath = PROJECTRCFILEPATH;
-
-    // Remove directory "scripts.rc" if it is empty. It could be
-    // mistakenly created by Lokalize 15.04.x.
-    if (QFileInfo(filepath).isDir() && !QDir().rmdir(filepath)) {
-        qCCritical(LOKALIZE_LOG) << "Failed to remove directory" << filepath <<
-                                 "to create scripting configuration file with at the same path. " <<
-                                 "The directory may be not empty.";
-        return;
-    }
-
-    if (!QFile::exists(filepath)) {
-        QDir().mkdir(QFileInfo(filepath).dir().path());
-        QFile f(filepath);
-        if (!f.open(QIODevice::WriteOnly))
-            return;
-        QTextStream out(&f);
-        out << "<!-- see help for the syntax -->";
-        f.close();
-    }
-
-    //qCWarning(LOKALIZE_LOG)<<Kross::Manager::self().hasInterpreterInfo("python");
-    addObject(lokalize, QLatin1String("Lokalize"), ChildrenInterface::AutoConnectSignals);
-    addObject(Project::instance(), QLatin1String("Project"), ChildrenInterface::AutoConnectSignals);
-    addObject(editor, QLatin1String("Editor"), ChildrenInterface::AutoConnectSignals);
-    setXMLFile(QLatin1String("scriptsui.rc"), true);
-}
-
-void ProjectScriptingPlugin::setDOMDocument(const QDomDocument &document, bool merge)
-{
-    Kross::ScriptingPlugin::setDOMDocument(document, merge);
-    QTimer::singleShot(0, this, &ProjectScriptingPlugin::doAutoruns);
-}
-
-void ProjectScriptingPlugin::doAutoruns()
-{
-    Kross::ActionCollection* collection = Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
-    if (!collection) return;
-    const auto collections = collection->collections();
-    for (const QString &collectionname : collections) {
-        Kross::ActionCollection* c = collection->collection(collectionname);
-        if (!c->isEnabled()) continue;
-
-        const auto actions = c->actions();
-        for (Kross::Action* action : actions) {
-            if (action->property("autorun").toBool())
-                action->trigger();
-            if (action->property("first-run").toBool() && Project::local()->firstRun())
-                action->trigger();
-        }
-    }
-}
-
-ProjectScriptingPlugin::~ProjectScriptingPlugin()
-{
-    Kross::ActionCollection* collection = Kross::Manager::self().actionCollection()->collection(Project::instance()->kind());
-    if (!collection) return;
-
-    QString scriptsrc = PROJECTRCFILE;
-    QDir rcdir(PROJECTRCFILEDIR);
-    qCDebug(LOKALIZE_LOG) << rcdir.entryList(QStringList("*.rc"), QDir::Files);
-    const auto rcs = QDir(PROJECTRCFILEDIR).entryList(QStringList("*.rc"), QDir::Files);
-    for (const QString& rc : rcs)
-        if (rc != scriptsrc)
-            qCWarning(LOKALIZE_LOG) << rc << collection->readXmlFile(rcdir.absoluteFilePath(rc));
-}
 
 /*
 void LokalizeMainWindow::checkForProjectAlreadyOpened()
@@ -888,10 +758,6 @@ void LokalizeMainWindow::registerDBusAdaptor()
     QDBusConnection::sessionBus().registerObject(QLatin1String("/ThisIsWhatYouWant"), this);
 
     //qCWarning(LOKALIZE_LOG)<<QDBusConnection::sessionBus().interface()->registeredServiceNames().value();
-#ifndef Q_OS_MAC
-    //TODO really fix!!!
-    guiFactory()->addClient(new MyScriptingPlugin(this, m_multiEditorAdaptor));
-#endif
 
     //QMenu* projectActions=static_cast<QMenu*>(factory()->container("project_actions",this));
 
@@ -900,24 +766,6 @@ void LokalizeMainWindow::registerDBusAdaptor()
         actionCollection->action("file_save")->setEnabled(canSave);
         actionCollection->action("file_save_as")->setEnabled(canSave);
     */
-}
-
-void LokalizeMainWindow::loadProjectScripts()
-{
-    if (m_projectScriptingPlugin) {
-        guiFactory()->removeClient(m_projectScriptingPlugin);
-        delete m_projectScriptingPlugin;
-    }
-
-    //a HACK to get new .rc files shown w/o requiring a restart
-    m_projectScriptingPlugin = new ProjectScriptingPlugin(this, m_multiEditorAdaptor);
-
-    //guiFactory()->addClient(m_projectScriptingPlugin);
-    //guiFactory()->removeClient(m_projectScriptingPlugin);
-
-    delete m_projectScriptingPlugin;
-    m_projectScriptingPlugin = new ProjectScriptingPlugin(this, m_multiEditorAdaptor);
-    guiFactory()->addClient(m_projectScriptingPlugin);
 }
 
 int LokalizeMainWindow::lookupInTranslationMemory(DocPosition::Part part, const QString& text)

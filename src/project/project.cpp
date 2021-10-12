@@ -43,12 +43,7 @@
 #include <kjob.h>
 #include <kjobtrackerinterface.h>
 
-#include <kross/core/action.h>
-#include <kross/core/actioncollection.h>
-#include <kross/core/manager.h>
-
 #include <QDBusArgument>
-using namespace Kross;
 
 QString getMailingList()
 {

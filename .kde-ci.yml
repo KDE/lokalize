@@ -12,7 +12,6 @@ Dependencies:
     'frameworks/kconfig': '@stable'
     'frameworks/kcoreaddons': '@stable'
     'frameworks/kdoctools': '@stable'
-    'frameworks/kross': '@stable'
     'frameworks/ksonnet': '@stable'
     'frameworks/kdbusaddons': '@stable'
     'frameworks/kcrash': '@stable'

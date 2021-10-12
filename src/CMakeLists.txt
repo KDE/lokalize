@@ -86,9 +86,8 @@ set(liblokalize_SRCS
 
     webquery/webqueryview.cpp
     webquery/webquerycontroller.cpp
-    webquery/myactioncollectionview.cpp
 
-    languagetool/languagetoolresultjob.cpp
+        languagetool/languagetoolresultjob.cpp
     languagetool/languagetoolmanager.cpp
     languagetool/languagetoolparser.cpp
     languagetool/languagetoolgrammarerror.cpp
@@ -182,13 +181,13 @@ qt5_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.x
 ### Build intermediate library (will be used by unit tests) ###
 add_library(liblokalize STATIC ${liblokalize_SRCS})
 target_link_libraries(liblokalize
+    KF5::I18n
+    KF5::TextWidgets
     KF5::KIOFileWidgets
     KF5::ItemViews
     KF5::Notifications
     KF5::SonnetCore
     KF5::SonnetUi
-    KF5::KrossCore
-    KF5::KrossUi
     KF5::DBusAddons
     KF5::Crash
     Qt5::Sql
