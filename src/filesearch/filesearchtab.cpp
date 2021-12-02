@@ -544,9 +544,13 @@ FileSearchTab::~FileSearchTab()
 void FileSearchTab::performSearch()
 {
     if (m_searchFileListView->files().isEmpty()) {
-        addFilesToSearch(doScanRecursive(QDir(Project::instance()->poDir())));
-        if (m_searchFileListView->files().isEmpty())
+        QStringList files = doScanRecursive(QDir(Project::instance()->poDir()));
+
+        // otherwise we will get stack overflow
+        if (files.isEmpty())
             return;
+
+        addFilesToSearch(files);
     }
 
     m_model->clear();
