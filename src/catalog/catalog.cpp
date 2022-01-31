@@ -30,7 +30,6 @@
 #include "jobs.h"
 #include "dbfilesmodel.h"
 
-#include <QProcess>
 #include <QString>
 #include <QStringBuilder>
 #include <QMap>

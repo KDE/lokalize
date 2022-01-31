@@ -14,7 +14,6 @@
 #include "version.h"
 #include "prefs_lokalize.h"
 
-#include <QProcess>
 #include <QString>
 #include <QStringBuilder>
 #include <QMap>
