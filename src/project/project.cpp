@@ -467,7 +467,12 @@ const QMultiMap<QByteArray, QByteArray>& Project::sourceFilePaths()
 #include "languagelistmodel.h"
 void Project::projectOdfCreate()
 {
-    QString odf2xliff = QStringLiteral("odf2xliff");
+    const QString odf2xliff = QStandardPaths::findExecutable(QStringLiteral("odf2xliff"));
+    if (odf2xliff.isEmpty()) {
+        KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+        return;
+    }
+
     if (QProcess::execute(odf2xliff, QStringList(QLatin1String("--version"))) == -2) {
         KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
         return;

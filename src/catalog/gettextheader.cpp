@@ -167,8 +167,14 @@ QString GNUPluralForms(const QString& lang)
               << QLatin1String("-o") << QLatin1String("-")
               << QLatin1String("--no-translator")
               << QLatin1String("--no-wrap");
+
+    const QString msginitFullPath = QStandardPaths::findExecutable(QLatin1String("msginit"));
+    if (msginitFullPath.isEmpty()) {
+        return def;
+    }
+
     QProcess msginit;
-    msginit.start(QLatin1String("msginit"), arguments);
+    msginit.start(msginitFullPath, arguments);
 
     msginit.waitForStarted(5000);
     if (Q_UNLIKELY(msginit.state() != QProcess::Running)) {

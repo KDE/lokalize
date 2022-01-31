@@ -52,6 +52,7 @@
 #include <KActionCategory>
 #include <KMessageBox>
 #include <KLocalizedString>
+#include <KShell>
 
 #include <QDesktopServices>
 #include <QIcon>
@@ -1479,10 +1480,25 @@ static void openLxrSearch(const QString& srcFileRelPath)
 
 static void openLocalSource(const QString& file, int line)
 {
-    if (Settings::self()->customEditorEnabled())
-        QProcess::startDetached(QString(Settings::self()->customEditorCommand()).arg(file).arg(line));
-    else
+    if (!Settings::self()->customEditorEnabled()) {
         QDesktopServices::openUrl(QUrl::fromLocalFile(file));
+        return;
+    }
+
+    const QString cmd = Settings::self()->customEditorCommand().arg(file).arg(line);
+    QStringList args = KShell::splitArgs(cmd);
+    if (args.isEmpty())
+        return;
+    const QString prog = args.takeFirst();
+
+    // Make sure prog is in PATH and not just in the CWD
+    const QString progFullPath = QStandardPaths::findExecutable(prog);
+    if (progFullPath.isEmpty()) {
+        qWarning() << "Could not find application in PATH." << prog;
+        return;
+    }
+
+    QProcess::startDetached(progFullPath, args);
 }
 
 void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int line)
@@ -1589,7 +1605,12 @@ void EditorTab::mergeIntoOpenDocument()
     if (!m_catalog || m_catalog->type() != Xliff)
         return;
 
-    QString xliff2odf = QStringLiteral("xliff2odf");
+    const QString xliff2odf = QStandardPaths::findExecutable(QStringLiteral("xliff2odf"));
+    if (xliff2odf.isEmpty()) {
+        KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
+        return;
+    }
+
     if (QProcess::execute(xliff2odf, QStringList(QLatin1String("--version"))) == -2) {
         KMessageBox::error(SettingsController::instance()->mainWindowPtr(),
                            i18n("Install translate-toolkit package and retry."));
@@ -1628,7 +1649,11 @@ void EditorTab::mergeIntoOpenDocument()
 
     //if (originalOdfFileInfo.suffix().toLower()==QLatin1String(".odt"))
     {
-        QString lowriter = QStringLiteral("soffice");
+        const QString lowriter = QStandardPaths::findExecutable(QStringLiteral("soffice"));
+        if (lowriter.isEmpty()) {
+            return;
+        }
+
         if (QProcess::execute(lowriter, QStringList("--version")) == -2) {
             //TODO
             //KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
@@ -1637,12 +1662,12 @@ void EditorTab::mergeIntoOpenDocument()
         QProcess::startDetached(lowriter, QStringList(args.at(1)));
         QString reloaderScript = QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("scripts/odf/xliff2odf-standalone.py"));
         if (reloaderScript.length()) {
-            QString python = QStringLiteral("python");
+            QString python = QStandardPaths::findExecutable(QStringLiteral("python"));
             QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
-            if (QProcess::execute(python, unoArgs) != 0) {
-                python = QStringLiteral("python3");
+            if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
+                python = QStandardPaths::findExecutable(QStringLiteral("python3"));
                 QStringList unoArgs(QStringLiteral("-c")); unoArgs.append(QStringLiteral("import uno"));
-                if (QProcess::execute(python, unoArgs) != 0) {
+                if (python.isEmpty() || QProcess::execute(python, unoArgs) != 0) {
                     KMessageBox::information(SettingsController::instance()->mainWindowPtr(),
                                              i18n("Install python-uno package for additional functionality."));
                     return;
