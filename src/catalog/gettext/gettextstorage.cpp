@@ -23,7 +23,6 @@
 
 #include <QMutex>
 #include <QMutexLocker>
-#include <QProcess>
 #include <QString>
 #include <QMap>
 
