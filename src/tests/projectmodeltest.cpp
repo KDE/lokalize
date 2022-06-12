@@ -54,6 +54,7 @@ void ProjectModelTest::testInvalid()
     QCOMPARE(model->data(model->index(0, 7), Qt::DisplayRole), QString());
     QCOMPARE(model->data(model->index(0, 8), Qt::DisplayRole), QString());
     QCOMPARE(model->data(model->index(0, 9), Qt::DisplayRole), QString());
+    QCOMPARE(model->data(model->index(0, 10), Qt::DisplayRole), QString());
 }
 
 void ProjectModelTest::testHalfTranslated()
@@ -85,9 +86,10 @@ void ProjectModelTest::testHalfTranslated()
     QCOMPARE(model->data(model->index(0, 4), Qt::DisplayRole), 1);
     QCOMPARE(model->data(model->index(0, 5), Qt::DisplayRole), 2);
     QCOMPARE(model->data(model->index(0, 6), Qt::DisplayRole), 3);
-    QCOMPARE(model->data(model->index(0, 7), Qt::DisplayRole), QStringLiteral("2019-05-20 03:26+0200"));
-    QCOMPARE(model->data(model->index(0, 8), Qt::DisplayRole), QStringLiteral("2019-06-13 08:53+0300"));
-    QCOMPARE(model->data(model->index(0, 9), Qt::DisplayRole), QStringLiteral("Alexander Potashev <aspotashev@gmail.com>"));
+    QCOMPARE(model->data(model->index(0, 7), Qt::DisplayRole), QStringLiteral());
+    QCOMPARE(model->data(model->index(0, 8), Qt::DisplayRole), QStringLiteral("2019-05-20 03:26+0200"));
+    QCOMPARE(model->data(model->index(0, 9), Qt::DisplayRole), QStringLiteral("2019-06-13 08:53+0300"));
+    QCOMPARE(model->data(model->index(0, 10), Qt::DisplayRole), QStringLiteral("Alexander Potashev <aspotashev@gmail.com>"));
 }
 
 QTEST_GUILESS_MAIN(ProjectModelTest)
