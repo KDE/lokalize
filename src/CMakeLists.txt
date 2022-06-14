@@ -164,17 +164,17 @@ kconfig_add_kcfg_files(liblokalize_SRCS
     project/projectlocal.kcfgc
 )
 
-qt5_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.MainWindow.xml
+qt_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.MainWindow.xml
                      lokalizemainwindow.h LokalizeMainWindow)
-qt5_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.Editor.xml
+qt_add_dbus_adaptor(liblokalize_SRCS org.kde.lokalize.Editor.xml
                      editortab.h EditorTab)
-qt5_add_dbus_adaptor(liblokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
+qt_add_dbus_adaptor(liblokalize_SRCS filesearch/org.kde.lokalize.FileSearch.xml
                      filesearch/filesearchtab.h FileSearchTab)
-qt5_add_dbus_adaptor(liblokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
+qt_add_dbus_adaptor(liblokalize_SRCS tm/org.kde.lokalize.TranslationMemory.xml
                      tm/tmtab.h TM::TMTab)
-qt5_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.Project.xml
+qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.Project.xml
                      project/project.h Project)
-qt5_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
+qt_add_dbus_adaptor(liblokalize_SRCS project/org.kde.lokalize.ProjectOverview.xml
                      project/projecttab.h ProjectTab)
 
 
@@ -190,7 +190,7 @@ target_link_libraries(liblokalize
     KF5::SonnetUi
     KF5::DBusAddons
     KF5::Crash
-    Qt5::Sql
+    Qt::Sql
 )
 if(HUNSPELL_FOUND)
     target_link_libraries(liblokalize ${HUNSPELL_LIBRARIES})
@@ -213,7 +213,7 @@ install(TARGETS lokalize ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( PROGRAMS org.kde.lokalize.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
 install( FILES prefs/lokalize.kcfg  DESTINATION  ${KDE_INSTALL_KCFGDIR} )
-install( FILES lokalize.notifyrc DESTINATION  ${KDE_INSTALL_KNOTIFY5RCDIR} )
+install( FILES lokalize.notifyrc DESTINATION  ${KDE_INSTALL_KNOTIFYRCDIR} )
 
 ecm_qt_install_logging_categories(
         EXPORT LOKALIZE
