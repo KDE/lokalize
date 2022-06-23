@@ -581,6 +581,10 @@ void FileSearchTab::performSearch()
             sp.targetPattern.setMinimal(true);
         }
     */
+    if (!ui_fileSearchOptions->matchCase->isChecked()) {
+        sp.sourcePattern.setCaseSensitivity(Qt::CaseInsensitive);
+        sp.targetPattern.setCaseSensitivity(Qt::CaseInsensitive);
+    }
     stopSearch();
 
     m_massReplaceView->deactivatePreview();
