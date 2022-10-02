@@ -1,0 +1,4665 @@
+# Copyright (C) 2016 This_file_is_part_of_KDE
+# This file is distributed under the same license as the KDE Frameworks 5 package.
+# wantoyo <wantoyo@yahoo.com>, 2016.
+# Wantoyo <wantoyek@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Linerly <linerly@protonmail.com>, 2022.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: KDE Frameworks 5 Applications\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"PO-Revision-Date: 2022-09-27 18:12+0700\n"
+"Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
+"Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Wantoyo,Linerly"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "wantoyek@gmail.com,linerly@protonmail.com"
+
+#. i18n: tag collection attribute text
+#. i18n: tag collection attribute comment
+#. i18n: tag collection attribute text
+#: scripts/msgfmt.rc:3 scripts/xliff2odf.rc:3
+#, kde-format
+msgid "Tools"
+msgstr "Peralatan"
+
+#. i18n: tag script attribute text
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po"
+msgstr "Kompil .po"
+
+#. i18n: tag script attribute comment
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po and make it available to applications"
+msgstr "Kompil .po dan membuatnya tersedia untuk aplikasi"
+
+#: scripts/msgmerge.py:33
+msgid "Gettext not found"
+msgstr "Gettext tidak ditemukan"
+
+#: scripts/msgmerge.py:33
+msgid "Install gettext package for this feature to work"
+msgstr "Instal paket gettext agar fitur ini bekerja"
+
+#: scripts/msgmerge.py:44
+msgid "Updating from templates..."
+msgstr "Memperbarui dari template..."
+
+#: scripts/msgmerge.py:71
+msgid "Merge has been completed"
+msgstr "Penggabungan telah selesai"
+
+#: scripts/msgmerge.py:71
+msgid ""
+"Merge has been completed.\n"
+"Template modification time: %1 (%2 days ago)."
+msgstr ""
+"Penggabungan telah diselesaikan.\n"
+"Waktu modifikasi templat: %1 (%2 hari yang lalu)."
+
+#: scripts/msgmerge.py:74
+msgid "Merge failed."
+msgstr "Penggabungan gagal"
+
+#: scripts/msgmerge.py:74
+msgid ""
+"Could not find template file for the merge:\n"
+"%1"
+msgstr ""
+"Tidak dapat menemukan file template untuk penggabungan:\n"
+"%1"
+
+#. i18n: tag collection attribute text
+#: scripts/msgmerge.rc:3
+#, kde-format
+msgid "File"
+msgstr "File"
+
+#. i18n: tag script attribute text
+#: scripts/msgmerge.rc:4
+#, kde-format
+msgid "Update file from template"
+msgstr "Perbarui file dari template"
+
+#. i18n: tag script attribute text
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Merge into ODF"
+msgstr "Gabungkan ke dalam ODF"
+
+#. i18n: tag script attribute comment
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Generates translated version of ODF document"
+msgstr "Hasil versi yang diterjemahkan bagi dokumen ODF"
+
+#: src/alttransview.cpp:35 src/alttransview.cpp:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Alternate Translations"
+msgstr "Terjemahan Alternatif"
+
+#: src/alttransview.cpp:152
+#, kde-format
+msgid ""
+"There is useful data available in Alternate Translations view.\n"
+"\n"
+"For Gettext PO files it displays difference between current source text and "
+"the source text corresponding to the fuzzy translation found by msgmerge "
+"when updating PO based on POT template.\n"
+"\n"
+"Do you want to show the view with the data?"
+msgstr ""
+"Ada data yang berguna yang tersedia di tampilan Terjemahan Alternatif.\n"
+"\n"
+"Untuk file PO Gettext akan menampilkan perbedaan antara teks sumber saat ini "
+"dan teks sumber yang berhubungan dengan terjemahan fuzzy yang ditemukan oleh "
+"msgmerge ketika memperbarui PO berdasarkan POT template.\n"
+"\n"
+"Apakah Anda ingin menunjukkan tampilan data?"
+
+#: src/alttransview.cpp:232
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Sometimes, if source text is changed, its translation becomes deprecated "
+"and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. "
+"looses approval status), or (only in case of XLIFF file) moved to the "
+"<emphasis>alternate&nbsp;translations</emphasis> section accompanying the "
+"unit.</p><p>This toolview also shows the difference between current source "
+"string and the previous source string, so that you can easily see which "
+"changes should be applied to existing translation to make it reflect current "
+"source.</p><p>Double-clicking any word in this toolview inserts it into "
+"translation.</p><p>Drop translation file onto this toolview to use it as a "
+"source for additional alternate translations.</p>"
+msgstr ""
+"<p>Kadang-kadang, jika teks sumber telah diubah, terjemahannya menjadi usang "
+"dan ditandai secara baik sebagai <emphasis>perlu&nbsp;tinjauan</emphasis> "
+"(yaitu melepaskan status persetujuan), atau (hanya dalam huruf dari file  "
+"XLIFF) dipindah ke bagian <emphasis>terjemahan&nbsp;alternatif</emphasis> "
+"menyertai unit.</p><p>Tampilan Alat ini juga menunjukkan perbedaan antara "
+"string sumber saat ini dan string sumber sebelumnya, sehingga Anda dapat "
+"dengan mudah melihat di mana perubahan harus diterapkan untuk terjemahan "
+"yang ada untuk mencerminkan sumber saat ini.</p><p>Mengeklik ganda kata apa "
+"pun dalam tampilan alat ini akan menyisipkannya ke dalam terjemahan.</"
+"p><p>Jatuhkan file terjemahan pada tampilan alat ini untuk menggunakannya "
+"sebagai sumber bagi terjemahan alternatif tambahan.</p>"
+
+#: src/alttransview.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Origin: %1"
+msgstr "Asal: %1"
+
+#: src/alttransview.cpp:276
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use alternate translation"
+msgstr "Gunakan terjemahan alternatif"
+
+#: src/binunitsview.cpp:108
+#, kde-format
+msgid "no"
+msgstr "tidak"
+
+#: src/binunitsview.cpp:108
+#, kde-format
+msgid "yes"
+msgstr "ya"
+
+#: src/binunitsview.cpp:124
+#, kde-format
+msgctxt "@title:column"
+msgid "Source"
+msgstr "Sumber"
+
+#: src/binunitsview.cpp:125
+#, kde-format
+msgctxt "@title:column"
+msgid "Target"
+msgstr "Sasaran"
+
+#: src/binunitsview.cpp:126
+#, kde-format
+msgctxt "@title:column"
+msgid "Approved"
+msgstr "Disetujui"
+
+#: src/binunitsview.cpp:134
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Binary Units"
+msgstr "Unit Biner"
+
+#: src/binunitsview.cpp:172
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Set the file"
+msgstr "Set file"
+
+#: src/binunitsview.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Use source file"
+msgstr "Gunakan file sumber"
+
+#: src/catalog/catalog.cpp:52
+#, kde-format
+msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Semua file yang didukung (*.po *.pot *.xlf *.xliff *.ts)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Gettext (*.po *.pot)"
+msgstr "Gettext (*.po *.pot)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Gettext (*.po)"
+msgstr "Gettext (*.po)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "XLIFF (*.xlf *.xliff)"
+msgstr "XLIFF (*.xlf *.xliff)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Linguist (*.ts)"
+msgstr "Ahli bahasa (*.ts)"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "New"
+msgstr "Baru"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs translation"
+msgstr "Perlu terjemahan"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs full localization"
+msgstr "Perlu pelokalan penuh"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs adaptation"
+msgstr "Perlu adaptasi"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Translated"
+msgstr "Diterjemahkan"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs translation review"
+msgstr "Perlu tinjauan terjemahan"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs full localization review"
+msgstr "Perlu tinjauan pelokalan penuh"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs adaptation review"
+msgstr "Perlu tinjauan adaptasi"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Final"
+msgstr "Final"
+
+#: src/catalog/catalog.cpp:61
+#, kde-format
+msgid "Signed-off"
+msgstr "Ditinjau"
+
+#: src/catalog/catalogstring.cpp:60
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired tag"
+msgstr "Mulai tag yang disandingkan"
+
+#: src/catalog/catalogstring.cpp:61
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired tag"
+msgstr "Ujung dari tag yang disandingkan"
+
+#: src/catalog/catalogstring.cpp:62
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Stand-alone tag"
+msgstr "Tag tersendiri"
+
+#: src/catalog/catalogstring.cpp:63
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Isolated tag"
+msgstr "Tag terisolir"
+
+#: src/catalog/catalogstring.cpp:65
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Marker"
+msgstr "Penanda baca"
+
+#: src/catalog/catalogstring.cpp:66
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic group placeholder"
+msgstr "Kelompok placeholder generik"
+
+#: src/catalog/catalogstring.cpp:67
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Sub-flow"
+msgstr "Sub-flow"
+
+#: src/catalog/catalogstring.cpp:69
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic placeholder"
+msgstr "Placeholder generik"
+
+#: src/catalog/catalogstring.cpp:70
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired placeholder"
+msgstr "Mulai placeholder yang disandingkan"
+
+#: src/catalog/catalogstring.cpp:71
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired placeholder"
+msgstr "Ujung dari placeholder yang disandingkan"
+
+#: src/catalog/catalogstring.cpp:118
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "abbreviation"
+msgstr "singkatan"
+
+#: src/catalog/catalogstring.cpp:119
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviated form: a term resulting from the omission of any part of the full "
+"term while designating the same concept"
+msgstr ""
+"abbreviated form: sebuah istilah yang dihasilkan dari pembiaran dari setiap "
+"bagian dari istilah penuh sementara menunjuk konsep yang sama"
+
+#: src/catalog/catalogstring.cpp:120
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviation: an abbreviated form of a simple term resulting from the "
+"omission of some of its letters (e.g. 'adj.' for 'adjective')"
+msgstr ""
+"abbreviation: sebuah bentuk singkatan dari istilah sederhana yang dihasilkan "
+"dari pembiaran dari beberapa hurufnya (misalnya 'adj.' untuk 'adjective')"
+
+#: src/catalog/catalogstring.cpp:121
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"acronym: an abbreviated form of a term made up of letters from the full form "
+"of a multiword term strung together into a sequence pronounced only "
+"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+msgstr ""
+"acronym: sebuah bentuk singkatan dari istilah terdiri dari huruf dari bentuk "
+"penuh dari istilah berbentuk frase dirangkai menjadi urutan yang diucapkan "
+"hanya secara suku kata (misalnya 'radar' untuk 'radio detecting and ranging')"
+
+#: src/catalog/catalogstring.cpp:122
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"appellation: a proper-name term, such as the name of an agency or other "
+"proper entity"
+msgstr ""
+"appellation: sebuah istilah nama yang sah, seperti nama sebuah lembaga atau "
+"entitas layak lainnya"
+
+#: src/catalog/catalogstring.cpp:123
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"collocation: a recurrent word combination characterized by cohesion in that "
+"the components of the collocation must co-occur within an utterance or "
+"series of utterances, even though they do not necessarily have to maintain "
+"immediate proximity to one another"
+msgstr ""
+"collocation: sebuah kombinasi kata ulang yang ditandai dengan kohesi dalam "
+"komponen dari kolokasi harus menjadi dalam sebuah ucapan atau serangkaian "
+"ucapan, meskipun mereka tidak perlu harus mempertahankan langsung kedekatan "
+"satu sama lain"
+
+#: src/catalog/catalogstring.cpp:124
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"common name: a synonym for an international scientific term that is used in "
+"general discourse in a given language"
+msgstr ""
+"common name: sebuah sinonim untuk istilah ilmiah internasional yang "
+"digunakan dalam wacana umum dalam bahasa tertentu"
+
+#: src/catalog/catalogstring.cpp:125
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "date and/or time"
+msgstr "tanggal  dan/atau waktu"
+
+#: src/catalog/catalogstring.cpp:126
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"equation: an expression used to represent a concept based on a statement "
+"that two mathematical expressions are, for instance, equal as identified by "
+"the equal sign (=), or assigned to one another by a similar sign"
+msgstr ""
+"equation: sebuah ekspresi yang digunakan untuk mewakili konsep yang "
+"didasarkan pada pernyataan bahwa dua ekspresi matematika, umpamanya, sama "
+"seperti yang diidentifikasi oleh tanda sama-dengan (=), atau ditugaskan "
+"untuk satu sama lain dengan tanda yang sama"
+
+#: src/catalog/catalogstring.cpp:127
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"expanded form: The complete representation of a term for which there is an "
+"abbreviated form"
+msgstr ""
+"expanded form: Representasi lengkap dari istilah yang ada bentuk singkatan"
+
+#: src/catalog/catalogstring.cpp:128
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"formula: figures, symbols or the like used to express a concept briefly, "
+"such as a mathematical or chemical formula"
+msgstr ""
+"rumus: angka, simbol atau sejenisnya yang digunakan untuk mengekspresikan "
+"konsep singkat, seperti rumus matematika atau kimia"
+
+#: src/catalog/catalogstring.cpp:129
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"head term: the concept designation that has been chosen to head a "
+"terminological record"
+msgstr ""
+"head term: penunjukan konsep yang telah dipilih untuk mengepalai sebuah "
+"rekaman terminologika"
+
+#: src/catalog/catalogstring.cpp:130
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"initialism: an abbreviated form of a term consisting of some of the initial "
+"letters of the words making up a multiword term or the term elements making "
+"up a compound term when these letters are pronounced individually (e.g. "
+"'BSE' for 'bovine spongiform encephalopathy')"
+msgstr ""
+"initialism: sebuah bentuk singkatan dari istilah yang terdiri dari beberapa "
+"awal huruf dari kata yang membentuk istilah berbentuk frase atau elemen "
+"istilah membuat sebuah istilah majemuk ketika huruf-huruf tersebut diucapkan "
+"secara individual (misal 'BSE' untuk 'bovine spongiform encephalopathy')"
+
+#: src/catalog/catalogstring.cpp:131
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"international scientific term: a term that is part of an international "
+"scientific nomenclature as adopted by an appropriate scientific body"
+msgstr ""
+"international scientific term: sebuah istilah yang merupakan bagian dari "
+"internasionalnomenklatur ilmiah seperti yang diadopsi oleh badan ilmiah yang "
+"sesuai"
+
+#: src/catalog/catalogstring.cpp:132
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"internationalism: a term that has the same or nearly identical orthographic "
+"or phonemic form in many languages"
+msgstr ""
+"internationalism: sebuah istilah yang memiliki ortografi yang sama atau "
+"hampir identik dan bentuk fonemik dalam banyak bahasa"
+
+#: src/catalog/catalogstring.cpp:133
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"logical expression: an expression used to represent a concept based on "
+"mathematical or logical relations, such as statements of inequality, set "
+"relationships, Boolean operations, and the like"
+msgstr ""
+"logical expression: sebuah ekspresi yang digunakan untuk mewakili konsep "
+"yang didasarkan pada hubungan matematika atau logika, seperti laporan dari "
+"ketidaksetaraan, rangkaian hubungan, operasi Boolean, dan sejenisnya"
+
+#: src/catalog/catalogstring.cpp:134
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "materials management unit: a unit to track object"
+msgstr "materials management unit: sebuah unit untuk melacak objek"
+
+#: src/catalog/catalogstring.cpp:135
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "name"
+msgstr "nama"
+
+#: src/catalog/catalogstring.cpp:136
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"near synonym: a term that represents the same or a very similar concept as "
+"another term in the same language, but for which interchangeability is "
+"limited to some contexts and inapplicable in others"
+msgstr ""
+"near synony: sebuah istilah yang mewakili yang sama atau konsep yang sangat "
+"mirip sebagai istilah lain dalam bahasa yang sama, tetapi untuk yang "
+"dipertukarkan adalah terbatas untuk beberapa konteks dan tak dapat "
+"diterapkan pada orang lain"
+
+#: src/catalog/catalogstring.cpp:137
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"part number: a unique alphanumeric designation assigned to an object in a "
+"manufacturing system"
+msgstr ""
+"part number: sebuah sebutan alfanumerik unik yang diberikan untuk sebuah "
+"objek dalam sistem manufaktur"
+
+#: src/catalog/catalogstring.cpp:138
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "phrase"
+msgstr "frase"
+
+#: src/catalog/catalogstring.cpp:139
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"phraseological: a group of two or more words that form a unit, the meaning "
+"of which frequently cannot be deduced based on the combined sense of the "
+"words making up the phrase"
+msgstr ""
+"phraseological: kelompok dua atau lebih kata yang membentuk sebuah unit, "
+"artinya yang sering tidak dapat disimpulkan berdasarkan pada gabungan masuk "
+"akal dari kata yang membentuk kalimat"
+
+#: src/catalog/catalogstring.cpp:140
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "protected: the marked text should not be translated"
+msgstr "protected: teks yang ditandai tidak harus diterjemahkan"
+
+#: src/catalog/catalogstring.cpp:141
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"romanized form: a form of a term resulting from an operation whereby non-"
+"Latin writing systems are converted to the Latin alphabet"
+msgstr ""
+"romanized form: sebuah bentuk istilah yang dihasilkan dari operasi di mana "
+"sistem penulisan non-Latin dikonversi ke abjad Latin"
+
+#: src/catalog/catalogstring.cpp:142
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "segment: the marked text represents a segment"
+msgstr "segment: teks yang ditandai mewakili sebuah segmen"
+
+#: src/catalog/catalogstring.cpp:143
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "set phrase: a fixed, lexicalized phrase"
+msgstr "set phrase: sebuah tetap, frase terleksikal"
+
+#: src/catalog/catalogstring.cpp:144
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"short form: a variant of a multiword term that includes fewer words than the "
+"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
+"Group of Twenty-four on International Monetary Affairs')"
+msgstr ""
+"short form: sebuah varian dari istilah berbentuk frase yang mencakup kata-"
+"kata lebih sedikit dibandingkan dengan bentuk yang penuh pada istilah "
+"(misalnya 'Group of Twenty-four' untuk 'Intergovernmental Group of Twenty-"
+"four on International Monetary Affairs')"
+
+#: src/catalog/catalogstring.cpp:145
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"stock keeping unit: an inventory item identified by a unique alphanumeric "
+"designation assigned to an object in an inventory control system"
+msgstr ""
+"stock keeping unit: sebuah butir persediaan yang diidentifikasi oleh "
+"penunjukan alfanumerik unik yang ditugaskan untuk sebuah objek dalam sistem "
+"kendali persediaan"
+
+#: src/catalog/catalogstring.cpp:146
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "standard text: a fixed chunk of recurring text"
+msgstr "standard text: sebuah bingkah tetap dari teks berulang"
+
+#: src/catalog/catalogstring.cpp:147
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"symbol: a designation of a concept by letters, numerals, pictograms or any "
+"combination thereof"
+msgstr ""
+"symbol: sebuah sebutan konsep dengan huruf, angka, piktogram atau gabungan "
+"daripadanya"
+
+#: src/catalog/catalogstring.cpp:148
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonym: a term that represents the same or a very similar concept as the "
+"main entry term in a term entry"
+msgstr ""
+"sinonim: sebuah istilah yang mewakili yang sama atau konsep yang sangat "
+"mirip sebagai istilah entri utama dalam entri istilah"
+
+#: src/catalog/catalogstring.cpp:149
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonymous phrase: phraseological unit in a language that expresses the same "
+"semantic content as another phrase in that same language"
+msgstr ""
+"frasa sinonim: unit fraseologi dalam sebuah bahasa yang mengungkapkan hal "
+"yang sama mengandung semantik sebagai frasa lain dalam bahasa yang sama"
+
+#: src/catalog/catalogstring.cpp:150
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "term"
+msgstr "istilah"
+
+#: src/catalog/catalogstring.cpp:151
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transcribed form: a form of a term resulting from an operation whereby the "
+"characters of one writing system are represented by characters from another "
+"writing system, taking into account the pronunciation of the characters "
+"converted"
+msgstr ""
+"transcribed form: sebuah bentuk istilah yang dihasilkan dari operasi dimana "
+"karakter dari suatu sistem penulisan yang diwakili oleh karakter dari sistem "
+"penulisan yang lain, dengan mempertimbangkan pengucapan karakter terkonversi"
+
+#: src/catalog/catalogstring.cpp:152
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transliterated form: a form of a term resulting from an operation whereby "
+"the characters of an alphabetic writing system are represented by characters "
+"from another alphabetic writing system"
+msgstr ""
+"transliterated form: sebuah bentuk istilah yang dihasilkan dari operasi "
+"dimana karakter dari sistem penulisan abjadiah yang diwakili oleh karakter "
+"dari sistem penulisan abjadiah yang lain"
+
+#: src/catalog/catalogstring.cpp:153
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"truncated term: an abbreviated form of a term resulting from the omission of "
+"one or more term elements or syllables (e.g. 'flu' for 'influenza')"
+msgstr ""
+"truncated term: sebuah bentuk singkatan dari istilah yang dihasilkan dari "
+"pembiaran terhadap satu atau lebih istilah unsur atau suku kata (misalnya "
+"'flu' untuk 'influenza')"
+
+#: src/catalog/catalogstring.cpp:154
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "variant: one of the alternate forms of a term"
+msgstr "variant: salah satu bentuk alternatif dari istilah"
+
+#: src/catalog/cmd.cpp:81
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insertion"
+msgstr "Penyisipan"
+
+#: src/catalog/cmd.cpp:124
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Deletion"
+msgstr "Penghapusan"
+
+#: src/catalog/cmd.cpp:177
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Approvement toggling"
+msgstr "Jungkitan penyetujuan"
+
+#: src/catalog/cmd.cpp:196
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Insertion"
+msgstr "Penyisipan Tanda Baca"
+
+#: src/catalog/cmd.cpp:218
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Deletion"
+msgstr "Penghapusan Tanda Baca"
+
+#: src/catalog/cmd.cpp:239
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Note setting"
+msgstr "Mengeset catatan"
+
+#: src/catalog/cmd.cpp:275
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Update/add workflow phase"
+msgstr "Perbarui/tambahkan frasa alur kerja"
+
+#: src/catalog/cmd.cpp:296
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Translation Equivalence Setting"
+msgstr "Setelan Kesepadanan Terjemahan"
+
+#: src/catalog/cmd.cpp:365
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Remove text with markup"
+msgstr "Hapus teks dengan tanda baca"
+
+#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:664
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insert text with markup"
+msgstr "Sisipkan teks dengan tanda baca"
+
+#: src/catalog/gettext/gettextstorage.cpp:124
+#, kde-format
+msgid "separator for different-length string alternatives"
+msgstr "pemisah untuk perbedaan panjang string alternatif"
+
+#: src/catalog/gettext/gettextstorage.cpp:286
+#, kde-format
+msgid ""
+"Previous source value, saved by Gettext during transition to a newer POT "
+"template"
+msgstr ""
+"Nilai sumber sebelumnya, disimpan oleh Gettext selama transisi ke sebuah POT "
+"template yang baru"
+
+#: src/catalog/gettextheader.cpp:661
+#, kde-format
+msgctxt "@window:title"
+msgid "Author name missing"
+msgstr "Nama penulis tidak ada"
+
+#: src/catalog/gettextheader.cpp:661
+#, kde-format
+msgid "Your name:"
+msgstr "Namamu:"
+
+#: src/catalog/gettextheader.cpp:671
+#, kde-format
+msgctxt "@window:title"
+msgid "Author email missing"
+msgstr "Email penulis tidak ada"
+
+#: src/catalog/gettextheader.cpp:671
+#, kde-format
+msgid "Your email:"
+msgstr "Emailmu:"
+
+#: src/catalog/ts/tsstorage.cpp:441
+#, kde-format
+msgid "Previous source value, saved by lupdate tool"
+msgstr "Nilai sumber sebelumnya, disimpan oleh alat lpembaruan"
+
+#: src/cataloglistview/cataloglistview.cpp:57
+#, kde-format
+msgctxt "@title:window aka Message Tree"
+msgid "Translation Units"
+msgstr "Unit Terjemahan"
+
+#: src/cataloglistview/cataloglistview.cpp:74
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#, kde-format
+msgid "Quick search..."
+msgstr "Cari cepat..."
+
+#: src/cataloglistview/cataloglistview.cpp:75
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Activated by Ctrl+L."
+msgstr "Diaktifkan oleh Ctrl+L."
+
+#: src/cataloglistview/cataloglistview.cpp:75
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Accepts regular expressions"
+msgstr "Menerima kalimat biasa"
+
+#: src/cataloglistview/cataloglistview.cpp:84
+#, kde-format
+msgid "options"
+msgstr "opsi"
+
+#: src/cataloglistview/cataloglistview.cpp:186
+#, kde-format
+msgid "Reset individual filter"
+msgstr "Set ulang filter individu"
+
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:365
+#, kde-format
+msgid "Case insensitive"
+msgstr "Huruf tak sensitif"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#, kde-format
+msgid "Ignore accelerator marks"
+msgstr "Abaikan tanda akselerator"
+
+#: src/cataloglistview/cataloglistview.cpp:194
+#, kde-format
+msgid "Ready"
+msgstr "Siap"
+
+#: src/cataloglistview/cataloglistview.cpp:195
+#, kde-format
+msgid "Non-ready"
+msgstr "Belum siap"
+
+#: src/cataloglistview/cataloglistview.cpp:196
+#, kde-format
+msgid "Non-empty"
+msgstr "Tidak kosong"
+
+#: src/cataloglistview/cataloglistview.cpp:197
+#, kde-format
+msgid "Empty"
+msgstr "Kosong"
+
+#: src/cataloglistview/cataloglistview.cpp:198
+#, kde-format
+msgid "Changed since file open"
+msgstr "Diubah sejak file terbuka"
+
+#: src/cataloglistview/cataloglistview.cpp:199
+#, kde-format
+msgid "Unchanged since file open"
+msgstr "Tak diubah sejak file terbuka"
+
+#: src/cataloglistview/cataloglistview.cpp:200
+#, kde-format
+msgid "Same in sync file"
+msgstr "Persamaan dalam file sinkron"
+
+#: src/cataloglistview/cataloglistview.cpp:201
+#, kde-format
+msgid "Different in sync file"
+msgstr "Perbedaan dalam file sinkron"
+
+#: src/cataloglistview/cataloglistview.cpp:202
+#, kde-format
+msgid "Not in sync file"
+msgstr "Tidak dalam file sinkron"
+
+#: src/cataloglistview/cataloglistview.cpp:203
+#, kde-format
+msgid "Plural"
+msgstr "Jamak"
+
+#: src/cataloglistview/cataloglistview.cpp:204
+#, kde-format
+msgid "Non-plural"
+msgstr "Tidak jamak"
+
+#: src/cataloglistview/cataloglistview.cpp:209
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Basic"
+msgstr "Dasar"
+
+#: src/cataloglistview/cataloglistview.cpp:210
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "States"
+msgstr "Kondisi"
+
+#: src/cataloglistview/cataloglistview.cpp:212
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Searchable column"
+msgstr "Kolom yang dapat dicari"
+
+#: src/cataloglistview/cataloglistview.cpp:216
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Resort and refilter on content change"
+msgstr "Urutkan dan filterkan saat konten berubah"
+
+#: src/cataloglistview/cataloglistview.cpp:233
+#, kde-format
+msgctxt "@item:inmenu all columns"
+msgid "All"
+msgstr "Semua"
+
+#: src/cataloglistview/catalogmodel.cpp:106
+#, kde-format
+msgctxt "@title:column"
+msgid "Entry"
+msgstr "Entri"
+
+#. i18nc("@title:column","ID");
+#: src/cataloglistview/catalogmodel.cpp:108
+#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:216
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65 src/tm/tmtab.cpp:78
+#, kde-format
+msgctxt "@title:column Original text"
+msgid "Source"
+msgstr "Sumber"
+
+#: src/cataloglistview/catalogmodel.cpp:110
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:217
+#: src/tm/tmtab.cpp:66 src/tm/tmtab.cpp:79
+#, kde-format
+msgctxt "@title:column Text in target language"
+msgid "Target"
+msgstr "Sasaran"
+
+#: src/cataloglistview/catalogmodel.cpp:112
+#, kde-format
+msgctxt "@title:column"
+msgid "Notes"
+msgstr "Catatan"
+
+#: src/cataloglistview/catalogmodel.cpp:114 src/tm/tmtab.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Context"
+msgstr "Konteks"
+
+#: src/cataloglistview/catalogmodel.cpp:116
+#, kde-format
+msgctxt "@title:column"
+msgid "Files"
+msgstr "File"
+
+#: src/cataloglistview/catalogmodel.cpp:118
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:69
+#, kde-format
+msgctxt "@title:column"
+msgid "Translation Status"
+msgstr "Status Terjemahan"
+
+#: src/cataloglistview/catalogmodel.cpp:120
+#, kde-format
+msgctxt "@title:column Length of the original text"
+msgid "Source length"
+msgstr "Panjang sumber"
+
+#: src/cataloglistview/catalogmodel.cpp:122
+#, kde-format
+msgctxt "@title:column Length of the text in target language"
+msgid "Target length"
+msgstr "Panjang sasaran"
+
+#: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1080
+#: src/editortab.cpp:1283 src/tm/tmtab.cpp:231
+#, kde-format
+msgctxt "@info:status 'non-fuzzy' in gettext terminology"
+msgid "Ready"
+msgstr "Siap"
+
+#: src/cataloglistview/catalogmodel.cpp:160 src/editortab.cpp:1081
+#: src/editortab.cpp:1278 src/tm/tmtab.cpp:232
+#, kde-format
+msgctxt "@info:status 'fuzzy' in gettext terminology"
+msgid "Needs review"
+msgstr "Perlu tinjauan"
+
+#: src/cataloglistview/catalogmodel.cpp:162 src/editortab.cpp:1079
+#: src/tm/tmtab.cpp:233
+#, kde-format
+msgctxt "@info:status"
+msgid "Untranslated"
+msgstr "Belum diterjemahkan"
+
+#: src/common/languagelistmodel.cpp:93
+#, kde-format
+msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
+#, kde-format
+msgid "Target language:"
+msgstr "Bahasa sasaran:"
+
+#: src/common/termlabel.cpp:81
+#, kde-format
+msgctxt "@action:inmenu Edit term"
+msgid "Edit"
+msgstr "Edit"
+
+#: src/editortab.cpp:143
+#, kde-format
+msgctxt "@info:status message entry"
+msgid "Current: %1"
+msgstr "Saat ini: %1"
+
+#: src/editortab.cpp:144 src/editortab.cpp:854
+#: src/filesearch/filesearchtab.cpp:779 src/project/projecttab.cpp:492
+#: src/tm/tmtab.cpp:592
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1"
+msgstr "Total: %1"
+
+#: src/editortab.cpp:145 src/editortab.cpp:155
+#, kde-format
+msgctxt ""
+"@info:status message entries\n"
+"'fuzzy' in gettext terminology"
+msgid "Not ready: %1"
+msgstr "Belum siap: %1"
+
+#: src/editortab.cpp:146 src/editortab.cpp:163
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Untranslated: %1"
+msgstr "Belum diterjemahkan: %1"
+
+#: src/editortab.cpp:157 src/editortab.cpp:165
+#, kde-format
+msgctxt "percentages in statusbar"
+msgid " (%1%)"
+msgstr " (%1%)"
+
+#: src/editortab.cpp:191 src/lokalizemainwindow.cpp:435
+#, kde-format
+msgctxt "@title actions category"
+msgid "File"
+msgstr "File"
+
+#: src/editortab.cpp:192 src/project/projecttab.cpp:144
+#, kde-format
+msgctxt "@title actions category"
+msgid "Navigation"
+msgstr "Navigasi"
+
+#: src/editortab.cpp:193
+#, kde-format
+msgctxt "@title actions category"
+msgid "Editing"
+msgstr "Pengeditan"
+
+#: src/editortab.cpp:194
+#, kde-format
+msgid "Synchronization 1"
+msgstr "Sinkronisasi 1"
+
+#: src/editortab.cpp:195
+#, kde-format
+msgid "Synchronization 2"
+msgstr "Sinkronisasi 2"
+
+#: src/editortab.cpp:196
+#, kde-format
+msgid "Translation Memory"
+msgstr "Memori Terjemahan"
+
+#. i18nc("@title actions category","Settings"), ac);
+#: src/editortab.cpp:197 src/lokalizemainwindow.cpp:437
+#, kde-format
+msgctxt "@title actions category"
+msgid "Glossary"
+msgstr "Glosarium"
+
+#: src/editortab.cpp:224
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert alternate translation #%1"
+msgstr "Sisipkan terjemahan alternatif #%1"
+
+#: src/editortab.cpp:271
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a note"
+msgstr "Tambahkan sebuah catatan"
+
+#: src/editortab.cpp:292
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert TM suggestion #%1"
+msgstr "Sisipkan saran MT #%1"
+
+#: src/editortab.cpp:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove TM suggestion #%1"
+msgstr "Hapus saran MT #%1"
+
+#: src/editortab.cpp:347
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert term translation #%1"
+msgstr "Sisipkan terjemahan istilah #%1"
+
+#: src/editortab.cpp:358
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Define new term"
+msgstr "Definisikan istilah baru"
+
+#: src/editortab.cpp:390
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert WebQuery result #%1"
+msgstr "Sisipkan hasil WebQuery #%1"
+
+#: src/editortab.cpp:431
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Phases..."
+msgstr "Fase..."
+
+#: src/editortab.cpp:434
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Word count"
+msgstr "Jumlah kata"
+
+#: src/editortab.cpp:437
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear all translated entries"
+msgstr "Bersihkan semua entri-entri yang diterjemahkan"
+
+#: src/editortab.cpp:440
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch the Pology command on this file"
+msgstr "Luncurkan perintah Pology pada file ini"
+
+#: src/editortab.cpp:444
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Merge translation into OpenDocument"
+msgstr "Gabungkan terjemahan ke dalam OpenDocument"
+
+#: src/editortab.cpp:465
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Change searching direction"
+msgstr "Ubah arah pencarian"
+
+#: src/editortab.cpp:476
+#, kde-format
+msgctxt ""
+"@option:check whether message is marked as translated/reviewed/approved "
+"(depending on your role)"
+msgid "Approved"
+msgstr "Disetujui"
+
+#: src/editortab.cpp:494
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Approve and go to next"
+msgstr "Setujui dan menuju ke selanjutnya"
+
+#: src/editortab.cpp:503
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Equivalent translation"
+msgstr "Terjemahan sepadan"
+
+#: src/editortab.cpp:518
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy source to target"
+msgstr "Salin sumber ke sasaran"
+
+#: src/editortab.cpp:521
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Unwrap target"
+msgstr "Unwrap sasaran"
+
+#: src/editortab.cpp:526 src/filesearch/filesearchtab.cpp:93
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear"
+msgstr "Bersihkan"
+
+#: src/editortab.cpp:530
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Tag"
+msgstr "Sisipkan Tag"
+
+#: src/editortab.cpp:534
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Check this unit using LanguageTool"
+msgstr "Periksa unit ini menggunakan LanguageTool"
+
+#: src/editortab.cpp:538
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Next Tag"
+msgstr "Sisipkan Tag Selanjutnya"
+
+#: src/editortab.cpp:542
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Completion"
+msgstr "Penyelesaian"
+
+#: src/editortab.cpp:546
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Replace with best spellcheck suggestion"
+msgstr "Ganti dengan saran periksa ejaan terbaik"
+
+#: src/editortab.cpp:553
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Next"
+msgstr "Selanjutnya"
+
+#: src/editortab.cpp:558
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Previous"
+msgstr "&Sebelumnya"
+
+#: src/editortab.cpp:564
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&First Entry"
+msgstr "&Entri Pertama"
+
+#: src/editortab.cpp:570
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&Last Entry"
+msgstr "&Entri Terakhir"
+
+#: src/editortab.cpp:576
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Entry by number"
+msgstr "Entri dengan nomor"
+
+#: src/editortab.cpp:578 src/project/projecttab.cpp:152
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous non-empty but not ready"
+msgstr "Tidak kosong sebelumnya tetapi belum siap"
+
+#: src/editortab.cpp:583 src/project/projecttab.cpp:155
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next non-empty but not ready"
+msgstr "Tidak kosong selanjutnya tetapi belum siap"
+
+#: src/editortab.cpp:588 src/project/projecttab.cpp:158
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous untranslated"
+msgstr "Belum diterjemahkan sebelumnya"
+
+#: src/editortab.cpp:593 src/project/projecttab.cpp:161
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next untranslated"
+msgstr "Belum diterjemahkan selanjutnya"
+
+#: src/editortab.cpp:598 src/project/projecttab.cpp:146
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous not ready"
+msgstr "Belum siap sebelumnya"
+
+#: src/editortab.cpp:603 src/project/projecttab.cpp:149
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next not ready"
+msgstr "Belum siap selanjutnya"
+
+#: src/editortab.cpp:610
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Focus the search line of Translation Units view"
+msgstr "Fokus baris pencarian untuk tampilan Unit Terjemahan"
+
+#: src/editortab.cpp:616
+#, kde-format
+msgctxt "@option:check"
+msgid "Bookmark message"
+msgstr "Pesan markah"
+
+#: src/editortab.cpp:622
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous bookmark"
+msgstr "Markah sebelumnya"
+
+#: src/editortab.cpp:626
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next bookmark"
+msgstr "Markah selanjutnya"
+
+#: src/editortab.cpp:634
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions"
+msgstr "Isikan semua saran yang persis"
+
+#: src/editortab.cpp:638
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions and mark as fuzzy"
+msgstr "Isikan semua saran yang persis dan tandai sebagai fuzzy"
+
+#: src/editortab.cpp:643
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for sync/merge"
+msgstr "Buka file untuk sinkron/gabung"
+
+#: src/editortab.cpp:644 src/editortab.cpp:701
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Open catalog to be merged into the current one / replicate base file changes "
+"to"
+msgstr ""
+"Buka katalog untuk digabungkan ke dalam salah satu saat ini / perubahan "
+"file  basis replika ke"
+
+#: src/editortab.cpp:650 src/editortab.cpp:707
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous different"
+msgstr "Perbedaan sebelumnya"
+
+#: src/editortab.cpp:651 src/editortab.cpp:708
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Previous entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr ""
+"Entri sebelumnya yang diterjemahkan secara berbeda dalam file yang "
+"tergabung, termasuk terjemahan kosong di sumber gabungan"
+
+#: src/editortab.cpp:660 src/editortab.cpp:715
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different"
+msgstr "Perbedaan selanjutnya"
+
+#: src/editortab.cpp:661 src/editortab.cpp:716
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Next entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr ""
+"Entri selanjutnya yang diterjemahkan secara berbeda dalam file yang "
+"tergabung, termasuk terjemahan kosong di sumber gabungan"
+
+#: src/editortab.cpp:669
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different approved"
+msgstr "Perbedaan selanjutnya yang disetujui"
+
+#: src/editortab.cpp:675 src/editortab.cpp:723
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy from merging source"
+msgstr "Salin dari sumber penggabungan"
+
+#: src/editortab.cpp:682 src/editortab.cpp:728
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy all new translations"
+msgstr "Salin semua terjemahan baru"
+
+#: src/editortab.cpp:683
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty and non-ready entries in base file"
+msgstr ""
+"Perubahan ini hanya entri-entri kosong dan entri-entri belum siap dalam file "
+"basis"
+
+#: src/editortab.cpp:692 src/editortab.cpp:735
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to merging source"
+msgstr "Salin ke sumber penggabungan"
+
+#: src/editortab.cpp:700
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for secondary sync"
+msgstr "Buka file untuk sinkron sekunder"
+
+#: src/editortab.cpp:729
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty entries"
+msgstr "Perubahan ini hanya entri-entri kosong"
+
+#: src/editortab.cpp:759
+#, kde-format
+msgctxt "editor tab name"
+msgid "(recovered)"
+msgstr "(dipulihkan)"
+
+#: src/editortab.cpp:801 src/editortab.cpp:969
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The document contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"Dokumen berisi perubahan yang tak tersimpan.\n"
+"Apakah ingin menyimpan perubahan Andaatau membuangnya?"
+
+#: src/editortab.cpp:802 src/editortab.cpp:970 src/editortab.cpp:1397
+#: src/glossary/glossarywindow.cpp:490
+#, kde-format
+msgctxt "@title:window"
+msgid "Warning"
+msgstr "Peringatan"
+
+#: src/editortab.cpp:818 src/mergemode/mergeview.cpp:190
+#, kde-format
+msgctxt "@title:window"
+msgid "Select translation file"
+msgstr "Pilih file terjemahan"
+
+#: src/editortab.cpp:903
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1, line: %2"
+msgstr "Error membuka file %1, baris: %2"
+
+#: src/editortab.cpp:904
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1"
+msgstr "Error membuka file %1"
+
+#: src/editortab.cpp:911
+#, kde-format
+msgctxt "@title:window"
+msgid "Save File As"
+msgstr "Simpan File Sebagai"
+
+#: src/editortab.cpp:936
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error saving the file %1\n"
+"Do you want to save to another file or cancel?"
+msgstr ""
+"Error menyimpan file %1\n"
+"Apakah Anda ingin menyimpan ke file lain atau batal?"
+
+#: src/editortab.cpp:938
+#, kde-format
+msgctxt "@title"
+msgid "Error"
+msgstr "Error"
+
+#: src/editortab.cpp:946
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not perform file autosaving.\n"
+"The target file was %1."
+msgstr ""
+"Tidak dapat melaksanakan penyimpanan otomatis file .\n"
+"File sasaran adalah %1."
+
+#: src/editortab.cpp:995
+#, kde-format
+msgctxt "@title"
+msgid "Jump to Entry"
+msgstr "Lompat ke Entri"
+
+#: src/editortab.cpp:996
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Enter entry number:"
+msgstr "Masukkan nomor entri:"
+
+#: src/editortab.cpp:1067
+#, kde-format
+msgctxt "@info:status"
+msgid "Current: %1"
+msgstr "Saat ini: %1"
+
+#: src/editortab.cpp:1256
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Translated"
+msgstr "Diterjemahkan"
+
+#: src/editortab.cpp:1257
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Signed-off"
+msgstr "Ditinjau"
+
+#: src/editortab.cpp:1258
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Approved"
+msgstr "Disetujui"
+
+#: src/editortab.cpp:1261
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation is done (although still may need a review)"
+msgstr "Terjemahan selesai (meskipun mungkin masih perlu tinjauan)"
+
+#: src/editortab.cpp:1262
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation has received positive review"
+msgstr "Terjemahan telah menerima tinjauan yang positif"
+
+#: src/editortab.cpp:1263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Entry is fully localized (i.e. final)"
+msgstr "Entri telah secara penuh dilokalisir (yaitu final)"
+
+#: src/editortab.cpp:1375 src/project/projecttab.cpp:352
+#, kde-format
+msgid "A Pology check is already in progress."
+msgstr "Sebuah pemeriksaan Pology sedang berlangsung."
+
+#: src/editortab.cpp:1375 src/editortab.cpp:1383 src/editortab.cpp:1387
+#: src/project/projecttab.cpp:352 src/project/projecttab.cpp:360
+#: src/project/projecttab.cpp:364
+#, kde-format
+msgid "Pology error"
+msgstr "Pology error"
+
+#: src/editortab.cpp:1383 src/project/projecttab.cpp:360
+#, kde-format
+msgid ""
+"The Pology check has crashed unexpectedly:\n"
+"%1"
+msgstr ""
+"Pemeriksaan Pology telah mogok secara tiba-tiba:\n"
+"%1"
+
+#: src/editortab.cpp:1385 src/project/projecttab.cpp:362
+#, kde-format
+msgid "Pology success"
+msgstr "Pology sukses"
+
+#: src/editortab.cpp:1385
+#, kde-format
+msgid "The Pology check has succeeded."
+msgstr "Pemeriksaan Pology telah sukses."
+
+#: src/editortab.cpp:1387 src/project/projecttab.cpp:364
+#, kde-format
+msgid ""
+"The Pology check has returned an error:\n"
+"%1"
+msgstr ""
+"Pemeriksaan Pology telah dibalikkan dengan sebuah error:\n"
+"%1"
+
+#: src/editortab.cpp:1396
+#, kde-format
+msgctxt "@info"
+msgid ""
+"This will delete all the translations from the file.\n"
+"Do you really want to clear all translated entries?"
+msgstr ""
+"Ini akan menghapus semua terjemahan dari file.\n"
+"Apakah Anda benar-benar ingin membersihkan semua entri yang diterjemahkan?"
+
+#: src/editortab.cpp:1432
+#, kde-format
+msgctxt "@info words count"
+msgid "Source text words: %1<br/>Target text words: %2"
+msgstr "Kata teks sumber:  %1<br/>Kata teks sasaran: %2"
+
+#: src/editortab.cpp:1433
+#, kde-format
+msgctxt "@title"
+msgid "Word Count"
+msgstr "Jumlah Kata"
+
+#: src/editortab.cpp:1525
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Would you like to search for the source file locally or via lxr.kde.org?"
+msgstr ""
+"Apakah Anda ingin mencari file sumber secara lokal atau melalui lxr.kde.org?"
+
+#: src/editortab.cpp:1525 src/editortab.cpp:1566
+#, kde-format
+msgctxt "@title:window"
+msgid "Source file lookup"
+msgstr "Perlihatkan file sumber"
+
+#: src/editortab.cpp:1526
+#, kde-format
+msgid "Locally"
+msgstr "Secara lokal"
+
+#: src/editortab.cpp:1538 src/editortab.cpp:1577
+#, kde-format
+msgid "Select project's base folder for source file lookup"
+msgstr "Pilih folder dasar proyek-proyek untuk perlihatkan file sumber"
+
+#: src/editortab.cpp:1565
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not find source file in the folder specified.\n"
+"Do you want to change source files folder?"
+msgstr ""
+"Tidak dapat menemukan file sumber dalam folder yang ditentukan.\n"
+"Apakah Anda ingin mengubah file -file sumber folder?"
+
+#: src/editortab.cpp:1567
+#, kde-format
+msgid "lxr.kde.org"
+msgstr "lxr.kde.org"
+
+#: src/editortab.cpp:1596
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Cannot open the target source file: The target source file is not relative "
+"to the current translation file, and there are currently no scripts loaded "
+"to handle opening source files in custom paths. Refer to the Lokalize "
+"handbook for script examples and how to plug them into your project."
+msgstr ""
+"Tidak dapat membuka file sumber sasaran: File sumber sasaran tidak relatif "
+"untuk file terjemahan saat ini, dan baru-baru ini tidak ada skrip termuat "
+"untuk menangani membuka file sumber di alur kustom. Mengacu pada buku "
+"petunjuk Lokalize untuk contoh-contoh skrip dan bagaimana mencolokkan mereka "
+"ke dalam proyek Anda."
+
+#: src/editortab.cpp:1610 src/project/project.cpp:472
+#: src/project/project.cpp:477
+#, kde-format
+msgid "Install translate-toolkit package and retry"
+msgstr "Instal paket translate-toolkit dan coba lagi"
+
+#: src/editortab.cpp:1616
+#, kde-format
+msgid "Install translate-toolkit package and retry."
+msgstr "Instal paket translate-toolkit dan coba lagi."
+
+#: src/editortab.cpp:1625
+#, kde-format
+msgid "Select original OpenDocument on which current XLIFF file is based"
+msgstr "Pilih OpenDocument asli yang mana file XLIFF saat ini didasarkan"
+
+#: src/editortab.cpp:1627 src/project/project.cpp:482
+#, kde-format
+msgid "OpenDocument files (*.odt *.ods)"
+msgstr "File-file OpenDocument (*.odt *.ods)"
+
+#: src/editortab.cpp:1672
+#, kde-format
+msgid "Install python-uno package for additional functionality."
+msgstr "Instal paket python-uno untuk fungsionalitas tambahan."
+
+#: src/editortab.cpp:1796
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Set unit text"
+msgstr "Set teks unit"
+
+#: src/editortab_findreplace.cpp:464
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace"
+msgstr "Ganti"
+
+#: src/editortab_findreplace.cpp:534
+#, kde-format
+msgid ""
+"Lokalize has reached end of document. Do you want to continue from start?"
+msgstr ""
+"Lokalize telah mencapai ujung dari dokumen. Apakah Anda ingin melanjutkan "
+"dari awal?"
+
+#: src/editortab_findreplace.cpp:535 src/editortab_findreplace.cpp:541
+#, kde-format
+msgctxt "@title"
+msgid "Spellcheck"
+msgstr "Periksa ejaan"
+
+#: src/editortab_findreplace.cpp:541
+#, kde-format
+msgid "Lokalize has finished spellchecking"
+msgstr "Lokalize telah selesai memeriksa ejaan"
+
+#. i18n: ectx: Menu (file)
+#: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
+#, kde-format
+msgid "&File"
+msgstr "&File"
+
+#. i18n: ectx: Menu (edit)
+#: src/editorui.rc:37 src/project/projectmanagerui.rc:22
+#, kde-format
+msgid "&Edit"
+msgstr "&Edit"
+
+#. i18n: ectx: Menu (glossary)
+#: src/editorui.rc:70
+#, kde-format
+msgid "&Glossary"
+msgstr "&Glosarium"
+
+#. i18n: ectx: Menu (webquery)
+#: src/editorui.rc:95
+#, kde-format
+msgid "&WebQuery"
+msgstr "&WebQuery"
+
+#. i18n: ectx: Menu (tmquery)
+#: src/editorui.rc:112
+#, kde-format
+msgid "Translation &Memory"
+msgstr "Memori &Terjemahan"
+
+#. i18n: ectx: Menu (alttrans)
+#: src/editorui.rc:143
+#, kde-format
+msgid "Alternative Translations"
+msgstr "Terjemahan Alternatif"
+
+#. i18n: ectx: Menu (go)
+#: src/editorui.rc:161 src/project/projectmanagerui.rc:5
+#, kde-format
+msgid "&Go"
+msgstr "&Menuju"
+
+#. i18n: ectx: Menu (bookmarks)
+#: src/editorui.rc:191
+#, kde-format
+msgid "&Bookmarks"
+msgstr "&Markah"
+
+#. i18n: ectx: Menu (merge)
+#: src/editorui.rc:198
+#, kde-format
+msgid "S&ync"
+msgstr "S&inkron"
+
+#. i18n: ectx: Menu (mergesecondary)
+#: src/editorui.rc:208
+#, kde-format
+msgid "&Secondary sync source"
+msgstr "&Sumber sinkron sekunder"
+
+#. i18n: ectx: Menu (toolviews)
+#: src/editorui.rc:228 src/lokalizemainwindowui.rc:49
+#, kde-format
+msgid "Tool&views"
+msgstr "Tampilan &Alat"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/editorui.rc:251 src/filesearch/filesearchtabui.rc:11
+#: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Bilah Alat Utama"
+
+#: src/editorview.cpp:45
+#, kde-format
+msgctxt "@label whether entry is fuzzy"
+msgid "Not ready:"
+msgstr "Belum siap:"
+
+#: src/editorview.cpp:47
+#, kde-format
+msgctxt "@label whether entry is untranslated"
+msgid "Untranslated:"
+msgstr "Belum diterjemahkan:"
+
+#: src/editorview.cpp:58
+#, kde-format
+msgctxt "@action"
+msgid "Hide"
+msgstr "Sembunyikan"
+
+#: src/editorview.cpp:68
+#, kde-format
+msgctxt "@info:label cursor position"
+msgid "Column: %1"
+msgstr "Kolom: %1"
+
+#: src/editorview.cpp:82
+#, kde-format
+msgid ""
+"<qt><p><b>Original String</b></p>\n"
+"<p>This part of the window shows the original message\n"
+"of the currently displayed entry.</p></qt>"
+msgstr ""
+"<qt><p><b>String Asli</b></p>\n"
+"<p>Ini bagian dari jendela yang menunjukkan pesan asli\n"
+"pada entri yang baru saja ditampilkan.</p></qt>"
+
+#: src/editorview.cpp:180
+#, kde-format
+msgctxt "@title:tab"
+msgid "Plural Form %1"
+msgstr "Formulir Jamak %1"
+
+#: src/editorview.cpp:249
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Unwrap"
+msgstr "Unwrap"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/filesearch/filesearchoptions.ui:24
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Ctrl+L to go to this control.\n"
+"Press Enter to start the search.\n"
+"Press Esc to stop the search."
+msgstr ""
+"Ekspresi pencarian untuk bagian bahasa sumber.\n"
+"Tekan Ctrl+L untuk menuju ke kendali ini.\n"
+"Tekan Enter untuk memulai pencarian.\n"
+"Tekan Esc untuk menghentikan pencarian."
+
+#. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (text), widget (QCheckBox, invertSource)
+#: src/filesearch/filesearchoptions.ui:31
+#: src/filesearch/filesearchoptions.ui:80 src/tm/queryoptions.ui:108
+#: src/tm/queryoptions.ui:118
+#, kde-format
+msgid "Invert"
+msgstr "Kebalikan"
+
+#. i18n: ectx: property (text), widget (QLabel, querySourceLabel)
+#: src/filesearch/filesearchoptions.ui:38 src/tm/queryoptions.ui:85
+#, kde-format
+msgid "Source:"
+msgstr "Sumber:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
+#: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
+#, kde-format
+msgid ""
+"Search expression for target language part.\n"
+"Press Enter to start the search."
+msgstr ""
+"Ekspresi pencarian untuk bagian sasaran bahasa.\n"
+"Tekan Enter untuk memulai pencarian."
+
+#. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
+#. i18n: ectx: property (text), widget (QCheckBox, regEx)
+#: src/filesearch/filesearchoptions.ui:56
+#: src/filesearch/massreplaceoptions.ui:78
+#, kde-format
+msgid "Regular expressions"
+msgstr "Kalimat biasa"
+
+#. i18n: ectx: property (text), widget (QLabel, queryTargetLabel)
+#: src/filesearch/filesearchoptions.ui:63 src/tm/queryoptions.ui:95
+#, kde-format
+msgid "Target:"
+msgstr "Sasaran:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: src/filesearch/filesearchoptions.ui:73
+#: src/filesearch/massreplaceoptions.ui:85
+#, kde-format
+msgid "Match case"
+msgstr "Huruf cocok"
+
+#. i18n: ectx: property (text), widget (QPushButton, doFind)
+#: src/filesearch/filesearchoptions.ui:96 src/tm/queryoptions.ui:190
+#, kde-format
+msgid "&Search"
+msgstr "&Cari"
+
+#: src/filesearch/filesearchtab.cpp:75
+#, kde-format
+msgctxt "@title:window"
+msgid "File List"
+msgstr "Daftar File"
+
+#: src/filesearch/filesearchtab.cpp:77
+#, kde-format
+msgid "Drop translation files here..."
+msgstr "Jatuhkan file terjemahan di sini..."
+
+#. i18nc("@title:column","Context");
+#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "File"
+msgstr "File"
+
+#: src/filesearch/filesearchtab.cpp:424
+#, kde-format
+msgctxt "@title:window"
+msgid "Search and replace in files"
+msgstr "Cari dan ganti dalam file"
+
+#: src/filesearch/filesearchtab.cpp:458 src/tm/tmtab.cpp:405
+#, kde-format
+msgid "Copy source to clipboard"
+msgstr "Salin sumber ke papan-klip"
+
+#: src/filesearch/filesearchtab.cpp:464 src/tm/tmtab.cpp:411
+#, kde-format
+msgid "Copy target to clipboard"
+msgstr "Salin sasaran ke papan-klip"
+
+#: src/filesearch/filesearchtab.cpp:470 src/tm/tmtab.cpp:417
+#, kde-format
+msgid "Open file"
+msgstr "Buka file"
+
+#: src/filesearch/filesearchtab.cpp:509
+#, kde-format
+msgctxt "@title actions category"
+msgid "Search and replace in files"
+msgstr "Cari dan ganti dalam file"
+
+#: src/filesearch/filesearchtab.cpp:796
+#, kde-format
+msgctxt "@title:window"
+msgid "Mass replace"
+msgstr "Penggantian massal"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/filesearch/massreplaceoptions.ui:17
+#, kde-format
+msgid "Replace:"
+msgstr "Ganti:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/filesearch/massreplaceoptions.ui:27
+#, kde-format
+msgid "With:"
+msgstr "Dengan:"
+
+#. i18n: ectx: property (text), widget (QPushButton, doPreview)
+#: src/filesearch/massreplaceoptions.ui:37
+#, kde-format
+msgid "Preview"
+msgstr "Pratinjau"
+
+#. i18n: ectx: property (text), widget (QPushButton, doReplace)
+#: src/filesearch/massreplaceoptions.ui:56
+#, kde-format
+msgid "Mass Replace"
+msgstr "Penggantian Massal"
+
+#: src/glossary/glossary.cpp:218
+#, kde-format
+msgctxt "@title:column"
+msgid "Subject Field"
+msgstr "Bidang Subjek"
+
+#: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:44
+#: src/glossary/glossarywindow.cpp:405 src/glossary/glossarywindow.cpp:432
+#: src/glossary/glossarywindow.cpp:447 src/glossary/glossarywindow.cpp:465
+#, kde-format
+msgctxt "@title:window"
+msgid "Glossary"
+msgstr "Glosarium"
+
+#: src/glossary/glossaryview.cpp:56
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
+"near the term to insert its translation.</p><p>Use context menu to add new "
+"entry (tip:&nbsp;select words in original and translation fields before "
+"calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"
+msgstr ""
+"<p>Terjemahan untuk istilah umum muncul di sini.</p><p>Tekan pintasan yang "
+"ditampilkan dekat istilah untuk menyisipkan terjemahannya.</p><p>Gunakan "
+"menu konteks untuk menambahkan entri baru (tip:&nbsp;pilih kata pada kata "
+"yang aslinya dan bidang terjemahan sebelum memanggil "
+"<interface>Definisikan&nbsp;istilah&nbsp;baru</interface>).</p>"
+
+#: src/glossary/glossarywindow.cpp:238
+#, kde-format
+msgctxt "@action:button reloads glossary from disk"
+msgid "Restore from disk"
+msgstr "Kembalikan dari disk"
+
+#: src/glossary/glossarywindow.cpp:239
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reload glossary from disk, discarding any changes"
+msgstr "Muat ulang glosarium dari disk, membuang perubahan apa pun"
+
+#: src/glossary/glossarywindow.cpp:489
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The glossary contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"Glosarium mengandung perubahan tak tersimpan.\n"
+"Apakah ingin menyimpan perubahan Andaatau membuangnya?"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/glossary/termedit.ui:19
+#, kde-format
+msgid "English synonyms (double-click to edit):"
+msgstr "Sinonim-sinonim Inggris (klik ganda untuk mengedit):"
+
+#. i18n: ectx: property (text), widget (QToolButton, addEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, addTargetTerm)
+#: src/glossary/termedit.ui:26 src/glossary/termedit.ui:54
+#, kde-format
+msgid "+"
+msgstr "+"
+
+#. i18n: ectx: property (text), widget (QToolButton, remEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, remTargetTerm)
+#: src/glossary/termedit.ui:33 src/glossary/termedit.ui:61
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/glossary/termedit.ui:47
+#, kde-format
+msgid "Corresponding target language synonyms:"
+msgstr "Berhubungan sinonim bahasa sasaran:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/glossary/termedit.ui:73
+#, kde-format
+msgid "Subject field:"
+msgstr "Bidang subjek:"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, subjectField)
+#: src/glossary/termedit.ui:83
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"When adding a new item, press enter after you have typed its name for "
+"changes to take effect"
+msgstr ""
+"Ketika menambahkan sebuah butir baru, tekan enter setelah Anda mengetik "
+"namanya untuk perubahan menjadi berpengaruh"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/glossary/termedit.ui:95
+#, kde-format
+msgid "Definition:"
+msgstr "Definisi:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/glossary/termedit.ui:122
+#, kde-format
+msgid ""
+"Note: one glossary entry corresponds exactly to one term, not word/word "
+"sequence.\n"
+"\n"
+"That is, there may be several entries with the same word/word sequence "
+"expressing different meanings."
+msgstr ""
+"Catatan: satu entri glosarium berhubungan dengan salah satu istilah, bukan "
+"kata/urutan kata .\n"
+"\n"
+"Artinya, mungkin ada beberapa entri dengan urutan kata yang sama/kata yang "
+"mengekspresikan arti yang berbeda."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "Lewati tag-tag"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "Lewati tanda baca"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/kaider_findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "Abaikan tanda akselerator"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/kaider_findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "Sisipkan catatan"
+
+#: src/languagetool/languagetoolgrammarerror.cpp:47
+#, kde-format
+msgid "Suggestions:"
+msgstr "Saran:"
+
+#: src/languagetool/languagetoolparser.cpp:35
+#, kde-format
+msgid "No errors"
+msgstr "Tidak ada kesalahan"
+
+#: src/lokalizemainwindow.cpp:115
+#, kde-format
+msgctxt "@info"
+msgid "No Qt Sql modules were found. Translation memory will not work."
+msgstr ""
+"Tidak ada modul-modul Qt Sql yang ditemukan. Memori terjemahan tidak akan "
+"bekerja."
+
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#, kde-format
+msgid "TM facility requires SQLite Qt module."
+msgstr "Fasilitas MT memerlukan modul SQLite Qt"
+
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#, kde-format
+msgid "No SQLite module available"
+msgstr "Tidak ada modul SQLite yang tersedia"
+
+#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:490
+#, kde-format
+msgctxt "@title actions category"
+msgid "Translation Memory"
+msgstr "Memori Terjemahan"
+
+#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:188
+#, kde-format
+msgctxt "@title actions category"
+msgid "Project"
+msgstr "proyek"
+
+#: src/lokalizemainwindow.cpp:466
+#, kde-format
+msgid "Next tab"
+msgstr "Tab Selanjutnya"
+
+#: src/lokalizemainwindow.cpp:469
+#, kde-format
+msgid "Previous tab"
+msgstr "Tab sebelumnya"
+
+#: src/lokalizemainwindow.cpp:472
+#, kde-format
+msgid "Previously active tab"
+msgstr "Tab aktif sebelumnya"
+
+#: src/lokalizemainwindow.cpp:478
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Glossary"
+msgstr "Glosarium"
+
+#: src/lokalizemainwindow.cpp:482
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translation memory"
+msgstr "Memori terjemahan"
+
+#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:493
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Manage translation memories"
+msgstr "Kelola memori terjemahan"
+
+#: src/lokalizemainwindow.cpp:490
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Project overview"
+msgstr "Ikhtisar proyek"
+
+#: src/lokalizemainwindow.cpp:494
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Configure project..."
+msgstr "Konfigurasikan proyek..."
+
+#: src/lokalizemainwindow.cpp:497
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create software translation project..."
+msgstr "Ciptakan proyek terjemahan perangkat lunak..."
+
+#: src/lokalizemainwindow.cpp:500
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create OpenDocument translation project..."
+msgstr "Ciptakan proyek terjemahan OpenDocument"
+
+#: src/lokalizemainwindow.cpp:503
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project..."
+msgstr "Buka proyek..."
+
+#: src/lokalizemainwindow.cpp:507
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Close project"
+msgstr "Tutup proyek"
+
+#: src/lokalizemainwindow.cpp:510
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open recent project"
+msgstr "Buka proyek baru-baru ini"
+
+#: src/lokalizemainwindow.cpp:518
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search and replace in files"
+msgstr "Cari dan ganti dalam file"
+
+#: src/lokalizemainwindow.cpp:521
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Find next in files"
+msgstr "Temukan selanjutnya dalam file"
+
+#: src/lokalizemainwindow.cpp:525
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Widget text capture"
+msgstr "Widget tangkapan teks"
+
+#: src/lokalizemainwindow.cpp:702
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the following files:\n"
+"\n"
+msgstr ""
+"Error membuka file berikut ini:\n"
+"\n"
+
+#. i18n: ectx: Menu (project)
+#: src/lokalizemainwindowui.rc:18
+#, kde-format
+msgid "&Project"
+msgstr "Pro&yek"
+
+#. i18n: ectx: Menu (project_actions)
+#: src/lokalizemainwindowui.rc:31
+#, kde-format
+msgid "&Scripts"
+msgstr "&Skrip"
+
+#: src/main.cpp:56
+#, kde-format
+msgctxt "@title"
+msgid "Lokalize"
+msgstr "Lokalize"
+
+#: src/main.cpp:56
+#, kde-format
+msgid ""
+"Computer-aided translation system.\n"
+"Do not translate what had already been translated."
+msgstr ""
+"Sistem terjemahan dengan bantuan komputer.\n"
+"Jangan menerjemahkan apa yang sudah diterjemahkan."
+
+#: src/main.cpp:57
+#, kde-format
+msgctxt "@info:credit"
+msgid ""
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
+"(c) 1999-2006 The KBabel developers"
+msgstr ""
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
+"(c) 1999-2006 The KBabel developers"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "Nick Shaforostoff"
+msgstr "Nick Shaforostoff"
+
+#: src/main.cpp:59
+#, kde-format
+msgid "Google Inc."
+msgstr "Google Inc."
+
+#: src/main.cpp:59
+#, kde-format
+msgid "sponsored development as part of Google Summer Of Code program"
+msgstr "pengembangan disponsori sebagian dari program Google Summer Of Code"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "NLNet Foundation"
+msgstr "Yayasan NLNet"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "sponsored XLIFF-related work"
+msgstr "disponsori pekerjaan yang berkaitan XLIFF"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Translate-toolkit"
+msgstr "Translate-toolkit"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "provided excellent cross-format converting scripts"
+msgstr " disediakan baik skrip-skrip pengkonversian lintas format"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "LanguageTool"
+msgstr "LanguageTool"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "grammar, style and spell checker"
+msgstr "pemeriksa ejaan, tata bahasa, dan gaya"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Viesturs Zarins"
+msgstr "Viesturs Zarins"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "project tree merging translation+templates"
+msgstr "ranting proyek penggabungan terjemahan+template-template"
+
+#: src/main.cpp:64
+#, kde-format
+msgid "Stephan Johach"
+msgstr "Stephan Johach"
+
+#: src/main.cpp:64 src/main.cpp:65 src/main.cpp:68
+#, kde-format
+msgid "bug fixing patches"
+msgstr "memperbaiki bug tambalan kecil-kecil"
+
+#: src/main.cpp:65
+#, kde-format
+msgid "Chusslove Illich"
+msgstr "Chusslove Illich"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "Jure Repinc"
+msgstr "Jure Repinc"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "testing and bug fixing"
+msgstr "menguji dan memperbaiki bug"
+
+#: src/main.cpp:67
+#, kde-format
+msgid "Stefan Asserhall"
+msgstr "Stefan Asserhall"
+
+#: src/main.cpp:67
+#, kde-format
+msgid "patches"
+msgstr "tambalan kecil-kecil"
+
+#: src/main.cpp:68
+#, kde-format
+msgid "Papp Laszlo"
+msgstr "Papp Laszlo"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "Albert Astals Cid"
+msgstr "Albert Astals Cid"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "XLIFF improvements"
+msgstr "Peningkatan XLIFF"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "Simon Depiets"
+msgstr "Simon Depiets"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "bug fixing and improvements"
+msgstr "Perbaikan bug dan memperbaiki"
+
+#. i18n( "Source for the merge mode" ), QLatin1String("URL")));
+#: src/main.cpp:74
+#, kde-format
+msgid "Do not scan files of the project."
+msgstr "Jangan pindai file pada proyek."
+
+#: src/main.cpp:75
+#, kde-format
+msgid "Load specified project."
+msgstr "Muat proyek yang ditentukan."
+
+#: src/main.cpp:76
+#, kde-format
+msgid "Document to open"
+msgstr "Dokumen untuk membuka"
+
+#: src/mergemode/mergecatalog.cpp:246
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept change in translation"
+msgstr "Terima perubahan dalam terjemahan"
+
+#: src/mergemode/mergecatalog.cpp:298
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept all new translations"
+msgstr "Terima semua terjemahan baru"
+
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Primary Sync"
+msgstr "Sinkron Primer"
+
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Secondary Sync"
+msgstr "Sinkron Sekunder"
+
+#: src/mergemode/mergeview.cpp:43
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Drop file to be merged into / synced with the current one here, then see "
+"context menu options"
+msgstr ""
+"Jatuhkan file yang digabungkan ke dalam / tersinkron dengan salah satu "
+"sekarang di sini, kemudian lihat pilihan menu konteks"
+
+#: src/mergemode/mergeview.cpp:217
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the file <filename>%1</filename> for synchronization, error "
+"line: %2"
+msgstr ""
+"Error membuka file <filename>%1</filename> untuk sinkronisasi, error baris: "
+"%2"
+
+#: src/mergemode/mergeview.cpp:350
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Different entries: %1\n"
+"Unmatched entries: %2"
+msgstr ""
+"Entri-entri berbeda: %1\n"
+"Entri-entri tak cocok: %2"
+
+#: src/msgctxtview.cpp:37
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Unit metadata"
+msgstr "Unit metadata"
+
+#: src/msgctxtview.cpp:102
+#, kde-format
+msgctxt ""
+"@info notes to translation unit which expire when the catalog is closed"
+msgid "<b>Temporary notes:</b>"
+msgstr "<b>Catatan temporer:</b>"
+
+#: src/msgctxtview.cpp:111
+#, kde-format
+msgctxt "@info notes generated by the pology check"
+msgid "<b>Pology notes:</b>"
+msgstr "<b>Catatan Pology:</b>"
+
+#: src/msgctxtview.cpp:120
+#, kde-format
+msgctxt "@info notes generated by the languagetool check"
+msgid "<b>LanguageTool notes:</b>"
+msgstr "<b>Catatan LanguageTool:</b>"
+
+#: src/msgctxtview.cpp:132
+#, kde-format
+msgctxt "@info translation unit metadata"
+msgid "<b>Phase:</b><br>"
+msgstr "<b>Frasa:</b><br>"
+
+#: src/msgctxtview.cpp:156
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Files:</b><br>"
+msgstr "<br><b>File:</b><br>"
+
+#: src/msgctxtview.cpp:164
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Context:</b><br>"
+msgstr "<br><b>Konteks:</b><br>"
+
+#: src/msgctxtview.cpp:237
+#, kde-format
+msgctxt "@info The pology command didn't return anything"
+msgid "(empty)"
+msgstr "(kosong)"
+
+#: src/noteeditor.cpp:47
+#, kde-format
+msgctxt "@info:label"
+msgid "From:"
+msgstr "Dari:"
+
+#: src/noteeditor.cpp:52
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Save empty note to remove it"
+msgstr "Simpan catatan kosong untuk membuangnya"
+
+#: src/noteeditor.cpp:53
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Author of this note"
+msgstr "Penulis dari catatan ini"
+
+#: src/noteeditor.cpp:66
+#, kde-format
+msgid "Ctrl+Enter"
+msgstr "Ctrl+Enter"
+
+#: src/noteeditor.cpp:67
+#, kde-format
+msgid "Esc"
+msgstr "Esc"
+
+#: src/noteeditor.cpp:119
+#, kde-format
+msgctxt "@info XLIFF notes representation"
+msgid "<b>Notes:</b>"
+msgstr "<b>Catatan:</b>"
+
+#: src/noteeditor.cpp:130
+#, kde-format
+msgctxt "link to edit note"
+msgid "edit..."
+msgstr "edit..."
+
+#: src/noteeditor.cpp:135
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add..."
+msgstr "Tambahkan..."
+
+#: src/noteeditor.cpp:137
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add a note..."
+msgstr "Tambahkan sebuah catatan..."
+
+#: src/phaseswindow.cpp:139
+#, kde-format
+msgctxt "@title:column"
+msgid "Date"
+msgstr "Tanggal"
+
+#: src/phaseswindow.cpp:140
+#, kde-format
+msgctxt "@title:column"
+msgid "Process"
+msgstr "Proses"
+
+#: src/phaseswindow.cpp:141
+#, kde-format
+msgctxt "@title:column"
+msgid "Company"
+msgstr "Perusahaan"
+
+#: src/phaseswindow.cpp:142
+#, kde-format
+msgctxt "@title:column"
+msgid "Person"
+msgstr "Person"
+
+#: src/phaseswindow.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Tool"
+msgstr "Alat"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Translation"
+msgstr "Terjemahan"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Review"
+msgstr "Tinjau"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Approval"
+msgstr "Persetujuan"
+
+#: src/phaseswindow.cpp:173
+#, kde-format
+msgctxt "noun"
+msgid "Process (this will also change your role):"
+msgstr "Proses (ini juga akan mengubah aturan Anda):"
+
+#: src/phaseswindow.cpp:252
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Edit phases"
+msgstr "Edit fasa-fasa"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:14
+#, kde-format
+msgid "Translator's name"
+msgstr "Nama para penerjemah"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:15
+#, kde-format
+msgid "Translator's name in English"
+msgstr "Nama para penerjemah dalam bahasa Inggris"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:21
+#, kde-format
+msgid "Localized name"
+msgstr "Nama terlokalisir"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:22
+#, kde-format
+msgid "Translator's name in target language"
+msgstr "Nama para penerjemah dalam bahasa sasaran"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:28
+#, kde-format
+msgid "Override Language Team"
+msgstr "Timpa Tim Bahasa"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:29
+#, kde-format
+msgid "Use user-provided language team name instead of generating it"
+msgstr ""
+"Gunakan nama tim bahasa yang disediakan pengguna alih-alih mengadakannya"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:35
+#, kde-format
+msgid "Language Team"
+msgstr "Tim Bahasa"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:36
+#, kde-format
+msgid "Translator team's name"
+msgstr "Nama tim penerjemah"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:42
+#, kde-format
+msgid "Translator's email"
+msgstr "Email para penerjemah"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#, kde-format
+msgid "Default language code for new projects"
+msgstr "Kode bahasa baku untuk proyek baru"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#, kde-format
+msgid "Default mailing list for new projects"
+msgstr "Milis baku untuk proyek baru"
+
+#. i18n: ectx: label, entry (CleverEditing), group (Appearance)
+#. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
+#. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
+#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
+#: src/prefs/lokalize.kcfg:96
+#, kde-format
+msgid ""
+"\n"
+"        "
+msgstr ""
+"\n"
+"        "
+
+#. i18n: ectx: label, entry (MsgFont), group (Appearance)
+#: src/prefs/lokalize.kcfg:81
+#, kde-format
+msgid "Font for Messages"
+msgstr "Font untuk Perpesanan"
+
+#: src/prefs/prefs.cpp:101
+#, kde-format
+msgctxt "@title:tab"
+msgid "Identity"
+msgstr "Identitas"
+
+#: src/prefs/prefs.cpp:111
+#, kde-format
+msgid ""
+"The following parameters are available\n"
+"%1 - Path of the source file\n"
+"%2 - Line number"
+msgstr ""
+"Parameter berikut ini yang tersedia\n"
+"%1 - Alur dari file sumber\n"
+"%2 - Nomor baris"
+
+#: src/prefs/prefs.cpp:113 src/prefs/prefs.cpp:242
+#, kde-format
+msgctxt "@title:tab"
+msgid "General"
+msgstr "Umum"
+
+#: src/prefs/prefs.cpp:119
+#, kde-format
+msgctxt "@title:tab"
+msgid "Editing"
+msgstr "Pengeditan"
+
+#: src/prefs/prefs.cpp:125
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Penampilan"
+
+#: src/prefs/prefs.cpp:131
+#, kde-format
+msgctxt "@title:tab"
+msgid "Translation Memory"
+msgstr "Memori Terjemahan"
+
+#: src/prefs/prefs.cpp:137
+#, kde-format
+msgctxt "@title:tab"
+msgid "Pology"
+msgstr "Pology"
+
+#: src/prefs/prefs.cpp:143
+#, kde-format
+msgctxt "@title:tab"
+msgid "LanguageTool"
+msgstr "LanguageTool"
+
+#: src/prefs/prefs.cpp:152
+#, kde-format
+msgctxt "@title:tab"
+msgid "Spellcheck"
+msgstr "Periksa ejaan"
+
+#: src/prefs/prefs.cpp:176
+#, kde-format
+msgid ""
+"You have accessed a feature that requires a project to be loaded. Do you "
+"want to create a new project or open an existing project?"
+msgstr ""
+"Anda telah mengakses fitur yang diperlukan proyek untuk dimuat. Apakah Anda "
+"ingin menciptakan sebuah proyek baru atau membuka proyek yang ada?"
+
+#: src/prefs/prefs.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "New"
+msgstr "Baru"
+
+#: src/prefs/prefs.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "Open"
+msgstr "Buka"
+
+#: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
+#, kde-format
+msgid "Lokalize translation project (*.lokalize)"
+msgstr "Proyek terjemahan lokalize (*.lokalize)"
+
+#: src/prefs/prefs.cpp:209
+#, kde-format
+msgctxt "@window:title"
+msgid "Select folder with Gettext .po files to translate"
+msgstr "Pilih folder dengan file .po Gettext untuk menerjemahkan"
+
+#: src/prefs/prefs.cpp:230
+#, kde-format
+msgid "Create software or OpenDocument translation project first."
+msgstr "Ciptakan proyek terjemahan perangkat lunak atau OpenDocument dulu."
+
+#: src/prefs/prefs.cpp:288
+#, kde-format
+msgctxt "@title:tab"
+msgid "Advanced"
+msgstr "Tingkat-lanjut"
+
+#: src/prefs/prefs.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Personal"
+msgstr "Personal"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_appearance.ui:34
+#, kde-format
+msgid "Editor font:"
+msgstr "Fon editor:"
+
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:44
+#, kde-format
+msgid "Change the font for the editor"
+msgstr "Ubah font untuk si editor"
+
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:47
+#, kde-format
+msgid "Choose a new font for the area where you write the translated message."
+msgstr ""
+"Memilih sebuah font baru untuk area di mana Anda menulis perpesanan yang "
+"diterjemahkan."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:54
+#, kde-format
+msgid "Display LEDS for message status"
+msgstr "Tampilan LEDS untuk status pesan"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:57
+#, kde-format
+msgid ""
+"If checked, LEDS will be shown to display the message status: Fuzzy, "
+"Untranslated or Error. If unchecked, no LEDs will be displayed."
+msgstr ""
+"Jika dicentang, LED akan tampil untuk menampilkan status pesan: Kurang "
+"Tepat, Belum Diterjemahkan atau Error. Jika tak dicentang, LED tidak akan "
+"ditampilkan."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:60
+#, kde-format
+msgid ""
+"LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
+"number"
+msgstr ""
+"LED untuk mengindikasi status Belum Siap dan Belum Diterjemahkan serta "
+"kursor jumlah kolom"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:69
+#, kde-format
+msgid "Text colors for the changes in the message."
+msgstr "Warna-warna teks bagi perubahan di dalam pesan."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:72
+#, kde-format
+msgid "String Matching"
+msgstr "Pencocokan String"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_appearance.ui:78
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text added in the newer string:"
+msgstr "Teks yang ditambahkan pada string baru:"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:88
+#, kde-format
+msgid "Change the color for the new text added"
+msgstr "Ubah warna untuk teks baru ditambahkan"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:91
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was added to the string."
+msgstr ""
+"Anda dapat mengeset warna yang lain untuk menampilkan teks yang ditambahkan "
+"ke string."
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/prefs/prefs_appearance.ui:101
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text removed in the newer string:"
+msgstr "Teks yang disingkirkan pada string baru:"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:111
+#, kde-format
+msgid "Change the color for the text removed"
+msgstr "Ubah warna untuk teks yang dihapus"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:114
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was removed from the "
+"string."
+msgstr ""
+"Anda dapat mengeset warna yang lain untuk menampilkan teks yang dihapus dari "
+"string."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:140
+#, kde-format
+msgid ""
+"Check to see if a string ends in a space (which is often important when "
+"displaying it in the user interface, or when it gets concatenated with "
+"others)."
+msgstr ""
+"Centang untuk melihat apakah ujung string dikasih spasi (yang seringkali "
+"penting ketika menampilkannya dalam antarmuka pengguna, atau ketika akan "
+"digabungkan dengan yang lain)."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:143
+#, kde-format
+msgid "Highlight spaces at the end"
+msgstr "Sorot spasi pada ujung"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:32
+#, kde-format
+msgid ""
+"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
+msgstr ""
+"Jika disetel, roda mouse menuju ke unit sebelumnya atau selanjutnya, jika "
+"tidak menggulir teks"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:35
+#, kde-format
+msgid ""
+"<html>When this option is enabled, the mouse wheel is used to go to the "
+"previous or next translation unit (without modifier keys). Modifier keys can "
+"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
+"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
+"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
+"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
+"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
+"the text of the current translation unit.</html>"
+msgstr ""
+"<html>Bila pilihan ini difungsikan, roda mouse digunakan untuk menuju ke "
+"unit terjemahan sebelumnya atau selanjutnya (tanpa tuts pengubah). Tuts "
+"pengubah dapat digunakan untuk mengubah perilaku ini. Gunakan:"
+"<ul><li><b>Shift</b> untuk menggulir tidak lebih dari teks unit saat ini,</"
+"li><li><b>Ctrl+Shift</b> untuk menuju ke unit belum siap sebelumnya atau "
+"selanjutnya,</li><li><b>Ctrl</b> untuk menuju ke unit tidak kosong belum "
+"siap sebelumnya atau selanjutnya,</li><li><b>Alt</b> untuk menuju ke unit "
+"belum diterjemahkan sebelumnya atau selanjutnya.</li></ul>Bila pilihan ini "
+"dinonfungsikan, roda mouse menggulir tidak lebih dari teks unit terjemahan "
+"saat ini.</html>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:38
+#, kde-format
+msgid "Mouse wheel goes to previous or next translation unit"
+msgstr "Roda mouse menuju ke unit terjemahan sebelumnya atau selanjutnya"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
+#: src/prefs/prefs_editor.ui:45
+#, kde-format
+msgid "Set 'approved' status automatically when editing started"
+msgstr "Set status 'disetujui' secara otomatis ketika pengeditan dimulai"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
+#: src/prefs/prefs_editor.ui:65
+#, kde-format
+msgid "Visualize separators such as spaces, tabs and new lines in the editor"
+msgstr ""
+"Visualkan pemisah sepertihalnya sepasi, tab, dan baris baru di dalam pengedit"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
+#, kde-format
+msgid "Set to 2 to disable word completion"
+msgstr "Atur ke 2 untuk menonaktifkan kata yang sudah selesai"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_editor.ui:77
+#, kde-format
+msgid "Minimum word length for word completion"
+msgstr "Minimum panjang kata untuk penyelesaian kata"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:90
+#, kde-format
+msgid "Disable word completion"
+msgstr "Nonfungsikan penyelesaian kata"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
+#: src/prefs/prefs_editor.ui:105
+#, kde-format
+msgid "Automatically convert XML special characters in TS files"
+msgstr "Secara otomatis mengkonversi karakter khusus XML ke dalam file TS"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
+#: src/prefs/prefs_general.ui:45
+#, kde-format
+msgid "Restore the previously opened files when launching Lokalize"
+msgstr "Kembalikan file yang dibuka sebelumnya ketika meluncurkan Lokalize"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:54
+#, kde-format
+msgid "Defines the behavior of the next/previous tab shortcuts"
+msgstr "Menjelaskan perilaku pintasan tab sebelumnya/selanjutnya"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:57
+#, kde-format
+msgid "Next/previous tab shortcut behavior"
+msgstr "Perilaku pintasan tab sebelumnya/selanjutnya"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:68
+#, kde-format
+msgid "According to tab position"
+msgstr "Sesuaikan ke posisi tab"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:73
+#, kde-format
+msgid "According to tab activation order"
+msgstr "Sesuaikan ke urutan aktivasi tab"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomEditorEnabled)
+#: src/prefs/prefs_general.ui:83
+#, kde-format
+msgid "Use a custom editor to open source files"
+msgstr "Gunakan sebuah editor kustom untuk membuka file-file sumber"
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
+#: src/prefs/prefs_identity.ui:14
+#, kde-format
+msgid ""
+"Fill in your identity and information about your translation team. This "
+"information is used when updating the header of a file."
+msgstr ""
+"Isikan identitas Anda dan informasi tentang tim terjemahan Anda. Informasi "
+"ini digunakan ketika memperbarui header pada file."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/prefs/prefs_identity.ui:35
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Default language:"
+msgstr "Bahasa baku:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/prefs/prefs_identity.ui:48
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Email:"
+msgstr "&Email:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_identity.ui:61
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Name:"
+msgstr "&Nama:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:74
+#, kde-format
+msgid "Your name, in English"
+msgstr "Nama Anda, dalam bahasa Inggris"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:77
+#, kde-format
+msgid "Please enter here your name and surname written in English"
+msgstr "Silakan masukkan nama dan julukan Anda di sini ditulis dalam Inggris"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_identity.ui:84
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Default mailing list:"
+msgstr "&Milis baku:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:94
+#, kde-format
+msgid "The email of your team mailing list"
+msgstr "Email dari tim milis Anda"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:97
+#, kde-format
+msgid "Write the email of your translating team mailing list"
+msgstr "Tulis email milis tim penerjemahan Anda"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:104
+#, kde-format
+msgid "Language you translate to"
+msgstr "Bahasa terjemahan Anda ke"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:107
+#, kde-format
+msgid "Set the default language you are going to translate to"
+msgstr "Set bahasa baku yang Anda terjemahkan ke"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:127
+#, kde-format
+msgid "Write your email"
+msgstr "Tulis email Anda"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:130
+#, kde-format
+msgid ""
+"Write your email here so it will appear in the po file header with your name"
+msgstr ""
+"Tulis email Anda di sini sehingga akan muncul di header file po dengan nama "
+"Anda"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:144
+#, kde-format
+msgid "Your name in your own language"
+msgstr "Nama dalam bahasa Anda sendiri"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:147
+#, kde-format
+msgid ""
+"Write your name and surname in your language with your language alphabet."
+msgstr "Tulis nama dan julukan dalam bahasa dengan abjad bahasa Anda."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_identity.ui:154
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Localized name:"
+msgstr "Nama terlokalisir:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
+#: src/prefs/prefs_identity.ui:164
+#, kde-format
+msgid "Default Language-Team:"
+msgstr "&Tim-Bahasa baku:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
+#: src/prefs/prefs_languagetool.ui:21
+#, kde-format
+msgid "Use custom LanguageTool server"
+msgstr "Gunakan server LanguageTool kustom"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_languagetool.ui:31
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Server Path:"
+msgstr "Alur Server:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:44
+#, kde-format
+msgid "The path of your custom Language Tool server"
+msgstr "Alur server Language Tool kustom Anda"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:47
+#, kde-format
+msgid "Please enter the path of your custom Language Tool server, if any"
+msgstr "Silakan masukkan alur server Language Tool kustom Anda, jika ada"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_languagetool.ui:58
+#, kde-format
+msgid ""
+"Delay before automatic checking after you stop typing (in seconds, 0 to "
+"disable)"
+msgstr ""
+"Tundaan sebelum pemeriksaan ejaan otomatis setelah Anda menghentikan "
+"pengetikan (hitungan detik, 0 untuk menonfungsikan)"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
+#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#, kde-format
+msgid "Set to 0 to disable auto checking"
+msgstr "Setel ke 0 untuk menonfungsikan auto pemeriksaan"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
+#: src/prefs/prefs_pology.ui:21
+#, kde-format
+msgid "Enable Pology verification"
+msgstr "Fungsikan verifikasi Pology"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_0)
+#: src/prefs/prefs_pology.ui:28
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a single entry. Use the "
+"following placeholders in order to set-up the commands: %u is the entry "
+"number, %f is the file name. For instance: posieve -u %u check-rules %f"
+msgstr ""
+"Gunakan perintah Pology yang dijalankan agar untuk memeriksa entri tunggal. "
+"Gunakan placeholder berikut ini agar siapnya perintah: %u adalah nomor "
+"entri, %f adalah nama file. Umpamanya: posieve -u %u check-rules %f"
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:44
+#, kde-format
+msgid "The Pology command to run in order to check a single entry."
+msgstr "Perintah Pology yang dijalankan agar memeriksa sebuah entri tunggal."
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:47
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a single "
+"entry"
+msgstr ""
+"Silakan masukkan perintah Pology di sini supaya berjalan agar memeriksa "
+"sebuah entri tunggal"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
+#: src/prefs/prefs_pology.ui:54
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a whole file. This command "
+"should include \"-s lokalize\", placeholder %f is the file name. For "
+"instance: posieve -s lokalize check-rules %f"
+msgstr ""
+"Perintah Pology yang dijalankan agar memeriksa seluruh file. Perintah ini "
+"seharusnya menyertakan \"-s lokalize\", placeholder %f adalah nama filenya. "
+"Umpamanya: posieve -s lokalize check-rules %f"
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:70
+#, kde-format
+msgid "The Pology command to run in order to check a whole file."
+msgstr "Perintah Pology yang dijalankan agar memeriksa seluruh file."
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:73
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a whole file"
+msgstr ""
+"Silakan masukkan perintah Pology di sini supaya berjalan agar memeriksa "
+"seluruh file"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:45
+#, kde-format
+msgid "If checked, get translation memory suggestions "
+msgstr "Jika dicentang, mendapatkan memori terjemahan yang disarankan"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:48
+#, kde-format
+msgid ""
+"If this is checked, the program will fetch translation memories as soon as "
+"you open a file."
+msgstr ""
+"Jika dicentang, program akan menarik memori terjemahan segera setelah Anda "
+"membuka sebuah fie."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:51
+#, kde-format
+msgid "Prefetch translation memory suggestions on file open"
+msgstr "Prefetch saran memori terjemahan pada file kebuka"
+
+#. i18n: ectx: property (text), widget (QLabel, label1)
+#: src/prefs/prefs_tm.ui:60
+#, kde-format
+msgid "Maximum number of suggestions:"
+msgstr "Jumlah maksimum saran:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:70
+#, kde-format
+msgid "Set the maximum number of suggestions"
+msgstr "Set jumlah maksimum saran"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:73
+#, kde-format
+msgid "You can change the maximum number of suggestions, default is 7."
+msgstr "Anda dapat mengubah jumlah maksimum untuk saran, bakunya adalah 7."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_tm.ui:97
+#, kde-format
+msgid "Minimum score (0-100) of suggestions:"
+msgstr "Skor minimum (0-100) yang disarankan:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:107
+#, kde-format
+msgid "Set the minimum score (0-100) of suggestions"
+msgstr "Setèl skor minimum (0-100) yang disarankan"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:110
+#, kde-format
+msgid ""
+"You can change the minimum score (0-100) required for suggestions, default "
+"is 0."
+msgstr ""
+"Anda dapat mengubah skor minimum (0-100) yang diperlukan untuk persaranan, "
+"bakunya adalah 7."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
+#: src/prefs/prefs_tm.ui:138
+#, kde-format
+msgid "Update/Add edited entries to translation memory"
+msgstr "Perbarui/Tambahkan entri-entri yang diedit ke memori terjemahan"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ScanToTMOnOpen)
+#: src/prefs/prefs_tm.ui:145
+#, kde-format
+msgid "Add opened files to translation memory automatically"
+msgstr "Tambahkan file yang dibuka ke memori terjemahan secara otomatis"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
+#: src/prefs/prefs_tm.ui:152
+#, kde-format
+msgid ""
+"Delete missing files from translation memory on Rescan or when clicking a "
+"missing entry"
+msgstr ""
+"Hapus file yang hilang dari memori terjemahan saat Pindai-ulang atau ketika "
+"mengeklik sebuah entri yang tidak ada"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/project/prefs_project_advanced.ui:17
+#, kde-format
+msgid "Syntax"
+msgstr "Sintaks"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_advanced.ui:23
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Accelerator:"
+msgstr "Akselerator:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Accel)
+#: src/project/prefs_project_advanced.ui:33
+#, kde-format
+msgid "Usually '&', but may also be '_' for GTK apps."
+msgstr "Biasanya '&', tapi mungkin juga '_' untuk apl-apl GTK."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_project_advanced.ui:40
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Markup:"
+msgstr "Tanda baca:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
+#: src/project/prefs_project_advanced.ui:58
+#, kde-format
+msgid ""
+"Regular expression of markup. It is used for translation memory matching and "
+"for 'Insert tag' feature.\n"
+"\n"
+"A default value (suitable for XML-based texts) is:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"It is only used for gettext PO files, as XLIFF format has its own way of "
+"specifying where markup is."
+msgstr ""
+"Kalimat biasa dari tanda baca. Hal itu digunakan untuk mencocokkan memori "
+"terjemahan dan untuk fitur 'Sisipkan tag'.\n"
+"\n"
+"Sebuah nilai baku (sesuai untuk teks-teks berdasarkan XML) adalah:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"Hal itu hanya digunakan untuk file PO gettext, sebagai format XLIFF yang "
+"memiliki cara sendiri menentukan di mana tanda baca tersebut."
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_project_advanced.ui:65
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Word wrap:"
+msgstr "Kemas kata:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
+#: src/project/prefs_project_advanced.ui:75
+#, kde-format
+msgid ""
+"Width used for the automatic msgfmt-like word wrap. Use the negative value "
+"'-1' to disable the word wrap."
+msgstr ""
+"Lebar yang digunakan untuk msgfmt otomatis seperti kemas kata. Gunakan nilai "
+"negatif '-1' untuk menonfungsikan kemas kata."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/project/prefs_project_advanced.ui:91
+#, kde-format
+msgid "Paths"
+msgstr "Alur"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_project_advanced.ui:100
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Template files folder:"
+msgstr "Folder file template:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
+#: src/project/prefs_project_advanced.ui:124
+#, kde-format
+msgid ""
+"Usually your translation project will be a subproject of a project\n"
+"for translating same texts into multiple languages.\n"
+"\n"
+"Set this to path of a folder containing empty translation files\n"
+"(i.e. files without translation into any language)\n"
+"shared among all subprojects."
+msgstr ""
+"Proyek tejemahan Anda berguna ketika subprojek dari proyek untuk "
+"menerjemahkan teks-teks yang sama ke dalam berbagai bahasa.\n"
+"\n"
+"Set ini ke alur folder yang berisi file terjemahan yang kosong\n"
+"(yaitu file tanpa terjemahan ke dalam bahasa apa pun)\n"
+"yang dibagi-pakaikan diantara  semua subprojek."
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_project_advanced.ui:131
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Branch folder:"
+msgstr "Folder cabang:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
+#: src/project/prefs_project_advanced.ui:161
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project,\n"
+"and Secondary Sync view will automatically open files from branch.\n"
+"Then, each time you make changes in files of your main branch,\n"
+"they will automatically be replicated to the branch\n"
+"(of course, if it contains the same English string).\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"Setelan ini untuk Modus Sinkron.\n"
+"\n"
+"Modus sinkron mungkin digunakan untuk membuat perubahan-perubahan untuk "
+"menerjemahkan\n"
+"dua cabang secara terus-menerus.\n"
+"\n"
+"Set ini ke alur yang berhubungan dengan folder akar dari proyek cabang,\n"
+"dan tampilan Sinkron Sekunder akan secara otomatis membuka file dari "
+"cabang.\n"
+"Kemudian, setiap kali Anda membuat perubahan di  file pada cabang utama "
+"Anda,\n"
+"mereka secara otomatis direplikasikan ke cabang\n"
+"(tentu saja, jika terdapat string bahasa Inggris yang sama).\n"
+"\n"
+"Lihat dokumentasi untuk lebih jelasnya."
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_project_advanced.ui:168
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Alternate translations folder:"
+msgstr "Folder terjemahan alternatif:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
+#: src/project/prefs_project_advanced.ui:195
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"Set this to path of a folder with structure similar to Root Folder.\n"
+"\n"
+"On each translation file open, a corresponding file in Alternate "
+"translations directory will be looked up and,\n"
+"if it is found, it will be used for Alternate Translations view.\n"
+"\n"
+"You will likely want to use translations of another target language (i.e. "
+"another subproject), which is close to yours.\n"
+"Also, you can use other subproject's translations either immediately, or "
+"have them pretranslated to your language by machine.\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"Set ini ke alur folder dengan struktur yang mirip ke Folder Root.\n"
+"\n"
+"Pada setiap file terjemahan dibuka, file yang berhubungan di direktori "
+"terjemahan Alternatif akan ditampakkan serta,\n"
+"jika telah ditemukan, itu akan digunakan untuk tampilan Terjemahan "
+"Alternatif .\n"
+"\n"
+"Anda mungkin akan ingin menggunakan terjemahan dari bahasa sasaran lain "
+"(yaitu proyek lain), yang dekat dengan Anda.\n"
+"Juga, Anda dapat menggunakan terjemahan subproyek lain baik langsung, atau "
+"mereka yang memiliki terjemahkan sebelumnya ke bahasa Anda oleh mesin.\n"
+"\n"
+"Lihat dokumentasi untuk perincian selebihnya."
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_local.ui:21
+#, kde-format
+msgid "Role:"
+msgstr "Peran:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:29
+#, kde-format
+msgid "Translator"
+msgstr "Penerjemah"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:34
+#, kde-format
+msgid "Reviewer"
+msgstr "Peninjau"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:39
+#, kde-format
+msgid "Approver"
+msgstr "Penyetuju"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_projectmain.ui:17
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Glossary:"
+msgstr "Glosarium:"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_projectmain.ui:30
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Target language:"
+msgstr "Bahasa sasaran:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
+#: src/project/prefs_projectmain.ui:46
+#, kde-format
+msgid ""
+"Project ID is used to differentiate translation memories of absolutely "
+"different projects and languages.\n"
+"\n"
+"For example, if you have several projects for translating KDE applications\n"
+"(e.g. they are in different repositories), use same ID for all of them."
+msgstr ""
+"ID proyek adalah digunakan untuk memori terjemahan yang berbeda dari bahasa "
+"dan proyek yang berbeda secara mutlak.\n"
+"\n"
+"Contohnya, jika Anda memiliki beberapa proyek untuk penerjemahan aplikasi "
+"KDE\n"
+"(misalnya ada dalam repositori yang berbeda), gunakan ID yang sama untuk "
+"mereka semua."
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
+#: src/project/prefs_projectmain.ui:59
+#, kde-format
+msgid "Target language of the project."
+msgstr "Bahasa sasaran si proyek."
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_projectmain.ui:82
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Mailing list:"
+msgstr "Milis:"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_projectmain.ui:92
+#, kde-format
+msgctxt "@label:textbox"
+msgid "ID:"
+msgstr "ID:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
+#: src/project/prefs_projectmain.ui:118
+#, kde-format
+msgid ""
+"This is main setting. Set this to path of a folder with translation files\n"
+"for your project (or a subproject for your target language)."
+msgstr ""
+"Ini adalah pengaturan utama. Set ini untuk alur pada sebuah folder dengan "
+"file terjemahan\n"
+"untuk projek Anda(atau sebuah subprojek untuk sasaran bahasamu)."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_projectmain.ui:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Root folder:"
+msgstr "Folder akar:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:155
+#, kde-format
+msgid "Automatic"
+msgstr "Otomatis"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:160
+#, kde-format
+msgid "Application"
+msgstr "Aplikasi"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:165
+#, kde-format
+msgid "Project"
+msgstr "proyek"
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_projectmain.ui:180
+#, kde-format
+msgid "Language-Team:"
+msgstr "Tim-Bahasa:"
+
+#: src/project/project.cpp:441
+#, kde-format
+msgid "Scanning folders with source files"
+msgstr "Memindai folder-folder dengan file sumber"
+
+#: src/project/project.cpp:442
+#, kde-format
+msgid "Editor"
+msgstr "Pengedit"
+
+#: src/project/project.cpp:489
+#, kde-format
+msgctxt "project folder name. %2 is targetLangCode"
+msgid "%1 %2 Translation"
+msgstr "%1 Terjemahan %2"
+
+#: src/project/projectbase.kcfg:11
+#, kde-format
+msgid "default"
+msgstr "baku"
+
+#. i18n: ectx: label, entry (LangCode), group (General)
+#: src/project/projectbase.kcfg:18
+#, kde-format
+msgid "Language"
+msgstr "Bahasa"
+
+#. i18n: ectx: label, entry (UserLangTeam), group (General)
+#: src/project/projectbase.kcfg:32
+#, kde-format
+msgid "User Language Team in Lokalize settings"
+msgstr "Tim Bahasa Pengguna di pengaturan Lokalize"
+
+#. i18n: ectx: label, entry (OverrideLangTeam), group (General)
+#: src/project/projectbase.kcfg:38
+#, kde-format
+msgid "Override Lokalize Language Team"
+msgstr "Timpa Tim Bahasa Lokalize"
+
+#. i18n: ectx: label, entry (ProjLangTeam), group (General)
+#: src/project/projectbase.kcfg:44
+#, kde-format
+msgid "Project Language Team"
+msgstr "proyek Tim Bahasa"
+
+#. i18n: ectx: label, entry (PoBaseDir), group (General)
+#: src/project/projectbase.kcfg:59
+#, kde-format
+msgid "The base directory for PO files (translations)"
+msgstr "Direktori basis untuk file PO (terjemahan)"
+
+#. i18n: ectx: label, entry (PotBaseDir), group (General)
+#: src/project/projectbase.kcfg:65
+#, kde-format
+msgid "The base directory for POT files (templates to be translated)"
+msgstr "Direktori basis untuk file POT (template untuk diterjemahkan)"
+
+#. i18n: ectx: label, entry (GlossaryTbx), group (General)
+#: src/project/projectbase.kcfg:73
+#, kde-format
+msgid "Project's glossary"
+msgstr "Glosarium proyek"
+
+#: src/project/projectmodel.cpp:510
+#, kde-format
+msgctxt "@title:column File name"
+msgid "Name"
+msgstr "Nama"
+
+#: src/project/projectmodel.cpp:512
+#, kde-format
+msgctxt ""
+"@title:column Graphical representation of Translated/Fuzzy/Untranslated "
+"counts"
+msgid "Graph"
+msgstr "Grafik"
+
+#: src/project/projectmodel.cpp:514
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Total"
+msgstr "Total"
+
+#: src/project/projectmodel.cpp:516
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Translated"
+msgstr "Diterjemahkan"
+
+#: src/project/projectmodel.cpp:518
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Not ready"
+msgstr "Belum siap"
+
+#: src/project/projectmodel.cpp:520
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Untranslated"
+msgstr "Belum diterjemahkan"
+
+#: src/project/projectmodel.cpp:522
+#, kde-format
+msgctxt "@title:column Number of fuzzy or untranslated entries"
+msgid "Incomplete"
+msgstr "Belum selesai"
+
+#: src/project/projectmodel.cpp:524
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translation"
+msgstr "Terjemahan Terakhir"
+
+#: src/project/projectmodel.cpp:526
+#, kde-format
+msgctxt "@title:column"
+msgid "Comment"
+msgstr "Komentar"
+
+#: src/project/projectmodel.cpp:528
+#, kde-format
+msgctxt "@title:column"
+msgid "Template Revision"
+msgstr "Revisi Template"
+
+#: src/project/projectmodel.cpp:530
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translator"
+msgstr "Penerjemah Terakhir"
+
+#: src/project/projecttab.cpp:52
+#, kde-format
+msgctxt "@title:window"
+msgid "Project Overview"
+msgstr "Ikhtisar proyek"
+
+#: src/project/projecttab.cpp:56
+#, kde-format
+msgid ""
+"<html>You do not have to be a software developer to be a member of the KDE "
+"team. You can join the national teams that translate program interfaces. You "
+"can provide graphics, themes, sounds, and improved documentation. You decide!"
+"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
+"which you can participate.<br /><br />If you need more information or "
+"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
+"what you need.</html>"
+msgstr ""
+"<html>Anda tidak perlu menjadi seorang pengembang perangkat lunak untuk "
+"menjadi anggota dari tim KDE. Anda dapat bergabung dengan tim nasional yang "
+"menerjemahkan antarmuka program. Anda dapat menyediakan grafis, tema, suara, "
+"dan peningkatan dokumentasi. Keputusan ada padamu!<br /><br />Kunjungi <a "
+"href=\"%1\">%1</a> untuk informasi proyek yang sama dalam berpartisipasi "
+"yang Anda dapat.<br /><br />Jika Anda butuh informasi selebihnya atau "
+"dokumentasi, maka berkunjunglah ke <a href=\"%2\">%2</a> yang akan "
+"menyediakan Anda dengan apa yang Anda butuhkan.</html>"
+
+#: src/project/projecttab.cpp:77
+#, kde-format
+msgid "&Configure Lokalize"
+msgstr "&Konfigurasikan Lokalize"
+
+#: src/project/projecttab.cpp:78 src/project/projecttab.cpp:191
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project"
+msgstr "Buka proyek"
+
+#: src/project/projecttab.cpp:79
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate software"
+msgstr "Terjemahkan perangkat lunak"
+
+#: src/project/projecttab.cpp:80
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate OpenDocument"
+msgstr "Terjemahkan OpenDocument"
+
+#: src/project/projecttab.cpp:164
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous template only"
+msgstr "Hanya template sebelumnya"
+
+#: src/project/projecttab.cpp:167
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next template only"
+msgstr "Hanya template selanjutnya"
+
+#: src/project/projecttab.cpp:170
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous translation only"
+msgstr "Hanya terjemahan sebelumnya"
+
+#: src/project/projecttab.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next translation only"
+msgstr "Hanya terjemahan selanjutnya"
+
+#: src/project/projecttab.cpp:177
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide completed items"
+msgstr "Sembunyikan butir yang diselesaikan"
+
+#: src/project/projecttab.cpp:178
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide fully translated files and folders"
+msgstr "Sembunyikan secara penuh folder dan file yang diterjemahkan"
+
+#: src/project/projecttab.cpp:242
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open selected files"
+msgstr "Buka file yang dipilih"
+
+#: src/project/projecttab.cpp:245
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open"
+msgstr "Buka"
+
+#. i18nc("@action:inmenu","Find in files"),this,&ProjectTab::findInFiles);
+#. i18nc("@action:inmenu","Replace in files"),this,&ProjectTab::replaceInFiles);
+#. i18nc("@action:inmenu","Spellcheck files"),this,&ProjectTab::spellcheckFiles);
+#. menu.addSeparator();
+#. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
+#.
+#: src/project/projecttab.cpp:254
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add to translation memory"
+msgstr "Tambahkan ke memori terjemahan"
+
+#: src/project/projecttab.cpp:256
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files"
+msgstr "Cari dalam file"
+
+#: src/project/projecttab.cpp:257
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a comment"
+msgstr "Tambahkan sebuah komentar"
+
+#: src/project/projecttab.cpp:259
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch Pology on files"
+msgstr "Luncurkan Pology pada file"
+
+#: src/project/projecttab.cpp:262
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files (including templates)"
+msgstr "Cari dalam file (termasuk template)"
+
+#: src/project/projecttab.cpp:296
+#, kde-format
+msgid "Project file comment"
+msgstr "Komentar file proyek"
+
+#: src/project/projecttab.cpp:296
+#, kde-format
+msgid "Input a comment for this project file:"
+msgstr "Masukkan sebuah komentar untuk file proyek ini:"
+
+#: src/project/projecttab.cpp:362
+#, kde-format
+msgid "The Pology check has succeeded"
+msgstr "Pemeriksaan Pology telah sukses"
+
+#: src/project/projecttab.cpp:381
+#, kde-format
+msgid "You are about to open %1 file"
+msgid_plural "You are about to open %1 files"
+msgstr[0] "Anda mau membuka %1 file"
+msgstr[1] "Anda mau membuka %1 file"
+
+#: src/project/projecttab.cpp:382
+#, kde-format
+msgid ""
+"Opening a large number of files at the same time can make Lokalize "
+"unresponsive."
+msgstr ""
+"Pembukaan sebuah sejumlah file yang besar pada waktu yang sama dapat membuat "
+"Lokalize tak responsif."
+
+#: src/project/projecttab.cpp:384
+#, kde-format
+msgid "Are you sure you want to open this many files?"
+msgstr "Apakah Anda yakin ingin membuka file yang banyak ini?"
+
+#: src/project/projecttab.cpp:386
+#, kde-format
+msgid "&Open %1 File"
+msgid_plural "&Open %1 Files"
+msgstr[0] "&Buka %1 File"
+msgstr[1] "&Buka %1 file"
+
+#: src/tm/dbfilesmodel.cpp:99
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "Nama"
+
+#: src/tm/dbfilesmodel.cpp:100
+#, kde-format
+msgctxt "@title:column"
+msgid "Source language"
+msgstr "Bahasa sumber"
+
+#: src/tm/dbfilesmodel.cpp:101
+#, kde-format
+msgctxt "@title:column"
+msgid "Target language"
+msgstr "Bahasa sasaran"
+
+#: src/tm/dbfilesmodel.cpp:102
+#, kde-format
+msgctxt "@title:column"
+msgid "Pairs"
+msgstr "Sandingan"
+
+#: src/tm/dbfilesmodel.cpp:103
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique original entries"
+msgstr "Entri-entri asli unik"
+
+#: src/tm/dbfilesmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique translations"
+msgstr "Terjemahan2 unik"
+
+#. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
+#: src/tm/dbparams.ui:23
+#, kde-format
+msgid "Connection"
+msgstr "Koneksi"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: src/tm/dbparams.ui:32
+#, kde-format
+msgid "Database name:"
+msgstr "Nama database:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/tm/dbparams.ui:45
+#, kde-format
+msgid "Host:"
+msgstr "Host:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/tm/dbparams.ui:62
+#, kde-format
+msgid "User:"
+msgstr "Pengguna:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: src/tm/dbparams.ui:75
+#, kde-format
+msgid "Password:"
+msgstr "Sandi:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, dbType)
+#: src/tm/dbparams.ui:96
+#, kde-format
+msgid "Local"
+msgstr "Lokal"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/dbparams.ui:104
+#, kde-format
+msgid "Name:"
+msgstr "Nama:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/tm/dbparams.ui:114
+#, kde-format
+msgid "Database type:"
+msgstr "Tipe database:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, contentBox)
+#: src/tm/dbparams.ui:124
+#, kde-format
+msgid "Content"
+msgstr "Daftar Isi"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/tm/dbparams.ui:133
+#, kde-format
+msgid "Source language:"
+msgstr "Bahasa sumber:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/dbparams.ui:162
+#, kde-format
+msgid "Markup regex:"
+msgstr "Tanda baca kalimat biasa:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/tm/dbparams.ui:175
+#, kde-format
+msgid "Accelerator:"
+msgstr "Akselerator:"
+
+#. i18n: ectx: property (text), widget (QPushButton, create)
+#: src/tm/managedatabases.ui:19
+#, kde-format
+msgid "Create"
+msgstr "Ciptakan"
+
+#. i18n: ectx: property (text), widget (QPushButton, addData)
+#: src/tm/managedatabases.ui:26
+#, kde-format
+msgid "Add Data"
+msgstr "Tambahkan Data"
+
+#. i18n: ectx: property (text), widget (QPushButton, importTMX)
+#: src/tm/managedatabases.ui:33
+#, kde-format
+msgid "Add Data from TMX"
+msgstr "Tambahkan Data dari TMX"
+
+#. i18n: ectx: property (text), widget (QPushButton, exportTMX)
+#: src/tm/managedatabases.ui:40
+#, kde-format
+msgid "Export to TMX"
+msgstr "Ekspor ke TMX"
+
+#. i18n: ectx: property (text), widget (QPushButton, remove)
+#: src/tm/managedatabases.ui:47
+#, kde-format
+msgid "Remove"
+msgstr "Hapus"
+
+#: src/tm/qamodel.cpp:94
+#, kde-format
+msgctxt "@title:column Translator's false friend"
+msgid "False Friend"
+msgstr "Homofon"
+
+#: src/tm/qaview.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Quality Assurance"
+msgstr "Jaminan Kualitas"
+
+#: src/tm/qaview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add"
+msgstr "Tambahkan"
+
+#: src/tm/qaview.cpp:41
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove"
+msgstr "Hapus"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/queryoptions.ui:32
+#, kde-format
+msgid "TM:"
+msgstr "MT:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/tm/queryoptions.ui:70
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Enter to start the search.\n"
+"Press Ctrl+L to go to this control."
+msgstr ""
+"Ekspresi pencarian untuk bagian bahasa sumber.\n"
+"Tekan Enter untuk memulai pencarian.\n"
+"Tekan Ctrl+L untuk menuju ke kendali ini."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
+#: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
+#, kde-format
+msgid "Show results that do not match search expression"
+msgstr "Tampilkan hasil yang tidak sesuai ekspresi pencarian"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/queryoptions.ui:139
+#, kde-format
+msgid "File mask:"
+msgstr "Kedok file:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
+#: src/tm/queryoptions.ui:155
+#, kde-format
+msgid "Show only results from files with path matching specified mask"
+msgstr ""
+"Tampilkan hanya hasil dari file-file dengan alur sesuai kedok yang ditentukan"
+
+#. i18n: ectx: property (text), widget (QLabel, label_s)
+#: src/tm/queryoptions.ui:162
+#, kde-format
+msgid "Query syntax:"
+msgstr "Sintaks pertanyaan:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:197
+#, kde-format
+msgid ""
+"Reads all project files into translation memory, updating old entries. The "
+"scanning will work in background."
+msgstr ""
+"Pembacaan semua file proyek ke dalam memori, memperbarui entri-entri lawas. "
+"Pemindaian akan bekerja dalam latar-belakang."
+
+#. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:200
+#, kde-format
+msgid "&Rescan project files"
+msgstr "&Pindai ulang file proyek"
+
+#: src/tm/tmmanager.cpp:36
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memories"
+msgstr "Memori-memori Terjemahan"
+
+#: src/tm/tmmanager.cpp:70
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Directory to be scanned"
+msgstr "Pilih Direktori yang untuk dipindai"
+
+#: src/tm/tmmanager.cpp:81
+#, kde-format
+msgctxt "@title:window"
+msgid "New Translation Memory"
+msgstr "Memori Terjemahan Baru"
+
+#: src/tm/tmmanager.cpp:81
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Properties"
+msgstr "Properti Memori Terjemahan"
+
+#: src/tm/tmmanager.cpp:215
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to be imported into selected database"
+msgstr "Pilih file TMX untuk diimpor ke dalam basis-data terpilih"
+
+#: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:236
+#, kde-format
+msgid "TMX files (*.tmx *.xml)"
+msgstr "File TMX (*.tmx *.xml)"
+
+#: src/tm/tmmanager.cpp:235
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to export selected database to"
+msgstr "Pilih file TMX untuk mengekspor basis-data terpilih ke"
+
+#: src/tm/tmscanapi.cpp:82
+#, kde-format
+msgid "Adding files to Lokalize translation memory"
+msgstr "Menambahkan file ke memori terjemahan Lokalize"
+
+#: src/tm/tmscanapi.cpp:83
+#, kde-format
+msgid "TM"
+msgstr "MT"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Substring"
+msgstr "Substring"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Google-like"
+msgstr "Seperti Google"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Wildcard"
+msgstr "Wildcard"
+
+#: src/tm/tmtab.cpp:366
+#, kde-format
+msgid "Space is AND operator. Case insensitive."
+msgstr "Spasi adalah operator AND. Huruf sensitif."
+
+#: src/tm/tmtab.cpp:367
+#, kde-format
+msgid "Shell globs (* and ?). Case sensitive."
+msgstr "Gumpalan shell (* dan ?). Huruf sensitif."
+
+#. i18nc("@title:window","Translation Memory"),false);
+#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:121 src/tm/tmview.cpp:127
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory"
+msgstr "Memori Terjemahan"
+
+#: src/tm/tmtab.cpp:594
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1 (%2)"
+msgstr "Total: %1 (%2)"
+
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:574
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The file %1 does not exist, it has been removed from the translation memory."
+msgstr "File %1 tidak ada, ia telah dihapus dari memori terjemahan."
+
+#: src/tm/tmview.cpp:166 src/webquery/webqueryview.cpp:62
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Double-click any word to insert it into translation"
+msgstr "Klik ganda kata apa pun untuk menyisipkannya ke dalam terjemahan"
+
+#: src/tm/tmview.cpp:279
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Batch translation memory filling"
+msgstr "Kelompok pengisian memori terjemahan"
+
+#: src/tm/tmview.cpp:282
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been completed."
+msgstr "Kelompok terjemahan telah diselesaikan."
+
+#: src/tm/tmview.cpp:288
+#, kde-format
+msgctxt "@info"
+msgid "No suggestions with exact matches were found."
+msgstr "Tidak ada saran dengan kecocokan persis yang ditemukan."
+
+#: src/tm/tmview.cpp:292
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation complete"
+msgstr "Kelompok terjemahan selesai"
+
+#: src/tm/tmview.cpp:306 src/tm/tmview.cpp:321
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation"
+msgstr "Kelompok terjemahan"
+
+#: src/tm/tmview.cpp:307 src/tm/tmview.cpp:322
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been scheduled."
+msgstr "Kelompok terjemahan telah terjadwal."
+
+#: src/tm/tmview.cpp:456
+#, kde-format
+msgctxt "%1 is the TM entry score in percentage"
+msgid "%1%"
+msgstr "%1%"
+
+#: src/tm/tmview.cpp:458
+#, kde-format
+msgctxt "%1 is the number of times this TM entry has been found"
+msgid "(1 time)"
+msgid_plural "(%1 times)"
+msgstr[0] "(1 kali)"
+msgstr[1] "(%1 kali)"
+
+#: src/tm/tmview.cpp:539
+#, kde-format
+msgctxt "File argument in tooltip, when file is current file"
+msgid "this"
+msgstr "ini"
+
+#: src/tm/tmview.cpp:540
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "File: %1<br />Addition date: %2"
+msgstr "File: %1<br />Tanggal tambahan: %2"
+
+#: src/tm/tmview.cpp:542
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change date: %1"
+msgstr "<br />Perubahan terakhir tanggal: %1"
+
+#: src/tm/tmview.cpp:544
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change author: %1"
+msgstr "<br />Perubahan terakhir penulis: %1"
+
+#: src/tm/tmview.cpp:545
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />TM: %1"
+msgstr "<br />MT: %1"
+
+#: src/tm/tmview.cpp:547
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Is not present in the file anymore"
+msgstr "<br />Tidak muncul di file apa pun"
+
+#: src/tm/tmview.cpp:557
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"<html>Apakah Anda benar-benar ingin menghapus entri ini:<br/><i>%1</i><br/"
+">dari memori terjemahan %2?</html>"
+
+#: src/tm/tmview.cpp:558
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Entry Removal"
+msgstr "Penghapusan Entri Memori Terjemahan"
+
+#: src/tm/tmview.cpp:590
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this entry"
+msgstr "Hapus entri ini"
+
+#: src/tm/tmview.cpp:592
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file containing this entry"
+msgstr "Buka file yang berisi entri ini"
+
+#: src/tm/tmview.cpp:599
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this missing file from TM"
+msgstr "Hapus file yang hilang ini dari MT"
+
+#: src/tm/tmview.cpp:610
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"<html>Apakah Anda benar-benar ingin menghapus file yang hilang ini:<br/><i>"
+"%1</i><br/>dari memori terjemahan %2?</html>"
+
+#: src/tm/tmview.cpp:611
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Missing File Removal"
+msgstr "Penghapusan File Hilang Memori Terjemahan"
+
+#: src/tm/tmview.cpp:987
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use translation memory suggestion"
+msgstr "Gunakan saran memori terjemahan"
+
+#: src/tools/widgettextcaptureconfig.cpp:23
+#, kde-format
+msgctxt "@title"
+msgid "Widget Text Capture"
+msgstr "Widget Tangkapan Teks"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tools/widgettextcaptureconfig.ui:26
+#, kde-format
+msgid ""
+"<html>\n"
+"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+"text from applications' user interfaces and search for translation files "
+"containing the text.</p>\n"
+"<p align=\"justify\">When enabled, the capture can be initiated by middle "
+"mouse clicking on any non-editable GUI element (widget). After that, switch "
+"to the Lokalize window and choose the entry with this text. Even if several "
+"files contain the same string, the right one will be chosen in most cases.</"
+"p>\n"
+"<p align=\"justify\">Remember that you need to have an up-to-date actual "
+"translation memory with all translation files indexed for this feature to "
+"work.</p></html>"
+msgstr ""
+"<html>\n"
+"<p align=\"justify\">Untuk fasilitas terjemahan KDE, Lokalize dapat "
+"menangkap teks dari aplikasi antarmuka pengguna dan mencari file terjemahan "
+"yang berisi teks.</p>\n"
+"<p align=\"justify\">Ketika difungsikan, penangkapan dapat dimulai dengan "
+"mengeklik mouse tengah pada setiap unsur GUI (widget) yang non-dapat-diedit. "
+"Setelah itu, beralih ke jendela Lokalize dan memilih entri dengan teks ini. "
+"Bahkan beberapa file berisi string yang sama, dalam kebanyakan kasus yang "
+"benar akan dipilih.</p>\n"
+"<p align=\"justify\">Ingat bahwa Anda harus memiliki memori terjemahan yang "
+"benar-benar terbarukan dengan semua file terjemahan yang terindeks pada "
+"fitur ini untuk dapat bekerja.</p></html>"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/tools/widgettextcaptureconfig.ui:42
+#, kde-format
+msgid "Middle Mouse Button Click Reaction"
+msgstr "Reaksi Klik Tombol Mouse Tengah"
+
+#. i18n: ectx: property (text), widget (QRadioButton, none)
+#: src/tools/widgettextcaptureconfig.ui:48
+#, kde-format
+msgid "None"
+msgstr "Nihil"
+
+#. i18n: ectx: property (text), widget (QRadioButton, search)
+#: src/tools/widgettextcaptureconfig.ui:58
+#, kde-format
+msgid "Search GUI element text in translation memory"
+msgstr "Cari teks unsur GUI dalam memori terjemahan"
+
+#. i18n: ectx: property (text), widget (QRadioButton, clipboard)
+#: src/tools/widgettextcaptureconfig.ui:65
+#, kde-format
+msgid "Copy GUI element text to clipboard"
+msgstr "Salin teks unsur GUI ke papan-klip"
+
+#. i18n: ectx: property (text), widget (QPushButton, queryBtn)
+#: src/webquery/querycontrol.ui:8
+#, kde-format
+msgid "Query"
+msgstr "Pertanyaan"
+
+#. i18n: ectx: property (text), widget (QCheckBox, autoQuery)
+#: src/webquery/querycontrol.ui:15
+#, kde-format
+msgid "Autoquery"
+msgstr "Pertanyaan otomatis"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:22
+#, kde-format
+msgid "Prefetch for the next untranslated"
+msgstr "Prefetch untuk yang belum diterjemahkan selanjutnya"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:25
+#, kde-format
+msgid "Prefetch"
+msgstr "Prefetch"
+
+#: src/webquery/webqueryview.cpp:32
+#, kde-format
+msgid "Web Queries"
+msgstr "Pertanyaan2 Web"
+
+#: src/xlifftextedit.cpp:993
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Lookup selected text in translation memory"
+msgstr "Perlihatkan teks yang dipilih dalam memori terjemahan"
+
+#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace text"
+msgstr "Ganti teks"
+
+#: src/xlifftextedit.cpp:1130
+#, kde-format
+msgid "no spellcheck available"
+msgstr "tidak ada periksa-ejaan yang tersedia"
+
+#: src/xlifftextedit.cpp:1144
+#, kde-format
+msgid "An error was reported: %1"
+msgstr "Melaporkan sebuah kesalahan: %1"
+
+#: src/xlifftextedit.cpp:1270
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Copy source to target"
+msgstr "Salin sumber ke sasaran"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Scripts"
+#~ msgstr "Skrip"
+
+#~ msgctxt ""
+#~ "@option:check whether message is marked as translated/reviewed/approved "
+#~ "(depending on your role)"
+#~ msgid "State"
+#~ msgstr "Kondisi"
+
+#~ msgctxt "@info"
+#~ msgid "Error opening the file"
+#~ msgstr "Error membuka file"
+
+#~ msgid ""
+#~ "<html><head/><body><p align=\"center\">Welcome to Lokalize!</p><p>Drop a "
+#~ "translation file here to start editing it.</p><p>You can help translating "
+#~ "KDE into your mother language by going to <a href=\"http://l10n.kde.org/"
+#~ "\"><span style=\" text-decoration: underline; color:#0000ff;\">KDE "
+#~ "localization site</span></a> and contacting appropriate language team.</"
+#~ "p><p><br/></p><p><br/></p></body></html>"
+#~ msgstr ""
+#~ "<html><head/><body><p align=\"center\">Selamat datang di Lokalize!</"
+#~ "p><p>Jatuhkan sebuah file terjemahan di sini untuk mulai mengeditnya.</"
+#~ "p><p>Kamu bisa membantu menerjemahkan KDE ke dalam bahasa ibumu dengan "
+#~ "berkunjung ke <a href=\"http://l10n.kde.org/\"><span style=\" text-"
+#~ "decoration: underline; color:#0000ff;\">situs pelokalan KDE</span></a> "
+#~ "dan menghubungi tim bahasa yang sesuai.</p><p><br/></p><p><br/></p></"
+#~ "body></html>"
+
+#~ msgid "Your role (XLIFF only):"
+#~ msgstr "Aturanmu (hanya XLIFF):"
+
+#~ msgid "Default source language:"
+#~ msgstr "Bahasa sumber baku:"
+
+#~ msgid "Default target language:"
+#~ msgstr "Bahasa sasaran baku:"
+
+#~ msgid "Glossary file:"
+#~ msgstr "File glosrium:"
+
+#~ msgctxt "@label:textbox"
+#~ msgid "Pology command at entry level:"
+#~ msgstr "Perintah Pology pada tingkat entri:"

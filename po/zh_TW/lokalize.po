@@ -1,0 +1,4483 @@
+# translation of lokalize.po to Chinese Traditional
+# translation of kaider.po to
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Franklin Weng <franklin@goodhorse.idv.tw>, 2007, 2010, 2011, 2012, 2013, 2014, 2015.
+# Frank Weng (a.k.a. Franklin) <franklin@goodhorse.idv.tw>, 2009.
+# Alisha <alisha.4m@gmail.com>, 2012.
+# Jeff Huang <s8321414@gmail.com>, 2016.
+# pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
+# Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007, 2008.
+# Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: lokalize\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"PO-Revision-Date: 2020-05-02 23:10+0800\n"
+"Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
+"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.04.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Franklin Weng, Jeff Huang"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com"
+
+#. i18n: tag collection attribute text
+#. i18n: tag collection attribute comment
+#. i18n: tag collection attribute text
+#: scripts/msgfmt.rc:3 scripts/xliff2odf.rc:3
+#, kde-format
+msgid "Tools"
+msgstr "工具"
+
+#. i18n: tag script attribute text
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po"
+msgstr "編譯 .po"
+
+#. i18n: tag script attribute comment
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po and make it available to applications"
+msgstr "編譯 .po 並使其可被應用程式所使用"
+
+#: scripts/msgmerge.py:33
+msgid "Gettext not found"
+msgstr "找不到 Gettext"
+
+#: scripts/msgmerge.py:33
+msgid "Install gettext package for this feature to work"
+msgstr "安裝 gettext 軟體包，此功能才能運作"
+
+#: scripts/msgmerge.py:44
+msgid "Updating from templates..."
+msgstr "從樣本更新..."
+
+#: scripts/msgmerge.py:71
+msgid "Merge has been completed"
+msgstr "合併已完成。"
+
+#: scripts/msgmerge.py:71
+msgid ""
+"Merge has been completed.\n"
+"Template modification time: %1 (%2 days ago)."
+msgstr ""
+"合併已完成。\n"
+"樣本變更時間：%1（%2 天前）。"
+
+#: scripts/msgmerge.py:74
+msgid "Merge failed."
+msgstr "合併失敗。"
+
+#: scripts/msgmerge.py:74
+msgid ""
+"Could not find template file for the merge:\n"
+"%1"
+msgstr ""
+"無法找到合併的樣本檔：\n"
+"%1"
+
+#. i18n: tag collection attribute text
+#: scripts/msgmerge.rc:3
+#, kde-format
+msgid "File"
+msgstr "檔案"
+
+#. i18n: tag script attribute text
+#: scripts/msgmerge.rc:4
+#, kde-format
+msgid "Update file from template"
+msgstr "從樣本更新檔案"
+
+#. i18n: tag script attribute text
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Merge into ODF"
+msgstr "合併到 ODF 中"
+
+#. i18n: tag script attribute comment
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Generates translated version of ODF document"
+msgstr "產生 ODF 文件的已翻譯版本"
+
+#: src/alttransview.cpp:35 src/alttransview.cpp:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Alternate Translations"
+msgstr "其它翻譯"
+
+#: src/alttransview.cpp:152
+#, kde-format
+msgid ""
+"There is useful data available in Alternate Translations view.\n"
+"\n"
+"For Gettext PO files it displays difference between current source text and "
+"the source text corresponding to the fuzzy translation found by msgmerge "
+"when updating PO based on POT template.\n"
+"\n"
+"Do you want to show the view with the data?"
+msgstr ""
+"這是在其他翻譯檢視中很有用的資料。\n"
+"\n"
+"對於 Gettext PO 檔案來說，它會顯示目前來源文字與由 msgmerge 所更新的基於 POT "
+"樣本的 PO中對應的模糊翻譯的來源文字的不同。\n"
+"\n"
+"您想要在檢視中顯示這份資料嗎？"
+
+#: src/alttransview.cpp:232
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Sometimes, if source text is changed, its translation becomes deprecated "
+"and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. "
+"looses approval status), or (only in case of XLIFF file) moved to the "
+"<emphasis>alternate&nbsp;translations</emphasis> section accompanying the "
+"unit.</p><p>This toolview also shows the difference between current source "
+"string and the previous source string, so that you can easily see which "
+"changes should be applied to existing translation to make it reflect current "
+"source.</p><p>Double-clicking any word in this toolview inserts it into "
+"translation.</p><p>Drop translation file onto this toolview to use it as a "
+"source for additional alternate translations.</p>"
+msgstr ""
+"<p>有的時候，原始文字變更，它的翻譯就會被標記為「<emphasis>需要重新檢視</"
+"emphasis>」 或是（在 XLIFF 檔中）被移到「<emphasis>其它翻譯</emphasis>」區段"
+"中。</p> <p>此工具檢視也會顯示新舊原始字串的差異，您可以很輕易比對彼此的不"
+"同，並修正您的翻譯。</p> <p>在此工具檢視中雙擊任一個單字可以將它插入翻譯中。"
+"</p> <p>將翻譯檔拖入此工具檢視，可以將它做為其它翻譯的來源。</p>"
+
+#: src/alttransview.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Origin: %1"
+msgstr "原始：%1"
+
+#: src/alttransview.cpp:276
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use alternate translation"
+msgstr "使用其它翻譯"
+
+#: src/binunitsview.cpp:108
+#, kde-format
+msgid "no"
+msgstr "否"
+
+#: src/binunitsview.cpp:108
+#, kde-format
+msgid "yes"
+msgstr "是"
+
+#: src/binunitsview.cpp:124
+#, kde-format
+msgctxt "@title:column"
+msgid "Source"
+msgstr "來源"
+
+#: src/binunitsview.cpp:125
+#, kde-format
+msgctxt "@title:column"
+msgid "Target"
+msgstr "目標"
+
+#: src/binunitsview.cpp:126
+#, kde-format
+msgctxt "@title:column"
+msgid "Approved"
+msgstr "已確認"
+
+#: src/binunitsview.cpp:134
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Binary Units"
+msgstr "二元單位"
+
+#: src/binunitsview.cpp:172
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Set the file"
+msgstr "設定檔案"
+
+#: src/binunitsview.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Use source file"
+msgstr "使用來源檔案"
+
+#: src/catalog/catalog.cpp:52
+#, kde-format
+msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "所有支援的檔案 (*.po *.pot *.xlf *.xliff *.ts)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Gettext (*.po *.pot)"
+msgstr "Gettext (*.po *.pot)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Gettext (*.po)"
+msgstr "Gettext (*.po)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "XLIFF (*.xlf *.xliff)"
+msgstr "XLIFF (*.xlf *.xliff)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Linguist (*.ts)"
+msgstr "Linguist (*.ts)"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "New"
+msgstr "新增"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs translation"
+msgstr "需要翻譯"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs full localization"
+msgstr "需要完全本地化"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs adaptation"
+msgstr "需要改寫"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Translated"
+msgstr "已翻譯"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs translation review"
+msgstr "需要檢視翻譯"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs full localization review"
+msgstr "需要檢視完整地域化"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs adaptation review"
+msgstr "需要檢視改寫"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Final"
+msgstr "完成"
+
+#: src/catalog/catalog.cpp:61
+#, kde-format
+msgid "Signed-off"
+msgstr "簽出"
+
+#: src/catalog/catalogstring.cpp:60
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired tag"
+msgstr "成對標記的開始"
+
+#: src/catalog/catalogstring.cpp:61
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired tag"
+msgstr "成對標記的結束"
+
+#: src/catalog/catalogstring.cpp:62
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Stand-alone tag"
+msgstr "獨立標記"
+
+#: src/catalog/catalogstring.cpp:63
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Isolated tag"
+msgstr "分離標記"
+
+#: src/catalog/catalogstring.cpp:65
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Marker"
+msgstr "標記"
+
+#: src/catalog/catalogstring.cpp:66
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic group placeholder"
+msgstr "一般群組取代符"
+
+#: src/catalog/catalogstring.cpp:67
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Sub-flow"
+msgstr "子流程"
+
+#: src/catalog/catalogstring.cpp:69
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic placeholder"
+msgstr "一般取代符"
+
+#: src/catalog/catalogstring.cpp:70
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired placeholder"
+msgstr "成對取代符的開始"
+
+#: src/catalog/catalogstring.cpp:71
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired placeholder"
+msgstr "成對取代符的結束"
+
+#: src/catalog/catalogstring.cpp:118
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "abbreviation"
+msgstr "縮寫（abbreviation）"
+
+#: src/catalog/catalogstring.cpp:119
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviated form: a term resulting from the omission of any part of the full "
+"term while designating the same concept"
+msgstr ""
+"縮寫型（abbreviated form）：將名詞省略，只留下部份字母，但仍指同一個意思"
+
+#: src/catalog/catalogstring.cpp:120
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviation: an abbreviated form of a simple term resulting from the "
+"omission of some of its letters (e.g. 'adj.' for 'adjective')"
+msgstr ""
+"縮寫（abbreviation）：將名詞省略，只留下部份字母，但仍指同一個意思（例如："
+"adjective 縮寫成 adj.）"
+
+#: src/catalog/catalogstring.cpp:121
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"acronym: an abbreviated form of a term made up of letters from the full form "
+"of a multiword term strung together into a sequence pronounced only "
+"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+msgstr ""
+"頭字語（acronym）：名詞縮寫型的一種。將多個單字組成的名詞，各取幾個字母組成另"
+"一個單字或音節（例如：radar 就是 radio detecting and ranging 的頭字語）"
+
+#: src/catalog/catalogstring.cpp:122
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"appellation: a proper-name term, such as the name of an agency or other "
+"proper entity"
+msgstr "稱號（appellation）：稱謂名詞，例如代理商的名稱"
+
+#: src/catalog/catalogstring.cpp:123
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"collocation: a recurrent word combination characterized by cohesion in that "
+"the components of the collocation must co-occur within an utterance or "
+"series of utterances, even though they do not necessarily have to maintain "
+"immediate proximity to one another"
+msgstr ""
+"組合（collocation）：經常性的詞語組合。組合的組成的搭配必須共同出現在一個或一"
+"系列的詞語中，即使它們並不需要相互緊鄰。"
+
+#: src/catalog/catalogstring.cpp:124
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"common name: a synonym for an international scientific term that is used in "
+"general discourse in a given language"
+msgstr "通用名稱（common name）：用於指定語言的一般講稿的國際科學用詞的同義詞"
+
+#: src/catalog/catalogstring.cpp:125
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "date and/or time"
+msgstr "日期與時間"
+
+#: src/catalog/catalogstring.cpp:126
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"equation: an expression used to represent a concept based on a statement "
+"that two mathematical expressions are, for instance, equal as identified by "
+"the equal sign (=), or assigned to one another by a similar sign"
+msgstr "等式（equation）：用於表達兩個數學表示式是相等的觀念，或是用於指定"
+
+#: src/catalog/catalogstring.cpp:127
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"expanded form: The complete representation of a term for which there is an "
+"abbreviated form"
+msgstr "展開型（expanded form）：縮寫型的完整表述"
+
+#: src/catalog/catalogstring.cpp:128
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"formula: figures, symbols or the like used to express a concept briefly, "
+"such as a mathematical or chemical formula"
+msgstr "公式（formula）：用於簡單表達一個像是數學、化學等觀念的圖型與符號等等"
+
+#: src/catalog/catalogstring.cpp:129
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"head term: the concept designation that has been chosen to head a "
+"terminological record"
+msgstr "主標題（head term）：用於指出專有名詞紀錄的觀念的名詞"
+
+#: src/catalog/catalogstring.cpp:130
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"initialism: an abbreviated form of a term consisting of some of the initial "
+"letters of the words making up a multiword term or the term elements making "
+"up a compound term when these letters are pronounced individually (e.g. "
+"'BSE' for 'bovine spongiform encephalopathy')"
+msgstr ""
+"首字母略縮詞（initialism）：一種名詞的縮寫型，將所有或一部份單字的第一個字母"
+"組合起來，不過與 acronym 的不同是，initialism 的每個字母是分別發音（如 BSE "
+"是 bovine spongiform encephalopathy 的頭字語）"
+
+#: src/catalog/catalogstring.cpp:131
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"international scientific term: a term that is part of an international "
+"scientific nomenclature as adopted by an appropriate scientific body"
+msgstr ""
+"國際科學名詞（international scientific term）：國際科學術語命名表中的名詞"
+
+#: src/catalog/catalogstring.cpp:132
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"internationalism: a term that has the same or nearly identical orthographic "
+"or phonemic form in many languages"
+msgstr ""
+"國際性名詞（internationalism）：在許多語言中有相同或幾乎相同的拼字或發音的名"
+"詞"
+
+#: src/catalog/catalogstring.cpp:133
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"logical expression: an expression used to represent a concept based on "
+"mathematical or logical relations, such as statements of inequality, set "
+"relationships, Boolean operations, and the like"
+msgstr ""
+"邏輯表示式（logical expression）：用於表示基於數學或邏輯關聯性的觀念的表示"
+"式，如不等式、設定式、布林運算等等"
+
+#: src/catalog/catalogstring.cpp:134
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "materials management unit: a unit to track object"
+msgstr "物件管理單位（materials management unit）：用於追蹤物件的單位"
+
+#: src/catalog/catalogstring.cpp:135
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "name"
+msgstr "名稱"
+
+#: src/catalog/catalogstring.cpp:136
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"near synonym: a term that represents the same or a very similar concept as "
+"another term in the same language, but for which interchangeability is "
+"limited to some contexts and inapplicable in others"
+msgstr ""
+"近同義字（near synonym）：在同一語言中，可以表示與另一個名詞相同或相當類似的"
+"觀念的名詞，不過其交替運用只限於某種情境下，其它時候不適用"
+
+#: src/catalog/catalogstring.cpp:137
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"part number: a unique alphanumeric designation assigned to an object in a "
+"manufacturing system"
+msgstr "料號（part number）：在製造系統中用於管理物件的唯一編號"
+
+#: src/catalog/catalogstring.cpp:138
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "phrase"
+msgstr "片語"
+
+#: src/catalog/catalogstring.cpp:139
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"phraseological: a group of two or more words that form a unit, the meaning "
+"of which frequently cannot be deduced based on the combined sense of the "
+"words making up the phrase"
+msgstr ""
+"措辭（phraseological）：兩個或兩個以上的單字組合起來，其意義通常不能基於組成"
+"片語的個別單字推導而出"
+
+#: src/catalog/catalogstring.cpp:140
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "protected: the marked text should not be translated"
+msgstr "保護（protected）：標記為不應被翻譯的文字"
+
+#: src/catalog/catalogstring.cpp:141
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"romanized form: a form of a term resulting from an operation whereby non-"
+"Latin writing systems are converted to the Latin alphabet"
+msgstr "羅馬式（romanized form）：將非拉丁書寫系統轉換成拉丁字母之後的名詞樣式"
+
+#: src/catalog/catalogstring.cpp:142
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "segment: the marked text represents a segment"
+msgstr "片段（segment）：標記為表示片段的文字"
+
+#: src/catalog/catalogstring.cpp:143
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "set phrase: a fixed, lexicalized phrase"
+msgstr "片語（set phrase）：固定的，詞彙化的片語"
+
+#: src/catalog/catalogstring.cpp:144
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"short form: a variant of a multiword term that includes fewer words than the "
+"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
+"Group of Twenty-four on International Monetary Affairs')"
+msgstr ""
+"短格式（short form）：將完整格式的名詞變成較短的名詞，如 'Group of Twenty-"
+"four' 是 'Intergovernmental Group of Twenty-four on International Monetary "
+"Affairs' 的短格式"
+
+#: src/catalog/catalogstring.cpp:145
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"stock keeping unit: an inventory item identified by a unique alphanumeric "
+"designation assigned to an object in an inventory control system"
+msgstr ""
+"存貨保持單位（stock keeping unit）：用字母或數字標記存貨清單控制系統上的某一"
+"物件"
+
+#: src/catalog/catalogstring.cpp:146
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "standard text: a fixed chunk of recurring text"
+msgstr "標準文字（standard text）：循環文字的固定區塊"
+
+#: src/catalog/catalogstring.cpp:147
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"symbol: a designation of a concept by letters, numerals, pictograms or any "
+"combination thereof"
+msgstr "符號（symbol）：用於表示字母、數字、圖樣或任何組合"
+
+#: src/catalog/catalogstring.cpp:148
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonym: a term that represents the same or a very similar concept as the "
+"main entry term in a term entry"
+msgstr "同義字（synonym）：用於表示與另一個名詞相同或相似觀念的名詞"
+
+#: src/catalog/catalogstring.cpp:149
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonymous phrase: phraseological unit in a language that expresses the same "
+"semantic content as another phrase in that same language"
+msgstr ""
+"同義片語（synonymous phrase）：在同一種語言中表示與另一組片語相同語義的措詞單"
+"位"
+
+#: src/catalog/catalogstring.cpp:150
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "term"
+msgstr "名詞"
+
+#: src/catalog/catalogstring.cpp:151
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transcribed form: a form of a term resulting from an operation whereby the "
+"characters of one writing system are represented by characters from another "
+"writing system, taking into account the pronunciation of the characters "
+"converted"
+msgstr ""
+"轉錄格式（transcribed form）：將某一書寫系統的字元用另一種書寫系統表示出來，"
+"並考慮發音的轉換"
+
+#: src/catalog/catalogstring.cpp:152
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transliterated form: a form of a term resulting from an operation whereby "
+"the characters of an alphabetic writing system are represented by characters "
+"from another alphabetic writing system"
+msgstr ""
+"直譯格式（transliterated form）：將某一書寫系統中的字母用另一種書寫系統的字母"
+"表現出來"
+
+#: src/catalog/catalogstring.cpp:153
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"truncated term: an abbreviated form of a term resulting from the omission of "
+"one or more term elements or syllables (e.g. 'flu' for 'influenza')"
+msgstr ""
+"截斷名詞（truncated term）：將某單字中的一些元素或音節省略的縮寫名詞，如 "
+"influenza 變成 flu"
+
+#: src/catalog/catalogstring.cpp:154
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "variant: one of the alternate forms of a term"
+msgstr "變異：此名詞的其它型態的一種"
+
+#: src/catalog/cmd.cpp:81
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insertion"
+msgstr "插入"
+
+#: src/catalog/cmd.cpp:124
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Deletion"
+msgstr "刪除"
+
+#: src/catalog/cmd.cpp:177
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Approvement toggling"
+msgstr "確認切換"
+
+#: src/catalog/cmd.cpp:196
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Insertion"
+msgstr "標記插入"
+
+#: src/catalog/cmd.cpp:218
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Deletion"
+msgstr "標記刪除"
+
+#: src/catalog/cmd.cpp:239
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Note setting"
+msgstr "備忘設定"
+
+#: src/catalog/cmd.cpp:275
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Update/add workflow phase"
+msgstr "更新/新增工作流狀態"
+
+#: src/catalog/cmd.cpp:296
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Translation Equivalence Setting"
+msgstr "翻譯相等設定"
+
+#: src/catalog/cmd.cpp:365
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Remove text with markup"
+msgstr "移除有標記的文字"
+
+#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:664
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insert text with markup"
+msgstr "在文字上插入標記"
+
+#: src/catalog/gettext/gettextstorage.cpp:124
+#, kde-format
+msgid "separator for different-length string alternatives"
+msgstr "不同長度字串替代的分隔符"
+
+#: src/catalog/gettext/gettextstorage.cpp:286
+#, kde-format
+msgid ""
+"Previous source value, saved by Gettext during transition to a newer POT "
+"template"
+msgstr "先前的來源值，由 Gettext 在合併新的 POT 樣本時所產生"
+
+#: src/catalog/gettextheader.cpp:661
+#, kde-format
+msgctxt "@window:title"
+msgid "Author name missing"
+msgstr "沒有作者名稱"
+
+#: src/catalog/gettextheader.cpp:661
+#, kde-format
+msgid "Your name:"
+msgstr "您的姓名："
+
+#: src/catalog/gettextheader.cpp:671
+#, kde-format
+msgctxt "@window:title"
+msgid "Author email missing"
+msgstr "沒有作者的電子郵件地址"
+
+#: src/catalog/gettextheader.cpp:671
+#, kde-format
+msgid "Your email:"
+msgstr "您的電子郵件地址："
+
+#: src/catalog/ts/tsstorage.cpp:441
+#, kde-format
+msgid "Previous source value, saved by lupdate tool"
+msgstr "先前的來源值，由  lupdate 所產生"
+
+#: src/cataloglistview/cataloglistview.cpp:57
+#, kde-format
+msgctxt "@title:window aka Message Tree"
+msgid "Translation Units"
+msgstr "翻譯單位"
+
+#: src/cataloglistview/cataloglistview.cpp:74
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#, kde-format
+msgid "Quick search..."
+msgstr "快速搜尋..."
+
+#: src/cataloglistview/cataloglistview.cpp:75
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Activated by Ctrl+L."
+msgstr "以 Ctrl+L 啟動。"
+
+#: src/cataloglistview/cataloglistview.cpp:75
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Accepts regular expressions"
+msgstr "接受正則表達式"
+
+#: src/cataloglistview/cataloglistview.cpp:84
+#, kde-format
+msgid "options"
+msgstr "選項"
+
+#: src/cataloglistview/cataloglistview.cpp:186
+#, kde-format
+msgid "Reset individual filter"
+msgstr "重置個人過濾器"
+
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:365
+#, kde-format
+msgid "Case insensitive"
+msgstr "區分大小寫"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#, kde-format
+msgid "Ignore accelerator marks"
+msgstr "忽略捷徑標記"
+
+#: src/cataloglistview/cataloglistview.cpp:194
+#, kde-format
+msgid "Ready"
+msgstr "已就緒"
+
+#: src/cataloglistview/cataloglistview.cpp:195
+#, kde-format
+msgid "Non-ready"
+msgstr "未就緒"
+
+#: src/cataloglistview/cataloglistview.cpp:196
+#, kde-format
+msgid "Non-empty"
+msgstr "非空白"
+
+#: src/cataloglistview/cataloglistview.cpp:197
+#, kde-format
+msgid "Empty"
+msgstr "空白"
+
+#: src/cataloglistview/cataloglistview.cpp:198
+#, kde-format
+msgid "Changed since file open"
+msgstr "檔案開啟後有變更"
+
+#: src/cataloglistview/cataloglistview.cpp:199
+#, kde-format
+msgid "Unchanged since file open"
+msgstr "檔案開啟後沒有變更"
+
+#: src/cataloglistview/cataloglistview.cpp:200
+#, kde-format
+msgid "Same in sync file"
+msgstr "在同步檔中相同"
+
+#: src/cataloglistview/cataloglistview.cpp:201
+#, kde-format
+msgid "Different in sync file"
+msgstr "在同步檔中不同"
+
+#: src/cataloglistview/cataloglistview.cpp:202
+#, kde-format
+msgid "Not in sync file"
+msgstr "不在同步檔中"
+
+#: src/cataloglistview/cataloglistview.cpp:203
+#, kde-format
+msgid "Plural"
+msgstr "複數"
+
+#: src/cataloglistview/cataloglistview.cpp:204
+#, kde-format
+msgid "Non-plural"
+msgstr "非複數"
+
+#: src/cataloglistview/cataloglistview.cpp:209
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Basic"
+msgstr "基本"
+
+#: src/cataloglistview/cataloglistview.cpp:210
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "States"
+msgstr "狀態"
+
+#: src/cataloglistview/cataloglistview.cpp:212
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Searchable column"
+msgstr "可搜尋欄位"
+
+#: src/cataloglistview/cataloglistview.cpp:216
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Resort and refilter on content change"
+msgstr "內容變更時重新排序並過濾"
+
+#: src/cataloglistview/cataloglistview.cpp:233
+#, kde-format
+msgctxt "@item:inmenu all columns"
+msgid "All"
+msgstr "全部"
+
+#: src/cataloglistview/catalogmodel.cpp:106
+#, kde-format
+msgctxt "@title:column"
+msgid "Entry"
+msgstr "條目"
+
+#. i18nc("@title:column","ID");
+#: src/cataloglistview/catalogmodel.cpp:108
+#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:216
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65 src/tm/tmtab.cpp:78
+#, kde-format
+msgctxt "@title:column Original text"
+msgid "Source"
+msgstr "來源"
+
+#: src/cataloglistview/catalogmodel.cpp:110
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:217
+#: src/tm/tmtab.cpp:66 src/tm/tmtab.cpp:79
+#, kde-format
+msgctxt "@title:column Text in target language"
+msgid "Target"
+msgstr "目標訊息"
+
+#: src/cataloglistview/catalogmodel.cpp:112
+#, kde-format
+msgctxt "@title:column"
+msgid "Notes"
+msgstr "備忘"
+
+#: src/cataloglistview/catalogmodel.cpp:114 src/tm/tmtab.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Context"
+msgstr "內容"
+
+#: src/cataloglistview/catalogmodel.cpp:116
+#, kde-format
+msgctxt "@title:column"
+msgid "Files"
+msgstr "檔案"
+
+#: src/cataloglistview/catalogmodel.cpp:118
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:69
+#, kde-format
+msgctxt "@title:column"
+msgid "Translation Status"
+msgstr "翻譯狀態"
+
+#: src/cataloglistview/catalogmodel.cpp:120
+#, kde-format
+msgctxt "@title:column Length of the original text"
+msgid "Source length"
+msgstr "來源長度"
+
+#: src/cataloglistview/catalogmodel.cpp:122
+#, kde-format
+msgctxt "@title:column Length of the text in target language"
+msgid "Target length"
+msgstr "目標長度"
+
+#: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1080
+#: src/editortab.cpp:1283 src/tm/tmtab.cpp:231
+#, kde-format
+msgctxt "@info:status 'non-fuzzy' in gettext terminology"
+msgid "Ready"
+msgstr "已就緒"
+
+#: src/cataloglistview/catalogmodel.cpp:160 src/editortab.cpp:1081
+#: src/editortab.cpp:1278 src/tm/tmtab.cpp:232
+#, kde-format
+msgctxt "@info:status 'fuzzy' in gettext terminology"
+msgid "Needs review"
+msgstr "需要重新檢視"
+
+#: src/cataloglistview/catalogmodel.cpp:162 src/editortab.cpp:1079
+#: src/tm/tmtab.cpp:233
+#, kde-format
+msgctxt "@info:status"
+msgid "Untranslated"
+msgstr "未翻譯"
+
+#: src/common/languagelistmodel.cpp:93
+#, fuzzy, kde-format
+#| msgctxt "@info:status message entries"
+#| msgid "Total: %1 (%2)"
+msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
+msgid "%1 (%2)"
+msgstr "條目總數：%1（%2）"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
+#, kde-format
+msgid "Target language:"
+msgstr "目標語言："
+
+#: src/common/termlabel.cpp:81
+#, kde-format
+msgctxt "@action:inmenu Edit term"
+msgid "Edit"
+msgstr "編輯"
+
+#: src/editortab.cpp:143
+#, kde-format
+msgctxt "@info:status message entry"
+msgid "Current: %1"
+msgstr "目前條目：%1"
+
+#: src/editortab.cpp:144 src/editortab.cpp:854
+#: src/filesearch/filesearchtab.cpp:779 src/project/projecttab.cpp:492
+#: src/tm/tmtab.cpp:592
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1"
+msgstr "條目總數：%1"
+
+#: src/editortab.cpp:145 src/editortab.cpp:155
+#, kde-format
+msgctxt ""
+"@info:status message entries\n"
+"'fuzzy' in gettext terminology"
+msgid "Not ready: %1"
+msgstr "未就緒：%1"
+
+#: src/editortab.cpp:146 src/editortab.cpp:163
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Untranslated: %1"
+msgstr "未翻譯：%1"
+
+#: src/editortab.cpp:157 src/editortab.cpp:165
+#, kde-format
+msgctxt "percentages in statusbar"
+msgid " (%1%)"
+msgstr " (%1%)"
+
+#: src/editortab.cpp:191 src/lokalizemainwindow.cpp:435
+#, kde-format
+msgctxt "@title actions category"
+msgid "File"
+msgstr "檔案"
+
+#: src/editortab.cpp:192 src/project/projecttab.cpp:144
+#, kde-format
+msgctxt "@title actions category"
+msgid "Navigation"
+msgstr "導覽"
+
+#: src/editortab.cpp:193
+#, kde-format
+msgctxt "@title actions category"
+msgid "Editing"
+msgstr "編輯中"
+
+#: src/editortab.cpp:194
+#, kde-format
+msgid "Synchronization 1"
+msgstr "同步 1"
+
+#: src/editortab.cpp:195
+#, kde-format
+msgid "Synchronization 2"
+msgstr "同步 2"
+
+#: src/editortab.cpp:196
+#, kde-format
+msgid "Translation Memory"
+msgstr "翻譯記憶體"
+
+#. i18nc("@title actions category","Settings"), ac);
+#: src/editortab.cpp:197 src/lokalizemainwindow.cpp:437
+#, kde-format
+msgctxt "@title actions category"
+msgid "Glossary"
+msgstr "字彙"
+
+#: src/editortab.cpp:224
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert alternate translation #%1"
+msgstr "插入 #%1 其它翻譯"
+
+#: src/editortab.cpp:271
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a note"
+msgstr "新增備忘..."
+
+#: src/editortab.cpp:292
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert TM suggestion #%1"
+msgstr "插入翻譯記憶體建議 #%1"
+
+#: src/editortab.cpp:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove TM suggestion #%1"
+msgstr "移除翻譯記憶體建議 #%1"
+
+#: src/editortab.cpp:347
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert term translation #%1"
+msgstr "插入 #%1 其它翻譯"
+
+#: src/editortab.cpp:358
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Define new term"
+msgstr "定義新名詞"
+
+#: src/editortab.cpp:390
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert WebQuery result #%1"
+msgstr "插入網頁查詢結果 #%1"
+
+#: src/editortab.cpp:431
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Phases..."
+msgstr "階段..."
+
+#: src/editortab.cpp:434
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Word count"
+msgstr "單字計數"
+
+#: src/editortab.cpp:437
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear all translated entries"
+msgstr "清空所有已翻譯項目"
+
+#: src/editortab.cpp:440
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch the Pology command on this file"
+msgstr "在此檔案執行 Pology 指令"
+
+#: src/editortab.cpp:444
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Merge translation into OpenDocument"
+msgstr "將翻譯合併回 OpenDocument"
+
+#: src/editortab.cpp:465
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Change searching direction"
+msgstr "變更搜尋方向"
+
+#: src/editortab.cpp:476
+#, kde-format
+msgctxt ""
+"@option:check whether message is marked as translated/reviewed/approved "
+"(depending on your role)"
+msgid "Approved"
+msgstr "已確認"
+
+#: src/editortab.cpp:494
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Approve and go to next"
+msgstr "設定為已確認，並跳到下一個條目"
+
+#: src/editortab.cpp:503
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Equivalent translation"
+msgstr "相同的翻譯"
+
+#: src/editortab.cpp:518
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy source to target"
+msgstr "將原訊息複製到翻譯內容"
+
+#: src/editortab.cpp:521
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Unwrap target"
+msgstr "取消翻譯內容折行"
+
+#: src/editortab.cpp:526 src/filesearch/filesearchtab.cpp:93
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear"
+msgstr "清除"
+
+#: src/editortab.cpp:530
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Tag"
+msgstr "插入標籤"
+
+#: src/editortab.cpp:534
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Check this unit using LanguageTool"
+msgstr "使用 LanguageTool 檢查此單元"
+
+#: src/editortab.cpp:538
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Next Tag"
+msgstr "插入「下一個」標籤"
+
+#: src/editortab.cpp:542
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Completion"
+msgstr "完成度"
+
+#: src/editortab.cpp:546
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Replace with best spellcheck suggestion"
+msgstr "以最好的拼字檢查建議取代"
+
+#: src/editortab.cpp:553
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Next"
+msgstr "下一個(&N)"
+
+#: src/editortab.cpp:558
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Previous"
+msgstr "上一個(&P)"
+
+#: src/editortab.cpp:564
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&First Entry"
+msgstr "第一個條目(&F)"
+
+#: src/editortab.cpp:570
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&Last Entry"
+msgstr "最後一個條目(&L)"
+
+#: src/editortab.cpp:576
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Entry by number"
+msgstr "輸入編號"
+
+#: src/editortab.cpp:578 src/project/projecttab.cpp:152
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous non-empty but not ready"
+msgstr "上一個非空白但未就緒條目"
+
+#: src/editortab.cpp:583 src/project/projecttab.cpp:155
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next non-empty but not ready"
+msgstr "下一個非空白但未就緒條目"
+
+#: src/editortab.cpp:588 src/project/projecttab.cpp:158
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous untranslated"
+msgstr "上一個未翻譯條目"
+
+#: src/editortab.cpp:593 src/project/projecttab.cpp:161
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next untranslated"
+msgstr "下一個未翻譯條目"
+
+#: src/editortab.cpp:598 src/project/projecttab.cpp:146
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous not ready"
+msgstr "上一個未就緒條目"
+
+#: src/editortab.cpp:603 src/project/projecttab.cpp:149
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next not ready"
+msgstr "下一個未就緒條目"
+
+#: src/editortab.cpp:610
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Focus the search line of Translation Units view"
+msgstr "讓翻譯單位檢視的搜尋列取得焦點"
+
+#: src/editortab.cpp:616
+#, kde-format
+msgctxt "@option:check"
+msgid "Bookmark message"
+msgstr "將訊息加入書籤"
+
+#: src/editortab.cpp:622
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous bookmark"
+msgstr "上一個書籤"
+
+#: src/editortab.cpp:626
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next bookmark"
+msgstr "下一個書籤"
+
+#: src/editortab.cpp:634
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions"
+msgstr "填入所有精確的翻譯建議"
+
+#: src/editortab.cpp:638
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions and mark as fuzzy"
+msgstr "填入所有精確的翻譯建議並標記為模糊翻譯"
+
+#: src/editortab.cpp:643
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for sync/merge"
+msgstr "開啟檔案以同步或合併"
+
+#: src/editortab.cpp:644 src/editortab.cpp:701
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Open catalog to be merged into the current one / replicate base file changes "
+"to"
+msgstr "開啟要合併到目前或複製檔案變更的目錄"
+
+#: src/editortab.cpp:650 src/editortab.cpp:707
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous different"
+msgstr "上一個差異"
+
+#: src/editortab.cpp:651 src/editortab.cpp:708
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Previous entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr "上一個與合併檔案翻譯不同的條目，包括空白翻譯"
+
+#: src/editortab.cpp:660 src/editortab.cpp:715
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different"
+msgstr "下一個差異"
+
+#: src/editortab.cpp:661 src/editortab.cpp:716
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Next entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr "下一個與合併檔案翻譯不同的條目，包括空白翻譯"
+
+#: src/editortab.cpp:669
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different approved"
+msgstr "下一個已確認的差異"
+
+#: src/editortab.cpp:675 src/editortab.cpp:723
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy from merging source"
+msgstr "從合併來源複製"
+
+#: src/editortab.cpp:682 src/editortab.cpp:728
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy all new translations"
+msgstr "複製所有的新翻譯"
+
+#: src/editortab.cpp:683
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty and non-ready entries in base file"
+msgstr "這只會改變基礎檔案中空的與未就緒的條目"
+
+#: src/editortab.cpp:692 src/editortab.cpp:735
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to merging source"
+msgstr "複製到合併來源"
+
+#: src/editortab.cpp:700
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for secondary sync"
+msgstr "開啟檔案以做第二同步"
+
+#: src/editortab.cpp:729
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty entries"
+msgstr "這只會改變空的條目"
+
+#: src/editortab.cpp:759
+#, kde-format
+msgctxt "editor tab name"
+msgid "(recovered)"
+msgstr "（已修復）"
+
+#: src/editortab.cpp:801 src/editortab.cpp:969
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The document contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"文件中有未儲存的變更。\n"
+"您要儲存還是要丟棄？"
+
+#: src/editortab.cpp:802 src/editortab.cpp:970 src/editortab.cpp:1397
+#: src/glossary/glossarywindow.cpp:490
+#, kde-format
+msgctxt "@title:window"
+msgid "Warning"
+msgstr "警告"
+
+#: src/editortab.cpp:818 src/mergemode/mergeview.cpp:190
+#, kde-format
+msgctxt "@title:window"
+msgid "Select translation file"
+msgstr "選擇翻譯檔"
+
+#: src/editortab.cpp:903
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1, line: %2"
+msgstr "開啟檔案 %1 時發生錯誤，第 %2 行"
+
+#: src/editortab.cpp:904
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1"
+msgstr "開啟檔案 %1 時發生錯誤"
+
+#: src/editortab.cpp:911
+#, kde-format
+msgctxt "@title:window"
+msgid "Save File As"
+msgstr "另存新檔"
+
+#: src/editortab.cpp:936
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error saving the file %1\n"
+"Do you want to save to another file or cancel?"
+msgstr ""
+"儲存檔案 %1 時發生錯誤。\n"
+"您要儲存到其他檔案，還是要取消？"
+
+#: src/editortab.cpp:938
+#, kde-format
+msgctxt "@title"
+msgid "Error"
+msgstr "錯誤"
+
+#: src/editortab.cpp:946
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not perform file autosaving.\n"
+"The target file was %1."
+msgstr ""
+"無法執行檔案自動儲存。\n"
+"目標檔案為 %1。"
+
+#: src/editortab.cpp:995
+#, kde-format
+msgctxt "@title"
+msgid "Jump to Entry"
+msgstr "跳到條目"
+
+#: src/editortab.cpp:996
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Enter entry number:"
+msgstr "輸入條目編號："
+
+#: src/editortab.cpp:1067
+#, kde-format
+msgctxt "@info:status"
+msgid "Current: %1"
+msgstr "目前條目：%1"
+
+#: src/editortab.cpp:1256
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Translated"
+msgstr "已翻譯"
+
+#: src/editortab.cpp:1257
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Signed-off"
+msgstr "簽出"
+
+#: src/editortab.cpp:1258
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Approved"
+msgstr "已確認"
+
+#: src/editortab.cpp:1261
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation is done (although still may need a review)"
+msgstr "翻譯已完成（雖然可能需要檢視一下）"
+
+#: src/editortab.cpp:1262
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation has received positive review"
+msgstr "翻譯接收到正面的回應"
+
+#: src/editortab.cpp:1263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Entry is fully localized (i.e. final)"
+msgstr "項目已完全本地化（已完成）"
+
+#: src/editortab.cpp:1375 src/project/projecttab.cpp:352
+#, kde-format
+msgid "A Pology check is already in progress."
+msgstr "Pology 檢查已在處理。"
+
+#: src/editortab.cpp:1375 src/editortab.cpp:1383 src/editortab.cpp:1387
+#: src/project/projecttab.cpp:352 src/project/projecttab.cpp:360
+#: src/project/projecttab.cpp:364
+#, kde-format
+msgid "Pology error"
+msgstr "Pology 錯誤"
+
+#: src/editortab.cpp:1383 src/project/projecttab.cpp:360
+#, kde-format
+msgid ""
+"The Pology check has crashed unexpectedly:\n"
+"%1"
+msgstr ""
+"Pology 檢查意外崩潰：\n"
+"%1"
+
+#: src/editortab.cpp:1385 src/project/projecttab.cpp:362
+#, kde-format
+msgid "Pology success"
+msgstr "Pology 成功"
+
+#: src/editortab.cpp:1385
+#, kde-format
+msgid "The Pology check has succeeded."
+msgstr "Pology 檢查成功。"
+
+#: src/editortab.cpp:1387 src/project/projecttab.cpp:364
+#, kde-format
+msgid ""
+"The Pology check has returned an error:\n"
+"%1"
+msgstr ""
+"Pology 檢查返回錯誤：\n"
+"%1"
+
+#: src/editortab.cpp:1396
+#, kde-format
+msgctxt "@info"
+msgid ""
+"This will delete all the translations from the file.\n"
+"Do you really want to clear all translated entries?"
+msgstr ""
+"這將會刪除檔案中的所有翻譯，\n"
+"仍然要清除這些已翻譯項目嗎？"
+
+#: src/editortab.cpp:1432
+#, kde-format
+msgctxt "@info words count"
+msgid "Source text words: %1<br/>Target text words: %2"
+msgstr "原始文字單字數：%1<br /> 目標文字單字數：%2"
+
+#: src/editortab.cpp:1433
+#, kde-format
+msgctxt "@title"
+msgid "Word Count"
+msgstr "單字計數"
+
+#: src/editortab.cpp:1525
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Would you like to search for the source file locally or via lxr.kde.org?"
+msgstr "您想要在本機搜尋來源檔案或是透過 lxr.kde.org 呢？"
+
+#: src/editortab.cpp:1525 src/editortab.cpp:1566
+#, kde-format
+msgctxt "@title:window"
+msgid "Source file lookup"
+msgstr "查詢來源檔案"
+
+#: src/editortab.cpp:1526
+#, kde-format
+msgid "Locally"
+msgstr "本地端"
+
+#: src/editortab.cpp:1538 src/editortab.cpp:1577
+#, kde-format
+msgid "Select project's base folder for source file lookup"
+msgstr "選擇專案的供來源檔案查詢的基礎資料夾"
+
+#: src/editortab.cpp:1565
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not find source file in the folder specified.\n"
+"Do you want to change source files folder?"
+msgstr ""
+"在指定的資料夾中找不到來源檔案。\n"
+"您想要變更來源資料夾嗎？"
+
+#: src/editortab.cpp:1567
+#, kde-format
+msgid "lxr.kde.org"
+msgstr "lxr.kde.org"
+
+#: src/editortab.cpp:1596
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Cannot open the target source file: The target source file is not relative "
+"to the current translation file, and there are currently no scripts loaded "
+"to handle opening source files in custom paths. Refer to the Lokalize "
+"handbook for script examples and how to plug them into your project."
+msgstr ""
+"無法開啟原碼檔：目標來源檔與目前的翻譯檔沒有關聯，並且目前沒有載入任何文稿以"
+"處理自訂路徑的來源檔。請參考 Lokalize 手冊裡的文稿範例，以及如何將它們插入您"
+"的專案中。"
+
+#: src/editortab.cpp:1610 src/project/project.cpp:472
+#: src/project/project.cpp:477
+#, kde-format
+msgid "Install translate-toolkit package and retry"
+msgstr "安裝 translate-toolkit 軟體包並重新嘗試"
+
+#: src/editortab.cpp:1616
+#, kde-format
+msgid "Install translate-toolkit package and retry."
+msgstr "請安裝 translate-toolkit 軟體包並重新嘗試。"
+
+#: src/editortab.cpp:1625
+#, kde-format
+msgid "Select original OpenDocument on which current XLIFF file is based"
+msgstr "選擇目前 XLIFF 檔所在的原始 OpenDocument"
+
+#: src/editortab.cpp:1627 src/project/project.cpp:482
+#, kde-format
+msgid "OpenDocument files (*.odt *.ods)"
+msgstr "OpenDocument 檔 (*.odt *.ods)"
+
+#: src/editortab.cpp:1672
+#, kde-format
+msgid "Install python-uno package for additional functionality."
+msgstr "請安裝 python-uno 軟體包以取得額外功能。"
+
+#: src/editortab.cpp:1796
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Set unit text"
+msgstr "設定單元文字"
+
+#: src/editortab_findreplace.cpp:464
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace"
+msgstr "取代"
+
+#: src/editortab_findreplace.cpp:534
+#, kde-format
+msgid ""
+"Lokalize has reached end of document. Do you want to continue from start?"
+msgstr "Lokalize 已達到文件尾端。您要從頭開始嗎？"
+
+#: src/editortab_findreplace.cpp:535 src/editortab_findreplace.cpp:541
+#, kde-format
+msgctxt "@title"
+msgid "Spellcheck"
+msgstr "拼字檢查"
+
+#: src/editortab_findreplace.cpp:541
+#, kde-format
+msgid "Lokalize has finished spellchecking"
+msgstr "Lokalize 已完成拼字檢查"
+
+#. i18n: ectx: Menu (file)
+#: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
+#, kde-format
+msgid "&File"
+msgstr "檔案(&F)"
+
+#. i18n: ectx: Menu (edit)
+#: src/editorui.rc:37 src/project/projectmanagerui.rc:22
+#, kde-format
+msgid "&Edit"
+msgstr "編輯(&E)"
+
+#. i18n: ectx: Menu (glossary)
+#: src/editorui.rc:70
+#, kde-format
+msgid "&Glossary"
+msgstr "字彙(&G)"
+
+#. i18n: ectx: Menu (webquery)
+#: src/editorui.rc:95
+#, kde-format
+msgid "&WebQuery"
+msgstr "網頁查詢(&W)"
+
+#. i18n: ectx: Menu (tmquery)
+#: src/editorui.rc:112
+#, kde-format
+msgid "Translation &Memory"
+msgstr "翻譯記憶體(&M)"
+
+#. i18n: ectx: Menu (alttrans)
+#: src/editorui.rc:143
+#, kde-format
+msgid "Alternative Translations"
+msgstr "其它翻譯"
+
+#. i18n: ectx: Menu (go)
+#: src/editorui.rc:161 src/project/projectmanagerui.rc:5
+#, kde-format
+msgid "&Go"
+msgstr "前往(&G)"
+
+#. i18n: ectx: Menu (bookmarks)
+#: src/editorui.rc:191
+#, kde-format
+msgid "&Bookmarks"
+msgstr "書籤(&B)"
+
+#. i18n: ectx: Menu (merge)
+#: src/editorui.rc:198
+#, kde-format
+msgid "S&ync"
+msgstr "同步(&Y)"
+
+#. i18n: ectx: Menu (mergesecondary)
+#: src/editorui.rc:208
+#, kde-format
+msgid "&Secondary sync source"
+msgstr "第二同步來源(&S)"
+
+#. i18n: ectx: Menu (toolviews)
+#: src/editorui.rc:228 src/lokalizemainwindowui.rc:49
+#, kde-format
+msgid "Tool&views"
+msgstr "工具檢視(&V)"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/editorui.rc:251 src/filesearch/filesearchtabui.rc:11
+#: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
+#, kde-format
+msgid "Main Toolbar"
+msgstr "主工具列"
+
+#: src/editorview.cpp:45
+#, kde-format
+msgctxt "@label whether entry is fuzzy"
+msgid "Not ready:"
+msgstr "未就緒："
+
+#: src/editorview.cpp:47
+#, kde-format
+msgctxt "@label whether entry is untranslated"
+msgid "Untranslated:"
+msgstr "未翻譯："
+
+#: src/editorview.cpp:58
+#, kde-format
+msgctxt "@action"
+msgid "Hide"
+msgstr "隱藏"
+
+#: src/editorview.cpp:68
+#, kde-format
+msgctxt "@info:label cursor position"
+msgid "Column: %1"
+msgstr "欄： %1"
+
+#: src/editorview.cpp:82
+#, kde-format
+msgid ""
+"<qt><p><b>Original String</b></p>\n"
+"<p>This part of the window shows the original message\n"
+"of the currently displayed entry.</p></qt>"
+msgstr ""
+"<qt><p><b>原始字串</b></p>\n"
+"<p>視窗的這個部份會顯示目前條目的原始字串。</p></qt>"
+
+#: src/editorview.cpp:180
+#, kde-format
+msgctxt "@title:tab"
+msgid "Plural Form %1"
+msgstr "複數型 %1"
+
+#: src/editorview.cpp:249
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Unwrap"
+msgstr "未折行"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/filesearch/filesearchoptions.ui:24
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Ctrl+L to go to this control.\n"
+"Press Enter to start the search.\n"
+"Press Esc to stop the search."
+msgstr ""
+"搜尋原始字串的表示式。\n"
+"按 Ctrl+L 跳到此控制。\n"
+"按 Enter 開始搜尋。\n"
+"按 Esc 停止搜尋。"
+
+#. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (text), widget (QCheckBox, invertSource)
+#: src/filesearch/filesearchoptions.ui:31
+#: src/filesearch/filesearchoptions.ui:80 src/tm/queryoptions.ui:108
+#: src/tm/queryoptions.ui:118
+#, kde-format
+msgid "Invert"
+msgstr "反轉"
+
+#. i18n: ectx: property (text), widget (QLabel, querySourceLabel)
+#: src/filesearch/filesearchoptions.ui:38 src/tm/queryoptions.ui:85
+#, kde-format
+msgid "Source:"
+msgstr "來源："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
+#: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
+#, kde-format
+msgid ""
+"Search expression for target language part.\n"
+"Press Enter to start the search."
+msgstr ""
+"搜尋翻譯字串的表示式。\n"
+"按 Enter 開始搜尋。"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
+#. i18n: ectx: property (text), widget (QCheckBox, regEx)
+#: src/filesearch/filesearchoptions.ui:56
+#: src/filesearch/massreplaceoptions.ui:78
+#, kde-format
+msgid "Regular expressions"
+msgstr "正則表達式"
+
+#. i18n: ectx: property (text), widget (QLabel, queryTargetLabel)
+#: src/filesearch/filesearchoptions.ui:63 src/tm/queryoptions.ui:95
+#, kde-format
+msgid "Target:"
+msgstr "目標："
+
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: src/filesearch/filesearchoptions.ui:73
+#: src/filesearch/massreplaceoptions.ui:85
+#, kde-format
+msgid "Match case"
+msgstr "符合大小寫"
+
+#. i18n: ectx: property (text), widget (QPushButton, doFind)
+#: src/filesearch/filesearchoptions.ui:96 src/tm/queryoptions.ui:190
+#, kde-format
+msgid "&Search"
+msgstr "搜尋(&S)"
+
+#: src/filesearch/filesearchtab.cpp:75
+#, kde-format
+msgctxt "@title:window"
+msgid "File List"
+msgstr "檔案清單"
+
+#: src/filesearch/filesearchtab.cpp:77
+#, kde-format
+msgid "Drop translation files here..."
+msgstr "將翻譯檔移到此處..."
+
+#. i18nc("@title:column","Context");
+#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "File"
+msgstr "檔案"
+
+#: src/filesearch/filesearchtab.cpp:424
+#, kde-format
+msgctxt "@title:window"
+msgid "Search and replace in files"
+msgstr "在檔案中搜尋並取代"
+
+#: src/filesearch/filesearchtab.cpp:458 src/tm/tmtab.cpp:405
+#, kde-format
+msgid "Copy source to clipboard"
+msgstr "將原訊息複製到剪貼簿"
+
+#: src/filesearch/filesearchtab.cpp:464 src/tm/tmtab.cpp:411
+#, kde-format
+msgid "Copy target to clipboard"
+msgstr "將翻譯訊息複製到剪貼簿"
+
+#: src/filesearch/filesearchtab.cpp:470 src/tm/tmtab.cpp:417
+#, kde-format
+msgid "Open file"
+msgstr "開啟檔案"
+
+#: src/filesearch/filesearchtab.cpp:509
+#, kde-format
+msgctxt "@title actions category"
+msgid "Search and replace in files"
+msgstr "在檔案中搜尋並取代"
+
+#: src/filesearch/filesearchtab.cpp:796
+#, kde-format
+msgctxt "@title:window"
+msgid "Mass replace"
+msgstr "大量取代"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/filesearch/massreplaceoptions.ui:17
+#, kde-format
+msgid "Replace:"
+msgstr "取代："
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/filesearch/massreplaceoptions.ui:27
+#, kde-format
+msgid "With:"
+msgstr "取代為："
+
+#. i18n: ectx: property (text), widget (QPushButton, doPreview)
+#: src/filesearch/massreplaceoptions.ui:37
+#, kde-format
+msgid "Preview"
+msgstr "預覽"
+
+#. i18n: ectx: property (text), widget (QPushButton, doReplace)
+#: src/filesearch/massreplaceoptions.ui:56
+#, kde-format
+msgid "Mass Replace"
+msgstr "大量取代"
+
+#: src/glossary/glossary.cpp:218
+#, kde-format
+msgctxt "@title:column"
+msgid "Subject Field"
+msgstr "主旨欄位"
+
+#: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:44
+#: src/glossary/glossarywindow.cpp:405 src/glossary/glossarywindow.cpp:432
+#: src/glossary/glossarywindow.cpp:447 src/glossary/glossarywindow.cpp:465
+#, kde-format
+msgctxt "@title:window"
+msgid "Glossary"
+msgstr "字彙"
+
+#: src/glossary/glossaryview.cpp:56
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
+"near the term to insert its translation.</p><p>Use context menu to add new "
+"entry (tip:&nbsp;select words in original and translation fields before "
+"calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"
+msgstr ""
+"<p>常用的字詞的翻譯會出現在這裡。</p> <p>按下顯示的捷徑可以插入該翻譯。</p> "
+"<p>使用選單來新增項目（提示：先選好原始字串與翻譯，然後呼叫<interface>定義新"
+"名詞</interface>）。</p>"
+
+#: src/glossary/glossarywindow.cpp:238
+#, kde-format
+msgctxt "@action:button reloads glossary from disk"
+msgid "Restore from disk"
+msgstr "從磁碟裡回復"
+
+#: src/glossary/glossarywindow.cpp:239
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reload glossary from disk, discarding any changes"
+msgstr "重新從磁碟中載入字彙，丟棄所有變更"
+
+#: src/glossary/glossarywindow.cpp:489
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The glossary contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"此字彙包含未儲存的變更。\n"
+"您要儲存還是丟棄？"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/glossary/termedit.ui:19
+#, kde-format
+msgid "English synonyms (double-click to edit):"
+msgstr "英語同義詞（雙擊可編輯）："
+
+#. i18n: ectx: property (text), widget (QToolButton, addEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, addTargetTerm)
+#: src/glossary/termedit.ui:26 src/glossary/termedit.ui:54
+#, kde-format
+msgid "+"
+msgstr "+"
+
+#. i18n: ectx: property (text), widget (QToolButton, remEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, remTargetTerm)
+#: src/glossary/termedit.ui:33 src/glossary/termedit.ui:61
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/glossary/termedit.ui:47
+#, kde-format
+msgid "Corresponding target language synonyms:"
+msgstr "相關目標語言的同義詞："
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/glossary/termedit.ui:73
+#, kde-format
+msgid "Subject field:"
+msgstr "主旨欄位："
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, subjectField)
+#: src/glossary/termedit.ui:83
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"When adding a new item, press enter after you have typed its name for "
+"changes to take effect"
+msgstr "新增項目時，請在輸入名稱後按 Enter 才會生效"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/glossary/termedit.ui:95
+#, kde-format
+msgid "Definition:"
+msgstr "定義："
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/glossary/termedit.ui:122
+#, kde-format
+msgid ""
+"Note: one glossary entry corresponds exactly to one term, not word/word "
+"sequence.\n"
+"\n"
+"That is, there may be several entries with the same word/word sequence "
+"expressing different meanings."
+msgstr ""
+"注意：一個字彙項目只符合一個名詞，而不是單字序列。\n"
+"\n"
+"意思是說，有可能有數個項目有同樣的單字序列，而表達的是不同的意義。"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "略過標籤"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "略過標記"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/kaider_findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "忽略捷徑標記"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/kaider_findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "包含備忘"
+
+#: src/languagetool/languagetoolgrammarerror.cpp:47
+#, kde-format
+msgid "Suggestions:"
+msgstr "建議："
+
+#: src/languagetool/languagetoolparser.cpp:35
+#, kde-format
+msgid "No errors"
+msgstr "沒有錯誤"
+
+#: src/lokalizemainwindow.cpp:115
+#, kde-format
+msgctxt "@info"
+msgid "No Qt Sql modules were found. Translation memory will not work."
+msgstr "沒有找到 Qt Sql 模組。翻譯記憶體可能無法運作。"
+
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#, kde-format
+msgid "TM facility requires SQLite Qt module."
+msgstr "翻譯記憶體工具需要 SQLite Qt 模組。"
+
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#, kde-format
+msgid "No SQLite module available"
+msgstr "找不到 SQLite 模組"
+
+#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:490
+#, kde-format
+msgctxt "@title actions category"
+msgid "Translation Memory"
+msgstr "翻譯記憶體"
+
+#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:188
+#, kde-format
+msgctxt "@title actions category"
+msgid "Project"
+msgstr "專案"
+
+#: src/lokalizemainwindow.cpp:466
+#, kde-format
+msgid "Next tab"
+msgstr "下一個分頁"
+
+#: src/lokalizemainwindow.cpp:469
+#, kde-format
+msgid "Previous tab"
+msgstr "上一個分頁"
+
+#: src/lokalizemainwindow.cpp:472
+#, kde-format
+msgid "Previously active tab"
+msgstr "上一個使用中分頁"
+
+#: src/lokalizemainwindow.cpp:478
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Glossary"
+msgstr "字彙"
+
+#: src/lokalizemainwindow.cpp:482
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translation memory"
+msgstr "翻譯記憶體"
+
+#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:493
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Manage translation memories"
+msgstr "管理翻譯記憶體"
+
+#: src/lokalizemainwindow.cpp:490
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Project overview"
+msgstr "專案概觀"
+
+#: src/lokalizemainwindow.cpp:494
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Configure project..."
+msgstr "設定專案..."
+
+#: src/lokalizemainwindow.cpp:497
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create software translation project..."
+msgstr "建立軟體翻譯專案..."
+
+#: src/lokalizemainwindow.cpp:500
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create OpenDocument translation project..."
+msgstr "建立 OpenDocument 翻譯專案..."
+
+#: src/lokalizemainwindow.cpp:503
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project..."
+msgstr "開啟專案..."
+
+#: src/lokalizemainwindow.cpp:507
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Close project"
+msgstr "關閉專案"
+
+#: src/lokalizemainwindow.cpp:510
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open recent project"
+msgstr "開啟最近的專案"
+
+#: src/lokalizemainwindow.cpp:518
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search and replace in files"
+msgstr "在檔案中搜尋並取代"
+
+#: src/lokalizemainwindow.cpp:521
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Find next in files"
+msgstr "在檔案中尋找下一個"
+
+#: src/lokalizemainwindow.cpp:525
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Widget text capture"
+msgstr "元件文字擷取"
+
+#: src/lokalizemainwindow.cpp:702
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the following files:\n"
+"\n"
+msgstr ""
+"開啟下列檔案時發生錯誤：\n"
+"\n"
+
+#. i18n: ectx: Menu (project)
+#: src/lokalizemainwindowui.rc:18
+#, kde-format
+msgid "&Project"
+msgstr "專案(&P)"
+
+#. i18n: ectx: Menu (project_actions)
+#: src/lokalizemainwindowui.rc:31
+#, kde-format
+msgid "&Scripts"
+msgstr "文稿(&S)"
+
+#: src/main.cpp:56
+#, kde-format
+msgctxt "@title"
+msgid "Lokalize"
+msgstr "Lokalize"
+
+#: src/main.cpp:56
+#, kde-format
+msgid ""
+"Computer-aided translation system.\n"
+"Do not translate what had already been translated."
+msgstr ""
+"電腦協助翻譯系統。\n"
+"不要重複翻譯已翻譯過的。"
+
+#: src/main.cpp:57
+#, kde-format
+msgctxt "@info:credit"
+msgid ""
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
+"(c) 1999-2006 The KBabel developers"
+msgstr ""
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
+"(c) 1999-2006 KBabel 開發團隊"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "Nick Shaforostoff"
+msgstr "Nick Shaforostoff"
+
+#: src/main.cpp:59
+#, kde-format
+msgid "Google Inc."
+msgstr "Google Inc."
+
+#: src/main.cpp:59
+#, kde-format
+msgid "sponsored development as part of Google Summer Of Code program"
+msgstr "貢獻開發為 Google Summer Of Code 的一部份"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "NLNet Foundation"
+msgstr "NLNet 基金會"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "sponsored XLIFF-related work"
+msgstr "貢獻 XLIFF 相關成果"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Translate-toolkit"
+msgstr "Translate-toolkit"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "provided excellent cross-format converting scripts"
+msgstr "提供很好的跨格式轉換工具"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "LanguageTool"
+msgstr "LanguageTool"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "grammar, style and spell checker"
+msgstr "文法、樣式及拼字檢查工具"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Viesturs Zarins"
+msgstr "Viesturs Zarins"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "project tree merging translation+templates"
+msgstr "合併翻譯與樣本的專案樹"
+
+#: src/main.cpp:64
+#, kde-format
+msgid "Stephan Johach"
+msgstr "Stephan Johach"
+
+#: src/main.cpp:64 src/main.cpp:65 src/main.cpp:68
+#, kde-format
+msgid "bug fixing patches"
+msgstr "修正錯誤"
+
+#: src/main.cpp:65
+#, kde-format
+msgid "Chusslove Illich"
+msgstr "Chusslove Illich"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "Jure Repinc"
+msgstr "Jure Repinc"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "testing and bug fixing"
+msgstr "測試與錯誤修正"
+
+#: src/main.cpp:67
+#, kde-format
+msgid "Stefan Asserhall"
+msgstr "Stefan Asserhall"
+
+#: src/main.cpp:67
+#, kde-format
+msgid "patches"
+msgstr "修補"
+
+#: src/main.cpp:68
+#, kde-format
+msgid "Papp Laszlo"
+msgstr "Papp Laszlo"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "Albert Astals Cid"
+msgstr "Albert Astals Cid"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "XLIFF improvements"
+msgstr "XLIFF 改進"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "Simon Depiets"
+msgstr "Simon Depiets"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "bug fixing and improvements"
+msgstr "錯誤修正與改進內容"
+
+#. i18n( "Source for the merge mode" ), QLatin1String("URL")));
+#: src/main.cpp:74
+#, kde-format
+msgid "Do not scan files of the project."
+msgstr "不掃描此專案的檔案。"
+
+#: src/main.cpp:75
+#, kde-format
+msgid "Load specified project."
+msgstr "載入指定的專案。"
+
+#: src/main.cpp:76
+#, kde-format
+msgid "Document to open"
+msgstr "要開啟的文件"
+
+#: src/mergemode/mergecatalog.cpp:246
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept change in translation"
+msgstr "接受翻譯中的變更"
+
+#: src/mergemode/mergecatalog.cpp:298
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept all new translations"
+msgstr "接受所有的新翻譯"
+
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Primary Sync"
+msgstr "第一同步"
+
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Secondary Sync"
+msgstr "第二同步"
+
+#: src/mergemode/mergeview.cpp:43
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Drop file to be merged into / synced with the current one here, then see "
+"context menu options"
+msgstr "將要合併或與目前檔案同步的檔案放在這裡，然後查看內文選單選項"
+
+#: src/mergemode/mergeview.cpp:217
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the file <filename>%1</filename> for synchronization, error "
+"line: %2"
+msgstr "開啟檔案 <filename>%1</filename> 以同步時發生錯誤，第 %2 行"
+
+#: src/mergemode/mergeview.cpp:350
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Different entries: %1\n"
+"Unmatched entries: %2"
+msgstr ""
+"不同的項目：%1\n"
+"不符合的項目：%2"
+
+#: src/msgctxtview.cpp:37
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Unit metadata"
+msgstr "單位中繼資料"
+
+#: src/msgctxtview.cpp:102
+#, kde-format
+msgctxt ""
+"@info notes to translation unit which expire when the catalog is closed"
+msgid "<b>Temporary notes:</b>"
+msgstr "<b>暫時備忘：</b>"
+
+#: src/msgctxtview.cpp:111
+#, kde-format
+msgctxt "@info notes generated by the pology check"
+msgid "<b>Pology notes:</b>"
+msgstr "<b>Pology 備忘：</b>"
+
+#: src/msgctxtview.cpp:120
+#, kde-format
+msgctxt "@info notes generated by the languagetool check"
+msgid "<b>LanguageTool notes:</b>"
+msgstr "<b>LanguageTool 備忘：</b>"
+
+#: src/msgctxtview.cpp:132
+#, kde-format
+msgctxt "@info translation unit metadata"
+msgid "<b>Phase:</b><br>"
+msgstr "<b>階段：</b><br/>"
+
+#: src/msgctxtview.cpp:156
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Files:</b><br>"
+msgstr "<br/><b>檔案：</b><br/>"
+
+#: src/msgctxtview.cpp:164
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Context:</b><br>"
+msgstr "<br/><b>內容：</b><br/>"
+
+#: src/msgctxtview.cpp:237
+#, kde-format
+msgctxt "@info The pology command didn't return anything"
+msgid "(empty)"
+msgstr "(空白)"
+
+#: src/noteeditor.cpp:47
+#, kde-format
+msgctxt "@info:label"
+msgid "From:"
+msgstr "從："
+
+#: src/noteeditor.cpp:52
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Save empty note to remove it"
+msgstr "若儲存空白備忘則會移除它"
+
+#: src/noteeditor.cpp:53
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Author of this note"
+msgstr "此備忘作者"
+
+#: src/noteeditor.cpp:66
+#, kde-format
+msgid "Ctrl+Enter"
+msgstr "Ctrl+Enter"
+
+#: src/noteeditor.cpp:67
+#, kde-format
+msgid "Esc"
+msgstr "Esc"
+
+#: src/noteeditor.cpp:119
+#, kde-format
+msgctxt "@info XLIFF notes representation"
+msgid "<b>Notes:</b>"
+msgstr "<b>備忘：</b>"
+
+#: src/noteeditor.cpp:130
+#, kde-format
+msgctxt "link to edit note"
+msgid "edit..."
+msgstr "編輯..."
+
+#: src/noteeditor.cpp:135
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add..."
+msgstr "新增..."
+
+#: src/noteeditor.cpp:137
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add a note..."
+msgstr "新增備忘..."
+
+#: src/phaseswindow.cpp:139
+#, kde-format
+msgctxt "@title:column"
+msgid "Date"
+msgstr "日期"
+
+#: src/phaseswindow.cpp:140
+#, kde-format
+msgctxt "@title:column"
+msgid "Process"
+msgstr "行程"
+
+#: src/phaseswindow.cpp:141
+#, kde-format
+msgctxt "@title:column"
+msgid "Company"
+msgstr "公司"
+
+#: src/phaseswindow.cpp:142
+#, kde-format
+msgctxt "@title:column"
+msgid "Person"
+msgstr "人物"
+
+#: src/phaseswindow.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Tool"
+msgstr "工具"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Translation"
+msgstr "翻譯"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Review"
+msgstr "檢視者"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Approval"
+msgstr "確認者"
+
+#: src/phaseswindow.cpp:173
+#, kde-format
+msgctxt "noun"
+msgid "Process (this will also change your role):"
+msgstr "進行者（這也會改變您的角色）："
+
+#: src/phaseswindow.cpp:252
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Edit phases"
+msgstr "編輯階段"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:14
+#, kde-format
+msgid "Translator's name"
+msgstr "翻譯者姓名"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:15
+#, kde-format
+msgid "Translator's name in English"
+msgstr "翻譯者英文姓名"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:21
+#, kde-format
+msgid "Localized name"
+msgstr "本地名稱"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:22
+#, kde-format
+msgid "Translator's name in target language"
+msgstr "目標語言裡的翻譯者姓名"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:28
+#, kde-format
+msgid "Override Language Team"
+msgstr "覆蓋語言團隊"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:29
+#, kde-format
+msgid "Use user-provided language team name instead of generating it"
+msgstr "使用「使用者提供」而非產生的語言團隊名稱"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:35
+#, kde-format
+msgid "Language Team"
+msgstr "語言團隊"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:36
+#, kde-format
+msgid "Translator team's name"
+msgstr "翻譯團隊名稱"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:42
+#, kde-format
+msgid "Translator's email"
+msgstr "翻譯者的電子郵件地址"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#, kde-format
+msgid "Default language code for new projects"
+msgstr "新專案的預設語言代碼"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#, kde-format
+msgid "Default mailing list for new projects"
+msgstr "新專案的預設郵件論壇"
+
+#. i18n: ectx: label, entry (CleverEditing), group (Appearance)
+#. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
+#. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
+#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
+#: src/prefs/lokalize.kcfg:96
+#, kde-format
+msgid ""
+"\n"
+"        "
+msgstr ""
+"\n"
+"        "
+
+#. i18n: ectx: label, entry (MsgFont), group (Appearance)
+#: src/prefs/lokalize.kcfg:81
+#, kde-format
+msgid "Font for Messages"
+msgstr "訊息字型"
+
+#: src/prefs/prefs.cpp:101
+#, kde-format
+msgctxt "@title:tab"
+msgid "Identity"
+msgstr "身份"
+
+#: src/prefs/prefs.cpp:111
+#, kde-format
+msgid ""
+"The following parameters are available\n"
+"%1 - Path of the source file\n"
+"%2 - Line number"
+msgstr ""
+"可使用以下參數\n"
+"%1 - 來源檔路徑\n"
+"%2 - 行號"
+
+#: src/prefs/prefs.cpp:113 src/prefs/prefs.cpp:242
+#, kde-format
+msgctxt "@title:tab"
+msgid "General"
+msgstr "一般"
+
+#: src/prefs/prefs.cpp:119
+#, kde-format
+msgctxt "@title:tab"
+msgid "Editing"
+msgstr "編輯中"
+
+#: src/prefs/prefs.cpp:125
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "外觀"
+
+#: src/prefs/prefs.cpp:131
+#, kde-format
+msgctxt "@title:tab"
+msgid "Translation Memory"
+msgstr "翻譯記憶體"
+
+#: src/prefs/prefs.cpp:137
+#, kde-format
+msgctxt "@title:tab"
+msgid "Pology"
+msgstr "Pology"
+
+#: src/prefs/prefs.cpp:143
+#, kde-format
+msgctxt "@title:tab"
+msgid "LanguageTool"
+msgstr "LanguageTool"
+
+#: src/prefs/prefs.cpp:152
+#, kde-format
+msgctxt "@title:tab"
+msgid "Spellcheck"
+msgstr "拼字檢查"
+
+#: src/prefs/prefs.cpp:176
+#, kde-format
+msgid ""
+"You have accessed a feature that requires a project to be loaded. Do you "
+"want to create a new project or open an existing project?"
+msgstr "您所操作的功能需要先載入一個專案。您要建立新專案，還是開啟現有的專案？"
+
+#: src/prefs/prefs.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "New"
+msgstr "新增"
+
+#: src/prefs/prefs.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "Open"
+msgstr "開啟"
+
+#: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
+#, kde-format
+msgid "Lokalize translation project (*.lokalize)"
+msgstr "Lokalize 翻譯專案（*.lokalize）"
+
+#: src/prefs/prefs.cpp:209
+#, kde-format
+msgctxt "@window:title"
+msgid "Select folder with Gettext .po files to translate"
+msgstr "選擇要翻譯的 Gettext .po 檔放置的資料夾"
+
+#: src/prefs/prefs.cpp:230
+#, kde-format
+msgid "Create software or OpenDocument translation project first."
+msgstr "請先建立軟體或 OpenDocument 翻譯專案"
+
+#: src/prefs/prefs.cpp:288
+#, kde-format
+msgctxt "@title:tab"
+msgid "Advanced"
+msgstr "進階"
+
+#: src/prefs/prefs.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Personal"
+msgstr "個人"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_appearance.ui:34
+#, kde-format
+msgid "Editor font:"
+msgstr "編輯器字型："
+
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:44
+#, kde-format
+msgid "Change the font for the editor"
+msgstr "變更編輯器字型"
+
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:47
+#, kde-format
+msgid "Choose a new font for the area where you write the translated message."
+msgstr "選取您寫翻譯訊息的地方的字型。"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:54
+#, kde-format
+msgid "Display LEDS for message status"
+msgstr "顯示訊息狀態 LED 燈"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:57
+#, kde-format
+msgid ""
+"If checked, LEDS will be shown to display the message status: Fuzzy, "
+"Untranslated or Error. If unchecked, no LEDs will be displayed."
+msgstr ""
+"勾選此選項的話，會以 LED 型式顯示訊息狀態：模糊、未翻譯或錯誤。若未勾選，則不"
+"顯示 LED 燈。"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:60
+#, kde-format
+msgid ""
+"LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
+"number"
+msgstr "標示模糊、未翻譯與錯誤狀態的 LED 燈，以及游標所在欄位編號"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:69
+#, kde-format
+msgid "Text colors for the changes in the message."
+msgstr "訊息變更處的文字顏色"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:72
+#, kde-format
+msgid "String Matching"
+msgstr "字串比對"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_appearance.ui:78
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text added in the newer string:"
+msgstr "加在新字串的文字："
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:88
+#, kde-format
+msgid "Change the color for the new text added"
+msgstr "變更新增文字的顏色"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:91
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was added to the string."
+msgstr "您可以設定將新增到此字串的文字使用不同的顏色。"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/prefs/prefs_appearance.ui:101
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text removed in the newer string:"
+msgstr "從新字串移除的文字："
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:111
+#, kde-format
+msgid "Change the color for the text removed"
+msgstr "變更移除文字的顏色"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:114
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was removed from the "
+"string."
+msgstr "您可以設定將從此字串中移除的文字使用不同的顏色。"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:140
+#, kde-format
+msgid ""
+"Check to see if a string ends in a space (which is often important when "
+"displaying it in the user interface, or when it gets concatenated with "
+"others)."
+msgstr ""
+"勾選此選項以標示出字串結尾的空白（通常對使用者介面顯示，或是後續有串接時是重"
+"要的）"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:143
+#, kde-format
+msgid "Highlight spaces at the end"
+msgstr "突顯尾端空白"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:32
+#, kde-format
+msgid ""
+"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
+msgstr ""
+"若設定此選項，您可以用滑鼠滾輪來進到上一個或下一個翻譯單位，不然就只捲軸文字"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:35
+#, kde-format
+msgid ""
+"<html>When this option is enabled, the mouse wheel is used to go to the "
+"previous or next translation unit (without modifier keys). Modifier keys can "
+"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
+"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
+"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
+"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
+"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
+"the text of the current translation unit.</html>"
+msgstr ""
+"<html>開啟此選項時，滑鼠滾輪會做為切換到上一個或下一個翻譯單位。使用特殊按鍵"
+"可以改變此行為：<ul><li><b>Shift</b>可以捲軸在目前的單位中的文字，</li> "
+"<li><b>Ctrl+Shift</b>可以到上一個或下一個未就緒的單位，</li> <li><b>Ctrl</b>"
+"可以到上一個或下一個未就緒或未翻譯的單位，</li> <li><b>Alt</b>可以到上一個或"
+"下一個未翻譯的單位。</li></ul> 關閉此選項時，滑鼠滾輪就只做為目前翻譯單位中的"
+"文字捲軸之用。</html>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:38
+#, kde-format
+msgid "Mouse wheel goes to previous or next translation unit"
+msgstr "透過滾動滑鼠滾輪，前往上一個或下一個翻譯單位"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
+#: src/prefs/prefs_editor.ui:45
+#, kde-format
+msgid "Set 'approved' status automatically when editing started"
+msgstr "開始編輯時自動設成「已確認」狀態"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
+#: src/prefs/prefs_editor.ui:65
+#, kde-format
+msgid "Visualize separators such as spaces, tabs and new lines in the editor"
+msgstr "在編輯器顯示分割符號，例如空白、Tab 和換行符號"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
+#, kde-format
+msgid "Set to 2 to disable word completion"
+msgstr "設為 2 可關閉文字補完"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_editor.ui:77
+#, kde-format
+msgid "Minimum word length for word completion"
+msgstr "文字補完的最小單字長度"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:90
+#, kde-format
+msgid "Disable word completion"
+msgstr "關閉文字補完"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
+#: src/prefs/prefs_editor.ui:105
+#, kde-format
+msgid "Automatically convert XML special characters in TS files"
+msgstr "自動轉換 TS 檔案中的 XML 特殊字元"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
+#: src/prefs/prefs_general.ui:45
+#, kde-format
+msgid "Restore the previously opened files when launching Lokalize"
+msgstr "啟動 Lokalize 時還原上次開啟的檔案"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:54
+#, kde-format
+msgid "Defines the behavior of the next/previous tab shortcuts"
+msgstr "定義上／下分頁快捷鍵的行為"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:57
+#, kde-format
+msgid "Next/previous tab shortcut behavior"
+msgstr "上／下分頁快捷鍵行為"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:68
+#, kde-format
+msgid "According to tab position"
+msgstr "根據標籤位置"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:73
+#, kde-format
+msgid "According to tab activation order"
+msgstr "根據標籤啟用順序"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomEditorEnabled)
+#: src/prefs/prefs_general.ui:83
+#, kde-format
+msgid "Use a custom editor to open source files"
+msgstr "使用自訂編輯器開啟原始碼檔案"
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
+#: src/prefs/prefs_identity.ui:14
+#, kde-format
+msgid ""
+"Fill in your identity and information about your translation team. This "
+"information is used when updating the header of a file."
+msgstr "填入關於您的翻譯團隊的身份與資訊。它會用於更新檔案的標頭。"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/prefs/prefs_identity.ui:35
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Default language:"
+msgstr "預設語言："
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/prefs/prefs_identity.ui:48
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Email:"
+msgstr "電子郵件位址(&E)："
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_identity.ui:61
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Name:"
+msgstr "名稱(&N)："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:74
+#, kde-format
+msgid "Your name, in English"
+msgstr "翻譯者英文姓名"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:77
+#, kde-format
+msgid "Please enter here your name and surname written in English"
+msgstr "請在此輸入您的英文姓名"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_identity.ui:84
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Default mailing list:"
+msgstr "預設郵件論壇(&D)："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:94
+#, kde-format
+msgid "The email of your team mailing list"
+msgstr "您的翻譯團隊的郵件論壇的電子郵件地址"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:97
+#, kde-format
+msgid "Write the email of your translating team mailing list"
+msgstr "請寫上您的翻譯團隊的郵件論壇的電子郵件地址"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:104
+#, kde-format
+msgid "Language you translate to"
+msgstr "您翻譯的語言"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:107
+#, kde-format
+msgid "Set the default language you are going to translate to"
+msgstr "設定您要翻譯的預設語言"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:127
+#, kde-format
+msgid "Write your email"
+msgstr "寫上您的電子郵件地址"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:130
+#, kde-format
+msgid ""
+"Write your email here so it will appear in the po file header with your name"
+msgstr "在此寫上您的電子郵件地址，它會記在 po 檔中"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:144
+#, kde-format
+msgid "Your name in your own language"
+msgstr "您的姓名（以自己的語言）"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:147
+#, kde-format
+msgid ""
+"Write your name and surname in your language with your language alphabet."
+msgstr "請用您自己的語言寫上您的姓名"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_identity.ui:154
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Localized name:"
+msgstr "本地名稱："
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
+#: src/prefs/prefs_identity.ui:164
+#, kde-format
+msgid "Default Language-Team:"
+msgstr "預設語言團隊："
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
+#: src/prefs/prefs_languagetool.ui:21
+#, kde-format
+msgid "Use custom LanguageTool server"
+msgstr "使用自訂 LanguageTool 伺服器"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_languagetool.ui:31
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Server Path:"
+msgstr "伺服器路徑："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:44
+#, kde-format
+msgid "The path of your custom Language Tool server"
+msgstr "您自訂 Language Tool 伺服器的路徑"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:47
+#, kde-format
+msgid "Please enter the path of your custom Language Tool server, if any"
+msgstr "如果有，請輸入您自訂 Language Tool 伺服器的路徑"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_languagetool.ui:58
+#, kde-format
+msgid ""
+"Delay before automatic checking after you stop typing (in seconds, 0 to "
+"disable)"
+msgstr "停止打字後，到自動檢查前的延遲間隔 (秒，0 為停用)"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
+#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#, kde-format
+msgid "Set to 0 to disable auto checking"
+msgstr "設為 0 停用自動檢查"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
+#: src/prefs/prefs_pology.ui:21
+#, kde-format
+msgid "Enable Pology verification"
+msgstr "啟用 Pology 驗證"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_0)
+#: src/prefs/prefs_pology.ui:28
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a single entry. Use the "
+"following placeholders in order to set-up the commands: %u is the entry "
+"number, %f is the file name. For instance: posieve -u %u check-rules %f"
+msgstr ""
+"用來檢查單一項目而要執行的 Pology 指令。請使用以下的佔位符來設定指令：%u 為項"
+"目號碼、%f 為檔案名稱。對實例：posieve -u %u check-rules %f"
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:44
+#, kde-format
+msgid "The Pology command to run in order to check a single entry."
+msgstr "用來檢查單一項目而要執行的 Pology 指令。"
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:47
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a single "
+"entry"
+msgstr "請在這裡輸入為檢查單個項目而要執行的 Pology 指令"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
+#: src/prefs/prefs_pology.ui:54
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a whole file. This command "
+"should include \"-s lokalize\", placeholder %f is the file name. For "
+"instance: posieve -s lokalize check-rules %f"
+msgstr ""
+"用來檢查整個檔案而要執行的 Pology 指令。指令應該要包含「-s lokalize」，佔位符"
+"號 %f 為檔案名稱。對實例：posieve -s lokalize check-rules %f"
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:70
+#, kde-format
+msgid "The Pology command to run in order to check a whole file."
+msgstr "用來檢查整個檔案而要執行的 Pology 指令。"
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:73
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a whole file"
+msgstr "請在此處輸入用來檢查整個檔案而要執行的 Pology 指令。"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:45
+#, kde-format
+msgid "If checked, get translation memory suggestions "
+msgstr "勾選此選項的話，則抓取翻譯記憶體的建議"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:48
+#, kde-format
+msgid ""
+"If this is checked, the program will fetch translation memories as soon as "
+"you open a file."
+msgstr "勾選此選項的話，程式會在開啟檔案時抓取翻譯記憶體。"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:51
+#, kde-format
+msgid "Prefetch translation memory suggestions on file open"
+msgstr "檔案開啟時預先抓取翻譯記憶體建議"
+
+#. i18n: ectx: property (text), widget (QLabel, label1)
+#: src/prefs/prefs_tm.ui:60
+#, kde-format
+msgid "Maximum number of suggestions:"
+msgstr "最大建議數："
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:70
+#, kde-format
+msgid "Set the maximum number of suggestions"
+msgstr "設定最大建議數量"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:73
+#, kde-format
+msgid "You can change the maximum number of suggestions, default is 7."
+msgstr "您可以變更最大建議數量。預設為 7 個。"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_tm.ui:97
+#, kde-format
+msgid "Minimum score (0-100) of suggestions:"
+msgstr "建議的最低分數 (0-100)："
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:107
+#, kde-format
+msgid "Set the minimum score (0-100) of suggestions"
+msgstr "設定建議的最低分數 (0-100)"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:110
+#, kde-format
+msgid ""
+"You can change the minimum score (0-100) required for suggestions, default "
+"is 0."
+msgstr "您可以變更建議所需的最低分數 (0-100)，預設值為 0。"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
+#: src/prefs/prefs_tm.ui:138
+#, kde-format
+msgid "Update/Add edited entries to translation memory"
+msgstr "更新或新增已編輯的條目到翻譯記憶體"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ScanToTMOnOpen)
+#: src/prefs/prefs_tm.ui:145
+#, kde-format
+msgid "Add opened files to translation memory automatically"
+msgstr "自動掃描已開啟檔案到翻譯記憶體"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
+#: src/prefs/prefs_tm.ui:152
+#, kde-format
+msgid ""
+"Delete missing files from translation memory on Rescan or when clicking a "
+"missing entry"
+msgstr "按下遺失條目或重新掃描時，從翻譯記憶體刪除遺失的檔案"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/project/prefs_project_advanced.ui:17
+#, kde-format
+msgid "Syntax"
+msgstr "語法"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_advanced.ui:23
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Accelerator:"
+msgstr "捷徑："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Accel)
+#: src/project/prefs_project_advanced.ui:33
+#, kde-format
+msgid "Usually '&', but may also be '_' for GTK apps."
+msgstr "通常是 '&'，不過像在 GTK 應用程式中則有可能是 '_'。"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_project_advanced.ui:40
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Markup:"
+msgstr "標記："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
+#: src/project/prefs_project_advanced.ui:58
+#, kde-format
+msgid ""
+"Regular expression of markup. It is used for translation memory matching and "
+"for 'Insert tag' feature.\n"
+"\n"
+"A default value (suitable for XML-based texts) is:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"It is only used for gettext PO files, as XLIFF format has its own way of "
+"specifying where markup is."
+msgstr ""
+"標記的正則表達式，用於比對記憶體，以及「插入標籤」功能。\n"
+"\n"
+"預設值（適用於 XML-based 文字）為：\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"它只用於 gettext PO 檔，XLIFF 格式有自己的方式來標記。"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_project_advanced.ui:65
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Word wrap:"
+msgstr "自動換行："
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
+#: src/project/prefs_project_advanced.ui:75
+#, kde-format
+msgid ""
+"Width used for the automatic msgfmt-like word wrap. Use the negative value "
+"'-1' to disable the word wrap."
+msgstr "用於對類 msgfmt 自動換行的寬度。使用負數數值 \"-1\" 停用自動換行。"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/project/prefs_project_advanced.ui:91
+#, kde-format
+msgid "Paths"
+msgstr "路徑"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_project_advanced.ui:100
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Template files folder:"
+msgstr "樣本檔目錄："
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
+#: src/project/prefs_project_advanced.ui:124
+#, kde-format
+msgid ""
+"Usually your translation project will be a subproject of a project\n"
+"for translating same texts into multiple languages.\n"
+"\n"
+"Set this to path of a folder containing empty translation files\n"
+"(i.e. files without translation into any language)\n"
+"shared among all subprojects."
+msgstr ""
+"通常您的翻譯專案會是某個專案的子專案，\n"
+"將同樣的文字翻譯成多種語言。\n"
+"\n"
+"將此選項設定為所有子專案共享，包含空白翻譯檔案的目錄路徑\n"
+"（也就是包含任何尚未翻譯語言的檔案）"
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_project_advanced.ui:131
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Branch folder:"
+msgstr "分支目錄："
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
+#: src/project/prefs_project_advanced.ui:161
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project,\n"
+"and Secondary Sync view will automatically open files from branch.\n"
+"Then, each time you make changes in files of your main branch,\n"
+"they will automatically be replicated to the branch\n"
+"(of course, if it contains the same English string).\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"這個設定是用於同步模式。\n"
+"\n"
+"同步模式可能用於同時改變兩個分支中的翻譯。\n"
+"\n"
+"將此路徑設定為相對於該分支的根目錄\n"
+"第二同步檢視就會自動從分支中開啟檔案。\n"
+"然後，每次您變更主分支中的檔案時，它會自動將\n"
+"分支中的檔案，有相同字串的地方一起做變更。\n"
+"\n"
+"詳情請參考文件說明。"
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_project_advanced.ui:168
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Alternate translations folder:"
+msgstr "其它翻譯目錄："
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
+#: src/project/prefs_project_advanced.ui:195
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"Set this to path of a folder with structure similar to Root Folder.\n"
+"\n"
+"On each translation file open, a corresponding file in Alternate "
+"translations directory will be looked up and,\n"
+"if it is found, it will be used for Alternate Translations view.\n"
+"\n"
+"You will likely want to use translations of another target language (i.e. "
+"another subproject), which is close to yours.\n"
+"Also, you can use other subproject's translations either immediately, or "
+"have them pretranslated to your language by machine.\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"設定根目錄的路徑。\n"
+"\n"
+"開啟每一個翻譯檔時，會到「其它翻譯」目錄中找相對應的檔案，並且若有找到，\n"
+"它會顯示在「其它翻譯」檢視中。\n"
+"\n"
+"您可能會想要使用其它相近語言的翻譯。此功能可以讓您輕鬆使用相近語言的翻譯，\n"
+"節省您的時間。\n"
+"\n"
+"詳情請參考文件說明。"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_local.ui:21
+#, kde-format
+msgid "Role:"
+msgstr "角色："
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:29
+#, kde-format
+msgid "Translator"
+msgstr "翻譯者"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:34
+#, kde-format
+msgid "Reviewer"
+msgstr "檢視者"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:39
+#, kde-format
+msgid "Approver"
+msgstr "確認者"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_projectmain.ui:17
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Glossary:"
+msgstr "字彙："
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_projectmain.ui:30
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Target language:"
+msgstr "目標語言："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
+#: src/project/prefs_projectmain.ui:46
+#, kde-format
+msgid ""
+"Project ID is used to differentiate translation memories of absolutely "
+"different projects and languages.\n"
+"\n"
+"For example, if you have several projects for translating KDE applications\n"
+"(e.g. they are in different repositories), use same ID for all of them."
+msgstr ""
+"專案代碼用於區分不同專案與語言的翻譯記憶體。\n"
+"\n"
+"例如，若您有好幾個翻譯 KDE 應用程式的專案\n"
+"（也就是說，在不同的主目錄中），您可以使用相同的 ID。"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
+#: src/project/prefs_projectmain.ui:59
+#, kde-format
+msgid "Target language of the project."
+msgstr "專案的目標語言"
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_projectmain.ui:82
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Mailing list:"
+msgstr "郵件論壇："
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_projectmain.ui:92
+#, kde-format
+msgctxt "@label:textbox"
+msgid "ID:"
+msgstr "ID："
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
+#: src/project/prefs_projectmain.ui:118
+#, kde-format
+msgid ""
+"This is main setting. Set this to path of a folder with translation files\n"
+"for your project (or a subproject for your target language)."
+msgstr "這裡是主要設定。將它設為您的專案或目標語言子專案的目錄路徑。"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_projectmain.ui:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Root folder:"
+msgstr "根目錄："
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:155
+#, kde-format
+msgid "Automatic"
+msgstr "自動"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:160
+#, kde-format
+msgid "Application"
+msgstr "應用程式"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:165
+#, kde-format
+msgid "Project"
+msgstr "專案"
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_projectmain.ui:180
+#, kde-format
+msgid "Language-Team:"
+msgstr "語言團隊："
+
+#: src/project/project.cpp:441
+#, kde-format
+msgid "Scanning folders with source files"
+msgstr "正在掃描包含原始檔的資料夾中"
+
+#: src/project/project.cpp:442
+#, kde-format
+msgid "Editor"
+msgstr "編輯器"
+
+#: src/project/project.cpp:489
+#, kde-format
+msgctxt "project folder name. %2 is targetLangCode"
+msgid "%1 %2 Translation"
+msgstr "%1 的 %2 翻譯"
+
+#: src/project/projectbase.kcfg:11
+#, kde-format
+msgid "default"
+msgstr "預設"
+
+#. i18n: ectx: label, entry (LangCode), group (General)
+#: src/project/projectbase.kcfg:18
+#, kde-format
+msgid "Language"
+msgstr "語言"
+
+#. i18n: ectx: label, entry (UserLangTeam), group (General)
+#: src/project/projectbase.kcfg:32
+#, kde-format
+msgid "User Language Team in Lokalize settings"
+msgstr "Lokalize 設定中的「使用者語言團隊」"
+
+#. i18n: ectx: label, entry (OverrideLangTeam), group (General)
+#: src/project/projectbase.kcfg:38
+#, kde-format
+msgid "Override Lokalize Language Team"
+msgstr "覆蓋 Lokalize 語言團隊"
+
+#. i18n: ectx: label, entry (ProjLangTeam), group (General)
+#: src/project/projectbase.kcfg:44
+#, kde-format
+msgid "Project Language Team"
+msgstr "專案語言團隊"
+
+#. i18n: ectx: label, entry (PoBaseDir), group (General)
+#: src/project/projectbase.kcfg:59
+#, kde-format
+msgid "The base directory for PO files (translations)"
+msgstr "PO （翻譯）檔的基礎目錄"
+
+#. i18n: ectx: label, entry (PotBaseDir), group (General)
+#: src/project/projectbase.kcfg:65
+#, kde-format
+msgid "The base directory for POT files (templates to be translated)"
+msgstr "POT （要翻譯的樣本）檔的基礎目錄"
+
+#. i18n: ectx: label, entry (GlossaryTbx), group (General)
+#: src/project/projectbase.kcfg:73
+#, kde-format
+msgid "Project's glossary"
+msgstr "專案字彙"
+
+#: src/project/projectmodel.cpp:510
+#, kde-format
+msgctxt "@title:column File name"
+msgid "Name"
+msgstr "名稱"
+
+#: src/project/projectmodel.cpp:512
+#, kde-format
+msgctxt ""
+"@title:column Graphical representation of Translated/Fuzzy/Untranslated "
+"counts"
+msgid "Graph"
+msgstr "圖形"
+
+#: src/project/projectmodel.cpp:514
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Total"
+msgstr "總計"
+
+#: src/project/projectmodel.cpp:516
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Translated"
+msgstr "已翻譯"
+
+#: src/project/projectmodel.cpp:518
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Not ready"
+msgstr "未就緒"
+
+#: src/project/projectmodel.cpp:520
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Untranslated"
+msgstr "未翻譯"
+
+#: src/project/projectmodel.cpp:522
+#, kde-format
+msgctxt "@title:column Number of fuzzy or untranslated entries"
+msgid "Incomplete"
+msgstr "不完全"
+
+#: src/project/projectmodel.cpp:524
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translation"
+msgstr "最後翻譯時間"
+
+#: src/project/projectmodel.cpp:526
+#, kde-format
+msgctxt "@title:column"
+msgid "Comment"
+msgstr "備忘"
+
+#: src/project/projectmodel.cpp:528
+#, kde-format
+msgctxt "@title:column"
+msgid "Template Revision"
+msgstr "樣本版本"
+
+#: src/project/projectmodel.cpp:530
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translator"
+msgstr "最新翻譯者"
+
+#: src/project/projecttab.cpp:52
+#, kde-format
+msgctxt "@title:window"
+msgid "Project Overview"
+msgstr "專案概觀"
+
+#: src/project/projecttab.cpp:56
+#, kde-format
+msgid ""
+"<html>You do not have to be a software developer to be a member of the KDE "
+"team. You can join the national teams that translate program interfaces. You "
+"can provide graphics, themes, sounds, and improved documentation. You decide!"
+"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
+"which you can participate.<br /><br />If you need more information or "
+"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
+"what you need.</html>"
+msgstr ""
+"<html>您不需要是軟體工程師也可以加入 KDE 開發團隊。您可以加入翻譯團隊來翻譯程"
+"式的介面。您可以提供圖形、佈景主題、音效，或幫忙撰寫文件，看您喜歡做哪一項。"
+"<br /><br /> 請參考 <a href=\"%1\">%1</a>　上的資訊看看您能幫上什麼忙。<br /"
+"><br /> 如果您需要更多資訊或文件，請參考 <a href=\"%2\">%2</a> 上面也許有一些"
+"能幫忙您的資訊。</html>"
+
+#: src/project/projecttab.cpp:77
+#, kde-format
+msgid "&Configure Lokalize"
+msgstr "設定 Lokalize(&C)"
+
+#: src/project/projecttab.cpp:78 src/project/projecttab.cpp:191
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project"
+msgstr "開啟專案"
+
+#: src/project/projecttab.cpp:79
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate software"
+msgstr "翻譯軟體"
+
+#: src/project/projecttab.cpp:80
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate OpenDocument"
+msgstr "翻譯 OpenDocument"
+
+#: src/project/projecttab.cpp:164
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous template only"
+msgstr "只有上一個樣本"
+
+#: src/project/projecttab.cpp:167
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next template only"
+msgstr "只有下一個樣本"
+
+#: src/project/projecttab.cpp:170
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous translation only"
+msgstr "只有上一個翻譯"
+
+#: src/project/projecttab.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next translation only"
+msgstr "只有下一個翻譯"
+
+#: src/project/projecttab.cpp:177
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide completed items"
+msgstr "隱藏完成的項目"
+
+#: src/project/projecttab.cpp:178
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide fully translated files and folders"
+msgstr "隱藏完全翻譯好的檔案與資料夾"
+
+#: src/project/projecttab.cpp:242
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open selected files"
+msgstr "開啟選取檔案"
+
+#: src/project/projecttab.cpp:245
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open"
+msgstr "開啟"
+
+#. i18nc("@action:inmenu","Find in files"),this,&ProjectTab::findInFiles);
+#. i18nc("@action:inmenu","Replace in files"),this,&ProjectTab::replaceInFiles);
+#. i18nc("@action:inmenu","Spellcheck files"),this,&ProjectTab::spellcheckFiles);
+#. menu.addSeparator();
+#. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
+#.
+#: src/project/projecttab.cpp:254
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add to translation memory"
+msgstr "新增到翻譯記憶體"
+
+#: src/project/projecttab.cpp:256
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files"
+msgstr "在檔案中尋找"
+
+#: src/project/projecttab.cpp:257
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a comment"
+msgstr "新增備忘"
+
+#: src/project/projecttab.cpp:259
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch Pology on files"
+msgstr "在檔案上執行 Pology"
+
+#: src/project/projecttab.cpp:262
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files (including templates)"
+msgstr "在檔案中尋找（包含樣本檔）"
+
+#: src/project/projecttab.cpp:296
+#, kde-format
+msgid "Project file comment"
+msgstr "專案檔案備忘"
+
+#: src/project/projecttab.cpp:296
+#, kde-format
+msgid "Input a comment for this project file:"
+msgstr "輸入此專案檔案的備忘："
+
+#: src/project/projecttab.cpp:362
+#, kde-format
+msgid "The Pology check has succeeded"
+msgstr "Pology 檢查成功"
+
+#: src/project/projecttab.cpp:381
+#, kde-format
+msgid "You are about to open %1 file"
+msgid_plural "You are about to open %1 files"
+msgstr[0] "您正要開啟 %1 個檔案"
+
+#: src/project/projecttab.cpp:382
+#, kde-format
+msgid ""
+"Opening a large number of files at the same time can make Lokalize "
+"unresponsive."
+msgstr "同時開啟多個檔案會導致 Lokalize 沒有回應。"
+
+#: src/project/projecttab.cpp:384
+#, kde-format
+msgid "Are you sure you want to open this many files?"
+msgstr "確定要開啟這麼多檔案嗎？"
+
+#: src/project/projecttab.cpp:386
+#, kde-format
+msgid "&Open %1 File"
+msgid_plural "&Open %1 Files"
+msgstr[0] "開啟 %1 個檔案(&O)"
+
+#: src/tm/dbfilesmodel.cpp:99
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "名稱"
+
+#: src/tm/dbfilesmodel.cpp:100
+#, kde-format
+msgctxt "@title:column"
+msgid "Source language"
+msgstr "來源語言："
+
+#: src/tm/dbfilesmodel.cpp:101
+#, kde-format
+msgctxt "@title:column"
+msgid "Target language"
+msgstr "目標語言"
+
+#: src/tm/dbfilesmodel.cpp:102
+#, kde-format
+msgctxt "@title:column"
+msgid "Pairs"
+msgstr "配對"
+
+#: src/tm/dbfilesmodel.cpp:103
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique original entries"
+msgstr "唯一的原始條目"
+
+#: src/tm/dbfilesmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique translations"
+msgstr "唯一的翻譯"
+
+#. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
+#: src/tm/dbparams.ui:23
+#, kde-format
+msgid "Connection"
+msgstr "連線"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: src/tm/dbparams.ui:32
+#, kde-format
+msgid "Database name:"
+msgstr "資料庫名稱："
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/tm/dbparams.ui:45
+#, kde-format
+msgid "Host:"
+msgstr "主機："
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/tm/dbparams.ui:62
+#, kde-format
+msgid "User:"
+msgstr "使用者："
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: src/tm/dbparams.ui:75
+#, kde-format
+msgid "Password:"
+msgstr "密碼："
+
+#. i18n: ectx: property (text), item, widget (QComboBox, dbType)
+#: src/tm/dbparams.ui:96
+#, kde-format
+msgid "Local"
+msgstr "本地端"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/dbparams.ui:104
+#, kde-format
+msgid "Name:"
+msgstr "名稱："
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/tm/dbparams.ui:114
+#, kde-format
+msgid "Database type:"
+msgstr "資料庫型態："
+
+#. i18n: ectx: property (title), widget (QGroupBox, contentBox)
+#: src/tm/dbparams.ui:124
+#, kde-format
+msgid "Content"
+msgstr "內容："
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/tm/dbparams.ui:133
+#, kde-format
+msgid "Source language:"
+msgstr "來源語言："
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/dbparams.ui:162
+#, kde-format
+msgid "Markup regex:"
+msgstr "標記正則表達式："
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/tm/dbparams.ui:175
+#, kde-format
+msgid "Accelerator:"
+msgstr "捷徑："
+
+#. i18n: ectx: property (text), widget (QPushButton, create)
+#: src/tm/managedatabases.ui:19
+#, kde-format
+msgid "Create"
+msgstr "建立"
+
+#. i18n: ectx: property (text), widget (QPushButton, addData)
+#: src/tm/managedatabases.ui:26
+#, kde-format
+msgid "Add Data"
+msgstr "新增資料"
+
+#. i18n: ectx: property (text), widget (QPushButton, importTMX)
+#: src/tm/managedatabases.ui:33
+#, kde-format
+msgid "Add Data from TMX"
+msgstr "從 TMX 新增資料"
+
+#. i18n: ectx: property (text), widget (QPushButton, exportTMX)
+#: src/tm/managedatabases.ui:40
+#, kde-format
+msgid "Export to TMX"
+msgstr "匯出到 TMX"
+
+#. i18n: ectx: property (text), widget (QPushButton, remove)
+#: src/tm/managedatabases.ui:47
+#, kde-format
+msgid "Remove"
+msgstr "移除"
+
+#: src/tm/qamodel.cpp:94
+#, kde-format
+msgctxt "@title:column Translator's false friend"
+msgid "False Friend"
+msgstr "虛假友詞"
+
+#: src/tm/qaview.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Quality Assurance"
+msgstr "品質保證"
+
+#: src/tm/qaview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add"
+msgstr "新增"
+
+#: src/tm/qaview.cpp:41
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove"
+msgstr "移除"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/queryoptions.ui:32
+#, kde-format
+msgid "TM:"
+msgstr "翻譯記憶體："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/tm/queryoptions.ui:70
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Enter to start the search.\n"
+"Press Ctrl+L to go to this control."
+msgstr ""
+"搜尋原始字串的表示式。\n"
+"按 Enter 開始搜尋。\n"
+"按 Ctrl+L 跳到此控制。"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
+#: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
+#, kde-format
+msgid "Show results that do not match search expression"
+msgstr "顯示不符合搜尋表示式的結果"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/queryoptions.ui:139
+#, kde-format
+msgid "File mask:"
+msgstr "檔案遮罩："
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
+#: src/tm/queryoptions.ui:155
+#, kde-format
+msgid "Show only results from files with path matching specified mask"
+msgstr "只顯示路徑符合指定樣式的檔案"
+
+#. i18n: ectx: property (text), widget (QLabel, label_s)
+#: src/tm/queryoptions.ui:162
+#, kde-format
+msgid "Query syntax:"
+msgstr "查詢語法："
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:197
+#, kde-format
+msgid ""
+"Reads all project files into translation memory, updating old entries. The "
+"scanning will work in background."
+msgstr "讀取所有專案檔案到翻譯記憶體，更新舊的條目。這些事會在背景作業。"
+
+#. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:200
+#, kde-format
+msgid "&Rescan project files"
+msgstr "重新掃描專案檔案(&R)"
+
+#: src/tm/tmmanager.cpp:36
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memories"
+msgstr "翻譯記憶體"
+
+#: src/tm/tmmanager.cpp:70
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Directory to be scanned"
+msgstr "選擇要掃描的目錄"
+
+#: src/tm/tmmanager.cpp:81
+#, kde-format
+msgctxt "@title:window"
+msgid "New Translation Memory"
+msgstr "新增翻譯記憶體"
+
+#: src/tm/tmmanager.cpp:81
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Properties"
+msgstr "翻譯記憶體屬性"
+
+#: src/tm/tmmanager.cpp:215
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to be imported into selected database"
+msgstr "選擇要匯入選取的資料庫的 TMX 檔"
+
+#: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:236
+#, kde-format
+msgid "TMX files (*.tmx *.xml)"
+msgstr "TMX 檔（*.tmx *.xml）"
+
+#: src/tm/tmmanager.cpp:235
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to export selected database to"
+msgstr "選擇要將選取的資料庫匯出到哪個 TMX 檔"
+
+#: src/tm/tmscanapi.cpp:82
+#, kde-format
+msgid "Adding files to Lokalize translation memory"
+msgstr "新增檔案到翻譯記憶體"
+
+#: src/tm/tmscanapi.cpp:83
+#, kde-format
+msgid "TM"
+msgstr "翻譯記憶體"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Substring"
+msgstr "子字串"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Google-like"
+msgstr "類似 Google 模式"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Wildcard"
+msgstr "萬用字元"
+
+#: src/tm/tmtab.cpp:366
+#, kde-format
+msgid "Space is AND operator. Case insensitive."
+msgstr "空白表示 AND。區分大小寫。"
+
+#: src/tm/tmtab.cpp:367
+#, kde-format
+msgid "Shell globs (* and ?). Case sensitive."
+msgstr "使用 Shell 萬用字元（* 與 ?）。區分大小寫。"
+
+#. i18nc("@title:window","Translation Memory"),false);
+#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:121 src/tm/tmview.cpp:127
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory"
+msgstr "翻譯記憶體"
+
+#: src/tm/tmtab.cpp:594
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1 (%2)"
+msgstr "條目總數：%1（%2）"
+
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:574
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The file %1 does not exist, it has been removed from the translation memory."
+msgstr "%1 檔案不存在，其已經從翻譯記憶體中移除。"
+
+#: src/tm/tmview.cpp:166 src/webquery/webqueryview.cpp:62
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Double-click any word to insert it into translation"
+msgstr "雙擊任何單字以插入翻譯中"
+
+#: src/tm/tmview.cpp:279
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Batch translation memory filling"
+msgstr "批次填入翻譯記憶體"
+
+#: src/tm/tmview.cpp:282
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been completed."
+msgstr "批次翻譯已完成。"
+
+#: src/tm/tmview.cpp:288
+#, kde-format
+msgctxt "@info"
+msgid "No suggestions with exact matches were found."
+msgstr "找不到精確符合的建議。"
+
+#: src/tm/tmview.cpp:292
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation complete"
+msgstr "批次翻譯完成"
+
+#: src/tm/tmview.cpp:306 src/tm/tmview.cpp:321
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation"
+msgstr "批次翻譯"
+
+#: src/tm/tmview.cpp:307 src/tm/tmview.cpp:322
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been scheduled."
+msgstr "批次翻譯已排程。"
+
+#: src/tm/tmview.cpp:456
+#, kde-format
+msgctxt "%1 is the TM entry score in percentage"
+msgid "%1%"
+msgstr "%1%"
+
+#: src/tm/tmview.cpp:458
+#, kde-format
+msgctxt "%1 is the number of times this TM entry has been found"
+msgid "(1 time)"
+msgid_plural "(%1 times)"
+msgstr[0] "(%1 次)"
+
+#: src/tm/tmview.cpp:539
+#, kde-format
+msgctxt "File argument in tooltip, when file is current file"
+msgid "this"
+msgstr "這個"
+
+#: src/tm/tmview.cpp:540
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "File: %1<br />Addition date: %2"
+msgstr "檔案：%1<br />加入日期：%2"
+
+#: src/tm/tmview.cpp:542
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change date: %1"
+msgstr "<br />上次變更日期：%1"
+
+#: src/tm/tmview.cpp:544
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change author: %1"
+msgstr "<br />上次變更作者：%1"
+
+#: src/tm/tmview.cpp:545
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />TM: %1"
+msgstr "<br />翻譯記憶體: %1"
+
+#: src/tm/tmview.cpp:547
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Is not present in the file anymore"
+msgstr "<br />並未出現在檔案中"
+
+#: src/tm/tmview.cpp:557
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr "<html>您確定要從翻譯記憶體 %2 中移除此項目：<br/><i>%1</i>嗎？</html>"
+
+#: src/tm/tmview.cpp:558
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Entry Removal"
+msgstr "翻譯記憶體項目移除"
+
+#: src/tm/tmview.cpp:590
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this entry"
+msgstr "移除此項目"
+
+#: src/tm/tmview.cpp:592
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file containing this entry"
+msgstr "開啟包含此項目的檔案"
+
+#: src/tm/tmview.cpp:599
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this missing file from TM"
+msgstr "從翻譯記憶體移除此遺失檔案"
+
+#: src/tm/tmview.cpp:610
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"<html>您確定要從翻譯記憶體 %2 中移除此遺失檔案：<br/><i>%1</i>嗎？</html>"
+
+#: src/tm/tmview.cpp:611
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Missing File Removal"
+msgstr "移除翻譯記憶體遺失檔案"
+
+#: src/tm/tmview.cpp:987
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use translation memory suggestion"
+msgstr "使用翻譯記憶體的建議"
+
+#: src/tools/widgettextcaptureconfig.cpp:23
+#, kde-format
+msgctxt "@title"
+msgid "Widget Text Capture"
+msgstr "元件文字擷取"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tools/widgettextcaptureconfig.ui:26
+#, kde-format
+msgid ""
+"<html>\n"
+"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+"text from applications' user interfaces and search for translation files "
+"containing the text.</p>\n"
+"<p align=\"justify\">When enabled, the capture can be initiated by middle "
+"mouse clicking on any non-editable GUI element (widget). After that, switch "
+"to the Lokalize window and choose the entry with this text. Even if several "
+"files contain the same string, the right one will be chosen in most cases.</"
+"p>\n"
+"<p align=\"justify\">Remember that you need to have an up-to-date actual "
+"translation memory with all translation files indexed for this feature to "
+"work.</p></html>"
+msgstr ""
+"<html>\n"
+"<p align=\"justify\">為了協助 KDE 翻譯，Lokalize 可以從應用程式的使用者介面中"
+"抓取文字，並搜尋包含該文字的翻譯檔案。</p>\n"
+"<p align=\"justify\">若開啟此選項，您可以在讓何無法編輯的使用者介面元件上點擊"
+"滑鼠中鍵。接著切換到 Lokalize 視窗，並選擇此文字的條目。即使有時數個檔案有相"
+"同的字串，大部份狀況都可以選到正確的。</p>\n"
+"<p align=\"justify\">記住您需要有翻譯記譯體，並對所有的翻譯檔案建好索引，此功"
+"能才能生效。</p></html>"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/tools/widgettextcaptureconfig.ui:42
+#, kde-format
+msgid "Middle Mouse Button Click Reaction"
+msgstr "點擊滑鼠中鍵的反應"
+
+#. i18n: ectx: property (text), widget (QRadioButton, none)
+#: src/tools/widgettextcaptureconfig.ui:48
+#, kde-format
+msgid "None"
+msgstr "無"
+
+#. i18n: ectx: property (text), widget (QRadioButton, search)
+#: src/tools/widgettextcaptureconfig.ui:58
+#, kde-format
+msgid "Search GUI element text in translation memory"
+msgstr "在翻譯記憶體內尋找使用者介面元素文字"
+
+#. i18n: ectx: property (text), widget (QRadioButton, clipboard)
+#: src/tools/widgettextcaptureconfig.ui:65
+#, kde-format
+msgid "Copy GUI element text to clipboard"
+msgstr "將使用者介面元素文字複製到剪貼簿"
+
+#. i18n: ectx: property (text), widget (QPushButton, queryBtn)
+#: src/webquery/querycontrol.ui:8
+#, kde-format
+msgid "Query"
+msgstr "查詢"
+
+#. i18n: ectx: property (text), widget (QCheckBox, autoQuery)
+#: src/webquery/querycontrol.ui:15
+#, kde-format
+msgid "Autoquery"
+msgstr "自動查詢"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:22
+#, kde-format
+msgid "Prefetch for the next untranslated"
+msgstr "預先取得下個未翻譯條目"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:25
+#, kde-format
+msgid "Prefetch"
+msgstr "預先取得"
+
+#: src/webquery/webqueryview.cpp:32
+#, kde-format
+msgid "Web Queries"
+msgstr "網頁查詢"
+
+#: src/xlifftextedit.cpp:993
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Lookup selected text in translation memory"
+msgstr "在翻譯記憶體內尋找選取的文字"
+
+#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace text"
+msgstr "取代文字"
+
+#: src/xlifftextedit.cpp:1130
+#, kde-format
+msgid "no spellcheck available"
+msgstr "沒有可用的拼字檢查工具"
+
+#: src/xlifftextedit.cpp:1144
+#, kde-format
+msgid "An error was reported: %1"
+msgstr "有錯誤回報：%1"
+
+#: src/xlifftextedit.cpp:1270
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Copy source to target"
+msgstr "將原訊息複製到翻譯內容"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Scripts"
+#~ msgstr "文稿"

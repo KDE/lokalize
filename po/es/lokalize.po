@@ -1,0 +1,4833 @@
+# translation of lokalize.po to Spanish
+# Translation of kaider to Spanish
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Santiago Fernández Sancho <santi@kde-es.org>, 2007.
+# Enrique Matias Sanchez (aka Quique) <cronopios@gmail.com>, 2007.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2022.
+# Javier Viñal <fjvinal@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: lokalize\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"PO-Revision-Date: 2022-02-11 01:08+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 21.12.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Eloy Cuadra,Santiago Fernández Sancho,Cristina Yenyxe González García"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "ecuadra@eloihr.net,santi@kde-es.org,the.blue.valkyrie@gmail.com"
+
+#. i18n: tag collection attribute text
+#. i18n: tag collection attribute comment
+#. i18n: tag collection attribute text
+#: scripts/msgfmt.rc:3 scripts/xliff2odf.rc:3
+#, kde-format
+msgid "Tools"
+msgstr "Herramientas"
+
+#. i18n: tag script attribute text
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po"
+msgstr "Compilar .po"
+
+#. i18n: tag script attribute comment
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po and make it available to applications"
+msgstr "Compilar .po y hacer que esté disponible para las aplicaciones"
+
+#: scripts/msgmerge.py:33
+msgid "Gettext not found"
+msgstr "No se ha encontrado «gettext»"
+
+#: scripts/msgmerge.py:33
+msgid "Install gettext package for this feature to work"
+msgstr "Instale el paquete «gettext» para que funcione esta característica"
+
+#: scripts/msgmerge.py:44
+msgid "Updating from templates..."
+msgstr "Actualizando desde las plantillas..."
+
+#: scripts/msgmerge.py:71
+msgid "Merge has been completed"
+msgstr "La fusión se ha completado"
+
+#: scripts/msgmerge.py:71
+msgid ""
+"Merge has been completed.\n"
+"Template modification time: %1 (%2 days ago)."
+msgstr ""
+"La fusión se ha completado.\n"
+"Hora de modificación de la plantilla: %1 (hace %2 días)."
+
+#: scripts/msgmerge.py:74
+msgid "Merge failed."
+msgstr "La fusión ha fallado."
+
+#: scripts/msgmerge.py:74
+msgid ""
+"Could not find template file for the merge:\n"
+"%1"
+msgstr ""
+"No se puede encontrar el archivo de plantilla para la fusión:\n"
+"%1"
+
+#. i18n: tag collection attribute text
+#: scripts/msgmerge.rc:3
+#, kde-format
+msgid "File"
+msgstr "Archivo"
+
+#. i18n: tag script attribute text
+#: scripts/msgmerge.rc:4
+#, kde-format
+msgid "Update file from template"
+msgstr "Actualizar archivo desde plantilla"
+
+#. i18n: tag script attribute text
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Merge into ODF"
+msgstr "Fusionar en ODF"
+
+#. i18n: tag script attribute comment
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Generates translated version of ODF document"
+msgstr "Genera la versión traducida de un documento ODF"
+
+#: src/alttransview.cpp:35 src/alttransview.cpp:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Alternate Translations"
+msgstr "Traducciones alternativas"
+
+#: src/alttransview.cpp:152
+#, kde-format
+msgid ""
+"There is useful data available in Alternate Translations view.\n"
+"\n"
+"For Gettext PO files it displays difference between current source text and "
+"the source text corresponding to the fuzzy translation found by msgmerge "
+"when updating PO based on POT template.\n"
+"\n"
+"Do you want to show the view with the data?"
+msgstr ""
+"Existen datos útiles en la vista de «Traducciones alternativas».\n"
+"\n"
+"Para los archivos PO de Gettext, muestra la diferencia entre la fuente de "
+"texto actual y la fuente de texto que corresponde a la traducción no "
+"preparada encontrada por «msgmerge» tras actualizar los archivos PO basados "
+"en las plantillas POT.\n"
+"\n"
+"¿Desea mostrar esta vista con dichos datos?"
+
+#: src/alttransview.cpp:232
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Sometimes, if source text is changed, its translation becomes deprecated "
+"and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. "
+"looses approval status), or (only in case of XLIFF file) moved to the "
+"<emphasis>alternate&nbsp;translations</emphasis> section accompanying the "
+"unit.</p><p>This toolview also shows the difference between current source "
+"string and the previous source string, so that you can easily see which "
+"changes should be applied to existing translation to make it reflect current "
+"source.</p><p>Double-clicking any word in this toolview inserts it into "
+"translation.</p><p>Drop translation file onto this toolview to use it as a "
+"source for additional alternate translations.</p>"
+msgstr ""
+"<p>A veces, si el texto original ha cambiado, su traducción queda desfasada "
+"y se marca como <emphasis>necesita&nbsp;revisión</emphasis> (es decir, "
+"pierde su estado de aprobación), o bien (solo en el caso de un archivo "
+"XLIFF) se mueve a la sección de <emphasis>traducciones&nbsp;alternativas</"
+"emphasis> que acompaña a la unidad.</p><p>Esta vista de herramienta también "
+"muestra la diferencia entre la actual cadena original y la anterior, de modo "
+"que le resulte fácil ver qué cambios se deben aplicar a la traducción "
+"existente para que refleje la entrada original actual.</p><p>Haga un doble "
+"clic sobre cualquier palabra de esta vista de herramienta para insertarla en "
+"la traducción.</p><p>Suelte un archivo de traducción en esta vista de "
+"herramienta para usarlo como fuente adicional de traducciones alternativas.</"
+"p>"
+
+#: src/alttransview.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Origin: %1"
+msgstr "Origen: %1"
+
+#: src/alttransview.cpp:276
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use alternate translation"
+msgstr "Usar traducción alternativa"
+
+#: src/binunitsview.cpp:108
+#, kde-format
+msgid "no"
+msgstr "no"
+
+#: src/binunitsview.cpp:108
+#, kde-format
+msgid "yes"
+msgstr "sí"
+
+#: src/binunitsview.cpp:124
+#, kde-format
+msgctxt "@title:column"
+msgid "Source"
+msgstr "Origen"
+
+#: src/binunitsview.cpp:125
+#, kde-format
+msgctxt "@title:column"
+msgid "Target"
+msgstr "Destino"
+
+#: src/binunitsview.cpp:126
+#, kde-format
+msgctxt "@title:column"
+msgid "Approved"
+msgstr "Aprobada"
+
+#: src/binunitsview.cpp:134
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Binary Units"
+msgstr "Unidades binarias"
+
+#: src/binunitsview.cpp:172
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Set the file"
+msgstr "Indicar el archivo"
+
+#: src/binunitsview.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Use source file"
+msgstr "Usar el archivo de origen"
+
+#: src/catalog/catalog.cpp:52
+#, kde-format
+msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Todos los archivos permitidos (*.po *.pot *.xlf *.xliff *.ts)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Gettext (*.po *.pot)"
+msgstr "Gettext (*.po *.pot)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Gettext (*.po)"
+msgstr "Gettext (*.po)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "XLIFF (*.xlf *.xliff)"
+msgstr "XLIFF (*.xlf *.xliff)"
+
+#: src/catalog/catalog.cpp:53
+#, kde-format
+msgid "Linguist (*.ts)"
+msgstr "Linguist (*.ts)"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "New"
+msgstr "Nueva"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs translation"
+msgstr "Necesita traducción"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs full localization"
+msgstr "Necesita traducción completa"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Needs adaptation"
+msgstr "Necesita adaptación"
+
+#: src/catalog/catalog.cpp:59
+#, kde-format
+msgid "Translated"
+msgstr "Traducidas"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs translation review"
+msgstr "Necesita revisión de traducción"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs full localization review"
+msgstr "Necesita revisión de traducción completa"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Needs adaptation review"
+msgstr "Necesita revisión de adaptación"
+
+#: src/catalog/catalog.cpp:60
+#, kde-format
+msgid "Final"
+msgstr "Final"
+
+#: src/catalog/catalog.cpp:61
+#, kde-format
+msgid "Signed-off"
+msgstr "Firmada"
+
+#: src/catalog/catalogstring.cpp:60
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired tag"
+msgstr "Inicio de etiqueta emparejada"
+
+#: src/catalog/catalogstring.cpp:61
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired tag"
+msgstr "Fin de etiqueta emparejada"
+
+#: src/catalog/catalogstring.cpp:62
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Stand-alone tag"
+msgstr "Etiqueta sin emparejar"
+
+#: src/catalog/catalogstring.cpp:63
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Isolated tag"
+msgstr "Etiqueta aislada"
+
+#: src/catalog/catalogstring.cpp:65
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Marker"
+msgstr "Marcador"
+
+#: src/catalog/catalogstring.cpp:66
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic group placeholder"
+msgstr "Parámetro de sustitución de grupo genérico"
+
+#: src/catalog/catalogstring.cpp:67
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Sub-flow"
+msgstr "Subflujo"
+
+#: src/catalog/catalogstring.cpp:69
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic placeholder"
+msgstr "Parámetro de sustitución genérico"
+
+#: src/catalog/catalogstring.cpp:70
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired placeholder"
+msgstr "Inicio de parámetro de sustitución emparejado"
+
+#: src/catalog/catalogstring.cpp:71
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired placeholder"
+msgstr "Fin de parámetro de sustitución emparejado"
+
+#: src/catalog/catalogstring.cpp:118
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "abbreviation"
+msgstr "abreviatura"
+
+#: src/catalog/catalogstring.cpp:119
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviated form: a term resulting from the omission of any part of the full "
+"term while designating the same concept"
+msgstr ""
+"forma abreviada: un término que resulta de la omisión de alguna parte del "
+"término completo que sigue designando el mismo concepto"
+
+#: src/catalog/catalogstring.cpp:120
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviation: an abbreviated form of a simple term resulting from the "
+"omission of some of its letters (e.g. 'adj.' for 'adjective')"
+msgstr ""
+"abreviatura: una forma abreviada de una palabra sencilla que resulta de la "
+"omisión de algunas de sus letras (por ejemplo, «adj.» por «adjetivo»)"
+
+#: src/catalog/catalogstring.cpp:121
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"acronym: an abbreviated form of a term made up of letters from the full form "
+"of a multiword term strung together into a sequence pronounced only "
+"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+msgstr ""
+"acrónimo: una forma abreviada de un término constituida por letras de la "
+"forma completa de un término de varias palabras, comprimido en una secuencia "
+"que se pronuncia a partir de sus sílabas (por ejemplo, «radar», de la forma "
+"inglesa «radio detecting and ranging»)"
+
+#: src/catalog/catalogstring.cpp:122
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"appellation: a proper-name term, such as the name of an agency or other "
+"proper entity"
+msgstr ""
+"denominación: un término de nombre propio, como el nombre de una agencia o "
+"de otra entidad legal"
+
+#: src/catalog/catalogstring.cpp:123
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"collocation: a recurrent word combination characterized by cohesion in that "
+"the components of the collocation must co-occur within an utterance or "
+"series of utterances, even though they do not necessarily have to maintain "
+"immediate proximity to one another"
+msgstr ""
+"colocación: una combinación frecuente de palabras que se caracteriza por la "
+"cohesión en la que deben coexistir sus componentes dentro de un enunciado o "
+"serie de enunciados, incluso aunque no mantengan una proximidad inmediata "
+"entre ellas"
+
+#: src/catalog/catalogstring.cpp:124
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"common name: a synonym for an international scientific term that is used in "
+"general discourse in a given language"
+msgstr ""
+"nombre común: un sinónimo de un término científico internacional que se usa "
+"en el lenguaje general de un determinado idioma"
+
+#: src/catalog/catalogstring.cpp:125
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "date and/or time"
+msgstr "fecha u hora"
+
+#: src/catalog/catalogstring.cpp:126
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"equation: an expression used to represent a concept based on a statement "
+"that two mathematical expressions are, for instance, equal as identified by "
+"the equal sign (=), or assigned to one another by a similar sign"
+msgstr ""
+"ecuación: una expresión que se usa para representar un concepto basado en la "
+"declaración de que dos expresiones matemáticas son, por ejemplo, iguales, "
+"como las identifica el signo igual (=), o que una de ellas se asigna a la "
+"otra, lo que también se representa con el mismo signo"
+
+#: src/catalog/catalogstring.cpp:127
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"expanded form: The complete representation of a term for which there is an "
+"abbreviated form"
+msgstr ""
+"forma expandida: la representación completa de un término para el que existe "
+"una forma abreviada"
+
+#: src/catalog/catalogstring.cpp:128
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"formula: figures, symbols or the like used to express a concept briefly, "
+"such as a mathematical or chemical formula"
+msgstr ""
+"fórmula: figuras, símbolos y similares que se usan para expresar un concepto "
+"de forma breve, como una fórmula matemática o química"
+
+#: src/catalog/catalogstring.cpp:129
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"head term: the concept designation that has been chosen to head a "
+"terminological record"
+msgstr ""
+"término principal: la designación del concepto que se ha elegido para "
+"encabezar un registro terminológico"
+
+#: src/catalog/catalogstring.cpp:130
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"initialism: an abbreviated form of a term consisting of some of the initial "
+"letters of the words making up a multiword term or the term elements making "
+"up a compound term when these letters are pronounced individually (e.g. "
+"'BSE' for 'bovine spongiform encephalopathy')"
+msgstr ""
+"siglas: una forma abreviada de un término multipalabra que consiste en la "
+"agrupación de algunas de las letras iniciales de las palabras que lo "
+"componen cuando estas letras se pronuncian individualmente (por ejemplo, "
+"«EEB», por «encefalopatía espongiforme bovina»)"
+
+#: src/catalog/catalogstring.cpp:131
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"international scientific term: a term that is part of an international "
+"scientific nomenclature as adopted by an appropriate scientific body"
+msgstr ""
+"término científico internacional: un término que es parte de la nomenclatura "
+"científica internacional al haber sido adoptado por un cuerpo científico "
+"apropiado"
+
+#: src/catalog/catalogstring.cpp:132
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"internationalism: a term that has the same or nearly identical orthographic "
+"or phonemic form in many languages"
+msgstr ""
+"internacionalismo: un término que tiene la misma o casi idéntica forma "
+"ortográfica o fonética en muchos idiomas"
+
+#: src/catalog/catalogstring.cpp:133
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"logical expression: an expression used to represent a concept based on "
+"mathematical or logical relations, such as statements of inequality, set "
+"relationships, Boolean operations, and the like"
+msgstr ""
+"expresión lógica: una expresión que se usa para representar un concepto "
+"basado en relaciones matemáticas o lógicas, como sentencias de desigualdad, "
+"establecimiento de relaciones, operadores booleanos y similares"
+
+#: src/catalog/catalogstring.cpp:134
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "materials management unit: a unit to track object"
+msgstr ""
+"unidad de gestión de materiales: una unidad para seguir la pista a un objeto"
+
+#: src/catalog/catalogstring.cpp:135
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "name"
+msgstr "nombre"
+
+#: src/catalog/catalogstring.cpp:136
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"near synonym: a term that represents the same or a very similar concept as "
+"another term in the same language, but for which interchangeability is "
+"limited to some contexts and inapplicable in others"
+msgstr ""
+"sinónimo parcial: un término que representa el mismo concepto u otro muy "
+"parecido que otra palabra del mismo idioma, pero cuya equivalencia está "
+"limitada a algunos contextos, mientras que no es aplicable en otros"
+
+#: src/catalog/catalogstring.cpp:137
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"part number: a unique alphanumeric designation assigned to an object in a "
+"manufacturing system"
+msgstr ""
+"número de referencia: una denominación alfanumérica única asignada a un "
+"objeto en un sistema industrial"
+
+#: src/catalog/catalogstring.cpp:138
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "phrase"
+msgstr "frase"
+
+#: src/catalog/catalogstring.cpp:139
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"phraseological: a group of two or more words that form a unit, the meaning "
+"of which frequently cannot be deduced based on the combined sense of the "
+"words making up the phrase"
+msgstr ""
+"enunciado fraseológico: un grupo de dos o más palabras que forman una unidad "
+"cuyo significado, con frecuencia, no se puede deducir basándose en el "
+"sentido combinado de las palabras que lo componen"
+
+#: src/catalog/catalogstring.cpp:140
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "protected: the marked text should not be translated"
+msgstr "protegido: el texto marcado no se debe traducir"
+
+#: src/catalog/catalogstring.cpp:141
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"romanized form: a form of a term resulting from an operation whereby non-"
+"Latin writing systems are converted to the Latin alphabet"
+msgstr ""
+"forma latinizada: la forma de un término resultante de una operación en la "
+"que un sistema de escritura no latino se convierte al alfabeto latino"
+
+#: src/catalog/catalogstring.cpp:142
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "segment: the marked text represents a segment"
+msgstr "segmento: el texto marcado representa un segmento"
+
+#: src/catalog/catalogstring.cpp:143
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "set phrase: a fixed, lexicalized phrase"
+msgstr "frase hecha: una frase fija y lexicalizada"
+
+#: src/catalog/catalogstring.cpp:144
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"short form: a variant of a multiword term that includes fewer words than the "
+"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
+"Group of Twenty-four on International Monetary Affairs')"
+msgstr ""
+"forma corta: una variante de un término multipalabra que incluye menos "
+"palabras que la forma completa del término (por ejemplo, el «Grupo de los "
+"Veinticuatro», que se refiere al «Grupo de los Veinticuatro para los Asuntos "
+"Monetarios Internacionales y el Desarrollo»)"
+
+#: src/catalog/catalogstring.cpp:145
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"stock keeping unit: an inventory item identified by a unique alphanumeric "
+"designation assigned to an object in an inventory control system"
+msgstr ""
+"número de referencia: un elemento de inventario identificado por una "
+"designación alfanumérica única que se asigna a un objeto en un sistema de "
+"control de inventario"
+
+#: src/catalog/catalogstring.cpp:146
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "standard text: a fixed chunk of recurring text"
+msgstr "texto estándar: un trozo fijo de texto frecuente"
+
+#: src/catalog/catalogstring.cpp:147
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"symbol: a designation of a concept by letters, numerals, pictograms or any "
+"combination thereof"
+msgstr ""
+"símbolo: la designación de un concepto mediante letras, números, pictogramas "
+"o cualquier combinación de ellos"
+
+#: src/catalog/catalogstring.cpp:148
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonym: a term that represents the same or a very similar concept as the "
+"main entry term in a term entry"
+msgstr ""
+"sinónimo: un término que representa lo mismo concepto o uno muy similar al "
+"término de la entrada principal"
+
+#: src/catalog/catalogstring.cpp:149
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonymous phrase: phraseological unit in a language that expresses the same "
+"semantic content as another phrase in that same language"
+msgstr ""
+"frase sinónima: unidad fraseológica de un idioma que expresa el mismo "
+"contenido semántico que otra frase del mismo idioma"
+
+#: src/catalog/catalogstring.cpp:150
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "term"
+msgstr "término"
+
+#: src/catalog/catalogstring.cpp:151
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transcribed form: a form of a term resulting from an operation whereby the "
+"characters of one writing system are represented by characters from another "
+"writing system, taking into account the pronunciation of the characters "
+"converted"
+msgstr ""
+"forma transcrita: la forma de un término que resulta de una operación en la "
+"que los caracteres de un sistema de escritura se representan con caracteres "
+"de otro sistema de escritura, teniendo en cuenta la pronunciación de los "
+"caracteres convertidos"
+
+#: src/catalog/catalogstring.cpp:152
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transliterated form: a form of a term resulting from an operation whereby "
+"the characters of an alphabetic writing system are represented by characters "
+"from another alphabetic writing system"
+msgstr ""
+"forma transliterada: la forma de un término que resulta de una operación en "
+"la que los caracteres de un sistema de escritura alfabética se representan "
+"con caracteres de otro sistema de escritura alfabético"
+
+#: src/catalog/catalogstring.cpp:153
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"truncated term: an abbreviated form of a term resulting from the omission of "
+"one or more term elements or syllables (e.g. 'flu' for 'influenza')"
+msgstr ""
+"término truncado: la forma abreviada de un término que resulta de la omisión "
+"de uno o más elementos o sílabas del término (p. ej., «polio» por "
+"«poliomielitis»)"
+
+#: src/catalog/catalogstring.cpp:154
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "variant: one of the alternate forms of a term"
+msgstr "variante: una de las formas alternativas de un término"
+
+#: src/catalog/cmd.cpp:81
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insertion"
+msgstr "Inserción"
+
+#: src/catalog/cmd.cpp:124
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Deletion"
+msgstr "Borrado"
+
+#: src/catalog/cmd.cpp:177
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Approvement toggling"
+msgstr "Cambiar aprobación"
+
+#: src/catalog/cmd.cpp:196
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Insertion"
+msgstr "Inserción de etiquetas"
+
+#: src/catalog/cmd.cpp:218
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Deletion"
+msgstr "Borrado de etiquetas"
+
+#: src/catalog/cmd.cpp:239
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Note setting"
+msgstr "Colocación de notas"
+
+#: src/catalog/cmd.cpp:275
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Update/add workflow phase"
+msgstr "Actualizar/añadir fase del proceso"
+
+#: src/catalog/cmd.cpp:296
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Translation Equivalence Setting"
+msgstr "Preferencias de equivalencias de traducción"
+
+#: src/catalog/cmd.cpp:365
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Remove text with markup"
+msgstr "Eliminar texto con etiquetas"
+
+#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:664
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insert text with markup"
+msgstr "Insertar texto con etiquetas"
+
+#: src/catalog/gettext/gettextstorage.cpp:124
+#, kde-format
+msgid "separator for different-length string alternatives"
+msgstr "separador para alternativas de cadenas de diferente longitud"
+
+#: src/catalog/gettext/gettextstorage.cpp:286
+#, kde-format
+msgid ""
+"Previous source value, saved by Gettext during transition to a newer POT "
+"template"
+msgstr ""
+"Anterior valor original, guardado por Gettext durante la transición a una "
+"plantilla POT más reciente"
+
+#: src/catalog/gettextheader.cpp:661
+#, kde-format
+msgctxt "@window:title"
+msgid "Author name missing"
+msgstr "Falta el nombre del autor"
+
+#: src/catalog/gettextheader.cpp:661
+#, kde-format
+msgid "Your name:"
+msgstr "Su nombre:"
+
+#: src/catalog/gettextheader.cpp:671
+#, kde-format
+msgctxt "@window:title"
+msgid "Author email missing"
+msgstr "Falta el correo electrónico del autor"
+
+#: src/catalog/gettextheader.cpp:671
+#, kde-format
+msgid "Your email:"
+msgstr "Su correo electrónico:"
+
+#: src/catalog/ts/tsstorage.cpp:441
+#, kde-format
+msgid "Previous source value, saved by lupdate tool"
+msgstr "Anterior valor original, guardado por la herramienta lupdate"
+
+#: src/cataloglistview/cataloglistview.cpp:57
+#, kde-format
+msgctxt "@title:window aka Message Tree"
+msgid "Translation Units"
+msgstr "Unidades de traducción"
+
+#: src/cataloglistview/cataloglistview.cpp:74
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#, kde-format
+msgid "Quick search..."
+msgstr "Búsqueda rápida..."
+
+#: src/cataloglistview/cataloglistview.cpp:75
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Activated by Ctrl+L."
+msgstr "Se activa con Ctrl+L."
+
+#: src/cataloglistview/cataloglistview.cpp:75
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Accepts regular expressions"
+msgstr "Permitir expresiones regulares"
+
+#: src/cataloglistview/cataloglistview.cpp:84
+#, kde-format
+msgid "options"
+msgstr "opciones"
+
+#: src/cataloglistview/cataloglistview.cpp:186
+#, kde-format
+msgid "Reset individual filter"
+msgstr "Reiniciar filtro individual"
+
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:365
+#, kde-format
+msgid "Case insensitive"
+msgstr "No distinguir entre mayúsculas y minúsculas"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
+#, kde-format
+msgid "Ignore accelerator marks"
+msgstr "Ignorar las marcas de acelerador"
+
+#: src/cataloglistview/cataloglistview.cpp:194
+#, kde-format
+msgid "Ready"
+msgstr "Preparada"
+
+#: src/cataloglistview/cataloglistview.cpp:195
+#, kde-format
+msgid "Non-ready"
+msgstr "No preparada"
+
+#: src/cataloglistview/cataloglistview.cpp:196
+#, kde-format
+msgid "Non-empty"
+msgstr "No vacía"
+
+#: src/cataloglistview/cataloglistview.cpp:197
+#, kde-format
+msgid "Empty"
+msgstr "Vacía"
+
+#: src/cataloglistview/cataloglistview.cpp:198
+#, kde-format
+msgid "Changed since file open"
+msgstr "Ha cambiado desde la apertura del archivo"
+
+#: src/cataloglistview/cataloglistview.cpp:199
+#, kde-format
+msgid "Unchanged since file open"
+msgstr "No ha cambiado desde la apertura del archivo"
+
+#: src/cataloglistview/cataloglistview.cpp:200
+#, kde-format
+msgid "Same in sync file"
+msgstr "Igual en archivo de sincronización"
+
+#: src/cataloglistview/cataloglistview.cpp:201
+#, kde-format
+msgid "Different in sync file"
+msgstr "Distinto en archivo de sincronización"
+
+#: src/cataloglistview/cataloglistview.cpp:202
+#, kde-format
+msgid "Not in sync file"
+msgstr "No está en archivo de sincronización"
+
+#: src/cataloglistview/cataloglistview.cpp:203
+#, kde-format
+msgid "Plural"
+msgstr "Plural"
+
+#: src/cataloglistview/cataloglistview.cpp:204
+#, kde-format
+msgid "Non-plural"
+msgstr "No plural"
+
+#: src/cataloglistview/cataloglistview.cpp:209
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Basic"
+msgstr "Básico"
+
+#: src/cataloglistview/cataloglistview.cpp:210
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "States"
+msgstr "Estados"
+
+#: src/cataloglistview/cataloglistview.cpp:212
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Searchable column"
+msgstr "Columna de búsqueda"
+
+#: src/cataloglistview/cataloglistview.cpp:216
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Resort and refilter on content change"
+msgstr "Volver a ordenar y filtrar cuando cambie el contenido"
+
+#: src/cataloglistview/cataloglistview.cpp:233
+#, kde-format
+msgctxt "@item:inmenu all columns"
+msgid "All"
+msgstr "Todo"
+
+#: src/cataloglistview/catalogmodel.cpp:106
+#, kde-format
+msgctxt "@title:column"
+msgid "Entry"
+msgstr "Entrada"
+
+#. i18nc("@title:column","ID");
+#: src/cataloglistview/catalogmodel.cpp:108
+#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:216
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65 src/tm/tmtab.cpp:78
+#, kde-format
+msgctxt "@title:column Original text"
+msgid "Source"
+msgstr "Origen"
+
+#: src/cataloglistview/catalogmodel.cpp:110
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:217
+#: src/tm/tmtab.cpp:66 src/tm/tmtab.cpp:79
+#, kde-format
+msgctxt "@title:column Text in target language"
+msgid "Target"
+msgstr "Destino"
+
+#: src/cataloglistview/catalogmodel.cpp:112
+#, kde-format
+msgctxt "@title:column"
+msgid "Notes"
+msgstr "Notas"
+
+#: src/cataloglistview/catalogmodel.cpp:114 src/tm/tmtab.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Context"
+msgstr "Contexto"
+
+#: src/cataloglistview/catalogmodel.cpp:116
+#, kde-format
+msgctxt "@title:column"
+msgid "Files"
+msgstr "Archivos"
+
+#: src/cataloglistview/catalogmodel.cpp:118
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:69
+#, kde-format
+msgctxt "@title:column"
+msgid "Translation Status"
+msgstr "Estado de la traducción"
+
+#: src/cataloglistview/catalogmodel.cpp:120
+#, kde-format
+msgctxt "@title:column Length of the original text"
+msgid "Source length"
+msgstr "Longitud del origen"
+
+#: src/cataloglistview/catalogmodel.cpp:122
+#, kde-format
+msgctxt "@title:column Length of the text in target language"
+msgid "Target length"
+msgstr "Longitud del destino"
+
+#: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1080
+#: src/editortab.cpp:1283 src/tm/tmtab.cpp:231
+#, kde-format
+msgctxt "@info:status 'non-fuzzy' in gettext terminology"
+msgid "Ready"
+msgstr "Preparada"
+
+#: src/cataloglistview/catalogmodel.cpp:160 src/editortab.cpp:1081
+#: src/editortab.cpp:1278 src/tm/tmtab.cpp:232
+#, kde-format
+msgctxt "@info:status 'fuzzy' in gettext terminology"
+msgid "Needs review"
+msgstr "Necesita revisión"
+
+#: src/cataloglistview/catalogmodel.cpp:162 src/editortab.cpp:1079
+#: src/tm/tmtab.cpp:233
+#, kde-format
+msgctxt "@info:status"
+msgid "Untranslated"
+msgstr "Sin traducir"
+
+#: src/common/languagelistmodel.cpp:93
+#, kde-format
+msgctxt "%1 is a language name, e.g. Irish, %2 is language code, e.g. ga"
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
+#, kde-format
+msgid "Target language:"
+msgstr "Idioma de destino:"
+
+#: src/common/termlabel.cpp:81
+#, kde-format
+msgctxt "@action:inmenu Edit term"
+msgid "Edit"
+msgstr "Editar"
+
+#: src/editortab.cpp:143
+#, kde-format
+msgctxt "@info:status message entry"
+msgid "Current: %1"
+msgstr "Actual: %1"
+
+#: src/editortab.cpp:144 src/editortab.cpp:854
+#: src/filesearch/filesearchtab.cpp:779 src/project/projecttab.cpp:492
+#: src/tm/tmtab.cpp:592
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1"
+msgstr "Total: %1"
+
+#: src/editortab.cpp:145 src/editortab.cpp:155
+#, kde-format
+msgctxt ""
+"@info:status message entries\n"
+"'fuzzy' in gettext terminology"
+msgid "Not ready: %1"
+msgstr "No preparadas: %1"
+
+#: src/editortab.cpp:146 src/editortab.cpp:163
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Untranslated: %1"
+msgstr "Sin traducir: %1"
+
+#: src/editortab.cpp:157 src/editortab.cpp:165
+#, kde-format
+msgctxt "percentages in statusbar"
+msgid " (%1%)"
+msgstr " (%1%)"
+
+#: src/editortab.cpp:191 src/lokalizemainwindow.cpp:435
+#, kde-format
+msgctxt "@title actions category"
+msgid "File"
+msgstr "Archivo"
+
+#: src/editortab.cpp:192 src/project/projecttab.cpp:144
+#, kde-format
+msgctxt "@title actions category"
+msgid "Navigation"
+msgstr "Navegación"
+
+#: src/editortab.cpp:193
+#, kde-format
+msgctxt "@title actions category"
+msgid "Editing"
+msgstr "Edición"
+
+#: src/editortab.cpp:194
+#, kde-format
+msgid "Synchronization 1"
+msgstr "Sincronización 1"
+
+#: src/editortab.cpp:195
+#, kde-format
+msgid "Synchronization 2"
+msgstr "Sincronización 2"
+
+#: src/editortab.cpp:196
+#, kde-format
+msgid "Translation Memory"
+msgstr "Memoria de traducción"
+
+#. i18nc("@title actions category","Settings"), ac);
+#: src/editortab.cpp:197 src/lokalizemainwindow.cpp:437
+#, kde-format
+msgctxt "@title actions category"
+msgid "Glossary"
+msgstr "Glosario"
+
+#: src/editortab.cpp:224
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert alternate translation #%1"
+msgstr "Insertar la traducción alternativa #%1"
+
+#: src/editortab.cpp:271
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a note"
+msgstr "Añadir una nota"
+
+#: src/editortab.cpp:292
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert TM suggestion #%1"
+msgstr "Insertar la sugerencia de la MT #%1"
+
+#: src/editortab.cpp:297
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove TM suggestion #%1"
+msgstr "Eliminar la sugerencia de la MT #%1"
+
+#: src/editortab.cpp:347
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert term translation #%1"
+msgstr "Insertar la traducción del término #%1"
+
+#: src/editortab.cpp:358
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Define new term"
+msgstr "Definir nuevo término"
+
+#: src/editortab.cpp:390
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert WebQuery result #%1"
+msgstr "Insertar el resultado de la consulta web #%1"
+
+#: src/editortab.cpp:431
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Phases..."
+msgstr "Fases..."
+
+#: src/editortab.cpp:434
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Word count"
+msgstr "Contador de palabras"
+
+#: src/editortab.cpp:437
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear all translated entries"
+msgstr "Borrar todas las entradas traducidas"
+
+#: src/editortab.cpp:440
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch the Pology command on this file"
+msgstr "Lanzar la orden de Pology sobre este archivo"
+
+#: src/editortab.cpp:444
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Merge translation into OpenDocument"
+msgstr "Fusionar traducción en OpenDocument"
+
+#: src/editortab.cpp:465
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Change searching direction"
+msgstr "Cambiar la dirección de búsqueda"
+
+#: src/editortab.cpp:476
+#, kde-format
+msgctxt ""
+"@option:check whether message is marked as translated/reviewed/approved "
+"(depending on your role)"
+msgid "Approved"
+msgstr "Aprobada"
+
+#: src/editortab.cpp:494
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Approve and go to next"
+msgstr "Aprobar e ir a la siguiente"
+
+#: src/editortab.cpp:503
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Equivalent translation"
+msgstr "Traducción equivalente"
+
+#: src/editortab.cpp:518
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy source to target"
+msgstr "Copiar el origen al destino"
+
+#: src/editortab.cpp:521
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Unwrap target"
+msgstr "Ajustar líneas del destino"
+
+#: src/editortab.cpp:526 src/filesearch/filesearchtab.cpp:93
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear"
+msgstr "Limpiar"
+
+#: src/editortab.cpp:530
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Tag"
+msgstr "Insertar una etiqueta"
+
+#: src/editortab.cpp:534
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Check this unit using LanguageTool"
+msgstr "Comprobar esta unidad usando LanguageTool"
+
+#: src/editortab.cpp:538
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Next Tag"
+msgstr "Insertar siguiente etiqueta"
+
+#: src/editortab.cpp:542
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Completion"
+msgstr "Terminación"
+
+#: src/editortab.cpp:546
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Replace with best spellcheck suggestion"
+msgstr "Sustituir con la mejor sugerencia del corrector"
+
+#: src/editortab.cpp:553
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Next"
+msgstr "Siguie&nte"
+
+#: src/editortab.cpp:558
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Previous"
+msgstr "&Anterior"
+
+#: src/editortab.cpp:564
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&First Entry"
+msgstr "&Primera entrada"
+
+#: src/editortab.cpp:570
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&Last Entry"
+msgstr "Ú&ltima entrada"
+
+#: src/editortab.cpp:576
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Entry by number"
+msgstr "Entrada por número"
+
+#: src/editortab.cpp:578 src/project/projecttab.cpp:152
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous non-empty but not ready"
+msgstr "Anterior no vacía y no preparada"
+
+#: src/editortab.cpp:583 src/project/projecttab.cpp:155
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next non-empty but not ready"
+msgstr "Siguiente no vacía y no preparada"
+
+#: src/editortab.cpp:588 src/project/projecttab.cpp:158
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous untranslated"
+msgstr "Anterior no traducida"
+
+#: src/editortab.cpp:593 src/project/projecttab.cpp:161
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next untranslated"
+msgstr "Siguiente no traducida"
+
+#: src/editortab.cpp:598 src/project/projecttab.cpp:146
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous not ready"
+msgstr "Anterior no preparada"
+
+#: src/editortab.cpp:603 src/project/projecttab.cpp:149
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next not ready"
+msgstr "Siguiente no preparada"
+
+#: src/editortab.cpp:610
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Focus the search line of Translation Units view"
+msgstr "Foco en la línea de búsqueda de la vista de unidades de traducción"
+
+#: src/editortab.cpp:616
+#, kde-format
+msgctxt "@option:check"
+msgid "Bookmark message"
+msgstr "Poner un marcador en el mensaje"
+
+#: src/editortab.cpp:622
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous bookmark"
+msgstr "Marcador anterior"
+
+#: src/editortab.cpp:626
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next bookmark"
+msgstr "Siguiente marcador"
+
+#: src/editortab.cpp:634
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions"
+msgstr "Rellenar todas las sugerencias exactas"
+
+#: src/editortab.cpp:638
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions and mark as fuzzy"
+msgstr "Rellenar todas las sugerencias exactas y marcarlas como dudosas"
+
+#: src/editortab.cpp:643
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for sync/merge"
+msgstr "Abrir archivo para sincronizar o fusionar"
+
+#: src/editortab.cpp:644 src/editortab.cpp:701
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Open catalog to be merged into the current one / replicate base file changes "
+"to"
+msgstr ""
+"Abrir catálogo para fusionar con el actual o en el que replicar los cambios "
+"de archivos base"
+
+#: src/editortab.cpp:650 src/editortab.cpp:707
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous different"
+msgstr "Anterior diferente"
+
+#: src/editortab.cpp:651 src/editortab.cpp:708
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Previous entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr ""
+"Entrada anterior, que se ha traducido de forma diferente en los archivos con "
+"los que se ha fusionado, incluidas las traducciones vacías en la fuente de "
+"fusión"
+
+#: src/editortab.cpp:660 src/editortab.cpp:715
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different"
+msgstr "Siguiente diferente"
+
+#: src/editortab.cpp:661 src/editortab.cpp:716
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Next entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr ""
+"Siguiente entrada que se ha traducido de forma diferente en los archivos con "
+"los que se ha fusionado, incluidas las traducciones vacías en la fuente de "
+"fusión"
+
+#: src/editortab.cpp:669
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different approved"
+msgstr "Siguiente diferente aprobada"
+
+#: src/editortab.cpp:675 src/editortab.cpp:723
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy from merging source"
+msgstr "Copiar de la fuente de fusión"
+
+#: src/editortab.cpp:682 src/editortab.cpp:728
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy all new translations"
+msgstr "Copiar todas las traducciones nuevas"
+
+#: src/editortab.cpp:683
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty and non-ready entries in base file"
+msgstr "Solo cambia las entradas vacías y no preparadas del archivo base"
+
+#: src/editortab.cpp:692 src/editortab.cpp:735
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to merging source"
+msgstr "Copiar en la fuente de fusión"
+
+#: src/editortab.cpp:700
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for secondary sync"
+msgstr "Abrir archivo para sincronización secundaria"
+
+#: src/editortab.cpp:729
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty entries"
+msgstr "Solo cambia las entradas vacías"
+
+#: src/editortab.cpp:759
+#, kde-format
+msgctxt "editor tab name"
+msgid "(recovered)"
+msgstr "(recuperado)"
+
+#: src/editortab.cpp:801 src/editortab.cpp:969
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The document contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"El documento contiene cambios sin guardar.\n"
+"¿Desea guardar los cambios o descartarlos?"
+
+#: src/editortab.cpp:802 src/editortab.cpp:970 src/editortab.cpp:1397
+#: src/glossary/glossarywindow.cpp:490
+#, kde-format
+msgctxt "@title:window"
+msgid "Warning"
+msgstr "Advertencia"
+
+#: src/editortab.cpp:818 src/mergemode/mergeview.cpp:190
+#, kde-format
+msgctxt "@title:window"
+msgid "Select translation file"
+msgstr "Seleccione el archivo de traducción"
+
+#: src/editortab.cpp:903
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1, line: %2"
+msgstr "Ha ocurrido un error al abrir el archivo %1, línea: %2"
+
+#: src/editortab.cpp:904
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1"
+msgstr "Ha ocurrido un error al abrir el archivo %1"
+
+#: src/editortab.cpp:911
+#, kde-format
+msgctxt "@title:window"
+msgid "Save File As"
+msgstr "Guardar archivo como"
+
+#: src/editortab.cpp:936
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error saving the file %1\n"
+"Do you want to save to another file or cancel?"
+msgstr ""
+"Ha ocurrido un error al guardar el archivo %1\n"
+"¿Desea guardarlo en otro archivo o cancelar?"
+
+#: src/editortab.cpp:938
+#, kde-format
+msgctxt "@title"
+msgid "Error"
+msgstr "Error"
+
+#: src/editortab.cpp:946
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not perform file autosaving.\n"
+"The target file was %1."
+msgstr ""
+"No se puede guardar el archivo automáticamente.\n"
+"El archivo de destino era %1."
+
+#: src/editortab.cpp:995
+#, kde-format
+msgctxt "@title"
+msgid "Jump to Entry"
+msgstr "Saltar a la entrada"
+
+#: src/editortab.cpp:996
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Enter entry number:"
+msgstr "Introduzca el número de entrada:"
+
+#: src/editortab.cpp:1067
+#, kde-format
+msgctxt "@info:status"
+msgid "Current: %1"
+msgstr "Actual: %1"
+
+#: src/editortab.cpp:1256
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Translated"
+msgstr "Traducida"
+
+#: src/editortab.cpp:1257
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Signed-off"
+msgstr "Firmada"
+
+#: src/editortab.cpp:1258
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Approved"
+msgstr "Aprobada"
+
+#: src/editortab.cpp:1261
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation is done (although still may need a review)"
+msgstr "Traducción completa (aunque aún puede necesitar una revisión)"
+
+#: src/editortab.cpp:1262
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation has received positive review"
+msgstr "La traducción ha recibido una revisión positiva"
+
+#: src/editortab.cpp:1263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Entry is fully localized (i.e. final)"
+msgstr "La entrada está completamente traducida (definitiva)"
+
+#: src/editortab.cpp:1375 src/project/projecttab.cpp:352
+#, kde-format
+msgid "A Pology check is already in progress."
+msgstr "Todavía se está ejecutando una comprobación de Pology."
+
+#: src/editortab.cpp:1375 src/editortab.cpp:1383 src/editortab.cpp:1387
+#: src/project/projecttab.cpp:352 src/project/projecttab.cpp:360
+#: src/project/projecttab.cpp:364
+#, kde-format
+msgid "Pology error"
+msgstr "Error de Pology"
+
+#: src/editortab.cpp:1383 src/project/projecttab.cpp:360
+#, kde-format
+msgid ""
+"The Pology check has crashed unexpectedly:\n"
+"%1"
+msgstr ""
+"La comprobación de Pology ha terminado de forma imprevista:\n"
+"%1"
+
+#: src/editortab.cpp:1385 src/project/projecttab.cpp:362
+#, kde-format
+msgid "Pology success"
+msgstr "Pology ha terminado con éxito"
+
+#: src/editortab.cpp:1385
+#, kde-format
+msgid "The Pology check has succeeded."
+msgstr "La comprobación de Pology ha tenido éxito."
+
+#: src/editortab.cpp:1387 src/project/projecttab.cpp:364
+#, kde-format
+msgid ""
+"The Pology check has returned an error:\n"
+"%1"
+msgstr ""
+"La comprobación de Pology ha devuelto un error:\n"
+"%1"
+
+#: src/editortab.cpp:1396
+#, kde-format
+msgctxt "@info"
+msgid ""
+"This will delete all the translations from the file.\n"
+"Do you really want to clear all translated entries?"
+msgstr ""
+"Esto borrará todas las traducciones del archivo.\n"
+"¿Realmente desea borrar todas las entradas traducidas?"
+
+#: src/editortab.cpp:1432
+#, kde-format
+msgctxt "@info words count"
+msgid "Source text words: %1<br/>Target text words: %2"
+msgstr "Palabras del texto de origen: %1<br/>Palabras del texto de destino: %2"
+
+#: src/editortab.cpp:1433
+#, kde-format
+msgctxt "@title"
+msgid "Word Count"
+msgstr "Contador de palabras"
+
+#: src/editortab.cpp:1525
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Would you like to search for the source file locally or via lxr.kde.org?"
+msgstr ""
+"¿Desea buscar el archivo de código fuente localmente o usando lxr.kde.org?"
+
+#: src/editortab.cpp:1525 src/editortab.cpp:1566
+#, kde-format
+msgctxt "@title:window"
+msgid "Source file lookup"
+msgstr "Búsqueda de archivo de código fuente"
+
+#: src/editortab.cpp:1526
+#, kde-format
+msgid "Locally"
+msgstr "Localmente"
+
+#: src/editortab.cpp:1538 src/editortab.cpp:1577
+#, kde-format
+msgid "Select project's base folder for source file lookup"
+msgstr ""
+"Seleccione la carpeta base del proyecto para buscar archivos de código fuente"
+
+#: src/editortab.cpp:1565
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not find source file in the folder specified.\n"
+"Do you want to change source files folder?"
+msgstr ""
+"No se ha podido encontrar el archivo de código fuente en la carpeta "
+"especificada.\n"
+"¿Desea cambiar la carpeta de archivos de código fuente?"
+
+#: src/editortab.cpp:1567
+#, kde-format
+msgid "lxr.kde.org"
+msgstr "lxr.kde.org"
+
+#: src/editortab.cpp:1596
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Cannot open the target source file: The target source file is not relative "
+"to the current translation file, and there are currently no scripts loaded "
+"to handle opening source files in custom paths. Refer to the Lokalize "
+"handbook for script examples and how to plug them into your project."
+msgstr ""
+"No se puede abrir el archivo de código fuente de destino: el archivo de "
+"código fuente de destino no es relativo al archivo de traducción actual y no "
+"hay ningún script cargado para abrir archivos de código fuente en rutas "
+"personalizadas. Consulte el manual de Lokalize para ver scripts de ejemplo y "
+"cómo asociarlos con su proyecto."
+
+#: src/editortab.cpp:1610 src/project/project.cpp:472
+#: src/project/project.cpp:477
+#, kde-format
+msgid "Install translate-toolkit package and retry"
+msgstr ""
+"Instalar el paquete de herramientas de traducción y volver a intentarlo"
+
+#: src/editortab.cpp:1616
+#, kde-format
+msgid "Install translate-toolkit package and retry."
+msgstr ""
+"Instalar el paquete de herramientas de traducción y volver a intentarlo."
+
+#: src/editortab.cpp:1625
+#, kde-format
+msgid "Select original OpenDocument on which current XLIFF file is based"
+msgstr ""
+"Seleccione el OpenDocument original en el que se basa el archivo XLIFF actual"
+
+#: src/editortab.cpp:1627 src/project/project.cpp:482
+#, kde-format
+msgid "OpenDocument files (*.odt *.ods)"
+msgstr "Archivos OpenDocument (*.odt *.ods)"
+
+#: src/editortab.cpp:1672
+#, kde-format
+msgid "Install python-uno package for additional functionality."
+msgstr ""
+"Instale el paquete python-uno para obtener funcionalidades adicionales."
+
+#: src/editortab.cpp:1796
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Set unit text"
+msgstr "Definir el texto de la unidad"
+
+#: src/editortab_findreplace.cpp:464
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace"
+msgstr "Sustituir"
+
+#: src/editortab_findreplace.cpp:534
+#, kde-format
+msgid ""
+"Lokalize has reached end of document. Do you want to continue from start?"
+msgstr ""
+"Lokalize ha alcanzado el final del documento. ¿Desea continuar desde el "
+"principio?"
+
+#: src/editortab_findreplace.cpp:535 src/editortab_findreplace.cpp:541
+#, kde-format
+msgctxt "@title"
+msgid "Spellcheck"
+msgstr "Comprobación ortográfica"
+
+#: src/editortab_findreplace.cpp:541
+#, kde-format
+msgid "Lokalize has finished spellchecking"
+msgstr "Lokalize ha terminado la comprobación ortográfica"
+
+#. i18n: ectx: Menu (file)
+#: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
+#, kde-format
+msgid "&File"
+msgstr "&Archivo"
+
+#. i18n: ectx: Menu (edit)
+#: src/editorui.rc:37 src/project/projectmanagerui.rc:22
+#, kde-format
+msgid "&Edit"
+msgstr "&Editar"
+
+#. i18n: ectx: Menu (glossary)
+#: src/editorui.rc:70
+#, kde-format
+msgid "&Glossary"
+msgstr "&Glosario"
+
+#. i18n: ectx: Menu (webquery)
+#: src/editorui.rc:95
+#, kde-format
+msgid "&WebQuery"
+msgstr "Consulta &web"
+
+#. i18n: ectx: Menu (tmquery)
+#: src/editorui.rc:112
+#, kde-format
+msgid "Translation &Memory"
+msgstr "Mem&oria de traducción"
+
+#. i18n: ectx: Menu (alttrans)
+#: src/editorui.rc:143
+#, kde-format
+msgid "Alternative Translations"
+msgstr "Traducciones alternativas"
+
+#. i18n: ectx: Menu (go)
+#: src/editorui.rc:161 src/project/projectmanagerui.rc:5
+#, kde-format
+msgid "&Go"
+msgstr "&Ir"
+
+#. i18n: ectx: Menu (bookmarks)
+#: src/editorui.rc:191
+#, kde-format
+msgid "&Bookmarks"
+msgstr "&Marcadores"
+
+#. i18n: ectx: Menu (merge)
+#: src/editorui.rc:198
+#, kde-format
+msgid "S&ync"
+msgstr "Sincroni&zar"
+
+#. i18n: ectx: Menu (mergesecondary)
+#: src/editorui.rc:208
+#, kde-format
+msgid "&Secondary sync source"
+msgstr "Fuente de &sincronización secundaria"
+
+#. i18n: ectx: Menu (toolviews)
+#: src/editorui.rc:228 src/lokalizemainwindowui.rc:49
+#, kde-format
+msgid "Tool&views"
+msgstr "&Vistas de herramientas"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/editorui.rc:251 src/filesearch/filesearchtabui.rc:11
+#: src/project/projectmanagerui.rc:26 src/tm/translationmemoryrui.rc:11
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Barra de herramientas principal"
+
+#: src/editorview.cpp:45
+#, kde-format
+msgctxt "@label whether entry is fuzzy"
+msgid "Not ready:"
+msgstr "No preparadas:"
+
+#: src/editorview.cpp:47
+#, kde-format
+msgctxt "@label whether entry is untranslated"
+msgid "Untranslated:"
+msgstr "Sin traducir:"
+
+#: src/editorview.cpp:58
+#, kde-format
+msgctxt "@action"
+msgid "Hide"
+msgstr "Ocultar"
+
+#: src/editorview.cpp:68
+#, kde-format
+msgctxt "@info:label cursor position"
+msgid "Column: %1"
+msgstr "Columna: %1"
+
+#: src/editorview.cpp:82
+#, kde-format
+msgid ""
+"<qt><p><b>Original String</b></p>\n"
+"<p>This part of the window shows the original message\n"
+"of the currently displayed entry.</p></qt>"
+msgstr ""
+"<qt><p><b>Cadena original</b></p>\n"
+"<p>Esta parte de la ventana muestra el mensaje original\n"
+"de la entrada mostrada en la actualidad.</p></qt>"
+
+#: src/editorview.cpp:180
+#, kde-format
+msgctxt "@title:tab"
+msgid "Plural Form %1"
+msgstr "Forma plural %1"
+
+#: src/editorview.cpp:249
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Unwrap"
+msgstr "Ajuste de línea"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/filesearch/filesearchoptions.ui:24
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Ctrl+L to go to this control.\n"
+"Press Enter to start the search.\n"
+"Press Esc to stop the search."
+msgstr ""
+"Expresión a buscar para la «part» del idioma de origen.\n"
+"Pulse «Ctrl+L» para ir a este control.\n"
+"Pulse «Intro» para comenzar la búsqueda.\n"
+"Pulse «Esc» para detener la búsqueda."
+
+#. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (text), widget (QCheckBox, invertSource)
+#: src/filesearch/filesearchoptions.ui:31
+#: src/filesearch/filesearchoptions.ui:80 src/tm/queryoptions.ui:108
+#: src/tm/queryoptions.ui:118
+#, kde-format
+msgid "Invert"
+msgstr "Invertir"
+
+#. i18n: ectx: property (text), widget (QLabel, querySourceLabel)
+#: src/filesearch/filesearchoptions.ui:38 src/tm/queryoptions.ui:85
+#, kde-format
+msgid "Source:"
+msgstr "Origen:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
+#: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
+#, kde-format
+msgid ""
+"Search expression for target language part.\n"
+"Press Enter to start the search."
+msgstr ""
+"Expresión de búsqueda para la «part» del idioma de destino.\n"
+"Pulse «Intro» para comenzar la búsqueda."
+
+#. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
+#. i18n: ectx: property (text), widget (QCheckBox, regEx)
+#: src/filesearch/filesearchoptions.ui:56
+#: src/filesearch/massreplaceoptions.ui:78
+#, kde-format
+msgid "Regular expressions"
+msgstr "Expresiones regulares"
+
+#. i18n: ectx: property (text), widget (QLabel, queryTargetLabel)
+#: src/filesearch/filesearchoptions.ui:63 src/tm/queryoptions.ui:95
+#, kde-format
+msgid "Target:"
+msgstr "Destino:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: src/filesearch/filesearchoptions.ui:73
+#: src/filesearch/massreplaceoptions.ui:85
+#, kde-format
+msgid "Match case"
+msgstr "Coincidir mayúsculas"
+
+#. i18n: ectx: property (text), widget (QPushButton, doFind)
+#: src/filesearch/filesearchoptions.ui:96 src/tm/queryoptions.ui:190
+#, kde-format
+msgid "&Search"
+msgstr "&Buscar"
+
+#: src/filesearch/filesearchtab.cpp:75
+#, kde-format
+msgctxt "@title:window"
+msgid "File List"
+msgstr "Lista de archivos"
+
+#: src/filesearch/filesearchtab.cpp:77
+#, kde-format
+msgid "Drop translation files here..."
+msgstr "Suelte aquí los archivos de traducción..."
+
+#. i18nc("@title:column","Context");
+#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "File"
+msgstr "Archivo"
+
+#: src/filesearch/filesearchtab.cpp:424
+#, kde-format
+msgctxt "@title:window"
+msgid "Search and replace in files"
+msgstr "Buscar y sustituir en archivos"
+
+#: src/filesearch/filesearchtab.cpp:458 src/tm/tmtab.cpp:405
+#, kde-format
+msgid "Copy source to clipboard"
+msgstr "Copiar el origen en el portapapeles"
+
+#: src/filesearch/filesearchtab.cpp:464 src/tm/tmtab.cpp:411
+#, kde-format
+msgid "Copy target to clipboard"
+msgstr "Copiar el destino en el portapapeles"
+
+#: src/filesearch/filesearchtab.cpp:470 src/tm/tmtab.cpp:417
+#, kde-format
+msgid "Open file"
+msgstr "Abrir archivo"
+
+#: src/filesearch/filesearchtab.cpp:509
+#, kde-format
+msgctxt "@title actions category"
+msgid "Search and replace in files"
+msgstr "Buscar y sustituir en archivos"
+
+#: src/filesearch/filesearchtab.cpp:796
+#, kde-format
+msgctxt "@title:window"
+msgid "Mass replace"
+msgstr "Sustitución masiva"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/filesearch/massreplaceoptions.ui:17
+#, kde-format
+msgid "Replace:"
+msgstr "Sustituir:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/filesearch/massreplaceoptions.ui:27
+#, kde-format
+msgid "With:"
+msgstr "Con:"
+
+#. i18n: ectx: property (text), widget (QPushButton, doPreview)
+#: src/filesearch/massreplaceoptions.ui:37
+#, kde-format
+msgid "Preview"
+msgstr "Vista previa"
+
+#. i18n: ectx: property (text), widget (QPushButton, doReplace)
+#: src/filesearch/massreplaceoptions.ui:56
+#, kde-format
+msgid "Mass Replace"
+msgstr "Sustitución masiva"
+
+#: src/glossary/glossary.cpp:218
+#, kde-format
+msgctxt "@title:column"
+msgid "Subject Field"
+msgstr "Campo del asunto"
+
+#: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:44
+#: src/glossary/glossarywindow.cpp:405 src/glossary/glossarywindow.cpp:432
+#: src/glossary/glossarywindow.cpp:447 src/glossary/glossarywindow.cpp:465
+#, kde-format
+msgctxt "@title:window"
+msgid "Glossary"
+msgstr "Glosario"
+
+#: src/glossary/glossaryview.cpp:56
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
+"near the term to insert its translation.</p><p>Use context menu to add new "
+"entry (tip:&nbsp;select words in original and translation fields before "
+"calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"
+msgstr ""
+"<p>Aquí aparecen las traducciones de términos comunes.</p><p>Pulse sobre el "
+"acceso rápido mostrado junto al término para insertar su traducción.</"
+"p><p>Use el menú de contexto para añadir nuevas entradas (consejo:&nbsp;"
+"seleccione palabras en los campos original y de traducción antes de llamar a "
+"la función <interface>Definir&nbsp;nuevo&nbsp;término</interface>).</p>"
+
+#: src/glossary/glossarywindow.cpp:238
+#, kde-format
+msgctxt "@action:button reloads glossary from disk"
+msgid "Restore from disk"
+msgstr "Restaurar desde el disco"
+
+#: src/glossary/glossarywindow.cpp:239
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reload glossary from disk, discarding any changes"
+msgstr "Vuelve a cargar el glosario del disco, descartando todos los cambios"
+
+#: src/glossary/glossarywindow.cpp:489
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The glossary contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"El glosario contiene cambios sin guardar.\n"
+"¿Desea guardar los cambios o descartarlos?"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/glossary/termedit.ui:19
+#, kde-format
+msgid "English synonyms (double-click to edit):"
+msgstr "Sinónimos en inglés (doble clic para editar):"
+
+#. i18n: ectx: property (text), widget (QToolButton, addEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, addTargetTerm)
+#: src/glossary/termedit.ui:26 src/glossary/termedit.ui:54
+#, kde-format
+msgid "+"
+msgstr "+"
+
+#. i18n: ectx: property (text), widget (QToolButton, remEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, remTargetTerm)
+#: src/glossary/termedit.ui:33 src/glossary/termedit.ui:61
+#, kde-format
+msgid "-"
+msgstr "-"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/glossary/termedit.ui:47
+#, kde-format
+msgid "Corresponding target language synonyms:"
+msgstr "Sinónimos correspondientes en el idioma de destino:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/glossary/termedit.ui:73
+#, kde-format
+msgid "Subject field:"
+msgstr "Campo del asunto:"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, subjectField)
+#: src/glossary/termedit.ui:83
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"When adding a new item, press enter after you have typed its name for "
+"changes to take effect"
+msgstr ""
+"Al añadir un nuevo elemento, pulse «Intro» después de teclear su nombre para "
+"que los cambios surtan efecto"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/glossary/termedit.ui:95
+#, kde-format
+msgid "Definition:"
+msgstr "Definición:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/glossary/termedit.ui:122
+#, kde-format
+msgid ""
+"Note: one glossary entry corresponds exactly to one term, not word/word "
+"sequence.\n"
+"\n"
+"That is, there may be several entries with the same word/word sequence "
+"expressing different meanings."
+msgstr ""
+"Nota: una entrada de glosario se corresponde exactamente con un término, no "
+"palabra/secuencia de palabras.\n"
+"\n"
+"Esto quiere decir que pueden existir varias entradas con la misma palabra/"
+"secuencia de palabras que impliquen significados diferentes."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "Saltar las etiquetas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "Saltar etiquetas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/kaider_findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "Ignorar las marcas de acelerador"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/kaider_findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "Incluir notas"
+
+#: src/languagetool/languagetoolgrammarerror.cpp:47
+#, kde-format
+msgid "Suggestions:"
+msgstr "Sugerencias:"
+
+#: src/languagetool/languagetoolparser.cpp:35
+#, kde-format
+msgid "No errors"
+msgstr "Sin errores"
+
+#: src/lokalizemainwindow.cpp:115
+#, kde-format
+msgctxt "@info"
+msgid "No Qt Sql modules were found. Translation memory will not work."
+msgstr ""
+"No se ha encontrado ningún módulo SQL de Qt. La memoria de traducción no "
+"funcionará."
+
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#, kde-format
+msgid "TM facility requires SQLite Qt module."
+msgstr "La funcionalidad de MT necesita el módulo SQLite de Qt."
+
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#, kde-format
+msgid "No SQLite module available"
+msgstr "No dispone de ningún módulo SQLite"
+
+#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:490
+#, kde-format
+msgctxt "@title actions category"
+msgid "Translation Memory"
+msgstr "Memoria de traducción"
+
+#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:188
+#, kde-format
+msgctxt "@title actions category"
+msgid "Project"
+msgstr "Proyecto"
+
+#: src/lokalizemainwindow.cpp:466
+#, kde-format
+msgid "Next tab"
+msgstr "Pestaña siguiente"
+
+#: src/lokalizemainwindow.cpp:469
+#, kde-format
+msgid "Previous tab"
+msgstr "Pestaña anterior"
+
+#: src/lokalizemainwindow.cpp:472
+#, kde-format
+msgid "Previously active tab"
+msgstr "Anterior pestaña activa"
+
+#: src/lokalizemainwindow.cpp:478
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Glossary"
+msgstr "Glosario"
+
+#: src/lokalizemainwindow.cpp:482
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translation memory"
+msgstr "Memoria de traducción"
+
+#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:493
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Manage translation memories"
+msgstr "Gestionar las memorias de traducción"
+
+#: src/lokalizemainwindow.cpp:490
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Project overview"
+msgstr "Resumen del proyecto"
+
+#: src/lokalizemainwindow.cpp:494
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Configure project..."
+msgstr "Configurar el proyecto..."
+
+#: src/lokalizemainwindow.cpp:497
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create software translation project..."
+msgstr "Crear proyecto de traducción de software..."
+
+#: src/lokalizemainwindow.cpp:500
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create OpenDocument translation project..."
+msgstr "Crear proyecto de traducción de OpenDocument..."
+
+#: src/lokalizemainwindow.cpp:503
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project..."
+msgstr "Abrir proyecto..."
+
+#: src/lokalizemainwindow.cpp:507
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Close project"
+msgstr "Cerrar proyecto"
+
+#: src/lokalizemainwindow.cpp:510
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open recent project"
+msgstr "Abrir proyecto reciente"
+
+#: src/lokalizemainwindow.cpp:518
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search and replace in files"
+msgstr "Buscar y sustituir en archivos"
+
+#: src/lokalizemainwindow.cpp:521
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Find next in files"
+msgstr "Encontrar siguiente en archivos"
+
+#: src/lokalizemainwindow.cpp:525
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Widget text capture"
+msgstr "Captura de texto de widget"
+
+#: src/lokalizemainwindow.cpp:702
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the following files:\n"
+"\n"
+msgstr ""
+"Error al abrir los siguientes archivos:\n"
+"\n"
+
+#. i18n: ectx: Menu (project)
+#: src/lokalizemainwindowui.rc:18
+#, kde-format
+msgid "&Project"
+msgstr "&Proyecto"
+
+#. i18n: ectx: Menu (project_actions)
+#: src/lokalizemainwindowui.rc:31
+#, kde-format
+msgid "&Scripts"
+msgstr "&Guiones"
+
+#: src/main.cpp:56
+#, kde-format
+msgctxt "@title"
+msgid "Lokalize"
+msgstr "Lokalize"
+
+#: src/main.cpp:56
+#, kde-format
+msgid ""
+"Computer-aided translation system.\n"
+"Do not translate what had already been translated."
+msgstr ""
+"Sistema de traducción asistida por un equipo informático.\n"
+"No traduzca lo que ya ha sido traducido."
+
+#: src/main.cpp:57
+#, kde-format
+msgctxt "@info:credit"
+msgid ""
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
+"(c) 1999-2006 The KBabel developers"
+msgstr ""
+"© 2018-2019 Simon Depiets\n"
+"© 2007-2015 Nick Shaforostoff\n"
+"© 1999-2006 los desarrolladores de KBabel"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "Nick Shaforostoff"
+msgstr "Nick Shaforostoff"
+
+#: src/main.cpp:59
+#, kde-format
+msgid "Google Inc."
+msgstr "Google Inc."
+
+#: src/main.cpp:59
+#, kde-format
+msgid "sponsored development as part of Google Summer Of Code program"
+msgstr ""
+"patrocinó el desarrollo como parte del programa «Google Summer Of Code»"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "NLNet Foundation"
+msgstr "Fundación NLNet"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "sponsored XLIFF-related work"
+msgstr "trabajo patrocinado relacionado con XLIFF"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Translate-toolkit"
+msgstr "Juego de herramientas de traducción"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "provided excellent cross-format converting scripts"
+msgstr "proporcionó excelentes scripts de conversión de formato cruzado"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "LanguageTool"
+msgstr "LanguageTool"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "grammar, style and spell checker"
+msgstr "corrector gramatical, de estilo y ortográfico"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Viesturs Zarins"
+msgstr "Viesturs Zarins"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "project tree merging translation+templates"
+msgstr "árbol del proyecto que mezcla traducciones y plantillas"
+
+#: src/main.cpp:64
+#, kde-format
+msgid "Stephan Johach"
+msgstr "Stephan Johach"
+
+#: src/main.cpp:64 src/main.cpp:65 src/main.cpp:68
+#, kde-format
+msgid "bug fixing patches"
+msgstr "parches de corrección de fallos"
+
+#: src/main.cpp:65
+#, kde-format
+msgid "Chusslove Illich"
+msgstr "Chusslove Illich"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "Jure Repinc"
+msgstr "Jure Repinc"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "testing and bug fixing"
+msgstr "pruebas y corrección de fallos"
+
+#: src/main.cpp:67
+#, kde-format
+msgid "Stefan Asserhall"
+msgstr "Stefan Asserhall"
+
+#: src/main.cpp:67
+#, kde-format
+msgid "patches"
+msgstr "parches"
+
+#: src/main.cpp:68
+#, kde-format
+msgid "Papp Laszlo"
+msgstr "Papp Laszlo"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "Albert Astals Cid"
+msgstr "Albert Astals Cid"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "XLIFF improvements"
+msgstr "Mejoras XLIFF"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "Simon Depiets"
+msgstr "Simon Depiets"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "bug fixing and improvements"
+msgstr "corrección de fallos y mejoras"
+
+#. i18n( "Source for the merge mode" ), QLatin1String("URL")));
+#: src/main.cpp:74
+#, kde-format
+msgid "Do not scan files of the project."
+msgstr "No explorar los archivos del proyecto."
+
+#: src/main.cpp:75
+#, kde-format
+msgid "Load specified project."
+msgstr "Cargar el proyecto especificado."
+
+#: src/main.cpp:76
+#, kde-format
+msgid "Document to open"
+msgstr "Documento a abrir"
+
+#: src/mergemode/mergecatalog.cpp:246
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept change in translation"
+msgstr "Aceptar el cambio en la traducción"
+
+#: src/mergemode/mergecatalog.cpp:298
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept all new translations"
+msgstr "Aceptar todas las traducciones nuevas"
+
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Primary Sync"
+msgstr "Sincronización primaria"
+
+#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Secondary Sync"
+msgstr "Sincronización secundaria"
+
+#: src/mergemode/mergeview.cpp:43
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Drop file to be merged into / synced with the current one here, then see "
+"context menu options"
+msgstr ""
+"Suelte aquí el archivo a fusionar o sincronizar con el actual y consulte a "
+"continuación las opciones del menú"
+
+#: src/mergemode/mergeview.cpp:217
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the file <filename>%1</filename> for synchronization, error "
+"line: %2"
+msgstr ""
+"Error al abrir el archivo <filename>%1</filename> para sincronización; línea "
+"con error: %2"
+
+#: src/mergemode/mergeview.cpp:350
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Different entries: %1\n"
+"Unmatched entries: %2"
+msgstr ""
+"Entradas diferentes: %1\n"
+"Entradas no emparejadas: %2"
+
+#: src/msgctxtview.cpp:37
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Unit metadata"
+msgstr "Metadatos de la unidad"
+
+#: src/msgctxtview.cpp:102
+#, kde-format
+msgctxt ""
+"@info notes to translation unit which expire when the catalog is closed"
+msgid "<b>Temporary notes:</b>"
+msgstr "<b>Notas temporales:</b>"
+
+#: src/msgctxtview.cpp:111
+#, kde-format
+msgctxt "@info notes generated by the pology check"
+msgid "<b>Pology notes:</b>"
+msgstr "<b>Notas de Pology:</b>"
+
+#: src/msgctxtview.cpp:120
+#, kde-format
+msgctxt "@info notes generated by the languagetool check"
+msgid "<b>LanguageTool notes:</b>"
+msgstr "<b>Notas de LanguageTool:</b>"
+
+#: src/msgctxtview.cpp:132
+#, kde-format
+msgctxt "@info translation unit metadata"
+msgid "<b>Phase:</b><br>"
+msgstr "<b>Fase:</b><br>"
+
+#: src/msgctxtview.cpp:156
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Files:</b><br>"
+msgstr "<br><b>Archivos:</b><br>"
+
+#: src/msgctxtview.cpp:164
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Context:</b><br>"
+msgstr "<br><b>Contexto:</b><br>"
+
+#: src/msgctxtview.cpp:237
+#, kde-format
+msgctxt "@info The pology command didn't return anything"
+msgid "(empty)"
+msgstr "(vacío)"
+
+#: src/noteeditor.cpp:47
+#, kde-format
+msgctxt "@info:label"
+msgid "From:"
+msgstr "De:"
+
+#: src/noteeditor.cpp:52
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Save empty note to remove it"
+msgstr "Guardar nota vacía para eliminarla"
+
+#: src/noteeditor.cpp:53
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Author of this note"
+msgstr "Autor de esta nota"
+
+#: src/noteeditor.cpp:66
+#, kde-format
+msgid "Ctrl+Enter"
+msgstr "Ctrl+Intro"
+
+#: src/noteeditor.cpp:67
+#, kde-format
+msgid "Esc"
+msgstr "Esc"
+
+#: src/noteeditor.cpp:119
+#, kde-format
+msgctxt "@info XLIFF notes representation"
+msgid "<b>Notes:</b>"
+msgstr "<b>Notas:</b>"
+
+#: src/noteeditor.cpp:130
+#, kde-format
+msgctxt "link to edit note"
+msgid "edit..."
+msgstr "editar..."
+
+#: src/noteeditor.cpp:135
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add..."
+msgstr "Añadir..."
+
+#: src/noteeditor.cpp:137
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add a note..."
+msgstr "Añadir una nota..."
+
+#: src/phaseswindow.cpp:139
+#, kde-format
+msgctxt "@title:column"
+msgid "Date"
+msgstr "Fecha"
+
+#: src/phaseswindow.cpp:140
+#, kde-format
+msgctxt "@title:column"
+msgid "Process"
+msgstr "Proceso"
+
+#: src/phaseswindow.cpp:141
+#, kde-format
+msgctxt "@title:column"
+msgid "Company"
+msgstr "Compañía"
+
+#: src/phaseswindow.cpp:142
+#, kde-format
+msgctxt "@title:column"
+msgid "Person"
+msgstr "Persona"
+
+#: src/phaseswindow.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Tool"
+msgstr "Herramienta"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Translation"
+msgstr "Traducción"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Review"
+msgstr "Revisión"
+
+#: src/phaseswindow.cpp:169
+#, kde-format
+msgid "Approval"
+msgstr "Aprobación"
+
+#: src/phaseswindow.cpp:173
+#, kde-format
+msgctxt "noun"
+msgid "Process (this will also change your role):"
+msgstr "Proceso (esto también cambiará su papel):"
+
+#: src/phaseswindow.cpp:252
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Edit phases"
+msgstr "Editar fases"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:14
+#, kde-format
+msgid "Translator's name"
+msgstr "Nombre del traductor"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:15
+#, kde-format
+msgid "Translator's name in English"
+msgstr "Nombre del traductor en inglés"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:21
+#, kde-format
+msgid "Localized name"
+msgstr "Nombre en el idioma de destino"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:22
+#, kde-format
+msgid "Translator's name in target language"
+msgstr "Nombre del traductor en el idioma de destino"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:28
+#, kde-format
+msgid "Override Language Team"
+msgstr "Ignorar el equipo de traducción"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:29
+#, kde-format
+msgid "Use user-provided language team name instead of generating it"
+msgstr ""
+"Usar el equipo de traducción proporcionado por el usuario en lugar de "
+"generarlo"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:35
+#, kde-format
+msgid "Language Team"
+msgstr "Equipo de traducción"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:36
+#, kde-format
+msgid "Translator team's name"
+msgstr "Nombre del equipo de traductores"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:42
+#, kde-format
+msgid "Translator's email"
+msgstr "Correo electrónico del traductor"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#, kde-format
+msgid "Default language code for new projects"
+msgstr "Código del idioma predeterminado para los proyectos nuevos"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#, kde-format
+msgid "Default mailing list for new projects"
+msgstr "Lista de correo predeterminada para los proyectos nuevos"
+
+#. i18n: ectx: label, entry (CleverEditing), group (Appearance)
+#. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
+#. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
+#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
+#: src/prefs/lokalize.kcfg:96
+#, kde-format
+msgid ""
+"\n"
+"        "
+msgstr ""
+"\n"
+"        "
+
+#. i18n: ectx: label, entry (MsgFont), group (Appearance)
+#: src/prefs/lokalize.kcfg:81
+#, kde-format
+msgid "Font for Messages"
+msgstr "Tipo de letra para los mensajes"
+
+#: src/prefs/prefs.cpp:101
+#, kde-format
+msgctxt "@title:tab"
+msgid "Identity"
+msgstr "Identidad"
+
+#: src/prefs/prefs.cpp:111
+#, kde-format
+msgid ""
+"The following parameters are available\n"
+"%1 - Path of the source file\n"
+"%2 - Line number"
+msgstr ""
+"Dispone de los siguientes parámetros:\n"
+"%1 - Ruta del archivo de código fuente\n"
+"%2 - Número de línea"
+
+#: src/prefs/prefs.cpp:113 src/prefs/prefs.cpp:242
+#, kde-format
+msgctxt "@title:tab"
+msgid "General"
+msgstr "General"
+
+#: src/prefs/prefs.cpp:119
+#, kde-format
+msgctxt "@title:tab"
+msgid "Editing"
+msgstr "Edición"
+
+#: src/prefs/prefs.cpp:125
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Aspecto"
+
+#: src/prefs/prefs.cpp:131
+#, kde-format
+msgctxt "@title:tab"
+msgid "Translation Memory"
+msgstr "Memoria de traducción"
+
+#: src/prefs/prefs.cpp:137
+#, kde-format
+msgctxt "@title:tab"
+msgid "Pology"
+msgstr "Pology"
+
+#: src/prefs/prefs.cpp:143
+#, kde-format
+msgctxt "@title:tab"
+msgid "LanguageTool"
+msgstr "LanguageTool"
+
+#: src/prefs/prefs.cpp:152
+#, kde-format
+msgctxt "@title:tab"
+msgid "Spellcheck"
+msgstr "Comprobación ortográfica"
+
+#: src/prefs/prefs.cpp:176
+#, kde-format
+msgid ""
+"You have accessed a feature that requires a project to be loaded. Do you "
+"want to create a new project or open an existing project?"
+msgstr ""
+"Ha accedido a una función que necesita cargar un proyecto. ¿Desea crear un "
+"nuevo proyecto o abrir uno existente?"
+
+#: src/prefs/prefs.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "New"
+msgstr "Nuevo"
+
+#: src/prefs/prefs.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "Open"
+msgstr "Abrir"
+
+#: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
+#, kde-format
+msgid "Lokalize translation project (*.lokalize)"
+msgstr "Proyecto de traducción de Lokalize (*.lokalize)"
+
+#: src/prefs/prefs.cpp:209
+#, kde-format
+msgctxt "@window:title"
+msgid "Select folder with Gettext .po files to translate"
+msgstr "Seleccione la carpeta con archivos .po de Gettext a traducir"
+
+#: src/prefs/prefs.cpp:230
+#, kde-format
+msgid "Create software or OpenDocument translation project first."
+msgstr ""
+"Es necesario crear primero el proyecto de traducción de software o de "
+"OpenDocument."
+
+#: src/prefs/prefs.cpp:288
+#, kde-format
+msgctxt "@title:tab"
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: src/prefs/prefs.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Personal"
+msgstr "Personal"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_appearance.ui:34
+#, kde-format
+msgid "Editor font:"
+msgstr "Tipo de letra del editor:"
+
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:44
+#, kde-format
+msgid "Change the font for the editor"
+msgstr "Cambiar el tipo de letra del editor"
+
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:47
+#, kde-format
+msgid "Choose a new font for the area where you write the translated message."
+msgstr ""
+"Seleccione un nuevo tipo de letra para el área donde escribe el mensaje "
+"traducido."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:54
+#, kde-format
+msgid "Display LEDS for message status"
+msgstr "Mostrar LED para el estado del mensaje"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:57
+#, kde-format
+msgid ""
+"If checked, LEDS will be shown to display the message status: Fuzzy, "
+"Untranslated or Error. If unchecked, no LEDs will be displayed."
+msgstr ""
+"Si está marcado, se mostrarán LED para representar el estado del mensaje: "
+"dudoso, sin traducir o erróneo. Si no está marcado, no se mostrarán LED."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:60
+#, kde-format
+msgid ""
+"LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
+"number"
+msgstr ""
+"LED para indicar los estados de dudoso y sin traducir, además del número de "
+"columna del cursor"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:69
+#, kde-format
+msgid "Text colors for the changes in the message."
+msgstr "Colores de texto para los cambios del mensaje."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:72
+#, kde-format
+msgid "String Matching"
+msgstr "Cadena coincidente"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_appearance.ui:78
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text added in the newer string:"
+msgstr "Texto añadido a la cadena más reciente:"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:88
+#, kde-format
+msgid "Change the color for the new text added"
+msgstr "Cambiar el color para el nuevo texto añadido"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:91
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was added to the string."
+msgstr ""
+"Puede definir otro color para visualizar el texto que ha sido añadido a la "
+"cadena."
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/prefs/prefs_appearance.ui:101
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text removed in the newer string:"
+msgstr "Texto eliminado de la cadena más reciente:"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:111
+#, kde-format
+msgid "Change the color for the text removed"
+msgstr "Cambiar el color para el texto eliminado"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:114
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was removed from the "
+"string."
+msgstr ""
+"Puede definir otro color para visualizar el texto que ha sido eliminado de "
+"la cadena."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:140
+#, kde-format
+msgid ""
+"Check to see if a string ends in a space (which is often important when "
+"displaying it in the user interface, or when it gets concatenated with "
+"others)."
+msgstr ""
+"Marque esta opción para ver si una cadena termina con un espacio (que suele "
+"ser importante cuando se muestra en la interfaz de usuario o cuando se "
+"concatena con otras)."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:143
+#, kde-format
+msgid "Highlight spaces at the end"
+msgstr "Resaltar espacios al final"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:32
+#, kde-format
+msgid ""
+"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
+msgstr ""
+"Si está marcado, la rueda del ratón va a la anterior o siguiente unidad; en "
+"caso contrario, desplaza el texto."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:35
+#, kde-format
+msgid ""
+"<html>When this option is enabled, the mouse wheel is used to go to the "
+"previous or next translation unit (without modifier keys). Modifier keys can "
+"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
+"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
+"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
+"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
+"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
+"the text of the current translation unit.</html>"
+msgstr ""
+"<html>Cuando esta opción está activada, la rueda del ratón se usa para ir  a "
+"la anterior o siguiente unidad de traducción (sin teclas modificadoras). Las "
+"teclas modificadoras se pueden usar para cambiar este comportamiento. "
+"Utilice:<ul><li><b>Mayús</b> para desplazarse dentro del texto de la unidad "
+"actual,</li><li><b>Ctrl+Mayús</b> para ir a la anterior o siguiente unidad "
+"no preparada,</li><li><b>Ctrl</b> para ir a la anterior o siguiente unidad "
+"no preparada y no vacía,</li><li><b>Alt</b> para ir a la anterior o "
+"siguiente unidad no traducida.</li></ul>Cuando la opción no está activada, "
+"la rueda del ratón le permite desplazarse dentro del texto de la unidad de "
+"traducción actual.</html>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:38
+#, kde-format
+msgid "Mouse wheel goes to previous or next translation unit"
+msgstr "La rueda del ratón va a la anterior o siguiente unidad de traducción"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
+#: src/prefs/prefs_editor.ui:45
+#, kde-format
+msgid "Set 'approved' status automatically when editing started"
+msgstr "Establecer como «aprobado» automáticamente al empezar la edición"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
+#: src/prefs/prefs_editor.ui:65
+#, kde-format
+msgid "Visualize separators such as spaces, tabs and new lines in the editor"
+msgstr ""
+"Visualizar los separadores (espacios, tabuladores y saltos de línea) en el "
+"editor"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
+#, kde-format
+msgid "Set to 2 to disable word completion"
+msgstr "Use el valor 2 para desactivar la terminación de palabras"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_editor.ui:77
+#, kde-format
+msgid "Minimum word length for word completion"
+msgstr "Longitud de palabra mínima para la terminación de palabra"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:90
+#, kde-format
+msgid "Disable word completion"
+msgstr "Desactivar la terminación de palabras"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
+#: src/prefs/prefs_editor.ui:105
+#, kde-format
+msgid "Automatically convert XML special characters in TS files"
+msgstr "Convertir automáticamente caracteres especiales XML en archivos TS"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
+#: src/prefs/prefs_general.ui:45
+#, kde-format
+msgid "Restore the previously opened files when launching Lokalize"
+msgstr "Restaurar los archivos abiertos previamente al lanzar Lokalize"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:54
+#, kde-format
+msgid "Defines the behavior of the next/previous tab shortcuts"
+msgstr ""
+"Define el comportamiento de los accesos rápidos para siguiente/anterior "
+"pestaña"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:57
+#, kde-format
+msgid "Next/previous tab shortcut behavior"
+msgstr "Comportamiento del acceso rápido para siguiente/anterior pestaña"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:68
+#, kde-format
+msgid "According to tab position"
+msgstr "Según la posición de las pestañas"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:73
+#, kde-format
+msgid "According to tab activation order"
+msgstr "Según el orden de activación de las pestañas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomEditorEnabled)
+#: src/prefs/prefs_general.ui:83
+#, kde-format
+msgid "Use a custom editor to open source files"
+msgstr "Usar un editor personalizado para abrir archivos de código fuente"
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
+#: src/prefs/prefs_identity.ui:14
+#, kde-format
+msgid ""
+"Fill in your identity and information about your translation team. This "
+"information is used when updating the header of a file."
+msgstr ""
+"Rellene su identidad y la información sobre su equipo de traducción. Esta "
+"información se usa cuando se actualiza la cabecera de un archivo."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/prefs/prefs_identity.ui:35
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Default language:"
+msgstr "Idioma predeterminado:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/prefs/prefs_identity.ui:48
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Email:"
+msgstr "&Correo electrónico:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_identity.ui:61
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Name:"
+msgstr "&Nombre:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:74
+#, kde-format
+msgid "Your name, in English"
+msgstr "Su nombre, en inglés"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:77
+#, kde-format
+msgid "Please enter here your name and surname written in English"
+msgstr "Introduzca aquí su nombre y apellidos escritos en inglés"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_identity.ui:84
+#, kde-format
+msgctxt "@label:textbox"
+msgid "&Default mailing list:"
+msgstr "Lista de correo pre&determinada:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:94
+#, kde-format
+msgid "The email of your team mailing list"
+msgstr "La dirección de la lista de correo de su equipo"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:97
+#, kde-format
+msgid "Write the email of your translating team mailing list"
+msgstr "Escriba la dirección de la lista de correo de su equipo de traducción"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:104
+#, kde-format
+msgid "Language you translate to"
+msgstr "Idioma al que traduce"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:107
+#, kde-format
+msgid "Set the default language you are going to translate to"
+msgstr "Introduzca el idioma predeterminado al que va a traducir"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:127
+#, kde-format
+msgid "Write your email"
+msgstr "Escriba su dirección de correo electrónico"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:130
+#, kde-format
+msgid ""
+"Write your email here so it will appear in the po file header with your name"
+msgstr ""
+"Escriba aquí su dirección de correo electrónico para que aparezca en la "
+"cabecera del archivo PO junto a su nombre"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:144
+#, kde-format
+msgid "Your name in your own language"
+msgstr "Su nombre en su propio idioma"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:147
+#, kde-format
+msgid ""
+"Write your name and surname in your language with your language alphabet."
+msgstr ""
+"Escriba su nombre y apellidos en su idioma, usando el alfabeto de su idioma."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_identity.ui:154
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Localized name:"
+msgstr "Nombre en el idioma de destino:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
+#: src/prefs/prefs_identity.ui:164
+#, kde-format
+msgid "Default Language-Team:"
+msgstr "Equipo de traducción predeterminado:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
+#: src/prefs/prefs_languagetool.ui:21
+#, kde-format
+msgid "Use custom LanguageTool server"
+msgstr "Usar un servidor personalizado de LanguageTool"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_languagetool.ui:31
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Server Path:"
+msgstr "Ruta del servidor:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:44
+#, kde-format
+msgid "The path of your custom Language Tool server"
+msgstr "La ruta al servidor personalizado de LanguageTool"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:47
+#, kde-format
+msgid "Please enter the path of your custom Language Tool server, if any"
+msgstr ""
+"Introduzca la ruta al servidor personalizado de LanguageTool, si hay uno"
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_languagetool.ui:58
+#, kde-format
+msgid ""
+"Delay before automatic checking after you stop typing (in seconds, 0 to "
+"disable)"
+msgstr ""
+"Demora antes de la comprobación automática cuando se deja de teclear (en "
+"segundos; 0 para desactivar)"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
+#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#, kde-format
+msgid "Set to 0 to disable auto checking"
+msgstr "Use el valor 0 para desactivar la comprobación automática"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
+#: src/prefs/prefs_pology.ui:21
+#, kde-format
+msgid "Enable Pology verification"
+msgstr "Activar verificación de Pology"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_0)
+#: src/prefs/prefs_pology.ui:28
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a single entry. Use the "
+"following placeholders in order to set-up the commands: %u is the entry "
+"number, %f is the file name. For instance: posieve -u %u check-rules %f"
+msgstr ""
+"La orden de Pology que se debe ejecutar para comprobar una única entrada. "
+"Use los siguientes parámetros de sustitución para configurar las órdenes: %u "
+"es el número de la entrada, %f es el nombre del archivo. Por ejemplo: "
+"posieve -u %u reglas %f"
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:44
+#, kde-format
+msgid "The Pology command to run in order to check a single entry."
+msgstr ""
+"La orden de Pology que se debe ejecutar para comprobar una única entrada."
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:47
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a single "
+"entry"
+msgstr ""
+"Introduzca aquí la orden de Pology que se debe ejecutar para comprobar una "
+"única entrada"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
+#: src/prefs/prefs_pology.ui:54
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a whole file. This command "
+"should include \"-s lokalize\", placeholder %f is the file name. For "
+"instance: posieve -s lokalize check-rules %f"
+msgstr ""
+"La orden de Pology que se debe ejecutar para comprobar un archivo. Esta "
+"orden debe incluir «-s lokalize»; el parámetro de sustitución %f es el "
+"nombre del archivo. Por ejemplo: posieve -s lokalize reglas %f"
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:70
+#, kde-format
+msgid "The Pology command to run in order to check a whole file."
+msgstr ""
+"La orden de Pology que se debe ejecutar para comprobar un archivo completo."
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:73
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a whole file"
+msgstr ""
+"Introduzca aquí la orden de Pology que se debe ejecutar para comprobar un "
+"archivo completo"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:45
+#, kde-format
+msgid "If checked, get translation memory suggestions "
+msgstr "Si está marcado, obtener las sugerencias de la memoria de traducción "
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:48
+#, kde-format
+msgid ""
+"If this is checked, the program will fetch translation memories as soon as "
+"you open a file."
+msgstr ""
+"Si está marcado, el programa extraerá las memorias de traducción en cuanto "
+"abra un archivo."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:51
+#, kde-format
+msgid "Prefetch translation memory suggestions on file open"
+msgstr ""
+"Obtener previamente las sugerencias de la memoria de traducción al abrir el "
+"archivo"
+
+#. i18n: ectx: property (text), widget (QLabel, label1)
+#: src/prefs/prefs_tm.ui:60
+#, kde-format
+msgid "Maximum number of suggestions:"
+msgstr "Número máximo de sugerencias:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:70
+#, kde-format
+msgid "Set the maximum number of suggestions"
+msgstr "Defina aquí el número máximo de sugerencias"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:73
+#, kde-format
+msgid "You can change the maximum number of suggestions, default is 7."
+msgstr "Puede cambiar el número máximo de sugerencias (7 por omisión)."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_tm.ui:97
+#, kde-format
+msgid "Minimum score (0-100) of suggestions:"
+msgstr "Puntuación mínima de las sugerencias (0-100):"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:107
+#, kde-format
+msgid "Set the minimum score (0-100) of suggestions"
+msgstr "Defina aquí la puntuación mínima de las sugerencias (0-100)"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:110
+#, kde-format
+msgid ""
+"You can change the minimum score (0-100) required for suggestions, default "
+"is 0."
+msgstr ""
+"Puede cambiar la puntuación mínima (0-100) necesaria para las sugerencias (0 "
+"por omisión)."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
+#: src/prefs/prefs_tm.ui:138
+#, kde-format
+msgid "Update/Add edited entries to translation memory"
+msgstr "Actualizar/añadir las entradas editadas en la memoria de traducción"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ScanToTMOnOpen)
+#: src/prefs/prefs_tm.ui:145
+#, kde-format
+msgid "Add opened files to translation memory automatically"
+msgstr ""
+"Añadir automáticamente los archivos abiertos a la memoria de traducción"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
+#: src/prefs/prefs_tm.ui:152
+#, kde-format
+msgid ""
+"Delete missing files from translation memory on Rescan or when clicking a "
+"missing entry"
+msgstr ""
+"Borrar los archivos que faltan de la memoria de traducción al volver a "
+"explorar o cuando se haga clic en una entrada que falte"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/project/prefs_project_advanced.ui:17
+#, kde-format
+msgid "Syntax"
+msgstr "Sintaxis"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_advanced.ui:23
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Accelerator:"
+msgstr "Acelerador:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Accel)
+#: src/project/prefs_project_advanced.ui:33
+#, kde-format
+msgid "Usually '&', but may also be '_' for GTK apps."
+msgstr ""
+"Suele ser «&», pero también puede ser «_» para las aplicaciones de GTK."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_project_advanced.ui:40
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Markup:"
+msgstr "Marca:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
+#: src/project/prefs_project_advanced.ui:58
+#, kde-format
+msgid ""
+"Regular expression of markup. It is used for translation memory matching and "
+"for 'Insert tag' feature.\n"
+"\n"
+"A default value (suitable for XML-based texts) is:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"It is only used for gettext PO files, as XLIFF format has its own way of "
+"specifying where markup is."
+msgstr ""
+"Expresión regular de marcas. Se usa para emparejar memorias de traducción y "
+"para la función «insertar etiqueta».\n"
+"\n"
+"Un valor predeterminado (apropiado para textos basados en XML) es:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"Solo se usa en archivos PO de gettext, ya que el formato XLIFF tiene su "
+"propio modo de especificar dónde están las marcas."
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_project_advanced.ui:65
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Word wrap:"
+msgstr "Ajuste de línea:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
+#: src/project/prefs_project_advanced.ui:75
+#, kde-format
+msgid ""
+"Width used for the automatic msgfmt-like word wrap. Use the negative value "
+"'-1' to disable the word wrap."
+msgstr ""
+"Anchura a usar para el ajuste de líneas automático similar al de msgfmt. Use "
+"el valor negativo «-1» para desactivar el ajuste de línea."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/project/prefs_project_advanced.ui:91
+#, kde-format
+msgid "Paths"
+msgstr "Rutas"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_project_advanced.ui:100
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Template files folder:"
+msgstr "Carpeta de archivos de plantillas:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
+#: src/project/prefs_project_advanced.ui:124
+#, kde-format
+msgid ""
+"Usually your translation project will be a subproject of a project\n"
+"for translating same texts into multiple languages.\n"
+"\n"
+"Set this to path of a folder containing empty translation files\n"
+"(i.e. files without translation into any language)\n"
+"shared among all subprojects."
+msgstr ""
+"Por lo general, su proyecto de traducción será un subproyecto de un\n"
+"proyecto para traducir los mismos textos a múltiples idiomas.\n"
+"\n"
+"Indique aquí la ruta de la carpeta que contiene los archivos de\n"
+"traducción vacíos (es decir, los archivos sin traducir a ningún idioma)\n"
+"compartidos por todos los subproyectos."
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_project_advanced.ui:131
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Branch folder:"
+msgstr "Carpeta de la rama:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
+#: src/project/prefs_project_advanced.ui:161
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project,\n"
+"and Secondary Sync view will automatically open files from branch.\n"
+"Then, each time you make changes in files of your main branch,\n"
+"they will automatically be replicated to the branch\n"
+"(of course, if it contains the same English string).\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"Esta preferencia es para el modo de sincronización.\n"
+"\n"
+"El modo de sincronización se puede usar para hacer cambios en\n"
+"la traducción de dos ramas simultáneamente.\n"
+"\n"
+"Indique aquí la ruta que corresponde a la carpeta raíz de la rama\n"
+"del proyecto, y la vista de sincronización secundaria abrirá archivos\n"
+"de esta rama automáticamente. Posteriormente, cada vez que haga\n"
+"cambios en los archivos de la rama principal, se replicarán automáticamente\n"
+"en la rama (por supuesto, si contiene el mismo texto en inglés).\n"
+"\n"
+"Consulte la documentación para más detalles."
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_project_advanced.ui:168
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Alternate translations folder:"
+msgstr "Carpeta de traducciones alternativas:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
+#: src/project/prefs_project_advanced.ui:195
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"Set this to path of a folder with structure similar to Root Folder.\n"
+"\n"
+"On each translation file open, a corresponding file in Alternate "
+"translations directory will be looked up and,\n"
+"if it is found, it will be used for Alternate Translations view.\n"
+"\n"
+"You will likely want to use translations of another target language (i.e. "
+"another subproject), which is close to yours.\n"
+"Also, you can use other subproject's translations either immediately, or "
+"have them pretranslated to your language by machine.\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"Indique en esta ruta una carpeta con estructura similar a la carpeta raíz.\n"
+"\n"
+"Para cada archivo de traducción abierto se buscará un archivo "
+"correspondiente en la carpeta de traducciones\n"
+"alternativas y, si se encuentra, se usará en la vista de traducciones "
+"alternativas.\n"
+"\n"
+"Tal vez prefiera usar traducciones de otro idioma de destino (es decir, otro "
+"subproyecto) que sea parecido al suyo.\n"
+"Además, puede usar las traducciones de otros subproyectos de forma inmediata "
+"o traducirlas automáticamente a su idioma.\n"
+"\n"
+"Consulte la documentación para obtener más detalles."
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_local.ui:21
+#, kde-format
+msgid "Role:"
+msgstr "Papel:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:29
+#, kde-format
+msgid "Translator"
+msgstr "Traductor"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:34
+#, kde-format
+msgid "Reviewer"
+msgstr "Revisor"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:39
+#, kde-format
+msgid "Approver"
+msgstr "Aprobador"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_projectmain.ui:17
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Glossary:"
+msgstr "Glosario:"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_projectmain.ui:30
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Target language:"
+msgstr "Idioma de destino:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
+#: src/project/prefs_projectmain.ui:46
+#, kde-format
+msgid ""
+"Project ID is used to differentiate translation memories of absolutely "
+"different projects and languages.\n"
+"\n"
+"For example, if you have several projects for translating KDE applications\n"
+"(e.g. they are in different repositories), use same ID for all of them."
+msgstr ""
+"El identificador del proyecto se usa para diferenciar memorias de traducción "
+"de proyectos e idiomas totalmente distintos.\n"
+"\n"
+"Por ejemplo, si tiene varios proyectos para traducir aplicaciones de KDE\n"
+"(que estén, por ejemplo, en distintos repositorios), use el mismo "
+"identificador para todos ellos."
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
+#: src/project/prefs_projectmain.ui:59
+#, kde-format
+msgid "Target language of the project."
+msgstr "Idioma de destino del proyecto."
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_projectmain.ui:82
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Mailing list:"
+msgstr "Lista de distribución:"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_projectmain.ui:92
+#, kde-format
+msgctxt "@label:textbox"
+msgid "ID:"
+msgstr "ID:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
+#: src/project/prefs_projectmain.ui:118
+#, kde-format
+msgid ""
+"This is main setting. Set this to path of a folder with translation files\n"
+"for your project (or a subproject for your target language)."
+msgstr ""
+"Esta es una preferencia principal. Indique la ruta de la carpeta que\n"
+"contiene los archivos de traducción de su proyecto (o un subproyecto\n"
+"para su idioma de destino)."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_projectmain.ui:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Root folder:"
+msgstr "Carpeta raíz:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:155
+#, kde-format
+msgid "Automatic"
+msgstr "Automático"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:160
+#, kde-format
+msgid "Application"
+msgstr "Aplicación"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:165
+#, kde-format
+msgid "Project"
+msgstr "Proyecto"
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_projectmain.ui:180
+#, kde-format
+msgid "Language-Team:"
+msgstr "Equipo de traducción:"
+
+#: src/project/project.cpp:441
+#, kde-format
+msgid "Scanning folders with source files"
+msgstr "Explorando carpetas con archivos de código fuente"
+
+#: src/project/project.cpp:442
+#, kde-format
+msgid "Editor"
+msgstr "Editor"
+
+#: src/project/project.cpp:489
+#, kde-format
+msgctxt "project folder name. %2 is targetLangCode"
+msgid "%1 %2 Translation"
+msgstr "Traducción de %2 al %1"
+
+#: src/project/projectbase.kcfg:11
+#, kde-format
+msgid "default"
+msgstr "por omisión"
+
+#. i18n: ectx: label, entry (LangCode), group (General)
+#: src/project/projectbase.kcfg:18
+#, kde-format
+msgid "Language"
+msgstr "Idioma"
+
+#. i18n: ectx: label, entry (UserLangTeam), group (General)
+#: src/project/projectbase.kcfg:32
+#, kde-format
+msgid "User Language Team in Lokalize settings"
+msgstr "Equipo de traducción del usuario en las preferencias de Lokalize"
+
+#. i18n: ectx: label, entry (OverrideLangTeam), group (General)
+#: src/project/projectbase.kcfg:38
+#, kde-format
+msgid "Override Lokalize Language Team"
+msgstr "Ignorar el equipo de traducción de Lokalize"
+
+#. i18n: ectx: label, entry (ProjLangTeam), group (General)
+#: src/project/projectbase.kcfg:44
+#, kde-format
+msgid "Project Language Team"
+msgstr "Equipo de traducción del proyecto"
+
+#. i18n: ectx: label, entry (PoBaseDir), group (General)
+#: src/project/projectbase.kcfg:59
+#, kde-format
+msgid "The base directory for PO files (translations)"
+msgstr "La carpeta base para los archivos PO (traducciones)"
+
+#. i18n: ectx: label, entry (PotBaseDir), group (General)
+#: src/project/projectbase.kcfg:65
+#, kde-format
+msgid "The base directory for POT files (templates to be translated)"
+msgstr "La carpeta base para los archivos POT (plantillas a traducir)"
+
+#. i18n: ectx: label, entry (GlossaryTbx), group (General)
+#: src/project/projectbase.kcfg:73
+#, kde-format
+msgid "Project's glossary"
+msgstr "Glosario del proyecto"
+
+#: src/project/projectmodel.cpp:510
+#, kde-format
+msgctxt "@title:column File name"
+msgid "Name"
+msgstr "Nombre"
+
+#: src/project/projectmodel.cpp:512
+#, kde-format
+msgctxt ""
+"@title:column Graphical representation of Translated/Fuzzy/Untranslated "
+"counts"
+msgid "Graph"
+msgstr "Gráfico"
+
+#: src/project/projectmodel.cpp:514
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Total"
+msgstr "Total"
+
+#: src/project/projectmodel.cpp:516
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Translated"
+msgstr "Traducidas"
+
+#: src/project/projectmodel.cpp:518
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Not ready"
+msgstr "No preparadas"
+
+#: src/project/projectmodel.cpp:520
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Untranslated"
+msgstr "Sin traducir"
+
+#: src/project/projectmodel.cpp:522
+#, kde-format
+msgctxt "@title:column Number of fuzzy or untranslated entries"
+msgid "Incomplete"
+msgstr "Incompletas"
+
+#: src/project/projectmodel.cpp:524
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translation"
+msgstr "Última traducción"
+
+#: src/project/projectmodel.cpp:526
+#, kde-format
+msgctxt "@title:column"
+msgid "Comment"
+msgstr "Comentario"
+
+#: src/project/projectmodel.cpp:528
+#, kde-format
+msgctxt "@title:column"
+msgid "Template Revision"
+msgstr "Revisión de la plantilla"
+
+#: src/project/projectmodel.cpp:530
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translator"
+msgstr "Último traductor"
+
+#: src/project/projecttab.cpp:52
+#, kde-format
+msgctxt "@title:window"
+msgid "Project Overview"
+msgstr "Resumen del proyecto"
+
+#: src/project/projecttab.cpp:56
+#, kde-format
+msgid ""
+"<html>You do not have to be a software developer to be a member of the KDE "
+"team. You can join the national teams that translate program interfaces. You "
+"can provide graphics, themes, sounds, and improved documentation. You decide!"
+"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
+"which you can participate.<br /><br />If you need more information or "
+"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
+"what you need.</html>"
+msgstr ""
+"<html>No tiene que ser desarrollador de software para ser miembro del equipo "
+"de KDE. Puede unirse a los equipos nacionales que traducen la interfaz de "
+"los programas. Puede proporcionar imágenes, temas, sonidos y mejorar la "
+"documentación. Usted decide.<br /><br />Visite <a href=\"%1\">%1</a> para "
+"más información sobre algunos de los proyectos en los que puede participar."
+"<br /><br />Si necesita más información o documentación, visite <a href="
+"\"%2\">%2</a>, donde encontrará lo que necesita.</html>"
+
+#: src/project/projecttab.cpp:77
+#, kde-format
+msgid "&Configure Lokalize"
+msgstr "&Configurar Lokalize"
+
+#: src/project/projecttab.cpp:78 src/project/projecttab.cpp:191
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project"
+msgstr "Abrir proyecto"
+
+#: src/project/projecttab.cpp:79
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate software"
+msgstr "Traducir software"
+
+#: src/project/projecttab.cpp:80
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate OpenDocument"
+msgstr "Traducir OpenDocument"
+
+#: src/project/projecttab.cpp:164
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous template only"
+msgstr "Solo anterior plantilla"
+
+#: src/project/projecttab.cpp:167
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next template only"
+msgstr "Solo siguiente plantilla"
+
+#: src/project/projecttab.cpp:170
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous translation only"
+msgstr "Solo anterior traducción"
+
+#: src/project/projecttab.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next translation only"
+msgstr "Solo siguiente traducción"
+
+#: src/project/projecttab.cpp:177
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide completed items"
+msgstr "Ocultar los elementos completados"
+
+#: src/project/projecttab.cpp:178
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide fully translated files and folders"
+msgstr "Ocultar los archivos y carpetas completamente traducidos"
+
+#: src/project/projecttab.cpp:242
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open selected files"
+msgstr "Abrir los archivos seleccionados"
+
+#: src/project/projecttab.cpp:245
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open"
+msgstr "Abrir"
+
+#. i18nc("@action:inmenu","Find in files"),this,&ProjectTab::findInFiles);
+#. i18nc("@action:inmenu","Replace in files"),this,&ProjectTab::replaceInFiles);
+#. i18nc("@action:inmenu","Spellcheck files"),this,&ProjectTab::spellcheckFiles);
+#. menu.addSeparator();
+#. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
+#.
+#: src/project/projecttab.cpp:254
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add to translation memory"
+msgstr "Añadir a la memoria de traducción"
+
+#: src/project/projecttab.cpp:256
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files"
+msgstr "Buscar en archivos"
+
+#: src/project/projecttab.cpp:257
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a comment"
+msgstr "Añadir un comentario"
+
+#: src/project/projecttab.cpp:259
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch Pology on files"
+msgstr "Lanzar Pology sobre los archivos"
+
+#: src/project/projecttab.cpp:262
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files (including templates)"
+msgstr "Buscar en archivos (incluyendo plantillas)"
+
+#: src/project/projecttab.cpp:296
+#, kde-format
+msgid "Project file comment"
+msgstr "Comentario del archivo de proyecto"
+
+#: src/project/projecttab.cpp:296
+#, kde-format
+msgid "Input a comment for this project file:"
+msgstr "Introduzca un comentario para este archivo de proyecto:"
+
+#: src/project/projecttab.cpp:362
+#, kde-format
+msgid "The Pology check has succeeded"
+msgstr "La comprobación de Pology ha tenido éxito"
+
+#: src/project/projecttab.cpp:381
+#, kde-format
+msgid "You are about to open %1 file"
+msgid_plural "You are about to open %1 files"
+msgstr[0] "Está a punto de abrir %1 archivo"
+msgstr[1] "Está a punto de abrir %1 archivos"
+
+#: src/project/projecttab.cpp:382
+#, kde-format
+msgid ""
+"Opening a large number of files at the same time can make Lokalize "
+"unresponsive."
+msgstr ""
+"La apertura de un gran número de archivos a la vez puede hacer que Lokalize "
+"deje de responder."
+
+#: src/project/projecttab.cpp:384
+#, kde-format
+msgid "Are you sure you want to open this many files?"
+msgstr "¿Seguro que quiere abrir todos estos archivos?"
+
+#: src/project/projecttab.cpp:386
+#, kde-format
+msgid "&Open %1 File"
+msgid_plural "&Open %1 Files"
+msgstr[0] "&Abrir %1 archivo"
+msgstr[1] "&Abrir %1 archivos"
+
+#: src/tm/dbfilesmodel.cpp:99
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "Nombre"
+
+#: src/tm/dbfilesmodel.cpp:100
+#, kde-format
+msgctxt "@title:column"
+msgid "Source language"
+msgstr "Idioma de origen"
+
+#: src/tm/dbfilesmodel.cpp:101
+#, kde-format
+msgctxt "@title:column"
+msgid "Target language"
+msgstr "Idioma de destino"
+
+#: src/tm/dbfilesmodel.cpp:102
+#, kde-format
+msgctxt "@title:column"
+msgid "Pairs"
+msgstr "Parejas"
+
+#: src/tm/dbfilesmodel.cpp:103
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique original entries"
+msgstr "Entradas originales únicas"
+
+#: src/tm/dbfilesmodel.cpp:104
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique translations"
+msgstr "Traducciones únicas"
+
+#. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
+#: src/tm/dbparams.ui:23
+#, kde-format
+msgid "Connection"
+msgstr "Conexión"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: src/tm/dbparams.ui:32
+#, kde-format
+msgid "Database name:"
+msgstr "Nombre de la base de datos:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/tm/dbparams.ui:45
+#, kde-format
+msgid "Host:"
+msgstr "Servidor:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/tm/dbparams.ui:62
+#, kde-format
+msgid "User:"
+msgstr "Usuario:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: src/tm/dbparams.ui:75
+#, kde-format
+msgid "Password:"
+msgstr "Contraseña:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, dbType)
+#: src/tm/dbparams.ui:96
+#, kde-format
+msgid "Local"
+msgstr "Local"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/dbparams.ui:104
+#, kde-format
+msgid "Name:"
+msgstr "Nombre:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/tm/dbparams.ui:114
+#, kde-format
+msgid "Database type:"
+msgstr "Tipo de base de datos:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, contentBox)
+#: src/tm/dbparams.ui:124
+#, kde-format
+msgid "Content"
+msgstr "Contenido"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/tm/dbparams.ui:133
+#, kde-format
+msgid "Source language:"
+msgstr "Idioma de origen:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/dbparams.ui:162
+#, kde-format
+msgid "Markup regex:"
+msgstr "Expresión regular de marcas:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/tm/dbparams.ui:175
+#, kde-format
+msgid "Accelerator:"
+msgstr "Acelerador:"
+
+#. i18n: ectx: property (text), widget (QPushButton, create)
+#: src/tm/managedatabases.ui:19
+#, kde-format
+msgid "Create"
+msgstr "Crear"
+
+#. i18n: ectx: property (text), widget (QPushButton, addData)
+#: src/tm/managedatabases.ui:26
+#, kde-format
+msgid "Add Data"
+msgstr "Añadir datos"
+
+#. i18n: ectx: property (text), widget (QPushButton, importTMX)
+#: src/tm/managedatabases.ui:33
+#, kde-format
+msgid "Add Data from TMX"
+msgstr "Añadir datos desde TMX"
+
+#. i18n: ectx: property (text), widget (QPushButton, exportTMX)
+#: src/tm/managedatabases.ui:40
+#, kde-format
+msgid "Export to TMX"
+msgstr "Exportar a TMX"
+
+#. i18n: ectx: property (text), widget (QPushButton, remove)
+#: src/tm/managedatabases.ui:47
+#, kde-format
+msgid "Remove"
+msgstr "Eliminar"
+
+#: src/tm/qamodel.cpp:94
+#, kde-format
+msgctxt "@title:column Translator's false friend"
+msgid "False Friend"
+msgstr "Falso amigo"
+
+#: src/tm/qaview.cpp:23
+#, kde-format
+msgctxt "@title:window"
+msgid "Quality Assurance"
+msgstr "Control de calidad"
+
+#: src/tm/qaview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add"
+msgstr "Añadir"
+
+#: src/tm/qaview.cpp:41
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove"
+msgstr "Eliminar"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/queryoptions.ui:32
+#, kde-format
+msgid "TM:"
+msgstr "MT:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/tm/queryoptions.ui:70
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Enter to start the search.\n"
+"Press Ctrl+L to go to this control."
+msgstr ""
+"Expresión a buscar para la «part» del idioma de origen.\n"
+"Pulse «Intro» para comenzar la búsqueda.\n"
+"Pulse «Ctrl+L» para ir a este control."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
+#: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
+#, kde-format
+msgid "Show results that do not match search expression"
+msgstr "Mostrar resultados que no satisfagan la expresión de búsqueda"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/queryoptions.ui:139
+#, kde-format
+msgid "File mask:"
+msgstr "Máscara de archivos:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
+#: src/tm/queryoptions.ui:155
+#, kde-format
+msgid "Show only results from files with path matching specified mask"
+msgstr ""
+"Mostrar solo los resultados de los archivos cuya ruta satisfaga la máscara "
+"especificada"
+
+#. i18n: ectx: property (text), widget (QLabel, label_s)
+#: src/tm/queryoptions.ui:162
+#, kde-format
+msgid "Query syntax:"
+msgstr "Sintaxis de la consulta:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:197
+#, kde-format
+msgid ""
+"Reads all project files into translation memory, updating old entries. The "
+"scanning will work in background."
+msgstr ""
+"Lee todos los archivos del proyecto en la memoria de traducción, "
+"actualizando las entradas antiguas. La exploración trabajará en segundo "
+"plano."
+
+#. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:200
+#, kde-format
+msgid "&Rescan project files"
+msgstr "&Reexaminar archivos del proyecto"
+
+#: src/tm/tmmanager.cpp:36
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memories"
+msgstr "Memorias de traducción"
+
+#: src/tm/tmmanager.cpp:70
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Directory to be scanned"
+msgstr "Seleccione la carpeta a explorar"
+
+#: src/tm/tmmanager.cpp:81
+#, kde-format
+msgctxt "@title:window"
+msgid "New Translation Memory"
+msgstr "Nueva memoria de traducción"
+
+#: src/tm/tmmanager.cpp:81
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Properties"
+msgstr "Propiedades de la memoria de traducción"
+
+#: src/tm/tmmanager.cpp:215
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to be imported into selected database"
+msgstr "Seleccione el archivo TMX a importar en la base de datos seleccionada"
+
+#: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:236
+#, kde-format
+msgid "TMX files (*.tmx *.xml)"
+msgstr "Archivos TMX (*.tmx *.xml)"
+
+#: src/tm/tmmanager.cpp:235
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to export selected database to"
+msgstr ""
+"Seleccione el archivo TMX al que exportar la base de datos seleccionada"
+
+#: src/tm/tmscanapi.cpp:82
+#, kde-format
+msgid "Adding files to Lokalize translation memory"
+msgstr "Añadiendo archivos a la memoria de traducción de Lokalize"
+
+#: src/tm/tmscanapi.cpp:83
+#, kde-format
+msgid "TM"
+msgstr "MT"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Substring"
+msgstr "Subcadena"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Google-like"
+msgstr "Estilo Google"
+
+#: src/tm/tmtab.cpp:359
+#, kde-format
+msgid "Wildcard"
+msgstr "Comodín"
+
+#: src/tm/tmtab.cpp:366
+#, kde-format
+msgid "Space is AND operator. Case insensitive."
+msgstr ""
+"El espacio es un operador Y. No se distingue entre mayúsculas y minúsculas."
+
+#: src/tm/tmtab.cpp:367
+#, kde-format
+msgid "Shell globs (* and ?). Case sensitive."
+msgstr ""
+"Globales del intérprete (* y ?). Se distingue entre mayúsculas y minúsculas."
+
+#. i18nc("@title:window","Translation Memory"),false);
+#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:121 src/tm/tmview.cpp:127
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory"
+msgstr "Memoria de traducción"
+
+#: src/tm/tmtab.cpp:594
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1 (%2)"
+msgstr "Total: %1 (%2)"
+
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:574
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The file %1 does not exist, it has been removed from the translation memory."
+msgstr "El archivo %1 no existe. Se ha eliminado de la memoria de traducción."
+
+#: src/tm/tmview.cpp:166 src/webquery/webqueryview.cpp:62
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Double-click any word to insert it into translation"
+msgstr "Una doble pulsación sobre cualquier palabra la añade a la traducción"
+
+#: src/tm/tmview.cpp:279
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Batch translation memory filling"
+msgstr "Llenado de la memoria de traducción por lotes"
+
+#: src/tm/tmview.cpp:282
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been completed."
+msgstr "Se ha completado la traducción por lotes."
+
+#: src/tm/tmview.cpp:288
+#, kde-format
+msgctxt "@info"
+msgid "No suggestions with exact matches were found."
+msgstr "No se han encontrado sugerencias con coincidencias exactas."
+
+#: src/tm/tmview.cpp:292
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation complete"
+msgstr "Traducción del grupo completa"
+
+#: src/tm/tmview.cpp:306 src/tm/tmview.cpp:321
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation"
+msgstr "Traducción de un grupo"
+
+#: src/tm/tmview.cpp:307 src/tm/tmview.cpp:322
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been scheduled."
+msgstr "Se ha planificado la traducción del grupo."
+
+#: src/tm/tmview.cpp:456
+#, kde-format
+msgctxt "%1 is the TM entry score in percentage"
+msgid "%1%"
+msgstr "%1%"
+
+#: src/tm/tmview.cpp:458
+#, kde-format
+msgctxt "%1 is the number of times this TM entry has been found"
+msgid "(1 time)"
+msgid_plural "(%1 times)"
+msgstr[0] "(1 vez)"
+msgstr[1] "(%1 veces)"
+
+#: src/tm/tmview.cpp:539
+#, kde-format
+msgctxt "File argument in tooltip, when file is current file"
+msgid "this"
+msgstr "este"
+
+#: src/tm/tmview.cpp:540
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "File: %1<br />Addition date: %2"
+msgstr "Archivo: %1<br />Fecha de adición: %2"
+
+#: src/tm/tmview.cpp:542
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change date: %1"
+msgstr "<br />Fecha del último cambio: %1"
+
+#: src/tm/tmview.cpp:544
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change author: %1"
+msgstr "<br />Autor del último cambio: %1"
+
+#: src/tm/tmview.cpp:545
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />TM: %1"
+msgstr "<br />MT: %1"
+
+#: src/tm/tmview.cpp:547
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Is not present in the file anymore"
+msgstr "<br />Ya no está presente en el archivo"
+
+#: src/tm/tmview.cpp:557
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"<html>¿Realmente quiere eliminar la entrada<br/><i>%1</i><br/>de la memoria "
+"de traducción %2?</html>"
+
+#: src/tm/tmview.cpp:558
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Entry Removal"
+msgstr "Eliminación de entrada de la memoria de traducción"
+
+#: src/tm/tmview.cpp:590
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this entry"
+msgstr "Eliminar esta entrada"
+
+#: src/tm/tmview.cpp:592
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file containing this entry"
+msgstr "Abrir el archivo que contiene esta entrada"
+
+#: src/tm/tmview.cpp:599
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this missing file from TM"
+msgstr "Eliminar este archivo ausente de la memoria de traducción"
+
+#: src/tm/tmview.cpp:610
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"<html>¿Realmente quiere eliminar el archivo ausente<br/><i>%1</i><br/>de la "
+"memoria de traducción %2?</html>"
+
+#: src/tm/tmview.cpp:611
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Missing File Removal"
+msgstr "Eliminación de archivos ausentes de la memoria de traducción"
+
+#: src/tm/tmview.cpp:987
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use translation memory suggestion"
+msgstr "Usar sugerencia de la memoria de traducción"
+
+#: src/tools/widgettextcaptureconfig.cpp:23
+#, kde-format
+msgctxt "@title"
+msgid "Widget Text Capture"
+msgstr "Captura de texto de widget"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tools/widgettextcaptureconfig.ui:26
+#, kde-format
+msgid ""
+"<html>\n"
+"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+"text from applications' user interfaces and search for translation files "
+"containing the text.</p>\n"
+"<p align=\"justify\">When enabled, the capture can be initiated by middle "
+"mouse clicking on any non-editable GUI element (widget). After that, switch "
+"to the Lokalize window and choose the entry with this text. Even if several "
+"files contain the same string, the right one will be chosen in most cases.</"
+"p>\n"
+"<p align=\"justify\">Remember that you need to have an up-to-date actual "
+"translation memory with all translation files indexed for this feature to "
+"work.</p></html>"
+msgstr ""
+"<html>\n"
+"<p align=\"justify\">Para facilitar la traducción de KDE, Lokalize puede "
+"capturar texto de las interfaces de usuario de aplicaciones y buscar "
+"archivos de traducción que contengan el texto.</p>\n"
+"<p align=\"justify\">Cuando está activada, la captura se puede iniciar "
+"pulsando el botón central del ratón sobre cualquier elemento de la interfaz "
+"gráfica no editable (widget). Luego debe cambiar a la ventana de Lokalize y "
+"seleccionar la entrada con este texto. Incluso en el caso de que varios "
+"archivos contengan la misma cadena, se escogerá el correcto en la mayoría de "
+"los casos.</p>\n"
+"<p align=\"justify\">Recuerde que necesita tener la memoria de traducción "
+"real actualizada con todos los archivos de traducción indexados para que "
+"funcione correctamente esta funcionalidad.</p></html>"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/tools/widgettextcaptureconfig.ui:42
+#, kde-format
+msgid "Middle Mouse Button Click Reaction"
+msgstr "Reacción al clic del botón central del ratón"
+
+#. i18n: ectx: property (text), widget (QRadioButton, none)
+#: src/tools/widgettextcaptureconfig.ui:48
+#, kde-format
+msgid "None"
+msgstr "Nada"
+
+#. i18n: ectx: property (text), widget (QRadioButton, search)
+#: src/tools/widgettextcaptureconfig.ui:58
+#, kde-format
+msgid "Search GUI element text in translation memory"
+msgstr ""
+"Buscar el texto del elemento de la interfaz en la memoria de traducción"
+
+#. i18n: ectx: property (text), widget (QRadioButton, clipboard)
+#: src/tools/widgettextcaptureconfig.ui:65
+#, kde-format
+msgid "Copy GUI element text to clipboard"
+msgstr "Copiar el texto del elemento de la interfaz en el portapapeles"
+
+#. i18n: ectx: property (text), widget (QPushButton, queryBtn)
+#: src/webquery/querycontrol.ui:8
+#, kde-format
+msgid "Query"
+msgstr "Consulta"
+
+#. i18n: ectx: property (text), widget (QCheckBox, autoQuery)
+#: src/webquery/querycontrol.ui:15
+#, kde-format
+msgid "Autoquery"
+msgstr "Consulta automática"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:22
+#, kde-format
+msgid "Prefetch for the next untranslated"
+msgstr "Obtener previamente para la siguiente no traducida"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:25
+#, kde-format
+msgid "Prefetch"
+msgstr "Obtener previamente"
+
+#: src/webquery/webqueryview.cpp:32
+#, kde-format
+msgid "Web Queries"
+msgstr "Consultas web"
+
+#: src/xlifftextedit.cpp:993
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Lookup selected text in translation memory"
+msgstr "Buscar el texto seleccionado en la memoria de traducción"
+
+#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace text"
+msgstr "Sustituir texto"
+
+#: src/xlifftextedit.cpp:1130
+#, kde-format
+msgid "no spellcheck available"
+msgstr "no dispone de ningún corrector ortográfico"
+
+#: src/xlifftextedit.cpp:1144
+#, kde-format
+msgid "An error was reported: %1"
+msgstr "Se ha informado de un error: %1"
+
+#: src/xlifftextedit.cpp:1270
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Copy source to target"
+msgstr "Copiar el origen al destino"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Scripts"
+#~ msgstr "Scripts"
+
+#~ msgctxt ""
+#~ "@option:check whether message is marked as translated/reviewed/approved "
+#~ "(depending on your role)"
+#~ msgid "State"
+#~ msgstr "Estado"
+
+#~ msgctxt "@info"
+#~ msgid "Error opening the file"
+#~ msgstr "Error al abrir el archivo"
+
+#~ msgid ""
+#~ "<html><head/><body><p align=\"center\">Welcome to Lokalize!</p><p>Drop a "
+#~ "translation file here to start editing it.</p><p>You can help translating "
+#~ "KDE into your mother language by going to <a href=\"http://l10n.kde.org/"
+#~ "\"><span style=\" text-decoration: underline; color:#0000ff;\">KDE "
+#~ "localization site</span></a> and contacting appropriate language team.</"
+#~ "p><p><br/></p><p><br/></p></body></html>"
+#~ msgstr ""
+#~ "<html><head/><body><p align=\"center\">¡Bienvenido a Lokalize!</"
+#~ "p><p>Suelte aquí un archivo de traducción para empezar a editarlo.</"
+#~ "p><p>Puede ayudar a traducir KDE a su idioma nativo visitando el <a href="
+#~ "\"http://l10n.kde.org/\"><span style=\" text-decoration: underline; color:"
+#~ "#0000ff;\">sitio de localización de KDE</span></a> y poniéndose en "
+#~ "contacto con el correspondiente equipo de traducción.</p><p><br/></"
+#~ "p><p><br/></p></body></html>"
+
+#~ msgid "Your role (XLIFF only):"
+#~ msgstr "Su papel (solo para XLIFF):"
+
+#~ msgid "Default source language:"
+#~ msgstr "Idioma de origen por omisión:"
+
+#~ msgid "Default target language:"
+#~ msgstr "Idioma de destino por omisión:"
+
+#~ msgid "Glossary file:"
+#~ msgstr "Archivo de glosario:"
+
+#~ msgctxt "@label:textbox"
+#~ msgid "Pology command at entry level:"
+#~ msgstr "Orden de Pology al nivel de la entrada:"
+
+#~ msgctxt "@title actions category"
+#~ msgid "Tools"
+#~ msgstr "Herramientas"
+
+#~ msgid ""
+#~ "Translate-Toolkit not found. Please install this package for the feature "
+#~ "to work."
+#~ msgstr ""
+#~ "El juego de herramientas de traducción no se ha encontrado. Instale este "
+#~ "paquete para que pueda funcionar esta característica."
+
+#~ msgid "What do you want to do?"
+#~ msgstr "¿Qué quiere hacer?"
+
+#~ msgid "Identify the kind of project you want:"
+#~ msgstr "Identifique el tipo de proyecto que quiere:"
+
+#~ msgid "Translate application interface"
+#~ msgstr "Traducir interfaz de aplicación"
+
+#~ msgid "Choose a document to be translated"
+#~ msgstr "Seleccione un documento para traducir"
+
+#~ msgid "Choose document in a source language."
+#~ msgstr "Seleccionar documento en el idioma de origen."
+
+#~ msgid "Select a folder:"
+#~ msgstr "Seleccione una carpeta:"
+
+#~ msgid "Choose project name and location"
+#~ msgstr "Elegir nombre de proyecto y ubicación"
+
+#~ msgid ""
+#~ "If you choose custom paths then the source files will be copied to it."
+#~ msgstr ""
+#~ "Si elige rutas personalizadas, los archivos de origen se copiarán en "
+#~ "ellas."
+
+#~ msgid "Use initial source dir, generate name automatically"
+#~ msgstr ""
+#~ "Usar la carpeta de origen inicial, generar el nombre automáticamente"
+
+#~ msgid "Custom paths"
+#~ msgstr "Rutas personalizadas"
+
+#~ msgid "Choose source and target languages"
+#~ msgstr "Elegir idiomas de origen y destino"
+
+#~ msgid "Click on a combobox then start typing the name of the language."
+#~ msgstr ""
+#~ "Pulse en una lista desplegable y escriba luego el nombre del idioma."
+
+#~ msgid "Choose a type of software project"
+#~ msgstr "Elija un tipo de proyecto de software"
+
+#~ msgid ""
+#~ "Different projects use different translation files filesystem layout."
+#~ msgstr ""
+#~ "Distintos proyectos utilizan esquemas diferentes de archivos de "
+#~ "traducción."
+
+#~ msgid "KDE"
+#~ msgstr "KDE"
+
+#~ msgid ""
+#~ "Choose whether you already have translation files on disk, or if you want "
+#~ "to download them now."
+#~ msgstr ""
+#~ "Indique si ya tiene los archivos de traducción en el disco o si desea "
+#~ "descargarlos ahora."
+
+#~ msgid "Existing:"
+#~ msgstr "Existente:"
+
+#~ msgid ""
+#~ "Your language's folder containing messages/ and docmessages/ subfolders"
+#~ msgstr ""
+#~ "La carpeta de su idioma que contiene las subcarpetas «messages/» y "
+#~ "«docmessages/»"
+
+#~ msgid ""
+#~ "Get from svn repository\n"
+#~ "(approx. 20 MB):"
+#~ msgstr ""
+#~ "Obtener del repositorio SVN\n"
+#~ "(aproximadamente 20 MB):"
+
+#~ msgid "Local download folder (will/does contain trunk/l10n-kde4/...)"
+#~ msgstr ""
+#~ "Carpeta local de descarga (contiene o contendrá trunk/l10n-kde4/, etc.)"
+
+#~ msgid ""
+#~ "Please install 'subversion' package\n"
+#~ "to have Lokalize download KDE translation files."
+#~ msgstr ""
+#~ "Instale el paquete «subversion» para que Lokalize\n"
+#~ "pueda descargar los archivos de traducción de KDE."
+
+#~ msgid "Subversion client not found"
+#~ msgstr "Cliente de «subversion» no encontrado"
+
+#~ msgid "New project wizard"
+#~ msgstr "Asistente de nuevo proyecto"
+
+#~ msgid "Fires up a wizard to guide you through project creation"
+#~ msgstr "Lanza un asistente que le guía durante la creación del proyecto"
+
+#~ msgid "Create new project"
+#~ msgstr "Crear nuevo proyecto"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Create new project"
+#~ msgstr "Crear nuevo proyecto"
+
+#~ msgid "All supported files"
+#~ msgstr "Todos los archivos permitidos"
+
+#~ msgctxt "@action:inmenu"
+#~ msgid "Insert # %1 term translation"
+#~ msgstr "Insertar la traducción del término nº %1"
+
+#~ msgctxt "@info"
+#~ msgid "Error opening the file <filename>%1</filename>"
+#~ msgstr "Error al abrir el archivo <filename>%1</filename>"
+
+#~ msgid "Process"
+#~ msgstr "Proceso"
+
+#~ msgid "*.lokalize *.ktp|Lokalize translation project"
+#~ msgstr "*.lokalize *.ktp|Proyecto de traducción de Lokalize"
+
+#~ msgid ""
+#~ "*.tmx *.xml|TMX files\n"
+#~ "*|All files"
+#~ msgstr ""
+#~ "*.tmx *.xml|Archivos TMX\n"
+#~ "*|Todos los archivos"

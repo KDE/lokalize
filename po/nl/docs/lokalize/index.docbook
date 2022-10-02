@@ -1,0 +1,847 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Dutch "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>Het handboek van &lokalize;</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+&Hannie.Lafeber-Dumoleyn;&Freek.de.Kruijf; 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-03-09</date>
+<releaseinfo
+>Applications 20.04</releaseinfo>
+
+<abstract>
+<para
+>&lokalize; is een computerondersteund vertaalsysteem (CAT) dat gericht is op productiviteit en kwaliteitsgarantie. Het bevat onderdelen die gewoonlijk voorkomen in CAT-programma's: vertaalgeheugen, woordenlijst, en ook de unieke mogelijkheid om vertalingen te synchroniseren en samen te voegen. Het is speciaal bedoeld voor het vertalen van software en heeft ook externe conversiehulpmiddelen voor het vertalen van freelance office-documenten. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>aanpassen aan taalregio</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>internationalisatie</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>vertaling</keyword>
+<keyword
+>globalisatie</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+<keyword
+>KBabel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inleiding</title>
+<para
+>Gewoonlijk worden berichten uit programma's en documentatie in het Engels geschreven. Met een raamwerk bestaande uit een set hulpmiddelen en bibliotheken, is het mogelijk om uw favoriete toepassingen uw eigen niet-Engelse taal te laten spreken. Dit process van aanpassen van een toepassing aan een specifieke taal staat bekend als <emphasis
+>lokalisatie</emphasis
+>. Het lokalisatieproces omvat het vertalen van de interfaces van het programma en de documentatie naar de verschillende talen, die gebruikers nodig hebben en, in sommige landen of regio's, het maken van invoer en uitvoer overeenkomstig de plaatselijke conventies. &lokalize; is een hulpmiddel dat u wil assisteren bij het lokalisatieproces om een interface van een toepassing vele talen te laten spreken. </para>
+<para
+>Elke programma dat internationalisatie ondersteunt maakt voor de vertaling één of meer message-catalog bestanden beschikbaar. De extensie van deze bestanden is <filename class="extension"
+>.pot</filename
+>. <acronym
+>POT</acronym
+> is een acronym voor <quote
+>Portable Object Template</quote
+>. &lokalize; is een geavanceerd en gemakkelijk te gebruiken bewerker voor een PO-bestand (&GNU; gettext message catalogs). Het is een systeem voor computer-aided translation voor vertalers, zonder voorgeschiedenis geschreven met gebruik van het raamwerk &kde; Platform 4. Behalve basis tekstverwerking van PO-bestanden met extra details, integreert het ondersteuning voor een woordenlijst, vertaalgeheugen, diff-modes voor QA, projectbeheer, &etc; Het heeft vele functies zoals volledige navigatie mogelijkheden, uitgebreide functionaliteit voor tekstbewerking, zoekfuncties, controle van de syntax en statistische functies. </para>
+<para
+>Portable Object (.po) bestanden: elke vertaler neemt een kopie van een van deze POT-sjablonen en begint met het invullen van de lege regels: elke bericht wordt vertaald in de gewenste taal. Het bestand met de vertaalde tekst wordt een PO (Portable Object) bestand genoemd. </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Editor</title>
+<sect1 id="main-window">
+<title
+>Hoofdvenster</title>
+<para
+>Het hoofdvenster bevat standaard zes onderdelen. Het vak rechtsboven is alleen-lezen en bevat het veld voor de huidige msgid (brontekst) uit het geopende PO-bestand. Het bewerkingsvak er direct onder bevat het veld de msgstr (doeltekst) gerelateerd aan het getoonde msgid en het is daarin dat u de vertaalde tekst invoert of bewerkt. </para>
+<screenshot>
+<screeninfo
+>Het standaard hoofdvenster van &lokalize;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Dit toont het standaard venster wanneer een bestand is geopend.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Het vak linksboven in het hoofdvenster toont de vertaaleenheden. Hieronder bevindt zich de sectie Unit Metadata die toelichting bevat relevant voor de nu getoonde brontekst. Linksonder is een sectie Vertaalgeheugen die de gesuggereerde vertalingen uit de database van het vertaalgeheugen voor het huidige item uit de brontekst. Rechtsonder wordt de sectie met de woordenlijst getoond. </para>
+<para
+>Vertaalbestanden worden geopend in aparte tabbladen, met twee grote bewerkbare tekstvakken en een aantal <emphasis
+>weergavevensters voor hulpmiddelen</emphasis
+>. Deze weergavevensters kunnen worden gestapeld (net als bij tabbladen), apart getoond of verborgen. Vertaalbestanden bestaan uit vele gepaarde tekenreeksen, <emphasis
+>vertaaleenheden</emphasis
+> genaamd. Een <emphasis
+>vertaaleenheid</emphasis
+> komt overeen met een enkele string in de gebruikersinterface of een alinea in de documentatie. Het eerste bewerkbare tekstvak is bedoeld om het originele deel van het paar te tonen. Het tweede bewerkbare tekstvak is bedoeld voor de vertaling. Navigeren door de <emphasis
+>eenheden</emphasis
+> doet u via het weergavevenster <guilabel
+>Vertaaleenheden</guilabel
+> of met de toetsen <keycap
+>Page Down</keycap
+> en <keycap
+>Page Up</keycap
+>. </para>
+<para
+>Een eenheid kan <emphasis
+>vertaald</emphasis
+> of <emphasis
+>niet vertaald</emphasis
+> zijn. De vertaling van een vertaalde eenheid kan <emphasis
+>gereed</emphasis
+> zijn of <emphasis
+>niet gereed</emphasis
+> (soms ook <emphasis
+>fuzzy</emphasis
+> genoemd). Wanneer de eenheid niet gereed is, wordt de vertaling in cursief getoond. In &lokalize; kunt u gemakkelijk navigeren door het bestand naargelang de staat van de vertaling. Zie het menu <guilabel
+>Ga</guilabel
+> voor de sneltoetsen. De statusbalk onderaan het venster toont het huidige aantal tekenreeksen, het totaal niet gereed, het totaal onvertaald, het totaal niet gereed (fuzzy) en de status van de huidige tekenreeks. Wanneer u navigeert worden onvertaalde eenheden beschouwd als niet gereed. U kunt ook door gefilterde reeksen in het weergavevenster <guilabel
+>Vertaaleenheden</guilabel
+> navigeren. Door te drukken op de toets <keycap
+>Page Down</keycap
+> gaat u naar de volgende eenheid in de gefilterde/gesorteerde lijst in het weergavevenster Vertaaleenheden. </para>
+<para
+>Om vertaling van de consoletoepassingen te vergemakkelijken waar lege ruimtes in berichten belangrijk zijn, u kunt dan het item <guilabel
+>Maak scheidingstekens zoals spaties, tabs en nieuwe regel zichtbaar in de bewerker</guilabel
+> op de pagina <guilabel
+>Bewerken</guilabel
+> van het configuratievenster dat geopend wordt door het hoofdmenu-item te kiezen via <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&lokalize; configureren...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Als u geen toegang hebt tot het originele bestand met vertalingensjabloon (wat een algemene practijk is op sommige commerciële vertalingsprojecten) dan kunt u een vertaalbestand gebruiken van de gerelateerde taal. Kies gewoon het menu-item <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Alle vertaalde items wissen</guimenuitem
+></menuchoice
+> of gebruik de sneltoets <keycombo
+>&Ctrl;&Alt;<keycap
+>D</keycap
+></keycombo
+> om alle vertaaleenheden te wissen. </para>
+<para
+>In het hoofdvenster kunnen nog meer secties zoals <guilabel
+>Alternatieve vertalingen</guilabel
+>, <guilabel
+>Primaire synchronisatie</guilabel
+>, <guilabel
+>Secondaire synchronisatie</guilabel
+>, <guilabel
+>Binaire eenheden</guilabel
+> worden toegevoegd door <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Hulpmiddelenweergave</guimenuitem
+></menuchoice
+> uit het hoofdmenu te gebruiken. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Werkbalken</title>
+<para
+>U kunt acties in de werkbalken toevoegen en verwijderen met <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Werkbalken instellen...</guimenuitem
+></menuchoice
+> uit het hoofdmenu. </para>
+<screenshot>
+<screeninfo
+>Werkbalken instellen</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Hier kunt u de werkbalken instellen.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Voor meer informatie lees de sectie over <ulink url="help:/fundamentals/config.html#toolbars"
+>Werkbalken</ulink
+> van de &kde;-fundamentals.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Sneltoetsen</title>
+<para
+>U kunt tijd besparen door sneltoetsen bij het vertalen te gebruiken. U gebruikt <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Sneltoetsen instellen...</guimenuitem
+></menuchoice
+> uit het hoofdmenu om deze in te stellen. </para>
+<screenshot>
+<screeninfo
+>Sneltoetsen instellen</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Hier kunt u sneltoetsen instellen.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Voor meer informatie lees de sectie over <ulink url="help:/fundamentals/config.html#shortcuts"
+>Sneltoetsen</ulink
+> van de &kde;-fundamentals.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Algemene tips</title>
+<para
+>Als u vertalingen voor &kde; maakt, dan heeft u al een &lokalize;-projectbestand in de map van uw taal (meestal met de naam <filename
+>index.lokalize</filename
+>), of u kunt <menuchoice
+><guimenu
+>Project</guimenu
+><guimenuitem
+>Nieuw project aanmaken</guimenuitem
+></menuchoice
+> kiezen, waarna de wizard de te vertalen bestanden voor uw taal zal ophalen en een project voor u zal aanmaken. </para>
+
+<tip>
+<para
+>Het is aan te raden de sneltoetsen te gebruiken in plaats van de menu's en werkbalken om zo de productiviteit te verhogen. Gebruik bijvoorbeeld <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> om naar het invoervak <guilabel
+>Snelzoeken</guilabel
+> te gaan alwaar u de eenhedenlijst in het weergavevenster <guilabel
+>Vertaaleenheden</guilabel
+> kunt doorzoeken. </para>
+</tip>
+<para
+>Wanneer u met vertaalbestanden in XLIFF-formaat werkt (en dat is zeker het geval wanneer u OpenDocument vertaalt), zijn er nog meer statussen beschikbaar:(<emphasis
+>nieuw</emphasis
+>, <emphasis
+>moet worden nagekeken</emphasis
+>, <emphasis
+>goedgekeurd</emphasis
+>, &etc;). U kunt ze selecteren in het keuzemenu naast de knop <guilabel
+>Goedgekeurd</guilabel
+> in de werkbalk. Classificatie van de status <emphasis
+>gereed</emphasis
+> of <emphasis
+>niet gereed</emphasis
+> hangt af van de huidige <emphasis
+>workflow-fase</emphasis
+> (<emphasis
+>vertaling</emphasis
+>, <emphasis
+>nakijken</emphasis
+>, <emphasis
+>goedkeuring</emphasis
+>). De standaardfase voor u hangt af van uw <emphasis
+>functie</emphasis
+> in het project (ingesteld bij de projectinstellingen). Een eenheid bevat meestal informatie over de fase van de laatste wijziging en voor elke fase wordt de eigenaar vermeld in het bestand. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projecten</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Overige opmerkingen</title>
+<para
+>De projecten behoren tot de hoofdconcepten in &lokalize;. Een project bestaat uit een bestand met paden, mappen met vertalingen, sjablonen, en andere bestanden: een woordenlijstbestand, scripts, vertaalgeheugen. Wanneer &lokalize; een bestand opent zonder dat er een project geladen is, zal het op zoek gaan naar een projectbestand in de bovenliggende mappen (tot vier niveaus omhoog). Ook kunt u, wanneer u &lokalize; opstart van de commandoregel, het projectbestand opgeven via de <userinput
+>--project</userinput
+>-toevoeging. </para>
+
+<para
+>Voor elk project kiest u uw functie daarin (<emphasis
+>vertaler</emphasis
+>, <emphasis
+>nalezer</emphasis
+>, <emphasis
+>iemand die goedkeurt</emphasis
+>), hetgeen weer van invloed is op de workflow-fase die door &lokalize; automatisch opgepikt wordt voor bestanden die u bewerkt. </para>
+
+<para
+>Het is mogelijk om een de positie van regelafbreking te definiëren op een projectniveau. Gebruik het menu-item <menuchoice
+><guimenu
+>Project</guimenu
+> <guimenuitem
+>Project configureren...</guimenuitem
+></menuchoice
+> en ga daarna naar de pagina <guilabel
+>Geavanceerd</guilabel
+>. </para>
+
+<note>
+<para
+>Vertaalgeheugens worden (in tegenstelling tot projectbestanden, woordenlijsten en scripts) niet gedeeld door de vertaalteamleden, aangezien ze worden aangemaakt en bewaard in de persoonlijke map van de gebruiker. Dit betekent dat de vertaalgeheugens voor alle projecten opgeslagen worden in dezelfde map en zo gebruikt kunnen worden wanneer andere projecten worden geopend. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Het tabblad Projectoverzicht</title>
+<para
+>Wanneer u &lokalize; de eerste keer start zult u een leeg tabblad <guilabel
+>Projectoverzicht</guilabel
+> zien. Projectoverzicht is een weergave zoals in een bestandsbeheerder, die u helpt om overzicht over uw PO-bestanden te houden. &lokalize; helpt u om snel te vertalen en ook om vertalingen consistent te houden. De workflow van &lokalize; houdt in dat u begint met het aanmaken/openen van een project. </para>
+<para
+>Om een nieuw project aan te maken, gebruik <menuchoice
+><guimenu
+>Project</guimenu
+><guimenuitem
+>Nieuw project aanmaken</guimenuitem
+></menuchoice
+>. Dit leidt u door de stappen om een nieuw project aan te maken. In menu <guimenu
+>Project</guimenu
+> kunt u ook opties vinden zoals <guimenuitem
+>Projectoverzicht</guimenuitem
+>, <guimenuitem
+>Project instellen</guimenuitem
+>, <guimenuitem
+>Project openen</guimenuitem
+> en <guimenuitem
+>Recent project openen</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Het tabblad Projectoverzicht</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Hier kunt u het project configureren.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Het tabblad <guilabel
+>Projectoverzicht</guilabel
+> toont een bestandenstructuur en statistieken voor een huidig project, zoals het percentage vertaalde eenheden en de laatste vertaler. U kunt hier een geselecteerd bestand openen in een nieuw tabblad van het huidige &lokalize;-venster. </para>
+
+<note>
+    <para
+>U kunt de volledig vertaalde bestanden uitschakelen in het <guilabel
+>Projectoverzicht</guilabel
+> met de knop <guibutton
+>Voltooide items verbergen</guibutton
+> op de hoofdwerkbalk of de standaard sneltoets <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>. </para>
+</note>
+<para
+>Wanneer u &lokalize; de volgende keer opstart zal deze het laatst geopende bestand standaard tonen. U kunt dit gedrag uitschakelen met het item <guilabel
+>Herstel de eerder geopende bestanden bij openen van &lokalize;</guilabel
+> op de pagina <guilabel
+>Algemeen</guilabel
+> van het configuratievenster dat geopend kan worden door het item <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&lokalize; configureren...</guimenuitem
+></menuchoice
+> in het hoofdmenu te kiezen. Dezelfde pagina kan gebruikt worden om het gedrag van &lokalize; te configureren wanneer u schakelt naar het volgende/vorige tabblad daarin. Het is mogelijk om door de lijst met tabbladen te gaan volgens de tabbladposities of volgens de volgorde van activering. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Woordenlijst</title>
+
+<para
+>Hebt u er ook weleens genoeg van om hetzelfde lange stuk tekst diverse malen in te typen omdat het vinden van de vertaling ervan voor een kopieer- en plakactie nog meer tijd zou kosten? Nu hoeft u alleen nog maar het (veelvoorkomende) stuk tekst in de weergave <guilabel
+>Woordenlijst</guilabel
+> op te zoeken en het in te voegen door op een sneltoets te drukken. </para>
+
+<para
+>Natuurlijk moet de woordenlijst eerst van stukken tekst worden voorzien. &lokalize; heeft een handige woordenlijsteditor waarin u de hele woordenlijst kunt doorzoeken. </para>
+
+<screenshot>
+<screeninfo
+>De woordenlijstweergave rechtsonder toont termen uit de woordenlijst die passen bij de huidige eenheid</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>De woordenlijstweergave rechtsonder toont termen uit de woordenlijst die passen bij de huidige eenheid</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Vertaalgeheugen</title>
+
+<para
+>U kunt een map met vertaalbestanden uit bijvoorbeeld &dolphin; slepen en neerzetten in de <guilabel
+>Vertaalgeheugen</guilabel
+>weergave; binnen enkele minuten zullen dan automatisch vertaalsuggesties getoond worden wanneer u naar een volgende eenheid gaat. Gebruik, afhankelijk van het aantal suggesties, <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> enz. om de vertaalsuggestie in het bestand op te nemen. </para>
+<para
+>Gebruik <menuchoice
+><guimenu
+>Hulpmiddelen</guimenu
+><guimenuitem
+>Vertaalgeheugens beheren</guimenuitem
+></menuchoice
+> om projecten aan uw Vertaalgeheugen toe te voegen of te beheren. Hier kunt u ook gegevens im- of exporteren uit het <filename role="extension"
+>tmx</filename
+> bestandsformaat. </para>
+
+<para
+>Druk op <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> om het tabblad <guilabel
+>Vertaalgeheugen</guilabel
+> te openen waarin u het vertaalgeheugen vrij kunt doorzoeken. Door op een zoekresultaat te klikken wordt een bijbehorend bestand op de bijbehorende eenheid geopend. Als u snel één van de bestanden in het project wilt openen (en het is toegevoegd aan het vertaalgeheugen), kunt u, in plaats van te bladeren door het <guilabel
+>Projectoverzicht</guilabel
+>, gewoon de naam ervan intypen in het veld <guilabel
+>Bestandsmasker</guilabel
+> vergezeld door een '*'. </para>
+
+<para
+>Het vertaalgeheugenprogramma indexeert alle items, met inbegrip van de items die nog niet vertaald of niet gereed zijn. Hierdoor kan het het onderdeel Zoek-in-Bestanden, dat het scannen van elk bestand in het project vereiste, elke keer wanneer er een zoekopdracht wordt uitgevoerd, volledig vervangen. </para>
+
+<note>
+    <para
+>De verouderde items in VG zullen verwijderd worden uit het vertaalgeheugen van &lokalize; bij het opnieuw scannen of door te klikken op een ontbrekend item als u het item <guilabel
+>Ontbrekende bestanden verwijderen uit het vertaalgeheugen bij opnieuw scannen of bij klikken op een ontbrekend item</guilabel
+> op de pagina <guilabel
+>Vertaalgeheugen</guilabel
+> van het configuratievenster dat geopend wordt door het hoofdmenu-item te kiezen via <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&lokalize; configureren...</guimenuitem
+></menuchoice
+>. </para>
+</note>
+
+<screenshot>
+<screeninfo
+>&lokalize; met vertaalgeheugen-zoekresultaten voor de huidige eenheid</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; met vertaalgeheugen-zoekresultaten voor de huidige eenheid</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Bulk vertaling:</term>
+    <listitem>
+      <para
+>Om de exact overeenkomende suggestie automatisch uit de database van het vertaalgeheugen in te voegen, gebruikt u <menuchoice
+><guimenu
+>Hulpmiddelen</guimenu
+><guimenuitem
+>Alle exacte suggesties invullen</guimenuitem
+></menuchoice
+> of <guimenuitem
+>Alle exacte suggesties invullen en als "niet gereed" (fuzzy) markeren</guimenuitem
+>. Deze functie komt overeen met de functie ruwe vertaling in &kbabel;. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Mogelijkheden voor het synchroniseren van vertalingen</title>
+
+<para
+>De <guilabel
+>Sync-modus</guilabel
+> (voorheen bekend als <guilabel
+>Samenvoegmodus</guilabel
+>) bespaart de vertalers veel tijd, ook in de gevallen waarbij meerdere vertalers tegelijk aan hetzelfde bestand werken of wanneer een persoon vertalingen moet onderhouden voor verschillende softwarebranches. </para>
+
+<para
+>Met &lokalize; kunt u snel navigeren door eenheden die verschillen, waarbij de verschillen woord-voor-woord getoond worden. Ook heeft &lokalize; twee Sync-weergaven - <guilabel
+>Primary Sync</guilabel
+> en <guilabel
+>Secondary Sync</guilabel
+>. Ze zijn identiek, maar de eerste wordt meestal gebruikt om vertalingen samen te voegen en de tweede om vertalingen voor twee softwarebranches te synchroniseren. </para>
+
+<para
+>Nadat u een vertaling gekopieerd hebt van een ander bestand (het <emphasis
+>gesynchroniseerd</emphasis
+> hebt), zullen alle wijzigingen die daarna aan deze eenheid worden aangebracht overgenomen worden in het andere bestand. </para>
+
+<sect1 id="file-merge">
+<title
+>Samenvoegen</title>
+<para
+><guilabel
+>Sync-modus</guilabel
+> kan bijvoorbeeld worden gebruikt bij het nakijken van wijzigingen die aangebracht zijn door (nieuwe) vertalers, waarbij u niet zeker bent van de kwaliteit van het werk. </para>
+<para
+>Open een basisbestand, zet de gewijzigde versie in de <guilabel
+>Primary Sync</guilabel
+>weergave, gevolgd door <keycombo
+>&Alt;<keycap
+>Down</keycap
+></keycombo
+> of <keycombo
+>&Alt; <keycap
+>Up</keycap
+></keycombo
+> (onthoud dat sneltoetsen gewijzigd kunnen worden op de manier gebruikelijk in alle &kde;-toepassingen) om door de items die verschillen te navigeren. </para>
+<screenshot>
+<screeninfo
+>&lokalize; gebruikt om wijzigingen in vertalingen samen te voegen</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; gebruikt om wijzigingen in vertalingen samen te voegen</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Replicatie</title>
+<para
+><guilabel
+>Sync-modus</guilabel
+> kan ook gebruikt worden om tegelijk wijzigingen aan te brengen in de vertaling voor twee branches. Stel het pad <guilabel
+>Branch-map</guilabel
+> bij de projectopties in op het pad dat correspondeert met de basismap van de branch, en in de<guilabel
+>Secondary Sync</guilabel
+>weergave zullen automatisch de bestanden van de branch geopend worden. Telkens wanneer u daarna wijzigingen aanbrengt in de bestanden van uw hoofdbranch, zullen die automatisch overgenomen worden in de branch (natuurlijk alleen als die dezelfde Engelse tekenreeks bevat). </para>
+<para
+>Als u aan een &kde;-vertaling werkt kunt u bijvoorbeeld de trunk ophalen naar <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG</filename
+> en de branch met <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kf5/YOUR_LANG</filename
+>. Maak een nieuw &lokalize;-project aan: <filename
+>/home/xx/hacking/kde/trunk/l10n-kf5/YOUR_LANG/project.lokalize</filename
+> en stel <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kf5/YOUR_LANG</filename
+> in. Werk daarna via dit project en leg de wijzigingen vast in zowel de trunk- als de branch-map. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Alternatieve vertalingen</title>
+
+<para
+>Aan elke eenheid kunnen verschillende <emphasis
+>alternatieve vertalingen</emphasis
+> verbonden worden. Dergelijke vertalingen kunnen verschijnen tijdens het bijwerken van het bestand, wanneer de oorspronkelijke tekenreeks enigszins gewijzigd is. In dit geval wordt de oude vertaling met de (oude) bron verplaatst naar de lijst alternatieve vertalingen, zodat die niet verloren gaat. </para>
+<para
+>Bij het vertalen van software worden meestal gettext-hulpmiddelen gebruikt om vertaalbestanden voor te bereiden. Wanneer de originele tekst verandert, worden de vertaalbestanden door gettext-hulpmiddelen bijgewerkt en worden onderdelen waarvan de originele tekst gewijzigd is gemarkeerd als <emphasis
+>fuzzy</emphasis
+> (of in andere termen <emphasis
+>niet gereed</emphasis
+>). De vorige originele tekst wordt door de hulpmiddelen opgeslagen zodat vertalers kunnen zien welke wijzigingen er precies zijn aangebracht. &lokalize; maakt het de vertaler makkelijker en markeert die delen van de originele tekst die gewijzigd zijn in de <guilabel
+>Alternatieve vertalingen</guilabel
+>-weergave. </para>
+
+<screenshot>
+<screeninfo
+>door &lokalize; gemarkeerde delen van de originele tekst die gewijzigd zijn sinds de laatste herziening van de vertaling</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>door &lokalize; gemarkeerde delen van de originele tekst die gewijzigd zijn sinds de laatste herziening van de vertaling</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>Scripts gebruiken in &lokalize;</title>
+
+<para
+>&lokalize; kan uitgebreid worden met gebruikmaking van scripts in verschillende talen waaronder Python en &javascript;. Scripts worden meestal in de UI van &lokalize; geïntegreerd als menu-acties (waaraan u een sneltoets kunt toewijzen). De locatie en de naam van het menu- onderdeel voor het script wordt gedefinieerd in het bijbehorende .rc-bestand. Bij elk geopend project zoekt &lokalize; in de map <filename
+>PROJECTMAP/lokalize-scripts</filename
+> naar .rc-bestanden en voegt ze toe aan een <emphasis
+>cache</emphasis
+>-bestand met de naam <filename
+>PROJECTMAP/lokalize-scripts/scripts.rc</filename
+>. RC-bestanden bevatten ook paden van scripts die gerelateerd zijn aan de .rc-bestandenmap of een map met systeemscripts - beiden worden doorzocht (in feite <emphasis
+>moeten</emphasis
+> ze gerelateerd zijn als u .rc-bestanden wilt delen met andere mensen in het project). Zo kunt u bijvoorbeeld opgeven dat <filename
+>../../scripts/lokalize/opensrc.py</filename
+> een script moet laden uit <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+> global kf5-l10n scripts folder</ulink
+> (&ie; niet specifiek voor uw taal). </para>
+<para
+>Voorbeelden van .rc-bestanden vindt u in de installatiemap van &lokalize; (meestal <filename
+>/usr/share/lokalize/scripts/</filename
+>) en in de <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+>&kde; repository</ulink
+>. <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>Hier</ulink
+>: vindt u meer voorbeelden van scripts, waaronder het &javascript;-bestand <filename
+>check-gui.js</filename
+> dat automatisch bij elke bewaaropdracht wordt uitgevoerd (dit gebeurt via een speciale optie in het .rc-bestand). Als u bekend bent met Python of &javascript;, zal de code voor zich spreken. </para>
+<para
+>Hieronder treft u links naar API-beschrijvingen. Alles wat als <emphasis
+>Q_SCRIPTABLE</emphasis
+> aangemerkt is kan vanuit scripts gebruikt worden. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>API-beschrijving van de object <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>editor</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>API-beschrijving van het object <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>&lokalize;</ulink
+>-hoofdvenster </para>
+</listitem>
+<listitem>
+<para
+>API-beschrijving van het object <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Project</ulink
+>-tabblad </para>
+</listitem>
+</itemizedlist>
+
+<sect1 id="pology">
+<title
+>Pology</title>
+
+<para
+>Een van de beste mogelijkheden voor een scripttoepassing is het gebruik van <application
+>Pology</application
+> in &lokalize;. </para>
+<para
+>De interactie met <application
+>Pology</application
+> kan geconfigureerd worden door de pagina <guilabel
+>Pology</guilabel
+> van het configuratievenster te gebruiken die geopend kan worden door het hoofdmenu-item <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&lokalize; configureren...</guimenuitem
+></menuchoice
+> te openen. </para>
+<para
+>Voor meer informatie, kijk op <ulink url="http://pology.nedohodnik.net/"
+>Homepagina van Pology</ulink
+>. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>LanguageTool</title>
+
+<para
+><application
+>LanguageTool</application
+> biedt controle op spelling en grammatica van uw vertaaleenheden. </para>
+<para
+>U kunt uw aangepaste <application
+>LanguageTool</application
+>-server configureren met de pagina <guilabel
+>LanguageTool</guilabel
+> van het configuratievenster dat geopend kan worden door het hoofdmenu-item <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>&lokalize; configureren...</guimenuitem
+></menuchoice
+> te kiezen. </para>
+<para
+>Om de controlemogelijkheden van <application
+>LanguageTool</application
+> te gebruiken, gebruik menu-item <menuchoice
+><guimenu
+>Bewerken</guimenu
+><guimenuitem
+>Deze eenheid controleren met LanguageTool</guimenuitem
+></menuchoice
+> of gebruik sneltoets <keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+>. </para>
+<para
+>Voor meer informatie, kijk op <ulink url="https://languagetool.org/"
+>Homepagina van LanguageTool</ulink
+>. </para>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Dankbetuiging en licentie</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Programma copyright &copy; 2007-2015, Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Een deel van de code is overgenomen uit &kbabel;, de voorganger van &lokalize;. </para>
+
+<para
+>Documentatie copyright &copy; 2007-2009 Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Auteur: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Ga voor meer informatie naar de <ulink url="http://userbase.kde.org/lokalize"
+>&lokalize;-hoofdpagina</ulink
+>.</para>
+
+<para
+>Hannie Lafeber-Dumoleyn<email
+>lafeber-dumoleyn2@zonnet.nl</email
+></para
+> <para
+>Freek de Kruijf<email
+>freekdekruijf@kde.nl</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

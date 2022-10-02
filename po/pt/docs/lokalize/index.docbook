@@ -1,0 +1,722 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Portuguese "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>O Manual do &lokalize;</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>José</firstname
+><surname
+>Pires</surname
+><affiliation
+><address
+><email
+>zepires@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2015-08-06</date>
+<releaseinfo
+>2.0 (Aplicações 15.08)</releaseinfo>
+
+<abstract>
+<para
+>O &lokalize; é um sistema de traduções auxiliadas pelo computador que se foca na produtividade e na garantia de qualidade. Tem os componentes normais neste tipo de ferramentas: memórias de traduções, glossários, assim como uma capacidade de junção de traduções única (a sincronização). Destina-se para a tradução de aplicações e também integra as ferramentas de conversão externa para tradução de documentos de escritório a regime 'freelance'. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>localização</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>internacionalização</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>tradução</keyword>
+<keyword
+>globalização</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+<keyword
+>KBabel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introdução</title>
+<para
+>Normalmente as mensagens e documentação dos programas estão escritos em Inglês. Se usar uma plataforma composta por um conjunto de ferramentas e bibliotecas, é possível ter as suas aplicações favoritas a falar a sua língua nativa se não for o Inglês. Este processo de adaptação de uma aplicação para uma dada língua é denominado de <emphasis
+>localização</emphasis
+>. O processo de localização inclui a tradução das interfaces e da documentação do programa para as várias línguas que os utilizadores necessitam e, em alguns países e regiões, fazem com que os dados introduzidos e apresentados obedeçam a determinadas convenções. O &lokalize; é uma ferramenta que o irá ajudar no processo de localização para que a interface de uma dada aplicação fale várias línguas. </para>
+<para
+>Todos os programas que suportam a internacionalização disponibilizam para tradução um ou mais ficheiros de catálogos de mensagens. A extensão desses ficheiros é a <filename class="extension"
+>.pot</filename
+>. O <acronym
+>POT</acronym
+> é um acrónimo para <quote
+>Portable Object Template</quote
+>. O &lokalize; é um editor avançado e simples de usar para ficheiros PO (catálogos de mensagens para o 'gettext' da &GNU;). É um sistema assistido por computador para a tradutores, feito do zero para a plataforma 4 do &kde;. Para além da edição básica de ficheiros PO com alguns detalhes interessantes, integra o suporte para glossários, memórias de tradução, modos de diferenças para QA, gestão de projectos &etc;. Tem muitas funcionalidades como a navegação completa, edição extensiva, funções de pesquisa, verificação sintáctica e funções estatísticas. </para>
+<para
+>Ficheiros 'Portable Object' (.po): Cada tradutor recebe uma cópia de um desses modelos POT e começa a preencher os espaços em branco: cada mensagem é traduzida para a língua desejada. O ficheiro que contém o texto traduzido é conhecido como o ficheiro PO (Portable Object - Objecto Portável). </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Editor</title>
+<sect1 id="main-window">
+<title
+>A Janela Principal</title>
+<para
+>Por omissão, a janela principal contém seis partes. A área superior direita é apenas para leitura e contém o 'msgid' actual (texto original) do ficheiro PO aberto. O campo de edição imediatamente abaixo contém o 'msgstr' (texto de destino) que se relaciona com o 'msgid' apresentado, onde poderá introduzir ou editar o texto traduzido. </para>
+<screenshot>
+<screeninfo
+>A janela principal do &lokalize;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Isto mostra a janela predefinida quando é aberto um ficheiro.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>A parte superior esquerda da janela principal mostra as Unidades de Tradução. Por baixo, existe a secção de Meta-Dados Unitários, que contém comentários relevantes para o texto original apresentado. Na parte inferior esquerda, existe a secção de Memória das Traduções, que mostra as traduções sugeridas pela base de dados de traduções para o item do texto de origem. Na parte inferior direita da janela, é apresentada a secção do glossário. </para>
+<para
+>Os ficheiros de traduções são abertos numa página separada, com dois editores multi-linhas grandes, assim como um conjunto de janelas ou <emphasis
+>áreas de ferramentas</emphasis
+>. Estas áreas poderão ser empilhadas (como se fossem páginas), mostradas em separado ou escondidas. Os ficheiros de traduções consistem em diversos pares Inglês-alvo chamadas <emphasis
+>unidades</emphasis
+>. As <emphasis
+>unidades</emphasis
+> correspondem tipicamente a um texto simples na interface do utilizador ou a um parágrafo na documentação. O intuito do primeiro campo multi-linhas é mostrar a parte original do par. O intuito do segundo é mostrar a tradução. O utilizador poderá navegar pelas <emphasis
+>unidades</emphasis
+>, através das <guilabel
+>Unidades de Tradução</guilabel
+> ou usando as teclas <keycap
+>Page Down</keycap
+> e <keycap
+>Page Up</keycap
+>. </para>
+<para
+>Uma unidade poderá estar <emphasis
+>traduzida</emphasis
+> ou <emphasis
+>não-traduzida</emphasis
+>. A tradução de uma unidade traduzida poderá estar <emphasis
+>aprovada</emphasis
+> ou <emphasis
+>não-aprovada</emphasis
+> (também chamada de <emphasis
+>aproximada</emphasis
+> ou <emphasis
+>fuzzy</emphasis
+>). Se a unidade não estiver aprovada, a sua tradução aparece a itálico. O &lokalize; permite-lhe navegar facilmente pelo estado da sua tradução. Veja o menu <guilabel
+>Ir</guilabel
+> para saber os atalhos. Ao navegar, as unidades não-traduzidas são tratadas como não-aprovadas. Do mesmo modo, poderá querer usar a funcionalidade de filtragem da área de ferramentas da <guilabel
+>Unidades de Tradução</guilabel
+>. Se carregar em <keycap
+>Page Down</keycap
+>, irá de facto para a unidade seguinte na lista de filtragens/ordenações dessa área de ferramentas. </para>
+<para
+>Na janela principal, um utilizador poderá adicionar mais secções como as <guilabel
+>Traduções Alternativas</guilabel
+>, a <guilabel
+>Sincronização Primária</guilabel
+>, a <guilabel
+>Sincronização Secundária</guilabel
+> ou as <guilabel
+>Unidades Binárias</guilabel
+>, usando a opção <menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Áreas de Ferramentas</guimenuitem
+></menuchoice
+> do menu principal. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Barras de Ferramentas</title>
+<para
+>Poderá adicionar ou remover acções nas barras de ferramentas com a opção <menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Configurar as Barras de Ferramentas...</guimenuitem
+></menuchoice
+> do menu principal. </para>
+<screenshot>
+<screeninfo
+>Configurar as Barras de Ferramentas</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Aqui poderá configurar as barras de ferramentas.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Para mais informações, leia a secção sobre as <ulink url="help:/fundamentals/config.html#toolbars"
+>Barras de Ferramentas</ulink
+> dos Fundamentos do &kde;.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Teclas de atalho</title>
+<para
+>Se usar as teclas de atalho durante a tradução, poderá poupar algum tempo. Para configurar as teclas de atalho, use a opção do menu <menuchoice
+><guimenu
+>Configuração</guimenu
+><guimenuitem
+>Configurar os Atalhos...</guimenuitem
+></menuchoice
+> do menu principal. </para>
+<screenshot>
+<screeninfo
+>Configurar os Atalhos</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Aqui poderá configurar as teclas de atalho.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Para mais informações, leia a secção sobre os <ulink url="help:/fundamentals/config.html#shortcuts"
+>Atalhos</ulink
+> nos Fundamentos do &kde;.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Sugestões Gerais</title>
+<para
+>Se estiver a fazer traduções para o &kde;, então ou terá já um ficheiro de projecto do &lokalize; na sua pasta de línguas (normalmente chamado <filename
+>index.lokalize</filename
+>), ou então poderá seleccionar a opção <menuchoice
+><guimenu
+>Projecto</guimenu
+><guimenuitem
+>Criar um projecto novo</guimenuitem
+></menuchoice
+>, para que o assistente comece a transferir os ficheiros de traduções para a sua língua, criando depois um projecto para si. </para>
+
+<tip>
+<para
+>Recomenda-se que se habitue aos atalhos de teclado, em vez dos menus e das barras de ferramentas, para uma produtividade melhorada. Por exemplo, use a combinação de teclas <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> para colocar em primeiro plano a linha  de <guilabel
+>Pesquisa rápida</guilabel
+> para filtrar a lista de itens na área de  <guilabel
+>Unidades de Tradução</guilabel
+>. Assim que terminar, poderá carregar em <keycap
+>Page Down</keycap
+> para começar a percorrer a lista filtrada. </para>
+</tip>
+<para
+>Se estiver a trabalhar com ficheiros de traduções no formato XLIFF (que será de facto o caso ao traduzir de ficheiros OpenDocument), então poderá ter outros estados possíveis (<emphasis
+>novo</emphasis
+>, <emphasis
+>necessita de revisão</emphasis
+>, <emphasis
+>aprovado</emphasis
+>, &etc;). A classificação do estado como estando <emphasis
+>pronto</emphasis
+> ou <emphasis
+>não-pronto</emphasis
+> depende da <emphasis
+>fase actual do fluxo</emphasis
+> (<emphasis
+>tradução</emphasis
+>, <emphasis
+>revisão</emphasis
+>, <emphasis
+>aprovação</emphasis
+>). Uma fase predefinida para si depende do seu <emphasis
+>papel</emphasis
+> no projecto (definido na configuração do mesmo). Cada unidade normalmente contém informações acerca da fase em que foi alterado da última vez, sendo também registado o dono de cada fase no ficheiro. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projectos</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Notas Gerais</title>
+<para
+>Os projectos são um dos conceitos principais no &lokalize;. Um projecto é representado por um ficheiro que contém as pastas com as traduções, os modelos e outros ficheiros: o ficheiro do glossário, os programas de automação e as memórias de tradução. Sempre que o &lokalize; abre um ficheiro sem nenhum projecto carregado, irá procurar por um ficheiro de projecto nas pastas-mãe (até quatro níveis). Em alternativa, poderá indicar o ficheiro do projecto com a opção <userinput
+>--project</userinput
+> ao iniciar o &lokalize; a partir da linha de comandos. </para>
+
+<para
+>Para cada projecto no qual seleccione o seu papel nele (<emphasis
+>tradutor</emphasis
+>, <emphasis
+>revisor</emphasis
+>, <emphasis
+>aprovador</emphasis
+>), que irá afectar por sua vez uma fase do fluxo, o &lokalize; irá automaticamente recolher os ficheiros que editar. </para>
+
+<note>
+<para
+>As memórias de traduções (ao contrário dos ficheiros do projecto, o glossário e os programas) não são partilhadas entre os membros da equipa de tradução, dado que são criados e guardados na pasta pessoal do utilizador, o que significa que as memórias de tradução para todas as pessoas do projecto são guardadas na mesma pasta, pelo que poderão ser usadas quando abrir outros projectos. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Página da Visão Geral do Projecto</title>
+<para
+>Quando iniciar o &lokalize; pela primeira vez, irá ver uma página de <guilabel
+>Visão Geral do Projecto</guilabel
+>. Esta é uma área de gestão de ficheiros, que o ajuda a ter uma ideia geral dos seus ficheiros PO. O pacote do &lokalize; ajudá-lo-á a traduzir rapidamente e também a manter as traduções consistentes. O fluxo de trabalho do &lokalize; implica que comece com a criação/abertura de um projecto. A área de Visão Geral do Projecto mostra uma árvore de ficheiros com estatísticas sobre o projecto actual, como a percentagem das unidades traduzidas completas e o último tradutor. Permite-lhe abrir um ficheiro seleccionado numa página da janela actual do &lokalize;. </para>
+<para
+>Para criar um novo projecto, use a opção <menuchoice
+><guimenu
+>Projecto</guimenu
+><guimenuitem
+>Criar um novo projecto</guimenuitem
+></menuchoice
+>. Isto guiá-lo-á pelos passos de criação de um novo projecto. No menu <guimenu
+>Projecto</guimenu
+>, poderá também encontrar opções como a <guimenuitem
+>Visão geral do projecto</guimenuitem
+>, <guimenuitem
+>Configurar o projecto</guimenuitem
+>, <guimenuitem
+>Abrir um projecto</guimenuitem
+>, <guimenuitem
+>Abrir um projecto recente</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Página da Visão Geral do Projecto</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Aqui poderá configurar o projecto.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>A página de <guilabel
+>Visão Geral do Projecto</guilabel
+> mostra uma árvore de ficheiros com estatísticas para o projecto actual, como a percentagem das unidades traduzidas e o último tradutor. Permite-lhe abrir um ficheiro seleccionado numa página nova da janela actual do &lokalize;. </para>
+
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Glossário</title>
+
+<para
+>Já alguma vez se cansou de escrever a mesma sequência longa de texto várias vezes, simplesmente porque levaria mais tempo a procurar a sua tradução para a copiar e colar? Agora só terá de encontrar a sequência (frequente) de palavras na <guilabel
+>Área do Glossário</guilabel
+> e depois inseri-la com uma combinação de teclas. </para>
+
+<para
+>Obviamente, o glossário já deverá estar preenchido primeiro com as tais sequências de palavras. O &lokalize; tem um editor de glossários útil que permite uma pesquisa explícita por todo o glossário. </para>
+
+<screenshot>
+<screeninfo
+>A área do glossário, no canto inferior direito, mostra os itens do glossário adequados para a unidade actual</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>A área do glossário, no canto inferior direito, mostra os itens do glossário adequados para a unidade actual</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Memória de Traduções</title>
+
+<para
+>A área das <guilabel
+>Memórias de Traduções</guilabel
+> permite-lhe arrastar e largar uma pasta com ficheiros de traduções, proveniente por exemplo do Dolphin, sobre a área para que, ao fim de alguns minutos, apareçam as sugestões de traduções automaticamente para cada item de mensagem. Para inserir as sugestões de traduções no ficheiro, use a combinação <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> e assim por diante, dependendo do número da sugestão. </para>
+<para
+>Use a opção <menuchoice
+><guimenu
+>Ferramentas</guimenu
+><guimenuitem
+>Gerir as memórias de traduções</guimenuitem
+></menuchoice
+> para adicionar/gerir projectos na sua Memória de Traduções. Aqui também poderá importar ou exportar dados a partir do formato de ficheiros <filename role="extension"
+>tmx</filename
+>. </para>
+
+<para
+>Se carregar em <keycombo
+><keycap
+>F7</keycap
+></keycombo
+>, irá abrir a página da <guilabel
+>Memória de Traduções</guilabel
+>, que lhe permite pesquisar à vontade nesta memória. Se carregar num resultado de uma pesquisa, irá abrir o ficheiro e item correspondentes. Se quiser abrir rapidamente um outro ficheiro no projecto (e o adicionar à memória de traduções), então em vez de seleccionar a <guilabel
+>Visão Geral do Projecto</guilabel
+>, poderá escrever o seu nome no campo <guilabel
+>Máscara de ficheiros</guilabel
+>, acompanhado por um '*'. </para>
+
+<para
+>O motor da memória de traduções indexa todos os itens, incluindo os aproximados e não-traduzidos. Isto permite-lhe substituir por completo a funcionalidade de Procurar-nos-Ficheiros, que obrigava a que cada ficheiro fosse analisado no projecto, sempre que fosse feita uma pesquisa. </para>
+
+<screenshot>
+<screeninfo
+>O &lokalize; com o resultado das pesquisa na memória de traduções para a unidade actual</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>O &lokalize; com o resultado das pesquisa na memória de traduções para a unidade actual</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Tradução em Lote:</term>
+    <listitem>
+      <para
+>Para inserir a sugestão com correspondência exacta na base de dados da memória de traduções, use a opção <menuchoice
+><guimenu
+>Ferramentas</guimenu
+><guimenuitem
+>Preencher todas as sugestões exactas</guimenuitem
+></menuchoice
+> OU <guimenuitem
+>Preencher todas as sugestões exactas e marcar como aproximadas</guimenuitem
+>. Isto é funcionalmente semelhante à tradução lata do &kbabel;. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Capacidades de Sincronização das Traduções</title>
+
+<para
+>O <guilabel
+>Modo de Sincronização</guilabel
+> (anteriormente conhecido como <guilabel
+>Modo de Reunião</guilabel
+>) poupa bastante tempo para os editores e para os casos em que dois ou mais tradutores estão a trabalhar em simultâneo no mesmo ficheiro ou a manter traduções ramificadas em várias versões. </para>
+
+<para
+>O &lokalize; permite a navegação rápida pelas unidades que diferem, mostrando as diferenças palavra por palavra. Do mesmo modo, o &lokalize; tem duas áreas de Sincronização - <guilabel
+>Sincronização Primária</guilabel
+> e <guilabel
+>Sincronização Secundária</guilabel
+>. São idênticas, mas a primeira é normalmente usada para reunir as traduções e a segunda para sincronizar as traduções entre duas ramificações do 'software'. </para>
+
+<para
+>Depois de ter copiado a tradução do ficheiro auxiliar (a ter <emphasis
+>sincronizado</emphasis
+>), todas as alterações subsequentes nesta unidade replicar-se-ão no ficheiro auxiliar. </para>
+
+<sect1 id="file-merge">
+<title
+>Reunião</title>
+<para
+>Uma utilização do <guilabel
+>Modo de Sincronização</guilabel
+> é a revisão das alterações feitas pelos (novos) contribuintes, na altura em que não se pode certificar da qualidade do trabalho feito. </para>
+<para
+>Abra um ficheiro de base, depois largue a sua versão alterada na área <guilabel
+>Sincronização Primária</guilabel
+>, seguida de <keycombo
+>&Alt;<keycap
+>Baixo</keycap
+></keycombo
+> ou <keycombo
+>&Alt; <keycap
+>Cima</keycap
+></keycombo
+> (lembre-se que as combinações de teclas podem ser, como acontece nas outras aplicações do &kde;, alteradas a seu gosto) para navegar pelos itens que são diferentes. </para>
+<screenshot>
+<screeninfo
+>O &lokalize; usado para reunir as alterações na tradução</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>O &lokalize; usado para reunir as alterações na tradução</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Replicação</title>
+<para
+>O <guilabel
+>Modo de Sincronização</guilabel
+> também pode ser usado para efectuar alterações nas traduções de duas ramificações em simultâneo. Defina a <guilabel
+>Pasta da Ramificação</guilabel
+> nas suas opções de projecto como sendo a pasta de base da ramificação, para que a área de <guilabel
+>Sincronização Secundária</guilabel
+> abra automaticamente os ficheiros da ramificação. A partir daí, sempre que alterar os ficheiros na sua ramificação principal, estes serão automaticamente replicados na ramificação (obviamente, se esta conter o mesmo texto em Inglês). </para>
+<para
+>Por exemplo, se trabalhar nas traduções do &kde;, poderá transferir o 'trunk' para <filename class="directory"
+>/home/ze/trabalho/kde/trunk/l10n-kde4/A_SUA_LÍNGUA</filename
+> e a ramificação estável 'branch' para <filename class="directory"
+>/home/ze/trabalho/kde/branches/stable/l10n-kde4/A_SUA_LÍNGUA</filename
+>. Crie o projecto do &lokalize;: <filename
+>/home/ze/trabalho/kde/trunk/l10n-kde4/A_SUA_LÍNGUA/projecto.ktp</filename
+> e definida a <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kde4/A_SUA_LÍNGUA</filename
+>, podendo depois trabalhar através deste projecto e efectuar as alterações em ambas as pastas. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Traduções Alternativas</title>
+
+<para
+>Cada unidade poderá ter várias <emphasis
+>traduções alternativas</emphasis
+> associadas a ele. Essas traduções poderão aparecer durante a actualização dos ficheiros, quando o texto original é ligeiramente alterado. Nesse caso, a tradução antiga, em conjunto com o seu texto original (antigo) passará para a lista de traduções alternativas, para que estas não se percam. </para>
+<para
+>Ao traduzir das aplicações, normalmente são usadas as ferramentas do 'gettext' para preparar os ficheiros de traduções. Quando o texto original muda, as ferramentas do 'gettext' actualizam os ficheiros das traduções e marcam os seus elementos com o texto original alterado como sendo <emphasis
+>fuzzy</emphasis
+> (ou <emphasis
+>aproximada</emphasis
+> noutra terminologia). Eles guardam o texto original, para que os tradutores possam ver as alterações que foram exactamente feitas ao certo. O &lokalize; simplifica a vida do tradutor e realça as partes do texto original que foram alteradas na área de <guilabel
+>Traduções Alternativas</guilabel
+>. </para>
+
+<screenshot>
+<screeninfo
+>O &lokalize; a realçar as partes do texto original que foram alteradas desde que a tradução foi revista da última vez</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>O &lokalize; a realçar as partes do texto original que foram alteradas desde que a tradução foi revista da última vez</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>Programar o &lokalize;</title>
+
+<para
+>O &lokalize; é extensível através de programas feitos em várias linguagens interpretadas, incluindo o Python e o JavaScript. Os programas são normalmente integrados na interface do &lokalize; como itens do menu (para os quais poderá ter atribuído um atalho do teclado). A localização e o nome do item do menu para o programa é definida no seu ficheiro '.rc' associado. Em cada projecto aberto, o &lokalize; analisa a pasta <filename
+>PROJECTDIR/lokalize-scripts</filename
+> à procura de ficheiros '.rc' e adiciona-os a um ficheiro de <emphasis
+>cache</emphasis
+> chamado <filename
+>PROJECTDIR/lokalize-scripts/scripts.rc</filename
+> (de modo a que não o adicione ao sistema de controlo de versões do projecto). Os ficheiros RC também contêm localizações de programas, os quais poderão ser relativos à pasta do ficheiro '.rc' ou a uma dada pasta de programas do sistema - ambos os casos serão tentados (de facto, eles <emphasis
+>deverão</emphasis
+> ser relativos, se quiser partilhar o ficheiro '.rc' com outras pessoas no seu projecto). Por exemplo, poderá indicar <filename
+>../../scripts/lokalize/opensrc.py</filename
+> para carregar o programa da <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>pasta global de programas do 'kde4-l10n'</ulink
+> (&ie;, não sendo específico para a sua língua). </para>
+<para
+>Poderá encontrar alguns exemplos de ficheiros '.rc' na pasta de instalação do &lokalize; (normalmente em <filename
+>/usr/share/lokalize/scripts/</filename
+>) e no <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>repositório do KDE</ulink
+>. <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>Aqui</ulink
+> poderá encontrar mais exemplos de programas, incluindo o programa <filename
+>check-gui.js</filename
+>, em JavaScript, que é executado automaticamente na gravação de cada ficheiro. Se estiver à vontade com o Python ou o JavaScript, o código deverá ser intuitivo o suficiente. </para>
+<para
+>Por baixo, estão as referências à API. Tudo o que estiver marcado como <emphasis
+>Q_SCRIPTABLE</emphasis
+> poderá ser usado a partir dos programas. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Referência da API do objecto <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>Editor</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>Referência da API do objecto <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>&lokalize;</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>Referência da API do objecto <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Project</ulink
+> </para>
+</listitem>
+</itemizedlist>
+
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Créditos e Licença</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Programa com 'copyright' &copy; 2007-2009 de Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Algum código foi retirado do &kbabel;, o antecessor do &lokalize;. </para>
+
+<para
+>Documentação com 'copyright' &copy; 2007-2009 de Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Autor: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Veja a <ulink url="http://userbase.kde.org/lokalize"
+> página pessoal do &lokalize;</ulink
+> para mais detalhes.</para>
+
+<para
+>Tradução de José Nuno Pires <email
+>zepires@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

@@ -1,0 +1,722 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Estonian  "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>&lokalize; käsiraamat</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Marek</firstname
+> <surname
+>Laane</surname
+> <affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2012-02-20</date>
+<releaseinfo
+>1.5</releaseinfo>
+
+<abstract>
+<para
+>&lokalize; on arvutipõhine tõlkesüsteem (CAT), mis seab eesmärgiks tootlikkuse ja kvaliteedi. See koosneb tavapärastest CAT tööriistadest: tõlkemälu, sõnastik, samuti ainulaadne tõlgete liitmise (sünkroniseerimise) võimalus. Eelkõige on süsteem mõeldud tarkvara tõlkimiseks, kuid väliste teisendamistööriistade abil saab seda teataval määral kasutada ka tekstidokumentide tõlkimiseks. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>lokaliseerimine</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>internatsionaliseerimine</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>tõlkimine</keyword>
+<keyword
+>globaliseerimine</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+<keyword
+>KBabel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Sissejuhatus</title>
+<para
+>Tavaliselt on rakenduste kasutajaliides tekst, teated ja dokumentatsioon inglise keeles. Teatavate tööriistade ja teekide abil on võimalik panna rakendused kõnelema ka oma emakeeles. Rakenduse kohandamist nii, et see suudaks väljenduda kasutaja emakeeles, nimetatakse <emphasis
+>lokaliseerimiseks</emphasis
+>. See hõlmab nii kasutajaliidese ja dokumentatsiooni tõlkimist kui ka vajaduse korral mõningate muude parameetrite muutmist vastavalt sihtkeele nõuetele (näiteks rahaühikute vormistamine või arvude rühmitamine). &lokalize; on sinu abiline, mis aitab tõlkida rakenduse kasutajaliidest ja dokumentatsiooni. </para>
+<para
+>Kõik lokaliseerimist võimaldavad rakendused valmistavad tõlkimiseks ette ühe või rohkem tõlkefaili. Nende failide laiend on <filename class="extension"
+>.pot</filename
+>. <acronym
+>POT</acronym
+> on lühend sõnadest <quote
+>Portable Object Template</quote
+> (porditava objekti mall). &lokalize; kujutab endast võimsat ja hõlpsasti kasutatavat PO-failide (&GNU; gettexti tõlkefailid) redaktorit. See on tõlkemäluga rakendust, mis on kirjutatud &kde; platvormi 4 peale. Lisaks PO-failide redigeerimisele ja sellega seotud lisadele võimaldab rakendust kasutada sõnastikku, tõlkemälu, kvaliteedikontrolli, projektihaldust jne. Arvukate omaduste hulgas võib ära mainida rohkeid failis liikumise võimalusi, mitmekülgseid redigeerimisvõimalusi, otsimisfunktsioone, süntaksi kontrolli ja statistikafunktsioone. </para>
+<para
+>Portable Object ehl PO-failid (.po): tõlkija alustab POT-mallifailist ja asub täitma lünki ehk originaalteksti tõlkima. Tõlgitud teksti sisaldavat faili nimetatakse PO-failiks. </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Redaktor</title>
+<sect1 id="main-window">
+<title
+>Peaaken</title>
+<para
+>Vaikimisi koosneb peaaken kuuest osast. Üleva paremal asuv paneel on kirjutuskaitstud ja sisaldab avatud PO-faili msgid-välja ehk originaalteksti. Redigeerimispaneel asub otse selle all ja sisaldab msgstr-välja ehk tõlgitud teksti. Seal tulebki originaali tõlkida või juba tõlgitud teksti muuta. </para>
+<screenshot>
+<screeninfo
+>&lokalize; vaikimisi peaaken</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Vaikimisi aken avatud failiga.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Peaaknas ülal vasakul näeb tõlkeühikuid. Selle all paikneb tõlkeühiku metaandmete paneel, kus võib leida parajasti näha oleva originaalteksti kohta käivaid kommentaare, kui neid on. All vasakul paikneb tõlkemälu paneel, mis näitab tõlkemälu baasil võimalikke tõlkeid parajasti näha olevale originaaltekstile. Akna alumises parempoolses nurgas on näha sõnastikupaneel. </para>
+<para
+>Tõlkefailid avatakse eraldi kaartidel, kus on kaks suurt mitmerealist redigeerimiskasti ning veel mitu <emphasis
+>tööriistavaadet</emphasis
+>. Viimaseid võib seada pinusse (nagu kaarte), eraldada või peita. Tõlkefailid koosnevad teatavast arvust inglise ja sihtkeele paaridest, mida nimetatakse <emphasis
+>ühikuteks</emphasis
+>. <emphasis
+>Ühik</emphasis
+> vastab tavaliselt kasutajaliidese ühele stringile või dokumentatsiooni ühele lõigule. Esimeses mitmerealises redigeerimiskastis näidatakse paari algkeelset osa. Teises mitmerealises redigeerimiskastis näidatakse paari tõlgitud osa. <emphasis
+>Ühikute</emphasis
+> vahel saab liikuda kas vaate <guilabel
+>Tõlkeühikud</guilabel
+> või klahvide <keycap
+>Page Down</keycap
+> ja <keycap
+>Page Up</keycap
+> abil. </para>
+<para
+>Ühik võib olla <emphasis
+>tõlgitud</emphasis
+> või <emphasis
+>tõlkimata</emphasis
+>. Tõlgitud ühik võib olla <emphasis
+>valmis</emphasis
+> või <emphasis
+>pooleli</emphasis
+> (viimase asemel on mõnikord kasutusel ka mõisted <emphasis
+>kahtlane</emphasis
+>). Kui ühik on pooleli, näidatakse tõlget kaldkirjas. &lokalize; võimaldab hõlpsalt liikuda ühikute vahel vastavalt nende olekule. Kiirklahvid leiab menüüst <guilabel
+>Liikumine</guilabel
+>. Akna allservas olekuribal näeb aktiivse stringi numbrit, stringide koguarvu, tõlkimata stringide koguarvu, pooleli stringide koguarvu ja aktiivse stringi olekut. Liikudes käsitletakse tõlkimata ühikuid pooleli ühikutena. Samuti võib kasutada <guilabel
+>tõlkeühikute</guilabel
+> vaate filtreerimisvalikuid. Klahvi <keycap
+>Page Down</keycap
+> abil saab filtreeritud vaates liikuda järgmisele ühikule. </para>
+<para
+>Peaaknasse võib lisada muidki sektsioone, näiteks <guilabel
+>Alternatiivtõlked</guilabel
+>, <guilabel
+>Esmane sünkroonimine</guilabel
+>, <guilabel
+>Teisene sünkroonimine</guilabel
+>, <guilabel
+>Binaarühikud</guilabel
+>, mida saab teha peamenüüs <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tööriistavaated</guimenuitem
+></menuchoice
+> abil. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Tööriistaribad</title>
+<para
+>Tööriistaribadele saab toiminguid lisada või eemaldada menüükäsuga <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tööriistaribade seadistamine...</guimenuitem
+></menuchoice
+>. </para>
+<screenshot>
+<screeninfo
+>Tööriistaribade seadistamine</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Siin saab seadistada tööriistaribasid.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Täpsemat teavet annab &kde; põhialuste käsiraamatu <ulink url="help:/fundamentals/config.html#toolbars"
+>tööriistaribasid</ulink
+> käsitlev osa.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Kiirklahvid</title>
+<para
+>Kiirklahvide kasutamine aitab tõlkimisel aega kokku hoida. Neid saab seadistada menüükäsuga <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Kiirklahvide seadistamine...</guimenuitem
+></menuchoice
+> </para>
+<screenshot>
+<screeninfo
+>Kiirklahvide seadistamine</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Siin saab seadistada kiirklahve.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Täpsemat teavet annab &kde; põhialuste käsiraamatu <ulink url="help:/fundamentals/config.html#shortcuts"
+>kiirklahve</ulink
+> käsitlev osa.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Üldised vihjed</title>
+<para
+>&kde; tõlkimisel on sul arvatavasti juba olema &lokalize; projektifail oma tõlkekataloogis (tavaliselt kannab see fail nime <filename
+>index.lokalize</filename
+>), kuid võib ka valida <menuchoice
+><guimenu
+>Projekt</guimenu
+><guimenuitem
+>Loo uus projekt</guimenuitem
+></menuchoice
+> ning nõustaja laadib alla sinu keele tõlkefailid ja loob vastava projekti. </para>
+
+<tip>
+<para
+>Tootlikkuse huvides on väga mõistlik õppida selgeks kiirklahvid, sest menüüde ja tööriistaribade kasutamine on üldiselt aeganõudvam. Näiteks saab kiirklahviga <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> lülituda kiiresti <guilabel
+>kiirotsingu</guilabel
+>reale <guilabel
+>tõlkeühikute</guilabel
+> vaates, et filtreerida vajadusel ühikute nimekirja. Pärast seda võib vajutada klahvi <keycap
+>Page Down</keycap
+>, et filtreeritud nimekirjas edasi liikuda. </para>
+</tip>
+<para
+>Kui töötad XLIFF-vormingus tõlkefailidega (nagu see on kindlasti siis, kui tõlgid mõnda OpenDocument-faili), on olekuid rohkemgi (<emphasis
+>uus</emphasis
+>, <emphasis
+>vajab ülevaatamist</emphasis
+>, <emphasis
+>heakskiidetud</emphasis
+> jne.). Neid võib valida tööriistaribal paikneva nupu <guilabel
+>Heakskiidetud</guilabel
+> rippmenüüst. See, kas olekut tõlgendatakse kui <emphasis
+>valmis</emphasis
+> või kui <emphasis
+>pooleli</emphasis
+>, sõltub aktiivsest <emphasis
+>tööfaasist</emphasis
+> (<emphasis
+>tõlkimine</emphasis
+>, <emphasis
+>korrektuur</emphasis
+>, <emphasis
+>heakskiitmine</emphasis
+>). Vaikimisi faas omakorda sõltub sinu <emphasis
+>rollist</emphasis
+> projektis (mis määratakse kindlaks projekti seadistustes). Iga ühik sisaldab tavaliselt teavet faasi kohta, millal seda viimati muudeti, ning iga faasi korral logitakse selle omanik faili. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projektid</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Üldised märkused</title>
+<para
+>Projektid on üks &lokalize; tähtsamaid kontseptsioone. Projekt kujutab endast faili, mis sisaldab asukohti, katalooge tõlgete ja mallidega ning teisi faile: sõnastikufail, automatiseerimisskriptid, tõlkemälu. Kui &lokalize; avab faili, ilma et projekt oleks laaditud, otsib rakendus eellaskataloogides (kuni neli taset kõrgemale) projektifaili. Kui aga käivitad &lokalize; käsurealt, võid projektifaili kindlaks määrata võtmega <userinput
+>--project</userinput
+>. </para>
+
+<para
+>Iga projekti puhul saab valida oma rolli selles (<emphasis
+>tõlkija</emphasis
+>, <emphasis
+>korrektor</emphasis
+>, <emphasis
+>hindaja</emphasis
+>), mis omakorda mõjutab tööfaasi, mille &lokalize; määrab sulle automaatselt mis tahes faili redigeerimisel. </para>
+
+<note>
+<para
+>Erinevalt projektifailidest, sõnastikust ja skriptidest ei jagata tõlkemälu projekti liikmete vahel, sest see luuakse ja salvestatakse kasutaja kodukataloogis. See tähendab, et kõigi projektide tõlkemälud salvestatakse ühte kataloogi ning ühe projekti tõlkemälu saab kasutada ka teistes avatavates projektides. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Projekti ülevaate kaart</title>
+<para
+>&lokalize; esmakordsel käivitamisel ilmub nähtavale tühi <guilabel
+>projekti ülevaate</guilabel
+> kaart. Projekti ülevaade kujutab endast failihalduri moodi vaadet, mis võimaldab kiiresti saada ülevaate kõigist vajalikest PO-failidest. &lokalize; aitab nii kiiresti tõlkida kui ka hoida tõlked ühtlasena. &lokalize; töövoog eeldab, et kõigepealt tuleb luua või avada projekt. Projekti ülevaate kaart näitab failipuud koos aktiivse projekti statistikaga, näiteks lõpetatud tõlkeühikute protsent ja viimane tõlkija. Sealt saab ka avada valitud faili &lokalize; aknas omaette kaardil. </para>
+<para
+>Uue projekti loomiseks valik <menuchoice
+><guimenu
+>Projekt</guimenu
+><guimenuitem
+>Loo uus projekt</guimenuitem
+></menuchoice
+>. Ilmub nõustaja, mis abistab sind uue projekti loomisel. Menüüs <guimenu
+>Projekt</guimenu
+> leiab ka sellised kirjed, nagu <guimenuitem
+>Projekti ülevaade</guimenuitem
+>, <guimenuitem
+>Seadista projekti</guimenuitem
+>, <guimenuitem
+>Ava projekt</guimenuitem
+> ja <guimenuitem
+>Ava viimati kasutatud projekt</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Projekti ülevaate kaart</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Siin saab seadistada projekti.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+><guilabel
+>Projekti ülevaate</guilabel
+> kaart näitab failipuud ühes aktiivse projekti statistikaga, näiteks valmis ühikute protsendi ja viimase tõlkija nimega. Samuti saab seal valida mõne faili, mis avatakse &lokalize; akna uues kaardis. </para>
+
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Sõnastik</title>
+
+<para
+>Kindlasti on sul ette tulnud, et pead ühte ja sama teksti mitu korda aina uuesti sisestama ja niimoodi märksa rohkem aega kulutama, kui näiteks lihtsalt olemasoleva teksti kopeerimisega. Nüüd on aga sul vaja lihtsalt leida vajalik tekst <guilabel
+>sõnastikuvaates</guilabel
+> ja see kiirklahviga sisestada. </para>
+
+<para
+>Loomulikult tuleb sõnastik fraasidega kõigepealt täita. &lokalize; pakub selleks mugavat sõnastiku redaktorit, mis võimaldab otsida kogu sõnastikus. </para>
+
+<screenshot>
+<screeninfo
+>Sõnastikuvaade all paremal nurgas näitab aktiivse ühikuga sobivaid sõnastiku kirjeid</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Sõnastikuvaade all paremal nurgas näitab aktiivse ühikuga sobivaid sõnastiku kirjeid</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Tõlkemälu</title>
+
+<para
+><guilabel
+>Tõlkemälu</guilabel
+> vaade võimaldab lohistada näiteks &dolphin;ist mõne faili vaatesse ning mõne minuti pärast hakatakse ühikute vahetamisel näitama tõlkepakkumisi. Pakkumise lisamiseks tõlkesse kasuta kiirklahve <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> ja nii edasi sõltuvalt pakkumise numbrist. </para>
+<para
+>Menüükirjega <menuchoice
+><guimenu
+>Tööriistad</guimenu
+><guimenuitem
+>Halda tõlkemälu</guimenuitem
+></menuchoice
+> saab tõlkemällu projekte lisada või neid hallata. Samuti saab siin importida või eksportida andmeid <filename role="extension"
+>tmx</filename
+> failivormingus. </para>
+
+<para
+>Klahvi <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> vajutamisel avatakse eraldi <guilabel
+>tõlkemälu</guilabel
+> kaart, kus saab teha tõlkemälus kõikvõimalikke päringuid. Otsingutulemusele klõpsates avatakse vastava faili vastav ühik. Kui soovid kiiresti avada mõne projekti faili (nii et see lisatakse tõlkemälusse), siis kirjuta <guilabel
+>projekti ülevaate</guilabel
+> sirvimise asemel see hoopis väljale <guilabel
+>Failimask</guilabel
+>, lisades ka '*'. </para>
+
+<para
+>Tõlkemälu mootor indekseerib kõik kirjed, kaasa arvatud pooleli ja tõlkimata kirjed. Sel moel asendab see igati failides otsimise võimalust, mis nõuab kõigi projekti failide läbiuurimist igal kasutamiskorral. </para>
+
+<screenshot>
+<screeninfo
+>&lokalize; aktiivse ühiku tõlkemälust otsingu tulemustega</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; aktiivse ühiku tõlkemälust otsingu tulemustega</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Hulgitõlge:</term>
+    <listitem>
+      <para
+>Tõlkemälu andmebaasis leiduvate täpsete pakkumiste automaatseks lisamiseks vali menüükäsk <menuchoice
+><guimenu
+>Tööriistad</guimenu
+><guimenuitem
+>Rakenda kõik täpsed pakkumised</guimenuitem
+></menuchoice
+> VÕI <guimenuitem
+>Rakenda kõik täpsed pakkumised ja märgi kahtlaseks</guimenuitem
+>. See võimalus vastab enam-vähem kunagisele &kbabel;i toorele tõlkimisele. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Tõlke sünkroonimise võimalused</title>
+
+<para
+><guilabel
+>Sünkroonimisrežiim</guilabel
+> (varasema nimetusega <guilabel
+>ühendamisrežiim</guilabel
+>) säästab tublisti aega eriti juhtudel, mil kaks või enam tõlkijat töötavad korraga ühe faili kallal või kui tuleb korraga hallata tarkvaratõlkeid mitmes eri harus. </para>
+
+<para
+>&lokalize; võimaldab kiiresti liikuda läbi omavahel erinevate ühikute ning näitab sõna-sõnalt kõiki erinevusi. Samuti pakub &lokalize; kaht sünkroniseerimisvaadet: <guilabel
+>esmane sünkroonimine</guilabel
+> ja <guilabel
+>teisene sünkroonimine</guilabel
+>. Need on muidu sarnased, kuid esimest kasutatakse tavaliselt tõlgete ühendamiseks, teist aga kahe haru tõlgete sünkroonimiseks. </para>
+
+<para
+>Kui oled kopeerinud tõlke lisafailist (selle <emphasis
+>sünkrooninud</emphasis
+>), kloonitakse kõik muutused, mida antud ühikuga ette võtad, ka tagasi lisafaili. </para>
+
+<sect1 id="file-merge">
+<title
+>Ühendamine</title>
+<para
+><guilabel
+>Sünkroonimisrežiimi</guilabel
+> üks kasutamisvõimalusi on muudatuste läbivaatamine, mida on teinud mõni kaastöötaja, mis on eriti vajalik siis, kui sa pole päris kindel antud kaastöötaja tõlkekvaliteedis. </para>
+<para
+>Ava baasfail ning lohista siis selle muudetud versioon <guilabel
+>esmase sünkroonimise</guilabel
+> vaatesse. Seejärel saad erinevusi sisaldavate kirjete vahel liikuda kiirklahvidega <keycombo
+>&Alt;<keycap
+>Nool alla</keycap
+></keycombo
+> või <keycombo
+>&Alt;<keycap
+>Nool üles</keycap
+></keycombo
+> (pane tähele, et kiirklahve võib kõigis &kde; rakendustes alati vastavalt oma soovidele ja vajadustele muuta). </para>
+<screenshot>
+<screeninfo
+>&lokalize; kasutamine muutuste ühendamiseks</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; kasutamine muutuste ühendamiseks</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Kloonimine</title>
+<para
+><guilabel
+>Sünkroonimisrežiimi</guilabel
+> saab kasutada ka muutuste tegemiseks korraga kahes harus. Määra oma projekti seadistustes kindlaks <guilabel
+>haru kataloog</guilabel
+>, milleks peab olema vajaliku haru baaskataloog, ning <guilabel
+>teisese sünkroonimise</guilabel
+> vaade avab automaatselt haru vastavad failid. Seejärel kloonitakse kõik muutused, mida teed mõnes põhiharu failis, automaatselt ka määratud harusse (mõistagi on tingimuseks, et haru failis leiduks täpselt sama ingliskeelne string). </para>
+<para
+>Kui näiteks töötad &kde; tõlkimise kallal, võid määrata põhitõlgete kataloogiks <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kde4/SINU_KEEL</filename
+> ja haru kataloogiks <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kde4/SINU_KEEL</filename
+>. Loo &lokalize; projekt <filename
+>/home/xx/hacking/kde/trunk/l10n-kde4/SINU_KEEL/project.lokalize</filename
+> ja määra selle seadistustes kindlaks <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kde4/SINU_KEEL</filename
+>. Seejärel võid töötada projekti kallal ning kõik su muutused tehakse nii põhitõlgetes kui ka harus. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Alternatiivtõlked</title>
+
+<para
+>Iga ühikuga võib olla seotud mitu <emphasis
+>alternatiivtõlget</emphasis
+>. Need võivad tekkida näiteks faili uuendamisel, kui muudetakse veidi originaalteksti stringi. Sel juhul lisatakse vana tõlge koos vana originaalstringiga alternatiivtõlgete nimekirja, et need päris ära ei kaoks. </para>
+<para
+>Tarkvara tõlkimisel kasutatakse tõlkefailide ettevalmistamiseks tavaliselt programmi gettext tööriistu. Kui originaalteksti muudetakse, uuendavad gettexti tööriistad tõlkefaile ja märgivad muudetud originaaltekstiga kirjed <emphasis
+>kahtlaseks</emphasis
+> (inglise keeles fuzzy, mõnel pool kasutatakse ka mõistet <emphasis
+>pooleli</emphasis
+>, inglise keeles non-ready). Sel juhul salvestatakse varasem tekst, et tõlkija võiks näha, mida täpselt on muudetud. &lokalize; lihtsustab veelgi tõlkija elu ning tõstab originaalteksti muudetud osad <guilabel
+>alternatiivtõlgete</guilabel
+> vaates esile. </para>
+
+<screenshot>
+<screeninfo
+>&lokalize; pärast tõlke viimast ülevaatamist muudetud originaalteksti osade esiletõstmisega</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; pärast tõlke viimast ülevaatamist muudetud originaalteksti osade esiletõstmisega</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>&lokalize; ja skriptid</title>
+
+<para
+>&lokalize; on hõlpsasti laiendatav skriptidega, mida võib kirja panna mitmes skriptikeeles (sealhulgas Python ja JavaScript) Skriptid on tavaliselt lõimitud &lokalize; kasutajaliidesesse menüükirjetena, millele võib omistada ka kiirklahvi Asukoht menüüs ja menüükirje nimi on kindlaks määratud vastavas .rc-failis. Projekti igal avamisel otsib &lokalize; kataloogist <filename
+>PROJEKTIKATALOOG/lokalize-scripts</filename
+> .rc-faile ning lisab need <emphasis
+>puhvrifaili</emphasis
+> <filename
+>PROJEKTIKATALOOG/lokalize-scripts/scripts.rc</filename
+> (eristamise mõte on see, et viimati mainitud kataloogi ei lisataks projekti versioonikontrollisüsteemi). RC-failid sisaldavad ka skriptide asukohti kas suhtelisena .rc-faili kataloogi suhtes või siis süsteemsete skriptide kataloogis - mõlemad uuritakse läbi (tegelikult <emphasis
+>peaksid</emphasis
+> asukohad olema suhtelised, kui soovid ikka jagada .rc-faili teiste projekti liikmetega). Nii võib näiteks panna skripti <filename
+>../../scripts/lokalize/opensrc.py</filename
+> laadima skripti <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>globaalsest kde4-l10n skriptikataloogist</ulink
+> (s.t. kataloogist, mis pole otseselt seotud sinu keelega). </para>
+<para
+>.rc-failide näiteid võib leida &lokalize; paigalduskataloogist (tavaliselt <filename
+>/usr/share/kde4/apps/lokalize/scripts/</filename
+>) ja <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>&kde; hoidlast</ulink
+>. <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>Siit</ulink
+> leiab rohkem skriptinäiteid, sealhulgas JavaScripti põhise <filename
+>check-gui.js</filename
+>, mis käivitub automaatsel igal faili salvestamisel (selleks on .rc-failis spetsiaalne võti). Kui oled tuttav Pythoni või JavaScriptiga, ei tohiks kood vähimaidki raskusi valmistada. </para>
+<para
+>Allpool on toodud viited API dokumentatsioonile. Skriptides saab kasutada kõike, mis on märgitud kui <emphasis
+>Q_SCRIPTABLE</emphasis
+>. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Objekti <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>Editor</ulink
+> API dokumentatsioon </para>
+</listitem>
+<listitem>
+<para
+>Objekti <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>&lokalize;</ulink
+> API dokumentatsioon </para>
+</listitem>
+<listitem>
+<para
+>Objekti <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Project</ulink
+> API dokumentatsioon </para>
+</listitem>
+</itemizedlist>
+
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Autorid ja litsents</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Rakenduse autoriõigus &copy; 2007-2009: Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Osa koodi on pärit &lokalize; eelkäijast &kbabel;. </para>
+
+<para
+>Dokumentatsiooni autoriõigus &copy; 2007-2009: Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Autor: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Täpsemat teavet leiab <ulink url="http://techbase.kde.org/Projects/Summer_of_Code/2007/Projects/KAider"
+>&lokalize; koduleheküljelt</ulink
+>.</para>
+
+<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@smail.ee</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

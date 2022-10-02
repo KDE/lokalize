@@ -1,0 +1,891 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Hungarian "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>A &lokalize; kézikönyve</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Kristóf</firstname
+><surname
+>Kiszel</surname
+><affiliation
+><address
+><email
+>ulysses@kubuntu.org</email
+></address
+></affiliation
+><contrib
+>Magyar fordítás</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Balázs</firstname
+><surname
+>Úr</surname
+><affiliation
+><address
+><email
+>ur.balazs@fsf.hu</email
+></address
+></affiliation
+><contrib
+>Magyar fordítás</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2020-03-09</date>
+<releaseinfo
+>Alkalmazások 20.04</releaseinfo>
+
+<abstract>
+<para
+>A &lokalize; egy számítógéppel támogatott fordítórendszer, amely a hatékony munkára és a minőségbiztosításra összpontosít. A CAT-eszközökben általában megtalálható olyan összetevőkkel rendelkezik, mint a fordítómemória, a szójegyzék, valamint egy egyedi fordítás-összefésülési (szinkronizálási) képességgel is. A szoftverfordítást célozza meg, és külső átalakító eszközöket is integrál a szabad irodai dokumentumok fordításához. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>honosítás</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>nemzetköziesítés</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>fordítás</keyword>
+<keyword
+>globalizáció</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+<keyword
+>KBabel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Bevezetés</title>
+<para
+>A programüzenetek és a dokumentáció általában angol nyelven íródnak. Egy eszközkészletből és programkönyvtárakból álló keretrendszer segítségével lehetőség van arra, hogy kedvenc alkalmazásait az Ön nem angol anyanyelvén szólaltassa meg. Az alkalmazás egy adott nyelvhez igazító folyamatát <emphasis
+>honosításként</emphasis
+> ismerjük. A honosítási folyamat magában foglalja a program felületeinek és dokumentációjának lefordítását a felhasználók által igényelt különböző nyelvekre, valamint egyes országokban vagy régiókban a be- és kimenetek bizonyos konvencióknak való megfeleltetését. A &lokalize; egy olyan eszköz, amely segít Önnek a honosítási folyamatban, hogy egy alkalmazás felülete több nyelven beszéljen. </para>
+<para
+>Minden nemzetköziesítésre képes program egy vagy több üzenetkatalógus-fájlt tesz elérhetővé a fordításhoz. Ezen fájlok kiterjesztése <filename class="extension"
+>.pot</filename
+>. A <acronym
+>POT</acronym
+> a <quote
+>Portable Object Template</quote
+> (magyarul hordozható objektumsablon) rövidítése. A &lokalize; egy fejlett és könnyen használható PO-fájl (&GNU; gettext üzenetkatalógus) szerkesztő. Ez egy számítógéppel támogatott fordítórendszer a fordítók számára, amely a &kde; Platform 4 keretrendszer használatával készült a semmiből. A PO-fájlok ügyes kiegészítő részletekkel rendelkező, alapvető szerkesztésén kívül integrálja a szójegyzék, a fordítási memória, a minőségbiztosításhoz szükséges eltérési módok, a projektkezelés és egyebek támogatását. Számos funkcióval rendelkezik, mint például teljes navigációs képességek, kiterjedt szerkesztési funkciók, keresési funkciók, szintaxis-ellenőrzés és statisztikai funkciók. </para>
+<para
+>Portable Object (.po) fájlok: Minden fordító fog egy példányt az egyik ilyen POT-sablonból, és elkezdi kitölteni az üres helyeket: minden egyes üzenetet lefordít a kívánt nyelvre. A lefordított szöveget tartalmazó fájlt PO (Portable Object – hordozható objektum) fájlnak nevezik. </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Szerkesztő</title>
+<sect1 id="main-window">
+<title
+>Főablak</title>
+<para
+>Alapértelmezetten a főablak hat részből áll. A jobb felső mező csak olvasható, és az aktuális msgid (forrásszöveg) mezőt tartalmazza a megnyitott PO-fájlból. A közvetlenül alatta lévő szerkesztőmező a megjelenített msgid szöveghez kapcsolódó msgstr (célszöveg) mezőt tartalmazza, és itt lehet beírni vagy szerkeszteni a lefordított szöveget. </para>
+<screenshot>
+<screeninfo
+>Az alapértelmezett &lokalize; főablak</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Ez egy fájl megnyitásakor az alapértelmezett ablakot mutatja.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>A főablak bal felső részén a <guilabel
+>Fordítási egységek</guilabel
+> láthatók. Ez alatt található az <guilabel
+>Egység metaadatai</guilabel
+> szakasz, amely az aktuálisan megjelenített forrásszövegre vonatkozó megjegyzéseket tartalmazza. A bal alsó részen található a <guilabel
+>Fordítási memória</guilabel
+> szakasz, amely a fordítási memória adatbázisából az aktuális forrásszöveg bejegyzéséhez javasolt fordításokat mutatja. Az ablak jobb alsó sarkában a <guilabel
+>Szójegyzék</guilabel
+> szakasz látható. </para>
+<para
+>A fordítási fájlok külön lapokon nyílnak meg, két nagy, többsoros szerkesztőmezővel, valamint egy csomó <emphasis
+>eszköznézettel</emphasis
+>. Ezek a nézetek egymásra helyezhetők (a lapokhoz hasonlóan), külön-külön is megjeleníthetők vagy elrejthetők. A fordítási fájlok sok angol-cél párból állnak, amelyeket <emphasis
+>egységeknek</emphasis
+> neveznek. Egy <emphasis
+>egység</emphasis
+> jellemzően egyetlen karakterláncnak felel meg a felhasználói felületen, vagy egy bekezdésnek a dokumentációban. Az első többsoros szerkesztőmező célja a pár eredeti részének megjelenítése. A második többsoros szerkesztőmező célja a fordítás megjelenítése. Az <emphasis
+>egységek</emphasis
+> között a <guilabel
+>Fordítási egységek</guilabel
+> nézetben vagy a <keycap
+>Page Down</keycap
+> és <keycap
+>Page Up</keycap
+> billentyűk használatával navigálhat. </para>
+<para
+>Egy egység lehet <emphasis
+>lefordított</emphasis
+> vagy <emphasis
+>lefordítatlan</emphasis
+>. Egy lefordított egység fordítása lehet <emphasis
+>kész</emphasis
+> vagy <emphasis
+>nem kész</emphasis
+> (néha <emphasis
+>zavarosnak</emphasis
+> is nevezik). Ha az egység nem kész, a fordítása dőlt betűvel jelenik meg. A &lokalize; lehetővé teszi, hogy könnyen navigálhasson a fájlban a fordításuk állapota szerint. A gyorsbillentyűkhöz nézze meg az <guilabel
+>Ugrás</guilabel
+> menüpontot. Az ablak alján lévő állapotsor jeleníti meg az aktuális karakterlánc számát, a karakterláncok teljes számát, a lefordítatlan karakterláncok teljes számát, a nem kész (zavaros) karakterláncok teljes számát, illetve az aktuális karakterlánc állapotát ebben a sorrendben. Navigáláskor a lefordítatlan egységeket nem késznek kezeli. Használhatja a <guilabel
+>Fordítási egységek</guilabel
+> eszköznézet szűrési funkcióját is. A <keycap
+>Page Down</keycap
+> billentyű megnyomásával tulajdonképpen a következő egységre léphet az adott eszköznézet szűrt vagy rendezett listájában. </para>
+<para
+>A konzolos alkalmazások fordításának megkönnyítéséhez, ahol fontosak a szóközök az üzenetekben, bejelölheti  az <guilabel
+>Elválasztójelek, például szóközök, tabulátorok és sorvégek megjelenítése a szerkesztőben</guilabel
+> jelölőnégyzetet a beállítási ablak <guilabel
+>Szerkesztés</guilabel
+> lapján, amely a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>&lokalize; beállításai…</guimenuitem
+></menuchoice
+> főmenüpont választásával nyitható meg. </para>
+<para
+>Ha nincs hozzáférése az eredeti fordítási sablonfájlhoz (ez általános gyakorlat egyes kereskedelmi fordítási projekteknél), akkor használhatja az érintett nyelv fordítási fájlját. Egyszerűen válassza a <menuchoice
+><guimenu
+>Fájl</guimenu
+><guimenuitem
+>Összes lefordított bejegyzés törlése</guimenuitem
+></menuchoice
+> menüpontot, vagy használja a <keycombo
+>&Ctrl;&Alt;<keycap
+>D</keycap
+></keycombo
+> gyorsbillentyűt az összes fordítási egység törléséhez. </para>
+<para
+>A főablakhoz számos további szakaszt lehet hozzáadni a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>Eszköznézetek</guimenuitem
+></menuchoice
+> főmenüből, mint például <guilabel
+>Alternatív fordítások</guilabel
+>, <guilabel
+>Elsődleges szinkronizáció</guilabel
+>, <guilabel
+>Másodlagos szinkronizáció</guilabel
+> vagy <guilabel
+>Bináris egységek</guilabel
+>. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Eszköztárak</title>
+<para
+>Hozzáadhat vagy eltávolíthat műveleteket az eszköztárakból a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>Eszköztárak beállítása…</guimenuitem
+></menuchoice
+> menüpont használatával a főmenüből. </para>
+<screenshot>
+<screeninfo
+>Eszköztárak beállítása</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Itt állíthatja be az eszköztárakat.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>További információkért olvassa el a &kde; Alapismeretek <ulink url="help:/fundamentals/config.html#toolbars"
+>Eszköztárak</ulink
+> szakaszát.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Gyorsbillentyűk</title>
+<para
+>A fordítás során a gyorsbillentyűk használatával időt takaríthat meg. A gyorsbillentyűk beállításához használja a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>Gyorsbillentyűk beállítása…</guimenuitem
+></menuchoice
+> menüpontot a főmenüből. </para>
+<screenshot>
+<screeninfo
+>Gyorsbillentyűk beállítása</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Itt állíthatja be a gyorsbillentyűket.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>További információkért olvassa el a &kde; Alapismeretek <ulink url="help:/fundamentals/config.html#shortcuts"
+>Gyorsbillentyűk</ulink
+> szakaszát.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Általános tanácsok</title>
+<para
+>Ha a &kde; fordításán dolgozik, akkor vagy már van egy &lokalize; projektfájlja (általában <filename
+>index.lokalize</filename
+> néven) a nyelvi mappában, vagy választhatja a <menuchoice
+><guimenu
+>Projekt</guimenu
+><guimenuitem
+>Új projekt létrehozása</guimenuitem
+></menuchoice
+> menüpontot, a varázsló pedig letölti a nyelvéhez tartozó fordítási fájlokat, és létrehozza a projektet Önnek. </para>
+
+<tip>
+<para
+>Ajánlott, hogy a hatékonyabb munkavégzés érdekében a menük és eszköztárak helyett a gyorsbillentyűket szokja meg. Például használja a <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> gyorsbillentyűt a <guilabel
+>Gyors keresés</guilabel
+> beviteli sorára való fókuszáláshoz a <guilabel
+>Fordítási egységek</guilabel
+> nézetben lévő egységlista szűréséhez. Ha végzett, nyomja meg a <keycap
+>Page Down</keycap
+> billentyűt a szűrt listán való továbblépéshez. </para>
+</tip>
+<para
+>Ha XLIFF formátumú fordítási fájlokkal dolgozik (egyértelműen ez a helyzet az OpenDocument fordításakor), akkor bővített állapotok érhetők el (<emphasis
+>új</emphasis
+>, <emphasis
+>lektorálást igényel</emphasis
+>, <emphasis
+>jóváhagyva</emphasis
+> &etc;). Ezeket az eszköztáron lévő <guilabel
+>Jóváhagyva</guilabel
+> gomb legördülő menüjéből választhatja ki. Az állapot <emphasis
+>kész</emphasis
+> vagy <emphasis
+>nem kész</emphasis
+> besorolása az aktuális <emphasis
+>munkafolyamat-fázistól</emphasis
+> függ (<emphasis
+>fordítás</emphasis
+>, <emphasis
+>lektorálás</emphasis
+>, <emphasis
+>jóváhagyás</emphasis
+>). Az alapértelmezett fázis a projektben betöltött <emphasis
+>szerepétől</emphasis
+> függ (a projektbeállításokban van megadva). Általában minden egység tartalmaz információt arról a fázisról, amelyet utoljára módosítottak, és minden fázisnál a tulajdonosa naplózva van a fájlba. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projektek</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Általános megjegyzések</title>
+<para
+>A projektek a &lokalize; egyik fő elgondolása. Egy projektet egy fájl ír le, amely elérési utakat, fordításokat tartalmazó mappákat, sablonokat és egyéb fájlokat tartalmaz: szójegyzékfájlt, automatizálási parancsfájlokat és fordítási memóriákat. Amikor a &lokalize; megnyit egy olyan fájlt, amelyhez nincs betöltve projekt, akkor a szülőmappákban (legfeljebb négy szinten) keresni fog egy projektfájlt. Alternatívaként a projektfájlt a <userinput
+>--project</userinput
+> jelző segítségével is megadhatja a &lokalize; parancssorból történő indításakor. </para>
+
+<para
+>Minden egyes projekthez kiválasztja a benne betöltött szerepét (<emphasis
+>fordító</emphasis
+>, <emphasis
+>lektor</emphasis
+>, <emphasis
+>jóváhagyó</emphasis
+>), ami viszont befolyásolja a munkafolyamat azon fázisát, ahol a &lokalize; automatikusan kiválasztja azokat a fájlokat, amelyeket Ön szerkeszt. </para>
+
+<para
+>Lehetőség van projektszinten meghatározni a szavak tördelési pozícióját. Egyszerűen használja a <menuchoice
+><guimenu
+>Projekt</guimenu
+> <guimenuitem
+>Projekt beállítása…</guimenuitem
+></menuchoice
+> menüpontot, majd menjen a <guilabel
+>Speciális</guilabel
+> oldalra. </para>
+
+<note>
+<para
+>A fordítási memóriák (ellentétben a projektfájlokkal, a szójegyzékkel és a parancsfájlokkal) nem kerülnek megosztásra a fordítócsapat tagjai között, mivel azok a felhasználó saját mappájában vannak létrehozva és eltárolva, ami azt jelenti, hogy az összes projekt fordítási memóriája ugyanabban a mappában található, és így más projektek megnyitásakor is használható. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Projektáttekintő lap</title>
+<para
+>A &lokalize; első alkalommal történő indításakor egy üres <guilabel
+>Projektáttekintő</guilabel
+> lapot fog látni. A <guilabel
+>Projektáttekintő</guilabel
+> egy fájlkezelő nézet, amely segít a PO-fájlok áttekintésében. A &lokalize; programcsomag segít a gyors fordításban és a fordítások következetességének megőrzésében is. A &lokalize; munkafolyamata azt sejteti, hogy egy projekt létrehozásával vagy megnyitásával kezd. A <guilabel
+>Projektáttekintő</guilabel
+> lap megjeleníti a fájlok fanézetét az aktuális projekt statisztikáival, mint például a befejezett lefordított egységek százalékos aránya és az utolsó fordító. Lehetővé teszi a kiválasztott fájl megnyitását az aktuális &lokalize; ablak egyik lapján. </para>
+<para
+>Új project létrehozásához használja a <menuchoice
+><guimenu
+>Projekt</guimenu
+><guimenuitem
+>Új projekt létrehozása</guimenuitem
+></menuchoice
+> menüpontot. Ez végigvezeti egy új projekt létrehozásának lépésein. A <guimenu
+>Projekt</guimenu
+> menüben olyan lehetőségeket is találhat, mint például <guimenuitem
+>Projektáttekintő</guimenuitem
+>, <guimenuitem
+>Projekt beállítása</guimenuitem
+>, <guimenuitem
+>Projekt megnyitása</guimenuitem
+> és <guimenuitem
+>Legutóbbi projekt megnyitása</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Projektáttekintő lap</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Itt állíthatja be a projektet.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>A <guilabel
+>Projektáttekintő</guilabel
+> lap megjeleníti a fájlok fanézetét az aktuális projekt statisztikáival, mint például a befejezett lefordított egységek százalékos aránya és az utolsó fordító. Lehetővé teszi a kiválasztott fájl megnyitását az aktuális &lokalize; ablak egyik lapján. </para>
+
+<note>
+    <para
+>Kikapcsolhatja a teljesen lefordított fájlokat a <guilabel
+>Projektáttekintőből</guilabel
+> a fő eszköztáron lévő <guibutton
+>Befejezett elemek elrejtése</guibutton
+> gomb vagy az alapértelmezett <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+> gyorsbillentyű használatával. </para>
+</note>
+<para
+>A &lokalize; a következő indításakor alapértelmezetten az utoljára megnyitott fájlt fogja megjeleníteni. Ezt a viselkedést kikapcsolhatja a beállítási ablak <guilabel
+>Általános</guilabel
+> oldalán lévő <guilabel
+>Az előzőleg megnyitott fájlok visszaállítása a &lokalize; indításakor</guilabel
+> jelölőnégyzettel. A beállítási ablak a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>&lokalize; beállítása…</guimenuitem
+></menuchoice
+> főmenüpont kiválasztásával nyitható meg. Ugyanez az oldal használható a &lokalize; viselkedésének beállításhoz, ha a következő vagy az előző lapra vált benne. Lehetőség van arra, hogy a lapok listáján a lapok pozíciója vagy aktiválási sorrendje szerint menjen végig. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Szójegyzék</title>
+
+<para
+>Fárasztónak találta már valaha, hogy ugyanazt a hosszú szövegrészletet többször is begépelje, csak azért mert több időbe telne megtalálni a fordítását a másoláshoz és beillesztéshez? Most már csak meg kell keresnie a (gyakori) szósorozatot a <guilabel
+>Szójegyzék</guilabel
+> nézetben, majd egy gyorsbillentyű megnyomásával beillesztenie azt. </para>
+
+<para
+>Természetesen a szójegyzéket először fel kell tölteni szósorozatokkal. A &lokalize; rendelkezik egy praktikus szójegyzékszerkesztővel, amely lehetővé teszi a teljes szójegyzékben való egyértelmű keresést. </para>
+
+<screenshot>
+<screeninfo
+>A jobb alsó sarokban lévő szójegyzék nézet az aktuális egységnek megfelelő szójegyzékbejegyzéseket jeleníti meg</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>A jobb alsó sarokban lévő szójegyzék nézet az aktuális egységnek megfelelő szójegyzékbejegyzéseket jeleníti meg</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Fordítási memória</title>
+
+<para
+>A <guilabel
+>Fordítási memória</guilabel
+> nézet lehetővé teszi, hogy egy fordítási fájlokkal rendelkező mappát mondjuk a &dolphin; programból a nézetbe húzza, majd néhány percen belül a fordítási javaslatok automatikusan megjelennek az egység kapcsolóján. A fordítási javaslatoknak a fájlba történő beszúrásához használja a <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> és a további számokból álló gyorsbillentyűket a javaslatok számától függően. </para>
+<para
+>Használja az <menuchoice
+><guimenu
+>Eszközök</guimenu
+><guimenuitem
+>Fordítási memóriák kezelése</guimenuitem
+></menuchoice
+> menüpontot a projektek hozzáadásához vagy kezeléséhez a <guilabel
+>Fordítási memóriánál</guilabel
+>. Szintén itt tud adatokat importálni vagy exportálni <filename role="extension"
+>tmx</filename
+> fájlformátummal. </para>
+
+<para
+>Az <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> billentyű megnyomása megnyitja a <guilabel
+>Fordítási memória</guilabel
+> lapot, amely lehetővé teszi a fordítási memória szabadon történő lekérdezését. Egy keresési találatra kattintva megnyílik a megfelelő fájl és egység. Ha gyorsan szeretne megnyitni valamilyen fájlt a projektben (és az hozzá van adva a fordítási memóriához), akkor a <guilabel
+>Projektáttekintő</guilabel
+> böngészése helyett egyszerűen beírhatja a nevét a <guilabel
+>Fájlmaszk</guilabel
+> mezőbe a „*” kíséretében. </para>
+
+<para
+>A fordítási memória motorja minden bejegyzést indexel, beleértve a nem kész és a lefordítatlan bejegyzéseket is. Ez lehetővé teszi, hogy teljesen helyettesítse a fájlokban való keresés funkciót, amely a projektben lévő összes fájl átvizsgálását igényli minden egyes elvégzett kereséskor. </para>
+
+<note>
+    <para
+>A fordítási memória elavult bejegyzései törölve lesznek a &lokalize; fordítási memóriájából az újraellenőrzéskor vagy egy hiányzó bejegyzésre kattintva, ha a <guilabel
+>Hiányzó fájlok törlése a fordítási memóriából az újraellenőrzéskor, vagy ha egy hiányzó bejegyzésre kattint</guilabel
+> jelölőnégyzetet bejelölte a beállítási ablak <guilabel
+>Fordítási memória</guilabel
+> oldalán. A beállítási ablak a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>&lokalize; beállítása…</guimenuitem
+></menuchoice
+> főmenüpont kiválasztásával nyitható meg. </para>
+</note>
+
+<screenshot>
+<screeninfo
+>A &lokalize; a fordítási memória aktuális egységnél lévő keresési találataival</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; a fordítási memória aktuális egységnél lévő keresési találataival</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Tömeges fordítás:</term>
+    <listitem>
+      <para
+>A pontosan megfelelő javaslatoknak a fordítási memória adatbázisából való automatikus beillesztéséhez használja az <menuchoice
+><guimenu
+>Eszközök</guimenu
+><guimenuitem
+>Az összes pontos javaslat kitöltése</guimenuitem
+></menuchoice
+> vagy <guimenuitem
+>Az összes pontos javaslat kitöltése és megjelölés zavarosként</guimenuitem
+> menüpontot. Ez a funkció hasonló a &kbabel; durva fordítási funkciójához. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Fordításszinkronizálási képességek</title>
+
+<para
+>A <guilabel
+>Szinkronizálási mód</guilabel
+> (korábbi nevén <guilabel
+>Összefésülési mód</guilabel
+>) rengeteg időt takarít meg a szerkesztők számára, illetve olyan esetekben, amikor két vagy több fordító dolgozik egyszerre ugyanazon a fájlon, vagy amikor egy szoftver több ágának fordítását kell karbantartani. </para>
+
+<para
+>A &lokalize; lehetővé teszi a gyors navigációt az eltérő egységek között, és megjeleníti a szavak közti különbségeket. A &lokalize; két szinkronizációs nézettel is rendelkezik – <guilabel
+>Elsődleges szinkronizáció</guilabel
+> és <guilabel
+>Másodlagos szinkronizáció</guilabel
+>. Ezek azonosak, de az elsőt általában a fordítások összefésülésére, a másodikat pedig két szoftverág fordításainak szinkronban tartására használják. </para>
+
+<para
+>Miután átmásolta a fordítást a külső fájlból (<emphasis
+>szinkronizálta</emphasis
+> azt), az ezen az egységen végzett minden későbbi változtatás vissza lesz másolva a külső fájlba. </para>
+
+<sect1 id="file-merge">
+<title
+>Összefésülés</title>
+<para
+>A <guilabel
+>Szinkronizálási mód</guilabel
+> egyik felhasználási területe az (új) közreműködők által végzett változtatások lektorálása, amikor nem lehet biztos az elvégzett munka minőségében. </para>
+<para
+>Nyisson egy alapfájlt, majd dobja be annak módosított változatát az <guilabel
+>Elsődleges szinkronizáció</guilabel
+> nézetbe, és az <keycombo
+>&Alt;<keycap
+>Le</keycap
+></keycombo
+> vagy az <keycombo
+>&Alt; <keycap
+>Fel</keycap
+></keycombo
+> (ne feledje, hogy a gyorsbillentyűk a szokásos módon módosíthatók az összes &kde; alkalmazásnál) segítségével navigálhat az eltérő bejegyzések között. </para>
+<screenshot>
+<screeninfo
+>A &lokalize; a fordításban lévő változtatások összefésülésénél használva</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; a fordításban lévő változtatások összefésülésénél használva</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Többszörözés</title>
+<para
+>A <guilabel
+>Szinkronizálási mód</guilabel
+> arra is használható, hogy két ág fordításában egyszerre végezzen változtatásokat. Állítsa be az <guilabel
+>Ágmappa</guilabel
+> elérési útját a projekt beállításaiban az ág alapmappájának megfelelő elérési útra, és a <guilabel
+>Másodlagos szinkronizáció</guilabel
+> nézet automatikusan megnyitja az ágból származó fájlokat. Ezután minden alkalommal, amikor a fő ág fájljaiban változtatásokat végez, azok automatikusan átmásolódnak az ágba (természetesen, ha az ugyanazt az angol karakterláncot tartalmazza). </para>
+<para
+>Ha például a &kde; fordításán dolgozik, akkor lekérheti a törzset a <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kf5/hu</filename
+> mappába és az ágat a <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kf5/hu</filename
+> mappába. Hozzon létre egy &lokalize; projektet: <filename
+>/home/xx/hacking/kde/trunk/l10n-kf5/hu/project.lokalize</filename
+>, és állítsa be a <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kf5/hu</filename
+> változót, majd dolgozzon ezen projekten keresztül, és véglegesítse a változtatásokat mind a törzs, mind az ág mappáiban. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Alternatív fordítások</title>
+
+<para
+>Minden egységhez több <emphasis
+>alternatív fordítás</emphasis
+> is tartozhat. Az ilyen fordítások a fájl frissítése során jelenhetnek meg, ha a forrásszöveget kissé megváltoztatták. Ebben az esetben a régi fordítás a (régi) forrással együtt átkerül az alternatív fordítások listájára, hogy ne vesszenek el. </para>
+<para
+>Szoftverek fordításakor általában gettext eszközöket használnak a fordítási fájlok előkészítéséhez. Ha az eredeti szöveg megváltozik, a gettext eszközök frissítik a fordítási fájlokat, és a megváltozott eredeti szöveget tartalmazó bejegyzéseket <emphasis
+>zavaros</emphasis
+> (vagy más terminológiával <emphasis
+>nem kész</emphasis
+>) állapotúnak jelölik. Ezek tárolják a korábbi eredeti szöveget, hogy a fordítók láthassák, pontosan milyen változtatások történtek. A &lokalize; megkönnyíti a fordító életét, és az <guilabel
+>Alternatív fordítások</guilabel
+> nézetben kiemeli az eredeti szöveg azon részeit, amelyek megváltoztak. </para>
+
+<screenshot>
+<screeninfo
+>A &lokalize; kiemeli az eredeti szöveg azon részeit, amelyek megváltoztak a fordítás legutóbbi lektorálása óta</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>A &lokalize; kiemeli az eredeti szöveg azon részeit, amelyek megváltoztak a fordítás legutóbbi lektorálása óta</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>A &lokalize; parancsfájlkezelése</title>
+
+<para
+>A &lokalize; számos értelmezett nyelven, köztük Python és &javascript; parancsfájlok használatával is bővíthető. A parancsfájlok általában menüműveletekként (amelyekhez gyorsbillentyűt rendelhet) integrálódnak a &lokalize; felhasználói felületébe. A parancsfájl menübejegyzésének helye és neve a hozzá tartozó .rc fájlban van meghatározva. Minden egyes projektmegnyitáskor a &lokalize; átvizsgálja a <filename
+>PROJEKTKÖNYVTÁR/lokalize-scripts</filename
+> mappát .rc fájlokat keresve, és hozzáadja azokat egy <emphasis
+>gyorsítótár</emphasis
+> fájlhoz, amelynek neve <filename
+>PROJEKTKÖNYVTÁR/lokalize-scripts/scripts.rc</filename
+> (ezért általában nem kellene hozzáadni a projekt verziókezelő rendszeréhez). Az RC-fájlok tartalmaznak parancsfájl elérési utakat is, amelyek lehetnek relatívak az .rc fájl mappájától vagy a rendszer parancsfájljainak mappájától – mindkettővel próbálkozni fog (habár relatív helyen <emphasis
+>kellene</emphasis
+> tartani azokat, ha meg szeretné osztani a projektjében más emberekkel). Például megadhatja a <filename
+>../../scripts/lokalize/opensrc.py</filename
+> fájlt, hogy betöltsön egy parancsfájlt a <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+>globális kf5-l10n parancsfájlok mappájából</ulink
+> (&ie; nem specifikusan a nyelvére). </para>
+<para
+>Az .rc fájlok példái megtalálhatók a &lokalize; telepítési mappájában (általában <filename
+>/usr/share/lokalize/scripts/</filename
+>) és a <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+>&kde; tárolójában</ulink
+>. <ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>Itt</ulink
+> további parancsfájlpéldákat találhat, beleértve a &javascript;-alapú <filename
+>check-gui.js</filename
+> parancsfájlt, amely automatikusan lefut minden egyes fájlmentéskor (ez az .rc fájlban lévő különleges beállítással valósul meg). Ha ismerős a Python vagy a &javascript; használatában, akkor a kódnak magától értetődőnek kell lennie. </para>
+<para
+>Az alábbiakban az API-hivatkozásokra mutató linkek találhatók. Minden, ami <emphasis
+>Q_SCRIPTABLE</emphasis
+> jelzéssel van ellátva, használható parancsfájlokból. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>A <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>Szerkesztő</ulink
+> objektum API-hivatkozása </para>
+</listitem>
+<listitem>
+<para
+>A <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>&lokalize;</ulink
+> objektum API-hivatkozása </para>
+</listitem>
+<listitem>
+<para
+>A <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Projekt</ulink
+> objektum API-hivatkozása </para>
+</listitem>
+</itemizedlist>
+
+<sect1 id="pology">
+<title
+>Pology</title>
+
+<para
+>Az egyik legjobb parancsfájlkezelési képességekkel rendelkező alkalmazás a <application
+>Pology</application
+> használata a &lokalize; programban. </para>
+<para
+>A <application
+>Pology</application
+> alkalmazással való interakció a beállítási ablak <guilabel
+>Pology</guilabel
+> oldalának használatával állítható be. A beállítási ablak a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>&lokalize; beállítása…</guimenuitem
+></menuchoice
+> főmenüpont kiválasztásával nyitható meg. </para>
+<para
+>További információkért nézze meg a <ulink url="http://pology.nedohodnik.net/"
+>Pology honlapját</ulink
+>. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>LanguageTool</title>
+
+<para
+>A <application
+>LanguageTool</application
+> a fordítási egységek helyesírási és nyelvtani ellenőrzését biztosítja. </para>
+<para
+>Beállíthatja az egyéni <application
+>LanguageTool</application
+> kiszolgálóját a beállítási ablak <guilabel
+>LanguageTool</guilabel
+> oldalának használatával. A beállítási ablak a <menuchoice
+><guimenu
+>Beállítások</guimenu
+><guimenuitem
+>&lokalize; beállítása…</guimenuitem
+></menuchoice
+> főmenüpont kiválasztásával nyitható meg. </para>
+<para
+>A <application
+>LanguageTool</application
+> ellenőrzési képességeinek kihasználásához használja a <menuchoice
+><guimenu
+>Szerkesztés</guimenu
+><guimenuitem
+>Az egység ellenőrzése a LanguageTool használatával</guimenuitem
+></menuchoice
+> menüpontot vagy a <keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+> gyorsbillentyűt. </para>
+<para
+>További információkért nézze meg a <ulink url="https://languagetool.org/"
+>LanguageTool honlapját</ulink
+>. </para>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Köszönetnyilvánítás és licenc</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Program szerzői jog &copy; 2007-2015, Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Néhány kódrészlet a &kbabel; programból, a &lokalize; elődjéből lett átvéve. </para>
+
+<para
+>Dokumentáció szerzői jog &copy; 2007-2009 Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Szerző: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>További részletekért nézze meg a <ulink url="http://userbase.kde.org/lokalize"
+>&lokalize; homepage</ulink
+>.</para>
+
+<para
+>Magyar fordítás: Kiszel Kristóf <email
+>ulysses@kubuntu.org</email
+></para
+><para
+>Magyar fordítás és lektorálás: Úr Balázs <email
+>ur.balazs@fsf.hu</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

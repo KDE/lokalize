@@ -1,0 +1,845 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Catalan  "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>El manual del &lokalize;</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+&traductor.Manuel.Tortosa; &traductor.Antoni.Bella; 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>9 de març de 2020</date>
+<releaseinfo
+>Aplicacions 20.04</releaseinfo>
+
+<abstract>
+<para
+>El &lokalize; és un sistema de traducció assistit per ordinador enfocat en assegurar la productivitat i la qualitat. Té components inclosos en eines de CAT com memòria de traducció, glossari i també una habilitat única per a la fusió de les traduccions (sincronització). Està enfocat a la traducció de programari i també integra eines de conversió externes per a la traducció de documents d'oficina. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>localització</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>internacionalització</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>traducció</keyword>
+<keyword
+>globalització</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+<keyword
+>KBabel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducció</title>
+<para
+>Normalment els missatges i la documentació del programa estan escrits en anglès. Utilitzant un entorn de treball fet d'un conjunt d'eines i biblioteques, és possible fer que les vostres aplicacions preferides parlin el vostre idioma natiu. Aquest procés d'adaptació d'una aplicació a una llengua específica es coneix com a <emphasis
+>localization</emphasis
+>. El procés de localització inclou la traducció de les interfícies del programa i la documentació a les diferents llengües que necessiten els usuaris i, en alguns països o regions, fent que les entrades i sortides s'ajustin a les convencions particulars. El &lokalize; és una eina que us ajudarà en el procés de localització perquè la interfície d'una aplicació parli en molts idiomes. </para>
+<para
+>Cada internacionalització d'un programa posa a disposició per a la traducció un o més fitxers de catàleg de missatges. L'extensió d'aquests fitxers és <filename class="extension"
+>.pot</filename
+>. <acronym
+>POT</acronym
+> és un acrònim de <quote
+>Portable Object Template</quote
+> («Plantilla d'objecte portable»). El &lokalize; és un avançat i fàcil d'utilitzar editor de fitxers PO (catàlegs de missatges gettext de &GNU;). Es tracta d'un sistema de traducció assistida per ordinador per als traductors, escrit des de zero utilitzant la plataforma de l'entorn de treball &kde; 4. A part de l'edició bàsica de fitxers PO amb enginyosos detalls auxiliars, integra suport per a un glossari, una memòria de traducció, els diferents modes de diff pel control de la qualitat (QA), la gestió de projectes, &etc; Disposa de moltes característiques com una completa capacitat de navegació, una completa funcionalitat d'edició, funcions de cerca, funcions per a la comprovació de la sintaxi i estadístiques. </para>
+<para
+>Els fitxers d'objecte portable (.po): Cada traductor agafa una còpia d'una d'aquestes plantilles POT i comença a omplir els camps en blanc: cada missatge es tradueix en l'idioma desitjat. El fitxer que conté el text traduït es coneix com un fitxer PO (Portable Object «Objecte portable»). </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Editor</title>
+<sect1 id="main-window">
+<title
+>Finestra principal</title>
+<para
+>Per omissió, la finestra principal es divideix en sis parts. El quadre superior dret és de només lectura i conté el camp «msgid» actual (text original) del fitxer PO obert. El quadre d'edició just sota seu conté el camp «msgstr» (text traduït) relacionat amb el «msgid» que es mostra i aquí és on podeu introduir o editar el text de la traducció. </para>
+<screenshot>
+<screeninfo
+>La finestra principal per omissió del &lokalize;</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Mostra la finestra per omissió quan hi ha un fitxer obert.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>La part superior esquerra de la finestra principal mostra les Unitats de traducció. Per sota, hi ha la secció Metadades de la unitat i que conté els comentaris apropiats al text original actualment mostrat. A la part inferior esquerra, hi ha la secció Memòria de traducció que mostra les traduccions suggerides a partir de la base de dades de la memòria de traducció per a l'actual entrada de text en el codi. A la cantonada inferior dreta de la finestra, es mostra la secció Glossari. </para>
+<para
+>Els fitxers de traducció s'obren en pestanyes separades, amb dos grans editors multilínia així com un conjunt de <emphasis
+>vistes d'eina</emphasis
+>. Aquestes vistes es poden agrupar (com si fossin pestanyes), mostrar per separat o ocultar. Els fitxers de traducció consisteixen en un conjunt de parelles d'objectius en anglès anomenades <emphasis
+>unitats</emphasis
+>. Una <emphasis
+>unitat</emphasis
+> normalment correspon a una sola cadena a la interfície d'usuari, o un paràgraf a la documentació. La funció del primer editor multilínia és mostrar la part original de la parella. La finalitat del segon editor multilínia és mostrar la traducció. Podeu navegar per les <emphasis
+>unitats</emphasis
+> fent servir la vista <guilabel
+>Unitats de traducció</guilabel
+> o utilitzant <keycap
+>Av Pàg</keycap
+> i <keycap
+>Re Pàg</keycap
+>. </para>
+<para
+>Una unitat pot estar <emphasis
+>traduïda</emphasis
+> o <emphasis
+>sense traduir</emphasis
+>. Una traducció d'una unitat traduïda pot estar <emphasis
+>llesta</emphasis
+> o <emphasis
+>no enllestida</emphasis
+> (també anomenada <emphasis
+>fuzzy</emphasis
+> -o <emphasis
+>inexacta</emphasis
+>- alguns cops). Si la unitat no està enllestida, la seva traducció es mostrarà en lletra cursiva. El &lokalize; permet navegar amb facilitat pel fitxer d'acord amb l'estat de la seva traducció. Mireu el menú <guilabel
+>Ves</guilabel
+> per les dreceres. La barra d'estat a la part inferior de la finestra mostra el número de la cadena actual, el nombre total de cadenes, el total de cadenes sense traduir, el total de cadenes no enllestides (fuzzy) i l'estat de la cadena actual, respectivament. Mentre navegueu, les unitats sense traduir seran tractades com a no enllestides. També podeu utilitzar la característica de filtratge de la vista d'eina <guilabel
+>Unitats de traducció</guilabel
+>. En aquest cas prémer <keycap
+>Av Pàg</keycap
+> realment us portarà a la següent unitat filtrada/ordenada de la llista d'aquesta vista d'eina. </para>
+<para
+>Per facilitar la traducció de les aplicacions de la consola on els espais en els missatges són importants, podeu marcar l'element <guilabel
+>Visualitza els separadors com espais, tabulacions i línies noves a l'editor</guilabel
+> a la pàgina <guilabel
+>Edició</guilabel
+> de la finestra de configuració, la qual es pot obrir escollint l'element <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura el &lokalize;...</guimenuitem
+></menuchoice
+> del menú principal. </para>
+<para
+>Si no teniu accés al fitxer de la plantilla de traducció original (aquesta és una pràctica habitual en alguns projectes de traducció comercial), podeu utilitzar un fitxer de traducció de l'idioma relacionat. Simplement trieu l'element de menú <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Neteja totes les entrades traduïdes</guimenuitem
+></menuchoice
+> o empreu la drecera <keycombo
+>&Ctrl;&Alt;<keycap
+>D</keycap
+></keycombo
+> per a netejar totes les unitats traduïdes. </para>
+<para
+>A la finestra principal es poden afegir moltes més seccions, com <guilabel
+>Traduccions alternatives</guilabel
+>, <guilabel
+>Sincronització primària</guilabel
+>, <guilabel
+>Sincronització secundària</guilabel
+>, <guilabel
+>Unitats binàries</guilabel
+> utilitzant <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Vistes d'eina</guimenuitem
+></menuchoice
+> des del menú principal. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Barres d'eines</title>
+<para
+>Podeu afegir o eliminar accions a la barra d'eines utilitzant <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura les barres d'eines</guimenuitem
+></menuchoice
+> des del menú principal. </para>
+<screenshot>
+<screeninfo
+>Configuració de les barres d'eines</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Aquí podeu configurar les barres d'eines.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Per a més informació, llegiu la secció sobre <ulink url="help:/fundamentals/config.html#toolbars"
+>Barres d'eines</ulink
+> en els Fonaments del &kde;.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Dreceres de teclat</title>
+<para
+>Utilitzant dreceres de teclat durant la traducció podreu estalviar temps. Per configurar les dreceres de teclat, utilitzeu <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura les dreceres...</guimenuitem
+></menuchoice
+> des del menú principal. </para>
+<screenshot>
+<screeninfo
+>Configuració de les dreceres</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Aquí podeu configurar les dreceres de teclat.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Per a més informació, llegiu la secció sobre <ulink url="help:/fundamentals/config.html#shortcuts"
+>Dreceres</ulink
+> en els Fonaments del &kde;.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Consells generals</title>
+<para
+>Si esteu fent traduccions pel &kde;, aleshores, o bé ja hi ha un fitxer de projecte pel &lokalize; a la carpeta d'idiomes (normalment anomenat <filename
+>index.lokalize</filename
+>), o podeu seleccionar <menuchoice
+><guimenu
+>Projecte</guimenu
+><guimenuitem
+>Crea un projecte nou</guimenuitem
+></menuchoice
+> i l'assistent baixarà els fitxers de traducció pel vostre idioma i crearà un projecte. </para>
+
+<tip>
+<para
+>Es recomana que utilitzeu les dreceres de teclat en lloc dels menús i les barres d'eines per incrementar la productivitat. Per exemple, empreu <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> per enfocar la línia d'entrada de la <guilabel
+>Cerca ràpida</guilabel
+> per filtrar la llista de les unitats a la vista <guilabel
+>Unitats de traducció</guilabel
+>. Quan estigueu llestos, premeu <keycap
+>Av Pàg</keycap
+> per a moure-us per la llista filtrada. </para>
+</tip>
+<para
+>Si esteu treballant amb fitxers de traducció amb format XLIFF (és el cas quan traduïu OpenDocument), aleshores hi ha disponibles els estats ampliats (<emphasis
+>nova</emphasis
+>, <emphasis
+>s'ha de revisar</emphasis
+>, <emphasis
+>aprovada</emphasis
+>, etc). Podeu seleccionar-los en el menú desplegable del botó <guilabel
+>Aprovada</guilabel
+> de la barra d'eines. La classificació de l'estat com a <emphasis
+>llesta</emphasis
+> o <emphasis
+>no enllestida</emphasis
+> depèn de la <emphasis
+>fase del flux de treball</emphasis
+> actual (<emphasis
+>traducció</emphasis
+>, <emphasis
+>revisió</emphasis
+>, <emphasis
+>aprovació</emphasis
+>). La fase per omissió dependrà de la vostra <emphasis
+>funció</emphasis
+> en el projecte (s'estableix en la configuració del projecte). Cada unitat normalment conté informació quant a la fase, quan va ser canviada per darrera vegada i per a cada fase, el seu responsable està enregistrat en el fitxer. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projectes</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Notes generals</title>
+<para
+>Els projectes són un dels conceptes principals en el &lokalize;. Un projecte està representat per un fitxer que conté els camins, carpetes amb les plantilles de traducció i altres fitxers: el fitxer de glossari, els scripts d'automatització, les memòries de traducció. Quan el &lokalize; obre un fitxer sense un projecte carregat, cercarà un fitxer de projecte a les carpetes pare (fins a quatre nivells). Alternativament, podeu especificar un fitxer de projecte amb l'indicador <userinput
+>-project</userinput
+> en iniciar el &lokalize; des de la línia d'ordres. </para>
+
+<para
+>Per a cada projecte seleccioneu la vostra funció (<emphasis
+>traductor</emphasis
+>, <emphasis
+>revisor</emphasis
+>, <emphasis
+>aprovador</emphasis
+>), cosa que al seu torn, afectarà la fase del flux de treball del &lokalize;, el qual seleccionarà automàticament els fitxers a editar. </para>
+
+<para
+>És possible definir una posició d'ajust de línia sobre un nivell del projecte. Només haureu d'utilitzar l'element de menú <menuchoice
+><guimenu
+>Projecte</guimenu
+> <guimenuitem
+>Configura el projecte...</guimenuitem
+></menuchoice
+> i llavors anar a la pàgina <guilabel
+>Avançat</guilabel
+>. </para>
+
+<note>
+<para
+>Les memòries de traducció (a diferència dels fitxers de projecte, els glossaris i els scripts) no són compartides entre els membres de l'equip de traducció, ja que es creen i s'emmagatzemen a la carpeta d'inici de l'usuari, el qual significa que les memòries de traducció per a tots els projectes es desen a la mateixa carpeta i per tant es poden utilitzar quan s'obrin altres projectes. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Pestanya de resum del projecte</title>
+<para
+>Quan inicieu el &lokalize; per primera vegada, veureu una pestanya buida <guilabel
+>Resum del projecte</guilabel
+>. El resum del projecte és una vista del gestor de fitxers, que us ajudarà a mantenir un resum dels vostres fitxers PO. La suite &lokalize;, us ajudarà a traduir ràpidament i també a mantenir coherents les traduccions. El flux de treball al &lokalize; implica que comenceu creant o obrint un projecte. </para>
+<para
+>Per crear un projecte nou, utilitzeu <menuchoice
+><guimenu
+>Projecte</guimenu
+><guimenuitem
+>Crea un projecte nou</guimenuitem
+></menuchoice
+>. Ja ens explica els passos del procés per crear un projecte nou. En el menú <guimenu
+>Projecte</guimenu
+> també trobareu opcions que us agradaran com <guimenuitem
+>Resum del projecte</guimenuitem
+>, <guimenuitem
+>Configura el projecte</guimenuitem
+>, <guimenuitem
+>Obre un projecte</guimenuitem
+> i <guimenuitem
+>Obre un projecte recent</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Pestanya de resum del projecte</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Aquí podeu configurar el projecte.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>La pestanya <guilabel
+>Resum del projecte</guilabel
+> mostra un arbre de fitxers amb estadístiques del projecte actual, com ara el percentatge d'unitats traduïdes completades i el darrer traductor. Permet obrir un fitxer seleccionat en una pestanya nova de la finestra actual del &lokalize;. </para>
+
+<note>
+    <para
+>Podeu desactivar els fitxers completament traduïts des del <guilabel
+>Resum del projecte</guilabel
+> utilitzant el botó <guibutton
+>Oculta els elements completats</guibutton
+> que hi ha a la barra d'eines principal o amb la drecera predeterminada <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>. </para>
+</note>
+<para
+>Quan inicieu el &lokalize; la pròxima vegada, per omissió es mostrarà l'últim fitxer obert. Podeu desactivar aquest comportament amb l'element <guilabel
+>Restaura els fitxers oberts prèviament en obrir el &lokalize;</guilabel
+> a la pàgina <guilabel
+>General</guilabel
+> de la finestra de configuració, la qual es pot obrir escollint l'element <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura el &lokalize;...</guimenuitem
+></menuchoice
+> del menú principal. Es pot emprar la mateixa pàgina per configurar el comportament del &lokalize; quan canvieu a la pestanya següent/anterior. És possible passar per la llista de pestanyes segons les posicions de la pestanya o segons el seu ordre d'activació. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Glossari</title>
+
+<para
+>Alguna vegada us heu cansat d'escriure la mateixa seqüència de text llarg diverses vegades perquè es necessitaria més temps per trobar la traducció, copiar-la i enganxar-la? Ara només heu de cercar les seqüències de paraules (freqüents) a la vista <guilabel
+>Glossari</guilabel
+>, i inserir-les prement una drecera. </para>
+
+<para
+>Per descomptat, el glossari s'hauria d'emplenar abans amb seqüències de paraules. El &lokalize; disposa d'un pràctic editor de glossari que permet una cerca explícita sobre tot el glossari. </para>
+
+<screenshot>
+<screeninfo
+>La vista de glossari a l'extrem inferior dret mostra les entrades del glossari apropiades per a la unitat actual</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>La vista de glossari a l'extrem inferior dret mostra les entrades del glossari apropiades per a la unitat actual</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Memòria de traducció</title>
+
+<para
+>La vista <guilabel
+>Memòria de traducció</guilabel
+> permet arrossegar i deixar-hi anar una carpeta amb fitxers de traducció des de, per exemple, el &dolphin;, i a continuació, en uns pocs minuts, els suggeriments de traducció es mostraran automàticament en commutar d'unitat. Per inserir suggeriments de traducció en el fitxer utilitzeu <keycombo
+>&Ctrl;<keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>, i així, depenent del número del suggeriment. </para>
+<para
+>Utilitzeu <menuchoice
+><guimenu
+>Eines</guimenu
+><guimenuitem
+>Gestiona les memòries de traducció</guimenuitem
+></menuchoice
+> per afegir o gestionar els projectes a la vostra memòria de traducció. Aquí també podreu importar o exportar les dades des del format de fitxer <filename role="extension"
+>tmx</filename
+>. </para>
+
+<para
+>En prémer <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> s'obrirà la pestanya <guilabel
+>Memòria de traducció</guilabel
+>, la qual permet la consulta lliure de la MT. Fent clic en un resultat de la cerca s'obrirà el fitxer corresponent a la unitat. Si voleu obrir ràpidament algun fitxer en el projecte (i afegir-lo a la MT), en lloc de navegar pel <guilabel
+>Resum del projecte</guilabel
+>, simplement introduïu el seu nom en el camp <guilabel
+>Màscara de fitxer</guilabel
+> acompanyat de «*». </para>
+
+<para
+>El motor de la MT indexa totes les entrades, incloent-hi les no enllestides i les no traduïdes. Això permet substituir per complet la cerca en fitxers que requereixen l'exploració de tots els fitxers en el projecte cada vegada que es realitza una cerca. </para>
+
+<note>
+    <para
+>Les entrades desactualitzades de la MT se suprimiran de la memòria de traducció del &lokalize; en tornar a explorar o en fer clic sobre una entrada que manqui si marqueu l'element <guilabel
+>Suprimeix els fitxers que manquen de la memòria de traducció en tornar a explorar o quan feu clic a una entrada que manca</guilabel
+> a la pàgina <guilabel
+>Memòria de traducció</guilabel
+> de la finestra de configuració la qual es pot obrir escollint l'element <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura el &lokalize;...</guimenuitem
+></menuchoice
+> del menú principal. </para>
+</note>
+
+<screenshot>
+<screeninfo
+>El &lokalize; amb els resultats de cerca per a la memòria de traducció de la unitat actual</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>El &lokalize; amb els resultats de cerca per a la memòria de traducció de la unitat actual</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Tradueix un lot:</term>
+    <listitem>
+      <para
+>Per inserir automàticament el suggeriment que coincideix exactament des de la base de dades de la memòria de traducció, utilitzeu <menuchoice
+><guimenu
+>Eines</guimenu
+><guimenuitem
+>Emplena tots els suggeriments exactes</guimenuitem
+></menuchoice
+> o <guimenuitem
+>Emplena tots els suggeriments exactes i marca'ls com inexactes</guimenuitem
+>. Aquesta característica és molt similar a la traducció aproximada en el &kbabel;. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Capacitats de sincronització de les traduccions</title>
+
+<para
+>El <guilabel
+>Mode de sincronització</guilabel
+> (anteriorment conegut com a <guilabel
+>Mode de fusió</guilabel
+>) estalvia una gran quantitat de temps als editors, i pels casos on dos o més traductors treballen simultàniament en el mateix fitxer, o quan s'han de mantenir les traduccions per a diverses branques de programari. </para>
+
+<para
+>El &lokalize; permet la navegació ràpida per les unitats que difereixen i mostra les diferències paraula per paraula. El &lokalize; també té dues vistes de la sincronització - <guilabel
+>Sincronització primària</guilabel
+> i <guilabel
+>Sincronització secundària</guilabel
+>. Són idèntiques, però el més habitual és utilitzar la primera per a fusionar les traduccions i la segona per a mantenir sincronitzades dues branques de programari. </para>
+
+<para
+>Després de copiar la traducció des d'un fitxer auxiliar (<emphasis
+>sincronització</emphasis
+>), els canvis subsegüents realitzats en aquesta unitat es replicaran de nou en el fitxer auxiliar. </para>
+
+<sect1 id="file-merge">
+<title
+>Fusió</title>
+<para
+>Un ús del <guilabel
+>Mode de sincronització</guilabel
+> és revisar els canvis fets pels contribuïdors (nous), atès que no podeu estar segur de la qualitat del treball realitzat. </para>
+<para
+>Obriu un fitxer de base, després baixeu la seva versió modificada a la vista <guilabel
+>Sincronització primària</guilabel
+>, seguit per <keycombo
+>&Alt;<keysym
+>Fletxa avall</keysym
+></keycombo
+> o <keycombo
+>&Alt;<keysym
+>Fletxa amunt</keysym
+></keycombo
+> (recordeu que les dreceres poden ser modificades en la forma habitual per a totes les aplicacions del &kde;) per desplaçar-vos per les entrades que són diferents. </para>
+<screenshot>
+<screeninfo
+>El &lokalize; utilitzat per a fusionar els canvis en la traducció</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>El &lokalize; utilitzat per a fusionar els canvis en la traducció</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Replicació</title>
+<para
+>El <guilabel
+>Mode de sincronització</guilabel
+> també es pot utilitzar per fer canvis a la traducció per a dues branques de forma simultània. Establiu el camí a la <guilabel
+>Carpeta de la branca</guilabel
+> a les opcions del projecte, al camí que correspon a la carpeta de base de la branca, i la vista <guilabel
+>Sincronització secundària</guilabel
+> obrirà automàticament els fitxers de la branca. Després, cada vegada que realitzeu canvis en els fitxers de la branca principal, automàticament es replicaran en aquesta branca (per descomptat, si conté la mateixa cadena en anglès). </para>
+<para
+>Per exemple, si treballeu en les traduccions del &kde;, podeu obtenir la branca trunk a <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kf5/EL_VOSTRE_IDIOMA</filename
+> i la branca a <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kf5/EL_VOSTRE_IDIOMA</filename
+>. Creeu un projecte amb el &lokalize;: <filename
+>/home/xx/hacking/kde/trunk/l10n-kf5/EL_VOSTRE_IDIOMA/projecte.lokalize</filename
+> i establiu <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kf5/EL_VOSTRE_IDIOMA</filename
+>, a continuació treballeu amb aquest projecte, i publiqueu els canvis en ambdues carpetes trunk i la branca. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Traduccions alternatives</title>
+
+<para
+>Cada unitat pot tenir diverses <emphasis
+>traduccions alternatives</emphasis
+> associades amb aquesta. Aquestes traduccions poden aparèixer durant l'actualització del fitxer, quan la cadena d'origen ha canviat una mica. En aquest cas, la traducció antiga amb el seu codi font (antic) es mourà a la llista de traduccions alternatives, de manera que no es perdi. </para>
+<para
+>En traduir programari, normalment s'utilitzen les eines de gettext per a preparar els fitxers de traducció. Quan el text original canvia, les eines de gettext actualitzen els fitxers de traducció i marquen les entrades amb text original canviat com a <emphasis
+>inexacta</emphasis
+> (o <emphasis
+>no enllestida</emphasis
+> en una altra terminologia). Aquestes eines desen el text original anterior perquè els traductors puguin veure quins canvis s'han produït exactament. El &lokalize; simplifica la vida del traductor i ressalta les parts del text original que han canviat a la vista <guilabel
+>Traduccions alternatives</guilabel
+>. </para>
+
+<screenshot>
+<screeninfo
+>El &lokalize; ressalta les parts del text original que han canviat des que la traducció fou revisada per darrera vegada</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>El &lokalize; ressalta les parts del text original que han canviat des que la traducció fou revisada per darrera vegada</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>Crear scripts del &lokalize;</title>
+
+<para
+>El &lokalize; és ampliable utilitzant scripts (fitxers amb seqüències d'ordres) en diversos llenguatges interpretats incloent Python i &javascript;. Els scripts normalment s'integren a la IU del &lokalize; com a accions del menú (a les que podeu assignar dreceres de teclat). La ubicació i el nom de l'entrada del menú per a l'script es defineixen en el seu fitxer .rc d'acompanyament. Per a cada projecte obert, el &lokalize; explora la carpeta <filename
+>DIRPROJECTE/lokalize-scripts</filename
+> pels fitxers .rc i els afegeix al fitxer de <emphasis
+>memòria cau</emphasis
+> anomenat <filename
+>DIRPROJECTE/lokalize-scripts/scripts.rc</filename
+> (de manera que generalment no voldreu afegir sistemes de control de versions del projecte). Els fitxers RC també contenen els camins als scripts, els quals han de ser relatius a la carpeta del fitxer .rc, o a una carpeta de scripts del sistema -s'han provat ambdues (tot i que <emphasis
+>han</emphasis
+> de mantenir una ubicació relativa si els voleu compartir amb altres persones del projecte)-. Per exemple podeu especificar <filename
+>../../scripts/lokalize/opensrc.py</filename
+> per a carregar un script des de la <ulink url="https://invent.kde.org/sysadmin/l10n-scripty/-/tree/master/lokalize"
+>carpeta de scripts global de kf5-l10n</ulink
+> (&ead;, no específica del vostre idioma). </para>
+<para
+>Podeu trobar exemples de fitxers .rc a la carpeta d'instal·lació del &lokalize; (normalment <filename
+>/usr/share/lokalize/scripts/</filename
+>) i en el <ulink url="https://invent.kde.org/sysadmin/l10n-scripty/-/tree/master/lokalize"
+>repositori del &kde;</ulink
+>. <ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>Aquí</ulink
+> trobareu més exemples, incloent-ne de basats en &javascript;, <filename
+>check-gui.js</filename
+> que s'executa automàticament en cada desament de fitxer (això s'aconsegueix amb una opció especial en el fitxer .rc). Si esteu familiaritzat amb Python o &javascript;, el codi hauria de ser autoexplicatiu. </para>
+<para
+>A continuació hi ha els enllaços de les referències API. Tot el marcat com <emphasis
+>Q_SCRIPTABLE</emphasis
+> es pot utilitzar des de scripts. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Referència a l'API de l'objecte <ulink url="https://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>Editor</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>Referència a l'API de l'objecte <ulink url="https://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>&lokalize;</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>Referència a l'API de l'objecte <ulink url="https://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Project</ulink
+> </para>
+</listitem>
+</itemizedlist>
+
+<sect1 id="pology">
+<title
+>Pology</title>
+
+<para
+>Una de les millors aplicacions amb la capacitat de crear scripts és emprar el <application
+>Pology</application
+> al &lokalize;. </para>
+<para
+>La interacció amb el <application
+>Pology</application
+> es pot configurar emprant la pàgina <guilabel
+>Pology</guilabel
+> de la finestra de configuració, la qual es pot obrir escollint l'element <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura el &lokalize;...</guimenuitem
+></menuchoice
+> del menú principal. </para>
+<para
+>Per a més informació, consulteu la <ulink url="http://pology.nedohodnik.net/"
+>pàgina inicial del Pology</ulink
+>. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>LanguageTool</title>
+
+<para
+>El <application
+>LanguageTool</application
+> ofereix correcció ortogràfica i gramatical de les vostres unitats de traducció. </para>
+<para
+>Podreu configurar per a personalitzar el servidor del <application
+>LanguageTool</application
+> emprant la pàgina <guilabel
+>LanguageTool</guilabel
+> de la finestra de configuració, la qual es pot obrir escollint l'element de menú <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Configura el &lokalize;...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Per utilitzar les capacitats de comprovació del <application
+>LanguageTool</application
+> utilitzeu l'element de menú <menuchoice
+><guimenu
+>Edita</guimenu
+><guimenuitem
+>Comprova aquesta unitat usant el LanguageTool</guimenuitem
+></menuchoice
+> o empreu la drecera <keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+>. </para>
+<para
+>Per a més informació, consulteu la <ulink url="https://languagetool.org/"
+>pàgina inicial del LanguageTool</ulink
+>. </para>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Crèdits i llicència</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Copyright del programa &copy; 2007-2015, Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Algunes parts del codi van ser agafades del &kbabel;, el predecessor del &lokalize;. </para>
+
+<para
+>Copyright de la documentació &copy; 2007-2009 Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Autor: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Mireu la <ulink url="http://userbase.kde.org/lokalize"
+>pàgina principal del &lokalize;</ulink
+> per a més detalls.</para>
+
+<para
+>Traductor/Revisor de la documentació: &credits.Manuel.Tortosa; i &credits.Antoni.Bella;</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

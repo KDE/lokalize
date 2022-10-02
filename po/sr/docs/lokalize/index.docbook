@@ -1,0 +1,845 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+  <!ENTITY kappname-n '<application>Локализуј</application>'>
+  <!ENTITY kappname-g '<application>Локализуја</application>'>
+  <!ENTITY kappname-d '<application>Локализују</application>'>
+  <!ENTITY kappname-a '<application>Локализуј</application>'>
+  <!ENTITY kappname-i '<application>Локализујем</application>'>
+  <!ENTITY kappname-l '<application>Локализују</application>'>
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Serbian "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>Приручник за <application
+>Локализуј</application
+></title>
+<authorgroup>
+<author
+><firstname
+>Николај</firstname
+> <surname
+>Шафоростов</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Часлав</firstname
+><surname
+>Илић</surname
+><affiliation
+><address
+><email
+>caslav.ilic@gmx.net</email
+></address
+></affiliation
+><contrib
+>превод</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Николај Шафоростов</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>6. 8. 2015.</date>
+<releaseinfo
+>2.0 (Програми КДЕ‑а 15.08)</releaseinfo>
+
+<abstract>
+<para
+><application
+>Локализуј</application
+> је систем за превођење помоћу рачунара (ЦАТ), усредсређен на продуктивност и потврду квалитета. Поседује уобичајене компоненте ЦАТ алатки — преводилачку меморију, појмовник — као и јединствену способност стапања (синхронизације) превода. Намењен је пре свега превођењу софтвера, али уклапа и спољашње претварачке алатке за слободњачко превођење канцеларијских докумената. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>Локализуј</keyword>
+<keyword
+>локализација</keyword>
+<keyword
+>л10н</keyword>
+<keyword
+>интернационализација</keyword>
+<keyword
+>и18н</keyword>
+<keyword
+>превођење</keyword>
+<keyword
+>глобализација</keyword>
+<keyword
+>г11н</keyword>
+<keyword
+>ИксЛИФФ</keyword>
+<keyword
+>Геттекст</keyword>
+<keyword
+>ОДФ</keyword>
+<keyword
+>К‑бабел</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Увод</title>
+<para
+>Поруке у програмима и њихова документација обично се пишу на енглеском. Помоћу радног оквира сачињеног од скупа алатки и библиотека, могуће је учинити да програми осим енглеског „проговоре“ произвољним другим језицима. Процес прилагођавања програма за различите језике назива се <emphasis
+>локализацијом</emphasis
+>. У локализацију спада превођење сучеља и документације програма на различите матерње језике корисника и, у неким државама или областима, прилагођавање улаза и излаза одређеним конвенцијама. <application
+>Локализуј</application
+> је алатка која вам помаже у превођењу сучеља програма на многобројне језике. </para>
+<para
+> Сваки интернационализовани програм даје на превођење један или више фајлова—каталога порука. Наставак ових фајлова је <filename class="extension"
+>.pot</filename
+>. ПОТ је акроним за „шаблон преносивих објеката“. <application
+>Локализуј</application
+> је уређивач ПО фајлова (каталога порука Гнуовог геттекста), истовремено и лак за коришћење и напредан. То је систем за рачунарски потпомогнуто превођење, написан од нуле у радном оквиру Развојне платформе КДЕ‑а 4. Поред основног уређивања ПО фајлова уз згодне допунске детаље, <application
+>Локализуј</application
+> уклапа подршку за појмовник, преводилачку меморију, режиме разликовања за КуА, управљање пројектом, итд. Поседује многобројне могућности попут детаљне навигације, опсежне уређивачке функционалности, функција за претрагу, проверу синтаксе и статистику. </para>
+<para
+>Фајлови преносивих објеката (ПО): Сваки преводилац узме копију једног од ПОТ шаблона и почне да попуњава празнине, преводећи јединицу по јединицу на циљни језик. Фајл који садржи преведени текст назива се ПО фајлом. </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Уређивач</title>
+<sect1 id="main-window">
+<title
+>Главни прозор</title>
+<para
+>Главни прозор подразумевано садржи шест делова. Горњи десни оквир је само за читање, и даје тренутно поље <literal
+>msgid</literal
+> (изворни текст) у отвореном ПО фајлу. Оквир за уређивање одмах испод садржи поље <literal
+>msgstr</literal
+> (циљни текст) које одговара горњем <literal
+>msgid</literal
+>, и у њему уносите и уређујте текст превода. </para>
+<screenshot>
+<screeninfo
+>Главни прозор <application
+>Локализуја</application
+> (подразумевано).</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Подразумевани главни прозор када се отвори фајл.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Горњи леви део главног прозора приказује преводилачке јединице. Испод њих стоји одељак метаподатака јединице, који садржи коментаре о тренутно приказаном изворном тексту. Доле лево налази се одељак преводилачке меморије, у којем се издају предлози превода за тренутни изворни текст, на основу базе података преводилачке меморије. У доњем десном углу прозора приказан је одељак појмовника. </para>
+<para
+>Фајлови превода отварају се под засебним језичцима, са два велика вишередна уноса и неколико <emphasis
+>алатних приказа</emphasis
+>. Ти се прикази могу наслагати (слично језичцима), издвојити, или сакрити. Фајлове превода чини мноштво парова изворни-циљни језик, званих <emphasis
+>јединице</emphasis
+>. Једна јединица обично одговара једној ниски корисничког сучеља, или једном пасусу документације. Први вишередни унос приказује изворни део јединице; други унос садржи превод, који се може уређивати. Кроз јединице се можете кретати путем приказа <guilabel
+>Јединице превода</guilabel
+>, или тастерима <keycap
+>PageDown</keycap
+> и <keycap
+>PageUp</keycap
+>. </para>
+<para
+>Јединица може бити <emphasis
+>преведена</emphasis
+> или <emphasis
+>непреведена</emphasis
+>. Преведена јединице може бити <emphasis
+>спремна</emphasis
+> или <emphasis
+>неспремна</emphasis
+> (што се понекад зове и <emphasis
+>мутна</emphasis
+>). Ако јединица није спремна, превод јој се исписује се курзивом. <application
+>Локализуј</application
+> омогућава лако скакање кроз јединице у фајлу према стању њиховог превода; потражите пречице у менију <guilabel
+>Кретање</guilabel
+>. Трака стања у дну прозора показује, редом, број тренутне јединице, укупан број јединица, број непреведених и неспремних (мутних) јединица и стање тренутне јединице. При скакању, непреведене јединице се узимају као неспремне. Такође се можете послужити могућношћу филтрирања у алатном приказу <guilabel
+>Јединице превода</guilabel
+>: притиском <keycap
+>PageDown</keycap
+> заправо скачете на следећу јединицу на филтрираном и уређеном списку у том приказу. </para>
+<para
+>У главни прозор могу се додати још многи одељци: <guilabel
+>Алтернативни преводи</guilabel
+>, <guilabel
+>Примарни синхро</guilabel
+>, <guilabel
+>Секундарни синхро</guilabel
+>, <guilabel
+>Двојне јединице</guilabel
+>, итд. Ово се чини преко главног менија <menuchoice
+><guimenu
+>Подешавање</guimenu
+><guimenuitem
+>Прикази алатки</guimenuitem
+></menuchoice
+>. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Траке алатки</title>
+<para
+>Можете додавати и уклањати радње са траке алатки преко главног менија <menuchoice
+><guimenu
+>Подешавање</guimenu
+><guimenuitem
+>Подеси траке алатки...</guimenuitem
+></menuchoice
+>. </para>
+<screenshot>
+<screeninfo
+>Подешавање трака алатки.</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Овде можете подесити траке алатки.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Више детаља потражите у <ulink url="help:/fundamentals/config.html#toolbars"
+>одељку о тракама алатки</ulink
+> у Основама КДЕ‑а.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Тастери пречица</title>
+<para
+>Употребом тастера пречица при превођењу можете уштедети време. Пречице подешавате преко главног менија <menuchoice
+><guimenu
+>Подешавање</guimenu
+><guimenuitem
+>Подеси пречице...</guimenuitem
+></menuchoice
+>. </para>
+<screenshot>
+<screeninfo
+>Подешавање пречица.</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Овде можете подесити тастере пречица.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>За више детаља погледајте <ulink url="help:/fundamentals/config.html#shortcuts"
+>одељак о пречицама</ulink
+> у Основама КДЕ‑а.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Општи савети</title>
+<para
+>Ако преводите за КДЕ, онда ћете или већ имати пројектни фајл <application
+>Локализуја</application
+> у фасцикли свог језика (обично по имену <filename
+>index.lokalize</filename
+>), или можете изабрати <menuchoice
+><guimenu
+>Пројекат</guimenu
+><guimenuitem
+>Направи нови пројекат</guimenuitem
+></menuchoice
+> да чаробњак преузме фајлове превода на вашем језику и аутоматски створи пројекат. </para>
+
+<tip>
+<para
+>Препоручљиво је да се уместо употребе менија и трака алатки навикнете на пречице с тастатуре, јер ћете тако бити продуктивнији. На пример, помоћу <keycombo
+><keycap
+>Ctrl</keycap
+><keycap
+>L</keycap
+></keycombo
+> фокусирате поље <guilabel
+>Брза претрага...</guilabel
+>, ради филтрирања списка јединица у приказу <guilabel
+>Јединице превода</guilabel
+>. Пошто унесете филтер, притискањем <keycap
+>PageDown</keycap
+> можете се кретати кроз филтрирани списак. </para>
+</tip>
+<para
+>Ако радите са фајловима превода у формату ИксЛИФФ (обавезно ако преводите ОДФ), доступна су и проширена стања (<emphasis
+>нова</emphasis
+>, <emphasis
+>чека преглед</emphasis
+>, <emphasis
+>одобрена</emphasis
+>, итд.), која можете бирати из падајућег менија дугмета <guilabel
+>Одобрена</guilabel
+> на траци алатки. Сврставање стања у <emphasis
+>спремно</emphasis
+> или <emphasis
+>неспремно</emphasis
+> зависи од тренутне <emphasis
+>фазе радног тока</emphasis
+> (<emphasis
+>превод</emphasis
+>, <emphasis
+>преглед</emphasis
+>, <emphasis
+>одобрење</emphasis
+>). Подразумевана фаза зависи од ваше <emphasis
+>улоге</emphasis
+> у пројекту, задатој у поставкама пројекта. Свака јединица обично садржи податак о фази у којој је измењена последњи пут, а за сваку фазу се у фајл бележи њен власник. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Пројекти</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Опште белешке</title>
+<para
+>Пројекти су једна од главних замисли у <application
+>Локализују</application
+>. Пројекат чини фајл са путањама к фасциклама с преводима, шаблонима, и помоћним фајловима: појмовнику, аутоматизујућим скриптама, преводилачким меморијама. Кад год <application
+>Локализуј</application
+> отвори фајл а да пројекат није претходно учитан, потражиће пројектни фајл у родитељским фасциклама (до четири нивоа изнад). Ако покрећете <application
+>Локализуј</application
+> из командне линије, пројектни фајл можете навести опцијом <userinput
+>--project</userinput
+>. </para>
+
+<para
+>За сваки пројекат бирате своју улогу у њему (<emphasis
+>преводилац</emphasis
+>, <emphasis
+>прегледач</emphasis
+>, <emphasis
+>одобравач</emphasis
+>), а која утиче на фазу радног тока коју <application
+>Локализуј</application
+> аутоматски преузима за фајлове које уређујете. </para>
+
+<note>
+<para
+>Преводилачке меморије, за разлику од пројектних фајлова, појмовника и скрипти, не деле се међу члановима тима. Оне се стварају и одржавају под домаћом фасциклом корисника, односно, преводилачке меморије свих пројеката складиштене су у истој фасцикли; тако се свака може користити у сваком пројекту. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Језичак Преглед пројекта</title>
+<para
+>Када први пут покренете <application
+>Локализуј</application
+>, видећете празан језичак <guilabel
+>Преглед пројекта</guilabel
+>. То је приказ менаџера фајлова, који вам омогућава преглед свих ПО фајлова. Радни ток <application
+>Локализуја</application
+> почиње стварањем или отварањем пројекта; овај језичак садржи стабло фајлова, са статистиком текућег пројекта, попут процента преведених јединица и последњег преводиоца. Одавде на лицу места можете отворити фајл по жељи, под другим језичком истог прозора. </para>
+<para
+>За стварање новог пројекта употребите <menuchoice
+><guimenu
+>Пројекат</guimenu
+><guimenuitem
+>Направи нови пројекат</guimenuitem
+></menuchoice
+>. Бићете проведени кроз кораке потребне за стварање пројекта. У менију <guimenu
+>Пројекат</guimenu
+> такође можете наћи опције попут <guimenuitem
+>Преглед пројекта</guimenuitem
+>, <guimenuitem
+>Подеси пројекат...</guimenuitem
+>, <guimenuitem
+>Отвори пројекат</guimenuitem
+>, и <guimenuitem
+>Отвори недавни пројекат</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Језичак Преглед пројекта</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Овде подешавате пројекат.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Под језичком <guilabel
+>Преглед пројекта</guilabel
+> дато је стабло фајлова са статистиком текућег пројекта, попут процента преведених јединица и последњег преводиоца. Одатле можете отворити фајл под новим језичком у текућем прозору <application
+>Локализуја</application
+>. </para>
+
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Појмовник</title>
+
+<para
+>Није ли вам додијало уписивање једног те истог низа речи изнова и изнова, само зато што би вам више времена одузело да пронађете претходни превод и копирате-налепите? <application
+>Локализуј</application
+> зато даје алатни приказ појмовника, у коме само уочите (чест) низ речи и уметнете га притиском пречице. </para>
+
+<para
+>Наравно, појмовник се претходно мора испунити низовима речи. За то на располагању стоји уређивач појмовника, којим такође можете непосредно претраживати појмовник. </para>
+
+<screenshot>
+<screeninfo
+>Приказ појмовника у доњем десном углу издаје уносе из појмовника пригодне за тренутну јединицу.</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Приказ појмовника у доњем десном углу издаје уносе из појмовника пригодне за тренутну јединицу.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Преводилачка меморија</title>
+
+<para
+>Приказ <guilabel
+>Преводилачка меморија</guilabel
+> (ТМ) омогућава превлачење у њега фасцикле са збирком фајлова превода (рецимо, из прозора <application
+>Делфина</application
+>), почим ће, за неколико минута, аутоматски почети да даје предлоге превода при свакој промени јединице. За уметање предлога у тренутну јединицу, користите пречице <keycombo
+><keycap
+>Ctrl</keycap
+><keycap
+>1</keycap
+></keycombo
+>, <keycombo
+><keycap
+>Ctrl</keycap
+><keycap
+>2</keycap
+></keycombo
+>, и тако даље, према броју предлога. </para>
+<para
+>Користите <menuchoice
+><guimenu
+>Алатке</guimenu
+><guimenuitem
+>Управљај преводилачким меморијама</guimenuitem
+></menuchoice
+> за додавање и управљање преводилачком меморијом у пројекту. Можете увести и извести податке из ТМИкс формата. </para>
+
+<para
+>Притиском <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> добијате језичак <guilabel
+>Преводилачка меморија</guilabel
+>, за постављање слободних упита ТМ‑у. Клик на резултат претраге отвара одговарајући фајл на тој јединици. Ако желите брзо да отворите неки фајл (који је већ додат ТМ‑у) у пројекту, уместо прегледања кроз <guilabel
+>Преглед пројекта</guilabel
+> можете само уписати његово име у поље <guilabel
+>Маска фајла:</guilabel
+>, закључно са ‘*’. </para>
+
+<para
+>Мотор ТМ‑а индексира све јединице, укључујући неспремне и непреведене. Ово у потпуности одмењује могућност претраге кроз фајлове, која мора наново да прође кроз све фајлове у пројекту за сваки наредни упит. </para>
+
+<screenshot>
+<screeninfo
+><application
+>Локализуј</application
+> с резултатима претраге преводилачке меморије за тренутну јединицу.</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+><application
+>Локализуј</application
+> с резултатима претраге преводилачке меморије за тренутну јединицу.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Пакетно превођење:</term>
+    <listitem>
+      <para
+>Да аутоматски уметнете све предлоге из базе преводилачке меморије који су тачна поклапања, употребите <menuchoice
+><guimenu
+>Алатке</guimenu
+><guimenuitem
+>Испуни све тачне предлоге</guimenuitem
+></menuchoice
+> или <guimenuitem
+>Испуни све тачне преводе и означи као мутне</guimenuitem
+>. (Ова могућност је слична некадашњем „грубом преводу“ у <application
+>К‑бабелу</application
+>.) </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Могућности синхронизације превода</title>
+
+<para
+>Синхрорежим штеди пуно времена уредницима, у случајевима када два или више преводилаца раде истовремено на једном фајлу, или када треба одржавати преводе у неколико развојних грана софтвера. </para>
+
+<para
+><application
+>Локализуј</application
+> омогућава брзо кретање кроз јединице које се разликују, приказујући разлике реч‑по‑реч. Тако, даје два синхроприказа: <guilabel
+>Примарни синхро</guilabel
+> и <guilabel
+>Секундарни синхро</guilabel
+>. Они су истоветни, али се први обично користи за стапање превода, а други за синхронизацију између две гране софтвера. </para>
+
+<para
+>Пошто сте копирали превод из помоћног фајла (<emphasis
+>синхронизовали</emphasis
+> га), све потоње измене те јединице биће пресликане назад у помоћни фајл. </para>
+
+<sect1 id="file-merge">
+<title
+>Стапање</title>
+<para
+>Једна од намена синхрорежима је испитивање измена које су начинили (новопечени) преводиоци — када се не можете поуздати у квалитет учињеног. </para>
+<para
+>Отворите првобитни фајл, па превуците његову допуњену верзију у приказ <guilabel
+>Примарни синхро</guilabel
+>. Потом се кроз јединице које се разликују можете кретати пречицама <keycombo
+><keycap
+>Alt</keycap
+><keycap
+>доле</keycap
+></keycombo
+> и <keycombo
+><keycap
+>Alt</keycap
+><keycap
+>горе</keycap
+></keycombo
+> (можете поставити и неке друге, као и обично у КДЕ програмима). </para>
+<screenshot>
+<screeninfo
+><application
+>Локализуј</application
+> при стапању измена у преводу</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+><application
+>Локализуј</application
+> при стапању измена у преводу</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Пресликавање</title>
+<para
+>Синхрорежим се може користити и за истовремено уређивање превода у две различите гране. У опцијама пројекта, под ставком <guilabel
+>Фасцикла гране:</guilabel
+> задајте путању корене гранске фасцикле, и <guilabel
+>Секундарни синхро</guilabel
+> ће аутоматски отварати фајлове из те гране. Како измените јединицу у главној грани, тако ће се то одразити на исту јединицу у другој грани (наравно, ако је има тамо). </para>
+<para
+>На пример, ако преводите КДЕ можете довући дебло у <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kde4/sr</filename
+>, грану у <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kde4/sr</filename
+>, и <application
+>Локализујем</application
+> направити пројекат <filename
+>/home/xx/hacking/kde/trunk/l10n-kde4/sr/projekat.lokalize</filename
+> у којем поставите <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kde4/sr</filename
+>. Онда радите преко овог пројекта, предајући измене у фасциклама и дебла и гране. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Алтернативни преводи</title>
+
+<para
+>Свака јединица може имати неколико придружених <emphasis
+>алтернативних превода</emphasis
+>. Такви преводи се могу појавити при ажурирању фајла, када дође до мање измене изворне ниске — тада се стари превод (и припадајући му стари извор) премести у списак алтернативних, како не би био изгубљен. </para>
+<para
+>Код превођења софтвера, фајлови превода се обично припремају алаткама Геттекста. Када се изворни текст измени, Геттекстове алатке ажурирају фајлове превода обележавајући измењене јединице као <emphasis
+>мутне</emphasis
+> (или <emphasis
+>неспремне</emphasis
+> у другој терминологији). Такође складиште претходни изворни текст како би преводиоци могли тачно уочити учињене измене. <application
+>Локализуј</application
+> олакшава живот преводиоцу тиме што истиче измењене делове изворног текста у приказу <guilabel
+>Алтернативни преводи</guilabel
+>. </para>
+
+<screenshot>
+<screeninfo
+><application
+>Локализуј</application
+> истиче делове изворног текста измењене од последњег прегледа превода</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+><application
+>Локализуј</application
+> истиче делове изворног текста измењене од последњег прегледа превода</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>Скриптовање <application
+>Локализуја</application
+></title>
+
+<para
+><application
+>Локализуј</application
+> се може проширити скриптама на неколико интерпретираних језика, попут питона и <application
+>јаваскрипта</application
+>. Скрипте се уклапају у сучеље <application
+>Локализуј</application
+> обично као радње у менију (којима можете доделити пречицу са тастатуре). Локација и име ставке менија за скрипту дефинисани су у пратећем <filename
+>.rc</filename
+> фајлу. При сваком отварању пројекта, <application
+>Локализуј</application
+> тражи  <filename
+>.rc</filename
+> фајлове у фасцикли <filename
+>FASPROJEKTA/lokalize-scripts</filename
+> и додаје их у фајл <emphasis
+>кеша</emphasis
+> по имену <filename
+>FASPROJEKTA/lokalize-scripts/scripts.rc</filename
+> (зато овај фајл не треба стављати под управљање верзијама којим се прати пројекат). <filename
+>.rc</filename
+> фајлови такође садрже путање скрипти, релативно према сопственој фасцикли или системској фасцикли скрипти — обе се испробавају (заправо, путање <emphasis
+>треба</emphasis
+> да буду релативне ако желите да делите ове фајлове са сарадницима на пројекту). На пример, можете задати <filename
+>../../scripts/lokalize/opensrc.py</filename
+> да би се скрипта учитала из <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>глобалне фасцикле <application
+>Локализујевих</application
+> скрипти</ulink
+> (тј. која није посебна за ваш језик). </para>
+<para
+>Примери <filename
+>.rc</filename
+> фајлова могу се наћи у инсталационој фасцикли <application
+>Локализуја</application
+> (обично <filename
+>/usr/share/lokalize/scripts/</filename
+>) и у <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>ризници КДЕ‑а</ulink
+>. <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>Овде</ulink
+> можете наћи још примера скрипти, укључујући и <application
+>јаваскриптну</application
+> <filename
+>check-gui.js</filename
+> која се извршава аутоматски при сваком уписивању фајла (постигнуто посебном опцијом у <filename
+>.rc</filename
+> фајлу). Ако сте упознати с питоном или <application
+>јаваскриптом</application
+>, ко̑д би требало да је јасан сам по себи. </para>
+<para
+>Следе везе ка документацији АПИ‑ја. Све означено са <literal
+>Q_SCRIPTABLE</literal
+> може се користити у скриптама. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>документација <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>објекта уређивача</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>документација <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>објекта <application
+>Локализуја</application
+></ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>документација <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>објекта пројекта</ulink
+> </para>
+</listitem>
+</itemizedlist>
+
+
+</chapter>
+
+<chapter id="credits">
+<title
+>Заслуге и лиценца</title>
+
+<para
+><application
+>Локализуј</application
+> </para>
+
+<para
+>Ауторско право за програм © 2007-2009, <personname
+><firstname
+>Николај</firstname
+> <surname
+>Шафоростов</surname
+></personname
+> <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Нешто ко̑да преузето из <application
+>К‑бабела</application
+>, <application
+>Локализујевог</application
+> претходника. </para>
+
+<para
+>Ауторско право за документацију © 2007-2009, <personname
+><firstname
+>Николај</firstname
+> <surname
+>Шафоростов</surname
+></personname
+> <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Аутор: <itemizedlist
+> <listitem
+> <para
+><personname
+><firstname
+>Николај</firstname
+> <surname
+>Шафоростов</surname
+></personname
+> <email
+>shaforostoff AT kde.ru</email
+>; <personname
+><firstname
+>Шанкар</firstname
+> <surname
+>Прасад</surname
+></personname
+> <email
+>svenkate AT redhat.com</email
+>; <personname
+><firstname
+>Света</firstname
+> <surname
+>Котари</surname
+></personname
+> <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Више детаља потражите на <ulink url="http://userbase.kde.org/lokalize"
+>домаћој страници <application
+>Локализуја</application
+></ulink
+>.</para>
+
+<para
+>Превео Часлав Илић <email
+>caslav.ilic@gmx.net</email
+>.</para
+> 
+&underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

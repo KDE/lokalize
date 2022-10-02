@@ -1,0 +1,859 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+<!ENTITY lokalize "Lokalize">
+<!ENTITY kaider "Lokalize">
+<!ENTITY kappname "Lokalize">
+<!ENTITY package "kdesdk">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % Indonesian "INCLUDE">
+]>
+<book id="lokalize" lang="&language;">
+<bookinfo>
+<title
+>Buku Petunjuk &lokalize;</title>
+<authorgroup>
+<author
+><firstname
+>Nick</firstname
+> <surname
+>Shaforostoff</surname
+> <affiliation
+><address
+><email
+>shaforostoff@kde.ru</email
+></address
+></affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Wantoyo</firstname
+> <surname
+> </surname
+><affiliation
+><address
+><email
+>wantoyek@gmail.com</email
+></address
+></affiliation
+> <contrib
+>Penerjemah</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2007-2009</year
+><holder
+>Nick Shaforostoff</holder>
+</copyright>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>09-03-2020</date>
+<releaseinfo
+>Aplikasi 20.04</releaseinfo>
+
+<abstract>
+<para
+>&lokalize; adalah sistem Computer-Aided Translation (CAT), penerjemahan yang berbantuan komputer yang berfokus pada produktivitas dan jaminan kualitas. Ini memiliki komponen yang biasanya disertakan alat CAT seperti memori terjemahan, glosarium, dan juga kemampuan penggabungan terjemahan yang unik (sinkronisasi). Ini ditujukan untuk terjemahan perangkat lunak dan juga pengintegrasian peralatan konversi eksternal untuk terjemahan dokumen kantor kerja-lepas. </para>
+</abstract>
+
+<keywordset>
+<keyword
+>&lokalize;</keyword>
+<keyword
+>pelokalan</keyword>
+<keyword
+>l10n</keyword>
+<keyword
+>internasionalisali</keyword>
+<keyword
+>i18n</keyword>
+<keyword
+>terjemahan</keyword>
+<keyword
+>globalisasi</keyword>
+<keyword
+>g11n</keyword>
+<keyword
+>XLIFF</keyword>
+<keyword
+>gettext</keyword>
+<keyword
+>OpenDocument</keyword>
+<keyword
+>KBabel</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Pengenalan</title>
+<para
+>Biasanya messages dan documentation program ditulis dalam bahasa Inggris. Menggunakan sebuah kerangka yang dibuat dari seperangkat alat dan perpustakaan, yang memungkinkan untuk memiliki aplikasi favorit yang bertutur non-Inggris seperti bahasa yang kamu ucapkan. Proses ini mengadaptasi aplikasi ke bahasa tertentu yang dikenal sebagai <emphasis
+>localization</emphasis
+>. Proses pelokalisan termasuk menerjemahkan antarmuka program dan dokumentasi untuk berbagai bahasa yang dibutuhkan pengguna dan di beberapa negara atau wilayah, membuat input dan output sesuai konvensi tertentu. &lokalize; adalah alat yang akan membantu kamu dalam proses pelokalisan untuk membuat sebuah antarmuka aplikasi bertutur dalam banyak bahasa. </para>
+<para
+>Setiap program penyadaran internasionalisasi tersedia untuk terjemahan atau lebih banyak file-file katalog message. Ekstensi dari file-file ini adalah <filename class="extension"
+>.pot</filename
+>. <acronym
+>POT</acronym
+> adalah akronim dari <quote
+>Portable Object Template</quote
+>. &lokalize; adalah sebuah pengedit tingkat-lanjut dan mudah untuk menggunakan file PO (&GNU; gettext message catalogs). Ini adalah sebuah sistem computer-aided translation (CAT), penerjemahan yang berbantuan komputer untuk para penerjemah, ditulis dari nol menggunakan framework &kde; Platform 4. Selain pengeditan dasar file PO dengan perincian tambahan yang bagus, ini mengintegrasikan dukungan untuk glosarium, memori terjemahan, diff-mode untuk QA, pengelolaan projek, &etc;. Ini memiliki banyak fitur seperti kemampuan navigasi penuh, fungsi pengeditan yang luas, fungsi pencarian, fungsi pemeriksaan sintaks dan statistik. </para>
+<para
+>File-file Portable Object (.po): Setiap penerjemah mengambil salinan dari salah satu file templates POT tersebut dan mulai mengisi yang kosong: setiap pesan diterjemahkan ke dalam bahasa yang diinginkan. File yang berisi teks terjemahan disebut sebagai file PO (Portable Object). </para>
+
+</chapter>
+
+<chapter id="editor">
+<title
+>Pengedit</title>
+<sect1 id="main-window">
+<title
+>Window Utama</title>
+<para
+>Secara baku, window utama berisi enam bagian. Kotak kanan-atas adalah hanya-baca dan berisi bidang msgid (sumber teks) dari file PO yang dibuka. Kotak edit di bawah hanya berisi bidang msgtr (sasaran teks) yang terkait dengan msgid yang ditampilkan dan di sini kamu bisa menginput atau mengedit teks yang diterjemahkan. </para>
+<screenshot>
+<screeninfo
+>Jendela &lokalize; baku utama</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="default_editor_lokalize.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Ini menampilkan window utama ketika file dibuka.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Bagian kiri atas window utama menampilkan Unit Terjemahan. Di bawah ini, ada bagian Unit Metadata dan berisi komentar yang relevan dengan teks sumber yang saat ini ditampilkan. Di sebelah kiri bawah, ada Bagian Memori Terjemahan yang menampilkan terjemahan yang disarankan dari database memori terjemahan untuk entri teks sumber saat ini. Bagian glosarium ditampilkan di pojok kanan bawah window. </para>
+<para
+>File terjemahan dibuka di tab terpisah, dengan dua editan multi-baris besar serta sekumpulan <emphasis
+>tool views</emphasis
+>. Tampilan ini bisa jadi ditumpuk (mirip dengan tab), ditampilkan secara terpisah, atau disembunyikan. File terjemahan terdiri dari banyak kecocokan sasaran bahasa Inggris yang disebut <emphasis
+>unit</emphasis
+>. Sebuah <emphasis
+>unit</emphasis
+> biasanya sesuai dengan string tunggal dalam antarmuka pengguna, atau satu paragraf dalam dokumentasi. Tujuan dari edit multi-baris pertama adalah untuk menampilkan bagian asli dari kecocokan. Tujuan dari edit multi-baris kedua adalah untuk menampilkan terjemahan. Kamu bisa menavigasi melalui <emphasis
+>unit</emphasis
+> via tampilan <guilabel
+>Unit Terjemahan</guilabel
+> atau dengan menggunakan <keycap
+>Page Down</keycap
+> dan <keycap
+>Page Up</keycap
+>. </para>
+<para
+>Sebuah unit mungkin <emphasis
+>translated</emphasis
+> atau <emphasis
+>untranslated</emphasis
+>. Sebuah terjemahan dari unit yang diterjemahkan mungkin <emphasis
+>ready</emphasis
+> atau <emphasis
+>not ready</emphasis
+> (juga kadang-kadang disebut <emphasis
+>fuzzy</emphasis
+>). Jika unit belum siap, terjemahannya akan diberikan dalam huruf miring. &lokalize; memungkinkan kamu dengan mudah menavigasi file sesuai dengan keadaan terjemahannya. Lihat menu <guilabel
+>Menuju</guilabel
+> untuk pintasan. Bilah status di bagian bawah window menampilkan nomor string saat ini, jumlah total string, total string yang belum diterjemahkan, total string belum siap (fuzzy) dan status string saat ini masing-masing. Ketika menavigasi, unit yang belum diterjemahkan dianggap sebagai belum siap. Juga, kamu dapat menggunakan fitur filter tampilan alat <guilabel
+>Unit Terjemahan</guilabel
+>. Menekan <keycap
+>Page Down</keycap
+> sesungguhnya membawa kamu ke unit selanjutnya dalam daftar terfilter/tersortir dari tampilan alat itu. </para>
+<para
+>Untuk memudahkan terjemahan pada aplikasi console di mana jarak sepasi dalam perpesanan yang penting, kamu bisa mencentang butir <guilabel
+>Visualkan pemisah sepertihalnya sepasi, tab, dan baris baru di dalam pengedit</guilabel
+> pada halaman <guilabel
+>Pengeditan</guilabel
+> pada window konfigurasi yang bisa dibuka dengan memilih butir menu utama <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan &lokalize;...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Jika kamu belum memiliki akses ke file template terjemahan asli (ini adalah cukup sederhana pada beberapa projek komersial) kemudian kamu bisa menggunakan sebuah file terjemahan dari bahasa yang berhubungan. Hanya dengan memilih butir menu <menuchoice
+><guimenu
+>File</guimenu
+><guimenuitem
+>Bersihkan semua entri yang diterjemahkan</guimenuitem
+></menuchoice
+> atau gunakan pintasan <keycombo
+>&Ctrl;&Alt;<keycap
+>D</keycap
+></keycombo
+> untuk membersihkan semua unit terjemahan. </para>
+<para
+>Untuk window utama salahsatunya dapat menambahkan lebih banyak bagian seperti <guilabel
+>Terjemahan Alternatif</guilabel
+>, <guilabel
+>Sinkron Primer</guilabel
+>, <guilabel
+>Sinkron Sekunder</guilabel
+>, <guilabel
+>Unit Biner</guilabel
+> dengan menggunakan <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Tampilan Alat</guimenuitem
+></menuchoice
+> dari menu utama. </para>
+</sect1>
+
+<sect1 id="toolbars">
+<title
+>Bilah Alat</title>
+<para
+>Kamu bisa menambah atau menghapus aksi dalam bilah alat menggunakan <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan Bilah Alat...</guimenuitem
+></menuchoice
+> dari menu utama. </para>
+<screenshot>
+<screeninfo
+>Konfigurasikan Bilah Alat</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_toolbar.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Di sini kamu bisa mengkonfigurasi bilah alat.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Untuk informasi selebihnya baca bagian tentang <ulink url="help:/fundamentals/config.html#bilah alats"
+>Bilah Alat</ulink
+> dari &kde; Fundamentals.</para>
+</sect1>
+
+<sect1 id="shortcut-keys">
+<title
+>Tuts pintas</title>
+<para
+>kamu bisa menghemat waktu dengan menggunakan tuts pintas selagi menerjemahkan. Untuk mengkonfigurasi tuts pintas, gunakan <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan Pintasan...</guimenuitem
+></menuchoice
+> dari menu utama. </para>
+<screenshot>
+<screeninfo
+>Konfigurasikan Pintasan</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_shortcuts.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Di sini kamu bisa mengkonfigurasi pintasan tuts.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para
+>Untuk informasi selebihnya baca bagian tentang <ulink url="help:/fundamentals/config.html#shortcuts"
+>Pintasan</ulink
+> dari &kde; Fundamentals.</para>
+</sect1>
+
+<sect1 id="general-tips">
+<title
+>Tips Umum</title>
+<para
+>Jika kamu sedang melakukan terjemahan untuk &kde;, kemudian kamu sudah memiliki file projek &lokalize; di folder bahasamu (biasanya bernama <filename
+>index.lokalize</filename
+>), atau kamu bisa memilih <menuchoice
+><guimenu
+>Projek</guimenu
+><guimenuitem
+>Ciptakan projek baru</guimenuitem
+></menuchoice
+> dan asisten akan mengunduh file terjemahan untuk bahasamu dan akan menciptakan projek untuk kamu. </para>
+
+<tip>
+<para
+>Dianjurkan agar kamu terbiasa dengan menggunakan pintasan keyboard sebagai gantinya menu dan bilah alat untuk meningkatkan produktivitas. Misalnya, gunakan <keycombo
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> untuk fokus <guilabel
+>Cari cepat</guilabel
+> baris input untuk filter daftar unit di tampilan <guilabel
+>Unit Terjemahan</guilabel
+>. Setelah kamu kelar, tekan <keycap
+>Page Down</keycap
+> untuk mulai pindah sepanjang daftar terfilter. </para>
+</tip>
+<para
+>Jika kamu bekerja dengan file terjemahan dalam format XLIFF (pastinya ketika. Kamu menerjemahkan OpenDocument), kemudian keadaan luas tersedia (<emphasis
+>baru</emphasis
+>, <emphasis
+>perlu tinjauan</emphasis
+>, <emphasis
+>disetujui</emphasis
+>, &etc;.). Kamu mungkin dapat memilihnya di menu bentangturun tombol <guilabel
+>Disetujui</guilabel
+> di bilah alat. Klasifikasi wilayah sebagai <emphasis
+>siap</emphasis
+> atau <emphasis
+>belum siap</emphasis
+> tergantung pada <emphasis
+>tahap alurkerja</emphasis
+> (<emphasis
+>terjemahan</emphasis
+>, <emphasis
+>tinjauan</emphasis
+>, <emphasis
+>persetujuan</emphasis
+>) saat ini. Tahap baku bagi kamu tergantung pada <emphasis
+>peraturan</emphasis
+>mu dalam projek (diset dalam pengaturan projek). Setiap unit biasanya berisi informasi tentang tahap yang diubah terakhir kali, dan untuk setiap tahapnya pemilik telah ter-log ke file. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="projects">
+<title
+>Projek</title>
+
+<sect1 id="projects-general-notes">
+<title
+>Catatan Umum</title>
+<para
+>Projek adalah salah satu konsep utama dalam &lokalize;. Sebuah projek adalah diwakili oleh sebuah file yang berisi alur, folder dengan terjemahan, template, dan file lainnya: file glosarium, skrip otomasi, memori terjemahan. Kapanpun &lokalize; membuka file tanpa projek yang dimuat, hal itu akan mencari file projek di folder induk (sampai empat tingkat). Sebagai alternatif, kamu bisa menentukan file projek via bendera <userinput
+>--projek</userinput
+> saat memulai &lokalize; dari baris perintah. </para>
+
+<para
+>Untuk setiap projek, peran kamu yang kamu pilih di dalamnya (<emphasis
+>penerjemah</emphasis
+>, <emphasis
+>peninjau</emphasis
+>, <emphasis
+>penyetuju</emphasis
+>), yang pada gilirannya memengaruhi tahap alur kerja &lokalize; secara otomatis mengambil file yang kamu edit. </para>
+
+<para
+>Memungkinkan untuk menemukan sebuah posisi pengemasan kata pada tingkat projek. Hanya menggunakan butir menu <menuchoice
+><guimenu
+>Projek</guimenu
+> <guimenuitem
+>Konfigurasikan projek...</guimenuitem
+></menuchoice
+> kemudian menuju ke halaman <guilabel
+>Tingkat-lanjut</guilabel
+>. </para>
+
+<note>
+<para
+>Memori terjemahan (tidak seperti file projek, glosarium dan skrip) tidak dibagikan kepada anggota tim penerjemahan, karena mereka diciptakan dan disimpan di bawah folder beranda pengguna, yang berarti bahwa memori terjemahan untuk semua dari projek adalah disimpan dalam folder yang sama dan dengan demikian bisa digunakan ketika projek lainnya dibuka. </para>
+</note>
+</sect1>
+
+<sect1 id="project-view">
+<title
+>Tab Ikhtisar Projek</title>
+<para
+>Ketika kamu memulai &lokalize; pertama kali, kamu akan melihat tab <guilabel
+>Ikhtisar Projek</guilabel
+> kosong. Ikhtisar Projek adalah tampilan pengelola file , yang mana membantu kamu menjaga ikhtisar dari file -file PO kamu. &lokalize; suite akan membantu kamu untuk menerjemahkan dengan cepat dan juga menjaga terjemahan tetap konsisten. Alurkerja &lokalize; menyiratkan bahwa kamu memulai dengan menciptakan/membuka sebuah projek. Tab Ikhtisar Projek menampilkan hierarki file dengan statistik dengan projek saat ini, seperti persentase dari rampungnya unit yang diterjemahkan dan penerjemah yang terakhir. Ini memungkinkan kamu untuk membuka file yang dipilih dalam tab window &lokalize; saat ini. </para>
+<para
+>Untuk menciptakan sebuah projek baru, gunakan <menuchoice
+><guimenu
+>Projek</guimenu
+><guimenuitem
+>Ciptakan projek baru</guimenuitem
+></menuchoice
+>. Ini akan memandu melalui langkah untuk menciptakan sebuah projek baru. Dalam menu <guimenu
+>Projek</guimenu
+> kamu juga bisa menemukan pilihan seperti <guimenuitem
+>Ikhtisar projek</guimenuitem
+>, <guimenuitem
+>Konfigurasikan projek</guimenuitem
+>, <guimenuitem
+>Buka projek</guimenuitem
+>, dan <guimenuitem
+>Buka projek baru-baru ini</guimenuitem
+>.</para>
+<para>
+<screenshot>
+<screeninfo
+>Tab Ikhtisar Projek</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="project_overview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Di sini kamu bisa mengkonfigurasi projek.</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Tab <guilabel
+>Ikhtisar Projek</guilabel
+> menampilkan hierarki file dengan statistik untuk projek saat ini, seperti persentase lengkap unit diterjemahkan dan penerjemah terakhir. Ini memungkinkan kamu membuka file  yang dipilih dalam tab baru pada window &lokalize; saat ini. </para>
+
+<note>
+    <para
+>Kamu bisa mematikan secara lengkap file-file yang diterjemahkan dari <guilabel
+>Ikhtisar Projek</guilabel
+> menggunakan tombol <guibutton
+>Sembunyikan butir yang dirampungkan</guibutton
+> pada bilah alat utama atau pintasan baku <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>. </para>
+</note>
+<para
+>Ketika kamu menjalankan &lokalize; di lain waktu, secara baku ia akan menampilkan file yang dibuka terakhir kali. Kamu bisa mematikan perilaku ini dengan butir <guilabel
+>Kembalikan file yang dibuka sebelumnya ketika membuka &lokalize;</guilabel
+> pada halaman <guilabel
+>Umum</guilabel
+> pada window konfigurasi yang bisa dibuka dengan memilih butir menu utama <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan &lokalize;...</guimenuitem
+></menuchoice
+>. Halaman yang sama bisa digunakan untuk mengkonfigurasi perilaku &lokalize; ketika kamu beralih ke tab sebelumnya/selanjutnya di dalamnya. Ini memungkinkan untuk menuju melalui sesuai daftar tab ke posisi tab atau sesuai dengan urutan aktivasi mereka. </para>
+</sect1>
+
+</chapter>
+
+<chapter id="glossary">
+<title
+>Glosarium</title>
+
+<para
+>Pernahkah kamu bosan mengetik urutan teks panjang yang sama setiap kali oleh karenanya akan membutuhkan waktu lebih lama untuk menemukan terjemahannya bagi salin dan tempel? Sekarang kamu hanya mencari urutan kata (yang sering) di <guilabel
+>Tampilan Glosarium</guilabel
+>, lalu sisipkan dengan menekan sebuah pintasan. </para>
+
+<para
+>Tentu glosarium harus diisi dengan urutan kata terlebih dahulu. &lokalize; memiliki pengedit glosarium praktis yang memungkinkan pencarian eksplisit melalui entri glosarium. </para>
+
+<screenshot>
+<screeninfo
+>Tampilan glosarium di pojok kanan bawah menampilkan entri-entri glosarium yang sesuai untuk unit saat ini</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="glossary.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>Tampilan glosarium di pojok kanan bawah menampilkan entri-entri glosarium yang sesuai untuk unit saat ini</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</chapter>
+
+<chapter id="tm">
+<title
+>Memori Terjemahan</title>
+
+<para
+>Tampilan <guilabel
+>Memori Terjemahan</guilabel
+> memungkinkan kamu untuk seret dan jatuh sebuah folder dengan file terjemahan dari katakanlah &dolphin; ke dalam tampilan, dan kemudian, dalam beberapa menit, saran terjemahan akan ditampilkan secara otomatis pada peralihan unit. Untuk menyisipkan saran terjemahan ke dalam file, gunakan <keycombo
+>&Ctrl; <keycap
+>1</keycap
+></keycombo
+>, <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> dan seterusnya, tergantung dari jumlah sarannya. </para>
+<para
+>Gunakan <menuchoice
+><guimenu
+>Peralatan</guimenu
+><guimenuitem
+>Kelola memori terjemahan</guimenuitem
+></menuchoice
+> untuk menambah/mengelola projek ke projek Memori Terjemahan kamu. Di sini kamu juga bisa mengimpor atau mengekspor data dari format file <filename role="extension"
+>tmx</filename
+>. </para>
+
+<para
+>Menekan <keycombo
+><keycap
+>F7</keycap
+></keycombo
+> akan membuka tab <guilabel
+>Memori Terjemahan</guilabel
+>, yang memungkinkan kamu untuk men-query MT secara bebas. Mengeklik sebuah hasil pencarian akan membuka file dan unit yang sesuai. Jika kamu ingin cepat membuka beberapa file dalam projek (dan itu ditambahkan ke MT), sebagai gantinya merambah <guilabel
+>Ikhtisar Projek</guilabel
+> kamu bisa mengetikan namanya saja ke bidang <guilabel
+>File mask</guilabel
+>, disertai dengan '*'. </para>
+
+<para
+>Mesin MT mengindeks semua entri, termasuk yang belum siap dan belum diterjemahkan. Hal ini memungkinkannya untuk secara lengkap mengganti fitur Pencarian-dalam-File yang mana diperlukan pemindaian setiap file dalam projek setiap kali pencarian dilakukan. </para>
+
+<note>
+    <para
+>Entri-entri MT yang kedaluwarsa akan dihapus dari memori terjemahan &lokalize; saat pindai-ulang atau mengeklik pada entri yang hilang jika kamu mencentang butir <guilabel
+>Hapus file yang hilang dari memori terjemahan saat Pindai-ulang atau ketika mengeklik sebuah entri yang hilang</guilabel
+> di halaman <guilabel
+>Memori Terjemahan</guilabel
+> dari window konfigurasi yang bisa dibuka dengan memilih butir menu utama  <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan &lokalize;...</guimenuitem
+></menuchoice
+>. </para>
+</note>
+
+<screenshot>
+<screeninfo
+>&lokalize; dengan hasil pencarian memori terjemahan untuk unit saat ini</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="tmview.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; dengan hasil pencarian memori terjemahan untuk unit saat ini</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<variablelist>
+  <varlistentry>
+    <term
+>Setumpuk Terjemahan:</term>
+    <listitem>
+      <para
+>Untuk memasukkan saran pencocokan yang pas secara otomatis dari database memori terjemahan, gunakan <menuchoice
+><guimenu
+>Peralatan</guimenu
+><guimenuitem
+>Isikan semua saran yang pas</guimenuitem
+></menuchoice
+> ATAU <guimenuitem
+>Isikan semua saran yang pas dan tandai sebagai fuzzy</guimenuitem
+>. Fitur ini adalah fitur terjemahan kasar yang serupa di &kbabel;. </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</chapter>
+
+
+<chapter id="sync">
+<title
+>Kemampuan Sinkronisasi Terjemahan</title>
+
+<para
+><guilabel
+>Mode Sinkron</guilabel
+> (sebelumnya dikenal sebagai <guilabel
+>Mode Gabung</guilabel
+>) menghemat banyak waktu untuk pengeditan, dan dalam kasus ketika dua atau lebih penerjemah bekerja secara bersamaan pada file yang sama, atau ketika kita harus mempertahankan terjemahan beberapa cabang perangkat lunak. </para>
+
+<para
+>&lokalize; memungkinkan navigasi cepat melalui unit yang berbeda, dan menampilkan perbedaan kata demi kata. Juga, &lokalize; memiliki dua tampilan Sinkron - <guilabel
+>Sinkron Primer</guilabel
+> dan <guilabel
+>Sinkron Sekunder</guilabel
+>. Mereka identik, tapi yang pertama biasanya digunakan untuk menggabungkan terjemahan dan kedua untuk terus melakukan sinkronisasi terjemahan untuk dua cabang perangkat lunak. </para>
+
+<para
+>Setelah kamu menyalin terjemahan dari file penolong (<emphasis
+>tersinkronisasi</emphasis
+>), segala perubahan selanjutnya yang dibuat pada unit ini akan direplikasi kembali ke file penolong. </para>
+
+<sect1 id="file-merge">
+<title
+>Penggabungan</title>
+<para
+>Salah satu penggunaan <guilabel
+>Mode Sinkron</guilabel
+> adalah meninjau perubahan yang dilakukan oleh kontributor (baru), bila kamu tidak bisa memastikan kualitas pekerjaan yang dilakukan. </para>
+<para
+>Buka file base, lalu turunkan versi yang diubah ke dalam tampilan <guilabel
+>Sinkron Primer</guilabel
+>, berikut ini dengan <keycombo
+>&Alt;<keycap
+>Down</keycap
+></keycombo
+> atau <keycombo
+>&Alt; <keycap
+>Up</keycap
+></keycombo
+> (ingat pintasan tersebut mungkin dimodif dalam cara mudah untuk semua aplikasi &kde;) untuk menavigasi melalui entri-entri yang berbeda. </para>
+<screenshot>
+<screeninfo
+>&lokalize; digunakan untuk menggabungkan perubahan dalam terjemahan</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="sync.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; digunakan untuk menggabungkan perubahan dalam terjemahan</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="file-sync">
+<title
+>Replikasi</title>
+<para
+><guilabel
+>Mode Sinkron</guilabel
+> juga dapat digunakan untuk melakukan perubahan untuk terjemahan bagi dua cabang secara bersamaan. Set alur <guilabel
+>folder Branch</guilabel
+> pada pilihan projek kamu ke alur yang sesuai dengan basis folder cabang, dan tampilan <guilabel
+>Sinkron Sekunder</guilabel
+> secara otomatis membuka file dari cabang. Kemudian, setiap kali kamu melakukan perubahan file dari cabang utama kamu, mereka secara otomatis akan direplikasi ke cabang (tentu saja, jika itu berisi string bahasa Inggris yang sama). </para>
+<para
+>Umpamanya, jika kamu bekerja pada terjemahan &kde;, kamu bisa checkout trunk ke <filename class="directory"
+>/home/xx/hacking/kde/trunk/l10n-kf5/BAHASAMU</filename
+> dan branch ke <filename class="directory"
+>/home/xx/hacking/kde/branches/stable/l10n-kf5/BAHASAMU</filename
+>. Ciptakan projek &lokalize;: <filename
+>/home/xx/hacking/kde/trunk/l10n-kf5/BAHASAMU/project.lokalize</filename
+> dan set <filename class="directory"
+>BranchDir=../../../branches/stable/l10n-kf5/BAHASAMU</filename
+>, kemudian bekerja melalui projek ini, dan commit perubahan di kedua folder trunk dan branch. </para>
+</sect1>
+
+
+<sect1 id="alt-trans">
+<title
+>Terjemahan Alternatif</title>
+
+<para
+>Setiap unit mungkin memiliki beberapa <emphasis
+>terjemahan alternatif</emphasis
+> yang terkait dengannya. Terjemahan semacam itu mungkin muncul selagi pembaruan file , ketika string sumber ada sedikit perubahan. Dalam kasus ini terjemahan lawas dengan sumber (lawas) telah dipindahkan ke daftar terjemahan alternatif, sehingga dengan begitu tidak hilang. </para>
+<para
+>Saat menerjemahkan perangkat lunak, biasanya alat gettext digunakan untuk mempersiapkan file terjemahan. Saat perubahan teks asli, alat gettext memperbarui file terjemahan dan entri-entri tanda dengan mengubah teks asli sebagai <emphasis
+>fuzzy</emphasis
+> (atau <emphasis
+>belum siap</emphasis
+> dalam terminologi lain). Mereka menyimpan teks asli sebelumnya sehingga penerjemah bisa melihat perubahan apa yang diubah. &lokalize; menyederhanakan kehidupan penerjemah dan menyoroti bagian dari teks asli yang diubah di tampilan <guilabel
+>Terjemahan Alternatif</guilabel
+>. </para>
+
+<screenshot>
+<screeninfo
+>&lokalize; menyoroti bagian teks asli yang diubah sejak terjemahan terakhir ditinjau</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="original-diff.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>&lokalize; menyoroti bagian teks asli yang diubah sejak terjemahan terakhir ditinjau</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+
+</sect1>
+
+</chapter>
+
+<chapter id="scripting">
+<title
+>Skrip &lokalize;</title>
+
+<para
+>&lokalize; dapat diekstensi menggunakan skrip dalam beberapa bahasa yang diinterpretasikan, termasuk Python dan &javascript;. Skrip biasanya diintegrasikan ke dalam antarmuka UI &lokalize; sebagai aksi menu (yang mana kamu bisa menetapkan pintasan keyboard). Lokasi dan nama pada entri menu untuk skrip diterangjelaskan di dalam file .rc yang menyertainya. Pada setiap projek yang dibuka, &lokalize; memindai folder <filename
+>DIREKTORIPROJEK/lokalize-scripts</filename
+> bagi file-file .rc dan menambahkannya ke file <emphasis
+>cache</emphasis
+> yang disebut <filename
+>DIREKTORIPROJEK/lokalize-scripts/scripts.rc</filename
+> (jadi kamu seharusnya tidak usah menambahkan sistem kendali versi projek). File RC juga berisi alur skrip, yang mungkin relatif terhadap folder file .rc, atau untuk folder skrip sistem - keduanya dicoba (meskipun <emphasis
+>harus</emphasis
+> tetap berada di lokasi yang relatif jika kamu ingin membaginya kepada orang lain dalam projek kamu). Misalnya, kamu bisa menentukan <filename
+>../../scripts/localize/opensrc.py</filename
+> untuk memuat skrip dari<ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+> folder skrip kf5-l10n global</ulink
+> (&ie; tidak spesifik untuk bahasamu). </para>
+<para
+>Contohnya file .rc yang ditemukan di folder instalan &lokalize; (biasanya <filename
+>/usr/share/lokalize/scripts/</filename
+>) dan di <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+>&kde; repositori</ulink
+>. <ulink url="https://websvn.kde.org/trunk/l10n-kf5/ru/lokalize-scripts/"
+>Di sini</ulink
+> kamu bisa menemukan contoh-contoh skrip selebihnya, termasuk JavaScript-based <filename
+>check-gui.js</filename
+> yang berjalan secara otomatis saat setiap file disimpan (ini adalah arsip via pilihan khusus di file .rc). Jika kalian terbiasa dengan Python atau &javascript;, kode seharusnya sudah cukup jelas. </para>
+<para
+>Berikut adalah tautan ke referensi API. Semuanya ditandai sebagai <emphasis
+>Q_SCRIPTABLE</emphasis
+> mungkin digunakan dari skrip. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>Referensi API objek <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>Editor</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>Referensi API objek <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>&lokalize;</ulink
+> </para>
+</listitem>
+<listitem>
+<para
+>Referensi API objek <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Projek</ulink
+> </para>
+</listitem>
+</itemizedlist>
+
+<sect1 id="pology">
+<title
+>Pology</title>
+
+<para
+>Salah satu aplikasi kemampuan penskripan yang baik adalah menggunakan <application
+>Pology</application
+> di dalam &lokalize;. </para>
+<para
+>Interaksi dengan <application
+>Pology</application
+> bisa dikonfigurasi menggunakan halaman <guilabel
+>Pology</guilabel
+> pada window konfigurasi yang mana bisa dibuka dengan memilih butir menu utama <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan &lokalize;...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Untuk informasi selebihnya, silakan mengarah ke <ulink url="http://pology.nedohodnik.net/"
+>Pology homepage</ulink
+>. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>LanguageTool</title>
+
+<para
+><application
+>LanguageTool</application
+> menawarkan pemeriksaan ejaan dan tata bahasa pada unit terjemahanmu. </para>
+<para
+>Kamu bisa mengkonfigurasi server <application
+>LanguageTool</application
+> kustom kamu menggunakan halaman <guilabel
+>LanguageTool</guilabel
+> pada window konfigurasi yang bisa dibuka dengan memilih butir menu utama <menuchoice
+><guimenu
+>Pengaturan</guimenu
+><guimenuitem
+>Konfigurasikan &lokalize;...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Untuk memanfaatkan kemampuan pemeriksaan <application
+>LanguageTool</application
+> gunakanlah butir menu <menuchoice
+><guimenu
+>Edit</guimenu
+><guimenuitem
+>Periksa unit ini menggunakan LanguageTool</guimenuitem
+></menuchoice
+> atau gunakan pintasan <keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+>. </para>
+<para
+>Untuk informasi selebihnya, silakan tengok di <ulink url="https://languagetool.org/"
+>laman LanguageTool</ulink
+>. </para>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title
+>Pujian dan Lisensi</title>
+
+<para
+>&lokalize; </para>
+
+<para
+>Hak Cipta Program &copy; 2007-2015, Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Beberapa kode diambil dari &kbabel;, leluhur &lokalize;. </para>
+
+<para
+>Dokumentasi Copyright &copy; 2007-2009 Nick Shaforostoff <email
+>shaforostoff@kde.ru</email
+> </para>
+
+<para
+>Penulis: <itemizedlist
+> <listitem
+> <para
+>Nick Shaforostoff <email
+>shaforostoff AT kde.ru</email
+>; Shankar Prasad <email
+>svenkate AT redhat.com</email
+>; Sweta Kothari <email
+>swkothar AT redhat.com</email
+> </para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para
+>Lihat <ulink url="http://userbase.kde.org/lokalize"
+>laman &lokalize;</ulink
+> untuk perincian selebihnya.</para>
+
+<para
+>Wantoyo<email
+>wantoyek@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

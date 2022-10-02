@@ -1,0 +1,4632 @@
+# Translation of lokalize.po into Serbian.
+# Chusslove Illich <caslav.ilic@gmx.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
+# Dalibor Djuric <daliborddjuric@gmail.com>, 2010, 2011.
+# Slobodan Simić <slsimic@gmail.com>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: lokalize\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-06-15 02:22+0200\n"
+"PO-Revision-Date: 2017-09-28 18:00+0200\n"
+"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+"X-Environment: kde, lokalize\n"
+"X-Generator: Lokalize 1.5\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Часлав Илић"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "caslav.ilic@gmx.net"
+
+#. i18n: tag collection attribute text
+#. i18n: tag collection attribute comment
+#. i18n: tag collection attribute text
+#: scripts/msgfmt.rc:3 scripts/xliff2odf.rc:3
+#, kde-format
+msgid "Tools"
+msgstr "Алатке"
+
+# rewrite-msgid: /\.po/PO file/
+#. i18n: tag script attribute text
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po"
+msgstr "Компилуј ПО фајл"
+
+# rewrite-msgid: /\.po/PO file/
+#. i18n: tag script attribute comment
+#: scripts/msgfmt.rc:4
+#, kde-format
+msgid "Compile .po and make it available to applications"
+msgstr "Компилуј ПО фајл и учини га доступним програмима"
+
+#: scripts/msgmerge.py:33
+msgid "Gettext not found"
+msgstr "Геттекст није нађен"
+
+#: scripts/msgmerge.py:33
+msgid "Install gettext package for this feature to work"
+msgstr "Инсталирајте Геттекст (пакет gettext) да би ова могућност радила"
+
+#: scripts/msgmerge.py:44
+msgid "Updating from templates..."
+msgstr "Ажурирам према шаблонима..."
+
+#: scripts/msgmerge.py:71
+msgid "Merge has been completed"
+msgstr "Стапање је довршено."
+
+# rewrite-msgid: /time/date/
+# >! Plurals.
+#: scripts/msgmerge.py:71
+msgid ""
+"Merge has been completed.\n"
+"Template modification time: %1 (%2 days ago)."
+msgstr ""
+"Стапање је довршено.\n"
+"Датум измене шаблона: %1 (пре %2 дана).|/|Стапање је довршено.\n"
+"Датум измене шаблона: %1 (пре %2 $[множ ^2 дан дана дана])."
+
+#: scripts/msgmerge.py:74
+msgid "Merge failed."
+msgstr "Стапање није успело."
+
+#: scripts/msgmerge.py:74
+msgid ""
+"Could not find template file for the merge:\n"
+"%1"
+msgstr ""
+"Не могу да нађем фајл шаблона за стапање:\n"
+"%1"
+
+#. i18n: tag collection attribute text
+#: scripts/msgmerge.rc:3
+#, kde-format
+msgid "File"
+msgstr "Фајл"
+
+#. i18n: tag script attribute text
+#: scripts/msgmerge.rc:4
+#, kde-format
+msgid "Update file from template"
+msgstr "Ажурирај фајл према шаблону"
+
+#. i18n: tag script attribute text
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Merge into ODF"
+msgstr "Стопи у ОДФ"
+
+#. i18n: tag script attribute comment
+#: scripts/xliff2odf.rc:4
+#, kde-format
+msgid "Generates translated version of ODF document"
+msgstr "Ствара преведену верзију ОДФ документа"
+
+#: src/alttransview.cpp:50 src/alttransview.cpp:53
+#, kde-format
+msgctxt "@title:window"
+msgid "Alternate Translations"
+msgstr "Алтернативни преводи"
+
+#: src/alttransview.cpp:167
+#, kde-format
+msgid ""
+"There is useful data available in Alternate Translations view.\n"
+"\n"
+"For Gettext PO files it displays difference between current source text and "
+"the source text corresponding to the fuzzy translation found by msgmerge "
+"when updating PO based on POT template.\n"
+"\n"
+"Do you want to show the view with the data?"
+msgstr ""
+"Приказ алтернативних превода даје неке корисне податке.\n"
+"\n"
+"За ПО фајлове, приказује разлику између тренутног изворног текста и изворног "
+"текста који одговара мутном преводу. Њега налази msgmerge када ажурира ПО "
+"фајл на основу шаблона (ПОТ фајла).\n"
+"\n"
+"Желите ли да активирате приказ ових података?"
+
+# rewrite-msgid: /emphasis>/i>/
+#: src/alttransview.cpp:247
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Sometimes, if source text is changed, its translation becomes deprecated "
+"and is either marked as <emphasis>needing&nbsp;review</emphasis> (i.e. "
+"looses approval status), or (only in case of XLIFF file) moved to the "
+"<emphasis>alternate&nbsp;translations</emphasis> section accompanying the "
+"unit.</p><p>This toolview also shows the difference between current source "
+"string and the previous source string, so that you can easily see which "
+"changes should be applied to existing translation to make it reflect current "
+"source.</p><p>Double-clicking any word in this toolview inserts it into "
+"translation.</p><p>Drop translation file onto this toolview to use it as a "
+"source for additional alternate translations.</p>"
+msgstr ""
+"<p>Понекад, када дође до измене изворног текста, стари превод се обележи као "
+"да <i>чека преглед</i> (тј. изгуби стање одобреног), или, у случају ИксЛИФФ "
+"фајла, премести у одељак <i>алтернативних превода</i> дате јединице.</"
+"p><p>Овај алатни приказ такође даје разлику између текуће и претходне "
+"изворне ниске, тако да лако можете видети како треба изменити постојећи "
+"превод тако да одговара текућем извору.</p><p>Двокликните на било коју реч у "
+"овом приказу да је уметнете у превод.</p><p>Превуците фајл превода на овај "
+"приказ да послужи као додатни извор алтернативних превода.</p>"
+
+#: src/alttransview.cpp:268
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Origin: %1"
+msgstr "Извор: %1"
+
+#: src/alttransview.cpp:291
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use alternate translation"
+msgstr "Употреба алтернативног превода"
+
+#: src/binunitsview.cpp:123
+#, kde-format
+msgid "no"
+msgstr "не"
+
+#: src/binunitsview.cpp:123
+#, kde-format
+msgid "yes"
+msgstr "да"
+
+#: src/binunitsview.cpp:139
+#, kde-format
+msgctxt "@title:column"
+msgid "Source"
+msgstr "извор"
+
+# под target мисли се на циљни језик, тј. превод
+#: src/binunitsview.cpp:140
+#, kde-format
+msgctxt "@title:column"
+msgid "Target"
+msgstr "превод"
+
+#: src/binunitsview.cpp:141
+#, kde-format
+msgctxt "@title:column"
+msgid "Approved"
+msgstr "одобрено"
+
+#: src/binunitsview.cpp:149
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Binary Units"
+msgstr "Двојне јединице"
+
+#: src/binunitsview.cpp:187
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Set the file"
+msgstr "Постави фајл"
+
+#: src/binunitsview.cpp:188
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Use source file"
+msgstr "Користи изворни фајл"
+
+# >> @item
+#: src/catalog/catalog.cpp:77
+#, kde-format
+msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "сви подржани фајлови (*.po, *.pot, *.xlf, *.xliff, *.ts)"
+
+# >> @item
+#: src/catalog/catalog.cpp:78
+#, kde-format
+msgid "Gettext (*.po *.pot)"
+msgstr "Геттекст (*.po, *.pot)"
+
+# >> @item
+#: src/catalog/catalog.cpp:78
+#, kde-format
+msgid "Gettext (*.po)"
+msgstr "Геттекст (*.po)"
+
+# >> @item
+#: src/catalog/catalog.cpp:78
+#, kde-format
+msgid "XLIFF (*.xlf *.xliff)"
+msgstr "ИксЛИФФ (*.xlf, *.xliff)"
+
+# >> @item
+#: src/catalog/catalog.cpp:78
+#, kde-format
+msgid "Linguist (*.ts)"
+msgstr "КуТ‑лингвист (*.ts)"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:84
+#, kde-format
+msgid "New"
+msgstr "нова"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:84
+#, kde-format
+msgid "Needs translation"
+msgstr "чека превод"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:84
+#, kde-format
+msgid "Needs full localization"
+msgstr "чека пуну локализацију"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:84
+#, kde-format
+msgid "Needs adaptation"
+msgstr "чека прилагођавање"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:84
+#, kde-format
+msgid "Translated"
+msgstr "преведена"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:85
+#, kde-format
+msgid "Needs translation review"
+msgstr "чека преглед превода"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:85
+#, kde-format
+msgid "Needs full localization review"
+msgstr "чека преглед пуне локализације"
+
+# >> @item Translation unit state
+#: src/catalog/catalog.cpp:85
+#, kde-format
+msgid "Needs adaptation review"
+msgstr "чека преглед прилагођавања"
+
+#: src/catalog/catalog.cpp:85
+#, kde-format
+msgid "Final"
+msgstr "коначна"
+
+#: src/catalog/catalog.cpp:86
+#, kde-format
+msgid "Signed-off"
+msgstr "потписана"
+
+#: src/catalog/catalogstring.cpp:75
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired tag"
+msgstr "почетак упарене ознаке"
+
+#: src/catalog/catalogstring.cpp:76
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired tag"
+msgstr "крај упарене ознаке"
+
+#: src/catalog/catalogstring.cpp:77
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Stand-alone tag"
+msgstr "самостална ознака"
+
+#: src/catalog/catalogstring.cpp:78
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Isolated tag"
+msgstr "осамљена ознака"
+
+#: src/catalog/catalogstring.cpp:80
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Marker"
+msgstr "обележивач"
+
+#: src/catalog/catalogstring.cpp:81
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic group placeholder"
+msgstr "генерички групни местодржач"
+
+#: src/catalog/catalogstring.cpp:82
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Sub-flow"
+msgstr "подток"
+
+#: src/catalog/catalogstring.cpp:84
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Generic placeholder"
+msgstr "генерички местодржач"
+
+#: src/catalog/catalogstring.cpp:85
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "Start of paired placeholder"
+msgstr "почетак упареног местодржача"
+
+#: src/catalog/catalogstring.cpp:86
+#, kde-format
+msgctxt "XLIFF inline tag name"
+msgid "End of paired placeholder"
+msgstr "крај упареног местодржача"
+
+#: src/catalog/catalogstring.cpp:133
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "abbreviation"
+msgstr "скраћеница"
+
+#: src/catalog/catalogstring.cpp:134
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviated form: a term resulting from the omission of any part of the full "
+"term while designating the same concept"
+msgstr ""
+"скраћени облик: израз добијен изостављањем било којег дела пуног израза, "
+"који и даље означава исти појам."
+
+#: src/catalog/catalogstring.cpp:135
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"abbreviation: an abbreviated form of a simple term resulting from the "
+"omission of some of its letters (e.g. 'adj.' for 'adjective')"
+msgstr ""
+"скраћеница: скраћени облик једноставног израза добијен изостављањем неких од "
+"његових слова (нпр. ‘им.’ за ‘именица’)."
+
+#: src/catalog/catalogstring.cpp:136
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"acronym: an abbreviated form of a term made up of letters from the full form "
+"of a multiword term strung together into a sequence pronounced only "
+"syllabically (e.g. 'radar' for 'radio detecting and ranging')"
+msgstr ""
+"акроним: скраћени облик израза сачињен од слова пуног вишечланог израза, "
+"спојено записаних тако да се читају као реч (нпр. ‘ЈАТ’ од „Југословенски "
+"аеротранспорт“)."
+
+# >! Really?? Isn't it just a name for some kind of entities? Bird, tree, apple...
+#: src/catalog/catalogstring.cpp:137
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"appellation: a proper-name term, such as the name of an agency or other "
+"proper entity"
+msgstr "апелатив: именички израз који одређује неку врсту објеката."
+
+#: src/catalog/catalogstring.cpp:138
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"collocation: a recurrent word combination characterized by cohesion in that "
+"the components of the collocation must co-occur within an utterance or "
+"series of utterances, even though they do not necessarily have to maintain "
+"immediate proximity to one another"
+msgstr ""
+"колокација: понављајући склоп речи повезаних по томе што се морају "
+"заједнички јављати унутар исказа или низа исказа, иако не неопходно "
+"непосредно надовезане једна за другом."
+
+#: src/catalog/catalogstring.cpp:139
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"common name: a synonym for an international scientific term that is used in "
+"general discourse in a given language"
+msgstr ""
+"заједнички назив: синоним за међународни научни израз који се користи у "
+"општим расправама у датом језику"
+
+#: src/catalog/catalogstring.cpp:140
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "date and/or time"
+msgstr "датум и/или време"
+
+#: src/catalog/catalogstring.cpp:141
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"equation: an expression used to represent a concept based on a statement "
+"that two mathematical expressions are, for instance, equal as identified by "
+"the equal sign (=), or assigned to one another by a similar sign"
+msgstr ""
+"једначина: исказ који утврђује да су два математичка израза, на пример, "
+"једнака (показано знаком једнакост, =), или на неки други начин зависна."
+
+#: src/catalog/catalogstring.cpp:142
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"expanded form: The complete representation of a term for which there is an "
+"abbreviated form"
+msgstr "проширени облик: пуни облик израза за који постоји скраћеница."
+
+#: src/catalog/catalogstring.cpp:143
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"formula: figures, symbols or the like used to express a concept briefly, "
+"such as a mathematical or chemical formula"
+msgstr ""
+"формула: слике, симболи и други елементи за сажето представљање исказа попут "
+"математичке или хемијске формуле."
+
+#: src/catalog/catalogstring.cpp:144
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"head term: the concept designation that has been chosen to head a "
+"terminological record"
+msgstr "заглавни израз: ознака појма изабрана за заглавље терминолошког уноса"
+
+#: src/catalog/catalogstring.cpp:145
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"initialism: an abbreviated form of a term consisting of some of the initial "
+"letters of the words making up a multiword term or the term elements making "
+"up a compound term when these letters are pronounced individually (e.g. "
+"'BSE' for 'bovine spongiform encephalopathy')"
+msgstr ""
+"иницијализам: скраћени облик вишечланог израза који се састоји од његових "
+"почетних слова, таквих да се слова изговарају појединачно (нпр. ‘ПТТ’ за "
+"„Пошта, телеграф и телефон“)."
+
+#: src/catalog/catalogstring.cpp:146
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"international scientific term: a term that is part of an international "
+"scientific nomenclature as adopted by an appropriate scientific body"
+msgstr ""
+"међународни научни израз: део међународне научне номенклатуре, који је "
+"усвојило одговарајуће научно тело."
+
+#: src/catalog/catalogstring.cpp:147
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"internationalism: a term that has the same or nearly identical orthographic "
+"or phonemic form in many languages"
+msgstr ""
+"интернационализам: израз истог или скоро истог ортографског и фонетског "
+"облика у многим језицима"
+
+#: src/catalog/catalogstring.cpp:148
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"logical expression: an expression used to represent a concept based on "
+"mathematical or logical relations, such as statements of inequality, set "
+"relationships, Boolean operations, and the like"
+msgstr ""
+"логички израз: исказ који представља математичку или логичку релацију, попут "
+"неједнакости, односа скупова, Булове алгебре, и сл."
+
+#: src/catalog/catalogstring.cpp:149
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "materials management unit: a unit to track object"
+msgstr "јединица управљања материјалима: јединица за праћење објекта"
+
+#: src/catalog/catalogstring.cpp:150
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "name"
+msgstr "име"
+
+#: src/catalog/catalogstring.cpp:151
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"near synonym: a term that represents the same or a very similar concept as "
+"another term in the same language, but for which interchangeability is "
+"limited to some contexts and inapplicable in others"
+msgstr ""
+"приближни синоним: израз који означава исти или врло сличан појам као неки "
+"други израз на истом језику, али чија је међусобна смењивост ограничена само "
+"на неке контексте."
+
+#: src/catalog/catalogstring.cpp:152
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"part number: a unique alphanumeric designation assigned to an object in a "
+"manufacturing system"
+msgstr ""
+"број дела: јединствена алфанумеричка ознака додељена објекту у производном "
+"систему"
+
+#: src/catalog/catalogstring.cpp:153
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "phrase"
+msgstr "фраза"
+
+#: src/catalog/catalogstring.cpp:154
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"phraseological: a group of two or more words that form a unit, the meaning "
+"of which frequently cannot be deduced based on the combined sense of the "
+"words making up the phrase"
+msgstr ""
+"фразеологизам: група од две или више речи које образују једну јединицу "
+"таквог значења да се оно често не може одредити само на основу речи које је "
+"чине."
+
+#: src/catalog/catalogstring.cpp:155
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "protected: the marked text should not be translated"
+msgstr "заштићено: обележени текст не треба преводити"
+
+#: src/catalog/catalogstring.cpp:156
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"romanized form: a form of a term resulting from an operation whereby non-"
+"Latin writing systems are converted to the Latin alphabet"
+msgstr ""
+"романизован облик: облик израза који настаје када се изворни нелатинички "
+"израз запише латиницом."
+
+#: src/catalog/catalogstring.cpp:157
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "segment: the marked text represents a segment"
+msgstr "сегмент: обележени текст представља сегмент"
+
+#: src/catalog/catalogstring.cpp:158
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "set phrase: a fixed, lexicalized phrase"
+msgstr "задата фраза: фиксирана, лексикализована фраза"
+
+#: src/catalog/catalogstring.cpp:159
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"short form: a variant of a multiword term that includes fewer words than the "
+"full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
+"Group of Twenty-four on International Monetary Affairs')"
+msgstr ""
+"скраћени облик: варијанта вишечланог израза с мање речи него у пуном облику "
+"израза (нпр. „Уједињено Краљевство“ за „Уједињено Краљевство Велике "
+"Британије и Северне Ирске“)."
+
+#: src/catalog/catalogstring.cpp:160
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"stock keeping unit: an inventory item identified by a unique alphanumeric "
+"designation assigned to an object in an inventory control system"
+msgstr ""
+"јединица праћења залиха: инвентарска ставка одређена јединственом "
+"алфанумеричком ознаком, која се додељује у систему управљања инвентаром."
+
+#: src/catalog/catalogstring.cpp:161
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "standard text: a fixed chunk of recurring text"
+msgstr "стандардни текст: фиксна понављајућа синтагма"
+
+#: src/catalog/catalogstring.cpp:162
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"symbol: a designation of a concept by letters, numerals, pictograms or any "
+"combination thereof"
+msgstr ""
+"симбол: ознака појма сачињена од слова, бројева, пиктограма или било које "
+"њихове комбинације."
+
+#: src/catalog/catalogstring.cpp:163
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonym: a term that represents the same or a very similar concept as the "
+"main entry term in a term entry"
+msgstr ""
+"синоним: израз који означава исти или врло сличан појам као главни израз у "
+"уносу за дати појам."
+
+#: src/catalog/catalogstring.cpp:164
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"synonymous phrase: phraseological unit in a language that expresses the same "
+"semantic content as another phrase in that same language"
+msgstr ""
+"синонимска фраза: фразеолошка јединица језика истог семантичког садржаја као "
+"нека друга фраза у том језику."
+
+#: src/catalog/catalogstring.cpp:165
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "term"
+msgstr "израз"
+
+#: src/catalog/catalogstring.cpp:166
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transcribed form: a form of a term resulting from an operation whereby the "
+"characters of one writing system are represented by characters from another "
+"writing system, taking into account the pronunciation of the characters "
+"converted"
+msgstr ""
+"транскрибовани облик: облик израза настао преметањем знакова са изворног "
+"писма у циљно, узимајући у обзир изворни изговор."
+
+#: src/catalog/catalogstring.cpp:167
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"transliterated form: a form of a term resulting from an operation whereby "
+"the characters of an alphabetic writing system are represented by characters "
+"from another alphabetic writing system"
+msgstr ""
+"пресловљени облик: облик израз настао директним смењивањем знакова са "
+"изворног писма у циљно."
+
+#: src/catalog/catalogstring.cpp:168
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid ""
+"truncated term: an abbreviated form of a term resulting from the omission of "
+"one or more term elements or syllables (e.g. 'flu' for 'influenza')"
+msgstr ""
+"сасечени израз: скраћени облик израза настао изостављањем једног или више "
+"елемената или слогова пуног облика (нпр. ‘инфо’ за ‘информациони’)"
+
+#: src/catalog/catalogstring.cpp:169
+#, kde-format
+msgctxt "XLIFF mark type"
+msgid "variant: one of the alternate forms of a term"
+msgstr "варијанта: један од алтернативних облика израза"
+
+#: src/catalog/cmd.cpp:96
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insertion"
+msgstr "Уметање"
+
+#: src/catalog/cmd.cpp:139
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Deletion"
+msgstr "Брисање"
+
+#: src/catalog/cmd.cpp:192
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Approvement toggling"
+msgstr "Промена одобрености"
+
+#: src/catalog/cmd.cpp:211
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Insertion"
+msgstr "Уметање обележавања"
+
+#: src/catalog/cmd.cpp:233
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Markup Deletion"
+msgstr "Брисање обележавања"
+
+#: src/catalog/cmd.cpp:254
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Note setting"
+msgstr "Постављање белешке"
+
+#: src/catalog/cmd.cpp:290
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Update/add workflow phase"
+msgstr "Ажурирање/додавање фазе радног тока"
+
+#: src/catalog/cmd.cpp:311
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Translation Equivalence Setting"
+msgstr "Постављање еквиваленције превода"
+
+#: src/catalog/cmd.cpp:380
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Remove text with markup"
+msgstr "Уклањање текста с обележавањем"
+
+#: src/catalog/cmd.cpp:432 src/xlifftextedit.cpp:678
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Insert text with markup"
+msgstr "Уметање текста са обележавањем"
+
+#: src/catalog/gettext/gettextstorage.cpp:139
+#, kde-format
+msgid "separator for different-length string alternatives"
+msgstr "раздвајач алтернативних ниски различите бројности"
+
+# rewrite-msgid: /Gettext/xgettext tool/
+#: src/catalog/gettext/gettextstorage.cpp:301
+#, kde-format
+msgid ""
+"Previous source value, saved by Gettext during transition to a newer POT "
+"template"
+msgstr ""
+"Претходна вредност извора, коју је сачувала алатка xgettext при преласку на "
+"новији ПОТ шаблон."
+
+#: src/catalog/gettextheader.cpp:670
+#, kde-format
+msgctxt "@window:title"
+msgid "Author name missing"
+msgstr "Недостаје име аутора"
+
+#: src/catalog/gettextheader.cpp:670
+#, kde-format
+msgid "Your name:"
+msgstr "Ваше име:"
+
+# rewrite-msgid: /email/email address/
+#: src/catalog/gettextheader.cpp:680
+#, kde-format
+msgctxt "@window:title"
+msgid "Author email missing"
+msgstr "Недостаје адреса е‑поште аутора"
+
+# rewrite-msgid: /email/email address/
+#: src/catalog/gettextheader.cpp:680
+#, kde-format
+msgid "Your email:"
+msgstr "Ваша адреса е‑поште:"
+
+#: src/catalog/ts/tsstorage.cpp:456
+#, kde-format
+msgid "Previous source value, saved by lupdate tool"
+msgstr "Претходна вредност извора, коју је сачувала алатка lupdate."
+
+#: src/cataloglistview/cataloglistview.cpp:72
+#, kde-format
+msgctxt "@title:window aka Message Tree"
+msgid "Translation Units"
+msgstr "Јединице превода"
+
+#: src/cataloglistview/cataloglistview.cpp:89
+#: src/glossary/glossarywindow.cpp:236 src/project/projecttab.cpp:129
+#, kde-format
+msgid "Quick search..."
+msgstr "Брза претрага..."
+
+#: src/cataloglistview/cataloglistview.cpp:90
+#: src/glossary/glossarywindow.cpp:238 src/project/projecttab.cpp:130
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Activated by Ctrl+L."
+msgstr "Активира се са <b>Ctrl+L</b>."
+
+#: src/cataloglistview/cataloglistview.cpp:90
+#: src/glossary/glossarywindow.cpp:238 src/project/projecttab.cpp:130
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Accepts regular expressions"
+msgstr "Прихвата регуларне изразе."
+
+#: src/cataloglistview/cataloglistview.cpp:99
+#, kde-format
+msgid "options"
+msgstr "опције"
+
+#: src/cataloglistview/cataloglistview.cpp:201
+#, kde-format
+msgid "Reset individual filter"
+msgstr "Ресетуј појединачни филтер"
+
+#: src/cataloglistview/cataloglistview.cpp:207 src/tm/tmtab.cpp:380
+#, kde-format
+msgid "Case insensitive"
+msgstr "Разликуј величину слова"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/cataloglistview/cataloglistview.cpp:208 src/kaider_findextension.ui:40
+#, kde-format
+msgid "Ignore accelerator marks"
+msgstr "Игнориши убрзивачке знакове"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:209
+#, kde-format
+msgid "Ready"
+msgstr "спремне"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:210
+#, kde-format
+msgid "Non-ready"
+msgstr "неспремне"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:211
+#, kde-format
+msgid "Non-empty"
+msgstr "непразне"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:212
+#, kde-format
+msgid "Empty"
+msgstr "празне"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:213
+#, kde-format
+msgid "Changed since file open"
+msgstr "измењене од отварања фајла"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:214
+#, kde-format
+msgid "Unchanged since file open"
+msgstr "неизмењене од отварања фајла"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:215
+#, kde-format
+msgid "Same in sync file"
+msgstr "исто у синхро фајлу"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:216
+#, kde-format
+msgid "Different in sync file"
+msgstr "различито у синхро фајлу"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:217
+#, kde-format
+msgid "Not in sync file"
+msgstr "нема у синхро фајлу"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:218
+#, kde-format
+msgid "Plural"
+msgstr "множинске"
+
+# >> @item:inmenu filter on translation units
+#: src/cataloglistview/cataloglistview.cpp:219
+#, kde-format
+msgid "Non-plural"
+msgstr "немножинске"
+
+#: src/cataloglistview/cataloglistview.cpp:224
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Basic"
+msgstr "Основно"
+
+#: src/cataloglistview/cataloglistview.cpp:225
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "States"
+msgstr "Стања"
+
+#: src/cataloglistview/cataloglistview.cpp:227
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Searchable column"
+msgstr "Претражива колона"
+
+# >> @action:inmenu
+#: src/cataloglistview/cataloglistview.cpp:231
+#, kde-format
+msgctxt "@title:inmenu"
+msgid "Resort and refilter on content change"
+msgstr "Поново поређај и филтрирај по измени садржаја"
+
+#: src/cataloglistview/cataloglistview.cpp:248
+#, kde-format
+msgctxt "@item:inmenu all columns"
+msgid "All"
+msgstr "све"
+
+#: src/cataloglistview/catalogmodel.cpp:121
+#, kde-format
+msgctxt "@title:column"
+msgid "Entry"
+msgstr "јединица"
+
+#. i18nc("@title:column","ID");
+#: src/cataloglistview/catalogmodel.cpp:123
+#: src/filesearch/filesearchtab.cpp:334 src/glossary/glossary.cpp:231
+#: src/tm/qamodel.cpp:104 src/tm/tmtab.cpp:80 src/tm/tmtab.cpp:93
+#, kde-format
+msgctxt "@title:column Original text"
+msgid "Source"
+msgstr "извор"
+
+#: src/cataloglistview/catalogmodel.cpp:125
+#: src/filesearch/filesearchtab.cpp:335 src/glossary/glossary.cpp:232
+#: src/tm/tmtab.cpp:81 src/tm/tmtab.cpp:94
+#, kde-format
+msgctxt "@title:column Text in target language"
+msgid "Target"
+msgstr "превод"
+
+#: src/cataloglistview/catalogmodel.cpp:127
+#, kde-format
+msgctxt "@title:column"
+msgid "Notes"
+msgstr "белешке"
+
+#: src/cataloglistview/catalogmodel.cpp:129 src/tm/tmtab.cpp:82
+#, kde-format
+msgctxt "@title:column"
+msgid "Context"
+msgstr "контекст"
+
+#: src/cataloglistview/catalogmodel.cpp:131
+#, fuzzy, kde-format
+#| msgid "File"
+msgctxt "@title:column"
+msgid "Files"
+msgstr "Фајл"
+
+#: src/cataloglistview/catalogmodel.cpp:133
+#: src/filesearch/filesearchtab.cpp:338 src/tm/tmtab.cpp:84
+#, kde-format
+msgctxt "@title:column"
+msgid "Translation Status"
+msgstr "Стање превода"
+
+#: src/cataloglistview/catalogmodel.cpp:135
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Source language"
+msgctxt "@title:column Length of the original text"
+msgid "Source length"
+msgstr "изворни језик"
+
+#: src/cataloglistview/catalogmodel.cpp:137
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Target language"
+msgctxt "@title:column Length of the text in target language"
+msgid "Target length"
+msgstr "циљни језик"
+
+#: src/cataloglistview/catalogmodel.cpp:173 src/editortab.cpp:1094
+#: src/editortab.cpp:1297 src/tm/tmtab.cpp:246
+#, kde-format
+msgctxt "@info:status 'non-fuzzy' in gettext terminology"
+msgid "Ready"
+msgstr "спремна"
+
+#: src/cataloglistview/catalogmodel.cpp:175 src/editortab.cpp:1095
+#: src/editortab.cpp:1292 src/tm/tmtab.cpp:247
+#, kde-format
+msgctxt "@info:status 'fuzzy' in gettext terminology"
+msgid "Needs review"
+msgstr "чека преглед"
+
+#: src/cataloglistview/catalogmodel.cpp:177 src/editortab.cpp:1093
+#: src/tm/tmtab.cpp:248
+#, kde-format
+msgctxt "@info:status"
+msgid "Untranslated"
+msgstr "непреведена"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/common/languagelistmodel.cpp:149 src/tm/dbparams.ui:146
+#, kde-format
+msgid "Target language:"
+msgstr "Циљни језик:"
+
+#: src/common/termlabel.cpp:96
+#, kde-format
+msgctxt "@action:inmenu Edit term"
+msgid "Edit"
+msgstr "Уреди"
+
+#: src/editortab.cpp:157
+#, kde-format
+msgctxt "@info:status message entry"
+msgid "Current: %1"
+msgstr "текућа: %1"
+
+#: src/editortab.cpp:158 src/editortab.cpp:868
+#: src/filesearch/filesearchtab.cpp:783 src/project/projecttab.cpp:502
+#: src/tm/tmtab.cpp:607
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1"
+msgstr "укупно: %1"
+
+#: src/editortab.cpp:159 src/editortab.cpp:169
+#, kde-format
+msgctxt ""
+"@info:status message entries\n"
+"'fuzzy' in gettext terminology"
+msgid "Not ready: %1"
+msgstr "неспремно: %1"
+
+#: src/editortab.cpp:160 src/editortab.cpp:177
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Untranslated: %1"
+msgstr "непреведено: %1"
+
+#: src/editortab.cpp:171 src/editortab.cpp:179
+#, kde-format
+msgctxt "percentages in statusbar"
+msgid " (%1%)"
+msgstr " (%1%)"
+
+#: src/editortab.cpp:205 src/lokalizemainwindow.cpp:480
+#, kde-format
+msgctxt "@title actions category"
+msgid "File"
+msgstr "Фајл"
+
+#: src/editortab.cpp:206 src/project/projecttab.cpp:159
+#, kde-format
+msgctxt "@title actions category"
+msgid "Navigation"
+msgstr "Навигација"
+
+#: src/editortab.cpp:207
+#, kde-format
+msgctxt "@title actions category"
+msgid "Editing"
+msgstr "Уређивање"
+
+#: src/editortab.cpp:208
+#, kde-format
+msgid "Synchronization 1"
+msgstr "Синхронизација 1"
+
+#: src/editortab.cpp:209
+#, kde-format
+msgid "Synchronization 2"
+msgstr "Синхронизација 2"
+
+#: src/editortab.cpp:210
+#, kde-format
+msgid "Translation Memory"
+msgstr "Преводилачка меморија"
+
+#. i18nc("@title actions category","Settings"), ac);
+#: src/editortab.cpp:211 src/lokalizemainwindow.cpp:482
+#, kde-format
+msgctxt "@title actions category"
+msgid "Glossary"
+msgstr "Појмовник"
+
+#: src/editortab.cpp:238
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert alternate translation #%1"
+msgstr "Уметни алтернативни превод #%1"
+
+#: src/editortab.cpp:285
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add a note"
+msgstr "Додај белешку"
+
+#: src/editortab.cpp:306
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert TM suggestion #%1"
+msgstr "Уметни ТМ предлог #%1"
+
+#: src/editortab.cpp:311
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Insert TM suggestion #%1"
+msgctxt "@action:inmenu"
+msgid "Remove TM suggestion #%1"
+msgstr "Уметни ТМ предлог #%1"
+
+#: src/editortab.cpp:361
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert term translation #%1"
+msgstr "Уметни превод израза #%1"
+
+#: src/editortab.cpp:372
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Define new term"
+msgstr "Дефиниши нови израз"
+
+#: src/editortab.cpp:404
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert WebQuery result #%1"
+msgstr "Уметни резултат веб упита #%1"
+
+#: src/editortab.cpp:445
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Phases..."
+msgstr "Фазе..."
+
+#: src/editortab.cpp:448
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Word count"
+msgstr "Број речи"
+
+#: src/editortab.cpp:451
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Manage translation memories"
+msgctxt "@action:inmenu"
+msgid "Clear all translated entries"
+msgstr "Управљај преводилачким меморијама"
+
+#: src/editortab.cpp:454
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch the Pology command on this file"
+msgstr ""
+
+#: src/editortab.cpp:458
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Merge translation into OpenDocument"
+msgstr "Стопи превод у отворени документ"
+
+#: src/editortab.cpp:479
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Change searching direction"
+msgstr "Обрни смер тражења"
+
+#: src/editortab.cpp:490
+#, kde-format
+msgctxt ""
+"@option:check whether message is marked as translated/reviewed/approved "
+"(depending on your role)"
+msgid "Approved"
+msgstr "Одобрена"
+
+#: src/editortab.cpp:508
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Approve and go to next"
+msgstr "Одобри и пређи на следећу"
+
+#: src/editortab.cpp:517
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Equivalent translation"
+msgstr "Еквивалентни превод"
+
+# под target мисли се на циљни језик, тј. превод
+#: src/editortab.cpp:532
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy source to target"
+msgstr "Копирај извор у превод"
+
+#: src/editortab.cpp:535
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Unwrap target"
+msgstr "Развиј превод"
+
+#: src/editortab.cpp:540 src/filesearch/filesearchtab.cpp:108
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear"
+msgstr "Очисти"
+
+#: src/editortab.cpp:544
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Tag"
+msgstr "Уметни ознаку"
+
+#: src/editortab.cpp:548
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Check this unit using LanguageTool"
+msgstr ""
+
+#: src/editortab.cpp:552
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Insert Next Tag"
+msgstr "Уметни следећу ознаку"
+
+#: src/editortab.cpp:556
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Completion"
+msgstr "Довршавање"
+
+#: src/editortab.cpp:560
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Replace with best spellcheck suggestion"
+msgstr "Замени најбољим предлогом правописара"
+
+#: src/editortab.cpp:567
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Next"
+msgstr "&Следећа"
+
+#: src/editortab.cpp:572
+#, kde-format
+msgctxt "@action:inmenu entry"
+msgid "&Previous"
+msgstr "&Претходна"
+
+#: src/editortab.cpp:578
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&First Entry"
+msgstr "П&рва јединица"
+
+#: src/editortab.cpp:584
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "&Last Entry"
+msgstr "П&оследња јединица"
+
+#: src/editortab.cpp:590
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Entry by number"
+msgstr "Јединица по броју"
+
+#: src/editortab.cpp:592 src/project/projecttab.cpp:167
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous non-empty but not ready"
+msgstr "Претходна непразна али неспремна"
+
+#: src/editortab.cpp:597 src/project/projecttab.cpp:170
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next non-empty but not ready"
+msgstr "Наредна непразна али неспремна"
+
+#: src/editortab.cpp:602 src/project/projecttab.cpp:173
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous untranslated"
+msgstr "Претходна непреведена"
+
+#: src/editortab.cpp:607 src/project/projecttab.cpp:176
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next untranslated"
+msgstr "Следећа непреведена"
+
+#: src/editortab.cpp:612 src/project/projecttab.cpp:161
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Previous not ready"
+msgstr "Претходна неспремна"
+
+#: src/editortab.cpp:617 src/project/projecttab.cpp:164
+#, kde-format
+msgctxt ""
+"@action:inmenu\n"
+"'not ready' means 'fuzzy' in gettext terminology"
+msgid "Next not ready"
+msgstr "Следећа неспремна"
+
+# skip-rule: t-line
+#: src/editortab.cpp:624
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Focus the search line of Translation Units view"
+msgstr "Фокусирај поље претраге у приказу јединица"
+
+#: src/editortab.cpp:630
+#, kde-format
+msgctxt "@option:check"
+msgid "Bookmark message"
+msgstr "Обележи јединицу"
+
+#: src/editortab.cpp:636
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous bookmark"
+msgstr "Претходни обележивач"
+
+#: src/editortab.cpp:640
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next bookmark"
+msgstr "Следећи обележивач"
+
+#: src/editortab.cpp:648
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions"
+msgstr "Испуни све тачне предлоге"
+
+#: src/editortab.cpp:652
+#, no-c-format, kde-format
+msgctxt "@action:inmenu"
+msgid "Fill in all exact suggestions and mark as fuzzy"
+msgstr "Испуни све тачне преводе и означи као мутне"
+
+#: src/editortab.cpp:657
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for sync/merge"
+msgstr "Отвори фајл за синхро/стапање"
+
+#: src/editortab.cpp:658 src/editortab.cpp:715
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Open catalog to be merged into the current one / replicate base file changes "
+"to"
+msgstr "Отвори каталог за стапање у текући / пренеси измене из основног фајла"
+
+#: src/editortab.cpp:664 src/editortab.cpp:721
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous different"
+msgstr "Претходна различита"
+
+#: src/editortab.cpp:665 src/editortab.cpp:722
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Previous entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr ""
+"Претходна јединица преведена другачије у фајлу који се стапа, укључујући и "
+"празне преводе из извора стапања"
+
+#: src/editortab.cpp:674 src/editortab.cpp:729
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different"
+msgstr "Следећа различита"
+
+#: src/editortab.cpp:675 src/editortab.cpp:730
+#, kde-format
+msgctxt "@info:status"
+msgid ""
+"Next entry which is translated differently in the file being merged, "
+"including empty translations in merge source"
+msgstr ""
+"Следећа јединица преведена другачије у фајлу који се стапа, укључујући и "
+"празне преводе из извора стапања"
+
+#: src/editortab.cpp:683
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next different approved"
+msgstr "Следећа различита одобрена"
+
+#: src/editortab.cpp:689 src/editortab.cpp:737
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy from merging source"
+msgstr "Копирај из извора стапања"
+
+#: src/editortab.cpp:696 src/editortab.cpp:742
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy all new translations"
+msgstr "Копирај све нове преводе"
+
+#: src/editortab.cpp:697
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty and non-ready entries in base file"
+msgstr "Мења само празне и неспремне јединице у основном фајлу"
+
+#: src/editortab.cpp:706 src/editortab.cpp:749
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to merging source"
+msgstr "Копирај у извор стапања"
+
+#: src/editortab.cpp:714
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file for secondary sync"
+msgstr "Отвори фајл за секундарни синхро"
+
+#: src/editortab.cpp:743
+#, kde-format
+msgctxt "@info:status"
+msgid "This changes only empty entries"
+msgstr "Мења само празне јединице"
+
+#: src/editortab.cpp:773
+#, kde-format
+msgctxt "editor tab name"
+msgid "(recovered)"
+msgstr "(повраћен)"
+
+#: src/editortab.cpp:815 src/editortab.cpp:983
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The document contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"Документ садржи несачуване измене.\n"
+"Желите ли да их сачувате или одбаците?"
+
+#: src/editortab.cpp:816 src/editortab.cpp:984 src/editortab.cpp:1411
+#: src/glossary/glossarywindow.cpp:505
+#, kde-format
+msgctxt "@title:window"
+msgid "Warning"
+msgstr "Упозорење"
+
+#: src/editortab.cpp:832 src/mergemode/mergeview.cpp:205
+#, kde-format
+msgctxt "@title:window"
+msgid "Select translation file"
+msgstr "Избор фајла превода"
+
+#: src/editortab.cpp:917
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1, line: %2"
+msgstr "Грешка при отварању фајла „%1“, ред: %2"
+
+#: src/editortab.cpp:918
+#, kde-format
+msgctxt "@info"
+msgid "Error opening the file %1"
+msgstr "Грешка при отварању фајла „%1“."
+
+#: src/editortab.cpp:925
+#, kde-format
+msgctxt "@title:window"
+msgid "Save File As"
+msgstr "Уписивање фајла као"
+
+#: src/editortab.cpp:950
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error saving the file %1\n"
+"Do you want to save to another file or cancel?"
+msgstr ""
+"Грешка при упису фајла „%1“\n"
+"Желите ли да сачувате у други фајл или одустанете?"
+
+#: src/editortab.cpp:952
+#, kde-format
+msgctxt "@title"
+msgid "Error"
+msgstr "Грешка"
+
+#: src/editortab.cpp:960
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not perform file autosaving.\n"
+"The target file was %1."
+msgstr ""
+"Не могу да извршим аутоматско уписивање.\n"
+"Циљни фајл је „%1“."
+
+#: src/editortab.cpp:1009
+#, kde-format
+msgctxt "@title"
+msgid "Jump to Entry"
+msgstr "Скок на јединицу"
+
+#: src/editortab.cpp:1010
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Enter entry number:"
+msgstr "Број јединице:"
+
+#: src/editortab.cpp:1081
+#, kde-format
+msgctxt "@info:status"
+msgid "Current: %1"
+msgstr "текућа: %1"
+
+#: src/editortab.cpp:1270
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Translated"
+msgstr "Преведена"
+
+#: src/editortab.cpp:1271
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Signed-off"
+msgstr "Потписана"
+
+#: src/editortab.cpp:1272
+#, kde-format
+msgctxt "@option:check trans-unit state"
+msgid "Approved"
+msgstr "Одобрена"
+
+#: src/editortab.cpp:1275
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation is done (although still may need a review)"
+msgstr "Превод је завршен (иако може очекивати преглед)."
+
+#: src/editortab.cpp:1276
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Translation has received positive review"
+msgstr "Превод је добио позитиван преглед."
+
+#: src/editortab.cpp:1277
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Entry is fully localized (i.e. final)"
+msgstr "Јединица је сасвим локализована (тј. коначна)."
+
+#: src/editortab.cpp:1389 src/project/projecttab.cpp:367
+#, kde-format
+msgid "A Pology check is already in progress."
+msgstr ""
+
+#: src/editortab.cpp:1389 src/editortab.cpp:1397 src/editortab.cpp:1401
+#: src/project/projecttab.cpp:367 src/project/projecttab.cpp:375
+#: src/project/projecttab.cpp:379
+#, kde-format
+msgid "Pology error"
+msgstr ""
+
+#: src/editortab.cpp:1397 src/project/projecttab.cpp:375
+#, kde-format
+msgid ""
+"The Pology check has crashed unexpectedly:\n"
+"%1"
+msgstr ""
+
+#: src/editortab.cpp:1399
+#, kde-format
+msgid "The Pology check has succeeded."
+msgstr ""
+
+#: src/editortab.cpp:1399 src/project/projecttab.cpp:377
+#, kde-format
+msgid "Pology success"
+msgstr ""
+
+#: src/editortab.cpp:1401 src/project/projecttab.cpp:379
+#, kde-format
+msgid ""
+"The Pology check has returned an error:\n"
+"%1"
+msgstr ""
+
+#: src/editortab.cpp:1410
+#, kde-format
+msgctxt "@info"
+msgid ""
+"This will delete all the translations from the file.\n"
+"Do you really want to clear all translated entries?"
+msgstr ""
+
+#: src/editortab.cpp:1446
+#, kde-format
+msgctxt "@info words count"
+msgid "Source text words: %1<br/>Target text words: %2"
+msgstr "Речи у извору: %1<br/>Речи у преводу: %2"
+
+#: src/editortab.cpp:1447
+#, kde-format
+msgctxt "@title"
+msgid "Word Count"
+msgstr "Број речи"
+
+#: src/editortab.cpp:1524
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Would you like to search for the source file locally or via lxr.kde.org?"
+msgstr "Желите ли да потражите изворни фајл локално или преко lxr.kde.org?"
+
+#: src/editortab.cpp:1524 src/editortab.cpp:1565
+#, kde-format
+msgctxt "@title:window"
+msgid "Source file lookup"
+msgstr "Потрага за изворним фајлом"
+
+#: src/editortab.cpp:1525
+#, kde-format
+msgid "Locally"
+msgstr "Локално"
+
+# >> @title:window
+#: src/editortab.cpp:1537 src/editortab.cpp:1576
+#, kde-format
+msgid "Select project's base folder for source file lookup"
+msgstr "Избор основне фасцикла пројекта за тражење изворних фајлова"
+
+#: src/editortab.cpp:1564
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Could not find source file in the folder specified.\n"
+"Do you want to change source files folder?"
+msgstr ""
+"Не могу да нађем изворни фајл у задатој фасцикли.\n"
+"Желите ли да промените фасциклу?"
+
+#: src/editortab.cpp:1566
+#, kde-format
+msgid "lxr.kde.org"
+msgstr "lxr.kde.org"
+
+#: src/editortab.cpp:1595
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Cannot open the target source file: The target source file is not relative "
+"to the current translation file, and there are currently no scripts loaded "
+"to handle opening source files in custom paths. Refer to the Lokalize "
+"handbook for script examples and how to plug them into your project."
+msgstr ""
+"Не могу да отворим циљни изворни фајл, јер нити је релативан према текућем "
+"фајлу превода, нити је учитана нека скрипта за отварање изворних фајлова из "
+"посебних путања. Потражите у приручнику Локализуја примере скрипти и како да "
+"их укључите у пројекат."
+
+# >> @info
+# literal-segment: translate-toolkit
+#: src/editortab.cpp:1610
+#, kde-format
+msgid "Install translate-toolkit package and retry."
+msgstr "Инсталирајте пакет translate-toolkit па покушајте поново."
+
+# >> @title:window
+#: src/editortab.cpp:1619
+#, kde-format
+msgid "Select original OpenDocument on which current XLIFF file is based"
+msgstr "Избор изворног отвореног документа од којег потиче текући ИксЛИФФ"
+
+#: src/editortab.cpp:1621 src/project/project.cpp:497
+#, kde-format
+msgid "OpenDocument files (*.odt *.ods)"
+msgstr "отворенодокументски фајлови (*.odt *.ods)"
+
+# literal-segment: python-uno
+#: src/editortab.cpp:1662
+#, kde-format
+msgid "Install python-uno package for additional functionality."
+msgstr "Инсталирајте пакет python-uno за додатну функционалност."
+
+#: src/editortab.cpp:1786
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Set unit text"
+msgstr "Постави текст јединице"
+
+#: src/editortab_findreplace.cpp:479
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace"
+msgstr "Замени"
+
+#: src/editortab_findreplace.cpp:548
+#, kde-format
+msgid ""
+"Lokalize has reached end of document. Do you want to continue from start?"
+msgstr "Досегнут крај документа. Желите ли да наставите из почетка?"
+
+#: src/editortab_findreplace.cpp:549 src/editortab_findreplace.cpp:555
+#, kde-format
+msgctxt "@title"
+msgid "Spellcheck"
+msgstr "Правопис"
+
+#: src/editortab_findreplace.cpp:555
+#, kde-format
+msgid "Lokalize has finished spellchecking"
+msgstr "Провера правописа завршена"
+
+#. i18n: ectx: Menu (file)
+#: src/editorui.rc:4 src/lokalizemainwindowui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Фајл"
+
+#. i18n: ectx: Menu (edit)
+#: src/editorui.rc:36 src/project/projectmanagerui.rc:21
+#, kde-format
+msgid "&Edit"
+msgstr "&Уређивање"
+
+#. i18n: ectx: Menu (glossary)
+#: src/editorui.rc:69
+#, kde-format
+msgid "&Glossary"
+msgstr "&Појмовник"
+
+#. i18n: ectx: Menu (webquery)
+#: src/editorui.rc:94
+#, kde-format
+msgid "&WebQuery"
+msgstr "&Веб упит"
+
+#. i18n: ectx: Menu (tmquery)
+#: src/editorui.rc:111
+#, kde-format
+msgid "Translation &Memory"
+msgstr "Преводилачка &меморија"
+
+#. i18n: ectx: Menu (alttrans)
+#: src/editorui.rc:142
+#, kde-format
+msgid "Alternative Translations"
+msgstr "Алтернативни преводи"
+
+#. i18n: ectx: Menu (go)
+#: src/editorui.rc:160 src/project/projectmanagerui.rc:4
+#, kde-format
+msgid "&Go"
+msgstr "&Кретање"
+
+#. i18n: ectx: Menu (bookmarks)
+#: src/editorui.rc:190
+#, kde-format
+msgid "&Bookmarks"
+msgstr "&Обележивачи"
+
+#. i18n: ectx: Menu (merge)
+#: src/editorui.rc:197
+#, kde-format
+msgid "S&ync"
+msgstr "С&инхронизуј"
+
+#. i18n: ectx: Menu (mergesecondary)
+#: src/editorui.rc:207
+#, kde-format
+msgid "&Secondary sync source"
+msgstr "&Секундарни синхроизвор"
+
+#. i18n: ectx: Menu (toolviews)
+#: src/editorui.rc:227 src/lokalizemainwindowui.rc:48
+#, kde-format
+msgid "Tool&views"
+msgstr "Прикази &алатки"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: src/editorui.rc:250 src/filesearch/filesearchtabui.rc:10
+#: src/project/projectmanagerui.rc:25 src/tm/translationmemoryrui.rc:10
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Главна трака"
+
+#: src/editorview.cpp:69
+#, kde-format
+msgctxt "@label whether entry is fuzzy"
+msgid "Not ready:"
+msgstr "неспремна:"
+
+#: src/editorview.cpp:71
+#, kde-format
+msgctxt "@label whether entry is untranslated"
+msgid "Untranslated:"
+msgstr "непреведена:"
+
+#: src/editorview.cpp:82
+#, kde-format
+msgctxt "@action"
+msgid "Hide"
+msgstr "Сакриј"
+
+#: src/editorview.cpp:92
+#, kde-format
+msgctxt "@info:label cursor position"
+msgid "Column: %1"
+msgstr "колона: %1"
+
+#: src/editorview.cpp:106
+#, kde-format
+msgid ""
+"<qt><p><b>Original String</b></p>\n"
+"<p>This part of the window shows the original message\n"
+"of the currently displayed entry.</p></qt>"
+msgstr ""
+"<qt><p><b>Изворна ниска</b></p><p>Овај део прозора приказује изворни текст "
+"тренутно приказане јединице.</p></qt>"
+
+#: src/editorview.cpp:204
+#, kde-format
+msgctxt "@title:tab"
+msgid "Plural Form %1"
+msgstr "Облик множине %1"
+
+#: src/editorview.cpp:273
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Unwrap"
+msgstr "Развиј"
+
+#. i18n: ectx: property (text), widget (QLabel, querySourceLabel)
+#: src/filesearch/filesearchoptions.ui:19 src/tm/queryoptions.ui:85
+#, kde-format
+msgid "Source:"
+msgstr "Извор:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/filesearch/filesearchoptions.ui:32
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Ctrl+L to go to this control.\n"
+"Press Enter to start the search.\n"
+"Press Esc to stop the search."
+msgstr ""
+"<html><p>Израз за претрагу у изворном језику.</p><p>Притисните <b>Ctrl+L</b> "
+"да позовете ову контролу.</p><p>Притисните <b>Enter</b> да започнете тражење."
+"</p><p>Притисните <b>Esc</b> да обуставите тражење.</p></html>"
+
+#. i18n: ectx: property (text), widget (QLabel, queryTargetLabel)
+#: src/filesearch/filesearchoptions.ui:39 src/tm/queryoptions.ui:95
+#, kde-format
+msgid "Target:"
+msgstr "Превод:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
+#: src/filesearch/filesearchoptions.ui:50 src/tm/queryoptions.ui:78
+#, kde-format
+msgid ""
+"Search expression for target language part.\n"
+"Press Enter to start the search."
+msgstr ""
+"<html>Израз за претрагу у циљном језику. Притисните <b>Enter</b> да "
+"започнете тражење.</html>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (text), widget (QCheckBox, invertSource)
+#: src/filesearch/filesearchoptions.ui:57
+#: src/filesearch/filesearchoptions.ui:64 src/tm/queryoptions.ui:108
+#: src/tm/queryoptions.ui:118
+#, kde-format
+msgid "Invert"
+msgstr "Изврни"
+
+#. i18n: ectx: property (text), widget (QPushButton, doFind)
+#: src/filesearch/filesearchoptions.ui:71 src/tm/queryoptions.ui:190
+#, kde-format
+msgid "&Search"
+msgstr "&Тражи"
+
+#. i18n: ectx: property (text), widget (QCheckBox, regEx)
+#. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
+#: src/filesearch/filesearchoptions.ui:78
+#: src/filesearch/massreplaceoptions.ui:78
+#, kde-format
+msgid "Regular expressions"
+msgstr "Регуларни изрази"
+
+#: src/filesearch/filesearchtab.cpp:90
+#, kde-format
+msgctxt "@title:window"
+msgid "File List"
+msgstr "Списак фајлова"
+
+#: src/filesearch/filesearchtab.cpp:92
+#, kde-format
+msgid "Drop translation files here..."
+msgstr "Превуците овде фајлове превода..."
+
+#. i18nc("@title:column","Context");
+#: src/filesearch/filesearchtab.cpp:337 src/tm/tmtab.cpp:83
+#, kde-format
+msgctxt "@title:column"
+msgid "File"
+msgstr "фајл"
+
+#: src/filesearch/filesearchtab.cpp:436
+#, kde-format
+msgctxt "@title:window"
+msgid "Search and replace in files"
+msgstr "Тражење и замена по фајловима"
+
+#: src/filesearch/filesearchtab.cpp:470 src/tm/tmtab.cpp:420
+#, kde-format
+msgid "Copy source to clipboard"
+msgstr "Копирај извор у клипборд"
+
+#: src/filesearch/filesearchtab.cpp:476 src/tm/tmtab.cpp:426
+#, kde-format
+msgid "Copy target to clipboard"
+msgstr "Копирај превод у клипборд"
+
+#: src/filesearch/filesearchtab.cpp:482 src/tm/tmtab.cpp:432
+#, kde-format
+msgid "Open file"
+msgstr "Отвори фајл"
+
+#: src/filesearch/filesearchtab.cpp:521
+#, kde-format
+msgctxt "@title actions category"
+msgid "Search and replace in files"
+msgstr "Тражење и замена по фајловима"
+
+#: src/filesearch/filesearchtab.cpp:800
+#, kde-format
+msgctxt "@title:window"
+msgid "Mass replace"
+msgstr "Масовна замена"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/filesearch/massreplaceoptions.ui:17
+#, kde-format
+msgid "Replace:"
+msgstr "Замени:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/filesearch/massreplaceoptions.ui:27
+#, kde-format
+msgid "With:"
+msgstr "са:"
+
+#. i18n: ectx: property (text), widget (QPushButton, doPreview)
+#: src/filesearch/massreplaceoptions.ui:37
+#, kde-format
+msgid "Preview"
+msgstr "Преглед"
+
+#. i18n: ectx: property (text), widget (QPushButton, doReplace)
+#: src/filesearch/massreplaceoptions.ui:56
+#, kde-format
+msgid "Mass Replace"
+msgstr "Масовна замена"
+
+#. i18n: ectx: property (text), widget (QCheckBox, matchCase)
+#: src/filesearch/massreplaceoptions.ui:85
+#, kde-format
+msgid "Match case"
+msgstr "Поклопи величину"
+
+#: src/glossary/glossary.cpp:233
+#, kde-format
+msgctxt "@title:column"
+msgid "Subject Field"
+msgstr "област"
+
+#: src/glossary/glossaryview.cpp:60 src/glossary/glossaryview.cpp:68
+#: src/glossary/glossarywindow.cpp:420 src/glossary/glossarywindow.cpp:447
+#: src/glossary/glossarywindow.cpp:462 src/glossary/glossarywindow.cpp:480
+#, kde-format
+msgctxt "@title:window"
+msgid "Glossary"
+msgstr "Појмовник"
+
+# rewrite-msgid: /new entry/new glossary entry/
+# rewrite-msgid: /interface>/i>/
+#: src/glossary/glossaryview.cpp:80
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"<p>Translations for common terms appear here.</p><p>Press shortcut displayed "
+"near the term to insert its translation.</p><p>Use context menu to add new "
+"entry (tip:&nbsp;select words in original and translation fields before "
+"calling <interface>Define&nbsp;new&nbsp;term</interface>).</p>"
+msgstr ""
+"<p>Овде су дати преводи за уобичајене изразе.</p><p>Притисните пречицу "
+"наведену поред израза да га уметнете у превод.</p><p>Нови унос у појмовник "
+"можете додати кроз контекстни мени (савет: изаберите речи у извору и преводу "
+"пре него што позовете <i>Дефиниши нови израз</i>).</p>"
+
+#: src/glossary/glossarywindow.cpp:253
+#, kde-format
+msgctxt "@action:button reloads glossary from disk"
+msgid "Restore from disk"
+msgstr "Врати са диска"
+
+#: src/glossary/glossarywindow.cpp:254
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Reload glossary from disk, discarding any changes"
+msgstr "Учитава појмовник са диска, одбацујући све измене"
+
+#: src/glossary/glossarywindow.cpp:504
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The glossary contains unsaved changes.\n"
+"Do you want to save your changes or discard them?"
+msgstr ""
+"Појмовник садржи несачуване измене.\n"
+"Желите ли да их сачувате или одбаците?"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/glossary/termedit.ui:19
+#, kde-format
+msgid "English synonyms (double-click to edit):"
+msgstr "Синоними на енглеском (двокликните за уређивање):"
+
+#. i18n: ectx: property (text), widget (QToolButton, addEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, addTargetTerm)
+#: src/glossary/termedit.ui:26 src/glossary/termedit.ui:54
+#, kde-format
+msgid "+"
+msgstr "+"
+
+#. i18n: ectx: property (text), widget (QToolButton, remEngTerm)
+#. i18n: ectx: property (text), widget (QToolButton, remTargetTerm)
+#: src/glossary/termedit.ui:33 src/glossary/termedit.ui:61
+#, kde-format
+msgid "-"
+msgstr "–"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/glossary/termedit.ui:47
+#, kde-format
+msgid "Corresponding target language synonyms:"
+msgstr "Синоними у циљном језику:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/glossary/termedit.ui:73
+#, kde-format
+msgid "Subject field:"
+msgstr "Област:"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, subjectField)
+#: src/glossary/termedit.ui:83
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"When adding a new item, press enter after you have typed its name for "
+"changes to take effect"
+msgstr ""
+"Када додајете нови унос, да би измене ступиле на снагу притисните Enter "
+"пошто унесете његово име."
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/glossary/termedit.ui:95
+#, kde-format
+msgid "Definition:"
+msgstr "Дефиниција:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/glossary/termedit.ui:122
+#, kde-format
+msgid ""
+"Note: one glossary entry corresponds exactly to one term, not word/word "
+"sequence.\n"
+"\n"
+"That is, there may be several entries with the same word/word sequence "
+"expressing different meanings."
+msgstr ""
+"Напомена: један унос у појмовнику одговара тачно једном појму, а не пару "
+"изворни-преведени израз. Односно, може постојати неколико уноса са истим "
+"паром израза, али различитим значењима."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:30
+#, kde-format
+msgid "Skip tags"
+msgstr "Прескачи ознаке"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_skipTags)
+#: src/kaider_findextension.ui:33
+#, kde-format
+msgctxt "@option:check"
+msgid "Skip markup"
+msgstr "Прескачи обележавање"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ignoreAccelMarks)
+#: src/kaider_findextension.ui:43
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore accelerator marks"
+msgstr "Игнориши убрзивачке знакове"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_notes)
+#: src/kaider_findextension.ui:54
+#, kde-format
+msgid "Include notes"
+msgstr "Укључи белешке"
+
+#: src/languagetool/languagetoolgrammarerror.cpp:60
+#, kde-format
+msgid "Suggestions:"
+msgstr ""
+
+#: src/languagetool/languagetoolparser.cpp:48
+#, kde-format
+msgid "No errors"
+msgstr ""
+
+#: src/lokalizemainwindow.cpp:130
+#, kde-format
+msgctxt "@info"
+msgid "No Qt Sql modules were found. Translation memory will not work."
+msgstr ""
+"Није нађен ниједан СКуЛ модул за КуТ. Преводилачка меморија неће радити."
+
+#: src/lokalizemainwindow.cpp:406 src/project/project.cpp:313
+#, kde-format
+msgid "TM facility requires SQLite Qt module."
+msgstr "Преводилачка меморија захтева модул СКуЛајта за КуТ."
+
+#: src/lokalizemainwindow.cpp:406 src/project/project.cpp:313
+#, kde-format
+msgid "No SQLite module available"
+msgstr "Нема модула СКуЛајта"
+
+#: src/lokalizemainwindow.cpp:483 src/tm/tmtab.cpp:505
+#, kde-format
+msgctxt "@title actions category"
+msgid "Translation Memory"
+msgstr "Преводилачка меморија"
+
+#: src/lokalizemainwindow.cpp:484 src/project/projecttab.cpp:203
+#, kde-format
+msgctxt "@title actions category"
+msgid "Project"
+msgstr "Пројекат"
+
+#: src/lokalizemainwindow.cpp:511
+#, kde-format
+msgid "Next tab"
+msgstr "Следећи језичак"
+
+#: src/lokalizemainwindow.cpp:514
+#, kde-format
+msgid "Previous tab"
+msgstr "Претходни језичак"
+
+#: src/lokalizemainwindow.cpp:517
+#, fuzzy, kde-format
+#| msgid "Previous tab"
+msgid "Previously active tab"
+msgstr "Претходни језичак"
+
+#: src/lokalizemainwindow.cpp:523
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Glossary"
+msgstr "Појмовник"
+
+#: src/lokalizemainwindow.cpp:527
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translation memory"
+msgstr "Преводилачка меморија"
+
+#: src/lokalizemainwindow.cpp:531 src/tm/tmtab.cpp:508
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Manage translation memories"
+msgstr "Управљај преводилачким меморијама"
+
+#: src/lokalizemainwindow.cpp:535
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Project overview"
+msgstr "Преглед пројекта"
+
+#: src/lokalizemainwindow.cpp:539
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Configure project..."
+msgstr "Подеси пројекат..."
+
+#: src/lokalizemainwindow.cpp:542
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create software translation project..."
+msgstr "Направи пројекат превода софтвера..."
+
+#: src/lokalizemainwindow.cpp:545
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Create OpenDocument translation project..."
+msgstr "Направи пројекта превода отвореног документа..."
+
+#: src/lokalizemainwindow.cpp:548
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project..."
+msgstr "Отвори пројекат..."
+
+#: src/lokalizemainwindow.cpp:552
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open project"
+msgctxt "@action:inmenu"
+msgid "Close project"
+msgstr "Отвори пројекат"
+
+#: src/lokalizemainwindow.cpp:555
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open recent project"
+msgstr "Отвори недавни пројекат"
+
+#: src/lokalizemainwindow.cpp:563
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search and replace in files"
+msgstr "Пронађи и замени по фајловима"
+
+#: src/lokalizemainwindow.cpp:566
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Find next in files"
+msgstr "Нађи следеће у фајловима"
+
+#: src/lokalizemainwindow.cpp:570
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Widget text capture"
+msgstr "Захвати текст виџета"
+
+#: src/lokalizemainwindow.cpp:745
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the following files:\n"
+"\n"
+msgstr ""
+"Грешка при отварању следећих фајлова:\n"
+"\n"
+
+#. i18n: ectx: Menu (project)
+#: src/lokalizemainwindowui.rc:17
+#, kde-format
+msgid "&Project"
+msgstr "&Пројекат"
+
+#. i18n: ectx: Menu (project_actions)
+#: src/lokalizemainwindowui.rc:30
+#, kde-format
+msgid "&Scripts"
+msgstr "&Скрипте"
+
+#: src/main.cpp:71
+#, kde-format
+msgctxt "@title"
+msgid "Lokalize"
+msgstr "Локализуј"
+
+#: src/main.cpp:71
+#, kde-format
+msgid ""
+"Computer-aided translation system.\n"
+"Do not translate what had already been translated."
+msgstr ""
+"Систем за превођење помоћу рачунара.\n"
+"Не преводите што је већ преведено."
+
+#: src/main.cpp:72
+#, fuzzy, kde-format
+#| msgctxt "@info:credit"
+#| msgid ""
+#| "(c) 2007-2015 Nick Shaforostoff\n"
+#| "(c) 1999-2006 The KBabel developers"
+msgctxt "@info:credit"
+msgid ""
+"(c) 2018-2019 Simon Depiets\n"
+"(c) 2007-2015 Nick Shaforostoff\n"
+"(c) 1999-2006 The KBabel developers"
+msgstr ""
+"© 2007–2015, Николај Шафоростов\n"
+"© 1999–2006, програмери К‑бабела"
+
+#: src/main.cpp:73
+#, kde-format
+msgid "Nick Shaforostoff"
+msgstr "Николај Шафоростов"
+
+#: src/main.cpp:74
+#, kde-format
+msgid "Google Inc."
+msgstr "Гугл"
+
+#: src/main.cpp:74
+#, kde-format
+msgid "sponsored development as part of Google Summer Of Code program"
+msgstr "спонзор развоја у оквиру програма „Гуглово лето кôда“"
+
+#: src/main.cpp:75
+#, kde-format
+msgid "NLNet Foundation"
+msgstr "Задужбина НЛнет"
+
+#: src/main.cpp:75
+#, kde-format
+msgid "sponsored XLIFF-related work"
+msgstr "спонзор рада у вези са ИксЛИФФ‑ом"
+
+#: src/main.cpp:76
+#, kde-format
+msgid "Translate-toolkit"
+msgstr "Преводилачки прибор"
+
+#: src/main.cpp:76
+#, kde-format
+msgid "provided excellent cross-format converting scripts"
+msgstr "пружа изванредне скрипте за претварање између формата"
+
+#: src/main.cpp:77
+#, fuzzy, kde-format
+#| msgid "Language"
+msgid "LanguageTool"
+msgstr "Језик"
+
+#: src/main.cpp:77
+#, kde-format
+msgid "grammar, style and spell checker"
+msgstr ""
+
+#: src/main.cpp:78
+#, kde-format
+msgid "Viesturs Zarins"
+msgstr "Вијестурс Зарињш"
+
+#: src/main.cpp:78
+#, kde-format
+msgid "project tree merging translation+templates"
+msgstr "стапање превода и шаблона у стаблу пројекта"
+
+#: src/main.cpp:79
+#, kde-format
+msgid "Stephan Johach"
+msgstr "Штефан Јохах"
+
+#: src/main.cpp:79 src/main.cpp:80 src/main.cpp:83
+#, kde-format
+msgid "bug fixing patches"
+msgstr "закрпе за грешке"
+
+#: src/main.cpp:80
+#, kde-format
+msgid "Chusslove Illich"
+msgstr "Часлав Илић"
+
+#: src/main.cpp:81
+#, kde-format
+msgid "Jure Repinc"
+msgstr "Јуре Репинц"
+
+#: src/main.cpp:81
+#, kde-format
+msgid "testing and bug fixing"
+msgstr "испробавање и поправке грешака"
+
+#: src/main.cpp:82
+#, kde-format
+msgid "Stefan Asserhall"
+msgstr "Стефан Асерхел"
+
+#: src/main.cpp:82
+#, kde-format
+msgid "patches"
+msgstr "закрпе"
+
+#: src/main.cpp:83
+#, kde-format
+msgid "Papp Laszlo"
+msgstr "Ласло Пап"
+
+#: src/main.cpp:84
+#, kde-format
+msgid "Albert Astals Cid"
+msgstr "Алберт Асталс Сид"
+
+#: src/main.cpp:84
+#, kde-format
+msgid "XLIFF improvements"
+msgstr "Побољшања за ИксЛИФФ"
+
+#: src/main.cpp:85
+#, kde-format
+msgid "Simon Depiets"
+msgstr ""
+
+#: src/main.cpp:85
+#, fuzzy, kde-format
+#| msgid "bug fixing patches"
+msgid "bug fixing and improvements"
+msgstr "закрпе за грешке"
+
+#. i18n( "Source for the merge mode" ), QLatin1String("URL")));
+#: src/main.cpp:89
+#, kde-format
+msgid "Do not scan files of the project."
+msgstr "Не скенирај фајлове у пројекту."
+
+#: src/main.cpp:90
+#, kde-format
+msgid "Load specified project."
+msgstr "Учитај задати пројекат"
+
+#: src/main.cpp:91
+#, kde-format
+msgid "Document to open"
+msgstr "Отвори овај документ"
+
+#: src/mergemode/mergecatalog.cpp:261
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept change in translation"
+msgstr "Прихвати измену у преводу"
+
+#: src/mergemode/mergecatalog.cpp:313
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Accept all new translations"
+msgstr "Прихвати све нове преводе"
+
+#: src/mergemode/mergeview.cpp:45 src/mergemode/mergeview.cpp:50
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Primary Sync"
+msgstr "Примарни синхро"
+
+#: src/mergemode/mergeview.cpp:45 src/mergemode/mergeview.cpp:51
+#, kde-format
+msgctxt ""
+"@title:window that displays difference between current file and 'merge "
+"source'"
+msgid "Secondary Sync"
+msgstr "Секундарни синхро"
+
+#: src/mergemode/mergeview.cpp:58
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Drop file to be merged into / synced with the current one here, then see "
+"context menu options"
+msgstr ""
+"Испустите овде фајл у који се стапа/синхронизује са текућим, па погледајте "
+"опције менија."
+
+# rewrite-msgid: /<.?filename>//
+#: src/mergemode/mergeview.cpp:232
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error opening the file <filename>%1</filename> for synchronization, error "
+"line: %2"
+msgstr "Грешка при отварању фајла ‘%1’ ради синхронизације, ред: %2"
+
+#: src/mergemode/mergeview.cpp:364
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Different entries: %1\n"
+"Unmatched entries: %2"
+msgstr ""
+"Различитих јединица: %1\n"
+"Непоклопљених јединица: %2"
+
+#: src/msgctxtview.cpp:52
+#, kde-format
+msgctxt "@title toolview name"
+msgid "Unit metadata"
+msgstr "Метаподаци јединице"
+
+#: src/msgctxtview.cpp:117
+#, kde-format
+msgctxt ""
+"@info notes to translation unit which expire when the catalog is closed"
+msgid "<b>Temporary notes:</b>"
+msgstr "<b>Привремене белешке:</b>"
+
+#: src/msgctxtview.cpp:125
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "@info notes to translation unit which expire when the catalog is closed"
+#| msgid "<b>Temporary notes:</b>"
+msgctxt "@info notes generated by the pology check"
+msgid "<b>Pology notes:</b>"
+msgstr "<b>Привремене белешке:</b>"
+
+#: src/msgctxtview.cpp:133
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "@info notes to translation unit which expire when the catalog is closed"
+#| msgid "<b>Temporary notes:</b>"
+msgctxt "@info notes generated by the languagetool check"
+msgid "<b>LanguageTool notes:</b>"
+msgstr "<b>Привремене белешке:</b>"
+
+#: src/msgctxtview.cpp:144
+#, kde-format
+msgctxt "@info translation unit metadata"
+msgid "<b>Phase:</b><br>"
+msgstr "<b>Фаза:</b><br />"
+
+#: src/msgctxtview.cpp:167
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Files:</b><br>"
+msgstr "<br /><b>Фајлови:</b><br />"
+
+#: src/msgctxtview.cpp:175
+#, kde-format
+msgctxt "@info PO comment parsing"
+msgid "<br><b>Context:</b><br>"
+msgstr "<br /><b>Контекст:</b><br />"
+
+# >> @item:inmenu filter on translation units
+#: src/msgctxtview.cpp:248
+#, fuzzy, kde-format
+#| msgid "Empty"
+msgctxt "@info The pology command didn't return anything"
+msgid "(empty)"
+msgstr "празне"
+
+#: src/noteeditor.cpp:62
+#, kde-format
+msgctxt "@info:label"
+msgid "From:"
+msgstr "Од:"
+
+#: src/noteeditor.cpp:67
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Save empty note to remove it"
+msgstr "Сачувајте празну белешку да је уклоните."
+
+#: src/noteeditor.cpp:68
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Author of this note"
+msgstr "Аутор ове белешке."
+
+#: src/noteeditor.cpp:81
+#, kde-format
+msgid "Ctrl+Enter"
+msgstr "Ctrl+Enter"
+
+#: src/noteeditor.cpp:82
+#, kde-format
+msgid "Esc"
+msgstr "Esc"
+
+#: src/noteeditor.cpp:134
+#, kde-format
+msgctxt "@info XLIFF notes representation"
+msgid "<b>Notes:</b>"
+msgstr "<b>Белешке:</b>"
+
+#: src/noteeditor.cpp:145
+#, kde-format
+msgctxt "link to edit note"
+msgid "edit..."
+msgstr "Уреди..."
+
+#: src/noteeditor.cpp:150
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add..."
+msgstr "Додај..."
+
+#: src/noteeditor.cpp:152
+#, kde-format
+msgctxt "link to add a note"
+msgid "Add a note..."
+msgstr "Додај белешку..."
+
+#: src/phaseswindow.cpp:154
+#, kde-format
+msgctxt "@title:column"
+msgid "Date"
+msgstr "датум"
+
+#: src/phaseswindow.cpp:155
+#, kde-format
+msgctxt "@title:column"
+msgid "Process"
+msgstr "процес"
+
+#: src/phaseswindow.cpp:156
+#, kde-format
+msgctxt "@title:column"
+msgid "Company"
+msgstr "фирма"
+
+#: src/phaseswindow.cpp:157
+#, kde-format
+msgctxt "@title:column"
+msgid "Person"
+msgstr "особа"
+
+#: src/phaseswindow.cpp:158
+#, kde-format
+msgctxt "@title:column"
+msgid "Tool"
+msgstr "алатка"
+
+# >> @item:inlistbox
+#: src/phaseswindow.cpp:184
+#, kde-format
+msgid "Translation"
+msgstr "превод"
+
+# >> @item:inlistbox
+#: src/phaseswindow.cpp:184
+#, kde-format
+msgid "Review"
+msgstr "преглед"
+
+# >> @item:inlistbox
+#: src/phaseswindow.cpp:184
+#, kde-format
+msgid "Approval"
+msgstr "одобрење"
+
+# >> @item:inlistbox
+#: src/phaseswindow.cpp:188
+#, kde-format
+msgctxt "noun"
+msgid "Process (this will also change your role):"
+msgstr "обрада (такође ће вам изменити улогу):"
+
+#: src/phaseswindow.cpp:267
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Edit phases"
+msgstr "Фазе уређивања"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:14
+#, kde-format
+msgid "Translator's name"
+msgstr "Име преводиоца"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:15
+#, kde-format
+msgid "Translator's name in English"
+msgstr "Име преводиоца на енглеском"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:21
+#, kde-format
+msgid "Localized name"
+msgstr "Име на матерњем језику"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:22
+#, kde-format
+msgid "Translator's name in target language"
+msgstr "Име преводиоца у циљном језику"
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:28
+#, kde-format
+msgid "Override Language Team"
+msgstr ""
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:29
+#, kde-format
+msgid "Use user-provided language team name instead of generating it"
+msgstr ""
+
+#. i18n: ectx: label, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:35
+#, fuzzy, kde-format
+#| msgid "Language"
+msgid "Language Team"
+msgstr "Језик"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:36
+#, fuzzy, kde-format
+#| msgid "Translator's name"
+msgid "Translator team's name"
+msgstr "Име преводиоца"
+
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:42
+#, kde-format
+msgid "Translator's email"
+msgstr "Е‑пошта преводиоца"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:48 src/prefs/lokalize.kcfg:49
+#, kde-format
+msgid "Default language code for new projects"
+msgstr "Подразумевани кôд језика за нове пројекте"
+
+#. i18n: ectx: label, entry, group (Identity)
+#. i18n: ectx: whatsthis, entry, group (Identity)
+#: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
+#, kde-format
+msgid "Default mailing list for new projects"
+msgstr "Подразумевана поштанска листа за нове пројекте"
+
+#. i18n: ectx: label, entry (CleverEditing), group (Appearance)
+#. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
+#. i18n: ectx: label, entry (WhitespacePoints), group (Appearance)
+#: src/prefs/lokalize.kcfg:75 src/prefs/lokalize.kcfg:91
+#: src/prefs/lokalize.kcfg:96
+#, kde-format
+msgid ""
+"\n"
+"        "
+msgstr ""
+"\n"
+"        "
+
+#. i18n: ectx: label, entry (MsgFont), group (Appearance)
+#: src/prefs/lokalize.kcfg:81
+#, kde-format
+msgid "Font for Messages"
+msgstr "Фонт за јединице"
+
+#: src/prefs/prefs.cpp:120
+#, kde-format
+msgctxt "@title:tab"
+msgid "Identity"
+msgstr "Идентитет"
+
+#: src/prefs/prefs.cpp:130
+#, kde-format
+msgid ""
+"The following parameters are available\n"
+"%1 - Path of the source file\n"
+"%2 - Line number"
+msgstr ""
+
+#: src/prefs/prefs.cpp:132 src/prefs/prefs.cpp:295
+#, kde-format
+msgctxt "@title:tab"
+msgid "General"
+msgstr "Опште"
+
+#: src/prefs/prefs.cpp:138
+#, kde-format
+msgctxt "@title:tab"
+msgid "Editing"
+msgstr "Уређивање"
+
+#: src/prefs/prefs.cpp:144
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Изглед"
+
+#: src/prefs/prefs.cpp:150
+#, kde-format
+msgctxt "@title:tab"
+msgid "Translation Memory"
+msgstr "Преводилачка меморија"
+
+#: src/prefs/prefs.cpp:156
+#, kde-format
+msgctxt "@title:tab"
+msgid "Pology"
+msgstr ""
+
+#: src/prefs/prefs.cpp:162
+#, fuzzy, kde-format
+#| msgid "Language"
+msgctxt "@title:tab"
+msgid "LanguageTool"
+msgstr "Језик"
+
+#: src/prefs/prefs.cpp:171
+#, kde-format
+msgctxt "@title:tab"
+msgid "Spellcheck"
+msgstr "Правопис"
+
+#: src/prefs/prefs.cpp:217
+#, kde-format
+msgid ""
+"You have accessed a feature that requires a project to be loaded. Do you "
+"want to create a new project or open an existing project?"
+msgstr ""
+"Приступили сте могућности која захтева да буде учитан пројекат. Желите ли да "
+"направите нови пројекат или отворите неки постојећи?"
+
+# rewrite-msgid: /New/New Project/
+#: src/prefs/prefs.cpp:218
+#, kde-format
+msgctxt "@action"
+msgid "New"
+msgstr "Нови пројекат"
+
+#: src/prefs/prefs.cpp:218
+#, kde-format
+msgctxt "@action"
+msgid "Open"
+msgstr "Отвори"
+
+# >> @item
+#: src/prefs/prefs.cpp:233 src/prefs/prefs.cpp:250
+#, kde-format
+msgid "Lokalize translation project (*.lokalize)"
+msgstr "Локализујев преводилачки пројекат (*.lokalize|)"
+
+#: src/prefs/prefs.cpp:250
+#, kde-format
+msgctxt "@window:title"
+msgid "Select folder with Gettext .po files to translate"
+msgstr "Избор фасцикле са геттекст фајловима за превођење"
+
+# >> @info
+#: src/prefs/prefs.cpp:277
+#, kde-format
+msgid "Create software or OpenDocument translation project first."
+msgstr "Прво направите пројекат превода софтвера или отвореног документа."
+
+#: src/prefs/prefs.cpp:341
+#, kde-format
+msgctxt "@title:tab"
+msgid "Advanced"
+msgstr "Напредно"
+
+#: src/prefs/prefs.cpp:360
+#, kde-format
+msgctxt "@title:tab"
+msgid "Scripts"
+msgstr "Скрипте"
+
+#: src/prefs/prefs.cpp:366
+#, kde-format
+msgctxt "@title:tab"
+msgid "Personal"
+msgstr "Лично"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_appearance.ui:34
+#, kde-format
+msgid "Editor font:"
+msgstr "Фонт уређивача:"
+
+#. i18n: ectx: property (toolTip), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:44
+#, kde-format
+msgid "Change the font for the editor"
+msgstr "Измените фонт уређивача"
+
+#. i18n: ectx: property (whatsThis), widget (KFontRequester, kcfg_MsgFont)
+#: src/prefs/prefs_appearance.ui:47
+#, kde-format
+msgid "Choose a new font for the area where you write the translated message."
+msgstr "Изаберите нови фонт за поље у коме уносите преводе јединица."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:54
+#, kde-format
+msgid "Display LEDS for message status"
+msgstr "Лампице за стање јединице"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:57
+#, kde-format
+msgid ""
+"If checked, LEDS will be shown to display the message status: Fuzzy, "
+"Untranslated or Error. If unchecked, no LEDs will be displayed."
+msgstr ""
+"Попуните за приказ лампица које назначују стање јединице: мутна, "
+"непреведена, или грешка."
+
+# skip-rule: t-pointer
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_Leds)
+#: src/prefs/prefs_appearance.ui:60
+#, kde-format
+msgid ""
+"LEDs to indicate Fuzzy and Untranslated status as well as cursor column "
+"number"
+msgstr "Лампице за назнаку мутног и непреведеног стања и колоне курсора"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:69
+#, kde-format
+msgid "Text colors for the changes in the message."
+msgstr "Боје текста за измене у јединици."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/prefs/prefs_appearance.ui:72
+#, kde-format
+msgid "String Matching"
+msgstr "Поклапање ниски"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_appearance.ui:78
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text added in the newer string:"
+msgstr "Додато у новијој ниски:"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:88
+#, kde-format
+msgid "Change the color for the new text added"
+msgstr "Боја новододатог текста"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_AddColor)
+#: src/prefs/prefs_appearance.ui:91
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was added to the string."
+msgstr "Можете задати неку другу боју за приказ текста који је додат ниски."
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/prefs/prefs_appearance.ui:101
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Text removed in the newer string:"
+msgstr "Уклоњено из новије ниске:"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:111
+#, kde-format
+msgid "Change the color for the text removed"
+msgstr "Боја уклоњеног текста"
+
+#. i18n: ectx: property (whatsThis), widget (KColorButton, kcfg_DelColor)
+#: src/prefs/prefs_appearance.ui:114
+#, kde-format
+msgid ""
+"You can set another color for viewing the text that was removed from the "
+"string."
+msgstr "Можете задати неку другу боју за приказ текста уклоњеног из ниске."
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:140
+#, kde-format
+msgid ""
+"Check to see if a string ends in a space (which is often important when "
+"displaying it in the user interface, or when it gets concatenated with "
+"others)."
+msgstr ""
+"Попуните да бисте видели када се ниска завршава размаком (често важно за "
+"приказ у корисничком сучељу, или када се надовезује на друге)."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
+#: src/prefs/prefs_appearance.ui:143
+#, kde-format
+msgid "Highlight spaces at the end"
+msgstr "Истакни размаке на крају"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:32
+#, kde-format
+msgid ""
+"If set, mouse wheel goes to previous or next unit, otherwise it scrolls text"
+msgstr ""
+"Ако је попуњено, точкић миша пребацује на претходну или следећу јединицу, "
+"иначе клиза текст."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:35
+#, kde-format
+msgid ""
+"<html>When this option is enabled, the mouse wheel is used to go to the "
+"previous or next translation unit (without modifier keys). Modifier keys can "
+"be used to change this behavior. Use:<ul><li><b>Shift</b> to scroll within "
+"the text of the current unit,</li><li><b>Ctrl+Shift</b> to go to previous or "
+"next non-ready unit,</li><li><b>Ctrl</b> to go to previous or next non-ready "
+"not empty unit,</li><li><b>Alt</b> to go to previous or next untranslated "
+"unit.</li></ul>When the option is disabled, the mouse wheel scrolls within "
+"the text of the current translation unit.</html>"
+msgstr ""
+"<html><p>Када је ова опција укључена, точкићем миша се пребацује на "
+"претходну или следећу преводилачку јединицу (без модификаторских тастера). "
+"Ово понашање се може изменити модификаторским тастерима. Користите:</"
+"p><ul><li><b>Shift</b> за клизање текста у текућој јединици,</li><li><b>Ctrl"
+"+Shift</b> за одлазак на претходну или следећу неспремну јединицу,</"
+"li><li><b>Ctrl</b> за одлазак на претходну или следећу неспремну непразну "
+"јединицу,</li><li><b>Alt</b> за одлазак на претходну или следећу непреведену "
+"јединицу.</li></ul><p>Ако је опција искључена, точкић миша просто клиза "
+"текст у текућој преводилачкој јединици.</p></html>"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
+#: src/prefs/prefs_editor.ui:38
+#, kde-format
+msgid "Mouse wheel goes to previous or next translation unit"
+msgstr "Точкић миша води на претходну или следећу јединицу"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoApprove)
+#: src/prefs/prefs_editor.ui:45
+#, kde-format
+msgid "Set 'approved' status automatically when editing started"
+msgstr "Аутоматски постави стање ‘одобрено’ на почетку уређивања"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_VisualizeSeparators)
+#: src/prefs/prefs_editor.ui:65
+#, kde-format
+msgid "Visualize separators such as spaces, tabs and new lines in the editor"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
+#, kde-format
+msgid "Set to 2 to disable word completion"
+msgstr "Поставите на 2 да искључите допуну речи."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_editor.ui:77
+#, kde-format
+msgid "Minimum word length for word completion"
+msgstr "Најмања дужина речи за допуну речи"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_WordCompletionLength)
+#: src/prefs/prefs_editor.ui:90
+#, kde-format
+msgid "Disable word completion"
+msgstr "Без допуне речи"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConvertXMLChars)
+#: src/prefs/prefs_editor.ui:105
+#, kde-format
+msgid "Automatically convert XML special characters in TS files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
+#: src/prefs/prefs_general.ui:45
+#, kde-format
+msgid "Restore the previously opened files when launching Lokalize"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:54
+#, kde-format
+msgid "Defines the behavior of the next/previous tab shortcuts"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/prefs/prefs_general.ui:57
+#, kde-format
+msgid "Next/previous tab shortcut behavior"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:68
+#, kde-format
+msgid "According to tab position"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_TabSwitch)
+#: src/prefs/prefs_general.ui:73
+#, kde-format
+msgid "According to tab activation order"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_CustomEditorEnabled)
+#: src/prefs/prefs_general.ui:83
+#, kde-format
+msgid "Use a custom editor to open source files"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, prefs_identity)
+#: src/prefs/prefs_identity.ui:14
+#, kde-format
+msgid ""
+"Fill in your identity and information about your translation team. This "
+"information is used when updating the header of a file."
+msgstr ""
+"Испуните податке о себи и свом преводилачком тиму. Користе се при ажурирању "
+"заглавља фајла."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/prefs/prefs_identity.ui:35
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Default language:"
+msgstr "Подразумевани језик:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/prefs/prefs_identity.ui:48
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Email:"
+msgctxt "@label:textbox"
+msgid "&Email:"
+msgstr "Е‑пошта:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_identity.ui:61
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Name:"
+msgctxt "@label:textbox"
+msgid "&Name:"
+msgstr "Име:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:74
+#, kde-format
+msgid "Your name, in English"
+msgstr "Ваше име на енглеском"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorName)
+#: src/prefs/prefs_identity.ui:77
+#, kde-format
+msgid "Please enter here your name and surname written in English"
+msgstr "Унесите име и презиме како би се записало на енглеском"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_identity.ui:84
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Default mailing list:"
+msgctxt "@label:textbox"
+msgid "&Default mailing list:"
+msgstr "Подразумевана поштанска листа:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:94
+#, kde-format
+msgid "The email of your team mailing list"
+msgstr "Адреса поштанске листе вашег тима"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_DefaultMailingList)
+#: src/prefs/prefs_identity.ui:97
+#, kde-format
+msgid "Write the email of your translating team mailing list"
+msgstr "Упишите адресу поштанске листе вашег преводилачког тима"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:104
+#, kde-format
+msgid "Language you translate to"
+msgstr "Језик на који преводите"
+
+#. i18n: ectx: property (whatsThis), widget (KComboBox, DefaultLangCode)
+#: src/prefs/prefs_identity.ui:107
+#, kde-format
+msgid "Set the default language you are going to translate to"
+msgstr "Одредите подразумевани језик на који преводите"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:127
+#, kde-format
+msgid "Write your email"
+msgstr "Упишите своју е‑пошту"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorEmail)
+#: src/prefs/prefs_identity.ui:130
+#, kde-format
+msgid ""
+"Write your email here so it will appear in the po file header with your name"
+msgstr ""
+"Унесите адресу е‑поште која ће стајати уз ваше име у заглављу ПО фајла."
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:144
+#, kde-format
+msgid "Your name in your own language"
+msgstr "Ваше име на вашем матерњем језику"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorLocalizedName)
+#: src/prefs/prefs_identity.ui:147
+#, kde-format
+msgid ""
+"Write your name and surname in your language with your language alphabet."
+msgstr "Унесите име и презиме како се записује на вашем језику."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/prefs/prefs_identity.ui:154
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Localized name:"
+msgstr "Име на матерњем језику:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
+#: src/prefs/prefs_identity.ui:164
+#, fuzzy, kde-format
+#| msgctxt "@label:chooser"
+#| msgid "Default language:"
+msgid "Default Language-Team:"
+msgstr "Подразумевани језик:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
+#: src/prefs/prefs_languagetool.ui:21
+#, kde-format
+msgid "Use custom LanguageTool server"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/prefs/prefs_languagetool.ui:31
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Server Path:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:44
+#, kde-format
+msgid "The path of your custom Language Tool server"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_LanguageToolInstancePath)
+#: src/prefs/prefs_languagetool.ui:47
+#, kde-format
+msgid "Please enter the path of your custom Language Tool server, if any"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/prefs/prefs_languagetool.ui:58
+#, kde-format
+msgid ""
+"Delay before automatic checking after you stop typing (in seconds, 0 to "
+"disable)"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, l1)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LanguageToolDelay)
+#: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
+#, fuzzy, kde-format
+#| msgid "Set to 2 to disable word completion"
+msgid "Set to 0 to disable auto checking"
+msgstr "Поставите на 2 да искључите допуну речи."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
+#: src/prefs/prefs_pology.ui:21
+#, kde-format
+msgid "Enable Pology verification"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_0)
+#: src/prefs/prefs_pology.ui:28
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a single entry. Use the "
+"following placeholders in order to set-up the commands: %u is the entry "
+"number, %f is the file name. For instance: posieve -u %u check-rules %f"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:44
+#, kde-format
+msgid "The Pology command to run in order to check a single entry."
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
+#: src/prefs/prefs_pology.ui:47
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a single "
+"entry"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4_0)
+#: src/prefs/prefs_pology.ui:54
+#, no-c-format, kde-format
+msgctxt "@label:textbox"
+msgid ""
+"The Pology command to run in order to check a whole file. This command "
+"should include \"-s lokalize\", placeholder %f is the file name. For "
+"instance: posieve -s lokalize check-rules %f"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:70
+#, kde-format
+msgid "The Pology command to run in order to check a whole file."
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
+#: src/prefs/prefs_pology.ui:73
+#, kde-format
+msgid ""
+"Please enter here the Pology command to be run in order to check a whole file"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:45
+#, kde-format
+msgid "If checked, get translation memory suggestions "
+msgstr "Попуните за предлоге из преводилачке меморије"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:48
+#, kde-format
+msgid ""
+"If this is checked, the program will fetch translation memories as soon as "
+"you open a file."
+msgstr ""
+"Када је попуњено, програм дохвата преводилачке меморије чим отворите фајл."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_PrefetchTM)
+#: src/prefs/prefs_tm.ui:51
+#, kde-format
+msgid "Prefetch translation memory suggestions on file open"
+msgstr "Предохват предлога преводилачке меморије по отварању фајла"
+
+#. i18n: ectx: property (text), widget (QLabel, label1)
+#: src/prefs/prefs_tm.ui:60
+#, kde-format
+msgid "Maximum number of suggestions:"
+msgstr "Највише предлога:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:70
+#, kde-format
+msgid "Set the maximum number of suggestions"
+msgstr "Задајте највећи број предлога"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggCount)
+#: src/prefs/prefs_tm.ui:73
+#, kde-format
+msgid "You can change the maximum number of suggestions, default is 7."
+msgstr "Можете изменити највећи број предлога, подразумевано је 7."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/prefs/prefs_tm.ui:97
+#, fuzzy, kde-format
+#| msgid "Maximum number of suggestions:"
+msgid "Minimum score (0-100) of suggestions:"
+msgstr "Највише предлога:"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:107
+#, fuzzy, kde-format
+#| msgid "Set the maximum number of suggestions"
+msgid "Set the minimum score (0-100) of suggestions"
+msgstr "Задајте највећи број предлога"
+
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_SuggScore)
+#: src/prefs/prefs_tm.ui:110
+#, fuzzy, kde-format
+#| msgid "You can change the maximum number of suggestions, default is 7."
+msgid ""
+"You can change the minimum score (0-100) required for suggestions, default "
+"is 0."
+msgstr "Можете изменити највећи број предлога, подразумевано је 7."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoaddTM)
+#: src/prefs/prefs_tm.ui:138
+#, kde-format
+msgid "Update/Add edited entries to translation memory"
+msgstr "Ажурирај/додај уређене јединице у преводилачку меморију"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ScanToTMOnOpen)
+#: src/prefs/prefs_tm.ui:145
+#, kde-format
+msgid "Add opened files to translation memory automatically"
+msgstr "Аутоматски додај отворене фајлове у преводилачку меморију"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DeleteFromTMOnMissing)
+#: src/prefs/prefs_tm.ui:152
+#, kde-format
+msgid ""
+"Delete missing files from translation memory on Rescan or when clicking a "
+"missing entry"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/project/prefs_project_advanced.ui:17
+#, kde-format
+msgid "Syntax"
+msgstr "Синтакса"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_advanced.ui:23
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Accelerator:"
+msgstr "Убрзивач:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Accel)
+#: src/project/prefs_project_advanced.ui:33
+#, kde-format
+msgid "Usually '&', but may also be '_' for GTK apps."
+msgstr "Нпр. ‘&’ у КДЕ‑у, или ‘_’ у ГТК програмима."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_project_advanced.ui:40
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Markup:"
+msgstr "Обележавање:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_Markup)
+#: src/project/prefs_project_advanced.ui:58
+#, kde-format
+msgid ""
+"Regular expression of markup. It is used for translation memory matching and "
+"for 'Insert tag' feature.\n"
+"\n"
+"A default value (suitable for XML-based texts) is:\n"
+"(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
+"\n"
+"It is only used for gettext PO files, as XLIFF format has its own way of "
+"specifying where markup is."
+msgstr ""
+"<html><p>Регуларни израз за обележавање. Користи се за поклапање у "
+"преводилачкој меморији и могућност уметања ознака.</p><p>Подразумевана "
+"вредност (погодна за текстове ИксМЛ типа) гласи: <tt>(&lt;[^>]+>)+|(&amp;[A-"
+"Za-z_:][A-Za-z0-9_\\.:-]*;)+</tt></p><p>Потребно само за ПО фајлове, пошто "
+"ИксЛИФФ наводи положај обележавања на свој начин.</p></html>"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_project_advanced.ui:65
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Word wrap:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_WordWrap)
+#: src/project/prefs_project_advanced.ui:75
+#, kde-format
+msgid ""
+"Width used for the automatic msgfmt-like word wrap. Use the negative value "
+"'-1' to disable the word wrap."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/project/prefs_project_advanced.ui:91
+#, kde-format
+msgid "Paths"
+msgstr "Путање"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_project_advanced.ui:100
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Template files folder:"
+msgstr "Фасцикла шаблона:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
+#: src/project/prefs_project_advanced.ui:124
+#, kde-format
+msgid ""
+"Usually your translation project will be a subproject of a project\n"
+"for translating same texts into multiple languages.\n"
+"\n"
+"Set this to path of a folder containing empty translation files\n"
+"(i.e. files without translation into any language)\n"
+"shared among all subprojects."
+msgstr ""
+"Обично ће ваш преводилачки пројекат бити потпројекат пројекта за превођење "
+"истог текста на више језика. Поставите ову путању на фасциклу која садржи "
+"празне фајлове превода, тј. непреведене на било који језик, дељене између "
+"свих потпројеката."
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_project_advanced.ui:131
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Branch folder:"
+msgstr "Фасцикла гране:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
+#: src/project/prefs_project_advanced.ui:161
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"This setting is for Sync Mode.\n"
+"\n"
+"Sync Mode may be used to make changes to translation\n"
+"for two branches simultaneously.\n"
+"\n"
+"Set this to path that corresponds to root folder of the branch project,\n"
+"and Secondary Sync view will automatically open files from branch.\n"
+"Then, each time you make changes in files of your main branch,\n"
+"they will automatically be replicated to the branch\n"
+"(of course, if it contains the same English string).\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"<html><p>Поставка за синхрорежим.</p><p>Синхрорежим се може користити за "
+"истовремено уређивање превода у две различите гране. Поставите овде путању "
+"која одговара кореној фасцикли гране у пројекту, и приказ секундарног "
+"синхроизвора ће аутоматски отварати фајлове из гране. Тада ће свака измена "
+"коју начините у главној грани бити пресликана у секундарну, наравно под "
+"условом да ова садржи исту изворну ниску.</p><p>Више детаља потражите у "
+"документацији.</p></html>"
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_project_advanced.ui:168
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Alternate translations folder:"
+msgstr "Фасцикла алтернативних превода:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
+#: src/project/prefs_project_advanced.ui:195
+#, kde-format
+msgctxt ""
+"this message contains text from documentation, so use its translation when "
+"you're translating docs"
+msgid ""
+"Set this to path of a folder with structure similar to Root Folder.\n"
+"\n"
+"On each translation file open, a corresponding file in Alternate "
+"translations directory will be looked up and,\n"
+"if it is found, it will be used for Alternate Translations view.\n"
+"\n"
+"You will likely want to use translations of another target language (i.e. "
+"another subproject), which is close to yours.\n"
+"Also, you can use other subproject's translations either immediately, or "
+"have them pretranslated to your language by machine.\n"
+"\n"
+"See documentation for more details."
+msgstr ""
+"<html><p>Поставите ово на путању фасцикле структуре сличне кореној.</"
+"p><p>При сваком отварању фајла превода, биће потражен одговарајући фајл у "
+"фасцикли алтернативних превода, и, ако буде пронађен, употребљен у приказу "
+"алтернативних превода.</p><p>Ово је згодно када можете да се послужите "
+"преводима на други циљни језик (нпр. из другог потпројекта), јер је близак "
+"вашем. Преводе из другог потпројекта такође можете употребити било одмах, "
+"било по машинском превођењу на ваш језик.</p><p>Више детаља потражите у "
+"документацији.</p></html>"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_project_local.ui:21
+#, kde-format
+msgid "Role:"
+msgstr "Улога:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:29
+#, kde-format
+msgid "Translator"
+msgstr "преводилац"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:34
+#, kde-format
+msgid "Reviewer"
+msgstr "прегледач"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
+#: src/project/prefs_project_local.ui:39
+#, kde-format
+msgid "Approver"
+msgstr "одобравач"
+
+#. i18n: ectx: property (text), widget (QLabel, l2)
+#: src/project/prefs_projectmain.ui:17
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Glossary:"
+msgstr "Појмовник:"
+
+#. i18n: ectx: property (text), widget (QLabel, l0)
+#: src/project/prefs_projectmain.ui:30
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Target language:"
+msgstr "Циљни језик:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
+#: src/project/prefs_projectmain.ui:46
+#, kde-format
+msgid ""
+"Project ID is used to differentiate translation memories of absolutely "
+"different projects and languages.\n"
+"\n"
+"For example, if you have several projects for translating KDE applications\n"
+"(e.g. they are in different repositories), use same ID for all of them."
+msgstr ""
+"<html><p>ИД пројекта се користи за раздвајање преводилачких меморија за "
+"посве различите пројекте и језике.</p><p>На пример, ако у неколико пројеката "
+"преводите КДЕ програме (нпр. јер су у различитим ризницама), употребите исти "
+"ИД за све њих.</p></html>"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, LangCode)
+#: src/project/prefs_projectmain.ui:59
+#, kde-format
+msgid "Target language of the project."
+msgstr "Циљни језик пројекта."
+
+#. i18n: ectx: property (text), widget (QLabel, l4)
+#: src/project/prefs_projectmain.ui:82
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Mailing list:"
+msgstr "Поштанска листа:"
+
+#. i18n: ectx: property (text), widget (QLabel, l3)
+#: src/project/prefs_projectmain.ui:92
+#, kde-format
+msgctxt "@label:textbox"
+msgid "ID:"
+msgstr "ИД:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, poBaseDir)
+#: src/project/prefs_projectmain.ui:118
+#, kde-format
+msgid ""
+"This is main setting. Set this to path of a folder with translation files\n"
+"for your project (or a subproject for your target language)."
+msgstr ""
+"Ово је главна поставка. Задајте путању фасцикле са фајловима превода у "
+"пројекту, или потпројекту за циљни језик."
+
+#. i18n: ectx: property (text), widget (QLabel, l1)
+#: src/project/prefs_projectmain.ui:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Root folder:"
+msgstr "Корена фасцикла:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:155
+#, kde-format
+msgid "Automatic"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:160
+#, kde-format
+msgid "Application"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
+#: src/project/prefs_projectmain.ui:165
+#, fuzzy, kde-format
+#| msgctxt "@title actions category"
+#| msgid "Project"
+msgid "Project"
+msgstr "Пројекат"
+
+#. i18n: ectx: property (text), widget (QLabel, l5)
+#: src/project/prefs_projectmain.ui:180
+#, fuzzy, kde-format
+#| msgid "Language"
+msgid "Language-Team:"
+msgstr "Језик"
+
+#: src/project/project.cpp:461
+#, kde-format
+msgid "Scanning folders with source files"
+msgstr "Скенирам фасцикле изворних фајлова..."
+
+#: src/project/project.cpp:462
+#, kde-format
+msgid "Editor"
+msgstr "Уређивач"
+
+# >> @info
+# literal-segment: translate-toolkit
+#: src/project/project.cpp:492
+#, kde-format
+msgid "Install translate-toolkit package and retry"
+msgstr "Инсталирајте пакет translate-toolkit па покушајте поново."
+
+#: src/project/project.cpp:504
+#, kde-format
+msgctxt "project folder name. %2 is targetLangCode"
+msgid "%1 %2 Translation"
+msgstr "prevod-%1-%2"
+
+#: src/project/projectbase.kcfg:11
+#, kde-format
+msgid "default"
+msgstr ""
+
+#. i18n: ectx: label, entry (LangCode), group (General)
+#: src/project/projectbase.kcfg:18
+#, kde-format
+msgid "Language"
+msgstr "Језик"
+
+#. i18n: ectx: label, entry (UserLangTeam), group (General)
+#: src/project/projectbase.kcfg:32
+#, kde-format
+msgid "User Language Team in Lokalize settings"
+msgstr ""
+
+#. i18n: ectx: label, entry (OverrideLangTeam), group (General)
+#: src/project/projectbase.kcfg:38
+#, kde-format
+msgid "Override Lokalize Language Team"
+msgstr ""
+
+#. i18n: ectx: label, entry (ProjLangTeam), group (General)
+#: src/project/projectbase.kcfg:44
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Target language"
+msgid "Project Language Team"
+msgstr "циљни језик"
+
+# >! Should use 'folder'
+#. i18n: ectx: label, entry (PoBaseDir), group (General)
+#: src/project/projectbase.kcfg:59
+#, kde-format
+msgid "The base directory for PO files (translations)"
+msgstr "Основна фасцикла за ПО фајлове (преводи)"
+
+# >! Should use 'folder'
+#. i18n: ectx: label, entry (PotBaseDir), group (General)
+#: src/project/projectbase.kcfg:65
+#, kde-format
+msgid "The base directory for POT files (templates to be translated)"
+msgstr "Основна фасцикла за ПОТ фајлове (шаблони за превођење)"
+
+#. i18n: ectx: label, entry (GlossaryTbx), group (General)
+#: src/project/projectbase.kcfg:73
+#, kde-format
+msgid "Project's glossary"
+msgstr "Појмовник пројекта"
+
+#: src/project/projectmodel.cpp:525
+#, kde-format
+msgctxt "@title:column File name"
+msgid "Name"
+msgstr "име"
+
+#: src/project/projectmodel.cpp:527
+#, kde-format
+msgctxt ""
+"@title:column Graphical representation of Translated/Fuzzy/Untranslated "
+"counts"
+msgid "Graph"
+msgstr "граф"
+
+#: src/project/projectmodel.cpp:529
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Total"
+msgstr "укупно"
+
+#: src/project/projectmodel.cpp:531
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Translated"
+msgstr "преведено"
+
+#: src/project/projectmodel.cpp:533
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Not ready"
+msgstr "неспремно"
+
+#: src/project/projectmodel.cpp:535
+#, kde-format
+msgctxt "@title:column Number of entries"
+msgid "Untranslated"
+msgstr "непреведено"
+
+#: src/project/projectmodel.cpp:537
+#, kde-format
+msgctxt "@title:column Number of fuzzy or untranslated entries"
+msgid "Incomplete"
+msgstr ""
+
+#: src/project/projectmodel.cpp:539
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translation"
+msgstr "последње превођено"
+
+#: src/project/projectmodel.cpp:541
+#, kde-format
+msgctxt "@title:column"
+msgid "Comment"
+msgstr ""
+
+#: src/project/projectmodel.cpp:543
+#, kde-format
+msgctxt "@title:column"
+msgid "Template Revision"
+msgstr "ревизија шаблона"
+
+#: src/project/projectmodel.cpp:545
+#, kde-format
+msgctxt "@title:column"
+msgid "Last Translator"
+msgstr "последњи преводилац"
+
+#: src/project/projecttab.cpp:67
+#, kde-format
+msgctxt "@title:window"
+msgid "Project Overview"
+msgstr "Преглед пројекта"
+
+# rewrite-msgid: /national teams that translate program interfaces/translation teams/
+#: src/project/projecttab.cpp:71
+#, kde-format
+msgid ""
+"<html>You do not have to be a software developer to be a member of the KDE "
+"team. You can join the national teams that translate program interfaces. You "
+"can provide graphics, themes, sounds, and improved documentation. You decide!"
+"<br /><br />Visit <a href=\"%1\">%1</a> for information on some projects in "
+"which you can participate.<br /><br />If you need more information or "
+"documentation, then a visit to <a href=\"%2\">%2</a> will provide you with "
+"what you need.</html>"
+msgstr ""
+"<html><p>Не морате бити програмер да бисте постали члан заједнице КДЕ‑а. "
+"Можете се придружити неком преводилачком тиму, прилагати графику, теме и "
+"звукове, или побољшавати документацију. Сами одлучите!</p><p>Посетите <a "
+"href=\"%1\">%1</a> за информације о неким пројектима у којима бисте могли "
+"учествовати.</p><p>Ако вам треба више информација или документације, "
+"посетите <a href=\"%2\">%2</a>.</p></html>"
+
+#: src/project/projecttab.cpp:92
+#, kde-format
+msgid "&Configure Lokalize"
+msgstr "&Подеси Локализуј"
+
+#: src/project/projecttab.cpp:93 src/project/projecttab.cpp:206
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open project"
+msgstr "Отвори пројекат"
+
+#: src/project/projecttab.cpp:94
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate software"
+msgstr "Преводи софтвер"
+
+#: src/project/projecttab.cpp:95
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Translate OpenDocument"
+msgstr "Преводи отворени документ"
+
+#: src/project/projecttab.cpp:179
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous template only"
+msgstr "Претходни само шаблон"
+
+#: src/project/projecttab.cpp:182
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next template only"
+msgstr "Следећи само шаблон"
+
+#: src/project/projecttab.cpp:185
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Previous translation only"
+msgstr "Претходни само превод"
+
+#: src/project/projecttab.cpp:188
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Next translation only"
+msgstr "Следећи само превод"
+
+#: src/project/projecttab.cpp:192
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide completed items"
+msgstr ""
+
+#: src/project/projecttab.cpp:193
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Hide fully translated files and folders"
+msgstr ""
+
+#: src/project/projecttab.cpp:257
+#, fuzzy, kde-format
+#| msgid "Open file"
+msgctxt "@action:inmenu"
+msgid "Open selected files"
+msgstr "Отвори фајл"
+
+#: src/project/projecttab.cpp:260
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open"
+msgstr "Отвори"
+
+#. i18nc("@action:inmenu","Find in files"),this,&ProjectTab::findInFiles);
+#. i18nc("@action:inmenu","Replace in files"),this,&ProjectTab::replaceInFiles);
+#. i18nc("@action:inmenu","Spellcheck files"),this,&ProjectTab::spellcheckFiles);
+#. menu.addSeparator();
+#. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
+#.
+#: src/project/projecttab.cpp:269
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add to translation memory"
+msgstr "Додај у преводилачку меморију"
+
+#: src/project/projecttab.cpp:271
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files"
+msgstr "Претражи по фајловима"
+
+#: src/project/projecttab.cpp:272
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Add a note"
+msgctxt "@action:inmenu"
+msgid "Add a comment"
+msgstr "Додај белешку"
+
+#: src/project/projecttab.cpp:274
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Launch Pology on files"
+msgstr ""
+
+#: src/project/projecttab.cpp:277
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Search in files (including templates)"
+msgstr "Претражи по фајловима (укљ. шаблоне)"
+
+#: src/project/projecttab.cpp:311
+#, kde-format
+msgid "Project file comment"
+msgstr ""
+
+#: src/project/projecttab.cpp:311
+#, kde-format
+msgid "Input a comment for this project file:"
+msgstr ""
+
+#: src/project/projecttab.cpp:377
+#, kde-format
+msgid "The Pology check has succeeded"
+msgstr ""
+
+#: src/project/projecttab.cpp:396
+#, kde-format
+msgid "You are about to open %1 file"
+msgid_plural "You are about to open %1 files"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: src/project/projecttab.cpp:397
+#, kde-format
+msgid ""
+"Opening a large number of files at the same time can make Lokalize "
+"unresponsive."
+msgstr ""
+
+#: src/project/projecttab.cpp:399
+#, kde-format
+msgid "Are you sure you want to open this many files?"
+msgstr ""
+
+#: src/project/projecttab.cpp:401
+#, fuzzy, kde-format
+#| msgid "Open file"
+msgid "&Open %1 File"
+msgid_plural "&Open %1 Files"
+msgstr[0] "Отвори фајл"
+msgstr[1] "Отвори фајл"
+msgstr[2] "Отвори фајл"
+msgstr[3] "Отвори фајл"
+
+#: src/tm/dbfilesmodel.cpp:114
+#, kde-format
+msgctxt "@title:column"
+msgid "Name"
+msgstr "име"
+
+#: src/tm/dbfilesmodel.cpp:115
+#, kde-format
+msgctxt "@title:column"
+msgid "Source language"
+msgstr "изворни језик"
+
+#: src/tm/dbfilesmodel.cpp:116
+#, kde-format
+msgctxt "@title:column"
+msgid "Target language"
+msgstr "циљни језик"
+
+#: src/tm/dbfilesmodel.cpp:117
+#, kde-format
+msgctxt "@title:column"
+msgid "Pairs"
+msgstr "парова"
+
+#: src/tm/dbfilesmodel.cpp:118
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique original entries"
+msgstr "јединствених изворних јединица"
+
+#: src/tm/dbfilesmodel.cpp:119
+#, kde-format
+msgctxt "@title:column"
+msgid "Unique translations"
+msgstr "јединствених превода"
+
+#. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
+#: src/tm/dbparams.ui:23
+#, kde-format
+msgid "Connection"
+msgstr "Веза"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: src/tm/dbparams.ui:32
+#, kde-format
+msgid "Database name:"
+msgstr "Име базе:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: src/tm/dbparams.ui:45
+#, kde-format
+msgid "Host:"
+msgstr "Домаћин:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: src/tm/dbparams.ui:62
+#, kde-format
+msgid "User:"
+msgstr "Корисник:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: src/tm/dbparams.ui:75
+#, kde-format
+msgid "Password:"
+msgstr "Лозинка:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, dbType)
+#: src/tm/dbparams.ui:96
+#, kde-format
+msgid "Local"
+msgstr "локална"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/dbparams.ui:104
+#, kde-format
+msgid "Name:"
+msgstr "Име:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: src/tm/dbparams.ui:114
+#, kde-format
+msgid "Database type:"
+msgstr "Тип базе:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, contentBox)
+#: src/tm/dbparams.ui:124
+#, kde-format
+msgid "Content"
+msgstr "Садржај"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/tm/dbparams.ui:133
+#, kde-format
+msgid "Source language:"
+msgstr "Изворни језик:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/dbparams.ui:162
+#, kde-format
+msgid "Markup regex:"
+msgstr "Региз обележавања:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/tm/dbparams.ui:175
+#, kde-format
+msgid "Accelerator:"
+msgstr "Убрзивач:"
+
+#. i18n: ectx: property (text), widget (QPushButton, create)
+#: src/tm/managedatabases.ui:19
+#, kde-format
+msgid "Create"
+msgstr "Направи"
+
+#. i18n: ectx: property (text), widget (QPushButton, addData)
+#: src/tm/managedatabases.ui:26
+#, kde-format
+msgid "Add Data"
+msgstr "Додај податке"
+
+#. i18n: ectx: property (text), widget (QPushButton, importTMX)
+#: src/tm/managedatabases.ui:33
+#, kde-format
+msgid "Add Data from TMX"
+msgstr "Додај податке из ТМИкс‑а"
+
+#. i18n: ectx: property (text), widget (QPushButton, exportTMX)
+#: src/tm/managedatabases.ui:40
+#, kde-format
+msgid "Export to TMX"
+msgstr "Извези у ТМИкс"
+
+#. i18n: ectx: property (text), widget (QPushButton, remove)
+#: src/tm/managedatabases.ui:47
+#, kde-format
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/tm/qamodel.cpp:105
+#, kde-format
+msgctxt "@title:column Translator's false friend"
+msgid "False Friend"
+msgstr "лажни пријатељ"
+
+#: src/tm/qaview.cpp:38
+#, kde-format
+msgctxt "@title:window"
+msgid "Quality Assurance"
+msgstr "Осигурање квалитета"
+
+#: src/tm/qaview.cpp:52
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Add"
+msgstr "Додај"
+
+#: src/tm/qaview.cpp:56
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove"
+msgstr "Уклони"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tm/queryoptions.ui:32
+#, kde-format
+msgid "TM:"
+msgstr "ТМ:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, querySource)
+#: src/tm/queryoptions.ui:70
+#, kde-format
+msgid ""
+"Search expression for source language part.\n"
+"Press Enter to start the search.\n"
+"Press Ctrl+L to go to this control."
+msgstr ""
+"<html>Израз за претрагу у изворном језику. Притисните <b>Enter</b> да "
+"започнете тражење. Притисните <b>Ctrl+L</b> да позовете ову контролу.</html>"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
+#. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
+#: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
+#, kde-format
+msgid "Show results that do not match search expression"
+msgstr "Прикажи резултате које не поклапа израз за претрагу"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tm/queryoptions.ui:139
+#, kde-format
+msgid "File mask:"
+msgstr "Маска фајла:"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, filemask)
+#: src/tm/queryoptions.ui:155
+#, kde-format
+msgid "Show only results from files with path matching specified mask"
+msgstr "Само резултати из фајлова чију путању поклапа задата маска."
+
+#. i18n: ectx: property (text), widget (QLabel, label_s)
+#: src/tm/queryoptions.ui:162
+#, kde-format
+msgid "Query syntax:"
+msgstr "Синтакса упита:"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:197
+#, kde-format
+msgid ""
+"Reads all project files into translation memory, updating old entries. The "
+"scanning will work in background."
+msgstr ""
+"Учитава све фајлове пројекта у преводилачку меморију, ажурирајући старе "
+"јединице. Скенирање ће радити у позадини."
+
+#. i18n: ectx: property (text), widget (QPushButton, doUpdateTM)
+#: src/tm/queryoptions.ui:200
+#, kde-format
+msgid "&Rescan project files"
+msgstr "&Скенирај фајлове пројекта"
+
+#: src/tm/tmmanager.cpp:60
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memories"
+msgstr "Преводилачке меморије"
+
+#: src/tm/tmmanager.cpp:94
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Directory to be scanned"
+msgstr "Фасцикла за скенирање"
+
+#: src/tm/tmmanager.cpp:105
+#, kde-format
+msgctxt "@title:window"
+msgid "New Translation Memory"
+msgstr "Нова преводилачка меморија"
+
+#: src/tm/tmmanager.cpp:105
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Properties"
+msgstr "Својства преводилачке меморије"
+
+#: src/tm/tmmanager.cpp:239
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to be imported into selected database"
+msgstr "ТМИкс фајл за увоз у изабрану базу"
+
+# >> @item
+#: src/tm/tmmanager.cpp:240 src/tm/tmmanager.cpp:260
+#, kde-format
+msgid "TMX files (*.tmx *.xml)"
+msgstr "ТМИкс фајлови"
+
+#: src/tm/tmmanager.cpp:259
+#, kde-format
+msgctxt "@title:window"
+msgid "Select TMX file to export selected database to"
+msgstr "ТМИкс фајл за извоз у изабрану базу"
+
+#: src/tm/tmscanapi.cpp:97
+#, kde-format
+msgid "Adding files to Lokalize translation memory"
+msgstr "Додавање фајлова у преводилачку меморију"
+
+#: src/tm/tmscanapi.cpp:98
+#, kde-format
+msgid "TM"
+msgstr "ТМ"
+
+#: src/tm/tmtab.cpp:374
+#, kde-format
+msgid "Substring"
+msgstr "Подниска"
+
+#: src/tm/tmtab.cpp:374
+#, kde-format
+msgid "Google-like"
+msgstr "Налик Гуглу"
+
+#: src/tm/tmtab.cpp:374
+#, kde-format
+msgid "Wildcard"
+msgstr "Џокери"
+
+#: src/tm/tmtab.cpp:381
+#, kde-format
+msgid "Space is AND operator. Case insensitive."
+msgstr "Размак је оператор И. Разликује величину слова."
+
+#: src/tm/tmtab.cpp:382
+#, kde-format
+msgid "Shell globs (* and ?). Case sensitive."
+msgstr "Скупљачи шкољке (* и ?). Разликује величину слова."
+
+#. i18nc("@title:window","Translation Memory"),false);
+#: src/tm/tmtab.cpp:398 src/tm/tmview.cpp:136 src/tm/tmview.cpp:142
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory"
+msgstr "Преводилачка меморија"
+
+#: src/tm/tmtab.cpp:609
+#, kde-format
+msgctxt "@info:status message entries"
+msgid "Total: %1 (%2)"
+msgstr "укупно: %1 (%2)"
+
+#: src/tm/tmtab.cpp:638 src/tm/tmview.cpp:588
+#, kde-format
+msgctxt "@info"
+msgid ""
+"The file %1 does not exist, it has been removed from the translation memory."
+msgstr ""
+
+#: src/tm/tmview.cpp:181 src/webquery/webqueryview.cpp:106
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Double-click any word to insert it into translation"
+msgstr "Двокликните на неку реч да је уметнете у превод"
+
+# добар пример неједнозначности
+#: src/tm/tmview.cpp:293
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Batch translation memory filling"
+msgstr "Пакетно испуњавање из преводилачке меморије"
+
+#: src/tm/tmview.cpp:296
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been completed."
+msgstr "Пакетно превођење је довршено."
+
+#: src/tm/tmview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "No suggestions with exact matches were found."
+msgstr "Није нађен ниједан предлог с тачним поклапањем."
+
+#: src/tm/tmview.cpp:306
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation complete"
+msgstr "Пакетно превођење довршено"
+
+#: src/tm/tmview.cpp:320 src/tm/tmview.cpp:335
+#, kde-format
+msgctxt "@title"
+msgid "Batch translation"
+msgstr "Пакетно превођење"
+
+#: src/tm/tmview.cpp:321 src/tm/tmview.cpp:336
+#, kde-format
+msgctxt "@info"
+msgid "Batch translation has been scheduled."
+msgstr "Пакетно превођење је заказано."
+
+#: src/tm/tmview.cpp:470
+#, fuzzy, kde-format
+#| msgctxt "percentages in statusbar"
+#| msgid " (%1%)"
+msgctxt "%1 is the TM entry score in percentage"
+msgid "%1%"
+msgstr " (%1%)"
+
+#: src/tm/tmview.cpp:472
+#, kde-format
+msgctxt "%1 is the number of times this TM entry has been found"
+msgid "(1 time)"
+msgid_plural "(%1 times)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: src/tm/tmview.cpp:553
+#, kde-format
+msgctxt "File argument in tooltip, when file is current file"
+msgid "this"
+msgstr "овај"
+
+#: src/tm/tmview.cpp:554
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "File: %1<br />Addition date: %2"
+msgstr "Фајл: %1<br />Датум додавања: %2"
+
+#: src/tm/tmview.cpp:556
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change date: %1"
+msgstr "<br />Датум последње измене: %1"
+
+#: src/tm/tmview.cpp:558
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Last change author: %1"
+msgstr "<br />Аутор последње измене: %1"
+
+#: src/tm/tmview.cpp:559
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />TM: %1"
+msgstr "<br />ТМ: %1"
+
+#: src/tm/tmview.cpp:561
+#, kde-format
+msgctxt "@info:tooltip on TM entry continues"
+msgid "<br />Is not present in the file anymore"
+msgstr "<br />више је нема у фајлу"
+
+#: src/tm/tmview.cpp:571
+#, kde-format
+msgid ""
+"<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"?<html>Желите ли заиста да уклоните јединицу:<br/><i>%1</i><br/>из "
+"преводилачке меморије %2?</html>"
+
+#: src/tm/tmview.cpp:572
+#, kde-format
+msgctxt "@title:window"
+msgid "Translation Memory Entry Removal"
+msgstr "Уклањање јединице из преводилачке меморије"
+
+#: src/tm/tmview.cpp:604
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this entry"
+msgstr "Уклони ову јединицу"
+
+#: src/tm/tmview.cpp:606
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open file containing this entry"
+msgstr "Отвори фајл са овом јединицом"
+
+#: src/tm/tmview.cpp:613
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Remove this missing file from TM"
+msgstr ""
+
+#: src/tm/tmview.cpp:624
+#, fuzzy, kde-format
+#| msgid ""
+#| "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
+#| "translation memory %2?</html>"
+msgid ""
+"<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
+"translation memory %2?</html>"
+msgstr ""
+"?<html>Желите ли заиста да уклоните јединицу:<br/><i>%1</i><br/>из "
+"преводилачке меморије %2?</html>"
+
+#: src/tm/tmview.cpp:625
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Translation Memory Entry Removal"
+msgctxt "@title:window"
+msgid "Translation Memory Missing File Removal"
+msgstr "Уклањање јединице из преводилачке меморије"
+
+#: src/tm/tmview.cpp:1001
+#, kde-format
+msgctxt "@item Undo action"
+msgid "Use translation memory suggestion"
+msgstr "Употреби предлог преводилачке меморије"
+
+#: src/tools/widgettextcaptureconfig.cpp:38
+#, kde-format
+msgctxt "@title"
+msgid "Widget Text Capture"
+msgstr "Захватање текста виџета"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tools/widgettextcaptureconfig.ui:26
+#, kde-format
+msgid ""
+"<html>\n"
+"<p align=\"justify\">To facilitate KDE translation, Lokalize can capture "
+"text from applications' user interfaces and search for translation files "
+"containing the text.</p>\n"
+"<p align=\"justify\">When enabled, the capture can be initiated by middle "
+"mouse clicking on any non-editable GUI element (widget). After that, switch "
+"to the Lokalize window and choose the entry with this text. Even if several "
+"files contain the same string, the right one will be chosen in most cases.</"
+"p>\n"
+"<p align=\"justify\">Remember that you need to have an up-to-date actual "
+"translation memory with all translation files indexed for this feature to "
+"work.</p></html>"
+msgstr ""
+"<html><p>За потпомагање превођења у КДЕ‑у, Локализуј може да захвати текст "
+"из корисничког сучеља програма и потражи фајлове превода који садрже тај "
+"текст.</p><p>Ако је укључено, текст сучеља се хвата средњим кликом миша на "
+"било који неуредиви елемент ГУИ‑ја (виџет). Потом се пребаците у прозор "
+"Локализуја и изаберете јединицу са овим текстом. Чак и када неколико фајлова "
+"садржи исту ниску, најчешће ће бити одабрана она права.</p><p>Имајте на уму "
+"да морате имати ажурну преводилачку меморију, са свим фајловима превода "
+"индексираним, да би ова могућност радила.</p></html>"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/tools/widgettextcaptureconfig.ui:42
+#, kde-format
+msgid "Middle Mouse Button Click Reaction"
+msgstr "Одзив на клик средњим дугметом миша"
+
+#. i18n: ectx: property (text), widget (QRadioButton, none)
+#: src/tools/widgettextcaptureconfig.ui:48
+#, kde-format
+msgid "None"
+msgstr "Никакав"
+
+#. i18n: ectx: property (text), widget (QRadioButton, search)
+#: src/tools/widgettextcaptureconfig.ui:58
+#, kde-format
+msgid "Search GUI element text in translation memory"
+msgstr "Потражи текст виџета у преводилачкој меморији"
+
+#. i18n: ectx: property (text), widget (QRadioButton, clipboard)
+#: src/tools/widgettextcaptureconfig.ui:65
+#, kde-format
+msgid "Copy GUI element text to clipboard"
+msgstr "Копирај текст виџета у клипборд"
+
+#. i18n: ectx: property (text), widget (QPushButton, queryBtn)
+#: src/webquery/querycontrol.ui:8
+#, kde-format
+msgid "Query"
+msgstr "Упитај"
+
+#. i18n: ectx: property (text), widget (QCheckBox, autoQuery)
+#: src/webquery/querycontrol.ui:15
+#, kde-format
+msgid "Autoquery"
+msgstr "Аутоматски упити"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:22
+#, kde-format
+msgid "Prefetch for the next untranslated"
+msgstr "Предохват за следећу непреведену"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox)
+#: src/webquery/querycontrol.ui:25
+#, kde-format
+msgid "Prefetch"
+msgstr "Предохват"
+
+#: src/webquery/webqueryview.cpp:64
+#, kde-format
+msgid "Web Queries"
+msgstr "Веб упити"
+
+#: src/xlifftextedit.cpp:1007
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Lookup selected text in translation memory"
+msgstr "Потражи изабрани текст у преводилачкој меморији"
+
+#: src/xlifftextedit.cpp:1029 src/xlifftextedit.cpp:1107
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Replace text"
+msgstr "Замена текста"
+
+#: src/xlifftextedit.cpp:1144
+#, kde-format
+msgid "no spellcheck available"
+msgstr "провера правописа није доступна"
+
+#: src/xlifftextedit.cpp:1158
+#, kde-format
+msgid "An error was reported: %1"
+msgstr ""
+
+# под target мисли се на циљни језик, тј. превод
+#: src/xlifftextedit.cpp:1284
+#, kde-format
+msgctxt "@item Undo action item"
+msgid "Copy source to target"
+msgstr "Копирање извора у превод"
