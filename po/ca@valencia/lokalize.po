@@ -1512,7 +1512,7 @@ msgstr "S'ha produït un error en obrir el fitxer %1"
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
-msgstr "Guarda el fitxer com a"
+msgstr "Anomeneu i guardeu el fitxer"
 
 #: src/editortab.cpp:936
 #, kde-format
@@ -3015,8 +3015,8 @@ msgid ""
 "others)."
 msgstr ""
 "Marqueu-la per a mostrar si una cadena acaba amb un espai (sovint és "
-"important en visualitzar-la a la interfície d'usuari o quan es concatena amb "
-"d'altres)."
+"important en visualitzar-la en la interfície d'usuari o quan es concatena "
+"amb d'altres)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightSpaces)
 #: src/prefs/prefs_appearance.ui:143
