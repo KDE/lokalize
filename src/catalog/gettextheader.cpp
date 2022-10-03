@@ -11,6 +11,7 @@
 
 #include "lokalize_debug.h"
 
+#include "gettextheaderparser.h"
 #include "project.h"
 
 #include "version.h"
@@ -279,22 +280,9 @@ void updateHeader(QString& header,
         }
     }
 
+    GetTextHeaderParser::updateLastTranslator(headerList, Settings::authorName(), Settings::authorEmail());
+
     bool found = false;
-    authorNameEmail = Settings::authorName();
-    if (!Settings::authorEmail().isEmpty())
-        authorNameEmail += (QStringLiteral(" <") + Settings::authorEmail() + QLatin1Char('>'));
-    temp = QStringLiteral("Last-Translator: ") + authorNameEmail + BACKSLASH_N;
-
-    QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
-    for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
-        if (it->contains(lt)) {
-            if (forSaving) *it = temp;
-            found = true;
-        }
-    }
-    if (Q_UNLIKELY(!found))
-        headerList.append(temp);
-
     temp = QStringLiteral("PO-Revision-Date: ") + formatGettextDate(QDateTime::currentDateTime()) + BACKSLASH_N;
     QRegExp poRevDate(QStringLiteral("^ *PO-Revision-Date:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {

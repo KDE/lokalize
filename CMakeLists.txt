@@ -21,8 +21,9 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMAddAppIcon)
 include(ECMQtDeclareLoggingCategory)
+include(ECMAddTests)
 
-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql Test)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons DocTools Sonnet DBusAddons Crash)
 
@@ -31,13 +32,14 @@ set_package_properties(
     HUNSPELL PROPERTIES
     DESCRIPTION "Library used for stemming"
     URL         "https://hunspell.github.io/"
-    TYPE        REQUIRED 
+    TYPE        REQUIRED
     PURPOSE     "Required to build Lokalize.")
 
 add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(scripts)
 add_subdirectory(icons)
+add_subdirectory(autotests)
 
 install(FILES org.kde.lokalize.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
