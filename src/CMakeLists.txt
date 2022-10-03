@@ -108,6 +108,7 @@ set(liblokalize_SRCS
     catalog/catalog.cpp
     catalog/catalogstring.cpp
     catalog/gettextheader.cpp
+    catalog/gettextheaderparser.cpp
     catalog/gettext/gettextstorage.cpp
     catalog/gettext/catalogitem.cpp
     catalog/gettext/importplugin.cpp
