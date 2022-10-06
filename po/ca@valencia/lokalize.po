@@ -1775,7 +1775,7 @@ msgstr "Lokalize ha finalitzat la verificació ortogràfica"
 #: src/editorui.rc:5 src/lokalizemainwindowui.rc:5
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (edit)
 #: src/editorui.rc:37 src/project/projectmanagerui.rc:22
@@ -4054,8 +4054,8 @@ msgstr "Segur que voleu obrir tots estos fitxers?"
 #, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] "&Obri %1 fitxer"
-msgstr[1] "&Obri %1 fitxers"
+msgstr[0] "O&bri %1 fitxer"
+msgstr[1] "O&bri %1 fitxers"
 
 #: src/tm/dbfilesmodel.cpp:99
 #, kde-format
