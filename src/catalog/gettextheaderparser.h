@@ -20,6 +20,15 @@ public:
     static void updateGeneralCopyrightYear(QStringList &commentList);
     static void updateAuthors(QStringList &commentList, const QString &authorName, const QString &authorEmail);
     static QString joinAuthor(const QString &authorName, const QString &authorEmail);
+    /**
+     * Parse the copyright line and return updated SPDX compatible license line with updated year
+     *
+     * This function performs no operation if the current year (due to system time) is already present in string.
+     * The returned line is prefixed by a "#" comment marker.
+     */
+    static QString updateAuthorCopyrightLine(const QString &line);
+
+    static const QString sCurrentYear;
 };
 
 #endif

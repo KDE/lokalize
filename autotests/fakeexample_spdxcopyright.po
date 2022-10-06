@@ -1,0 +1,25 @@
+# German translations for Foo package.
+# Copyright (C) 2020 This file is copyright:
+# This file is distributed under the same license as the kjournald package.
+# SPDX-FileCopyrightText: 2020 John Doe <john@example.com>
+#
+# Automatically generated, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: foo\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-08-22 00:44+0000\n"
+"PO-Revision-Date: 2020-06-15 11:35+0200\n"
+"Last-Translator: John Doe <john@example.com>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.04.1\n"
+
+#: browser/FilterCriteriaView.qml:26
+#, kde-format
+msgid "Expanded"
+msgstr "Ausgeklappt"
