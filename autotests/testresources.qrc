@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>fakeexample.po</file>
         <file>faketemplate.pot</file>
+        <file>fakeexample_spdxcopyright.po</file>
     </qresource>
 </RCC>

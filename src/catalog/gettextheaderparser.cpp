@@ -8,13 +8,33 @@
 */
 
 #include "gettextheaderparser.h"
+#include "lokalize_debug.h"
 #include <QStringList>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QLocale>
 #include <QDate>
 #include <QDebug>
 
-const QString BACKSLASH_N = QStringLiteral("\\n");
+const QString GetTextHeaderParser::sCurrentYear = QLocale(QLocale::C).toString(QDate::currentDate(), QStringLiteral("yyyy"));
+
+QRegularExpression copyrightRegExp()
+{
+    static auto regexp = QRegularExpression(
+        "#[ ]*"
+        "(SPDX-FileCopyrightText:|[cC]opyright(\\s*:?\\s+\\([cC]\\))|(?<![cC]opyright )\\([cC]\\)|[cC]opyright\\s+©|(?<![cC]opyright )©|[cC]opyright(\\s*:)?)?"
+        "[, ]+"
+        "(?<years>([0-9]+(-[0-9]+| - [0-9]+| to [0-9]+|,[ ]?[0-9]+)*|YEAR))?"
+        "[, ]*"
+        "([bB]y[ ]+)?"
+        "(?<name>([\u00C0-\u017Fa-zA-Z\\-\\.]+( [\u00C0-\u017Fa-zA-Z\\-\\.]+)*))"
+        "[, ]*"
+        "(?<contact>[^\\s,]*)"
+        "[, ]*"
+        "(?<yearssuffix>([0-9]+(-[0-9]+| - [0-9]+| to [0-9]+|,[ ]?[0-9]+)*|YEAR))?"
+        );
+    return regexp;
+}
 
 QString GetTextHeaderParser::joinAuthor(const QString &authorName, const QString &authorEmail)
 {
@@ -27,9 +47,42 @@ QString GetTextHeaderParser::joinAuthor(const QString &authorName, const QString
     return outputString;
 }
 
+QString GetTextHeaderParser::updateAuthorCopyrightLine(const QString &line)
+{
+    QRegularExpression regExp = copyrightRegExp();
+    QString lineTrimmed = line.trimmed();
+    if (lineTrimmed.endsWith(".")) { // remove tailing "." if exists
+        lineTrimmed = lineTrimmed.left(lineTrimmed.length() - 1);
+    }
+    auto match = regExp.match(lineTrimmed);
+    while (match.hasMatch()) {
+        QString name = match.captured("name");
+        QString contact = match.captured("contact");
+        QString years = match.captured("years");
+        QString yearssuffix = match.captured("yearssuffix");
+        // handle traditional statements from Lokalize
+        if (years.isEmpty() && !yearssuffix.isEmpty()) {
+            years = yearssuffix;
+        } else  if (!years.isEmpty() && !yearssuffix.isEmpty()) {
+            years = years + ", " + yearssuffix;
+            qCDebug(LOKALIZE_LOG) << "Unexpected double copyright year statement detected, try to handle gracefully:" << line;
+        }
+        // handle year update
+        if (years.isEmpty()){
+            years = sCurrentYear;
+        }
+        if (!years.contains(sCurrentYear)) {
+            years.append(", " + sCurrentYear);
+        }
+        return QString("# SPDX-FileCopyrightText: %1 %2 %3").arg(years, name, contact).trimmed();
+    }
+    qCDebug(LOKALIZE_LOG) << "Cannot parse copyright line" << line;
+    return line;
+}
+
 void GetTextHeaderParser::updateLastTranslator(QStringList &headerList, const QString &authorName, const QString &authorEmail)
 {
-    const QString outputString = QStringLiteral("Last-Translator: ") + joinAuthor(authorName, authorEmail) + BACKSLASH_N;
+    const QString outputString = QStringLiteral("Last-Translator: ") + joinAuthor(authorName, authorEmail) + QStringLiteral("\\n");
 
     const QRegExp regex(QStringLiteral("^ *Last-Translator:.*"));
     auto needle = std::find_if(headerList.begin(), headerList.end(), [regex](const QString &line){
@@ -57,92 +110,43 @@ void GetTextHeaderParser::updateGeneralCopyrightYear(QStringList &commentList)
 
 void GetTextHeaderParser::updateAuthors(QStringList &commentList, const QString &authorName, const QString &authorEmail)
 {
-    QStringList foundAuthors;
-    const QLocale cLocale(QLocale::C);
-    const QString authorNameEmail = GetTextHeaderParser::joinAuthor(authorName, authorEmail);
-
-    QString temp = QStringLiteral("# ") + authorNameEmail + QStringLiteral(", ") + cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) + '.';
-
-    // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
-    QRegExp regexpAuthorYear(QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)"));
-    QRegExp regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
-    if (commentList.isEmpty()) {
-        commentList.append(temp);
-        commentList.append(QString());
-    } else {
-        auto it = commentList.begin();
-        while (it != commentList.end()) {
-            bool deleteItem = false;
-            if (it->indexOf(QLatin1String("copyright"), 0, Qt::CaseInsensitive) != -1) {
-                // We have a line with a copyright. It should not be moved.
-            } else if (it->contains(QRegExp(QStringLiteral("#, *fuzzy"))))
-                deleteItem = true;
-            else if (it->contains(regexpYearAlone)) {
+    // cleanup template parameters and obsolete information
+    commentList.erase(
+        std::remove_if(commentList.begin(), commentList.end(), [](const QString &line){
+            const QRegExp regexpYearAlone(QStringLiteral("^# , \\d{4}.?\\s*$"));
+            if (line.contains(QRegExp(QStringLiteral("#, *fuzzy")))
                 // We have found a year number that is preceded by a comma.
                 // That is typical of KBabel 1.10 (and earlier?) when there is neither an author name nor an email
                 // Remove the entry
-                deleteItem = true;
-            } else if (it->contains(QLatin1String("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."))) {
-                deleteItem = true;
-            } else if (it->contains(QLatin1String("# SOME DESCRIPTIVE TITLE")))
-                deleteItem = true;
-            else if (it->contains(regexpAuthorYear)) {   // email address followed by year
-                if (!foundAuthors.contains((*it))) {
-                    // The author line is new (and not a duplicate), so add it to the author line list
-                    foundAuthors.append((*it));
-                }
-                // Delete also non-duplicated entry, as now all what is needed will be processed in foundAuthors
-                deleteItem = true;
+                || line.contains(regexpYearAlone)
+                || line.contains(QLatin1String("# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."))
+                || line.contains(QLatin1String("# SOME DESCRIPTIVE TITLE"))) {
+                qCDebug(LOKALIZE_LOG) << "Removing line:" << line;
+                return true;
             }
+            return false;
+        }),
+        commentList.end()
+    );
 
-            if (deleteItem)
-                it = commentList.erase(it);
-            else
-                ++it;
+    // update author or add as new
+    auto authorLine = std::find_if(commentList.begin(), commentList.end(), [authorName, authorEmail](const QString &line){
+        static const QRegularExpression regExp = copyrightRegExp();
+        QString lineTrimmed = line.trimmed();
+        if (lineTrimmed.endsWith(".")) { // remove tailing "." if exists
+            lineTrimmed = lineTrimmed.left(lineTrimmed.length() - 1);
         }
-
-        if (!foundAuthors.isEmpty()) {
-            bool found = false;
-            bool foundAuthor = false;
-
-            const QString cy = cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy"));
-
-            auto ait = foundAuthors.end();
-            for (it = foundAuthors.begin() ; it != foundAuthors.end(); ++it) {
-                if (it->contains(authorName) || it->contains(authorEmail)) {
-                    foundAuthor = true;
-                    if (it->contains(cy))
-                        found = true;
-                    else
-                        ait = it;
-                }
-            }
-            if (!found) {
-                if (!foundAuthor) {
-                    foundAuthors.append(temp);
-                } else if (ait != foundAuthors.end()) {
-                    //update years
-                    const int index = (*ait).lastIndexOf(QRegExp(QStringLiteral("[\\d]+[\\d\\-, ]*")));
-                    if (index == -1) {
-                        (*ait) += QStringLiteral(", ") + cy;
-                    } else {
-                        ait->insert(index + 1, QStringLiteral(", ") + cy);
-                    }
-                } else {
-                    qDebug() << "INTERNAL ERROR: author found but iterator dangling!";
-                }
-            }
-
-        } else {
-            foundAuthors.append(temp);
+        const auto match = regExp.match(lineTrimmed);
+        if (match.hasMatch()
+            && (line.contains(authorName) || line.contains(authorEmail))) {
+            return true;
         }
+        return false;
+    });
 
-        for (QString author : qAsConst(foundAuthors)) {
-            // ensure dot at the end of copyright
-            if (!author.endsWith(QLatin1Char('.'))) {
-                author += QLatin1Char('.');
-            }
-            commentList.append(author);
-        }
+    if (authorLine == commentList.end()) { // author missing, add as new
+        commentList << QStringLiteral("# SPDX-FileCopyrightText: ") + sCurrentYear + " " + joinAuthor(authorName, authorEmail);
+    } else { // update years
+        *authorLine = updateAuthorCopyrightLine(*authorLine);
     }
 }
