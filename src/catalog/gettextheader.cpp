@@ -449,7 +449,6 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    //m_header.setMsgstr( headerList.join( "\n" ) );
     header = headerList.join(QStringLiteral("\n"));
 //END header itself
 
@@ -458,7 +457,6 @@ void updateHeader(QString& header,
     // qCDebug(LOKALIZE_LOG) << "HEADER COMMENT: " << commentList;
 
     GetTextHeaderParser::updateAuthors(commentList, Settings::authorName(), Settings::authorEmail());
-    //m_header.setComment( commentList.join( "\n" ) );
     comment = commentList.join(QStringLiteral("\n"));
 
 //END comment = description, copyrights
