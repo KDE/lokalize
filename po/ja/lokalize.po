@@ -4560,7 +4560,3 @@ msgstr "エラーが発生しました: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "原文を翻訳にコピー"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Scripts"
-#~ msgstr "スクリプト"
