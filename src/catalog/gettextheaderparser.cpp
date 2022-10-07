@@ -1,16 +1,16 @@
 /*
-  This file is part of Lokalize
+    This file is part of Lokalize
 
-  SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shafff@ukr.net>
-  SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+    SPDX-FileCopyrightText: 2008-2014 Nick Shaforostoff <shafff@ukr.net>
+    SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+    SPDX-FileCopyrightText: 2022 Andreas Cord-Landwehr <cordlandwehr@kde.org>
 
-  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
 #include "gettextheaderparser.h"
 #include "lokalize_debug.h"
 #include <QStringList>
-#include <QRegExp>
 #include <QRegularExpression>
 #include <QLocale>
 #include <QDate>
@@ -84,7 +84,7 @@ void GetTextHeaderParser::updateLastTranslator(QStringList &headerList, const QS
 {
     const QString outputString = QStringLiteral("Last-Translator: ") + joinAuthor(authorName, authorEmail) + QStringLiteral("\\n");
 
-    const QRegExp regex(QStringLiteral("^ *Last-Translator:.*"));
+    const QRegularExpression regex(QStringLiteral("^ *Last-Translator:.*"));
     auto needle = std::find_if(headerList.begin(), headerList.end(), [regex](const QString &line){
         return line.contains(regex);
     });
@@ -99,7 +99,7 @@ void GetTextHeaderParser::updateGeneralCopyrightYear(QStringList &commentList)
 {
     const QLocale cLocale(QLocale::C);
     // U+00A9 is the Copyright sign
-    const QRegExp regex(QStringLiteral("^# *Copyright (\\(C\\)|\\x00a9).*This file is copyright:"));
+    const QRegularExpression regex(QStringLiteral("^# *Copyright (\\(C\\)|\\x00a9).*This file is copyright:"));
     auto needle = std::find_if(commentList.begin(), commentList.end(), [regex](const QString &line){
         return line.contains(regex);
     });
