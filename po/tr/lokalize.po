@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2022-09-29 22:25+0300\n"
+"PO-Revision-Date: 2022-10-08 15:28+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -840,7 +840,7 @@ msgstr "Kişisel filtreyi sıfırla"
 #: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Case insensitive"
-msgstr "BÜYÜK-küçük Harf Duyarsız"
+msgstr "BÜYÜK/küçük harf duyarsız"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, m_ignoreAccelMarks)
 #: src/cataloglistview/cataloglistview.cpp:193 src/kaider_findextension.ui:40
@@ -1891,7 +1891,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:118
 #, kde-format
 msgid "Invert"
-msgstr "Tersine Çevir"
+msgstr "Tersine çevir"
 
 #. i18n: ectx: property (text), widget (QLabel, querySourceLabel)
 #: src/filesearch/filesearchoptions.ui:38 src/tm/queryoptions.ui:85
@@ -1928,7 +1928,7 @@ msgstr "Hedef:"
 #: src/filesearch/massreplaceoptions.ui:85
 #, kde-format
 msgid "Match case"
-msgstr "BÜYÜK-küçük Harf Eşleştir"
+msgstr "BÜYÜK/küçük harf eşleştir"
 
 #. i18n: ectx: property (text), widget (QPushButton, doFind)
 #: src/filesearch/filesearchoptions.ui:96 src/tm/queryoptions.ui:190
@@ -1985,7 +1985,7 @@ msgstr "Dosyalarda Ara ve Değiştir"
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
-msgstr "Çoklu değiştirme"
+msgstr "Çoklu Değiştirme"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/filesearch/massreplaceoptions.ui:17
@@ -2526,7 +2526,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title toolview name"
 msgid "Unit metadata"
-msgstr "Birim Üstverisi"
+msgstr "Birim Üst Verisi"
 
 #: src/msgctxtview.cpp:102
 #, kde-format
@@ -3139,7 +3139,7 @@ msgstr "&E-posta:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "&Name:"
-msgstr "&İsim:"
+msgstr "&Ad:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
 #: src/prefs/prefs_identity.ui:74
