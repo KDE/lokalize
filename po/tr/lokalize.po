@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2022-10-08 15:28+0300\n"
+"PO-Revision-Date: 2022-10-09 04:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1104,7 +1104,7 @@ msgstr "Çeviri Belleği"
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
-msgstr "Sözlük"
+msgstr "Kavram Dizini"
 
 #: src/editortab.cpp:224
 #, kde-format
@@ -1766,7 +1766,7 @@ msgstr "D&üzen"
 #: src/editorui.rc:70
 #, kde-format
 msgid "&Glossary"
-msgstr "&Sözlük"
+msgstr "&Kavram Dizini"
 
 #. i18n: ectx: Menu (webquery)
 #: src/editorui.rc:95
@@ -1880,9 +1880,9 @@ msgid ""
 "Press Esc to stop the search."
 msgstr ""
 "Kaynak dil bölümü için arama ifadesi.\n"
-"Bu denetime gitmek için Ctrl+L tuşlarına basın.\n"
-"Aramayı başlatmak için Enter tuşuna basın.\n"
-"Aramayı durdurmak için Esc tuşuna basın."
+"Bu denetime gitmek için Ctrl+L düğmelerine basın.\n"
+"Aramayı başlatmak için Enter düğmesine basın.\n"
+"Aramayı durdurmak için Esc düğmesine basın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -1907,7 +1907,7 @@ msgid ""
 "Press Enter to start the search."
 msgstr ""
 "Hedef dil bölümü için arama ifadesi.\n"
-"Aramayı başlatmak için Enter tuşuna basın."
+"Aramayı başlatmak için Enter düğmesine basın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
 #. i18n: ectx: property (text), widget (QCheckBox, regEx)
@@ -2023,7 +2023,7 @@ msgstr "Konu Alanı"
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
-msgstr "Sözlük"
+msgstr "Kavram Dizini"
 
 #: src/glossary/glossaryview.cpp:56
 #, kde-format
@@ -2037,20 +2037,20 @@ msgstr ""
 "<p>Ortak terim çevirileri burada görünür.</p><p>Çevirisini eklemek için, "
 "gösterilen bir terimin yakınındaki kısayola basın.</p><p>Yeni bir giriş "
 "eklemek için bağlam menüsünü kullanın (ipucu:&nbsp;<interface>Yeni&nbsp;"
-"terim&nbsp;tanımla</interface> tıklamadan önce orijinal ve çeviri "
-"alanlarındaki sözcükleri seçin).</p>"
+"terim&nbsp;tanımla</interface> tıklamadan önce özgün ve çeviri alanlarındaki "
+"sözcükleri seçin).</p>"
 
 #: src/glossary/glossarywindow.cpp:238
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
-msgstr "Diskten geri yükle"
+msgstr "Diskten Geri Yükle"
 
 #: src/glossary/glossarywindow.cpp:239
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
-msgstr "Sözlüğü diskten yeniden yükle, tüm değişiklikler kaybediliyor"
+msgstr "Tüm değişiklikleri atarak kavram dizinini diskten yeniden yükle"
 
 #: src/glossary/glossarywindow.cpp:489
 #, kde-format
@@ -2059,7 +2059,7 @@ msgid ""
 "The glossary contains unsaved changes.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
-"Sözlük kaydedilmemiş değişiklikler içeriyor.\n"
+"Kavram dizini, kaydedilmemiş değişiklikler içeriyor.\n"
 "Bu değişiklikleri kaydetmek mi yok saymak mı istiyorsunuz?"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -2121,8 +2121,8 @@ msgid ""
 "That is, there may be several entries with the same word/word sequence "
 "expressing different meanings."
 msgstr ""
-"Not: Bir sözlük girdisi tam olarak bir terimin karşılığıdır, birebir sözcük "
-"karşılığı değildir.\n"
+"Not: Bir kavram dizini girdisi tam olarak bir terimin karşılığıdır, birebir "
+"sözcük karşılığı değildir.\n"
 "\n"
 "Bu nedenle, aynı sözcük dizilimine sahip farklı anlamlar taşıyan birden "
 "fazla girdi olabilir."
@@ -2210,7 +2210,7 @@ msgstr "Önceden etkin sekme"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
-msgstr "Sözlük"
+msgstr "Kavram Dizini"
 
 #: src/lokalizemainwindow.cpp:482
 #, kde-format
@@ -3491,7 +3491,7 @@ msgstr "Yollar"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Template files folder:"
-msgstr "Şablon dosyaları dizini:"
+msgstr "Şablon dosyaları klasörü:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, potBaseDir)
 #: src/project/prefs_project_advanced.ui:124
@@ -3509,14 +3509,14 @@ msgstr ""
 "\n"
 "Bu yolu, tüm alt projelerin paylaştığı, boş çeviri dosyalarını\n"
 "(hiçbir dile çevrilmemiş doayaların olduğu yer)\n"
-"içeren dizine ayarlayın."
+"içeren klasöre ayarlayın."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_project_advanced.ui:131
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Branch folder:"
-msgstr "Dal (branch) dizini:"
+msgstr "Dal klasörü:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, branchDir)
 #: src/project/prefs_project_advanced.ui:161
@@ -3538,7 +3538,7 @@ msgid ""
 "\n"
 "See documentation for more details."
 msgstr ""
-"Bu ayar Eşitleme Kipi içindir.\n"
+"Bu ayar, Eşitleme Kipi içindir.\n"
 "\n"
 "Eşitleme kipi çevirilerde yapılan değişiklikleri bir projenin bir dalına\n"
 "otomatik olarak birleştirmek için kullanılır.\n"
@@ -3548,7 +3548,7 @@ msgstr ""
 "açacaktır.\n"
 "Ana dalda (trunk) her değişiklik yaptığınızda\n"
 "dal dizinindeki dosyalarda da aynı değişiklikler yapılacaktır.\n"
-"(tabii ki aynı İngilizce dizge dal dosyasında bulunuyorsa).\n"
+"(tabii ki aynı İngilizce dizi dal dosyasında bulunuyorsa).\n"
 "\n"
 "Daha fazla bilgi için belgelendirmeye bakın."
 
@@ -3557,7 +3557,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Alternate translations folder:"
-msgstr "Alternatif çeviriler dizini:"
+msgstr "Alternatif çeviriler klasörü:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, altDir)
 #: src/project/prefs_project_advanced.ui:195
@@ -3585,7 +3585,7 @@ msgstr ""
 "bulunduğunda\n"
 "Alternatif Çeviriler görünümünde kullanılabilir olacaktır.\n"
 "\n"
-"Muhtemelen dilinize yakın olan diğer hedef dillerinin çevirilerini "
+"Büyük olasılıkla, dilinize yakın olan diğer hedef dillerinin çevirilerini "
 "kullanacaksınız (örn. diğer bir alt proje).\n"
 "Ayrıca, diğer alt projenin çevirilerini anında veya makine tarafından "
 "dilinize çevrilmesini sağlayabilirsiniz.\n"
@@ -3621,7 +3621,7 @@ msgstr "Onaylayan"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Glossary:"
-msgstr "Sözlük:"
+msgstr "Kavram dizini:"
 
 #. i18n: ectx: property (text), widget (QLabel, l0)
 #: src/project/prefs_projectmain.ui:30
@@ -3675,14 +3675,14 @@ msgid ""
 msgstr ""
 "Burası genel ayarların yapıldığı yerdir. Bu yolu projenizin (ya da hedef "
 "diliniz için alt proje için)\n"
-"çeviri dosyalarının bulunduğu dizine ayarlayın."
+"çeviri dosyalarının bulunduğu klasöre ayarlayın."
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/project/prefs_projectmain.ui:141
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Root folder:"
-msgstr "Kök dizin:"
+msgstr "Kök klasör:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:155
@@ -3727,7 +3727,7 @@ msgstr "%1 %2 Çeviri"
 #: src/project/projectbase.kcfg:11
 #, kde-format
 msgid "default"
-msgstr "varsayılan"
+msgstr "öntanımlı"
 
 #. i18n: ectx: label, entry (LangCode), group (General)
 #: src/project/projectbase.kcfg:18
@@ -3769,7 +3769,7 @@ msgstr "POT dosyalarının ana dizini (çevrilecek şablon dosyaları)"
 #: src/project/projectbase.kcfg:73
 #, kde-format
 msgid "Project's glossary"
-msgstr "Projenin sözlüğü"
+msgstr "Projenin kavram dizini"
 
 #: src/project/projectmodel.cpp:510
 #, kde-format
@@ -4041,7 +4041,7 @@ msgstr "Çiftler"
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
-msgstr "Biricik orijinal girdiler"
+msgstr "Benzersiz özgün girdiler"
 
 #: src/tm/dbfilesmodel.cpp:104
 #, kde-format
@@ -4190,8 +4190,8 @@ msgid ""
 "Press Ctrl+L to go to this control."
 msgstr ""
 "Kaynak dil bölümü için arama ifadesi.\n"
-"Aramayı başlatmak için Enter tuşuna basın.\n"
-"Bu denetime gitmek için Ctrl+L tuşlarına basın."
+"Aramayı başlatmak için Enter düğmesine basın.\n"
+"Bu denetime gitmek için Ctrl+L düğmelerine basın."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
@@ -4505,11 +4505,11 @@ msgstr ""
 "<p align=\"justify\">KDE çevirisini kolaylaştırmak için, Lokalize "
 "uygulamaların kullanıcı arayüzünden metni alabilir ve bu metni içeren çeviri "
 "dosyalarında arayabilir.</p>\n"
-"<p align=\"justify\">Etkinleştirildiğinde, herhangi bir düzenlenemez GUI "
-"ögesi üzerinde (gereçler) farenin orta tuşu ile tıklanıldığında yakalama "
-"işlemi başlatılır. Ardından, Lokalize penceresine geçiş yapın ve bu metni "
-"içeren girişi seçin. Eğer birden fazla dosya aynı metni içeriyorsa, çoğu "
-"durumda doğru olan seçilecektir.</p>\n"
+"<p align=\"justify\">Etkinleştirildiğinde, herhangi bir düzenlenemez "
+"kullanıcı arayüzü ögesi üzerinde (araç takımı) farenin orta düğmesi ile "
+"tıklanıldığında yakalama işlemi başlatılır. Ardından, Lokalize penceresine "
+"geçiş yapın ve bu metni içeren girişi seçin. Eğer birden fazla dosya aynı "
+"metni içeriyorsa çoğu durumda doğru olan seçilecektir.</p>\n"
 "<p align=\"justify\">Unutmayın: Bu özellik için tüm çeviri dosyaları "
 "dizinlenmiş güncel bir çeviri belleğine sahip olmanız gerekiyor.</p></html>"
 
@@ -4517,7 +4517,7 @@ msgstr ""
 #: src/tools/widgettextcaptureconfig.ui:42
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
-msgstr "Fare Orta Tuş Tıklaması Eylemi"
+msgstr "Fare Orta Düğme Tıklaması Eylemi"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
 #: src/tools/widgettextcaptureconfig.ui:48
