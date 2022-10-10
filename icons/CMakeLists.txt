@@ -1,5 +1,9 @@
 include(ECMInstallIcons)
 add_subdirectory(global)
+add_subdirectory(sr)
+add_subdirectory(sr@ijekavian)
+add_subdirectory(sr@ijekavianlatin)
+add_subdirectory(sr@latin)
 
 ecm_install_icons(ICONS
     16-actions-approved.png
