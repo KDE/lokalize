@@ -85,7 +85,7 @@ msgid ""
 "Could not find template file for the merge:\n"
 "%1"
 msgstr ""
-"No s'ha pogut trobar el fitxer de plantilla a fusionar:\n"
+"No s'ha pogut trobar el fitxer de plantilla que s'ha de fusionar:\n"
 "%1"
 
 #. i18n: tag collection attribute text
@@ -2487,7 +2487,7 @@ msgstr "Carrega el projecte especificat."
 #: src/main.cpp:76
 #, kde-format
 msgid "Document to open"
-msgstr "Document que s'obrirà"
+msgstr "Document que s'ha d'obrir"
 
 #: src/mergemode/mergecatalog.cpp:246
 #, kde-format
@@ -2883,7 +2883,7 @@ msgstr "Projecte de traducció de Lokalize (*.lokalize)"
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
-msgstr "Seleccioneu la carpeta amb fitxers .po de Gettext a traduir"
+msgstr "Seleccioneu la carpeta amb fitxers .po de Gettext que s'han de traduir"
 
 #: src/prefs/prefs.cpp:230
 #, kde-format
@@ -3317,7 +3317,7 @@ msgid ""
 "following placeholders in order to set-up the commands: %u is the entry "
 "number, %f is the file name. For instance: posieve -u %u check-rules %f"
 msgstr ""
-"L'ordre de Pology a executar per tal de comprovar una entrada única. "
+"L'ordre de Pology que s'executarà per tal de comprovar una entrada única. "
 "Utilitzeu els següents marcadors de posició per a establir les ordres: %u és "
 "el número de l'entrada, %f és el nom del fitxer. Per exemple: posieve -u %u "
 "check-rules %f"
@@ -3326,7 +3326,8 @@ msgstr ""
 #: src/prefs/prefs_pology.ui:44
 #, kde-format
 msgid "The Pology command to run in order to check a single entry."
-msgstr "L'ordre de Pology a executar per tal de comprovar una única entrada."
+msgstr ""
+"L'ordre de Pology que s'executarà per tal de comprovar una única entrada."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandEntry)
 #: src/prefs/prefs_pology.ui:47
@@ -3347,15 +3348,16 @@ msgid ""
 "should include \"-s lokalize\", placeholder %f is the file name. For "
 "instance: posieve -s lokalize check-rules %f"
 msgstr ""
-"L'ordre de Pology a executar per tal de comprovar un fitxer sencer. Esta "
-"ordre cal que incloga «-s lokalize», el marcador de posició %f és el nom del "
-"fitxer. Per exemple: posieve -s lokalize check-rules %f"
+"L'ordre de Pology que s'executarà per tal de comprovar un fitxer sencer. "
+"Esta ordre cal que incloga «-s lokalize», el marcador de posició %f és el "
+"nom del fitxer. Per exemple: posieve -s lokalize check-rules %f"
 
 #. i18n: ectx: property (toolTip), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:70
 #, kde-format
 msgid "The Pology command to run in order to check a whole file."
-msgstr "L'ordre de Pology a executar per tal de comprovar un fitxer sencer."
+msgstr ""
+"L'ordre de Pology que s'executarà per tal de comprovar un fitxer sencer."
 
 #. i18n: ectx: property (whatsThis), widget (QPlainTextEdit, kcfg_PologyCommandFile)
 #: src/prefs/prefs_pology.ui:73
@@ -3806,7 +3808,7 @@ msgstr "La carpeta base per als fitxers PO (traduccions)"
 #: src/project/projectbase.kcfg:65
 #, kde-format
 msgid "The base directory for POT files (templates to be translated)"
-msgstr "La carpeta base per als fitxers POT (plantilles a traduir)"
+msgstr "La carpeta base per als fitxers POT (plantilles que s'han de traduir)"
 
 #. i18n: ectx: label, entry (GlossaryTbx), group (General)
 #: src/project/projectbase.kcfg:73
@@ -4242,7 +4244,7 @@ msgstr ""
 #: src/tm/queryoptions.ui:105 src/tm/queryoptions.ui:115
 #, kde-format
 msgid "Show results that do not match search expression"
-msgstr "Mostra els resultats que no coincidixen amb l'expressió a buscar"
+msgstr "Mostra els resultats que no coincidixen amb l'expressió que es busca"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/queryoptions.ui:139
