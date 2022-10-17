@@ -26,6 +26,7 @@
   <name xml:lang="id">Lokalize</name>
   <name xml:lang="is">Lokalize</name>
   <name xml:lang="it">Lokalize</name>
+  <name xml:lang="ka">Lokalize</name>
   <name xml:lang="ko">Lokalize</name>
   <name xml:lang="lt">Lokalize</name>
   <name xml:lang="my">လိုကယ်လိုက်ဇ်</name>
@@ -73,6 +74,7 @@
   <summary xml:lang="id">Sistem terjemahan berbantuan komputer</summary>
   <summary xml:lang="is">Tölvustutt þýðingarkerfi</summary>
   <summary xml:lang="it">Sistema di traduzione assistita</summary>
+  <summary xml:lang="ka">კომპიუტერული დახმარების მთარგმნელობითი სისტემა</summary>
   <summary xml:lang="ko">컴퓨터 보조 번역 시스템</summary>
   <summary xml:lang="lt">Kompiuterizuota vertimo sistema</summary>
   <summary xml:lang="my">ကွန်ပြူတာအကူအညီဖြင့် ဘာသာပြန်မှု စနစ်</summary>
