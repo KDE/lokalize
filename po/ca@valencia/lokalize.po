@@ -3453,7 +3453,7 @@ msgid ""
 "missing entry"
 msgstr ""
 "Suprimix els fitxers que falten de la memòria de traducció en tornar a "
-"explorar o quan feu clic a una entrada que falta"
+"explorar o quan feu clic en una entrada que falta"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
@@ -4568,7 +4568,7 @@ msgstr ""
 #: src/tools/widgettextcaptureconfig.ui:42
 #, kde-format
 msgid "Middle Mouse Button Click Reaction"
-msgstr "Reacció en fer clic en el botó central del ratolí"
+msgstr "Reacció fent clic amb el botó central del ratolí"
 
 #. i18n: ectx: property (text), widget (QRadioButton, none)
 #: src/tools/widgettextcaptureconfig.ui:48
