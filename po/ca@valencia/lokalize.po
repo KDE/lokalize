@@ -2194,7 +2194,7 @@ msgstr ""
 #: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
-msgstr "La funcionalitat de la MT requerix el mòdul SQLite de les Qt."
+msgstr "La característica de la MT requerix el mòdul SQLite de les Qt."
 
 #: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
 #, kde-format
@@ -2859,7 +2859,7 @@ msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
 "want to create a new project or open an existing project?"
 msgstr ""
-"Heu accedit a una funcionalitat que requerix que es carregue un projecte. "
+"Heu accedit a una característica que requerix que es carregue un projecte. "
 "Voleu crear un projecte nou o obrir-ne un que existisca?"
 
 #: src/prefs/prefs.cpp:177
@@ -3496,7 +3496,7 @@ msgid ""
 "specifying where markup is."
 msgstr ""
 "Expressió regular de marcatge. S'utilitza en buscar coincidències a la "
-"memòria de traducció i a la funció «Inserix una etiqueta».\n"
+"memòria de traducció i a la característica «Inserix una etiqueta».\n"
 "\n"
 "El valor predeterminat (adient per a textos basats en XML) és:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
@@ -4556,7 +4556,7 @@ msgstr ""
 "capturar text des de les aplicacions de la interfície d'usuari i buscar els "
 "fitxers de traducció que continguen el text.</p>\n"
 "<p align=\"justify\">Quan està activada, la captura s'iniciarà en fer clic "
-"sobre un element no editable de la IGU (giny). Després d'açò canvieu a la "
+"damunt d'un element no editable de la IGU (giny). Després d'açò canvieu a la "
 "finestra de Lokalize i trieu una entrada amb este text. Fins i tot donat el "
 "cas que diversos fitxers continguen la mateixa cadena, es triarà la correcta "
 "en la majoria dels casos.</p>\n"
