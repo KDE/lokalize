@@ -3947,9 +3947,9 @@ msgstr ""
 "les interfaces des programmes, laisser libre cours à vos talents en matière "
 "de graphisme, de création de thèmes, de sons, voire enrichir la "
 "documentation. C'est vous qui décidez !<br /><br />Visitez <a href=\"%1\">"
-"%1</a> pour plus d'informations sur certains projets auxquels vous pouvez "
+"%1</a> pour plus d'information sur certains projets auxquels vous pouvez "
 "participer.<br /><br />S'il vous faut davantage de renseignements ou de "
-"documentation, une vite sur le site <a href=\"%2\">%2</a> devrait vous "
+"documentation, une visite sur le site <a href=\"%2\">%2</a> devrait vous "
 "fournir ce dont vous avez besoin.</html>"
 
 #: src/project/projecttab.cpp:77
