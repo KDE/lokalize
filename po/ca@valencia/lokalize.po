@@ -2988,7 +2988,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Text removed in the newer string:"
-msgstr "Text eliminat a la cadena nova:"
+msgstr "Text eliminat en la cadena nova:"
 
 #. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_DelColor)
 #: src/prefs/prefs_appearance.ui:111
@@ -3229,7 +3229,7 @@ msgstr "Escriviu l'adreça del vostre correu electrònic"
 msgid ""
 "Write your email here so it will appear in the po file header with your name"
 msgstr ""
-"Escriviu ací l'adreça del vostre correu electrònic perquè figuri a la "
+"Escriviu ací l'adreça del vostre correu electrònic perquè figuri en la "
 "capçalera del fitxer po amb el vostre nom"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorLocalizedName)
@@ -3495,8 +3495,8 @@ msgid ""
 "It is only used for gettext PO files, as XLIFF format has its own way of "
 "specifying where markup is."
 msgstr ""
-"Expressió regular de marcatge. S'utilitza en buscar coincidències a la "
-"memòria de traducció i a la característica «Inserix una etiqueta».\n"
+"Expressió regular de marcatge. S'utilitza en buscar coincidències en la "
+"memòria de traducció i amb la característica «Inserix una etiqueta».\n"
 "\n"
 "El valor predeterminat (adient per a textos basats en XML) és:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
@@ -3547,7 +3547,7 @@ msgid ""
 msgstr ""
 "Habitualment el vostre projecte de traducció serà un subprojecte\n"
 "per a traduir el mateix text a múltiples idiomes.\n"
-"Establiu este camí cap a la carpeta que conté els fitxers buits de\n"
+"Establiu este camí a la carpeta que conté els fitxers buits de\n"
 "traducció (fitxers sense traducció a cap idioma)\n"
 "compartits entre tots els subprojectes."
 
@@ -4311,7 +4311,8 @@ msgstr "Propietats de la memòria de traducció"
 msgctxt "@title:window"
 msgid "Select TMX file to be imported into selected database"
 msgstr ""
-"Seleccioneu un fitxer TMX per a importar-lo a la base de dades seleccionada"
+"Seleccioneu un fitxer TMX per a importar-lo cap a la base de dades "
+"seleccionada"
 
 #: src/tm/tmmanager.cpp:216 src/tm/tmmanager.cpp:236
 #, kde-format

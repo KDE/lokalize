@@ -6,20 +6,21 @@
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2012, 2019.
 # Tamás Krutki <negusnyul@gmail.com>, 2011.
 # Balázs Úr <ur.balazs@fsf.hu>, 2012, 2013, 2014, 2021.
+# Kristof Kiszel <ulysses@fsf.hu>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2021-09-20 14:35+0200\n"
-"Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
+"PO-Revision-Date: 2022-11-05 22:14+0100\n"
+"Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 22.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -30,7 +31,7 @@ msgstr "Kiszel Kristóf,Krutki Tamás,Szántó Tamás,Úr Balázs"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"ulysses@kubuntu.org,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
+"ulysses@fsf.hu,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
 
 #. i18n: tag collection attribute text
 #. i18n: tag collection attribute comment
