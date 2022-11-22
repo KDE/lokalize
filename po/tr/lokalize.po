@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2022-11-15 02:04+0300\n"
+"PO-Revision-Date: 2022-11-21 22:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1760,7 +1760,7 @@ msgstr "&Dosya"
 #: src/editorui.rc:37 src/project/projectmanagerui.rc:22
 #, kde-format
 msgid "&Edit"
-msgstr "D&üzen"
+msgstr "Dü&zen"
 
 #. i18n: ectx: Menu (glossary)
 #: src/editorui.rc:70
@@ -1814,7 +1814,7 @@ msgstr "&İkincil Eşitleme Kaynağı"
 #: src/editorui.rc:228 src/lokalizemainwindowui.rc:49
 #, kde-format
 msgid "Tool&views"
-msgstr "Araç G&örünümleri"
+msgstr "&Araç Görünümleri"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: src/editorui.rc:251 src/filesearch/filesearchtabui.rc:11
