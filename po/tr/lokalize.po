@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2022-11-21 22:22+0300\n"
+"PO-Revision-Date: 2022-11-22 16:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1790,7 +1790,7 @@ msgstr "Alternatif Çeviriler"
 #: src/editorui.rc:161 src/project/projectmanagerui.rc:5
 #, kde-format
 msgid "&Go"
-msgstr "&Git"
+msgstr "G&it"
 
 #. i18n: ectx: Menu (bookmarks)
 #: src/editorui.rc:191
@@ -2298,7 +2298,7 @@ msgstr ""
 #: src/lokalizemainwindowui.rc:18
 #, kde-format
 msgid "&Project"
-msgstr "&Proje"
+msgstr "Pro&je"
 
 #. i18n: ectx: Menu (project_actions)
 #: src/lokalizemainwindowui.rc:31
