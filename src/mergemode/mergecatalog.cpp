@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2022 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -35,7 +36,8 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChang
 void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 {
     bool a = m_mergeDiffIndex.contains(pos.entry);
-    if (options & EvenIfNotInDiffIndex || !a) {
+    bool b = m_mergeEmptyIndex.contains(pos.entry);
+    if (options & EvenIfNotInDiffIndex || !a || b) {
         //sync changes
         DocPosition ourPos = pos;
         if ((ourPos.entry = m_map.at(ourPos.entry)) == -1)
@@ -53,6 +55,10 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 
         if (options & EvenIfNotInDiffIndex && a)
             m_mergeDiffIndex.removeAll(pos.entry);
+        if (b) {
+            m_mergeEmptyIndex.removeAll(pos.entry);
+            m_mergeDiffIndex.removeAll(pos.entry);
+        }
 
         m_modified = true;
         Q_EMIT signalEntryModified(pos);
@@ -102,7 +108,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos, const DocPosit
     CatalogStorage& baseStorage = *(m_baseCatalog->m_storage);
     CatalogStorage& mergeStorage = *(m_storage);
 
-    MatchItem item(mergePos.entry, basePos.entry, true);
+    MatchItem item(mergePos.entry, basePos.entry, true, mergeStorage.target(mergePos.entry).isEmpty());
     //TODO make more robust, perhaps after XLIFF?
     QStringList baseMatchData = baseStorage.matchData(basePos);
     QStringList mergeMatchData = mergeStorage.matchData(mergePos);
@@ -143,9 +149,9 @@ static QString strip(QString source)
     return source;
 }
 
-int MergeCatalog::loadFromUrl(const QString& filePath)
+int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePath)
 {
-    int errorLine = Catalog::loadFromUrl(filePath);
+    int errorLine = Catalog::loadFromUrl(filePath, saidFilePath);
     if (Q_UNLIKELY(errorLine != 0))
         return errorLine;
 
@@ -186,6 +192,8 @@ int MergeCatalog::loadFromUrl(const QString& filePath)
 
             if (scores.first().translationIsDifferent)
                 m_mergeDiffIndex.append(i.entry);
+            if (scores.first().translationIsEmpty)
+                m_mergeEmptyIndex.append(i.entry);
 
         }
         ++(i.entry);
