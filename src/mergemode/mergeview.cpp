@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2022 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -172,7 +173,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
         //special handling: open corresponding file in the branch
         //for AutoSync
 
-        QString path = QFileInfo(mergeFilePath).canonicalFilePath(); //bug 245546 regarding symlinks
+        QString path = mergeFilePath;
         QString oldPath = path;
         path.replace(Project::instance()->poDir(), Project::instance()->branchDir());
 
@@ -197,7 +198,20 @@ void MergeView::mergeOpen(QString mergeFilePath)
     m_mergeCatalog = new MergeCatalog(this, m_baseCatalog);
     Q_EMIT mergeCatalogPointerChanged(m_mergeCatalog);
     Q_EMIT mergeCatalogAvailable(m_mergeCatalog);
-    int errorLine = m_mergeCatalog->loadFromUrl(mergeFilePath);
+
+    QString saidMergeFilePath;
+    if (!QFile::exists(mergeFilePath)) {
+        saidMergeFilePath = mergeFilePath;
+        saidMergeFilePath.replace(Project::instance()->branchDir(), Project::instance()->branchPotDir());
+        saidMergeFilePath += 't';
+
+        if (QFile::exists(saidMergeFilePath))
+            std::swap(mergeFilePath, saidMergeFilePath);
+        else
+            saidMergeFilePath.clear();
+    }
+
+    int errorLine = m_mergeCatalog->loadFromUrl(mergeFilePath, saidMergeFilePath);
     if (Q_LIKELY(errorLine == 0)) {
         if (m_pos.entry > 0)
             Q_EMIT signalPriorChangedAvailable(m_pos.entry > m_mergeCatalog->firstChangedIndex());

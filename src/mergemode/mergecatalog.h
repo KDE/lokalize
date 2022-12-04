@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2022 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -22,19 +23,22 @@ struct MatchItem {
     int baseEntry: 32;
     short score: 16;
     short translationIsDifferent: 16;
+    short translationIsEmpty: 16;
 
     MatchItem()
         : mergeEntry(0)
         , baseEntry(0)
         , score(0)
         , translationIsDifferent(false)
+        , translationIsEmpty(false)
     {}
 
-    MatchItem(int m, int b, bool d)
+    MatchItem(int m, int b, bool d, bool e)
         : mergeEntry(m)
         , baseEntry(b)
         , score(0)
         , translationIsDifferent(d)
+        , translationIsEmpty(e)
     {}
 
     bool operator>(const MatchItem& other) const
@@ -62,7 +66,7 @@ public:
     explicit MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChanges = true);
     ~MergeCatalog() override = default;
 
-    int loadFromUrl(const QString& filePath);
+    int loadFromUrl(const QString& filePath, const QString& saidFilePath = QString());
 
     int firstChangedIndex() const
     {
@@ -142,7 +146,8 @@ private:
 private:
     QVector<int> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
-    QLinkedList<int> m_mergeDiffIndex;//points to baseCatalog entries
+    QLinkedList<int> m_mergeDiffIndex;//points to different baseCatalog entries
+    QLinkedList<int> m_mergeEmptyIndex;//points to empty baseCatalog entries
     QMap<DocPos, uint> m_originalHashes; //for modified units only
     int m_unmatchedCount;
     bool m_modified; //need own var here cause we don't use qundostack system for merging
