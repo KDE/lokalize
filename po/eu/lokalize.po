@@ -5,20 +5,20 @@
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2009, 2011, 2018, 2019, 2020, 2021.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2009, 2011, 2018, 2019, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2021-08-25 16:03+0200\n"
+"PO-Revision-Date: 2022-12-04 23:43+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -53,11 +53,11 @@ msgstr "Konpilatu .po eta jarri aplikazioentzat erabilgarri"
 
 #: scripts/msgmerge.py:33
 msgid "Gettext not found"
-msgstr "Gettext ez da aurkitu"
+msgstr "«Gettext» ez da aurkitu"
 
 #: scripts/msgmerge.py:33
 msgid "Install gettext package for this feature to work"
-msgstr "Instalatu gettext paketea ezaugarri hau ibil dadin"
+msgstr "Instalatu «gettext» paketea ezaugarri hau ibil dadin"
 
 #: scripts/msgmerge.py:44
 msgid "Updating from templates..."
@@ -84,7 +84,7 @@ msgid ""
 "Could not find template file for the merge:\n"
 "%1"
 msgstr ""
-"Ezin izan da bateratzeko txantiloi fitxategia aurkitu:\n"
+"Ezin izan da bateratzeko txantiloi-fitxategia aurkitu:\n"
 "%1"
 
 #. i18n: tag collection attribute text
@@ -1073,7 +1073,7 @@ msgctxt ""
 "@info:status message entries\n"
 "'fuzzy' in gettext terminology"
 msgid "Not ready: %1"
-msgstr "Ez prest: %1"
+msgstr "Ez-prest: %1"
 
 #: src/editortab.cpp:146 src/editortab.cpp:163
 #, kde-format
@@ -1309,7 +1309,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous non-empty but not ready"
-msgstr "Aurreko ez-hutsik baino ez prest"
+msgstr "Aurreko ez-hutsik baino ez-prest"
 
 #: src/editortab.cpp:583 src/project/projecttab.cpp:155
 #, kde-format
@@ -1317,7 +1317,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next non-empty but not ready"
-msgstr "Hurrengo ez-hutsik baino ez prest"
+msgstr "Hurrengo ez-hutsik baino ez-prest"
 
 #: src/editortab.cpp:588 src/project/projecttab.cpp:158
 #, kde-format
@@ -1337,7 +1337,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Previous not ready"
-msgstr "Aurreko ez prest"
+msgstr "Aurreko ez-prest"
 
 #: src/editortab.cpp:603 src/project/projecttab.cpp:149
 #, kde-format
@@ -1345,7 +1345,7 @@ msgctxt ""
 "@action:inmenu\n"
 "'not ready' means 'fuzzy' in gettext terminology"
 msgid "Next not ready"
-msgstr "Hurrengo ez prest"
+msgstr "Hurrengo ez-prest"
 
 #: src/editortab.cpp:610
 #, kde-format
@@ -1850,7 +1850,7 @@ msgstr "Tresna-barra nagusia"
 #, kde-format
 msgctxt "@label whether entry is fuzzy"
 msgid "Not ready:"
-msgstr "Ez prest: "
+msgstr "Ez-prest: "
 
 #: src/editorview.cpp:47
 #, kde-format
@@ -3868,7 +3868,7 @@ msgstr "Azken itzultzailea"
 #, kde-format
 msgctxt "@title:window"
 msgid "Project Overview"
-msgstr "Resumen del proyecto"
+msgstr "Proiektuaren ikuspegi orokorra"
 
 #: src/project/projecttab.cpp:56
 #, kde-format
