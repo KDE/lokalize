@@ -2773,7 +2773,7 @@ msgstr "Codi d'idioma predeterminat per als projectes nous"
 #: src/prefs/lokalize.kcfg:55 src/prefs/lokalize.kcfg:56
 #, kde-format
 msgid "Default mailing list for new projects"
-msgstr "Llista de correu predeterminada per als projectes nous"
+msgstr "Llista predeterminada de correu per als projectes nous"
 
 #. i18n: ectx: label, entry (CleverEditing), group (Appearance)
 #. i18n: ectx: label, entry (OnFlySpellCheck), group (Appearance)
@@ -3784,7 +3784,7 @@ msgstr "Idioma"
 #: src/project/projectbase.kcfg:32
 #, kde-format
 msgid "User Language Team in Lokalize settings"
-msgstr "Equip d'idioma de l'usuari a la configuració de Lokalize"
+msgstr "Equip d'idioma de l'usuari en la configuració de Lokalize"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
 #: src/project/projectbase.kcfg:38
