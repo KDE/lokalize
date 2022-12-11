@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2022 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -262,13 +263,16 @@ void TMView::slotBatchSelectDone()
             if (!m_catalog->isApproved(pos.entry)) {
                 ///m_catalog->push(new DelTextCmd(m_catalog,pos,m_catalog->msgstr(pos)));
                 removeTargetSubstring(m_catalog, pos, 0, m_catalog->targetWithTags(pos).string.size());
+                insertCatalogString(m_catalog, pos, entry.target, 0);
                 if (ctxtMatches || !(m_markAsFuzzy || forceFuzzy))
                     SetStateCmd::push(m_catalog, pos, true);
             } else if ((m_markAsFuzzy && !ctxtMatches) || forceFuzzy) {
+                insertCatalogString(m_catalog, pos, entry.target, 0);
                 SetStateCmd::push(m_catalog, pos, false);
+            } else {
+                insertCatalogString(m_catalog, pos, entry.target, 0);
             }
             ///m_catalog->push(new InsTextCmd(m_catalog,pos,entry.target));
-            insertCatalogString(m_catalog, pos, entry.target, 0);
 
             if (Q_UNLIKELY(m_pos.entry == pos.entry && pos.form == m_pos.form))
                 Q_EMIT refreshRequested();
