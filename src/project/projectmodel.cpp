@@ -6,6 +6,7 @@
   SPDX-FileCopyrightText: 2009 Viesturs Zarins <viesturs.zarins@mii.lu.lv>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
   SPDX-FileCopyrightText: 2019 Alexander Potashev <aspotashev@gmail.com>
+  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -254,6 +255,28 @@ void ProjectModel::po_rowsInserted(const QModelIndex& po_parent, int first, int 
 
             if (poIndex != -1) {
                 //found pot node, that now has a PO index.
+                //reparent its child nodes, otherwise they will disappear in the gui
+                auto potItem = m_potModel.itemForIndex(m_potModel.index(potIndex, 0, pot_parent));
+                if (potItem.isDir()) {
+
+                    ProjectNode* poNode = node->rows.at(poIndex);
+
+                    auto lastRowToReparent = potNode->rows.count() - 1;
+
+                    auto potModelIndex = indexForNode(potNode);
+                    beginRemoveRows(potModelIndex, 0, lastRowToReparent);
+                    auto rowsToReparent = std::move(potNode->rows);
+                    endRemoveRows();
+
+                    for (auto& rowToReparent : rowsToReparent)
+                        rowToReparent->parent = poNode;
+
+                    auto poModelIndex = indexForNode(poNode);
+                    beginInsertRows(poModelIndex, 0, lastRowToReparent);
+                    node->rows[poIndex]->rows = std::move(rowsToReparent);
+                    endInsertRows();
+                }
+
                 //remove the pot node and change the corresponding PO node
                 beginRemoveRows(parent, pos, pos);
                 node->rows.remove(pos);
