@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"POT-Creation-Date: 2022-12-29 00:55+0000\n"
 "PO-Revision-Date: 2022-07-06 09:41+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -4307,7 +4307,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Sadə maska (* and ?). Böyük/kiçik hərflərə həssas."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:121 src/tm/tmview.cpp:127
+#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:122 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4319,62 +4319,62 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Ümumi: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:574
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "%1 faylı mövcud deyil, o tərcümə yaddaşından silinib."
 
-#: src/tm/tmview.cpp:166 src/webquery/webqueryview.cpp:62
+#: src/tm/tmview.cpp:167 src/webquery/webqueryview.cpp:62
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "İstənilən sözə iki dəfə vurmaqla tərcüməyə əlavə etmək"
 
-#: src/tm/tmview.cpp:279
+#: src/tm/tmview.cpp:283
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Tərcümə yaddaşından doldurmaq"
 
-#: src/tm/tmview.cpp:282
+#: src/tm/tmview.cpp:286
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Tərcümə yaddaşından doldurmaq başa çatdı."
 
-#: src/tm/tmview.cpp:288
+#: src/tm/tmview.cpp:292
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Dəqiq oxşarı tapılmadı."
 
-#: src/tm/tmview.cpp:292
+#: src/tm/tmview.cpp:296
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation complete"
 msgstr "Tərcümə yaddaşından doldurmaq başa çatdı"
 
-#: src/tm/tmview.cpp:306 src/tm/tmview.cpp:321
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation"
 msgstr "Tərcümə yaddaşından doldurmaq"
 
-#: src/tm/tmview.cpp:307 src/tm/tmview.cpp:322
+#: src/tm/tmview.cpp:311 src/tm/tmview.cpp:326
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Tərcümə yaddaşından doldurma planlaşdırıldı."
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:460
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:462
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4382,43 +4382,43 @@ msgid_plural "(%1 times)"
 msgstr[0] "(%1 istifadə)"
 msgstr[1] "(%1 istifadə)"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:543
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "bu"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Fayl: %1<br />Əlavə edilmə tarixi: %2"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:546
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Sonuncu dəyişdirilmə tarixi: %1"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:548
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Sonuncu müəllif: %1"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:549
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />Tərcümə yaddaşı: %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:551
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Artıq faylda mövcud deyil"
 
-#: src/tm/tmview.cpp:557
+#: src/tm/tmview.cpp:561
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4427,31 +4427,31 @@ msgstr ""
 "<html>Bu bölməni<br/><i>%1</i><br/>%2 tərcümə yaddaşından silmək "
 "istədiyinizə əminsiniz?</html>"
 
-#: src/tm/tmview.cpp:558
+#: src/tm/tmview.cpp:562
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Bölmənin tərcümə yaddaşından silinməsi"
 
-#: src/tm/tmview.cpp:590
+#: src/tm/tmview.cpp:594
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Bu tərcüməni yaddaşdan silin"
 
-#: src/tm/tmview.cpp:592
+#: src/tm/tmview.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Bu elementlərdən ibarət faylı açmaq"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Bu çatışmayan faylı tərcümə yaddaşından silmək"
 
-#: src/tm/tmview.cpp:610
+#: src/tm/tmview.cpp:614
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4460,13 +4460,13 @@ msgstr ""
 "<html>Bu çatışmayan faylı<br/><i>%1</i><br/>%2 tərcümə yaddaşından silmək "
 "istədiyinizə əminsiniz?</html>"
 
-#: src/tm/tmview.cpp:611
+#: src/tm/tmview.cpp:615
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Çatışmayan faylın tərcümə yaddaşından silinməsi"
 
-#: src/tm/tmview.cpp:987
+#: src/tm/tmview.cpp:991
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"POT-Creation-Date: 2022-12-29 00:55+0000\n"
 "PO-Revision-Date: 2020-05-02 23:10+0800\n"
 "Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -4204,7 +4204,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "使用 Shell 萬用字元（* 與 ?）。區分大小寫。"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:121 src/tm/tmview.cpp:127
+#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:122 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4216,136 +4216,136 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "條目總數：%1（%2）"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:574
+#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr "%1 檔案不存在，其已經從翻譯記憶體中移除。"
 
-#: src/tm/tmview.cpp:166 src/webquery/webqueryview.cpp:62
+#: src/tm/tmview.cpp:167 src/webquery/webqueryview.cpp:62
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "雙擊任何單字以插入翻譯中"
 
-#: src/tm/tmview.cpp:279
+#: src/tm/tmview.cpp:283
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "批次填入翻譯記憶體"
 
-#: src/tm/tmview.cpp:282
+#: src/tm/tmview.cpp:286
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "批次翻譯已完成。"
 
-#: src/tm/tmview.cpp:288
+#: src/tm/tmview.cpp:292
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "找不到精確符合的建議。"
 
-#: src/tm/tmview.cpp:292
+#: src/tm/tmview.cpp:296
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation complete"
 msgstr "批次翻譯完成"
 
-#: src/tm/tmview.cpp:306 src/tm/tmview.cpp:321
+#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation"
 msgstr "批次翻譯"
 
-#: src/tm/tmview.cpp:307 src/tm/tmview.cpp:322
+#: src/tm/tmview.cpp:311 src/tm/tmview.cpp:326
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "批次翻譯已排程。"
 
-#: src/tm/tmview.cpp:456
+#: src/tm/tmview.cpp:460
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:458
+#: src/tm/tmview.cpp:462
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] "(%1 次)"
 
-#: src/tm/tmview.cpp:539
+#: src/tm/tmview.cpp:543
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "這個"
 
-#: src/tm/tmview.cpp:540
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "檔案：%1<br />加入日期：%2"
 
-#: src/tm/tmview.cpp:542
+#: src/tm/tmview.cpp:546
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />上次變更日期：%1"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:548
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />上次變更作者：%1"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:549
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />翻譯記憶體: %1"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:551
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />並未出現在檔案中"
 
-#: src/tm/tmview.cpp:557
+#: src/tm/tmview.cpp:561
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
 "translation memory %2?</html>"
 msgstr "<html>您確定要從翻譯記憶體 %2 中移除此項目：<br/><i>%1</i>嗎？</html>"
 
-#: src/tm/tmview.cpp:558
+#: src/tm/tmview.cpp:562
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "翻譯記憶體項目移除"
 
-#: src/tm/tmview.cpp:590
+#: src/tm/tmview.cpp:594
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "移除此項目"
 
-#: src/tm/tmview.cpp:592
+#: src/tm/tmview.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "開啟包含此項目的檔案"
 
-#: src/tm/tmview.cpp:599
+#: src/tm/tmview.cpp:603
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "從翻譯記憶體移除此遺失檔案"
 
-#: src/tm/tmview.cpp:610
+#: src/tm/tmview.cpp:614
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4353,13 +4353,13 @@ msgid ""
 msgstr ""
 "<html>您確定要從翻譯記憶體 %2 中移除此遺失檔案：<br/><i>%1</i>嗎？</html>"
 
-#: src/tm/tmview.cpp:611
+#: src/tm/tmview.cpp:615
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "移除翻譯記憶體遺失檔案"
 
-#: src/tm/tmview.cpp:987
+#: src/tm/tmview.cpp:991
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
