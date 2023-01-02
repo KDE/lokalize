@@ -1344,7 +1344,7 @@ msgstr "Següent no enllestida"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
-msgstr "Focus a la línia de busca de la vista d'unitats de traducció"
+msgstr "Focus en la línia de busca de la vista d'unitats de traducció"
 
 #: src/editortab.cpp:616
 #, kde-format
