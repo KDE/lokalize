@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-06-24 00:46+0000\n"
-"PO-Revision-Date: 2023-01-10 21:53+0300\n"
+"PO-Revision-Date: 2023-01-15 22:42+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3078,7 +3078,7 @@ msgstr "TS dosyalarındaki XML özel karakterlerini otomatik olarak dönüştür
 #: src/prefs/prefs_general.ui:45
 #, kde-format
 msgid "Restore the previously opened files when launching Lokalize"
-msgstr "Lokalize'yi başlatırken önceden açılmış dosyaları geri yükleyin"
+msgstr "Lokalize'yi başlatırken önceden açılmış dosyaları geri yükle"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, l2)
 #: src/prefs/prefs_general.ui:54
@@ -3413,7 +3413,7 @@ msgid ""
 "missing entry"
 msgstr ""
 "Eksik dosyaları yeniden tarama sırasında veya eksik bir girişi "
-"tıkladığınızda çeviri belleğinden silin"
+"tıkladığınızda çeviri belleğinden sil"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/project/prefs_project_advanced.ui:17
