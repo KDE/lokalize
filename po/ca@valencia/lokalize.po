@@ -748,7 +748,7 @@ msgstr "Suprimix la marca"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Note setting"
-msgstr "Configuració de les notes"
+msgstr "Configureu les notes"
 
 #: src/catalog/cmd.cpp:275
 #, kde-format
@@ -760,7 +760,7 @@ msgstr "Actualitza/afig la fase del flux de treball"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Translation Equivalence Setting"
-msgstr "Configuració d'equivalència de la traducció"
+msgstr "Configureu una equivalència de la traducció"
 
 #: src/catalog/cmd.cpp:365
 #, kde-format
