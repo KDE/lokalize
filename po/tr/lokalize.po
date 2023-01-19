@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-29 00:55+0000\n"
-"PO-Revision-Date: 2023-01-15 22:42+0300\n"
+"PO-Revision-Date: 2023-01-18 22:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -153,9 +153,9 @@ msgid ""
 msgstr ""
 "<p>Bazen metin değiştiğinde, çevirisi kullanılamaz olur ve "
 "<emphasis>gözden&nbsp;geçirme&nbsp;gerekli</emphasis> (onay durumunu "
-"kaybeder) veya (sadece XLIFF dosyası durumunda) birime yardım edebilmek için "
-"<emphasis>alternatif&nbsp;çeviriler</emphasis> bölümüne taşınır.</p><p>Bu "
-"araç görünümü, ayrıca geçerli kaynak metni ile önceki kaynak metni "
+"kaybeder) veya (yalnızca XLIFF dosyası durumunda) birime yardım edebilmek "
+"için <emphasis>alternatif&nbsp;çeviriler</emphasis> bölümüne taşınır.</"
+"p><p>Bu araç görünümü, ayrıca geçerli kaynak metni ile önceki kaynak metni "
 "arasındaki farkı gösterir. Böylece mevcut çeviriyi güncel tutmak için hangi "
 "değişikliğin uygulanması gerektiğini görebilirsiniz.</p><p>Araç "
 "görünümündeki herhangi bir sözcüğe çift tıklamak, sözcüğü çeviriye ekler.</"
@@ -1450,7 +1450,7 @@ msgstr "İkincil eşitleme için dosya aç"
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
-msgstr "Bu sadece boş girdileri değiştirir"
+msgstr "Bu yalnızca boş girdileri değiştirir"
 
 #: src/editortab.cpp:759
 #, kde-format
@@ -3460,8 +3460,8 @@ msgstr ""
 "Öntanımlı değer (XML-tabanlı metinler için) şöyledir:\n"
 "(<[^>]+>)+|(&[A-Za-z_:][A-Za-z0-9_\\.:-]*;)+\n"
 "\n"
-"Bu, sadece gettext PO dosyaları için kullanılır, XLIFF biçimi imlemeler için "
-"kendine has bir yol kullanır."
+"Bu, yalnızca gettext PO dosyaları için kullanılır, XLIFF biçimi imlemeler "
+"için kendine has bir yol kullanır."
 
 #. i18n: ectx: property (text), widget (QLabel, l2)
 #: src/project/prefs_project_advanced.ui:65
@@ -4211,7 +4211,7 @@ msgstr "Dosya maskesi:"
 #, kde-format
 msgid "Show only results from files with path matching specified mask"
 msgstr ""
-"Sadece belirtilen maskeye uygun adresteki dosyalardan eşleşen sonuçları "
+"Yalnızca belirtilen maskeye uygun adresteki dosyalardan eşleşen sonuçları "
 "göster"
 
 #. i18n: ectx: property (text), widget (QLabel, label_s)
