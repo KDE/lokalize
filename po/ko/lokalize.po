@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-29 00:55+0000\n"
+"POT-Creation-Date: 2023-01-24 01:01+0000\n"
 "PO-Revision-Date: 2022-04-16 23:10+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -3687,13 +3687,13 @@ msgstr "POT 파일(번역한 것)의 기본 디렉터리"
 msgid "Project's glossary"
 msgstr "프로젝트 용어집"
 
-#: src/project/projectmodel.cpp:510
+#: src/project/projectmodel.cpp:533
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "이름"
 
-#: src/project/projectmodel.cpp:512
+#: src/project/projectmodel.cpp:535
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3701,55 +3701,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "그래프"
 
-#: src/project/projectmodel.cpp:514
+#: src/project/projectmodel.cpp:537
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "합계"
 
-#: src/project/projectmodel.cpp:516
+#: src/project/projectmodel.cpp:539
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/project/projectmodel.cpp:518
+#: src/project/projectmodel.cpp:541
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "준비되지 않음"
 
-#: src/project/projectmodel.cpp:520
+#: src/project/projectmodel.cpp:543
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "번역되지 않음"
 
-#: src/project/projectmodel.cpp:522
+#: src/project/projectmodel.cpp:545
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "미완료"
 
-#: src/project/projectmodel.cpp:524
+#: src/project/projectmodel.cpp:547
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "마지막 번역"
 
-#: src/project/projectmodel.cpp:526
+#: src/project/projectmodel.cpp:549
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "주석"
 
-#: src/project/projectmodel.cpp:528
+#: src/project/projectmodel.cpp:551
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "템플릿 리비전"
 
-#: src/project/projectmodel.cpp:530
+#: src/project/projectmodel.cpp:553
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"

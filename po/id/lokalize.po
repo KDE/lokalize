@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-29 00:55+0000\n"
+"POT-Creation-Date: 2023-01-24 01:01+0000\n"
 "PO-Revision-Date: 2022-09-27 18:12+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -3793,13 +3793,13 @@ msgstr "Direktori basis untuk file POT (template untuk diterjemahkan)"
 msgid "Project's glossary"
 msgstr "Glosarium proyek"
 
-#: src/project/projectmodel.cpp:510
+#: src/project/projectmodel.cpp:533
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Nama"
 
-#: src/project/projectmodel.cpp:512
+#: src/project/projectmodel.cpp:535
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3807,55 +3807,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Grafik"
 
-#: src/project/projectmodel.cpp:514
+#: src/project/projectmodel.cpp:537
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Total"
 
-#: src/project/projectmodel.cpp:516
+#: src/project/projectmodel.cpp:539
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Diterjemahkan"
 
-#: src/project/projectmodel.cpp:518
+#: src/project/projectmodel.cpp:541
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Belum siap"
 
-#: src/project/projectmodel.cpp:520
+#: src/project/projectmodel.cpp:543
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Belum diterjemahkan"
 
-#: src/project/projectmodel.cpp:522
+#: src/project/projectmodel.cpp:545
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Belum selesai"
 
-#: src/project/projectmodel.cpp:524
+#: src/project/projectmodel.cpp:547
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Terjemahan Terakhir"
 
-#: src/project/projectmodel.cpp:526
+#: src/project/projectmodel.cpp:549
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Komentar"
 
-#: src/project/projectmodel.cpp:528
+#: src/project/projectmodel.cpp:551
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Revisi Template"
 
-#: src/project/projectmodel.cpp:530
+#: src/project/projectmodel.cpp:553
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-29 00:55+0000\n"
+"POT-Creation-Date: 2023-01-24 01:01+0000\n"
 "PO-Revision-Date: 2022-04-09 19:30+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -3759,13 +3759,13 @@ msgstr "Základný adresár pre POT súbory (šablóny na preklad)"
 msgid "Project's glossary"
 msgstr "Slovník projektu"
 
-#: src/project/projectmodel.cpp:510
+#: src/project/projectmodel.cpp:533
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Názov"
 
-#: src/project/projectmodel.cpp:512
+#: src/project/projectmodel.cpp:535
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3773,55 +3773,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Graf"
 
-#: src/project/projectmodel.cpp:514
+#: src/project/projectmodel.cpp:537
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Celkovo"
 
-#: src/project/projectmodel.cpp:516
+#: src/project/projectmodel.cpp:539
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Preložené"
 
-#: src/project/projectmodel.cpp:518
+#: src/project/projectmodel.cpp:541
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Nepripravené"
 
-#: src/project/projectmodel.cpp:520
+#: src/project/projectmodel.cpp:543
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Nepreložené"
 
-#: src/project/projectmodel.cpp:522
+#: src/project/projectmodel.cpp:545
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Nedokončené"
 
-#: src/project/projectmodel.cpp:524
+#: src/project/projectmodel.cpp:547
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Posledný preklad"
 
-#: src/project/projectmodel.cpp:526
+#: src/project/projectmodel.cpp:549
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Komentár"
 
-#: src/project/projectmodel.cpp:528
+#: src/project/projectmodel.cpp:551
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Revízia šablóny"
 
-#: src/project/projectmodel.cpp:530
+#: src/project/projectmodel.cpp:553
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
