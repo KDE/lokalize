@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-24 01:01+0000\n"
-"PO-Revision-Date: 2023-01-18 22:31+0300\n"
+"PO-Revision-Date: 2023-02-02 01:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1973,7 +1973,7 @@ msgstr "Hedefi Panoya Kopyala"
 #: src/filesearch/filesearchtab.cpp:470 src/tm/tmtab.cpp:417
 #, kde-format
 msgid "Open file"
-msgstr "Dosya aç"
+msgstr "Dosya Aç"
 
 #: src/filesearch/filesearchtab.cpp:509
 #, kde-format
@@ -1997,7 +1997,7 @@ msgstr "Değiştir:"
 #: src/filesearch/massreplaceoptions.ui:27
 #, kde-format
 msgid "With:"
-msgstr "Bununla:"
+msgstr "Şununla:"
 
 #. i18n: ectx: property (text), widget (QPushButton, doPreview)
 #: src/filesearch/massreplaceoptions.ui:37
@@ -2666,7 +2666,7 @@ msgstr "Gözden Geçir"
 #: src/phaseswindow.cpp:169
 #, kde-format
 msgid "Approval"
-msgstr "Onaylanma"
+msgstr "Onay"
 
 #: src/phaseswindow.cpp:173
 #, kde-format
@@ -2708,19 +2708,19 @@ msgstr "Çevirmenin hedef dildeki adı"
 #: src/prefs/lokalize.kcfg:28
 #, kde-format
 msgid "Override Language Team"
-msgstr "Dil Ekibini Geçersiz Kıl"
+msgstr "Dil Takımını Geçersiz Kıl"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:29
 #, kde-format
 msgid "Use user-provided language team name instead of generating it"
-msgstr "Oluşturmak yerine kullanıcı tarafından sağlanan dil ekibi adını kullan"
+msgstr "Üretmek  yerine kullanıcı tarafından sağlanan dil takımı adını kullan"
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
 #, kde-format
 msgid "Language Team"
-msgstr "Dil Ekibi"
+msgstr "Dil Takımı"
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:36
@@ -3608,7 +3608,7 @@ msgstr "Çevirmen"
 #: src/project/prefs_project_local.ui:34
 #, kde-format
 msgid "Reviewer"
-msgstr "Gözden geçiren"
+msgstr "Gözden Geçiren"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Role)
 #: src/project/prefs_project_local.ui:39
@@ -3706,7 +3706,7 @@ msgstr "Proje"
 #: src/project/prefs_projectmain.ui:180
 #, kde-format
 msgid "Language-Team:"
-msgstr "Dil Ekibi:"
+msgstr "Dil Takımı:"
 
 #: src/project/project.cpp:441
 #, kde-format
@@ -3739,19 +3739,19 @@ msgstr "Dil"
 #: src/project/projectbase.kcfg:32
 #, kde-format
 msgid "User Language Team in Lokalize settings"
-msgstr "Lokalize ayarlarındaki Kullanıcı Dil Ekibi"
+msgstr "Lokalize ayarlarındaki Kullanıcı Dil Takımı"
 
 #. i18n: ectx: label, entry (OverrideLangTeam), group (General)
 #: src/project/projectbase.kcfg:38
 #, kde-format
 msgid "Override Lokalize Language Team"
-msgstr "Lokalize Dil Ekibini Geçersiz Kıl"
+msgstr "Lokalize Dil Takımını Geçersiz Kıl"
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:44
 #, kde-format
 msgid "Project Language Team"
-msgstr "Proje Dil Ekibi"
+msgstr "Proje Dil Takımı"
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
 #: src/project/projectbase.kcfg:59
