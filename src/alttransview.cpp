@@ -254,7 +254,7 @@ bool AltTransView::event(QEvent *event)
         QToolTip::showText(helpEvent->globalPos(), tooltip);
         return true;
     }
-    return QWidget::event(event);
+    return QDockWidget::event(event);
 }
 
 void AltTransView::slotUseSuggestion(int i)

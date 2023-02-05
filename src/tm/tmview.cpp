@@ -553,7 +553,7 @@ bool TMView::event(QEvent *event)
             return true;
         }
     }
-    return QWidget::event(event);
+    return QDockWidget::event(event);
 }
 
 void TMView::removeEntry(const TMEntry& e)

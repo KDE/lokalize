@@ -353,6 +353,6 @@ bool MergeView::event(QEvent *event)
         QToolTip::showText(helpEvent->globalPos(), text);
         return true;
     }
-    return QWidget::event(event);
+    return QDockWidget::event(event);
 }
 
