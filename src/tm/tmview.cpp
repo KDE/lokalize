@@ -590,17 +590,19 @@ void TMView::contextMenu(const QPoint& pos)
     if (block >= m_entries.size())
         return;
 
-    const TMEntry& e = m_entries.at(block);
+    const auto * e = &m_entries.at(block);
+
     enum {Remove, RemoveFile, Open};
     QMenu popup;
     popup.addAction(i18nc("@action:inmenu", "Remove this entry"))->setData(Remove);
-    if (e.file != m_catalog->url() && QFile::exists(e.file))
+    if (e->file != m_catalog->url() && QFile::exists(e->file))
         popup.addAction(i18nc("@action:inmenu", "Open file containing this entry"))->setData(Open);
     else {
         if (Settings::deleteFromTMOnMissing()) {
             //Automatic deletion
-            deleteFile(e, true);
-        } else if (!QFile::exists(e.file)) {
+            deleteFile(*e, true);
+            e = &m_entries.at(block); // e points to an invalid addres after TMView::deleteFile
+        } else if (!QFile::exists(e->file)) {
             //Still offer manual deletion if this is not the current file
             popup.addAction(i18nc("@action:inmenu", "Remove this missing file from TM"))->setData(RemoveFile);
         }
@@ -609,23 +611,23 @@ void TMView::contextMenu(const QPoint& pos)
     if (!r)
         return;
     if (r->data().toInt() == Remove) {
-        removeEntry(e);
+        removeEntry(*e);
     } else if (r->data().toInt() == Open) {
-        Q_EMIT fileOpenRequested(e.file, e.source.string, e.ctxt, true);
+        Q_EMIT fileOpenRequested(e->file, e->source.string, e->ctxt, true);
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     } else if ((r->data().toInt() == RemoveFile)
                && KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
                    this,
-                   i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.file, e.dbName),
+                   i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e->file, e->dbName),
                    i18nc("@title:window", "Translation Memory Missing File Removal"),
                    KStandardGuiItem::remove(),
                    KStandardGuiItem::cancel())) {
 #else
     } else if ((r->data().toInt() == RemoveFile) &&
-               KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.file, e.dbName),
+               KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from translation memory %2?</html>",  e->file, e->dbName),
                        i18nc("@title:window", "Translation Memory Missing File Removal"))) {
 #endif
-        deleteFile(e, false);
+        deleteFile(*e, false);
     }
 }
 
