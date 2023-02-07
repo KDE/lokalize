@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -622,7 +623,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
     void TranslationUnitTextEdit::dragEnterEvent(QDragEnterEvent * event) {
         QObject* dragSource = event->source();
-        if (dragSource->objectName().compare("qt_scrollarea_viewport") == 0)
+        if (dragSource && dragSource->objectName() == QLatin1String("qt_scrollarea_viewport"))
             dragSource = dragSource->parent();
         //This is a deplacement within the Target area
         if (m_part == DocPosition::Target && this == dragSource) {
