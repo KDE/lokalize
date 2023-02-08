@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-24 01:01+0000\n"
+"POT-Creation-Date: 2023-02-08 01:02+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -764,7 +764,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Jelölőkódos szöveg eltávolítása"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:664
+#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4591,29 +4591,29 @@ msgstr "Előre lekérés"
 msgid "Web Queries"
 msgstr "Webes lekérdezések"
 
-#: src/xlifftextedit.cpp:993
+#: src/xlifftextedit.cpp:994
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Kijelölt szöveg keresése a fordítási memóriában"
 
-#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#: src/xlifftextedit.cpp:1016 src/xlifftextedit.cpp:1094
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Szöveg cseréje"
 
-#: src/xlifftextedit.cpp:1130
+#: src/xlifftextedit.cpp:1131
 #, kde-format
 msgid "no spellcheck available"
 msgstr "nem érhető el helyesírás-ellenőrzés"
 
-#: src/xlifftextedit.cpp:1144
+#: src/xlifftextedit.cpp:1145
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Hibát jelentettek: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1271
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
