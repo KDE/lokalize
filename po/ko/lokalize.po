@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"POT-Creation-Date: 2023-02-08 04:20+0000\n"
 "PO-Revision-Date: 2022-04-16 23:10+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -719,7 +719,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "마크업이 있는 텍스트 삭제"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:664
+#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4473,29 +4473,29 @@ msgstr "미리 가져오기"
 msgid "Web Queries"
 msgstr "웹 조회"
 
-#: src/xlifftextedit.cpp:993
+#: src/xlifftextedit.cpp:994
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "번역 메모리에서 선택한 텍스트 찾기"
 
-#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#: src/xlifftextedit.cpp:1016 src/xlifftextedit.cpp:1094
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "텍스트 바꾸기"
 
-#: src/xlifftextedit.cpp:1130
+#: src/xlifftextedit.cpp:1131
 #, kde-format
 msgid "no spellcheck available"
 msgstr "맞춤법 검사 사용 불가"
 
-#: src/xlifftextedit.cpp:1144
+#: src/xlifftextedit.cpp:1145
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "오류 발생: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1271
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"

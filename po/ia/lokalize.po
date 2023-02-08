@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-06-24 00:46+0000\n"
+"POT-Creation-Date: 2023-02-08 04:20+0000\n"
 "PO-Revision-Date: 2022-02-19 22:27+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -767,7 +767,7 @@ msgctxt "@item Undo action item"
 msgid "Remove text with markup"
 msgstr "Remove texto con marcation"
 
-#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:664
+#: src/catalog/cmd.cpp:417 src/xlifftextedit.cpp:665
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Insert text with markup"
@@ -4601,29 +4601,29 @@ msgstr "Precarga"
 msgid "Web Queries"
 msgstr "Web Queries (Requestas Web)"
 
-#: src/xlifftextedit.cpp:993
+#: src/xlifftextedit.cpp:994
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Lookup selected text in translation memory"
 msgstr "Cerca texto seligite in memoria de traduction"
 
-#: src/xlifftextedit.cpp:1015 src/xlifftextedit.cpp:1093
+#: src/xlifftextedit.cpp:1016 src/xlifftextedit.cpp:1094
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Replace text"
 msgstr "Reimplacia texto"
 
-#: src/xlifftextedit.cpp:1130
+#: src/xlifftextedit.cpp:1131
 #, kde-format
 msgid "no spellcheck available"
 msgstr "nulle corrector orthographic disponibile"
 
-#: src/xlifftextedit.cpp:1144
+#: src/xlifftextedit.cpp:1145
 #, kde-format
 msgid "An error was reported: %1"
 msgstr "Un error esseva reportate: %1"
 
-#: src/xlifftextedit.cpp:1270
+#: src/xlifftextedit.cpp:1271
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
