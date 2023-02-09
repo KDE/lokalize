@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-08 01:02+0000\n"
-"PO-Revision-Date: 2022-12-29 10:17+0100\n"
+"PO-Revision-Date: 2023-02-08 07:11+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -4286,7 +4286,7 @@ msgstr ""
 #: src/webquery/querycontrol.ui:25
 #, kde-format
 msgid "Prefetch"
-msgstr ""
+msgstr "წინასწარ გამოთხოვა"
 
 #: src/webquery/webqueryview.cpp:32
 #, kde-format
