@@ -585,7 +585,9 @@
 ></menuchoice
 > oder <guimenuitem
 >Alle exakten Übersetzungen einfügen und als fraglich markieren</guimenuitem
-> aus dem Menü. Diese Funktionen entsprechen den Grobübersetzungen in &kbabel;. </para>
+> aus dem Menü. Diese Funktionen entsprechen den Grobübersetzungen in <application
+>KBabel</application
+>. </para>
     </listitem>
   </varlistentry>
 </variablelist>
@@ -857,7 +859,9 @@
 > </para>
 
 <para
->Einiger Quelltext wurde vom &lokalize;-Vorläufer &kbabel; übernommen. </para>
+>Einiger Quelltext wurde vom &lokalize;-Vorläufer <application
+>KBabel</application
+> übernommen. </para>
 
 <para
 >Dokumentation Copyright &copy; 2007-2009 Nick Shaforostoff <email
