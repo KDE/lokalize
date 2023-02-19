@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -1582,10 +1583,16 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
 
             }
         };
-        if (!Project::instance()->sourceFilePaths().isEmpty())
+        if (Project::instance()->isSourceFilePathsReady())
             doOpen();
-        else
-            connect(Project::instance(), &Project::sourceFilePathsAreReady, doOpen);
+        else {
+            Project::instance()->sourceFilePaths();
+            auto conn = std::make_shared<QMetaObject::Connection>();
+            *conn = connect(Project::instance(), &Project::sourceFilePathsAreReady, [this, conn, doOpen](){
+                this->disconnect(*conn);
+                doOpen();
+            });
+        }
         return;
     }
 
