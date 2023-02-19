@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2014 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -183,7 +184,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     //    ADD_ACTION_SHORTCUT_ICON("edit_find",i18nc("@action:inmenu","Find in files"),Qt::ALT+Qt::Key_Down,"nextpo")
     //connect(action, &QAction::triggered, this, &ProjectTab::gotoNextTransOnly);
-    action = nav->addAction(KStandardAction::Find, this, SLOT(searchInFiles()));
+    action = nav->addAction(KStandardAction::Find, this, SLOT(findTriggered()));
 
     KActionCategory* proj = new KActionCategory(i18nc("@title actions category", "Project"), ac);
 
@@ -310,6 +311,12 @@ void ProjectTab::addComment()
     Project::instance()->setCommentsTexts(previousCommentsTexts);
     Project::instance()->setCommentsFiles(previousCommentsFiles);
     Project::instance()->save();
+}
+
+void ProjectTab::findTriggered()
+{
+  // Allows the Edit->Find menu to hide itself before it gets deleted afterwards.
+  QMetaObject::invokeMethod(this, [this](){searchInFiles(false);}, Qt::QueuedConnection);
 }
 
 void ProjectTab::searchInFiles(bool templ)

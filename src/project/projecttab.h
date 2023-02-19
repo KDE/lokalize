@@ -3,6 +3,7 @@
 
   SPDX-FileCopyrightText: 2007-2009 Nick Shaforostoff <shafff@ukr.net>
   SPDX-FileCopyrightText: 2018-2019 Simon Depiets <sdepiets@gmail.com>
+  SPDX-FileCopyrightText: 2023 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 
   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -79,6 +80,10 @@ private Q_SLOTS:
     void scanFilesToTM();
     void pologyOnFiles();
     void addComment();
+    /**
+     * A sole purpose of this slot is to workaround the bug #460634.
+     */
+    void findTriggered();
     void searchInFiles(bool templ = false);
     void searchInFilesInclTempl();
     void openFile();
