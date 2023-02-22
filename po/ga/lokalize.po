@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-08 01:02+0000\n"
+"POT-Creation-Date: 2023-02-22 01:01+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -729,20 +729,20 @@ msgid "Translation Units"
 msgstr "Aonaid Aistriúcháin"
 
 #: src/cataloglistview/cataloglistview.cpp:74
-#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:114
+#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:115
 #, kde-format
 msgid "Quick search..."
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:75
-#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L."
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:75
-#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:115
+#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Accepts regular expressions"
@@ -865,7 +865,7 @@ msgstr "Iontráil"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:108
-#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:216
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:216
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65 src/tm/tmtab.cpp:78
 #, kde-format
 msgctxt "@title:column Original text"
@@ -873,7 +873,7 @@ msgid "Source"
 msgstr "Foinse"
 
 #: src/cataloglistview/catalogmodel.cpp:110
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:217
+#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
 #: src/tm/tmtab.cpp:66 src/tm/tmtab.cpp:79
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -900,7 +900,7 @@ msgid "Files"
 msgstr "Comhad"
 
 #: src/cataloglistview/catalogmodel.cpp:118
-#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:69
+#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:69
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -970,7 +970,7 @@ msgid "Current: %1"
 msgstr "Reatha: %1"
 
 #: src/editortab.cpp:144 src/editortab.cpp:854
-#: src/filesearch/filesearchtab.cpp:779 src/project/projecttab.cpp:492
+#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:499
 #: src/tm/tmtab.cpp:592
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1003,7 +1003,7 @@ msgctxt "@title actions category"
 msgid "File"
 msgstr "Comhad"
 
-#: src/editortab.cpp:192 src/project/projecttab.cpp:144
+#: src/editortab.cpp:192 src/project/projecttab.cpp:145
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1160,7 +1160,7 @@ msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Dífhill an sprioc"
 
-#: src/editortab.cpp:526 src/filesearch/filesearchtab.cpp:93
+#: src/editortab.cpp:526 src/filesearch/filesearchtab.cpp:94
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
@@ -1226,7 +1226,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Iontráil de réir uimhreach"
 
-#: src/editortab.cpp:578 src/project/projecttab.cpp:152
+#: src/editortab.cpp:578 src/project/projecttab.cpp:153
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1234,7 +1234,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr ""
 
-#: src/editortab.cpp:583 src/project/projecttab.cpp:155
+#: src/editortab.cpp:583 src/project/projecttab.cpp:156
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1242,19 +1242,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr ""
 
-#: src/editortab.cpp:588 src/project/projecttab.cpp:158
+#: src/editortab.cpp:588 src/project/projecttab.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Tcht gan aistriúchán roimhe seo"
 
-#: src/editortab.cpp:593 src/project/projecttab.cpp:161
+#: src/editortab.cpp:593 src/project/projecttab.cpp:162
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "An chéad tcht eile gan aistriúchán"
 
-#: src/editortab.cpp:598 src/project/projecttab.cpp:146
+#: src/editortab.cpp:598 src/project/projecttab.cpp:147
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1262,7 +1262,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Tcht roimhe seo gan cheadú"
 
-#: src/editortab.cpp:603 src/project/projecttab.cpp:149
+#: src/editortab.cpp:603 src/project/projecttab.cpp:150
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1530,26 +1530,26 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr ""
 
-#: src/editortab.cpp:1375 src/project/projecttab.cpp:352
+#: src/editortab.cpp:1375 src/project/projecttab.cpp:359
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1375 src/editortab.cpp:1383 src/editortab.cpp:1387
-#: src/project/projecttab.cpp:352 src/project/projecttab.cpp:360
-#: src/project/projecttab.cpp:364
+#: src/project/projecttab.cpp:359 src/project/projecttab.cpp:367
+#: src/project/projecttab.cpp:371
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1383 src/project/projecttab.cpp:360
+#: src/editortab.cpp:1383 src/project/projecttab.cpp:367
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1385 src/project/projecttab.cpp:362
+#: src/editortab.cpp:1385 src/project/projecttab.cpp:369
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1559,7 +1559,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1387 src/project/projecttab.cpp:364
+#: src/editortab.cpp:1387 src/project/projecttab.cpp:371
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1865,52 +1865,52 @@ msgstr ""
 msgid "&Search"
 msgstr "&Cuardach"
 
-#: src/filesearch/filesearchtab.cpp:75
+#: src/filesearch/filesearchtab.cpp:76
 #, kde-format
 msgctxt "@title:window"
 msgid "File List"
 msgstr "Liosta Comhad"
 
-#: src/filesearch/filesearchtab.cpp:77
+#: src/filesearch/filesearchtab.cpp:78
 #, kde-format
 msgid "Drop translation files here..."
 msgstr "Cuir comhaid aistriúcháin anseo..."
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:68
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:68
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "Comhad"
 
-#: src/filesearch/filesearchtab.cpp:424
+#: src/filesearch/filesearchtab.cpp:425
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:458 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Cóipeáil foinse go dtí an ghearrthaisce"
 
-#: src/filesearch/filesearchtab.cpp:464 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:465 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Cóipeáil sprioc go dtí an ghearrthaisce"
 
-#: src/filesearch/filesearchtab.cpp:470 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:471 src/tm/tmtab.cpp:417
 #, kde-format
 msgid "Open file"
 msgstr "Oscail comhad"
 
-#: src/filesearch/filesearchtab.cpp:509
+#: src/filesearch/filesearchtab.cpp:510
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:796
+#: src/filesearch/filesearchtab.cpp:798
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
@@ -2109,7 +2109,7 @@ msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Cuimhne Aistriúcháin"
 
-#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:188
+#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:189
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -3706,13 +3706,13 @@ msgctxt "@title:column"
 msgid "Last Translator"
 msgstr "Aistritheoir Is Déanaí"
 
-#: src/project/projecttab.cpp:52
+#: src/project/projecttab.cpp:53
 #, kde-format
 msgctxt "@title:window"
 msgid "Project Overview"
 msgstr "Foramharc an Tionscadail"
 
-#: src/project/projecttab.cpp:56
+#: src/project/projecttab.cpp:57
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -3732,76 +3732,76 @@ msgstr ""
 "tuilleadh eolais nó doiciméadú de dhíth ort, tabhair cuairt ar <a href="
 "\"%2\">%2</a> agus aimseoidh tú an rud atá de dhíth ort.</html>"
 
-#: src/project/projecttab.cpp:77
+#: src/project/projecttab.cpp:78
 #, fuzzy, kde-format
 #| msgid "&Configure %1..."
 msgid "&Configure Lokalize"
 msgstr "&Cumraigh %1..."
 
-#: src/project/projecttab.cpp:78 src/project/projecttab.cpp:191
+#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:192
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
 msgstr "Oscail tionscadal"
 
-#: src/project/projecttab.cpp:79
+#: src/project/projecttab.cpp:80
 #, fuzzy, kde-format
 #| msgid "Translator"
 msgctxt "@action:inmenu"
 msgid "Translate software"
 msgstr "Aistritheoir"
 
-#: src/project/projecttab.cpp:80
+#: src/project/projecttab.cpp:81
 #, fuzzy, kde-format
 #| msgid "Translate a document"
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Aistrigh cáipéis"
 
-#: src/project/projecttab.cpp:164
+#: src/project/projecttab.cpp:165
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "An teimpléad roimhe seo amháin"
 
-#: src/project/projecttab.cpp:167
+#: src/project/projecttab.cpp:168
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "An chéad teimpléad eile amháin"
 
-#: src/project/projecttab.cpp:170
+#: src/project/projecttab.cpp:171
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "An t-aistriúchán roimhe seo amháin"
 
-#: src/project/projecttab.cpp:173
+#: src/project/projecttab.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "An chéad aistriúchán eile amháin"
 
-#: src/project/projecttab.cpp:177
+#: src/project/projecttab.cpp:178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr ""
 
-#: src/project/projecttab.cpp:178
+#: src/project/projecttab.cpp:179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
-#: src/project/projecttab.cpp:242
+#: src/project/projecttab.cpp:243
 #, fuzzy, kde-format
 #| msgid "Select file:"
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Roghnaigh comhad:"
 
-#: src/project/projecttab.cpp:245
+#: src/project/projecttab.cpp:246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
@@ -3813,19 +3813,19 @@ msgstr "Oscail"
 #. menu.addSeparator();
 #. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
 #.
-#: src/project/projecttab.cpp:254
+#: src/project/projecttab.cpp:255
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Cuir le cuimhne aistriúcháin"
 
-#: src/project/projecttab.cpp:256
+#: src/project/projecttab.cpp:257
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Cuardaigh i gcomhaid"
 
-#: src/project/projecttab.cpp:257
+#: src/project/projecttab.cpp:258
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -3833,34 +3833,34 @@ msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Cuir nóta leis"
 
-#: src/project/projecttab.cpp:259
+#: src/project/projecttab.cpp:260
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:262
+#: src/project/projecttab.cpp:263
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Cuardaigh i gcomhaid (teimpléid san áireamh)"
 
-#: src/project/projecttab.cpp:296
+#: src/project/projecttab.cpp:297
 #, kde-format
 msgid "Project file comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:296
+#: src/project/projecttab.cpp:297
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:362
+#: src/project/projecttab.cpp:369
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:381
+#: src/project/projecttab.cpp:388
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
@@ -3870,19 +3870,19 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: src/project/projecttab.cpp:382
+#: src/project/projecttab.cpp:389
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:384
+#: src/project/projecttab.cpp:391
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:386
+#: src/project/projecttab.cpp:393
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "&Open %1 File"
