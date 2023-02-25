@@ -67,9 +67,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->06/08/2015</date>
+>09/03/2020</date>
 <releaseinfo
->2.0 (Applications 15.08)</releaseinfo>
+>Applications 20.04</releaseinfo>
 
 <abstract>
 <para
@@ -148,7 +148,7 @@
 </screenshot>
 
 <para
->A parte superior esquerda da janela principal mostra as Unidades de tradução. Abaixo, existe a seção Metadados da unidade, que contém comentários relevantes para o texto original apresentado. Na parte inferior esquerda, existe a seção de Memória de tradução, que mostra as traduções sugeridas pela base de dados de traduções para o item do texto de origem. Na parte inferior direita da janela, é apresentada a seção do glossário. </para>
+>A parte superior esquerda da janela principal mostra as Unidades de tradução. Abaixo, existe a seção Metadados da unidade, que contém comentários relevantes para o texto original apresentado. Na parte inferior esquerda, existe a seção de Memória de tradução, que mostra as traduções sugeridas pelo banco de dados de traduções para o item do texto de origem. Na parte inferior direita da janela, é apresentada a seção do glossário. </para>
 <para
 >Os arquivos de tradução são abertos em abas separadas, com dois grandes editores multi-linhas, assim como um conjunto de <emphasis
 >áreas de ferramentas</emphasis
@@ -169,20 +169,44 @@
 >Uma unidade poderá estar <emphasis
 >traduzida</emphasis
 > ou <emphasis
->não-traduzida</emphasis
+>não traduzida</emphasis
 >. A tradução de uma unidade poderá estar <emphasis
 >pronta</emphasis
 > ou <emphasis
->não-pronta</emphasis
+>não pronta</emphasis
 > (também chamada de <emphasis
 >aproximada</emphasis
 >). Se a unidade não estiver pronta, a sua tradução aparece em itálico. O &lokalize; permite-lhe navegar facilmente pelo estado da sua tradução. Veja o menu <guilabel
 >Ir</guilabel
-> para saber os atalhos. A barra de estado no fundo da janela mostra o número do texto atual, o número total de textos, os textos não-prontos (aproximados), os textos não traduzidos e o estado do texto atual, respectivamente. Ao navegar, as unidades não-traduzidas são tratadas como não-prontas. Você pode também usar o recurso de filtragem da ferramenta <guilabel
+> para saber os atalhos. A barra de estado no fundo da janela mostra o número do texto atual, o número total de textos, os textos não prontos (aproximados), os textos não traduzidos e o estado do texto atual, respectivamente. Ao navegar, as unidades não traduzidas são tratadas como não prontas. Você pode também usar o recurso de filtragem da ferramenta <guilabel
 >Unidades de Tradução</guilabel
 >. Pressionar <keycap
 >Page Down</keycap
 > de fato o conduz a próxima unidade na lista filtrados/ordenados da ferramenta. </para>
+<para
+>Para facilitar a tradução dos aplicativos de console onde os espaçamentos entre as mensagens são importantes, você pode verificar a opção <guilabel 
+> Visualizar separadores como espaços, tabulações e quebras de linhas no editor </guilabel
+>, localizada na página <guilabel
+>Edição</guilabel
+> da janela de  configurações que pode ser aberta ao selecionar <menuchoice
+><guimenu
+> Configurações</guimenu
+><guimenuitem
+>Configurar o &lokalize;... </guimenuitem
+></menuchoice
+> no menu principal. </para>
+<para
+>Se você não tem acesso ao template original do arquivo (isto é uma prática comum em algumas traduções de projetos comerciais), então você pode usar um  arquivo de tradução do idioma relacionado. Basta escolher o item do menu <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Limpar todas as entradas traduzidas</guimenuitem
+></menuchoice
+> ou usar o atalho <keycombo
+>&Ctrl;&Alt; <keycap
+>D</keycap
+></keycombo
+> para limpar todas as unidades de tradução. </para>
 <para
 >Na janela principal, um usuário poderá adicionar mais seções como as <guilabel
 >Traduções Alternativas</guilabel
@@ -301,7 +325,7 @@
 > na barra de ferramentas. A classificação do estado como estando <emphasis
 >pronto</emphasis
 > ou <emphasis
->não-pronto</emphasis
+>não pronto</emphasis
 > depende da <emphasis
 >fase atual do fluxo</emphasis
 > (<emphasis
@@ -338,6 +362,17 @@
 >aprovador</emphasis
 >), que irá afetar por sua vez uma fase do fluxo, o &lokalize; irá automaticamente obter os arquivos que editar. </para>
 
+<para
+>É possível definir uma posição de quebra de linha no nível do projeto. Use o menu <menuchoice
+><guimenu
+>Projeto</guimenu
+> <guimenuitem
+>Configurar projeto...</guimenuitem
+></menuchoice
+> e vá na página <guilabel
+>Avançado</guilabel
+>. </para>
+
 <note>
 <para
 >As memórias de tradução (ao contrário dos arquivos de projeto, do glossário e dos programas) não são compartilhadas entre os membros da equipe de tradução, sendo criada e armazenada na pasta pessoal do usuário, o que significa que as memórias de tradução de todos os projetos são guardadas na mesma pasta, podendo ser usadas quando abrir outros projetos. </para>
@@ -350,7 +385,7 @@
 <para
 >Quando iniciar o &lokalize; pela primeira vez, irá ver uma página de <guilabel
 >Visão Geral do Projeto</guilabel
->. Esta é uma área de gerenciamento de arquivos, que o ajuda a ter uma ideia geral dos seus arquivos PO. O pacote do &lokalize; irá ajudá-lo a traduzir rapidamente e também a manter as traduções consistentes. O fluxo de trabalho do &lokalize; implica que comece com a criação/abertura de um projeto. A área de Visão Geral do Projeto mostra uma árvore de arquivos com estatísticas sobre o projeto atual, como a percentagem das unidades traduzidas completas e o último tradutor. Permite-lhe abrir um arquivo selecionado em uma aba da janela atual do &lokalize;. </para>
+>. Esta é uma área de gerenciamento de arquivos, que o ajuda a ter uma ideia geral dos seus arquivos PO. O pacote do &lokalize; irá ajudá-lo a traduzir rapidamente e também a manter as traduções consistentes. O fluxo de trabalho do &lokalize; implica que comece com a criação/abertura de um projeto. </para>
 <para
 >Para criar um novo projeto, use a opção <menuchoice
 ><guimenu
@@ -389,6 +424,30 @@
 >Visão Geral do Projeto</guilabel
 > mostra uma árvore de arquivos com algumas estatísticas para o projeto atual, como a porcentagem de unidades traduzidas completas e o último tradutor. Ela permite-lhe abrir um arquivo selecionado em uma nova aba da janela do &lokalize;. </para>
 
+<note>
+    <para
+>Você pode ocultar os arquivos completamente traduzidos da <guilabel
+>Visão geral do projeto</guilabel
+> utilizando o botão <guibutton
+>Ocultar itens concluídos</guibutton
+> da barra de ferramantas principal ou usar o atalho padrão <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>. </para>
+</note>
+<para
+>Da próxima vez que você iniciar o &lokalize;, o programa irá exibir, por padrão, os últimos arquivos abertos anteriormente. Você pode desativar esse comportamento ao desmarcar o item <guilabel
+>Restaura os arquivos abertos anteriomente quando inicar o &lokalize;</guilabel
+>, localizado na janela de configuração da página <guilabel
+>Geral</guilabel
+>, que pode ser aberta ao selecionar <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+> Configurar o &lokalize;...</guimenuitem
+></menuchoice
+> no menu principal. A mesma página pode ser usada para configurar o comportamento dos atalhos de aba anterior/seguinte do &lokalize;. É possível navegar pela lista de abas de acordo com as posições ou ordem de ativação destas. </para>
 </sect1>
 
 </chapter>
@@ -398,8 +457,8 @@
 >Glossário</title>
 
 <para
->Alguma vez você se cansou de digitar a mesma longa sequência de texto várias vezes, simplesmente porque levaria mais tempo para descobrir a sua tradução para um 'copiar e colar'? Agora, você só terá que procurar a sequência de palavras (frequentes) na <guilabel
->Janela do Glossário</guilabel
+>Alguma vez você se cansou de digitar a mesma longa sequência de texto várias vezes, simplesmente porque levaria mais tempo para descobrir a sua tradução para um 'copiar e colar'? Agora, você só terá que procurar a sequência de palavras (frequentes) na janela do <guilabel
+>Glossário</guilabel
 >, inserindo-a depois com o respectivo atalho. </para>
 
 <para
@@ -462,7 +521,22 @@
 >, acompanhado por um '*'. </para>
 
 <para
->O motor da memória de traduções indexa todos os itens, incluindo os não-prontos e não-traduzidos. Isto permite-lhe substituir por completo a funcionalidade de Procurar-nos-Arquivos, que obrigava a que cada arquivo fosse analisado no projeto, sempre que fosse feita uma pesquisa. </para>
+>O motor da memória de traduções indexa todos os itens, incluindo os não prontos e não traduzidos. Isto permite-lhe substituir por completo a funcionalidade de Procurar-nos-Arquivos, que obrigava a que cada arquivo fosse analisado no projeto, sempre que fosse feita uma pesquisa. </para>
+
+<note>
+    <para
+>As entradas desatualizadas serão excluídas da memória de tradução do &lokalize; ao redigitalizar ou clicar em uma entrada ausente, se você marcar a opção <guilabel
+>Remover arquivos faltantes da memória de tradução ao pesquisar novamente ou ao clicar em uma entrada faltante</guilabel
+>, localizada na página <guilabel
+>Memória de Tradução</guilabel
+> da janela de configuração que pode ser aberta ao selecionar o item <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar o &lokalize;...</guimenuitem
+></menuchoice
+>, no menu principal. </para>
+</note>
 
 <screenshot>
 <screeninfo
@@ -484,14 +558,14 @@
 >Tradução em lote:</term>
     <listitem>
       <para
->Para inserir a sugestão com correspondência exata na base de dados da memória de traduções, use a opção <menuchoice
+>Para inserir a sugestão com correspondência exata no banco de dados da memória de traduções, use a opção <menuchoice
 ><guimenu
 >Ferramentas</guimenu
 ><guimenuitem
 >Preencher todas as sugestões exatas</guimenuitem
 ></menuchoice
 > OU <guimenuitem
->Preencher todas as sugestões exatas e marcar como aproximadas</guimenuitem
+>Preencher todas as sugestões exatas e marcar como não pronta</guimenuitem
 >. Isto é funcionalmente semelhante à tradução aproximada do &kbabel;. </para>
     </listitem>
   </varlistentry>
@@ -570,13 +644,13 @@
 > possa ver automaticamente os arquivos abertos da ramificação. Assim, cada vez que você realizar modificações nos arquivos em sua ramificação principal, elas serão automaticamente replicadas na ramificação (é claro, se ela contiver o mesmo texto em inglês). </para>
 <para
 >Por exemplo, se você estiver trabalhando nas traduções do &kde;, você poderá obter o 'trunk' para colocá-lo em <filename class="directory"
->/home/xx/programas/kde/trunk/l10n-kde4/SEU_IDIOMA</filename
+>/home/xx/programas/kde/trunk/l10n-kf5/SEU_IDIOMA</filename
 > e a ramificação <filename class="directory"
->/home/xx/programas/kde/branches/stable/l10n-kde4/SEU_IDIOMA</filename
+>/home/xx/programas/kde/branches/stable/l10n-kf5/SEU_IDIOMA</filename
 >. Crie o projeto do &lokalize;: <filename
->/home/xx/programas/kde/trunk/l10n-kde4/SEU_IDIOMA/projeto.lokalize</filename
+>/home/xx/programas/kde/trunk/l10n-kf5/SEU_IDIOMA/projeto.lokalize</filename
 > e configure o <filename class="directory"
->BranchDir=../../../branches/stable/l10n-kde4/SEU_IDIOMA</filename
+>BranchDir=../../../branches/stable/l10n-kf5/SEU_IDIOMA</filename
 >, podendo então trabalhar com este projeto e replicar as alterações tanto na ramificação como no nó principal. </para>
 </sect1>
 
@@ -591,9 +665,9 @@
 > associadas a ele. Essas traduções poderão aparecer durante a atualização dos arquivos, quando o texto original é ligeiramente alterado. Nesse caso, a tradução antiga, em conjunto com o seu texto original (antigo) passará para a lista de traduções alternativas, para que estas não se percam. </para>
 <para
 >Ao traduzir aplicativos, normalmente as ferramentas do gettext são usadas para preparar os arquivos de tradução. Quando o texto original muda, as ferramentas 'gettext' atualizam os arquivos de traduções e marcam os itens com o texto original alterado como <emphasis
->fuzzy</emphasis
+>aproximada</emphasis
 > (ou <emphasis
->não-aprovada</emphasis
+>não pronta</emphasis
 > em outra terminologia). Elas guardam o texto original anterior para que os tradutores possam ver exatamente as alterações que foram feitas. O &lokalize; simplifica a vida do tradutor e realça as partes do texto original que foram alteradas na área da <guilabel
 >Traduções Alternativas</guilabel
 >. </para>
@@ -622,7 +696,7 @@
 >Programar o &lokalize;</title>
 
 <para
->O &lokalize; é extensível através de programas feitos em várias linguagens interpretadas, incluindo o Python e o JavaScript. Os programas são normalmente integrados na interface do &lokalize; como itens do menu (para os quais poderá ser atribuído um atalho do teclado). A localização e o nome do item do menu para o programa é definida no seu arquivo '.rc' associado. Em cada projeto aberto, o &lokalize; analisa a pasta <filename
+>O &lokalize; é extensível através de programas feitos em várias linguagens interpretadas, incluindo o Python e o &javascript;. Os programas são normalmente integrados na interface do &lokalize; como itens do menu (para os quais poderá ser atribuído um atalho do teclado). A localização e o nome do item do menu para o programa é definida no seu arquivo '.rc' associado. Em cada projeto aberto, o &lokalize; analisa a pasta <filename
 >PROJECTDIR/lokalize-scripts</filename
 > à procura de arquivos '.rc' e adiciona-os a um arquivo de <emphasis
 >cache</emphasis
@@ -632,19 +706,19 @@
 >tenham</emphasis
 > que ser relativos, se quiser compartilhar o arquivo '.rc' com outras pessoas no seu projeto). Por exemplo, você poderá indicar <filename
 >../../scripts/lokalize/opensrc.py</filename
-> para carregar o programa da <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
->pasta global de programas do 'kde4-l10n'</ulink
+> para carregar o programa da <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
+>pasta global de programas do 'kf5-l10n'</ulink
 > (&ie;, não sendo específico para o seu idioma). </para>
 <para
 >Você poderá encontrar alguns exemplos de arquivos '.rc' na pasta de instalação do &lokalize; (normalmente em <filename
 >/usr/share/lokalize/scripts/</filename
->) e no <ulink url="http://websvn.kde.org/trunk/l10n-kde4/scripts/lokalize/"
+>) e no <ulink url="https://websvn.kde.org/trunk/l10n-kf5/scripts/lokalize/"
 >repositório do &kde;</ulink
->. <ulink url="http://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
+>. <ulink url="https://websvn.kde.org/trunk/l10n-kde4/ru/lokalize-scripts/"
 >Aqui</ulink
 > poderá encontrar mais exemplos de programas, incluindo o programa <filename
 >check-gui.js</filename
->, em JavaScript, que é executado automaticamente na gravação de cada arquivo (isto é obtido através de uma opção especial no arquivo .rc). Se você estiver familiarizado com o Python ou o JavaScript, o código deverá ser intuitivo o suficiente. </para>
+>, em &javascript;, que é executado automaticamente na gravação de cada arquivo (isto é obtido através de uma opção especial no arquivo .rc). Se você estiver familiarizado com o Python ou o &javascript;, o código deverá ser intuitivo o suficiente. </para>
 <para
 >Abaixo, estão as referências à API. Tudo o que estiver marcado como <emphasis
 >Q_SCRIPTABLE</emphasis
@@ -653,25 +727,89 @@
 <itemizedlist>
 <listitem>
 <para
->Referência da API do objeto <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
+>Referência da API do objeto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classEditorTab.html"
 >Editor</ulink
 > </para>
 </listitem>
 <listitem>
 <para
->Referência da API do objeto <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
+>Referência da API do objeto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classLokalizeMainWindow.html"
 >&lokalize;</ulink
 > </para>
 </listitem>
 <listitem>
 <para
->Referência da API do objeto <ulink url="http://api.kde.org/4.x-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
+>Referência da API do objeto <ulink url="http://api.kde.org/4.14-api/kdesdk-apidocs/lokalize/html/classProjectTab.html"
 >Project</ulink
 > </para>
 </listitem>
 </itemizedlist>
 
+<sect1 id="pology">
+<title
+>Pology</title>
 
+<para
+>Uma das melhores aplicações de recursos de script é o uso do <application
+>Pology</application
+> no &lokalize;. </para>
+<para
+>A interação com o <application
+>Pology</application
+> pode ser configurada usando a página <guilabel
+>Pology</guilabel
+> da janela de configuração que pode ser aberta ao selecionar o item <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar o &lokalize;...</guimenuitem
+></menuchoice
+>, do menu principal. </para>
+<para
+>Para mais informações, consulte o <ulink url="http://pology.nedohodnik.net/"
+>site do Pology</ulink
+>. </para>
+</sect1>
+
+<sect1 id="languagetool">
+<title
+>LanguageTool</title>
+
+<para
+>O <application
+>LanguageTool</application
+> oferece verificações de ortografia e gramática para suas unidades de tradução. </para>
+<para
+>Você pode configurar seu servidor personalizado do <application
+>LanguageTool</application
+> usando a página <guilabel
+>LanguageTool</guilabel
+> na janela de configurações que pode ser aberta escolhendo o item do menu principal <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar o &lokalize;...</guimenuitem
+></menuchoice
+>. </para>
+<para
+>Para utilizar os recursos de verificação do <application
+>LanguageTool</application
+> use o item de menu <menuchoice
+><guimenu
+>Editar</guimenu
+><guimenuitem
+>Verificar esta unidade usando o LanguageTool</guimenuitem
+></menuchoice
+> ou use o atalho <keycombo
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+>. </para>
+<para
+>Para mais informações, consulte o <ulink url="https://languagetool.org/"
+>site do LanguageTool</ulink
+>. </para>
+</sect1>
 </chapter>
 
 <chapter id="credits">
@@ -682,7 +820,7 @@
 >&lokalize; </para>
 
 <para
->Programa com 'copyright' &copy; 2007-2009 de Nick Shaforostoff <email
+>Direitos autorais do programa &copy; 2007-2015 de Nick Shaforostoff <email
 >shaforostoff@kde.ru</email
 > </para>
 
@@ -724,8 +862,7 @@
 >André Marcelo Alvarenga <email
 >alvarenga@kde.org</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
+> &underFDL; &underGPL; </chapter>
 
 &documentation.index;
 </book>
