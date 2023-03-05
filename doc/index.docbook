@@ -499,7 +499,7 @@ Below are links to API references. Everything marked as <emphasis>Q_SCRIPTABLE</
     The interaction with <application>Pology</application> can be configured using the page <guilabel>Pology</guilabel> of the configuration window which can be opened by choosing the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &lokalize;...</guimenuitem></menuchoice> main menu item.
 </para>
 <para>
-    For more information, please refer to <ulink url="https://invent.kde.org/sdk/pology">Pology homepage</ulink>.
+    For more information, please refer to <ulink url="http://pology.nedohodnik.net/">Pology homepage</ulink>.
 </para>
 </sect1>
 
