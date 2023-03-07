@@ -625,7 +625,7 @@
 >/home/xx/hacking/kde/trunk/l10n-kf5/EL_VOSTRE_IDIOMA/projecte.lokalize</filename
 > i establiu <filename class="directory"
 >BranchDir=../../../branches/stable/l10n-kf5/EL_VOSTRE_IDIOMA</filename
->, a continuació treballeu amb aquest projecte, i publiqueu els canvis en ambdues carpetes trunk i la branca. </para>
+>, a continuació treballeu amb aquest projecte, i cometeu els canvis en ambdues carpetes trunk i la branca. </para>
 </sect1>
 
 
