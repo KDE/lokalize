@@ -4189,7 +4189,7 @@ msgstr "Afig dades des de TMX"
 #: src/tm/managedatabases.ui:40
 #, kde-format
 msgid "Export to TMX"
-msgstr "Exporta a TMX"
+msgstr "Exporta cap a TMX"
 
 #. i18n: ectx: property (text), widget (QPushButton, remove)
 #: src/tm/managedatabases.ui:47
