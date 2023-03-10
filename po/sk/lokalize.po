@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-22 01:01+0000\n"
+"POT-Creation-Date: 2023-03-10 00:50+0000\n"
 "PO-Revision-Date: 2022-04-09 19:30+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -995,21 +995,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Dĺžka cieľového textu"
 
-#: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1080
-#: src/editortab.cpp:1283 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1081
+#: src/editortab.cpp:1284 src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Pripravený"
 
-#: src/cataloglistview/catalogmodel.cpp:160 src/editortab.cpp:1081
-#: src/editortab.cpp:1278 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:160 src/editortab.cpp:1082
+#: src/editortab.cpp:1279 src/tm/tmtab.cpp:232
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Vyžaduje revíziu"
 
-#: src/cataloglistview/catalogmodel.cpp:162 src/editortab.cpp:1079
+#: src/cataloglistview/catalogmodel.cpp:162 src/editortab.cpp:1080
 #: src/tm/tmtab.cpp:233
 #, kde-format
 msgctxt "@info:status"
@@ -1034,13 +1034,13 @@ msgctxt "@action:inmenu Edit term"
 msgid "Edit"
 msgstr "Upraviť"
 
-#: src/editortab.cpp:143
+#: src/editortab.cpp:144
 #, kde-format
 msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Aktuálne: %1"
 
-#: src/editortab.cpp:144 src/editortab.cpp:854
+#: src/editortab.cpp:145 src/editortab.cpp:855
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:499
 #: src/tm/tmtab.cpp:592
 #, kde-format
@@ -1048,7 +1048,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1"
 msgstr "Celkom: %1"
 
-#: src/editortab.cpp:145 src/editortab.cpp:155
+#: src/editortab.cpp:146 src/editortab.cpp:156
 #, kde-format
 msgctxt ""
 "@info:status message entries\n"
@@ -1056,137 +1056,137 @@ msgctxt ""
 msgid "Not ready: %1"
 msgstr "Nepripravené: %1"
 
-#: src/editortab.cpp:146 src/editortab.cpp:163
+#: src/editortab.cpp:147 src/editortab.cpp:164
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Untranslated: %1"
 msgstr "Nepreložené: %1"
 
-#: src/editortab.cpp:157 src/editortab.cpp:165
+#: src/editortab.cpp:158 src/editortab.cpp:166
 #, kde-format
 msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:191 src/lokalizemainwindow.cpp:435
+#: src/editortab.cpp:192 src/lokalizemainwindow.cpp:435
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
 msgstr "Súbor"
 
-#: src/editortab.cpp:192 src/project/projecttab.cpp:145
+#: src/editortab.cpp:193 src/project/projecttab.cpp:145
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
 msgstr "Navigácia"
 
-#: src/editortab.cpp:193
+#: src/editortab.cpp:194
 #, kde-format
 msgctxt "@title actions category"
 msgid "Editing"
 msgstr "Editovanie"
 
-#: src/editortab.cpp:194
+#: src/editortab.cpp:195
 #, kde-format
 msgid "Synchronization 1"
 msgstr "Synchronizácia č. 1"
 
-#: src/editortab.cpp:195
+#: src/editortab.cpp:196
 #, kde-format
 msgid "Synchronization 2"
 msgstr "Synchronizácia č. 2"
 
-#: src/editortab.cpp:196
+#: src/editortab.cpp:197
 #, kde-format
 msgid "Translation Memory"
 msgstr "Pamäť prekladov"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:197 src/lokalizemainwindow.cpp:437
+#: src/editortab.cpp:198 src/lokalizemainwindow.cpp:437
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "Slovník"
 
-#: src/editortab.cpp:224
+#: src/editortab.cpp:225
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "Vložiť alternatívny preklad #%1"
 
-#: src/editortab.cpp:271
+#: src/editortab.cpp:272
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "Pridať poznámku"
 
-#: src/editortab.cpp:292
+#: src/editortab.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "Vložiť návrhy TM #%1"
 
-#: src/editortab.cpp:297
+#: src/editortab.cpp:298
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "Odstrániť návrh TM #%1"
 
-#: src/editortab.cpp:347
+#: src/editortab.cpp:348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "Vložiť #%1 preklad termínu"
 
-#: src/editortab.cpp:358
+#: src/editortab.cpp:359
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "Definovať nový termín"
 
-#: src/editortab.cpp:390
+#: src/editortab.cpp:391
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert WebQuery result #%1"
 msgstr "Vložiť výsledok webovej požiadavky #%1"
 
-#: src/editortab.cpp:431
+#: src/editortab.cpp:432
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "Fázy..."
 
-#: src/editortab.cpp:434
+#: src/editortab.cpp:435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "Počet slov"
 
-#: src/editortab.cpp:437
+#: src/editortab.cpp:438
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "Vyčistiť všetky preložené položky"
 
-#: src/editortab.cpp:440
+#: src/editortab.cpp:441
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr "Spustiť príkaz Pology na tomto súbore"
 
-#: src/editortab.cpp:444
+#: src/editortab.cpp:445
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Zlúčiť preklad do OpenDocument"
 
-#: src/editortab.cpp:465
+#: src/editortab.cpp:466
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Zmeniť smer hľadania"
 
-#: src/editortab.cpp:476
+#: src/editortab.cpp:477
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1194,97 +1194,97 @@ msgctxt ""
 msgid "Approved"
 msgstr "Schválený"
 
-#: src/editortab.cpp:494
+#: src/editortab.cpp:495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "Schváliť a prejsť na nasledovný"
 
-#: src/editortab.cpp:503
+#: src/editortab.cpp:504
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "Ekvivalentný preklad"
 
-#: src/editortab.cpp:518
+#: src/editortab.cpp:519
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "Kopírovať zdroj do cieľa"
 
-#: src/editortab.cpp:521
+#: src/editortab.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Zrušiť zalomenie cieľa"
 
-#: src/editortab.cpp:526 src/filesearch/filesearchtab.cpp:94
+#: src/editortab.cpp:527 src/filesearch/filesearchtab.cpp:94
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Vyčistiť"
 
-#: src/editortab.cpp:530
+#: src/editortab.cpp:531
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Vložiť značku"
 
-#: src/editortab.cpp:534
+#: src/editortab.cpp:535
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr "Skontrolovať túto jednotku pomocou nástroja LanguageTool"
 
-#: src/editortab.cpp:538
+#: src/editortab.cpp:539
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Vložiť ďalšiu značku"
 
-#: src/editortab.cpp:542
+#: src/editortab.cpp:543
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Dopĺňanie"
 
-#: src/editortab.cpp:546
+#: src/editortab.cpp:547
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Nahradiť najlepším návrhom kontroly pravopisu"
 
-#: src/editortab.cpp:553
+#: src/editortab.cpp:554
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "&Nasledujúci"
 
-#: src/editortab.cpp:558
+#: src/editortab.cpp:559
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "&Predchádzajúci"
 
-#: src/editortab.cpp:564
+#: src/editortab.cpp:565
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "Prvá položka"
 
-#: src/editortab.cpp:570
+#: src/editortab.cpp:571
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "Posledná položka"
 
-#: src/editortab.cpp:576
+#: src/editortab.cpp:577
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Položka podľa čísla"
 
-#: src/editortab.cpp:578 src/project/projecttab.cpp:153
+#: src/editortab.cpp:579 src/project/projecttab.cpp:153
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1292,7 +1292,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Predošlé neprázdne, ale nepripravené"
 
-#: src/editortab.cpp:583 src/project/projecttab.cpp:156
+#: src/editortab.cpp:584 src/project/projecttab.cpp:156
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1300,19 +1300,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Ďalšie neprázdne, ale nepripravené"
 
-#: src/editortab.cpp:588 src/project/projecttab.cpp:159
+#: src/editortab.cpp:589 src/project/projecttab.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Predošlé nepreložené"
 
-#: src/editortab.cpp:593 src/project/projecttab.cpp:162
+#: src/editortab.cpp:594 src/project/projecttab.cpp:162
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Ďalšie nepreložené"
 
-#: src/editortab.cpp:598 src/project/projecttab.cpp:147
+#: src/editortab.cpp:599 src/project/projecttab.cpp:147
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1320,7 +1320,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Predošlý nepripravený"
 
-#: src/editortab.cpp:603 src/project/projecttab.cpp:150
+#: src/editortab.cpp:604 src/project/projecttab.cpp:150
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1328,49 +1328,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Nasledovný nepripravený"
 
-#: src/editortab.cpp:610
+#: src/editortab.cpp:611
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Zamerať riadok hľadania pohľadu jednotiek prekladu"
 
-#: src/editortab.cpp:616
+#: src/editortab.cpp:617
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Pridať správu do záložiek"
 
-#: src/editortab.cpp:622
+#: src/editortab.cpp:623
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Predchádzajúca záložka"
 
-#: src/editortab.cpp:626
+#: src/editortab.cpp:627
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Nasledujúca záložka"
 
-#: src/editortab.cpp:634
+#: src/editortab.cpp:635
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Vyplniť všetky presné návrhy"
 
-#: src/editortab.cpp:638
+#: src/editortab.cpp:639
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Vyplniť všetky presné návrhy a označiť ich ako nepresné"
 
-#: src/editortab.cpp:643
+#: src/editortab.cpp:644
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Otvoriť súbor pre synchronizáciu/zlúčenie"
 
-#: src/editortab.cpp:644 src/editortab.cpp:701
+#: src/editortab.cpp:645 src/editortab.cpp:702
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1379,13 +1379,13 @@ msgid ""
 msgstr ""
 "Otvoriť katalóg na zlúčenie do aktuálneho / replikovať základné zmeny súborov"
 
-#: src/editortab.cpp:650 src/editortab.cpp:707
+#: src/editortab.cpp:651 src/editortab.cpp:708
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Predošlý rozdiel"
 
-#: src/editortab.cpp:651 src/editortab.cpp:708
+#: src/editortab.cpp:652 src/editortab.cpp:709
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1395,13 +1395,13 @@ msgstr ""
 "Predošlá položka, ktorá je preložená inak v zlučovanom súbore, vrátane "
 "prázdnych prekladov v zlučovanom zdroji"
 
-#: src/editortab.cpp:660 src/editortab.cpp:715
+#: src/editortab.cpp:661 src/editortab.cpp:716
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Nasledovný rozdiel"
 
-#: src/editortab.cpp:661 src/editortab.cpp:716
+#: src/editortab.cpp:662 src/editortab.cpp:717
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1411,55 +1411,55 @@ msgstr ""
 "Ďalšia položka, ktorá je preložená inak v súbore na zlúčenie, vrátane "
 "prázdnych prekladov a zlučovanom zdroji"
 
-#: src/editortab.cpp:669
+#: src/editortab.cpp:670
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Nasledovný schválený rozdiel"
 
-#: src/editortab.cpp:675 src/editortab.cpp:723
+#: src/editortab.cpp:676 src/editortab.cpp:724
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Kopírovať z pripojovaného zdroja"
 
-#: src/editortab.cpp:682 src/editortab.cpp:728
+#: src/editortab.cpp:683 src/editortab.cpp:729
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Kopírovať všetky nové preklady"
 
-#: src/editortab.cpp:683
+#: src/editortab.cpp:684
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "Toto zmení iba prázdne a neprázdne položky v základnom súbore"
 
-#: src/editortab.cpp:692 src/editortab.cpp:735
+#: src/editortab.cpp:693 src/editortab.cpp:736
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Kopírovať do pripojovaného zdroja"
 
-#: src/editortab.cpp:700
+#: src/editortab.cpp:701
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Otvoriť súbor pre druhotnú synchronizáciu"
 
-#: src/editortab.cpp:729
+#: src/editortab.cpp:730
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Toto zmení iba prázdne záznamy"
 
-#: src/editortab.cpp:759
+#: src/editortab.cpp:760
 #, kde-format
 msgctxt "editor tab name"
 msgid "(recovered)"
 msgstr "(obnovené)"
 
-#: src/editortab.cpp:801 src/editortab.cpp:969
+#: src/editortab.cpp:802 src/editortab.cpp:970
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1469,38 +1469,38 @@ msgstr ""
 "Dokument obsahuje neuložené zmeny.\n"
 "Chcete uložiť alebo zahodiť zmeny?"
 
-#: src/editortab.cpp:802 src/editortab.cpp:970 src/editortab.cpp:1397
+#: src/editortab.cpp:803 src/editortab.cpp:971 src/editortab.cpp:1398
 #: src/glossary/glossarywindow.cpp:490
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Upozornenie"
 
-#: src/editortab.cpp:818 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Výber súboru s prekladom"
 
-#: src/editortab.cpp:903
+#: src/editortab.cpp:904
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Chyba otvárania súboru %1, riadok: %2"
 
-#: src/editortab.cpp:904
+#: src/editortab.cpp:905
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Chyba otvárania súboru %1"
 
-#: src/editortab.cpp:911
+#: src/editortab.cpp:912
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Uloženie súboru ako"
 
-#: src/editortab.cpp:936
+#: src/editortab.cpp:937
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1510,13 +1510,13 @@ msgstr ""
 "Chyba ukladania súboru %1\n"
 "Chcete uložiť do iného súboru alebo zrušiť?"
 
-#: src/editortab.cpp:938
+#: src/editortab.cpp:939
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/editortab.cpp:946
+#: src/editortab.cpp:947
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1526,73 +1526,73 @@ msgstr ""
 "Nepodarilo sa vykonať automatické uloženie.\n"
 "Cieľový súbor bol %1."
 
-#: src/editortab.cpp:995
+#: src/editortab.cpp:996
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Skočiť na položku"
 
-#: src/editortab.cpp:996
+#: src/editortab.cpp:997
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Zadajte číslo položky:"
 
-#: src/editortab.cpp:1067
+#: src/editortab.cpp:1068
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Aktuálne: %1"
 
-#: src/editortab.cpp:1256
+#: src/editortab.cpp:1257
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Preložené"
 
-#: src/editortab.cpp:1257
+#: src/editortab.cpp:1258
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Odhlásený"
 
-#: src/editortab.cpp:1258
+#: src/editortab.cpp:1259
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Schválené"
 
-#: src/editortab.cpp:1261
+#: src/editortab.cpp:1262
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Preklad je hotový (hoci môže stále vyžadovať revíziu)"
 
-#: src/editortab.cpp:1262
+#: src/editortab.cpp:1263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Preklad získal pozitívnu odozvu"
 
-#: src/editortab.cpp:1263
+#: src/editortab.cpp:1264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Položka je plne lokalizovaná (konečná)"
 
-#: src/editortab.cpp:1375 src/project/projecttab.cpp:359
+#: src/editortab.cpp:1376 src/project/projecttab.cpp:359
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Kontrola nástrojom Pology už prebieha."
 
-#: src/editortab.cpp:1375 src/editortab.cpp:1383 src/editortab.cpp:1387
+#: src/editortab.cpp:1376 src/editortab.cpp:1384 src/editortab.cpp:1388
 #: src/project/projecttab.cpp:359 src/project/projecttab.cpp:367
 #: src/project/projecttab.cpp:371
 #, kde-format
 msgid "Pology error"
 msgstr "Chyba nástroja Pology"
 
-#: src/editortab.cpp:1383 src/project/projecttab.cpp:367
+#: src/editortab.cpp:1384 src/project/projecttab.cpp:367
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1601,17 +1601,17 @@ msgstr ""
 "Kontrola nástrojom Pology neočakávane skončila:\n"
 "%1"
 
-#: src/editortab.cpp:1385 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1386 src/project/projecttab.cpp:369
 #, kde-format
 msgid "Pology success"
 msgstr "Úspech nástroja Pology"
 
-#: src/editortab.cpp:1385
+#: src/editortab.cpp:1386
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Kontrola nástrojom Pology bola úspešná."
 
-#: src/editortab.cpp:1387 src/project/projecttab.cpp:371
+#: src/editortab.cpp:1388 src/project/projecttab.cpp:371
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1620,7 +1620,7 @@ msgstr ""
 "Kontrola nástrojom Pology vrátila chybu:\n"
 "%1"
 
-#: src/editortab.cpp:1396
+#: src/editortab.cpp:1397
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1630,42 +1630,42 @@ msgstr ""
 "Týmto sa odstránia všetky preklady zo súboru.\n"
 "Naozaj chcete vyčistiť všetky preložené položky?"
 
-#: src/editortab.cpp:1432
+#: src/editortab.cpp:1433
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Textové slová zdroja: %1<br/>Textové slová cieľa: %2"
 
-#: src/editortab.cpp:1433
+#: src/editortab.cpp:1434
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Počet slov"
 
-#: src/editortab.cpp:1525
+#: src/editortab.cpp:1526
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Chcete hľadať zdrojový súbor lokálne alebo vez lxr.kde.org?"
 
-#: src/editortab.cpp:1525 src/editortab.cpp:1566
+#: src/editortab.cpp:1526 src/editortab.cpp:1567
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Hľadanie zdrojového súboru"
 
-#: src/editortab.cpp:1526
+#: src/editortab.cpp:1527
 #, kde-format
 msgid "Locally"
 msgstr "Lokálne"
 
-#: src/editortab.cpp:1538 src/editortab.cpp:1577
+#: src/editortab.cpp:1539 src/editortab.cpp:1578
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Vyberte základný priečinok projektu pre hľadanie zdrojových súborov"
 
-#: src/editortab.cpp:1565
+#: src/editortab.cpp:1566
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1675,12 +1675,12 @@ msgstr ""
 "Nepodarilo sa nájsť zdrojový súbor v určenom priečinku.\n"
 "Chcete zmeniť priečinok so zdrojovými súbormi?"
 
-#: src/editortab.cpp:1567
+#: src/editortab.cpp:1568
 #, kde-format
 msgid "lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1596
+#: src/editortab.cpp:1603
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1695,33 +1695,33 @@ msgstr ""
 "si príručku Lokalize kvôli príkladom skriptov a ako ich pripojiť k vášmu "
 "projektu."
 
-#: src/editortab.cpp:1610 src/project/project.cpp:472
+#: src/editortab.cpp:1617 src/project/project.cpp:472
 #: src/project/project.cpp:477
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Nainštalujte balík translate-toolkit a skúste znova"
 
-#: src/editortab.cpp:1616
+#: src/editortab.cpp:1623
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Nainštalujte balík translate-toolkit a skúste znova."
 
-#: src/editortab.cpp:1625
+#: src/editortab.cpp:1632
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Vyberte pôvodný OpenDocument, na ktorom je založený aktuálny XLIFF"
 
-#: src/editortab.cpp:1627 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:482
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Súbory OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1672
+#: src/editortab.cpp:1679
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Nainštalujte balík python-uno pre dodatočnú funkcionalitu."
 
-#: src/editortab.cpp:1796
+#: src/editortab.cpp:1803
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"

@@ -617,7 +617,7 @@
 >Sincronització secundària</guilabel
 > obrirà automàticament els fitxers de la branca. Després, cada vegada que realitzeu canvis en els fitxers de la branca principal, automàticament es replicaran en aquesta branca (per descomptat, si conté la mateixa cadena en anglès). </para>
 <para
->Per exemple, si treballeu en les traduccions del &kde;, podeu obtenir la branca trunk a <filename class="directory"
+>Per exemple, si treballeu en les traduccions del &kde;, podeu extreure la branca trunk a <filename class="directory"
 >/home/xx/hacking/kde/trunk/l10n-kf5/EL_VOSTRE_IDIOMA</filename
 > i la branca a <filename class="directory"
 >/home/xx/hacking/kde/branches/stable/l10n-kf5/EL_VOSTRE_IDIOMA</filename
