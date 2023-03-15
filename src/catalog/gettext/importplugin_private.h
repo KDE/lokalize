@@ -13,8 +13,8 @@
 #include "catalogitem.h"
 #include "catalog.h"
 
-#include <QLinkedList>
 #include <QTextCodec>
+#include <list>
 
 class QTextCodec;
 namespace GettextCatalog
@@ -32,8 +32,8 @@ public:
     bool _updateCatalogExtraData;
 
     bool _generatedFromDocbook;
-    QLinkedList<CatalogItem> _entries;
-    QLinkedList<CatalogItem> _obsoleteEntries;
+    std::list<CatalogItem> _entries;
+    std::list<CatalogItem> _obsoleteEntries;
     CatalogItem _header;
     QTextCodec* _codec;
     QList<int> _errorList;

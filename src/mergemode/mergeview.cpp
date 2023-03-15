@@ -348,11 +348,10 @@ void MergeView::mergeAcceptAllForEmpty()
 {
     if (Q_UNLIKELY(!m_mergeCatalog)) return;
 
-    bool update = m_mergeCatalog->differentEntries().contains(m_pos.entry);
-
+    bool containsBefore = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
     m_mergeCatalog->copyToBaseCatalog(/*MergeCatalog::EmptyOnly*/MergeCatalog::HigherOnly);
-
-    if (update != m_mergeCatalog->differentEntries().contains(m_pos.entry))
+    bool containsAfter = std::find(m_mergeCatalog->differentEntries().begin(), m_mergeCatalog->differentEntries().end(), m_pos.entry) != m_mergeCatalog->differentEntries().end();
+    if (containsBefore != containsAfter)
         Q_EMIT gotoEntry(m_pos, 0);
 }
 
@@ -362,7 +361,7 @@ bool MergeView::event(QEvent *event)
     if (event->type() == QEvent::ToolTip && m_mergeCatalog) {
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         QString text = QStringLiteral("<b>") + QDir::toNativeSeparators(filePath()) + QStringLiteral("</b>\n") + i18nc("@info:tooltip", "Different entries: %1\nUnmatched entries: %2",
-                       m_mergeCatalog->differentEntries().count(), m_mergeCatalog->unmatchedCount());
+                       m_mergeCatalog->differentEntries().size(), m_mergeCatalog->unmatchedCount());
         text.replace('\n', QStringLiteral("<br />"));
         QToolTip::showText(helpEvent->globalPos(), text);
         return true;

@@ -21,7 +21,8 @@
 #include <QStringList>
 #include <QStringMatcher>
 #include <QStringBuilder>
-#include <QLinkedList>
+
+#include <list>
 
 
 typedef enum {
@@ -67,7 +68,7 @@ public:
 
 private:
     QStringList s1, s2;
-    QLinkedList<QString> resultString;
+    std::list<QString> resultString;
     QStringList s1Space, s2Space;
     QStringList::const_iterator it1, it2;
     QStringList::const_iterator it1Space, it2Space;
@@ -81,7 +82,7 @@ inline
 QStringList LCSprinter::operator()()
 {
     QStringList result;
-    for (const QString& str : qAsConst(resultString))
+    for (const QString& str : resultString)
         result << str;
 
     return result;
@@ -131,14 +132,14 @@ void LCSprinter::printLCS(uint index)
         // original LCS algo does not have to deal with ins before first common
         uint bound = index % nT;
         for (index = 0; index < bound; ++index) {
-            resultString.append(addMarkerStart);
-            resultString.append(*it2);
+            resultString.push_back(addMarkerStart);
+            resultString.push_back(*it2);
             ++it2;
             if (haveSpaces) {
-                resultString.append(*it2Space);
+                resultString.push_back(*it2Space);
                 ++it2Space;
             }
-            resultString.append(addMarkerEnd);
+            resultString.push_back(addMarkerEnd);
         }
 
         return;
@@ -152,17 +153,17 @@ void LCSprinter::printLCS(uint index)
             //qCWarning(LOKALIZE_LOG) << "upleft 2s" << *it2Space;
             if (haveSpaces) {
                 if ((*it1) == (*it2)) //case and accels
-                    resultString.append(*it1);
+                    resultString.push_back(*it1);
                 else {
                     QStringList word1 = prepareForInternalDiff(*it1);
                     QStringList word2 = prepareForInternalDiff(*it2);
 
                     QStringList empty;
-                    resultString.append(calcLCS(word1, word2, empty, empty).join(QString()));
+                    resultString.push_back(calcLCS(word1, word2, empty, empty).join(QString()));
                 }
 
                 if ((*it1Space) == (*it2Space))
-                    resultString.append(*it1Space);
+                    resultString.push_back(*it1Space);
                 else {
                     QStringList word1 = prepareForInternalDiff(*it1Space);
                     QStringList word2 = prepareForInternalDiff(*it2Space);
@@ -176,13 +177,13 @@ void LCSprinter::printLCS(uint index)
                     empty.replaceInStrings(QStringLiteral("KBABELDEL>"), QStringLiteral("KBABELADD>"));
                     empty.replaceInStrings(QStringLiteral("KBABELTMP>"), QStringLiteral("KBABELDEL>"));
 
-                    resultString.append(empty.join(QString()));
+                    resultString.push_back(empty.join(QString()));
                 }
                 ++it1Space;
                 ++it2Space;
                 //qCWarning(LOKALIZE_LOG) << " common " << *it1;
             } else
-                resultString.append(*it1);//we may guess that this is a batch job, i.e. TM search
+                resultString.push_back(*it1);//we may guess that this is a batch job, i.e. TM search
             ++it1;
             ++it2;
         }
@@ -192,26 +193,26 @@ void LCSprinter::printLCS(uint index)
         {
             //qCWarning(LOKALIZE_LOG)<<"APPENDDEL "<<*it1;
             //qCWarning(LOKALIZE_LOG)<<"APPENDDEL "<<*it1Space;
-            resultString.append(delMarkerStart);
-            resultString.append(*it1);
+            resultString.push_back(delMarkerStart);
+            resultString.push_back(*it1);
             ++it1;
             if (haveSpaces) {
-                resultString.append(*it1Space);
+                resultString.push_back(*it1Space);
                 ++it1Space;
             }
-            resultString.append(delMarkerEnd);
+            resultString.push_back(delMarkerEnd);
         }
     } else {
         printLCS(index - 1);
-        resultString.append(addMarkerStart);
-        resultString.append(*it2);
+        resultString.push_back(addMarkerStart);
+        resultString.push_back(*it2);
         ++it2;
         if (haveSpaces) {
             //qCWarning(LOKALIZE_LOG) << "add2 " << *it2;
-            resultString.append(*it2Space);
+            resultString.push_back(*it2Space);
             ++it2Space;
         }
-        resultString.append(addMarkerEnd);
+        resultString.push_back(addMarkerEnd);
     }
 }
 

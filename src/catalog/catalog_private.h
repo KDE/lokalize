@@ -22,12 +22,13 @@
 #include <kautosavefile.h>
 
 #include <QList>
-#include <QLinkedList>
 #include <QStringList>
 #include <QVector>
 #include <QMap>
 #include <QSet>
 #include <QTimer>
+
+#include <list>
 
 class QTextCodec;
 class CatalogStorage;
@@ -59,17 +60,17 @@ public:
     //for wrapping
     short _maxLineLength;
 
-    QLinkedList<int> _nonApprovedIndex;
-    QLinkedList<int> _nonApprovedNonEmptyIndex;
-    QLinkedList<int> _emptyIndex;
-    QLinkedList<int> _errorIndex;
+    std::list<int> _nonApprovedIndex;
+    std::list<int> _nonApprovedNonEmptyIndex;
+    std::list<int> _emptyIndex;
+    std::list<int> _errorIndex;
 
-    QLinkedList<int> _bookmarkIndex;
+    std::list<int> _bookmarkIndex;
 
-    QVector< QLinkedList<int> > _statesIndex;
+    QVector< std::list<int> > _statesIndex;
 
 
-    QLinkedList<Catalog*> _altTransCatalogs;
+    std::list<Catalog*> _altTransCatalogs;
     QMap<int, AltTrans> _altTranslations;
 
     //for undo/redo

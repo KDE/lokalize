@@ -37,9 +37,9 @@ class CatalogExportPlugin;
 bool isApproved(TargetState state, ProjectLocal::PersonRole role);
 bool isApproved(TargetState state); //disregarding Phase
 TargetState closestState(bool approved, ProjectLocal::PersonRole role);
-int findPrevInList(const QLinkedList<int>& list, int index);
-int findNextInList(const QLinkedList<int>& list, int index);
-void insertInList(QLinkedList<int>& list, int index); // insert index in the right place in the list
+int findPrevInList(const std::list<int>& list, int index);
+int findNextInList(const std::list<int>& list, int index);
+void insertInList(std::list<int>& list, int index); // insert index in the right place in the list
 
 
 /**
@@ -145,7 +145,7 @@ public Q_SLOTS: //DBus interface
 
     bool isBookmarked(uint index) const
     {
-        return d._bookmarkIndex.contains(index);
+        return std::find(d._bookmarkIndex.begin(), d._bookmarkIndex.end(), index) != d._bookmarkIndex.end();
     }
     void setBookmark(uint, bool);
 
@@ -169,11 +169,11 @@ public:
 
     int firstFuzzyIndex() const
     {
-        return d._nonApprovedIndex.isEmpty() ? numberOfEntries() : d._nonApprovedIndex.first();
+        return d._nonApprovedIndex.empty() ? numberOfEntries() : d._nonApprovedIndex.front();
     }
     int lastFuzzyIndex() const
     {
-        return d._nonApprovedIndex.isEmpty() ? -1 : d._nonApprovedIndex.last();
+        return d._nonApprovedIndex.empty() ? -1 : d._nonApprovedIndex.back();
     }
     int nextFuzzyIndex(uint index) const
     {
@@ -185,11 +185,11 @@ public:
     }
     int firstUntranslatedIndex() const
     {
-        return d._emptyIndex.isEmpty() ? numberOfEntries() : d._emptyIndex.first();
+        return d._emptyIndex.empty() ? numberOfEntries() : d._emptyIndex.front();
     }
     int lastUntranslatedIndex() const
     {
-        return d._emptyIndex.isEmpty() ? -1 : d._emptyIndex.last();
+        return d._emptyIndex.empty() ? -1 : d._emptyIndex.back();
     }
     int nextUntranslatedIndex(uint index) const
     {
@@ -202,11 +202,11 @@ public:
 
     int firstBookmarkIndex() const
     {
-        return d._bookmarkIndex.isEmpty() ? numberOfEntries() : d._bookmarkIndex.first();
+        return d._bookmarkIndex.empty() ? numberOfEntries() : d._bookmarkIndex.front();
     }
     int lastBookmarkIndex() const
     {
-        return d._bookmarkIndex.isEmpty() ? -1 : d._bookmarkIndex.last();
+        return d._bookmarkIndex.empty() ? -1 : d._bookmarkIndex.back();
     }
     int nextBookmarkIndex(uint index) const
     {

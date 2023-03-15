@@ -122,9 +122,10 @@ void Catalog::clear()
     d._lastModifiedPos = DocPosition();
     d._modifiedEntries.clear();
 
-    while (!d._altTransCatalogs.isEmpty())
-        d._altTransCatalogs.takeFirst()->deleteLater();
-
+    while (!d._altTransCatalogs.empty()) {
+        d._altTransCatalogs.front()->deleteLater();
+        d._altTransCatalogs.pop_front();
+    }
     d._altTranslations.clear();
     /*
         d.msgidDiffList.clear();
@@ -258,7 +259,7 @@ QStringList Catalog::noteAuthors() const
 
 void Catalog::attachAltTransCatalog(Catalog* altCat)
 {
-    d._altTransCatalogs.append(altCat);
+    d._altTransCatalogs.push_back(altCat);
     if (numberOfEntries() != altCat->numberOfEntries())
         qCWarning(LOKALIZE_LOG) << altCat->url() << "has different number of entries";
 }
@@ -353,11 +354,11 @@ void Catalog::updateApprovedEmptyIndexCache()
     const int limit = m_storage->size();
     while (pos.entry < limit) {
         if (m_storage->isEmpty(pos))
-            d._emptyIndex << pos.entry;
+            d._emptyIndex.push_back(pos.entry);
         if (!isApproved(pos)) {
-            d._nonApprovedIndex << pos.entry;
+            d._nonApprovedIndex.push_back(pos.entry);
             if (!m_storage->isEmpty(pos)) {
-                d._nonApprovedNonEmptyIndex << pos.entry;
+                d._nonApprovedNonEmptyIndex.push_back(pos.entry);
             }
         }
         ++(pos.entry);
@@ -820,7 +821,7 @@ void Catalog::targetDelete(const DocPosition& pos, int count)
 bool CatalogPrivate::removeFromUntransIndexIfAppropriate(CatalogStorage* storage, const DocPosition& pos)
 {
     if ((!pos.offset) && (storage->isEmpty(pos))) {
-        _emptyIndex.removeAll(pos.entry);
+        _emptyIndex.remove(pos.entry);
         return true;
     }
     return false;
@@ -882,7 +883,7 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
     TargetState prevState;
     if (extendedStates) {
         prevState = m_storage->setState(pos, state);
-        d._statesIndex[prevState].removeAll(pos.entry);
+        d._statesIndex[prevState].remove(pos.entry);
         insertInList(d._statesIndex[state], pos.entry);
     } else {
         prevState = closestState(!approved, activePhaseRole());
@@ -894,8 +895,8 @@ TargetState Catalog::setState(const DocPosition& pos, TargetState state)
         if (!m_storage->isEmpty(pos))
             insertInList(d._nonApprovedNonEmptyIndex, pos.entry);
     } else {
-        d._nonApprovedIndex.removeAll(pos.entry);
-        d._nonApprovedNonEmptyIndex.removeAll(pos.entry);
+        d._nonApprovedIndex.remove(pos.entry);
+        d._nonApprovedNonEmptyIndex.remove(pos.entry);
     }
 
     Q_EMIT signalNumberOfFuzziesChanged();
@@ -947,7 +948,7 @@ bool Catalog::isModified(int entry) const
 
 
 
-int findNextInList(const QLinkedList<int>& list, int index)
+int findNextInList(const std::list<int>& list, int index)
 {
     int nextIndex = -1;
     for (int key : list) {
@@ -959,7 +960,7 @@ int findNextInList(const QLinkedList<int>& list, int index)
     return nextIndex;
 }
 
-int findPrevInList(const QLinkedList<int>& list, int index)
+int findPrevInList(const std::list<int>& list, int index)
 {
     int prevIndex = -1;
     for (int key : list) {
@@ -970,10 +971,10 @@ int findPrevInList(const QLinkedList<int>& list, int index)
     return prevIndex;
 }
 
-void insertInList(QLinkedList<int>& list, int index)
+void insertInList(std::list<int>& list, int index)
 {
-    QLinkedList<int>::Iterator it = list.begin();
-    while (it != list.end() && index > *it)
+    std::list<int>::const_iterator it = list.cbegin();
+    while (it != list.cend() && index > *it)
         ++it;
     list.insert(it, index);
 }
@@ -983,7 +984,7 @@ void Catalog::setBookmark(uint idx, bool set)
     if (set)
         insertInList(d._bookmarkIndex, idx);
     else
-        d._bookmarkIndex.removeAll(idx);
+        d._bookmarkIndex.remove(idx);
 }
 
 

@@ -14,7 +14,7 @@
 #include "catalog.h"
 
 #include <QVector>
-#include <QLinkedList>
+#include <list>
 
 class KAutoSaveFile;
 
@@ -70,11 +70,11 @@ public:
 
     int firstChangedIndex() const
     {
-        return m_mergeDiffIndex.isEmpty() ? numberOfEntries() : m_mergeDiffIndex.first();
+        return m_mergeDiffIndex.empty() ? numberOfEntries() : m_mergeDiffIndex.front();
     }
     int lastChangedIndex() const
     {
-        return m_mergeDiffIndex.isEmpty() ? -1 : m_mergeDiffIndex.last();
+        return m_mergeDiffIndex.empty() ? -1 : m_mergeDiffIndex.back();
     }
     int nextChangedIndex(uint index) const
     {
@@ -86,9 +86,9 @@ public:
     }
     int isDifferent(uint index) const
     {
-        return m_mergeDiffIndex.contains(index);
+        return std::find(m_mergeDiffIndex.begin(), m_mergeDiffIndex.end(), index) != m_mergeDiffIndex.end();
     }
-    QLinkedList<int> differentEntries()const
+    const std::list<int> &differentEntries() const
     {
         return m_mergeDiffIndex;
     }
@@ -119,7 +119,7 @@ public:
 
     inline void removeFromDiffIndex(uint index)
     {
-        m_mergeDiffIndex.removeAll(index);
+        m_mergeDiffIndex.remove(index);
     }
     enum CopyFromBaseOptions {EvenIfNotInDiffIndex = 1};
     void copyFromBaseCatalog(const DocPosition&, int options);
@@ -146,8 +146,8 @@ private:
 private:
     QVector<int> m_map; //maps entries: m_baseCatalog -> this
     Catalog* m_baseCatalog;
-    QLinkedList<int> m_mergeDiffIndex;//points to different baseCatalog entries
-    QLinkedList<int> m_mergeEmptyIndex;//points to empty baseCatalog entries
+    std::list<int> m_mergeDiffIndex;//points to different baseCatalog entries
+    std::list<int> m_mergeEmptyIndex;//points to empty baseCatalog entries
     QMap<DocPos, uint> m_originalHashes; //for modified units only
     int m_unmatchedCount;
     bool m_modified; //need own var here cause we don't use qundostack system for merging

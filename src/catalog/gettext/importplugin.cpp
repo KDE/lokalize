@@ -18,7 +18,6 @@
 #include "gettextstorage.h"
 
 #include <QStringList>
-#include <QLinkedList>
 
 #include <kmessagebox.h>
 
@@ -43,9 +42,9 @@ void CatalogImportPlugin::appendCatalogItem(const CatalogItem& item, const bool 
     if (item.msgid().isEmpty())
         return;
     if (obsolete)
-        d->_obsoleteEntries.append(item);
+        d->_obsoleteEntries.push_back(item);
     else
-        d->_entries.append(item);
+        d->_entries.push_back(item);
 }
 
 void CatalogImportPlugin::setCatalogExtraData(const QStringList& data)
@@ -109,8 +108,8 @@ void CatalogImportPlugin::commitTransaction()
 
     // fill in the entries
     QVector<CatalogItem>& entries = catalog->m_entries;
-    entries.reserve(d->_entries.count());   //d->_catalog->setEntries( e );
-    for (QLinkedList<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/)
+    entries.reserve(d->_entries.size());   //d->_catalog->setEntries( e );
+    for (std::list<CatalogItem>::const_iterator it = d->_entries.begin(); it != d->_entries.end(); ++it/*,++i*/)
         entries.append(*it);
 
     // The codec is specified in the header, so it must be updated before the header is.

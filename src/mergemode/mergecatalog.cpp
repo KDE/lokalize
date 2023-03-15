@@ -35,9 +35,9 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChang
 
 void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
 {
-    bool a = m_mergeDiffIndex.contains(pos.entry);
-    bool b = m_mergeEmptyIndex.contains(pos.entry);
-    if (options & EvenIfNotInDiffIndex || !a || b) {
+    bool a = std::find(m_mergeDiffIndex.begin(), m_mergeDiffIndex.end(), pos.entry) != m_mergeDiffIndex.end();
+    bool b = std::find(m_mergeEmptyIndex.begin(), m_mergeEmptyIndex.end(), pos.entry) != m_mergeEmptyIndex.end();
+    if (options & EvenIfNotInDiffIndex || !a|| b) {
         //sync changes
         DocPosition ourPos = pos;
         if ((ourPos.entry = m_map.at(ourPos.entry)) == -1)
@@ -54,10 +54,10 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
         setModified(ourPos, true);
 
         if (options & EvenIfNotInDiffIndex && a)
-            m_mergeDiffIndex.removeAll(pos.entry);
+            m_mergeDiffIndex.remove(pos.entry);
         if (b) {
-            m_mergeEmptyIndex.removeAll(pos.entry);
-            m_mergeDiffIndex.removeAll(pos.entry);
+            m_mergeEmptyIndex.remove(pos.entry);
+            m_mergeDiffIndex.remove(pos.entry);
         }
 
         m_modified = true;
@@ -191,9 +191,9 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
             backMap.insert(scores.first().mergeEntry, i.entry);
 
             if (scores.first().translationIsDifferent)
-                m_mergeDiffIndex.append(i.entry);
+                m_mergeDiffIndex.push_back(i.entry);
             if (scores.first().translationIsEmpty)
-                m_mergeEmptyIndex.append(i.entry);
+                m_mergeEmptyIndex.push_back(i.entry);
 
         }
         ++(i.entry);
@@ -283,7 +283,7 @@ void MergeCatalog::copyToBaseCatalog(int options)
     DocPosition pos;
     pos.offset = 0;
     bool insHappened = false;
-    const QLinkedList<int> changed = differentEntries();
+    const std::list<int> &changed = differentEntries();
     for (int entry : changed) {
         pos.entry = entry;
         if (options & EmptyOnly && !m_baseCatalog->isEmpty(entry))
