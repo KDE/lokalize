@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 03:08+0000\n"
 "PO-Revision-Date: 2022-08-17 22:37+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: \n"
@@ -1483,7 +1483,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1702,8 +1702,8 @@ msgstr ""
 "се към Lokalize наръчник за примери за скриптове и как да ги включите в "
 "проекта си."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Инсталирайте пакета translate-toolkit и опитайте отново"
@@ -1718,7 +1718,7 @@ msgstr "Инсталирайте пакета translate-toolkit и опитай�
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Изберете оригинален OpenDocument, на който е базиран файла XLIFF"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Файлове OpenDocument (*.odt *.ods)"
@@ -2176,12 +2176,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Не бяха открити модули Qt Sql. Преводната памет няма да работи."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Запаметените преводи изискват Qt модул SQLite."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Няма наличен модул SQLite"
@@ -2471,19 +2471,19 @@ msgstr "Зареждане на указания проект."
 msgid "Document to open"
 msgstr "Документ за отваряне"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "Приемане на промяната на превода"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Приемане на всички нови преводи"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2491,7 +2491,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Първи източник на синхронизиране"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2499,7 +2499,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Втори източник на синхронизиране"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2509,7 +2509,7 @@ msgstr ""
 "Завлечете файла, който трябва да бъде обединен в/синхронизиран с текущия "
 "тук, след което вижте опции на контекстното меню"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2517,7 +2517,7 @@ msgid ""
 "line: %2"
 msgstr "Грешка при отваряне на <filename>%1</filename> за синхронизация (%2)"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3719,17 +3719,17 @@ msgstr "Проект"
 msgid "Language-Team:"
 msgstr "Преводачески екип:"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Сканиране на папки с изходни файлове"
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, kde-format
 msgid "Editor"
 msgstr "Редактор"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

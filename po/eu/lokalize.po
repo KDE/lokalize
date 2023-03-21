@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 03:08+0000\n"
 "PO-Revision-Date: 2022-12-04 23:43+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1498,7 +1498,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "Abisua"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1717,8 +1717,8 @@ msgstr ""
 "gidoirik. Kontsultatu Lokalize-ren eskuliburuan gidoien adibideak ikusi eta "
 "zure proiektuetan haiek nola konektatu jakiteko."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Instalatu «translate-toolkit» paketea eta saiatu berriro"
@@ -1733,7 +1733,7 @@ msgstr "Instalatu «translate-toolkit» paketea eta saiatu berriro."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Hautatu uneko XLIFF fitxategiaren oinarria den jatorrizko OpenDocument"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument fitxategiak (*.odt *.ods)"
@@ -2192,12 +2192,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Ez da Qt Sql modulurik aurkitu. Itzulpen memoria ez da ibiliko."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TM funtzioak SQLite Qt modulua behar du."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Ez dago SQLite modulu erabilgarririk"
@@ -2487,19 +2487,19 @@ msgstr "Zamatu zehaztutako proiektua."
 msgid "Document to open"
 msgstr "Ireki beharreko dokumentua"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "Onartu itzulpenaren aldaketa"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Onartu itzulpen berri guztiak"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2507,7 +2507,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Lehenengo sink"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2515,7 +2515,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Bigarren sink"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2525,7 +2525,7 @@ msgstr ""
 "Jaregin unekoarekin bateratu/sinkronizatu beharreko fitxategia, ondoren "
 "begiratu testuinguru-menuko aukerak"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2535,7 +2535,7 @@ msgstr ""
 "Errorea <filename>%1</filename> fitxategia sinkronizatzeko irekitzean, "
 "errore lerroa: %2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3733,17 +3733,17 @@ msgstr "Proiektua"
 msgid "Language-Team:"
 msgstr "Hizkuntza-taldea:"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Iturburu fitxategiak dituzten karpetak aztertzen"
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, kde-format
 msgid "Editor"
 msgstr "Editorea"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 03:08+0000\n"
 "PO-Revision-Date: 2011-12-18 07:38+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -1514,7 +1514,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "Wohrschoen"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Next translation only"
@@ -1751,8 +1751,8 @@ msgstr ""
 "laadt. Dat Lokalize-Handbook bargt Skriptbispillen un seggt Di ok, wodennig "
 "de sik na Dien Projekt tofögen laat."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
@@ -1767,7 +1767,7 @@ msgstr ""
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
@@ -2244,12 +2244,12 @@ msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 "Keen SQLite-Modulen för Qt funnen. De Översettenspieker funkscheneert nich."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Översettenspieker bruukt SQLite-Moduul för Qt."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Keen SQLite-Moduul verföögbor"
@@ -2557,19 +2557,19 @@ msgstr "Angeven Projekt laden"
 msgid "Document to open"
 msgstr "Dokment, dat Du opmaken wullt"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "Ännern in Översetten annehmen"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "All nieg Översetten annehmen"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2577,7 +2577,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Eerst Synkroniseren"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2585,7 +2585,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Tweet-Synkroniseren"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Drop file to be merged into / synced with the current one here"
@@ -2597,7 +2597,7 @@ msgstr ""
 "Treck de Datei hierhen, de mit de aktuell Datei tosamenföhrt/synkroniseert "
 "warrn schall"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2607,7 +2607,7 @@ msgstr ""
 "Fehler bi't Opmaken vun de Datei <filename>%1</filename> för't "
 "Synkroniseren, Fehler op Reeg: %2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3803,19 +3803,19 @@ msgstr "Projekt"
 msgid "Language-Team:"
 msgstr "Spraak:"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr ""
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Edit term"
 #| msgid "Edit"
 msgid "Editor"
 msgstr "Bewerken"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "project folder name. %2 is targetLangCode"

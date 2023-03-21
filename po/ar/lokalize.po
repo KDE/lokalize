@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 03:08+0000\n"
 "PO-Revision-Date: 2022-09-28 18:15+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1464,7 +1464,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "تحذير"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1682,8 +1682,8 @@ msgstr ""
 "مسارات مخصّصة. ارجع إلى كتيّب «لوكالايز» لتشاهد أمثلة للسّكربتات وطريقة دمجها "
 "بمشروعك."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "ثبّت حزمة translate-toolkit وأعد المحاولة"
@@ -1698,7 +1698,7 @@ msgstr "ثبّت حزمة translate-toolkit وأعد المحاولة."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "اختر «المستندالمفتوح» الذي بُني عليه ملفّ XLIFF الحاليّ"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "ملفّات «المستندالمفتوح» (*.odt *.ods)"
@@ -2155,12 +2155,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "لم يُعثر على وحدات Qt Sql. لن تعمل ذاكرة الترجمة."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "تحتاج خاصيّة ”ذاكرة الترجمة“ وحدة SQLite لِ‍«كيوت»."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "وحدة SQLite غير متوفّرة"
@@ -2450,19 +2450,19 @@ msgstr "حمّل المشروع المحدّد."
 msgid "Document to open"
 msgstr "المستند لفتحه"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "قبول التّغيير في الترجمة"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "قبول كلّ التّرجمات الجديدة"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2470,7 +2470,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "مزامنة أساسيّة"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2478,7 +2478,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "مزامنة ثانويّة"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2488,7 +2488,7 @@ msgstr ""
 "أفلت الملفّات هنا لتُدمج بالملفّ هذا (أو تُزامن معه)، وثمّ طالع خيارات قائمة "
 "السّياق"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2496,7 +2496,7 @@ msgid ""
 "line: %2"
 msgstr "خطأ في فتح الملفّ <filename>%1</filename> للمزامنة، السّطر: %2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3660,17 +3660,17 @@ msgstr "مشروع"
 msgid "Language-Team:"
 msgstr "لغة-الفريق:"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "يفحص المجلّدات بحثًا عن الملفّات المصدر"
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, kde-format
 msgid "Editor"
 msgstr "المحرّر"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
