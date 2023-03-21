@@ -1710,12 +1710,12 @@ void UpdateJob::run()
 //BEGIN TMX
 
 #include <QXmlDefaultHandler>
-#include <QXmlSimpleReader>
+#include <QXmlStreamReader>
 
 /**
     @author Nick Shaforostoff <shafff@ukr.net>
 */
-class TmxParser : public QXmlDefaultHandler
+class TmxParser
 {
     enum State { //localstate for getting chars into right place
         null = 0,
@@ -1736,11 +1736,10 @@ public:
     TmxParser(const QString& dbName);
     ~TmxParser();
 
-private:
-    bool startDocument() override;
-    bool startElement(const QString&, const QString&, const QString&, const QXmlAttributes&) override;
-    bool endElement(const QString&, const QString&, const QString&) override;
-    bool characters(const QString&) override;
+    bool startDocument();
+    bool startElement(const QString&, const QXmlStreamAttributes&);
+    bool endElement(const QString&);
+    bool characters(const QString&);
 
 private:
     QSqlDatabase db;
@@ -1796,9 +1795,8 @@ TmxParser::~TmxParser()
 }
 
 
-bool TmxParser::startElement(const QString&, const QString&,
-                             const QString& qName,
-                             const QXmlAttributes& attr)
+bool TmxParser::startElement(const QString& qName,
+                             const QXmlStreamAttributes& attr)
 {
     if (qName == QLatin1String("tu")) {
         bool ok;
@@ -1814,7 +1812,7 @@ bool TmxParser::startElement(const QString&, const QString&,
         m_approvedString.clear();
 
     } else if (qName == QLatin1String("tuv")) {
-        QString attrLang = attr.value(QStringLiteral("xml:lang")).toLower();
+        QString attrLang = attr.value(QStringLiteral("xml:lang")).toString().toLower();
         if (attrLang == QLatin1String("en")) //TODO startsWith?
             m_lang = Source;
         else if (attrLang == m_dbLangCode)
@@ -1824,7 +1822,7 @@ bool TmxParser::startElement(const QString&, const QString&,
             m_lang = Null;
         }
     } else if (qName == QLatin1String("prop")) {
-        QString attrType = attr.value(QStringLiteral("type")).toLower();
+        QString attrType = attr.value(QStringLiteral("type")).toString().toLower();
         if (attrType == QLatin1String("x-context"))
             m_state = propContext;
         else if (attrType == QLatin1String("x-file"))
@@ -1842,13 +1840,13 @@ bool TmxParser::startElement(const QString&, const QString&,
         if (t != InlineTag::_unknown) {
             m_segment[m_lang].string += QChar(TAGRANGE_IMAGE_SYMBOL);
             int pos = m_segment[m_lang].string.size();
-            m_inlineTags.append(InlineTag(pos, pos, t, attr.value(QStringLiteral("id"))));
+            m_inlineTags.append(InlineTag(pos, pos, t, attr.value(QStringLiteral("id")).toString()));
         }
     }
     return true;
 }
 
-bool TmxParser::endElement(const QString&, const QString&, const QString& qName)
+bool TmxParser::endElement(const QString& qName)
 {
     if (qName == QLatin1String("tu")) {
         if (m_filePath.isEmpty())
@@ -1928,11 +1926,29 @@ void ImportTmxJob::run()
         return;
 
     TmxParser parser(m_dbName);
-    QXmlSimpleReader reader;
-    reader.setContentHandler(&parser);
+    QXmlStreamReader reader(&file);
 
-    QXmlInputSource xmlInputSource(&file);
-    if (!reader.parse(xmlInputSource))
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if(reader.isStartElement()) {
+            QString name = reader.name().toString();
+            QXmlStreamAttributes attr = reader.attributes();
+            parser.startElement(name, attr);
+        }
+        else if(reader.isEndElement()) {
+            QString name = reader.name().toString();
+            parser.endElement(name);
+        }
+        else if(reader.isCharacters()) {
+            QString text = reader.text().toString();
+            parser.characters(text);
+        }
+        else if(reader.isStartDocument()) {
+            parser.startDocument();
+        }
+    }
+
+    if (reader.hasError())
         qCWarning(LOKALIZE_LOG) << "failed to load" << m_filename;
 
     //qCWarning(LOKALIZE_LOG) <<"Done scanning "<<m_url.prettyUrl();
