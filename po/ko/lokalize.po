@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 00:49+0000\n"
 "PO-Revision-Date: 2022-04-16 23:10+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1432,7 +1432,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "경고"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1650,8 +1650,8 @@ msgstr ""
 "오지 않았습니다. Lokalize 설명서를 참조하여 스크립트 예제 및 프로젝트에 적용"
 "하는 방법을 알아 보십시오."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오"
@@ -1666,7 +1666,7 @@ msgstr "translate-toolkit 패키지를 설치하고 다시 시도하십시오."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "현재 XLIFF 파일의 기반 OpenDocument 파일 선택"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 파일 (*.odt *.ods)"
@@ -2120,12 +2120,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt SQL 모듈을 찾을 수 없습니다. 번역 메모리를 사용할 수 없습니다."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "TM 기능에는 SQLite Qt 모듈이 필요합니다."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite 모듈을 사용할 수 없습니다."
@@ -2415,19 +2415,19 @@ msgstr "지정한 프로젝트를 엽니다."
 msgid "Document to open"
 msgstr "열 문서"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "번역의 변경 사항 수락"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "모든 새 번역 수락"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2435,7 +2435,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "첫 번째 동기화"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2443,7 +2443,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "두 번째 동기화"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2453,7 +2453,7 @@ msgstr ""
 "현재 파일과 동기화하거나 현재 파일에 합칠 파일을 끌어다 놓은 다음 콘텍스트 메"
 "뉴 옵션을 참조하십시오"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2463,7 +2463,7 @@ msgstr ""
 "파일 <filename>%1</filename>와(과) 동기화하려고 여는 중 오류 발생. 오류가 발"
 "생한 줄: %2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3624,17 +3624,17 @@ msgstr "프로젝트"
 msgid "Language-Team:"
 msgstr "언어 팀:"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "원본 파일이 있는 폴더 검사 중"
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, kde-format
 msgid "Editor"
 msgstr "편집기"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

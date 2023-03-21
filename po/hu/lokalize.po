@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 00:49+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1487,7 +1487,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1708,8 +1708,8 @@ msgstr ""
 "kezeléséhez. Nézze meg a parancsfájlpéldákat a Lokalize kézikönyvében, és "
 "hogy hogyan csatlakoztassa azokat a projektjéhez."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Telepítse a translate-toolkit csomagot és próbálja újra"
@@ -1726,7 +1726,7 @@ msgstr ""
 "Válassza ki az eredeti OpenDocument-fájlt, amelyen a jelenlegi XLIFF-fájl "
 "alapul"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument-fájlok (*.odt *.ods)"
@@ -2185,12 +2185,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nem találhatók Qt Sql modulok. A fordítási memória nem fog működni."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "A fordítási memória szolgáltatás az SQLite Qt modult igényli."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Nem érhető el SQLite modul"
@@ -2480,19 +2480,19 @@ msgstr "Megadott projekt betöltése."
 msgid "Document to open"
 msgstr "Megnyitandó dokumentum"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "A fordításban lévő változtatás elfogadása"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Minden új fordítás elfogadása"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2500,7 +2500,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Elsődleges szinkronizáció"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2508,7 +2508,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Másodlagos szinkronizáció"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2518,7 +2518,7 @@ msgstr ""
 "Ejtse ide a jelenlegi fájllal összefésülendő vagy szinkronizálandó fájlt, "
 "majd nézze meg a helyi menü lehetőségeit"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2528,7 +2528,7 @@ msgstr ""
 "Hiba történt a(z) <filename>%1</filename> fájl szinkronizációhoz való "
 "megnyitásakor, a hibás sor: %2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3728,17 +3728,17 @@ msgstr "Projekt"
 msgid "Language-Team:"
 msgstr "Nyelvi csapat:"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "Forrásfájlokat tartalmazó mappák átnézése"
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, kde-format
 msgid "Editor"
 msgstr "Szerkesztő"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

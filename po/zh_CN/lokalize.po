@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 00:49+0000\n"
 "PO-Revision-Date: 2023-03-11 04:52\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1412,7 +1412,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "警告"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1621,8 +1621,8 @@ msgstr ""
 "义源代码路径。参考 Lokalize 手册中的脚本示例以及如何将脚本应用于你的项目的说"
 "明。"
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "安装 translate-toolkit 包并重试"
@@ -1637,7 +1637,7 @@ msgstr "安装翻译工具包之后再重试。"
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "选择当前 XLIFF 文件基于的原始 OpenDocument"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument 文件 (*.odt *.ods)"
@@ -2088,12 +2088,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "无法找到 Qt Sql 模块。翻译记忆功能将无法工作。"
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "翻译记忆功能需要 SQLite Qt 模块。"
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr "没有可用的 SQLite 模块"
@@ -2383,19 +2383,19 @@ msgstr "加载指定的项目。"
 msgid "Document to open"
 msgstr "要打开的文档"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "接受翻译中的更改"
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "接受所有新的翻译"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2403,7 +2403,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "一级同步"
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2411,7 +2411,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "二级同步"
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2419,7 +2419,7 @@ msgid ""
 "context menu options"
 msgstr "拖动文件至此以与当前的文件合并/同步,然后可以查看右键菜单选项"
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2427,7 +2427,7 @@ msgid ""
 "line: %2"
 msgstr "打开文件 <filename>%1</filename> 进行同步时出错，出错行：%2"
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3554,17 +3554,17 @@ msgstr "项目"
 msgid "Language-Team:"
 msgstr ""
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr "扫描保护源文件的文件夹"
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, kde-format
 msgid "Editor"
 msgstr "编辑"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"

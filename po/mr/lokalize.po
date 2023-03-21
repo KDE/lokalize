@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-10 00:50+0000\n"
+"POT-Creation-Date: 2023-03-21 00:49+0000\n"
 "PO-Revision-Date: 2013-03-06 17:46+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -1392,7 +1392,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "इशारा"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:190
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1594,8 +1594,8 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1617 src/project/project.cpp:472
-#: src/project/project.cpp:477
+#: src/editortab.cpp:1617 src/project/project.cpp:481
+#: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
@@ -1610,7 +1610,7 @@ msgstr ""
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1634 src/project/project.cpp:482
+#: src/editortab.cpp:1634 src/project/project.cpp:491
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
@@ -2045,12 +2045,12 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:293
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
@@ -2336,19 +2336,19 @@ msgstr ""
 msgid "Document to open"
 msgstr "उघडण्याचा दस्तऐवज"
 
-#: src/mergemode/mergecatalog.cpp:246
+#: src/mergemode/mergecatalog.cpp:254
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr ""
 
-#: src/mergemode/mergecatalog.cpp:298
+#: src/mergemode/mergecatalog.cpp:306
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:35
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2356,7 +2356,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:30 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2364,7 +2364,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:43
+#: src/mergemode/mergeview.cpp:44
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2372,7 +2372,7 @@ msgid ""
 "context menu options"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:217
+#: src/mergemode/mergeview.cpp:231
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2380,7 +2380,7 @@ msgid ""
 "line: %2"
 msgstr ""
 
-#: src/mergemode/mergeview.cpp:350
+#: src/mergemode/mergeview.cpp:364
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3479,17 +3479,17 @@ msgstr "परियोजना : %1"
 msgid "Language-Team:"
 msgstr "भाषा"
 
-#: src/project/project.cpp:441
+#: src/project/project.cpp:450
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr ""
 
-#: src/project/project.cpp:442
+#: src/project/project.cpp:451
 #, fuzzy, kde-format
 msgid "Editor"
 msgstr "संपादन"
 
-#: src/project/project.cpp:489
+#: src/project/project.cpp:498
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "project folder name. %2 is targetLangCode"
