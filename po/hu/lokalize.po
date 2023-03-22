@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 00:49+0000\n"
+"POT-Creation-Date: 2023-03-22 00:49+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2528,7 +2528,7 @@ msgstr ""
 "Hiba történt a(z) <filename>%1</filename> fájl szinkronizációhoz való "
 "megnyitásakor, a hibás sor: %2"
 
-#: src/mergemode/mergeview.cpp:364
+#: src/mergemode/mergeview.cpp:363
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""

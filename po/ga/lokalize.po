@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-21 00:49+0000\n"
+"POT-Creation-Date: 2023-03-22 00:49+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -2449,7 +2449,7 @@ msgstr ""
 "Earráid agus comhad <filename>%1</filename> á oscailt le siocrónú, earráid "
 "ar líne: %2"
 
-#: src/mergemode/mergeview.cpp:364
+#: src/mergemode/mergeview.cpp:363
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
