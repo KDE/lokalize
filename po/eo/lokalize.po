@@ -1,4 +1,5 @@
 # Translation of lokalize into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 #
 msgid ""
@@ -6,8 +7,8 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-22 00:49+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-03-22 19:14+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -695,11 +696,9 @@ msgid "Author name missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:661
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name:"
-msgstr "Axel Rousseau"
+msgstr ""
 
 #: src/catalog/gettextheader.cpp:671
 #, kde-format
@@ -708,11 +707,9 @@ msgid "Author email missing"
 msgstr ""
 
 #: src/catalog/gettextheader.cpp:671
-#, fuzzy, kde-format
-#| msgctxt "EMAIL OF TRANSLATORS"
-#| msgid "Your emails"
+#, kde-format
 msgid "Your email:"
-msgstr "axel@esperanto-jeunes.org"
+msgstr ""
 
 #: src/catalog/ts/tsstorage.cpp:441
 #, kde-format
@@ -777,10 +774,9 @@ msgid "Non-ready"
 msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:196
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgid "Non-empty"
-msgstr "Neniu"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
@@ -888,11 +884,10 @@ msgid "Context"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:116
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Files"
-msgstr "Dosiero"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:118
 #: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:69
@@ -902,18 +897,16 @@ msgid "Translation Status"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:120
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:122
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1081
 #: src/editortab.cpp:1284 src/tm/tmtab.cpp:231
@@ -944,10 +937,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgid "Target language:"
-msgstr "Celo:"
+msgstr ""
 
 #: src/common/termlabel.cpp:81
 #, kde-format
@@ -990,11 +982,10 @@ msgid " (%1%)"
 msgstr " (%1%)"
 
 #: src/editortab.cpp:192 src/lokalizemainwindow.cpp:435
-#, fuzzy, kde-format
-#| msgid "&View"
+#, kde-format
 msgctxt "@title actions category"
 msgid "File"
-msgstr "&Vidi"
+msgstr ""
 
 #: src/editortab.cpp:193 src/project/projecttab.cpp:145
 #, kde-format
@@ -1031,11 +1022,10 @@ msgid "Glossary"
 msgstr ""
 
 #: src/editortab.cpp:225
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
-msgstr "Traduko"
+msgstr ""
 
 #: src/editortab.cpp:272
 #, kde-format
@@ -1098,11 +1088,10 @@ msgid "Launch the Pology command on this file"
 msgstr ""
 
 #: src/editortab.cpp:445
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
-msgstr "Traduko"
+msgstr ""
 
 #: src/editortab.cpp:466
 #, kde-format
@@ -1394,11 +1383,10 @@ msgid "Warning"
 msgstr ""
 
 #: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
-msgstr "Traduko"
+msgstr ""
 
 #: src/editortab.cpp:904
 #, kde-format
@@ -1564,11 +1552,9 @@ msgid "Source file lookup"
 msgstr ""
 
 #: src/editortab.cpp:1527
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Lokalize"
+#, kde-format
 msgid "Locally"
-msgstr "Lokalize"
+msgstr ""
 
 #: src/editortab.cpp:1539 src/editortab.cpp:1578
 #, kde-format
@@ -1831,11 +1817,10 @@ msgid "&Search"
 msgstr "&Serĉi"
 
 #: src/filesearch/filesearchtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgctxt "@title:window"
 msgid "File List"
-msgstr "Dosiero"
+msgstr ""
 
 #: src/filesearch/filesearchtab.cpp:78
 #, kde-format
@@ -2136,11 +2121,10 @@ msgid "Open project..."
 msgstr ""
 
 #: src/lokalizemainwindow.cpp:507
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
-msgstr "Projekto"
+msgstr ""
 
 #: src/lokalizemainwindow.cpp:510
 #, kde-format
@@ -2244,10 +2228,9 @@ msgid "provided excellent cross-format converting scripts"
 msgstr ""
 
 #: src/main.cpp:62
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "LanguageTool"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/main.cpp:62
 #, kde-format
@@ -2436,11 +2419,10 @@ msgid "<br><b>Context:</b><br>"
 msgstr ""
 
 #: src/msgctxtview.cpp:237
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@info The pology command didn't return anything"
 msgid "(empty)"
-msgstr "Neniu"
+msgstr ""
 
 #: src/noteeditor.cpp:47
 #, kde-format
@@ -2589,17 +2571,15 @@ msgstr ""
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:35
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Language Team"
-msgstr "Lingvo"
+msgstr ""
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:36
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgid "Translator team's name"
-msgstr "Traduko"
+msgstr ""
 
 #. i18n: ectx: whatsthis, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:42
@@ -2641,11 +2621,10 @@ msgid "Font for Messages"
 msgstr ""
 
 #: src/prefs/prefs.cpp:101
-#, fuzzy, kde-format
-#| msgid "&Identity"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
-msgstr "&Identeco"
+msgstr "Identeco"
 
 #: src/prefs/prefs.cpp:111
 #, kde-format
@@ -2686,11 +2665,10 @@ msgid "Pology"
 msgstr ""
 
 #: src/prefs/prefs.cpp:143
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:tab"
 msgid "LanguageTool"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/prefs/prefs.cpp:152
 #, kde-format
@@ -2712,11 +2690,10 @@ msgid "New"
 msgstr "Nova"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgctxt "@action"
 msgid "Open"
-msgstr "Malfermi dosieron"
+msgstr ""
 
 #: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
 #, kde-format
@@ -2978,12 +2955,10 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/prefs/prefs_identity.ui:61
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "&Name:"
-msgstr "Nomo:"
+msgstr "&Nomo:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_authorName)
 #: src/prefs/prefs_identity.ui:74
@@ -3063,10 +3038,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
 #: src/prefs/prefs_identity.ui:164
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Default Language-Team:"
-msgstr "Lingvo"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
@@ -3467,10 +3441,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:160
-#, fuzzy, kde-format
-#| msgid "Location:"
+#, kde-format
 msgid "Application"
-msgstr "Loko:"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:165
@@ -3480,10 +3453,9 @@ msgstr "Projekto"
 
 #. i18n: ectx: property (text), widget (QLabel, l5)
 #: src/project/prefs_projectmain.ui:180
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Language-Team:"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/project/project.cpp:450
 #, kde-format
@@ -3491,17 +3463,15 @@ msgid "Scanning folders with source files"
 msgstr ""
 
 #: src/project/project.cpp:451
-#, fuzzy, kde-format
-#| msgid "&Edit"
+#, kde-format
 msgid "Editor"
-msgstr "&Redakti"
+msgstr ""
 
 #: src/project/project.cpp:498
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
-msgstr "Traduko"
+msgstr ""
 
 #: src/project/projectbase.kcfg:11
 #, kde-format
@@ -3528,10 +3498,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (ProjLangTeam), group (General)
 #: src/project/projectbase.kcfg:44
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgid "Project Language Team"
-msgstr "Lingvo"
+msgstr ""
 
 #. i18n: ectx: label, entry (PoBaseDir), group (General)
 #: src/project/projectbase.kcfg:59
@@ -3649,18 +3618,16 @@ msgid "Open project"
 msgstr ""
 
 #: src/project/projecttab.cpp:80
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate software"
-msgstr "Traduko"
+msgstr ""
 
 #: src/project/projecttab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
-msgstr "Traduko"
+msgstr ""
 
 #: src/project/projecttab.cpp:165
 #, kde-format
@@ -3699,11 +3666,10 @@ msgid "Hide fully translated files and folders"
 msgstr ""
 
 #: src/project/projecttab.cpp:243
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
-msgstr "Malfermi dosieron"
+msgstr ""
 
 #: src/project/projecttab.cpp:246
 #, kde-format
@@ -3782,12 +3748,11 @@ msgid "Are you sure you want to open this many files?"
 msgstr ""
 
 #: src/project/projecttab.cpp:393
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
-msgstr[0] "Malfermi dosieron"
-msgstr[1] "Malfermi dosieron"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/tm/dbfilesmodel.cpp:99
 #, kde-format
@@ -3796,18 +3761,16 @@ msgid "Name"
 msgstr "Nomo"
 
 #: src/tm/dbfilesmodel.cpp:100
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source language"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/tm/dbfilesmodel.cpp:101
-#, fuzzy, kde-format
-#| msgid "Language"
+#, kde-format
 msgctxt "@title:column"
 msgid "Target language"
-msgstr "Lingvo"
+msgstr ""
 
 #: src/tm/dbfilesmodel.cpp:102
 #, kde-format
@@ -3829,10 +3792,9 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
 #: src/tm/dbparams.ui:23
-#, fuzzy, kde-format
-#| msgid "Location:"
+#, kde-format
 msgid "Connection"
-msgstr "Loko:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: src/tm/dbparams.ui:32
@@ -3860,11 +3822,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, dbType)
 #: src/tm/dbparams.ui:96
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Lokalize"
+#, kde-format
 msgid "Local"
-msgstr "Lokalize"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tm/dbparams.ui:104
@@ -4011,11 +3971,10 @@ msgid "&Rescan project files"
 msgstr ""
 
 #: src/tm/tmmanager.cpp:36
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Translation Memories"
-msgstr "Traduko"
+msgstr ""
 
 #: src/tm/tmmanager.cpp:70
 #, kde-format
@@ -4030,11 +3989,10 @@ msgid "New Translation Memory"
 msgstr ""
 
 #: src/tm/tmmanager.cpp:81
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Properties"
-msgstr "Traduko"
+msgstr ""
 
 #: src/tm/tmmanager.cpp:215
 #, kde-format
@@ -4151,12 +4109,10 @@ msgid "Batch translation has been scheduled."
 msgstr ""
 
 #: src/tm/tmview.cpp:460
-#, fuzzy, kde-format
-#| msgctxt "percentages in statusbar"
-#| msgid " (%1%)"
+#, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
-msgstr " (%1%)"
+msgstr "%1%"
 
 #: src/tm/tmview.cpp:462
 #, kde-format
@@ -4241,11 +4197,10 @@ msgid ""
 msgstr ""
 
 #: src/tm/tmview.cpp:615
-#, fuzzy, kde-format
-#| msgid "Translation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
-msgstr "Traduko"
+msgstr ""
 
 #: src/tm/tmview.cpp:991
 #, kde-format
@@ -4357,17 +4312,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr ""
-
-#, fuzzy
-#~| msgid "Target:"
-#~ msgid "Default target language:"
-#~ msgstr "Celo:"
-
-#~ msgid "What do you want to do?"
-#~ msgstr "Kion vi volas fari?"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Case sensitive"
-#~ msgstr "Usklecodistinga"
