@@ -20,7 +20,7 @@
 #include <QElapsedTimer>
 #include <QPair>
 #include <QList>
-#include <QXmlSimpleReader>
+#include <QXmlStreamReader>
 
 #include <klocalizedstring.h>
 
@@ -79,14 +79,12 @@ int TsStorage::load(QIODevice* device)
 {
     QElapsedTimer chrono; chrono.start();
 
-    QXmlSimpleReader reader;
-    reader.setFeature(QStringLiteral("http://qt-project.org/xml/features/report-whitespace-only-CharData"), true);
-    reader.setFeature(QStringLiteral("http://xml.org/sax/features/namespaces"), false);
-    QXmlInputSource source(device);
+    QXmlStreamReader reader(device);
+    reader.setNamespaceProcessing(false);
 
     QString errorMsg;
-    int errorLine;//+errorColumn;
-    bool success = m_doc.setContent(&source, &reader, &errorMsg, &errorLine/*,errorColumn*/);
+    int errorLine{};//+errorColumn;
+    bool success = m_doc.setContent(&reader, false, &errorMsg, &errorLine/*,errorColumn*/);
 
     if (!success) {
         qCWarning(LOKALIZE_LOG) << "parse error" << errorMsg << errorLine;

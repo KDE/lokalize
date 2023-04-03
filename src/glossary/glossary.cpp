@@ -20,7 +20,6 @@
 #include <QStringBuilder>
 #include <QElapsedTimer>
 #include <QFile>
-#include <QXmlSimpleReader>
 #include <QXmlStreamReader>
 #include <QBuffer>
 #include <QApplication>
@@ -75,15 +74,13 @@ bool Glossary::load(const QString& newPath)
                                                ));
     }
 
-    QXmlSimpleReader reader;
-    reader.setFeature(QStringLiteral("http://qt-project.org/xml/features/report-whitespace-only-CharData"), true);
-    reader.setFeature(QStringLiteral("http://xml.org/sax/features/namespaces"), false);
-    QXmlInputSource source(device);
+    QXmlStreamReader reader(device);
+    reader.setNamespaceProcessing(false);
 
     QDomDocument newDoc;
     QString errorMsg;
-    int errorLine;//+errorColumn;
-    bool success = newDoc.setContent(&source, &reader, &errorMsg, &errorLine/*,errorColumn*/);
+    int errorLine{};//+errorColumn;
+    bool success = newDoc.setContent(&reader, false, &errorMsg, &errorLine/*,errorColumn*/);
 
     delete device;
 
@@ -102,18 +99,6 @@ bool Glossary::load(const QString& newPath)
     m_idsForEntriesById = m_entriesById.keys();
 
 //END NEW
-#if 0
-    TbxParser parser(this);
-    QXmlSimpleReader reader1;
-    reader1.setContentHandler(&parser);
-
-    QFile file(p);
-    if (!file.open(QFile::ReadOnly | QFile::Text))
-        return;
-    QXmlInputSource xmlInputSource(&file);
-    if (!reader1.parse(xmlInputSource))
-        qCWarning(LOKALIZE_LOG) << "failed to load " << path;
-#endif
     Q_EMIT loaded();
 
     if (a.elapsed() > 50) qCDebug(LOKALIZE_LOG) << "glossary loaded in" << a.elapsed();
