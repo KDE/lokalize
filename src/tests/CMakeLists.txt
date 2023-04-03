@@ -3,3 +3,4 @@ include(ECMAddTests)
 
 ecm_add_test(projectmodeltest.cpp LINK_LIBRARIES liblokalize Qt::Test)
 ecm_add_test(gettextheadertest.cpp LINK_LIBRARIES liblokalize Qt::Test)
+ecm_add_test(filemetadatatest.cpp LINK_LIBRARIES liblokalize Qt::Test)
