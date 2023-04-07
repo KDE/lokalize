@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-22 00:49+0000\n"
-"PO-Revision-Date: 2023-03-26 11:29+0200\n"
+"PO-Revision-Date: 2023-04-06 22:15+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -338,7 +338,7 @@ msgstr "Marca de substitución de grupo xenérica"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Sub-flow"
-msgstr "Subfluxo"
+msgstr "Sub-fluxo"
 
 #: src/catalog/catalogstring.cpp:69
 #, kde-format
@@ -394,8 +394,8 @@ msgid ""
 msgstr ""
 "acrónimo: unha forma abreviada dun termo composto por letras, tomadas da "
 "forma completa dun termo composto por varias palabras, xuntas nunha "
-"secuencia que se pronuncia só silabicamente (p.ex. «radar» por «radio "
-"detecting and ranging»)"
+"secuencia que se pronuncia como unha palabra normal en vez de deletrearse (p."
+"ex. «radar» por «radio detecting and ranging»)"
 
 #: src/catalog/catalogstring.cpp:122
 #, kde-format
@@ -490,8 +490,8 @@ msgid ""
 "'BSE' for 'bovine spongiform encephalopathy')"
 msgstr ""
 "sigla: forma abreviada dun termo consistente nalgunhas das letras iniciais "
-"das palabras que conformas o termo multipalabra, ou os elementos do termo "
-"que conforman un termo composto cando esas letras se pronuncian "
+"das palabras que conformas o termo de varias palabras, ou os elementos do "
+"termo que conforman un termo composto cando esas letras se pronuncian "
 "individualmente (p.ex. «EEB» por «encefalopatía esponxiforme bovina»)"
 
 #: src/catalog/catalogstring.cpp:131
@@ -547,7 +547,7 @@ msgid ""
 "another term in the same language, but for which interchangeability is "
 "limited to some contexts and inapplicable in others"
 msgstr ""
-"cuasisinónimo: un termo que representa o mesmo concepto ou outro moi próximo "
+"case sinónimo: un termo que representa o mesmo concepto ou outro moi próximo "
 "ao doutro termo do mesmo idioma, pero que só son intercambiábeis de xeito "
 "limitado a algúns contextos e noutros é inaplicábel"
 
@@ -616,9 +616,9 @@ msgid ""
 "full form of the term (e.g. 'Group of Twenty-four' for 'Intergovernmental "
 "Group of Twenty-four on International Monetary Affairs')"
 msgstr ""
-"forma curta: unha variante dun termo multipalabra que inclúe menos palabras "
-"que a forma completa do termo (p.ex. «Grupo dos vinte e catro» no canto de "
-"«Grupo intergobernamental dos vinte e catro para asuntos monetarios "
+"forma curta: unha variante dun termo de varias palabras que inclúe menos "
+"palabras que a forma completa do termo (p.ex. «Grupo dos vinte e catro» no "
+"canto de «Grupo intergobernamental dos vinte e catro para asuntos monetarios "
 "internacionais»)"
 
 #: src/catalog/catalogstring.cpp:145
@@ -1369,13 +1369,13 @@ msgstr "Seguinte marcador"
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
-msgstr "Preencher todas as suxestións exactas"
+msgstr "Encher todas as suxestións exactas"
 
 #: src/editortab.cpp:639
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
-msgstr "Preencher todas as suxestións exactas e marcalas como dubidosas"
+msgstr "Encher todas as suxestións exactas e marcalas como dubidosas"
 
 #: src/editortab.cpp:644
 #, kde-format
@@ -1705,7 +1705,7 @@ msgid ""
 msgstr ""
 "Non se pode abrir o ficheiro de fontes: A ruta do ficheiro non é relativa ao "
 "ficheiro de tradución, e non ten scripts cargados para xestionar a apertura "
-"de ficheiros en rutas personalizadas. No manual de Lokalize haiinformación "
+"de ficheiros en rutas personalizadas. No manual de Lokalize hai información "
 "sobre como desenvolver scripts de apertura de ficheiros de fontes e "
 "configuralos para os seus proxectos."
 
@@ -4201,7 +4201,7 @@ msgid ""
 msgstr ""
 "Buscar unha expresión na parte do idioma de orixe.\n"
 "Prema Intro para iniciar a busca.\n"
-"Prema Esc para rematar a busca."
+"Prema Ctrl+L para ir a este control."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
