@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE martif PUBLIC 'ISO 12200:1999A//DTD MARTIF core (DXFcdV04)//EN' 'TBXcdv04.dtd'>
+<martif type="TBX" xml:lang="en_US">
+    <text>
+        <body>
+        <termEntry id="test-1">
+        <langSet xml:lang="en-US">
+          <descrip type="definition">test</descrip>
+          <tig>
+            <term>test 1</term>
+          </tig>
+          <tig>
+            <term>synonym test</term>
+          </tig>
+        </langSet>
+        <langSet xml:lang="C">
+          <tig>
+            <term>test C</term>
+          </tig>
+          <tig>
+            <term>corresponding target synonym</term>
+          </tig>
+        </langSet>
+        <langSet xml:lang="hu">
+          <descrip type="definition">definition</descrip>
+        </langSet>
+      </termEntry>
+      <termEntry id="test-2">
+        <langSet xml:lang="en-US">
+          <tig>
+            <term></term>
+          </tig>
+        </langSet>
+        <langSet xml:lang="C">
+          <tig>
+            <term></term>
+          </tig>
+        </langSet>
+      </termEntry>
+    </body>
+    </text>
+</martif>
