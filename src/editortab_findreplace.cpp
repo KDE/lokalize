@@ -347,7 +347,7 @@ void EditorTab::replace()
         m_replace = new KReplace(EntryReplaceDialog::instance()->pattern(), EntryReplaceDialog::instance()->replacement(), EntryReplaceDialog::instance()->options(), this, EntryReplaceDialog::instance());
         connect(m_replace, &KReplace::textFound, this, &EditorTab::highlightFound_);
         connect(m_replace, &KReplace::findNext, this, QOverload<>::of(&EditorTab::replaceNext));
-        connect(m_replace, QOverload<const QString &, int, int, int>::of(&KReplace::replace), this, &EditorTab::doReplace);
+        connect(m_replace, &KReplace::textReplaced, this, &EditorTab::doReplace);
         connect(m_replace, &KReplace::dialogClosed, this, &EditorTab::cleanupReplace);
 //         _replace->closeReplaceNextDialog();
     }
