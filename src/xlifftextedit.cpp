@@ -1318,7 +1318,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         if (!m_completionBox) {
 //BEGIN creation
             m_completionBox = new MyCompletionBox(this);
-            connect(m_completionBox, &MyCompletionBox::activated, this, &TranslationUnitTextEdit::completionActivated);
+            connect(m_completionBox, &MyCompletionBox::textActivated, this, &TranslationUnitTextEdit::completionActivated);
             m_completionBox->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
 //END creation
         }
