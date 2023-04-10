@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tmx version="2.0">
+    <header creationtool="lokalize" creationtoolversion="22.12.3" segtype="paragraph" o-encoding="UTF-8"/>
+    <body>
+        <tu tuid="1">
+            <tuv xml:lang="en">
+                <seg>Advanced colors</seg>
+            </tuv>
+            <tuv xml:lang="fr" creationdate="20230314" changedate="20230314">
+                <prop type="x-context">ActivityInfo|</prop>
+                <prop type="x-file">/home/test/trunk/l10n-support/fr/summit/messages/gcompris/gcompris_qt.po</prop>
+                <seg>Couleurs avancées</seg>
+            </tuv>
+        </tu>
+    </body>
+</tmx>
