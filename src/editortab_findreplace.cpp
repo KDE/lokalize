@@ -209,7 +209,7 @@ void EditorTab::find()
 
     } else { // This creates a find-next-prompt dialog if needed.
         m_find = new KFind(EntryFindDialog::instance()->pattern(), EntryFindDialog::instance()->options(), this, EntryFindDialog::instance());
-        connect(m_find, QOverload<const QString &, int, int>::of(&KFind::highlight), this, &EditorTab::highlightFound);
+        connect(m_find, &KFind::textFound, this, &EditorTab::highlightFound);
         connect(m_find, &KFind::findNext, this, QOverload<>::of(&EditorTab::findNext));
         m_find->closeFindNextDialog();
     }
@@ -345,7 +345,7 @@ void EditorTab::replace()
     // This creates a find-next-prompt dialog if needed.
     {
         m_replace = new KReplace(EntryReplaceDialog::instance()->pattern(), EntryReplaceDialog::instance()->replacement(), EntryReplaceDialog::instance()->options(), this, EntryReplaceDialog::instance());
-        connect(m_replace, QOverload<const QString &, int, int>::of(&KReplace::highlight), this, &EditorTab::highlightFound_);
+        connect(m_replace, &KReplace::textFound, this, &EditorTab::highlightFound_);
         connect(m_replace, &KReplace::findNext, this, QOverload<>::of(&EditorTab::replaceNext));
         connect(m_replace, QOverload<const QString &, int, int, int>::of(&KReplace::replace), this, &EditorTab::doReplace);
         connect(m_replace, &KReplace::dialogClosed, this, &EditorTab::cleanupReplace);
