@@ -11,19 +11,19 @@
 #include "xliffextractor.h"
 
 #include <QFile>
-#include <QXmlInputSource>
+#include <QXmlStreamReader>
 
 #include "lokalize_debug.h"
 #include "catalog/catalog.h"
 
-class XliffHandler: public QXmlDefaultHandler
+class XliffHandler
 {
 public:
     XliffHandler() = default;
 
-    bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts) override;
-    bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName) override;
-    bool characters(const QString&) override;
+    bool startElement(const QString& localName, const QXmlStreamAttributes& atts);
+    bool endElement(const QString& localName);
+    bool characters(const QString&);
     //void endAnalysis(bool complete);
 
     int total{0};
@@ -46,7 +46,7 @@ private:
 extern const QString xliff_states[];
 TargetState stringToState(const QString& state);
 
-bool XliffHandler::startElement(const QString&, const QString& localName, const QString&, const QXmlAttributes& atts)
+bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttributes& atts)
 {
     //if (fileType == Unknown)
     //    fileType = strcmp(localname, "xliff") ? Other : XLF;
@@ -57,7 +57,7 @@ bool XliffHandler::startElement(const QString&, const QString& localName, const 
 
         currentEntryFuzzy = currentEntryFuzzy_reviewer = currentEntryFuzzy_approver = false;
         if (atts.value(QLatin1String("approved")) != QLatin1String("yes")) {
-            QString state = atts.value(QLatin1String("state"));
+            QString state = atts.value(QLatin1String("state")).toString();
             if (state.length()) {
                 TargetState tstate = stringToState(state);
                 currentEntryFuzzy = !::isApproved(tstate, ProjectLocal::Translator);
@@ -66,9 +66,9 @@ bool XliffHandler::startElement(const QString&, const QString& localName, const 
             }
         }
     } else if (localName == QLatin1String("phase")) {
-        QString contactNameString  = atts.value(QLatin1String("contact-name"));
-        QString contactEmailString = atts.value(QLatin1String("contact-email"));
-        QString dateString         = atts.value(QLatin1String("date"));
+        QString contactNameString  = atts.value(QLatin1String("contact-name")).toString();
+        QString contactEmailString = atts.value(QLatin1String("contact-email")).toString();
+        QString dateString         = atts.value(QLatin1String("date")).toString();
 
         QString currentLastTranslator;
         if (contactNameString.length() && contactEmailString.length())
@@ -92,7 +92,7 @@ bool XliffHandler::startElement(const QString&, const QString& localName, const 
     return true;
 }
 
-bool XliffHandler::endElement(const QString&, const QString& localName, const QString&)
+bool XliffHandler::endElement(const QString& localName)
 {
     if (localName == QLatin1String("target")) {
         if (!charCount) {
@@ -125,14 +125,26 @@ FileMetaData XliffExtractor::extract(const QString& filePath)
         return {};
     }
 
-    QXmlInputSource source(&file);
-    QXmlSimpleReader xmlReader;
+    QXmlStreamReader reader(&file);
     XliffHandler handler;
-    xmlReader.setContentHandler(&handler);
+    while (!reader.atEnd()) {
+        reader.readNext();
+        if(reader.isStartElement()) {
+            QString name = reader.name().toString();
+            QXmlStreamAttributes attr = reader.attributes();
+            handler.startElement(name, attr);
+        }
+        else if(reader.isEndElement()) {
+            QString name = reader.name().toString();
+            handler.endElement(name);
+        }
+        else if(reader.isCharacters()) {
+            QString text = reader.text().toString();
+            handler.characters(text);
+        }
+    }
 
-    bool ok = xmlReader.parse(source);
-
-    if (!ok)
+    if (reader.hasError())
         qCDebug(LOKALIZE_LOG) << "Parsing failed.";
 
 
