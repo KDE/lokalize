@@ -718,7 +718,7 @@
 >.rc</quote
 >. Dans chaque projet ouvert, &lokalize; analyse le dossier <filename
 >PROJECTDIR/lokalize-scripts</filename
->pour chercher les fichiers « .rc » et les ajoute à un fichier <emphasis
+> pour chercher les fichiers « .rc » et les ajoute à un fichier <emphasis
 >cache</emphasis
 > appelé <filename
 >PROJECTDIR/lokalize-scripts/scripts.rc</filename
