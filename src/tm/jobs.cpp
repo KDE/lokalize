@@ -1134,9 +1134,9 @@ SelectJob::SelectJob(const CatalogString& source,
 inline QMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint>& source)
 {
     //uses the fact that map has its keys always sorted
-    QMap<uint, qlonglong> sortingMap;
+    QMultiMap<uint, qlonglong> sortingMap;
     for (QMap<qlonglong, uint>::const_iterator i = source.constBegin(); i != source.constEnd(); ++i) {
-        sortingMap.insertMulti(i.value(), i.key());
+        sortingMap.insert(i.value(), i.key());
     }
     return sortingMap;
 }
@@ -1349,7 +1349,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                                     , db); //ORDER BY tm_main.id ?
                 queryRest.exec();
                 //qCDebug(LOKALIZE_LOG)<<"main select error"<<queryRest.lastError().text();
-                QMap<TMEntry, bool> sortedEntryList; //to eliminate same targets from different files
+                QMultiMap<TMEntry, bool> sortedEntryList; //to eliminate same targets from different files
                 while (queryRest.next()) {
                     e.id = queryRest.value(0).toLongLong();
                     e.date = queryRest.value(1).toDate();
@@ -1394,7 +1394,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                         e.score += 33;
 //END exact match score++
                     //qCWarning(LOKALIZE_LOG)<<"appending"<<e.target;
-                    sortedEntryList.insertMulti(e, false);
+                    sortedEntryList.insert(e, false);
                 }
                 queryRest.clear();
                 //eliminate same targets from different files

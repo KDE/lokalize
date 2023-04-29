@@ -266,7 +266,7 @@ void MassReplaceJob::run()
 {
     QMultiHash<QString, int> map;
     for (int i = 0; i < searchResults.count(); ++i)
-        map.insertMulti(searchResults.at(i).filepath, i);
+        map.insert(searchResults.at(i).filepath, i);
 
     const auto filepaths = map.keys();
     for (const QString& filepath : filepaths) {
