@@ -15,10 +15,9 @@
 
 class XliffExtractor
 {
-
 public:
     XliffExtractor() = default;
     FileMetaData extract(const QString& filePath);
 };
 
-#endif // PLAINTEXTEXTRACTOR_H
+#endif // XLIFFEXTRACTOR_H
