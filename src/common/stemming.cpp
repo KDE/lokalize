@@ -34,7 +34,7 @@ struct SpellerAndCodec {
     Hunspell* speller{nullptr};
     QTextCodec* codec{nullptr};
     SpellerAndCodec(): speller(nullptr), codec(nullptr) {}
-    SpellerAndCodec(const QString& langCode);
+    explicit SpellerAndCodec(const QString& langCode);
 };
 
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)

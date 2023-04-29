@@ -45,7 +45,7 @@ using namespace TM;
 
 
 struct DiffInfo {
-    DiffInfo(int reserveSize);
+    explicit DiffInfo(int reserveSize);
 
     QString diffClean;
     QString old;

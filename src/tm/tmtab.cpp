@@ -244,7 +244,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 class TMResultsSortFilterProxyModel: public QSortFilterProxyModel
 {
 public:
-    TMResultsSortFilterProxyModel(QObject *parent)
+    explicit TMResultsSortFilterProxyModel(QObject *parent)
         : QSortFilterProxyModel(parent)
     {}
     void setRules(const QVector<Rule>& rules);
