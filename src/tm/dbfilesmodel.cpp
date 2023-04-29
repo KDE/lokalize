@@ -117,8 +117,8 @@ void DBFilesModel::openDB(const QString& name, DbType type, bool forceCurrentPro
     m_openingDb.append(name);
     m_openingDbLock.unlock();
     if (type == TM::Undefined)
-        type = QFileInfo(
-                   QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + name + QStringLiteral(REMOTETM_DATABASE_EXTENSION)).exists() ? TM::Remote : TM::Local;
+        type = QFileInfo::exists(
+                   QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + name + QStringLiteral(REMOTETM_DATABASE_EXTENSION)) ? TM::Remote : TM::Local;
     OpenDBJob* openDBJob = new OpenDBJob(name, type);
     if (forceCurrentProjectConfig) {
         openDBJob->m_setParams = true;
