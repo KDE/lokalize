@@ -7,6 +7,9 @@
 #ifndef LANGUAGETOOLPARSER_H
 #define LANGUAGETOOLPARSER_H
 
+#include <QString>
+#include <QJsonObject>
+
 class LanguageToolParser
 {
 public:
