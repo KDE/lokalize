@@ -14,10 +14,6 @@ LanguageToolResultJob::LanguageToolResultJob(QObject *parent)
 {
 }
 
-LanguageToolResultJob::~LanguageToolResultJob()
-{
-}
-
 static bool hasNotEmptyText(const QString &text)
 {
     for (int i = 0; i < text.length(); ++i) {

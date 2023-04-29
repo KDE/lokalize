@@ -37,7 +37,7 @@ class CatalogTreeView: public QTreeView
 public:
     CatalogTreeView(QWidget * parent)
         : QTreeView(parent) {}
-    ~CatalogTreeView() {}
+    ~CatalogTreeView() = default;
 
 protected:
     void keyReleaseEvent(QKeyEvent *e) override

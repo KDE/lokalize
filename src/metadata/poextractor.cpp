@@ -15,16 +15,6 @@
 
 #include <QFile>
 
-POExtractor::POExtractor()
-    : state(WHITESPACE)
-    , messages(0)
-    , untranslated(0)
-    , fuzzy(0)
-    , isFuzzy(false)
-    , isTranslated(false)
-{
-}
-
 void POExtractor::endMessage()
 {
     messages++;

@@ -31,12 +31,10 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     : QDockWidget(primary ? i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") : i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"), parent)
     , m_browser(new QTextEdit(this))
     , m_baseCatalog(catalog)
-    , m_mergeCatalog(nullptr)
     , m_normTitle(primary ?
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") :
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"))
     , m_hasInfoTitle(m_normTitle + " [*]")
-    , m_hasInfo(false)
     , m_primary(primary)
 {
     setObjectName(primary ? QStringLiteral("mergeView-primary") : QStringLiteral("mergeView-secondary"));

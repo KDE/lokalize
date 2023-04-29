@@ -36,10 +36,6 @@ using namespace GettextCatalog;
 
 GettextStorage::GettextStorage()
     : CatalogStorage()
-    , m_codec(nullptr)
-    , m_maxLineLength(80)
-    , m_trailingNewLines(0)
-    , m_generatedFromDocbook(false)
 {
 }
 
@@ -50,7 +46,7 @@ int GettextStorage::load(QIODevice* device/*, bool readonly*/)
     //GettextImportPlugin importer=GettextImportPlugin(readonly?(new ExtraDataSaver()):(new ExtraDataListSaver()));
     GettextImportPlugin importer;
     ConversionStatus status = OK;
-    int errorLine;
+    int errorLine{};
     {
         QMutexLocker locker(&regExMutex);
         status = importer.open(device, this, &errorLine);

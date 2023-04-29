@@ -17,14 +17,14 @@
 #include <QDataStream>
 
 struct FileMetaData {
-    bool invalid_file;
-    int translated;
-    int translated_reviewer;
-    int translated_approver;
-    int untranslated;
-    int fuzzy;
-    int fuzzy_reviewer;
-    int fuzzy_approver;
+    bool invalid_file{false};
+    int translated{0};
+    int translated_reviewer{0};
+    int translated_approver{0};
+    int untranslated{0};
+    int fuzzy{0};
+    int fuzzy_reviewer{0};
+    int fuzzy_approver{0};
 
     QString lastTranslator;
     QString sourceDate;
@@ -32,7 +32,7 @@ struct FileMetaData {
 
     QString filePath;
 
-    FileMetaData();
+    FileMetaData() = default;
     static FileMetaData extract(const QString &filePath);
 };
 

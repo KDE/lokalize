@@ -36,18 +36,17 @@
 class PoItemDelegate: public QStyledItemDelegate
 {
 public:
-    PoItemDelegate(QObject *parent = nullptr);
-    ~PoItemDelegate() {}
+    explicit PoItemDelegate(QObject *parent = nullptr);
+    ~PoItemDelegate() = default;
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     QString displayText(const QVariant & value, const QLocale & locale) const override;
     QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 private:
-    KColorScheme m_colorScheme;
+    KColorScheme m_colorScheme{QPalette::Normal};
 };
 
 PoItemDelegate::PoItemDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
-    , m_colorScheme(QPalette::Normal)
 {}
 
 QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const

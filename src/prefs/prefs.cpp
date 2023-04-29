@@ -64,13 +64,7 @@ SettingsController* SettingsController::instance()
 
 SettingsController::SettingsController()
     : QObject(Project::instance())
-    , dirty(false)
-    , m_mainWindowPtr(nullptr)
 {}
-
-SettingsController::~SettingsController()
-{}
-
 
 void SettingsController::showSettingsDialog()
 {

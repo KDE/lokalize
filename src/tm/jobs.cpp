@@ -1124,17 +1124,11 @@ SelectJob::SelectJob(const CatalogString& source,
     , m_source(source)
     , m_ctxt(ctxt)
     , m_file(file)
-    , m_dequeued(false)
     , m_pos(pos)
     , m_dbName(dbName)
 {
     setAutoDelete(false);
     //qCDebug(LOKALIZE_LOG)<<"selectjob"<<dbName<<m_source.string;
-}
-
-SelectJob::~SelectJob()
-{
-    //qCDebug(LOKALIZE_LOG)<<m_source.string;
 }
 
 inline QMap<uint, qlonglong> invertMap(const QMap<qlonglong, uint>& source)
@@ -1758,7 +1752,7 @@ private:
     QRegExp rxClean1;
     QString accel;
 
-    int m_hits;
+    int m_hits{0};
     CatalogString m_segment[3]; //Lang enum
     QList<InlineTag> m_inlineTags;
     QString m_context;
@@ -1769,7 +1763,7 @@ private:
     State m_state: 8;
     Lang m_lang: 8;
 
-    ushort m_added;
+    ushort m_added{0};
 
 
     QMap<QString, qlonglong> m_fileIds;
@@ -1778,14 +1772,11 @@ private:
 
 
 TmxParser::TmxParser(const QString& dbName)
-    : m_hits(0)
+    : db(QSqlDatabase::database(dbName))
     , m_state(null)
     , m_lang(Null)
-    , m_added(0)
     , m_dbLangCode(Project::instance()->langCode().toLower())
 {
-    db = QSqlDatabase::database(dbName);
-
     TMConfig c = getConfig(db);
     rxClean1.setPattern(c.markup); rxClean1.setMinimal(true);
     accel = c.accel;
@@ -1924,7 +1915,6 @@ bool TmxParser::characters(const QString& ch)
 ImportTmxJob::ImportTmxJob(const QString& filename, const QString& dbName)
     : QRunnable()
     , m_filename(filename)
-    , m_time(0)
     , m_dbName(dbName)
 {
 }
@@ -1962,7 +1952,6 @@ void ImportTmxJob::run()
 ExportTmxJob::ExportTmxJob(const QString& filename, const QString& dbName)
     : QRunnable()
     , m_filename(filename)
-    , m_time(0)
     , m_dbName(dbName)
 {
 }

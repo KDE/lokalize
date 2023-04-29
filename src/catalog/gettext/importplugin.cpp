@@ -25,10 +25,7 @@ namespace GettextCatalog
 {
 
 CatalogImportPlugin::CatalogImportPlugin()
-    : _maxLineLength(0)
-    , _trailingNewLines(0)
-    , _errorLine(0)
-    , d(new CatalogImportPluginPrivate)
+    : d(new CatalogImportPluginPrivate)
 {
 }
 

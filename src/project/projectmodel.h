@@ -81,12 +81,12 @@ class ProjectModel: public QAbstractItemModel
         void resetMetaData();
 
         ProjectNode* parent;
-        short rowNumber; //in parent's list
+        short rowNumber{0}; //in parent's list
 
-        short poRowNumber; //row number in po model, -1 if this has no po item.
-        short potRowNumber; //row number in pot model, -1 if this has no pot item.
+        short poRowNumber{0}; //row number in po model, -1 if this has no po item.
+        short potRowNumber{0}; //row number in pot model, -1 if this has no pot item.
 
-        short poCount; //number of items from PO in rows. The others will be form POT exclusively.
+        short poCount{0}; //number of items from PO in rows. The others will be form POT exclusively.
         QVector<ProjectNode*> rows; //rows from po and pot, pot rows start from poCount;
 
         enum class Status {
@@ -98,8 +98,8 @@ class ProjectModel: public QAbstractItemModel
             HasStats,
         };
 
-        Status metaDataStatus;
-        FileMetaData metaData;
+        Status metaDataStatus{Status::NoStats};
+        FileMetaData metaData{};
     };
 
 

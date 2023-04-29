@@ -59,8 +59,6 @@ using namespace TM;
 //BEGIN TMDBModel
 TMDBModel::TMDBModel(QObject* parent)
     : QSqlQueryModel(parent)
-    , m_queryType(WordOrder)
-    , m_totalResultCount(0)
 {
     setHeaderData(TMDBModel::Source,            Qt::Horizontal, i18nc("@title:column Original text", "Source"));
     setHeaderData(TMDBModel::Target,            Qt::Horizontal, i18nc("@title:column Text in target language", "Target"));

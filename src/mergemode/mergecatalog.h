@@ -149,8 +149,8 @@ private:
     std::list<int> m_mergeDiffIndex;//points to different baseCatalog entries
     std::list<int> m_mergeEmptyIndex;//points to empty baseCatalog entries
     QMap<DocPos, uint> m_originalHashes; //for modified units only
-    int m_unmatchedCount;
-    bool m_modified; //need own var here cause we don't use qundostack system for merging
+    int m_unmatchedCount{0};
+    bool m_modified{false}; //need own var here cause we don't use qundostack system for merging
 };
 
 #endif

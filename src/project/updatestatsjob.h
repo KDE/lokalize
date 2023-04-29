@@ -36,7 +36,7 @@ public:
 
     QList<KFileItem> m_files;
     QList<FileMetaData> m_info;
-    volatile int m_status; // 0 = running; -1 = cancel; -2 = abort
+    volatile int m_status{0}; // 0 = running; -1 = cancel; -2 = abort
 
 protected:
     void run() override;

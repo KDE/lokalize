@@ -1226,9 +1226,6 @@ ProjectModel::ProjectNode::ProjectNode(ProjectNode* _parent, int _rowNum, int _p
     , rowNumber(_rowNum)
     , poRowNumber(_poIndex)
     , potRowNumber(_potIndex)
-    , poCount(0)
-    , metaDataStatus(Status::NoStats)
-    , metaData()
 {
     ++nodeCounter;
 }

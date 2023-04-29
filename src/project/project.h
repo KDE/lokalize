@@ -195,15 +195,15 @@ Q_SIGNALS:
 private:
     QString m_path;
     QString m_desirablePath;
-    QFileSystemWatcher* m_projectFileWatcher;
-    ProjectLocal* m_localConfig;
-    ProjectModel* m_model;
-    GlossaryNS::Glossary* m_glossary;
-    GlossaryNS::GlossaryWindow* m_glossaryWindow;
-    TM::TMManagerWin* m_tmManagerWindow;
+    QFileSystemWatcher* m_projectFileWatcher{nullptr};
+    ProjectLocal* m_localConfig{nullptr};
+    ProjectModel* m_model{nullptr};
+    GlossaryNS::Glossary* m_glossary{nullptr};
+    GlossaryNS::GlossaryWindow* m_glossaryWindow{nullptr};
+    TM::TMManagerWin* m_tmManagerWindow{nullptr};
 
     QMultiMap<QByteArray, QByteArray> m_sourceFilePaths;
-    bool m_sourceFilePathsReady;
+    bool m_sourceFilePathsReady{false};
 
     //cache
     QString m_projectDir;

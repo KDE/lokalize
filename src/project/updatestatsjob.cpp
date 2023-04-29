@@ -24,7 +24,6 @@
 UpdateStatsJob::UpdateStatsJob(const QList<KFileItem> &files, QObject*)
     : QRunnable()
     , m_files(files)
-    , m_status(0)
 {
     setAutoDelete(false);
 }

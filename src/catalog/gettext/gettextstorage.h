@@ -106,11 +106,11 @@ private:
     QVector<CatalogItem> m_entries;
     QVector<CatalogItem> m_obsoleteEntries;
     CatalogItem m_header;
-    QTextCodec* m_codec;
+    QTextCodec* m_codec{nullptr};
 
-    short m_maxLineLength;
-    short m_trailingNewLines;
-    bool m_generatedFromDocbook;
+    short m_maxLineLength{80};
+    short m_trailingNewLines{0};
+    bool m_generatedFromDocbook{false};
 
     QStringList m_catalogExtraData;
     QByteArray m_catalogExtraDataCompressed;

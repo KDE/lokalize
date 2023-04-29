@@ -26,7 +26,6 @@ FlowLayout::FlowLayout(User user,
                        int margin,
                        int spacing)
     : QLayout()
-    , m_index(0)
     , m_receiver(signalingWidget)
 {
     setSizeConstraint(QLayout::SetMinAndMaxSize);

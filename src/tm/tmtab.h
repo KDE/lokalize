@@ -166,9 +166,9 @@ private:
     int translationStatus(const QModelIndex& item) const;
 
 private:
-    QueryType m_queryType;
+    QueryType m_queryType{WordOrder};
     QString m_dbName;
-    int m_totalResultCount;
+    int m_totalResultCount{0};
 public:
     mutable QMutex m_dbOperationMutex;
 };

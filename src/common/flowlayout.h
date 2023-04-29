@@ -62,8 +62,8 @@ private:
     int doLayout(const QRect &rect, bool testOnly) const;
 
     QList<QLayoutItem *> itemList;
-    int m_index; //of the nearest free label ; or the next index of btn
-    QWidget *m_receiver;
+    int m_index{0}; //of the nearest free label ; or the next index of btn
+    QWidget *m_receiver{nullptr};
 };
 
 

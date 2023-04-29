@@ -112,9 +112,9 @@ protected:
     /** commit the data in the current transaction. You should never call this method. */
     void commitTransaction();
 
-    short _maxLineLength;
-    short _trailingNewLines;
-    int _errorLine;
+    short _maxLineLength{0};
+    short _trailingNewLines{0};
+    int _errorLine{0};
 
 private:
     CatalogImportPluginPrivate* d;

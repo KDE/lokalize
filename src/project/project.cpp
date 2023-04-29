@@ -100,10 +100,7 @@ Project* Project::instance()
 Project::Project()
     : ProjectBase()
     , m_localConfig(new ProjectLocal())
-    , m_model(nullptr)
     , m_glossary(new GlossaryNS::Glossary(this))
-    , m_glossaryWindow(nullptr)
-    , m_tmManagerWindow(nullptr)
 {
     setDefaults();
     /*

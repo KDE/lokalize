@@ -31,14 +31,13 @@ QString enhanceLangCode(const QString& langCode)
 #include <QTextCodec>
 
 struct SpellerAndCodec {
-    Hunspell* speller;
-    QTextCodec* codec;
+    Hunspell* speller{nullptr};
+    QTextCodec* codec{nullptr};
     SpellerAndCodec(): speller(nullptr), codec(nullptr) {}
     SpellerAndCodec(const QString& langCode);
 };
 
 SpellerAndCodec::SpellerAndCodec(const QString& langCode)
-    : speller(nullptr), codec(nullptr)
 {
 #ifdef Q_OS_MAC
     QString dictPath = QStringLiteral("/Applications/LibreOffice.app/Contents/Resources/extensions/dict-") + langCode.leftRef(2) + '/';

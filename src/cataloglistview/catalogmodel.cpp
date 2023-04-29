@@ -30,7 +30,6 @@ QVector<QVariant> CatalogTreeModel::m_fonts;
 CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
     : QAbstractItemModel(parent)
     , m_catalog(catalog)
-    , m_ignoreAccel(true)
 {
     if (m_fonts.isEmpty()) {
         QVector<QFont> fonts(4, QApplication::font());

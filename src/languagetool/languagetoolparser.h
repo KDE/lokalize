@@ -10,8 +10,8 @@
 class LanguageToolParser
 {
 public:
-    LanguageToolParser();
-    ~LanguageToolParser();
+    LanguageToolParser() = default;
+    ~LanguageToolParser() = default;
     QString parseResult(const QJsonObject &obj, const QString &text) const;
 };
 

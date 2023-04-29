@@ -19,7 +19,7 @@ class POExtractor
 {
 
 public:
-    POExtractor();
+    POExtractor() = default;
     FileMetaData extract(const QString& filePath);
 
 private:
@@ -31,11 +31,12 @@ private:
     enum PoState {COMMENT, MSGCTXT, MSGID, MSGID_PLURAL, MSGSTR, MSGSTR_PLURAL,
                   WHITESPACE, ERROR
                  };
-    PoState state;
-    int messages;
-    int untranslated;
-    int fuzzy;
-    bool isFuzzy, isTranslated;
+    PoState state{WHITESPACE};
+    int messages{0};
+    int untranslated{0};
+    int fuzzy{0};
+    bool isFuzzy{false};
+    bool isTranslated{false};
 };
 
 #endif // PLAINTEXTEXTRACTOR_H

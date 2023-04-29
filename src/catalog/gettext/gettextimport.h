@@ -69,12 +69,12 @@ private:
     QStringList _msgid;
     QStringList _msgstr;
     QString _comment;
-    bool _msgidMultiline;
-    bool _msgstrMultiline;
-    bool _gettextPluralForm;
-    bool _testBorked;
-    bool _obsolete;
-    bool _msgctxtPresent;
+    bool _msgidMultiline{false};
+    bool _msgstrMultiline{false};
+    bool _gettextPluralForm{false};
+    bool _testBorked{false};
+    bool _obsolete{false};
+    bool _msgctxtPresent{false};
 
     //ExtraDataSaver* _extraDataSaver;
 

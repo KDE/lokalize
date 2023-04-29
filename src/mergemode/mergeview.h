@@ -72,14 +72,14 @@ Q_SIGNALS:
     void mergeCatalogPointerChanged(MergeCatalog* mergeCatalog);
 
 private:
-    QTextEdit* m_browser;
-    Catalog* m_baseCatalog;
-    MergeCatalog* m_mergeCatalog;
+    QTextEdit* m_browser{nullptr};
+    Catalog* m_baseCatalog{nullptr};
+    MergeCatalog* m_mergeCatalog{nullptr};
     DocPosition m_pos;
     QString m_normTitle;
     QString m_hasInfoTitle;
-    bool m_hasInfo;
-    bool m_primary;
+    bool m_hasInfo{false};
+    bool m_primary{false};
 
 };
 

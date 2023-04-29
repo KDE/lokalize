@@ -147,7 +147,7 @@ public:
               const QString& file,
               const DocPosition&,//for back tracking
               const QString& dbName);
-    ~SelectJob();
+    ~SelectJob() = default;
 
     int priority() const
     {
@@ -172,7 +172,7 @@ public:
 private:
     QString m_ctxt;
     QString m_file;
-    bool m_dequeued;
+    bool m_dequeued{false};
 
 public:
     DocPosition m_pos;
@@ -415,7 +415,7 @@ public:
     QString m_filename;
 
     //statistics
-    ushort m_time;
+    ushort m_time{0};
 
     QString m_dbName;
 };
@@ -440,7 +440,7 @@ public:
     QString m_filename;
 
     //statistics
-    ushort m_time;
+    ushort m_time{0};
 
     QString m_dbName;
 };

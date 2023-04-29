@@ -12,13 +12,6 @@
 
 #include <QJsonArray>
 
-LanguageToolParser::LanguageToolParser()
-{
-}
-
-LanguageToolParser::~LanguageToolParser()
-{
-}
 QString LanguageToolParser::parseResult(const QJsonObject &obj, const QString &text) const
 {
     QString infos;

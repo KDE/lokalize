@@ -19,38 +19,28 @@
 class XliffHandler: public QXmlDefaultHandler
 {
 public:
-    XliffHandler()
-        : total(0)
-        , untranslated(0)
-        , fuzzy(0)
-        , fuzzy_reviewer(0)
-        , fuzzy_approver(0)
-        , currentEntryFuzzy(false)
-        , currentEntryFuzzy_reviewer(false)
-        , currentEntryFuzzy_approver(false)
-        , charCount(0)
-    {}
+    XliffHandler() = default;
 
     bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& atts) override;
     bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName) override;
     bool characters(const QString&) override;
     //void endAnalysis(bool complete);
 
-    int total;
-    int untranslated;
-    int fuzzy;
-    int fuzzy_reviewer;
-    int fuzzy_approver;
+    int total{0};
+    int untranslated{0};
+    int fuzzy{0};
+    int fuzzy_reviewer{0};
+    int fuzzy_approver{0};
     QDate lastDate;
     QString lastTranslator;
     QString lastTranslator_fallback;
     QString lastDateString_fallback;
 
 private:
-    bool currentEntryFuzzy;
-    bool currentEntryFuzzy_reviewer;
-    bool currentEntryFuzzy_approver;
-    int charCount;
+    bool currentEntryFuzzy{false};
+    bool currentEntryFuzzy_reviewer{false};
+    bool currentEntryFuzzy_approver{false};
+    int charCount{0};
 };
 
 extern const QString xliff_states[];

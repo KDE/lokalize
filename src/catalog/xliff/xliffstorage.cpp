@@ -47,7 +47,8 @@ int XliffStorage::capabilities() const
 
 int XliffStorage::load(QIODevice* device)
 {
-    QElapsedTimer chrono; chrono.start();
+    QElapsedTimer chrono;
+    chrono.start();
 
 
     QXmlSimpleReader reader;

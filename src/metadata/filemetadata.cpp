@@ -15,17 +15,6 @@
 #include "poextractor.h"
 #include "xliffextractor.h"
 
-FileMetaData::FileMetaData()
-    : invalid_file(false)
-    , translated(0)
-    , translated_reviewer(0)
-    , translated_approver(0)
-    , untranslated(0)
-    , fuzzy(0)
-    , fuzzy_reviewer(0)
-    , fuzzy_approver(0)
-{}
-
 // static
 FileMetaData FileMetaData::extract(const QString &filePath)
 {
