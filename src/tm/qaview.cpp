@@ -90,7 +90,7 @@ void QaView::removeRule()
 int findMatchingRule(const QVector<Rule>& rules, const QString& source, const QString& target,
                      QVector<StartLen>& positions)
 {
-    for (QVector<Rule>::const_iterator it = rules.constBegin(); it != rules.constEnd(); it++) {
+    for (QVector<Rule>::const_iterator it = rules.constBegin(); it != rules.constEnd(); ++it) {
         if (it->sources.first().indexIn(source) != -1) {
             if (it->falseFriends.first().indexIn(target) != -1) {
                 if (positions.size()) {
