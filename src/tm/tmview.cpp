@@ -558,8 +558,12 @@ bool TMView::event(QEvent *event)
 
 void TMView::removeEntry(const TMEntry& e)
 {
-    if (KMessageBox::Yes == KMessageBox::questionYesNo(this, i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
-            i18nc("@title:window", "Translation Memory Entry Removal"))) {
+    if (KMessageBox::PrimaryAction == KMessageBox::questionTwoActions(
+                this,
+                i18n("<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from translation memory %2?</html>",  e.target.string.toHtmlEscaped(), e.dbName),
+                i18nc("@title:window", "Translation Memory Entry Removal"),
+                KGuiItem(i18nc("Button label", "Remove")),
+                KGuiItem(i18nc("Button label", "Cancel")))) {
         RemoveJob* job = new RemoveJob(e);
         connect(job, SIGNAL(done()), this, SLOT(slotNewEntryDisplayed()));
         TM::threadPool()->start(job, REMOVE);
