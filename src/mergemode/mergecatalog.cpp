@@ -178,11 +178,11 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
         const QList<int>& entries = mergeMap.values(key);
         QList<MatchItem> scores;
 
-        int k = entries.size();
-        if (k) {
-            while (--k >= 0)
-                scores << calcMatchItem(i, DocPosition(entries.at(k)));
+        for (const auto entry : qAsConst(entries)) {
+            scores << calcMatchItem(i, DocPosition(entry));
+        }
 
+        if (!scores.isEmpty()) {
             std::sort(scores.begin(), scores.end(), std::greater<MatchItem>());
 
             m_map[i.entry] = scores.first().mergeEntry;
@@ -192,8 +192,8 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
                 m_mergeDiffIndex.push_back(i.entry);
             if (scores.first().translationIsEmpty)
                 m_mergeEmptyIndex.push_back(i.entry);
-
         }
+
         ++(i.entry);
     }
 
