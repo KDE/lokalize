@@ -128,6 +128,7 @@ ProjectTab::ProjectTab(QWidget *parent)
 
     m_progressBar = new QProgressBar(nullptr);
     m_progressBar->setVisible(false);
+    m_progressBar->setFormat(i18nc("Loading bar percentage indicator %p will be replaced by the actual percentage number, so make sure you include it in your translation", "%p%"));
     statusBar->insertWidget(ID_STATUS_PROGRESS, m_progressBar, 1);
 
     setXMLFile(QStringLiteral("projectmanagerui.rc"), true);
