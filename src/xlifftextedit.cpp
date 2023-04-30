@@ -50,7 +50,7 @@ inline static QImage generateImage(const QString& str, const QFont& font)
 
     QStyleOptionButton opt;
     opt.fontMetrics = QFontMetrics(font);
-    opt.text = ' ' + str + ' ';
+    opt.text = QLatin1Char(' ') + str + QLatin1Char(' ');
     opt.rect = opt.fontMetrics.boundingRect(opt.text).adjusted(0, 0, 5, 5);
     opt.rect.moveTo(0, 0);
 
@@ -704,7 +704,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         uint counter = 0;
         int pos = col;
 
-        while (pos >= 0 && str.at(pos) == '\\') {
+        while (pos >= 0 && str.at(pos) == QLatin1Char('\\')) {
             counter++;
             pos--;
         }
@@ -810,7 +810,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                     && !str.isEmpty()
                     && str.at(pos - 1) == QLatin1Char('\\')
                     && !isMasked(str, pos - 1)) {
-                    ins = 'n';
+                    ins = QLatin1Char('n');
                 } else {
                     ins = QStringLiteral("\\n");
                 }
@@ -830,7 +830,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 }
             }
             if (!str.isEmpty()) {
-                ins += '\n';
+                ins += QLatin1Char('\n');
                 insertPlainTextWithCursorCheck(ins);
             } else
                 KTextEdit::keyPressEvent(keyEvent);
@@ -848,7 +848,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
                 //workaround for Qt/X11 bug: if Del on NumPad is pressed, then pos is beyond end
                 if (pos == str.size()) --pos;
                 if (!str.isEmpty()
-                    && str.at(pos) == '\\'
+                    && str.at(pos) == QLatin1Char('\\')
                     && !isMasked(str, pos)
                     && pos < str.length() - 1
                     && spclChars.contains(str.at(pos + 1))) {
@@ -899,7 +899,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         QTextCursor cursor = textCursor();
         cursor.select(QTextCursor::Document);
         QString text = cursor.selectedText();
-        text.replace(QChar(8233), '\n');
+        text.replace(QChar(8233), QLatin1Char('\n'));
         /*
             int ii=text.size();
             while(--ii>=0)
@@ -1126,7 +1126,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             QLocale l(langCode);
             if (l.language() != QLocale::C) tip = l.nativeLanguageName() + QLatin1String(" (");
             tip += langCode;
-            if (l.language() != QLocale::C) tip += ')';
+            if (l.language() != QLocale::C) tip += QLatin1Char(')');
             if (nospell)
                 tip += QLatin1String(" - ") + i18n("no spellcheck available");
             QToolTip::showText(helpEvent->globalPos(), tip);
@@ -1200,8 +1200,8 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             tag.setMinimal(true);
             QString en = m_catalog->sourceWithTags(m_currentPos).string;
             QString target(toPlainText());
-            en.remove('\n');
-            target.remove('\n');
+            en.remove(QLatin1Char('\n'));
+            target.remove(QLatin1Char('\n'));
             int pos = 0;
             //tag.indexIn(en);
             int posInMsgStr = 0;
@@ -1254,15 +1254,15 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             }
         } else if (/*_catalog->isGeneratedFromDocbook() &&*/ text.startsWith(QLatin1String("ROLES_OF_TRANSLATORS"))) {
             if (!document()->isEmpty())
-                out = '\n';
+                out = QLatin1Char('\n');
             out += QLatin1String("<othercredit role=\\\"translator\\\">\n"
                                  "<firstname></firstname><surname></surname>\n"
                                  "<affiliation><address><email>") + Settings::authorEmail() + QLatin1String("</email></address>\n"
                                          "</affiliation><contrib></contrib></othercredit>");
         } else if (text.startsWith(QLatin1String("CREDIT_FOR_TRANSLATORS"))) {
             if (!document()->isEmpty())
-                out = '\n';
-            out += QLatin1String("<para>") + Settings::authorLocalizedName() + '\n' +
+                out = QLatin1Char('\n');
+            out += QLatin1String("<para>") + Settings::authorLocalizedName() + QLatin1Char('\n') +
                    QLatin1String("<email>") + Settings::authorEmail() + QLatin1String("</email></para>");
         }
         //END KDE specific part
@@ -1331,7 +1331,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             m_completionBox->resize(m_completionBox->sizeHint());
             QPoint p = cursorRect().bottomRight();
             if (p.x() < 10) //workaround Qt bug
-                p.rx() += textCursor().verticalMovementX() + QFontMetrics(currentFont()).horizontalAdvance('W');
+                p.rx() += textCursor().verticalMovementX() + QFontMetrics(currentFont()).horizontalAdvance(QLatin1Char('W'));
             m_completionBox->move(viewport()->mapToGlobal(p));
         } else
             m_completionBox->hide();

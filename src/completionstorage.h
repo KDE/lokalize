@@ -16,7 +16,7 @@
 class CompletionStorage
 {
 private:
-    CompletionStorage(): rxSplit("\\W+|\\d+") {}
+    CompletionStorage(): rxSplit(QStringLiteral("\\W+|\\d+")) {}
     ~CompletionStorage() {}
     static CompletionStorage* _instance;
     static void cleanupCompletionStorage();

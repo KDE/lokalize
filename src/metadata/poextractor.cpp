@@ -104,7 +104,7 @@ void POExtractor::handleLine(const char* data, uint32_t length)
 
 FileMetaData POExtractor::extract(const QString& filePath)
 {
-    std::ifstream fstream(QFile::encodeName(filePath));
+    std::ifstream fstream(QFile::encodeName(filePath).toStdString());
     if (!fstream.is_open()) {
         return {};
     }
@@ -131,9 +131,9 @@ FileMetaData POExtractor::extract(const QString& filePath)
             // handle special values in the first messsage
             // assumption is that value takes up only one line
             if (strncmp("\"POT-Creation-Date: ", line.c_str(), 20) == 0) {
-                m.sourceDate = QByteArray(line.c_str() + 20, line.size() - 21 - 2);
+                m.sourceDate = QString::fromLatin1(QByteArray(line.c_str() + 20, line.size() - 21 - 2));
             } else if (strncmp("\"PO-Revision-Date: ", line.c_str(), 19) == 0) {
-                m.translationDate = QByteArray(line.c_str() + 19, line.size() - 20 - 2);
+                m.translationDate = QString::fromLatin1(QByteArray(line.c_str() + 19, line.size() - 20 - 2));
             } else if (strncmp("\"Last-Translator: ", line.c_str(), 18) == 0) {
                 m.lastTranslator = QString::fromUtf8(QByteArray::fromRawData(line.c_str() + 18, line.size() - 19 - 2));
             }

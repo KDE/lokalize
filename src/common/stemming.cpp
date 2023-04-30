@@ -54,7 +54,7 @@ SpellerAndCodec::SpellerAndCodec(const QString& langCode)
     if (!QFileInfo::exists(dic))
         dic = dictPath + enhanceLangCode(langCode) + QLatin1String(".dic");
     if (QFileInfo::exists(dic)) {
-        speller = new Hunspell(QString(dictPath + langCode + ".aff").toLatin1().constData(), dic.toLatin1().constData());
+        speller = new Hunspell(QString(dictPath + langCode + QLatin1String(".aff")).toLatin1().constData(), dic.toLatin1().constData());
         codec = QTextCodec::codecForName(speller->get_dic_encoding());
         if (!codec)
             codec = QTextCodec::codecForLocale();

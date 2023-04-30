@@ -110,7 +110,7 @@ void LokalizeMainWindow::initLater()
         slotSubWindowActivated(m_projectSubWindow);
 
     if (!Project::instance()->isTmSupported()) {
-        KNotification* notification = new KNotification("NoSqlModulesAvailable");
+        KNotification* notification = new KNotification(QStringLiteral("NoSqlModulesAvailable"));
         notification->setWidget(this);
         notification->setText(i18nc("@info", "No Qt Sql modules were found. Translation memory will not work."));
         notification->sendEvent();
@@ -289,7 +289,7 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
     connect(w, QOverload<const QString &, const QString &, const QString &, const bool>::of(&EditorTab::fileOpenRequested), this, QOverload<const QString &, const QString &, const QString &, const bool>::of(&LokalizeMainWindow::fileOpen));
     connect(w, QOverload<const QString &, const QString &>::of(&EditorTab::tmLookupRequested), this, QOverload<const QString &, const QString &>::of(&LokalizeMainWindow::lookupInTranslationMemory));
 
-    QStringRef fnSlashed = filePath.midRef(filePath.lastIndexOf('/'));
+    QStringRef fnSlashed = filePath.midRef(filePath.lastIndexOf(QLatin1Char('/')));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
     while (i != m_fileToEditor.constEnd()) {
         if (i.key().endsWith(fnSlashed)) {
@@ -482,7 +482,7 @@ void LokalizeMainWindow::setupActions()
     ADD_ACTION_SHORTCUT("tools_tm", i18nc("@action:inmenu", "Translation memory"), Qt::Key_F7)
     connect(action, &QAction::triggered, this, &LokalizeMainWindow::showTM);
 
-    action = tm->addAction("tools_tm_manage", project, SLOT(showTMManager()));
+    action = tm->addAction(QStringLiteral("tools_tm_manage"), project, SLOT(showTMManager()));
     action->setText(i18nc("@action:inmenu", "Manage translation memories"));
 
 //Project
@@ -501,11 +501,11 @@ void LokalizeMainWindow::setupActions()
 
     action = proj->addAction(QStringLiteral("project_open"), this, SLOT(openProject()));
     action->setText(i18nc("@action:inmenu", "Open project..."));
-    action->setIcon(QIcon::fromTheme("project-open"));
+    action->setIcon(QIcon::fromTheme(QStringLiteral("project-open")));
 
     action = proj->addAction(QStringLiteral("project_close"), this, SLOT(closeProject()));
     action->setText(i18nc("@action:inmenu", "Close project"));
-    action->setIcon(QIcon::fromTheme("project-close"));
+    action->setIcon(QIcon::fromTheme(QStringLiteral("project-close")));
 
     m_openRecentProjectAction = new KRecentFilesAction(i18nc("@action:inmenu", "Open recent project"), this);
     action = proj->addAction(QStringLiteral("project_open_recent"), m_openRecentProjectAction);
@@ -609,7 +609,7 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
 
 
     KConfig config;
-    KConfigGroup projectStateGroup(&config, "State-" + Project::instance()->path());
+    KConfigGroup projectStateGroup(&config, QStringLiteral("State-") + Project::instance()->path());
     projectStateGroup.writeEntry("Active", activeSWIndex);
     projectStateGroup.writeEntry("Files", files);
     projectStateGroup.writeEntry("MergeFiles", mergeFiles);
@@ -624,9 +624,9 @@ void LokalizeMainWindow::saveProjectState(KConfigGroup& stateGroup)
 
 
     QString nameSpecifier = Project::instance()->path();
-    if (!nameSpecifier.isEmpty()) nameSpecifier.prepend('-');
+    if (!nameSpecifier.isEmpty()) nameSpecifier.prepend(QLatin1Char('-'));
     KConfig* c = stateGroup.isValid() ? stateGroup.config() : &config;
-    m_openRecentFileAction->saveEntries(KConfigGroup(c, "RecentFiles" + nameSpecifier));
+    m_openRecentFileAction->saveEntries(KConfigGroup(c, QStringLiteral("RecentFiles") + nameSpecifier));
     m_openRecentProjectAction->saveEntries(KConfigGroup(&config, "RecentProjects"));
 }
 
@@ -653,13 +653,13 @@ void LokalizeMainWindow::projectLoaded()
     KConfig config;
 
     QString nameSpecifier = projectPath;
-    if (!nameSpecifier.isEmpty()) nameSpecifier.prepend('-');
-    m_openRecentFileAction->loadEntries(KConfigGroup(&config, "RecentFiles" + nameSpecifier));
+    if (!nameSpecifier.isEmpty()) nameSpecifier.prepend(QLatin1Char('-'));
+    m_openRecentFileAction->loadEntries(KConfigGroup(&config, QLatin1String("RecentFiles") + nameSpecifier));
 
 
     //if project isn't loaded, still restore opened files from "State-"
     KConfigGroup stateGroup(&config, "State");
-    KConfigGroup projectStateGroup(&config, "State-" + projectPath);
+    KConfigGroup projectStateGroup(&config, QLatin1String("State-") + projectPath);
 
     QStringList files;
     QStringList mergeFiles;
@@ -697,9 +697,9 @@ void LokalizeMainWindow::projectLoaded()
         qCDebug(LOKALIZE_LOG) << "failedFiles" << failedFiles;
 //         KMessageBox::error(this, i18nc("@info","Error opening the following files:")+
 //                                 "<br><il><li><filename>"+failedFiles.join("</filename></li><li><filename>")+"</filename></li></il>" );
-        KNotification* notification = new KNotification("FilesOpenError");
+        KNotification* notification = new KNotification(QStringLiteral("FilesOpenError"));
         notification->setWidget(this);
-        notification->setText(i18nc("@info", "Error opening the following files:\n\n") + "<filename>" + failedFiles.join("</filename><br><filename>") + "</filename>");
+        notification->setText(i18nc("@info", "Error opening the following files:\n\n") + QStringLiteral("<filename>") + failedFiles.join(QLatin1String("</filename><br><filename>")) + QStringLiteral("</filename>"));
         notification->sendEvent();
     }
 

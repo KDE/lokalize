@@ -34,7 +34,7 @@ MergeView::MergeView(QWidget* parent, Catalog* catalog, bool primary)
     , m_normTitle(primary ?
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Primary Sync") :
                   i18nc("@title:window that displays difference between current file and 'merge source'", "Secondary Sync"))
-    , m_hasInfoTitle(m_normTitle + " [*]")
+    , m_hasInfoTitle(m_normTitle + QLatin1String(" [*]"))
     , m_primary(primary)
 {
     setObjectName(primary ? QStringLiteral("mergeView-primary") : QStringLiteral("mergeView-secondary"));
@@ -134,15 +134,15 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
 #endif
 
     if (!m_mergeCatalog->isApproved(pos.entry)) {
-        result.prepend("<i>");
-        result.append("</i>");
+        result.prepend(QLatin1String("<i>"));
+        result.append(QLatin1String("</i>"));
     }
 
     if (m_mergeCatalog->isModified(pos)) {
-        result.prepend("<b>");
-        result.append("</b>");
+        result.prepend(QLatin1String("<b>"));
+        result.append(QLatin1String("</b>"));
     }
-    result.replace(' ', QChar::Nbsp);
+    result.replace(QLatin1Char(' '), QChar::Nbsp);
     m_browser->setHtml(result);
     //qCDebug(LOKALIZE_LOG)<<"ELA "<<time.elapsed();
 }
@@ -201,7 +201,7 @@ void MergeView::mergeOpen(QString mergeFilePath)
     if (!QFile::exists(mergeFilePath)) {
         saidMergeFilePath = mergeFilePath;
         saidMergeFilePath.replace(Project::instance()->branchDir(), Project::instance()->branchPotDir());
-        saidMergeFilePath += 't';
+        saidMergeFilePath += QLatin1Char('t');
 
         if (QFile::exists(saidMergeFilePath))
             std::swap(mergeFilePath, saidMergeFilePath);
@@ -360,7 +360,7 @@ bool MergeView::event(QEvent *event)
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         QString text = QStringLiteral("<b>") + QDir::toNativeSeparators(filePath()) + QStringLiteral("</b>\n") + i18nc("@info:tooltip", "Different entries: %1\nUnmatched entries: %2",
                        m_mergeCatalog->differentEntries().size(), m_mergeCatalog->unmatchedCount());
-        text.replace('\n', QStringLiteral("<br />"));
+        text.replace(QLatin1Char('\n'), QLatin1String("<br />"));
         QToolTip::showText(helpEvent->globalPos(), text);
         return true;
     }

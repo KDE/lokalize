@@ -110,7 +110,7 @@ QVariant BinUnitsModel::data(const QModelIndex& index, int role) const
     switch (index.column()) {
     case SourceFilePath:    return m_catalog->source(pos);
     case TargetFilePath:    return m_catalog->target(pos);
-    case Approved:          return noyes[m_catalog->isApproved(pos)];
+    case Approved:          return QString::fromLocal8Bit(noyes[m_catalog->isApproved(pos)]);
     }
     return QVariant();
 }

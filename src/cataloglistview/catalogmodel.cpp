@@ -167,11 +167,11 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
 
         switch (getTranslationStatus(index.row())) {
         case TranslationStatus::Ready:
-            return QIcon::fromTheme("emblem-checked");
+            return QIcon::fromTheme(QStringLiteral("emblem-checked"));
         case TranslationStatus::NeedsReview:
-            return QIcon::fromTheme("emblem-question");
+            return QIcon::fromTheme(QStringLiteral("emblem-question"));
         case TranslationStatus::Untranslated:
-            return QIcon::fromTheme("emblem-unavailable");
+            return QIcon::fromTheme(QStringLiteral("emblem-unavailable"));
         }
     } else if (role == Qt::UserRole) {
         switch (column) {
@@ -225,7 +225,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     case CatalogModelColumns::Context:
         return m_catalog->context(index.row());
     case CatalogModelColumns::Files:
-        return m_catalog->sourceFiles(index.row()).join('|');
+        return m_catalog->sourceFiles(index.row()).join(QLatin1Char('|'));
     case CatalogModelColumns::SourceLength:
         return m_catalog->msgidWithPlurals(index.row(), false).length();
     case CatalogModelColumns::TargetLength:

@@ -77,7 +77,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *parent)
 
 void SyntaxHighlighter::settingsChanged()
 {
-    QRegExp re(" +$|^ +|.?" + QChar(0x0000AD) + ".?"); //soft hyphen
+    QRegExp re(QLatin1String(" +$|^ +|.?") + QChar(0x0000AD) + QLatin1String(".?")); //soft hyphen
     if (Settings::highlightSpaces() && highlightingRules.last().pattern != re) {
         HighlightingRule rule;
         rule.format.clearForeground();
@@ -126,10 +126,10 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
     {
         int startIndex = STATE_NORMAL;
         if (previousBlockState() != STATE_TAG)
-            startIndex = text.indexOf('<');
+            startIndex = text.indexOf(QLatin1Char('<'));
 
         while (startIndex >= 0) {
-            int endIndex = text.indexOf('>', startIndex);
+            int endIndex = text.indexOf(QLatin1Char('>'), startIndex);
             int commentLength;
             if (endIndex == -1) {
                 currentBlockState = STATE_TAG;
@@ -139,7 +139,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
                                 + 1/*+ commentEndExpression.matchedLength()*/;
             }
             setFormat(startIndex, commentLength, tagFormat);
-            startIndex = text.indexOf('<', startIndex + commentLength);
+            startIndex = text.indexOf(QLatin1Char('<'), startIndex + commentLength);
         }
     }
 
@@ -207,7 +207,7 @@ void SyntaxHighlighter::setMisspelled(int start, int count)
     //HACK. Needs Sonnet API redesign (KDE 5)
     if (smthPreceeding) {
         qCWarning(LOKALIZE_LOG) << "ampersand is in the way. word len:" << count;
-        int realStart = text.lastIndexOf(QRegExp("\\b"), start - 2);
+        int realStart = text.lastIndexOf(QRegExp(QStringLiteral("\\b")), start - 2);
         if (realStart == -1)
             realStart = 0;
         QString t = text.mid(realStart, count + start - realStart);

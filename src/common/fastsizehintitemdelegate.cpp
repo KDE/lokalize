@@ -34,11 +34,11 @@ QSize FastSizeHintItemDelegate::sizeHint(const QStyleOptionViewItem& option, con
     int column = qMax(index.column(), 0);
     if (!singleLineColumns.at(column)) {
         QString text = index.data().toString();
-        nPos = text.indexOf('\n');
+        nPos = text.indexOf(QLatin1Char('\n'));
         if (nPos == -1)
             nPos = text.size();
         else
-            lineCount += text.count('\n');
+            lineCount += text.count(QLatin1Char('\n'));
     }
     static QFontMetrics metrics(option.font);
     return QSize(metrics.averageCharWidth() * nPos, metrics.height() * lineCount);
@@ -113,7 +113,7 @@ QString convertToHtml(QString str, bool italics)
     str = Qt::convertFromPlainText(str); //FIXME use another routine (this has bugs)
 
     if (italics)
-        str = "<p><i>" + QString::fromRawData(str.unicode() + 3, str.length() - 3 - 4) + "</i></p>";
+        str = QLatin1String("<p><i>") + QString::fromRawData(str.unicode() + 3, str.length() - 3 - 4) + QLatin1String("</i></p>");
 
     return str;
 }

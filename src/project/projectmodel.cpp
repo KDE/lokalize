@@ -971,10 +971,10 @@ QUrl ProjectModel::poToPot(const QUrl& poPath) const
 
     //change ".po" into ".pot"
     if (pathToAdd.endsWith(QLatin1String(".po"))) //TODO: what about folders ??
-        pathToAdd += 't';
+        pathToAdd += QLatin1Char('t');
 
     QUrl potPath = m_potUrl;
-    potPath.setPath(potPath.path() + '/' + pathToAdd);
+    potPath.setPath(potPath.path() + QLatin1Char('/') + pathToAdd);
 
     //qCDebug(LOKALIZE_LOG) << "ProjectModel::poToPot("<< poPath.pathOrUrl() << +") = " << potPath.pathOrUrl();
     return potPath;

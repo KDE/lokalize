@@ -76,8 +76,8 @@ bool Glossary::load(const QString& newPath)
     }
 
     QXmlSimpleReader reader;
-    reader.setFeature("http://qt-project.org/xml/features/report-whitespace-only-CharData", true);
-    reader.setFeature("http://xml.org/sax/features/namespaces", false);
+    reader.setFeature(QStringLiteral("http://qt-project.org/xml/features/report-whitespace-only-CharData"), true);
+    reader.setFeature(QStringLiteral("http://xml.org/sax/features/namespaces"), false);
     QXmlInputSource source(device);
 
     QDomDocument newDoc;
@@ -228,7 +228,7 @@ QVariant GlossaryModel::data(const QModelIndex& index, int role) const
     if (role != Qt::DisplayRole)
         return QVariant();
 
-    static const QString nl = QStringLiteral(" ") + QChar(0x00B7) + ' ';
+    static const QString nl = QLatin1Char(' ') + QChar(0x00B7) + QLatin1Char(' ');
     static Project* project = Project::instance();
     Glossary* glossary = m_glossary;
 
@@ -276,8 +276,8 @@ QByteArray Glossary::generateNewId()
     QList<int> busyIdNumbers;
 
     QString authorId(Settings::authorName().toLower());
-    authorId.replace(' ', '_');
-    QRegExp rx('^' + authorId + QStringLiteral("\\-([0-9]*)$"));
+    authorId.replace(QLatin1Char(' '), QLatin1Char('_'));
+    QRegExp rx(QLatin1Char('^') + authorId + QStringLiteral("\\-([0-9]*)$"));
 
 
     for (const QByteArray& id : qAsConst(m_idsForEntriesById)) {
@@ -317,7 +317,7 @@ QByteArray Glossary::id(int index) const
 
 QStringList Glossary::terms(const QByteArray& id, const QString& language) const
 {
-    QString minusLang = language; minusLang.replace('_', '-');
+    QString minusLang = language; minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
     QStringRef soleLang = language.leftRef(2);
     QStringList result;
     QDomElement n = m_entriesById.value(id).firstChildElement(langSet);
@@ -349,7 +349,7 @@ static void getElementsForTermLangIndex(QDomElement termEntry, QString& lang, in
                                         QDomElement& tigElement, //<-- can point to <ntig> as well
                                         QDomElement& termElement)
 {
-    QString minusLang = lang; minusLang.replace('_', '-');
+    QString minusLang = lang; minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
     QStringRef soleLang = lang.leftRef(2);
 
     QDomElement n = termEntry.firstChildElement(langSet);
@@ -405,7 +405,7 @@ void Glossary::setTerm(const QByteArray& id, QString lang, int index, const QStr
     QDomDocument document = entry.ownerDocument();
     if (ourLangSetElement.isNull()) {
         ourLangSetElement = entry.appendChild(document.createElement(langSet)).toElement();
-        lang.replace('_', '-');
+        lang.replace(QLatin1Char('_'), QLatin1Char('-'));
         ourLangSetElement.setAttribute(xmlLang, lang);
     }
     /*
@@ -440,7 +440,7 @@ static QDomElement firstDescripElemForLang(QDomElement termEntry, const QString&
         return termEntry.firstChildElement(QStringLiteral("descrip"));
 
     QString minusLang = lang;
-    minusLang.replace('_', '-');
+    minusLang.replace(QLatin1Char('_'), QLatin1Char('-'));
 
     //disable this for now
     //bool enUSLangGiven=defaultLang==lang; //treat en_US and en as equal
@@ -497,10 +497,10 @@ void Glossary::setDescrip(const QByteArray& id, QString lang, const QString& typ
         QDomElement langSetElem = m_entriesById.value(id).firstChildElement(langSet);
         while (!langSetElem.isNull()) {
             QString nLang = langSetElem.attribute(xmlLang, defaultLang);
-            nLang.replace('-', '_');
+            nLang.replace(QLatin1Char('-'), QLatin1Char('_'));
             if (lang == QLatin1String("en")) { //NOTE COMPAT
                 lang = defaultLang;
-                nLang.replace('_', '-');
+                nLang.replace(QLatin1Char('_'), QLatin1Char('-'));
                 langSetElem.setAttribute(xmlLang, defaultLang);
             }
 
@@ -513,7 +513,7 @@ void Glossary::setDescrip(const QByteArray& id, QString lang, const QString& typ
             parentForDescrip = langSetElem;
         else {
             parentForDescrip = parentForDescrip.appendChild(document.createElement(langSet)).toElement();
-            lang.replace('_', '-');
+            lang.replace(QLatin1Char('_'), QLatin1Char('-'));
             parentForDescrip.setAttribute(xmlLang, lang);
         }
     }
@@ -559,7 +559,7 @@ void Glossary::hashTermEntry(const QDomElement& termEntry)
     QString sourceLangCode = Project::instance()->sourceLangCode();
     const auto termTexts = terms(entryId, sourceLangCode);
     for (const QString& termText : termTexts) {
-        const auto words = termText.split(' ', Qt::SkipEmptyParts);
+        const auto words = termText.split(QLatin1Char(' '), Qt::SkipEmptyParts);
         for (const QString& word : words)
             idsByLangWord[sourceLangCode].insert(stem(sourceLangCode, word), entryId);
     }
@@ -573,7 +573,7 @@ void Glossary::unhashTermEntry(const QDomElement& termEntry)
     QString sourceLangCode = Project::instance()->sourceLangCode();
     const auto termTexts = terms(entryId, sourceLangCode);
     for (const QString& termText : termTexts) {
-        const auto words = termText.split(' ', Qt::SkipEmptyParts);
+        const auto words = termText.split(QLatin1Char(' '), Qt::SkipEmptyParts);
         for (const QString& word : words)
             idsByLangWord[sourceLangCode].remove(stem(sourceLangCode, word), entryId);
     }
@@ -646,12 +646,12 @@ QByteArray Glossary::append(const QStringList& sourceTerms, const QStringList& t
     termEntry.setAttribute(::id, QString::fromLatin1(newId));
 
     QDomElement sourceElem = m_doc.createElement(langSet); termEntry.appendChild(sourceElem);
-    sourceElem.setAttribute(xmlLang, Project::instance()->sourceLangCode().replace('_', '-'));
+    sourceElem.setAttribute(xmlLang, Project::instance()->sourceLangCode().replace(QLatin1Char('_'), QLatin1Char('-')));
     for (const QString &sourceTerm : sourceTerms)
         appendTerm(sourceElem, sourceTerm);
 
     QDomElement targetElem = m_doc.createElement(langSet); termEntry.appendChild(targetElem);
-    targetElem.setAttribute(xmlLang, Project::instance()->targetLangCode().replace('_', '-'));
+    targetElem.setAttribute(xmlLang, Project::instance()->targetLangCode().replace(QLatin1Char('_'), QLatin1Char('-')));
     for (const QString &targetTerm : targetTerms)
         appendTerm(targetElem, targetTerm);
 

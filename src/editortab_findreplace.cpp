@@ -160,13 +160,13 @@ static void calcOffsetWithAccels(const QString& data, int& offset, int& length)
 {
     int i = 0;
     for (; i < offset; ++i)
-        if (Q_UNLIKELY(data.at(i) == '&'))
+        if (Q_UNLIKELY(data.at(i) == QLatin1Char('&')))
             ++offset;
 
     //if & is inside highlighted word
     int limit = offset + length;
     for (i = offset; i < limit; ++i)
-        if (Q_UNLIKELY(data.at(i) == '&')) {
+        if (Q_UNLIKELY(data.at(i) == QLatin1Char('&'))) {
             ++length;
             limit = qMin(data.size(), offset + length); //just safety
         }
@@ -195,7 +195,7 @@ void EditorTab::find()
         if (sel.isEmpty())
             sel = selectionInSource();
         if (m_find && m_find->options()&IGNOREACCELS)
-            sel.remove('&');
+            sel.remove(QLatin1Char('&'));
         EntryFindDialog::instance()->setPattern(sel);
     }
 
@@ -239,7 +239,7 @@ void EditorTab::findNext(const DocPosition& startingPos)
         _searchingPos.offset = 0;
 
 
-    QRegExp rx("[^(\\\\n)>]\n");
+    QRegExp rx(QStringLiteral("[^(\\\\n)>]\n"));
     //_searchingPos.part=DocPosition::Source;
     bool ignoreaccels = m_find->options()&IGNOREACCELS;
     bool includenotes = m_find->options()&INCLUDENOTES;
@@ -261,7 +261,7 @@ void EditorTab::findNext(const DocPosition& startingPos)
                     data = catalog.catalogString(_searchingPos).string;
 
                 if (ignoreaccels)
-                    data.remove('&');
+                    data.remove(QLatin1Char('&'));
                 find.setData(data);
             }
 
@@ -329,7 +329,7 @@ void EditorTab::replace()
     if (!m_view->selectionInTarget().isEmpty()) {
         if (m_replace && m_replace->options()&IGNOREACCELS) {
             QString tmp(m_view->selectionInTarget());
-            tmp.remove('&');
+            tmp.remove(QLatin1Char('&'));
             EntryReplaceDialog::instance()->setPattern(tmp);
         } else
             EntryReplaceDialog::instance()->setPattern(m_view->selectionInTarget());
@@ -399,7 +399,7 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
                     data = m_catalog->notes(_replacingPos).at(_replacingPos.form).content;
                 else {
                     data = m_catalog->targetWithTags(_replacingPos).string;
-                    if (ignoreaccels) data.remove('&');
+                    if (ignoreaccels) data.remove(QLatin1Char('&'));
                 }
                 m_replace->setData(data);
             }
@@ -507,7 +507,7 @@ void EditorTab::spellcheck()
     QString text = m_catalog->msgstr(m_currentPos);
     if (!m_view->selectionInTarget().isEmpty())
         text = m_view->selectionInTarget();
-    text.remove('&');
+    text.remove(QLatin1Char('&'));
     m_sonnetDialog->setBuffer(text);
 
     _spellcheckPos = m_currentPos;

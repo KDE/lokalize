@@ -181,7 +181,7 @@ PhaseEditDialog::PhaseEditDialog(QWidget *parent)
 Phase PhaseEditDialog::phase() const
 {
     Phase phase;
-    phase.process = processes()[m_process->currentIndex()];
+    phase.process = QLatin1String(processes()[m_process->currentIndex()]);
     return phase;
 }
 

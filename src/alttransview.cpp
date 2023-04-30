@@ -111,11 +111,11 @@ void AltTransView::fileLoaded()
     QString absPath = m_catalog->url();
     QString relPath = QDir(Project::instance()->poDir()).relativeFilePath(absPath);
 
-    QFileInfo info(Project::instance()->altTransDir() % '/' % relPath);
+    QFileInfo info(Project::instance()->altTransDir() + QLatin1Char('/') + relPath);
     if (info.canonicalFilePath() != absPath && info.exists())
         attachAltTransFile(info.canonicalFilePath());
     else
-        qCWarning(LOKALIZE_LOG) << "alt trans file doesn't exist:" << Project::instance()->altTransDir() % '/' % relPath;
+        qCWarning(LOKALIZE_LOG) << "alt trans file doesn't exist:" << Project::instance()->altTransDir() + QLatin1Char('/') + relPath;
 }
 
 void AltTransView::slotNewEntryDisplayed(const DocPosition& pos)
@@ -160,7 +160,7 @@ void AltTransView::process()
 
     CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
     QString context = m_catalog->context(m_entry.toDocPosition()).first();
-    QString contextWithNewline = context + (context.isEmpty() ? "" : "\n");
+    QString contextWithNewline = context + (context.isEmpty() ? QStringLiteral("") : QStringLiteral("\n"));
 
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());

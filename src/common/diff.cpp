@@ -347,15 +347,15 @@ static void prepareLists(QString str, QStringList& main, QStringList& space, con
     //QRegExp rxSplit("\\W+|\\d+");
     //i tried that but it failed:
     if (!markup.isEmpty())
-        markup += '|';
-    QRegExp rxSplit('(' + markup + QLatin1String("\\W+|\\d+)+"));
+        markup += QLatin1Char('|');
+    QRegExp rxSplit(QLatin1Char('(') + markup + QLatin1String("\\W+|\\d+)+"));
 
     main = str.split(rxSplit, Qt::SkipEmptyParts);
-    main.prepend("\t");//little hack
+    main.prepend(QStringLiteral("\t"));//little hack
 
 
     //ensure the string always begins with the space part
-    str.prepend('\b');
+    str.prepend(QStringLiteral("\b"));
     pos = 0;
     while ((pos = rxSplit.indexIn(str, pos)) != -1) {
         space.append(rxSplit.cap(0));

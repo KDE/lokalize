@@ -757,7 +757,7 @@ void EditorTab::showDocks()
 
 void EditorTab::setProperCaption(QString title, bool modified)
 {
-    if (m_catalog->autoSaveRecovered()) title += ' ' + i18nc("editor tab name", "(recovered)");
+    if (m_catalog->autoSaveRecovered()) title += QLatin1Char(' ') + i18nc("editor tab name", "(recovered)");
     setWindowTitle(title + QStringLiteral(" [*]"));
     setWindowModified(modified);
 }
@@ -825,7 +825,7 @@ bool EditorTab::fileOpen(QString filePath, QString suggestedDirPath, QMap<QStrin
         //check if we are opening template
         QString newPath = filePath;
         newPath.replace(Project::instance()->poDir(), Project::instance()->potDir());
-        if (QFile::exists(newPath) || QFile::exists(newPath += 't')) {
+        if (QFile::exists(newPath) || QFile::exists(newPath += QLatin1Char('t'))) {
             saidPath = filePath;
             filePath = newPath;
         }
@@ -912,8 +912,8 @@ bool EditorTab::saveFileAs(const QString& defaultPath)
     QString filePath = QFileDialog::getSaveFileName(this, i18nc("@title:window", "Save File As"),
                        QFileInfo(defaultPath.isEmpty() ? m_catalog->url() : defaultPath).absoluteFilePath(), m_catalog->fileType());
     if (filePath.isEmpty()) return false;
-    if (!Catalog::extIsSupported(filePath) && m_catalog->url().contains('.'))
-        filePath += m_catalog->url().midRef(m_catalog->url().lastIndexOf('.'));
+    if (!Catalog::extIsSupported(filePath) && m_catalog->url().contains(QLatin1Char('.')))
+        filePath += m_catalog->url().midRef(m_catalog->url().lastIndexOf(QLatin1Char('.')));
 
     return saveFile(filePath);
 }
@@ -1379,7 +1379,7 @@ void EditorTab::launchPology()
 
 void EditorTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    const QString pologyError = m_pologyProcess->readAllStandardError();
+    const QString pologyError = QString::fromLatin1(m_pologyProcess->readAllStandardError());
     if (exitStatus == QProcess::CrashExit) {
         KMessageBox::error(this, i18n("The Pology check has crashed unexpectedly:\n%1", pologyError), i18n("Pology error"));
     } else if (exitCode == 0) {
@@ -1414,7 +1414,7 @@ void EditorTab::displayWordCount()
     //TODO in trans and fuzzy separately
     int sourceCount = 0;
     int targetCount = 0;
-    QRegExp rxClean(Project::instance()->markup() + '|' + Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
+    QRegExp rxClean(Project::instance()->markup() + QLatin1Char('|') + Project::instance()->accel()); //cleaning regexp; NOTE isEmpty()?
     QRegExp rxSplit(QStringLiteral("\\W|\\d"));//splitting regexp
     DocPosition pos(0);
     do {
@@ -1524,7 +1524,7 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
     if (dir.isEmpty()) {
         switch (KMessageBox::questionYesNoCancel(SettingsController::instance()->mainWindowPtr(),
                 i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"), i18nc("@title:window", "Source file lookup"),
-                KGuiItem(i18n("Locally")), KGuiItem("lxr.kde.org")
+                KGuiItem(i18n("Locally")), KGuiItem(QStringLiteral("lxr.kde.org"))
                                                 )) {
         case KMessageBox::Yes: break;
         case KMessageBox::No: openLxrSearch(srcFileRelPath);
@@ -1543,13 +1543,13 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
     if (dir.length()) {
         auto doOpen = [srcFileRelPath, dir, line]() {
             auto sourceFilePaths = Project::instance()->sourceFilePaths();
-            QString absFilePath = QString("%1/%2").arg(dir, srcFileRelPath);
+            QString absFilePath = QStringLiteral("%1/%2").arg(dir, srcFileRelPath);
             if (QFileInfo::exists(absFilePath)) {
                 openLocalSource(absFilePath, line);
                 return;
             }
             bool found = false;
-            QByteArray fn = srcFileRelPath.midRef(srcFileRelPath.lastIndexOf('/') + 1).toUtf8();
+            QByteArray fn = srcFileRelPath.midRef(srcFileRelPath.lastIndexOf(QLatin1Char('/')) + 1).toUtf8();
             auto it = sourceFilePaths.constFind(fn);
             while (it != sourceFilePaths.constEnd() && it.key() == fn) {
                 const QString absFilePath = QString::fromUtf8(it.value() + '/' + fn);
@@ -1645,7 +1645,7 @@ void EditorTab::mergeIntoOpenDocument()
     QString targetLangCode = m_catalog->targetLangCode();
 
     QStringList args(m_catalog->url());
-    args.append(xliffFolder + '/' + originalOdfFileInfo.baseName() + '-' + targetLangCode + '.' + originalOdfFileInfo.suffix());
+    args.append(xliffFolder + QLatin1Char('/') + originalOdfFileInfo.baseName() + QLatin1Char('-') + targetLangCode + QLatin1Char('.') + originalOdfFileInfo.suffix());
     args.append(QStringLiteral("-t"));
     args.append(originalOdfFilePath);
     qCDebug(LOKALIZE_LOG) << args;
@@ -1661,7 +1661,7 @@ void EditorTab::mergeIntoOpenDocument()
             return;
         }
 
-        if (QProcess::execute(lowriter, QStringList("--version")) == -2) {
+        if (QProcess::execute(lowriter, QStringList(QStringLiteral("--version"))) == -2) {
             //TODO
             //KMessageBox::error(SettingsController::instance()->mainWindowPtr(), i18n("Install translate-toolkit package and retry"));
             return;

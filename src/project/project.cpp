@@ -227,7 +227,7 @@ QString Project::absolutePath(const QString& possiblyRelPath) const
 QString Project::relativePath(const QString& possiblyAbsPath) const
 {
     if (QFileInfo(possiblyAbsPath).isAbsolute()) {
-        if (projectDir().endsWith('/'))
+        if (projectDir().endsWith(QLatin1Char('/')))
             return QString(possiblyAbsPath).remove(projectDir());
         return QString(possiblyAbsPath).remove(projectDir() + QLatin1Char('/'));
     }
@@ -304,7 +304,7 @@ bool Project::isFileMissing(const QString& filePath) const
         //check if we are opening template
         QString newPath = filePath;
         newPath.replace(poDir(), potDir());
-        if (!QFile::exists(newPath) && !QFile::exists(newPath += 't')) {
+        if (!QFile::exists(newPath) && !QFile::exists(newPath += QLatin1Char('t'))) {
             return true;
         }
     }
@@ -332,7 +332,7 @@ QString Project::branchPotDir() const
 {
     QDir poDir = Project::poDir();
     QString potDirRelativelyToPoDir = poDir.relativeFilePath(Project::potDir());
-    QDir branchPotDir (Project::branchDir() + '/' + potDirRelativelyToPoDir);
+    QDir branchPotDir (Project::branchDir() + QLatin1Char('/') + potDirRelativelyToPoDir);
     return absolutePath(branchPotDir.absolutePath());
 }
 

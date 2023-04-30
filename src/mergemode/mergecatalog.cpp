@@ -143,7 +143,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos, const DocPosit
 
 static QString strip(QString source)
 {
-    source.remove('\n');
+    source.remove(QLatin1Char('\n'));
     return source;
 }
 
