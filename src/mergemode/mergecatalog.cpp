@@ -159,8 +159,8 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
     CatalogStorage& mergeStorage = *(m_storage);
 
     DocPosition i(0);
-    int size = baseStorage.size();
-    int mergeSize = mergeStorage.size();
+    const int size = baseStorage.size();
+    const int mergeSize = mergeStorage.size();
     m_map.fill(-1, size);
     QMultiMap<int, int> backMap; //will be used to maintain one-to-one relation
 
@@ -174,7 +174,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
 
     i.entry = 0;
     while (i.entry < size) {
-        QString key = strip(baseStorage.source(i));
+        const QString key = strip(baseStorage.source(i));
         const QList<int>& entries = mergeMap.values(key);
         QList<MatchItem> scores;
 
