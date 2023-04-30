@@ -11,7 +11,7 @@ project(lokalize VERSION ${RELEASE_SERVICE_VERSION})
 
 set(QT_MIN_VERSION "5.15.2")
 set(KF5_MIN_VERSION "5.90.0")
-set(KDE_COMPILERSETTINGS_LEVEL "5.82")
+set(KDE_COMPILERSETTINGS_LEVEL "5.85")
 
 # search packages used
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED CONFIG)
@@ -25,14 +25,6 @@ include(ECMQtDeclareLoggingCategory)
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Sql)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED I18n TextWidgets KIO XmlGui Notifications Config CoreAddons DocTools Sonnet DBusAddons Crash)
-
-add_definitions(
-    -DQT_USE_QSTRINGBUILDER
-    -DQT_NO_CAST_TO_ASCII
-    -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_NO_KEYWORDS
-    -DQT_NO_FOREACH
-)
 
 find_package(HUNSPELL)
 set_package_properties(

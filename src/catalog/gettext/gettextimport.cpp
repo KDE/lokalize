@@ -438,7 +438,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 if (_msgctxt.isEmpty())
                     _msgctxt = line;
                 else
-                    _msgctxt += ('\n' + line);
+                    _msgctxt += (QLatin1Char('\n') + line);
                 _msgctxtPresent = true;
             } else if (line.contains(_rxMsgId)) {
                 part = Msgid;
@@ -487,7 +487,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 if (it->isEmpty())
                     (*it) = line;
                 else
-                    (*it) += ('\n' + line);
+                    (*it) += (QLatin1Char('\n') + line);
             } else if (line.contains(_rxMsgIdPlural)) {
                 part = Msgid;
                 _gettextPluralForm = true;
@@ -582,7 +582,7 @@ ConversionStatus GettextImportPlugin::readEntryRaw(QTextStream& stream)
                 if (it->isEmpty())
                     (*it) = line;
                 else
-                    (*it) += ('\n' + line);
+                    (*it) += (QLatin1Char('\n') + line);
             } else {
                 qCDebug(LOKALIZE_LOG) << "no msgstr found after a msgid while parsing: " << _msgid.first();
                 error = true;
