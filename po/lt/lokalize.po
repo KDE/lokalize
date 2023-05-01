@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-22 00:49+0000\n"
+"POT-Creation-Date: 2023-05-01 00:55+0000\n"
 "PO-Revision-Date: 2020-02-01 11:35+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -686,12 +686,12 @@ msgctxt "@item Undo action item"
 msgid "Insert text with markup"
 msgstr "Įterpkite tekstą su ženklinimo kalba"
 
-#: src/catalog/gettext/gettextstorage.cpp:124
+#: src/catalog/gettext/gettextstorage.cpp:120
 #, kde-format
 msgid "separator for different-length string alternatives"
 msgstr ""
 
-#: src/catalog/gettext/gettextstorage.cpp:286
+#: src/catalog/gettext/gettextstorage.cpp:282
 #, kde-format
 msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
@@ -761,7 +761,7 @@ msgstr "parinktys"
 msgid "Reset individual filter"
 msgstr "Atsisakyti individualaus filtro"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:365
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:363
 #, kde-format
 msgid "Case insensitive"
 msgstr "Nepaisyti raidžių dydžio"
@@ -857,82 +857,82 @@ msgctxt "@item:inmenu all columns"
 msgid "All"
 msgstr "Visi"
 
-#: src/cataloglistview/catalogmodel.cpp:106
+#: src/cataloglistview/catalogmodel.cpp:105
 #, kde-format
 msgctxt "@title:column"
 msgid "Entry"
 msgstr "Įrašas"
 
 #. i18nc("@title:column","ID");
-#: src/cataloglistview/catalogmodel.cpp:108
+#: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:216
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:65 src/tm/tmtab.cpp:78
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
 msgstr "Šaltinis"
 
-#: src/cataloglistview/catalogmodel.cpp:110
+#: src/cataloglistview/catalogmodel.cpp:109
 #: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
-#: src/tm/tmtab.cpp:66 src/tm/tmtab.cpp:79
+#: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
 msgstr "Paskirtis"
 
-#: src/cataloglistview/catalogmodel.cpp:112
+#: src/cataloglistview/catalogmodel.cpp:111
 #, kde-format
 msgctxt "@title:column"
 msgid "Notes"
 msgstr "Pastabos"
 
-#: src/cataloglistview/catalogmodel.cpp:114 src/tm/tmtab.cpp:67
+#: src/cataloglistview/catalogmodel.cpp:113 src/tm/tmtab.cpp:65
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Kontekstas"
 
-#: src/cataloglistview/catalogmodel.cpp:116
+#: src/cataloglistview/catalogmodel.cpp:115
 #, kde-format
 msgctxt "@title:column"
 msgid "Files"
 msgstr "Failai"
 
-#: src/cataloglistview/catalogmodel.cpp:118
-#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:69
+#: src/cataloglistview/catalogmodel.cpp:117
+#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
 msgstr "Vertimo būsena"
 
-#: src/cataloglistview/catalogmodel.cpp:120
+#: src/cataloglistview/catalogmodel.cpp:119
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
 msgstr "Šaltinio ilgis"
 
-#: src/cataloglistview/catalogmodel.cpp:122
+#: src/cataloglistview/catalogmodel.cpp:121
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Paskirties ilgis"
 
-#: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1081
-#: src/editortab.cpp:1284 src/tm/tmtab.cpp:231
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1081
+#: src/editortab.cpp:1284 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Gerai išverstas"
 
-#: src/cataloglistview/catalogmodel.cpp:160 src/editortab.cpp:1082
-#: src/editortab.cpp:1279 src/tm/tmtab.cpp:232
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1082
+#: src/editortab.cpp:1279 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Reikia peržiūrėti"
 
-#: src/cataloglistview/catalogmodel.cpp:162 src/editortab.cpp:1080
-#: src/tm/tmtab.cpp:233
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1080
+#: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -965,8 +965,8 @@ msgid "Current: %1"
 msgstr "Dabartinis: %1"
 
 #: src/editortab.cpp:145 src/editortab.cpp:855
-#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:499
-#: src/tm/tmtab.cpp:592
+#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
+#: src/tm/tmtab.cpp:590
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -998,7 +998,7 @@ msgctxt "@title actions category"
 msgid "File"
 msgstr "Failas"
 
-#: src/editortab.cpp:193 src/project/projecttab.cpp:145
+#: src/editortab.cpp:193 src/project/projecttab.cpp:146
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1208,7 +1208,7 @@ msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Eiti į konkretų..."
 
-#: src/editortab.cpp:579 src/project/projecttab.cpp:153
+#: src/editortab.cpp:579 src/project/projecttab.cpp:154
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1216,7 +1216,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Ankstesnis neaiškus"
 
-#: src/editortab.cpp:584 src/project/projecttab.cpp:156
+#: src/editortab.cpp:584 src/project/projecttab.cpp:157
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1224,19 +1224,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Tolesnis neaiškus"
 
-#: src/editortab.cpp:589 src/project/projecttab.cpp:159
+#: src/editortab.cpp:589 src/project/projecttab.cpp:160
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Ankstesnis neišverstas"
 
-#: src/editortab.cpp:594 src/project/projecttab.cpp:162
+#: src/editortab.cpp:594 src/project/projecttab.cpp:163
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Tolesnis neišverstas"
 
-#: src/editortab.cpp:599 src/project/projecttab.cpp:147
+#: src/editortab.cpp:599 src/project/projecttab.cpp:148
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1244,7 +1244,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Ankstesnis neaiškus arba neišverstas"
 
-#: src/editortab.cpp:604 src/project/projecttab.cpp:150
+#: src/editortab.cpp:604 src/project/projecttab.cpp:151
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1395,7 +1395,7 @@ msgctxt "@title:window"
 msgid "Warning"
 msgstr "Dėmesio"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:191
+#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:189
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
@@ -1499,26 +1499,26 @@ msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Įrašas pilnai išverstas (t.y. galutinis)"
 
-#: src/editortab.cpp:1376 src/project/projecttab.cpp:359
+#: src/editortab.cpp:1376 src/project/projecttab.cpp:360
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
 #: src/editortab.cpp:1376 src/editortab.cpp:1384 src/editortab.cpp:1388
-#: src/project/projecttab.cpp:359 src/project/projecttab.cpp:367
-#: src/project/projecttab.cpp:371
+#: src/project/projecttab.cpp:360 src/project/projecttab.cpp:368
+#: src/project/projecttab.cpp:372
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1384 src/project/projecttab.cpp:367
+#: src/editortab.cpp:1384 src/project/projecttab.cpp:368
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1386 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1386 src/project/projecttab.cpp:370
 #, kde-format
 msgid "Pology success"
 msgstr ""
@@ -1528,7 +1528,7 @@ msgstr ""
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1388 src/project/projecttab.cpp:371
+#: src/editortab.cpp:1388 src/project/projecttab.cpp:372
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1604,8 +1604,8 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1617 src/project/project.cpp:481
-#: src/project/project.cpp:486
+#: src/editortab.cpp:1617 src/project/project.cpp:478
+#: src/project/project.cpp:483
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Įdiekite translate-toolkit paketą ir bandykite iš naujo"
@@ -1620,7 +1620,7 @@ msgstr "Įdiekite translate-toolkit paketą ir bandykite iš naujo."
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1634 src/project/project.cpp:491
+#: src/editortab.cpp:1634 src/project/project.cpp:488
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument failai (*.odt *.ods)"
@@ -1850,7 +1850,7 @@ msgid "Drop translation files here..."
 msgstr "Neperžvelgti projekto failų."
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:68
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
@@ -1862,17 +1862,17 @@ msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Ieškoti ir pakeisti failuose"
 
-#: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:405
+#: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Šaltinį kopijuoti į iškarpinę"
 
-#: src/filesearch/filesearchtab.cpp:465 src/tm/tmtab.cpp:411
+#: src/filesearch/filesearchtab.cpp:465 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Paskirtį kopijuoti į iškarpinę"
 
-#: src/filesearch/filesearchtab.cpp:471 src/tm/tmtab.cpp:417
+#: src/filesearch/filesearchtab.cpp:471 src/tm/tmtab.cpp:415
 #, kde-format
 msgid "Open file"
 msgstr "Atverti failą"
@@ -2057,7 +2057,7 @@ msgstr "Įskaitant pastabas"
 msgid "Suggestions:"
 msgstr ""
 
-#: src/languagetool/languagetoolparser.cpp:35
+#: src/languagetool/languagetoolparser.cpp:28
 #, kde-format
 msgid "No errors"
 msgstr ""
@@ -2068,23 +2068,23 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Nerastas Qt Sql modulis. Vertimo atmintis neveiks."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:291
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Vertimo atminties (VA) veikimui reikia SQLite Qt modulio."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:294
+#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:291
 #, kde-format
 msgid "No SQLite module available"
 msgstr "SQLite modulis neprieinamas"
 
-#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:490
+#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:488
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Vertimo atmintis"
 
-#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:189
+#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:190
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -2118,7 +2118,7 @@ msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Vertimo atmintis"
 
-#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:493
+#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
@@ -2369,19 +2369,19 @@ msgstr "Įkelti nurodytą projektą."
 msgid "Document to open"
 msgstr "Atvertinas dokumentas"
 
-#: src/mergemode/mergecatalog.cpp:254
+#: src/mergemode/mergecatalog.cpp:252
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept change in translation"
 msgstr "Priimti vertimo pakeitimą"
 
-#: src/mergemode/mergecatalog.cpp:306
+#: src/mergemode/mergecatalog.cpp:304
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Accept all new translations"
 msgstr "Priimti visus naujus vertimus"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:35
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2389,7 +2389,7 @@ msgctxt ""
 msgid "Primary Sync"
 msgstr "Pirmasis šaltinis suvienodinimui"
 
-#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
+#: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:36
 #, kde-format
 msgctxt ""
 "@title:window that displays difference between current file and 'merge "
@@ -2397,7 +2397,7 @@ msgctxt ""
 msgid "Secondary Sync"
 msgstr "Antrasis šaltinis suvienodinimui"
 
-#: src/mergemode/mergeview.cpp:44
+#: src/mergemode/mergeview.cpp:42
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2407,7 +2407,7 @@ msgstr ""
 "Čia numeskite failus, norimus sulieti ar suvienodinti su dabartiniu, po to "
 "žiūrėkite kontekstinio meniu parinktis"
 
-#: src/mergemode/mergeview.cpp:231
+#: src/mergemode/mergeview.cpp:229
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2417,7 +2417,7 @@ msgstr ""
 "Nepavyko atverti failo <filename>%1</filename> suvienodinimui, klaida "
 "linijoje: %2"
 
-#: src/mergemode/mergeview.cpp:363
+#: src/mergemode/mergeview.cpp:361
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -2678,13 +2678,13 @@ msgstr ""
 msgid "Font for Messages"
 msgstr "Pranešimų šriftas"
 
-#: src/prefs/prefs.cpp:101
+#: src/prefs/prefs.cpp:95
 #, kde-format
 msgctxt "@title:tab"
 msgid "Identity"
 msgstr "Tapatybė"
 
-#: src/prefs/prefs.cpp:111
+#: src/prefs/prefs.cpp:105
 #, kde-format
 msgid ""
 "The following parameters are available\n"
@@ -2692,50 +2692,50 @@ msgid ""
 "%2 - Line number"
 msgstr ""
 
-#: src/prefs/prefs.cpp:113 src/prefs/prefs.cpp:242
+#: src/prefs/prefs.cpp:107 src/prefs/prefs.cpp:236
 #, kde-format
 msgctxt "@title:tab"
 msgid "General"
 msgstr "Bendri"
 
-#: src/prefs/prefs.cpp:119
+#: src/prefs/prefs.cpp:113
 #, kde-format
 msgctxt "@title:tab"
 msgid "Editing"
 msgstr "Redagavimas"
 
-#: src/prefs/prefs.cpp:125
+#: src/prefs/prefs.cpp:119
 #, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Išvaizda"
 
-#: src/prefs/prefs.cpp:131
+#: src/prefs/prefs.cpp:125
 #, kde-format
 msgctxt "@title:tab"
 msgid "Translation Memory"
 msgstr "Vertimo atmintis"
 
-#: src/prefs/prefs.cpp:137
+#: src/prefs/prefs.cpp:131
 #, kde-format
 msgctxt "@title:tab"
 msgid "Pology"
 msgstr ""
 
-#: src/prefs/prefs.cpp:143
+#: src/prefs/prefs.cpp:137
 #, fuzzy, kde-format
 #| msgid "Language"
 msgctxt "@title:tab"
 msgid "LanguageTool"
 msgstr "Kalba"
 
-#: src/prefs/prefs.cpp:152
+#: src/prefs/prefs.cpp:146
 #, kde-format
 msgctxt "@title:tab"
 msgid "Spellcheck"
 msgstr "Rašybos tikrinimas"
 
-#: src/prefs/prefs.cpp:176
+#: src/prefs/prefs.cpp:170
 #, kde-format
 msgid ""
 "You have accessed a feature that requires a project to be loaded. Do you "
@@ -2744,42 +2744,42 @@ msgstr ""
 "Ši funkcija taikoma tik įkeltiems projektams. Sukurti naują projektą ar "
 "atverti esamą?"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:171
 #, kde-format
 msgctxt "@action"
 msgid "New"
 msgstr "Naujas"
 
-#: src/prefs/prefs.cpp:177
+#: src/prefs/prefs.cpp:171
 #, kde-format
 msgctxt "@action"
 msgid "Open"
 msgstr "Atverti"
 
-#: src/prefs/prefs.cpp:192 src/prefs/prefs.cpp:209
+#: src/prefs/prefs.cpp:186 src/prefs/prefs.cpp:203
 #, kde-format
 msgid "Lokalize translation project (*.lokalize)"
 msgstr "Lokalize vertimo projektas (*.lokalize)"
 
-#: src/prefs/prefs.cpp:209
+#: src/prefs/prefs.cpp:203
 #, kde-format
 msgctxt "@window:title"
 msgid "Select folder with Gettext .po files to translate"
 msgstr "Pažymėti žymekliu išskirtą aplanką"
 
-#: src/prefs/prefs.cpp:230
+#: src/prefs/prefs.cpp:224
 #, kde-format
 msgid "Create software or OpenDocument translation project first."
 msgstr ""
 "Pirmiausia sukurkite programinės įrangos ar OpenDocument vertimo projektą."
 
-#: src/prefs/prefs.cpp:288
+#: src/prefs/prefs.cpp:282
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Sudėtingesni"
 
-#: src/prefs/prefs.cpp:299
+#: src/prefs/prefs.cpp:293
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
@@ -3561,19 +3561,19 @@ msgstr "Projektas"
 msgid "Language-Team:"
 msgstr "Kalbos komanda:"
 
-#: src/project/project.cpp:450
+#: src/project/project.cpp:447
 #, kde-format
 msgid "Scanning folders with source files"
 msgstr ""
 
-#: src/project/project.cpp:451
+#: src/project/project.cpp:448
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Edit term"
 #| msgid "Edit"
 msgid "Editor"
 msgstr "Keisti"
 
-#: src/project/project.cpp:498
+#: src/project/project.cpp:495
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -3725,7 +3725,7 @@ msgstr ""
 msgid "&Configure Lokalize"
 msgstr "&Konfigūruoti Lokalize"
 
-#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:192
+#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
@@ -3743,49 +3743,59 @@ msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Versti OpenDocument"
 
-#: src/project/projecttab.cpp:165
+#: src/project/projecttab.cpp:131
+#, fuzzy, kde-format
+#| msgctxt "percentages in statusbar"
+#| msgid " (%1%)"
+msgctxt ""
+"Loading bar percentage indicator %p will be replaced by the actual "
+"percentage number, so make sure you include it in your translation"
+msgid "%p%"
+msgstr " (%1%)"
+
+#: src/project/projecttab.cpp:166
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "Tik ankstesnis šablonas"
 
-#: src/project/projecttab.cpp:168
+#: src/project/projecttab.cpp:169
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "Tik tolesnis šablonas"
 
-#: src/project/projecttab.cpp:171
+#: src/project/projecttab.cpp:172
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "Tik ankstesnis vertimas"
 
-#: src/project/projecttab.cpp:174
+#: src/project/projecttab.cpp:175
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "Tik tolesnis vertimas"
 
-#: src/project/projecttab.cpp:178
+#: src/project/projecttab.cpp:179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr "Slėpti išverstuosius"
 
-#: src/project/projecttab.cpp:179
+#: src/project/projecttab.cpp:180
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr "Slėpti pilnai išverstus failus ir katalogus"
 
-#: src/project/projecttab.cpp:243
+#: src/project/projecttab.cpp:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Atverti pasirinktus failus"
 
-#: src/project/projecttab.cpp:246
+#: src/project/projecttab.cpp:247
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
@@ -3797,19 +3807,19 @@ msgstr "Atverti"
 #. menu.addSeparator();
 #. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
 #.
-#: src/project/projecttab.cpp:255
+#: src/project/projecttab.cpp:256
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Įkelti į vertimo atmintį"
 
-#: src/project/projecttab.cpp:257
+#: src/project/projecttab.cpp:258
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Ieškoti failuose"
 
-#: src/project/projecttab.cpp:258
+#: src/project/projecttab.cpp:259
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -3817,34 +3827,34 @@ msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Pridėti pastabą"
 
-#: src/project/projecttab.cpp:260
+#: src/project/projecttab.cpp:261
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:263
+#: src/project/projecttab.cpp:264
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Ieškoti failuose (įtraukiant šablonus)"
 
-#: src/project/projecttab.cpp:297
+#: src/project/projecttab.cpp:298
 #, kde-format
 msgid "Project file comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:297
+#: src/project/projecttab.cpp:298
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:369
+#: src/project/projecttab.cpp:370
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:388
+#: src/project/projecttab.cpp:389
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
@@ -3853,19 +3863,19 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: src/project/projecttab.cpp:389
+#: src/project/projecttab.cpp:390
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:391
+#: src/project/projecttab.cpp:392
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:393
+#: src/project/projecttab.cpp:394
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "&Open %1 File"
@@ -4147,94 +4157,94 @@ msgstr "Į Lokalize vertimo atmintį įkeliami failai"
 msgid "TM"
 msgstr "VA"
 
-#: src/tm/tmtab.cpp:359
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Substring"
 msgstr "Poeilutis"
 
-#: src/tm/tmtab.cpp:359
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Google-like"
 msgstr "Google tipo"
 
-#: src/tm/tmtab.cpp:359
+#: src/tm/tmtab.cpp:357
 #, kde-format
 msgid "Wildcard"
 msgstr "Pakaitos simbolis"
 
-#: src/tm/tmtab.cpp:366
+#: src/tm/tmtab.cpp:364
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "Tarpas naudojamas kaip IR operatorius. Nepaisoma raidžių dydžio."
 
-#: src/tm/tmtab.cpp:367
+#: src/tm/tmtab.cpp:365
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Naudoti pakaitos simbolius (* ir ?). Skirti raidžių dydį."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:383 src/tm/tmview.cpp:122 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:129
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "Vertimo atmintis"
 
-#: src/tm/tmtab.cpp:594
+#: src/tm/tmtab.cpp:592
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Iš viso: %1 (%2)"
 
-#: src/tm/tmtab.cpp:623 src/tm/tmview.cpp:578
+#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:590
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:167 src/webquery/webqueryview.cpp:62
+#: src/tm/tmview.cpp:168 src/webquery/webqueryview.cpp:62
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Norėdami bet kokį žodį įterpti į vertimą, dukart jį spragtelėkite"
 
-#: src/tm/tmview.cpp:283
+#: src/tm/tmview.cpp:284
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Užpildomas vertimo atminties paketas"
 
-#: src/tm/tmview.cpp:286
+#: src/tm/tmview.cpp:287
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Vertimo atminties paketas užpildytas"
 
-#: src/tm/tmview.cpp:292
+#: src/tm/tmview.cpp:293
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Nerastas joks tikslus atitikmuo."
 
-#: src/tm/tmview.cpp:296
+#: src/tm/tmview.cpp:297
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation complete"
 msgstr "Paketo vertimas baigtas"
 
-#: src/tm/tmview.cpp:310 src/tm/tmview.cpp:325
+#: src/tm/tmview.cpp:311 src/tm/tmview.cpp:326
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation"
 msgstr "Paketo vertimas"
 
-#: src/tm/tmview.cpp:311 src/tm/tmview.cpp:326
+#: src/tm/tmview.cpp:312 src/tm/tmview.cpp:327
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Paketo vertimas suplanuotas."
 
-#: src/tm/tmview.cpp:460
+#: src/tm/tmview.cpp:461
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -4242,7 +4252,7 @@ msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr " (%1%)"
 
-#: src/tm/tmview.cpp:462
+#: src/tm/tmview.cpp:463
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4252,43 +4262,43 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: src/tm/tmview.cpp:543
+#: src/tm/tmview.cpp:544
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "šis"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Failas: %1<br />Pridėjimo data: %2"
 
-#: src/tm/tmview.cpp:546
+#: src/tm/tmview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Paskutinio pakeitimo data: %1"
 
-#: src/tm/tmview.cpp:548
+#: src/tm/tmview.cpp:549
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Paskutinis vertėjas: %1"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:550
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />VA: %1"
 
-#: src/tm/tmview.cpp:551
+#: src/tm/tmview.cpp:552
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Faile nebėra"
 
-#: src/tm/tmview.cpp:561
+#: src/tm/tmview.cpp:565 src/tm/tmview.cpp:572
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4297,31 +4307,44 @@ msgstr ""
 "<html>Tikrai norite pašalinti įrašą <br/><i>%1</i><br/> iš vertimo atminties "
 "%2</html>?"
 
-#: src/tm/tmview.cpp:562
+#: src/tm/tmview.cpp:566 src/tm/tmview.cpp:573
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Vertimo atminties įrašų šalinimas"
 
-#: src/tm/tmview.cpp:594
+#: src/tm/tmview.cpp:567
+#, fuzzy, kde-format
+#| msgid "Remove"
+msgctxt "Button label"
+msgid "Remove"
+msgstr "Pašalinti"
+
+#: src/tm/tmview.cpp:568
+#, kde-format
+msgctxt "Button label"
+msgid "Cancel"
+msgstr ""
+
+#: src/tm/tmview.cpp:606
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Pašalinti šį įrašą"
 
-#: src/tm/tmview.cpp:596
+#: src/tm/tmview.cpp:608
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Atverti failą, turintį šį įrašą"
 
-#: src/tm/tmview.cpp:603
+#: src/tm/tmview.cpp:615
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:614
+#: src/tm/tmview.cpp:626
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4333,7 +4356,7 @@ msgstr ""
 "<html>Tikrai norite pašalinti įrašą <br/><i>%1</i><br/> iš vertimo atminties "
 "%2</html>?"
 
-#: src/tm/tmview.cpp:615
+#: src/tm/tmview.cpp:627
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Translation Memory Entry Removal"
@@ -4341,7 +4364,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Vertimo atminties įrašų šalinimas"
 
-#: src/tm/tmview.cpp:991
+#: src/tm/tmview.cpp:1003
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
