@@ -12,21 +12,21 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2023-04-23 14:34+0200\n"
+"PO-Revision-Date: 2023-05-01 13:01+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
-"Rinse de Vries - 2008,Kristof Bal - 2008/2009,Freek de Kruijf - 2009 t/m 2020"
+"Rinse de Vries - 2008,Kristof Bal - 2008/2009,Freek de Kruijf - 2009 t/m 2023"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -3923,14 +3923,12 @@ msgid "Translate OpenDocument"
 msgstr "OpenDocument vertalen"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4487,8 +4485,7 @@ msgid "Translation Memory Entry Removal"
 msgstr "Item uit vertaalgeheugen verwijderen"
 
 #: src/tm/tmview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Button label"
 msgid "Remove"
 msgstr "Verwijderen"
@@ -4497,7 +4494,7 @@ msgstr "Verwijderen"
 #, kde-format
 msgctxt "Button label"
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: src/tm/tmview.cpp:606
 #, kde-format

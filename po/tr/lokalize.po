@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2023-04-13 13:17+0300\n"
+"PO-Revision-Date: 2023-05-01 12:06+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3888,14 +3888,12 @@ msgid "Translate OpenDocument"
 msgstr "OpenDocument Çevir"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%​%1"
+msgstr "%​%p"
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4450,8 +4448,7 @@ msgid "Translation Memory Entry Removal"
 msgstr "Çeviri Belleği Girdisi Silme"
 
 #: src/tm/tmview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Button label"
 msgid "Remove"
 msgstr "Kaldır"
@@ -4460,7 +4457,7 @@ msgstr "Kaldır"
 #, kde-format
 msgctxt "Button label"
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: src/tm/tmview.cpp:606
 #, kde-format

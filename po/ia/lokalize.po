@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Giovanni Sora <g.sora@tiscali.it>, 2012, 2013, 2016, 2020, 2021, 2022.
+# Giovanni Sora <g.sora@tiscali.it>, 2012, 2013, 2016, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2022-02-19 22:27+0100\n"
+"PO-Revision-Date: 2023-05-01 16:48+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3913,14 +3913,12 @@ msgid "Translate OpenDocument"
 msgstr "Traduce OpenDocument"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4482,8 +4480,7 @@ msgstr ""
 "traduction)"
 
 #: src/tm/tmview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Button label"
 msgid "Remove"
 msgstr "Remove"
@@ -4492,7 +4489,7 @@ msgstr "Remove"
 #, kde-format
 msgctxt "Button label"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancella"
 
 #: src/tm/tmview.cpp:606
 #, kde-format

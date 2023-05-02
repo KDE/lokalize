@@ -1,9 +1,9 @@
 # Translation of lokalize.po to Catalan
-# Copyright (C) 2009-2022 This_file_is_part_of_KDE
+# Copyright (C) 2009-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2 or later.
 #
 # Orestes Mas <orestes@tsc.upc.edu>, 2009.
-# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Manuel Tortosa <manutortosa@chakra-project.org>, 2011, 2012.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2015, 2016, 2017, 2018, 2019, 2020.
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2022-01-03 12:13+0100\n"
+"PO-Revision-Date: 2023-05-01 10:18+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3927,14 +3927,12 @@ msgid "Translate OpenDocument"
 msgstr "Traducció d'OpenDocument"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4493,8 +4491,7 @@ msgid "Translation Memory Entry Removal"
 msgstr "Supressió d'una entrada de la memòria de traducció"
 
 #: src/tm/tmview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Button label"
 msgid "Remove"
 msgstr "Elimina"
@@ -4503,7 +4500,7 @@ msgstr "Elimina"
 #, kde-format
 msgctxt "Button label"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·la"
 
 #: src/tm/tmview.cpp:606
 #, kde-format
@@ -4660,7 +4657,3 @@ msgstr "S'ha notificat un error: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copia l'origen a la destinació"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Scripts"
-#~ msgstr "Scripts"
