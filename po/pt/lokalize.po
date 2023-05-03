@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2020-09-11 10:57+0100\n"
+"PO-Revision-Date: 2023-05-02 10:48+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -3945,14 +3945,12 @@ msgid "Translate OpenDocument"
 msgstr "Traduzir um OpenDocument"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4510,8 +4508,7 @@ msgid "Translation Memory Entry Removal"
 msgstr "Remoção do Item da Memória de Traduções"
 
 #: src/tm/tmview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Button label"
 msgid "Remove"
 msgstr "Remover"
@@ -4520,7 +4517,7 @@ msgstr "Remover"
 #, kde-format
 msgctxt "Button label"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/tm/tmview.cpp:606
 #, kde-format
@@ -4677,7 +4674,3 @@ msgstr "Foi devolvido um erro: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copiar a origem para o destino"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Scripts"
-#~ msgstr "Programas"
