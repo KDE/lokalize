@@ -9,13 +9,13 @@
 # Khaled Hosny <khaledhosny@eglug.org>, 2007, 2008.
 # Abdalrahim Fakhouri <abdilra7eem@yahoo.com>, 2012.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2014, 2017.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2022-09-28 18:15+0400\n"
+"PO-Revision-Date: 2023-05-04 10:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3839,14 +3839,12 @@ msgid "Translate OpenDocument"
 msgstr "ترجم «مستندًامفتوحًا»"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1٪"
+msgstr "%p٪"
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4413,8 +4411,7 @@ msgid "Translation Memory Entry Removal"
 msgstr "إزالة مُدخَلة من ذاكرة الترجمة"
 
 #: src/tm/tmview.cpp:567
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Button label"
 msgid "Remove"
 msgstr "أزل"
@@ -4423,7 +4420,7 @@ msgstr "أزل"
 #, kde-format
 msgctxt "Button label"
 msgid "Cancel"
-msgstr ""
+msgstr "ألغِ"
 
 #: src/tm/tmview.cpp:606
 #, kde-format
