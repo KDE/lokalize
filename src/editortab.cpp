@@ -757,7 +757,8 @@ void EditorTab::showDocks()
 
 void EditorTab::setProperCaption(QString title, bool modified)
 {
-    if (m_catalog->autoSaveRecovered()) title += QLatin1Char(' ') + i18nc("editor tab name", "(recovered)");
+    if (m_catalog->autoSaveRecovered())
+        title += i18nc("editor tab title addition", " (recovered)");
     setWindowTitle(title + QStringLiteral(" [*]"));
     setWindowModified(modified);
 }
