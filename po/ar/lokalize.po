@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-01 00:55+0000\n"
-"PO-Revision-Date: 2023-05-04 10:08+0400\n"
+"PO-Revision-Date: 2023-05-13 17:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1078,12 +1078,12 @@ msgstr "التّحرير"
 #: src/editortab.cpp:195
 #, kde-format
 msgid "Synchronization 1"
-msgstr "مزامنة ١"
+msgstr "مزامنة 1"
 
 #: src/editortab.cpp:196
 #, kde-format
 msgid "Synchronization 2"
-msgstr "مزامنة ٢"
+msgstr "مزامنة 2"
 
 #: src/editortab.cpp:197
 #, kde-format
@@ -3024,7 +3024,7 @@ msgstr "أظهِر الفواصل كالفراغات والفراغات الجد
 #: src/prefs/prefs_editor.ui:74 src/prefs/prefs_editor.ui:87
 #, kde-format
 msgid "Set to 2 to disable word completion"
-msgstr "اضبط إلى ٢ لتعطيل إكمال الكلمات"
+msgstr "اضبط إلى 2 لتعطيل إكمال الكلمات"
 
 #. i18n: ectx: property (text), widget (QLabel, l1)
 #: src/prefs/prefs_editor.ui:77
@@ -3231,7 +3231,7 @@ msgstr "التأخير قبل الفحص الآليّ بعد أن تتوقف ع�
 #: src/prefs/prefs_languagetool.ui:64 src/prefs/prefs_languagetool.ui:71
 #, kde-format
 msgid "Set to 0 to disable auto checking"
-msgstr "اضبط إلى ٠ لتعطيل التدقيق الآلي"
+msgstr "اضبط إلى 0 لتعطيل التدقيق الآلي"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_PologyEnabled)
 #: src/prefs/prefs_pology.ui:21
@@ -3328,13 +3328,13 @@ msgstr "اضبط أقصى عدد للاقتراحات"
 #: src/prefs/prefs_tm.ui:73
 #, kde-format
 msgid "You can change the maximum number of suggestions, default is 7."
-msgstr "يمكنك تغيير أقصى عدد للاقتراحات، الافتراضيّ هو ٧."
+msgstr "يمكنك تغيير أقصى عدد للاقتراحات، الافتراضيّ هو 7."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/prefs/prefs_tm.ui:97
 #, kde-format
 msgid "Minimum score (0-100) of suggestions:"
-msgstr "أدنى عدد للاقتراحات (٠-١٠٠):"
+msgstr "أدنى عدد للاقتراحات (0-100):"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_SuggScore)
 #: src/prefs/prefs_tm.ui:107
@@ -4250,7 +4250,7 @@ msgstr "يضيف الملفّات إلى ذاكرة ترجمة «لوكالاي�
 #: src/tm/tmscanapi.cpp:83
 #, kde-format
 msgid "TM"
-msgstr "TM"
+msgstr "ذاكرة الترجمة"
 
 #: src/tm/tmtab.cpp:357
 #, kde-format
@@ -4345,19 +4345,19 @@ msgstr "جُدولت دفعة الترجمة."
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
-msgstr "%1٪"
+msgstr "‏%1٪"
 
 #: src/tm/tmview.cpp:463
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
-msgstr[0] "(مرة)"
-msgstr[1] "(مرة)"
-msgstr[2] "(مرتين)"
-msgstr[3] "(%1 مرات)"
-msgstr[4] "(%1 مرة)"
-msgstr[5] "(%1 مرة)"
+msgstr[0] "‏(مرة)"
+msgstr[1] "‏(مرة)"
+msgstr[2] "‏(مرتين)"
+msgstr[3] "‏(%1 مرات)"
+msgstr[4] "‏(%1 مرة)"
+msgstr[5] "‏(%1 مرة)"
 
 #: src/tm/tmview.cpp:544
 #, kde-format
