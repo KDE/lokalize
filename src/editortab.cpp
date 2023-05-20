@@ -1416,13 +1416,12 @@ void EditorTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 void EditorTab::clearTranslatedEntries()
 {
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-    switch (KMessageBox::warningTwoActionsCancel(
+    switch (KMessageBox::warningContinueCancel(
                 this,
                 i18nc("@info", "This will delete all the translations from the file.\n"
                       "Do you really want to clear all translated entries?"),
                 i18nc("@title:window", "Warning"),
-                KStandardGuiItem::clear(),
-                KStandardGuiItem::cancel())) {
+                KStandardGuiItem::clear())) {
     case KMessageBox::PrimaryAction: {
 #else
     switch (KMessageBox::warningYesNoCancel(this,
