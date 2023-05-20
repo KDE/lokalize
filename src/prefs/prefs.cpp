@@ -30,6 +30,7 @@
 #include "ui_prefs_project_local.h"
 
 
+#include <kcoreaddons_version.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KEditListWidget>
@@ -167,13 +168,28 @@ bool SettingsController::ensureProjectIsLoaded()
     if (Project::instance()->isLoaded())
         return true;
 
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    const int answer = KMessageBox::questionTwoActions(
+                m_mainWindowPtr,
+                i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
+                i18nc("@title", "Project Required"),
+                KGuiItem(i18nc("@action", "Create Project"), QIcon::fromTheme("document-new")),
+                KGuiItem(i18nc("@action", "Open Project"), QIcon::fromTheme("project-open")));
+
+    if (answer == KMessageBox::PrimaryAction)
+        return projectCreate();
+    if (answer == KMessageBox::SecondaryAction)
+        return !projectOpen().isEmpty();
+#else
     int answer = KMessageBox::questionYesNoCancel(m_mainWindowPtr, i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
                  QString(), KGuiItem(i18nc("@action", "New"), QIcon::fromTheme("document-new")), KGuiItem(i18nc("@action", "Open"), QIcon::fromTheme("project-open"))
                                                  );
+
     if (answer == KMessageBox::Yes)
         return projectCreate();
     if (answer == KMessageBox::No)
         return !projectOpen().isEmpty();
+#endif
     return false;
 }
 
