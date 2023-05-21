@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-01 00:55+0000\n"
+"POT-Creation-Date: 2023-05-21 00:48+0000\n"
 "PO-Revision-Date: 2023-05-01 12:06+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -815,16 +815,11 @@ msgstr "Hızlı ara..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@info:tooltip"
+#| msgid "Accepts regular expressions"
 msgctxt "@info:tooltip"
-msgid "Activated by Ctrl+L."
-msgstr "Ctrl+L ile etkinleştirilir."
-
-#: src/cataloglistview/cataloglistview.cpp:75
-#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
-#, kde-format
-msgctxt "@info:tooltip"
-msgid "Accepts regular expressions"
+msgid "Activated by Ctrl+L. Accepts regular expressions"
 msgstr "Düzenli ifadeleri kabul eder"
 
 #: src/cataloglistview/cataloglistview.cpp:84
@@ -993,21 +988,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Hedef uzunluğu"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1081
-#: src/editortab.cpp:1284 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1082
+#: src/editortab.cpp:1285 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Hazır"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1082
-#: src/editortab.cpp:1279 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1083
+#: src/editortab.cpp:1280 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Gözden Geçirme Gerekiyor"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1080
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1081
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1038,7 +1033,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Geçerli: %1"
 
-#: src/editortab.cpp:145 src/editortab.cpp:855
+#: src/editortab.cpp:145 src/editortab.cpp:856
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
 #: src/tm/tmtab.cpp:590
 #, kde-format
@@ -1452,13 +1447,15 @@ msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Bu yalnızca boş girdileri değiştirir"
 
-#: src/editortab.cpp:760
-#, kde-format
-msgctxt "editor tab name"
-msgid "(recovered)"
+#: src/editortab.cpp:761
+#, fuzzy, kde-format
+#| msgctxt "editor tab name"
+#| msgid "(recovered)"
+msgctxt "editor tab title addition"
+msgid " (recovered)"
 msgstr "(kurtarılmış)"
 
-#: src/editortab.cpp:802 src/editortab.cpp:970
+#: src/editortab.cpp:803 src/editortab.cpp:971
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1468,38 +1465,38 @@ msgstr ""
 "Bu belge kaydedilmemiş değişiklikler içeriyor.\n"
 "Değişiklikleri kaydetmek mi iptal etmek mi istiyorsunuz?"
 
-#: src/editortab.cpp:803 src/editortab.cpp:971 src/editortab.cpp:1398
+#: src/editortab.cpp:804 src/editortab.cpp:972 src/editortab.cpp:1399
 #: src/glossary/glossarywindow.cpp:490
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/editortab.cpp:819 src/mergemode/mergeview.cpp:189
+#: src/editortab.cpp:820 src/mergemode/mergeview.cpp:189
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Çeviri dosyasını seçin"
 
-#: src/editortab.cpp:904
+#: src/editortab.cpp:905
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "%1 dosyası açılırken bir hata oluştu, satır: %2"
 
-#: src/editortab.cpp:905
+#: src/editortab.cpp:906
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "%1 dosyası açılamadı"
 
-#: src/editortab.cpp:912
+#: src/editortab.cpp:913
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Dosyayı Farklı Kaydet"
 
-#: src/editortab.cpp:937
+#: src/editortab.cpp:938
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1509,13 +1506,13 @@ msgstr ""
 "%1 dosyası kaydedilirken hata oluştu\n"
 "Başka bir dosyaya kaydetmek mi iptal etmek mi istersiniz?"
 
-#: src/editortab.cpp:939
+#: src/editortab.cpp:940
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Hata"
 
-#: src/editortab.cpp:947
+#: src/editortab.cpp:948
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1525,73 +1522,73 @@ msgstr ""
 "Otomatik kaydetme işlemi yapılamadı.\n"
 "Hedef %1 dosyasıydı."
 
-#: src/editortab.cpp:996
+#: src/editortab.cpp:997
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Girdiye Geç"
 
-#: src/editortab.cpp:997
+#: src/editortab.cpp:998
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Girdi numarasını girin:"
 
-#: src/editortab.cpp:1068
+#: src/editortab.cpp:1069
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Geçerli: %1"
 
-#: src/editortab.cpp:1257
+#: src/editortab.cpp:1258
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Çevrilmiş"
 
-#: src/editortab.cpp:1258
+#: src/editortab.cpp:1259
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "İmzalayan"
 
-#: src/editortab.cpp:1259
+#: src/editortab.cpp:1260
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Onaylanmış"
 
-#: src/editortab.cpp:1262
+#: src/editortab.cpp:1263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Çeviri bitti (hâlâ bir gözden geçirme gerekebilir)"
 
-#: src/editortab.cpp:1263
+#: src/editortab.cpp:1264
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Çeviri olumlu değerlendirme aldı"
 
-#: src/editortab.cpp:1264
+#: src/editortab.cpp:1265
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Girdi tamamen yerelleştirildi (son gibi)"
 
-#: src/editortab.cpp:1376 src/project/projecttab.cpp:360
+#: src/editortab.cpp:1377 src/project/projecttab.cpp:360
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Pology denetimi zaten sürüyor."
 
-#: src/editortab.cpp:1376 src/editortab.cpp:1384 src/editortab.cpp:1388
+#: src/editortab.cpp:1377 src/editortab.cpp:1385 src/editortab.cpp:1389
 #: src/project/projecttab.cpp:360 src/project/projecttab.cpp:368
 #: src/project/projecttab.cpp:372
 #, kde-format
 msgid "Pology error"
 msgstr "Pology hatası"
 
-#: src/editortab.cpp:1384 src/project/projecttab.cpp:368
+#: src/editortab.cpp:1385 src/project/projecttab.cpp:368
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1600,17 +1597,17 @@ msgstr ""
 "Pology denetimi beklenmedik şekilde çöktü:\n"
 "%1"
 
-#: src/editortab.cpp:1386 src/project/projecttab.cpp:370
+#: src/editortab.cpp:1387 src/project/projecttab.cpp:370
 #, kde-format
 msgid "Pology success"
 msgstr "Pology başarılı"
 
-#: src/editortab.cpp:1386
+#: src/editortab.cpp:1387
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Pology denetimi başarılı."
 
-#: src/editortab.cpp:1388 src/project/projecttab.cpp:372
+#: src/editortab.cpp:1389 src/project/projecttab.cpp:372
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1619,7 +1616,7 @@ msgstr ""
 "Pology denetimi bir hata döndürdü:\n"
 "%1"
 
-#: src/editortab.cpp:1397
+#: src/editortab.cpp:1398
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1629,19 +1626,19 @@ msgstr ""
 "Bu, dosyadaki tüm çevirileri siler.\n"
 "Tüm çevrilmiş girdileri gerçekten silmek istiyor musunuz?"
 
-#: src/editortab.cpp:1433
+#: src/editortab.cpp:1434
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Kaynak metin söcükleri: %1<br/>Hedef metin sözcükleri: %2"
 
-#: src/editortab.cpp:1434
+#: src/editortab.cpp:1435
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Sözcük Sayısı"
 
-#: src/editortab.cpp:1526
+#: src/editortab.cpp:1527
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1650,23 +1647,23 @@ msgstr ""
 "Kaynak dosyasını yerel olarak mı yoksa lxr.kde.org kullanarak mı aramak "
 "istersiniz?"
 
-#: src/editortab.cpp:1526 src/editortab.cpp:1567
+#: src/editortab.cpp:1527 src/editortab.cpp:1568
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Kaynak dosya araması"
 
-#: src/editortab.cpp:1527
+#: src/editortab.cpp:1528
 #, kde-format
 msgid "Locally"
 msgstr "Yerel Olarak"
 
-#: src/editortab.cpp:1539 src/editortab.cpp:1578
+#: src/editortab.cpp:1540 src/editortab.cpp:1579
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Kaynak dosya araması için projenin üst klasörünü seçin"
 
-#: src/editortab.cpp:1566
+#: src/editortab.cpp:1567
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1676,12 +1673,12 @@ msgstr ""
 "Belirtilen klasörde kaynak dosya bulunamadı.\n"
 "Kaynak dosya klasörünü değiştirmek istiyor musunuz?"
 
-#: src/editortab.cpp:1568
+#: src/editortab.cpp:1569
 #, kde-format
 msgid "lxr.kde.org"
 msgstr "lxr.kde.org Kullan"
 
-#: src/editortab.cpp:1603
+#: src/editortab.cpp:1604
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1695,33 +1692,33 @@ msgstr ""
 "betik yok. Betik örnekleri ve onları projenize nasıl ekleyeceğinizi görmek "
 "için Lokalize el kitabına bakın."
 
-#: src/editortab.cpp:1617 src/project/project.cpp:478
+#: src/editortab.cpp:1618 src/project/project.cpp:478
 #: src/project/project.cpp:483
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit paketlerini kur ve yeniden dene"
 
-#: src/editortab.cpp:1623
+#: src/editortab.cpp:1624
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "translate-toolkit paketini kur ve yeniden dene."
 
-#: src/editortab.cpp:1632
+#: src/editortab.cpp:1633
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "Geçerli XLIFF dosyasının tabanı olan özgün OpenDocument'i seç"
 
-#: src/editortab.cpp:1634 src/project/project.cpp:488
+#: src/editortab.cpp:1635 src/project/project.cpp:488
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument dosyaları (*.odt *.ods)"
 
-#: src/editortab.cpp:1679
+#: src/editortab.cpp:1680
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Ek işlevsellik için python-uno paketini kur."
 
-#: src/editortab.cpp:1803
+#: src/editortab.cpp:1804
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -4613,3 +4610,7 @@ msgstr "Bir hata bildirildi: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Kaynağı Hedefe Kopyala"
+
+#~ msgctxt "@info:tooltip"
+#~ msgid "Activated by Ctrl+L."
+#~ msgstr "Ctrl+L ile etkinleştirilir."
