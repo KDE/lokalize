@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 03:08+0000\n"
-"PO-Revision-Date: 2023-04-13 13:17+0300\n"
+"PO-Revision-Date: 2023-05-21 20:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -166,7 +166,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
-msgstr "Kaynak: %1"
+msgstr "Köken: %1"
 
 #: src/alttransview.cpp:276
 #, kde-format
@@ -1880,9 +1880,9 @@ msgid ""
 "Press Esc to stop the search."
 msgstr ""
 "Kaynak dil bölümü için arama ifadesi.\n"
-"Bu denetime gitmek için Ctrl+L düğmelerine basın.\n"
-"Aramayı başlatmak için Enter düğmesine basın.\n"
-"Aramayı durdurmak için Esc düğmesine basın."
+"Bu denetime gitmek için Kontrol+L düğmelerine basın.\n"
+"Aramayı başlatmak için Giriş düğmesine basın.\n"
+"Aramayı durdurmak için Vazgeç düğmesine basın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (text), widget (QCheckBox, invertSource)
@@ -2592,7 +2592,7 @@ msgstr "Bu notun yazarı"
 #: src/noteeditor.cpp:66
 #, kde-format
 msgid "Ctrl+Enter"
-msgstr "Ctrl+Enter"
+msgstr "Kontrol + Giriş"
 
 #: src/noteeditor.cpp:67
 #, kde-format
@@ -3021,12 +3021,12 @@ msgstr ""
 "<html>Bu seçenek etkin iken sonraki ve önceki çeviri birimlerine gidilmek "
 "için fare tekerleği kullanılır (düzenleyici düğmeler kullanılmadan). Bu "
 "davranışı değiştirmek için düzenleyici düğmeler kullanılabilir. "
-"<ul><li>Geçerli birimin metninde sarmak için <b>Shift</b>,</li><li>Önceki "
-"hazır olmayan birime gitmek için <b>Ctrl+Shift</b>,</li><li>Önceki veya "
-"hazır olmayan boş olmayan bir birime gitmek için <b>Ctrl</b>,</li><li>Önceki "
-"veya sonraki çevrilmemiş birime gitmek için <b>Alt</b> kullanın.</li></ul>Bu "
-"seçenek kapalıyken, fare tekerleği geçerli çeviri birimindeki metin "
-"içerisinde sarar.</html>"
+"<ul><li>Geçerli birimin metninde sarmak için <b>Üst Karakter</b>,</"
+"li><li>Önceki hazır olmayan birime gitmek için <b>Kontrol+Üst Karakter</b>,</"
+"li><li>Önceki veya hazır olmayan boş olmayan bir birime gitmek için "
+"<b>Kontrol</b>,</li><li>Önceki veya sonraki çevrilmemiş birime gitmek için "
+"<b>Seçenek</b> kullanın.</li></ul>Bu seçenek kapalıyken, fare tekerleği "
+"geçerli çeviri birimindeki metinde sarar.</html>"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_MouseWheelGo)
 #: src/prefs/prefs_editor.ui:38
@@ -4190,8 +4190,8 @@ msgid ""
 "Press Ctrl+L to go to this control."
 msgstr ""
 "Kaynak dil bölümü için arama ifadesi.\n"
-"Aramayı başlatmak için Enter düğmesine basın.\n"
-"Bu denetime gitmek için Ctrl+L düğmelerine basın."
+"Aramayı başlatmak için Giriş düğmesine basın.\n"
+"Bu denetime gitmek için Kontrol+L düğmelerine basın."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertTarget)
 #. i18n: ectx: property (toolTip), widget (QCheckBox, invertSource)
