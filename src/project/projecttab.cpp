@@ -17,6 +17,7 @@
 #include "catalog.h"
 #include "lokalize_debug.h"
 
+#include <kcoreaddons_version.h>
 #include <KActionCategory>
 #include <KActionCollection>
 #include <KGuiItem>
@@ -394,12 +395,24 @@ void ProjectTab::openFile()
                        i18np("&Open %1 File", "&Open %1 Files", i),
                        QStringLiteral("document-open")
                    );
+
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::PrimaryAction != KMessageBox::warningTwoActions(
+                    this,
+                    text,
+                    caption,
+                    yes,
+                    KStandardGuiItem::cancel())) {
+            return;
+        }
+#else
         const int answer = KMessageBox::warningYesNo(
                                this, text, caption, yes, KStandardGuiItem::cancel()
                            );
         if (answer != KMessageBox::Yes) {
             return;
         }
+#endif
     }
 
     while (--i >= 0) {

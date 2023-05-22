@@ -981,10 +981,26 @@ EditorState EditorTab::state()
 
 bool EditorTab::queryClose()
 {
-    bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
-    if (clean) return true;
+    const bool clean = m_catalog->isClean() && !m_syncView->isModified() && !m_syncViewSecondary->isModified();
+    if (clean)
+        return true;
 
-    //TODO caption
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    switch (KMessageBox::warningTwoActionsCancel(
+                this,
+                i18nc("@info", "The document contains unsaved changes.\n"
+                      "Do you want to save your changes or discard them?"),
+                i18nc("@title:window", "Warning"),
+                KStandardGuiItem::save(),
+                KStandardGuiItem::discard())) {
+    case KMessageBox::PrimaryAction:
+        return saveFile();
+    case KMessageBox::SecondaryAction:
+        return true;
+    default:
+        return false;
+    }
+#else
     switch (KMessageBox::warningYesNoCancel(this,
                                             i18nc("@info", "The document contains unsaved changes.\n"
                                                     "Do you want to save your changes or discard them?"), i18nc("@title:window", "Warning"),
@@ -993,6 +1009,7 @@ bool EditorTab::queryClose()
     case KMessageBox::No:  return true;
     default:               return false;
     }
+#endif
 }
 
 
@@ -1553,16 +1570,21 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
     QString dir = Project::instance()->local()->sourceDir();
     if (dir.isEmpty()) {
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
-        switch (KMessageBox::questionTwoActions(
+        switch (KMessageBox::questionTwoActionsCancel(
                     SettingsController::instance()->mainWindowPtr(),
                     i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"),
                     i18nc("@title", "Source file lookup"),
                     KGuiItem(i18nc("@action", "Search Locally")),
-                    KGuiItem(i18nc("@action", "Search on lxr.kde.org")))) {
+                    KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
+                    KStandardGuiItem::cancel())) {
         case KMessageBox::PrimaryAction:
+            dir = QFileDialog::getExistingDirectory(this, i18n("Select project's base folder for source file lookup"), QDir::homePath());
+            if (dir.length())
+                Project::instance()->local()->setSourceDir(dir);
             break;
         case KMessageBox::SecondaryAction:
             openLxrSearch(srcFileRelPath);
+            return;
 #else
         switch (KMessageBox::questionYesNoCancel(SettingsController::instance()->mainWindowPtr(),
                 i18nc("@info", "Would you like to search for the source file locally or via lxr.kde.org?"), i18nc("@title:window", "Source file lookup"),
@@ -1575,10 +1597,6 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
         default:
             return;
         }
-
-        dir = QFileDialog::getExistingDirectory(this, i18n("Select project's base folder for source file lookup"), QDir::homePath());
-        if (dir.length())
-            Project::instance()->local()->setSourceDir(dir);
     }
 
     if (dir.length()) {
@@ -1603,6 +1621,34 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                 it++;
             }
             if (!found) {
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                switch (KMessageBox::warningTwoActionsCancel(
+                            SettingsController::instance()->mainWindowPtr(),
+                            i18nc("@info", "Could not find source file in the folder specified.\n"
+                                  "Do you want to change source files folder?"),
+                            i18nc("@title:window", "Source file lookup"),
+                            KGuiItem(i18nc("@action", "Select Folder")),
+                            KGuiItem(i18nc("@action", "Search on lxr.kde.org")),
+                            KStandardGuiItem::cancel())) {
+                case KMessageBox::PrimaryAction: {
+                    QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
+                    if (dir.length()) {
+                        Project::instance()->local()->setSourceDir(dir);
+                        Project::instance()->resetSourceFilePaths();
+                    }
+                    break;
+                }
+                case KMessageBox::SecondaryAction:
+                    Project::instance()->local()->setSourceDir(QString());
+                    Project::instance()->resetSourceFilePaths();
+                    openLxrSearch(srcFileRelPath);
+                    return;
+                case KMessageBox::Cancel:
+                    return;
+                default:
+                    break;
+                }
+#else
                 switch (KMessageBox::warningYesNoCancel(SettingsController::instance()->mainWindowPtr(),
                                                         i18nc("@info", "Could not find source file in the folder specified.\n"
                                                                 "Do you want to change source files folder?"), i18nc("@title:window", "Source file lookup"),
@@ -1613,15 +1659,15 @@ void EditorTab::dispatchSrcFileOpenRequest(const QString& srcFileRelPath, int li
                     openLxrSearch(srcFileRelPath);
                 case KMessageBox::No:
                     return;
-                default: ; //fall through to dir selection
+                default: {
+                    QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
+                    if (dir.length()) {
+                        Project::instance()->local()->setSourceDir(dir);
+                        Project::instance()->resetSourceFilePaths();
+                    }
                 }
-
-                QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Select project's base folder for source file lookup"), Project::instance()->local()->sourceDir());
-                if (dir.length()) {
-                    Project::instance()->local()->setSourceDir(dir);
-                    Project::instance()->resetSourceFilePaths();
                 }
-
+#endif
             }
         };
         if (Project::instance()->isSourceFilePathsReady())
