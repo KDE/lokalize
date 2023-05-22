@@ -66,7 +66,7 @@ inline static QImage generateImage(const QString& str, const QFont& font)
 class MyCompletionBox: public KCompletionBox
 {
 public:
-    MyCompletionBox(QWidget* p): KCompletionBox(p) {}
+    explicit MyCompletionBox(QWidget* p): KCompletionBox(p) {}
     ~MyCompletionBox() override = default;
     QSize sizeHint() const override;
 
@@ -538,7 +538,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
             //qCWarning(LOKALIZE_LOG)<<"calling showPos";
             showPos(m_currentPos, CatalogString(),/*keepCursor*/true/*false*/);
         }
-        Q_EMIT contentsModified(m_currentPos.entry);
+        Q_EMIT contentsModified(DocPosition(m_currentPos.entry));
         return true;
     }
 
@@ -1235,7 +1235,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         CatalogString sourceWithTags = m_catalog->sourceWithTags(m_currentPos);
         QString text = sourceWithTags.string;
         QString out;
-        QString ctxt = m_catalog->context(m_currentPos.entry).first();
+        QString ctxt = m_catalog->context(DocPosition(m_currentPos.entry)).first();
         QRegExp delimiter(QStringLiteral("\\s*,\\s*"));
 
         //TODO ask for the fillment if the first time.

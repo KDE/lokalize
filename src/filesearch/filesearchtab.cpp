@@ -55,7 +55,7 @@ static QStringList doScanRecursive(const QDir& dir);
 class FileListModel: public QStringListModel
 {
 public:
-    FileListModel(QObject* parent): QStringListModel(parent) {}
+    explicit FileListModel(QObject* parent): QStringListModel(parent) {}
     QVariant data(const QModelIndex& item, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex&) const override
     {
@@ -217,7 +217,7 @@ void SearchJob::run()
                     //FileSearchResult r;
                     SearchResult r;
                     r.filepath = filePath;
-                    r.docPos = pos;
+                    r.docPos = DocPos(pos);
                     if (!searchParams.sourcePattern.isEmpty() && !searchParams.invertSource)
                         r.sourcePositions << StartLen(searchParams.sourcePattern.pos(), searchParams.sourcePattern.matchedLength());
                     if (!searchParams.targetPattern.isEmpty() && !searchParams.invertTarget)

@@ -49,7 +49,7 @@ void MergeCatalog::copyFromBaseCatalog(const DocPosition& pos, int options)
         if (!m_originalHashes.contains(p))
             m_originalHashes[p] = qHash(m_storage->target(ourPos));
         m_storage->setTarget(ourPos, m_baseCatalog->target(pos));
-        setModified(ourPos, true);
+        setModified(DocPos(ourPos), true);
 
         if (options & EvenIfNotInDiffIndex && a)
             m_mergeDiffIndex.remove(pos.entry);
@@ -106,7 +106,7 @@ MatchItem MergeCatalog::calcMatchItem(const DocPosition& basePos, const DocPosit
     CatalogStorage& baseStorage = *(m_baseCatalog->m_storage);
     CatalogStorage& mergeStorage = *(m_storage);
 
-    MatchItem item(mergePos.entry, basePos.entry, true, mergeStorage.target(mergePos.entry).isEmpty());
+    MatchItem item(mergePos.entry, basePos.entry, true, mergeStorage.target(DocPosition(mergePos.entry)).isEmpty());
     //TODO make more robust, perhaps after XLIFF?
     QStringList baseMatchData = baseStorage.matchData(basePos);
     QStringList mergeMatchData = mergeStorage.matchData(mergePos);
@@ -208,7 +208,7 @@ int MergeCatalog::loadFromUrl(const QString& filePath, const QString& saidFilePa
         //qCDebug(LOKALIZE_LOG)<<"kv"<<mergePosition<<basePositions;
         QList<MatchItem> scores;
         for (int value : basePositions)
-            scores << calcMatchItem(DocPosition(value), mergePosition);
+            scores << calcMatchItem(DocPosition(value), DocPosition(mergePosition));
 
         std::sort(scores.begin(), scores.end(), std::greater<MatchItem>());
         int i = scores.size();

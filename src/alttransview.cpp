@@ -99,7 +99,7 @@ void AltTransView::attachAltTransFile(const QString& path)
 void AltTransView::addAlternateTranslation(int entry, const QString& trans)
 {
     AltTrans altTrans;
-    altTrans.target = trans;
+    altTrans.target = CatalogString(trans);
     m_catalog->attachAltTrans(entry, altTrans);
 
     m_prevEntry = DocPos();

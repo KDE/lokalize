@@ -151,13 +151,13 @@ QVariant PhasesModel::headerData(int section, Qt::Orientation, int role) const
 class PhaseEditDialog: public QDialog
 {
 public:
-    PhaseEditDialog(QWidget *parent);
+    explicit PhaseEditDialog(QWidget *parent);
     ~PhaseEditDialog() {}
 
     Phase phase()const;
     ProjectLocal::PersonRole role()const;
 private:
-    KComboBox* m_process;
+    KComboBox* m_process{nullptr};
 };
 
 

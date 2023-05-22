@@ -231,15 +231,13 @@ struct TsContentEditingData {
     enum ActionType {Get, DeleteText, InsertText, CheckLength};
 
     QString stringToInsert;
-    int pos;
-    int lengthOfStringToRemove;
+    int pos{-1};
+    int lengthOfStringToRemove{-1};
     ActionType actionType;
 
     ///Get
-    TsContentEditingData(ActionType type = Get)
-        : pos(-1)
-        , lengthOfStringToRemove(-1)
-        , actionType(type)
+    explicit TsContentEditingData(ActionType type = Get)
+        : actionType(type)
     {}
 
     ///DeleteText

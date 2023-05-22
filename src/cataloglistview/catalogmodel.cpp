@@ -180,7 +180,7 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         case CatalogModelColumns::IsEmpty:
             return m_catalog->isEmpty(index.row());
         case CatalogModelColumns::State:
-            return int(m_catalog->state(index.row()));
+            return int(m_catalog->state(DocPosition(index.row())));
         case CatalogModelColumns::IsModified:
             return m_catalog->isModified(index.row());
         case CatalogModelColumns::IsPlural:
@@ -192,13 +192,13 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
         if (column >= CatalogModelColumns::TranslationStatus)
             return QVariant();
         else if (column == CatalogModelColumns::Source || column == CatalogModelColumns::Target) {
-            QString str = column == CatalogModelColumns::Source ? m_catalog->msgidWithPlurals(index.row(), false) : m_catalog->msgstrWithPlurals(index.row(), false);
+            QString str = column == CatalogModelColumns::Source ? m_catalog->msgidWithPlurals(DocPosition(index.row()), false) : m_catalog->msgstrWithPlurals(DocPosition(index.row()), false);
             return m_ignoreAccel ? str.remove(Project::instance()->accel()) : str;
         }
         role = Qt::DisplayRole;
     } else if (role == SortRole) { //exclude UI strings
         if (column == CatalogModelColumns::TranslationStatus) {
-            return static_cast<int>(getTranslationStatus(index.row()));
+            return static_cast<int>(getTranslationStatus(static_cast<int>(index.row())));
         }
 
         role = Qt::DisplayRole;
@@ -212,24 +212,24 @@ QVariant CatalogTreeModel::data(const QModelIndex& index, int role) const
     case CatalogModelColumns::Key:
         return index.row() + 1;
     case CatalogModelColumns::Source:
-        return m_catalog->msgidWithPlurals(index.row(), true);
+        return m_catalog->msgidWithPlurals(DocPosition(index.row()), true);
     case CatalogModelColumns::Target:
-        return m_catalog->msgstrWithPlurals(index.row(), true);
+        return m_catalog->msgstrWithPlurals(DocPosition(index.row()), true);
     case CatalogModelColumns::Notes: {
         QString result;
-        const auto notes = m_catalog->notes(index.row());
+        const auto notes = m_catalog->notes(DocPosition(index.row()));
         for (const Note &note : notes)
             result += note.content;
         return result;
     }
     case CatalogModelColumns::Context:
-        return m_catalog->context(index.row());
+        return m_catalog->context(DocPosition(index.row()));
     case CatalogModelColumns::Files:
-        return m_catalog->sourceFiles(index.row()).join(QLatin1Char('|'));
+        return m_catalog->sourceFiles(DocPosition(index.row())).join(QLatin1Char('|'));
     case CatalogModelColumns::SourceLength:
-        return m_catalog->msgidWithPlurals(index.row(), false).length();
+        return m_catalog->msgidWithPlurals(DocPosition(index.row()), false).length();
     case CatalogModelColumns::TargetLength:
-        return m_catalog->msgstrWithPlurals(index.row(), false).length();
+        return m_catalog->msgstrWithPlurals(DocPosition(index.row()), false).length();
     default:
         return {};
     }

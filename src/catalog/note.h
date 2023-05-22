@@ -16,15 +16,13 @@ struct Note {
     enum Owner {General, Source, Target};
 
     QString content;
-    char priority;//1 is the highest
-    Owner annotates;
+    char priority{5}; // 1 is the highest
+    Owner annotates{General};
     QString from;
     QString lang;
 
-    Note(const QString& content_ = QString())
+    explicit Note(const QString& content_ = QString())
         : content(content_)
-        , priority(5)
-        , annotates(General)
     {}
 
     Note(const QString& content_, char priority_, Owner annotates_, const QString& from_, const QString& lang_)

@@ -28,10 +28,13 @@ struct Rule {
 };
 
 struct StartLen {
-    short start;
-    short len;
+    short start{0};
+    short len{0};
 
-    StartLen(short s = 0, short l = 0): start(s), len(l) {}
+    explicit StartLen(short s = 0, short l = 0)
+        : start(s)
+        , len(l)
+    {}
 };
 
 #endif

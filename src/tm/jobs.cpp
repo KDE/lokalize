@@ -1104,7 +1104,7 @@ static QString makeAcceledString(QString source, const QString& accel, const QVa
 SelectJob* TM::initSelectJob(Catalog* catalog, DocPosition pos, QString db, int opt)
 {
     SelectJob* job = new SelectJob(catalog->sourceWithTags(pos),
-                                   catalog->context(pos.entry).first(),
+                                   catalog->context(DocPosition(pos.entry)).first(),
                                    catalog->url(),
                                    pos,
                                    db.isEmpty() ? Project::instance()->projectID() : db);

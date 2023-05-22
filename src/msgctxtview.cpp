@@ -159,7 +159,7 @@ void MsgCtxtView::process()
         html.chop(6);
     }
 
-    QString msgctxt = m_catalog->context(m_entry.entry).first();
+    QString msgctxt = m_catalog->context(DocPosition(m_entry.entry)).first();
     if (!msgctxt.isEmpty())
         html += i18nc("@info PO comment parsing", "<br><b>Context:</b><br>") + msgctxt.toHtmlEscaped();
 

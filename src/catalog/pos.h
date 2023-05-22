@@ -42,7 +42,7 @@ struct DocPosition {
         , offset(offset_)
     {}
 
-    DocPosition(int entry_, char form_ = 0, uint offset_ = 0)
+    explicit DocPosition(int entry_, char form_ = 0, uint offset_ = 0)
         : entry(entry_)
         , part(Target)
         , form(form_)
@@ -74,7 +74,7 @@ struct DocPos {
         entry(_entry),
         form(_form)
     {}
-    DocPos(const DocPosition& pos):
+    explicit DocPos(const DocPosition& pos):
         entry(pos.entry),
         form(pos.form)
     {}

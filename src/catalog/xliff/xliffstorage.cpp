@@ -182,15 +182,13 @@ struct ContentEditingData {
 
     QList<InlineTag> tags;
     QString stringToInsert;
-    int pos;
-    int lengthOfStringToRemove;
+    int pos{-1};
+    int lengthOfStringToRemove{-1};
     ActionType actionType;
 
     ///Get
-    ContentEditingData(ActionType type = Get)
-        : pos(-1)
-        , lengthOfStringToRemove(-1)
-        , actionType(type)
+    explicit ContentEditingData(ActionType type = Get)
+        : actionType(type)
     {}
 
     ///DeleteText
@@ -218,9 +216,8 @@ struct ContentEditingData {
     }
 
     ///DeleteTag
-    ContentEditingData(int p)
+    explicit ContentEditingData(int p)
         : pos(p)
-        , lengthOfStringToRemove(-1)
         , actionType(DeleteTag)
     {}
 

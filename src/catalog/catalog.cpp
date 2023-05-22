@@ -289,7 +289,7 @@ QVector<AltTrans> Catalog::altTrans(const DocPosition& pos) const
         QString target = altCat->msgstr(pos);
         if (!target.isEmpty() && altCat->isApproved(pos)) {
             result << AltTrans();
-            result.last().target = target;
+            result.last().target = CatalogString(target);
             result.last().type = AltTrans::Reference;
             result.last().origin = altCat->url();
         }
@@ -774,7 +774,7 @@ void Catalog::flushUpdateDBBuffer()
     if (isPlural(pos.entry))
         form = pos.form;
     updateDB(url(),
-             context(pos.entry).first(),
+             context(DocPosition(pos.entry)).first(),
              sourceWithTags(pos),
              targetWithTags(pos),
              form,

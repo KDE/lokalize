@@ -465,7 +465,7 @@ void EditorTab::doReplace(const QString &newStr, int offset, int newLen, int rem
     }
     DocPosition pos = _replacingPos;
     if (_replacingPos.part == DocPosition::Comment)
-        m_catalog->push(new SetNoteCmd(m_catalog, pos, newStr));
+        m_catalog->push(new SetNoteCmd(m_catalog, pos, Note(newStr)));
     else {
         QString oldStr = m_catalog->target(_replacingPos);
 

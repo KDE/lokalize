@@ -125,7 +125,7 @@ QString PoItemDelegate::displayText(const QVariant & value, const QLocale & loca
 class SortFilterProxyModel : public KDirSortFilterProxyModel
 {
 public:
-    SortFilterProxyModel(QObject* parent = nullptr)
+    explicit SortFilterProxyModel(QObject* parent = nullptr)
         : KDirSortFilterProxyModel(parent)
     {
         connect(Project::instance()->model(), &ProjectModel::totalsChanged, this, &SortFilterProxyModel::invalidate);

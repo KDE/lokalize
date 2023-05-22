@@ -35,7 +35,7 @@
 class CatalogTreeView: public QTreeView
 {
 public:
-    CatalogTreeView(QWidget * parent)
+    explicit CatalogTreeView(QWidget * parent)
         : QTreeView(parent) {}
     ~CatalogTreeView() = default;
 

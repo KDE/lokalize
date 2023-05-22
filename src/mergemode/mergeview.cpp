@@ -138,7 +138,7 @@ void MergeView::slotNewEntryDisplayed(const DocPosition& pos)
         result.append(QLatin1String("</i>"));
     }
 
-    if (m_mergeCatalog->isModified(pos)) {
+    if (m_mergeCatalog->isModified(DocPos(pos))) {
         result.prepend(QLatin1String("<b>"));
         result.append(QLatin1String("</b>"));
     }

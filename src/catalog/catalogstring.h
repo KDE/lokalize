@@ -134,7 +134,7 @@ struct CatalogString {
     QList<InlineTag> tags;
 
     CatalogString() {}
-    CatalogString(QString str): string(str) {}
+    explicit CatalogString(QString str): string(str) {}
     CatalogString(QString str, QByteArray tagsByteArray);
     QMap<QString, int> tagIdToIndex() const; //assigns same indexes for tags with same ids
 

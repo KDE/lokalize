@@ -29,8 +29,8 @@ private:
     static LanguageListModel * _emptyLangInstance;
     static void cleanupLanguageListModel();
 
-    LanguageListModel(ModelType type = Default, QObject* parent = nullptr);
-    QSortFilterProxyModel* m_sortModel;
+    explicit LanguageListModel(ModelType type = Default, QObject* parent = nullptr);
+    QSortFilterProxyModel* m_sortModel{nullptr};
 
 public:
     QVariant data(const QModelIndex& index, int role) const override;

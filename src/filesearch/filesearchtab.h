@@ -133,7 +133,7 @@ typedef QMap<QString, QVector<FileSearchResult> > FileSearchResults;
 struct SearchResult: public FileSearchResult {
     QString filepath;
 
-    SearchResult(const FileSearchResult& fsr): FileSearchResult(fsr) {}
+    explicit SearchResult(const FileSearchResult& fsr): FileSearchResult(fsr) {}
     SearchResult() {}
 };
 

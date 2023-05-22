@@ -1470,7 +1470,7 @@ bool EditorTab::findEntryBySourceContext(const QString& source, const QString& c
 {
     DocPosition pos(0);
     do {
-        if (m_catalog->source(pos) == source && m_catalog->context(pos.entry) == QStringList(ctxt)) {
+        if (m_catalog->source(pos) == source && m_catalog->context(DocPosition(pos.entry)) == QStringList(ctxt)) {
             gotoEntry(pos);
             return true;
         }
@@ -1821,7 +1821,7 @@ QString EditorTab::targetLangCode()
 }
 void EditorTab::addEntryNote(int entry, const QString& note)
 {
-    m_notesView->addNote(entry, note);
+    m_notesView->addNote(DocPosition(entry), note);
 }
 void EditorTab::addTemporaryEntryNote(int entry, const QString& note)
 {
