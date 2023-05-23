@@ -205,8 +205,6 @@ void EditorTab::setupActions()
 
 
 //BEGIN dockwidgets
-    int i = 0;
-
     QVector<QAction*> altactions(ALTTRANS_SHORTCUTS);
     Qt::Key altlist[ALTTRANS_SHORTCUTS] = {
         Qt::Key_1,
@@ -220,7 +218,7 @@ void EditorTab::setupActions()
         Qt::Key_9
     };
     QAction* altaction;
-    for (i = 0; i < ALTTRANS_SHORTCUTS; ++i) {
+    for (int i = 0; i < ALTTRANS_SHORTCUTS; ++i) {
         altaction = tm->addAction(QStringLiteral("alttrans_insert_%1").arg(i));
         ac->setDefaultShortcut(altaction, QKeySequence(Qt::ALT + altlist[i]));
         altaction->setText(i18nc("@action:inmenu", "Insert alternate translation #%1", QString::number(i)));
@@ -287,7 +285,7 @@ void EditorTab::setupActions()
         Qt::Key_0
     };
     QAction* tmaction;
-    for (i = 0; i < TM_SHORTCUTS; ++i) {
+    for (int i = 0; i < TM_SHORTCUTS; ++i) {
 //         action->setVisible(false);
         tmaction = tm->addAction(QStringLiteral("tmquery_insert_%1").arg(i));
         ac->setDefaultShortcut(tmaction, QKeySequence(Qt::CTRL + tmlist[i]));
@@ -341,8 +339,7 @@ void EditorTab::setupActions()
         Qt::Key_Apostrophe
     };
     QAction* gaction;
-//     int i=0;
-    for (i = 0; i < GLOSSARY_SHORTCUTS; ++i) {
+    for (int i = 0; i < GLOSSARY_SHORTCUTS; ++i) {
 //         action->setVisible(false);
         gaction = glossary->addAction(QStringLiteral("glossary_insert_%1").arg(i));
         ac->setDefaultShortcut(gaction, QKeySequence(Qt::CTRL + glist[i]));
