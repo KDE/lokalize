@@ -174,7 +174,7 @@ void AltTransView::process()
 
     CatalogString source = m_catalog->sourceWithTags(m_entry.toDocPosition());
     QString context = m_catalog->context(m_entry.toDocPosition()).first();
-    QString contextWithNewline = context + (context.isEmpty() ? QStringLiteral("") : QStringLiteral("\n"));
+    QString contextWithNewline = context + (context.isEmpty() ? QString() : QStringLiteral("\n"));
 
     QTextBlockFormat blockFormatBase;
     QTextBlockFormat blockFormatAlternate; blockFormatAlternate.setBackground(QPalette().alternateBase());

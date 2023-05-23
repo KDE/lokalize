@@ -285,7 +285,7 @@ void ProjectTab::addComment()
     int i = files.size();
     QStringList previousCommentsTexts = Project::instance()->commentsTexts();
     QStringList previousCommentsFiles = Project::instance()->commentsFiles();
-    QString previousComment(QStringLiteral(""));
+    QString previousComment;
     if (i >= 1) {
         //Retrieve previous comment (first one)
         int existingItem = previousCommentsFiles.indexOf(Project::instance()->relativePath(files.at(0)));

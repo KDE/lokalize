@@ -234,7 +234,7 @@ QString formatGettextDate(const QDateTime &dt)
     const int offset_seconds = dt.offsetFromUtc();
     const int offset_hours = abs(offset_seconds) / 3600;
     const int offset_minutes = abs(offset_seconds % 3600) / 60;
-    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') + (offset_hours < 10 ? QStringLiteral("0") : QStringLiteral("")) + QString::number(offset_hours) + (offset_minutes < 10 ? QStringLiteral("0") : QStringLiteral("")) + QString::number(offset_minutes);
+    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') + (offset_hours < 10 ? QStringLiteral("0") : QString()) + QString::number(offset_hours) + (offset_minutes < 10 ? QStringLiteral("0") : QString()) + QString::number(offset_minutes);
 
     return dateTimeString + zoneOffsetString;
 }
