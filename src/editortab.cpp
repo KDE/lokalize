@@ -272,7 +272,7 @@ void EditorTab::setupActions()
 
     QVector<QAction*> tmactions_insert(TM_SHORTCUTS);
     QVector<QAction*> tmactions_remove(TM_SHORTCUTS);
-    Qt::Key tmlist[TM_SHORTCUTS] = {
+    const Qt::Key tmlist[TM_SHORTCUTS] = {
         Qt::Key_1,
         Qt::Key_2,
         Qt::Key_3,
@@ -315,7 +315,7 @@ void EditorTab::setupActions()
     connect(this, &EditorTab::signalNewEntryDisplayed, _tmView, QOverload<const DocPosition &>::of(&TM::TMView::slotNewEntryDisplayed)); //do this after flushUpdateDBBuffer
 
     QVector<QAction*> gactions(GLOSSARY_SHORTCUTS);
-    Qt::Key glist[GLOSSARY_SHORTCUTS] = {
+    const Qt::Key glist[GLOSSARY_SHORTCUTS] = {
         Qt::Key_E,
         Qt::Key_H,
         //                         Qt::Key_G,
