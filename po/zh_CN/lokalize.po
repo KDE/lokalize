@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:49+0000\n"
-"PO-Revision-Date: 2023-04-29 08:34\n"
+"PO-Revision-Date: 2023-05-22 14:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -771,12 +771,10 @@ msgstr "快速搜索..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "接受正则表达式"
+msgstr ""
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1398,12 +1396,10 @@ msgid "This changes only empty entries"
 msgstr "这仅会更改空条目"
 
 #: src/editortab.cpp:762
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(已恢复)"
+msgstr ""
 
 #: src/editortab.cpp:806 src/editortab.cpp:823 src/editortab.cpp:992
 #, kde-format
@@ -3789,14 +3785,12 @@ msgid "Translate OpenDocument"
 msgstr "翻译 OpenDocument"
 
 #: src/project/projecttab.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr ""
 
 #: src/project/projecttab.cpp:166
 #, kde-format
@@ -4491,12 +4485,6 @@ msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "复制原文到译文"
 
-#, fuzzy
-#~| msgid "Remove"
 #~ msgctxt "Button label"
 #~ msgid "Remove"
 #~ msgstr "删除"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Activated by Ctrl+L."
-#~ msgstr "由 Ctrl+L 激活。"

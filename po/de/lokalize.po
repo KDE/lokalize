@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:49+0000\n"
-"PO-Revision-Date: 2023-05-02 23:02+0200\n"
+"PO-Revision-Date: 2023-05-23 02:43+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -137,17 +137,16 @@ msgstr ""
 "Möchten Sie, dass diese Daten angezeigt werden?"
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternative Übersetzungen"
+msgstr "Alternative Übersetzungen verfügbar"
 
 #: src/alttransview.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Datenansicht anzeigen"
 
 #: src/alttransview.cpp:246
 #, kde-format
@@ -840,12 +839,10 @@ msgstr "Schnellsuche ..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Akzeptiert reguläre Ausdrücke"
+msgstr "Mit Strg+L aktiviert. Akzeptiert reguläre Ausdrücke"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1473,12 +1470,10 @@ msgid "This changes only empty entries"
 msgstr "Dies verändert nur leere Einträge"
 
 #: src/editortab.cpp:762
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
-msgstr "(wiederhergestellt)"
+msgstr " (wiederhergestellt)"
 
 #: src/editortab.cpp:806 src/editortab.cpp:823 src/editortab.cpp:992
 #, kde-format
@@ -1672,26 +1667,22 @@ msgid ""
 msgstr "Möchten Sie lokal oder mit lxr.kde.org nach der Quelldatei suchen?"
 
 #: src/editortab.cpp:1562
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Quelldatei-Suche"
 
 #: src/editortab.cpp:1563
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Lokal"
+msgstr "Lokal suchen"
 
 #: src/editortab.cpp:1564
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Auf lxr.kde.org suchen"
 
 #: src/editortab.cpp:1571 src/editortab.cpp:1611
 #, kde-format
@@ -2891,24 +2882,19 @@ msgstr ""
 "Projekt öffnen?"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Projektübersicht"
+msgstr "Projekt erforderlich"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Neues Projekt erstellen"
+msgstr "Projekt erstellen"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Projekt öffnen"
