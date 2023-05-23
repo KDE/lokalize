@@ -392,7 +392,7 @@ static void fillFilePathsRecursive(const QDir& dir, QMultiMap<QByteArray, QByteA
 class SourceFilesSearchJob: public KJob
 {
 public:
-    SourceFilesSearchJob(const QString& folderName, QObject* parent = nullptr);
+    explicit SourceFilesSearchJob(const QString& folderName, QObject* parent = nullptr);
     void start() override;
     void finish()
     {
