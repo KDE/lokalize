@@ -458,11 +458,11 @@ void EditorTab::setupActions()
     connect(m_catalog, &Catalog::canRedoChanged, action, &QAction::setEnabled);
     action->setEnabled(false);
 
-    action = nav->addAction(KStandardAction::Find, this, SLOT(find()));
-    action = nav->addAction(KStandardAction::FindNext, this, SLOT(findNext()));
+    nav->addAction(KStandardAction::Find, this, SLOT(find()));
+    nav->addAction(KStandardAction::FindNext, this, SLOT(findNext()));
     action = nav->addAction(KStandardAction::FindPrev, this, SLOT(findPrev()));
     action->setText(i18nc("@action:inmenu", "Change searching direction"));
-    action = edit->addAction(KStandardAction::Replace, this, SLOT(replace()));
+    edit->addAction(KStandardAction::Replace, this, SLOT(replace()));
 
     connect(m_view, &EditorView::findRequested,     this, &EditorTab::find);
     connect(m_view, &EditorView::findNextRequested, this, QOverload<>::of(&EditorTab::findNext));
