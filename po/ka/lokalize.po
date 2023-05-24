@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-22 00:49+0000\n"
-"PO-Revision-Date: 2023-05-02 06:47+0200\n"
+"PO-Revision-Date: 2023-05-23 05:27+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -108,7 +108,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Alternate Translations"
-msgstr ""
+msgstr "ალტერნატიული თარგმანები"
 
 #: src/alttransview.cpp:156 src/alttransview.cpp:164
 #, kde-format
@@ -123,18 +123,16 @@ msgid ""
 msgstr ""
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Select translation file"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "აირჩიეთ თარგმანის ფაილი"
+msgstr "ხელმისაწვდომია სხვა თარგმანებიც"
 
 #: src/alttransview.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "მონაცემთა ხედის ჩვენება"
 
 #: src/alttransview.cpp:246
 #, kde-format
@@ -162,7 +160,7 @@ msgstr "წყარო: %1"
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use alternate translation"
-msgstr ""
+msgstr "ალტერნატიული თარგმანის გამოყენება"
 
 #: src/binunitsview.cpp:108
 #, kde-format
@@ -289,25 +287,25 @@ msgstr "დამოწმებულია"
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Start of paired tag"
-msgstr ""
+msgstr "დაწყვილებული ჭდის დასაწყისი"
 
 #: src/catalog/catalogstring.cpp:61
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "End of paired tag"
-msgstr ""
+msgstr "დაწყვილებული ჭდის დასასრული"
 
 #: src/catalog/catalogstring.cpp:62
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Stand-alone tag"
-msgstr ""
+msgstr "ცალკე ჭდე"
 
 #: src/catalog/catalogstring.cpp:63
 #, kde-format
 msgctxt "XLIFF inline tag name"
 msgid "Isolated tag"
-msgstr ""
+msgstr "იზოლირებული ჭდე"
 
 #: src/catalog/catalogstring.cpp:65
 #, kde-format
@@ -708,7 +706,7 @@ msgstr ""
 #, kde-format
 msgctxt "@window:title"
 msgid "Author name missing"
-msgstr ""
+msgstr "ავტორის სახელი მითითებული არაა"
 
 #: src/catalog/gettextheader.cpp:661
 #, kde-format
@@ -719,7 +717,7 @@ msgstr "თქვენი სახელი:"
 #, kde-format
 msgctxt "@window:title"
 msgid "Author email missing"
-msgstr ""
+msgstr "ავტორის ელფოსტა მითითებული არაა"
 
 #: src/catalog/gettextheader.cpp:671
 #, kde-format
@@ -1555,32 +1553,28 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:1562
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Use source file"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
-msgstr "წყაროს ფაილის გამოყენება"
+msgstr "წყაროს ფაილის მოძებნა"
 
 #: src/editortab.cpp:1563
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "ლოკალურად"
+msgstr "ლოკალურად ძებნა"
 
 #: src/editortab.cpp:1564
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "ძებნა lxr.kde.org-ზე"
 
 #: src/editortab.cpp:1571 src/editortab.cpp:1611
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
-msgstr ""
+msgstr "წყაროს ფაილის მოძებნა"
 
 #: src/editortab.cpp:1572
 #, kde-format
@@ -1634,7 +1628,7 @@ msgstr ""
 #: src/editortab.cpp:1678 src/project/project.cpp:488
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
-msgstr ""
+msgstr "OpenDocument ფაილები (*.odt *.ods)"
 
 #: src/editortab.cpp:1723
 #, kde-format
@@ -1870,7 +1864,7 @@ msgstr "ფაილი"
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
-msgstr ""
+msgstr "ფაილებში ძებნა და ჩანაცვლება"
 
 #: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:403
 #, kde-format
@@ -2264,7 +2258,7 @@ msgstr ""
 #: src/main.cpp:62
 #, kde-format
 msgid "LanguageTool"
-msgstr ""
+msgstr "LanguageTool"
 
 #: src/main.cpp:62
 #, kde-format
@@ -2718,24 +2712,19 @@ msgid ""
 msgstr ""
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "პროექტის მიმოხილვა"
+msgstr "პროექტი აუცილებელია"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "პროექტი"
+msgstr "პროექტის შექმნა"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "პროექტის გახსნა"
@@ -3488,7 +3477,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Root folder:"
-msgstr "Root საქაღალდე"
+msgstr "Root საქაღალდე:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LanguageSource)
 #: src/project/prefs_projectmain.ui:155
