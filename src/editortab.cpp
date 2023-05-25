@@ -748,8 +748,6 @@ void EditorTab::hideDocks()
 
 void EditorTab::showDocks()
 {
-//    if (m_transUnitsView->isFloating())
-//        m_transUnitsView->show();
 }
 
 void EditorTab::setProperCaption(QString title, bool modified)
