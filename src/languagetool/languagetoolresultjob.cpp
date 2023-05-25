@@ -83,8 +83,8 @@ void LanguageToolResultJob::slotCheckGrammarFinished()
     if (reply) {
         const QByteArray data = reply->readAll();
         Q_EMIT finished(QString::fromUtf8(data));
+        reply->deleteLater();
     }
-    reply->deleteLater();
     deleteLater();
 }
 
