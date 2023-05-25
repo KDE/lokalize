@@ -79,7 +79,7 @@ static DiffInfo getDiffInfo(const QString& diff)
 {
     DiffInfo d(diff.size());
 
-    QChar sep('{');
+    QChar sep(QLatin1Char('{'));
     char state = '0';
     //walk through diff string char-by-char
     //calculate old and others
@@ -114,7 +114,7 @@ void TextBrowser::mouseDoubleClickEvent(QMouseEvent* event)
     QTextBrowser::mouseDoubleClickEvent(event);
 
     QString sel = textCursor().selectedText();
-    if (!(sel.isEmpty() || sel.contains(' ')))
+    if (!(sel.isEmpty() || sel.contains(QLatin1Char(' '))))
         Q_EMIT textInsertRequested(sel);
 }
 
@@ -289,7 +289,7 @@ void TMView::slotBatchSelectDone()
         m_catalog->endMacro();
     else {
         // xgettext: no-c-format
-        msg += ' ';
+        msg += QLatin1Char(' ');
         msg += i18nc("@info", "No suggestions with exact matches were found.");
     }
 
@@ -707,10 +707,10 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
     //first things first
     int pos = 0;
     while ((pos = rxDel.indexIn(diff, pos)) != -1)
-        diff.replace(pos, rxDel.matchedLength(), "\tKBABELDEL\t" + rxDel.cap(1) + "\t/KBABELDEL\t");
+        diff.replace(pos, rxDel.matchedLength(), QStringLiteral("\tKBABELDEL\t") + rxDel.cap(1) + QStringLiteral("\t/KBABELDEL\t"));
     pos = 0;
     while ((pos = rxAdd.indexIn(diff, pos)) != -1)
-        diff.replace(pos, rxAdd.matchedLength(), "\tKBABELADD\t" + rxAdd.cap(1) + "\t/KBABELADD\t");
+        diff.replace(pos, rxAdd.matchedLength(), QStringLiteral("\tKBABELADD\t") + rxAdd.cap(1) + QStringLiteral("\t/KBABELADD\t"));
 
     diff.replace(QStringLiteral("&lt;"), QStringLiteral("<"));
     diff.replace(QStringLiteral("&gt;"), QStringLiteral(">"));
@@ -958,7 +958,7 @@ CatalogString TM::targetAdapted(const TMEntry& entry, const CatalogString& ref)
                 if (diffMPart.at(j) != '-')
                     newMarkup.append(d.diffClean.at(startPos + j));
             }
-            if (newMarkup.endsWith(' ')) newMarkup.chop(1);
+            if (newMarkup.endsWith(QLatin1Char(' '))) newMarkup.chop(1);
             //qCWarning(LOKALIZE_LOG)<<"d.old"<<cap<<"new"<<newMarkup;
 
 

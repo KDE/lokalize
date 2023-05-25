@@ -297,7 +297,7 @@ void MassReplaceJob::run()
                     qCWarning(LOKALIZE_LOG) << "skipping replace because matched text contains markup" << s.string;
                 }
 
-                if (pos > s.string.length() || replaceWhat.pattern().startsWith('^'))
+                if (pos > s.string.length() || replaceWhat.pattern().startsWith(QLatin1Char('^')))
                     break;
 
                 pos = replaceWhat.indexIn(s.string, pos);
@@ -709,7 +709,7 @@ static QStringList doScanRecursive(const QDir& dir)
     QStringList filters = Catalog::supportedExtensions();
     i = filters.size();
     while (--i >= 0)
-        filters[i].prepend('*');
+        filters[i].prepend(QLatin1Char('*'));
     QStringList files(dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot | QDir::Readable));
     i = files.size();
 

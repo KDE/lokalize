@@ -108,8 +108,8 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     connect(dbPasswd, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
 
     QStringList drivers = QSqlDatabase::drivers();
-    if (drivers.contains("QPSQL"))
-        dbType->addItem("PostgreSQL");
+    if (drivers.contains(QStringLiteral("QPSQL")))
+        dbType->addItem(QStringLiteral("PostgreSQL"));
 }
 
 void DBPropertiesDialog::setConnectionBoxVisible(int type)
@@ -130,7 +130,7 @@ void DBPropertiesDialog::checkConnectionOptions()
         return;
 
     OpenDBJob::ConnectionParams connParams;
-    connParams.driver = "QPSQL";
+    connParams.driver = QLatin1String("QPSQL");
     connParams.host = dbHost->currentText();
     connParams.db = dbName->text();
     connParams.user = dbUser->text();
@@ -171,7 +171,7 @@ void DBPropertiesDialog::accept()
         return;
 
     if (connectionBox->isVisible()) {
-        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + name->text() + REMOTETM_DATABASE_EXTENSION);
+        QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + name->text() + QLatin1String(REMOTETM_DATABASE_EXTENSION));
         if (!rdb.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
             return;
 

@@ -994,7 +994,7 @@ QUrl ProjectModel::potToPo(const QUrl& potPath) const
         pathToAdd = pathToAdd.left(pathToAdd.length() - 1);
 
     QUrl poPath = m_poUrl;
-    poPath.setPath(poPath.path() + '/' + pathToAdd);
+    poPath.setPath(poPath.path() + QLatin1Char('/') + pathToAdd);
 
     //qCDebug(LOKALIZE_LOG) << "ProjectModel::potToPo("<< potPath.pathOrUrl() << +") = " << poPath.pathOrUrl();
     return poPath;

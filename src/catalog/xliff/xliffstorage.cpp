@@ -276,7 +276,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                         //qCWarning(LOKALIZE_LOG)<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos, data->lengthOfStringToRemove);
                         data->actionType = ContentEditingData::CheckLength;
-                        return QString('a');//so it exits 100%
+                        return QStringLiteral("a");//so it exits 100%
                     }
                 }
                 //END DELETE TEXT
@@ -284,7 +284,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                 else if (data->actionType == ContentEditingData::InsertText) {
                     c.insertData(localStartPos, data->stringToInsert);
                     data->actionType = ContentEditingData::CheckLength;
-                    return QString('a');//so it exits 100%
+                    return QStringLiteral("a");//so it exits 100%
                 }
                 //BEGIN INSERT TAG
                 else if (data->actionType == ContentEditingData::InsertTag) {
@@ -293,7 +293,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
                     qCDebug(LOKALIZE_LOG) << "inserting tag" << tag.name() << tag.id << tag.start << tag.end << mid << data->pos << startingPos;
                     if (mid.size())
                         c.deleteData(localStartPos, mid.size());
-                    QDomElement newNode = elem.insertAfter(elem.ownerDocument().createElement(tag.getElementName()), n).toElement();
+                    QDomElement newNode = elem.insertAfter(elem.ownerDocument().createElement(QLatin1String(tag.getElementName())), n).toElement();
                     newNode.setAttribute(QStringLiteral("id"), tag.id);
                     if (!tag.xid.isEmpty())
                         newNode.setAttribute(QStringLiteral("xid"), tag.xid);
@@ -372,7 +372,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
             if (data && data->actionType == ContentEditingData::DeleteTag
                 && data->pos == startingPos) {
                 //qCWarning(LOKALIZE_LOG)<<"start deleting tag";
-                data->tags.append(InlineTag(startingPos, -1, InlineTag::getElementType(el.tagName().toUtf8()), el.attribute("id"), el.attribute("xid")));
+                data->tags.append(InlineTag(startingPos, -1, InlineTag::getElementType(el.tagName().toUtf8()), el.attribute(QStringLiteral("id")), el.attribute(QStringLiteral("xid"))));
                 if (data->tags.first().isPaired()) {
                     //get end position
                     ContentEditingData subData(ContentEditingData::Get);
@@ -493,7 +493,7 @@ QString XliffStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFir
 {
     QString str = source(pos);
     if (truncateFirstLine) {
-        int truncatePos = str.indexOf("\n");
+        int truncatePos = str.indexOf(QLatin1Char('\n'));
         if (truncatePos != -1)
             str.truncate(truncatePos);
     }
@@ -503,7 +503,7 @@ QString XliffStorage::targetWithPlurals(const DocPosition& pos, bool truncateFir
 {
     QString str = target(pos);
     if (truncateFirstLine) {
-        int truncatePos = str.indexOf("\n");
+        int truncatePos = str.indexOf(QLatin1Char('\n'));
         if (truncatePos != -1)
             str.truncate(truncatePos);
     }
@@ -600,7 +600,7 @@ QVector<AltTrans> XliffStorage::altTrans(const DocPosition& pos) const
         };
         QString typeStr = elem.attribute(QStringLiteral("alttranstype"));
         int i = -1;
-        while (++i < int(sizeof(types) / sizeof(char*)) && types[i] != typeStr)
+        while (++i < int(sizeof(types) / sizeof(char*)) && QLatin1String(types[i]) != typeStr)
             ;
         aTrans.type = AltTrans::Type(i);
 
@@ -726,7 +726,7 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
                 else if (contextType == QLatin1String("linenumber"))
                     linenumber = context.text();
                 if (!(sourcefile.isEmpty() && linenumber.isEmpty()))
-                    result.append(sourcefile + ':' + linenumber);
+                    result.append(sourcefile + QLatin1Char(':') + linenumber);
 
                 context = context.nextSiblingElement(QStringLiteral("context"));
             }

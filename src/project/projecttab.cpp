@@ -364,7 +364,7 @@ void ProjectTab::pologyOnFiles()
 
 void ProjectTab::pologyHasFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    const QString pologyError = m_pologyProcess->readAllStandardError();
+    const QString pologyError = QString::fromLatin1(m_pologyProcess->readAllStandardError());
     if (exitStatus == QProcess::CrashExit) {
         KMessageBox::error(this, i18n("The Pology check has crashed unexpectedly:\n%1", pologyError), i18n("Pology error"));
     } else if (exitCode == 0) {

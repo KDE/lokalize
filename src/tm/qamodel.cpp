@@ -15,7 +15,7 @@
 #include <QCoreApplication>
 #include <klocalizedstring.h>
 
-static const QString ruleTagNames[] = {QString("source"), QString("falseFriend"), QString("target")};
+static const QString ruleTagNames[] = {QStringLiteral("source"), QStringLiteral("falseFriend"), QStringLiteral("target")};
 
 static QStringList domListToStringList(const QDomNodeList& nodes)
 {
@@ -105,7 +105,7 @@ QVariant QaModel::data(const QModelIndex& item, int role) const
     if (role != Qt::DisplayRole && role != Qt::EditRole)
         return QVariant();
 
-    static const QString nl("\n");
+    static const QString nl(QLatin1Char('\n'));
     const QDomElement& entry = m_entries.at(item.row()).toElement();
     return domListToStringList(entry.elementsByTagName(ruleTagNames[item.column()])).join(nl);
 }
@@ -113,15 +113,15 @@ QVariant QaModel::data(const QModelIndex& item, int role) const
 QVector<Rule> QaModel::toVector() const
 {
     QVector<Rule> rules;
-    QDomNodeList m_categories = m_doc.elementsByTagName("category");
+    QDomNodeList m_categories = m_doc.elementsByTagName(QStringLiteral("category"));
     for (int i = 0; i < m_categories.size(); i++) {
-        static const QString ruleTagName("rule");
+        static const QString ruleTagName(QStringLiteral("rule"));
         QDomNodeList m_rules = m_categories.at(i).toElement().elementsByTagName(ruleTagName);
         for (int j = 0; j < m_rules.size(); j++) {
             Rule rule;
             rule.sources = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[Source]));
             rule.falseFriends = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(ruleTagNames[FalseFriend]));
-            rule.targets = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName("target"));
+            rule.targets = domListToRegExpVector(m_rules.at(j).toElement().elementsByTagName(QStringLiteral("target")));
             rules.append(rule);
         }
     }
@@ -145,7 +145,7 @@ bool QaModel::loadRules(const QString& filename)
                              "</qa>\n"));
     }
 
-    m_entries = m_doc.elementsByTagName("rule");
+    m_entries = m_doc.elementsByTagName(QStringLiteral("rule"));
     m_filename = filename;
     return true;
 }
@@ -173,8 +173,8 @@ QModelIndex QaModel::appendRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
 
-    QDomElement category = m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
-    QDomElement rule = category.appendChild(m_doc.createElement("rule")).toElement();
+    QDomElement category = m_doc.elementsByTagName(QStringLiteral("qa")).at(0).toElement().elementsByTagName(QStringLiteral("category")).at(0).toElement();
+    QDomElement rule = category.appendChild(m_doc.createElement(QStringLiteral("rule"))).toElement();
     rule.appendChild(m_doc.createElement(ruleTagNames[Source]));
     rule.appendChild(m_doc.createElement(ruleTagNames[FalseFriend]));
 
@@ -188,7 +188,7 @@ void QaModel::removeRow(const QModelIndex& rowIndex)
     //TODO optimize for contiguous selections
     beginRemoveRows(QModelIndex(), rowIndex.row(), rowIndex.row());
 
-    QDomElement category = m_doc.elementsByTagName("qa").at(0).toElement().elementsByTagName("category").at(0).toElement();
+    QDomElement category = m_doc.elementsByTagName(QStringLiteral("qa")).at(0).toElement().elementsByTagName(QStringLiteral("category")).at(0).toElement();
     category.removeChild(m_entries.at(rowIndex.row()));
 
     endRemoveRows();
@@ -208,7 +208,7 @@ bool QaModel::setData(const QModelIndex& item, const QVariant& value, int role)
     QDomElement entry = m_entries.at(item.row()).toElement();
     QDomNodeList sources = entry.elementsByTagName(ruleTagNames[item.column()]);
 
-    QStringList newSources = value.toString().split('\n');
+    QStringList newSources = value.toString().split(QLatin1Char('\n'));
     while (sources.size() < newSources.size())
         entry.insertAfter(m_doc.createElement(ruleTagNames[item.column()]), sources.at(sources.size() - 1));
 

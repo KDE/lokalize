@@ -114,13 +114,13 @@ void WebQueryView::slotUseSuggestion(int i)
 void WebQueryView::addWebQueryResult(const QString& name, const QString& str)
 {
     QString html(str);
-    html.replace('<', "&lt;");
-    html.replace('>', "&gt;");
-    html.append(QString("<br><br>"));
-    html.prepend(QString("[%2] /%1/ ").arg(name).arg(
+    html.replace(QLatin1Char('<'), QLatin1String("&lt;"));
+    html.replace(QLatin1Char('>'), QLatin1String("&gt;"));
+    html.append(QLatin1String("<br><br>"));
+    html.prepend(QLatin1String("[%2] /%1/ ").arg(name).arg(
                      (m_suggestions.size() < m_actions.size()) ?
                      m_actions.at(m_suggestions.size())->shortcut().toString() :
-                     " - "));
+                     QStringLiteral(" - ")));
 
     m_browser->insertHtml(html);
     //m_flowLayout->addWebQueryResult(str);

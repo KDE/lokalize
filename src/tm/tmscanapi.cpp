@@ -125,7 +125,7 @@ static QVector<ScanJob*> TM::doScanRecursive(const QDir& dir, const QString& dbN
     QStringList filters = Catalog::supportedExtensions();
     i = filters.size();
     while (--i >= 0)
-        filters[i].prepend('*');
+        filters[i].prepend(QLatin1Char('*'));
     QStringList files(dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot | QDir::Readable));
     i = files.size();
 

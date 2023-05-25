@@ -28,7 +28,7 @@ const char* const* processes()
 ProjectLocal::PersonRole roleForProcess(const QString& process)
 {
     int i = ProjectLocal::Undefined;
-    while (i >= 0 && !process.startsWith(processes()[--i]))
+    while (i >= 0 && !process.startsWith(QLatin1String(processes()[--i])))
         ;
     return (i == -1) ? Project::local()->role() : ProjectLocal::PersonRole(i);
 }
@@ -39,7 +39,7 @@ void generatePhaseForCatalogIfNeeded(Catalog* catalog)
         return;
 
     Phase phase;
-    phase.process = processes()[Project::local()->role()];
+    phase.process = QLatin1String(processes()[Project::local()->role()]);
 
     if (initPhaseForCatalog(catalog, phase))
         static_cast<QUndoStack*>(catalog)->push(new UpdatePhaseCmd(catalog, phase));

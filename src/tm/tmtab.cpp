@@ -87,18 +87,18 @@ void TMDBModel::setFilter(const QString& source, const QString& target,
                           const QString& filemask
                          )
 {
-    QString escapedSource(source); escapedSource.replace('\'', QStringLiteral("''"));
-    QString escapedTarget(target); escapedTarget.replace('\'', QStringLiteral("''"));
+    QString escapedSource(source); escapedSource.replace(QLatin1Char('\''), QStringLiteral("''"));
+    QString escapedTarget(target); escapedTarget.replace(QLatin1Char('\''), QStringLiteral("''"));
     QString invertSourceStr; if (invertSource) invertSourceStr = QStringLiteral("NOT ");
     QString invertTargetStr; if (invertTarget) invertTargetStr = QStringLiteral("NOT ");
-    QString escapedFilemask(filemask); escapedFilemask.replace('\'', QStringLiteral("''"));
+    QString escapedFilemask(filemask); escapedFilemask.replace(QLatin1Char('\''), QStringLiteral("''"));
     QString sourceQuery;
     QString targetQuery;
     QString fileQuery;
 
     if (m_queryType == SubStr) {
-        escapedSource.replace('%', QStringLiteral("\b%")); escapedSource.replace('_', QStringLiteral("\b_"));
-        escapedTarget.replace('%', QStringLiteral("\b%")); escapedTarget.replace('_', QStringLiteral("\b_"));
+        escapedSource.replace(QLatin1Char('%'), QStringLiteral("\b%")); escapedSource.replace(QLatin1Char('_'), QStringLiteral("\b_"));
+        escapedTarget.replace(QLatin1Char('%'), QStringLiteral("\b%")); escapedTarget.replace(QLatin1Char('_'), QStringLiteral("\b_"));
         if (!escapedSource.isEmpty())
             sourceQuery = QStringLiteral("AND source_strings.source ") + invertSourceStr + QStringLiteral("LIKE '%") + escapedSource + QStringLiteral("%' ESCAPE '\b' ");
         if (!escapedTarget.isEmpty())
@@ -209,7 +209,7 @@ QVariant TMDBModel::data(const QModelIndex& item, int role) const
 
     if (item.column() == TMDBModel::Context) { //context
         QString r = result.toString();
-        int pos = r.indexOf(TM_DELIMITER);
+        int pos = r.indexOf(QLatin1Char(TM_DELIMITER));
         if (pos != -1)
             result = r.remove(pos, r.size());
     } else if (item.column() < TMDBModel::Context && !record(item.row()).isNull(TMDBModel::_SourceAccel + item.column())) { //source, target
@@ -570,8 +570,8 @@ void TMTab::handleResults()
                                    DocPosition::Comment;  //leave a note that we should also try w/o package if the current one doesn't succeed
             return performQuery();
         }
-        if (!filemask.isEmpty() && !filemask.contains('*')) {
-            ui_queryOptions->filemask->setText('*' + filemask + '*');
+        if (!filemask.isEmpty() && !filemask.contains(QLatin1Char('*'))) {
+            ui_queryOptions->filemask->setText(QLatin1Char('*') + filemask + QLatin1Char('*'));
             return performQuery();
         }
     }
@@ -769,7 +769,7 @@ bool TMTab::findGuiTextPackage(QString text, QString package)
     source_target_query[tryNowPart == DocPosition::Source]->setText(text);
     ui_queryOptions->invertSource->setChecked(false);
     ui_queryOptions->invertTarget->setChecked(false);
-    if (!package.isEmpty()) package = '*' + package + '*';
+    if (!package.isEmpty()) package = QLatin1Char('*') + package + QLatin1Char('*');
     ui_queryOptions->filemask->setText(package);
     ui_queryOptions->queryStyle->setCurrentIndex(TMDBModel::Glob);
     performQuery();

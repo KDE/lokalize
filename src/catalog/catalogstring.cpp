@@ -154,7 +154,7 @@ QString InlineTag::displayName() const
             I18N_NOOP2("XLIFF mark type", "variant: one of the alternate forms of a term")
         };
         int i = sizeof(mrkTypes) / sizeof(char*);
-        while (--i >= 0 && mrkTypes[i] != id)
+        while (--i >= 0 && QLatin1String(mrkTypes[i]) != id)
             ;
         if (i != -1) {
             result = i18nc("XLIFF mark type", mrkTypeNames[i]);
@@ -164,7 +164,7 @@ QString InlineTag::displayName() const
     }
 
     if (!ctype.isEmpty())
-        result += " (" + ctype + ')';
+        result += QLatin1String(" (") + ctype + QLatin1Char(')');
 
     return result;
 }

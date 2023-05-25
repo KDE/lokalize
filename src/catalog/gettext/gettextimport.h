@@ -56,7 +56,7 @@ public:
     ConversionStatus load(QIODevice*) override;
     const QString id()
     {
-        return "GNU gettext";
+        return QStringLiteral("GNU gettext");
     }
 
 private:

@@ -89,7 +89,7 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
             //TODO check len of the actual stringlist??
             const int forms = catalog->numberOfPluralForms();
             for (int i = 0; i < forms; ++i) {
-                QString keyword = QStringLiteral("msgstr[") + QString::number(i) + ']';
+                QString keyword = QStringLiteral("msgstr[") + QString::number(i) + QLatin1Char(']');
                 writeKeyword(stream, keyword, catalogItem.msgstr(i), true, catalogItem.prependEmptyForMsgstr());
             }
         }
@@ -124,7 +124,7 @@ void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comme
         // We must check that each comment line really starts with a #, to avoid syntax errors
         int pos = 0;
         for (;;) {
-            const int newpos = comment.indexOf('\n', pos, Qt::CaseInsensitive);
+            const int newpos = comment.indexOf(QLatin1Char('\n'), pos, Qt::CaseInsensitive);
             if (newpos == pos) {
                 ++pos;
                 stream << '\n';
@@ -136,10 +136,10 @@ void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comme
             QString spaces; // Stored leading spaces
             for (int i = 0 ; i < len ; ++i) {
                 const QChar& ch = span[ i ];
-                if (ch == '#') {
+                if (ch == QLatin1Char('#')) {
                     stream << spaces << span.mid(i);
                     break;
-                } else if (ch == ' ' || ch == '\t') {
+                } else if (ch == QLatin1Char(' ') || ch == QLatin1Char('\t')) {
                     // We have a leading white space character, so store it temporary
                     spaces += ch;
                 } else {
@@ -194,12 +194,12 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
         // No wrapping (like Gettext's --no.wrap or -w0 )
         // we need to remove the \n characters, as they are extra characters
         QString realText(text);
-        realText.remove('\n');
+        realText.remove(QLatin1Char('\n'));
         stream << keyword << " \"" << realText << "\"\n";
         return;
     } else if (m_wrapWidth <= 3) {
         // No change in wrapping
-        QStringList list = text.split('\n');
+        QStringList list = text.split(QLatin1Char('\n'));
         if (list.count() > 1 || startedWithEmptyLine /* || keyword.length()+3+text.length()>=80*/)
             list.prepend(QString());
 
@@ -212,9 +212,9 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     }
 
     // lazy wrapping
-    QStringList list = text.split('\n', Qt::SkipEmptyParts);
+    QStringList list = text.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
 
-    if (text.startsWith('\n'))
+    if (text.startsWith(QLatin1Char('\n')))
         list.prepend(QString());
 
     if (list.isEmpty())

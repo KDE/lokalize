@@ -89,7 +89,7 @@ static void doSplit(QString& cleanEn,
         for (; i < words.size(); ++i) {
             if (words.at(i).size() < 4)
                 words.removeAt(i--);
-            else if (words.at(i).startsWith('t') && words.at(i).size() == 4) {
+            else if (words.at(i).startsWith(QLatin1Char('t')) && words.at(i).size() == 4) {
                 if (words.at(i) == QLatin1String("then")
                     || words.at(i) == QLatin1String("than")
                     || words.at(i) == QLatin1String("that")
@@ -109,11 +109,10 @@ static qlonglong getFileId(const QString& path,
     QString escapedPath = path;
     escapedPath.replace(QLatin1Char('\''), QLatin1String("''"));
 
-    QString pathExpr = QStringLiteral("path='") + escapedPath + '\'';
+    QString pathExpr = QStringLiteral("path='") + escapedPath + QLatin1Char('\'');
     if (path.isEmpty())
         pathExpr = QStringLiteral("path ISNULL");
-    if (Q_UNLIKELY(!query1.exec(U("SELECT id FROM files WHERE "
-                                  "path='") + escapedPath + '\'')))
+    if (Q_UNLIKELY(!query1.exec(U("SELECT id FROM files WHERE path='") + escapedPath + QLatin1Char('\''))))
         qCWarning(LOKALIZE_LOG) << "select db error: " << query1.lastError().text();
 
     if (Q_LIKELY(query1.next())) {
@@ -161,8 +160,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
     int j = words.size();
     while (--j >= 0) {
         // insert word (if we do not have it)
-        if (Q_UNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE "
-                                      "word='") + words.at(j) + '\'')))
+        if (Q_UNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE word='") + words.at(j) + QLatin1Char('\''))))
             qCWarning(LOKALIZE_LOG) << "select error 3: " << query1.lastError().text();
 
         //we _have_ it
@@ -187,7 +185,7 @@ static void addToIndex(qlonglong sourceId, QString sourceString,
                 || arr == sourceIdStr)
                 return;//this string is already indexed
 
-            query1.prepare(QStringLiteral("UPDATE words SET ") + field + QStringLiteral("=? WHERE word='") + words.at(j) + '\'');
+            query1.prepare(QStringLiteral("UPDATE words SET ") + field + QStringLiteral("=? WHERE word='") + words.at(j) + QLatin1Char('\''));
 
             if (!arr.isEmpty())
                 arr += ' ';
@@ -254,8 +252,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
     int j = words.size();
     while (--j >= 0) {
         // remove from record for the word (if we do not have it)
-        if (Q_UNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE "
-                                      "word='") + words.at(j) + '\''))) {
+        if (Q_UNLIKELY(!query1.exec(U("SELECT word, ids_short, ids_long FROM words WHERE word='") + words.at(j) + QLatin1Char('\'')))) {
             qCWarning(LOKALIZE_LOG) << "select error 3: " << query1.lastError().text();
             return;
         }
@@ -287,9 +284,7 @@ static void removeFromIndex(qlonglong mainId, qlonglong sourceId, QString source
             arr.clear();
 
 
-        query1.prepare(U("UPDATE words "
-                         "SET ") + field + U("=? "
-                                             "WHERE word='") + words.at(j) + '\'');
+        query1.prepare(U("UPDATE words SET ") + field + U("=? WHERE word='") + words.at(j) + QLatin1Char('\''));
 
         query1.bindValue(0, arr);
 
@@ -492,7 +487,7 @@ static bool doInsertEntry(CatalogString source,
 
     if (Q_UNLIKELY(!query1.exec(QString(U("SELECT id, target, bits FROM main WHERE "
                                           "source=%1 AND file=%2 AND ctxt%3")).arg(sourceId).arg(fileId).arg
-                                (escapedCtxt.isEmpty() ? QStringLiteral(" ISNULL") : QString("='" + escapedCtxt + '\''))))) {
+                                (escapedCtxt.isEmpty() ? QStringLiteral(" ISNULL") : QString(QStringLiteral("='") + escapedCtxt + QLatin1Char('\'')))))) {
         qCWarning(LOKALIZE_LOG) << "doInsertEntry: select db main error: " << query1.lastError().text();
         return false;
     }
@@ -988,7 +983,7 @@ void OpenDBJob::run()
             QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
             QFileInfo fileInfo(dbFolder);
             if (!fileInfo.exists(dbFolder)) fileInfo.absoluteDir().mkpath(fileInfo.fileName());
-            db.setDatabaseName(dbFolder + QLatin1Char('/') + m_dbName + TM_DATABASE_EXTENSION);
+            db.setDatabaseName(dbFolder + QLatin1Char('/') + m_dbName + QLatin1String(TM_DATABASE_EXTENSION));
             m_connectionSuccessful = db.open();
             if (Q_UNLIKELY(!m_connectionSuccessful)) {
                 qCWarning(LOKALIZE_LOG) << "failed to open db" << db.databaseName() << db.lastError().text();
@@ -1019,7 +1014,7 @@ void OpenDBJob::run()
             }
 
             if (!m_connParams.isFilled()) {
-                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName + REMOTETM_DATABASE_EXTENSION);
+                QFile rdb(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + m_dbName + QLatin1String(REMOTETM_DATABASE_EXTENSION));
                 if (!rdb.open(QIODevice::ReadOnly | QIODevice::Text)) {
                     Q_EMIT done(this);
                     return;
@@ -1194,7 +1189,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
     TMConfig c = getConfig(db);
     QString tmp = c.markup;
     if (!c.markup.isEmpty())
-        tmp += '|';
+        tmp += QLatin1Char('|');
     QRegExp rxSplit(QLatin1Char('(') + tmp + QStringLiteral("\\W+|\\d+)+"));
 
     QString sourceClean(m_source.string);
@@ -1222,7 +1217,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             qlonglong level = clit.key();
             QString joined;
             while (level == clit.key()) {
-                joined += QString::number(clit.value()) + ',';
+                joined += QString::number(clit.value()) + QLatin1Char(',');
                 if (clit == concordanceLevelToIds.constBegin() || --limit < 0)
                     break;
                 --clit;
@@ -1232,7 +1227,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
             //get records containing current word
             QSqlQuery queryFetch(U(
                                      "SELECT id, source, source_accel, source_markup FROM source_strings WHERE "
-                                     "source_strings.id IN (") + joined + ')', db);
+                                     "source_strings.id IN (") + joined + QLatin1Char(')'), db);
             TMEntry e;
             while (queryFetch.next()) {
                 e.id = queryFetch.value(0).toLongLong();
@@ -1357,7 +1352,7 @@ bool SelectJob::doSelect(QSqlDatabase& db,
                     e.target = CatalogString(makeAcceledString(queryRest.value(4).toString(), c.accel, queryRest.value(5)),
                                              queryRest.value(6).toByteArray());
 
-                    QStringList matchData = queryRest.value(2).toString().split(TM_DELIMITER, Qt::KeepEmptyParts); //context|plural
+                    QStringList matchData = queryRest.value(2).toString().split(QLatin1Char(TM_DELIMITER), Qt::KeepEmptyParts); //context|plural
                     e.file = queryRest.value(7).toString();
                     if (e.target.isEmpty())
                         continue;
@@ -1553,7 +1548,7 @@ void ScanJob::run()
                     */
                     ok = ok && doInsertEntry(catalog.sourceWithTags(ppos),
                                              catalog.targetWithTags(ppos),
-                                             catalog.context(ppos).first() + TM_DELIMITER + QString::number(ppos.form),
+                                             catalog.context(ppos).first() + QLatin1Char(TM_DELIMITER) + QString::number(ppos.form),
                                              catalog.isApproved(ppos),
                                              fileId, db, rxClean1, c.accel, priorId, priorId);
                 }
@@ -1700,7 +1695,7 @@ void UpdateJob::run()
     qlonglong fileId = getFileId(m_filePath, db);
 
     if (m_form != -1)
-        m_ctxt += TM_DELIMITER + QString::number(m_form);
+        m_ctxt += QLatin1Char(TM_DELIMITER) + QString::number(m_form);
 
     QSqlQuery queryBegin(QStringLiteral("BEGIN"), db);
     qlonglong priorId = -1;
@@ -1825,7 +1820,7 @@ bool TmxParser::startElement(const QString&, const QString&,
         else if (attrLang == m_dbLangCode)
             m_lang = Target;
         else {
-            qCWarning(LOKALIZE_LOG) << "skipping lang" << attr.value("xml:lang");
+            qCWarning(LOKALIZE_LOG) << "skipping lang" << attr.value(QStringLiteral("xml:lang"));
             m_lang = Null;
         }
     } else if (qName == QLatin1String("prop")) {
@@ -1863,7 +1858,7 @@ bool TmxParser::endElement(const QString&, const QString&, const QString& qName)
         qlonglong fileId = m_fileIds.value(m_filePath);
 
         if (!m_pluralForm.isEmpty())
-            m_context += TM_DELIMITER + m_pluralForm;
+            m_context += QLatin1Char(TM_DELIMITER) + m_pluralForm;
 
         qlonglong priorId = -1;
         bool ok = doInsertEntry(m_segment[Source],
@@ -2031,19 +2026,19 @@ void ExportTmxJob::run()
         xmlOut.writeAttribute(QStringLiteral("changedate"), QDate::fromString(query1.value(9).toString(), Qt::ISODate).toString(DATE_FORMAT));
         QString ctxt = query1.value(1).toString();
         if (!ctxt.isEmpty()) {
-            int pos = ctxt.indexOf(TM_DELIMITER);
+            int pos = ctxt.indexOf(QLatin1Char(TM_DELIMITER));
             if (pos != -1) {
                 QString plural = ctxt;
                 plural.remove(0, pos + 1);
                 ctxt.remove(pos, plural.size());
                 xmlOut.writeStartElement(PROP);
-                xmlOut.writeAttribute(TYPE, "x-pluralform");
+                xmlOut.writeAttribute(TYPE, QStringLiteral("x-pluralform"));
                 xmlOut.writeCharacters(plural);
                 xmlOut.writeEndElement();
             }
             if (!ctxt.isEmpty()) {
                 xmlOut.writeStartElement(PROP);
-                xmlOut.writeAttribute(TYPE, "x-context");
+                xmlOut.writeAttribute(TYPE, QStringLiteral("x-context"));
                 xmlOut.writeCharacters(ctxt);
                 xmlOut.writeEndElement();
             }
@@ -2051,7 +2046,7 @@ void ExportTmxJob::run()
         QString filePath = query1.value(8).toString();
         if (!filePath.isEmpty()) {
             xmlOut.writeStartElement(PROP);
-            xmlOut.writeAttribute(TYPE, "x-file");
+            xmlOut.writeAttribute(TYPE, QStringLiteral("x-file"));
             xmlOut.writeCharacters(filePath);
             xmlOut.writeEndElement();
         }
@@ -2059,8 +2054,8 @@ void ExportTmxJob::run()
         if (bits & TM_NOTAPPROVED)
             if (!filePath.isEmpty()) {
                 xmlOut.writeStartElement(PROP);
-                xmlOut.writeAttribute(TYPE, "x-approved");
-                xmlOut.writeCharacters("no");
+                xmlOut.writeAttribute(TYPE, QStringLiteral("x-approved"));
+                xmlOut.writeCharacters(QStringLiteral("no"));
                 xmlOut.writeEndElement();
             }
         xmlOut.writeStartElement(QStringLiteral("seg"));

@@ -223,7 +223,7 @@ QString GNUPluralForms(const QString& lang)
         return def;
     }
 
-    return QString(result.mid(pos, end - pos - 2));
+    return QString::fromLatin1(result.mid(pos, end - pos - 2));
     //END alternative
 }
 
@@ -234,7 +234,7 @@ QString formatGettextDate(const QDateTime &dt)
     const int offset_seconds = dt.offsetFromUtc();
     const int offset_hours = abs(offset_seconds) / 3600;
     const int offset_minutes = abs(offset_seconds % 3600) / 60;
-    QString zoneOffsetString = (offset_seconds >= 0 ? '+' : '-') + (offset_hours < 10 ? QStringLiteral("0") : QString()) + QString::number(offset_hours) + (offset_minutes < 10 ? QStringLiteral("0") : QString()) + QString::number(offset_minutes);
+    QString zoneOffsetString = (offset_seconds >= 0 ? QLatin1Char('+') : QLatin1Char('-')) + (offset_hours < 10 ? QStringLiteral("0") : QString()) + QString::number(offset_hours) + (offset_minutes < 10 ? QStringLiteral("0") : QString()) + QString::number(offset_minutes);
 
     return dateTimeString + zoneOffsetString;
 }
@@ -251,8 +251,8 @@ void updateHeader(QString& header,
 {
     askAuthorInfoIfEmpty();
 
-    QStringList headerList(header.split('\n', Qt::SkipEmptyParts));
-    QStringList commentList(comment.split('\n', Qt::SkipEmptyParts));
+    QStringList headerList(header.split(QLatin1Char('\n'), Qt::SkipEmptyParts));
+    QStringList commentList(comment.split(QLatin1Char('\n'), Qt::SkipEmptyParts));
 
 //BEGIN header itself
     QStringList::Iterator it, ait;
@@ -282,7 +282,7 @@ void updateHeader(QString& header,
     bool found = false;
     authorNameEmail = Settings::authorName();
     if (!Settings::authorEmail().isEmpty())
-        authorNameEmail += (QStringLiteral(" <") + Settings::authorEmail() + '>');
+        authorNameEmail += (QStringLiteral(" <") + Settings::authorEmail() + QLatin1Char('>'));
     temp = QStringLiteral("Last-Translator: ") + authorNameEmail + BACKSLASH_N;
 
     QRegExp lt(QStringLiteral("^ *Last-Translator:.*"));
@@ -386,7 +386,7 @@ void updateHeader(QString& header,
     if (Q_UNLIKELY(!found))
         headerList.append(temp);
 
-    temp = QStringLiteral("Content-Type: text/plain; charset=") + codec->name() + BACKSLASH_N;
+    temp = QStringLiteral("Content-Type: text/plain; charset=") + QString::fromLatin1(codec->name()) + BACKSLASH_N;
     QRegExp ctRe(QStringLiteral("^ *Content-Type:.*"));
     for (it = headerList.begin(), found = false; it != headerList.end() && !found; ++it) {
         found = it->contains(ctRe);
@@ -559,7 +559,7 @@ void updateHeader(QString& header,
 //                        return;
     QStringList foundAuthors;
 
-    temp = QStringLiteral("# ") + authorNameEmail + QStringLiteral(", ") + cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) + '.';
+    temp = QStringLiteral("# ") + authorNameEmail + QStringLiteral(", ") + cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) + QLatin1Char('.');
 
     // ### TODO: it would be nice if the entry could start with "COPYRIGHT" and have the "(C)" symbol (both not mandatory)
     QRegExp regexpAuthorYear(QStringLiteral("^#.*(<.+@.+>)?,\\s*([\\d]+[\\d\\-, ]*|YEAR)"));

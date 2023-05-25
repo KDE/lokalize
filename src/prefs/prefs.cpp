@@ -69,10 +69,10 @@ SettingsController::SettingsController()
 
 void SettingsController::showSettingsDialog()
 {
-    if (KConfigDialog::showDialog("lokalize_settings"))
+    if (KConfigDialog::showDialog(QStringLiteral("lokalize_settings")))
         return;
 
-    KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, "lokalize_settings", Settings::self());
+    KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, QStringLiteral("lokalize_settings"), Settings::self());
     dialog->setFaceType(KPageDialog::List);
 
 // Identity
@@ -93,7 +93,7 @@ void SettingsController::showSettingsDialog()
     connect(ui_prefs_identity.kcfg_overrideLangTeam, &QCheckBox::toggled, ui_prefs_identity.kcfg_userLangTeam, &QLineEdit::setEnabled);
     connect(ui_prefs_identity.kcfg_overrideLangTeam, &QCheckBox::toggled, ui_prefs_identity.kcfg_userLangTeam, &QLineEdit::focusWidget);
 
-    dialog->addPage(w, i18nc("@title:tab", "Identity"), "preferences-desktop-user");
+    dialog->addPage(w, i18nc("@title:tab", "Identity"), QStringLiteral("preferences-desktop-user"));
 
 //General
     w = new QWidget(dialog);
@@ -105,37 +105,37 @@ void SettingsController::showSettingsDialog()
     ui_prefs_general.kcfg_CustomEditorCommand->setToolTip(i18n(
                 "The following parameters are available\n%1 - Path of the source file\n%2 - Line number"
                 , QStringLiteral("%1"), QStringLiteral("%2")));
-    dialog->addPage(w, i18nc("@title:tab", "General"), "preferences-system-windows");
+    dialog->addPage(w, i18nc("@title:tab", "General"), QStringLiteral("preferences-system-windows"));
 
 //Editor
     w = new QWidget(dialog);
     Ui_prefs_editor ui_prefs_editor;
     ui_prefs_editor.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab", "Editing"), "accessories-text-editor");
+    dialog->addPage(w, i18nc("@title:tab", "Editing"), QStringLiteral("accessories-text-editor"));
 
 //Font
     w = new QWidget(dialog);
     Ui_prefs_appearance ui_prefs_appearance;
     ui_prefs_appearance.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab", "Appearance"), "preferences-desktop-font");
+    dialog->addPage(w, i18nc("@title:tab", "Appearance"), QStringLiteral("preferences-desktop-font"));
 
 //TM
     w = new QWidget(dialog);
     Ui_prefs_tm ui_prefs_tm;
     ui_prefs_tm.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab", "Translation Memory"), "configure");
+    dialog->addPage(w, i18nc("@title:tab", "Translation Memory"), QStringLiteral("configure"));
 
 //Pology
     w = new QWidget(dialog);
     Ui_prefs_pology ui_prefs_pology;
     ui_prefs_pology.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab", "Pology"), "preferences-desktop-filetype-association");
+    dialog->addPage(w, i18nc("@title:tab", "Pology"), QStringLiteral("preferences-desktop-filetype-association"));
 
 //LanguageTool
     w = new QWidget(dialog);
     Ui_prefs_languagetool ui_prefs_languagetool;
     ui_prefs_languagetool.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab", "LanguageTool"), "lokalize");
+    dialog->addPage(w, i18nc("@title:tab", "LanguageTool"), QStringLiteral("lokalize"));
 
     connect(dialog, &KConfigDialog::settingsChanged, this, &SettingsController::generalSettingsChanged);
 
@@ -173,8 +173,8 @@ bool SettingsController::ensureProjectIsLoaded()
                 m_mainWindowPtr,
                 i18n("You have accessed a feature that requires a project to be loaded. Do you want to create a new project or open an existing project?"),
                 i18nc("@title", "Project Required"),
-                KGuiItem(i18nc("@action", "Create Project"), QIcon::fromTheme("document-new")),
-                KGuiItem(i18nc("@action", "Open Project"), QIcon::fromTheme("project-open")));
+                KGuiItem(i18nc("@action", "Create Project"), QIcon::fromTheme(QStringLiteral("document-new"))),
+                KGuiItem(i18nc("@action", "Open Project"), QIcon::fromTheme(QStringLiteral("project-open"))));
 
     if (answer == KMessageBox::PrimaryAction)
         return projectCreate();
@@ -215,7 +215,7 @@ bool SettingsController::projectCreate()
     //KDE5PORT mutex if needed
     QString desirablePath = Project::instance()->desirablePath();
     if (desirablePath.isEmpty())
-        desirablePath = QDir::homePath() + "/index.lokalize";
+        desirablePath = QDir::homePath() + QStringLiteral("/index.lokalize");
     QString path = QFileDialog::getSaveFileName(m_mainWindowPtr, i18nc("@window:title", "Select folder with Gettext .po files to translate"), desirablePath, i18n("Lokalize translation project (*.lokalize)") /*"text/x-lokalize-project"*/);
     //Project::instance()->model()->weaver()->resume();
     if (path.isEmpty())
@@ -224,7 +224,7 @@ bool SettingsController::projectCreate()
     //TODO ask-n-save
     QDir projectFolder = QFileInfo(path).absoluteDir();
     QString projectId = projectFolder.dirName();
-    if (projectFolder.cdUp()) projectId = projectFolder.dirName() + '-' + projectId;;
+    if (projectFolder.cdUp()) projectId = projectFolder.dirName() + QLatin1Char('-') + projectId;;
     Project::instance()->load(path, QString(), projectId);
     //Project::instance()->setDefaults(); //NOTE will this be an obstacle?
     //Project::instance()->setProjectID();
@@ -241,7 +241,7 @@ void SettingsController::projectConfigure()
         return;
     }
 
-    KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, "project_settings", Project::instance());
+    KConfigDialog *dialog = new KConfigDialog(m_mainWindowPtr, QStringLiteral("project_settings"), Project::instance());
     dialog->setFaceType(KPageDialog::List);
 
 
@@ -249,7 +249,7 @@ void SettingsController::projectConfigure()
     QWidget *w = new QWidget(dialog);
     Ui_prefs_projectmain ui_prefs_projectmain;
     ui_prefs_projectmain.setupUi(w);
-    dialog->addPage(w, i18nc("@title:tab", "General"), "preferences-desktop-locale");
+    dialog->addPage(w, i18nc("@title:tab", "General"), QStringLiteral("preferences-desktop-locale"));
 
     ui_prefs_projectmain.kcfg_LangCode->hide();
     ui_prefs_projectmain.kcfg_PoBaseDir->hide();
@@ -262,7 +262,7 @@ void SettingsController::projectConfigure()
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File | KFile::LocalOnly);
-    ui_prefs_projectmain.glossaryTbx->setFilter("*.tbx\n*.xml");
+    ui_prefs_projectmain.glossaryTbx->setFilter(QStringLiteral("*.tbx\n*.xml"));
     connect(ui_prefs_projectmain.poBaseDir, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_PoBaseDir, &RelPathSaver::setText);
     connect(ui_prefs_projectmain.glossaryTbx, &KUrlRequester::textChanged, ui_prefs_projectmain.kcfg_GlossaryTbx, &RelPathSaver::setText);
     ui_prefs_projectmain.poBaseDir->setUrl(QUrl::fromLocalFile(p.poDir()));
@@ -295,7 +295,7 @@ void SettingsController::projectConfigure()
     ui_project_advanced.potBaseDir->setUrl(QUrl::fromLocalFile(p.potDir()));
     ui_project_advanced.branchDir->setUrl(QUrl::fromLocalFile(p.branchDir()));
     ui_project_advanced.altDir->setUrl(QUrl::fromLocalFile(p.altTransDir()));
-    dialog->addPage(w, i18nc("@title:tab", "Advanced"), "applications-development-translation");
+    dialog->addPage(w, i18nc("@title:tab", "Advanced"), QStringLiteral("applications-development-translation"));
 
     //Scripts
     w = new QWidget(dialog);
@@ -306,7 +306,7 @@ void SettingsController::projectConfigure()
     w = new QWidget(dialog);
     Ui_prefs_project_local ui_prefs_project_local;
     ui_prefs_project_local.setupUi(w);
-    dialog->addPage(w, Project::local(), i18nc("@title:tab", "Personal"), "preferences-desktop-user");
+    dialog->addPage(w, Project::local(), i18nc("@title:tab", "Personal"), QStringLiteral("preferences-desktop-user"));
 
     connect(dialog, &KConfigDialog::settingsChanged, Project::instance(), &Project::reinit);
     connect(dialog, &KConfigDialog::settingsChanged, Project::instance(), &Project::save, Qt::QueuedConnection);

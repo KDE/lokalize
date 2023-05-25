@@ -496,7 +496,7 @@ void Project::projectOdfCreate()
     fi.absoluteDir().mkdir(trFolderName);
 
     QStringList args(odfPath);
-    args.append(fi.absoluteDir().absoluteFilePath(trFolderName) + '/' + fi.baseName() + QLatin1String(".xlf"));
+    args.append(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1Char('/') + fi.baseName() + QLatin1String(".xlf"));
     qCDebug(LOKALIZE_LOG) << args;
     QProcess::execute(odf2xliff, args);
 
@@ -505,7 +505,7 @@ void Project::projectOdfCreate()
 
     Q_EMIT closed();
 
-    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1String("/index.lokalize"), targetLangCode, fi.baseName() + '-' + targetLangCode);
+    Project::instance()->load(fi.absoluteDir().absoluteFilePath(trFolderName) + QLatin1String("/index.lokalize"), targetLangCode, fi.baseName() + QLatin1Char('-') + targetLangCode);
 
     Q_EMIT fileOpenRequested(args.at(1), true);
 }

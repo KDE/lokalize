@@ -53,11 +53,11 @@ QSize PoItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelI
 {
     QString text = index.data().toString();
     int lineCount = 1;
-    int nPos = text.indexOf('\n');
+    int nPos = text.indexOf(QLatin1Char('\n'));
     if (nPos == -1)
         nPos = text.size();
     else
-        lineCount += text.count('\n');
+        lineCount += text.count(QLatin1Char('\n'));
     static QFontMetrics metrics(option.font);
     return QSize(metrics.averageCharWidth() * nPos, metrics.height() * lineCount);
 }

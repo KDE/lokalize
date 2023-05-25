@@ -307,7 +307,7 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
                         //qCWarning(LOKALIZE_LOG)<<"simple delete"<<localStartPos<<data->lengthOfStringToRemove;
                         c.deleteData(localStartPos, data->lengthOfStringToRemove);
                         data->actionType = TsContentEditingData::CheckLength;
-                        return QString('a');//so it exits 100%
+                        return QStringLiteral("a");//so it exits 100%
                     }
                 }
                 //END DELETE TEXT
@@ -315,7 +315,7 @@ static QString doContent(QDomElement elem, int startingPos, TsContentEditingData
                 else if (data->actionType == TsContentEditingData::InsertText) {
                     c.insertData(localStartPos, data->stringToInsert);
                     data->actionType = TsContentEditingData::CheckLength;
-                    return QString('a');//so it exits 100%
+                    return QStringLiteral("a");//so it exits 100%
                 }
                 cData = c.data();
             }
@@ -375,7 +375,7 @@ QString TsStorage::sourceWithPlurals(const DocPosition& pos, bool truncateFirstL
 {
     QString str = source(pos);
     if (truncateFirstLine) {
-        int truncatePos = str.indexOf("\n");
+        int truncatePos = str.indexOf(QLatin1Char('\n'));
         if (truncatePos != -1)
             str.truncate(truncatePos);
     }
@@ -385,7 +385,7 @@ QString TsStorage::targetWithPlurals(const DocPosition& pos, bool truncateFirstL
 {
     QString str = target(pos);
     if (truncateFirstLine) {
-        int truncatePos = str.indexOf("\n");
+        int truncatePos = str.indexOf(QLatin1Char('\n'));
         if (truncatePos != -1)
             str.truncate(truncatePos);
     }
@@ -451,7 +451,7 @@ QStringList TsStorage::sourceFiles(const DocPosition& pos) const
         QString sourcefile = elem.attribute(QStringLiteral("filename"));
         QString linenumber = elem.attribute(QStringLiteral("line"));
         if (!(sourcefile.isEmpty() && linenumber.isEmpty()))
-            result.append(sourcefile + ':' + linenumber);
+            result.append(sourcefile + QLatin1Char(':') + linenumber);
 
         elem = elem.nextSiblingElement(attrnames[LocationAttr]);
     }
@@ -565,7 +565,7 @@ QStringList TsStorage::matchData(const DocPosition& pos) const
 QString TsStorage::id(const DocPosition& pos) const
 {
     QString result = source(pos);
-    result.remove('\n');
+    result.remove(QLatin1Char('\n'));
     QStringList ctxt = context(pos);
     if (ctxt.size())
         result.prepend(ctxt.first());
@@ -653,9 +653,9 @@ void TsStorage::setTargetLangCode(const QString& langCode)
     m_targetLangCode = langCode;
 
     QDomElement file = m_doc.elementsByTagName(QStringLiteral("TS")).at(0).toElement();
-    if (m_targetLangCode != file.attribute(QStringLiteral("language")).replace('-', '_')) {
+    if (m_targetLangCode != file.attribute(QStringLiteral("language")).replace(QLatin1Char('-'), QLatin1Char('_'))) {
         QString l = langCode;
-        file.setAttribute(QStringLiteral("language"), l.replace('_', '-'));
+        file.setAttribute(QStringLiteral("language"), l.replace(QLatin1Char('_'), QLatin1Char('-')));
     }
 }
 

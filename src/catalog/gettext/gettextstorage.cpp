@@ -162,20 +162,20 @@ QString GettextStorage::sourceWithPlurals(const DocPosition& pos, bool truncateF
         for (int i = 0; i < plurals.size(); i++) {
             QString str = plurals.at(i);
             if (truncateFirstLine) {
-                int truncatePos = str.indexOf("\n");
+                const int truncatePos = str.indexOf(QLatin1Char('\n'));
                 if (truncatePos != -1)
                     str.truncate(truncatePos);
             }
             pluralString += str;
             if (i != plurals.size() - 1) {
-                pluralString += '|';
+                pluralString += QLatin1Char('|');
             }
         }
         return pluralString;
     } else {
         QString str = m_entries.at(pos.entry).msgid(pos.form);
         if (truncateFirstLine) {
-            int truncatePos = str.indexOf("\n");
+            const int truncatePos = str.indexOf(QLatin1Char('\n'));
             if (truncatePos != -1)
                 str.truncate(truncatePos);
         }
@@ -190,20 +190,20 @@ QString GettextStorage::targetWithPlurals(const DocPosition& pos, bool truncateF
         for (int i = 0; i < plurals.size(); i++) {
             QString str = plurals.at(i);
             if (truncateFirstLine) {
-                int truncatePos = str.indexOf("\n");
+                const int truncatePos = str.indexOf(QLatin1Char('\n'));
                 if (truncatePos != -1)
                     str.truncate(truncatePos);
             }
             pluralString += str;
             if (i != plurals.size() - 1) {
-                pluralString += '|';
+                pluralString += QLatin1Char('|');
             }
         }
         return pluralString;
     } else {
         QString str = m_entries.at(pos.entry).msgstr(pos.form);
         if (truncateFirstLine) {
-            int truncatePos = str.indexOf("\n");
+            const int truncatePos = str.indexOf(QLatin1Char('\n'));
             if (truncatePos != -1)
                 str.truncate(truncatePos);
         }
@@ -250,7 +250,7 @@ QStringList GettextStorage::targetAllForms(const DocPosition& pos, bool stripNew
 QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
 {
     static const QRegExp alt_trans_mark_re(QStringLiteral("^#\\|"));
-    QStringList prev = m_entries.at(pos.entry).comment().split('\n').filter(alt_trans_mark_re);
+    QStringList prev = m_entries.at(pos.entry).comment().split(QLatin1Char('\n')).filter(alt_trans_mark_re);
 
     QString oldSingular;
     QString oldPlural;
@@ -262,11 +262,11 @@ QVector<AltTrans> GettextStorage::altTrans(const DocPosition& pos) const
         if (it->startsWith(msgid_plural_alt))
             cur = &oldPlural;
 
-        int start = it->indexOf('\"') + 1;
-        int end = it->lastIndexOf('\"');
+        const int start = it->indexOf(QLatin1Char('\"')) + 1;
+        const int end = it->lastIndexOf(QLatin1Char('\"'));
         if (start && end != -1) {
             if (!cur->isEmpty())
-                (*cur) += '\n';
+                (*cur) += QLatin1Char('\n');
             if (!(cur->isEmpty() && (end - start) == 0)) //for multiline msgs
                 (*cur) += it->midRef(start, end - start);
         }
@@ -291,7 +291,7 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
     QVector<Note> l = notes(pos);
     if (l.size()) oldNote = l.first();
 
-    QStringList comment = m_entries.at(pos.entry).comment().split('\n');
+    QStringList comment = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
     //remove previous comment;
     QStringList::iterator it = comment.begin();
     while (it != comment.end()) {
@@ -301,8 +301,8 @@ Note GettextStorage::setNote(DocPosition pos, const Note& note)
             ++it;
     }
     if (note.content.size())
-        comment.prepend(QStringLiteral("# ") + note.content.split('\n').join(QStringLiteral("\n# ")));
-    m_entries[pos.entry].setComment(comment.join(QStringLiteral("\n")));
+        comment.prepend(QStringLiteral("# ") + note.content.split(QLatin1Char('\n')).join(QStringLiteral("\n# ")));
+    m_entries[pos.entry].setComment(comment.join(QLatin1Char('\n')));
 
     //qCWarning(LOKALIZE_LOG)<<"e"<<m_entries.at(pos.entry).comment();
     return oldNote;
@@ -313,7 +313,7 @@ QVector<Note> GettextStorage::notes(const DocPosition& docPosition, const QRegEx
     QVector<Note> result;
     QString content;
 
-    const QStringList note = m_entries.at(docPosition.entry).comment().split('\n').filter(re);
+    const QStringList note = m_entries.at(docPosition.entry).comment().split(QLatin1Char('\n')).filter(re);
 
     for (const QString &s : note) {
         if (s.size() >= preLen) {
@@ -347,12 +347,12 @@ QVector<Note> GettextStorage::developerNotes(const DocPosition& docPosition) con
 QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
 {
     QStringList result;
-    QStringList commentLines = m_entries.at(pos.entry).comment().split('\n');
+    QStringList commentLines = m_entries.at(pos.entry).comment().split(QLatin1Char('\n'));
 
     static const QRegExp i18n_file_re(QStringLiteral("^#. i18n: file: "));
     const auto uiLines = commentLines.filter(i18n_file_re);
     for (const QString &uiLine : uiLines) {
-        const auto fileRefs = uiLine.midRef(15).split(' ');
+        const auto fileRefs = uiLine.midRef(15).split(QLatin1Char(' '));
         for (const QStringRef &fileRef : fileRefs) {
             result << fileRef.toString();
         }
@@ -362,7 +362,7 @@ QStringList GettextStorage::sourceFiles(const DocPosition& pos) const
     static const QRegExp cpp_re(QStringLiteral("^#: "));
     const auto cppLines = commentLines.filter(cpp_re);
     for (const QString &cppLine : cppLines) {
-        const auto fileRefs = cppLine.midRef(3).split(' ');
+        const auto fileRefs = cppLine.midRef(3).split(QLatin1Char(' '));
         for (const QStringRef &fileRef : fileRefs) {
             if (hasUi && fileRef.startsWith(QLatin1String("rc.cpp:"))) {
                 continue;
@@ -399,8 +399,8 @@ QString GettextStorage::id(const DocPosition& pos) const
     //only if their msgctxts are different
 
     QString result = source(pos);
-    result.remove('\n');
-    result.prepend(m_entries.at(pos.entry).msgctxt() + ":\n");
+    result.remove(QLatin1Char('\n'));
+    result.prepend(m_entries.at(pos.entry).msgctxt() + QLatin1String(":\n"));
     return result;
     /*    QByteArray result=source(pos).toUtf8();
         result+=m_entries.at(pos.entry).msgctxt().toUtf8();

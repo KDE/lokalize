@@ -229,7 +229,7 @@ QStringList CatalogItem::msgstrAsList() const
         qCWarning(LOKALIZE_LOG) << "This should never happen!";
         return QStringList();
     }
-    QStringList list(d._msgstrPlural.first().split('\n', Qt::SkipEmptyParts));
+    QStringList list(d._msgstrPlural.first().split(QLatin1Char('\n'), Qt::SkipEmptyParts));
 
     if (d._msgstrPlural.first() == QLatin1String("\n"))
         list.prepend(QString());
@@ -258,7 +258,7 @@ void CatalogItem::setFuzzy()
     }
 
     QString comment = d._comment;
-    static QRegExp a("\\#\\:[^\n]*\n");
+    static QRegExp a(QStringLiteral("\\#\\:[^\n]*\n"));
     p = a.indexIn(comment);
     if (p != -1) {
         d._comment = comment.insert(p + a.matchedLength(), QLatin1String("#, fuzzy\n"));
