@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-22 00:49+0000\n"
+"POT-Creation-Date: 2023-05-25 00:48+0000\n"
 "PO-Revision-Date: 2018-10-18 16:00+0200\n"
 "Last-Translator: Long Run <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-doc@kde.org>\n"
@@ -797,7 +797,7 @@ msgstr ""
 "sng@hellug.gr, manolis@koppermind.homelinux.org,  gpantsis@gmail.com, "
 "p_vidalis@hotmail.com, famelis@gmail.com"
 
-#: src/catalog/ts/tsstorage.cpp:441
+#: src/catalog/ts/tsstorage.cpp:439
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr ""
@@ -809,13 +809,13 @@ msgid "Translation Units"
 msgstr "Μεταφράσεις"
 
 #: src/cataloglistview/cataloglistview.cpp:74
-#: src/glossary/glossarywindow.cpp:221 src/project/projecttab.cpp:115
+#: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:116
 #, kde-format
 msgid "Quick search..."
 msgstr "Γρήγορη αναζήτηση..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
-#: src/glossary/glossarywindow.cpp:223 src/project/projecttab.cpp:116
+#: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:117
 #, fuzzy, kde-format
 #| msgctxt "@info:tooltip"
 #| msgid "Accepts regular expressions"
@@ -994,21 +994,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Γλώσσα προορισμού"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1103
-#: src/editortab.cpp:1306 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1117
+#: src/editortab.cpp:1320 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Έτοιμο"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1104
-#: src/editortab.cpp:1301 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1118
+#: src/editortab.cpp:1315 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Απαιτείται αναθεώρηση"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1102
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1116
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1041,8 +1041,8 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Τρέχον: %1"
 
-#: src/editortab.cpp:146 src/editortab.cpp:877
-#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:500
+#: src/editortab.cpp:146 src/editortab.cpp:874
+#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:513
 #: src/tm/tmtab.cpp:590
 #, kde-format
 msgctxt "@info:status message entries"
@@ -1075,7 +1075,7 @@ msgctxt "@title actions category"
 msgid "File"
 msgstr "Αρχείο"
 
-#: src/editortab.cpp:194 src/project/projecttab.cpp:146
+#: src/editortab.cpp:194 src/project/projecttab.cpp:147
 #, kde-format
 msgctxt "@title actions category"
 msgid "Navigation"
@@ -1109,25 +1109,25 @@ msgctxt "@title actions category"
 msgid "Glossary"
 msgstr "Γλωσσάρι"
 
-#: src/editortab.cpp:226
+#: src/editortab.cpp:224
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert alternate translation #%1"
 msgstr "Εισαγωγή εναλλακτικής μετάφρασης #%1"
 
-#: src/editortab.cpp:273
+#: src/editortab.cpp:271
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add a note"
 msgstr "Προσθήκη σημείωσης"
 
-#: src/editortab.cpp:294
+#: src/editortab.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert TM suggestion #%1"
 msgstr "Εισαγωγή πρότασης μεταφραστικής μνήμης #%1"
 
-#: src/editortab.cpp:299
+#: src/editortab.cpp:297
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Insert TM suggestion #%1"
@@ -1135,37 +1135,37 @@ msgctxt "@action:inmenu"
 msgid "Remove TM suggestion #%1"
 msgstr "Εισαγωγή πρότασης μεταφραστικής μνήμης #%1"
 
-#: src/editortab.cpp:349
+#: src/editortab.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert term translation #%1"
 msgstr "Εισαγωγή εναλλακτικής μετάφρασης #%1"
 
-#: src/editortab.cpp:360
+#: src/editortab.cpp:357
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Define new term"
 msgstr "Ορισμός νέου όρου"
 
-#: src/editortab.cpp:392
+#: src/editortab.cpp:389
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert WebQuery result #%1"
 msgstr "Εισαγωγή αποτελέσματος ιστού #%1"
 
-#: src/editortab.cpp:433
+#: src/editortab.cpp:430
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Phases..."
 msgstr "Φάσεις..."
 
-#: src/editortab.cpp:436
+#: src/editortab.cpp:433
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Word count"
 msgstr "Καταμέτρηση λέξεων"
 
-#: src/editortab.cpp:439
+#: src/editortab.cpp:436
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Manage translation memories"
@@ -1173,25 +1173,25 @@ msgctxt "@action:inmenu"
 msgid "Clear all translated entries"
 msgstr "Διαχείριση μεταφραστικής μνήμης"
 
-#: src/editortab.cpp:442
+#: src/editortab.cpp:439
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch the Pology command on this file"
 msgstr ""
 
-#: src/editortab.cpp:446
+#: src/editortab.cpp:443
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Merge translation into OpenDocument"
 msgstr "Συγχώνευση μετάφρασης στο OpenDocument"
 
-#: src/editortab.cpp:467
+#: src/editortab.cpp:464
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Change searching direction"
 msgstr "Τροποποίηση κατεύθυνσης αναζήτησης"
 
-#: src/editortab.cpp:478
+#: src/editortab.cpp:475
 #, kde-format
 msgctxt ""
 "@option:check whether message is marked as translated/reviewed/approved "
@@ -1199,97 +1199,97 @@ msgctxt ""
 msgid "Approved"
 msgstr "Εγκεκριμένο"
 
-#: src/editortab.cpp:496
+#: src/editortab.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Approve and go to next"
 msgstr "Έγκριση και μετάβαση στο επόμενο"
 
-#: src/editortab.cpp:505
+#: src/editortab.cpp:502
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Equivalent translation"
 msgstr "Ισοδύναμες μεταφράσεις"
 
-#: src/editortab.cpp:520
+#: src/editortab.cpp:517
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
 msgstr "Αντιγραφή πηγής στον προορισμό"
 
-#: src/editortab.cpp:523
+#: src/editortab.cpp:520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
 msgstr "Ανάπτυξη προορισμού"
 
-#: src/editortab.cpp:528 src/filesearch/filesearchtab.cpp:94
+#: src/editortab.cpp:525 src/filesearch/filesearchtab.cpp:94
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear"
 msgstr "Καθαρισμός"
 
-#: src/editortab.cpp:532
+#: src/editortab.cpp:529
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Tag"
 msgstr "Εισαγωγή ετικέτας"
 
-#: src/editortab.cpp:536
+#: src/editortab.cpp:533
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Check this unit using LanguageTool"
 msgstr ""
 
-#: src/editortab.cpp:540
+#: src/editortab.cpp:537
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Insert Next Tag"
 msgstr "Εισαγωγή επόμενης ετικέτας"
 
-#: src/editortab.cpp:544
+#: src/editortab.cpp:541
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Completion"
 msgstr "Συμπλήρωση"
 
-#: src/editortab.cpp:548
+#: src/editortab.cpp:545
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Replace with best spellcheck suggestion"
 msgstr "Αντικατάσταση με την καλύτερη πρόταση ορθογραφικού ελέγχου"
 
-#: src/editortab.cpp:555
+#: src/editortab.cpp:552
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Next"
 msgstr "Επόμε&νο"
 
-#: src/editortab.cpp:560
+#: src/editortab.cpp:557
 #, kde-format
 msgctxt "@action:inmenu entry"
 msgid "&Previous"
 msgstr "Προηγού&μενο"
 
-#: src/editortab.cpp:566
+#: src/editortab.cpp:563
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
 msgstr "&Πρώτη καταχώρηση"
 
-#: src/editortab.cpp:572
+#: src/editortab.cpp:569
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
 msgstr "&Τελευταία καταχώρηση"
 
-#: src/editortab.cpp:578
+#: src/editortab.cpp:575
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
 msgstr "Καταχώρηση με αριθμό"
 
-#: src/editortab.cpp:580 src/project/projecttab.cpp:154
+#: src/editortab.cpp:577 src/project/projecttab.cpp:155
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1297,7 +1297,7 @@ msgctxt ""
 msgid "Previous non-empty but not ready"
 msgstr "Προηγούμενο μεταφρασμένο αλλά ανέτοιμο"
 
-#: src/editortab.cpp:585 src/project/projecttab.cpp:157
+#: src/editortab.cpp:582 src/project/projecttab.cpp:158
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1305,19 +1305,19 @@ msgctxt ""
 msgid "Next non-empty but not ready"
 msgstr "Επόμενο μη άδειο αλλά ανέτοιμο"
 
-#: src/editortab.cpp:590 src/project/projecttab.cpp:160
+#: src/editortab.cpp:587 src/project/projecttab.cpp:161
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous untranslated"
 msgstr "Προηγούμενο αμετάφραστο"
 
-#: src/editortab.cpp:595 src/project/projecttab.cpp:163
+#: src/editortab.cpp:592 src/project/projecttab.cpp:164
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next untranslated"
 msgstr "Επόμενο αμετάφραστο"
 
-#: src/editortab.cpp:600 src/project/projecttab.cpp:148
+#: src/editortab.cpp:597 src/project/projecttab.cpp:149
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1325,7 +1325,7 @@ msgctxt ""
 msgid "Previous not ready"
 msgstr "Προηγούμενο ανέτοιμο"
 
-#: src/editortab.cpp:605 src/project/projecttab.cpp:151
+#: src/editortab.cpp:602 src/project/projecttab.cpp:152
 #, kde-format
 msgctxt ""
 "@action:inmenu\n"
@@ -1333,49 +1333,49 @@ msgctxt ""
 msgid "Next not ready"
 msgstr "Επόμενο ανέτοιμο"
 
-#: src/editortab.cpp:612
+#: src/editortab.cpp:609
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Focus the search line of Translation Units view"
 msgstr "Εστίαση στην γραμμή αναζήτησης των μεταφράσεων"
 
-#: src/editortab.cpp:618
+#: src/editortab.cpp:615
 #, kde-format
 msgctxt "@option:check"
 msgid "Bookmark message"
 msgstr "Σελιδοδείκτης στο μήνυμα"
 
-#: src/editortab.cpp:624
+#: src/editortab.cpp:621
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous bookmark"
 msgstr "Προηγούμενος σελιδοδείκτης"
 
-#: src/editortab.cpp:628
+#: src/editortab.cpp:625
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next bookmark"
 msgstr "Επόμενος σελιδοδείκτης"
 
-#: src/editortab.cpp:636
+#: src/editortab.cpp:633
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions"
 msgstr "Συμπλήρωση όλων των ακριβών προτάσεων"
 
-#: src/editortab.cpp:640
+#: src/editortab.cpp:637
 #, no-c-format, kde-format
 msgctxt "@action:inmenu"
 msgid "Fill in all exact suggestions and mark as fuzzy"
 msgstr "Συμπλήρωση όλων των ακριβών προτάσεων και σημείωση ως ασαφή"
 
-#: src/editortab.cpp:645
+#: src/editortab.cpp:642
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for sync/merge"
 msgstr "Άνοιγμα αρχείου για συγχρονισμό/συγχώνευση"
 
-#: src/editortab.cpp:646 src/editortab.cpp:703
+#: src/editortab.cpp:643 src/editortab.cpp:700
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1385,13 +1385,13 @@ msgstr ""
 "Άνοιγμα καταλόγου για συγχώνευση με τον τρέχοντα / αντιγραφή τροποποιήσεων "
 "βασικού αρχείου"
 
-#: src/editortab.cpp:652 src/editortab.cpp:709
+#: src/editortab.cpp:649 src/editortab.cpp:706
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous different"
 msgstr "Προηγούμενο διαφορετικό"
 
-#: src/editortab.cpp:653 src/editortab.cpp:710
+#: src/editortab.cpp:650 src/editortab.cpp:707
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1401,13 +1401,13 @@ msgstr ""
 "Προηγούμενη καταχώρηση με διαφορετική μετάφραση στα προς συγχώνευση αρχεία, "
 "συμπεριλαμβάνοντας τις κενές μεταφράσεις"
 
-#: src/editortab.cpp:662 src/editortab.cpp:717
+#: src/editortab.cpp:659 src/editortab.cpp:714
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different"
 msgstr "Επόμενο διαφορετικό"
 
-#: src/editortab.cpp:663 src/editortab.cpp:718
+#: src/editortab.cpp:660 src/editortab.cpp:715
 #, kde-format
 msgctxt "@info:status"
 msgid ""
@@ -1417,49 +1417,49 @@ msgstr ""
 "Επόμενη καταχώρηση με διαφορετική μετάφραση στα προς συγχώνευση αρχεία, "
 "συμπεριλαμβάνοντας τις κενές μεταφράσεις"
 
-#: src/editortab.cpp:671
+#: src/editortab.cpp:668
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next different approved"
 msgstr "Επόμενο διαφορετικό εγκεκριμένο"
 
-#: src/editortab.cpp:677 src/editortab.cpp:725
+#: src/editortab.cpp:674 src/editortab.cpp:722
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy from merging source"
 msgstr "Αντιγραφή από πηγή συγχώνευσης"
 
-#: src/editortab.cpp:684 src/editortab.cpp:730
+#: src/editortab.cpp:681 src/editortab.cpp:727
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy all new translations"
 msgstr "Αντιγραφή όλων των νέων μεταφράσεων"
 
-#: src/editortab.cpp:685
+#: src/editortab.cpp:682
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty and non-ready entries in base file"
 msgstr "Αυτό τροποποιεί μόνο κενές και ανέτοιμες καταχωρήσεις στο αρχείο βάσης"
 
-#: src/editortab.cpp:694 src/editortab.cpp:737
+#: src/editortab.cpp:691 src/editortab.cpp:734
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to merging source"
 msgstr "Αντιγραφή στη πηγή συγχώνευσης"
 
-#: src/editortab.cpp:702
+#: src/editortab.cpp:699
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file for secondary sync"
 msgstr "Άνοιγμα αρχείου για δευτερεύοντα συγχρονισμό"
 
-#: src/editortab.cpp:731
+#: src/editortab.cpp:728
 #, kde-format
 msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Αυτό τροποποιεί μόνο κενές καταχωρήσεις"
 
-#: src/editortab.cpp:762
+#: src/editortab.cpp:759
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1467,7 +1467,8 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(ανάκτηση)"
 
-#: src/editortab.cpp:806 src/editortab.cpp:823 src/editortab.cpp:992
+#: src/editortab.cpp:803 src/editortab.cpp:820 src/editortab.cpp:991
+#: src/editortab.cpp:1005
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1477,39 +1478,39 @@ msgstr ""
 "Το έγγραφο περιέχει μη αποθηκευμένες τροποποιήσεις.\n"
 "Επιθυμείτε την αποθήκευσή ή την απόρριψή τους;"
 
-#: src/editortab.cpp:808 src/editortab.cpp:824 src/editortab.cpp:993
-#: src/editortab.cpp:1423 src/editortab.cpp:1429
-#: src/glossary/glossarywindow.cpp:490
+#: src/editortab.cpp:805 src/editortab.cpp:821 src/editortab.cpp:993
+#: src/editortab.cpp:1006 src/editortab.cpp:1437 src/editortab.cpp:1443
+#: src/glossary/glossarywindow.cpp:494 src/glossary/glossarywindow.cpp:508
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
-#: src/editortab.cpp:841 src/mergemode/mergeview.cpp:189
+#: src/editortab.cpp:838 src/mergemode/mergeview.cpp:189
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Επιλογή αρχείου μετάφρασης"
 
-#: src/editortab.cpp:926
+#: src/editortab.cpp:923
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Σφάλμα κατά το άνοιγμα του αρχείου %1, γραμμή: %2"
 
-#: src/editortab.cpp:927
+#: src/editortab.cpp:924
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Σφάλμα κατά το άνοιγμα του αρχείου %1"
 
-#: src/editortab.cpp:934
+#: src/editortab.cpp:931
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Αποθήκευση αρχείου ως"
 
-#: src/editortab.cpp:959
+#: src/editortab.cpp:956
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1519,13 +1520,13 @@ msgstr ""
 "Σφάλμα αποθήκευσης του αρχείου %1\n"
 "Επιθυμείτε την αποθήκευση σε άλλο αρχείο ή ακύρωση;"
 
-#: src/editortab.cpp:961
+#: src/editortab.cpp:958
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: src/editortab.cpp:969
+#: src/editortab.cpp:966
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1535,97 +1536,97 @@ msgstr ""
 "Αδυναμίας αυτόματης αποθήκευσης αρχείου.\n"
 "Το αρχείο ήταν το %1."
 
-#: src/editortab.cpp:1018
+#: src/editortab.cpp:1032
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Μετάβαση στην καταχώρηση"
 
-#: src/editortab.cpp:1019
+#: src/editortab.cpp:1033
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Εισάγετε αριθμό καταχώρησης:"
 
-#: src/editortab.cpp:1090
+#: src/editortab.cpp:1104
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Τρέχον: %1"
 
-#: src/editortab.cpp:1279
+#: src/editortab.cpp:1293
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Μεταφρασμένο"
 
-#: src/editortab.cpp:1280
+#: src/editortab.cpp:1294
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Υπογραμμένο"
 
-#: src/editortab.cpp:1281
+#: src/editortab.cpp:1295
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Εγκεκριμένο"
 
-#: src/editortab.cpp:1284
+#: src/editortab.cpp:1298
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Η μετάφραση έγινε (ίσως να απαιτείται αναθεώρηση)"
 
-#: src/editortab.cpp:1285
+#: src/editortab.cpp:1299
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Η μετάφραση έλαβε θετική αναθεώρηση"
 
-#: src/editortab.cpp:1286
+#: src/editortab.cpp:1300
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Η καταχώρηση είναι πλήρως μεταφρασμένη (τελική)"
 
-#: src/editortab.cpp:1398 src/project/projecttab.cpp:360
+#: src/editortab.cpp:1412 src/project/projecttab.cpp:361
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1398 src/editortab.cpp:1406 src/editortab.cpp:1410
-#: src/project/projecttab.cpp:360 src/project/projecttab.cpp:368
-#: src/project/projecttab.cpp:372
+#: src/editortab.cpp:1412 src/editortab.cpp:1420 src/editortab.cpp:1424
+#: src/project/projecttab.cpp:361 src/project/projecttab.cpp:369
+#: src/project/projecttab.cpp:373
 #, kde-format
 msgid "Pology error"
 msgstr ""
 
-#: src/editortab.cpp:1406 src/project/projecttab.cpp:368
+#: src/editortab.cpp:1420 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1408 src/project/projecttab.cpp:370
+#: src/editortab.cpp:1422 src/project/projecttab.cpp:371
 #, kde-format
 msgid "Pology success"
 msgstr ""
 
-#: src/editortab.cpp:1408
+#: src/editortab.cpp:1422
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1410 src/project/projecttab.cpp:372
+#: src/editortab.cpp:1424 src/project/projecttab.cpp:373
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1421 src/editortab.cpp:1428
+#: src/editortab.cpp:1435 src/editortab.cpp:1442
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1633,26 +1634,26 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1466
+#: src/editortab.cpp:1480
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Λέξεις πηγαίου κειμένου: %1<br/>Λέξεις κειμένου προορισμού: %2"
 
-#: src/editortab.cpp:1467
+#: src/editortab.cpp:1481
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Καταμέτρηση λέξεων"
 
-#: src/editortab.cpp:1561 src/editortab.cpp:1571
+#: src/editortab.cpp:1575 src/editortab.cpp:1590
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
 
-#: src/editortab.cpp:1562
+#: src/editortab.cpp:1576
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1660,37 +1661,37 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Χρήση πηγαίου αρχείου"
 
-#: src/editortab.cpp:1563
+#: src/editortab.cpp:1577
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Τοπικά"
 
-#: src/editortab.cpp:1564
+#: src/editortab.cpp:1578 src/editortab.cpp:1631
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1571 src/editortab.cpp:1611
+#: src/editortab.cpp:1581 src/editortab.cpp:1634 src/editortab.cpp:1663
+#, kde-format
+msgid "Select project's base folder for source file lookup"
+msgstr ""
+
+#: src/editortab.cpp:1590 src/editortab.cpp:1629 src/editortab.cpp:1654
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Χρήση πηγαίου αρχείου"
 
-#: src/editortab.cpp:1572
+#: src/editortab.cpp:1591
 #, kde-format
 msgid "Locally"
 msgstr "Τοπικά"
 
-#: src/editortab.cpp:1582 src/editortab.cpp:1622
-#, kde-format
-msgid "Select project's base folder for source file lookup"
-msgstr ""
-
-#: src/editortab.cpp:1610
+#: src/editortab.cpp:1627 src/editortab.cpp:1653
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1698,12 +1699,19 @@ msgid ""
 "Do you want to change source files folder?"
 msgstr ""
 
-#: src/editortab.cpp:1612
+#: src/editortab.cpp:1630
+#, fuzzy, kde-format
+#| msgid "Select a folder:"
+msgctxt "@action"
+msgid "Select Folder"
+msgstr "Επιλογή φακέλου:"
+
+#: src/editortab.cpp:1655
 #, kde-format
 msgid "lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1647
+#: src/editortab.cpp:1690
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid ""
@@ -1721,33 +1729,33 @@ msgstr ""
 "που να μπορεί να το κάνει. Αναζητήστε στο εγχειρίδιο του Lokalize για "
 "παραδείγματα σεναρίων και πως θα τα συνδέσετε στο έργο σας."
 
-#: src/editortab.cpp:1661 src/project/project.cpp:478
+#: src/editortab.cpp:1704 src/project/project.cpp:478
 #: src/project/project.cpp:483
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
 
-#: src/editortab.cpp:1667
+#: src/editortab.cpp:1710
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr ""
 
-#: src/editortab.cpp:1676
+#: src/editortab.cpp:1719
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1678 src/project/project.cpp:488
+#: src/editortab.cpp:1721 src/project/project.cpp:488
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
 
-#: src/editortab.cpp:1723
+#: src/editortab.cpp:1766
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr ""
 
-#: src/editortab.cpp:1847
+#: src/editortab.cpp:1890
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2050,8 +2058,8 @@ msgid "Subject Field"
 msgstr "Πεδίο θέματος"
 
 #: src/glossary/glossaryview.cpp:36 src/glossary/glossaryview.cpp:44
-#: src/glossary/glossarywindow.cpp:405 src/glossary/glossarywindow.cpp:432
-#: src/glossary/glossarywindow.cpp:447 src/glossary/glossarywindow.cpp:465
+#: src/glossary/glossarywindow.cpp:406 src/glossary/glossarywindow.cpp:433
+#: src/glossary/glossarywindow.cpp:448 src/glossary/glossarywindow.cpp:466
 #, kde-format
 msgctxt "@title:window"
 msgid "Glossary"
@@ -2072,19 +2080,19 @@ msgstr ""
 "(συμβουλή:&nbsp;επιλέξτε λέξεις στα πεδία αρχικού και μεταφρασμένου κειμένου "
 "πριν την επιλογή <interface>Ορισμός&nbsp;νέου&nbsp;όρου</interface>).</p>"
 
-#: src/glossary/glossarywindow.cpp:238
+#: src/glossary/glossarywindow.cpp:239
 #, kde-format
 msgctxt "@action:button reloads glossary from disk"
 msgid "Restore from disk"
 msgstr "Επαναφορά από τον δίσκο"
 
-#: src/glossary/glossarywindow.cpp:239
+#: src/glossary/glossarywindow.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Reload glossary from disk, discarding any changes"
 msgstr "Επαναφορά στο γλωσσάρι από το δίσκο, απορρίπτοντας κάθε τροποποίηση"
 
-#: src/glossary/glossarywindow.cpp:489
+#: src/glossary/glossarywindow.cpp:492 src/glossary/glossarywindow.cpp:507
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2217,7 +2225,7 @@ msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Μεταφραστική μνήμη"
 
-#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:190
+#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
@@ -3915,13 +3923,13 @@ msgctxt "@title:column"
 msgid "Last Translator"
 msgstr "Τελευταίος μεταφραστής"
 
-#: src/project/projecttab.cpp:53
+#: src/project/projecttab.cpp:54
 #, kde-format
 msgctxt "@title:window"
 msgid "Project Overview"
 msgstr "Επισκόπηση έργου"
 
-#: src/project/projecttab.cpp:57
+#: src/project/projecttab.cpp:58
 #, kde-format
 msgid ""
 "<html>You do not have to be a software developer to be a member of the KDE "
@@ -3941,30 +3949,30 @@ msgstr ""
 "τεκμηρίωση, τότε μια επίσκεψη στο <a href=\"%2\">%2</a> θα σας προσφέρει ότι "
 "χρειάζεστε.</html>"
 
-#: src/project/projecttab.cpp:78
+#: src/project/projecttab.cpp:79
 #, kde-format
 msgid "&Configure Lokalize"
 msgstr "&Διαμόρφωση έργου"
 
-#: src/project/projecttab.cpp:79 src/project/projecttab.cpp:193
+#: src/project/projecttab.cpp:80 src/project/projecttab.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project"
 msgstr "Άνοιγμα έργου"
 
-#: src/project/projecttab.cpp:80
+#: src/project/projecttab.cpp:81
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate software"
 msgstr "Μετάφραση λογισμικού"
 
-#: src/project/projecttab.cpp:81
+#: src/project/projecttab.cpp:82
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translate OpenDocument"
 msgstr "Μετάφραση OpenDocument"
 
-#: src/project/projecttab.cpp:131
+#: src/project/projecttab.cpp:132
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -3974,50 +3982,50 @@ msgctxt ""
 msgid "%p%"
 msgstr " (%1%)"
 
-#: src/project/projecttab.cpp:166
+#: src/project/projecttab.cpp:167
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous template only"
 msgstr "Μόνο το προηγούμενο πρότυπο"
 
-#: src/project/projecttab.cpp:169
+#: src/project/projecttab.cpp:170
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next template only"
 msgstr "Μόνο το επόμενο πρότυπο"
 
-#: src/project/projecttab.cpp:172
+#: src/project/projecttab.cpp:173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Previous translation only"
 msgstr "Μόνο η προηγούμενη μετάφραση"
 
-#: src/project/projecttab.cpp:175
+#: src/project/projecttab.cpp:176
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Next translation only"
 msgstr "Μόνο η επόμενη μετάφραση"
 
-#: src/project/projecttab.cpp:179
+#: src/project/projecttab.cpp:180
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide completed items"
 msgstr ""
 
-#: src/project/projecttab.cpp:180
+#: src/project/projecttab.cpp:181
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Hide fully translated files and folders"
 msgstr ""
 
-#: src/project/projecttab.cpp:244
+#: src/project/projecttab.cpp:245
 #, fuzzy, kde-format
 #| msgid "Select file:"
 msgctxt "@action:inmenu"
 msgid "Open selected files"
 msgstr "Επιλογή αρχείου:"
 
-#: src/project/projecttab.cpp:247
+#: src/project/projecttab.cpp:248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open"
@@ -4029,19 +4037,19 @@ msgstr "Άνοιγμα"
 #. menu.addSeparator();
 #. menu->addAction(i18nc("@action:inmenu","Get statistics for subfolders"),m_browser,&ProjectTab::expandItems);
 #.
-#: src/project/projecttab.cpp:256
+#: src/project/projecttab.cpp:257
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add to translation memory"
 msgstr "Προσθήκη στη μεταφραστική μνήμη"
 
-#: src/project/projecttab.cpp:258
+#: src/project/projecttab.cpp:259
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files"
 msgstr "Αναζήτηση σε αρχεία"
 
-#: src/project/projecttab.cpp:259
+#: src/project/projecttab.cpp:260
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add a note"
@@ -4049,53 +4057,53 @@ msgctxt "@action:inmenu"
 msgid "Add a comment"
 msgstr "Προσθήκη σημείωσης"
 
-#: src/project/projecttab.cpp:261
+#: src/project/projecttab.cpp:262
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Launch Pology on files"
 msgstr ""
 
-#: src/project/projecttab.cpp:264
+#: src/project/projecttab.cpp:265
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search in files (including templates)"
 msgstr "Αναζήτηση σε αρχεία (και στα πρότυπα)"
 
-#: src/project/projecttab.cpp:298
+#: src/project/projecttab.cpp:299
 #, kde-format
 msgid "Project file comment"
 msgstr ""
 
-#: src/project/projecttab.cpp:298
+#: src/project/projecttab.cpp:299
 #, kde-format
 msgid "Input a comment for this project file:"
 msgstr ""
 
-#: src/project/projecttab.cpp:370
+#: src/project/projecttab.cpp:371
 #, kde-format
 msgid "The Pology check has succeeded"
 msgstr ""
 
-#: src/project/projecttab.cpp:389
+#: src/project/projecttab.cpp:390
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/project/projecttab.cpp:390
+#: src/project/projecttab.cpp:391
 #, kde-format
 msgid ""
 "Opening a large number of files at the same time can make Lokalize "
 "unresponsive."
 msgstr ""
 
-#: src/project/projecttab.cpp:392
+#: src/project/projecttab.cpp:393
 #, kde-format
 msgid "Are you sure you want to open this many files?"
 msgstr ""
 
-#: src/project/projecttab.cpp:394
+#: src/project/projecttab.cpp:395
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "&Open %1 File"
@@ -4755,9 +4763,6 @@ msgstr "Αντιγραφή πηγής στον προορισμό"
 
 #~ msgid "Choose document in a source language."
 #~ msgstr "Επιλογή εγγράφου στην πηγαία γλώσσα."
-
-#~ msgid "Select a folder:"
-#~ msgstr "Επιλογή φακέλου:"
 
 #~ msgid "Choose project name and location"
 #~ msgstr "Επιλογή ονόματος έργου και τοποθεσία"
