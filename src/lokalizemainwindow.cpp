@@ -130,9 +130,8 @@ LokalizeMainWindow::~LokalizeMainWindow()
     m_multiEditorAdaptor->deleteLater();
 
     //Disconnect the signals pointing to this MainWindow object
-    QMdiSubWindow* sw;
     for (int i = 0; i < m_fileToEditor.values().count(); i++) {
-        sw = m_fileToEditor.values().at(i);
+        QMdiSubWindow* sw = m_fileToEditor.values().at(i);
         disconnect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
         EditorTab* w = static_cast<EditorTab*>(sw->widget());
         disconnect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
