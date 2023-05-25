@@ -389,7 +389,7 @@ void EditorTab::replaceNext(const DocPosition& startingPos)
     while (flag) {
         flag = 0;
         KFind::Result res = KFind::NoMatch;
-        while (1) {
+        while (true) {
             if (m_replace->needData() || anotherEntry/*||m_view->m_modifiedAfterFind*/) {
                 anotherEntry = false;
                 //m_view->m_modifiedAfterFind=false;//NOTE TEST THIS

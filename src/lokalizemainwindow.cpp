@@ -426,7 +426,7 @@ void LokalizeMainWindow::setupActions()
 
     setStandardToolBarMenuEnabled(true);
 
-    QAction *action;
+    QAction *action{nullptr};
     KActionCollection* ac = actionCollection();
     KActionCategory* actionCategory;
     KActionCategory* file = new KActionCategory(i18nc("@title actions category", "File"), ac);
