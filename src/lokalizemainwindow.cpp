@@ -158,26 +158,24 @@ void LokalizeMainWindow::slotSubWindowActivated(QMdiSubWindow* w)
         guiFactory()->removeClient(prevEditor->guiClient());
         prevEditor->statusBarItems.unregisterStatusBar();
 
-        if (qobject_cast<EditorTab*>(prevEditor)) {
-            EditorTab* w = static_cast<EditorTab*>(prevEditor);
-            EditorState state = w->state();
+        if (auto win = qobject_cast<EditorTab*>(prevEditor)) {
+            EditorState state = win->state();
             m_lastEditorState = state.dockWidgets.toBase64();
         }
     }
     LokalizeSubwindowBase* editor = static_cast<LokalizeSubwindowBase2*>(w->widget());
 
     editor->reloadUpdatedXML();
-    if (qobject_cast<EditorTab*>(editor)) {
-        EditorTab* w = static_cast<EditorTab*>(editor);
-        w->setProperFocus();
+    if (auto win = qobject_cast<EditorTab*>(editor)) {
+        win->setProperFocus();
 
-        EditorState state = w->state();
+        EditorState state = win->state();
         m_lastEditorState = state.dockWidgets.toBase64();
 
-        m_multiEditorAdaptor->setEditorTab(w);
+        m_multiEditorAdaptor->setEditorTab(win);
 
         QTabBar* tw = m_mdiArea->findChild<QTabBar*>();
-        if (tw) tw->setTabToolTip(tw->currentIndex(), w->currentFilePath());
+        if (tw) tw->setTabToolTip(tw->currentIndex(), win->currentFilePath());
 
         Q_EMIT editorActivated();
     } else if (w == m_projectSubWindow && m_projectSubWindow) {
