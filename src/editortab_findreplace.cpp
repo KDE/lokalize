@@ -47,7 +47,7 @@ static long makeOptions(long options, const Ui_findExtension* ui_findExtension)
 class EntryFindDialog: public KFindDialog
 {
 public:
-    EntryFindDialog(QWidget* parent);
+    explicit EntryFindDialog(QWidget* parent);
     ~EntryFindDialog();
     long options() const
     {
@@ -101,7 +101,7 @@ EntryFindDialog::~EntryFindDialog()
 class EntryReplaceDialog: public KReplaceDialog
 {
 public:
-    EntryReplaceDialog(QWidget* parent);
+    explicit EntryReplaceDialog(QWidget* parent);
     ~EntryReplaceDialog();
     long options() const
     {
