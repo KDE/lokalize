@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-25 00:48+0000\n"
+"POT-Creation-Date: 2023-05-26 00:48+0000\n"
 "PO-Revision-Date: 2022-01-19 10:14+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1020,21 +1020,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "Длина перевода"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1117
-#: src/editortab.cpp:1320 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1114
+#: src/editortab.cpp:1317 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Готово"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1118
-#: src/editortab.cpp:1315 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1115
+#: src/editortab.cpp:1312 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Требует проверки"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1116
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1113
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -1065,7 +1065,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "Текущий: %1"
 
-#: src/editortab.cpp:146 src/editortab.cpp:874
+#: src/editortab.cpp:146 src/editortab.cpp:871
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:513
 #: src/tm/tmtab.cpp:590
 #, kde-format
@@ -1093,7 +1093,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:435
+#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:432
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1127,7 +1127,7 @@ msgid "Translation Memory"
 msgstr "Память переводов"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:437
+#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:434
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1483,7 +1483,7 @@ msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr "Будут изменены только сегменты без перевода"
 
-#: src/editortab.cpp:759
+#: src/editortab.cpp:756
 #, fuzzy, kde-format
 #| msgctxt "editor tab name"
 #| msgid "(recovered)"
@@ -1491,8 +1491,8 @@ msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(восстановлено)"
 
-#: src/editortab.cpp:803 src/editortab.cpp:820 src/editortab.cpp:991
-#: src/editortab.cpp:1005
+#: src/editortab.cpp:800 src/editortab.cpp:817 src/editortab.cpp:988
+#: src/editortab.cpp:1002
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1502,39 +1502,39 @@ msgstr ""
 "Документ был изменён.\n"
 "Сохранить изменения или отклонить их?"
 
-#: src/editortab.cpp:805 src/editortab.cpp:821 src/editortab.cpp:993
-#: src/editortab.cpp:1006 src/editortab.cpp:1437 src/editortab.cpp:1443
+#: src/editortab.cpp:802 src/editortab.cpp:818 src/editortab.cpp:990
+#: src/editortab.cpp:1003 src/editortab.cpp:1434 src/editortab.cpp:1440
 #: src/glossary/glossarywindow.cpp:494 src/glossary/glossarywindow.cpp:508
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: src/editortab.cpp:838 src/mergemode/mergeview.cpp:189
+#: src/editortab.cpp:835 src/mergemode/mergeview.cpp:189
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "Выбор файла перевода"
 
-#: src/editortab.cpp:923
+#: src/editortab.cpp:920
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr "Не удалось открыть файл %1, ошибка в строке %2."
 
-#: src/editortab.cpp:924
+#: src/editortab.cpp:921
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr "Не удалось открыть файл %1."
 
-#: src/editortab.cpp:931
+#: src/editortab.cpp:928
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "Сохранение в файл"
 
-#: src/editortab.cpp:956
+#: src/editortab.cpp:953
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1544,13 +1544,13 @@ msgstr ""
 "Не удалось сохранить файл %1.\n"
 "Сохранить его под другим именем?"
 
-#: src/editortab.cpp:958
+#: src/editortab.cpp:955
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/editortab.cpp:966
+#: src/editortab.cpp:963
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1558,73 +1558,73 @@ msgid ""
 "The target file was %1."
 msgstr "Не удалось выполнить автоматическое сохранение в файл %1."
 
-#: src/editortab.cpp:1032
+#: src/editortab.cpp:1029
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr "Перейти к сегменту"
 
-#: src/editortab.cpp:1033
+#: src/editortab.cpp:1030
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr "Номер сегмента:"
 
-#: src/editortab.cpp:1104
+#: src/editortab.cpp:1101
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "Текущая запись: %1"
 
-#: src/editortab.cpp:1293
+#: src/editortab.cpp:1290
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "Переведено"
 
-#: src/editortab.cpp:1294
+#: src/editortab.cpp:1291
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "Выпущено"
 
-#: src/editortab.cpp:1295
+#: src/editortab.cpp:1292
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "Утверждено"
 
-#: src/editortab.cpp:1298
+#: src/editortab.cpp:1295
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr "Перевод завершён (возможно надо перепроверить)"
 
-#: src/editortab.cpp:1299
+#: src/editortab.cpp:1296
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr "Перевод получил положительную рецензию"
 
-#: src/editortab.cpp:1300
+#: src/editortab.cpp:1297
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr "Сегмент полностью локализован"
 
-#: src/editortab.cpp:1412 src/project/projecttab.cpp:361
+#: src/editortab.cpp:1409 src/project/projecttab.cpp:361
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr "Проверка программой Pology уже выполняется."
 
-#: src/editortab.cpp:1412 src/editortab.cpp:1420 src/editortab.cpp:1424
+#: src/editortab.cpp:1409 src/editortab.cpp:1417 src/editortab.cpp:1421
 #: src/project/projecttab.cpp:361 src/project/projecttab.cpp:369
 #: src/project/projecttab.cpp:373
 #, kde-format
 msgid "Pology error"
 msgstr "Ошибка Pology"
 
-#: src/editortab.cpp:1420 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1417 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
@@ -1633,17 +1633,17 @@ msgstr ""
 "При проверке произошёл сбой программы Pology:\n"
 "%1"
 
-#: src/editortab.cpp:1422 src/project/projecttab.cpp:371
+#: src/editortab.cpp:1419 src/project/projecttab.cpp:371
 #, kde-format
 msgid "Pology success"
 msgstr "Успешная проверка программой Pology"
 
-#: src/editortab.cpp:1422
+#: src/editortab.cpp:1419
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr "Проверка программой Pology завершена."
 
-#: src/editortab.cpp:1424 src/project/projecttab.cpp:373
+#: src/editortab.cpp:1421 src/project/projecttab.cpp:373
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
@@ -1652,7 +1652,7 @@ msgstr ""
 "При проверке программа Pology вернула следующую ошибку :\n"
 "%1"
 
-#: src/editortab.cpp:1435 src/editortab.cpp:1442
+#: src/editortab.cpp:1432 src/editortab.cpp:1439
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1662,26 +1662,26 @@ msgstr ""
 "Это действие приведёт к удалению из файла всех переведённых сегментов. "
 "Действительно продолжить?"
 
-#: src/editortab.cpp:1480
+#: src/editortab.cpp:1477
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr "Слов в исходном тексте: %1<br/>Слов в переводе: %2"
 
-#: src/editortab.cpp:1481
+#: src/editortab.cpp:1478
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "Статистика по словам"
 
-#: src/editortab.cpp:1575 src/editortab.cpp:1590
+#: src/editortab.cpp:1572 src/editortab.cpp:1587
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr "Искать исходный файл локально или на сайте lxr.kde.org?"
 
-#: src/editortab.cpp:1576
+#: src/editortab.cpp:1573
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Source file lookup"
@@ -1689,37 +1689,37 @@ msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Просмотреть исходный файл"
 
-#: src/editortab.cpp:1577
+#: src/editortab.cpp:1574
 #, fuzzy, kde-format
 #| msgid "Locally"
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "Локально"
 
-#: src/editortab.cpp:1578 src/editortab.cpp:1631
+#: src/editortab.cpp:1575 src/editortab.cpp:1628
 #, fuzzy, kde-format
 #| msgid "lxr.kde.org"
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1581 src/editortab.cpp:1634 src/editortab.cpp:1663
+#: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr "Выберите основную папку проекта для просмотра исходного файла"
 
-#: src/editortab.cpp:1590 src/editortab.cpp:1629 src/editortab.cpp:1654
+#: src/editortab.cpp:1587 src/editortab.cpp:1626 src/editortab.cpp:1651
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "Просмотреть исходный файл"
 
-#: src/editortab.cpp:1591
+#: src/editortab.cpp:1588
 #, kde-format
 msgid "Locally"
 msgstr "Локально"
 
-#: src/editortab.cpp:1627 src/editortab.cpp:1653
+#: src/editortab.cpp:1624 src/editortab.cpp:1650
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1729,19 +1729,19 @@ msgstr ""
 "Не удалось найти исходный файл в указанной папке.\n"
 "Изменить папку исходных файлов?"
 
-#: src/editortab.cpp:1630
+#: src/editortab.cpp:1627
 #, fuzzy, kde-format
 #| msgid "Select a folder:"
 msgctxt "@action"
 msgid "Select Folder"
 msgstr "Выберите папку:"
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1652
 #, kde-format
 msgid "lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1690
+#: src/editortab.cpp:1687
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1756,34 +1756,34 @@ msgstr ""
 "Lokalize для примеров сценария и описания процесса подключения их в ваш "
 "проект."
 
-#: src/editortab.cpp:1704 src/project/project.cpp:478
+#: src/editortab.cpp:1701 src/project/project.cpp:478
 #: src/project/project.cpp:483
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "Установите Translate-Toolkit и повторите попытку."
 
-#: src/editortab.cpp:1710
+#: src/editortab.cpp:1707
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr "Установите Translate-Toolkit и повторите попытку."
 
-#: src/editortab.cpp:1719
+#: src/editortab.cpp:1716
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 "Выбор исходного документа OpenDocument, из которого создан этот файл XLIFF"
 
-#: src/editortab.cpp:1721 src/project/project.cpp:488
+#: src/editortab.cpp:1718 src/project/project.cpp:488
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "Документы OpenDocument (*.odt *.ods)"
 
-#: src/editortab.cpp:1766
+#: src/editortab.cpp:1763
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr "Установите пакет python-uno для дополнительной функциональности."
 
-#: src/editortab.cpp:1890
+#: src/editortab.cpp:1887
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2233,122 +2233,122 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Модули Qt Sql отсутствуют. Память переводов не будет работать."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Для работы памяти переводов требуется модуль Qt SQLite ."
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Модуль  SQLite не доступен"
 
-#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:488
+#: src/lokalizemainwindow.cpp:435 src/tm/tmtab.cpp:488
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Память переводов"
 
-#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:191
+#: src/lokalizemainwindow.cpp:436 src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Проект"
 
-#: src/lokalizemainwindow.cpp:466
+#: src/lokalizemainwindow.cpp:463
 #, kde-format
 msgid "Next tab"
 msgstr "Следующая вкладка"
 
-#: src/lokalizemainwindow.cpp:469
+#: src/lokalizemainwindow.cpp:466
 #, kde-format
 msgid "Previous tab"
 msgstr "Предыдущая вкладка"
 
-#: src/lokalizemainwindow.cpp:472
+#: src/lokalizemainwindow.cpp:469
 #, kde-format
 msgid "Previously active tab"
 msgstr "Предыдущая активная вкладка"
 
-#: src/lokalizemainwindow.cpp:478
+#: src/lokalizemainwindow.cpp:475
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Глоссарий"
 
-#: src/lokalizemainwindow.cpp:482
+#: src/lokalizemainwindow.cpp:479
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Память переводов"
 
-#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:483 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Управление памятью переводов"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:487
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Обзор проекта"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "Настроить проект..."
 
-#: src/lokalizemainwindow.cpp:497
+#: src/lokalizemainwindow.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "Создать проект по переводу ПО..."
 
-#: src/lokalizemainwindow.cpp:500
+#: src/lokalizemainwindow.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "Создать проект по переводу OpenDocument..."
 
-#: src/lokalizemainwindow.cpp:503
+#: src/lokalizemainwindow.cpp:500
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "Открыть проект..."
 
-#: src/lokalizemainwindow.cpp:507
+#: src/lokalizemainwindow.cpp:504
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "Закрыть проект"
 
-#: src/lokalizemainwindow.cpp:510
+#: src/lokalizemainwindow.cpp:507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Последние проекты"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Поиск и замена в файлах"
 
-#: src/lokalizemainwindow.cpp:521
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Найти далее в файлах"
 
-#: src/lokalizemainwindow.cpp:525
+#: src/lokalizemainwindow.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Захват текста из виджета"
 
-#: src/lokalizemainwindow.cpp:702
+#: src/lokalizemainwindow.cpp:699
 #, kde-format
 msgctxt "@info"
 msgid ""

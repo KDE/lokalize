@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-25 00:48+0000\n"
-"PO-Revision-Date: 2023-05-23 05:27+0200\n"
+"POT-Creation-Date: 2023-05-26 00:48+0000\n"
+"PO-Revision-Date: 2023-05-25 05:56+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -102,7 +102,7 @@ msgstr "ODF-ში შერწყმა"
 #: scripts/xliff2odf.rc:4
 #, kde-format
 msgid "Generates translated version of ODF document"
-msgstr ""
+msgstr "ქმნის ODF დოკუმენტის თარგმნილ ვერსიას"
 
 #: src/alttransview.cpp:36 src/alttransview.cpp:39
 #, kde-format
@@ -733,7 +733,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window aka Message Tree"
 msgid "Translation Units"
-msgstr ""
+msgstr "თარგმანის ერთეულები"
 
 #: src/cataloglistview/cataloglistview.cpp:74
 #: src/glossary/glossarywindow.cpp:222 src/project/projecttab.cpp:116
@@ -777,12 +777,12 @@ msgstr "მზადაა"
 #: src/cataloglistview/cataloglistview.cpp:195
 #, kde-format
 msgid "Non-ready"
-msgstr ""
+msgstr "მზად არაა"
 
 #: src/cataloglistview/cataloglistview.cpp:196
 #, kde-format
 msgid "Non-empty"
-msgstr ""
+msgstr "ცარიელი რა"
 
 #: src/cataloglistview/cataloglistview.cpp:197
 #, kde-format
@@ -792,27 +792,27 @@ msgstr "ცარიელი"
 #: src/cataloglistview/cataloglistview.cpp:198
 #, kde-format
 msgid "Changed since file open"
-msgstr ""
+msgstr "შეიცვალა ფაილის გახსნის შემდეგ"
 
 #: src/cataloglistview/cataloglistview.cpp:199
 #, kde-format
 msgid "Unchanged since file open"
-msgstr ""
+msgstr "უცვლელია ფაილის გახსნის შემდეგ"
 
 #: src/cataloglistview/cataloglistview.cpp:200
 #, kde-format
 msgid "Same in sync file"
-msgstr ""
+msgstr "იგივე სინქრონიზაციის ფაილში"
 
 #: src/cataloglistview/cataloglistview.cpp:201
 #, kde-format
 msgid "Different in sync file"
-msgstr ""
+msgstr "განსხვავებული სინქრონიზაციის ფაილში"
 
 #: src/cataloglistview/cataloglistview.cpp:202
 #, kde-format
 msgid "Not in sync file"
-msgstr ""
+msgstr "არ არის სინქრონიზაციის ფაილში"
 
 #: src/cataloglistview/cataloglistview.cpp:203
 #, kde-format
@@ -822,7 +822,7 @@ msgstr "მრავლობითი"
 #: src/cataloglistview/cataloglistview.cpp:204
 #, kde-format
 msgid "Non-plural"
-msgstr ""
+msgstr "არამრავლობითი"
 
 #: src/cataloglistview/cataloglistview.cpp:209
 #, kde-format
@@ -914,21 +914,21 @@ msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
 msgstr "სამიზნის სიგრძე"
 
-#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1117
-#: src/editortab.cpp:1320 src/tm/tmtab.cpp:229
+#: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1114
+#: src/editortab.cpp:1317 src/tm/tmtab.cpp:229
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "მზადაა"
 
-#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1118
-#: src/editortab.cpp:1315 src/tm/tmtab.cpp:230
+#: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1115
+#: src/editortab.cpp:1312 src/tm/tmtab.cpp:230
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "საჭიროებს გადახედვას"
 
-#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1116
+#: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1113
 #: src/tm/tmtab.cpp:231
 #, kde-format
 msgctxt "@info:status"
@@ -959,7 +959,7 @@ msgctxt "@info:status message entry"
 msgid "Current: %1"
 msgstr "მიმდინარე: %1"
 
-#: src/editortab.cpp:146 src/editortab.cpp:874
+#: src/editortab.cpp:146 src/editortab.cpp:871
 #: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:513
 #: src/tm/tmtab.cpp:590
 #, kde-format
@@ -987,7 +987,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:435
+#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:432
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1021,7 +1021,7 @@ msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:437
+#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:434
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1189,19 +1189,19 @@ msgstr "&წინა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&First Entry"
-msgstr ""
+msgstr "&პირველი ჩანაწერი"
 
 #: src/editortab.cpp:569
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "&Last Entry"
-msgstr ""
+msgstr "&ბოლო ჩანაწერი"
 
 #: src/editortab.cpp:575
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Entry by number"
-msgstr ""
+msgstr "ჩანაწერის მიხედვით"
 
 #: src/editortab.cpp:577 src/project/projecttab.cpp:155
 #, kde-format
@@ -1367,14 +1367,14 @@ msgctxt "@info:status"
 msgid "This changes only empty entries"
 msgstr ""
 
-#: src/editortab.cpp:759
+#: src/editortab.cpp:756
 #, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr ""
 
-#: src/editortab.cpp:803 src/editortab.cpp:820 src/editortab.cpp:991
-#: src/editortab.cpp:1005
+#: src/editortab.cpp:800 src/editortab.cpp:817 src/editortab.cpp:988
+#: src/editortab.cpp:1002
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1382,39 +1382,39 @@ msgid ""
 "Do you want to save your changes or discard them?"
 msgstr ""
 
-#: src/editortab.cpp:805 src/editortab.cpp:821 src/editortab.cpp:993
-#: src/editortab.cpp:1006 src/editortab.cpp:1437 src/editortab.cpp:1443
+#: src/editortab.cpp:802 src/editortab.cpp:818 src/editortab.cpp:990
+#: src/editortab.cpp:1003 src/editortab.cpp:1434 src/editortab.cpp:1440
 #: src/glossary/glossarywindow.cpp:494 src/glossary/glossarywindow.cpp:508
 #, kde-format
 msgctxt "@title:window"
 msgid "Warning"
 msgstr "შეტყობინება"
 
-#: src/editortab.cpp:838 src/mergemode/mergeview.cpp:189
+#: src/editortab.cpp:835 src/mergemode/mergeview.cpp:189
 #, kde-format
 msgctxt "@title:window"
 msgid "Select translation file"
 msgstr "აირჩიეთ თარგმანის ფაილი"
 
-#: src/editortab.cpp:923
+#: src/editortab.cpp:920
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1, line: %2"
 msgstr ""
 
-#: src/editortab.cpp:924
+#: src/editortab.cpp:921
 #, kde-format
 msgctxt "@info"
 msgid "Error opening the file %1"
 msgstr ""
 
-#: src/editortab.cpp:931
+#: src/editortab.cpp:928
 #, kde-format
 msgctxt "@title:window"
 msgid "Save File As"
 msgstr "ფაილის შენახვა, როგორც"
 
-#: src/editortab.cpp:956
+#: src/editortab.cpp:953
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1422,13 +1422,13 @@ msgid ""
 "Do you want to save to another file or cancel?"
 msgstr ""
 
-#: src/editortab.cpp:958
+#: src/editortab.cpp:955
 #, kde-format
 msgctxt "@title"
 msgid "Error"
 msgstr "შეცდომა"
 
-#: src/editortab.cpp:966
+#: src/editortab.cpp:963
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1436,97 +1436,97 @@ msgid ""
 "The target file was %1."
 msgstr ""
 
-#: src/editortab.cpp:1032
+#: src/editortab.cpp:1029
 #, kde-format
 msgctxt "@title"
 msgid "Jump to Entry"
 msgstr ""
 
-#: src/editortab.cpp:1033
+#: src/editortab.cpp:1030
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Enter entry number:"
 msgstr ""
 
-#: src/editortab.cpp:1104
+#: src/editortab.cpp:1101
 #, kde-format
 msgctxt "@info:status"
 msgid "Current: %1"
 msgstr "მიმდინარე: %1"
 
-#: src/editortab.cpp:1293
+#: src/editortab.cpp:1290
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Translated"
 msgstr "თარგმნილია"
 
-#: src/editortab.cpp:1294
+#: src/editortab.cpp:1291
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Signed-off"
 msgstr "დამოწმებულია"
 
-#: src/editortab.cpp:1295
+#: src/editortab.cpp:1292
 #, kde-format
 msgctxt "@option:check trans-unit state"
 msgid "Approved"
 msgstr "დამტკიცებულია"
 
-#: src/editortab.cpp:1298
+#: src/editortab.cpp:1295
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation is done (although still may need a review)"
 msgstr ""
 
-#: src/editortab.cpp:1299
+#: src/editortab.cpp:1296
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Translation has received positive review"
 msgstr ""
 
-#: src/editortab.cpp:1300
+#: src/editortab.cpp:1297
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Entry is fully localized (i.e. final)"
 msgstr ""
 
-#: src/editortab.cpp:1412 src/project/projecttab.cpp:361
+#: src/editortab.cpp:1409 src/project/projecttab.cpp:361
 #, kde-format
 msgid "A Pology check is already in progress."
 msgstr ""
 
-#: src/editortab.cpp:1412 src/editortab.cpp:1420 src/editortab.cpp:1424
+#: src/editortab.cpp:1409 src/editortab.cpp:1417 src/editortab.cpp:1421
 #: src/project/projecttab.cpp:361 src/project/projecttab.cpp:369
 #: src/project/projecttab.cpp:373
 #, kde-format
 msgid "Pology error"
 msgstr "ტოპოლოგიის შეცდომა"
 
-#: src/editortab.cpp:1420 src/project/projecttab.cpp:369
+#: src/editortab.cpp:1417 src/project/projecttab.cpp:369
 #, kde-format
 msgid ""
 "The Pology check has crashed unexpectedly:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1422 src/project/projecttab.cpp:371
+#: src/editortab.cpp:1419 src/project/projecttab.cpp:371
 #, kde-format
 msgid "Pology success"
 msgstr "ტოპოლოგია წარმატებულია"
 
-#: src/editortab.cpp:1422
+#: src/editortab.cpp:1419
 #, kde-format
 msgid "The Pology check has succeeded."
 msgstr ""
 
-#: src/editortab.cpp:1424 src/project/projecttab.cpp:373
+#: src/editortab.cpp:1421 src/project/projecttab.cpp:373
 #, kde-format
 msgid ""
 "The Pology check has returned an error:\n"
 "%1"
 msgstr ""
 
-#: src/editortab.cpp:1435 src/editortab.cpp:1442
+#: src/editortab.cpp:1432 src/editortab.cpp:1439
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1534,60 +1534,60 @@ msgid ""
 "Do you really want to clear all translated entries?"
 msgstr ""
 
-#: src/editortab.cpp:1480
+#: src/editortab.cpp:1477
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
 msgstr ""
 
-#: src/editortab.cpp:1481
+#: src/editortab.cpp:1478
 #, kde-format
 msgctxt "@title"
 msgid "Word Count"
 msgstr "სიტყვების რაოდენობა"
 
-#: src/editortab.cpp:1575 src/editortab.cpp:1590
+#: src/editortab.cpp:1572 src/editortab.cpp:1587
 #, kde-format
 msgctxt "@info"
 msgid ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 msgstr ""
 
-#: src/editortab.cpp:1576
+#: src/editortab.cpp:1573
 #, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "წყაროს ფაილის მოძებნა"
 
-#: src/editortab.cpp:1577
+#: src/editortab.cpp:1574
 #, kde-format
 msgctxt "@action"
 msgid "Search Locally"
 msgstr "ლოკალურად ძებნა"
 
-#: src/editortab.cpp:1578 src/editortab.cpp:1631
+#: src/editortab.cpp:1575 src/editortab.cpp:1628
 #, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
 msgstr "ძებნა lxr.kde.org-ზე"
 
-#: src/editortab.cpp:1581 src/editortab.cpp:1634 src/editortab.cpp:1663
+#: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
 msgid "Select project's base folder for source file lookup"
 msgstr ""
 
-#: src/editortab.cpp:1590 src/editortab.cpp:1629 src/editortab.cpp:1654
+#: src/editortab.cpp:1587 src/editortab.cpp:1626 src/editortab.cpp:1651
 #, kde-format
 msgctxt "@title:window"
 msgid "Source file lookup"
 msgstr "წყაროს ფაილის მოძებნა"
 
-#: src/editortab.cpp:1591
+#: src/editortab.cpp:1588
 #, kde-format
 msgid "Locally"
 msgstr "ლოკალურად"
 
-#: src/editortab.cpp:1627 src/editortab.cpp:1653
+#: src/editortab.cpp:1624 src/editortab.cpp:1650
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1595,20 +1595,18 @@ msgid ""
 "Do you want to change source files folder?"
 msgstr ""
 
-#: src/editortab.cpp:1630
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Subject Field"
+#: src/editortab.cpp:1627
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "სათაურის ველი"
+msgstr "აირჩიეთ საქაღალდე"
 
-#: src/editortab.cpp:1655
+#: src/editortab.cpp:1652
 #, kde-format
 msgid "lxr.kde.org"
 msgstr "lxr.kde.org"
 
-#: src/editortab.cpp:1690
+#: src/editortab.cpp:1687
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1618,33 +1616,33 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1704 src/project/project.cpp:478
+#: src/editortab.cpp:1701 src/project/project.cpp:478
 #: src/project/project.cpp:483
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
 
-#: src/editortab.cpp:1710
+#: src/editortab.cpp:1707
 #, kde-format
 msgid "Install translate-toolkit package and retry."
 msgstr ""
 
-#: src/editortab.cpp:1719
+#: src/editortab.cpp:1716
 #, kde-format
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1721 src/project/project.cpp:488
+#: src/editortab.cpp:1718 src/project/project.cpp:488
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument ფაილები (*.odt *.ods)"
 
-#: src/editortab.cpp:1766
+#: src/editortab.cpp:1763
 #, kde-format
 msgid "Install python-uno package for additional functionality."
 msgstr ""
 
-#: src/editortab.cpp:1890
+#: src/editortab.cpp:1887
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Set unit text"
@@ -2070,122 +2068,122 @@ msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:361 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
 #, kde-format
 msgid "No SQLite module available"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:438 src/tm/tmtab.cpp:488
+#: src/lokalizemainwindow.cpp:435 src/tm/tmtab.cpp:488
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "თარგმანის მეხსიერება"
 
-#: src/lokalizemainwindow.cpp:439 src/project/projecttab.cpp:191
+#: src/lokalizemainwindow.cpp:436 src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "პროექტი"
 
-#: src/lokalizemainwindow.cpp:466
+#: src/lokalizemainwindow.cpp:463
 #, kde-format
 msgid "Next tab"
 msgstr "_შემდეგი ჩანართი"
 
-#: src/lokalizemainwindow.cpp:469
+#: src/lokalizemainwindow.cpp:466
 #, kde-format
 msgid "Previous tab"
 msgstr "_წინა ჩანართი"
 
-#: src/lokalizemainwindow.cpp:472
+#: src/lokalizemainwindow.cpp:469
 #, kde-format
 msgid "Previously active tab"
 msgstr "ადრე აქტიური ჩანართი"
 
-#: src/lokalizemainwindow.cpp:478
+#: src/lokalizemainwindow.cpp:475
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "სარჩევი"
 
-#: src/lokalizemainwindow.cpp:482
+#: src/lokalizemainwindow.cpp:479
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "თარგმანის მეხსიერება"
 
-#: src/lokalizemainwindow.cpp:486 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:483 src/tm/tmtab.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "თარგმანის მეხსიერებების მართვა"
 
-#: src/lokalizemainwindow.cpp:490
+#: src/lokalizemainwindow.cpp:487
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "პროექტის მიმოხილვა"
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "პროექტის მორგება..."
 
-#: src/lokalizemainwindow.cpp:497
+#: src/lokalizemainwindow.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:500
+#: src/lokalizemainwindow.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:503
+#: src/lokalizemainwindow.cpp:500
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "პროექტის გახსნა..."
 
-#: src/lokalizemainwindow.cpp:507
+#: src/lokalizemainwindow.cpp:504
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "პროექტის დახურვა"
 
-#: src/lokalizemainwindow.cpp:510
+#: src/lokalizemainwindow.cpp:507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "ახლახანს გახსნილი პროექტის გახსნა"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:515
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "ფაილებში ძებნა და ჩანაცვლება"
 
-#: src/lokalizemainwindow.cpp:521
+#: src/lokalizemainwindow.cpp:518
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "ფაილებში შემდეგის პოვნა"
 
-#: src/lokalizemainwindow.cpp:525
+#: src/lokalizemainwindow.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:702
+#: src/lokalizemainwindow.cpp:699
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -3050,7 +3048,7 @@ msgstr ""
 #: src/prefs/prefs_identity.ui:104
 #, kde-format
 msgid "Language you translate to"
-msgstr ""
+msgstr "ენა, რომელზეც თარგმნით"
 
 #. i18n: ectx: property (whatsThis), widget (KComboBox, DefaultLangCode)
 #: src/prefs/prefs_identity.ui:107
@@ -3062,7 +3060,7 @@ msgstr ""
 #: src/prefs/prefs_identity.ui:127
 #, kde-format
 msgid "Write your email"
-msgstr ""
+msgstr "დაწერეთ თქვენი ელფოსტა"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorEmail)
 #: src/prefs/prefs_identity.ui:130
@@ -3075,7 +3073,7 @@ msgstr ""
 #: src/prefs/prefs_identity.ui:144
 #, kde-format
 msgid "Your name in your own language"
-msgstr ""
+msgstr "თქვენი სახელი თქვენს ენაზე"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_authorLocalizedName)
 #: src/prefs/prefs_identity.ui:147
@@ -3089,13 +3087,13 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Localized name:"
-msgstr ""
+msgstr "ლოკალიზებული სახელი:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_overrideLangTeam)
 #: src/prefs/prefs_identity.ui:164
 #, kde-format
 msgid "Default Language-Team:"
-msgstr ""
+msgstr "ნაგულისხმები Language-Team:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_LanguageToolCustom)
 #: src/prefs/prefs_languagetool.ui:21
@@ -3464,7 +3462,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Mailing list:"
-msgstr ""
+msgstr "დაგზავნის სია:"
 
 #. i18n: ectx: property (text), widget (QLabel, l3)
 #: src/project/prefs_projectmain.ui:92
@@ -3510,7 +3508,7 @@ msgstr "პროექტი"
 #: src/project/prefs_projectmain.ui:180
 #, kde-format
 msgid "Language-Team:"
-msgstr ""
+msgstr "Language-Team:"
 
 #: src/project/project.cpp:447
 #, kde-format
