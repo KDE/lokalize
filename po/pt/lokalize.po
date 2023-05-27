@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-26 00:48+0000\n"
-"PO-Revision-Date: 2023-05-22 17:46+0100\n"
+"PO-Revision-Date: 2023-05-26 22:54+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -1740,12 +1740,10 @@ msgstr ""
 "Deseja modificar a pasta de ficheiros de origem?"
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Subject Field"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Campo de Assunto"
+msgstr "Seleccionar a Pasta"
 
 #: src/editortab.cpp:1652
 #, kde-format

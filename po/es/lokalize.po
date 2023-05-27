@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-26 00:48+0000\n"
-"PO-Revision-Date: 2023-05-23 18:58+0200\n"
+"PO-Revision-Date: 2023-05-26 03:53+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1723,11 +1723,10 @@ msgstr ""
 "¿Desea cambiar la carpeta de archivos de código fuente?"
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Seleccione una carpeta:"
+msgstr "Seleccionar carpeta"
 
 #: src/editortab.cpp:1652
 #, kde-format
