@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-26 00:48+0000\n"
-"PO-Revision-Date: 2023-05-21 14:54+0100\n"
+"PO-Revision-Date: 2023-05-27 13:09+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -135,17 +135,16 @@ msgstr ""
 "Do you want to show the view with the data?"
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternative Translations"
+msgstr "Alternative Translations Available"
 
 #: src/alttransview.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Show Data View"
 
 #: src/alttransview.cpp:246
 #, kde-format
@@ -1663,26 +1662,22 @@ msgstr ""
 "Would you like to search for the source file locally or via lxr.kde.org?"
 
 #: src/editortab.cpp:1573
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Source file lookup"
 
 #: src/editortab.cpp:1574
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Locally"
+msgstr "Search Locally"
 
 #: src/editortab.cpp:1575 src/editortab.cpp:1628
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Search on lxr.kde.org"
 
 #: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
@@ -1711,11 +1706,10 @@ msgstr ""
 "Do you want to change source files folder?"
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Select a folder:"
+msgstr "Select Folder"
 
 #: src/editortab.cpp:1652
 #, kde-format
@@ -2878,27 +2872,22 @@ msgstr ""
 "want to create a new project or open an existing project?"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Project overview"
+msgstr "Project Required"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Create new project"
+msgstr "Create Project"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
-msgstr "Open project"
+msgstr "Open Project"
 
 #: src/prefs/prefs.cpp:185
 #, kde-format
