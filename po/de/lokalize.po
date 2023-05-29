@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-26 00:48+0000\n"
-"PO-Revision-Date: 2023-05-23 02:43+0200\n"
+"PO-Revision-Date: 2023-05-28 10:41+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -1712,11 +1712,10 @@ msgstr ""
 "Möchten Sie den Quelldateiordner ändern?"
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Ordner auswählen:"
+msgstr "Ordner auswählen"
 
 #: src/editortab.cpp:1652
 #, kde-format

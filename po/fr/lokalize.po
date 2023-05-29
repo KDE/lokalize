@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-26 00:48+0000\n"
-"PO-Revision-Date: 2023-05-23 19:12+0200\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"PO-Revision-Date: 2023-05-27 11:15+0200\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1740,11 +1740,10 @@ msgstr ""
 "Voulez-vous modifier le dossier des fichiers sources."
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Choisissez un dossier :"
+msgstr "Sélectionner un dossier"
 
 #: src/editortab.cpp:1652
 #, kde-format
