@@ -249,7 +249,7 @@ struct TsContentEditingData {
 static QString doContent(QDomElement elem, int startingPos, TsContentEditingData* data);
 
 /**
- * walks through XLIFF XML and performs actions depending on TsContentEditingData:
+ * walks through TS XML and performs actions depending on TsContentEditingData:
  * - reads content
  * - deletes content, or
  * - inserts content
