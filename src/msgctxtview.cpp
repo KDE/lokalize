@@ -318,7 +318,7 @@ void MsgCtxtView::addNote(DocPosition p, const QString& text)
 
 void MsgCtxtView::addTemporaryEntryNote(int entry, const QString& text)
 {
-    m_tempNotes.insertMulti(entry, text);
+    m_tempNotes.insert(entry, text);
     m_prevEntry.entry = -1;
     process();
 }

@@ -59,9 +59,9 @@ private:
 
     Catalog* m_catalog;
     QMap< DocPos, QPair<Note, int> > m_unfinishedNotes; //note and its index
-    QMap< int, QString > m_tempNotes;
-    QMap< int, QString > m_pologyNotes;
-    QMap< int, QString > m_languageToolNotes;
+    QMultiMap< int, QString > m_tempNotes;
+    QMultiMap< int, QString > m_pologyNotes;
+    QMultiMap< int, QString > m_languageToolNotes;
     int  m_selection;
     int  m_offset;
     bool m_hasInfo;
