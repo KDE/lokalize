@@ -24,21 +24,13 @@
 
 #include <klocalizedstring.h>
 
-#ifdef Q_OS_WIN
-#define U QLatin1String
-#else
-#define U QStringLiteral
-#endif
-
-//static const char* const noyes[]={"no","yes"};
-
-static const QString names[] = {U("source"), U("translation"), U("oldsource"), U("translatorcomment"), U("comment"), U("name"), U("numerus")};
+static const QString names[] = {QStringLiteral("source"), QStringLiteral("translation"), QStringLiteral("oldsource"), QStringLiteral("translatorcomment"), QStringLiteral("comment"), QStringLiteral("name"), QStringLiteral("numerus")};
 enum TagNames                {SourceTag, TargetTag, OldSourceTag, NoteTag, DevNoteTag, NameTag, PluralTag};
 
-static const QString attrnames[] = {U("location"), U("type"), U("obsolete")};
+static const QString attrnames[] = {QStringLiteral("location"), QStringLiteral("type"), QStringLiteral("obsolete")};
 enum AttrNames                   {LocationAttr, TypeAttr, ObsoleteAttr};
 
-static const QString attrvalues[] = {U("obsolete"), U("vanished")};
+static const QString attrvalues[] = {QStringLiteral("obsolete"), QStringLiteral("vanished")};
 enum AttValues                    {ObsoleteVal, VanishedVal};
 
 static QString protect(const QString & str)

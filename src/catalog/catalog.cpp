@@ -39,13 +39,6 @@
 
 #include <klocalizedstring.h>
 
-#ifdef Q_OS_WIN
-#define U QLatin1String
-#else
-#define U QStringLiteral
-#endif
-
-//QString Catalog::supportedMimeFilters("text/x-gettext-translation application/x-xliff application/x-linguist"); //" text/x-gettext-translation-template")
 QString Catalog::supportedFileTypes(bool includeTemplates)
 {
     QString sep = QStringLiteral(";;");
@@ -53,7 +46,7 @@ QString Catalog::supportedFileTypes(bool includeTemplates)
     return all + (includeTemplates ? i18n("Gettext (*.po *.pot)") : i18n("Gettext (*.po)")) + sep + i18n("XLIFF (*.xlf *.xliff)") + sep + i18n("Linguist (*.ts)");
 }
 
-static const QString extensions[] = {U(".po"), U(".pot"), U(".xlf"), U(".xliff"), U(".ts")};
+static const QString extensions[] = {QStringLiteral(".po"), QStringLiteral(".pot"), QStringLiteral(".xlf"), QStringLiteral(".xliff"), QStringLiteral(".ts")};
 
 static const char* const xliff_states[] = {
     I18N_NOOP("New"), I18N_NOOP("Needs translation"), I18N_NOOP("Needs full localization"), I18N_NOOP("Needs adaptation"), I18N_NOOP("Translated"),

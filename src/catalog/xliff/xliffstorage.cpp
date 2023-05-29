@@ -23,16 +23,10 @@
 #include <QList>
 #include <QXmlStreamReader>
 
-#ifdef Q_OS_WIN
-#define U QLatin1String
-#else
-#define U QStringLiteral
-#endif
-
-static const QString noyes[] = {U("no"), U("yes")};
-static const QString bintargettarget[] = {U("bin-target"), U("target")};
-static const QString binsourcesource[] = {U("bin-source"), U("source")};
-static const QString NOTE = U("note");
+static const QString noyes[] = {QStringLiteral("no"), QStringLiteral("yes")};
+static const QString bintargettarget[] = {QStringLiteral("bin-target"), QStringLiteral("target")};
+static const QString binsourcesource[] = {QStringLiteral("bin-source"), QStringLiteral("source")};
+static const QString NOTE = QStringLiteral("note");
 XliffStorage::XliffStorage()
     : CatalogStorage()
 {
@@ -450,7 +444,7 @@ static QString doContent(QDomElement elem, int startingPos, ContentEditingData* 
 
 CatalogString XliffStorage::catalogString(QDomElement unit,  DocPosition::Part part) const
 {
-    static const QString names[] = {U("source"), U("target"), U("seg-source")};
+    static const QString names[] = {QStringLiteral("source"), QStringLiteral("target"), QStringLiteral("seg-source")};
     CatalogString catalogString;
     ContentEditingData data(ContentEditingData::Get);
     int nameIndex = part == DocPosition::Target;
@@ -919,9 +913,9 @@ void XliffStorage::setApproved(const DocPosition& pos, bool approved)
 */
 
 static const QString xliff_states[] = {
-    U("new"), U("needs-translation"), U("needs-l10n"), U("needs-adaptation"), U("translated"),
-    U("needs-review-translation"), U("needs-review-l10n"), U("needs-review-adaptation"),
-    U("final"), U("signed-off")
+    QStringLiteral("new"), QStringLiteral("needs-translation"), QStringLiteral("needs-l10n"), QStringLiteral("needs-adaptation"), QStringLiteral("translated"),
+    QStringLiteral("needs-review-translation"), QStringLiteral("needs-review-l10n"), QStringLiteral("needs-review-adaptation"),
+    QStringLiteral("final"), QStringLiteral("signed-off")
 };
 
 
