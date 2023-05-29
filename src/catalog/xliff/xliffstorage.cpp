@@ -68,10 +68,10 @@ int XliffStorage::load(QIODevice* device)
     //we create any form-entries additionally needed
 
     entries = m_doc.elementsByTagName(QStringLiteral("trans-unit"));
-    int size = entries.size();
+    int nodeListSize = entries.size();
     m_map.clear();
-    m_map.reserve(size);
-    for (int i = 0; i < size; ++i) {
+    m_map.reserve(nodeListSize);
+    for (int i = 0; i < nodeListSize; ++i) {
         QDomElement parentElement = entries.at(i).parentNode().toElement();
         //if (Q_UNLIKELY( e.isNull() ))//sanity
         //      continue;
@@ -81,7 +81,7 @@ int XliffStorage::load(QIODevice* device)
         if (parentElement.tagName() == QLatin1String("group") && parentElement.attribute(QStringLiteral("restype")) == QLatin1String("x-gettext-plurals")) {
             m_plurals.insert(i);
             int localPluralNum = m_numberOfPluralForms;
-            while (--localPluralNum > 0 && (++i) < size) {
+            while (--localPluralNum > 0 && (++i) < nodeListSize) {
                 QDomElement p = entries.at(i).parentNode().toElement();
                 if (p.tagName() == QLatin1String("group") && p.attribute(QStringLiteral("restype")) == QLatin1String("x-gettext-plurals"))
                     continue;
@@ -92,9 +92,9 @@ int XliffStorage::load(QIODevice* device)
     }
 
     binEntries = m_doc.elementsByTagName(QStringLiteral("bin-unit"));
-    size = binEntries.size();
+    nodeListSize = binEntries.size();
     int offset = m_map.size();
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < nodeListSize; ++i)
         m_unitsById[binEntries.at(i).toElement().attribute(QStringLiteral("id"))] = offset + i;
 
 //    entries=m_doc.elementsByTagName("body");
@@ -707,19 +707,19 @@ QStringList XliffStorage::sourceFiles(const DocPosition& pos) const
     QDomElement elem = unitForPos(pos.entry).firstChildElement(QStringLiteral("context-group"));
     while (!elem.isNull()) {
         if (elem.attribute(QStringLiteral("purpose")).contains(QLatin1String("location"))) {
-            QDomElement context = elem.firstChildElement(QStringLiteral("context"));
-            while (!context.isNull()) {
+            QDomElement contextElem = elem.firstChildElement(QStringLiteral("context"));
+            while (!contextElem.isNull()) {
                 QString sourcefile;
                 QString linenumber;
-                const QString contextType = context.attribute(QStringLiteral("context-type"));
+                const QString contextType = contextElem.attribute(QStringLiteral("context-type"));
                 if (contextType == QLatin1String("sourcefile"))
-                    sourcefile = context.text();
+                    sourcefile = contextElem.text();
                 else if (contextType == QLatin1String("linenumber"))
-                    linenumber = context.text();
+                    linenumber = contextElem.text();
                 if (!(sourcefile.isEmpty() && linenumber.isEmpty()))
                     result.append(sourcefile + QLatin1Char(':') + linenumber);
 
-                context = context.nextSiblingElement(QStringLiteral("context"));
+                contextElem = contextElem.nextSiblingElement(QStringLiteral("context"));
             }
         }
 
@@ -805,10 +805,10 @@ Note XliffStorage::setNote(DocPosition pos, const Note& note)
 QStringList XliffStorage::noteAuthors() const
 {
     QSet<QString> result;
-    QDomNodeList notes = m_doc.elementsByTagName(NOTE);
-    int i = notes.size();
+    QDomNodeList notesNodes = m_doc.elementsByTagName(NOTE);
+    int i = notesNodes.size();
     while (--i >= 0) {
-        QString from = notes.at(i).toElement().attribute(QStringLiteral("from"));
+        QString from = notesNodes.at(i).toElement().attribute(QStringLiteral("from"));
         if (!from.isEmpty())
             result.insert(from);
     }
@@ -862,20 +862,20 @@ QString XliffStorage::setPhase(const DocPosition& pos, const QString& phase)
     QString PHASENAME = QStringLiteral("phase-name");
     targetInsert(pos, QString()); //adds <taget> if needed
 
-    QDomElement target = targetForPos(pos.entry);
-    QString result = target.attribute(PHASENAME);
+    QDomElement targetElem = targetForPos(pos.entry);
+    QString result = targetElem.attribute(PHASENAME);
     if (phase.isEmpty())
-        target.removeAttribute(PHASENAME);
+        targetElem.removeAttribute(PHASENAME);
     else if (phase != result)
-        target.setAttribute(PHASENAME, phase);
+        targetElem.setAttribute(PHASENAME, phase);
 
     return result;
 }
 
 QString XliffStorage::phase(const DocPosition& pos) const
 {
-    QDomElement target = targetForPos(pos.entry);
-    return target.attribute(QStringLiteral("phase-name"));
+    QDomElement targetElem = targetForPos(pos.entry);
+    return targetElem.attribute(QStringLiteral("phase-name"));
 }
 
 QStringList XliffStorage::context(const DocPosition& pos) const
@@ -930,9 +930,9 @@ TargetState stringToState(const QString& state)
 TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 {
     targetInsert(pos, QString()); //adds <taget> if needed
-    QDomElement target = targetForPos(pos.entry);
-    TargetState prev = stringToState(target.attribute(QStringLiteral("state")));
-    target.setAttribute(QStringLiteral("state"), xliff_states[state]);
+    QDomElement targetElem = targetForPos(pos.entry);
+    TargetState prev = stringToState(targetElem.attribute(QStringLiteral("state")));
+    targetElem.setAttribute(QStringLiteral("state"), xliff_states[state]);
 
     unitForPos(pos.entry).setAttribute(QStringLiteral("approved"), noyes[state == SignedOff]);
     return prev;
@@ -940,10 +940,10 @@ TargetState XliffStorage::setState(const DocPosition& pos, TargetState state)
 
 TargetState XliffStorage::state(const DocPosition& pos) const
 {
-    QDomElement target = targetForPos(pos.entry);
-    if (!target.hasAttribute(QStringLiteral("state")) && unitForPos(pos.entry).attribute(QStringLiteral("approved")) == QLatin1String("yes"))
+    QDomElement targetElem = targetForPos(pos.entry);
+    if (!targetElem.hasAttribute(QStringLiteral("state")) && unitForPos(pos.entry).attribute(QStringLiteral("approved")) == QLatin1String("yes"))
         return SignedOff;
-    return stringToState(target.attribute(QStringLiteral("state")));
+    return stringToState(targetElem.attribute(QStringLiteral("state")));
 }
 
 bool XliffStorage::isEmpty(const DocPosition& pos) const

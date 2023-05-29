@@ -572,25 +572,25 @@ bool TsStorage::isPlural(const DocPosition& pos) const
 void TsStorage::setApproved(const DocPosition& pos, bool approved)
 {
     targetInsert(pos, QString()); //adds <target> if needed
-    QDomElement target = unitForPos(pos.entry).firstChildElement(names[TargetTag]); //asking directly to bypass plural state detection
-    if (target.attribute(attrnames[TypeAttr]) == attrvalues[ObsoleteVal])
+    QDomElement targetElem = unitForPos(pos.entry).firstChildElement(names[TargetTag]); //asking directly to bypass plural state detection
+    if (targetElem.attribute(attrnames[TypeAttr]) == attrvalues[ObsoleteVal])
         return;
     if (approved)
-        target.removeAttribute(attrnames[TypeAttr]);
+        targetElem.removeAttribute(attrnames[TypeAttr]);
     else
-        target.setAttribute(attrnames[TypeAttr], QStringLiteral("unfinished"));
+        targetElem.setAttribute(attrnames[TypeAttr], QStringLiteral("unfinished"));
 }
 
 bool TsStorage::isApproved(const DocPosition& pos) const
 {
-    QDomElement target = unitForPos(pos.entry).firstChildElement(names[TargetTag]);
-    return !target.hasAttribute(attrnames[TypeAttr]) || target.attribute(attrnames[TypeAttr]) == attrvalues[VanishedVal];
+    const QDomElement targetElem = unitForPos(pos.entry).firstChildElement(names[TargetTag]);
+    return !targetElem.hasAttribute(attrnames[TypeAttr]) || targetElem.attribute(attrnames[TypeAttr]) == attrvalues[VanishedVal];
 }
 
 bool TsStorage::isObsolete(int entry) const
 {
-    QDomElement target = unitForPos(entry).firstChildElement(names[TargetTag]);
-    QString v = target.attribute(attrnames[TypeAttr]);
+    const QDomElement targetElem = unitForPos(entry).firstChildElement(names[TargetTag]);
+    const QString v = targetElem.attribute(attrnames[TypeAttr]);
     return v == attrvalues[ObsoleteVal] || v == attrvalues[VanishedVal];
 }
 
@@ -620,14 +620,14 @@ QDomElement TsStorage::unitForPos(int pos) const
 
 QDomElement TsStorage::targetForPos(DocPosition pos) const
 {
-    QDomElement unit = unitForPos(pos.entry);
+    const QDomElement unit = unitForPos(pos.entry);
     QDomElement translation = unit.firstChildElement(names[TargetTag]);
     if (!unit.hasAttribute(names[PluralTag]))
         return translation;
 
     if (pos.form == -1) pos.form = 0;
 
-    QDomNodeList forms = translation.elementsByTagName(QStringLiteral("numerusform"));
+    const QDomNodeList forms = translation.elementsByTagName(QStringLiteral("numerusform"));
     while (pos.form >= forms.size())
         translation.appendChild(unit.ownerDocument().createElement(QStringLiteral("numerusform")));
     return forms.at(pos.form).toElement();
