@@ -57,6 +57,7 @@ class ProjectModel: public QAbstractItemModel
         {
             switch (Project::local()->role()) {
             case ProjectLocal::Translator:
+                [[fallthrough]];
             case ProjectLocal::Undefined:
                 return metaData.translated;
             case ProjectLocal::Reviewer:
@@ -71,6 +72,7 @@ class ProjectModel: public QAbstractItemModel
         {
             switch (Project::local()->role()) {
             case ProjectLocal::Translator:
+                [[fallthrough]];
             case ProjectLocal::Undefined:
                 return metaData.fuzzy;
             case ProjectLocal::Reviewer:
