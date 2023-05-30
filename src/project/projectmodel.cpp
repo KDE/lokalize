@@ -51,10 +51,7 @@ ProjectModel::ProjectModel(QObject *parent)
     m_threadPool->setMaxThreadCount(1);
     m_threadPool->setExpiryTimeout(-1);
 
-    m_poModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
     m_poModel.dirLister()->setNameFilter(QStringLiteral("*.po *.pot *.xlf *.xliff *.ts"));
-
-    m_potModel.dirLister()->setAutoErrorHandlingEnabled(false, nullptr);
     m_potModel.dirLister()->setNameFilter(QStringLiteral("*.pot"));
 
     connect(&m_poModel, &KDirModel::dataChanged, this, &ProjectModel::po_dataChanged);
