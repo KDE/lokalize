@@ -32,21 +32,6 @@ static int nodeCounter = 0;
 
 ProjectModel::ProjectModel(QObject *parent)
     : QAbstractItemModel(parent)
-    , m_poModel(this)
-    , m_potModel(this)
-    , m_rootNode(nullptr, -1, -1, -1)
-    , m_dirIcon(QIcon::fromTheme(QStringLiteral("inode-directory")))
-    , m_poIcon(QIcon::fromTheme(QStringLiteral("flag-blue")))
-    , m_poInvalidIcon(QIcon::fromTheme(QStringLiteral("flag-red")))
-    , m_poComplIcon(QIcon::fromTheme(QStringLiteral("flag-green")))
-    , m_poEmptyIcon(QIcon::fromTheme(QStringLiteral("flag-yellow")))
-    , m_potIcon(QIcon::fromTheme(QStringLiteral("flag-black")))
-    , m_activeJob(nullptr)
-    , m_activeNode(nullptr)
-    , m_doneTimer(new QTimer(this))
-    , m_delayedReloadTimer(new QTimer(this))
-    , m_threadPool(new QThreadPool(this))
-    , m_completeScan(true)
 {
     m_threadPool->setMaxThreadCount(1);
     m_threadPool->setExpiryTimeout(-1);

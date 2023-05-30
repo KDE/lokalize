@@ -14,7 +14,10 @@
 #define PROJECTMODEL_H
 
 #include <QHash>
+#include <QIcon>
 #include <QList>
+#include <QThreadPool>
+#include <QTimer>
 
 #include <KDirModel>
 
@@ -214,28 +217,28 @@ private:
 
     QUrl m_poUrl;
     QUrl m_potUrl;
-    KDirModel m_poModel;
-    KDirModel m_potModel;
+    KDirModel m_poModel{this};
+    KDirModel m_potModel{this};
 
-    ProjectNode m_rootNode;
+    ProjectNode m_rootNode{nullptr, -1, -1, -1};
 
-    QVariant m_dirIcon;
-    QVariant m_poIcon;
-    QVariant m_poInvalidIcon;
-    QVariant m_poComplIcon;
-    QVariant m_poEmptyIcon;
-    QVariant m_potIcon;
+    QVariant m_dirIcon{QIcon::fromTheme(QStringLiteral("inode-directory"))};
+    QVariant m_poIcon{QIcon::fromTheme(QStringLiteral("flag-blue"))};
+    QVariant m_poInvalidIcon{QIcon::fromTheme(QStringLiteral("flag-red"))};
+    QVariant m_poComplIcon{QIcon::fromTheme(QStringLiteral("flag-green"))};
+    QVariant m_poEmptyIcon{QIcon::fromTheme(QStringLiteral("flag-yellow"))};
+    QVariant m_potIcon{QIcon::fromTheme(QStringLiteral("flag-black"))};
 
     //for updating stats
     QSet<ProjectNode *> m_dirsWaitingForMetadata;
-    UpdateStatsJob* m_activeJob;
-    ProjectNode* m_activeNode;
-    QTimer* m_doneTimer;
-    QTimer* m_delayedReloadTimer;
+    UpdateStatsJob* m_activeJob{nullptr};
+    ProjectNode* m_activeNode{nullptr};
+    QTimer* m_doneTimer{new QTimer(this)};
+    QTimer* m_delayedReloadTimer{new QTimer(this)};
 
-    QThreadPool* m_threadPool;
+    QThreadPool* m_threadPool{new QThreadPool(this)};
 
-    bool m_completeScan;
+    bool m_completeScan{true};
 };
 
 #endif
