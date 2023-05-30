@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-26 00:48+0000\n"
-"PO-Revision-Date: 2023-05-01 16:48+0200\n"
+"POT-Creation-Date: 2023-05-30 00:48+0000\n"
+"PO-Revision-Date: 2023-05-29 15:05+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -134,17 +134,16 @@ msgstr ""
 "Tu vole monstrar le vista con le datos?"
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Traductiones Alternative"
+msgstr "Traductiones Alternative disponibile"
 
 #: src/alttransview.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Vista de Datos"
 
 #: src/alttransview.cpp:246
 #, kde-format
@@ -232,77 +231,77 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Usa file fonte"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Omne files supportate (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "New"
 msgstr "Nove"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs translation"
 msgstr "Necessita traduction"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs full localization"
 msgstr "Necessita localisation complete"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Necessita adaptation"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Translated"
 msgstr "Traducite"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs translation review"
 msgstr "Necessita review de traduction"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Necessita review de localisation complete"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Necessita review de adaptation"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Final"
 msgstr "Final"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:54
 #, kde-format
 msgid "Signed-off"
 msgstr "Claudite"
@@ -822,7 +821,7 @@ msgstr "E-posta de autor mancante"
 msgid "Your email:"
 msgstr "Tu adresse de E-posta:"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:429
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Previe valor de fonte, salveguardate per instrumento de lupdate"
@@ -841,12 +840,10 @@ msgstr "Recerca rapide..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Accepta expressiones regular"
+msgstr "Activate per Ctrl+L. Accepta expressiones regular"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -962,7 +959,7 @@ msgstr "Elemento"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:216
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
@@ -970,7 +967,7 @@ msgid "Source"
 msgstr "Fonte"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
+#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:202
 #: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -1474,9 +1471,7 @@ msgid "This changes only empty entries"
 msgstr "Isto cambia solmente entratas vacue"
 
 #: src/editortab.cpp:756
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(recuperate)"
@@ -1674,26 +1669,22 @@ msgid ""
 msgstr "Tu volerea cercar le file fonte localmente o via lxr.kde.org?"
 
 #: src/editortab.cpp:1573
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "Cerca file fonte"
 
 #: src/editortab.cpp:1574
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Localmente"
+msgstr "Cerca Localmente"
 
 #: src/editortab.cpp:1575 src/editortab.cpp:1628
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Cerca sur lxr.kde.org"
 
 #: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
@@ -1722,11 +1713,10 @@ msgstr ""
 "Tu vole cambiar le dossier de files fonte?"
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Selige un dossier:"
+msgstr "Selige dossier"
 
 #: src/editortab.cpp:1652
 #, kde-format
@@ -2066,7 +2056,7 @@ msgstr "Vista preliminar"
 msgid "Mass Replace"
 msgstr "Reimplacia globalmente"
 
-#: src/glossary/glossary.cpp:218
+#: src/glossary/glossary.cpp:203
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
@@ -2897,24 +2887,19 @@ msgstr ""
 "Tu vole crear un nove projecto o aperir un projecto existente?"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Vista general  de Projecto"
+msgstr "Projecto Requirite"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Projecto"
+msgstr "Crea Projecto"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Aperi projecto"

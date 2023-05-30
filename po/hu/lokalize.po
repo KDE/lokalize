@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-26 00:48+0000\n"
+"POT-Creation-Date: 2023-05-30 00:48+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -234,77 +234,77 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Forrásfájl használata"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Minden támogatott fájl (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "New"
 msgstr "Új"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs translation"
 msgstr "Fordítást igényel"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs full localization"
 msgstr "Teljes honosítást igényel"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Adaptálást igényel"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Translated"
 msgstr "Lefordítva"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs translation review"
 msgstr "Fordítási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Teljes honosítási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Adaptálási lektorálást igényel"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Final"
 msgstr "Végleges"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:54
 #, kde-format
 msgid "Signed-off"
 msgstr "Láttamozva"
@@ -820,7 +820,7 @@ msgid "Your email:"
 msgstr ""
 "ulysses@kubuntu.org,negusnyul@gmail.com,tszanto@interware.hu,ur.balazs@fsf.hu"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:429
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "Előző forrásérték, amelyet a lupdate mentett el"
@@ -960,7 +960,7 @@ msgstr "Bejegyzés"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:216
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
@@ -968,7 +968,7 @@ msgid "Source"
 msgstr "Forrás"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
+#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:202
 #: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -2069,7 +2069,7 @@ msgstr "Előnézet"
 msgid "Mass Replace"
 msgstr "Tömeges csere"
 
-#: src/glossary/glossary.cpp:218
+#: src/glossary/glossary.cpp:203
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-sdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-26 00:48+0000\n"
+"POT-Creation-Date: 2023-05-30 00:48+0000\n"
 "PO-Revision-Date: 2022-04-16 23:10+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -227,77 +227,77 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "원본 파일 사용"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "모든 지원하는 파일 (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "New"
 msgstr "새 항목"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs translation"
 msgstr "번역이 필요함"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs full localization"
 msgstr "완전한 지역화가 필요함"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs adaptation"
 msgstr "문맥에 맞춰야 함"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Translated"
 msgstr "번역됨"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs translation review"
 msgstr "번역 검토 필요함"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs full localization review"
 msgstr "완전한 지역화 검토 필요함"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "문맥 검토 필요함"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Final"
 msgstr "최종"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:54
 #, kde-format
 msgid "Signed-off"
 msgstr "확인됨"
@@ -772,7 +772,7 @@ msgstr "번역자 이메일 없음"
 msgid "Your email:"
 msgstr "내 이메일:"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:429
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr "lupdate 도구에서 저장한 이전 원본 값"
@@ -912,7 +912,7 @@ msgstr "항목"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:216
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
@@ -920,7 +920,7 @@ msgid "Source"
 msgstr "원본"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
+#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:202
 #: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -2007,7 +2007,7 @@ msgstr "미리 보기"
 msgid "Mass Replace"
 msgstr "대량으로 바꾸기"
 
-#: src/glossary/glossary.cpp:218
+#: src/glossary/glossary.cpp:203
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"

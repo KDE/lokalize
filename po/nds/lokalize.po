@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-26 00:48+0000\n"
+"POT-Creation-Date: 2023-05-30 00:48+0000\n"
 "PO-Revision-Date: 2011-12-18 07:38+0100\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -238,77 +238,77 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Borndatei bruken"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:45
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "New"
 msgstr "Nieg"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs translation"
 msgstr "Översetten deit noot"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs full localization"
 msgstr "Heel Översetten deit noot"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Topassen deit noot"
 
-#: src/catalog/catalog.cpp:59
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "Translated"
 msgstr "Översett"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs translation review"
 msgstr "Översetten-Nakiek deit noot"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Heel Översetten-Nakiek deit noot"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Topass-Nakiek deit noot"
 
-#: src/catalog/catalog.cpp:60
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Final"
 msgstr "Ennverschoon"
 
-#: src/catalog/catalog.cpp:61
+#: src/catalog/catalog.cpp:54
 #, kde-format
 msgid "Signed-off"
 msgstr "Afsegent"
@@ -823,7 +823,7 @@ msgstr ""
 msgid "Your email:"
 msgstr "s_dibbern@web.de, m.j.wiese@web.de"
 
-#: src/catalog/ts/tsstorage.cpp:439
+#: src/catalog/ts/tsstorage.cpp:429
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
 msgstr ""
@@ -966,7 +966,7 @@ msgstr "Indrag"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:216
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
@@ -974,7 +974,7 @@ msgid "Source"
 msgstr "Born"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
+#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:202
 #: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -2128,7 +2128,7 @@ msgstr "Nakiek"
 msgid "Mass Replace"
 msgstr "Utwesseln"
 
-#: src/glossary/glossary.cpp:218
+#: src/glossary/glossary.cpp:203
 #, kde-format
 msgctxt "@title:column"
 msgid "Subject Field"
