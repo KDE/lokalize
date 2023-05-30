@@ -269,14 +269,12 @@ void SettingsController::projectConfigure()
     ui_prefs_projectmain.glossaryTbx->setUrl(QUrl::fromLocalFile(p.glossaryPath()));
 
     auto kcfg_ProjLangTeam = ui_prefs_projectmain.kcfg_ProjLangTeam;
-    connect(ui_prefs_projectmain.kcfg_LanguageSource, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged),
-    this, [kcfg_ProjLangTeam](int index) {
-        kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project);
-    });
-    connect(ui_prefs_projectmain.kcfg_LanguageSource, static_cast<void(KComboBox::*)(const QString &)>(&KComboBox::currentIndexChanged),
-            this, [kcfg_ProjLangTeam] { kcfg_ProjLangTeam->setFocus(); });
-
-
+    connect(ui_prefs_projectmain.kcfg_LanguageSource,
+            qOverload<int>(&KComboBox::currentIndexChanged),
+            this, [kcfg_ProjLangTeam](int index) {
+                kcfg_ProjLangTeam->setEnabled(static_cast<Project::LangSource>(index) == Project::LangSource::Project);
+                kcfg_ProjLangTeam->setFocus();
+            });
 
 
     // RegExps
