@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 20.04.0\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -3953,8 +3953,7 @@ msgstr "Pology チェックが成功しました"
 #, kde-format
 msgid "You are about to open %1 file"
 msgid_plural "You are about to open %1 files"
-msgstr[0] "%1 ファイルを開こうとしています"
-msgstr[1] "%1 複数のファイルを開こうとしています"
+msgstr[0] "%1 複数のファイルを開こうとしています"
 
 #: src/project/projecttab.cpp:389
 #, kde-format
@@ -3974,7 +3973,6 @@ msgstr "本当に多数のファイルを開いて良いですか？"
 msgid "&Open %1 File"
 msgid_plural "&Open %1 Files"
 msgstr[0] "%1 個のファイルを開く"
-msgstr[1] "%1 個のファイルを開く"
 
 #: src/tm/dbfilesmodel.cpp:99
 #, kde-format
@@ -4347,7 +4345,6 @@ msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
 msgid_plural "(%1 times)"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/tm/tmview.cpp:543
 #, kde-format
