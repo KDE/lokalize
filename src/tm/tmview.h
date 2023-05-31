@@ -80,11 +80,11 @@ private:
 
 
 private:
-    TextBrowser* m_browser;
-    Catalog* m_catalog;
+    TextBrowser* m_browser{nullptr};
+    Catalog* m_catalog{nullptr};
     DocPosition m_pos;
 
-    SelectJob* m_currentSelectJob;
+    SelectJob* m_currentSelectJob{nullptr};
     QVector<QAction*> m_actions_insert;//need them to get insertion shortcuts
     QVector<QAction*> m_actions_remove;//need them to get deletion shortcuts
     QList<TMEntry> m_entries;
@@ -92,11 +92,11 @@ private:
 
     QString m_normTitle;
     QString m_hasInfoTitle;
-    bool m_hasInfo;
+    bool m_hasInfo{false};
 
-    bool m_isBatching;
-    bool m_markAsFuzzy;
-    QMap<DocPos, QVector<TMEntry> > m_cache;
+    bool m_isBatching{false};
+    bool m_markAsFuzzy{false};
+    QMap<DocPos, QVector<TMEntry>> m_cache;
     DocPosition m_prevCachePos;//hacky hacky
     QVector<QRunnable*> m_jobs;//holds pointers to all the jobs for the current file
 };

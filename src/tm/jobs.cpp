@@ -956,8 +956,6 @@ OpenDBJob::OpenDBJob(const QString& name, DbType type, bool reconnect, const Con
     : QObject(), QRunnable()
     , m_dbName(name)
     , m_type(type)
-    , m_setParams(false)
-    , m_connectionSuccessful(false)
     , m_reconnect(reconnect)
     , m_connParams(connParams)
 {
@@ -2093,7 +2091,6 @@ void ExportTmxJob::run()
 
 ExecQueryJob::ExecQueryJob(const QString& queryString, const QString& dbName, QMutex *dbOperation)
     : QObject(), QRunnable()
-    , query(nullptr)
     , m_dbName(dbName)
     , m_query(queryString)
     , m_dbOperationMutex(dbOperation)

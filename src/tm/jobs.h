@@ -101,10 +101,10 @@ public:
 
     //for the new DB creation
     TMConfig m_tmConfig;
-    bool m_setParams;
+    bool m_setParams{false};
 
-    bool m_connectionSuccessful;
-    bool m_reconnect;
+    bool m_connectionSuccessful{false};
+    bool m_reconnect{false};
     ConnectionParams m_connParams;
 };
 
@@ -460,7 +460,7 @@ public:
     }
 
 
-    QSqlQuery* query;
+    QSqlQuery* query{nullptr};
 
 Q_SIGNALS:
     void done(ExecQueryJob*);

@@ -12,6 +12,7 @@
 
 #include "lokalizesubwindowbase.h"
 #include "pos.h"
+#include "qaview.h"
 #include "rule.h"
 
 #include <QDockWidget>
@@ -93,20 +94,19 @@ private:
 
 
 private:
-    Ui_FileSearchOptions* ui_fileSearchOptions;
+    Ui_FileSearchOptions* ui_fileSearchOptions{nullptr};
 
-    FileSearchModel* m_model;
-    //TMResultsSortFilterProxyModel *m_proxyModel;
-    SearchFileListView* m_searchFileListView;
-    MassReplaceView* m_massReplaceView;
-    QaView* m_qaView;
+    FileSearchModel* m_model{nullptr};
+    SearchFileListView* m_searchFileListView{nullptr};
+    MassReplaceView* m_massReplaceView{nullptr};
+    QaView* m_qaView{new QaView(this)};
 
     QVector<QRunnable*> m_runningJobs;
 
     //to avoid results from previous search showing up in the new one
-    int m_lastSearchNumber;
+    int m_lastSearchNumber{0};
 
-    int m_dbusId;
+    int m_dbusId{-1};
     static QList<int> ids;
 };
 
@@ -288,7 +288,7 @@ public:
 
     SearchResults results; //plain
 
-    int m_size;
+    int m_size{0};
 };
 
 /// @short replace in files

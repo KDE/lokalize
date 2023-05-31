@@ -179,7 +179,6 @@ SearchJob::SearchJob(const QStringList& f, const SearchParams& sp, const QVector
     , searchParams(sp)
     , rules(r)
     , searchNumber(sn)
-    , m_size(0)
 {
     setAutoDelete(false);
 }
@@ -419,8 +418,6 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
 //    , m_proxyModel(new TMResultsSortFilterProxyModel(this))
     , m_model(new FileSearchModel(this))
-    , m_lastSearchNumber(0)
-    , m_dbusId(-1)
 {
     setWindowTitle(i18nc("@title:window", "Search and replace in files"));
     setAcceptDrops(true);
@@ -522,7 +519,6 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     connect(m_massReplaceView, &MassReplaceView::replaceRequested, this, &FileSearchTab::massReplace);
     //m_massReplaceView->hide();
 
-    m_qaView = new QaView(this);
     m_qaView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
     srf->addAction(QStringLiteral("showqa_action"), m_qaView->toggleViewAction());
