@@ -40,10 +40,9 @@ RecursiveScanJob::RecursiveScanJob(const QString& dbName, QObject* parent)
 
 bool RecursiveScanJob::doKill()
 {
-#if QT_VERSION >= 0x050500
-    for (ScanJob* job : qAsConst(m_jobs))
-        TM::threadPool()->tryTake(job);
-#endif
+    for (auto job : qAsConst(m_jobs)) {
+        [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
+    }
     return true;
 }
 

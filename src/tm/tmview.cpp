@@ -140,11 +140,9 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
 
 TMView::~TMView()
 {
-#if QT_VERSION >= 0x050500
-    int i = m_jobs.size();
-    while (--i >= 0)
-        TM::threadPool()->tryTake(m_jobs.at(i));
-#endif
+    for (auto job : qAsConst(m_jobs)) {
+        [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
+    }
 }
 
 void TMView::initLater()
@@ -200,11 +198,9 @@ void TMView::slotFileLoaded(const QString& filePath)
         return;
 
     m_cache.clear();
-#if QT_VERSION >= 0x050500
-    int i = m_jobs.size();
-    while (--i >= 0)
-        TM::threadPool()->tryTake(m_jobs.at(i));
-#endif
+    for (auto job : qAsConst(m_jobs)) {
+        [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
+    }
     m_jobs.clear();
 
     DocPosition pos;
@@ -335,11 +331,9 @@ void TMView::slotNewEntryDisplayed(const DocPosition& pos)
     if (m_catalog->numberOfEntries() <= pos.entry)
         return;//because of Qt::QueuedConnection
 
-#if QT_VERSION >= 0x050500
-    int i = m_jobs.size();
-    while (--i >= 0)
-        TM::threadPool()->tryTake(m_currentSelectJob);
-#endif
+    for (auto job : qAsConst(m_jobs)) {
+        [[maybe_unused]] const bool result = TM::threadPool()->tryTake(job);
+    }
 
     //update DB
     //m_catalog->flushUpdateDBBuffer();

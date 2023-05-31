@@ -603,11 +603,9 @@ void FileSearchTab::performSearch()
 
 void FileSearchTab::stopSearch()
 {
-#if QT_VERSION >= 0x050500
-    int i = m_runningJobs.size();
-    while (--i >= 0)
-        QThreadPool::globalInstance()->tryTake(m_runningJobs.at(i));
-#endif
+    for (auto job : qAsConst(m_runningJobs)) {
+        [[maybe_unused]] const bool result = QThreadPool::globalInstance()->tryTake(job);
+    }
     m_runningJobs.clear();
 }
 
