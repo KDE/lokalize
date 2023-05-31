@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: playground-devtools/kaider.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-30 00:48+0000\n"
+"POT-Creation-Date: 2023-05-31 00:50+0000\n"
 "PO-Revision-Date: 2007-08-03 07:58-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -2867,13 +2867,13 @@ msgstr ""
 msgid "Create software or OpenDocument translation project first."
 msgstr "*.lokalize|Tionscadal aistriúcháin Lokalize"
 
-#: src/prefs/prefs.cpp:298
+#: src/prefs/prefs.cpp:296
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Casta"
 
-#: src/prefs/prefs.cpp:309
+#: src/prefs/prefs.cpp:307
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"

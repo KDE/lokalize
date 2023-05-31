@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-30 00:48+0000\n"
+"POT-Creation-Date: 2023-05-31 00:50+0000\n"
 "PO-Revision-Date: 2023-05-13 08:57+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2947,13 +2947,13 @@ msgstr "Wybierz katalog z plikami Gettext .po do przetłumaczenia"
 msgid "Create software or OpenDocument translation project first."
 msgstr "Najpierw utwórz projekt tłumaczenia OpenDocument."
 
-#: src/prefs/prefs.cpp:298
+#: src/prefs/prefs.cpp:296
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Rozszerzone"
 
-#: src/prefs/prefs.cpp:309
+#: src/prefs/prefs.cpp:307
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"

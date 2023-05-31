@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-30 00:48+0000\n"
+"POT-Creation-Date: 2023-05-31 00:50+0000\n"
 "PO-Revision-Date: 2023-05-29 15:05+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -2932,13 +2932,13 @@ msgstr "Selige dossier con files .pode Gettext a traducer"
 msgid "Create software or OpenDocument translation project first."
 msgstr "Crea prime projecto de traduction de software o OpenDocument."
 
-#: src/prefs/prefs.cpp:298
+#: src/prefs/prefs.cpp:296
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Avantiate"
 
-#: src/prefs/prefs.cpp:309
+#: src/prefs/prefs.cpp:307
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"

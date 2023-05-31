@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-30 00:48+0000\n"
+"POT-Creation-Date: 2023-05-31 00:50+0000\n"
 "PO-Revision-Date: 2023-05-25 09:02+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -2932,13 +2932,13 @@ msgstr ""
 "Спочатку створіть проєкт перекладу програмного забезпечення або документа "
 "OpenDocument."
 
-#: src/prefs/prefs.cpp:298
+#: src/prefs/prefs.cpp:296
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Додатково"
 
-#: src/prefs/prefs.cpp:309
+#: src/prefs/prefs.cpp:307
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"

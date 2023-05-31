@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-30 00:48+0000\n"
+"POT-Creation-Date: 2023-05-31 00:50+0000\n"
 "PO-Revision-Date: 2021-09-20 14:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2948,13 +2948,13 @@ msgid "Create software or OpenDocument translation project first."
 msgstr ""
 "Először hozzon létre egy szoftver- vagy OpenDocument-fordítási projektet."
 
-#: src/prefs/prefs.cpp:298
+#: src/prefs/prefs.cpp:296
 #, kde-format
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr "Speciális"
 
-#: src/prefs/prefs.cpp:309
+#: src/prefs/prefs.cpp:307
 #, kde-format
 msgctxt "@title:tab"
 msgid "Personal"
