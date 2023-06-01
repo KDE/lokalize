@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-31 00:50+0000\n"
+"POT-Creation-Date: 2023-06-01 00:49+0000\n"
 "PO-Revision-Date: 2012-06-08 19:52+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -954,7 +954,7 @@ msgstr "Ieraksts"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
+#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:201
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
@@ -962,7 +962,7 @@ msgid "Source"
 msgstr "Oriģināls"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:202
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:202
 #: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -989,7 +989,7 @@ msgid "Files"
 msgstr "Fails"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:67
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -1059,7 +1059,7 @@ msgid "Current: %1"
 msgstr "Aktīvais: %1"
 
 #: src/editortab.cpp:146 src/editortab.cpp:871
-#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:513
+#: src/filesearch/filesearchtab.cpp:775 src/project/projecttab.cpp:513
 #: src/tm/tmtab.cpp:590
 #, kde-format
 msgctxt "@info:status message entries"
@@ -2034,13 +2034,13 @@ msgid "Drop translation files here..."
 msgstr "Neskenēt projekta failus."
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "Fails"
 
-#: src/filesearch/filesearchtab.cpp:425
+#: src/filesearch/filesearchtab.cpp:422
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Search and replace in files"
@@ -2048,22 +2048,22 @@ msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Meklēt un aizvietot failos"
 
-#: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Kopēt oriģinālu uz starpliktuvi"
 
-#: src/filesearch/filesearchtab.cpp:465 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Kopēt tulkojumu uz starpliktuvi"
 
-#: src/filesearch/filesearchtab.cpp:471 src/tm/tmtab.cpp:415
+#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:415
 #, kde-format
 msgid "Open file"
 msgstr "Atvērt failu"
 
-#: src/filesearch/filesearchtab.cpp:510
+#: src/filesearch/filesearchtab.cpp:507
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Search and replace in files"
@@ -2071,7 +2071,7 @@ msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Meklēt un aizvietot failos"
 
-#: src/filesearch/filesearchtab.cpp:798
+#: src/filesearch/filesearchtab.cpp:792
 #, fuzzy, kde-format
 #| msgid "Mass Replace"
 msgctxt "@title:window"
@@ -3901,13 +3901,13 @@ msgstr "POT failu (tulkošanas sagatavju) bāzes mape"
 msgid "Project's glossary"
 msgstr "Projekta vārdnīca"
 
-#: src/project/projectmodel.cpp:533
+#: src/project/projectmodel.cpp:521
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: src/project/projectmodel.cpp:535
+#: src/project/projectmodel.cpp:523
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3915,55 +3915,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Grafiks"
 
-#: src/project/projectmodel.cpp:537
+#: src/project/projectmodel.cpp:525
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "Kopā"
 
-#: src/project/projectmodel.cpp:539
+#: src/project/projectmodel.cpp:527
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Iztulkots"
 
-#: src/project/projectmodel.cpp:541
+#: src/project/projectmodel.cpp:529
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Nav gatavs"
 
-#: src/project/projectmodel.cpp:543
+#: src/project/projectmodel.cpp:531
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Netulkots"
 
-#: src/project/projectmodel.cpp:545
+#: src/project/projectmodel.cpp:533
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr ""
 
-#: src/project/projectmodel.cpp:547
+#: src/project/projectmodel.cpp:535
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Pēdējais tulkojums"
 
-#: src/project/projectmodel.cpp:549
+#: src/project/projectmodel.cpp:537
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr ""
 
-#: src/project/projectmodel.cpp:551
+#: src/project/projectmodel.cpp:539
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Sagataves versija"
 
-#: src/project/projectmodel.cpp:553
+#: src/project/projectmodel.cpp:541
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4424,12 +4424,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Izvēlieties TMX failu, kurā saglabāt izvēlēto datubāzi"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Pievieno failus Lokalize tulkošanas atmiņai"
 
-#: src/tm/tmscanapi.cpp:83
+#: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "TM"
 msgstr "TA"
@@ -4460,7 +4460,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Čaulas aizstājējzīmes (* un ?). Reģistrjutīgs."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:129
+#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4472,56 +4472,56 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "Kopā: %1 (%2)"
 
-#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:590
+#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info"
 msgid ""
 "The file %1 does not exist, it has been removed from the translation memory."
 msgstr ""
 
-#: src/tm/tmview.cpp:168 src/webquery/webqueryview.cpp:62
+#: src/tm/tmview.cpp:162 src/webquery/webqueryview.cpp:62
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Dubultklikšķis uz jebkura vārda pievieno to tulkojumam"
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:276
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Masveida tulkošanas atmiņas aizpildīšana"
 
-#: src/tm/tmview.cpp:287
+#: src/tm/tmview.cpp:279
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Masveida tulkošana ir pabeigta."
 
-#: src/tm/tmview.cpp:293
+#: src/tm/tmview.cpp:285
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Netika atrasts neviens ieteikums ar precīzu sakritību."
 
-#: src/tm/tmview.cpp:297
+#: src/tm/tmview.cpp:289
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation complete"
 msgstr "Masveida tulkošana pabeigta"
 
-#: src/tm/tmview.cpp:311 src/tm/tmview.cpp:326
+#: src/tm/tmview.cpp:303 src/tm/tmview.cpp:318
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation"
 msgstr "Masveida tulkošana"
 
-#: src/tm/tmview.cpp:312 src/tm/tmview.cpp:327
+#: src/tm/tmview.cpp:304 src/tm/tmview.cpp:319
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Masveida tulkošana ir piereģistrēta."
 
-#: src/tm/tmview.cpp:461
+#: src/tm/tmview.cpp:451
 #, fuzzy, kde-format
 #| msgctxt "percentages in statusbar"
 #| msgid " (%1%)"
@@ -4529,7 +4529,7 @@ msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr " (%1%)"
 
-#: src/tm/tmview.cpp:463
+#: src/tm/tmview.cpp:453
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4538,43 +4538,43 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "šis"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:535
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Fails: %1<br /> Pievienošanas datums: %2"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:537
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Pēdējās izmaiņas datums: %1"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Pēdējās izmaiņas autors: %1"
 
-#: src/tm/tmview.cpp:550
+#: src/tm/tmview.cpp:540
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TA: %1"
 
-#: src/tm/tmview.cpp:552
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Tas vairs nav atrodams šajā failā"
 
-#: src/tm/tmview.cpp:565 src/tm/tmview.cpp:572
+#: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4583,31 +4583,31 @@ msgstr ""
 "<html>Vai vēlaties izņemt šo ierakstu:<br/><i>%1</i><br/>no tulkošanas "
 "atmiņas %2?</html>"
 
-#: src/tm/tmview.cpp:566 src/tm/tmview.cpp:573
+#: src/tm/tmview.cpp:556 src/tm/tmview.cpp:563
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Tulkošanas atmiņas ieraksta izņemšana"
 
-#: src/tm/tmview.cpp:606
+#: src/tm/tmview.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Izņemt šo ierakstu"
 
-#: src/tm/tmview.cpp:608
+#: src/tm/tmview.cpp:598
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Atvērt failu, kas satur ierakstu"
 
-#: src/tm/tmview.cpp:615
+#: src/tm/tmview.cpp:605
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr ""
 
-#: src/tm/tmview.cpp:629 src/tm/tmview.cpp:635
+#: src/tm/tmview.cpp:619 src/tm/tmview.cpp:625
 #, fuzzy, kde-format
 #| msgid ""
 #| "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4619,7 +4619,7 @@ msgstr ""
 "<html>Vai vēlaties izņemt šo ierakstu:<br/><i>%1</i><br/>no tulkošanas "
 "atmiņas %2?</html>"
 
-#: src/tm/tmview.cpp:630 src/tm/tmview.cpp:636
+#: src/tm/tmview.cpp:620 src/tm/tmview.cpp:626
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Translation Memory Entry Removal"
@@ -4627,7 +4627,7 @@ msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Tulkošanas atmiņas ieraksta izņemšana"
 
-#: src/tm/tmview.cpp:1013
+#: src/tm/tmview.cpp:1003
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"

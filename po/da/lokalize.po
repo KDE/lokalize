@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-31 00:50+0000\n"
+"POT-Creation-Date: 2023-06-01 00:49+0000\n"
 "PO-Revision-Date: 2020-11-17 19:30+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -959,7 +959,7 @@ msgstr "Tekst"
 
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
-#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:201
+#: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:201
 #: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
 #, kde-format
 msgctxt "@title:column Original text"
@@ -967,7 +967,7 @@ msgid "Source"
 msgstr "Kilde"
 
 #: src/cataloglistview/catalogmodel.cpp:109
-#: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:202
+#: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:202
 #: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
 #, kde-format
 msgctxt "@title:column Text in target language"
@@ -993,7 +993,7 @@ msgid "Files"
 msgstr "Filer"
 
 #: src/cataloglistview/catalogmodel.cpp:117
-#: src/filesearch/filesearchtab.cpp:327 src/tm/tmtab.cpp:67
+#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Translation Status"
@@ -1057,7 +1057,7 @@ msgid "Current: %1"
 msgstr "Nuværende: %1"
 
 #: src/editortab.cpp:146 src/editortab.cpp:871
-#: src/filesearch/filesearchtab.cpp:781 src/project/projecttab.cpp:513
+#: src/filesearch/filesearchtab.cpp:775 src/project/projecttab.cpp:513
 #: src/tm/tmtab.cpp:590
 #, kde-format
 msgctxt "@info:status message entries"
@@ -2000,40 +2000,40 @@ msgid "Drop translation files here..."
 msgstr "Træk oversættelsesfiler hertil..."
 
 #. i18nc("@title:column","Context");
-#: src/filesearch/filesearchtab.cpp:326 src/tm/tmtab.cpp:66
+#: src/filesearch/filesearchtab.cpp:325 src/tm/tmtab.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "File"
 msgstr "Fil"
 
-#: src/filesearch/filesearchtab.cpp:425
+#: src/filesearch/filesearchtab.cpp:422
 #, kde-format
 msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Søg og erstat i filer"
 
-#: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:403
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Kopiér kilde til udklipsholderen"
 
-#: src/filesearch/filesearchtab.cpp:465 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:409
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Kopiér oversættelse til udklipsholderen"
 
-#: src/filesearch/filesearchtab.cpp:471 src/tm/tmtab.cpp:415
+#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:415
 #, kde-format
 msgid "Open file"
 msgstr "Åbn fil"
 
-#: src/filesearch/filesearchtab.cpp:510
+#: src/filesearch/filesearchtab.cpp:507
 #, kde-format
 msgctxt "@title actions category"
 msgid "Search and replace in files"
 msgstr "Søg og erstat i filer"
 
-#: src/filesearch/filesearchtab.cpp:798
+#: src/filesearch/filesearchtab.cpp:792
 #, kde-format
 msgctxt "@title:window"
 msgid "Mass replace"
@@ -3841,13 +3841,13 @@ msgstr "Rodmappe for POT-filer (skabeloner der skal oversættes)"
 msgid "Project's glossary"
 msgstr "Projektets ordliste"
 
-#: src/project/projectmodel.cpp:533
+#: src/project/projectmodel.cpp:521
 #, kde-format
 msgctxt "@title:column File name"
 msgid "Name"
 msgstr "Navn"
 
-#: src/project/projectmodel.cpp:535
+#: src/project/projectmodel.cpp:523
 #, kde-format
 msgctxt ""
 "@title:column Graphical representation of Translated/Fuzzy/Untranslated "
@@ -3855,55 +3855,55 @@ msgctxt ""
 msgid "Graph"
 msgstr "Diagram"
 
-#: src/project/projectmodel.cpp:537
+#: src/project/projectmodel.cpp:525
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Total"
 msgstr "I alt"
 
-#: src/project/projectmodel.cpp:539
+#: src/project/projectmodel.cpp:527
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Translated"
 msgstr "Oversat"
 
-#: src/project/projectmodel.cpp:541
+#: src/project/projectmodel.cpp:529
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Not ready"
 msgstr "Ikke klar"
 
-#: src/project/projectmodel.cpp:543
+#: src/project/projectmodel.cpp:531
 #, kde-format
 msgctxt "@title:column Number of entries"
 msgid "Untranslated"
 msgstr "Uoversat"
 
-#: src/project/projectmodel.cpp:545
+#: src/project/projectmodel.cpp:533
 #, kde-format
 msgctxt "@title:column Number of fuzzy or untranslated entries"
 msgid "Incomplete"
 msgstr "Ukomplet"
 
-#: src/project/projectmodel.cpp:547
+#: src/project/projectmodel.cpp:535
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translation"
 msgstr "Sidste oversættelse"
 
-#: src/project/projectmodel.cpp:549
+#: src/project/projectmodel.cpp:537
 #, kde-format
 msgctxt "@title:column"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: src/project/projectmodel.cpp:551
+#: src/project/projectmodel.cpp:539
 #, kde-format
 msgctxt "@title:column"
 msgid "Template Revision"
 msgstr "Skabelonversion"
 
-#: src/project/projectmodel.cpp:553
+#: src/project/projectmodel.cpp:541
 #, kde-format
 msgctxt "@title:column"
 msgid "Last Translator"
@@ -4355,12 +4355,12 @@ msgctxt "@title:window"
 msgid "Select TMX file to export selected database to"
 msgstr "Vælg TMX-fil den valgte database skal eksporteres til:"
 
-#: src/tm/tmscanapi.cpp:82
+#: src/tm/tmscanapi.cpp:81
 #, kde-format
 msgid "Adding files to Lokalize translation memory"
 msgstr "Føjer filer til oversættelseshukommelsen"
 
-#: src/tm/tmscanapi.cpp:83
+#: src/tm/tmscanapi.cpp:82
 #, kde-format
 msgid "TM"
 msgstr "OH"
@@ -4391,7 +4391,7 @@ msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Skal-jokertegn (* og ?). Versalfølsom."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:129
+#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
@@ -4403,7 +4403,7 @@ msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "I alt: %1 (%2)"
 
-#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:590
+#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4411,55 +4411,55 @@ msgid ""
 msgstr ""
 "Filen %1 findes ikke. Den er blevet fjernet fra oversættelseshukommelsen."
 
-#: src/tm/tmview.cpp:168 src/webquery/webqueryview.cpp:62
+#: src/tm/tmview.cpp:162 src/webquery/webqueryview.cpp:62
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Double-click any word to insert it into translation"
 msgstr "Dobbeltklik på et ord for at indsætte det i oversættelsen"
 
-#: src/tm/tmview.cpp:284
+#: src/tm/tmview.cpp:276
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Batch translation memory filling"
 msgstr "Batch-opfyldning af oversættelseshukommelsen"
 
-#: src/tm/tmview.cpp:287
+#: src/tm/tmview.cpp:279
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been completed."
 msgstr "Batch-oversættelse er udført."
 
-#: src/tm/tmview.cpp:293
+#: src/tm/tmview.cpp:285
 #, kde-format
 msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Ingen forslag med fuld overensstemmelse blev fundet."
 
-#: src/tm/tmview.cpp:297
+#: src/tm/tmview.cpp:289
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation complete"
 msgstr "Batchoversættelse udført"
 
-#: src/tm/tmview.cpp:311 src/tm/tmview.cpp:326
+#: src/tm/tmview.cpp:303 src/tm/tmview.cpp:318
 #, kde-format
 msgctxt "@title"
 msgid "Batch translation"
 msgstr "Batchoversættelse"
 
-#: src/tm/tmview.cpp:312 src/tm/tmview.cpp:327
+#: src/tm/tmview.cpp:304 src/tm/tmview.cpp:319
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
 msgstr "Batchoversættelse er blevet planlagt"
 
-#: src/tm/tmview.cpp:461
+#: src/tm/tmview.cpp:451
 #, kde-format
 msgctxt "%1 is the TM entry score in percentage"
 msgid "%1%"
 msgstr "%1%"
 
-#: src/tm/tmview.cpp:463
+#: src/tm/tmview.cpp:453
 #, kde-format
 msgctxt "%1 is the number of times this TM entry has been found"
 msgid "(1 time)"
@@ -4467,43 +4467,43 @@ msgid_plural "(%1 times)"
 msgstr[0] "(1 gang)"
 msgstr[1] "(%1 gange)"
 
-#: src/tm/tmview.cpp:544
+#: src/tm/tmview.cpp:534
 #, kde-format
 msgctxt "File argument in tooltip, when file is current file"
 msgid "this"
 msgstr "denne"
 
-#: src/tm/tmview.cpp:545
+#: src/tm/tmview.cpp:535
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
 msgstr "Fil: %1<br />Tilføjelsesdato: %2"
 
-#: src/tm/tmview.cpp:547
+#: src/tm/tmview.cpp:537
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change date: %1"
 msgstr "<br />Dato for seneste ændring: %1"
 
-#: src/tm/tmview.cpp:549
+#: src/tm/tmview.cpp:539
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Last change author: %1"
 msgstr "<br />Ophavsmand til seneste ændring: %1"
 
-#: src/tm/tmview.cpp:550
+#: src/tm/tmview.cpp:540
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />TM: %1"
 msgstr "<br />TM: %1"
 
-#: src/tm/tmview.cpp:552
+#: src/tm/tmview.cpp:542
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
 msgstr "<br />Er ikke til stede i filen længere"
 
-#: src/tm/tmview.cpp:565 src/tm/tmview.cpp:572
+#: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this entry:<br/><i>%1</i><br/>from "
@@ -4512,31 +4512,31 @@ msgstr ""
 "<html>Vil du virkelig fjerne denne indgang:<br/><i>%1</i><br/>fra "
 "oversættelseshukommelsen %2?</html>"
 
-#: src/tm/tmview.cpp:566 src/tm/tmview.cpp:573
+#: src/tm/tmview.cpp:556 src/tm/tmview.cpp:563
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Entry Removal"
 msgstr "Fjernelse af indgang i oversættelseshukommelsen"
 
-#: src/tm/tmview.cpp:606
+#: src/tm/tmview.cpp:596
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this entry"
 msgstr "Fjern denne indgang"
 
-#: src/tm/tmview.cpp:608
+#: src/tm/tmview.cpp:598
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
 msgstr "Åbn filen som indeholder denne indgang"
 
-#: src/tm/tmview.cpp:615
+#: src/tm/tmview.cpp:605
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove this missing file from TM"
 msgstr "Fjern denne manglende fil fra OH"
 
-#: src/tm/tmview.cpp:629 src/tm/tmview.cpp:635
+#: src/tm/tmview.cpp:619 src/tm/tmview.cpp:625
 #, kde-format
 msgid ""
 "<html>Do you really want to remove this missing file:<br/><i>%1</i><br/>from "
@@ -4545,13 +4545,13 @@ msgstr ""
 "<html>Vil du virkelig fjerne denne manglende fil:<br/><i>%1</i><br/>fra "
 "oversættelseshukommelsen %2?</html>"
 
-#: src/tm/tmview.cpp:630 src/tm/tmview.cpp:636
+#: src/tm/tmview.cpp:620 src/tm/tmview.cpp:626
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory Missing File Removal"
 msgstr "Fjernelse af manglende fil fra oversættelseshukommelsen"
 
-#: src/tm/tmview.cpp:1013
+#: src/tm/tmview.cpp:1003
 #, kde-format
 msgctxt "@item Undo action"
 msgid "Use translation memory suggestion"
