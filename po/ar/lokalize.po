@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-01 00:49+0000\n"
-"PO-Revision-Date: 2023-05-21 10:31+0400\n"
+"PO-Revision-Date: 2023-06-01 09:51+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -143,17 +143,16 @@ msgstr ""
 "أتريد عرض هذا المنظور وفيه هذه البيانات؟"
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "التّرجمات البديلة"
+msgstr "توفر الترجمات البديلة"
 
 #: src/alttransview.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "أظهر عرض البيانات"
 
 #: src/alttransview.cpp:246
 #, kde-format
@@ -1646,26 +1645,22 @@ msgid ""
 msgstr "أتريد البحث عن الملفّ المصدر محليًّا أو عبر lxr.kde.org؟"
 
 #: src/editortab.cpp:1573
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
 msgstr "البحث عن الملفّ المصدر"
 
 #: src/editortab.cpp:1574
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "محليًّا"
+msgstr "ابحث محليًّا"
 
 #: src/editortab.cpp:1575 src/editortab.cpp:1628
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "ابحث في lxr.kde.org"
 
 #: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
@@ -1694,11 +1689,10 @@ msgstr ""
 "أتريد تغيير مجلّد الملفّات المصدر؟"
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgid "Select a folder:"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "اختر مجلدًا:"
+msgstr "اختر مجلدًا"
 
 #: src/editortab.cpp:1652
 #, kde-format
@@ -2858,24 +2852,19 @@ msgstr ""
 "موجود؟"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "نظرة عامّة على المشروع"
+msgstr "المشروع المطلوب"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Create new project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "أنشئ مشروعًا جديدًا"
+msgstr "أنشئ مشروعًا"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "افتح مشروعًا"
