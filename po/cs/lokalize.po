@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-01 00:49+0000\n"
-"PO-Revision-Date: 2023-02-15 09:18+0100\n"
+"PO-Revision-Date: 2023-05-31 11:39+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -135,17 +135,16 @@ msgstr ""
 "Chcete tuto sekci zobrazit i s informacemi?"
 
 #: src/alttransview.cpp:160
-#, fuzzy, kde-format
-#| msgid "Alternative Translations"
+#, kde-format
 msgctxt "@title"
 msgid "Alternative Translations Available"
-msgstr "Alternativní překlady"
+msgstr "Jsou dostupné alternativní překlady"
 
 #: src/alttransview.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "Show Data View"
-msgstr ""
+msgstr "Zobrazit pohled na data"
 
 #: src/alttransview.cpp:246
 #, kde-format
@@ -769,12 +768,10 @@ msgstr "Rychlé hledání..."
 
 #: src/cataloglistview/cataloglistview.cpp:75
 #: src/glossary/glossarywindow.cpp:224 src/project/projecttab.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Accepts regular expressions"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Activated by Ctrl+L. Accepts regular expressions"
-msgstr "Přijímá regulární výrazy"
+msgstr "Aktivován pomocí Alt+L. Přijímá regulární výrazy"
 
 #: src/cataloglistview/cataloglistview.cpp:84
 #, kde-format
@@ -1402,9 +1399,7 @@ msgid "This changes only empty entries"
 msgstr "Tím dojde ke změnám pouze prázdných záznamů"
 
 #: src/editortab.cpp:756
-#, fuzzy, kde-format
-#| msgctxt "editor tab name"
-#| msgid "(recovered)"
+#, kde-format
 msgctxt "editor tab title addition"
 msgid " (recovered)"
 msgstr "(obnovené)"
@@ -1600,26 +1595,22 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:1573
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Source file lookup"
+#, kde-format
 msgctxt "@title"
 msgid "Source file lookup"
-msgstr "Hledat zdrojový soubor"
+msgstr "Hledání zdrojového souboru"
 
 #: src/editortab.cpp:1574
-#, fuzzy, kde-format
-#| msgid "Locally"
+#, kde-format
 msgctxt "@action"
 msgid "Search Locally"
-msgstr "Lokálně"
+msgstr "Hledat místně"
 
 #: src/editortab.cpp:1575 src/editortab.cpp:1628
-#, fuzzy, kde-format
-#| msgid "lxr.kde.org"
+#, kde-format
 msgctxt "@action"
 msgid "Search on lxr.kde.org"
-msgstr "lxr.kde.org"
+msgstr "Hledat na lxr.kde.org"
 
 #: src/editortab.cpp:1578 src/editortab.cpp:1631 src/editortab.cpp:1660
 #, kde-format
@@ -1646,12 +1637,10 @@ msgid ""
 msgstr ""
 
 #: src/editortab.cpp:1627
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Subject Field"
+#, kde-format
 msgctxt "@action"
 msgid "Select Folder"
-msgstr "Pole předmětu"
+msgstr "Vyberte složku"
 
 #: src/editortab.cpp:1652
 #, kde-format
@@ -2797,24 +2786,19 @@ msgstr ""
 "vytvořit nový projekt nebo otevřít již existující?"
 
 #: src/prefs/prefs.cpp:175
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Project overview"
+#, kde-format
 msgctxt "@title"
 msgid "Project Required"
-msgstr "Přehled projektu"
+msgstr "Je potřeba projekt"
 
 #: src/prefs/prefs.cpp:176
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "@action"
 msgid "Create Project"
-msgstr "Projekt"
+msgstr "Vytvořit projekt"
 
 #: src/prefs/prefs.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open project"
+#, kde-format
 msgctxt "@action"
 msgid "Open Project"
 msgstr "Otevřít projekt"
@@ -3791,14 +3775,12 @@ msgid "Translate OpenDocument"
 msgstr "Přeložit OpenDocument"
 
 #: src/project/projecttab.cpp:132
-#, fuzzy, kde-format
-#| msgctxt "%1 is the TM entry score in percentage"
-#| msgid "%1%"
+#, kde-format
 msgctxt ""
 "Loading bar percentage indicator %p will be replaced by the actual "
 "percentage number, so make sure you include it in your translation"
 msgid "%p%"
-msgstr "%1%"
+msgstr "%p%"
 
 #: src/project/projecttab.cpp:167
 #, kde-format
@@ -4492,13 +4474,3 @@ msgstr ""
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Zkopírovat zdroj do cíle"
-
-#, fuzzy
-#~| msgid "Remove"
-#~ msgctxt "Button label"
-#~ msgid "Remove"
-#~ msgstr "Odstranit"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Activated by Ctrl+L."
-#~ msgstr "Aktivováno pomocí Ctrl+L."
