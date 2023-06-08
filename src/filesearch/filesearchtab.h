@@ -116,7 +116,7 @@ struct FileSearchResult {
     QString source;
     QString target;
 
-    bool isApproved;
+    bool isApproved{};
     TargetState state;
     //Phase activePhase;
 
@@ -216,9 +216,9 @@ Q_SIGNALS:
     void fileOpenRequested(const QString& filePath, const bool setAsActive);
 
 private:
-    QTreeView* m_browser;
-    QLabel* m_background;
-    QStringListModel* m_model;
+    QTreeView* m_browser{};
+    QLabel* m_background{};
+    QStringListModel* m_model{};
 };
 
 class Ui_MassReplaceOptions;
@@ -243,7 +243,7 @@ private Q_SLOTS:
     void requestReplace();
 
 private:
-    Ui_MassReplaceOptions* ui;
+    Ui_MassReplaceOptions* ui{};
 };
 
 struct SearchParams {
@@ -251,14 +251,14 @@ struct SearchParams {
     QRegExp targetPattern;
     QRegExp notesPattern;
 
-    bool invertSource;
-    bool invertTarget;
+    bool invertSource{false};
+    bool invertTarget{false};
 
     bool states[StateCount];
 
     bool isEmpty() const;
 
-    SearchParams(): invertSource(false), invertTarget(false)
+    SearchParams()
     {
         memset(states, 0, sizeof(states));
     }
@@ -284,7 +284,7 @@ public:
     QStringList files;
     SearchParams searchParams;
     QVector<Rule> rules;
-    int searchNumber;
+    int searchNumber{};
 
     SearchResults results; //plain
 
@@ -311,7 +311,7 @@ protected:
     void run() override;
 public:
     SearchResults searchResults;
-    int globalPos;
+    int globalPos{};
     QRegExp replaceWhat;
     QString replaceWith;
 };
