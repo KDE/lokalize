@@ -335,3 +335,12 @@ Name[x-test]=xxScanning folders with source files...xx
 Name[zh_CN]=正在扫描源文件夹...
 Name[zh_TW]=正在掃描包含原始檔的資料夾中…
 Action=Popup
+
+[Event/BatchTranslationCompleted]
+Name=Batch Translation Completed
+Action=Popup
+
+[Event/BatchTranslationScheduled]
+Name=Batch Translation Scheduled
+Action=Popup
+

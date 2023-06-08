@@ -25,7 +25,7 @@
 #include <kcoreaddons_version.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kpassivepopup.h>
+#include <knotification.h>
 
 #include <QTime>
 #include <QDragEnterEvent>
@@ -285,10 +285,10 @@ void TMView::slotBatchSelectDone()
         msg += i18nc("@info", "No suggestions with exact matches were found.");
     }
 
-    KPassivePopup::message(KPassivePopup::Balloon,
-                           i18nc("@title", "Batch translation complete"),
-                           msg,
-                           this);
+    KNotification *notification = new KNotification(QStringLiteral("BatchTranslationCompleted"));
+    notification->setWidget(this);
+    notification->setText(msg);
+    notification->sendEvent();
 }
 
 void TMView::slotBatchTranslate()
@@ -299,11 +299,11 @@ void TMView::slotBatchTranslate()
         slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
         return slotBatchSelectDone();
-    KPassivePopup::message(KPassivePopup::Balloon,
-                           i18nc("@title", "Batch translation"),
-                           i18nc("@info", "Batch translation has been scheduled."),
-                           this);
 
+    KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
+    notification->setWidget(this);
+    notification->setText(i18nc("@info", "Batch translation has been scheduled."));
+    notification->sendEvent();
 }
 
 void TMView::slotBatchTranslateFuzzy()
@@ -314,11 +314,11 @@ void TMView::slotBatchTranslateFuzzy()
         slotFileLoaded(m_catalog->url());
     else if (m_jobs.isEmpty())
         slotBatchSelectDone();
-    KPassivePopup::message(KPassivePopup::Balloon,
-                           i18nc("@title", "Batch translation"),
-                           i18nc("@info", "Batch translation has been scheduled."),
-                           this);
 
+    KNotification *notification = new KNotification(QStringLiteral("BatchTranslationScheduled"));
+    notification->setWidget(this);
+    notification->setText(i18nc("@info", "Batch translation has been scheduled."));
+    notification->sendEvent();
 }
 
 void TMView::slotNewEntryDisplayed()
