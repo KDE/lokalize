@@ -38,7 +38,6 @@ add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(scripts)
 add_subdirectory(icons)
-#add_subdirectory(strigi-analyzer)
 
 install(FILES org.kde.lokalize.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 

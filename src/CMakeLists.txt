@@ -2,16 +2,16 @@ project(lokalize)
 
 if(NOT WIN32)
     find_package(HUNSPELL REQUIRED)
-else(NOT WIN32)
+else()
     find_package(HUNSPELL)
-endif(NOT WIN32)
+endif()
 
 if(HUNSPELL_FOUND)
     add_definitions(-DHAVE_HUNSPELL)
     include_directories(
-	${HUNSPELL_INCLUDE_DIRS}
+    ${HUNSPELL_INCLUDE_DIRS}
     )
-endif(HUNSPELL_FOUND)
+endif()
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/prefs
@@ -87,7 +87,7 @@ set(liblokalize_SRCS
     webquery/webqueryview.cpp
     webquery/webquerycontroller.cpp
 
-        languagetool/languagetoolresultjob.cpp
+    languagetool/languagetoolresultjob.cpp
     languagetool/languagetoolmanager.cpp
     languagetool/languagetoolparser.cpp
     languagetool/languagetoolgrammarerror.cpp
@@ -123,9 +123,9 @@ set(liblokalize_SRCS
 
 if(WIN32)
     list (APPEND liblokalize_SRCS common/winhelpers.cpp)
-else(WIN32)
+else()
     list (APPEND liblokalize_SRCS common/unixhelpers.cpp)
-endif(WIN32)
+endif()
 
 ecm_qt_declare_logging_category(liblokalize_SRCS
     HEADER lokalize_debug.h
@@ -194,7 +194,7 @@ target_link_libraries(liblokalize
 )
 if(HUNSPELL_FOUND)
     target_link_libraries(liblokalize ${HUNSPELL_LIBRARIES})
-endif(HUNSPELL_FOUND)
+endif()
 
 
 ### Build Lokalize executable ###

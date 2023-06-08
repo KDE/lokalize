@@ -1,13 +1,12 @@
 
-IF (WIN32)
+if(WIN32)
 #    install( FILES
 #            #find-gui-text.sh TODO
 #            DESTINATION  ${KDE_INSTALL_DATADIR}/lokalize/scripts )
-ELSE (WIN32)
+else()
     install( PROGRAMS find-gui-text.sh
              DESTINATION  ${KDE_INSTALL_DATADIR}/lokalize/scripts )
-
-ENDIF (WIN32)
+endif()
 
 install( FILES
         msgmerge.py
