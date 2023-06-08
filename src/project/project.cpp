@@ -456,10 +456,6 @@ const QMultiMap<QByteArray, QByteArray>& Project::sourceFilePaths()
             SourceFilesSearchJob* metaJob = new SourceFilesSearchJob(local()->sourceDir());
             KIO::getJobTracker()->registerJob(metaJob);
             metaJob->start();
-
-            //KNotification* notification=new KNotification("SourceFileScan");
-            //notification->setText( i18nc("@info","Please wait while %1 is being scanned for source files.", local()->sourceDir()) );
-            //notification->sendEvent();
         }
     }
     return m_sourceFilePaths;
