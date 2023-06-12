@@ -71,10 +71,14 @@ void TMDBModel::setDB(const QString& str)
 {
     m_dbName = str;
 
-    QString sourceLangCode = DBFilesModel::instance()->m_configurations.value(str).sourceLangCode;
-    QString targetLangCode = DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
-    if (sourceLangCode.length()) setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text", "Source") + QStringLiteral(": ") + sourceLangCode));
-    if (targetLangCode.length()) setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language", "Target") + QStringLiteral(": ") + targetLangCode));
+    const QString sourceLangCode = DBFilesModel::instance()->m_configurations.value(str).sourceLangCode;
+    const QString targetLangCode = DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
+    if (sourceLangCode.length()) {
+        setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text", "Source") + QStringLiteral(": ") + sourceLangCode));
+    }
+    if (targetLangCode.length()) {
+        setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language", "Target") + QStringLiteral(": ") + targetLangCode));
+    }
 }
 
 void TMDBModel::setQueryType(int type)
@@ -447,7 +451,6 @@ TMTab::TMTab(QWidget *parent)
     view->setItemDelegate(new FastSizeHintItemDelegate(this, singleLineColumns, richTextColumns));
     connect(m_model, &TMDBModel::resultsFetched, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
     connect(m_model, &TMDBModel::modelReset, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
-    //connect(m_model,SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)),view->itemDelegate(),SLOT(reset()));
     connect(m_proxyModel, &TMResultsSortFilterProxyModel::layoutChanged, (FastSizeHintItemDelegate*)view->itemDelegate(), &FastSizeHintItemDelegate::reset);
     connect(m_proxyModel, &TMResultsSortFilterProxyModel::layoutChanged, this, &TMTab::displayTotalResultCount);
 
@@ -460,9 +463,10 @@ TMTab::TMTab(QWidget *parent)
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
-    int pos = ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
-    if (pos >= 0)
+    const int pos = ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
+    if (pos >= 0) {
         ui_queryOptions->dbName->setCurrentIndex(pos);
+    }
     const auto combo = ui_queryOptions->dbName;
     connect(combo, qOverload<int>(&QComboBox::currentIndexChanged),
             m_model, [this, combo](const int index) {
