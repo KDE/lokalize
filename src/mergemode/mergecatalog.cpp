@@ -27,7 +27,7 @@ MergeCatalog::MergeCatalog(QObject* parent, Catalog* baseCatalog, bool saveChang
     setActivePhase(baseCatalog->activePhase(), baseCatalog->activePhaseRole());
     if (saveChanges) {
         connect(baseCatalog, &Catalog::signalEntryModified, this, &MergeCatalog::copyFromBaseCatalogIfInDiffIndex);
-        connect(baseCatalog, QOverload<>::of(&Catalog::signalFileSaved), this, &MergeCatalog::save);
+        connect(baseCatalog, qOverload<>(&Catalog::signalFileSaved), this, &MergeCatalog::save);
     }
 }
 

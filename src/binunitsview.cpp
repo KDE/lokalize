@@ -26,7 +26,7 @@ BinUnitsModel::BinUnitsModel(Catalog* catalog, QObject* parent)
     : QAbstractListModel(parent)
     , m_catalog(catalog)
 {
-    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &BinUnitsModel::fileLoaded);
+    connect(catalog, qOverload<>(&Catalog::signalFileLoaded), this, &BinUnitsModel::fileLoaded);
     connect(catalog, &Catalog::signalEntryModified, this, &BinUnitsModel::entryModified);
     connect(KDirWatch::self(), &KDirWatch::dirty, this, &BinUnitsModel::updateFile);
 }
@@ -146,7 +146,7 @@ BinUnitsView::BinUnitsView(Catalog* catalog, QWidget* parent)
     m_view->viewport()->setBackgroundRole(QPalette::Window);
     connect(m_view, &MyTreeView::doubleClicked, this, &BinUnitsView::mouseDoubleClicked);
 
-    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &BinUnitsView::fileLoaded);
+    connect(catalog, qOverload<>(&Catalog::signalFileLoaded), this, &BinUnitsView::fileLoaded);
 }
 
 void BinUnitsView::fileLoaded()

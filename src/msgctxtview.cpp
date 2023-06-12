@@ -192,7 +192,7 @@ void MsgCtxtView::pology()
                 this, &MsgCtxtView::pologyReceivedStandardOutput);
         connect(m_pologyProcess, &KProcess::readyReadStandardError,
                 this, &MsgCtxtView::pologyReceivedStandardError);
-        connect(m_pologyProcess, QOverload<int, QProcess::ExitStatus>::of(&KProcess::finished),
+        connect(m_pologyProcess, qOverload<int, QProcess::ExitStatus>(&KProcess::finished),
                 this, &MsgCtxtView::pologyHasFinished);
         m_pologyData = QString();
         m_pologyProcessInProgress = m_entry.entry + 1;

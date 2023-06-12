@@ -44,7 +44,7 @@ CatalogTreeModel::CatalogTreeModel(QObject* parent, Catalog* catalog)
         for (int i = 0; i < 4; i++) m_fonts << fonts.at(i);
     }
     connect(catalog, &Catalog::signalEntryModified, this, &CatalogTreeModel::reflectChanges);
-    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &CatalogTreeModel::fileLoaded);
+    connect(catalog, qOverload<>(&Catalog::signalFileLoaded), this, &CatalogTreeModel::fileLoaded);
 }
 
 QModelIndex CatalogTreeModel::index(int row, int column, const QModelIndex& /*parent*/) const
@@ -264,7 +264,7 @@ CatalogTreeFilterModel::CatalogTreeFilterModel(QObject* parent)
 void CatalogTreeFilterModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
     QSortFilterProxyModel::setSourceModel(sourceModel);
-    connect(sourceModel, &QAbstractItemModel::modelReset, this, QOverload<>::of(&CatalogTreeFilterModel::setEntriesFilteredOut));
+    connect(sourceModel, &QAbstractItemModel::modelReset, this, qOverload<>(&CatalogTreeFilterModel::setEntriesFilteredOut));
     setEntriesFilteredOut(false);
 }
 

@@ -98,14 +98,14 @@ DBPropertiesDialog::DBPropertiesDialog(QWidget* parent, const QString& dbName)
     }
 
     connectionBox->hide();
-    connect(dbType, QOverload<int>::of(&QComboBox::activated), this, &DBPropertiesDialog::setConnectionBoxVisible);
+    connect(dbType, qOverload<int>(&QComboBox::activated), this, &DBPropertiesDialog::setConnectionBoxVisible);
     m_checkDelayer.setInterval(2000);
     m_checkDelayer.setSingleShot(true);
     connect(&m_checkDelayer, &QTimer::timeout, this, &DBPropertiesDialog::checkConnectionOptions);
-    connect(this->dbName, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
-    connect(dbHost->lineEdit(), &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
-    connect(dbUser, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
-    connect(dbPasswd, &QLineEdit::textChanged, &m_checkDelayer, QOverload<>::of(&QTimer::start));
+    connect(this->dbName, &QLineEdit::textChanged, &m_checkDelayer, qOverload<>(&QTimer::start));
+    connect(dbHost->lineEdit(), &QLineEdit::textChanged, &m_checkDelayer, qOverload<>(&QTimer::start));
+    connect(dbUser, &QLineEdit::textChanged, &m_checkDelayer, qOverload<>(&QTimer::start));
+    connect(dbPasswd, &QLineEdit::textChanged, &m_checkDelayer, qOverload<>(&QTimer::start));
 
     QStringList drivers = QSqlDatabase::drivers();
     if (drivers.contains(QStringLiteral("QPSQL")))

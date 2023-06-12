@@ -81,7 +81,7 @@ ProjectTab::ProjectTab(QWidget *parent)
     QPushButton* createProject = new QPushButton(i18nc("@action:inmenu", "Translate software"), welcomeWidget);
     QPushButton* createOdfProject = new QPushButton(i18nc("@action:inmenu", "Translate OpenDocument"), welcomeWidget);
     connect(conf, &QPushButton::clicked, SettingsController::instance(), &SettingsController::showSettingsDialog);
-    connect(openProject, &QPushButton::clicked, this, QOverload<>::of(&ProjectTab::projectOpenRequested));
+    connect(openProject, &QPushButton::clicked, this, qOverload<>(&ProjectTab::projectOpenRequested));
     connect(createProject, &QPushButton::clicked, SettingsController::instance(), &SettingsController::projectCreate);
     connect(createOdfProject, &QPushButton::clicked, Project::instance(), &Project::projectOdfCreate);
     QHBoxLayout* wbtnl = new QHBoxLayout();
@@ -352,7 +352,7 @@ void ProjectTab::pologyOnFiles()
         m_pologyProcess = new KProcess;
         m_pologyProcess->setOutputChannelMode(KProcess::SeparateChannels);
         qCWarning(LOKALIZE_LOG) << "Launching pology command: " << command;
-        connect(m_pologyProcess, QOverload<int, QProcess::ExitStatus>::of(&KProcess::finished),
+        connect(m_pologyProcess, qOverload<int, QProcess::ExitStatus>(&KProcess::finished),
                 this, &ProjectTab::pologyHasFinished);
         m_pologyProcess->setShellCommand(command);
         m_pologyProcessInProgress = true;

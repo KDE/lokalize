@@ -396,7 +396,7 @@ TMTab::TMTab(QWidget *parent)
     connect(ui_queryOptions->doUpdateTM, &QPushButton::clicked, this, &TMTab::updateTM);
 
     QShortcut* sh = new QShortcut(Qt::CTRL + Qt::Key_L, this);
-    connect(sh, &QShortcut::activated, ui_queryOptions->querySource, QOverload<>::of(&QLineEdit::setFocus));
+    connect(sh, &QShortcut::activated, ui_queryOptions->querySource, qOverload<>(&QLineEdit::setFocus));
     setFocusProxy(ui_queryOptions->querySource);
 
     QTreeView* view = ui_queryOptions->treeView;
@@ -457,7 +457,7 @@ TMTab::TMTab(QWidget *parent)
     connect(m_model, &TMDBModel::finalResultCountFetched, this, &TMTab::displayTotalResultCount);
 
     ui_queryOptions->queryStyle->setModel(new QueryStylesModel(this));
-    connect(ui_queryOptions->queryStyle, QOverload<int>::of(&KComboBox::currentIndexChanged), m_model, &TMDBModel::setQueryType);
+    connect(ui_queryOptions->queryStyle, qOverload<int>(&KComboBox::currentIndexChanged), m_model, &TMDBModel::setQueryType);
 
     ui_queryOptions->dbName->setModel(DBFilesModel::instance());
     ui_queryOptions->dbName->setRootModelIndex(DBFilesModel::instance()->rootIndex());
@@ -500,8 +500,8 @@ TMTab::TMTab(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, m_qaView);
     tm->addAction(QStringLiteral("showqa_action"), m_qaView->toggleViewAction());
 
-    connect(m_qaView, &QaView::rulesChanged, this, QOverload<>::of(&TMTab::setQAMode));
-    connect(m_qaView->toggleViewAction(), &QAction::toggled, this, QOverload<bool>::of(&TMTab::setQAMode));
+    connect(m_qaView, &QaView::rulesChanged, this, qOverload<>(&TMTab::setQAMode));
+    connect(m_qaView->toggleViewAction(), &QAction::toggled, this, qOverload<bool>(&TMTab::setQAMode));
 
 
     KConfig config;

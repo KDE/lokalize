@@ -429,7 +429,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
 
 
     QShortcut* sh = new QShortcut(Qt::CTRL + Qt::Key_L, this);
-    connect(sh, &QShortcut::activated, ui_fileSearchOptions->querySource, QOverload<>::of(&QLineEdit::setFocus));
+    connect(sh, &QShortcut::activated, ui_fileSearchOptions->querySource, qOverload<>(&QLineEdit::setFocus));
     setFocusProxy(ui_fileSearchOptions->querySource);
 
     sh = new QShortcut(Qt::Key_Escape, this, SLOT(stopSearch()), nullptr, Qt::WidgetWithChildrenShortcut);
@@ -510,7 +510,7 @@ FileSearchTab::FileSearchTab(QWidget *parent)
     //m_searchFileListView->hide();
     addDockWidget(Qt::RightDockWidgetArea, m_searchFileListView);
     srf->addAction(QStringLiteral("showfilelist_action"), m_searchFileListView->toggleViewAction());
-    connect(m_searchFileListView, &SearchFileListView::fileOpenRequested, this, QOverload<const QString &, const bool>::of(&FileSearchTab::fileOpenRequested));
+    connect(m_searchFileListView, &SearchFileListView::fileOpenRequested, this, qOverload<const QString &, const bool>(&FileSearchTab::fileOpenRequested));
 
     m_massReplaceView = new MassReplaceView(this);
     addDockWidget(Qt::RightDockWidgetArea, m_massReplaceView);

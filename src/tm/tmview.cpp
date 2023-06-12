@@ -135,7 +135,7 @@ TMView::TMView(QWidget* parent, Catalog* catalog, const QVector<QAction*>& actio
     m_browser->viewport()->setBackgroundRole(QPalette::Window);
 
     QTimer::singleShot(0, this, &TMView::initLater);
-    connect(m_catalog, QOverload<const QString &>::of(&Catalog::signalFileLoaded), this, &TMView::slotFileLoaded);
+    connect(m_catalog, qOverload<const QString &>(&Catalog::signalFileLoaded), this, &TMView::slotFileLoaded);
 }
 
 TMView::~TMView()

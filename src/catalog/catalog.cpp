@@ -83,14 +83,14 @@ Catalog::Catalog(QObject *parent)
     , m_storage(nullptr)
 {
     //cause refresh events for files modified from lokalize itself aint delivered automatically
-    connect(this, QOverload<const QString &>::of(&Catalog::signalFileSaved), Project::instance()->model(), QOverload<const QString &>::of(&ProjectModel::slotFileSaved), Qt::QueuedConnection);
+    connect(this, qOverload<const QString &>(&Catalog::signalFileSaved), Project::instance()->model(), qOverload<const QString &>(&ProjectModel::slotFileSaved), Qt::QueuedConnection);
 
     QTimer* t = &(d._autoSaveTimer);
     t->setInterval(2 * 60 * 1000);
     t->setSingleShot(false);
     connect(t, &QTimer::timeout, this, &Catalog::doAutoSave);
-    connect(this, QOverload<>::of(&Catalog::signalFileSaved), t, QOverload<>::of(&QTimer::start));
-    connect(this, QOverload<>::of(&Catalog::signalFileLoaded), t, QOverload<>::of(&QTimer::start));
+    connect(this, qOverload<>(&Catalog::signalFileSaved), t, qOverload<>(&QTimer::start));
+    connect(this, qOverload<>(&Catalog::signalFileLoaded), t, qOverload<>(&QTimer::start));
     connect(this, &Catalog::indexChanged, this, &Catalog::setAutoSaveDirty);
     connect(Project::local(), &Project::configChanged, this, &Catalog::projectConfigChanged);
 }

@@ -229,10 +229,10 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     layout->addWidget(m_browser);
     {
         QPushButton* addBtn = new QPushButton(w);
-        connect(addBtn, &QPushButton::clicked, this, QOverload<>::of(&GlossaryWindow::newTermEntry));
+        connect(addBtn, &QPushButton::clicked, this, qOverload<>(&GlossaryWindow::newTermEntry));
 
         QPushButton* rmBtn = new QPushButton(w);
-        connect(rmBtn, &QPushButton::clicked, this, QOverload<>::of(&GlossaryWindow::rmTermEntry));
+        connect(rmBtn, &QPushButton::clicked, this, qOverload<>(&GlossaryWindow::rmTermEntry));
         KGuiItem::assign(addBtn, KStandardGuiItem::add());
         KGuiItem::assign(rmBtn, KStandardGuiItem::remove());
 
@@ -297,10 +297,10 @@ GlossaryWindow::GlossaryWindow(QWidget *parent)
     QStringListModel* subjectFieldsModel = new QStringListModel(this);
     subjectFieldsModel->setStringList(subjectFields);
     m_subjectField->setModel(subjectFieldsModel);
-    connect(m_browser, QOverload<int>::of(&GlossaryTreeView::currentChanged), this, &GlossaryWindow::currentChanged);
-    connect(m_browser, QOverload<const QByteArray &>::of(&GlossaryTreeView::currentChanged), this, &GlossaryWindow::showEntryInEditor);
+    connect(m_browser, qOverload<int>(&GlossaryTreeView::currentChanged), this, &GlossaryWindow::currentChanged);
+    connect(m_browser, qOverload<const QByteArray &>(&GlossaryTreeView::currentChanged), this, &GlossaryWindow::showEntryInEditor);
 
-    connect(m_definitionLang, QOverload<int>::of(&KComboBox::activated), this, &GlossaryWindow::showDefinitionForLang);
+    connect(m_definitionLang, qOverload<int>(&KComboBox::activated), this, &GlossaryWindow::showDefinitionForLang);
     m_definitionLang->setModel(LanguageListModel::emptyLangInstance()->sortModel());
     m_definitionLang->setCurrentIndex(LanguageListModel::emptyLangInstance()->sortModelRowForLangCode(m_defLang));//empty lang
 

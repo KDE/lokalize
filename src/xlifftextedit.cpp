@@ -123,7 +123,7 @@ TranslationUnitTextEdit::TranslationUnitTextEdit(Catalog* catalog, DocPosition::
         connect(this, &KTextEdit::cursorPositionChanged, this, &TranslationUnitTextEdit::emitCursorPositionChanged);
         connect(m_languageToolTimer, &QTimer::timeout, this, &TranslationUnitTextEdit::launchLanguageTool);
     }
-    connect(catalog, QOverload<>::of(&Catalog::signalFileLoaded), this, &TranslationUnitTextEdit::fileLoaded);
+    connect(catalog, qOverload<>(&Catalog::signalFileLoaded), this, &TranslationUnitTextEdit::fileLoaded);
     //connect (Project::instance(), &Project::configChanged, this, &TranslationUnitTextEdit::projectConfigChanged);
     m_languageToolTimer->setSingleShot(true);
 }

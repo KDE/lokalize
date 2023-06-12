@@ -87,7 +87,7 @@ void SettingsController::showSettingsDialog()
     ui_prefs_identity.DefaultLangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(grp.readEntry("DefaultLangCode",
             QLocale::system().name())));
 
-    connect(ui_prefs_identity.DefaultLangCode, QOverload<int>::of(&KComboBox::activated), ui_prefs_identity.kcfg_DefaultLangCode, &LangCodeSaver::setLangCode);
+    connect(ui_prefs_identity.DefaultLangCode, qOverload<int>(&KComboBox::activated), ui_prefs_identity.kcfg_DefaultLangCode, &LangCodeSaver::setLangCode);
     ui_prefs_identity.kcfg_DefaultLangCode->hide();
 
     connect(ui_prefs_identity.kcfg_overrideLangTeam, &QCheckBox::toggled, ui_prefs_identity.kcfg_userLangTeam, &QLineEdit::setEnabled);
@@ -258,7 +258,7 @@ void SettingsController::projectConfigure()
     Project& p = *(Project::instance());
     ui_prefs_projectmain.LangCode->setModel(LanguageListModel::instance()->sortModel());
     ui_prefs_projectmain.LangCode->setCurrentIndex(LanguageListModel::instance()->sortModelRowForLangCode(p.langCode()));
-    connect(ui_prefs_projectmain.LangCode, QOverload<int>::of(&KComboBox::activated), ui_prefs_projectmain.kcfg_LangCode, &LangCodeSaver::setLangCode);
+    connect(ui_prefs_projectmain.LangCode, qOverload<int>(&KComboBox::activated), ui_prefs_projectmain.kcfg_LangCode, &LangCodeSaver::setLangCode);
 
     ui_prefs_projectmain.poBaseDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui_prefs_projectmain.glossaryTbx->setMode(KFile::File | KFile::LocalOnly);

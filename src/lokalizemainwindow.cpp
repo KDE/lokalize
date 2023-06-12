@@ -79,7 +79,7 @@ LokalizeMainWindow::LokalizeMainWindow()
     //prevent relayout of dockwidgets
     m_mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation, true);
 
-    connect(Project::instance(), QOverload<const QString &, const bool>::of(&Project::fileOpenRequested), this, QOverload<QString, const bool>::of(&LokalizeMainWindow::fileOpen_), Qt::QueuedConnection);
+    connect(Project::instance(), qOverload<const QString &, const bool>(&Project::fileOpenRequested), this, qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_), Qt::QueuedConnection);
     connect(Project::instance(), &Project::configChanged, this, &LokalizeMainWindow::projectSettingsChanged);
     connect(Project::instance(), &Project::closed, this, &LokalizeMainWindow::closeProject);
     showProjectOverview();
@@ -135,8 +135,8 @@ LokalizeMainWindow::~LokalizeMainWindow()
         disconnect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
         EditorTab* w = static_cast<EditorTab*>(sw->widget());
         disconnect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
-        disconnect(w, QOverload<const QString &, const QString &, const QString &, const bool>::of(&EditorTab::fileOpenRequested), this, QOverload<const QString &, const QString &, const QString &, const bool>::of(&LokalizeMainWindow::fileOpen));
-        disconnect(w, QOverload<const QString &, const QString &>::of(&EditorTab::tmLookupRequested), this, QOverload<const QString &, const QString &>::of(&LokalizeMainWindow::lookupInTranslationMemory));
+        disconnect(w, qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested), this, qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
+        disconnect(w, qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested), this, qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
     }
 
     qCWarning(LOKALIZE_LOG) << "MainWindow destroyed";
@@ -283,8 +283,8 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
 
     connect(sw, &QMdiSubWindow::destroyed, this, &LokalizeMainWindow::editorClosed);
     connect(w, &EditorTab::aboutToBeClosed, this, &LokalizeMainWindow::resetMultiEditorAdaptor);
-    connect(w, QOverload<const QString &, const QString &, const QString &, const bool>::of(&EditorTab::fileOpenRequested), this, QOverload<const QString &, const QString &, const QString &, const bool>::of(&LokalizeMainWindow::fileOpen));
-    connect(w, QOverload<const QString &, const QString &>::of(&EditorTab::tmLookupRequested), this, QOverload<const QString &, const QString &>::of(&LokalizeMainWindow::lookupInTranslationMemory));
+    connect(w, qOverload<const QString &, const QString &, const QString &, const bool>(&EditorTab::fileOpenRequested), this, qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
+    connect(w, qOverload<const QString &, const QString &>(&EditorTab::tmLookupRequested), this, qOverload<const QString &, const QString &>(&LokalizeMainWindow::lookupInTranslationMemory));
 
     QStringRef fnSlashed = filePath.midRef(filePath.lastIndexOf(QLatin1Char('/')));
     FileToEditor::const_iterator i = m_fileToEditor.constBegin();
@@ -336,10 +336,10 @@ QObject* LokalizeMainWindow::projectOverview()
         m_projectSubWindow = m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_projectSubWindow->showMaximized();
-        connect(w, QOverload<const QString &, const bool>::of(&ProjectTab::fileOpenRequested), this, QOverload<QString, const bool>::of(&LokalizeMainWindow::fileOpen_));
-        connect(w, QOverload<QString>::of(&ProjectTab::projectOpenRequested), this, QOverload<QString>::of(&LokalizeMainWindow::openProject));
-        connect(w, QOverload<>::of(&ProjectTab::projectOpenRequested), this, QOverload<>::of(&LokalizeMainWindow::openProject));
-        connect(w, QOverload<const QStringList &>::of(&ProjectTab::searchRequested), this, QOverload<const QStringList &>::of(&LokalizeMainWindow::addFilesToSearch));
+        connect(w, qOverload<const QString &, const bool>(&ProjectTab::fileOpenRequested), this, qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_));
+        connect(w, qOverload<QString>(&ProjectTab::projectOpenRequested), this, qOverload<QString>(&LokalizeMainWindow::openProject));
+        connect(w, qOverload<>(&ProjectTab::projectOpenRequested), this, qOverload<>(&LokalizeMainWindow::openProject));
+        connect(w, qOverload<const QStringList &>(&ProjectTab::searchRequested), this, qOverload<const QStringList &>(&LokalizeMainWindow::addFilesToSearch));
     }
     if (m_mdiArea->currentSubWindow() == m_projectSubWindow)
         return m_projectSubWindow->widget();
@@ -364,7 +364,7 @@ TM::TMTab* LokalizeMainWindow::showTM()
         m_translationMemorySubWindow = m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_translationMemorySubWindow->showMaximized();
-        connect(w, QOverload<const QString &, const QString &, const QString &, const bool>::of(&TM::TMTab::fileOpenRequested), this, QOverload<const QString &, const QString &, const QString &, const bool>::of(&LokalizeMainWindow::fileOpen));
+        connect(w, qOverload<const QString &, const QString &, const QString &, const bool>(&TM::TMTab::fileOpenRequested), this, qOverload<const QString &, const QString &, const QString &, const bool>(&LokalizeMainWindow::fileOpen));
     }
 
     m_mdiArea->setActiveSubWindow(m_translationMemorySubWindow);
@@ -380,8 +380,8 @@ FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
         m_fileSearchSubWindow = m_mdiArea->addSubWindow(w);
         w->showMaximized();
         m_fileSearchSubWindow->showMaximized();
-        connect(w, QOverload<const QString &, DocPosition, int, const bool>::of(&FileSearchTab::fileOpenRequested), this, QOverload<const QString &, DocPosition, int, const bool>::of(&LokalizeMainWindow::fileOpen));
-        connect(w, QOverload<const QString &, const bool>::of(&FileSearchTab::fileOpenRequested), this, QOverload<QString, const bool>::of(&LokalizeMainWindow::fileOpen_));
+        connect(w, qOverload<const QString &, DocPosition, int, const bool>(&FileSearchTab::fileOpenRequested), this, qOverload<const QString &, DocPosition, int, const bool>(&LokalizeMainWindow::fileOpen));
+        connect(w, qOverload<const QString &, const bool>(&FileSearchTab::fileOpenRequested), this, qOverload<QString, const bool>(&LokalizeMainWindow::fileOpen_));
     }
 
     if (activate) {
@@ -506,7 +506,7 @@ void LokalizeMainWindow::setupActions()
 
     m_openRecentProjectAction = new KRecentFilesAction(i18nc("@action:inmenu", "Open recent project"), this);
     action = proj->addAction(QStringLiteral("project_open_recent"), m_openRecentProjectAction);
-    connect(m_openRecentProjectAction, QOverload<const QUrl &>::of(&KRecentFilesAction::urlSelected), this, QOverload<const QUrl &>::of(&LokalizeMainWindow::openProject));
+    connect(m_openRecentProjectAction, qOverload<const QUrl &>(&KRecentFilesAction::urlSelected), this, qOverload<const QUrl &>(&LokalizeMainWindow::openProject));
 
     //Qt::QueuedConnection: defer until event loop is running to eliminate QWidgetPrivate::showChildren(bool) startup crash
     connect(Project::instance(), &Project::loaded, this, &LokalizeMainWindow::projectLoaded, Qt::QueuedConnection);
@@ -874,15 +874,15 @@ MultiEditorAdaptor::MultiEditorAdaptor(EditorTab *parent)
     : EditorAdaptor(parent)
 {
     setObjectName(QStringLiteral("MultiEditorAdaptor"));
-    connect(parent, QOverload<QObject*>::of(&EditorTab::destroyed), this, QOverload<QObject*>::of(&MultiEditorAdaptor::handleParentDestroy));
+    connect(parent, qOverload<QObject*>(&EditorTab::destroyed), this, qOverload<QObject*>(&MultiEditorAdaptor::handleParentDestroy));
 }
 
 void MultiEditorAdaptor::setEditorTab(EditorTab* e)
 {
     if (parent())
-        disconnect(parent(), QOverload<QObject*>::of(&EditorTab::destroyed), this, QOverload<QObject*>::of(&MultiEditorAdaptor::handleParentDestroy));
+        disconnect(parent(), qOverload<QObject*>(&EditorTab::destroyed), this, qOverload<QObject*>(&MultiEditorAdaptor::handleParentDestroy));
     if (e)
-        connect(e, QOverload<QObject*>::of(&EditorTab::destroyed), this, QOverload<QObject*>::of(&MultiEditorAdaptor::handleParentDestroy));
+        connect(e, qOverload<QObject*>(&EditorTab::destroyed), this, qOverload<QObject*>(&MultiEditorAdaptor::handleParentDestroy));
     setParent(e);
     setAutoRelaySignals(false);
     setAutoRelaySignals(true);

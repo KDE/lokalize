@@ -210,7 +210,7 @@ void EditorTab::find()
     } else { // This creates a find-next-prompt dialog if needed.
         m_find = new KFind(EntryFindDialog::instance()->pattern(), EntryFindDialog::instance()->options(), this, EntryFindDialog::instance());
         connect(m_find, &KFind::textFound, this, &EditorTab::highlightFound);
-        connect(m_find, &KFind::findNext, this, QOverload<>::of(&EditorTab::findNext));
+        connect(m_find, &KFind::findNext, this, qOverload<>(&EditorTab::findNext));
         m_find->closeFindNextDialog();
     }
 
@@ -346,7 +346,7 @@ void EditorTab::replace()
     {
         m_replace = new KReplace(EntryReplaceDialog::instance()->pattern(), EntryReplaceDialog::instance()->replacement(), EntryReplaceDialog::instance()->options(), this, EntryReplaceDialog::instance());
         connect(m_replace, &KReplace::textFound, this, &EditorTab::highlightFound_);
-        connect(m_replace, &KReplace::findNext, this, QOverload<>::of(&EditorTab::replaceNext));
+        connect(m_replace, &KReplace::findNext, this, qOverload<>(&EditorTab::replaceNext));
         connect(m_replace, &KReplace::textReplaced, this, &EditorTab::doReplace);
         connect(m_replace, &KReplace::dialogClosed, this, &EditorTab::cleanupReplace);
 //         _replace->closeReplaceNextDialog();
