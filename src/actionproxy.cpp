@@ -90,8 +90,9 @@ void StatusBarProxy::registerStatusBar(QStatusBar* bar, const QVector<QLabel*>& 
 {
     m_currentStatusBar = bar;
     m_statusBarLabels = statusBarLabels;
-    for (int i = 0; i < statusBarLabels.size(); i++)
-        statusBarLabels.at(i)->setText(QString());
+    for (auto label : statusBarLabels) {
+        label->setText(QString());
+    }
 
     QMap<int, QString>::const_iterator i = constBegin();
     while (i != constEnd()) {
