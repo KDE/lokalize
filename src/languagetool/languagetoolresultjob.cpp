@@ -14,7 +14,7 @@ LanguageToolResultJob::LanguageToolResultJob(QObject *parent)
 {
 }
 
-static bool hasNotEmptyText(const QString &text)
+static bool containsOnlySpaceChars(const QString &text)
 {
     return !text.trimmed().isEmpty();
 }
@@ -29,7 +29,7 @@ LanguageToolResultJob::JobError LanguageToolResultJob::canStartError() const
     if (!mNetworkAccessManager) {
         return LanguageToolResultJob::JobError::NetworkManagerNotDefined;
     }
-    if (!hasNotEmptyText(mText)) {
+    if (containsOnlySpaceChars(mText)) {
         return LanguageToolResultJob::JobError::EmptyText;
     }
     if (mUrl.isEmpty()) {
