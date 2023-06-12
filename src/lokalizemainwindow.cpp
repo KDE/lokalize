@@ -23,7 +23,6 @@
 
 #include "project.h"
 #include "projectmodel.h"
-#include "projectlocal.h"
 #include "prefs.h"
 
 #include "tools/widgettextcaptureconfig.h"
