@@ -1,9 +1,5 @@
 
-if(WIN32)
-#    install( FILES
-#            #find-gui-text.sh TODO
-#            DESTINATION  ${KDE_INSTALL_DATADIR}/lokalize/scripts )
-else()
+if(NOT WIN32)
     install( PROGRAMS find-gui-text.sh
              DESTINATION  ${KDE_INSTALL_DATADIR}/lokalize/scripts )
 endif()
