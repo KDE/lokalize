@@ -41,9 +41,18 @@
 
 QString Catalog::supportedFileTypes(bool includeTemplates)
 {
-    QString sep = QStringLiteral(";;");
-    QString all = i18n("All supported files (*.po *.pot *.xlf *.xliff *.ts)") + sep;
-    return all + (includeTemplates ? i18n("Gettext (*.po *.pot)") : i18n("Gettext (*.po)")) + sep + i18n("XLIFF (*.xlf *.xliff)") + sep + i18n("Linguist (*.ts)");
+    QStringList supportedTypes;
+    if (includeTemplates) {
+        supportedTypes << i18n("All supported files (*.po *.pot *.xlf *.xliff *.ts)");
+        supportedTypes << i18n("Gettext (*.po *.pot)");
+    } else {
+        supportedTypes << i18n("All supported files (*.po *.xlf *.xliff *.ts)");
+        supportedTypes << i18n("Gettext (*.po)");
+    }
+    supportedTypes << i18n("XLIFF (*.xlf *.xliff)");
+    supportedTypes << i18n("Linguist (*.ts)");
+
+    return supportedTypes.join(QLatin1String(";;"));
 }
 
 static const QString extensions[] = {QStringLiteral(".po"), QStringLiteral(".pot"), QStringLiteral(".xlf"), QStringLiteral(".xliff"), QStringLiteral(".ts")};
