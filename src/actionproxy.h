@@ -72,8 +72,8 @@ private:
 class StatusBarProxy: public QMap<int, QString>
 {
 public:
-    StatusBarProxy(): m_currentStatusBar(nullptr) {}
-    ~StatusBarProxy() {}
+    StatusBarProxy() = default;
+    ~StatusBarProxy() = default;
 
     void insert(int, const QString&);
 
@@ -84,7 +84,7 @@ public:
     }
 
 private:
-    QStatusBar* m_currentStatusBar;
+    QStatusBar* m_currentStatusBar{nullptr};
     QVector<QLabel*> m_statusBarLabels;
 };
 
