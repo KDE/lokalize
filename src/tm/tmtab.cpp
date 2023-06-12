@@ -269,8 +269,8 @@ private:
 bool TMResultsSortFilterProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
     if (left.column() == TMDBModel::TransationStatus) {
-        int l = left.data(TMDBModel::TransStateRole).toInt();
-        int r = right.data(TMDBModel::TransStateRole).toInt();
+        const int l = left.data(TMDBModel::TransStateRole).toInt();
+        const int r = right.data(TMDBModel::TransStateRole).toInt();
         return l < r;
     }
     return QSortFilterProxyModel::lessThan(left, right);
