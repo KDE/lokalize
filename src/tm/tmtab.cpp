@@ -463,8 +463,11 @@ TMTab::TMTab(QWidget *parent)
     int pos = ui_queryOptions->dbName->findData(Project::instance()->projectID(), DBFilesModel::NameRole);
     if (pos >= 0)
         ui_queryOptions->dbName->setCurrentIndex(pos);
-    connect(ui_queryOptions->dbName, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), m_model, &TMDBModel::setDB);
-    //connect(ui_queryOptions->dbName, SIGNAL(activated(QString)), this, SLOT(performQuery()));
+    const auto combo = ui_queryOptions->dbName;
+    connect(combo, qOverload<int>(&QComboBox::currentIndexChanged),
+            m_model, [this, combo](const int index) {
+        m_model->setDB(combo->itemText(index));
+    });
 
 //BEGIN resizeColumnToContents
     static const int maxInitialWidths[4] = {QGuiApplication::primaryScreen()->availableGeometry().width() / 3, QGuiApplication::primaryScreen()->availableGeometry().width() / 3, 50, 200};
