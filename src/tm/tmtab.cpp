@@ -72,12 +72,13 @@ void TMDBModel::setDB(const QString& str)
     m_dbName = str;
 
     const QString sourceLangCode = DBFilesModel::instance()->m_configurations.value(str).sourceLangCode;
-    const QString targetLangCode = DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
-    if (sourceLangCode.length()) {
-        setHeaderData(TMDBModel::Source, Qt::Horizontal, QString(i18nc("@title:column Original text", "Source") + QStringLiteral(": ") + sourceLangCode));
+    if (!sourceLangCode.isEmpty()) {
+        setHeaderData(TMDBModel::Source, Qt::Horizontal, i18nc("@title:column Original text", "Source: %1", sourceLangCode));
     }
-    if (targetLangCode.length()) {
-        setHeaderData(TMDBModel::Target, Qt::Horizontal, QString(i18nc("@title:column Text in target language", "Target") + QStringLiteral(": ") + targetLangCode));
+
+    const QString targetLangCode = DBFilesModel::instance()->m_configurations.value(str).targetLangCode;
+    if (!targetLangCode.isEmpty()) {
+        setHeaderData(TMDBModel::Target, Qt::Horizontal, i18nc("@title:column Text in target language", "Target: %1", targetLangCode));
     }
 }
 
