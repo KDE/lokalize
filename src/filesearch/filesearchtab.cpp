@@ -903,7 +903,7 @@ QString FileSearchTab::dbusObjectPath()
     return FILESEARCH_PATH + QString::number(m_dbusId);
 }
 
-bool FileSearchTab::findGuiTextPackage(QString text, QString package)
+bool FileSearchTab::findGuiTextPackage(QString text, [[maybe_unused]] QString package)
 {
     setSourceQuery(text);
     performSearch();

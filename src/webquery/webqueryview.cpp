@@ -96,7 +96,7 @@ void WebQueryView::slotSelectionChanged()
 //         event->acceptProposedAction();*/
 // }
 
-void WebQueryView::slotNewEntryDisplayed(const DocPosition& pos)
+void WebQueryView::slotNewEntryDisplayed([[maybe_unused]] const DocPosition& pos)
 {
     //m_flowLayout->clearWebQueryResult();
     m_browser->clear();
