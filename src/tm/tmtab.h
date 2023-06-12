@@ -90,13 +90,13 @@ private:
 
 
 private:
-    Ui_QueryOptions* ui_queryOptions;
-    TMDBModel* m_model;
-    TMResultsSortFilterProxyModel *m_proxyModel;
-    QaView* m_qaView;
+    Ui_QueryOptions* ui_queryOptions{};
+    TMDBModel* m_model{};
+    TMResultsSortFilterProxyModel *m_proxyModel{};
+    QaView* m_qaView{};
 
-    DocPosition::Part m_partToAlsoTryLater;
-    int m_dbusId;
+    DocPosition::Part m_partToAlsoTryLater{DocPosition::UndefPart};
+    int m_dbusId{-1};
     static QList<int> ids;
 };
 

@@ -378,8 +378,6 @@ QVariant QueryStylesModel::data(const QModelIndex& item, int role) const
 TMTab::TMTab(QWidget *parent)
     : LokalizeSubwindowBase2(parent)
     , m_proxyModel(new TMResultsSortFilterProxyModel(this))
-    , m_partToAlsoTryLater(DocPosition::UndefPart)
-    , m_dbusId(-1)
 {
     //setCaption(i18nc("@title:window","Translation Memory"),false);
     setWindowTitle(i18nc("@title:window", "Translation Memory"));
