@@ -16,12 +16,7 @@ LanguageToolResultJob::LanguageToolResultJob(QObject *parent)
 
 static bool hasNotEmptyText(const QString &text)
 {
-    for (int i = 0; i < text.length(); ++i) {
-        if (!text.at(i).isSpace()) {
-            return true;
-        }
-    }
-    return false;
+    return !text.trimmed().isEmpty();
 }
 
 bool LanguageToolResultJob::canStart() const

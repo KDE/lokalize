@@ -415,8 +415,8 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
 
 
     void TranslationUnitTextEdit::contentsChanged(int offset, int charsRemoved, int charsAdded) {
-        Q_ASSERT(m_catalog->targetLangCode().length());
-        Q_ASSERT(Project::instance()->targetLangCode().length());
+        Q_ASSERT(!m_catalog->targetLangCode().isEmpty());
+        Q_ASSERT(!Project::instance()->targetLangCode().isEmpty());
 
         //qCWarning(LOKALIZE_LOG)<<"contentsChanged. offset"<<offset<<"charsRemoved"<<charsRemoved<<"charsAdded"<<charsAdded<<"_oldMsgstr"<<_oldMsgstr;
 
@@ -436,7 +436,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
         }
 
         //ktextedit spellcheck handling:
-        if (charsRemoved == 0 && editText.isEmpty() && _oldMsgstr.length())
+        if (charsRemoved == 0 && editText.isEmpty() && !_oldMsgstr.isEmpty())
             charsRemoved = _oldMsgstr.length();
         if (charsAdded && editText.isEmpty())
             charsAdded = 0;
@@ -1146,7 +1146,7 @@ void insertContent(QTextCursor& cursor, const CatalogString& catStr, const Catal
     }
 
     void TranslationUnitTextEdit::launchLanguageTool()     {
-        if (toPlainText().length() == 0)
+        if (toPlainText().isEmpty())
             return;
 
         LanguageToolResultJob *job = new LanguageToolResultJob(this);

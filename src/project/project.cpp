@@ -157,12 +157,12 @@ void Project::load(const QString &newProjectPath, const QString& forcedTargetLan
     m_localConfig->setSharedConfig(KSharedConfig::openConfig(projectID() + QStringLiteral(".local"), KConfig::NoGlobals, QStandardPaths::DataLocation));
     m_localConfig->load();
 
-    if (forcedTargetLangCode.length())
+    if (!forcedTargetLangCode.isEmpty())
         setLangCode(forcedTargetLangCode);
     else if (langCode().isEmpty())
         setLangCode(QLocale::system().name());
 
-    if (forcedProjectId.length())
+    if (!forcedProjectId.isEmpty())
         setProjectID(forcedProjectId);
 
 

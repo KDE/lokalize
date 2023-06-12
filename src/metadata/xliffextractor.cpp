@@ -58,7 +58,7 @@ bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttrib
         currentEntryFuzzy = currentEntryFuzzy_reviewer = currentEntryFuzzy_approver = false;
         if (atts.value(QLatin1String("approved")) != QLatin1String("yes")) {
             QString state = atts.value(QLatin1String("state")).toString();
-            if (state.length()) {
+            if (!state.isEmpty()) {
                 TargetState tstate = stringToState(state);
                 currentEntryFuzzy = !::isApproved(tstate, ProjectLocal::Translator);
                 currentEntryFuzzy_reviewer = !::isApproved(tstate, ProjectLocal::Reviewer);
@@ -71,15 +71,15 @@ bool XliffHandler::startElement(const QString& localName, const QXmlStreamAttrib
         QString dateString         = atts.value(QLatin1String("date")).toString();
 
         QString currentLastTranslator;
-        if (contactNameString.length() && contactEmailString.length())
+        if (!contactNameString.isEmpty() && !contactEmailString.isEmpty())
             currentLastTranslator = contactNameString + QStringLiteral(" <") + contactEmailString + QStringLiteral(">");
-        else if (contactNameString.length())
+        else if (!contactNameString.isEmpty())
             currentLastTranslator = contactNameString;
-        else if (contactEmailString.length())
+        else if (!contactEmailString.isEmpty())
             currentLastTranslator = contactEmailString;
 
-        if (currentLastTranslator.length()) lastTranslator_fallback = currentLastTranslator;
-        if (dateString.length()) {
+        if (!currentLastTranslator.isEmpty()) lastTranslator_fallback = currentLastTranslator;
+        if (!dateString.isEmpty()) {
             lastDateString_fallback = dateString;
 
             const QDate thisDate = QDate::fromString(dateString, Qt::ISODate);
@@ -163,7 +163,7 @@ FileMetaData XliffExtractor::extract(const QString& filePath)
     m.fuzzy_approver = handler.fuzzy_approver;
     m.fuzzy_reviewer = handler.fuzzy_reviewer;
 
-    m.lastTranslator = handler.lastTranslator.length() ? handler.lastTranslator : handler.lastTranslator_fallback;
+    m.lastTranslator = !handler.lastTranslator.isEmpty() ? handler.lastTranslator : handler.lastTranslator_fallback;
     m.translationDate = handler.lastDate.isValid() ? handler.lastDate.toString(Qt::ISODate) : handler.lastDateString_fallback;
 
     return m;

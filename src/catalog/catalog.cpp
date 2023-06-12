@@ -618,7 +618,7 @@ bool Catalog::saveToUrl(QString localFilePath)
     if (Q_UNLIKELY(!m_storage))
         return true;
 
-    bool nameChanged = localFilePath.length();
+    bool nameChanged = !localFilePath.isEmpty();
     if (Q_LIKELY(!nameChanged))
         localFilePath = d._filePath;
 

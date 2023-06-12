@@ -24,7 +24,7 @@ QString LanguageToolParser::parseResult(const QJsonObject &obj, const QString &t
             infos.append(error.parse(languageToolObject, text));
         }
     }
-    if (infos.length() == 0)
+    if (infos.isEmpty())
         infos = i18n("No errors");
     return infos;
 }

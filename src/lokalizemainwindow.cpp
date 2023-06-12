@@ -217,7 +217,7 @@ EditorTab* LokalizeMainWindow::fileOpen_(QString filePath, const bool setAsActiv
 }
 EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsActive, const QString& mergeFile, bool silent)
 {
-    if (filePath.length()) {
+    if (!filePath.isEmpty()) {
         FileToEditor::const_iterator it = m_fileToEditor.constFind(filePath);
         if (it != m_fileToEditor.constEnd()) {
             qCWarning(LOKALIZE_LOG) << "already opened:" << filePath;
@@ -233,14 +233,14 @@ EditorTab* LokalizeMainWindow::fileOpen(QString filePath, int entry, bool setAsA
 
     QMdiSubWindow* sw = nullptr;
     //create QMdiSubWindow BEFORE fileOpen() because it causes some strange QMdiArea behaviour otherwise
-    if (filePath.length())
+    if (!filePath.isEmpty())
         sw = m_mdiArea->addSubWindow(w);
 
     QString suggestedDirPath;
     QMdiSubWindow* activeSW = m_mdiArea->currentSubWindow();
     if (activeSW && qobject_cast<LokalizeSubwindowBase*>(activeSW->widget())) {
         QString fp = static_cast<LokalizeSubwindowBase*>(activeSW->widget())->currentFilePath();
-        if (fp.length()) suggestedDirPath = QFileInfo(fp).absolutePath();
+        if (!fp.isEmpty()) suggestedDirPath = QFileInfo(fp).absolutePath();
     }
 
     if (!w->fileOpen(filePath, suggestedDirPath, m_fileToEditor, silent)) {
@@ -386,9 +386,9 @@ FileSearchTab* LokalizeMainWindow::showFileSearch(bool activate)
     if (activate) {
         m_mdiArea->setActiveSubWindow(m_fileSearchSubWindow);
         if (precedingEditor) {
-            if (precedingEditor->selectionInSource().length())
+            if (!precedingEditor->selectionInSource().isEmpty())
                 static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget())->setSourceQuery(precedingEditor->selectionInSource());
-            if (precedingEditor->selectionInTarget().length())
+            if (!precedingEditor->selectionInTarget().isEmpty())
                 static_cast<FileSearchTab*>(m_fileSearchSubWindow->widget())->setTargetQuery(precedingEditor->selectionInTarget());
         }
     }

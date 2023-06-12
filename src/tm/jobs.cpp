@@ -1070,7 +1070,7 @@ CloseDBJob::~CloseDBJob()
 void CloseDBJob::run()
 {
     const QString connectionName = getConnectionName(m_dbName);
-    if (connectionName.length())
+    if (!connectionName.isEmpty())
         QSqlDatabase::removeDatabase(connectionName);
     qCDebug(LOKALIZE_LOG) << "closedb " << connectionName;
     Q_EMIT done(this);

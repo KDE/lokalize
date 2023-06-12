@@ -106,7 +106,7 @@ int main(int argc, char **argv)
             else if (QFileInfo::exists(filePath))
                 urls.append(filePath);
 
-        if (projectFilePath.length()) {
+        if (!projectFilePath.isEmpty()) {
             // load needs an absolute path
             // FIXME: I do not know how to handle urls here
             // bug 245546 regarding symlinks
