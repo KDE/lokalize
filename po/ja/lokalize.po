@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-01 00:49+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2020-05-04 20:00-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -790,7 +790,7 @@ msgstr "オプション"
 msgid "Reset individual filter"
 msgstr "ここのフィルタをリセット"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:368
 #, kde-format
 msgid "Case insensitive"
 msgstr "大文字と小文字を区別します"
@@ -896,7 +896,7 @@ msgstr "エントリ"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:201
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -904,7 +904,7 @@ msgstr "原文"
 
 #: src/cataloglistview/catalogmodel.cpp:109
 #: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:202
-#: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
+#: src/tm/tmtab.cpp:64
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -952,21 +952,21 @@ msgid "Target length"
 msgstr "翻訳言語"
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1114
-#: src/editortab.cpp:1317 src/tm/tmtab.cpp:229
+#: src/editortab.cpp:1317 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "翻訳完了"
 
 #: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1115
-#: src/editortab.cpp:1312 src/tm/tmtab.cpp:230
+#: src/editortab.cpp:1312 src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "要見直し"
 
 #: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1113
-#: src/tm/tmtab.cpp:231
+#: src/tm/tmtab.cpp:236
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1000,7 +1000,7 @@ msgstr "現在: %1"
 
 #: src/editortab.cpp:146 src/editortab.cpp:871
 #: src/filesearch/filesearchtab.cpp:775 src/project/projecttab.cpp:513
-#: src/tm/tmtab.cpp:590
+#: src/tm/tmtab.cpp:596
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -1026,7 +1026,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:432
+#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:431
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1060,7 +1060,7 @@ msgid "Translation Memory"
 msgstr "翻訳メモリ"
 
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:434
+#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:433
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1697,8 +1697,8 @@ msgstr ""
 "パスから現在ロードされていません。スクリプトの例とプロジェクトへの適用方法に"
 "ついては、Lokalize ハンドブックを参照してください。"
 
-#: src/editortab.cpp:1701 src/project/project.cpp:478
-#: src/project/project.cpp:483
+#: src/editortab.cpp:1701 src/project/project.cpp:474
+#: src/project/project.cpp:479
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr "translate-toolkit をインストールし、再試行する。"
@@ -1713,7 +1713,7 @@ msgstr "translate-toolkit をインストールし、再試行する。"
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr "現在の XLIFF ファイルのベースになっている OpenDocument を選択"
 
-#: src/editortab.cpp:1718 src/project/project.cpp:488
+#: src/editortab.cpp:1718 src/project/project.cpp:484
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr "OpenDocument ファイル (*.odt *.ods)"
@@ -1964,17 +1964,17 @@ msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:406
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "原文をクリップボードにコピー"
 
-#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:412
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "翻訳をクリップボードにコピー"
 
-#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:415
+#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:418
 #, kde-format
 msgid "Open file"
 msgstr "ファイルを開く"
@@ -2168,129 +2168,129 @@ msgstr "提案:"
 msgid "No errors"
 msgstr "エラーなし"
 
-#: src/lokalizemainwindow.cpp:115
+#: src/lokalizemainwindow.cpp:114
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Qt Sql モジュールが見つかりませんでした。翻訳メモリは動作しません。"
 
-#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:357 src/project/project.cpp:291
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "翻訳メモリ機能には SQLite Qt モジュールが必要です。"
 
-#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:357 src/project/project.cpp:291
 #, kde-format
 msgid "No SQLite module available"
 msgstr "使用可能な SQLite モジュールがありません"
 
-#: src/lokalizemainwindow.cpp:435 src/tm/tmtab.cpp:488
+#: src/lokalizemainwindow.cpp:434 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "翻訳メモリ"
 
-#: src/lokalizemainwindow.cpp:436 src/project/projecttab.cpp:191
+#: src/lokalizemainwindow.cpp:435 src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "プロジェクト"
 
-#: src/lokalizemainwindow.cpp:463
+#: src/lokalizemainwindow.cpp:462
 #, kde-format
 msgid "Next tab"
 msgstr "次のタブ"
 
-#: src/lokalizemainwindow.cpp:466
+#: src/lokalizemainwindow.cpp:465
 #, kde-format
 msgid "Previous tab"
 msgstr "前のタブ"
 
-#: src/lokalizemainwindow.cpp:469
+#: src/lokalizemainwindow.cpp:468
 #, kde-format
 msgid "Previously active tab"
 msgstr "前のタブ"
 
-#: src/lokalizemainwindow.cpp:475
+#: src/lokalizemainwindow.cpp:474
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "用語集"
 
-#: src/lokalizemainwindow.cpp:479
+#: src/lokalizemainwindow.cpp:478
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "翻訳メモリ"
 
-#: src/lokalizemainwindow.cpp:483 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:482 src/tm/tmtab.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "翻訳メモリの管理"
 
-#: src/lokalizemainwindow.cpp:487
+#: src/lokalizemainwindow.cpp:486
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "プロジェクトの概要"
 
-#: src/lokalizemainwindow.cpp:491
+#: src/lokalizemainwindow.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr "プロジェクトを設定..."
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr "ソフトウェア翻訳プロジェクトの場所を作成..."
 
-#: src/lokalizemainwindow.cpp:497
+#: src/lokalizemainwindow.cpp:496
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr "OpenDocument 翻訳プロジェクトを作成します..."
 
-#: src/lokalizemainwindow.cpp:500
+#: src/lokalizemainwindow.cpp:499
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr "プロジェクトを開く..."
 
-#: src/lokalizemainwindow.cpp:504
+#: src/lokalizemainwindow.cpp:503
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr "プロジェクトを閉じる"
 
-#: src/lokalizemainwindow.cpp:507
+#: src/lokalizemainwindow.cpp:506
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "最近のプロジェクトを開く"
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:517
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:522
+#: src/lokalizemainwindow.cpp:521
 #, fuzzy, kde-format
 #| msgid "Widget text capture"
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "ウィジェットテキストキャプチャ"
 
-#: src/lokalizemainwindow.cpp:699
+#: src/lokalizemainwindow.cpp:698
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "Error opening the following files:"
@@ -2318,7 +2318,7 @@ msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:56
+#: src/main.cpp:57
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2327,7 +2327,7 @@ msgstr ""
 "コンピュータによる翻訳システム。\n"
 "翻訳済みのものを翻訳する必要がありません。"
 
-#: src/main.cpp:57
+#: src/main.cpp:59
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2339,135 +2339,135 @@ msgstr ""
 "(c) 2007-2015 Nick Shaforostoff\n"
 "(c) 1999-2006 The KBabel developers"
 
-#: src/main.cpp:58
+#: src/main.cpp:60
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "Google Summer Of Code プログラムの一部としてのスポンサーされた開発"
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "NLNet Foundation"
 msgstr "NLNet Foundation"
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr "sponsored XLIFF-related work"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "ツールキットの翻訳"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "優秀なクロスフォーマット変換スクリプトの提供"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, fuzzy, kde-format
 #| msgid "Language"
 msgid "LanguageTool"
 msgstr "言語"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr "文法・スタイル・スペルチェッカー"
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "翻訳+テンプレートのプロジェクトツリーマージ機能"
 
-#: src/main.cpp:64
+#: src/main.cpp:66
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:64 src/main.cpp:65 src/main.cpp:68
+#: src/main.cpp:66 src/main.cpp:67 src/main.cpp:70
 #, kde-format
 msgid "bug fixing patches"
 msgstr "バグフィックスパッチ"
 
-#: src/main.cpp:65
+#: src/main.cpp:67
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:66
+#: src/main.cpp:68
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:66
+#: src/main.cpp:68
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "テスト、バグフィックス"
 
-#: src/main.cpp:67
+#: src/main.cpp:69
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:67
+#: src/main.cpp:69
 #, kde-format
 msgid "patches"
 msgstr "パッチ"
 
-#: src/main.cpp:68
+#: src/main.cpp:70
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "XLIFF の改良"
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, kde-format
 msgid "Simon Depiets"
 msgstr "Simon Depiets"
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, fuzzy, kde-format
 #| msgid "bug fixing patches"
 msgid "bug fixing and improvements"
 msgstr "バグフィックスパッチ"
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:74
+#: src/main.cpp:76
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "プロジェクトのファイルをスキャンしない。"
 
-#: src/main.cpp:75
+#: src/main.cpp:77
 #, kde-format
 msgid "Load specified project."
 msgstr "特定のプロジェクトを読み込む。"
 
-#: src/main.cpp:76
+#: src/main.cpp:78
 #, kde-format
 msgid "Document to open"
 msgstr "開く文書"
@@ -2519,7 +2519,7 @@ msgid ""
 msgstr ""
 "同期のためのファイル <filename>%1</filename> のオープンエラー, エラー行: %2"
 
-#: src/mergemode/mergeview.cpp:361
+#: src/mergemode/mergeview.cpp:353
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3743,7 +3743,7 @@ msgstr "ソースファイルのフォルダをスキャンしています"
 msgid "Editor"
 msgstr "編集"
 
-#: src/project/project.cpp:495
+#: src/project/project.cpp:491
 #, fuzzy, kde-format
 #| msgid "Translation"
 msgctxt "project folder name. %2 is targetLangCode"
@@ -4322,45 +4322,59 @@ msgstr "開いたファイルを Lokalize の翻訳メモリに取り込む"
 msgid "TM"
 msgstr "翻訳メモリ"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:76
+#, fuzzy, kde-format
+#| msgid "Source:"
+msgctxt "@title:column Original text"
+msgid "Source: %1"
+msgstr "原文:"
+
+#: src/tm/tmtab.cpp:81
+#, fuzzy, kde-format
+#| msgid "Target:"
+msgctxt "@title:column Text in target language"
+msgid "Target: %1"
+msgstr "翻訳:"
+
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Substring"
 msgstr "部分文字列"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Google-like"
 msgstr "Google 風"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Wildcard"
 msgstr "ワイルドカード"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr "スペースは AND 演算子になります。大文字と小文字を区別します。"
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:370
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "シェル glob (* と ?)。大文字と小文字を区別する。"
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:384 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "翻訳メモリ"
 
-#: src/tm/tmtab.cpp:592
+#: src/tm/tmtab.cpp:598
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "合計: %1 (%2)"
 
-#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:627 src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4391,19 +4405,7 @@ msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "完全一致の候補は見つかりませんでした。"
 
-#: src/tm/tmview.cpp:289
-#, kde-format
-msgctxt "@title"
-msgid "Batch translation complete"
-msgstr "一括翻訳完了"
-
-#: src/tm/tmview.cpp:303 src/tm/tmview.cpp:318
-#, kde-format
-msgctxt "@title"
-msgid "Batch translation"
-msgstr "一括翻訳"
-
-#: src/tm/tmview.cpp:304 src/tm/tmview.cpp:319
+#: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."
@@ -4633,6 +4635,14 @@ msgstr "エラーが発生しました: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "原文を翻訳にコピー"
+
+#~ msgctxt "@title"
+#~ msgid "Batch translation complete"
+#~ msgstr "一括翻訳完了"
+
+#~ msgctxt "@title"
+#~ msgid "Batch translation"
+#~ msgstr "一括翻訳"
 
 #, fuzzy
 #~| msgid "Remove"
