@@ -359,8 +359,6 @@ void updateHeader(QString& header,
             mailingList = Settings::defaultMailingList();
     }
 
-
-
     Project::LangSource projLangSource = Project::instance()->languageSource();
     QString projLT = Project::instance()->projLangTeam();
     if (projLangSource == Project::LangSource::Project) {
@@ -479,84 +477,7 @@ void updateHeader(QString& header,
             it->replace(QStringLiteral("YEAR"), cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")));
         }
     }
-    /*
-                                    if( saveOptions.FSFCopyright == ProjectSettingsBase::Update )
-                                    {
-                                        //update years
-                                        QString cy = cLocale.toString(QDate::currentDate(), "yyyy");
-                                        if( !it->contains( QRegExp(cy)) ) // is the year already included?
-                                        {
-                                        int index = it->lastIndexOf( QRegExp("[\\d]+[\\d\\-, ]*") );
-                                        if( index == -1 )
-                                        {
-                                            KMessageBox::information(nullptr,i18n("Free Software Foundation Copyright does not contain any year. "
-                                            "It will not be updated."));
-                                        } else {
-                                            it->insert(index+1, QString(", ")+cy);
-                                        }
-                                        }
-                                    }*/
-#if 0
-    if ((!usePrefs || saveOptions.updateDescription)
-        && (!saveOptions.descriptionString.isEmpty())) {
-        temp = "# " + saveOptions.descriptionString;
-        temp.replace("@PACKAGE@", packageName());
-        temp.replace("@LANGUAGE@", identityOptions.languageName);
-        temp = temp.trimmed();
 
-        // The description strings has often buggy variants already in the file, these must be removed
-        QString regexpstr = "^#\\s+" + QRegExp::escape(saveOptions.descriptionString.trimmed()) + "\\s*$";
-        regexpstr.replace("@PACKAGE@", ".*");
-        regexpstr.replace("@LANGUAGE@", ".*");
-        //qCDebug(LOKALIZE_LOG) << "REGEXPSTR: " <<  regexpstr;
-        QRegExp regexp(regexpstr);
-
-        // The buggy variants exist in English too (of a time before KBabel got a translation for the corresponding language)
-        QRegExp regexpUntranslated("^#\\s+translation of .* to .*\\s*$");
-
-
-        qCDebug(LOKALIZE_LOG) << "Temp is '" << temp << "'";
-
-        found = false;
-        bool foundTemplate = false;
-
-        it = commentList.begin();
-        while (it != commentList.end()) {
-            qCDebug(LOKALIZE_LOG) << "testing '" << (*it) << "'";
-            bool deleteItem = false;
-
-            if ((*it) == temp) {
-                qCDebug(LOKALIZE_LOG) << "Match ";
-                if (found)
-                    deleteItem = true;
-                else
-                    found = true;
-            } else if (regexp.indexIn(*it) >= 0) {
-                // We have a similar (translated) string (from another project or another language (perhaps typos)). Remove it.
-                deleteItem = true;
-            } else if (regexpUntranslated.indexIn(*it) >= 0) {
-                // We have a similar (untranslated) string (from another project or another language (perhaps typos)). Remove it.
-                deleteItem = true;
-            } else if ((*it) == "# SOME DESCRIPTIVE TITLE.") {
-                // We have the standard title placeholder, remove it
-                deleteItem = true;
-            }
-
-            if (deleteItem)
-                it = commentList.erase(it);
-            else
-                ++it;
-        }
-        if (!found) commentList.prepend(temp);
-    }
-#endif
-    // qCDebug(LOKALIZE_LOG) << "HEADER COMMENT: " << commentList;
-
-    /*    if ( (!usePrefs || saveOptions.updateTranslatorCopyright)
-            && ( ! identityOptions->readEntry("authorName","").isEmpty() )
-            && ( ! identityOptions->readEntry("Email","").isEmpty() ) ) // An email address can be used as ersatz of a name
-        {*/
-//                        return;
     QStringList foundAuthors;
 
     temp = QStringLiteral("# ") + authorNameEmail + QStringLiteral(", ") + cLocale.toString(QDate::currentDate(), QStringLiteral("yyyy")) + QLatin1Char('.');
