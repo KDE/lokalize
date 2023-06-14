@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-06-14 00:49+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -223,85 +223,90 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr ""
 
-#: src/catalog/catalog.cpp:45
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:49
+#, kde-format
+msgid "All supported files (*.po *.xlf *.xliff *.ts)"
+msgstr ""
+
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "New"
 msgstr ""
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Untranslated"
 msgid "Needs translation"
 msgstr "Pas revirat"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs full localization"
 msgstr ""
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs adaptation"
 msgstr ""
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "@title:column"
 #| msgid "Translated"
 msgid "Translated"
 msgstr "Revirat"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "@info:status"
 #| msgid "Untranslated"
 msgid "Needs translation review"
 msgstr "Pas revirat"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr ""
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation review"
 msgstr ""
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "@title:column Original text"
 #| msgid "Original"
 msgid "Final"
 msgstr "Original"
 
-#: src/catalog/catalog.cpp:54
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Signed-off"
 msgstr ""

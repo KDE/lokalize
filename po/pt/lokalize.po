@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
-"PO-Revision-Date: 2023-05-26 22:54+0100\n"
+"POT-Creation-Date: 2023-06-14 00:49+0000\n"
+"PO-Revision-Date: 2023-06-13 17:30+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -257,77 +257,83 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Usar o ficheiro de origem"
 
-#: src/catalog/catalog.cpp:45
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "Todos os ficheiros suportados (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:49
+#, fuzzy, kde-format
+#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+msgid "All supported files (*.po *.xlf *.xliff *.ts)"
+msgstr "Todos os ficheiros suportados (*.po *.pot *.xlf *.xliff *.ts)"
+
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "New"
 msgstr "Novo"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation"
 msgstr "Necessita de tradução"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs full localization"
 msgstr "Necessita de uma tradução completa"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Necessita de adaptação"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Translated"
 msgstr "Traduzida"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation review"
 msgstr "Necessita de revisão da tradução"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Necessita de uma revisão completa da tradução"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Necessita de revisão da adaptação"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Final"
 msgstr "Final"
 
-#: src/catalog/catalog.cpp:54
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Signed-off"
 msgstr "Verificada"
@@ -4405,18 +4411,16 @@ msgid "TM"
 msgstr "MT"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "Origem:"
+msgstr "Origem: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "Destino:"
+msgstr "Destino: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
@@ -4714,11 +4718,3 @@ msgstr "Foi devolvido um erro: %1"
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
 msgstr "Copiar a origem para o destino"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation complete"
-#~ msgstr "A tradução em lote terminou"
-
-#~ msgctxt "@title"
-#~ msgid "Batch translation"
-#~ msgstr "Tradução em lote"

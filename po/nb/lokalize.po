@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-01 00:49+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2014-03-22 21:58+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -842,7 +842,7 @@ msgstr "valg"
 msgid "Reset individual filter"
 msgstr "Nullstill enkeltfilter"
 
-#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:363
+#: src/cataloglistview/cataloglistview.cpp:192 src/tm/tmtab.cpp:368
 #, kde-format
 msgid "Case insensitive"
 msgstr "Ikke skill mellom store og små bokstaver"
@@ -948,7 +948,7 @@ msgstr "Oppføring"
 #. i18nc("@title:column","ID");
 #: src/cataloglistview/catalogmodel.cpp:107
 #: src/filesearch/filesearchtab.cpp:322 src/glossary/glossary.cpp:201
-#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63 src/tm/tmtab.cpp:76
+#: src/tm/qamodel.cpp:93 src/tm/tmtab.cpp:63
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
@@ -956,7 +956,7 @@ msgstr "Kilde"
 
 #: src/cataloglistview/catalogmodel.cpp:109
 #: src/filesearch/filesearchtab.cpp:323 src/glossary/glossary.cpp:202
-#: src/tm/tmtab.cpp:64 src/tm/tmtab.cpp:77
+#: src/tm/tmtab.cpp:64
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
@@ -1000,21 +1000,21 @@ msgid "Target length"
 msgstr ""
 
 #: src/cataloglistview/catalogmodel.cpp:157 src/editortab.cpp:1114
-#: src/editortab.cpp:1317 src/tm/tmtab.cpp:229
+#: src/editortab.cpp:1317 src/tm/tmtab.cpp:234
 #, kde-format
 msgctxt "@info:status 'non-fuzzy' in gettext terminology"
 msgid "Ready"
 msgstr "Klar"
 
 #: src/cataloglistview/catalogmodel.cpp:159 src/editortab.cpp:1115
-#: src/editortab.cpp:1312 src/tm/tmtab.cpp:230
+#: src/editortab.cpp:1312 src/tm/tmtab.cpp:235
 #, kde-format
 msgctxt "@info:status 'fuzzy' in gettext terminology"
 msgid "Needs review"
 msgstr "Må vaskes"
 
 #: src/cataloglistview/catalogmodel.cpp:161 src/editortab.cpp:1113
-#: src/tm/tmtab.cpp:231
+#: src/tm/tmtab.cpp:236
 #, kde-format
 msgctxt "@info:status"
 msgid "Untranslated"
@@ -1046,7 +1046,7 @@ msgstr "Denne: %1"
 
 #: src/editortab.cpp:146 src/editortab.cpp:871
 #: src/filesearch/filesearchtab.cpp:775 src/project/projecttab.cpp:513
-#: src/tm/tmtab.cpp:590
+#: src/tm/tmtab.cpp:596
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1"
@@ -1072,7 +1072,7 @@ msgctxt "percentages in statusbar"
 msgid " (%1%)"
 msgstr " (%1%)"
 
-#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:432
+#: src/editortab.cpp:193 src/lokalizemainwindow.cpp:431
 #, kde-format
 msgctxt "@title actions category"
 msgid "File"
@@ -1107,7 +1107,7 @@ msgstr "Oversettelsesminne"
 
 # unreviewed-context
 #. i18nc("@title actions category","Settings"), ac);
-#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:434
+#: src/editortab.cpp:199 src/lokalizemainwindow.cpp:433
 #, kde-format
 msgctxt "@title actions category"
 msgid "Glossary"
@@ -1710,8 +1710,8 @@ msgid ""
 "handbook for script examples and how to plug them into your project."
 msgstr ""
 
-#: src/editortab.cpp:1701 src/project/project.cpp:478
-#: src/project/project.cpp:483
+#: src/editortab.cpp:1701 src/project/project.cpp:474
+#: src/project/project.cpp:479
 #, kde-format
 msgid "Install translate-toolkit package and retry"
 msgstr ""
@@ -1726,7 +1726,7 @@ msgstr ""
 msgid "Select original OpenDocument on which current XLIFF file is based"
 msgstr ""
 
-#: src/editortab.cpp:1718 src/project/project.cpp:488
+#: src/editortab.cpp:1718 src/project/project.cpp:484
 #, kde-format
 msgid "OpenDocument files (*.odt *.ods)"
 msgstr ""
@@ -1978,17 +1978,17 @@ msgctxt "@title:window"
 msgid "Search and replace in files"
 msgstr "Søk og erstatt i filer"
 
-#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:403
+#: src/filesearch/filesearchtab.cpp:456 src/tm/tmtab.cpp:406
 #, kde-format
 msgid "Copy source to clipboard"
 msgstr "Kopier kilden til utklippstavla"
 
-#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:409
+#: src/filesearch/filesearchtab.cpp:462 src/tm/tmtab.cpp:412
 #, kde-format
 msgid "Copy target to clipboard"
 msgstr "Kopier oversettelsen til utklippstavla"
 
-#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:415
+#: src/filesearch/filesearchtab.cpp:468 src/tm/tmtab.cpp:418
 #, kde-format
 msgid "Open file"
 msgstr "Åpne fil"
@@ -2179,130 +2179,130 @@ msgstr ""
 msgid "No errors"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:115
+#: src/lokalizemainwindow.cpp:114
 #, kde-format
 msgctxt "@info"
 msgid "No Qt Sql modules were found. Translation memory will not work."
 msgstr "Fant ingen Qt SQL-moduler. Oversettelsesminnet kan ikke virke."
 
-#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:357 src/project/project.cpp:291
 #, kde-format
 msgid "TM facility requires SQLite Qt module."
 msgstr "Oversettelsesminne krever SQLite-modul i Qt."
 
-#: src/lokalizemainwindow.cpp:358 src/project/project.cpp:291
+#: src/lokalizemainwindow.cpp:357 src/project/project.cpp:291
 #, kde-format
 msgid "No SQLite module available"
 msgstr "Ingen SQLite-modul tilgjengelig"
 
 # unreviewed-context
-#: src/lokalizemainwindow.cpp:435 src/tm/tmtab.cpp:488
+#: src/lokalizemainwindow.cpp:434 src/tm/tmtab.cpp:494
 #, kde-format
 msgctxt "@title actions category"
 msgid "Translation Memory"
 msgstr "Oversettelsesminne"
 
 # unreviewed-context
-#: src/lokalizemainwindow.cpp:436 src/project/projecttab.cpp:191
+#: src/lokalizemainwindow.cpp:435 src/project/projecttab.cpp:191
 #, kde-format
 msgctxt "@title actions category"
 msgid "Project"
 msgstr "Prosjekt"
 
-#: src/lokalizemainwindow.cpp:463
+#: src/lokalizemainwindow.cpp:462
 #, kde-format
 msgid "Next tab"
 msgstr "Neste fane"
 
-#: src/lokalizemainwindow.cpp:466
+#: src/lokalizemainwindow.cpp:465
 #, kde-format
 msgid "Previous tab"
 msgstr "Forrige fane"
 
-#: src/lokalizemainwindow.cpp:469
+#: src/lokalizemainwindow.cpp:468
 #, kde-format
 msgid "Previously active tab"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:475
+#: src/lokalizemainwindow.cpp:474
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Glossary"
 msgstr "Ordliste"
 
-#: src/lokalizemainwindow.cpp:479
+#: src/lokalizemainwindow.cpp:478
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Translation memory"
 msgstr "Oversettelsesminne"
 
-#: src/lokalizemainwindow.cpp:483 src/tm/tmtab.cpp:491
+#: src/lokalizemainwindow.cpp:482 src/tm/tmtab.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Manage translation memories"
 msgstr "Behandle oversettelsesminnet"
 
-#: src/lokalizemainwindow.cpp:487
+#: src/lokalizemainwindow.cpp:486
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Project overview"
 msgstr "Prosjektoversikt"
 
-#: src/lokalizemainwindow.cpp:491
+#: src/lokalizemainwindow.cpp:490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Configure project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:494
+#: src/lokalizemainwindow.cpp:493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create software translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:497
+#: src/lokalizemainwindow.cpp:496
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Create OpenDocument translation project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:500
+#: src/lokalizemainwindow.cpp:499
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open project..."
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:504
+#: src/lokalizemainwindow.cpp:503
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close project"
 msgstr ""
 
-#: src/lokalizemainwindow.cpp:507
+#: src/lokalizemainwindow.cpp:506
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open recent project"
 msgstr "Åpne nylig brukt prosjekt"
 
-#: src/lokalizemainwindow.cpp:515
+#: src/lokalizemainwindow.cpp:514
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Search and replace in files"
 msgstr "Søk og erstatt i filer"
 
-#: src/lokalizemainwindow.cpp:518
+#: src/lokalizemainwindow.cpp:517
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Find next in files"
 msgstr "Finn neste i filer"
 
-#: src/lokalizemainwindow.cpp:522
+#: src/lokalizemainwindow.cpp:521
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Widget text capture"
 msgstr "Hent tekst fra vindu"
 
-#: src/lokalizemainwindow.cpp:699
+#: src/lokalizemainwindow.cpp:698
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -2330,7 +2330,7 @@ msgctxt "@title"
 msgid "Lokalize"
 msgstr "Lokalize"
 
-#: src/main.cpp:56
+#: src/main.cpp:57
 #, kde-format
 msgid ""
 "Computer-aided translation system.\n"
@@ -2339,7 +2339,7 @@ msgstr ""
 "System for dataassistert oversettelse.\n"
 "Ikke oversett det som alt er oversatt!"
 
-#: src/main.cpp:57
+#: src/main.cpp:59
 #, kde-format
 msgctxt "@info:credit"
 msgid ""
@@ -2348,133 +2348,133 @@ msgid ""
 "(c) 1999-2006 The KBabel developers"
 msgstr ""
 
-#: src/main.cpp:58
+#: src/main.cpp:60
 #, kde-format
 msgid "Nick Shaforostoff"
 msgstr "Nick Shaforostoff"
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "Google Inc."
 msgstr "Google Inc."
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "sponsored development as part of Google Summer Of Code program"
 msgstr "Betalte deler av utviklinga gjennom programmet «Google Summer of Code»"
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "NLNet Foundation"
 msgstr ""
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "sponsored XLIFF-related work"
 msgstr ""
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "Translate-toolkit"
 msgstr "Translate Toolkit"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "provided excellent cross-format converting scripts"
 msgstr "lagde kjempeflotte skript for å behandle ulike formater"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "LanguageTool"
 msgstr ""
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "grammar, style and spell checker"
 msgstr ""
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "Viesturs Zarins"
 msgstr "Viesturs Zarins"
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "project tree merging translation+templates"
 msgstr "flette prosjekttrær og maler"
 
-#: src/main.cpp:64
+#: src/main.cpp:66
 #, kde-format
 msgid "Stephan Johach"
 msgstr "Stephan Johach"
 
-#: src/main.cpp:64 src/main.cpp:65 src/main.cpp:68
+#: src/main.cpp:66 src/main.cpp:67 src/main.cpp:70
 #, kde-format
 msgid "bug fixing patches"
 msgstr "feilrettelser"
 
-#: src/main.cpp:65
+#: src/main.cpp:67
 #, kde-format
 msgid "Chusslove Illich"
 msgstr "Chusslove Illich"
 
-#: src/main.cpp:66
+#: src/main.cpp:68
 #, kde-format
 msgid "Jure Repinc"
 msgstr "Jure Repinc"
 
-#: src/main.cpp:66
+#: src/main.cpp:68
 #, kde-format
 msgid "testing and bug fixing"
 msgstr "testing og feilrettelser"
 
-#: src/main.cpp:67
+#: src/main.cpp:69
 #, kde-format
 msgid "Stefan Asserhall"
 msgstr "Stefan Asserhall"
 
-#: src/main.cpp:67
+#: src/main.cpp:69
 #, kde-format
 msgid "patches"
 msgstr "rettelser"
 
-#: src/main.cpp:68
+#: src/main.cpp:70
 #, kde-format
 msgid "Papp Laszlo"
 msgstr "Papp Laszlo"
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "XLIFF improvements"
 msgstr "XLIFF-forbedringer"
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, kde-format
 msgid "Simon Depiets"
 msgstr ""
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, kde-format
 msgid "bug fixing and improvements"
 msgstr ""
 
 #. i18n( "Source for the merge mode" ), QLatin1String("URL")));
-#: src/main.cpp:74
+#: src/main.cpp:76
 #, kde-format
 msgid "Do not scan files of the project."
 msgstr "Ikke se gjennom filene i prosjektet."
 
-#: src/main.cpp:75
+#: src/main.cpp:77
 #, kde-format
 msgid "Load specified project."
 msgstr "Last inn det valgte prosjektet."
 
-#: src/main.cpp:76
+#: src/main.cpp:78
 #, kde-format
 msgid "Document to open"
 msgstr "Åpne dette dokumentet"
@@ -2525,7 +2525,7 @@ msgstr ""
 "Klarte ikke åpne fila <filename>%1</filename> for synkronsering (feil på "
 "linje %2)"
 
-#: src/mergemode/mergeview.cpp:361
+#: src/mergemode/mergeview.cpp:353
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -3727,7 +3727,7 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: src/project/project.cpp:495
+#: src/project/project.cpp:491
 #, kde-format
 msgctxt "project folder name. %2 is targetLangCode"
 msgid "%1 %2 Translation"
@@ -4303,46 +4303,58 @@ msgstr "Legg inn åpnede filer i oversettelsesminnet"
 msgid "TM"
 msgstr "TM"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:76
+#, kde-format
+msgctxt "@title:column Original text"
+msgid "Source: %1"
+msgstr ""
+
+#: src/tm/tmtab.cpp:81
+#, kde-format
+msgctxt "@title:column Text in target language"
+msgid "Target: %1"
+msgstr ""
+
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Substring"
 msgstr "Deltekst"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Google-like"
 msgstr "Som Google"
 
-#: src/tm/tmtab.cpp:357
+#: src/tm/tmtab.cpp:362
 #, kde-format
 msgid "Wildcard"
 msgstr "Jokertegn"
 
-#: src/tm/tmtab.cpp:364
+#: src/tm/tmtab.cpp:369
 #, kde-format
 msgid "Space is AND operator. Case insensitive."
 msgstr ""
 "Mellomrom fungerer som OG-operator. Ikke skill mellom store og små bokstaver."
 
-#: src/tm/tmtab.cpp:365
+#: src/tm/tmtab.cpp:370
 #, kde-format
 msgid "Shell globs (* and ?). Case sensitive."
 msgstr "Som i skallet (* og ?). Skill mellom store og små bokstaver."
 
 #. i18nc("@title:window","Translation Memory"),false);
-#: src/tm/tmtab.cpp:381 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
+#: src/tm/tmtab.cpp:384 src/tm/tmview.cpp:123 src/tm/tmview.cpp:128
 #, kde-format
 msgctxt "@title:window"
 msgid "Translation Memory"
 msgstr "Oversettelsesminne"
 
-#: src/tm/tmtab.cpp:592
+#: src/tm/tmtab.cpp:598
 #, kde-format
 msgctxt "@info:status message entries"
 msgid "Total: %1 (%2)"
 msgstr "I alt: %1 (%2)"
 
-#: src/tm/tmtab.cpp:621 src/tm/tmview.cpp:580
+#: src/tm/tmtab.cpp:627 src/tm/tmview.cpp:580
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -4373,19 +4385,7 @@ msgctxt "@info"
 msgid "No suggestions with exact matches were found."
 msgstr "Fant ingen forslag med nøyaktige treff."
 
-#: src/tm/tmview.cpp:289
-#, kde-format
-msgctxt "@title"
-msgid "Batch translation complete"
-msgstr "Grovoversettelsen er fullført"
-
-#: src/tm/tmview.cpp:303 src/tm/tmview.cpp:318
-#, kde-format
-msgctxt "@title"
-msgid "Batch translation"
-msgstr "Grovoversettelse"
-
-#: src/tm/tmview.cpp:304 src/tm/tmview.cpp:319
+#: src/tm/tmview.cpp:305 src/tm/tmview.cpp:320
 #, kde-format
 msgctxt "@info"
 msgid "Batch translation has been scheduled."

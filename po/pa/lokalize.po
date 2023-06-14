@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-06-14 00:49+0000\n"
 "PO-Revision-Date: 2021-01-30 22:55-0800\n"
 "Last-Translator: A S Alam <aalam.yellow@gmail.com>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -216,77 +216,83 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "ਸਰੋਤ ਫਾਇਲ ਵਰਤੋਂ"
 
-#: src/catalog/catalog.cpp:45
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr "ਸਭ ਸਹਾਇਕ ਫਾਇਲਾਂ (*.po *.pot *.xlf *.xliff *.ts)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:49
+#, fuzzy, kde-format
+#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+msgid "All supported files (*.po *.xlf *.xliff *.ts)"
+msgstr "ਸਭ ਸਹਾਇਕ ਫਾਇਲਾਂ (*.po *.pot *.xlf *.xliff *.ts)"
+
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr "Gettext (*.po)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr "XLIFF (*.xlf *.xliff)"
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr "Linguist (*.ts)"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "New"
 msgstr "ਨਵਾਂ"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation"
 msgstr "ਅਨੁਵਾਦ ਦੀ ਲੋੜ"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs full localization"
 msgstr "ਪੂਰੀ ਲੋਕਲਾਈਜ਼ੇਸ਼ਨ ਦੀ ਲੋੜ"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs adaptation"
 msgstr "ਅਨੁਕੂਲ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Translated"
 msgstr "ਅਨੁਵਾਦ ਹੋਇਆ"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation review"
 msgstr "ਅਨੁਵਾਦ ਪੜਤਾਲ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "ਪੂਰੇ ਲੋਕਲਾਈਜ਼ੇਸ਼ਨ ਪੜਤਾਲ ਦੀ ਲੋੜ"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "ਅਨੁਕੂਲਣ ਰੀਵਿਊ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Final"
 msgstr "ਫਾਈਨਲ"
 
-#: src/catalog/catalog.cpp:54
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Signed-off"
 msgstr "ਸਾਈਨ-ਆਫ਼"

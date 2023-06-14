@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-06-14 00:49+0000\n"
 "PO-Revision-Date: 2011-01-30 09:59+0100\n"
 "Last-Translator: Andrej Dundovic <andrej@dundovic.com.hr>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -216,77 +216,82 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Koristi datoteku izvornog jezika"
 
-#: src/catalog/catalog.cpp:45
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:49
+#, kde-format
+msgid "All supported files (*.po *.xlf *.xliff *.ts)"
+msgstr ""
+
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "New"
 msgstr "Novo"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation"
 msgstr "Potreban prijevod"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs full localization"
 msgstr "Potrebna potpuna lokalizacija"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Potrebna prilagodba"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Translated"
 msgstr "Prevedeno"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation review"
 msgstr "Potrebna provjera prijevoda"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Potrebna potpuna provjera lokalizacije"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Potrebna provjera prilagodbe"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Final"
 msgstr "Konačno"
 
-#: src/catalog/catalog.cpp:54
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Signed-off"
 msgstr "Otpisano"

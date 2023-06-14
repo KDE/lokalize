@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-06-14 00:49+0000\n"
 "PO-Revision-Date: 2013-06-27 04:19+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -227,77 +227,82 @@ msgctxt "@action:inmenu"
 msgid "Use source file"
 msgstr "Түпнұсқа файлын алу"
 
-#: src/catalog/catalog.cpp:45
+#: src/catalog/catalog.cpp:46
 #, kde-format
 msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:47
 #, kde-format
 msgid "Gettext (*.po *.pot)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:49
+#, kde-format
+msgid "All supported files (*.po *.xlf *.xliff *.ts)"
+msgstr ""
+
+#: src/catalog/catalog.cpp:50
 #, kde-format
 msgid "Gettext (*.po)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:52
 #, kde-format
 msgid "XLIFF (*.xlf *.xliff)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:46
+#: src/catalog/catalog.cpp:53
 #, kde-format
 msgid "Linguist (*.ts)"
 msgstr ""
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "New"
 msgstr "Жаңа"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs translation"
 msgstr "Аудару керек"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs full localization"
 msgstr "Толығымен тәржімелеу керек"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Needs adaptation"
 msgstr "Бейімдеу керек"
 
-#: src/catalog/catalog.cpp:52
+#: src/catalog/catalog.cpp:61
 #, kde-format
 msgid "Translated"
 msgstr "Аударылған"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs translation review"
 msgstr "Аудармасын тексеру керек"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs full localization review"
 msgstr "Тәржімесін түбегейлі тексеру керек"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Needs adaptation review"
 msgstr "Бейімдеуін тексеру керек"
 
-#: src/catalog/catalog.cpp:53
+#: src/catalog/catalog.cpp:62
 #, kde-format
 msgid "Final"
 msgstr "Қортынды"
 
-#: src/catalog/catalog.cpp:54
+#: src/catalog/catalog.cpp:63
 #, kde-format
 msgid "Signed-off"
 msgstr "Біткен"
