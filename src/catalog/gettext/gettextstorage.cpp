@@ -16,11 +16,6 @@
 
 #include "project.h"
 
-#include "version.h"
-#include "prefs_lokalize.h"
-
-#include "diff.h"
-
 #include <QMutex>
 #include <QMutexLocker>
 #include <QString>

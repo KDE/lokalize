@@ -18,14 +18,12 @@
 
 #include "catalogstorage.h"
 #include "gettextstorage.h"
-#include "gettextimport.h"
-#include "gettextexport.h"
 #include "xliffstorage.h"
 #include "tsstorage.h"
 
 #include "mergecatalog.h"
 
-#include "version.h"
+#include "lokalize_debug.h"
 #include "prefs_lokalize.h"
 #include "jobs.h"
 #include "dbfilesmodel.h"

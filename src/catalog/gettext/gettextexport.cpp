@@ -13,7 +13,6 @@
 
 #include "lokalize_debug.h"
 
-//#include <resources.h>
 #include "gettextstorage.h"
 #include "catalogitem.h"
 
