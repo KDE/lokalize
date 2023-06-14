@@ -121,7 +121,7 @@ int numberOfPluralFormsFromHeader(const QString& header)
     QRegExp rxplural(QStringLiteral("Plural-Forms:\\s*nplurals=(.);"));
     if (rxplural.indexIn(header) == -1)
         return 0;
-    bool ok;
+    bool ok{};
     int result = rxplural.cap(1).toShort(&ok);
     return ok ? result : 0;
 

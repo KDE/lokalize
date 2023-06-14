@@ -26,7 +26,6 @@ LokalizeUnitCmd::LokalizeUnitCmd(Catalog *catalog, const DocPosition& pos, const
     : QUndoCommand(name)
     , _catalog(catalog)
     , _pos(pos)
-    , _firstModificationForThisEntry(false)
 {}
 
 static QString setPhaseForPart(Catalog* catalog, const QString& phase, DocPosition phasePos, DocPosition::Part part)
@@ -176,7 +175,6 @@ void SetStateCmd::instantiateAndPush(Catalog *catalog, const DocPosition& pos, T
 SetStateCmd::SetStateCmd(Catalog *catalog, const DocPosition& pos, TargetState state)
     : LokalizeUnitCmd(catalog, pos, i18nc("@item Undo action item", "Approvement toggling"))
     , _state(state)
-    , _prevState(SignedOff) //shut up static analyzer
 {}
 
 void SetStateCmd::doRedo()

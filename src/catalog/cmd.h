@@ -47,9 +47,9 @@ protected:
      */
     virtual void setJumpingPos();
 protected:
-    Catalog* _catalog;
+    Catalog* _catalog{nullptr};
     DocPosition _pos;
-    bool _firstModificationForThisEntry;
+    bool _firstModificationForThisEntry{false};
 //    QString _prevPhase; currently xliffstorage doesn't support non-target phase setting
 };
 
@@ -121,7 +121,7 @@ public:
     static void instantiateAndPush(Catalog *catalog, const DocPosition& pos, TargetState state);
 
     TargetState _state;
-    TargetState _prevState;
+    TargetState _prevState{SignedOff};
 };
 
 /// @short Do insert tag
@@ -199,7 +199,7 @@ public:
     void redo() override;
     void undo() override;
 private:
-    Catalog* _catalog;
+    Catalog* _catalog{nullptr};
     Phase _phase;
     Phase _prevPhase;
 };
@@ -217,7 +217,7 @@ public:
     void doRedo() override;
     void doUndo() override;
 private:
-    bool _equivTrans;
+    bool _equivTrans{};
 };
 
 /**
