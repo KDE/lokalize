@@ -655,7 +655,7 @@ bool askAuthorInfoIfEmpty()
     if (QThread::currentThread() == qApp->thread()) {
 
         if (Settings::authorName().isEmpty()) {
-            bool ok;
+            bool ok{};
             QString contact = QInputDialog::getText(
                                   SettingsController::instance()->mainWindowPtr(),
                                   i18nc("@window:title", "Author name missing"), i18n("Your name:"),

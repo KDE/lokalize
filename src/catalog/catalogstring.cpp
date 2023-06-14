@@ -233,7 +233,7 @@ QDataStream &operator<<(QDataStream &out, const InlineTag &t)
 
 QDataStream &operator>>(QDataStream &in, InlineTag &t)
 {
-    int type;
+    int type{};
     in >> type >> t.start >> t.end >> t.id;
     t.type = InlineTag::InlineElement(type);
     return in;
