@@ -55,7 +55,6 @@ public:
      * (e.g. keyword, quote characters, spaces).
      *
      * - A value of 0 means no wrap
-     * - A value of -1 means the traditional KBabel wrapping
      * - Other negative values are reserved for future extensions (by default: no wrap)
      * @note
      * - Gettext's default value is 78 characters

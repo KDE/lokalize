@@ -167,31 +167,9 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     }
 
     text.replace(QLatin1Char('"'), QStringLiteral("\\\""));
-#if 0
-    if (m_wrapWidth == -1) {
-        // Traditional KBabel wrapping
-        QStringList list = text.split('\n', Qt::SkipEmptyParts);
-
-        if (text.startsWith('\n'))
-            list.prepend(QString());
-
-        if (list.isEmpty())
-            list.append(QString());
-
-        if (list.count() > 1)
-            list.prepend(QString());
-
-        stream << keyword << ' ';
-
-        QStringList::const_iterator it;
-        for (it = list.constBegin(); it != list.constEnd(); ++it)
-            stream << '\"' << (*it) << "\"\n";
-        return;
-    }
-#endif
 
     if (m_wrapWidth == 0) { // Unknown special wrapping, so assume "no wrap" instead
-        // No wrapping (like Gettext's --no.wrap or -w0 )
+        // No wrapping (like Gettext's --no-wrap or -w0 )
         // we need to remove the \n characters, as they are extra characters
         QString realText(text);
         realText.remove(QLatin1Char('\n'));

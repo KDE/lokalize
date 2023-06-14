@@ -72,13 +72,13 @@ It is only used for gettext PO files, as XLIFF format has its own way of specify
       <item row="2" column="1">
        <widget class="QSpinBox" name="kcfg_WordWrap">
         <property name="toolTip">
-         <string>Width used for the automatic msgfmt-like word wrap. Use the negative value '-1' to disable the word wrap.</string>
+         <string>Width used for the automatic msgfmt-like word wrap. Use the value '0' to disable the word wrap.</string>
         </property>
         <property name="minimum">
-         <number>-1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
-         <number>100000</number>
+         <number>32767</number>
         </property>
        </widget>
       </item>
