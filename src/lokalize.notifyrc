@@ -338,9 +338,31 @@ Action=Popup
 
 [Event/BatchTranslationCompleted]
 Name=Batch Translation Completed
+Name[ca]=S'ha completat la traducció del lot
+Name[ca@valencia]=S'ha completat la traducció del lot
+Name[cs]=Dávkový překlad byl dokončen
+Name[de]=Grob-Übersetzung abgeschlossen
+Name[it]=Traduzione non interattiva completata
+Name[nl]=Vertalen in bulk voltooid
+Name[pt]=Tradução em Lote Completa
+Name[sl]=Paketni prevod zaključen
+Name[tr]=Toplu Çeviri Tamamlandı
+Name[uk]=Пакетний переклад завершено
+Name[x-test]=xxBatch Translation Completedxx
 Action=Popup
 
 [Event/BatchTranslationScheduled]
 Name=Batch Translation Scheduled
+Name[ca]=S'ha programat la traducció d'un lot
+Name[ca@valencia]=S'ha programat la traducció d'un lot
+Name[cs]=Dávkový překlad byl naplánován
+Name[de]=Grob-Übersetzung geplant
+Name[it]=Traduzione non interattiva pianificata
+Name[nl]=Vertalingen in bulk gepland
+Name[pt]=Tradução em Lote Agendada
+Name[sl]=Paketni prevod planiran
+Name[tr]=Toplu Çeviri Zamanlandı
+Name[uk]=Заплановано пакетний переклад
+Name[x-test]=xxBatch Translation Scheduledxx
 Action=Popup
 
