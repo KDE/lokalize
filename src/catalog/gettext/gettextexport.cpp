@@ -99,9 +99,8 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
     if (_saveSettings.saveObsolete)
 #endif
     {
-        QList<QString>::const_iterator oit;
         const QStringList& _obsolete = catalog->m_catalogExtraData;
-        oit = _obsolete.constBegin();
+        QList<QString>::const_iterator oit = _obsolete.constBegin();
         if (oit != _obsolete.constEnd()) {
             stream << "\n" << (*oit);
             while ((++oit) != _obsolete.constEnd())
@@ -205,8 +204,7 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
     int max = m_wrapWidth - 2;
     bool prependedEmptyLine = false;
-    QStringList::iterator itm;
-    for (itm = list.begin(); itm != list.end(); ++itm) {
+    for (auto itm = list.begin(); itm != list.end(); ++itm) {
         if (list.count() == 1 && keyword.length() + 1 + itm->length() >= max) {
             prependedEmptyLine = true;
             itm = list.insert(itm, QString());
@@ -248,7 +246,6 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
     stream << keyword << QStringLiteral(" ");
 
-    QStringList::const_iterator it;
-    for (it = list.constBegin(); it != list.constEnd(); ++it)
+    for (auto it = list.constBegin(); it != list.constEnd(); ++it)
         stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
 }
