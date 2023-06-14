@@ -94,10 +94,6 @@ ConversionStatus GettextExportPlugin::save(QIODevice* device,
         }
     }
 
-#if 0
-//legacy
-    if (_saveSettings.saveObsolete)
-#endif
     {
         const QStringList& _obsolete = catalog->m_catalogExtraData;
         QList<QString>::const_iterator oit = _obsolete.constBegin();
@@ -121,7 +117,7 @@ void GettextExportPlugin::writeComment(QTextStream& stream, const QString& comme
     if (!comment.isEmpty()) {
         // We must check that each comment line really starts with a #, to avoid syntax errors
         int pos = 0;
-        for (;;) {
+        while (true) {
             const int newpos = comment.indexOf(QLatin1Char('\n'), pos, Qt::CaseInsensitive);
             if (newpos == pos) {
                 ++pos;
@@ -196,8 +192,6 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
     if (list.isEmpty())
         list.append(QString());
 
-    //static QRegExp breakStopReForHtml("[ >.%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
-    //static QRegExp breakStopReForText("[ .%/:,]", Qt::CaseSensitive, QRegExp::Wildcard);
     static QRegExp breakStopReForHtml(QStringLiteral("[ >%]"), Qt::CaseSensitive, QRegExp::Wildcard);
     static QRegExp breakStopReForText(QStringLiteral("[ &%]"), Qt::CaseSensitive, QRegExp::Wildcard);
     QRegExp breakStopRe = containsHtml ? breakStopReForHtml : breakStopReForText;
