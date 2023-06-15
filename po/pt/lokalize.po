@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kbabel\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-14 00:49+0000\n"
-"PO-Revision-Date: 2023-06-13 17:30+0100\n"
+"PO-Revision-Date: 2023-06-14 12:13+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -268,10 +268,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:49
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "Todos os ficheiros suportados (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "Todos os ficheiros suportados (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:50
 #, kde-format

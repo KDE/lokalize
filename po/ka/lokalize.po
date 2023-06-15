@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-14 00:49+0000\n"
-"PO-Revision-Date: 2023-05-25 05:56+0200\n"
+"PO-Revision-Date: 2023-06-14 06:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -219,10 +219,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "Gettext (*.po *.pot)"
 
 #: src/catalog/catalog.cpp:49
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "ყველა მხარდაჭერილი ფაილი (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "ყველა მხარდაჭერილი ფაილი (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:50
 #, kde-format
@@ -2316,7 +2315,7 @@ msgstr ""
 #: src/main.cpp:69
 #, kde-format
 msgid "Stefan Asserhall"
-msgstr ""
+msgstr "Stefan Asserhall"
 
 #: src/main.cpp:69
 #, kde-format
@@ -2427,7 +2426,7 @@ msgstr "ერთეულის მეტამონაცემები"
 msgctxt ""
 "@info notes to translation unit which expire when the catalog is closed"
 msgid "<b>Temporary notes:</b>"
-msgstr ""
+msgstr "<b>დროებითი შენშვნები:</b>"
 
 #: src/msgctxtview.cpp:111
 #, kde-format
@@ -2832,7 +2831,7 @@ msgstr ""
 #: src/prefs/prefs_appearance.ui:72
 #, kde-format
 msgid "String Matching"
-msgstr ""
+msgstr "სტრიქონების დამთხვევა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/prefs/prefs_appearance.ui:78
@@ -3856,13 +3855,13 @@ msgstr "წყვილები"
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique original entries"
-msgstr ""
+msgstr "უნიკალური ორიგინალური ჩანაწერები"
 
 #: src/tm/dbfilesmodel.cpp:104
 #, kde-format
 msgctxt "@title:column"
 msgid "Unique translations"
-msgstr ""
+msgstr "უნიკალური თარგმანები"
 
 #. i18n: ectx: property (title), widget (QGroupBox, connectionBox)
 #: src/tm/dbparams.ui:23
@@ -4096,18 +4095,16 @@ msgid "TM"
 msgstr "TM"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "წყარო:"
+msgstr "წყარო: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "სამიზნე:"
+msgstr "დანიშნულება: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
@@ -4208,7 +4205,7 @@ msgstr "ეს"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "File: %1<br />Addition date: %2"
-msgstr ""
+msgstr "ფაილი: %1<br />დამატების თარიღი: %2"
 
 #: src/tm/tmview.cpp:537
 #, kde-format
@@ -4232,7 +4229,7 @@ msgstr "<br />თმ: %1"
 #, kde-format
 msgctxt "@info:tooltip on TM entry continues"
 msgid "<br />Is not present in the file anymore"
-msgstr ""
+msgstr "<br />ფაილში აღარ არის წარმოდგენილი"
 
 #: src/tm/tmview.cpp:555 src/tm/tmview.cpp:562
 #, kde-format
@@ -4257,7 +4254,7 @@ msgstr "ამ ჩანაწერის წაშლა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open file containing this entry"
-msgstr ""
+msgstr "ამ ჩანაწერის შემცველი ფაილის გახსნა"
 
 #: src/tm/tmview.cpp:605
 #, kde-format
