@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 03:08+0000\n"
-"PO-Revision-Date: 2023-02-15 09:18+0100\n"
+"PO-Revision-Date: 2023-06-14 13:14+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -1630,12 +1630,12 @@ msgstr ""
 #: src/project/project.cpp:486
 #, kde-format
 msgid "Install translate-toolkit package and retry"
-msgstr ""
+msgstr "Nainstalujte balíček translate-toolkit a zkuste to znovu"
 
 #: src/editortab.cpp:1623
 #, kde-format
 msgid "Install translate-toolkit package and retry."
-msgstr ""
+msgstr "Nainstalujte balíček translate-toolkit a zkuste to znovu."
 
 #: src/editortab.cpp:1632
 #, kde-format
@@ -2272,7 +2272,7 @@ msgstr "sponzoroval vývoj jako součást programu Google Summer Of Code"
 #: src/main.cpp:60
 #, kde-format
 msgid "NLNet Foundation"
-msgstr ""
+msgstr "NLNet Foundation"
 
 #: src/main.cpp:60
 #, kde-format
@@ -2282,7 +2282,7 @@ msgstr ""
 #: src/main.cpp:61
 #, kde-format
 msgid "Translate-toolkit"
-msgstr ""
+msgstr "Translate-toolkit"
 
 #: src/main.cpp:61
 #, kde-format
@@ -2403,7 +2403,7 @@ msgctxt ""
 "@title:window that displays difference between current file and 'merge "
 "source'"
 msgid "Primary Sync"
-msgstr "Primární sync"
+msgstr "Primární synchronizace"
 
 #: src/mergemode/mergeview.cpp:31 src/mergemode/mergeview.cpp:37
 #, kde-format
@@ -2411,7 +2411,7 @@ msgctxt ""
 "@title:window that displays difference between current file and 'merge "
 "source'"
 msgid "Secondary Sync"
-msgstr "Sekundární sync"
+msgstr "Sekundární synchronizace"
 
 #: src/mergemode/mergeview.cpp:44
 #, kde-format
@@ -2967,7 +2967,7 @@ msgstr "Vypnout dokončování slov"
 #: src/prefs/prefs_editor.ui:105
 #, kde-format
 msgid "Automatically convert XML special characters in TS files"
-msgstr ""
+msgstr "Automaticky převádět speciální znaky XML v souborech TS"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreRecentFilesOnStartup)
 #: src/prefs/prefs_general.ui:45
