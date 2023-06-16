@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-14 00:49+0000\n"
-"PO-Revision-Date: 2023-06-01 09:51+0400\n"
+"PO-Revision-Date: 2023-06-15 09:33+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -247,10 +247,9 @@ msgid "Gettext (*.po *.pot)"
 msgstr "غَت‌تكست (‎*.po *.pot)"
 
 #: src/catalog/catalog.cpp:49
-#, fuzzy, kde-format
-#| msgid "All supported files (*.po *.pot *.xlf *.xliff *.ts)"
+#, kde-format
 msgid "All supported files (*.po *.xlf *.xliff *.ts)"
-msgstr "كلّ الملفّات المدعومة (*.po *.pot *.xlf *.xliff *.ts)"
+msgstr "كلّ الملفّات المدعومة (*.po *.xlf *.xliff *.ts)"
 
 #: src/catalog/catalog.cpp:50
 #, kde-format
@@ -4309,18 +4308,16 @@ msgid "TM"
 msgstr "ذاكرة الترجمة"
 
 #: src/tm/tmtab.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source:"
+#, kde-format
 msgctxt "@title:column Original text"
 msgid "Source: %1"
-msgstr "المصدر:"
+msgstr "المصدر: %1"
 
 #: src/tm/tmtab.cpp:81
-#, fuzzy, kde-format
-#| msgid "Target:"
+#, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target: %1"
-msgstr "الهدف:"
+msgstr "الهدف: %1"
 
 #: src/tm/tmtab.cpp:362
 #, kde-format
