@@ -339,11 +339,14 @@ Action=Popup
 
 [Event/BatchTranslationCompleted]
 Name=Batch Translation Completed
+Name[ar]=اكتملت دفعة الترجمة
 Name[ca]=S'ha completat la traducció del lot
 Name[ca@valencia]=S'ha completat la traducció del lot
 Name[cs]=Dávkový překlad byl dokončen
 Name[de]=Grob-Übersetzung abgeschlossen
+Name[eo]=Stapla traduko plenumita
 Name[es]=Traducción por lotes completada
+Name[gl]=Completouse a tradución en lote
 Name[ia]=Traduction non interactive  completate
 Name[it]=Traduzione non interattiva completata
 Name[nl]=Vertalen in bulk voltooid
@@ -356,11 +359,14 @@ Action=Popup
 
 [Event/BatchTranslationScheduled]
 Name=Batch Translation Scheduled
+Name[ar]=جُدولت دفعة الترجمة
 Name[ca]=S'ha programat la traducció d'un lot
 Name[ca@valencia]=S'ha programat la traducció d'un lot
 Name[cs]=Dávkový překlad byl naplánován
 Name[de]=Grob-Übersetzung geplant
+Name[eo]=Stapla traduko planita
 Name[es]=Traducción por lotes programada
+Name[gl]=Programouse unha tradución en lote
 Name[ia]=Traduction non interactive planificate
 Name[it]=Traduzione non interattiva pianificata
 Name[nl]=Vertalingen in bulk gepland
