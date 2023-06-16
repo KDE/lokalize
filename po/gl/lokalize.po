@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: lokalize\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-21 03:08+0000\n"
-"PO-Revision-Date: 2023-04-06 22:15+0200\n"
+"PO-Revision-Date: 2023-06-14 08:15+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -133,8 +133,8 @@ msgid ""
 msgstr ""
 "Na vista de traducións alternativas hai datos útiles.\n"
 "\n"
-"Para ficheiros PO de Gettext, a vista mostra a diferenza entre o texto de "
-"orixe actual e o texto de orixe da tradución dubidosa correspondente que "
+"Para ficheiros PO de Gettext, a vista mostra a diferenza entre o texto "
+"orixinal actual e o texto orixinal da tradución dubidosa correspondente que "
 "msgmerge atopou ao actualizar o ficheiro PO a partir do modelo POT.\n"
 "\n"
 "Quere mostrar a vista cos datos?"
@@ -169,7 +169,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Origin: %1"
-msgstr "Orixe: %1"
+msgstr "Orixinal: %1"
 
 #: src/alttransview.cpp:276
 #, kde-format
@@ -191,13 +191,13 @@ msgstr "si"
 #, kde-format
 msgctxt "@title:column"
 msgid "Source"
-msgstr "Orixe"
+msgstr "Orixinal"
 
 #: src/binunitsview.cpp:125
 #, kde-format
 msgctxt "@title:column"
 msgid "Target"
-msgstr "Termo"
+msgstr "Tradución"
 
 #: src/binunitsview.cpp:126
 #, kde-format
@@ -221,7 +221,7 @@ msgstr "Definir o ficheiro"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use source file"
-msgstr "Empregar o ficheiro de orixe"
+msgstr "Usar o ficheiro orixinal"
 
 #: src/catalog/catalog.cpp:52
 #, kde-format
@@ -786,8 +786,8 @@ msgid ""
 "Previous source value, saved by Gettext during transition to a newer POT "
 "template"
 msgstr ""
-"A anterior orixe, gardada por Gettext durante a transición a un modelo POT "
-"máis novo"
+"O texto orixinal anterior, que Gettext gardou durante a transición a un "
+"modelo POT máis novo."
 
 #: src/catalog/gettextheader.cpp:661
 #, kde-format
@@ -814,7 +814,7 @@ msgstr "O seu correo electrónico:"
 #: src/catalog/ts/tsstorage.cpp:441
 #, kde-format
 msgid "Previous source value, saved by lupdate tool"
-msgstr "A anterior orixe, gardada pola utilidade «lupdate»"
+msgstr "O texto orixinal anterior, que a ferramenta lupdate gardou."
 
 #: src/cataloglistview/cataloglistview.cpp:57
 #, kde-format
@@ -961,7 +961,7 @@ msgstr "Entrada"
 #, kde-format
 msgctxt "@title:column Original text"
 msgid "Source"
-msgstr "Orixe"
+msgstr "Orixinal"
 
 #: src/cataloglistview/catalogmodel.cpp:110
 #: src/filesearch/filesearchtab.cpp:324 src/glossary/glossary.cpp:217
@@ -969,7 +969,7 @@ msgstr "Orixe"
 #, kde-format
 msgctxt "@title:column Text in target language"
 msgid "Target"
-msgstr "Termo"
+msgstr "Tradución"
 
 #: src/cataloglistview/catalogmodel.cpp:112
 #, kde-format
@@ -1000,13 +1000,13 @@ msgstr "Estado da tradución"
 #, kde-format
 msgctxt "@title:column Length of the original text"
 msgid "Source length"
-msgstr "Lonxitude de orixe"
+msgstr "Lonxitude orixinal"
 
 #: src/cataloglistview/catalogmodel.cpp:122
 #, kde-format
 msgctxt "@title:column Length of the text in target language"
 msgid "Target length"
-msgstr "Lonxitude de destino"
+msgstr "Lonxitude da tradución"
 
 #: src/cataloglistview/catalogmodel.cpp:158 src/editortab.cpp:1081
 #: src/editortab.cpp:1284 src/tm/tmtab.cpp:231
@@ -1039,7 +1039,7 @@ msgstr "%1 (%2)"
 #: src/common/languagelistmodel.cpp:134 src/tm/dbparams.ui:146
 #, kde-format
 msgid "Target language:"
-msgstr "Idioma de destino:"
+msgstr "Idioma da tradución:"
 
 #: src/common/termlabel.cpp:81
 #, kde-format
@@ -1223,13 +1223,13 @@ msgstr "Tradución equivalente"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy source to target"
-msgstr "Copiar orixe a termo"
+msgstr "Copiar o orixinal na tradución"
 
 #: src/editortab.cpp:522
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Unwrap target"
-msgstr "Desenvolver o termo"
+msgstr "Desenvolver a tradución"
 
 #: src/editortab.cpp:527 src/filesearch/filesearchtab.cpp:94
 #, kde-format
@@ -1648,7 +1648,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info words count"
 msgid "Source text words: %1<br/>Target text words: %2"
-msgstr "Palabras no texto orixe: %1<br/>Palabras no texto termo: %2"
+msgstr "Palabras no texto orixinal: %1<br/>Palabras na tradución: %2"
 
 #: src/editortab.cpp:1434
 #, kde-format
@@ -1895,7 +1895,7 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Esc to stop the search."
 msgstr ""
-"Buscar unha expresión na parte do idioma de orixe.\n"
+"Buscar unha expresión na parte do idioma orixinal.\n"
 "Prema Ctrl+L para ir a esta caixa de busca.\n"
 "Prema Intro para iniciar a busca.\n"
 "Prema Esc para rematar a busca."
@@ -1913,7 +1913,7 @@ msgstr "Inverter"
 #: src/filesearch/filesearchoptions.ui:38 src/tm/queryoptions.ui:85
 #, kde-format
 msgid "Source:"
-msgstr "Orixe:"
+msgstr "Orixinal:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, queryTarget)
 #: src/filesearch/filesearchoptions.ui:49 src/tm/queryoptions.ui:78
@@ -1922,7 +1922,7 @@ msgid ""
 "Search expression for target language part.\n"
 "Press Enter to start the search."
 msgstr ""
-"Expresión para buscar na parte do idioma de destino.\n"
+"Expresión para buscar na parte do idioma da tradución.\n"
 "Prema Intro para iniciar a busca."
 
 #. i18n: ectx: property (text), widget (QCheckBox, useRegExps)
@@ -1937,7 +1937,7 @@ msgstr "Expresións regulares"
 #: src/filesearch/filesearchoptions.ui:63 src/tm/queryoptions.ui:95
 #, kde-format
 msgid "Target:"
-msgstr "Termo:"
+msgstr "Tradución:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, matchCase)
 #: src/filesearch/filesearchoptions.ui:73
@@ -1979,12 +1979,12 @@ msgstr "Buscar e substituír en ficheiros"
 #: src/filesearch/filesearchtab.cpp:459 src/tm/tmtab.cpp:405
 #, kde-format
 msgid "Copy source to clipboard"
-msgstr "Copiar da orixe para o portapapeis"
+msgstr "Copiar o orixinal para o portapapeis"
 
 #: src/filesearch/filesearchtab.cpp:465 src/tm/tmtab.cpp:411
 #, kde-format
 msgid "Copy target to clipboard"
-msgstr "Copiar do termo ao portapapeis"
+msgstr "Copiar a tradución no portapapeis"
 
 #: src/filesearch/filesearchtab.cpp:471 src/tm/tmtab.cpp:417
 #, kde-format
@@ -2102,7 +2102,7 @@ msgstr "-"
 #: src/glossary/termedit.ui:47
 #, kde-format
 msgid "Corresponding target language synonyms:"
-msgstr "Sinónimos correspondentes no idioma de destino:"
+msgstr "Sinónimos correspondentes no idioma da tradución:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/glossary/termedit.ui:73
@@ -2720,7 +2720,7 @@ msgstr "Nome traducido"
 #: src/prefs/lokalize.kcfg:22
 #, kde-format
 msgid "Translator's name in target language"
-msgstr "Nome do tradutor no idioma de destino"
+msgstr "Nome da persoa tradutora no idioma da tradución."
 
 #. i18n: ectx: label, entry, group (Identity)
 #: src/prefs/lokalize.kcfg:28
@@ -3637,7 +3637,7 @@ msgstr "Glosario:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Target language:"
-msgstr "Idioma de destino:"
+msgstr "Idioma da tradución:"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, kcfg_ProjectID)
 #: src/project/prefs_projectmain.ui:46
@@ -3660,7 +3660,7 @@ msgstr ""
 #: src/project/prefs_projectmain.ui:59
 #, kde-format
 msgid "Target language of the project."
-msgstr "O idioma de destino do proxecto."
+msgstr "O idioma da tradución do proxecto."
 
 #. i18n: ectx: property (text), widget (QLabel, l4)
 #: src/project/prefs_projectmain.ui:82
@@ -4033,13 +4033,13 @@ msgstr "Nome"
 #, kde-format
 msgctxt "@title:column"
 msgid "Source language"
-msgstr "Idioma de orixe"
+msgstr "Idioma orixinal"
 
 #: src/tm/dbfilesmodel.cpp:101
 #, kde-format
 msgctxt "@title:column"
 msgid "Target language"
-msgstr "Idioma de destino"
+msgstr "Idioma da tradución"
 
 #: src/tm/dbfilesmodel.cpp:102
 #, kde-format
@@ -4117,7 +4117,7 @@ msgstr "Contido"
 #: src/tm/dbparams.ui:133
 #, kde-format
 msgid "Source language:"
-msgstr "Idioma de orixe:"
+msgstr "Idioma orixinal:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tm/dbparams.ui:162
@@ -4199,7 +4199,7 @@ msgid ""
 "Press Enter to start the search.\n"
 "Press Ctrl+L to go to this control."
 msgstr ""
-"Buscar unha expresión na parte do idioma de orixe.\n"
+"Buscar unha expresión na parte do idioma orixinal.\n"
 "Prema Intro para iniciar a busca.\n"
 "Prema Ctrl+L para ir a este control."
 
@@ -4602,7 +4602,7 @@ msgstr "Informouse dun erro: %1"
 #, kde-format
 msgctxt "@item Undo action item"
 msgid "Copy source to target"
-msgstr "Copiar a orixe no termo"
+msgstr "Copiar o orixinal na tradución"
 
 #~ msgctxt "@title:tab"
 #~ msgid "Scripts"
