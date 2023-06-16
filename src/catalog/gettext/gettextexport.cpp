@@ -240,6 +240,6 @@ void GettextExportPlugin::writeKeyword(QTextStream& stream, const QString& keywo
 
     stream << keyword << QStringLiteral(" ");
 
-    for (auto it = list.constBegin(); it != list.constEnd(); ++it)
-        stream << QStringLiteral("\"") << (*it) << QStringLiteral("\"\n");
+    for (auto it: list)
+        stream << QStringLiteral("\"") << it << QStringLiteral("\"\n");
 }
